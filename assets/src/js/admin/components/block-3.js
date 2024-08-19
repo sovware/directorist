@@ -1,3 +1,5 @@
+import debounce from "../../global/components/debounce";
+
 window.addEventListener('DOMContentLoaded', () => {
     const $ = jQuery;
 
@@ -548,10 +550,11 @@ $( fields_elm[ field ].elm ).val( fields_elm[ field ].default );
     }
 
     const localized_data = directorist_admin.add_listing_data;
-    $('body').on('change', 'select[name="directory_type"]', function () {
+    $('body').on('change', 'select[name="directory_type"]', debounce( function() {
         $(this)
             .parent('.inside')
-            .append(`<span class="directorist_loader"></span>`);
+            .append('<span class="directorist_loader"></span>');
+
         admin_listing_form($(this).val());
 
         $(this)
@@ -610,7 +613,7 @@ $( fields_elm[ field ].elm ).val( fields_elm[ field ].default );
             }
         }
 
-    });
+    }, 270 ) );
 
     // Custom Field Checkbox Button More
     function customFieldSeeMore() {
@@ -644,7 +647,7 @@ $( fields_elm[ field ].elm ).val( fields_elm[ field ].default );
                     return;
                 }
 
-                $('#directiost-listing-fields_wrapper')
+                $('#directiost-listing-fields_wrapper .directorist-listing-fields')
                     .empty()
                     .append(response.data['listing_meta_fields']);
                 assetsNeedToWorkInVirtualDom();

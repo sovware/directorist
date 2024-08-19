@@ -411,7 +411,7 @@
       text-align: center;
     }
   }
-	/***********************************************************
+  /***********************************************************
 	************************************************************
 	css for Custom Field
 	*************************************************************
@@ -4193,8 +4193,8 @@ input.atbdp-form-control {
     font-size: 24px;
     line-height: 1.4;
     font-weight: 500;
-    margin-bottom: 30px;
-    color: #272b41;
+    margin: 30px 0 20px;
+    color: #4c4d53;
   }
 }
 
@@ -4445,11 +4445,9 @@ input.atbdp-form-control {
 // Directorist Builder Tab Style
 .directorist_builder__content {
   display: flex;
+  gap: 30px;
+  flex-direction: column;
   align-items: flex-start;
-
-  @media only screen and (max-width: 1199px) {
-    flex-direction: column;
-  }
 
   .directorist_btn {
     &.directorist_btn-success {
@@ -4458,46 +4456,21 @@ input.atbdp-form-control {
   }
 
   .directorist_builder__content__left {
-    width: 360px;
-    margin-right: 30px;
-    margin-top: 38px;
-
-    @media only screen and (max-width: 1599px) {
-      width: 320px;
-      margin-right: 20px;
-    }
-
-    @media only screen and (max-width: 1499px) {
-      width: 240px;
-      margin-right: 15px;
-    }
-
-    @media only screen and (max-width: 1399px) {
-      width: 230px;
-    }
-
-    @media only screen and (max-width: 1199px) {
-      width: 320px;
-    }
-
-    @media only screen and (max-width: 575px) {
-      width: 100%;
-      margin-right: 0;
-      margin-top: 0;
-    }
-
+    display: flex;
+    gap: 10px;
+    align-items: center;
     .directorist_link-block {
-      width: 100%;
-      min-height: 126px;
       display: flex;
+      gap: 10px;
       align-items: center;
       justify-content: center;
-      flex-direction: column;
-      border-radius: 4px;
+      border-radius: 8px;
       box-shadow: 0 5px 10px #adb4d210;
       text-decoration: none;
-      text-align: center;
-      padding: 0 15px;
+      padding: 0 20px;
+      height: 46px;
+      border: none;
+      cursor: pointer;
       box-sizing: border-box;
 
       @media only screen and (max-width: 575px) {
@@ -4517,12 +4490,9 @@ input.atbdp-form-control {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        height: 25px;
-        width: 25px;
-        border-radius: 50%;
-        border: 2px solid #fff;
 
         i {
+          font-size: 16px;
           font-weight: 900;
           color: #fff;
         }
@@ -4530,11 +4500,10 @@ input.atbdp-form-control {
 
       .directorist_link-text {
         display: block;
-        font-size: 16px;
-        line-height: 1.5;
-        font-weight: 500;
+        font-size: 15px;
+        line-height: 1.25;
+        font-weight: 400;
         color: #fff;
-        margin-top: 15px;
         @media only screen and (max-width: 1199px) {
           font-size: 15px;
         }
@@ -4548,49 +4517,29 @@ input.atbdp-form-control {
     .directorist_btn-import {
       .directorist_link-icon {
         border: 0 none;
-
-        i {
-          font-size: 24px;
-        }
-      }
-
-      .directorist_link-text {
-        margin-top: 12px;
-      }
-    }
-
-    .directorist_link-block {
-      & + .directorist_link-block {
-        margin-top: 20px;
       }
     }
   }
 
   .directorist_builder__content__right {
-    flex: 1;
+    width: 100%;
 
-    @media only screen and (max-width: 1199px) {
-      flex: auto;
-      width: 100%;
-      margin-top: 30px;
-    }
-
-    .atbd_tab_nav {
+    .directorist-tab__nav {
       margin-bottom: 20px;
 
-      ul {
+      .directorist-tab__nav__items {
         padding: 0;
         margin: 0;
         display: flex;
 
-        .directorist_builder--tab-item {
+        .directorist-tab__nav__item {
           margin-bottom: 0;
 
           &:not(:last-child) {
             margin-right: 20px;
           }
 
-          .atbd_tn_link {
+          .directorist-tab__nav__link {
             text-decoration: none;
             font-size: 14px;
             font-weight: 500;
@@ -4608,7 +4557,7 @@ input.atbdp-form-control {
               margin-left: 5px;
             }
 
-            &.tabItemActive {
+            &.directorist-tab__nav__active {
               color: #3e62f5;
 
               .directorist_count {
@@ -4620,7 +4569,7 @@ input.atbdp-form-control {
       }
     }
 
-    .directorist_builder--tabContent {
+    .directorist-tab__content {
       padding: 20px;
       background-color: #fff;
       border-radius: 4px;
@@ -4900,6 +4849,13 @@ input.atbdp-form-control {
           }
         }
       }
+
+      .directorist-tab__pane {
+        display: none;
+        &.directorist-tab__pane--active {
+          display: block;
+        }
+      }
     }
   }
 }
@@ -4930,7 +4886,7 @@ input.atbdp-form-control {
   }
 }
 .directorist-type-slug {
-  .directorist-slug-notice, 
+  .directorist-slug-notice,
   .directorist-count-notice {
     margin: 6px 0 0;
     &.directorist-slug-notice-error {
@@ -4994,8 +4950,8 @@ input.atbdp-form-control {
     background-color: #08bf9c;
     box-shadow: none;
     display: none;
-    &:before{
-      content: '\f00c';
+    &:before {
+      content: "\f00c";
       font-family: "Font Awesome 5 Free";
       font-weight: 900;
       color: #fff;
@@ -5551,6 +5507,96 @@ img.atbdp-file-info {
 #style_settings__color_settings .cptm-field-wraper-type-wp-media-picker {
   input[type="button"].cptm-btn {
     display: none;
+  }
+}
+
+// Create Directory Type Modal
+.cptm-create-directory-modal {
+  .cptm-modal {
+    width: 100%;
+    max-width: 560px;
+    padding: 0;
+  }
+  .cptm-create-directory-modal__header {
+    padding: 40px 55px 0;
+    margin: 0;
+    border: none;
+    .cptm-modal-action-link {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      margin: 0;
+      padding: 0;
+      height: 40px;
+      width: 40px;
+      border-radius: 50%;
+      border: none;
+      color: #3c3c3c;
+      background-color: #e6e6e6;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      &:hover {
+        background-color: #e3e6ef;
+      }
+    }
+  }
+  .cptm-create-directory-modal__body {
+    padding: 35px 65px 50px;
+  }
+  .cptm-create-directory-modal__title {
+    font-size: 24px;
+    line-height: 38px;
+    font-weight: 400;
+    color: #000000;
+    text-align: center;
+  }
+  .cptm-create-directory-modal__desc {
+    font-size: 16px;
+    line-height: 26px;
+    font-weight: 400;
+    color: #3c3c3c;
+    text-align: center;
+    margin: 0;
+  }
+  .cptm-create-directory-modal__action {
+    display: flex;
+    gap: 30px;
+    .cptm-create-directory-modal__action__single {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      max-width: 200px;
+      padding: 40px 25px;
+      background-color: #ffffff;
+      border: 1px solid #e3e6ef;
+      border-radius: 10px;
+      cursor: pointer;
+      box-sizing: border-box;
+      box-shadow: none;
+      transition: background-color 0.3s;
+      &:hover,
+      &:focus {
+        background-color: #e3e6ef;
+      }
+      .modal-btn-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 80px;
+        width: 80px;
+        border-radius: 12px;
+        background-color: #3e62f520;
+      }
+      .modal-btn-text {
+        font-size: 16px;
+        line-height: 22px;
+        font-weight: 500;
+        color: #000000;
+      }
+    }
   }
 }
 

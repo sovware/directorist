@@ -98,12 +98,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _global_components_setup_select2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../global/components/setup-select2 */ "./assets/src/js/global/components/setup-select2.js");
-/* harmony import */ var _public_components_colorPicker__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../public/components/colorPicker */ "./assets/src/js/public/components/colorPicker.js");
-/* harmony import */ var _public_components_colorPicker__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_public_components_colorPicker__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _public_components_directoristDropdown__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../public/components/directoristDropdown */ "./assets/src/js/public/components/directoristDropdown.js");
-/* harmony import */ var _public_components_directoristDropdown__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_public_components_directoristDropdown__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _public_components_directoristSelect__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../public/components/directoristSelect */ "./assets/src/js/public/components/directoristSelect.js");
-/* harmony import */ var _public_components_directoristSelect__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_public_components_directoristSelect__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _global_components_load_category_custom_fields__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../global/components/load-category-custom-fields */ "./assets/src/js/global/components/load-category-custom-fields.js");
+/* harmony import */ var _global_components_cache_category_custom_fields__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../global/components/cache-category-custom-fields */ "./assets/src/js/global/components/cache-category-custom-fields.js");
+/* harmony import */ var _components_debounce__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/debounce */ "./assets/src/js/global/components/debounce.js");
+/* harmony import */ var _public_components_colorPicker__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../public/components/colorPicker */ "./assets/src/js/public/components/colorPicker.js");
+/* harmony import */ var _public_components_colorPicker__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_public_components_colorPicker__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _public_components_directoristDropdown__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../public/components/directoristDropdown */ "./assets/src/js/public/components/directoristDropdown.js");
+/* harmony import */ var _public_components_directoristDropdown__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_public_components_directoristDropdown__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _public_components_directoristSelect__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../public/components/directoristSelect */ "./assets/src/js/public/components/directoristSelect.js");
+/* harmony import */ var _public_components_directoristSelect__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_public_components_directoristSelect__WEBPACK_IMPORTED_MODULE_7__);
 
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -114,9 +117,27 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 
 
+
+
+
 /* eslint-disable */
 var $ = jQuery;
 var localized_data = directorist.add_listing_data;
+function getWrapper() {
+  return localized_data.is_admin ? '#post' : '#directorist-add-listing-form';
+}
+function initColorField() {
+  var $colorField = $('.directorist-color-field-js', getWrapper());
+  if ($colorField.length) {
+    $colorField.wpColorPicker();
+  }
+}
+function scrollToEl(selector) {
+  document.querySelector(selector).scrollIntoView({
+    block: 'start',
+    behavior: 'smooth'
+  });
+}
 
 /**
  * Join Query String
@@ -148,11 +169,9 @@ $(window).on('load', function () {
   }
 
   //initialize color picker
-  if ($('.directorist-color-field-js').length) {
-    $('.directorist-color-field-js').wpColorPicker().empty();
-  }
+  initColorField();
 });
-$(document).ready(function () {
+$(function () {
   $('body').on("click", "#manual_coordinate", function (e) {
     if ($('input#manual_coordinate').is(':checked')) {
       $('.directorist-map-coordinates').show();
@@ -202,9 +221,7 @@ $(document).ready(function () {
     }, 300);
   });
   document.addEventListener('directorist-reload-plupload', function () {
-    if ($('.directorist-color-field-js').length) {
-      $('.directorist-color-field-js').wpColorPicker().empty();
-    }
+    initColorField();
   });
 
   // remove the social field and then reset the ids while maintaining position
@@ -275,64 +292,64 @@ $(document).ready(function () {
   }
 
   // Select2 js code
-  if (!localized_data.is_admin) {
-    // Location
-    var createLoc = $('#at_biz_dir-location').attr("data-allow_new");
-    var maxLocationLength = $('#at_biz_dir-location').attr("data-max");
-    if (createLoc) {
-      $("#at_biz_dir-location").select2({
-        tags: true,
-        maximumSelectionLength: maxLocationLength,
-        language: {
-          maximumSelected: function maximumSelected() {
-            return localized_data.i18n_text.max_location_msg;
-          }
-        },
-        tokenSeparators: [","]
-      });
-    } else {
-      $("#at_biz_dir-location").select2({
-        allowClear: true,
-        tags: false,
-        maximumSelectionLength: maxLocationLength,
-        tokenSeparators: [","]
-      });
-    }
+  // if (!localized_data.is_admin) {
+  // Location
+  // const createLoc = $('#at_biz_dir-location').attr("data-allow_new");
+  // let maxLocationLength = $('#at_biz_dir-location').attr("data-max");
+  // if (createLoc) {
+  //     $("#at_biz_dir-location").select2({
+  //         tags: true,
+  //         maximumSelectionLength: maxLocationLength,
+  //         language: {
+  //             maximumSelected: function () {
+  //                 return localized_data.i18n_text.max_location_msg;
+  //             }
+  //         },
+  //         tokenSeparators: [","],
+  //     });
+  // } else {
+  //     $("#at_biz_dir-location").select2({
+  //         allowClear: true,
+  //         tags: false,
+  //         maximumSelectionLength: maxLocationLength,
+  //         tokenSeparators: [","],
+  //     });
+  // }
 
-    // Tags
-    var createTag = $('#at_biz_dir-tags').attr("data-allow_new");
-    var maxTagLength = $('#at_biz_dir-tags').attr("data-max");
-    if (createTag) {
-      $('#at_biz_dir-tags').select2({
-        tags: true,
-        maximumSelectionLength: maxTagLength,
-        tokenSeparators: [',']
-      });
-    } else {
-      $('#at_biz_dir-tags').select2({
-        allowClear: true,
-        maximumSelectionLength: maxTagLength,
-        tokenSeparators: [',']
-      });
-    }
+  // // Tags
+  // const createTag = $('#at_biz_dir-tags').attr("data-allow_new");
+  // let maxTagLength = $('#at_biz_dir-tags').attr("data-max");
+  // if (createTag) {
+  //     $('#at_biz_dir-tags').select2({
+  //         tags: true,
+  //         maximumSelectionLength: maxTagLength,
+  //         tokenSeparators: [','],
+  //     });
+  // } else {
+  //     $('#at_biz_dir-tags').select2({
+  //         allowClear: true,
+  //         maximumSelectionLength: maxTagLength,
+  //         tokenSeparators: [','],
+  //     });
+  // }
 
-    //Category
-    var createCat = $('#at_biz_dir-categories').attr("data-allow_new");
-    var maxCatLength = $('#at_biz_dir-categories').attr("data-max");
-    if (createCat) {
-      $('#at_biz_dir-categories').select2({
-        allowClear: true,
-        tags: true,
-        maximumSelectionLength: maxCatLength,
-        tokenSeparators: [',']
-      });
-    } else {
-      $('#at_biz_dir-categories').select2({
-        maximumSelectionLength: maxCatLength,
-        allowClear: true
-      });
-    }
-  }
+  // //Category
+  // const createCat = $('#at_biz_dir-categories').attr("data-allow_new");
+  // let maxCatLength = $('#at_biz_dir-categories').attr("data-max");
+  // if (createCat) {
+  //     $('#at_biz_dir-categories').select2({
+  //         allowClear: true,
+  //         tags: true,
+  //         maximumSelectionLength: maxCatLength,
+  //         tokenSeparators: [','],
+  //     });
+  // } else {
+  //     $('#at_biz_dir-categories').select2({
+  //         maximumSelectionLength: maxCatLength,
+  //         allowClear: true,
+  //     });
+  // }
+  // }
 
   /**
    * Price field.
@@ -340,10 +357,18 @@ $(document).ready(function () {
   function getPriceTypeInput(typeId) {
     return $("#".concat($("[for=\"".concat(typeId, "\"]")).data('option')));
   }
-  $('.directorist-form-pricing-field__options').on('change', 'input', function () {
-    var $otherOptions = $(this).parent().siblings('.directorist-checkbox').find('input');
-    $otherOptions.prop('checked', false);
-    getPriceTypeInput($otherOptions.attr('id')).hide();
+  $('.directorist-form-pricing-field__options .directorist-checkbox__label').on('click', function () {
+    var $this = $(this);
+    if ($this.parent('.directorist-checkbox').children('input[type=checkbox]').prop('checked') === true) {
+      $("#".concat($this.data('option'))).hide();
+    }
+
+    // $( '.directorist-form-pricing-field__options' ).on( 'change', 'input', function() {
+    //     const $otherOptions = $(this).parent().siblings('.directorist-checkbox').find( 'input' );
+
+    //     $otherOptions.prop( 'checked', false );
+    //     getPriceTypeInput( $otherOptions.attr('id') ).hide();
+
     if (this.checked) {
       getPriceTypeInput(this.id).show();
     } else {
@@ -386,123 +411,116 @@ $(document).ready(function () {
     }
     return b;
   }(window.location.search.substr(1).split('&'));
-  function render_category_based_fields() {
+  function renderCategoryCustomFields() {
+    var categoryIds = [];
+    var listingId = 0;
+    var directoryId = 0;
     if (directorist.is_admin) {
-      var directory_type = $('select[name="directory_type"]').val();
-      var from_single_directory = $('input[name="directory_type"]').val();
-      directory_type = directory_type ? directory_type : from_single_directory;
-      var length = $('#at_biz_dir-categorychecklist input:checked');
-      var id = [];
-      if (length) {
-        length.each(function (el, index) {
-          id.push($(index).val());
+      listingId = Number($('#post_ID').val());
+      directoryId = $('select[name="directory_type"]', getWrapper()).val();
+      if (!directoryId) {
+        directoryId = $('input[name="directory_type"]', getWrapper()).val();
+      }
+      var $selectedCategories = $('#at_biz_dir-categorychecklist input:checked');
+      if ($selectedCategories.length) {
+        categoryIds = $selectedCategories.toArray().map(function (el) {
+          return Number(el.value);
         });
       }
-      var post_id = $('#post_ID').val();
     } else {
-      var directory_type = $('input[name="directory_type"]').val();
-      var length = $('#at_biz_dir-categories option:selected');
-      var id = [];
-      length.each(function (el, index) {
-        id.push($(index).val());
-      });
-      var post_id = $('input[name="listing_id"]').val();
+      listingId = Number($('input[name="listing_id"]', getWrapper()).val());
+      directoryId = $('input[name="directory_type"]', getWrapper()).val();
+      var _$selectedCategories = $('#at_biz_dir-categories option:selected');
+      if (_$selectedCategories.length) {
+        categoryIds = _$selectedCategories.toArray().map(function (el) {
+          return Number(el.value);
+        });
+      }
     }
-    var data = {
-      action: 'atbdp_custom_fields_listings',
-      directorist_nonce: directorist.directorist_nonce,
-      post_id: post_id,
-      term_id: id,
-      directory_type: directory_type
-    };
-    $.post(localized_data.ajaxurl, data, function (response) {
-      if (response) {
-        $('.atbdp_category_custom_fields').empty();
-        $.each(response, function (id, content) {
-          var $newMarkup = $(content);
+    Object(_global_components_load_category_custom_fields__WEBPACK_IMPORTED_MODULE_2__["default"])({
+      categoryIds: categoryIds,
+      listingId: listingId,
+      directoryId: directoryId,
+      onBeforeSend: function onBeforeSend() {
+        console.log('before send!');
+      },
+      onSuccess: function onSuccess(response) {
+        if (!response.success) {
+          $('.atbdp_category_custom_fields', getWrapper()).empty();
+          $('.atbdp_category_custom_fields-wrapper', getWrapper()).hide();
+          return;
+        }
+        $('.atbdp_category_custom_fields', getWrapper()).empty();
+        $.each(response.data, function (fieldId, fieldMarkup) {
+          var $newMarkup = $(fieldMarkup);
           if ($newMarkup.find('.directorist-form-element')[0] !== undefined) {
-            $newMarkup.find('.directorist-form-element')[0].setAttribute('data-id', "".concat(id));
+            $newMarkup.find('.directorist-form-element')[0].setAttribute('data-id', "".concat(fieldId));
           }
           if ($($newMarkup[0]).find('.directorist-radio input, .directorist-checkbox input').length) {
             $($newMarkup[0]).find('.directorist-radio input, .directorist-checkbox input').each(function (i, item) {
-              $(item).attr('id', "directorist-cf-".concat(id, "-").concat(i));
-              $(item).attr('data-id', "directorist-cf-".concat(id, "-").concat(i));
+              $(item).attr('id', "directorist-cf-".concat(fieldId, "-").concat(i));
+              $(item).attr('data-id', "directorist-cf-".concat(fieldId, "-").concat(i));
               $(item).addClass('directorist-form-checks');
             });
             $($newMarkup[0]).find('.directorist-radio label, .directorist-checkbox label').each(function (i, item) {
-              $(item).attr('for', "directorist-cf-".concat(id, "-").concat(i));
+              $(item).attr('for', "directorist-cf-".concat(fieldId, "-").concat(i));
             });
           }
-          $('.atbdp_category_custom_fields').append($newMarkup);
+          $('.atbdp_category_custom_fields', getWrapper()).append($newMarkup);
         });
-        $('.atbdp_category_custom_fields-wrapper').show();
+        $('.atbdp_category_custom_fields-wrapper', getWrapper()).show();
         customFieldSeeMore();
-        formData.forEach(function (item) {
-          var fieldSingle = document.querySelector("[data-id=\"".concat(item.id, "\"]"));
-          if (fieldSingle !== null && fieldSingle.classList.contains('directorist-form-element')) {
-            fieldSingle.value = item.value;
+        var fieldsCache = Object(_global_components_cache_category_custom_fields__WEBPACK_IMPORTED_MODULE_3__["getCategoryCustomFieldsCache"])();
+        Object.keys(fieldsCache).forEach(function (key) {
+          var el = document.querySelector("[data-id=\"".concat(key, "\"]"));
+          if (el === null) {
+            return;
           }
-          if (fieldSingle !== null && !fieldSingle.classList.contains('directorist-form-element')) {
-            fieldSingle.checked = item.checked;
+          if (el.classList.contains('directorist-form-element')) {
+            el.value = fieldsCache[key];
+          } else {
+            el.checked = fieldsCache[key];
           }
         });
-      } else {
-        $('.atbdp_category_custom_fields').empty();
-        $('.atbdp_category_custom_fields-wrapper').hide();
+        initColorField();
       }
     });
   }
 
   // Create container div after category (in frontend)
   $('.directorist-form-categories-field').after('<div class="atbdp_category_custom_fields"></div>');
-
-  // Render category based fields in first load
-  render_category_based_fields();
-
-  /* Store custom fields data */
-  var formData = [];
-  function storeCustomFieldsData() {
-    var customFields = document.querySelectorAll(".atbdp_category_custom_fields .directorist-form-element");
-    var checksField = document.querySelectorAll('.atbdp_category_custom_fields .directorist-form-checks');
-    if (customFields.length) {
-      customFields.forEach(function (elm) {
-        var elmValue = elm.value;
-        var elmId = elm.getAttribute('data-id');
-        formData.push({
-          "id": elmId,
-          "value": elmValue
-        });
-      });
-    }
-    if (checksField.length) {
-      checksField.forEach(function (elm) {
-        var elmChecked = elm.checked;
-        var elmId = elm.getAttribute('id');
-        formData.push({
-          "id": elmId,
-          "checked": elmChecked
-        });
-      });
-    }
-  }
+  window.addEventListener('directorist-type-change', function () {
+    renderCategoryCustomFields();
+    Object(_global_components_cache_category_custom_fields__WEBPACK_IMPORTED_MODULE_3__["cacheCategoryCustomFields"])();
+  });
 
   // Render category based fields on category change (frontend)
-  $('#at_biz_dir-categories').on('change', function () {
-    render_category_based_fields();
-    storeCustomFieldsData();
-  });
+  $('#at_biz_dir-categories').on('change', Object(_components_debounce__WEBPACK_IMPORTED_MODULE_4__["default"])(function () {
+    renderCategoryCustomFields();
+    Object(_global_components_cache_category_custom_fields__WEBPACK_IMPORTED_MODULE_3__["cacheCategoryCustomFields"])();
+  }, 270));
 
   // Render category based fields on category change (backend)
-  $('#at_biz_dir-categorychecklist').on('change', function (event) {
-    render_category_based_fields();
-    storeCustomFieldsData();
-  });
+  $('#at_biz_dir-categorychecklist').on('change', Object(_components_debounce__WEBPACK_IMPORTED_MODULE_4__["default"])(function () {
+    renderCategoryCustomFields();
+    Object(_global_components_cache_category_custom_fields__WEBPACK_IMPORTED_MODULE_3__["cacheCategoryCustomFields"])();
+  }, 270));
+
+  // Make sure to place the following event trigger after the event bindings.
+  if (!directorist.is_admin) {
+    if (directorist.lazy_load_taxonomy_fields) {
+      $('#at_biz_dir-categories').on('select2:select', function () {
+        $('#at_biz_dir-categories').trigger('change');
+      });
+    } else {
+      $('#at_biz_dir-categories').trigger('change');
+    }
+  }
   function atbdp_element_value(element) {
     var field = $(element);
     if (field.length) {
       return field.val();
     }
-    return '';
   }
   var mediaUploaders = [];
   if (localized_data.media_uploader) {
@@ -904,10 +922,8 @@ $(document).ready(function () {
       }
     });
   });
-
-  // Sticky Navigation on Add Listing
   function addSticky() {
-    $(window).scroll(function () {
+    $(window).scroll(Object(_components_debounce__WEBPACK_IMPORTED_MODULE_4__["default"])(function () {
       var windowWidth = $(window).width();
       var sidebarWidth = $(".multistep-wizard__nav").width();
       var sidebarHeight = $(".multistep-wizard__nav").height();
@@ -936,7 +952,7 @@ $(document).ready(function () {
         $(".multistep-wizard__nav").removeClass("sticky");
         $(".multistep-wizard__content").css("padding-left", '0px');
       }
-    });
+    }, 100));
   }
   addSticky();
   multiStepWizard();
@@ -1150,7 +1166,7 @@ function addListingAccordion() {
 }
 addListingAccordion();
 
-// Multistep Add Listing on Elementor EditMode 
+// Multistep Add Listing on Elementor EditMode
 $(window).on('elementor/frontend/init', function () {
   setTimeout(function () {
     if ($('body').hasClass('elementor-editor-active')) {
@@ -1163,6 +1179,107 @@ $('body').on('click', function (e) {
     multiStepWizard();
   }
 });
+
+/***/ }),
+
+/***/ "./assets/src/js/global/components/cache-category-custom-fields.js":
+/*!*************************************************************************!*\
+  !*** ./assets/src/js/global/components/cache-category-custom-fields.js ***!
+  \*************************************************************************/
+/*! exports provided: cacheCategoryCustomFields, getCategoryCustomFieldsCache */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cacheCategoryCustomFields", function() { return cacheCategoryCustomFields; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getCategoryCustomFieldsCache", function() { return getCategoryCustomFieldsCache; });
+var cache = {};
+function cacheCategoryCustomFields() {
+  var customFields = document.querySelectorAll('.atbdp_category_custom_fields .directorist-form-element');
+  var checksField = document.querySelectorAll('.atbdp_category_custom_fields .directorist-form-checks');
+  if (customFields.length) {
+    customFields.forEach(function (el) {
+      return cache[el.getAttribute('data-id')] = el.value;
+    });
+  }
+  if (checksField.length) {
+    checksField.forEach(function (el) {
+      return cache[el.getAttribute('data-id')] = el.checked;
+    });
+  }
+}
+function getCategoryCustomFieldsCache() {
+  return cache;
+}
+
+/***/ }),
+
+/***/ "./assets/src/js/global/components/debounce.js":
+/*!*****************************************************!*\
+  !*** ./assets/src/js/global/components/debounce.js ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return debounce; });
+function debounce(func, wait, immediate) {
+  var timeout;
+  return function () {
+    var context = this,
+      args = arguments;
+    var later = function later() {
+      timeout = null;
+      if (!immediate) func.apply(context, args);
+    };
+    var callNow = immediate && !timeout;
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+    if (callNow) func.apply(context, args);
+  };
+}
+;
+
+/***/ }),
+
+/***/ "./assets/src/js/global/components/load-category-custom-fields.js":
+/*!************************************************************************!*\
+  !*** ./assets/src/js/global/components/load-category-custom-fields.js ***!
+  \************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return loadCategoryCustomFields; });
+function loadCategoryCustomFields() {
+  var args = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
+    directoryId: null,
+    listingId: null,
+    categoryIds: null,
+    onBeforeSending: null,
+    onSuccess: null
+  };
+  var directory_id = args.directoryId,
+    listing_id = args.listingId,
+    category_ids = args.categoryIds,
+    onBeforeSending = args.onBeforeSending,
+    onSuccess = args.onSuccess;
+  var payload = {
+    action: 'directorist_load_category_custom_fields',
+    directorist_nonce: directorist.directorist_nonce,
+    listing_id: listing_id,
+    category_ids: category_ids,
+    directory_id: directory_id
+  };
+  return jQuery.ajax({
+    method: 'POST',
+    url: directorist.add_listing_data.ajaxurl,
+    data: payload,
+    beforeSend: onBeforeSending
+  }).done(onSuccess);
+}
 
 /***/ }),
 
@@ -1366,17 +1483,14 @@ function selec2_adjust_space_for_addons() {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/toConsumableArray.js");
-/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _lib_helper__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../lib/helper */ "./assets/src/js/lib/helper.js");
-/* harmony import */ var _select2_custom_control__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./select2-custom-control */ "./assets/src/js/global/components/select2-custom-control.js");
-/* harmony import */ var _select2_custom_control__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_select2_custom_control__WEBPACK_IMPORTED_MODULE_3__);
-
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _lib_helper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../lib/helper */ "./assets/src/js/lib/helper.js");
+/* harmony import */ var _select2_custom_control__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./select2-custom-control */ "./assets/src/js/global/components/select2-custom-control.js");
+/* harmony import */ var _select2_custom_control__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_select2_custom_control__WEBPACK_IMPORTED_MODULE_2__);
 
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 
 
 var $ = jQuery;
@@ -1386,225 +1500,206 @@ document.body.addEventListener('directorist-reload-select2-fields', initSelect2)
 
 // Init Static Select 2 Fields
 function initSelect2() {
-  var select_fields = [{
-    elm: $('.directorist-select').find('select')
-  }, {
-    elm: $('#directorist-select-js')
-  }, {
-    elm: $('#directorist-search-category-js')
-  }, {
-    elm: $('#directorist-select-st-s-js')
-  }, {
-    elm: $('#directorist-select-sn-s-js')
-  }, {
-    elm: $('#directorist-select-mn-e-js')
-  }, {
-    elm: $('#directorist-select-tu-e-js')
-  }, {
-    elm: $('#directorist-select-wd-s-js')
-  }, {
-    elm: $('#directorist-select-wd-e-js')
-  }, {
-    elm: $('#directorist-select-th-e-js')
-  }, {
-    elm: $('#directorist-select-fr-s-js')
-  }, {
-    elm: $('#directorist-select-fr-e-js')
-  },
-  // { elm: $('#directorist-location-select') },
-  // { elm: $('#directorist-category-select') },
-  {
-    elm: $('.select-basic')
-  }, {
-    elm: $('#loc-type')
-  }, {
-    elm: $('.bdas-location-search')
-  },
-  // { elm: $('.directorist-location-select') },
-  {
-    elm: $('#at_biz_dir-category')
-  }, {
-    elm: $('#cat-type')
-  }, {
-    elm: $('.bdas-category-search')
-  }
-  // { elm: $('.directorist-category-select') },
+  var selectors = ['.directorist-select select', '#directorist-select-js',
+  // Not found in any template
+  '#directorist-search-category-js',
+  // Not found in any template
+  // '#directorist-select-st-s-js',
+  // '#directorist-select-sn-s-js',
+  // '#directorist-select-mn-e-js',
+  // '#directorist-select-tu-e-js',
+  // '#directorist-select-wd-s-js',
+  // '#directorist-select-wd-e-js',
+  // '#directorist-select-th-e-js',
+  // '#directorist-select-fr-s-js',
+  // '#directorist-select-fr-e-js',
+  '.select-basic',
+  // Not found in any template
+  '#loc-type', '#cat-type', '#at_biz_dir-category', '.bdas-location-search',
+  // Not found in any template
+  '.bdas-category-search' // Not found in any template
   ];
 
-  select_fields.forEach(function (field) {
-    Object(_lib_helper__WEBPACK_IMPORTED_MODULE_2__["convertToSelect2"])(field);
+  selectors.forEach(function (selector) {
+    return Object(_lib_helper__WEBPACK_IMPORTED_MODULE_1__["convertToSelect2"])(selector);
   });
-  var lazy_load_taxonomy_fields = directorist.lazy_load_taxonomy_fields;
-  if (lazy_load_taxonomy_fields) {
-    // Init Select2 Ajax Fields
-    initSelect2AjaxFields();
-  }
+  initMaybeLazyLoadedTaxonomySelect2();
 }
 
 // Init Select2 Ajax Fields
-function initSelect2AjaxFields() {
-  var rest_base_url = "".concat(directorist.rest_url, "directorist/v1");
-
-  // Init Select2 Ajax Category Field
-  initSelect2AjaxTaxonomy({
-    selector: $('.directorist-search-category').find('select'),
-    url: "".concat(rest_base_url, "/listings/categories")
+function initMaybeLazyLoadedTaxonomySelect2() {
+  var restBase = "".concat(directorist.rest_url, "directorist/v1");
+  maybeLazyLoadCategories({
+    selector: '.directorist-search-category select',
+    url: "".concat(restBase, "/listings/categories")
   });
-  initSelect2AjaxTaxonomy({
-    selector: $('.directorist-form-categories-field').find('select'),
-    url: "".concat(rest_base_url, "/listings/categories")
+  maybeLazyLoadCategories({
+    selector: '.directorist-form-categories-field select',
+    url: "".concat(restBase, "/listings/categories")
   });
-
-  // Init Select2 Ajax Location Field
-  initSelect2AjaxTaxonomy({
-    selector: $('.directorist-search-location').find('select'),
-    url: "".concat(rest_base_url, "/listings/locations")
+  maybeLazyLoadLocations({
+    selector: '.directorist-search-location select',
+    url: "".concat(restBase, "/listings/locations")
   });
-  initSelect2AjaxTaxonomy({
-    selector: $('.directorist-form-location-field').find('select'),
-    url: "".concat(rest_base_url, "/listings/locations")
+  maybeLazyLoadLocations({
+    selector: '.directorist-form-location-field select',
+    url: "".concat(restBase, "/listings/locations")
   });
-
-  // Init Select2 Ajax Tag Field
-  initSelect2AjaxTaxonomy({
-    selector: $('.directorist-form-tag-field').find('select'),
-    url: "".concat(rest_base_url, "/listings/tags")
-  }, {
-    has_directory_type: false
+  maybeLazyLoadTags({
+    selector: '.directorist-form-tag-field select',
+    url: "".concat(restBase, "/listings/tags")
   });
 }
+function maybeLazyLoadCategories(args) {
+  maybeLazyLoadTaxonomyTermsSelect2(_objectSpread(_objectSpread({}, {
+    taxonomy: 'categories'
+  }), args));
+}
+function maybeLazyLoadLocations(args) {
+  maybeLazyLoadTaxonomyTermsSelect2(_objectSpread(_objectSpread({}, {
+    taxonomy: 'locations'
+  }), args));
+}
+function maybeLazyLoadTags(args) {
+  maybeLazyLoadTaxonomyTermsSelect2(_objectSpread(_objectSpread({}, {
+    taxonomy: 'tags'
+  }), args));
+}
 
-// initSelect2AjaxTaxonomy
-function initSelect2AjaxTaxonomy(args, terms_options) {
-  var defaultArgs = {
+// maybeLazyLoadTaxonomyTermsSelect2
+function maybeLazyLoadTaxonomyTermsSelect2(args) {
+  var defaults = {
     selector: '',
     url: '',
-    perPage: 10
+    taxonomy: 'tags'
   };
-  args = _objectSpread(_objectSpread({}, defaultArgs), args);
-  var default_terms_options = {
-    has_directory_type: true
-  };
-  terms_options = terms_options ? _objectSpread(_objectSpread({}, default_terms_options), terms_options) : default_terms_options;
-  if (!args.selector.length) {
+  args = _objectSpread(_objectSpread({}, defaults), args);
+  if (!args.selector) {
     return;
   }
-  _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(args.selector).forEach(function (item, index) {
-    var directory_type_id = 0;
-    var createNew = item.getAttribute("data-allow_new");
-    var maxLength = item.getAttribute("data-max");
-    if (terms_options.has_directory_type) {
-      var search_form_parent = $(item).closest('.directorist-search-form');
-      var archive_page_parent = $(item).closest('.directorist-archive-contents');
-      var add_listing_form_hidden_input = $(item).closest('.directorist-add-listing-form').find('input[name="directory_type"]');
-      var nav_list_item = [];
+  var $el = $(args.selector);
+  var $addListing = $el.closest('.directorist-add-listing-form');
+  var canCreate = $el.data('allow_new');
+  var maxLength = $el.data('max');
+  var directoryId = 0;
+  if (args.taxonomy !== 'tags') {
+    var $searchForm = $el.closest('.directorist-search-form');
+    var $archivePage = $el.closest('.directorist-archive-contents');
+    var $directory = $addListing.find('input[name="directory_type"]');
+    var $navListItem = null;
 
-      // If search page
-      if (search_form_parent.length) {
-        nav_list_item = search_form_parent.find('.directorist-listing-type-selection__link--current');
-      }
-
-      // If archive page
-      if (archive_page_parent.length) {
-        nav_list_item = archive_page_parent.find('.directorist-type-nav__list li.current .directorist-type-nav__link');
-      }
-
-      // If has nav item
-      if (nav_list_item.length) {
-        directory_type_id = nav_list_item ? nav_list_item.data('listing_type_id') : 0;
-      }
-
-      // If has nav item
-      if (add_listing_form_hidden_input.length) {
-        directory_type_id = add_listing_form_hidden_input.val();
-      }
-      if (directory_type_id) {
-        directory_type_id = parseInt(directory_type_id);
-      }
+    // If search page
+    if ($searchForm.length) {
+      $navListItem = $searchForm.find('.directorist-listing-type-selection__link--current');
     }
-    var currentPage = 1;
-    $(item).select2({
-      allowClear: true,
-      tags: createNew,
-      maximumSelectionLength: maxLength,
-      width: '100%',
-      escapeMarkup: function escapeMarkup(text) {
-        return text;
-      },
-      ajax: {
-        url: args.url,
-        dataType: 'json',
-        cache: true,
-        delay: 250,
-        data: function data(params) {
-          currentPage = params.page || 1;
-          var search_term = params.term ? params.term : '';
-          var query = {
-            search: search_term,
-            page: currentPage,
-            per_page: args.perPage
-          };
-          if (directory_type_id) {
-            query.directory = directory_type_id;
-          }
-          return query;
-        },
-        processResults: function processResults(data) {
-          return {
-            results: data.items,
-            pagination: {
-              more: data.paginationMore
-            }
-          };
-        },
-        transport: function transport(params, success, failure) {
-          var $request = $.ajax(params);
-          $request.then(function (data, textStatus, jqXHR) {
-            var totalPage = parseInt(jqXHR.getResponseHeader('x-wp-totalpages'));
-            var paginationMore = currentPage < totalPage;
-            var items = data.map(function (item) {
-              return {
-                id: item.id,
-                text: item.name
-              };
-            });
-            return {
-              items: items,
-              paginationMore: paginationMore
-            };
-          }).then(success);
-          $request.fail(failure);
-          return $request;
-        }
-      }
-    });
+    if ($archivePage.length) {
+      $navListItem = $archivePage.find('.directorist-type-nav__list li.current .directorist-type-nav__link');
+    }
+    if ($navListItem && $navListItem.length) {
+      directoryId = Number($navListItem.data('listing_type_id'));
+    }
+    if ($directory.length) {
+      directoryId = $directory.val();
+    }
+    if (directoryId) {
+      directoryId = Number(directoryId);
+    }
+  }
+  var currentPage = 1;
+  var select2Options = {
+    allowClear: true,
+    tags: canCreate,
+    maximumSelectionLength: maxLength,
+    width: '100%',
+    escapeMarkup: function escapeMarkup(text) {
+      return text;
+    }
+  };
+  if (directorist.lazy_load_taxonomy_fields) {
+    select2Options.ajax = {
+      url: args.url,
+      dataType: 'json',
+      cache: true,
+      delay: 250,
+      data: function data(params) {
+        currentPage = params.page || 1;
+        var query = {
+          page: currentPage,
+          per_page: args.perPage,
+          hide_empty: true
+        };
 
-    // Setup Preselected Option
-    var selected_item_id = $(item).data('selected-id');
-    var selected_item_label = $(item).data('selected-label');
-    var setup_selected_items = function setup_selected_items(element, selected_id, selected_label) {
-      if (!element || !selected_id) {
+        // Load empty terms on add listings.
+        if ($addListing.length) {
+          query.hide_empty = false;
+        }
+        if (params.term) {
+          query.search = params.term;
+          query.hide_empty = false;
+        }
+        if (directoryId) {
+          query.directory = directoryId;
+        }
+        return query;
+      },
+      processResults: function processResults(data) {
+        return {
+          results: data.items,
+          pagination: {
+            more: data.paginationMore
+          }
+        };
+      },
+      transport: function transport(params, success, failure) {
+        var $request = $.ajax(params);
+        $request.then(function (data, textStatus, jqXHR) {
+          var totalPage = Number(jqXHR.getResponseHeader('x-wp-totalpages'));
+          var paginationMore = currentPage < totalPage;
+          var items = data.map(function (item) {
+            var text = item.name;
+            if (!$addListing.length && params.data.search) {
+              text = "".concat(item.name, " (").concat(item.count, ")");
+            }
+            return {
+              id: item.id,
+              text: text
+            };
+          });
+          return {
+            items: items,
+            paginationMore: paginationMore
+          };
+        }).then(success);
+        $request.fail(failure);
+        return $request;
+      }
+    };
+  }
+  $el.select2(select2Options);
+  if (directorist.lazy_load_taxonomy_fields) {
+    function setupSelectedItems($el, selectedId, selectedLabel) {
+      if (!$el.length || !selectedId) {
         return;
       }
-      var selected_ids = "".concat(selected_id).split(',');
-      var selected_labels = selected_label ? "".concat(selected_label).split(',') : [];
-      selected_ids.forEach(function (id, index) {
-        var label = selected_labels.length >= index + 1 ? selected_labels[index] : '';
+      var selectedIds = "".concat(selectedId).split(',');
+      var selectedLabels = selectedLabel ? "".concat(selectedLabel).split(',') : [];
+      selectedIds.forEach(function (id, index) {
+        var label = selectedLabels.length >= index + 1 ? selectedLabels[index] : '';
         var option = new Option(label, id, true, true);
-        $(element).append(option);
-        $(element).trigger({
+        $el.append(option);
+        $el.trigger({
           type: 'select2:select',
           params: {
             data: {
               id: id,
-              text: selected_item_label
+              text: label
             }
           }
         });
       });
-    };
-    setup_selected_items(item, selected_item_id, selected_item_label);
-  });
+    }
+    setupSelectedItems($el, $el.data('selected-id'), $el.data('selected-label'));
+  }
 }
 
 /***/ }),
@@ -1620,12 +1715,6 @@ function initSelect2AjaxTaxonomy(args, terms_options) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "get_dom_data", function() { return get_dom_data; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "convertToSelect2", function() { return convertToSelect2; });
-/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof.js");
-/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/toConsumableArray.js");
-/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__);
-
-
 var $ = jQuery;
 function get_dom_data(key, parent) {
   // var elmKey = 'directorist-dom-data-' + key;
@@ -1650,40 +1739,28 @@ function get_dom_data(key, parent) {
     return '';
   }
 }
-function convertToSelect2(field) {
-  if (!field) {
-    return;
-  }
-  if (!field.elm) {
-    return;
-  }
-  if (!field.elm.length) {
-    return;
-  }
-  _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1___default()(field.elm).forEach(function (item) {
-    var default_args = {
-      allowClear: true,
-      width: '100%',
-      templateResult: function templateResult(data) {
-        if (!data.id) {
-          return data.text;
-        }
-        var iconURI = $(data.element).data('icon');
-        var iconElm = "<i class=\"directorist-icon-mask\" aria-hidden=\"true\" style=\"--directorist-icon: url(".concat(iconURI, ")\"></i>");
-        var originalText = data.text;
-        var modifiedText = originalText.replace(/^(\s*)/, "$1" + iconElm);
-        var $state = $("<div class=\"directorist-select2-contents\">".concat(typeof iconURI !== 'undefined' && iconURI !== '' ? modifiedText : originalText, "</div>"));
-        return $state;
+function convertToSelect2(selector) {
+  var $selector = $(selector);
+  var args = {
+    allowClear: true,
+    width: '100%',
+    templateResult: function templateResult(data) {
+      if (!data.id) {
+        return data.text;
       }
-    };
-    var args = field.args && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(field.args) === 'object' ? Object.assign(default_args, field.args) : default_args;
-    var options = $(item).find('option');
-    var placeholder = options.length ? options[0].innerHTML : '';
-    if (placeholder.length) {
-      args.placeholder = placeholder;
+      var iconURI = $(data.element).data('icon');
+      var iconElm = "<i class=\"directorist-icon-mask\" aria-hidden=\"true\" style=\"--directorist-icon: url(".concat(iconURI, ")\"></i>");
+      var originalText = data.text;
+      var modifiedText = originalText.replace(/^(\s*)/, "$1" + iconElm);
+      var $state = $("<div class=\"directorist-select2-contents\">".concat(typeof iconURI !== 'undefined' && iconURI !== '' ? modifiedText : originalText, "</div>"));
+      return $state;
     }
-    $(item).select2(args);
-  });
+  };
+  var options = $selector.find('option');
+  if (options.length && options[0].textContent.length) {
+    args.placeholder = options[0].textContent;
+  }
+  $selector.select2(args);
 }
 
 
@@ -1893,37 +1970,6 @@ window.addEventListener('DOMContentLoaded', function () {
 
 /***/ }),
 
-/***/ "./node_modules/@babel/runtime/helpers/arrayLikeToArray.js":
-/*!*****************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/arrayLikeToArray.js ***!
-  \*****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function _arrayLikeToArray(arr, len) {
-  if (len == null || len > arr.length) len = arr.length;
-  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
-  return arr2;
-}
-module.exports = _arrayLikeToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
-
-/***/ }),
-
-/***/ "./node_modules/@babel/runtime/helpers/arrayWithoutHoles.js":
-/*!******************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/arrayWithoutHoles.js ***!
-  \******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray.js */ "./node_modules/@babel/runtime/helpers/arrayLikeToArray.js");
-function _arrayWithoutHoles(arr) {
-  if (Array.isArray(arr)) return arrayLikeToArray(arr);
-}
-module.exports = _arrayWithoutHoles, module.exports.__esModule = true, module.exports["default"] = module.exports;
-
-/***/ }),
-
 /***/ "./node_modules/@babel/runtime/helpers/defineProperty.js":
 /*!***************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/defineProperty.js ***!
@@ -1947,52 +1993,6 @@ function _defineProperty(obj, key, value) {
   return obj;
 }
 module.exports = _defineProperty, module.exports.__esModule = true, module.exports["default"] = module.exports;
-
-/***/ }),
-
-/***/ "./node_modules/@babel/runtime/helpers/iterableToArray.js":
-/*!****************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/iterableToArray.js ***!
-  \****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function _iterableToArray(iter) {
-  if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
-}
-module.exports = _iterableToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
-
-/***/ }),
-
-/***/ "./node_modules/@babel/runtime/helpers/nonIterableSpread.js":
-/*!******************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/nonIterableSpread.js ***!
-  \******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function _nonIterableSpread() {
-  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-}
-module.exports = _nonIterableSpread, module.exports.__esModule = true, module.exports["default"] = module.exports;
-
-/***/ }),
-
-/***/ "./node_modules/@babel/runtime/helpers/toConsumableArray.js":
-/*!******************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/toConsumableArray.js ***!
-  \******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var arrayWithoutHoles = __webpack_require__(/*! ./arrayWithoutHoles.js */ "./node_modules/@babel/runtime/helpers/arrayWithoutHoles.js");
-var iterableToArray = __webpack_require__(/*! ./iterableToArray.js */ "./node_modules/@babel/runtime/helpers/iterableToArray.js");
-var unsupportedIterableToArray = __webpack_require__(/*! ./unsupportedIterableToArray.js */ "./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js");
-var nonIterableSpread = __webpack_require__(/*! ./nonIterableSpread.js */ "./node_modules/@babel/runtime/helpers/nonIterableSpread.js");
-function _toConsumableArray(arr) {
-  return arrayWithoutHoles(arr) || iterableToArray(arr) || unsupportedIterableToArray(arr) || nonIterableSpread();
-}
-module.exports = _toConsumableArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
 
@@ -2052,26 +2052,6 @@ function _typeof(o) {
   }, module.exports.__esModule = true, module.exports["default"] = module.exports), _typeof(o);
 }
 module.exports = _typeof, module.exports.__esModule = true, module.exports["default"] = module.exports;
-
-/***/ }),
-
-/***/ "./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js":
-/*!***************************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js ***!
-  \***************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray.js */ "./node_modules/@babel/runtime/helpers/arrayLikeToArray.js");
-function _unsupportedIterableToArray(o, minLen) {
-  if (!o) return;
-  if (typeof o === "string") return arrayLikeToArray(o, minLen);
-  var n = Object.prototype.toString.call(o).slice(8, -1);
-  if (n === "Object" && o.constructor) n = o.constructor.name;
-  if (n === "Map" || n === "Set") return Array.from(o);
-  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return arrayLikeToArray(o, minLen);
-}
-module.exports = _unsupportedIterableToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
 

@@ -152,6 +152,10 @@ function directorist_set_listing_directory( $listing_id, $directory_id ) {
 	return true;
 }
 
+function directorist_get_field( $properties ) {
+	return Directorist\Fields\Fields::create( $properties );
+}
+
 function directorist_update_term_directory( $term_id, array $directory_ids = array(), $append = false ) {
 	if ( empty( $directory_ids ) ) {
 		return;

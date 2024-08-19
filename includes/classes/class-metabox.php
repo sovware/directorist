@@ -248,13 +248,17 @@ class ATBDP_Metabox {
 			<input type="hidden" name="directory_type" value="<?php echo esc_attr( $default ); ?>">
 		<?php } ?>
 
-		<div class="form-group atbd_content_module atbdp_category_custom_fields-wrapper diectorist-hide">
-			<div class="atbdb_content_module_contents">
-				<div class="form-group atbdp_category_custom_fields"></div>
+		<div id="directiost-listing-fields_wrapper" data-id="<?php echo esc_attr( $post->ID )?>">
+			<div style="display: none" class="directorist-content-module atbd_content_module- atbdp_category_custom_fields-wrapper">
+				<div class="directorist-content-module__contents atbdb_content_module_contents-">
+					<div class="atbdp_category_custom_fields"></div>
+				</div>
+			</div>
+
+			<div class="directorist-listing-fields">
+				<?php $this->render_listing_meta_fields( $value, $post->ID ); ?>
 			</div>
 		</div>
-
-		<div id="directiost-listing-fields_wrapper" data-id="<?php echo esc_attr( $post->ID )?>"><?php $this->render_listing_meta_fields( $value, $post->ID ); ?></div>
 		<?php
 	}
 
@@ -410,7 +414,7 @@ class ATBDP_Metabox {
 
         $admin_plan = isset( $_POST['admin_plan'] ) ? directorist_clean( wp_unslash( $_POST['admin_plan'] ) ) : '';
 		if ( ! is_fee_manager_active() || ( 'null' === $admin_plan ) ) {
-			$meta_data['_featured'] = !empty( $_POST['featured'] ) ? directorist_clean( wp_unslash( $_POST['featured'] ) ) : '';
+			$meta_data['_featured'] = ! empty( $_POST['featured'] ) ? true : false;
 		} else {
 			$meta_data['_featured'] = false;
 		}
@@ -463,8 +467,8 @@ class ATBDP_Metabox {
 				wp_update_post( array(
 					'ID'          => $post_id,
 					'post_status' => $listing_status,   // update the status to private so that we do not run this func a second time
-					// TODO: Status has been migrated, remove related code.
 					'meta_input' => array(
+						// Used it for backward compatibility.
 						'_listing_status' => 'post_status',
 					),
 				) );

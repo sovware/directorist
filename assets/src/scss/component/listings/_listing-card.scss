@@ -386,7 +386,7 @@
             justify-content: center;
             margin-right: 10px;
             &:after {
-              background-color: #404040;
+              background-color: var(--directorist-color-primary);
               width: 14px;
               height: 14px;
             }
@@ -981,7 +981,7 @@
       mask-repeat: no-repeat;
       width: 15px;
       height: 15px;
-      background-color: #404040;
+      background-color: var(--directorist-color-primary);
       transition: 0.3s ease;
     }
   }
@@ -990,7 +990,7 @@
     .directorist-favorite-icon {
       &:before {
         mask-image: url("../../../../icons/line-awesome/svgs/heart-solid.svg");
-        background-color: #f80718;
+        background-color: var(--directorist-color-danger);
       }
     }
   }

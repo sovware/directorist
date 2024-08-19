@@ -33,7 +33,7 @@ $loop_fields = $listings->loop['card_fields']['template_data']['grid_view_with_t
 			</header>
 
 			<ul class="directorist-listing-single__info__list">
-				<?php $listings->render_loop_fields( $loop_fields['body']['bottom']); ?>
+				<?php $listings->render_loop_fields( $loop_fields['body']['bottom'], 'li', 'li' ); ?>
 			</ul>
 
 			<?php if ( ! empty( $loop_fields['body']['excerpt'] ) ) : ?>

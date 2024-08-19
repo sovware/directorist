@@ -120,7 +120,7 @@ class SetupWizard
                 $term_id = $term['term_id'];
             }
 
-            if( $counter === 0 ) {
+            if( $counter == 0 ) {
                 update_term_meta( $term_id, '_default', true );
             }
 
@@ -817,10 +817,10 @@ class SetupWizard
                         <input type="checkbox" name="import_listings" id="import-listing" value="yes" />
                         <label for="import-listing">Import Listing</label>
                     </div>
-                    <div class="directorist-setup-wizard__content__import__single">
+                    <!-- <div class="directorist-setup-wizard__content__import__single">
                         <input type="checkbox" name="required_plugins" id="install-required-plugins" />
                         <label for="install-required-plugins">Install Required Plugins</label>
-                    </div>
+                    </div> -->
                     <div class="directorist-setup-wizard__content__import__single">
                         <input type="checkbox" name="share_non_sensitive_data" id="share-data" value="yes" checked/>
                         <label for="share-data">Share Non-Sensitive Data</label>
@@ -908,22 +908,22 @@ class SetupWizard
                     <input type="checkbox" name="directory_type[]" id="classified-listing" value="classified" />
                     <label for="classified-listing">Classified Listing</label>
                 </div>
-                <div class="directorist-setup-wizard__checkbox">
+                <!-- <div class="directorist-setup-wizard__checkbox">
                     <input type="checkbox" name="directory_type[]" id="car-directory" value="car_rent" />
                     <label for="car-directory">Car Rent Directory</label>
-                </div>
+                </div> -->
                 <div class="directorist-setup-wizard__checkbox">
                     <input type="checkbox" name="directory_type[]" id="car-rent-directory" value="car_sell" />
                     <label for="car-rent-directory">Car Sell Directory</label>
                 </div>
-                <div class="directorist-setup-wizard__checkbox">
+                <!-- <div class="directorist-setup-wizard__checkbox">
                     <input type="checkbox" name="directory_type[]" id="real-estate-rent" value="real_estate_rent" />
                     <label for="real-estate-rent">Real Estate (Rent)</label>
                 </div>
                 <div class="directorist-setup-wizard__checkbox">
                     <input type="checkbox" name="directory_type[]" id="real-estate-sell" value="real_estate_sell" />
                     <label for="real-estate-sell">Real Estate (Sell)</label>
-                </div>
+                </div> -->
                 <div class="directorist-setup-wizard__checkbox">
                     <input type="checkbox" name="directory_type[]" id="place" value="place" />
                     <label for="place">Place</label>
@@ -948,10 +948,10 @@ class SetupWizard
                     <input type="checkbox" name="directory_type[]" id="restaurant-directory" value="restaurant" />
                     <label for="restaurant-directory">Restaurant Directory</label>
                 </div>
-                <div class="directorist-setup-wizard__checkbox">
+                <!-- <div class="directorist-setup-wizard__checkbox">
                     <input type="checkbox" name="directory_type[]" id="multipurpose-directory" value="multipurpose"/>
                     <label for="multipurpose-directory">Multipurpose Directory</label>
-                </div>
+                </div> -->
                 <div class="directorist-setup-wizard__checkbox">
                     <input type="checkbox" name="directory_type[]" id="lawyers-directory" value="lawyers" />
                     <label for="lawyers-directory">Lawyers Directory</label>
@@ -960,10 +960,10 @@ class SetupWizard
                     <input type="checkbox" name="directory_type[]" id="doctors-directory" value="doctors" />
                     <label for="doctors-directory">Doctors Directory</label>
                 </div>
-                <div class="directorist-setup-wizard__checkbox">
+                <!-- <div class="directorist-setup-wizard__checkbox">
                     <input type="checkbox" name="directory_type[]" id="hospitals-directory" value="hospitals" />
                     <label for="hospitals-directory">Hospitals Directory</label>
-                </div>
+                </div> -->
                 <!-- <div class="directorist-setup-wizard__checkbox">
                     <input type="checkbox" name="directory_type[]" id="others-listing" value="other" />
                     <label for="others-listing">Others</label>

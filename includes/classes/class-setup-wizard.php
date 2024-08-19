@@ -960,6 +960,10 @@ class SetupWizard
                     <input type="checkbox" name="directory_type[]" id="doctors-directory" value="doctors" />
                     <label for="doctors-directory">Doctors Directory</label>
                 </div>
+                <div class="directorist-setup-wizard__checkbox">
+                    <input type="checkbox" name="directory_type[]" id="need-directory" value="post_your_need" />
+                    <label for="need-directory">Post Your Need</label>
+                </div>
                 <!-- <div class="directorist-setup-wizard__checkbox">
                     <input type="checkbox" name="directory_type[]" id="hospitals-directory" value="hospitals" />
                     <label for="hospitals-directory">Hospitals Directory</label>

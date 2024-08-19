@@ -211,7 +211,7 @@ function maybeLazyLoadTaxonomyTermsSelect2( args ) {
         };
     }
 
-    $el.select2( select2Options );
+    $el.length && $el.select2( select2Options );
 
     if ( directorist.lazy_load_taxonomy_fields ) {
         function setupSelectedItems( $el, selectedId, selectedLabel ) {

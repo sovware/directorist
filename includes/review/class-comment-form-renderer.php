@@ -136,14 +136,14 @@ class Comment_Form_Renderer {
 	public static function get_fields( $comment ) {
 		$builder = Builder::get( $comment->comment_post_ID );
 		$fields  = array();
-
+	
 		$comment_type = __( 'comment', 'directorist' );
 		if ( $comment->comment_type === 'review' ) {
 			$rating = Comment::get_rating( $comment->comment_ID );
 			$fields['rating'] = '<div class="directorist-review-criteria directorist-adv-criteria">' . Markup::get_rating( $rating, $comment ) . '</div>';
 			$comment_type = __( 'review', 'directorist' );
 		}
-
+	
 		$fields['content'] =  sprintf(
 			'<div class="directorist-form-group form-group-comment">%s</div>',
 			sprintf(
@@ -152,9 +152,15 @@ class Comment_Form_Renderer {
 				esc_textarea( $comment->comment_content )
 			)
 		);
-
+	
+		// Add custom action hook after textarea
+		ob_start();
+		do_action('directorist_after_comment_textarea', $comment);
+		$fields['after_textarea'] = ob_get_clean();
+	
 		return $fields;
 	}
+	
 
 	public static function get_action_url() {
 		return admin_url( 'admin-ajax.php', 'relative' );

@@ -19596,22 +19596,7 @@ Review: New Style
   margin-bottom: 5px;
   color: var(--directorist-color-warning);
 }
-<<<<<<< HEAD
-<<<<<<< HEAD
-.directorist-review-content .directorist-review-content__overview__rating .directorist-rating-stars .directorist-icon-mask:after {
-  width: 15px;
-  height: 15px;
-  background-color: #EF8000;
-}
-.directorist-review-content .directorist-review-content__overview__rating .directorist-rating-stars .directorist-icon-mask.directorist_fraction_star {
-  position: relative;
-}
-.directorist-review-content .directorist-review-content__overview__rating .directorist-rating-stars .directorist-icon-mask.directorist_fraction_star:before {
-=======
-.directorist-review-content__overview__rating .directorist-icon-mask::after {
-=======
 .directorist-review-submit__overview__rating .directorist-icon-mask::after {
->>>>>>> 18c8f46a94a5fbf567c6b044b78499b93c72cf46
   width: 16px;
   height: 16px;
   background-color: var(--directorist-color-warning);
@@ -19619,12 +19604,7 @@ Review: New Style
 .directorist-review-submit__overview__rating .directorist-icon-mask.directorist_fraction_star {
   position: relative;
 }
-<<<<<<< HEAD
-.directorist-review-content__overview__rating .directorist-icon-mask.directorist_fraction_star:before {
->>>>>>> 6fa8d8c3338aa3923b1e0cf9da884619a70879fa
-=======
 .directorist-review-submit__overview__rating .directorist-icon-mask.directorist_fraction_star:before {
->>>>>>> 18c8f46a94a5fbf567c6b044b78499b93c72cf46
   content: "";
   width: 100%;
   height: 100%;
@@ -19632,21 +19612,9 @@ Review: New Style
   left: 0;
   -webkit-mask-image: url(../images/b6ad67158aa2d6258e619021127e704f.svg);
           mask-image: url(../images/b6ad67158aa2d6258e619021127e704f.svg);
-<<<<<<< HEAD
-<<<<<<< HEAD
-  background-color: #EF8000;
-}
-.directorist-review-content .directorist-review-content__overview__rating .directorist-rating-overall {
-=======
-  background-color: var(--directorist-color-warning);
-}
-.directorist-review-content__overview__rating .directorist-rating-overall {
->>>>>>> 6fa8d8c3338aa3923b1e0cf9da884619a70879fa
-=======
   background-color: var(--directorist-color-warning);
 }
 .directorist-review-submit__overview__rating .directorist-rating-overall {
->>>>>>> 18c8f46a94a5fbf567c6b044b78499b93c72cf46
   font-size: 14px;
   color: var(--directorist-color-body);
   display: block;

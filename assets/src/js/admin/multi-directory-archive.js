@@ -26,7 +26,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
                 $( '.directorist_template_notice' ).text( msg );
 
-                window.location.href( response?.data?.redirect );
+                location.reload();
+                return;
             }
 
             responseFaildCallback( response );

@@ -9,6 +9,10 @@ use Elementor\Plugin;
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
+if( class_exists( 'AddonskitForELementor' ) ) {
+	return;
+}
+
 class Widget_Init {
 
 	public $prefix;
@@ -109,6 +113,10 @@ add_action( 'after_setup_theme', function() {
 		if ( $activated ) {
 			Widget_Init::instance();
 		}
+
+		include_once 'deprecated-notice.php';
+		$dn = new DeprecatedNotice();
+		add_action( 'admin_notices', [$dn, 'maybe_show_notice_for_required_plugins']  );
 	}
 } );
 

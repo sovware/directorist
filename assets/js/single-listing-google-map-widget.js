@@ -258,17 +258,10 @@
     }
   }
   $(document).ready(function () {
-<<<<<<< HEAD
-    // initSingleMap()
-  });
-
-  /* Elementor Edit Mode */
-=======
     initSingleMap();
   });
 
   // Single Listing Map on Elementor EditMode 
->>>>>>> f68aa25b2f21bf4499c8f8ee6439e94d0f7b623c
   $(window).on('elementor/frontend/init', function () {
     setTimeout(function () {
       if ($('body').hasClass('elementor-editor-active')) {
@@ -276,11 +269,6 @@
       }
     }, 3000);
   });
-<<<<<<< HEAD
-
-  // Elementor EditMode
-=======
->>>>>>> f68aa25b2f21bf4499c8f8ee6439e94d0f7b623c
   $('body').on('click', function (e) {
     if ($('body').hasClass('elementor-editor-active') && e.target.nodeName !== 'A' && e.target.nodeName !== 'BUTTON') {
       initSingleMap();

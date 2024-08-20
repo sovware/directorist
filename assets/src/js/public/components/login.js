@@ -81,5 +81,12 @@
         url.searchParams.delete('verification');
         url.searchParams.delete('send_verification_email');
         window.history.pushState(null, null, url.toString());
+
+        // Authentication Form Toggle
+        $('body').on('click', '.directorist-authentication__btn', function (e) {
+            e.preventDefault();
+            $('.directorist-login-wrapper').toggleClass('active');
+            $('.directorist-registration-wrapper').toggleClass('active');
+        });
     });
 })(jQuery);

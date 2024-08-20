@@ -153,7 +153,7 @@
     height: 25px;
     background: rgba(#444752, 0.5);
     border-radius: 50%;
-    color: #fff;
+    color: var(--directorist-color-white);
     right: 10px;
     left: auto;
     top: 10px;
@@ -198,7 +198,7 @@
   position: relative;
   padding: 10px;
   border-radius: 10px;
-  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.33);
+  box-shadow: 0px 5px 20px rgba(var(--directorist-color-dark-rgb), 0.33);
   background-color: var(--directorist-color-white);
   .directorist-mark-as-favorite__btn {
     position: absolute;
@@ -376,7 +376,7 @@
   height: 40px;
   cursor: pointer;
   border-radius: 100%;
-  background-color: var(--directorist-color-primary);
+  background-color: var(--directorist-color-marker-shape);
   &:before {
     content: "";
     position: absolute;
@@ -389,7 +389,7 @@
     border-radius: 50%;
     transition: all 0.3s ease-in-out;
     border: none;
-    border: 40px solid rgba(0, 0, 0, 0.2);
+    border: 40px solid rgba(var(--directorist-color-primary-rgb), 0.2);
     animation: atbd_scale 3s linear alternate infinite;
   }
   .directorist-icon-mask {
@@ -415,7 +415,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fff;
+  color: var(--directorist-color-white);
   font-size: 15px;
   font-weight: 700;
   position: relative;
@@ -428,7 +428,7 @@
     height: 47px;
     left: -6px;
     top: -6px;
-    background: rgba(0, 0, 0, 0.15);
+    background: rgba(var(--directorist-color-dark-rgb), 0.15);
     border-radius: 50%;
   }
 }

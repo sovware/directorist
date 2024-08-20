@@ -156,7 +156,7 @@
         line-height: 28px;
         border-radius: 3px;
         transition: 0.3s ease;
-        background-color: #fff;
+        background-color: var(--directorist-color-white);
 
         i {
             line-height: 28px;
@@ -285,7 +285,7 @@ Review: New Style
             padding: 6px 20px;
             border: 1px solid #EFF1F6;
             border-bottom-color: #f2f2f2;
-            background-color: #fff;
+            background-color: var(--directorist-color-white);
             border-radius: 16px 16px 0 0;
             h3:not(.directorist-card__header__title) {
                 font-size: 16px;
@@ -294,7 +294,7 @@ Review: New Style
                 margin: 10px 0;
 
                 span {
-                    color: #525768;
+                    color: var(--directorist-color-body);
 
                     &:before {
                         content: "-";
@@ -305,11 +305,14 @@ Review: New Style
             }
             .directorist-btn{
                 align-items: center;
+                &:hover{
+                    opacity: 0.8;
+                }
                 .directorist-icon-mask{
                     display: inline-block;
                     margin-right: 4px;
                     &::after{
-                        background-color: #fff;
+                        background-color: var(--directorist-color-white);
                     }
                 }
             }
@@ -400,7 +403,7 @@ Review: New Style
                         word-break: break-all;
                         margin-bottom: 0;
                         font-size: 15px;
-                        color: #525768;
+                        color: var(--directorist-color-body);
                     }
 
                     progress {
@@ -486,8 +489,8 @@ Review: New Style
                     width: 24px;
                     height: 24px;
                     border-radius: 50%;
-                    border: 2px solid rgba(0, 0, 0, 0.2);
-                    border-top-color: rgba(0, 0, 0, 0.8);
+                    border: 2px solid rgba(var(--directorist-color-dark-rgb), 0.2);
+                    border-top-color: rgba(var(--directorist-color-dark-rgb), 0.8);
                     animation: directoristCommentEditLoading .6s linear infinite;
                 }
             }
@@ -718,7 +721,7 @@ Review: New Style
                         color: #090E30;
                         font-weight: 500;
                         font-size: 14px;
-                        background-color: #fff;
+                        background-color: var(--directorist-color-white);
                     }
 
                     .page-numbers.current {
@@ -733,7 +736,7 @@ Review: New Style
 .directorist-review-submit {
     margin-top: 25px;
     margin-bottom: 25px;
-    background-color: #fff;
+    background-color: var(--directorist-color-white);
     border-radius: 4px;
     border: 1px solid #EFF1F6;
 
@@ -927,8 +930,8 @@ Review: New Style
                 width: 24px;
                 height: 24px;
                 border-radius: 50%;
-                border: 2px solid rgba(0, 0, 0, 0.2);
-                border-top-color: rgba(0, 0, 0, 0.8);
+                border: 2px solid rgba(var(--directorist-color-dark-rgb), 0.2);
+                border-top-color: rgba(var(--directorist-color-dark-rgb), 0.8);
                 animation: directoristCommentEditLoading .6s linear infinite;
             }
         }
@@ -975,7 +978,7 @@ Review: New Style
                 color: #090E30;
                 font-weight: 500;
                 font-size: 14px;
-                background-color: #fff;
+                background-color: var(--directorist-color-white);
             }
 
             .page-numbers.current {
@@ -1249,7 +1252,7 @@ Review: New Style
                         mask-repeat: no-repeat;
                         width: 14px;
                         height: 14px;
-                        background-color: #fff;
+                        background-color: var(--directorist-color-white);
                     }
                     &:focus{
                         background-color: #E1E4EC !important;
@@ -1259,7 +1262,7 @@ Review: New Style
 
                     &.br-selected,
                     &.br-active {
-                        background-color: #fa8b0c !important;
+                        background-color: var(--directorist-color-warning) !important;
                         text-decoration: none;
                         outline: 0;
                     }
@@ -1361,7 +1364,7 @@ Review: New Style
                 span {
                     display: block;
                     font-size: 14px;
-                    color: #525768;
+                    color: var(--directorist-color-body);
                     margin-top: 6px;
                 }
             }
@@ -1409,7 +1412,7 @@ Review: New Style
                     height: 30px;
                     width: 30px;
                     border-radius: 50%;
-                    color: #fff;
+                    color: var(--directorist-color-white);
                     background-color: var(--directorist-color-danger);
                     opacity: 0;
                     visibility: hidden;
@@ -1434,7 +1437,7 @@ Review: New Style
                 height: 30px;
                 width: 30px;
                 border-radius: 50%;
-                color: #fff;
+                color: var(--directorist-color-white);
                 background-color: var(--directorist-color-danger);
                 opacity: 0;
                 visibility: hidden;

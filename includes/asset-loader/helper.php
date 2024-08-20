@@ -15,6 +15,7 @@ class Helper {
 	 * @return bool
 	 */
 	public static function debug_enabled() {
+		return true;
 		return get_directorist_option( 'script_debugging', false, true );
 	}
 
@@ -175,6 +176,10 @@ class Helper {
 	 * @return bool
 	 */
 	public static function is_widget_template( $template ) {
+		if ( empty( $template ) ) {
+			return false;
+		}
+	
 		return str_starts_with( $template, 'widgets/' );
 	}
 

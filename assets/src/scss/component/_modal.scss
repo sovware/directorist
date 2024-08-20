@@ -5,7 +5,7 @@
     width: 100%;
     height: 100%;
     padding: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(var(--directorist-color-dark-rgb), 0.5);
     left: 0;
     top: 0;
     z-index: -1;
@@ -142,7 +142,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(var(--directorist-color-dark-rgb), 0.5);
             opacity: 1;
             transition: all ease 0.4s;
         }
@@ -296,10 +296,10 @@
 
                     .select2-selection--single .select2-selection__rendered,
                     .select2-selection--single .select2-selection__rendered .select2-selection__placeholder {
-                        color: var(--directorist-color-primary);
+                        color: var(--directorist-color-dark);
                     }
                     .directorist-select2-addons-area .directorist-icon-mask:after {
-                        background-color: var(--directorist-color-primary);
+                        background-color: var(--directorist-color-dark);
                     }
             
                     &.atbdp-form-fade:after,
@@ -382,6 +382,7 @@
                 width: 10px;
                 height: 10px;
                 transition: background-color ease 0.3s;
+                background-color: var(--directorist-color-dark);
             }
             &:hover {
                 i::after {
@@ -632,7 +633,7 @@
             bottom: 12px;
         }
     }
-    
+
     @include m(full) {
         .directorist-search-field {
             transition: margin 0.3s ease;
@@ -640,7 +641,7 @@
                 font-size: 14px;
                 font-weight: 400;
             }
-            
+
             &.input-is-focused {
                 width: 100%;
                 display: inline-flex;
@@ -774,7 +775,7 @@
             display: flex;
             flex-wrap: wrap;
             align-items: center;
-            justify-content: space-between; 
+            justify-content: space-between;
             position: relative;
             padding: 0;
             width: 100%;
@@ -786,7 +787,7 @@
             cursor: pointer;
             position: unset !important;
             transform: unset !important;
-            color: var(--directorist-color-primary);
+            color: var(--directorist-color-dark);
             .directorist-search-basic-dropdown-selected-prefix:not(:empty)  {
                 margin-inline-end: 5px;
             }
@@ -846,6 +847,14 @@
             }
         }
     }
+
+    //Select 2
+    .select2-container--default .select2-selection--single {
+        .select2-selection__rendered .select2-selection__placeholder{
+            color: var(--directorist-color-dark);
+        }
+    }
+
 }
 
 /* Responsive CSS */

@@ -101,13 +101,9 @@ __webpack_require__.r(__webpack_exports__);
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
-<<<<<<< HEAD
-// All Listing Slider
-=======
 /***
     All Listing Slider
 ***/
->>>>>>> f68aa25b2f21bf4499c8f8ee6439e94d0f7b623c
 (function ($) {
   // All Listing Slider
   function allListingSlider() {
@@ -132,13 +128,12 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         el.classList.add("directorist-swiper__pagination--listing-".concat(i));
       });
       el.classList.add("directorist-swiper-listing-".concat(i));
-      var swiper = new Swiper(".directorist-swiper-listing-".concat(i), {
+      var swiperConfig = {
         slidesPerView: checkData(parseInt(el.dataset.swItems), 4),
         spaceBetween: checkData(parseInt(el.dataset.swMargin), 30),
         loop: checkData(el.dataset.swLoop, true),
         slidesPerGroup: checkData(parseInt(el.dataset.swPerslide), 1),
         speed: checkData(parseInt(el.dataset.swSpeed), 300),
-        autoplay: checkData(el.dataset.swAutoplay, {}),
         navigation: {
           nextEl: ".directorist-swiper__nav--next-listing-".concat(i),
           prevEl: ".directorist-swiper__nav--prev-listing-".concat(i)
@@ -149,15 +144,23 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           clickable: true
         },
         breakpoints: checkData(el.dataset.swResponsive ? JSON.parse(el.dataset.swResponsive) : undefined, {})
-      });
+      };
+
+      // Conditionally add autoplay property
+      var enableAutoplay = checkData(el.dataset.swAutoplay, 'false');
+
+      // Conditionally add autoplay property
+      if (enableAutoplay === "true") {
+        swiperConfig.autoplay = {
+          delay: checkData(parseInt(el.dataset.swSpeed), 500),
+          disableOnInteraction: false
+        };
+      }
+      var swiper = new Swiper(".directorist-swiper-listing-".concat(i), swiperConfig);
     });
 
     /* Swiper Slider Related Listing */
-<<<<<<< HEAD
-    var swiperCarouselRelated = document.querySelectorAll('.directorist-swiper-related');
-=======
     var swiperCarouselRelated = document.querySelectorAll('.directorist-swiper-related-listing');
->>>>>>> f68aa25b2f21bf4499c8f8ee6439e94d0f7b623c
     swiperCarouselRelated.forEach(function (el, i) {
       var navBtnPrev = document.querySelectorAll('.directorist-swiper-related-listing .directorist-swiper__nav--prev-related');
       var navBtnNext = document.querySelectorAll('.directorist-swiper-related-listing .directorist-swiper__nav--next-related');
@@ -172,13 +175,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         el.classList.add("directorist-swiper__pagination--related-".concat(i));
       });
       el.classList.add("directorist-swiper-related-listing-".concat(i));
-      var swiper = new Swiper(".directorist-swiper-related-listing-".concat(i), {
+      var swiperRelatedConfig = {
         slidesPerView: checkData(parseInt(el.dataset.swItems), 4),
         spaceBetween: checkData(parseInt(el.dataset.swMargin), 30),
         loop: checkData(el.dataset.swLoop, false),
         slidesPerGroup: checkData(parseInt(el.dataset.swPerslide), 1),
-        speed: checkData(parseInt(el.dataset.swSpeed), 300),
-        autoplay: checkData(el.dataset.swAutoplay, {}),
         navigation: {
           nextEl: ".directorist-swiper__nav--next-related-".concat(i),
           prevEl: ".directorist-swiper__nav--prev-related-".concat(i)
@@ -189,7 +190,17 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           clickable: true
         },
         breakpoints: checkData(el.dataset.swResponsive ? JSON.parse(el.dataset.swResponsive) : undefined, {})
-      });
+      };
+      var enableRelatedAutoplay = checkData(el.dataset.swAutoplay, 'false');
+
+      // Conditionally add autoplay property
+      if (enableRelatedAutoplay === "true") {
+        swiperRelatedConfig.autoplay = {
+          delay: checkData(parseInt(el.dataset.swSpeed), 500),
+          disableOnInteraction: false
+        };
+      }
+      var swiper = new Swiper(".directorist-swiper-related-listing-".concat(i), swiperRelatedConfig);
 
       // Destroy Swiper Slider When Slider Image Are Less Than Minimum Required Image
       function destroySwiperSlider() {
@@ -208,22 +219,14 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
             key = _ref2[0];
           return key == currentBreakpointKey;
         });
-<<<<<<< HEAD
-        var sliderItemsCount = document.querySelectorAll('.directorist-swiper-related .directorist-swiper__pagination .swiper-pagination-bullet');
-=======
         var sliderItemsCount = document.querySelectorAll('.directorist-swiper-related-listing .directorist-swiper__pagination .swiper-pagination-bullet');
->>>>>>> f68aa25b2f21bf4499c8f8ee6439e94d0f7b623c
         if (sliderItemsCount.length == '1') {
           swiper.loopDestroy();
           var relatedListingSlider = document.querySelector('.directorist-swiper-related-listing');
           relatedListingSlider.classList.add('slider-has-one-item');
         }
         currentBreakpoint[0].forEach(function (elm, ind) {
-<<<<<<< HEAD
-          var relatedListingSlider = document.querySelector('.directorist-swiper-related');
-=======
           var relatedListingSlider = document.querySelector('.directorist-swiper-related-listing');
->>>>>>> f68aa25b2f21bf4499c8f8ee6439e94d0f7b623c
           if (swiper.loopedSlides < elm.slidesPerView) {
             swiper.loopDestroy();
             relatedListingSlider.classList.add('slider-has-less-items');
@@ -339,11 +342,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       }
     });
   }
-<<<<<<< HEAD
-=======
 
   // Slider Call on Page Load
->>>>>>> f68aa25b2f21bf4499c8f8ee6439e94d0f7b623c
   window.addEventListener('DOMContentLoaded', function () {
     allListingSlider();
     $('body').on('click', '.directorist-viewas__item, .directorist-instant-search .directorist-search-field__btn--clear, .directorist-instant-search .directorist-btn-reset-js', function (e) {
@@ -365,11 +365,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     });
   });
 
-<<<<<<< HEAD
-  // Function to set up the Mutation Observer on Range Slider
-=======
   // Mutation Observer on Range Slider
->>>>>>> f68aa25b2f21bf4499c8f8ee6439e94d0f7b623c
   function sliderObserver() {
     var rangeSliders = document.querySelectorAll('.directorist-custom-range-slider__value input');
     rangeSliders.forEach(function (rangeSlider) {
@@ -404,11 +400,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     });
   }
 
-<<<<<<< HEAD
-  /* Elementor Edit Mode */
-=======
   /* Slider Call on Elementor EditMode */
->>>>>>> f68aa25b2f21bf4499c8f8ee6439e94d0f7b623c
   $(window).on('elementor/frontend/init', function () {
     setTimeout(function () {
       if ($('body').hasClass('elementor-editor-active')) {
@@ -419,11 +411,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       }
     }, 3000);
   });
-<<<<<<< HEAD
-
-  // Elementor EditMode
-=======
->>>>>>> f68aa25b2f21bf4499c8f8ee6439e94d0f7b623c
   $('body').on('click', function (e) {
     if ($('body').hasClass('elementor-editor-active') && e.target.nodeName !== 'A' && e.target.nodeName !== 'BUTTON') {
       allListingSlider();

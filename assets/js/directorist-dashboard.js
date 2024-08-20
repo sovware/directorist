@@ -546,11 +546,7 @@ __webpack_require__.r(__webpack_exports__);
     }
 
     //dashboard nav dropdown
-<<<<<<< HEAD
-    $(".atbdp_tab_nav--has-child .atbd-dash-nav-dropdown").on("click", function (e) {
-=======
     $(".directorist-tab__nav__link").on("click", function (e) {
->>>>>>> f68aa25b2f21bf4499c8f8ee6439e94d0f7b623c
       e.preventDefault();
       if ($(this).hasClass("atbd-dash-nav-dropdown")) {
         // Slide toggle the sibling ul element
@@ -1143,13 +1139,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
             } else {
               var _event$target$closest;
               event.target.classList.add('directorist-tab__nav__active');
-<<<<<<< HEAD
-=======
               var dropDownToggler = (_event$target$closest = event.target.closest('.atbdp_tab_nav--has-child')) === null || _event$target$closest === void 0 ? void 0 : _event$target$closest.querySelector('.atbd-dash-nav-dropdown');
               if (dropDownToggler && !dropDownToggler.classList.contains('directorist-tab__nav__active')) {
                 dropDownToggler.classList.add('directorist-tab__nav__active');
               }
->>>>>>> f68aa25b2f21bf4499c8f8ee6439e94d0f7b623c
             }
 
             // Activate Content Panel

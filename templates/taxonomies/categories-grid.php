@@ -7,6 +7,10 @@
 use \Directorist\Helper;
 
 $columns = floor( 12 / $taxonomy->columns );
+
+if ( '5' == $taxonomy->columns ) {
+	$columns = $columns . '-5';
+}
 ?>
 <div id="directorist" class="atbd_wrapper directorist-w-100">
 	<?php

@@ -384,10 +384,10 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="11.998"><path d="m7.409 5.998 4.295-4.286A1.003 1.003 0 1 0 10.286.294L6 4.59 1.714.294A1.003 1.003 0 0 0 .296 1.712L4.59 5.998.296 10.284a.999.999 0 0 0 0 1.419.999.999 0 0 0 1.418 0L6 7.407l4.286 4.296a.999.999 0 0 0 1.418 0 .999.999 0 0 0 0-1.419L7.41 5.998Z" fill="#3c3c3c" fill-rule="evenodd" data-name="times"/></svg>
                     </button>
                 </div>
-                            
+                         
                 <div class="cptm-modal-body cptm-center-content cptm-content-wide cptm-create-directory-modal__body">
                     <div class="cptm-create-directory-modal__action">
-                        <a href="<?php echo admin_url( 'admin.php?page=templatiq' ) ?>" class="cptm-create-directory-modal__action__single">
+                        <a href="<?php echo admin_url( 'admin.php?page=templatiq' ) ?>" class="cptm-create-directory-modal__action__single <?php echo ! is_plugin_active( 'templatiq/templatiq.php' ) ? 'directorist_directory_template_library' : ''; ?>">
                             <span class="modal-btn-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="510 399 30 30"><path d="M536.667 399h-23.334a3.333 3.333 0 0 0-3.333 3.333V409a3.333 3.333 0 0 0 3.333 3.333h23.334A3.333 3.333 0 0 0 540 409v-6.667a3.333 3.333 0 0 0-3.333-3.333Zm-23.334 10v-6.667h23.334V409h-23.334Zm10 5h-10a3.333 3.333 0 0 0-3.333 3.333v8.334a3.333 3.333 0 0 0 3.333 3.333h10a3.333 3.333 0 0 0 3.334-3.333v-8.334a3.333 3.333 0 0 0-3.334-3.333Zm-10 11.667v-8.334h10v8.334h-10ZM536.667 414h-5a3.333 3.333 0 0 0-3.334 3.333v8.334a3.333 3.333 0 0 0 3.334 3.333h5a3.333 3.333 0 0 0 3.333-3.333v-8.334a3.333 3.333 0 0 0-3.333-3.333Zm-5 11.667v-8.334h5v8.334h-5Z" fill="#3e62f5" fill-rule="evenodd" data-name="template"/></svg>
                             </span>

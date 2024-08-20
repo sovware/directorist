@@ -4418,3 +4418,113 @@ function directorist_delete_listing_empty_metadata( $listing_id, array $metadata
 		delete_post_meta( $listing_id, $deletable_meta_key );
 	}
 }
+
+function directorist_download_plugin( array $args = array() ) {
+    $status = array( 'success' => false );
+
+    $default = array(
+        'url' => '',
+        'init_wp_filesystem' => true,
+    );
+    $args    = array_merge( $default, $args );
+
+    $allowed_host = array( 'directorist.com', 'wordpress.org', 'downloads.wordpress.org' );
+
+    if ( empty( $args['url'] ) || ! in_array( parse_url( $args['url'], PHP_URL_HOST ), $allowed_host, true ) ) {
+        $status['success'] = false;
+        $status['message'] = __( 'Invalid download link', 'directorist' );
+
+        return $status;
+    }
+
+    global $wp_filesystem;
+
+    if ( $args['init_wp_filesystem'] ) {
+
+        if ( ! function_exists( 'WP_Filesystem' ) ) {
+            include ABSPATH . 'wp-admin/includes/file.php';
+        }
+
+        WP_Filesystem();
+    }
+
+    $plugin_path = WP_CONTENT_DIR . '/plugins';
+    $temp_dest   = "{$plugin_path}/atbdp-temp-dir";
+    $file_url    = $args['url'];
+    $file_name   = basename( $file_url );
+    $tmp_file    = download_url( $file_url );
+
+    if ( ! is_string( $tmp_file ) ) {
+        $status['success']  = false;
+        $status['tmp_file'] = $tmp_file;
+        $status['file_url'] = $file_url;
+        $status['message']  = 'Could not download the file';
+
+        return $status;
+    }
+
+    // Make Temp Dir
+    if ( $wp_filesystem->exists( $temp_dest ) ) {
+        $wp_filesystem->delete( $temp_dest, true );
+    }
+
+    $wp_filesystem->mkdir( $temp_dest );
+
+    if ( ! file_exists( $temp_dest ) ) {
+        $status['success'] = false;
+        $status['message'] = __( 'Could not create temp directory', 'directorist' );
+
+        return $status;
+    }
+
+    // Sets file temp destination.
+    $file_path = "{$temp_dest}/{$file_name}";
+
+    set_error_handler(
+        function ( $errno, $errstr, $errfile, $errline ) {
+            // error was suppressed with the @-operator
+            if ( 0 === error_reporting() ) {
+                  return false;
+            }
+
+            throw new ErrorException( $errstr, 0, $errno, $errfile, $errline );
+        }
+    );
+
+    // Copies the file to the final destination and deletes temporary file.
+    try {
+        copy( $tmp_file, $file_path );
+    } catch ( Exception $e ) {
+        $status['success'] = false;
+        $status['message'] = $e->getMessage();
+
+        return $status;
+    }
+
+    @unlink( $tmp_file );
+    unzip_file( $file_path, $temp_dest );
+
+    if ( "{$plugin_path}/" !== $file_path || $file_path !== $plugin_path ) {
+        @unlink( $file_path );
+    }
+
+    $extracted_file_dir = glob( "{$temp_dest}/*", GLOB_ONLYDIR );
+
+    foreach ( $extracted_file_dir as $dir_path ) {
+        $dir_name  = basename( $dir_path );
+        $dest_path = "{$plugin_path}/{$dir_name}";
+
+        // Delete Previous Files if Exists
+        if ( $wp_filesystem->exists( $dest_path ) ) {
+            $wp_filesystem->delete( $dest_path, true );
+        }
+    }
+
+    copy_dir( $temp_dest, $plugin_path );
+    $wp_filesystem->delete( $temp_dest, true );
+
+    $status['success'] = true;
+    $status['message'] = __( 'The plugin has been downloaded successfully', 'directorist' );
+
+    return $status;
+}

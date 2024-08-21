@@ -1,15 +1,15 @@
 ﻿=== Directorist - WordPress Business Directory Plugin with Classified Ads Listings ===
-Contributors: wpwax
+Contributors: wpWax - WP Business Directory Plugin and Classified Listings Directory
 Donate link: https://directorist.com/extensions/
 Tags: member directory, listing, classifieds, directory plugin, business directory
 Requires at least: 4.6
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 7.0
-Stable tag: 7.10.4
+Stable tag: 7.11.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-The Best WordPress Directory Plugin to Create Business Directory, Job Listings, Classified Ads, Booking Directory, Local Directory, Service Directory
+A user-centric yet powerful & feature-rich WordPress Directory Plugin to Create Business Directory, Job Listings, Classified Ads, Booking Directory, Local Directory, Service Directory
 
 == Description ==
 
@@ -303,6 +303,15 @@ Directorist is a complete directory solution and in combination with its advance
 * Real-estate directory and many more
 
 == Changelog ==
+
+7.11.0 - Aug 14, 2024
+
+* Add - Support Google reCAPTCHA on contact listing owner form (#1777)
+* Merge - User Dashboard, Login & Registration pages (#1677)
+* Refactor - Directorist service api with caching and unification (#1766)
+* Fix - Data deletion issue on uninstall in multi-site installation (#1765)
+* Fix - jQuery 3 compatibility issue (#1784)
+* Fix - Listing meta empty field saving from backend (#1364)
 
 7.10.3 - Jun 13, 2024
 

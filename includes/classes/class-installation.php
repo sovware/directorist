@@ -37,9 +37,9 @@ class ATBDP_Installation {
 			'directorist_710_review_rating_clear_transients',
 			'directorist_710_update_db_version',
 		],
-		'7.10.4' => [
-			'directorist_7104_merge_dashboard_login_registration_page',
-			'directorist_7104_update_db_version',
+		'7.11.0' => [
+			'directorist_711_merge_dashboard_login_registration_page',
+			'directorist_711_update_db_version',
 		]
 	);
 

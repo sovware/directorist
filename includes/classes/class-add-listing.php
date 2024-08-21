@@ -404,14 +404,19 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 				$permalink = get_permalink( $listing_id );
 				// no pay extension own yet let treat as general user
 
-				$submission_notice = get_directorist_option( 'submission_confirmation', 1 );
-				$redirect_page     = get_directorist_option( 'edit_listing_redirect', 'view_listing' );
+				$redirect_page = get_directorist_option( 'edit_listing_redirect', 'view_listing' );
 
 				if ( 'view_listing' === $redirect_page ) {
-					$data['redirect_url'] = $submission_notice ? add_query_arg( 'notice', true, $permalink ) : $permalink;
+					$redirect_url = $permalink;
 				} else {
-					$data['redirect_url'] = $submission_notice ? add_query_arg( 'notice', true, ATBDP_Permalink::get_dashboard_page_link() ) : ATBDP_Permalink::get_dashboard_page_link();
+					$redirect_url = ATBDP_Permalink::get_dashboard_page_link();
 				}
+
+				if ( (bool) get_directorist_option( 'submission_confirmation', 1 ) ) {
+					$redirect_url = add_query_arg( 'notice', true, $redirect_url );
+				}
+
+				$data['redirect_url'] = $redirect_url;
 
 				$is_listing_featured = ( ! empty( $posted_data['listing_type'] ) && ( 'featured' === $posted_data['listing_type'] ) );
 				$should_monetize     = ( directorist_is_monetization_enabled() && directorist_is_featured_listing_enabled() && $is_listing_featured );

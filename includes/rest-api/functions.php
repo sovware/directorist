@@ -127,12 +127,23 @@ function directorist_rest_upload_image_from_url( $image_url ) {
 		);
 	}
 
+	$allowed_mime_types = get_allowed_mime_types();
+
+	// Add extension to the name when downloaded from extension less url
+	if ( strrpos( $file_array['name'], '.' ) === false ) {
+		$mime_type          = mime_content_type( $file_array['tmp_name'] );
+		$_mime_types        = array_flip( $allowed_mime_types );
+		$extensions         = $_mime_types[ $mime_type ] ?? '';
+		$extensions         = explode( '|', $extensions, 2 );
+		$file_array['name'] .= '.' . $extensions[0];
+	}
+
 	// Do the validation and storage stuff.
 	$file = wp_handle_sideload(
 		$file_array,
 		array(
 			'test_form' => false,
-			'mimes'     => directorist_rest_allowed_image_mime_types(),
+			'mimes'     => $allowed_mime_types,
 		),
 		current_time( 'Y/m' )
 	);

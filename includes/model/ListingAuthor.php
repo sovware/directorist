@@ -357,6 +357,10 @@ class Directorist_Listing_Author {
 			return ATBDP()->helper->guard( array('type' => 'auth') );
 		}
 
+		if ( ! is_user_logged_in() && ! $this->id ) {
+			return ATBDP()->helper->guard( array('type' => '404') );
+		}
+
 		return Helper::get_template_contents( 'author-contents', array( 'author' => $this ) );
 	}
 }

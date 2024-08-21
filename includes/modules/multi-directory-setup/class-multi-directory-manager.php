@@ -208,6 +208,7 @@ class Multi_Directory_Manager {
     }
 
     public function directorist_directory_type_library() {
+
         if ( ! directorist_verify_nonce() ) {
             wp_send_json([
                 'status' => [
@@ -217,17 +218,25 @@ class Multi_Directory_Manager {
             ], 200);
         }
 
-        if ( ! current_user_can( 'manage_options' ) ) {
+        if ( ! current_user_can( 'install_plugins' ) ) {
             wp_send_json([
                 'status' => [
                     'success' => false,
-                    'message' => __( 'You are not allowed to access this resource', 'directorist' ),
+                    'message' => __( 'You are not allowed to install plugin', 'directorist' ),
+                ],
+            ], 200);
+        }
+
+        if ( ! current_user_can( 'activate_plugins' ) ) {
+            wp_send_json([
+                'status' => [
+                    'success' => false,
+                    'message' => __( 'You are not allowed to activate a plugin', 'directorist' ),
                 ],
             ], 200);
         }
 
         $installed = directorist_download_plugin( [ 'url' => 'https://downloads.wordpress.org/plugin/templatiq.1.0.0.zip' ] );
-
         $path = WP_PLUGIN_DIR . '/templatiq/templatiq.php';
 
         if( ! is_plugin_active( $path ) ){

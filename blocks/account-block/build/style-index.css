@@ -481,7 +481,7 @@ template {
 }
 .directorist-account-block-authentication-modal .modal-header .directorist-account-block-close span {
   font-size: 1.125rem;
-  line-height: 1;
+  line-height: normal;
   color: var(--directorist-color-dark);
 }
 .directorist-account-block-authentication-modal .modal-body {
@@ -663,13 +663,16 @@ template {
 }
 .directorist-account-block-authentication-modal .directorist-account-block-modal-bottom button:hover {
   color: var(--directorist-color-primary);
+  opacity: 0.8;
 }
 .directorist-account-block-authentication-modal .directorist-account-block-modal-bottom .message {
   padding: 15px 30px;
   text-align: center;
 }
+.directorist-account-block-authentication-modal .directorist-account-block-modal-bottom .directory_regi_btn,
 .directorist-account-block-authentication-modal .directorist-account-block-modal-bottom .directory_login_btn {
   font-size: 1.0625rem;
+  color: var(--directorist-color-body);
 }
 .directorist-account-block-authentication-modal #recover-pass-modal {
   margin: 0 !important;
@@ -686,6 +689,7 @@ template {
   width: auto;
   border: none;
   padding: 0 30px 30px;
+  color: var(--directorist-color-body);
 }
 .directorist-account-block-authentication-modal #recover-pass-modal fieldset p {
   margin-top: 0;

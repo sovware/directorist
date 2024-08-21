@@ -147,7 +147,7 @@
 
             span {
                 @include rfs(18px);
-                line-height: 1;
+                line-height: normal;
                 color: var(--directorist-color-dark);
             }
         }
@@ -350,6 +350,7 @@
 
             &:hover {
                 color: var(--directorist-color-primary);
+                opacity: 0.8;
             }
         }
 
@@ -357,8 +358,10 @@
             padding: 15px 30px;
             text-align: center
         }
+        .directory_regi_btn,
         .directory_login_btn{
             @include rfs(17px);
+            color: var(--directorist-color-body);
         }
     }
 
@@ -379,6 +382,7 @@
             width: auto;
             border: none;
             padding: 0 30px 30px;
+            color: var(--directorist-color-body);
 
             p {
                 margin-top: 0;

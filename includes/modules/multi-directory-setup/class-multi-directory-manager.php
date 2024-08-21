@@ -218,20 +218,11 @@ class Multi_Directory_Manager {
             ], 200);
         }
 
-        if ( ! current_user_can( 'install_plugins' ) ) {
+        if ( ! current_user_can( 'install_plugins' ) || ! current_user_can( 'activate_plugins' ) ) {
             wp_send_json([
                 'status' => [
                     'success' => false,
-                    'message' => __( 'You are not allowed to install plugin', 'directorist' ),
-                ],
-            ], 200);
-        }
-
-        if ( ! current_user_can( 'activate_plugins' ) ) {
-            wp_send_json([
-                'status' => [
-                    'success' => false,
-                    'message' => __( 'You are not allowed to activate a plugin', 'directorist' ),
+                    'message' => __( 'You are not allowed to add/activate new plugin', 'directorist' ),
                 ],
             ], 200);
         }

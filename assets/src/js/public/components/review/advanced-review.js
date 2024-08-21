@@ -94,13 +94,17 @@ window.addEventListener('DOMContentLoaded', () => {
                 const $form = $(event.target);
                 const originalButtonLabel = $form.find('[type="submit"]').val();
                 $(document).trigger('directorist_review_before_submit', $form);
+                let formData = new FormData($form[0]);
+
+                // Apply the filter
+                formData = wp.hooks.applyFilters('directorist_add_review_form_data', formData, 'directorist-advanced-review');
                 const updateComment = $.ajax({
                     url: $form.attr('action'),
                     type: 'POST',
                     contentType: false,
                     cache: false,
                     processData: false,
-                    data: new FormData($form[0])
+                    data: formData
                 });
 
                 $form.find('#comment').prop('disabled', true);
@@ -195,16 +199,21 @@ window.addEventListener('DOMContentLoaded', () => {
 
             onSubmit(event) {
                 event.preventDefault();
+                console.log(wp.hooks);
                 const form = $('.directorist-review-container #commentform');
                 const originalButtonLabel = form.find('[type="submit"]').val();
                 $(document).trigger('directorist_review_before_submit', form);
+                let formData = new FormData(form[0]);
+
+                // Apply the filter
+                formData = wp.hooks.applyFilters('directorist_add_review_form_data', formData, 'directorist-advanced-review');
                 const do_comment = $.ajax({
                     url: form.attr('action'),
                     type: 'POST',
                     contentType: false,
                     cache: false,
                     processData: false,
-                    data: new FormData(form[0])
+                    data: formData
                 });
 
                 $('#comment').prop('disabled', true);

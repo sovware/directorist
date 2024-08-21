@@ -599,6 +599,20 @@
         margin: 0;
         position: relative;
         padding: 10px 10px 0 10px;
+        .directorist-pricing-meta{
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 26px;
+          margin: 0;
+          border-radius: 3px;
+          background: var(--directorist-color-white);
+          padding: 0 8px;
+          font-weight: 700;
+          .directorist-listing-price{
+            color: var(--directorist-color-danger);
+          }
+        }
       }
       .directorist-thumnail-card-front-img {
         border-radius: 12px;
@@ -1008,7 +1022,7 @@
       mask-repeat: no-repeat;
       width: 15px;
       height: 15px;
-      background-color: var(--directorist-color-primary);
+      background-color: var(--directorist-color-danger);
       transition: 0.3s ease;
     }
   }

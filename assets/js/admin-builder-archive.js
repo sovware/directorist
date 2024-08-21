@@ -289,6 +289,51 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+window.addEventListener('DOMContentLoaded', function () {
+  var $ = jQuery;
+  var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").default;
+
+  // Migration Link
+  $('.directorist_directory_template_library').on('click', function (e) {
+    e.preventDefault();
+    var self = this;
+    $('.cptm-create-directory-modal__action').after("<span class='directorist_template_notice'>Installing Templetiq, Please wait..</span>");
+    var form_data = new FormData();
+    form_data.append('action', 'directorist_directory_type_library');
+    form_data.append('directorist_nonce', directorist_admin.directorist_nonce);
+
+    // Response Success Callback
+    var responseSuccessCallback = function responseSuccessCallback(response) {
+      var _response$data;
+      if (response !== null && response !== void 0 && (_response$data = response.data) !== null && _response$data !== void 0 && _response$data.success) {
+        var _response$data$messag, _response$data2;
+        var msg = (_response$data$messag = response === null || response === void 0 || (_response$data2 = response.data) === null || _response$data2 === void 0 ? void 0 : _response$data2.message) !== null && _response$data$messag !== void 0 ? _response$data$messag : 'Imported successfully!';
+        $('.directorist_template_notice').text(msg);
+        location.reload();
+        return;
+      }
+      responseFaildCallback(response);
+    };
+
+    // Response Error Callback
+    var responseFaildCallback = function responseFaildCallback(response) {
+      var _response$data$messag2, _response$data3;
+      // console.log( { response } );
+
+      var msg = (_response$data$messag2 = response === null || response === void 0 || (_response$data3 = response.data) === null || _response$data3 === void 0 ? void 0 : _response$data3.message) !== null && _response$data$messag2 !== void 0 ? _response$data$messag2 : 'Something went wrong please try again';
+      var alert_content = "\n            <div class=\"cptm-section-alert-content\">\n                <div class=\"cptm-section-alert-icon cptm-alert-error\">\n                    <span class=\"fa fa-times\"></span>\n                </div>\n\n                <div class=\"cptm-section-alert-message\">".concat(msg, "</div>\n            </div>\n            ");
+      $('.cptm-directory-migration-form').find('.cptm-comfirmation-text').html(alert_content);
+      $(self).remove();
+    };
+
+    // Send Request
+    axios.post(directorist_admin.ajax_url, form_data).then(function (response) {
+      responseSuccessCallback(response);
+    }).catch(function (response) {
+      responseFaildCallback(response);
+    });
+  });
+});
 
 /***/ }),
 

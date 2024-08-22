@@ -36,6 +36,7 @@ class Multi_Directory_Manager {
         add_action( 'wp_ajax_save_imported_post_type_data', [ $this, 'save_imported_post_type_data' ] );
         add_action( 'wp_ajax_directorist_force_migrate', [ $this, 'handle_force_migration' ] );
         add_action( 'wp_ajax_directorist_directory_type_library', [ $this, 'directorist_directory_type_library' ] );
+        add_action( 'wp_ajax_directorist_directory_ai_prompt', [ $this, 'directorist_directory_ai_prompt' ] );
 
         add_filter( 'directorist_builder_layouts', [ $this, 'conditional_layouts' ] );
     }
@@ -207,13 +208,83 @@ class Multi_Directory_Manager {
         wp_send_json( $this->run_force_migration() );
     }
 
+    public function directorist_directory_ai_prompt() {
+
+        if ( ! directorist_verify_nonce() ) {
+            wp_send_json([
+                'status' => [
+                    'success' => false,
+                    'message' => __( 'Something is wrong! Please refresh and retry.', 'directorist' ),
+                ],
+            ], 200);
+        }
+
+    
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_send_json([
+                'status' => [
+                    'success' => false,
+                    'message' => __( 'You are not allowed to access this resource', 'directorist' ),
+                ],
+            ], 200);
+        }
+
+        $data = '';
+        $name = ! empty( $_POST['name'] ) ? $_POST['name'] : '';
+        $details = ! empty( $_POST['details'] ) ? $_POST['details'] : '';
+
+        $prompt = "I am building a directory on $name. I need add listing page fields list. Some other details $details. Don not add any intro just give me every individual fields within @@ so that I can easily extract. Also add field type for every field with <type> tag. Don not add something like 'Here is the list of fields for a car directory listing page:'";
+
+        $response = directorist_get_response_from_groq_ai( $prompt );
+
+        if( ! $response ) {
+            wp_send_json([
+                'status' => [
+                    'success' => false,
+                    'message' => __( 'Something wrong with API', 'directorist' ),
+                ],
+            ], 200);
+        }
+        //ere's a suggested list of fields for a car directory listing page, tailored to a Florida-based directory:\n\n**Basic Information**\n\n1. **Business Name**: Name of the car dealership, repair shop, or service provider.\n2. **Address**: Physical address of the business, including street, city, state (Florida), and zip code.\n3. **Phone Number**: Primary phone number for the business.\n4. **Email**: Primary email address for the business.\n\n**Car-Related Information**\n\n1. **Make**: List of car makes sold or serviced (e.g., Toyota, Ford, Honda).\n2. **Model**: List of car models sold or serviced (e.g., Camry, F-150, Civic).\n3. **Year**: Range of car years sold or serviced (e.g., 2015-2022).\n4. **Price Range**: Price range of cars sold or serviced (e.g., $10,000 - $50,000).\n\n**Services Offered**\n\n1. **Sales**: Check if the business sells new or used cars.\n2. **Service**: Check if the business offers car maintenance or repair services.\n3. **Parts**: Check if the business sells car parts or accessories.\n4. **Financing**: Check if the business offers financing options for car purchases.\n5. **Trade-Ins**: Check if the business accepts trade-ins.\n\n**Additional Features**\n\n1. **Hours of Operation**: Business hours, including days and times.\n2. **Rating**: Average customer rating (e.g., 4.5/5 stars).\n3. **Reviews**: Link to customer reviews or testimonials.\n4. **Certifications**: Any industry certifications or awards (e.g., ASE-certified mechanics).\n5. **Specialties**: Any specialized services or expertise (e.g., electric vehicle charging, performance tuning).\n\n**Florida-Specific Fields**\n\n1. **Florida Dealer License**: Check if the business has a valid Florida dealer license.\n2. **Florida Inspection Station**: Check if the business is a certified Florida inspection station.\n\n**Optional Fields**\n\n1. **Website**: Link to the business's website.\n2. **Social Media**: Links to the business's social media profiles (e.g., Facebook, Twitter, Instagram).\n3. **Photos**: Upload photos of the business, cars, or services offered.\n4. **Videos**: Upload videos showcasing the business or services offered.\n5. **Special Offers**: Any current promotions, discounts, or special offers.\n\nThese fields should provide a solid foundation for your car directory listing page. You can always add or remove fields based on your specific needs and requirements.
+
+        $lines = explode("\n", $response);
+
+        // Initialize the array
+        $array = [];
+
+        // Process each line
+        foreach ($lines as $line) {
+            // Extract the label and type
+            preg_match('/@@(.*?)<(.*?)>/', $line, $matches);
+            if (count($matches) === 3) {
+                $label = trim($matches[1]);
+                $type = trim($matches[2]);
+                $array[] = [
+                    'label' => $label,
+                    'type' => $type
+                ];
+            }
+        }
+
+        $data = [
+            'status' => [
+                'success' => true,
+                // 'response' => $response,
+                'fields' => $array,
+                'message' => __( 'Directory Created Successfully!', 'directorist' ),
+            ],
+        ];
+
+        wp_send_json( $data );
+    }
+
     public function directorist_directory_type_library() {
 
         if ( ! directorist_verify_nonce() ) {
             wp_send_json([
                 'status' => [
                     'success' => false,
-                    'message' => __( 'Something is wrong! Please refresh and retryyy.', 'directorist' ),
+                    'message' => __( 'Something is wrong! Please refresh and retry.', 'directorist' ),
                 ],
             ], 200);
         }

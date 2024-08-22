@@ -333,6 +333,52 @@ window.addEventListener('DOMContentLoaded', function () {
       responseFaildCallback(response);
     });
   });
+  $('.directorist_build_with_ai').on('click', function (e) {
+    e.preventDefault();
+    $('.directorist-build-directory-with-ai').css({
+      display: "block"
+    });
+  });
+
+  // build with AI
+  $('.directorist-ai-directory-builder').on('click', function (e) {
+    e.preventDefault();
+    var self = this;
+    $(self).after("<span class='directorist_template_notice_ai'>Thinking..It may take a minute or two.</span>");
+    var form_data = new FormData();
+    form_data.append('action', 'directorist_directory_ai_prompt');
+    form_data.append('name', $('.directory_ai_name').val());
+    form_data.append('details', $('.directory_ai_details').val());
+    form_data.append('directorist_nonce', directorist_admin.directorist_nonce);
+
+    // Response Success Callback
+    var responseSuccessCallback = function responseSuccessCallback(response) {
+      console.log(response.data);
+      if (response.data.status.success) {
+        $('.directorist_template_notice_ai').html(response.data.status.message);
+        console.log(response.data.status.fields);
+      }
+      responseFaildCallback(response);
+    };
+
+    // Response Error Callback
+    var responseFaildCallback = function responseFaildCallback(response) {
+      var _response$data$messag3, _response$data4;
+      // console.log( { response } );
+
+      var msg = (_response$data$messag3 = response === null || response === void 0 || (_response$data4 = response.data) === null || _response$data4 === void 0 ? void 0 : _response$data4.message) !== null && _response$data$messag3 !== void 0 ? _response$data$messag3 : 'Something went wrong please try again';
+      var alert_content = "\n            <div class=\"cptm-section-alert-content\">\n                <div class=\"cptm-section-alert-icon cptm-alert-error\">\n                    <span class=\"fa fa-times\"></span>\n                </div>\n\n                <div class=\"cptm-section-alert-message\">".concat(msg, "</div>\n            </div>\n            ");
+      $('.cptm-directory-migration-form').find('.cptm-comfirmation-text').html(alert_content);
+      $(self).remove();
+    };
+
+    // Send Request
+    axios.post(directorist_admin.ajax_url, form_data).then(function (response) {
+      responseSuccessCallback(response);
+    }).catch(function (response) {
+      responseFaildCallback(response);
+    });
+  });
 });
 
 /***/ }),

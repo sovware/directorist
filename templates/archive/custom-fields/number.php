@@ -8,4 +8,4 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<<?php echo esc_attr( $before ? $before : 'div' ); ?> class="directorist-listing-card-number"><?php directorist_icon( $icon ); ?><?php $listings->print_label( $label ); ?><?php echo esc_html( $value ); ?></<?php echo esc_attr( $after ? $after : 'div' ); ?>>
+<<?php echo tag_escape( $before ? $before : 'div' ); ?> class="directorist-listing-card-number"><?php directorist_icon( $icon ); ?><?php $listings->print_label( $label ); ?><?php echo esc_html( $value ); ?></<?php echo tag_escape( $after ? $after : 'div' ); ?>>

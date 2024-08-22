@@ -19,6 +19,7 @@
       color: var(--directorist-color-primary);
       font-size: 16px;
       font-weight: 500;
+      line-height: 20px;
       text-align: center;
       padding: 40px 25px;
       border-radius: 16px;
@@ -36,8 +37,8 @@
         margin-bottom: 20px;
         transition: color 0.2s ease, background 0.2s ease;
         &:after {
-          width: 23px;
-          height: 23px;
+          width: 25px;
+          height: 25px;
           background-color: var(--directorist-color-white);
         }
       }
@@ -861,6 +862,7 @@
         }
       }
       .ezmu__thumbnail-list-item {
+        min-width: 120px;
         max-width: 140px;
         flex-basis: unset;
       }
@@ -878,6 +880,17 @@
             background-color: var(--directorist-color-white);
           }
         }
+      }
+      .ezmu__front-item__sort-button {
+        width: 20px;
+        height: 25px;
+        background-size: 8px;
+      }
+      .ezmu__featured_tag,
+      .ezmu__front-item__thumbnail-size-text {
+        padding: 0 5px;
+        height: 25px;
+        line-height: 25px;
       }
     }
   }
@@ -914,11 +927,14 @@
       transition: all ease 0.3s;
     }
   }
-  &:hover {
-    .ezmu__thumbnail-list-item_back {
-      &:before {
-        opacity: 1;
-        visibility: visible;
+
+  .ezmu__thumbnail-list-item {
+    &:hover {
+      .ezmu__thumbnail-list-item_back {
+        &:before {
+          opacity: 1;
+          visibility: visible;
+        }
       }
     }
   }
@@ -1030,6 +1046,7 @@
     #listing_notifier {
       padding: 0 40px;
       margin: 18px 0 33px;
+      font-size: 14px;
       font-weight: 600;
       color: var(--directorist-color-danger);
       &:empty {
@@ -1047,6 +1064,9 @@
       align-items: flex-start;
       @media only screen and (max-width: 576px) {
         padding: 30px 0 0;
+        &.directorist-form-privacy {
+          padding: 30px 30px 0;
+        }
       }
       @media only screen and (max-width: 480px) {
         padding: 30px 20px 0;

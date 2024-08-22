@@ -507,7 +507,7 @@ function maybeLazyLoadTaxonomyTermsSelect2(args) {
       }
     };
   }
-  $el.select2(select2Options);
+  $el.length && $el.select2(select2Options);
   if (directorist.lazy_load_taxonomy_fields) {
     function setupSelectedItems($el, selectedId, selectedLabel) {
       if (!$el.length || !selectedId) {
@@ -540,13 +540,13 @@ function maybeLazyLoadTaxonomyTermsSelect2(args) {
 /*!*************************************!*\
   !*** ./assets/src/js/lib/helper.js ***!
   \*************************************/
-/*! exports provided: get_dom_data, convertToSelect2 */
+/*! exports provided: convertToSelect2, get_dom_data */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "get_dom_data", function() { return get_dom_data; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "convertToSelect2", function() { return convertToSelect2; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "get_dom_data", function() { return get_dom_data; });
 var $ = jQuery;
 function get_dom_data(key, parent) {
   // var elmKey = 'directorist-dom-data-' + key;
@@ -592,7 +592,7 @@ function convertToSelect2(selector) {
   if (options.length && options[0].textContent.length) {
     args.placeholder = options[0].textContent;
   }
-  $selector.select2(args);
+  $selector.length && $selector.select2(args);
 }
 
 
@@ -1367,7 +1367,7 @@ __webpack_require__.r(__webpack_exports__);
           - The provided value for the option;
           - A reference to the options object;
           - The name for the option;
-        The testing function returns false when an error is detected,
+       The testing function returns false when an error is detected,
       or true when everything is OK. It can also modify the option
       object, to make sure all values can be correctly looped elsewhere. */
   //region Defaults

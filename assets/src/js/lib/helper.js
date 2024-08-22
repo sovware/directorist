@@ -56,10 +56,10 @@ function convertToSelect2( selector ) {
         args.placeholder = options[0].textContent;
     }
 
-    $selector.select2( args )
+    $selector.length && $selector.select2( args )
 }
 
 export {
-    get_dom_data,
-    convertToSelect2
+    convertToSelect2, get_dom_data
 };
+

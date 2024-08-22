@@ -507,7 +507,7 @@ function maybeLazyLoadTaxonomyTermsSelect2(args) {
       }
     };
   }
-  $el.select2(select2Options);
+  $el.length && $el.select2(select2Options);
   if (directorist.lazy_load_taxonomy_fields) {
     function setupSelectedItems($el, selectedId, selectedLabel) {
       if (!$el.length || !selectedId) {
@@ -540,13 +540,13 @@ function maybeLazyLoadTaxonomyTermsSelect2(args) {
 /*!*************************************!*\
   !*** ./assets/src/js/lib/helper.js ***!
   \*************************************/
-/*! exports provided: get_dom_data, convertToSelect2 */
+/*! exports provided: convertToSelect2, get_dom_data */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "get_dom_data", function() { return get_dom_data; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "convertToSelect2", function() { return convertToSelect2; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "get_dom_data", function() { return get_dom_data; });
 var $ = jQuery;
 function get_dom_data(key, parent) {
   // var elmKey = 'directorist-dom-data-' + key;
@@ -592,7 +592,7 @@ function convertToSelect2(selector) {
   if (options.length && options[0].textContent.length) {
     args.placeholder = options[0].textContent;
   }
-  $selector.select2(args);
+  $selector.length && $selector.select2(args);
 }
 
 
@@ -617,30 +617,28 @@ window.addEventListener('load', function () {
   }
 
   // Close sidebar and reset toggle button's active state
-  function closeSidebar(closeBtn, archiveSidebar) {
+  function closeSidebar(toggleBtn, archiveSidebar) {
     archiveSidebar.classList.remove('listing-with-sidebar__sidebar--open');
-    closeBtn.classList.remove('directorist-archive-sidebar-toggle--active');
+    toggleBtn.classList.remove('directorist-archive-sidebar-toggle--active');
     body.classList.remove('modal-overlay-enabled');
   }
 
-  // Toggle, Close sidebar when toggle/close button is clicked
+  // Toggle or close sidebar when toggle/close button is clicked
   body.addEventListener('click', function (e) {
     var targetElement = e.target;
-    if (targetElement.classList.contains('directorist-archive-sidebar-toggle') || targetElement.parentElement.classList.contains('directorist-archive-sidebar-toggle')) {
-      var btn = targetElement;
-      var sidebar = targetElement.closest('.listing-with-sidebar').querySelector('.listing-with-sidebar__sidebar');
-      toggleSidebar(btn, sidebar);
-    } else if (targetElement.classList.contains('directorist-advanced-filter__close') || targetElement.parentElement.classList.contains('directorist-advanced-filter__close')) {
-      var _btn = targetElement.closest('.listing-with-sidebar').querySelector('.directorist-archive-sidebar-toggle');
-      var _sidebar = targetElement.closest('.listing-with-sidebar').querySelector('.listing-with-sidebar__sidebar');
-      closeSidebar(_btn, _sidebar);
-    } else if (targetElement.classList.contains('modal-overlay-enabled')) {
-      var archiveSidebar = document.querySelectorAll('.listing-with-sidebar__sidebar');
-      archiveSidebar && archiveSidebar.forEach(function (sidebar) {
-        if (sidebar.classList.contains('listing-with-sidebar__sidebar--open')) {
-          var _btn2 = sidebar.closest('.listing-with-sidebar').querySelector('.directorist-archive-sidebar-toggle');
-          closeSidebar(_btn2, sidebar);
-        }
+    var toggleBtn = targetElement.closest('.directorist-archive-sidebar-toggle');
+    var closeBtn = targetElement.closest('.directorist-advanced-filter__close');
+    if (toggleBtn) {
+      var sidebar = toggleBtn.closest('.listing-with-sidebar').querySelector('.listing-with-sidebar__sidebar');
+      toggleSidebar(toggleBtn, sidebar);
+    } else if (closeBtn) {
+      var _sidebar = closeBtn.closest('.listing-with-sidebar').querySelector('.listing-with-sidebar__sidebar');
+      var _toggleBtn = _sidebar.closest('.listing-with-sidebar').querySelector('.directorist-archive-sidebar-toggle');
+      closeSidebar(_toggleBtn, _sidebar);
+    } else if (body.classList.contains('modal-overlay-enabled') && !targetElement.closest('.listing-with-sidebar__sidebar')) {
+      document.querySelectorAll('.listing-with-sidebar__sidebar--open').forEach(function (sidebar) {
+        var toggleBtn = sidebar.closest('.listing-with-sidebar').querySelector('.directorist-archive-sidebar-toggle');
+        closeSidebar(toggleBtn, sidebar);
       });
     }
   });

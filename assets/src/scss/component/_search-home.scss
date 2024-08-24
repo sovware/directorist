@@ -331,9 +331,14 @@
 
         .directorist-select,
         .directorist-filter-location-icon {
+          margin-top: 3px;
           ~ .directorist-search-field__btn--clear {
             right: 38px;
+            bottom: 8px;
           }
+        }
+        &.atbdp-form-fade:after {
+          margin-top: 3px;
         }
       }
 
@@ -854,7 +859,7 @@
       color: var(--directorist-color-body);
       &:hover {
         color: var(--directorist-color-primary);
-        .directorist-icon-mask:after{
+        .directorist-icon-mask:after {
           background-color: var(--directorist-color-primary);
         }
       }

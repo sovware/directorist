@@ -11016,11 +11016,13 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-content-active .directorist-type-nav__list a {
   text-decoration: unset;
 }
-.directorist-content-active .directorist-type-nav__list__current .directorist-type-nav__link {
+.directorist-content-active .directorist-type-nav__list .current .directorist-type-nav__link,
+.directorist-content-active .directorist-type-nav__list .directorist-type-nav__list__current .directorist-type-nav__link {
   color: var(--directorist-color-primary);
   border-color: var(--directorist-color-primary);
 }
-.directorist-content-active .directorist-type-nav__list__current .directorist-icon-mask::after {
+.directorist-content-active .directorist-type-nav__list .current .directorist-icon-mask::after,
+.directorist-content-active .directorist-type-nav__list .directorist-type-nav__list__current .directorist-icon-mask::after {
   background-color: var(--directorist-color-primary);
 }
 

@@ -34,6 +34,8 @@ if ( ! class_exists( 'ATBDP_Email' ) ) :
 			add_action( 'atbdp_listing_expired', array( $this, 'notify_owner_listing_expired' ) );
 			// @todo; send admin a notification too for expired listings. Think about it later or give admin option??
 			add_action( 'atbdp_send_renewal_reminder', array( $this, 'notify_owner_to_renew' ) );
+			/*Listing Status changed from expired to renewed*/
+			add_action( 'atbdp_after_renewal', array( $this, 'notify_owner_listing_renewed' ) );
 			/*Fire up email for deleted/trashed listings*/
 			add_action( 'atbdp_deleted_expired_listings', array( $this, 'notify_owner_listing_deleted' ) );
 			add_action( 'atbdp_deleted_expired_listings', array( $this, 'notify_admin_listing_deleted' ) );

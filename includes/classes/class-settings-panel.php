@@ -1813,12 +1813,6 @@ Please remember that your order may be canceled if you do not make your payment 
                     ],
                     'value' => 'gainsboro',
                 ],
-                'default_preview_image' => [
-                    'label'       => __('Select Listing Preview Image', 'directorist'),
-                    'type'        => 'wp-media-picker',
-                    'default-img' => DIRECTORIST_ASSETS . 'images/grid.jpg',
-                    'value'       => '',
-                ],
                 'all_listing_page_items' => [
                     'label' => __('Listings Per Page', 'directorist'),
                     'type'  => 'number',
@@ -4528,7 +4522,7 @@ Please remember that your order may be canceled if you do not make your payment 
                             'sections' => apply_filters( 'atbdp_listing_settings_listings_page_sections', [
                                 'labels' => [
                                     'fields'      => [
-                                        'listing_instant_search', 'listings_filter_button_text', 'listings_reset_text', 'listings_apply_text', 'display_sort_by', 'sort_by_text', 'listings_sort_by_items', 'listings_view_as_items', 'default_listing_view', 'all_listing_columns', 'preview_image_quality', 'way_to_show_preview', 'crop_width', 'crop_height', 'prv_container_size_by', 'prv_background_type', 'prv_background_color', 'default_preview_image', 'all_listing_page_items'
+                                        'listing_instant_search', 'listings_filter_button_text', 'listings_reset_text', 'listings_apply_text', 'display_sort_by', 'sort_by_text', 'listings_sort_by_items', 'listings_view_as_items', 'default_listing_view', 'all_listing_columns', 'preview_image_quality', 'way_to_show_preview', 'crop_width', 'crop_height', 'prv_container_size_by', 'prv_background_type', 'prv_background_color', 'all_listing_page_items'
                                     ],
                                 ],
                             ] ),

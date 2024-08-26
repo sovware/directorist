@@ -1783,7 +1783,7 @@ class Builder_Data {
             'preview_image'                               => [
                 'button-label' => __( 'Select', 'directorist' ),
                 'type'         => 'wp-media-picker',
-                'default-img'  => '',
+                'default-img'  => DIRECTORIST_ASSETS . 'images/grid.jpg',
                 'value'        => '',
             ],
 

@@ -98,7 +98,7 @@ if (is_multisite()) {
         switch_to_blog($site->blog_id);
         
         if( ! get_directorist_option('enable_uninstall',0) ) {
-            return;
+            continue;
         }
 
         directorist_uninstall();

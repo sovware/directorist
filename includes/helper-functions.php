@@ -3026,9 +3026,9 @@ if( !function_exists('directorist_get_form_fields_by_directory_type') ){
             return [];
         }
 
-        if( ! isset( $term->term_id ) ) {
-            return [];
-        }
+		if ( ! ( $term instanceof \WP_Term ) ) {
+		    return [];
+		}
         
         $submission_form        = get_term_meta( $term->term_id, 'submission_form_fields', true );
         $submission_form_fields = ! empty( $submission_form['fields'] ) ? $submission_form['fields'] : [];

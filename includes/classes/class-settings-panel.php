@@ -4501,6 +4501,27 @@ Please remember that your order may be canceled if you do not make your payment 
 
                     We look forward to seeing you soon', 'directorist'),
                 ],
+                // Email Verification
+                'email_sub_email_verification'    => [
+                    'type'           => 'text',
+                    'label'          => __('Email Subject', 'directorist'),
+                    'description'    => __('Edit the subject for sending to the user when listing contact message send.', 'directorist'),
+                    'value'          => __('[==NAME==] Verify Your Email', 'directorist'),
+                ],
+                'email_tmpl_email_verification'    => [
+                    'type'           => 'textarea',
+                    'label'          => __('Email Body', 'directorist'),
+                    'description'    => __('Note: Use ==USER_PASSWORD== to show a temporary password when password field is disable from registration page', 'directorist'),
+                    'value'          => __('Hi ==USERNAME==,
+
+			Thank you for signing up at ==SITE_NAME==, to complete the registration, please verify your email address.
+
+			To activate your account simply click on the link below and verify your email address within 24 hours. For your safety, you will not be able to access your account until verification of your email has been completed.
+
+			==CONFIRM_EMAIL_ADDRESS_URL==
+            
+            <p align="center">If you did not sign up for this account you can ignore this email.</p>', 'directorist'),
+                ],
                 // single template settings
                 'single_temp_max_width'    => [
                     'type'           => 'text',
@@ -5025,6 +5046,13 @@ Please remember that your order may be canceled if you do not make your payment 
                                     'description' => '',
                                     'fields'      => [
                                         'email_sub_registration_confirmation', 'email_tmpl_registration_confirmation'
+                                     ],
+                                ],
+                                'email_verification' => [
+                                    'title'       => __('Email Verification', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [
+                                        'email_sub_email_verification', 'email_tmpl_email_verification'
                                      ],
                                 ],
                             ] ),

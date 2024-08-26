@@ -1,0 +1,154 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "directorist/search-modal",
+  "version": "1.0.0",
+  "title": "Search Modal",
+  "category": "directorist-blocks-collection",
+  "description": "Display Directorist search modal.",
+  "keywords": [
+    "directorist",
+    "search",
+    "block",
+    "search popup",
+    "search listing"
+  ],
+  "attributes": {
+    "styleDisplay": {
+      "type": "string",
+      "enum": [
+        "icon",
+        "text",
+        "icon_and_text"
+      ],
+      "default": "icon"
+    },
+    "textAlign": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string",
+      "source": "attribute",
+      "selector": "a",
+      "attribute": "href",
+      "__experimentalRole": "content"
+    },
+    "title": {
+      "type": "string",
+      "source": "attribute",
+      "selector": "a,button",
+      "attribute": "title",
+      "__experimentalRole": "content"
+    },
+    "text": {
+      "type": "rich-text",
+      "source": "rich-text",
+      "selector": "a,button",
+      "__experimentalRole": "content"
+    },
+    "linkTarget": {
+      "type": "string",
+      "source": "attribute",
+      "selector": "a",
+      "attribute": "target",
+      "__experimentalRole": "content"
+    },
+    "rel": {
+      "type": "string",
+      "source": "attribute",
+      "selector": "a",
+      "attribute": "rel",
+      "__experimentalRole": "content"
+    },
+    "placeholder": {
+      "type": "string"
+    },
+    "backgroundColor": {
+      "type": "string"
+    },
+    "textColor": {
+      "type": "string"
+    },
+    "gradient": {
+      "type": "string"
+    },
+    "width": {
+      "type": "number"
+    }
+  },
+  "supports": {
+    "anchor": true,
+    "splitting": true,
+    "align": false,
+    "alignWide": false,
+    "color": {
+      "__experimentalSkipSerialization": true,
+      "gradients": true,
+      "__experimentalDefaultControls": {
+        "background": true,
+        "text": true
+      }
+    },
+    "typography": {
+      "fontSize": true,
+      "lineHeight": true,
+      "__experimentalFontFamily": true,
+      "__experimentalFontWeight": true,
+      "__experimentalFontStyle": true,
+      "__experimentalTextTransform": true,
+      "__experimentalTextDecoration": true,
+      "__experimentalLetterSpacing": true,
+      "__experimentalDefaultControls": {
+        "fontSize": true
+      }
+    },
+    "reusable": false,
+    "shadow": {
+      "__experimentalSkipSerialization": true
+    },
+    "spacing": {
+      "__experimentalSkipSerialization": true,
+      "padding": [
+        "horizontal",
+        "vertical"
+      ],
+      "__experimentalDefaultControls": {
+        "padding": true
+      }
+    },
+    "__experimentalBorder": {
+      "color": true,
+      "radius": true,
+      "style": true,
+      "width": true,
+      "__experimentalSkipSerialization": true,
+      "__experimentalDefaultControls": {
+        "color": true,
+        "radius": true,
+        "style": true,
+        "width": true
+      }
+    },
+    "__experimentalSelector": ".wp-block-button .wp-block-button__link",
+    "interactivity": {
+      "clientNavigation": true
+    }
+  },
+  "styles": [
+    {
+      "name": "fill",
+      "label": "Fill",
+      "isDefault": true
+    },
+    {
+      "name": "outline",
+      "label": "Outline"
+    }
+  ],
+  "textdomain": "directorist-account-block",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./editor.css",
+  "style": "file:./style-index.css",
+  "render": "file:./render.php",
+  "script": "file:./script.js"
+}

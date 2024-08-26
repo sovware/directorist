@@ -1201,16 +1201,24 @@ We look forward to seeing you soon'
 				return;
 			}
 
-			$title = __( 'Verify your email address', 'directorist' );
-			$subject = sprintf( __( '[%s] Verify Your Email', 'directorist' ), get_bloginfo( 'blogname', 'display' ) );
+			$title = apply_filters( 'directorist_email_verification_title', __( 'Verify your email address', 'directorist' ), $user );
 
-			$body = sprintf(__( "Hi %s,
+			$subject = get_directorist_option( 'email_sub_email_verification', __( '[==NAME==] Verify Your Email Address', 'directorist' ) );
+
+			$body = get_directorist_option(
+				'email_tmpl_email_verification',
+				'Hi ==USERNAME==,
 
 			Thank you for signing up at ==SITE_NAME==, to complete the registration, please verify your email address.
 
 			To activate your account simply click on the link below and verify your email address within 24 hours. For your safety, you will not be able to access your account until verification of your email has been completed.
 
-			==CONFIRM_EMAIL_ADDRESS_URL==<p align='center'>If you did not sign up for this account you can ignore this email.</p>", 'directorist' ), $user->user_nicename );
+			==CONFIRM_EMAIL_ADDRESS_URL==
+            
+            <p align="center">If you did not sign up for this account you can ignore this email.</p>'
+			);
+			
+			$subject = $this->replace_in_content( $subject, null, null, $user );
 
 			$body = $this->replace_in_content( $body, null, null, $user );
 

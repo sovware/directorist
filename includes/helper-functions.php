@@ -3015,7 +3015,7 @@ if( !function_exists('get_listing_types') ){
 if( !function_exists('directorist_get_form_fields_by_directory_type') ){
     function directorist_get_form_fields_by_directory_type( $field = 'id', $value = '' ) {
         $term                   = get_term_by( $field, $value, ATBDP_TYPE );
-        if( is_wp_error( $term ) ) {
+        if( is_wp_error( $term ) || empty( $term ) || is_array( $term ) ) {
             return [];
         }
         if( ! isset( $term->term_id ) ) {

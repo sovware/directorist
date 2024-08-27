@@ -96,7 +96,8 @@
         text-decoration: unset;
       }
 
-      @include e(current) {
+      .current,
+      .directorist-type-nav__list__current {
         .directorist-type-nav__link {
           color: var(--directorist-color-primary);
           border-color: var(--directorist-color-primary);

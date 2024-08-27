@@ -549,8 +549,9 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 
 			foreach ( $submission_form_fields as $key => $value ) {
 				// $value['request_from_no_admin'] = true;
-				$category = ! empty( $value['category'] ) ? $value['category'] : '';
-				if ( $category ) {
+				$category  = ! empty( $value['category'] ) ? $value['category'] : '';
+				$assign_to = ! empty( $value['assign_to'] ) ? $value['assign_to'] : 'form';
+				if ( $category && 'category' == $assign_to ) {
 					if ( in_array( $category, $categories ) ) {
 						ob_start();
 						\Directorist\Directorist_Listing_Form::instance()->add_listing_category_custom_field_template( $value, $post_id );

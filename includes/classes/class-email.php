@@ -467,6 +467,25 @@ This email is sent automatically for information purpose only. Please do not res
 				return false;
 			}
 
+			/**
+			 * Filters whether to send an email notification to the owner when an order is created.
+			 *
+			 * This filter allows modification of the logic determining whether an email notification
+			 * should be sent to the owner of the listing when an order is created. By default, the notification
+			 * will be sent (true). Developers can return false to prevent the notification from being sent.
+			 *
+			 * @since 7.11.1
+			 *
+			 * @param bool  $send_notification Whether to send the email notification. Default is true.
+			 * @param int   $order_id          The ID of the created order.
+			 * @param int   $listing_id        The ID of the listing associated with the order.
+			 *
+			 * @return bool Filtered value of $send_notification.
+			 */
+			if ( ! apply_filters( 'directorist_email_notification_to_owner_on_order_created', true, $order_id, $listing_id ) ) {
+				return false;
+			}
+
 			$user = $this->get_owner( $listing_id );
 			// Send email according to the type of the payment that user used during checkout. get email template from the db.
 			$offline = ( ! empty( $offline ) ) ? '_offline' : '';
@@ -1182,16 +1201,24 @@ We look forward to seeing you soon'
 				return;
 			}
 
-			$title = __( 'Verify your email address', 'directorist' );
-			$subject = sprintf( __( '[%s] Verify Your Email', 'directorist' ), get_bloginfo( 'blogname', 'display' ) );
+			$title = apply_filters( 'directorist_email_verification_title', __( 'Verify your email address', 'directorist' ), $user );
 
-			$body = sprintf(__( "Hi %s,
+			$subject = get_directorist_option( 'email_sub_email_verification', __( '[==NAME==] Verify Your Email Address', 'directorist' ) );
+
+			$body = get_directorist_option(
+				'email_tmpl_email_verification',
+				'Hi ==USERNAME==,
 
 			Thank you for signing up at ==SITE_NAME==, to complete the registration, please verify your email address.
 
 			To activate your account simply click on the link below and verify your email address within 24 hours. For your safety, you will not be able to access your account until verification of your email has been completed.
 
-			==CONFIRM_EMAIL_ADDRESS_URL==<p align='center'>If you did not sign up for this account you can ignore this email.</p>", 'directorist' ), $user->user_nicename );
+			==CONFIRM_EMAIL_ADDRESS_URL==
+            
+            <p align="center">If you did not sign up for this account you can ignore this email.</p>'
+			);
+			
+			$subject = $this->replace_in_content( $subject, null, null, $user );
 
 			$body = $this->replace_in_content( $body, null, null, $user );
 

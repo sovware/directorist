@@ -768,6 +768,7 @@ class Directorist_Single_Listing {
 		$redirect        = isset( $_GET['redirect'] ) ? sanitize_url( wp_unslash( $_GET['redirect'] ) ) : '';
 		$display_preview = (bool) get_directorist_option( 'preview_enable', 1 );
 		$link            = '';
+		$listing_id		 = get_the_ID();
 
 		if ( $display_preview && $redirect ) {
 			$edited     = isset( $_GET['edited'] ) ? sanitize_text_field( wp_unslash( $_GET['edited'] ) ) : '';

@@ -1,0 +1,13 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "category": "directorist-blocks-collection",
+  "version": "1.0.0",
+  "name": "directorist/custom-registration",
+  "title": "Registration",
+  "description": "Create a custom registration page and this block only works on registration page set from settings.",
+  "supports": {
+    "html": false
+  },
+  "editorScript": "file:./index.js"
+}

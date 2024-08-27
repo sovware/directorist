@@ -1,9 +1,0 @@
-{
-    "$schema": "https://schemas.wp.org/trunk/block.json",
-    "apiVersion": 2,
-    "name": "directorist/all-listing",
-    "title": "All Listing",
-    "category": "directorist-blocks-collection",
-    "description": "Create directory listing grid view, list view or map view.",
-    "textdomain": "directorist"
-}

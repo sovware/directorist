@@ -197,7 +197,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       if (enableRelatedAutoplay === "true") {
         swiperRelatedConfig.autoplay = {
           delay: checkData(parseInt(el.dataset.swSpeed), 500),
-          disableOnInteraction: false
+          disableOnInteraction: false,
+          pauseOnMouseEnter: true
         };
       }
       var swiper = new Swiper(".directorist-swiper-related-listing-".concat(i), swiperRelatedConfig);

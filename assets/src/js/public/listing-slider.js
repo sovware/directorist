@@ -106,6 +106,7 @@
                 swiperRelatedConfig.autoplay = {
                     delay: checkData(parseInt(el.dataset.swSpeed), 500),
                     disableOnInteraction: false,
+                    pauseOnMouseEnter: true,
                 };
             } 
             

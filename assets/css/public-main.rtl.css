@@ -3652,7 +3652,7 @@ body.stop-scrolling {
   font-weight: 500;
   padding-right: 55px;
   border-radius: 16px;
-  color: var(--directorist-color-primary);
+  color: var(--directorist-color-body);
   border: 3px solid var(--directorist-color-border-gray);
   cursor: pointer;
   -webkit-box-sizing: border-box;
@@ -3676,6 +3676,7 @@ body.stop-scrolling {
 }
 .directorist-form-listing-type .directorist-radio input[type=radio]:checked + .directorist-radio__label {
   border-color: var(--directorist-color-primary);
+  color: var(--directorist-color-primary);
 }
 
 /* Pricing */
@@ -20684,11 +20685,11 @@ Review: New Style
   width: 64px;
   height: 64px;
   margin: 8px;
-  border: 8px solid #222;
+  border: 8px solid var(--directorist-color-primary);
   border-radius: 50%;
   -webkit-animation: rotate360 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
           animation: rotate360 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-  border-color: #222 transparent transparent transparent;
+  border-color: var(--directorist-color-primary) transparent transparent transparent;
   right: 50%;
   top: 50%;
   -webkit-transform: translate(50%, -50%);
@@ -21001,9 +21002,6 @@ Review: New Style
   -webkit-box-shadow: none;
           box-shadow: none;
   text-decoration: none;
-}
-.directorist-user-dashboard-tabcontent .directorist-listing-table .directorist-listing-table-listing-info__content .directorist-listing-price-range .directorist-price-active {
-  color: var(--directorist-color-white);
 }
 .directorist-user-dashboard-tabcontent .directorist-listing-table .directorist-listing-table-listing-info__content .directorist-price {
   font-size: 14px;

@@ -8266,7 +8266,7 @@ body.stop-scrolling {
   font-weight: 500;
   padding-right: 55px;
   border-radius: 16px;
-  color: var(--directorist-color-primary);
+  color: var(--directorist-color-body);
   border: 3px solid var(--directorist-color-border-gray);
   cursor: pointer;
   -webkit-box-sizing: border-box;
@@ -8290,6 +8290,7 @@ body.stop-scrolling {
 }
 .directorist-form-listing-type .directorist-radio input[type=radio]:checked + .directorist-radio__label {
   border-color: var(--directorist-color-primary);
+  color: var(--directorist-color-primary);
 }
 
 /* Pricing */

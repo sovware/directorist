@@ -34,6 +34,7 @@ const prodConfig = {
           {
             copy: [
               { source: './assets', destination: './__build/directorist/directorist/assets' },
+              { source: './blocks', destination: './__build/directorist/directorist/blocks' },
               { source: './languages', destination: './__build/directorist/directorist/languages' },
               { source: './includes', destination: './__build/directorist/directorist/includes' },
               { source: './templates', destination: './__build/directorist/directorist/templates' },

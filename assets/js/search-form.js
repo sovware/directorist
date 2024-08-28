@@ -1367,7 +1367,7 @@ __webpack_require__.r(__webpack_exports__);
           - The provided value for the option;
           - A reference to the options object;
           - The name for the option;
-        The testing function returns false when an error is detected,
+       The testing function returns false when an error is detected,
       or true when everything is OK. It can also modify the option
       object, to make sure all values can be correctly looped elsewhere. */
   //region Defaults
@@ -4135,43 +4135,91 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     }
     locationObserver();
     handleRadiusVisibility();
-    $('body').on("keyup", '.zip-radius-search', Object(_global_components_debounce__WEBPACK_IMPORTED_MODULE_6__["default"])(function () {
+    $('body').on("keyup", '.zip-radius-search', directorist_debounce(function () {
       var zipcode = $(this).val();
       var zipcode_search = $(this).closest('.directorist-zipcode-search');
       var country_suggest = zipcode_search.find('.directorist-country');
-      $('.directorist-country').css({
-        display: 'block'
-      });
-      if (zipcode === '') {
+      var zipcode_search = $(this).closest('.directorist-zipcode-search');
+      if (zipcode) {
+        zipcode_search.addClass('dir_loading');
+      }
+      if (directorist.i18n_text.select_listing_map === 'google') {
+        var url = directorist.ajax_url;
+      } else {
+        url = "https://nominatim.openstreetmap.org/?postalcode=".concat(zipcode, "&format=json&addressdetails=1");
         $('.directorist-country').css({
-          display: 'none'
+          display: 'block'
         });
+        if (zipcode === '') {
+          $('.directorist-country').css({
+            display: 'none'
+          });
+        }
       }
       var res = '';
+      var google_data = {
+        'nonce': directorist.directorist_nonce,
+        'action': 'directorist_zipcode_search',
+        'zipcode': zipcode
+      };
       $.ajax({
-        url: "https://nominatim.openstreetmap.org/?postalcode=+".concat(zipcode, "+&format=json&addressdetails=1"),
-        type: "POST",
-        data: {},
+        url: url,
+        method: 'POST',
+        data: directorist.i18n_text.select_listing_map === 'google' ? google_data : "",
         success: function success(data) {
-          if (data.length === 1) {
-            var lat = data[0].lat;
-            var lon = data[0].lon;
-            zipcode_search.find('.zip-cityLat').val(lat);
-            zipcode_search.find('.zip-cityLng').val(lon);
-          } else {
-            for (var i = 0; i < data.length; i++) {
-              res += "<li><a href=\"#\" data-lat=".concat(data[i].lat, " data-lon=").concat(data[i].lon, ">").concat(data[i].address.country, "</a></li>");
-            }
+          if (data.data && data.data.error_message) {
+            zipcode_search.find('.error_message').remove();
+            zipcode_search.find('.zip-cityLat').val('');
+            zipcode_search.find('.zip-cityLng').val('');
+            zipcode_search.append(data.data.error_message);
           }
-          $(country_suggest).html("<ul>".concat(res, "</ul>"));
-          if (res.length) {
-            $('.directorist-country').show();
+          zipcode_search.removeClass('dir_loading');
+          if (directorist.i18n_text.select_listing_map === 'google' && typeof data.lat !== 'undefined' && typeof data.lng !== 'undefined') {
+            zipcode_search.find('.error_message').remove();
+            zipcode_search.find('.zip-cityLat').val(data.lat);
+            zipcode_search.find('.zip-cityLng').val(data.lng);
           } else {
-            $('.directorist-country').hide();
+            if (data.length === 1) {
+              var lat = data[0].lat;
+              var lon = data[0].lon;
+              zipcode_search.find('.zip-cityLat').val(lat);
+              zipcode_search.find('.zip-cityLng').val(lon);
+            } else {
+              for (var i = 0; i < data.length; i++) {
+                res += "<li><a href=\"#\" data-lat=".concat(data[i].lat, " data-lon=").concat(data[i].lon, ">").concat(data[i].address.country, "</a></li>");
+              }
+            }
+            $(country_suggest).html("<ul>".concat(res, "</ul>"));
+            if (res.length) {
+              $('.directorist-country').show();
+            } else {
+              $('.directorist-country').hide();
+            }
           }
         }
       });
     }, 250));
+
+    // Returns a function, that, as long as it continues to be invoked, will not
+    // be triggered. The function will be called after it stops being called for
+    // N milliseconds. If `immediate` is passed, trigger the function on the
+    // leading edge, instead of the trailing.
+    function directorist_debounce(func, wait, immediate) {
+      var timeout;
+      return function () {
+        var context = this,
+          args = arguments;
+        var later = function later() {
+          timeout = null;
+          if (!immediate) func.apply(context, args);
+        };
+        var callNow = immediate && !timeout;
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+        if (callNow) func.apply(context, args);
+      };
+    }
+    ;
 
     // Custom Range Slider Value Check on Change
     function sliderValueCheck(targetNode, value) {

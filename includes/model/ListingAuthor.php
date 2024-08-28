@@ -229,6 +229,7 @@ class Directorist_Listing_Author {
 		 *
 		 * @param array                       $args  An array of arguments for retrieving the author's listings.
 		 * @param Directorist_Listing_Author  $this  The current instance of the Directorist_Listing_Author class.
+		 * @return array The filtered array of arguments
 		 */
 		return apply_filters( 'directorist_author_listings_arguments', $args, $this );
 	}

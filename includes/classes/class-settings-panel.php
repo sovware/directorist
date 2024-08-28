@@ -5255,17 +5255,17 @@ Please remember that your order may be canceled if you do not make your payment 
                     'label' => __( 'Tools', 'directorist' ),
                     'icon' => '<i class="fa fa-tools directorist_info"></i>',
                     'submenu' => apply_filters('atbdp_tools_submenu', [
-                        'announcement_settings' => [
-                            'label'     => __('Announcement', 'directorist'),
-                            'icon' => '<i class="fa fa-bullhorn"></i>',
-                            'sections'  => apply_filters('atbdp_announcement_settings_controls', [
-                                'send-announcement'     => [
-                                    'fields'        => [
-                                        'announcement',
-                                    ]
-                                ],
-                            ]),
-                        ],
+                        // 'announcement_settings' => [
+                        //     'label'     => __('Announcement', 'directorist'),
+                        //     'icon' => '<i class="fa fa-bullhorn"></i>',
+                        //     'sections'  => apply_filters('atbdp_announcement_settings_controls', [
+                        //         'send-announcement'     => [
+                        //             'fields'        => [
+                        //                 'announcement',
+                        //             ]
+                        //         ],
+                        //     ]),
+                        // ],
 
                         'listings_import' => [
                             'label' => __('Listings Import/Export', 'directorist'),

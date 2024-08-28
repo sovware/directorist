@@ -225,7 +225,7 @@ class Directorist_Listing_Author {
 		 * This filter allows modification of the arguments used when querying
 		 * for listings of a specific author.
 		 *
-		 * @since 7.13.0
+		 * @since 7.12.0
 		 *
 		 * @param array                       $args  An array of arguments for retrieving the author's listings.
 		 * @param Directorist_Listing_Author  $this  The current instance of the Directorist_Listing_Author class.

@@ -667,6 +667,7 @@ class TokenMultiSelectControl extends Component {
 				<label
 					htmlFor={ `components-form-token-input-${ instanceId }` }
 					className="components-form-token-field__label"
+					style={{fontSize: '13px'}}
 				>
 					{ label }
 				</label>

@@ -55,8 +55,6 @@ registerBlockType(metadata.name, {
 	},
 
 	edit( { attributes, setAttributes } ) {
-		console.log(attributes);
-
 		let {
 			view,
 			orderby,

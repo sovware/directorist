@@ -8,8 +8,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die();
 }
 
-use Directorist\Helper;
 use Exception;
+use Directorist\Helper;
 
 require_once __DIR__ . '/includes/class-block-template-utils.php';
 require_once __DIR__ . '/includes/class-block-templates-controller.php';

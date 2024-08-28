@@ -80,6 +80,7 @@ export function getPreview(name, isPreviewPopup = false) {
     return (
         <Fragment>
             <img
+            style={{display: 'block', width: '100%', height: 'auto'}}
             className="directorist-block-preview"
             src={`${directoristBlockConfig.previewUrl}preview/${name}.svg`}
             alt={ __( 'Preview', 'directorist' ) } />

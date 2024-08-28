@@ -651,6 +651,9 @@ window.addEventListener('DOMContentLoaded', function () {
   // Set all variables to be used in scope
   var frame;
   var selection;
+  var prv_image;
+  var prv_url;
+  var prv_img_url;
   var multiple_image = true;
   var metaBox = $('#gallery_upload'); // meta box id here
   var addImgLink = metaBox.find('#listing_image_btn');

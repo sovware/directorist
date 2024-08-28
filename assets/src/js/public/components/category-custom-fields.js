@@ -9,7 +9,7 @@ export default function initSearchCategoryCustomFields($, onSuccessCallback) {
         $pageContainer = $archivePageContainer;
     }
 
-    if ($pageContainer.length) {
+    if ($pageContainer?.length) {
         let searchFormCache = {};
         let $fieldsContainer = null;
 

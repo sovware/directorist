@@ -610,6 +610,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return initSearchCategoryCustomFields; });
 // Search Category Change
 function initSearchCategoryCustomFields($, onSuccessCallback) {
+  var _$pageContainer;
   var $searchPageContainer = $('.directorist-search-contents');
   var $archivePageContainer = $('.directorist-archive-contents');
   var $pageContainer;
@@ -618,7 +619,7 @@ function initSearchCategoryCustomFields($, onSuccessCallback) {
   } else if ($archivePageContainer.length) {
     $pageContainer = $archivePageContainer;
   }
-  if ($pageContainer.length) {
+  if ((_$pageContainer = $pageContainer) !== null && _$pageContainer !== void 0 && _$pageContainer.length) {
     var searchFormCache = {};
     var $fieldsContainer = null;
     $pageContainer.on('change', '.directorist-category-select, .directorist-search-category select', function (event) {

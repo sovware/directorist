@@ -17966,7 +17966,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   font-size: 15px;
   font-weight: 600;
   padding: 0 25px;
-  background-color: #394DFF !important;
+  background-color: #394dff !important;
   color: var(--directorist-color-white);
 }
 .directorist-single-listing-top__btn-continue.directorist-btn:hover {
@@ -18068,6 +18068,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .directorist-single-contents-area .directorist-details-info-wrap .directorist-social-links a:hover {
   background-color: var(--directorist-color-primary);
+}
+.directorist-single-contents-area .directorist-details-info-wrap .directorist-single-map__location {
+  padding-top: 18px;
 }
 .directorist-single-contents-area .directorist-single-info__label-icon .directorist-icon-mask:after {
   background-color: #808080;

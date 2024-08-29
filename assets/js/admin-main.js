@@ -651,11 +651,10 @@ window.addEventListener('DOMContentLoaded', function () {
   // Set all variables to be used in scope
   var frame;
   var selection;
+  var prv_image;
+  var prv_url;
+  var prv_img_url;
   var multiple_image = true;
-  var metaBox = $('#gallery_upload'); // meta box id here
-  var addImgLink = metaBox.find('#listing_image_btn');
-  var delImgLink = metaBox.find('#delete-custom-img');
-  var imgContainer = metaBox.find('.listing-img-container');
 
   // toggle_section
   function toggle_section(show_if_value, subject_elm, terget_elm) {
@@ -772,37 +771,6 @@ window.addEventListener('DOMContentLoaded', function () {
   } else {
     $('.atbd_tagline_moto_field').fadeOut();
   }
-
-  /**
-   * Price field.
-   */
-  // if ( $( '.directorist-form-pricing-field' ).hasClass( 'price-type-both' ) ) {
-  //     $('#price, #price_range').hide();
-  // }
-
-  // $( '.directorist_pricing_options label' ).on( 'click', function() {
-  //     const $this = $(this);
-  //     $this.children('input[type=checkbox]').prop('checked') == true
-  //         ? $(`#${$this.data('option')}`).show()
-  //         : $(`#${$this.data('option')}`).hide();
-  //     const $sibling = $this.siblings('label');
-  //     $sibling.children('input[type=checkbox]').prop('checked', false);
-  //     $(`#${$sibling.data('option')}`).hide();
-  // } );
-
-  // $('.directorist_pricing_options label').on( 'click', function () {
-  //     const self = $( this );
-
-  //     const current_input = self.attr( 'for' );
-  //     const current_field = `#${self.data('option')}`;
-
-  //     $( '.directorist_pricing_options input[type=checkbox]' ).prop( 'checked', false );
-  //     $( '.directorist_pricing_options input[id='+ current_input +']' ).attr( 'checked', true );
-
-  //     $('.directory_pricing_field').hide();
-  //     $( current_field ).show();
-  // });
-
   $('#atbd_optional_field_check').on('change', function () {
     $(this).is(':checked') ? $('.atbd_tagline_moto_field').fadeIn() : $('.atbd_tagline_moto_field').fadeOut();
   });
@@ -841,24 +809,6 @@ window.addEventListener('DOMContentLoaded', function () {
   } else if ($('.change_listing_prv_img').attr('src') !== '') {
     $('.remove_prev_img').show();
   }
-
-  // price range
-  /* $('#price_range').hide();
-  const is_checked = $('#atbd_listing_pricing').val();
-  if (is_checked === 'range') {
-      $('#price').hide();
-      $('#price_range').show();
-  }
-  $('.atbd_pricing_options label').on('click', function () {
-      const $this = $(this);
-      $this.children('input[type=checkbox]').prop('checked') == true
-          /? $(`#${$this.data('option')}`).show()
-          : $(`#${$this.data('option')}`).hide();
-      const $sibling = $this.siblings('label');
-      $sibling.children('input[type=checkbox]').prop('checked', false);
-      $(`#${$sibling.data('option')}`).hide();
-  }); */
-
   var avg_review = $('#average_review_for_popular').hide();
   var logged_count = $('#views_for_popular').hide();
   if ($('#listing_popular_by select[name="listing_popular_by"]').val() === 'average_rating') {
@@ -884,23 +834,6 @@ window.addEventListener('DOMContentLoaded', function () {
     }
   });
 
-  /* // Display the media uploader when "Upload Image" button clicked in the custom taxonomy "atbdp_categories"
-  $( '#atbdp-categories-upload-image' ).on( 'click', function( e ) {
-   if (frame) {
-   frame.open();
-   return;
-  }
-   // Create a new media frame
-  frame = wp.media({
-   title: directorist_admin.i18n_text.upload_cat_image,
-   button: {
-       text: directorist_admin.i18n_text.choose_image
-   },
-   library: {type: 'image'}, // only allow image upload only
-   multiple: multiple_image  // Set to true to allow multiple files to be selected. it will be set based on the availability of Multiple Image extension
-  });
-  frame.open();
-  }); */
   /**
    * Display the media uploader for selecting an image.
    *
@@ -1268,30 +1201,6 @@ window.addEventListener('DOMContentLoaded', function () {
         $($('.directorist-form-pricing-field__options input').get(0)).prop('checked', true).trigger('change');
       }
     }
-
-    // $('.atbd_pricing_options label').on('click', function () {
-    //     const $this = $(this);
-    //     $this.children('input[type=checkbox]').prop('checked') == true ?
-    //         $(`#${$this.data('option')}`).show() :
-    //         $(`#${$this.data('option')}`).hide();
-    //     const $sibling = $this.siblings('label');
-    //     $sibling.children('input[type=checkbox]').prop('checked', false);
-    //     $(`#${$sibling.data('option')}`).hide();
-    // });
-
-    // $('.directorist_pricing_options label').on('click', function () {
-    //     const self = $(this);
-
-    //     const current_input = self.attr('for');
-    //     const current_field = `#${self.data('option')}`;
-
-    //     $('.directorist_pricing_options input[type=checkbox]').prop('checked', false);
-    //     $('.directorist_pricing_options input[id=' + current_input + ']').attr('checked', true);
-
-    //     $('.directory_pricing_field').hide();
-    //     $(current_field).show();
-    // });
-
     var imageUpload;
     if (imageUpload) {
       imageUpload.open();

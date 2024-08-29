@@ -432,7 +432,7 @@
 .directorist-content-module__contents .directorist-form-social-info-field .directorist-btn i::after {
   width: 16px;
   height: 16px;
-  background-color: var(--directorist-color-dark);
+  background-color: var(--directorist-color-btn);
 }
 .directorist-content-module__contents .directorist-form-social-info-field .directorist-btn:hover {
   color: var(--directorist-color-white);
@@ -7002,6 +7002,10 @@ body.modal-overlay-enabled:before {
   -webkit-transition: all ease 0.3s;
   transition: all ease 0.3s;
   text-decoration: none !important;
+}
+.directorist-btn .directorist-icon-mask:after {
+  -webkit-transition: all ease 0.3s;
+  transition: all ease 0.3s;
 }
 .directorist-btn.directorist-btn--add-listing, .directorist-btn.directorist-btn--logout {
   line-height: 43px;

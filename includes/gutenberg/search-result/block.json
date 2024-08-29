@@ -1,9 +1,0 @@
-{
-    "$schema": "https://schemas.wp.org/trunk/block.json",
-    "apiVersion": 2,
-    "name": "directorist/search-result",
-    "title": "Search Result",
-    "category": "directorist-blocks-collection",
-    "description": "Create directory search result grid view, list view or map view.",
-    "textdomain": "directorist"
-}

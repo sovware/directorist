@@ -293,7 +293,7 @@ function atbdp_get_listing_status_after_submission( array $args = [] ) {
     $listing_id = $args['id'];
 
     $new_l_status   = $args['new_l_status'];
-    $edit_l_status  = $args['edit_l_status'];
+    $edit_l_status  = ( 'publish' !== $new_l_status ) ? $new_l_status : $args['edit_l_status'];
     $edited         = $args['edited'];
     $listing_status = ( true === $edited || 'yes' === $edited || '1' === $edited ) ? $edit_l_status : $new_l_status;
 
@@ -2446,8 +2446,15 @@ function atbdp_guest_submission($guest_email)
             wp_set_auth_cookie($user_id);
             do_action('atbdp_user_registration_completed', $user_id);
             update_user_meta($user_id, '_atbdp_generated_password', $password);
-            wp_new_user_notification($user_id, null, 'admin'); // send activation to the admin
-            ATBDP()->email->custom_wp_new_user_notification_email($user_id);
+            
+			if ( directorist_is_email_verification_enabled() ) {
+				// Set unverified flag. Once verified this flag will be removed.
+				update_user_meta( $user_id, 'directorist_user_email_unverified', 1 );
+			}
+
+			wp_new_user_notification($user_id, null, 'admin'); // send activation to the admin
+            
+			ATBDP()->email->custom_wp_new_user_notification_email($user_id);
         }
     }
 }

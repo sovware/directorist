@@ -573,7 +573,7 @@ window.addEventListener('DOMContentLoaded', function () {
           behavior: 'smooth'
         });
       } else {
-        location.href = href;
+        location.href = $(this).attr('href');
       }
     });
 

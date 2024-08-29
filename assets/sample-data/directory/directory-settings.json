@@ -92,7 +92,6 @@
     "display_listings_header": true,
     "all_listing_title": "Items Found",
     "listing_filters_button": true,
-    "listing_filters_icon": true,
     "listings_filter_button_text": "Filters",
     "listings_display_filter": "sliding",
     "listing_filters_fields": "[\"search_text\",\"search_category\",\"search_location\",\"search_price\",\"search_price_range\",\"search_rating\",\"search_tag\",\"search_custom_fields\",\"radius_search\"]",

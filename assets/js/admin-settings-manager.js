@@ -31472,7 +31472,7 @@ var render = function render() {
     _c = _vm._self._c;
   return _c("div", {
     staticClass: "directorist-type-icon-select"
-  }, [_c("label", [_vm._v("Icon")]), _vm._v(" "), _c("div", {
+  }, [_c("div", {
     ref: "iconPickerElm",
     staticClass: "icon-picker-wrap"
   })]);

@@ -17133,39 +17133,39 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'form-builder-widget-list-section-component',
+  name: "form-builder-widget-list-section-component",
   mixins: [_mixins_helpers__WEBPACK_IMPORTED_MODULE_1__["default"]],
   props: {
     fieldId: {
-      default: ''
+      default: ""
     },
     title: {
-      default: ''
+      default: ""
     },
     description: {
-      default: ''
+      default: ""
     },
     widgetGroup: {
-      default: ''
+      default: ""
     },
     widgets: {
-      default: ''
+      default: ""
     },
     template: {
-      default: ''
+      default: ""
     },
     allowMultiple: {
       default: true
     },
     selectedWidgets: {
-      default: ''
+      default: ""
     },
     activeWidgetGroups: {
-      default: ''
+      default: ""
     }
   },
   created: function created() {
-    this.$parent.$on('active-widgets-updated', this.filtereWidgetList);
+    this.$parent.$on("active-widgets-updated", this.filtereWidgetList);
     this.filtereWidgetList();
   },
   data: function data() {
@@ -17204,7 +17204,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       } else {
         this.filtered_widget_list = this.base_widget_list;
       }
-      this.$emit('update-widget-list', {
+      this.$emit("update-widget-list", {
         widget_group: this.widgetGroup,
         base_widget_list: this.base_widget_list,
         filtered_widget_list: this.filtered_widget_list
@@ -17218,7 +17218,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       if (!widget_list) {
         return widget_list;
       }
-      if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(widget_list) !== 'object') {
+      if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(widget_list) !== "object") {
         return widget_list;
       }
       var template_field = this.getTergetFields({
@@ -17237,15 +17237,15 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       for (var widget_key in template_fields) {
         var _widget_group = template_fields[widget_key].widget_group;
         var _widget_name = template_fields[widget_key].widget_name;
-        var _widget_label = 'Not Available';
+        var _widget_label = "Not Available";
         try {
-          _widget_label = this.fields[this.template]['widgets'][_widget_group]['widgets'][_widget_name]['label'] ? this.fields[this.template]['widgets'][_widget_group]['widgets'][_widget_name]['label'] : '';
+          _widget_label = this.fields[this.template]["widgets"][_widget_group]["widgets"][_widget_name]["label"] ? this.fields[this.template]["widgets"][_widget_group]["widgets"][_widget_name]["label"] : "";
         } catch (error) {
           console.log({
             template: this.template,
             widget_group: _widget_group,
             widget_name: _widget_name,
-            template_widgets: this.fields[this.template]['widgets'][_widget_group]['widgets'],
+            template_widgets: this.fields[this.template]["widgets"][_widget_group]["widgets"],
             error: error
           });
         }
@@ -17289,7 +17289,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           value: widget_key
         };
         if (!new_widget_list[_widget_name].label) {
-          new_widget_list[_widget_name].label = 'Not available';
+          new_widget_list[_widget_name].label = "Not available";
         }
         new_widget_list[_widget_name].options = widgets_options;
         template_widgets[widget_key] = new_widget_list[_widget_name];
@@ -17301,7 +17301,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       if (!widget_list) {
         return widget_list;
       }
-      if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(widget_list) !== 'object') {
+      if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(widget_list) !== "object") {
         return widget_list;
       }
       var active_widget_groups_keys = [];
@@ -17323,7 +17323,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         }
       }
       var selected_widget_keys = [];
-      if (this.selectedWidgets && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(this.selectedWidgets) === 'object') {
+      if (this.selectedWidgets && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(this.selectedWidgets) === "object") {
         selected_widget_keys = Object.keys(this.selectedWidgets);
       }
       var new_widget_list = this.cloneObject(widget_list);
@@ -17357,25 +17357,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'form-builder-widget-component',
+  name: "form-builder-widget-component",
   props: {
     widgetKey: {
-      default: ''
+      default: ""
     },
     activeWidgets: {
-      default: ''
+      default: ""
     },
     avilableWidgets: {
-      default: ''
+      default: ""
     },
     groupData: {
-      default: ''
+      default: ""
     },
     isEnabledGroupDragging: {
       default: false
     },
     untrashableWidgets: {
-      default: ''
+      default: ""
     }
   },
   created: function created() {
@@ -17405,7 +17405,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.groupData.fields;
     },
     widgetTitle: function widgetTitle() {
-      var label = '';
+      var label = "";
       if (this.activeWidgets[this.widgetKey] && this.activeWidgets[this.widgetKey].label) {
         label = this.activeWidgets[this.widgetKey].label;
       }
@@ -17415,9 +17415,9 @@ __webpack_require__.r(__webpack_exports__);
       return label;
     },
     widgetSubtitle: function widgetSubtitle() {
-      var label = '';
+      var label = "";
       if (!(this.activeWidgets[this.widgetKey] && this.activeWidgets[this.widgetKey].label)) {
-        return '';
+        return "";
       }
       if (this.current_widget && this.current_widget.label) {
         label = this.current_widget.label;
@@ -17432,7 +17432,7 @@ __webpack_require__.r(__webpack_exports__);
       return state;
     },
     canTrashWidget: function canTrashWidget() {
-      if (typeof this.current_widget.canTrash === 'undefined') {
+      if (typeof this.current_widget.canTrash === "undefined") {
         return true;
       }
       return this.current_widget.canTrash;
@@ -17440,8 +17440,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      current_widget: '',
-      widget_fields: '',
+      current_widget: "",
+      widget_fields: "",
       expanded: false,
       widgetIsDragging: false,
       activeWidgetsIsUpdating: false
@@ -17454,25 +17454,25 @@ __webpack_require__.r(__webpack_exports__);
     },
     syncCurrentWidget: function syncCurrentWidget() {
       if (!this.avilableWidgets) {
-        return '';
+        return "";
       }
-      if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(this.avilableWidgets) !== 'object') {
-        return '';
+      if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(this.avilableWidgets) !== "object") {
+        return "";
       }
       if (!this.activeWidgets) {
-        return '';
+        return "";
       }
       if (!this.activeWidgets[this.widgetKey]) {
-        return '';
+        return "";
       }
       var current_widget = this.activeWidgets[this.widgetKey];
-      var widget_group = current_widget.widget_group ? current_widget.widget_group : '';
-      var widget_name = current_widget.widget_name ? current_widget.widget_name : '';
+      var widget_group = current_widget.widget_group ? current_widget.widget_group : "";
+      var widget_name = current_widget.widget_name ? current_widget.widget_name : "";
       if (!this.avilableWidgets[widget_group]) {
-        return '';
+        return "";
       }
       var the_current_widget = null;
-      var current_widget_name = '';
+      var current_widget_name = "";
       if (this.avilableWidgets[widget_group][widget_name]) {
         the_current_widget = this.avilableWidgets[widget_group][widget_name];
         current_widget_name = widget_name;
@@ -17482,20 +17482,20 @@ __webpack_require__.r(__webpack_exports__);
         current_widget_name = this.widgetKey;
       }
       if (!the_current_widget) {
-        return '';
+        return "";
       }
       this.checkIfHasUntrashableWidget(widget_group, current_widget_name);
       this.current_widget = the_current_widget;
     },
     syncWidgetFields: function syncWidgetFields() {
       if (!this.current_widget) {
-        return '';
+        return "";
       }
-      if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(this.current_widget) !== 'object') {
-        return '';
+      if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(this.current_widget) !== "object") {
+        return "";
       }
       if (!this.current_widget.options) {
-        return '';
+        return "";
       }
       this.widget_fields = this.current_widget.options;
     },
@@ -17506,7 +17506,7 @@ __webpack_require__.r(__webpack_exports__);
       if (!this.untrashableWidgets) {
         return;
       }
-      if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(this.untrashableWidgets) !== 'object') {
+      if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(this.untrashableWidgets) !== "object") {
         return;
       }
       for (var widget in this.untrashableWidgets) {
@@ -17516,7 +17516,7 @@ __webpack_require__.r(__webpack_exports__);
         if (this.untrashableWidgets[widget].widget_name !== widget_name) {
           continue;
         }
-        this.$emit('found-untrashable-widget');
+        this.$emit("found-untrashable-widget");
         return;
       }
     }
@@ -17535,13 +17535,13 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'form-builder-widget-titlebar-component',
+  name: "form-builder-widget-titlebar-component",
   props: {
     label: {
-      default: ''
+      default: ""
     },
     sublabel: {
-      default: ''
+      default: ""
     },
     expanded: {
       default: false
@@ -23145,20 +23145,19 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       if (!active_widget_fields) {
         return {};
       }
-      ;
-      if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(active_widget_fields) !== 'object') {
+      if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(active_widget_fields) !== "object") {
         return {};
       }
-      ;
-      if (typeof active_widget_fields.field_key !== 'undefined') {
+      if (typeof active_widget_fields.field_key !== "undefined") {
         delete active_widget_fields.field_key;
       }
       for (var widget_key in active_widget_fields) {
-        if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(active_widget_fields[widget_key]) !== 'object') {
+        if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(active_widget_fields[widget_key]) !== "object") {
           delete active_widget_fields[widget_key];
         }
         active_widget_fields[widget_key].widget_key = widget_key;
       }
+      console.log("active", active_widget_fields);
       return active_widget_fields;
     },
     // setupActiveWidgetGroups
@@ -23182,10 +23181,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       try {
         for (_iterator.s(); !(_step = _iterator.n()).done;) {
           var widget_group = _step.value;
-          if (typeof widget_group.label === 'undefined') {
-            active_widget_groups[group_index].label = '';
+          if (typeof widget_group.label === "undefined") {
+            active_widget_groups[group_index].label = "";
           }
-          if (typeof widget_group.fields === 'undefined' || !Array.isArray(widget_group.fields)) {
+          if (typeof widget_group.fields === "undefined" || !Array.isArray(widget_group.fields)) {
             active_widget_groups[group_index].fields = [];
           }
           var field_index = 0;
@@ -23194,7 +23193,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           try {
             for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
               var field = _step2.value;
-              if (typeof this.active_widget_fields[field] === 'undefined') {
+              if (typeof this.active_widget_fields[field] === "undefined") {
                 delete active_widget_groups[group_index].fields[field_index];
               }
               field_index++;
@@ -23378,7 +23377,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           if (matched_keys.includes(new_key)) {
             var field_id = new_key.match(/[_](\d+)$/);
             field_id = field_id ? parseInt(field_id[1]) : 1;
-            var new_field_key = current_key + '_' + (field_id + 1);
+            var new_field_key = current_key + "_" + (field_id + 1);
             return getUniqueKey(current_key, new_field_key);
           }
           return new_key;
@@ -23390,7 +23389,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     },
     genarateFieldKeyForActiveWidgets: function genarateFieldKeyForActiveWidgets(field_data_options) {
       if (!field_data_options.field_key) {
-        return '';
+        return "";
       }
       var current_field_key = field_data_options.field_key;
       var field_keys = [];
@@ -23404,7 +23403,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         if (field_keys.includes(field_key)) {
           var field_id = field_key.match(/[-](\d+)$/);
           field_id = field_id ? parseInt(field_id[1]) : 1;
-          var new_field_key = current_field_key + '-' + (field_id + 1);
+          var new_field_key = current_field_key + "-" + (field_id + 1);
           return getUniqueKey(new_field_key);
         }
         return field_key;
@@ -24558,7 +24557,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       return options_values.includes(value);
     }
     /* syncValidationWithLocalState( validation_log ) {
-         return validation_log;
+          return validation_log;
     } */
   }
 });
@@ -31529,7 +31528,7 @@ var render = function render() {
       key: alert_key,
       staticClass: "cptm-form-alert",
       class: "cptm-" + alert.type
-    }, [_vm._v("\n            " + _vm._s(alert.message) + "\n        ")]);
+    }, [_vm._v("\r\n            " + _vm._s(alert.message) + "\r\n        ")]);
   }), 0) : _vm._e()]);
 };
 var staticRenderFns = [];

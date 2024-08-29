@@ -13,8 +13,7 @@ jQuery(($) => {
             processData: false,
             cache: false,
             success: function ( response ) {
-                console.log( response );
-                if( response.success ) {
+                if ( response.success ) {
                     $('.directorist-register-error').hide();
                     if( response.data.redirect_url ) {
                         if( response.data.redirect_message ) {

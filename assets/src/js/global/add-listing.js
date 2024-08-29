@@ -1,11 +1,11 @@
 // General Components
-import '../global/components/setup-select2';
+import { cacheCategoryCustomFields, getCategoryCustomFieldsCache } from '../global/components/cache-category-custom-fields';
 import loadCategoryCustomFields from '../global/components/load-category-custom-fields';
-import { getCategoryCustomFieldsCache, cacheCategoryCustomFields } from '../global/components/cache-category-custom-fields';
-import debounce from './components/debounce';
+import '../global/components/setup-select2';
 import '../public/components/colorPicker';
 import '../public/components/directoristDropdown';
 import '../public/components/directoristSelect';
+import debounce from './components/debounce';
 
 /* eslint-disable */
 const $ = jQuery;
@@ -262,17 +262,11 @@ $(function() {
         return $(`#${$(`[for="${typeId}"]`).data('option')}`);
     }
 
-    $('.directorist-form-pricing-field__options .directorist-checkbox__label').on('click', function () {
-        const $this = $(this);
-        if ($this.parent('.directorist-checkbox').children('input[type=checkbox]').prop('checked') === true) {
-            $(`#${$this.data('option')}`).hide();
-        }
+    $( '.directorist-form-pricing-field__options' ).on( 'change', 'input', function() {
+        const $otherOptions = $(this).parent().siblings('.directorist-checkbox').find( 'input' );
 
-    // $( '.directorist-form-pricing-field__options' ).on( 'change', 'input', function() {
-    //     const $otherOptions = $(this).parent().siblings('.directorist-checkbox').find( 'input' );
-
-    //     $otherOptions.prop( 'checked', false );
-    //     getPriceTypeInput( $otherOptions.attr('id') ).hide();
+        $otherOptions.prop( 'checked', false );
+        getPriceTypeInput( $otherOptions.attr('id') ).hide();
 
         if ( this.checked ) {
             getPriceTypeInput( this.id ).show();

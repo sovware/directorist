@@ -226,7 +226,7 @@
           behavior: 'smooth'
         });
       } else {
-        location.href = href;
+        location.href = $(this).attr('href');
       }
     });
 
@@ -281,7 +281,6 @@ jQuery(function ($) {
       processData: false,
       cache: false,
       success: function success(response) {
-        console.log(response);
         if (response.success) {
           $('.directorist-register-error').hide();
           if (response.data.redirect_url) {

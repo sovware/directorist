@@ -2446,8 +2446,15 @@ function atbdp_guest_submission($guest_email)
             wp_set_auth_cookie($user_id);
             do_action('atbdp_user_registration_completed', $user_id);
             update_user_meta($user_id, '_atbdp_generated_password', $password);
-            wp_new_user_notification($user_id, null, 'admin'); // send activation to the admin
-            ATBDP()->email->custom_wp_new_user_notification_email($user_id);
+            
+			if ( directorist_is_email_verification_enabled() ) {
+				// Set unverified flag. Once verified this flag will be removed.
+				update_user_meta( $user_id, 'directorist_user_email_unverified', 1 );
+			}
+
+			wp_new_user_notification($user_id, null, 'admin'); // send activation to the admin
+            
+			ATBDP()->email->custom_wp_new_user_notification_email($user_id);
         }
     }
 }

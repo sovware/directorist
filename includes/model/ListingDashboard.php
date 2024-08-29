@@ -81,7 +81,7 @@ class Directorist_Listing_Dashboard {
 	}
 
 	public function listings_query( $type = 'all', $paged = 1, $search = '' ) {
-		$pagination = get_directorist_option('user_listings_pagination',1);
+		$pagination        = get_directorist_option('user_listings_pagination',1);
 		$listings_per_page = get_directorist_option('user_listings_per_page',9);
 
 		$args  = array(
@@ -100,26 +100,10 @@ class Directorist_Listing_Dashboard {
 			$args['no_found_rows'] = false;
 		}
 
-		// TODO: Status has been migrated, remove related code.
-		// if ( $type === 'publish' ) {
-		// 	$args['post_status'] = $type;
-		// }
-		// if ( $type == 'pending' ) {
-		// 	$args['post_status'] = 'pending';
-		// }
-		// elseif ( $type == 'expired' ) {
-		// 	$args['meta_query'] = array(
-		// 		array(
-		// 			'key'   => '_listing_status',
-		// 			'value' => 'expired'
-		// 		),
-		// 	);
-		// }
-
-		if ( $type === 'pending' || $type === 'expired' ) {
+		if ( $type === 'pending' || $type === 'expired' ||  $type === 'publish' ) {
 			$args['post_status'] = $type;
 		} else {
-			$args['post_status'] = 'publish';
+			$args['post_status'] = array( 'publish', 'pending', 'expired' );
 		}
 
 		if ( $search ) {

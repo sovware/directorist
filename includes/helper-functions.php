@@ -293,7 +293,7 @@ function atbdp_get_listing_status_after_submission( array $args = [] ) {
     $listing_id = $args['id'];
 
     $new_l_status   = $args['new_l_status'];
-    $edit_l_status  = $args['edit_l_status'];
+    $edit_l_status  = ( 'publish' !== $new_l_status ) ? $new_l_status : $args['edit_l_status'];
     $edited         = $args['edited'];
     $listing_status = ( true === $edited || 'yes' === $edited || '1' === $edited ) ? $edit_l_status : $new_l_status;
 

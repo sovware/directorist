@@ -353,13 +353,6 @@ SWBD;
                 ],
             ];
 
-			$fields['lazy_load_taxonomy_fields'] = [
-                'type'        => 'toggle',
-                'label'       => __( 'Lazy Load Term Fields', 'directorist' ),
-                'description' => __( 'Enables lazy loading in category, location and tag fields', 'directorist' ),
-                'value'       => false
-            ];
-
             return $fields;
         }
 
@@ -1545,11 +1538,6 @@ Please remember that your order may be canceled if you do not make your payment 
                             'label' => __('Hide', 'directorist'),
                         ],
                     ],
-                ],
-                'author_cat_filter' => [
-                    'label' => __('Show Category Filter on Author Page', 'directorist'),
-                    'type'  => 'toggle',
-                    'value' => true,
                 ],
                 'atbdp_enable_cache' => [
                     'label' => __('Enable Cache', 'directorist'),
@@ -4504,7 +4492,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                      ],
                                 ],
                                 'expired_listings_actions' => [
-                                    'title'       => __( 'Expired Listings Actions', 'directorist' ),
+                                    'title'       => __( 'Expired Listings Management', 'directorist' ),
                                     'fields'      => [
                                         'delete_expired_listing_permanently', 'delete_expired_listings_after',
                                      ],

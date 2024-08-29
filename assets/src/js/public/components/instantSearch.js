@@ -181,7 +181,7 @@ import {
             ...fields
         };
         
-        form_data = wp.hooks.applyFilters( 'directorist_add_review_form_data', form_data, 'directorist-instant-search' );
+        form_data = wp.hooks.applyFilters( 'directorist_instant_search_form_data', form_data, 'directorist-instant-search' );
         
         const allFieldsAreEmpty = Object.values(fields).every(item => !item);
         const tagFieldEmpty = data.in_tag.every(item => !item);
@@ -317,7 +317,7 @@ import {
                 ...fields
             };
 
-            form_data = wp.hooks.applyFilters( 'directorist_add_review_form_data', form_data, 'directorist-instant-search' );
+            form_data = wp.hooks.applyFilters( 'directorist_instant_search_form_data', form_data, 'directorist-instant-search' );
 
             const allFieldsAreEmpty    = Object.values(fields).every(item => !item);
             const tagFieldEmpty        = data.in_tag.every(item => !item);
@@ -524,7 +524,7 @@ import {
             form_data.sort = sort
         }
 
-        form_data = wp.hooks.applyFilters( 'directorist_add_review_form_data', form_data, 'directorist-instant-search' );
+        form_data = wp.hooks.applyFilters( 'directorist_instant_search_form_data', form_data, 'directorist-instant-search' );
 
         $.ajax({
             url: directorist.ajaxurl,
@@ -660,7 +660,7 @@ import {
             form_data.directory_type = directory_type;
         }
 
-        form_data = wp.hooks.applyFilters( 'directorist_add_review_form_data', form_data, 'directorist-instant-search' );
+        form_data = wp.hooks.applyFilters( 'directorist_instant_search_form_data', form_data, 'directorist-instant-search' );
 
         $.ajax({
             url: directorist.ajaxurl,
@@ -808,7 +808,7 @@ import {
             form_data.sort = sort
         }
 
-        form_data = wp.hooks.applyFilters( 'directorist_add_review_form_data', form_data, 'directorist-instant-search' );
+        form_data = wp.hooks.applyFilters( 'directorist_instant_search_form_data', form_data, 'directorist-instant-search' );
 
         $.ajax({
             url: directorist.ajaxurl,

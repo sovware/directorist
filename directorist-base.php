@@ -461,7 +461,6 @@ final class Directorist_Base
 			ATBDP_INC_DIR . 'custom-filters',
 			ATBDP_INC_DIR . 'elementor/init',
 			ATBDP_INC_DIR . 'system-status/class-system-status',
-			ATBDP_INC_DIR . 'gutenberg/init',
 			ATBDP_INC_DIR . 'review/init',
 			ATBDP_INC_DIR . 'rest-api/init',
 			ATBDP_INC_DIR . 'fields/init',
@@ -469,6 +468,7 @@ final class Directorist_Base
 			ATBDP_INC_DIR . 'modules/multi-directory-setup/trait-multi-directory-helper',
 			ATBDP_INC_DIR . 'modules/multi-directory-setup/class-multi-directory-migration',
 			ATBDP_INC_DIR . 'modules/multi-directory-setup/class-multi-directory-manager',
+			__DIR__ . '/blocks/init',
 		]);
 
 		$this->autoload( ATBDP_INC_DIR . 'database/' );

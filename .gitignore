@@ -1,6 +1,7 @@
 
 __*/
 /node_modules
+/blocks/node_modules
 .DS_Store
 /.vscode
 /.cache/*

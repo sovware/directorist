@@ -1,0 +1,14 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"category": "directorist-blocks-collection",
+	"version": "1.0.0",
+    "name": "directorist/user-dashboard",
+    "title": "Dashboard",
+    "description": "Create user frontend dashboard.",
+    "keywords": [ "dashboard", "my account" ],
+    "supports": {
+		"html": false
+	},
+    "editorScript": "file:./index.js"
+}

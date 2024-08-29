@@ -107,9 +107,14 @@
             overflow-y: hidden;
 		}
 	}
-
     &-hidden{
         overflow:hidden;
+    }
+    &__button{
+        cursor: pointer;
+        .directorist-icon-mask:after{
+            background-color: var(--directorist-color-body);
+        }
     }
 
     //search form

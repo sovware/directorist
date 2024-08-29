@@ -189,68 +189,74 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 
 			$user_id = $this->complete_registration($username, $password, $email, $website, $first_name, $last_name, $bio);
 
-			if ($user_id && !is_wp_error( $user_id )) {
-				/*
-				* @since 6.3.0
-				* If fires after completed user registration
-				*/
-				do_action('atbdp_user_registration_completed', $user_id);
-				update_user_meta($user_id, '_atbdp_generated_password', $password);
-				update_user_meta($user_id, '_atbdp_privacy', $privacy_policy);
-				update_user_meta($user_id, '_user_type', $user_type);
-				update_user_meta($user_id, '_atbdp_terms_and_conditions', $t_c_check);
-				// user has been created successfully, now work on activation process
-				wp_new_user_notification($user_id, null, 'admin'); // send activation to the admin
-
-				if ( directorist_is_email_verification_enabled() ) {
-					ATBDP()->email->send_user_confirmation_email( get_user_by( 'ID', $user_id ) );
-					
-					$response = array(
-						'redirect_url' => esc_url_raw( ATBDP_Permalink::get_dashboard_page_link( array(
-							'user'         => $email,
-							'verification' => 1,
-						) ) )
-					);
-					wp_send_json_success( $response );
-					exit();
-				}
-
-				ATBDP()->email->custom_wp_new_user_notification_email($user_id);
-
-				$redirection_after_reg = get_directorist_option( 'redirection_after_reg');
-				$auto_login            = get_directorist_option( 'auto_login' );
-
-				if ( ! empty( $auto_login ) ) {
-					wp_set_current_user( $user_id, $email );
-					wp_set_auth_cookie( $user_id );
-				}
-
-				if ( ! empty( $redirection_after_reg ) ) {
-					$response = array(
-						'success'          => true,
-						'redirect_url'     => esc_url_raw( ATBDP_Permalink::get_reg_redirection_page_link( $previous_page,  array( 'registration_status' => true ) ) ),
-						'redirect_message' => esc_html( 'Registration completed. Please check your email for confirmation. You will be redirected...', 'directorist' ),
-					);
-					wp_send_json_success( $response );
-				} else {
-					file_put_contents( __DIR__ . '/data.txt', 'status' );
-					$response = array(
-						'success'          => true,
-						'redirect_url'     => esc_url_raw( ATBDP_Permalink::get_dashboard_page_link( array( 'registration_status' => true ) ) ),
-						'redirect_message' => esc_html( 'Registration completed. Please check your email for confirmation. You will be redirected...', 'directorist' ),
-					);
-					wp_send_json_success( $response );
-				}
-				
-				exit();
-			} else {
+			if ( is_wp_error( $user_id ) || ! $user_id ) {
 				$response = array(
 					'success' => false,
 					'message' => directorist_get_registration_error_message( 0 )
 				);
+
 				wp_send_json_success( $response );
 				exit();
 			}
+
+			/*
+			 * @since 6.3.0
+			 * If fires after completed user registration
+			 */
+			do_action('atbdp_user_registration_completed', $user_id);
+
+			update_user_meta($user_id, '_atbdp_generated_password', $password);
+			update_user_meta($user_id, '_atbdp_privacy', $privacy_policy);
+			update_user_meta($user_id, '_user_type', $user_type);
+			update_user_meta($user_id, '_atbdp_terms_and_conditions', $t_c_check);
+
+			// user has been created successfully, now work on activation process
+			wp_new_user_notification($user_id, null, 'admin'); // send activation to the admin
+
+			if ( directorist_is_email_verification_enabled() ) {
+				// Set unverified flag. Once verified this flag will be removed.
+				update_user_meta( $user_id, 'directorist_user_email_unverified', 1 );
+
+				ATBDP()->email->send_user_confirmation_email( get_user_by( 'ID', $user_id ) );
+				
+				$response = array(
+					'redirect_url' => esc_url_raw( ATBDP_Permalink::get_dashboard_page_link( array(
+						'user'         => $email,
+						'verification' => 1,
+					) ) )
+				);
+
+				wp_send_json_success( $response );
+				exit();
+			}
+
+			ATBDP()->email->custom_wp_new_user_notification_email($user_id);
+
+			$redirection_after_reg = get_directorist_option( 'redirection_after_reg');
+			$auto_login            = get_directorist_option( 'auto_login' );
+
+			if ( ! empty( $auto_login ) ) {
+				wp_set_current_user( $user_id, $email );
+				wp_set_auth_cookie( $user_id );
+			}
+
+			if ( ! empty( $redirection_after_reg ) ) {
+				$response = array(
+					'success'          => true,
+					'redirect_url'     => esc_url_raw( ATBDP_Permalink::get_reg_redirection_page_link( $previous_page,  array( 'registration_status' => true ) ) ),
+					'redirect_message' => esc_html( 'Registration completed. Please check your email for confirmation. You will be redirected...', 'directorist' ),
+				);
+				wp_send_json_success( $response );
+			} else {
+				$response = array(
+					'success'          => true,
+					'redirect_url'     => esc_url_raw( ATBDP_Permalink::get_dashboard_page_link( array( 'registration_status' => true ) ) ),
+					'redirect_message' => esc_html( 'Registration completed. Please check your email for confirmation. You will be redirected...', 'directorist' ),
+				);
+				wp_send_json_success( $response );
+			}
+			
+			exit();
 		}
 
 		public function filter_users_table_bulk_actions( array $actions ) {
@@ -947,7 +953,6 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 				if ( ! empty( $redirection_after_reg ) ) {
 					wp_safe_redirect( esc_url_raw( ATBDP_Permalink::get_reg_redirection_page_link( $previous_page,  array( 'registration_status' => true ) ) ) );
 				} else {
-					file_put_contents( __DIR__ . '/data.txt', 'status' );
 					wp_safe_redirect( esc_url_raw( ATBDP_Permalink::get_registration_page_link( array( 'registration_status' => true ) ) ) );
 				}
 				exit();

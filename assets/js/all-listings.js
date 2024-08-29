@@ -1381,6 +1381,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       fields.miles = $(this).find('.directorist-range-slider-value').val();
     }
     var form_data = _objectSpread(_objectSpread({}, data), fields);
+    form_data = wp.hooks.applyFilters('directorist_add_review_form_data', form_data, 'directorist-instant-search');
     var allFieldsAreEmpty = Object.values(fields).every(function (item) {
       return !item;
     });
@@ -1503,6 +1504,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         fields.miles = $(this).find('.directorist-range-slider-value').val();
       }
       var form_data = _objectSpread(_objectSpread({}, data), fields);
+      form_data = wp.hooks.applyFilters('directorist_add_review_form_data', form_data, 'directorist-instant-search');
       var allFieldsAreEmpty = Object.values(fields).every(function (item) {
         return !item;
       });
@@ -1691,6 +1693,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     if (sort && sort.length) {
       form_data.sort = sort;
     }
+    form_data = wp.hooks.applyFilters('directorist_add_review_form_data', form_data, 'directorist-instant-search');
     $.ajax({
       url: directorist.ajaxurl,
       type: "POST",
@@ -1815,6 +1818,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     if (directory_type && directory_type.length) {
       form_data.directory_type = directory_type;
     }
+    form_data = wp.hooks.applyFilters('directorist_add_review_form_data', form_data, 'directorist-instant-search');
     $.ajax({
       url: directorist.ajaxurl,
       type: "POST",
@@ -1947,6 +1951,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     if (sort && sort.length) {
       form_data.sort = sort;
     }
+    form_data = wp.hooks.applyFilters('directorist_add_review_form_data', form_data, 'directorist-instant-search');
     $.ajax({
       url: directorist.ajaxurl,
       type: "POST",

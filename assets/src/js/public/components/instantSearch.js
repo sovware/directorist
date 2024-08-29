@@ -180,7 +180,9 @@ import {
             ...data,
             ...fields
         };
-
+        
+        form_data = wp.hooks.applyFilters( 'directorist_add_review_form_data', form_data, 'directorist-instant-search' );
+        
         const allFieldsAreEmpty = Object.values(fields).every(item => !item);
         const tagFieldEmpty = data.in_tag.every(item => !item);
         const priceFieldEmpty = data.price.every(item => !item);
@@ -314,6 +316,8 @@ import {
                 ...data,
                 ...fields
             };
+
+            form_data = wp.hooks.applyFilters( 'directorist_add_review_form_data', form_data, 'directorist-instant-search' );
 
             const allFieldsAreEmpty    = Object.values(fields).every(item => !item);
             const tagFieldEmpty        = data.in_tag.every(item => !item);
@@ -520,6 +524,8 @@ import {
             form_data.sort = sort
         }
 
+        form_data = wp.hooks.applyFilters( 'directorist_add_review_form_data', form_data, 'directorist-instant-search' );
+
         $.ajax({
             url: directorist.ajaxurl,
             type: "POST",
@@ -653,6 +659,8 @@ import {
         if (directory_type && directory_type.length) {
             form_data.directory_type = directory_type;
         }
+
+        form_data = wp.hooks.applyFilters( 'directorist_add_review_form_data', form_data, 'directorist-instant-search' );
 
         $.ajax({
             url: directorist.ajaxurl,
@@ -799,6 +807,8 @@ import {
         if (sort && sort.length) {
             form_data.sort = sort
         }
+
+        form_data = wp.hooks.applyFilters( 'directorist_add_review_form_data', form_data, 'directorist-instant-search' );
 
         $.ajax({
             url: directorist.ajaxurl,

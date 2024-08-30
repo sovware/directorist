@@ -409,11 +409,11 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 				if ( 'view_listing' === $redirect_page ) {
 					$redirect_url = $permalink;
 				} else {
-					$redirect_url = ATBDP_Permalink::get_dashboard_page_link();
+					$redirect_url = add_query_arg( 'listing_id', $listing_id, ATBDP_Permalink::get_dashboard_page_link() );
 				}
 
 				if ( (bool) get_directorist_option( 'submission_confirmation', 1 ) ) {
-					$redirect_url = add_query_arg( 'notice', true, $redirect_url );
+					$redirect_url = urlencode( add_query_arg( 'notice', true, $redirect_url ) );
 				}
 
 				$data['redirect_url'] = $redirect_url;

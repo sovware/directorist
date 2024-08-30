@@ -796,7 +796,7 @@ class Directorist_Single_Listing {
 			}
 		}
 
-		return add_query_arg( 'listing_id', $listing_id, $link );
+		return $link;
 	}
 
 	public function has_redirect_link() {

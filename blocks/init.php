@@ -57,6 +57,7 @@ function init_blocks() {
 	register_block_type( __DIR__ . '/build/login', $args );
 	register_block_type( __DIR__ . '/build/registration', $args );
 	register_block_type( __DIR__ . '/build/dashboard', $args );
+	register_block_type( __DIR__ . '/build/single-listing', $args );
 }
 add_action( 'init', __NAMESPACE__ . '\init_blocks' );
 

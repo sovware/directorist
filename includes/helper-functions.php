@@ -124,22 +124,29 @@ if ( ! function_exists( 'atbdp_auth_guard' ) ) {
             'message' => __( 'You need to be logged in to view the content of this page', 'directorist' ),
         ];
 
-        $default = [ 'flush_message' => $flush_message ];
-        $args = array_merge( $default, $args );
+		global $wp;
 
-        global $wp;
+        $default = [
+			'flush_message' => $flush_message,
+		];
 
-        $current_page  = home_url( $wp->request );
-        $login_page_id = get_directorist_option( 'user_login' );
-        $login_page    = ( ! empty( $login_page_id ) ) ? get_page_link( $login_page_id ) : '';
-        $home_page     = home_url();
-        $redirect_link = ( ! empty( $login_page ) ) ? $login_page : $home_page;
+		$args          = array_merge( $default, $args );
+		$current_page  = home_url( $wp->request );
+        $migrated      = get_option( 'directorist_merge_dashboard_login_reg_page', false );
+        
+        if( $migrated ) {
+            $login_page_id = (int) get_directorist_option( 'user_dashboard' );
+        } else {
+            $login_page_id = (int) get_directorist_option( 'user_login' );
+        }
+        
+		$redirect_url  = $login_page_id ? get_page_link( $login_page_id ) : \ATBDP_Permalink::get_dashboard_page_link();
+		$redirect_url  = add_query_arg( 'redirect', urlencode( $current_page ), $redirect_url );
 
         atbdp_add_flush_message( $args['flush_message'] );
 
-        atbdp_redirect_after_login( [ 'url' => $current_page ] );
-        wp_redirect( $redirect_link );
-
+        // atbdp_redirect_after_login( [ 'url' => $current_page ] );
+        wp_safe_redirect( $redirect_url );
         die;
     }
 }

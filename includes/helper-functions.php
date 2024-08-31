@@ -132,7 +132,14 @@ if ( ! function_exists( 'atbdp_auth_guard' ) ) {
 
 		$args          = array_merge( $default, $args );
 		$current_page  = home_url( $wp->request );
-		$login_page_id = (int) get_directorist_option( 'user_login' );
+        $migrated      = get_option( 'directorist_merge_dashboard_login_reg_page', false );
+        
+        if( $migrated ) {
+            $login_page_id = (int) get_directorist_option( 'user_dashboard' );
+        } else {
+            $login_page_id = (int) get_directorist_option( 'user_login' );
+        }
+        
 		$redirect_url  = $login_page_id ? get_page_link( $login_page_id ) : \ATBDP_Permalink::get_dashboard_page_link();
 		$redirect_url  = add_query_arg( 'redirect', urlencode( $current_page ), $redirect_url );
 

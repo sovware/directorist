@@ -931,9 +931,6 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 		 * @since 3.1.0
 		 */
 		private function renew_listing( $listing_id ) {
-			if ( ! directorist_can_user_renew_listings() ) {
-				return false;// vail if renewal option is turned off on the site.
-			}
 
 			// Hook for developers
 			do_action( 'atbdp_before_renewal', $listing_id );

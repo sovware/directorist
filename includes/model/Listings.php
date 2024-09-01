@@ -220,7 +220,7 @@ class Directorist_Listings {
 		$this->options['display_author_image']            = get_directorist_option( 'display_author_image', 1 ) ? true : false;
 		$this->options['display_tagline_field']           = get_directorist_option( 'display_tagline_field', 0 ) ? true : false;
 		$this->options['display_readmore']                = get_directorist_option( 'display_readmore', 0) ? true : false;
-		$this->options['address_location']                = get_directorist_option( 'address_location', 'location' );
+		$this->options['address_location']                = get_directorist_option( 'address_location', 'contact' );
 		$this->options['excerpt_limit']                   = get_directorist_option( 'excerpt_limit', 20);
 		$this->options['g_currency']                      = directorist_get_currency();
 		$this->options['use_def_lat_long']                = get_directorist_option('use_def_lat_long', 1) ? true : false;

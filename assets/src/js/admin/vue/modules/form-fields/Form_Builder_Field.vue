@@ -664,12 +664,18 @@ export default {
         from: "active_widgets",
         widget_group_key,
       };
+      this.forceExpandStateTo = "collapse";
       this.isEnabledGroupDragging = true;
+
+      console.log("start");
     },
 
     handleGroupDragEnd() {
       this.currentDraggingGroup = null;
       this.isEnabledGroupDragging = false;
+      this.forceExpandStateTo = "";
+
+      console.log("end");
     },
 
     handleGroupDrop(widget_group_key, payload) {

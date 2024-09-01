@@ -17496,6 +17496,9 @@ __webpack_require__.r(__webpack_exports__);
         return true;
       }
       return this.current_widget.canTrash;
+    },
+    emptySlideUpDownClass: function emptySlideUpDownClass() {
+      return !this.widget_fields || Object.keys(this.widget_fields).length === 0 ? "cptm-empty-slide-up-down" : "";
     }
   },
   data: function data() {
@@ -23524,11 +23527,15 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         from: "active_widgets",
         widget_group_key: widget_group_key
       };
+      this.forceExpandStateTo = "collapse";
       this.isEnabledGroupDragging = true;
+      console.log("start");
     },
     handleGroupDragEnd: function handleGroupDragEnd() {
       this.currentDraggingGroup = null;
       this.isEnabledGroupDragging = false;
+      this.forceExpandStateTo = "";
+      console.log("end");
     },
     handleGroupDrop: function handleGroupDrop(widget_group_key, payload) {
       var dropped_in = {
@@ -27860,8 +27867,9 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "cptm-form-builder-group-field-item"
+  return _vm.widget_fields && Object.keys(_vm.widget_fields).length > 0 ? _c("div", {
+    staticClass: "cptm-form-builder-group-field-item",
+    class: _vm.emptySlideUpDownClass
   }, [_c("div", {
     staticClass: "cptm-form-builder-group-field-item-actions"
   }, [_vm.canTrashWidget ? _c("a", {
@@ -27929,7 +27937,7 @@ var render = function render() {
       confirm: _vm.trashWidget,
       cancel: _vm.closeConfirmationModal
     }
-  })], 1);
+  })], 1) : _vm._e();
 };
 var staticRenderFns = [];
 render._withStripped = true;

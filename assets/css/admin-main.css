@@ -14098,7 +14098,7 @@ input:-webkit-autofill:active {
 
 .cptm-form-builder-active-fields-group {
   position: relative;
-  padding-bottom: 5px;
+  padding-bottom: 0;
 }
 
 .cptm-form-builder-group-header-section {
@@ -17619,7 +17619,7 @@ input[type=radio]:checked::before {
 
 .cptm-form-builder-active-fields-group {
   position: relative;
-  padding-bottom: 5px;
+  padding-bottom: 0;
 }
 
 .cptm-form-builder-group-header-section {
@@ -21407,7 +21407,7 @@ input[type=radio]:checked::before {
 
 .cptm-form-builder-active-fields-group {
   position: relative;
-  padding-bottom: 5px;
+  padding-bottom: 0;
 }
 
 .cptm-form-builder-group-header-section {

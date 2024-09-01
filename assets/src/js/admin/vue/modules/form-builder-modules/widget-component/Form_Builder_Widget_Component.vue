@@ -1,5 +1,8 @@
 <template>
-  <div class="cptm-form-builder-group-field-item">
+  <div
+    class="cptm-form-builder-group-field-item"
+    v-if="widget_fields && Object.keys(widget_fields).length > 0"
+  >
     <!-- Widget Actions -->
     <div class="cptm-form-builder-group-field-item-actions">
       <a
@@ -166,6 +169,12 @@ export default {
       }
 
       return this.current_widget.canTrash;
+    },
+
+    emptySlideUpDownClass() {
+      return !this.widget_fields || Object.keys(this.widget_fields).length === 0
+        ? "cptm-empty-slide-up-down"
+        : "";
     },
   },
 

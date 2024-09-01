@@ -1,6 +1,8 @@
 /* Author Navigation */
 .directorist-account-block-logged-mode {
     position: relative;
+    display: flex;
+    align-items: center;
 
     .avatar {
         border-radius: 50%;

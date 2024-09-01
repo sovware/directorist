@@ -472,7 +472,7 @@
       font-weight: 500;
       padding-left: 55px;
       border-radius: 16px;
-      color: var(--directorist-color-primary);
+      color: var(--directorist-color-body);
       border: 3px solid var(--directorist-color-border-gray);
       cursor: pointer;
       box-sizing: border-box;
@@ -496,6 +496,7 @@
     }
     &:checked + .directorist-radio__label {
       border-color: var(--directorist-color-primary);
+      color: var(--directorist-color-primary);
     }
   }
 }

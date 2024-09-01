@@ -5927,7 +5927,7 @@ img.atbdp-file-info {
 .directorist-content-module__contents .directorist-form-social-info-field .directorist-btn i::after {
   width: 16px;
   height: 16px;
-  background-color: var(--directorist-color-dark);
+  background-color: var(--directorist-color-btn);
 }
 .directorist-content-module__contents .directorist-form-social-info-field .directorist-btn:hover {
   color: var(--directorist-color-white);
@@ -8266,7 +8266,7 @@ body.stop-scrolling {
   font-weight: 500;
   padding-right: 55px;
   border-radius: 16px;
-  color: var(--directorist-color-primary);
+  color: var(--directorist-color-body);
   border: 3px solid var(--directorist-color-border-gray);
   cursor: pointer;
   -webkit-box-sizing: border-box;
@@ -8290,6 +8290,7 @@ body.stop-scrolling {
 }
 .directorist-form-listing-type .directorist-radio input[type=radio]:checked + .directorist-radio__label {
   border-color: var(--directorist-color-primary);
+  color: var(--directorist-color-primary);
 }
 
 /* Pricing */
@@ -11222,6 +11223,10 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   -webkit-transition: all ease 0.3s;
   transition: all ease 0.3s;
   text-decoration: none !important;
+}
+.directorist-btn .directorist-icon-mask:after {
+  -webkit-transition: all ease 0.3s;
+  transition: all ease 0.3s;
 }
 .directorist-btn.directorist-btn--add-listing, .directorist-btn.directorist-btn--logout {
   line-height: 43px;

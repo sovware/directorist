@@ -3836,6 +3836,7 @@ var map = {
 	"./form-builder-modules/Form_Builder_Widget_List_Section_Component.vue": "./assets/src/js/admin/vue/modules/form-builder-modules/Form_Builder_Widget_List_Section_Component.vue",
 	"./form-builder-modules/widget-component/Form_Builder_Widget_Component.vue": "./assets/src/js/admin/vue/modules/form-builder-modules/widget-component/Form_Builder_Widget_Component.vue",
 	"./form-builder-modules/widget-component/Form_Builder_Widget_Titlebar_Component.vue": "./assets/src/js/admin/vue/modules/form-builder-modules/widget-component/Form_Builder_Widget_Titlebar_Component.vue",
+	"./form-builder-modules/widget-component/Form_Builder_Widget_Trash_Confirmation.vue": "./assets/src/js/admin/vue/modules/form-builder-modules/widget-component/Form_Builder_Widget_Trash_Confirmation.vue",
 	"./form-builder-modules/widget-group-components/Form_Builder_Widget_Group_Component.vue": "./assets/src/js/admin/vue/modules/form-builder-modules/widget-group-components/Form_Builder_Widget_Group_Component.vue",
 	"./form-builder-modules/widget-group-components/Form_Builder_Widget_Group_Header_Component.vue": "./assets/src/js/admin/vue/modules/form-builder-modules/widget-group-components/Form_Builder_Widget_Group_Header_Component.vue",
 	"./form-builder-modules/widget-group-components/Form_Builder_Widget_Group_Titlebar_Component.vue": "./assets/src/js/admin/vue/modules/form-builder-modules/widget-group-components/Form_Builder_Widget_Group_Titlebar_Component.vue",
@@ -6345,6 +6346,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_babel_loader_lib_index_js_ref_3_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ref_6_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_Builder_Widget_Titlebar_Component_vue_vue_type_template_id_30ce32ca__WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_babel_loader_lib_index_js_ref_3_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ref_6_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_Builder_Widget_Titlebar_Component_vue_vue_type_template_id_30ce32ca__WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./assets/src/js/admin/vue/modules/form-builder-modules/widget-component/Form_Builder_Widget_Trash_Confirmation.vue":
+/*!**************************************************************************************************************************!*\
+  !*** ./assets/src/js/admin/vue/modules/form-builder-modules/widget-component/Form_Builder_Widget_Trash_Confirmation.vue ***!
+  \**************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Form_Builder_Widget_Trash_Confirmation_vue_vue_type_template_id_f6ed6a84__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Form_Builder_Widget_Trash_Confirmation.vue?vue&type=template&id=f6ed6a84 */ "./assets/src/js/admin/vue/modules/form-builder-modules/widget-component/Form_Builder_Widget_Trash_Confirmation.vue?vue&type=template&id=f6ed6a84");
+/* harmony import */ var _Form_Builder_Widget_Trash_Confirmation_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Form_Builder_Widget_Trash_Confirmation.vue?vue&type=script&lang=js */ "./assets/src/js/admin/vue/modules/form-builder-modules/widget-component/Form_Builder_Widget_Trash_Confirmation.vue?vue&type=script&lang=js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Form_Builder_Widget_Trash_Confirmation_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Form_Builder_Widget_Trash_Confirmation_vue_vue_type_template_id_f6ed6a84__WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Form_Builder_Widget_Trash_Confirmation_vue_vue_type_template_id_f6ed6a84__WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "assets/src/js/admin/vue/modules/form-builder-modules/widget-component/Form_Builder_Widget_Trash_Confirmation.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./assets/src/js/admin/vue/modules/form-builder-modules/widget-component/Form_Builder_Widget_Trash_Confirmation.vue?vue&type=script&lang=js":
+/*!**************************************************************************************************************************************************!*\
+  !*** ./assets/src/js/admin/vue/modules/form-builder-modules/widget-component/Form_Builder_Widget_Trash_Confirmation.vue?vue&type=script&lang=js ***!
+  \**************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_3_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_Builder_Widget_Trash_Confirmation_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/babel-loader/lib??ref--3-0!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./Form_Builder_Widget_Trash_Confirmation.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./assets/src/js/admin/vue/modules/form-builder-modules/widget-component/Form_Builder_Widget_Trash_Confirmation.vue?vue&type=script&lang=js");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_3_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_Builder_Widget_Trash_Confirmation_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./assets/src/js/admin/vue/modules/form-builder-modules/widget-component/Form_Builder_Widget_Trash_Confirmation.vue?vue&type=template&id=f6ed6a84":
+/*!********************************************************************************************************************************************************!*\
+  !*** ./assets/src/js/admin/vue/modules/form-builder-modules/widget-component/Form_Builder_Widget_Trash_Confirmation.vue?vue&type=template&id=f6ed6a84 ***!
+  \********************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_3_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ref_6_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_Builder_Widget_Trash_Confirmation_vue_vue_type_template_id_f6ed6a84__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/babel-loader/lib??ref--3-0!../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ref--6!../../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./Form_Builder_Widget_Trash_Confirmation.vue?vue&type=template&id=f6ed6a84 */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./assets/src/js/admin/vue/modules/form-builder-modules/widget-component/Form_Builder_Widget_Trash_Confirmation.vue?vue&type=template&id=f6ed6a84");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_babel_loader_lib_index_js_ref_3_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ref_6_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_Builder_Widget_Trash_Confirmation_vue_vue_type_template_id_f6ed6a84__WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_babel_loader_lib_index_js_ref_3_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ref_6_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_Builder_Widget_Trash_Confirmation_vue_vue_type_template_id_f6ed6a84__WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -17355,9 +17425,14 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof.js");
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Form_Builder_Widget_Trash_Confirmation_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Form_Builder_Widget_Trash_Confirmation.vue */ "./assets/src/js/admin/vue/modules/form-builder-modules/widget-component/Form_Builder_Widget_Trash_Confirmation.vue");
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "form-builder-widget-component",
+  components: {
+    ConfirmationModal: _Form_Builder_Widget_Trash_Confirmation_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
   props: {
     widgetKey: {
       default: ""
@@ -17444,13 +17519,26 @@ __webpack_require__.r(__webpack_exports__);
       widget_fields: "",
       expanded: false,
       widgetIsDragging: false,
-      activeWidgetsIsUpdating: false
+      activeWidgetsIsUpdating: false,
+      showConfirmationModal: false,
+      widgetName: ""
     };
   },
   methods: {
     sync: function sync() {
       this.syncCurrentWidget();
       this.syncWidgetFields();
+    },
+    openConfirmationModal: function openConfirmationModal() {
+      this.widgetName = this.widgetTitle;
+      this.showConfirmationModal = true;
+    },
+    closeConfirmationModal: function closeConfirmationModal() {
+      this.showConfirmationModal = false;
+    },
+    trashWidget: function trashWidget() {
+      this.$emit("trash-widget");
+      this.closeConfirmationModal();
     },
     syncCurrentWidget: function syncCurrentWidget() {
       if (!this.avilableWidgets) {
@@ -17545,6 +17633,42 @@ __webpack_require__.r(__webpack_exports__);
     },
     expanded: {
       default: false
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./assets/src/js/admin/vue/modules/form-builder-modules/widget-component/Form_Builder_Widget_Trash_Confirmation.vue?vue&type=script&lang=js":
+/*!**********************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--3-0!./node_modules/vue-loader/lib??vue-loader-options!./assets/src/js/admin/vue/modules/form-builder-modules/widget-component/Form_Builder_Widget_Trash_Confirmation.vue?vue&type=script&lang=js ***!
+  \**********************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "ConfirmationModal",
+  props: {
+    visible: {
+      type: Boolean,
+      default: false
+    },
+    widgetName: {
+      type: String,
+      default: ""
+    }
+  },
+  methods: {
+    confirmDelete: function confirmDelete() {
+      this.$emit("confirm");
+    },
+    cancelDelete: function cancelDelete() {
+      this.$emit("cancel");
+    },
+    handleOverlayClick: function handleOverlayClick() {
+      this.cancelDelete();
     }
   }
 });
@@ -17793,16 +17917,16 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'form-builder-widget-group-titlebar-component',
+  name: "form-builder-widget-group-titlebar-component",
   props: {
     groupData: {
-      default: ''
+      default: ""
     },
     groupSettings: {
-      default: ''
+      default: ""
     },
     groupFields: {
-      default: ''
+      default: ""
     },
     widgetsExpanded: {
       default: false
@@ -17813,7 +17937,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     label: function label() {
-      var label = '';
+      var label = "";
       if (!this.groupData.defaultGroupLabel) {
         label = this.groupData.defaultGroupLabel;
       }
@@ -23157,7 +23281,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         }
         active_widget_fields[widget_key].widget_key = widget_key;
       }
-      console.log("active", active_widget_fields);
       return active_widget_fields;
     },
     // setupActiveWidgetGroups
@@ -23416,9 +23539,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         from: "active_widgets",
         widget_group_key: widget_group_key
       };
+      this.isEnabledGroupDragging = true;
     },
     handleGroupDragEnd: function handleGroupDragEnd() {
       this.currentDraggingGroup = null;
+      this.isEnabledGroupDragging = false;
     },
     handleGroupDrop: function handleGroupDrop(widget_group_key, payload) {
       var dropped_in = {
@@ -27689,7 +27814,7 @@ var render = function render() {
     on: {
       click: function click($event) {
         $event.preventDefault();
-        return _vm.$emit("trash-widget");
+        return _vm.openConfirmationModal.apply(null, arguments);
       }
     }
   }, [_c("span", {
@@ -27737,7 +27862,16 @@ var render = function render() {
         });
       }
     }
-  })], 1) : _vm._e()])], 1);
+  })], 1) : _vm._e()]), _vm._v(" "), _c("confirmation-modal", {
+    attrs: {
+      visible: _vm.showConfirmationModal,
+      widgetName: _vm.widgetName
+    },
+    on: {
+      confirm: _vm.trashWidget,
+      cancel: _vm.closeConfirmationModal
+    }
+  })], 1);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -27792,6 +27926,49 @@ var render = function render() {
       "aria-hidden": "true"
     }
   })])])]);
+};
+var staticRenderFns = [];
+render._withStripped = true;
+
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./assets/src/js/admin/vue/modules/form-builder-modules/widget-component/Form_Builder_Widget_Trash_Confirmation.vue?vue&type=template&id=f6ed6a84":
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--3-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--6!./node_modules/vue-loader/lib??vue-loader-options!./assets/src/js/admin/vue/modules/form-builder-modules/widget-component/Form_Builder_Widget_Trash_Confirmation.vue?vue&type=template&id=f6ed6a84 ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _vm.visible ? _c("div", {
+    staticClass: "confirmation-modal-overlay",
+    on: {
+      click: _vm.handleOverlayClick
+    }
+  }, [_c("div", {
+    staticClass: "confirmation-modal",
+    on: {
+      click: function click($event) {
+        $event.stopPropagation();
+      }
+    }
+  }, [_c("p", [_vm._v('\n      Are you sure you want to delete the field "'), _c("strong", [_vm._v(_vm._s(_vm.widgetName))]), _vm._v('"?\n    ')]), _vm._v(" "), _c("button", {
+    on: {
+      click: _vm.confirmDelete
+    }
+  }, [_vm._v("Yes, delete")]), _vm._v(" "), _c("button", {
+    staticClass: "confirmation-modal-action-btn__cancel",
+    on: {
+      click: _vm.cancelDelete
+    }
+  }, [_vm._v("\n      Cancel\n    ")])])]) : _vm._e();
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -28015,7 +28192,7 @@ var render = function render() {
     staticClass: "cptm-form-builder-group-title-area"
   }, [_c("h3", {
     staticClass: "cptm-form-builder-group-title"
-  }, [_vm._v("\n        " + _vm._s(_vm.label) + "\n        "), _vm.groupFields && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(_vm.groupFields) === "object" ? _c("a", {
+  }, [_vm._v("\n    " + _vm._s(_vm.label) + "\n    "), _vm.groupFields && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(_vm.groupFields) === "object" ? _c("a", {
     staticClass: "cptm-form-builder-header-action-link cptm-ml-5 cptm-link-light",
     attrs: {
       href: "#"
@@ -28033,7 +28210,7 @@ var render = function render() {
     }
   })]) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "cptm-form-builder-group-title-actions"
-  }, [_vm.groupData && _vm.groupData.fields && _vm.groupData.fields.length ? _c("a", {
+  }, [_vm._m(0), _vm._v(" "), _vm.groupData && _vm.groupData.fields && _vm.groupData.fields.length ? _c("a", {
     staticClass: "cptm-form-builder-header-action-link",
     class: _vm.widgetsExpanded ? "action-collapse-up" : "action-collapse-down",
     attrs: {
@@ -28052,7 +28229,21 @@ var render = function render() {
     }
   })]) : _vm._e()])]);
 };
-var staticRenderFns = [];
+var staticRenderFns = [function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("a", {
+    staticClass: "cptm-form-builder-header-action-move",
+    attrs: {
+      href: "#"
+    }
+  }, [_c("span", {
+    staticClass: "fa fa-arrows-alt",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })]);
+}];
 render._withStripped = true;
 
 
@@ -31253,16 +31444,7 @@ var render = function render() {
     staticClass: "cptm-title-3"
   }, [_vm._v("Active Fields")]), _vm._v(" "), _c("p", {
     staticClass: "cptm-description-text"
-  }, [_vm._v("\n        Click on a field to edit, Drag & Drop to reorder\n      ")]), _vm._v(" "), _vm.showGroupDragToggleButton ? _c("button", {
-    staticClass: "cptm-btn",
-    class: _vm.forceExpandStateTo ? "cptm-btn-primary" : "",
-    attrs: {
-      type: "button"
-    },
-    on: {
-      click: _vm.toggleEnableWidgetGroupDragging
-    }
-  }, [_vm._v("\n        " + _vm._s(_vm.forceExpandStateTo ? "Disable Section Dragging" : "Enable Section Dragging") + "\n      ")]) : _vm._e(), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n        Click on a field to edit, Drag & Drop to reorder\n      ")]), _vm._v(" "), _c("div", {
     staticClass: "cptm-form-builder-active-fields-container"
   }, [_vm._l(_vm.active_widget_groups, function (widget_group, widget_group_key) {
     return _c("draggable-list-item-wrapper", {

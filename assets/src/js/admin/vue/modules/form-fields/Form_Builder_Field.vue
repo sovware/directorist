@@ -7,7 +7,7 @@
           Click on a field to edit, Drag & Drop to reorder
         </p>
 
-        <button
+        <!-- <button
           type="button"
           class="cptm-btn"
           v-if="showGroupDragToggleButton"
@@ -19,7 +19,7 @@
               ? "Disable Section Dragging"
               : "Enable Section Dragging"
           }}
-        </button>
+        </button> -->
 
         <div class="cptm-form-builder-active-fields-container">
           <draggable-list-item-wrapper
@@ -289,8 +289,6 @@ export default {
 
         active_widget_fields[widget_key].widget_key = widget_key;
       }
-
-      console.log("active", active_widget_fields);
 
       return active_widget_fields;
     },
@@ -666,10 +664,12 @@ export default {
         from: "active_widgets",
         widget_group_key,
       };
+      this.isEnabledGroupDragging = true;
     },
 
     handleGroupDragEnd() {
       this.currentDraggingGroup = null;
+      this.isEnabledGroupDragging = false;
     },
 
     handleGroupDrop(widget_group_key, payload) {

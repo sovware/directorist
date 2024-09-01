@@ -61,13 +61,13 @@ export default {
 
   components: {
     headerNavigation,
-    tabContents
+    tabContents,
   },
 
   computed: {
     ...mapState({
-      options: "options"
-    })
+      options: "options",
+    }),
   },
 
   created() {
@@ -108,9 +108,9 @@ export default {
           show: true,
           label: "Create",
           showLoading: false,
-          isDisabled: false
-        }
-      }
+          isDisabled: false,
+        },
+      },
     };
   },
 
@@ -205,7 +205,7 @@ export default {
       // return;
       axios
         .post(submission_url, form_data)
-        .then(response => {
+        .then((response) => {
           self.footer_actions.save.showLoading = false;
           self.footer_actions.save.isDisabled = false;
 
@@ -226,18 +226,18 @@ export default {
             for (let status_key in response.data.status.status_log) {
               self.status_messages.push({
                 type: response.data.status.status_log[status_key].type,
-                message: response.data.status.status_log[status_key].message
+                message: response.data.status.status_log[status_key].message,
               });
             }
 
-            setTimeout(function() {
+            setTimeout(function () {
               self.status_messages = [];
             }, 5000);
           }
 
           // console.log( response );
         })
-        .catch(error => {
+        .catch((error) => {
           self.footer_actions.save.showLoading = false;
           self.footer_actions.save.isDisabled = false;
           console.log(error);
@@ -273,7 +273,7 @@ export default {
           }
         )
       );
-    }
-  }
+    },
+  },
 };
 </script>

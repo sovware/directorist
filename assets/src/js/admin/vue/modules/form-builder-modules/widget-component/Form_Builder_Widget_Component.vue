@@ -6,7 +6,7 @@
         href="#"
         class="cptm-form-builder-group-field-item-action-link action-trash"
         v-if="canTrashWidget"
-        @click.prevent="$emit('trash-widget')"
+        @click.prevent="openConfirmationModal"
       >
         <span aria-hidden="true" class="uil uil-trash-alt"></span>
       </a>
@@ -45,12 +45,24 @@
         />
       </div>
     </slide-up-down>
+
+    <!-- Confirmation Modal -->
+    <confirmation-modal
+      :visible="showConfirmationModal"
+      :widgetName="widgetName"
+      @confirm="trashWidget"
+      @cancel="closeConfirmationModal"
+    />
   </div>
 </template>
 
 <script>
+import ConfirmationModal from "./Form_Builder_Widget_Trash_Confirmation.vue";
 export default {
   name: "form-builder-widget-component",
+  components: {
+    ConfirmationModal,
+  },
   props: {
     widgetKey: {
       default: "",
@@ -165,6 +177,8 @@ export default {
       widgetIsDragging: false,
 
       activeWidgetsIsUpdating: false,
+      showConfirmationModal: false,
+      widgetName: "",
     };
   },
 
@@ -172,6 +186,20 @@ export default {
     sync() {
       this.syncCurrentWidget();
       this.syncWidgetFields();
+    },
+
+    openConfirmationModal() {
+      this.widgetName = this.widgetTitle;
+      this.showConfirmationModal = true;
+    },
+
+    closeConfirmationModal() {
+      this.showConfirmationModal = false;
+    },
+
+    trashWidget() {
+      this.$emit("trash-widget");
+      this.closeConfirmationModal();
     },
 
     syncCurrentWidget() {

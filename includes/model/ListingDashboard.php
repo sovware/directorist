@@ -362,6 +362,10 @@ class Directorist_Listing_Dashboard {
 			case 'bio':
 			$result = get_user_meta( $id, 'description', true );
 			break;
+
+			case 'hide_contact_form':
+			$result = get_user_meta( $id, 'hide_contact_form', true );
+			break;
 		}
 
 		return $result;
@@ -405,6 +409,12 @@ class Directorist_Listing_Dashboard {
 			);
 		}
 
+		$dashboard_tabs['dashboard_preferences'] = array(
+			'title'     => __( 'Preferences', 'directorist' ),
+			'content'   => Helper::get_template_contents( 'dashboard/tab-preferences', [ 'dashboard' => $this ] ),
+			'icon'		=> 'las la-cog',
+		);
+		
 		if ( $announcement_tab ) {
 			$dashboard_tabs['dashboard_announcement'] = array(
 				'title'    => $this->get_announcement_label(),

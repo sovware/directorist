@@ -304,7 +304,7 @@ Directorist is a complete directory solution and in combination with its advance
 
 == Changelog ==
 
-7.12.0 - Aug 26, 2024
+7.12.0 - Sep 01, 2024
 
 * Add - Dynamic email verification template on user registration 
 * Add - Filter hook to control email notice preferences

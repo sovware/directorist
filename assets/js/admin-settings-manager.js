@@ -24674,7 +24674,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       return options_values.includes(value);
     }
     /* syncValidationWithLocalState( validation_log ) {
-          return validation_log;
+         return validation_log;
     } */
   }
 });
@@ -27868,8 +27868,7 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _vm.widget_fields && Object.keys(_vm.widget_fields).length > 0 ? _c("div", {
-    staticClass: "cptm-form-builder-group-field-item",
-    class: _vm.emptySlideUpDownClass
+    staticClass: "cptm-form-builder-group-field-item"
   }, [_c("div", {
     staticClass: "cptm-form-builder-group-field-item-actions"
   }, [_vm.canTrashWidget ? _c("a", {
@@ -28025,7 +28024,7 @@ var render = function render() {
         $event.stopPropagation();
       }
     }
-  }, [_c("p", [_vm._v('\n      Are you sure you want to delete the field "'), _c("strong", [_vm._v(_vm._s(_vm.widgetName))]), _vm._v('"?\n    ')]), _vm._v(" "), _c("button", {
+  }, [_c("p", [_vm._v('\n      Removing "'), _c("strong", [_vm._v(_vm._s(_vm.widgetName))]), _vm._v('" field will also remove it from the single and search pages. Are you sure you want to proceed?\n    ')]), _vm._v(" "), _c("button", {
     on: {
       click: _vm.confirmDelete
     }
@@ -31776,7 +31775,7 @@ var render = function render() {
       key: alert_key,
       staticClass: "cptm-form-alert",
       class: "cptm-" + alert.type
-    }, [_vm._v("\r\n            " + _vm._s(alert.message) + "\r\n        ")]);
+    }, [_vm._v("\n            " + _vm._s(alert.message) + "\n        ")]);
   }), 0) : _vm._e()]);
 };
 var staticRenderFns = [];

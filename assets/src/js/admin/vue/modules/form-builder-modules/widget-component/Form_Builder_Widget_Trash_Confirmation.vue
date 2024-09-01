@@ -6,10 +6,10 @@
   >
     <div class="confirmation-modal" @click.stop>
       <p>
-        Are you sure you want to delete the field "<strong>{{
+        Removing "<strong>{{
           widgetName
         }}</strong
-        >"?
+        >" field will also remove it from the single and search pages. Are you sure you want to proceed?
       </p>
       <button @click="confirmDelete">Yes, delete</button>
       <button

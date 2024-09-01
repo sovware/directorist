@@ -1794,7 +1794,6 @@ class Builder_Data {
             ],
 
             'default_expiration'                          => [
-                'label'       => __( 'Default expiration listings in days', 'directorist' ),
                 'type'        => 'number',
                 'value'       => 30,
                 'placeholder' => '365',
@@ -1804,7 +1803,7 @@ class Builder_Data {
             ],
 
             'new_listing_status'                          => [
-                'label'   => __( 'New Listing Default Status', 'directorist' ),
+                'label'   => __( 'New listing default status', 'directorist' ),
                 'type'    => 'select',
                 'value'   => 'pending',
                 'options' => [
@@ -1820,7 +1819,7 @@ class Builder_Data {
             ],
 
             'edit_listing_status'                         => [
-                'label'   => __( 'Edited Listing Default Status', 'directorist' ),
+                'label'   => __( 'Edited listing default status', 'directorist' ),
                 'type'    => 'select',
                 'value'   => 'pending',
                 'options' => [
@@ -2493,15 +2492,14 @@ class Builder_Data {
                     ],
 
                     'expiration'      => [
-                        'title'       => __( 'Expiration', 'directorist' ),
+                        'title'       => __( 'Default expiration in days', 'directorist' ),
                         'fields'      => [
                             'default_expiration',
                         ],
                     ],
 
                     'default_preview' => [
-                        'title'       => __( 'Default preview', 'directorist' ),
-                        'description' => __( 'This image will be used when listing preview image is not present. Leave empty to hide the preview image completely.', 'directorist' ),
+                        'title'       => __( 'Default preview image', 'directorist' ),
                         'fields'      => [
                             'preview_image',
                         ],

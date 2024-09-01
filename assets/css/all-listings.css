@@ -16504,7 +16504,10 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   height: 12px;
 }
 .directorist-content-active .directorist-listing-single.directorist-listing-card .directorist-badge.directorist-badge-open, .directorist-content-active .directorist-listing-single.directorist-listing-card .directorist-badge.directorist-badge-close, .directorist-content-active .directorist-listing-single.directorist-listing-list .directorist-badge.directorist-badge-open, .directorist-content-active .directorist-listing-single.directorist-listing-list .directorist-badge.directorist-badge-close {
-  display: inline-block;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
   height: 21px;
   line-height: 21px;
   width: auto;

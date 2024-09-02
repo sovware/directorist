@@ -253,6 +253,8 @@ class Asset_Loader {
 			wp_enqueue_style( 'directorist-unicons' );
 			wp_enqueue_script( 'directorist-multi-directory-builder' );
 			wp_enqueue_media();
+			wp_enqueue_script('wp-tinymce');
+			wp_enqueue_script('wp-media');
 		} elseif ( Helper::is_admin_page( 'settings' ) ) {
 			wp_enqueue_style( 'directorist-admin-style' );
 			wp_enqueue_script( 'directorist-settings-manager' );

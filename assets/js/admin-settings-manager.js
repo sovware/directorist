@@ -1487,6 +1487,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     preview: {
       required: false
+    },
+    editor: {
+      required: false
+    },
+    editorID: {
+      required: false
     }
   }
 });
@@ -15294,6 +15300,13 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       var type_class = field && field.type ? "cptm-field-wraper-type-" + field.type : "cptm-field-wraper";
       var key_class = "cptm-field-wraper-key-" + field_key;
       return _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({}, type_class, true), key_class, true);
+    },
+    fieldWrapperID: function fieldWrapperID(field) {
+      var type_id = "";
+      if (field && field.editor !== undefined) {
+        type_id = field.editor === "wp_editor" ? "cptm-field_wp_editor" : "";
+      }
+      return type_id;
     }
   }
 });
@@ -25420,8 +25433,43 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_form_fields_textarea_field__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../../../mixins/form-fields/textarea-field */ "./assets/src/js/admin/vue/mixins/form-fields/textarea-field.js");
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'textarea-field-theme-default',
-  mixins: [_mixins_form_fields_textarea_field__WEBPACK_IMPORTED_MODULE_0__["default"]]
+  name: "textarea-field-theme-default",
+  mixins: [_mixins_form_fields_textarea_field__WEBPACK_IMPORTED_MODULE_0__["default"]],
+  props: {
+    editor: {
+      required: false,
+      default: ""
+    },
+    editorID: {
+      required: false,
+      default: ""
+    },
+    fieldId: {
+      required: false,
+      default: ""
+    },
+    value: {
+      required: false,
+      default: ""
+    }
+  },
+  mounted: function mounted() {
+    var editorID = this.editorID;
+    var value = this.value;
+    tinymce.init({
+      selector: "#".concat(editorID),
+      plugins: "link",
+      toolbar: "undo redo | formatselect | bold italic | link",
+      menubar: false,
+      branding: false,
+      init_instance_callback: function init_instance_callback(editor) {
+        // Set the initial content using the init_instance_callback
+        editor.setContent(value);
+      }
+    });
+    // Save the editor instance for later use
+    this.editorInstance = tinymce.get(editorID);
+  }
 });
 
 /***/ }),
@@ -26196,7 +26244,10 @@ var render = function render() {
     }, _vm._l(_vm.sectionFields(section), function (field, field_key) {
       return _c("div", {
         key: field_key,
-        class: _vm.fieldWrapperClass(field, _vm.fields[field])
+        class: _vm.fieldWrapperClass(field, _vm.fields[field]),
+        attrs: {
+          id: _vm.fieldWrapperID(_vm.fields[field])
+        }
       }, [_vm.fields[field] ? _c(_vm.getFormFieldName(_vm.fields[field].type), _vm._b({
         key: field_key,
         ref: field,
@@ -28088,7 +28139,7 @@ var render = function render() {
   }, "form-builder-widget-group-header-component", _vm.$props, false)), _vm._v(" "), _c("slide-up-down", {
     attrs: {
       active: _vm.widgetsExpandState,
-      duration: 1000
+      duration: 800
     }
   }, [_c("div", {
     staticClass: "cptm-form-builder-group-fields"
@@ -34726,7 +34777,11 @@ var render = function render() {
     domProps: {
       innerHTML: _vm._s(_vm.description)
     }
-  }) : _vm._e(), _vm._v(" "), _c("textarea", {
+  }) : _vm._e(), _vm._v(" "), _vm.editor ? _c("div", {
+    attrs: {
+      id: _vm.editorID
+    }
+  }) : _c("textarea", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -34736,7 +34791,6 @@ var render = function render() {
     staticClass: "cptm-form-control",
     attrs: {
       name: "",
-      id: "",
       cols: _vm.cols,
       rows: _vm.rows,
       placeholder: _vm.placeholder

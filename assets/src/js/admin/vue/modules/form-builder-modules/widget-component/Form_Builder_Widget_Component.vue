@@ -156,7 +156,7 @@ export default {
     expandState() {
       let state = this.expanded;
 
-      if (this.isEnabledGroupDragging) {
+      if (!this.isEnabledGroupDragging) {
         state = false;
       }
 

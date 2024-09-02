@@ -17486,7 +17486,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     expandState: function expandState() {
       var state = this.expanded;
-      if (this.isEnabledGroupDragging) {
+      if (!this.isEnabledGroupDragging) {
         state = false;
       }
       return state;
@@ -17714,7 +17714,7 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     widgetsExpandState: function widgetsExpandState() {
       var state = this.widgetsExpanded;
-      if (this.isEnabledGroupDragging) {
+      if (!this.isEnabledGroupDragging) {
         state = false;
       }
       return state;
@@ -17873,7 +17873,7 @@ __webpack_require__.r(__webpack_exports__);
       if ('expand' === this.forceExpandStateTo) {
         state = true;
       }
-      if (this.isEnabledGroupDragging) {
+      if (!this.isEnabledGroupDragging) {
         state = false;
       }
       return state;
@@ -23222,7 +23222,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       }],
       forceExpandStateTo: "",
       // expand | 'collapse'
-      isEnabledGroupDragging: false,
+      isEnabledGroupDragging: true,
       currentDraggingGroup: null,
       currentDraggingWidget: null
     };
@@ -23527,15 +23527,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         from: "active_widgets",
         widget_group_key: widget_group_key
       };
-      this.forceExpandStateTo = "collapse";
-      this.isEnabledGroupDragging = true;
-      console.log("start");
+      this.isEnabledGroupDragging = false;
     },
     handleGroupDragEnd: function handleGroupDragEnd() {
       this.currentDraggingGroup = null;
-      this.isEnabledGroupDragging = false;
-      this.forceExpandStateTo = "";
-      console.log("end");
+      this.isEnabledGroupDragging = true;
     },
     handleGroupDrop: function handleGroupDrop(widget_group_key, payload) {
       var dropped_in = {
@@ -24674,7 +24670,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       return options_values.includes(value);
     }
     /* syncValidationWithLocalState( validation_log ) {
-         return validation_log;
+          return validation_log;
     } */
   }
 });
@@ -28013,23 +28009,23 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _vm.visible ? _c("div", {
-    staticClass: "confirmation-modal-overlay",
+    staticClass: "cptm-widget-trash-confirmation-modal-overlay",
     on: {
       click: _vm.handleOverlayClick
     }
   }, [_c("div", {
-    staticClass: "confirmation-modal",
+    staticClass: "cptm-widget-trash-confirmation-modal",
     on: {
       click: function click($event) {
         $event.stopPropagation();
       }
     }
-  }, [_c("p", [_vm._v('\n      Removing "'), _c("strong", [_vm._v(_vm._s(_vm.widgetName))]), _vm._v('" field will also remove it from the single and search pages. Are you sure you want to proceed?\n    ')]), _vm._v(" "), _c("button", {
+  }, [_c("h2", [_vm._v("Are you sure you want to proceed?")]), _vm._v(" "), _c("p", [_vm._v('\n      Removing "'), _c("strong", [_vm._v(_vm._s(_vm.widgetName))]), _vm._v('" field will also remove it from the single and search pages.\n    ')]), _vm._v(" "), _c("button", {
     on: {
       click: _vm.confirmDelete
     }
   }, [_vm._v("Yes, delete")]), _vm._v(" "), _c("button", {
-    staticClass: "confirmation-modal-action-btn__cancel",
+    staticClass: "cptm-widget-trash-confirmation-modal-action-btn__cancel",
     on: {
       click: _vm.cancelDelete
     }
@@ -28275,7 +28271,7 @@ var render = function render() {
     }
   })]) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "cptm-form-builder-group-title-actions"
-  }, [_vm._m(0), _vm._v(" "), _vm.groupData && _vm.groupData.fields && _vm.groupData.fields.length ? _c("a", {
+  }, [_vm.groupData && _vm.groupData.fields && _vm.groupData.fields.length ? _c("a", {
     staticClass: "cptm-form-builder-header-action-link",
     class: _vm.widgetsExpanded ? "action-collapse-up" : "action-collapse-down",
     attrs: {
@@ -28294,21 +28290,7 @@ var render = function render() {
     }
   })]) : _vm._e()])]);
 };
-var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("a", {
-    staticClass: "cptm-form-builder-header-action-move",
-    attrs: {
-      href: "#"
-    }
-  }, [_c("span", {
-    staticClass: "fa fa-arrows-alt",
-    attrs: {
-      "aria-hidden": "true"
-    }
-  })]);
-}];
+var staticRenderFns = [];
 render._withStripped = true;
 
 
@@ -31775,7 +31757,7 @@ var render = function render() {
       key: alert_key,
       staticClass: "cptm-form-alert",
       class: "cptm-" + alert.type
-    }, [_vm._v("\n            " + _vm._s(alert.message) + "\n        ")]);
+    }, [_vm._v("\r\n            " + _vm._s(alert.message) + "\r\n        ")]);
   }), 0) : _vm._e()]);
 };
 var staticRenderFns = [];

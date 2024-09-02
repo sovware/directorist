@@ -13,9 +13,6 @@
     </h3>
 
     <div class="cptm-form-builder-group-title-actions">
-      <a href="#" class="cptm-form-builder-header-action-move">
-        <span aria-hidden="true" class="fa fa-arrows-alt"></span>
-      </a>
       <a
         href="#"
         class="cptm-form-builder-header-action-link"

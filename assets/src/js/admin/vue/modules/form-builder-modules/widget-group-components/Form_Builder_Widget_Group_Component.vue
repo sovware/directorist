@@ -1,7 +1,7 @@
 <template>
     <div class="cptm-form-builder-active-fields-group">
         <!-- Group Header -->
-        <form-builder-widget-group-header-component 
+        <form-builder-widget-group-header-component
             v-bind="$props"
             :widgets-expanded="widgetsExpandState"
             :can-trash="canTrashGroup"
@@ -12,12 +12,12 @@
             @drag-start="$emit( 'group-drag-start' )"
             @drag-end="$emit( 'group-drag-end' )"
         />
-        
+
         <!-- Group Body -->
         <slide-up-down :active="widgetsExpandState" :duration="500">
             <div class="cptm-form-builder-group-fields">
-                <draggable-list-item-wrapper list-id="widget-item" :is-dragging-self="currentDraggingWidget && ( 'active_widgets' === currentDraggingWidget.from && widget_key === currentDraggingWidget.widget_key)" v-for="( widget_key, widget_index ) in groupData.fields" :key="widget_index" 
-                    class-name="directorist-draggable-form-list-wrap" 
+                <draggable-list-item-wrapper list-id="widget-item" :is-dragging-self="currentDraggingWidget && ( 'active_widgets' === currentDraggingWidget.from && widget_key === currentDraggingWidget.widget_key)" v-for="( widget_key, widget_index ) in groupData.fields" :key="widget_index"
+                    class-name="directorist-draggable-form-list-wrap"
                     :droppables="true"
                     :droppable="isDroppable( widget_index )"
                     @drop="$emit( 'drop-widget', { widget_key, widget_index, drop_direction: $event.drop_direction } )"
@@ -32,7 +32,7 @@
                         @found-untrashable-widget="updateDetectedUntrashableWidgets( widget_key )"
                         @update-widget-field="$emit( 'update-widget-field', $event )"
                         @trash-widget="$emit( 'trash-widget', { widget_key } )"
-                        @drag-start="$emit( 'widget-drag-start', { widget_index, widget_key } )" 
+                        @drag-start="$emit( 'widget-drag-start', { widget_index, widget_key } )"
                         @drag-end="$emit( 'widget-drag-end', { widget_index, widget_key } )"
                     />
                 </draggable-list-item-wrapper>
@@ -87,8 +87,8 @@ export default {
     computed: {
         widgetsExpandState() {
             let state = this.widgetsExpanded;
-            
-            if ( this.isEnabledGroupDragging ) {
+
+            if ( !this.isEnabledGroupDragging ) {
                 state = false;
             }
 
@@ -97,12 +97,12 @@ export default {
 
         canTrashGroup() {
             let canTrash = ( this.groupSettings && typeof this.groupSettings.canTrash !== 'undefined' ) ? this.groupSettings.canTrash : true;
-            
+
             if ( this.detectedUntrashableWidgets.length ) {
                 canTrash = false;
             }
 
-            return canTrash; 
+            return canTrash;
         },
 
         canShowWidgetDropPlaceholder() {
@@ -154,7 +154,7 @@ export default {
             if ( ! this.currentDraggingWidget ) { return false; }
 
             let droppable = true;
-            
+
             if (  'active_widgets' === this.currentDraggingWidget.from ) {
                 if ( this.currentDraggingWidget && this.currentDraggingWidget.widget_group_key === this.groupKey && this.currentDraggingWidget.widget_index === widget_index ) {
                     droppable = false;

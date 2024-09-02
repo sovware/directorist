@@ -1468,8 +1468,8 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 				die();
 			}
 
-			$sendOwner = in_array( 'listing_contact_form', get_directorist_option( 'notify_user', array( 'listing_contact_form' ), true ) );
-			$sendAdmin = in_array( 'listing_contact_form', get_directorist_option( 'notify_admin', array( 'listing_contact_form' ), true ) );
+			$sendOwner = in_array( 'listing_contact_form', get_directorist_option( 'notify_user' ) );
+			$sendAdmin = in_array( 'listing_contact_form', get_directorist_option( 'notify_admin' ) );
 
 			// is admin disabled both notification
 			if ( ! $sendOwner && ! $sendAdmin ) {

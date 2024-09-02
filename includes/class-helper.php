@@ -491,15 +491,10 @@ class Helper {
 	}
 
 	public static function default_preview_image_src( $directory_id ) {
-		if ( directorist_is_multi_directory_enabled() ) {
-			$settings = directorist_get_directory_general_settings( $directory_id );
+		$settings = directorist_get_directory_general_settings( $directory_id );
 
-			if ( ! empty( $settings['preview_image'] ) ) {
-				$default_preview = $settings['preview_image'];
-			} else {
-				$default_img = get_directorist_option( 'default_preview_image' );
-				$default_preview = $default_img ? $default_img : DIRECTORIST_ASSETS . 'images/grid.jpg';
-			}
+		if ( ! empty( $settings['preview_image'] ) ) {
+			$default_preview = $settings['preview_image'];
 		} else {
 			$default_img = get_directorist_option( 'default_preview_image' );
 			$default_preview = $default_img ? $default_img : DIRECTORIST_ASSETS . 'images/grid.jpg';

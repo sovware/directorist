@@ -35,8 +35,7 @@ class Multi_Directory_Manager {
         add_action( 'wp_ajax_save_post_type_data', [ $this, 'save_post_type_data' ] );
         add_action( 'wp_ajax_save_imported_post_type_data', [ $this, 'save_imported_post_type_data' ] );
         add_action( 'wp_ajax_directorist_force_migrate', [ $this, 'handle_force_migration' ] );
-
-        add_filter( 'directorist_builder_layouts', [ $this, 'conditional_layouts' ] );
+        add_action( 'wp_ajax_directorist_directory_type_library', [ $this, 'directorist_directory_type_library' ] );
     }
 
     // custom field assign to category migration
@@ -126,17 +125,6 @@ class Multi_Directory_Manager {
         update_directorist_option( 'atbdp_default_derectory', $default_directory );
     }
 
-    public function conditional_layouts( $layouts ) {
-        $updated_layouts = $layouts;
-
-        if ( ! directorist_is_multi_directory_enabled() ) {
-            unset( $updated_layouts['general']['sections']['default_preview'] );
-        }
-
-        return $updated_layouts;
-    }
-
-
     // setup_migration
     public function setup_migration() {
         $migrated = get_option( 'atbdp_migrated', false );
@@ -204,6 +192,37 @@ class Multi_Directory_Manager {
         }
 
         wp_send_json( $this->run_force_migration() );
+    }
+
+    public function directorist_directory_type_library() {
+
+        if ( ! directorist_verify_nonce() ) {
+            wp_send_json([
+                'status' => [
+                    'success' => false,
+                    'message' => __( 'Something is wrong! Please refresh and retryyy.', 'directorist' ),
+                ],
+            ], 200);
+        }
+
+        if ( ! current_user_can( 'install_plugins' ) || ! current_user_can( 'activate_plugins' ) ) {
+            wp_send_json([
+                'status' => [
+                    'success' => false,
+                    'message' => __( 'You are not allowed to add/activate new plugin', 'directorist' ),
+                ],
+            ], 200);
+        }
+
+        $installed = directorist_download_plugin( [ 'url' => 'https://downloads.wordpress.org/plugin/templatiq.1.0.0.zip' ] );
+        $path = WP_PLUGIN_DIR . '/templatiq/templatiq.php';
+
+        if( ! is_plugin_active( $path ) ){
+            activate_plugin( $path );
+        }
+
+        $installed['redirect'] = admin_url( 'admin.php?page=templatiq' );
+        wp_send_json( $installed );
     }
 
     // run_force_migration

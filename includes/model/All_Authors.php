@@ -66,7 +66,8 @@ class Directorist_All_Authors {
 	}
 
 	public function display_pagination() {
-		return get_directorist_option( 'all_authors_pagination', true );
+		_deprecated_function( __METHOD__, '8.0' );
+		return true;
 	}
 
 	public function author_list( $type = '' ) {
@@ -74,12 +75,10 @@ class Directorist_All_Authors {
 		$all_authors_select_role = get_directorist_option( 'all_authors_select_role', 'all' );
 		$all_authors_per_page	 = get_directorist_option( 'all_authors_per_page', 9 );
 
-		if( $this->display_pagination() ) {
-			$paged					 = ! empty( $_REQUEST['paged'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['paged'] ) ) : atbdp_get_paged_num();
-			$offset 				 = ( $paged - 1 ) * $all_authors_per_page;
-			$args['paged'] 			 = $paged;
-			$args['offset'] 		 = $offset;
-		}
+		$paged					 = ! empty( $_REQUEST['paged'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['paged'] ) ) : atbdp_get_paged_num();
+		$offset 				 = ( $paged - 1 ) * $all_authors_per_page;
+		$args['paged'] 			 = $paged;
+		$args['offset'] 		 = $offset;
 
 		if( 'pagination' != $type ) {
 			$args['number'] 		 = $all_authors_per_page;
@@ -87,8 +86,17 @@ class Directorist_All_Authors {
 
 		$args['orderby'] 		 = 'display_name';
 
-		if( 'all' != $all_authors_select_role ) {
-			$args['role__in']	= array( $all_authors_select_role );
+		if ( 'author' == $all_authors_select_role ) {
+			$meta_query = array(
+				array(
+					'key'     => '_user_type',
+					'value'   => 'author',
+					'compare' => '='
+				)
+			);
+			$args['meta_query'] = $meta_query;
+		} elseif ( 'all' != $all_authors_select_role ) {
+			$args['role__in'] = array( $all_authors_select_role );
 		}
 
 		if( ! empty( $_REQUEST['alphabet'] ) && 'ALL' != $_REQUEST['alphabet'] ) {

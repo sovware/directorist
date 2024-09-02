@@ -103,7 +103,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_block_2__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/block-2 */ "./assets/src/js/admin/components/block-2.js");
 /* harmony import */ var _components_block_2__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_components_block_2__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _components_block_3__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/block-3 */ "./assets/src/js/admin/components/block-3.js");
-/* harmony import */ var _components_block_3__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_components_block_3__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _components_block_4__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/block-4 */ "./assets/src/js/admin/components/block-4.js");
 /* harmony import */ var _components_block_4__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_components_block_4__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var _components_block_5__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/block-5 */ "./assets/src/js/admin/components/block-5.js");
@@ -637,8 +636,12 @@ window.addEventListener('DOMContentLoaded', function () {
 /*!***************************************************!*\
   !*** ./assets/src/js/admin/components/block-3.js ***!
   \***************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _global_components_debounce__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../global/components/debounce */ "./assets/src/js/global/components/debounce.js");
 
 window.addEventListener('DOMContentLoaded', function () {
   var $ = jQuery;
@@ -648,11 +651,10 @@ window.addEventListener('DOMContentLoaded', function () {
   // Set all variables to be used in scope
   var frame;
   var selection;
+  var prv_image;
+  var prv_url;
+  var prv_img_url;
   var multiple_image = true;
-  var metaBox = $('#gallery_upload'); // meta box id here
-  var addImgLink = metaBox.find('#listing_image_btn');
-  var delImgLink = metaBox.find('#delete-custom-img');
-  var imgContainer = metaBox.find('.listing-img-container');
 
   // toggle_section
   function toggle_section(show_if_value, subject_elm, terget_elm) {
@@ -769,37 +771,6 @@ window.addEventListener('DOMContentLoaded', function () {
   } else {
     $('.atbd_tagline_moto_field').fadeOut();
   }
-
-  /**
-   * Price field.
-   */
-  // if ( $( '.directorist-form-pricing-field' ).hasClass( 'price-type-both' ) ) {
-  //     $('#price, #price_range').hide();
-  // }
-
-  // $( '.directorist_pricing_options label' ).on( 'click', function() {
-  //     const $this = $(this);
-  //     $this.children('input[type=checkbox]').prop('checked') == true
-  //         ? $(`#${$this.data('option')}`).show()
-  //         : $(`#${$this.data('option')}`).hide();
-  //     const $sibling = $this.siblings('label');
-  //     $sibling.children('input[type=checkbox]').prop('checked', false);
-  //     $(`#${$sibling.data('option')}`).hide();
-  // } );
-
-  // $('.directorist_pricing_options label').on( 'click', function () {
-  //     const self = $( this );
-
-  //     const current_input = self.attr( 'for' );
-  //     const current_field = `#${self.data('option')}`;
-
-  //     $( '.directorist_pricing_options input[type=checkbox]' ).prop( 'checked', false );
-  //     $( '.directorist_pricing_options input[id='+ current_input +']' ).attr( 'checked', true );
-
-  //     $('.directory_pricing_field').hide();
-  //     $( current_field ).show();
-  // });
-
   $('#atbd_optional_field_check').on('change', function () {
     $(this).is(':checked') ? $('.atbd_tagline_moto_field').fadeIn() : $('.atbd_tagline_moto_field').fadeOut();
   });
@@ -838,24 +809,6 @@ window.addEventListener('DOMContentLoaded', function () {
   } else if ($('.change_listing_prv_img').attr('src') !== '') {
     $('.remove_prev_img').show();
   }
-
-  // price range
-  /* $('#price_range').hide();
-  const is_checked = $('#atbd_listing_pricing').val();
-  if (is_checked === 'range') {
-      $('#price').hide();
-      $('#price_range').show();
-  }
-  $('.atbd_pricing_options label').on('click', function () {
-      const $this = $(this);
-      $this.children('input[type=checkbox]').prop('checked') == true
-          /? $(`#${$this.data('option')}`).show()
-          : $(`#${$this.data('option')}`).hide();
-      const $sibling = $this.siblings('label');
-      $sibling.children('input[type=checkbox]').prop('checked', false);
-      $(`#${$sibling.data('option')}`).hide();
-  }); */
-
   var avg_review = $('#average_review_for_popular').hide();
   var logged_count = $('#views_for_popular').hide();
   if ($('#listing_popular_by select[name="listing_popular_by"]').val() === 'average_rating') {
@@ -881,23 +834,6 @@ window.addEventListener('DOMContentLoaded', function () {
     }
   });
 
-  /* // Display the media uploader when "Upload Image" button clicked in the custom taxonomy "atbdp_categories"
-  $( '#atbdp-categories-upload-image' ).on( 'click', function( e ) {
-    if (frame) {
-   frame.open();
-   return;
-  }
-    // Create a new media frame
-  frame = wp.media({
-   title: directorist_admin.i18n_text.upload_cat_image,
-   button: {
-       text: directorist_admin.i18n_text.choose_image
-   },
-   library: {type: 'image'}, // only allow image upload only
-   multiple: multiple_image  // Set to true to allow multiple files to be selected. it will be set based on the availability of Multiple Image extension
-  });
-  frame.open();
-  }); */
   /**
    * Display the media uploader for selecting an image.
    *
@@ -1100,8 +1036,8 @@ window.addEventListener('DOMContentLoaded', function () {
     admin_listing_form(directory_type);
   }
   var localized_data = directorist_admin.add_listing_data;
-  $('body').on('change', 'select[name="directory_type"]', function () {
-    $(this).parent('.inside').append("<span class=\"directorist_loader\"></span>");
+  $('body').on('change', 'select[name="directory_type"]', Object(_global_components_debounce__WEBPACK_IMPORTED_MODULE_0__["default"])(function () {
+    $(this).parent('.inside').append('<span class="directorist_loader"></span>');
     admin_listing_form($(this).val());
     $(this).closest('#poststuff').find('#publishing-action').addClass('directorist_disable');
     if (!localized_data.is_admin) {
@@ -1148,7 +1084,7 @@ window.addEventListener('DOMContentLoaded', function () {
         pureScriptSelect('#directorist-select-fr-e-js');
       }
     }
-  });
+  }, 270));
 
   // Custom Field Checkbox Button More
   function customFieldSeeMore() {
@@ -1180,7 +1116,7 @@ window.addEventListener('DOMContentLoaded', function () {
           });
           return;
         }
-        $('#directiost-listing-fields_wrapper').empty().append(response.data['listing_meta_fields']);
+        $('#directiost-listing-fields_wrapper .directorist-listing-fields').empty().append(response.data['listing_meta_fields']);
         assetsNeedToWorkInVirtualDom();
         $('#at_biz_dir-locationchecklist').empty().html(response.data['listing_locations']);
         $('#at_biz_dir-categorychecklist').empty().html(response.data['listing_categories']);
@@ -1265,30 +1201,6 @@ window.addEventListener('DOMContentLoaded', function () {
         $($('.directorist-form-pricing-field__options input').get(0)).prop('checked', true).trigger('change');
       }
     }
-
-    // $('.atbd_pricing_options label').on('click', function () {
-    //     const $this = $(this);
-    //     $this.children('input[type=checkbox]').prop('checked') == true ?
-    //         $(`#${$this.data('option')}`).show() :
-    //         $(`#${$this.data('option')}`).hide();
-    //     const $sibling = $this.siblings('label');
-    //     $sibling.children('input[type=checkbox]').prop('checked', false);
-    //     $(`#${$sibling.data('option')}`).hide();
-    // });
-
-    // $('.directorist_pricing_options label').on('click', function () {
-    //     const self = $(this);
-
-    //     const current_input = self.attr('for');
-    //     const current_field = `#${self.data('option')}`;
-
-    //     $('.directorist_pricing_options input[type=checkbox]').prop('checked', false);
-    //     $('.directorist_pricing_options input[id=' + current_input + ']').attr('checked', true);
-
-    //     $('.directory_pricing_field').hide();
-    //     $(current_field).show();
-    // });
-
     var imageUpload;
     if (imageUpload) {
       imageUpload.open();
@@ -2634,6 +2546,35 @@ window.addEventListener('DOMContentLoaded', function () {
 
 /***/ }),
 
+/***/ "./assets/src/js/global/components/debounce.js":
+/*!*****************************************************!*\
+  !*** ./assets/src/js/global/components/debounce.js ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return debounce; });
+function debounce(func, wait, immediate) {
+  var timeout;
+  return function () {
+    var context = this,
+      args = arguments;
+    var later = function later() {
+      timeout = null;
+      if (!immediate) func.apply(context, args);
+    };
+    var callNow = immediate && !timeout;
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+    if (callNow) func.apply(context, args);
+  };
+}
+;
+
+/***/ }),
+
 /***/ "./assets/src/js/global/components/modal.js":
 /*!**************************************************!*\
   !*** ./assets/src/js/global/components/modal.js ***!
@@ -2880,17 +2821,14 @@ function selec2_adjust_space_for_addons() {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/toConsumableArray.js");
-/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _lib_helper__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../lib/helper */ "./assets/src/js/lib/helper.js");
-/* harmony import */ var _select2_custom_control__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./select2-custom-control */ "./assets/src/js/global/components/select2-custom-control.js");
-/* harmony import */ var _select2_custom_control__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_select2_custom_control__WEBPACK_IMPORTED_MODULE_3__);
-
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _lib_helper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../lib/helper */ "./assets/src/js/lib/helper.js");
+/* harmony import */ var _select2_custom_control__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./select2-custom-control */ "./assets/src/js/global/components/select2-custom-control.js");
+/* harmony import */ var _select2_custom_control__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_select2_custom_control__WEBPACK_IMPORTED_MODULE_2__);
 
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 
 
 var $ = jQuery;
@@ -2900,225 +2838,206 @@ document.body.addEventListener('directorist-reload-select2-fields', initSelect2)
 
 // Init Static Select 2 Fields
 function initSelect2() {
-  var select_fields = [{
-    elm: $('.directorist-select').find('select')
-  }, {
-    elm: $('#directorist-select-js')
-  }, {
-    elm: $('#directorist-search-category-js')
-  }, {
-    elm: $('#directorist-select-st-s-js')
-  }, {
-    elm: $('#directorist-select-sn-s-js')
-  }, {
-    elm: $('#directorist-select-mn-e-js')
-  }, {
-    elm: $('#directorist-select-tu-e-js')
-  }, {
-    elm: $('#directorist-select-wd-s-js')
-  }, {
-    elm: $('#directorist-select-wd-e-js')
-  }, {
-    elm: $('#directorist-select-th-e-js')
-  }, {
-    elm: $('#directorist-select-fr-s-js')
-  }, {
-    elm: $('#directorist-select-fr-e-js')
-  },
-  // { elm: $('#directorist-location-select') },
-  // { elm: $('#directorist-category-select') },
-  {
-    elm: $('.select-basic')
-  }, {
-    elm: $('#loc-type')
-  }, {
-    elm: $('.bdas-location-search')
-  },
-  // { elm: $('.directorist-location-select') },
-  {
-    elm: $('#at_biz_dir-category')
-  }, {
-    elm: $('#cat-type')
-  }, {
-    elm: $('.bdas-category-search')
-  }
-  // { elm: $('.directorist-category-select') },
+  var selectors = ['.directorist-select select', '#directorist-select-js',
+  // Not found in any template
+  '#directorist-search-category-js',
+  // Not found in any template
+  // '#directorist-select-st-s-js',
+  // '#directorist-select-sn-s-js',
+  // '#directorist-select-mn-e-js',
+  // '#directorist-select-tu-e-js',
+  // '#directorist-select-wd-s-js',
+  // '#directorist-select-wd-e-js',
+  // '#directorist-select-th-e-js',
+  // '#directorist-select-fr-s-js',
+  // '#directorist-select-fr-e-js',
+  '.select-basic',
+  // Not found in any template
+  '#loc-type', '#cat-type', '#at_biz_dir-category', '.bdas-location-search',
+  // Not found in any template
+  '.bdas-category-search' // Not found in any template
   ];
 
-  select_fields.forEach(function (field) {
-    Object(_lib_helper__WEBPACK_IMPORTED_MODULE_2__["convertToSelect2"])(field);
+  selectors.forEach(function (selector) {
+    return Object(_lib_helper__WEBPACK_IMPORTED_MODULE_1__["convertToSelect2"])(selector);
   });
-  var lazy_load_taxonomy_fields = directorist.lazy_load_taxonomy_fields;
-  if (lazy_load_taxonomy_fields) {
-    // Init Select2 Ajax Fields
-    initSelect2AjaxFields();
-  }
+  initMaybeLazyLoadedTaxonomySelect2();
 }
 
 // Init Select2 Ajax Fields
-function initSelect2AjaxFields() {
-  var rest_base_url = "".concat(directorist.rest_url, "directorist/v1");
-
-  // Init Select2 Ajax Category Field
-  initSelect2AjaxTaxonomy({
-    selector: $('.directorist-search-category').find('select'),
-    url: "".concat(rest_base_url, "/listings/categories")
+function initMaybeLazyLoadedTaxonomySelect2() {
+  var restBase = "".concat(directorist.rest_url, "directorist/v1");
+  maybeLazyLoadCategories({
+    selector: '.directorist-search-category select',
+    url: "".concat(restBase, "/listings/categories")
   });
-  initSelect2AjaxTaxonomy({
-    selector: $('.directorist-form-categories-field').find('select'),
-    url: "".concat(rest_base_url, "/listings/categories")
+  maybeLazyLoadCategories({
+    selector: '.directorist-form-categories-field select',
+    url: "".concat(restBase, "/listings/categories")
   });
-
-  // Init Select2 Ajax Location Field
-  initSelect2AjaxTaxonomy({
-    selector: $('.directorist-search-location').find('select'),
-    url: "".concat(rest_base_url, "/listings/locations")
+  maybeLazyLoadLocations({
+    selector: '.directorist-search-location select',
+    url: "".concat(restBase, "/listings/locations")
   });
-  initSelect2AjaxTaxonomy({
-    selector: $('.directorist-form-location-field').find('select'),
-    url: "".concat(rest_base_url, "/listings/locations")
+  maybeLazyLoadLocations({
+    selector: '.directorist-form-location-field select',
+    url: "".concat(restBase, "/listings/locations")
   });
-
-  // Init Select2 Ajax Tag Field
-  initSelect2AjaxTaxonomy({
-    selector: $('.directorist-form-tag-field').find('select'),
-    url: "".concat(rest_base_url, "/listings/tags")
-  }, {
-    has_directory_type: false
+  maybeLazyLoadTags({
+    selector: '.directorist-form-tag-field select',
+    url: "".concat(restBase, "/listings/tags")
   });
 }
+function maybeLazyLoadCategories(args) {
+  maybeLazyLoadTaxonomyTermsSelect2(_objectSpread(_objectSpread({}, {
+    taxonomy: 'categories'
+  }), args));
+}
+function maybeLazyLoadLocations(args) {
+  maybeLazyLoadTaxonomyTermsSelect2(_objectSpread(_objectSpread({}, {
+    taxonomy: 'locations'
+  }), args));
+}
+function maybeLazyLoadTags(args) {
+  maybeLazyLoadTaxonomyTermsSelect2(_objectSpread(_objectSpread({}, {
+    taxonomy: 'tags'
+  }), args));
+}
 
-// initSelect2AjaxTaxonomy
-function initSelect2AjaxTaxonomy(args, terms_options) {
-  var defaultArgs = {
+// maybeLazyLoadTaxonomyTermsSelect2
+function maybeLazyLoadTaxonomyTermsSelect2(args) {
+  var defaults = {
     selector: '',
     url: '',
-    perPage: 10
+    taxonomy: 'tags'
   };
-  args = _objectSpread(_objectSpread({}, defaultArgs), args);
-  var default_terms_options = {
-    has_directory_type: true
-  };
-  terms_options = terms_options ? _objectSpread(_objectSpread({}, default_terms_options), terms_options) : default_terms_options;
-  if (!args.selector.length) {
+  args = _objectSpread(_objectSpread({}, defaults), args);
+  if (!args.selector) {
     return;
   }
-  _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(args.selector).forEach(function (item, index) {
-    var directory_type_id = 0;
-    var createNew = item.getAttribute("data-allow_new");
-    var maxLength = item.getAttribute("data-max");
-    if (terms_options.has_directory_type) {
-      var search_form_parent = $(item).closest('.directorist-search-form');
-      var archive_page_parent = $(item).closest('.directorist-archive-contents');
-      var add_listing_form_hidden_input = $(item).closest('.directorist-add-listing-form').find('input[name="directory_type"]');
-      var nav_list_item = [];
+  var $el = $(args.selector);
+  var $addListing = $el.closest('.directorist-add-listing-form');
+  var canCreate = $el.data('allow_new');
+  var maxLength = $el.data('max');
+  var directoryId = 0;
+  if (args.taxonomy !== 'tags') {
+    var $searchForm = $el.closest('.directorist-search-form');
+    var $archivePage = $el.closest('.directorist-archive-contents');
+    var $directory = $addListing.find('input[name="directory_type"]');
+    var $navListItem = null;
 
-      // If search page
-      if (search_form_parent.length) {
-        nav_list_item = search_form_parent.find('.directorist-listing-type-selection__link--current');
-      }
-
-      // If archive page
-      if (archive_page_parent.length) {
-        nav_list_item = archive_page_parent.find('.directorist-type-nav__list li.current .directorist-type-nav__link');
-      }
-
-      // If has nav item
-      if (nav_list_item.length) {
-        directory_type_id = nav_list_item ? nav_list_item.data('listing_type_id') : 0;
-      }
-
-      // If has nav item
-      if (add_listing_form_hidden_input.length) {
-        directory_type_id = add_listing_form_hidden_input.val();
-      }
-      if (directory_type_id) {
-        directory_type_id = parseInt(directory_type_id);
-      }
+    // If search page
+    if ($searchForm.length) {
+      $navListItem = $searchForm.find('.directorist-listing-type-selection__link--current');
     }
-    var currentPage = 1;
-    $(item).select2({
-      allowClear: true,
-      tags: createNew,
-      maximumSelectionLength: maxLength,
-      width: '100%',
-      escapeMarkup: function escapeMarkup(text) {
-        return text;
-      },
-      ajax: {
-        url: args.url,
-        dataType: 'json',
-        cache: true,
-        delay: 250,
-        data: function data(params) {
-          currentPage = params.page || 1;
-          var search_term = params.term ? params.term : '';
-          var query = {
-            search: search_term,
-            page: currentPage,
-            per_page: args.perPage
-          };
-          if (directory_type_id) {
-            query.directory = directory_type_id;
-          }
-          return query;
-        },
-        processResults: function processResults(data) {
-          return {
-            results: data.items,
-            pagination: {
-              more: data.paginationMore
-            }
-          };
-        },
-        transport: function transport(params, success, failure) {
-          var $request = $.ajax(params);
-          $request.then(function (data, textStatus, jqXHR) {
-            var totalPage = parseInt(jqXHR.getResponseHeader('x-wp-totalpages'));
-            var paginationMore = currentPage < totalPage;
-            var items = data.map(function (item) {
-              return {
-                id: item.id,
-                text: item.name
-              };
-            });
-            return {
-              items: items,
-              paginationMore: paginationMore
-            };
-          }).then(success);
-          $request.fail(failure);
-          return $request;
-        }
-      }
-    });
+    if ($archivePage.length) {
+      $navListItem = $archivePage.find('.directorist-type-nav__list li.current .directorist-type-nav__link');
+    }
+    if ($navListItem && $navListItem.length) {
+      directoryId = Number($navListItem.data('listing_type_id'));
+    }
+    if ($directory.length) {
+      directoryId = $directory.val();
+    }
+    if (directoryId) {
+      directoryId = Number(directoryId);
+    }
+  }
+  var currentPage = 1;
+  var select2Options = {
+    allowClear: true,
+    tags: canCreate,
+    maximumSelectionLength: maxLength,
+    width: '100%',
+    escapeMarkup: function escapeMarkup(text) {
+      return text;
+    }
+  };
+  if (directorist.lazy_load_taxonomy_fields) {
+    select2Options.ajax = {
+      url: args.url,
+      dataType: 'json',
+      cache: true,
+      delay: 250,
+      data: function data(params) {
+        currentPage = params.page || 1;
+        var query = {
+          page: currentPage,
+          per_page: args.perPage,
+          hide_empty: true
+        };
 
-    // Setup Preselected Option
-    var selected_item_id = $(item).data('selected-id');
-    var selected_item_label = $(item).data('selected-label');
-    var setup_selected_items = function setup_selected_items(element, selected_id, selected_label) {
-      if (!element || !selected_id) {
+        // Load empty terms on add listings.
+        if ($addListing.length) {
+          query.hide_empty = false;
+        }
+        if (params.term) {
+          query.search = params.term;
+          query.hide_empty = false;
+        }
+        if (directoryId) {
+          query.directory = directoryId;
+        }
+        return query;
+      },
+      processResults: function processResults(data) {
+        return {
+          results: data.items,
+          pagination: {
+            more: data.paginationMore
+          }
+        };
+      },
+      transport: function transport(params, success, failure) {
+        var $request = $.ajax(params);
+        $request.then(function (data, textStatus, jqXHR) {
+          var totalPage = Number(jqXHR.getResponseHeader('x-wp-totalpages'));
+          var paginationMore = currentPage < totalPage;
+          var items = data.map(function (item) {
+            var text = item.name;
+            if (!$addListing.length && params.data.search) {
+              text = "".concat(item.name, " (").concat(item.count, ")");
+            }
+            return {
+              id: item.id,
+              text: text
+            };
+          });
+          return {
+            items: items,
+            paginationMore: paginationMore
+          };
+        }).then(success);
+        $request.fail(failure);
+        return $request;
+      }
+    };
+  }
+  $el.length && $el.select2(select2Options);
+  if (directorist.lazy_load_taxonomy_fields) {
+    function setupSelectedItems($el, selectedId, selectedLabel) {
+      if (!$el.length || !selectedId) {
         return;
       }
-      var selected_ids = "".concat(selected_id).split(',');
-      var selected_labels = selected_label ? "".concat(selected_label).split(',') : [];
-      selected_ids.forEach(function (id, index) {
-        var label = selected_labels.length >= index + 1 ? selected_labels[index] : '';
+      var selectedIds = "".concat(selectedId).split(',');
+      var selectedLabels = selectedLabel ? "".concat(selectedLabel).split(',') : [];
+      selectedIds.forEach(function (id, index) {
+        var label = selectedLabels.length >= index + 1 ? selectedLabels[index] : '';
         var option = new Option(label, id, true, true);
-        $(element).append(option);
-        $(element).trigger({
+        $el.append(option);
+        $el.trigger({
           type: 'select2:select',
           params: {
             data: {
               id: id,
-              text: selected_item_label
+              text: label
             }
           }
         });
       });
-    };
-    setup_selected_items(item, selected_item_id, selected_item_label);
-  });
+    }
+    setupSelectedItems($el, $el.data('selected-id'), $el.data('selected-label'));
+  }
 }
 
 /***/ }),
@@ -3255,14 +3174,14 @@ window.addEventListener('DOMContentLoaded', function () {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _components_utility__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/utility */ "./assets/src/js/global/components/utility.js");
-/* harmony import */ var _components_utility__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_components_utility__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _components_tabs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/tabs */ "./assets/src/js/global/components/tabs.js");
-/* harmony import */ var _components_modal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/modal */ "./assets/src/js/global/components/modal.js");
-/* harmony import */ var _components_modal__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_components_modal__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _components_setup_select2__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/setup-select2 */ "./assets/src/js/global/components/setup-select2.js");
-/* harmony import */ var _components_select2_custom_control__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/select2-custom-control */ "./assets/src/js/global/components/select2-custom-control.js");
-/* harmony import */ var _components_select2_custom_control__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_components_select2_custom_control__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _components_modal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/modal */ "./assets/src/js/global/components/modal.js");
+/* harmony import */ var _components_modal__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_components_modal__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_select2_custom_control__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/select2-custom-control */ "./assets/src/js/global/components/select2-custom-control.js");
+/* harmony import */ var _components_select2_custom_control__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_components_select2_custom_control__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _components_setup_select2__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/setup-select2 */ "./assets/src/js/global/components/setup-select2.js");
+/* harmony import */ var _components_tabs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/tabs */ "./assets/src/js/global/components/tabs.js");
+/* harmony import */ var _components_utility__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/utility */ "./assets/src/js/global/components/utility.js");
+/* harmony import */ var _components_utility__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_components_utility__WEBPACK_IMPORTED_MODULE_4__);
 
 
 
@@ -3275,19 +3194,13 @@ __webpack_require__.r(__webpack_exports__);
 /*!*************************************!*\
   !*** ./assets/src/js/lib/helper.js ***!
   \*************************************/
-/*! exports provided: get_dom_data, convertToSelect2 */
+/*! exports provided: convertToSelect2, get_dom_data */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "get_dom_data", function() { return get_dom_data; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "convertToSelect2", function() { return convertToSelect2; });
-/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof.js");
-/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/toConsumableArray.js");
-/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__);
-
-
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "get_dom_data", function() { return get_dom_data; });
 var $ = jQuery;
 function get_dom_data(key, parent) {
   // var elmKey = 'directorist-dom-data-' + key;
@@ -3312,40 +3225,28 @@ function get_dom_data(key, parent) {
     return '';
   }
 }
-function convertToSelect2(field) {
-  if (!field) {
-    return;
-  }
-  if (!field.elm) {
-    return;
-  }
-  if (!field.elm.length) {
-    return;
-  }
-  _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1___default()(field.elm).forEach(function (item) {
-    var default_args = {
-      allowClear: true,
-      width: '100%',
-      templateResult: function templateResult(data) {
-        if (!data.id) {
-          return data.text;
-        }
-        var iconURI = $(data.element).data('icon');
-        var iconElm = "<i class=\"directorist-icon-mask\" aria-hidden=\"true\" style=\"--directorist-icon: url(".concat(iconURI, ")\"></i>");
-        var originalText = data.text;
-        var modifiedText = originalText.replace(/^(\s*)/, "$1" + iconElm);
-        var $state = $("<div class=\"directorist-select2-contents\">".concat(typeof iconURI !== 'undefined' && iconURI !== '' ? modifiedText : originalText, "</div>"));
-        return $state;
+function convertToSelect2(selector) {
+  var $selector = $(selector);
+  var args = {
+    allowClear: true,
+    width: '100%',
+    templateResult: function templateResult(data) {
+      if (!data.id) {
+        return data.text;
       }
-    };
-    var args = field.args && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(field.args) === 'object' ? Object.assign(default_args, field.args) : default_args;
-    var options = $(item).find('option');
-    var placeholder = options.length ? options[0].innerHTML : '';
-    if (placeholder.length) {
-      args.placeholder = placeholder;
+      var iconURI = $(data.element).data('icon');
+      var iconElm = "<i class=\"directorist-icon-mask\" aria-hidden=\"true\" style=\"--directorist-icon: url(".concat(iconURI, ")\"></i>");
+      var originalText = data.text;
+      var modifiedText = originalText.replace(/^(\s*)/, "$1" + iconElm);
+      var $state = $("<div class=\"directorist-select2-contents\">".concat(typeof iconURI !== 'undefined' && iconURI !== '' ? modifiedText : originalText, "</div>"));
+      return $state;
     }
-    $(item).select2(args);
-  });
+  };
+  var options = $selector.find('option');
+  if (options.length && options[0].textContent.length) {
+    args.placeholder = options[0].textContent;
+  }
+  $selector.length && $selector.select2(args);
 }
 
 

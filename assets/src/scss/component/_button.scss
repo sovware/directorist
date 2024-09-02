@@ -9,6 +9,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 5px;
   font-size: 14px;
   font-weight: 500;
   vertical-align: middle;
@@ -26,15 +27,18 @@
   color: var(--directorist-color-btn);
   transition: all ease 0.3s;
   text-decoration: none !important;
+  .directorist-icon-mask:after {
+    transition: all ease 0.3s;
+  }
   &.directorist-btn--add-listing,
   &.directorist-btn--logout {
-      line-height: 43px;
+    line-height: 43px;
   }
   &:hover,
   &:focus {
     color: var(--directorist-color-primary);
     outline: 0 !important;
-    .directorist-icon-mask:after{
+    .directorist-icon-mask:after {
       background-color: var(--directorist-color-primary);
     }
   }
@@ -46,9 +50,9 @@
     background-color: var(--directorist-color-primary);
     color: var(--directorist-color-white);
     @include btnFocusBg(var(--directorist-color-primary));
-    &:hover{
+    &:hover {
       background-color: var(--directorist-color-primary-hover);
-      .directorist-icon-mask:after{
+      .directorist-icon-mask:after {
         background-color: var(--directorist-color-primary);
       }
     }
@@ -76,13 +80,13 @@
 
   &.directorist-btn-light {
     background-color: var(--directorist-color-light);
-    &:hover{
+    &:hover {
       background-color: var(--directorist-color-light-hover);
     }
   }
 
-  &.directorist-btn-lighter{
-    background-color: #F6F7F9;
+  &.directorist-btn-lighter {
+    background-color: #f6f7f9;
     color: var(--directorist-color-primary);
   }
 
@@ -176,7 +180,7 @@
     padding: 0 15px;
   }
 
-  &.directorist-btn-block{
+  &.directorist-btn-block {
     display: flex;
   }
 }

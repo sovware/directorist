@@ -3,6 +3,10 @@ import './../global/components/setup-select2';
 import './components/colorPicker';
 import './components/directoristDropdown';
 import './components/directoristSelect';
+import { directorist_callingSlider } from './range-slider';
+import { directorist_range_slider } from './range-slider';
+import debounce from '../global/components/debounce';
+import initSearchCategoryCustomFields from './components/category-custom-fields';
 
 (function ($) {
     window.addEventListener('DOMContentLoaded', () => {
@@ -70,8 +74,8 @@ import './components/directoristSelect';
                 selectedPrefix.text('');
                 dropdownParent.removeClass('input-has-value');
             }
-        } 
-        
+        }
+
         // Radio Selected Items
         function selectedRadioItem(item) {
             let dropdownParent = $(item).closest('.directorist-search-field');
@@ -87,21 +91,21 @@ import './components/directoristSelect';
                 selectedItem.text('');
                 dropdownParent.removeClass('input-has-value');
             }
-        } 
-        
+        }
+
         // Checkbox Field Check
         $('body').on('change', '.directorist-search-form__top .directorist-search-basic-dropdown input[type="checkbox"], .directorist-search-modal .directorist-search-basic-dropdown input[type="checkbox"]', function (e) {
             e.preventDefault();
 
             selectedItemCount(this);
-        }); 
+        });
 
         // Radio Field Check
         $('body').on('change', '.directorist-search-form__top .directorist-search-basic-dropdown input[type="radio"], .directorist-search-modal .directorist-search-basic-dropdown input[type="radio"]', function (e) {
             e.preventDefault();
 
             selectedRadioItem(this);
-        }); 
+        });
 
         // Basic Search Dropdown Toggle
         $('body').on('click', '.directorist-search-form__top .directorist-search-basic-dropdown-label, .directorist-search-modal .directorist-search-basic-dropdown-label', function (e) {
@@ -132,12 +136,12 @@ import './components/directoristSelect';
                 dropDownContent.removeClass('dropdown-content-show');
                 dropDownContent.slideUp();
             }
-        }); 
+        });
 
         // Check Empty Search Fields on Search Modal
         function initSearchFields(){
             let inputFields = document.querySelectorAll('.directorist-search-modal__input');
-        
+
             inputFields.forEach((inputField)=>{
                 let searchField = inputField.querySelector('.directorist-search-field');
                 if(!searchField){
@@ -150,12 +154,14 @@ import './components/directoristSelect';
             searchFields.forEach((searchField)=>{
                 let inputFieldValue = searchField.value;
                 if(searchField.classList.contains('directorist-select')) {
-                    $(window).on('load', function () {
-                        if(searchField.parentElement.classList.contains('input-is-focused')) {
-                            searchField.parentElement.classList.remove('input-is-focused');
-                        }
-                    });
-                    
+                    inputFieldValue = searchField.querySelector('select').dataset.selectedId;
+                }
+
+                if (inputFieldValue !='') {
+                    searchField.parentElement.classList.add('input-has-value');
+                    if(!searchField.parentElement.classList.contains('input-is-focused')) {
+                        searchField.parentElement.classList.add('input-is-focused');
+                    }
                 } else {
                     if (inputFieldValue !='') {
                         searchField.parentElement.classList.add('input-has-value');
@@ -206,7 +212,7 @@ import './components/directoristSelect';
                 let resetButtonWrapper = searchForm.querySelector('.directorist-advanced-filter__action');
                 resetButtonWrapper && resetButtonWrapper.classList.add('reset-btn-disabled');
             }
-            
+
         }
 
         // Enable Reset Button
@@ -264,7 +270,7 @@ import './components/directoristSelect';
         function adsFormReset(searchForm) {
             searchForm.querySelectorAll("input[type='text']").forEach(function (el) {
                 el.value = "";
-                
+
                 if (el.parentElement.classList.contains('input-has-value') || el.parentElement.classList.contains('input-is-focused')) {
                     el.parentElement.classList.remove('input-has-value', 'input-is-focused');
                 }
@@ -277,14 +283,14 @@ import './components/directoristSelect';
             });
             searchForm.querySelectorAll("input[type='url']").forEach(function (el) {
                 el.value = "";
-                
+
                 if (el.parentElement.classList.contains('input-has-value') || el.parentElement.classList.contains('input-is-focused')) {
                     el.parentElement.classList.remove('input-has-value', 'input-is-focused');
                 }
             });
             searchForm.querySelectorAll("input[type='number']").forEach(function (el) {
                 el.value = "";
-                
+
                 if (el.parentElement.classList.contains('input-has-value') || el.parentElement.classList.contains('input-is-focused')) {
                     el.parentElement.classList.remove('input-has-value', 'input-is-focused');
                 }
@@ -329,7 +335,7 @@ import './components/directoristSelect';
                 }
             })
 
-            
+
 
             let irisPicker = searchForm.querySelector("input.wp-picker-clear");
             if (irisPicker !== null) {
@@ -339,7 +345,7 @@ import './components/directoristSelect';
             handleRadiusVisibility();
 
             initForm(searchForm);
-            
+
         }
 
         // Searchform Reset Trigger
@@ -386,7 +392,7 @@ import './components/directoristSelect';
             }
 
             // Modal Content Style
-            if(modalContent) { 
+            if(modalContent) {
                 modalContent.style.cssText = "opacity: 0; visibility: hidden; bottom: -200px;";
             }
         }
@@ -426,7 +432,7 @@ import './components/directoristSelect';
 
                 searchModalOpen(searchModalElement)
             }
-            
+
         });
 
         // Search Modal Close Trigger
@@ -453,7 +459,7 @@ import './components/directoristSelect';
 
             let inputBox = searchField.querySelector('.directorist-search-field__input:not(.directorist-search-basic-dropdown)');
             let inputFieldValue = inputBox && inputBox.value;
-            
+
             if (inputFieldValue) {
                 searchField.classList.add('input-has-value');
                 if(!searchField.classList.contains('input-is-focused')) {
@@ -488,9 +494,9 @@ import './components/directoristSelect';
                     } else {
                         searchField.classList.remove('input-is-focused');
                     }
-                } 
+                }
             }
-                
+
         }
 
         // Search Field Input Focusout Event Check
@@ -501,7 +507,7 @@ import './components/directoristSelect';
             $('body').one('click', function(e) {
                 inputFieldValue = inputBox.querySelector('select').value;
                 let parentWithClass = e.target.closest('.directorist-search-field__input:not(.directorist-search-basic-dropdown)');
-    
+
                 if (!parentWithClass) {
                     if(inputFieldValue) {
                         searchField.classList.add('input-has-value');
@@ -511,8 +517,8 @@ import './components/directoristSelect';
                     } else {
                         searchField.classList.remove('input-is-focused');
                     }
-                } 
-    
+                }
+
             });
         }
 
@@ -578,7 +584,7 @@ import './components/directoristSelect';
             let searchform = this.closest('form');
             let inputValue = $(this).parent('.directorist-search-field').find('.directorist-search-field__input:not(.directorist-search-basic-dropdown)').val();
             let selectValue = $(this).parent('.directorist-search-field').find('.directorist-search-field__input select:not(.directorist-search-basic-dropdown)').val();
-            
+
             if(inputValue && inputValue !== 0 && inputValue !== undefined || selectValue && selectValue.selectedIndex === 0 ||  selectValue && selectValue.selectedIndex !== undefined) {
                 enableResetButton(searchform);
             } else {
@@ -684,62 +690,12 @@ import './components/directoristSelect';
             });
         });
 
-        // Search Category Change
-        if( $( '.directorist-search-contents' ).length ) {
-            $('body').on('change', '.directorist-category-select', function (event) {
-                let $this            = $(this);
-                let $container       = $this.parents('form');
-                let cat_id           = $this.val();
-                let directory_type   = $container.find('.listing_type').val();
-                let $search_form_box = $container.find('.directorist-search-form-box-wrap');
-                let form_data        = new FormData();
-
-                form_data.append('action', 'directorist_category_custom_field_search');
-                form_data.append('nonce', directorist.directorist_nonce);
-                form_data.append('listing_type', directory_type);
-                form_data.append('cat_id', cat_id);
-                form_data.append('atts', JSON.stringify($container.data('atts')));
-
-                $search_form_box.addClass('atbdp-form-fade');
-
-                $.ajax({
-                    method     : 'POST',
-                    processData: false,
-                    contentType: false,
-                    url        : directorist.ajax_url,
-                    data       : form_data,
-                    success: function success(response) {
-                        if (response) {
-                            $search_form_box.html(response['search_form']);
-
-                            $container.find('.directorist-category-select option').data('custom-field', 1);
-                            $container.find('.directorist-category-select').val(cat_id);
-
-                            [
-                                new CustomEvent('directorist-search-form-nav-tab-reloaded'),
-                                new CustomEvent('directorist-reload-select2-fields'),
-                                new CustomEvent('directorist-reload-map-api-field'),
-                                new CustomEvent('triggerSlice')
-                            ].forEach(function (event) {
-                                document.body.dispatchEvent(event);
-                                window.dispatchEvent(event);
-                            });
-                        }
-
-                        $search_form_box.removeClass('atbdp-form-fade');
-                        initSearchFields();
-                    },
-                    error: function error(_error) {
-                        //console.log(_error);
-                    }
-                });
-            });
-        }
+        initSearchCategoryCustomFields($, initSearchFields);
 
         // Back Button to go back to the previous page
         $('body').on('click', '.directorist-btn__back', function(e) {
             e.preventDefault();
-            
+
             window.history.back();
         });
 
@@ -754,6 +710,7 @@ import './components/directoristSelect';
                 }
             });
         }
+
         // handleRadiusVisibility Trigger
         $('body').on('keyup keydown input change focus', '.directorist-location-js, .zip-radius-search', function (e) {
             handleRadiusVisibility();
@@ -873,7 +830,7 @@ import './components/directoristSelect';
                         return;
                     }
 
-                    $(field.input_elm).on('keyup', directorist_debounce(function (event) {
+                    $(field.input_elm).on('keyup', debounce(function (event) {
                         event.preventDefault();
 
                         let blockedKeyCodes = [16, 17, 18, 19, 20, 27, 33, 34, 35, 36, 37, 38, 39, 40, 45, 91, 93, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 144, 145];
@@ -1021,7 +978,7 @@ import './components/directoristSelect';
         // Custom Range Slider
         function directorist_custom_range_slider() {
             let sliders = document.querySelectorAll('.directorist-custom-range-slider');
-        
+
             sliders.forEach(function (sliderItem) {
                 let slider = sliderItem.querySelector('.directorist-custom-range-slider__slide');
 
@@ -1032,8 +989,8 @@ import './components/directoristSelect';
                     let maxInput = sliderItem.querySelector('.directorist-custom-range-slider__value__max');
                     let sliderRange = sliderItem.querySelector('.directorist-custom-range-slider__range');
                     let sliderRangeShow = sliderItem.querySelector('.directorist-custom-range-slider__range__show');
-                    
-                    directoristCustomRangeSlider.create(slider, {
+
+                    directoristCustomRangeSlider?.create(slider, {
                         start: [0, sliderDefaultValue ? sliderDefaultValue : 100],
                         connect: true,
                         step: sliderStep ? sliderStep : 1,
@@ -1042,37 +999,37 @@ import './components/directoristSelect';
                             'max': Number(maxInput.value ? maxInput.value : 100)
                         }
                     });
-        
-                    slider.directoristCustomRangeSlider.on('update', function (values, handle) {
+
+                    slider.directoristCustomRangeSlider?.on('update', function (values, handle) {
                         let value = values[handle];
                         handle === 0 ? minInput.value = Math.round(value) : maxInput.value = Math.round(value);
                         let rangeValue = minInput.value + '-' + maxInput.value;
                         sliderRange.value = rangeValue;
                         sliderRangeShow && (sliderRangeShow.innerHTML = rangeValue);
                     });
-        
+
                     minInput.addEventListener('change', function () {
                         let minValue = Math.round(parseInt(this.value, 10) / sliderStep) * sliderStep;
                         let maxValue = Math.round(parseInt(maxInput.value, 10) / sliderStep) * sliderStep;
-        
+
                         if (minValue > maxValue) {
                             this.value = maxValue;
                             minValue = maxValue;
                         }
-        
+
                         slider.directoristCustomRangeSlider.set([minValue, null]);
                     });
-        
+
                     maxInput.addEventListener('change', function () {
                         let minValue = Math.round(parseInt(minInput.value, 10) / sliderStep) * sliderStep;
                         let maxValue = Math.round(parseInt(this.value, 10) / sliderStep) * sliderStep;
-        
+
                         if (maxValue < minValue) {
                             this.value = minValue;
                             maxValue = minValue;
                         }
-        
-                        slider.directoristCustomRangeSlider.set([null, maxValue]);    
+
+                        slider.directoristCustomRangeSlider.set([null, maxValue]);
                     });
                 }
             });
@@ -1087,10 +1044,10 @@ import './components/directoristSelect';
             let maxInput = sliderItem.querySelector('.directorist-custom-range-slider__value__max');
             let sliderParent = sliderItem.closest('.directorist-search-field-radius_search');
             let maxValue = slider.getAttribute('value') || 'none';
-            
+
             if (sliderParent) {
                 minInput.value = '0';
-                maxInput.value = maxValue; 
+                maxInput.value = maxValue;
                 slider.directoristCustomRangeSlider.set([0, maxValue]); // Set your initial values
             } else {
                 // Reset values to their initial state
@@ -1109,70 +1066,101 @@ import './components/directoristSelect';
                 observer.observe( targetNode, { attributes: true } );
             }
         }
-        
+
         locationObserver();
         handleRadiusVisibility();
+
+        $('body').on("keyup", '.zip-radius-search', directorist_debounce( function(){
+            var zipcode         = $(this).val();
+            var zipcode_search  = $(this).closest('.directorist-zipcode-search');
+            var country_suggest = zipcode_search.find('.directorist-country');
+            var zipcode_search  = $(this).closest('.directorist-zipcode-search');
+            
+            if(zipcode) {
+                zipcode_search.addClass('dir_loading');
+            }
+
+            if( directorist.i18n_text.select_listing_map === 'google' ) {
+              var url = directorist.ajax_url;
+            } else {
+                url = `https://nominatim.openstreetmap.org/?postalcode=${zipcode}&format=json&addressdetails=1`;
+
+                $('.directorist-country').css({
+                    display: 'block'
+                });
+    
+                if (zipcode === '') {
+                    $('.directorist-country').css({
+                        display: 'none'
+                    });
+                }
+                
+            }
+            
+            let res = '';
+            let google_data = {
+                'nonce' : directorist.directorist_nonce,
+                'action' : 'directorist_zipcode_search',
+                'zipcode' : zipcode
+            };
+            $.ajax({
+                url: url,
+                method: 'POST',
+                data : directorist.i18n_text.select_listing_map === 'google' ? google_data : "",
+                success: function( data ) {
+                    if( data.data && data.data.error_message ) {
+                        zipcode_search.find('.error_message').remove();
+                        zipcode_search.find('.zip-cityLat').val( '' );
+                        zipcode_search.find('.zip-cityLng').val( '' );
+                        zipcode_search.append( data.data.error_message );
+                    }
+                    zipcode_search.removeClass('dir_loading');
+                    if( directorist.i18n_text.select_listing_map === 'google' && typeof data.lat !== 'undefined' && typeof data.lng !== 'undefined' ) {
+                        zipcode_search.find('.error_message').remove();
+                        zipcode_search.find('.zip-cityLat').val( data.lat );
+                        zipcode_search.find('.zip-cityLng').val( data.lng );
+                    } else {
+                        if( data.length === 1 ) {
+                            var lat = data[0].lat;
+                            var lon = data[0].lon;
+                            zipcode_search.find('.zip-cityLat').val(lat);
+                            zipcode_search.find('.zip-cityLng').val(lon);
+                        } else {
+                            for (let i = 0; i < data.length; i++) {
+                                res += `<li><a href="#" data-lat=${data[i].lat} data-lon=${data[i].lon}>${data[i].address.country}</a></li>`;
+                            }
+                        }
+
+                        $(country_suggest).html(`<ul>${res}</ul>`);
+
+                        if (res.length) {
+                            $('.directorist-country').show();
+                        } else {
+                            $('.directorist-country').hide();
+                        }
+                    }
+                }
+            });
+        }, 250 ));
 
         // Returns a function, that, as long as it continues to be invoked, will not
         // be triggered. The function will be called after it stops being called for
         // N milliseconds. If `immediate` is passed, trigger the function on the
         // leading edge, instead of the trailing.
         function directorist_debounce(func, wait, immediate) {
-            let timeout;
+            var timeout;
             return function() {
-                let context = this, args = arguments;
-                let later = function() {
+                var context = this, args = arguments;
+                var later = function() {
                     timeout = null;
                     if (!immediate) func.apply(context, args);
                 };
-                let callNow = immediate && !timeout;
+                var callNow = immediate && !timeout;
                 clearTimeout(timeout);
                 timeout = setTimeout(later, wait);
                 if (callNow) func.apply(context, args);
             };
         };
-
-        $('body').on("keyup", '.zip-radius-search', directorist_debounce( function(){
-            let zipcode         = $(this).val();
-            let zipcode_search  = $(this).closest('.directorist-zipcode-search');
-            let country_suggest = zipcode_search.find('.directorist-country');
-
-            $('.directorist-country').css({
-                display: 'block'
-            });
-
-            if (zipcode === '') {
-                $('.directorist-country').css({
-                    display: 'none'
-                });
-            }
-            let res = '';
-            $.ajax({
-                url: `https://nominatim.openstreetmap.org/?postalcode=+${zipcode}+&format=json&addressdetails=1`,
-                type: "POST",
-                data: {},
-                success: function( data ) {
-                    if( data.length === 1 ) {
-                        let lat = data[0].lat;
-                        let lon = data[0].lon;
-                        zipcode_search.find('.zip-cityLat').val(lat);
-                        zipcode_search.find('.zip-cityLng').val(lon);
-                    } else {
-                        for (let i = 0; i < data.length; i++) {
-                            res += `<li><a href="#" data-lat=${data[i].lat} data-lon=${data[i].lon}>${data[i].address.country}</a></li>`;
-                        }
-                    }
-
-                    $(country_suggest).html(`<ul>${res}</ul>`);
-
-                    if (res.length) {
-                        $('.directorist-country').show();
-                    } else {
-                        $('.directorist-country').hide();
-                    }
-                }
-            });
-        }, 250 ));
 
         // Custom Range Slider Value Check on Change
         function sliderValueCheck(targetNode, value) {
@@ -1187,7 +1175,7 @@ import './components/directoristSelect';
                 initForm(searchForm);
             }
         }
-        
+
         // DOM Mutation Observer on Custom Range Slider
         function rangeSliderObserver() {
             let targetNodes = document.querySelectorAll('.directorist-search-field:not(.directorist-search-field-radius_search) .directorist-custom-range-slider-handle-upper');
@@ -1200,12 +1188,12 @@ import './components/directoristSelect';
                             }
                         }
                     };
-    
+
                     let sliderObserver = new MutationObserver( observerCallback );
                     sliderObserver.observe( targetNode, { attributes: true } );
                 }
-                   
-            
+
+
             })
 
         }

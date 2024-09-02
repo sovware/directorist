@@ -921,6 +921,74 @@ window.addEventListener('DOMContentLoaded', function () {
 
 /***/ }),
 
+/***/ "./assets/src/js/public/components/preferenceForm.js":
+/*!***********************************************************!*\
+  !*** ./assets/src/js/public/components/preferenceForm.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+;
+(function ($) {
+  window.addEventListener('load', function () {
+    var is_processing = false;
+    $('#user_preferences').on('submit', function (e) {
+      // submit the form to the ajax handler and then send a response from the database and then work accordingly and then after finishing the update profile then work on remove listing and also remove the review and rating form the custom table once the listing is deleted successfully.
+      e.preventDefault();
+      var submit_button = $('#update_user_preferences');
+      submit_button.attr('disabled', true);
+      submit_button.addClass("directorist-loader");
+      if (is_processing) {
+        submit_button.removeAttr('disabled');
+        return;
+      }
+      var form_data = new FormData();
+      var err_log = {};
+
+      // ajax action
+      form_data.append('action', 'update_user_preferences');
+      form_data.append('directorist_nonce', directorist.directorist_nonce);
+      var $form = $(this);
+      var arrData = $form.serializeArray();
+      $.each(arrData, function (index, elem) {
+        var name = elem.name;
+        var value = elem.value;
+        form_data.append(name, value);
+      });
+      $.ajax({
+        method: 'POST',
+        processData: false,
+        contentType: false,
+        url: directorist.ajaxurl,
+        data: form_data,
+        success: function success(response) {
+          submit_button.removeAttr('disabled');
+          submit_button.removeClass("directorist-loader");
+          console.log(response);
+          if (response.success) {
+            $('#directorist-preference-notice').html('<span class="directorist-alert directorist-alert-success">' + response.data.message + '</span>');
+          } else {
+            $('#directorist-preference-notice').html('<span class="directorist-alert directorist-alert-danger">' + response.data.message + '</span>');
+          }
+        },
+        error: function error(response) {
+          submit_button.removeAttr('disabled');
+          console.log(response);
+        }
+      });
+      // remove notice after five second
+      setTimeout(function () {
+        $("#directorist-preference-notice .directorist-alert").remove();
+      }, 5000);
+
+      // prevent the from submitting
+      return false;
+    });
+  });
+})(jQuery);
+
+/***/ }),
+
 /***/ "./assets/src/js/public/components/profileForm.js":
 /*!********************************************************!*\
   !*** ./assets/src/js/public/components/profileForm.js ***!
@@ -1213,6 +1281,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_directoristFavorite__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_components_directoristFavorite__WEBPACK_IMPORTED_MODULE_12__);
 /* harmony import */ var _components_directoristAlert__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../components/directoristAlert */ "./assets/src/js/public/components/directoristAlert.js");
 /* harmony import */ var _components_directoristAlert__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_components_directoristAlert__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var _components_preferenceForm__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../components/preferenceForm */ "./assets/src/js/public/components/preferenceForm.js");
+/* harmony import */ var _components_preferenceForm__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(_components_preferenceForm__WEBPACK_IMPORTED_MODULE_14__);
 // Lib
 
 
@@ -1227,6 +1297,7 @@ __webpack_require__.r(__webpack_exports__);
 
 // General Components
 // import '../components/tab';
+
 
 
 

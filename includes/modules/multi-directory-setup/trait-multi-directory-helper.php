@@ -83,11 +83,13 @@ trait Multi_Directory_Helper {
         }
 
         // Validate term name
-        if ( ! empty( $directory_name ) && term_exists( $directory_name, 'atbdp_listing_types' ) ) {
+        if ( ! empty( $directory_name ) && $term = term_exists( $directory_name, 'atbdp_listing_types' ) ) {
             $response['status']['status_log']['term_exists'] = [
                 'type'    => 'error',
                 'message' => __( 'The name already exists', 'directorist' ),
             ];
+
+            $response['status']['term_id'] = $term['term_id'];
 
             $response['status']['error_count']++;
         }

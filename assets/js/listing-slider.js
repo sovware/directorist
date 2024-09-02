@@ -128,13 +128,12 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         el.classList.add("directorist-swiper__pagination--listing-".concat(i));
       });
       el.classList.add("directorist-swiper-listing-".concat(i));
-      var swiper = new Swiper(".directorist-swiper-listing-".concat(i), {
+      var swiperConfig = {
         slidesPerView: checkData(parseInt(el.dataset.swItems), 4),
         spaceBetween: checkData(parseInt(el.dataset.swMargin), 30),
         loop: checkData(el.dataset.swLoop, true),
         slidesPerGroup: checkData(parseInt(el.dataset.swPerslide), 1),
         speed: checkData(parseInt(el.dataset.swSpeed), 300),
-        autoplay: checkData(el.dataset.swAutoplay, {}),
         navigation: {
           nextEl: ".directorist-swiper__nav--next-listing-".concat(i),
           prevEl: ".directorist-swiper__nav--prev-listing-".concat(i)
@@ -145,7 +144,19 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           clickable: true
         },
         breakpoints: checkData(el.dataset.swResponsive ? JSON.parse(el.dataset.swResponsive) : undefined, {})
-      });
+      };
+
+      // Conditionally add autoplay property
+      var enableAutoplay = checkData(el.dataset.swAutoplay, 'false');
+
+      // Conditionally add autoplay property
+      if (enableAutoplay === "true") {
+        swiperConfig.autoplay = {
+          delay: checkData(parseInt(el.dataset.swSpeed), 500),
+          disableOnInteraction: false
+        };
+      }
+      var swiper = new Swiper(".directorist-swiper-listing-".concat(i), swiperConfig);
     });
 
     /* Swiper Slider Related Listing */
@@ -164,13 +175,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         el.classList.add("directorist-swiper__pagination--related-".concat(i));
       });
       el.classList.add("directorist-swiper-related-listing-".concat(i));
-      var swiper = new Swiper(".directorist-swiper-related-listing-".concat(i), {
+      var swiperRelatedConfig = {
         slidesPerView: checkData(parseInt(el.dataset.swItems), 4),
         spaceBetween: checkData(parseInt(el.dataset.swMargin), 30),
         loop: checkData(el.dataset.swLoop, false),
         slidesPerGroup: checkData(parseInt(el.dataset.swPerslide), 1),
-        speed: checkData(parseInt(el.dataset.swSpeed), 300),
-        autoplay: checkData(el.dataset.swAutoplay, {}),
         navigation: {
           nextEl: ".directorist-swiper__nav--next-related-".concat(i),
           prevEl: ".directorist-swiper__nav--prev-related-".concat(i)
@@ -181,7 +190,18 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           clickable: true
         },
         breakpoints: checkData(el.dataset.swResponsive ? JSON.parse(el.dataset.swResponsive) : undefined, {})
-      });
+      };
+      var enableRelatedAutoplay = checkData(el.dataset.swAutoplay, 'false');
+
+      // Conditionally add autoplay property
+      if (enableRelatedAutoplay === "true") {
+        swiperRelatedConfig.autoplay = {
+          delay: checkData(parseInt(el.dataset.swSpeed), 500),
+          disableOnInteraction: false,
+          pauseOnMouseEnter: true
+        };
+      }
+      var swiper = new Swiper(".directorist-swiper-related-listing-".concat(i), swiperRelatedConfig);
 
       // Destroy Swiper Slider When Slider Image Are Less Than Minimum Required Image
       function destroySwiperSlider() {

@@ -204,13 +204,14 @@ class Directorist_Listing_Author {
 			$args['tax_query'] = $category;
 		}
 		$meta_queries   = array();
-		$meta_queries['expired'] = array(
-			array(
-				'key'     => '_listing_status',
-				'value'   => 'expired',
-				'compare' => '!=',
-			),
-		);
+		// TODO: Status has been migrated, remove related code.
+		// $meta_queries['expired'] = array(
+		// 	array(
+		// 		'key'     => '_listing_status',
+		// 		'value'   => 'expired',
+		// 		'compare' => '!=',
+		// 	),
+		// );
 
 		$meta_queries       = apply_filters( 'atbdp_author_listings_meta_queries', $meta_queries );
 		$count_meta_queries = count( $meta_queries );
@@ -329,7 +330,8 @@ class Directorist_Listing_Author {
 	}
 
 	public function cat_filter_enabled() {
-		return get_directorist_option( 'author_cat_filter', 1 );
+		_deprecated_function( __METHOD__, '8.0' );
+		return true;
 	}
 
 	public function get_listing_categories() {

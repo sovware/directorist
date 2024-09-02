@@ -11,256 +11,229 @@ document.body.addEventListener('directorist-reload-select2-fields', initSelect2)
 
 // Init Static Select 2 Fields
 function initSelect2() {
-    const select_fields = [{
-            elm: $('.directorist-select').find('select')
-        },
-        {
-            elm: $('#directorist-select-js')
-        },
-        {
-            elm: $('#directorist-search-category-js')
-        },
-        {
-            elm: $('#directorist-select-st-s-js')
-        },
-        {
-            elm: $('#directorist-select-sn-s-js')
-        },
-        {
-            elm: $('#directorist-select-mn-e-js')
-        },
-        {
-            elm: $('#directorist-select-tu-e-js')
-        },
-        {
-            elm: $('#directorist-select-wd-s-js')
-        },
-        {
-            elm: $('#directorist-select-wd-e-js')
-        },
-        {
-            elm: $('#directorist-select-th-e-js')
-        },
-        {
-            elm: $('#directorist-select-fr-s-js')
-        },
-        {
-            elm: $('#directorist-select-fr-e-js')
-        },
-        // { elm: $('#directorist-location-select') },
-        // { elm: $('#directorist-category-select') },
-        {
-            elm: $('.select-basic')
-        },
-        {
-            elm: $('#loc-type')
-        },
-        {
-            elm: $('.bdas-location-search')
-        },
-        // { elm: $('.directorist-location-select') },
-        {
-            elm: $('#at_biz_dir-category')
-        },
-        {
-            elm: $('#cat-type')
-        },
-        {
-            elm: $('.bdas-category-search')
-        },
-        // { elm: $('.directorist-category-select') },
+    const selectors = [
+        '.directorist-select select',
+        '#directorist-select-js', // Not found in any template
+        '#directorist-search-category-js', // Not found in any template
+        // '#directorist-select-st-s-js',
+        // '#directorist-select-sn-s-js',
+        // '#directorist-select-mn-e-js',
+        // '#directorist-select-tu-e-js',
+        // '#directorist-select-wd-s-js',
+        // '#directorist-select-wd-e-js',
+        // '#directorist-select-th-e-js',
+        // '#directorist-select-fr-s-js',
+        // '#directorist-select-fr-e-js',
+        '.select-basic', // Not found in any template
+        '#loc-type',
+        '#cat-type',
+        '#at_biz_dir-category',
+        '.bdas-location-search', // Not found in any template
+        '.bdas-category-search', // Not found in any template
     ];
 
-    select_fields.forEach(field => {
-        convertToSelect2(field);
-    });
+    selectors.forEach( selector => convertToSelect2( selector ) );
 
-    const lazy_load_taxonomy_fields = directorist.lazy_load_taxonomy_fields;
-    if (lazy_load_taxonomy_fields) {
-        // Init Select2 Ajax Fields
-        initSelect2AjaxFields();
-    }
+    initMaybeLazyLoadedTaxonomySelect2();
 }
 
 // Init Select2 Ajax Fields
-function initSelect2AjaxFields() {
-    const rest_base_url = `${directorist.rest_url}directorist/v1`;
+function initMaybeLazyLoadedTaxonomySelect2() {
+    const restBase = `${directorist.rest_url}directorist/v1`;
 
-    // Init Select2 Ajax Category Field
-    initSelect2AjaxTaxonomy({
-        selector: $('.directorist-search-category').find('select'),
-        url: `${rest_base_url}/listings/categories`,
-    });
+    maybeLazyLoadCategories( {
+        selector: '.directorist-search-category select',
+        url     : `${restBase}/listings/categories`,
+    } );
 
-    initSelect2AjaxTaxonomy({
-        selector: $('.directorist-form-categories-field').find('select'),
-        url: `${rest_base_url}/listings/categories`,
-    });
+    maybeLazyLoadCategories( {
+        selector: '.directorist-form-categories-field select',
+        url     : `${restBase}/listings/categories`,
+    } );
 
-    // Init Select2 Ajax Location Field
-    initSelect2AjaxTaxonomy({
-        selector: $('.directorist-search-location').find('select'),
-        url: `${rest_base_url}/listings/locations`,
-    });
+    maybeLazyLoadLocations( {
+        selector: '.directorist-search-location select',
+        url     : `${restBase}/listings/locations`,
+    } );
 
-    initSelect2AjaxTaxonomy({
-        selector: $('.directorist-form-location-field').find('select'),
-        url: `${rest_base_url}/listings/locations`,
-    });
+    maybeLazyLoadLocations( {
+        selector: '.directorist-form-location-field select',
+        url     : `${restBase}/listings/locations`,
+    } );
 
-    // Init Select2 Ajax Tag Field
-    initSelect2AjaxTaxonomy({
-        selector: $('.directorist-form-tag-field').find('select'),
-        url: `${rest_base_url}/listings/tags`,
-    }, { has_directory_type: false });
+    maybeLazyLoadTags( {
+        selector: '.directorist-form-tag-field select',
+        url     : `${restBase}/listings/tags`,
+    } );
 }
 
+function maybeLazyLoadCategories( args ) {
+    maybeLazyLoadTaxonomyTermsSelect2( { ...{ taxonomy: 'categories' }, ...args } );
+}
 
-// initSelect2AjaxTaxonomy
-function initSelect2AjaxTaxonomy( args, terms_options ) {
-    const defaultArgs = {
+function maybeLazyLoadLocations( args ) {
+    maybeLazyLoadTaxonomyTermsSelect2( { ...{ taxonomy: 'locations' }, ...args } );
+}
+
+function maybeLazyLoadTags( args ) {
+    maybeLazyLoadTaxonomyTermsSelect2( { ...{ taxonomy: 'tags' }, ...args } );
+}
+
+// maybeLazyLoadTaxonomyTermsSelect2
+function maybeLazyLoadTaxonomyTermsSelect2( args ) {
+    const defaults = {
         selector: '',
-        url: '',
-        perPage: 10
+        url     : '',
+        taxonomy: 'tags'
     };
 
-    args = { ...defaultArgs, ...args };
+    args = { ...defaults, ...args };
 
-    const default_terms_options = { has_directory_type: true };
-    terms_options = ( terms_options ) ? { ...default_terms_options, ...terms_options } : default_terms_options;
-
-    if ( ! args.selector.length ) {
+    if ( ! args.selector ) {
         return;
     }
 
-    [ ...args.selector ].forEach( ( item, index ) => {
-        let directory_type_id = 0;
+    const $el         = $( args.selector );
+    const $addListing = $el.closest( '.directorist-add-listing-form' );
+    const canCreate   = $el.data( 'allow_new' );
+    const maxLength   = $el.data( 'max' );
+    let   directoryId = 0;
 
-        let createNew = item.getAttribute("data-allow_new");
-        let maxLength = item.getAttribute("data-max");
+    if ( args.taxonomy !== 'tags' ) {
+        const $searchForm  = $el.closest( '.directorist-search-form' );
+        const $archivePage = $el.closest( '.directorist-archive-contents' );
+        const $directory   = $addListing.find( 'input[name="directory_type"]' );
+        let   $navListItem = null;
 
-        if ( terms_options.has_directory_type ) {
-            const search_form_parent            = $( item ).closest( '.directorist-search-form' );
-            const archive_page_parent           = $( item ).closest( '.directorist-archive-contents' );
-            const add_listing_form_hidden_input = $( item ).closest( '.directorist-add-listing-form' ).find( 'input[name="directory_type"]' );
-
-            let nav_list_item = [];
-
-            // If search page
-            if ( search_form_parent.length ) {
-                nav_list_item = search_form_parent.find( '.directorist-listing-type-selection__link--current' );
-            }
-
-            // If archive page
-            if ( archive_page_parent.length ) {
-                nav_list_item = archive_page_parent.find( '.directorist-type-nav__list li.current .directorist-type-nav__link' );
-            }
-
-            // If has nav item
-            if ( nav_list_item.length ) {
-                directory_type_id = ( nav_list_item ) ? nav_list_item.data( 'listing_type_id' ) : 0;
-            }
-
-            // If has nav item
-            if ( add_listing_form_hidden_input.length ) {
-                directory_type_id = add_listing_form_hidden_input.val();
-            }
-
-            if ( directory_type_id ) {
-                directory_type_id = parseInt( directory_type_id );
-            }
+        // If search page
+        if ( $searchForm.length ) {
+            $navListItem = $searchForm.find( '.directorist-listing-type-selection__link--current' );
         }
 
-        var currentPage = 1;
+        if ( $archivePage.length ) {
+            $navListItem = $archivePage.find( '.directorist-type-nav__list li.current .directorist-type-nav__link' );
+        }
 
-        $( item ).select2({
-            allowClear: true,
-            tags: createNew,
-            maximumSelectionLength: maxLength,
-            width: '100%',
-            escapeMarkup: function (text) {
-                return text;
+        if ( $navListItem && $navListItem.length ) {
+            directoryId = Number( $navListItem.data( 'listing_type_id' ) );
+        }
+
+        if ( $directory.length ) {
+            directoryId = $directory.val();
+        }
+
+        if ( directoryId ) {
+            directoryId = Number( directoryId );
+        }
+    }
+
+    let currentPage = 1;
+
+    const select2Options = {
+        allowClear: true,
+        tags: canCreate,
+        maximumSelectionLength: maxLength,
+        width: '100%',
+        escapeMarkup: function( text ) {
+            return text;
+        },
+    };
+
+    if ( directorist.lazy_load_taxonomy_fields ) {
+        select2Options.ajax = {
+            url: args.url,
+            dataType: 'json',
+            cache: true,
+            delay: 250,
+            data: function (params) {
+                currentPage = params.page || 1;
+
+                let query = {
+                    page: currentPage,
+                    per_page: args.perPage,
+                    hide_empty: true,
+                }
+
+                // Load empty terms on add listings.
+                if ( $addListing.length ) {
+                    query.hide_empty = false;
+                }
+
+                if ( params.term ) {
+                    query.search = params.term;
+                    query.hide_empty = false;
+                }
+
+                if ( directoryId ) {
+                    query.directory = directoryId;
+                }
+
+                return query;
             },
-            ajax: {
-                url: args.url,
-                dataType: 'json',
-                cache: true,
-                delay: 250,
-                data: function (params) {
-                    currentPage = params.page || 1;
-                    const search_term = ( params.term ) ? params.term : '';
 
-                    let query = {
-                        search: search_term,
-                        page: currentPage,
-                        per_page: args.perPage,
-                    }
+            processResults: function( data ) {
+                return {
+                    results: data.items,
+                    pagination: { more: data.paginationMore }
+                };
+            },
 
-                    if ( directory_type_id ) {
-                        query.directory = directory_type_id;
-                    }
+            transport: function ( params, success, failure ) {
+                const $request = $.ajax( params );
 
-                    return query;
-                },
-                processResults: function (data) {
-                    return {
-                        results: data.items,
-                        pagination: { more: data.paginationMore }
-                    };
-                },
+                $request.then( function( data, textStatus, jqXHR ) {
+                    var totalPage = Number( jqXHR.getResponseHeader( 'x-wp-totalpages' ) );
+                    var paginationMore = currentPage < totalPage;
 
-                transport: function (params, success, failure) {
-                    var $request = $.ajax(params);
+                    var items = data.map( item => {
+                        let text = item.name;
 
-                    $request.then(function( data, textStatus, jqXHR ) {
-                        var totalPage = parseInt( jqXHR.getResponseHeader('x-wp-totalpages') );
-                        var paginationMore = currentPage < totalPage;
-
-                        var items = data.map(item => {
-                            return {
-                                id: item.id,
-                                text: item.name,
-                            };
-                        });
+                        if ( ! $addListing.length && params.data.search ) {
+                            text = `${item.name} (${item.count})`
+                        }
 
                         return {
-                            items,
-                            paginationMore,
+                            id: item.id,
+                            text,
                         };
-                    }).then(success);
+                    } );
 
-                    $request.fail(failure);
+                    return {
+                        items,
+                        paginationMore,
+                    };
+                } ).then( success );
 
-                    return $request;
-                }
+                $request.fail( failure );
+
+                return $request;
             }
-        });
+        };
+    }
 
-        // Setup Preselected Option
-        const selected_item_id    = $( item ).data( 'selected-id' );
-        const selected_item_label = $( item ).data( 'selected-label' );
+    $el.length && $el.select2( select2Options );
 
-        const setup_selected_items = function ( element, selected_id, selected_label ) {
-            if ( ! element || ! selected_id ) {
+    if ( directorist.lazy_load_taxonomy_fields ) {
+        function setupSelectedItems( $el, selectedId, selectedLabel ) {
+            if ( ! $el.length || ! selectedId ) {
                 return;
             }
 
-            const selected_ids    = `${selected_id}`.split( ',' );
-            const selected_labels = selected_label ? `${selected_label}`.split( ',' ) : [];
+            const selectedIds    = `${selectedId}`.split( ',' );
+            const selectedLabels = selectedLabel ? `${selectedLabel}`.split( ',' ) : [];
 
-            selected_ids.forEach( ( id, index ) => {
-                const label  = ( selected_labels.length >= ( index + 1 ) ) ? selected_labels[index] : '';
+            selectedIds.forEach( ( id, index ) => {
+                const label  = ( selectedLabels.length >= ( index + 1 ) ) ? selectedLabels[ index ] : '';
                 var   option = new Option( label, id, true, true );
 
-                $( element ).append( option );
-                $( element ).trigger({
+                $el.append( option );
+                $el.trigger( {
                     type: 'select2:select',
-                    params: { data: { id: id,  text: selected_item_label } }
-                });
+                    params: { data: { id: id,  text: label } }
+                } );
             } );
         }
 
-        setup_selected_items( item, selected_item_id, selected_item_label );
-    });
-
+        setupSelectedItems( $el, $el.data( 'selected-id' ), $el.data( 'selected-label' ) );
+    }
 }

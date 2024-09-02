@@ -23,6 +23,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 			<?php
 				if ( ! empty( $data['images'] )  ):
 					foreach ( $data['images'] as $image ) {
+						if( empty( $image['src'] ) ) {
+							continue;
+						}
 						$img_src = $image['src'];
 						$img_alt = $image['alt'];
 						$output = "<div class='swiper-slide'><img src={$img_src} alt={$img_alt} /></div>" . "\n";
@@ -45,6 +48,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 			<?php
 				if ( ! empty( $data['images'] )  ):
 					foreach ( $data['images'] as $image ) {
+						if( empty( $image['src'] ) ) {
+							continue;
+						}
 						$img_src = $image['src'];
 						$img_alt = $image['alt'];
 						$output = "<div class='swiper-slide'><img src={$img_src} alt={$img_alt} /></div>" . "\n";

@@ -1,3 +1,5 @@
+import debounce from "../../global/components/debounce";
+
 window.addEventListener('DOMContentLoaded', () => {
     const $ = jQuery;
 
@@ -6,12 +8,10 @@ window.addEventListener('DOMContentLoaded', () => {
     // Set all variables to be used in scope
     let frame;
     let selection;
+    let prv_image;
+    let prv_url;
+    let prv_img_url;
     const multiple_image = true;
-    const metaBox = $('#gallery_upload'); // meta box id here
-    const addImgLink = metaBox.find('#listing_image_btn');
-    const delImgLink = metaBox.find('#delete-custom-img');
-    const imgContainer = metaBox.find('.listing-img-container');
-
 
     // toggle_section
     function toggle_section(show_if_value, subject_elm, terget_elm) {
@@ -148,36 +148,6 @@ window.addEventListener('DOMContentLoaded', () => {
         $('.atbd_tagline_moto_field').fadeOut();
     }
 
-    /**
-     * Price field.
-     */
-    // if ( $( '.directorist-form-pricing-field' ).hasClass( 'price-type-both' ) ) {
-    //     $('#price, #price_range').hide();
-    // }
-
-    // $( '.directorist_pricing_options label' ).on( 'click', function() {
-    //     const $this = $(this);
-    //     $this.children('input[type=checkbox]').prop('checked') == true
-    //         ? $(`#${$this.data('option')}`).show()
-    //         : $(`#${$this.data('option')}`).hide();
-    //     const $sibling = $this.siblings('label');
-    //     $sibling.children('input[type=checkbox]').prop('checked', false);
-    //     $(`#${$sibling.data('option')}`).hide();
-    // } );
-
-    // $('.directorist_pricing_options label').on( 'click', function () {
-    //     const self = $( this );
-
-    //     const current_input = self.attr( 'for' );
-    //     const current_field = `#${self.data('option')}`;
-
-    //     $( '.directorist_pricing_options input[type=checkbox]' ).prop( 'checked', false );
-    //     $( '.directorist_pricing_options input[id='+ current_input +']' ).attr( 'checked', true );
-
-    //     $('.directory_pricing_field').hide();
-    //     $( current_field ).show();
-    // });
-
     $('#atbd_optional_field_check').on('change', function () {
         $(this).is(':checked') ?
             $('.atbd_tagline_moto_field').fadeIn() :
@@ -230,23 +200,6 @@ window.addEventListener('DOMContentLoaded', () => {
         $('.remove_prev_img').show();
     }
 
-    // price range
-    /* $('#price_range').hide();
-    const is_checked = $('#atbd_listing_pricing').val();
-    if (is_checked === 'range') {
-        $('#price').hide();
-        $('#price_range').show();
-    }
-    $('.atbd_pricing_options label').on('click', function () {
-        const $this = $(this);
-        $this.children('input[type=checkbox]').prop('checked') == true
-            /? $(`#${$this.data('option')}`).show()
-            : $(`#${$this.data('option')}`).hide();
-        const $sibling = $this.siblings('label');
-        $sibling.children('input[type=checkbox]').prop('checked', false);
-        $(`#${$sibling.data('option')}`).hide();
-    }); */
-
     const avg_review = $('#average_review_for_popular').hide();
     const logged_count = $('#views_for_popular').hide();
     if ($('#listing_popular_by select[name="listing_popular_by"]').val() === 'average_rating') {
@@ -272,25 +225,6 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    /* // Display the media uploader when "Upload Image" button clicked in the custom taxonomy "atbdp_categories"
-    $( '#atbdp-categories-upload-image' ).on( 'click', function( e ) {
-
-    if (frame) {
-     frame.open();
-     return;
-    }
-
-    // Create a new media frame
-    frame = wp.media({
-     title: directorist_admin.i18n_text.upload_cat_image,
-     button: {
-         text: directorist_admin.i18n_text.choose_image
-     },
-     library: {type: 'image'}, // only allow image upload only
-     multiple: multiple_image  // Set to true to allow multiple files to be selected. it will be set based on the availability of Multiple Image extension
-    });
-    frame.open();
-    }); */
     /**
      * Display the media uploader for selecting an image.
      *
@@ -548,10 +482,11 @@ $( fields_elm[ field ].elm ).val( fields_elm[ field ].default );
     }
 
     const localized_data = directorist_admin.add_listing_data;
-    $('body').on('change', 'select[name="directory_type"]', function () {
+    $('body').on('change', 'select[name="directory_type"]', debounce( function() {
         $(this)
             .parent('.inside')
-            .append(`<span class="directorist_loader"></span>`);
+            .append('<span class="directorist_loader"></span>');
+
         admin_listing_form($(this).val());
 
         $(this)
@@ -610,7 +545,7 @@ $( fields_elm[ field ].elm ).val( fields_elm[ field ].default );
             }
         }
 
-    });
+    }, 270 ) );
 
     // Custom Field Checkbox Button More
     function customFieldSeeMore() {
@@ -644,7 +579,7 @@ $( fields_elm[ field ].elm ).val( fields_elm[ field ].default );
                     return;
                 }
 
-                $('#directiost-listing-fields_wrapper')
+                $('#directiost-listing-fields_wrapper .directorist-listing-fields')
                     .empty()
                     .append(response.data['listing_meta_fields']);
                 assetsNeedToWorkInVirtualDom();
@@ -769,29 +704,6 @@ $( fields_elm[ field ].elm ).val( fields_elm[ field ].default );
                     .trigger( 'change' );
             }
         }
-
-        // $('.atbd_pricing_options label').on('click', function () {
-        //     const $this = $(this);
-        //     $this.children('input[type=checkbox]').prop('checked') == true ?
-        //         $(`#${$this.data('option')}`).show() :
-        //         $(`#${$this.data('option')}`).hide();
-        //     const $sibling = $this.siblings('label');
-        //     $sibling.children('input[type=checkbox]').prop('checked', false);
-        //     $(`#${$sibling.data('option')}`).hide();
-        // });
-
-        // $('.directorist_pricing_options label').on('click', function () {
-        //     const self = $(this);
-
-        //     const current_input = self.attr('for');
-        //     const current_field = `#${self.data('option')}`;
-
-        //     $('.directorist_pricing_options input[type=checkbox]').prop('checked', false);
-        //     $('.directorist_pricing_options input[id=' + current_input + ']').attr('checked', true);
-
-        //     $('.directory_pricing_field').hide();
-        //     $(current_field).show();
-        // });
 
         let imageUpload;
         if (imageUpload) {

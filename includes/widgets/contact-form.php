@@ -53,7 +53,8 @@ class Contact_Form extends \WP_Widget {
 
 			$plan_permission = true;
 			$email = get_post_meta( get_the_ID(), '_email', true );
-			$hide_form = get_post_meta( get_the_ID(), '_hide_contact_owner', true );
+			$author_id = get_post_field( 'post_author', get_the_ID() );
+			$hide_form = get_user_meta( $author_id, 'hide_contact_form', true );
 
 			if( is_fee_manager_active() ){
 				$plan_permission = is_plan_allowed_owner_contact_widget( get_post_meta( get_the_ID(), '_fm_plans', true ) );

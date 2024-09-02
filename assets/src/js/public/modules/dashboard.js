@@ -18,3 +18,4 @@ import '../components/directoristSelect';
 import '../components/legacy-support';
 import '../components/directoristFavorite';
 import '../components/directoristAlert'
+import '../components/preferenceForm'

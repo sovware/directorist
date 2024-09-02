@@ -14341,10 +14341,10 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'tab-area',
+  name: "tab-area",
   mixins: [_mixins_helpers__WEBPACK_IMPORTED_MODULE_2__["default"]],
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])({
-    layouts: 'layouts'
+    layouts: "layouts"
   }))
 });
 
@@ -17440,6 +17440,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     this.sync();
+    console.log(this.widget_fields);
   },
   watch: {
     widgetKey: function widgetKey() {
@@ -17461,6 +17462,10 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   computed: {
+    isPresetOrCustomGroup: function isPresetOrCustomGroup() {
+      var _this$widget_fields, _this$widget_fields2;
+      return ((_this$widget_fields = this.widget_fields) === null || _this$widget_fields === void 0 || (_this$widget_fields = _this$widget_fields.widget_group) === null || _this$widget_fields === void 0 ? void 0 : _this$widget_fields.value) === "preset" || ((_this$widget_fields2 = this.widget_fields) === null || _this$widget_fields2 === void 0 || (_this$widget_fields2 = _this$widget_fields2.widget_group) === null || _this$widget_fields2 === void 0 ? void 0 : _this$widget_fields2.value) === "custom";
+    },
     groupDataFields: function groupDataFields() {
       return this.groupData.fields;
     },
@@ -27875,7 +27880,7 @@ var render = function render() {
     on: {
       click: function click($event) {
         $event.preventDefault();
-        return _vm.openConfirmationModal.apply(null, arguments);
+        _vm.isPresetOrCustomGroup ? _vm.openConfirmationModal : _vm.$emit("trash-widget");
       }
     }
   }, [_c("span", {

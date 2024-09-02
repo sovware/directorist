@@ -17440,7 +17440,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     this.sync();
-    console.log(this.widget_fields);
   },
   watch: {
     widgetKey: function widgetKey() {
@@ -17518,6 +17517,13 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    handleTrashClick: function handleTrashClick() {
+      if (this.isPresetOrCustomGroup) {
+        this.openConfirmationModal();
+      } else {
+        this.$emit("trash-widget");
+      }
+    },
     sync: function sync() {
       this.syncCurrentWidget();
       this.syncWidgetFields();
@@ -17683,34 +17689,34 @@ __webpack_require__.r(__webpack_exports__);
   name: "form-builder-widget-group-component",
   props: {
     groupKey: {
-      default: ''
+      default: ""
     },
     activeWidgets: {
-      default: ''
+      default: ""
     },
     avilableWidgets: {
-      default: ''
+      default: ""
     },
     groupData: {
-      default: ''
+      default: ""
     },
     groupSettings: {
-      default: ''
+      default: ""
     },
     groupFields: {
-      default: ''
+      default: ""
     },
     isEnabledGroupDragging: {
       default: false
     },
     widgetIsDragging: {
-      default: ''
+      default: ""
     },
     currentDraggingGroup: {
-      default: ''
+      default: ""
     },
     currentDraggingWidget: {
-      default: ''
+      default: ""
     }
   },
   created: function created() {
@@ -17725,7 +17731,7 @@ __webpack_require__.r(__webpack_exports__);
       return state;
     },
     canTrashGroup: function canTrashGroup() {
-      var canTrash = this.groupSettings && typeof this.groupSettings.canTrash !== 'undefined' ? this.groupSettings.canTrash : true;
+      var canTrash = this.groupSettings && typeof this.groupSettings.canTrash !== "undefined" ? this.groupSettings.canTrash : true;
       if (this.detectedUntrashableWidgets.length) {
         canTrash = false;
       }
@@ -17736,7 +17742,7 @@ __webpack_require__.r(__webpack_exports__);
       if (this.groupData.fields && this.groupData.fields.length) {
         show = false;
       }
-      if (typeof this.groupData.type !== 'undefined' && this.groupData.type !== 'general_group') {
+      if (typeof this.groupData.type !== "undefined" && this.groupData.type !== "general_group") {
         show = false;
       }
       return show;
@@ -17777,7 +17783,7 @@ __webpack_require__.r(__webpack_exports__);
         return false;
       }
       var droppable = true;
-      if ('active_widgets' === this.currentDraggingWidget.from) {
+      if ("active_widgets" === this.currentDraggingWidget.from) {
         if (this.currentDraggingWidget && this.currentDraggingWidget.widget_group_key === this.groupKey && this.currentDraggingWidget.widget_index === widget_index) {
           droppable = false;
         }
@@ -17791,7 +17797,7 @@ __webpack_require__.r(__webpack_exports__);
       if (!this.currentDraggingWidget.from) {
         return false;
       }
-      if ('active_widgets' === this.currentDraggingWidget.from) {
+      if ("active_widgets" === this.currentDraggingWidget.from) {
         var widget_group_key = this.currentDraggingWidget.widget_group_key;
         var dragging_widget_index = this.currentDraggingWidget.widget_index;
         if (widget_group_key !== this.groupKey) {
@@ -17802,7 +17808,7 @@ __webpack_require__.r(__webpack_exports__);
           return false;
         }
       }
-      if ('available_widgets' === this.currentDraggingWidget.from) {
+      if ("available_widgets" === this.currentDraggingWidget.from) {
         return true;
       }
       return true;
@@ -17814,7 +17820,7 @@ __webpack_require__.r(__webpack_exports__);
       if (!this.currentDraggingWidget.from) {
         return false;
       }
-      if ('active_widgets' === this.currentDraggingWidget.from) {
+      if ("active_widgets" === this.currentDraggingWidget.from) {
         var widget_group_key = this.currentDraggingWidget.widget_group_key;
         var dragging_widget_index = this.currentDraggingWidget.widget_index;
         if (widget_group_key !== this.groupKey) {
@@ -27880,7 +27886,7 @@ var render = function render() {
     on: {
       click: function click($event) {
         $event.preventDefault();
-        _vm.isPresetOrCustomGroup ? _vm.openConfirmationModal : _vm.$emit("trash-widget");
+        return _vm.handleTrashClick.apply(null, arguments);
       }
     }
   }, [_c("span", {
@@ -28082,7 +28088,7 @@ var render = function render() {
   }, "form-builder-widget-group-header-component", _vm.$props, false)), _vm._v(" "), _c("slide-up-down", {
     attrs: {
       active: _vm.widgetsExpandState,
-      duration: 500
+      duration: 1000
     }
   }, [_c("div", {
     staticClass: "cptm-form-builder-group-fields"

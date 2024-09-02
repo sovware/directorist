@@ -9,9 +9,7 @@
         href="#"
         class="cptm-form-builder-group-field-item-action-link action-trash"
         v-if="canTrashWidget"
-        @click.prevent="
-          isPresetOrCustomGroup ? openConfirmationModal : $emit('trash-widget')
-        "
+        @click.prevent="handleTrashClick"
       >
         <span aria-hidden="true" class="uil uil-trash-alt"></span>
       </a>
@@ -91,7 +89,6 @@ export default {
 
   created() {
     this.sync();
-    console.log(this.widget_fields);
   },
 
   watch: {
@@ -177,7 +174,6 @@ export default {
       if (typeof this.current_widget.canTrash === "undefined") {
         return true;
       }
-
       return this.current_widget.canTrash;
     },
 
@@ -202,6 +198,14 @@ export default {
   },
 
   methods: {
+    handleTrashClick() {
+      if (this.isPresetOrCustomGroup) {
+        this.openConfirmationModal();
+      } else {
+        this.$emit("trash-widget");
+      }
+    },
+
     sync() {
       this.syncCurrentWidget();
       this.syncWidgetFields();

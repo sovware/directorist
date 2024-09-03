@@ -301,15 +301,15 @@ Review: New Style
             }
             .directorist-btn{
                 align-items: center;
-                &:hover{
-                    opacity: 0.8;
-                }
                 .directorist-icon-mask{
                     display: inline-block;
                     margin-right: 4px;
                     &::after{
                         background-color: var(--directorist-color-white);
                     }
+                }
+                &:hover{
+                    opacity: 0.8;
                 }
             }
             .directorist-noreviews{

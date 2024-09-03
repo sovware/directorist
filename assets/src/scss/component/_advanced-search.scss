@@ -65,6 +65,11 @@
     flex-direction: column;
     @include e(element) {
       overflow: hidden;
+      &.directorist-search-field-category{
+        .directorist-search-field.input-is-focused{
+          margin-top: 0;
+        }
+      }
       .directorist-search-field {
         flex-direction: column;
         align-items: flex-start;
@@ -99,7 +104,7 @@
             padding-right: 0;
           }
         }
-
+        
         &.input-is-focused {
           width: 100%;
           display: inline-flex;

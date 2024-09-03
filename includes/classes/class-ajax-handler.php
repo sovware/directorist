@@ -25,6 +25,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 
 			add_action( 'wp_ajax_remove_listing', array( $this, 'remove_listing' ) ); // delete a listing
 			add_action( 'wp_ajax_update_user_profile', array( $this, 'update_user_profile' ) );
+			add_action( 'wp_ajax_update_user_preferences', array( $this, 'update_user_preferences' ) );
 
 			/*CHECKOUT RELATED STUFF*/
 			add_action( 'wp_ajax_atbdp_format_total_amount', array( 'ATBDP_Checkout', 'ajax_atbdp_format_total_amount' ) );
@@ -992,6 +993,30 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			}
 
 			wp_send_json_error( array( 'message' => __( 'Ops! something went wrong. Try again.', 'directorist' ) ) );
+
+		}
+
+		public function update_user_preferences() {
+
+			$user_id = get_current_user_id();
+
+			// Make sure current user have appropriate permission
+			if ( ! current_user_can( 'edit_user', $user_id ) ) {
+				wp_send_json_error( array( 'message' => __( 'You are not allowed to perform this operation', 'directorist' ) ) );
+			}
+
+			if ( ! directorist_verify_nonce() ) {
+				wp_send_json_error( array( 'message' => __( 'Ops! something went wrong. Try again.', 'directorist' ) ) );
+			}
+
+			// Check if the hide_contact_form field is set and sanitize it
+			$hide_contact_form = isset( $_POST['hide_contact_form'] ) ? sanitize_text_field( $_POST['hide_contact_form'] ) : '';
+
+			// Save the sanitized value to user meta
+			update_user_meta( $user_id, 'hide_contact_form', $hide_contact_form );
+
+			// Return a success message
+			wp_send_json_success( array( 'message' => __( 'Preferences updated successfully.', 'directorist' ) ) );
 
 		}
 

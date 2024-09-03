@@ -919,7 +919,7 @@ return apply_filters( 'atbdp_form_preset_widgets', array(
 			],
 		],
 	],
-
+	
 	'hide_contact_owner' => [
 		'label'   => __( 'Hide Owner Contact Form', 'directorist' ),
 		'icon'    => 'uil uil-postcard',

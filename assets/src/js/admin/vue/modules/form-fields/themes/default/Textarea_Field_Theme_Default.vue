@@ -10,7 +10,7 @@
       v-html="description"
     ></p>
 
-    <div v-if="editor" :id="editorID"></div>
+    <div v-if="editor" :id="editorID" class="cptm-form-control"></div>
 
     <textarea
       v-else
@@ -35,11 +35,11 @@
 </template>
 
 <script>
-import textarea_feild from "./../../../../mixins/form-fields/textarea-field";
+import textarea_field from "./../../../../mixins/form-fields/textarea-field";
 
 export default {
   name: "textarea-field-theme-default",
-  mixins: [textarea_feild],
+  mixins: [textarea_field],
 
   props: {
     editor: {
@@ -59,9 +59,27 @@ export default {
       default: "",
     },
   },
+
+  data() {
+    return {
+      local_value: this.value,
+    };
+  },
+
+  watch: {
+    value(newValue) {
+      if (newValue !== this.local_value) {
+        this.local_value = newValue;
+      }
+    },
+    local_value(newValue) {
+      this.$emit("input", newValue);
+    },
+  },
+
   mounted() {
     let editorID = this.editorID;
-    let value = this.value;
+    let value = this.local_value;
 
     tinymce.init({
       selector: `#${editorID}`,
@@ -70,12 +88,20 @@ export default {
       menubar: false,
       branding: false,
       init_instance_callback: (editor) => {
-        // Set the initial content using the init_instance_callback
         editor.setContent(value);
+        editor.on("Change KeyUp", () => {
+          this.local_value = editor.getContent();
+        });
       },
     });
-    // Save the editor instance for later use
+
     this.editorInstance = tinymce.get(editorID);
+  },
+
+  beforeDestroy() {
+    if (this.editorInstance) {
+      this.editorInstance.destroy();
+    }
   },
 };
 </script>

@@ -15,22 +15,22 @@ export default {
 
         input_type() {
             const supported_types = {
-                'text-field': 'text', 
-                'number-field': 'number', 
-                'password-field': 'password', 
+                'text-field': 'text',
+                'number-field': 'number',
+                'password-field': 'password',
                 'date-field': 'date',
-                'hidden-field': 'hidden', 
-                'text': 'text', 
-                'number': 'number', 
-                'password': 'password', 
+                'hidden-field': 'hidden',
+                'text': 'text',
+                'number': 'number',
+                'password': 'password',
                 'date': 'date',
-                'hidden': 'hidden', 
+                'hidden': 'hidden',
             };
 
             if ( typeof supported_types[ this.type ] !== 'undefined' ) {
                 return supported_types[ this.type ];
             }
-            
+
             return 'text';
         },
 
@@ -49,7 +49,7 @@ export default {
             if ( this.input_style && this.input_style.class_names  ) {
                 class_names[ this.input_style.class_names ] = true;
             }
-            
+
             return class_names;
         }
     },

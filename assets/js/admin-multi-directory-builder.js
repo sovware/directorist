@@ -25473,9 +25473,25 @@ __webpack_require__.r(__webpack_exports__);
       default: ""
     }
   },
+  data: function data() {
+    return {
+      local_value: this.value
+    };
+  },
+  watch: {
+    value: function value(newValue) {
+      if (newValue !== this.local_value) {
+        this.local_value = newValue;
+      }
+    },
+    local_value: function local_value(newValue) {
+      this.$emit("input", newValue);
+    }
+  },
   mounted: function mounted() {
+    var _this = this;
     var editorID = this.editorID;
-    var value = this.value;
+    var value = this.local_value;
     tinymce.init({
       selector: "#".concat(editorID),
       plugins: "link",
@@ -25483,12 +25499,18 @@ __webpack_require__.r(__webpack_exports__);
       menubar: false,
       branding: false,
       init_instance_callback: function init_instance_callback(editor) {
-        // Set the initial content using the init_instance_callback
         editor.setContent(value);
+        editor.on("Change KeyUp", function () {
+          _this.local_value = editor.getContent();
+        });
       }
     });
-    // Save the editor instance for later use
     this.editorInstance = tinymce.get(editorID);
+  },
+  beforeDestroy: function beforeDestroy() {
+    if (this.editorInstance) {
+      this.editorInstance.destroy();
+    }
   }
 });
 
@@ -34725,6 +34747,7 @@ var render = function render() {
       innerHTML: _vm._s(_vm.description)
     }
   }) : _vm._e(), _vm._v(" "), _vm.editor ? _c("div", {
+    staticClass: "cptm-form-control",
     attrs: {
       id: _vm.editorID
     }

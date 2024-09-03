@@ -341,14 +341,16 @@ final class Directorist_Base
 
 	// check_single_listing_page_restrictions
 	public function check_single_listing_page_restrictions() {
-		$restricted_for_logged_in_user = get_directorist_option( 'restrict_single_listing_for_logged_in_user', false );
-		$current_user_id = get_current_user_id();
-
-		if ( is_singular( ATBDP_POST_TYPE ) && ! empty( $restricted_for_logged_in_user ) && empty( $current_user_id ) ) {
-
-			atbdp_auth_guard();
-			die;
+		if ( is_user_logged_in() || ! is_singular( ATBDP_POST_TYPE ) ) {
+			return;
 		}
+
+		$is_logged_in_users_only = (bool) get_directorist_option( 'restrict_single_listing_for_logged_in_user', false );
+		if ( ! $is_logged_in_users_only ) {
+			return;
+		}
+
+		atbdp_auth_guard();
 	}
 
 	// add_polylang_swicher_support

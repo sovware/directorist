@@ -2,10 +2,6 @@
 .directorist-archive-contents {
   .directorist-archive-items .directorist-pagination {
     margin-top: 35px;
-    justify-content: flex-end;
-  }
-  .listing-with-sidebar .directorist-pagination {
-    justify-content: flex-end;
   }
   .gm-style-iw-chr,
   .gm-style-iw-tc {
@@ -200,7 +196,7 @@
     display: flex;
     flex-direction: column;
     .directorist-archive-notfound {
-      padding: 15px 0;
+      padding: 15px;
     }
   }
 }

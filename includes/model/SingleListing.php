@@ -519,7 +519,7 @@ class Directorist_Single_Listing {
 		$listing_id    = $this->id;
 		$listing_title = get_the_title( $listing_id );
 
-		$type          = get_post_meta( $this->id, '_directory_type', true );
+		$type          = (int) get_post_meta( $this->id, '_directory_type', true );
 		$default_image = Helper::default_preview_image_src( $type );
 
 		$image_size = apply_filters( 'directorist_single_listing_slider_image_size', 'large' );
@@ -675,7 +675,8 @@ class Directorist_Single_Listing {
 	}
 
 	public function contact_owner_form_disabled() {
-		return get_post_meta( $this->id, '_hide_contact_owner', true );
+		$author_id = get_post_field( 'post_author', $this->id );
+		return get_user_meta( $author_id, 'hide_contact_form', true );
 	}
 
 	public function has_price() {

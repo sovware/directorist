@@ -17,8 +17,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 			<?php $author->archive_type( $author ); ?>
 		</div>
 
-		<?php if ( $author->cat_filter_enabled() ): ?>
-
 		<div class="directorist-dropdown directorist-dropdown-js directorist-author-listing-top__dropdown directorist-dropdown-update-js">
 
 			<button class="directorist-dropdown__toggle directorist-dropdown__toggle-js directorist-toggle-has-icon directorist-btn" id="directorist-dropdown-menu-link"><?php esc_html_e( 'Filter by category', 'directorist'); ?> <span class="atbd_drop-caret"></span></button>
@@ -37,7 +35,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 		</div>
 
-		<?php endif; ?>
 	</div>
 
 </header>

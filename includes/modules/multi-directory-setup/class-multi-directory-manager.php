@@ -36,8 +36,6 @@ class Multi_Directory_Manager {
         add_action( 'wp_ajax_save_imported_post_type_data', [ $this, 'save_imported_post_type_data' ] );
         add_action( 'wp_ajax_directorist_force_migrate', [ $this, 'handle_force_migration' ] );
         add_action( 'wp_ajax_directorist_directory_type_library', [ $this, 'directorist_directory_type_library' ] );
-
-        add_filter( 'directorist_builder_layouts', [ $this, 'conditional_layouts' ] );
     }
 
     // custom field assign to category migration
@@ -48,20 +46,20 @@ class Multi_Directory_Manager {
         if ( empty( $submission_form_fields['fields'] ) ) {
             return;
         }
-        
+
         // Modify the 'assign_to' value based on your criteria (e.g., change 'category' to 1)
         foreach ( $submission_form_fields['fields'] as $field_type => $options ) {
             if( empty( $options['assign_to'] ) ) {
                 continue;
             }
-            
+
             if ( $options['assign_to'] === 'category' ) {
                 $submission_form_fields['fields'][ $field_type ]['assign_to'] = 1;
             } else {
                 $submission_form_fields['fields'][ $field_type ]['assign_to'] = false;
             }
         }
-        
+
         update_term_meta( $term_id, 'submission_form_fields', $submission_form_fields );
     }
 
@@ -126,17 +124,6 @@ class Multi_Directory_Manager {
 
         update_directorist_option( 'atbdp_default_derectory', $default_directory );
     }
-
-    public function conditional_layouts( $layouts ) {
-        $updated_layouts = $layouts;
-
-        if ( ! directorist_is_multi_directory_enabled() ) {
-            unset( $updated_layouts['general']['sections']['default_preview'] );
-        }
-
-        return $updated_layouts;
-    }
-
 
     // setup_migration
     public function setup_migration() {

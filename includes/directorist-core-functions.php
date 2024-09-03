@@ -35,5 +35,5 @@ function directorist_get_currency_position() {
 }
 
 function directorist_can_user_renew_listings() {
-	return (bool) get_directorist_option( 'can_renew_listing' );
+	return (bool) get_directorist_option( 'can_renew_listing', true );
 }

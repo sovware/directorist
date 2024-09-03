@@ -27,6 +27,9 @@
   color: var(--directorist-color-btn);
   transition: all ease 0.3s;
   text-decoration: none !important;
+  .directorist-icon-mask:after {
+    transition: all ease 0.3s;
+  }
   &.directorist-btn--add-listing,
   &.directorist-btn--logout {
     line-height: 43px;

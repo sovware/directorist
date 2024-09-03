@@ -12,11 +12,6 @@ include_once("directorist-base.php");
 wp_clear_scheduled_hook('directorist_hourly_scheduled_events');
 
 function directorist_uninstall() {
-
-    if( ! get_directorist_option('enable_uninstall',0) ) {
-        return;
-    }
-    
     global $wpdb;
 
     // Delete selected pages
@@ -101,11 +96,20 @@ if (is_multisite()) {
 
     foreach ($sites as $site) {
         switch_to_blog($site->blog_id);
+        
+        if( ! get_directorist_option('enable_uninstall',0) ) {
+            continue;
+        }
+
         directorist_uninstall();
         restore_current_blog();
     }
 
     switch_to_blog($original_blog_id);
 } else {
+    if( ! get_directorist_option('enable_uninstall',0) ) {
+        return;
+    }
+    
     directorist_uninstall();
 }

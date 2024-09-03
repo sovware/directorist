@@ -37,7 +37,7 @@ class Builder_Data {
                 'allowMultiple' => false,
                 'template'      => 'submission_form_fields',
                 'widgets'       => apply_filters( 'atbdp_single_listing_content_widgets', [
-                    
+
                     'image_upload' => [
                         'options' => [
                             'icon' => [
@@ -1783,7 +1783,7 @@ class Builder_Data {
             'preview_image'                               => [
                 'button-label' => __( 'Select', 'directorist' ),
                 'type'         => 'wp-media-picker',
-                'default-img'  => '',
+                'default-img'  => DIRECTORIST_ASSETS . 'images/grid.jpg',
                 'value'        => '',
             ],
 
@@ -1794,7 +1794,6 @@ class Builder_Data {
             ],
 
             'default_expiration'                          => [
-                'label'       => __( 'Default expiration in days', 'directorist' ),
                 'type'        => 'number',
                 'value'       => 30,
                 'placeholder' => '365',
@@ -1804,7 +1803,7 @@ class Builder_Data {
             ],
 
             'new_listing_status'                          => [
-                'label'   => __( 'New Listing Default Status', 'directorist' ),
+                'label'   => __( 'New listing default status', 'directorist' ),
                 'type'    => 'select',
                 'value'   => 'pending',
                 'options' => [
@@ -1820,7 +1819,7 @@ class Builder_Data {
             ],
 
             'edit_listing_status'                         => [
-                'label'   => __( 'Edited Listing Default Status', 'directorist' ),
+                'label'   => __( 'Edited listing default status', 'directorist' ),
                 'type'    => 'select',
                 'value'   => 'pending',
                 'options' => [
@@ -1908,43 +1907,6 @@ class Builder_Data {
                 'label' => __( 'Submit Button Label', 'directorist' ),
                 'type'  => 'text',
                 'value' => __( 'Save & Preview', 'directorist' ),
-            ],
-
-            // TERMS AND CONDITIONS
-            'listing_privacy' => [
-                'label' => __('Enable', 'directorist'),
-                'type'  => 'toggle',
-                'value' => true,
-            ],
-            'require_privacy' => [
-                'label' => __('Required', 'directorist'),
-                'type'  => 'toggle',
-                'value' => true,
-            ],
-            'terms_name' => [
-                'label'       => __('Terms Name', 'directorist'),
-                'type'        => 'text',
-                'value'       => __( 'Terms & Conditions', 'directorist' ),
-            ],
-            'terms_link' => [
-                'label'       => __('Terms Link', 'directorist'),
-                'type'        => 'text',
-                'value'       => ATBDP_Permalink::get_terms_and_conditions_page_url(),
-            ],
-            'privacy_name' => [
-                'label'       => __('Privacy name', 'directorist'),
-                'type'        => 'text',
-                'value'       => __( 'Privacy & Policy', 'directorist' ),
-            ],
-            'privacy_link' => [
-                'label'       => __('Terms Link', 'directorist'),
-                'type'        => 'text',
-                'value'       => ATBDP_Permalink::get_privacy_policy_page_url(),
-            ],
-            'terms_privacy_label' => [
-                'label'       => __('Label', 'directorist'),
-                'type'        => 'text',
-                'value'       => __( 'I agree to the %privacy_name% and %terms_name%', 'directorist' ),
             ],
 
             'single_listings_contents'                    => [
@@ -2284,7 +2246,7 @@ class Builder_Data {
                             ],
                         ],
                     ],
-                    
+
                     'bookmark' => [
                         'type' => "button",
                         'label' => __( "Bookmark", "directorist" ),
@@ -2493,23 +2455,21 @@ class Builder_Data {
                     ],
 
                     'expiration'      => [
-                        'title'       => __( 'Expiration', 'directorist' ),
-                        'description' => __( 'Default time to expire a listing.', 'directorist' ),
+                        'title'       => __( 'Default expiration in days', 'directorist' ),
                         'fields'      => [
                             'default_expiration',
                         ],
                     ],
 
                     'default_preview' => [
-                        'title'       => __( 'Default Preview', 'directorist' ),
-                        'description' => __( 'This image will be used when listing preview image is not present. Leave empty to hide the preview image completely.', 'directorist' ),
+                        'title'       => __( 'Default preview image', 'directorist' ),
                         'fields'      => [
                             'preview_image',
                         ],
                     ],
 
                     'export_import'   => [
-                        'title'       => __( 'Export The Config File', 'directorist' ),
+                        'title'       => __( 'Export the config file', 'directorist' ),
                         'description' => __( 'Export all the form, layout and settings', 'directorist' ),
                         'fields'      => [
                             'import_export',
@@ -2538,27 +2498,6 @@ class Builder_Data {
                     'settings'    => [
                         'label'    => __( 'Settings', 'directorist' ),
                         'sections' => apply_filters( 'atbdp_submission_form_settings', [
-                            'terms_and_conditions' => [
-                                'title'     => __( 'Terms and Conditions', 'directorist' ),
-                                'container' => 'short-width',
-                                'fields'    => [
-                                    'listing_terms_condition',
-                                    'require_terms_conditions',
-                                    'terms_label',
-                                ],
-                            ],
-                            'privacy_and_policy'   => [
-                                'title'     => __( 'Privacy and Policy', 'directorist' ),
-                                'container' => 'short-width',
-                                'fields'    => [
-                                    'listing_privacy',
-                                    'terms_name',
-                                    'terms_link',
-                                    'privacy_name',
-                                    'privacy_link',
-                                    'terms_privacy_label'
-                                ],
-                            ],
                             'submittion_settings'  => [
                                 'title'     => __( 'Submission Settings', 'directorist' ),
                                 'container' => 'short-width',

@@ -281,7 +281,7 @@ final class Directorist_Base
 			new ATBDP_Upgrade();
 			// add uninstall menu
 			add_filter('atbdp_settings_menus', array(self::$instance, 'add_uninstall_menu'));
-
+			add_filter( 'display_post_states', array(self::$instance, 'add_page_states'), 10, 2 );
 			self::init_hooks();
 
 			// Initialize appsero tracking
@@ -610,6 +610,69 @@ final class Directorist_Base
 			atbdp_create_required_pages();
 		}
 	}
+
+	/**
+	* Add a post display state for special Directorist pages in the page list table.
+	*
+	* @param array   $post_states An array of post display states.
+	* @param WP_Post $post        The current post object.
+	*/
+	public function add_page_states( $post_states, $post ) {
+
+		if ( get_directorist_option( 'add_listing_page' ) === $post->ID ) {
+		   $post_states['directorist_add_listing'] = __( 'Directorist Add Listing', 'directorist' );
+	   	}
+		if ( get_directorist_option( 'all_listing_page' ) === $post->ID ) {
+		   $post_states['directorist_all_listing'] = __( 'Directorist All Listing', 'directorist' );
+	   	}
+		if ( get_directorist_option( 'user_dashboard' ) === $post->ID ) {
+		   $post_states['directorist_user_dashboard'] = __( 'Directorist Login, Registration & Dashboard', 'directorist' );
+	   	}
+		if ( get_directorist_option( 'author_profile_page' ) === $post->ID ) {
+		   $post_states['directorist_author_profile_page'] = __( 'Directorist Author Profile', 'directorist' );
+	   	}
+		if ( get_directorist_option( 'all_categories_page' ) === $post->ID ) {
+		   $post_states['directorist_all_categories_page'] = __( 'Directorist All Categories', 'directorist' );
+	   	}
+		if ( get_directorist_option( 'single_category_page' ) === $post->ID ) {
+		   $post_states['directorist_single_category_page'] = __( 'Directorist Single Category', 'directorist' );
+	   	}
+		if ( get_directorist_option( 'all_locations_page' ) === $post->ID ) {
+		   $post_states['directorist_all_locations_page'] = __( 'Directorist All Locations', 'directorist' );
+	   	}
+		if ( get_directorist_option( 'single_location_page' ) === $post->ID ) {
+		   $post_states['directorist_single_location_page'] = __( 'Directorist Single Location', 'directorist' );
+	   	}
+		if ( get_directorist_option( 'single_tag_page' ) === $post->ID ) {
+		   $post_states['directorist_single_tag_page'] = __( 'Directorist Single Tag', 'directorist' );
+	   	}
+		if ( get_directorist_option( 'search_listing' ) === $post->ID ) {
+		   $post_states['directorist_search_listing'] = __( 'Directorist Listing Search Form', 'directorist' );
+	   	}
+		if ( get_directorist_option( 'search_result_page' ) === $post->ID ) {
+		   $post_states['directorist_search_result_page'] = __( 'Directorist Search Result', 'directorist' );
+	   	}
+		if ( get_directorist_option( 'checkout_page' ) === $post->ID ) {
+		   $post_states['directorist_checkout_page'] = __( 'Directorist Checkout', 'directorist' );
+	   	}
+		if ( get_directorist_option( 'payment_receipt_page' ) === $post->ID ) {
+		   $post_states['directorist_payment_receipt_page'] = __( 'Directorist Payment Receipt', 'directorist' );
+	   	}
+		if ( get_directorist_option( 'transaction_failure_page' ) === $post->ID ) {
+		   $post_states['directorist_transaction_failure_page'] = __( 'Directorist Payment Failure', 'directorist' );
+	   	}
+		if ( get_directorist_option( 'privacy_policy' ) === $post->ID ) {
+		   $post_states['directorist_privacy_policy'] = __( 'Directorist Privacy Policy', 'directorist' );
+	   	}
+		if ( get_directorist_option( 'terms_conditions' ) === $post->ID ) {
+		   $post_states['directorist_terms_conditions'] = __( 'Directorist Terms & Conditions', 'directorist' );
+	   	}
+		if ( get_directorist_option( 'pricing_plans' ) === $post->ID ) {
+		   $post_states['directorist_pricing_plans'] = __( 'Directorist Pricing Plan', 'directorist' );
+	   	}
+
+	   return $post_states;
+   }
 
 	public function add_uninstall_menu($menus) {
 		$menus['uninstall_menu'] = array(

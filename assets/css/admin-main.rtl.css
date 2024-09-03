@@ -14203,17 +14203,6 @@ div[draggable=true].cptm-form-builder-group-title-area {
   margin-left: 15px;
 }
 
-.cptm-form-builder-group-title-actions {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
-  gap: 5px;
-}
 .cptm-form-builder-group-title-actions .cptm-form-builder-header-action-link {
   color: #fff;
 }
@@ -16672,7 +16661,7 @@ input[type=radio]:checked::before {
   overflow: auto;
 }
 
-.confirmation-modal-overlay {
+.cptm-widget-trash-confirmation-modal-overlay {
   position: fixed;
   top: 0;
   right: 0;
@@ -16693,17 +16682,23 @@ input[type=radio]:checked::before {
           align-items: center;
   z-index: 9999;
 }
-.confirmation-modal-overlay .confirmation-modal {
+.cptm-widget-trash-confirmation-modal-overlay .cptm-widget-trash-confirmation-modal {
   background: #fff;
-  padding: 25px;
+  padding: 30px 25px;
   border-radius: 8px;
   text-align: center;
 }
-.confirmation-modal-overlay .confirmation-modal p {
-  margin: 0 0 15px;
-  font-size: 14px;
+.cptm-widget-trash-confirmation-modal-overlay .cptm-widget-trash-confirmation-modal h2 {
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0 0 18px;
 }
-.confirmation-modal-overlay button {
+.cptm-widget-trash-confirmation-modal-overlay .cptm-widget-trash-confirmation-modal p {
+  margin: 0 0 20px;
+  font-size: 14px;
+  max-width: 400px;
+}
+.cptm-widget-trash-confirmation-modal-overlay button {
   border: 0 none;
   -webkit-box-shadow: none;
           box-shadow: none;
@@ -16718,32 +16713,15 @@ input[type=radio]:checked::before {
   -webkit-transition: 0.3s ease;
   transition: 0.3s ease;
 }
-.confirmation-modal-overlay button:hover {
+.cptm-widget-trash-confirmation-modal-overlay button:hover {
   background: #ba1230;
 }
-.confirmation-modal-overlay button.confirmation-modal-action-btn__cancel {
+.cptm-widget-trash-confirmation-modal-overlay button.cptm-widget-trash-confirmation-modal-action-btn__cancel {
   background: #f1f2f6;
   color: #7a8289;
 }
-.confirmation-modal-overlay button.confirmation-modal-action-btn__cancel:hover {
+.cptm-widget-trash-confirmation-modal-overlay button.cptm-widget-trash-confirmation-modal-action-btn__cancel:hover {
   background: #dee0e4;
-}
-
-.cptm-form-builder-header-action-move {
-  visibility: hidden;
-  opacity: 0;
-  -webkit-transition: 0.3s ease;
-  transition: 0.3s ease;
-  cursor: move;
-}
-.cptm-form-builder-header-action-move span {
-  color: #bbbbbb;
-  font-size: 14px;
-}
-
-.cptm-form-builder-group-title-area:hover .cptm-form-builder-header-action-move {
-  visibility: visible;
-  opacity: 1;
 }
 
 .reset-pseudo-link:visited, .cptm-btn:visited, .cptm-header-nav__list-item-link:visited, .cptm-link-light:visited, .cptm-form-builder-header-action-link:visited, .cptm-sub-nav__item-link:visited, .cptm-header-action-link:visited, .cptm-modal-action-link:visited, .atbdp-nav-link:visited, .reset-pseudo-link:active, .cptm-btn:active, .cptm-header-nav__list-item-link:active, .cptm-link-light:active, .cptm-form-builder-header-action-link:active, .cptm-sub-nav__item-link:active, .cptm-header-action-link:active, .cptm-modal-action-link:active, .atbdp-nav-link:active, .reset-pseudo-link:focus, .cptm-btn:focus, .cptm-header-nav__list-item-link:focus, .cptm-link-light:focus, .cptm-form-builder-header-action-link:focus, .cptm-sub-nav__item-link:focus, .cptm-header-action-link:focus, .cptm-modal-action-link:focus, .atbdp-nav-link:focus {
@@ -17724,17 +17702,6 @@ div[draggable=true].cptm-form-builder-group-title-area {
   margin-left: 15px;
 }
 
-.cptm-form-builder-group-title-actions {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
-  gap: 5px;
-}
 .cptm-form-builder-group-title-actions .cptm-form-builder-header-action-link {
   color: #fff;
 }
@@ -20193,7 +20160,7 @@ input[type=radio]:checked::before {
   overflow: auto;
 }
 
-.confirmation-modal-overlay {
+.cptm-widget-trash-confirmation-modal-overlay {
   position: fixed;
   top: 0;
   right: 0;
@@ -20214,17 +20181,23 @@ input[type=radio]:checked::before {
           align-items: center;
   z-index: 9999;
 }
-.confirmation-modal-overlay .confirmation-modal {
+.cptm-widget-trash-confirmation-modal-overlay .cptm-widget-trash-confirmation-modal {
   background: #fff;
-  padding: 25px;
+  padding: 30px 25px;
   border-radius: 8px;
   text-align: center;
 }
-.confirmation-modal-overlay .confirmation-modal p {
-  margin: 0 0 15px;
-  font-size: 14px;
+.cptm-widget-trash-confirmation-modal-overlay .cptm-widget-trash-confirmation-modal h2 {
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0 0 18px;
 }
-.confirmation-modal-overlay button {
+.cptm-widget-trash-confirmation-modal-overlay .cptm-widget-trash-confirmation-modal p {
+  margin: 0 0 20px;
+  font-size: 14px;
+  max-width: 400px;
+}
+.cptm-widget-trash-confirmation-modal-overlay button {
   border: 0 none;
   -webkit-box-shadow: none;
           box-shadow: none;
@@ -20239,32 +20212,15 @@ input[type=radio]:checked::before {
   -webkit-transition: 0.3s ease;
   transition: 0.3s ease;
 }
-.confirmation-modal-overlay button:hover {
+.cptm-widget-trash-confirmation-modal-overlay button:hover {
   background: #ba1230;
 }
-.confirmation-modal-overlay button.confirmation-modal-action-btn__cancel {
+.cptm-widget-trash-confirmation-modal-overlay button.cptm-widget-trash-confirmation-modal-action-btn__cancel {
   background: #f1f2f6;
   color: #7a8289;
 }
-.confirmation-modal-overlay button.confirmation-modal-action-btn__cancel:hover {
+.cptm-widget-trash-confirmation-modal-overlay button.cptm-widget-trash-confirmation-modal-action-btn__cancel:hover {
   background: #dee0e4;
-}
-
-.cptm-form-builder-header-action-move {
-  visibility: hidden;
-  opacity: 0;
-  -webkit-transition: 0.3s ease;
-  transition: 0.3s ease;
-  cursor: move;
-}
-.cptm-form-builder-header-action-move span {
-  color: #bbbbbb;
-  font-size: 14px;
-}
-
-.cptm-form-builder-group-title-area:hover .cptm-form-builder-header-action-move {
-  visibility: visible;
-  opacity: 1;
 }
 
 .cptm-theme-butterfly .cptm-info-text {
@@ -21512,17 +21468,6 @@ div[draggable=true].cptm-form-builder-group-title-area {
   margin-left: 15px;
 }
 
-.cptm-form-builder-group-title-actions {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
-  gap: 5px;
-}
 .cptm-form-builder-group-title-actions .cptm-form-builder-header-action-link {
   color: #fff;
 }
@@ -23981,7 +23926,7 @@ input[type=radio]:checked::before {
   overflow: auto;
 }
 
-.confirmation-modal-overlay {
+.cptm-widget-trash-confirmation-modal-overlay {
   position: fixed;
   top: 0;
   right: 0;
@@ -24002,17 +23947,23 @@ input[type=radio]:checked::before {
           align-items: center;
   z-index: 9999;
 }
-.confirmation-modal-overlay .confirmation-modal {
+.cptm-widget-trash-confirmation-modal-overlay .cptm-widget-trash-confirmation-modal {
   background: #fff;
-  padding: 25px;
+  padding: 30px 25px;
   border-radius: 8px;
   text-align: center;
 }
-.confirmation-modal-overlay .confirmation-modal p {
-  margin: 0 0 15px;
-  font-size: 14px;
+.cptm-widget-trash-confirmation-modal-overlay .cptm-widget-trash-confirmation-modal h2 {
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0 0 18px;
 }
-.confirmation-modal-overlay button {
+.cptm-widget-trash-confirmation-modal-overlay .cptm-widget-trash-confirmation-modal p {
+  margin: 0 0 20px;
+  font-size: 14px;
+  max-width: 400px;
+}
+.cptm-widget-trash-confirmation-modal-overlay button {
   border: 0 none;
   -webkit-box-shadow: none;
           box-shadow: none;
@@ -24027,32 +23978,15 @@ input[type=radio]:checked::before {
   -webkit-transition: 0.3s ease;
   transition: 0.3s ease;
 }
-.confirmation-modal-overlay button:hover {
+.cptm-widget-trash-confirmation-modal-overlay button:hover {
   background: #ba1230;
 }
-.confirmation-modal-overlay button.confirmation-modal-action-btn__cancel {
+.cptm-widget-trash-confirmation-modal-overlay button.cptm-widget-trash-confirmation-modal-action-btn__cancel {
   background: #f1f2f6;
   color: #7a8289;
 }
-.confirmation-modal-overlay button.confirmation-modal-action-btn__cancel:hover {
+.cptm-widget-trash-confirmation-modal-overlay button.cptm-widget-trash-confirmation-modal-action-btn__cancel:hover {
   background: #dee0e4;
-}
-
-.cptm-form-builder-header-action-move {
-  visibility: hidden;
-  opacity: 0;
-  -webkit-transition: 0.3s ease;
-  transition: 0.3s ease;
-  cursor: move;
-}
-.cptm-form-builder-header-action-move span {
-  color: #bbbbbb;
-  font-size: 14px;
-}
-
-.cptm-form-builder-group-title-area:hover .cptm-form-builder-header-action-move {
-  visibility: visible;
-  opacity: 1;
 }
 
 .cptm-theme-butterfly .cptm-info-text {

@@ -4,7 +4,7 @@
         <div class="cptm-form-builder-group-header">
             <!-- Group Header Titlebar -->
             <draggable-list-item :can-drag="isEnabledGroupDragging" @drag-start="$emit( 'drag-start' )" @drag-end="$emit( 'drag-end' )">
-                <form-builder-widget-group-titlebar-component 
+                <form-builder-widget-group-titlebar-component
                     v-bind="$props"
                     :widgets-expanded="widgetsExpanded"
                     @toggle-expand-group="toggleGroupFieldsExpand"
@@ -23,9 +23,9 @@
         <!-- Group Header Body -->
         <slide-up-down :active="groupFieldsExpandState" :duration="500">
             <div class="cptm-form-builder-group-options">
-                <field-list-component 
-                    :field-list="groupFields" 
-                    :value="groupData" 
+                <field-list-component
+                    :field-list="groupFields"
+                    :value="groupData"
                     @update="$emit( 'update-group-field', $event)"
                 />
             </div>
@@ -70,12 +70,12 @@ export default {
     computed: {
         groupFieldsExpandState() {
             let state = this.groupFieldsExpanded;
-            
+
             if ( 'expand' === this.forceExpandStateTo ) {
                 state = true;
             }
 
-            if ( this.isEnabledGroupDragging ) {
+            if ( !this.isEnabledGroupDragging ) {
                 state = false;
             }
 

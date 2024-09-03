@@ -227,7 +227,7 @@ export default {
       ],
 
       forceExpandStateTo: "", // expand | 'collapse'
-      isEnabledGroupDragging: false,
+      isEnabledGroupDragging: true,
 
       currentDraggingGroup: null,
       currentDraggingWidget: null,
@@ -664,18 +664,12 @@ export default {
         from: "active_widgets",
         widget_group_key,
       };
-      this.forceExpandStateTo = "collapse";
-      this.isEnabledGroupDragging = true;
-
-      console.log("start");
+      this.isEnabledGroupDragging = false;
     },
 
     handleGroupDragEnd() {
       this.currentDraggingGroup = null;
-      this.isEnabledGroupDragging = false;
-      this.forceExpandStateTo = "";
-
-      console.log("end");
+      this.isEnabledGroupDragging = true;
     },
 
     handleGroupDrop(widget_group_key, payload) {

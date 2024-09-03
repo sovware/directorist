@@ -9,7 +9,7 @@
         href="#"
         class="cptm-form-builder-group-field-item-action-link action-trash"
         v-if="canTrashWidget"
-        @click.prevent="openConfirmationModal"
+        @click.prevent="handleTrashClick"
       >
         <span aria-hidden="true" class="uil uil-trash-alt"></span>
       </a>
@@ -114,6 +114,13 @@ export default {
   },
 
   computed: {
+    isPresetOrCustomGroup() {
+      return (
+        this.widget_fields?.widget_group?.value === "preset" ||
+        this.widget_fields?.widget_group?.value === "custom"
+      );
+    },
+
     groupDataFields() {
       return this.groupData.fields;
     },
@@ -156,7 +163,7 @@ export default {
     expandState() {
       let state = this.expanded;
 
-      if (this.isEnabledGroupDragging) {
+      if (!this.isEnabledGroupDragging) {
         state = false;
       }
 
@@ -167,7 +174,6 @@ export default {
       if (typeof this.current_widget.canTrash === "undefined") {
         return true;
       }
-
       return this.current_widget.canTrash;
     },
 
@@ -192,6 +198,14 @@ export default {
   },
 
   methods: {
+    handleTrashClick() {
+      if (this.isPresetOrCustomGroup) {
+        this.openConfirmationModal();
+      } else {
+        this.$emit("trash-widget");
+      }
+    },
+
     sync() {
       this.syncCurrentWidget();
       this.syncWidgetFields();

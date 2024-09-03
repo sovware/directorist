@@ -6,21 +6,21 @@ export default {
         prop: 'value',
         event: 'input'
     },
-    
+
     computed: {
         input_type() {
             const supported_types = {
-                'text-field': 'text', 
-                'number-field': 'number', 
-                'password-field': 'password', 
+                'text-field': 'text',
+                'number-field': 'number',
+                'password-field': 'password',
                 'date-field': 'date',
-                'hidden-field': 'hidden', 
+                'hidden-field': 'hidden',
             };
 
             if ( typeof supported_types[ this.type ] !== 'undefined' ) {
                 return supported_types[ this.type ];
             }
-            
+
             return 'text';
         },
 

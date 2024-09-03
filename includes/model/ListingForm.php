@@ -490,18 +490,18 @@ class Directorist_Listing_Form {
 	public function generate_linktext( $text ) {
 		$pattern = '/%([^%]+)%/';                // extract 'text' from 'some %text%'
 		preg_match_all( $pattern, $text, $matches );
-		
+
 		if ( ! empty( $matches[1] ) ) {
 			foreach( $matches[1] as $match ) {
 				$label     = $this->terms_privacy_name( $match);
 				$link      = $this->terms_privacy_link( $match );
 				$changed[] = sprintf('<a target="_blank" href="%s">%s</a>', $link, $label);
 			}
-	
+
 			$result = str_replace( $matches[0], $changed, $text );
 			return $result;
 		}
-	
+
 		return $text;
 	}
 

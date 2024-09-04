@@ -444,9 +444,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 					$data['success_msg'] = __( 'Payment required! Redirecting to checkout...', 'directorist' );
 				}
 
-				if ( $preview_enable ) {
-					$data['preview_mode'] = true;
-				}
+				$data['preview_mode'] = $preview_enable;
 
 				if ( ! empty( $posted_data['listing_id'] ) ) {
 					$data['edited_listing'] = true;

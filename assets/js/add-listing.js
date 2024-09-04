@@ -802,7 +802,7 @@ $(function () {
                 window.location.href = decodeURIComponent(redirect_url);
               } else {
                 $notification.show().html("<span class=\"atbdp_success\">".concat(response.success_msg, "</span>"));
-                window.location.href = joinQueryString(response.redirect_url, is_edited);
+                window.location.href = joinQueryString(decodeURIComponent(response.redirect_url), is_edited);
               }
             }
           }

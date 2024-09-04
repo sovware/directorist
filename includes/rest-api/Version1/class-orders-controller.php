@@ -282,7 +282,10 @@ class Orders_Controller extends Posts_Controller {
 					$data[ $field ] = (int) $order->post_author;
 					break;
 				case 'plan':
-					$data[ $field ] = (int) get_post_meta( $order->ID, '_fm_plan_ordered', true );
+					$data[ $field ] = $this->get_plan_id( $order );
+					break;
+				case 'directory':
+					$data[ $field ] = (int) get_post_meta( $this->get_plan_id( $order ), '_assign_to_directory', true );
 					break;
 				case 'plan_position':
 					$data[ $field ] = (int) get_post_meta( $order->ID, '_dpp_plan_sorting_order', true );
@@ -381,6 +384,11 @@ class Orders_Controller extends Posts_Controller {
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 				),
+				'directory'         => array(
+					'description' => __( 'Directory type of the plan.', 'directorist' ),
+					'type'        => 'integer',
+					'context'     => array( 'view', 'edit' ),
+				),
 				'listing'           => array(
 					'description' => __( 'Listing id.', 'directorist' ),
 					'type'        => 'integer',
@@ -458,5 +466,9 @@ class Orders_Controller extends Posts_Controller {
 			'customer' => 'author',
 			'date'     => 'date',
 		);
+	}
+
+	protected function get_plan_id( $order ) {
+		return (int) get_post_meta( $order->ID, '_fm_plan_ordered', true );
 	}
 }

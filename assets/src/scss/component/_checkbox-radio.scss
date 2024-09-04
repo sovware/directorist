@@ -208,8 +208,8 @@
                 & +.directorist-checkbox__label,
                 & +.directorist-radio__label{
                     &:after{
-                        background-color: #3e62f5;
-                        border-color: #3e62f5;
+                        background-color: var(--directorist-color-primary);
+                        border-color: var(--directorist-color-primary);
                     }
                 }
             }
@@ -339,8 +339,8 @@
         &:checked{
             & +.directorist-checkbox__label{
                 &:after{
-                    background-color: #3e62f5;
-                    border-color: #3e62f5;
+                    background-color: var(--directorist-color-primary);
+                    border-color: var(--directorist-color-primary);
                 }
             }
         }

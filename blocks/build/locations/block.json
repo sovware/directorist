@@ -1,0 +1,55 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "category": "directorist-blocks-collection",
+  "version": "1.0.0",
+  "name": "directorist/all-locations",
+  "title": "Locations",
+  "description": "Create directory location listing grid view and list view.",
+  "attributes": {
+    "view": {
+      "type": "string",
+      "default": "grid"
+    },
+    "orderby": {
+      "type": "string",
+      "default": "date"
+    },
+    "order": {
+      "type": "string",
+      "default": "desc"
+    },
+    "loc_per_page": {
+      "type": "number",
+      "default": 6
+    },
+    "columns": {
+      "type": "number",
+      "default": 3
+    },
+    "slug": {
+      "type": "string",
+      "default": ""
+    },
+    "logged_in_user_only": {
+      "type": "boolean",
+      "default": false
+    },
+    "redirect_page_url": {
+      "type": "string",
+      "default": ""
+    },
+    "directory_type": {
+      "type": "string",
+      "default": ""
+    },
+    "default_directory_type": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "supports": {
+    "html": false
+  },
+  "editorScript": "file:./index.js"
+}

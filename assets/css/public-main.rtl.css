@@ -16981,7 +16981,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-listing-category__popup__content:after {
   content: "";
   right: 40px;
-  bottom: -12px;
+  bottom: -11px;
   border: 6px solid transparent;
   border-top-color: var(--directorist-color-white);
   display: inline-block;

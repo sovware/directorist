@@ -25,6 +25,15 @@
             word-break: break-all;
             transition: 0.3s ease;
             z-index: 1;
+            &:after{
+                content: "";
+                left: 40px;
+                bottom: -12px;
+                border: 6px solid transparent;
+                border-top-color: var(--directorist-color-white);
+                display: inline-block;
+                position: absolute;
+            }
 
             a {
                 color: var(--directorist-color-body);

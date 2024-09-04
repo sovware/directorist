@@ -16978,6 +16978,15 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   transition: 0.3s ease;
   z-index: 1;
 }
+.directorist-listing-category__popup__content:after {
+  content: "";
+  left: 40px;
+  bottom: -12px;
+  border: 6px solid transparent;
+  border-top-color: var(--directorist-color-white);
+  display: inline-block;
+  position: absolute;
+}
 .directorist-listing-category__popup__content a {
   color: var(--directorist-color-body);
   display: -webkit-box;

@@ -177,6 +177,16 @@ class Plans_Controller extends Posts_Controller {
 		$args['order']          = $request['order'];
 		$args['orderby']        = $request['orderby'];
 
+		if ( directorist_is_multi_directory_enabled() && ! empty( $request['directory'] ) ) {
+			$args['meta_key'] = '_assign_to_directory';
+			$args['meta_value'] = $request['directory'];
+		}
+
+		if ( ! directorist_is_multi_directory_enabled() ) {
+			$args['meta_key'] = '_assign_to_directory';
+			$args['meta_value'] = directorist_get_default_directory();
+		}
+
 		/**
 		 * Filter the query arguments for a request.
 		 *
@@ -828,6 +838,14 @@ class Plans_Controller extends Posts_Controller {
 			'type'               => 'string',
 			'sanitize_callback'  => 'sanitize_key',
 		);
+
+		if ( directorist_is_multi_directory_enabled() ) {
+			$params['directory'] = array(
+				'description'        => __( 'Query plans by directory id.', 'directorist' ),
+				'type'               => 'integer',
+				'sanitize_callback'  => 'absint',
+			);
+		}
 
 		return $params;
 	}

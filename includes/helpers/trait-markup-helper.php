@@ -40,7 +40,7 @@ trait Markup_Helper {
 	}
 
 	public static function directorist_single_column() {
-		$column = is_active_sidebar('right-sidebar-listing') ? 'md-8' : 'md-12';
+		$column = is_active_sidebar('right-sidebar-listing') ? 'lg-8' : 'lg-12';
 		Helper::directorist_column( $column );
 	}
 

@@ -223,6 +223,14 @@
           min-width: 180px;
         }
 
+        &.directorist-table-view-count {
+          min-width: 125px;
+
+          @media (max-width: 1499px) {
+            min-width: 120px;
+          }
+        }
+
         &.directorist-table-ex-date {
           min-width: 250px;
 

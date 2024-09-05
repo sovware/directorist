@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.4.0
+ * @version 7.5
  */
 
 use \Directorist\Helper;
@@ -42,7 +42,9 @@ if ( $query->have_posts() ) {
 			<?php if ( directorist_is_multi_directory_enabled() ): ?>
 				<td><span class="directorist-listing-plan"><?php echo esc_html( $dashboard->get_listing_type() ); ?></span></td>
 			<?php endif; ?>
-
+			
+			<td><span class="directorist-view-count"><?php echo esc_html( $dashboard->get_listing_view_count() ); ?></span></td>
+			
 			<td><span class="directorist-ex-plan"><?php echo wp_kses_post( $dashboard->get_listing_expired_html() ); ?></span></td>
 
 			<td><?php echo wp_kses_post( $dashboard->get_listing_status_html() ); ?></td>

@@ -355,7 +355,7 @@ class Directorist_Listing_Taxonomy {
 
 		$current = !empty($listing_types) ? array_key_first( $listing_types ) : '';
 
-		if ( isset( $_GET['directory_type'] ) && 'all' != $_GET['directory_type'] ) {
+		if ( isset( $_GET['directory_type'] ) ) {
 			$current = sanitize_text_field( wp_unslash( $_GET['directory_type'] ) ) ;
 		}
 		else if( $this->default_directory_type ) {

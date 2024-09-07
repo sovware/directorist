@@ -376,7 +376,7 @@
   @include e("text") {
     p {
       margin: 0 0 15px;
-      color: #7a82a6;
+      color: var(--directorist-color-body);
       line-height: 24px;
     }
     ul {

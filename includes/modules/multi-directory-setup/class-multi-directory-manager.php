@@ -46,20 +46,20 @@ class Multi_Directory_Manager {
         if ( empty( $submission_form_fields['fields'] ) ) {
             return;
         }
-        
+
         // Modify the 'assign_to' value based on your criteria (e.g., change 'category' to 1)
         foreach ( $submission_form_fields['fields'] as $field_type => $options ) {
             if( empty( $options['assign_to'] ) ) {
                 continue;
             }
-            
+
             if ( $options['assign_to'] === 'category' ) {
                 $submission_form_fields['fields'][ $field_type ]['assign_to'] = 1;
             } else {
                 $submission_form_fields['fields'][ $field_type ]['assign_to'] = false;
             }
         }
-        
+
         update_term_meta( $term_id, 'submission_form_fields', $submission_form_fields );
     }
 

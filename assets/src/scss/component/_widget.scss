@@ -18,7 +18,7 @@
 	.directorist-card {
 		margin-bottom: 25px;
 		ul {
-			padding: 25px;
+			padding: 0;
 			margin: 0;
 			list-style: none;
 		}
@@ -51,6 +51,9 @@
 				border-color: var(--directorist-color-dark);
 			}
 		}
+	}
+	.directorist-card__header__title{
+		justify-content: space-between;
 	}
 }
 

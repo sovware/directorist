@@ -252,7 +252,7 @@ if (!class_exists('ATBDP_Listing')):
          */
         public function post_thumbnail_html($html, $post_id)
         {
-            $double_thumb = get_directorist_option('fix_listing_double_thumb', 0);
+            $double_thumb = get_directorist_option( 'fix_listing_double_thumb', 1 );
             if (!empty($double_thumb)) {
                 if (is_singular('at_biz_dir')) {
                     if (!isset($post_id)) return '';

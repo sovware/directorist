@@ -191,6 +191,12 @@ export default {
       for (let field in fields) {
         let value = this.maybeJSON([fields[field].value]);
 
+        if (fields[field].editor) {
+          let privacyFieldID = fields[field].editorID;
+          let editorInstance = tinymce.get(privacyFieldID);
+          value = editorInstance.getContent();
+        }
+
         form_data.append(field, value);
         field_list.push(field);
       }

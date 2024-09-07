@@ -1487,6 +1487,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     preview: {
       required: false
+    },
+    editor: {
+      required: false
+    },
+    editorID: {
+      required: false
     }
   }
 });
@@ -14341,10 +14347,10 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'tab-area',
+  name: "tab-area",
   mixins: [_mixins_helpers__WEBPACK_IMPORTED_MODULE_2__["default"]],
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])({
-    layouts: 'layouts'
+    layouts: "layouts"
   }))
 });
 
@@ -15294,6 +15300,13 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       var type_class = field && field.type ? "cptm-field-wraper-type-" + field.type : "cptm-field-wraper";
       var key_class = "cptm-field-wraper-key-" + field_key;
       return _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({}, type_class, true), key_class, true);
+    },
+    fieldWrapperID: function fieldWrapperID(field) {
+      var type_id = "";
+      if (field && field.editor !== undefined) {
+        type_id = field.editor === "wp_editor" ? "cptm-field_wp_editor" : "";
+      }
+      return type_id;
     }
   }
 });
@@ -17461,6 +17474,10 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   computed: {
+    isPresetOrCustomGroup: function isPresetOrCustomGroup() {
+      var _this$widget_fields, _this$widget_fields2;
+      return ((_this$widget_fields = this.widget_fields) === null || _this$widget_fields === void 0 || (_this$widget_fields = _this$widget_fields.widget_group) === null || _this$widget_fields === void 0 ? void 0 : _this$widget_fields.value) === "preset" || ((_this$widget_fields2 = this.widget_fields) === null || _this$widget_fields2 === void 0 || (_this$widget_fields2 = _this$widget_fields2.widget_group) === null || _this$widget_fields2 === void 0 ? void 0 : _this$widget_fields2.value) === "custom";
+    },
     groupDataFields: function groupDataFields() {
       return this.groupData.fields;
     },
@@ -17486,7 +17503,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     expandState: function expandState() {
       var state = this.expanded;
-      if (this.isEnabledGroupDragging) {
+      if (!this.isEnabledGroupDragging) {
         state = false;
       }
       return state;
@@ -17513,6 +17530,13 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    handleTrashClick: function handleTrashClick() {
+      if (this.isPresetOrCustomGroup) {
+        this.openConfirmationModal();
+      } else {
+        this.$emit("trash-widget");
+      }
+    },
     sync: function sync() {
       this.syncCurrentWidget();
       this.syncWidgetFields();
@@ -17678,34 +17702,34 @@ __webpack_require__.r(__webpack_exports__);
   name: "form-builder-widget-group-component",
   props: {
     groupKey: {
-      default: ''
+      default: ""
     },
     activeWidgets: {
-      default: ''
+      default: ""
     },
     avilableWidgets: {
-      default: ''
+      default: ""
     },
     groupData: {
-      default: ''
+      default: ""
     },
     groupSettings: {
-      default: ''
+      default: ""
     },
     groupFields: {
-      default: ''
+      default: ""
     },
     isEnabledGroupDragging: {
       default: false
     },
     widgetIsDragging: {
-      default: ''
+      default: ""
     },
     currentDraggingGroup: {
-      default: ''
+      default: ""
     },
     currentDraggingWidget: {
-      default: ''
+      default: ""
     }
   },
   created: function created() {
@@ -17714,13 +17738,13 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     widgetsExpandState: function widgetsExpandState() {
       var state = this.widgetsExpanded;
-      if (this.isEnabledGroupDragging) {
+      if (!this.isEnabledGroupDragging) {
         state = false;
       }
       return state;
     },
     canTrashGroup: function canTrashGroup() {
-      var canTrash = this.groupSettings && typeof this.groupSettings.canTrash !== 'undefined' ? this.groupSettings.canTrash : true;
+      var canTrash = this.groupSettings && typeof this.groupSettings.canTrash !== "undefined" ? this.groupSettings.canTrash : true;
       if (this.detectedUntrashableWidgets.length) {
         canTrash = false;
       }
@@ -17731,7 +17755,7 @@ __webpack_require__.r(__webpack_exports__);
       if (this.groupData.fields && this.groupData.fields.length) {
         show = false;
       }
-      if (typeof this.groupData.type !== 'undefined' && this.groupData.type !== 'general_group') {
+      if (typeof this.groupData.type !== "undefined" && this.groupData.type !== "general_group") {
         show = false;
       }
       return show;
@@ -17772,7 +17796,7 @@ __webpack_require__.r(__webpack_exports__);
         return false;
       }
       var droppable = true;
-      if ('active_widgets' === this.currentDraggingWidget.from) {
+      if ("active_widgets" === this.currentDraggingWidget.from) {
         if (this.currentDraggingWidget && this.currentDraggingWidget.widget_group_key === this.groupKey && this.currentDraggingWidget.widget_index === widget_index) {
           droppable = false;
         }
@@ -17786,7 +17810,7 @@ __webpack_require__.r(__webpack_exports__);
       if (!this.currentDraggingWidget.from) {
         return false;
       }
-      if ('active_widgets' === this.currentDraggingWidget.from) {
+      if ("active_widgets" === this.currentDraggingWidget.from) {
         var widget_group_key = this.currentDraggingWidget.widget_group_key;
         var dragging_widget_index = this.currentDraggingWidget.widget_index;
         if (widget_group_key !== this.groupKey) {
@@ -17797,7 +17821,7 @@ __webpack_require__.r(__webpack_exports__);
           return false;
         }
       }
-      if ('available_widgets' === this.currentDraggingWidget.from) {
+      if ("available_widgets" === this.currentDraggingWidget.from) {
         return true;
       }
       return true;
@@ -17809,7 +17833,7 @@ __webpack_require__.r(__webpack_exports__);
       if (!this.currentDraggingWidget.from) {
         return false;
       }
-      if ('active_widgets' === this.currentDraggingWidget.from) {
+      if ("active_widgets" === this.currentDraggingWidget.from) {
         var widget_group_key = this.currentDraggingWidget.widget_group_key;
         var dragging_widget_index = this.currentDraggingWidget.widget_index;
         if (widget_group_key !== this.groupKey) {
@@ -17873,7 +17897,7 @@ __webpack_require__.r(__webpack_exports__);
       if ('expand' === this.forceExpandStateTo) {
         state = true;
       }
-      if (this.isEnabledGroupDragging) {
+      if (!this.isEnabledGroupDragging) {
         state = false;
       }
       return state;
@@ -23222,7 +23246,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       }],
       forceExpandStateTo: "",
       // expand | 'collapse'
-      isEnabledGroupDragging: false,
+      isEnabledGroupDragging: true,
       currentDraggingGroup: null,
       currentDraggingWidget: null
     };
@@ -23527,15 +23551,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         from: "active_widgets",
         widget_group_key: widget_group_key
       };
-      this.forceExpandStateTo = "collapse";
-      this.isEnabledGroupDragging = true;
-      console.log("start");
+      this.isEnabledGroupDragging = false;
     },
     handleGroupDragEnd: function handleGroupDragEnd() {
       this.currentDraggingGroup = null;
-      this.isEnabledGroupDragging = false;
-      this.forceExpandStateTo = "";
-      console.log("end");
+      this.isEnabledGroupDragging = true;
     },
     handleGroupDrop: function handleGroupDrop(widget_group_key, payload) {
       var dropped_in = {
@@ -24674,7 +24694,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       return options_values.includes(value);
     }
     /* syncValidationWithLocalState( validation_log ) {
-         return validation_log;
+          return validation_log;
     } */
   }
 });
@@ -25413,8 +25433,65 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_form_fields_textarea_field__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../../../mixins/form-fields/textarea-field */ "./assets/src/js/admin/vue/mixins/form-fields/textarea-field.js");
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'textarea-field-theme-default',
-  mixins: [_mixins_form_fields_textarea_field__WEBPACK_IMPORTED_MODULE_0__["default"]]
+  name: "textarea-field-theme-default",
+  mixins: [_mixins_form_fields_textarea_field__WEBPACK_IMPORTED_MODULE_0__["default"]],
+  props: {
+    editor: {
+      required: false,
+      default: ""
+    },
+    editorID: {
+      required: false,
+      default: ""
+    },
+    fieldId: {
+      required: false,
+      default: ""
+    },
+    value: {
+      required: false,
+      default: ""
+    }
+  },
+  data: function data() {
+    return {
+      local_value: this.value
+    };
+  },
+  watch: {
+    value: function value(newValue) {
+      if (newValue !== this.local_value) {
+        this.local_value = newValue;
+      }
+    },
+    local_value: function local_value(newValue) {
+      this.$emit("input", newValue);
+    }
+  },
+  mounted: function mounted() {
+    var _this = this;
+    var editorID = this.editorID;
+    var value = this.local_value;
+    tinymce.init({
+      selector: "#".concat(editorID),
+      plugins: "link",
+      toolbar: "undo redo | formatselect | bold italic | link",
+      menubar: false,
+      branding: false,
+      init_instance_callback: function init_instance_callback(editor) {
+        editor.setContent(value);
+        editor.on("Change KeyUp", function () {
+          _this.local_value = editor.getContent();
+        });
+      }
+    });
+    this.editorInstance = tinymce.get(editorID);
+  },
+  beforeDestroy: function beforeDestroy() {
+    if (this.editorInstance) {
+      this.editorInstance.destroy();
+    }
+  }
 });
 
 /***/ }),
@@ -26189,7 +26266,10 @@ var render = function render() {
     }, _vm._l(_vm.sectionFields(section), function (field, field_key) {
       return _c("div", {
         key: field_key,
-        class: _vm.fieldWrapperClass(field, _vm.fields[field])
+        class: _vm.fieldWrapperClass(field, _vm.fields[field]),
+        attrs: {
+          id: _vm.fieldWrapperID(_vm.fields[field])
+        }
       }, [_vm.fields[field] ? _c(_vm.getFormFieldName(_vm.fields[field].type), _vm._b({
         key: field_key,
         ref: field,
@@ -27879,7 +27959,7 @@ var render = function render() {
     on: {
       click: function click($event) {
         $event.preventDefault();
-        return _vm.openConfirmationModal.apply(null, arguments);
+        return _vm.handleTrashClick.apply(null, arguments);
       }
     }
   }, [_c("span", {
@@ -28013,23 +28093,23 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _vm.visible ? _c("div", {
-    staticClass: "confirmation-modal-overlay",
+    staticClass: "cptm-widget-trash-confirmation-modal-overlay",
     on: {
       click: _vm.handleOverlayClick
     }
   }, [_c("div", {
-    staticClass: "confirmation-modal",
+    staticClass: "cptm-widget-trash-confirmation-modal",
     on: {
       click: function click($event) {
         $event.stopPropagation();
       }
     }
-  }, [_c("p", [_vm._v('\n      Removing "'), _c("strong", [_vm._v(_vm._s(_vm.widgetName))]), _vm._v('" field will also remove it from the single and search pages. Are you sure you want to proceed?\n    ')]), _vm._v(" "), _c("button", {
+  }, [_c("h2", [_vm._v("Are you sure you want to proceed?")]), _vm._v(" "), _c("p", [_vm._v('\n      Removing "'), _c("strong", [_vm._v(_vm._s(_vm.widgetName))]), _vm._v('" field will also remove it from the single and search pages.\n    ')]), _vm._v(" "), _c("button", {
     on: {
       click: _vm.confirmDelete
     }
   }, [_vm._v("Yes, delete")]), _vm._v(" "), _c("button", {
-    staticClass: "confirmation-modal-action-btn__cancel",
+    staticClass: "cptm-widget-trash-confirmation-modal-action-btn__cancel",
     on: {
       click: _vm.cancelDelete
     }
@@ -28081,7 +28161,7 @@ var render = function render() {
   }, "form-builder-widget-group-header-component", _vm.$props, false)), _vm._v(" "), _c("slide-up-down", {
     attrs: {
       active: _vm.widgetsExpandState,
-      duration: 500
+      duration: 800
     }
   }, [_c("div", {
     staticClass: "cptm-form-builder-group-fields"
@@ -28275,7 +28355,7 @@ var render = function render() {
     }
   })]) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "cptm-form-builder-group-title-actions"
-  }, [_vm._m(0), _vm._v(" "), _vm.groupData && _vm.groupData.fields && _vm.groupData.fields.length ? _c("a", {
+  }, [_vm.groupData && _vm.groupData.fields && _vm.groupData.fields.length ? _c("a", {
     staticClass: "cptm-form-builder-header-action-link",
     class: _vm.widgetsExpanded ? "action-collapse-up" : "action-collapse-down",
     attrs: {
@@ -28294,21 +28374,7 @@ var render = function render() {
     }
   })]) : _vm._e()])]);
 };
-var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("a", {
-    staticClass: "cptm-form-builder-header-action-move",
-    attrs: {
-      href: "#"
-    }
-  }, [_c("span", {
-    staticClass: "fa fa-arrows-alt",
-    attrs: {
-      "aria-hidden": "true"
-    }
-  })]);
-}];
+var staticRenderFns = [];
 render._withStripped = true;
 
 
@@ -31775,7 +31841,7 @@ var render = function render() {
       key: alert_key,
       staticClass: "cptm-form-alert",
       class: "cptm-" + alert.type
-    }, [_vm._v("\n            " + _vm._s(alert.message) + "\n        ")]);
+    }, [_vm._v("\r\n            " + _vm._s(alert.message) + "\r\n        ")]);
   }), 0) : _vm._e()]);
 };
 var staticRenderFns = [];
@@ -34733,7 +34799,12 @@ var render = function render() {
     domProps: {
       innerHTML: _vm._s(_vm.description)
     }
-  }) : _vm._e(), _vm._v(" "), _c("textarea", {
+  }) : _vm._e(), _vm._v(" "), _vm.editor ? _c("div", {
+    staticClass: "cptm-form-control",
+    attrs: {
+      id: _vm.editorID
+    }
+  }) : _c("textarea", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -34743,7 +34814,6 @@ var render = function render() {
     staticClass: "cptm-form-control",
     attrs: {
       name: "",
-      id: "",
       cols: _vm.cols,
       rows: _vm.rows,
       placeholder: _vm.placeholder

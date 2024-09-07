@@ -664,6 +664,7 @@
     &.directorist-listing-list {
       display: flex;
       flex-wrap: wrap;
+      margin-bottom: 30px;
       @media screen and (max-width: 575px) {
         .directorist-rating-meta {
           i:not(:first-child) {
@@ -859,6 +860,9 @@
         &:after {
           display: none;
         }
+      }
+      .directorist-listing-single__meta{
+        padding: 14px 20px 7px;
       }
     }
 

@@ -8121,8 +8121,8 @@ body.stop-scrolling {
 #directiost-listing-fields_wrapper .directorist-content-module .directorist-radio input[type=checkbox]:checked + .directorist-radio__label:after,
 #directiost-listing-fields_wrapper .directorist-content-module .directorist-radio input[type=radio]:checked + .directorist-checkbox__label:after,
 #directiost-listing-fields_wrapper .directorist-content-module .directorist-radio input[type=radio]:checked + .directorist-radio__label:after {
-  background-color: #202428;
-  border-color: #202428;
+  background-color: var(--directorist-color-primary);
+  border-color: var(--directorist-color-primary);
 }
 #directiost-listing-fields_wrapper .directorist-content-module .directorist-radio input[type=radio] + .directorist-radio__label:before {
   position: absolute;
@@ -8202,7 +8202,7 @@ body.stop-scrolling {
 /* listing label */
 .directorist-form-label {
   display: block;
-  color: var(--directorist-color-primary);
+  color: var(--directorist-color-dark);
   margin-bottom: 5px;
   font-size: 14px;
   font-weight: 500;
@@ -10842,6 +10842,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
       -ms-flex-align: center;
           align-items: center;
   border-bottom: 1px solid #d9d9d9;
+  width: 100%;
 }
 .directorist-form-group__with-prefix:focus-within {
   border-bottom: 2px solid var(--directorist-color-dark);
@@ -12918,8 +12919,8 @@ input:-webkit-autofill:active {
 .directorist-checkbox.directorist-checkbox-blue input[type=checkbox]:checked + .directorist-checkbox__label:after, .directorist-checkbox.directorist-checkbox-blue input[type=checkbox]:checked + .directorist-radio__label:after,
 .directorist-checkbox.directorist-checkbox-blue input[type=radio]:checked + .directorist-checkbox__label:after,
 .directorist-checkbox.directorist-checkbox-blue input[type=radio]:checked + .directorist-radio__label:after {
-  background-color: #3e62f5;
-  border-color: #3e62f5;
+  background-color: var(--directorist-color-primary);
+  border-color: var(--directorist-color-primary);
 }
 
 .directorist-radio.directorist-radio-primary input[type=radio]:checked + .directorist-radio__label:after {
@@ -13017,8 +13018,8 @@ input:-webkit-autofill:active {
           box-sizing: border-box;
 }
 .directorist-checkbox.directorist-checkbox-theme-admin input[type=checkbox]:checked + .directorist-checkbox__label:after {
-  background-color: #3e62f5;
-  border-color: #3e62f5;
+  background-color: var(--directorist-color-primary);
+  border-color: var(--directorist-color-primary);
 }
 .directorist-checkbox.directorist-checkbox-theme-admin .directorist-checkbox__label {
   padding-left: 35px !important;

@@ -216,6 +216,7 @@
             padding: 0 20px;
 
             &:focus {
+                border-radius: 0;
                 border-color: var(--directorist-color-primary);
             }
         }
@@ -267,8 +268,11 @@
     .directorist-account-block-social-login {
         display: flex;
         justify-content: center;
-        justify-content: center;
-        gap: 10px 25px;
+        flex-wrap: wrap;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px 10px;
+        margin-top: 20px;
 
         @include xxs {
             display: block;
@@ -281,57 +285,27 @@
             margin: 5px;
             border: 1px solid var(--directorist-color-light);
             transition: 0.3s ease-in-out;
-
-            &:focus {
-                outline: none;
-                box-shadow: 0 0;
+            display: flex;
+            align-items: center;
+            gap: 5px 8px;
+            cursor: pointer;
+            img{
+                width: 20px;
+                height: 20px;
             }
-
-            &:hover {
-                background-color: transparent;
-
-                .fa.fa-facebook {
-                    color: var(--directorist-color-white);
-                }
-
-                .fa.fa-google {
-                    color: var(--directorist-color-white);
-                }
+            &:hover{
+                opacity: 0.8;
             }
 
             &.fb-login {
-                color: var(---directorist-color-new-badge);
-                border-color: var(---directorist-color-new-badge);
-
-                &:hover {
-                    color: var(--directorist-color-white);
-                    background-color: var(---directorist-color-new-badge);
-                }
+                color:white;
+                border-color:#1877F2;
+                background-color: #1877F2;
             }
 
             &.fb-google {
                 color: var(--directorist-color-closed-badge);
                 border-color: var(--directorist-color-closed-badge);
-
-                &:hover {
-                    color: var(--directorist-color-white);
-                    background-color: var(--directorist-color-closed-badge);
-                }
-            }
-
-            .fa {
-                font-family: "Font Awesome 5 Brands";
-                font-weight: 400;
-                margin-right: 5px;
-                transition: var(--akfe-transition);
-
-                &.fa-facebook {
-                    color: var(---directorist-color-new-badge);
-                }
-
-                &.fa-google {
-                    color:  var(--directorist-color-closed-badge);
-                }
             }
         }
     }
@@ -349,6 +323,8 @@
             color: var(--directorist-color-dark);
             transition: .3s;
             background-color: transparent;
+            cursor: pointer;
+            font-size: 15px;
 
             &:hover {
                 color: var(--directorist-color-primary);

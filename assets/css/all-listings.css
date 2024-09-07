@@ -3507,8 +3507,8 @@ body.stop-scrolling {
 #directiost-listing-fields_wrapper .directorist-content-module .directorist-radio input[type=checkbox]:checked + .directorist-radio__label:after,
 #directiost-listing-fields_wrapper .directorist-content-module .directorist-radio input[type=radio]:checked + .directorist-checkbox__label:after,
 #directiost-listing-fields_wrapper .directorist-content-module .directorist-radio input[type=radio]:checked + .directorist-radio__label:after {
-  background-color: #202428;
-  border-color: #202428;
+  background-color: var(--directorist-color-primary);
+  border-color: var(--directorist-color-primary);
 }
 #directiost-listing-fields_wrapper .directorist-content-module .directorist-radio input[type=radio] + .directorist-radio__label:before {
   position: absolute;
@@ -3588,7 +3588,7 @@ body.stop-scrolling {
 /* listing label */
 .directorist-form-label {
   display: block;
-  color: var(--directorist-color-primary);
+  color: var(--directorist-color-dark);
   margin-bottom: 5px;
   font-size: 14px;
   font-weight: 500;
@@ -6495,7 +6495,7 @@ body.modal-overlay-enabled:before {
   margin-bottom: 25px;
 }
 .directorist-sidebar .directorist-card ul {
-  padding: 25px;
+  padding: 0;
   margin: 0;
   list-style: none;
 }
@@ -6527,6 +6527,12 @@ body.modal-overlay-enabled:before {
 }
 .directorist-sidebar .directorist-card select:focus {
   border-color: var(--directorist-color-dark);
+}
+.directorist-sidebar .directorist-card__header__title {
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 .directorist-widget__listing-contact .directorist-form-group {
@@ -9520,6 +9526,7 @@ input:-webkit-autofill:active {
       -ms-flex-align: center;
           align-items: center;
   border-bottom: 1px solid #d9d9d9;
+  width: 100%;
 }
 .directorist-form-group__with-prefix:focus-within {
   border-bottom: 2px solid var(--directorist-color-dark);
@@ -10056,8 +10063,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-checkbox.directorist-checkbox-blue input[type=checkbox]:checked + .directorist-checkbox__label:after, .directorist-checkbox.directorist-checkbox-blue input[type=checkbox]:checked + .directorist-radio__label:after,
 .directorist-checkbox.directorist-checkbox-blue input[type=radio]:checked + .directorist-checkbox__label:after,
 .directorist-checkbox.directorist-checkbox-blue input[type=radio]:checked + .directorist-radio__label:after {
-  background-color: #3e62f5;
-  border-color: #3e62f5;
+  background-color: var(--directorist-color-primary);
+  border-color: var(--directorist-color-primary);
 }
 
 .directorist-radio.directorist-radio-primary input[type=radio]:checked + .directorist-radio__label:after {
@@ -10155,8 +10162,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
           box-sizing: border-box;
 }
 .directorist-checkbox.directorist-checkbox-theme-admin input[type=checkbox]:checked + .directorist-checkbox__label:after {
-  background-color: #3e62f5;
-  border-color: #3e62f5;
+  background-color: var(--directorist-color-primary);
+  border-color: var(--directorist-color-primary);
 }
 .directorist-checkbox.directorist-checkbox-theme-admin .directorist-checkbox__label {
   padding-left: 35px !important;
@@ -10897,16 +10904,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 /* All listing archive page styles */
 .directorist-archive-contents .directorist-archive-items .directorist-pagination {
   margin-top: 35px;
-  -webkit-box-pack: end;
-  -webkit-justify-content: flex-end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
-}
-.directorist-archive-contents .listing-with-sidebar .directorist-pagination {
-  -webkit-box-pack: end;
-  -webkit-justify-content: flex-end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
 }
 .directorist-archive-contents .gm-style-iw-chr,
 .directorist-archive-contents .gm-style-iw-tc {
@@ -11150,7 +11147,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
           flex-direction: column;
 }
 .directorist-content-active .directorist-archive-items .directorist-archive-notfound {
-  padding: 15px 0;
+  padding: 15px;
 }
 
 .directorist-viewas {
@@ -11852,6 +11849,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .directorist-advanced-filter__advanced__element {
   overflow: hidden;
+}
+.directorist-advanced-filter__advanced__element.directorist-search-field-category .directorist-search-field.input-is-focused {
+  margin-top: 0;
 }
 .directorist-advanced-filter__advanced__element .directorist-search-field {
   -webkit-box-orient: vertical;
@@ -13464,7 +13464,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   left: 0;
   top: 0;
   border-radius: 8px;
-  background: rgba(var(--directorist-color-dark-rgb), 0.3);
+  background: rgba(var(--directorist-color-primary-rgb), 0.3);
   z-index: 9998;
 }
 
@@ -16241,6 +16241,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   -webkit-flex-wrap: wrap;
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
+  margin-bottom: 30px;
 }
 @media screen and (max-width: 575px) {
   .directorist-content-active .directorist-listing-single.directorist-listing-list .directorist-rating-meta i:not(:first-child) {
@@ -16478,6 +16479,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .directorist-content-active .directorist-listing-single.directorist-listing-list .directorist-listing-single__info .directorist-badge:after {
   display: none;
+}
+.directorist-content-active .directorist-listing-single.directorist-listing-list .directorist-listing-single__meta {
+  padding: 14px 20px 7px;
 }
 .directorist-content-active .directorist-listing-single.directorist-listing-card .directorist-badge, .directorist-content-active .directorist-listing-single.directorist-listing-list .directorist-badge {
   display: -webkit-box;
@@ -16974,6 +16978,15 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   transition: 0.3s ease;
   z-index: 1;
 }
+.directorist-listing-category__popup__content:after {
+  content: "";
+  left: 40px;
+  bottom: -11px;
+  border: 6px solid transparent;
+  border-top-color: var(--directorist-color-white);
+  display: inline-block;
+  position: absolute;
+}
 .directorist-listing-category__popup__content a {
   color: var(--directorist-color-body);
   display: -webkit-box;
@@ -17355,11 +17368,11 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   font-size: 16px;
   font-weight: 500;
   margin: 0 0 10px !important;
-  color: var(--directorist-color-primary);
+  color: var(--directorist-color-dark);
 }
 .map-listing-card-single__content__title a {
   text-decoration: unset;
-  color: var(--directorist-color-primary);
+  color: var(--directorist-color-dark);
 }
 .map-listing-card-single__content__title a:hover {
   color: var(--directorist-color-primary);
@@ -18379,7 +18392,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .directorist-listing-details__text p {
   margin: 0 0 15px;
-  color: #7a82a6;
+  color: var(--directorist-color-body);
   line-height: 24px;
 }
 .directorist-listing-details__text ul {
@@ -19105,15 +19118,15 @@ Review: New Style
       -ms-flex-align: center;
           align-items: center;
 }
-.directorist-review-content .directorist-review-content__header .directorist-btn:hover {
-  opacity: 0.8;
-}
 .directorist-review-content .directorist-review-content__header .directorist-btn .directorist-icon-mask {
   display: inline-block;
   margin-right: 4px;
 }
 .directorist-review-content .directorist-review-content__header .directorist-btn .directorist-icon-mask::after {
   background-color: var(--directorist-color-white);
+}
+.directorist-review-content .directorist-review-content__header .directorist-btn:hover {
+  opacity: 0.8;
 }
 .directorist-review-content .directorist-review-content__header .directorist-noreviews {
   font-size: 16px;

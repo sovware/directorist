@@ -20,6 +20,14 @@
 
                 <!-- atbdp-counter-list__item -->
                 <li class="atbdp-counter-list__item">
+                    <span class="atbdp-counter-list__number atbdp-text-success">
+                        <?php echo esc_html( $args[ 'total_active_themes' ] ); ?>
+                    </span>
+                    <span class="atbdp-counter-list__label"><?php esc_html_e( 'Active Theme', 'directorist'); ?></span>
+                </li>
+
+                <!-- atbdp-counter-list__item -->
+                <li class="atbdp-counter-list__item">
                     <span class="atbdp-counter-list__number">
                         <?php echo esc_html( $args[ 'total_available_themes' ] ); ?>
                     </span>

@@ -14358,7 +14358,7 @@ div[draggable=true].cptm-form-builder-group-title-area {
       -ms-flex-pack: justify;
           justify-content: space-between;
   padding: 15px 20px;
-  cursor: move;
+  cursor: default;
   -webkit-box-shadow: 0px 1px 5px rgba(161, 168, 198, 0.1);
           box-shadow: 0px 1px 5px rgba(161, 168, 198, 0.1);
   border-radius: 4px;
@@ -14368,6 +14368,10 @@ div[draggable=true].cptm-form-builder-group-title-area {
 .cptm-form-builder-group-field-item-header .cptm-title-3 {
   font-size: 14px;
   color: #272b41;
+}
+
+.directorist-draggable-list-item .cptm-form-builder-group-field-item-header {
+  cursor: move;
 }
 
 .cptm-form-builder-group-field-item-body {
@@ -17857,7 +17861,7 @@ div[draggable=true].cptm-form-builder-group-title-area {
       -ms-flex-pack: justify;
           justify-content: space-between;
   padding: 15px 20px;
-  cursor: move;
+  cursor: default;
   -webkit-box-shadow: 0px 1px 5px rgba(161, 168, 198, 0.1);
           box-shadow: 0px 1px 5px rgba(161, 168, 198, 0.1);
   border-radius: 4px;
@@ -17867,6 +17871,10 @@ div[draggable=true].cptm-form-builder-group-title-area {
 .cptm-form-builder-group-field-item-header .cptm-title-3 {
   font-size: 14px;
   color: #272b41;
+}
+
+.directorist-draggable-list-item .cptm-form-builder-group-field-item-header {
+  cursor: move;
 }
 
 .cptm-form-builder-group-field-item-body {
@@ -21623,7 +21631,7 @@ div[draggable=true].cptm-form-builder-group-title-area {
       -ms-flex-pack: justify;
           justify-content: space-between;
   padding: 15px 20px;
-  cursor: move;
+  cursor: default;
   -webkit-box-shadow: 0px 1px 5px rgba(161, 168, 198, 0.1);
           box-shadow: 0px 1px 5px rgba(161, 168, 198, 0.1);
   border-radius: 4px;
@@ -21633,6 +21641,10 @@ div[draggable=true].cptm-form-builder-group-title-area {
 .cptm-form-builder-group-field-item-header .cptm-title-3 {
   font-size: 14px;
   color: #272b41;
+}
+
+.directorist-draggable-list-item .cptm-form-builder-group-field-item-header {
+  cursor: move;
 }
 
 .cptm-form-builder-group-field-item-body {

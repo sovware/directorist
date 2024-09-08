@@ -402,7 +402,7 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
 			$to            = isset( $_POST['to'] ) ? sanitize_text_field( wp_unslash( $_POST['to'] ) ) : 'all_user';
 			$recipient     = isset( $_POST['recipient'] ) ? sanitize_text_field( wp_unslash( $_POST['recipient'] ) ) : '';
 			$subject       = isset( $_POST['subject'] ) ? sanitize_text_field( wp_unslash( $_POST['subject'] ) ) : '';
-			$message       = isset( $_POST['message'] ) ? sanitize_textarea_field( wp_unslash( $_POST['message'] ) ) : '';
+			$message       = isset( $_POST['message'] ) ? wp_kses_post( wp_unslash( $_POST['message'] ) ) : '';
 			$expiration    = isset( $_POST['expiration'] ) ? intval( $_POST['expiration'] ) : 0;
 			$send_to_email = isset( $_POST['send_to_email'] ) ? boolval( $_POST['send_to_email'] ) : true;
 

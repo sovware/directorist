@@ -10235,6 +10235,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .directorist-content-active .directorist-author-profile__avatar img {
   max-width: 100px !important;
+  max-height: 100px;
   border-radius: 50%;
   background-color: var(--directorist-color-bg-gray);
 }

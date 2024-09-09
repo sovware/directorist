@@ -28,11 +28,16 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 				<?php endif; ?>
 
-				<div class="listing-with-sidebar__header">
-					<?php
-						$listings->header_bar_template();
-					?>
-				</div>
+				<?php if( $listings->header ) : ?>
+				
+					<div class="listing-with-sidebar__header">
+						<?php
+							$listings->header_bar_template();
+						?>
+					</div>
+
+				<?php endif; ?>
+
 				<div class="listing-with-sidebar__contents">
 					<aside class="listing-with-sidebar__sidebar <?php echo esc_attr( $listings->sidebar_class() ); ?>">
 						<?php

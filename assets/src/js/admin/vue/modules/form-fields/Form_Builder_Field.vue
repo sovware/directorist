@@ -7,20 +7,6 @@
           Click on a field to edit, Drag & Drop to reorder
         </p>
 
-        <!-- <button
-          type="button"
-          class="cptm-btn"
-          v-if="showGroupDragToggleButton"
-          :class="forceExpandStateTo ? 'cptm-btn-primary' : ''"
-          @click="toggleEnableWidgetGroupDragging"
-        >
-          {{
-            forceExpandStateTo
-              ? "Disable Section Dragging"
-              : "Enable Section Dragging"
-          }}
-        </button> -->
-
         <div class="cptm-form-builder-active-fields-container">
           <draggable-list-item-wrapper
             list-id="widget-group"
@@ -96,6 +82,7 @@
 <script>
 import Vue from "vue";
 import helpers from "../../mixins/helpers";
+import { findObjectItem, isObject } from "../../../../helper";
 
 export default {
   name: "form-builder",
@@ -242,55 +229,36 @@ export default {
 
     // setupActiveWidgetFields
     setupActiveWidgetFields() {
-      if (!this.value) {
-        return;
-      }
-      if (typeof this.value !== "object") {
+      if ( ! this.value ) {
         return;
       }
 
-      if (!this.value.fields) {
-        return;
-      }
-      if (typeof this.value.fields !== "object") {
-        return;
-      }
-
-      let active_widget_fields = Array.isArray(this.value.fields)
-        ? {}
-        : this.value.fields;
-      active_widget_fields = this.sanitizeActiveWidgetFields(
-        active_widget_fields
-      );
-
-      this.active_widget_fields = active_widget_fields;
-
+      this.active_widget_fields = this.sanitizeActiveWidgetFields( findObjectItem( 'fields', this.value, {} ) );
+      
       this.$emit("updated-state");
       this.$emit("active-widgets-updated");
     },
 
     // sanitizeActiveWidgetFields
-    sanitizeActiveWidgetFields(active_widget_fields) {
-      if (!active_widget_fields) {
-        return {};
-      }
-      if (typeof active_widget_fields !== "object") {
+    sanitizeActiveWidgetFields( activeWidgetFields ) {
+      if ( ! isObject( activeWidgetFields ) ) {
         return {};
       }
 
-      if (typeof active_widget_fields.field_key !== "undefined") {
-        delete active_widget_fields.field_key;
+      if ( activeWidgetFields.hasOwnProperty( 'field_key' ) ) {
+        delete activeWidgetFields.field_key;
       }
 
-      for (let widget_key in active_widget_fields) {
-        if (typeof active_widget_fields[widget_key] !== "object") {
-          delete active_widget_fields[widget_key];
+      for ( let widget_key in activeWidgetFields ) {
+        if ( ! isObject( activeWidgetFields[ widget_key ] ) ) {
+          delete activeWidgetFields[ widget_key ];
+          continue;
         }
 
-        active_widget_fields[widget_key].widget_key = widget_key;
+        activeWidgetFields[ widget_key ].widget_key = widget_key;
       }
 
-      return active_widget_fields;
+      return activeWidgetFields;
     },
 
     // setupActiveWidgetGroups
@@ -414,16 +382,59 @@ export default {
       this.currentDraggingWidget = null;
     },
 
+    isAcceptedSectionWidget( widgetKey, destinationSection ) {
+      const widgetPath = `${destinationSection.widget_group}.widgets.${destinationSection.widget_name}`;
+      const widget     = findObjectItem( widgetPath, this.widgets, {} );
+
+      if ( ! widget.hasOwnProperty( 'accepted_widgets' ) ) {
+        return true;
+      }
+
+      if ( ! Array.isArray( widget.accepted_widgets ) ) {
+        return true;
+      }
+
+      if ( ! widget.accepted_widgets.length ) {
+        return true;
+      }
+
+      const droppedWidget = this.active_widget_fields[ widgetKey ];
+
+      let hasMissMatchWidget = false;
+
+      for ( const acceptedWidget of widget.accepted_widgets ) {
+        for ( const acceptedWidgetKey of Object.keys( acceptedWidget ) ) {
+          if ( droppedWidget[ acceptedWidgetKey ] !== acceptedWidget[ acceptedWidgetKey ] ) {
+            hasMissMatchWidget = true;
+            break;
+          }
+        }
+      }
+
+      if ( hasMissMatchWidget ) {
+        return false;
+      }
+    },
+
     handleWidgetDrop(widget_group_key, payload) {
-      let dropped_in = {
+      const dropped_in = {
         widget_group_key,
         widget_key: payload.widget_key,
         widget_index: payload.widget_index,
         drop_direction: payload.drop_direction,
       };
 
+      const activeGroup = this.active_widget_groups[ widget_group_key ];
+
+      if (
+          'section' === activeGroup.type &&
+          ! this.isAcceptedSectionWidget( payload.widget_key, activeGroup ) 
+      ) {
+        return false;
+      }
+
       // handleWidgetReorderFromActiveWidgets
-      if ("active_widgets" === this.currentDraggingWidget.from) {
+      if ( "active_widgets" === this.currentDraggingWidget.from ) {
         this.handleWidgetReorderFromActiveWidgets(
           this.currentDraggingWidget,
           dropped_in
@@ -495,27 +506,21 @@ export default {
     },
 
     handleWidgetInsertFromAvailableWidgets(from, to) {
-      let field_data_options = this.getOptionDataFromWidget(from.widget);
-      let inserting_widget_key = this.genarateWidgetKeyForActiveWidgets(
-        from.widget_key
-      );
+      const field_data_options = this.getOptionDataFromWidget( from.widget );
+      
+      field_data_options.widget_key = this.genarateWidgetKeyForActiveWidgets( from.widget_key );
 
-      if (field_data_options.field_key) {
-        let unique_field_key = this.genarateFieldKeyForActiveWidgets(
-          field_data_options
-        );
-        field_data_options.field_key = unique_field_key;
+      if ( field_data_options.field_key ) {
+        field_data_options.field_key = this.genarateFieldKeyForActiveWidgets( field_data_options );
       }
 
-      field_data_options.widget_key = inserting_widget_key;
-
-      if (Array.isArray(this.active_widget_fields)) {
+      if ( ! isObject( this.active_widget_fields ) ) {
         this.active_widget_fields = {};
       }
 
       Vue.set(
         this.active_widget_fields,
-        inserting_widget_key,
+        field_data_options.widget_key,
         field_data_options
       );
 
@@ -532,7 +537,7 @@ export default {
       this.active_widget_groups[to.widget_group_key].fields.splice(
         dest_index,
         0,
-        inserting_widget_key
+        field_data_options.widget_key
       );
 
       this.$emit("updated-state");
@@ -540,8 +545,6 @@ export default {
     },
 
     handleWidgetListItemDragStart(widget_group_key, payload) {
-      // console.log( 'handleWidgetListItemDragStart', { widget_group_key, payload } );
-
       if (
         payload.widget &&
         typeof payload.widget.type !== "undefined" &&
@@ -587,18 +590,23 @@ export default {
       this.$emit("active-widgets-updated");
     },
 
-    getOptionDataFromWidget(widget) {
-      let field_data_options = {};
-      if (widget.options && typeof widget.options === "object") {
-        for (let option_key in widget.options) {
-          field_data_options[option_key] =
-            typeof widget.options[option_key].value !== "undefined"
-              ? widget.options[option_key].value
-              : "";
-        }
+    getOptionDataFromWidget( widget ) {
+      const widgetOptions = findObjectItem( 'options', widget );
+
+      if ( ! isObject( widgetOptions ) ) {
+        return {};
       }
 
-      return field_data_options;
+      const fieldDataOptions = {};
+      
+      for ( let option_key in widgetOptions ) {
+        fieldDataOptions[ option_key ] =
+          typeof widgetOptions[ option_key ].value !== "undefined"
+            ? widgetOptions[ option_key ].value
+            : "";
+      }
+
+      return fieldDataOptions;
     },
 
     genarateWidgetKeyForActiveWidgets(widget_key) {
@@ -618,8 +626,7 @@ export default {
           return new_key;
         };
 
-        const new_widget_key = getUniqueKey(widget_key, widget_key);
-        return new_widget_key;
+        return getUniqueKey(widget_key, widget_key);
       }
 
       return widget_key;
@@ -761,10 +768,14 @@ export default {
 
       let widget = from.widget;
       let option_data = this.getOptionDataFromWidget(widget);
-      delete widget.options;
 
-      Object.assign(group, widget);
-      Object.assign(group, option_data);
+      group.fields = this.insertWidgetFromAvailableSectionWidgets( widget.widgets );
+      
+      delete widget.options;
+      delete widget.widgets;
+
+      Object.assign( group, widget );
+      Object.assign( group, option_data );
 
       let dest_index =
         "before" === to.drop_direction
@@ -784,6 +795,36 @@ export default {
 
       this.$emit("updated-state");
       this.$emit("active-widgets-updated");
+    },
+
+    insertWidgetFromAvailableSectionWidgets( widgets ) {
+      if ( ! isObject( widgets ) ) {
+        return [];
+      }
+
+      const insertWidgetAndGetKey = ( widget_key, widget ) => {
+        const field_data_options = this.getOptionDataFromWidget( widget );
+      
+        field_data_options.widget_key = this.genarateWidgetKeyForActiveWidgets( widget_key );
+
+        if ( field_data_options.field_key ) {
+          field_data_options.field_key = this.genarateFieldKeyForActiveWidgets( field_data_options );
+        }
+
+        if ( ! isObject( this.active_widget_fields ) ) {
+          this.active_widget_fields = {};
+        }
+
+        Vue.set(
+          this.active_widget_fields,
+          field_data_options.widget_key,
+          field_data_options
+        );
+
+        return field_data_options.widget_key;
+      };
+
+      return Object.keys( widgets ).map( widgetKey => insertWidgetAndGetKey( widgetKey, widgets[ widgetKey ] ) );
     },
 
     trashGroup(widget_group_key) {

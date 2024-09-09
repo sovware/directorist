@@ -83,7 +83,7 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 					var $post_row         = $( '#post-' + post_id );
 					var directory_type    = $( '.column-directory_type', $post_row ).text().trim();
 					var view_count        = $( '.column-directorist_listing_view_count', $post_row ).text().trim();
-					var $directory_select = $( 'select[name="directorist_directory_type"]', $edit_row );
+					var $directory_select = $( 'select[name="directory_type"]', $edit_row );
 					var $view_count_input = $( 'input[name="directorist_listing_view_count"]', $edit_row );
 					var $selected_option  = $directory_select.find('option').filter(function(index, element) {
 						return element.textContent.trim() === directory_type;
@@ -164,23 +164,27 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 			}
 
 			?>
-			<fieldset class="inline-edit-col-right" style="margin-top: 0;">
-				<div class="inline-edit-group wp-clearfix">
-					<?php wp_nonce_field( directorist_get_nonce_key(), 'directorist_nonce' ); ?>
-					<label class="inline-edit-directory-type alignleft">
-						<span class="title"><?php esc_html_e( 'Directory', 'directorist' ); ?></span>
-						<select name="directory_type">
-							<option value="">— <?php esc_html_e( 'Select type', 'directorist' ); ?> —</option>
-							<?php
-							$listing_types = directorist_get_directories();
 
-							foreach ( $listing_types as $listing_type ) { ?>
-								<option value="<?php echo esc_attr( $listing_type->term_id ); ?>"><?php echo esc_html( $listing_type->name ); ?></option>
-							<?php } ?>
-						</select>
-					</label>
-				</div>
-			</fieldset>
+			<?php if ( 'directory_type' === $column_name ) : ?>
+				<fieldset class="inline-edit-col-right" style="margin-top: 0;">
+					<div class="inline-edit-group wp-clearfix">
+						<?php wp_nonce_field( directorist_get_nonce_key(), 'directorist_nonce' ); ?>
+						<label class="inline-edit-directory-type alignleft">
+							<span class="title"><?php esc_html_e( 'Directory', 'directorist' ); ?></span>
+							<select name="directory_type">
+								<option value="">— <?php esc_html_e( 'Select type', 'directorist' ); ?> —</option>
+								<?php
+								$listing_types = directorist_get_directories();
+
+								foreach ( $listing_types as $listing_type ) { ?>
+									<option value="<?php echo esc_attr( $listing_type->term_id ); ?>"><?php echo esc_html( $listing_type->name ); ?></option>
+								<?php } ?>
+							</select>
+						</label>
+					</div>
+				</fieldset>
+			<?php endif; ?>
+
 			<?php
 
 			if ( 'directorist_listing_view_count' === $column_name ) : ?>

@@ -57,6 +57,7 @@ function directorist_register_blocks() {
 	register_block_type( __DIR__ . '/build/login', $args );
 	register_block_type( __DIR__ . '/build/registration', $args );
 	register_block_type( __DIR__ . '/build/dashboard', $args );
+	register_block_type( __DIR__ . '/build/single-listing', $args );
 	register_block_type( __DIR__ . '/build/account-button' );
 	register_block_type( __DIR__ . '/build/search-modal' );
 }

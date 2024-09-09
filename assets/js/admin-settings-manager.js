@@ -17768,8 +17768,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "form-builder-widget-group-component",
   props: {
@@ -17972,6 +17970,11 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   },
   created: function created() {
     this.setup();
+  },
+  watch: {
+    groupData: function groupData() {
+      this.setup();
+    }
   },
   computed: {
     groupFieldsExpandState: function groupFieldsExpandState() {
@@ -24845,7 +24848,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       return options_values.includes(value);
     }
     /* syncValidationWithLocalState( validation_log ) {
-          return validation_log;
+         return validation_log;
     } */
   }
 });
@@ -32001,7 +32004,7 @@ var render = function render() {
       key: alert_key,
       staticClass: "cptm-form-alert",
       class: "cptm-" + alert.type
-    }, [_vm._v("\r\n            " + _vm._s(alert.message) + "\r\n        ")]);
+    }, [_vm._v("\n            " + _vm._s(alert.message) + "\n        ")]);
   }), 0) : _vm._e()]);
 };
 var staticRenderFns = [];

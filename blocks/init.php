@@ -6,7 +6,7 @@
  *
  * @see https://developer.wordpress.org/reference/functions/register_block_type/
  */
-use Exception;
+
 use Directorist\Helper;
 
 define( 'DIRECTORIST_BLOCK_TEMPLATE_PATH', __DIR__ . '/templates' );
@@ -227,7 +227,7 @@ function directorist_add_single_listing_shortcode( $atts = array() ) {
 		}
 
 		return Helper::get_template_contents( 'single-contents' );
-	} catch( \Exception $e ) {
+	} catch( Exception $e ) {
 		if ( current_user_can( 'edit_posts' ) ) {
 			return '<p class="directorist-alert directorist-alert-info" style="text-align:center">' . $e->getMessage() . '</p>';
 		}

@@ -1,9 +1,0 @@
-{
-    "$schema": "https://schemas.wp.org/trunk/block.json",
-    "apiVersion": 2,
-    "name": "directorist/add-listing",
-    "title": "Add Listing",
-    "category": "directorist-blocks-collection",
-    "description": "Create a listing entry form.",
-    "textdomain": "directorist"
-}

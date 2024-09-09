@@ -56,9 +56,9 @@
                     behavior: 'smooth',
                 });
             } else {
-                location.href = href;
+                location.href = $(this).attr('href');
             }
-        })
+        });
 
 
         // Alert users to login (only if applicable)

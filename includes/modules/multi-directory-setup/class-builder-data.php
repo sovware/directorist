@@ -2,6 +2,9 @@
 
 namespace Directorist\Multi_Directory;
 use ATBDP_Permalink;
+
+use function PHPSTORM_META\type;
+
 class Builder_Data {
     protected static $fields           = [];
     protected static $layouts          = [];
@@ -316,7 +319,106 @@ class Builder_Data {
                                 'label' => __( 'Custom block Classes', 'directorist' ),
                                 'value' => '',
                             ],
+                            'review_cookies_consent' => [
+                                'label' => __( 'Show Cookies Consent', 'directorist' ),
+                                'type'  => 'toggle',
+                                'value' => false,
+                            ],
                         ],
+
+                        'accepted_widgets' => [
+                            [
+                                'widget_group'      => 'other_widgets',
+                                'widget_name'       => 'review',
+                                'widget_child_name' => 'review_comment',
+                            ],
+                            [
+                                'widget_group'      => 'other_widgets',
+                                'widget_name'       => 'review',
+                                'widget_child_name' => 'review_email',
+                            ],
+                            [
+                                'widget_group'      => 'other_widgets',
+                                'widget_name'       => 'review',
+                                'widget_child_name' => 'review_name',
+                            ],
+                            [
+                                'widget_group'      => 'other_widgets',
+                                'widget_name'       => 'review',
+                                'widget_child_name' => 'review_website',
+                            ],
+                        ],
+                        'widgets' => [
+                            'review_comment' => [
+                                'label'    => __( 'Comment', 'directorist' ),
+                                'canTrash' => false,
+                                'canMove'  => false,
+                                'options'  => [
+                                    'label' => [
+                                        'label' => __( 'Label', 'directorist' ),
+                                        'type'  => 'text',
+                                        'value' => __( 'Comment', 'directorist' ),
+                                    ],
+                                    'placeholder' => [
+                                        'label' => __( 'Placeholder', 'directorist' ),
+                                        'type'  => 'text',
+                                        'value' => __( 'Leave a review', 'directorist' ),
+                                    ],
+                                ]
+                            ],
+                            'review_email' => [
+                                'label'    => __( 'Email', 'directorist' ),
+                                'canTrash' => false,
+                                'canMove'  => false,
+                                'options'  => [
+                                    'label' => [
+                                        'label' => __( 'Label', 'directorist' ),
+                                        'type'  => 'text',
+                                        'value' => __( 'Email', 'directorist' ),
+                                    ],
+                                    'placeholder' => [
+                                        'label' => __( 'Placeholder', 'directorist' ),
+                                        'type'  => 'text',
+                                        'value' => __( 'Your Email', 'directorist' ),
+                                    ],
+                                ]
+                            ],
+                            'review_name' => [
+                                'label'    => __( 'Name', 'directorist' ),
+                                'canTrash' => false,
+                                'canMove'  => false,
+                                'options'  => [
+                                    'label' => [
+                                        'label' => __( 'Label', 'directorist' ),
+                                        'type'  => 'text',
+                                        'value' => __( 'Name', 'directorist' ),
+                                    ],
+                                    'placeholder' => [
+                                        'label' => __( 'Placeholder', 'directorist' ),
+                                        'type'  => 'text',
+                                        'value' => __( 'Your Name', 'directorist' ),
+                                    ],
+                                ]
+                            ],
+                            'review_website' => [
+                                'label'    => __( 'Website', 'directorist' ),
+                                'canTrash' => false,
+                                'canMove'  => false,
+                                'options'  => [
+                                    'label' => [
+                                        'label'   => __( 'Label', 'directorist' ),
+                                        'type'    => 'text',
+                                        'value'   => __( 'Website', 'directorist' ),
+                                    ],
+                                    'placeholder' => [
+                                        'label'   => __( 'Placeholder', 'directorist' ),
+                                        'type'    => 'text',
+                                        'value'   => __( 'Website url', 'directorist' ),
+                                    ],
+                                ]
+                            ],
+                        ]
+
                     ],
                     'author_info'            => [
                         'type'    => 'section',

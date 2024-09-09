@@ -13,8 +13,7 @@ jQuery(($) => {
             processData: false,
             cache: false,
             success: function ( response ) {
-                console.log( response );
-                if( response.success ) {
+                if ( response.success ) {
                     $('.directorist-register-error').hide();
                     if( response.redirect_url ) {
                         $('.directorist-register-error').empty().show().append( response.redirect_message ).css({
@@ -25,12 +24,12 @@ jQuery(($) => {
                             window.location.href = response.redirect_url;
                         }, 500)
                     }
-                } else { 
+                } else {
                     $('.directorist-register-error').empty().show().append( response.data );
                 }
 
             }
         });
-        
+
 	});
 });

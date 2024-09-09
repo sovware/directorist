@@ -4,7 +4,7 @@
 	"description": "Display your site's copyright date.",
 	"author": "wpWax",
 	"license": "GPL-2.0-or-later",
-	"main": "build/index.js",
+	"main": "src/index.js",
 	"scripts": {
 		"build": "wp-scripts build",
 		"format": "wp-scripts format",

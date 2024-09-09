@@ -2534,11 +2534,6 @@ Please remember that your order may be canceled if you do not make your payment 
                     'label'         => __('Search Bar Sub-title', 'directorist'),
                     'value'         => __( 'Find the best match of your interest', 'directorist' ),
                 ],
-                'search_border' => [
-                    'type'  => 'toggle',
-                    'label' => __('Search Bar Border', 'directorist'),
-                    'value' => true,
-                ],
 
                 'search_more_filter' => [
                     'type'  => 'toggle',
@@ -2556,25 +2551,14 @@ Please remember that your order may be canceled if you do not make your payment 
                         ],
                     ],
                 ],
-                'search_button' => [
-                    'type'  => 'toggle',
-                    'label' => __('Display Search Button', 'directorist'),
-                    'value' => true,
-                ],
                 'search_button_icon' => [
                     'type'  => 'toggle',
                     'label' => __('Display Search Button Icon', 'directorist'),
                     'value' => true,
-                    'show-if' => [
-                        'where' => "search_button",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => true],
-                        ],
-                    ],
                 ],
                 'search_filters' => [
                     'type' => 'checkbox',
-                    'label' => __('Filters Button', 'directorist'),
+                    'label' => __('Filter Actions', 'directorist'),
                     'show-if' => [
                         'where' => "search_more_filter",
                         'conditions' => [
@@ -2597,7 +2581,7 @@ Please remember that your order may be canceled if you do not make your payment 
                     ],
                 ],
                 'search_default_radius_distance' => [
-                    'label'         => __('Default Radius Distance', 'directorist'),
+                    'label'         => __('Default Distance', 'directorist'),
                     'type'          => 'number',
                     'value'         => '0',
                     'min'           => '0',
@@ -2611,7 +2595,7 @@ Please remember that your order may be canceled if you do not make your payment 
                     ],
                 ],
                 'search_max_radius_distance' => [
-                    'label'         => __('Maximum Radius Distance', 'directorist'),
+                    'label'         => __('Maximum Distance', 'directorist'),
                     'type'          => 'number',
                     'value'         => '1000',
                     'min'           => '0',
@@ -2628,12 +2612,6 @@ Please remember that your order may be canceled if you do not make your payment 
                     'type'          => 'text',
                     'label'         => __('Search Button Text', 'directorist'),
                     'value'         => __('Search Listing', 'directorist'),
-                    'show-if' => [
-                        'where' => "search_button",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => true],
-                        ],
-                    ],
                 ],
                 'search_more_filters'    => [
                     'type'          => 'text',
@@ -2648,7 +2626,7 @@ Please remember that your order may be canceled if you do not make your payment 
                 ],
                 'search_reset_text'    => [
                     'type'          => 'text',
-                    'label'         => __('Reset Filters Button Text', 'directorist'),
+                    'label'         => __('Reset Button Text', 'directorist'),
                     'value'         => __('Reset Filters', 'directorist'),
                     'show-if' => [
                         'where' => "search_more_filter",
@@ -2659,7 +2637,7 @@ Please remember that your order may be canceled if you do not make your payment 
                 ],
                 'search_apply_filter'    => [
                     'type'          => 'text',
-                    'label'         => __('Apply Filters Button Text', 'directorist'),
+                    'label'         => __('Apply Button Text', 'directorist'),
                     'value'         => __('Apply Filters', 'directorist'),
                     'show-if' => [
                         'where' => "search_more_filter",
@@ -2676,7 +2654,7 @@ Please remember that your order may be canceled if you do not make your payment 
 
                 'popular_cat_title'    => [
                     'type'          => 'text',
-                    'label'         => __('Popular Categories Title', 'directorist'),
+                    'label'         => __('Section Title', 'directorist'),
                     'value'         => __('Browse by popular categories', 'directorist'),
                     'show-if' => [
                         'where' => "show_popular_category",
@@ -2686,7 +2664,7 @@ Please remember that your order may be canceled if you do not make your payment 
                     ],
                 ],
                 'popular_cat_num' => [
-                    'label'         => __('Number of Popular Categories', 'directorist'),
+                    'label'         => __('Number of Categories to Display', 'directorist'),
                     'type'          => 'number',
                     'value'         => '10',
                     'min'           => '1',
@@ -2700,7 +2678,7 @@ Please remember that your order may be canceled if you do not make your payment 
                     ],
                 ],
                 'search_home_bg' => [
-                    'label'       => __('Search Page Background', 'directorist'),
+                    'label'       => __('Search Section Background', 'directorist'),
                     'type'        => 'wp-media-picker',
                     'default-img' => '',
                     'value'       => '',
@@ -4541,9 +4519,28 @@ Please remember that your order may be canceled if you do not make your payment 
                             'label' => __('Search Listing', 'directorist'),
                             'icon' => '<i class="fa fa-search"></i>',
                             'sections' => apply_filters( 'directorist_search_setting_sections', [
-                                'search_form' => [
+                                'search_bar' => [
+                                    'title'       => __( 'Search Bar', 'directorist' ),
                                     'fields'      => [
-                                        'search_title', 'search_subtitle', 'search_border', 'search_more_filter', 'search_more_filter_icon', 'search_button', 'search_button_icon', 'search_filters','search_default_radius_distance', 'search_max_radius_distance', 'search_listing_text', 'search_more_filters', 'search_reset_text', 'search_apply_filter', 'show_popular_category', 'popular_cat_title', 'popular_cat_num', 'search_home_bg',
+                                        'search_title', 'search_subtitle', 'search_home_bg', 'search_listing_text', 'search_button_icon',
+                                     ],
+                                ],
+                                'search_filters' => [
+                                    'title'       => __( 'Filters', 'directorist' ),
+                                    'fields'      => [
+                                        'search_more_filter', 'search_more_filter_icon', 'search_more_filters', 'search_filters', 'search_reset_text', 'search_apply_filter',
+                                     ],
+                                ],
+                                'radius_distance' => [
+                                    'title'       => __( 'Radius Distance', 'directorist' ),
+                                    'fields'      => [
+                                        'search_default_radius_distance', 'search_max_radius_distance',
+                                     ],
+                                ],
+                                'poplar_categories' => [
+                                    'title'       => __( 'Popular Categories', 'directorist' ),
+                                    'fields'      => [
+                                        'show_popular_category', 'popular_cat_title', 'popular_cat_num',
                                      ],
                                 ],
                             ] ),

@@ -17603,7 +17603,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     handleTrashClick: function handleTrashClick() {
-      if (this.isPresetOrCustomGroup) {
+      if (this.isPresetOrCustomGroup && this.widgetKey !== "terms_privacy") {
         this.openConfirmationModal();
       } else {
         this.$emit("trash-widget");

@@ -199,7 +199,7 @@ export default {
 
   methods: {
     handleTrashClick() {
-      if (this.isPresetOrCustomGroup) {
+      if (this.isPresetOrCustomGroup && this.widgetKey !== "terms_privacy") {
         this.openConfirmationModal();
       } else {
         this.$emit("trash-widget");

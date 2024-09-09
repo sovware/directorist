@@ -317,7 +317,6 @@ class Builder_Data {
                                 'value' => '',
                             ],
                         ],
-                        'fields' => ['phone']
                     ],
                     'author_info'            => [
                         'type'    => 'section',
@@ -591,28 +590,6 @@ class Builder_Data {
                                 'type'  => 'text',
                                 'label' => __( 'Placeholder', 'directorist' ),
                                 'value' => 'Phone 2',
-                            ],
-                            'required'    => [
-                                'type'  => 'toggle',
-                                'label' => __( 'Required', 'directorist' ),
-                                'value' => false,
-                            ],
-                        ],
-                    ],
-
-                    'phone3'        => [
-                        'canTrash'          => false,
-                        'draggable'         => false,
-                        'options' => [
-                            'label'       => [
-                                'type'  => 'text',
-                                'label' => __( 'Label', 'directorist' ),
-                                'value' => 'Tag',
-                            ],
-                            'placeholder' => [
-                                'type'  => 'text',
-                                'label' => __( 'Placeholder', 'directorist' ),
-                                'value' => 'Phone',
                             ],
                             'required'    => [
                                 'type'  => 'toggle',

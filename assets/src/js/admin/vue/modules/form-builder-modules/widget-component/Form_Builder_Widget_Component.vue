@@ -29,7 +29,8 @@
       />
     </draggable-list-item>
 
-    <form-builder-widget-titlebar-component v-else
+    <form-builder-widget-titlebar-component
+      v-else
       :label="widgetTitle"
       :sublabel="widgetSubtitle"
       :expanded="expandState"
@@ -216,7 +217,7 @@ export default {
 
   methods: {
     handleTrashClick() {
-      if (this.isPresetOrCustomGroup) {
+      if (this.isPresetOrCustomGroup && this.widgetKey !== "terms_privacy") {
         this.openConfirmationModal();
       } else {
         this.$emit("trash-widget");
@@ -243,25 +244,28 @@ export default {
     },
 
     syncCurrentWidget() {
-      const current_widget = findObjectItem( `${this.widgetKey}`, this.activeWidgets );
-      
-      if ( ! current_widget ) {
+      const current_widget = findObjectItem(
+        `${this.widgetKey}`,
+        this.activeWidgets
+      );
+
+      if (!current_widget) {
         return;
       }
-      
+
       const widget_group = current_widget.widget_group
         ? current_widget.widget_group
         : "";
-      
+
       const widget_name = current_widget.widget_name
         ? current_widget.widget_name
         : "";
-      
+
       const widget_child_name = current_widget.widget_name
         ? current_widget.widget_child_name
         : "";
 
-      if ( ! this.avilableWidgets[ widget_group ] ) {
+      if (!this.avilableWidgets[widget_group]) {
         return;
       }
 
@@ -269,21 +273,28 @@ export default {
       let current_widget_name = "";
       let current_widget_child_name = "";
 
-      if ( this.avilableWidgets[ widget_group ][ widget_name ] ) {
-        the_current_widget = this.avilableWidgets[ widget_group ][ widget_name ];
+      if (this.avilableWidgets[widget_group][widget_name]) {
+        the_current_widget = this.avilableWidgets[widget_group][widget_name];
         current_widget_name = widget_name;
       }
 
-      if ( the_current_widget.widgets && the_current_widget.widgets[ widget_child_name ] ) {
-        the_current_widget = the_current_widget.widgets[ widget_child_name ];
+      if (
+        the_current_widget.widgets &&
+        the_current_widget.widgets[widget_child_name]
+      ) {
+        the_current_widget = the_current_widget.widgets[widget_child_name];
         current_widget_child_name = widget_child_name;
       }
 
-      if ( ! the_current_widget ) {
+      if (!the_current_widget) {
         return;
       }
 
-      this.checkIfHasUntrashableWidget( widget_group, current_widget_name, current_widget_child_name );
+      this.checkIfHasUntrashableWidget(
+        widget_group,
+        current_widget_name,
+        current_widget_child_name
+      );
 
       this.current_widget = the_current_widget;
     },
@@ -306,7 +317,7 @@ export default {
       this.expanded = !this.expanded;
     },
 
-    checkIfHasUntrashableWidget( widget_group, widget_name, widget_child_name ) {
+    checkIfHasUntrashableWidget(widget_group, widget_name, widget_child_name) {
       if (!this.untrashableWidgets) {
         return;
       }
@@ -314,16 +325,20 @@ export default {
         return;
       }
 
-      for ( let widget in this.untrashableWidgets ) {
+      for (let widget in this.untrashableWidgets) {
         if (this.untrashableWidgets[widget].widget_group !== widget_group) {
           continue;
         }
 
-        if ( this.untrashableWidgets[widget].widget_name !== widget_name ) {
+        if (this.untrashableWidgets[widget].widget_name !== widget_name) {
           continue;
         }
 
-        if ( widget_child_name && this.untrashableWidgets[widget].widget_child_name !== widget_child_name ) {
+        if (
+          widget_child_name &&
+          this.untrashableWidgets[widget].widget_child_name !==
+            widget_child_name
+        ) {
           continue;
         }
 

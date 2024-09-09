@@ -17607,7 +17607,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     handleTrashClick: function handleTrashClick() {
-      if (this.isPresetOrCustomGroup) {
+      if (this.isPresetOrCustomGroup && this.widgetKey !== "terms_privacy") {
         this.openConfirmationModal();
       } else {
         this.$emit("trash-widget");
@@ -24845,7 +24845,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       return options_values.includes(value);
     }
     /* syncValidationWithLocalState( validation_log ) {
-         return validation_log;
+          return validation_log;
     } */
   }
 });
@@ -28509,7 +28509,7 @@ var render = function render() {
       }
     }
   }, [_c("span", {
-    staticClass: "fa fa-pen",
+    staticClass: "fa fa-cog",
     attrs: {
       "aria-hidden": "true"
     }
@@ -32001,7 +32001,7 @@ var render = function render() {
       key: alert_key,
       staticClass: "cptm-form-alert",
       class: "cptm-" + alert.type
-    }, [_vm._v("\n            " + _vm._s(alert.message) + "\n        ")]);
+    }, [_vm._v("\r\n            " + _vm._s(alert.message) + "\r\n        ")]);
   }), 0) : _vm._e()]);
 };
 var staticRenderFns = [];

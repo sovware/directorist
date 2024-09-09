@@ -86,7 +86,8 @@ export default {
     filtereWidgetList() {
       // Add widget group and widget name
       let widget_list = this.widgets;
-      for (let widget_key in widget_list) {
+      
+      for ( let widget_key in widget_list ) {
         widget_list[widget_key].options.widget_group = {
           type: "hidden",
           value: this.widgetGroup,
@@ -96,6 +97,25 @@ export default {
           type: "hidden",
           value: widget_key,
         };
+
+        if ( widget_list[widget_key].widgets ) {
+          for ( let sub_widget_key in widget_list[ widget_key ].widgets ) {
+            widget_list[ widget_key ].widgets[ sub_widget_key ].options.widget_group = {
+              type: "hidden",
+              value: this.widgetGroup,
+            };
+
+            widget_list[ widget_key ].widgets[ sub_widget_key ].options.widget_name = {
+              type: "hidden",
+              value: widget_key,
+            };
+
+            widget_list[ widget_key ].widgets[ sub_widget_key ].options.widget_child_name = {
+              type: "hidden",
+              value: sub_widget_key,
+            };
+          }
+        }
       }
 
       // filter Widgets By Template

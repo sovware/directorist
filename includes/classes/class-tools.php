@@ -120,6 +120,22 @@
                         break;
                     }
 
+                    /**
+                     * Filters whether the listing import process should start.
+                     *
+                     * This filter allows modifying the decision to start/skip the listing import process.
+                     *
+                     * @since 8.0
+                     *
+                     * @param bool $should_start    Indicates whether the import process should start. Default is true.
+                     * @param array $post           The current post data being imported.
+                     */
+                    if( ! apply_filters( 'directorist_import_listing_starts', true, $post ) ){
+                        $failed++;
+                        $count++;
+                        continue;
+                    }
+
                     // start importing listings
                     $post_status = ( isset( $post[ $listing_status ] ) ) ? $post[ $listing_status ] : '';
                     $post_status = ( in_array( $post_status, $supported_post_status, true ) ) ? $post_status : $new_listing_status;

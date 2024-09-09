@@ -23489,7 +23489,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     },
     isAcceptedSectionWidget: function isAcceptedSectionWidget(widgetKey, destinationSection) {
       var widgetPath = "".concat(destinationSection.widget_group, ".widgets.").concat(destinationSection.widget_name);
-      var widget = Object(_helper__WEBPACK_IMPORTED_MODULE_3__["findObjectItem"])(widgetPath, this.widgets);
+      var widget = Object(_helper__WEBPACK_IMPORTED_MODULE_3__["findObjectItem"])(widgetPath, this.widgets, {});
       if (!widget.hasOwnProperty('accepted_widgets')) {
         return true;
       }
@@ -23753,11 +23753,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       }
       var widget = from.widget;
       var option_data = this.getOptionDataFromWidget(widget);
+      group.fields = this.insertWidgetFromAvailableSectionWidgets(widget.widgets);
       delete widget.options;
+      delete widget.widgets;
       Object.assign(group, widget);
       Object.assign(group, option_data);
-      group.fields = this.insertWidgetFromAvailableSectionWidgets(widget.widgets);
-      delete widget.widgets;
       var dest_index = "before" === to.drop_direction ? to.widget_group_key - 1 : to.widget_group_key;
       dest_index = "after" === to.drop_direction ? to.widget_group_key + 1 : to.widget_group_key;
       dest_index = dest_index < 0 ? 0 : dest_index;

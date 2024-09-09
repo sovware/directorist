@@ -384,7 +384,7 @@ export default {
 
     isAcceptedSectionWidget( widgetKey, destinationSection ) {
       const widgetPath = `${destinationSection.widget_group}.widgets.${destinationSection.widget_name}`;
-      const widget     = findObjectItem( widgetPath, this.widgets );
+      const widget     = findObjectItem( widgetPath, this.widgets, {} );
 
       if ( ! widget.hasOwnProperty( 'accepted_widgets' ) ) {
         return true;
@@ -768,15 +768,14 @@ export default {
 
       let widget = from.widget;
       let option_data = this.getOptionDataFromWidget(widget);
-      
-      delete widget.options;
-
-      Object.assign( group, widget );
-      Object.assign( group, option_data );
 
       group.fields = this.insertWidgetFromAvailableSectionWidgets( widget.widgets );
       
+      delete widget.options;
       delete widget.widgets;
+
+      Object.assign( group, widget );
+      Object.assign( group, option_data );
 
       let dest_index =
         "before" === to.drop_direction

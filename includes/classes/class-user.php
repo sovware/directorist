@@ -54,9 +54,17 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 		}
 
 		public function directorist_register_form() {
+			if ( ! directorist_verify_nonce()  ) {
+				wp_send_json_error( array(
+					'error' => 'Invalid request.'
+				), 401 );
+			}
+
 			$new_user_registration = (bool) get_directorist_option( 'new_user_registration', true );
-			if ( ! directorist_verify_nonce() || ! $new_user_registration ) {
-				return;
+			if ( ! $new_user_registration ) {
+				wp_send_json_error( array(
+					'error' => 'You are not allowed to register.'
+				), 400 );
 			}
 
 			// if the form is submitted then save the form
@@ -84,7 +92,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 			$bio            = ! empty( $_POST['bio'] ) ? sanitize_textarea_field( wp_unslash( $_POST['bio'] ) ) : '';
 			$privacy_policy = ! empty( $_POST['privacy_policy'] ) ? directorist_clean( wp_unslash( $_POST['privacy_policy'] ) ) : '';
 			$t_c_check      = ! empty( $_POST['t_c_check'] ) ? directorist_clean( wp_unslash( $_POST['t_c_check'] ) ) : '';
-			$previous_page  = !empty($_POST['previous_page']) ? directorist_clean( $_POST['previous_page'] ) : '';
+			$previous_page  = ! empty( $_POST['previous_page'] ) ? directorist_clean( $_POST['previous_page'] ) : '';
 
 			//password validation
 			if ( ! empty( $require_password ) && ! empty( $display_password ) && empty( $password ) ) {
@@ -107,59 +115,62 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 			}
 
 			//bio validation
-			if(!empty($require_bio) && !empty($display_bio) && empty($bio)){
+			if ( ! empty( $require_bio ) && ! empty( $display_bio ) && empty( $bio ) ) {
 				$bio_validation = 'yes';
 			}
-			if( ! empty( $display_user_type ) && empty( $user_type) ) {
+
+			if ( ! empty( $display_user_type ) && empty( $user_type ) ) {
 				$user_type_validation = 'yes';
 			}
+
 			//privacy validation
-			if(!empty($registration_privacy) && empty($privacy_policy)){
+			if ( ! empty( $registration_privacy ) && empty( $privacy_policy ) ) {
 				$privacy_validation = 'yes';
 			}
+
 			//terms & conditions validation
-			if(!empty($terms_condition) && empty($t_c_check)){
+			if ( ! empty( $terms_condition ) && empty( $t_c_check ) ) {
 				$t_c_validation = 'yes';
 			}
 
 			$validation = $this->registration_validation( $username, $password, $email, $website, $first_name, $last_name, $bio, $user_type, $privacy_policy, $t_c_check );
 
 			if ( 'passed' !== $validation ) {
+				$error_msg = '';
+
 				if ( empty( $username ) || ! empty( $password_validation ) || empty( $email ) || ! empty( $website_validation ) || ! empty( $fname_validation ) || ! empty( $lname_validation ) || ! empty( $bio_validation )|| ! empty( $privacy_validation ) || ! empty( $t_c_validation ) ) {
-					wp_send_json_error( directorist_get_registration_error_message( 1 ) );
-					exit();
+					$error_msg = directorist_get_registration_error_message( 1 );
 				} elseif ( email_exists( $email ) ) {
-					wp_send_json_error( directorist_get_registration_error_message( 2 ) );
-					exit();
+					$error_msg = directorist_get_registration_error_message( 2 );
 				} elseif ( ! empty( $username ) && 4 > strlen( $username ) ) {
-					wp_send_json_error( directorist_get_registration_error_message( 3 ) );
-					exit();
+					$error_msg = directorist_get_registration_error_message( 3 );
 				} elseif ( ! empty( $username ) && preg_match('/\s/',$username) ) {
-					wp_send_json_error( directorist_get_registration_error_message( 7 ) );
-					exit();
+					$error_msg = directorist_get_registration_error_message( 7 );
 				} elseif ( username_exists( $username ) ) {
-					wp_send_json_error( directorist_get_registration_error_message( 4 ) );
-					exit();
+					$error_msg = directorist_get_registration_error_message( 4 );
 				} elseif ( ! empty( $password ) && 5 > strlen( $password ) ) {
-					wp_send_json_error( directorist_get_registration_error_message( 5 ) );
-					exit();
+					$error_msg = directorist_get_registration_error_message( 5 );
 				} elseif ( ! is_email( $email ) ) {
-					wp_send_json_error( directorist_get_registration_error_message( 6 ) );
-					exit();
+					$error_msg = directorist_get_registration_error_message( 6 );
 				} elseif ( ! empty( $user_type_validation ) ) {
-					wp_send_json_error( directorist_get_registration_error_message( 8 ) );
-					exit();
+					$error_msg = directorist_get_registration_error_message( 8 );
+				}
+
+				if ( $error_msg ) {
+					wp_send_json_error( array(
+						'error' => $error_msg
+					) );
 				}
 			}
 
 			// sanitize user form input
 			global $username, $password, $email, $website, $first_name, $last_name, $bio;
-			$username   =   directorist_clean( wp_unslash( $_POST['username'] ) );
+			$username = directorist_clean( wp_unslash( $_POST['username'] ) );
 
-			if (empty($display_password) || empty($_POST['password'])){
-				$password   =   wp_generate_password( 12, false );
+			if ( empty( $display_password ) || empty( $_POST['password'] ) ) {
+				$password = wp_generate_password( 12, false );
 			} else {
-				$password   =  $_POST['password']; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+				$password = $_POST['password']; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
 			}
 
 			$email         = ! empty( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : '';
@@ -170,31 +181,27 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 			$bio           = ! empty( $_POST['bio'] ) ? sanitize_textarea_field( wp_unslash( $_POST['bio'] ) ) : '';
 			$previous_page = ! empty( $_POST['previous_page'] ) ? directorist_clean( $_POST['previous_page'] ) : '';
 
-			$user_id = $this->complete_registration($username, $password, $email, $website, $first_name, $last_name, $bio);
+			$user_id = $this->complete_registration( $username, $password, $email, $website, $first_name, $last_name, $bio );
 
 			if ( is_wp_error( $user_id ) || ! $user_id ) {
-				$response = array(
-					'success' => false,
-					'message' => directorist_get_registration_error_message( 0 )
-				);
-
-				wp_send_json_success( $response );
-				exit();
+				wp_send_json_success( array(
+					'error' => directorist_get_registration_error_message( 0 )
+				) );
 			}
 
 			/*
 			 * @since 6.3.0
 			 * If fires after completed user registration
 			 */
-			do_action('atbdp_user_registration_completed', $user_id);
+			do_action( 'atbdp_user_registration_completed', $user_id );
 
-			update_user_meta($user_id, '_atbdp_generated_password', $password);
-			update_user_meta($user_id, '_atbdp_privacy', $privacy_policy);
-			update_user_meta($user_id, '_user_type', $user_type);
-			update_user_meta($user_id, '_atbdp_terms_and_conditions', $t_c_check);
+			update_user_meta( $user_id, '_atbdp_generated_password', $password );
+			update_user_meta( $user_id, '_atbdp_privacy', $privacy_policy );
+			update_user_meta( $user_id, '_user_type', $user_type );
+			update_user_meta( $user_id, '_atbdp_terms_and_conditions', $t_c_check );
 
 			// user has been created successfully, now work on activation process
-			wp_new_user_notification($user_id, null, 'admin'); // send activation to the admin
+			wp_new_user_notification( $user_id, null, 'admin' ); // send activation to the admin
 
 			if ( directorist_is_email_verification_enabled() ) {
 				// Set unverified flag. Once verified this flag will be removed.
@@ -210,10 +217,9 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 				);
 
 				wp_send_json_success( $response );
-				exit();
 			}
 
-			ATBDP()->email->custom_wp_new_user_notification_email($user_id);
+			ATBDP()->email->custom_wp_new_user_notification_email( $user_id );
 
 			$redirection_after_reg = get_directorist_option( 'redirection_after_reg');
 			$auto_login            = get_directorist_option( 'auto_login' );
@@ -225,17 +231,17 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 
 			if ( ! empty( $redirection_after_reg ) ) {
 				$response = array(
-					'success'          => true,
-					'redirect_url'     => esc_url_raw( ATBDP_Permalink::get_reg_redirection_page_link( $previous_page,  array( 'registration_status' => true ) ) ),
-					'redirect_message' => esc_html( 'Registration completed. Please check your email for confirmation. You will be redirected...', 'directorist' ),
+					'redirect_url' => esc_url_raw( ATBDP_Permalink::get_reg_redirection_page_link( $previous_page,  array( 'registration_status' => true ) ) ),
+					'message' => esc_html( 'Registration completed. Please check your email for confirmation. You will be redirected...', 'directorist' ),
 				);
+
 				wp_send_json_success( $response );
 			} else {
 				$response = array(
-					'success'          => true,
-					'redirect_url'     => esc_url_raw( ATBDP_Permalink::get_dashboard_page_link( array( 'registration_status' => true ) ) ),
-					'redirect_message' => esc_html( 'Registration completed. Please check your email for confirmation. You will be redirected...', 'directorist' ),
+					'redirect_url' => esc_url_raw( ATBDP_Permalink::get_dashboard_page_link( array( 'registration_status' => true ) ) ),
+					'message' => esc_html( 'Registration completed. Please check your email for confirmation. You will be redirected...', 'directorist' ),
 				);
+
 				wp_send_json_success( $response );
 			}
 

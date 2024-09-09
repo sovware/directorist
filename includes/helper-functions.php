@@ -133,7 +133,7 @@ if ( ! function_exists( 'atbdp_auth_guard' ) ) {
 		$args          = array_merge( $default, $args );
 		$current_page  = home_url( $wp->request );
         $login_page_id = (int) get_directorist_option( 'user_dashboard' );
-        
+
 		$redirect_url  = $login_page_id ? get_page_link( $login_page_id ) : \ATBDP_Permalink::get_dashboard_page_link();
 		$redirect_url  = add_query_arg( 'redirect', urlencode( $current_page ), $redirect_url );
 
@@ -3029,6 +3029,10 @@ if( !function_exists('directorist_get_form_fields_by_directory_type') ){
             return [];
         }
 
+        if ( ! ( $term instanceof \WP_Term ) ) {
+		      return [];
+		    }
+      
         $submission_form        = get_term_meta( $term->term_id, 'submission_form_fields', true );
         $submission_form_fields = ! empty( $submission_form['fields'] ) ? $submission_form['fields'] : [];
         return $submission_form_fields;
@@ -3264,9 +3268,19 @@ function directorist_get_registration_error_message( $error_code ) {
 	$message = [
 		'0' => __( 'Something went wrong!', 'directorist' ),
 		'1' => __( 'Registration failed. Please make sure you filed up all the necessary fields marked with <span style="color: red">*</span>', 'directorist' ),
-		'2' => sprintf( __( 'This email is already registered. Please <a href="%s">click here to login</a>.', 'directorist' ), ATBDP_Permalink::get_login_page_link() ),
+		'2' => sprintf(
+			/** translators: %1$s - link opening, %2$s - link closing */
+			__( 'This email is already registered. Please %1$sclick here to login%2$s.', 'directorist' ),
+			'<a class="directorist-authentication__toggle" href="' . ATBDP_Permalink::get_dashboard_page_link() . '">',
+			'</a>'
+		),
 		'3' => __( 'Username too short. At least 4 characters is required', 'directorist' ),
-		'4' => sprintf( __( 'This username is already registered. Please <a href="%s">click here to login</a>.', 'directorist' ), ATBDP_Permalink::get_login_page_link() ),
+		'4' => sprintf(
+			/** translators: %1$s - link opening, %2$s - link closing */
+			__( 'This username is already registered. Please %1$sclick here to login%2$s.', 'directorist' ),
+			'<a class="directorist-authentication__toggle" href="' . ATBDP_Permalink::get_dashboard_page_link() . '">',
+			'</a>'
+		),
 		'5' => __( 'Password length must be greater than 5', 'directorist' ),
 		'6' => __( 'Email is not valid', 'directorist' ),
 		'7' => __( 'Space is not allowed in username', 'directorist' ),

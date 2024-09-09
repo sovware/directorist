@@ -2,6 +2,9 @@
 
 namespace Directorist\Multi_Directory;
 use ATBDP_Permalink;
+
+use function PHPSTORM_META\type;
+
 class Builder_Data {
     protected static $fields           = [];
     protected static $layouts          = [];
@@ -351,12 +354,12 @@ class Builder_Data {
                                 'canTrash' => false,
                                 'canMove'  => false,
                                 'options'  => [
-                                    'review_comment_label' => [
+                                    'label' => [
                                         'label' => __( 'Label', 'directorist' ),
                                         'type'  => 'text',
                                         'value' => __( 'Comment', 'directorist' ),
                                     ],
-                                    'review_comment_placeholder' => [
+                                    'placeholder' => [
                                         'label' => __( 'Placeholder', 'directorist' ),
                                         'type'  => 'text',
                                         'value' => __( 'Leave a review', 'directorist' ),
@@ -368,12 +371,12 @@ class Builder_Data {
                                 'canTrash' => false,
                                 'canMove'  => false,
                                 'options'  => [
-                                    'review_email_label' => [
+                                    'label' => [
                                         'label' => __( 'Label', 'directorist' ),
                                         'type'  => 'text',
                                         'value' => __( 'Email', 'directorist' ),
                                     ],
-                                    'review_email_placeholder' => [
+                                    'placeholder' => [
                                         'label' => __( 'Placeholder', 'directorist' ),
                                         'type'  => 'text',
                                         'value' => __( 'Your Email', 'directorist' ),
@@ -385,12 +388,12 @@ class Builder_Data {
                                 'canTrash' => false,
                                 'canMove'  => false,
                                 'options'  => [
-                                    'review_name_label' => [
+                                    'label' => [
                                         'label' => __( 'Label', 'directorist' ),
                                         'type'  => 'text',
                                         'value' => __( 'Name', 'directorist' ),
                                     ],
-                                    'review_name_placeholder' => [
+                                    'placeholder' => [
                                         'label' => __( 'Placeholder', 'directorist' ),
                                         'type'  => 'text',
                                         'value' => __( 'Your Name', 'directorist' ),
@@ -402,12 +405,12 @@ class Builder_Data {
                                 'canTrash' => false,
                                 'canMove'  => false,
                                 'options'  => [
-                                    'review_website_label' => [
+                                    'label' => [
                                         'label'   => __( 'Label', 'directorist' ),
                                         'type'    => 'text',
                                         'value'   => __( 'Website', 'directorist' ),
                                     ],
-                                    'review_website_placeholder' => [
+                                    'placeholder' => [
                                         'label'   => __( 'Placeholder', 'directorist' ),
                                         'type'    => 'text',
                                         'value'   => __( 'Website url', 'directorist' ),

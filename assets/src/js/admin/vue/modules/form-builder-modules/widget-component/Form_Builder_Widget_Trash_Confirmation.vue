@@ -1,19 +1,18 @@
 <template>
   <div
     v-if="visible"
-    class="confirmation-modal-overlay"
+    class="cptm-widget-trash-confirmation-modal-overlay"
     @click="handleOverlayClick"
   >
-    <div class="confirmation-modal" @click.stop>
+    <div class="cptm-widget-trash-confirmation-modal" @click.stop>
+      <h2>Are you sure you want to proceed?</h2>
       <p>
-        Removing "<strong>{{
-          widgetName
-        }}</strong
-        >" field will also remove it from the single and search pages. Are you sure you want to proceed?
+        Removing "<strong>{{ widgetName }}</strong
+        >" field will also remove it from the single and search pages.
       </p>
       <button @click="confirmDelete">Yes, delete</button>
       <button
-        class="confirmation-modal-action-btn__cancel"
+        class="cptm-widget-trash-confirmation-modal-action-btn__cancel"
         @click="cancelDelete"
       >
         Cancel

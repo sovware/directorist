@@ -124,22 +124,23 @@ if ( ! function_exists( 'atbdp_auth_guard' ) ) {
             'message' => __( 'You need to be logged in to view the content of this page', 'directorist' ),
         ];
 
-        $default = [ 'flush_message' => $flush_message ];
-        $args = array_merge( $default, $args );
+		global $wp;
 
-        global $wp;
+        $default = [
+			'flush_message' => $flush_message,
+		];
 
-        $current_page  = home_url( $wp->request );
-        $login_page_id = get_directorist_option( 'user_login' );
-        $login_page    = ( ! empty( $login_page_id ) ) ? get_page_link( $login_page_id ) : '';
-        $home_page     = home_url();
-        $redirect_link = ( ! empty( $login_page ) ) ? $login_page : $home_page;
+		$args          = array_merge( $default, $args );
+		$current_page  = home_url( $wp->request );
+        $login_page_id = (int) get_directorist_option( 'user_dashboard' );
+        
+		$redirect_url  = $login_page_id ? get_page_link( $login_page_id ) : \ATBDP_Permalink::get_dashboard_page_link();
+		$redirect_url  = add_query_arg( 'redirect', urlencode( $current_page ), $redirect_url );
 
         atbdp_add_flush_message( $args['flush_message'] );
 
-        atbdp_redirect_after_login( [ 'url' => $current_page ] );
-        wp_redirect( $redirect_link );
-
+        // atbdp_redirect_after_login( [ 'url' => $current_page ] );
+        wp_safe_redirect( $redirect_url );
         die;
     }
 }
@@ -293,7 +294,7 @@ function atbdp_get_listing_status_after_submission( array $args = [] ) {
     $listing_id = $args['id'];
 
     $new_l_status   = $args['new_l_status'];
-    $edit_l_status  = $args['edit_l_status'];
+    $edit_l_status  = ( 'publish' !== $new_l_status ) ? $new_l_status : $args['edit_l_status'];
     $edited         = $args['edited'];
     $listing_status = ( true === $edited || 'yes' === $edited || '1' === $edited ) ? $edit_l_status : $new_l_status;
 
@@ -2439,6 +2440,12 @@ function atbdp_guest_submission($guest_email)
             wp_set_auth_cookie($user_id);
             do_action('atbdp_user_registration_completed', $user_id);
             update_user_meta($user_id, '_atbdp_generated_password', $password);
+
+			if ( directorist_is_email_verification_enabled() ) {
+				// Set unverified flag. Once verified this flag will be removed.
+				update_user_meta( $user_id, 'directorist_user_email_unverified', 1 );
+			}
+
             wp_new_user_notification($user_id, null, 'admin'); // send activation to the admin
             ATBDP()->email->custom_wp_new_user_notification_email($user_id);
         }
@@ -3023,9 +3030,9 @@ if( !function_exists('directorist_get_form_fields_by_directory_type') ){
         }
 
         if ( ! ( $term instanceof \WP_Term ) ) {
-		    return [];
-		}
-        
+		      return [];
+		    }
+      
         $submission_form        = get_term_meta( $term->term_id, 'submission_form_fields', true );
         $submission_form_fields = ! empty( $submission_form['fields'] ) ? $submission_form['fields'] : [];
         return $submission_form_fields;
@@ -4212,9 +4219,9 @@ function directorist_background_image_process( $images ) {
 	}
 }
 
-function directorist_get_json_from_url( $url ) { 
+function directorist_get_json_from_url( $url ) {
     $zip_content = file_get_contents( $url );
-		
+
     if ( $zip_content === false ) {
         return false;
     }
@@ -4232,7 +4239,7 @@ function directorist_get_json_from_url( $url ) {
     $zip = new ZipArchive;
 
     if ( $zip->open( $temp_zip_path ) === true ) {
-      
+
         $json_content = $zip->getFromIndex( 0 );
         $decoded_data = json_decode( $json_content, true );
 

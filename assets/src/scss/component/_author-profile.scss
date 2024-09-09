@@ -31,6 +31,7 @@
             }
             img {
                 max-width: 100px !important;
+                max-height: 100px;
                 border-radius: 50%;
                 background-color: var(--directorist-color-bg-gray);
                 @media only screen and (max-width: 575px) {

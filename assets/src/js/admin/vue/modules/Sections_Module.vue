@@ -15,6 +15,7 @@
         <div
           v-for="(field, field_key) in sectionFields(section)"
           :class="fieldWrapperClass(field, fields[field])"
+          :id="fieldWrapperID(fields[field])"
           :key="field_key"
         >
           <component
@@ -114,6 +115,14 @@ export default {
         [type_class]: true,
         [key_class]: true,
       };
+    },
+
+    fieldWrapperID(field) {
+      let type_id = "";
+      if (field && field.editor !== undefined) {
+        type_id = field.editor === "wp_editor" ? "cptm-field_wp_editor" : "";
+      }
+      return type_id;
     },
   },
 };

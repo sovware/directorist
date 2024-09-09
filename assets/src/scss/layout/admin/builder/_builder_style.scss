@@ -791,10 +791,6 @@ div[draggable="true"].cptm-form-builder-group-title-area {
 }
 
 .cptm-form-builder-group-title-actions {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-
   .cptm-form-builder-header-action-link {
     color: #fff;
   }
@@ -920,7 +916,7 @@ div[draggable="true"].cptm-form-builder-group-title-area {
   position: relative;
   justify-content: space-between;
   padding: 15px 20px;
-  cursor: move;
+  cursor: default;
   box-shadow: 0px 1px 5px rgba(#a1a8c6, 0.1);
   border-radius: 4px;
   background-color: #fff;
@@ -929,6 +925,12 @@ div[draggable="true"].cptm-form-builder-group-title-area {
   .cptm-title-3 {
     font-size: 14px;
     color: $dark-3;
+  }
+}
+
+.directorist-draggable-list-item {
+  .cptm-form-builder-group-field-item-header {
+    cursor: move;
   }
 }
 
@@ -2993,7 +2995,7 @@ input[type=radio] {
   overflow: auto;
 }
 
-.confirmation-modal-overlay {
+.cptm-widget-trash-confirmation-modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -3005,14 +3007,20 @@ input[type=radio] {
   align-items: center;
   z-index: 9999;
 
-  .confirmation-modal {
+  .cptm-widget-trash-confirmation-modal {
     background: #fff;
-    padding: 25px;
+    padding: 30px 25px;
     border-radius: 8px;
     text-align: center;
+    h2{
+      font-size: 16px;
+      font-weight: 500;
+      margin: 0 0 18px;
+    }
     p{
-      margin: 0 0 15px;
+      margin: 0 0 20px;
       font-size: 14px;
+      max-width: 400px;
     }
   }
   button {
@@ -3031,28 +3039,11 @@ input[type=radio] {
       background: #ba1230;
     }
   }
-  button.confirmation-modal-action-btn__cancel{
+  button.cptm-widget-trash-confirmation-modal-action-btn__cancel{
     background: #f1f2f6;
     color: #7a8289;
     &:hover{
       background: #dee0e4;
     }
-  }
-}
-
-.cptm-form-builder-header-action-move{
-  visibility: hidden;
-  opacity: 0;
-  transition: 0.3s ease;
-  cursor: move;
-  span{
-    color: #bbbbbb;
-    font-size: 14px;
-  }
-}
-.cptm-form-builder-group-title-area:hover{
-  .cptm-form-builder-header-action-move{
-    visibility: visible;
-    opacity: 1;
   }
 }

@@ -8121,8 +8121,8 @@ body.stop-scrolling {
 #directiost-listing-fields_wrapper .directorist-content-module .directorist-radio input[type=checkbox]:checked + .directorist-radio__label:after,
 #directiost-listing-fields_wrapper .directorist-content-module .directorist-radio input[type=radio]:checked + .directorist-checkbox__label:after,
 #directiost-listing-fields_wrapper .directorist-content-module .directorist-radio input[type=radio]:checked + .directorist-radio__label:after {
-  background-color: #202428;
-  border-color: #202428;
+  background-color: var(--directorist-color-primary);
+  border-color: var(--directorist-color-primary);
 }
 #directiost-listing-fields_wrapper .directorist-content-module .directorist-radio input[type=radio] + .directorist-radio__label:before {
   position: absolute;
@@ -8202,7 +8202,7 @@ body.stop-scrolling {
 /* listing label */
 .directorist-form-label {
   display: block;
-  color: var(--directorist-color-primary);
+  color: var(--directorist-color-dark);
   margin-bottom: 5px;
   font-size: 14px;
   font-weight: 500;
@@ -8338,6 +8338,8 @@ body.stop-scrolling {
   background-color: var(--directorist-color-white);
   border-radius: 100%;
   border: 5px solid var(--directorist-color-primary);
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
 }
 .directorist-form-pricing-field__options .directorist_pricing_options input[type=checkbox] + .directorist-checkbox__label:checked:after {
   opacity: 0;
@@ -10842,6 +10844,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
       -ms-flex-align: center;
           align-items: center;
   border-bottom: 1px solid #d9d9d9;
+  width: 100%;
 }
 .directorist-form-group__with-prefix:focus-within {
   border-bottom: 2px solid var(--directorist-color-dark);
@@ -12918,8 +12921,8 @@ input:-webkit-autofill:active {
 .directorist-checkbox.directorist-checkbox-blue input[type=checkbox]:checked + .directorist-checkbox__label:after, .directorist-checkbox.directorist-checkbox-blue input[type=checkbox]:checked + .directorist-radio__label:after,
 .directorist-checkbox.directorist-checkbox-blue input[type=radio]:checked + .directorist-checkbox__label:after,
 .directorist-checkbox.directorist-checkbox-blue input[type=radio]:checked + .directorist-radio__label:after {
-  background-color: #3e62f5;
-  border-color: #3e62f5;
+  background-color: var(--directorist-color-primary);
+  border-color: var(--directorist-color-primary);
 }
 
 .directorist-radio.directorist-radio-primary input[type=radio]:checked + .directorist-radio__label:after {
@@ -13017,8 +13020,8 @@ input:-webkit-autofill:active {
           box-sizing: border-box;
 }
 .directorist-checkbox.directorist-checkbox-theme-admin input[type=checkbox]:checked + .directorist-checkbox__label:after {
-  background-color: #3e62f5;
-  border-color: #3e62f5;
+  background-color: var(--directorist-color-primary);
+  border-color: var(--directorist-color-primary);
 }
 .directorist-checkbox.directorist-checkbox-theme-admin .directorist-checkbox__label {
   padding-left: 35px !important;
@@ -14203,17 +14206,6 @@ div[draggable=true].cptm-form-builder-group-title-area {
   margin-right: 15px;
 }
 
-.cptm-form-builder-group-title-actions {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
-  gap: 5px;
-}
 .cptm-form-builder-group-title-actions .cptm-form-builder-header-action-link {
   color: #fff;
 }
@@ -14368,7 +14360,7 @@ div[draggable=true].cptm-form-builder-group-title-area {
       -ms-flex-pack: justify;
           justify-content: space-between;
   padding: 15px 20px;
-  cursor: move;
+  cursor: default;
   -webkit-box-shadow: 0px 1px 5px rgba(161, 168, 198, 0.1);
           box-shadow: 0px 1px 5px rgba(161, 168, 198, 0.1);
   border-radius: 4px;
@@ -14378,6 +14370,10 @@ div[draggable=true].cptm-form-builder-group-title-area {
 .cptm-form-builder-group-field-item-header .cptm-title-3 {
   font-size: 14px;
   color: #272b41;
+}
+
+.directorist-draggable-list-item .cptm-form-builder-group-field-item-header {
+  cursor: move;
 }
 
 .cptm-form-builder-group-field-item-body {
@@ -16672,7 +16668,7 @@ input[type=radio]:checked::before {
   overflow: auto;
 }
 
-.confirmation-modal-overlay {
+.cptm-widget-trash-confirmation-modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -16693,17 +16689,23 @@ input[type=radio]:checked::before {
           align-items: center;
   z-index: 9999;
 }
-.confirmation-modal-overlay .confirmation-modal {
+.cptm-widget-trash-confirmation-modal-overlay .cptm-widget-trash-confirmation-modal {
   background: #fff;
-  padding: 25px;
+  padding: 30px 25px;
   border-radius: 8px;
   text-align: center;
 }
-.confirmation-modal-overlay .confirmation-modal p {
-  margin: 0 0 15px;
-  font-size: 14px;
+.cptm-widget-trash-confirmation-modal-overlay .cptm-widget-trash-confirmation-modal h2 {
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0 0 18px;
 }
-.confirmation-modal-overlay button {
+.cptm-widget-trash-confirmation-modal-overlay .cptm-widget-trash-confirmation-modal p {
+  margin: 0 0 20px;
+  font-size: 14px;
+  max-width: 400px;
+}
+.cptm-widget-trash-confirmation-modal-overlay button {
   border: 0 none;
   -webkit-box-shadow: none;
           box-shadow: none;
@@ -16718,32 +16720,15 @@ input[type=radio]:checked::before {
   -webkit-transition: 0.3s ease;
   transition: 0.3s ease;
 }
-.confirmation-modal-overlay button:hover {
+.cptm-widget-trash-confirmation-modal-overlay button:hover {
   background: #ba1230;
 }
-.confirmation-modal-overlay button.confirmation-modal-action-btn__cancel {
+.cptm-widget-trash-confirmation-modal-overlay button.cptm-widget-trash-confirmation-modal-action-btn__cancel {
   background: #f1f2f6;
   color: #7a8289;
 }
-.confirmation-modal-overlay button.confirmation-modal-action-btn__cancel:hover {
+.cptm-widget-trash-confirmation-modal-overlay button.cptm-widget-trash-confirmation-modal-action-btn__cancel:hover {
   background: #dee0e4;
-}
-
-.cptm-form-builder-header-action-move {
-  visibility: hidden;
-  opacity: 0;
-  -webkit-transition: 0.3s ease;
-  transition: 0.3s ease;
-  cursor: move;
-}
-.cptm-form-builder-header-action-move span {
-  color: #bbbbbb;
-  font-size: 14px;
-}
-
-.cptm-form-builder-group-title-area:hover .cptm-form-builder-header-action-move {
-  visibility: visible;
-  opacity: 1;
 }
 
 .reset-pseudo-link:visited, .cptm-btn:visited, .cptm-header-nav__list-item-link:visited, .cptm-link-light:visited, .cptm-form-builder-header-action-link:visited, .cptm-sub-nav__item-link:visited, .cptm-header-action-link:visited, .cptm-modal-action-link:visited, .atbdp-nav-link:visited, .reset-pseudo-link:active, .cptm-btn:active, .cptm-header-nav__list-item-link:active, .cptm-link-light:active, .cptm-form-builder-header-action-link:active, .cptm-sub-nav__item-link:active, .cptm-header-action-link:active, .cptm-modal-action-link:active, .atbdp-nav-link:active, .reset-pseudo-link:focus, .cptm-btn:focus, .cptm-header-nav__list-item-link:focus, .cptm-link-light:focus, .cptm-form-builder-header-action-link:focus, .cptm-sub-nav__item-link:focus, .cptm-header-action-link:focus, .cptm-modal-action-link:focus, .atbdp-nav-link:focus {
@@ -17724,17 +17709,6 @@ div[draggable=true].cptm-form-builder-group-title-area {
   margin-right: 15px;
 }
 
-.cptm-form-builder-group-title-actions {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
-  gap: 5px;
-}
 .cptm-form-builder-group-title-actions .cptm-form-builder-header-action-link {
   color: #fff;
 }
@@ -17889,7 +17863,7 @@ div[draggable=true].cptm-form-builder-group-title-area {
       -ms-flex-pack: justify;
           justify-content: space-between;
   padding: 15px 20px;
-  cursor: move;
+  cursor: default;
   -webkit-box-shadow: 0px 1px 5px rgba(161, 168, 198, 0.1);
           box-shadow: 0px 1px 5px rgba(161, 168, 198, 0.1);
   border-radius: 4px;
@@ -17899,6 +17873,10 @@ div[draggable=true].cptm-form-builder-group-title-area {
 .cptm-form-builder-group-field-item-header .cptm-title-3 {
   font-size: 14px;
   color: #272b41;
+}
+
+.directorist-draggable-list-item .cptm-form-builder-group-field-item-header {
+  cursor: move;
 }
 
 .cptm-form-builder-group-field-item-body {
@@ -20193,7 +20171,7 @@ input[type=radio]:checked::before {
   overflow: auto;
 }
 
-.confirmation-modal-overlay {
+.cptm-widget-trash-confirmation-modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -20214,17 +20192,23 @@ input[type=radio]:checked::before {
           align-items: center;
   z-index: 9999;
 }
-.confirmation-modal-overlay .confirmation-modal {
+.cptm-widget-trash-confirmation-modal-overlay .cptm-widget-trash-confirmation-modal {
   background: #fff;
-  padding: 25px;
+  padding: 30px 25px;
   border-radius: 8px;
   text-align: center;
 }
-.confirmation-modal-overlay .confirmation-modal p {
-  margin: 0 0 15px;
-  font-size: 14px;
+.cptm-widget-trash-confirmation-modal-overlay .cptm-widget-trash-confirmation-modal h2 {
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0 0 18px;
 }
-.confirmation-modal-overlay button {
+.cptm-widget-trash-confirmation-modal-overlay .cptm-widget-trash-confirmation-modal p {
+  margin: 0 0 20px;
+  font-size: 14px;
+  max-width: 400px;
+}
+.cptm-widget-trash-confirmation-modal-overlay button {
   border: 0 none;
   -webkit-box-shadow: none;
           box-shadow: none;
@@ -20239,32 +20223,15 @@ input[type=radio]:checked::before {
   -webkit-transition: 0.3s ease;
   transition: 0.3s ease;
 }
-.confirmation-modal-overlay button:hover {
+.cptm-widget-trash-confirmation-modal-overlay button:hover {
   background: #ba1230;
 }
-.confirmation-modal-overlay button.confirmation-modal-action-btn__cancel {
+.cptm-widget-trash-confirmation-modal-overlay button.cptm-widget-trash-confirmation-modal-action-btn__cancel {
   background: #f1f2f6;
   color: #7a8289;
 }
-.confirmation-modal-overlay button.confirmation-modal-action-btn__cancel:hover {
+.cptm-widget-trash-confirmation-modal-overlay button.cptm-widget-trash-confirmation-modal-action-btn__cancel:hover {
   background: #dee0e4;
-}
-
-.cptm-form-builder-header-action-move {
-  visibility: hidden;
-  opacity: 0;
-  -webkit-transition: 0.3s ease;
-  transition: 0.3s ease;
-  cursor: move;
-}
-.cptm-form-builder-header-action-move span {
-  color: #bbbbbb;
-  font-size: 14px;
-}
-
-.cptm-form-builder-group-title-area:hover .cptm-form-builder-header-action-move {
-  visibility: visible;
-  opacity: 1;
 }
 
 .cptm-theme-butterfly .cptm-info-text {
@@ -21512,17 +21479,6 @@ div[draggable=true].cptm-form-builder-group-title-area {
   margin-right: 15px;
 }
 
-.cptm-form-builder-group-title-actions {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
-  gap: 5px;
-}
 .cptm-form-builder-group-title-actions .cptm-form-builder-header-action-link {
   color: #fff;
 }
@@ -21677,7 +21633,7 @@ div[draggable=true].cptm-form-builder-group-title-area {
       -ms-flex-pack: justify;
           justify-content: space-between;
   padding: 15px 20px;
-  cursor: move;
+  cursor: default;
   -webkit-box-shadow: 0px 1px 5px rgba(161, 168, 198, 0.1);
           box-shadow: 0px 1px 5px rgba(161, 168, 198, 0.1);
   border-radius: 4px;
@@ -21687,6 +21643,10 @@ div[draggable=true].cptm-form-builder-group-title-area {
 .cptm-form-builder-group-field-item-header .cptm-title-3 {
   font-size: 14px;
   color: #272b41;
+}
+
+.directorist-draggable-list-item .cptm-form-builder-group-field-item-header {
+  cursor: move;
 }
 
 .cptm-form-builder-group-field-item-body {
@@ -23981,7 +23941,7 @@ input[type=radio]:checked::before {
   overflow: auto;
 }
 
-.confirmation-modal-overlay {
+.cptm-widget-trash-confirmation-modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -24002,17 +23962,23 @@ input[type=radio]:checked::before {
           align-items: center;
   z-index: 9999;
 }
-.confirmation-modal-overlay .confirmation-modal {
+.cptm-widget-trash-confirmation-modal-overlay .cptm-widget-trash-confirmation-modal {
   background: #fff;
-  padding: 25px;
+  padding: 30px 25px;
   border-radius: 8px;
   text-align: center;
 }
-.confirmation-modal-overlay .confirmation-modal p {
-  margin: 0 0 15px;
-  font-size: 14px;
+.cptm-widget-trash-confirmation-modal-overlay .cptm-widget-trash-confirmation-modal h2 {
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0 0 18px;
 }
-.confirmation-modal-overlay button {
+.cptm-widget-trash-confirmation-modal-overlay .cptm-widget-trash-confirmation-modal p {
+  margin: 0 0 20px;
+  font-size: 14px;
+  max-width: 400px;
+}
+.cptm-widget-trash-confirmation-modal-overlay button {
   border: 0 none;
   -webkit-box-shadow: none;
           box-shadow: none;
@@ -24027,32 +23993,15 @@ input[type=radio]:checked::before {
   -webkit-transition: 0.3s ease;
   transition: 0.3s ease;
 }
-.confirmation-modal-overlay button:hover {
+.cptm-widget-trash-confirmation-modal-overlay button:hover {
   background: #ba1230;
 }
-.confirmation-modal-overlay button.confirmation-modal-action-btn__cancel {
+.cptm-widget-trash-confirmation-modal-overlay button.cptm-widget-trash-confirmation-modal-action-btn__cancel {
   background: #f1f2f6;
   color: #7a8289;
 }
-.confirmation-modal-overlay button.confirmation-modal-action-btn__cancel:hover {
+.cptm-widget-trash-confirmation-modal-overlay button.cptm-widget-trash-confirmation-modal-action-btn__cancel:hover {
   background: #dee0e4;
-}
-
-.cptm-form-builder-header-action-move {
-  visibility: hidden;
-  opacity: 0;
-  -webkit-transition: 0.3s ease;
-  transition: 0.3s ease;
-  cursor: move;
-}
-.cptm-form-builder-header-action-move span {
-  color: #bbbbbb;
-  font-size: 14px;
-}
-
-.cptm-form-builder-group-title-area:hover .cptm-form-builder-header-action-move {
-  visibility: visible;
-  opacity: 1;
 }
 
 .cptm-theme-butterfly .cptm-info-text {

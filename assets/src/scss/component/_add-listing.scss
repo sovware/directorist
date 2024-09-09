@@ -324,8 +324,8 @@
   .directorist-radio
     input[type="radio"]:checked
     + .directorist-radio__label:after {
-    background-color: #202428;
-    border-color: #202428;
+    background-color: var(--directorist-color-primary);
+    border-color: var(--directorist-color-primary);
   }
   .directorist-radio input[type="radio"] + .directorist-radio__label:before {
     position: absolute;
@@ -426,7 +426,7 @@
 /* listing label */
 .directorist-form-label {
   display: block;
-  color: var(--directorist-color-primary);
+  color: var(--directorist-color-dark);
   margin-bottom: 5px;
   font-size: 14px;
   font-weight: 500;
@@ -547,6 +547,7 @@
             background-color: var(--directorist-color-white);
             border-radius: 100%;
             border: 5px solid var(--directorist-color-primary);
+            box-sizing: content-box;
           }
           &:checked {
             &:after {

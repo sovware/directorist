@@ -81,7 +81,7 @@ class Directorist_Listing_Dashboard {
 	}
 
 	public function listings_query( $type = 'all', $paged = 1, $search = '' ) {
-		$pagination = get_directorist_option('user_listings_pagination',1);
+		$pagination        = get_directorist_option('user_listings_pagination',1);
 		$listings_per_page = get_directorist_option('user_listings_per_page',9);
 
 		$args  = array(
@@ -100,33 +100,17 @@ class Directorist_Listing_Dashboard {
 			$args['no_found_rows'] = false;
 		}
 
-		// TODO: Status has been migrated, remove related code.
-		// if ( $type === 'publish' ) {
-		// 	$args['post_status'] = $type;
-		// }
-		// if ( $type == 'pending' ) {
-		// 	$args['post_status'] = 'pending';
-		// }
-		// elseif ( $type == 'expired' ) {
-		// 	$args['meta_query'] = array(
-		// 		array(
-		// 			'key'   => '_listing_status',
-		// 			'value' => 'expired'
-		// 		),
-		// 	);
-		// }
-
-		if ( $type === 'pending' || $type === 'expired' ) {
+		if ( $type === 'pending' || $type === 'expired' ||  $type === 'publish' ) {
 			$args['post_status'] = $type;
 		} else {
-			$args['post_status'] = 'publish';
+			$args['post_status'] = array( 'publish', 'pending', 'expired' );
 		}
 
 		if ( $search ) {
 			$args['s'] = $search;
 		}
 
-		$this->current_listings_query = new \WP_Query( apply_filters( 'directorist_dashboard_query_arguments', $args ) );
+		$this->current_listings_query = new \WP_Query( apply_filters( 'directorist_dashboard_query_arguments', $args, $type ) );
 
 		return $this->current_listings_query;
 	}
@@ -414,7 +398,7 @@ class Directorist_Listing_Dashboard {
 			'content'   => Helper::get_template_contents( 'dashboard/tab-preferences', [ 'dashboard' => $this ] ),
 			'icon'		=> 'las la-cog',
 		);
-		
+
 		if ( $announcement_tab ) {
 			$dashboard_tabs['dashboard_announcement'] = array(
 				'title'    => $this->get_announcement_label(),
@@ -492,17 +476,28 @@ class Directorist_Listing_Dashboard {
 	}
 
 	public function confirmation_text() {
-		if( !isset( $_GET['notice'] ) ) {
-			return '';
+		if ( ! isset( $_GET['notice'] ) ) {
+			return;
 		}
 
-		$directory_type 		= default_directory_type();
-        $edit_listing_status    = directorist_get_listing_edit_status( $directory_type );
-		$pending_msg 			= get_directorist_option('pending_confirmation_msg', __( 'Thank you for your submission. Your listing is being reviewed and it may take up to 24 hours to complete the review.', 'directorist' ) );
-		$publish_msg 			= get_directorist_option('publish_confirmation_msg', __( 'Congratulations! Your listing has been approved/published. Now it is publicly available.', 'directorist' ) );
-		$confirmation_msg = $edit_listing_status === 'publish' ? $publish_msg : $pending_msg;
+		$listing_id = isset( $_GET['listing_id'] ) ? absint( $_GET['listing_id'] ) : 0;
+		if ( $listing_id && ! directorist_is_listing_post_type( $listing_id ) ) {
+			return;
+		}
 
-		return $confirmation_msg;
+		if ( get_post_status( $listing_id ) === 'publish' ) {
+			$message = get_directorist_option(
+				'publish_confirmation_msg',
+				__( 'Congratulations! Your listing has been approved/published. Now it is publicly available.', 'directorist' )
+			);
+		} else {
+			$message = get_directorist_option(
+				'pending_confirmation_msg',
+				__( 'Thank you for your submission. Your listing is being reviewed and it may take up to 24 hours to complete the review.', 'directorist' )
+			);
+		}
+
+		return $message;
 	}
 
 	public function navigation_template() {

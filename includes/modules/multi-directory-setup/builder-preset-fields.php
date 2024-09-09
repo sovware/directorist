@@ -919,4 +919,60 @@ return apply_filters( 'atbdp_form_preset_widgets', array(
 			],
 		],
 	],
+
+	'hide_contact_owner' => [
+		'label'   => __( 'Hide Owner Contact Form', 'directorist' ),
+		'icon'    => 'uil uil-postcard',
+		'options' => [
+			'type' => [
+				'type'  => 'hidden',
+				'value' => 'checkbox',
+			],
+			'field_key' => [
+				'type'  => 'hidden',
+				'value' => 'hide_contact_owner',
+				'rules' => [
+					'unique'   => true,
+					'required' => true,
+				]
+			],
+			'label' => [
+				'type'  => 'text',
+				'label' => __( 'Label', 'directorist' ),
+				'value' => 'Hide contact owner form for single listing page',
+			],
+		],
+	],
+
+	'terms_privacy' => [
+		'label'   => __( 'Terms & Privacy', 'directorist' ),
+		'icon'    => 'uil uil-text-fields',
+		'show'    => true,
+		'options' => [
+			'type' => [
+				'type'  => 'hidden',
+				'value' => 'text',
+			],
+			'field_key' => [
+				'type'  => 'hidden',
+				'value' => 'privacy_terms',
+				'rules' => [
+					'unique'   => true,
+					'required' => true,
+				]
+			],
+			'label' => [
+				'label' => __( 'Terms Label', 'directorist' ),
+				'type'        => 'textarea',
+                'editor'      => 'wp_editor',
+                'editorID'    => 'wp_editor_terms_privacy',
+                'value'       => __( 'I agree to the %privacy_name% and %terms_name%', 'directorist' ),
+			],
+			'required' => [
+				'type'  => 'toggle',
+				'label' => __( 'Required', 'directorist' ),
+				'value' => false,
+			],
+		],
+	],
 ));

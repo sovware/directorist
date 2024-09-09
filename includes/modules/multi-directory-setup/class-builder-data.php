@@ -489,6 +489,35 @@ class Builder_Data {
                                 'label' => __( 'Custom block Classes', 'directorist' ),
                                 'value' => '',
                             ],
+                            'similar_listings_logics'                     => [
+                                'type'    => 'radio',
+                                'name'    => 'similar_listings_logics',
+                                'label'   => __( 'Similar listings logics', 'directorist' ),
+                                'options' => [
+                                    ['id' => 'match_category_nd_location', 'label' => __( 'Must match category and tag', 'directorist' ), 'value' => 'AND'],
+                                    ['id' => 'match_category_or_location', 'label' => __( 'Must match category or tag', 'directorist' ), 'value' => 'OR'],
+                                ],
+                                'value'   => 'OR',
+                            ],
+                            'listing_from_same_author'                    => [
+                                'type'  => 'toggle',
+                                'label' => __( 'Listing from same author', 'directorist' ),
+                                'value' => false,
+                            ],
+                            'similar_listings_number_of_listings_to_show' => [
+                                'type'  => 'range',
+                                'min'   => 0,
+                                'max'   => 20,
+                                'label' => __( 'Number of listings to show', 'directorist' ),
+                                'value' => 0,
+                            ],
+                            'similar_listings_number_of_columns'          => [
+                                'type'  => 'range',
+                                'min'   => 1,
+                                'max'   => 10,
+                                'label' => __( 'Number of columns', 'directorist' ),
+                                'value' => 3,
+                            ],
                         ],
                     ],
                 ] ),
@@ -631,6 +660,8 @@ class Builder_Data {
                     ],
 
                     'phone'        => [
+                        'canTrash'          => false,
+                        'draggable'         => false,
                         'options' => [
                             'label'       => [
                                 'type'  => 'text',
@@ -2137,36 +2168,6 @@ class Builder_Data {
                 ],
             ],
 
-            'similar_listings_logics'                     => [
-                'type'    => 'radio',
-                'name'    => 'similar_listings_logics',
-                'label'   => __( 'Similar listings logics', 'directorist' ),
-                'options' => [
-                    ['id' => 'match_category_nd_location', 'label' => __( 'Must match category and tag', 'directorist' ), 'value' => 'AND'],
-                    ['id' => 'match_category_or_location', 'label' => __( 'Must match category or tag', 'directorist' ), 'value' => 'OR'],
-                ],
-                'value'   => 'OR',
-            ],
-            'listing_from_same_author'                    => [
-                'type'  => 'toggle',
-                'label' => __( 'Listing from same author', 'directorist' ),
-                'value' => false,
-            ],
-            'similar_listings_number_of_listings_to_show' => [
-                'type'  => 'range',
-                'min'   => 0,
-                'max'   => 20,
-                'label' => __( 'Number of listings to show', 'directorist' ),
-                'value' => 0,
-            ],
-            'similar_listings_number_of_columns'          => [
-                'type'  => 'range',
-                'min'   => 1,
-                'max'   => 10,
-                'label' => __( 'Number of columns', 'directorist' ),
-                'value' => 3,
-            ],
-
             'all_listing_layout' => [
                 'type'  => 'radio',
                 'value' => 'no_sidebar',
@@ -2647,15 +2648,6 @@ class Builder_Data {
                     'similar_listings' => [
                         'label'    => __( 'Other Settings', 'directorist' ),
                         'sections' => [
-                            'other'         => [
-                                'title'  => __( 'Similar Listings', 'directorist' ),
-                                'fields' => [
-                                    'similar_listings_logics',
-                                    'listing_from_same_author',
-                                    'similar_listings_number_of_listings_to_show',
-                                    'similar_listings_number_of_columns',
-                                ],
-                            ],
                             'page_settings' => [
                                 'fields' => [
                                     'enable_single_listing_page',

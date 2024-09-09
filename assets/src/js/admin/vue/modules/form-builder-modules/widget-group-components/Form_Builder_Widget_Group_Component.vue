@@ -65,7 +65,7 @@
 </template>
 
 <script>
-import Vue from "vue";
+
 export default {
   name: "form-builder-widget-group-component",
   props: {

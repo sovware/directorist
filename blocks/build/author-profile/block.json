@@ -1,0 +1,23 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "category": "directorist-blocks-collection",
+  "version": "1.0.0",
+  "name": "directorist/author-profile",
+  "title": "Author Profile",
+  "description": "Create author profile page.",
+  "keywords": [
+    "author",
+    "profile"
+  ],
+  "attributes": {
+    "logged_in_user_only": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "supports": {
+    "html": false
+  },
+  "editorScript": "file:./index.js"
+}

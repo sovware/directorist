@@ -473,7 +473,6 @@ final class Directorist_Base
 			ATBDP_INC_DIR . 'custom-filters',
 			ATBDP_INC_DIR . 'elementor/init',
 			ATBDP_INC_DIR . 'system-status/class-system-status',
-			ATBDP_INC_DIR . 'gutenberg/init',
 			ATBDP_INC_DIR . 'review/init',
 			ATBDP_INC_DIR . 'rest-api/init',
 			ATBDP_INC_DIR . 'fields/init',
@@ -790,7 +789,7 @@ final class Directorist_Base
 
 		$client = new \Directorist\Appsero\Client( 'd9f81baf-2b03-49b1-b899-b4ee71c1d1b1', 'Directorist', __FILE__ );
 		$this->insights = $client->insights();
-		
+
 		// Active insights
 		$client->set_textdomain( 'directorist' );
 		$client->insights()->init();

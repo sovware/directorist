@@ -28,7 +28,7 @@ class Builder {
 
 	private function __construct( $data ) {
 		$this->load_data( $data );
-		$this->cookies_consent = $data['review_cookies_consent'];
+		$this->cookies_consent = isset( $data['review_cookies_consent'] ) ? true : false;
 	}
 
 	public function load_data( $data )  {

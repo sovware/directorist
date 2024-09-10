@@ -118,16 +118,16 @@ class Multi_Directory_Manager {
             $new_review_builder['fields'] = array(); // Initialize if not present
         }
     
-        // Update or add the fields based on the mapping
+        // Add or update fields based on the mapping
         foreach ( $fields_mapping as $field_key => $mapping ) {
             if ( ! isset( $new_review_builder['fields'][ $field_key ] ) ) {
                 $new_review_builder['fields'][ $field_key ] = array(); // Initialize the field if it doesn't exist
             }
     
-            // Add the mapped values
+            // Add or update the mapped values
             foreach ( $mapping as $new_key => $old_key ) {
-                // Directly assign widget-related keys
-                if ( in_array( $new_key, array( 'widget_name', 'widget_child_name', 'widget_key', 'widget_group' ) ) ) {
+                if ( $new_key === 'widget_name' || $new_key === 'widget_child_name' || $new_key === 'widget_key' || $new_key === 'widget_group' ) {
+                    // Directly assign widget-related keys
                     $new_review_builder['fields'][ $field_key ][ $new_key ] = $old_key;
                 } else {
                     // Assign other keys if they exist in old_review_settings
@@ -138,9 +138,27 @@ class Multi_Directory_Manager {
             }
         }
     
+        // Ensure the 'groups' key exists in the new_review_builder array
+        if ( ! isset( $new_review_builder['groups'] ) || ! is_array( $new_review_builder['groups'] ) ) {
+            $new_review_builder['groups'] = array(); // Initialize if not present
+        }
+    
+        // Add or update groups with the 'review' widget
+        foreach ( $new_review_builder['groups'] as &$group ) {
+            if ( isset( $group['widget_name'] ) && 'review' === $group['widget_name'] ) {
+                foreach ( array_keys( $fields_mapping ) as $field_key ) {
+                    // Add the field to the group if it doesn't already exist
+                    if ( ! in_array( $field_key, $group['fields'] ) ) {
+                        $group['fields'][] = $field_key;
+                    }
+                }
+            }
+        }
+    
         // Update the term meta with the modified new_review_builder array
         update_term_meta( $term_id, 'single_listings_contents', $new_review_builder );
     }
+    
     
     
      

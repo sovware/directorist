@@ -15340,13 +15340,17 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         "tab-wide": "wide" === this.container ? true : false,
         "tab-full-width": "full-width" === this.container ? true : false
       };
+    },
+    // Get the grouped container fields
+    groupedContainerFields: function groupedContainerFields() {
+      return this.groupFieldsByContainer().container || [];
+    },
+    // Get the label for the container group
+    containerGroupLabel: function containerGroupLabel() {
+      var firstContainerField = this.groupedContainerFields[0];
+      return firstContainerField ? this.fields[firstContainerField].group_label : "";
     }
   }),
-  watch: {
-    fields: function fields() {
-      // console.log("updated");
-    }
-  },
   methods: {
     sectionFields: function sectionFields(section) {
       if (!this.isObject(section)) {
@@ -15356,6 +15360,19 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         return false;
       }
       return section.fields;
+    },
+    // Group fields by their group value, focusing on the container group
+    groupFieldsByContainer: function groupFieldsByContainer() {
+      var _this = this;
+      var groupedFields = {
+        container: []
+      };
+      Object.keys(this.fields).forEach(function (field) {
+        if (_this.fields[field].group === "container") {
+          groupedFields.container.push(field);
+        }
+      });
+      return groupedFields;
     },
     sectionClass: function sectionClass(section) {
       return {
@@ -26362,20 +26379,14 @@ var render = function render() {
     }) : _vm._e()]), _vm._v(" "), _vm.sectionFields(section) ? _c("div", {
       staticClass: "cptm-form-fields"
     }, _vm._l(_vm.sectionFields(section), function (field, field_key) {
-      return _c("div", {
-        key: field_key,
-        class: _vm.fieldWrapperClass(field, _vm.fields[field]),
-        attrs: {
-          id: _vm.fieldWrapperID(_vm.fields[field])
-        }
+      return _vm.fields[field].group !== "container" ? _c("div", {
+        key: field_key
       }, [_vm.fields[field] ? _c(_vm.getFormFieldName(_vm.fields[field].type), _vm._b({
-        key: field_key,
         ref: field,
         refInFor: true,
         tag: "component",
         class: _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({}, "highlight-field", _vm.getHighlightState(field)),
         attrs: {
-          root: _vm.fields,
           "field-id": field_key,
           id: _vm.menuKey + "__" + section_key + "__" + field,
           "cached-data": _vm.cached_fields[field]
@@ -26394,7 +26405,46 @@ var render = function render() {
             return _vm.doAction($event, "sections-module");
           }
         }
-      }, "component", _vm.fields[field], false)) : _vm._e()], 1);
+      }, "component", _vm.fields[field], false)) : _vm._e(), _vm._v(" "), field === "way_to_show_preview" && _vm.groupedContainerFields.length > 0 ? _c("div", {
+        staticClass: "cptm-field-group-container"
+      }, [_c("div", {
+        staticClass: "atbdp-row"
+      }, [_c("div", {
+        staticClass: "atbdp-col atbdp-col-4"
+      }, [_c("label", {
+        staticClass: "cptm-field-group-container__label"
+      }, [_c("span", [_vm._v(_vm._s(_vm.containerGroupLabel))])])]), _vm._v(" "), _c("div", {
+        staticClass: "atbdp-col atbdp-col-8"
+      }, [_c("div", {
+        staticClass: "cptm-container-group-fields"
+      }, _vm._l(_vm.groupedContainerFields, function (groupedField, groupedFieldKey) {
+        return _c(_vm.getFormFieldName(_vm.fields[groupedField].type), _vm._b({
+          key: groupedFieldKey,
+          ref: groupedField,
+          refInFor: true,
+          tag: "component",
+          class: _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({}, "highlight-field", _vm.getHighlightState(groupedField)),
+          attrs: {
+            "field-id": groupedFieldKey,
+            id: _vm.menuKey + "__" + section_key + "__" + groupedField,
+            "cached-data": _vm.cached_fields[groupedField]
+          },
+          on: {
+            update: function update($event) {
+              return _vm.updateFieldValue(groupedField, $event);
+            },
+            validate: function validate($event) {
+              return _vm.updateFieldValidationState(groupedField, $event);
+            },
+            "is-visible": function isVisible($event) {
+              return _vm.updateFieldData(groupedField, "isVisible", $event);
+            },
+            "do-action": function doAction($event) {
+              return _vm.doAction($event, "sections-module");
+            }
+          }
+        }, "component", _vm.fields[groupedField], false));
+      }), 1)])])]) : _vm._e()], 1) : _vm._e();
     }), 0) : _vm._e()]);
   }), 0);
 };

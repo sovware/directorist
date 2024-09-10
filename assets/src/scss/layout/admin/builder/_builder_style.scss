@@ -3047,3 +3047,47 @@ input[type=radio] {
     }
   }
 }
+
+//Grouped settings
+.cptm-field-group-container{
+  .cptm-field-group-container__label{
+    font-size: 15px;
+    font-weight: 500;
+    color: #272b41;
+  }
+}
+.cptm-container-group-fields{
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  .highlight-field{
+    padding: 0;
+  }
+  .atbdp-row{
+    margin: 0;
+    flex-wrap: nowrap;
+    gap: 10px;
+    align-items: center;
+    .atbdp-col{
+      flex: none !important;
+      width: auto;
+      padding: 0;
+      input{
+        max-width: 100px !important;
+        box-sizing: border-box;
+      }
+      label{
+        margin: 0;
+        font-size: 14px !important;
+        font-weight: normal;
+      }
+      .directorist_dropdown{
+        width: 95px;
+        .directorist_dropdown-toggle:before{
+          position: relative;
+          top: -3px;
+        }
+      }
+    }
+  }
+}

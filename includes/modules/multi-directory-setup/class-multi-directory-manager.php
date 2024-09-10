@@ -67,7 +67,7 @@ class Multi_Directory_Manager {
         $old_review_settings = get_term_meta( $term_id, 'review_config', true );
         $new_review_builder  = get_term_meta( $term_id, 'single_listings_contents', true );
     
-        // Update review_cookies_consent if the review widget exists
+        // Update review_cookies_consent in the 'groups' array if the review widget exists
         if ( ! empty( $old_review_settings['review_cookies_consent'] ) && is_array( $new_review_builder['groups'] ) ) {
             foreach ( $new_review_builder['groups'] as &$group ) {
                 if ( isset( $group['widget_name'] ) && 'review' === $group['widget_name'] ) {
@@ -76,7 +76,7 @@ class Multi_Directory_Manager {
             }
         }
     
-        // Mapping old review fields to new ones
+        // Mapping for fields outside of groups
         $fields_mapping = array(
             'review_comment' => array(
                 'label'       => 'review_comment_label',
@@ -97,18 +97,23 @@ class Multi_Directory_Manager {
             ),
         );
     
-        // Update the fields in the new review_builder structure
-        foreach ( $fields_mapping as $field => $mapping ) {
-            foreach ( $mapping as $new_key => $old_key ) {
-                if ( ! empty( $old_review_settings[ $old_key ] ) ) {
-                    $new_review_builder[ $field ][ $new_key ] = $old_review_settings[ $old_key ];
+        // Update the fields array directly in new_review_builder
+        if ( isset( $new_review_builder['fields'] ) && is_array( $new_review_builder['fields'] ) ) {
+            foreach ( $fields_mapping as $field_key => $mapping ) {
+                if ( isset( $new_review_builder['fields'][ $field_key ] ) ) {
+                    foreach ( $mapping as $new_key => $old_key ) {
+                        if ( ! empty( $old_review_settings[ $old_key ] ) ) {
+                            $new_review_builder['fields'][ $field_key ][ $new_key ] = $old_review_settings[ $old_key ];
+                        }
+                    }
                 }
             }
         }
     
-        // Update the meta with the modified array
+        // Update the term meta with the modified new_review_builder array
         update_term_meta( $term_id, 'single_listings_contents', $new_review_builder );
-    }    
+    }
+     
 
 
     // add_missing_single_listing_section_id

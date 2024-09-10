@@ -158,11 +158,6 @@ class Multi_Directory_Manager {
         // Update the term meta with the modified new_review_builder array
         update_term_meta( $term_id, 'single_listings_contents', $new_review_builder );
     }
-    
-    
-    
-     
-
 
     // add_missing_single_listing_section_id
     public function add_missing_single_listing_section_id() {

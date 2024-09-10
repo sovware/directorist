@@ -22,16 +22,10 @@ $review_text   = sprintf( _n( '%s review', '%s reviews', $review_count, 'directo
 
 // Load walker class
 Bootstrap::load_walker();
-$test= get_term_meta( 2, 'review_config', true );
-$builder= get_term_meta( 2, 'single_listings_contents', true );
-//e_var_dump( $builder );
-//e_var_dump( $test );
-
 
 $listing       = Directorist_Single_Listing::instance();
 $section_data  = $listing->get_review_section_data();
 $builder       = Builder::get( $section_data['section_data'] );
-//e_var_dump( $section_data['section_data']);
 $section_id    = isset( $section_data['id'] ) ? $section_data['id'] : '';
 $section_class = isset( $section_data['class'] ) ? $section_data['class'] : '';
 $section_icon  = isset( $section_data['icon'] ) ? $section_data['icon'] : '';

@@ -3,7 +3,7 @@
  * Review form builder data class.
  *
  * @package Directorist\Review
- * @since 7.1.0
+ * @since 8.0
  */
 namespace Directorist\Review;
 
@@ -13,25 +13,26 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Builder {
 
-	protected $fields = array();
+	protected $fields          = array();
+	protected $cookies_consent = false;
 
 	private static $instance = null;
 
-	public static function get( $post_id ) {
+	public static function get( $data ) {
 		if ( is_null( self::$instance ) ) {
-			self::$instance = new self( $post_id );
+			self::$instance = new self( $data );
 		}
 
 		return self::$instance;
 	}
 
-	private function __construct( $post_id ) {
-		$this->load_data( $post_id );
+	private function __construct( $data ) {
+		$this->load_data( $data );
+		$this->cookies_consent = $data['review_cookies_consent'];
 	}
 
-	public function load_data( $post_id )  {
-		$type = get_post_meta( $post_id, '_directory_type', true );
-		$this->fields = get_term_meta( $type, 'review_config', true );
+	public function load_data( $data )  {
+		$this->fields = $data['fields'];
 	}
 
 	/**
@@ -48,47 +49,43 @@ class Builder {
 	}
 
 	public function get_name_label( $default = '' ) {
-		return $this->get_field( 'name_label', $default );
+		return $this->get_field( 'name', 'label', $default );
 	}
 
 	public function get_name_placeholder( $default = '' ) {
-		return $this->get_field( 'name_placeholder', $default );
+		return $this->get_field( 'name', 'placeholder', $default );
 	}
 
 	public function get_email_label( $default = '' ) {
-		return $this->get_field( 'email_label', $default );
+		return $this->get_field( 'email', 'label', $default );
 	}
 
 	public function get_email_placeholder( $default = '' ) {
-		return $this->get_field( 'email_placeholder', $default );
+		return $this->get_field( 'email', 'placeholder', $default );
 	}
 
 	public function get_website_label( $default = '' ) {
-		return $this->get_field( 'website_label', $default );
+		return $this->get_field( 'website', 'label', $default );
 	}
 
 	public function get_website_placeholder( $default = '' ) {
-		return $this->get_field( 'website_placeholder', $default );
-	}
-
-	public function get_comment_label( $default = '' ) {
-		return $this->get_field( 'comment_label', $default );
+		return $this->get_field( 'website', 'placeholder', $default );
 	}
 
 	public function get_comment_placeholder( $default = '' ) {
-		return $this->get_field( 'comment_placeholder', $default );
+		return $this->get_field( 'comment', 'placeholder', $default );
 	}
 
 	public function is_cookies_consent_active() {
-		return (bool) $this->get_field( 'cookies_consent', false );
+		return (bool) $this->cookies_consent;
 	}
 
 	public function is_website_field_active() {
-		return (bool) $this->get_field( 'show_website_field', false );
+		return (bool) $this->get_field( 'website', 'enable', false );
 	}
 
-	protected function get_field( $field_key, $default = false ) {
+	protected function get_field( $field_key, $attr = 'label', $default = false ) {
 		$field_key = "review_{$field_key}";
-		return ( ( isset( $this->fields[ $field_key ] ) && $this->fields[ $field_key ] !== '' ) ? $this->fields[ $field_key ] : $default );
+		return ( ( isset( $this->fields[ $field_key ][ $attr ] ) && $this->fields[ $field_key ][ $attr ] !== '' ) ? $this->fields[ $field_key ][ $attr ] : $default );
 	}
 }

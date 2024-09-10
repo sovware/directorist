@@ -63,6 +63,50 @@ class Multi_Directory_Manager {
         update_term_meta( $term_id, 'submission_form_fields', $submission_form_fields );
     }
 
+    public static function migrate_review_settings( $term_id ) {
+        $old_review_settings = get_term_meta( $term_id, 'review_config', true );
+        $new_review_builder  = get_term_meta( $term_id, 'single_listings_contents', true );
+
+        if ( ! empty( $old_review_settings['review_cookies_consent'] ) && is_array( $new_review_builder ) ) {
+            foreach ( $new_review_builder as &$review_builder ) {
+                if ( 'review' == $review_builder['widget_name'] ) {
+                    $review_builder['review_cookies_consent'] = $old_review_settings['review_cookies_consent'];
+                }
+            }
+        }
+
+        $fields_mapping = array(
+            'review_comment' => array(
+                'label'       => 'review_comment_label',
+                'placeholder' => 'review_comment_placeholder',
+            ),
+            'review_email' => array(
+                'label'       => 'review_email_label',
+                'placeholder' => 'review_email_placeholder',
+            ),
+            'review_name' => array(
+                'label'       => 'review_name_label',
+                'placeholder' => 'review_name_placeholder',
+            ),
+            'review_website' => array(
+                'enable'      => 'review_show_website_field',
+                'label'       => 'review_website_label',
+                'placeholder' => 'review_website_placeholder',
+            ),
+        );
+
+        foreach ( $fields_mapping as $field => $mapping ) {
+            foreach ( $mapping as $new_key => $old_key ) {
+                if ( ! empty( $old_review_settings[ $old_key ] ) ) {
+                    $new_review_builder[ $field ][ $new_key ] = $old_review_settings[ $old_key ];
+                }
+            }
+        }
+
+        update_term_meta( $term_id, 'single_listings_contents', $new_review_builder );
+    }
+
+
     // add_missing_single_listing_section_id
     public function add_missing_single_listing_section_id() {
         $directory_types = directorist_get_directories();

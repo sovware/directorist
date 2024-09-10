@@ -275,7 +275,7 @@ class Directorist_Listing_Search_Form {
 				'slug'       => $this->directory_type,
 			) );
 
-			if ( ! is_wp_error( $directories ) && ! in_array( $default_directory_id, $directories, true ) ) {
+			if ( ! is_wp_error( $directories ) && ! empty( $directories ) && ! in_array( $default_directory_id, $directories, true ) ) {
 				$default_directory_id = $directories[0];
 			}
 		}
@@ -582,6 +582,9 @@ class Directorist_Listing_Search_Form {
 
 	public function listing_type_slug() {
 		$term_data = get_term( $this->listing_type, ATBDP_TYPE );
+		if ( is_wp_error( $term_data ) ) {
+			return '';
+		}
 		return $term_data->slug;
 	}
 

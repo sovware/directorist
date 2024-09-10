@@ -79,21 +79,37 @@ class Multi_Directory_Manager {
         // Mapping for fields outside of groups
         $fields_mapping = array(
             'review_comment' => array(
-                'label'       => 'review_comment_label',
-                'placeholder' => 'review_comment_placeholder',
+                'label'           => 'review_comment_label',
+                'placeholder'     => 'review_comment_placeholder',
+                'widget_name'     => 'review',
+                'widget_child_name' => 'review_comment',
+                'widget_key'      => 'review_comment',
+                'widget_group'    => 'other_widgets',
             ),
             'review_email' => array(
-                'label'       => 'review_email_label',
-                'placeholder' => 'review_email_placeholder',
+                'label'           => 'review_email_label',
+                'placeholder'     => 'review_email_placeholder',
+                'widget_name'     => 'review',
+                'widget_child_name' => 'review_email',
+                'widget_key'      => 'review_email',
+                'widget_group'    => 'other_widgets',
             ),
             'review_name' => array(
-                'label'       => 'review_name_label',
-                'placeholder' => 'review_name_placeholder',
+                'label'           => 'review_name_label',
+                'placeholder'     => 'review_name_placeholder',
+                'widget_name'     => 'review',
+                'widget_child_name' => 'review_name',
+                'widget_key'      => 'review_name',
+                'widget_group'    => 'other_widgets',
             ),
             'review_website' => array(
-                'enable'      => 'review_show_website_field',
-                'label'       => 'review_website_label',
-                'placeholder' => 'review_website_placeholder',
+                'enable'          => 'review_show_website_field',
+                'label'           => 'review_website_label',
+                'placeholder'     => 'review_website_placeholder',
+                'widget_name'     => 'review',
+                'widget_child_name' => 'review_website',
+                'widget_key'      => 'review_website',
+                'widget_group'    => 'other_widgets',
             ),
         );
     
@@ -108,9 +124,16 @@ class Multi_Directory_Manager {
                 $new_review_builder['fields'][ $field_key ] = array(); // Initialize the field if it doesn't exist
             }
     
+            // Add the mapped values
             foreach ( $mapping as $new_key => $old_key ) {
-                if ( ! empty( $old_review_settings[ $old_key ] ) ) {
-                    $new_review_builder['fields'][ $field_key ][ $new_key ] = $old_review_settings[ $old_key ];
+                // Directly assign widget-related keys
+                if ( in_array( $new_key, array( 'widget_name', 'widget_child_name', 'widget_key', 'widget_group' ) ) ) {
+                    $new_review_builder['fields'][ $field_key ][ $new_key ] = $old_key;
+                } else {
+                    // Assign other keys if they exist in old_review_settings
+                    if ( ! empty( $old_review_settings[ $old_key ] ) ) {
+                        $new_review_builder['fields'][ $field_key ][ $new_key ] = $old_review_settings[ $old_key ];
+                    }
                 }
             }
         }
@@ -118,6 +141,7 @@ class Multi_Directory_Manager {
         // Update the term meta with the modified new_review_builder array
         update_term_meta( $term_id, 'single_listings_contents', $new_review_builder );
     }
+    
     
      
 

@@ -22,8 +22,8 @@ $review_text   = sprintf( _n( '%s review', '%s reviews', $review_count, 'directo
 
 // Load walker class
 Bootstrap::load_walker();
-$test= get_term_meta( 2, 'review_config', true );
-$builder= get_term_meta( 2, 'single_listings_contents', true );
+$test= get_term_meta( 3, 'review_config', true );
+$builder= get_term_meta( 3, 'single_listings_contents', true );
 e_var_dump( $builder );
 e_var_dump( $test );
 

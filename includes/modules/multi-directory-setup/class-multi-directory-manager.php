@@ -66,15 +66,17 @@ class Multi_Directory_Manager {
     public static function migrate_review_settings( $term_id ) {
         $old_review_settings = get_term_meta( $term_id, 'review_config', true );
         $new_review_builder  = get_term_meta( $term_id, 'single_listings_contents', true );
-
-        if ( ! empty( $old_review_settings['review_cookies_consent'] ) && is_array( $new_review_builder ) ) {
-            foreach ( $new_review_builder as &$review_builder ) {
-                if ( 'review' == $review_builder['widget_name'] ) {
-                    $review_builder['review_cookies_consent'] = $old_review_settings['review_cookies_consent'];
+    
+        // Update review_cookies_consent if the review widget exists
+        if ( ! empty( $old_review_settings['review_cookies_consent'] ) && is_array( $new_review_builder['groups'] ) ) {
+            foreach ( $new_review_builder['groups'] as &$group ) {
+                if ( isset( $group['widget_name'] ) && 'review' === $group['widget_name'] ) {
+                    $group['review_cookies_consent'] = $old_review_settings['review_cookies_consent'];
                 }
             }
         }
-
+    
+        // Mapping old review fields to new ones
         $fields_mapping = array(
             'review_comment' => array(
                 'label'       => 'review_comment_label',
@@ -94,7 +96,8 @@ class Multi_Directory_Manager {
                 'placeholder' => 'review_website_placeholder',
             ),
         );
-
+    
+        // Update the fields in the new review_builder structure
         foreach ( $fields_mapping as $field => $mapping ) {
             foreach ( $mapping as $new_key => $old_key ) {
                 if ( ! empty( $old_review_settings[ $old_key ] ) ) {
@@ -102,9 +105,10 @@ class Multi_Directory_Manager {
                 }
             }
         }
-
+    
+        // Update the meta with the modified array
         update_term_meta( $term_id, 'single_listings_contents', $new_review_builder );
-    }
+    }    
 
 
     // add_missing_single_listing_section_id

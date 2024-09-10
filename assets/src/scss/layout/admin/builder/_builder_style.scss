@@ -3054,12 +3054,29 @@ input[type=radio] {
     font-size: 15px;
     font-weight: 500;
     color: #272b41;
+    display: inline-block;
+    @media only screen and (max-width: 767px){
+      margin-bottom: 15px;
+    }
   }
 }
 .cptm-container-group-fields{
   display: flex;
   align-items: center;
   gap: 26px;
+  @media only screen and (max-width: 1300px){
+    flex-wrap: wrap;
+  }
+  .cptm-form-group{
+    @media only screen and (max-width: 1300px){
+      &:not(:last-child){
+        margin-bottom: 0;
+      }
+    }
+    @media only screen and (max-width: 991px){
+      width: 100%;
+    }
+  }
   .highlight-field{
     padding: 0;
   }
@@ -3075,17 +3092,42 @@ input[type=radio] {
       input{
         max-width: 100px !important;
         box-sizing: border-box;
+        @media only screen and (max-width: 991px){
+          max-width: none !important;
+        }
+        @media only screen and (max-width: 767px){
+          max-width: 150px !important;
+        }
       }
       label{
         margin: 0;
         font-size: 14px !important;
         font-weight: normal;
+        @media only screen and (max-width: 1300px){
+          min-width: 50px;
+        }
       }
       .directorist_dropdown{
         width: 95px;
         .directorist_dropdown-toggle:before{
           position: relative;
           top: -3px;
+        }
+        @media only screen and (max-width: 991px){
+          width: 100%;
+        }
+        @media only screen and (max-width: 991px){
+          width: 150px;
+        }
+      }
+      &.atbdp-col-8{
+         @media only screen and (max-width: 991px){
+          flex: auto !important;
+        }
+      }
+      &.atbdp-col-4{
+        @media only screen and (max-width: 767px){
+          width: auto !important;
         }
       }
     }

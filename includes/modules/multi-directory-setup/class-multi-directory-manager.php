@@ -97,15 +97,20 @@ class Multi_Directory_Manager {
             ),
         );
     
-        // Update the fields array directly in new_review_builder
-        if ( isset( $new_review_builder['fields'] ) && is_array( $new_review_builder['fields'] ) ) {
-            foreach ( $fields_mapping as $field_key => $mapping ) {
-                if ( isset( $new_review_builder['fields'][ $field_key ] ) ) {
-                    foreach ( $mapping as $new_key => $old_key ) {
-                        if ( ! empty( $old_review_settings[ $old_key ] ) ) {
-                            $new_review_builder['fields'][ $field_key ][ $new_key ] = $old_review_settings[ $old_key ];
-                        }
-                    }
+        // Ensure the 'fields' key exists in the new_review_builder array
+        if ( ! isset( $new_review_builder['fields'] ) || ! is_array( $new_review_builder['fields'] ) ) {
+            $new_review_builder['fields'] = array(); // Initialize if not present
+        }
+    
+        // Update or add the fields based on the mapping
+        foreach ( $fields_mapping as $field_key => $mapping ) {
+            if ( ! isset( $new_review_builder['fields'][ $field_key ] ) ) {
+                $new_review_builder['fields'][ $field_key ] = array(); // Initialize the field if it doesn't exist
+            }
+    
+            foreach ( $mapping as $new_key => $old_key ) {
+                if ( ! empty( $old_review_settings[ $old_key ] ) ) {
+                    $new_review_builder['fields'][ $field_key ][ $new_key ] = $old_review_settings[ $old_key ];
                 }
             }
         }
@@ -113,6 +118,7 @@ class Multi_Directory_Manager {
         // Update the term meta with the modified new_review_builder array
         update_term_meta( $term_id, 'single_listings_contents', $new_review_builder );
     }
+    
      
 
 

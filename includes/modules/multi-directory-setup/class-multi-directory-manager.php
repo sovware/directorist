@@ -79,7 +79,6 @@ class Multi_Directory_Manager {
         // Mapping for fields outside of groups
         $fields_mapping = array(
             'review_comment' => array(
-                'label'             => 'review_comment_label',
                 'placeholder'       => 'review_comment_placeholder',
                 'widget_name'       => 'review',
                 'widget_child_name' => 'review_comment',

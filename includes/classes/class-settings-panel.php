@@ -1741,28 +1741,29 @@ Please remember that your order may be canceled if you do not make your payment 
                     ],
                 ],
                 'crop_width' => [
-                    'label' => __('Container Width', 'directorist'),
+                    'label' => __('Width', 'directorist'),
                     'type'  => 'number',
                     'value' => '350',
                     'min' => '1',
                     'max' => '1200',
                     'step' => '1',
-
+                    'group' => 'container',
+                    'group_label' => 'Container',
                 ],
                 'crop_height' => [
-                    'label' => __('Container Height', 'directorist'),
+                    'label' => __('Height', 'directorist'),
                     'type'  => 'number',
                     'value' => '260',
                     'min' => '1',
                     'max' => '1200',
                     'step' => '1',
-
+                    'group' => 'container',
+                    'group_label' => 'Container',
                 ],
                 'prv_container_size_by' => [
-                    'label' => __('Container Size By', 'directorist'),
+                    'label' => __('Size By', 'directorist'),
                     'type'  => 'select',
                     'value' => 'px',
-
                     'options' => [
                         [
                             'value' => 'px',
@@ -1773,6 +1774,8 @@ Please remember that your order may be canceled if you do not make your payment 
                             'label' => __('Ratio', 'directorist'),
                         ],
                     ],
+                    'group' => 'container',
+                    'group_label' => 'Container',
                 ],
                 'prv_background_type' => [
                     'label' => __('Background', 'directorist'),
@@ -4320,7 +4323,7 @@ Please remember that your order may be canceled if you do not make your payment 
                     Thank you for signing up at ==SITE_NAME==, to complete the registration, please verify your email address.
                     To activate your account simply click on the link below and verify your email address within 24 hours. For your safety, you will not be able to access your account until verification of your email has been completed.
                     ==CONFIRM_EMAIL_ADDRESS_URL==
-                    
+
                     <p align="center">If you did not sign up for this account you can ignore this email.</p>', 'directorist'),
                 ],
                 // single template settings
@@ -4726,7 +4729,7 @@ Please remember that your order may be canceled if you do not make your payment 
 
                             ] ),
                         ],
-                        
+
                         'user_dashboard' => [
                             'label' => __('Dashboard', 'directorist'),
                             'icon' => '<i class="fa fa-chart-bar"></i>',

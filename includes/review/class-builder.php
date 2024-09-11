@@ -15,8 +15,7 @@ class Builder {
 
 	protected $fields          = array();
 	protected $cookies_consent = false;
-
-	private static $instance = null;
+	private   static $instance = null;
 
 	public static function get( $data ) {
 		if ( is_null( self::$instance ) ) {

@@ -3114,9 +3114,9 @@ input[type=radio] {
           top: -3px;
         }
         @media only screen and (max-width: 991px){
-          width: 100%;
+          width: calc(100% - 2px);
         }
-        @media only screen and (max-width: 991px){
+        @media only screen and (max-width: 767px){
           width: 150px;
         }
       }

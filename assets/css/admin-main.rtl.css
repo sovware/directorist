@@ -16827,10 +16827,10 @@ input[type=radio]:checked::before {
 }
 @media only screen and (max-width: 991px) {
   .cptm-container-group-fields .atbdp-row .atbdp-col .directorist_dropdown {
-    width: 100%;
+    width: calc(100% - 2px);
   }
 }
-@media only screen and (max-width: 991px) {
+@media only screen and (max-width: 767px) {
   .cptm-container-group-fields .atbdp-row .atbdp-col .directorist_dropdown {
     width: 150px;
   }
@@ -20448,10 +20448,10 @@ input[type=radio]:checked::before {
 }
 @media only screen and (max-width: 991px) {
   .cptm-container-group-fields .atbdp-row .atbdp-col .directorist_dropdown {
-    width: 100%;
+    width: calc(100% - 2px);
   }
 }
-@media only screen and (max-width: 991px) {
+@media only screen and (max-width: 767px) {
   .cptm-container-group-fields .atbdp-row .atbdp-col .directorist_dropdown {
     width: 150px;
   }
@@ -24336,10 +24336,10 @@ input[type=radio]:checked::before {
 }
 @media only screen and (max-width: 991px) {
   .cptm-container-group-fields .atbdp-row .atbdp-col .directorist_dropdown {
-    width: 100%;
+    width: calc(100% - 2px);
   }
 }
-@media only screen and (max-width: 991px) {
+@media only screen and (max-width: 767px) {
   .cptm-container-group-fields .atbdp-row .atbdp-col .directorist_dropdown {
     width: 150px;
   }

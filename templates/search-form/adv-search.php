@@ -6,6 +6,7 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
+$fields = $searchform->get_basic_fields();
 ?>
 
 <div class="directorist-search-modal__overlay"></div>
@@ -19,9 +20,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 	</div>
 	<div class="directorist-search-modal__contents__body">
 
-		<?php if ( isset( $searchform->form_data[1]['fields'] ) && is_array( $searchform->form_data[1]['fields'] ) ) : ?>
+		<?php if ( ! empty( $fields ) ) : ?>
 			
-			<?php foreach ( $searchform->form_data[1]['fields'] as $field ): ?>
+			<?php foreach ( $fields as $field ): ?>
 
 				<?php if (  ! in_array( $field['field_key'], $searchform->assign_to_category()['custom_field_key'] ) ) { ?>
 

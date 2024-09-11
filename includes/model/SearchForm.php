@@ -470,6 +470,18 @@ class Directorist_Listing_Search_Form {
 		return !empty( $search_button_icon ) ? true : false;
 	}
 
+	public function get_basic_fields() {
+		return ! empty( $this->form_data[0]['fields'] ) && is_array( $this->form_data[0]['fields'] ) 
+        ? $this->form_data[0]['fields'] 
+        : [];
+	}
+
+	public function get_advance_fields() {
+		return ! empty( $this->form_data[1]['fields'] ) && is_array( $this->form_data[1]['fields'] ) 
+        ? $this->form_data[0]['fields'] 
+        : [];
+	}
+
 	public function more_buttons_template() {
 		Helper::get_template( 'search-form/more-buttons', [ 'searchform' => $this ] );
 	}

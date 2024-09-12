@@ -46,6 +46,15 @@ function directorist_is_immediate_review_approve_enabled() {
 }
 
 /**
+ * Check multiple review status.
+ *
+ * @return bool
+ */
+function directorist_is_multiple_review_enabled() {
+	return (bool) get_directorist_option( 'review_enable_multiple', 1 );
+}
+
+/**
  * Get number of reviews and comments should be on a page.
  *
  * @return int
@@ -265,7 +274,7 @@ function directorist_can_current_user_review( $listing_id = null ) {
 	}
 
 	// Current user already reviewed so return.
-	if ( directorist_user_review_exists( wp_get_current_user()->user_email, $listing_id ) ) {
+	if ( directorist_user_review_exists( wp_get_current_user()->user_email, $listing_id ) && ! directorist_is_multiple_review_enabled() ) {
 		return false;
 	}
 

@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
-import { Fragment } from '@wordpress/element';
-import { truncate, unescape } from 'lodash';
+import { truncate } from 'lodash';
+import getLogo from './logo';
 
 export function getAttsForTransform( attributes = {} ) {
     let _atts = {};
@@ -78,14 +78,30 @@ export function getWithSharedAttributes( attributes = {} ) {
 
 export function getPreview(name, isPreviewPopup = false) {
     return (
-        <Fragment>
+        <>
             <img
             style={{display: 'block', width: '100%', height: 'auto'}}
             className="directorist-block-preview"
             src={`${directoristBlockConfig.previewUrl}preview/${name}.svg`}
             alt={ __( 'Preview', 'directorist' ) } />
             { ! isPreviewPopup && <div style={{textAlign: 'center', fontSize: '12px', marginTop: '5px'}}><em>It's a placeholder. Please check the preview on frontend.</em></div> }
-        </Fragment>
+        </>
+    );
+}
+
+export function getPlaceholder(name, showLogo = false) {
+    return (
+        <div className='directorist-container'>
+            {
+                showLogo ?
+                getLogo() :
+                <img
+                style={{display: 'block', width: '100%', height: 'auto'}}
+                className='directorist-block-preview'
+                src={`${directoristBlockConfig.previewUrl}preview/${name}.svg`}
+                alt={`Placeholder for ${name}`} />
+            }
+        </div>
     );
 }
 

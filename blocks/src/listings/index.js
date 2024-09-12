@@ -1,5 +1,6 @@
-import { registerBlockType, createBlock } from '@wordpress/blocks';
 import { useBlockProps, InspectorControls, BlockControls } from '@wordpress/block-editor';
+import { registerBlockType, createBlock } from '@wordpress/blocks';
+import ServerSideRender from '@wordpress/server-side-render';
 import { Fragment, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import {
@@ -21,18 +22,19 @@ import {
 	SelectControl,
 	ToggleControl,
 	TextControl,
-	Toolbar,
+	ToolbarGroup,
 	ToolbarButton
 } from '@wordpress/components';
 
 import {
 	getAttsForTransform,
 	isMultiDirectoryEnabled,
-	getWithSharedAttributes,
-	getPreview
+	getPlaceholder
 } from './../functions'
 import metadata from './block.json';
 import getLogo from './../logo';
+
+const Placeholder = () => getPlaceholder( 'listing-grid' );
 
 registerBlockType(metadata.name, {
 
@@ -57,12 +59,6 @@ registerBlockType(metadata.name, {
 				},
 			},
 		]
-	},
-
-	example: {
-		attributes: {
-			isPreview: true
-		}
 	},
 
 	edit( { attributes, setAttributes } ) {
@@ -104,11 +100,11 @@ registerBlockType(metadata.name, {
 		return (
 			<Fragment>
 				<BlockControls>
-					<Toolbar>
+					<ToolbarGroup>
 						<ToolbarButton isPressed={view === 'grid'} icon={ grid } label={ __( 'Grid View', 'directorist' ) } onClick={ () => setAttributes( { view: 'grid' } ) } />
 						<ToolbarButton isPressed={view === 'list'} icon={ list } label={ __( 'List View', 'directorist' ) } onClick={ () => setAttributes( { view: 'list' } ) } />
 						<ToolbarButton isPressed={view === 'map'} icon={ mapMarker } label={ __( 'Map View', 'directorist' ) } onClick={ () => setAttributes( { view: 'map' } ) } />
-					</Toolbar>
+					</ToolbarGroup>
 				</BlockControls>
 
 				<InspectorControls>
@@ -287,8 +283,12 @@ registerBlockType(metadata.name, {
 					</PanelBody>
 				</InspectorControls>
 
-				<div { ...useBlockProps() }>
-					{ getPreview( 'listing-grid', attributes.isPreview ) }
+				<div {...useBlockProps({className: 'directorist-content-active directorist-w-100'})}>
+					<ServerSideRender
+						block={metadata.name}
+						attributes={attributes}
+						LoadingResponsePlaceholder={Placeholder}
+					/>
 				</div>
 			</Fragment>
 		);

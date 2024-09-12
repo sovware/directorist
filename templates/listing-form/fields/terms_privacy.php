@@ -6,9 +6,6 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
-
-// $submission_form_fields = get_term_meta( 15, 'submission_form_fields', true );
-// 		e_var_dump( $submission_form_fields );
 ?>
 <div class="directorist-add-listing-form__action">
 

@@ -65,9 +65,9 @@ class Multi_Directory_Manager {
 
     public static function migrate_privacy_policy( $term_id ) {
         $display_privacy     = (bool) get_directorist_type_option( $term_id, 'listing_privacy' );
-        $privacy_is_required = (bool) get_directorist_type_option( $term_id, 'require_privacy' );
+        $privacy_is_required = (bool) get_directorist_type_option( $term_id, 'privacy_is_required' );
         $display_terms       = (bool) get_directorist_type_option( $term_id, 'display_terms' );
-        $terms_is_required   = (bool) get_directorist_type_option( $term_id, 'terms_is_required' );
+        $terms_is_required   = (bool) get_directorist_type_option( $term_id, 'require_terms_conditions' );
         $submission_form     = get_term_meta( $term_id, 'submission_form_fields', true );
     
         // Generate the label with links to Privacy Policy and Terms of Service

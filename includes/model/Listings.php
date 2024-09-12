@@ -243,8 +243,9 @@ class Directorist_Listings {
 		$this->options['default_latitude']                = get_directorist_option('default_latitude', 40.7127753);
 		$this->options['default_longitude']               = get_directorist_option('default_longitude', -74.0059728);
 		$this->options['listing_instant_search']          = ! empty( get_directorist_option( 'listing_instant_search' ) ) ? 'yes' : '';
-		$this->options['all_listing_layout']         	  = get_directorist_type_option( $this->get_current_listing_type(), 'all_listing_layout', 'no_sidebar' );
-		$this->options['listing_sidebar_top_search_bar']  = get_directorist_type_option( $this->get_current_listing_type(), 'listing_sidebar_top_search_bar', false );
+		$this->options['all_listing_layout']         	  = get_directorist_option( 'all_listing_layout', 'no_sidebar' );
+		$this->options['listing_sidebar_top_search_bar']  = get_directorist_option( 'listing_hide_top_search_bar', false );
+		$this->options['sidebar_filter_text']    		  = get_directorist_option( 'listings_sidebar_filter_text', 'Filters' );
 		$this->options['marker_clustering']               = get_directorist_option( 'marker_clustering', true ) ? 'markerclusterer' : '';
 	}
 

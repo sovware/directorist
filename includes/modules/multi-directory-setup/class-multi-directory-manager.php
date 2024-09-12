@@ -63,6 +63,62 @@ class Multi_Directory_Manager {
         update_term_meta( $term_id, 'submission_form_fields', $submission_form_fields );
     }
 
+    public static function migrate_privacy_policy( $term_id ) {
+        $display_privacy     = (bool) get_directorist_type_option( $term_id, 'listing_privacy' );
+        $privacy_is_required = (bool) get_directorist_type_option( $term_id, 'require_privacy' );
+        $display_terms       = (bool) get_directorist_type_option( $term_id, 'display_terms' );
+        $terms_is_required   = (bool) get_directorist_type_option( $term_id, 'terms_is_required' );
+        $submission_form     = get_term_meta( $term_id, 'submission_form_fields', true );
+    
+        // Generate the label with links to Privacy Policy and Terms of Service
+        $terms_privacy_label = sprintf(
+            __( 'I agree to the <a href="%s" target="_blank">Privacy Policy</a> and <a href="%s" target="_blank">Terms of Service</a>', 'directorist' ),
+            \ATBDP_Permalink::get_privacy_policy_page_url(),
+            \ATBDP_Permalink::get_terms_and_conditions_page_url()
+        );
+    
+        // Determine if the field should be required
+        $is_required = ( $privacy_is_required || $terms_is_required ) ? 1 : '';
+    
+        // Define the new field for terms and privacy
+        $terms_privacy_field = [
+            'type'         => 'text',
+            'field_key'    => 'privacy_terms',
+            'label'        => $terms_privacy_label,   // Use the generated label
+            'required'     => $is_required,           // Dynamically set required status
+            'widget_group' => 'preset',
+            'widget_name'  => 'terms_privacy',
+            'widget_key'   => 'terms_privacy',
+        ];
+    
+        // Define the new group for terms and privacy
+        $terms_privacy_group = [
+            'type' => 'general_group',
+            'label' => 'Privacy Policy',
+            'fields' => ['terms_privacy'],
+            'defaultGroupLabel' => 'Section',
+            'disableTrashIfGroupHasWidgets' => [
+                [
+                    'widget_name' => 'title',
+                    'widget_group' => 'preset',
+                ]
+            ],
+        ];
+    
+        // Check if either privacy or terms should be displayed
+        if ( $display_privacy || $display_terms ) {
+            // Add the new field to the fields array
+            $submission_form['fields']['terms_privacy'] = $terms_privacy_field;
+    
+            // Add the new group to the groups array
+            $submission_form['groups'][] = $terms_privacy_group;
+        }
+    
+        // Update the term meta with the modified submission_form array
+        update_term_meta( $term_id, 'submission_form_fields', $submission_form );
+    }
+    
+
     // add_missing_single_listing_section_id
     public function add_missing_single_listing_section_id() {
         $directory_types = directorist_get_directories();

@@ -162,6 +162,7 @@ function directorist_800_migrate_builder_data() {
 	foreach ( $directory_types as $directory_type ) {
 
 		Multi_Directory_Manager::migrate_custom_field( $directory_type->term_id );
+		Multi_Directory_Manager::migrate_privacy_policy( $directory_type->term_id );
 		$new_structure   = [];
 		$header_contents = get_term_meta( $directory_type->term_id, 'single_listing_header', true );
 		

@@ -979,6 +979,13 @@ class Builder_Data {
                                 'max'   => apply_filters( 'directorist_search_default_radius_distance', 750 ),
                                 'value' => 0,
                             ],
+                            'max_radius_distance' => [
+                                'type'  => 'range',
+                                'label' => __( 'Maximum Radius Distance', 'directorist' ),
+                                'min'   => 0,
+                                'max'   => 10000,
+                                'value' => 1000,
+                            ],
                             'radius_search_unit'      => [
                                 'type'    => 'select',
                                 'label'   => __( 'Radius Search Unit', 'directorist' ),

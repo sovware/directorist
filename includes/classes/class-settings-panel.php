@@ -2583,34 +2583,6 @@ Please remember that your order may be canceled if you do not make your payment 
                         ],
                     ],
                 ],
-                'search_default_radius_distance' => [
-                    'label'         => __('Default Distance', 'directorist'),
-                    'type'          => 'number',
-                    'value'         => '0',
-                    'min'           => '0',
-                    'max'           => '750',
-                    'step'          => '1',
-                    'show-if' => [
-                        'where' => "search_more_filter",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => true],
-                        ],
-                    ],
-                ],
-                'search_max_radius_distance' => [
-                    'label'         => __('Maximum Distance', 'directorist'),
-                    'type'          => 'number',
-                    'value'         => '1000',
-                    'min'           => '0',
-                    'max'           => '1000',
-                    'step'          => '10',
-                    'show-if' => [
-                        'where' => "search_more_filter",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => true],
-                        ],
-                    ],
-                ],
                 'search_listing_text'    => [
                     'type'          => 'text',
                     'label'         => __('Search Button Text', 'directorist'),
@@ -4532,12 +4504,6 @@ Please remember that your order may be canceled if you do not make your payment 
                                     'title'       => __( 'Filters', 'directorist' ),
                                     'fields'      => [
                                         'search_more_filter', 'search_more_filter_icon', 'search_more_filters', 'search_filters', 'search_reset_text', 'search_apply_filter',
-                                     ],
-                                ],
-                                'radius_distance' => [
-                                    'title'       => __( 'Radius Distance', 'directorist' ),
-                                    'fields'      => [
-                                        'search_default_radius_distance', 'search_max_radius_distance',
                                      ],
                                 ],
                                 'poplar_categories' => [

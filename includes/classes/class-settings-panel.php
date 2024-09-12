@@ -2543,22 +2543,6 @@ Please remember that your order may be canceled if you do not make your payment 
                     'label' => __('Display More Filters', 'directorist'),
                     'value' => true,
                 ],
-                'search_more_filter_icon' => [
-                    'type'  => 'toggle',
-                    'label' => __('Display More Filters Icon', 'directorist'),
-                    'value' => true,
-                    'show-if' => [
-                        'where' => "search_more_filter",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => true],
-                        ],
-                    ],
-                ],
-                'search_button_icon' => [
-                    'type'  => 'toggle',
-                    'label' => __('Display Search Button Icon', 'directorist'),
-                    'value' => true,
-                ],
                 'search_filters' => [
                     'type' => 'checkbox',
                     'label' => __('Filter Actions', 'directorist'),
@@ -4497,13 +4481,13 @@ Please remember that your order may be canceled if you do not make your payment 
                                 'search_bar' => [
                                     'title'       => __( 'Search Bar', 'directorist' ),
                                     'fields'      => [
-                                        'search_title', 'search_subtitle', 'search_home_bg', 'search_listing_text', 'search_button_icon',
+                                        'search_title', 'search_subtitle', 'search_home_bg', 'search_listing_text',
                                      ],
                                 ],
                                 'search_filters' => [
                                     'title'       => __( 'Filters', 'directorist' ),
                                     'fields'      => [
-                                        'search_more_filter', 'search_more_filter_icon', 'search_more_filters', 'search_filters', 'search_reset_text', 'search_apply_filter',
+                                        'search_more_filter', 'search_more_filters', 'search_filters', 'search_reset_text', 'search_apply_filter',
                                      ],
                                 ],
                                 'poplar_categories' => [

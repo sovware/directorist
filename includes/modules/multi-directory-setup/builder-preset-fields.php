@@ -961,8 +961,8 @@ return apply_filters( 'atbdp_form_preset_widgets', array(
 					'required' => true,
 				]
 			],
-			'label' => [
-				'label' => __( 'Terms Label', 'directorist' ),
+			'text' => [
+				'label'       => __( 'Text', 'directorist' ),
 				'type'        => 'textarea',
                 'editor'      => 'wp_editor',
                 'editorID'    => 'wp_editor_terms_privacy',

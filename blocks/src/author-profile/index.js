@@ -1,4 +1,5 @@
 import { registerBlockType } from '@wordpress/blocks';
+import ServerSideRender from '@wordpress/server-side-render';
 import { Fragment } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
@@ -14,12 +15,15 @@ import {
 
 import {
 	getAttsForTransform,
-	getPreview
+	getPlaceholder
 } from './../functions'
 import metadata from './block.json';
 import getLogo from './../logo';
 
+const Placeholder = () => getPlaceholder( 'author-profile' );
+
 registerBlockType(metadata.name, {
+
 	icon: getLogo(),
 
 	transforms: {
@@ -30,12 +34,6 @@ registerBlockType(metadata.name, {
 				attributes: getAttsForTransform( metadata.attributes )
 			}
 		]
-	},
-
-	example: {
-		attributes: {
-			isPreview: true
-		}
 	},
 
 	edit( { attributes, setAttributes } ) {
@@ -53,8 +51,12 @@ registerBlockType(metadata.name, {
 					</PanelBody>
 				</InspectorControls>
 
-				<div { ...useBlockProps() }>
-					{ getPreview( 'author-profile', attributes.isPreview) }
+				<div {...useBlockProps({className: 'directorist-content-active directorist-w-100'})}>
+					<ServerSideRender
+						block={metadata.name}
+						attributes={attributes}
+						LoadingResponsePlaceholder={Placeholder}
+					/>
 				</div>
 			</Fragment>
 		);

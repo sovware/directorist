@@ -107,20 +107,15 @@
 	"supports": {
 		"html": false
 	},
-	"editorScript": "file:./index.js",
-	"script": [
-		"directorist-all-listings",
-		"directorist-listing-slider",
+	"editorScript": [
+		"file:./index.js",
+		"jquery-masonry",
 		"directorist-swiper",
 		"directorist-select2-script",
+		"directorist-all-listings",
+		"directorist-listing-slider",
 		"directorist-search-form",
-		"jquery-masonry"
-	],
-	"style": [
-		"directorist-main-style",
-		"directorist-select2-style",
-		"directorist-ez-media-uploader-style",
-		"directorist-swiper-style",
-		"directorist-sweetalert-style"
+		"directorist-openstreet-map",
+		"directorist-google-map"
 	]
 }

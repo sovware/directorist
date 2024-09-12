@@ -1,17 +1,21 @@
 import { registerBlockType } from '@wordpress/blocks';
 import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
+import ServerSideRender from '@wordpress/server-side-render';
 import { __ } from '@wordpress/i18n';
 import { Fragment, useState } from '@wordpress/element';
 import { PanelBody } from '@wordpress/components';
 import { TypesControl } from './../controls';
 import {
 	isMultiDirectoryEnabled,
-	getPreview
+	getPlaceholder
 } from './../functions'
 import metadata from './block.json';
 import getLogo from './../logo';
 
+const Placeholder = () => getPlaceholder( 'add-listing' );
+
 registerBlockType( metadata.name, {
+	
 	icon: getLogo(),
 
 	transforms: {
@@ -24,14 +28,8 @@ registerBlockType( metadata.name, {
 		]
 	},
 
-	example: {
-		attributes: {
-			isPreview: true
-		}
-	},
-
-	edit({attributes: {directory_type, isPreview}, setAttributes}) {
-		const oldTypes = directory_type ? directory_type.split(',') : [];
+	edit({attributes, setAttributes}) {
+		const oldTypes = attributes.directory_type ? attributes.directory_type.split(',') : [];
 		const [shouldRender, setShouldRender] = useState( true );
 
 		return (
@@ -49,8 +47,12 @@ registerBlockType( metadata.name, {
 					</PanelBody>
 				</InspectorControls> }
 
-				<div { ...useBlockProps() }>
-					{ getPreview( 'add-listing', isPreview ) }
+				<div {...useBlockProps({className: 'directorist-content-active directorist-w-100'})}>
+					<ServerSideRender
+						block={metadata.name}
+						attributes={attributes}
+						LoadingResponsePlaceholder={Placeholder}
+					/>
 				</div>
 			</Fragment>
 		);

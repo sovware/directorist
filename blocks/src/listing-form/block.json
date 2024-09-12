@@ -6,12 +6,16 @@
     "name": "directorist/add-listing",
     "title": "Listing Form",
     "description": "Create a listing entry form.",
-    "keywords": ["add", "listing", "form"],
+    "keywords": ["add", "create", "listing", "form"],
     "attributes": {
         "directory_type":{
             "type":"string",
             "default":""
         }
     },
-    "editorScript": "file:./index.js"
+    "editorScript": [
+        "file:./index.js",
+        "directorist-select2-script",
+        "directorist-add-listing"
+    ]
 }

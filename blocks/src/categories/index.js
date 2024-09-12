@@ -1,5 +1,6 @@
 import { registerBlockType, createBlock } from '@wordpress/blocks';
 import { useBlockProps, InspectorControls, BlockControls } from '@wordpress/block-editor';
+import ServerSideRender from '@wordpress/server-side-render';
 import { Fragment, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { CategoryControl, TypesControl } from './../controls';
@@ -14,20 +15,24 @@ import {
 	SelectControl,
 	ToggleControl,
 	TextControl,
-	Toolbar,
+	ToolbarGroup,
 	ToolbarButton,
 } from '@wordpress/components';
 
 import {
 	getAttsForTransform,
 	isMultiDirectoryEnabled,
-	getPreview
+	getPlaceholder
 } from './../functions';
 import metadata from './block.json';
 import getLogo from './../logo';
 
+const Placeholder = () => getPlaceholder('categories-grid');
+
 registerBlockType(metadata.name, {
+
 	icon: getLogo(),
+
 	transforms: {
 		from: [
 			{
@@ -46,12 +51,6 @@ registerBlockType(metadata.name, {
 				},
 			},
 		]
-	},
-
-	example: {
-		attributes: {
-			isPreview: true
-		}
 	},
 
 	edit( { attributes, setAttributes } ) {
@@ -76,10 +75,10 @@ registerBlockType(metadata.name, {
 		return (
 			<Fragment>
 				<BlockControls>
-					<Toolbar>
+					<ToolbarGroup>
 						<ToolbarButton isPressed={view === 'grid'} icon={ grid } label={ __( 'Grid View', 'directorist' ) } onClick={ () => setAttributes( { view: 'grid' } ) } />
 						<ToolbarButton isPressed={view === 'list'} icon={ list } label={ __( 'List View', 'directorist' ) } onClick={ () => setAttributes( { view: 'list' } ) } />
-					</Toolbar>
+					</ToolbarGroup>
 				</BlockControls>
 
 				<InspectorControls>
@@ -163,8 +162,12 @@ registerBlockType(metadata.name, {
 					</PanelBody>
 				</InspectorControls>
 
-				<div { ...useBlockProps() }>
-					{ getPreview( 'categories-grid', attributes.isPreview ) }
+				<div {...useBlockProps({className: 'directorist-content-active directorist-w-100'})}>
+					<ServerSideRender
+						block={metadata.name}
+						attributes={attributes}
+						LoadingResponsePlaceholder={Placeholder}
+					/>
 				</div>
 			</Fragment>
 		);

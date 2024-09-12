@@ -1,5 +1,6 @@
 import { registerBlockType } from '@wordpress/blocks';
 import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
+import ServerSideRender from '@wordpress/server-side-render';
 import { Fragment, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { TypesControl } from '../controls';
@@ -14,12 +15,15 @@ import {
 import {
 	getAttsForTransform,
 	isMultiDirectoryEnabled,
-	getPreview
+	getPlaceholder
 } from '../functions'
 import metadata from './block.json';
 import getLogo from '../logo';
 
+const Placeholder = () => getPlaceholder( 'search' );
+
 registerBlockType( metadata.name, {
+
 	icon: getLogo(),
 
 	transforms: {
@@ -30,12 +34,6 @@ registerBlockType( metadata.name, {
 				attributes: getAttsForTransform( metadata.attributes )
 			},
 		]
-	},
-
-	example: {
-		attributes: {
-			isPreview: true
-		}
 	},
 
 	edit( { attributes, setAttributes } ) {
@@ -144,8 +142,12 @@ registerBlockType( metadata.name, {
 					</PanelBody>
 				</InspectorControls>
 
-				<div { ...useBlockProps() }>
-					{ getPreview( 'search', attributes.isPreview ) }
+				<div {...useBlockProps({className: 'directorist-content-active directorist-w-100'})}>
+					<ServerSideRender
+						block={metadata.name}
+						attributes={attributes}
+						LoadingResponsePlaceholder={Placeholder}
+					/>
 				</div>
 			</Fragment>
 		);

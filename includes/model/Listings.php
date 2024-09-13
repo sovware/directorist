@@ -246,6 +246,7 @@ class Directorist_Listings {
 		$this->options['all_listing_layout']         	  = get_directorist_option( 'all_listing_layout', 'no_sidebar' );
 		$this->options['listing_sidebar_top_search_bar']  = get_directorist_option( 'listing_hide_top_search_bar', false );
 		$this->options['sidebar_filter_text']    		  = get_directorist_option( 'listings_sidebar_filter_text', 'Filters' );
+		$this->options['display_listings_count']    	  = get_directorist_option( 'display_listings_count', true );
 		$this->options['marker_clustering']               = get_directorist_option( 'marker_clustering', true ) ? 'markerclusterer' : '';
 	}
 

@@ -1613,6 +1613,28 @@ Please remember that your order may be canceled if you do not make your payment 
                     'type' => 'text',
                     'label' => __('Filters Button Text', 'directorist'),
                     'value' => __('Filters', 'directorist'),
+                    'show-if' => [
+                        'where' => "all_listing_layout",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'no_sidebar'],
+                        ],
+                    ],
+                ],
+                'display_listings_count' => [
+                    'type' => 'toggle',
+                    'label' => __('Display Listings Count', 'directorist'),
+                    'value' => true,
+                ],
+                'all_listing_title' => [
+                    'type' => 'text',
+                    'label'   => __('Listings Count Text', 'directorist'),
+                    'value'   => __('Items Found', 'directorist'),
+                    'show-if' => [
+                        'where' => "display_listings_header",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
                 ],
                 'listings_reset_text' => [
                     'type' => 'text',
@@ -1643,7 +1665,7 @@ Please remember that your order may be canceled if you do not make your payment 
                     ],
                 ],
                 'listings_sort_by_items' => [
-                    'label' => __('"Sort By" Dropdown', 'directorist'),
+                    'label' => __('Sort Options', 'directorist'),
                     'type'  => 'checkbox',
                     'value' => [
                         'a_z',
@@ -1691,7 +1713,7 @@ Please remember that your order may be canceled if you do not make your payment 
                     ],
                 ],
                 'listings_view_as_items' => [
-                    'label' => __('"View As" Dropdown', 'directorist'),
+                    'label' => __('View Type', 'directorist'),
                     'type'  => 'checkbox',
                     'value' => [
                         'listings_grid',
@@ -1858,6 +1880,17 @@ Please remember that your order may be canceled if you do not make your payment 
                     'label' => __('Enable Header', 'directorist'),
                     'type'  => 'toggle',
                     'value' => true,
+                ],
+                'listing_filters_button' => [
+                    'type' => 'toggle',
+                    'label' => __('Display Filters Button', 'directorist'),
+                    'value' => true,
+                    'show-if' => [
+                        'where' => "all_listing_layout",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'no_sidebar'],
+                        ],
+                    ],
                 ],
                 // single listing settings
                 'disable_single_listing' => [
@@ -4240,11 +4273,27 @@ Please remember that your order may be canceled if you do not make your payment 
                                     'title'       => __( 'Header', 'directorist' ),
                                     'fields'      => [
                                         'display_listings_header', 
+                                        'listing_filters_button', 
+                                        'listings_filter_button_text', 
+                                        'display_listings_count',
+                                        'all_listing_title', 
+                                        'listings_view_as_items', 
+                                        'default_listing_view', 
+                                        'display_sort_by', 
+                                        'sort_by_text', 
+                                        'listings_sort_by_items',
                                      ],
                                 ],
-                                'labels' => [
+                                'preview_image' => [
+                                    'title'       => __( 'Preview Image', 'directorist' ),
                                     'fields'      => [
-                                        'listings_filter_button_text', 'display_sort_by', 'sort_by_text', 'listings_sort_by_items', 'listings_view_as_items', 'default_listing_view', 'preview_image_quality', 'way_to_show_preview', 'crop_width', 'crop_height', 'prv_container_size_by', 'prv_background_type', 'prv_background_color'
+                                         'preview_image_quality', 
+                                         'way_to_show_preview', 
+                                         'crop_width', 
+                                         'crop_height', 
+                                         'prv_container_size_by', 
+                                         'prv_background_type', 
+                                         'prv_background_color'
                                     ],
                                 ],
                             ] ),

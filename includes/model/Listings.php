@@ -273,6 +273,11 @@ class Directorist_Listings {
 		$this->options['listing_columns']                 = get_directorist_option( 'search_listing_columns', 3 );
 		$this->options['paginate_listings']               = ! empty( get_directorist_option( 'paginate_search_results', 1 ) ) ? 'yes' : '';
 		$this->options['listings_per_page']               = get_directorist_option( 'search_posts_num', 6 );
+		$this->options['all_listing_layout']         	  = get_directorist_option( 'search_result_layout', 'left_sidebar' );
+		$this->options['listing_sidebar_top_search_bar']  = get_directorist_option( 'search_result_hide_top_search_bar', false );
+		$this->options['sidebar_filter_text']    		  = get_directorist_option( 'search_result_sidebar_filter_text', 'Filters' );
+		$this->options['display_listings_count']    	  = get_directorist_option( 'display_search_result_listings_count', true );
+		$this->options['listing_header_title']            = get_directorist_option( 'search_result_listing_title', __( 'Items Found', 'directorist' ) );
 	}
 
 	public function build_search_data( $key, $value ) {

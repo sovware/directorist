@@ -1624,6 +1624,12 @@ Please remember that your order may be canceled if you do not make your payment 
                     'type' => 'toggle',
                     'label' => __('Display Listings Count', 'directorist'),
                     'value' => true,
+                    'show-if' => [
+                        'where' => "display_listings_header",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
                 ],
                 'all_listing_title' => [
                     'type' => 'text',
@@ -2723,14 +2729,83 @@ Please remember that your order may be canceled if you do not make your payment 
                     'value'       => '',
                 ],
                 // search result settings
+                'search_result_layout' => [
+                    'label' => __( 'All Listings Layout', 'directorist' ),
+                    'type'  => 'select',
+                    'value' => 'left_sidebar',
+                    'options' => [
+                        [
+                            'value' => 'left_sidebar',
+                            'label' => __('Left Sidebar Filter', 'directorist'),
+                        ],
+                        [
+                            'value' => 'right_sidebar',
+                            'label' => __('Right Sidebar Filter', 'directorist'),
+                        ],
+                        [
+                            'value' => 'no_sidebar',
+                            'label' => __('No Sidebar Filter (Popup)', 'directorist'),
+                        ],
+                    ],
+                ],
+                'search_result_hide_top_search_bar' => [
+                    'type' => 'toggle',
+                    'label' => __('Hide Top Search Bar', 'directorist'),
+                    'value' => false,
+                    'show-if' => [
+                        'where' => "search_result_layout",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '!=', 'value' => 'no_sidebar'],
+                        ],
+                    ],
+                ],
+                'search_result_sidebar_filter_text' => [
+                    'type' => 'text',
+                    'label' => __('Filters Text', 'directorist'),
+                    'value' => __('Filters', 'directorist'),
+                    'show-if' => [
+                        'where' => "search_result_layout",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '!=', 'value' => 'no_sidebar'],
+                        ],
+                    ],
+                ],
                 'search_result_filter_button_text'    => [
                     'type'          => 'text',
                     'label'         => __('Filters Button Text', 'directorist'),
                     'value'         => __('Filters', 'directorist'),
+                    'show-if' => [
+                        'where' => "search_result_layout",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'no_sidebar'],
+                        ],
+                    ],
+                ],
+                'display_search_result_listings_count' => [
+                    'type' => 'toggle',
+                    'label' => __('Display Listings Count', 'directorist'),
+                    'value' => true,
+                    'show-if' => [
+                        'where' => "search_header",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'search_result_listing_title' => [
+                    'type' => 'text',
+                    'label'   => __('Listings Count Text', 'directorist'),
+                    'value'   => __('Items Found', 'directorist'),
+                    'show-if' => [
+                        'where' => "search_header",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
                 ],
                 'sresult_reset_text'    => [
                     'type'          => 'text',
-                    'label'         => __('Reset Filters Button text', 'directorist'),
+                    'label'         => __('Reset Button text', 'directorist'),
                     'value'         => __('Reset Filters', 'directorist'),
                 ],
                 'sresult_apply_text'    => [
@@ -2740,7 +2815,7 @@ Please remember that your order may be canceled if you do not make your payment 
                 ],
                 'search_view_as_items' => [
                     'type' => 'checkbox',
-                    'label' => __('View As" Dropdown', 'directorist'),
+                    'label' => __('View Type', 'directorist'),
                     'description' => '',
                     'value' => [
                         'listings_grid',
@@ -2774,7 +2849,7 @@ Please remember that your order may be canceled if you do not make your payment 
                 ],
                 'search_sort_by_items' => [
                     'type' => 'checkbox',
-                    'label' => __('"Sort By" Dropdown', 'directorist'),
+                    'label' => __('Sort Options', 'directorist'),
                     'description' => '',
                     'value' => [
                         'a_z',
@@ -2836,6 +2911,22 @@ Please remember that your order may be canceled if you do not make your payment 
                     'min'           => '1',
                     'max'           => '100',
                     'step'          => '1',
+                ],
+                'search_header' => [
+                    'type'  => 'toggle',
+                    'label' => __('Display Header', 'directorist'),
+                    'value' => true,
+                ],
+                'search_result_filters_button_display' => [
+                    'type'  => 'toggle',
+                    'label' => __('Display Filters Button', 'directorist'),
+                    'show-if' => [
+                        'where' => "search_result_layout",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'no_sidebar'],
+                        ],
+                    ],
+                    'value' => true,
                 ],
                 // upgrade/ regenerate pages
                 'shortcode-updated' => [
@@ -4419,9 +4510,30 @@ Please remember that your order may be canceled if you do not make your payment 
                             'label' => __('Search Result', 'directorist'),
                             'icon' => '<i class="fa fa-check"></i>',
                             'sections' => apply_filters( 'atbdp_reg_settings_sections', [
-                                'search_result' => [
+                                'search_result_layout' => [
+                                    'title'       => __('Layout & Search', 'directorist' ),
                                     'fields'      => [
-                                        'search_result_filter_button_text', 'sresult_reset_text', 'sresult_apply_text', 'search_view_as_items', 'search_sort_by', 'search_sortby_text', 'search_sort_by_items', 'search_listing_columns', 'search_posts_num'
+                                        'search_result_layout', 
+                                        'search_result_hide_top_search_bar',
+                                        'search_result_sidebar_filter_text',
+                                        'sresult_reset_text',
+                                        'sresult_apply_text',
+                                        'search_listing_columns', 
+                                        'search_posts_num',
+                                     ],
+                                ],
+                                'search_result_header' => [
+                                    'title'       => __('Header', 'directorist' ),
+                                    'fields'      => [
+                                        'search_header', 
+                                        'search_result_filters_button_display',
+                                        'search_result_filter_button_text',
+                                        'display_search_result_listings_count',
+                                        'search_result_listing_title',
+                                        'search_view_as_items', 
+                                        'search_sort_by', 
+                                        'search_sortby_text', 
+                                        'search_sort_by_items'
                                      ],
                                 ],
                             ] ),

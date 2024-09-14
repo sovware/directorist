@@ -8,9 +8,9 @@
 	"description": "Create author profile page.",
 	"keywords": [ "author", "profile" ],
 	"attributes": {
-		"logged_in_user_only":{
-			"type":"boolean",
-			"default":false
+		"logged_in_user_only": {
+			"type": "boolean",
+			"default": false
 		}
 	},
 	"supports": {

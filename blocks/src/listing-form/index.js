@@ -5,17 +5,13 @@ import { __ } from '@wordpress/i18n';
 import { Fragment, useState } from '@wordpress/element';
 import { PanelBody } from '@wordpress/components';
 import { TypesControl } from './../controls';
-import {
-	isMultiDirectoryEnabled,
-	getPlaceholder
-} from './../functions'
+import { isMultiDirectoryEnabled, getPlaceholder } from './../functions';
 import metadata from './block.json';
 import getLogo from './../logo';
 
 const Placeholder = () => getPlaceholder( 'add-listing' );
 
 registerBlockType( metadata.name, {
-	
 	icon: getLogo(),
 
 	transforms: {
@@ -23,38 +19,53 @@ registerBlockType( metadata.name, {
 			{
 				type: 'shortcode',
 				tag: 'directorist_add_listing',
-				attributes: {}
+				attributes: {},
 			},
-		]
+		],
 	},
 
-	edit({attributes, setAttributes}) {
-		const oldTypes = attributes.directory_type ? attributes.directory_type.split(',') : [];
-		const [shouldRender, setShouldRender] = useState( true );
+	edit( { attributes, setAttributes } ) {
+		const oldTypes = attributes.directory_type
+			? attributes.directory_type.split( ',' )
+			: [];
+		const [ shouldRender, setShouldRender ] = useState( true );
 
 		return (
 			<Fragment>
-				{ isMultiDirectoryEnabled() && <InspectorControls>
-					<PanelBody title={ __( 'General', 'directorist' ) } initialOpen={ true }>
-						<TypesControl
-							shouldRender={shouldRender}
-							selected={oldTypes}
-							showDefault={false}
-							onChange={ types => {
-								setAttributes( { directory_type: types.join( ',' ) } );
-								setShouldRender(false);
-							} }  />
-					</PanelBody>
-				</InspectorControls> }
+				{ isMultiDirectoryEnabled() && (
+					<InspectorControls>
+						<PanelBody
+							title={ __( 'General', 'directorist' ) }
+							initialOpen={ true }
+						>
+							<TypesControl
+								shouldRender={ shouldRender }
+								selected={ oldTypes }
+								showDefault={ false }
+								onChange={ ( types ) => {
+									setAttributes( {
+										directory_type: types.join( ',' ),
+									} );
+									setShouldRender( false );
+								} }
+							/>
+						</PanelBody>
+					</InspectorControls>
+				) }
 
-				<div {...useBlockProps({className: 'directorist-content-active directorist-w-100'})}>
+				<div
+					{ ...useBlockProps( {
+						className:
+							'directorist-content-active directorist-w-100',
+					} ) }
+				>
 					<ServerSideRender
-						block={metadata.name}
-						attributes={attributes}
-						LoadingResponsePlaceholder={Placeholder}
+						block={ metadata.name }
+						attributes={ attributes }
+						LoadingResponsePlaceholder={ Placeholder }
 					/>
 				</div>
 			</Fragment>
 		);
-	}
+	},
 } );

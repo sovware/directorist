@@ -8,7 +8,7 @@
 	"description": "Create listing single view",
 	"keywords": [ "single", "listing", "all listings" ],
 	"attributes": {},
-    "supports": {
+	"supports": {
 		"html": false
 	},
 	"editorScript": [

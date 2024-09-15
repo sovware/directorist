@@ -56,7 +56,7 @@ function directorist_register_blocks() {
 		$styles[] = 'directorist-font-awesome';
 		$styles[] = 'directorist-unicons';
 	}
-	
+
 	$args = array(
 		'render_callback' => 'directorist_block_render_callback',
 		'style'           => $styles,
@@ -282,3 +282,19 @@ function directorist_account_block_avatar_image( $size = 40 ) {
 		);
 	}
 }
+
+function directorist_register_blocks_common_assets() {
+	$asset_file = __DIR__ . '/assets/index.asset.php';
+
+	if ( file_exists( $asset_file ) ) {
+		$asset = include_once $asset_file;
+
+		wp_enqueue_style(
+			'directorist-blocks-common',
+			plugin_dir_url( __FILE__ ) .  'assets/index' . ( is_rtl() ? '-rtl.css' : '.css' ),
+			[],
+			$asset['version']
+		);
+	}
+}
+add_action( 'enqueue_block_assets', 'directorist_register_blocks_common_assets' );

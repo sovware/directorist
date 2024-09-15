@@ -109,13 +109,13 @@ class Multi_Directory_Manager {
         if ( $display_privacy || $display_terms ) {
             // Add the new field to the fields array
             $submission_form['fields']['terms_privacy'] = $terms_privacy_field;
-    
-            // Add the new group to the groups array
-            $submission_form['groups'][] = $terms_privacy_group;
         }
     
         // Update the term meta with the modified submission_form array
         update_term_meta( $term_id, 'submission_form_fields', $submission_form );
+
+        $test = get_term_meta( $term_id, 'submission_form_fields', true );
+        error_log( print_r( $test ) );
     }
     
 

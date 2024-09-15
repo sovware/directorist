@@ -7,8 +7,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
-<div class="directorist-add-listing-form__action">
-
+<div class="directorist-add-listing-form__privacy">
 	<?php
 	do_action( 'atbdp_before_terms_and_conditions_font' )
 	?>

@@ -83,6 +83,11 @@
     color: #e80000;
     font-size: 13px;
   }
+  &__privacy{
+    a{
+      color: var(--directorist-color-info);
+    }
+  }
 }
 
 .directorist-add-listing-form,

@@ -3220,6 +3220,9 @@ body.stop-scrolling {
   color: #e80000;
   font-size: 13px;
 }
+.directorist-add-listing-form__privacy a {
+  color: var(--directorist-color-info);
+}
 
 .directorist-add-listing-form .directorist-content-module,
 #directiost-listing-fields_wrapper .directorist-content-module {

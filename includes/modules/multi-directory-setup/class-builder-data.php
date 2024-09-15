@@ -509,7 +509,7 @@ class Builder_Data {
                                 'min'   => 0,
                                 'max'   => 20,
                                 'label' => __( 'Number of listings to show', 'directorist' ),
-                                'value' => 0,
+                                'value' => 3,
                             ],
                             'similar_listings_number_of_columns'          => [
                                 'type'  => 'range',

@@ -154,7 +154,6 @@ class Directorist_Single_Listing {
 			'id'           => !empty( $section_data['custom_block_id'] ) ? $section_data['custom_block_id'] : '',
 			'class'        => !empty( $section_data['custom_block_classes'] ) ? $section_data['custom_block_classes'] : '',
 		);
-
 		if ( $section_data['type'] == 'general_group' ) {
 			if ( $this->section_has_contents( $section_data ) ) {
 				Helper::get_template( 'single/section-general', $args );
@@ -1325,15 +1324,15 @@ class Directorist_Single_Listing {
 		return ob_get_clean();
 	}
 
-	public function get_related_listings() {
-		$number       = get_directorist_type_option( $this->type, 'similar_listings_number_of_listings_to_show', 2 );
-		$same_author  = get_directorist_type_option( $this->type, 'listing_from_same_author', false );
-		$logic        = get_directorist_type_option( $this->type, 'similar_listings_logics', 'OR' );
+	public function get_related_listings( $data ) {
+		$number       = ! empty( $data['similar_listings_number_of_listings_to_show'] ) ? $data['similar_listings_number_of_listings_to_show'] : 3;
+		$same_author  = ! empty( $data['listing_from_same_author'] ) ? true : false;
+		$logic        = ! empty( $data['similar_listings_logics'] ) ? $data['similar_listings_logics'] : 'OR';
 		$relationship = ( $logic == 'AND' ) ? 'AND' : 'OR';
 
-		$id = $this->id;
-		$atbd_cats = get_the_terms($id, ATBDP_CATEGORY);
-		$atbd_tags = get_the_terms($id, ATBDP_TAGS);
+		$id            = $this->id;
+		$atbd_cats     = get_the_terms($id, ATBDP_CATEGORY);
+		$atbd_tags     = get_the_terms($id, ATBDP_TAGS);
 		$atbd_cats_ids = array();
 		$atbd_tags_ids = array();
 
@@ -1353,17 +1352,17 @@ class Directorist_Single_Listing {
 				'relation' => $relationship,
 				array(
 					'taxonomy' => ATBDP_CATEGORY,
-					'field' => 'term_id',
-					'terms' => $atbd_cats_ids,
+					'field'    => 'term_id',
+					'terms'    => $atbd_cats_ids,
 				),
 				array(
 					'taxonomy' => ATBDP_TAGS,
-					'field' => 'term_id',
-					'terms' => $atbd_tags_ids,
+					'field'    => 'term_id',
+					'terms'    => $atbd_tags_ids,
 				),
 			),
 			'posts_per_page' => (int)$number,
-			'post__not_in' => array($id),
+			'post__not_in'   => array($id),
 		);
 
 		if( !empty( $same_author ) ){
@@ -1371,12 +1370,6 @@ class Directorist_Single_Listing {
 		}
 
 		$meta_queries = array();
-		// TODO: Status has been migrated, remove related code.
-		// $meta_queries['expired'] = array(
-		// 	'key'     => '_listing_status',
-		// 	'value'   => 'expired',
-		// 	'compare' => '!=',
-		// );
 		$meta_queries['directory_type'] = array(
 				'key'     => '_directory_type',
 				'value'   => $this->type,

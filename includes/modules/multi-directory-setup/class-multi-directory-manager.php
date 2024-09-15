@@ -63,6 +63,29 @@ class Multi_Directory_Manager {
         update_term_meta( $term_id, 'submission_form_fields', $submission_form_fields );
     }
 
+    public static function migrate_related_listing_settings( $term_id ) {
+        $number              = get_term_meta( $term_id, 'similar_listings_number_of_listings_to_show', true );
+        $same_author         = get_term_meta( $term_id, 'listing_from_same_author', true );
+        $logic               = get_term_meta( $term_id, 'similar_listings_logics', true );
+        $column              = get_term_meta( $term_id, 'similar_listings_number_of_columns', true );
+        $new_related_listing = get_term_meta( $term_id, 'single_listings_contents', true );
+
+        
+        if ( ! empty( $new_related_listing['groups'] ) && is_array( $new_related_listing['groups'] ) ) {
+            foreach ( $new_related_listing['groups'] as &$group ) {
+                if ( isset( $group['widget_name'] ) && 'related_listings' === $group['widget_name'] ) {
+                    $group['similar_listings_logics'] = sanitize_text_field( $logic ?? 'OR' );
+                    $group['listing_from_same_author'] = $same_author ?? false;
+                    $group['similar_listings_number_of_listings_to_show'] = absint( $number ?? 3 );
+                    $group['similar_listings_number_of_columns'] = absint( $column ?? 3 );
+
+                }
+            }
+        }
+
+        update_term_meta( $term_id, 'single_listings_contents', $new_related_listing );
+    }
+
     // add_missing_single_listing_section_id
     public function add_missing_single_listing_section_id() {
         $directory_types = directorist_get_directories();

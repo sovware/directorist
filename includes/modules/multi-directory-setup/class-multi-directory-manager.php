@@ -84,7 +84,7 @@ class Multi_Directory_Manager {
         $terms_privacy_field = [
             'type'         => 'text',
             'field_key'    => 'privacy_terms',
-            'label'        => $terms_privacy_label,   // Use the generated label
+            'text'         => $terms_privacy_label,   // Use the generated label
             'required'     => $is_required,           // Dynamically set required status
             'widget_group' => 'preset',
             'widget_name'  => 'terms_privacy',

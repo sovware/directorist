@@ -1325,7 +1325,7 @@ class Directorist_Single_Listing {
 		return ob_get_clean();
 	}
 
-	public function get_related_listings( $data ) {
+	public function get_related_listings( $data = [] ) {
 		$number       = ! empty( $data['similar_listings_number_of_listings_to_show'] ) ? $data['similar_listings_number_of_listings_to_show'] : 3;
 		$same_author  = ! empty( $data['listing_from_same_author'] ) ? true : false;
 		$logic        = ! empty( $data['similar_listings_logics'] ) ? $data['similar_listings_logics'] : 'OR';

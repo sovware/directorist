@@ -154,6 +154,9 @@ class Directorist_Single_Listing {
 			'id'           => !empty( $section_data['custom_block_id'] ) ? $section_data['custom_block_id'] : '',
 			'class'        => !empty( $section_data['custom_block_classes'] ) ? $section_data['custom_block_classes'] : '',
 		);
+		// $test = get_term_meta( $this->type, 'single_listings_contents', true );
+		// $logic               = get_term_meta( $this->type, 'similar_listings_logics', true );
+		// e_var_dump( $test );
 		if ( $section_data['type'] == 'general_group' ) {
 			if ( $this->section_has_contents( $section_data ) ) {
 				Helper::get_template( 'single/section-general', $args );

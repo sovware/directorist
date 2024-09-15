@@ -70,20 +70,25 @@ class Multi_Directory_Manager {
         $column              = get_term_meta( $term_id, 'similar_listings_number_of_columns', true );
         $new_related_listing = get_term_meta( $term_id, 'single_listings_contents', true );
 
+        // Log the current structure before making changes
+        error_log( print_r( $new_related_listing, true ) );
         
         if ( ! empty( $new_related_listing['groups'] ) && is_array( $new_related_listing['groups'] ) ) {
             foreach ( $new_related_listing['groups'] as &$group ) {
                 if ( isset( $group['widget_name'] ) && 'related_listings' === $group['widget_name'] ) {
+                    error_log( 'Found related_listings: ' . print_r( $group, true ) );
                     $group['similar_listings_logics'] = sanitize_text_field( $logic ?? 'OR' );
                     $group['listing_from_same_author'] = $same_author ?? false;
                     $group['similar_listings_number_of_listings_to_show'] = absint( $number ?? 3 );
                     $group['similar_listings_number_of_columns'] = absint( $column ?? 3 );
-
+                    error_log( 'Updated related_listings: ' . print_r( $group, true ) );
                 }
             }
         }
 
         update_term_meta( $term_id, 'single_listings_contents', $new_related_listing );
+        $updated_related_listing = get_term_meta( $term_id, 'single_listings_contents', true );
+         error_log( 'Final related_listings after update: ' . print_r( $updated_related_listing, true ) );
     }
 
     // add_missing_single_listing_section_id

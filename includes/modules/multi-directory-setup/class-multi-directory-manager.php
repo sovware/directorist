@@ -509,7 +509,11 @@ class Multi_Directory_Manager {
 
         foreach ( $field_list as $field_key ) {
             if ( isset( $_POST[$field_key] ) && 'name' !==  $field_key ) {
-                $fields[ $field_key ] = directorist_maybe_json( wp_unslash( $_POST[ $field_key ] ), true );
+                $fields[ $field_key ] = directorist_maybe_json(
+                    wp_unslash( $_POST[ $field_key ] ),
+                    true,
+                    'directorist_clean_post'
+                );
             }
         }
 
@@ -550,7 +554,8 @@ class Multi_Directory_Manager {
             $value = ('true' === $value || true === $value || '1' === $value || 1 === $value) ? true : 0;
         }
 
-        $value = directorist_maybe_json( $value );
+        $value = directorist_maybe_json( $value, false, 'directorist_clean_post' );
+        
         update_term_meta( $term_id, $field_key, $value );
     }
 

@@ -91,31 +91,17 @@ class Multi_Directory_Manager {
             'widget_key'   => 'terms_privacy',
         ];
     
-        // Define the new group for terms and privacy
-        $terms_privacy_group = [
-            'type' => 'general_group',
-            'label' => 'Privacy Policy',
-            'fields' => ['terms_privacy'],
-            'defaultGroupLabel' => 'Section',
-            'disableTrashIfGroupHasWidgets' => [
-                [
-                    'widget_name' => 'title',
-                    'widget_group' => 'preset',
-                ]
-            ],
-        ];
-    
         // Check if either privacy or terms should be displayed
         if ( $display_privacy || $display_terms ) {
             // Add the new field to the fields array
             $submission_form['fields']['terms_privacy'] = $terms_privacy_field;
+            // Add the 'terms_privacy' field to the last group in the 'groups' array
+            $last_group_key = array_key_last( $submission_form['groups'] ); // Get the last group key
+            $submission_form['groups'][ $last_group_key ]['fields'][] = 'terms_privacy'; // Add to the last group's fields
         }
     
         // Update the term meta with the modified submission_form array
         update_term_meta( $term_id, 'submission_form_fields', $submission_form );
-
-        $test = get_term_meta( $term_id, 'submission_form_fields', true );
-        error_log( print_r( $test ) );
     }
     
 

@@ -104,20 +104,20 @@ window.addEventListener('DOMContentLoaded', function () {
     /* Multi level hierarchy content */
     /* Category */
     $('.atbdp_child_category').hide();
-    $('.atbd_category_wrapper > .expander').on('click', function () {
+    $('.atbd_category_wrapper > .expander').off('click').on('click', function () {
       $(this).siblings('.atbdp_child_category').slideToggle();
     });
-    $('.atbdp_child_category li .expander').on('click', function () {
+    $('.atbdp_child_category li .expander').off('click').on('click', function () {
       $(this).siblings('.atbdp_child_category').slideToggle();
       $(this).parent('li').siblings('li').children('.atbdp_child_category').slideUp();
     });
 
     /* Location */
     $('.atbdp_child_location').hide();
-    $('.atbd_location_wrapper > .expander').on('click', function () {
+    $('.atbd_location_wrapper > .expander').off('click').on('click', function () {
       $(this).siblings('.atbdp_child_location').slideToggle();
     });
-    $('.atbdp_child_location li .expander').on('click', function () {
+    $('.atbdp_child_location li .expander').off('click').on('click', function () {
       $(this).siblings('.atbdp_child_location').slideToggle();
       $(this).parent('li').siblings('li').children('.atbdp_child_location').slideUp();
     });

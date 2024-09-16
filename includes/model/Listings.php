@@ -2102,6 +2102,22 @@ class Directorist_Listings {
 			Helper::get_template( 'archive/viewas-dropdown', array( 'listings' => $this ) );
 		}
 
+		public function display_search_button() {
+			// Check if the layout is 'no_sidebar', in which case the button should always be displayed
+			if ( $this->options['all_listing_layout'] === 'no_sidebar' ) {
+				return true;
+			}
+		
+			// If the layout is 'right_sidebar' or 'left_sidebar' and instant search is disabled, display the button
+			if ( in_array( $this->options['all_listing_layout'], ['right_sidebar', 'left_sidebar'] ) 
+				&& empty( $this->options['listing_instant_search'] ) ) {
+				return true;
+			}
+		
+			// In all other cases, don't display the button
+			return false;
+		}		
+
 		public function search_form_template() {
 			// only catch atts with the prefix 'filter_'
 			$search_field_atts = array_filter( $this->atts, function( $key ) {

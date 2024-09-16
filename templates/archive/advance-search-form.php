@@ -23,6 +23,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 				<div class="directorist-advanced-filter__advanced__element directorist-search-field-<?php echo esc_attr( $field['widget_name'] ) ?>"><?php $searchform->field_template( $field ); ?></div>
 			<?php endforeach; ?>
 		</div>
-		<?php $searchform->buttons_template(); ?>
+
+		<?php if ( ! empty( $listings->display_search_button() ) ) : ?>
+			<?php $searchform->buttons_template(); ?>
+		<?php endif; ?>
 	</div>
 </form>

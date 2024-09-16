@@ -514,9 +514,9 @@ class Builder_Data {
                             'similar_listings_number_of_columns'          => [
                                 'type'  => 'range',
                                 'min'   => 1,
-                                'max'   => 10,
+                                'max'   => 4,
                                 'label' => __( 'Number of columns', 'directorist' ),
-                                'value' => 3,
+                                'value' => 2,
                             ],
                         ],
                     ],

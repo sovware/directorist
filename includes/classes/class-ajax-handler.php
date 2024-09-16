@@ -445,7 +445,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			}
 
 			$current_page   = isset( $atts['_current_page'] ) ? $atts['_current_page'] : '';
-			$listing_layout = get_directorist_type_option( $directory_id, 'all_listing_layout', 'no_sidebar' );
+			$listing_layout = get_directorist_option( 'all_listing_layout', 'no_sidebar' );
 
 			$selectors = array(
 				'no_sidebar'    => '.directorist-advanced-filter__advanced',

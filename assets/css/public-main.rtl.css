@@ -12513,7 +12513,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   margin-bottom: 34px;
 }
 .directorist-search-top__title {
-  color: var(--directorist-color-primary);
+  color: var(--directorist-color-dark);
   font-size: 36px;
   font-weight: 500;
   margin-bottom: 18px;

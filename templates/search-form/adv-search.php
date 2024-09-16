@@ -6,6 +6,7 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
+$fields = $searchform->get_basic_fields();
 ?>
 
 <div class="directorist-search-modal__overlay"></div>
@@ -18,15 +19,20 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 		<span class="directorist-search-modal__minimizer"></span>
 	</div>
 	<div class="directorist-search-modal__contents__body">
-		<?php foreach ( $searchform->form_data[1]['fields'] as $field ): ?>
 
-			<?php if (  ! in_array( $field['field_key'], $searchform->assign_to_category()['custom_field_key'] ) ) { ?>
+		<?php if ( ! empty( $fields ) ) : ?>
+			
+			<?php foreach ( $fields as $field ): ?>
 
-				<div class="directorist-advanced-filter__advanced__element directorist-search-field-<?php echo esc_attr( $field['widget_name'] )?>"><?php $searchform->field_template( $field ); ?></div>
+				<?php if (  ! in_array( $field['field_key'], $searchform->assign_to_category()['custom_field_key'] ) ) { ?>
 
-			<?php } ?>
+					<div class="directorist-advanced-filter__advanced__element directorist-search-field-<?php echo esc_attr( $field['widget_name'] )?>"><?php $searchform->field_template( $field ); ?></div>
+
+				<?php } ?>
 
 			<?php endforeach; ?>
+
+		<?php endif; ?>
 	</div>
 	<div class="directorist-search-modal__contents__footer">
 		<?php $searchform->buttons_template(); ?>

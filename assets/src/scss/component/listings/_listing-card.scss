@@ -599,7 +599,7 @@
         margin: 0;
         position: relative;
         padding: 10px 10px 0 10px;
-        .directorist-pricing-meta{
+        .directorist-pricing-meta {
           display: flex;
           align-items: center;
           justify-content: center;
@@ -609,7 +609,7 @@
           background: var(--directorist-color-white);
           padding: 0 8px;
           font-weight: 700;
-          .directorist-listing-price{
+          .directorist-listing-price {
             color: var(--directorist-color-danger);
           }
         }
@@ -861,7 +861,7 @@
           display: none;
         }
       }
-      .directorist-listing-single__meta{
+      .directorist-listing-single__meta {
         padding: 14px 20px 7px;
       }
     }
@@ -922,8 +922,11 @@
         display: flex;
       }
       .directorist-listing-single__header {
+        align-items: center;
         figure {
-          display: none;
+          // display: none;
+          flex: none;
+          margin: 0;
         }
       }
 

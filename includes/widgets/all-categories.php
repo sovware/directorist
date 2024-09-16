@@ -33,6 +33,7 @@ class All_Categories extends \WP_Widget {
             'hide_empty'            => 1,
             'show_count'            => 1,
             'single_only'           => 1,
+            'listing_cats'          => 1,
 		];
 
 		$instance = wp_parse_args( (array) $instance, $defaults );
@@ -92,6 +93,10 @@ class All_Categories extends \WP_Widget {
 				'type'    => 'checkbox',
 				'value'   => 1,
 			],
+            'listing_cats' => [
+                'label'   => esc_html__( 'Display only Listing Categories', 'directorist' ),
+                'type'    => 'checkbox',
+            ],
         ];
 
 		Widget_Fields::create( $fields, $instance, $this );
@@ -109,6 +114,7 @@ class All_Categories extends \WP_Widget {
         $instance['show_count']         = ! empty( $new_instance['show_count'] ) ? 1 : 0;
         $instance['single_only']        = ! empty( $new_instance['single_only'] ) ? 1 : 0;
         $instance['max_number']         = ! empty( $new_instance['max_number'] ) ? $new_instance['max_number'] : '';
+        $instance['listing_cats']       = ! empty( $new_instance['listing_cats'] ) ? 1 : 0;
 
 		return $instance;
 	}
@@ -137,6 +143,7 @@ class All_Categories extends \WP_Widget {
             'max_number'     => !empty( $instance['max_number'] ) ? $instance['max_number'] : '',
             'show_count'     => !empty( $instance['show_count'] ) ? 1 : 0,
             'single_only'    => !empty( $instance['single_only'] ) ? 1 : 0,
+            'listing_cats'    => !empty( $instance['listing_cats'] ) ? 1 : 0,
             'pad_counts'     => true,
             'immediate_category' => ! empty( $instance['immediate_category'] ) ? 1 : 0,
             'active_term_id' => 0,
@@ -187,6 +194,10 @@ class All_Categories extends \WP_Widget {
             'child_of'     => 0,
             'number'       => !empty($settings['max_number']) ? $settings['max_number'] : ''
         );
+
+        if($settings['listing_cats']) {
+            $args['object_ids'] = get_the_ID();
+        }
 
         $terms = get_terms( $args );
 
@@ -243,6 +254,10 @@ class All_Categories extends \WP_Widget {
             'hierarchical' => ! empty( $settings['hide_empty'] ) ? true : false,
             'number'       => !empty($settings['max_number']) ? $settings['max_number'] : ''
         );
+        
+        if($settings['listing_cats']) {
+            $args['object_ids'] = get_the_ID();
+        }
 
         $terms = get_terms( $args );
 

@@ -111,7 +111,7 @@ function maybeLazyLoadTaxonomyTermsSelect2( args ) {
         }
 
         if ( $archivePage.length ) {
-            $navListItem = $archivePage.find( '.directorist-type-nav__list li.current .directorist-type-nav__link' );
+            $navListItem = $archivePage.find( '.directorist-type-nav__list li.directorist-type-nav__list__current .directorist-type-nav__link' );
         }
 
         if ( $navListItem && $navListItem.length ) {

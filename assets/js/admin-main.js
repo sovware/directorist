@@ -2931,7 +2931,7 @@ function maybeLazyLoadTaxonomyTermsSelect2(args) {
       $navListItem = $searchForm.find('.directorist-listing-type-selection__link--current');
     }
     if ($archivePage.length) {
-      $navListItem = $archivePage.find('.directorist-type-nav__list li.current .directorist-type-nav__link');
+      $navListItem = $archivePage.find('.directorist-type-nav__list li.directorist-type-nav__list__current .directorist-type-nav__link');
     }
     if ($navListItem && $navListItem.length) {
       directoryId = Number($navListItem.data('listing_type_id'));

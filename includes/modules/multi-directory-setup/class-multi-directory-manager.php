@@ -164,7 +164,7 @@ class Multi_Directory_Manager {
         $logic               = get_term_meta( $term_id, 'similar_listings_logics', true );
         $column              = get_term_meta( $term_id, 'similar_listings_number_of_columns', true );
         $new_related_listing = get_term_meta( $term_id, 'single_listings_contents', true );
-        error_log('top' . $logic);
+        
         if ( ! empty( $new_related_listing['groups'] ) && is_array( $new_related_listing['groups'] ) ) {
             foreach ( $new_related_listing['groups'] as &$group ) {
                 if ( isset( $group['widget_name'] ) && 'related_listings' === $group['widget_name'] ) {
@@ -175,7 +175,7 @@ class Multi_Directory_Manager {
                 }
             }
         }
-        error_log( 'bot'. print_r( $group ) );
+
         update_term_meta( $term_id, 'single_listings_contents', $new_related_listing );
     }
 

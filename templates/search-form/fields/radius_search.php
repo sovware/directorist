@@ -2,15 +2,15 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.7.0
+ * @version 8.0
  */
 
 if (!defined('ABSPATH')) exit;
 
-$min_distance = '0';
-$max_distance = '750';
-$default_distance = $data['default_radius_distance'];
-$value = !empty($_REQUEST['miles']) ? sanitize_text_field( wp_unslash( $_REQUEST['miles'] ) ) : $default_distance;
+$min_distance     = '0';
+$default_distance = $data['default_radius_distance'] ?? 0;
+$max_distance     = $data['max_radius_distance'] ?? 1000;
+$value            = ! empty( $_REQUEST['miles']) ? sanitize_text_field( wp_unslash( $_REQUEST['miles'] ) ) : $default_distance;
 ?>
 
 <div class="directorist-search-field directorist-search-field-radius_search">

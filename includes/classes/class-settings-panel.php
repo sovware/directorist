@@ -1741,28 +1741,29 @@ Please remember that your order may be canceled if you do not make your payment 
                     ],
                 ],
                 'crop_width' => [
-                    'label' => __('Container Width', 'directorist'),
+                    'label' => __('Width', 'directorist'),
                     'type'  => 'number',
                     'value' => '350',
                     'min' => '1',
                     'max' => '1200',
                     'step' => '1',
-
+                    'group' => 'container',
+                    'group_label' => 'Container',
                 ],
                 'crop_height' => [
-                    'label' => __('Container Height', 'directorist'),
+                    'label' => __('Height', 'directorist'),
                     'type'  => 'number',
                     'value' => '260',
                     'min' => '1',
                     'max' => '1200',
                     'step' => '1',
-
+                    'group' => 'container',
+                    'group_label' => 'Container',
                 ],
                 'prv_container_size_by' => [
-                    'label' => __('Container Size By', 'directorist'),
+                    'label' => __('Size By', 'directorist'),
                     'type'  => 'select',
                     'value' => 'px',
-
                     'options' => [
                         [
                             'value' => 'px',
@@ -1773,6 +1774,8 @@ Please remember that your order may be canceled if you do not make your payment 
                             'label' => __('Ratio', 'directorist'),
                         ],
                     ],
+                    'group' => 'container',
+                    'group_label' => 'Container',
                 ],
                 'prv_background_type' => [
                     'label' => __('Background', 'directorist'),
@@ -2534,47 +2537,15 @@ Please remember that your order may be canceled if you do not make your payment 
                     'label'         => __('Search Bar Sub-title', 'directorist'),
                     'value'         => __( 'Find the best match of your interest', 'directorist' ),
                 ],
-                'search_border' => [
-                    'type'  => 'toggle',
-                    'label' => __('Search Bar Border', 'directorist'),
-                    'value' => true,
-                ],
 
                 'search_more_filter' => [
                     'type'  => 'toggle',
                     'label' => __('Display More Filters', 'directorist'),
                     'value' => true,
                 ],
-                'search_more_filter_icon' => [
-                    'type'  => 'toggle',
-                    'label' => __('Display More Filters Icon', 'directorist'),
-                    'value' => true,
-                    'show-if' => [
-                        'where' => "search_more_filter",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => true],
-                        ],
-                    ],
-                ],
-                'search_button' => [
-                    'type'  => 'toggle',
-                    'label' => __('Display Search Button', 'directorist'),
-                    'value' => true,
-                ],
-                'search_button_icon' => [
-                    'type'  => 'toggle',
-                    'label' => __('Display Search Button Icon', 'directorist'),
-                    'value' => true,
-                    'show-if' => [
-                        'where' => "search_button",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => true],
-                        ],
-                    ],
-                ],
                 'search_filters' => [
                     'type' => 'checkbox',
-                    'label' => __('Filters Button', 'directorist'),
+                    'label' => __('Filter Actions', 'directorist'),
                     'show-if' => [
                         'where' => "search_more_filter",
                         'conditions' => [
@@ -2596,44 +2567,10 @@ Please remember that your order may be canceled if you do not make your payment 
                         ],
                     ],
                 ],
-                'search_default_radius_distance' => [
-                    'label'         => __('Default Radius Distance', 'directorist'),
-                    'type'          => 'number',
-                    'value'         => '0',
-                    'min'           => '0',
-                    'max'           => '750',
-                    'step'          => '1',
-                    'show-if' => [
-                        'where' => "search_more_filter",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => true],
-                        ],
-                    ],
-                ],
-                'search_max_radius_distance' => [
-                    'label'         => __('Maximum Radius Distance', 'directorist'),
-                    'type'          => 'number',
-                    'value'         => '1000',
-                    'min'           => '0',
-                    'max'           => '1000',
-                    'step'          => '10',
-                    'show-if' => [
-                        'where' => "search_more_filter",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => true],
-                        ],
-                    ],
-                ],
                 'search_listing_text'    => [
                     'type'          => 'text',
                     'label'         => __('Search Button Text', 'directorist'),
                     'value'         => __('Search Listing', 'directorist'),
-                    'show-if' => [
-                        'where' => "search_button",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => true],
-                        ],
-                    ],
                 ],
                 'search_more_filters'    => [
                     'type'          => 'text',
@@ -2648,7 +2585,7 @@ Please remember that your order may be canceled if you do not make your payment 
                 ],
                 'search_reset_text'    => [
                     'type'          => 'text',
-                    'label'         => __('Reset Filters Button Text', 'directorist'),
+                    'label'         => __('Reset Button Text', 'directorist'),
                     'value'         => __('Reset Filters', 'directorist'),
                     'show-if' => [
                         'where' => "search_more_filter",
@@ -2659,7 +2596,7 @@ Please remember that your order may be canceled if you do not make your payment 
                 ],
                 'search_apply_filter'    => [
                     'type'          => 'text',
-                    'label'         => __('Apply Filters Button Text', 'directorist'),
+                    'label'         => __('Apply Button Text', 'directorist'),
                     'value'         => __('Apply Filters', 'directorist'),
                     'show-if' => [
                         'where' => "search_more_filter",
@@ -2676,7 +2613,7 @@ Please remember that your order may be canceled if you do not make your payment 
 
                 'popular_cat_title'    => [
                     'type'          => 'text',
-                    'label'         => __('Popular Categories Title', 'directorist'),
+                    'label'         => __('Section Title', 'directorist'),
                     'value'         => __('Browse by popular categories', 'directorist'),
                     'show-if' => [
                         'where' => "show_popular_category",
@@ -2686,7 +2623,7 @@ Please remember that your order may be canceled if you do not make your payment 
                     ],
                 ],
                 'popular_cat_num' => [
-                    'label'         => __('Number of Popular Categories', 'directorist'),
+                    'label'         => __('Number of Categories to Display', 'directorist'),
                     'type'          => 'number',
                     'value'         => '10',
                     'min'           => '1',
@@ -2700,7 +2637,7 @@ Please remember that your order may be canceled if you do not make your payment 
                     ],
                 ],
                 'search_home_bg' => [
-                    'label'       => __('Search Page Background', 'directorist'),
+                    'label'       => __('Search Section Background', 'directorist'),
                     'type'        => 'wp-media-picker',
                     'default-img' => '',
                     'value'       => '',
@@ -4327,6 +4264,24 @@ Please remember that your order may be canceled if you do not make your payment 
 
                     We look forward to seeing you soon', 'directorist'),
                 ],
+                // Email Verification
+                'email_sub_email_verification'    => [
+                    'type'           => 'text',
+                    'label'          => __('Email Subject', 'directorist'),
+                    'description'    => __('Edit the subject for sending to the user when listing contact message send.', 'directorist'),
+                    'value'          => __('[==NAME==] Verify Your Email', 'directorist'),
+                ],
+                'email_tmpl_email_verification'    => [
+                    'type'           => 'textarea',
+                    'label'          => __('Email Body', 'directorist'),
+                    'description'    => __('Note: Use ==USER_PASSWORD== to show a temporary password when password field is disable from registration page', 'directorist'),
+                    'value'          => __('Hi ==USERNAME==,
+                    Thank you for signing up at ==SITE_NAME==, to complete the registration, please verify your email address.
+                    To activate your account simply click on the link below and verify your email address within 24 hours. For your safety, you will not be able to access your account until verification of your email has been completed.
+                    ==CONFIRM_EMAIL_ADDRESS_URL==
+
+                    <p align="center">If you did not sign up for this account you can ignore this email.</p>', 'directorist'),
+                ],
                 // single template settings
                 'single_temp_max_width'    => [
                     'type'           => 'text',
@@ -4523,9 +4478,22 @@ Please remember that your order may be canceled if you do not make your payment 
                             'label' => __('Search Listing', 'directorist'),
                             'icon' => '<i class="fa fa-search"></i>',
                             'sections' => apply_filters( 'directorist_search_setting_sections', [
-                                'search_form' => [
+                                'search_bar' => [
+                                    'title'       => __( 'Search Bar', 'directorist' ),
                                     'fields'      => [
-                                        'search_title', 'search_subtitle', 'search_border', 'search_more_filter', 'search_more_filter_icon', 'search_button', 'search_button_icon', 'search_filters','search_default_radius_distance', 'search_max_radius_distance', 'search_listing_text', 'search_more_filters', 'search_reset_text', 'search_apply_filter', 'show_popular_category', 'popular_cat_title', 'popular_cat_num', 'search_home_bg',
+                                        'search_title', 'search_subtitle', 'search_home_bg', 'search_listing_text',
+                                     ],
+                                ],
+                                'search_filters' => [
+                                    'title'       => __( 'Filters', 'directorist' ),
+                                    'fields'      => [
+                                        'search_more_filter', 'search_more_filters', 'search_filters', 'search_reset_text', 'search_apply_filter',
+                                     ],
+                                ],
+                                'poplar_categories' => [
+                                    'title'       => __( 'Popular Categories', 'directorist' ),
+                                    'fields'      => [
+                                        'show_popular_category', 'popular_cat_title', 'popular_cat_num',
                                      ],
                                 ],
                             ] ),
@@ -4711,7 +4679,7 @@ Please remember that your order may be canceled if you do not make your payment 
 
                             ] ),
                         ],
-                        
+
                         'user_dashboard' => [
                             'label' => __('Dashboard', 'directorist'),
                             'icon' => '<i class="fa fa-chart-bar"></i>',
@@ -4868,6 +4836,13 @@ Please remember that your order may be canceled if you do not make your payment 
                                     'description' => '',
                                     'fields'      => [
                                         'email_sub_registration_confirmation', 'email_tmpl_registration_confirmation'
+                                     ],
+                                ],
+                                'email_verification' => [
+                                    'title'       => __('Email Verification', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [
+                                        'email_sub_email_verification', 'email_tmpl_email_verification'
                                      ],
                                 ],
                             ] ),
@@ -5372,6 +5347,10 @@ Please remember that your order may be canceled if you do not make your payment 
                 array(
                     'value' => 'listing_review',
                     'label' => __('Listing Review', 'directorist'),
+                ),
+                array(
+                    'value' => 'listing_renewed',
+                    'label' => __('Listing Renewed', 'directorist'),
                 ),
             ));
         }

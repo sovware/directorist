@@ -214,7 +214,7 @@ class Multi_Directory_Manager {
             ], 200);
         }
 
-        $installed = directorist_download_plugin( [ 'url' => 'https://downloads.wordpress.org/plugin/templatiq.1.0.0.zip' ] );
+        $installed = directorist_download_plugin( [ 'url' => 'https://downloads.wordpress.org/plugin/templatiq.zip' ] );
         $path = WP_PLUGIN_DIR . '/templatiq/templatiq.php';
 
         if( ! is_plugin_active( $path ) ){

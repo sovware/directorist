@@ -398,7 +398,7 @@ class Directorist_Listing_Dashboard {
 			'content'   => Helper::get_template_contents( 'dashboard/tab-preferences', [ 'dashboard' => $this ] ),
 			'icon'		=> 'las la-cog',
 		);
-		
+
 		if ( $announcement_tab ) {
 			$dashboard_tabs['dashboard_announcement'] = array(
 				'title'    => $this->get_announcement_label(),
@@ -476,17 +476,28 @@ class Directorist_Listing_Dashboard {
 	}
 
 	public function confirmation_text() {
-		if( !isset( $_GET['notice'] ) ) {
-			return '';
+		if ( ! isset( $_GET['notice'] ) ) {
+			return;
 		}
 
-		$directory_type 		= default_directory_type();
-        $edit_listing_status    = directorist_get_listing_edit_status( $directory_type );
-		$pending_msg 			= get_directorist_option('pending_confirmation_msg', __( 'Thank you for your submission. Your listing is being reviewed and it may take up to 24 hours to complete the review.', 'directorist' ) );
-		$publish_msg 			= get_directorist_option('publish_confirmation_msg', __( 'Congratulations! Your listing has been approved/published. Now it is publicly available.', 'directorist' ) );
-		$confirmation_msg = $edit_listing_status === 'publish' ? $publish_msg : $pending_msg;
+		$listing_id = isset( $_GET['listing_id'] ) ? absint( $_GET['listing_id'] ) : 0;
+		if ( $listing_id && ! directorist_is_listing_post_type( $listing_id ) ) {
+			return;
+		}
 
-		return $confirmation_msg;
+		if ( get_post_status( $listing_id ) === 'publish' ) {
+			$message = get_directorist_option(
+				'publish_confirmation_msg',
+				__( 'Congratulations! Your listing has been approved/published. Now it is publicly available.', 'directorist' )
+			);
+		} else {
+			$message = get_directorist_option(
+				'pending_confirmation_msg',
+				__( 'Thank you for your submission. Your listing is being reviewed and it may take up to 24 hours to complete the review.', 'directorist' )
+			);
+		}
+
+		return $message;
 	}
 
 	public function navigation_template() {

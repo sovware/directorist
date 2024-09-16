@@ -3724,6 +3724,8 @@ body.stop-scrolling {
   background-color: var(--directorist-color-white);
   border-radius: 100%;
   border: 5px solid var(--directorist-color-primary);
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
 }
 .directorist-form-pricing-field__options .directorist_pricing_options input[type=checkbox] + .directorist-checkbox__label:checked:after {
   opacity: 0;
@@ -10233,6 +10235,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .directorist-content-active .directorist-author-profile__avatar img {
   max-width: 100px !important;
+  max-height: 100px;
   border-radius: 50%;
   background-color: var(--directorist-color-bg-gray);
 }

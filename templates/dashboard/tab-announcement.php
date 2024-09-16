@@ -26,7 +26,7 @@ $announcements = $dashboard->get_announcements();
 
 					<div class="directorist-announcement__content">
 						<h3 class="directorist-announcement__title"><?php echo esc_html( $announcement['title'] ); ?></h3>
-						<p class="directorist-announcement__message"><?php echo esc_html( $announcement['content'] ); ?></p>
+						<p class="directorist-announcement__message"><?php echo wp_kses_post( $announcement['content'] ); ?></p>
 					</div>
 
 					<div class="directorist-announcement__close">

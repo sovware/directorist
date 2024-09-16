@@ -425,7 +425,7 @@ function maybeLazyLoadTaxonomyTermsSelect2(args) {
       $navListItem = $searchForm.find('.directorist-listing-type-selection__link--current');
     }
     if ($archivePage.length) {
-      $navListItem = $archivePage.find('.directorist-type-nav__list li.current .directorist-type-nav__link');
+      $navListItem = $archivePage.find('.directorist-type-nav__list li.directorist-type-nav__list__current .directorist-type-nav__link');
     }
     if ($navListItem && $navListItem.length) {
       directoryId = Number($navListItem.data('listing_type_id'));
@@ -2287,7 +2287,9 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       },
       success: function success(html) {
         if (html.search_result) {
-          $(_this).closest('.directorist-instant-search').find('.directorist-header-found-title').replaceWith(html.header_title);
+          $(_this).closest('.directorist-instant-search').find('.directorist-header-found-title').remove();
+          $(_this).closest('.directorist-instant-search').find('.dsa-save-search-container').remove();
+          $(_this).closest('.directorist-instant-search').find('.directorist-listings-header__left').append(html.header_title);
           $(_this).closest('.directorist-instant-search').find('.directorist-header-found-title span').text(html.count);
           $(_this).closest('.directorist-instant-search').find('.directorist-archive-items').replaceWith(html.search_result);
           $(_this).closest('.directorist-instant-search').find('.directorist-archive-items').removeClass('atbdp-form-fade');
@@ -2334,16 +2336,18 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   }
 
   // sidebar on keyup searching
-  $('body').on("keyup", ".directorist-instant-search form", Object(_global_components_debounce__WEBPACK_IMPORTED_MODULE_2__["default"])(function (e) {
+  $('body').on("keyup", ".directorist-instant-search .listing-with-sidebar form", Object(_global_components_debounce__WEBPACK_IMPORTED_MODULE_2__["default"])(function (e) {
     e.preventDefault();
-    var searchElm = $(this);
+    var searchElm = $(this).closest('.listing-with-sidebar');
+    ;
     filterListing(searchElm);
   }, 250));
 
   // sidebar on change searching
-  $('body').on("change", ".directorist-instant-search select, .directorist-instant-search input[type='checkbox'],.directorist-instant-search input[type='radio'] ", Object(_global_components_debounce__WEBPACK_IMPORTED_MODULE_2__["default"])(function (e) {
+  $('body').on("change", ".directorist-instant-search .listing-with-sidebar select, .directorist-instant-search .listing-with-sidebar input[type='checkbox'],.directorist-instant-search .listing-with-sidebar input[type='radio'] ", Object(_global_components_debounce__WEBPACK_IMPORTED_MODULE_2__["default"])(function (e) {
     e.preventDefault();
-    var searchElm = $(this.closest('form'));
+    var searchElm = $(this).closest('.listing-with-sidebar');
+    ;
     filterListing(searchElm);
   }, 250));
   $('body').on("click", ".directorist-instant-search .directorist-search-field__btn--clear", function (e) {

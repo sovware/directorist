@@ -916,7 +916,7 @@ div[draggable="true"].cptm-form-builder-group-title-area {
   position: relative;
   justify-content: space-between;
   padding: 15px 20px;
-  cursor: move;
+  cursor: default;
   box-shadow: 0px 1px 5px rgba(#a1a8c6, 0.1);
   border-radius: 4px;
   background-color: #fff;
@@ -925,6 +925,12 @@ div[draggable="true"].cptm-form-builder-group-title-area {
   .cptm-title-3 {
     font-size: 14px;
     color: $dark-3;
+  }
+}
+
+.directorist-draggable-list-item {
+  .cptm-form-builder-group-field-item-header {
+    cursor: move;
   }
 }
 
@@ -3038,6 +3044,92 @@ input[type=radio] {
     color: #7a8289;
     &:hover{
       background: #dee0e4;
+    }
+  }
+}
+
+//Grouped settings
+.cptm-field-group-container{
+  .cptm-field-group-container__label{
+    font-size: 15px;
+    font-weight: 500;
+    color: #272b41;
+    display: inline-block;
+    @media only screen and (max-width: 767px){
+      margin-bottom: 15px;
+    }
+  }
+}
+.cptm-container-group-fields{
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  @media only screen and (max-width: 1300px){
+    flex-wrap: wrap;
+  }
+  .cptm-form-group{
+    @media only screen and (max-width: 1300px){
+      &:not(:last-child){
+        margin-bottom: 0;
+      }
+    }
+    @media only screen and (max-width: 991px){
+      width: 100%;
+    }
+  }
+  .highlight-field{
+    padding: 0;
+  }
+  .atbdp-row{
+    margin: 0;
+    flex-wrap: nowrap;
+    gap: 10px;
+    align-items: center;
+    .atbdp-col{
+      flex: none !important;
+      width: auto;
+      padding: 0;
+      input{
+        max-width: 100px !important;
+        box-sizing: border-box;
+        @media only screen and (max-width: 991px){
+          max-width: none !important;
+        }
+        @media only screen and (max-width: 767px){
+          max-width: 150px !important;
+        }
+      }
+      label{
+        margin: 0;
+        font-size: 14px !important;
+        font-weight: normal;
+        @media only screen and (max-width: 1300px){
+          min-width: 50px;
+        }
+      }
+      .directorist_dropdown{
+        width: 95px;
+        .directorist_dropdown-toggle:before{
+          position: relative;
+          top: -3px;
+        }
+        @media only screen and (max-width: 991px){
+          width: calc(100% - 2px);
+        }
+        @media only screen and (max-width: 767px){
+          width: 150px;
+        }
+      }
+      &.atbdp-col-8{
+         @media only screen and (max-width: 991px){
+          flex: auto !important;
+        }
+      }
+      &.atbdp-col-4{
+        @media only screen and (max-width: 767px){
+          width: auto !important;
+        }
+      }
     }
   }
 }

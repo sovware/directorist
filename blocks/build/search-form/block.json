@@ -1,0 +1,67 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "category": "directorist-blocks-collection",
+  "version": "1.0.0",
+  "name": "directorist/search-listing",
+  "title": "Search Form",
+  "description": "Create directory listing search form.",
+  "attributes": {
+    "show_title_subtitle": {
+      "type": "boolean",
+      "default": true
+    },
+    "search_bar_title": {
+      "type": "string",
+      "default": "Search here"
+    },
+    "search_bar_sub_title": {
+      "type": "string",
+      "default": "Find the best match of your interest"
+    },
+    "more_filters_button": {
+      "type": "boolean",
+      "default": true
+    },
+    "more_filters_text": {
+      "type": "string",
+      "default": "More Filters"
+    },
+    "reset_filters_button": {
+      "type": "boolean",
+      "default": true
+    },
+    "reset_filters_text": {
+      "type": "string",
+      "default": "Reset Filters"
+    },
+    "apply_filters_button": {
+      "type": "boolean",
+      "default": true
+    },
+    "apply_filters_text": {
+      "type": "string",
+      "default": "Apply Filters"
+    },
+    "more_filters_display": {
+      "type": "string",
+      "default": "overlapping"
+    },
+    "logged_in_user_only": {
+      "type": "boolean",
+      "default": false
+    },
+    "directory_type": {
+      "type": "string",
+      "default": ""
+    },
+    "default_directory_type": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "supports": {
+    "html": false
+  },
+  "editorScript": "file:./index.js"
+}

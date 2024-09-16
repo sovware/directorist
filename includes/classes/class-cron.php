@@ -367,6 +367,7 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
 							'_renewal_reminder_sent' => 0,
 						),
 					) );
+					do_action( 'atbdp_after_renewal', $listing->ID );
 				}
 			}
 		}

@@ -354,15 +354,10 @@ class Builder_Data {
                                 'canTrash' => false,
                                 'canMove'  => false,
                                 'options'  => [
-                                    'label' => [
-                                        'label' => __( 'Label', 'directorist' ),
-                                        'type'  => 'text',
-                                        'value' => __( 'Comment', 'directorist' ),
-                                    ],
                                     'placeholder' => [
                                         'label' => __( 'Placeholder', 'directorist' ),
                                         'type'  => 'text',
-                                        'value' => __( 'Leave a review', 'directorist' ),
+                                        'value' => '',
                                     ],
                                 ]
                             ],
@@ -374,12 +369,12 @@ class Builder_Data {
                                     'label' => [
                                         'label' => __( 'Label', 'directorist' ),
                                         'type'  => 'text',
-                                        'value' => __( 'Email', 'directorist' ),
+                                        'value' => '',
                                     ],
                                     'placeholder' => [
                                         'label' => __( 'Placeholder', 'directorist' ),
                                         'type'  => 'text',
-                                        'value' => __( 'Your Email', 'directorist' ),
+                                        'value' => '',
                                     ],
                                 ]
                             ],
@@ -391,12 +386,12 @@ class Builder_Data {
                                     'label' => [
                                         'label' => __( 'Label', 'directorist' ),
                                         'type'  => 'text',
-                                        'value' => __( 'Name', 'directorist' ),
+                                        'value' => '',
                                     ],
                                     'placeholder' => [
                                         'label' => __( 'Placeholder', 'directorist' ),
                                         'type'  => 'text',
-                                        'value' => __( 'Your Name', 'directorist' ),
+                                        'value' => '',
                                     ],
                                 ]
                             ],
@@ -405,15 +400,20 @@ class Builder_Data {
                                 'canTrash' => false,
                                 'canMove'  => false,
                                 'options'  => [
+                                    'enable' => [
+                                        'label'   => __( 'Show Website Field?', 'directorist' ),
+                                        'type'    => 'toggle',
+                                        'value'   => false,
+                                    ],
                                     'label' => [
                                         'label'   => __( 'Label', 'directorist' ),
                                         'type'    => 'text',
-                                        'value'   => __( 'Website', 'directorist' ),
+                                        'value'   => '',
                                     ],
                                     'placeholder' => [
                                         'label'   => __( 'Placeholder', 'directorist' ),
                                         'type'    => 'text',
-                                        'value'   => __( 'Website url', 'directorist' ),
+                                        'value'   => '',
                                     ],
                                 ]
                             ],

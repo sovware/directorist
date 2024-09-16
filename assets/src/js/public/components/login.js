@@ -56,9 +56,9 @@
                     behavior: 'smooth',
                 });
             } else {
-                location.href = href;
+                location.href = $(this).attr('href');
             }
-        })
+        });
 
 
         // Alert users to login (only if applicable)
@@ -83,7 +83,7 @@
         window.history.pushState(null, null, url.toString());
 
         // Authentication Form Toggle
-        $('body').on('click', '.directorist-authentication__btn', function (e) {
+        $('body').on('click', '.directorist-authentication__btn, .directorist-authentication__toggle', function (e) {
             e.preventDefault();
             $('.directorist-login-wrapper').toggleClass('active');
             $('.directorist-registration-wrapper').toggleClass('active');

@@ -445,7 +445,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			}
 
 			$current_page   = isset( $atts['_current_page'] ) ? $atts['_current_page'] : '';
-			$listing_layout = get_directorist_type_option( $directory_id, 'all_listing_layout', 'no_sidebar' );
+			$listing_layout = get_directorist_option( 'all_listing_layout', 'no_sidebar' );
 
 			$selectors = array(
 				'no_sidebar'    => '.directorist-advanced-filter__advanced',
@@ -1544,8 +1544,8 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 				die();
 			}
 
-			$sendOwner = in_array( 'listing_contact_form', get_directorist_option( 'notify_user', array( 'listing_contact_form' ), true ) );
-			$sendAdmin = in_array( 'listing_contact_form', get_directorist_option( 'notify_admin', array( 'listing_contact_form' ), true ) );
+			$sendOwner = in_array( 'listing_contact_form', get_directorist_option( 'notify_user' ), true );
+			$sendAdmin = in_array( 'listing_contact_form', get_directorist_option( 'notify_admin' ), true );
 
 			// is admin disabled both notification
 			if ( ! $sendOwner && ! $sendAdmin ) {

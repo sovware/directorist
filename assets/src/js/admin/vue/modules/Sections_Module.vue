@@ -14,19 +14,17 @@
       <div class="cptm-form-fields" v-if="sectionFields(section)">
         <div
           v-for="(field, field_key) in sectionFields(section)"
-          :class="fieldWrapperClass(field, fields[field])"
-          :id="fieldWrapperID(fields[field])"
+          v-if="fields[field].group !== 'container'"
           :key="field_key"
         >
+          <!-- Render the regular fields -->
           <component
             v-if="fields[field]"
-            :root="fields"
             :is="getFormFieldName(fields[field].type)"
             :field-id="field_key"
             :id="menuKey + '__' + section_key + '__' + field"
             :ref="field"
             :class="{ ['highlight-field']: getHighlightState(field) }"
-            :key="field_key"
             :cached-data="cached_fields[field]"
             v-bind="fields[field]"
             @update="updateFieldValue(field, $event)"
@@ -34,6 +32,49 @@
             @is-visible="updateFieldData(field, 'isVisible', $event)"
             @do-action="doAction($event, 'sections-module')"
           />
+
+          <!-- Insert the wrapped container fields right after "way_to_show_preview" -->
+          <div
+            v-if="
+              field === 'way_to_show_preview' &&
+              groupedContainerFields.length > 0
+            "
+            class="cptm-field-group-container"
+          >
+            <div class="atbdp-row">
+              <div class="atbdp-col atbdp-col-4">
+                <label class="cptm-field-group-container__label">
+                  <span>{{ containerGroupLabel }}</span>
+                </label>
+              </div>
+              <div class="atbdp-col atbdp-col-8">
+                <div class="cptm-container-group-fields">
+                  <component
+                    v-for="(
+                      groupedField, groupedFieldKey
+                    ) in groupedContainerFields"
+                    :is="getFormFieldName(fields[groupedField].type)"
+                    :field-id="groupedFieldKey"
+                    :id="menuKey + '__' + section_key + '__' + groupedField"
+                    :ref="groupedField"
+                    :class="{
+                      ['highlight-field']: getHighlightState(groupedField),
+                    }"
+                    :cached-data="cached_fields[groupedField]"
+                    v-bind="fields[groupedField]"
+                    @update="updateFieldValue(groupedField, $event)"
+                    @validate="updateFieldValidationState(groupedField, $event)"
+                    @is-visible="
+                      updateFieldData(groupedField, 'isVisible', $event)
+                    "
+                    @do-action="doAction($event, 'sections-module')"
+                    :key="groupedFieldKey"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- ends: .field-group-container -->
         </div>
       </div>
     </div>
@@ -71,11 +112,18 @@ export default {
         "tab-full-width": "full-width" === this.container ? true : false,
       };
     },
-  },
 
-  watch: {
-    fields() {
-      // console.log("updated");
+    // Get the grouped container fields
+    groupedContainerFields() {
+      return this.groupFieldsByContainer().container || [];
+    },
+
+    // Get the label for the container group
+    containerGroupLabel() {
+      const firstContainerField = this.groupedContainerFields[0];
+      return firstContainerField
+        ? this.fields[firstContainerField].group_label
+        : "";
     },
   },
 
@@ -87,8 +135,22 @@ export default {
       if (!Array.isArray(section.fields)) {
         return false;
       }
-
       return section.fields;
+    },
+
+    // Group fields by their group value, focusing on the container group
+    groupFieldsByContainer() {
+      let groupedFields = {
+        container: [],
+      };
+
+      Object.keys(this.fields).forEach((field) => {
+        if (this.fields[field].group === "container") {
+          groupedFields.container.push(field);
+        }
+      });
+
+      return groupedFields;
     },
 
     sectionClass(section) {

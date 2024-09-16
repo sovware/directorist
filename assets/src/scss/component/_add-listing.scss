@@ -547,6 +547,7 @@
             background-color: var(--directorist-color-white);
             border-radius: 100%;
             border: 5px solid var(--directorist-color-primary);
+            box-sizing: content-box;
           }
           &:checked {
             &:after {

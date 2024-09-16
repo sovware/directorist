@@ -802,7 +802,7 @@ $(function () {
                 window.location.href = decodeURIComponent(redirect_url);
               } else {
                 $notification.show().html("<span class=\"atbdp_success\">".concat(response.success_msg, "</span>"));
-                window.location.href = joinQueryString(response.redirect_url, is_edited);
+                window.location.href = joinQueryString(decodeURIComponent(response.redirect_url), is_edited);
               }
             }
           }
@@ -1585,7 +1585,7 @@ function maybeLazyLoadTaxonomyTermsSelect2(args) {
       $navListItem = $searchForm.find('.directorist-listing-type-selection__link--current');
     }
     if ($archivePage.length) {
-      $navListItem = $archivePage.find('.directorist-type-nav__list li.current .directorist-type-nav__link');
+      $navListItem = $archivePage.find('.directorist-type-nav__list li.directorist-type-nav__list__current .directorist-type-nav__link');
     }
     if ($navListItem && $navListItem.length) {
       directoryId = Number($navListItem.data('listing_type_id'));

@@ -8,7 +8,7 @@
         v-if="groupFields && typeof groupFields === 'object'"
         @click.prevent="$emit('toggle-expand-group')"
       >
-        <span class="fa fa-pen" aria-hidden="true"></span>
+        <span class="fa fa-cog" aria-hidden="true"></span>
       </a>
     </h3>
 

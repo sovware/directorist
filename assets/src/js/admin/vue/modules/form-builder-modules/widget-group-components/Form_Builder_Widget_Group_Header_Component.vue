@@ -24,7 +24,7 @@
         <slide-up-down :active="groupFieldsExpandState" :duration="500">
             <div class="cptm-form-builder-group-options">
                 <field-list-component
-                    :field-list="groupFields"
+                    :field-list="finalGroupFields"
                     :value="groupData"
                     @update="$emit( 'update-group-field', $event)"
                 />
@@ -34,6 +34,8 @@
 </template>
 
 <script>
+import { findObjectItem, isObject } from "../../../../../helper";
+
 export default {
     name: 'form-builder-widget-group-header-component',
     props: {
@@ -44,6 +46,9 @@ export default {
             default: '',
         },
         groupFields: {
+            default: '',
+        },
+        avilableWidgets: {
             default: '',
         },
         widgetsExpanded: {
@@ -67,6 +72,12 @@ export default {
         this.setup();
     },
 
+    watch: {
+        groupData() {
+            this.setup();
+        }
+    },
+
     computed: {
         groupFieldsExpandState() {
             let state = this.groupFieldsExpanded;
@@ -85,6 +96,7 @@ export default {
 
     data() {
         return {
+            finalGroupFields: {},
             header_title_component_props: {},
             groupFieldsExpanded: false,
         }
@@ -92,7 +104,30 @@ export default {
 
     methods: {
         setup() {
+            if ( isObject( this.groupFields ) ) {
+                this.finalGroupFields = this.groupFields;
+            }
 
+            const widgetOptions = this.findWidgetOptions( this.groupData, this.avilableWidgets );
+
+            if ( widgetOptions ) {
+                this.finalGroupFields = { ...this.finalGroupFields, ...widgetOptions };
+            }
+        },
+
+        findWidgetOptions( groupData, avilableWidgets ) {
+            if ( ! isObject( groupData ) ) {
+                return null;
+            }
+
+            if ( ! isObject( avilableWidgets ) ) {
+                return null;
+            }
+
+            const widgetGroup = groupData.widget_group;
+            const widgetName  = groupData.widget_name;
+
+            return findObjectItem( `${widgetGroup}.${widgetName}.options`, avilableWidgets, null );
         },
 
         toggleGroupFieldsExpand() {

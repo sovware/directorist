@@ -425,7 +425,7 @@ function maybeLazyLoadTaxonomyTermsSelect2(args) {
       $navListItem = $searchForm.find('.directorist-listing-type-selection__link--current');
     }
     if ($archivePage.length) {
-      $navListItem = $archivePage.find('.directorist-type-nav__list li.current .directorist-type-nav__link');
+      $navListItem = $archivePage.find('.directorist-type-nav__list li.directorist-type-nav__list__current .directorist-type-nav__link');
     }
     if ($navListItem && $navListItem.length) {
       directoryId = Number($navListItem.data('listing_type_id'));
@@ -1368,7 +1368,7 @@ __webpack_require__.r(__webpack_exports__);
           - The provided value for the option;
           - A reference to the options object;
           - The name for the option;
-        The testing function returns false when an error is detected,
+       The testing function returns false when an error is detected,
       or true when everything is OK. It can also modify the option
       object, to make sure all values can be correctly looped elsewhere. */
   //region Defaults

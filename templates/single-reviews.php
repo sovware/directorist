@@ -16,7 +16,6 @@ use Directorist\Review\Walker as Review_Walker;
 use Directorist\Review\Comment_Form_Renderer;
 use Directorist\Directorist_Single_Listing;
 
-$builder       = Builder::get( get_the_ID() );
 $review_rating = directorist_get_listing_rating( get_the_ID() );
 $review_count  = directorist_get_listing_review_count( get_the_ID() );
 $review_text   = sprintf( _n( '%s review', '%s reviews', $review_count, 'directorist' ), number_format_i18n( $review_count ) );
@@ -26,6 +25,7 @@ Bootstrap::load_walker();
 
 $listing       = Directorist_Single_Listing::instance();
 $section_data  = $listing->get_review_section_data();
+$builder       = Builder::get( $section_data['section_data'] );
 $section_id    = isset( $section_data['id'] ) ? $section_data['id'] : '';
 $section_class = isset( $section_data['class'] ) ? $section_data['class'] : '';
 $section_icon  = isset( $section_data['icon'] ) ? $section_data['icon'] : '';

@@ -2,6 +2,9 @@
 
 namespace Directorist\Multi_Directory;
 use ATBDP_Permalink;
+
+use function PHPSTORM_META\type;
+
 class Builder_Data {
     protected static $fields           = [];
     protected static $layouts          = [];
@@ -316,7 +319,106 @@ class Builder_Data {
                                 'label' => __( 'Custom block Classes', 'directorist' ),
                                 'value' => '',
                             ],
+                            'review_cookies_consent' => [
+                                'label' => __( 'Show Cookies Consent', 'directorist' ),
+                                'type'  => 'toggle',
+                                'value' => false,
+                            ],
                         ],
+
+                        'accepted_widgets' => [
+                            [
+                                'widget_group'      => 'other_widgets',
+                                'widget_name'       => 'review',
+                                'widget_child_name' => 'review_comment',
+                            ],
+                            [
+                                'widget_group'      => 'other_widgets',
+                                'widget_name'       => 'review',
+                                'widget_child_name' => 'review_email',
+                            ],
+                            [
+                                'widget_group'      => 'other_widgets',
+                                'widget_name'       => 'review',
+                                'widget_child_name' => 'review_name',
+                            ],
+                            [
+                                'widget_group'      => 'other_widgets',
+                                'widget_name'       => 'review',
+                                'widget_child_name' => 'review_website',
+                            ],
+                        ],
+                        'widgets' => [
+                            'review_comment' => [
+                                'label'    => __( 'Comment', 'directorist' ),
+                                'canTrash' => false,
+                                'canMove'  => false,
+                                'options'  => [
+                                    'placeholder' => [
+                                        'label' => __( 'Placeholder', 'directorist' ),
+                                        'type'  => 'text',
+                                        'value' => '',
+                                    ],
+                                ]
+                            ],
+                            'review_email' => [
+                                'label'    => __( 'Email', 'directorist' ),
+                                'canTrash' => false,
+                                'canMove'  => false,
+                                'options'  => [
+                                    'label' => [
+                                        'label' => __( 'Label', 'directorist' ),
+                                        'type'  => 'text',
+                                        'value' => '',
+                                    ],
+                                    'placeholder' => [
+                                        'label' => __( 'Placeholder', 'directorist' ),
+                                        'type'  => 'text',
+                                        'value' => '',
+                                    ],
+                                ]
+                            ],
+                            'review_name' => [
+                                'label'    => __( 'Name', 'directorist' ),
+                                'canTrash' => false,
+                                'canMove'  => false,
+                                'options'  => [
+                                    'label' => [
+                                        'label' => __( 'Label', 'directorist' ),
+                                        'type'  => 'text',
+                                        'value' => '',
+                                    ],
+                                    'placeholder' => [
+                                        'label' => __( 'Placeholder', 'directorist' ),
+                                        'type'  => 'text',
+                                        'value' => '',
+                                    ],
+                                ]
+                            ],
+                            'review_website' => [
+                                'label'    => __( 'Website', 'directorist' ),
+                                'canTrash' => false,
+                                'canMove'  => false,
+                                'options'  => [
+                                    'enable' => [
+                                        'label'   => __( 'Show Website Field?', 'directorist' ),
+                                        'type'    => 'toggle',
+                                        'value'   => false,
+                                    ],
+                                    'label' => [
+                                        'label'   => __( 'Label', 'directorist' ),
+                                        'type'    => 'text',
+                                        'value'   => '',
+                                    ],
+                                    'placeholder' => [
+                                        'label'   => __( 'Placeholder', 'directorist' ),
+                                        'type'    => 'text',
+                                        'value'   => '',
+                                    ],
+                                ]
+                            ],
+                        ]
+
                     ],
                     'author_info'            => [
                         'type'    => 'section',
@@ -366,6 +468,66 @@ class Builder_Data {
                                 'value' => '',
                             ],
                         ],
+                        'accepted_widgets' => [
+                            [
+                                'widget_group'      => 'other_widgets',
+                                'widget_name'       => 'contact_listings_owner',
+                                'widget_child_name' => 'contact_name',
+                            ],
+                            [
+                                'widget_group'      => 'other_widgets',
+                                'widget_name'       => 'contact_listings_owner',
+                                'widget_child_name' => 'contact_email',
+                            ],
+                            [
+                                'widget_group'      => 'other_widgets',
+                                'widget_name'       => 'contact_listings_owner',
+                                'widget_child_name' => 'contact_message',
+                            ],
+                        ],
+                        'widgets' => [
+                            'contact_name' => [
+                                'label'    => __( 'Name', 'directorist' ),
+                                'canTrash' => false,
+                                'canMove'  => false,
+                                'options'  => [
+                                    'enable' => [
+                                        'label' => __( 'Enable', 'directorist' ),
+                                        'type'  => 'toggle',
+                                        'value' => true,
+                                    ],
+                                    'placeholder' => [
+                                        'label' => __( 'Placeholder', 'directorist' ),
+                                        'type'  => 'text',
+                                        'value' => __( 'Name', 'directorist' ),
+                                    ],
+                                ]
+                            ],
+                            'contact_email' => [
+                                'label'    => __( 'Email', 'directorist' ),
+                                'canTrash' => false,
+                                'canMove'  => false,
+                                'options'  => [
+                                    'placeholder' => [
+                                        'label' => __( 'Placeholder', 'directorist' ),
+                                        'type'  => 'text',
+                                        'value' => __( 'Email', 'directorist' ),
+                                    ],
+                                ]
+                            ],
+                            'contact_message' => [
+                                'label'    => __( 'Message', 'directorist' ),
+                                'canTrash' => false,
+                                'canMove'  => false,
+                                'options'  => [
+                                    'placeholder' => [
+                                        'label' => __( 'Placeholder', 'directorist' ),
+                                        'type'  => 'text',
+                                        'value' => __( 'Message...', 'directorist' ),
+                                    ],
+                                ]
+                            ],
+                        ]
                     ],
                     'related_listings'       => [
                         'type'    => 'section',
@@ -386,6 +548,35 @@ class Builder_Data {
                                 'type'  => 'text',
                                 'label' => __( 'Custom block Classes', 'directorist' ),
                                 'value' => '',
+                            ],
+                            'similar_listings_logics'                     => [
+                                'type'    => 'radio',
+                                'name'    => 'similar_listings_logics',
+                                'label'   => __( 'Similar listings logics', 'directorist' ),
+                                'options' => [
+                                    ['id' => 'match_category_nd_location', 'label' => __( 'Must match category and tag', 'directorist' ), 'value' => 'AND'],
+                                    ['id' => 'match_category_or_location', 'label' => __( 'Must match category or tag', 'directorist' ), 'value' => 'OR'],
+                                ],
+                                'value'   => 'OR',
+                            ],
+                            'listing_from_same_author'                    => [
+                                'type'  => 'toggle',
+                                'label' => __( 'Listing from same author', 'directorist' ),
+                                'value' => false,
+                            ],
+                            'similar_listings_number_of_listings_to_show' => [
+                                'type'  => 'range',
+                                'min'   => 0,
+                                'max'   => 20,
+                                'label' => __( 'Number of listings to show', 'directorist' ),
+                                'value' => 0,
+                            ],
+                            'similar_listings_number_of_columns'          => [
+                                'type'  => 'range',
+                                'min'   => 1,
+                                'max'   => 10,
+                                'label' => __( 'Number of columns', 'directorist' ),
+                                'value' => 3,
                             ],
                         ],
                     ],
@@ -529,6 +720,8 @@ class Builder_Data {
                     ],
 
                     'phone'        => [
+                        'canTrash'          => false,
+                        'draggable'         => false,
                         'options' => [
                             'label'       => [
                                 'type'  => 'text',
@@ -845,6 +1038,13 @@ class Builder_Data {
                                 'min'   => 0,
                                 'max'   => apply_filters( 'directorist_search_default_radius_distance', 750 ),
                                 'value' => 0,
+                            ],
+                            'max_radius_distance' => [
+                                'type'  => 'range',
+                                'label' => __( 'Maximum Radius Distance', 'directorist' ),
+                                'min'   => 0,
+                                'max'   => 10000,
+                                'value' => 1000,
                             ],
                             'radius_search_unit'      => [
                                 'type'    => 'select',
@@ -2035,36 +2235,6 @@ class Builder_Data {
                 ],
             ],
 
-            'similar_listings_logics'                     => [
-                'type'    => 'radio',
-                'name'    => 'similar_listings_logics',
-                'label'   => __( 'Similar listings logics', 'directorist' ),
-                'options' => [
-                    ['id' => 'match_category_nd_location', 'label' => __( 'Must match category and tag', 'directorist' ), 'value' => 'AND'],
-                    ['id' => 'match_category_or_location', 'label' => __( 'Must match category or tag', 'directorist' ), 'value' => 'OR'],
-                ],
-                'value'   => 'OR',
-            ],
-            'listing_from_same_author'                    => [
-                'type'  => 'toggle',
-                'label' => __( 'Listing from same author', 'directorist' ),
-                'value' => false,
-            ],
-            'similar_listings_number_of_listings_to_show' => [
-                'type'  => 'range',
-                'min'   => 0,
-                'max'   => 20,
-                'label' => __( 'Number of listings to show', 'directorist' ),
-                'value' => 0,
-            ],
-            'similar_listings_number_of_columns'          => [
-                'type'  => 'range',
-                'min'   => 1,
-                'max'   => 10,
-                'label' => __( 'Number of columns', 'directorist' ),
-                'value' => 3,
-            ],
-
             'all_listing_layout' => [
                 'type'  => 'radio',
                 'value' => 'no_sidebar',
@@ -2545,15 +2715,6 @@ class Builder_Data {
                     'similar_listings' => [
                         'label'    => __( 'Other Settings', 'directorist' ),
                         'sections' => [
-                            'other'         => [
-                                'title'  => __( 'Similar Listings', 'directorist' ),
-                                'fields' => [
-                                    'similar_listings_logics',
-                                    'listing_from_same_author',
-                                    'similar_listings_number_of_listings_to_show',
-                                    'similar_listings_number_of_columns',
-                                ],
-                            ],
                             'page_settings' => [
                                 'fields' => [
                                     'enable_single_listing_page',

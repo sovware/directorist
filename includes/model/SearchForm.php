@@ -478,7 +478,7 @@ class Directorist_Listing_Search_Form {
 
 	public function get_advance_fields() {
 		return ! empty( $this->form_data[1]['fields'] ) && is_array( $this->form_data[1]['fields'] ) 
-        ? $this->form_data[0]['fields'] 
+        ? $this->form_data[1]['fields'] 
         : [];
 	}
 

@@ -397,7 +397,7 @@ class ATBDP_Metabox {
 
 			if ( ! in_array( $field_key, array( 'listing_title', 'listing_content', 'tax_input' ), true ) ) {
 				$meta_field_key = '_' . $field_key;
-				$meta_data[ $meta_field_key ] = isset( $_POST[ $field_key ] ) ? directorist_clean( wp_unslash( $_POST[ $field_key ] ) ) : '';
+				$meta_data[ $meta_field_key ] = isset( $_POST[ $field_key ] ) ? wp_unslash( $_POST[ $field_key ] ) : '';
 			}
 		}
 

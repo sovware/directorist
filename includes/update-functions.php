@@ -169,6 +169,8 @@ function directorist_800_migrate_builder_data() {
 		Multi_Directory_Manager::migrate_contact_owner_settings( $directory_type->term_id );
 		//migrate related listing settings
 		Multi_Directory_Manager::migrate_related_listing_settings( $directory_type->term_id );
+		//migrate privacy policy
+		Multi_Directory_Manager::migrate_privacy_policy( $directory_type->term_id );
 
 		//migrate builder single listing header
 		$new_structure   = [];

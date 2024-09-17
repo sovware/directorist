@@ -927,12 +927,14 @@
         justify-content: space-between;
         figure {
           margin: 0;
+          flex: none;
         }
       }
-
-      .directorist-listing-single__header__title {
-        order: 2;
-        flex: 0 0 100%;
+      @media screen and (max-width: 991px) {
+        .directorist-listing-single__header__title {
+          order: 2;
+          flex: 0 0 100%;
+        }
       }
 
       .directorist-mark-as-favorite__btn {

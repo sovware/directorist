@@ -6,7 +6,7 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
-$fields = $searchform->get_basic_fields();
+$fields = $searchform->get_advance_fields();
 ?>
 
 <div class="directorist-search-modal__overlay"></div>

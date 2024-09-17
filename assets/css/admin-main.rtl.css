@@ -8865,14 +8865,14 @@ body.stop-scrolling {
   margin-bottom: 0;
 }
 .directorist-add-listing-form__action #listing_notifier {
-  padding: 0 40px;
-  margin: 18px 0 33px;
+  padding: 18px 40px 33px;
   font-size: 14px;
   font-weight: 600;
   color: var(--directorist-color-danger);
+  border-top: 1px solid var(--directorist-color-border);
 }
 .directorist-add-listing-form__action #listing_notifier:empty {
-  margin: 35px 0 0;
+  display: none;
 }
 .directorist-add-listing-form__action #listing_notifier .atbdp_success {
   color: var(--directorist-color-success);
@@ -8923,7 +8923,6 @@ body.stop-scrolling {
   padding: 100px 20px;
   margin-bottom: 0;
   text-align: center;
-  border-bottom: 1px solid var(--directorist-color-border);
 }
 @media only screen and (max-width: 576px) {
   .directorist-add-listing-form__publish {

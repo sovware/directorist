@@ -47,6 +47,7 @@ function directorist_uninstall() {
     $wpdb->query("DELETE FROM {$wpdb->term_taxonomy} WHERE taxonomy = 'at_biz_dir-location'");
     $wpdb->query("DELETE FROM {$wpdb->term_taxonomy} WHERE taxonomy = 'at_biz_dir-category'");
     $wpdb->query("DELETE FROM {$wpdb->term_taxonomy} WHERE taxonomy = 'at_biz_dir-tags'");
+    $wpdb->query("DELETE FROM {$wpdb->term_taxonomy} WHERE taxonomy = 'atbdp_listing_types'");
 
     // Delete all term meta
     $wpdb->query("DELETE FROM {$wpdb->termmeta} WHERE term_id NOT IN (SELECT term_id FROM {$wpdb->term_taxonomy});");

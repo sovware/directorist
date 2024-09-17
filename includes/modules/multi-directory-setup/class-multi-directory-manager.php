@@ -213,6 +213,27 @@ class Multi_Directory_Manager {
         update_term_meta( $term_id, 'single_listings_contents', $single_listings_contents );
     }
 
+    public static function migrate_related_listing_settings( $term_id ) {
+        $number              = get_term_meta( $term_id, 'similar_listings_number_of_listings_to_show', true );
+        $same_author         = get_term_meta( $term_id, 'listing_from_same_author', true );
+        $logic               = get_term_meta( $term_id, 'similar_listings_logics', true );
+        $column              = get_term_meta( $term_id, 'similar_listings_number_of_columns', true );
+        $new_related_listing = get_term_meta( $term_id, 'single_listings_contents', true );
+        
+        if ( ! empty( $new_related_listing['groups'] ) && is_array( $new_related_listing['groups'] ) ) {
+            foreach ( $new_related_listing['groups'] as &$group ) {
+                if ( isset( $group['widget_name'] ) && 'related_listings' === $group['widget_name'] ) {
+                    $group['similar_listings_logics']                     = $logic ?? 'OR';
+                    $group['listing_from_same_author']                    = $same_author ?? false;
+                    $group['similar_listings_number_of_listings_to_show'] = absint( $number ?? 3 );
+                    $group['similar_listings_number_of_columns']          = absint( $column ?? 3 );
+                }
+            }
+        }
+
+        update_term_meta( $term_id, 'single_listings_contents', $new_related_listing );
+    }
+
     public static function migrate_privacy_policy( $term_id ) {
         $display_privacy     = (bool) get_directorist_type_option( $term_id, 'listing_privacy' );
         $privacy_is_required = (bool) get_directorist_type_option( $term_id, 'privacy_is_required' );

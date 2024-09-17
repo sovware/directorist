@@ -63,6 +63,176 @@ class Multi_Directory_Manager {
         update_term_meta( $term_id, 'submission_form_fields', $submission_form_fields );
     }
 
+    public static function migrate_review_settings( $term_id ) {
+        $old_review_settings = get_term_meta( $term_id, 'review_config', true );
+        $new_review_builder  = get_term_meta( $term_id, 'single_listings_contents', true );
+    
+        // Update review_cookies_consent in the 'groups' array if the review widget exists
+        if ( ! empty( $old_review_settings['review_cookies_consent'] ) && is_array( $new_review_builder['groups'] ) ) {
+            foreach ( $new_review_builder['groups'] as &$group ) {
+                if ( isset( $group['widget_name'] ) && 'review' === $group['widget_name'] ) {
+                    $group['review_cookies_consent'] = $old_review_settings['review_cookies_consent'];
+                }
+            }
+        }
+    
+        // Mapping for fields outside of groups
+        $fields_mapping = array(
+            'review_comment' => array(
+                'placeholder'       => 'review_comment_placeholder',
+                'widget_name'       => 'review',
+                'widget_child_name' => 'review_comment',
+                'widget_key'        => 'review_comment',
+                'widget_group'      => 'other_widgets',
+            ),
+            'review_email' => array(
+                'label'             => 'review_email_label',
+                'placeholder'       => 'review_email_placeholder',
+                'widget_name'       => 'review',
+                'widget_child_name' => 'review_email',
+                'widget_key'        => 'review_email',
+                'widget_group'      => 'other_widgets',
+            ),
+            'review_name' => array(
+                'label'             => 'review_name_label',
+                'placeholder'       => 'review_name_placeholder',
+                'widget_name'       => 'review',
+                'widget_child_name' => 'review_name',
+                'widget_key'        => 'review_name',
+                'widget_group'      => 'other_widgets',
+            ),
+            'review_website' => array(
+                'enable'            => 'review_show_website_field',
+                'label'             => 'review_website_label',
+                'placeholder'       => 'review_website_placeholder',
+                'widget_name'       => 'review',
+                'widget_child_name' => 'review_website',
+                'widget_key'        => 'review_website',
+                'widget_group'      => 'other_widgets',
+            ),
+        );
+    
+        // Ensure the 'fields' key exists in the new_review_builder array
+        if ( ! isset( $new_review_builder['fields'] ) || ! is_array( $new_review_builder['fields'] ) ) {
+            $new_review_builder['fields'] = array(); // Initialize if not present
+        }
+    
+        // Add or update fields based on the mapping
+        foreach ( $fields_mapping as $field_key => $mapping ) {
+            if ( ! isset( $new_review_builder['fields'][ $field_key ] ) ) {
+                $new_review_builder['fields'][ $field_key ] = array(); // Initialize the field if it doesn't exist
+            }
+    
+            // Add or update the mapped values
+            foreach ( $mapping as $new_key => $old_key ) {
+                if ( $new_key === 'widget_name' || $new_key === 'widget_child_name' || $new_key === 'widget_key' || $new_key === 'widget_group' ) {
+                    // Directly assign widget-related keys
+                    $new_review_builder['fields'][ $field_key ][ $new_key ] = $old_key;
+                } else {
+                    // Assign other keys if they exist in old_review_settings
+                    if ( ! empty( $old_review_settings[ $old_key ] ) ) {
+                        $new_review_builder['fields'][ $field_key ][ $new_key ] = $old_review_settings[ $old_key ];
+                    }
+                }
+            }
+        }
+    
+        // Ensure the 'groups' key exists in the new_review_builder array
+        if ( ! isset( $new_review_builder['groups'] ) || ! is_array( $new_review_builder['groups'] ) ) {
+            $new_review_builder['groups'] = array(); // Initialize if not present
+        }
+    
+        // Add or update groups with the 'review' widget
+        foreach ( $new_review_builder['groups'] as &$group ) {
+            if ( isset( $group['widget_name'] ) && 'review' === $group['widget_name'] ) {
+                foreach ( array_keys( $fields_mapping ) as $field_key ) {
+                    // Add the field to the group if it doesn't already exist
+                    if ( ! in_array( $field_key, $group['fields'] ) ) {
+                        $group['fields'][] = $field_key;
+                    }
+                }
+            }
+        }
+    
+        // Update the term meta with the modified new_review_builder array
+        update_term_meta( $term_id, 'single_listings_contents', $new_review_builder );
+    }
+
+    public static function migrate_contact_owner_settings( $term_id ) {
+        // Get the current settings
+        $single_listings_contents = get_term_meta( $term_id, 'single_listings_contents', true );
+    
+        // Check if necessary fields exist
+        if ( empty( $single_listings_contents['fields'] ) || empty( $single_listings_contents['groups'] ) || ! is_array( $single_listings_contents['groups'] ) ) {
+            return;
+        }
+    
+        // Define the fields mapping
+        $fields_mapping = array(
+            'contact_name'    => array(
+                'enable'            => 1,
+                'placeholder'       => __( 'Name', 'directorist' ),
+                'widget_group'      => 'other_widgets',
+                'widget_name'       => 'contact_listings_owner',
+                'widget_child_name' => 'contact_name',
+                'widget_key'        => 'contact_name',
+            ),
+            'contact_email'   => array(
+                'placeholder'       => __( 'Email', 'directorist' ),
+                'widget_group'      => 'other_widgets',
+                'widget_name'       => 'contact_listings_owner',
+                'widget_child_name' => 'contact_email',
+                'widget_key'        => 'contact_email',
+            ),
+            'contact_message' => array(
+                'placeholder'       => __( 'Message...', 'directorist' ),
+                'widget_group'      => 'other_widgets',
+                'widget_name'       => 'contact_listings_owner',
+                'widget_child_name' => 'contact_message',
+                'widget_key'        => 'contact_message',
+            ),
+        );
+    
+        // Iterate over groups and update the contact listings owner group
+        foreach ( $single_listings_contents['groups'] as &$group ) {
+            if ( isset( $group['widget_name'] ) && 'contact_listings_owner' === $group['widget_name'] ) {
+                foreach ( $fields_mapping as $field_key => $mapping ) {
+                    // Add or update fields
+                    $single_listings_contents['fields'][ $field_key ] = $mapping;
+    
+                    // Ensure the field is added to the group's fields
+                    if ( ! in_array( $field_key, $group['fields'], true ) ) {
+                        $group['fields'][] = $field_key;
+                    }
+                }
+            }
+        }
+    
+        // Update the term meta with the modified contents
+        update_term_meta( $term_id, 'single_listings_contents', $single_listings_contents );
+    }
+
+    public static function migrate_related_listing_settings( $term_id ) {
+        $number              = get_term_meta( $term_id, 'similar_listings_number_of_listings_to_show', true );
+        $same_author         = get_term_meta( $term_id, 'listing_from_same_author', true );
+        $logic               = get_term_meta( $term_id, 'similar_listings_logics', true );
+        $column              = get_term_meta( $term_id, 'similar_listings_number_of_columns', true );
+        $new_related_listing = get_term_meta( $term_id, 'single_listings_contents', true );
+        
+        if ( ! empty( $new_related_listing['groups'] ) && is_array( $new_related_listing['groups'] ) ) {
+            foreach ( $new_related_listing['groups'] as &$group ) {
+                if ( isset( $group['widget_name'] ) && 'related_listings' === $group['widget_name'] ) {
+                    $group['similar_listings_logics']                     = $logic ?? 'OR';
+                    $group['listing_from_same_author']                    = $same_author ?? false;
+                    $group['similar_listings_number_of_listings_to_show'] = absint( $number ?? 3 );
+                    $group['similar_listings_number_of_columns']          = absint( $column ?? 3 );
+                }
+            }
+        }
+
+        update_term_meta( $term_id, 'single_listings_contents', $new_related_listing );
+    }
+
     // add_missing_single_listing_section_id
     public function add_missing_single_listing_section_id() {
         $directory_types = directorist_get_directories();

@@ -161,7 +161,16 @@ function directorist_800_migrate_builder_data() {
 	
 	foreach ( $directory_types as $directory_type ) {
 
+		//migrate custom field
 		Multi_Directory_Manager::migrate_custom_field( $directory_type->term_id );
+		//migrate review settings
+		Multi_Directory_Manager::migrate_review_settings( $directory_type->term_id );
+		//migrate contact form
+		Multi_Directory_Manager::migrate_contact_owner_settings( $directory_type->term_id );
+		//migrate related listing settings
+		Multi_Directory_Manager::migrate_related_listing_settings( $directory_type->term_id );
+
+		//migrate builder single listing header
 		$new_structure   = [];
 		$header_contents = get_term_meta( $directory_type->term_id, 'single_listing_header', true );
 		

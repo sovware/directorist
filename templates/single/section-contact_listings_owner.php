@@ -10,6 +10,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 if( $listing->contact_owner_form_disabled() ) {
 	return;
 }
+
+$fields = $listing->contact_owner_fields( $section_data['fields'] );
 ?>
 
 <section class="directorist-card directorist-card-contact-owner <?php echo esc_attr( $class );?>" <?php $listing->section_id( $id ); ?>>
@@ -31,16 +33,18 @@ if( $listing->contact_owner_form_disabled() ) {
 
 			<div class="directorist-contact-owner-form-inner">
 
+				<?php if( ! empty( $fields['name']['enable'] ) ) : ?>
+					<div class="directorist-form-group">
+						<input type="text" class="directorist-form-element" name="atbdp-contact-name" placeholder="<?php echo esc_attr( $fields['name']['placeholder'] ); ?>" required />
+					</div>
+				<?php endif; ?>
+
 				<div class="directorist-form-group">
-					<input type="text" class="directorist-form-element" name="atbdp-contact-name" placeholder="<?php esc_attr_e( 'Name', 'directorist' ); ?>" required />
+					<input type="email" class="directorist-form-element" name="atbdp-contact-email" placeholder="<?php echo esc_attr( $fields['email']['placeholder'] ); ?>" required />
 				</div>
 
 				<div class="directorist-form-group">
-					<input type="email" class="directorist-form-element" name="atbdp-contact-email" placeholder="<?php esc_attr_e( 'Email', 'directorist' ); ?>" required />
-				</div>
-
-				<div class="directorist-form-group">
-					<textarea class="directorist-form-element" name="atbdp-contact-message" rows="3" placeholder="<?php esc_attr_e( 'Message...', 'directorist' ); ?>" required></textarea>
+					<textarea class="directorist-form-element" name="atbdp-contact-message" rows="3" placeholder="<?php echo esc_attr( $fields['message']['placeholder'] ); ?>" required></textarea>
 				</div>
 
 				<input type="hidden" name="atbdp-post-id" value="<?php echo esc_attr( $listing->id ); ?>" />

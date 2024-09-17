@@ -15443,6 +15443,10 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   }
 }
 .directorist-content-active .directorist-listing-single {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
   font-size: 15px;
   margin-bottom: 15px;
 }

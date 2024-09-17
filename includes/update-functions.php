@@ -214,3 +214,21 @@ function directorist_7100_clean_listing_status_expired_meta() {
 function directorist_7100_update_db_version() {
 	\ATBDP_Installation::update_db_version( '7.10.0' );
 }
+
+function directorist_7122_remove_upload_files_cap() {
+	// contributor
+	$contributor = get_role( 'contributor' );
+	$contributor->remove_cap( 'upload_files' );
+
+	// subscriber
+	$subscriber = get_role( 'subscriber' );
+	$subscriber->remove_cap( 'upload_files' );
+
+	// customer
+	$customer = get_role( 'customer' );
+	$customer->remove_cap( 'upload_files' );
+}
+
+function directorist_7122_update_db_version() {
+	\ATBDP_Installation::update_db_version( '7.12.2' );
+}

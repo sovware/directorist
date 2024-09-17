@@ -923,11 +923,15 @@
       }
       .directorist-listing-single__header {
         align-items: center;
+        justify-content: space-between;
         figure {
-          // display: none;
-          flex: none;
           margin: 0;
         }
+      }
+
+      .directorist-listing-single__header__title {
+        order: 2;
+        flex: 0 0 100%;
       }
 
       .directorist-mark-as-favorite__btn {

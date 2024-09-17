@@ -158,6 +158,60 @@ class Multi_Directory_Manager {
         update_term_meta( $term_id, 'single_listings_contents', $new_review_builder );
     }
 
+    public static function migrate_contact_owner_settings( $term_id ) {
+        // Get the current settings
+        $single_listings_contents = get_term_meta( $term_id, 'single_listings_contents', true );
+    
+        // Check if necessary fields exist
+        if ( empty( $single_listings_contents['fields'] ) || empty( $single_listings_contents['groups'] ) || ! is_array( $single_listings_contents['groups'] ) ) {
+            return;
+        }
+    
+        // Define the fields mapping
+        $fields_mapping = array(
+            'contact_name'    => array(
+                'enable'            => 1,
+                'placeholder'       => __( 'Name', 'directorist' ),
+                'widget_group'      => 'other_widgets',
+                'widget_name'       => 'contact_listings_owner',
+                'widget_child_name' => 'contact_name',
+                'widget_key'        => 'contact_name',
+            ),
+            'contact_email'   => array(
+                'placeholder'       => __( 'Email', 'directorist' ),
+                'widget_group'      => 'other_widgets',
+                'widget_name'       => 'contact_listings_owner',
+                'widget_child_name' => 'contact_email',
+                'widget_key'        => 'contact_email',
+            ),
+            'contact_message' => array(
+                'placeholder'       => __( 'Message...', 'directorist' ),
+                'widget_group'      => 'other_widgets',
+                'widget_name'       => 'contact_listings_owner',
+                'widget_child_name' => 'contact_message',
+                'widget_key'        => 'contact_message',
+            ),
+        );
+    
+        // Iterate over groups and update the contact listings owner group
+        foreach ( $single_listings_contents['groups'] as &$group ) {
+            if ( isset( $group['widget_name'] ) && 'contact_listings_owner' === $group['widget_name'] ) {
+                foreach ( $fields_mapping as $field_key => $mapping ) {
+                    // Add or update fields
+                    $single_listings_contents['fields'][ $field_key ] = $mapping;
+    
+                    // Ensure the field is added to the group's fields
+                    if ( ! in_array( $field_key, $group['fields'], true ) ) {
+                        $group['fields'][] = $field_key;
+                    }
+                }
+            }
+        }
+    
+        // Update the term meta with the modified contents
+        update_term_meta( $term_id, 'single_listings_contents', $single_listings_contents );
+    }
+
     public static function migrate_related_listing_settings( $term_id ) {
         $number              = get_term_meta( $term_id, 'similar_listings_number_of_listings_to_show', true );
         $same_author         = get_term_meta( $term_id, 'listing_from_same_author', true );

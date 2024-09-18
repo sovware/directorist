@@ -1735,6 +1735,22 @@ function directorist_clean($var)
     }
 }
 
+/*
+ * Clean variables using wp_kses_post. Arrays are cleaned recursively.
+ * Non-scalar values are ignored.
+ *
+ * @param string|array $var Data to sanitize.
+ * @return string|array
+ */
+function directorist_clean_post( $var )
+{
+    if (is_array($var)) {
+        return array_map('directorist_clean_post', $var);
+    } else {
+        return is_scalar($var) ? wp_kses_post( $var ) : $var;
+    }
+}
+
 /**
  * Display the favourites link.
  *
@@ -3769,8 +3785,8 @@ function directorist_get_var( &$var, $default = null ) {
  *
  * @return mixed
  */
-function directorist_maybe_json( $input_data = '', $return_first_item = false ) {
-    return directorist_clean( Helper::maybe_json( $input_data, $return_first_item ) );
+function directorist_maybe_json( $input_data = '', $return_first_item = false, $sanitizer = 'directorist_clean' ) {
+    return call_user_func( $sanitizer, Helper::maybe_json( $input_data, $return_first_item ) );
 }
 
 /**

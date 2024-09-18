@@ -639,6 +639,9 @@ class Directorist_Listing_Form {
 			elseif ( $field_data['widget_name'] == 'description' ) {
 				$value = $this->add_listing_post->post_content;
 			}
+			elseif ( $field_data['widget_name'] == 'terms_privacy' ) {
+				$field_data['privacy_checked'] = (bool) get_post_meta( $listing_id, '_privacy_policy', true );
+			}
 			elseif ( !empty( $field_data['field_key'] ) ) {
 				$value = get_post_meta( $listing_id, '_'.$field_data['field_key'], true );
 

@@ -30,29 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 			<input type="text" id="guest_user_email" name="guest_user_email" class="directorist-form-element directory_field" placeholder="<?php echo esc_attr( $guest_email_placeholder ); ?>"/>
 		</div>
 
-	<?php endif;
-	/**
-	 * @since 7.0
-	 */
-	do_action( 'atbdp_before_terms_and_conditions_font' )
-	?>
-
-	<?php if ( $display_privacy ): ?>
-
-	<div class="directorist-form-privacy directorist-form-terms directorist-checkbox">
-
-		<input id="directorist_submit_privacy_policy" type="checkbox" name="privacy_policy" <?php checked( $privacy_checked ); ?> <?php echo $privacy_is_required ? 'required="required"' : ''; ?>>
-
-		<label for="directorist_submit_privacy_policy" class="directorist-checkbox__label"><?php echo wp_kses_post( $listing_form->privacy_label() ); ?></label>
-
-		<?php if ( $privacy_is_required ): ?>
-			<span class="directorist-form-required"> *</span>
-		<?php endif; ?>
-
-	</div>
-
 	<?php endif; ?>
-
 	<div id="listing_notifier"></div>
 
 	<?php do_action( 'directorist_after_submit_listing_frontend' ); ?>

@@ -293,7 +293,7 @@ function directorist_register_blocks_common_assets() {
 			'directorist-blocks-common',
 			plugin_dir_url( __FILE__ ) .  'assets/index' . ( is_rtl() ? '-rtl.css' : '.css' ),
 			[],
-			$asset['version']
+			isset( $asset['version'] ) ?? ATBDP_VERSION
 		);
 	}
 }

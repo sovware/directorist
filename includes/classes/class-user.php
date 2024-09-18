@@ -25,7 +25,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 			//add_action('init', array($this, 'activate_user'));
 			add_filter( 'pre_get_posts', array( $this,'restrict_listing_to_the_author' ) );
 			// allow contributor upload images for now. @todo; later it will be better to add custom rules and capability
-			add_action( 'plugins_loaded', array( $this, 'user_functions_ready_hook' ) );// before we add custom image uploading, lets use WordPress default image uploading by letting subscriber and contributor upload imaging capability
+			// add_action( 'plugins_loaded', array( $this, 'user_functions_ready_hook' ) );// before we add custom image uploading, lets use WordPress default image uploading by letting subscriber and contributor upload imaging capability
 
 			add_action( 'template_redirect', [ $this, 'registration_redirection' ] );
 
@@ -571,44 +571,44 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 			return $columns;
 		}
 
-		public function user_functions_ready_hook() {
-			//Allow Contributors/Subscriber/Customer to Add Media
-			$roles = (array) wp_get_current_user()->roles;
+		// public function user_functions_ready_hook() {
+		// 	//Allow Contributors/Subscriber/Customer to Add Media
+		// 	$roles = (array) wp_get_current_user()->roles;
 
-			if ( ( in_array( 'contributor', $roles ) ||
-				in_array( 'subscriber', $roles ) ||
-				in_array( 'customer', $roles ) ) &&
-				! current_user_can( 'upload_files' ) ) {
-				add_action( 'init', array( $this, 'allow_contributor_uploads' ) );
-			}
-		}
+		// 	if ( ( in_array( 'contributor', $roles ) ||
+		// 		in_array( 'subscriber', $roles ) ||
+		// 		in_array( 'customer', $roles ) ) &&
+		// 		! current_user_can( 'upload_files' ) ) {
+		// 		add_action( 'init', array( $this, 'allow_contributor_uploads' ) );
+		// 	}
+		// }
 
 		/**
 		 * Add upload_files capability to certain roles.
 		 *
 		 * @return void
 		 */
-		public function allow_contributor_uploads() {
-			$roles = (array) wp_get_current_user()->roles;
+		// public function allow_contributor_uploads() {
+		// 	$roles = (array) wp_get_current_user()->roles;
 
-			// contributor
-			if ( in_array( 'contributor', $roles ) ){
-				$contributor = get_role( 'contributor' );
-				$contributor->add_cap( 'upload_files' );
-			}
+		// 	// contributor
+		// 	if ( in_array( 'contributor', $roles ) ){
+		// 		$contributor = get_role( 'contributor' );
+		// 		$contributor->add_cap( 'upload_files' );
+		// 	}
 
-			// subscriber
-			if ( in_array( 'subscriber', $roles ) ){
-				$subscriber = get_role( 'subscriber' );
-				$subscriber->add_cap( 'upload_files' );
-			}
+		// 	// subscriber
+		// 	if ( in_array( 'subscriber', $roles ) ){
+		// 		$subscriber = get_role( 'subscriber' );
+		// 		$subscriber->add_cap( 'upload_files' );
+		// 	}
 
-			// customer
-			if ( in_array( 'customer', $roles ) ){
-				$customer = get_role( 'customer' );
-				$customer->add_cap( 'upload_files' );
-			}
-		}
+		// 	// customer
+		// 	if ( in_array( 'customer', $roles ) ){
+		// 		$customer = get_role( 'customer' );
+		// 		$customer->add_cap( 'upload_files' );
+		// 	}
+		// }
 
 		public function activate_user() {
 			$user_id = filter_input( INPUT_GET, 'user', FILTER_VALIDATE_INT, array( 'options' => array( 'min_range' => 1 ) ) );

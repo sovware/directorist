@@ -158,7 +158,7 @@ function directorist_800_migrate_builder_data() {
 	if ( is_wp_error( $directory_types ) || empty( $directory_types ) ) {
 		return;
 	}
-	
+
 	foreach ( $directory_types as $directory_type ) {
 
 		//migrate custom field
@@ -175,7 +175,7 @@ function directorist_800_migrate_builder_data() {
 		//migrate builder single listing header
 		$new_structure   = [];
 		$header_contents = get_term_meta( $directory_type->term_id, 'single_listing_header', true );
-		
+
 		if ( empty( $header_contents ) ) {
 			continue;
 		}
@@ -212,7 +212,7 @@ function directorist_800_migrate_builder_data() {
 		if ( empty( $header_contents['listings_header'] ) ) {
 			continue;
 		}
-		
+
 		foreach ( $header_contents['listings_header'] as $section_name => $widgets ) {
 
 			if ( 'quick_actions' === $section_name ) {
@@ -381,4 +381,18 @@ function directorist_7100_clean_listing_status_expired_meta() {
 
 function directorist_7100_update_db_version() {
 	\ATBDP_Installation::update_db_version( '7.10.0' );
+}
+
+function directorist_800_remove_upload_files_cap() {
+	// contributor
+	$contributor = get_role( 'contributor' );
+	$contributor->remove_cap( 'upload_files' );
+
+	// subscriber
+	$subscriber = get_role( 'subscriber' );
+	$subscriber->remove_cap( 'upload_files' );
+
+	// customer
+	$customer = get_role( 'customer' );
+	$customer->remove_cap( 'upload_files' );
 }

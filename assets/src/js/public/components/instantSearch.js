@@ -1133,6 +1133,7 @@ import debounce from '../../global/components/debounce';
                             clearTimeout(timeout);
                             timeout = setTimeout(() => {
                                 filterListing(searchElm);
+                                console.log('filtering');
                             }, 250);
                         }
                     }

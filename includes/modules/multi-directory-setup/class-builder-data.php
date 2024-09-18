@@ -354,15 +354,10 @@ class Builder_Data {
                                 'canTrash' => false,
                                 'canMove'  => false,
                                 'options'  => [
-                                    'label' => [
-                                        'label' => __( 'Label', 'directorist' ),
-                                        'type'  => 'text',
-                                        'value' => __( 'Comment', 'directorist' ),
-                                    ],
                                     'placeholder' => [
                                         'label' => __( 'Placeholder', 'directorist' ),
                                         'type'  => 'text',
-                                        'value' => __( 'Leave a review', 'directorist' ),
+                                        'value' => '',
                                     ],
                                 ]
                             ],
@@ -374,12 +369,12 @@ class Builder_Data {
                                     'label' => [
                                         'label' => __( 'Label', 'directorist' ),
                                         'type'  => 'text',
-                                        'value' => __( 'Email', 'directorist' ),
+                                        'value' => '',
                                     ],
                                     'placeholder' => [
                                         'label' => __( 'Placeholder', 'directorist' ),
                                         'type'  => 'text',
-                                        'value' => __( 'Your Email', 'directorist' ),
+                                        'value' => '',
                                     ],
                                 ]
                             ],
@@ -391,12 +386,12 @@ class Builder_Data {
                                     'label' => [
                                         'label' => __( 'Label', 'directorist' ),
                                         'type'  => 'text',
-                                        'value' => __( 'Name', 'directorist' ),
+                                        'value' => '',
                                     ],
                                     'placeholder' => [
                                         'label' => __( 'Placeholder', 'directorist' ),
                                         'type'  => 'text',
-                                        'value' => __( 'Your Name', 'directorist' ),
+                                        'value' => '',
                                     ],
                                 ]
                             ],
@@ -405,15 +400,20 @@ class Builder_Data {
                                 'canTrash' => false,
                                 'canMove'  => false,
                                 'options'  => [
+                                    'enable' => [
+                                        'label'   => __( 'Show Website Field?', 'directorist' ),
+                                        'type'    => 'toggle',
+                                        'value'   => false,
+                                    ],
                                     'label' => [
                                         'label'   => __( 'Label', 'directorist' ),
                                         'type'    => 'text',
-                                        'value'   => __( 'Website', 'directorist' ),
+                                        'value'   => '',
                                     ],
                                     'placeholder' => [
                                         'label'   => __( 'Placeholder', 'directorist' ),
                                         'type'    => 'text',
-                                        'value'   => __( 'Website url', 'directorist' ),
+                                        'value'   => '',
                                     ],
                                 ]
                             ],
@@ -468,6 +468,66 @@ class Builder_Data {
                                 'value' => '',
                             ],
                         ],
+                        'accepted_widgets' => [
+                            [
+                                'widget_group'      => 'other_widgets',
+                                'widget_name'       => 'contact_listings_owner',
+                                'widget_child_name' => 'contact_name',
+                            ],
+                            [
+                                'widget_group'      => 'other_widgets',
+                                'widget_name'       => 'contact_listings_owner',
+                                'widget_child_name' => 'contact_email',
+                            ],
+                            [
+                                'widget_group'      => 'other_widgets',
+                                'widget_name'       => 'contact_listings_owner',
+                                'widget_child_name' => 'contact_message',
+                            ],
+                        ],
+                        'widgets' => [
+                            'contact_name' => [
+                                'label'    => __( 'Name', 'directorist' ),
+                                'canTrash' => false,
+                                'canMove'  => false,
+                                'options'  => [
+                                    'enable' => [
+                                        'label' => __( 'Enable', 'directorist' ),
+                                        'type'  => 'toggle',
+                                        'value' => true,
+                                    ],
+                                    'placeholder' => [
+                                        'label' => __( 'Placeholder', 'directorist' ),
+                                        'type'  => 'text',
+                                        'value' => __( 'Name', 'directorist' ),
+                                    ],
+                                ]
+                            ],
+                            'contact_email' => [
+                                'label'    => __( 'Email', 'directorist' ),
+                                'canTrash' => false,
+                                'canMove'  => false,
+                                'options'  => [
+                                    'placeholder' => [
+                                        'label' => __( 'Placeholder', 'directorist' ),
+                                        'type'  => 'text',
+                                        'value' => __( 'Email', 'directorist' ),
+                                    ],
+                                ]
+                            ],
+                            'contact_message' => [
+                                'label'    => __( 'Message', 'directorist' ),
+                                'canTrash' => false,
+                                'canMove'  => false,
+                                'options'  => [
+                                    'placeholder' => [
+                                        'label' => __( 'Placeholder', 'directorist' ),
+                                        'type'  => 'text',
+                                        'value' => __( 'Message...', 'directorist' ),
+                                    ],
+                                ]
+                            ],
+                        ]
                     ],
                     'related_listings'       => [
                         'type'    => 'section',
@@ -509,14 +569,14 @@ class Builder_Data {
                                 'min'   => 0,
                                 'max'   => 20,
                                 'label' => __( 'Number of listings to show', 'directorist' ),
-                                'value' => 0,
+                                'value' => 3,
                             ],
                             'similar_listings_number_of_columns'          => [
                                 'type'  => 'range',
                                 'min'   => 1,
-                                'max'   => 10,
+                                'max'   => 4,
                                 'label' => __( 'Number of columns', 'directorist' ),
-                                'value' => 3,
+                                'value' => 2,
                             ],
                         ],
                     ],
@@ -978,6 +1038,13 @@ class Builder_Data {
                                 'min'   => 0,
                                 'max'   => apply_filters( 'directorist_search_default_radius_distance', 750 ),
                                 'value' => 0,
+                            ],
+                            'max_radius_distance' => [
+                                'type'  => 'range',
+                                'label' => __( 'Maximum Radius Distance', 'directorist' ),
+                                'min'   => 0,
+                                'max'   => 10000,
+                                'value' => 1000,
                             ],
                             'radius_search_unit'      => [
                                 'type'    => 'select',
@@ -1753,9 +1820,9 @@ class Builder_Data {
             'body'   => [
                 'avatar'        => [
                     'label'             => __( 'Avatar', 'directorist' ),
-                    'maxWidget'         => 0,
+                    'maxWidget'         => 1,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
-                    'acceptedWidgets' => [ "popular_badge", "featured_badge", "new_badge" ],
+                    'acceptedWidgets' => [ "user_avatar" ],
                 ],
                 'title'         => [
                     'maxWidget'       => 1,

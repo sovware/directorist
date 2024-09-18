@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 					<?php endif; ?>
 
 					<?php 
-						if ( $listings->header_title ) {
+						if ( $listings->header_title && ! empty( $listings->options['display_listings_count'] ) ) {
 							echo $listings->listings_header_title();
 						} 
 					?>

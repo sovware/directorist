@@ -38,6 +38,23 @@ class Multi_Directory_Manager {
         add_action( 'wp_ajax_directorist_directory_type_library', [ $this, 'directorist_directory_type_library' ] );
     }
 
+    public static function builder_data_backup( $term_id ) {
+        $submission_form_fields = get_term_meta( $term_id , 'submission_form_fields', true );
+        $new_review_builder     = get_term_meta( $term_id, 'single_listings_contents', true );
+
+        if( ! empty( $submission_form_fields ) && ! empty( $new_review_builder ) ) {
+            $backup_data[$term_id] = [
+                'submission_form_fields' => $submission_form_fields,
+                'single_listings_contents'     => $new_review_builder,
+            ];
+            // Convert the backup data to JSON format
+            $json_backup_data = wp_json_encode( $backup_data );
+
+            // Save the JSON backup data in options
+            update_option( 'directorist_builder_backup_data', $json_backup_data );
+        }
+    }
+
     // custom field assign to category migration
     public static function migrate_custom_field( $term_id ) {
 

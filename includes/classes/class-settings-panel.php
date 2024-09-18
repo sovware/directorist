@@ -497,31 +497,6 @@ Please remember that your order may be canceled if you do not make your payment 
 
             $this->fields = apply_filters('atbdp_listing_type_settings_field_list', [
 
-                // 'all_listing_layout' => [
-                //     'type'  => 'radio',
-                //     'value' => 'no_sidebar',
-                //     'label' => __( 'All Listing Layout', 'directorist' ),
-                //     'options' => [
-                //         [
-                //             'label' => __('Listing with Left Sidebar', 'directorist'),
-                //             'value' => 'left_sidebar',
-                //         ],
-                //         [
-                //             'label' => __('Listing with Right Sidebar', 'directorist'),
-                //             'value' => 'right_sidebar',
-                //         ],
-                //         [
-                //             'label' => __('Listing with No Sidebar', 'directorist'),
-                //             'value' => 'no_sidebar',
-                //         ],
-                //     ],
-                //     'preview' => [
-                //         'left_sidebar'  => esc_url( DIRECTORIST_ASSETS . 'images/left_sidebar.png' ),
-                //         'right_sidebar' => esc_url( DIRECTORIST_ASSETS . 'images/right_sidebar.png' ),
-                //         'no_sidebar'    => esc_url( DIRECTORIST_ASSETS . 'images/no_sidebar.png' ),
-                //     ]
-                // ],
-
                 'enable_monetization' => [
                     'label' => __('Enable Monetization Feature', 'directorist'),
                     'type'  => 'toggle',
@@ -1763,7 +1738,7 @@ Please remember that your order may be canceled if you do not make your payment 
                 'all_listing_columns' => [
                     'label' => __('Listings Columns', 'directorist'),
                     'type'  => 'number',
-                    'value' => 3,
+                    'value' => 2,
                     'placeholder' => '3',
                 ],
                 'preview_image_quality' => [

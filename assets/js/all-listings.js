@@ -2317,6 +2317,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
                 clearTimeout(timeout);
                 timeout = setTimeout(function () {
                   filterListing(searchElm);
+                  console.log('filtering');
                 }, 250);
               }
             }

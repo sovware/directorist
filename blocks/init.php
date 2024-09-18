@@ -15,6 +15,12 @@ define( 'DIRECTORIST_BLOCK_TEMPLATE_PATH', __DIR__ . '/templates' );
 require_once __DIR__ . '/includes/class-block-template-utils.php';
 require_once __DIR__ . '/includes/class-block-templates-controller.php';
 
+// Check if the current theme is a block theme
+if ( wp_is_block_theme() ) {
+    // Enable widgets support
+    add_theme_support( 'widgets' );
+}
+
 /**
  * Initialize gutenberg blocks.
  *

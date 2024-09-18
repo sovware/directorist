@@ -530,9 +530,8 @@ class TokenMultiSelectControl extends Component {
 		const { incompleteTokenValue } = this.state;
 
 		const inputHasMinimumChars = true; //incompleteTokenValue.trim().length > 1;
-		const matchingSuggestions = this.getMatchingSuggestions(
-			incompleteTokenValue
-		);
+		const matchingSuggestions =
+			this.getMatchingSuggestions( incompleteTokenValue );
 		const hasMatchingSuggestions = matchingSuggestions.length > 0;
 		const newState = {
 			// isExpanded: inputHasMinimumChars && hasMatchingSuggestions,
@@ -598,13 +597,8 @@ class TokenMultiSelectControl extends Component {
 	}
 
 	renderInput() {
-		const {
-			autoCapitalize,
-			autoComplete,
-			maxLength,
-			value,
-			instanceId,
-		} = this.props;
+		const { autoCapitalize, autoComplete, maxLength, value, instanceId } =
+			this.props;
 
 		let props = {
 			instanceId,
@@ -667,7 +661,7 @@ class TokenMultiSelectControl extends Component {
 				<label
 					htmlFor={ `components-form-token-input-${ instanceId }` }
 					className="components-form-token-field__label"
-					style={{fontSize: '13px'}}
+					style={ { fontSize: '13px' } }
 				>
 					{ label }
 				</label>

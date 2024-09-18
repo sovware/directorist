@@ -6,6 +6,11 @@
   "name": "directorist/search-listing",
   "title": "Search Form",
   "description": "Create directory listing search form.",
+  "keywords": [
+    "search",
+    "form",
+    "find"
+  ],
   "attributes": {
     "show_title_subtitle": {
       "type": "boolean",
@@ -63,5 +68,15 @@
   "supports": {
     "html": false
   },
-  "editorScript": "file:./index.js"
+  "editorScript": [
+    "file:./index.js",
+    "jquery-masonry",
+    "directorist-swiper",
+    "directorist-select2-script",
+    "directorist-all-listings",
+    "directorist-listing-slider",
+    "directorist-search-form",
+    "directorist-openstreet-map",
+    "directorist-google-map"
+  ]
 }

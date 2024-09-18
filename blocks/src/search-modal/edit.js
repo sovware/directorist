@@ -18,7 +18,7 @@ import {
 	ButtonGroup,
 	PanelBody,
 	ToggleControl,
-	SelectControl
+	SelectControl,
 } from '@wordpress/components';
 import {
 	AlignmentControl,
@@ -109,7 +109,6 @@ function WidthPanel( { selectedWidth, setAttributes } ) {
 	}
 
 	return (
-
 		<ButtonGroup aria-label={ __( 'Button width' ) }>
 			{ [ 25, 50, 75, 100 ].map( ( widthValue ) => {
 				return (
@@ -117,9 +116,7 @@ function WidthPanel( { selectedWidth, setAttributes } ) {
 						key={ widthValue }
 						size="small"
 						variant={
-							widthValue === selectedWidth
-								? 'primary'
-								: undefined
+							widthValue === selectedWidth ? 'primary' : undefined
 						}
 						onClick={ () => handleChange( widthValue ) }
 					>
@@ -128,7 +125,6 @@ function WidthPanel( { selectedWidth, setAttributes } ) {
 				);
 			} ) }
 		</ButtonGroup>
-
 	);
 }
 
@@ -149,9 +145,8 @@ function ButtonEdit( props ) {
 		width,
 		showUserAvatar,
 		showDashboardMenu,
-		styleDisplay
+		styleDisplay,
 	} = attributes;
-
 
 	function onKeyDown( event ) {
 		if ( isKeyboardEvent.primary( event, 'k' ) ) {
@@ -246,20 +241,19 @@ function ButtonEdit( props ) {
 						} }
 					/>
 				) }
-
 			</BlockControls>
 
 			<InspectorControls>
 				<PanelBody title={ __( 'Settings' ) }>
 					<SelectControl
-						label={__( 'Style' )}
+						label={ __( 'Style' ) }
 						value={ styleDisplay }
 						options={ [
 							{ label: 'Icon Only', value: 'icon' },
 							{ label: 'Text Only', value: 'text' },
 							{ label: 'Text & Icon', value: 'icon_and_text' },
 						] }
-						onChange={ (newStyleDisplay) =>
+						onChange={ ( newStyleDisplay ) =>
 							setAttributes( {
 								styleDisplay: newStyleDisplay,
 							} )

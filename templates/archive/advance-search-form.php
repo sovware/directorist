@@ -25,7 +25,14 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 		</div>
 
 		<?php if ( ! empty( $listings->display_search_button() ) ) : ?>
+
 			<?php $searchform->buttons_template(); ?>
-		<?php endif; ?>
+
+		<?php else : ?>
+
+			<a href="" class="directorist-btn-reset-js"><?php esc_html_e( 'Clear All', 'directorist' ); ?></a>
+
+		<?php endif; ?>	
+
 	</div>
 </form>

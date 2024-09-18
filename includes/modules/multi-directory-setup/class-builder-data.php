@@ -1820,9 +1820,9 @@ class Builder_Data {
             'body'   => [
                 'avatar'        => [
                     'label'             => __( 'Avatar', 'directorist' ),
-                    'maxWidget'         => 0,
+                    'maxWidget'         => 1,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
-                    'acceptedWidgets' => [ "popular_badge", "featured_badge", "new_badge" ],
+                    'acceptedWidgets' => [ "user_avatar" ],
                 ],
                 'title'         => [
                     'maxWidget'       => 1,

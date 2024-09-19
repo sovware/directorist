@@ -2612,33 +2612,14 @@ class Builder_Data {
             'submission_form'      => [
                 'label'   => __( 'Add Listing Form', 'directorist' ),
                 'icon'    => '<span class="uil uil-file-edit-alt"></span>',
-                'submenu' => [
+                'container' => 'wide',
+                'sections'  => [
                     'form_fields' => [
-                        'label'     => __( 'Form Fields', 'directorist' ),
-                        'container' => 'wide',
-                        'sections'  => [
-                            'form_fields' => [
-                                'title'       => __( 'Select or create fields for the add listing form', 'directorist' ),
-                                'description' => '<a target="_blank" href="https://directorist.com/documentation/directorist/form-and-layout-builder/form-and-layout-builder/">' . __( 'Need help?', 'directorist' ) . ' </a>',
-                                'fields'      => [
-                                    'submission_form_fields',
-                                ],
-                            ],
+                        'title'       => __( 'Select or create fields for the add listing form', 'directorist' ),
+                        'description' => '<a target="_blank" href="https://directorist.com/documentation/directorist/form-and-layout-builder/form-and-layout-builder/">' . __( 'Need help?', 'directorist' ) . ' </a>',
+                        'fields'      => [
+                            'search_form_fields',
                         ],
-                    ],
-                    'settings'    => [
-                        'label'    => __( 'Settings', 'directorist' ),
-                        'sections' => apply_filters( 'atbdp_submission_form_settings', [
-                            'submittion_settings'  => [
-                                'title'     => __( 'Submission Settings', 'directorist' ),
-                                'container' => 'short-width',
-                                'fields'    => [
-                                    'enable_sidebar',
-                                    'preview_mode',
-                                    'submit_button_label',
-                                ],
-                            ],
-                        ] ),
                     ],
                 ],
             ],
@@ -2756,16 +2737,6 @@ class Builder_Data {
                 'label' => __( 'Guest Email Placeholder', 'directorist' ),
                 'type'  => 'text',
                 'value' => 'Enter email address',
-            ];
-
-            self::$layouts['submission_form']['submenu']['settings']['sections']['guest_submission'] = [
-                'title'       => __( 'Guest Listing Submission', 'directorist' ),
-                'description' => __( 'Need Help?', 'directorist' ),
-                'container'   => 'short-width',
-                'fields'      => [
-                    'guest_email_label',
-                    'guest_email_placeholder',
-                ],
             ];
         }
 

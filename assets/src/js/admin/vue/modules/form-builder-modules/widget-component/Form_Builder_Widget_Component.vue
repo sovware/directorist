@@ -3,31 +3,6 @@
     class="cptm-form-builder-group-field-item"
     v-if="widget_fields && Object.keys(widget_fields).length > 0"
   >
-    <!-- Widget Actions -->
-    <div class="cptm-form-builder-group-field-item-actions">
-      <a
-        href="#"
-        class="cptm-form-builder-group-field-item-action-link action-dropdown"
-        @click.prevent="toggleExpandedDropdown"
-      >
-        <span aria-hidden="true" class="fa fa-ellipsis-v"></span>
-      </a>
-    </div>
-
-    <!-- Widget Body -->
-    <slide-up-down :active="expandedDropdown" :duration="500">
-      <div class="cptm-form-builder-group-field-item-actions">
-        <a
-          href="#"
-          class="cptm-form-builder-group-field-item-action-link action-trash"
-          v-if="canTrashWidget"
-          @click.prevent="handleTrashClick"
-        >
-          <span aria-hidden="true" class="uil uil-trash-alt"></span>
-        </a>
-      </div>
-    </slide-up-down>
-
     <!-- Widget Titlebar -->
     <draggable-list-item
       v-if="canMoveWidget"
@@ -70,6 +45,37 @@
         />
       </div>
     </slide-up-down>
+
+    <!-- Widget Actions -->
+    <div
+      class="cptm-form-builder-group-actions-dropdown cptm-form-builder-group-actions-dropdown--field"
+    >
+      <a
+        href="#"
+        class="cptm-form-builder-group-actions-dropdown-btn"
+        @click.prevent="toggleExpandedDropdown"
+      >
+        <span aria-hidden="true" class="fa fa-ellipsis-h"></span>
+      </a>
+
+      <!-- Widget Action Dropdown -->
+      <slide-up-down :active="expandedDropdown" :duration="500">
+        <div
+          class="cptm-form-builder-group-actions-dropdown-content"
+          :class="expandedDropdown ? 'expanded' : ''"
+        >
+          <a
+            href="#"
+            class="cptm-form-builder-field-item-action-link"
+            v-if="canTrashWidget"
+            @click.prevent="handleTrashClick"
+          >
+            <span aria-hidden="true" class="uil uil-trash-alt"></span>
+            Remove Item
+          </a>
+        </div>
+      </slide-up-down>
+    </div>
 
     <!-- Confirmation Modal -->
     <confirmation-modal

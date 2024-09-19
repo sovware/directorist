@@ -17979,34 +17979,34 @@ function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbol
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'form-builder-widget-group-header-component',
+  name: "form-builder-widget-group-header-component",
   props: {
     groupData: {
-      default: ''
+      default: ""
     },
     groupSettings: {
-      default: ''
+      default: ""
     },
     groupFields: {
-      default: ''
+      default: ""
     },
     avilableWidgets: {
-      default: ''
+      default: ""
     },
     widgetsExpanded: {
-      default: ''
+      default: ""
     },
     canTrash: {
       default: false
     },
     currentDraggingGroup: {
-      default: ''
+      default: ""
     },
     isEnabledGroupDragging: {
       default: false
     },
     forceExpandStateTo: {
-      default: ''
+      default: ""
     }
   },
   created: function created() {
@@ -18020,7 +18020,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   computed: {
     groupFieldsExpandState: function groupFieldsExpandState() {
       var state = this.groupFieldsExpanded;
-      if ('expand' === this.forceExpandStateTo) {
+      if ("expand" === this.forceExpandStateTo) {
         state = true;
       }
       if (!this.isEnabledGroupDragging) {
@@ -18033,7 +18033,8 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     return {
       finalGroupFields: {},
       header_title_component_props: {},
-      groupFieldsExpanded: false
+      groupFieldsExpanded: false,
+      groupExpandedDropdown: false
     };
   },
   methods: {
@@ -18059,6 +18060,9 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     },
     toggleGroupFieldsExpand: function toggleGroupFieldsExpand() {
       this.groupFieldsExpanded = !this.groupFieldsExpanded;
+    },
+    toggleGroupExpandedDropdown: function toggleGroupExpandedDropdown() {
+      this.groupExpandedDropdown = !this.groupExpandedDropdown;
     }
   }
 });
@@ -22310,7 +22314,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof.js");
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-/* harmony import */ var vue_dndrop__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vue-dndrop */ "./node_modules/vue-dndrop/dist/vue-dndrop.esm.js");
+/* harmony import */ var vue_dndrop__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-dndrop */ "./node_modules/vue-dndrop/dist/vue-dndrop.esm.js");
 /* harmony import */ var _helpers_vue_dndrop__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../helpers/vue-dndrop */ "./assets/src/js/admin/vue/helpers/vue-dndrop.js");
 /* harmony import */ var _mixins_form_fields_card_builder__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../../mixins/form-fields/card-builder */ "./assets/src/js/admin/vue/mixins/form-fields/card-builder.js");
 /* harmony import */ var _mixins_helpers__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../mixins/helpers */ "./assets/src/js/admin/vue/mixins/helpers.js");
@@ -22329,8 +22333,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "card-builder-listing-header-field",
   components: {
-    Container: vue_dndrop__WEBPACK_IMPORTED_MODULE_7__["Container"],
-    Draggable: vue_dndrop__WEBPACK_IMPORTED_MODULE_7__["Draggable"]
+    Container: vue_dndrop__WEBPACK_IMPORTED_MODULE_3__["Container"],
+    Draggable: vue_dndrop__WEBPACK_IMPORTED_MODULE_3__["Draggable"]
   },
   mixins: [_mixins_form_fields_card_builder__WEBPACK_IMPORTED_MODULE_5__["default"], _mixins_helpers__WEBPACK_IMPORTED_MODULE_6__["default"]],
   props: {
@@ -28104,48 +28108,7 @@ var render = function render() {
     _c = _vm._self._c;
   return _vm.widget_fields && Object.keys(_vm.widget_fields).length > 0 ? _c("div", {
     staticClass: "cptm-form-builder-group-field-item"
-  }, [_c("div", {
-    staticClass: "cptm-form-builder-group-field-item-actions"
-  }, [_c("a", {
-    staticClass: "cptm-form-builder-group-field-item-action-link action-dropdown",
-    attrs: {
-      href: "#"
-    },
-    on: {
-      click: function click($event) {
-        $event.preventDefault();
-        return _vm.toggleExpandedDropdown.apply(null, arguments);
-      }
-    }
-  }, [_c("span", {
-    staticClass: "fa fa-ellipsis-v",
-    attrs: {
-      "aria-hidden": "true"
-    }
-  })])]), _vm._v(" "), _c("slide-up-down", {
-    attrs: {
-      active: _vm.expandedDropdown,
-      duration: 500
-    }
-  }, [_c("div", {
-    staticClass: "cptm-form-builder-group-field-item-actions"
-  }, [_vm.canTrashWidget ? _c("a", {
-    staticClass: "cptm-form-builder-group-field-item-action-link action-trash",
-    attrs: {
-      href: "#"
-    },
-    on: {
-      click: function click($event) {
-        $event.preventDefault();
-        return _vm.handleTrashClick.apply(null, arguments);
-      }
-    }
-  }, [_c("span", {
-    staticClass: "uil uil-trash-alt",
-    attrs: {
-      "aria-hidden": "true"
-    }
-  })]) : _vm._e()])]), _vm._v(" "), _vm.canMoveWidget ? _c("draggable-list-item", {
+  }, [_vm.canMoveWidget ? _c("draggable-list-item", {
     on: {
       "drag-start": function dragStart($event) {
         return _vm.$emit("drag-start");
@@ -28194,7 +28157,49 @@ var render = function render() {
         });
       }
     }
-  })], 1) : _vm._e()]), _vm._v(" "), _c("confirmation-modal", {
+  })], 1) : _vm._e()]), _vm._v(" "), _c("div", {
+    staticClass: "cptm-form-builder-group-actions-dropdown cptm-form-builder-group-actions-dropdown--field"
+  }, [_c("a", {
+    staticClass: "cptm-form-builder-group-actions-dropdown-btn",
+    attrs: {
+      href: "#"
+    },
+    on: {
+      click: function click($event) {
+        $event.preventDefault();
+        return _vm.toggleExpandedDropdown.apply(null, arguments);
+      }
+    }
+  }, [_c("span", {
+    staticClass: "fa fa-ellipsis-h",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })]), _vm._v(" "), _c("slide-up-down", {
+    attrs: {
+      active: _vm.expandedDropdown,
+      duration: 500
+    }
+  }, [_c("div", {
+    staticClass: "cptm-form-builder-group-actions-dropdown-content",
+    class: _vm.expandedDropdown ? "expanded" : ""
+  }, [_vm.canTrashWidget ? _c("a", {
+    staticClass: "cptm-form-builder-field-item-action-link",
+    attrs: {
+      href: "#"
+    },
+    on: {
+      click: function click($event) {
+        $event.preventDefault();
+        return _vm.handleTrashClick.apply(null, arguments);
+      }
+    }
+  }, [_c("span", {
+    staticClass: "uil uil-trash-alt",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }), _vm._v("\n          Remove Item\n        ")]) : _vm._e()])])], 1), _vm._v(" "), _c("confirmation-modal", {
     attrs: {
       visible: _vm.showConfirmationModal,
       widgetName: _vm.widgetName
@@ -28461,9 +28466,33 @@ var render = function render() {
       }
     }
   }, "form-builder-widget-group-titlebar-component", _vm.$props, false))], 1), _vm._v(" "), _c("div", {
-    staticClass: "cptm-form-builder-group-actions"
-  }, [_vm.canTrash ? _c("a", {
-    staticClass: "cptm-form-builder-group-field-item-action-link action-trash",
+    staticClass: "cptm-form-builder-group-actions-dropdown"
+  }, [_c("a", {
+    staticClass: "cptm-form-builder-group-actions-dropdown-btn",
+    attrs: {
+      href: "#"
+    },
+    on: {
+      click: function click($event) {
+        $event.preventDefault();
+        return _vm.toggleGroupExpandedDropdown.apply(null, arguments);
+      }
+    }
+  }, [_c("span", {
+    staticClass: "fa fa-ellipsis-h",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })]), _vm._v(" "), _c("slide-up-down", {
+    attrs: {
+      active: _vm.groupExpandedDropdown,
+      duration: 500
+    }
+  }, [_c("div", {
+    staticClass: "cptm-form-builder-group-actions-dropdown-content",
+    class: _vm.groupExpandedDropdown ? "expanded" : ""
+  }, [_c("a", {
+    staticClass: "cptm-form-builder-field-item-action-link",
     attrs: {
       href: "#"
     },
@@ -28478,7 +28507,7 @@ var render = function render() {
     attrs: {
       "aria-hidden": "true"
     }
-  })]) : _vm._e()])], 1), _vm._v(" "), _c("slide-up-down", {
+  }), _vm._v("\n            Remove Section\n          ")])])])], 1)], 1), _vm._v(" "), _c("slide-up-down", {
     attrs: {
       active: _vm.groupFieldsExpandState,
       duration: 500

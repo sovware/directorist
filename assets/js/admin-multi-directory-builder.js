@@ -14142,29 +14142,24 @@ module.exports = JSON.parse("{\"name\":\"axios\",\"version\":\"0.21.4\",\"descri
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof.js");
-/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _Header_Navigation_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Header_Navigation.vue */ "./assets/src/js/admin/vue/apps/cpt-manager/Header_Navigation.vue");
-/* harmony import */ var _TabContents_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./TabContents.vue */ "./assets/src/js/admin/vue/apps/cpt-manager/TabContents.vue");
-
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _Header_Navigation_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Header_Navigation.vue */ "./assets/src/js/admin/vue/apps/cpt-manager/Header_Navigation.vue");
+/* harmony import */ var _TabContents_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./TabContents.vue */ "./assets/src/js/admin/vue/apps/cpt-manager/TabContents.vue");
 
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 
 
 
-
-var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").default;
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "cpt-manager",
   components: {
-    headerNavigation: _Header_Navigation_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
-    tabContents: _TabContents_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
+    headerNavigation: _Header_Navigation_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+    tabContents: _TabContents_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapState"])({
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])({
     options: "options"
   })),
   created: function created() {
@@ -14177,35 +14172,16 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
     if (this.$root.options) {
       this.$store.commit("updateOptions", this.$root.options);
     }
-
-    // console.log( this.options );
-
     if (this.$root.config) {
       this.$store.commit("updateConfig", this.$root.config);
-    }
-    if (this.$root.id && !isNaN(this.$root.id)) {
-      var id = parseInt(this.$root.id);
-      if (id > 0) {
-        this.listing_type_id = id;
-        this.footer_actions.save.label = "Update";
-      }
     }
   },
   data: function data() {
     return {
-      listing_type_id: null,
-      status_messages: [],
-      footer_actions: {
-        save: {
-          show: true,
-          label: "Create",
-          showLoading: false,
-          isDisabled: false
-        }
-      }
+      listing_type_id: null
     };
   },
-  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])(["getFieldsValue"])), {}, {
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])(["getFieldsValue"])), {}, {
     updateOptionsField: function updateOptionsField(payload) {
       if (!payload.field) {
         return;
@@ -14215,44 +14191,8 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
       }
       this.$store.commit("updateOptionsField", payload);
     },
-    updateData: function updateData() {
-      var fields = this.getFieldsValue();
-      var submission_url = this.$store.state.config.submission.url;
-      var submission_with = this.$store.state.config.submission.with;
-      var form_data = new FormData();
-      if (submission_with && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(submission_with) === "object") {
-        for (var _data_key in submission_with) {
-          form_data.append(_data_key, submission_with[_data_key]);
-        }
-      }
-      if (this.listing_type_id) {
-        form_data.append("listing_type_id", this.listing_type_id);
-        this.footer_actions.save.label = "Update";
-      }
-      for (var field_key in fields) {
-        var value = this.maybeJSON(fields[data_key]);
-        form_data.append(data_key, value);
-      }
-      console.log({
-        submission_url: submission_url,
-        submission_with: submission_with
-      });
-    },
     saveData: function saveData() {
       var options = this.$store.state.options;
-      var fields = this.$store.state.fields;
-      var submission_url = this.$store.state.config.submission.url;
-      var submission_with = this.$store.state.config.submission.with;
-      var form_data = new FormData();
-      if (submission_with && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(submission_with) === "object") {
-        for (var _data_key2 in submission_with) {
-          form_data.append(_data_key2, submission_with[_data_key2]);
-        }
-      }
-      if (this.listing_type_id) {
-        form_data.append("listing_type_id", this.listing_type_id);
-        this.footer_actions.save.label = "Update";
-      }
 
       // Get Options Fields Data
       var options_field_list = [];
@@ -14261,77 +14201,6 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
         form_data.append(field, value);
         options_field_list.push(field);
       }
-      form_data.append("field_list", JSON.stringify(field_list));
-
-      // Get Form Fields Data
-      var field_list = [];
-      for (var _field in fields) {
-        var _value = this.maybeJSON([fields[_field].value]);
-        if (fields[_field].editor) {
-          var privacyFieldID = fields[_field].editorID;
-          var editorInstance = tinymce.get(privacyFieldID);
-          _value = editorInstance.getContent();
-        }
-        form_data.append(_field, _value);
-        field_list.push(_field);
-      }
-      form_data.append("field_list", this.maybeJSON(field_list));
-      this.status_messages = [];
-      this.footer_actions.save.showLoading = true;
-      this.footer_actions.save.isDisabled = true;
-      var self = this;
-
-      // return;
-      axios.post(submission_url, form_data).then(function (response) {
-        self.footer_actions.save.showLoading = false;
-        self.footer_actions.save.isDisabled = false;
-
-        // console.log( response );
-        // return;
-
-        if (response.data.term_id && !isNaN(response.data.term_id)) {
-          self.listing_type_id = response.data.term_id;
-          self.footer_actions.save.label = "Update";
-          self.listing_type_id = response.data.term_id;
-          if (response.data.redirect_url) {
-            window.location = response.data.redirect_url;
-          }
-        }
-        if (response.data.status && response.data.status.status_log) {
-          for (var status_key in response.data.status.status_log) {
-            self.status_messages.push({
-              type: response.data.status.status_log[status_key].type,
-              message: response.data.status.status_log[status_key].message
-            });
-          }
-          setTimeout(function () {
-            self.status_messages = [];
-          }, 5000);
-        }
-
-        // console.log( response );
-      }).catch(function (error) {
-        self.footer_actions.save.showLoading = false;
-        self.footer_actions.save.isDisabled = false;
-        console.log(error);
-      });
-    },
-    maybeJSON: function maybeJSON(data) {
-      var value = typeof data === "undefined" ? "" : data;
-      if ("object" === _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(value) && Object.keys(value) || Array.isArray(value)) {
-        var json_encoded_value = JSON.stringify(value);
-        var base64_encoded_value = this.encodeUnicodedToBase64(json_encoded_value);
-        value = base64_encoded_value;
-      }
-      return value;
-    },
-    encodeUnicodedToBase64: function encodeUnicodedToBase64(str) {
-      // first we use encodeURIComponent to get percent-encoded UTF-8,
-      // then we convert the percent encodings into raw bytes which
-      // can be fed into btoa.
-      return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function toSolidBytes(match, p1) {
-        return String.fromCharCode("0x" + p1);
-      }));
     }
   })
 });
@@ -23292,19 +23161,27 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof.js");
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-/* harmony import */ var _helper__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../helper */ "./assets/src/js/helper.js");
-/* harmony import */ var _mixins_helpers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../mixins/helpers */ "./assets/src/js/admin/vue/mixins/helpers.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _helper__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../helper */ "./assets/src/js/helper.js");
+/* harmony import */ var _mixins_helpers__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../mixins/helpers */ "./assets/src/js/admin/vue/mixins/helpers.js");
+
 
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 
 
 
+
+var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").default;
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "form-builder",
-  mixins: [_mixins_helpers__WEBPACK_IMPORTED_MODULE_3__["default"]],
+  mixins: [_mixins_helpers__WEBPACK_IMPORTED_MODULE_5__["default"]],
   props: {
     fieldId: {
       type: [String, Number],
@@ -23329,6 +23206,28 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   },
   created: function created() {
     this.setupActiveWidgetFields();
+    if (this.$root.fields) {
+      this.$store.commit("updateFields", this.$root.fields);
+    }
+    if (this.$root.layouts) {
+      this.$store.commit("updatelayouts", this.$root.layouts);
+    }
+    if (this.$root.options) {
+      this.$store.commit("updateOptions", this.$root.options);
+    }
+
+    // console.log( this.options );
+
+    if (this.$root.config) {
+      this.$store.commit("updateConfig", this.$root.config);
+    }
+    if (this.$root.id && !isNaN(this.$root.id)) {
+      var id = parseInt(this.$root.id);
+      if (id > 0) {
+        this.listing_type_id = id;
+        this.footer_actions.save.label = "Update";
+      }
+    }
   },
   mounted: function mounted() {
     this.setupActiveWidgetGroups();
@@ -23338,7 +23237,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       this.$emit("update", this.finalValue);
     }
   },
-  computed: {
+  computed: _objectSpread({
     finalValue: function finalValue() {
       return {
         fields: this.active_widget_fields,
@@ -23384,7 +23283,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       }
       return button_label;
     }
-  },
+  }, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapState"])({
+    options: "options"
+  })),
   data: function data() {
     return {
       local_value: {},
@@ -23400,10 +23301,20 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       // expand | 'collapse'
       isEnabledGroupDragging: true,
       currentDraggingGroup: null,
-      currentDraggingWidget: null
+      currentDraggingWidget: null,
+      listing_type_id: null,
+      status_messages: [],
+      footer_actions: {
+        save: {
+          show: true,
+          label: "Create",
+          showLoading: false,
+          isDisabled: false
+        }
+      }
     };
   },
-  methods: {
+  methods: _objectSpread(_objectSpread({
     setup: function setup() {
       this.setupActiveWidgetFields();
       this.setupActiveWidgetGroups();
@@ -23413,20 +23324,20 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       if (!this.value) {
         return;
       }
-      this.active_widget_fields = this.sanitizeActiveWidgetFields(Object(_helper__WEBPACK_IMPORTED_MODULE_2__["findObjectItem"])("fields", this.value, {}));
+      this.active_widget_fields = this.sanitizeActiveWidgetFields(Object(_helper__WEBPACK_IMPORTED_MODULE_4__["findObjectItem"])("fields", this.value, {}));
       this.$emit("updated-state");
       this.$emit("active-widgets-updated");
     },
     // sanitizeActiveWidgetFields
     sanitizeActiveWidgetFields: function sanitizeActiveWidgetFields(activeWidgetFields) {
-      if (!Object(_helper__WEBPACK_IMPORTED_MODULE_2__["isObject"])(activeWidgetFields)) {
+      if (!Object(_helper__WEBPACK_IMPORTED_MODULE_4__["isObject"])(activeWidgetFields)) {
         return {};
       }
       if (activeWidgetFields.hasOwnProperty("field_key")) {
         delete activeWidgetFields.field_key;
       }
       for (var widget_key in activeWidgetFields) {
-        if (!Object(_helper__WEBPACK_IMPORTED_MODULE_2__["isObject"])(activeWidgetFields[widget_key])) {
+        if (!Object(_helper__WEBPACK_IMPORTED_MODULE_4__["isObject"])(activeWidgetFields[widget_key])) {
           delete activeWidgetFields[widget_key];
           continue;
         }
@@ -23500,16 +23411,16 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       if (typeof widget_list.base_widget_list === "undefined") {
         return;
       }
-      vue__WEBPACK_IMPORTED_MODULE_1__["default"].set(this.avilable_widgets, widget_list.widget_group, widget_list.base_widget_list);
+      vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(this.avilable_widgets, widget_list.widget_group, widget_list.base_widget_list);
     },
     updateGroupField: function updateGroupField(widget_group_key, payload) {
-      vue__WEBPACK_IMPORTED_MODULE_1__["default"].set(this.active_widget_groups[widget_group_key], payload.key, payload.value);
+      vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(this.active_widget_groups[widget_group_key], payload.key, payload.value);
       this.$emit("update", this.finalValue);
       this.$emit("updated-state");
       this.$emit("group-field-updated");
     },
     updateWidgetField: function updateWidgetField(payload) {
-      vue__WEBPACK_IMPORTED_MODULE_1__["default"].set(this.active_widget_fields[payload.widget_key], payload.payload.key, payload.payload.value);
+      vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(this.active_widget_fields[payload.widget_key], payload.payload.key, payload.payload.value);
       this.$emit("update", this.finalValue);
       this.$emit("updated-state");
       this.$emit("widget-field-updated");
@@ -23537,7 +23448,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     },
     isAcceptedSectionWidget: function isAcceptedSectionWidget(widgetKey, destinationSection) {
       var widgetPath = "".concat(destinationSection.widget_group, ".widgets.").concat(destinationSection.widget_name);
-      var widget = Object(_helper__WEBPACK_IMPORTED_MODULE_2__["findObjectItem"])(widgetPath, this.widgets, {});
+      var widget = Object(_helper__WEBPACK_IMPORTED_MODULE_4__["findObjectItem"])(widgetPath, this.widgets, {});
       if (!widget.hasOwnProperty("accepted_widgets")) {
         return true;
       }
@@ -23627,10 +23538,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       if (field_data_options.field_key) {
         field_data_options.field_key = this.genarateFieldKeyForActiveWidgets(field_data_options);
       }
-      if (!Object(_helper__WEBPACK_IMPORTED_MODULE_2__["isObject"])(this.active_widget_fields)) {
+      if (!Object(_helper__WEBPACK_IMPORTED_MODULE_4__["isObject"])(this.active_widget_fields)) {
         this.active_widget_fields = {};
       }
-      vue__WEBPACK_IMPORTED_MODULE_1__["default"].set(this.active_widget_fields, field_data_options.widget_key, field_data_options);
+      vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(this.active_widget_fields, field_data_options.widget_key, field_data_options);
       var to_fields = this.active_widget_groups[to.widget_group_key].fields;
       var dest_index = "before" === to.drop_direction ? to.widget_index - 1 : to.widget_index;
       dest_index = "after" === to.drop_direction ? to.widget_index + 1 : to.widget_index;
@@ -23666,14 +23577,14 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     trashWidget: function trashWidget(widget_group_key, payload) {
       var index = this.active_widget_groups[widget_group_key].fields.indexOf(payload.widget_key);
       this.active_widget_groups[widget_group_key].fields.splice(index, 1);
-      vue__WEBPACK_IMPORTED_MODULE_1__["default"].delete(this.active_widget_fields, payload.widget_key);
+      vue__WEBPACK_IMPORTED_MODULE_2__["default"].delete(this.active_widget_fields, payload.widget_key);
       this.$emit("updated-state");
       this.$emit("widget-field-trashed");
       this.$emit("active-widgets-updated");
     },
     getOptionDataFromWidget: function getOptionDataFromWidget(widget) {
-      var widgetOptions = Object(_helper__WEBPACK_IMPORTED_MODULE_2__["findObjectItem"])("options", widget);
-      if (!Object(_helper__WEBPACK_IMPORTED_MODULE_2__["isObject"])(widgetOptions)) {
+      var widgetOptions = Object(_helper__WEBPACK_IMPORTED_MODULE_4__["findObjectItem"])("options", widget);
+      if (!Object(_helper__WEBPACK_IMPORTED_MODULE_4__["isObject"])(widgetOptions)) {
         return {};
       }
       var fieldDataOptions = {};
@@ -23816,7 +23727,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     },
     insertWidgetFromAvailableSectionWidgets: function insertWidgetFromAvailableSectionWidgets(widgets) {
       var _this = this;
-      if (!Object(_helper__WEBPACK_IMPORTED_MODULE_2__["isObject"])(widgets)) {
+      if (!Object(_helper__WEBPACK_IMPORTED_MODULE_4__["isObject"])(widgets)) {
         return [];
       }
       var insertWidgetAndGetKey = function insertWidgetAndGetKey(widget_key, widget) {
@@ -23825,10 +23736,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         if (field_data_options.field_key) {
           field_data_options.field_key = _this.genarateFieldKeyForActiveWidgets(field_data_options);
         }
-        if (!Object(_helper__WEBPACK_IMPORTED_MODULE_2__["isObject"])(_this.active_widget_fields)) {
+        if (!Object(_helper__WEBPACK_IMPORTED_MODULE_4__["isObject"])(_this.active_widget_fields)) {
           _this.active_widget_fields = {};
         }
-        vue__WEBPACK_IMPORTED_MODULE_1__["default"].set(_this.active_widget_fields, field_data_options.widget_key, field_data_options);
+        vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(_this.active_widget_fields, field_data_options.widget_key, field_data_options);
         return field_data_options.widget_key;
       };
       return Object.keys(widgets).map(function (widgetKey) {
@@ -23843,7 +23754,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         try {
           for (_iterator5.s(); !(_step5 = _iterator5.n()).done;) {
             var widget_key = _step5.value;
-            vue__WEBPACK_IMPORTED_MODULE_1__["default"].delete(this.active_widget_fields, widget_key);
+            vue__WEBPACK_IMPORTED_MODULE_2__["default"].delete(this.active_widget_fields, widget_key);
           }
         } catch (err) {
           _iterator5.e(err);
@@ -23851,7 +23762,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           _iterator5.f();
         }
       }
-      vue__WEBPACK_IMPORTED_MODULE_1__["default"].delete(this.active_widget_groups, widget_group_key);
+      vue__WEBPACK_IMPORTED_MODULE_2__["default"].delete(this.active_widget_groups, widget_group_key);
       this.$emit("updated-state");
       this.$emit("group-updated");
       this.$emit("group-trashed");
@@ -23862,7 +23773,135 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       this.forceExpandStateTo = !this.forceExpandStateTo ? "collapse" : ""; // expand | 'collapse'
       this.isEnabledGroupDragging = !this.isEnabledGroupDragging;
     }
-  }
+  }, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapGetters"])(["getFieldsValue"])), {}, {
+    updateOptionsField: function updateOptionsField(payload) {
+      if (!payload.field) {
+        return;
+      }
+      if (typeof payload.value === "undefined") {
+        return;
+      }
+      this.$store.commit("updateOptionsField", payload);
+    },
+    updateData: function updateData() {
+      var fields = this.getFieldsValue();
+      var submission_url = this.$store.state.config.submission.url;
+      var submission_with = this.$store.state.config.submission.with;
+      var form_data = new FormData();
+      if (submission_with && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(submission_with) === "object") {
+        for (var _data_key in submission_with) {
+          form_data.append(_data_key, submission_with[_data_key]);
+        }
+      }
+      if (this.listing_type_id) {
+        form_data.append("listing_type_id", this.listing_type_id);
+        this.footer_actions.save.label = "Update";
+      }
+      for (var field_key in fields) {
+        var value = this.maybeJSON(fields[data_key]);
+        form_data.append(data_key, value);
+      }
+      console.log({
+        submission_url: submission_url,
+        submission_with: submission_with
+      });
+    },
+    saveData: function saveData() {
+      var options = this.$store.state.options;
+      var fields = this.$store.state.fields;
+      var submission_url = this.$store.state.config.submission.url;
+      var submission_with = this.$store.state.config.submission.with;
+      var form_data = new FormData();
+      if (submission_with && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(submission_with) === "object") {
+        for (var _data_key2 in submission_with) {
+          form_data.append(_data_key2, submission_with[_data_key2]);
+        }
+      }
+      if (this.listing_type_id) {
+        form_data.append("listing_type_id", this.listing_type_id);
+        this.footer_actions.save.label = "Update";
+      }
+
+      // Get Options Fields Data
+      var options_field_list = [];
+      for (var field in options) {
+        var value = this.maybeJSON(options[field].value);
+        form_data.append(field, value);
+        options_field_list.push(field);
+      }
+      form_data.append("field_list", JSON.stringify(field_list));
+
+      // Get Form Fields Data
+      var field_list = [];
+      for (var _field in fields) {
+        var _value = this.maybeJSON([fields[_field].value]);
+        if (fields[_field].editor) {
+          var privacyFieldID = fields[_field].editorID;
+          var editorInstance = tinymce.get(privacyFieldID);
+          _value = editorInstance.getContent();
+        }
+        form_data.append(_field, _value);
+        field_list.push(_field);
+      }
+      form_data.append("field_list", this.maybeJSON(field_list));
+      this.status_messages = [];
+      this.footer_actions.save.showLoading = true;
+      this.footer_actions.save.isDisabled = true;
+      var self = this;
+
+      // return;
+      axios.post(submission_url, form_data).then(function (response) {
+        self.footer_actions.save.showLoading = false;
+        self.footer_actions.save.isDisabled = false;
+
+        // console.log( response );
+        // return;
+
+        if (response.data.term_id && !isNaN(response.data.term_id)) {
+          self.listing_type_id = response.data.term_id;
+          self.footer_actions.save.label = "Update";
+          self.listing_type_id = response.data.term_id;
+          if (response.data.redirect_url) {
+            window.location = response.data.redirect_url;
+          }
+        }
+        if (response.data.status && response.data.status.status_log) {
+          for (var status_key in response.data.status.status_log) {
+            self.status_messages.push({
+              type: response.data.status.status_log[status_key].type,
+              message: response.data.status.status_log[status_key].message
+            });
+          }
+          setTimeout(function () {
+            self.status_messages = [];
+          }, 5000);
+        }
+
+        // console.log( response );
+      }).catch(function (error) {
+        self.footer_actions.save.showLoading = false;
+        self.footer_actions.save.isDisabled = false;
+        console.log(error);
+      });
+    },
+    maybeJSON: function maybeJSON(data) {
+      var value = typeof data === "undefined" ? "" : data;
+      if ("object" === _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(value) && Object.keys(value) || Array.isArray(value)) {
+        var json_encoded_value = JSON.stringify(value);
+        var base64_encoded_value = this.encodeUnicodedToBase64(json_encoded_value);
+        value = base64_encoded_value;
+      }
+      return value;
+    },
+    encodeUnicodedToBase64: function encodeUnicodedToBase64(str) {
+      // first we use encodeURIComponent to get percent-encoded UTF-8,
+      // then we convert the percent encodings into raw bytes which
+      // can be fed into btoa.
+      return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function toSolidBytes(match, p1) {
+        return String.fromCharCode("0x" + p1);
+      }));
+    }
+  })
 });
 
 /***/ }),
@@ -25761,34 +25800,7 @@ var render = function render() {
     }
   }, "component", _vm.options.name, false)) : _vm._e(), _vm._v(" "), _c("headerNavigation")], 1), _vm._v(" "), _c("div", {
     staticClass: "atbdp-cptm-body"
-  }, [_c("tabContents"), _vm._v(" "), _vm.status_messages.length ? _c("div", {
-    staticClass: "atbdp-cptm-status-feedback"
-  }, _vm._l(_vm.status_messages, function (status, index) {
-    return _c("div", {
-      key: index,
-      staticClass: "cptm-alert",
-      class: "cptm-alert-" + status.type
-    }, [_vm._v("\n        " + _vm._s(status.message) + "\n      ")]);
-  }), 0) : _vm._e()], 1), _vm._v(" "), _c("div", {
-    staticClass: "atbdp-cptm-footer"
-  }, [_c("div", {
-    staticClass: "atbdp-cptm-progress-bar"
-  }), _vm._v(" "), _c("div", {
-    staticClass: "atbdp-cptm-footer-actions"
-  }, [_c("button", {
-    staticClass: "cptm-btn cptm-btn-primary",
-    attrs: {
-      type: "button",
-      disabled: _vm.footer_actions.save.isDisabled
-    },
-    on: {
-      click: function click($event) {
-        return _vm.saveData();
-      }
-    }
-  }, [_vm.footer_actions.save.showLoading ? _c("span", {
-    staticClass: "fa fa-spinner fa-spin"
-  }) : _vm._e(), _vm._v("\n        " + _vm._s(_vm.footer_actions.save.label) + "\n      ")])])])]);
+  }, [_c("tabContents")], 1)]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -31888,9 +31900,54 @@ var render = function render() {
         return _vm.addNewGroup();
       }
     }
-  })]) : _vm._e()], 2)])])]);
+  })]) : _vm._e(), _vm._v(" "), _c("div", {
+    staticClass: "atbdp-cptm-footer"
+  }, [_vm._m(0), _vm._v(" "), _c("div", {
+    staticClass: "atbdp-cptm-progress-bar"
+  }), _vm._v(" "), _c("div", {
+    staticClass: "atbdp-cptm-footer-actions"
+  }, [_c("button", {
+    staticClass: "cptm-btn cptm-btn-primary",
+    attrs: {
+      type: "button",
+      disabled: _vm.footer_actions.save.isDisabled
+    },
+    on: {
+      click: function click($event) {
+        return _vm.saveData();
+      }
+    }
+  }, [_vm.footer_actions.save.showLoading ? _c("span", {
+    staticClass: "fa fa-spinner fa-spin"
+  }) : _vm._e(), _vm._v("\n              " + _vm._s(_vm.footer_actions.save.label) + "\n            ")])]), _vm._v(" "), _vm.status_messages.length ? _c("div", {
+    staticClass: "atbdp-cptm-status-feedback"
+  }, _vm._l(_vm.status_messages, function (status, index) {
+    return _c("div", {
+      key: index,
+      staticClass: "cptm-alert",
+      class: "cptm-alert-" + status.type
+    }, [_vm._v("\n              " + _vm._s(status.message) + "\n            ")]);
+  }), 0) : _vm._e()])], 2)])])]);
 };
-var staticRenderFns = [];
+var staticRenderFns = [function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "atbdp-cptm-footer-preview"
+  }, [_c("label", {
+    attrs: {
+      for: "atbdp-cptm-footer-preview-toggle"
+    }
+  }, [_vm._v("\n              Enable Listing Preview\n            ")]), _vm._v(" "), _c("input", {
+    staticClass: "atbdp-cptm-footer-preview-toggle",
+    attrs: {
+      id: "atbdp-cptm-footer-preview-toggle",
+      type: "checkbox"
+    }
+  }), _vm._v(" "), _c("div", {
+    staticClass: "atbdp-cptm-footer-preview-desc"
+  }, [_vm._v("Help Text Here")])]);
+}];
 render._withStripped = true;
 
 

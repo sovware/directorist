@@ -25,6 +25,7 @@
         <a
           href="#"
           class="cptm-form-builder-group-actions-dropdown-btn"
+          v-if="canTrash"
           @click.prevent="toggleGroupExpandedDropdown"
         >
           <span aria-hidden="true" class="fa fa-ellipsis-h"></span>

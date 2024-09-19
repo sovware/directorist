@@ -14367,7 +14367,12 @@ div[draggable=true].cptm-form-builder-group-title-area {
   margin-bottom: 20px;
   position: relative;
   padding-left: 50px;
+  padding-right: 30px;
   border-radius: 4px;
+}
+.cptm-form-builder-group-field-item .directorist-draggable-list-item {
+  position: absolute;
+  right: 0;
 }
 
 .cptm-form-builder-group-field-item-actions {
@@ -14476,7 +14481,7 @@ div[draggable=true].cptm-form-builder-group-title-area {
   position: relative;
   top: 15px;
   float: right;
-  margin-left: 15px;
+  margin-left: 17px;
   -webkit-box-flex: unset;
   -webkit-flex-grow: unset;
       -ms-flex-positive: unset;
@@ -18093,7 +18098,12 @@ div[draggable=true].cptm-form-builder-group-title-area {
   margin-bottom: 20px;
   position: relative;
   padding-left: 50px;
+  padding-right: 30px;
   border-radius: 4px;
+}
+.cptm-form-builder-group-field-item .directorist-draggable-list-item {
+  position: absolute;
+  right: 0;
 }
 
 .cptm-form-builder-group-field-item-actions {
@@ -18202,7 +18212,7 @@ div[draggable=true].cptm-form-builder-group-title-area {
   position: relative;
   top: 15px;
   float: right;
-  margin-left: 15px;
+  margin-left: 17px;
   -webkit-box-flex: unset;
   -webkit-flex-grow: unset;
       -ms-flex-positive: unset;
@@ -22086,7 +22096,12 @@ div[draggable=true].cptm-form-builder-group-title-area {
   margin-bottom: 20px;
   position: relative;
   padding-left: 50px;
+  padding-right: 30px;
   border-radius: 4px;
+}
+.cptm-form-builder-group-field-item .directorist-draggable-list-item {
+  position: absolute;
+  right: 0;
 }
 
 .cptm-form-builder-group-field-item-actions {
@@ -22195,7 +22210,7 @@ div[draggable=true].cptm-form-builder-group-title-area {
   position: relative;
   top: 15px;
   float: right;
-  margin-left: 15px;
+  margin-left: 17px;
   -webkit-box-flex: unset;
   -webkit-flex-grow: unset;
       -ms-flex-positive: unset;

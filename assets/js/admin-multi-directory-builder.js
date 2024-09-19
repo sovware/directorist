@@ -28169,7 +28169,7 @@ var render = function render() {
     }
   })], 1) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "cptm-form-builder-group-actions-dropdown cptm-form-builder-group-actions-dropdown--field"
-  }, [_c("a", {
+  }, [_vm.canTrashWidget ? _c("a", {
     staticClass: "cptm-form-builder-group-actions-dropdown-btn",
     attrs: {
       href: "#"
@@ -28185,7 +28185,7 @@ var render = function render() {
     attrs: {
       "aria-hidden": "true"
     }
-  })]), _vm._v(" "), _c("slide-up-down", {
+  })]) : _vm._e(), _vm._v(" "), _c("slide-up-down", {
     attrs: {
       active: _vm.expandedDropdown,
       duration: 500
@@ -28193,7 +28193,7 @@ var render = function render() {
   }, [_c("div", {
     staticClass: "cptm-form-builder-group-actions-dropdown-content",
     class: _vm.expandedDropdown ? "expanded" : ""
-  }, [_vm.canTrashWidget ? _c("a", {
+  }, [_c("a", {
     staticClass: "cptm-form-builder-field-item-action-link",
     attrs: {
       href: "#"
@@ -28209,7 +28209,7 @@ var render = function render() {
     attrs: {
       "aria-hidden": "true"
     }
-  }), _vm._v("\n          Remove Field\n        ")]) : _vm._e()])])], 1), _vm._v(" "), _c("confirmation-modal", {
+  }), _vm._v("\n          Remove Field\n        ")])])])], 1), _vm._v(" "), _c("confirmation-modal", {
     attrs: {
       visible: _vm.showConfirmationModal,
       widgetName: _vm.widgetName
@@ -28484,7 +28484,7 @@ var render = function render() {
     }
   }, "form-builder-widget-group-titlebar-component", _vm.$props, false)), _vm._v(" "), _c("div", {
     staticClass: "cptm-form-builder-group-actions-dropdown cptm-form-builder-group-actions-dropdown--group"
-  }, [_c("a", {
+  }, [_vm.canTrash ? _c("a", {
     staticClass: "cptm-form-builder-group-actions-dropdown-btn",
     attrs: {
       href: "#"
@@ -28500,7 +28500,7 @@ var render = function render() {
     attrs: {
       "aria-hidden": "true"
     }
-  })]), _vm._v(" "), _c("slide-up-down", {
+  })]) : _vm._e(), _vm._v(" "), _c("slide-up-down", {
     attrs: {
       active: _vm.groupExpandedDropdown,
       duration: 500

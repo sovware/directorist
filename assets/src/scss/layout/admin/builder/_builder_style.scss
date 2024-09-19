@@ -906,7 +906,12 @@ div[draggable="true"].cptm-form-builder-group-title-area {
   margin-bottom: 20px;
   position: relative;
   padding-right: 50px;
+  padding-left: 30px;
   border-radius: 4px;
+  .directorist-draggable-list-item {
+    position: absolute;
+    left: 0;
+  }
 }
 
 .cptm-form-builder-group-field-item-actions {
@@ -996,7 +1001,7 @@ div[draggable="true"].cptm-form-builder-group-title-area {
   position: relative;
   top: 15px;
   float: left;
-  margin-right: 15px;
+  margin-right: 17px;
   flex-grow: unset;
 }
 

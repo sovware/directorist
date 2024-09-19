@@ -49,6 +49,7 @@
       <a
         href="#"
         class="cptm-form-builder-group-actions-dropdown-btn"
+        v-if="canTrashWidget"
         @click.prevent="toggleExpandedDropdown"
       >
         <span aria-hidden="true" class="fa fa-ellipsis-h"></span>
@@ -63,7 +64,6 @@
           <a
             href="#"
             class="cptm-form-builder-field-item-action-link"
-            v-if="canTrashWidget"
             @click.prevent="handleTrashClick"
           >
             <span aria-hidden="true" class="uil uil-trash-alt"></span>

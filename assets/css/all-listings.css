@@ -11523,6 +11523,24 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
+.listing-with-sidebar__sidebar .directorist-advanced-filter__action.directorist-advanced-filter__action--ajax {
+  padding: 0;
+  border: none;
+  text-align: end;
+  margin: -20px 0 20px;
+}
+.listing-with-sidebar__sidebar .directorist-advanced-filter__action.directorist-advanced-filter__action--ajax .directorist-btn-reset-ajax {
+  padding: 0;
+  color: var(--directorist-color-info);
+  background: transparent;
+  width: auto;
+  height: auto;
+  line-height: normal;
+  font-size: 14px;
+}
+.listing-with-sidebar__sidebar .directorist-advanced-filter__action.directorist-advanced-filter__action--ajax.reset-btn-disabled {
+  display: none;
+}
 .listing-with-sidebar__sidebar .directorist-search-modal__contents__footer {
   position: relative;
   background-color: transparent;

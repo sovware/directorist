@@ -1,11 +1,10 @@
 import { registerBlockType } from '@wordpress/blocks';
 import { useBlockProps } from '@wordpress/block-editor';
-import { getPreview } from './../functions'
+import { getPreview } from './../functions';
 import metadata from './block.json';
 import getLogo from './../logo';
 
 registerBlockType( metadata.name, {
-	
 	icon: getLogo(),
 
 	transforms: {
@@ -13,15 +12,15 @@ registerBlockType( metadata.name, {
 			{
 				type: 'shortcode',
 				tag: 'directorist_custom_registration',
-				attributes: {}
+				attributes: {},
 			},
-		]
+		],
 	},
 
 	example: {
 		attributes: {
-			isPreview: true
-		}
+			isPreview: true,
+		},
 	},
 
 	edit( { attributes } ) {
@@ -30,5 +29,5 @@ registerBlockType( metadata.name, {
 				{ getPreview( 'signin', attributes.isPreview ) }
 			</div>
 		);
-	}
+	},
 } );

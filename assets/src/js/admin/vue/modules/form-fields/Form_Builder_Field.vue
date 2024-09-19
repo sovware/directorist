@@ -1,12 +1,22 @@
 <template>
   <div class="cptm-form-builder cptm-row">
+    <div class="cptm-col-6 cptm-col-sticky">
+      <template v-for="(widget_group, widget_group_key) in widgets">
+        <form-builder-widget-list-section-component
+          :key="widget_group_key"
+          :field-id="fieldId"
+          v-bind="widget_group"
+          :widget-group="widget_group_key"
+          :selected-widgets="active_widget_fields"
+          :active-widget-groups="active_widget_groups"
+          @update-widget-list="updateWidgetList"
+          @drag-start="handleWidgetListItemDragStart(widget_group_key, $event)"
+          @drag-end="handleWidgetListItemDragEnd(widget_group_key, $event)"
+        />
+      </template>
+    </div>
     <div class="cptm-col-6">
       <div class="cptm-form-builder-active-fields">
-        <h3 class="cptm-title-3">Active Fields</h3>
-        <p class="cptm-description-text">
-          Click on a field to edit, Drag & Drop to reorder
-        </p>
-
         <div class="cptm-form-builder-active-fields-container">
           <draggable-list-item-wrapper
             list-id="widget-group"
@@ -60,29 +70,13 @@
         </div>
       </div>
     </div>
-
-    <div class="cptm-col-6 cptm-col-sticky">
-      <template v-for="(widget_group, widget_group_key) in widgets">
-        <form-builder-widget-list-section-component
-          :key="widget_group_key"
-          :field-id="fieldId"
-          v-bind="widget_group"
-          :widget-group="widget_group_key"
-          :selected-widgets="active_widget_fields"
-          :active-widget-groups="active_widget_groups"
-          @update-widget-list="updateWidgetList"
-          @drag-start="handleWidgetListItemDragStart(widget_group_key, $event)"
-          @drag-end="handleWidgetListItemDragEnd(widget_group_key, $event)"
-        />
-      </template>
-    </div>
   </div>
 </template>
 
 <script>
 import Vue from "vue";
-import helpers from "../../mixins/helpers";
 import { findObjectItem, isObject } from "../../../../helper";
+import helpers from "../../mixins/helpers";
 
 export default {
   name: "form-builder",
@@ -229,33 +223,35 @@ export default {
 
     // setupActiveWidgetFields
     setupActiveWidgetFields() {
-      if ( ! this.value ) {
+      if (!this.value) {
         return;
       }
 
-      this.active_widget_fields = this.sanitizeActiveWidgetFields( findObjectItem( 'fields', this.value, {} ) );
-      
+      this.active_widget_fields = this.sanitizeActiveWidgetFields(
+        findObjectItem("fields", this.value, {})
+      );
+
       this.$emit("updated-state");
       this.$emit("active-widgets-updated");
     },
 
     // sanitizeActiveWidgetFields
-    sanitizeActiveWidgetFields( activeWidgetFields ) {
-      if ( ! isObject( activeWidgetFields ) ) {
+    sanitizeActiveWidgetFields(activeWidgetFields) {
+      if (!isObject(activeWidgetFields)) {
         return {};
       }
 
-      if ( activeWidgetFields.hasOwnProperty( 'field_key' ) ) {
+      if (activeWidgetFields.hasOwnProperty("field_key")) {
         delete activeWidgetFields.field_key;
       }
 
-      for ( let widget_key in activeWidgetFields ) {
-        if ( ! isObject( activeWidgetFields[ widget_key ] ) ) {
-          delete activeWidgetFields[ widget_key ];
+      for (let widget_key in activeWidgetFields) {
+        if (!isObject(activeWidgetFields[widget_key])) {
+          delete activeWidgetFields[widget_key];
           continue;
         }
 
-        activeWidgetFields[ widget_key ].widget_key = widget_key;
+        activeWidgetFields[widget_key].widget_key = widget_key;
       }
 
       return activeWidgetFields;
@@ -382,36 +378,39 @@ export default {
       this.currentDraggingWidget = null;
     },
 
-    isAcceptedSectionWidget( widgetKey, destinationSection ) {
+    isAcceptedSectionWidget(widgetKey, destinationSection) {
       const widgetPath = `${destinationSection.widget_group}.widgets.${destinationSection.widget_name}`;
-      const widget     = findObjectItem( widgetPath, this.widgets, {} );
+      const widget = findObjectItem(widgetPath, this.widgets, {});
 
-      if ( ! widget.hasOwnProperty( 'accepted_widgets' ) ) {
+      if (!widget.hasOwnProperty("accepted_widgets")) {
         return true;
       }
 
-      if ( ! Array.isArray( widget.accepted_widgets ) ) {
+      if (!Array.isArray(widget.accepted_widgets)) {
         return true;
       }
 
-      if ( ! widget.accepted_widgets.length ) {
+      if (!widget.accepted_widgets.length) {
         return true;
       }
 
-      const droppedWidget = this.active_widget_fields[ widgetKey ];
+      const droppedWidget = this.active_widget_fields[widgetKey];
 
       let hasMissMatchWidget = false;
 
-      for ( const acceptedWidget of widget.accepted_widgets ) {
-        for ( const acceptedWidgetKey of Object.keys( acceptedWidget ) ) {
-          if ( droppedWidget[ acceptedWidgetKey ] !== acceptedWidget[ acceptedWidgetKey ] ) {
+      for (const acceptedWidget of widget.accepted_widgets) {
+        for (const acceptedWidgetKey of Object.keys(acceptedWidget)) {
+          if (
+            droppedWidget[acceptedWidgetKey] !==
+            acceptedWidget[acceptedWidgetKey]
+          ) {
             hasMissMatchWidget = true;
             break;
           }
         }
       }
 
-      if ( hasMissMatchWidget ) {
+      if (hasMissMatchWidget) {
         return false;
       }
     },
@@ -424,17 +423,17 @@ export default {
         drop_direction: payload.drop_direction,
       };
 
-      const activeGroup = this.active_widget_groups[ widget_group_key ];
+      const activeGroup = this.active_widget_groups[widget_group_key];
 
       if (
-          'section' === activeGroup.type &&
-          ! this.isAcceptedSectionWidget( payload.widget_key, activeGroup ) 
+        "section" === activeGroup.type &&
+        !this.isAcceptedSectionWidget(payload.widget_key, activeGroup)
       ) {
         return false;
       }
 
       // handleWidgetReorderFromActiveWidgets
-      if ( "active_widgets" === this.currentDraggingWidget.from ) {
+      if ("active_widgets" === this.currentDraggingWidget.from) {
         this.handleWidgetReorderFromActiveWidgets(
           this.currentDraggingWidget,
           dropped_in
@@ -506,15 +505,19 @@ export default {
     },
 
     handleWidgetInsertFromAvailableWidgets(from, to) {
-      const field_data_options = this.getOptionDataFromWidget( from.widget );
-      
-      field_data_options.widget_key = this.genarateWidgetKeyForActiveWidgets( from.widget_key );
+      const field_data_options = this.getOptionDataFromWidget(from.widget);
 
-      if ( field_data_options.field_key ) {
-        field_data_options.field_key = this.genarateFieldKeyForActiveWidgets( field_data_options );
+      field_data_options.widget_key = this.genarateWidgetKeyForActiveWidgets(
+        from.widget_key
+      );
+
+      if (field_data_options.field_key) {
+        field_data_options.field_key = this.genarateFieldKeyForActiveWidgets(
+          field_data_options
+        );
       }
 
-      if ( ! isObject( this.active_widget_fields ) ) {
+      if (!isObject(this.active_widget_fields)) {
         this.active_widget_fields = {};
       }
 
@@ -590,19 +593,19 @@ export default {
       this.$emit("active-widgets-updated");
     },
 
-    getOptionDataFromWidget( widget ) {
-      const widgetOptions = findObjectItem( 'options', widget );
+    getOptionDataFromWidget(widget) {
+      const widgetOptions = findObjectItem("options", widget);
 
-      if ( ! isObject( widgetOptions ) ) {
+      if (!isObject(widgetOptions)) {
         return {};
       }
 
       const fieldDataOptions = {};
-      
-      for ( let option_key in widgetOptions ) {
-        fieldDataOptions[ option_key ] =
-          typeof widgetOptions[ option_key ].value !== "undefined"
-            ? widgetOptions[ option_key ].value
+
+      for (let option_key in widgetOptions) {
+        fieldDataOptions[option_key] =
+          typeof widgetOptions[option_key].value !== "undefined"
+            ? widgetOptions[option_key].value
             : "";
       }
 
@@ -769,13 +772,15 @@ export default {
       let widget = from.widget;
       let option_data = this.getOptionDataFromWidget(widget);
 
-      group.fields = this.insertWidgetFromAvailableSectionWidgets( widget.widgets );
-      
+      group.fields = this.insertWidgetFromAvailableSectionWidgets(
+        widget.widgets
+      );
+
       delete widget.options;
       delete widget.widgets;
 
-      Object.assign( group, widget );
-      Object.assign( group, option_data );
+      Object.assign(group, widget);
+      Object.assign(group, option_data);
 
       let dest_index =
         "before" === to.drop_direction
@@ -797,21 +802,25 @@ export default {
       this.$emit("active-widgets-updated");
     },
 
-    insertWidgetFromAvailableSectionWidgets( widgets ) {
-      if ( ! isObject( widgets ) ) {
+    insertWidgetFromAvailableSectionWidgets(widgets) {
+      if (!isObject(widgets)) {
         return [];
       }
 
-      const insertWidgetAndGetKey = ( widget_key, widget ) => {
-        const field_data_options = this.getOptionDataFromWidget( widget );
-      
-        field_data_options.widget_key = this.genarateWidgetKeyForActiveWidgets( widget_key );
+      const insertWidgetAndGetKey = (widget_key, widget) => {
+        const field_data_options = this.getOptionDataFromWidget(widget);
 
-        if ( field_data_options.field_key ) {
-          field_data_options.field_key = this.genarateFieldKeyForActiveWidgets( field_data_options );
+        field_data_options.widget_key = this.genarateWidgetKeyForActiveWidgets(
+          widget_key
+        );
+
+        if (field_data_options.field_key) {
+          field_data_options.field_key = this.genarateFieldKeyForActiveWidgets(
+            field_data_options
+          );
         }
 
-        if ( ! isObject( this.active_widget_fields ) ) {
+        if (!isObject(this.active_widget_fields)) {
           this.active_widget_fields = {};
         }
 
@@ -824,7 +833,9 @@ export default {
         return field_data_options.widget_key;
       };
 
-      return Object.keys( widgets ).map( widgetKey => insertWidgetAndGetKey( widgetKey, widgets[ widgetKey ] ) );
+      return Object.keys(widgets).map((widgetKey) =>
+        insertWidgetAndGetKey(widgetKey, widgets[widgetKey])
+      );
     },
 
     trashGroup(widget_group_key) {

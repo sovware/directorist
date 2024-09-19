@@ -17619,10 +17619,14 @@ __webpack_require__.r(__webpack_exports__);
       widgetIsDragging: false,
       activeWidgetsIsUpdating: false,
       showConfirmationModal: false,
-      widgetName: ""
+      widgetName: "",
+      expandedDropdown: false
     };
   },
   methods: {
+    toggleExpandedDropdown: function toggleExpandedDropdown() {
+      this.expandedDropdown = !this.expandedDropdown;
+    },
     handleTrashClick: function handleTrashClick() {
       if (this.isPresetOrCustomGroup && this.widgetKey !== "terms_privacy") {
         this.openConfirmationModal();
@@ -22286,7 +22290,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof.js");
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-/* harmony import */ var vue_dndrop__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-dndrop */ "./node_modules/vue-dndrop/dist/vue-dndrop.esm.js");
+/* harmony import */ var vue_dndrop__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vue-dndrop */ "./node_modules/vue-dndrop/dist/vue-dndrop.esm.js");
 /* harmony import */ var _helpers_vue_dndrop__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../helpers/vue-dndrop */ "./assets/src/js/admin/vue/helpers/vue-dndrop.js");
 /* harmony import */ var _mixins_form_fields_card_builder__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../../mixins/form-fields/card-builder */ "./assets/src/js/admin/vue/mixins/form-fields/card-builder.js");
 /* harmony import */ var _mixins_helpers__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../mixins/helpers */ "./assets/src/js/admin/vue/mixins/helpers.js");
@@ -22305,8 +22309,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "card-builder-listing-header-field",
   components: {
-    Container: vue_dndrop__WEBPACK_IMPORTED_MODULE_3__["Container"],
-    Draggable: vue_dndrop__WEBPACK_IMPORTED_MODULE_3__["Draggable"]
+    Container: vue_dndrop__WEBPACK_IMPORTED_MODULE_7__["Container"],
+    Draggable: vue_dndrop__WEBPACK_IMPORTED_MODULE_7__["Draggable"]
   },
   mixins: [_mixins_form_fields_card_builder__WEBPACK_IMPORTED_MODULE_5__["default"], _mixins_helpers__WEBPACK_IMPORTED_MODULE_6__["default"]],
   props: {
@@ -23265,8 +23269,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof.js");
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-/* harmony import */ var _mixins_helpers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../mixins/helpers */ "./assets/src/js/admin/vue/mixins/helpers.js");
-/* harmony import */ var _helper__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../helper */ "./assets/src/js/helper.js");
+/* harmony import */ var _helper__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../helper */ "./assets/src/js/helper.js");
+/* harmony import */ var _mixins_helpers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../mixins/helpers */ "./assets/src/js/admin/vue/mixins/helpers.js");
 
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -23276,7 +23280,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "form-builder",
-  mixins: [_mixins_helpers__WEBPACK_IMPORTED_MODULE_2__["default"]],
+  mixins: [_mixins_helpers__WEBPACK_IMPORTED_MODULE_3__["default"]],
   props: {
     fieldId: {
       type: [String, Number],
@@ -23385,20 +23389,20 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       if (!this.value) {
         return;
       }
-      this.active_widget_fields = this.sanitizeActiveWidgetFields(Object(_helper__WEBPACK_IMPORTED_MODULE_3__["findObjectItem"])('fields', this.value, {}));
+      this.active_widget_fields = this.sanitizeActiveWidgetFields(Object(_helper__WEBPACK_IMPORTED_MODULE_2__["findObjectItem"])("fields", this.value, {}));
       this.$emit("updated-state");
       this.$emit("active-widgets-updated");
     },
     // sanitizeActiveWidgetFields
     sanitizeActiveWidgetFields: function sanitizeActiveWidgetFields(activeWidgetFields) {
-      if (!Object(_helper__WEBPACK_IMPORTED_MODULE_3__["isObject"])(activeWidgetFields)) {
+      if (!Object(_helper__WEBPACK_IMPORTED_MODULE_2__["isObject"])(activeWidgetFields)) {
         return {};
       }
-      if (activeWidgetFields.hasOwnProperty('field_key')) {
+      if (activeWidgetFields.hasOwnProperty("field_key")) {
         delete activeWidgetFields.field_key;
       }
       for (var widget_key in activeWidgetFields) {
-        if (!Object(_helper__WEBPACK_IMPORTED_MODULE_3__["isObject"])(activeWidgetFields[widget_key])) {
+        if (!Object(_helper__WEBPACK_IMPORTED_MODULE_2__["isObject"])(activeWidgetFields[widget_key])) {
           delete activeWidgetFields[widget_key];
           continue;
         }
@@ -23509,8 +23513,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     },
     isAcceptedSectionWidget: function isAcceptedSectionWidget(widgetKey, destinationSection) {
       var widgetPath = "".concat(destinationSection.widget_group, ".widgets.").concat(destinationSection.widget_name);
-      var widget = Object(_helper__WEBPACK_IMPORTED_MODULE_3__["findObjectItem"])(widgetPath, this.widgets, {});
-      if (!widget.hasOwnProperty('accepted_widgets')) {
+      var widget = Object(_helper__WEBPACK_IMPORTED_MODULE_2__["findObjectItem"])(widgetPath, this.widgets, {});
+      if (!widget.hasOwnProperty("accepted_widgets")) {
         return true;
       }
       if (!Array.isArray(widget.accepted_widgets)) {
@@ -23551,7 +23555,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         drop_direction: payload.drop_direction
       };
       var activeGroup = this.active_widget_groups[widget_group_key];
-      if ('section' === activeGroup.type && !this.isAcceptedSectionWidget(payload.widget_key, activeGroup)) {
+      if ("section" === activeGroup.type && !this.isAcceptedSectionWidget(payload.widget_key, activeGroup)) {
         return false;
       }
 
@@ -23599,7 +23603,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       if (field_data_options.field_key) {
         field_data_options.field_key = this.genarateFieldKeyForActiveWidgets(field_data_options);
       }
-      if (!Object(_helper__WEBPACK_IMPORTED_MODULE_3__["isObject"])(this.active_widget_fields)) {
+      if (!Object(_helper__WEBPACK_IMPORTED_MODULE_2__["isObject"])(this.active_widget_fields)) {
         this.active_widget_fields = {};
       }
       vue__WEBPACK_IMPORTED_MODULE_1__["default"].set(this.active_widget_fields, field_data_options.widget_key, field_data_options);
@@ -23644,8 +23648,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       this.$emit("active-widgets-updated");
     },
     getOptionDataFromWidget: function getOptionDataFromWidget(widget) {
-      var widgetOptions = Object(_helper__WEBPACK_IMPORTED_MODULE_3__["findObjectItem"])('options', widget);
-      if (!Object(_helper__WEBPACK_IMPORTED_MODULE_3__["isObject"])(widgetOptions)) {
+      var widgetOptions = Object(_helper__WEBPACK_IMPORTED_MODULE_2__["findObjectItem"])("options", widget);
+      if (!Object(_helper__WEBPACK_IMPORTED_MODULE_2__["isObject"])(widgetOptions)) {
         return {};
       }
       var fieldDataOptions = {};
@@ -23788,7 +23792,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     },
     insertWidgetFromAvailableSectionWidgets: function insertWidgetFromAvailableSectionWidgets(widgets) {
       var _this = this;
-      if (!Object(_helper__WEBPACK_IMPORTED_MODULE_3__["isObject"])(widgets)) {
+      if (!Object(_helper__WEBPACK_IMPORTED_MODULE_2__["isObject"])(widgets)) {
         return [];
       }
       var insertWidgetAndGetKey = function insertWidgetAndGetKey(widget_key, widget) {
@@ -23797,7 +23801,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         if (field_data_options.field_key) {
           field_data_options.field_key = _this.genarateFieldKeyForActiveWidgets(field_data_options);
         }
-        if (!Object(_helper__WEBPACK_IMPORTED_MODULE_3__["isObject"])(_this.active_widget_fields)) {
+        if (!Object(_helper__WEBPACK_IMPORTED_MODULE_2__["isObject"])(_this.active_widget_fields)) {
           _this.active_widget_fields = {};
         }
         vue__WEBPACK_IMPORTED_MODULE_1__["default"].set(_this.active_widget_fields, field_data_options.widget_key, field_data_options);
@@ -28155,6 +28159,29 @@ var render = function render() {
     staticClass: "cptm-form-builder-group-field-item"
   }, [_c("div", {
     staticClass: "cptm-form-builder-group-field-item-actions"
+  }, [_c("a", {
+    staticClass: "cptm-form-builder-group-field-item-action-link action-dropdown",
+    attrs: {
+      href: "#"
+    },
+    on: {
+      click: function click($event) {
+        $event.preventDefault();
+        return _vm.toggleExpandedDropdown.apply(null, arguments);
+      }
+    }
+  }, [_c("span", {
+    staticClass: "fa fa-ellipsis-v",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })])]), _vm._v(" "), _c("slide-up-down", {
+    attrs: {
+      active: _vm.expandedDropdown,
+      duration: 500
+    }
+  }, [_c("div", {
+    staticClass: "cptm-form-builder-group-field-item-actions"
   }, [_vm.canTrashWidget ? _c("a", {
     staticClass: "cptm-form-builder-group-field-item-action-link action-trash",
     attrs: {
@@ -28171,7 +28198,7 @@ var render = function render() {
     attrs: {
       "aria-hidden": "true"
     }
-  })]) : _vm._e()]), _vm._v(" "), _vm.canMoveWidget ? _c("draggable-list-item", {
+  })]) : _vm._e()])]), _vm._v(" "), _vm.canMoveWidget ? _c("draggable-list-item", {
     on: {
       "drag-start": function dragStart($event) {
         return _vm.$emit("drag-start");
@@ -31781,14 +31808,31 @@ var render = function render() {
   return _c("div", {
     staticClass: "cptm-form-builder cptm-row"
   }, [_c("div", {
+    staticClass: "cptm-col-6 cptm-col-sticky"
+  }, [_vm._l(_vm.widgets, function (widget_group, widget_group_key) {
+    return [_c("form-builder-widget-list-section-component", _vm._b({
+      key: widget_group_key,
+      attrs: {
+        "field-id": _vm.fieldId,
+        "widget-group": widget_group_key,
+        "selected-widgets": _vm.active_widget_fields,
+        "active-widget-groups": _vm.active_widget_groups
+      },
+      on: {
+        "update-widget-list": _vm.updateWidgetList,
+        "drag-start": function dragStart($event) {
+          return _vm.handleWidgetListItemDragStart(widget_group_key, $event);
+        },
+        "drag-end": function dragEnd($event) {
+          return _vm.handleWidgetListItemDragEnd(widget_group_key, $event);
+        }
+      }
+    }, "form-builder-widget-list-section-component", widget_group, false))];
+  })], 2), _vm._v(" "), _c("div", {
     staticClass: "cptm-col-6"
   }, [_c("div", {
     staticClass: "cptm-form-builder-active-fields"
-  }, [_c("h3", {
-    staticClass: "cptm-title-3"
-  }, [_vm._v("Active Fields")]), _vm._v(" "), _c("p", {
-    staticClass: "cptm-description-text"
-  }, [_vm._v("\n        Click on a field to edit, Drag & Drop to reorder\n      ")]), _vm._v(" "), _c("div", {
+  }, [_c("div", {
     staticClass: "cptm-form-builder-active-fields-container"
   }, [_vm._l(_vm.active_widget_groups, function (widget_group, widget_group_key) {
     return _c("draggable-list-item-wrapper", {
@@ -31863,28 +31907,7 @@ var render = function render() {
         return _vm.addNewGroup();
       }
     }
-  })]) : _vm._e()], 2)])]), _vm._v(" "), _c("div", {
-    staticClass: "cptm-col-6 cptm-col-sticky"
-  }, [_vm._l(_vm.widgets, function (widget_group, widget_group_key) {
-    return [_c("form-builder-widget-list-section-component", _vm._b({
-      key: widget_group_key,
-      attrs: {
-        "field-id": _vm.fieldId,
-        "widget-group": widget_group_key,
-        "selected-widgets": _vm.active_widget_fields,
-        "active-widget-groups": _vm.active_widget_groups
-      },
-      on: {
-        "update-widget-list": _vm.updateWidgetList,
-        "drag-start": function dragStart($event) {
-          return _vm.handleWidgetListItemDragStart(widget_group_key, $event);
-        },
-        "drag-end": function dragEnd($event) {
-          return _vm.handleWidgetListItemDragEnd(widget_group_key, $event);
-        }
-      }
-    }, "form-builder-widget-list-section-component", widget_group, false))];
-  })], 2)]);
+  })]) : _vm._e()], 2)])])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;

@@ -28367,7 +28367,7 @@ var render = function render() {
     }
   }, [_c("div", {
     staticClass: "cptm-form-builder-group-fields"
-  }, _vm._l(_vm.groupData.fields, function (widget_key, widget_index) {
+  }, [_vm._l(_vm.groupData.fields, function (widget_key, widget_index) {
     return _c("draggable-list-item-wrapper", {
       key: widget_index,
       attrs: {
@@ -28421,7 +28421,11 @@ var render = function render() {
         }
       }
     })], 1);
-  }), 1), _vm._v(" "), _vm.canShowWidgetDropPlaceholder ? _c("form-builder-droppable-placeholder", {
+  }), _vm._v(" "), _c("div", {
+    staticClass: "cptm-form-builder-group-fields-placeholder"
+  }, [_c("span", {
+    staticClass: "cptm-form-builder-group-fields-placeholder-text"
+  }, [_vm._v("\n          Add field by dragging it into this area\n        ")])])], 2), _vm._v(" "), _vm.canShowWidgetDropPlaceholder ? _c("form-builder-droppable-placeholder", {
     on: {
       drop: function drop($event) {
         return _vm.$emit("append-widget");

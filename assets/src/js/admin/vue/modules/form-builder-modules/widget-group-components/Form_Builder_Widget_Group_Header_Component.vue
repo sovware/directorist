@@ -8,16 +8,20 @@
         @drag-start="$emit('drag-start')"
         @drag-end="$emit('drag-end')"
       >
-        <form-builder-widget-group-titlebar-component
-          v-bind="$props"
-          :widgets-expanded="widgetsExpanded"
-          @toggle-expand-group="toggleGroupFieldsExpand"
-          @toggle-expand-widgets="$emit('toggle-expand-widgets')"
-        />
+        <div class="cptm-form-builder-group-field-item-drag">
+          <span aria-hidden="true" class="las la-braille"></span>
+        </div>
       </draggable-list-item>
 
+      <form-builder-widget-group-titlebar-component
+        v-bind="$props"
+        :widgets-expanded="widgetsExpanded"
+        @toggle-expand-group="toggleGroupFieldsExpand"
+        @toggle-expand-widgets="$emit('toggle-expand-widgets')"
+      />
+
       <!-- Group Header Actions -->
-      <div class="cptm-form-builder-group-actions-dropdown">
+      <div class="cptm-form-builder-group-actions-dropdown cptm-form-builder-group-actions-dropdown--group">
         <a
           href="#"
           class="cptm-form-builder-group-actions-dropdown-btn"

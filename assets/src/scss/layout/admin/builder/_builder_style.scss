@@ -716,7 +716,7 @@ $light-gray: #f4f5f7;
 
 .cptm-form-builder-group-header {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .cptm-form-builder-group-title-area {
@@ -792,6 +792,7 @@ div[draggable="true"].cptm-form-builder-group-title-area {
 
 .cptm-form-builder-group-actions-dropdown {
   position: relative;
+  top: 8px;
   display: flex;
   justify-content: flex-end;
   flex-direction: column;
@@ -802,7 +803,7 @@ div[draggable="true"].cptm-form-builder-group-title-area {
 .cptm-form-builder-group-actions-dropdown--field {
   position: absolute;
   right: 0;
-  top: 10px;
+  top: 8px;
 }
 
 .cptm-form-builder-group-actions-dropdown-btn {
@@ -992,9 +993,11 @@ div[draggable="true"].cptm-form-builder-group-title-area {
 }
 
 .directorist-draggable-list-item {
-  .cptm-form-builder-group-field-item-header {
-    cursor: move;
-  }
+  position: relative;
+  top: 15px;
+  float: left;
+  margin-right: 15px;
+  flex-grow: unset;
 }
 
 .cptm-form-builder-group-field-item-body {

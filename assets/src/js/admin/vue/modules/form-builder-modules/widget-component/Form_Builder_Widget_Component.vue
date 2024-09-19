@@ -9,16 +9,12 @@
       @drag-start="$emit('drag-start')"
       @drag-end="$emit('drag-end')"
     >
-      <form-builder-widget-titlebar-component
-        :label="widgetTitle"
-        :sublabel="widgetSubtitle"
-        :expanded="expandState"
-        @toggle-expand="toggleExpand"
-      />
+      <div class="cptm-form-builder-group-field-item-drag">
+        <span aria-hidden="true" class="las la-braille"></span>
+      </div>
     </draggable-list-item>
 
     <form-builder-widget-titlebar-component
-      v-else
       :label="widgetTitle"
       :sublabel="widgetSubtitle"
       :expanded="expandState"
@@ -71,7 +67,7 @@
             @click.prevent="handleTrashClick"
           >
             <span aria-hidden="true" class="uil uil-trash-alt"></span>
-            Remove Item
+            Remove Field
           </a>
         </div>
       </slide-up-down>

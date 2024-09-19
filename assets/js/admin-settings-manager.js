@@ -28170,16 +28170,14 @@ var render = function render() {
         return _vm.$emit("drag-end");
       }
     }
-  }, [_c("form-builder-widget-titlebar-component", {
+  }, [_c("div", {
+    staticClass: "cptm-form-builder-group-field-item-drag"
+  }, [_c("span", {
+    staticClass: "las la-braille",
     attrs: {
-      label: _vm.widgetTitle,
-      sublabel: _vm.widgetSubtitle,
-      expanded: _vm.expandState
-    },
-    on: {
-      "toggle-expand": _vm.toggleExpand
+      "aria-hidden": "true"
     }
-  })], 1) : _c("form-builder-widget-titlebar-component", {
+  })])]) : _vm._e(), _vm._v(" "), _c("form-builder-widget-titlebar-component", {
     attrs: {
       label: _vm.widgetTitle,
       sublabel: _vm.widgetSubtitle,
@@ -28252,7 +28250,7 @@ var render = function render() {
     attrs: {
       "aria-hidden": "true"
     }
-  }), _vm._v("\n          Remove Item\n        ")]) : _vm._e()])])], 1), _vm._v(" "), _c("confirmation-modal", {
+  }), _vm._v("\n          Remove Field\n        ")]) : _vm._e()])])], 1), _vm._v(" "), _c("confirmation-modal", {
     attrs: {
       visible: _vm.showConfirmationModal,
       widgetName: _vm.widgetName
@@ -28508,7 +28506,14 @@ var render = function render() {
         return _vm.$emit("drag-end");
       }
     }
-  }, [_c("form-builder-widget-group-titlebar-component", _vm._b({
+  }, [_c("div", {
+    staticClass: "cptm-form-builder-group-field-item-drag"
+  }, [_c("span", {
+    staticClass: "las la-braille",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })])]), _vm._v(" "), _c("form-builder-widget-group-titlebar-component", _vm._b({
     attrs: {
       "widgets-expanded": _vm.widgetsExpanded
     },
@@ -28518,8 +28523,8 @@ var render = function render() {
         return _vm.$emit("toggle-expand-widgets");
       }
     }
-  }, "form-builder-widget-group-titlebar-component", _vm.$props, false))], 1), _vm._v(" "), _c("div", {
-    staticClass: "cptm-form-builder-group-actions-dropdown"
+  }, "form-builder-widget-group-titlebar-component", _vm.$props, false)), _vm._v(" "), _c("div", {
+    staticClass: "cptm-form-builder-group-actions-dropdown cptm-form-builder-group-actions-dropdown--group"
   }, [_c("a", {
     staticClass: "cptm-form-builder-group-actions-dropdown-btn",
     attrs: {
@@ -28622,7 +28627,7 @@ var render = function render() {
     attrs: {
       "aria-hidden": "true"
     }
-  })]) : _vm._e()]), _vm._v(" "), _c("div", {
+  }), _vm._v(" Options\n    ")]) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "cptm-form-builder-group-title-actions"
   }, [_vm.groupData && _vm.groupData.fields && _vm.groupData.fields.length ? _c("a", {
     staticClass: "cptm-form-builder-header-action-link",

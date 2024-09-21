@@ -1,6 +1,5 @@
 @import "../../vendor/bootstrap/config.bs";
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
-
 #directiost-listing-fields_wrapper {
   .diectorist-show {
     display: block !important;
@@ -4130,12 +4129,10 @@ input.atbdp-form-control {
 /* Default WP Theme overwrite */
 body.wp-admin {
   background-color: #F3F4F6;
+  font-family: "Inter", sans-serif;
 }
 
 // All Listing Type Style
-.directorist_builder-wrap {
-  font-family: "Inter", sans-serif;
-}
 
 .directorist_builder-header {
   display: flex;
@@ -4563,6 +4560,11 @@ body.wp-admin {
       &.directorist_link-block-primary {
         background-color: #3e62f5;
         color: #ffffff;
+        transition: background-color 0.3s ease;
+        &:hover{
+          background-color: #5a7aff;
+          border-color: #5a7aff;
+        }
       }
 
       &.directorist_link-block-primary-outline {

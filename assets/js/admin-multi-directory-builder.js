@@ -14227,17 +14227,17 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'header-navigation',
+  name: "header-navigation",
   mixins: [_mixins_helpers__WEBPACK_IMPORTED_MODULE_2__["default"]],
   // computed
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])({
-    active_nav_index: 'active_nav_index',
+    active_nav_index: "active_nav_index",
     headerNavigation: function headerNavigation(state) {
       var header_navigation = [];
       for (var nav_item in state.layouts) {
         header_navigation.push({
           key: nav_item,
-          label: state.layouts[nav_item].label ? state.layouts[nav_item].label : '',
+          label: state.layouts[nav_item].label ? state.layouts[nav_item].label : "",
           icon: state.layouts[nav_item].icon ? state.layouts[nav_item].icon : false,
           icon_class: state.layouts[nav_item].icon_class ? state.layouts[nav_item].icon_class : false
         });
@@ -14246,7 +14246,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     }
   })),
   // methods
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapMutations"])(['swichNav']))
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapMutations"])(["swichNav"]))
 });
 
 /***/ }),
@@ -24939,7 +24939,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       return options_values.includes(value);
     }
     /* syncValidationWithLocalState( validation_log ) {
-         return validation_log;
+          return validation_log;
     } */
   }
 });
@@ -25792,9 +25792,37 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "atbdp-cpt-manager cptm-p-20"
+    staticClass: "directorist-directory-type atbdp-cpt-manager"
   }, [_c("div", {
-    staticClass: "atbdp-cptm-header"
+    staticClass: "directorist-directory-type-top"
+  }, [_c("div", {
+    staticClass: "directorist-directory-type-top-left"
+  }, [_c("a", {
+    staticClass: "directorist-back-directory",
+    attrs: {
+      href: "#"
+    }
+  }, [_c("svg", {
+    attrs: {
+      xmlns: "http://www.w3.org/2000/svg",
+      width: "14",
+      height: "14",
+      viewBox: "0 0 14 14",
+      fill: "none"
+    }
+  }, [_c("path", {
+    attrs: {
+      "fill-rule": "evenodd",
+      "clip-rule": "evenodd",
+      d: "M7.51556 1.38019C7.80032 1.66495 7.80032 2.12663 7.51556 2.41139L3.65616 6.27079H12.1041C12.5068 6.27079 12.8333 6.59725 12.8333 6.99996C12.8333 7.40267 12.5068 7.72913 12.1041 7.72913H3.65616L7.51556 11.5885C7.80032 11.8733 7.80032 12.335 7.51556 12.6197C7.2308 12.9045 6.76912 12.9045 6.48436 12.6197L1.38019 7.51556C1.09544 7.2308 1.09544 6.76912 1.38019 6.48436L6.48436 1.38019C6.76912 1.09544 7.2308 1.09544 7.51556 1.38019Z",
+      fill: "currentColor"
+    }
+  })]), _vm._v("\n        All Directories\n      ")]), _vm._v(" "), _c("div", {
+    staticClass: "directorist-row-tooltip",
+    attrs: {
+      "data-tooltip": "Click here to rename the directory.",
+      "data-flow": "bottom"
+    }
   }, [_vm.options.name && _vm.options.name.type ? _c(_vm.options.name.type + "-field", _vm._b({
     tag: "component",
     on: {
@@ -25805,11 +25833,24 @@ var render = function render() {
         });
       }
     }
-  }, "component", _vm.options.name, false)) : _vm._e(), _vm._v(" "), _c("headerNavigation")], 1), _vm._v(" "), _c("div", {
+  }, "component", _vm.options.name, false)) : _vm._e()], 1)]), _vm._v(" "), _vm._m(0)]), _vm._v(" "), _c("div", {
+    staticClass: "directorist-directory-type-bottom"
+  }, [_c("headerNavigation"), _vm._v(" "), _c("div", {
     staticClass: "atbdp-cptm-body"
-  }, [_c("tabContents")], 1)]);
+  }, [_c("tabContents")], 1)], 1)]);
 };
-var staticRenderFns = [];
+var staticRenderFns = [function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "directorist-directory-type-top-right"
+  }, [_c("a", {
+    staticClass: "directorist-create-directory",
+    attrs: {
+      href: "#"
+    }
+  }, [_vm._v(" Create Directory ")])]);
+}];
 render._withStripped = true;
 
 
@@ -25829,7 +25870,7 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("div", {}, [_c("ul", {
+  return _c("ul", {
     staticClass: "cptm-header-navigation"
   }, _vm._l(_vm.headerNavigation, function (nav, index) {
     return _c("li", {
@@ -25859,7 +25900,7 @@ var render = function render() {
         innerHTML: _vm._s(nav.label)
       }
     })])]);
-  }), 0)]);
+  }), 0);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -32150,7 +32191,7 @@ var render = function render() {
       key: alert_key,
       staticClass: "cptm-form-alert",
       class: "cptm-" + alert.type
-    }, [_vm._v("\n            " + _vm._s(alert.message) + "\n        ")]);
+    }, [_vm._v("\r\n            " + _vm._s(alert.message) + "\r\n        ")]);
   }), 0) : _vm._e()]);
 };
 var staticRenderFns = [];

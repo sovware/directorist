@@ -131,7 +131,7 @@
                             ?>
                             <div class="directorist_table-row directory-type-row" data-term-id="<?php echo esc_attr( $listing_type->term_id ); ?>">
                                 <div class="directorist_title">
-                                    <a href="<?php echo esc_url( ! empty( $edit_link ) ? $edit_link : '#' ); ?>">
+                                    <a  href="<?php echo esc_url( ! empty( $edit_link ) ? $edit_link : '#' ); ?>">
                                         <?php echo esc_html( ! empty( $listing_type->name ) ? $listing_type->name : '-' ); ?>
                                         <?php if( $default ) { ?>
                                         <span class="directorist_badge"><?php esc_html_e( 'Default', 'directorist' ); ?></span>
@@ -140,11 +140,11 @@
                                     <div class="directorist_listing-id">ID: #<?php echo esc_attr( ! empty( $listing_type->term_id ) ? $listing_type->term_id : '' ); ?></div>
                                 </div>
                                 <div class="directorist-type-slug">
-                                    <div class="directorist-type-slug-content">
-                                        <span class="directorist_listing-slug-text directorist-slug-text-<?php echo esc_attr( $listing_type->term_id ); ?>" data-value="<?php echo esc_attr( ! empty( $listing_type->slug ) ? $listing_type->slug : '-' ); ?>" contenteditable="false">
+                                    <div class="directorist-type-slug-content directorist-row-tooltip" data-tooltip="Click here to rename the slug." data-flow="bottom">
+                                        <span class=" directorist_listing-slug-text directorist-slug-text-<?php echo esc_attr( $listing_type->term_id ); ?>" data-value="<?php echo esc_attr( ! empty( $listing_type->slug ) ? $listing_type->slug : '-' ); ?>" contenteditable="false">
                                             <?php echo esc_html( html_entity_decode( $listing_type->slug ) ); ?>
                                         </span>
-                                        <div class="directorist-listing-slug-edit-wrap">
+                                        <div class="directorist-listing-slug-edit-wrap ">
                                             <a href="" class="directorist-listing-slug__edit" data-type-id="<?php echo absint( $listing_type->term_id ); ?>"></a>
                                             <a href="" class="directorist_listing-slug-formText-add" data-type-id="<?php echo absint( $listing_type->term_id ); ?>"></a>
                                             <a href="#" class="directorist_listing-slug-formText-remove directorist_listing-slug-formText-remove--hidden"></a>
@@ -183,14 +183,12 @@
                                             <div class="directorist_more-dropdown-option">
                                                 <ul>
                                                     <li>
-                                                        <a href="#">
-                                                            <div data-type-id="<?php echo absint( $listing_type->term_id ); ?>" class="directorist_listing-type-checkbox directorist_custom-checkbox submitdefault">
-                                                                <input class="submitDefaultCheckbox" type="checkbox" name="check-1" id="check-1">
-                                                                <label for="check-1">
-                                                                    <span class="checkbox-text"><?php esc_html_e( 'Make It Default', 'directorist' ); ?></span>
-                                                                </label>
-                                                            </div>
-                                                        </a>
+                                                        <div data-type-id="<?php echo absint( $listing_type->term_id ); ?>" class="directorist_listing-type-checkbox directorist_custom-checkbox submitdefault">
+                                                            <input class="submitDefaultCheckbox" type="checkbox" name="check-1" id="check-1">
+                                                            <label for="check-1">
+                                                                <span class="checkbox-text"><?php esc_html_e( 'Make It Default', 'directorist' ); ?></span>
+                                                            </label>
+                                                        </div>
                                                     </li>
                                                     <li>
                                                         <a href="#" class="cptm-modal-toggle atbdp-directory-delete-link-action" data-delete-link="<?php echo esc_url( $delete_link ); ?>" data-target="cptm-delete-directory-modal">

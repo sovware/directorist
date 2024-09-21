@@ -1,12 +1,8 @@
 <template>
   <div class="cptm-form-builder-group-field-item-header">
     <h4 class="cptm-title-3">
+      <span aria-hidden="true" class="cptm-title-icon fa fa-angle-up"></span>
       <span v-html="label"></span>
-      <span
-        v-if="sublabel.length"
-        class="cptm-text-gray cptm-px-5"
-        v-html="sublabel"
-      ></span>
     </h4>
 
     <div class="cptm-form-builder-group-field-item-header-actions">

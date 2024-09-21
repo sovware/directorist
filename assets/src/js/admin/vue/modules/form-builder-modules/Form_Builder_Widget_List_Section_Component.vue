@@ -94,7 +94,7 @@ export default {
     return {
       base_widget_list: {},
       filtered_widget_list: {},
-      isPresetExpanded: this.presetExpanded,
+      isPresetExpanded: true,
     };
   },
 

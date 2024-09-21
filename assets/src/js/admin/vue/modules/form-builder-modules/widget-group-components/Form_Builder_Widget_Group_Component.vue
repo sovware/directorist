@@ -54,6 +54,11 @@
             @drag-end="$emit('widget-drag-end', { widget_index, widget_key })"
           />
         </draggable-list-item-wrapper>
+        <div class="cptm-form-builder-group-fields-placeholder">
+          <span class="cptm-form-builder-group-fields-placeholder-text">
+            Add field by dragging it into this area
+          </span>
+        </div>
       </div>
 
       <form-builder-droppable-placeholder
@@ -65,7 +70,6 @@
 </template>
 
 <script>
-
 export default {
   name: "form-builder-widget-group-component",
   props: {

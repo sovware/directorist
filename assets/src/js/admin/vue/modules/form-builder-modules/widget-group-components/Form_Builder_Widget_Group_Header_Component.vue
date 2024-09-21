@@ -1,5 +1,8 @@
 <template>
-  <div class="cptm-form-builder-group-header-section">
+  <div
+    class="cptm-form-builder-group-header-section"
+    :class="groupFieldsExpandState ? 'expanded' : ''"
+  >
     <!-- Group Header Top -->
     <div class="cptm-form-builder-group-header">
       <!-- Group Header Titlebar -->
@@ -21,7 +24,9 @@
       />
 
       <!-- Group Header Actions -->
-      <div class="cptm-form-builder-group-actions-dropdown cptm-form-builder-group-actions-dropdown--group">
+      <div
+        class="cptm-form-builder-group-actions-dropdown cptm-form-builder-group-actions-dropdown--group"
+      >
         <a
           href="#"
           class="cptm-form-builder-group-actions-dropdown-btn"

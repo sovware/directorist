@@ -1,6 +1,7 @@
 <template>
   <div
     class="cptm-form-builder-group-field-item"
+    :class="expandState ? 'expanded' : ''"
     v-if="widget_fields && Object.keys(widget_fields).length > 0"
   >
     <!-- Widget Titlebar -->

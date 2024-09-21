@@ -1,6 +1,6 @@
 <template>
   <div class="cptm-form-builder cptm-row">
-    <div class="cptm-col-6 cptm-col-sticky">
+    <div class="cptm-col-5 cptm-col-sticky">
       <template v-for="(widget_group, widget_group_key) in widgets">
         <form-builder-widget-list-section-component
           :key="widget_group_key"
@@ -15,7 +15,7 @@
         />
       </template>
     </div>
-    <div class="cptm-col-6">
+    <div class="cptm-col-7">
       <div class="cptm-form-builder-active-fields">
         <div class="cptm-form-builder-active-fields-container">
           <draggable-list-item-wrapper
@@ -70,14 +70,17 @@
 
           <div class="atbdp-cptm-footer">
             <div class="atbdp-cptm-footer-preview">
-              <label for="atbdp-cptm-footer-preview-toggle">
-                Enable Listing Preview
-              </label>
               <input
                 id="atbdp-cptm-footer-preview-toggle"
                 class="atbdp-cptm-footer-preview-toggle"
                 type="checkbox"
               />
+              <label
+                for="atbdp-cptm-footer-preview-toggle"
+                class="atbdp-cptm-footer-preview-label"
+              >
+                Enable Listing Preview
+              </label>
               <div class="atbdp-cptm-footer-preview-desc">Help Text Here</div>
             </div>
 
@@ -252,11 +255,13 @@ export default {
     addNewGroupButtonLabel() {
       let button_label = "Add New";
 
+      let button_icon = '<span aria-hidden="true" class="la la-plus"></span>';
+
       if (this.generalSettings && this.generalSettings.addNewGroupButtonLabel) {
         button_label = this.generalSettings.addNewGroupButtonLabel;
       }
 
-      return button_label;
+      return button_icon + button_label;
     },
 
     ...mapState({

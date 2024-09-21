@@ -626,12 +626,28 @@ $light-gray: #f4f5f7;
 }
 
 .cptm-form-builder-preset-fields {
-  margin: 0 auto;
   max-width: 470px;
 }
 
 .cptm-form-builder-preset-fields:not(:last-child) {
   margin-bottom: 50px;
+}
+.cptm-form-builder-preset-fields-header-action-link {
+  display: flex;
+  gap: 15px;
+  &:focus {
+    outline: none;
+    box-shadow: none;
+  }
+}
+.cptm-form-builder-preset-fields-header-action-text {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 500;
+  color: #141921;
+}
+.cptm-form-builder-preset-fields-header-action-link {
+  color: #747c89;
 }
 
 .cptm-title-3 {

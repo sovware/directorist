@@ -14030,12 +14030,38 @@ input:-webkit-autofill:active {
 }
 
 .cptm-form-builder-preset-fields {
-  margin: 0 auto;
   max-width: 470px;
 }
 
 .cptm-form-builder-preset-fields:not(:last-child) {
   margin-bottom: 50px;
+}
+
+.cptm-form-builder-preset-fields-header-action-link {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 15px;
+}
+.cptm-form-builder-preset-fields-header-action-link:focus {
+  outline: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+.cptm-form-builder-preset-fields-header-action-text {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  font-size: 14px;
+  font-weight: 500;
+  color: #141921;
+}
+
+.cptm-form-builder-preset-fields-header-action-link {
+  color: #747c89;
 }
 
 .cptm-title-3 {
@@ -17761,12 +17787,38 @@ input[type=radio]:checked::before {
 }
 
 .cptm-form-builder-preset-fields {
-  margin: 0 auto;
   max-width: 470px;
 }
 
 .cptm-form-builder-preset-fields:not(:last-child) {
   margin-bottom: 50px;
+}
+
+.cptm-form-builder-preset-fields-header-action-link {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 15px;
+}
+.cptm-form-builder-preset-fields-header-action-link:focus {
+  outline: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+.cptm-form-builder-preset-fields-header-action-text {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  font-size: 14px;
+  font-weight: 500;
+  color: #141921;
+}
+
+.cptm-form-builder-preset-fields-header-action-link {
+  color: #747c89;
 }
 
 .cptm-title-3 {
@@ -21759,12 +21811,38 @@ input[type=radio]:checked::before {
 }
 
 .cptm-form-builder-preset-fields {
-  margin: 0 auto;
   max-width: 470px;
 }
 
 .cptm-form-builder-preset-fields:not(:last-child) {
   margin-bottom: 50px;
+}
+
+.cptm-form-builder-preset-fields-header-action-link {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 15px;
+}
+.cptm-form-builder-preset-fields-header-action-link:focus {
+  outline: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+.cptm-form-builder-preset-fields-header-action-text {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  font-size: 14px;
+  font-weight: 500;
+  color: #141921;
+}
+
+.cptm-form-builder-preset-fields-header-action-link {
+  color: #747c89;
 }
 
 .cptm-title-3 {

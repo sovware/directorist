@@ -17299,6 +17299,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     },
     activeWidgetGroups: {
       default: ""
+    },
+    presetExpanded: {
+      default: false
     }
   },
   created: function created() {
@@ -17308,7 +17311,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   data: function data() {
     return {
       base_widget_list: {},
-      filtered_widget_list: {}
+      filtered_widget_list: {},
+      isPresetExpanded: this.presetExpanded
     };
   },
   watch: {
@@ -17317,6 +17321,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     }
   },
   methods: {
+    togglePresetExpanded: function togglePresetExpanded() {
+      this.isPresetExpanded = !this.isPresetExpanded;
+    },
     // filtereWidgetList
     filtereWidgetList: function filtereWidgetList() {
       // Add widget group and widget name
@@ -28269,11 +28276,35 @@ var render = function render() {
     _c = _vm._self._c;
   return _c("div", {
     staticClass: "cptm-form-builder-preset-fields"
-  }, [_c("h3", {
-    staticClass: "cptm-title-3"
-  }, [_vm._v(_vm._s(_vm.title))]), _vm._v(" "), _c("p", {
-    staticClass: "cptm-description-text"
-  }, [_vm._v(_vm._s(_vm.description))]), _vm._v(" "), _vm.filtered_widget_list ? _c("ul", {
+  }, [_c("div", {
+    staticClass: "cptm-form-builder-preset-fields-header"
+  }, [_c("a", {
+    staticClass: "cptm-form-builder-preset-fields-header-action-link",
+    attrs: {
+      href: "#"
+    },
+    on: {
+      click: function click($event) {
+        $event.preventDefault();
+        return _vm.togglePresetExpanded.apply(null, arguments);
+      }
+    }
+  }, [_c("span", {
+    staticClass: "cptm-form-builder-preset-fields-header-action-text"
+  }, [_vm._v("\n        " + _vm._s(_vm.title))]), _vm._v(" "), _c("span", {
+    staticClass: "cptm-form-builder-preset-fields-header-action-icon",
+    class: _vm.isPresetExpanded ? "action-collapse-up" : "action-collapse-down"
+  }, [_c("span", {
+    staticClass: "fa fa-angle-up",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })])])]), _vm._v(" "), _c("slide-up-down", {
+    attrs: {
+      active: _vm.isPresetExpanded,
+      duration: 500
+    }
+  }, [_vm.filtered_widget_list ? _c("ul", {
     staticClass: "cptm-form-builder-field-list"
   }, _vm._l(_vm.filtered_widget_list, function (widget, widget_key) {
     return _c("draggable-list-item", {
@@ -28304,7 +28335,7 @@ var render = function render() {
     }) : _vm._e()]), _vm._v(" "), _c("span", {
       staticClass: "cptm-form-builder-field-list-label"
     }, [_vm._v(_vm._s(widget.label))])]);
-  }), 1) : _vm._e()]);
+  }), 1) : _vm._e()])], 1);
 };
 var staticRenderFns = [];
 render._withStripped = true;

@@ -1,7 +1,7 @@
 <template>
   <div class="cptm-form-builder-group-field-item-header">
     <h4 class="cptm-title-3">
-      <span aria-hidden="true" class="fa fa-angle-up"></span>
+      <span aria-hidden="true" class="cptm-title-icon fa fa-angle-up"></span>
       <span v-html="label"></span>
     </h4>
 

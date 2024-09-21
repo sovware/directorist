@@ -28280,7 +28280,7 @@ var render = function render() {
   }, [_c("h4", {
     staticClass: "cptm-title-3"
   }, [_c("span", {
-    staticClass: "fa fa-angle-up",
+    staticClass: "cptm-title-icon fa fa-angle-up",
     attrs: {
       "aria-hidden": "true"
     }

@@ -14991,7 +14991,7 @@ div[draggable=true].cptm-form-builder-group-title-area {
   font-weight: 500;
   color: #2c3239;
 }
-.cptm-form-builder-group-field-item-header .cptm-title-3 span {
+.cptm-form-builder-group-field-item-header .cptm-title-3 .cptm-title-icon {
   font-size: 16px;
   color: #747c89;
 }
@@ -19007,7 +19007,7 @@ div[draggable=true].cptm-form-builder-group-title-area {
   font-weight: 500;
   color: #2c3239;
 }
-.cptm-form-builder-group-field-item-header .cptm-title-3 span {
+.cptm-form-builder-group-field-item-header .cptm-title-3 .cptm-title-icon {
   font-size: 16px;
   color: #747c89;
 }
@@ -23290,7 +23290,7 @@ div[draggable=true].cptm-form-builder-group-title-area {
   font-weight: 500;
   color: #2c3239;
 }
-.cptm-form-builder-group-field-item-header .cptm-title-3 span {
+.cptm-form-builder-group-field-item-header .cptm-title-3 .cptm-title-icon {
   font-size: 16px;
   color: #747c89;
 }

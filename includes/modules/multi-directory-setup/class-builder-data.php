@@ -2619,7 +2619,7 @@ class Builder_Data {
                 'container' => 'wide',
                 'sections'  => [
                     'form_fields' => [
-                        'title'       => __( 'Select or create fields for the add listing form', 'directorist' ),
+                        'title'       => __( 'Add listing form', 'directorist' ),
                         'description' => '<a target="_blank" href="https://directorist.com/documentation/directorist/form-and-layout-builder/form-and-layout-builder/">' . __( 'Need help?', 'directorist' ) . ' </a>',
                         'fields'      => [
                             'submission_form_fields',
@@ -2719,7 +2719,7 @@ class Builder_Data {
                 'container' => 'wide',
                 'sections'  => [
                     'form_fields' => [
-                        'title'       => __( 'Customize the search form for this listing type', 'directorist' ),
+                        'title'       => __( 'Listing Card', 'directorist' ),
                         'description' => '<a target="_blank" href="https://directorist.com/documentation/directorist/form-and-layout-builder/search-form-layout/"> ' . __( 'Need help?', 'directorist' ) . ' </a>',
                         'fields'      => [
                             'search_form_fields',

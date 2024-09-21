@@ -137,9 +137,88 @@ $light-gray: #f4f5f7;
     }
   }
 }
-
 .directorist-draggable-form-list-wrap {
   margin-right: 50px;
+}
+
+/* Body Header */
+.directorist-form-doc{
+  border-radius: 10px;
+  background: #F3F4F6;
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+  gap: 10px 30px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 0 20px;
+  margin-bottom: 24px;
+  @media only screen and (max-width: 575px){
+    justify-content: center;
+    flex-direction: column;
+    padding: 10px 20px;
+  }
+  .directorist-form-doc-left{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    @media only screen and (max-width: 575px){
+      justify-content: center;
+    }
+    .directorist-form-doc-title{
+      color: #141921;
+      font-size: 19px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 25px;
+    }
+  }
+  &__watch-tutorial{
+    display: inline-flex;
+    padding: 8px 12px;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    border-radius: 8px;
+    border: 1px solid #BEE3FF;
+    background: #EFF8FF;
+    color: #217AEF;
+    text-align: center;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 14px;
+    letter-spacing: 0.12px;
+    text-transform: capitalize;
+    svg{
+      width: 14px;
+      height: 14px;
+      color: inherit;
+    }
+  }
+  &__preview{
+    display: inline-flex;
+    padding: 8px 12px;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    border-radius: 8px;
+    border: 1px solid #E5E7EB;
+    background: #FFF;
+    color: #383F47;
+    text-align: center;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px.24px;
+    text-transform: capitalize;
+    svg{
+      width: 16px;
+      height: 16px;
+      color: inherit;
+    }
+  }
 }
 
 .cptm-form-note {
@@ -592,10 +671,8 @@ $light-gray: #f4f5f7;
 // ====================
 // Sub Tabs
 // ====================
-
-.cptm-title-area {
-  // width: 510px;
-  margin: 0 auto 20px;
+.cptm-title-area{
+  border-radius: 10px;
 }
 
 .submission-form {
@@ -669,13 +746,13 @@ $light-gray: #f4f5f7;
 
 .cptm-tab-content {
   margin: 0 auto;
-  padding: 60px 75px;
+  padding: 20px 30px;
   min-height: 100px;
   max-width: 700px;
   box-sizing: border-box;
 
   @media only screen and (max-width: 991px) {
-    padding: 60px 25px;
+    padding: 20px 25px;
   }
 
   @media (max-width: 480px) {
@@ -684,12 +761,12 @@ $light-gray: #f4f5f7;
   }
 
   &.tab-wide {
-    max-width: 1200px;
+    max-width: 1080px;
   }
 
   &.tab-full-width {
-    max-width: 1200px;
-    padding: 60px 0;
+    max-width: 1080px;
+    padding: 20px 0;
   }
 }
 

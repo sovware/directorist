@@ -12,7 +12,11 @@
       >
         <div class="directorist-form-doc-left">
           <div class="directorist-form-doc-title" v-html="section.title"></div>
-          <a href="#" class="directorist-form-doc__watch-tutorial">
+          <a
+            href="#"
+            class="directorist-form-doc__watch-tutorial"
+            @click.prevent="openVideoPopup"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="14"
@@ -27,7 +31,7 @@
                 fill="currentColor"
               />
             </svg>
-            watch tutorial
+            Watch tutorial
           </a>
         </div>
         <div class="directorist-form-doc-right">
@@ -50,6 +54,31 @@
           </a>
         </div>
       </div>
+
+      <!-- Video Popup Modal -->
+      <div
+        v-if="showVideo"
+        class="video-popup-overlay"
+        @click="closeVideoPopup"
+      >
+        <div class="video-popup-content" @click.stop>
+          <button class="close-btn" @click="closeVideoPopup">
+            <span class="la la-close"></span>
+          </button>
+          <div class="video-container">
+            <iframe
+              width="560"
+              height="315"
+              src="https://www.youtube.com/embed/TLeTwLWtm9Q"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+              title="Directorist Tutorial"
+            ></iframe>
+          </div>
+        </div>
+      </div>
+
       <div
         class="cptm-title-area"
         :class="sectionTitleAreaClass(section)"
@@ -135,6 +164,12 @@ import helpers from "./../mixins/helpers";
 export default {
   name: "sections-module",
   mixins: [helpers],
+
+  data() {
+    return {
+      showVideo: false,
+    };
+  },
 
   props: {
     sections: {
@@ -232,6 +267,16 @@ export default {
         type_id = field.editor === "wp_editor" ? "cptm-field_wp_editor" : "";
       }
       return type_id;
+    },
+
+    // Open the video popup
+    openVideoPopup() {
+      this.showVideo = true;
+    },
+
+    // Close the video popup
+    closeVideoPopup() {
+      this.showVideo = false;
     },
   },
 };

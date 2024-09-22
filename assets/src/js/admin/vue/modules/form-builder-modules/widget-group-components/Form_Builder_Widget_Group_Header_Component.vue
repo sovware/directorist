@@ -12,7 +12,7 @@
         @drag-end="$emit('drag-end')"
       >
         <div class="cptm-form-builder-group-field-item-drag">
-          <span aria-hidden="true" class="las la-braille"></span>
+          <span aria-hidden="true" class="uil uil-draggabledots"></span>
         </div>
       </draggable-list-item>
 
@@ -33,7 +33,7 @@
           v-if="canTrash"
           @click.prevent="toggleGroupExpandedDropdown"
         >
-          <span aria-hidden="true" class="la la-ellipsis-h"></span>
+          <span aria-hidden="true" class="uil uil-ellipsis-h"></span>
         </a>
         <!-- Widget Action Dropdown -->
         <slide-up-down :active="groupExpandedDropdown" :duration="500">

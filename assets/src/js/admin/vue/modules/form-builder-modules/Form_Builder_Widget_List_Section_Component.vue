@@ -15,7 +15,7 @@
             isPresetExpanded ? 'action-collapse-up' : 'action-collapse-down'
           "
         >
-          <span aria-hidden="true" class="fa fa-angle-up"></span>
+          <span aria-hidden="true" class="uil uil-angle-down"></span>
         </span>
       </a>
     </div>

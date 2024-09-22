@@ -28417,7 +28417,7 @@ var render = function render() {
     staticClass: "cptm-form-builder-preset-fields-header-action-icon",
     class: _vm.isPresetExpanded ? "action-collapse-up" : "action-collapse-down"
   }, [_c("span", {
-    staticClass: "fa fa-angle-up",
+    staticClass: "uil uil-angle-down",
     attrs: {
       "aria-hidden": "true"
     }
@@ -28497,7 +28497,7 @@ var render = function render() {
   }, [_c("div", {
     staticClass: "cptm-form-builder-group-field-item-drag"
   }, [_c("span", {
-    staticClass: "las la-braille",
+    staticClass: "uil uil-draggabledots",
     attrs: {
       "aria-hidden": "true"
     }
@@ -28547,7 +28547,7 @@ var render = function render() {
       }
     }
   }, [_c("span", {
-    staticClass: "la la-ellipsis-h",
+    staticClass: "uil uil-ellipsis-h",
     attrs: {
       "aria-hidden": "true"
     }
@@ -28632,7 +28632,7 @@ var render = function render() {
       }
     }
   }, [_c("span", {
-    staticClass: "fa fa-angle-up",
+    staticClass: "uil uil-angle-down",
     attrs: {
       "aria-hidden": "true"
     }
@@ -28833,7 +28833,7 @@ var render = function render() {
   }, [_c("div", {
     staticClass: "cptm-form-builder-group-field-item-drag"
   }, [_c("span", {
-    staticClass: "las la-braille",
+    staticClass: "uil uil-draggabledots",
     attrs: {
       "aria-hidden": "true"
     }
@@ -28861,7 +28861,7 @@ var render = function render() {
       }
     }
   }, [_c("span", {
-    staticClass: "la la-ellipsis-h",
+    staticClass: "uil uil-ellipsis-h",
     attrs: {
       "aria-hidden": "true"
     }
@@ -28966,7 +28966,7 @@ var render = function render() {
       }
     }
   }, [_c("span", {
-    staticClass: "fa fa-angle-up",
+    staticClass: "uil uil-angle-down",
     attrs: {
       "aria-hidden": "true"
     }

@@ -514,9 +514,9 @@ $light-gray: #f4f5f7;
 
 .cptm-form-builder-group-field-drop-area {
   display: block;
-  padding: 20px;
+  padding: 16px 20px;
   border-radius: 8px;
-  margin: 8px 50px 0 30px;
+  margin: 8px 40px 0 30px;
   text-align: center;
   font-size: 13px;
   font-weight: 400;
@@ -900,7 +900,7 @@ $light-gray: #f4f5f7;
   gap: 15px;
   margin: 0 0 16px;
   .cptm-form-builder-preset-fields-header-action-icon {
-    font-size: 16px;
+    font-size: 20px;
   }
   &:focus {
     outline: none;
@@ -998,7 +998,7 @@ $light-gray: #f4f5f7;
 
 .cptm-form-builder-active-fields-group {
   position: relative;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   padding-bottom: 0;
 }
 
@@ -1020,6 +1020,10 @@ $light-gray: #f4f5f7;
   background-color: #444752;
   box-shadow: 0px 1px 5px rgba(#a1a8c6, 0.1);
   transition: all ease 0.3s;
+  &:focus,
+  &:hover{
+    background-color: #141921;
+  }
 }
 
 .expanded {
@@ -1085,7 +1089,7 @@ div[draggable="true"].cptm-form-builder-group-title-area {
 
 .cptm-form-builder-group-title-actions {
   .cptm-form-builder-header-action-link {
-    font-size: 16px;
+    font-size: 20px;
     color: #fff;
   }
 }
@@ -1097,7 +1101,7 @@ div[draggable="true"].cptm-form-builder-group-title-area {
   justify-content: flex-end;
   flex-direction: column;
   width: 32px;
-  margin-left: 15px;
+  margin-left: 10px;
 }
 
 .cptm-form-builder-group-actions-dropdown--field {
@@ -1275,7 +1279,7 @@ div[draggable="true"].cptm-form-builder-group-title-area {
 .cptm-form-builder-group-field-item {
   margin-bottom: 8px;
   position: relative;
-  padding-right: 50px;
+  padding-right: 40px;
   padding-left: 30px;
   border-radius: 8px;
   .directorist-draggable-list-item {
@@ -1341,7 +1345,7 @@ div[draggable="true"].cptm-form-builder-group-title-area {
 .cptm-form-builder-group-field-item-header-actions {
   margin-left: 10px;
   .cptm-form-builder-header-action-link {
-    font-size: 16px;
+    font-size: 20px;
     color: #747c89;
   }
 }
@@ -1376,13 +1380,12 @@ div[draggable="true"].cptm-form-builder-group-title-area {
   display: flex;
   position: relative;
   justify-content: space-between;
-  padding: 15px 20px;
+  padding: 12px 20px;
   cursor: default;
-  box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+  box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
   border-radius: 8px;
   background-color: #fff;
-  border: 1px solid transparent;
-  border-bottom: none;
+  border: 1px solid #E5E7EB;
   transition: all ease 0.3s;
   z-index: 8;
 
@@ -3526,11 +3529,16 @@ input[type="radio"] {
     }
 
     &:before {
-      font-family: "Font Awesome 5 Free";
-      font-weight: 900;
-      font-size: 18px;
-      float: right;
-      content: "\f107";
+      font-family: unicons-line;
+      font-weight: 400;
+      font-size: 20px;
+      content: "\eb3a";
+      color: #747C89;
+      position: absolute;
+      top: 50%;
+      right: 0;
+      transform: translate(-50%, -50%);
+      height: 20px;
     }
   }
 
@@ -3540,11 +3548,12 @@ input[type="radio"] {
     width: 100%;
     max-height: 350px;
     left: 0;
-    top: 44px;
-    padding: 15px;
+    top: 40px;
+    padding: 12px 8px;
     background-color: #fff;
-    box-shadow: 0 10px 40px #868eae30;
-    border-radius: 5px;
+    box-shadow: 0 12px 16px -4px rgba(16, 24, 40, 0.08), 0px 4px 6px -2px rgba(16, 24, 40, 0.03);
+    border: 1px solid #E5E7EB;
+    border-radius: 10px;
     z-index: 99999;
     overflow-y: auto;
 
@@ -3557,24 +3566,26 @@ input[type="radio"] {
       padding: 0;
 
       li {
+        margin-bottom: 0;
         a {
           font-size: 14px;
           font-weight: 500;
           text-decoration: none;
           display: block;
-          padding: 9px 10px;
-          border-radius: 4px;
-          color: #5a5f7d;
+          padding: 9px 15px;
+          border-radius: 8px;
+          color: #4D5761;
+          transition: 0.3s;
 
           &:hover,
           &.active:hover {
             color: #fff;
-            background-color: $primary;
+            background-color: #3E62F5;
           }
 
           &.active {
-            color: $primary;
-            background-color: #f2f2f2;
+            color: #3E62F5;
+            background-color: #F0F3FF;
           }
         }
       }

@@ -5355,9 +5355,10 @@ body.wp-admin {
 
 // Directorist Dropdown Style
 .directorist_dropdown {
-  border: 1px solid #eff1f6;
-  border-radius: 5px;
+  border: 1px solid #D2D6DB;
+  border-radius: 8px;
   position: relative;
+  box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
 
   .directorist_dropdown-toggle {
     text-decoration: none;

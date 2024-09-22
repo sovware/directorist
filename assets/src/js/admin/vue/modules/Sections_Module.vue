@@ -85,6 +85,7 @@
         v-if="section.fields[0] !== 'submission_form_fields'"
       >
         <h3 v-if="section.title" class="cptm-title" v-html="section.title"></h3>
+        <div v-if="section.description" class="cptm-des" v-html="section.description"></div>
       </div>
 
       <div class="cptm-form-fields" v-if="sectionFields(section)">

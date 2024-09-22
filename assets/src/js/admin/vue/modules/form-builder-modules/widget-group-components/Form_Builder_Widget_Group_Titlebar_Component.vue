@@ -20,7 +20,7 @@
         :class="widgetsExpanded ? 'action-collapse-up' : 'action-collapse-down'"
         @click.prevent="$emit('toggle-expand-widgets')"
       >
-        <span aria-hidden="true" class="fa fa-angle-up"></span>
+        <span aria-hidden="true" class="uil uil-angle-down"></span>
       </a>
     </div>
   </div>

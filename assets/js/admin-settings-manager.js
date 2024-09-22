@@ -25018,7 +25018,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       return options_values.includes(value);
     }
     /* syncValidationWithLocalState( validation_log ) {
-         return validation_log;
+          return validation_log;
     } */
   }
 });
@@ -26656,6 +26656,11 @@ var render = function render() {
       staticClass: "cptm-title",
       domProps: {
         innerHTML: _vm._s(section.title)
+      }
+    }) : _vm._e(), _vm._v(" "), section.description ? _c("div", {
+      staticClass: "cptm-des",
+      domProps: {
+        innerHTML: _vm._s(section.description)
       }
     }) : _vm._e()]) : _vm._e(), _vm._v(" "), _vm.sectionFields(section) ? _c("div", {
       staticClass: "cptm-form-fields"
@@ -28357,7 +28362,7 @@ var render = function render() {
     staticClass: "cptm-form-builder-preset-fields-header-action-icon",
     class: _vm.isPresetExpanded ? "action-collapse-up" : "action-collapse-down"
   }, [_c("span", {
-    staticClass: "fa fa-angle-up",
+    staticClass: "uil uil-angle-down",
     attrs: {
       "aria-hidden": "true"
     }
@@ -28437,7 +28442,7 @@ var render = function render() {
   }, [_c("div", {
     staticClass: "cptm-form-builder-group-field-item-drag"
   }, [_c("span", {
-    staticClass: "las la-braille",
+    staticClass: "uil uil-draggabledots",
     attrs: {
       "aria-hidden": "true"
     }
@@ -28487,7 +28492,7 @@ var render = function render() {
       }
     }
   }, [_c("span", {
-    staticClass: "la la-ellipsis-h",
+    staticClass: "uil uil-ellipsis-h",
     attrs: {
       "aria-hidden": "true"
     }
@@ -28572,7 +28577,7 @@ var render = function render() {
       }
     }
   }, [_c("span", {
-    staticClass: "fa fa-angle-up",
+    staticClass: "uil uil-angle-down",
     attrs: {
       "aria-hidden": "true"
     }
@@ -28773,7 +28778,7 @@ var render = function render() {
   }, [_c("div", {
     staticClass: "cptm-form-builder-group-field-item-drag"
   }, [_c("span", {
-    staticClass: "las la-braille",
+    staticClass: "uil uil-draggabledots",
     attrs: {
       "aria-hidden": "true"
     }
@@ -28801,7 +28806,7 @@ var render = function render() {
       }
     }
   }, [_c("span", {
-    staticClass: "la la-ellipsis-h",
+    staticClass: "uil uil-ellipsis-h",
     attrs: {
       "aria-hidden": "true"
     }
@@ -28906,7 +28911,7 @@ var render = function render() {
       }
     }
   }, [_c("span", {
-    staticClass: "fa fa-angle-up",
+    staticClass: "uil uil-angle-down",
     attrs: {
       "aria-hidden": "true"
     }
@@ -32425,7 +32430,7 @@ var render = function render() {
       key: alert_key,
       staticClass: "cptm-form-alert",
       class: "cptm-" + alert.type
-    }, [_vm._v("\n            " + _vm._s(alert.message) + "\n        ")]);
+    }, [_vm._v("\r\n            " + _vm._s(alert.message) + "\r\n        ")]);
   }), 0) : _vm._e()]);
 };
 var staticRenderFns = [];
@@ -35573,7 +35578,7 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "cptm-form-group"
+    staticClass: "cptm-form-group cptm-preview-image-upload cptm-preview-image-upload--show"
   }, [_vm.label.length ? _c("label", [_c(_vm.labelType, {
     tag: "component"
   }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c("p", {
@@ -35583,16 +35588,7 @@ var render = function render() {
     }
   }) : _vm._e(), _vm._v(" "), _c("div", {
     staticClass: "cptm-thumbnail"
-  }, [_vm.thumbnailSrc.length ? _c("div", {
-    staticClass: "cptm-thumbnail-img-wrap"
-  }, [_c("img", {
-    staticClass: "cptm-thumbnail-img",
-    attrs: {
-      src: _vm.thumbnailSrc,
-      width: "100%",
-      height: "auto"
-    }
-  }), _vm._v(" "), _vm.hasThumbnail ? _c("span", {
+  }, [_vm.hasThumbnail ? _c("span", {
     staticClass: "cptm-thumbnail-action action-trash",
     on: {
       click: function click($event) {
@@ -35601,10 +35597,24 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "uil uil-trash-alt"
-  })]) : _vm._e()]) : _vm._e(), _vm._v(" "), !_vm.thumbnailSrc.length ? _c("span", {
-    staticClass: "cptm-thumbnail-placeholder"
-  }, [_vm._m(0)]) : _vm._e()]), _vm._v(" "), _c("input", {
-    staticClass: "cptm-btn cptm-btn-primary",
+  })]) : _vm._e(), _vm._v(" "), _vm.thumbnailSrc.length ? _c("div", {
+    staticClass: "cptm-thumbnail-img-wrap"
+  }, [_c("img", {
+    staticClass: "cptm-thumbnail-img",
+    attrs: {
+      src: _vm.thumbnailSrc,
+      width: "100%",
+      height: "auto"
+    }
+  })]) : _vm._e(), _vm._v(" "), _c("label", {
+    staticClass: "cptm-upload-btn cptm-btn cptm-btn-dark directorist-row-tooltip",
+    attrs: {
+      "data-tooltip": "Change image",
+      "data-flow": "bottom"
+    }
+  }, [_c("i", {
+    staticClass: "uil uil-top-arrow-to-top"
+  }), _vm._v(" "), _c("input", {
     attrs: {
       type: "button",
       value: _vm.theButtonLabel
@@ -35615,7 +35625,11 @@ var render = function render() {
         return _vm.openMediaPicker.apply(null, arguments);
       }
     }
-  }), _vm._v(" "), _c("form-field-validatior", {
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "cptm-thumbnail-drag-text"
+  }, [_vm._v("or drag and drop image here")]), _vm._v(" "), !_vm.thumbnailSrc.length ? _c("span", {
+    staticClass: "cptm-thumbnail-placeholder"
+  }, [_vm._m(0)]) : _vm._e()]), _vm._v(" "), _c("form-field-validatior", {
     attrs: {
       "section-id": _vm.sectionId,
       "field-id": _vm.fieldId,

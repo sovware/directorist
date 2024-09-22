@@ -81,7 +81,7 @@
                                                 <?php endif; ?>
                                                 <a href="<?php echo esc_url( $args['settings_url'] ); ?>" class="ext-action-btn"><i class="la la-settings"></i> Settings</a>
                                                 <div>
-                                                    <a href="" class="ext-action-drop"><i class="la la-ellipsis-h"></i></a>
+                                                    <a href="" class="ext-action-drop"><i class="uil uil-ellipsis-h"></i></a>
                                                     <div class="ext-action-drop__item">
                                                         <a href="#" class="ext-action-link ext-action-uninstall" data-target="<?php echo esc_attr( $extension_base ); ?>">Uninstall</a>
                                                     </div>

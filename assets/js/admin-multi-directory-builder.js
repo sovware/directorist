@@ -26438,7 +26438,8 @@ var render = function render() {
   }, [_c("div", {
     staticClass: "directorist-form-doc-left"
   }, [_c("div", {
-    staticClass: "directorist-form-doc-title"
+    staticClass: "directorist-form-doc-title",
+    class: _vm.sectionTitleAreaClass(_vm.section)
   }, [_vm._v("\n            Add listing form\n        ")]), _vm._v(" "), _c("a", {
     staticClass: "directorist-form-doc__watch-tutorial",
     attrs: {
@@ -26493,10 +26494,6 @@ var render = function render() {
       staticClass: "cptm-title",
       domProps: {
         innerHTML: _vm._s(section.title)
-      }
-    }) : _vm._e(), _vm._v(" "), section.description ? _c("p", {
-      domProps: {
-        innerHTML: _vm._s(section.description)
       }
     }) : _vm._e()]), _vm._v(" "), _vm.sectionFields(section) ? _c("div", {
       staticClass: "cptm-form-fields"

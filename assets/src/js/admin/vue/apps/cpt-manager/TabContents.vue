@@ -7,7 +7,11 @@
         v-if="tab_index === active_nav_index"
         :class="getActiveClass(tab_index, active_nav_index)"
       >
-        <component :is="tab.type" v-bind="tab"></component>
+        <component
+          @save="$emit('save', $event)"
+          :is="tab.type"
+          v-bind="tab"
+        ></component>
       </div>
     </template>
   </div>

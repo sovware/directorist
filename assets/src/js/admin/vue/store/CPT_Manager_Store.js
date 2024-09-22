@@ -6,16 +6,19 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   // state
   state: {
+    is_dirty: false,
     active_nav_index: 0,
+    is_saving: false,
     fields: {},
     layouts: {},
     options: {},
+    cachedOptions: {},
     config: {},
-    cached_fields: {},
     highlighted_field_key: '',
     metaKeys: {},
     deprecatedMetaKeys: [],
     sidebarNavigation: {},
+    cached_fields: {},
   },
   
   // mutations
@@ -99,6 +102,10 @@ export default new Vuex.Store({
       state.cached_fields[ payload.key ].value = payload.value;
     },
 
+    updateIsDirty: ( state, payload ) => {
+      state.is_dirty = payload;
+    },
+
     swichToNav( state, payload ) {
       let menu_key    = payload.menu_key;
       let submenu_key = payload.submenu_key;
@@ -174,6 +181,14 @@ export default new Vuex.Store({
 
     updatelayouts: ( state, value ) => {
       state.layouts = value;
+    },
+    
+    updateIsSaving: ( state, value ) => {
+      state.is_saving = value;
+    },
+
+    updateCachedFields: ( state ) => {
+      state.cached_fields = JSON.parse( JSON.stringify( state.fields ) );
     },
 
     updateOptions: ( state, value ) => {

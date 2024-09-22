@@ -80,7 +80,6 @@
               >
                 Enable Listing Preview
               </label>
-              <div class="atbdp-cptm-footer-preview-desc">Help Text Here</div>
             </div>
 
             <div class="atbdp-cptm-progress-bar"></div>
@@ -92,13 +91,12 @@
                 @click="saveData()"
               >
                 <span
-                  v-if="footer_actions.save.showLoading"
+                  v-if="$store.state.is_saving"
                   class="fa fa-spinner fa-spin"
                 ></span>
-                <span
-                  class="cptm-save-text"
-                  v-html="footer_actions.save.label"
-                ></span>
+                <span class="cptm-save-text">
+                  <span class="cptm-save-text" v-html="buttonText"></span>
+                </span>
               </button>
             </div>
             <div
@@ -126,7 +124,6 @@ import Vue from "vue";
 import { mapGetters, mapState } from "vuex";
 import { findObjectItem, isObject } from "../../../../helper";
 import helpers from "../../mixins/helpers";
-const axios = require("axios").default;
 
 export default {
   name: "form-builder",
@@ -168,8 +165,6 @@ export default {
     if (this.$root.options) {
       this.$store.commit("updateOptions", this.$root.options);
     }
-
-    // console.log( this.options );
 
     if (this.$root.config) {
       this.$store.commit("updateConfig", this.$root.config);
@@ -267,6 +262,12 @@ export default {
       return button_icon + button_label;
     },
 
+    buttonText() {
+      return this.$store.state.is_saving
+        ? "Saving"
+        : 'Save & Preview <span class="la la-pen"></span>';
+    },
+
     ...mapState({
       options: "options",
     }),
@@ -279,6 +280,7 @@ export default {
       active_widget_fields: {},
       active_widget_groups: [],
       avilable_widgets: {},
+      isDataChanged: false,
 
       default_group: [
         {
@@ -436,6 +438,7 @@ export default {
     },
 
     updateWidgetField(payload) {
+      this.isDataChanged = true;
       Vue.set(
         this.active_widget_fields[payload.widget_key],
         payload.payload.key,
@@ -997,98 +1000,7 @@ export default {
     },
 
     saveData() {
-      let options = this.$store.state.options;
-      let fields = this.$store.state.fields;
-
-      let submission_url = this.$store.state.config.submission.url;
-      let submission_with = this.$store.state.config.submission.with;
-
-      let form_data = new FormData();
-
-      if (submission_with && typeof submission_with === "object") {
-        for (let data_key in submission_with) {
-          form_data.append(data_key, submission_with[data_key]);
-        }
-      }
-
-      if (this.listing_type_id) {
-        form_data.append("listing_type_id", this.listing_type_id);
-        this.footer_actions.save.label = "Updating";
-      }
-
-      // Get Options Fields Data
-      let options_field_list = [];
-      for (let field in options) {
-        let value = this.maybeJSON(options[field].value);
-
-        form_data.append(field, value);
-        options_field_list.push(field);
-      }
-
-      form_data.append("field_list", JSON.stringify(field_list));
-
-      // Get Form Fields Data
-      let field_list = [];
-      for (let field in fields) {
-        let value = this.maybeJSON([fields[field].value]);
-
-        if (fields[field].editor) {
-          let privacyFieldID = fields[field].editorID;
-          let editorInstance = tinymce.get(privacyFieldID);
-          value = editorInstance.getContent();
-        }
-
-        form_data.append(field, value);
-        field_list.push(field);
-      }
-
-      form_data.append("field_list", this.maybeJSON(field_list));
-
-      this.status_messages = [];
-      this.footer_actions.save.showLoading = true;
-      this.footer_actions.save.isDisabled = true;
-      const self = this;
-
-      // return;
-      axios
-        .post(submission_url, form_data)
-        .then((response) => {
-          self.footer_actions.save.showLoading = false;
-          self.footer_actions.save.isDisabled = false;
-
-          // console.log( response );
-          // return;
-
-          if (response.data.term_id && !isNaN(response.data.term_id)) {
-            self.listing_type_id = response.data.term_id;
-            self.footer_actions.save.label = "Update";
-            self.listing_type_id = response.data.term_id;
-
-            if (response.data.redirect_url) {
-              window.location = response.data.redirect_url;
-            }
-          }
-
-          if (response.data.status && response.data.status.status_log) {
-            for (let status_key in response.data.status.status_log) {
-              self.status_messages.push({
-                type: response.data.status.status_log[status_key].type,
-                message: response.data.status.status_log[status_key].message,
-              });
-            }
-
-            setTimeout(function () {
-              self.status_messages = [];
-            }, 5000);
-          }
-
-          // console.log( response );
-        })
-        .catch((error) => {
-          self.footer_actions.save.showLoading = false;
-          self.footer_actions.save.isDisabled = false;
-          console.log(error);
-        });
+      this.$emit("save");
     },
 
     maybeJSON(data) {
@@ -1120,6 +1032,13 @@ export default {
           }
         )
       );
+    },
+
+    handleBeforeUnload(event) {
+      if (this.isDataChanged) {
+        event.preventDefault();
+        event.returnValue = ""; // Display default warning dialog
+      }
     },
   },
 };

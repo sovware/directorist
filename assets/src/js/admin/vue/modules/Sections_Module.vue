@@ -104,6 +104,7 @@
             :cached-data="cached_fields[field]"
             v-bind="fields[field]"
             @update="updateFieldValue(field, $event)"
+            @save="$emit('save', $event)"
             @validate="updateFieldValidationState(field, $event)"
             @is-visible="updateFieldData(field, 'isVisible', $event)"
             @do-action="doAction($event, 'sections-module')"
@@ -139,6 +140,7 @@
                     :cached-data="cached_fields[groupedField]"
                     v-bind="fields[groupedField]"
                     @update="updateFieldValue(groupedField, $event)"
+                    @save="$emit('save', $event)"
                     @validate="updateFieldValidationState(groupedField, $event)"
                     @is-visible="
                       updateFieldData(groupedField, 'isVisible', $event)

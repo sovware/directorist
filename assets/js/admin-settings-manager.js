@@ -11566,16 +11566,19 @@ vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_1_
 /* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   // state
   state: {
+    is_dirty: false,
     active_nav_index: 0,
+    is_saving: false,
     fields: {},
     layouts: {},
     options: {},
+    cachedOptions: {},
     config: {},
-    cached_fields: {},
     highlighted_field_key: '',
     metaKeys: {},
     deprecatedMetaKeys: [],
-    sidebarNavigation: {}
+    sidebarNavigation: {},
+    cached_fields: {}
   },
   // mutations
   mutations: {
@@ -11652,6 +11655,9 @@ vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_1_
     updateCachedFieldData: function updateCachedFieldData(state, payload) {
       state.cached_fields[payload.key].value = payload.value;
     },
+    updateIsDirty: function updateIsDirty(state, payload) {
+      state.is_dirty = payload;
+    },
     swichToNav: function swichToNav(state, payload) {
       var menu_key = payload.menu_key;
       var submenu_key = payload.submenu_key;
@@ -11711,6 +11717,12 @@ vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_1_
     },
     updatelayouts: function updatelayouts(state, value) {
       state.layouts = value;
+    },
+    updateIsSaving: function updateIsSaving(state, value) {
+      state.is_saving = value;
+    },
+    updateCachedFields: function updateCachedFields(state) {
+      state.cached_fields = JSON.parse(JSON.stringify(state.fields));
     },
     updateOptions: function updateOptions(state, value) {
       state.options = value;
@@ -14760,9 +14772,6 @@ __webpack_require__.r(__webpack_exports__);
         return this.value;
       }
       return this.root;
-    },
-    isFieldItem: function isFieldItem() {
-      return Object.keys(this.field_list).includes("field_key");
     }
   },
   data: function data() {
@@ -23322,7 +23331,6 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 
 
 
-var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").default;
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "form-builder",
   mixins: [_mixins_helpers__WEBPACK_IMPORTED_MODULE_5__["default"]],
@@ -23359,9 +23367,6 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
     if (this.$root.options) {
       this.$store.commit("updateOptions", this.$root.options);
     }
-
-    // console.log( this.options );
-
     if (this.$root.config) {
       this.$store.commit("updateConfig", this.$root.config);
     }
@@ -23427,6 +23432,9 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
         button_label = this.generalSettings.addNewGroupButtonLabel;
       }
       return button_icon + button_label;
+    },
+    buttonText: function buttonText() {
+      return this.$store.state.is_saving ? "Saving" : 'Save & Preview <span class="la la-pen"></span>';
     }
   }, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapState"])({
     options: "options"
@@ -23437,6 +23445,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
       active_widget_fields: {},
       active_widget_groups: [],
       avilable_widgets: {},
+      isDataChanged: false,
       default_group: [{
         type: "general_group",
         label: this.groupSettings && this.groupSettings.defaultGroupLabel ? this.groupSettings.defaultGroupLabel : "Section",
@@ -23565,6 +23574,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
       this.$emit("group-field-updated");
     },
     updateWidgetField: function updateWidgetField(payload) {
+      this.isDataChanged = true;
       vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(this.active_widget_fields[payload.widget_key], payload.payload.key, payload.payload.value);
       this.$emit("update", this.finalValue);
       this.$emit("updated-state");
@@ -23952,82 +23962,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
       });
     },
     saveData: function saveData() {
-      var options = this.$store.state.options;
-      var fields = this.$store.state.fields;
-      var submission_url = this.$store.state.config.submission.url;
-      var submission_with = this.$store.state.config.submission.with;
-      var form_data = new FormData();
-      if (submission_with && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(submission_with) === "object") {
-        for (var _data_key2 in submission_with) {
-          form_data.append(_data_key2, submission_with[_data_key2]);
-        }
-      }
-      if (this.listing_type_id) {
-        form_data.append("listing_type_id", this.listing_type_id);
-        this.footer_actions.save.label = "Updating";
-      }
-
-      // Get Options Fields Data
-      var options_field_list = [];
-      for (var field in options) {
-        var value = this.maybeJSON(options[field].value);
-        form_data.append(field, value);
-        options_field_list.push(field);
-      }
-      form_data.append("field_list", JSON.stringify(field_list));
-
-      // Get Form Fields Data
-      var field_list = [];
-      for (var _field in fields) {
-        var _value = this.maybeJSON([fields[_field].value]);
-        if (fields[_field].editor) {
-          var privacyFieldID = fields[_field].editorID;
-          var editorInstance = tinymce.get(privacyFieldID);
-          _value = editorInstance.getContent();
-        }
-        form_data.append(_field, _value);
-        field_list.push(_field);
-      }
-      form_data.append("field_list", this.maybeJSON(field_list));
-      this.status_messages = [];
-      this.footer_actions.save.showLoading = true;
-      this.footer_actions.save.isDisabled = true;
-      var self = this;
-
-      // return;
-      axios.post(submission_url, form_data).then(function (response) {
-        self.footer_actions.save.showLoading = false;
-        self.footer_actions.save.isDisabled = false;
-
-        // console.log( response );
-        // return;
-
-        if (response.data.term_id && !isNaN(response.data.term_id)) {
-          self.listing_type_id = response.data.term_id;
-          self.footer_actions.save.label = "Update";
-          self.listing_type_id = response.data.term_id;
-          if (response.data.redirect_url) {
-            window.location = response.data.redirect_url;
-          }
-        }
-        if (response.data.status && response.data.status.status_log) {
-          for (var status_key in response.data.status.status_log) {
-            self.status_messages.push({
-              type: response.data.status.status_log[status_key].type,
-              message: response.data.status.status_log[status_key].message
-            });
-          }
-          setTimeout(function () {
-            self.status_messages = [];
-          }, 5000);
-        }
-
-        // console.log( response );
-      }).catch(function (error) {
-        self.footer_actions.save.showLoading = false;
-        self.footer_actions.save.isDisabled = false;
-        console.log(error);
-      });
+      this.$emit("save");
     },
     maybeJSON: function maybeJSON(data) {
       var value = typeof data === "undefined" ? "" : data;
@@ -24045,6 +23980,12 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
       return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function toSolidBytes(match, p1) {
         return String.fromCharCode("0x" + p1);
       }));
+    },
+    handleBeforeUnload: function handleBeforeUnload(event) {
+      if (this.isDataChanged) {
+        event.preventDefault();
+        event.returnValue = ""; // Display default warning dialog
+      }
     }
   })
 });
@@ -26488,7 +26429,7 @@ var render = function render() {
     _c = _vm._self._c;
   return _vm.field_list && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(_vm.field_list) === "object" ? _c("div", {
     staticClass: "directorist-form-fields-area"
-  }, [_vm._l(_vm.field_list, function (field, field_key) {
+  }, _vm._l(_vm.field_list, function (field, field_key) {
     return _c(field.type + "-field", _vm._b({
       key: field_key,
       tag: "component",
@@ -26506,9 +26447,7 @@ var render = function render() {
         }
       }
     }, "component", _vm.excludeShowIfCondition(field), false));
-  }), _vm._v(" "), !_vm.isFieldItem ? _c("button", {
-    staticClass: "directorist-form-fields-advanced"
-  }, [_vm._v("\n    Advanced\n  ")]) : _vm._e()], 2) : _vm._e();
+  }), 1) : _vm._e();
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -26737,6 +26676,9 @@ var render = function render() {
           update: function update($event) {
             return _vm.updateFieldValue(field, $event);
           },
+          save: function save($event) {
+            return _vm.$emit("save", $event);
+          },
           validate: function validate($event) {
             return _vm.updateFieldValidationState(field, $event);
           },
@@ -26774,6 +26716,9 @@ var render = function render() {
           on: {
             update: function update($event) {
               return _vm.updateFieldValue(groupedField, $event);
+            },
+            save: function save($event) {
+              return _vm.$emit("save", $event);
             },
             validate: function validate($event) {
               return _vm.updateFieldValidationState(groupedField, $event);
@@ -32276,14 +32221,16 @@ var render = function render() {
         return _vm.saveData();
       }
     }
-  }, [_vm.footer_actions.save.showLoading ? _c("span", {
+  }, [_vm.$store.state.is_saving ? _c("span", {
     staticClass: "fa fa-spinner fa-spin"
   }) : _vm._e(), _vm._v(" "), _c("span", {
+    staticClass: "cptm-save-text"
+  }, [_c("span", {
     staticClass: "cptm-save-text",
     domProps: {
-      innerHTML: _vm._s(_vm.footer_actions.save.label)
+      innerHTML: _vm._s(_vm.buttonText)
     }
-  })])]), _vm._v(" "), _vm.status_messages.length ? _c("div", {
+  })])])]), _vm._v(" "), _vm.status_messages.length ? _c("div", {
     staticClass: "atbdp-cptm-status-feedback"
   }, _vm._l(_vm.status_messages, function (status, index) {
     return _c("div", {
@@ -32309,9 +32256,7 @@ var staticRenderFns = [function () {
     attrs: {
       for: "atbdp-cptm-footer-preview-toggle"
     }
-  }, [_vm._v("\n              Enable Listing Preview\n            ")]), _vm._v(" "), _c("div", {
-    staticClass: "atbdp-cptm-footer-preview-desc"
-  }, [_vm._v("Help Text Here")])]);
+  }, [_vm._v("\n              Enable Listing Preview\n            ")])]);
 }];
 render._withStripped = true;
 

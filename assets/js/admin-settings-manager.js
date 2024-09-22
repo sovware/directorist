@@ -17611,6 +17611,13 @@ __webpack_require__.r(__webpack_exports__);
       }
       return label;
     },
+    widgetIcon: function widgetIcon() {
+      var icon = "";
+      if (this.current_widget && this.current_widget.icon) {
+        icon = this.current_widget.icon;
+      }
+      return icon;
+    },
     expandState: function expandState() {
       var state = this.expanded;
       if (!this.isEnabledGroupDragging) {
@@ -17757,6 +17764,9 @@ __webpack_require__.r(__webpack_exports__);
       default: ""
     },
     sublabel: {
+      default: ""
+    },
+    icon: {
       default: ""
     },
     expanded: {
@@ -28490,6 +28500,7 @@ var render = function render() {
     attrs: {
       label: _vm.widgetTitle,
       sublabel: _vm.widgetSubtitle,
+      icon: _vm.widgetIcon,
       expanded: _vm.expandState
     },
     on: {
@@ -28595,10 +28606,7 @@ var render = function render() {
   }, [_c("h4", {
     staticClass: "cptm-title-3"
   }, [_c("span", {
-    staticClass: "cptm-title-icon fa fa-angle-up",
-    attrs: {
-      "aria-hidden": "true"
-    }
+    class: _vm.icon
   }), _vm._v(" "), _c("span", {
     domProps: {
       innerHTML: _vm._s(_vm.label)

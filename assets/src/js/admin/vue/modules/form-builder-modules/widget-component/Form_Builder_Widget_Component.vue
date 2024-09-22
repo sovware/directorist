@@ -18,6 +18,7 @@
     <form-builder-widget-titlebar-component
       :label="widgetTitle"
       :sublabel="widgetSubtitle"
+      :icon="widgetIcon"
       :expanded="expandState"
       @toggle-expand="toggleExpand"
     />
@@ -185,6 +186,16 @@ export default {
       }
 
       return label;
+    },
+
+    widgetIcon() {
+      let icon = "";
+
+      if (this.current_widget && this.current_widget.icon) {
+        icon = this.current_widget.icon;
+      }
+
+      return icon;
     },
 
     expandState() {

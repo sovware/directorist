@@ -53,7 +53,7 @@
         v-if="canTrashWidget"
         @click.prevent="toggleExpandedDropdown"
       >
-        <span aria-hidden="true" class="fa fa-ellipsis-h"></span>
+        <span aria-hidden="true" class="la la-ellipsis-h"></span>
       </a>
 
       <!-- Widget Action Dropdown -->

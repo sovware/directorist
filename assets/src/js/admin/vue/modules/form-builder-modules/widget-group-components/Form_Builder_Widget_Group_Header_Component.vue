@@ -33,7 +33,7 @@
           v-if="canTrash"
           @click.prevent="toggleGroupExpandedDropdown"
         >
-          <span aria-hidden="true" class="fa fa-ellipsis-h"></span>
+          <span aria-hidden="true" class="la la-ellipsis-h"></span>
         </a>
         <!-- Widget Action Dropdown -->
         <slide-up-down :active="groupExpandedDropdown" :duration="500">

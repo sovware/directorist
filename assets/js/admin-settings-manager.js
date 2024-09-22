@@ -28531,7 +28531,7 @@ var render = function render() {
       }
     }
   }, [_c("span", {
-    staticClass: "fa fa-ellipsis-h",
+    staticClass: "la la-ellipsis-h",
     attrs: {
       "aria-hidden": "true"
     }
@@ -28847,7 +28847,7 @@ var render = function render() {
       }
     }
   }, [_c("span", {
-    staticClass: "fa fa-ellipsis-h",
+    staticClass: "la la-ellipsis-h",
     attrs: {
       "aria-hidden": "true"
     }

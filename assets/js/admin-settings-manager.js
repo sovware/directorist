@@ -14760,6 +14760,9 @@ __webpack_require__.r(__webpack_exports__);
         return this.value;
       }
       return this.root;
+    },
+    isFieldItem: function isFieldItem() {
+      return Object.keys(this.field_list).includes("field_key");
     }
   },
   data: function data() {
@@ -26480,9 +26483,9 @@ var render = function render() {
         }
       }
     }, "component", _vm.excludeShowIfCondition(field), false));
-  }), _vm._v(" "), _c("button", {
+  }), _vm._v(" "), !_vm.isFieldItem ? _c("button", {
     staticClass: "directorist-form-fields-advanced"
-  }, [_vm._v("Advanced")])], 2) : _vm._e();
+  }, [_vm._v("\n    Advanced\n  ")]) : _vm._e()], 2) : _vm._e();
 };
 var staticRenderFns = [];
 render._withStripped = true;

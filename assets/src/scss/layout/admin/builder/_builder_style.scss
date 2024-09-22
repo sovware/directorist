@@ -1126,48 +1126,6 @@ div[draggable="true"].cptm-form-builder-group-title-area {
   padding: 20px;
   border-radius: 0 0 8px 8px;
   box-shadow: 0 6px 12px rgba(16, 24, 40, 0.1);
-  .icon-picker-selector {
-    margin: 0;
-    padding: 4px 4px 4px 16px;
-    border: 1px solid #e3e6e9;
-    border-radius: 8px;
-    .icon-picker-selector__icon {
-      display: flex;
-      align-items: center;
-      margin: 0;
-      .directorist-selected-icon {
-        position: unset;
-        transform: unset;
-        font-size: 16px;
-        &:before {
-          margin-right: 6px;
-        }
-      }
-      input {
-        border: none;
-        height: 32px;
-        padding-left: 0 !important;
-      }
-      .icon-picker-selector__icon__reset {
-        font-size: 12px;
-        padding: 0 10px 0 0;
-      }
-    }
-    .icon-picker-selector__btn {
-      margin: 0;
-      height: 32px;
-      padding: 0 15px;
-      font-size: 13px;
-      font-weight: 500;
-      color: #2c3239;
-      border-radius: 6px;
-      background-color: #e5e7eb;
-      transition: all ease 0.3s;
-      &:hover {
-        background-color: #e3e6e9;
-      }
-    }
-  }
   .directorist-form-fields-advanced {
     padding: 0;
     margin: 16px 0 0;
@@ -1202,6 +1160,49 @@ div[draggable="true"].cptm-form-builder-group-title-area {
   font-weight: 400;
   color: #747c89;
   font-style: italic;
+}
+
+.icon-picker-selector {
+  margin: 0;
+  padding: 4px 4px 4px 16px;
+  border: 1px solid #e3e6e9;
+  border-radius: 8px;
+  .icon-picker-selector__icon {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    .directorist-selected-icon {
+      position: unset;
+      transform: unset;
+      font-size: 16px;
+      &:before {
+        margin-right: 6px;
+      }
+    }
+    input {
+      height: 32px;
+      border: none !important;
+      padding-left: 0 !important;
+    }
+    .icon-picker-selector__icon__reset {
+      font-size: 12px;
+      padding: 0 10px 0 0;
+    }
+  }
+  .icon-picker-selector__btn {
+    margin: 0;
+    height: 32px;
+    padding: 0 15px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #2c3239;
+    border-radius: 6px;
+    background-color: #e5e7eb;
+    transition: all ease 0.3s;
+    &:hover {
+      background-color: #e3e6e9;
+    }
+  }
 }
 
 .cptm-restricted-area {

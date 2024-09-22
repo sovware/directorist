@@ -7,6 +7,8 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 $fields = $searchform->get_basic_fields();
+$test = get_option('directorist_builder_backup_data');
+e_var_dump( json_decode( $test, true));
 ?>
 
 <div class="directorist-search-modal__overlay"></div>

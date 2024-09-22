@@ -50,7 +50,11 @@
           </a>
         </div>
       </div>
-      <div class="cptm-title-area" :class="sectionTitleAreaClass(section)">
+      <div
+        class="cptm-title-area"
+        :class="sectionTitleAreaClass(section)"
+        v-if="section.fields[0] !== 'submission_form_fields'"
+      >
         <h3 v-if="section.title" class="cptm-title" v-html="section.title"></h3>
       </div>
 

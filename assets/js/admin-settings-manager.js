@@ -23369,7 +23369,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
       var id = parseInt(this.$root.id);
       if (id > 0) {
         this.listing_type_id = id;
-        this.footer_actions.save.label = "Update";
+        this.footer_actions.save.label = 'Save & Preview <span class="la la-pen"></span>';
       }
     }
   },
@@ -23964,7 +23964,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
       }
       if (this.listing_type_id) {
         form_data.append("listing_type_id", this.listing_type_id);
-        this.footer_actions.save.label = "Update";
+        this.footer_actions.save.label = "Updating";
       }
 
       // Get Options Fields Data
@@ -28606,6 +28606,7 @@ var render = function render() {
   }, [_c("h4", {
     staticClass: "cptm-title-3"
   }, [_c("span", {
+    staticClass: "cptm-title-icon",
     class: _vm.icon
   }), _vm._v(" "), _c("span", {
     domProps: {
@@ -32163,7 +32164,6 @@ var render = function render() {
     staticClass: "cptm-col-5 cptm-col-sticky"
   }, [_vm._l(_vm.widgets, function (widget_group, widget_group_key) {
     return [_c("form-builder-widget-list-section-component", _vm._b({
-      key: widget_group_key,
       attrs: {
         "field-id": _vm.fieldId,
         "widget-group": widget_group_key,
@@ -32278,7 +32278,12 @@ var render = function render() {
     }
   }, [_vm.footer_actions.save.showLoading ? _c("span", {
     staticClass: "fa fa-spinner fa-spin"
-  }) : _vm._e(), _vm._v("\n              " + _vm._s(_vm.footer_actions.save.label) + "\n            ")])]), _vm._v(" "), _vm.status_messages.length ? _c("div", {
+  }) : _vm._e(), _vm._v(" "), _c("span", {
+    staticClass: "cptm-save-text",
+    domProps: {
+      innerHTML: _vm._s(_vm.footer_actions.save.label)
+    }
+  })])]), _vm._v(" "), _vm.status_messages.length ? _c("div", {
     staticClass: "atbdp-cptm-status-feedback"
   }, _vm._l(_vm.status_messages, function (status, index) {
     return _c("div", {

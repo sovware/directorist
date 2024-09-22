@@ -254,10 +254,12 @@ function directorist_800_migrate_builder_data() {
 		return;
 	}
 
+	$backup_data = [];
+
 	foreach ( $directory_types as $directory_type ) {
 
 		// backup the builder data
-		Multi_Directory_Manager::builder_data_backup( $directory_type->term_id );
+		Multi_Directory_Manager::builder_data_backup( $directory_type->term_id, $backup_data );
 		//migrate custom field
 		Multi_Directory_Manager::migrate_custom_field( $directory_type->term_id );
 		//migrate review settings

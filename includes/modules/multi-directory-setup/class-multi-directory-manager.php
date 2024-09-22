@@ -38,7 +38,7 @@ class Multi_Directory_Manager {
         add_action( 'wp_ajax_directorist_directory_type_library', [ $this, 'directorist_directory_type_library' ] );
     }
 
-    public static function builder_data_backup( $term_id ) {
+    public static function builder_data_backup( $term_id, $backup_data ) {
         $submission_form_fields     = get_term_meta( $term_id , 'submission_form_fields', true );
         $single_listings_contents   = get_term_meta( $term_id, 'single_listings_contents', true );
         $single_listing_header      = get_term_meta( $term_id, 'single_listing_header', true );

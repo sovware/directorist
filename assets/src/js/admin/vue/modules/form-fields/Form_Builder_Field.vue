@@ -3,7 +3,6 @@
     <div class="cptm-col-5 cptm-col-sticky">
       <template v-for="(widget_group, widget_group_key) in widgets">
         <form-builder-widget-list-section-component
-          :key="widget_group_key"
           :field-id="fieldId"
           v-bind="widget_group"
           :widget-group="widget_group_key"
@@ -96,7 +95,10 @@
                   v-if="footer_actions.save.showLoading"
                   class="fa fa-spinner fa-spin"
                 ></span>
-                {{ footer_actions.save.label }}
+                <span
+                  class="cptm-save-text"
+                  v-html="footer_actions.save.label"
+                ></span>
               </button>
             </div>
             <div
@@ -178,7 +180,8 @@ export default {
 
       if (id > 0) {
         this.listing_type_id = id;
-        this.footer_actions.save.label = "Update";
+        this.footer_actions.save.label =
+          'Save & Preview <span class="la la-pen"></span>';
       }
     }
   },
@@ -1010,7 +1013,7 @@ export default {
 
       if (this.listing_type_id) {
         form_data.append("listing_type_id", this.listing_type_id);
-        this.footer_actions.save.label = "Update";
+        this.footer_actions.save.label = "Updating";
       }
 
       // Get Options Fields Data

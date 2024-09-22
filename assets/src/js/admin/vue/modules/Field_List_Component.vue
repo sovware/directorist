@@ -13,7 +13,9 @@
       v-bind="excludeShowIfCondition(field)"
       @update="update({ key: field_key, value: $event })"
     />
-    <button class="directorist-form-fields-advanced">Advanced</button>
+    <button v-if="!isFieldItem" class="directorist-form-fields-advanced">
+      Advanced
+    </button>
   </div>
 </template>
 
@@ -61,6 +63,9 @@ export default {
       }
 
       return this.root;
+    },
+    isFieldItem() {
+      return Object.keys(this.field_list).includes("field_key");
     },
   },
 

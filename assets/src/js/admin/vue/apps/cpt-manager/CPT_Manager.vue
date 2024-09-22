@@ -2,7 +2,10 @@
   <div class="directorist-directory-type atbdp-cpt-manager">
     <div class="directorist-directory-type-top">
       <div class="directorist-directory-type-top-left">
-        <a href="#" class="directorist-back-directory">
+        <a
+          href="edit.php?post_type=at_biz_dir&page=atbdp-directory-types"
+          class="directorist-back-directory"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="14"
@@ -20,7 +23,11 @@
           All Directories
         </a>
         <!-- atbdp-cptm-header -->
-        <div class="directorist-row-tooltip" data-tooltip="Click here to rename the directory." data-flow="bottom">
+        <div
+          class="directorist-row-tooltip"
+          data-tooltip="Click here to rename the directory."
+          data-flow="bottom"
+        >
           <component
             v-if="options.name && options.name.type"
             :is="options.name.type + '-field'"

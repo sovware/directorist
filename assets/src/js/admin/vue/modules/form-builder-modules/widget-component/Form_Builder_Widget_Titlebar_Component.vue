@@ -1,7 +1,7 @@
 <template>
   <div class="cptm-form-builder-group-field-item-header">
     <h4 class="cptm-title-3">
-      <span aria-hidden="true" class="cptm-title-icon fa fa-angle-up"></span>
+      <span class="cptm-title-icon" :class="icon"></span>
       <span v-html="label"></span>
     </h4>
 
@@ -26,6 +26,9 @@ export default {
       default: "",
     },
     sublabel: {
+      default: "",
+    },
+    icon: {
       default: "",
     },
     expanded: {

@@ -504,13 +504,16 @@ $light-gray: #f4f5f7;
 
 .cptm-form-builder-group-field-drop-area {
   display: block;
-  margin-right: 50px;
   padding: 20px;
-  margin-bottom: 10px;
+  border-radius: 8px;
+  margin: 8px 50px 0 30px;
   text-align: center;
-  background-color: #fff;
+  font-size: 13px;
+  font-weight: 400;
+  color: #747c89;
+  font-style: italic;
   transition: all ease-in-out 300ms;
-  border: 1px dashed #c0c0c0;
+  border: 1px dashed #d2d6db;
 
   &.drag-enter {
     background-color: #c6c6c6;
@@ -1186,18 +1189,6 @@ div[draggable="true"].cptm-form-builder-group-title-area {
 .cptm-form-builder-group-fields {
   display: block;
   position: relative;
-}
-
-.cptm-form-builder-group-fields-placeholder {
-  border: 1px dashed #d2d6db;
-  padding: 20px;
-  border-radius: 8px;
-  margin: 0 50px 0 30px;
-  text-align: center;
-  font-size: 13px;
-  font-weight: 400;
-  color: #747c89;
-  font-style: italic;
 }
 
 .icon-picker-selector {

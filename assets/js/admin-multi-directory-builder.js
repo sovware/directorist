@@ -17128,10 +17128,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'form-builder-droppable-placeholder',
+  name: "form-builder-droppable-placeholder",
   computed: {
     className: function className() {
-      return _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({}, 'drag-enter', this.dragenter);
+      return _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({}, "drag-enter", this.dragenter);
     }
   },
   data: function data() {
@@ -17142,15 +17142,15 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     handleDragenter: function handleDragenter() {
       this.dragenter = true;
-      this.$emit('drag-enter');
+      this.$emit("drag-enter");
     },
     handleDragleave: function handleDragleave() {
       this.dragenter = false;
-      this.$emit('drag-enter');
+      this.$emit("drag-enter");
     },
     handleDrop: function handleDrop() {
       this.dragenter = false;
-      this.$emit('drop');
+      this.$emit("drop");
     }
   }
 });
@@ -28189,7 +28189,7 @@ var render = function render() {
     }
   }, [_c("p", {
     staticClass: "cptm-form-builder-group-field-drop-area-label"
-  }, [_vm._v("Drop Here")])]);
+  }, [_vm._v("\n    Add field by dragging it into this area\n  ")])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -28547,7 +28547,7 @@ var render = function render() {
     }
   }, [_c("div", {
     staticClass: "cptm-form-builder-group-fields"
-  }, [_vm._l(_vm.groupData.fields, function (widget_key, widget_index) {
+  }, _vm._l(_vm.groupData.fields, function (widget_key, widget_index) {
     return _c("draggable-list-item-wrapper", {
       key: widget_index,
       attrs: {
@@ -28601,17 +28601,13 @@ var render = function render() {
         }
       }
     })], 1);
-  }), _vm._v(" "), _c("div", {
-    staticClass: "cptm-form-builder-group-fields-placeholder"
-  }, [_c("span", {
-    staticClass: "cptm-form-builder-group-fields-placeholder-text"
-  }, [_vm._v("\n          Add field by dragging it into this area\n        ")])])], 2), _vm._v(" "), _vm.canShowWidgetDropPlaceholder ? _c("form-builder-droppable-placeholder", {
+  }), 1), _vm._v(" "), _c("form-builder-droppable-placeholder", {
     on: {
       drop: function drop($event) {
         return _vm.$emit("append-widget");
       }
     }
-  }) : _vm._e()], 1)], 1);
+  })], 1)], 1);
 };
 var staticRenderFns = [];
 render._withStripped = true;

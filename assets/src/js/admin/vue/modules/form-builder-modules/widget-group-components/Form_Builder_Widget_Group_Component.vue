@@ -54,17 +54,9 @@
             @drag-end="$emit('widget-drag-end', { widget_index, widget_key })"
           />
         </draggable-list-item-wrapper>
-        <div class="cptm-form-builder-group-fields-placeholder">
-          <span class="cptm-form-builder-group-fields-placeholder-text">
-            Add field by dragging it into this area
-          </span>
-        </div>
       </div>
 
-      <form-builder-droppable-placeholder
-        v-if="canShowWidgetDropPlaceholder"
-        @drop="$emit('append-widget')"
-      />
+      <form-builder-droppable-placeholder @drop="$emit('append-widget')" />
     </slide-up-down>
   </div>
 </template>

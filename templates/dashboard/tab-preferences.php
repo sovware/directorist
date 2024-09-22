@@ -44,6 +44,22 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 							</div>
 
+							<div class="directorist-user-full-name">
+
+								<div class="directorist-form-group">
+
+									<label for="display_author_email"><?php esc_html_e( 'Display Email on Author Page', 'directorist' ); ?></label>
+
+									<select name="display_author_email" id="display_author_email">
+										<option value="public" ><?php esc_html_e('Display to Everyone', 'directorist') ?></option>
+										<option value="logged_in" ><?php esc_html_e('Display to Logged in Users Only', 'directorist') ?></option>
+										<option value="none_to_display" ><?php esc_html_e('Don’t Display', 'directorist') ?></option>
+									</select>
+
+								</div>
+
+							</div>
+
 							<button type="submit" class="directorist-btn directorist-btn-lg directorist-btn-dark directorist-btn-profile-save" id="update_user_preferences"><?php esc_html_e( 'Save Changes', 'directorist' ); ?></button>
 
 							<div id="directorist-preference-notice"></div>

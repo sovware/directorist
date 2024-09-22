@@ -1,6 +1,6 @@
 @import "./../../../base/utility";
 @import "./droppable-list";
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 
 $dark: #23282d;
 $dark-2: #7b7d8b;
@@ -16,7 +16,6 @@ $nav_icon_color: $primary;
 $gray: #eff0f3;
 $light-gray: #f4f5f7;
 
-
 /* Create Directory Type */
 .directorist-directory-type-top {
   display: flex;
@@ -29,17 +28,17 @@ $light-gray: #f4f5f7;
   min-height: 60px;
   box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
   border-radius: 6px;
-  @media only screen and (max-width: 767px){
+  @media only screen and (max-width: 767px) {
     justify-content: center;
     flex-direction: column;
     padding: 10px 20px;
   }
-  &-left{
+  &-left {
     display: flex;
     align-items: center;
     gap: 10px 20px;
     flex-wrap: wrap;
-    @media only screen and (max-width: 767px){
+    @media only screen and (max-width: 767px) {
       justify-content: center;
     }
     .cptm-form-group {
@@ -47,25 +46,25 @@ $light-gray: #f4f5f7;
       display: flex;
       align-items: center;
       gap: 10px;
-      .cptm-form-group-feedback{
+      .cptm-form-group-feedback {
         white-space: nowrap;
       }
-      .cptm-form-control{
+      .cptm-form-control {
         height: 36px;
         border-radius: 8px;
-        background: #E5E7EB;
+        background: #e5e7eb;
         max-width: 150px;
         padding: 10px 16px;
         font-size: 14px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        &::placeholder{
-          color: #4D5761;
+        &::placeholder {
+          color: #4d5761;
           font-size: 14px;
           font-style: normal;
           font-weight: 500;
-          line-height:16.24px;
+          line-height: 16.24px;
         }
       }
       .cptm-form-group-feedback .cptm-form-alert {
@@ -73,7 +72,7 @@ $light-gray: #f4f5f7;
       }
     }
     .directorist-back-directory {
-      color:#4D5761;
+      color: #4d5761;
       font-size: 14px;
       font-style: normal;
       font-weight: 500;
@@ -86,13 +85,13 @@ $light-gray: #f4f5f7;
         height: 14px;
         color: inherit;
       }
-      &:hover{
-        color:#3E62F5;
+      &:hover {
+        color: #3e62f5;
       }
     }
   }
-  &-right{
-    .directorist-create-directory{
+  &-right {
+    .directorist-create-directory {
       display: flex;
       gap: 8px;
       align-items: center;
@@ -107,23 +106,23 @@ $light-gray: #f4f5f7;
       box-shadow: 0px 2px 4px 0px rgba(60, 41, 170, 0.1);
       background-color: #3e62f5;
       color: #ffffff;
-      font-size:15px;
-      font-weight:500;
+      font-size: 15px;
+      font-weight: 500;
       line-height: normal;
       transition: background-color 0.3s ease;
-      &:hover{
+      &:hover {
         background-color: #5a7aff;
         border-color: #5a7aff;
       }
     }
   }
 }
-.directorist-directory-type-bottom{
+.directorist-directory-type-bottom {
   background: white;
   border-radius: 6px;
   margin-top: 20px;
-  .cptm-header-navigation{
-    border-bottom: 1px solid #E5E7EB;
+  .cptm-header-navigation {
+    border-bottom: 1px solid #e5e7eb;
     gap: 0 20px;
     padding: 0 30px;
     @media screen and (max-width: 480px) {
@@ -131,7 +130,7 @@ $light-gray: #f4f5f7;
     }
   }
 
-  .atbdp-cptm-body{
+  .atbdp-cptm-body {
     @media screen and (max-width: 480px) {
       padding: 20px 30px;
     }
@@ -142,9 +141,9 @@ $light-gray: #f4f5f7;
 }
 
 /* Body Header */
-.directorist-form-doc{
+.directorist-form-doc {
   border-radius: 10px;
-  background: #F3F4F6;
+  background: #f3f4f6;
   min-height: 52px;
   display: flex;
   align-items: center;
@@ -153,20 +152,20 @@ $light-gray: #f4f5f7;
   flex-wrap: wrap;
   padding: 0 20px;
   margin-bottom: 24px;
-  @media only screen and (max-width: 575px){
+  @media only screen and (max-width: 575px) {
     justify-content: center;
     flex-direction: column;
     padding: 10px 20px;
   }
-  .directorist-form-doc-left{
+  .directorist-form-doc-left {
     display: flex;
     align-items: center;
     gap: 12px;
     flex-wrap: wrap;
-    @media only screen and (max-width: 575px){
+    @media only screen and (max-width: 575px) {
       justify-content: center;
     }
-    .directorist-form-doc-title{
+    .directorist-form-doc-title {
       color: #141921;
       font-size: 19px;
       font-style: normal;
@@ -174,16 +173,16 @@ $light-gray: #f4f5f7;
       line-height: 25px;
     }
   }
-  &__watch-tutorial{
+  &__watch-tutorial {
     display: inline-flex;
     padding: 8px 12px;
     justify-content: center;
     align-items: center;
     gap: 6px;
     border-radius: 8px;
-    border: 1px solid #BEE3FF;
-    background: #EFF8FF;
-    color: #217AEF;
+    border: 1px solid #bee3ff;
+    background: #eff8ff;
+    color: #217aef;
     text-align: center;
     font-size: 12px;
     font-style: normal;
@@ -191,29 +190,29 @@ $light-gray: #f4f5f7;
     line-height: 14px;
     letter-spacing: 0.12px;
     text-transform: capitalize;
-    svg{
+    svg {
       width: 14px;
       height: 14px;
       color: inherit;
     }
   }
-  &__preview{
+  &__preview {
     display: inline-flex;
     padding: 8px 12px;
     justify-content: center;
     align-items: center;
     gap: 6px;
     border-radius: 8px;
-    border: 1px solid #E5E7EB;
-    background: #FFF;
-    color: #383F47;
+    border: 1px solid #e5e7eb;
+    background: #fff;
+    color: #383f47;
     text-align: center;
     font-size: 14px;
     font-style: normal;
     font-weight: 500;
     line-height: 16px.24px;
     text-transform: capitalize;
-    svg{
+    svg {
       width: 16px;
       height: 16px;
       color: inherit;
@@ -624,7 +623,7 @@ $light-gray: #f4f5f7;
   transition: all ease-in-out 300ms;
   position: relative;
   border-bottom: 2px solid transparent;
-  color: #4D5761;
+  color: #4d5761;
   padding: 15px 0;
 
   &.active {
@@ -649,12 +648,12 @@ $light-gray: #f4f5f7;
   font-size: 16px;
   text-align: center;
   border-radius: 6px;
-  background: #D8E0FD;
+  background: #d8e0fd;
   color: inherit;
   transition: all ease-in-out 300ms;
   align-items: center;
   justify-content: center;
-  svg{
+  svg {
     width: 16px;
     height: 16px;
   }
@@ -671,8 +670,9 @@ $light-gray: #f4f5f7;
 // ====================
 // Sub Tabs
 // ====================
-.cptm-title-area{
+.cptm-title-area {
   border-radius: 10px;
+  margin-bottom: 20px;
 }
 
 .submission-form {

@@ -1,13 +1,12 @@
 <template>
   <div class="cptm-tab-content" :class="containerClass">
-    <span></span>
     <div
       class="cptm-section"
       :class="sectionClass(section)"
       v-for="(section, section_key) in sections"
       :key="section_key"
     >
-      <div
+    <div
         class="directorist-form-doc"
         v-if="section.fields[0] === 'submission_form_fields'"
       >
@@ -37,7 +36,7 @@
         </div>
         <div class="directorist-form-doc-right">
           <a
-            href="/wp-admin/edit.php?post_type=at_biz_dir&page=atbdp-directory-types"
+            href=""
             target="_blank"
             class="directorist-form-doc__preview"
             @click="saveData()"
@@ -97,7 +96,6 @@
           v-html="section.description"
         ></div>
       </div>
-
       <div class="cptm-form-fields" v-if="sectionFields(section)">
         <div
           v-for="(field, field_key) in sectionFields(section)"
@@ -113,6 +111,7 @@
             :ref="field"
             :class="{ ['highlight-field']: getHighlightState(field) }"
             :cached-data="cached_fields[field]"
+            :listing_type_id="listing_type_id"
             v-bind="fields[field]"
             @update="updateFieldValue(field, $event)"
             @save="$emit('save', $event)"
@@ -196,6 +195,10 @@ export default {
       type: String,
       default: "",
     },
+    listing_type_id: {
+      type: String,
+      default: "",
+    },
   },
 
   computed: {
@@ -249,7 +252,6 @@ export default {
     },
 
     sectionClass(section) {
-      console.log({section}, section.fields[0])
       return section.fields[0]
       // return {
       //   "cptm-short-wide": "short-width" === section.container ? true : false,
@@ -294,6 +296,7 @@ export default {
       this.showVideo = false;
     },
     saveData() {
+      // Emit the save event before redirecting
       this.$emit("save");
     },
   },

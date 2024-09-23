@@ -15466,6 +15466,10 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     menuKey: {
       type: String,
       default: ""
+    },
+    listing_type_id: {
+      type: String,
+      default: ""
     }
   },
   computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(["metaKeys", "fields", "cached_fields"])), {}, {
@@ -15509,9 +15513,6 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       return groupedFields;
     },
     sectionClass: function sectionClass(section) {
-      console.log({
-        section: section
-      }, section.fields[0]);
       return section.fields[0];
       // return {
       //   "cptm-short-wide": "short-width" === section.container ? true : false,
@@ -15544,6 +15545,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       this.showVideo = false;
     },
     saveData: function saveData() {
+      // Emit the save event before redirecting
       this.$emit("save");
     }
   }
@@ -24178,7 +24180,6 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     }
   }, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapGetters"])(["getFieldsValue"])), {}, {
     updateSubmitButtonLabel: function updateSubmitButtonLabel(payload) {
-      console.log("updateSubmitButtonLabel", payload);
       if (!payload.field) {
         return;
       }
@@ -26791,7 +26792,7 @@ var render = function render() {
   return _c("div", {
     staticClass: "cptm-tab-content",
     class: _vm.containerClass
-  }, [_c("span"), _vm._v(" "), _vm._l(_vm.sections, function (section, section_key) {
+  }, _vm._l(_vm.sections, function (section, section_key) {
     return _c("div", {
       key: section_key,
       staticClass: "cptm-section",
@@ -26836,7 +26837,7 @@ var render = function render() {
     }, [_c("a", {
       staticClass: "directorist-form-doc__preview",
       attrs: {
-        href: "/wp-admin/edit.php?post_type=at_biz_dir&page=atbdp-directory-types",
+        href: "",
         target: "_blank"
       },
       on: {
@@ -26904,7 +26905,8 @@ var render = function render() {
         attrs: {
           "field-id": field_key,
           id: _vm.menuKey + "__" + section_key + "__" + field,
-          "cached-data": _vm.cached_fields[field]
+          "cached-data": _vm.cached_fields[field],
+          listing_type_id: _vm.listing_type_id
         },
         on: {
           update: function update($event) {
@@ -26967,7 +26969,7 @@ var render = function render() {
         }, "component", _vm.fields[groupedField], false));
       }), 1)])])]) : _vm._e()], 1) : _vm._e();
     }), 0) : _vm._e()]);
-  })], 2);
+  }), 0);
 };
 var staticRenderFns = [function () {
   var _vm = this,
@@ -32487,7 +32489,7 @@ var render = function render() {
     staticClass: "cptm-form-builder-active-fields"
   }, [_c("div", {
     staticClass: "cptm-form-builder-active-fields-container"
-  }, _vm._l(_vm.active_widget_groups, function (widget_group, widget_group_key) {
+  }, [_vm._l(_vm.active_widget_groups, function (widget_group, widget_group_key) {
     return _c("draggable-list-item-wrapper", {
       key: widget_group_key,
       attrs: {
@@ -32545,7 +32547,22 @@ var render = function render() {
         }
       }
     })], 1);
-  }), 1)])])]);
+  }), _vm._v(" "), _vm.showAddNewGroupButton ? _c("div", {
+    staticClass: "cptm-form-builder-active-fields-footer"
+  }, [_c("button", {
+    staticClass: "cptm-btn cptm-btn-secondery",
+    attrs: {
+      type: "button"
+    },
+    domProps: {
+      innerHTML: _vm._s(_vm.addNewGroupButtonLabel)
+    },
+    on: {
+      click: function click($event) {
+        return _vm.addNewGroup();
+      }
+    }
+  })]) : _vm._e()], 2)])])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;

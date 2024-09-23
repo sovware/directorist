@@ -54,6 +54,18 @@
               @append-widget="handleAppendWidget(widget_group_key)"
             />
           </draggable-list-item-wrapper>
+
+          <div
+            class="cptm-form-builder-active-fields-footer"
+            v-if="showAddNewGroupButton"
+          >
+            <button
+              type="button"
+              class="cptm-btn cptm-btn-secondery"
+              @click="addNewGroup()"
+              v-html="addNewGroupButtonLabel"
+            ></button>
+          </div>
         </div>
       </div>
     </div>
@@ -884,7 +896,6 @@ export default {
     ...mapGetters(["getFieldsValue"]),
 
     updateSubmitButtonLabel(payload) {
-      console.log("updateSubmitButtonLabel", payload);
       if (!payload.field) {
         return;
       }

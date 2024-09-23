@@ -239,6 +239,13 @@ export default {
       if (typeof callback === "function") {
         callback(this.$store.state);
       }
+
+      // Get Add Listing URL from Object
+      const addListingURL = directorist_admin.add_listing_url;
+      // Append the listing_type_id to the URL as a query parameter
+      const urlWithListingType = `${addListingURL}?directory_type=${this.listing_type_id}`;
+      // Open the URL with the listing_type_id parameter
+      window.open(urlWithListingType, "_blank");
     },
 
     saveData() {

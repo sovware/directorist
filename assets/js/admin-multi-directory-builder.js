@@ -14822,6 +14822,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
     handleSaveData: function handleSaveData(callback) {
       var _this2 = this;
       return _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default.a.mark(function _callee() {
+        var addListingURL, urlWithListingType;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default.a.wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
@@ -14831,7 +14832,12 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
               if (typeof callback === "function") {
                 callback(_this2.$store.state);
               }
-            case 3:
+
+              // Get Add Listing URL from Object
+              addListingURL = directorist_admin.add_listing_url; // Append the listing_type_id to the URL as a query parameter
+              urlWithListingType = "".concat(addListingURL, "?directory_type=").concat(_this2.listing_type_id); // Open the URL with the listing_type_id parameter
+              window.open(urlWithListingType, "_blank");
+            case 6:
             case "end":
               return _context.stop();
           }
@@ -15934,6 +15940,10 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     menuKey: {
       type: String,
       default: ""
+    },
+    listing_type_id: {
+      type: String,
+      default: ""
     }
   },
   computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(["metaKeys", "fields", "cached_fields"])), {}, {
@@ -15977,9 +15987,6 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       return groupedFields;
     },
     sectionClass: function sectionClass(section) {
-      console.log({
-        section: section
-      }, section.fields[0]);
       return section.fields[0];
       // return {
       //   "cptm-short-wide": "short-width" === section.container ? true : false,
@@ -16012,6 +16019,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       this.showVideo = false;
     },
     saveData: function saveData() {
+      // Emit the save event before redirecting
       this.$emit("save");
     }
   }
@@ -24646,7 +24654,6 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     }
   }, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapGetters"])(["getFieldsValue"])), {}, {
     updateSubmitButtonLabel: function updateSubmitButtonLabel(payload) {
-      console.log("updateSubmitButtonLabel", payload);
       if (!payload.field) {
         return;
       }
@@ -27224,7 +27231,7 @@ var render = function render() {
   return _c("div", {
     staticClass: "cptm-tab-content",
     class: _vm.containerClass
-  }, [_c("span"), _vm._v(" "), _vm._l(_vm.sections, function (section, section_key) {
+  }, _vm._l(_vm.sections, function (section, section_key) {
     return _c("div", {
       key: section_key,
       staticClass: "cptm-section",
@@ -27269,7 +27276,7 @@ var render = function render() {
     }, [_c("a", {
       staticClass: "directorist-form-doc__preview",
       attrs: {
-        href: "/wp-admin/edit.php?post_type=at_biz_dir&page=atbdp-directory-types",
+        href: "",
         target: "_blank"
       },
       on: {
@@ -27337,7 +27344,8 @@ var render = function render() {
         attrs: {
           "field-id": field_key,
           id: _vm.menuKey + "__" + section_key + "__" + field,
-          "cached-data": _vm.cached_fields[field]
+          "cached-data": _vm.cached_fields[field],
+          listing_type_id: _vm.listing_type_id
         },
         on: {
           update: function update($event) {
@@ -27400,7 +27408,7 @@ var render = function render() {
         }, "component", _vm.fields[groupedField], false));
       }), 1)])])]) : _vm._e()], 1) : _vm._e();
     }), 0) : _vm._e()]);
-  })], 2);
+  }), 0);
 };
 var staticRenderFns = [function () {
   var _vm = this,
@@ -32920,7 +32928,7 @@ var render = function render() {
     staticClass: "cptm-form-builder-active-fields"
   }, [_c("div", {
     staticClass: "cptm-form-builder-active-fields-container"
-  }, _vm._l(_vm.active_widget_groups, function (widget_group, widget_group_key) {
+  }, [_vm._l(_vm.active_widget_groups, function (widget_group, widget_group_key) {
     return _c("draggable-list-item-wrapper", {
       key: widget_group_key,
       attrs: {
@@ -32978,7 +32986,22 @@ var render = function render() {
         }
       }
     })], 1);
-  }), 1)])])]);
+  }), _vm._v(" "), _vm.showAddNewGroupButton ? _c("div", {
+    staticClass: "cptm-form-builder-active-fields-footer"
+  }, [_c("button", {
+    staticClass: "cptm-btn cptm-btn-secondery",
+    attrs: {
+      type: "button"
+    },
+    domProps: {
+      innerHTML: _vm._s(_vm.addNewGroupButtonLabel)
+    },
+    on: {
+      click: function click($event) {
+        return _vm.addNewGroup();
+      }
+    }
+  })]) : _vm._e()], 2)])])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;

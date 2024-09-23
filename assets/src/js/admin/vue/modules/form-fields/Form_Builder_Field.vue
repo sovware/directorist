@@ -66,8 +66,10 @@
               v-html="addNewGroupButtonLabel"
             ></button>
           </div>
-
-          <div class="atbdp-cptm-footer">
+          <div
+            class="atbdp-cptm-footer"
+            v-if="this.$store.state.active_nav_index === 1"
+          >
             <div class="atbdp-cptm-footer-preview">
               <input
                 id="atbdp-cptm-footer-preview-toggle"

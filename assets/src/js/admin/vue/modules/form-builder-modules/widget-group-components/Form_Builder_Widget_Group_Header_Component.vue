@@ -44,7 +44,7 @@
             <a
               href="#"
               class="cptm-form-builder-field-item-action-link"
-              @click.prevent="$emit('trash-group')"
+              @click.prevent="handleGroupDelete"
             >
               <span aria-hidden="true" class="uil uil-trash-alt"></span>
               Remove Section
@@ -64,14 +64,27 @@
         />
       </div>
     </slide-up-down>
+
+    <!-- Confirmation Modal -->
+    <confirmation-modal
+      :visible="showConfirmationModal"
+      :groupName="groupName"
+      @confirm="trashGroup"
+      @cancel="closeConfirmationModal"
+    />
   </div>
 </template>
 
 <script>
 import { findObjectItem, isObject } from "../../../../../helper";
+import ConfirmationModal from "./Form_Builder_Widget_Trash_Confirmation.vue";
 
 export default {
   name: "form-builder-widget-group-header-component",
+  components: {
+    ConfirmationModal,
+  },
+
   props: {
     groupData: {
       default: "",
@@ -134,6 +147,8 @@ export default {
       header_title_component_props: {},
       groupFieldsExpanded: false,
       groupExpandedDropdown: false,
+      showConfirmationModal: false,
+      groupName: "",
     };
   },
 
@@ -178,6 +193,25 @@ export default {
 
     toggleGroupExpandedDropdown() {
       this.groupExpandedDropdown = !this.groupExpandedDropdown;
+    },
+
+    handleGroupDelete() {
+      this.groupExpandedDropdown = !this.groupExpandedDropdown;
+      this.openConfirmationModal();
+    },
+
+    openConfirmationModal() {
+      this.groupName = this.groupData.label;
+      this.showConfirmationModal = true;
+    },
+
+    closeConfirmationModal() {
+      this.showConfirmationModal = false;
+    },
+
+    trashGroup() {
+      this.$emit("trash-group");
+      this.closeConfirmationModal();
     },
   },
 };

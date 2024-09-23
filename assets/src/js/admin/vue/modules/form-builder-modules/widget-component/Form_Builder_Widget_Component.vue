@@ -249,6 +249,7 @@ export default {
     },
 
     handleTrashClick() {
+      this.expandedDropdown = !this.expandedDropdown;
       if (this.isPresetOrCustomGroup && this.widgetKey !== "terms_privacy") {
         this.openConfirmationModal();
       } else {

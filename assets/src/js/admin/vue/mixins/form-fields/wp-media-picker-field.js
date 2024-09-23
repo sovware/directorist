@@ -23,7 +23,6 @@ export default {
 
         thumbnailSrc() {
             if ( this.thumbnail_src === '' ) {
-                console.log('Thhumb None');
                 // return this.defaultImg;
             }
 

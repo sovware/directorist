@@ -17,16 +17,8 @@ import {
 } from '@wordpress/block-editor';
 
 export default function save( { attributes, className } ) {
-	const {
-		tagName,
-		type,
-		textAlign,
-		fontSize,
-		style,
-		text,
-		title,
-		width,
-	} = attributes;
+	const { tagName, type, textAlign, fontSize, style, text, title, width } =
+		attributes;
 
 	const TagName = tagName || 'button';
 	const isButtonTag = 'button' === TagName;

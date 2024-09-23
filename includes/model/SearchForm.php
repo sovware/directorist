@@ -275,7 +275,7 @@ class Directorist_Listing_Search_Form {
 				'slug'       => $this->directory_type,
 			) );
 
-			if ( ! is_wp_error( $directories ) && ! in_array( $default_directory_id, $directories, true ) ) {
+			if ( ! is_wp_error( $directories ) && ! empty( $directories ) && ! in_array( $default_directory_id, $directories, true ) ) {
 				$default_directory_id = $directories[0];
 			}
 		}
@@ -470,6 +470,18 @@ class Directorist_Listing_Search_Form {
 		return !empty( $search_button_icon ) ? true : false;
 	}
 
+	public function get_basic_fields() {
+		return ! empty( $this->form_data[0]['fields'] ) && is_array( $this->form_data[0]['fields'] ) 
+        ? $this->form_data[0]['fields'] 
+        : [];
+	}
+
+	public function get_advance_fields() {
+		return ! empty( $this->form_data[1]['fields'] ) && is_array( $this->form_data[1]['fields'] ) 
+        ? $this->form_data[1]['fields'] 
+        : [];
+	}
+
 	public function more_buttons_template() {
 		Helper::get_template( 'search-form/more-buttons', [ 'searchform' => $this ] );
 	}
@@ -582,6 +594,9 @@ class Directorist_Listing_Search_Form {
 
 	public function listing_type_slug() {
 		$term_data = get_term( $this->listing_type, ATBDP_TYPE );
+		if ( is_wp_error( $term_data ) ) {
+			return '';
+		}
 		return $term_data->slug;
 	}
 

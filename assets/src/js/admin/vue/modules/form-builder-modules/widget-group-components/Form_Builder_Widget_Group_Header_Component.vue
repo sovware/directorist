@@ -72,6 +72,12 @@ export default {
         this.setup();
     },
 
+    watch: {
+        groupData() {
+            this.setup();
+        }
+    },
+
     computed: {
         groupFieldsExpandState() {
             let state = this.groupFieldsExpanded;

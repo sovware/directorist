@@ -503,38 +503,53 @@ $light-gray: #f4f5f7;
 
 .atbdp-cptm-status-feedback {
   position: absolute;
-  top: 10px;
+  top: 32px;
   left: 50%;
-  transform: translateX(calc(-50% + 100px));
-  width: 100%;
-  max-width: 500px;
+  transform: translateX(-50%);
+  min-width: 300px;
   z-index: 1;
-  @media screen and (max-width: 1199px) {
-    width: auto;
-    max-width: unset;
-    min-width: 325px;
-  }
+
   @media screen and (max-width: 767px) {
     transform: translateX(-50%);
   }
 }
 
 .cptm-alert {
-  padding: 10px 20px;
-  text-align: center;
-  color: #fff;
-  background-color: $primary;
-  border-radius: 5px;
+  position: relative;
+  padding: 14px 24px 14px 52px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 22px;
+  color: #053e29;
+  border-radius: 8px;
+  box-shadow: 0 8px 16px rgba(16, 24, 40, 0.1);
+  &:before {
+    content: "";
+    position: absolute;
+    top: 14px;
+    left: 24px;
+    font-size: 20px;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+  }
 }
 
 .cptm-alert-success {
-  color: #fff;
-  background-color: $primary;
+  background-color: #ecfdf3;
+  border: 1px solid #14b570;
+  &:before {
+    content: "\f058";
+    color: #14b570;
+  }
 }
 
 .cptm-alert-error {
-  color: #fff;
-  background-color: rgb(197, 22, 22);
+  background-color: #f3d6d6;
+  border: 1px solid #c51616;
+  &:before {
+    content: "\f057";
+    color: #c51616;
+  }
 }
 
 // ====================

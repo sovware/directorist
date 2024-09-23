@@ -1649,8 +1649,8 @@ input[type="radio"].cptm-radio {
 }
 
 .cptm-thumbnail-placeholder-icon {
-  font-size: 120px;
-  color: gainsboro;
+  font-size: 40px;
+  color: #D2D6DB;
 }
 
 .cptm-thumbnail-img-wrap {
@@ -2728,6 +2728,7 @@ input[type="radio"].cptm-radio {
         font-size: 14px;
         font-weight: 400;
         line-height: 16px;
+        text-transform: capitalize;
       }
     }
   }

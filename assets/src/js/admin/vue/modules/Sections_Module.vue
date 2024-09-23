@@ -35,7 +35,12 @@
           </a>
         </div>
         <div class="directorist-form-doc-right">
-          <a href="#" class="directorist-form-doc__preview">
+          <a
+            href="/wp-admin/edit.php?post_type=at_biz_dir&page=atbdp-directory-types"
+            target="_blank"
+            class="directorist-form-doc__preview"
+            @click="saveData()"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
@@ -284,6 +289,9 @@ export default {
     // Close the video popup
     closeVideoPopup() {
       this.showVideo = false;
+    },
+    saveData() {
+      this.$emit("save");
     },
   },
 };

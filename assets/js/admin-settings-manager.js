@@ -15468,6 +15468,9 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     // Close the video popup
     closeVideoPopup: function closeVideoPopup() {
       this.showVideo = false;
+    },
+    saveData: function saveData() {
+      this.$emit("save");
     }
   }
 });
@@ -23583,7 +23586,6 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       currentDraggingGroup: null,
       currentDraggingWidget: null,
       listing_type_id: null,
-      status_messages: [],
       footer_actions: {
         save: {
           show: true,
@@ -26739,7 +26741,13 @@ var render = function render() {
     }, [_c("a", {
       staticClass: "directorist-form-doc__preview",
       attrs: {
-        href: "#"
+        href: "/wp-admin/edit.php?post_type=at_biz_dir&page=atbdp-directory-types",
+        target: "_blank"
+      },
+      on: {
+        click: function click($event) {
+          return _vm.saveData();
+        }
       }
     }, [_c("svg", {
       attrs: {
@@ -32391,8 +32399,6 @@ var render = function render() {
   })]) : _vm._e(), _vm._v(" "), this.$store.state.active_nav_index === 1 ? _c("div", {
     staticClass: "atbdp-cptm-footer"
   }, [_vm._m(0), _vm._v(" "), _c("div", {
-    staticClass: "atbdp-cptm-progress-bar"
-  }), _vm._v(" "), _c("div", {
     staticClass: "atbdp-cptm-footer-actions"
   }, [_c("button", {
     staticClass: "cptm-btn cptm-btn-primary",

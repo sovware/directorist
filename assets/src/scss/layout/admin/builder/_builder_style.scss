@@ -213,12 +213,16 @@ $light-gray: #f4f5f7;
     font-size: 14px;
     font-style: normal;
     font-weight: 500;
-    line-height: 16px.24px;
+    line-height: 16.24px;
     text-transform: capitalize;
     svg {
       width: 16px;
       height: 16px;
       color: inherit;
+    }
+    &:focus {
+      outline: none;
+      box-shadow: none;
     }
   }
 }

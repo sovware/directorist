@@ -83,8 +83,6 @@
                 Enable Listing Preview
               </label>
             </div>
-
-            <div class="atbdp-cptm-progress-bar"></div>
             <div class="atbdp-cptm-footer-actions">
               <button
                 type="button"
@@ -289,7 +287,6 @@ export default {
       currentDraggingWidget: null,
 
       listing_type_id: null,
-      status_messages: [],
       footer_actions: {
         save: {
           show: true,

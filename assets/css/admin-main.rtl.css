@@ -14033,13 +14033,18 @@ input:-webkit-autofill:active {
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
-  line-height: 16px 0.24px;
+  line-height: 16.24px;
   text-transform: capitalize;
 }
 .directorist-form-doc__preview svg {
   width: 16px;
   height: 16px;
   color: inherit;
+}
+.directorist-form-doc__preview:focus {
+  outline: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 
 .cptm-form-note {
@@ -18692,13 +18697,18 @@ input[type=radio]:checked::before {
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
-  line-height: 16px 0.24px;
+  line-height: 16.24px;
   text-transform: capitalize;
 }
 .directorist-form-doc__preview svg {
   width: 16px;
   height: 16px;
   color: inherit;
+}
+.directorist-form-doc__preview:focus {
+  outline: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 
 .cptm-form-note {
@@ -23618,13 +23628,18 @@ input[type=radio]:checked::before {
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
-  line-height: 16px 0.24px;
+  line-height: 16.24px;
   text-transform: capitalize;
 }
 .directorist-form-doc__preview svg {
   width: 16px;
   height: 16px;
   color: inherit;
+}
+.directorist-form-doc__preview:focus {
+  outline: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 
 .cptm-form-note {

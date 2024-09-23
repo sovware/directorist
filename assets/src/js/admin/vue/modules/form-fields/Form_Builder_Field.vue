@@ -54,52 +54,6 @@
               @append-widget="handleAppendWidget(widget_group_key)"
             />
           </draggable-list-item-wrapper>
-
-          <div
-            class="cptm-form-builder-active-fields-footer"
-            v-if="showAddNewGroupButton"
-          >
-            <button
-              type="button"
-              class="cptm-btn cptm-btn-secondery"
-              @click="addNewGroup()"
-              v-html="addNewGroupButtonLabel"
-            ></button>
-          </div>
-          <div
-            class="atbdp-cptm-footer"
-            v-if="this.$store.state.active_nav_index === 1"
-          >
-            <div class="atbdp-cptm-footer-preview">
-              <input
-                id="atbdp-cptm-footer-preview-toggle"
-                class="atbdp-cptm-footer-preview-toggle"
-                type="checkbox"
-              />
-              <label
-                for="atbdp-cptm-footer-preview-toggle"
-                class="atbdp-cptm-footer-preview-label"
-              >
-                Enable Listing Preview
-              </label>
-            </div>
-            <div class="atbdp-cptm-footer-actions">
-              <button
-                type="button"
-                :disabled="footer_actions.save.isDisabled"
-                class="cptm-btn cptm-btn-primary"
-                @click="saveData()"
-              >
-                <span
-                  v-if="$store.state.is_saving"
-                  class="fa fa-spinner fa-spin"
-                ></span>
-                <span class="cptm-save-text">
-                  <span class="cptm-save-text" v-html="buttonText"></span>
-                </span>
-              </button>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -155,16 +109,6 @@ export default {
 
     if (this.$root.config) {
       this.$store.commit("updateConfig", this.$root.config);
-    }
-
-    if (this.$root.id && !isNaN(this.$root.id)) {
-      const id = parseInt(this.$root.id);
-
-      if (id > 0) {
-        this.listing_type_id = id;
-        this.footer_actions.save.label =
-          'Save & Preview <span class="la la-pen"></span>';
-      }
     }
   },
 
@@ -287,14 +231,6 @@ export default {
       currentDraggingWidget: null,
 
       listing_type_id: null,
-      footer_actions: {
-        save: {
-          show: true,
-          label: "Create",
-          showLoading: false,
-          isDisabled: false,
-        },
-      },
     };
   },
 
@@ -947,7 +883,8 @@ export default {
 
     ...mapGetters(["getFieldsValue"]),
 
-    updateOptionsField(payload) {
+    updateSubmitButtonLabel(payload) {
+      console.log("updateSubmitButtonLabel", payload);
       if (!payload.field) {
         return;
       }
@@ -955,38 +892,7 @@ export default {
         return;
       }
 
-      this.$store.commit("updateOptionsField", payload);
-    },
-
-    updateData() {
-      let fields = this.getFieldsValue();
-
-      let submission_url = this.$store.state.config.submission.url;
-      let submission_with = this.$store.state.config.submission.with;
-
-      let form_data = new FormData();
-
-      if (submission_with && typeof submission_with === "object") {
-        for (let data_key in submission_with) {
-          form_data.append(data_key, submission_with[data_key]);
-        }
-      }
-
-      if (this.listing_type_id) {
-        form_data.append("listing_type_id", this.listing_type_id);
-        this.footer_actions.save.label = "Update";
-      }
-
-      for (let field_key in fields) {
-        let value = this.maybeJSON(fields[data_key]);
-        form_data.append(data_key, value);
-      }
-
-      console.log({ submission_url, submission_with });
-    },
-
-    saveData() {
-      this.$emit("save");
+      this.$store.commit("updateSubmitButtonLabel", payload);
     },
 
     maybeJSON(data) {

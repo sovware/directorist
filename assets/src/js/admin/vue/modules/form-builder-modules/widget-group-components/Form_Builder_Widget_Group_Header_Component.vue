@@ -26,12 +26,14 @@
       <!-- Group Header Actions -->
       <div
         class="cptm-form-builder-group-actions-dropdown cptm-form-builder-group-actions-dropdown--group"
+        @mousedown="handleClickOutside"
       >
         <a
           href="#"
           class="cptm-form-builder-group-actions-dropdown-btn"
           v-if="canTrash"
           @click.prevent="toggleGroupExpandedDropdown"
+          @blur="handleBlur"
         >
           <span aria-hidden="true" class="uil uil-ellipsis-h"></span>
         </a>
@@ -193,6 +195,24 @@ export default {
 
     toggleGroupExpandedDropdown() {
       this.groupExpandedDropdown = !this.groupExpandedDropdown;
+    },
+
+    handleBlur() {
+      setTimeout(() => {
+        if (!this.isClickedInsideDropdown) {
+          this.groupExpandedDropdown = false;
+        }
+      }, 100); // Delay to ensure clicks inside dropdown content are not missed
+    },
+
+    handleClickOutside(event) {
+      if (
+        this.groupExpandedDropdown &&
+        !this.$refs.dropdownContent.contains(event.target)
+      ) {
+        this.groupExpandedDropdown = false;
+      }
+      this.isClickedInsideDropdown = false;
     },
 
     handleGroupDelete() {

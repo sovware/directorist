@@ -227,6 +227,23 @@ $light-gray: #f4f5f7;
   }
 }
 
+.directorist-footer-wrap {
+  .cptm-btn {
+    margin: 0;
+    width: 100%;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    .cptm-save-icon {
+      font-size: 15px;
+    }
+  }
+  .cptm-form-group {
+    margin: 0;
+  }
+}
+
 .cptm-form-note {
   margin-bottom: 30px;
   padding: 30px;
@@ -883,7 +900,28 @@ $light-gray: #f4f5f7;
 
 .cptm-section {
   margin-bottom: 50px;
-
+  &.submission_form_fields {
+    .cptm-form-builder-active-fields-container {
+      padding-bottom: 160px;
+    }
+  }
+  &.preview_mode {
+    position: absolute;
+    right: 185px;
+    bottom: 70px;
+    width: 420px;
+    padding: 24px 0 50px;
+    box-sizing: border-box;
+    z-index: 9;
+    border-top: 1px solid #E5E7EB;
+    .cptm-title-area {
+      display: none;
+    }
+    @media screen and (max-width: 1199px) {
+      right: 100px;
+      width: 400px;
+    }
+  }
   &:last-child {
     margin-bottom: 0;
   }

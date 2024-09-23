@@ -1,5 +1,6 @@
 <template>
   <div class="cptm-tab-content" :class="containerClass">
+    <span></span>
     <div
       class="cptm-section"
       :class="sectionClass(section)"
@@ -248,9 +249,11 @@ export default {
     },
 
     sectionClass(section) {
-      return {
-        "cptm-short-wide": "short-width" === section.container ? true : false,
-      };
+      console.log({section}, section.fields[0])
+      return section.fields[0]
+      // return {
+      //   "cptm-short-wide": "short-width" === section.container ? true : false,
+      // };
     },
 
     sectionTitleAreaClass(section) {

@@ -46,6 +46,7 @@
 
     <!-- Widget Actions -->
     <div
+      @mousedown="handleClickOutside"
       class="cptm-form-builder-group-actions-dropdown cptm-form-builder-group-actions-dropdown--field"
     >
       <a
@@ -53,6 +54,7 @@
         class="cptm-form-builder-group-actions-dropdown-btn"
         v-if="canTrashWidget"
         @click.prevent="toggleExpandedDropdown"
+        @blur="handleBlur"
       >
         <span aria-hidden="true" class="uil uil-ellipsis-h"></span>
       </a>
@@ -246,6 +248,23 @@ export default {
   methods: {
     toggleExpandedDropdown() {
       this.expandedDropdown = !this.expandedDropdown;
+    },
+
+    handleBlur() {
+      setTimeout(() => {
+        if (!this.isClickedInsideDropdown) {
+          this.expandedDropdown = false;
+        }
+      }, 100); // Delay to ensure clicks inside dropdown content are not missed
+    },
+    handleClickOutside(event) {
+      if (
+        this.expandedDropdown &&
+        !this.$refs.dropdownContent.contains(event.target)
+      ) {
+        this.expandedDropdown = false;
+      }
+      this.isClickedInsideDropdown = false;
     },
 
     handleTrashClick() {

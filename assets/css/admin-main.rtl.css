@@ -14047,6 +14047,30 @@ input:-webkit-autofill:active {
           box-shadow: none;
 }
 
+.directorist-footer-wrap .cptm-btn {
+  margin: 0;
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 8px;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.directorist-footer-wrap .cptm-btn .cptm-save-icon {
+  font-size: 15px;
+}
+.directorist-footer-wrap .cptm-form-group {
+  margin: 0;
+}
+
 .cptm-form-note {
   margin-bottom: 30px;
   padding: 30px;
@@ -14767,6 +14791,29 @@ input:-webkit-autofill:active {
 
 .cptm-section {
   margin-bottom: 50px;
+}
+.cptm-section.submission_form_fields .cptm-form-builder-active-fields-container {
+  padding-bottom: 160px;
+}
+.cptm-section.preview_mode {
+  position: absolute;
+  left: 185px;
+  bottom: 70px;
+  width: 420px;
+  padding: 24px 0 50px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  z-index: 9;
+  border-top: 1px solid #E5E7EB;
+}
+.cptm-section.preview_mode .cptm-title-area {
+  display: none;
+}
+@media screen and (max-width: 1199px) {
+  .cptm-section.preview_mode {
+    left: 100px;
+    width: 400px;
+  }
 }
 .cptm-section:last-child {
   margin-bottom: 0;
@@ -18711,6 +18758,30 @@ input[type=radio]:checked::before {
           box-shadow: none;
 }
 
+.directorist-footer-wrap .cptm-btn {
+  margin: 0;
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 8px;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.directorist-footer-wrap .cptm-btn .cptm-save-icon {
+  font-size: 15px;
+}
+.directorist-footer-wrap .cptm-form-group {
+  margin: 0;
+}
+
 .cptm-form-note {
   margin-bottom: 30px;
   padding: 30px;
@@ -19431,6 +19502,29 @@ input[type=radio]:checked::before {
 
 .cptm-section {
   margin-bottom: 50px;
+}
+.cptm-section.submission_form_fields .cptm-form-builder-active-fields-container {
+  padding-bottom: 160px;
+}
+.cptm-section.preview_mode {
+  position: absolute;
+  left: 185px;
+  bottom: 70px;
+  width: 420px;
+  padding: 24px 0 50px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  z-index: 9;
+  border-top: 1px solid #E5E7EB;
+}
+.cptm-section.preview_mode .cptm-title-area {
+  display: none;
+}
+@media screen and (max-width: 1199px) {
+  .cptm-section.preview_mode {
+    left: 100px;
+    width: 400px;
+  }
 }
 .cptm-section:last-child {
   margin-bottom: 0;
@@ -23642,6 +23736,30 @@ input[type=radio]:checked::before {
           box-shadow: none;
 }
 
+.directorist-footer-wrap .cptm-btn {
+  margin: 0;
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 8px;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.directorist-footer-wrap .cptm-btn .cptm-save-icon {
+  font-size: 15px;
+}
+.directorist-footer-wrap .cptm-form-group {
+  margin: 0;
+}
+
 .cptm-form-note {
   margin-bottom: 30px;
   padding: 30px;
@@ -24362,6 +24480,29 @@ input[type=radio]:checked::before {
 
 .cptm-section {
   margin-bottom: 50px;
+}
+.cptm-section.submission_form_fields .cptm-form-builder-active-fields-container {
+  padding-bottom: 160px;
+}
+.cptm-section.preview_mode {
+  position: absolute;
+  left: 185px;
+  bottom: 70px;
+  width: 420px;
+  padding: 24px 0 50px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  z-index: 9;
+  border-top: 1px solid #E5E7EB;
+}
+.cptm-section.preview_mode .cptm-title-area {
+  display: none;
+}
+@media screen and (max-width: 1199px) {
+  .cptm-section.preview_mode {
+    left: 100px;
+    width: 400px;
+  }
 }
 .cptm-section:last-child {
   margin-bottom: 0;

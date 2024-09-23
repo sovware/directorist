@@ -127,6 +127,7 @@ export default {
 
     this.$store.commit("updateCachedFields");
     this.setupClosingWarning();
+    this.setupSaveOnKeyboardInput();
   },
 
   data() {
@@ -146,6 +147,15 @@ export default {
 
   methods: {
     ...mapGetters(["getFieldsValue"]),
+
+    setupSaveOnKeyboardInput() {
+      addEventListener("keydown", (event) => {
+        if ( ( event.metaKey || event.ctrlKey ) && 's' === event.key ) {
+          event.preventDefault();
+          this.saveData();
+        }
+      });
+    },
 
     setupClosingWarning() {
       window.addEventListener("beforeunload", this.handleBeforeUnload);

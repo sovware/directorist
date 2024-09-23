@@ -2103,9 +2103,15 @@ class Builder_Data {
             ],
 
             // Submit Button
-            'submit_button_label'                         => [
+            'submit_button_label_old'                         => [
                 'label' => __( 'Submit Button Label', 'directorist' ),
                 'type'  => 'text',
+                'value' => __( 'Save & Preview', 'directorist' ),
+            ],
+
+            'submit_button_label'                         => [
+                'label' => __( 'Submit Button Label', 'directorist' ),
+                'type'  => 'editable-button',
                 'value' => __( 'Save & Preview', 'directorist' ),
             ],
 
@@ -2624,9 +2630,15 @@ class Builder_Data {
                         'title'       => __( 'Add listing form', 'directorist' ),
                         'description' => '<a target="_blank" href="https://directorist.com/documentation/directorist/form-and-layout-builder/form-and-layout-builder/">' . __( 'Need help?', 'directorist' ) . ' </a>',
                         'fields'      => [
-                            'submission_form_fields',
+                            'submission_form_fields'
                         ],
                     ],
+                    'form_options' => [
+                        'fields' =>  [
+                            'preview_mode',
+                            'submit_button_label',
+                        ]
+                    ]
                 ],
             ],
 

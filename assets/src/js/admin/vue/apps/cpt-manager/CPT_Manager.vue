@@ -52,6 +52,16 @@
         <!-- <a href="#" class="directorist-create-directory">Create New Directory</a> -->
       </div>
     </div>
+    <div class="atbdp-cptm-status-feedback" v-if="status_messages?.length">
+      <div
+        class="cptm-alert"
+        :class="'cptm-alert-' + status.type"
+        v-for="(status, index) in this.status_messages"
+        :key="index"
+      >
+        {{ status.message }}
+      </div>
+    </div>
     <div class="directorist-directory-type-bottom">
       <headerNavigation />
       <!-- atbdp-cptm-body -->
@@ -122,6 +132,7 @@ export default {
   data() {
     return {
       listing_type_id: null,
+      status_messages: [],
       footer_actions: {
         save: {
           show: true,

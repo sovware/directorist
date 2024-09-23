@@ -28,7 +28,7 @@ $light-gray: #f4f5f7;
   min-height: 60px;
   box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
   border-radius: 6px;
-  @media only screen and (max-width: 767px) {
+  @media only screen and (max-width: 479px) {
     justify-content: center;
     flex-direction: column;
     padding: 10px 20px;
@@ -262,6 +262,7 @@ $light-gray: #f4f5f7;
 }
 
 .atbdp-cpt-manager {
+  position: relative;
   display: block;
   color: $dark;
 }
@@ -365,13 +366,13 @@ $light-gray: #f4f5f7;
 
   .cptm-btn {
     display: flex;
-    gap: 8px;
+    gap: 10px;
     align-items: center;
     justify-content: center;
     width: 100%;
     font-weight: 500;
     font-size: 15px;
-    height: 50px;
+    height: 48px;
     padding: 0 30px;
     margin: 0;
   }
@@ -501,12 +502,24 @@ $light-gray: #f4f5f7;
 }
 
 .atbdp-cptm-status-feedback {
-  margin: 20px 0;
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(calc(-50% + 100px));
+  width: 100%;
+  max-width: 500px;
+  z-index: 1;
+  @media screen and (max-width: 1199px) {
+    width: auto;
+    max-width: unset;
+    min-width: 325px;
+  }
+  @media screen and (max-width: 767px) {
+    transform: translateX(-50%);
+  }
 }
 
 .cptm-alert {
-  margin: 5px auto;
-  max-width: 500px;
   padding: 10px 20px;
   text-align: center;
   color: #fff;
@@ -918,11 +931,13 @@ $light-gray: #f4f5f7;
 }
 
 .cptm-form-builder-active-fields-container {
+  position: relative;
   margin: 0;
   background-color: #f8f9fa;
   border: 1px solid #e3e6e9;
   padding: 40px;
   border-radius: 8px;
+  z-index: 1;
 
   @media only screen and (max-width: 991px) {
     padding: 20px;
@@ -1650,8 +1665,8 @@ input[type="radio"].cptm-radio {
 
 .cptm-thumbnail-placeholder-icon {
   font-size: 40px;
-  color: #D2D6DB;
-  svg{
+  color: #d2d6db;
+  svg {
     width: 40px;
     height: 40px;
   }

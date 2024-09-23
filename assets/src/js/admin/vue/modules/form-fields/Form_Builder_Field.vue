@@ -101,19 +101,6 @@
                 </span>
               </button>
             </div>
-            <div
-              class="atbdp-cptm-status-feedback"
-              v-if="status_messages.length"
-            >
-              <div
-                class="cptm-alert"
-                :class="'cptm-alert-' + status.type"
-                v-for="(status, index) in status_messages"
-                :key="index"
-              >
-                {{ status.message }}
-              </div>
-            </div>
           </div>
         </div>
       </div>

@@ -32414,15 +32414,7 @@ var render = function render() {
     domProps: {
       innerHTML: _vm._s(_vm.buttonText)
     }
-  })])])]), _vm._v(" "), _vm.status_messages.length ? _c("div", {
-    staticClass: "atbdp-cptm-status-feedback"
-  }, _vm._l(_vm.status_messages, function (status, index) {
-    return _c("div", {
-      key: index,
-      staticClass: "cptm-alert",
-      class: "cptm-alert-" + status.type
-    }, [_vm._v("\n              " + _vm._s(status.message) + "\n            ")]);
-  }), 0) : _vm._e()]) : _vm._e()], 2)])])]);
+  })])])])]) : _vm._e()], 2)])])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,

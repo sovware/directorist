@@ -14663,6 +14663,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
   data: function data() {
     return {
       listing_type_id: null,
+      status_messages: [],
       footer_actions: {
         save: {
           show: true,
@@ -26451,6 +26452,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
 var render = function render() {
+  var _vm$status_messages;
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
@@ -26510,7 +26512,15 @@ var render = function render() {
     }
   }, [_vm.footer_actions.save.showLoading ? _c("span", {
     staticClass: "fa fa-spinner fa-spin"
-  }) : _vm._e(), _vm._v("\n        " + _vm._s(_vm.footer_actions.save.label) + "\n      ")])])]), _vm._v(" "), _c("div", {
+  }) : _vm._e(), _vm._v("\n        " + _vm._s(_vm.footer_actions.save.label) + "\n      ")])])]), _vm._v(" "), (_vm$status_messages = _vm.status_messages) !== null && _vm$status_messages !== void 0 && _vm$status_messages.length ? _c("div", {
+    staticClass: "atbdp-cptm-status-feedback"
+  }, _vm._l(this.status_messages, function (status, index) {
+    return _c("div", {
+      key: index,
+      staticClass: "cptm-alert",
+      class: "cptm-alert-" + status.type
+    }, [_vm._v("\n      " + _vm._s(status.message) + "\n    ")]);
+  }), 0) : _vm._e(), _vm._v(" "), _c("div", {
     staticClass: "directorist-directory-type-bottom"
   }, [_c("headerNavigation"), _vm._v(" "), _c("div", {
     staticClass: "atbdp-cptm-body"
@@ -32827,15 +32837,7 @@ var render = function render() {
     domProps: {
       innerHTML: _vm._s(_vm.buttonText)
     }
-  })])])]), _vm._v(" "), _vm.status_messages.length ? _c("div", {
-    staticClass: "atbdp-cptm-status-feedback"
-  }, _vm._l(_vm.status_messages, function (status, index) {
-    return _c("div", {
-      key: index,
-      staticClass: "cptm-alert",
-      class: "cptm-alert-" + status.type
-    }, [_vm._v("\n              " + _vm._s(status.message) + "\n            ")]);
-  }), 0) : _vm._e()]) : _vm._e()], 2)])])]);
+  })])])])]) : _vm._e()], 2)])])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,

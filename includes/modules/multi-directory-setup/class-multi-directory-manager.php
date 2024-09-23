@@ -279,7 +279,7 @@ class Multi_Directory_Manager {
         // Define the new field for terms and privacy
         $terms_privacy_field = [
             'type'         => 'text',
-            'field_key'    => 'privacy_terms',
+            'field_key'    => 'privacy_policy',
             'text'         => $terms_privacy_label,   // Use the generated label
             'required'     => $is_required,           // Dynamically set required status
             'widget_group' => 'preset',

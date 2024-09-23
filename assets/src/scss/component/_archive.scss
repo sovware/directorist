@@ -480,6 +480,24 @@
       padding: 25px 30px 30px;
       border-top: 1px solid var(--directorist-color-light);
       box-sizing: border-box;
+      &.directorist-advanced-filter__action--ajax {
+        padding: 0;
+        border: none;
+        text-align: end;
+        margin: -20px 0 20px;
+        .directorist-btn-reset-ajax {
+          padding: 0;
+          color: var(--directorist-color-info);
+          background: transparent;
+          width: auto;
+          height: auto;
+          line-height: normal;
+          font-size: 14px;
+        }
+        &.reset-btn-disabled {
+          display: none;
+        }
+      }
     }
     .directorist-search-modal__contents__footer {
       position: relative;

@@ -1,6 +1,7 @@
 // Single Listing Style
 .directorist-content-active {
   .directorist-listing-single {
+    flex: 1;
     font-size: 15px;
     margin-bottom: 15px;
 
@@ -599,7 +600,7 @@
         margin: 0;
         position: relative;
         padding: 10px 10px 0 10px;
-        .directorist-pricing-meta{
+        .directorist-pricing-meta {
           display: flex;
           align-items: center;
           justify-content: center;
@@ -609,7 +610,7 @@
           background: var(--directorist-color-white);
           padding: 0 8px;
           font-weight: 700;
-          .directorist-listing-price{
+          .directorist-listing-price {
             color: var(--directorist-color-danger);
           }
         }
@@ -861,7 +862,7 @@
           display: none;
         }
       }
-      .directorist-listing-single__meta{
+      .directorist-listing-single__meta {
         padding: 14px 20px 7px;
       }
     }
@@ -922,8 +923,17 @@
         display: flex;
       }
       .directorist-listing-single__header {
+        align-items: center;
+        justify-content: space-between;
         figure {
-          display: none;
+          margin: 0;
+          flex: none;
+        }
+      }
+      @media screen and (max-width: 991px) {
+        .directorist-listing-single__header__title {
+          order: 2;
+          flex: 0 0 100%;
         }
       }
 

@@ -21,19 +21,21 @@ if ( ! defined( 'ABSPATH' ) ) exit;
             ?>
 
         </div>
+        
+        <?php if ( ! empty( $listings->display_search_button() ) ) : ?>
+            <div class="directorist-search-form-action">
+                <div class="directorist-search-form-action__submit">
+                    <button type="submit" class="directorist-btn directorist-btn-lg directorist-btn-dark directorist-btn-search">
 
-        <div class="directorist-search-form-action">
-            <div class="directorist-search-form-action__submit">
-                <button type="submit" class="directorist-btn directorist-btn-lg directorist-btn-dark directorist-btn-search">
+                        <?php if ( $searchform->has_search_button_icon() ): ?>
+                            <?php directorist_icon( 'las la-search' ); ?>
+                        <?php endif;?>
 
-                    <?php if ( $searchform->has_search_button_icon() ): ?>
-                        <?php directorist_icon( 'las la-search' ); ?>
-                    <?php endif;?>
+                        <?php echo esc_html( $searchform->search_button_text );?>
 
-                    <?php echo esc_html( $searchform->search_button_text );?>
-
-                </button>
+                    </button>
+                </div>
             </div>
-        </div>
+        <?php endif; ?>
     </div>
 </form>

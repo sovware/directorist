@@ -235,8 +235,12 @@ $light-gray: #f4f5f7;
     gap: 8px;
     align-items: center;
     justify-content: center;
+    height: 48px;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 8px;
     .cptm-save-icon {
-      font-size: 15px;
+      font-size: 16px;
     }
   }
   .cptm-form-group {
@@ -818,6 +822,7 @@ $light-gray: #f4f5f7;
 }
 
 .cptm-tab-content {
+  position: relative;
   margin: 0 auto;
   padding: 20px 30px;
   min-height: 100px;
@@ -902,12 +907,14 @@ $light-gray: #f4f5f7;
   margin-bottom: 50px;
   &.submission_form_fields {
     .cptm-form-builder-active-fields-container {
-      padding-bottom: 152px;
+      height: 100%;
+      padding-bottom: 162px;
+      box-sizing: border-box;
     }
   }
   &.preview_mode {
     position: absolute;
-    right: 185px;
+    right: 105px;
     bottom: 70px;
     width: 420px;
     padding: 24px 0 50px;
@@ -917,9 +924,18 @@ $light-gray: #f4f5f7;
     .cptm-title-area {
       display: none;
     }
-    @media screen and (max-width: 1199px) {
-      right: 100px;
-      width: 400px;
+    @media screen and (min-width: 992px) and (max-width: 1199px) {
+      width: 300px;
+    }
+    @media screen and (min-width: 768px) and (max-width: 991px) {
+      width: 260px;
+    }
+    @media screen and (max-width: 767px) {
+      width: calc(100% - 185px);
+    }
+    @media screen and (max-width: 479px) {
+      right: 60px;
+      width: calc(100% - 110px);
     }
   }
   &:last-child {
@@ -968,6 +984,10 @@ $light-gray: #f4f5f7;
 
 .cptm-form-builder-active-fields {
   display: block;
+  height: 100%;
+  .directorist-draggable-list-item-wrapper {
+    height: auto;
+  }
 
   .cptm-description-text {
     & + .cptm-btn {
@@ -2738,6 +2758,7 @@ input[type="radio"].cptm-radio {
 //Form fields preview image upload
 .cptm-preview-image-upload {
   width: 350px;
+  max-width: 100%;
   height: 224px;
   flex-shrink: 0;
   border-radius: 12px;

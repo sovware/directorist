@@ -1,5 +1,8 @@
 <template>
-  <div class="cptm-form-builder-group-title-area">
+  <div
+    class="cptm-form-builder-group-title-area"
+    :class="widgetsExpanded ? 'expanded' : ''"
+  >
     <h3 class="cptm-form-builder-group-title">
       {{ label }}
       <a

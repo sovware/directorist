@@ -739,11 +739,11 @@ $light-gray: #f4f5f7;
   line-height: 1.2;
 }
 
-.cptm-des{
+.cptm-des {
   font-size: 14px;
   font-weight: 400;
   line-height: 22px;
-  color: #4D5761;
+  color: #4d5761;
   margin-top: 10px;
 }
 
@@ -985,8 +985,9 @@ $light-gray: #f4f5f7;
   background-color: #444752;
   box-shadow: 0px 1px 5px rgba(#a1a8c6, 0.1);
   transition: all ease 0.3s;
+  &.expanded,
   &:focus,
-  &:hover{
+  &:hover {
     background-color: #141921;
   }
 }
@@ -1180,15 +1181,15 @@ div[draggable="true"].cptm-form-builder-group-title-area {
 .icon-picker-selector {
   margin: 0;
   padding: 3px 4px 3px 16px;
-  border: 1px solid #D2D6DB;
+  border: 1px solid #d2d6db;
   border-radius: 8px;
   box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
   .icon-picker-selector__icon {
     display: flex;
     align-items: center;
     margin: 0;
-    input[type=text].cptm-form-control{
-      padding:5px 20px;
+    input[type="text"].cptm-form-control {
+      padding: 5px 20px;
       min-height: 20px;
     }
     .directorist-selected-icon {
@@ -1350,7 +1351,7 @@ div[draggable="true"].cptm-form-builder-group-title-area {
   box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
   border-radius: 8px;
   background-color: #fff;
-  border: 1px solid #E5E7EB;
+  border: 1px solid #e5e7eb;
   transition: all ease 0.3s;
   z-index: 8;
 
@@ -1645,7 +1646,6 @@ input[type="radio"].cptm-radio {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 240px;
 }
 
 .cptm-thumbnail-placeholder-icon {
@@ -2645,7 +2645,7 @@ input[type="radio"].cptm-radio {
     display: block;
     font-size: 14px;
     font-weight: 500;
-    color:#2C3239;
+    color: #2c3239;
     margin-bottom: 9px;
   }
 
@@ -2660,36 +2660,36 @@ input[type="radio"].cptm-radio {
 }
 
 //Form fields preview image upload
-.cptm-preview-image-upload{
+.cptm-preview-image-upload {
   width: 350px;
   height: 224px;
   flex-shrink: 0;
   border-radius: 12px;
   position: relative;
   overflow: hidden;
-  &:not(.cptm-preview-image-upload--show){
-    border: 2px dashed #D2D6DB;
-    background: #F9FAFB;
-    .cptm-thumbnail{
-      max-width:100%;
+  &:not(.cptm-preview-image-upload--show) {
+    border: 2px dashed #d2d6db;
+    background: #f9fafb;
+    .cptm-thumbnail {
+      max-width: 100%;
       width: 100%;
       height: 100%;
       display: flex;
       justify-content: center;
       flex-direction: column;
       align-items: center;
-      .cptm-thumbnail-action{
+      .cptm-thumbnail-action {
         display: none;
       }
-      .cptm-thumbnail-img-wrap{
-        img{
+      .cptm-thumbnail-img-wrap {
+        img {
           width: 40px;
           height: 40px;
           object-fit: cover;
           border-radius: 4px;
         }
       }
-      .cptm-upload-btn{
+      .cptm-upload-btn {
         display: inline-flex;
         padding: 8px 12px;
         justify-content: center;
@@ -2697,33 +2697,34 @@ input[type="radio"].cptm-radio {
         gap: 6px;
         border-radius: 8px;
         background: #141921;
-        color: #FFF;
+        color: #fff;
         text-align: center;
         font-size: 13px;
         font-weight: 500;
         line-height: 14px;
         margin-top: 20px;
         margin-bottom: 12px;
-        input{
+        cursor: pointer;
+        input {
           background-color: transparent;
           border: none;
           box-shadow: none;
           color: white;
           padding: 0;
         }
-        i{
+        i {
           font-size: 14px;
           color: inherit;
         }
       }
-      .directorist-row-tooltip[data-tooltip]{
+      .directorist-row-tooltip[data-tooltip] {
         &:before,
-        &:after{
+        &:after {
           opacity: 0;
         }
       }
-      .cptm-thumbnail-drag-text{
-        color: #747C89;
+      .cptm-thumbnail-drag-text {
+        color: #747c89;
         font-size: 14px;
         font-weight: 400;
         line-height: 16px;
@@ -2731,29 +2732,33 @@ input[type="radio"].cptm-radio {
     }
   }
 
-  &.cptm-preview-image-upload--show{
+  &.cptm-preview-image-upload--show {
     margin-bottom: 0;
     height: 100%;
-    .cptm-thumbnail{
+    .cptm-thumbnail {
       margin: 0;
       position: relative;
-      &:after{
-        content: '';
+      &:after {
+        content: "";
         position: absolute;
         width: 100%;
         height: 100%;
         top: 0;
         left: 0;
-        background: linear-gradient(180deg, rgba(0, 0, 0, 0.60) 0%, rgba(0, 0, 0, 0.00) 35.42%);
+        background: linear-gradient(
+          180deg,
+          rgba(0, 0, 0, 0.6) 0%,
+          rgba(0, 0, 0, 0) 35.42%
+        );
         z-index: 1;
       }
-      .action-trash{
-        ~ .cptm-upload-btn{
+      .action-trash {
+        ~ .cptm-upload-btn {
           right: 52px;
         }
       }
     }
-    .cptm-thumbnail-action{
+    .cptm-thumbnail-action {
       margin: 0;
       background-color: white;
       width: 32px;
@@ -2767,42 +2772,42 @@ input[type="radio"].cptm-radio {
       border-radius: 8px;
       font-size: 16px;
     }
-    .cptm-thumbnail-drag-text{
+    .cptm-thumbnail-drag-text {
       display: none;
     }
-    .cptm-upload-btn{
+    .cptm-upload-btn {
       position: absolute;
-        top: 12px;
-        right: 12px;
-        max-width: 32px !important;
-        width: 32px;
-        max-height: 32px;
-        height: 32px;
-        background-color: white;
-        padding: 0;
-        border-radius: 8px;
-        margin: 10px;
-        cursor: pointer;
-        transition: all ease-in-out 300ms;
-        margin: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 2;
-        box-sizing: border-box;
-        input{
-          display: none;
-        }
+      top: 12px;
+      right: 12px;
+      max-width: 32px !important;
+      width: 32px;
+      max-height: 32px;
+      height: 32px;
+      background-color: white;
+      padding: 0;
+      border-radius: 8px;
+      margin: 10px;
+      cursor: pointer;
+      transition: all ease-in-out 300ms;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      box-sizing: border-box;
+      input {
+        display: none;
+      }
     }
-    .directorist-row-tooltip[data-tooltip]:after{
+    .directorist-row-tooltip[data-tooltip]:after {
       background-color: white;
       color: #141921;
       opacity: 1;
     }
-    .directorist-row-tooltip[data-tooltip][data-flow=bottom]::before{
+    .directorist-row-tooltip[data-tooltip][data-flow="bottom"]::before {
       border-bottom-color: white;
     }
-    .cptm-thumbnail-action{
+    .cptm-thumbnail-action {
       z-index: 2;
     }
   }
@@ -3523,7 +3528,7 @@ input[type="radio"] {
     font-size: 14px;
     font-weight: 500;
     background-color: transparent;
-    color: #4D5761;
+    color: #4d5761;
     padding: 12px 15px;
     line-height: 1;
 
@@ -3537,7 +3542,7 @@ input[type="radio"] {
       font-weight: 400;
       font-size: 20px;
       content: "\eb3a";
-      color: #747C89;
+      color: #747c89;
       position: absolute;
       top: 50%;
       right: 0;
@@ -3555,8 +3560,9 @@ input[type="radio"] {
     top: 40px;
     padding: 12px 8px;
     background-color: #fff;
-    box-shadow: 0 12px 16px -4px rgba(16, 24, 40, 0.08), 0px 4px 6px -2px rgba(16, 24, 40, 0.03);
-    border: 1px solid #E5E7EB;
+    box-shadow: 0 12px 16px -4px rgba(16, 24, 40, 0.08),
+      0px 4px 6px -2px rgba(16, 24, 40, 0.03);
+    border: 1px solid #e5e7eb;
     border-radius: 10px;
     z-index: 99999;
     overflow-y: auto;
@@ -3578,18 +3584,18 @@ input[type="radio"] {
           display: block;
           padding: 9px 15px;
           border-radius: 8px;
-          color: #4D5761;
+          color: #4d5761;
           transition: 0.3s;
 
           &:hover,
           &.active:hover {
             color: #fff;
-            background-color: #3E62F5;
+            background-color: #3e62f5;
           }
 
           &.active {
-            color: #3E62F5;
-            background-color: #F0F3FF;
+            color: #3e62f5;
+            background-color: #f0f3ff;
           }
         }
       }

@@ -2953,8 +2953,10 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     },
     thumbnailSrc: function thumbnailSrc() {
       if (this.thumbnail_src === '') {
-        return this.defaultImg;
+        console.log('Thhumb None');
+        // return this.defaultImg;
       }
+
       return this.thumbnail_src;
     },
     theButtonLabel: function theButtonLabel() {
@@ -3018,6 +3020,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       this.createTheMediaFrame();
     },
     deleteThumbnail: function deleteThumbnail() {
+      console.log('Delete Thumb');
       this.thumbnail_src = '';
     }
   }
@@ -11621,7 +11624,6 @@ vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_1_
 /* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   // state
   state: {
-    is_dirty: false,
     active_nav_index: 0,
     is_saving: false,
     fields: {},
@@ -11709,9 +11711,6 @@ vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_1_
     },
     updateCachedFieldData: function updateCachedFieldData(state, payload) {
       state.cached_fields[payload.key].value = payload.value;
-    },
-    updateIsDirty: function updateIsDirty(state, payload) {
-      state.is_dirty = payload;
     },
     swichToNav: function swichToNav(state, payload) {
       var menu_key = payload.menu_key;
@@ -25475,7 +25474,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       return options_values.includes(value);
     }
     /* syncValidationWithLocalState( validation_log ) {
-          return validation_log;
+         return validation_log;
     } */
   }
 });
@@ -26307,7 +26306,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_form_fields_wp_media_picker_field__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../mixins/form-fields/wp-media-picker-field */ "./assets/src/js/admin/vue/mixins/form-fields/wp-media-picker-field.js");
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'wp-media-picker-field-theme-default',
+  name: "wp-media-picker-field-theme-default",
   mixins: [_mixins_form_fields_wp_media_picker_field__WEBPACK_IMPORTED_MODULE_0__["default"]]
 });
 
@@ -29290,7 +29289,8 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "cptm-form-builder-group-title-area"
+    staticClass: "cptm-form-builder-group-title-area",
+    class: _vm.widgetsExpanded ? "expanded" : ""
   }, [_c("h3", {
     staticClass: "cptm-form-builder-group-title"
   }, [_vm._v("\n    " + _vm._s(_vm.label) + "\n    "), _vm.groupFields && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(_vm.groupFields) === "object" ? _c("a", {
@@ -32843,7 +32843,7 @@ var render = function render() {
       key: alert_key,
       staticClass: "cptm-form-alert",
       class: "cptm-" + alert.type
-    }, [_vm._v("\r\n            " + _vm._s(alert.message) + "\r\n        ")]);
+    }, [_vm._v("\n            " + _vm._s(alert.message) + "\n        ")]);
   }), 0) : _vm._e()]);
 };
 var staticRenderFns = [];
@@ -35991,7 +35991,8 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "cptm-form-group cptm-preview-image-upload cptm-preview-image-upload--show"
+    staticClass: "cptm-form-group cptm-preview-image-upload",
+    class: _vm.thumbnailSrc.length ? "cptm-preview-image-upload--show" : ""
   }, [_vm.label.length ? _c("label", [_c(_vm.labelType, {
     tag: "component"
   }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c("p", {
@@ -36019,7 +36020,9 @@ var render = function render() {
       width: "100%",
       height: "auto"
     }
-  })]) : _vm._e(), _vm._v(" "), _c("label", {
+  })]) : _vm._e(), _vm._v(" "), !_vm.thumbnailSrc.length ? _c("span", {
+    staticClass: "cptm-thumbnail-placeholder"
+  }, [_vm._m(0)]) : _vm._e(), _vm._v(" "), _c("label", {
     staticClass: "cptm-upload-btn cptm-btn cptm-btn-dark directorist-row-tooltip",
     attrs: {
       "data-tooltip": "Change image",
@@ -36040,9 +36043,7 @@ var render = function render() {
     }
   })]), _vm._v(" "), _c("div", {
     staticClass: "cptm-thumbnail-drag-text"
-  }, [_vm._v("or drag and drop image here")]), _vm._v(" "), !_vm.thumbnailSrc.length ? _c("span", {
-    staticClass: "cptm-thumbnail-placeholder"
-  }, [_vm._m(0)]) : _vm._e()]), _vm._v(" "), _c("form-field-validatior", {
+  }, [_vm._v("upload image here")])]), _vm._v(" "), _c("form-field-validatior", {
     attrs: {
       "section-id": _vm.sectionId,
       "field-id": _vm.fieldId,

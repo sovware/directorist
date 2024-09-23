@@ -6,7 +6,6 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   // state
   state: {
-    is_dirty: false,
     active_nav_index: 0,
     is_saving: false,
     fields: {},
@@ -100,10 +99,6 @@ export default new Vuex.Store({
 
     updateCachedFieldData: ( state, payload ) => {
       state.cached_fields[ payload.key ].value = payload.value;
-    },
-
-    updateIsDirty: ( state, payload ) => {
-      state.is_dirty = payload;
     },
 
     swichToNav( state, payload ) {

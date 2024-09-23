@@ -243,8 +243,10 @@ class Directorist_Listings {
 		$this->options['default_latitude']                = get_directorist_option('default_latitude', 40.7127753);
 		$this->options['default_longitude']               = get_directorist_option('default_longitude', -74.0059728);
 		$this->options['listing_instant_search']          = ! empty( get_directorist_option( 'listing_instant_search' ) ) ? 'yes' : '';
-		$this->options['all_listing_layout']         	  = get_directorist_type_option( $this->get_current_listing_type(), 'all_listing_layout', 'no_sidebar' );
-		$this->options['listing_sidebar_top_search_bar']  = get_directorist_type_option( $this->get_current_listing_type(), 'listing_sidebar_top_search_bar', false );
+		$this->options['all_listing_layout']         	  = get_directorist_option( 'all_listing_layout', 'left_sidebar' );
+		$this->options['listing_sidebar_top_search_bar']  = get_directorist_option( 'listing_hide_top_search_bar', false );
+		$this->options['sidebar_filter_text']    		  = get_directorist_option( 'listings_sidebar_filter_text', 'Filters' );
+		$this->options['display_listings_count']    	  = get_directorist_option( 'display_listings_count', true );
 		$this->options['marker_clustering']               = get_directorist_option( 'marker_clustering', true ) ? 'markerclusterer' : '';
 	}
 
@@ -271,6 +273,11 @@ class Directorist_Listings {
 		$this->options['listing_columns']                 = get_directorist_option( 'search_listing_columns', 3 );
 		$this->options['paginate_listings']               = ! empty( get_directorist_option( 'paginate_search_results', 1 ) ) ? 'yes' : '';
 		$this->options['listings_per_page']               = get_directorist_option( 'search_posts_num', 6 );
+		$this->options['all_listing_layout']         	  = get_directorist_option( 'search_result_layout', 'left_sidebar' );
+		$this->options['listing_sidebar_top_search_bar']  = get_directorist_option( 'search_result_hide_top_search_bar', false );
+		$this->options['sidebar_filter_text']    		  = get_directorist_option( 'search_result_sidebar_filter_text', 'Filters' );
+		$this->options['display_listings_count']    	  = get_directorist_option( 'display_search_result_listings_count', true );
+		$this->options['listing_header_title']            = get_directorist_option( 'search_result_listing_title', __( 'Items Found', 'directorist' ) );
 	}
 
 	public function build_search_data( $key, $value ) {
@@ -2101,6 +2108,22 @@ class Directorist_Listings {
 		public function viewas_dropdown_template() {
 			Helper::get_template( 'archive/viewas-dropdown', array( 'listings' => $this ) );
 		}
+
+		public function display_search_button() {
+			// Check if the layout is 'no_sidebar', in which case the button should always be displayed
+			if ( $this->options['all_listing_layout'] === 'no_sidebar' ) {
+				return true;
+			}
+		
+			// If the layout is 'right_sidebar' or 'left_sidebar' and instant search is disabled, display the button
+			if ( in_array( $this->options['all_listing_layout'], ['right_sidebar', 'left_sidebar'] ) 
+				&& empty( $this->options['listing_instant_search'] ) ) {
+				return true;
+			}
+		
+			// In all other cases, don't display the button
+			return false;
+		}		
 
 		public function search_form_template() {
 			// only catch atts with the prefix 'filter_'

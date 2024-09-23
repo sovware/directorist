@@ -5,7 +5,6 @@ import metadata from './block.json';
 import getLogo from './../logo';
 
 registerBlockType( metadata.name, {
-
 	icon: getLogo(),
 
 	transforms: {
@@ -13,22 +12,24 @@ registerBlockType( metadata.name, {
 			{
 				type: 'shortcode',
 				tag: 'directorist_transaction_failure',
-				attributes: {}
+				attributes: {},
 			},
-		]
+		],
 	},
 
 	example: {
 		attributes: {
-			isPreview: true
-		}
+			isPreview: true,
+		},
 	},
 
 	edit( { attributes } ) {
 		return (
 			<div { ...useBlockProps() }>
-				<div style={ { paddingLeft: '10em', paddingRight: '10em' } }>{ getLogo() }</div>
+				<div style={ { paddingLeft: '10em', paddingRight: '10em' } }>
+					{ getLogo() }
+				</div>
 			</div>
 		);
-	}
+	},
 } );

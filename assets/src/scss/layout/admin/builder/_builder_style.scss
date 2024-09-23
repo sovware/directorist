@@ -1651,6 +1651,10 @@ input[type="radio"].cptm-radio {
 .cptm-thumbnail-placeholder-icon {
   font-size: 40px;
   color: #D2D6DB;
+  svg{
+    width: 40px;
+    height: 40px;
+  }
 }
 
 .cptm-thumbnail-img-wrap {

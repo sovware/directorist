@@ -4291,6 +4291,13 @@ Please remember that your order may be canceled if you do not make your payment 
                                         'delete_expired_listing_permanently', 'delete_expired_listings_after',
                                      ],
                                 ],
+
+                                'listings_currency' => [
+                                    'title'       => __( 'Listing Currency', 'directorist' ),
+                                    'fields'      => [
+                                        'g_currency_note', 'g_currency', 'g_currency_position'
+                                     ],
+                                ],
                             ] ),
                         ],
                         'listings_page' => [
@@ -4345,7 +4352,7 @@ Please remember that your order may be canceled if you do not make your payment 
                             'sections' => apply_filters( 'atbdp_listing_settings_listing_page_sections', [
                                 'labels' => [
                                     'fields'      => [
-                                        'disable_single_listing', 'restrict_single_listing_for_logged_in_user', 'atbdp_listing_slug', 'single_listing_slug_with_directory_type', 'submission_confirmation', 'pending_confirmation_msg', 'publish_confirmation_msg', 'dsiplay_slider_single_page', 'single_slider_image_size', 'single_slider_background_type', 'single_slider_background_color', 'gallery_crop_width', 'gallery_crop_height'
+                                        'single_listing_template', 'disable_single_listing', 'restrict_single_listing_for_logged_in_user', 'atbdp_listing_slug', 'single_listing_slug_with_directory_type', 'submission_confirmation', 'pending_confirmation_msg', 'publish_confirmation_msg', 'dsiplay_slider_single_page', 'single_slider_image_size', 'single_slider_background_type', 'single_slider_background_color', 'gallery_crop_width', 'gallery_crop_height'
                                     ],
                                 ],
                             ] ),
@@ -4365,18 +4372,6 @@ Please remember that your order may be canceled if you do not make your payment 
                                     'description' => '',
                                     'fields'      => [
                                         'display_locations_as', 'locations_column_number', 'locations_depth_number', 'order_location_by', 'sort_location_by', 'display_location_listing_count', 'hide_empty_locations'
-                                     ],
-                                ],
-                            ] ),
-                        ],
-
-                        'currency_settings' => [
-                            'label' => __( 'Listing Currency', 'directorist' ),
-                            'icon' => '<i class="fa fa-money-bill"></i>',
-                            'sections' => apply_filters( 'atbdp_currency_settings_sections', [
-                                'title_metas' => [
-                                    'fields'      => [
-                                        'g_currency_note', 'g_currency', 'g_currency_position'
                                      ],
                                 ],
                             ] ),

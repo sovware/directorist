@@ -64,4 +64,6 @@ if ( '5' == $taxonomy->columns ) {
      */
     do_action( 'atbdp_after_all_locations_loop' );
     ?>
+
+	<?php $taxonomy->pagination(); ?>
 </div>

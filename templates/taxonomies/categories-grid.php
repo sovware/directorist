@@ -88,4 +88,6 @@ if ( '5' == $taxonomy->columns ) {
      */
     do_action( 'atbdp_after_all_categories_loop' );
     ?>
+	
+	<?php $taxonomy->pagination(); ?>
 </div>

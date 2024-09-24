@@ -71,7 +71,7 @@ $avatar_img = get_avatar($author_id, 32);
 						</li>
 					<?php endif; ?>
 
-					<?php if ( $listing->author_display_email() ): ?>
+					<?php if ( $listing->author_display_email( $section_data ) ): ?>
 						<li>
 							<?php directorist_icon( 'fas fa-envelope-open' ); ?>
 							<span class="directorist-single-author-contact-info-text"><?php echo esc_html( $listing->author_info( 'email' ) ); ?></span>

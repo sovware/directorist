@@ -723,10 +723,8 @@ class Directorist_Single_Listing {
 		}
 	}
 
-	public function author_display_email() {
-		$author_id 			= $this->author_id;
-		$display_email 		= get_user_meta( $author_id, 'directorist_display_author_email', true );
-		$email_display_type = ! empty( $display_email ) ? $display_email : 'public';
+	public function author_display_email( $section_data = [] ) {
+		$email_display_type = ! empty( $section_data['display_email'] ) ?? true;
 		$email 				= $this->author_info( 'name' );
 
 		if ( !$email ) {

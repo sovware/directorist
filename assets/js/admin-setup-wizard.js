@@ -162,6 +162,8 @@ jQuery(document).ready(function ($) {
     // Add a class when the button is clicked
     $(this).addClass('loading');
     $('.directorist_dummy_data_log').text('Preparing data...');
+    $('.directorist-setup-wizard__content').addClass('hide');
+    $('.middle-content-import').removeClass('hide').addClass('show');
     var type_count = 0;
     var import_dummy = function import_dummy() {
       var data = {
@@ -187,14 +189,19 @@ jQuery(document).ready(function ($) {
         data: data,
         success: function success(response) {
           console.log(response);
-          $('.directorist_dummy_data_log').empty().text(response.log);
+          $('.directorist-import-text-inner').empty().text(response.log);
           if (response.completed) {
-            $('.directorist_dummy_data_log').empty().text(response.log);
+            $('.directorist-import-text-inner').empty().text(response.log);
             window.location = response.url;
           }
           type_count++;
-          $('.directorist-importer-progress').val(type_count * 2 + '0');
-          import_dummy();
+          var progressPercentage = type_count * 25;
+          $('.directorist-import-progress-bar').css('width', progressPercentage + '%');
+          $('.directorist-importer-progress').val(progressPercentage);
+          $('.directorist-import-progress-info-precent').text(progressPercentage + '%');
+          if (type_count < 4) {
+            import_dummy();
+          }
         }
       });
     };

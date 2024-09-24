@@ -706,18 +706,38 @@ class SetupWizard
                         <label for="share-data">Share Non-Sensitive Data</label>
                     </div>
                 </div>
-                <p class="directorist_dummy_data_log"></p>
-                <progress class="directorist-importer-progress" max="100" value="0"></progress>
-					<span class="directorist-importer-length"></span>
                 <a href="#" class="directorist-setup-wizard__content__import__btn directorist-setup-wizard__btn directorist-setup-wizard__btn--full directorist-submit-importing">
                     Submit & Build My Directory Website 
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="12.007" viewBox="284 4 14 12.007"><g data-name="Group 2970"><path d="M284.841 9.02c.058-.009.116-.013.174-.012h9.876l-.215-.1c-.21-.1-.402-.236-.566-.401l-2.77-2.77a1.037 1.037 0 0 1-.145-1.327 1.002 1.002 0 0 1 1.503-.13l5.008 5.008a1.002 1.002 0 0 1 0 1.418l-5.008 5.008a1.002 1.002 0 0 1-1.503-.1c-.28-.419-.22-.98.145-1.327l2.765-2.775c.147-.147.316-.27.501-.366l.3-.135h-9.836a1.037 1.037 0 0 1-1.057-.841 1.002 1.002 0 0 1 .828-1.15Z" fill="#fff" fill-rule="evenodd" data-name="Path 1600"/></g></svg>
                 </a>
-                
                 <div class="directorist-setup-wizard__content__import__notice">
                     By clicking "Submit & Build My Website", you agree to our <a href="#">Terms</a> & <a href="#">Privacy Policy</a>
                 </div>
             </div>
+        </div>
+        <div class="middle-content middle-content-import hide">
+            <h1>We are building your Directory</h1>
+            <div class="directorist-import-process-step-wrap">
+                <div class="directorist-import-progress">
+                    <div class="directorist-import-progress-info">
+                        <div class="directorist-import-progress-info-text ">
+                            <span class="directorist-import-text-inner">1. Installing required plugins, forms, etc</span>
+                        </div>
+                        <div class="directorist-import-progress-info-precent">25</div>
+                    </div>
+                    <div class="directorist-import-progress-bar-wrap">
+                        <div class="directorist-import-progress-bar-bg">
+                            <div class="directorist-import-progress-bar  import-1"></div>
+                        </div>
+                        <div class="import-progress-gap">
+                            <span></span><span></span><span></span>
+                        </div>
+                    </div>
+                    <div class="ist-import-progress-info"><div class="ist-import-progress-info-text "><span class="import-status-string"><p>Installing Required Components..</p></span></div></div>
+                </div>
+            </div>
+            
+            <span class="import-progress-warning">Please Don't Reload The Page</span>
         </div>
     <?php
     }

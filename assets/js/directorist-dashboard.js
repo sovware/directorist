@@ -929,8 +929,12 @@ window.addEventListener('DOMContentLoaded', function () {
 /***/ (function(module, exports) {
 
 ;
+console.log("rony");
 (function ($) {
+  console.log("rony");
   window.addEventListener('load', function () {
+    $('#display_author_email').select2();
+    console.log("rony");
     var is_processing = false;
     $('#user_preferences').on('submit', function (e) {
       // submit the form to the ajax handler and then send a response from the database and then work accordingly and then after finishing the update profile then work on remove listing and also remove the review and rating form the custom table once the listing is deleted successfully.

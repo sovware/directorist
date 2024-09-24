@@ -64,8 +64,10 @@ export const TypesControl = withSelect( ( select ) => {
 		) );
 
 		if ( props.showDefault ) {
-			defaultDirChoices = props.items
-				.filter( ( item ) => props.selected.includes( item.slug ) )
+			defaultDirChoices = ( props.selected.length > 0 ?
+					props.items.filter( ( item ) => props.selected.includes( item.slug ) ) :
+					props.items
+				)
 				.map( ( item ) => {
 					return {
 						label: truncate( decodeHTML( item.name ), {
@@ -97,7 +99,7 @@ export const TypesControl = withSelect( ( select ) => {
 			{ defaultDirChoices.length && props.showDefault ? (
 				<RadioControl
 					label={ __( 'Select Default Directory', 'directorist' ) }
-					selected={ props.defaultType }
+					selected={ props.defaultType ? props.defaultType : window.directorist.default_directory_type }
 					options={ defaultDirChoices }
 					onChange={ props.onDefaultChange }
 				/>

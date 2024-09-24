@@ -78,6 +78,7 @@ function directorist_register_blocks() {
 	register_block_type( __DIR__ . '/build/single-tag', $args );
 	register_block_type( __DIR__ . '/build/search-result', $args );
 	register_block_type( __DIR__ . '/build/author-profile', $args );
+	register_block_type( __DIR__ . '/build/authors', $args );
 	register_block_type( __DIR__ . '/build/checkout', $args );
 	register_block_type( __DIR__ . '/build/payment-receipt', $args );
 	register_block_type( __DIR__ . '/build/transaction-failure', $args );
@@ -143,6 +144,10 @@ function directorist_block_render_callback( $attributes, $content, $instance ) {
 
 		if ( $attributes_schema[ $key ]['type'] === 'boolean' ) {
 			$attributes[ $key ] = empty( $value ) ? 'no' : 'yes';
+		}
+
+		if ( isset( $attributes['sidebar'] ) && $attributes['sidebar'] === '' ) {
+			unset( $attributes['sidebar'] );
 		}
 
 		unset( $key );

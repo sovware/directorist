@@ -23,7 +23,7 @@ export default {
 
         thumbnailSrc() {
             if ( this.thumbnail_src === '' ) {
-                return this.defaultImg;
+                // return this.defaultImg;
             }
 
             return this.thumbnail_src;
@@ -105,6 +105,7 @@ export default {
         },
 
         deleteThumbnail() {
+            console.log('Delete Thumb');
             this.thumbnail_src = '';
         }
     }

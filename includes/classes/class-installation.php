@@ -31,9 +31,22 @@ class ATBDP_Installation {
 			'directorist_710_review_rating_clear_transients',
 			'directorist_710_update_db_version',
 		],
+		'7.10.0' => [
+			'directorist_7100_clean_falsy_never_expire_meta',
+			'directorist_7100_migrate_expired_meta_to_expired_status',
+			// 'directorist_7100_clean_listing_status_expired_meta', // Use this in future version to cleanup old data.
+			'directorist_7100_update_db_version',
+		],
+		'7.11.0' => [
+			'directorist_7110_merge_dashboard_login_registration_page',
+			'directorist_7110_update_db_version',
+		],
+		'7.12.3' => [
+			'directorist_7123_remove_upload_files_cap',
+			'directorist_7123_update_db_version',
+		],
 		'8.0.0' => [
 			'directorist_800_migrate_builder_data',
-			'directorist_800_remove_upload_files_cap',
 			'directorist_800_update_db_version',
 		]
 	);

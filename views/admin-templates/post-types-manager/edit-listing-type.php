@@ -14,10 +14,6 @@
 			$label = __( 'Edit Directory', 'directorist' );
 		}
 		?>
-		<h1 class="wp-heading-inline"><?php echo esc_html( $label ); ?></h1>
-		<hr class="wp-header-end">
-    <br>
-
     <div id="atbdp-cpt-manager" data-builder-data="<?php echo esc_attr( $builder_data ); ?>">
         <cpt-manager />
     </div>

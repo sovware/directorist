@@ -112,6 +112,7 @@ class Localized_Data {
 			'lazy_load_taxonomy_fields'   => get_directorist_option( 'lazy_load_taxonomy_fields', false, true ),
 			'current_page_id'             => get_the_ID(),
 			'icon_markup'                 => '<i class="directorist-icon-mask ##CLASS##" aria-hidden="true" style="--directorist-icon: url(##URL##)"></i>',
+			'add_listing_url'             => \ATBDP_Permalink::get_add_listing_page_link(),
 		);
 
 		return $data;
@@ -192,6 +193,7 @@ class Localized_Data {
 			'choose_image'            => __( 'Use this Image', 'directorist' ),
 			'select_prv_img'          => __( 'Select Preview Image', 'directorist' ),
 			'insert_prv_img'          => __( 'Insert Preview Image', 'directorist' ),
+			'add_listing_url'         => \ATBDP_Permalink::get_add_listing_page_link(),
 		);
 
 		$icon_picker_labels = [

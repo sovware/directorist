@@ -29152,11 +29152,9 @@ var render = function render() {
       }
     }
   })], 1) : _vm._e()]), _vm._v(" "), _c("div", {
-    staticClass: "cptm-form-builder-group-actions-dropdown cptm-form-builder-group-actions-dropdown--field",
-    on: {
-      mousedown: _vm.handleClickOutside
-    }
+    staticClass: "cptm-form-builder-group-actions-dropdown cptm-form-builder-group-actions-dropdown--field"
   }, [_vm.canTrashWidget ? _c("a", {
+    ref: "dropdownContent",
     staticClass: "cptm-form-builder-group-actions-dropdown-btn",
     attrs: {
       href: "#"
@@ -29166,7 +29164,8 @@ var render = function render() {
         $event.preventDefault();
         return _vm.toggleExpandedDropdown.apply(null, arguments);
       },
-      blur: _vm.handleBlur
+      blur: _vm.handleBlur,
+      mousedown: _vm.handleClickOutside
     }
   }, [_c("span", {
     staticClass: "uil uil-ellipsis-h",
@@ -29470,11 +29469,9 @@ var render = function render() {
       }
     }
   }, "form-builder-widget-group-titlebar-component", _vm.$props, false)), _vm._v(" "), _c("div", {
-    staticClass: "cptm-form-builder-group-actions-dropdown cptm-form-builder-group-actions-dropdown--group",
-    on: {
-      mousedown: _vm.handleClickOutside
-    }
+    staticClass: "cptm-form-builder-group-actions-dropdown cptm-form-builder-group-actions-dropdown--group"
   }, [_vm.canTrash ? _c("a", {
+    ref: "dropdownContent",
     staticClass: "cptm-form-builder-group-actions-dropdown-btn",
     attrs: {
       href: "#"
@@ -29484,7 +29481,8 @@ var render = function render() {
         $event.preventDefault();
         return _vm.toggleGroupExpandedDropdown.apply(null, arguments);
       },
-      blur: _vm.handleBlur
+      blur: _vm.handleBlur,
+      mousedown: _vm.handleClickOutside
     }
   }, [_c("span", {
     staticClass: "uil uil-ellipsis-h",

@@ -259,6 +259,7 @@ class Localized_Data {
 			),
 			'args'                     => $args,
 			'directory_type'           => $directory_type,
+			'default_directory_type'   => directorist_get_default_directory( 'slug' ),
 			'directory_type_term_data' => $directory_type_term_data,
 			'ajax_url'                 => admin_url( 'admin-ajax.php' ),
 			'miles'                    => !empty( $_GET['miles'] ) ? absint( $_GET['miles'] ) : $miles,

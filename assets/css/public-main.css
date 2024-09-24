@@ -11397,6 +11397,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   height: 100%;
   max-width: 350px;
 }
+.listing-with-sidebar__sidebar form {
+  width: 100%;
+}
 .listing-with-sidebar__sidebar .directorist-advanced-filter__close {
   display: none;
 }

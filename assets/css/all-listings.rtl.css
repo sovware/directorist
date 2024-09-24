@@ -21809,6 +21809,41 @@ Review: New Style
   margin-top: 15px;
 }
 
+/* User Preferences */
+.directorist-user_preferences .directorist-user-hide-listing .directorist-form-group {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 10px;
+}
+.directorist-user_preferences .directorist-user-hide-listing .directorist-form-group label {
+  margin-bottom: 0;
+  color: var(--directorist-color-dark);
+  font-size: 14px;
+  font-weight: 400;
+}
+.directorist-user_preferences .directorist-user-hide-listing .directorist-form-group input {
+  margin: 0;
+}
+.directorist-user_preferences .directorist-user-display-author label {
+  color: var(--directorist-color-dark);
+  font-weight: 500;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+.directorist-user_preferences .select2.select2-container.select2-container--default .select2-selection__arrow b,
+.directorist-user_preferences .select2-selection__arrow, .directorist-user_preferences .select2-selection__clear {
+  display: block !important;
+}
+.directorist-user_preferences .select2.select2-container.select2-container--default.select2-container--open .select2-selection {
+  border-bottom-color: var(--directorist-color-primary);
+}
+
 .directorist-user-socials .directorist-user-social-label {
   font-size: 18px;
   padding-bottom: 18px;

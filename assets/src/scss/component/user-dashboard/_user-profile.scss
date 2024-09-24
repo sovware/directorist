@@ -89,6 +89,45 @@
   }
 }
 
+/* User Preferences */
+.directorist-user_preferences{
+  .directorist-user-hide-listing{
+    .directorist-form-group{
+      display: flex;
+      align-items: center;
+      gap:10px;
+      label{
+        margin-bottom: 0;
+        color: var(--directorist-color-dark);
+        font-size: 14px;
+        font-weight: 400;
+      }
+      input{
+        margin: 0;
+      }
+    }
+  }
+  .directorist-user-display-author{
+    label{
+      color: var(--directorist-color-dark);
+      font-weight: 500;
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+  }
+  .select2.select2-container.select2-container--default .select2-selection__arrow b,
+  .select2-selection__arrow, .select2-selection__clear{
+    display: block !important;
+  }
+  .select2.select2-container.select2-container--default{
+    &.select2-container--open{
+      .select2-selection{
+        border-bottom-color:var(--directorist-color-primary);
+      }
+    }
+  }
+}
+
 // Users Social Info
 .directorist-user-socials {
   .directorist-user-social-label {

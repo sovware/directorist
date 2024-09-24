@@ -56,16 +56,12 @@
         </draggable-list-item-wrapper>
       </div>
 
-      <form-builder-droppable-placeholder
-        v-if="canShowWidgetDropPlaceholder"
-        @drop="$emit('append-widget')"
-      />
+      <form-builder-droppable-placeholder @drop="$emit('append-widget')" />
     </slide-up-down>
   </div>
 </template>
 
 <script>
-
 export default {
   name: "form-builder-widget-group-component",
   props: {

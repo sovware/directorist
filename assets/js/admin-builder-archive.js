@@ -143,7 +143,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
       if (response !== null && response !== void 0 && (_response$data = response.data) !== null && _response$data !== void 0 && _response$data.success) {
         var _response$data$messag, _response$data2;
-        var msg = (_response$data$messag = response === null || response === void 0 ? void 0 : (_response$data2 = response.data) === null || _response$data2 === void 0 ? void 0 : _response$data2.message) !== null && _response$data$messag !== void 0 ? _response$data$messag : 'Migration Successful';
+        var msg = (_response$data$messag = response === null || response === void 0 || (_response$data2 = response.data) === null || _response$data2 === void 0 ? void 0 : _response$data2.message) !== null && _response$data$messag !== void 0 ? _response$data$messag : 'Migration Successful';
         var alert_content = "\n                <div class=\"cptm-section-alert-content\">\n                    <div class=\"cptm-section-alert-icon cptm-alert-success\">\n                        <span class=\"fa fa-check\"></span>\n                    </div>\n\n                    <div class=\"cptm-section-alert-message\">".concat(msg, "</div>\n                </div>\n                ");
         $('.cptm-directory-migration-form').find('.cptm-comfirmation-text').html(alert_content);
         $(self).remove();
@@ -158,7 +158,7 @@ window.addEventListener('DOMContentLoaded', function () {
       var _response$data$messag2, _response$data3;
       // console.log( { response } );
 
-      var msg = (_response$data$messag2 = response === null || response === void 0 ? void 0 : (_response$data3 = response.data) === null || _response$data3 === void 0 ? void 0 : _response$data3.message) !== null && _response$data$messag2 !== void 0 ? _response$data$messag2 : 'Something went wrong please try again';
+      var msg = (_response$data$messag2 = response === null || response === void 0 || (_response$data3 = response.data) === null || _response$data3 === void 0 ? void 0 : _response$data3.message) !== null && _response$data$messag2 !== void 0 ? _response$data$messag2 : 'Something went wrong please try again';
       var alert_content = "\n            <div class=\"cptm-section-alert-content\">\n                <div class=\"cptm-section-alert-icon cptm-alert-error\">\n                    <span class=\"fa fa-times\"></span>\n                </div>\n\n                <div class=\"cptm-section-alert-message\">".concat(msg, "</div>\n            </div>\n            ");
       $('.cptm-directory-migration-form').find('.cptm-comfirmation-text').html(alert_content);
       $(self).remove();
@@ -307,7 +307,7 @@ window.addEventListener('DOMContentLoaded', function () {
       var _response$data;
       if (response !== null && response !== void 0 && (_response$data = response.data) !== null && _response$data !== void 0 && _response$data.success) {
         var _response$data$messag, _response$data2;
-        var msg = (_response$data$messag = response === null || response === void 0 ? void 0 : (_response$data2 = response.data) === null || _response$data2 === void 0 ? void 0 : _response$data2.message) !== null && _response$data$messag !== void 0 ? _response$data$messag : 'Imported successfully!';
+        var msg = (_response$data$messag = response === null || response === void 0 || (_response$data2 = response.data) === null || _response$data2 === void 0 ? void 0 : _response$data2.message) !== null && _response$data$messag !== void 0 ? _response$data$messag : 'Imported successfully!';
         $('.directorist_template_notice').text(msg);
         location.reload();
         return;
@@ -320,7 +320,7 @@ window.addEventListener('DOMContentLoaded', function () {
       var _response$data$messag2, _response$data3;
       // console.log( { response } );
 
-      var msg = (_response$data$messag2 = response === null || response === void 0 ? void 0 : (_response$data3 = response.data) === null || _response$data3 === void 0 ? void 0 : _response$data3.message) !== null && _response$data$messag2 !== void 0 ? _response$data$messag2 : 'Something went wrong please try again';
+      var msg = (_response$data$messag2 = response === null || response === void 0 || (_response$data3 = response.data) === null || _response$data3 === void 0 ? void 0 : _response$data3.message) !== null && _response$data$messag2 !== void 0 ? _response$data$messag2 : 'Something went wrong please try again';
       var alert_content = "\n            <div class=\"cptm-section-alert-content\">\n                <div class=\"cptm-section-alert-icon cptm-alert-error\">\n                    <span class=\"fa fa-times\"></span>\n                </div>\n\n                <div class=\"cptm-section-alert-message\">".concat(msg, "</div>\n            </div>\n            ");
       $('.cptm-directory-migration-form').find('.cptm-comfirmation-text').html(alert_content);
       $(self).remove();

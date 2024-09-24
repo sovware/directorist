@@ -1,46 +1,81 @@
 <template>
-    <div class="cptm-form-group">
-        <label v-if="( label.length )">
-            <component :is="labelType">{{ label }}</component>
-        </label>
+  <div
+    class="cptm-form-group cptm-preview-image-upload"
+    :class="thumbnailSrc.length ? 'cptm-preview-image-upload--show' : ''"
+  >
+    <label v-if="label.length">
+      <component :is="labelType">{{ label }}</component>
+    </label>
 
-        <p class="cptm-form-group-info" v-if="description.length" v-html="description"></p>
-        
-        <div class="cptm-thumbnail">
-            <div class="cptm-thumbnail-img-wrap" v-if="thumbnailSrc.length">
-                <img :src="thumbnailSrc" class="cptm-thumbnail-img" width="100%" height="auto"/>
+    <p
+      class="cptm-form-group-info"
+      v-if="description.length"
+      v-html="description"
+    ></p>
 
-                <span v-if="hasThumbnail" class="cptm-thumbnail-action action-trash" @click="deleteThumbnail()">
-                    <i class="uil uil-trash-alt"></i>
-                </span>
-            </div>
-
-            <span v-if="! thumbnailSrc.length" class="cptm-thumbnail-placeholder">
-                <span class="cptm-thumbnail-placeholder-icon">
-                    <i class="uil uil-image"></i>
-                </span>
-            </span>
-        </div>
-
-        <input type="button" @click.prevent="openMediaPicker" class="cptm-btn cptm-btn-primary" :value="theButtonLabel">
-
-        <form-field-validatior 
-            :section-id="sectionId"
-            :field-id="fieldId"
-            :root="root"
-            :value="value" 
-            :rules="rules" 
-            v-model="validationLog" 
-            @validate="$emit( 'validate', $event )"
+    <div class="cptm-thumbnail">
+      <span
+        v-if="hasThumbnail"
+        class="cptm-thumbnail-action action-trash"
+        @click="deleteThumbnail()"
+      >
+        <i class="uil uil-trash-alt"></i>
+      </span>
+      <div class="cptm-thumbnail-img-wrap" v-if="thumbnailSrc.length">
+        <img
+          :src="thumbnailSrc"
+          class="cptm-thumbnail-img"
+          width="100%"
+          height="auto"
         />
+      </div>
+      <span v-if="!thumbnailSrc.length" class="cptm-thumbnail-placeholder">
+        <span class="cptm-thumbnail-placeholder-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+            <g clip-path="url(#clip0_5019_6906)">
+              <path d="M33.6766 39.7132H6.31999C4.71995 39.7107 3.18616 39.0739 2.05497 37.9423C0.923782 36.8107 0.287519 35.2766 0.285706 33.6766V6.32231C0.28752 4.72248 0.923857 3.18869 2.05511 2.05743C3.18637 0.926176 4.72016 0.28984 6.31999 0.288025H33.6766C35.2764 0.28984 36.8102 0.926176 37.9414 2.05743C39.0727 3.18869 39.709 4.72248 39.7108 6.32231V33.6766C39.709 35.2766 39.0728 36.8107 37.9416 37.9423C36.8104 39.0739 35.2766 39.7107 33.6766 39.7132ZM6.31999 3.14517C5.47764 3.14608 4.67005 3.4811 4.07441 4.07673C3.47878 4.67237 3.14376 5.47996 3.14285 6.32231V33.6766C3.14345 34.5192 3.47831 35.3273 4.07394 35.9233C4.66957 36.5194 5.47734 36.8548 6.31999 36.856H33.6766C34.5192 36.8548 35.327 36.5194 35.9226 35.9233C36.5182 35.3273 36.8531 34.5192 36.8537 33.6766V6.32231C36.8528 5.47996 36.5178 4.67237 35.9221 4.07673C35.3265 3.4811 34.5189 3.14608 33.6766 3.14517H6.31999Z" fill="#D2D6DB"/>
+              <path d="M13.5543 19.6869C12.5444 19.6869 11.5571 19.3874 10.7174 18.8263C9.87766 18.2652 9.22317 17.4677 8.83669 16.5347C8.45021 15.6016 8.34909 14.5749 8.54611 13.5844C8.74314 12.5939 9.22947 11.684 9.94359 10.9699C10.6577 10.2558 11.5676 9.76945 12.5581 9.57242C13.5486 9.3754 14.5753 9.47652 15.5084 9.863C16.4414 10.2495 17.2389 10.904 17.8 11.7437C18.3611 12.5834 18.6606 13.5707 18.6606 14.5806C18.6591 15.9344 18.1206 17.2323 17.1633 18.1896C16.206 19.1469 14.9081 19.6854 13.5543 19.6869ZM13.5543 12.3326C13.1094 12.3326 12.6745 12.4645 12.3046 12.7117C11.9347 12.9589 11.6464 13.3102 11.4762 13.7213C11.306 14.1323 11.2616 14.5846 11.3484 15.0209C11.4353 15.4573 11.6496 15.858 11.9643 16.1725C12.279 16.487 12.6798 16.7011 13.1162 16.7878C13.5526 16.8745 14.0048 16.8298 14.4158 16.6593C14.8267 16.4889 15.1779 16.2005 15.4249 15.8305C15.6719 15.4604 15.8037 15.0255 15.8034 14.5806C15.8025 13.9845 15.5652 13.413 15.1436 12.9916C14.722 12.5702 14.1504 12.3332 13.5543 12.3326ZM3.04457 36.48C2.76869 36.4798 2.4988 36.3996 2.26748 36.2493C2.03616 36.099 1.85332 35.8849 1.74104 35.6329C1.62876 35.3809 1.59185 35.1018 1.63476 34.8292C1.67767 34.5567 1.79857 34.3025 1.98286 34.0972L8.69828 26.6149C9.3463 25.8887 10.2508 25.4423 11.2213 25.3696C12.1919 25.2969 13.1528 25.6036 13.9017 26.2252L16.7874 28.6069C16.8811 28.6869 16.9906 28.7464 17.1087 28.7814C17.2268 28.8164 17.351 28.8263 17.4731 28.8103C17.5943 28.7977 17.7117 28.7609 17.8183 28.702C17.9249 28.6431 18.0186 28.5633 18.0937 28.4674L25.6869 18.6572C26.0369 18.202 26.487 17.8335 27.0022 17.58C27.5175 17.3266 28.0841 17.195 28.6583 17.1954H28.672C29.2409 17.1947 29.8025 17.3233 30.3143 17.5716C30.8261 17.8199 31.2748 18.1813 31.6263 18.6286L38.9086 27.8937C39.1427 28.1917 39.2489 28.5704 39.2038 28.9467C39.1587 29.323 38.966 29.6659 38.668 29.9C38.37 30.1342 37.9913 30.2404 37.615 30.1952C37.2388 30.1501 36.8959 29.9574 36.6617 29.6594L29.3794 20.3943C29.2943 20.286 29.1854 20.1987 29.0612 20.1392C28.9369 20.0798 28.8006 20.0497 28.6629 20.0514C28.5246 20.0565 28.389 20.0906 28.2648 20.1514C28.1405 20.2122 28.0305 20.2985 27.9417 20.4046L20.3429 30.2103C20.0336 30.6093 19.6475 30.9421 19.2072 31.1891C18.767 31.436 18.2817 31.5921 17.78 31.6481C17.2784 31.704 16.7706 31.6587 16.2868 31.5148C15.803 31.3709 15.353 31.1313 14.9634 30.8103L12.0777 28.4286C11.8967 28.2784 11.6645 28.2044 11.43 28.2221C11.1955 28.2398 10.977 28.3478 10.8206 28.5234L4.11428 36C3.98032 36.1514 3.81562 36.2726 3.63117 36.3553C3.44671 36.4381 3.24674 36.4806 3.04457 36.48Z" fill="#D2D6DB"/>
+            </g>
+            <defs>
+              <clipPath id="clip0_5019_6906">
+                <rect width="40" height="40" fill="white"/>
+              </clipPath>
+            </defs>
+          </svg>
+        </span>
+      </span>
+      <label
+        class="cptm-upload-btn cptm-btn cptm-btn-dark directorist-row-tooltip"
+        data-tooltip="Change image"
+        data-flow="bottom"
+      >
+        <i class="uil uil-top-arrow-to-top"></i>
+        <input
+          type="button"
+          @click.prevent="openMediaPicker"
+          :value="theButtonLabel"
+        />
+      </label>
+      <div class="cptm-thumbnail-drag-text">upload image here</div>
     </div>
+
+    <form-field-validatior
+      :section-id="sectionId"
+      :field-id="fieldId"
+      :root="root"
+      :value="value"
+      :rules="rules"
+      v-model="validationLog"
+      @validate="$emit('validate', $event)"
+    />
+  </div>
 </template>
 
 <script>
-import image_feild from '../../../../mixins/form-fields/wp-media-picker-field';
+import image_feild from "../../../../mixins/form-fields/wp-media-picker-field";
 
 export default {
-    name: 'wp-media-picker-field-theme-default',
-    mixins: [ image_feild ],
-}
+  name: "wp-media-picker-field-theme-default",
+  mixins: [image_feild],
+};
 </script>

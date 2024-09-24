@@ -4014,7 +4014,7 @@ function directorist_password_reset_url( $user, $password_reset = true, $confirm
     }
 
     $args = array(
-        'user' => $user->user_email
+        'user' => base64_encode( $user->user_email )
     );
 
     global $directories_user_rest_keys;

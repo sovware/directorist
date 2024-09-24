@@ -2,6 +2,7 @@
   <div
     class="cptm-form-builder-group-field-item"
     :class="expandState ? 'expanded' : ''"
+    :class="expandState ? 'expanded' : ''"
     v-if="widget_fields && Object.keys(widget_fields).length > 0"
   >
     <!-- Widget Titlebar -->
@@ -18,6 +19,7 @@
     <form-builder-widget-titlebar-component
       :label="widgetTitle"
       :sublabel="widgetSubtitle"
+      :icon="widgetIcon"
       :icon="widgetIcon"
       :expanded="expandState"
       @toggle-expand="toggleExpand"

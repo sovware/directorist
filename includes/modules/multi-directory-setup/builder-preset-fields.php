@@ -955,7 +955,7 @@ return apply_filters( 'atbdp_form_preset_widgets', array(
 			],
 			'field_key' => [
 				'type'  => 'hidden',
-				'value' => 'privacy_terms',
+				'value' => 'privacy_policy',
 				'rules' => [
 					'unique'   => true,
 					'required' => true,

@@ -52,6 +52,10 @@
 			"type": "boolean",
 			"default": false
 		},
+		"show_popular_category": {
+			"type": "boolean",
+			"default": false
+		},
 		"directory_type": {
 			"type": "string",
 			"default": ""

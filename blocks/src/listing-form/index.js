@@ -25,10 +25,11 @@ registerBlockType( metadata.name, {
 	},
 
 	edit( { attributes, setAttributes } ) {
+		const [ shouldRender, setShouldRender ] = useState( true );
+
 		const oldTypes = attributes.directory_type
 			? attributes.directory_type.split( ',' )
 			: [];
-		const [ shouldRender, setShouldRender ] = useState( true );
 
 		return (
 			<Fragment>

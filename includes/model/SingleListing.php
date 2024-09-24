@@ -724,8 +724,10 @@ class Directorist_Single_Listing {
 	}
 
 	public function author_display_email() {
-		$email_display_type  = get_directorist_option('display_author_email', 'public');
-		$email = $this->author_info( 'name' );
+		$author_id 			= $this->author_id;
+		$display_email 		= get_user_meta( $author_id, 'directorist_display_author_email', true );
+		$email_display_type = ! empty( $display_email ) ? $display_email : 'public';
+		$email 				= $this->author_info( 'name' );
 
 		if ( !$email ) {
 			return false;

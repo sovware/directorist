@@ -8,6 +8,7 @@
 use \Directorist\Helper;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
+$display_author_email = $dashboard->user_info( 'display_author_email' ) ?? 'public';
 ?>
 
 <form action="#" id="user_preferences" method="post">
@@ -38,7 +39,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 									<label for="full_name"><?php esc_html_e( 'Hide contact form in my listings', 'directorist' ); ?></label>
 
-									<input type="checkbox" id="hide_contact_form" name="hide_contact_form" value="1" <?php echo esc_attr( ($dashboard->user_info( 'hide_contact_form' ) == '1' ) ? 'checked' : '' ); ?>>
+									<input type="checkbox" id="hide_contact_form" name="directorist_hide_contact_form" value="1" <?php echo esc_attr( ($dashboard->user_info( 'hide_contact_form' ) == '1' ) ? 'checked' : '' ); ?>>
 
 								</div>
 
@@ -50,10 +51,10 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 									<label for="display_author_email"><?php esc_html_e( 'Display Email on Author Page', 'directorist' ); ?></label>
 
-									<select name="display_author_email" id="display_author_email">
-										<option value="public" ><?php esc_html_e('Display to Everyone', 'directorist') ?></option>
-										<option value="logged_in" ><?php esc_html_e('Display to Logged in Users Only', 'directorist') ?></option>
-										<option value="none_to_display" ><?php esc_html_e('Don’t Display', 'directorist') ?></option>
+									<select name="directorist_display_author_email" id="display_author_email">
+										<option value="public" <?php selected( $display_author_email, 'public' ); ?>><?php esc_html_e('Display to Everyone', 'directorist') ?></option>
+										<option value="logged_in" <?php selected( $display_author_email, 'logged_in' ); ?>><?php esc_html_e('Display to Logged in Users Only', 'directorist') ?></option>
+										<option value="none_to_display" <?php selected( $display_author_email, 'none_to_display' ); ?>><?php esc_html_e('Don’t Display', 'directorist') ?></option>
 									</select>
 
 								</div>

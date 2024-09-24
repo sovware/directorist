@@ -348,7 +348,11 @@ class Directorist_Listing_Dashboard {
 			break;
 
 			case 'hide_contact_form':
-			$result = get_user_meta( $id, 'hide_contact_form', true );
+			$result = get_user_meta( $id, 'directorist_hide_contact_form', true );
+			break;
+
+			case 'display_author_email':
+			$result = get_user_meta( $id, 'directorist_display_author_email', true );
 			break;
 		}
 

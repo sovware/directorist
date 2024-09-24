@@ -1494,26 +1494,6 @@ Please remember that your order may be canceled if you do not make your payment 
                     'type'  => 'toggle',
                     'value' => true,
                 ],
-                'display_author_email' => [
-                    'label' => __('Author Email', 'directorist'),
-                    'type'  => 'select',
-                    'value' => 'public',
-                    'options' => [
-                        [
-                            'value' => 'public',
-                            'label' => __('Display', 'directorist'),
-                        ],
-                        [
-                            'value' => 'logged_in',
-                            'label' => __('Display only for Logged in Users', 'directorist'),
-                        ],
-
-                        [
-                            'value' => 'none_to_display',
-                            'label' => __('Hide', 'directorist'),
-                        ],
-                    ],
-                ],
                 'atbdp_enable_cache' => [
                     'label' => __('Enable Cache', 'directorist'),
                     'type'  => 'toggle',
@@ -4310,11 +4290,6 @@ Please remember that your order may be canceled if you do not make your payment 
                                     'fields'      => [
                                         'delete_expired_listing_permanently', 'delete_expired_listings_after',
                                      ],
-                                ],
-                                'general_bottom_settings' => [
-                                    'fields'      => [
-                                        'display_author_email',
-                                    ],
                                 ],
                             ] ),
                         ],

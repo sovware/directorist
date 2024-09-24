@@ -129,6 +129,7 @@ class Asset_Loader {
 			// Dashboard
 			case 'dashboard-contents':
 				wp_enqueue_script( 'directorist-dashboard' );
+				wp_enqueue_script( 'directorist-select2-script' );
 				break;
 
 			// All Authors

@@ -1162,7 +1162,7 @@
 /* data Progressing */
 .directorist-setup-wizard__step {
   .directorist-setup-wizard__content{
-    &.hide{
+    &.hidden{
       display: none;
     }
   }
@@ -1176,7 +1176,7 @@
     width: 600px;
     border-radius: 10px;
   }
-  &.hide{
+  &.hidden{
     display: none;
   }
 }
@@ -1227,18 +1227,6 @@
       transition: all 1s;
       width: 0%;
       height: 100%;
-      &.import-1 {
-        width: 25%;
-      }
-      &.import-2 {
-        width: 50%;
-      }
-      &.import-3 {
-        width: 75%;
-      }
-      &.import-4 {
-        width: 100%;
-      }
       &.import-done {
         background: #38c172;
       }

@@ -162,8 +162,8 @@ jQuery(document).ready(function ($) {
     // Add a class when the button is clicked
     $(this).addClass('loading');
     $('.directorist_dummy_data_log').text('Preparing data...');
-    $('.directorist-setup-wizard__content').addClass('hide');
-    $('.middle-content-import').removeClass('hide').addClass('show');
+    $('.directorist-setup-wizard__content').addClass('hidden');
+    $('.middle-content-import').removeClass('hidden');
     var type_count = 0;
     var import_dummy = function import_dummy() {
       var data = {

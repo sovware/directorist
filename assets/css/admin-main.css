@@ -30165,7 +30165,7 @@ span.drop-toggle-caret:before {
   }
 }
 /* data Progressing */
-.directorist-setup-wizard__step .directorist-setup-wizard__content.hide {
+.directorist-setup-wizard__step .directorist-setup-wizard__content.hidden {
   display: none;
 }
 
@@ -30177,7 +30177,7 @@ span.drop-toggle-caret:before {
   width: 600px;
   border-radius: 10px;
 }
-.middle-content.hide {
+.middle-content.hidden {
   display: none;
 }
 
@@ -30242,22 +30242,6 @@ span.drop-toggle-caret:before {
   transition: all 1s;
   width: 0%;
   height: 100%;
-}
-.directorist-import-progress .directorist-import-progress-bar-bg .directorist-import-progress-bar.import-1,
-.directorist-import-error .directorist-import-progress-bar-bg .directorist-import-progress-bar.import-1 {
-  width: 25%;
-}
-.directorist-import-progress .directorist-import-progress-bar-bg .directorist-import-progress-bar.import-2,
-.directorist-import-error .directorist-import-progress-bar-bg .directorist-import-progress-bar.import-2 {
-  width: 50%;
-}
-.directorist-import-progress .directorist-import-progress-bar-bg .directorist-import-progress-bar.import-3,
-.directorist-import-error .directorist-import-progress-bar-bg .directorist-import-progress-bar.import-3 {
-  width: 75%;
-}
-.directorist-import-progress .directorist-import-progress-bar-bg .directorist-import-progress-bar.import-4,
-.directorist-import-error .directorist-import-progress-bar-bg .directorist-import-progress-bar.import-4 {
-  width: 100%;
 }
 .directorist-import-progress .directorist-import-progress-bar-bg .directorist-import-progress-bar.import-done,
 .directorist-import-error .directorist-import-progress-bar-bg .directorist-import-progress-bar.import-done {

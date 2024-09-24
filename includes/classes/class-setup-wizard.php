@@ -715,7 +715,7 @@ class SetupWizard
                 </div>
             </div>
         </div>
-        <div class="middle-content middle-content-import hide">
+        <div class="middle-content middle-content-import hidden">
             <h1>We are building your Directory</h1>
             <div class="directorist-import-process-step-wrap">
                 <div class="directorist-import-progress">
@@ -723,11 +723,11 @@ class SetupWizard
                         <div class="directorist-import-progress-info-text ">
                             <span class="directorist-import-text-inner">1. Installing required plugins, forms, etc</span>
                         </div>
-                        <div class="directorist-import-progress-info-precent">25</div>
+                        <div class="directorist-import-progress-info-precent">0</div>
                     </div>
                     <div class="directorist-import-progress-bar-wrap">
                         <div class="directorist-import-progress-bar-bg">
-                            <div class="directorist-import-progress-bar  import-1"></div>
+                            <div class="directorist-import-progress-bar"></div>
                         </div>
                         <div class="import-progress-gap">
                             <span></span><span></span><span></span>

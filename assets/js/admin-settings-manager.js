@@ -17867,7 +17867,7 @@ __webpack_require__.r(__webpack_exports__);
         the_current_widget = this.avilableWidgets[widget_group][widget_name];
         current_widget_name = widget_name;
       }
-      if (the_current_widget.widgets && the_current_widget.widgets[widget_child_name]) {
+      if (the_current_widget && the_current_widget.widgets && the_current_widget.widgets[widget_child_name]) {
         the_current_widget = the_current_widget.widgets[widget_child_name];
         current_widget_child_name = widget_child_name;
       }

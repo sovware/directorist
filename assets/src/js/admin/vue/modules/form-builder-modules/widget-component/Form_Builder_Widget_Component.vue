@@ -332,6 +332,7 @@ export default {
       }
 
       if (
+        the_current_widget &&
         the_current_widget.widgets &&
         the_current_widget.widgets[widget_child_name]
       ) {

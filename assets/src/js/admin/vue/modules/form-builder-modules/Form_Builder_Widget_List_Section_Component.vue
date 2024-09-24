@@ -1,29 +1,48 @@
 <template>
   <div class="cptm-form-builder-preset-fields">
-    <h3 class="cptm-title-3">{{ title }}</h3>
-    <p class="cptm-description-text">{{ description }}</p>
-
-    <ul class="cptm-form-builder-field-list" v-if="filtered_widget_list">
-      <draggable-list-item
-        list-type="li"
-        item-class-name="cptm-form-builder-field-list-item"
-        v-for="(widget, widget_key) in filtered_widget_list"
-        :key="widget_key"
-        :drag-type="allowMultiple || widget.allowMultiple ? 'clone' : 'move'"
-        @drag-start="$emit('drag-start', { widget_key, widget })"
-        @drag-end="$emit('drag-end', { widget_key, widget })"
+    <div class="cptm-form-builder-preset-fields-header">
+      <a
+        href="#"
+        class="cptm-form-builder-preset-fields-header-action-link"
+        @click.prevent="togglePresetExpanded"
       >
-        <span class="cptm-form-builder-field-list-icon">
-          <span
-            v-if="widget.icon && widget.icon.length"
-            :class="widget.icon"
-          ></span>
+        <span class="cptm-form-builder-preset-fields-header-action-text">
+          {{ title }}</span
+        >
+        <span
+          class="cptm-form-builder-preset-fields-header-action-icon"
+          :class="
+            isPresetExpanded ? 'action-collapse-up' : 'action-collapse-down'
+          "
+        >
+          <span aria-hidden="true" class="uil uil-angle-down"></span>
         </span>
-        <span class="cptm-form-builder-field-list-label">{{
-          widget.label
-        }}</span>
-      </draggable-list-item>
-    </ul>
+      </a>
+    </div>
+
+    <slide-up-down :active="isPresetExpanded" :duration="500">
+      <ul class="cptm-form-builder-field-list" v-if="filtered_widget_list">
+        <draggable-list-item
+          list-type="li"
+          item-class-name="cptm-form-builder-field-list-item"
+          v-for="(widget, widget_key) in filtered_widget_list"
+          :key="widget_key"
+          :drag-type="allowMultiple || widget.allowMultiple ? 'clone' : 'move'"
+          @drag-start="$emit('drag-start', { widget_key, widget })"
+          @drag-end="$emit('drag-end', { widget_key, widget })"
+        >
+          <span class="cptm-form-builder-field-list-icon">
+            <span
+              v-if="widget.icon && widget.icon.length"
+              :class="widget.icon"
+            ></span>
+          </span>
+          <span class="cptm-form-builder-field-list-label">{{
+            widget.label
+          }}</span>
+        </draggable-list-item>
+      </ul>
+    </slide-up-down>
   </div>
 </template>
 
@@ -61,6 +80,9 @@ export default {
     activeWidgetGroups: {
       default: "",
     },
+    presetExpanded: {
+      default: false,
+    },
   },
 
   created() {
@@ -72,6 +94,7 @@ export default {
     return {
       base_widget_list: {},
       filtered_widget_list: {},
+      isPresetExpanded: true,
     };
   },
 
@@ -82,12 +105,16 @@ export default {
   },
 
   methods: {
+    togglePresetExpanded() {
+      this.isPresetExpanded = !this.isPresetExpanded;
+    },
+
     // filtereWidgetList
     filtereWidgetList() {
       // Add widget group and widget name
       let widget_list = this.widgets;
-      
-      for ( let widget_key in widget_list ) {
+
+      for (let widget_key in widget_list) {
         widget_list[widget_key].options.widget_group = {
           type: "hidden",
           value: this.widgetGroup,
@@ -98,19 +125,25 @@ export default {
           value: widget_key,
         };
 
-        if ( widget_list[widget_key].widgets ) {
-          for ( let sub_widget_key in widget_list[ widget_key ].widgets ) {
-            widget_list[ widget_key ].widgets[ sub_widget_key ].options.widget_group = {
+        if (widget_list[widget_key].widgets) {
+          for (let sub_widget_key in widget_list[widget_key].widgets) {
+            widget_list[widget_key].widgets[
+              sub_widget_key
+            ].options.widget_group = {
               type: "hidden",
               value: this.widgetGroup,
             };
 
-            widget_list[ widget_key ].widgets[ sub_widget_key ].options.widget_name = {
+            widget_list[widget_key].widgets[
+              sub_widget_key
+            ].options.widget_name = {
               type: "hidden",
               value: widget_key,
             };
 
-            widget_list[ widget_key ].widgets[ sub_widget_key ].options.widget_child_name = {
+            widget_list[widget_key].widgets[
+              sub_widget_key
+            ].options.widget_child_name = {
               type: "hidden",
               value: sub_widget_key,
             };

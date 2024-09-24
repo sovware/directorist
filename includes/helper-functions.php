@@ -2998,14 +2998,22 @@ if( !function_exists('directory_types') ){
 
 if ( ! function_exists( 'directorist_get_default_directory' ) ) {
 	/**
-	 * Get default directory id.
+	 * Get default directory id or slug.
 	 *
-	 * @return int Default directory id.
+	 * @param string $return Return type {id, slug}
+	 *
+	 * @return int|string Default directory id or slug depending on return type.
 	 */
-	function directorist_get_default_directory() {
+	function directorist_get_default_directory( $return = 'id' ) {
+		if ( $return === 'slug' ) {
+			$fields = 'slugs';
+		} else {
+			$fields = 'ids';
+		}
+
 		$directories = directorist_get_directories( array(
 			'default_only' => true,
-			'fields'       => 'ids',
+			'fields'       => $fields,
 		) );
 
 		if ( empty( $directories ) || is_wp_error( $directories ) || ! isset( $directories[0] ) ) {
@@ -3048,7 +3056,7 @@ if( !function_exists('directorist_get_form_fields_by_directory_type') ){
         if ( ! ( $term instanceof \WP_Term ) ) {
 		      return [];
 		    }
-      
+
         $submission_form        = get_term_meta( $term->term_id, 'submission_form_fields', true );
         $submission_form_fields = ! empty( $submission_form['fields'] ) ? $submission_form['fields'] : [];
         return $submission_form_fields;

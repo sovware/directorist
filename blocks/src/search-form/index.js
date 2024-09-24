@@ -36,6 +36,8 @@ registerBlockType( metadata.name, {
 	},
 
 	edit( { attributes, setAttributes } ) {
+		const [ shouldRender, setShouldRender ] = useState( true );
+
 		let {
 			show_title_subtitle,
 			search_bar_title,
@@ -50,11 +52,10 @@ registerBlockType( metadata.name, {
 			logged_in_user_only,
 			directory_type,
 			default_directory_type,
+			show_popular_category
 		} = attributes;
 
 		let oldTypes = directory_type ? directory_type.split( ',' ) : [];
-
-		const [ shouldRender, setShouldRender ] = useState( true );
 
 		return (
 			<Fragment>
@@ -78,6 +79,13 @@ registerBlockType( metadata.name, {
 									setAttributes( {
 										directory_type: types.join( ',' ),
 									} );
+
+									if ( types.length === 1 ) {
+										setAttributes( {
+											default_directory_type: types[0],
+										} );
+									}
+
 									setShouldRender( false );
 								} }
 							/>
@@ -85,7 +93,7 @@ registerBlockType( metadata.name, {
 
 						<ToggleControl
 							label={ __(
-								'Show Title & Subtitle?',
+								'Display Title & Subtitle',
 								'directorist'
 							) }
 							checked={ show_title_subtitle }
@@ -127,7 +135,7 @@ registerBlockType( metadata.name, {
 						) : null }
 						<ToggleControl
 							label={ __(
-								'Show More Filters Button?',
+								'Display More Filters Button',
 								'directorist'
 							) }
 							checked={ more_filters_button }
@@ -155,7 +163,7 @@ registerBlockType( metadata.name, {
 						{ more_filters_button ? (
 							<ToggleControl
 								label={ __(
-									'Show Apply Filters Button?',
+									'Display Apply Filters Button',
 									'directorist'
 								) }
 								checked={ apply_filters_button }
@@ -184,7 +192,7 @@ registerBlockType( metadata.name, {
 						{ more_filters_button ? (
 							<ToggleControl
 								label={ __(
-									'Show Reset Filters Button?',
+									'Display Reset Filters Button',
 									'directorist'
 								) }
 								checked={ reset_filters_button }
@@ -243,9 +251,27 @@ registerBlockType( metadata.name, {
 								className="directorist-gb-fixed-control"
 							/>
 						) : null }
+
 						<ToggleControl
 							label={ __(
-								'Logged In User Only?',
+								'Display Popular Categories',
+								'directorist'
+							) }
+							checked={ show_popular_category }
+							onChange={ ( newState ) =>
+								setAttributes( {
+									show_popular_category: newState,
+								} )
+							}
+							help={ __(
+								'You can control the number of popular categories to show from settings panel.',
+								'directorist'
+							) }
+						/>
+
+						<ToggleControl
+							label={ __(
+								'Logged In User Can View Only',
 								'directorist'
 							) }
 							checked={ logged_in_user_only }

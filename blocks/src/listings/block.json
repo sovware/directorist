@@ -102,6 +102,10 @@
 		"default_directory_type": {
 			"type": "string",
 			"default": ""
+		},
+		"sidebar": {
+			"type": "string",
+			"default": ""
 		}
 	},
 	"supports": {

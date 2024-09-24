@@ -38,7 +38,7 @@ registerBlockType( metadata.name, {
 					>
 						<ToggleControl
 							label={ __(
-								'Logged In User Only?',
+								'Logged In User Can View Only',
 								'directorist'
 							) }
 							checked={ logged_in_user_only }

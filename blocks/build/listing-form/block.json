@@ -8,6 +8,7 @@
   "description": "Create a listing entry form.",
   "keywords": [
     "add",
+    "create",
     "listing",
     "form"
   ],
@@ -17,5 +18,9 @@
       "default": ""
     }
   },
-  "editorScript": "file:./index.js"
+  "editorScript": [
+    "file:./index.js",
+    "directorist-select2-script",
+    "directorist-add-listing"
+  ]
 }

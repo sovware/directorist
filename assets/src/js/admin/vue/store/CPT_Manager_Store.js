@@ -7,15 +7,17 @@ export default new Vuex.Store({
   // state
   state: {
     active_nav_index: 0,
+    is_saving: false,
     fields: {},
     layouts: {},
     options: {},
+    cachedOptions: {},
     config: {},
-    cached_fields: {},
     highlighted_field_key: '',
     metaKeys: {},
     deprecatedMetaKeys: [],
     sidebarNavigation: {},
+    cached_fields: {},
   },
   
   // mutations
@@ -174,6 +176,14 @@ export default new Vuex.Store({
 
     updatelayouts: ( state, value ) => {
       state.layouts = value;
+    },
+    
+    updateIsSaving: ( state, value ) => {
+      state.is_saving = value;
+    },
+
+    updateCachedFields: ( state ) => {
+      state.cached_fields = JSON.parse( JSON.stringify( state.fields ) );
     },
 
     updateOptions: ( state, value ) => {

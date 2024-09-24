@@ -11,7 +11,7 @@ use \Directorist\Helper;
 <div id="directorist" class="atbd_wrapper directorist directorist-checkout-form directorist-w-100">
 <div class="<?php Helper::directorist_container_fluid(); ?>">
         <div class="<?php Helper::directorist_row(); ?>">
-            <div class="directorist-col-md-6 directorist-offset-md-3">
+            <div class="directorist-col-md-8 directorist-offset-md-2">
         <?php do_action('atbdp_before_checkout_form_start'); ?>
         <form id="atbdp-checkout-form" class="form-vertical clearfix" method="post" action="#">
             <?php do_action('atbdp_after_checkout_form_start'); ?>

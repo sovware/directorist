@@ -19,8 +19,8 @@
     margin-top: 10px;
 }
 
-[class*="wp-block-directorist-"] {
-    position: relative;
+.block-editor-block-list__layout [class*="wp-block-directorist-"] {
+    position: relative !important;
 
     &:before {
         content: "";
@@ -29,15 +29,14 @@
         right: 0;
         bottom: 0;
         top: 0;
-        z-index: 9;
+        z-index: 999;
+        pointer-events: none;
+        background-color: rgba(0,0,0,0);
+    }
+
+    a, button {
         pointer-events: none;
     }
-}
-
-.directorist-block-preview {
-    display: block;
-    width: 100%;
-    height: auto;
 }
 
 .directorist-gb-multiselect label {

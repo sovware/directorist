@@ -17,7 +17,7 @@ import {
 	Button,
 	ButtonGroup,
 	PanelBody,
-	ToggleControl
+	ToggleControl,
 } from '@wordpress/components';
 import {
 	AlignmentControl,
@@ -41,7 +41,6 @@ import {
 } from '@wordpress/blocks';
 import { useMergeRefs, useRefEffect } from '@wordpress/compose';
 import { useSelect, useDispatch } from '@wordpress/data';
-
 
 function useEnter( props ) {
 	const { replaceBlocks, selectionChange } = useDispatch( blockEditorStore );
@@ -109,7 +108,6 @@ function WidthPanel( { selectedWidth, setAttributes } ) {
 	}
 
 	return (
-		
 		<ButtonGroup aria-label={ __( 'Button width' ) }>
 			{ [ 25, 50, 75, 100 ].map( ( widthValue ) => {
 				return (
@@ -117,9 +115,7 @@ function WidthPanel( { selectedWidth, setAttributes } ) {
 						key={ widthValue }
 						size="small"
 						variant={
-							widthValue === selectedWidth
-								? 'primary'
-								: undefined
+							widthValue === selectedWidth ? 'primary' : undefined
 						}
 						onClick={ () => handleChange( widthValue ) }
 					>
@@ -128,7 +124,6 @@ function WidthPanel( { selectedWidth, setAttributes } ) {
 				);
 			} ) }
 		</ButtonGroup>
-
 	);
 }
 
@@ -141,15 +136,8 @@ function ButtonEdit( props ) {
 		mergeBlocks,
 		clientId,
 	} = props;
-	const {
-		textAlign,
-		placeholder,
-		style,
-		text,
-		width,
-		showDashboardMenu,
-	} = attributes;
-
+	const { textAlign, placeholder, style, text, width, showDashboardMenu } =
+		attributes;
 
 	function onKeyDown( event ) {
 		if ( isKeyboardEvent.primary( event, 'k' ) ) {
@@ -244,9 +232,8 @@ function ButtonEdit( props ) {
 						} }
 					/>
 				) }
-		
 			</BlockControls>
-			
+
 			<InspectorControls>
 				<PanelBody title={ __( 'Settings' ) }>
 					<ToggleControl
@@ -261,7 +248,7 @@ function ButtonEdit( props ) {
 							} )
 						}
 					/>
-					
+
 					<WidthPanel
 						selectedWidth={ width }
 						setAttributes={ setAttributes }

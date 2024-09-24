@@ -32750,9 +32750,10 @@ var render = function render() {
   }, [!_vm.isButtonEditable ? _c("div", {
     staticClass: "directorist-input"
   }, [_c("button", {
-    staticClass: "cptm-btn cptm-btn-primary",
+    staticClass: "cptm-btn",
     attrs: {
-      type: "button"
+      type: "button",
+      "data-info": "Click to edit button text"
     },
     on: {
       click: _vm.showEditableButton

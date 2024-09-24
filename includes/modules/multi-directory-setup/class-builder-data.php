@@ -2112,7 +2112,7 @@ class Builder_Data {
             'submit_button_label'                         => [
                 'label' => __( 'Submit Button Label', 'directorist' ),
                 'type'  => 'editable-button',
-                'value' => __( 'Save & Preview', 'directorist' ),
+                'value' => __( 'Update', 'directorist' ),
             ],
 
             'single_listings_contents'                    => [

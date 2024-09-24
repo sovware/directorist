@@ -1309,6 +1309,13 @@ div[draggable="true"].cptm-form-builder-group-title-area {
       color: #3e62f5;
     }
   }
+  .directorist-form-fields-area {
+    .cptm-form-group {
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
 }
 
 .cptm-form-builder-group-fields {

@@ -4,9 +4,9 @@
 	"category": "directorist-blocks-collection",
 	"version": "1.0.0",
 	"name": "directorist/add-listing",
-	"title": "Listing Form",
+	"title": "Add Listing Form",
 	"description": "Create a listing entry form.",
-	"keywords": [ "add", "create", "listing", "form" ],
+	"keywords": [ "add listing", "create listing", "listing form" ],
 	"attributes": {
 		"directory_type": {
 			"type": "string",

@@ -59,6 +59,10 @@
 		"map_zoom_level": {
 			"type": "number",
 			"default": 0
+		},
+		"sidebar": {
+			"type": "string",
+			"default": ""
 		}
 	},
 	"supports": {

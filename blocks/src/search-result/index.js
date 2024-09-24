@@ -54,6 +54,7 @@ registerBlockType( metadata.name, {
 			map_zoom_level,
 			featured_only,
 			popular_only,
+			sidebar
 		} = attributes;
 
 		return (
@@ -87,7 +88,7 @@ registerBlockType( metadata.name, {
 						initialOpen={ true }
 					>
 						<SelectControl
-							label={ __( 'View As', 'directorist' ) }
+							label={ __( 'Default View', 'directorist' ) }
 							labelPosition="side"
 							value={ view }
 							options={ [
@@ -146,6 +147,37 @@ registerBlockType( metadata.name, {
 						) : (
 							''
 						) }
+
+						<SelectControl
+							label={ __( 'Sidebar Filter', 'directorist' ) }
+							labelPosition="side"
+							value={ sidebar }
+							options={ [
+								{
+									label: __( 'Default', 'directorist' ),
+									value: '',
+								},
+								{
+									label: __( 'Left Sidebar', 'directorist' ),
+									value: 'left_sidebar',
+								},
+								{
+									label: __( 'Right Sidebar', 'directorist' ),
+									value: 'right_sidebar',
+								},
+								{
+									label: __( 'No Sidebar', 'directorist' ),
+									value: 'no_sidebar',
+								},
+							] }
+							onChange={ ( newState ) =>
+								setAttributes( {
+									sidebar: newState
+								} )
+							}
+							className="directorist-gb-fixed-control"
+						/>
+
 						<TextControl
 							label={ __( 'Listings Per Page', 'directorist' ) }
 							type="number"
@@ -204,14 +236,14 @@ registerBlockType( metadata.name, {
 							className="directorist-gb-fixed-control"
 						/>
 						<ToggleControl
-							label={ __( 'Show Pagination?', 'directorist' ) }
+							label={ __( 'Display Pagination', 'directorist' ) }
 							checked={ show_pagination }
 							onChange={ ( newState ) =>
 								setAttributes( { show_pagination: newState } )
 							}
 						/>
 						<ToggleControl
-							label={ __( 'Show Header?', 'directorist' ) }
+							label={ __( 'Display Header', 'directorist' ) }
 							checked={ header }
 							onChange={ ( newState ) =>
 								setAttributes( { header: newState } )
@@ -233,14 +265,14 @@ registerBlockType( metadata.name, {
 							setAttributes( { header_title: '' } )
 						) }
 						<ToggleControl
-							label={ __( 'Featured Only?', 'directorist' ) }
+							label={ __( 'Display Featured Listings Only', 'directorist' ) }
 							checked={ featured_only }
 							onChange={ ( newState ) =>
 								setAttributes( { featured_only: newState } )
 							}
 						/>
 						<ToggleControl
-							label={ __( 'Popular Only?', 'directorist' ) }
+							label={ __( 'Display Popular Only', 'directorist' ) }
 							checked={ popular_only }
 							onChange={ ( newState ) =>
 								setAttributes( { popular_only: newState } )
@@ -248,7 +280,7 @@ registerBlockType( metadata.name, {
 						/>
 						<ToggleControl
 							label={ __(
-								'Logged In User Only?',
+								'Logged In User Can View Only',
 								'directorist'
 							) }
 							checked={ logged_in_user_only }

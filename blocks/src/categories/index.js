@@ -57,6 +57,8 @@ registerBlockType( metadata.name, {
 	},
 
 	edit( { attributes, setAttributes } ) {
+		const [ shouldRender, setShouldRender ] = useState( true );
+
 		let {
 			view,
 			orderby,
@@ -72,8 +74,6 @@ registerBlockType( metadata.name, {
 
 		let oldCategories = slug ? slug.split( ',' ) : [],
 			oldTypes = directory_type ? directory_type.split( ',' ) : [];
-
-		const [ shouldRender, setShouldRender ] = useState( true );
 
 		return (
 			<Fragment>
@@ -114,6 +114,13 @@ registerBlockType( metadata.name, {
 									setAttributes( {
 										directory_type: types.join( ',' ),
 									} );
+
+									if ( types.length === 1 ) {
+										setAttributes( {
+											default_directory_type: types[0],
+										} );
+									}
+
 									setShouldRender( false );
 								} }
 							/>
@@ -122,7 +129,7 @@ registerBlockType( metadata.name, {
 						) }
 
 						<SelectControl
-							label={ __( 'View As', 'directorist' ) }
+							label={ __( 'Default View', 'directorist' ) }
 							labelPosition="side"
 							value={ view }
 							options={ [
@@ -176,7 +183,7 @@ registerBlockType( metadata.name, {
 							''
 						) }
 						<TextControl
-							label={ __( 'Listings Per Page', 'directorist' ) }
+							label={ __( 'Number Of Categories', 'directorist' ) }
 							type="number"
 							value={ cat_per_page }
 							onChange={ ( perPage ) =>
@@ -186,7 +193,7 @@ registerBlockType( metadata.name, {
 							}
 							className="directorist-gb-fixed-control"
 							help={ __(
-								'Set the number of listings to show per page.',
+								'Set the number of categories to show.',
 								'directorist'
 							) }
 						/>
@@ -248,7 +255,7 @@ registerBlockType( metadata.name, {
 						/>
 						<ToggleControl
 							label={ __(
-								'Logged In User Only?',
+								'LoggedIn User Can View Only',
 								'directorist'
 							) }
 							checked={ logged_in_user_only }

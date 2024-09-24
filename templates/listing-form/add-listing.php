@@ -78,13 +78,13 @@ $action_url = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERV
 
                             <a type="submit" class="directorist-btn multistep-wizard__btn multistep-wizard__btn--next" aria-label="Go to Next">Save & Next<?php directorist_icon( 'fas fa-arrow-right' ); ?></a>
 
-                            <button type="submit" class="directorist-btn directorist-form-submit__btn multistep-wizard__btn multistep-wizard__btn--save-preview"><?php esc_html_e( 'Save & Preview', 'directorist' ); ?></button>
+                            <button type="submit" class="directorist-btn directorist-form-submit__btn multistep-wizard__btn multistep-wizard__btn--save-preview"><?php echo esc_html( $listing_form->submit_label() ); ?></button>
 
                             <button type="submit" class="directorist-btn directorist-btn-primary directorist-form-submit__btn multistep-wizard__btn multistep-wizard__btn--skip-preview"><?php esc_html_e( 'Skip preview and submit listing', 'directorist' ); ?></button>
                         </div>
                         
                         <div class="default-add-listing-bottom">
-                            <button type="submit" class="directorist-btn directorist-btn-primary directorist-form-submit__btn"><?php esc_html_e( 'Save & Preview', 'directorist' ); ?></button>
+                            <button type="submit" class="directorist-btn directorist-btn-primary directorist-form-submit__btn"><?php echo esc_html( $listing_form->submit_label() ); ?></button>
                         </div>
                     </div>
                 </div>

@@ -65,6 +65,8 @@ registerBlockType( metadata.name, {
 	},
 
 	edit( { attributes, setAttributes } ) {
+		const [ shouldRender, setShouldRender ] = useState( true );
+
 		let {
 			view,
 			_featured,
@@ -90,6 +92,7 @@ registerBlockType( metadata.name, {
 			directory_type,
 			default_directory_type,
 			query_type,
+			sidebar,
 		} = attributes;
 
 		let oldLocations = location ? location.split( ',' ) : [],
@@ -97,8 +100,6 @@ registerBlockType( metadata.name, {
 			oldTags = tag ? tag.split( ',' ) : [],
 			oldTypes = directory_type ? directory_type.split( ',' ) : [],
 			oldIds = ids ? ids.split( ',' ).map( ( id ) => Number( id ) ) : [];
-
-		const [ shouldRender, setShouldRender ] = useState( true );
 
 		return (
 			<Fragment>
@@ -145,6 +146,13 @@ registerBlockType( metadata.name, {
 									setAttributes( {
 										directory_type: types.join( ',' ),
 									} );
+
+									if ( types.length === 1 ) {
+										setAttributes( {
+											default_directory_type: types[0],
+										} );
+									}
+
 									setShouldRender( false );
 								} }
 							/>
@@ -212,6 +220,37 @@ registerBlockType( metadata.name, {
 						) : (
 							''
 						) }
+
+						<SelectControl
+							label={ __( 'Sidebar Filter', 'directorist' ) }
+							labelPosition="side"
+							value={ sidebar }
+							options={ [
+								{
+									label: __( 'Default', 'directorist' ),
+									value: '',
+								},
+								{
+									label: __( 'Left Sidebar', 'directorist' ),
+									value: 'left_sidebar',
+								},
+								{
+									label: __( 'Right Sidebar', 'directorist' ),
+									value: 'right_sidebar',
+								},
+								{
+									label: __( 'No Sidebar', 'directorist' ),
+									value: 'no_sidebar',
+								},
+							] }
+							onChange={ ( newState ) =>
+								setAttributes( {
+									sidebar: newState
+								} )
+							}
+							className="directorist-gb-fixed-control"
+						/>
+
 						<TextControl
 							label={ __( 'Listings Per Page', 'directorist' ) }
 							type="number"
@@ -228,21 +267,21 @@ registerBlockType( metadata.name, {
 							) }
 						/>
 						<ToggleControl
-							label={ __( 'Show Pagination?', 'directorist' ) }
+							label={ __( 'Display Pagination', 'directorist' ) }
 							checked={ show_pagination }
 							onChange={ ( newState ) =>
 								setAttributes( { show_pagination: newState } )
 							}
 						/>
 						<ToggleControl
-							label={ __( 'Show Featured Only?', 'directorist' ) }
+							label={ __( 'Display Featured Listings Only', 'directorist' ) }
 							checked={ featured_only }
 							onChange={ ( newState ) =>
 								setAttributes( { featured_only: newState } )
 							}
 						/>
 						<ToggleControl
-							label={ __( 'Show Header?', 'directorist' ) }
+							label={ __( 'Display Header', 'directorist' ) }
 							checked={ header }
 							onChange={ ( newState ) =>
 								setAttributes( { header: newState } )
@@ -264,21 +303,21 @@ registerBlockType( metadata.name, {
 							setAttributes( { header_title: '' } )
 						) }
 						<ToggleControl
-							label={ __( 'Show Popular Only?', 'directorist' ) }
+							label={ __( 'Display Popular Only', 'directorist' ) }
 							checked={ popular_only }
 							onChange={ ( newState ) =>
 								setAttributes( { popular_only: newState } )
 							}
 						/>
 						<ToggleControl
-							label={ __( 'Show Filter Button?', 'directorist' ) }
+							label={ __( 'Display Filter Button', 'directorist' ) }
 							checked={ advanced_filter }
 							onChange={ ( newState ) =>
 								setAttributes( { advanced_filter: newState } )
 							}
 						/>
 						<ToggleControl
-							label={ __( 'Show Preview Image?', 'directorist' ) }
+							label={ __( 'Display Preview Image', 'directorist' ) }
 							checked={ display_preview_image }
 							onChange={ ( newState ) =>
 								setAttributes( {
@@ -288,7 +327,7 @@ registerBlockType( metadata.name, {
 						/>
 						<ToggleControl
 							label={ __(
-								'Logged In User Only?',
+								'LoggedIn User Can View Only',
 								'directorist'
 							) }
 							checked={ logged_in_user_only }

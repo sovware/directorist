@@ -193,6 +193,7 @@ jQuery(document).ready(function ($) {
             window.location = response.url;
           }
           type_count++;
+          $('.directorist-importer-progress').val(type_count * 2 + '0');
           import_dummy();
         }
       });

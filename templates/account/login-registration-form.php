@@ -2,12 +2,12 @@
 /**
  * @author  wpWax
  * @since   7.8.3
- * @version 7.8.3
+ * @version 7.12.4
  */
 
 use \Directorist\Helper;
 
-$user_email = isset( $_GET['user'] ) ? sanitize_email( wp_unslash( $_GET['user'] ) ) : '';
+$user_email = isset( $_GET['user'] ) ? sanitize_email( wp_unslash( base64_decode( $_GET['user'] ) ) ) : '';
 $key        = isset( $_GET['key'] ) ? sanitize_text_field( wp_unslash( $_GET['key'] ) ) : '';
 ?>
 <div class="directorist-login-wrapper directorist-authentication active directorist-w-100">

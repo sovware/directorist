@@ -14737,7 +14737,32 @@ input:-webkit-autofill:active {
 }
 
 .cptm-tab-content-header {
-  background-color: #f8f9fb;
+  background: transparent;
+  max-width: 1050px;
+  margin: 20px auto 0;
+}
+.cptm-tab-content-header .cptm-sub-navigation {
+  gap: 10px;
+  padding: 10px 20px;
+  margin: 0 25px;
+  border-radius: 10px;
+  background: #f3f4f6;
+}
+.cptm-tab-content-header .cptm-sub-navigation .cptm-sub-nav__item {
+  margin: 0;
+}
+.cptm-tab-content-header .cptm-sub-navigation .cptm-sub-nav__item-link {
+  margin: 0;
+  padding: 10px 25px;
+  background-color: #e3e6ef;
+}
+.cptm-tab-content-header .cptm-sub-navigation .cptm-sub-nav__item-link.active, .cptm-tab-content-header .cptm-sub-navigation .cptm-sub-nav__item-link:hover {
+  background-color: #3e62f5;
+}
+@media screen and (max-width: 480px) {
+  .cptm-tab-content-header .cptm-sub-navigation {
+    margin: 0;
+  }
 }
 
 .cptm-tab-content-body {
@@ -19528,7 +19553,32 @@ input[type=radio]:checked::before {
 }
 
 .cptm-tab-content-header {
-  background-color: #f8f9fb;
+  background: transparent;
+  max-width: 1050px;
+  margin: 20px auto 0;
+}
+.cptm-tab-content-header .cptm-sub-navigation {
+  gap: 10px;
+  padding: 10px 20px;
+  margin: 0 25px;
+  border-radius: 10px;
+  background: #f3f4f6;
+}
+.cptm-tab-content-header .cptm-sub-navigation .cptm-sub-nav__item {
+  margin: 0;
+}
+.cptm-tab-content-header .cptm-sub-navigation .cptm-sub-nav__item-link {
+  margin: 0;
+  padding: 10px 25px;
+  background-color: #e3e6ef;
+}
+.cptm-tab-content-header .cptm-sub-navigation .cptm-sub-nav__item-link.active, .cptm-tab-content-header .cptm-sub-navigation .cptm-sub-nav__item-link:hover {
+  background-color: #3e62f5;
+}
+@media screen and (max-width: 480px) {
+  .cptm-tab-content-header .cptm-sub-navigation {
+    margin: 0;
+  }
 }
 
 .cptm-tab-content-body {
@@ -24586,7 +24636,32 @@ input[type=radio]:checked::before {
 }
 
 .cptm-tab-content-header {
-  background-color: #f8f9fb;
+  background: transparent;
+  max-width: 1050px;
+  margin: 20px auto 0;
+}
+.cptm-tab-content-header .cptm-sub-navigation {
+  gap: 10px;
+  padding: 10px 20px;
+  margin: 0 25px;
+  border-radius: 10px;
+  background: #f3f4f6;
+}
+.cptm-tab-content-header .cptm-sub-navigation .cptm-sub-nav__item {
+  margin: 0;
+}
+.cptm-tab-content-header .cptm-sub-navigation .cptm-sub-nav__item-link {
+  margin: 0;
+  padding: 10px 25px;
+  background-color: #e3e6ef;
+}
+.cptm-tab-content-header .cptm-sub-navigation .cptm-sub-nav__item-link.active, .cptm-tab-content-header .cptm-sub-navigation .cptm-sub-nav__item-link:hover {
+  background-color: #3e62f5;
+}
+@media screen and (max-width: 480px) {
+  .cptm-tab-content-header .cptm-sub-navigation {
+    margin: 0;
+  }
 }
 
 .cptm-tab-content-body {

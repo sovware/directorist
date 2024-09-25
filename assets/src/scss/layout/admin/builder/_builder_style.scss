@@ -860,7 +860,31 @@ $light-gray: #f4f5f7;
 }
 
 .cptm-tab-content-header {
-  background-color: #f8f9fb;
+  background: transparent;
+  max-width: 1050px;
+  margin: 20px auto 0;
+    .cptm-sub-navigation {
+      gap: 10px;
+      padding: 10px 20px;
+      margin: 0 25px;
+      border-radius: 10px;
+      background: #f3f4f6;
+      .cptm-sub-nav__item {
+        margin: 0;
+      }
+      .cptm-sub-nav__item-link {
+        margin: 0;
+        padding: 10px 25px;
+        background-color: #e3e6ef;
+        &.active,
+        &:hover {
+          background-color: #3e62f5;
+        }
+      } 
+      @media screen and (max-width: 480px) {
+        margin: 0;
+      }     
+    }
 }
 
 .cptm-tab-content-body {

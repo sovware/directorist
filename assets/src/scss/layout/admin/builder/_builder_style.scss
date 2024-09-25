@@ -16,6 +16,7 @@ $nav_icon_color: $primary;
 $gray: #eff0f3;
 $light-gray: #f4f5f7;
 
+
 /* Create Directory Type */
 .directorist-directory-type-top {
   display: flex;
@@ -28,11 +29,50 @@ $light-gray: #f4f5f7;
   min-height: 60px;
   box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
   border-radius: 6px;
+  position: fixed;
+  right: 20px;
+  top: 42px;
+  width: calc(100% - 242px);
+  z-index: 999;
+  &:before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 0;
+    height: 10px;
+    width: 100%;
+    background-color: #f3f4f6;
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+    height: 20px;
+    width: 100%;
+    background-color: #f3f4f6;
+  }
+  @media only screen and (max-width: 960px) {
+    width: calc(100% - 118px);
+  }
+  @media only screen and (max-width: 782px) {
+    width: calc(100% - 70px);
+    top: 56px;
+  }
+  @media only screen and (max-width: 600px) {
+    position: unset;
+    width: auto;
+    &:before,
+    &:after {
+      display: none;
+    }
+  }
   @media only screen and (max-width: 479px) {
     justify-content: center;
     flex-direction: column;
     padding: 10px 20px;
   }
+  
   &-left {
     display: flex;
     align-items: center;
@@ -123,22 +163,59 @@ $light-gray: #f4f5f7;
 .directorist-directory-type-bottom {
   background: white;
   border-radius: 6px;
-  margin-top: 20px;
+  margin-top: 90px;
+  overflow: hidden;
   .cptm-header-navigation {
+    position: fixed;
+    right: 20px;
+    width: calc(100% - 262px);
+    background: #ffffff;
+    border-radius: 6px 6px 0 0;
     border-bottom: 1px solid #e5e7eb;
     gap: 0 20px;
     padding: 0 30px;
-    @media screen and (max-width: 480px) {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    z-index: 999;
+    @media only screen and (max-width: 960px) {
+      width: calc(100% - 138px);
+      justify-content: flex-start;
+    }
+    @media only screen and (max-width: 782px) {
+      width: calc(100% - 92px);
+    } 
+    @media only screen and (max-width: 600px) {
+      position: unset;
+      width: auto;
+    }
+    @media only screen and (max-width: 480px) {
       padding: 10px 30px;
     }
   }
-
   .atbdp-cptm-body {
+    margin-top: 60px; 
+    @media only screen and (max-width: 600px) {
+      margin-top: 0;
+    }
     @media screen and (max-width: 480px) {
       padding: 20px 30px;
     }
   }
+  @media only screen and (max-width: 600px) {
+    margin-top: 20px;
+  }
 }
+
+// WP Sidebar Folded CSS
+.wp-admin.folded {
+  .directorist-directory-type-top {
+    width: calc(100% - 118px);
+  }
+  .directorist-directory-type-bottom .cptm-header-navigation {
+    width: calc(100% - 138px);
+  }
+}
+
 .directorist-draggable-form-list-wrap {
   margin-right: 50px;
 }
@@ -723,7 +800,7 @@ $light-gray: #f4f5f7;
   display: inline-block;
   list-style: none;
   text-align: center;
-
+  min-width: fit-content;
   @media (max-width: 480px) {
     width: 100%;
   }
@@ -862,7 +939,7 @@ $light-gray: #f4f5f7;
 .cptm-tab-content-header {
   background: transparent;
   max-width: 1050px;
-  margin: 20px auto 0;
+  margin: 80px auto 0;
     .cptm-sub-navigation {
       gap: 10px;
       padding: 10px 20px;

@@ -65,7 +65,7 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
 
 			remove_action('wp_head', 'rel_canonical');
 			/* Exclude Multiple Taxonomies From Yoast SEO Sitemap */
-			add_filter( 'wpseo_sitemap_exclude_taxonomy', [ $this, 'yoast_sitemap_exclude_taxonomy'], 10, 2 );
+			// add_filter( 'wpseo_sitemap_exclude_taxonomy', [ $this, 'yoast_sitemap_exclude_taxonomy'], 10, 2 );
         }
 
         // Add Rank Math Compatibility

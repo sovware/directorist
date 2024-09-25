@@ -14730,6 +14730,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
     this.$store.commit("updateCachedFields");
     this.setupClosingWarning();
     this.setupSaveOnKeyboardInput();
+    this.enabled_multi_directory = directorist_admin.enabled_multi_directory === "1";
   },
   data: function data() {
     return {
@@ -14742,7 +14743,8 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
           showLoading: false,
           isDisabled: false
         }
-      }
+      },
+      enabled_multi_directory: null
     };
   },
   methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_4__["mapGetters"])(["getFieldsValue"])), {}, {
@@ -26578,7 +26580,7 @@ var render = function render() {
     staticClass: "directorist-directory-type-top"
   }, [_c("div", {
     staticClass: "directorist-directory-type-top-left"
-  }, [_c("a", {
+  }, [this.enabled_multi_directory ? _c("a", {
     staticClass: "directorist-back-directory",
     attrs: {
       href: "edit.php?post_type=at_biz_dir&page=atbdp-directory-types"
@@ -26598,7 +26600,7 @@ var render = function render() {
       d: "M7.51556 1.38019C7.80032 1.66495 7.80032 2.12663 7.51556 2.41139L3.65616 6.27079H12.1041C12.5068 6.27079 12.8333 6.59725 12.8333 6.99996C12.8333 7.40267 12.5068 7.72913 12.1041 7.72913H3.65616L7.51556 11.5885C7.80032 11.8733 7.80032 12.335 7.51556 12.6197C7.2308 12.9045 6.76912 12.9045 6.48436 12.6197L1.38019 7.51556C1.09544 7.2308 1.09544 6.76912 1.38019 6.48436L6.48436 1.38019C6.76912 1.09544 7.2308 1.09544 7.51556 1.38019Z",
       fill: "currentColor"
     }
-  })]), _vm._v("\n        All Directories\n      ")]), _vm._v(" "), _c("div", {
+  })]), _vm._v("\n        All Directories\n      ")]) : _vm._e(), _vm._v(" "), _c("div", {
     staticClass: "directorist-row-tooltip",
     attrs: {
       "data-tooltip": "Click here to rename the directory.",

@@ -721,7 +721,7 @@ class SetupWizard
                 <div class="directorist-import-progress">
                     <div class="directorist-import-progress-info">
                         <div class="directorist-import-progress-info-text ">
-                            <span class="directorist-import-text-inner">1. Installing required plugins, forms, etc</span>
+                            <span class="directorist-import-text-inner">Preparing data...</span>
                         </div>
                         <div class="directorist-import-progress-info-precent">0</div>
                     </div>
@@ -733,11 +733,12 @@ class SetupWizard
                             <span></span><span></span><span></span>
                         </div>
                     </div>
-                    <div class="ist-import-progress-info"><div class="ist-import-progress-info-text "><span class="import-status-string"><p>Installing Required Components..</p></span></div></div>
                 </div>
             </div>
-            
-            <span class="import-progress-warning">Please Don't Reload The Page</span>
+            <div class="directorist-import-process-step-bottom">
+                <img src="<?php echo esc_url( DIRECTORIST_ASSETS . 'images/social-layout.gif' ); ?>" alt="Drectorist membership notice">
+                <span class="import-progress-warning">Please Don't Reload The Page</span>
+            </div>
         </div>
     <?php
     }

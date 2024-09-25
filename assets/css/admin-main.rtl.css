@@ -30276,6 +30276,31 @@ span.drop-toggle-caret:before {
   background: #2563eb;
 }
 
+.directorist-import-process-step-bottom {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+.directorist-import-process-step-bottom img {
+  width: 300px;
+  text-align: center;
+  display: inline-block;
+}
+
 .import-done-congrats {
   display: -webkit-box;
   display: -webkit-flex;

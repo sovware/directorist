@@ -1253,6 +1253,19 @@
     }
   }
 }
+
+.directorist-import-process-step-bottom{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  img{
+    width: 300px;
+    text-align: center;
+    display: inline-block;
+  }
+}
+
 .import-done-congrats {
   display: flex;
   align-items: center;

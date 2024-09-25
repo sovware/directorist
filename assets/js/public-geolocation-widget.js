@@ -94,7 +94,7 @@
 /***/ (function(module, exports) {
 
 (function ($) {
-  window.addEventListener('DOMContentLoaded', function () {
+  window.addEventListener('load', function () {
     /*
         get current location
     */

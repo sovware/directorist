@@ -1,6 +1,6 @@
 // author sorting
 (function ($) {
-    window.addEventListener('DOMContentLoaded', () => {
+    window.addEventListener('load', () => {
         /* Masonry layout */
         function authorsMasonry() {
             let authorsCard = $('.directorist-authors__cards');

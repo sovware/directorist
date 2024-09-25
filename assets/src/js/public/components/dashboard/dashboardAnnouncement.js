@@ -1,6 +1,6 @@
 ;
 (function ($) {
-    window.addEventListener('DOMContentLoaded', () => {
+    window.addEventListener('load', () => {
         // Clear seen Announcements
         var cleared_seen_announcements = false;
         $('.directorist-tab__nav__link').on('click', function () {

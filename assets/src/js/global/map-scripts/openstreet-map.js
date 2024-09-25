@@ -7,9 +7,9 @@
             targetNode && observer.observe( targetNode, { childList: true } );
         }
 
-        window.addEventListener('DOMContentLoaded', initObserver );
+        window.addEventListener('load', initObserver );
     }
-    window.addEventListener('DOMContentLoaded', initMap);
+    window.addEventListener('load', initMap);
     window.addEventListener('directorist-reload-listings-map-archive', initMap);
 
     // Map Initialize 

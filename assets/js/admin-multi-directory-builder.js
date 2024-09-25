@@ -109,7 +109,7 @@ vue__WEBPACK_IMPORTED_MODULE_0__["default"].component('slide-up-down', vue_slide
 
 
 
-window.addEventListener('DOMContentLoaded', function () {
+window.addEventListener('load', function () {
   var cpt_manager_el = document.getElementById('atbdp-cpt-manager');
   if (cpt_manager_el) {
     var encodedBuilderData = cpt_manager_el.getAttribute('data-builder-data');

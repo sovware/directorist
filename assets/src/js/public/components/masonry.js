@@ -25,5 +25,5 @@ function initMasonry() {
     authorsMasonry('.directorist-archive-grid-view');
 }
 
-window.addEventListener('DOMContentLoaded', initObserver);
-window.addEventListener('DOMContentLoaded', initMasonry);
+window.addEventListener('load', initObserver);
+window.addEventListener('load', initMasonry);

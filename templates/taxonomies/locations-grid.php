@@ -55,6 +55,9 @@ if ( '5' == $taxonomy->columns ) {
 					<?php
 				}
 				?>
+				<div class="directorist-col-12">
+					<?php $taxonomy->pagination(); ?>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -64,6 +67,4 @@ if ( '5' == $taxonomy->columns ) {
      */
     do_action( 'atbdp_after_all_locations_loop' );
     ?>
-
-	<?php $taxonomy->pagination(); ?>
 </div>

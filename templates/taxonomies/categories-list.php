@@ -61,9 +61,8 @@ if ( '5' == $taxonomy->columns ) {
 					<?php
 				}
 				?>
-				<div class="directorist-col-12">
-					<?php $taxonomy->pagination(); ?>
-				</div>
+				
+				<?php $taxonomy->pagination(); ?>
 			</div>
 		</div>
 	</div>

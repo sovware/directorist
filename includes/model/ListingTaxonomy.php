@@ -226,7 +226,9 @@ class Directorist_Listing_Taxonomy {
 		
 		$links = paginate_links( $pagination_args );
 		if ( $links ) {
-			$navigation = '<nav class="directorist-pagination" aria-label="Listings Pagination">' . $links . '</nav>';
+			$navigation = 
+			'<div class="directorist-col-12">
+			<nav class="directorist-pagination" aria-label="Listings Pagination">' . $links . '</div></nav>';
 			echo wp_kses_post( $navigation );
 		}
 	}

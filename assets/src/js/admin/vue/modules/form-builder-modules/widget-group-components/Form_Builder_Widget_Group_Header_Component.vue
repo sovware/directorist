@@ -26,7 +26,6 @@
       <!-- Group Header Actions -->
       <div
         class="cptm-form-builder-group-actions-dropdown cptm-form-builder-group-actions-dropdown--group"
-        @mousedown="handleClickOutside"
       >
         <a
           href="#"
@@ -34,6 +33,8 @@
           v-if="canTrash"
           @click.prevent="toggleGroupExpandedDropdown"
           @blur="handleBlur"
+          @mousedown="handleClickOutside"
+          ref="dropdownContent"
         >
           <span aria-hidden="true" class="uil uil-ellipsis-h"></span>
         </a>

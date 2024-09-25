@@ -26800,7 +26800,7 @@ var render = function render() {
       key: section_key,
       staticClass: "cptm-section",
       class: _vm.sectionClass(section)
-    }, [section.fields[0] === "submission_form_fields" ? _c("div", {
+    }, [section.fields[0] === "submission_form_fields" || section.fields[0] === "search_form_fields" ? _c("div", {
       staticClass: "directorist-form-doc"
     }, [_c("div", {
       staticClass: "directorist-form-doc-left"
@@ -26882,7 +26882,7 @@ var render = function render() {
       }
     }, [_c("span", {
       staticClass: "la la-close"
-    })]), _vm._v(" "), _vm._m(0, true)])]) : _vm._e(), _vm._v(" "), section.fields[0] !== "submission_form_fields" ? _c("div", {
+    })]), _vm._v(" "), _vm._m(0, true)])]) : _vm._e(), _vm._v(" "), section.fields[0] !== "submission_form_fields" && section.fields[0] !== "search_form_fields" ? _c("div", {
       staticClass: "cptm-title-area",
       class: _vm.sectionTitleAreaClass(section)
     }, [section.title ? _c("h3", {

@@ -29244,7 +29244,7 @@ var render = function render() {
     staticClass: "cptm-form-builder-group-field-item-header-actions"
   }, [_c("a", {
     staticClass: "cptm-form-builder-header-action-link",
-    class: _vm.expanded ? "action-collapse-up" : "action-collapse-down",
+    class: _vm.expanded ? "action-collapse-down" : "action-collapse-up",
     attrs: {
       href: "#"
     },
@@ -29591,7 +29591,7 @@ var render = function render() {
     staticClass: "cptm-form-builder-group-title-actions"
   }, [_c("a", {
     staticClass: "cptm-form-builder-header-action-link",
-    class: _vm.widgetsExpanded ? "action-collapse-up" : "action-collapse-down",
+    class: _vm.widgetsExpanded ? "action-collapse-down" : "action-collapse-up",
     attrs: {
       href: "#"
     },

@@ -545,6 +545,8 @@ import initSearchCategoryCustomFields from './components/category-custom-fields'
             if (selectboxField) {
                 selectboxField.selectedIndex = 0;
                 selectboxField.dispatchEvent(new Event('change'));
+
+                $(selectboxField).trigger('change');
             }
             if (inputFields) {
                 inputFields.forEach((inputField) => {

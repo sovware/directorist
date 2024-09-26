@@ -3739,6 +3739,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       if (selectboxField) {
         selectboxField.selectedIndex = 0;
         selectboxField.dispatchEvent(new Event('change'));
+        $(selectboxField).trigger('change');
       }
       if (inputFields) {
         inputFields.forEach(function (inputField) {

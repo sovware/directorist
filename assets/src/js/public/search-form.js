@@ -673,6 +673,8 @@ import initSearchCategoryCustomFields from './components/category-custom-fields'
                         directorist_custom_range_slider();
 
                         initSearchFields();
+
+                        initSearchCategoryCustomFields($, initSearchFields);
                     }
 
                     let parentAfterAjax = $(this).closest('.directorist-search-contents');

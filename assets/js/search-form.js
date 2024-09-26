@@ -620,7 +620,6 @@ function initSearchCategoryCustomFields($, onSuccessCallback) {
     $pageContainer = $archivePageContainer;
   }
   if ((_$pageContainer = $pageContainer) !== null && _$pageContainer !== void 0 && _$pageContainer.length) {
-    var searchFormCache = {};
     var $fieldsContainer = null;
     $pageContainer.on('change', '.directorist-category-select, .directorist-search-category select', function (event) {
       var $this = $(this);
@@ -631,15 +630,7 @@ function initSearchCategoryCustomFields($, onSuccessCallback) {
       var formData = new FormData();
       var atts = $form.data('atts');
       var hasCustomField = $this.find('option[value="' + category + '"]').data('custom-field');
-      if (!hasCustomField && !$fieldsContainer) {
-        return;
-      }
-      if (!hasCustomField && $fieldsContainer && $fieldsContainer.length) {
-        $fieldsContainer.html(searchFormCache[0]);
-        return;
-      }
-      if (hasCustomField && searchFormCache[category]) {
-        $fieldsContainer.html(searchFormCache[category]);
+      if (!hasCustomField) {
         return;
       }
       formData.append('action', 'directorist_category_custom_field_search');
@@ -661,9 +652,7 @@ function initSearchCategoryCustomFields($, onSuccessCallback) {
         success: function success(response) {
           if (response) {
             $fieldsContainer = $pageContainer.find(response['container']);
-            searchFormCache[0] = $fieldsContainer.html();
-            searchFormCache[category] = response['search_form'];
-            $fieldsContainer.html(searchFormCache[category]);
+            $fieldsContainer.html(response['search_form']);
 
             // $form.find('.directorist-category-select option').data('custom-field', 1);
             // $this.find('option').data('custom-field', 1);
@@ -3802,6 +3791,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
             handleRadiusVisibility();
             directorist_custom_range_slider();
             initSearchFields();
+            Object(_components_category_custom_fields__WEBPACK_IMPORTED_MODULE_7__["default"])($, initSearchFields);
           }
           var parentAfterAjax = $(this).closest('.directorist-search-contents');
           parentAfterAjax.find('.directorist-search-form-box').removeClass('atbdp-form-fade');

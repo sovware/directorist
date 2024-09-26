@@ -10,7 +10,6 @@ export default function initSearchCategoryCustomFields($, onSuccessCallback) {
     }
 
     if ($pageContainer?.length) {
-        let searchFormCache = {};
         let $fieldsContainer = null;
 
         $pageContainer.on('change', '.directorist-category-select, .directorist-search-category select', function (event) {
@@ -23,17 +22,7 @@ export default function initSearchCategoryCustomFields($, onSuccessCallback) {
             let   atts           = $form.data('atts');
             const hasCustomField = $this.find('option[value="'+category+'"]').data('custom-field');
 
-            if (!hasCustomField && !$fieldsContainer) {
-                return;
-            }
-
-            if (!hasCustomField && $fieldsContainer && $fieldsContainer.length) {
-                $fieldsContainer.html(searchFormCache[0]);
-                return;
-            }
-
-            if (hasCustomField && searchFormCache[category]) {
-                $fieldsContainer.html(searchFormCache[category]);
+            if (!hasCustomField) {
                 return;
             }
 
@@ -58,11 +47,9 @@ export default function initSearchCategoryCustomFields($, onSuccessCallback) {
                 data       : formData,
                 success: function success(response) {
                     if (response) {
-                        $fieldsContainer          = $pageContainer.find(response['container']);
-                        searchFormCache[0]        = $fieldsContainer.html();
-                        searchFormCache[category] = response['search_form'];
+                        $fieldsContainer = $pageContainer.find(response['container']);
 
-                        $fieldsContainer.html(searchFormCache[category]);
+                        $fieldsContainer.html(response['search_form']);
 
                         // $form.find('.directorist-category-select option').data('custom-field', 1);
                         // $this.find('option').data('custom-field', 1);

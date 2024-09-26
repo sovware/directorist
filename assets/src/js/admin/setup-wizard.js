@@ -124,15 +124,14 @@ jQuery(document).ready(function ($) {
                     } 
                     
                     type_count++;
-                    let progressPercentage = type_count * 25;
+                    let progressPercentage = response.percentage;
 
                     $('.directorist-import-progress-bar').css('width', progressPercentage + '%');
                     $('.directorist-importer-progress').val(progressPercentage);
                     $('.directorist-import-progress-info-precent').text(progressPercentage + '%');
 
-                    if (type_count < 4) {
-                        import_dummy();
-                    }
+                    import_dummy();
+                    
                 },
             });
 

@@ -66,6 +66,8 @@ class SetupWizard
         $pre_made_types = json_decode( $response_body, true );
 
         $is_completed = ( count( $get_types ) <= $counter ) ? true : false;
+        $task_counter = $counter + 1;
+        $percentage    = absint( min( round( ( ( $task_counter ) / count( $get_types ) ) * 100 ), 100 ) );
 
         if( $is_completed ) {
 
@@ -77,6 +79,7 @@ class SetupWizard
 
             wp_send_json( [
                 'completed' => $is_completed, 
+                'percentage' => 100,
                 'log' => 'Completed, redirecting...', 
                 'url' => admin_url('index.php?page=directorist-setup&step=step-four') 
                 ] );
@@ -94,6 +97,7 @@ class SetupWizard
         $type = $pre_made_types[$post_type];
 
         $data['log'] = 'Importing ' . $type['name'] . ' type...';
+        $data['percentage'] = $percentage;
 
         $dummy_data = $type['listing_data'];
         $builder_file_url = $type['url'];

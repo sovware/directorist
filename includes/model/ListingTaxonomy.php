@@ -93,7 +93,7 @@ class Directorist_Listing_Taxonomy {
 	}
 
 	public function set_terms(){
-		$current_page 	= isset( $_GET['paged'] ) ? absint( $_GET['paged'] ) : 1;
+		$current_page 	= get_query_var('paged') ? absint(get_query_var('paged')) : 1;
     	$offset 		= ( $current_page - 1 ) * $this->per_page;
 
 		$args = array(
@@ -214,10 +214,11 @@ class Directorist_Listing_Taxonomy {
     }
 
 	public function pagination() {
-		$base_url = get_pagenum_link( 1 ); // Get base URL for pagination
+		$base_url = trailingslashit( get_permalink() ) . 'page/';
+
 		$pagination_args = array(
-			'base'      => $base_url . '%_%',
-			'format'    => '?paged=%#%',
+			'base'      => $base_url . '%#%',
+			'format'    => '',
 			'current'   => $this->current_page,
 			'total'     => $this->total_pages,
 			'prev_text' => apply_filters( 'directorist_pagination_prev_text', directorist_icon( 'fas fa-chevron-left', false ) ),

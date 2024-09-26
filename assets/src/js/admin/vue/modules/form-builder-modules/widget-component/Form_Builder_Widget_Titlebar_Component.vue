@@ -9,7 +9,7 @@
       <a
         href="#"
         class="cptm-form-builder-header-action-link"
-        :class="expanded ? 'action-collapse-up' : 'action-collapse-down'"
+        :class="expanded ? 'action-collapse-down' : 'action-collapse-up'"
         @click.prevent="$emit('toggle-expand')"
       >
         <span aria-hidden="true" class="uil uil-angle-down"></span>

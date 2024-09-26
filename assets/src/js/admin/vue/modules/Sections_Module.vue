@@ -8,7 +8,7 @@
     >
     <div
         class="directorist-form-doc"
-        v-if="section.fields[0] === 'submission_form_fields'"
+        v-if="section.fields[0] === 'submission_form_fields' || section.fields[0] === 'search_form_fields'"
       >
         <div class="directorist-form-doc-left">
           <div class="directorist-form-doc-title" v-html="section.title"></div>
@@ -87,7 +87,7 @@
       <div
         class="cptm-title-area"
         :class="sectionTitleAreaClass(section)"
-        v-if="section.fields[0] !== 'submission_form_fields'"
+        v-if="section.fields[0] !== 'submission_form_fields' && section.fields[0] !== 'search_form_fields'"
       >
         <h3 v-if="section.title" class="cptm-title" v-html="section.title"></h3>
         <div

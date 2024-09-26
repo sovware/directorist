@@ -902,6 +902,7 @@ class Directorist_Listings {
 
 			foreach ( $custom_fields as $key => $values ) {
 				$key = sanitize_text_field( $key );
+				$meta_query = [];
 				if ( is_array( $values ) ) {
 					if ( count( $values ) > 1 ) {
 						$sub_meta_queries = array();
@@ -912,9 +913,9 @@ class Directorist_Listings {
 								'compare' => 'LIKE'
 							);
 						}
-						$meta_queries[] = array_merge( array( 'relation' => 'OR' ), $sub_meta_queries );
+						$meta_query = array_merge( array( 'relation' => 'OR' ), $sub_meta_queries );
 					} else {
-						$meta_queries[] = array(
+						$meta_query = array(
 							'key'     => '_' . $key,
 							'value'   => sanitize_text_field( $values[0] ),
 							'compare' => 'LIKE'
@@ -928,7 +929,7 @@ class Directorist_Listings {
 						// If $values is in the format "40-50", create a range query
 						list( $min_value, $max_value ) = array_map( 'intval', explode( '-', $values ) );
 						
-						$meta_queries[] = array(
+						$meta_query = array(
 							'key'     => '_' . $key,
 							'value'   => array( $min_value, $max_value ),
 							'type'    => 'NUMERIC',
@@ -936,13 +937,28 @@ class Directorist_Listings {
 						);
 					} else {
 						$operator   = in_array( $field_type, array( 'text', 'textarea', 'url' ), true ) ? 'LIKE' : '=';
-						$meta_queries[] = array(
+						$meta_query = array(
 							'key'     => '_' . $key,
 							'value'   => sanitize_text_field( $values ),
 							'compare' => $operator
 						);
 					}
 				}
+				/**
+				 * Filters the custom field meta query used in Directorist search functionality.
+				 *
+				 * This filter allows customization of the meta query for specific search criteria 
+				 * by modifying the meta query parameters, key, and values.
+				 *
+				 * @since 8.0
+				 *
+				 * @param array  $meta_query Array of meta query parameters used in the search.
+				 * @param string $key        Meta key being queried.
+				 * @param mixed  $values     Values associated with the meta key for querying.
+				 *
+				 * @return array Filtered meta query.
+				 */
+				if( ! empty( $meta_query ) ) $meta_queries[] = apply_filters( 'directorist_search_custom_field_meta_query', $meta_query, $key, $values );
 			}
 		}
 

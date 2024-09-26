@@ -159,6 +159,7 @@ $light-gray: #f4f5f7;
   .cptm-header-navigation {
     position: fixed;
     right: 20px;
+    top: 102px;
     width: calc(100% - 262px);
     background: #ffffff;
     border-bottom: 1px solid #e5e7eb;
@@ -178,6 +179,7 @@ $light-gray: #f4f5f7;
     @media only screen and (max-width: 600px) {
       position: unset;
       width: auto;
+      flex-wrap: wrap;
     }
     @media only screen and (max-width: 480px) {
       padding: 10px 30px;
@@ -192,6 +194,9 @@ $light-gray: #f4f5f7;
     @media screen and (max-width: 480px) {
       padding: 20px 30px;
     }
+  }
+  @media only screen and (max-width: 600px) {
+    margin-top: 0;
   }
 }
 
@@ -1050,28 +1055,46 @@ $light-gray: #f4f5f7;
   }
   &.preview_mode {
     position: absolute;
-    right: 105px;
-    bottom: 70px;
-    width: 420px;
-    padding: 24px 0 50px;
+    right: 31px;
+    bottom: 71px;
+    width: 568px;
+    padding: 24px 43px 50px;
     box-sizing: border-box;
     z-index: 9;
-    border-top: 1px solid #E5E7EB;
+    background: #f8f9fa;
+    border: none;
+    border-radius:0 0 8px 8px;
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 43px;
+      height: 1px;
+      width: calc(100% - 86px);
+      background-color: #f3f4f6;
+    }
     .cptm-title-area {
       display: none;
     }
-    @media screen and (min-width: 992px) and (max-width: 1199px) {
-      width: 300px;
+    @media screen and (max-width: 1199px) {
+      width: 403px;
     }
-    @media screen and (min-width: 768px) and (max-width: 991px) {
-      width: 260px;
+    @media screen and (max-width: 991px) {
+      width: 390px;
+      right: 27px;
+    }
+    @media screen and (max-width: 959px) {
+      width: 379px;
     }
     @media screen and (max-width: 767px) {
-      width: calc(100% - 185px);
+      width: calc(100% - 52px);
+      right: 26px;
+      bottom: 101px;
     }
-    @media screen and (max-width: 479px) {
-      right: 60px;
-      width: calc(100% - 110px);
+    @media screen and (max-width: 480px) {
+      right: 1px;
+      bottom: 96px;
+      width: calc(100% - 2px);
     }
   }
   &:last-child {

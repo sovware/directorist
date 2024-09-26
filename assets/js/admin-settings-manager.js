@@ -32498,7 +32498,7 @@ var render = function render() {
   }, [_c("div", {
     staticClass: "cptm-form-builder-active-fields"
   }, [_c("div", {
-    staticClass: "cptm-form-builder-active-fields-container"
+    staticClass: "cptm-form-builder-active-fields-container cptm-col-sticky"
   }, [_vm._l(_vm.active_widget_groups, function (widget_group, widget_group_key) {
     return _c("draggable-list-item-wrapper", {
       key: widget_group_key,

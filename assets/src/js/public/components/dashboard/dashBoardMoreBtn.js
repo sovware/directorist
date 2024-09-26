@@ -1,7 +1,7 @@
 import '../../atmodal';
 ;
 (function ($) {
-    window.addEventListener('DOMContentLoaded', () => {
+    window.addEventListener('load', () => {
         // User Dashboard Table More Button
         $('.directorist-dashboard-listings-tbody').on("click", '.directorist-btn-more', function (e) {
             e.preventDefault();

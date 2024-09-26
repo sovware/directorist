@@ -363,7 +363,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _single_listing_google_map_widget__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_single_listing_google_map_widget__WEBPACK_IMPORTED_MODULE_3__);
 
 (function () {
-  window.addEventListener('DOMContentLoaded', initMap);
+  window.addEventListener('load', initMap);
   window.addEventListener('directorist-reload-listings-map-archive', initMap);
   function initMap() {
     var mapData = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_0__["get_dom_data"])('atbdp_map');

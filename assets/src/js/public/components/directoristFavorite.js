@@ -6,7 +6,7 @@
     } else {
         return;
     }
-    window.addEventListener('DOMContentLoaded', () => {
+    window.addEventListener('load', () => {
         // Add or Remove from favourites
         $('.directorist-action-bookmark').on('click', function (e) {
             e.preventDefault();

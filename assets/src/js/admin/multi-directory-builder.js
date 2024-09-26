@@ -9,7 +9,7 @@ import cpt_manager_component from './vue/apps/cpt-manager/CPT_Manager.vue';
 import './vue/global-component';
 import store from './vue/store/CPT_Manager_Store';
 
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('load', () => {
     const cpt_manager_el = document.getElementById( 'atbdp-cpt-manager' );
 
     if ( cpt_manager_el ) {

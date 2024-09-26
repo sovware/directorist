@@ -1,6 +1,6 @@
 ;
 (function ($) {
-    window.addEventListener('DOMContentLoaded', () => {
+    window.addEventListener('load', () => {
         // 	prepear_form_data
         function prepear_form_data(form, field_map, data) {
             if (!data || typeof data !== 'object') {

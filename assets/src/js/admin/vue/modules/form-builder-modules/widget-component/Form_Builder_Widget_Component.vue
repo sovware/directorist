@@ -1,38 +1,24 @@
 <template>
   <div
     class="cptm-form-builder-group-field-item"
+    :class="expandState ? 'expanded' : ''"
     v-if="widget_fields && Object.keys(widget_fields).length > 0"
   >
-    <!-- Widget Actions -->
-    <div class="cptm-form-builder-group-field-item-actions">
-      <a
-        href="#"
-        class="cptm-form-builder-group-field-item-action-link action-trash"
-        v-if="canTrashWidget"
-        @click.prevent="handleTrashClick"
-      >
-        <span aria-hidden="true" class="uil uil-trash-alt"></span>
-      </a>
-    </div>
-
     <!-- Widget Titlebar -->
     <draggable-list-item
       v-if="canMoveWidget"
       @drag-start="$emit('drag-start')"
       @drag-end="$emit('drag-end')"
     >
-      <form-builder-widget-titlebar-component
-        :label="widgetTitle"
-        :sublabel="widgetSubtitle"
-        :expanded="expandState"
-        @toggle-expand="toggleExpand"
-      />
+      <div class="cptm-form-builder-group-field-item-drag">
+        <span aria-hidden="true" class="uil uil-draggabledots"></span>
+      </div>
     </draggable-list-item>
 
     <form-builder-widget-titlebar-component
-      v-else
       :label="widgetTitle"
       :sublabel="widgetSubtitle"
+      :icon="widgetIcon"
       :expanded="expandState"
       @toggle-expand="toggleExpand"
     />
@@ -57,6 +43,40 @@
         />
       </div>
     </slide-up-down>
+
+    <!-- Widget Actions -->
+    <div
+      class="cptm-form-builder-group-actions-dropdown cptm-form-builder-group-actions-dropdown--field"
+    >
+      <a
+        href="#"
+        class="cptm-form-builder-group-actions-dropdown-btn"
+        v-if="canTrashWidget"
+        @click.prevent="toggleExpandedDropdown"
+        @blur="handleBlur"
+        @mousedown="handleClickOutside"
+        ref="dropdownContent"
+      >
+        <span aria-hidden="true" class="uil uil-ellipsis-h"></span>
+      </a>
+
+      <!-- Widget Action Dropdown -->
+      <slide-up-down :active="expandedDropdown" :duration="500">
+        <div
+          class="cptm-form-builder-group-actions-dropdown-content"
+          :class="expandedDropdown ? 'expanded' : ''"
+        >
+          <a
+            href="#"
+            class="cptm-form-builder-field-item-action-link"
+            @click.prevent="handleTrashClick"
+          >
+            <span aria-hidden="true" class="uil uil-trash-alt"></span>
+            Remove Field
+          </a>
+        </div>
+      </slide-up-down>
+    </div>
 
     <!-- Confirmation Modal -->
     <confirmation-modal
@@ -171,6 +191,16 @@ export default {
       return label;
     },
 
+    widgetIcon() {
+      let icon = "";
+
+      if (this.current_widget && this.current_widget.icon) {
+        icon = this.current_widget.icon;
+      }
+
+      return icon;
+    },
+
     expandState() {
       let state = this.expanded;
 
@@ -212,11 +242,34 @@ export default {
       activeWidgetsIsUpdating: false,
       showConfirmationModal: false,
       widgetName: "",
+      expandedDropdown: false,
     };
   },
 
   methods: {
+    toggleExpandedDropdown() {
+      this.expandedDropdown = !this.expandedDropdown;
+    },
+
+    handleBlur() {
+      setTimeout(() => {
+        if (!this.isClickedInsideDropdown) {
+          this.expandedDropdown = false;
+        }
+      }, 100); // Delay to ensure clicks inside dropdown content are not missed
+    },
+    handleClickOutside(event) {
+      if (
+        this.expandedDropdown &&
+        !this.$refs.dropdownContent.contains(event.target)
+      ) {
+        this.expandedDropdown = false;
+      }
+      this.isClickedInsideDropdown = false;
+    },
+
     handleTrashClick() {
+      this.expandedDropdown = !this.expandedDropdown;
       if (this.isPresetOrCustomGroup && this.widgetKey !== "terms_privacy") {
         this.openConfirmationModal();
       } else {
@@ -279,6 +332,7 @@ export default {
       }
 
       if (
+        the_current_widget &&
         the_current_widget.widgets &&
         the_current_widget.widgets[widget_child_name]
       ) {

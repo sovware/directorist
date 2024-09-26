@@ -1,5 +1,5 @@
 (function ($) {
-    window.addEventListener('DOMContentLoaded', () => {
+    window.addEventListener('load', () => {
         // Update checkout pricing on product item change
         var checkout_price_item = $('.atbdp-checkout-price-item');
         checkout_price_item.on('change', function () {

@@ -1,4 +1,4 @@
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('load', () => {
     // Booking Available Time
     const flatWrapper = document.querySelector(".flatpickr-calendar");
     const fAvailableTime = document.querySelector(".bdb-available-time-wrapper");

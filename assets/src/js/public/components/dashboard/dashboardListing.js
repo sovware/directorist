@@ -1,6 +1,6 @@
 ;
 (function ($) {
-	window.addEventListener('DOMContentLoaded', () => {
+	window.addEventListener('load', () => {
 		// Dashboard Listing Ajax
 		function directorist_dashboard_listing_ajax($activeTab, paged = 1, search = '', task = '', taskdata = '') {
 			var tab = $activeTab.data('tab');

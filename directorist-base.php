@@ -196,6 +196,7 @@ final class Directorist_Base
 			add_action('plugins_loaded', array(self::$instance, 'load_textdomain'));
 			add_action('plugins_loaded', array(self::$instance, 'add_polylang_swicher_support') );
 			add_action('widgets_init', array(self::$instance, 'register_widgets'));
+			add_filter('widget_display_callback', array(self::$instance, 'custom_widget_body_wrapper'), 10, 3);
 			add_action('after_setup_theme', array(self::$instance, 'add_image_sizes'));
 
 			add_action( 'template_redirect', [ self::$instance, 'check_single_listing_page_restrictions' ] );
@@ -565,6 +566,54 @@ final class Directorist_Base
 			));
 		}
 	}
+
+	public function custom_widget_body_wrapper( $instance, $widget, $args ) {
+		// Check if this is the specific sidebar
+		if ( $args['id'] === 'right-sidebar-listing' ) {
+			// Create a wrapper for the widget body
+			$widget_output = '';
+	
+			// Check and append before_widget if it exists
+			if ( isset( $instance['before_widget'] ) ) {
+				$widget_output .= $instance['before_widget'];
+			}
+	
+			// Check and append before_title, title, and after_title if they exist
+			if ( isset( $instance['before_title'] ) ) {
+				$widget_output .= $instance['before_title'];
+			}
+	
+			if ( isset( $instance['title'] ) ) {
+				$widget_output .= $instance['title'];
+			}
+	
+			if ( isset( $instance['after_title'] ) ) {
+				$widget_output .= $instance['after_title'];
+			}
+	
+			// Open custom body wrapper
+			$widget_output .= '<div class="directorist-card__body">';
+	
+			// Check for actual widget content (may vary based on your widget implementation)
+			if ( isset( $instance['content'] ) ) {
+				$widget_output .= $instance['content'];
+			}
+	
+			// Close custom body wrapper
+			$widget_output .= '</div>';
+	
+			// Check and append after_widget if it exists
+			if ( isset( $instance['after_widget'] ) ) {
+				$widget_output .= $instance['after_widget'];
+			}
+	
+			// Update instance output
+			$instance['content'] = $widget_output;
+		}
+	
+		return $instance;
+	}
+	
 
 	public function add_image_sizes() {
 		$current_preview_size = get_directorist_option( 'preview_image_quality', 'directorist_preview' );

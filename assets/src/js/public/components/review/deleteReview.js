@@ -1,6 +1,6 @@
 ;
 (function ($) {
-    window.addEventListener('DOMContentLoaded', () => {
+    window.addEventListener('load', () => {
         // remove the review of a user
         var delete_count = 1;
 

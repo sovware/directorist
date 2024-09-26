@@ -93,7 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-window.addEventListener('DOMContentLoaded', function () {
+window.addEventListener('load', function () {
   var $ = jQuery;
 
   // Open Delete Modal
@@ -121,7 +121,7 @@ window.addEventListener('DOMContentLoaded', function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-window.addEventListener('DOMContentLoaded', function () {
+window.addEventListener('load', function () {
   var $ = jQuery;
   var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").default;
 
@@ -143,7 +143,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
       if (response !== null && response !== void 0 && (_response$data = response.data) !== null && _response$data !== void 0 && _response$data.success) {
         var _response$data$messag, _response$data2;
-        var msg = (_response$data$messag = response === null || response === void 0 ? void 0 : (_response$data2 = response.data) === null || _response$data2 === void 0 ? void 0 : _response$data2.message) !== null && _response$data$messag !== void 0 ? _response$data$messag : 'Migration Successful';
+        var msg = (_response$data$messag = response === null || response === void 0 || (_response$data2 = response.data) === null || _response$data2 === void 0 ? void 0 : _response$data2.message) !== null && _response$data$messag !== void 0 ? _response$data$messag : 'Migration Successful';
         var alert_content = "\n                <div class=\"cptm-section-alert-content\">\n                    <div class=\"cptm-section-alert-icon cptm-alert-success\">\n                        <span class=\"fa fa-check\"></span>\n                    </div>\n\n                    <div class=\"cptm-section-alert-message\">".concat(msg, "</div>\n                </div>\n                ");
         $('.cptm-directory-migration-form').find('.cptm-comfirmation-text').html(alert_content);
         $(self).remove();
@@ -158,7 +158,7 @@ window.addEventListener('DOMContentLoaded', function () {
       var _response$data$messag2, _response$data3;
       // console.log( { response } );
 
-      var msg = (_response$data$messag2 = response === null || response === void 0 ? void 0 : (_response$data3 = response.data) === null || _response$data3 === void 0 ? void 0 : _response$data3.message) !== null && _response$data$messag2 !== void 0 ? _response$data$messag2 : 'Something went wrong please try again';
+      var msg = (_response$data$messag2 = response === null || response === void 0 || (_response$data3 = response.data) === null || _response$data3 === void 0 ? void 0 : _response$data3.message) !== null && _response$data$messag2 !== void 0 ? _response$data$messag2 : 'Something went wrong please try again';
       var alert_content = "\n            <div class=\"cptm-section-alert-content\">\n                <div class=\"cptm-section-alert-icon cptm-alert-error\">\n                    <span class=\"fa fa-times\"></span>\n                </div>\n\n                <div class=\"cptm-section-alert-message\">".concat(msg, "</div>\n            </div>\n            ");
       $('.cptm-directory-migration-form').find('.cptm-comfirmation-text').html(alert_content);
       $(self).remove();
@@ -185,7 +185,7 @@ window.addEventListener('DOMContentLoaded', function () {
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
-window.addEventListener('DOMContentLoaded', function () {
+window.addEventListener('load', function () {
   var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").default;
   var $ = jQuery;
 
@@ -289,7 +289,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-window.addEventListener('DOMContentLoaded', function () {
+window.addEventListener('load', function () {
   var $ = jQuery;
   var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").default;
 
@@ -307,7 +307,7 @@ window.addEventListener('DOMContentLoaded', function () {
       var _response$data;
       if (response !== null && response !== void 0 && (_response$data = response.data) !== null && _response$data !== void 0 && _response$data.success) {
         var _response$data$messag, _response$data2;
-        var msg = (_response$data$messag = response === null || response === void 0 ? void 0 : (_response$data2 = response.data) === null || _response$data2 === void 0 ? void 0 : _response$data2.message) !== null && _response$data$messag !== void 0 ? _response$data$messag : 'Imported successfully!';
+        var msg = (_response$data$messag = response === null || response === void 0 || (_response$data2 = response.data) === null || _response$data2 === void 0 ? void 0 : _response$data2.message) !== null && _response$data$messag !== void 0 ? _response$data$messag : 'Imported successfully!';
         $('.directorist_template_notice').text(msg);
         location.reload();
         return;
@@ -320,7 +320,7 @@ window.addEventListener('DOMContentLoaded', function () {
       var _response$data$messag2, _response$data3;
       // console.log( { response } );
 
-      var msg = (_response$data$messag2 = response === null || response === void 0 ? void 0 : (_response$data3 = response.data) === null || _response$data3 === void 0 ? void 0 : _response$data3.message) !== null && _response$data$messag2 !== void 0 ? _response$data$messag2 : 'Something went wrong please try again';
+      var msg = (_response$data$messag2 = response === null || response === void 0 || (_response$data3 = response.data) === null || _response$data3 === void 0 ? void 0 : _response$data3.message) !== null && _response$data$messag2 !== void 0 ? _response$data$messag2 : 'Something went wrong please try again';
       var alert_content = "\n            <div class=\"cptm-section-alert-content\">\n                <div class=\"cptm-section-alert-icon cptm-alert-error\">\n                    <span class=\"fa fa-times\"></span>\n                </div>\n\n                <div class=\"cptm-section-alert-message\">".concat(msg, "</div>\n            </div>\n            ");
       $('.cptm-directory-migration-form').find('.cptm-comfirmation-text').html(alert_content);
       $(self).remove();

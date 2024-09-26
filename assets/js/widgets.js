@@ -93,7 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-window.addEventListener('DOMContentLoaded', function () {
+window.addEventListener('load', function () {
   /* Make sure the codes in this file runs only once, even if enqueued twice */
   if (typeof window.directorist_catloc_executed === 'undefined') {
     window.directorist_catloc_executed = true;
@@ -140,7 +140,7 @@ window.addEventListener('DOMContentLoaded', function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_categoryLocation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/categoryLocation */ "./assets/src/js/public/components/categoryLocation.js");
 /* harmony import */ var _components_categoryLocation__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_components_categoryLocation__WEBPACK_IMPORTED_MODULE_0__);
-/* window.addEventListener('DOMContentLoaded', () => {
+/* window.addEventListener('load', () => {
     (function ($) {
 
 

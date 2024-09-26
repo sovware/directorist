@@ -1,4 +1,4 @@
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('load', () => {
     jQuery(function ($) {
         // update extension
         $('body').on('click', '.atbdp-update-extension', function (e) {

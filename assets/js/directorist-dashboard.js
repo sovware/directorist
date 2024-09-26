@@ -163,7 +163,7 @@ __webpack_require__.r(__webpack_exports__);
 
 ;
 (function ($) {
-  window.addEventListener('DOMContentLoaded', function () {
+  window.addEventListener('load', function () {
     // User Dashboard Table More Button
     $('.directorist-dashboard-listings-tbody').on("click", '.directorist-btn-more', function (e) {
       e.preventDefault();
@@ -192,7 +192,7 @@ __webpack_require__.r(__webpack_exports__);
 
 ;
 (function ($) {
-  window.addEventListener('DOMContentLoaded', function () {
+  window.addEventListener('load', function () {
     // Clear seen Announcements
     var cleared_seen_announcements = false;
     $('.directorist-tab__nav__link').on('click', function () {
@@ -287,7 +287,7 @@ __webpack_require__.r(__webpack_exports__);
 
 ;
 (function ($) {
-  window.addEventListener('DOMContentLoaded', function () {
+  window.addEventListener('load', function () {
     // Dashboard become an author
     $('.directorist-become-author').on('click', function (e) {
       e.preventDefault();
@@ -329,7 +329,7 @@ __webpack_require__.r(__webpack_exports__);
 
 ;
 (function ($) {
-  window.addEventListener('DOMContentLoaded', function () {
+  window.addEventListener('load', function () {
     // Dashboard Listing Ajax
     function directorist_dashboard_listing_ajax($activeTab) {
       var paged = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
@@ -495,7 +495,7 @@ __webpack_require__.r(__webpack_exports__);
 
 ;
 (function ($) {
-  window.addEventListener('DOMContentLoaded', function () {
+  window.addEventListener('load', function () {
     //dashboard content responsive fix
     var tabContentWidth = $(".directorist-user-dashboard .directorist-user-dashboard__contents").innerWidth();
     if (tabContentWidth < 1399) {
@@ -532,7 +532,7 @@ __webpack_require__.r(__webpack_exports__);
 
 ;
 (function ($) {
-  window.addEventListener('DOMContentLoaded', function () {
+  window.addEventListener('load', function () {
     //dashboard sidebar nav toggler
     $(".directorist-user-dashboard__toggle__link").on("click", function (e) {
       e.preventDefault();
@@ -757,7 +757,7 @@ __webpack_require__.r(__webpack_exports__);
   } else {
     return;
   }
-  window.addEventListener('DOMContentLoaded', function () {
+  window.addEventListener('load', function () {
     // Add or Remove from favourites
     $('.directorist-action-bookmark').on('click', function (e) {
       e.preventDefault();
@@ -837,7 +837,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-window.addEventListener('DOMContentLoaded', function () {
+window.addEventListener('load', function () {
   // Make sure the codes in this file runs only once, even if enqueued twice
   if (typeof window.directorist_select_executed === 'undefined') {
     window.directorist_select_executed = true;
@@ -883,7 +883,7 @@ window.addEventListener('DOMContentLoaded', function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-window.addEventListener('DOMContentLoaded', function () {
+window.addEventListener('load', function () {
   /* custom dropdown */
   var atbdDropdown = document.querySelectorAll('.atbd-dropdown');
 

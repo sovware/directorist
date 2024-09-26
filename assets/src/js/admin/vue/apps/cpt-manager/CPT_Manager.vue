@@ -1,36 +1,45 @@
 <template>
-  <div class="atbdp-cpt-manager cptm-p-20">
-    <!-- atbdp-cptm-header -->
-    <div class="atbdp-cptm-header">
-      <component
-        v-if="options.name && options.name.type"
-        :is="options.name.type + '-field'"
-        v-bind="options.name"
-        @update="updateOptionsField({ field: 'name', value: $event })"
-      />
-
-      <headerNavigation />
-    </div>
-
-    <!-- atbdp-cptm-body -->
-    <div class="atbdp-cptm-body">
-      <tabContents />
-
-      <div class="atbdp-cptm-status-feedback" v-if="status_messages.length">
-        <div
-          class="cptm-alert"
-          :class="'cptm-alert-' + status.type"
-          v-for="(status, index) in status_messages"
-          :key="index"
+  <div class="directorist-directory-type atbdp-cpt-manager">
+    <div class="directorist-directory-type-top">
+      <div 
+        class="directorist-directory-type-top-left"
+      >
+        <a
+          href="edit.php?post_type=at_biz_dir&page=atbdp-directory-types"
+          class="directorist-back-directory"
+          v-if="this.enabled_multi_directory"
         >
-          {{ status.message }}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="14"
+            height="14"
+            viewBox="0 0 14 14"
+            fill="none"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M7.51556 1.38019C7.80032 1.66495 7.80032 2.12663 7.51556 2.41139L3.65616 6.27079H12.1041C12.5068 6.27079 12.8333 6.59725 12.8333 6.99996C12.8333 7.40267 12.5068 7.72913 12.1041 7.72913H3.65616L7.51556 11.5885C7.80032 11.8733 7.80032 12.335 7.51556 12.6197C7.2308 12.9045 6.76912 12.9045 6.48436 12.6197L1.38019 7.51556C1.09544 7.2308 1.09544 6.76912 1.38019 6.48436L6.48436 1.38019C6.76912 1.09544 7.2308 1.09544 7.51556 1.38019Z"
+              fill="currentColor"
+            />
+          </svg>
+          All Directories
+        </a>
+        <!-- atbdp-cptm-header -->
+        <div
+          class="directorist-row-tooltip"
+          data-tooltip="Click here to rename the directory."
+          data-flow="bottom"
+        >
+          <component
+            v-if="options.name && options.name.type"
+            :is="options.name.type + '-field'"
+            v-bind="options.name"
+            @update="updateOptionsField({ field: 'name', value: $event })"
+          />
         </div>
       </div>
-    </div>
-
-    <div class="atbdp-cptm-footer">
-      <div class="atbdp-cptm-progress-bar"></div>
-      <div class="atbdp-cptm-footer-actions">
+      <div class="directorist-directory-type-top-right">
         <button
           type="button"
           :disabled="footer_actions.save.isDisabled"
@@ -43,18 +52,35 @@
           ></span>
           {{ footer_actions.save.label }}
         </button>
+        <!-- <a href="#" class="directorist-create-directory">Create New Directory</a> -->
+      </div>
+    </div>
+    <div class="atbdp-cptm-status-feedback" v-if="status_messages?.length">
+      <div
+        class="cptm-alert"
+        :class="'cptm-alert-' + status.type"
+        v-for="(status, index) in this.status_messages"
+        :key="index"
+      >
+        {{ status.message }}
+      </div>
+    </div>
+    <div class="directorist-directory-type-bottom">
+      <headerNavigation />
+      <!-- atbdp-cptm-body -->
+      <div class="atbdp-cptm-body">
+        <tabContents @save="handleSaveData($event)" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
-import { mapGetters } from "vuex";
+const axios = require("axios").default;
+
+import { mapGetters, mapState } from "vuex";
 import headerNavigation from "./Header_Navigation.vue";
 import tabContents from "./TabContents.vue";
-
-const axios = require("axios").default;
 
 export default {
   name: "cpt-manager",
@@ -66,6 +92,8 @@ export default {
 
   computed: {
     ...mapState({
+      fields: "fields",
+      cached_fields: "cached_fields",
       options: "options",
     }),
   },
@@ -83,7 +111,9 @@ export default {
       this.$store.commit("updateOptions", this.$root.options);
     }
 
-    // console.log( this.options );
+    if (this.$root.cachedOptions) {
+      this.$store.commit("updateCachedOptions", this.$store.options);
+    }
 
     if (this.$root.config) {
       this.$store.commit("updateConfig", this.$root.config);
@@ -97,6 +127,12 @@ export default {
         this.footer_actions.save.label = "Update";
       }
     }
+
+    this.$store.commit("updateCachedFields");
+    this.setupClosingWarning();
+    this.setupSaveOnKeyboardInput();
+
+    this.enabled_multi_directory = directorist_admin.enabled_multi_directory === "1";
   },
 
   data() {
@@ -111,11 +147,59 @@ export default {
           isDisabled: false,
         },
       },
+      enabled_multi_directory: null,
     };
   },
 
   methods: {
     ...mapGetters(["getFieldsValue"]),
+
+    setupSaveOnKeyboardInput() {
+      addEventListener("keydown", (event) => {
+        if ( ( event.metaKey || event.ctrlKey ) && 's' === event.key ) {
+          event.preventDefault();
+          this.saveData();
+        }
+      });
+    },
+
+    setupClosingWarning() {
+      window.addEventListener("beforeunload", this.handleBeforeUnload);
+    },
+
+    getFieldsValue(fields) {
+      const values = {};
+
+      for (const key of Object.keys(fields)) {
+        values[key] = fields[key].value;
+      }
+
+      return values;
+    },
+
+    parseJSONString(jsonString) {
+      jsonString = jsonString.replace(/true/g, '"1"');
+      jsonString = jsonString.replace(/false/g, '""');
+
+      return jsonString;
+    },
+
+    handleBeforeUnload(event) {
+      try {
+        const fieldsValues = this.getFieldsValue(this.fields);
+        const cachedFieldsValues = this.getFieldsValue(this.cached_fields);
+
+        const dataA = this.parseJSONString(JSON.stringify(fieldsValues));
+        const dataB = this.parseJSONString(JSON.stringify(cachedFieldsValues));
+
+        if (btoa(dataA) !== btoa(dataB)) {
+          event.preventDefault();
+          event.returnValue = "";
+        }
+      } catch (error) {
+        console.log({ error });
+      }
+    },
 
     updateOptionsField(payload) {
       if (!payload.field) {
@@ -155,6 +239,21 @@ export default {
       console.log({ submission_url, submission_with });
     },
 
+    async handleSaveData(callback) {
+      await this.saveData();
+
+      if (typeof callback === "function") {
+        callback(this.$store.state);
+      }
+
+      // Get Add Listing URL from Object
+      const addListingURL = directorist_admin.add_listing_url;
+      // Append the listing_type_id to the URL as a query parameter
+      const urlWithListingType = `${addListingURL}?directory_type=${this.listing_type_id}`;
+      // Open the URL with the listing_type_id parameter
+      window.open(urlWithListingType, "_blank");
+    },
+
     saveData() {
       let options = this.$store.state.options;
       let fields = this.$store.state.fields;
@@ -191,12 +290,6 @@ export default {
       for (let field in fields) {
         let value = this.maybeJSON([fields[field].value]);
 
-        if (fields[field].editor) {
-          let privacyFieldID = fields[field].editorID;
-          let editorInstance = tinymce.get(privacyFieldID);
-          value = editorInstance.getContent();
-        }
-
         form_data.append(field, value);
         field_list.push(field);
       }
@@ -208,10 +301,14 @@ export default {
       this.footer_actions.save.isDisabled = true;
       const self = this;
 
-      // return;
+      this.$store.commit("updateIsSaving", true);
+
       axios
         .post(submission_url, form_data)
         .then((response) => {
+          self.$store.commit("updateIsSaving", false);
+          self.$store.commit("updateCachedFields");
+
           self.footer_actions.save.showLoading = false;
           self.footer_actions.save.isDisabled = false;
 
@@ -246,6 +343,7 @@ export default {
         .catch((error) => {
           self.footer_actions.save.showLoading = false;
           self.footer_actions.save.isDisabled = false;
+          self.$store.commit("updateIsSaving", false);
           console.log(error);
         });
     },

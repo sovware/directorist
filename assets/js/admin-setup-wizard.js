@@ -195,13 +195,11 @@ jQuery(document).ready(function ($) {
             window.location = response.url;
           }
           type_count++;
-          var progressPercentage = type_count * 25;
+          var progressPercentage = response.percentage;
           $('.directorist-import-progress-bar').css('width', progressPercentage + '%');
           $('.directorist-importer-progress').val(progressPercentage);
           $('.directorist-import-progress-info-precent').text(progressPercentage + '%');
-          if (type_count < 4) {
-            import_dummy();
-          }
+          import_dummy();
         }
       });
     };

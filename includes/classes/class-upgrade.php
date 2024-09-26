@@ -125,16 +125,16 @@ class ATBDP_Upgrade
 		$link = 'https://directorist.com/blog/directorist-7-0-released/';
 		$membership_page = admin_url('edit.php?post_type=at_biz_dir&page=atbdp-extension');
 
-		$wp_rollback = 'https://wordpress.org/plugins/wp-rollback/';
+		$wp_rollback = admin_url( 'plugin-install.php?s=rollback&tab=search&type=term' );
 
-		$text .= sprintf( __( '<p class="directorist__notice_new"><span>🚫 Directorist Extension Compatibility Notice!</span> You are now using the latest version of Directorist with some cool <a href="%s" target="_blank">new features</a>.Please update the %s extensions from this <a target="_blank" href="%s">page</a> </p>', 'directorist' ), $link, count( $list ), $membership_page );
+		$text .= sprintf( __( '<p class="directorist__notice_new"><span style="font-size: 16px;">📣 Directorist Extension Compatibility Notice!</span><br/> Congratulations and welcome to Directorist v8.0 with some cool <a href="%s" target="_blank">new features</a>.You are using %s of our extensions which are not compatible with v8.0. Please <a target="_blank" href="%s">update your extensions</a> </p>', 'directorist' ), $link, count( $list ), $membership_page );
 
 		$text .= sprintf(
-			__( '<p class="directorist__notice_new_action"><a target="_blank" href="%s">Roll back to Previous Version</a></p>', 'directorist' ),
+			__( '<p class="directorist__notice_new_action">Mistakenly updated? Use <a target="_blank" href="%s">WP Rollback</a> to install your old Directorist</p>', 'directorist' ),
 			$wp_rollback
 		);
 
-		$notice = '<div class="notice notice-warning is-dismissible directorist-plugin-updater-notice" style="font-weight:bold;padding-top: 5px;padding-bottom: 5px;">' . $text . '</div>';
+		$notice = '<div class="notice notice-warning is-dismissible directorist-plugin-updater-notice" style="padding-top: 5px;padding-bottom: 5px;">' . $text . '</div>';
 
 		echo wp_kses_post( $notice );
 	}
@@ -148,16 +148,16 @@ class ATBDP_Upgrade
 		$link = 'https://directorist.com/blog/directorist-7-0-released/';
 		$membership_page = admin_url('edit.php?post_type=at_biz_dir&page=atbdp-extension');
 
-		$wp_rollback = 'https://wordpress.org/plugins/wp-rollback/';
+		$wp_rollback = admin_url( 'plugin-install.php?s=rollback&tab=search&type=term' );
 
-		$text .= sprintf( __( '<p class="directorist__notice_new"><span>🚫 Directorist Theme Compatibility Notice!</span> You are now using the latest version of Directorist with some cool <a href="%s" target="_blank">new features</a>.Please update %s theme from this <a target="_blank" href="%s">page</a> </p>', 'directorist' ), $link, $theme['Name'], $membership_page );
+		$text .= sprintf( __( '<p class="directorist__notice_new"><span style="font-size: 16px;">📣 Directorist Theme Compatibility Notice!</span><br/> Congratulations and welcome to Directorist v8.0 with some cool <a href="%s" target="_blank">new features</a>.Please update <a target="_blank" href="%s">%s theme</a> </p>', 'directorist' ), $link, $membership_page, $theme['Name'] );
 
 		$text .= sprintf(
-			__( '<p class="directorist__notice_new_action"><a target="_blank" href="%s">Roll back to Previous Version</a></p>', 'directorist' ),
+			__( '<p class="directorist__notice_new_action">Mistakenly updated? Use <a target="_blank" href="%s">WP Rollback</a> to install your old Directorist</p>', 'directorist' ),
 			$wp_rollback
 		);
 
-		$notice = '<div class="notice notice-warning is-dismissible directorist-plugin-updater-notice" style="font-weight:bold;padding-top: 5px;padding-bottom: 5px;">' . $text . '</div>';
+		$notice = '<div class="notice notice-warning is-dismissible directorist-plugin-updater-notice" style="padding-top: 5px;padding-bottom: 5px;">' . $text . '</div>';
 
 		echo wp_kses_post( $notice );
 	}

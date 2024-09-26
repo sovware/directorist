@@ -1,4 +1,5 @@
 .directorist-content-active { 
+    box-sizing: border-box;
     // Author Profile Style
     .directorist-author-profile {
         padding: 0;
@@ -145,6 +146,7 @@
         }
     }
     .directorist-author-profile-content {
+        box-sizing: border-box;
         max-width: 100%;
         display: flex;
         .directorist-card__header__title {

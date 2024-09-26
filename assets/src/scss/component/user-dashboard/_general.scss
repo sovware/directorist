@@ -2,7 +2,7 @@
   width: 100% !important;
   max-width: 100% !important;
   overflow: hidden;
-
+  box-sizing: border-box;
   @include e(contents) {
     display: flex;
     padding-bottom: 20px;

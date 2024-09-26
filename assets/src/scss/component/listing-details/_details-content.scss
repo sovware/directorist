@@ -52,6 +52,7 @@
 
 // Directorist Single Listing Style
 .directorist-single-contents-area {
+  box-sizing: border-box;
   .directorist-card {
     padding: 0;
     filter: none;

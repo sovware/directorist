@@ -8,6 +8,7 @@
 // add listing types
 .directorist-add-listing-types {
   display: flex;
+  box-sizing: border-box;
   @include e(single) {
     margin-bottom: 15px;
     @include e(link) {
@@ -63,6 +64,7 @@
 
 .directorist-add-listing-wrapper {
   display: flex;
+  box-sizing: border-box;
 }
 
 .directorist-add-listing-form {

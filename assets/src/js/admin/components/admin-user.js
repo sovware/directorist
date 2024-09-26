@@ -1,6 +1,6 @@
 // user type change on user dashboard
 (function ($) {
-    window.addEventListener('DOMContentLoaded', () => {
+    window.addEventListener('load', () => {
         $('#atbdp-user-type-approve').on('click', function (event) {
             event.preventDefault();
             var userId = $(this).attr('data-userId');

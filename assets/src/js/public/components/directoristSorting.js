@@ -6,7 +6,7 @@
     } else {
         return;
     }
-    window.addEventListener('DOMContentLoaded', () => {
+    window.addEventListener('load', () => {
         // Sorting Js
         if(!$('.directorist-instant-search').length){
             $('.directorist-dropdown__links__single-js').click(function (e) {

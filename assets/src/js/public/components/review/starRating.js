@@ -1,4 +1,4 @@
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('load', () => {
     ;(function ($) {
         //Star rating
         if ($('.directorist-review-criteria-select').length) {

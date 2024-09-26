@@ -1,4 +1,4 @@
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('load', () => {
     ;(function ($) {
         'use strict';
         class ReplyFormObserver {

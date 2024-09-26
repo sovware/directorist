@@ -9,7 +9,7 @@ import debounce from '../global/components/debounce';
 import initSearchCategoryCustomFields from './components/category-custom-fields';
 
 (function ($) {
-    window.addEventListener('DOMContentLoaded', () => {
+    window.addEventListener('load', () => {
         //Remove Preload after Window Load
         $(window).on('load', function () {
             $('body').removeClass("directorist-preload");

@@ -95,7 +95,7 @@
 
 // author sorting
 (function ($) {
-  window.addEventListener('DOMContentLoaded', function () {
+  window.addEventListener('load', function () {
     /* Masonry layout */
     function authorsMasonry() {
       var authorsCard = $('.directorist-authors__cards');

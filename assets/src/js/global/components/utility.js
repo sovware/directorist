@@ -1,4 +1,4 @@
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('load', () => {
     var $ = jQuery;
 
     document.querySelectorAll('.la-icon i').forEach(function (item) {

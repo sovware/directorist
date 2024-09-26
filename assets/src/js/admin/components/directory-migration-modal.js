@@ -1,4 +1,4 @@
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('load', () => {
     var $ = jQuery;
     const axios = require('axios').default;
 

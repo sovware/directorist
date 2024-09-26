@@ -565,7 +565,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/toConsumableArray.js");
 /* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__);
 
-document.addEventListener('DOMContentLoaded', init, false);
+document.addEventListener('load', init, false);
 function Tasks() {
   return {
     init: function init() {
@@ -649,7 +649,7 @@ function init() {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-window.addEventListener('DOMContentLoaded', function () {
+window.addEventListener('load', function () {
   var $ = jQuery;
   document.querySelectorAll('.la-icon i').forEach(function (item) {
     className.push(item.getAttribute('class'));

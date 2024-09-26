@@ -637,7 +637,7 @@ function hideAllCustomFieldsExceptSelected(relations, category, $container) {
     }
   });
 }
-function initSearchCategoryCustomFields($, onSuccessCallback) {
+function initSearchCategoryCustomFields($) {
   var _$pageContainer;
   var $searchPageContainer = $('.directorist-search-contents');
   var $archivePageContainer = $('.directorist-archive-contents');
@@ -3392,14 +3392,16 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
     // Check Empty Search Fields on Search Modal
     function initSearchFields() {
-      var inputFields = document.querySelectorAll('.directorist-search-modal__input');
-      if (inputFields.length) {
-        inputFields.forEach(function (inputField) {
-          if (!inputField.children.length) {
-            inputField.remove();
-          }
-        });
-      }
+      // const inputFields = document.querySelectorAll('.directorist-search-modal__input');
+
+      // if ( inputFields.length ) {
+      //     inputFields.forEach( inputField => {
+      //         if ( ! inputField.children.length ) {
+      //             inputField.remove();
+      //         }
+      //     } );
+      // }
+
       var searchFields = document.querySelectorAll('.directorist-search-field__input:not(.directorist-search-basic-dropdown)');
       searchFields.forEach(function (searchField) {
         var inputFieldValue = searchField.value;
@@ -3842,7 +3844,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
             handleRadiusVisibility();
             directorist_custom_range_slider();
             initSearchFields();
-            Object(_components_category_custom_fields__WEBPACK_IMPORTED_MODULE_7__["default"])($, initSearchFields);
+            Object(_components_category_custom_fields__WEBPACK_IMPORTED_MODULE_7__["default"])($);
           }
           var parentAfterAjax = $(this).closest('.directorist-search-contents');
           parentAfterAjax.find('.directorist-search-form-box').removeClass('atbdp-form-fade');
@@ -3856,7 +3858,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         }
       });
     });
-    Object(_components_category_custom_fields__WEBPACK_IMPORTED_MODULE_7__["default"])($, initSearchFields);
+    Object(_components_category_custom_fields__WEBPACK_IMPORTED_MODULE_7__["default"])($);
 
     // Back Button to go back to the previous page
     $('body').on('click', '.directorist-btn__back', function (e) {

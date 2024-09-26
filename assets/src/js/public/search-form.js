@@ -140,15 +140,15 @@ import initSearchCategoryCustomFields from './components/category-custom-fields'
 
         // Check Empty Search Fields on Search Modal
         function initSearchFields() {
-            const inputFields = document.querySelectorAll('.directorist-search-modal__input');
+            // const inputFields = document.querySelectorAll('.directorist-search-modal__input');
 
-            if ( inputFields.length ) {
-                inputFields.forEach( inputField => {
-                    if ( ! inputField.children.length ) {
-                        inputField.remove();
-                    }
-                } );
-            }
+            // if ( inputFields.length ) {
+            //     inputFields.forEach( inputField => {
+            //         if ( ! inputField.children.length ) {
+            //             inputField.remove();
+            //         }
+            //     } );
+            // }
 
             const searchFields = document.querySelectorAll('.directorist-search-field__input:not(.directorist-search-basic-dropdown)');
 
@@ -674,7 +674,7 @@ import initSearchCategoryCustomFields from './components/category-custom-fields'
 
                         initSearchFields();
 
-                        initSearchCategoryCustomFields($, initSearchFields);
+                        initSearchCategoryCustomFields($);
                     }
 
                     let parentAfterAjax = $(this).closest('.directorist-search-contents');
@@ -691,7 +691,7 @@ import initSearchCategoryCustomFields from './components/category-custom-fields'
             });
         });
 
-        initSearchCategoryCustomFields($, initSearchFields);
+        initSearchCategoryCustomFields($);
 
         // Back Button to go back to the previous page
         $('body').on('click', '.directorist-btn__back', function(e) {

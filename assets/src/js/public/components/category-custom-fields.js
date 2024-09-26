@@ -33,9 +33,10 @@ function hideAllCustomFieldsExceptSelected(relations, category, $container) {
     });
 }
 
-export default function initSearchCategoryCustomFields($, onSuccessCallback) {
+export default function initSearchCategoryCustomFields( $ ) {
     const $searchPageContainer = $('.directorist-search-contents');
     const $archivePageContainer = $('.directorist-archive-contents');
+
     let $pageContainer;
 
     if ($searchPageContainer.length) {

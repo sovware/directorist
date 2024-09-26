@@ -30792,5 +30792,216 @@ span.drop-toggle-caret:before {
             transform: rotate(360deg);
   }
 }
+/* data Progressing */
+.directorist-setup-wizard__step .directorist-setup-wizard__content.hidden {
+  display: none;
+}
+
+.middle-content.middle-content-import {
+  background: white;
+  padding: 40px;
+  -webkit-box-shadow: 0px 4px 6px -2px rgba(0, 0, 0, 0.05), 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+          box-shadow: 0px 4px 6px -2px rgba(0, 0, 0, 0.05), 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+  width: 600px;
+  border-radius: 10px;
+}
+.middle-content.hidden {
+  display: none;
+}
+
+.directorist-import-progress-info-text {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-align-content: center;
+      -ms-flex-line-pack: center;
+          align-content: center;
+  grid-gap: 10px;
+}
+
+.directorist-import-progress,
+.directorist-import-error {
+  margin-top: 25px;
+}
+.directorist-import-progress .directorist-import-progress-bar-wrap,
+.directorist-import-error .directorist-import-progress-bar-wrap {
+  position: relative;
+  overflow: hidden;
+}
+.directorist-import-progress .import-progress-gap span,
+.directorist-import-error .import-progress-gap span {
+  background: white;
+  height: 6px;
+  position: absolute;
+  width: 10px;
+  top: -1px;
+}
+.directorist-import-progress .import-progress-gap span:nth-child(1),
+.directorist-import-error .import-progress-gap span:nth-child(1) {
+  left: calc(25% - 10px);
+}
+.directorist-import-progress .import-progress-gap span:nth-child(2),
+.directorist-import-error .import-progress-gap span:nth-child(2) {
+  left: calc(50% - 10px);
+}
+.directorist-import-progress .import-progress-gap span:nth-child(3),
+.directorist-import-error .import-progress-gap span:nth-child(3) {
+  left: calc(75% - 10px);
+}
+.directorist-import-progress .directorist-import-progress-bar-bg,
+.directorist-import-error .directorist-import-progress-bar-bg {
+  height: 4px;
+  background: #e5e7eb;
+  width: 100%;
+  position: relative;
+}
+.directorist-import-progress .directorist-import-progress-bar-bg .directorist-import-progress-bar,
+.directorist-import-error .directorist-import-progress-bar-bg .directorist-import-progress-bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: #2563eb;
+  -webkit-transition: all 1s;
+  transition: all 1s;
+  width: 0%;
+  height: 100%;
+}
+.directorist-import-progress .directorist-import-progress-bar-bg .directorist-import-progress-bar.import-done,
+.directorist-import-error .directorist-import-progress-bar-bg .directorist-import-progress-bar.import-done {
+  background: #38c172;
+}
+.directorist-import-progress .directorist-import-progress-info,
+.directorist-import-error .directorist-import-progress-info {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.directorist-import-error .directorist-import-error-box {
+  overflow-y: scroll;
+}
+.directorist-import-error .directorist-import-progress-bar-bg {
+  width: 100%;
+  margin-bottom: 15px;
+}
+.directorist-import-error .directorist-import-progress-bar-bg .directorist-import-progress-bar {
+  background: #2563eb;
+}
+
+.directorist-import-process-step-bottom {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+.directorist-import-process-step-bottom img {
+  width: 335px;
+  text-align: center;
+  display: inline-block;
+  padding: 20px 10px 0;
+}
+
+.import-done-congrats {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.import-done-congrats span {
+  margin-left: 17px;
+}
+
+.import-done-section {
+  margin-top: 60px;
+}
+.import-done-section .tweet-import-success .tweet-text {
+  background: #ffffff;
+  border: 1px solid rgba(34, 101, 235, 0.1);
+  border-radius: 4px;
+  padding: 14px 21px 14px 21px;
+}
+.import-done-section .tweet-import-success .twitter-btn-wrap {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 7px;
+  right: 30px;
+  position: absolute;
+  margin-top: 8px;
+  text-decoration: none;
+}
+.import-done-section .import-done-text {
+  margin-top: 60px;
+}
+.import-done-section .import-done-text .import-done-counter {
+  text-align: left;
+}
+.import-done-section .import-done-text .import-done-button {
+  margin-top: 25px;
+}
+
+.directorist-import-done-inner,
+.import-done-counter,
+.import-done-section {
+  display: none;
+}
+
+.import-done .import-status-string,
+.import-done .directorist-import-text-inner {
+  display: none;
+}
+.import-done .import-done-counter,
+.import-done .directorist-import-done-inner,
+.import-done .import-done-section {
+  display: block;
+}
+
+.import-progress-warning {
+  position: relative;
+  top: 10px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #e91e63;
+  display: block;
+  text-align: center;
+}
 
 /*# sourceMappingURL=admin-main.css.map*/

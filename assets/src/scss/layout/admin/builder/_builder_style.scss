@@ -28,12 +28,12 @@ $light-gray: #f4f5f7;
   background: white;
   min-height: 60px;
   box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
-  border-radius: 6px;
+  border-radius: 6px 6px 0 0;
   position: fixed;
   right: 20px;
   top: 42px;
   width: calc(100% - 242px);
-  z-index: 999;
+  z-index: 9999;
   &:before {
     content: '';
     position: absolute;
@@ -43,27 +43,18 @@ $light-gray: #f4f5f7;
     width: 100%;
     background-color: #f3f4f6;
   }
-  &:after {
-    content: '';
-    position: absolute;
-    bottom: -20px;
-    left: 0;
-    height: 20px;
-    width: 100%;
-    background-color: #f3f4f6;
-  }
   @media only screen and (max-width: 960px) {
     width: calc(100% - 118px);
   }
   @media only screen and (max-width: 782px) {
-    width: calc(100% - 70px);
+    width: calc(100% - 62px);
     top: 56px;
+    right: 12px
   }
   @media only screen and (max-width: 600px) {
     position: unset;
     width: auto;
-    &:before,
-    &:after {
+    &:before {
       display: none;
     }
   }
@@ -162,15 +153,14 @@ $light-gray: #f4f5f7;
 }
 .directorist-directory-type-bottom {
   background: white;
-  border-radius: 6px;
-  margin-top: 90px;
+  border-radius: 0 0 6px 6px;
+  margin-top: 70px;
   overflow: hidden;
   .cptm-header-navigation {
     position: fixed;
     right: 20px;
     width: calc(100% - 262px);
     background: #ffffff;
-    border-radius: 6px 6px 0 0;
     border-bottom: 1px solid #e5e7eb;
     gap: 0 20px;
     padding: 0 30px;
@@ -182,7 +172,8 @@ $light-gray: #f4f5f7;
       justify-content: flex-start;
     }
     @media only screen and (max-width: 782px) {
-      width: calc(100% - 92px);
+      width: calc(100% - 82px);
+      right: 12px;
     } 
     @media only screen and (max-width: 600px) {
       position: unset;
@@ -200,9 +191,6 @@ $light-gray: #f4f5f7;
     @media screen and (max-width: 480px) {
       padding: 20px 30px;
     }
-  }
-  @media only screen and (max-width: 600px) {
-    margin-top: 20px;
   }
 }
 
@@ -1389,7 +1377,7 @@ div[draggable="true"].cptm-form-builder-group-title-area {
 
 .cptm-form-builder-group-options {
   background-color: #fff;
-  margin: 0 47px 0 30px;
+  margin: 0 42px 0 30px;
   padding: 20px;
   border-radius: 0 0 8px 8px;
   box-shadow: 0 6px 12px rgba(16, 24, 40, 0.1);
@@ -3227,7 +3215,6 @@ input[type="week"].cptm-form-control input[type="text"].cptm-form-control {
   font-size: 14px;
   color: #5a5f7d;
   text-align: left;
-  border: 0 none;
   border-radius: 4px;
   box-shadow: none;
   font-weight: 400;
@@ -3236,9 +3223,11 @@ input[type="week"].cptm-form-control input[type="text"].cptm-form-control {
   height: auto;
   min-height: 30px;
   background-color: #f4f5f7;
-
-  &:hover {
+  transition: all ease 0.3s;
+  &:hover,
+  &:focus {
     color: #23282d;
+    border-color: #3e62f5;
   }
 }
 

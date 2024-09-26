@@ -23441,7 +23441,16 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     showEditableButton: function showEditableButton() {
+      var _this = this;
       this.isButtonEditable = true;
+      this.$nextTick(function () {
+        // console.log('this.$refs.editableInput.$el', {element: this.$refs.editableInput.$el});
+        // this.$refs.editableInput.$el.input.focus();
+        var inputElement = _this.$refs.formGroup.$el.querySelector('input');
+        if (inputElement) {
+          inputElement.focus();
+        }
+      });
     },
     hideEditableButton: function hideEditableButton() {
       this.isButtonEditable = false;
@@ -32330,6 +32339,7 @@ var render = function render() {
   })])]) : _vm._e(), _vm._v(" "), _vm.isButtonEditable ? _c("div", {
     staticClass: "directorist-input"
   }, [_c("text-field", {
+    ref: "formGroup",
     tag: "component",
     attrs: {
       value: _vm.value

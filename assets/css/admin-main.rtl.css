@@ -13720,12 +13720,12 @@ input:-webkit-autofill:active {
   min-height: 60px;
   -webkit-box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
           box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
-  border-radius: 6px;
+  border-radius: 6px 6px 0 0;
   position: fixed;
   left: 20px;
   top: 42px;
   width: calc(100% - 242px);
-  z-index: 999;
+  z-index: 9999;
 }
 .directorist-directory-type-top:before {
   content: "";
@@ -13736,15 +13736,6 @@ input:-webkit-autofill:active {
   width: 100%;
   background-color: #f3f4f6;
 }
-.directorist-directory-type-top:after {
-  content: "";
-  position: absolute;
-  bottom: -20px;
-  right: 0;
-  height: 20px;
-  width: 100%;
-  background-color: #f3f4f6;
-}
 @media only screen and (max-width: 960px) {
   .directorist-directory-type-top {
     width: calc(100% - 118px);
@@ -13752,8 +13743,9 @@ input:-webkit-autofill:active {
 }
 @media only screen and (max-width: 782px) {
   .directorist-directory-type-top {
-    width: calc(100% - 70px);
+    width: calc(100% - 62px);
     top: 56px;
+    left: 12px;
   }
 }
 @media only screen and (max-width: 600px) {
@@ -13761,7 +13753,7 @@ input:-webkit-autofill:active {
     position: unset;
     width: auto;
   }
-  .directorist-directory-type-top:before, .directorist-directory-type-top:after {
+  .directorist-directory-type-top:before {
     display: none;
   }
 }
@@ -13931,8 +13923,8 @@ input:-webkit-autofill:active {
 
 .directorist-directory-type-bottom {
   background: white;
-  border-radius: 6px;
-  margin-top: 90px;
+  border-radius: 0 0 6px 6px;
+  margin-top: 70px;
   overflow: hidden;
 }
 .directorist-directory-type-bottom .cptm-header-navigation {
@@ -13940,7 +13932,6 @@ input:-webkit-autofill:active {
   left: 20px;
   width: calc(100% - 262px);
   background: #ffffff;
-  border-radius: 6px 6px 0 0;
   border-bottom: 1px solid #e5e7eb;
   gap: 0 20px;
   padding: 0 30px;
@@ -13961,7 +13952,8 @@ input:-webkit-autofill:active {
 }
 @media only screen and (max-width: 782px) {
   .directorist-directory-type-bottom .cptm-header-navigation {
-    width: calc(100% - 92px);
+    width: calc(100% - 82px);
+    left: 12px;
   }
 }
 @media only screen and (max-width: 600px) {
@@ -13986,11 +13978,6 @@ input:-webkit-autofill:active {
 @media screen and (max-width: 480px) {
   .directorist-directory-type-bottom .atbdp-cptm-body {
     padding: 20px 30px;
-  }
-}
-@media only screen and (max-width: 600px) {
-  .directorist-directory-type-bottom {
-    margin-top: 20px;
   }
 }
 
@@ -15373,7 +15360,7 @@ div[draggable=true].cptm-form-builder-group-title-area {
 
 .cptm-form-builder-group-options {
   background-color: #fff;
-  margin: 0 30px 0 47px;
+  margin: 0 30px 0 42px;
   padding: 20px;
   border-radius: 0 0 8px 8px;
   -webkit-box-shadow: 0 6px 12px rgba(16, 24, 40, 0.1);
@@ -17477,7 +17464,6 @@ input[type=week].cptm-form-control input[type=text].cptm-form-control {
   font-size: 14px;
   color: #5a5f7d;
   text-align: right;
-  border: 0 none;
   border-radius: 4px;
   -webkit-box-shadow: none;
           box-shadow: none;
@@ -17487,23 +17473,40 @@ input[type=week].cptm-form-control input[type=text].cptm-form-control {
   height: auto;
   min-height: 30px;
   background-color: #f4f5f7;
+  -webkit-transition: all ease 0.3s;
+  transition: all ease 0.3s;
 }
-.cptm-form-control:hover,
+.cptm-form-control:hover, .cptm-form-control:focus,
 select.cptm-form-control:hover,
+select.cptm-form-control:focus,
 input[type=date].cptm-form-control:hover,
+input[type=date].cptm-form-control:focus,
 input[type=datetime-local].cptm-form-control:hover,
+input[type=datetime-local].cptm-form-control:focus,
 input[type=datetime].cptm-form-control:hover,
+input[type=datetime].cptm-form-control:focus,
 input[type=email].cptm-form-control:hover,
+input[type=email].cptm-form-control:focus,
 input[type=month].cptm-form-control:hover,
+input[type=month].cptm-form-control:focus,
 input[type=number].cptm-form-control:hover,
+input[type=number].cptm-form-control:focus,
 input[type=password].cptm-form-control:hover,
+input[type=password].cptm-form-control:focus,
 input[type=search].cptm-form-control:hover,
+input[type=search].cptm-form-control:focus,
 input[type=tel].cptm-form-control:hover,
+input[type=tel].cptm-form-control:focus,
 input[type=text].cptm-form-control:hover,
+input[type=text].cptm-form-control:focus,
 input[type=time].cptm-form-control:hover,
+input[type=time].cptm-form-control:focus,
 input[type=url].cptm-form-control:hover,
-input[type=week].cptm-form-control input[type=text].cptm-form-control:hover {
+input[type=url].cptm-form-control:focus,
+input[type=week].cptm-form-control input[type=text].cptm-form-control:hover,
+input[type=week].cptm-form-control input[type=text].cptm-form-control:focus {
   color: #23282d;
+  border-color: #3e62f5;
 }
 
 select.cptm-form-control,
@@ -18633,12 +18636,12 @@ input[type=radio]:checked::before {
   min-height: 60px;
   -webkit-box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
           box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
-  border-radius: 6px;
+  border-radius: 6px 6px 0 0;
   position: fixed;
   left: 20px;
   top: 42px;
   width: calc(100% - 242px);
-  z-index: 999;
+  z-index: 9999;
 }
 .directorist-directory-type-top:before {
   content: "";
@@ -18649,15 +18652,6 @@ input[type=radio]:checked::before {
   width: 100%;
   background-color: #f3f4f6;
 }
-.directorist-directory-type-top:after {
-  content: "";
-  position: absolute;
-  bottom: -20px;
-  right: 0;
-  height: 20px;
-  width: 100%;
-  background-color: #f3f4f6;
-}
 @media only screen and (max-width: 960px) {
   .directorist-directory-type-top {
     width: calc(100% - 118px);
@@ -18665,8 +18659,9 @@ input[type=radio]:checked::before {
 }
 @media only screen and (max-width: 782px) {
   .directorist-directory-type-top {
-    width: calc(100% - 70px);
+    width: calc(100% - 62px);
     top: 56px;
+    left: 12px;
   }
 }
 @media only screen and (max-width: 600px) {
@@ -18674,7 +18669,7 @@ input[type=radio]:checked::before {
     position: unset;
     width: auto;
   }
-  .directorist-directory-type-top:before, .directorist-directory-type-top:after {
+  .directorist-directory-type-top:before {
     display: none;
   }
 }
@@ -18844,8 +18839,8 @@ input[type=radio]:checked::before {
 
 .directorist-directory-type-bottom {
   background: white;
-  border-radius: 6px;
-  margin-top: 90px;
+  border-radius: 0 0 6px 6px;
+  margin-top: 70px;
   overflow: hidden;
 }
 .directorist-directory-type-bottom .cptm-header-navigation {
@@ -18853,7 +18848,6 @@ input[type=radio]:checked::before {
   left: 20px;
   width: calc(100% - 262px);
   background: #ffffff;
-  border-radius: 6px 6px 0 0;
   border-bottom: 1px solid #e5e7eb;
   gap: 0 20px;
   padding: 0 30px;
@@ -18874,7 +18868,8 @@ input[type=radio]:checked::before {
 }
 @media only screen and (max-width: 782px) {
   .directorist-directory-type-bottom .cptm-header-navigation {
-    width: calc(100% - 92px);
+    width: calc(100% - 82px);
+    left: 12px;
   }
 }
 @media only screen and (max-width: 600px) {
@@ -18899,11 +18894,6 @@ input[type=radio]:checked::before {
 @media screen and (max-width: 480px) {
   .directorist-directory-type-bottom .atbdp-cptm-body {
     padding: 20px 30px;
-  }
-}
-@media only screen and (max-width: 600px) {
-  .directorist-directory-type-bottom {
-    margin-top: 20px;
   }
 }
 
@@ -20286,7 +20276,7 @@ div[draggable=true].cptm-form-builder-group-title-area {
 
 .cptm-form-builder-group-options {
   background-color: #fff;
-  margin: 0 30px 0 47px;
+  margin: 0 30px 0 42px;
   padding: 20px;
   border-radius: 0 0 8px 8px;
   -webkit-box-shadow: 0 6px 12px rgba(16, 24, 40, 0.1);
@@ -22390,7 +22380,6 @@ input[type=week].cptm-form-control input[type=text].cptm-form-control {
   font-size: 14px;
   color: #5a5f7d;
   text-align: right;
-  border: 0 none;
   border-radius: 4px;
   -webkit-box-shadow: none;
           box-shadow: none;
@@ -22400,23 +22389,40 @@ input[type=week].cptm-form-control input[type=text].cptm-form-control {
   height: auto;
   min-height: 30px;
   background-color: #f4f5f7;
+  -webkit-transition: all ease 0.3s;
+  transition: all ease 0.3s;
 }
-.cptm-form-control:hover,
+.cptm-form-control:hover, .cptm-form-control:focus,
 select.cptm-form-control:hover,
+select.cptm-form-control:focus,
 input[type=date].cptm-form-control:hover,
+input[type=date].cptm-form-control:focus,
 input[type=datetime-local].cptm-form-control:hover,
+input[type=datetime-local].cptm-form-control:focus,
 input[type=datetime].cptm-form-control:hover,
+input[type=datetime].cptm-form-control:focus,
 input[type=email].cptm-form-control:hover,
+input[type=email].cptm-form-control:focus,
 input[type=month].cptm-form-control:hover,
+input[type=month].cptm-form-control:focus,
 input[type=number].cptm-form-control:hover,
+input[type=number].cptm-form-control:focus,
 input[type=password].cptm-form-control:hover,
+input[type=password].cptm-form-control:focus,
 input[type=search].cptm-form-control:hover,
+input[type=search].cptm-form-control:focus,
 input[type=tel].cptm-form-control:hover,
+input[type=tel].cptm-form-control:focus,
 input[type=text].cptm-form-control:hover,
+input[type=text].cptm-form-control:focus,
 input[type=time].cptm-form-control:hover,
+input[type=time].cptm-form-control:focus,
 input[type=url].cptm-form-control:hover,
-input[type=week].cptm-form-control input[type=text].cptm-form-control:hover {
+input[type=url].cptm-form-control:focus,
+input[type=week].cptm-form-control input[type=text].cptm-form-control:hover,
+input[type=week].cptm-form-control input[type=text].cptm-form-control:focus {
   color: #23282d;
+  border-color: #3e62f5;
 }
 
 select.cptm-form-control,
@@ -23813,12 +23819,12 @@ input[type=radio]:checked::before {
   min-height: 60px;
   -webkit-box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
           box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
-  border-radius: 6px;
+  border-radius: 6px 6px 0 0;
   position: fixed;
   left: 20px;
   top: 42px;
   width: calc(100% - 242px);
-  z-index: 999;
+  z-index: 9999;
 }
 .directorist-directory-type-top:before {
   content: "";
@@ -23829,15 +23835,6 @@ input[type=radio]:checked::before {
   width: 100%;
   background-color: #f3f4f6;
 }
-.directorist-directory-type-top:after {
-  content: "";
-  position: absolute;
-  bottom: -20px;
-  right: 0;
-  height: 20px;
-  width: 100%;
-  background-color: #f3f4f6;
-}
 @media only screen and (max-width: 960px) {
   .directorist-directory-type-top {
     width: calc(100% - 118px);
@@ -23845,8 +23842,9 @@ input[type=radio]:checked::before {
 }
 @media only screen and (max-width: 782px) {
   .directorist-directory-type-top {
-    width: calc(100% - 70px);
+    width: calc(100% - 62px);
     top: 56px;
+    left: 12px;
   }
 }
 @media only screen and (max-width: 600px) {
@@ -23854,7 +23852,7 @@ input[type=radio]:checked::before {
     position: unset;
     width: auto;
   }
-  .directorist-directory-type-top:before, .directorist-directory-type-top:after {
+  .directorist-directory-type-top:before {
     display: none;
   }
 }
@@ -24024,8 +24022,8 @@ input[type=radio]:checked::before {
 
 .directorist-directory-type-bottom {
   background: white;
-  border-radius: 6px;
-  margin-top: 90px;
+  border-radius: 0 0 6px 6px;
+  margin-top: 70px;
   overflow: hidden;
 }
 .directorist-directory-type-bottom .cptm-header-navigation {
@@ -24033,7 +24031,6 @@ input[type=radio]:checked::before {
   left: 20px;
   width: calc(100% - 262px);
   background: #ffffff;
-  border-radius: 6px 6px 0 0;
   border-bottom: 1px solid #e5e7eb;
   gap: 0 20px;
   padding: 0 30px;
@@ -24054,7 +24051,8 @@ input[type=radio]:checked::before {
 }
 @media only screen and (max-width: 782px) {
   .directorist-directory-type-bottom .cptm-header-navigation {
-    width: calc(100% - 92px);
+    width: calc(100% - 82px);
+    left: 12px;
   }
 }
 @media only screen and (max-width: 600px) {
@@ -24079,11 +24077,6 @@ input[type=radio]:checked::before {
 @media screen and (max-width: 480px) {
   .directorist-directory-type-bottom .atbdp-cptm-body {
     padding: 20px 30px;
-  }
-}
-@media only screen and (max-width: 600px) {
-  .directorist-directory-type-bottom {
-    margin-top: 20px;
   }
 }
 
@@ -25466,7 +25459,7 @@ div[draggable=true].cptm-form-builder-group-title-area {
 
 .cptm-form-builder-group-options {
   background-color: #fff;
-  margin: 0 30px 0 47px;
+  margin: 0 30px 0 42px;
   padding: 20px;
   border-radius: 0 0 8px 8px;
   -webkit-box-shadow: 0 6px 12px rgba(16, 24, 40, 0.1);
@@ -27570,7 +27563,6 @@ input[type=week].cptm-form-control input[type=text].cptm-form-control {
   font-size: 14px;
   color: #5a5f7d;
   text-align: right;
-  border: 0 none;
   border-radius: 4px;
   -webkit-box-shadow: none;
           box-shadow: none;
@@ -27580,23 +27572,40 @@ input[type=week].cptm-form-control input[type=text].cptm-form-control {
   height: auto;
   min-height: 30px;
   background-color: #f4f5f7;
+  -webkit-transition: all ease 0.3s;
+  transition: all ease 0.3s;
 }
-.cptm-form-control:hover,
+.cptm-form-control:hover, .cptm-form-control:focus,
 select.cptm-form-control:hover,
+select.cptm-form-control:focus,
 input[type=date].cptm-form-control:hover,
+input[type=date].cptm-form-control:focus,
 input[type=datetime-local].cptm-form-control:hover,
+input[type=datetime-local].cptm-form-control:focus,
 input[type=datetime].cptm-form-control:hover,
+input[type=datetime].cptm-form-control:focus,
 input[type=email].cptm-form-control:hover,
+input[type=email].cptm-form-control:focus,
 input[type=month].cptm-form-control:hover,
+input[type=month].cptm-form-control:focus,
 input[type=number].cptm-form-control:hover,
+input[type=number].cptm-form-control:focus,
 input[type=password].cptm-form-control:hover,
+input[type=password].cptm-form-control:focus,
 input[type=search].cptm-form-control:hover,
+input[type=search].cptm-form-control:focus,
 input[type=tel].cptm-form-control:hover,
+input[type=tel].cptm-form-control:focus,
 input[type=text].cptm-form-control:hover,
+input[type=text].cptm-form-control:focus,
 input[type=time].cptm-form-control:hover,
+input[type=time].cptm-form-control:focus,
 input[type=url].cptm-form-control:hover,
-input[type=week].cptm-form-control input[type=text].cptm-form-control:hover {
+input[type=url].cptm-form-control:focus,
+input[type=week].cptm-form-control input[type=text].cptm-form-control:hover,
+input[type=week].cptm-form-control input[type=text].cptm-form-control:focus {
   color: #23282d;
+  border-color: #3e62f5;
 }
 
 select.cptm-form-control,

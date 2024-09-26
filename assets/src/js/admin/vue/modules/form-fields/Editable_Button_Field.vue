@@ -15,6 +15,7 @@
     <div class="directorist-input" v-if="isButtonEditable">
       <component
         is="text-field"
+        ref="formGroup"
         :value="value"
         @enter="hideEditableButton"
         @blur="hideEditableButton"
@@ -25,6 +26,7 @@
     </div>
   </div>
 </template>
+
 
 <script>
 import feild_helper from "./../../mixins/form-fields/helper";
@@ -43,6 +45,14 @@ export default {
   methods: {
     showEditableButton() {
       this.isButtonEditable = true;
+      this.$nextTick(() => {
+        // console.log('this.$refs.editableInput.$el', {element: this.$refs.editableInput.$el});
+        // this.$refs.editableInput.$el.input.focus();
+        const inputElement = this.$refs.formGroup.$el.querySelector('input');
+        if (inputElement) {
+          inputElement.focus();
+        }
+      });
     },
     hideEditableButton() {
       this.isButtonEditable = false;

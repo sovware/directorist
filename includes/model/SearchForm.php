@@ -584,6 +584,8 @@ class Directorist_Listing_Search_Form {
 	}
 
 	public function get_atts_data() {
+		$this->params['category_custom_fields_relations'] = directorist_get_category_custom_fields_relations( $this->listing_type );
+
 		return json_encode( $this->params );
 	}
 

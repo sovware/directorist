@@ -214,31 +214,27 @@ class Directorist_Listing_Taxonomy {
     }
 
 	public function pagination() {
-		$base_url 			 = get_pagenum_link( 1 );
-		$permalink_structure = get_option('permalink_structure');
-
-		if ( $permalink_structure ) {
-			$base_url = trailingslashit( $base_url ) . 'page/%#%/';
-		} else {
-			$base_url = add_query_arg( 'paged', '%#%', $base_url );
-		}
-
 		$pagination_args = array(
-			'base'      => $base_url,
+			'base'      => get_option('permalink_structure') ? trailingslashit( get_pagenum_link( 1 ) ) . 'page/%#%/' : add_query_arg( 'paged', '%#%', get_pagenum_link( 1 ) ),
 			'format'    => '',
 			'current'   => $this->current_page,
 			'total'     => $this->total_pages,
 			'prev_text' => apply_filters( 'directorist_pagination_prev_text', directorist_icon( 'fas fa-chevron-left', false ) ),
 			'next_text' => apply_filters( 'directorist_pagination_next_text', directorist_icon( 'fas fa-chevron-right', false ) ),
 		);
-		
+
 		$links = paginate_links( $pagination_args );
-		if ( $links ) {
-			$navigation = 
-			'<div class="directorist-col-12">
-			<nav class="directorist-pagination" aria-label="Listings Pagination">' . $links . '</div></nav>';
-			echo wp_kses_post( $navigation );
+
+		if ( ! $links ) {
+			return;
 		}
+		?>
+		<div class="directorist-col-12">
+			<nav class="directorist-pagination">
+				<?php echo wp_kses_post( $links ); ?>
+			</div>
+		</nav>
+		<?php
 	}
 
     public function tax_data() {

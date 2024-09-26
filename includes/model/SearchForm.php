@@ -421,14 +421,22 @@ class Directorist_Listing_Search_Form {
 			'data'       		=> $field_data,
 			'value'      		=> $value,
 		);
-		if ( $this->is_custom_field( $field_data ) && ( ! in_array( $field_data['field_key'], $this->assign_to_category()['custom_field_key'] ) ) ) {
-			if( ! empty( $field_data['type'] ) && 'number' != $field_data['type'] ) {
+
+		// if ( $this->is_custom_field( $field_data ) && ( ! in_array( $field_data['field_key'], $this->assign_to_category()['custom_field_key'] ) ) ) {
+		// 	if( ! empty( $field_data['type'] ) && 'number' != $field_data['type'] ) {
+		// 		$template = 'search-form/custom-fields/number/' . $field_data['type'];
+		// 	} else {
+		// 		$template = 'search-form/custom-fields/' . $field_data['widget_name'];
+		// 	}
+		// }
+
+		if ( $this->is_custom_field( $field_data ) ) {
+			if ( ! empty( $field_data['type'] ) && 'number' !== $field_data['type'] ) {
 				$template = 'search-form/custom-fields/number/' . $field_data['type'];
 			} else {
 				$template = 'search-form/custom-fields/' . $field_data['widget_name'];
 			}
-		}
-		else {
+		} else {
 			$template = 'search-form/fields/' . $field_data['widget_name'];
 		}
 
@@ -438,7 +446,8 @@ class Directorist_Listing_Search_Form {
 
 	public function is_custom_field( $data ) {
 		$fields = [ 'checkbox', 'color_picker', 'date', 'file', 'number', 'radio', 'select', 'text', 'textarea', 'time', 'url' ];
-		return in_array( $data['widget_name'], $fields ) ? true : false;
+
+		return in_array( $data['widget_name'], $fields, true );
 	}
 
 	public function get_listing_type_data() {
@@ -471,14 +480,14 @@ class Directorist_Listing_Search_Form {
 	}
 
 	public function get_basic_fields() {
-		return ! empty( $this->form_data[0]['fields'] ) && is_array( $this->form_data[0]['fields'] ) 
-        ? $this->form_data[0]['fields'] 
+		return ! empty( $this->form_data[0]['fields'] ) && is_array( $this->form_data[0]['fields'] )
+        ? $this->form_data[0]['fields']
         : [];
 	}
 
 	public function get_advance_fields() {
-		return ! empty( $this->form_data[1]['fields'] ) && is_array( $this->form_data[1]['fields'] ) 
-        ? $this->form_data[1]['fields'] 
+		return ! empty( $this->form_data[1]['fields'] ) && is_array( $this->form_data[1]['fields'] )
+        ? $this->form_data[1]['fields']
         : [];
 	}
 

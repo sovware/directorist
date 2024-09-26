@@ -262,7 +262,7 @@ function directorist_get_directories_for_template( array $args = array() ) {
  *
  * @return array
  */
-function directorist_get_category_custom_fields_relations( $directory_id ) {
+function directorist_get_category_custom_field_relations( $directory_id ) {
 	$submission_form_fields = get_term_meta( $directory_id, 'submission_form_fields', true );
 
 	if ( empty( $submission_form_fields['fields'] ) ) {

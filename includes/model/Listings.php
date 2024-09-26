@@ -1870,7 +1870,7 @@ class Directorist_Listings {
 
 		public function data_atts() {
 			$this->atts['_current_page'] = $this->type; // search_result or listing
-			$this->atts['category_custom_fields_relations'] = directorist_get_category_custom_fields_relations( $this->current_listing_type );
+			$this->atts['category_custom_fields_relations'] = directorist_get_category_custom_field_relations( $this->current_listing_type );
 			// Separates class names with a single space, collates class names for wrapper tag element.
 			echo 'data-atts="' . esc_attr( json_encode( $this->atts ) ) . '"';
 		}

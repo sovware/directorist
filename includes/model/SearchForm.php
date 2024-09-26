@@ -550,19 +550,19 @@ class Directorist_Listing_Search_Form {
 
 	public function search_category_location_args() {
 		return array(
-			'parent'             => 0,
-			'term_id'            => 0,
-			'hide_empty'         => 0,
-			'orderby'            => 'name',
-			'order'              => 'asc',
-			'show_count'         => 0,
-			'single_only'        => 0,
-			'pad_counts'         => true,
-			'immediate_category' => 0,
-			'active_term_id'     => 0,
-			'ancestors'          => array(),
-			'listing_type'		 => $this->listing_type,
-			'assign_to_category' => $this->assign_to_category()
+			'parent'                       => 0,
+			'term_id'                      => 0,
+			'hide_empty'                   => 0,
+			'orderby'                      => 'name',
+			'order'                        => 'asc',
+			'show_count'                   => 0,
+			'single_only'                  => 0,
+			'pad_counts'                   => true,
+			'immediate_category'           => 0,
+			'active_term_id'               => 0,
+			'ancestors'                    => array(),
+			'listing_type'                 => $this->listing_type,
+			'categories_with_custom_field' => array_values( directorist_get_category_custom_field_relations( $this->listing_type ) )
 		);
 	}
 
@@ -584,7 +584,7 @@ class Directorist_Listing_Search_Form {
 	}
 
 	public function get_atts_data() {
-		$this->params['category_custom_fields_relations'] = directorist_get_category_custom_fields_relations( $this->listing_type );
+		$this->params['category_custom_fields_relations'] = directorist_get_category_custom_field_relations( $this->listing_type );
 
 		return json_encode( $this->params );
 	}

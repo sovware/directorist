@@ -46,8 +46,6 @@ export default {
     showEditableButton() {
       this.isButtonEditable = true;
       this.$nextTick(() => {
-        // console.log('this.$refs.editableInput.$el', {element: this.$refs.editableInput.$el});
-        // this.$refs.editableInput.$el.input.focus();
         const inputElement = this.$refs.formGroup.$el.querySelector('input');
         if (inputElement) {
           inputElement.focus();

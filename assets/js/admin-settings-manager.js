@@ -23444,8 +23444,6 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
       this.isButtonEditable = true;
       this.$nextTick(function () {
-        // console.log('this.$refs.editableInput.$el', {element: this.$refs.editableInput.$el});
-        // this.$refs.editableInput.$el.input.focus();
         var inputElement = _this.$refs.formGroup.$el.querySelector('input');
         if (inputElement) {
           inputElement.focus();

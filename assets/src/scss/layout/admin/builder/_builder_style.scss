@@ -184,6 +184,7 @@ $light-gray: #f4f5f7;
     }
   }
   .atbdp-cptm-body {
+    position: relative;
     margin-top: 60px; 
     @media only screen and (max-width: 600px) {
       margin-top: 0;

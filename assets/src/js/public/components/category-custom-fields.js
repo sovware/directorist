@@ -12,7 +12,7 @@ function hideAllCustomFieldsExceptSelected(relations, category, $container) {
         const $field = $container.find(`[name="custom_field\[${field}]"\]`);
 
         if (category === fieldCategory) {
-            $field.prop('disable', false);
+            $field.prop('disabled', false);
 
             wrappers.forEach(wrapper => {
                 const $wrapper = $field.closest(wrapper);
@@ -21,7 +21,7 @@ function hideAllCustomFieldsExceptSelected(relations, category, $container) {
                 }
             });
         } else {
-            $field.prop('disable', true);
+            $field.prop('disabled', true);
 
             wrappers.forEach(wrapper => {
                 const $wrapper = $field.closest(wrapper);

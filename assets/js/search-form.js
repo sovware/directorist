@@ -619,7 +619,7 @@ function hideAllCustomFieldsExceptSelected(relations, category, $container) {
     var fieldCategory = relations[field];
     var $field = $container.find("[name=\"custom_field[".concat(field, "]\"]"));
     if (category === fieldCategory) {
-      $field.prop('disable', false);
+      $field.prop('disabled', false);
       wrappers.forEach(function (wrapper) {
         var $wrapper = $field.closest(wrapper);
         if ($wrapper.length) {
@@ -627,7 +627,7 @@ function hideAllCustomFieldsExceptSelected(relations, category, $container) {
         }
       });
     } else {
-      $field.prop('disable', true);
+      $field.prop('disabled', true);
       wrappers.forEach(function (wrapper) {
         var $wrapper = $field.closest(wrapper);
         if ($wrapper.length) {

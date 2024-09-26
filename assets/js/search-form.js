@@ -3353,34 +3353,28 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     // Check Empty Search Fields on Search Modal
     function initSearchFields() {
       var inputFields = document.querySelectorAll('.directorist-search-modal__input');
-      inputFields.forEach(function (inputField) {
-        var searchField = inputField.querySelector('.directorist-search-field');
-        if (!searchField) {
-          inputField.style.display = 'none';
-        }
-      });
+      if (inputFields.length) {
+        inputFields.forEach(function (inputField) {
+          if (!inputField.children.length) {
+            inputField.remove();
+          }
+        });
+      }
       var searchFields = document.querySelectorAll('.directorist-search-field__input:not(.directorist-search-basic-dropdown)');
       searchFields.forEach(function (searchField) {
         var inputFieldValue = searchField.value;
         if (searchField.classList.contains('directorist-select')) {
           inputFieldValue = searchField.querySelector('select').dataset.selectedId;
         }
-        if (inputFieldValue != '') {
+        if (inputFieldValue !== '') {
           searchField.parentElement.classList.add('input-has-value');
           if (!searchField.parentElement.classList.contains('input-is-focused')) {
             searchField.parentElement.classList.add('input-is-focused');
           }
         } else {
-          if (inputFieldValue != '') {
-            searchField.parentElement.classList.add('input-has-value');
-            if (!searchField.parentElement.classList.contains('input-is-focused')) {
-              searchField.parentElement.classList.add('input-is-focused');
-            }
-          } else {
-            inputFieldValue = '';
-            if (searchField.parentElement.classList.contains('input-has-value')) {
-              searchField.parentElement.classList.remove('input-has-value');
-            }
+          inputFieldValue = '';
+          if (searchField.parentElement.classList.contains('input-has-value')) {
+            searchField.parentElement.classList.remove('input-has-value');
           }
         }
       });
@@ -3807,6 +3801,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
             });
             handleRadiusVisibility();
             directorist_custom_range_slider();
+            initSearchFields();
           }
           var parentAfterAjax = $(this).closest('.directorist-search-contents');
           parentAfterAjax.find('.directorist-search-form-box').removeClass('atbdp-form-fade');

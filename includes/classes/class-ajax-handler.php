@@ -155,11 +155,11 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			if ( $user instanceof \WP_User && get_user_meta( $user->ID, 'directorist_user_email_unverified', true ) ) {
 				ATBDP()->email->send_user_confirmation_email( $user );
 			}
-			
+
 			$args = ATBDP_Permalink::get_dashboard_page_link( array(
 				'send_verification_email' => true
 			) );
-			
+
 			wp_safe_redirect( $args );
 			exit;
 		}
@@ -477,7 +477,9 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 				else: ?>
 					<input type="hidden" name="directory_type" value="<?php echo esc_attr( $directory_slug ); ?>">
 					<?php foreach ( $search_form->form_data[1]['fields'] as $field ) : ?>
-						<div class="directorist-advanced-filter__advanced__element directorist-search-field-<?php echo esc_attr( $field['widget_name'] ) ?>"><?php $search_form->field_template( $field ); ?></div>
+						<div class="directorist-advanced-filter__advanced__element directorist-search-field-<?php echo esc_attr( $field['widget_name'] ) ?>">
+							<?php $search_form->field_template( $field ); ?>
+						</div>
 					<?php endforeach;
 				endif;
 			$markup = ob_get_clean();

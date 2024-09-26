@@ -253,3 +253,31 @@ function directorist_get_directories_for_template( array $args = array() ) {
 		return $carry;
 	}, array() );
 }
+
+/**
+ * Get the the relations of directory custom fields to category.
+ *
+ * @since 8.0.0
+ * @param  int $directory_id
+ *
+ * @return array
+ */
+function directorist_get_category_custom_field_relations( $directory_id ) {
+	$submission_form_fields = get_term_meta( $directory_id, 'submission_form_fields', true );
+
+	if ( empty( $submission_form_fields['fields'] ) ) {
+		return array();
+	}
+
+	$relations = array();
+
+	foreach( $submission_form_fields['fields'] as $field ) {
+		if ( empty( $field['assign_to'] ) || empty( $field['category'] ) ) {
+			continue;
+		}
+
+		$relations[ $field['field_key'] ] = (int) $field['category'];
+	}
+
+	return $relations;
+}

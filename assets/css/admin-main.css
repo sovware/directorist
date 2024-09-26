@@ -30296,9 +30296,10 @@ span.drop-toggle-caret:before {
           flex-direction: column;
 }
 .directorist-import-process-step-bottom img {
-  width: 300px;
+  width: 335px;
   text-align: center;
   display: inline-block;
+  padding: 20px 10px 0;
 }
 
 .import-done-congrats {

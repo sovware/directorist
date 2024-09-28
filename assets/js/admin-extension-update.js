@@ -93,7 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-window.addEventListener('DOMContentLoaded', function () {
+window.addEventListener('load', function () {
   jQuery(function ($) {
     // update extension
     $('body').on('click', '.atbdp-update-extension', function (e) {

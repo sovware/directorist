@@ -93,7 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-window.addEventListener('DOMContentLoaded', function () {
+window.addEventListener('load', function () {
   (function ($) {
     $('table.posts #the-list, table.pages #the-list').sortable({
       'items': 'tr',

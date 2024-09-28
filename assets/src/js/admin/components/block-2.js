@@ -1,4 +1,4 @@
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('load', () => {
     const $ = jQuery;
     // Set all variables to be used in scope
     const has_tagline = $('#has_tagline').val();

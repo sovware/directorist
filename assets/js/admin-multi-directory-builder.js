@@ -109,7 +109,7 @@ vue__WEBPACK_IMPORTED_MODULE_0__["default"].component('slide-up-down', vue_slide
 
 
 
-window.addEventListener('DOMContentLoaded', function () {
+window.addEventListener('load', function () {
   var cpt_manager_el = document.getElementById('atbdp-cpt-manager');
   if (cpt_manager_el) {
     var encodedBuilderData = cpt_manager_el.getAttribute('data-builder-data');
@@ -14730,6 +14730,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
     this.$store.commit("updateCachedFields");
     this.setupClosingWarning();
     this.setupSaveOnKeyboardInput();
+    this.enabled_multi_directory = directorist_admin.enabled_multi_directory === "1";
   },
   data: function data() {
     return {
@@ -14742,7 +14743,8 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
           showLoading: false,
           isDisabled: false
         }
-      }
+      },
+      enabled_multi_directory: null
     };
   },
   methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_4__["mapGetters"])(["getFieldsValue"])), {}, {
@@ -18341,7 +18343,7 @@ __webpack_require__.r(__webpack_exports__);
         the_current_widget = this.avilableWidgets[widget_group][widget_name];
         current_widget_name = widget_name;
       }
-      if (the_current_widget.widgets && the_current_widget.widgets[widget_child_name]) {
+      if (the_current_widget && the_current_widget.widgets && the_current_widget.widgets[widget_child_name]) {
         the_current_widget = the_current_widget.widgets[widget_child_name];
         current_widget_child_name = widget_child_name;
       }
@@ -18520,9 +18522,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     canShowWidgetDropPlaceholder: function canShowWidgetDropPlaceholder() {
       var show = true;
-      if (this.groupData.fields && this.groupData.fields.length) {
-        show = false;
-      }
+
+      // Others Fields Group 
+      // if (this.groupData.fields && this.groupData.fields.length) {
+      //   show = false;
+      // }
+
       if (typeof this.groupData.type !== "undefined" && this.groupData.type !== "general_group") {
         show = false;
       }
@@ -23912,7 +23917,14 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     showEditableButton: function showEditableButton() {
+      var _this = this;
       this.isButtonEditable = true;
+      this.$nextTick(function () {
+        var inputElement = _this.$refs.formGroup.$el.querySelector('input');
+        if (inputElement) {
+          inputElement.focus();
+        }
+      });
     },
     hideEditableButton: function hideEditableButton() {
       this.isButtonEditable = false;
@@ -26575,7 +26587,7 @@ var render = function render() {
     staticClass: "directorist-directory-type-top"
   }, [_c("div", {
     staticClass: "directorist-directory-type-top-left"
-  }, [_c("a", {
+  }, [this.enabled_multi_directory ? _c("a", {
     staticClass: "directorist-back-directory",
     attrs: {
       href: "edit.php?post_type=at_biz_dir&page=atbdp-directory-types"
@@ -26595,7 +26607,7 @@ var render = function render() {
       d: "M7.51556 1.38019C7.80032 1.66495 7.80032 2.12663 7.51556 2.41139L3.65616 6.27079H12.1041C12.5068 6.27079 12.8333 6.59725 12.8333 6.99996C12.8333 7.40267 12.5068 7.72913 12.1041 7.72913H3.65616L7.51556 11.5885C7.80032 11.8733 7.80032 12.335 7.51556 12.6197C7.2308 12.9045 6.76912 12.9045 6.48436 12.6197L1.38019 7.51556C1.09544 7.2308 1.09544 6.76912 1.38019 6.48436L6.48436 1.38019C6.76912 1.09544 7.2308 1.09544 7.51556 1.38019Z",
       fill: "currentColor"
     }
-  })]), _vm._v("\n        All Directories\n      ")]), _vm._v(" "), _c("div", {
+  })]), _vm._v("\n        All Directories\n      ")]) : _vm._e(), _vm._v(" "), _c("div", {
     staticClass: "directorist-row-tooltip",
     attrs: {
       "data-tooltip": "Click here to rename the directory.",
@@ -27236,7 +27248,7 @@ var render = function render() {
       key: section_key,
       staticClass: "cptm-section",
       class: _vm.sectionClass(section)
-    }, [section.fields[0] === "submission_form_fields" ? _c("div", {
+    }, [section.fields[0] === "submission_form_fields" || section.fields[0] === "search_form_fields" ? _c("div", {
       staticClass: "directorist-form-doc"
     }, [_c("div", {
       staticClass: "directorist-form-doc-left"
@@ -27318,7 +27330,7 @@ var render = function render() {
       }
     }, [_c("span", {
       staticClass: "la la-close"
-    })]), _vm._v(" "), _vm._m(0, true)])]) : _vm._e(), _vm._v(" "), section.fields[0] !== "submission_form_fields" ? _c("div", {
+    })]), _vm._v(" "), _vm._m(0, true)])]) : _vm._e(), _vm._v(" "), section.fields[0] !== "submission_form_fields" && section.fields[0] !== "search_form_fields" ? _c("div", {
       staticClass: "cptm-title-area",
       class: _vm.sectionTitleAreaClass(section)
     }, [section.title ? _c("h3", {
@@ -29149,11 +29161,9 @@ var render = function render() {
       }
     }
   })], 1) : _vm._e()]), _vm._v(" "), _c("div", {
-    staticClass: "cptm-form-builder-group-actions-dropdown cptm-form-builder-group-actions-dropdown--field",
-    on: {
-      mousedown: _vm.handleClickOutside
-    }
+    staticClass: "cptm-form-builder-group-actions-dropdown cptm-form-builder-group-actions-dropdown--field"
   }, [_vm.canTrashWidget ? _c("a", {
+    ref: "dropdownContent",
     staticClass: "cptm-form-builder-group-actions-dropdown-btn",
     attrs: {
       href: "#"
@@ -29163,7 +29173,8 @@ var render = function render() {
         $event.preventDefault();
         return _vm.toggleExpandedDropdown.apply(null, arguments);
       },
-      blur: _vm.handleBlur
+      blur: _vm.handleBlur,
+      mousedown: _vm.handleClickOutside
     }
   }, [_c("span", {
     staticClass: "uil uil-ellipsis-h",
@@ -29240,7 +29251,7 @@ var render = function render() {
     staticClass: "cptm-form-builder-group-field-item-header-actions"
   }, [_c("a", {
     staticClass: "cptm-form-builder-header-action-link",
-    class: _vm.expanded ? "action-collapse-up" : "action-collapse-down",
+    class: _vm.expanded ? "action-collapse-down" : "action-collapse-up",
     attrs: {
       href: "#"
     },
@@ -29404,13 +29415,13 @@ var render = function render() {
         }
       }
     })], 1);
-  }), 1), _vm._v(" "), _c("form-builder-droppable-placeholder", {
+  }), 1), _vm._v(" "), _vm.canShowWidgetDropPlaceholder ? _c("form-builder-droppable-placeholder", {
     on: {
       drop: function drop($event) {
         return _vm.$emit("append-widget");
       }
     }
-  })], 1)], 1);
+  }) : _vm._e()], 1)], 1);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -29467,11 +29478,9 @@ var render = function render() {
       }
     }
   }, "form-builder-widget-group-titlebar-component", _vm.$props, false)), _vm._v(" "), _c("div", {
-    staticClass: "cptm-form-builder-group-actions-dropdown cptm-form-builder-group-actions-dropdown--group",
-    on: {
-      mousedown: _vm.handleClickOutside
-    }
+    staticClass: "cptm-form-builder-group-actions-dropdown cptm-form-builder-group-actions-dropdown--group"
   }, [_vm.canTrash ? _c("a", {
+    ref: "dropdownContent",
     staticClass: "cptm-form-builder-group-actions-dropdown-btn",
     attrs: {
       href: "#"
@@ -29481,7 +29490,8 @@ var render = function render() {
         $event.preventDefault();
         return _vm.toggleGroupExpandedDropdown.apply(null, arguments);
       },
-      blur: _vm.handleBlur
+      blur: _vm.handleBlur,
+      mousedown: _vm.handleClickOutside
     }
   }, [_c("span", {
     staticClass: "uil uil-ellipsis-h",
@@ -29584,11 +29594,11 @@ var render = function render() {
     attrs: {
       "aria-hidden": "true"
     }
-  }), _vm._v(" Options\n    ")]) : _vm._e()]), _vm._v(" "), _c("div", {
+  }), _vm._v(" Options\n    ")]) : _vm._e()]), _vm._v(" "), _vm.groupData && _vm.groupData.fields && _vm.groupData.fields.length ? _c("div", {
     staticClass: "cptm-form-builder-group-title-actions"
-  }, [_vm.groupData && _vm.groupData.fields && _vm.groupData.fields.length ? _c("a", {
+  }, [_c("a", {
     staticClass: "cptm-form-builder-header-action-link",
-    class: _vm.widgetsExpanded ? "action-collapse-up" : "action-collapse-down",
+    class: _vm.widgetsExpanded ? "action-collapse-down" : "action-collapse-up",
     attrs: {
       href: "#"
     },
@@ -29603,7 +29613,7 @@ var render = function render() {
     attrs: {
       "aria-hidden": "true"
     }
-  })]) : _vm._e()])]);
+  })])]) : _vm._e()]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -32750,9 +32760,10 @@ var render = function render() {
   }, [!_vm.isButtonEditable ? _c("div", {
     staticClass: "directorist-input"
   }, [_c("button", {
-    staticClass: "cptm-btn cptm-btn-primary",
+    staticClass: "cptm-btn",
     attrs: {
-      type: "button"
+      type: "button",
+      "data-info": "Click to edit button text"
     },
     on: {
       click: _vm.showEditableButton
@@ -32767,6 +32778,7 @@ var render = function render() {
   })])]) : _vm._e(), _vm._v(" "), _vm.isButtonEditable ? _c("div", {
     staticClass: "directorist-input"
   }, [_c("text-field", {
+    ref: "formGroup",
     tag: "component",
     attrs: {
       value: _vm.value
@@ -32927,7 +32939,7 @@ var render = function render() {
   }, [_c("div", {
     staticClass: "cptm-form-builder-active-fields"
   }, [_c("div", {
-    staticClass: "cptm-form-builder-active-fields-container"
+    staticClass: "cptm-form-builder-active-fields-container cptm-col-sticky"
   }, [_vm._l(_vm.active_widget_groups, function (widget_group, widget_group_key) {
     return _c("draggable-list-item-wrapper", {
       key: widget_group_key,
@@ -33055,7 +33067,7 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "directorist-type-icon-select"
+    staticClass: "cptm-form-group directorist-type-icon-select"
   }, [_c("div", {
     ref: "iconPickerElm",
     staticClass: "icon-picker-wrap"

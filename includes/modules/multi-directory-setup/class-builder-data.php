@@ -2112,7 +2112,7 @@ class Builder_Data {
             'submit_button_label'                         => [
                 'label' => __( 'Submit Button Label', 'directorist' ),
                 'type'  => 'editable-button',
-                'value' => __( 'Save & Preview', 'directorist' ),
+                'value' => __( 'Update', 'directorist' ),
             ],
 
             'single_listings_contents'                    => [
@@ -2188,7 +2188,7 @@ class Builder_Data {
             ],
             'enable_single_listing_page'                  => [
                 'type'      => 'toggle',
-                'label'     => __( 'Custom Single Listing Page', 'directorist' ),
+                'label'     => __( 'Enable', 'directorist' ),
                 'labelType' => 'h3',
                 'value'     => false,
             ],
@@ -2675,7 +2675,7 @@ class Builder_Data {
                         ],
                     ],
                     'similar_listings' => [
-                        'label'    => __( 'Other Settings', 'directorist' ),
+                        'label'    => __( 'Custom Single Listing Page', 'directorist' ),
                         'sections' => [
                             'page_settings' => [
                                 'fields' => [

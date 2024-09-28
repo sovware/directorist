@@ -1,5 +1,5 @@
 (function ($) {
-    window.addEventListener('DOMContentLoaded', () => {
+    window.addEventListener('load', () => {
 
         /*
             get current location

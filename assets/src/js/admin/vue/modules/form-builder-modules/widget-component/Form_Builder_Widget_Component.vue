@@ -46,7 +46,6 @@
 
     <!-- Widget Actions -->
     <div
-      @mousedown="handleClickOutside"
       class="cptm-form-builder-group-actions-dropdown cptm-form-builder-group-actions-dropdown--field"
     >
       <a
@@ -55,6 +54,8 @@
         v-if="canTrashWidget"
         @click.prevent="toggleExpandedDropdown"
         @blur="handleBlur"
+        @mousedown="handleClickOutside"
+        ref="dropdownContent"
       >
         <span aria-hidden="true" class="uil uil-ellipsis-h"></span>
       </a>
@@ -331,6 +332,7 @@ export default {
       }
 
       if (
+        the_current_widget &&
         the_current_widget.widgets &&
         the_current_widget.widgets[widget_child_name]
       ) {

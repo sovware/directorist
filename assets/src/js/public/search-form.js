@@ -9,7 +9,7 @@ import debounce from '../global/components/debounce';
 import initSearchCategoryCustomFields from './components/category-custom-fields';
 
 (function ($) {
-    window.addEventListener('DOMContentLoaded', () => {
+    window.addEventListener('load', () => {
         //Remove Preload after Window Load
         $(window).on('load', function () {
             $('body').removeClass("directorist-preload");
@@ -139,40 +139,37 @@ import initSearchCategoryCustomFields from './components/category-custom-fields'
         });
 
         // Check Empty Search Fields on Search Modal
-        function initSearchFields(){
-            let inputFields = document.querySelectorAll('.directorist-search-modal__input');
+        function initSearchFields() {
+            // const inputFields = document.querySelectorAll('.directorist-search-modal__input');
 
-            inputFields.forEach((inputField)=>{
-                let searchField = inputField.querySelector('.directorist-search-field');
-                if(!searchField){
-                    inputField.style.display = 'none';
-                }
-            });
+            // if ( inputFields.length ) {
+            //     inputFields.forEach( inputField => {
+            //         if ( ! inputField.children.length ) {
+            //             inputField.remove();
+            //         }
+            //     } );
+            // }
 
-            let searchFields = document.querySelectorAll('.directorist-search-field__input:not(.directorist-search-basic-dropdown)');
+            const searchFields = document.querySelectorAll('.directorist-search-field__input:not(.directorist-search-basic-dropdown)');
 
-            searchFields.forEach((searchField)=>{
+            searchFields.forEach( searchField => {
                 let inputFieldValue = searchField.value;
-                if(searchField.classList.contains('directorist-select')) {
+
+                if ( searchField.classList.contains('directorist-select') ) {
                     inputFieldValue = searchField.querySelector('select').dataset.selectedId;
                 }
 
-                if (inputFieldValue !='') {
+                if ( inputFieldValue !== '' ) {
                     searchField.parentElement.classList.add('input-has-value');
-                    if(!searchField.parentElement.classList.contains('input-is-focused')) {
+
+                    if ( ! searchField.parentElement.classList.contains('input-is-focused') ) {
                         searchField.parentElement.classList.add('input-is-focused');
                     }
                 } else {
-                    if (inputFieldValue !='') {
-                        searchField.parentElement.classList.add('input-has-value');
-                        if(!searchField.parentElement.classList.contains('input-is-focused')) {
-                            searchField.parentElement.classList.add('input-is-focused');
-                        }
-                    } else {
-                        inputFieldValue = ''
-                        if(searchField.parentElement.classList.contains('input-has-value')) {
-                            searchField.parentElement.classList.remove('input-has-value');
-                        }
+                    inputFieldValue = ''
+
+                    if ( searchField.parentElement.classList.contains('input-has-value') ) {
+                        searchField.parentElement.classList.remove('input-has-value');
                     }
                 }
             });
@@ -548,6 +545,8 @@ import initSearchCategoryCustomFields from './components/category-custom-fields'
             if (selectboxField) {
                 selectboxField.selectedIndex = 0;
                 selectboxField.dispatchEvent(new Event('change'));
+
+                $(selectboxField).trigger('change');
             }
             if (inputFields) {
                 inputFields.forEach((inputField) => {
@@ -674,6 +673,10 @@ import initSearchCategoryCustomFields from './components/category-custom-fields'
 
                         handleRadiusVisibility();
                         directorist_custom_range_slider();
+
+                        initSearchFields();
+
+                        initSearchCategoryCustomFields($);
                     }
 
                     let parentAfterAjax = $(this).closest('.directorist-search-contents');
@@ -690,7 +693,7 @@ import initSearchCategoryCustomFields from './components/category-custom-fields'
             });
         });
 
-        initSearchCategoryCustomFields($, initSearchFields);
+        initSearchCategoryCustomFields($);
 
         // Back Button to go back to the previous page
         $('body').on('click', '.directorist-btn__back', function(e) {
@@ -1075,7 +1078,7 @@ import initSearchCategoryCustomFields from './components/category-custom-fields'
             var zipcode_search  = $(this).closest('.directorist-zipcode-search');
             var country_suggest = zipcode_search.find('.directorist-country');
             var zipcode_search  = $(this).closest('.directorist-zipcode-search');
-            
+
             if(zipcode) {
                 zipcode_search.addClass('dir_loading');
             }
@@ -1088,15 +1091,15 @@ import initSearchCategoryCustomFields from './components/category-custom-fields'
                 $('.directorist-country').css({
                     display: 'block'
                 });
-    
+
                 if (zipcode === '') {
                     $('.directorist-country').css({
                         display: 'none'
                     });
                 }
-                
+
             }
-            
+
             let res = '';
             let google_data = {
                 'nonce' : directorist.directorist_nonce,

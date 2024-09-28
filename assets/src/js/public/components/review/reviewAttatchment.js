@@ -1,6 +1,6 @@
 ;
 (function ($) {
-    window.addEventListener('DOMContentLoaded', () => {
+    window.addEventListener('load', () => {
         // Review Attatchment
         function handleFiles(files) {
             var preview = document.getElementById('atbd_up_preview');

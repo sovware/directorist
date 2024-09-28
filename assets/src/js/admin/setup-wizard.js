@@ -77,6 +77,10 @@ jQuery(document).ready(function ($) {
         // Add a class when the button is clicked
         $(this).addClass('loading');
         $( '.directorist_dummy_data_log' ).text( 'Preparing data...' );
+
+        $('.directorist-setup-wizard__content').addClass('hidden');
+        $('.middle-content-import').removeClass('hidden');
+
         let type_count = 0;
         var import_dummy = function () {
 
@@ -111,16 +115,23 @@ jQuery(document).ready(function ($) {
 
                     console.log( response );
 
-                    $( '.directorist_dummy_data_log' ).empty().text( response.log );
+                    $( '.directorist-import-text-inner' ).empty().text( response.log );
                     if ( response.completed ) {
 
-                        $( '.directorist_dummy_data_log' ).empty().text( response.log );
+                        $( '.directorist-import-text-inner' ).empty().text( response.log );
 
                         window.location = response.url;
                     } 
                     
                     type_count++;
+                    let progressPercentage = response.percentage;
+
+                    $('.directorist-import-progress-bar').css('width', progressPercentage + '%');
+                    $('.directorist-importer-progress').val(progressPercentage);
+                    $('.directorist-import-progress-info-precent').text(progressPercentage + '%');
+
                     import_dummy();
+                    
                 },
             });
 

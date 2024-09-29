@@ -37,6 +37,7 @@ class ATBDP_Shortcode {
 				'directorist_author_profile' => [ $this, 'author_profile' ],
 				'directorist_user_dashboard' => [ $this, 'user_dashboard' ],
 				'directorist_all_authors' 	 => [ $this, 'all_authors' ],
+				'directorist_account' 	 	 => [ $this, 'directorist_account' ],
 
 				// Forms
 				'directorist_add_listing'         => [ $this, 'add_listing' ],
@@ -292,15 +293,21 @@ class ATBDP_Shortcode {
 	}
 
 	public function user_dashboard( $atts ) {
-		if ( ! is_user_logged_in() ) {
-			return $this->user_login_registration( $atts );
-		}
 		$atts      = ! empty( $atts ) ? $atts : array();
 		$dashboard = Directorist_Listing_Dashboard::instance();
 
 		$atts[ 'shortcode' ] = 'directorist_user_dashboard';
 
 		return $dashboard->render_shortcode( $atts );
+	}
+
+	public function directorist_account( $atts ) {
+		$atts = !empty( $atts ) ? $atts : array();
+		$account = Directorist_Account::instance();
+
+		$atts[ 'shortcode' ] = 'directorist_account';
+
+		return $account->render_account( $atts );
 	}
 
 	public function user_login_registration( $atts ) {

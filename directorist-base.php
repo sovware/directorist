@@ -720,6 +720,9 @@ final class Directorist_Base
 		if ( get_directorist_option( 'pricing_plans' ) === $post->ID ) {
 		   $post_states['directorist_pricing_plans'] = __( 'Directorist Pricing Plan', 'directorist' );
 	   	}
+		if ( get_directorist_option( 'user_account' ) === $post->ID ) {
+		   $post_states['directorist_account'] = __( 'Directorist Account', 'directorist' );
+	   	}
 
 	   return $post_states;
    }

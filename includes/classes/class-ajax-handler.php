@@ -156,7 +156,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 				ATBDP()->email->send_user_confirmation_email( $user );
 			}
 
-			$args = ATBDP_Permalink::get_dashboard_page_link( array(
+			$args = ATBDP_Permalink::get_account_page_link( array(
 				'send_verification_email' => true
 			) );
 

@@ -35,7 +35,7 @@ class Directorist_Account {
 		$redirection = ATBDP_Permalink::get_login_redirection_page_link();
 		$data        = [
 			'ajax_url'            => admin_url( 'admin-ajax.php' ),
-			'redirect_url'        => $redirection ? $redirection : ATBDP_Permalink::get_dashboard_page_link(),
+			'redirect_url'        => $redirection ? $redirection : ATBDP_Permalink::get_account_page_link(),
 			'loading_message'     => esc_html__( 'Sending user info, please wait...', 'directorist' ),
 			'login_error_message' => esc_html__( 'Wrong username or password.', 'directorist' ),
 		];

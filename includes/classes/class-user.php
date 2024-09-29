@@ -210,7 +210,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 				ATBDP()->email->send_user_confirmation_email( get_user_by( 'ID', $user_id ) );
 
 				$response = array(
-					'redirect_url' => esc_url_raw( ATBDP_Permalink::get_dashboard_page_link( array(
+					'redirect_url' => esc_url_raw( ATBDP_Permalink::get_account_page_link( array(
 						'user'         => $email,
 						'verification' => 1,
 					) ) )
@@ -232,14 +232,14 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 			if ( ! empty( $redirection_after_reg ) ) {
 				$response = array(
 					'redirect_url' => esc_url_raw( ATBDP_Permalink::get_reg_redirection_page_link( $previous_page,  array( 'registration_status' => true ) ) ),
-					'message' => esc_html( 'Registration completed. Please check your email for confirmation. You will be redirected...', 'directorist' ),
+					'message' => esc_html__( 'Registration completed. Please check your email for confirmation. You will be redirected...', 'directorist' ),
 				);
 
 				wp_send_json_success( $response );
 			} else {
 				$response = array(
-					'redirect_url' => esc_url_raw( ATBDP_Permalink::get_dashboard_page_link( array( 'registration_status' => true ) ) ),
-					'message' => esc_html( 'Registration completed. Please check your email for confirmation. You will be redirected...', 'directorist' ),
+					'redirect_url' => esc_url_raw( ATBDP_Permalink::get_account_page_link( array( 'registration_status' => true ) ) ),
+					'message' => esc_html__( 'Registration completed. Please check your email for confirmation. You will be redirected...', 'directorist' ),
 				);
 
 				wp_send_json_success( $response );

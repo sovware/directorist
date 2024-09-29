@@ -245,6 +245,23 @@ function directorist_800_migrate_builder_data() {
 		return;
 	}
 
+	//create account page
+	$options = get_option('atbdp_option');
+	$account = wp_insert_post(
+		array(
+			'post_title' => 'Account',
+			'post_content' => '[directorist_account]',
+			'post_status' => 'publish',
+			'post_type' => 'page',
+			'comment_status' => 'closed'
+		)
+	);
+
+	if ( $account ) {
+		$options['user_account'] = (int) $account;
+		update_option( 'atbdp_option', $options );
+	}
+
 	$directory_types = get_terms([
 		'taxonomy'   => ATBDP_DIRECTORY_TYPE,
 		'hide_empty' => false,

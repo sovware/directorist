@@ -68,7 +68,7 @@ $key        = isset( $_GET['key'] ) ? sanitize_text_field( wp_unslash( $_GET['ke
 										?>
 										<p class="atbd_reset_success directorist-alert directorist-alert-success"><?php echo wp_kses( sprintf(
 											__( 'Password changed successfully. Please <a href="%s">click here to login</a>.', 'directorist' ),
-											esc_url( ATBDP_Permalink::get_dashboard_page_link() )
+											esc_url( ATBDP_Permalink::get_account_page_link() )
 										), array( 'a' => array( 'href' => array() ) ) ); ?></p>
 									<?php endif;
 								endif;
@@ -87,7 +87,7 @@ $key        = isset( $_GET['key'] ) ? sanitize_text_field( wp_unslash( $_GET['ke
 									<div class="directorist-alert directorist-alert-success">
 										<?php echo wp_kses( sprintf(
 											__( 'Email verification successful. Please <a href="%s">click here to login</a>.', 'directorist' ),
-											esc_url( ATBDP_Permalink::get_dashboard_page_link() )
+											esc_url( ATBDP_Permalink::get_account_page_link() )
 										), array( 'a' => array( 'href' => array() ) ) ); ?>
 									</div>
 									<?php

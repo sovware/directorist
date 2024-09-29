@@ -174,6 +174,28 @@ class ATBDP_Permalink {
 
         return apply_filters( 'atbdp_dashboard_page_url', $link, $page_id );
     }
+
+    /**
+     * It returns the link to the custom search archive page of ATBDP
+     * @param array $query_vars [optional] Array of query vars to be added to the registration page url
+     * @return string
+     */
+    public static function get_account_page_link( $query_vars = array() )
+    {
+        $link    = home_url();
+        $page_id = get_directorist_option( 'user_account' );
+
+        if ( $page_id )  {
+            $link = get_permalink( $page_id );
+        }
+
+        if ( ! empty( $query_vars ) && is_array( $query_vars ) ){
+            $link = add_query_arg( $query_vars, $link );
+        }
+
+        return apply_filters( 'atbdp_account_page_url', $link, $page_id );
+    }
+
     /**
      * It returns the link to the custom search archive page of ATBDP
      * @return string

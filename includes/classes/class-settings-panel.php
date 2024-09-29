@@ -2934,6 +2934,14 @@ Please remember that your order may be canceled if you do not make your payment 
                     'showDefaultOption' => true,
                     'options' => $this->get_pages_vl_arrays(),
                 ],
+                'user_account' => [
+                    'label'             => __( 'Account', 'directorist' ),
+                    'type'              => 'select',
+                    'description'       => sprintf(__('Following shortcode must be in the selected page %s', 'directorist'), '<div class="atbdp_shortcodes" style="color: #ff4500;">[directorist_account]</div>'),
+                    'value'             => atbdp_get_option( 'user_account', 'atbdp_general' ),
+                    'showDefaultOption' => true,
+                    'options'           => $this->get_pages_vl_arrays(),
+                ],
                 'author_profile_page' => [
                     'label' => __('User Profile Page', 'directorist'),
                     'type'  => 'select',
@@ -3719,7 +3727,7 @@ Please remember that your order may be canceled if you do not make your payment 
                 'redirection_after_reg' => [
                     'label' => __('Redirection after Registration', 'directorist'),
                     'type'  => 'select',
-                    'value' => get_directorist_option( 'user_dashboard' ),
+                    'value' => get_directorist_option( 'user_account' ),
                     'options' => $this->get_pages_with_prev_page(),
                 ],
                 // login settings
@@ -4446,7 +4454,7 @@ Please remember that your order may be canceled if you do not make your payment 
                             'title'       => __('Page, Links & View Settings', 'directorist'),
                             'description' => '',
                             'fields'      => apply_filters( 'atbdp_pages_settings_fields', [
-                                'add_listing_page', 'all_listing_page', 'user_dashboard', 'author_profile_page', 'all_categories_page', 'single_category_page', 'all_locations_page', 'single_location_page', 'single_tag_page', 'search_listing', 'search_result_page', 'checkout_page', 'payment_receipt_page', 'transaction_failure_page', 'privacy_policy', 'terms_conditions'
+                                'add_listing_page', 'all_listing_page', 'user_dashboard', 'user_account', 'author_profile_page', 'all_categories_page', 'single_category_page', 'all_locations_page', 'single_location_page', 'single_tag_page', 'search_listing', 'search_result_page', 'checkout_page', 'payment_receipt_page', 'transaction_failure_page', 'privacy_policy', 'terms_conditions'
                              ] ),
                         ],
                     ]),

@@ -249,10 +249,10 @@ function directorist_800_migrate_builder_data() {
 	$options = get_option('atbdp_option');
 	$account = wp_insert_post(
 		array(
-			'post_title' => 'Account',
-			'post_content' => '[directorist_account]',
-			'post_status' => 'publish',
-			'post_type' => 'page',
+			'post_title' 	 => 'Account',
+			'post_content' 	 => '[directorist_account]',
+			'post_status' 	 => 'publish',
+			'post_type' 	 => 'page',
 			'comment_status' => 'closed'
 		)
 	);

@@ -1,6 +1,6 @@
 ;
 (function ($) {
-    window.addEventListener('DOMContentLoaded', () => {
+    window.addEventListener('load', () => {
         //dashboard content responsive fix
         let tabContentWidth = $(".directorist-user-dashboard .directorist-user-dashboard__contents").innerWidth();
 

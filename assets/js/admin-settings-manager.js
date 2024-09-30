@@ -109,7 +109,7 @@ vue__WEBPACK_IMPORTED_MODULE_0__["default"].component('slide-up-down', vue_slide
 
 
 
-window.addEventListener('DOMContentLoaded', function () {
+window.addEventListener('load', function () {
   var settings_panel_el = document.getElementById('atbdp-settings-manager');
   if (settings_panel_el) {
     var encodedBuilderData = settings_panel_el.getAttribute('data-builder-data');
@@ -23441,7 +23441,14 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     showEditableButton: function showEditableButton() {
+      var _this = this;
       this.isButtonEditable = true;
+      this.$nextTick(function () {
+        var inputElement = _this.$refs.formGroup.$el.querySelector('input');
+        if (inputElement) {
+          inputElement.focus();
+        }
+      });
     },
     hideEditableButton: function hideEditableButton() {
       this.isButtonEditable = false;
@@ -26800,7 +26807,7 @@ var render = function render() {
       key: section_key,
       staticClass: "cptm-section",
       class: _vm.sectionClass(section)
-    }, [section.fields[0] === "submission_form_fields" ? _c("div", {
+    }, [section.fields[0] === "submission_form_fields" || section.fields[0] === "search_form_fields" ? _c("div", {
       staticClass: "directorist-form-doc"
     }, [_c("div", {
       staticClass: "directorist-form-doc-left"
@@ -26882,7 +26889,7 @@ var render = function render() {
       }
     }, [_c("span", {
       staticClass: "la la-close"
-    })]), _vm._v(" "), _vm._m(0, true)])]) : _vm._e(), _vm._v(" "), section.fields[0] !== "submission_form_fields" ? _c("div", {
+    })]), _vm._v(" "), _vm._m(0, true)])]) : _vm._e(), _vm._v(" "), section.fields[0] !== "submission_form_fields" && section.fields[0] !== "search_form_fields" ? _c("div", {
       staticClass: "cptm-title-area",
       class: _vm.sectionTitleAreaClass(section)
     }, [section.title ? _c("h3", {
@@ -28803,7 +28810,7 @@ var render = function render() {
     staticClass: "cptm-form-builder-group-field-item-header-actions"
   }, [_c("a", {
     staticClass: "cptm-form-builder-header-action-link",
-    class: _vm.expanded ? "action-collapse-up" : "action-collapse-down",
+    class: _vm.expanded ? "action-collapse-down" : "action-collapse-up",
     attrs: {
       href: "#"
     },
@@ -29150,7 +29157,7 @@ var render = function render() {
     staticClass: "cptm-form-builder-group-title-actions"
   }, [_c("a", {
     staticClass: "cptm-form-builder-header-action-link",
-    class: _vm.widgetsExpanded ? "action-collapse-up" : "action-collapse-down",
+    class: _vm.widgetsExpanded ? "action-collapse-down" : "action-collapse-up",
     attrs: {
       href: "#"
     },
@@ -32330,6 +32337,7 @@ var render = function render() {
   })])]) : _vm._e(), _vm._v(" "), _vm.isButtonEditable ? _c("div", {
     staticClass: "directorist-input"
   }, [_c("text-field", {
+    ref: "formGroup",
     tag: "component",
     attrs: {
       value: _vm.value
@@ -32490,7 +32498,7 @@ var render = function render() {
   }, [_c("div", {
     staticClass: "cptm-form-builder-active-fields"
   }, [_c("div", {
-    staticClass: "cptm-form-builder-active-fields-container"
+    staticClass: "cptm-form-builder-active-fields-container cptm-col-sticky"
   }, [_vm._l(_vm.active_widget_groups, function (widget_group, widget_group_key) {
     return _c("draggable-list-item-wrapper", {
       key: widget_group_key,

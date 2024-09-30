@@ -16,6 +16,7 @@ $nav_icon_color: $primary;
 $gray: #eff0f3;
 $light-gray: #f4f5f7;
 
+
 /* Create Directory Type */
 .directorist-directory-type-top {
   display: flex;
@@ -27,12 +28,42 @@ $light-gray: #f4f5f7;
   background: white;
   min-height: 60px;
   box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
-  border-radius: 6px;
+  border-radius: 6px 6px 0 0;
+  position: fixed;
+  right: 20px;
+  top: 42px;
+  width: calc(100% - 242px);
+  z-index: 9999;
+  &:before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 0;
+    height: 10px;
+    width: 100%;
+    background-color: #f3f4f6;
+  }
+  @media only screen and (max-width: 960px) {
+    width: calc(100% - 118px);
+  }
+  @media only screen and (max-width: 782px) {
+    width: calc(100% - 62px);
+    top: 56px;
+    right: 12px
+  }
+  @media only screen and (max-width: 600px) {
+    position: unset;
+    width: auto;
+    &:before {
+      display: none;
+    }
+  }
   @media only screen and (max-width: 479px) {
     justify-content: center;
     flex-direction: column;
     padding: 10px 20px;
   }
+  
   &-left {
     display: flex;
     align-items: center;
@@ -122,23 +153,63 @@ $light-gray: #f4f5f7;
 }
 .directorist-directory-type-bottom {
   background: white;
-  border-radius: 6px;
-  margin-top: 20px;
+  border-radius: 0 0 6px 6px;
+  margin-top: 70px;
+  overflow: hidden;
   .cptm-header-navigation {
+    position: fixed;
+    right: 20px;
+    top: 102px;
+    width: calc(100% - 262px);
+    background: #ffffff;
     border-bottom: 1px solid #e5e7eb;
     gap: 0 20px;
     padding: 0 30px;
-    @media screen and (max-width: 480px) {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    z-index: 999;
+    @media only screen and (max-width: 960px) {
+      width: calc(100% - 138px);
+      justify-content: flex-start;
+    }
+    @media only screen and (max-width: 782px) {
+      width: calc(100% - 82px);
+      right: 12px;
+    } 
+    @media only screen and (max-width: 600px) {
+      position: unset;
+      width: auto;
+      flex-wrap: wrap;
+    }
+    @media only screen and (max-width: 480px) {
       padding: 10px 30px;
     }
   }
-
   .atbdp-cptm-body {
+    position: relative;
+    margin-top: 60px; 
+    @media only screen and (max-width: 600px) {
+      margin-top: 0;
+    }
     @media screen and (max-width: 480px) {
       padding: 20px 30px;
     }
   }
+  @media only screen and (max-width: 600px) {
+    margin-top: 0;
+  }
 }
+
+// WP Sidebar Folded CSS
+.wp-admin.folded {
+  .directorist-directory-type-top {
+    width: calc(100% - 118px);
+  }
+  .directorist-directory-type-bottom .cptm-header-navigation {
+    width: calc(100% - 138px);
+  }
+}
+
 .directorist-draggable-form-list-wrap {
   margin-right: 50px;
 }
@@ -723,7 +794,7 @@ $light-gray: #f4f5f7;
   display: inline-block;
   list-style: none;
   text-align: center;
-
+  min-width: fit-content;
   @media (max-width: 480px) {
     width: 100%;
   }
@@ -860,7 +931,31 @@ $light-gray: #f4f5f7;
 }
 
 .cptm-tab-content-header {
-  background-color: #f8f9fb;
+  background: transparent;
+  max-width: 1050px;
+  margin: 80px auto 0;
+    .cptm-sub-navigation {
+      gap: 10px;
+      padding: 10px 20px;
+      margin: 0 25px;
+      border-radius: 10px;
+      background: #f3f4f6;
+      .cptm-sub-nav__item {
+        margin: 0;
+      }
+      .cptm-sub-nav__item-link {
+        margin: 0;
+        padding: 10px 25px;
+        background-color: #e3e6ef;
+        &.active,
+        &:hover {
+          background-color: #3e62f5;
+        }
+      } 
+      @media screen and (max-width: 480px) {
+        margin: 0;
+      }     
+    }
 }
 
 .cptm-tab-content-body {
@@ -960,28 +1055,46 @@ $light-gray: #f4f5f7;
   }
   &.preview_mode {
     position: absolute;
-    right: 105px;
-    bottom: 70px;
-    width: 420px;
-    padding: 24px 0 50px;
+    right: 31px;
+    bottom: 71px;
+    width: 568px;
+    padding: 24px 43px 50px;
     box-sizing: border-box;
     z-index: 9;
-    border-top: 1px solid #E5E7EB;
+    background: #f8f9fa;
+    border: none;
+    border-radius:0 0 8px 8px;
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 43px;
+      height: 1px;
+      width: calc(100% - 86px);
+      background-color: #f3f4f6;
+    }
     .cptm-title-area {
       display: none;
     }
-    @media screen and (min-width: 992px) and (max-width: 1199px) {
-      width: 300px;
+    @media screen and (max-width: 1199px) {
+      width: 403px;
     }
-    @media screen and (min-width: 768px) and (max-width: 991px) {
-      width: 260px;
+    @media screen and (max-width: 991px) {
+      width: 390px;
+      right: 27px;
+    }
+    @media screen and (max-width: 959px) {
+      width: 379px;
     }
     @media screen and (max-width: 767px) {
-      width: calc(100% - 185px);
+      width: calc(100% - 52px);
+      right: 26px;
+      bottom: 101px;
     }
-    @media screen and (max-width: 479px) {
-      right: 60px;
-      width: calc(100% - 110px);
+    @media screen and (max-width: 480px) {
+      right: 1px;
+      bottom: 96px;
+      width: calc(100% - 2px);
     }
   }
   &:last-child {
@@ -1288,7 +1401,7 @@ div[draggable="true"].cptm-form-builder-group-title-area {
 
 .cptm-form-builder-group-options {
   background-color: #fff;
-  margin: 0 47px 0 30px;
+  margin: 0 42px 0 30px;
   padding: 20px;
   border-radius: 0 0 8px 8px;
   box-shadow: 0 6px 12px rgba(16, 24, 40, 0.1);
@@ -3126,7 +3239,6 @@ input[type="week"].cptm-form-control input[type="text"].cptm-form-control {
   font-size: 14px;
   color: #5a5f7d;
   text-align: left;
-  border: 0 none;
   border-radius: 4px;
   box-shadow: none;
   font-weight: 400;
@@ -3135,9 +3247,11 @@ input[type="week"].cptm-form-control input[type="text"].cptm-form-control {
   height: auto;
   min-height: 30px;
   background-color: #f4f5f7;
-
-  &:hover {
+  transition: all ease 0.3s;
+  &:hover,
+  &:focus {
     color: #23282d;
+    border-color: #3e62f5;
   }
 }
 

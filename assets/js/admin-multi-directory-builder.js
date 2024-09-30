@@ -18803,6 +18803,12 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       groupName: ""
     };
   },
+  mounted: function mounted() {
+    document.addEventListener("mousedown", this.handleClickOutside);
+  },
+  beforeDestroy: function beforeDestroy() {
+    document.removeEventListener("mousedown", this.handleClickOutside);
+  },
   methods: {
     setup: function setup() {
       if (Object(_helper__WEBPACK_IMPORTED_MODULE_1__["isObject"])(this.groupFields)) {
@@ -18842,7 +18848,6 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       if (this.groupExpandedDropdown && !this.$refs.dropdownContent.contains(event.target)) {
         this.groupExpandedDropdown = false;
       }
-      this.isClickedInsideDropdown = false;
     },
     handleGroupDelete: function handleGroupDelete() {
       this.groupExpandedDropdown = !this.groupExpandedDropdown;
@@ -29646,9 +29651,9 @@ var render = function render() {
       }
     }
   }, "form-builder-widget-group-titlebar-component", _vm.$props, false)), _vm._v(" "), _c("div", {
+    ref: "dropdownContent",
     staticClass: "cptm-form-builder-group-actions-dropdown cptm-form-builder-group-actions-dropdown--group"
   }, [_vm.canTrash ? _c("a", {
-    ref: "dropdownContent",
     staticClass: "cptm-form-builder-group-actions-dropdown-btn",
     attrs: {
       href: "#"
@@ -29657,9 +29662,7 @@ var render = function render() {
       click: function click($event) {
         $event.preventDefault();
         return _vm.toggleGroupExpandedDropdown.apply(null, arguments);
-      },
-      blur: _vm.handleBlur,
-      mousedown: _vm.handleClickOutside
+      }
     }
   }, [_c("span", {
     staticClass: "uil uil-ellipsis-h",

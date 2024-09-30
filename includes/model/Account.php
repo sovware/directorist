@@ -34,7 +34,8 @@ class Directorist_Account {
 
 		$atts = shortcode_atts( array(
 			'enable_user_type'					=> get_directorist_option( 'display_user_type', false ) ? 'yes' : 'no',
-			'user_type'			  				=> '',
+			'author_role_label'			  		=> __( 'I am an author', 'directorist' ),
+			'user_role_label'			  		=> __( 'I am a user', 'directorist' ),
 			'new_user_registration' 			=> get_directorist_option( 'new_user_registration', true ) ? 'yes' : 'no',
 			'registration_username'				=> get_directorist_option( 'reg_username', __( 'Username', 'directorist' ) ),
 			'enable_registration_password' 		=> get_directorist_option( 'display_password_reg', true ) ? 'yes' : 'no',
@@ -161,6 +162,9 @@ class Directorist_Account {
 			'user_type'			   => $user_type,
 			'author_checked'	   => ( 'general' != $user_type ) ? 'checked' : '',
 			'general_checked'	   => ( 'general' == $user_type ) ? 'checked' : '',
+			'enable_user_type'	   => $atts['enable_user_type'],
+			'author_role_label'	   => $atts['author_role_label'],
+			'user_role_label'	   => $atts['user_role_label'],
 		];
 
 		return Helper::get_template_contents( 'account/login-registration-form', $args );

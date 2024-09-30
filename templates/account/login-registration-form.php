@@ -311,18 +311,17 @@ $key        = isset( $_GET['key'] ) ? sanitize_text_field( wp_unslash( $_GET['ke
 							<textarea id="directorist__authentication__signup__bio" class="directorist-form-element" name="bio" rows="10" placeholder="<?php echo esc_html( $bio ); ?>" <?php echo ( ! empty( $require_bio ) ? 'required' : '' ); ?>><?php echo isset( $_REQUEST['bio']) ? esc_textarea( sanitize_text_field( wp_unslash( $_REQUEST['bio'] ) ) ) : ''; ?></textarea>
 						</div>
 						<?php } ?>
-						<?php if ( ! empty( get_directorist_option( 'display_user_type' ) ) ) {
-							if ( empty( $user_type ) || 'author' === $user_type ) {
-							?>
+
+						<?php if ( ! empty( $enable_user_type ) && 'yes' == $enable_user_type ) { ?>
+
 							<div class="atbd_user_type_area directory_regi_btn directorist-radio directorist-radio-circle directorist-mb-35">
-								<input id="author_type" type="radio" name="user_type" value="author" <?php echo esc_attr( $author_checked ); ?>><label for="author_type" class="directorist-radio__label"><?php esc_html_e( 'I am an author', 'directorist' ); ?>
+								<input id="author_type" type="radio" name="user_type" value="author" <?php echo esc_attr( $author_checked ); ?>><label for="author_type" class="directorist-radio__label"><?php echo esc_html( $author_role_label ); ?>
 							</div>
-							<?php } ?>
-							<?php if ( empty( $user_type ) || 'general' == $user_type ) { ?>
+							
 							<div class="atbd_user_type_area directory_regi_btn directorist-radio directorist-radio-circle directorist-mb-35">
-								<input id="general_type" type="radio" name="user_type" value="general" <?php echo esc_attr( $general_checked ); ?>><label for="general_type" class="directorist-radio__label"><?php esc_html_e( 'I am a user', 'directorist' ); ?>
+								<input id="general_type" type="radio" name="user_type" value="general" <?php echo esc_attr( $general_checked ); ?>><label for="general_type" class="directorist-radio__label"><?php echo esc_html( $user_role_label ); ?>
 							</div>
-							<?php } ?>
+							
 						<?php } ?>
 						
 						<?php if ( ! empty( $registration_privacy ) && 'yes' == $registration_privacy ) { ?>

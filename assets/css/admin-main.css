@@ -29798,6 +29798,7 @@ span.drop-toggle-caret:before {
           align-items: flex-start;
   height: auto;
   margin: 0;
+  font-family: "Inter";
 }
 .directorist-setup-wizard__wrapper {
   height: 100%;
@@ -30144,6 +30145,13 @@ span.drop-toggle-caret:before {
   font-weight: 500;
   margin: 30px 0 15px;
 }
+.directorist-setup-wizard__content__section-title {
+  font-size: 18px;
+  line-height: 26px;
+  font-weight: 600;
+  margin: 0 0 15px;
+  color: #141414;
+}
 .directorist-setup-wizard__content__desc {
   font-size: 16px;
   font-weight: 400;
@@ -30179,7 +30187,7 @@ span.drop-toggle-caret:before {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  gap: 10px;
+  gap: 30px;
   -webkit-flex-wrap: wrap;
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
@@ -30353,8 +30361,7 @@ span.drop-toggle-caret:before {
           justify-content: space-between;
 }
 .directorist-setup-wizard__content__pricing__checkbox .feature-title {
-  font-size: 15px;
-  font-weight: 500;
+  font-size: 14px;
   color: #484848;
 }
 .directorist-setup-wizard__content__pricing__checkbox label {
@@ -30420,8 +30427,7 @@ span.drop-toggle-caret:before {
   display: none;
 }
 .directorist-setup-wizard__content__pricing__amount .price-title {
-  font-size: 15px;
-  font-weight: 500;
+  font-size: 14px;
   color: #484848;
 }
 .directorist-setup-wizard__content__pricing__amount .price-amount {
@@ -30442,24 +30448,6 @@ span.drop-toggle-caret:before {
   max-width: 45px;
   background: transparent;
 }
-.directorist-setup-wizard__content__gateway {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  gap: 20px;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: column;
-      -ms-flex-direction: column;
-          flex-direction: column;
-}
-.directorist-setup-wizard__content__gateway__title {
-  font-size: 16px;
-  font-weight: 400;
-  color: #141414;
-  margin: 30px 0 0;
-}
 .directorist-setup-wizard__content__gateway__checkbox {
   display: -webkit-box;
   display: -webkit-flex;
@@ -30473,10 +30461,13 @@ span.drop-toggle-caret:before {
   -webkit-justify-content: space-between;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  margin: 0 0 20px;
+}
+.directorist-setup-wizard__content__gateway__checkbox:last-child {
+  margin: 0;
 }
 .directorist-setup-wizard__content__gateway__checkbox .gateway-title {
-  font-size: 15px;
-  font-weight: 500;
+  font-size: 14px;
   color: #484848;
 }
 .directorist-setup-wizard__content__gateway__checkbox label {
@@ -30525,7 +30516,7 @@ span.drop-toggle-caret:before {
   -webkit-flex: 0 0 100%;
       -ms-flex: 0 0 100%;
           flex: 0 0 100%;
-  font-size: 14px;
+  font-size: 12px;
   font-style: italic;
 }
 .directorist-setup-wizard__content__notice {
@@ -30694,7 +30685,7 @@ span.drop-toggle-caret:before {
           flex: 1;
   gap: 15px;
   width: 100%;
-  max-width: 720px;
+  max-width: 750px;
   margin: 0 auto;
   padding: 50px 15px 100px;
   -webkit-box-orient: vertical;

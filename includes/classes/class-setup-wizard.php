@@ -584,13 +584,14 @@ class SetupWizard
             </div>
             <div class="directorist-setup-wizard__content__items directorist-setup-wizard__content__items--listings">
                 <div class="directorist-setup-wizard__content__pricing">
+                    <h4 class="directorist-setup-wizard__content__section-title">Monetization</h4>
                     <div class="directorist-setup-wizard__content__pricing__checkbox">
-                        <span class="feature-title">Featured Listings</span>
+                        <span class="feature-title">Enable Featured Listings</span>
                         <input type="checkbox" name="featured_listing" id="enable_featured" value=1 />
                         <label for="enable_featured"></label>
 
                         <div class="directorist-setup-wizard__content__pricing__amount">
-                            <span class="price-title">Pricing</span>
+                            <span class="price-title">Featured Listing Price</span>
                             <div class="price-amount">
                                 <span class="price-prefix">$</span>
                                 <input type="text" name='featured_listing_price' id='featured_listing_price' value=19.99 />
@@ -599,14 +600,14 @@ class SetupWizard
                     </div>
                 </div>
                 <div class="directorist-setup-wizard__content__gateway">
-                    <h4 class="directorist-setup-wizard__content__gateway__title">Gateways</h4>
+                    <h4 class="directorist-setup-wizard__content__section-title">Payment Gateways</h4>
                     <div class="directorist-setup-wizard__content__gateway__checkbox">
-                        <span class="gateway-title">Bank Transfer</span>
+                        <span class="gateway-title">Enable payments via <strong>Bank Transfer</strong></span>
                         <input type="checkbox" name="active_gateways[]" id="enable_bank_transfer" value="bank_transfer" />
                         <label for="enable_bank_transfer"></label>
                     </div>
                     <div class="directorist-setup-wizard__content__gateway__checkbox">
-                        <span class="gateway-title">Paypal</span>
+                        <span class="gateway-title">Enable payments via <strong>Paypal</strong></span>
                         <input type="checkbox" name="active_gateways[]" id="enable_paypal" value="paypal_gateway" />
                         <label for="enable_paypal"></label>
                         <span class="enable-warning">This will install the Paypal extension</sp>

@@ -645,15 +645,18 @@ $light-gray: #f4f5f7;
 }
 
 .atbdp-cptm-status-feedback {
-  position: absolute;
-  top: -32px;
-  left: 50%;
+  position: fixed;
+  top: 70px;
+  left: calc(50% + 150px);
   transform: translateX(-50%);
   min-width: 300px;
   z-index: 9999;
 
-  @media screen and (max-width: 767px) {
-    transform: translateX(-50%);
+  @media screen and (max-width: 960px) {
+    left: calc(50% + 100px);
+  }
+  @media screen and (max-width: 782px) {
+    left: 50%;
   }
 }
 

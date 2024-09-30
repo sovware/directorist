@@ -8,7 +8,7 @@
     >
     <div
         class="directorist-form-doc"
-        v-if="section.fields[0] === 'submission_form_fields' || section.fields[0] === 'search_form_fields'"
+        v-if="section.fields[0] !== 'icon' && section.fields[0] !== 'enable_single_listing_page'"
       >
         <div class="directorist-form-doc-left">
           <div class="directorist-form-doc-title" v-html="section.title"></div>
@@ -16,6 +16,7 @@
             href="#"
             class="directorist-form-doc__watch-tutorial"
             @click.prevent="openVideoPopup"
+            v-if="section.fields[0] === 'submission_form_fields'"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -87,7 +88,7 @@
       <div
         class="cptm-title-area"
         :class="sectionTitleAreaClass(section)"
-        v-if="section.fields[0] !== 'submission_form_fields' && section.fields[0] !== 'search_form_fields'"
+        v-if="section.fields[0] === 'icon'"
       >
         <h3 v-if="section.title" class="cptm-title" v-html="section.title"></h3>
         <div

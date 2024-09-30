@@ -27,7 +27,8 @@ $light-gray: #f4f5f7;
   padding: 0 20px;
   background: white;
   min-height: 60px;
-  box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+  // box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+  border-bottom: 1px solid #e5e7eb;
   border-radius: 6px 6px 0 0;
   position: fixed;
   right: 20px;
@@ -645,11 +646,11 @@ $light-gray: #f4f5f7;
 
 .atbdp-cptm-status-feedback {
   position: absolute;
-  top: 32px;
+  top: -32px;
   left: 50%;
   transform: translateX(-50%);
   min-width: 300px;
-  z-index: 1;
+  z-index: 9999;
 
   @media screen and (max-width: 767px) {
     transform: translateX(-50%);
@@ -931,15 +932,16 @@ $light-gray: #f4f5f7;
 }
 
 .cptm-tab-content-header {
+  position: relative;
   background: transparent;
-  max-width: 1050px;
-  margin: 80px auto 0;
+  margin-top: 61px;
+  border-bottom: 1px solid #e5e7eb;
     .cptm-sub-navigation {
       gap: 10px;
       padding: 10px 20px;
-      margin: 0 25px;
-      border-radius: 10px;
-      background: #f3f4f6;
+      margin: 0 15px;
+      max-width: 1050px;
+      margin: 0 auto;
       .cptm-sub-nav__item {
         margin: 0;
       }
@@ -967,7 +969,6 @@ $light-gray: #f4f5f7;
   margin: 0 auto;
   padding: 20px 30px;
   min-height: 500px;
-  max-width: 700px;
   box-sizing: border-box;
 
   @media only screen and (max-width: 991px) {
@@ -979,14 +980,14 @@ $light-gray: #f4f5f7;
     padding: 15px 0;
   }
 
-  &.tab-wide {
-    max-width: 1080px;
-  }
+  // &.tab-wide {
+  //   max-width: 1080px;
+  // }
 
-  &.tab-full-width {
-    max-width: 1080px;
-    padding: 20px 0;
-  }
+  // &.tab-full-width {
+  //   max-width: 1080px;
+  //   padding: 20px 0;
+  // }
 }
 
 .cptm-short-wide {
@@ -2264,11 +2265,6 @@ input[type="radio"].cptm-radio {
 
 .cptm-preview-area {
   flex-grow: 1;
-  padding: 0 20px;
-
-  @media (max-width: 400px) {
-    padding: 0;
-  }
 }
 .cptm-preview-wrapper {
   display: flex !important;
@@ -3183,14 +3179,14 @@ input[type="radio"].cptm-radio {
 .video-popup-overlay {
   position: fixed;
   top: 0;
-  left: 0;
-  width: 100%;
+  right: 0;
+  width: calc(100% - 160px);
   height: 100%;
   background: rgba(0, 0, 0, 0.8);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  z-index: 9999;
 }
 
 .video-popup-content {

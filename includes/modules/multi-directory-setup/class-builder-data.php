@@ -2699,7 +2699,7 @@ class Builder_Data {
                         'container' => 'wide',
                         'sections'  => [
                             'listings_card' => [
-                                'title'       => __( 'Create and customize the listing card for grid view', 'directorist' ),
+                                'title'       => __( 'All Listing Grid Layout', 'directorist' ),
                                 'title_align' => 'center',
                                 'description' => '<a target="_blank" href="https://directorist.com/documentation/directorist/form-and-layout-builder/multiple-directories/"> ' . __( 'Need help?', 'directorist' ) . ' </a>' . __( 'Read the documentation or open a ticket in our helpdesk.', 'directorist' ),
                                 'fields'      => [
@@ -2713,7 +2713,7 @@ class Builder_Data {
                         'container' => 'full-width',
                         'sections'  => [
                             'listings_card' => [
-                                'title'       => __( 'Create and customize the listing card for listing view', 'directorist' ),
+                                'title'       => __( 'All Listing List Layout', 'directorist' ),
                                 'title_align' => 'center',
                                 'description' => '<a target="_blank" href="https://directorist.com/documentation/directorist/form-and-layout-builder/multiple-directories/"> ' . __( 'Need help?', 'directorist' ) . ' </a>' . __( 'Read the documentation or open a ticket in our helpdesk.', 'directorist' ),
                                 'fields'      => [
@@ -2733,7 +2733,7 @@ class Builder_Data {
                 'container' => 'wide',
                 'sections'  => [
                     'form_fields' => [
-                        'title'       => __( 'Listing Card', 'directorist' ),
+                        'title'       => __( 'Search Form', 'directorist' ),
                         'description' => '<a target="_blank" href="https://directorist.com/documentation/directorist/form-and-layout-builder/search-form-layout/"> ' . __( 'Need help?', 'directorist' ) . ' </a>',
                         'fields'      => [
                             'search_form_fields',

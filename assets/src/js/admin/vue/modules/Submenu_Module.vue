@@ -19,7 +19,6 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
 import helpers from '../mixins/helpers';
 
 export default {

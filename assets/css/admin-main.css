@@ -30343,6 +30343,10 @@ span.drop-toggle-caret:before {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  gap: 20px;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
       -ms-flex-pack: justify;
@@ -30394,7 +30398,7 @@ span.drop-toggle-caret:before {
   right: 5px;
   background-color: #ffffff;
 }
-.directorist-setup-wizard__content__pricing__amount {
+.directorist-setup-wizard__content__pricing__checkbox input[type=checkbox]:checked ~ .directorist-setup-wizard__content__pricing__amount {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -30407,7 +30411,13 @@ span.drop-toggle-caret:before {
   -webkit-justify-content: space-between;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  margin-top: 20px;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 100%;
+      -ms-flex: 0 0 100%;
+          flex: 0 0 100%;
+}
+.directorist-setup-wizard__content__pricing__amount {
+  display: none;
 }
 .directorist-setup-wizard__content__pricing__amount .price-title {
   font-size: 15px;
@@ -30455,6 +30465,10 @@ span.drop-toggle-caret:before {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  gap: 10px;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
       -ms-flex-pack: justify;
@@ -30505,6 +30519,14 @@ span.drop-toggle-caret:before {
 .directorist-setup-wizard__content__gateway__checkbox input[type=checkbox]:checked ~ label:after {
   right: 5px;
   background-color: #ffffff;
+}
+.directorist-setup-wizard__content__gateway__checkbox .enable-warning {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 100%;
+      -ms-flex: 0 0 100%;
+          flex: 0 0 100%;
+  font-size: 14px;
+  font-style: italic;
 }
 .directorist-setup-wizard__content__notice {
   display: -webkit-box;

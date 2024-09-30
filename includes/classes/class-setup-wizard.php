@@ -588,12 +588,13 @@ class SetupWizard
                         <span class="feature-title">Featured Listings</span>
                         <input type="checkbox" name="featured_listing" id="enable_featured" value=1 />
                         <label for="enable_featured"></label>
-                    </div>
-                    <div class="directorist-setup-wizard__content__pricing__amount">
-                        <span class="price-title">Pricing</span>
-                        <div class="price-amount">
-                            <span class="price-prefix">$</span>
-                            <input type="text" name='featured_listing_price' id='featured_listing_price' value=19.99 />
+
+                        <div class="directorist-setup-wizard__content__pricing__amount">
+                            <span class="price-title">Pricing</span>
+                            <div class="price-amount">
+                                <span class="price-prefix">$</span>
+                                <input type="text" name='featured_listing_price' id='featured_listing_price' value=19.99 />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -608,6 +609,7 @@ class SetupWizard
                         <span class="gateway-title">Paypal</span>
                         <input type="checkbox" name="active_gateways[]" id="enable_paypal" value="paypal_gateway" />
                         <label for="enable_paypal"></label>
+                        <span class="enable-warning">This will install the Paypal extension</sp>
                     </div>
                 </div>
             </div>

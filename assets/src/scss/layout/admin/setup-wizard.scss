@@ -805,6 +805,8 @@
     @include e("pricing") {
       @include e("checkbox") {
         display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
         justify-content: space-between;
         .feature-title {
           font-size: 15px;
@@ -850,14 +852,17 @@
                 background-color: #ffffff;
               }
             }
+            ~ .directorist-setup-wizard__content__pricing__amount {
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              flex: 0 0 100%;
+            }
           }
         }
       }
       @include e("amount") {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-top: 20px;
+        display: none;
         .price-title {
           font-size: 15px;
           font-weight: 500;
@@ -894,6 +899,8 @@
       }
       @include e("checkbox") {
         display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
         justify-content: space-between;
         .gateway-title {
           font-size: 15px;
@@ -940,6 +947,12 @@
               }
             }
           }
+        }
+        .enable-warning {
+          flex: 0 0 100%;
+          // color: #f28100;
+          font-size: 14px;
+          font-style: italic;
         }
       }
     }

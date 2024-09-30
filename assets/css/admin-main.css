@@ -30192,10 +30192,15 @@ span.drop-toggle-caret:before {
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
   padding: 40px;
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
   background-color: #ffffff;
   border-radius: 10px;
   -webkit-box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
           box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 @media (max-width: 480px) {
   .directorist-setup-wizard__content__items {
@@ -30684,9 +30689,6 @@ span.drop-toggle-caret:before {
       -ms-flex: 1;
           flex: 1;
   gap: 15px;
-  width: 100%;
-  max-width: 750px;
-  margin: 0 auto;
   padding: 50px 15px 100px;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
@@ -30707,6 +30709,8 @@ span.drop-toggle-caret:before {
 }
 .directorist-setup-wizard__box {
   width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
   padding: 30px 40px 40px;
   background-color: #ffffff;
   border-radius: 10px;

@@ -695,9 +695,13 @@
       gap: 30px;
       flex-wrap: wrap;
       padding: 40px;
+      width: 100%;
+      max-width: 720px;
+      margin: 0 auto;
       background-color: #ffffff;
       border-radius: 10px;
       box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
+      box-sizing: border-box;
       @media (max-width: 480px) {
         padding: 35px 25px;
       }
@@ -1074,9 +1078,6 @@
     display: flex;
     flex: 1;
     gap: 15px;
-    width: 100%;
-    max-width: 750px;
-    margin: 0 auto;
     padding: 50px 15px 100px;
     flex-direction: column;
     align-items: center;
@@ -1087,6 +1088,8 @@
   }
   @include e("box") {
     width: 100%;
+    max-width: 720px;
+    margin: 0 auto;
     padding: 30px 40px 40px;
     background-color: #ffffff;
     border-radius: 10px;

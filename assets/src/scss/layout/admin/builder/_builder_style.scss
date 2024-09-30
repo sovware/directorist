@@ -958,6 +958,12 @@ $light-gray: #f4f5f7;
         margin: 0;
       }     
     }
+    .directorist-form-doc__watch-tutorial {
+      position: absolute;
+      right: 30px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
 }
 
 .cptm-tab-content-body {
@@ -3191,8 +3197,6 @@ input[type="radio"].cptm-radio {
 
 .video-popup-content {
   position: relative;
-  width: 100%;
-  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;

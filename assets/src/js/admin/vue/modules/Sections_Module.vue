@@ -68,9 +68,6 @@
         @click="closeVideoPopup"
       >
         <div class="video-popup-content" @click.stop>
-          <button class="close-btn" @click="closeVideoPopup">
-            <span class="la la-close"></span>
-          </button>
           <div class="video-container">
             <iframe
               width="560"
@@ -83,6 +80,10 @@
             ></iframe>
           </div>
         </div>
+
+        <button class="close-btn" @click="closeVideoPopup">
+          <span class="la la-close"></span>
+        </button>
       </div>
 
       <div

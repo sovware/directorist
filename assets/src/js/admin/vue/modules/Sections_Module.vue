@@ -34,6 +34,14 @@
             </svg>
             Watch tutorial
           </a>
+          <a
+            href="#"
+            class="directorist-form-doc__link"
+            v-if="section.fields[0] !== 'submission_form_fields'"
+          >
+            What is it?
+          </a>
+
         </div>
         <div class="directorist-form-doc-right">
           <a

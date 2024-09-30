@@ -236,7 +236,7 @@ $light-gray: #f4f5f7;
   .directorist-form-doc-left {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 8px;
     flex-wrap: wrap;
     @media only screen and (max-width: 575px) {
       justify-content: center;
@@ -261,6 +261,7 @@ $light-gray: #f4f5f7;
     background: #eff8ff;
     color: #217aef;
     text-align: center;
+    margin-left: 4px;
     font-size: 12px;
     font-style: normal;
     font-weight: 500;
@@ -272,6 +273,15 @@ $light-gray: #f4f5f7;
       height: 14px;
       color: inherit;
     }
+  }
+  &__link {
+    margin-top: 2px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #1B50B2;
+    line-height: 20px;
+    letter-spacing: .12px;
+    text-decoration: underline;
   }
   &__preview {
     display: inline-flex;

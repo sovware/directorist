@@ -14056,7 +14056,7 @@ input:-webkit-autofill:active {
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
-  gap: 12px;
+  gap: 8px;
   -webkit-flex-wrap: wrap;
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
@@ -14099,6 +14099,7 @@ input:-webkit-autofill:active {
   background: #eff8ff;
   color: #217aef;
   text-align: center;
+  margin-right: 4px;
   font-size: 12px;
   font-style: normal;
   font-weight: 500;
@@ -14110,6 +14111,15 @@ input:-webkit-autofill:active {
   width: 14px;
   height: 14px;
   color: inherit;
+}
+.directorist-form-doc__link {
+  margin-top: 2px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #1B50B2;
+  line-height: 20px;
+  letter-spacing: 0.12px;
+  text-decoration: underline;
 }
 .directorist-form-doc__preview {
   display: -webkit-inline-box;
@@ -19040,7 +19050,7 @@ input[type=radio]:checked::before {
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
-  gap: 12px;
+  gap: 8px;
   -webkit-flex-wrap: wrap;
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
@@ -19083,6 +19093,7 @@ input[type=radio]:checked::before {
   background: #eff8ff;
   color: #217aef;
   text-align: center;
+  margin-right: 4px;
   font-size: 12px;
   font-style: normal;
   font-weight: 500;
@@ -19094,6 +19105,15 @@ input[type=radio]:checked::before {
   width: 14px;
   height: 14px;
   color: inherit;
+}
+.directorist-form-doc__link {
+  margin-top: 2px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #1B50B2;
+  line-height: 20px;
+  letter-spacing: 0.12px;
+  text-decoration: underline;
 }
 .directorist-form-doc__preview {
   display: -webkit-inline-box;
@@ -24291,7 +24311,7 @@ input[type=radio]:checked::before {
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
-  gap: 12px;
+  gap: 8px;
   -webkit-flex-wrap: wrap;
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
@@ -24334,6 +24354,7 @@ input[type=radio]:checked::before {
   background: #eff8ff;
   color: #217aef;
   text-align: center;
+  margin-right: 4px;
   font-size: 12px;
   font-style: normal;
   font-weight: 500;
@@ -24345,6 +24366,15 @@ input[type=radio]:checked::before {
   width: 14px;
   height: 14px;
   color: inherit;
+}
+.directorist-form-doc__link {
+  margin-top: 2px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #1B50B2;
+  line-height: 20px;
+  letter-spacing: 0.12px;
+  text-decoration: underline;
 }
 .directorist-form-doc__preview {
   display: -webkit-inline-box;

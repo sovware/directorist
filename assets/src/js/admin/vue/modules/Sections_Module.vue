@@ -8,7 +8,7 @@
     >
     <div
         class="directorist-form-doc"
-        v-if="section.fields[0] !== 'icon' && section.fields[0] !== 'enable_single_listing_page'"
+        v-if="section.fields[0] !== 'icon' && section.fields[0] !== 'preview_mode' && section.fields[0] !== 'enable_single_listing_page'"
       >
         <div class="directorist-form-doc-left">
           <div class="directorist-form-doc-title" v-html="section.title"></div>

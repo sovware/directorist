@@ -1064,7 +1064,7 @@ $light-gray: #f4f5f7;
     position: absolute;
     right: 31px;
     bottom: 71px;
-    width: 568px;
+    width: calc(50% + 50px);
     padding: 24px 43px 50px;
     box-sizing: border-box;
     z-index: 9;
@@ -1083,15 +1083,17 @@ $light-gray: #f4f5f7;
     .cptm-title-area {
       display: none;
     }
-    @media screen and (max-width: 1199px) {
-      width: 403px;
+    @media screen and (max-width: 1499px) {
+      width: calc(50% + 40px);
+    }
+    @media screen and (max-width: 1399px) {
+      width: calc(50% + 20px);
+    }
+    @media screen and (max-width: 1099px) {
+      width: calc(50% + 10px);
     }
     @media screen and (max-width: 991px) {
-      width: 390px;
       right: 27px;
-    }
-    @media screen and (max-width: 959px) {
-      width: 379px;
     }
     @media screen and (max-width: 767px) {
       width: calc(100% - 52px);

@@ -26819,7 +26819,7 @@ var render = function render() {
       key: section_key,
       staticClass: "cptm-section",
       class: _vm.sectionClass(section)
-    }, [section.fields[0] !== "icon" && section.fields[0] !== "enable_single_listing_page" ? _c("div", {
+    }, [section.fields[0] !== "icon" && section.fields[0] !== "preview_mode" && section.fields[0] !== "enable_single_listing_page" ? _c("div", {
       staticClass: "directorist-form-doc"
     }, [_c("div", {
       staticClass: "directorist-form-doc-left"

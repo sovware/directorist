@@ -30159,7 +30159,6 @@ span.drop-toggle-caret:before {
   color: #484848;
 }
 .directorist-setup-wizard__content__header {
-  max-width: 500px;
   margin: 0 auto;
   text-align: center;
 }
@@ -30187,7 +30186,7 @@ span.drop-toggle-caret:before {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  gap: 30px;
+  gap: 10px;
   -webkit-flex-wrap: wrap;
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
@@ -30213,6 +30212,7 @@ span.drop-toggle-caret:before {
   }
 }
 .directorist-setup-wizard__content__items--listings {
+  gap: 30px;
   padding: 40px 180px;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;

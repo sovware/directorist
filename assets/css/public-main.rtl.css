@@ -20761,7 +20761,7 @@ Review: New Style
   -webkit-flex: 1;
       -ms-flex: 1;
           flex: 1;
-  width: calc(100% - 230px);
+  width: calc(100% - 250px);
 }
 .directorist-user-dashboard .directorist-alert {
   margin-bottom: 15px;

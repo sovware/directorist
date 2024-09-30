@@ -667,7 +667,6 @@
       color: #484848;
     }
     @include e("header") {
-      max-width: 500px;
       margin: 0 auto;
       text-align: center;
       @include m("listings") {
@@ -692,7 +691,7 @@
     }
     @include e("items") {
       display: flex;
-      gap: 30px;
+      gap: 10px;
       flex-wrap: wrap;
       padding: 40px;
       width: 100%;
@@ -710,6 +709,7 @@
       }
 
       @include m("listings") {
+        gap: 30px;
         padding: 40px 180px;
         flex-direction: column;
         @media (max-width: 991px) {

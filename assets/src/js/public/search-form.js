@@ -1,12 +1,10 @@
+import debounce from '../global/components/debounce';
 import './../global/components/select2-custom-control';
 import './../global/components/setup-select2';
+import initSearchCategoryCustomFields from './components/category-custom-fields';
 import './components/colorPicker';
 import './components/directoristDropdown';
 import './components/directoristSelect';
-import { directorist_callingSlider } from './range-slider';
-import { directorist_range_slider } from './range-slider';
-import debounce from '../global/components/debounce';
-import initSearchCategoryCustomFields from './components/category-custom-fields';
 
 (function ($) {
     window.addEventListener('load', () => {
@@ -32,7 +30,7 @@ import initSearchCategoryCustomFields from './components/category-custom-fields'
             });
         }
 
-        $(window).on('load', defaultTags);
+        defaultTags();
         window.addEventListener('triggerSlice', defaultTags);
 
         // See More Tags Button

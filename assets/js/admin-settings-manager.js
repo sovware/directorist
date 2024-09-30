@@ -15546,6 +15546,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     containerClass: function containerClass() {
       return {
         "tab-wide": "wide" === this.container ? true : false,
+        "tab-short-wide": "short-wide" === this.container ? true : false,
         "tab-full-width": "full-width" === this.container ? true : false
       };
     },

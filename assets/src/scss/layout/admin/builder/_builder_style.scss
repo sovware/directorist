@@ -858,7 +858,6 @@ $light-gray: #f4f5f7;
 // Sub Tabs
 // ====================
 .cptm-title-area {
-  border-radius: 10px;
   margin-bottom: 20px;
 }
 
@@ -986,14 +985,17 @@ $light-gray: #f4f5f7;
     padding: 15px 0;
   }
 
-  // &.tab-wide {
-  //   max-width: 1080px;
-  // }
+  &.tab-wide {
+    max-width: 1080px;
+  }
 
-  // &.tab-full-width {
-  //   max-width: 1080px;
-  //   padding: 20px 0;
-  // }
+  &.tab-short-wide {
+    max-width: 550px;
+  }
+
+  &.tab-full-width {
+    max-width: 100%;
+  }
 }
 
 .cptm-short-wide {

@@ -190,6 +190,7 @@ export default {
     containerClass() {
       return {
         "tab-wide": "wide" === this.container ? true : false,
+        "tab-short-wide": "short-wide" === this.container ? true : false,
         "tab-full-width": "full-width" === this.container ? true : false,
       };
     },

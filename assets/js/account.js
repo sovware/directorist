@@ -274,6 +274,8 @@ jQuery(function ($) {
     e.preventDefault();
     var formData = new FormData(this);
     formData.append('action', 'directorist_register_form');
+    formData.append('new_user_registration', ajax_login_object.new_user_registration);
+    formData.append('enable_registration_password', ajax_login_object.enable_registration_password);
     $.ajax({
       url: directorist.ajaxurl,
       type: 'POST',

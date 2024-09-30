@@ -150,7 +150,7 @@ $key        = isset( $_GET['key'] ) ? sanitize_text_field( wp_unslash( $_GET['ke
 							<?php do_action( 'atbdp_before_login_form_end' );?>
 						</div>
 
-						<?php if ( ! empty( $display_signup ) && $new_user_registration ) : ?>
+						<?php if ( ! empty( $display_signup ) && $new_user_registration === 'yes' ) : ?>
 							<div class="directorist-authentication__form__toggle-area">
 								<?php echo esc_html( $reg_text ); ?>
 								<button class="directorist-authentication__btn directorist-authentication__btn--signup" aria-label="Signup Button"><?php echo esc_html( $reg_linktxt ); ?></button>
@@ -251,7 +251,7 @@ $key        = isset( $_GET['key'] ) ? sanitize_text_field( wp_unslash( $_GET['ke
 					<div class="add_listing_title atbd_success_mesage directorist-authentication__message">
 						<?php
 						if ( ! empty( $_GET['registration_status'] ) && true == $_GET['registration_status'] ) {
-							if ( empty( $display_password_reg ) ) {
+							if ( empty( $display_password_reg ) || 'yes' != $display_password_reg ) {
 								?>
 								<p style="padding: 20px" class="alert-success directorist-alert directorist-alert-success"><span><?php directorist_icon( 'las la-check' ); ?> <?php esc_html_e('Go to your inbox or spam/junk and get your password.', 'directorist'); ?>
 									<?php
@@ -283,7 +283,7 @@ $key        = isset( $_GET['key'] ) ? sanitize_text_field( wp_unslash( $_GET['ke
 							<label for="directorist__authentication__signup__email"><?php echo esc_html( $email ); ?> <strong class="directorist-form-required">*</strong></label>
 							<input id="directorist__authentication__signup__email" class="directorist-form-element" type="text" name="email" value="<?php echo isset( $_REQUEST['email'] ) ? esc_attr( sanitize_email( wp_unslash( $_REQUEST['email'] ) ) ) : ''; ?>" required>
 						</div>
-						<?php if ( ! empty( $display_password_reg ) ) { ?>
+						<?php if ( ! empty( $display_password_reg ) && 'yes' == $display_password_reg ) { ?>
 							<div class="directorist-form-group directorist-mb-35">
 								<label for="directorist__authentication__signup__password"><?php
 									echo esc_html( $password );

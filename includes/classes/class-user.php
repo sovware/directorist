@@ -61,7 +61,8 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 			}
 
 			$new_user_registration = (bool) get_directorist_option( 'new_user_registration', true );
-			if ( ! $new_user_registration ) {
+			
+			if ( empty( $_POST['new_user_registration'] ) && 'yes' !== $_POST['new_user_registration'] ) {
 				wp_send_json_error( array(
 					'error' => 'You are not allowed to register.'
 				), 400 );
@@ -74,7 +75,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 			$require_fname        = get_directorist_option( 'require_fname_reg', 0 );
 			$display_lname        = get_directorist_option( 'display_lname_reg', 1 );
 			$require_lname        = get_directorist_option( 'require_lname_reg', 0 );
-			$display_password     = get_directorist_option( 'display_password_reg', 1 );
+			$display_password     = ! empty( $_POST['enable_registration_password'] ) && 'yes' == $_POST['enable_registration_password']  ? 1 : 0;
 			$require_password     = get_directorist_option( 'require_password_reg', 0 );
 			$display_user_type    = get_directorist_option( 'display_user_type', 0 );
 			$display_bio          = get_directorist_option( 'display_bio_reg', 1 );

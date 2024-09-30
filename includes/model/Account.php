@@ -33,20 +33,24 @@ class Directorist_Account {
 		}
 
 		$redirection = ATBDP_Permalink::get_login_redirection_page_link();
-		$data        = [
-			'ajax_url'            => admin_url( 'admin-ajax.php' ),
-			'redirect_url'        => $redirection ? $redirection : ATBDP_Permalink::get_account_page_link(),
-			'loading_message'     => esc_html__( 'Sending user info, please wait...', 'directorist' ),
-			'login_error_message' => esc_html__( 'Wrong username or password.', 'directorist' ),
-		];
-		wp_localize_script( 'directorist-main-script', 'ajax_login_object', $data );
+		
 
 		$atts = shortcode_atts( array(
-			'user_type'			  => '',
+			'user_type'			  	=> '',
+			'new_user_registration' => get_directorist_option( 'new_user_registration', true ) ? 'yes' : 'no',
+			'registration_username'	=> get_directorist_option( 'reg_username', __( 'Username', 'directorist' ) ),
+			'enable_registration_password' 		=> get_directorist_option( 'display_password_reg', true ) ? 'yes' : 'no',
 		), $atts );
 
 		$user_type = ! empty( $atts['user_type'] ) ? $atts['user_type'] : '';
 		$user_type = ! empty( $_REQUEST['user_type'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['user_type'] ) ) : $user_type;
+
+		$data        = [
+			'new_user_registration' 		=> $atts['new_user_registration'],
+			'enable_registration_password' 	=> $atts['enable_registration_password'],
+		];
+		wp_localize_script( 'jquery', 'ajax_login_object', $data );
+
 
 		$args = [
 			'log_username'        => get_directorist_option( 'log_username', __( 'Username or Email Address', 'directorist' ) ),
@@ -64,12 +68,12 @@ class Directorist_Account {
 			'reg_url'             => ATBDP_Permalink::get_registration_page_link(),
 			'reg_linktxt'         => get_directorist_option( 'reg_linktxt', __( 'Sign Up', 'directorist' ) ),
 			'display_signup'      => get_directorist_option( 'display_signup', 1 ),
-			'new_user_registration' => get_directorist_option( 'new_user_registration', true ),
+			'new_user_registration' => $atts['new_user_registration'],
 			'parent'               => 0,
 			'container_fluid'      => is_directoria_active() ? 'container' : 'container-fluid',
-			'username'             => get_directorist_option( 'reg_username', __( 'Username', 'directorist' ) ),
+			'username'             => $atts['registration_username'],
 			'password'             => get_directorist_option( 'reg_password', __( 'Password', 'directorist' ) ),
-			'display_password_reg' => get_directorist_option( 'display_password_reg', 1 ),
+			'display_password_reg' => $atts['enable_registration_password'],
 			'require_password'     => get_directorist_option( 'require_password_reg', 1 ),
 			'email'                => get_directorist_option( 'reg_email', __( 'Email', 'directorist' ) ),
 			'display_website'      => get_directorist_option( 'display_website_reg', 0 ),

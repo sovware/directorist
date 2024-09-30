@@ -14874,7 +14874,7 @@ input:-webkit-autofill:active {
   position: relative;
   margin: 0 auto;
   padding: 20px 30px;
-  min-height: 100px;
+  min-height: 500px;
   max-width: 700px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -19820,7 +19820,7 @@ input[type=radio]:checked::before {
   position: relative;
   margin: 0 auto;
   padding: 20px 30px;
-  min-height: 100px;
+  min-height: 500px;
   max-width: 700px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -25033,7 +25033,7 @@ input[type=radio]:checked::before {
   position: relative;
   margin: 0 auto;
   padding: 20px 30px;
-  min-height: 100px;
+  min-height: 500px;
   max-width: 700px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;

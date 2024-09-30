@@ -27347,7 +27347,7 @@ var render = function render() {
       key: section_key,
       staticClass: "cptm-section",
       class: _vm.sectionClass(section)
-    }, [section.fields[0] !== "icon" && section.fields[0] !== "preview_mode" && section.fields[0] !== "enable_single_listing_page" ? _c("div", {
+    }, [section.fields[0] === "submission_form_fields" || section.fields[0] === "search_form_fields" || section.fields[0] === "single_listing_header" || section.fields[0] === "single_listing_header" || section.fields[0] === "single_listings_contents" || section.fields[0] === "listings_card_grid_view" || section.fields[0] === "listings_card_list_view" ? _c("div", {
       staticClass: "directorist-form-doc"
     }, [_c("div", {
       staticClass: "directorist-form-doc-left"
@@ -27417,7 +27417,7 @@ var render = function render() {
       on: {
         "close-video": _vm.closeVideoPopup
       }
-    }), _vm._v(" "), section.fields[0] === "icon" ? _c("div", {
+    }), _vm._v(" "), section.fields[0] !== "submission_form_fields" && section.fields[0] !== "search_form_fields" && section.fields[0] !== "single_listing_header" && section.fields[0] !== "single_listing_header" && section.fields[0] !== "single_listings_contents" && section.fields[0] !== "listings_card_grid_view" && section.fields[0] !== "listings_card_list_view" ? _c("div", {
       staticClass: "cptm-title-area",
       class: _vm.sectionTitleAreaClass(section)
     }, [section.title ? _c("h3", {

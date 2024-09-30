@@ -8,7 +8,7 @@
     >
     <div
         class="directorist-form-doc"
-        v-if="section.fields[0] !== 'icon' && section.fields[0] !== 'preview_mode' && section.fields[0] !== 'enable_single_listing_page'"
+        v-if="section.fields[0] === 'submission_form_fields' || section.fields[0] === 'search_form_fields' || section.fields[0] === 'single_listing_header' || section.fields[0] === 'single_listing_header' || section.fields[0] === 'single_listings_contents' || section.fields[0] === 'listings_card_grid_view' || section.fields[0] === 'listings_card_list_view'"
       >
         <div class="directorist-form-doc-left">
           <div class="directorist-form-doc-title" v-html="section.title"></div>
@@ -70,7 +70,7 @@
       <div
         class="cptm-title-area"
         :class="sectionTitleAreaClass(section)"
-        v-if="section.fields[0] === 'icon'"
+        v-if="section.fields[0] !== 'submission_form_fields' && section.fields[0] !== 'search_form_fields' && section.fields[0] !== 'single_listing_header' && section.fields[0] !== 'single_listing_header' && section.fields[0] !== 'single_listings_contents' && section.fields[0] !== 'listings_card_grid_view' && section.fields[0] !== 'listings_card_list_view'"
       >
         <h3 v-if="section.title" class="cptm-title" v-html="section.title"></h3>
         <div

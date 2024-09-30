@@ -16,7 +16,7 @@
             href="#"
             class="directorist-form-doc__watch-tutorial"
             @click.prevent="openVideoPopup"
-            v-if="section.fields[0] === 'submission_form_fields'"
+            v-if="section.fields[0] === 'submission_form_fields' || section.fields[0] === 'search_form_fields'"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -37,7 +37,7 @@
           <a
             href="#"
             class="directorist-form-doc__link"
-            v-if="section.fields[0] !== 'submission_form_fields'"
+            v-if="section.fields[0] !== 'submission_form_fields' && section.fields[0] !== 'search_form_fields'"
           >
             What is it?
           </a>

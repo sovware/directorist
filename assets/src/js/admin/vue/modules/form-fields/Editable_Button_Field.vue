@@ -3,8 +3,9 @@
     <div class="directorist-input" v-if="!isButtonEditable">
       <button
         type="button"
-        class="cptm-btn cptm-btn-primary"
+        class="cptm-btn"
         @click="showEditableButton"
+        data-info="Click to edit button text"
       >
         <span class="cptm-save-text" v-html="value"></span>
         <span class="cptm-save-icon la la-pen"></span>

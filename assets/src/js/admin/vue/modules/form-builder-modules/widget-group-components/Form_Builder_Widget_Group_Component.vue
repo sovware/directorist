@@ -56,7 +56,7 @@
         </draggable-list-item-wrapper>
       </div>
 
-      <form-builder-droppable-placeholder @drop="$emit('append-widget')" />
+      <form-builder-droppable-placeholder v-if="canShowWidgetDropPlaceholder" @drop="$emit('append-widget')" />
     </slide-up-down>
   </div>
 </template>
@@ -128,9 +128,10 @@ export default {
     canShowWidgetDropPlaceholder() {
       let show = true;
 
-      if (this.groupData.fields && this.groupData.fields.length) {
-        show = false;
-      }
+      // Others Fields Group 
+      // if (this.groupData.fields && this.groupData.fields.length) {
+      //   show = false;
+      // }
 
       if (
         typeof this.groupData.type !== "undefined" &&

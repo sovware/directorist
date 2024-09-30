@@ -17867,7 +17867,7 @@ __webpack_require__.r(__webpack_exports__);
         the_current_widget = this.avilableWidgets[widget_group][widget_name];
         current_widget_name = widget_name;
       }
-      if (the_current_widget.widgets && the_current_widget.widgets[widget_child_name]) {
+      if (the_current_widget && the_current_widget.widgets && the_current_widget.widgets[widget_child_name]) {
         the_current_widget = the_current_widget.widgets[widget_child_name];
         current_widget_child_name = widget_child_name;
       }
@@ -18046,9 +18046,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     canShowWidgetDropPlaceholder: function canShowWidgetDropPlaceholder() {
       var show = true;
-      if (this.groupData.fields && this.groupData.fields.length) {
-        show = false;
-      }
+
+      // Others Fields Group 
+      // if (this.groupData.fields && this.groupData.fields.length) {
+      //   show = false;
+      // }
+
       if (typeof this.groupData.type !== "undefined" && this.groupData.type !== "general_group") {
         show = false;
       }
@@ -28710,11 +28713,9 @@ var render = function render() {
       }
     }
   })], 1) : _vm._e()]), _vm._v(" "), _c("div", {
-    staticClass: "cptm-form-builder-group-actions-dropdown cptm-form-builder-group-actions-dropdown--field",
-    on: {
-      mousedown: _vm.handleClickOutside
-    }
+    staticClass: "cptm-form-builder-group-actions-dropdown cptm-form-builder-group-actions-dropdown--field"
   }, [_vm.canTrashWidget ? _c("a", {
+    ref: "dropdownContent",
     staticClass: "cptm-form-builder-group-actions-dropdown-btn",
     attrs: {
       href: "#"
@@ -28724,7 +28725,8 @@ var render = function render() {
         $event.preventDefault();
         return _vm.toggleExpandedDropdown.apply(null, arguments);
       },
-      blur: _vm.handleBlur
+      blur: _vm.handleBlur,
+      mousedown: _vm.handleClickOutside
     }
   }, [_c("span", {
     staticClass: "uil uil-ellipsis-h",
@@ -28965,13 +28967,13 @@ var render = function render() {
         }
       }
     })], 1);
-  }), 1), _vm._v(" "), _c("form-builder-droppable-placeholder", {
+  }), 1), _vm._v(" "), _vm.canShowWidgetDropPlaceholder ? _c("form-builder-droppable-placeholder", {
     on: {
       drop: function drop($event) {
         return _vm.$emit("append-widget");
       }
     }
-  })], 1)], 1);
+  }) : _vm._e()], 1)], 1);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -29028,11 +29030,9 @@ var render = function render() {
       }
     }
   }, "form-builder-widget-group-titlebar-component", _vm.$props, false)), _vm._v(" "), _c("div", {
-    staticClass: "cptm-form-builder-group-actions-dropdown cptm-form-builder-group-actions-dropdown--group",
-    on: {
-      mousedown: _vm.handleClickOutside
-    }
+    staticClass: "cptm-form-builder-group-actions-dropdown cptm-form-builder-group-actions-dropdown--group"
   }, [_vm.canTrash ? _c("a", {
+    ref: "dropdownContent",
     staticClass: "cptm-form-builder-group-actions-dropdown-btn",
     attrs: {
       href: "#"
@@ -29042,7 +29042,8 @@ var render = function render() {
         $event.preventDefault();
         return _vm.toggleGroupExpandedDropdown.apply(null, arguments);
       },
-      blur: _vm.handleBlur
+      blur: _vm.handleBlur,
+      mousedown: _vm.handleClickOutside
     }
   }, [_c("span", {
     staticClass: "uil uil-ellipsis-h",
@@ -29145,9 +29146,9 @@ var render = function render() {
     attrs: {
       "aria-hidden": "true"
     }
-  }), _vm._v(" Options\n    ")]) : _vm._e()]), _vm._v(" "), _c("div", {
+  }), _vm._v(" Options\n    ")]) : _vm._e()]), _vm._v(" "), _vm.groupData && _vm.groupData.fields && _vm.groupData.fields.length ? _c("div", {
     staticClass: "cptm-form-builder-group-title-actions"
-  }, [_vm.groupData && _vm.groupData.fields && _vm.groupData.fields.length ? _c("a", {
+  }, [_c("a", {
     staticClass: "cptm-form-builder-header-action-link",
     class: _vm.widgetsExpanded ? "action-collapse-up" : "action-collapse-down",
     attrs: {
@@ -29164,7 +29165,7 @@ var render = function render() {
     attrs: {
       "aria-hidden": "true"
     }
-  })]) : _vm._e()])]);
+  })])]) : _vm._e()]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -32311,9 +32312,10 @@ var render = function render() {
   }, [!_vm.isButtonEditable ? _c("div", {
     staticClass: "directorist-input"
   }, [_c("button", {
-    staticClass: "cptm-btn cptm-btn-primary",
+    staticClass: "cptm-btn",
     attrs: {
-      type: "button"
+      type: "button",
+      "data-info": "Click to edit button text"
     },
     on: {
       click: _vm.showEditableButton
@@ -32616,7 +32618,7 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "directorist-type-icon-select"
+    staticClass: "cptm-form-group directorist-type-icon-select"
   }, [_c("div", {
     ref: "iconPickerElm",
     staticClass: "icon-picker-wrap"

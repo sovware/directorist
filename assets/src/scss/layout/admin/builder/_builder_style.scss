@@ -229,6 +229,7 @@ $light-gray: #f4f5f7;
 
 .directorist-footer-wrap {
   .cptm-btn {
+    position: relative;
     margin: 0;
     width: 100%;
     display: flex;
@@ -238,9 +239,54 @@ $light-gray: #f4f5f7;
     height: 48px;
     font-size: 16px;
     font-weight: 500;
+    color: #ffffff;
+    border-color: #383F47;
+    background-color: #383F47;
     border-radius: 8px;
+    &:before {
+      content: attr(data-info);
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+      min-width: max-content;
+      text-align: center;
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 10px 12px;
+      border-radius: 6px;
+      background-color: #141921;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    &:after {
+      content: '';
+      position: absolute;
+      top: calc(100% + 2px);
+      left: 50%;
+      transform: translateX(-50%);
+      border-bottom: 6px solid #141921;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
     .cptm-save-icon {
       font-size: 16px;
+    }
+    &:hover {
+      border-color: #141921;
+      background-color: #141921;
+      &:hover {
+        &:before,
+        &:after {
+          opacity: 1;
+          visibility: visible;
+        }
+      }
     }
   }
   .cptm-form-group {
@@ -1074,7 +1120,7 @@ $light-gray: #f4f5f7;
   padding: 15px 20px;
   box-sizing: border-box;
   border-radius: 8px;
-  background-color: #444752;
+  background-color: #383F47;
   box-shadow: 0px 1px 5px rgba(#a1a8c6, 0.1);
   transition: all ease 0.3s;
   &.expanded,
@@ -1261,6 +1307,13 @@ div[draggable="true"].cptm-form-builder-group-title-area {
     cursor: pointer;
     &:hover {
       color: #3e62f5;
+    }
+  }
+  .directorist-form-fields-area {
+    .cptm-form-group {
+      &:last-child {
+        margin-bottom: 0;
+      }
     }
   }
 }

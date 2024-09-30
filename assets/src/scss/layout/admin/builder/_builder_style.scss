@@ -175,6 +175,7 @@ $light-gray: #f4f5f7;
     }
     @media only screen and (max-width: 782px) {
       width: calc(100% - 82px);
+      top: 117px;
       right: 12px;
     } 
     @media only screen and (max-width: 600px) {
@@ -251,6 +252,7 @@ $light-gray: #f4f5f7;
   &__watch-tutorial {
     display: inline-flex;
     padding: 8px 12px;
+    width: max-content;
     justify-content: center;
     align-items: center;
     gap: 6px;
@@ -938,34 +940,58 @@ $light-gray: #f4f5f7;
   background: transparent;
   margin-top: 61px;
   border-bottom: 1px solid #e5e7eb;
-    .cptm-sub-navigation {
-      gap: 10px;
-      padding: 10px 20px;
-      margin: 0 15px;
-      max-width: 1050px;
-      margin: 0 auto;
-      .cptm-sub-nav__item {
-        margin: 0;
+  @media only screen and (max-width: 600px) {
+    margin-top: 0;
+  }
+  .cptm-sub-navigation {
+    gap: 10px;
+    padding: 10px 20px;
+    padding-right: 160px;
+    margin: 0 15px;
+    max-width: 1050px;
+    margin: 0 auto;
+    .cptm-sub-nav__item {
+      margin: 0;
+    }
+    .cptm-sub-nav__item-link {
+      margin: 0;
+      padding: 10px 25px;
+      background-color: #e3e6ef;
+      &.active,
+      &:hover {
+        background-color: #3e62f5;
       }
-      .cptm-sub-nav__item-link {
-        margin: 0;
-        padding: 10px 25px;
-        background-color: #e3e6ef;
-        &.active,
-        &:hover {
-          background-color: #3e62f5;
-        }
-      } 
-      @media screen and (max-width: 480px) {
-        margin: 0;
-      }     
-    }
-    .directorist-form-doc__watch-tutorial {
-      position: absolute;
-      right: 30px;
-      top: 50%;
-      transform: translateY(-50%);
-    }
+    }  
+    @media screen and (max-width: 480px) {
+      margin: 0;
+    }     
+  }
+  .directorist-form-doc__watch-tutorial {
+    position: absolute;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  @media only screen and (max-width: 782px) {
+   .cptm-sub-navigation {
+    padding-right: 0;
+    padding-top: 70px;
+   }
+   .directorist-form-doc__watch-tutorial {
+    top: 20px;
+    right: 50%;
+    transform: translateX(50%);
+   }
+  }
+  @media only screen and (max-width: 480px) {
+   .cptm-sub-navigation {
+    padding-top: 50px;
+    padding-bottom: 15px;
+   }
+   .directorist-form-doc__watch-tutorial {
+    top: 0;
+   }
+  }
 }
 
 .cptm-tab-content-body {

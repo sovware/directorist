@@ -310,15 +310,6 @@ class ATBDP_Shortcode {
 		return $account->render_account( $atts );
 	}
 
-	public function user_login_registration( $atts ) {
-		$atts = !empty( $atts ) ? $atts : array();
-		$account = Directorist_Listing_Dashboard::instance();
-
-		$atts[ 'shortcode' ] = 'directorist_user_dashboard';
-
-		return $account->render_shortcode_login_registration( $atts );
-	}
-
 	public function add_listing( $atts ) {
 		$atts  = !empty( $atts ) ? $atts : array();
 		$id    = get_query_var( 'atbdp_listing_id', 0 );

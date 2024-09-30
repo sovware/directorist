@@ -137,9 +137,13 @@ class ATBDP_Permalink {
         return apply_filters( 'atbdp_login_redirection_page_url', $link, $page_id );
     }
 
-    public static function get_reg_redirection_page_link( $previous_page, $query_vars=array() )
+    public static function get_reg_redirection_page_link( $previous_page, $query_vars=array(), $page_link = "" )
     {
         $page_id = get_directorist_option( 'redirection_after_reg', 'previous_page' );
+
+        if( ! empty( $page_link ) ) {
+            return  $page_link;
+        }
 
         if ( 'previous_page' == $page_id ) {
             $link = $previous_page;

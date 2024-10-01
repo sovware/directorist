@@ -139,6 +139,33 @@
         </div>
       </div>
     </div>
+
+    <!-- cptm-elements-settings -->
+    <div class="cptm-elements-settings">
+      <button
+        type="button"
+        class="cptm-elements-settings__toggle"
+        v-if="!elementsSettingsOpened"
+        @click.prevent="toggleElementsSettings"
+      >
+        <span class="icon fa fa-cog"></span>
+      </button>
+      <div
+        class="cptm-elements-settings"
+        v-if="elementsSettingsOpened"
+      >
+        <div class="cptm-elements-settings__header">
+          <h4 class="cptm-elements-settings__header__title">Elements Settings</h4>
+          <button
+            type="button"
+            class="cptm-elements-settings__header__close"
+            @click.prevent="closeElementsSettings"
+          >
+            <span class="icon fa fa-times"></span>
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -146,8 +173,8 @@
 import Vue from "vue";
 import { Container, Draggable } from "vue-dndrop";
 import { applyDrag } from "../../helpers/vue-dndrop";
-import card_builder from "./../../mixins/form-fields/card-builder";
 import helpers from "../../mixins/helpers";
+import card_builder from "./../../mixins/form-fields/card-builder";
 
 export default {
   name: "card-builder-listing-header-field",
@@ -457,6 +484,8 @@ export default {
           selectedWidgets: [],
         },
       ],
+
+      elementsSettingsOpened: false,
     };
   },
 
@@ -1167,6 +1196,13 @@ export default {
       }
 
       return false;
+    },
+
+    closeElementsSettings() {
+      this.elementsSettingsOpened = false;
+    },
+    toggleElementsSettings() {
+      this.elementsSettingsOpened = !this.elementsSettingsOpened;
     },
   },
 };

@@ -23152,8 +23152,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
 /* harmony import */ var vue_dndrop__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-dndrop */ "./node_modules/vue-dndrop/dist/vue-dndrop.esm.js");
 /* harmony import */ var _helpers_vue_dndrop__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../helpers/vue-dndrop */ "./assets/src/js/admin/vue/helpers/vue-dndrop.js");
-/* harmony import */ var _mixins_form_fields_card_builder__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../../mixins/form-fields/card-builder */ "./assets/src/js/admin/vue/mixins/form-fields/card-builder.js");
-/* harmony import */ var _mixins_helpers__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../mixins/helpers */ "./assets/src/js/admin/vue/mixins/helpers.js");
+/* harmony import */ var _mixins_helpers__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../mixins/helpers */ "./assets/src/js/admin/vue/mixins/helpers.js");
+/* harmony import */ var _mixins_form_fields_card_builder__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../../mixins/form-fields/card-builder */ "./assets/src/js/admin/vue/mixins/form-fields/card-builder.js");
 
 
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
@@ -23172,7 +23172,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     Container: vue_dndrop__WEBPACK_IMPORTED_MODULE_3__["Container"],
     Draggable: vue_dndrop__WEBPACK_IMPORTED_MODULE_3__["Draggable"]
   },
-  mixins: [_mixins_form_fields_card_builder__WEBPACK_IMPORTED_MODULE_5__["default"], _mixins_helpers__WEBPACK_IMPORTED_MODULE_6__["default"]],
+  mixins: [_mixins_form_fields_card_builder__WEBPACK_IMPORTED_MODULE_6__["default"], _mixins_helpers__WEBPACK_IMPORTED_MODULE_5__["default"]],
   props: {
     fieldId: {
       required: false,
@@ -23430,7 +23430,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         label: "More Widgets",
         rejectedWidgets: ["slider"],
         selectedWidgets: []
-      }]
+      }],
+      elementsSettingsOpened: false
     };
   },
   methods: {
@@ -23950,6 +23951,12 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         return true;
       }
       return false;
+    },
+    closeElementsSettings: function closeElementsSettings() {
+      this.elementsSettingsOpened = false;
+    },
+    toggleElementsSettings: function toggleElementsSettings() {
+      this.elementsSettingsOpened = !this.elementsSettingsOpened;
     }
   }
 });
@@ -32840,7 +32847,41 @@ var render = function render() {
     }, [_c("span", {
       staticClass: "icon fa fa-plus"
     }), _vm._v("\n              " + _vm._s(_vm.getAddPlaceholderButtonLabel(placeholderKey)) + "\n            ")])]) : _vm._e()];
-  })], 2)], 1)])]);
+  })], 2)], 1)]), _vm._v(" "), _c("div", {
+    staticClass: "cptm-elements-settings"
+  }, [!_vm.elementsSettingsOpened ? _c("button", {
+    staticClass: "cptm-elements-settings__toggle",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        $event.preventDefault();
+        return _vm.toggleElementsSettings.apply(null, arguments);
+      }
+    }
+  }, [_c("span", {
+    staticClass: "icon fa fa-cog"
+  })]) : _vm._e(), _vm._v(" "), _vm.elementsSettingsOpened ? _c("div", {
+    staticClass: "cptm-elements-settings"
+  }, [_c("div", {
+    staticClass: "cptm-elements-settings__header"
+  }, [_c("h4", {
+    staticClass: "cptm-elements-settings__header__title"
+  }, [_vm._v("Elements Settings")]), _vm._v(" "), _c("button", {
+    staticClass: "cptm-elements-settings__header__close",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: function click($event) {
+        $event.preventDefault();
+        return _vm.closeElementsSettings.apply(null, arguments);
+      }
+    }
+  }, [_c("span", {
+    staticClass: "icon fa fa-times"
+  })])])]) : _vm._e()])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;

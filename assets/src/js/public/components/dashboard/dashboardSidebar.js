@@ -1,6 +1,6 @@
 ;
 (function ($) {
-    window.addEventListener('DOMContentLoaded', () => {
+    window.addEventListener('load', () => {
         //dashboard sidebar nav toggler
         $(".directorist-user-dashboard__toggle__link").on("click", function (e) {
             e.preventDefault();

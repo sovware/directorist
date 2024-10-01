@@ -3,7 +3,7 @@ import './components/import-directory-modal';
 import './components/delete-directory-modal';
 import './components/directory-migration-modal';
 
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('load', () => {
     var $ = jQuery;
     const axios = require('axios').default;
 

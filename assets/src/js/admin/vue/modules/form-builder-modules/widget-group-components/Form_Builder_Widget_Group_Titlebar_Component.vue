@@ -22,7 +22,7 @@
       <a
         href="#"
         class="cptm-form-builder-header-action-link"
-        :class="widgetsExpanded ? 'action-collapse-up' : 'action-collapse-down'"
+        :class="widgetsExpanded ? 'action-collapse-down' : 'action-collapse-up'"
         @click.prevent="$emit('toggle-expand-widgets')"
       >
         <span aria-hidden="true" class="uil uil-angle-down"></span>

@@ -1,4 +1,4 @@
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('load', () => {
     /* custom dropdown */
     const atbdDropdown = document.querySelectorAll('.atbd-dropdown');
 

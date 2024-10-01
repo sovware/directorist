@@ -1,6 +1,6 @@
 import debounce from "../../global/components/debounce";
 
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('load', () => {
     const $ = jQuery;
 
     // Custom Image uploader for listing image

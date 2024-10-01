@@ -307,6 +307,8 @@
 .entry-content .directorist-search-contents {
   width: 100% !important;
   max-width: 100% !important;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 /* directorist module style */
@@ -3119,6 +3121,8 @@ body.stop-scrolling {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 .directorist-add-listing-types__single {
   margin-bottom: 15px;
@@ -3202,6 +3206,8 @@ body.stop-scrolling {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 .directorist-add-listing-form .directorist-content-module {
@@ -10173,6 +10179,10 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   padding-left: 35px !important;
 }
 
+.directorist-content-active {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
 .directorist-content-active .directorist-author-profile {
   padding: 0;
 }
@@ -10407,6 +10417,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   }
 }
 .directorist-content-active .directorist-author-profile-content {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   max-width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
@@ -10907,6 +10919,10 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 
 /* All listing archive page styles */
+.directorist-archive-contents {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
 .directorist-archive-contents .directorist-archive-items .directorist-pagination {
   margin-top: 35px;
 }
@@ -18053,6 +18069,10 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   display: block;
 }
 
+.directorist-single-contents-area {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
 .directorist-single-contents-area .directorist-card {
   padding: 0;
   -webkit-filter: none;
@@ -20714,6 +20734,8 @@ Review: New Style
   width: 100% !important;
   max-width: 100% !important;
   overflow: hidden;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 .directorist-user-dashboard__contents {
   display: -webkit-box;

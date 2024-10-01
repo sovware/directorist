@@ -258,7 +258,7 @@
   } else {
     return;
   }
-  window.addEventListener('DOMContentLoaded', function () {
+  window.addEventListener('load', function () {
     // Add or Remove from favourites
     $('.directorist-action-bookmark').on('click', function (e) {
       e.preventDefault();
@@ -346,7 +346,7 @@
   } else {
     return;
   }
-  window.addEventListener('DOMContentLoaded', function () {
+  window.addEventListener('load', function () {
     // Sorting Js
     if (!$('.directorist-instant-search').length) {
       $('.directorist-dropdown__links__single-js').click(function (e) {
@@ -375,7 +375,7 @@
 
 // Fix listing with no thumb if card width is less than 220px
 (function ($) {
-  window.addEventListener('DOMContentLoaded', function () {
+  window.addEventListener('load', function () {
     if ($('.directorist-listing-no-thumb').innerWidth() <= 220) {
       $('.directorist-listing-no-thumb').addClass('directorist-listing-no-thumb--fix');
     }
@@ -404,7 +404,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-window.addEventListener('DOMContentLoaded', function () {
+window.addEventListener('load', function () {
   ;
   (function ($) {
     //Star rating

@@ -92,9 +92,9 @@ class Directorist_Listing_Taxonomy {
 
 	}
 
-	public function set_terms(){
-		$current_page = get_query_var('paged') ? absint( get_query_var('paged') ) : 1;
-    	$offset 		= ( $current_page - 1 ) * $this->per_page;
+	public function set_terms() {
+		$current_page = max( 1, get_query_var( 'paged' ) );
+    	$offset 	  = ( $current_page - 1 ) * $this->per_page;
 
 		$args = array(
 			'orderby'      => $this->orderby,
@@ -107,10 +107,9 @@ class Directorist_Listing_Taxonomy {
         	'offset'       => $offset,
 		);
 
-		if ( $this->type == 'category' ) {
+		if ( $this->type === 'category' ) {
 			$args = apply_filters( 'atbdp_all_categories_argument', $args );
-		}
-		else {
+		} else {
 			$args = apply_filters( 'atbdp_all_locations_argument', $args );
 		}
 
@@ -125,7 +124,7 @@ class Directorist_Listing_Taxonomy {
 	public function grid_count_html($term,$total) {
 		$html = '';
 
-		if ( $this->type == 'category' ) {
+		if ( $this->type === 'category' ) {
 			if ($this->show_count) {
 				$html = "<span class='directorist-category-count'>" . $total . "</span>";
 			}
@@ -215,7 +214,7 @@ class Directorist_Listing_Taxonomy {
 
 	public function pagination() {
 		$pagination_args = array(
-			'base'      => get_option('permalink_structure') ? trailingslashit( get_pagenum_link( 1 ) ) . 'page/%#%/' : add_query_arg( 'paged', '%#%', get_pagenum_link( 1 ) ),
+			'base'      => esc_url_raw( str_replace( 999999999, '%#%', get_pagenum_link( 999999999, false ) ) ),
 			'format'    => '',
 			'current'   => $this->current_page,
 			'total'     => $this->total_pages,

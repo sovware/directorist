@@ -1666,6 +1666,11 @@ class Directorist_Listings {
 					<div class='swiper-wrapper'>";
 
 				foreach ( $thumbnail_img_id as $img_id ) {
+					
+					if( ! is_numeric( $img_id ) ) {
+						continue;
+					}
+
 					$image_src = atbdp_get_image_source( $img_id, $image_quality );
 					$image_alt = get_post_meta( $img_id, '_wp_attachment_image_alt', true );
 					$image_alt = ! empty( $image_alt ) ? esc_attr( $image_alt ) : esc_html( get_the_title( $img_id ) );

@@ -197,7 +197,7 @@ window.addEventListener('load', function () {
               });
             }
             var parentField = e.target.closest('.directorist-search-field');
-            if (!parentField.classList.contains('input-is-focused')) {
+            if (parentField && !parentField.classList.contains('input-is-focused')) {
               parentField.classList.add('input-is-focused');
             }
           });
@@ -224,7 +224,7 @@ window.addEventListener('load', function () {
             return displayLocation(position, e);
           });
           var parentField = e.target.closest('.directorist-search-field');
-          if (!parentField.classList.contains('input-is-focused')) {
+          if (parentField && !parentField.classList.contains('input-is-focused')) {
             parentField.classList.add('input-is-focused');
           }
         });

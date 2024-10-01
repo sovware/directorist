@@ -140,6 +140,23 @@ jQuery(document).ready(function ($) {
 
     });
 
+    // Add focused class on parent when location input has value
+    $('body').on('keyup', '.directorist-location-js', function(e) {
+        e.preventDefault();
+        if($(this).val().length > 0) {
+            $(this).parent('.directorist-search-field').addClass('input-is-focused');
+        } else {
+            $(this).parent('.directorist-search-field').removeClass('input-is-focused');
+        }
+    });
+
+    // Clear location input value
+    $('body').on('click', '.directorist-setup-wizard__box__content__input--clear', function(e) {
+        e.preventDefault();
+        $(this).siblings('input').val('');
+        $(this).parent('.directorist-search-field').removeClass('input-is-focused');
+    });
+
     //options
     $('.atbdp-sw-gmap-key').hide();
     $('#select_map').on('change', function (e) {

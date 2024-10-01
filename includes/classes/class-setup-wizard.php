@@ -430,6 +430,7 @@ class SetupWizard
        
         wp_enqueue_script('directorist-setup');
         wp_enqueue_script('directorist-select2');
+        wp_enqueue_script('directorist-geolocation', DIRECTORIST_JS . 'global-geolocation.js');
 
         wp_register_style('directorist-admin-style', DIRECTORIST_CSS . 'admin-main.css', ATBDP_VERSION, true);
         wp_register_script('directorist-admin-setup-wizard-script', DIRECTORIST_JS . 'admin-setup-wizard.js', array('jquery'), ATBDP_VERSION, true);
@@ -448,6 +449,7 @@ class SetupWizard
             'directorist-openstreet-unpkg-libs',
             'directorist-openstreet-leaflet-versions',
             'directorist-openstreet-libs-setup',
+            'directorist-geolocation',
         ], ATBDP_VERSION, true);
         
         wp_enqueue_style('directorist-admin-style');
@@ -528,11 +530,16 @@ class SetupWizard
                 <h1 class="directorist-setup-wizard__box__content__title">Default Location</h1>
                 <p class="directorist-setup-wizard__box__content__desc">Drag the map or marker to the middle of your city</p>
                 <h4 class="directorist-setup-wizard__box__content__title directorist-setup-wizard__box__content__title--section">Add your location</h4>
-                <div class="directorist-setup-wizard__box__content__form directorist-form-address-field">
-
+                <div class="directorist-setup-wizard__box__content__form directorist-form-address-field directorist-search-field">
+                    <span class="directorist-setup-wizard__box__content__location-icon directorist-filter-location-icon">
+                        <?php directorist_icon( 'fas fa-crosshairs' ); ?>
+                    </span>
                     <input type="text" autocomplete="off" name="" class="directorist-setup-wizard__box__content__input directorist-location-js" value="" placeholder="Search your location">
                     <input type="hidden" name="default_latitude" id="manual_lat" value="" />
                     <input type="hidden" name="default_longitude" id="manual_lng" value="" />
+                    <div class="directorist-setup-wizard__box__content__input--clear">
+                        <?php directorist_icon( 'fas fa-times-circle' ); ?>
+                    </div>
 	                <div class="address_result"><ul></ul></div>
                     
                 </div>

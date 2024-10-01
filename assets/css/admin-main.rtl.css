@@ -30780,17 +30780,43 @@ span.drop-toggle-caret:before {
   -webkit-box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
           box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
 }
+.directorist-setup-wizard__box__content__form.directorist-search-field .directorist-setup-wizard__box__content__input--clear {
+  display: none;
+}
+.directorist-setup-wizard__box__content__form.directorist-search-field.input-is-focused .directorist-setup-wizard__box__content__input--clear {
+  display: block;
+}
 .directorist-setup-wizard__box__content__input {
   width: 100%;
   height: 44px;
   border-radius: 8px;
-  padding: 0 18px;
-  padding-right: 40px;
+  padding: 0 40px;
+  padding-left: 60px;
   outline: none;
   background-color: #ebebeb;
   border: 1px solid #ebebeb;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+}
+.directorist-setup-wizard__box__content__input--clear {
+  position: absolute;
+  left: 40px;
+  top: 14px;
+}
+.directorist-setup-wizard__box__content__input--clear .directorist-icon-mask::after {
+  width: 16px;
+  height: 16px;
+  background-color: #484848;
+}
+.directorist-setup-wizard__box__content__location-icon {
+  position: absolute;
+  left: 18px;
+  top: 14px;
+}
+.directorist-setup-wizard__box__content__location-icon .directorist-icon-mask::after {
+  width: 16px;
+  height: 16px;
+  background-color: #484848;
 }
 .directorist-setup-wizard__map {
   margin-top: 20px;

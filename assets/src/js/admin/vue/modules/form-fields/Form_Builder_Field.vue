@@ -16,7 +16,7 @@
     </div>
     <div class="cptm-col-7">
       <div class="cptm-form-builder-active-fields">
-        <div class="cptm-form-builder-active-fields-container">
+        <div class="cptm-form-builder-active-fields-container cptm-col-sticky">
           <draggable-list-item-wrapper
             list-id="widget-group"
             :is-dragging-self="

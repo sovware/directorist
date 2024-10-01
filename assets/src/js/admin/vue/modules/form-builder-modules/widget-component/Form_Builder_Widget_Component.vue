@@ -47,15 +47,13 @@
     <!-- Widget Actions -->
     <div
       class="cptm-form-builder-group-actions-dropdown cptm-form-builder-group-actions-dropdown--field"
+      ref="dropdownContent"
     >
       <a
         href="#"
         class="cptm-form-builder-group-actions-dropdown-btn"
         v-if="canTrashWidget"
         @click.prevent="toggleExpandedDropdown"
-        @blur="handleBlur"
-        @mousedown="handleClickOutside"
-        ref="dropdownContent"
       >
         <span aria-hidden="true" class="uil uil-ellipsis-h"></span>
       </a>
@@ -246,26 +244,23 @@ export default {
     };
   },
 
+  mounted() {
+    document.addEventListener("mousedown", this.handleClickOutside);
+  },
+
+  beforeDestroy() {
+    document.removeEventListener("mousedown", this.handleClickOutside);
+  },
+
   methods: {
     toggleExpandedDropdown() {
       this.expandedDropdown = !this.expandedDropdown;
     },
 
-    handleBlur() {
-      setTimeout(() => {
-        if (!this.isClickedInsideDropdown) {
-          this.expandedDropdown = false;
-        }
-      }, 100); // Delay to ensure clicks inside dropdown content are not missed
-    },
     handleClickOutside(event) {
-      if (
-        this.expandedDropdown &&
-        !this.$refs.dropdownContent.contains(event.target)
-      ) {
-        this.expandedDropdown = false;
+      if (this.expandedDropdown && !this.$refs.dropdownContent.contains(event.target)) {
+        this.expandedDropdown = false; 
       }
-      this.isClickedInsideDropdown = false;
     },
 
     handleTrashClick() {

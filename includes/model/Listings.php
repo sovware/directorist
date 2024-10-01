@@ -927,7 +927,7 @@ class Directorist_Listings {
 					if (strpos($values, '-') !== false) {
 						// If $values is in the format "40-50", create a range query
 						list( $min_value, $max_value ) = array_map( 'intval', explode( '-', $values ) );
-						
+
 						$meta_queries[] = array(
 							'key'     => '_' . $key,
 							'value'   => array( $min_value, $max_value ),
@@ -1100,7 +1100,7 @@ class Directorist_Listings {
 		if ( ! empty( $atts['shortcode'] ) ) {
 			Helper::add_shortcode_comment( $atts['shortcode'] );
 		}
-		
+
 		switch ( $this->sidebar ) {
 			case 'left_sidebar':
 				$template = 'sidebar-archive-contents';
@@ -1289,7 +1289,7 @@ class Directorist_Listings {
 
 	public function get_directory_type_slug() {
 		$current_directory_type = $this->get_current_listing_type();
-		
+
 		if ( is_numeric( $current_directory_type ) ) {
 			$term                   = get_term_by( 'id', $current_directory_type, ATBDP_TYPE) ;
 			$current_directory_type = $term->slug;
@@ -1628,36 +1628,36 @@ class Directorist_Listings {
 
 		function loop_get_the_thumbnail( $class = '' ) {
 			$default_image_src = Helper::default_preview_image_src( $this->current_listing_type );
-		
+
 			$id = get_the_ID();
 			$image_quality     = get_directorist_option('preview_image_quality', 'directorist_preview');
 			$listing_prv_img   = get_post_meta($id, '_listing_prv_img', true);
 			$listing_img       = get_post_meta($id, '_listing_img', true);
 
-			
+
 
 			$thumbnail_img_id  = array_filter( array_merge( (array) $listing_prv_img, (array) $listing_img ) );
 			$link_start       = '<a href="'. esc_url( $this->loop['permalink'] ) .'"><figure>';
 			$link_end         = '</figure></a>';
-		
+
 			if ( empty( $thumbnail_img_id ) ) {
 				$thumbnail_img_id = $default_image_src;
 				$image_alt        = esc_html( get_the_title( $id ) );
 				$image            = "<img src='$default_image_src' alt='$image_alt' class='$class' />";
-				if ( ! $this->disable_single_listing ) { 
+				if ( ! $this->disable_single_listing ) {
 					$image = $link_start . $image . $link_end;
 				}
 				return $image;
 			}
-			
+
 			$image_count = count( $thumbnail_img_id );
-		
+
 			if ( 1 === (int) $image_count ) {
 				$image_src  = atbdp_get_image_source( reset( $thumbnail_img_id ), $image_quality );
 				$image_alt  = get_post_meta( reset( $thumbnail_img_id ), '_wp_attachment_image_alt', true );
 				$image_alt  = ( ! empty( $image_alt ) ) ? esc_attr( $image_alt ) : esc_html( get_the_title( reset( $thumbnail_img_id ) ) );
 				$image      = "<img src='$image_src' alt='$image_alt' class='$class' />";
-				if ( ! $this->disable_single_listing ) { 
+				if ( ! $this->disable_single_listing ) {
 					$image = $link_start . $image . $link_end;
 				}
 				return $image;
@@ -1870,6 +1870,7 @@ class Directorist_Listings {
 
 		public function data_atts() {
 			$this->atts['_current_page'] = $this->type; // search_result or listing
+			$this->atts['category_custom_fields_relations'] = directorist_get_category_custom_field_relations( $this->current_listing_type );
 			// Separates class names with a single space, collates class names for wrapper tag element.
 			echo 'data-atts="' . esc_attr( json_encode( $this->atts ) ) . '"';
 		}
@@ -2114,16 +2115,16 @@ class Directorist_Listings {
 			if ( $this->options['all_listing_layout'] === 'no_sidebar' ) {
 				return true;
 			}
-		
+
 			// If the layout is 'right_sidebar' or 'left_sidebar' and instant search is disabled, display the button
-			if ( in_array( $this->options['all_listing_layout'], ['right_sidebar', 'left_sidebar'] ) 
+			if ( in_array( $this->options['all_listing_layout'], ['right_sidebar', 'left_sidebar'] )
 				&& empty( $this->options['listing_instant_search'] ) ) {
 				return true;
 			}
-		
+
 			// In all other cases, don't display the button
 			return false;
-		}		
+		}
 
 		public function search_form_template() {
 			// only catch atts with the prefix 'filter_'

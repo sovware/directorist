@@ -2289,8 +2289,10 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         if (html.search_result) {
           $(_this).closest('.directorist-instant-search').find('.directorist-header-found-title').remove();
           $(_this).closest('.directorist-instant-search').find('.dsa-save-search-container').remove();
-          $(_this).closest('.directorist-instant-search').find('.directorist-listings-header__left').append(html.header_title);
-          $(_this).closest('.directorist-instant-search').find('.directorist-header-found-title span').text(html.count);
+          if (String(html.header_title)) {
+            $(_this).closest('.directorist-instant-search').find('.directorist-listings-header__left').append(html.header_title);
+            $(_this).closest('.directorist-instant-search').find('.directorist-header-found-title span').text(html.count);
+          }
           $(_this).closest('.directorist-instant-search').find('.directorist-archive-items').replaceWith(html.search_result);
           $(_this).closest('.directorist-instant-search').find('.directorist-archive-items').removeClass('atbdp-form-fade');
           $(_this).closest('.directorist-instant-search').find('.directorist-advanced-filter__form .directorist-btn-sm').attr("disabled", false);

@@ -219,7 +219,8 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 
 			ob_start();
 			$listings->archive_view_template();
-			$archive_view = ob_get_clean();
+			$archive_view 			= ob_get_clean();
+			$display_listings_count = get_directorist_option( 'display_listings_count', true );
 
 			wp_send_json(
 				array(
@@ -227,7 +228,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 					'directory_type' => $listings->render_shortcode(),
 					'view_as'        => $archive_view,
 					'count'          => $listings->query_results->total,
-					'header_title'   => $listings->listings_header_title(),
+					'header_title'   => $display_listings_count ? $listings->listings_header_title() : '',
 				)
 			);
 		}

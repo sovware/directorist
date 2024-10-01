@@ -462,13 +462,6 @@
         padding: 15px 20px 0;
         box-sizing: border-box;
       }
-      @include e("info") {
-        width: 100%;
-        display: flex;
-        gap: 20px;
-        flex-wrap: wrap;
-        justify-content: space-between;
-      }
       .atbdp-setup-steps {
         width: 100%;
         display: flex;

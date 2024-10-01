@@ -29869,21 +29869,6 @@ span.drop-toggle-caret:before {
             box-sizing: border-box;
   }
 }
-.directorist-setup-wizard__header__step__info {
-  width: 100%;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  gap: 20px;
-  -webkit-flex-wrap: wrap;
-      -ms-flex-wrap: wrap;
-          flex-wrap: wrap;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-}
 .directorist-setup-wizard__header__step .atbdp-setup-steps {
   width: 100%;
   display: -webkit-box;

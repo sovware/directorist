@@ -1006,7 +1006,10 @@ class SetupWizard
                                 <li class="<?php echo esc_attr( $step_two ); ?>"></li>
                                 <li class="<?php echo esc_attr( $step_three ); ?>"></li>
                         </ul>
-                        <span class="step-count"><?php esc_html_e( sprintf( '%s %d of 4', $header_title, $active_number ), 'your-text-domain' ); ?></span>
+                        <div class="directorist-setup-wizard__header__step__info">
+                            <span class="step-title"><?php esc_html_e( sprintf( '%s', $header_title ), 'directorist' ); ?></span>
+                            <span class="step-count"><?php esc_html_e( sprintf( '%s %d of 4',  'Step', $active_number ), 'directorist' ); ?></span>
+                        </div>
                     </div>
                     <div class="directorist-setup-wizard__close">
                         <a href="<?php echo esc_attr( admin_url() ); ?>" class="directorist-setup-wizard__close__btn">

@@ -1,4 +1,4 @@
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('load', () => {
     const $ = jQuery;
 
     // Init Category Icon Picker

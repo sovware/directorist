@@ -609,7 +609,35 @@ function convertToSelect2(selector) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return initSearchCategoryCustomFields; });
 // Search Category Change
-function initSearchCategoryCustomFields($, onSuccessCallback) {
+function hideAllCustomFieldsExceptSelected(relations, category, $container) {
+  var fields = Object.keys(relations);
+  var wrappers = ['.directorist-advanced-filter__advanced__element', '.directorist-search-modal__input', '.directorist-search-field'];
+  if (!fields.length) {
+    return;
+  }
+  fields.forEach(function (field) {
+    var fieldCategory = relations[field];
+    var $field = $container.find("[name=\"custom_field[".concat(field, "]\"]"));
+    if (category === fieldCategory) {
+      $field.prop('disabled', false);
+      wrappers.forEach(function (wrapper) {
+        var $wrapper = $field.closest(wrapper);
+        if ($wrapper.length) {
+          $wrapper.show();
+        }
+      });
+    } else {
+      $field.prop('disabled', true);
+      wrappers.forEach(function (wrapper) {
+        var $wrapper = $field.closest(wrapper);
+        if ($wrapper.length) {
+          $wrapper.hide();
+        }
+      });
+    }
+  });
+}
+function initSearchCategoryCustomFields($) {
   var _$pageContainer;
   var $searchPageContainer = $('.directorist-search-contents');
   var $archivePageContainer = $('.directorist-archive-contents');
@@ -620,69 +648,81 @@ function initSearchCategoryCustomFields($, onSuccessCallback) {
     $pageContainer = $archivePageContainer;
   }
   if ((_$pageContainer = $pageContainer) !== null && _$pageContainer !== void 0 && _$pageContainer.length) {
-    var searchFormCache = {};
-    var $fieldsContainer = null;
+    // let $fieldsContainer = null;
+
     $pageContainer.on('change', '.directorist-category-select, .directorist-search-category select', function (event) {
       var $this = $(this);
       var $form = $this.parents('form');
-      var $advancedForm = $('.directorist-search-form');
-      var category = $this.val();
-      var directory = $pageContainer.find('[name="directory_type"]').val(); // Sidebar has multiple forms that's why it's safe to use page container
-      var formData = new FormData();
-      var atts = $form.data('atts');
-      var hasCustomField = $this.find('option[value="' + category + '"]').data('custom-field');
-      if (!hasCustomField && !$fieldsContainer) {
-        return;
-      }
-      if (!hasCustomField && $fieldsContainer && $fieldsContainer.length) {
-        $fieldsContainer.html(searchFormCache[0]);
-        return;
-      }
-      if (hasCustomField && searchFormCache[category]) {
-        $fieldsContainer.html(searchFormCache[category]);
-        return;
-      }
-      formData.append('action', 'directorist_category_custom_field_search');
-      formData.append('nonce', directorist.directorist_nonce);
-      formData.append('directory', directory);
-      formData.append('cat_id', category);
-      if (!atts) {
-        atts = $pageContainer.data('atts');
-      }
-      formData.append('atts', JSON.stringify(atts));
-      $form.addClass('atbdp-form-fade');
-      $advancedForm.addClass('atbdp-form-fade');
-      $.ajax({
-        method: 'POST',
-        processData: false,
-        contentType: false,
-        url: directorist.ajax_url,
-        data: formData,
-        success: function success(response) {
-          if (response) {
-            $fieldsContainer = $pageContainer.find(response['container']);
-            searchFormCache[0] = $fieldsContainer.html();
-            searchFormCache[category] = response['search_form'];
-            $fieldsContainer.html(searchFormCache[category]);
+      // const $advancedForm = $('.directorist-search-form');
+      var category = Number($this.val());
+      // const directory      = $pageContainer.find('[name="directory_type"]').val(); // Sidebar has multiple forms that's why it's safe to use page container
+      // const formData       = new FormData();
+      var attributes = $form.data('atts');
+      // const hasCustomField = $this.find('option[value="'+category+'"]').data('custom-field');
 
-            // $form.find('.directorist-category-select option').data('custom-field', 1);
-            // $this.find('option').data('custom-field', 1);
-            $this.val(category);
-            ['directorist-search-form-nav-tab-reloaded', 'directorist-reload-select2-fields', 'directorist-reload-map-api-field', 'triggerSlice'].forEach(function (event) {
-              event = new CustomEvent(event);
-              document.body.dispatchEvent(event);
-              window.dispatchEvent(event);
-            });
-          }
-          onSuccessCallback();
-          $form.removeClass('atbdp-form-fade');
-          $advancedForm.removeClass('atbdp-form-fade');
-        },
-        error: function error(_error) {
-          //console.log(_error);
-        }
-      });
+      // if (!hasCustomField) {
+      //     return;
+      // }
+
+      // formData.append('action', 'directorist_category_custom_field_search');
+      // formData.append('nonce', directorist.directorist_nonce);
+      // formData.append('directory', directory);
+      // formData.append('cat_id', category);
+
+      if (!attributes) {
+        attributes = $pageContainer.data('atts');
+      }
+      if (!attributes.category_custom_fields_relations) {
+        return;
+      }
+      hideAllCustomFieldsExceptSelected(attributes.category_custom_fields_relations, category, $(document.body));
+
+      // console.log(, category);
+
+      // formData.append('atts', JSON.stringify(atts));
+      // $form.addClass('atbdp-form-fade');
+      // $advancedForm.addClass('atbdp-form-fade');
+
+      // $.ajax({
+      //     method     : 'POST',
+      //     processData: false,
+      //     contentType: false,
+      //     url        : directorist.ajax_url,
+      //     data       : formData,
+      //     success: function success(response) {
+      //         if (response) {
+      //             $fieldsContainer = $pageContainer.find(response['container']);
+
+      //             $fieldsContainer.html(response['search_form']);
+
+      //             // $form.find('.directorist-category-select option').data('custom-field', 1);
+      //             // $this.find('option').data('custom-field', 1);
+      //             $this.val(category);
+
+      //             [
+      //                 'directorist-search-form-nav-tab-reloaded',
+      //                 'directorist-reload-select2-fields',
+      //                 'directorist-reload-map-api-field',
+      //                 'triggerSlice'
+      //             ].forEach(function(event) {
+      //                 event = new CustomEvent(event);
+      //                 document.body.dispatchEvent(event);
+      //                 window.dispatchEvent(event);
+      //             });
+      //         }
+
+      //         onSuccessCallback();
+
+      //         $form.removeClass('atbdp-form-fade');
+      //         $advancedForm.removeClass('atbdp-form-fade');
+      //     },
+      //     error: function error(_error) {
+      //         //console.log(_error);
+      //     }
+      // });
     });
+
+    $pageContainer.find('.directorist-category-select, .directorist-search-category select').trigger('change');
   }
 }
 
@@ -853,7 +893,7 @@ function initSearchCategoryCustomFields($, onSuccessCallback) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-window.addEventListener('DOMContentLoaded', function () {
+window.addEventListener('load', function () {
   // Make sure the codes in this file runs only once, even if enqueued twice
   if (typeof window.directorist_select_executed === 'undefined') {
     window.directorist_select_executed = true;
@@ -1368,7 +1408,7 @@ __webpack_require__.r(__webpack_exports__);
           - The provided value for the option;
           - A reference to the options object;
           - The name for the option;
-       The testing function returns false when an error is detected,
+        The testing function returns false when an error is detected,
       or true when everything is OK. It can also modify the option
       object, to make sure all values can be correctly looped elsewhere. */
   //region Defaults
@@ -3232,7 +3272,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 
 (function ($) {
-  window.addEventListener('DOMContentLoaded', function () {
+  window.addEventListener('load', function () {
     //Remove Preload after Window Load
     $(window).on('load', function () {
       $('body').removeClass("directorist-preload");
@@ -3352,35 +3392,31 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
     // Check Empty Search Fields on Search Modal
     function initSearchFields() {
-      var inputFields = document.querySelectorAll('.directorist-search-modal__input');
-      inputFields.forEach(function (inputField) {
-        var searchField = inputField.querySelector('.directorist-search-field');
-        if (!searchField) {
-          inputField.style.display = 'none';
-        }
-      });
+      // const inputFields = document.querySelectorAll('.directorist-search-modal__input');
+
+      // if ( inputFields.length ) {
+      //     inputFields.forEach( inputField => {
+      //         if ( ! inputField.children.length ) {
+      //             inputField.remove();
+      //         }
+      //     } );
+      // }
+
       var searchFields = document.querySelectorAll('.directorist-search-field__input:not(.directorist-search-basic-dropdown)');
       searchFields.forEach(function (searchField) {
         var inputFieldValue = searchField.value;
         if (searchField.classList.contains('directorist-select')) {
           inputFieldValue = searchField.querySelector('select').dataset.selectedId;
         }
-        if (inputFieldValue != '') {
+        if (inputFieldValue !== '') {
           searchField.parentElement.classList.add('input-has-value');
           if (!searchField.parentElement.classList.contains('input-is-focused')) {
             searchField.parentElement.classList.add('input-is-focused');
           }
         } else {
-          if (inputFieldValue != '') {
-            searchField.parentElement.classList.add('input-has-value');
-            if (!searchField.parentElement.classList.contains('input-is-focused')) {
-              searchField.parentElement.classList.add('input-is-focused');
-            }
-          } else {
-            inputFieldValue = '';
-            if (searchField.parentElement.classList.contains('input-has-value')) {
-              searchField.parentElement.classList.remove('input-has-value');
-            }
+          inputFieldValue = '';
+          if (searchField.parentElement.classList.contains('input-has-value')) {
+            searchField.parentElement.classList.remove('input-has-value');
           }
         }
       });
@@ -3703,6 +3739,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       if (selectboxField) {
         selectboxField.selectedIndex = 0;
         selectboxField.dispatchEvent(new Event('change'));
+        $(selectboxField).trigger('change');
       }
       if (inputFields) {
         inputFields.forEach(function (inputField) {
@@ -3807,6 +3844,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
             });
             handleRadiusVisibility();
             directorist_custom_range_slider();
+            initSearchFields();
+            Object(_components_category_custom_fields__WEBPACK_IMPORTED_MODULE_7__["default"])($);
           }
           var parentAfterAjax = $(this).closest('.directorist-search-contents');
           parentAfterAjax.find('.directorist-search-form-box').removeClass('atbdp-form-fade');
@@ -3820,7 +3859,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         }
       });
     });
-    Object(_components_category_custom_fields__WEBPACK_IMPORTED_MODULE_7__["default"])($, initSearchFields);
+    Object(_components_category_custom_fields__WEBPACK_IMPORTED_MODULE_7__["default"])($);
 
     // Back Button to go back to the previous page
     $('body').on('click', '.directorist-btn__back', function (e) {

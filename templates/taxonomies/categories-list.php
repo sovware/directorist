@@ -61,6 +61,8 @@ if ( '5' == $taxonomy->columns ) {
 					<?php
 				}
 				?>
+				
+				<?php $taxonomy->pagination(); ?>
 			</div>
 		</div>
 	</div>

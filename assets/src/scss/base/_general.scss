@@ -1,5 +1,10 @@
 @import "../mixins/general";
 
+/* remove default style */
+figure{
+  margin: 0;
+}
+
 // Common Classes
 .directorist-flex {
   display: flex;

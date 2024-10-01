@@ -227,6 +227,11 @@
   max-width: 100% !important;
 }
 
+/* remove default style */
+figure {
+  margin: 0;
+}
+
 .directorist-flex {
   display: -webkit-box;
   display: -webkit-flex;

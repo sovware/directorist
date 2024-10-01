@@ -1597,7 +1597,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     $('.address_result').hide();
 
     // Init Location
-    window.addEventListener('load', init_map_api_field);
+    init_map_api_field();
     document.body.addEventListener('directorist-reload-map-api-field', init_map_api_field);
     function init_map_api_field() {
       if (directorist.i18n_text.select_listing_map === 'google') {

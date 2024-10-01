@@ -1093,7 +1093,9 @@ $light-gray: #f4f5f7;
 }
 
 .cptm-section {
+  position: relative;
   margin-bottom: 50px;
+  z-index: 10;
   &.submission_form_fields {
     .cptm-form-builder-active-fields-container {
       height: 100%;

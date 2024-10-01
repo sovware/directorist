@@ -903,9 +903,13 @@ class Directorist_Listings {
 			foreach ( $custom_fields as $key => $values ) {
 				$key = sanitize_text_field( $key );
 				$meta_query = [];
+
 				if ( is_array( $values ) ) {
 					if ( count( $values ) > 1 ) {
-						$sub_meta_queries = array();
+						$sub_meta_queries = array(
+							'relation' => 'OR'
+						);
+
 						foreach ( $values as $value ) {
 							$sub_meta_queries[] = array(
 								'key'     => '_' . $key,
@@ -913,7 +917,8 @@ class Directorist_Listings {
 								'compare' => 'LIKE'
 							);
 						}
-						$meta_query = array_merge( array( 'relation' => 'OR' ), $sub_meta_queries );
+
+						$meta_query = $sub_meta_queries;
 					} else {
 						$meta_query = array(
 							'key'     => '_' . $key,
@@ -925,7 +930,7 @@ class Directorist_Listings {
 					$field_type = str_replace( 'custom-', '', $key );
 					$field_type = preg_replace( '/([!^0-9])|(-)/', '', $field_type ); //replaces any additional numbering to just keep the field name, for example if previous line gives us "text-2", this line makes it "text"
 					// Check if $values contains a hyphen
-					if (strpos($values, '-') !== false) {
+					if ( strpos( $values, '-' ) !== false ) {
 						// If $values is in the format "40-50", create a range query
 						list( $min_value, $max_value ) = array_map( 'intval', explode( '-', $values ) );
 
@@ -944,6 +949,7 @@ class Directorist_Listings {
 						);
 					}
 				}
+
 				/**
 				 * Filters the custom field meta query used in Directorist search functionality.
 				 *
@@ -958,7 +964,9 @@ class Directorist_Listings {
 				 *
 				 * @return array Filtered meta query.
 				 */
-				if( ! empty( $meta_query ) ) $meta_queries[] = apply_filters( 'directorist_search_custom_field_meta_query', $meta_query, $key, $values );
+				if ( ! empty( $meta_query ) ) {
+					$meta_queries[] = apply_filters( 'directorist_custom_fields_meta_query_args', $meta_query, $key, $values );
+				}
 			}
 		}
 

@@ -6577,6 +6577,9 @@ body.modal-overlay-enabled:before {
   width: 100%;
 }
 
+.directorist-widget__author-info figure {
+  margin: 0;
+}
 .directorist-widget__author-info .diretorist-view-profile-btn {
   width: 100%;
   margin-top: 25px;
@@ -17379,6 +17382,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
           box-shadow: 0px 5px 20px rgba(var(--directorist-color-dark-rgb), 0.33);
   background-color: var(--directorist-color-white);
 }
+.map-listing-card-single figure {
+  margin: 0;
+}
 .map-listing-card-single .directorist-mark-as-favorite__btn {
   position: absolute;
   top: 20px;
@@ -18551,6 +18557,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   margin: 0 0 15px;
 }
 
+.directorist-single-author-info figure {
+  margin: 0;
+}
 .directorist-single-author-info .diretorist-view-profile-btn {
   margin-top: 22px;
   padding: 0 30px;

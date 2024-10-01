@@ -1500,15 +1500,15 @@ __webpack_require__.r(__webpack_exports__);
     },
     min: {
       type: [String, Number],
-      default: 0
+      default: undefined
     },
     max: {
       type: [String, Number],
-      default: 100
+      default: undefined
     },
     step: {
       type: [String, Number],
-      default: 1
+      default: undefined
     },
     componets: {
       required: false
@@ -34793,6 +34793,9 @@ var render = function render() {
     class: _vm.formControlClass,
     attrs: {
       type: _vm.input_type,
+      min: _vm.min,
+      max: _vm.max,
+      step: _vm.step,
       placeholder: _vm.placeholder,
       disabled: _vm.disable
     },

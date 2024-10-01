@@ -93,9 +93,14 @@
 }
 
 // Directorist author info
-.directorist-widget__author-info .diretorist-view-profile-btn {
-	width: 100%;
-	margin-top: 25px;
+.directorist-widget__author-info {
+	figure{
+		margin: 0;
+	}
+	.diretorist-view-profile-btn {
+		width: 100%;
+		margin-top: 25px;
+	}
 }
 
 // Widget map

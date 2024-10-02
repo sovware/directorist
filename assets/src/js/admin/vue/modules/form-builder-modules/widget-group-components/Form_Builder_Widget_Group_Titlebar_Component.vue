@@ -15,12 +15,14 @@
       </a>
     </h3>
 
-    <div class="cptm-form-builder-group-title-actions">
+    <div 
+      class="cptm-form-builder-group-title-actions"
+      v-if="groupData && groupData.fields && groupData.fields.length"
+    >
       <a
         href="#"
         class="cptm-form-builder-header-action-link"
-        v-if="groupData && groupData.fields && groupData.fields.length"
-        :class="widgetsExpanded ? 'action-collapse-up' : 'action-collapse-down'"
+        :class="widgetsExpanded ? 'action-collapse-down' : 'action-collapse-up'"
         @click.prevent="$emit('toggle-expand-widgets')"
       >
         <span aria-hidden="true" class="uil uil-angle-down"></span>

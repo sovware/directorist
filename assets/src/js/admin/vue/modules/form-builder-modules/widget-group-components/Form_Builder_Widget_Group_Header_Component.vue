@@ -26,14 +26,13 @@
       <!-- Group Header Actions -->
       <div
         class="cptm-form-builder-group-actions-dropdown cptm-form-builder-group-actions-dropdown--group"
-        @mousedown="handleClickOutside"
+        ref="dropdownContent"
       >
         <a
           href="#"
           class="cptm-form-builder-group-actions-dropdown-btn"
           v-if="canTrash"
           @click.prevent="toggleGroupExpandedDropdown"
-          @blur="handleBlur"
         >
           <span aria-hidden="true" class="uil uil-ellipsis-h"></span>
         </a>
@@ -154,6 +153,14 @@ export default {
     };
   },
 
+  mounted() {
+    document.addEventListener("mousedown", this.handleClickOutside);
+  },
+
+  beforeDestroy() {
+    document.removeEventListener("mousedown", this.handleClickOutside);
+  },
+
   methods: {
     setup() {
       if (isObject(this.groupFields)) {
@@ -206,13 +213,9 @@ export default {
     },
 
     handleClickOutside(event) {
-      if (
-        this.groupExpandedDropdown &&
-        !this.$refs.dropdownContent.contains(event.target)
-      ) {
-        this.groupExpandedDropdown = false;
+      if (this.groupExpandedDropdown && !this.$refs.dropdownContent.contains(event.target)) {
+        this.groupExpandedDropdown = false; 
       }
-      this.isClickedInsideDropdown = false;
     },
 
     handleGroupDelete() {

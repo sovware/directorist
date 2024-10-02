@@ -155,11 +155,11 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			if ( $user instanceof \WP_User && get_user_meta( $user->ID, 'directorist_user_email_unverified', true ) ) {
 				ATBDP()->email->send_user_confirmation_email( $user );
 			}
-			
+
 			$args = ATBDP_Permalink::get_dashboard_page_link( array(
 				'send_verification_email' => true
 			) );
-			
+
 			wp_safe_redirect( $args );
 			exit;
 		}
@@ -219,7 +219,12 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 
 			ob_start();
 			$listings->archive_view_template();
-			$archive_view = ob_get_clean();
+			$archive_view 			= ob_get_clean();
+			$display_listings_count = get_directorist_option( 'display_listings_count', true );
+			$category_id 			= ! empty( $_POST['in_cat'] ) ? absint( $_POST['in_cat'] ) : 0;
+			$category 				= get_term_by( 'id', $category_id, ATBDP_CATEGORY );
+			$location_id			= ! empty( $_POST['in_loc'] ) ? absint( $_POST['in_loc'] ) : 0;
+			$location 				= get_term_by( 'id', $location_id, ATBDP_LOCATION );
 
 			wp_send_json(
 				array(
@@ -227,7 +232,9 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 					'directory_type' => $listings->render_shortcode(),
 					'view_as'        => $archive_view,
 					'count'          => $listings->query_results->total,
-					'header_title'   => $listings->listings_header_title(),
+					'header_title'   => $display_listings_count ? $listings->listings_header_title() : '',
+					'category_name'	 => $category ? $category->name : '',
+					'location_name'	 => $location ? $location->name : '',
 				)
 			);
 		}
@@ -477,7 +484,9 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 				else: ?>
 					<input type="hidden" name="directory_type" value="<?php echo esc_attr( $directory_slug ); ?>">
 					<?php foreach ( $search_form->form_data[1]['fields'] as $field ) : ?>
-						<div class="directorist-advanced-filter__advanced__element directorist-search-field-<?php echo esc_attr( $field['widget_name'] ) ?>"><?php $search_form->field_template( $field ); ?></div>
+						<div class="directorist-advanced-filter__advanced__element directorist-search-field-<?php echo esc_attr( $field['widget_name'] ) ?>">
+							<?php $search_form->field_template( $field ); ?>
+						</div>
 					<?php endforeach;
 				endif;
 			$markup = ob_get_clean();

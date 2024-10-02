@@ -224,10 +224,17 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 					$result = self::validate_field( $field, $posted_data );
 
 					if ( ! $result['is_valid'] ) {
-						$error->add(
-							$field->get_key(),
-							sprintf( '<strong>%1$s</strong>: %2$s', $field->label, $result['message'] )
-						);
+						if ( $field->get_key() === 'privacy_policy' ) {
+							$error->add(
+								$field->get_key(),
+								sprintf( '<strong>%1$s</strong>: %2$s', $field->text, $result['message'] )
+							);
+						} else {
+							$error->add(
+								$field->get_key(),
+								sprintf( '<strong>%1$s</strong>: %2$s', $field->label, $result['message'] )
+							);
+						}
 
 						continue;
 					}
@@ -278,14 +285,14 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 					}
 				}
 
-				// Terms & conditions and privacy policy have been merged in v8.
-				if ( directorist_should_check_privacy_policy( $directory_id ) && empty( $posted_data['privacy_policy'] ) && directorist_should_check_terms_and_condition( $directory_id ) && empty( $posted_data['t_c_check'] ) ) {
-					$error->add( 'terms_and_condition_required', __( 'Terms and condition is required.', 'directorist' ) );
-				}
+				// // Terms & conditions and privacy policy have been merged in v8.
+				// if ( directorist_should_check_privacy_policy( $directory_id ) && empty( $posted_data['privacy_policy'] ) && directorist_should_check_terms_and_condition( $directory_id ) && empty( $posted_data['t_c_check'] ) ) {
+				// 	$error->add( 'terms_and_condition_required', __( 'Terms and condition is required.', 'directorist' ) );
+				// }
 
-				if ( directorist_should_check_privacy_policy( $directory_id ) && empty( $posted_data['privacy_policy'] ) ) {
-					$error->add( 'privacy_policy_required', __( 'Privacy Policy is required.', 'directorist' ) );
-				}
+				// if ( directorist_should_check_privacy_policy( $directory_id ) && empty( $posted_data['privacy_policy'] ) ) {
+				// 	$error->add( 'privacy_policy_required', __( 'Privacy Policy is required.', 'directorist' ) );
+				// }
 
 				if ( $error->has_errors() ) {
 					return wp_send_json( apply_filters( 'atbdp_listing_form_submission_info', array(

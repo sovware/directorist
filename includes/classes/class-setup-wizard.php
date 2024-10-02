@@ -66,6 +66,8 @@ class SetupWizard
         $pre_made_types = json_decode( $response_body, true );
 
         $is_completed = ( count( $get_types ) <= $counter ) ? true : false;
+        $task_counter = $counter + 1;
+        $percentage    = absint( min( round( ( ( $task_counter ) / count( $get_types ) ) * 100 ), 100 ) );
 
         if( $is_completed ) {
 
@@ -77,6 +79,7 @@ class SetupWizard
 
             wp_send_json( [
                 'completed' => $is_completed, 
+                'percentage' => 100,
                 'log' => 'Completed, redirecting...', 
                 'url' => admin_url('index.php?page=directorist-setup&step=step-four') 
                 ] );
@@ -94,6 +97,7 @@ class SetupWizard
         $type = $pre_made_types[$post_type];
 
         $data['log'] = 'Importing ' . $type['name'] . ' type...';
+        $data['percentage'] = $percentage;
 
         $dummy_data = $type['listing_data'];
         $builder_file_url = $type['url'];
@@ -426,6 +430,7 @@ class SetupWizard
        
         wp_enqueue_script('directorist-setup');
         wp_enqueue_script('directorist-select2');
+        wp_enqueue_script('directorist-geolocation', DIRECTORIST_JS . 'global-geolocation.js');
 
         wp_register_style('directorist-admin-style', DIRECTORIST_CSS . 'admin-main.css', ATBDP_VERSION, true);
         wp_register_script('directorist-admin-setup-wizard-script', DIRECTORIST_JS . 'admin-setup-wizard.js', array('jquery'), ATBDP_VERSION, true);
@@ -444,6 +449,7 @@ class SetupWizard
             'directorist-openstreet-unpkg-libs',
             'directorist-openstreet-leaflet-versions',
             'directorist-openstreet-libs-setup',
+            'directorist-geolocation',
         ], ATBDP_VERSION, true);
         
         wp_enqueue_style('directorist-admin-style');
@@ -524,11 +530,16 @@ class SetupWizard
                 <h1 class="directorist-setup-wizard__box__content__title">Default Location</h1>
                 <p class="directorist-setup-wizard__box__content__desc">Drag the map or marker to the middle of your city</p>
                 <h4 class="directorist-setup-wizard__box__content__title directorist-setup-wizard__box__content__title--section">Add your location</h4>
-                <div class="directorist-setup-wizard__box__content__form directorist-form-address-field">
-
+                <div class="directorist-setup-wizard__box__content__form directorist-form-address-field directorist-search-field">
+                    <span class="directorist-setup-wizard__box__content__location-icon directorist-filter-location-icon">
+                        <?php directorist_icon( 'fas fa-crosshairs' ); ?>
+                    </span>
                     <input type="text" autocomplete="off" name="" class="directorist-setup-wizard__box__content__input directorist-location-js" value="" placeholder="Search your location">
                     <input type="hidden" name="default_latitude" id="manual_lat" value="" />
                     <input type="hidden" name="default_longitude" id="manual_lng" value="" />
+                    <div class="directorist-setup-wizard__box__content__input--clear">
+                        <?php directorist_icon( 'fas fa-times-circle' ); ?>
+                    </div>
 	                <div class="address_result"><ul></ul></div>
                     
                 </div>
@@ -580,30 +591,33 @@ class SetupWizard
             </div>
             <div class="directorist-setup-wizard__content__items directorist-setup-wizard__content__items--listings">
                 <div class="directorist-setup-wizard__content__pricing">
+                    <h4 class="directorist-setup-wizard__content__section-title">Monetization</h4>
                     <div class="directorist-setup-wizard__content__pricing__checkbox">
-                        <span class="feature-title">Featured Listings</span>
+                        <span class="feature-title">Enable Featured Listings</span>
                         <input type="checkbox" name="featured_listing" id="enable_featured" value=1 />
                         <label for="enable_featured"></label>
-                    </div>
-                    <div class="directorist-setup-wizard__content__pricing__amount">
-                        <span class="price-title">Pricing</span>
-                        <div class="price-amount">
-                            <span class="price-prefix">$</span>
-                            <input type="text" name='featured_listing_price' id='featured_listing_price' value=19.99 />
+
+                        <div class="directorist-setup-wizard__content__pricing__amount">
+                            <span class="price-title">Featured Listing Price</span>
+                            <div class="price-amount">
+                                <span class="price-prefix">$</span>
+                                <input type="text" name='featured_listing_price' id='featured_listing_price' value=19.99 />
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="directorist-setup-wizard__content__gateway">
-                    <h4 class="directorist-setup-wizard__content__gateway__title">Gateways</h4>
+                    <h4 class="directorist-setup-wizard__content__section-title">Payment Gateways</h4>
                     <div class="directorist-setup-wizard__content__gateway__checkbox">
-                        <span class="gateway-title">Bank Transfer</span>
+                        <span class="gateway-title">Enable payments via <strong>Bank Transfer</strong></span>
                         <input type="checkbox" name="active_gateways[]" id="enable_bank_transfer" value="bank_transfer" />
                         <label for="enable_bank_transfer"></label>
                     </div>
                     <div class="directorist-setup-wizard__content__gateway__checkbox">
-                        <span class="gateway-title">Paypal</span>
+                        <span class="gateway-title">Enable payments via <strong>Paypal</strong></span>
                         <input type="checkbox" name="active_gateways[]" id="enable_paypal" value="paypal_gateway" />
                         <label for="enable_paypal"></label>
+                        <span class="enable-warning">This will install the Paypal extension</sp>
                     </div>
                 </div>
             </div>
@@ -687,33 +701,49 @@ class SetupWizard
     ?>
         <div class="directorist-setup-wizard__content">
             <div class="directorist-setup-wizard__content__header text-center">
-                <h1 class="directorist-setup-wizard__content__header__title"><?php esc_html_e('Insert Content', 'directorist'); ?></h1>
-                <p class="directorist-setup-wizard__content__header__desc"><?php echo wp_kses(__('Install required tools, Import listings, share non-sensitive data, etc', 'directorist'), ['strong' => []]); ?></p>
+                <h1 class="directorist-setup-wizard__content__header__title"><?php esc_html_e('Jumpstart Your Directory by Importing Demo Content', 'directorist'); ?></h1>
             </div>
             <div class="directorist-setup-wizard__content__items directorist-setup-wizard__content__import">
                 <div class="directorist-setup-wizard__content__import__wrapper">
-                    <h3 class="directorist-setup-wizard__content__import__title">Install required tools</h3>
+                    <h3 class="directorist-setup-wizard__content__import__title">Import Demo Data and Choose Data Sharing Preferences</h3>
                     <div class="directorist-setup-wizard__content__import__single">
                         <input type="checkbox" name="import_listings" id="import-listing" value="yes" />
-                        <label for="import-listing">Import Listing</label>
+                        <label for="import-listing">Import Demo Content</label>
                     </div>
-                    <!-- <div class="directorist-setup-wizard__content__import__single">
-                        <input type="checkbox" name="required_plugins" id="install-required-plugins" />
-                        <label for="install-required-plugins">Install Required Plugins</label>
-                    </div> -->
                     <div class="directorist-setup-wizard__content__import__single">
                         <input type="checkbox" name="share_non_sensitive_data" id="share-data" value="yes" checked/>
-                        <label for="share-data">Share Non-Sensitive Data</label>
+                        <label for="share-data">Share Non-Sensitive Data <a href="#">[Learn what we collect]</a></label>
                     </div>
                 </div>
-                <p class="directorist_dummy_data_log"></p>
                 <a href="#" class="directorist-setup-wizard__content__import__btn directorist-setup-wizard__btn directorist-setup-wizard__btn--full directorist-submit-importing">
-                    Submit & Build My Directory Website 
+                    Submit & Launch My Directory 
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="12.007" viewBox="284 4 14 12.007"><g data-name="Group 2970"><path d="M284.841 9.02c.058-.009.116-.013.174-.012h9.876l-.215-.1c-.21-.1-.402-.236-.566-.401l-2.77-2.77a1.037 1.037 0 0 1-.145-1.327 1.002 1.002 0 0 1 1.503-.13l5.008 5.008a1.002 1.002 0 0 1 0 1.418l-5.008 5.008a1.002 1.002 0 0 1-1.503-.1c-.28-.419-.22-.98.145-1.327l2.765-2.775c.147-.147.316-.27.501-.366l.3-.135h-9.836a1.037 1.037 0 0 1-1.057-.841 1.002 1.002 0 0 1 .828-1.15Z" fill="#fff" fill-rule="evenodd" data-name="Path 1600"/></g></svg>
                 </a>
-                <div class="directorist-setup-wizard__content__import__notice">
-                    By clicking "Submit & Build My Website", you agree to our <a href="#">Terms</a> & <a href="#">Privacy Policy</a>
+            </div>
+        </div>
+        <div class="middle-content middle-content-import hidden">
+            <h1>We are building your Directory</h1>
+            <div class="directorist-import-process-step-wrap">
+                <div class="directorist-import-progress">
+                    <div class="directorist-import-progress-info">
+                        <div class="directorist-import-progress-info-text ">
+                            <span class="directorist-import-text-inner">Preparing data...</span>
+                        </div>
+                        <div class="directorist-import-progress-info-precent">0</div>
+                    </div>
+                    <div class="directorist-import-progress-bar-wrap">
+                        <div class="directorist-import-progress-bar-bg">
+                            <div class="directorist-import-progress-bar"></div>
+                        </div>
+                        <div class="import-progress-gap">
+                            <span></span><span></span><span></span>
+                        </div>
+                    </div>
                 </div>
+            </div>
+            <div class="directorist-import-process-step-bottom">
+                <img src="<?php echo esc_url( DIRECTORIST_ASSETS . 'images/social-layout.gif' ); ?>" alt="Drectorist membership notice">
+                <span class="import-progress-warning">Please Don't Reload The Page</span>
             </div>
         </div>
     <?php
@@ -983,7 +1013,7 @@ class SetupWizard
                                 <li class="<?php echo esc_attr( $step_two ); ?>"></li>
                                 <li class="<?php echo esc_attr( $step_three ); ?>"></li>
                         </ul>
-                        <span class="step-count"><?php esc_html_e( sprintf( '%s %d of 4', $header_title, $active_number ), 'your-text-domain' ); ?></span>
+                        <span class="step-count"><?php esc_html_e( sprintf( '%s %d of 4',  'Step', $active_number ), 'directorist' ); ?></span>
                     </div>
                     <div class="directorist-setup-wizard__close">
                         <a href="<?php echo esc_attr( admin_url() ); ?>" class="directorist-setup-wizard__close__btn">

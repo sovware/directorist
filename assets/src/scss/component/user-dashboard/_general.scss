@@ -2,7 +2,7 @@
   width: 100% !important;
   max-width: 100% !important;
   overflow: hidden;
-
+  box-sizing: border-box;
   @include e(contents) {
     display: flex;
     padding-bottom: 20px;
@@ -25,7 +25,7 @@
 
   @include e("tab-content") {
     flex: 1;
-    width: calc(100% - 230px);
+    width: calc(100% - 250px);
   }
 
   .directorist-alert {

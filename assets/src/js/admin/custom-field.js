@@ -1,4 +1,4 @@
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('load', () => {
     (function ($) {
         $('table.posts #the-list, table.pages #the-list').sortable({
             'items': 'tr',

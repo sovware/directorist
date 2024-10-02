@@ -153,15 +153,15 @@ export default {
         },
         min: {
             type: [String, Number],
-            default: 0,
+            default: undefined,
         },
         max: {
             type: [String, Number],
-            default: 100,
+            default: undefined,
         },
         step: {
             type: [String, Number],
-            default: 1,
+            default: undefined,
         },
         componets: {
             required: false,

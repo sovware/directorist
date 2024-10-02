@@ -712,7 +712,7 @@ class SetupWizard
                     </div>
                     <div class="directorist-setup-wizard__content__import__single">
                         <input type="checkbox" name="share_non_sensitive_data" id="share-data" value="yes" checked />
-                        <label for="share-data">Share Non-Sensitive Data <a href="#">[Learn what we collect]</a></label>
+                        <label for="share-data">Share Non-Sensitive Data <a href="https://appsero.com/privacy-policy/" target="_blank">[Learn what we collect]</a></label>
                     </div>
                 </div>
                 <a href="#" class="directorist-setup-wizard__content__import__btn directorist-setup-wizard__btn directorist-setup-wizard__btn--full directorist-submit-importing">

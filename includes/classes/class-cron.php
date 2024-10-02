@@ -250,7 +250,7 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
 				),
 			);
 
-			$listings = new WP_Query( apply_filters( 'directorist_update_listings_expired_status_query_arguments ', $args ) );
+			$listings = new WP_Query( apply_filters( 'directorist_update_listings_expired_status_query_arguments', $args ) );
 
 			if ( $listings->have_posts() ) {
 				foreach ( $listings->posts as $listing ) {

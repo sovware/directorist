@@ -198,6 +198,11 @@
   border-radius: 10px;
   box-shadow: 0px 5px 20px rgba(var(--directorist-color-dark-rgb), 0.33);
   background-color: var(--directorist-color-white);
+
+  figure{
+    margin: 0;
+  }
+
   .directorist-mark-as-favorite__btn {
     position: absolute;
     top: 20px;

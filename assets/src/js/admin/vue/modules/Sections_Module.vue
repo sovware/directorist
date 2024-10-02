@@ -8,7 +8,7 @@
     >
     <div
         class="directorist-form-doc"
-        v-if="section.fields[0] === 'submission_form_fields' || section.fields[0] === 'search_form_fields'"
+        v-if="section.fields[0] === 'submission_form_fields' || section.fields[0] === 'search_form_fields' || section.fields[0] === 'single_listing_header' || section.fields[0] === 'single_listing_header' || section.fields[0] === 'single_listings_contents' || section.fields[0] === 'listings_card_grid_view' || section.fields[0] === 'listings_card_list_view'"
       >
         <div class="directorist-form-doc-left">
           <div class="directorist-form-doc-title" v-html="section.title"></div>
@@ -16,6 +16,7 @@
             href="#"
             class="directorist-form-doc__watch-tutorial"
             @click.prevent="openVideoPopup"
+            v-if="section.fields[0] === 'submission_form_fields' || section.fields[0] === 'search_form_fields'"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -33,6 +34,14 @@
             </svg>
             Watch tutorial
           </a>
+          <a
+            href="#"
+            class="directorist-form-doc__link"
+            v-if="section.fields[0] !== 'submission_form_fields' && section.fields[0] !== 'search_form_fields'"
+          >
+            What is it?
+          </a>
+
         </div>
         <div class="directorist-form-doc-right">
           <a
@@ -61,33 +70,15 @@
       </div>
 
       <!-- Video Popup Modal -->
-      <div
-        v-if="showVideo"
-        class="video-popup-overlay"
-        @click="closeVideoPopup"
-      >
-        <div class="video-popup-content" @click.stop>
-          <button class="close-btn" @click="closeVideoPopup">
-            <span class="la la-close"></span>
-          </button>
-          <div class="video-container">
-            <iframe
-              width="560"
-              height="315"
-              src="https://www.youtube.com/embed/TLeTwLWtm9Q"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
-              title="Directorist Tutorial"
-            ></iframe>
-          </div>
-        </div>
-      </div>
+      <form-builder-widget-video-component
+        :videoOpened="showVideo"
+        @close-video="closeVideoPopup"
+      />
 
       <div
         class="cptm-title-area"
         :class="sectionTitleAreaClass(section)"
-        v-if="section.fields[0] !== 'submission_form_fields' && section.fields[0] !== 'search_form_fields'"
+        v-if="section.fields[0] !== 'submission_form_fields' && section.fields[0] !== 'search_form_fields' && section.fields[0] !== 'single_listing_header' && section.fields[0] !== 'single_listing_header' && section.fields[0] !== 'single_listings_contents' && section.fields[0] !== 'listings_card_grid_view' && section.fields[0] !== 'listings_card_list_view'"
       >
         <h3 v-if="section.title" class="cptm-title" v-html="section.title"></h3>
         <div
@@ -207,6 +198,7 @@ export default {
     containerClass() {
       return {
         "tab-wide": "wide" === this.container ? true : false,
+        "tab-short-wide": "short-wide" === this.container ? true : false,
         "tab-full-width": "full-width" === this.container ? true : false,
       };
     },

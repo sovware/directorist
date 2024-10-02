@@ -114,6 +114,7 @@ class Localized_Data {
 			'icon_markup'                 => '<i class="directorist-icon-mask ##CLASS##" aria-hidden="true" style="--directorist-icon: url(##URL##)"></i>',
 			'add_listing_url'             => \ATBDP_Permalink::get_add_listing_page_link(),
 			'enabled_multi_directory'     => directorist_is_multi_directory_enabled(),
+			'site_name'					  => get_bloginfo( 'name' ),
 		);
 
 		return $data;

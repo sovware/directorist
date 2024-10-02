@@ -251,6 +251,7 @@ class Asset_Loader {
 			wp_enqueue_media();
 		} elseif ( Helper::is_admin_page( 'settings' ) ) {
 			wp_enqueue_style( 'directorist-admin-style' );
+			wp_enqueue_style( 'directorist-unicons' );
 			wp_enqueue_script( 'directorist-settings-manager' );
 			wp_enqueue_media();
 		} elseif ( Helper::is_admin_page( 'support' ) ) {

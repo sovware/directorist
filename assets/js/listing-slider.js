@@ -345,7 +345,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   }
 
   // Slider Call on Page Load
-  window.addEventListener('DOMContentLoaded', function () {
+  window.addEventListener('load', function () {
     allListingSlider();
     $('body').on('click', '.directorist-viewas__item, .directorist-instant-search .directorist-search-field__btn--clear, .directorist-instant-search .directorist-btn-reset-js', function (e) {
       setTimeout(function () {

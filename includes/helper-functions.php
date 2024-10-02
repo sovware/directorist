@@ -2340,13 +2340,13 @@ function search_category_location_filter($settings, $taxonomy_id, $prefix = '')
                 }
                 $selected = ($term_id == $term->term_id) ? "selected" : '';
 
-                $custom_field = '';
+                $has_custom_field = false;
 
-                if( isset( $settings['assign_to_category']['assign_to_cat'] ) && is_array( $settings['assign_to_category']['assign_to_cat'] ) ) {
-                    $custom_field = in_array( $term->term_id, $settings['assign_to_category']['assign_to_cat'] ) ? true : false;
+                if ( ! empty( $settings['categories_with_custom_field'] ) ) {
+                    $has_custom_field = in_array( (int) $term->term_id, $settings['categories_with_custom_field'], true );
                 }
 
-                $html .= '<option data-icon = "' . esc_attr( $icon_src ). '" data-custom-field="' . $custom_field . '" value="' . $term->term_id . '" ' . $selected . '>';
+                $html .= '<option data-icon = "' . esc_attr( $icon_src ). '" data-custom-field="' . esc_attr( $has_custom_field ) . '" value="' . $term->term_id . '" ' . $selected . '>';
 
                 $html .= $prefix . $term->name;
                 if (!empty($settings['show_count'])) {

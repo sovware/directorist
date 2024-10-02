@@ -1,4 +1,4 @@
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('load', () => {
     (function ($) {
         /* get current location */
         setTimeout(() => {
@@ -113,7 +113,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
                         let parentField = e.target.closest('.directorist-search-field');
 
-                        if (!parentField.classList.contains('input-is-focused')) {
+                        if (parentField && !parentField.classList.contains('input-is-focused')) {
                             parentField.classList.add('input-is-focused');
                         }
                     })
@@ -141,7 +141,7 @@ window.addEventListener('DOMContentLoaded', () => {
                     
                     let parentField = e.target.closest('.directorist-search-field');
 
-                    if (!parentField.classList.contains('input-is-focused')) {
+                    if (parentField && !parentField.classList.contains('input-is-focused')) {
                         parentField.classList.add('input-is-focused');
                     }
                 });

@@ -1,10 +1,13 @@
 <template>
   <div class="directorist-directory-type atbdp-cpt-manager">
     <div class="directorist-directory-type-top">
-      <div class="directorist-directory-type-top-left">
+      <div 
+        class="directorist-directory-type-top-left"
+      >
         <a
           href="edit.php?post_type=at_biz_dir&page=atbdp-directory-types"
           class="directorist-back-directory"
+          v-if="this.enabled_multi_directory"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -128,6 +131,8 @@ export default {
     this.$store.commit("updateCachedFields");
     this.setupClosingWarning();
     this.setupSaveOnKeyboardInput();
+
+    this.enabled_multi_directory = directorist_admin.enabled_multi_directory === "1";
   },
 
   data() {
@@ -142,6 +147,7 @@ export default {
           isDisabled: false,
         },
       },
+      enabled_multi_directory: null,
     };
   },
 

@@ -428,6 +428,7 @@
   align-items: flex-start;
   height: auto;
   margin: 0;
+  font-family: 'Inter';
   @include e("wrapper") {
     height: 100%;
     min-height: 100vh;
@@ -652,6 +653,13 @@
         margin: 30px 0 15px;
       }
     }
+    @include e("section-title") {
+      font-size: 18px;
+      line-height: 26px;
+      font-weight: 600;
+      margin: 0 0 15px;
+      color: #141414;
+    }
     @include e("desc") {
       font-size: 16px;
       font-weight: 400;
@@ -659,7 +667,6 @@
       color: #484848;
     }
     @include e("header") {
-      max-width: 500px;
       margin: 0 auto;
       text-align: center;
       @include m("listings") {
@@ -687,9 +694,13 @@
       gap: 10px;
       flex-wrap: wrap;
       padding: 40px;
+      width: 100%;
+      max-width: 720px;
+      margin: 0 auto;
       background-color: #ffffff;
       border-radius: 10px;
       box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
+      box-sizing: border-box;
       @media (max-width: 480px) {
         padding: 35px 25px;
       }
@@ -698,6 +709,7 @@
       }
 
       @include m("listings") {
+        gap: 30px;
         padding: 40px 180px;
         flex-direction: column;
         @media (max-width: 991px) {
@@ -805,10 +817,11 @@
     @include e("pricing") {
       @include e("checkbox") {
         display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
         justify-content: space-between;
         .feature-title {
-          font-size: 15px;
-          font-weight: 500;
+          font-size: 14px;
           color: #484848;
         }
         label {
@@ -850,17 +863,19 @@
                 background-color: #ffffff;
               }
             }
+            ~ .directorist-setup-wizard__content__pricing__amount {
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              flex: 0 0 100%;
+            }
           }
         }
       }
       @include e("amount") {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-top: 20px;
+        display: none;
         .price-title {
-          font-size: 15px;
-          font-weight: 500;
+          font-size: 14px;
           color: #484848;
         }
         .price-amount {
@@ -883,21 +898,17 @@
       }
     }
     @include e("gateway") {
-      display: flex;
-      gap: 20px;
-      flex-direction: column;
-      @include e("title") {
-        font-size: 16px;
-        font-weight: 400;
-        color: #141414;
-        margin: 30px 0 0;
-      }
       @include e("checkbox") {
         display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
         justify-content: space-between;
+        margin: 0 0 20px;
+        &:last-child {
+          margin: 0;
+        }
         .gateway-title {
-          font-size: 15px;
-          font-weight: 500;
+          font-size: 14px;
           color: #484848;
         }
         label {
@@ -940,6 +951,11 @@
               }
             }
           }
+        }
+        .enable-warning {
+          flex: 0 0 100%;
+          font-size: 12px;
+          font-style: italic;
         }
       }
     }
@@ -1062,9 +1078,6 @@
     display: flex;
     flex: 1;
     gap: 15px;
-    width: 100%;
-    max-width: 720px;
-    margin: 0 auto;
     padding: 50px 15px 100px;
     flex-direction: column;
     align-items: center;
@@ -1075,6 +1088,8 @@
   }
   @include e("box") {
     width: 100%;
+    max-width: 720px;
+    margin: 0 auto;
     padding: 30px 40px 40px;
     background-color: #ffffff;
     border-radius: 10px;
@@ -1122,17 +1137,48 @@
           background-color: #ffffff;
           box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
         }
+        &.directorist-search-field {
+          .directorist-setup-wizard__box__content__input--clear {
+            display: none;
+          }
+          &.input-is-focused {
+            .directorist-setup-wizard__box__content__input--clear {
+              display: block;
+            }
+          }
+        }
+        
       }
       @include e("input") {
         width: 100%;
         height: 44px;
         border-radius: 8px;
-        padding: 0 18px;
-        padding-left: 40px;
+        padding: 0 40px;
+        padding-right: 60px;
         outline: none;
         background-color: #ebebeb;
         border: 1px solid #ebebeb;
         box-sizing: border-box;
+        @include m("clear") {
+          position: absolute;
+          right: 40px;
+          top: 14px;
+          .directorist-icon-mask::after {
+            width: 16px;
+            height: 16px;
+            background-color: #484848;
+          }
+        }
+      }
+      @include e("location-icon") {
+        position: absolute;
+        right: 18px;
+        top: 14px;
+        .directorist-icon-mask::after {
+          width: 16px;
+          height: 16px;
+          background-color: #484848;
+        }
       }
     }
   }
@@ -1156,4 +1202,179 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+
+/* data Progressing */
+.directorist-setup-wizard__step {
+  .directorist-setup-wizard__content{
+    &.hidden{
+      display: none;
+    }
+  }
+}
+.middle-content {
+  &.middle-content-import {
+    background: white;
+    padding: 40px;
+    box-shadow: 0px 4px 6px -2px rgba(0, 0, 0, 0.05),
+      0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+    width: 600px;
+    border-radius: 10px;
+  }
+  &.hidden{
+    display: none;
+  }
+}
+
+
+.directorist-import-progress-info-text {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  grid-gap: 10px;
+}
+
+.directorist-import-progress,
+.directorist-import-error {
+  margin-top: 25px;
+  .directorist-import-progress-bar-wrap {
+    position: relative;
+    overflow: hidden;
+  }
+  .import-progress-gap {
+    span {
+      background: white;
+      height: 6px;
+      position: absolute;
+      width: 10px;
+      top: -1px;
+      &:nth-child(1) {
+        left: calc(25% - 10px);
+      }
+      &:nth-child(2) {
+        left: calc(50% - 10px);
+      }
+      &:nth-child(3) {
+        left: calc(75% - 10px);
+      }
+    }
+  }
+  .directorist-import-progress-bar-bg {
+    height: 4px;
+    background: #e5e7eb;
+    width: 100%;
+    position: relative;
+    .directorist-import-progress-bar {
+      position: absolute;
+      left: 0;
+      top: 0;
+      background: #2563eb;
+      transition: all 1s;
+      width: 0%;
+      height: 100%;
+      &.import-done {
+        background: #38c172;
+      }
+    }
+  }
+  .directorist-import-progress-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+}
+
+.directorist-import-error {
+  .directorist-import-error-box {
+    overflow-y: scroll;
+  }
+  .directorist-import-progress-bar-bg {
+    width: 100%;
+    margin-bottom: 15px;
+    .directorist-import-progress-bar {
+      background: #2563eb;
+    }
+  }
+}
+
+.directorist-import-process-step-bottom{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  img{
+    width: 335px;
+    text-align: center;
+    display: inline-block;
+    padding: 20px 10px 0;
+  }
+}
+
+.import-done-congrats {
+  display: flex;
+  align-items: center;
+  span {
+    margin-left: 17px;
+  }
+}
+
+.import-done-section {
+  margin-top: 60px;
+  .tweet-import-success {
+    .tweet-text {
+      background: #ffffff;
+      border: 1px solid rgba(34, 101, 235, 0.1);
+      border-radius: 4px;
+      padding: 14px 21px 14px 21px;
+    }
+    .twitter-btn-wrap {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      right: 30px;
+      position: absolute;
+      margin-top: 8px;
+      text-decoration: none;
+    }
+  }
+
+  .import-done-text {
+    margin-top: 60px;
+    .import-done-counter {
+      text-align: left;
+    }
+    .import-done-button {
+      margin-top: 25px;
+    }
+  }
+}
+
+.directorist-import-done-inner,
+.import-done-counter,
+.import-done-section {
+  display: none;
+}
+.import-done {
+  .import-status-string,
+  .directorist-import-text-inner {
+    display: none;
+  }
+  .import-done-counter,
+  .directorist-import-done-inner,
+  .import-done-section {
+    display: block;
+  }
+}
+
+.import-progress-warning {
+  position: relative;
+  top: 10px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #e91e63;
+  display: block;
+  text-align: center;
 }

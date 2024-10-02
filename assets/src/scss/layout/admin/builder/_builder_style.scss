@@ -3685,6 +3685,23 @@ input[type="radio"] {
   }
 }
 
+// Single Listing Elements Settings
+.cptm-elements-settings {
+  @include e(toggle) {
+    height: 44px;
+    width: 44px;
+    padding: 0;
+    border: none;
+    border-radius: 100%;
+    background-color: #ffffff;
+    box-shadow: 0 8px 16px rgba(16, 24, 40, 0.1);
+    cursor: pointer;
+    .icon {
+      font-size: 18px;
+      color: #3E62F5;
+    }
+  }
+}
 // Sidebar
 .atbdp-sidebar-nav-area {
   display: block;

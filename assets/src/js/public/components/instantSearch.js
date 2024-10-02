@@ -248,6 +248,43 @@ import debounce from '../../global/components/debounce';
                         instant_search_element.find('.directorist-advanced-filter__form .directorist-btn-sm').attr("disabled", false)
                         window.dispatchEvent(new CustomEvent('directorist-instant-search-reloaded'));
                         window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
+
+                        var website_name = directorist.site_name; // This is dynamically set from WordPress
+
+                        // Construct the new meta title
+                        var new_meta_title = ''; // Start with an empty title
+                        // Check if the category is selected and append to the title
+                        if ( String( html.category_name ) ) {
+                            new_meta_title += html.category_name;
+                        }
+
+                        // Check if location is selected and append with proper formatting
+                        if ( String( html.location_name ) ) {
+                            if ( String( html.category_name ) ) {
+                                new_meta_title += ' within ' + html.location_name; // If category exists, add with a comma
+                            } else {
+                                new_meta_title += html.location_name; // If no category, just add location
+                            }
+                        }
+
+                        // Check if address is selected and append with proper formatting
+                        if (fields.address) {
+                            if (fields.in_cat || fields.in_loc) {
+                                new_meta_title += ' near ' + fields.address; // If category or location exists, add "near"
+                            } else {
+                                new_meta_title += fields.address; // Default to just the address
+                            }
+                        }
+
+                        // Append website name to the meta title with a pipe separator
+                        if (new_meta_title) {
+                            new_meta_title += ' | ' + website_name; // Append the website name only if the title has content
+                        } else {
+                            new_meta_title = website_name; // Default to only the website name if no other title parts are present
+                        }
+
+                        // Update the meta title dynamically
+                        document.title = new_meta_title;
                     }
                 }
             });
@@ -1105,13 +1142,52 @@ import debounce from '../../global/components/debounce';
                 if (html.search_result) {
                     $(_this).closest('.directorist-instant-search').find('.directorist-header-found-title').remove();
                     $(_this).closest('.directorist-instant-search').find('.dsa-save-search-container').remove();
-                    $(_this).closest('.directorist-instant-search').find('.directorist-listings-header__left').append(html.header_title);
-                    $(_this).closest('.directorist-instant-search').find('.directorist-header-found-title span').text(html.count);
+                    if( String( html.header_title ) ) {
+                        $(_this).closest('.directorist-instant-search').find('.directorist-listings-header__left').append(html.header_title);
+                        $(_this).closest('.directorist-instant-search').find('.directorist-header-found-title span').text(html.count);
+                    }
                     $(_this).closest('.directorist-instant-search').find('.directorist-archive-items').replaceWith(html.search_result);
                     $(_this).closest('.directorist-instant-search').find('.directorist-archive-items').removeClass('atbdp-form-fade');
                     $(_this).closest('.directorist-instant-search').find('.directorist-advanced-filter__form .directorist-btn-sm').attr("disabled", false)
                     window.dispatchEvent(new CustomEvent('directorist-instant-search-reloaded'));
                     window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
+
+                    var website_name = directorist.site_name; // This is dynamically set from WordPress
+
+                    // Construct the new meta title
+                    var new_meta_title = ''; // Start with an empty title
+                    // Check if the category is selected and append to the title
+                    if ( String( html.category_name ) ) {
+                        new_meta_title += html.category_name;
+                    }
+
+                    // Check if location is selected and append with proper formatting
+                    if ( String( html.location_name ) ) {
+                        if ( String( html.category_name ) ) {
+                            new_meta_title += ' within ' + html.location_name; // If category exists, add with a comma
+                        } else {
+                            new_meta_title += html.location_name; // If no category, just add location
+                        }
+                    }
+
+                    // Check if address is selected and append with proper formatting
+                    if (fields.address) {
+                        if (fields.in_cat || fields.in_loc) {
+                            new_meta_title += ' near ' + fields.address; // If category or location exists, add "near"
+                        } else {
+                            new_meta_title += fields.address; // Default to just the address
+                        }
+                    }
+
+                    // Append website name to the meta title with a pipe separator
+                    if (new_meta_title) {
+                        new_meta_title += ' | ' + website_name; // Append the website name only if the title has content
+                    } else {
+                        new_meta_title = website_name; // Default to only the website name if no other title parts are present
+                    }
+
+                    // Update the meta title dynamically
+                    document.title = new_meta_title;
                 }
             }
         });

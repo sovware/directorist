@@ -219,7 +219,12 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 
 			ob_start();
 			$listings->archive_view_template();
-			$archive_view = ob_get_clean();
+			$archive_view 			= ob_get_clean();
+			$display_listings_count = get_directorist_option( 'display_listings_count', true );
+			$category_id 			= ! empty( $_POST['in_cat'] ) ? absint( $_POST['in_cat'] ) : 0;
+			$category 				= get_term_by( 'id', $category_id, ATBDP_CATEGORY );
+			$location_id			= ! empty( $_POST['in_loc'] ) ? absint( $_POST['in_loc'] ) : 0;
+			$location 				= get_term_by( 'id', $location_id, ATBDP_LOCATION );
 
 			wp_send_json(
 				array(
@@ -227,7 +232,9 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 					'directory_type' => $listings->render_shortcode(),
 					'view_as'        => $archive_view,
 					'count'          => $listings->query_results->total,
-					'header_title'   => $listings->listings_header_title(),
+					'header_title'   => $display_listings_count ? $listings->listings_header_title() : '',
+					'category_name'	 => $category ? $category->name : '',
+					'location_name'	 => $location ? $location->name : '',
 				)
 			);
 		}

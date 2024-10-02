@@ -34,6 +34,8 @@ class Directorist_Listing_Taxonomy {
 	public $hide_empty;
 	public $depth;
 	public $terms;
+	public $total_pages;
+	public $current_page;
 
 	public function __construct( $atts = array(), $type = 'category' ) {
 
@@ -90,32 +92,39 @@ class Directorist_Listing_Taxonomy {
 
 	}
 
-	public function set_terms(){
+	public function set_terms() {
+		$current_page = max( 1, get_query_var( 'paged' ) );
+    	$offset 	  = ( $current_page - 1 ) * $this->per_page;
+
 		$args = array(
 			'orderby'      => $this->orderby,
 			'order'        => $this->order,
 			'hide_empty'   => $this->hide_empty,
 			'parent'       => 0,
-			'hierarchical' => $this->hide_empty,
-			'slug'         => !empty($this->slug) ? explode(',', $this->slug) : '',
+			'hierarchical' => false,
+			'slug'         => ! empty( $this->slug ) ? explode( ',', $this->slug ) : '',
+			'number'       => $this->per_page,
+        	'offset'       => $offset,
 		);
 
-		if ( $this->type == 'category' ) {
-			$args = apply_filters('atbdp_all_categories_argument', $args);
+		if ( $this->type === 'category' ) {
+			$args = apply_filters( 'atbdp_all_categories_argument', $args );
+		} else {
+			$args = apply_filters( 'atbdp_all_locations_argument', $args );
 		}
-		else {
-			$args = apply_filters('atbdp_all_locations_argument', $args);
-		}
-		$terms = get_terms($this->tax, $args);
-		$terms = array_slice($terms, 0, $this->per_page);
 
-		$this->terms = $terms;
+		$all_terms 		= get_terms( $this->tax, $args );
+		$total_terms 	= wp_count_terms( $this->tax, array_merge( $args, ['number' => 0, 'offset' => 0] ) );
+		
+		$this->terms 			= array_slice( $all_terms, $offset, $this->per_page) ;
+		$this->total_pages		= ceil( $total_terms / $this->per_page );
+		$this->current_page 	= $current_page; // Store current page for reference
 	}
 
 	public function grid_count_html($term,$total) {
 		$html = '';
 
-		if ( $this->type == 'category' ) {
+		if ( $this->type === 'category' ) {
 			if ($this->show_count) {
 				$html = "<span class='directorist-category-count'>" . $total . "</span>";
 			}
@@ -202,6 +211,30 @@ class Directorist_Listing_Taxonomy {
 
     	return $html;
     }
+
+	public function pagination() {
+		$pagination_args = array(
+			'base'      => esc_url_raw( str_replace( 999999999, '%#%', get_pagenum_link( 999999999, false ) ) ),
+			'format'    => '',
+			'current'   => $this->current_page,
+			'total'     => $this->total_pages,
+			'prev_text' => apply_filters( 'directorist_pagination_prev_text', directorist_icon( 'fas fa-chevron-left', false ) ),
+			'next_text' => apply_filters( 'directorist_pagination_next_text', directorist_icon( 'fas fa-chevron-right', false ) ),
+		);
+
+		$links = paginate_links( $pagination_args );
+
+		if ( ! $links ) {
+			return;
+		}
+		?>
+		<div class="directorist-col-12">
+			<nav class="directorist-pagination">
+				<?php echo wp_kses_post( $links ); ?>
+			</div>
+		</nav>
+		<?php
+	}
 
     public function tax_data() {
     	$result = array();

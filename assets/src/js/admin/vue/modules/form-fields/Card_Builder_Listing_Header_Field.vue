@@ -24,64 +24,68 @@
     <div class="cptm-preview-placeholder">
       <div class="cptm-preview-placeholder__card">
         <!-- Draggable Bottom Widgets -->
-        <Container @drop="onDrop" drag-handle-selector=".cptm-drag-element">
+        <div
+          v-for="(placeholderItem, index) in placeholders"
+          :key="index"
+          v-if="placeholderItem.type == 'placeholder_group'"
+          class="cptm-preview-placeholder__card__item cptm-preview-placeholder__card__item--top" 
+        >
+          <div
+            class="cptm-preview-placeholder__card__content"
+          >
+            <card-widget-placeholder
+              v-for="(
+                placeholderSubItem, subIndex
+              ) in placeholderItem.placeholders"
+              :key="`${index}_${subIndex}`"
+              :placeholderKey="placeholderSubItem.placeholderKey"
+              :id="`listings_header_${index}_${subIndex}`"
+              containerClass="cptm-preview-placeholder__card__box cptm-card-light"
+              :label="placeholderSubItem.label"
+              :availableWidgets="theAvailableWidgets"
+              :activeWidgets="active_widgets"
+              :acceptedWidgets="placeholderSubItem.acceptedWidgets"
+              :rejectedWidgets="placeholderSubItem.rejectedWidgets"
+              :selectedWidgets="placeholderSubItem.selectedWidgets"
+              :maxWidget="placeholderSubItem.maxWidget"
+              :showWidgetsPickerWindow="
+                getActiveInsertWindowStatus(
+                  `listings_header_${index}_${subIndex}`
+                )
+              "
+              :widgetDropable="widgetIsDropable(placeholderSubItem)"
+              @insert-widget="insertWidget($event, placeholderSubItem)"
+              @drag-widget="onDragStartWidget($event, placeholderSubItem)"
+              @drop-widget="appendWidget($event, placeholderSubItem)"
+              @dragend-widget="onDragEndWidget()"
+              @edit-widget="editWidget($event)"
+              @trash-widget="trashWidget($event, placeholderSubItem, index)"
+              @placeholder-on-drop="
+                handleDropOnPlaceholder(placeholderSubItem)
+              "
+              @open-widgets-picker-window="
+                activeInsertWindow(`listings_header_${index}_${subIndex}`)
+              "
+              @close-widgets-picker-window="closeInsertWindow()"
+            />
+          </div>
+        </div>
+        <Container 
+          @drop="onDrop" 
+          drag-handle-selector=".cptm-drag-element"
+          class="cptm-preview-placeholder__card__item cptm-preview-placeholder__card__item--bottom"
+        >
           <Draggable
             v-for="(placeholderItem, index) in placeholders"
             :key="index"
+            v-if="placeholderItem.type == 'placeholder_item'"
           >
+
             <div
-              v-if="placeholderItem.type == 'placeholder_group'"
               class="draggable-item"
             >
               <div
-                class="cptm-preview-placeholder__card__item cptm-preview-placeholder__card__item--top"
-              >
-                <card-widget-placeholder
-                  v-for="(
-                    placeholderSubItem, subIndex
-                  ) in placeholderItem.placeholders"
-                  :key="`${index}_${subIndex}`"
-                  :placeholderKey="placeholderSubItem.placeholderKey"
-                  :id="`listings_header_${index}_${subIndex}`"
-                  containerClass="cptm-preview-placeholder__card__box cptm-card-light"
-                  :label="placeholderSubItem.label"
-                  :availableWidgets="theAvailableWidgets"
-                  :activeWidgets="active_widgets"
-                  :acceptedWidgets="placeholderSubItem.acceptedWidgets"
-                  :rejectedWidgets="placeholderSubItem.rejectedWidgets"
-                  :selectedWidgets="placeholderSubItem.selectedWidgets"
-                  :maxWidget="placeholderSubItem.maxWidget"
-                  :showWidgetsPickerWindow="
-                    getActiveInsertWindowStatus(
-                      `listings_header_${index}_${subIndex}`
-                    )
-                  "
-                  :widgetDropable="widgetIsDropable(placeholderSubItem)"
-                  @insert-widget="insertWidget($event, placeholderSubItem)"
-                  @drag-widget="onDragStartWidget($event, placeholderSubItem)"
-                  @drop-widget="appendWidget($event, placeholderSubItem)"
-                  @dragend-widget="onDragEndWidget()"
-                  @edit-widget="editWidget($event)"
-                  @trash-widget="trashWidget($event, placeholderSubItem, index)"
-                  @placeholder-on-drop="
-                    handleDropOnPlaceholder(placeholderSubItem)
-                  "
-                  @open-widgets-picker-window="
-                    activeInsertWindow(`listings_header_${index}_${subIndex}`)
-                  "
-                  @close-widgets-picker-window="closeInsertWindow()"
-                />
-              </div>
-
-              <div class="cptm-drag-element las la-arrows-alt"></div>
-            </div>
-
-            <div
-              v-if="placeholderItem.type == 'placeholder_item'"
-              class="draggable-item"
-            >
-              <div
-                class="cptm-preview-placeholder__card__item cptm-preview-placeholder__card__item--bottom"
+                class="cptm-preview-placeholder__card__content"
               >
                 <card-widget-placeholder
                   :placeholderKey="placeholderItem.placeholderKey"
@@ -118,8 +122,10 @@
             </div>
           </Draggable>
         </Container>
+      </div>
 
-        <div class="cptm-placeholder-buttons">
+
+      <div class="cptm-placeholder-buttons">
           <template v-for="placeholderKey in Object.keys(placeholdersMap)">
             <div
               :key="placeholderKey"
@@ -137,7 +143,6 @@
             </div>
           </template>
         </div>
-      </div>
     </div>
 
     <!-- Toggle Button -->

@@ -32714,20 +32714,12 @@ var render = function render() {
     staticClass: "cptm-preview-placeholder"
   }, [_c("div", {
     staticClass: "cptm-preview-placeholder__card"
-  }, [_c("Container", {
-    attrs: {
-      "drag-handle-selector": ".cptm-drag-element"
-    },
-    on: {
-      drop: _vm.onDrop
-    }
-  }, _vm._l(_vm.placeholders, function (placeholderItem, index) {
-    return _c("Draggable", {
-      key: index
-    }, [placeholderItem.type == "placeholder_group" ? _c("div", {
-      staticClass: "draggable-item"
-    }, [_c("div", {
+  }, [_vm._l(_vm.placeholders, function (placeholderItem, index) {
+    return placeholderItem.type == "placeholder_group" ? _c("div", {
+      key: index,
       staticClass: "cptm-preview-placeholder__card__item cptm-preview-placeholder__card__item--top"
+    }, [_c("div", {
+      staticClass: "cptm-preview-placeholder__card__content"
     }, _vm._l(placeholderItem.placeholders, function (placeholderSubItem, subIndex) {
       return _c("card-widget-placeholder", {
         key: "".concat(index, "_").concat(subIndex),
@@ -32775,12 +32767,22 @@ var render = function render() {
           }
         }
       });
-    }), 1), _vm._v(" "), _c("div", {
-      staticClass: "cptm-drag-element las la-arrows-alt"
-    })]) : _vm._e(), _vm._v(" "), placeholderItem.type == "placeholder_item" ? _c("div", {
+    }), 1)]) : _vm._e();
+  }), _vm._v(" "), _c("Container", {
+    staticClass: "cptm-preview-placeholder__card__item cptm-preview-placeholder__card__item--bottom",
+    attrs: {
+      "drag-handle-selector": ".cptm-drag-element"
+    },
+    on: {
+      drop: _vm.onDrop
+    }
+  }, _vm._l(_vm.placeholders, function (placeholderItem, index) {
+    return placeholderItem.type == "placeholder_item" ? _c("Draggable", {
+      key: index
+    }, [_c("div", {
       staticClass: "draggable-item"
     }, [_c("div", {
-      staticClass: "cptm-preview-placeholder__card__item cptm-preview-placeholder__card__item--bottom"
+      staticClass: "cptm-preview-placeholder__card__content"
     }, [_c("card-widget-placeholder", {
       attrs: {
         placeholderKey: placeholderItem.placeholderKey,
@@ -32827,8 +32829,8 @@ var render = function render() {
       }
     })], 1), _vm._v(" "), _c("div", {
       staticClass: "cptm-drag-element las la-arrows-alt"
-    })]) : _vm._e()]);
-  }), 1), _vm._v(" "), _c("div", {
+    })])]) : _vm._e();
+  }), 1)], 2), _vm._v(" "), _c("div", {
     staticClass: "cptm-placeholder-buttons"
   }, [_vm._l(Object.keys(_vm.placeholdersMap), function (placeholderKey) {
     return [_vm.canShowAddPlaceholderButton(placeholderKey) ? _c("div", {
@@ -32847,7 +32849,7 @@ var render = function render() {
     }, [_c("span", {
       staticClass: "icon fa fa-plus"
     }), _vm._v("\n              " + _vm._s(_vm.getAddPlaceholderButtonLabel(placeholderKey)) + "\n            ")])]) : _vm._e()];
-  })], 2)], 1)]), _vm._v(" "), !_vm.elementsSettingsOpened ? _c("button", {
+  })], 2)]), _vm._v(" "), !_vm.elementsSettingsOpened ? _c("button", {
     staticClass: "cptm-elements-settings__toggle",
     attrs: {
       type: "button"

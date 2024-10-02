@@ -8,7 +8,7 @@
 use \Directorist\Helper;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
-$display_author_email = $dashboard->user_info( 'display_author_email' ) ?? 'public';
+$display_author_email = $dashboard->user_info( 'display_author_email' ) ? $dashboard->user_info( 'display_author_email' ) : 'public';
 ?>
 
 <form action="#" id="user_preferences" method="post">

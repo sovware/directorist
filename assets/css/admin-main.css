@@ -15483,6 +15483,18 @@ div[draggable=true].cptm-form-builder-group-title-area {
 .cptm-form-builder-group-options .directorist-form-fields-area .cptm-form-group:last-child {
   margin-bottom: 0;
 }
+.cptm-form-builder-group-options .cptm-form-builder-group-options__advanced-toggle {
+  font-size: 13px;
+  font-weight: 500;
+  color: #2E94FA;
+  background: transparent;
+  border: none;
+  padding: 0;
+  text-decoration: underline;
+  display: block;
+  margin-top: -7px;
+  cursor: pointer;
+}
 
 .cptm-form-builder-group-fields {
   display: block;
@@ -20666,6 +20678,18 @@ div[draggable=true].cptm-form-builder-group-title-area {
 }
 .cptm-form-builder-group-options .directorist-form-fields-area .cptm-form-group:last-child {
   margin-bottom: 0;
+}
+.cptm-form-builder-group-options .cptm-form-builder-group-options__advanced-toggle {
+  font-size: 13px;
+  font-weight: 500;
+  color: #2E94FA;
+  background: transparent;
+  border: none;
+  padding: 0;
+  text-decoration: underline;
+  display: block;
+  margin-top: -7px;
+  cursor: pointer;
 }
 
 .cptm-form-builder-group-fields {
@@ -26117,6 +26141,18 @@ div[draggable=true].cptm-form-builder-group-title-area {
 }
 .cptm-form-builder-group-options .directorist-form-fields-area .cptm-form-group:last-child {
   margin-bottom: 0;
+}
+.cptm-form-builder-group-options .cptm-form-builder-group-options__advanced-toggle {
+  font-size: 13px;
+  font-weight: 500;
+  color: #2E94FA;
+  background: transparent;
+  border: none;
+  padding: 0;
+  text-decoration: underline;
+  display: block;
+  margin-top: -7px;
+  cursor: pointer;
 }
 
 .cptm-form-builder-group-fields {

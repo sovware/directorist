@@ -4,7 +4,7 @@
     v-if="field_list && typeof field_list === 'object'"
   >
     <component
-      v-for="(field, field_key) in field_list"
+      v-for="(field, field_key) in visibleFields"
       :key="field_key"
       :is="field.type + '-field'"
       :section-id="sectionId"
@@ -13,6 +13,13 @@
       v-bind="excludeShowIfCondition(field)"
       @update="update({ key: field_key, value: $event })"
     />
+    <button 
+      class="cptm-form-builder-group-options__advanced-toggle"
+      @click="toggleAdvanced"
+
+    >
+      {{ showAdvanced ? 'Basic' : 'Advanced' }}
+    </button>
   </div>
 </template>
 
@@ -61,17 +68,31 @@ export default {
 
       return this.root;
     },
+    visibleFields() {
+      // Convert field_list object to an array and then slice it
+      const fieldArray = Array.isArray(this.field_list)
+        ? this.field_list
+        : Object.values(this.field_list);
+
+      // Show only 2 items if showAdvanced is false, otherwise show all
+      return this.showAdvanced ? fieldArray : fieldArray.slice(0, 2);
+    },
   },
 
   data() {
     return {
       field_list: null,
+      showAdvanced: false,
     };
   },
 
   methods: {
     filtereFieldList() {
       this.field_list = this.getFiltereFieldList(this.fieldList);
+    },
+
+    toggleAdvanced() {
+      this.showAdvanced = !this.showAdvanced;
     },
 
     excludeShowIfCondition(field) {

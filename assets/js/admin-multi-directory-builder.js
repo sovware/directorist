@@ -15455,16 +15455,27 @@ __webpack_require__.r(__webpack_exports__);
         return this.value;
       }
       return this.root;
+    },
+    visibleFields: function visibleFields() {
+      // Convert field_list object to an array and then slice it
+      var fieldArray = Array.isArray(this.field_list) ? this.field_list : Object.values(this.field_list);
+
+      // Show only 2 items if showAdvanced is false, otherwise show all
+      return this.showAdvanced ? fieldArray : fieldArray.slice(0, 2);
     }
   },
   data: function data() {
     return {
-      field_list: null
+      field_list: null,
+      showAdvanced: false
     };
   },
   methods: {
     filtereFieldList: function filtereFieldList() {
       this.field_list = this.getFiltereFieldList(this.fieldList);
+    },
+    toggleAdvanced: function toggleAdvanced() {
+      this.showAdvanced = !this.showAdvanced;
     },
     excludeShowIfCondition: function excludeShowIfCondition(field) {
       if (!field) {
@@ -27213,7 +27224,7 @@ var render = function render() {
     _c = _vm._self._c;
   return _vm.field_list && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(_vm.field_list) === "object" ? _c("div", {
     staticClass: "directorist-form-fields-area"
-  }, _vm._l(_vm.field_list, function (field, field_key) {
+  }, [_vm._l(_vm.visibleFields, function (field, field_key) {
     return _c(field.type + "-field", _vm._b({
       key: field_key,
       tag: "component",
@@ -27231,7 +27242,12 @@ var render = function render() {
         }
       }
     }, "component", _vm.excludeShowIfCondition(field), false));
-  }), 1) : _vm._e();
+  }), _vm._v(" "), _c("button", {
+    staticClass: "cptm-form-builder-group-options__advanced-toggle",
+    on: {
+      click: _vm.toggleAdvanced
+    }
+  }, [_vm._v("\n    " + _vm._s(_vm.showAdvanced ? "Basic" : "Advanced") + "\n  ")])], 2) : _vm._e();
 };
 var staticRenderFns = [];
 render._withStripped = true;

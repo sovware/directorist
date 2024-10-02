@@ -21,7 +21,10 @@
     </div>
 
     <!-- cptm-preview-area -->
-    <div class="cptm-preview-placeholder">
+    <div 
+      class="cptm-preview-placeholder"
+      :class="!elementsSettingsOpened ? 'cptm-preview-placeholder--settings-closed' : ''"
+    >
       <div class="cptm-preview-placeholder__card">
         <!-- Draggable Bottom Widgets -->
         <div
@@ -123,7 +126,6 @@
           </Draggable>
         </Container>
       </div>
-
 
       <div class="cptm-placeholder-buttons">
           <template v-for="placeholderKey in Object.keys(placeholdersMap)">

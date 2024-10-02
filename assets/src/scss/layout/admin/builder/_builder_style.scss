@@ -740,7 +740,7 @@ $light-gray: #f4f5f7;
   border-radius: 4px;
   overflow: hidden;
   transition: all ease-in-out 200ms;
-  background: RGBA(61, 98, 245, 0.45);
+  background: rgba(61, 98, 245, 0.45);
 
   &.active {
     padding: 10px 15px;
@@ -3586,7 +3586,7 @@ input[type="radio"] {
     @include e(item) {
       flex: 1;
       padding: 30px;
-      border-radius: 6px;
+      border-radius: 10px;
       box-shadow: 0 0 10px rgba(134, 142, 174, 0.2);
       @include m(top) {
         display: flex;
@@ -3691,12 +3691,16 @@ input[type="radio"] {
       }
     }
   }
+  @include m('settings-closed') {
+    max-width: 700px;
+    margin: 0 auto;
+  }
 }
 
 // Single Listing Elements Settings
 .cptm-elements-settings {
   width: 292px;
-  height: calc( 100vh - 175px );
+  height: calc( 100vh - 165px );
   background: #F3F4F6;
   border: 1px solid #E5E7EB;
   border-radius: 12px;
@@ -3704,6 +3708,9 @@ input[type="radio"] {
   scrollbar-width: 6px;
   scrollbar-color: #d2d6db #f3f4f6;
   @include e(toggle) {
+    position: absolute;
+    right: 0;
+    top: 0;
     height: 44px;
     width: 44px;
     padding: 0;

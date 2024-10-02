@@ -32270,7 +32270,8 @@ var render = function render() {
       }
     }
   }, "options-window", _vm.widgetOptionsWindow, false))], 1) : _vm._e(), _vm._v(" "), _c("div", {
-    staticClass: "cptm-preview-placeholder"
+    staticClass: "cptm-preview-placeholder",
+    class: !_vm.elementsSettingsOpened ? "cptm-preview-placeholder--settings-closed" : ""
   }, [_c("div", {
     staticClass: "cptm-preview-placeholder__card"
   }, [_vm._l(_vm.placeholders, function (placeholderItem, index) {

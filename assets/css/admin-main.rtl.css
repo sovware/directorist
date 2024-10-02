@@ -14630,7 +14630,7 @@ input:-webkit-autofill:active {
   overflow: hidden;
   -webkit-transition: all ease-in-out 200ms;
   transition: all ease-in-out 200ms;
-  background: RGBA(61, 98, 245, 0.45);
+  background: rgba(61, 98, 245, 0.45);
 }
 .cptm-dropable-placeholder.active {
   padding: 10px 15px;
@@ -17970,7 +17970,7 @@ input[type=radio]:checked::before {
       -ms-flex: 1;
           flex: 1;
   padding: 30px;
-  border-radius: 6px;
+  border-radius: 10px;
   -webkit-box-shadow: 0 0 10px rgba(134, 142, 174, 0.2);
           box-shadow: 0 0 10px rgba(134, 142, 174, 0.2);
 }
@@ -18109,10 +18109,14 @@ input[type=radio]:checked::before {
 .cptm-preview-placeholder__card .draggable-item .cptm-drag-element:hover {
   color: #1e1e1e;
 }
+.cptm-preview-placeholder--settings-closed {
+  max-width: 700px;
+  margin: 0 auto;
+}
 
 .cptm-elements-settings {
   width: 292px;
-  height: calc(100vh - 175px);
+  height: calc(100vh - 165px);
   background: #F3F4F6;
   border: 1px solid #E5E7EB;
   border-radius: 12px;
@@ -18121,6 +18125,9 @@ input[type=radio]:checked::before {
   scrollbar-color: #d2d6db #f3f4f6;
 }
 .cptm-elements-settings__toggle {
+  position: absolute;
+  left: 0;
+  top: 0;
   height: 44px;
   width: 44px;
   padding: 0;
@@ -19807,7 +19814,7 @@ input[type=radio]:checked::before {
   overflow: hidden;
   -webkit-transition: all ease-in-out 200ms;
   transition: all ease-in-out 200ms;
-  background: RGBA(61, 98, 245, 0.45);
+  background: rgba(61, 98, 245, 0.45);
 }
 .cptm-dropable-placeholder.active {
   padding: 10px 15px;
@@ -23147,7 +23154,7 @@ input[type=radio]:checked::before {
       -ms-flex: 1;
           flex: 1;
   padding: 30px;
-  border-radius: 6px;
+  border-radius: 10px;
   -webkit-box-shadow: 0 0 10px rgba(134, 142, 174, 0.2);
           box-shadow: 0 0 10px rgba(134, 142, 174, 0.2);
 }
@@ -23286,10 +23293,14 @@ input[type=radio]:checked::before {
 .cptm-preview-placeholder__card .draggable-item .cptm-drag-element:hover {
   color: #1e1e1e;
 }
+.cptm-preview-placeholder--settings-closed {
+  max-width: 700px;
+  margin: 0 auto;
+}
 
 .cptm-elements-settings {
   width: 292px;
-  height: calc(100vh - 175px);
+  height: calc(100vh - 165px);
   background: #F3F4F6;
   border: 1px solid #E5E7EB;
   border-radius: 12px;
@@ -23298,6 +23309,9 @@ input[type=radio]:checked::before {
   scrollbar-color: #d2d6db #f3f4f6;
 }
 .cptm-elements-settings__toggle {
+  position: absolute;
+  left: 0;
+  top: 0;
   height: 44px;
   width: 44px;
   padding: 0;
@@ -25251,7 +25265,7 @@ input[type=radio]:checked::before {
   overflow: hidden;
   -webkit-transition: all ease-in-out 200ms;
   transition: all ease-in-out 200ms;
-  background: RGBA(61, 98, 245, 0.45);
+  background: rgba(61, 98, 245, 0.45);
 }
 .cptm-dropable-placeholder.active {
   padding: 10px 15px;
@@ -28591,7 +28605,7 @@ input[type=radio]:checked::before {
       -ms-flex: 1;
           flex: 1;
   padding: 30px;
-  border-radius: 6px;
+  border-radius: 10px;
   -webkit-box-shadow: 0 0 10px rgba(134, 142, 174, 0.2);
           box-shadow: 0 0 10px rgba(134, 142, 174, 0.2);
 }
@@ -28730,10 +28744,14 @@ input[type=radio]:checked::before {
 .cptm-preview-placeholder__card .draggable-item .cptm-drag-element:hover {
   color: #1e1e1e;
 }
+.cptm-preview-placeholder--settings-closed {
+  max-width: 700px;
+  margin: 0 auto;
+}
 
 .cptm-elements-settings {
   width: 292px;
-  height: calc(100vh - 175px);
+  height: calc(100vh - 165px);
   background: #F3F4F6;
   border: 1px solid #E5E7EB;
   border-radius: 12px;
@@ -28742,6 +28760,9 @@ input[type=radio]:checked::before {
   scrollbar-color: #d2d6db #f3f4f6;
 }
 .cptm-elements-settings__toggle {
+  position: absolute;
+  left: 0;
+  top: 0;
   height: 44px;
   width: 44px;
   padding: 0;

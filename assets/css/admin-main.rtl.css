@@ -29948,6 +29948,7 @@ span.drop-toggle-caret:before {
           align-items: flex-start;
   height: auto;
   margin: 0;
+  font-family: "Inter";
 }
 .directorist-setup-wizard__wrapper {
   height: 100%;
@@ -30294,6 +30295,13 @@ span.drop-toggle-caret:before {
   font-weight: 500;
   margin: 30px 0 15px;
 }
+.directorist-setup-wizard__content__section-title {
+  font-size: 18px;
+  line-height: 26px;
+  font-weight: 600;
+  margin: 0 0 15px;
+  color: #141414;
+}
 .directorist-setup-wizard__content__desc {
   font-size: 16px;
   font-weight: 400;
@@ -30301,7 +30309,6 @@ span.drop-toggle-caret:before {
   color: #484848;
 }
 .directorist-setup-wizard__content__header {
-  max-width: 500px;
   margin: 0 auto;
   text-align: center;
 }
@@ -30334,10 +30341,15 @@ span.drop-toggle-caret:before {
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
   padding: 40px;
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
   background-color: #ffffff;
   border-radius: 10px;
   -webkit-box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
           box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 @media (max-width: 480px) {
   .directorist-setup-wizard__content__items {
@@ -30350,6 +30362,7 @@ span.drop-toggle-caret:before {
   }
 }
 .directorist-setup-wizard__content__items--listings {
+  gap: 30px;
   padding: 40px 180px;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
@@ -30493,14 +30506,17 @@ span.drop-toggle-caret:before {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  gap: 20px;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
       -ms-flex-pack: justify;
           justify-content: space-between;
 }
 .directorist-setup-wizard__content__pricing__checkbox .feature-title {
-  font-size: 15px;
-  font-weight: 500;
+  font-size: 14px;
   color: #484848;
 }
 .directorist-setup-wizard__content__pricing__checkbox label {
@@ -30544,7 +30560,7 @@ span.drop-toggle-caret:before {
   left: 5px;
   background-color: #ffffff;
 }
-.directorist-setup-wizard__content__pricing__amount {
+.directorist-setup-wizard__content__pricing__checkbox input[type=checkbox]:checked ~ .directorist-setup-wizard__content__pricing__amount {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -30557,11 +30573,16 @@ span.drop-toggle-caret:before {
   -webkit-justify-content: space-between;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  margin-top: 20px;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 100%;
+      -ms-flex: 0 0 100%;
+          flex: 0 0 100%;
+}
+.directorist-setup-wizard__content__pricing__amount {
+  display: none;
 }
 .directorist-setup-wizard__content__pricing__amount .price-title {
-  font-size: 15px;
-  font-weight: 500;
+  font-size: 14px;
   color: #484848;
 }
 .directorist-setup-wizard__content__pricing__amount .price-amount {
@@ -30582,37 +30603,26 @@ span.drop-toggle-caret:before {
   max-width: 45px;
   background: transparent;
 }
-.directorist-setup-wizard__content__gateway {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  gap: 20px;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: column;
-      -ms-flex-direction: column;
-          flex-direction: column;
-}
-.directorist-setup-wizard__content__gateway__title {
-  font-size: 16px;
-  font-weight: 400;
-  color: #141414;
-  margin: 30px 0 0;
-}
 .directorist-setup-wizard__content__gateway__checkbox {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  gap: 10px;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  margin: 0 0 20px;
+}
+.directorist-setup-wizard__content__gateway__checkbox:last-child {
+  margin: 0;
 }
 .directorist-setup-wizard__content__gateway__checkbox .gateway-title {
-  font-size: 15px;
-  font-weight: 500;
+  font-size: 14px;
   color: #484848;
 }
 .directorist-setup-wizard__content__gateway__checkbox label {
@@ -30655,6 +30665,14 @@ span.drop-toggle-caret:before {
 .directorist-setup-wizard__content__gateway__checkbox input[type=checkbox]:checked ~ label:after {
   left: 5px;
   background-color: #ffffff;
+}
+.directorist-setup-wizard__content__gateway__checkbox .enable-warning {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 100%;
+      -ms-flex: 0 0 100%;
+          flex: 0 0 100%;
+  font-size: 12px;
+  font-style: italic;
 }
 .directorist-setup-wizard__content__notice {
   display: -webkit-box;
@@ -30821,9 +30839,6 @@ span.drop-toggle-caret:before {
       -ms-flex: 1;
           flex: 1;
   gap: 15px;
-  width: 100%;
-  max-width: 720px;
-  margin: 0 auto;
   padding: 50px 15px 100px;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
@@ -30844,6 +30859,8 @@ span.drop-toggle-caret:before {
 }
 .directorist-setup-wizard__box {
   width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
   padding: 30px 40px 40px;
   background-color: #ffffff;
   border-radius: 10px;
@@ -30898,17 +30915,43 @@ span.drop-toggle-caret:before {
   -webkit-box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
           box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
 }
+.directorist-setup-wizard__box__content__form.directorist-search-field .directorist-setup-wizard__box__content__input--clear {
+  display: none;
+}
+.directorist-setup-wizard__box__content__form.directorist-search-field.input-is-focused .directorist-setup-wizard__box__content__input--clear {
+  display: block;
+}
 .directorist-setup-wizard__box__content__input {
   width: 100%;
   height: 44px;
   border-radius: 8px;
-  padding: 0 18px;
-  padding-right: 40px;
+  padding: 0 40px;
+  padding-left: 60px;
   outline: none;
   background-color: #ebebeb;
   border: 1px solid #ebebeb;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+}
+.directorist-setup-wizard__box__content__input--clear {
+  position: absolute;
+  left: 40px;
+  top: 14px;
+}
+.directorist-setup-wizard__box__content__input--clear .directorist-icon-mask::after {
+  width: 16px;
+  height: 16px;
+  background-color: #484848;
+}
+.directorist-setup-wizard__box__content__location-icon {
+  position: absolute;
+  left: 18px;
+  top: 14px;
+}
+.directorist-setup-wizard__box__content__location-icon .directorist-icon-mask::after {
+  width: 16px;
+  height: 16px;
+  background-color: #484848;
 }
 .directorist-setup-wizard__map {
   margin-top: 20px;

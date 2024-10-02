@@ -531,18 +531,6 @@ Please remember that your order may be canceled if you do not make your payment 
                     ],
                 ],
 
-                'featured_listing_price' => [
-                    'label'         => __('Price in ', 'directorist') . atbdp_get_payment_currency(),
-                    'type'          => 'number',
-                    'value'         => 19.99,
-                    'description'   => __('Set the price you want to charge a user if he/she wants to upgrade his/her listing to featured listing. Note: you can change the currency settings under the gateway settings', 'directorist'),
-                    'show-if' => [
-                        'where' => "enable_featured_listing",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => true],
-                        ],
-                    ],
-                ],
                 'featured_listing_desc' => [
                     'type' => 'textarea',
                     'label' => __('Description', 'directorist'),
@@ -557,8 +545,10 @@ Please remember that your order may be canceled if you do not make your payment 
 
                 'featured_listing_price' => [
                     'label'         => __('Price in ', 'directorist') . atbdp_get_payment_currency(),
-                    'type'          => 'text',
-                    'value'         => 15,
+                    'type'          => 'number',
+                    'min'           => 0,
+                    'step'           => '0.01',
+                    'value'         => 19.99,
                     'description'   => __('Set the price you want to charge a user if he/she wants to upgrade his/her listing to featured listing. Note: you can change the currency settings under the gateway settings', 'directorist'),
                     'show-if' => [
                         'where' => "enable_featured_listing",

@@ -32925,41 +32925,77 @@ var staticRenderFns = [function () {
     staticClass: "cptm-elements-settings__group__single__label"
   }, [_vm._v("\n            Back Button\n          ")]), _vm._v(" "), _c("span", {
     staticClass: "cptm-elements-settings__group__single__switch"
-  }, [_vm._v("Switch")])])]), _vm._v(" "), _c("div", {
+  }, [_c("input", {
+    attrs: {
+      type: "checkbox",
+      id: "settings-back-button"
+    }
+  }), _vm._v(" "), _c("label", {
+    attrs: {
+      for: "settings-back-button"
+    }
+  })])])]), _vm._v(" "), _c("div", {
     staticClass: "cptm-elements-settings__group"
   }, [_c("span", {
     staticClass: "cptm-elements-settings__group__title"
   }, [_vm._v("Top Right")]), _vm._v(" "), _c("div", {
     staticClass: "cptm-elements-settings__group__single"
   }, [_c("span", {
-    staticClass: "uil uil-draggabledots"
+    staticClass: "drag-icon uil uil-draggabledots"
   }), _vm._v(" "), _c("span", {
     staticClass: "cptm-elements-settings__group__single__label"
   }, [_c("span", {
-    staticClass: "uil uil-heart"
+    staticClass: "icon uil uil-heart"
   }), _vm._v("\n            Bookmark\n          ")]), _vm._v(" "), _c("span", {
     staticClass: "cptm-elements-settings__group__single__switch"
-  }, [_vm._v("Switch")])]), _vm._v(" "), _c("div", {
+  }, [_c("input", {
+    attrs: {
+      type: "checkbox",
+      id: "settings-bookmark"
+    }
+  }), _vm._v(" "), _c("label", {
+    attrs: {
+      for: "settings-bookmark"
+    }
+  })])]), _vm._v(" "), _c("div", {
     staticClass: "cptm-elements-settings__group__single"
   }, [_c("span", {
-    staticClass: "uil uil-draggabledots"
+    staticClass: "drag-icon uil uil-draggabledots"
   }), _vm._v(" "), _c("span", {
     staticClass: "cptm-elements-settings__group__single__label"
   }, [_c("span", {
-    staticClass: "uil uil-heart"
+    staticClass: "icon uil uil-heart"
   }), _vm._v("\n            Share\n          ")]), _vm._v(" "), _c("span", {
     staticClass: "cptm-elements-settings__group__single__switch"
-  }, [_vm._v("Switch")])]), _vm._v(" "), _c("div", {
+  }, [_c("input", {
+    attrs: {
+      type: "checkbox",
+      id: "settings-share"
+    }
+  }), _vm._v(" "), _c("label", {
+    attrs: {
+      for: "settings-share"
+    }
+  })])]), _vm._v(" "), _c("div", {
     staticClass: "cptm-elements-settings__group__single"
   }, [_c("span", {
-    staticClass: "uil uil-draggabledots"
+    staticClass: "drag-icon uil uil-draggabledots"
   }), _vm._v(" "), _c("span", {
     staticClass: "cptm-elements-settings__group__single__label"
   }, [_c("span", {
-    staticClass: "uil uil-heart"
+    staticClass: "icon uil uil-heart"
   }), _vm._v("\n            Report\n          ")]), _vm._v(" "), _c("span", {
     staticClass: "cptm-elements-settings__group__single__switch"
-  }, [_vm._v("Switch")])])])]);
+  }, [_c("input", {
+    attrs: {
+      type: "checkbox",
+      id: "settings-report"
+    }
+  }), _vm._v(" "), _c("label", {
+    attrs: {
+      for: "settings-report"
+    }
+  })])])])]);
 }];
 render._withStripped = true;
 

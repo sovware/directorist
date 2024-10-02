@@ -177,34 +177,46 @@
             <span class="cptm-elements-settings__group__single__label">
               Back Button
             </span>
-            <span class="cptm-elements-settings__group__single__switch">Switch</span>
+            <span class="cptm-elements-settings__group__single__switch">
+              <input type="checkbox" id="settings-back-button" />
+              <label for="settings-back-button" />
+            </span>
           </div>
         </div>
         <div class="cptm-elements-settings__group">
           <span class="cptm-elements-settings__group__title">Top Right</span>
           <div class="cptm-elements-settings__group__single">
-            <span class="uil uil-draggabledots"></span>
+            <span class="drag-icon uil uil-draggabledots"></span>
             <span class="cptm-elements-settings__group__single__label">
-              <span class="uil uil-heart"></span>
+              <span class="icon uil uil-heart"></span>
               Bookmark
             </span>
-            <span class="cptm-elements-settings__group__single__switch">Switch</span>
+            <span class="cptm-elements-settings__group__single__switch">
+              <input type="checkbox" id="settings-bookmark" />
+              <label for="settings-bookmark" />
+            </span>
           </div>
           <div class="cptm-elements-settings__group__single">
-            <span class="uil uil-draggabledots"></span>
+            <span class="drag-icon uil uil-draggabledots"></span>
             <span class="cptm-elements-settings__group__single__label">
-              <span class="uil uil-heart"></span>
+              <span class="icon uil uil-heart"></span>
               Share
             </span>
-            <span class="cptm-elements-settings__group__single__switch">Switch</span>
+            <span class="cptm-elements-settings__group__single__switch">
+              <input type="checkbox" id="settings-share" />
+              <label for="settings-share" />
+            </span>
           </div>
           <div class="cptm-elements-settings__group__single">
-            <span class="uil uil-draggabledots"></span>
+            <span class="drag-icon uil uil-draggabledots"></span>
             <span class="cptm-elements-settings__group__single__label">
-              <span class="uil uil-heart"></span>
+              <span class="icon uil uil-heart"></span>
               Report
             </span>
-            <span class="cptm-elements-settings__group__single__switch">Switch</span>
+            <span class="cptm-elements-settings__group__single__switch">
+              <input type="checkbox" id="settings-report" />
+              <label for="settings-report" />
+            </span>
           </div>
         </div>
       </div>

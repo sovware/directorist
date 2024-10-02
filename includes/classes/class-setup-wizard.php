@@ -707,11 +707,11 @@ class SetupWizard
                 <div class="directorist-setup-wizard__content__import__wrapper">
                     <h3 class="directorist-setup-wizard__content__import__title">Import Demo Data and Choose Data Sharing Preferences</h3>
                     <div class="directorist-setup-wizard__content__import__single">
-                        <input type="checkbox" name="import_listings" id="import-listing" value="yes" />
+                        <input type="checkbox" name="import_listings" id="import-listing" value="yes" checked />
                         <label for="import-listing">Import Demo Content</label>
                     </div>
                     <div class="directorist-setup-wizard__content__import__single">
-                        <input type="checkbox" name="share_non_sensitive_data" id="share-data" value="yes" checked/>
+                        <input type="checkbox" name="share_non_sensitive_data" id="share-data" value="yes" checked />
                         <label for="share-data">Share Non-Sensitive Data <a href="#">[Learn what we collect]</a></label>
                     </div>
                 </div>

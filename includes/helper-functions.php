@@ -2656,9 +2656,9 @@ function atbdp_create_required_pages(){
             'title' => __('Dashboard', 'directorist'),
             'content' => '[directorist_user_dashboard]'
         ),
-        'user_account' => array(
+        'account_page' => array(
             'title' => __('Account', 'directorist'),
-            'content' => '[directorist_account]'
+            'content' => '[directorist_signin_signup]'
         ),
         /* 'checkout_page' => array(
             'title' => __('Checkout', 'directorist'),

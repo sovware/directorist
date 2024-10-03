@@ -187,7 +187,7 @@ class ATBDP_Permalink {
     public static function get_account_page_link( $query_vars = array() )
     {
         $link    = home_url();
-        $page_id = get_directorist_option( 'user_account' );
+        $page_id = get_directorist_option( 'account_page' );
 
         if ( $page_id )  {
             $link = get_permalink( $page_id );
@@ -197,7 +197,7 @@ class ATBDP_Permalink {
             $link = add_query_arg( $query_vars, $link );
         }
 
-        return apply_filters( 'atbdp_account_page_url', $link, $page_id );
+        return apply_filters( 'directorist_account_page_url', $link, $page_id );
     }
 
     /**

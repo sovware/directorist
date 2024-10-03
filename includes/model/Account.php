@@ -58,7 +58,7 @@ class Directorist_Account {
 			'privacy_linking_text'				=> get_directorist_option( 'registration_privacy_label_link', __('Privacy & Policy', 'directorist') ),
 			'terms'         					=> get_directorist_option( 'regi_terms_condition', 1 ) ? 'yes' : 'no',
 			'terms_label'						=> get_directorist_option( 'regi_terms_label', __( 'I agree with all', 'directorist' ) ),
-			'terms_linking_text'   				=> get_directorist_option( 'regi_terms_label_link', '' ),
+			'terms_linking_text'   				=> get_directorist_option( 'regi_terms_label_link', 'terms & conditions' ),
 			'signup_button_label'				=> get_directorist_option( 'reg_signup', __( 'Sign Up', 'directorist' ) ),
 			'signin_message'					=> get_directorist_option( 'login_text', __( 'Already have an account? Please Sign in', 'directorist' ) ),
 			'signin_linking_text' 				=> get_directorist_option( 'log_linkingmsg', __( 'Here', 'directorist' ) ),
@@ -100,7 +100,7 @@ class Directorist_Account {
 			'auto_login_after_registration'		=> $atts['auto_signin_after_registration'],
 			'redirection_after_registration'	=> $atts['signup_redirect_url'],
 		];
-		wp_localize_script( 'jquery', 'account_object', $data );
+		wp_localize_script( 'jquery', 'directorist_signin_signup_params', $data );
 
 
 		$args = [

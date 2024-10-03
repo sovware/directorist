@@ -250,7 +250,7 @@ function directorist_800_migrate_builder_data() {
 	$account = wp_insert_post(
 		array(
 			'post_title' 	 => 'Account',
-			'post_content' 	 => '[directorist_account]',
+			'post_content' 	 => '[directorist_signin_signup]',
 			'post_status' 	 => 'publish',
 			'post_type' 	 => 'page',
 			'comment_status' => 'closed'
@@ -258,7 +258,7 @@ function directorist_800_migrate_builder_data() {
 	);
 
 	if ( $account ) {
-		$options['user_account'] = (int) $account;
+		$options['account_page'] = (int) $account;
 		update_option( 'atbdp_option', $options );
 	}
 

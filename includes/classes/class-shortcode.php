@@ -37,7 +37,7 @@ class ATBDP_Shortcode {
 				'directorist_author_profile' => [ $this, 'author_profile' ],
 				'directorist_user_dashboard' => [ $this, 'user_dashboard' ],
 				'directorist_all_authors' 	 => [ $this, 'all_authors' ],
-				'directorist_account' 	 	 => [ $this, 'directorist_account' ],
+				'directorist_signin_signup'  => [ $this, 'directorist_signin_signup' ],
 
 				// Forms
 				'directorist_add_listing'         => [ $this, 'add_listing' ],
@@ -301,11 +301,11 @@ class ATBDP_Shortcode {
 		return $dashboard->render_shortcode( $atts );
 	}
 
-	public function directorist_account( $atts ) {
+	public function directorist_signin_signup( $atts ) {
 		$atts = !empty( $atts ) ? $atts : array();
 		$account = Directorist_Account::instance();
 
-		$atts[ 'shortcode' ] = 'directorist_account';
+		$atts[ 'shortcode' ] = 'directorist_signin_signup';
 
 		return $account->render_account( $atts );
 	}

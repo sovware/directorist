@@ -795,7 +795,7 @@ return apply_filters( 'atbdp_form_preset_widgets', array(
 
 	'social_info' => [
 		'label'   => 'Social Info',
-		'icon'    => 'uil uil-user-arrows',
+		'icon'    => 'uil uil-users-alt',
 		'options' => [
 			'type' => [
 				'type'  => 'hidden',

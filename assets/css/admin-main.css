@@ -30166,6 +30166,11 @@ span.drop-toggle-caret:before {
 .directorist-setup-wizard__btn:hover {
   opacity: 0.85;
 }
+.directorist-setup-wizard__btn:disabled {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: not-allowed;
+}
 @media (max-width: 375px) {
   .directorist-setup-wizard__btn {
     gap: 15px;
@@ -30332,6 +30337,7 @@ span.drop-toggle-caret:before {
   margin: 0;
 }
 .directorist-setup-wizard__content__items {
+  position: relative;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -30962,6 +30968,17 @@ span.drop-toggle-caret:before {
 }
 .directorist-setup-wizard__map .leaflet-touch .leaflet-bar a {
   background: #ffffff;
+}
+.directorist-setup-wizard__notice {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  font-size: 12px;
+  font-weight: 600;
+  font-style: italic;
+  color: #f80718;
 }
 
 @-webkit-keyframes spin {

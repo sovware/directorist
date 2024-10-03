@@ -276,7 +276,6 @@ jQuery(function ($) {
     formData.append('action', 'directorist_register_form');
     formData.append('new_user_registration', account_object.new_user_registration);
     formData.append('enable_registration_password', account_object.enable_registration_password);
-    formData.append('registration_password_required', account_object.registration_password_required);
     formData.append('enable_registration_website', account_object.enable_registration_website);
     formData.append('registration_website_required', account_object.registration_website_required);
     formData.append('enable_registration_first_name', account_object.enable_registration_first_name);

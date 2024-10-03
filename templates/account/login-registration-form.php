@@ -109,12 +109,10 @@ $key        = isset( $_GET['key'] ) ? sanitize_text_field( wp_unslash( $_GET['ke
 
 							<div class="directorist-authentication__form__actions">
 								<div class="keep_signed directorist-checkbox">
-									<?php if ( ! empty( $display_rememberMe ) && 'yes' == $display_rememberMe ) : ?>
-										<input type="checkbox" id="directorist_login_keep_signed_in" value="1" name="keep_signed_in" checked />
-										<label for="directorist_login_keep_signed_in" class="directorist-checkbox__label not_empty">
-											<?php echo esc_html( $log_rememberMe ); ?>
-										</label>
-									<?php endif; ?>
+									<input type="checkbox" id="directorist_login_keep_signed_in" value="1" name="keep_signed_in" checked />
+									<label for="directorist_login_keep_signed_in" class="directorist-checkbox__label not_empty">
+										<?php esc_html_e( 'Remember Me', 'directorist' ); ?>
+									</label>
 								</div>
 
 								<?php if ( ! empty( $display_recpass ) && 'yes' == $display_recpass ) :
@@ -133,7 +131,7 @@ $key        = isset( $_GET['key'] ) ? sanitize_text_field( wp_unslash( $_GET['ke
 							<?php do_action( 'atbdp_before_login_form_end' );?>
 						</div>
 
-						<?php if ( ! empty( $display_signup ) && 'yes' == $display_signup && $new_user_registration === 'yes' ) : ?>
+						<?php if ( $new_user_registration === 'yes' ) : ?>
 							<div class="directorist-authentication__form__toggle-area">
 								<?php echo esc_html( $reg_text ); ?>
 								<button class="directorist-authentication__btn directorist-authentication__btn--signup" aria-label="Signup Button"><?php echo esc_html( $reg_linktxt ); ?></button>
@@ -270,9 +268,9 @@ $key        = isset( $_GET['key'] ) ? sanitize_text_field( wp_unslash( $_GET['ke
 							<div class="directorist-form-group directorist-mb-35">
 								<label for="directorist__authentication__signup__password"><?php
 									echo esc_html( $password );
-									echo ( ! empty( $require_password ) && 'yes' == $require_password ? '<strong class="directorist-form-required">*</strong>' : '' );
+									echo '<strong class="directorist-form-required">*</strong>';
 								?></label>
-								<input id="directorist__authentication__signup__password" class="directorist-form-element" type="password" name="password" value="" <?php echo ( ! empty( $require_password ) && 'yes' == $require_password ? 'required' : '' ); ?>>
+								<input id="directorist__authentication__signup__password" class="directorist-form-element" type="password" name="password" value="" required>
 							</div>
 						<?php } ?>
 						<?php if ( ! empty( $display_fname ) && 'yes' == $display_fname ) { ?>
@@ -351,11 +349,9 @@ $key        = isset( $_GET['key'] ) ? sanitize_text_field( wp_unslash( $_GET['ke
 							<input type="hidden" value="<?php echo esc_attr( wp_create_nonce( directorist_get_nonce_key() ) ); ?>" name="directorist_nonce">
 							<button type="submit" class="directorist-btn directorist-btn-primary directorist-authentication__form__btn" name="atbdp_user_submit"><?php echo esc_html( $reg_signup ); ?></button>
 						</div>
-						<?php if ( ! empty( $display_login ) ) { ?>
-							<div class="directory_regi_btn directorist-authentication__form__toggle-area">
-								<p><?php echo esc_html( $login_text ); ?> <button class="directorist-authentication__btn directorist-authentication__btn--signin"><?php echo esc_html( $log_linkingmsg ); ?></button></p>
-							</div>
-						<?php } ?>
+						<div class="directory_regi_btn directorist-authentication__form__toggle-area">
+							<p><?php echo esc_html( $login_text ); ?> <button class="directorist-authentication__btn directorist-authentication__btn--signin"><?php echo esc_html( $log_linkingmsg ); ?></button></p>
+						</div>
 					</form>
 				</div>
 			</div>

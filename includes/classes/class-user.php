@@ -76,7 +76,6 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 			$display_lname        = ! empty( $_POST['enable_registration_last_name'] ) && 'yes' == $_POST['enable_registration_last_name']  ? 1 : 0;
 			$require_lname        = ! empty( $_POST['registration_last_name_required'] ) && 'yes' == $_POST['registration_last_name_required']  ? 1 : 0;
 			$display_password     = ! empty( $_POST['enable_registration_password'] ) && 'yes' == $_POST['enable_registration_password']  ? 1 : 0;
-			$require_password     = ! empty( $_POST['registration_password_required'] ) && 'yes' == $_POST['registration_password_required']  ? 1 : 0;
 			$display_user_type    = ! empty( $_POST['enable_user_type'] ) && 'yes' == $_POST['enable_user_type']  ? 1 : 0;
 			$display_bio          = ! empty( $_POST['enable_registration_bio'] ) && 'yes' == $_POST['enable_registration_bio']  ? 1 : 0;
 			$require_bio          = ! empty( $_POST['registration_bio_required'] ) && 'yes' == $_POST['registration_bio_required']  ? 1 : 0;
@@ -96,7 +95,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 			$previous_page  = ! empty( $_POST['previous_page'] ) ? directorist_clean( $_POST['previous_page'] ) : '';
 
 			//password validation
-			if ( ! empty( $require_password ) && ! empty( $display_password ) && empty( $password ) ) {
+			if ( ! empty( $display_password ) && empty( $password ) ) {
 				$password_validation = 'yes';
 			}
 

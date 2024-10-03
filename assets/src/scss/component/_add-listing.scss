@@ -799,6 +799,8 @@
     .ezmu__media-picker-section {
       display: block;
       .ezmu__media-picker-icon-wrap-upload {
+        display: flex;
+        justify-content: center;
         width: auto;
         height: auto;
         margin-bottom: 0;
@@ -806,6 +808,7 @@
       .ezmu-icon-upload {
         background: unset;
         filter: unset;
+        width: auto;
         i::after {
           width: 90px;
           height: 80px;
@@ -813,17 +816,37 @@
         }
       }
     }
+    .ezmu__media-picker-buttons {
+      margin-top: 0;
+    }
     .ezmu__upload-button-wrap {
-      display: flex;
-      align-items: center;
-      justify-content: center;
       .ezmu__input-label {
-        margin: 0;
-        padding: 0 5px;
-        box-shadow: none;
-        line-height: 25px;
-        background: transparent;
-        color: #ff385c;
+        position: relative;
+        display: inline-flex;
+        padding: 0 17px 0 35px;
+        margin: 10px 0;
+        height: 40px;
+        align-items: center;
+        gap: 6px;
+        border-radius: 8px;
+        background: #141921;
+        color: #fff;
+        text-align: center;
+        font-size: 13px;
+        font-weight: 500;
+        line-height: 14px;
+        cursor: pointer;
+        &:before {
+          position: absolute;
+          left: 17px;
+          top: 13px;
+          content: "";
+          mask-image: url("../../../icons/unicons/svgs/line/top-arrow-to-top.svg");
+          mask-repeat: no-repeat;
+          width: 14px;
+          height: 14px;
+          background-color: var(--directorist-color-white);
+        }
         &:hover {
           opacity: 0.85;
         }

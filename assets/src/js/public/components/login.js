@@ -49,6 +49,7 @@
 
         $('form#login .status').on('click', 'a', function(e) {
             e.preventDefault();
+
             if ( $(this).attr('href') === '#atbdp_recovery_pass' ) {
                 $("#recover-pass-modal").slideDown().show();
                 window.scrollTo({
@@ -56,7 +57,7 @@
                     behavior: 'smooth',
                 });
             } else {
-                location.href = href;
+                location.href = $(this).attr('href');
             }
         })
 
@@ -81,5 +82,12 @@
         url.searchParams.delete('verification');
         url.searchParams.delete('send_verification_email');
         window.history.pushState(null, null, url.toString());
+
+        // Authentication Form Toggle
+        $('body').on('click', '.directorist-authentication__btn', function (e) {
+            e.preventDefault();
+            $('.directorist-login-wrapper').toggleClass('active');
+            $('.directorist-registration-wrapper').toggleClass('active');
+        });
     });
 })(jQuery);

@@ -15,7 +15,7 @@ const localized_data = directorist.add_listing_data;
  * @param string queryString
  * @return string
  */
- function joinQueryString( url, queryString ) {
+function joinQueryString( url, queryString ) {
     return url.match( /[?]/ ) ? `${url}&${queryString}` : `${url}?${queryString}`;
 }
 
@@ -738,7 +738,7 @@ $(document).ready(function () {
                                 window.location.href = decodeURIComponent(redirect_url);
                             } else {
                                 $notification.show().html(`<span class="atbdp_success">${response.success_msg}</span>`);
-                                window.location.href = joinQueryString( response.redirect_url, is_edited );
+                                window.location.href = joinQueryString( decodeURIComponent( response.redirect_url ), is_edited );
                             }
                         }
                     }

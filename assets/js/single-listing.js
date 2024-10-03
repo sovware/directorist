@@ -463,28 +463,25 @@ window.addEventListener('DOMContentLoaded', function () {
     // Validate contact form
     $('.directorist-contact-owner-form').on('submit', function (e) {
       e.preventDefault();
+      var form = $(this);
       var submit_button = $(this).find('button[type="submit"]');
       var status_area = $(this).find('.directorist-contact-message-display');
 
       // Show loading message
       var msg = '<div class="directorist-alert"><i class="fas fa-circle-notch fa-spin"></i> ' + directorist.waiting_msg + ' </div>';
       status_area.html(msg);
-      var name = $(this).find('input[name="atbdp-contact-name"]');
-      var contact_email = $(this).find('input[name="atbdp-contact-email"]');
-      var message = $(this).find('textarea[name="atbdp-contact-message"]');
-      var post_id = $(this).find('input[name="atbdp-post-id"]');
-      var listing_email = $(this).find('input[name="atbdp-listing-email"]');
 
-      // Post via AJAX
+      // Serialize form data
+      var form_data = form.serializeArray();
       var data = {
         'action': 'atbdp_public_send_contact_email',
-        'post_id': post_id.val(),
-        'name': name.val(),
-        'email': contact_email.val(),
-        'listing_email': listing_email.val(),
-        'message': message.val(),
         'directorist_nonce': directorist.directorist_nonce
       };
+
+      // Convert serialized data array into an object
+      $.each(form_data, function (index, elem) {
+        data[elem.name] = elem.value;
+      });
       submit_button.prop('disabled', true);
       $.post(directorist.ajaxurl, data, function (response) {
         submit_button.prop('disabled', false);
@@ -576,7 +573,7 @@ window.addEventListener('DOMContentLoaded', function () {
           behavior: 'smooth'
         });
       } else {
-        location.href = href;
+        location.href = $(this).attr('href');
       }
     });
 
@@ -599,6 +596,13 @@ window.addEventListener('DOMContentLoaded', function () {
     url.searchParams.delete('verification');
     url.searchParams.delete('send_verification_email');
     window.history.pushState(null, null, url.toString());
+
+    // Authentication Form Toggle
+    $('body').on('click', '.directorist-authentication__btn', function (e) {
+      e.preventDefault();
+      $('.directorist-login-wrapper').toggleClass('active');
+      $('.directorist-registration-wrapper').toggleClass('active');
+    });
   });
 })(jQuery);
 
@@ -793,7 +797,7 @@ window.addEventListener('DOMContentLoaded', function () {
           var commentID = $form.find('input[name="comment_id"]').val();
           var $wrap = $('#div-comment-' + commentID);
           $wrap.addClass('directorist-comment-edit-request');
-          updateComment.success(function (data, status, request) {
+          updateComment.done(function (data, status, request) {
             if (typeof data !== 'string' && !data.success) {
               $wrap.removeClass('directorist-comment-edit-request');
               CommentEditHandler.showError($form, data.data.html);
@@ -870,7 +874,7 @@ window.addEventListener('DOMContentLoaded', function () {
           });
           $('#comment').prop('disabled', true);
           form.find('[type="submit"]').prop('disabled', true).val('loading');
-          do_comment.success(function (data, status, request) {
+          do_comment.done(function (data, status, request) {
             var body = $('<div></div>');
             body.append(data);
             var comment_section = '.directorist-review-container';

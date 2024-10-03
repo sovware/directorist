@@ -1,15 +1,15 @@
-﻿=== Directorist - WordPress Business Directory Plugin with Classified Ads Listings ===
+=== Directorist - WordPress Business Directory Plugin with Classified Ads Listings ===
 Contributors: wpwax
 Donate link: https://directorist.com/extensions/
 Tags: member directory, listing, classifieds, directory plugin, business directory
 Requires at least: 4.6
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 7.0
-Stable tag: 7.10.3
+Stable tag: 7.12.5
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-The Best WordPress Directory Plugin to Create Business Directory, Job Listings, Classified Ads, Booking Directory, Local Directory, Service Directory
+A user-centric yet powerful WordPress Business Directory Plugin to create a local business directory, job directory, & Classified Ads Listing
 
 == Description ==
 
@@ -303,6 +303,48 @@ Directorist is a complete directory solution and in combination with its advance
 * Real-estate directory and many more
 
 == Changelog ==
+
+7.12.5 - Oct 02, 2024
+
+* Fix - Expire listing hook
+
+7.12.4 - Sep 25, 2024
+
+* Improve - Email verification link security
+* Fix - Yoast SEO compatibility issue with term archive pages
+
+7.12.3 - Sep 18, 2024
+
+* Fix - Fix with `remove_cap()` function
+
+7.12.2 - Sep 17, 2024
+
+* Improve - File upload permission issue
+* Fix - Validation in admin add listing form submission
+
+7.12.1 - Sep 04, 2024
+
+* Improve - Asset and readme
+
+7.12.0 - Sep 01, 2024
+
+* Add – Dynamic email verification template on user registration
+* Add – Filter hook to control email notice preferences
+* Fix – Extension less image upload issue
+* Fix – Renewal email issue
+* Fix – Category custom field issue
+* Remove – Some unused stuff classes/class-multiple-cat.php file (#1786)
+* Improve – Compatibility with multi site installation
+* Improve – Author profile page
+
+7.11.0 - Aug 14, 2024
+
+* Add - Support Google reCAPTCHA on contact listing owner form (#1777)
+* Merge - User Dashboard, Login & Registration pages (#1677)
+* Refactor - Directorist service api with caching and unification (#1766)
+* Fix - Data deletion issue on uninstall in multi-site installation (#1765)
+* Fix - jQuery 3 compatibility issue (#1784)
+* Fix - Listing meta empty field saving from backend (#1364)
 
 7.10.3 - Jun 13, 2024
 

@@ -1,0 +1,14 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"category": "directorist-blocks-collection",
+	"version": "1.0.0",
+    "name": "directorist/checkout",
+    "title": "Checkout",
+    "description": "Create checkout page and this block only works on checkout page set from settings.",
+    "keywords": [ "checkout", "payment" ],
+    "supports": {
+		"html": false
+	},
+	"editorScript": "file:./index.js"
+}

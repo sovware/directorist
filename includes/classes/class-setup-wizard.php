@@ -439,22 +439,6 @@ class SetupWizard
                     </div>
                 </div>
                 <div class="w-form-group">
-                    <label for="login"><?php esc_html_e( 'Login', 'directorist' ); ?></label>
-                    <div>
-                        <div class="w-toggle-switch">
-                            <input type="checkbox" name='login' class="w-switch" id='login' value=1 checked disabled>
-                        </div>
-                    </div>
-                </div>
-                <div class="w-form-group">
-                    <label for="registration"><?php esc_html_e( 'Registration', 'directorist' ); ?></label>
-                    <div>
-                        <div class="w-toggle-switch">
-                            <input type="checkbox" name='registration' class="w-switch" id='registration' value=1 checked disabled>
-                        </div>
-                    </div>
-                </div>
-                <div class="w-form-group">
                     <label for="search_listing"><?php esc_html_e( 'Search Listing', 'directorist' ); ?></label>
                     <div>
                         <div class="w-toggle-switch">

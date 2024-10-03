@@ -87,8 +87,17 @@ class Directorist_All_Authors {
 
 		$args['orderby'] 		 = 'display_name';
 
-		if( 'all' != $all_authors_select_role ) {
-			$args['role__in']	= array( $all_authors_select_role );
+		if ( 'author' == $all_authors_select_role ) {
+			$meta_query = array(
+				array(
+					'key'     => '_user_type',
+					'value'   => 'author',
+					'compare' => '='
+				)
+			);
+			$args['meta_query'] = $meta_query;
+		} elseif ( 'all' != $all_authors_select_role ) {
+			$args['role__in'] = array( $all_authors_select_role );
 		}
 
 		if( ! empty( $_REQUEST['alphabet'] ) && 'ALL' != $_REQUEST['alphabet'] ) {

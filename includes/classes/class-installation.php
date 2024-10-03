@@ -25,17 +25,25 @@ class ATBDP_Installation {
 	 * @var array
 	 */
 	private static $db_updates = array(
+		'7.1.0' => [
+			'directorist_710_migrate_reviews_table_to_comments_table',
+			'directorist_710_migrate_posts_table_to_comments_table',
+			'directorist_710_review_rating_clear_transients',
+			'directorist_710_update_db_version',
+		],
 		'7.10.0' => [
 			'directorist_7100_clean_falsy_never_expire_meta',
 			'directorist_7100_migrate_expired_meta_to_expired_status',
 			// 'directorist_7100_clean_listing_status_expired_meta', // Use this in future version to cleanup old data.
 			'directorist_7100_update_db_version',
 		],
-		'7.1.0' => [
-			'directorist_710_migrate_reviews_table_to_comments_table',
-			'directorist_710_migrate_posts_table_to_comments_table',
-			'directorist_710_review_rating_clear_transients',
-			'directorist_710_update_db_version',
+		'7.11.0' => [
+			'directorist_711_merge_dashboard_login_registration_page',
+			'directorist_711_update_db_version',
+		],
+		'7.12.3' => [
+			'directorist_7123_remove_upload_files_cap',
+			'directorist_7123_update_db_version',
 		]
 	);
 
@@ -74,6 +82,7 @@ class ATBDP_Installation {
 		$atpdp_setup_wizard = apply_filters( 'atbdp_setup_wizard', true );
 
 		if( ! $atbdp_option && $atpdp_setup_wizard ) {
+			update_option( 'directorist_merge_dashboard_login_reg_page', true );
 			set_transient( '_directorist_setup_page_redirect', true, 30 );
 		}
 

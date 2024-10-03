@@ -88,6 +88,10 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 			// 	if ( directorist_is_multi_directory_enabled() && ! $directory ) {
 			// 		throw new Exception( __( 'Invalid directory!', 'directorist' ), 200 );
 			// 	}
+				// $listing_create_status = directorist_get_listing_create_status( $directory_id );
+				// $listing_edit_status   = ( 'publish' !== $listing_create_status ) ? $listing_create_status : directorist_get_listing_edit_status( $directory_id );
+				// $default_expiration    = directorist_get_default_expiration( $directory_id );
+				// $preview_enable        = atbdp_is_truthy( get_term_meta( $directory_id, 'preview_mode', true ) );
 
 			// 	// Make sure we are dealing with a real listing in edit mode.
 			// 	$listing_id = absint( directorist_get_var( $posted_data['listing_id'], 0 ) );
@@ -199,6 +203,22 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 			// 			case 'pricing':
 			// 				self::process_pricing( $field, $posted_data, $meta_data, $error );
 			// 				break;
+				// $redirect_page = get_directorist_option( 'edit_listing_redirect', 'view_listing' );
+
+				// if ( 'view_listing' === $redirect_page ) {
+				// 	$redirect_url = $permalink;
+				// } else {
+				// 	$redirect_url = add_query_arg( 'listing_id', $listing_id, ATBDP_Permalink::get_dashboard_page_link() );
+				// }
+
+				// if ( (bool) get_directorist_option( 'submission_confirmation', 1 ) ) {
+				// 	$redirect_url = urlencode( add_query_arg( 'notice', true, $redirect_url ) );
+				// }
+
+				// $data['redirect_url'] = $redirect_url;
+
+				// $is_listing_featured = ( ! empty( $posted_data['listing_type'] ) && ( 'featured' === $posted_data['listing_type'] ) );
+				// $should_monetize     = ( directorist_is_monetization_enabled() && directorist_is_featured_listing_enabled() && $is_listing_featured );
 
 			// 			case 'map':
 			// 				self::process_map( $field, $posted_data, $meta_data, $error );
@@ -226,6 +246,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 			// 			'error_msg' => implode( '<br>', $error->get_error_messages() ),
 			// 		) ) );
 			// 	}
+				// $data['preview_mode'] = $preview_enable;
 
 			// 	if ( ! empty( $posted_data['privacy_policy'] ) ) {
 			// 		$meta_data['_privacy_policy'] = (bool) $posted_data['privacy_policy'];

@@ -219,7 +219,19 @@ class Directorist_Listing_Author {
 			$args['meta_query'] = ( $count_meta_queries > 1 ) ? array_merge( array( 'relation' => 'AND' ), $meta_queries ) : $meta_queries;
 		}
 
-		return $args;
+		/**
+		 * Filter the arguments used for retrieving the author's listings.
+		 *
+		 * This filter allows modification of the arguments used when querying
+		 * for listings of a specific author.
+		 *
+		 * @since 7.12.0
+		 *
+		 * @param array                       $args  An array of arguments for retrieving the author's listings.
+		 * @param Directorist_Listing_Author  $this  The current instance of the Directorist_Listing_Author class.
+		 * @return array The filtered array of arguments
+		 */
+		return apply_filters( 'directorist_author_listings_arguments', $args, $this );
 	}
 
 	public function avatar_html() {
@@ -355,6 +367,10 @@ class Directorist_Listing_Author {
 
 		if ( 'yes' === $logged_in_user_only && ! is_user_logged_in() ) {
 			return ATBDP()->helper->guard( array('type' => 'auth') );
+		}
+
+		if ( ! is_user_logged_in() && ! $this->id ) {
+			return ATBDP()->helper->guard( array('type' => '404') );
 		}
 
 		return Helper::get_template_contents( 'author-contents', array( 'author' => $this ) );

@@ -226,7 +226,7 @@
           behavior: 'smooth'
         });
       } else {
-        location.href = href;
+        location.href = $(this).attr('href');
       }
     });
 
@@ -249,8 +249,58 @@
     url.searchParams.delete('verification');
     url.searchParams.delete('send_verification_email');
     window.history.pushState(null, null, url.toString());
+
+    // Authentication Form Toggle
+    $('body').on('click', '.directorist-authentication__btn', function (e) {
+      e.preventDefault();
+      $('.directorist-login-wrapper').toggleClass('active');
+      $('.directorist-registration-wrapper').toggleClass('active');
+    });
   });
 })(jQuery);
+
+/***/ }),
+
+/***/ "./assets/src/js/public/components/register-form.js":
+/*!**********************************************************!*\
+  !*** ./assets/src/js/public/components/register-form.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+jQuery(function ($) {
+  $('.directorist__authentication__signup').on('submit', function (e) {
+    e.preventDefault();
+    var formData = new FormData(this);
+    formData.append('action', 'directorist_register_form');
+    $.ajax({
+      url: directorist.ajaxurl,
+      type: "POST",
+      data: formData,
+      contentType: false,
+      processData: false,
+      cache: false,
+      success: function success(response) {
+        if (response.success) {
+          $('.directorist-register-error').hide();
+          if (response.data.redirect_url) {
+            if (response.data.redirect_message) {
+              $('.directorist-register-error').empty().show().append(response.data.redirect_message).css({
+                'color': '#009114',
+                'background-color': '#d9efdc'
+              });
+            }
+            setTimeout(function () {
+              window.location.href = response.data.redirect_url;
+            }, 500);
+          }
+        } else {
+          $('.directorist-register-error').empty().show().append(response.data);
+        }
+      }
+    });
+  });
+});
 
 /***/ }),
 
@@ -290,9 +340,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_login__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_components_login__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _components_reset_password__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/reset-password */ "./assets/src/js/public/components/reset-password.js");
 /* harmony import */ var _components_reset_password__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_components_reset_password__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _global_components_modal__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../global/components/modal */ "./assets/src/js/global/components/modal.js");
-/* harmony import */ var _global_components_modal__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_global_components_modal__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _components_register_form__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/register-form */ "./assets/src/js/public/components/register-form.js");
+/* harmony import */ var _components_register_form__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_components_register_form__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _global_components_modal__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../global/components/modal */ "./assets/src/js/global/components/modal.js");
+/* harmony import */ var _global_components_modal__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_global_components_modal__WEBPACK_IMPORTED_MODULE_4__);
 // General Components
+
 
 
 

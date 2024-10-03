@@ -294,12 +294,24 @@ class ATBDP_Shortcode {
 	}
 
 	public function user_dashboard( $atts ) {
-		$atts = !empty( $atts ) ? $atts : array();
+		if ( ! is_user_logged_in() && get_option( 'directorist_merge_dashboard_login_reg_page' ) ) {
+			return $this->user_login_registration( $atts );
+		}
+		$atts      = ! empty( $atts ) ? $atts : array();
 		$dashboard = Directorist_Listing_Dashboard::instance();
 
 		$atts[ 'shortcode' ] = 'directorist_user_dashboard';
 
-		return $dashboard->render_shortcode($atts);
+		return $dashboard->render_shortcode( $atts );
+	}
+
+	public function user_login_registration( $atts ) {
+		$atts = !empty( $atts ) ? $atts : array();
+		$account = Directorist_Listing_Dashboard::instance();
+
+		$atts[ 'shortcode' ] = 'directorist_user_dashboard';
+
+		return $account->render_shortcode_login_registration( $atts );
 	}
 
 	public function add_listing( $atts ) {

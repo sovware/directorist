@@ -6,7 +6,13 @@
 	"title": "Search Modal",
 	"category": "directorist-blocks-collection",
 	"description": "Display Directorist search modal.",
-	"keywords": [ "directorist", "search", "block", "search popup", "search listing"],
+	"keywords": [
+		"directorist",
+		"search",
+		"block",
+		"search popup",
+		"search listing"
+	],
 	"attributes": {
 		"styleDisplay": {
 			"type": "string",

@@ -11,20 +11,21 @@
 		"lint:css": "wp-scripts lint-style",
 		"lint:js": "wp-scripts lint-js",
 		"packages-update": "wp-scripts packages-update",
-		"plugin-zip": "wp-scripts plugin-zip",
 		"start": "wp-scripts start",
-		"env": "wp-env start"
+		"build:common": "wp-scripts build --webpack-src-dir=common --output-path=assets",
+		"start:common": "wp-scripts start --webpack-src-dir=common --output-path=assets"
 	},
 	"devDependencies": {
-		"@wordpress/env": "^9.9.0",
-		"@wordpress/scripts": "^27.8.0",
+		"@wordpress/env": "^10.7.0",
+		"@wordpress/scripts": "^29.0.0",
 		"autoprefixer": "^10.4.20"
 	},
 	"files": [
 		"*"
 	],
 	"dependencies": {
-		"@wordpress/icons": "^10.0.0",
+		"@wordpress/icons": "^10.7.0",
+		"@wordpress/server-side-render": "^5.7.0",
 		"clsx": "^2.1.1",
 		"react": "^18.3.1"
 	}

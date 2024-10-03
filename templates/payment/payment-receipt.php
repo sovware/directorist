@@ -37,19 +37,6 @@ use \Directorist\Helper;
                                 <tr>
                                     <td class="directorist-payment-table__label"><?php esc_html_e( 'Date', 'directorist' ); ?></td>
                                     <td><?php echo !empty($order) ? esc_html( get_the_time( get_option( 'date_format' ), $order_id ) ) : ''; ?></td>
-                                    <td><?php esc_html_e( 'Total Amount', 'directorist' ); ?></td>
-                                    <td>
-                                        <?php
-                                        if( !empty( $o_metas['_amount'] ) ) {
-                                            $amount =  $o_metas['_amount'][0] ;
-                                            $before = '';
-                                            $after = '';
-                                            ('after' == $c_position) ? $after = $symbol : $before = $symbol;
-                                            $output = $before . $amount . $after;
-											echo wp_kses_post( $output );
-                                        }
-                                        ?>
-                                    </td>
                                 </tr>
                                 <tr>
                                     <td class="directorist-payment-table__label"><?php esc_html_e( 'Transaction ID', 'directorist' ); ?></td>

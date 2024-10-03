@@ -2340,13 +2340,13 @@ function search_category_location_filter($settings, $taxonomy_id, $prefix = '')
                 }
                 $selected = ($term_id == $term->term_id) ? "selected" : '';
 
-                $custom_field = '';
+                $has_custom_field = false;
 
-                if( isset( $settings['assign_to_category']['assign_to_cat'] ) && is_array( $settings['assign_to_category']['assign_to_cat'] ) ) {
-                    $custom_field = in_array( $term->term_id, $settings['assign_to_category']['assign_to_cat'] ) ? true : false;
+                if ( ! empty( $settings['categories_with_custom_field'] ) ) {
+                    $has_custom_field = in_array( (int) $term->term_id, $settings['categories_with_custom_field'], true );
                 }
 
-                $html .= '<option data-icon = "' . esc_attr( $icon_src ). '" data-custom-field="' . $custom_field . '" value="' . $term->term_id . '" ' . $selected . '>';
+                $html .= '<option data-icon = "' . esc_attr( $icon_src ). '" data-custom-field="' . esc_attr( $has_custom_field ) . '" value="' . $term->term_id . '" ' . $selected . '>';
 
                 $html .= $prefix . $term->name;
                 if (!empty($settings['show_count'])) {
@@ -2998,14 +2998,22 @@ if( !function_exists('directory_types') ){
 
 if ( ! function_exists( 'directorist_get_default_directory' ) ) {
 	/**
-	 * Get default directory id.
+	 * Get default directory id or slug.
 	 *
-	 * @return int Default directory id.
+	 * @param string $return Return type {id, slug}
+	 *
+	 * @return int|string Default directory id or slug depending on return type.
 	 */
-	function directorist_get_default_directory() {
+	function directorist_get_default_directory( $return = 'id' ) {
+		if ( $return === 'slug' ) {
+			$fields = 'slugs';
+		} else {
+			$fields = 'ids';
+		}
+
 		$directories = directorist_get_directories( array(
 			'default_only' => true,
-			'fields'       => 'ids',
+			'fields'       => $fields,
 		) );
 
 		if ( empty( $directories ) || is_wp_error( $directories ) || ! isset( $directories[0] ) ) {
@@ -3048,7 +3056,7 @@ if( !function_exists('directorist_get_form_fields_by_directory_type') ){
         if ( ! ( $term instanceof \WP_Term ) ) {
 		      return [];
 		    }
-      
+
         $submission_form        = get_term_meta( $term->term_id, 'submission_form_fields', true );
         $submission_form_fields = ! empty( $submission_form['fields'] ) ? $submission_form['fields'] : [];
         return $submission_form_fields;
@@ -4030,7 +4038,7 @@ function directorist_password_reset_url( $user, $password_reset = true, $confirm
     }
 
     $args = array(
-        'user' => $user->user_email
+        'user' => base64_encode( $user->user_email )
     );
 
     global $directories_user_rest_keys;

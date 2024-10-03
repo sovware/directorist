@@ -1,5 +1,6 @@
 /* All listing archive page styles */
 .directorist-archive-contents {
+  box-sizing: border-box;
   .directorist-archive-items .directorist-pagination {
     margin-top: 35px;
   }
@@ -370,6 +371,9 @@
     flex: 1;
     height: 100%;
     max-width: 350px;
+    form{
+      width: 100%;
+    }
     .directorist-advanced-filter__close {
       display: none;
     }

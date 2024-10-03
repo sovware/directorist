@@ -1,47 +1,51 @@
 <template>
-    <div class="cptm-form-builder-group-field-drop-area" :class="className"
-        @dragover.prevent=""
-        @dragenter="handleDragenter"
-        @dragleave="handleDragleave"
-        @drop="handleDrop"
-    >
-        <p class="cptm-form-builder-group-field-drop-area-label">Drop Here</p>
-    </div>
+  <div
+    class="cptm-form-builder-group-field-drop-area"
+    :class="className"
+    @dragover.prevent=""
+    @dragenter="handleDragenter"
+    @dragleave="handleDragleave"
+    @drop="handleDrop"
+  >
+    <p class="cptm-form-builder-group-field-drop-area-label">
+      Add field by dragging it into this area
+    </p>
+  </div>
 </template>
 
 <script>
 export default {
-    name: 'form-builder-droppable-placeholder',
+  name: "form-builder-droppable-placeholder",
 
-    computed: {
-        className() {
-            return {
-                ['drag-enter']: this.dragenter
-            }
-        }
+  computed: {
+    className() {
+      return {
+        ["drag-enter"]: this.dragenter,
+      };
+    },
+  },
+
+  data() {
+    return {
+      dragenter: false,
+    };
+  },
+
+  methods: {
+    handleDragenter() {
+      this.dragenter = true;
+      this.$emit("drag-enter");
     },
 
-    data() {
-        return {
-            dragenter: false
-        }
+    handleDragleave() {
+      this.dragenter = false;
+      this.$emit("drag-enter");
     },
 
-    methods: {
-        handleDragenter() {
-            this.dragenter = true;
-            this.$emit( 'drag-enter' );
-        },
-
-        handleDragleave() {
-            this.dragenter = false;
-            this.$emit( 'drag-enter' );
-        },
-
-        handleDrop() {
-            this.dragenter = false;
-            this.$emit( 'drop' );
-        },
-    }
-}
+    handleDrop() {
+      this.dragenter = false;
+      this.$emit("drop");
+    },
+  },
+};
 </script>

@@ -4,12 +4,12 @@
   "category": "directorist-blocks-collection",
   "version": "1.0.0",
   "name": "directorist/add-listing",
-  "title": "Listing Form",
+  "title": "Add Listing Form",
   "description": "Create a listing entry form.",
   "keywords": [
-    "add",
-    "listing",
-    "form"
+    "add listing",
+    "create listing",
+    "listing form"
   ],
   "attributes": {
     "directory_type": {
@@ -17,5 +17,9 @@
       "default": ""
     }
   },
-  "editorScript": "file:./index.js"
+  "editorScript": [
+    "file:./index.js",
+    "directorist-select2-script",
+    "directorist-add-listing"
+  ]
 }

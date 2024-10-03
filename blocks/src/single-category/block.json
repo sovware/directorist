@@ -4,56 +4,71 @@
 	"category": "directorist-blocks-collection",
 	"version": "1.0.0",
 	"title": "Single Category",
-	"name": "directorist/single-category",
+	"name": "directorist/category",
 	"description": "Create directory listing categories grid view, list view or map view.",
+	"keywords": [ "all categories", "category", "taxonomy", "term", "single" ],
 	"attributes": {
-		"view":{
-			"type":"string",
-			"default":"grid"
+		"view": {
+			"type": "string",
+			"default": "grid"
 		},
-		"orderby":{
-			"type":"string",
-			"default":"date"
+		"orderby": {
+			"type": "string",
+			"default": "date"
 		},
-		"order":{
-			"type":"string",
-			"default":"desc"
+		"order": {
+			"type": "string",
+			"default": "desc"
 		},
-		"listings_per_page":{
-			"type":"number",
-			"default":6
+		"listings_per_page": {
+			"type": "number",
+			"default": 6
 		},
-		"show_pagination":{
-			"type":"boolean",
-			"default":false
+		"show_pagination": {
+			"type": "boolean",
+			"default": false
 		},
-		"header":{
-			"type":"boolean",
-			"default":true
+		"header": {
+			"type": "boolean",
+			"default": true
 		},
-		"header_title":{
-			"type":"string",
-			"default":"Items Found"
+		"header_title": {
+			"type": "string",
+			"default": "Items Found"
 		},
-		"columns":{
-			"type":"number",
-			"default":3
+		"columns": {
+			"type": "number",
+			"default": 3
 		},
-		"logged_in_user_only":{
-			"type":"boolean",
-			"default":false
+		"logged_in_user_only": {
+			"type": "boolean",
+			"default": false
 		},
-		"map_height":{
-			"type":"number",
-			"default":500
+		"map_height": {
+			"type": "number",
+			"default": 500
 		},
-		"map_zoom_level":{
-			"type":"number",
-			"default":0
+		"map_zoom_level": {
+			"type": "number",
+			"default": 0
+		},
+		"sidebar": {
+			"type": "string",
+			"default": ""
 		}
 	},
 	"supports": {
 		"html": false
 	},
-	"editorScript": "file:./index.js"
+	"editorScript": [
+		"file:./index.js",
+		"jquery-masonry",
+		"directorist-swiper",
+		"directorist-select2-script",
+		"directorist-all-listings",
+		"directorist-listing-slider",
+		"directorist-search-form",
+		"directorist-openstreet-map",
+		"directorist-google-map"
+	]
 }

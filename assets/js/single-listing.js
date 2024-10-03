@@ -304,7 +304,7 @@ function modalToggle() {
   } else {
     return;
   }
-  window.addEventListener('DOMContentLoaded', function () {
+  window.addEventListener('load', function () {
     // Add or Remove from favourites
     $('.directorist-action-bookmark').on('click', function (e) {
       e.preventDefault();
@@ -384,7 +384,7 @@ function modalToggle() {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-window.addEventListener('DOMContentLoaded', function () {
+window.addEventListener('load', function () {
   // Make sure the codes in this file runs only once, even if enqueued twice
   if (typeof window.directorist_select_executed === 'undefined') {
     window.directorist_select_executed = true;
@@ -518,7 +518,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
 // Fix listing with no thumb if card width is less than 220px
 (function ($) {
-  window.addEventListener('DOMContentLoaded', function () {
+  window.addEventListener('load', function () {
     if ($('.directorist-listing-no-thumb').innerWidth() <= 220) {
       $('.directorist-listing-no-thumb').addClass('directorist-listing-no-thumb--fix');
     }
@@ -548,7 +548,7 @@ window.addEventListener('DOMContentLoaded', function () {
 /***/ (function(module, exports) {
 
 (function ($) {
-  window.addEventListener('DOMContentLoaded', function () {
+  window.addEventListener('load', function () {
     if ($('.directorist-single-contents-area').length > 0) {
       var listing_id = $('.directorist-single-contents-area').data('id'); // listing id
       var storage_key = 'directorist_listing_views'; // Key for session storage
@@ -718,7 +718,7 @@ __webpack_require__.r(__webpack_exports__);
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
-window.addEventListener('DOMContentLoaded', function () {
+window.addEventListener('load', function () {
   ;
   (function ($) {
     'use strict';
@@ -1152,7 +1152,7 @@ window.addEventListener('DOMContentLoaded', function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-window.addEventListener('DOMContentLoaded', function () {
+window.addEventListener('load', function () {
   ;
   (function ($) {
     //Star rating
@@ -1299,14 +1299,14 @@ module.exports = _toPropertyKey, module.exports.__esModule = true, module.export
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-function _typeof(obj) {
+function _typeof(o) {
   "@babel/helpers - typeof";
 
-  return (module.exports = _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) {
-    return typeof obj;
-  } : function (obj) {
-    return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-  }, module.exports.__esModule = true, module.exports["default"] = module.exports), _typeof(obj);
+  return (module.exports = _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
+    return typeof o;
+  } : function (o) {
+    return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+  }, module.exports.__esModule = true, module.exports["default"] = module.exports), _typeof(o);
 }
 module.exports = _typeof, module.exports.__esModule = true, module.exports["default"] = module.exports;
 

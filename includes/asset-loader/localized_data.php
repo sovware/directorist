@@ -112,6 +112,9 @@ class Localized_Data {
 			'lazy_load_taxonomy_fields'   => get_directorist_option( 'lazy_load_taxonomy_fields', false, true ),
 			'current_page_id'             => get_the_ID(),
 			'icon_markup'                 => '<i class="directorist-icon-mask ##CLASS##" aria-hidden="true" style="--directorist-icon: url(##URL##)"></i>',
+			'add_listing_url'             => \ATBDP_Permalink::get_add_listing_page_link(),
+			'enabled_multi_directory'     => directorist_is_multi_directory_enabled(),
+			'site_name'					  => get_bloginfo( 'name' ),
 		);
 
 		return $data;
@@ -192,6 +195,7 @@ class Localized_Data {
 			'choose_image'            => __( 'Use this Image', 'directorist' ),
 			'select_prv_img'          => __( 'Select Preview Image', 'directorist' ),
 			'insert_prv_img'          => __( 'Insert Preview Image', 'directorist' ),
+			'add_listing_url'         => \ATBDP_Permalink::get_add_listing_page_link(),
 		);
 
 		$icon_picker_labels = [
@@ -259,6 +263,7 @@ class Localized_Data {
 			),
 			'args'                     => $args,
 			'directory_type'           => $directory_type,
+			'default_directory_type'   => directorist_get_default_directory( 'slug' ),
 			'directory_type_term_data' => $directory_type_term_data,
 			'ajax_url'                 => admin_url( 'admin-ajax.php' ),
 			'miles'                    => !empty( $_GET['miles'] ) ? absint( $_GET['miles'] ) : $miles,

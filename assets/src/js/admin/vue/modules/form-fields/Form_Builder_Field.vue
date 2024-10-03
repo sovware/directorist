@@ -1,13 +1,22 @@
 <template>
   <div class="cptm-form-builder cptm-row">
-    <div class="cptm-col-6">
+    <div class="cptm-col-5 cptm-col-sticky">
+      <template v-for="(widget_group, widget_group_key) in widgets">
+        <form-builder-widget-list-section-component
+          :field-id="fieldId"
+          v-bind="widget_group"
+          :widget-group="widget_group_key"
+          :selected-widgets="active_widget_fields"
+          :active-widget-groups="active_widget_groups"
+          @update-widget-list="updateWidgetList"
+          @drag-start="handleWidgetListItemDragStart(widget_group_key, $event)"
+          @drag-end="handleWidgetListItemDragEnd(widget_group_key, $event)"
+        />
+      </template>
+    </div>
+    <div class="cptm-col-7">
       <div class="cptm-form-builder-active-fields">
-        <h3 class="cptm-title-3">Active Fields</h3>
-        <p class="cptm-description-text">
-          Click on a field to edit, Drag & Drop to reorder
-        </p>
-
-        <div class="cptm-form-builder-active-fields-container">
+        <div class="cptm-form-builder-active-fields-container cptm-col-sticky">
           <draggable-list-item-wrapper
             list-id="widget-group"
             :is-dragging-self="
@@ -60,29 +69,14 @@
         </div>
       </div>
     </div>
-
-    <div class="cptm-col-6 cptm-col-sticky">
-      <template v-for="(widget_group, widget_group_key) in widgets">
-        <form-builder-widget-list-section-component
-          :key="widget_group_key"
-          :field-id="fieldId"
-          v-bind="widget_group"
-          :widget-group="widget_group_key"
-          :selected-widgets="active_widget_fields"
-          :active-widget-groups="active_widget_groups"
-          @update-widget-list="updateWidgetList"
-          @drag-start="handleWidgetListItemDragStart(widget_group_key, $event)"
-          @drag-end="handleWidgetListItemDragEnd(widget_group_key, $event)"
-        />
-      </template>
-    </div>
   </div>
 </template>
 
 <script>
 import Vue from "vue";
-import helpers from "../../mixins/helpers";
+import { mapGetters, mapState } from "vuex";
 import { findObjectItem, isObject } from "../../../../helper";
+import helpers from "../../mixins/helpers";
 
 export default {
   name: "form-builder",
@@ -112,6 +106,22 @@ export default {
 
   created() {
     this.setupActiveWidgetFields();
+
+    if (this.$root.fields) {
+      this.$store.commit("updateFields", this.$root.fields);
+    }
+
+    if (this.$root.layouts) {
+      this.$store.commit("updatelayouts", this.$root.layouts);
+    }
+
+    if (this.$root.options) {
+      this.$store.commit("updateOptions", this.$root.options);
+    }
+
+    if (this.$root.config) {
+      this.$store.commit("updateConfig", this.$root.config);
+    }
   },
 
   mounted() {
@@ -186,12 +196,24 @@ export default {
     addNewGroupButtonLabel() {
       let button_label = "Add New";
 
+      let button_icon = '<span aria-hidden="true" class="la la-plus"></span>';
+
       if (this.generalSettings && this.generalSettings.addNewGroupButtonLabel) {
         button_label = this.generalSettings.addNewGroupButtonLabel;
       }
 
-      return button_label;
+      return button_icon + button_label;
     },
+
+    buttonText() {
+      return this.$store.state.is_saving
+        ? "Saving"
+        : 'Save & Preview <span class="la la-pen"></span>';
+    },
+
+    ...mapState({
+      options: "options",
+    }),
   },
 
   data() {
@@ -201,6 +223,7 @@ export default {
       active_widget_fields: {},
       active_widget_groups: [],
       avilable_widgets: {},
+      isDataChanged: false,
 
       default_group: [
         {
@@ -218,6 +241,8 @@ export default {
 
       currentDraggingGroup: null,
       currentDraggingWidget: null,
+
+      listing_type_id: null,
     };
   },
 
@@ -229,33 +254,35 @@ export default {
 
     // setupActiveWidgetFields
     setupActiveWidgetFields() {
-      if ( ! this.value ) {
+      if (!this.value) {
         return;
       }
 
-      this.active_widget_fields = this.sanitizeActiveWidgetFields( findObjectItem( 'fields', this.value, {} ) );
-      
+      this.active_widget_fields = this.sanitizeActiveWidgetFields(
+        findObjectItem("fields", this.value, {})
+      );
+
       this.$emit("updated-state");
       this.$emit("active-widgets-updated");
     },
 
     // sanitizeActiveWidgetFields
-    sanitizeActiveWidgetFields( activeWidgetFields ) {
-      if ( ! isObject( activeWidgetFields ) ) {
+    sanitizeActiveWidgetFields(activeWidgetFields) {
+      if (!isObject(activeWidgetFields)) {
         return {};
       }
 
-      if ( activeWidgetFields.hasOwnProperty( 'field_key' ) ) {
+      if (activeWidgetFields.hasOwnProperty("field_key")) {
         delete activeWidgetFields.field_key;
       }
 
-      for ( let widget_key in activeWidgetFields ) {
-        if ( ! isObject( activeWidgetFields[ widget_key ] ) ) {
-          delete activeWidgetFields[ widget_key ];
+      for (let widget_key in activeWidgetFields) {
+        if (!isObject(activeWidgetFields[widget_key])) {
+          delete activeWidgetFields[widget_key];
           continue;
         }
 
-        activeWidgetFields[ widget_key ].widget_key = widget_key;
+        activeWidgetFields[widget_key].widget_key = widget_key;
       }
 
       return activeWidgetFields;
@@ -345,6 +372,7 @@ export default {
     },
 
     updateWidgetField(payload) {
+      this.isDataChanged = true;
       Vue.set(
         this.active_widget_fields[payload.widget_key],
         payload.payload.key,
@@ -382,36 +410,39 @@ export default {
       this.currentDraggingWidget = null;
     },
 
-    isAcceptedSectionWidget( widgetKey, destinationSection ) {
+    isAcceptedSectionWidget(widgetKey, destinationSection) {
       const widgetPath = `${destinationSection.widget_group}.widgets.${destinationSection.widget_name}`;
-      const widget     = findObjectItem( widgetPath, this.widgets, {} );
+      const widget = findObjectItem(widgetPath, this.widgets, {});
 
-      if ( ! widget.hasOwnProperty( 'accepted_widgets' ) ) {
+      if (!widget.hasOwnProperty("accepted_widgets")) {
         return true;
       }
 
-      if ( ! Array.isArray( widget.accepted_widgets ) ) {
+      if (!Array.isArray(widget.accepted_widgets)) {
         return true;
       }
 
-      if ( ! widget.accepted_widgets.length ) {
+      if (!widget.accepted_widgets.length) {
         return true;
       }
 
-      const droppedWidget = this.active_widget_fields[ widgetKey ];
+      const droppedWidget = this.active_widget_fields[widgetKey];
 
       let hasMissMatchWidget = false;
 
-      for ( const acceptedWidget of widget.accepted_widgets ) {
-        for ( const acceptedWidgetKey of Object.keys( acceptedWidget ) ) {
-          if ( droppedWidget[ acceptedWidgetKey ] !== acceptedWidget[ acceptedWidgetKey ] ) {
+      for (const acceptedWidget of widget.accepted_widgets) {
+        for (const acceptedWidgetKey of Object.keys(acceptedWidget)) {
+          if (
+            droppedWidget[acceptedWidgetKey] !==
+            acceptedWidget[acceptedWidgetKey]
+          ) {
             hasMissMatchWidget = true;
             break;
           }
         }
       }
 
-      if ( hasMissMatchWidget ) {
+      if (hasMissMatchWidget) {
         return false;
       }
     },
@@ -424,17 +455,17 @@ export default {
         drop_direction: payload.drop_direction,
       };
 
-      const activeGroup = this.active_widget_groups[ widget_group_key ];
+      const activeGroup = this.active_widget_groups[widget_group_key];
 
       if (
-          'section' === activeGroup.type &&
-          ! this.isAcceptedSectionWidget( payload.widget_key, activeGroup ) 
+        "section" === activeGroup.type &&
+        !this.isAcceptedSectionWidget(payload.widget_key, activeGroup)
       ) {
         return false;
       }
 
       // handleWidgetReorderFromActiveWidgets
-      if ( "active_widgets" === this.currentDraggingWidget.from ) {
+      if ("active_widgets" === this.currentDraggingWidget.from) {
         this.handleWidgetReorderFromActiveWidgets(
           this.currentDraggingWidget,
           dropped_in
@@ -506,15 +537,19 @@ export default {
     },
 
     handleWidgetInsertFromAvailableWidgets(from, to) {
-      const field_data_options = this.getOptionDataFromWidget( from.widget );
-      
-      field_data_options.widget_key = this.genarateWidgetKeyForActiveWidgets( from.widget_key );
+      const field_data_options = this.getOptionDataFromWidget(from.widget);
 
-      if ( field_data_options.field_key ) {
-        field_data_options.field_key = this.genarateFieldKeyForActiveWidgets( field_data_options );
+      field_data_options.widget_key = this.genarateWidgetKeyForActiveWidgets(
+        from.widget_key
+      );
+
+      if (field_data_options.field_key) {
+        field_data_options.field_key = this.genarateFieldKeyForActiveWidgets(
+          field_data_options
+        );
       }
 
-      if ( ! isObject( this.active_widget_fields ) ) {
+      if (!isObject(this.active_widget_fields)) {
         this.active_widget_fields = {};
       }
 
@@ -590,19 +625,19 @@ export default {
       this.$emit("active-widgets-updated");
     },
 
-    getOptionDataFromWidget( widget ) {
-      const widgetOptions = findObjectItem( 'options', widget );
+    getOptionDataFromWidget(widget) {
+      const widgetOptions = findObjectItem("options", widget);
 
-      if ( ! isObject( widgetOptions ) ) {
+      if (!isObject(widgetOptions)) {
         return {};
       }
 
       const fieldDataOptions = {};
-      
-      for ( let option_key in widgetOptions ) {
-        fieldDataOptions[ option_key ] =
-          typeof widgetOptions[ option_key ].value !== "undefined"
-            ? widgetOptions[ option_key ].value
+
+      for (let option_key in widgetOptions) {
+        fieldDataOptions[option_key] =
+          typeof widgetOptions[option_key].value !== "undefined"
+            ? widgetOptions[option_key].value
             : "";
       }
 
@@ -769,13 +804,15 @@ export default {
       let widget = from.widget;
       let option_data = this.getOptionDataFromWidget(widget);
 
-      group.fields = this.insertWidgetFromAvailableSectionWidgets( widget.widgets );
-      
+      group.fields = this.insertWidgetFromAvailableSectionWidgets(
+        widget.widgets
+      );
+
       delete widget.options;
       delete widget.widgets;
 
-      Object.assign( group, widget );
-      Object.assign( group, option_data );
+      Object.assign(group, widget);
+      Object.assign(group, option_data);
 
       let dest_index =
         "before" === to.drop_direction
@@ -797,21 +834,25 @@ export default {
       this.$emit("active-widgets-updated");
     },
 
-    insertWidgetFromAvailableSectionWidgets( widgets ) {
-      if ( ! isObject( widgets ) ) {
+    insertWidgetFromAvailableSectionWidgets(widgets) {
+      if (!isObject(widgets)) {
         return [];
       }
 
-      const insertWidgetAndGetKey = ( widget_key, widget ) => {
-        const field_data_options = this.getOptionDataFromWidget( widget );
-      
-        field_data_options.widget_key = this.genarateWidgetKeyForActiveWidgets( widget_key );
+      const insertWidgetAndGetKey = (widget_key, widget) => {
+        const field_data_options = this.getOptionDataFromWidget(widget);
 
-        if ( field_data_options.field_key ) {
-          field_data_options.field_key = this.genarateFieldKeyForActiveWidgets( field_data_options );
+        field_data_options.widget_key = this.genarateWidgetKeyForActiveWidgets(
+          widget_key
+        );
+
+        if (field_data_options.field_key) {
+          field_data_options.field_key = this.genarateFieldKeyForActiveWidgets(
+            field_data_options
+          );
         }
 
-        if ( ! isObject( this.active_widget_fields ) ) {
+        if (!isObject(this.active_widget_fields)) {
           this.active_widget_fields = {};
         }
 
@@ -824,7 +865,9 @@ export default {
         return field_data_options.widget_key;
       };
 
-      return Object.keys( widgets ).map( widgetKey => insertWidgetAndGetKey( widgetKey, widgets[ widgetKey ] ) );
+      return Object.keys(widgets).map((widgetKey) =>
+        insertWidgetAndGetKey(widgetKey, widgets[widgetKey])
+      );
     },
 
     trashGroup(widget_group_key) {
@@ -848,6 +891,57 @@ export default {
     toggleEnableWidgetGroupDragging() {
       this.forceExpandStateTo = !this.forceExpandStateTo ? "collapse" : ""; // expand | 'collapse'
       this.isEnabledGroupDragging = !this.isEnabledGroupDragging;
+    },
+
+    ...mapGetters(["getFieldsValue"]),
+
+    updateSubmitButtonLabel(payload) {
+      if (!payload.field) {
+        return;
+      }
+      if (typeof payload.value === "undefined") {
+        return;
+      }
+
+      this.$store.commit("updateSubmitButtonLabel", payload);
+    },
+
+    maybeJSON(data) {
+      let value = typeof data === "undefined" ? "" : data;
+
+      if (
+        ("object" === typeof value && Object.keys(value)) ||
+        Array.isArray(value)
+      ) {
+        let json_encoded_value = JSON.stringify(value);
+        let base64_encoded_value = this.encodeUnicodedToBase64(
+          json_encoded_value
+        );
+        value = base64_encoded_value;
+      }
+
+      return value;
+    },
+
+    encodeUnicodedToBase64(str) {
+      // first we use encodeURIComponent to get percent-encoded UTF-8,
+      // then we convert the percent encodings into raw bytes which
+      // can be fed into btoa.
+      return btoa(
+        encodeURIComponent(str).replace(
+          /%([0-9A-F]{2})/g,
+          function toSolidBytes(match, p1) {
+            return String.fromCharCode("0x" + p1);
+          }
+        )
+      );
+    },
+
+    handleBeforeUnload(event) {
+      if (this.isDataChanged) {
+        event.preventDefault();
+        event.returnValue = ""; // Display default warning dialog
+      }
     },
   },
 };

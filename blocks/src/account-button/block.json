@@ -1,52 +1,52 @@
 {
-	"$schema"    : "https://schemas.wp.org/trunk/block.json",
-	"apiVersion" : 3,
-	"name"       : "directorist/account-button",
-	"version"    : "1.0.0",
-	"title"      : "Account Button",
-	"category"   : "directorist-blocks-collection",
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "directorist/account-button",
+	"version": "1.0.0",
+	"title": "Account Button",
+	"category": "directorist-blocks-collection",
 	"description": "Directorist login-registration popup with account management dropdown menu.",
-	"keywords"   : [ "directorist", "account", "popup", "avatar", "navigation"],
-	"attributes" : {
+	"keywords": [ "directorist", "account", "popup", "avatar", "navigation" ],
+	"attributes": {
 		"showDashboardMenu": {
-			"type"   : "boolean",
+			"type": "boolean",
 			"default": true
 		},
 		"textAlign": {
 			"type": "string"
 		},
 		"url": {
-			"type"              : "string",
-			"source"            : "attribute",
-			"selector"          : "a",
-			"attribute"         : "href",
+			"type": "string",
+			"source": "attribute",
+			"selector": "a",
+			"attribute": "href",
 			"__experimentalRole": "content"
 		},
 		"title": {
-			"type"              : "string",
-			"source"            : "attribute",
-			"selector"          : "a,button",
-			"attribute"         : "title",
+			"type": "string",
+			"source": "attribute",
+			"selector": "a,button",
+			"attribute": "title",
 			"__experimentalRole": "content"
 		},
 		"text": {
-			"type"              : "rich-text",
-			"source"            : "rich-text",
-			"selector"          : "a,button",
+			"type": "rich-text",
+			"source": "rich-text",
+			"selector": "a,button",
 			"__experimentalRole": "content"
 		},
 		"linkTarget": {
-			"type"              : "string",
-			"source"            : "attribute",
-			"selector"          : "a",
-			"attribute"         : "target",
+			"type": "string",
+			"source": "attribute",
+			"selector": "a",
+			"attribute": "target",
 			"__experimentalRole": "content"
 		},
 		"rel": {
-			"type"              : "string",
-			"source"            : "attribute",
-			"selector"          : "a",
-			"attribute"         : "rel",
+			"type": "string",
+			"source": "attribute",
+			"selector": "a",
+			"attribute": "rel",
 			"__experimentalRole": "content"
 		},
 		"placeholder": {
@@ -66,78 +66,75 @@
 		}
 	},
 	"supports": {
-		"anchor"   : true,
+		"anchor": true,
 		"splitting": true,
-		"align"    : false,
+		"align": false,
 		"alignWide": false,
-		"color"    : {
+		"color": {
 			"__experimentalSkipSerialization": true,
-			"gradients"                      : true,
-			"__experimentalDefaultControls"  : {
+			"gradients": true,
+			"__experimentalDefaultControls": {
 				"background": true,
-				"text"      : true
+				"text": true
 			}
 		},
 		"typography": {
-			"fontSize"                     : true,
-			"lineHeight"                   : true,
-			"__experimentalFontFamily"     : true,
-			"__experimentalFontWeight"     : true,
-			"__experimentalFontStyle"      : true,
-			"__experimentalTextTransform"  : true,
-			"__experimentalTextDecoration" : true,
-			"__experimentalLetterSpacing"  : true,
+			"fontSize": true,
+			"lineHeight": true,
+			"__experimentalFontFamily": true,
+			"__experimentalFontWeight": true,
+			"__experimentalFontStyle": true,
+			"__experimentalTextTransform": true,
+			"__experimentalTextDecoration": true,
+			"__experimentalLetterSpacing": true,
 			"__experimentalDefaultControls": {
 				"fontSize": true
 			}
 		},
 		"reusable": false,
-		"shadow"  : {
+		"shadow": {
 			"__experimentalSkipSerialization": true
 		},
 		"spacing": {
 			"__experimentalSkipSerialization": true,
-			"padding"                        : [ "horizontal", "vertical" ],
-			"__experimentalDefaultControls"  : {
+			"padding": [ "horizontal", "vertical" ],
+			"__experimentalDefaultControls": {
 				"padding": true
 			}
 		},
 		"__experimentalBorder": {
-			"color"                          : true,
-			"radius"                         : true,
-			"style"                          : true,
-			"width"                          : true,
+			"color": true,
+			"radius": true,
+			"style": true,
+			"width": true,
 			"__experimentalSkipSerialization": true,
-			"__experimentalDefaultControls"  : {
-				"color" : true,
+			"__experimentalDefaultControls": {
+				"color": true,
 				"radius": true,
-				"style" : true,
-				"width" : true
+				"style": true,
+				"width": true
 			}
 		},
 		"__experimentalSelector": ".wp-block-button .wp-block-button__link",
-		"interactivity"         : {
+		"interactivity": {
 			"clientNavigation": true
 		}
 	},
 	"styles": [
 		{
-			"name"     : "fill",
-			"label"    : "Fill",
+			"name": "fill",
+			"label": "Fill",
 			"isDefault": true
 		},
 		{
-			"name" : "outline",
+			"name": "outline",
 			"label": "Outline"
 		}
 	],
-	"textdomain"  : "Directorist",
+	"textdomain": "Directorist",
 	"editorScript": "file:./index.js",
-	"editorStyle" : "file:./editor.css",
-	"style"       : "file:./style-index.css",
-	"render"      : "file:./render.php",
-	"script"      : [
-		"directorist-account",
-		"file:./script.js"
-	]
+	"editorStyle": "file:./editor.css",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php",
+	"script": [ "directorist-account", "file:./script.js" ]
 }

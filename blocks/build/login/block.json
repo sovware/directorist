@@ -6,6 +6,12 @@
   "name": "directorist/user-login",
   "title": "Login",
   "description": "Create user login page and this block only works on login page set from settings.",
+  "keywords": [
+    "login",
+    "registration",
+    "sign in",
+    "sign up"
+  ],
   "supports": {
     "html": false
   },

@@ -1,25 +1,19 @@
 import { registerBlockType } from '@wordpress/blocks';
+import ServerSideRender from '@wordpress/server-side-render';
 import { Fragment } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
-import {
-	useBlockProps,
-	InspectorControls,
-} from '@wordpress/block-editor';
+import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
 
-import {
-	PanelBody,
-	ToggleControl
-} from '@wordpress/components';
+import { PanelBody, ToggleControl } from '@wordpress/components';
 
-import {
-	getAttsForTransform,
-	getPreview
-} from './../functions'
+import { getAttsForTransform, getPlaceholder } from './../functions';
 import metadata from './block.json';
 import getLogo from './../logo';
 
-registerBlockType(metadata.name, {
+const Placeholder = () => getPlaceholder( 'author-profile' );
+
+registerBlockType( metadata.name, {
 	icon: getLogo(),
 
 	transforms: {
@@ -27,15 +21,9 @@ registerBlockType(metadata.name, {
 			{
 				type: 'shortcode',
 				tag: 'directorist_author_profile',
-				attributes: getAttsForTransform( metadata.attributes )
-			}
-		]
-	},
-
-	example: {
-		attributes: {
-			isPreview: true
-		}
+				attributes: getAttsForTransform( metadata.attributes ),
+			},
+		],
 	},
 
 	edit( { attributes, setAttributes } ) {
@@ -44,19 +32,38 @@ registerBlockType(metadata.name, {
 		return (
 			<Fragment>
 				<InspectorControls>
-					<PanelBody title={ __( 'Settings', 'directorist' ) } initialOpen={ true }>
+					<PanelBody
+						title={ __( 'Settings', 'directorist' ) }
+						initialOpen={ true }
+					>
 						<ToggleControl
-							label={ __( 'Logged In User Only?', 'directorist' ) }
+							label={ __(
+								'Logged In User Can View Only',
+								'directorist'
+							) }
 							checked={ logged_in_user_only }
-							onChange={ newState => setAttributes( { logged_in_user_only: newState } ) }
+							onChange={ ( newState ) =>
+								setAttributes( {
+									logged_in_user_only: newState,
+								} )
+							}
 						/>
 					</PanelBody>
 				</InspectorControls>
 
-				<div { ...useBlockProps() }>
-					{ getPreview( 'author-profile', attributes.isPreview) }
+				<div
+					{ ...useBlockProps( {
+						className:
+							'directorist-content-active directorist-w-100',
+					} ) }
+				>
+					<ServerSideRender
+						block={ metadata.name }
+						attributes={ attributes }
+						LoadingResponsePlaceholder={ Placeholder }
+					/>
 				</div>
 			</Fragment>
 		);
-	}
+	},
 } );

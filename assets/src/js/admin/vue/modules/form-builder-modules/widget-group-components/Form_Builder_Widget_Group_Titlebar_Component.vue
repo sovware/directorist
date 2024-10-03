@@ -1,5 +1,8 @@
 <template>
-  <div class="cptm-form-builder-group-title-area">
+  <div
+    class="cptm-form-builder-group-title-area"
+    :class="widgetsExpanded ? 'expanded' : ''"
+  >
     <h3 class="cptm-form-builder-group-title">
       {{ label }}
       <a
@@ -8,19 +11,21 @@
         v-if="groupFields && typeof groupFields === 'object'"
         @click.prevent="$emit('toggle-expand-group')"
       >
-        <span class="fa fa-cog" aria-hidden="true"></span>
+        <span class="fa fa-cog" aria-hidden="true"></span> Options
       </a>
     </h3>
 
-    <div class="cptm-form-builder-group-title-actions">
+    <div 
+      class="cptm-form-builder-group-title-actions"
+      v-if="groupData && groupData.fields && groupData.fields.length"
+    >
       <a
         href="#"
         class="cptm-form-builder-header-action-link"
-        v-if="groupData && groupData.fields && groupData.fields.length"
-        :class="widgetsExpanded ? 'action-collapse-up' : 'action-collapse-down'"
+        :class="widgetsExpanded ? 'action-collapse-down' : 'action-collapse-up'"
         @click.prevent="$emit('toggle-expand-widgets')"
       >
-        <span aria-hidden="true" class="fa fa-angle-up"></span>
+        <span aria-hidden="true" class="uil uil-angle-down"></span>
       </a>
     </div>
   </div>

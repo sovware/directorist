@@ -271,7 +271,7 @@
     }
 
     // Slider Call on Page Load
-    window.addEventListener('DOMContentLoaded', () => {
+    window.addEventListener('load', () => {
 
         allListingSlider();
 

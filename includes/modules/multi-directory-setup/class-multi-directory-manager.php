@@ -38,6 +38,31 @@ class Multi_Directory_Manager {
         add_action( 'wp_ajax_directorist_directory_type_library', [ $this, 'directorist_directory_type_library' ] );
     }
 
+    public static function builder_data_backup( $term_id ) {
+        $submission_form_fields     = get_term_meta( $term_id , 'submission_form_fields', true );
+        $single_listings_contents   = get_term_meta( $term_id, 'single_listings_contents', true );
+        $single_listing_header      = get_term_meta( $term_id, 'single_listing_header', true );
+
+        // Fetch existing backup data from the option
+        $existing_backup_data = get_option( 'directorist_builder_backup_data', [] );
+        
+        // Decode the JSON data if it exists
+        $existing_backup_data = ! empty( $existing_backup_data ) ? json_decode( $existing_backup_data, true ) : [];
+
+        if( ! empty( $submission_form_fields ) && ! empty( $single_listings_contents ) && ! empty( $single_listing_header ) ) {
+            $existing_backup_data[$term_id] = [
+                'submission_form_fields'    => $submission_form_fields,
+                'single_listings_contents'  => $single_listings_contents,
+                'single_listing_header'     => $single_listing_header,
+            ];
+            // Convert the backup data to JSON format
+            $json_backup_data = wp_json_encode( $existing_backup_data );
+
+            // Save the JSON backup data in options
+            update_option( 'directorist_builder_backup_data', $json_backup_data );
+        }
+    }
+
     // custom field assign to category migration
     public static function migrate_custom_field( $term_id ) {
 
@@ -254,7 +279,7 @@ class Multi_Directory_Manager {
         // Define the new field for terms and privacy
         $terms_privacy_field = [
             'type'         => 'text',
-            'field_key'    => 'privacy_terms',
+            'field_key'    => 'privacy_policy',
             'text'         => $terms_privacy_label,   // Use the generated label
             'required'     => $is_required,           // Dynamically set required status
             'widget_group' => 'preset',

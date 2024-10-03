@@ -307,6 +307,8 @@
 .entry-content .directorist-search-contents {
   width: 100% !important;
   max-width: 100% !important;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 /* directorist module style */
@@ -3119,6 +3121,8 @@ body.stop-scrolling {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 .directorist-add-listing-types__single {
   margin-bottom: 15px;
@@ -3202,6 +3206,8 @@ body.stop-scrolling {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 .directorist-add-listing-form .directorist-content-module {
@@ -6571,6 +6577,9 @@ body.modal-overlay-enabled:before {
   width: 100%;
 }
 
+.directorist-widget__author-info figure {
+  margin: 0;
+}
 .directorist-widget__author-info .diretorist-view-profile-btn {
   width: 100%;
   margin-top: 25px;
@@ -10173,6 +10182,10 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   padding-left: 35px !important;
 }
 
+.directorist-content-active {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
 .directorist-content-active .directorist-author-profile {
   padding: 0;
 }
@@ -10407,6 +10420,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   }
 }
 .directorist-content-active .directorist-author-profile-content {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   max-width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
@@ -10907,6 +10922,10 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 
 /* All listing archive page styles */
+.directorist-archive-contents {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
 .directorist-archive-contents .directorist-archive-items .directorist-pagination {
   margin-top: 35px;
 }
@@ -11396,6 +11415,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
           flex: 1;
   height: 100%;
   max-width: 350px;
+}
+.listing-with-sidebar__sidebar form {
+  width: 100%;
 }
 .listing-with-sidebar__sidebar .directorist-advanced-filter__close {
   display: none;
@@ -12533,7 +12555,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   margin-bottom: 34px;
 }
 .directorist-search-top__title {
-  color: var(--directorist-color-primary);
+  color: var(--directorist-color-dark);
   font-size: 36px;
   font-weight: 500;
   margin-bottom: 18px;
@@ -16136,6 +16158,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   -webkit-transform: unset !important;
           transform: unset !important;
 }
+.directorist-content-active .directorist-listing-single figure {
+  margin: 0;
+}
 .directorist-content-active .directorist-listing-single .directorist-listing-single__header__left .directorist-thumb-listing-author,
 .directorist-content-active .directorist-listing-single .directorist-listing-single__header__right .directorist-thumb-listing-author,
 .directorist-content-active .directorist-listing-single .directorist-thumb-bottom-left .directorist-thumb-listing-author,
@@ -17357,6 +17382,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
           box-shadow: 0px 5px 20px rgba(var(--directorist-color-dark-rgb), 0.33);
   background-color: var(--directorist-color-white);
 }
+.map-listing-card-single figure {
+  margin: 0;
+}
 .map-listing-card-single .directorist-mark-as-favorite__btn {
   position: absolute;
   top: 20px;
@@ -18050,6 +18078,10 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   display: block;
 }
 
+.directorist-single-contents-area {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
 .directorist-single-contents-area .directorist-card {
   padding: 0;
   -webkit-filter: none;
@@ -18525,6 +18557,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   margin: 0 0 15px;
 }
 
+.directorist-single-author-info figure {
+  margin: 0;
+}
 .directorist-single-author-info .diretorist-view-profile-btn {
   margin-top: 22px;
   padding: 0 30px;
@@ -20711,6 +20746,8 @@ Review: New Style
   width: 100% !important;
   max-width: 100% !important;
   overflow: hidden;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 .directorist-user-dashboard__contents {
   display: -webkit-box;
@@ -20737,7 +20774,7 @@ Review: New Style
   -webkit-flex: 1;
       -ms-flex: 1;
           flex: 1;
-  width: calc(100% - 230px);
+  width: calc(100% - 250px);
 }
 .directorist-user-dashboard .directorist-alert {
   margin-bottom: 15px;
@@ -22083,12 +22120,12 @@ Review: New Style
 .directorist-payment-table__label {
   font-weight: 400;
   width: 140px;
-  color: var(--directorist-color-light-gray);
+  color: var(--directorist-color-light-gray) !important;
 }
 .directorist-payment-table__title {
   font-size: 15px;
-  font-weight: 500;
-  margin: 0 !important;
+  font-weight: 600;
+  margin: 0 0 10px !important;
   text-transform: capitalize;
   color: var(--directorist-color-dark);
 }

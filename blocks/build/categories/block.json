@@ -7,6 +7,7 @@
   "name": "directorist/all-categories",
   "description": "Create directory category listing grid view and list view.",
   "keywords": [
+    "all categories",
     "category",
     "taxonomy",
     "term"
@@ -77,5 +78,15 @@
   "supports": {
     "html": false
   },
-  "editorScript": "file:./index.js"
+  "editorScript": [
+    "file:./index.js",
+    "jquery-masonry",
+    "directorist-swiper",
+    "directorist-select2-script",
+    "directorist-all-listings",
+    "directorist-listing-slider",
+    "directorist-search-form",
+    "directorist-openstreet-map",
+    "directorist-google-map"
+  ]
 }

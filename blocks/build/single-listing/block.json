@@ -6,9 +6,19 @@
   "name": "directorist/single-listing",
   "title": "Single Listing",
   "description": "Create listing single view",
+  "keywords": [
+    "single",
+    "listing",
+    "all listings"
+  ],
   "attributes": {},
   "supports": {
     "html": false
   },
-  "editorScript": "file:./index.js"
+  "editorScript": [
+    "file:./index.js",
+    "comment-reply",
+    "directorist-jquery-barrating",
+    "directorist-single-listing"
+  ]
 }

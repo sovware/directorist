@@ -1,5 +1,5 @@
 (function ($) {
-    window.addEventListener('DOMContentLoaded', () => {
+    window.addEventListener('load', () => {
 
         if ($('.directorist-single-contents-area').length > 0) {
             var listing_id  = $('.directorist-single-contents-area').data('id');  // listing id

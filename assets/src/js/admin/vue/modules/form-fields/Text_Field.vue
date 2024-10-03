@@ -3,6 +3,8 @@
         :is="getTheTheme( 'text-field' )" 
         v-bind="$props"
         v-if="canShow"
+        @enter="$emit( 'enter', $event )"
+        @blur="$emit( 'blur', $event )"
         @update="$emit( 'update', $event )"
         @do-action="$emit( 'do-action', $event )"
         @validate="$emit( 'validate', $event )"

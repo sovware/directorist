@@ -8,13 +8,18 @@
 	"description": "Create author profile page.",
 	"keywords": [ "author", "profile" ],
 	"attributes": {
-		"logged_in_user_only":{
-			"type":"boolean",
-			"default":false
+		"logged_in_user_only": {
+			"type": "boolean",
+			"default": false
 		}
 	},
 	"supports": {
 		"html": false
 	},
-	"editorScript": "file:./index.js"
+	"editorScript": [
+		"file:./index.js",
+		"directorist-swiper",
+		"directorist-listing-slider",
+		"directorist-author-profile"
+	]
 }

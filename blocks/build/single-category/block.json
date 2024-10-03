@@ -4,8 +4,15 @@
   "category": "directorist-blocks-collection",
   "version": "1.0.0",
   "title": "Single Category",
-  "name": "directorist/single-category",
+  "name": "directorist/category",
   "description": "Create directory listing categories grid view, list view or map view.",
+  "keywords": [
+    "all categories",
+    "category",
+    "taxonomy",
+    "term",
+    "single"
+  ],
   "attributes": {
     "view": {
       "type": "string",
@@ -50,10 +57,24 @@
     "map_zoom_level": {
       "type": "number",
       "default": 0
+    },
+    "sidebar": {
+      "type": "string",
+      "default": ""
     }
   },
   "supports": {
     "html": false
   },
-  "editorScript": "file:./index.js"
+  "editorScript": [
+    "file:./index.js",
+    "jquery-masonry",
+    "directorist-swiper",
+    "directorist-select2-script",
+    "directorist-all-listings",
+    "directorist-listing-slider",
+    "directorist-search-form",
+    "directorist-openstreet-map",
+    "directorist-google-map"
+  ]
 }

@@ -19,5 +19,10 @@
   "supports": {
     "html": false
   },
-  "editorScript": "file:./index.js"
+  "editorScript": [
+    "file:./index.js",
+    "directorist-swiper",
+    "directorist-listing-slider",
+    "directorist-author-profile"
+  ]
 }

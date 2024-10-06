@@ -7784,7 +7784,7 @@ body.modal-overlay-enabled:before {
   width: 14px;
   height: 14px;
 }
-.directorist-swiper-related-listing.slider-has-less-items > .directorist-swiper__navigation {
+.directorist-swiper-related-listing.slider-has-one-item > .directorist-swiper__navigation, .directorist-swiper-related-listing.slider-has-less-items > .directorist-swiper__navigation {
   display: none;
 }
 

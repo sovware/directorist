@@ -452,6 +452,7 @@ class Plans_Controller extends Posts_Controller {
 				'label'          => $regular_listing_label,
 				'is_active'      => true,
 				'hide_from_plan' => (bool) get_post_meta( $plan->ID, 'hide_listings', true ),
+				'limit'          => $unlimited_regular_listings ? -1 : $regular_listing_count,
 			);
 
 			$featured_listing_count = (int) get_post_meta( $plan->ID, 'num_featured', true );
@@ -468,6 +469,7 @@ class Plans_Controller extends Posts_Controller {
 				'label'          => $featured_listing_label,
 				'is_active'      => true,
 				'hide_from_plan' => apply_filters( 'atbdp_plan_featured_compare', (bool) get_post_meta( $plan->ID, 'hide_featured', true ) ),
+				'limit'          => $unlimited_featured_listings ? -1 : $featured_listing_count,
 			);
 		} else {
 			$features[] = array(
@@ -575,12 +577,14 @@ class Plans_Controller extends Posts_Controller {
 			if ( $data['is_active'] && isset( $form_field['widget_name'] ) && in_array( $form_field['widget_name'], $fields, true ) ) {
 				if ( (bool) get_post_meta( $plan->ID, '_unlimited_'. $field_key, true ) ) {
 					$data['label'] = sprintf( __( '%s (unlimited)', 'directorist' ), $data['label'] );
+					$data['limit'] = -1;
 				} elseif ( ( $count = (int) get_post_meta( $plan->ID, '_max_'. $field_key, true ) ) ) {
 					$data['label'] = sprintf(
 						translate_nooped_plural( $translations[ $form_field['widget_name'] ], $count, 'directorist' ),
 						$data['label'],
 						$count,
 					);
+					$data['limit'] = $count;
 				}
 			}
 
@@ -770,6 +774,11 @@ class Plans_Controller extends Posts_Controller {
 								'type'        => 'bool',
 								'context'     => array( 'view', 'edit' ),
 							),
+							'limit' => array(
+								'description' => __( 'Feature limited to number of times (-1 indicates unlimited).', 'directorist' ),
+								'type'        => 'number',
+								'context'     => array( 'view', 'edit' ),
+							),
 						),
 					),
 				),
@@ -804,6 +813,11 @@ class Plans_Controller extends Posts_Controller {
 							'hide_from_plan' => array(
 								'description' => __( 'Field visibility status from plan package.', 'directorist' ),
 								'type'        => 'bool',
+								'context'     => array( 'view', 'edit' ),
+							),
+							'limit' => array(
+								'description' => __( 'Feature limited to number of times (-1 indicates unlimited).', 'directorist' ),
+								'type'        => 'number',
 								'context'     => array( 'view', 'edit' ),
 							),
 						),

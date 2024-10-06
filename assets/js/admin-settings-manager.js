@@ -14960,14 +14960,14 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   created: function created() {
-    this.filtereFieldList();
+    this.filteredFieldList();
   },
   watch: {
     fieldList: function fieldList() {
-      this.filtereFieldList();
+      this.filteredFieldList();
     },
     value: function value() {
-      this.filtereFieldList();
+      this.filteredFieldList();
     }
   },
   computed: {
@@ -14981,7 +14981,6 @@ __webpack_require__.r(__webpack_exports__);
       return this.root;
     },
     visibleFields: function visibleFields() {
-      console.log("field_list", this.field_list);
       // Convert field_list object to an array and then slice it
       var fieldArray = Array.isArray(this.field_list) ? this.field_list : Object.values(this.field_list);
 
@@ -14996,8 +14995,8 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    filtereFieldList: function filtereFieldList() {
-      this.field_list = this.getFiltereFieldList(this.fieldList);
+    filteredFieldList: function filteredFieldList() {
+      this.field_list = this.getFilteredFieldList(this.fieldList);
     },
     toggleAdvanced: function toggleAdvanced() {
       this.showAdvanced = !this.showAdvanced;
@@ -15017,7 +15016,7 @@ __webpack_require__.r(__webpack_exports__);
       }
       return field;
     },
-    getFiltereFieldList: function getFiltereFieldList(field_list) {
+    getFilteredFieldList: function getFilteredFieldList(field_list) {
       if (!field_list) {
         return field_list;
       }
@@ -15049,7 +15048,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     update: function update(payload) {
       this.$emit("update", payload);
-      this.filtereFieldList();
+      this.filteredFieldList();
     }
   }
 });

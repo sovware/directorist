@@ -47,15 +47,15 @@ export default {
   },
 
   created() {
-    this.filtereFieldList();
+    this.filteredFieldList();
   },
 
   watch: {
     fieldList() {
-      this.filtereFieldList();
+      this.filteredFieldList();
     },
     value() {
-      this.filtereFieldList();
+      this.filteredFieldList();
     },
   },
 
@@ -71,7 +71,6 @@ export default {
       return this.root;
     },
     visibleFields() {
-      console.log("field_list", this.field_list);
       // Convert field_list object to an array and then slice it
       const fieldArray = Array.isArray(this.field_list)
         ? this.field_list
@@ -90,8 +89,8 @@ export default {
   },
 
   methods: {
-    filtereFieldList() {
-      this.field_list = this.getFiltereFieldList(this.fieldList);
+    filteredFieldList() {
+      this.field_list = this.getFilteredFieldList(this.fieldList);
     },
 
     toggleAdvanced() {
@@ -118,7 +117,7 @@ export default {
       return field;
     },
 
-    getFiltereFieldList(field_list) {
+    getFilteredFieldList(field_list) {
       if (!field_list) {
         return field_list;
       }
@@ -169,7 +168,7 @@ export default {
 
     update(payload) {
       this.$emit("update", payload);
-      this.filtereFieldList();
+      this.filteredFieldList();
     },
   },
 };

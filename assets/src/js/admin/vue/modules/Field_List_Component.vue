@@ -4,7 +4,8 @@
     v-if="field_list && typeof field_list === 'object'"
   >
     <component
-      v-for="(field, field_key) in visibleFields"
+      v-if="field.type"
+      v-for="(field, field_key) in field_list.isAdvanced ? visibleFields : field_list"
       :key="field_key"
       :is="field.type + '-field'"
       :section-id="sectionId"
@@ -13,14 +14,15 @@
       v-bind="excludeShowIfCondition(field)"
       @update="update({ key: field_key, value: $event })"
     />
+
     <button 
       class="cptm-form-builder-group-options__advanced-toggle"
       @click="toggleAdvanced"
-
+      v-if="field_list.isAdvanced"
     >
-      {{ showAdvanced ? 'Basic' : 'Advanced' }}
+      {{ showAdvanced ? field_list.isAdvanced.lessText : field_list.isAdvanced.moreText }}
     </button>
-  </div>
+  </div> 
 </template>
 
 <script>
@@ -69,6 +71,7 @@ export default {
       return this.root;
     },
     visibleFields() {
+      console.log("field_list", this.field_list);
       // Convert field_list object to an array and then slice it
       const fieldArray = Array.isArray(this.field_list)
         ? this.field_list

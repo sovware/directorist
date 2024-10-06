@@ -14981,6 +14981,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.root;
     },
     visibleFields: function visibleFields() {
+      console.log("field_list", this.field_list);
       // Convert field_list object to an array and then slice it
       var fieldArray = Array.isArray(this.field_list) ? this.field_list : Object.values(this.field_list);
 
@@ -26783,8 +26784,8 @@ var render = function render() {
     _c = _vm._self._c;
   return _vm.field_list && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(_vm.field_list) === "object" ? _c("div", {
     staticClass: "directorist-form-fields-area"
-  }, [_vm._l(_vm.visibleFields, function (field, field_key) {
-    return _c(field.type + "-field", _vm._b({
+  }, [_vm._l(_vm.field_list.isAdvanced ? _vm.visibleFields : _vm.field_list, function (field, field_key) {
+    return field.type ? _c(field.type + "-field", _vm._b({
       key: field_key,
       tag: "component",
       attrs: {
@@ -26800,13 +26801,13 @@ var render = function render() {
           });
         }
       }
-    }, "component", _vm.excludeShowIfCondition(field), false));
-  }), _vm._v(" "), _c("button", {
+    }, "component", _vm.excludeShowIfCondition(field), false)) : _vm._e();
+  }), _vm._v(" "), _vm.field_list.isAdvanced ? _c("button", {
     staticClass: "cptm-form-builder-group-options__advanced-toggle",
     on: {
       click: _vm.toggleAdvanced
     }
-  }, [_vm._v("\n    " + _vm._s(_vm.showAdvanced ? "Basic" : "Advanced") + "\n  ")])], 2) : _vm._e();
+  }, [_vm._v("\n    " + _vm._s(_vm.showAdvanced ? _vm.field_list.isAdvanced.lessText : _vm.field_list.isAdvanced.moreText) + "\n  ")]) : _vm._e()], 2) : _vm._e();
 };
 var staticRenderFns = [];
 render._withStripped = true;

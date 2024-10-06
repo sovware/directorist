@@ -178,52 +178,37 @@
         </button>
       </div>
       <div class="cptm-elements-settings__content">
-        <div class="cptm-elements-settings__group">
-          <span class="cptm-elements-settings__group__title">Top Left</span>
-          <div class="cptm-elements-settings__group__single">
-            <span class="cptm-elements-settings__group__single__label">
-              Back Button
-            </span>
-            <span class="cptm-elements-settings__group__single__switch">
-              <input type="checkbox" id="settings-back-button" />
-              <label for="settings-back-button" />
-            </span>
-          </div>
-        </div>
-        <div class="cptm-elements-settings__group">
-          <span class="cptm-elements-settings__group__title">Top Right</span>
-          <div class="cptm-elements-settings__group__single">
-            <span class="drag-icon uil uil-draggabledots"></span>
-            <span class="cptm-elements-settings__group__single__label">
-              <span class="icon uil uil-heart"></span>
-              Bookmark
-            </span>
-            <span class="cptm-elements-settings__group__single__switch">
-              <input type="checkbox" id="settings-bookmark" />
-              <label for="settings-bookmark" />
-            </span>
-          </div>
-          <div class="cptm-elements-settings__group__single">
-            <span class="drag-icon uil uil-draggabledots"></span>
-            <span class="cptm-elements-settings__group__single__label">
-              <span class="icon uil uil-heart"></span>
-              Share
-            </span>
-            <span class="cptm-elements-settings__group__single__switch">
-              <input type="checkbox" id="settings-share" />
-              <label for="settings-share" />
-            </span>
-          </div>
-          <div class="cptm-elements-settings__group__single">
-            <span class="drag-icon uil uil-draggabledots"></span>
-            <span class="cptm-elements-settings__group__single__label">
-              <span class="icon uil uil-heart"></span>
-              Report
-            </span>
-            <span class="cptm-elements-settings__group__single__switch">
-              <input type="checkbox" id="settings-report" />
-              <label for="settings-report" />
-            </span>
+        <!-- Loop through all placeholders -->
+        <div 
+          class="cptm-elements-settings__group"
+          v-for="(placeholder, placeholder_index) in allPlaceholderItems" 
+          v-if="placeholder.type == 'placeholder_item'"
+          :key="placeholder_index"
+        >
+          <!-- Display the placeholder label -->
+          <span class="cptm-elements-settings__group__title">{{ placeholder.label }}</span>
+
+          <!-- Loop through acceptedWidgets and display only existing widgets from available_widgets -->
+          <div 
+            class="cptm-elements-settings__group__single"
+            v-for="(widget_key, widget_index) in placeholder.acceptedWidgets" 
+            :key="widget_index"
+          >
+            <!-- Check if widget exists in available_widgets before accessing properties -->
+            <template v-if="available_widgets[widget_key]">
+              <span class="drag-icon uil uil-draggabledots"></span>
+              <span class="cptm-elements-settings__group__single__label">
+                <!-- Display icon only if it exists -->
+                <span v-if="available_widgets[widget_key].icon" :class="available_widgets[widget_key].icon"></span>
+                {{ available_widgets[widget_key].label }}
+              </span>
+
+              <!-- Add toggle switch for widget -->
+              <span class="cptm-elements-settings__group__single__switch">
+                <input type="checkbox" :id="`settings-${widget_key}-${placeholder_index}`" />
+                <label :for="`settings-${widget_key}-${placeholder_index}`" />
+              </span>
+            </template>
           </div>
         </div>
       </div>
@@ -808,6 +793,8 @@ export default {
       }
 
       this.available_widgets = this.widgets;
+
+      console.log({ available_widgets: this.available_widgets });
     },
 
     importCardOptions() {
@@ -828,6 +815,8 @@ export default {
     },
 
     importPlaceholders() {
+      this.allPlaceholderItems = [];
+
       if (!Array.isArray(this.layout)) {
         return;
       }
@@ -887,6 +876,7 @@ export default {
           const placeholderItemData = sanitizePlaceholderData(placeholderItem);
           if (placeholderItemData) {
             sanitizedPlaceholders.push(placeholderItemData);
+            this.allPlaceholderItems.push(placeholderItemData);
           }
 
           continue;
@@ -932,6 +922,7 @@ export default {
                   1,
                   placeholderItemData
                 );
+                this.allPlaceholderItems.push(placeholderItemData);
               }
             }
           );
@@ -943,6 +934,9 @@ export default {
       }
 
       this.placeholders = sanitizedPlaceholders;
+
+      console.log({ placeholders: this.placeholders });
+      console.log({ allPlaceholderItems: this.allPlaceholderItems });
     },
 
     onDragStartWidget(key, origin) {

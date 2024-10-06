@@ -23172,6 +23172,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         return;
       }
       this.available_widgets = this.widgets;
+      console.log({
+        available_widgets: this.available_widgets
+      });
     },
     importCardOptions: function importCardOptions() {
       if (!this.isTruthyObject(this.cardOptions)) {
@@ -23186,6 +23189,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     },
     importPlaceholders: function importPlaceholders() {
       var _this3 = this;
+      this.allPlaceholderItems = [];
       if (!Array.isArray(this.layout)) {
         return;
       }
@@ -23229,6 +23233,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
               var placeholderItemData = sanitizePlaceholderData(placeholderItem);
               if (placeholderItemData) {
                 sanitizedPlaceholders.push(placeholderItemData);
+                _this3.allPlaceholderItems.push(placeholderItemData);
               }
               return 0; // continue
             }
@@ -23251,6 +23256,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                 var placeholderItemData = sanitizePlaceholderData(placeholderSubItem);
                 if (placeholderItemData) {
                   placeholderItem.placeholders.splice(subPlaceholderIndex, 1, placeholderItemData);
+                  _this3.allPlaceholderItems.push(placeholderItemData);
                 }
               });
               if (placeholderItem.placeholders.length) {
@@ -23269,6 +23275,12 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         _iterator7.f();
       }
       this.placeholders = sanitizedPlaceholders;
+      console.log({
+        placeholders: this.placeholders
+      });
+      console.log({
+        allPlaceholderItems: this.allPlaceholderItems
+      });
     },
     onDragStartWidget: function onDragStartWidget(key, origin) {
       this.currentDraggingWidget.key = key;
@@ -32486,95 +32498,40 @@ var render = function render() {
       d: "M5.24408 5.24408C5.56951 4.91864 6.09715 4.91864 6.42259 5.24408L10 8.82149L13.5774 5.24408C13.9028 4.91864 14.4305 4.91864 14.7559 5.24408C15.0814 5.56951 15.0814 6.09715 14.7559 6.42259L11.1785 10L14.7559 13.5774C15.0814 13.9028 15.0814 14.4305 14.7559 14.7559C14.4305 15.0814 13.9028 15.0814 13.5774 14.7559L10 11.1785L6.42259 14.7559C6.09715 15.0814 5.56951 15.0814 5.24408 14.7559C4.91864 14.4305 4.91864 13.9028 5.24408 13.5774L8.82149 10L5.24408 6.42259C4.91864 6.09715 4.91864 5.56951 5.24408 5.24408Z",
       fill: "#4D5761"
     }
-  })])])]), _vm._v(" "), _vm._m(0)]) : _vm._e()]);
-};
-var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "cptm-elements-settings__content"
-  }, [_c("div", {
-    staticClass: "cptm-elements-settings__group"
-  }, [_c("span", {
-    staticClass: "cptm-elements-settings__group__title"
-  }, [_vm._v("Top Left")]), _vm._v(" "), _c("div", {
-    staticClass: "cptm-elements-settings__group__single"
-  }, [_c("span", {
-    staticClass: "cptm-elements-settings__group__single__label"
-  }, [_vm._v("\n            Back Button\n          ")]), _vm._v(" "), _c("span", {
-    staticClass: "cptm-elements-settings__group__single__switch"
-  }, [_c("input", {
-    attrs: {
-      type: "checkbox",
-      id: "settings-back-button"
-    }
-  }), _vm._v(" "), _c("label", {
-    attrs: {
-      for: "settings-back-button"
-    }
   })])])]), _vm._v(" "), _c("div", {
-    staticClass: "cptm-elements-settings__group"
-  }, [_c("span", {
-    staticClass: "cptm-elements-settings__group__title"
-  }, [_vm._v("Top Right")]), _vm._v(" "), _c("div", {
-    staticClass: "cptm-elements-settings__group__single"
-  }, [_c("span", {
-    staticClass: "drag-icon uil uil-draggabledots"
-  }), _vm._v(" "), _c("span", {
-    staticClass: "cptm-elements-settings__group__single__label"
-  }, [_c("span", {
-    staticClass: "icon uil uil-heart"
-  }), _vm._v("\n            Bookmark\n          ")]), _vm._v(" "), _c("span", {
-    staticClass: "cptm-elements-settings__group__single__switch"
-  }, [_c("input", {
-    attrs: {
-      type: "checkbox",
-      id: "settings-bookmark"
-    }
-  }), _vm._v(" "), _c("label", {
-    attrs: {
-      for: "settings-bookmark"
-    }
-  })])]), _vm._v(" "), _c("div", {
-    staticClass: "cptm-elements-settings__group__single"
-  }, [_c("span", {
-    staticClass: "drag-icon uil uil-draggabledots"
-  }), _vm._v(" "), _c("span", {
-    staticClass: "cptm-elements-settings__group__single__label"
-  }, [_c("span", {
-    staticClass: "icon uil uil-heart"
-  }), _vm._v("\n            Share\n          ")]), _vm._v(" "), _c("span", {
-    staticClass: "cptm-elements-settings__group__single__switch"
-  }, [_c("input", {
-    attrs: {
-      type: "checkbox",
-      id: "settings-share"
-    }
-  }), _vm._v(" "), _c("label", {
-    attrs: {
-      for: "settings-share"
-    }
-  })])]), _vm._v(" "), _c("div", {
-    staticClass: "cptm-elements-settings__group__single"
-  }, [_c("span", {
-    staticClass: "drag-icon uil uil-draggabledots"
-  }), _vm._v(" "), _c("span", {
-    staticClass: "cptm-elements-settings__group__single__label"
-  }, [_c("span", {
-    staticClass: "icon uil uil-heart"
-  }), _vm._v("\n            Report\n          ")]), _vm._v(" "), _c("span", {
-    staticClass: "cptm-elements-settings__group__single__switch"
-  }, [_c("input", {
-    attrs: {
-      type: "checkbox",
-      id: "settings-report"
-    }
-  }), _vm._v(" "), _c("label", {
-    attrs: {
-      for: "settings-report"
-    }
-  })])])])]);
-}];
+    staticClass: "cptm-elements-settings__content"
+  }, _vm._l(_vm.allPlaceholderItems, function (placeholder, placeholder_index) {
+    return placeholder.type == "placeholder_item" ? _c("div", {
+      key: placeholder_index,
+      staticClass: "cptm-elements-settings__group"
+    }, [_c("span", {
+      staticClass: "cptm-elements-settings__group__title"
+    }, [_vm._v(_vm._s(placeholder.label))]), _vm._v(" "), _vm._l(placeholder.acceptedWidgets, function (widget_key, widget_index) {
+      return _c("div", {
+        key: widget_index,
+        staticClass: "cptm-elements-settings__group__single"
+      }, [_vm.available_widgets[widget_key] ? [_c("span", {
+        staticClass: "drag-icon uil uil-draggabledots"
+      }), _vm._v(" "), _c("span", {
+        staticClass: "cptm-elements-settings__group__single__label"
+      }, [_vm.available_widgets[widget_key].icon ? _c("span", {
+        class: _vm.available_widgets[widget_key].icon
+      }) : _vm._e(), _vm._v("\n              " + _vm._s(_vm.available_widgets[widget_key].label) + "\n            ")]), _vm._v(" "), _c("span", {
+        staticClass: "cptm-elements-settings__group__single__switch"
+      }, [_c("input", {
+        attrs: {
+          type: "checkbox",
+          id: "settings-".concat(widget_key, "-").concat(placeholder_index)
+        }
+      }), _vm._v(" "), _c("label", {
+        attrs: {
+          for: "settings-".concat(widget_key, "-").concat(placeholder_index)
+        }
+      })])] : _vm._e()], 2);
+    })], 2) : _vm._e();
+  }), 0)]) : _vm._e()]);
+};
+var staticRenderFns = [];
 render._withStripped = true;
 
 

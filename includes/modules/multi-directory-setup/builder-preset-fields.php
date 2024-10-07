@@ -541,11 +541,6 @@ return array(
 				'label' => __( 'Enter Coordinates Label', 'directorist' ),
 				'value' => __( 'Or Enter Coordinates (latitude and longitude) Manually', 'directorist' ),
 			],
-			'required' => [
-				'type'  => 'toggle',
-				'label' => __( 'Required', 'directorist' ),
-				'value' => false,
-			],
 			'only_for_admin' => [
 				'type'  => 'toggle',
 				'label' => __( 'Administrative Only', 'directorist' ),

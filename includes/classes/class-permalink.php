@@ -100,7 +100,7 @@ class ATBDP_Permalink {
                 $author = get_user_by( 'id', $author_id );
 				$author_id = ( $author ) ? $author->user_login : $author_id;
 
-                if( ! empty( $directory_type ) && Directorist\Helper::multi_directory_enabled() ) {
+                if( ! empty( $directory_type ) && directorist_is_multi_directory_enabled() ) {
                     $slug = $author_id . '/directory/' . $directory_type;
                     $link = Helper::join_slug_to_url( $link, $slug );
                 } else {
@@ -156,18 +156,23 @@ class ATBDP_Permalink {
 
     /**
      * It returns the link to the custom search archive page of ATBDP
+     * @param array $query_vars [optional] Array of query vars to be added to the registration page url
      * @return string
      */
-    public static function get_dashboard_page_link()
+    public static function get_dashboard_page_link( $query_vars = array() )
     {
-        $link = home_url();
-        $page_id = get_directorist_option('user_dashboard');
+        $link    = home_url();
+        $page_id = get_directorist_option( 'user_dashboard' );
 
         if ( $page_id )  {
             $link = get_permalink( $page_id );
         }
 
-        return apply_filters('atbdp_dashboard_page_url', $link, $page_id );
+        if ( ! empty( $query_vars ) && is_array( $query_vars ) ){
+            $link = add_query_arg( $query_vars, $link );
+        }
+
+        return apply_filters( 'atbdp_dashboard_page_url', $link, $page_id );
     }
     /**
      * It returns the link to the custom search archive page of ATBDP
@@ -379,7 +384,7 @@ class ATBDP_Permalink {
             if ( '' != get_option( 'permalink_structure' ) ) {
                 $link = user_trailingslashit( trailingslashit( $link )  . 'edit/' . $listing_id );
             } else {
-                $link = add_query_arg( array( 'atbdp_action' => 'edit', 'atbdp_listing_id ' => $listing_id ), $link );
+                $link = add_query_arg( array( 'atbdp_action' => 'edit', 'atbdp_listing_id' => $listing_id ), $link );
             }
         }
 

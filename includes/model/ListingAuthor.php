@@ -85,21 +85,7 @@ class Directorist_Listing_Author {
 	}
 
 	public function get_listing_types() {
-		$listing_types = array();
-		$args          = array(
-			'taxonomy'   => ATBDP_TYPE,
-			'hide_empty' => false
-		);
-		$all_types     = get_terms( $args );
-
-		foreach ( $all_types as $type ) {
-			$listing_types[ $type->term_id ] = [
-				'term' => $type,
-				'name' => $type->name,
-				'data' => get_term_meta( $type->term_id, 'general_config', true ),
-			];
-		}
-		return $listing_types;
+		return directorist_get_directories_for_template();
 	}
 
 	public function get_current_listing_type() {
@@ -131,9 +117,7 @@ class Directorist_Listing_Author {
 
 	// Hooks ------------
 	public function archive_type( $listings ) {
-		$count = count( $listings->listing_types );
-		$enable_multi_directory = get_directorist_option( 'enable_multi_directory', false );
-		if ( $count > 1 && ! empty( $enable_multi_directory ) ) {
+		if ( count( $listings->listing_types ) > 1 && directorist_is_multi_directory_enabled() ) {
 			Helper::get_template( 'archive/directory-type-nav', array('listings' => $listings) );
 		}
 	}
@@ -220,13 +204,14 @@ class Directorist_Listing_Author {
 			$args['tax_query'] = $category;
 		}
 		$meta_queries   = array();
-		$meta_queries['expired'] = array(
-			array(
-				'key'     => '_listing_status',
-				'value'   => 'expired',
-				'compare' => '!=',
-			),
-		);
+		// TODO: Status has been migrated, remove related code.
+		// $meta_queries['expired'] = array(
+		// 	array(
+		// 		'key'     => '_listing_status',
+		// 		'value'   => 'expired',
+		// 		'compare' => '!=',
+		// 	),
+		// );
 
 		$meta_queries       = apply_filters( 'atbdp_author_listings_meta_queries', $meta_queries );
 		$count_meta_queries = count( $meta_queries );
@@ -234,7 +219,19 @@ class Directorist_Listing_Author {
 			$args['meta_query'] = ( $count_meta_queries > 1 ) ? array_merge( array( 'relation' => 'AND' ), $meta_queries ) : $meta_queries;
 		}
 
-		return $args;
+		/**
+		 * Filter the arguments used for retrieving the author's listings.
+		 *
+		 * This filter allows modification of the arguments used when querying
+		 * for listings of a specific author.
+		 *
+		 * @since 7.12.0
+		 *
+		 * @param array                       $args  An array of arguments for retrieving the author's listings.
+		 * @param Directorist_Listing_Author  $this  The current instance of the Directorist_Listing_Author class.
+		 * @return array The filtered array of arguments
+		 */
+		return apply_filters( 'directorist_author_listings_arguments', $args, $this );
 	}
 
 	public function avatar_html() {
@@ -370,6 +367,10 @@ class Directorist_Listing_Author {
 
 		if ( 'yes' === $logged_in_user_only && ! is_user_logged_in() ) {
 			return ATBDP()->helper->guard( array('type' => 'auth') );
+		}
+
+		if ( ! is_user_logged_in() && ! $this->id ) {
+			return ATBDP()->helper->guard( array('type' => '404') );
 		}
 
 		return Helper::get_template_contents( 'author-contents', array( 'author' => $this ) );

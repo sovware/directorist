@@ -13,17 +13,38 @@ class Image_Upload_Field extends Base_Field {
 	public $type = 'image_upload';
 
 	public function get_value( $posted_data ) {
-		if ( empty( $_FILES[ $this->get_key() ] ) ) {
-			return array();
+		if ( empty( $posted_data[ $this->get_key() ] ) && empty( $posted_data[ $this->get_key() . '_old' ] ) ) {
+			return null;
 		}
 
-		return directorist_clean( wp_unslash( $_FILES[ $this->get_key() ] ) );
+		$new_images = (array) directorist_get_var( $posted_data[ $this->get_key() ], array() );
+		$old_images = (array) directorist_get_var( $posted_data[ $this->get_key() . '_old' ], array() );
+
+		$maybe_old_images = array_filter( $new_images, 'is_numeric' );
+
+		if ( count( $maybe_old_images ) > 0 ) {
+			$old_images = array_merge( $old_images, $maybe_old_images );
+			$new_images = array_diff( $new_images, $maybe_old_images );
+		}
+
+		return array(
+			'new' => array_filter( $new_images ),
+			'old' => array_filter( wp_parse_id_list( $old_images ) ),
+		);
 	}
 
 	public function validate( $posted_data ) {
-		$files = $this->get_value( $posted_data );
+		$files      = $this->get_value( $posted_data );
+		$old_images = $files['old'];
+		$new_images = $files['new'];
 
-		if ( count( $files['name'] ) > $this->get_total_upload_limit() ) {
+		if ( $this->is_required() && empty( $old_images ) && empty( $new_images ) ) {
+			$this->add_error( __( 'This field is required.', 'directorist' ) );
+
+			return false;
+		}
+
+		if ( $this->get_total_upload_limit() !== 0 && ( ( count( $old_images ) + count( $new_images ) ) > $this->get_total_upload_limit() ) ) {
 			$this->add_error( sprintf(
 				_n( '%s image allowed only.', '%s images allowed only.', $this->get_total_upload_limit(), 'directorist' ),
 				$this->get_total_upload_limit()
@@ -32,27 +53,41 @@ class Image_Upload_Field extends Base_Field {
 			return false;
 		}
 
+		// TODO: use get_attached_file to calculate the old images file size.
+
+		$upload_dir = wp_get_upload_dir();
+		$temp_dir   = $upload_dir['basedir'] . DIRECTORY_SEPARATOR . trailingslashit( directorist_get_temp_upload_dir() . DIRECTORY_SEPARATOR . date( 'nj' ) );
 		$total_size = 0;
 
-		foreach ( $files['name'] as $key => $value ) {
-			if ( strpos( $files['type'][ $key ], 'image' ) === false ) {
+		foreach ( $new_images as $file ) {
+			$filepath  = realpath( $temp_dir . $file );
+
+			if ( empty( $file ) || ! $filepath ) {
+				continue;
+			}
+
+			$filesize  = filesize( $filepath );
+			$real_mime = wp_get_image_mime( $filepath );
+
+			if ( ! $real_mime || strpos( $real_mime, 'image' ) === false ) {
+
 				$this->add_error( sprintf(
-					__( '[%1$s] Only image allowed.', 'directorist' ),
-					$files['name'][ $key ]
+					__( '[%1$s] invalid file type, only image allowed.', 'directorist' ),
+					$file
 				) );
 
 				continue;
 			}
 
-			if ( $files['size'][ $key ] > $this->get_per_image_upload_size() ) {
+			if ( $filesize > $this->get_per_image_upload_size() ) {
 				$this->add_error( sprintf(
-					__( '[%1$s] Size exceeded, %2$s is allowed only.', 'directorist' ),
-					$files['name'][ $key ],
+					__( '[%1$s] size exceeded, %2$s is allowed only.', 'directorist' ),
+					$file,
 					size_format( $this->get_per_image_upload_size() )
 				) );
 			}
 
-			$total_size += $files['size'][ $key ];
+			$total_size += $filesize;
 
 			if ( $total_size > $this->get_total_upload_size() ) {
 				$this->add_error( sprintf(
@@ -84,7 +119,7 @@ class Image_Upload_Field extends Base_Field {
 			$size_in_mb = KB_IN_BYTES * $size_in_mb;
 		}
 
-		return ( $size_in_mb > 0 ? wp_convert_hr_to_bytes( $size_in_mb . $unit ) : wp_max_upload_size() ); 
+		return ( $size_in_mb > 0 ? wp_convert_hr_to_bytes( $size_in_mb . $unit ) : wp_max_upload_size() );
 	}
 
 	public function get_per_image_upload_size() {
@@ -96,7 +131,7 @@ class Image_Upload_Field extends Base_Field {
 			$size_in_mb = KB_IN_BYTES * $size_in_mb;
 		}
 
-		return ( $size_in_mb > 0 ? wp_convert_hr_to_bytes( $size_in_mb . $unit ) : wp_max_upload_size() ); 
+		return ( $size_in_mb > 0 ? wp_convert_hr_to_bytes( $size_in_mb . $unit ) : wp_max_upload_size() );
 	}
 }
 

@@ -325,24 +325,26 @@ class Listings_Controller extends Posts_Controller {
 				}
 		}
 
-		// Expired listings query.
-		$meta_query['expired'] = array(
-			'key'     => '_listing_status',
-			'value'   => 'expired',
-			'compare' => '!='
-		);
+		// TODO: Status has been migrated, remove related code.
+		// // Expired listings query.
+		// $meta_query['expired'] = array(
+		// 	'key'     => '_listing_status',
+		// 	'value'   => 'expired',
+		// 	'compare' => '!='
+		// );
 
-		if ( $args['post_status'] === 'expired' ) {
-			// Get only expired listings
-			$meta_query['expired'] = array(
-				'key'     => '_listing_status',
-				'value'   => 'expired',
-				'compare' => '==',
-			);
+		// if ( $args['post_status'] === 'expired' ) {
+		// 	// Get only expired listings
+		// 	$meta_query['expired'] = array(
+		// 		'key'     => '_listing_status',
+		// 		'value'   => 'expired',
+		// 		'compare' => '==',
+		// 	);
 
-			// Expired listings have post_status => private hence we need to set any.
-			$args['post_status'] = 'any';
-		}
+		// 	// Expired listings have post_status => private hence we need to set any.
+		// 	$args['post_status'] = 'any';
+		// }
+		// TODO: Remove the above lines due to listing status migration.
 
 		// Price query.
 		if ( isset( $request['min_price'] ) || isset( $request['max_price'] ) ) {
@@ -507,9 +509,9 @@ class Listings_Controller extends Posts_Controller {
 		$data = $this->prepare_item_for_response( $post, $request );
 		$response = rest_ensure_response( $data );
 
-		if ( $this->public ) {
-			$response->link_header( 'alternate', get_permalink( $id ), array( 'type' => 'text/html' ) );
-		}
+		// if ( $this->public ) {
+		// 	$response->link_header( 'alternate', get_permalink( $id ), array( 'type' => 'text/html' ) );
+		// }
 
 		do_action( 'directorist_rest_after_query', 'get_listing_item', $request, $id );
 
@@ -585,7 +587,7 @@ class Listings_Controller extends Posts_Controller {
 	 *
 	 * @return array
 	 */
-	protected function get_images( $listing ) {
+	protected function get_images( $listing, $context ) {
 		$images         = array();
 		$attachment_ids = array();
 
@@ -593,16 +595,16 @@ class Listings_Controller extends Posts_Controller {
 		if ( has_post_thumbnail( $listing ) ) {
 			$attachment_ids[] = get_post_thumbnail_id( $listing );
 		} else {
-			$thumbnail_id = get_post_meta( $listing->ID, '_listing_prv_img', true );
-			if ( ! empty( $thumbnail_id ) ) {
-				$attachment_ids[] = (int) $thumbnail_id;
+			$thumbnail_id = (int) get_post_meta( $listing->ID, '_listing_prv_img', true );
+			if ( $thumbnail_id ) {
+				$attachment_ids[] = $thumbnail_id;
 			}
 		}
 
 		// Add gallery images.
-		$gallery_images = get_post_meta( $listing->ID, '_listing_img', true );
-		if ( ! empty( $gallery_images ) || is_array( $gallery_images ) ) {
-			$attachment_ids = array_merge( $attachment_ids, $gallery_images );
+		$gallery_images = (array) get_post_meta( $listing->ID, '_listing_img', true );
+		if ( ! empty( $gallery_images ) ) {
+			$attachment_ids = array_unique( array_merge( $attachment_ids, array_filter( wp_parse_id_list( $gallery_images ) ) ) );
 		}
 
 		// Build image data.
@@ -612,8 +614,8 @@ class Listings_Controller extends Posts_Controller {
 				continue;
 			}
 
-			$attachment = wp_get_attachment_image_src( $attachment_id, 'full' );
-			if ( ! is_array( $attachment ) ) {
+			$image_url = wp_get_attachment_image_url( $attachment_id, ( $context === 'view' ? 'large' : 'full' ) );
+			if ( ! $image_url ) {
 				continue;
 			}
 
@@ -623,28 +625,11 @@ class Listings_Controller extends Posts_Controller {
 				'date_created_gmt'  => directorist_rest_prepare_date_response( strtotime( $attachment_post->post_date_gmt ) ),
 				'date_modified'     => directorist_rest_prepare_date_response( $attachment_post->post_modified, false ),
 				'date_modified_gmt' => directorist_rest_prepare_date_response( strtotime( $attachment_post->post_modified_gmt ) ),
-				'src'               => current( $attachment ),
+				'src'               => $image_url,
 				'name'              => get_the_title( $attachment_id ),
 				'alt'               => get_post_meta( $attachment_id, '_wp_attachment_image_alt', true ),
 				'position'          => (int) $position,
 			);
-		}
-
-		// Set a placeholder image if the listing has no images set.
-		if ( empty( $images ) ) {
-			// $images[] = array(
-			// 	'id'                => 0,
-			// 	'date_created'      => directorist_rest_prepare_date_response( current_time( 'mysql' ), false ), // Default to now.
-			// 	'date_created_gmt'  => directorist_rest_prepare_date_response( time() ), // Default to now.
-			// 	'date_modified'     => directorist_rest_prepare_date_response( current_time( 'mysql' ), false ),
-			// 	'date_modified_gmt' => directorist_rest_prepare_date_response( time() ),
-			// 	'src'               => directorist_placeholder_img_src(),
-			// 	'name'              => __( 'Placeholder', 'directorist' ),
-			// 	'alt'               => __( 'Placeholder', 'directorist' ),
-			// 	'position'          => 0,
-			// );
-
-			$images = null;
 		}
 
 		return $images;
@@ -656,7 +641,7 @@ class Listings_Controller extends Posts_Controller {
 	 * @param WP_Post   $listing WP_Post instance.
 	 * @param WP_REST_Request $request Request object.
 	 * @param string    $context Request context. Options: 'view' and 'edit'.
-	 * 
+	 *
 	 * @return array
 	 */
 	protected function get_listing_data( $listing, $request, $context = 'view' ) {
@@ -689,8 +674,60 @@ class Listings_Controller extends Posts_Controller {
 				case 'date_modified_gmt':
 					$base_data['date_modified_gmt'] = directorist_rest_prepare_date_response( $listing->post_date_modified_gmt );
 					break;
+				case 'views_count':
+					$base_data['views_count'] = directorist_get_listing_views_count( $listing->ID );
+					break;
+				case 'directory':
+					$base_data['directory'] = $this->get_directory_id( $listing );
+					break;
+				case 'date_expired':
+					$base_data['date_expired'] = directorist_rest_prepare_date_response( get_post_meta( $listing->ID, '_expiry_date', true ) );
+					break;
+				case 'never_expired':
+					$base_data['never_expired'] = (bool) get_post_meta( $listing->ID, '_never_expire', true );
+					break;
+				case 'featured':
+					$base_data['featured'] = (bool) get_post_meta( $listing->ID, '_featured', true );
+					break;
+				case 'new':
+					$base_data['new'] = (bool) Helper::is_new( $listing->ID );
+					break;
+				case 'popular':
+					$base_data['popular'] = (bool) Helper::is_popular( $listing->ID );
+					break;
+				case 'status':
+					// TODO: Status has been migrated, remove related code.
+					// $listing_status = get_post_meta( $listing->ID, '_listing_status', true );
+					// if ( $listing_status && $listing_status === 'expired' ) {
+					// 	$base_data['status'] = 'expired';
+					// } else {
+					// 	$base_data['status'] = $listing->post_status;
+					// }
+					$base_data['status'] = $listing->post_status;
+					break;
+				case 'reviews_allowed':
+					$base_data['reviews_allowed'] = directorist_is_review_enabled();
+					break;
+				case 'average_rating':
+					$base_data['average_rating'] = directorist_get_listing_rating( $listing->ID );
+					break;
+				case 'rating_count':
+					$base_data['rating_count'] = directorist_get_listing_review_count( $listing->ID );
+					break;
+				case 'related_ids':
+					$base_data['related_ids'] = $this->get_related_listings_ids( $listing->ID );
+					break;
+				case 'menu_order':
+					$base_data['menu_order'] = (int) $listing->menu_order;
+					break;
+				case 'author':
+					$base_data['author'] = (int) $listing->post_author;
+					break;
+				case 'plan':
+					$base_data['plan'] = $this->get_plan_id( $listing );
+					break;
 				case 'description':
-					$base_data['description'] = 'view' === $context ? wpautop( do_shortcode( $listing->post_content ) ): $listing->post_content;
+					$base_data['description'] = 'view' === $context ? wpautop( do_shortcode( $listing->post_content ) ) : $listing->post_content;
 					break;
 				case 'short_description':
 					$base_data['short_description'] = 'view' === $context ? $listing->post_excerpt : $listing->post_excerpt;
@@ -715,9 +752,6 @@ class Listings_Controller extends Posts_Controller {
 					break;
 				case 'social_links':
 					$base_data['social_links'] = $this->get_listing_social_links( $listing->ID );
-					break;
-				case 'views_count':
-					$base_data['views_count'] = directorist_get_listing_views_count( $listing->ID );
 					break;
 				case 'map_hidden':
 					$base_data['map_hidden'] = (bool) get_post_meta( $listing->ID, '_hide_map', true );
@@ -749,44 +783,6 @@ class Listings_Controller extends Posts_Controller {
 				case 'tagline':
 					$base_data['tagline'] = get_post_meta( $listing->ID, '_tagline', true );
 					break;
-				case 'directory':
-					$base_data['directory'] = (int) get_post_meta( $listing->ID, '_directory_type', true );
-					break;
-				case 'date_expired':
-					$base_data['date_expired'] = directorist_rest_prepare_date_response( get_post_meta( $listing->ID, '_expiry_date', true ) );
-					break;
-				case 'never_expired':
-					$base_data['never_expired'] = (bool) get_post_meta( $listing->ID, '_never_expire', true );
-					break;
-				case 'featured':
-					$base_data['featured'] = (bool) get_post_meta( $listing->ID, '_featured', true );
-					break;
-				case 'new':
-					$base_data['new'] = (bool) Helper::is_new( $listing->ID );
-					break;
-				case 'popular':
-					$base_data['popular'] = (bool) Helper::is_popular( $listing->ID );
-					break;
-				case 'status':
-					$listing_status = get_post_meta( $listing->ID, '_listing_status', true );
-					if ( $listing_status && $listing_status === 'expired' ) {
-						$base_data['status'] = 'expired';
-					} else {
-						$base_data['status'] = $listing->post_status;
-					}
-					break;
-				case 'reviews_allowed':
-					$base_data['reviews_allowed'] = directorist_is_review_enabled();
-					break;
-				case 'average_rating':
-					$base_data['average_rating'] = directorist_get_listing_rating( $listing->ID );
-					break;
-				case 'rating_count':
-					$base_data['rating_count'] = directorist_get_listing_review_count( $listing->ID );
-					break;
-				case 'related_ids':
-					$base_data['related_ids'] = $this->get_related_listings_ids( $listing->ID );
-					break;
 				case 'categories':
 					$base_data['categories'] = $this->get_taxonomy_terms( $listing->ID, ATBDP_CATEGORY );
 					break;
@@ -797,13 +793,7 @@ class Listings_Controller extends Posts_Controller {
 					$base_data['locations'] = $this->get_taxonomy_terms( $listing->ID, ATBDP_LOCATION );
 					break;
 				case 'images':
-					$base_data['images'] = $this->get_images( $listing );
-					break;
-				case 'menu_order':
-					$base_data['menu_order'] = (int) $listing->menu_order;
-					break;
-				case 'author':
-					$base_data['author'] = (int) $listing->post_author;
+					$base_data['images'] = $this->get_images( $listing, $context );
 					break;
 			}
 		}
@@ -830,6 +820,16 @@ class Listings_Controller extends Posts_Controller {
 		}
 
 		return $data;
+	}
+
+	protected function get_directory_id( $listing ) {
+		$directory_id = (int) get_post_meta( $listing->ID, '_directory_type', true );
+
+		return $directory_id;
+	}
+
+	protected function get_plan_id( $listing ) {
+		return ( (int) get_post_meta( $listing->ID, '_fm_plans', true ) );
 	}
 
 	protected function get_related_listings_ids( $listing_id ) {
@@ -866,11 +866,12 @@ class Listings_Controller extends Posts_Controller {
 		}
 
 		$meta_queries = array();
-		$meta_queries['expired'] = array(
-			'key'     => '_listing_status',
-			'value'   => 'expired',
-			'compare' => '!=',
-		);
+		// TODO: Status has been migrated, remove related code.
+		// $meta_queries['expired'] = array(
+		// 	'key'     => '_listing_status',
+		// 	'value'   => 'expired',
+		// 	'compare' => '!=',
+		// );
 		$meta_queries['directory_type'] = array(
 			'key'     => '_directory_type',
 			'value'   => $directory_type,
@@ -906,6 +907,13 @@ class Listings_Controller extends Posts_Controller {
 				'href' => rest_url( sprintf( '/%s/%s', $this->namespace, $this->rest_base ) ),  // @codingStandardsIgnoreLine.
 			),
 		);
+
+		$plan_id = $this->get_plan_id( $object );
+		if ( $plan_id ) {
+			$links['plan'] = array(
+				'href' => rest_url( sprintf( '/%s/%s/%d', $this->namespace, 'plans', $plan_id ) ),  // @codingStandardsIgnoreLine.
+			);
+		}
 
 		if ( $object->post_parent ) {
 			$links['up'] = array(
@@ -1065,8 +1073,8 @@ class Listings_Controller extends Posts_Controller {
 				'pricing_type'              => array(
 					'description' => __( 'Pricing type.', 'directorist' ),
 					'type'        => 'string',
-					// 'enum'        => array( 'price', 'range' ),
-					'context'     => array( 'view', 'edit' ),
+					  // 'enum'        => array( 'price', 'range' ),
+					'context' => array( 'view', 'edit' ),
 				),
 				'price'              => array(
 					'description' => __( 'Listing price.', 'directorist' ),
@@ -1320,31 +1328,10 @@ class Listings_Controller extends Posts_Controller {
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 				),
-				'meta_data'             => array(
-					'description' => __( 'Meta data.', 'directorist' ),
-					'type'        => 'array',
+				'plan' => array(
+					'description' => __( 'Listing plan id.', 'directorist' ),
+					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
-					'items'       => array(
-						'type'       => 'object',
-						'properties' => array(
-							'id'    => array(
-								'description' => __( 'Meta ID.', 'directorist' ),
-								'type'        => 'integer',
-								'context'     => array( 'view', 'edit' ),
-								'readonly'    => true,
-							),
-							'key'   => array(
-								'description' => __( 'Meta key.', 'directorist' ),
-								'type'        => 'string',
-								'context'     => array( 'view', 'edit' ),
-							),
-							'value' => array(
-								'description' => __( 'Meta value.', 'directorist' ),
-								'type'        => 'mixed',
-								'context'     => array( 'view', 'edit' ),
-							),
-						),
-					),
 				),
 			),
 		);
@@ -1389,6 +1376,7 @@ class Listings_Controller extends Posts_Controller {
 			'validate_callback'  => 'rest_validate_request_arg',
 		);
 		$params['orderby'] = array(
+			'default'            => 'date',
 			'description'        => __( 'Sort collection by object attribute.', 'directorist' ),
 			'enum'               => array_keys( $this->get_orderby_possibles() ),
 			'sanitize_callback'  => 'sanitize_key',

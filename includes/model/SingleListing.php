@@ -491,9 +491,11 @@ class Directorist_Single_Listing {
 		$type          = get_post_meta( get_the_ID(), '_directory_type', true );
 		$default_image = Helper::default_preview_image_src( $type );
 
+		$image_size = apply_filters( 'directorist_single_listing_slider_image_size', 'large' );
+
 		// Get the preview images
 		$preview_img_id   = get_post_meta( $listing_id, '_listing_prv_img', true);
-		$preview_img_link = ! empty($preview_img_id) ? atbdp_get_image_source($preview_img_id, 'large') : '';
+		$preview_img_link = ! empty($preview_img_id) ? atbdp_get_image_source( $preview_img_id, $image_size ) : '';
 		$preview_img_alt  = get_post_meta($preview_img_id, '_wp_attachment_image_alt', true);
 		$preview_img_alt  = ( ! empty( $preview_img_alt )  ) ? $preview_img_alt : get_the_title( $preview_img_id );
 
@@ -508,7 +510,7 @@ class Directorist_Single_Listing {
 
 			$image_links[] = [
 				'alt' => ( ! empty( $alt )  ) ? $alt : $listing_title,
-				'src' => atbdp_get_image_source( $img_id, 'large' ),
+				'src' => atbdp_get_image_source( $img_id, $image_size ),
 			];
 		}
 
@@ -604,7 +606,7 @@ class Directorist_Single_Listing {
 
 	public function price_range_html() {
 		$id = $this->id;
-		$currency = get_directorist_option('g_currency', 'USD');
+		$currency = directorist_get_currency();
 		$c_symbol = atbdp_currency_symbol($currency);
 		$active   = '<span class="atbd_active">' . $c_symbol . '</span>';
 		$inactive = '<span>' . $c_symbol . '</span>';
@@ -718,8 +720,8 @@ class Directorist_Single_Listing {
 	public function price_html() {
 		$id            = $this->id;
 		$allow_decimal = get_directorist_option('allow_decimal', 1);
-		$c_position    = get_directorist_option('g_currency_position');
-		$currency      = get_directorist_option('g_currency', 'USD');
+		$c_position    = directorist_get_currency_position();
+		$currency      = directorist_get_currency();
 		$symbol        = atbdp_currency_symbol($currency);
 
 		$before = $after = '';
@@ -762,28 +764,35 @@ class Directorist_Single_Listing {
 	}
 
 	public function submit_link() {
-		$id = get_the_ID();
-		$payment   = isset($_GET['payment']) ? sanitize_text_field( wp_unslash( $_GET['payment'] ) ) : '';
-		$redirect  = isset($_GET['redirect']) ? sanitize_text_field( wp_unslash( $_GET['redirect'] ) ) : '';
-		$display_preview = get_directorist_option('preview_enable', 1);
-		$link = '';
+		$payment         = isset( $_GET['payment'] ) ? sanitize_text_field( wp_unslash( $_GET['payment'] ) ) : '';
+		$redirect        = isset( $_GET['redirect'] ) ? sanitize_url( wp_unslash( $_GET['redirect'] ) ) : '';
+		$display_preview = (bool) get_directorist_option( 'preview_enable', 1 );
+		$link            = '';
+		$listing_id		 = get_the_ID();
 
-		if ($display_preview && $redirect) {
-			$post_id = isset($_GET['post_id']) ? sanitize_text_field( wp_unslash( $_GET['post_id'] ) ) : $id;
-			$edited = isset($_GET['edited']) ? sanitize_text_field( wp_unslash( $_GET['edited'] ) ) : '';
-			$pid = isset($_GET['p']) ? sanitize_text_field( wp_unslash( $_GET['p'] ) ) : '';
-			$pid = empty($pid) ? $post_id : $pid;
-			if (empty($payment)) {
+		if ( $display_preview && $redirect ) {
+			$edited     = isset( $_GET['edited'] ) ? sanitize_text_field( wp_unslash( $_GET['edited'] ) ) : '';
+			$listing_id = isset( $_GET['post_id'] ) ? sanitize_text_field( wp_unslash( $_GET['post_id'] ) ) : get_the_ID();
+			$listing_id = isset( $_GET['p'] ) ? sanitize_text_field( wp_unslash( $_GET['p'] ) ) : $listing_id;
+
+			if ( empty( $payment ) ) {
 				$redirect_page = get_directorist_option('edit_listing_redirect', 'view_listing');
-				if( 'view_listing' === $redirect_page){
-					$link = add_query_arg(array('p' => $pid, 'post_id' => $pid, 'reviewed' => 'yes', 'edited' => $edited ? 'yes' : 'no'), $redirect);
-				}
-				else{
+
+				if ( 'view_listing' === $redirect_page){
+					$link = add_query_arg( array(
+						'p'        => $listing_id,
+						'post_id'  => $listing_id,
+						'reviewed' => 'yes',
+						'edited'   => $edited ? 'yes' : 'no'
+					), $redirect );
+				} else{
 					$link = $redirect;
 				}
-			}
-			else {
-				$link = add_query_arg( array( 'atbdp_listing_id' => $pid, 'reviewed' => 'yes' ), sanitize_text_field( wp_unslash( $_GET['redirect'] ) ) );
+			} else {
+				$link = add_query_arg( array(
+					'atbdp_listing_id' => $listing_id,
+					'reviewed'         => 'yes'
+				), $redirect );
 			}
 		}
 
@@ -846,7 +855,7 @@ class Directorist_Single_Listing {
 
 		if( isset( $_GET['notice'] ) ) {
 			$new_listing_status  = get_term_meta( $this->type, 'new_listing_status', true );
-			$edit_listing_status = get_term_meta( $this->type, 'edit_listing_status', true );
+			$edit_listing_status = ( 'publish' !== $new_listing_status ) ? $new_listing_status : directorist_get_listing_edit_status( $this->type );
 			$edited = ( isset( $_GET['edited'] ) ) ? sanitize_text_field( wp_unslash( $_GET['edited'] ) ): 'no';
 
 			$pending_msg = get_directorist_option('pending_confirmation_msg', __( 'Thank you for your submission. Your listing is being reviewed and it may take up to 24 hours to complete the review.', 'directorist' ) );
@@ -856,7 +865,7 @@ class Directorist_Single_Listing {
 				$notice_text = 'publish' === $new_listing_status ? $publish_msg : $pending_msg;
 			}
 			else {
-				$notice_text = 'publish' === $edit_listing_status ? $publish_msg : $pending_msg;
+				$notice_text = 'publish' == $edit_listing_status ? $publish_msg : $pending_msg;
 			}
 		}
 
@@ -1176,11 +1185,12 @@ class Directorist_Single_Listing {
 		}
 
 		$meta_queries = array();
-		$meta_queries['expired'] = array(
-				'key'     => '_listing_status',
-				'value'   => 'expired',
-				'compare' => '!=',
-			);
+		// TODO: Status has been migrated, remove related code.
+		// $meta_queries['expired'] = array(
+		// 	'key'     => '_listing_status',
+		// 	'value'   => 'expired',
+		// 	'compare' => '!=',
+		// );
 		$meta_queries['directory_type'] = array(
 				'key'     => '_directory_type',
 				'value'   => $this->type,

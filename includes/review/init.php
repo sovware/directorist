@@ -46,6 +46,30 @@ class Bootstrap {
 		add_filter( 'map_meta_cap', array( __CLASS__, 'map_meta_cap_for_review_author' ), 10, 4 );
 		add_filter( 'atbdp_login_redirection_page_url', array( __CLASS__, 'setup_login_redirect' ) );
 		add_filter( 'safe_style_css', array( __CLASS__, 'add_safe_style_css' ) );
+		add_filter( 'option_comment_registration', array( __CLASS__, 'reset_option_comment_registration' ) );
+	}
+
+	/**
+	 * Setup comment_registration based on guest review setting.
+	 *
+	 * @param string/bool $status 0 or 1
+	 *
+	 * @return string/bool
+	 */
+	public static function reset_option_comment_registration( $status ) {
+		if ( ! isset( $_POST['comment_post_ID'] ) ) {
+			return $status;
+		}
+
+		if ( ! directorist_is_listing_post_type( $_POST['comment_post_ID'] ) ) {
+			return $status;
+		}
+
+		if ( ! directorist_is_guest_review_enabled() ) {
+			return $status;
+		}
+
+		return false;
 	}
 
 	/**
@@ -82,17 +106,25 @@ class Bootstrap {
 	}
 
 	public static function update_error_message( $code, $message, $data, $wp_error ) {
-		if ( $code === 'require_valid_comment' ) {
+		if ( $code === 'require_valid_comment' || $code === 'not_logged_in' ) {
 			remove_action( 'wp_error_added', array( __CLASS__, 'update_error_message' ) );
 
-			if ( ! empty( $_POST['comment_parent'] ) ) { // @codingStandardsIgnoreLine.
-				$text = __( 'To submit your reply, please add your comment.', 'directorist' );
-			} else {
-				$text = __( 'To submit your review, please describe your rating.', 'directorist' );
+			$comment_post_id = ! empty( $_POST['comment_post_ID'] ) ? absint( $_POST['comment_post_ID'] ) : 0;
+
+			if ( $code === 'require_valid_comment' && directorist_is_listing_post_type( $comment_post_id ) ) {
+				if ( ! empty( $_POST['comment_parent'] ) ) { // @codingStandardsIgnoreLine.
+					$error_message = __( 'To submit your reply, please add your comment.', 'directorist' );
+				} else {
+					$error_message = __( 'To submit your review, please describe your rating.', 'directorist' );
+				}
+			}
+
+			if ( $code === 'not_logged_in' && directorist_is_listing_post_type( $comment_post_id ) ) {
+				$error_message = __( 'Sorry, you must be logged in to review or comment.', 'directorist' );
 			}
 
 			$wp_error->remove( $code );
-			$wp_error->add( $code, $text, $data );
+			$wp_error->add( $code, $error_message, $data );
 
 			add_action( 'wp_error_added', array( __CLASS__, 'update_error_message' ), 10, 4 );
 		}

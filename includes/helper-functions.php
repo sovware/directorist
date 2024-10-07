@@ -124,22 +124,29 @@ if ( ! function_exists( 'atbdp_auth_guard' ) ) {
             'message' => __( 'You need to be logged in to view the content of this page', 'directorist' ),
         ];
 
-        $default = [ 'flush_message' => $flush_message ];
-        $args = array_merge( $default, $args );
+		global $wp;
 
-        global $wp;
+        $default = [
+			'flush_message' => $flush_message,
+		];
 
-        $current_page  = home_url( $wp->request );
-        $login_page_id = get_directorist_option( 'user_login' );
-        $login_page    = ( ! empty( $login_page_id ) ) ? get_page_link( $login_page_id ) : '';
-        $home_page     = home_url();
-        $redirect_link = ( ! empty( $login_page ) ) ? $login_page : $home_page;
+		$args          = array_merge( $default, $args );
+		$current_page  = home_url( $wp->request );
+        $migrated      = get_option( 'directorist_merge_dashboard_login_reg_page', false );
+
+        if( $migrated ) {
+            $login_page_id = (int) get_directorist_option( 'user_dashboard' );
+        } else {
+            $login_page_id = (int) get_directorist_option( 'user_login' );
+        }
+
+		$redirect_url  = $login_page_id ? get_page_link( $login_page_id ) : \ATBDP_Permalink::get_dashboard_page_link();
+		$redirect_url  = add_query_arg( 'redirect', urlencode( $current_page ), $redirect_url );
 
         atbdp_add_flush_message( $args['flush_message'] );
 
-        atbdp_redirect_after_login( [ 'url' => $current_page ] );
-        wp_redirect( $redirect_link );
-
+        // atbdp_redirect_after_login( [ 'url' => $current_page ] );
+        wp_safe_redirect( $redirect_url );
         die;
     }
 }
@@ -293,12 +300,12 @@ function atbdp_get_listing_status_after_submission( array $args = [] ) {
     $listing_id = $args['id'];
 
     $new_l_status   = $args['new_l_status'];
-    $edit_l_status  = $args['edit_l_status'];
+    $edit_l_status  = ( 'publish' !== $new_l_status ) ? $new_l_status : $args['edit_l_status'];
     $edited         = $args['edited'];
     $listing_status = ( true === $edited || 'yes' === $edited || '1' === $edited ) ? $edit_l_status : $new_l_status;
 
-    $monitization          = get_directorist_option('enable_monetization', 0);
-    $featured_enabled      = get_directorist_option('enable_featured_listing');
+    $monitization          = directorist_is_monetization_enabled();
+    $featured_enabled      = directorist_is_featured_listing_enabled();
     $pricing_plans_enabled = is_fee_manager_active();
 
     $post_status =  $listing_status;
@@ -915,7 +922,7 @@ if (!function_exists('atbdp_get_featured_settings_array')) {
     function atbdp_get_featured_settings_array()
     {
         return array(
-            'active' => get_directorist_option('enable_featured_listing'),
+            'active' => directorist_is_featured_listing_enabled(),
             'label' => get_directorist_option('featured_listing_title'),
             'desc' => get_directorist_option('featured_listing_desc'),
             'price' => get_directorist_option('featured_listing_price'),
@@ -935,9 +942,15 @@ if (!function_exists('atbdp_only_logged_in_user')) {
     {
         if (!is_user_logged_in()) {
             // user not logged in;
-            $error_message = (empty($message))
-                ? sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', 'directorist'), apply_filters("atbdp_login_page_link", "<a href='" . ATBDP_Permalink::get_login_page_link() . "'> " . __('Here', 'directorist') . "</a>"), apply_filters("atbdp_signup_page_link", "<a href='" . ATBDP_Permalink::get_registration_page_link() . "'> " . __('Sign up', 'directorist') . "</a>"))
-                : $message;
+            if( get_option( 'directorist_merge_dashboard_login_reg_page' ) ) {
+                $error_message = ( empty( $message ) )
+                    ? sprintf( __( 'You need to be logged in to view the content of this page. You can login/sign up %s', 'directorist' ), apply_filters( "atbdp_login_page_link", "<a href='" . ATBDP_Permalink::get_dashboard_page_link() . "'> " . __( 'Here', 'directorist' ) . "</a>" ) )
+                    : $message;
+            } else {
+                $error_message = ( empty( $message ) )
+                    ? sprintf( __( 'You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', 'directorist' ), apply_filters( "atbdp_login_page_link", "<a href='" . ATBDP_Permalink::get_login_page_link() . "'> " . __('Here', 'directorist') . "</a>" ), apply_filters("atbdp_signup_page_link", "<a href='" . ATBDP_Permalink::get_registration_page_link() . "'> " . __( 'Sign up', 'directorist' ) . "</a>" ) )
+                    : $message;
+            }
             $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
             ?>
             <section class="directory_wrapper single_area">
@@ -1120,10 +1133,10 @@ function atbdp_display_price($price = '', $disable_price = false, $currency = ''
     $before = '';
     $after = '';
     if (empty($c_position)) {
-        $c_position = get_directorist_option('g_currency_position');
+        $c_position = directorist_get_currency_position();
     }
     if (empty($currency)) {
-        $currency = get_directorist_option('g_currency', 'USD');
+        $currency = directorist_get_currency();
     }
     if (empty($symbol)) {
         $symbol = atbdp_currency_symbol($currency);
@@ -1148,7 +1161,7 @@ function atbdp_display_price($price = '', $disable_price = false, $currency = ''
  */
 function atbdp_display_price_range($price_range)
 {
-    $currency = get_directorist_option('g_currency', 'USD');
+    $currency = directorist_get_currency();
     $c_symbol = atbdp_currency_symbol($currency);
     if (empty($price_range)) return null;
     $output = '';
@@ -1427,7 +1440,6 @@ function atbdp_listings_count_by_tag($term_id)
             ),
             array(
                 'key' => '_never_expire',
-                'value' => 1,
             ),
         ))
     );
@@ -2441,19 +2453,44 @@ function atbdp_guest_submission($guest_email)
             wp_set_auth_cookie($user_id);
             do_action('atbdp_user_registration_completed', $user_id);
             update_user_meta($user_id, '_atbdp_generated_password', $password);
-            wp_new_user_notification($user_id, null, 'admin'); // send activation to the admin
-            ATBDP()->email->custom_wp_new_user_notification_email($user_id);
+
+			if ( directorist_is_email_verification_enabled() ) {
+				// Set unverified flag. Once verified this flag will be removed.
+				update_user_meta( $user_id, 'directorist_user_email_unverified', 1 );
+			}
+
+			wp_new_user_notification($user_id, null, 'admin'); // send activation to the admin
+
+			ATBDP()->email->custom_wp_new_user_notification_email($user_id);
         }
     }
 }
 
-function atbdp_get_listing_attachment_ids($post_id){
+function atbdp_get_listing_attachment_ids( $listing_id ) {
+	$featured_image = (int) get_post_meta( $listing_id, '_listing_prv_img', true );
+	$attachment_ids = array();
 
-    $listing_img = get_post_meta($post_id, '_listing_img', true);
-    $listing_img = !empty($listing_img) ? $listing_img : array();
-    $listing_prv_img = get_post_meta($post_id, '_listing_prv_img', true);
-    array_unshift($listing_img, $listing_prv_img);
-    return $listing_img;
+	if ( $featured_image ) {
+		$attachment_ids[] = $featured_image;
+	}
+
+    $gallery_images = (array) get_post_meta( $listing_id, '_listing_img', true );
+
+	if ( empty( $gallery_images ) ) {
+		return $attachment_ids;
+	}
+
+	$gallery_images = wp_parse_id_list( $gallery_images );
+	$gallery_images = array_filter( $gallery_images );
+
+	if ( empty( $gallery_images ) ) {
+		return $attachment_ids;
+	}
+
+
+    $attachment_ids = array_merge( $attachment_ids, $gallery_images );
+
+    return $attachment_ids;
 }
 
 
@@ -2617,14 +2654,6 @@ function atbdp_create_required_pages(){
         'user_dashboard' => array(
             'title' => __('Dashboard', 'directorist'),
             'content' => '[directorist_user_dashboard]'
-        ),
-        'custom_registration' => array(
-            'title' => __('Registration', 'directorist'),
-            'content' => '[directorist_custom_registration]'
-        ),
-        'user_login' => array(
-            'title' => __('Login', 'directorist'),
-            'content' => '[directorist_user_login]'
         ),
         /* 'checkout_page' => array(
             'title' => __('Checkout', 'directorist'),
@@ -2959,13 +2988,10 @@ if( ! function_exists( 'atbdp_field_assigned_plan' ) ) {
 }
 if( !function_exists('directory_types') ){
     function directory_types() {
-        $listing_types = get_terms([
-            'taxonomy'   => ATBDP_TYPE,
-            'hide_empty' => false,
-            'orderby'    => 'date',
-            'order'      => 'DSCE',
-          ]);
-          return $listing_types;
+		return directorist_get_directories( array(
+			'orderby'    => 'date',
+            'order'      => 'DESC',
+		) );
     }
 }
 
@@ -2976,14 +3002,10 @@ if ( ! function_exists( 'directorist_get_default_directory' ) ) {
 	 * @return int Default directory id.
 	 */
 	function directorist_get_default_directory() {
-		$directories = get_terms( [
-			'taxonomy'   => ATBDP_TYPE,
-			'hide_empty' => false,
-			'fields'     => 'ids',
-			'meta_key'   => '_default',
-			'meta_value' => '1',
-			'number'     => 1
-		] );
+		$directories = directorist_get_directories( array(
+			'default_only' => true,
+			'fields'       => 'ids',
+		) );
 
 		if ( empty( $directories ) || is_wp_error( $directories ) || ! isset( $directories[0] ) ) {
 			return 0;
@@ -3008,21 +3030,7 @@ if ( ! function_exists( 'default_directory_type' ) ) {
 
 if( !function_exists('get_listing_types') ){
     function get_listing_types() {
-        $listing_types = array();
-        $args          = array(
-            'taxonomy'   => ATBDP_TYPE,
-            'hide_empty' => false
-        );
-        $all_types     = get_terms( $args );
-
-        foreach ( $all_types as $type ) {
-            $listing_types[ $type->term_id ] = [
-                'term' => $type,
-                'name' => $type->name,
-                'data' => get_term_meta( $type->term_id, 'general_config', true ),
-            ];
-        }
-        return $listing_types;
+        return directorist_get_directories_for_template();
     }
 }
 
@@ -3032,6 +3040,11 @@ if( !function_exists('directorist_get_form_fields_by_directory_type') ){
         if( is_wp_error( $term ) ) {
             return [];
         }
+
+		if ( ! ( $term instanceof \WP_Term ) ) {
+		    return [];
+		}
+
         $submission_form        = get_term_meta( $term->term_id, 'submission_form_fields', true );
         $submission_form_fields = ! empty( $submission_form['fields'] ) ? $submission_form['fields'] : [];
         return $submission_form_fields;
@@ -3046,7 +3059,7 @@ if( !function_exists('directorist_legacy_mode') ){
 
 if( !function_exists('directorist_multi_directory') ){
     function directorist_multi_directory() {
-        return get_directorist_option( 'enable_multi_directory', false );
+        return directorist_is_multi_directory_enabled();
     }
 }
 
@@ -3064,8 +3077,8 @@ if( ! function_exists( 'directorist_warnings' ) ) {
         $checkout_page			 	= get_directorist_option( 'checkout_page' );
         $payment_receipt_page	 	= get_directorist_option( 'payment_receipt_page' );
         $transaction_failure_page	= get_directorist_option( 'transaction_failure_page' );
-        $enable_monetization	 	= get_directorist_option( 'enable_monetization' );
-        $enable_featured_listing	= get_directorist_option( 'enable_featured_listing' );
+        $enable_monetization	 	= directorist_is_monetization_enabled();
+        $enable_featured_listing	= directorist_is_featured_listing_enabled();
         $select_listing_map			= get_directorist_option( 'select_listing_map' );
         $map_api_key				= get_directorist_option( 'map_api_key' );
         $host                       = gethostname();
@@ -4002,70 +4015,62 @@ function directorist_password_reset_url( $user, $password_reset = true, $confirm
     }
 
     $args = array(
-        'user' => $user->user_email
+        'user' => base64_encode( $user->user_email )
     );
 
     global $directories_user_rest_keys;
 
-    if( is_array( $directories_user_rest_keys ) && !empty( $directories_user_rest_keys[$user->user_email] ) ) {
+    if( is_array( $directories_user_rest_keys ) && ! empty( $directories_user_rest_keys[$user->user_email] ) ) {
         $args['key'] = $directories_user_rest_keys[$user->user_email];
     } else {
-        $key = get_password_reset_key( $user );
+        $key                                           = get_password_reset_key( $user );
         $directories_user_rest_keys[$user->user_email] = $key;
-        $args['key'] = $key;
+        $args['key']                                   = $key;
     }
 
-    if($password_reset) {
+    if ( $password_reset ) {
         $args['password_reset'] = true;
     }
 
-    if($confirm_mail) {
+    if ( $confirm_mail ) {
         $args['confirm_mail'] = true;
     }
 
-    $reset_password_url = ATBDP_Permalink::get_login_page_url($args);
+    $reset_password_url = ATBDP_Permalink::get_dashboard_page_link( $args );
 
     return apply_filters( 'directorist_password_reset_url', $reset_password_url );
 }
 
-function directorist_get_mime_types( $filter_type = '', $return_type = '' ) {
-	$supported_mime_types = wp_get_mime_types();
+/**
+ * Get allowed mime types.
+ *
+ * @param string $filterby Filter allowed mime types by group. eg. image, audio, video, document etc.
+ * @param string $return_type Get the full mime types map or only extensions. Valid args are extension and .extension.
+ *
+ * @return array
+ */
+function directorist_get_mime_types( $filterby = '', $return_type = '' ) {
+	$allowed_mime_types = get_allowed_mime_types();
 
-	// Filter
-	if ( ! empty( $filter_type ) ) {
-		$filtered_supported_mime_types = [];
-
-		foreach ($supported_mime_types as $key => $value) {
-			$_type = preg_replace( "/\/\w+$/", '', $value );
-
-			if ( $_type !== $filter_type ) {
-				continue;
-			}
-
-			$filtered_supported_mime_types[ $key ] = $value;
-		}
-
-		$supported_mime_types = $filtered_supported_mime_types;
+	if ( ! empty( $filterby ) ) {
+		$allowed_mime_types = array_filter( $allowed_mime_types, static function( $mime_type, $extensions ) use ( $filterby ) {
+			return stripos( $mime_type, $filterby ) !== false;
+		}, ARRAY_FILTER_USE_BOTH );
 	}
 
-	// Convert to extension
 	if ( $return_type === 'extension' || $return_type === '.extension' ) {
-		$extensions = array_keys( $supported_mime_types );
+		$allowed_mime_types = array_reduce( array_keys( $allowed_mime_types ), static function( $carry, $extension ) {
+			return array_merge( $carry, explode( '|',  $extension ) );
+		}, array() );
 
-		$extended_extensions = [];
-
-		foreach ( $extensions as $extension ) {
-			$_sub_extensions = explode( '|',  $extension );
-
-			foreach ( $_sub_extensions as $sub_extension ) {
-				$extended_extensions[] = ( $return_type === '.extension' ) ? '.' . $sub_extension : $sub_extension;
-			}
+		if ( $return_type === '.extension' ) {
+			$allowed_mime_types = array_map( static function( $extension ) {
+				return '.' . $extension;
+			}, $allowed_mime_types );
 		}
-
-		$supported_mime_types = array_values( $extended_extensions );
 	}
 
-	return $supported_mime_types;
+	return $allowed_mime_types;
 }
 
 /**
@@ -4188,6 +4193,10 @@ function directorist_validate_youtube_vimeo_url( $url ) {
         return true;
     }
 
+    if ( preg_match( '/^https?:\/\/youtu\.be\/([a-zA-Z0-9_-]+)(\?.*)?$/', $url ) ) {
+        return true;
+    }
+
 	if ( preg_match( '/^(https?:\/\/)?(www\.)?youtube\.com\/shorts\/([A-Za-z0-9_-]+)(\S+)?$/i', $url ) ) {
         return true;
     }
@@ -4197,4 +4206,152 @@ function directorist_validate_youtube_vimeo_url( $url ) {
 
 function directorist_is_listing_post_type( $listing_id ) {
 	return ( get_post_type( absint( $listing_id ) ) === ATBDP_POST_TYPE );
+}
+
+function directorist_background_image_process( $images ) {
+	if ( empty( $images ) || ! is_array( $images ) ) {
+		return;
+	}
+
+	$should_dispatch = false;
+
+	foreach ( $images as $image_id => $image_path ) {
+		if ( empty( $image_id ) || empty( $image_path ) ) {
+			continue;
+		}
+
+		$should_dispatch = true;
+
+		ATBDP()->background_image_process->push_to_queue( array( $image_id => $image_path ) );
+	}
+
+	if ( $should_dispatch ) {
+		ATBDP()->background_image_process->save()->dispatch();
+	}
+}
+
+/**
+ * Delete directory even when non empty.
+ *
+ * @since 7.9.1
+ *
+ * @param $dir Directory path.
+ */
+function directorist_delete_dir( $dir ) {
+	$objects = scandir( $dir );
+
+	unset( $objects[0], $objects[1] ); // Remove '.' and '..' entries
+
+	foreach ( $objects as $object ) {
+		if ( is_dir( $dir . '/' . $object ) ) {
+			directorist_delete_dir( $dir . '/' . $object );
+		} else {
+			unlink( $dir . '/' . $object );
+		}
+	}
+
+	if ( ! rmdir( $dir ) ) {
+		throw new Exception( "Failed to remove directory: $dir" );
+	}
+}
+
+/**
+ * Remove temporary upload directories.
+ *
+ * @since 7.9.1
+ *
+ * @return void
+ */
+function directorist_delete_temporary_upload_dirs() {
+	$upload_dir = wp_get_upload_dir();
+	$temp_dir   = trailingslashit( $upload_dir['basedir'] ) . trailingslashit( directorist_get_temp_upload_dir() );
+
+	$dirs = scandir( $temp_dir );
+	$date = date( 'nj' );
+
+	unset( $dirs[0], $dirs[1] ); // Remove '.' and '..' entries
+
+	foreach ( $dirs as $dir ) {
+		// Check if it's a directory and older than current date
+		if ( is_dir( $temp_dir . $dir ) && $dir < $date ) {
+			try {
+				directorist_delete_dir( $temp_dir . $dir );
+			} catch ( Exception $e ) {
+				error_log( 'Error removing directory: ' . $temp_dir . $dir . ' - ' . $e->getMessage() );
+			}
+		}
+	}
+}
+
+function directorist_get_temp_upload_dir() {
+	return 'directorist_temp_uploads';
+}
+
+/**
+ * Formats a given date value according to WordPress settings or provided format.
+ *
+ * @param string $date The date value to format.
+ * @param string $format Optional. The format to use. If empty, uses the WordPress settings.
+ * @return string The formatted date string, or an empty string if the input value is empty.
+ */
+function directorist_format_date( $date = '', $format = '' ) {
+    $date = strtotime( $date );
+    if ( ! $date ) {
+        return '';
+    }
+
+    $format = apply_filters( 'directorist_date_format', ( $format ? $format : get_option( 'date_format' ) ) );
+
+    return date( $format, $date );
+}
+
+/**
+ * Formats a given time value according to WordPress settings or provided format.
+ *
+ * @param string $time The time value to format.
+ * @param string $format Optional. The format to use. If empty, uses the WordPress settings.
+ * @return string The formatted time string, or an empty string if the input value is empty.
+ */
+function directorist_format_time( $time = '', $format = '' ) {
+    $time = strtotime( $time );
+    if ( ! $time ) {
+        return '';
+    }
+
+    $format = apply_filters( 'directorist_time_format', ( $format ? $format : get_option( 'time_format' ) ) );
+
+    return date( $format, $time );
+}
+
+function directorist_filter_listing_empty_metadata( $meta_data ) {
+	return array_filter( $meta_data, static function( $value, $key ) {
+		if ( $key === '_hide_contact_owner' && ! $value ) {
+			return false;
+		}
+
+		if ( is_array( $value ) ) {
+			return ! empty( $value );
+		}
+
+		if ( is_null( $value ) ) {
+			return false;
+		}
+
+		if ( is_string( $value ) && $value === '' ) {
+			return false;
+		}
+
+		if ( is_numeric( $value ) && $value == 0 ) {
+			return false;
+		}
+
+		return true;
+	}, ARRAY_FILTER_USE_BOTH );
+}
+
+function directorist_delete_listing_empty_metadata( $listing_id, array $metadata = array(), array $valid_metadata = array() ) {
+	$deletable_meta_data = array_diff_key( $metadata, $valid_metadata );
+	foreach ( $deletable_meta_data as $deletable_meta_key => $v ) {
+		delete_post_meta( $listing_id, $deletable_meta_key );
+	}
 }

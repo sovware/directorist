@@ -100,34 +100,30 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof.js");
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__);
 
-
 /* range slider */
 var directorist_range_slider = function directorist_range_slider(selector, obj) {
   var isDraging = false,
-      max = obj.maxValue,
-      min = obj.minValue,
-      down = 'mousedown',
-      up = 'mouseup',
-      move = 'mousemove',
-      div = "\n            <div class=\"directorist-range-slider1\" draggable=\"true\"></div>\n            <input type='hidden' class=\"directorist-range-slider-minimum\" name=\"minimum\" value=".concat(min, " />\n            <div class=\"directorist-range-slider-child\"></div>\n\t\t");
+    max = obj.maxValue,
+    min = obj.minValue,
+    down = 'mousedown',
+    up = 'mouseup',
+    move = 'mousemove',
+    div = "\n            <div class=\"directorist-range-slider1\" draggable=\"true\"></div>\n            <input type='hidden' class=\"directorist-range-slider-minimum\" name=\"minimum\" value=".concat(min, " />\n            <div class=\"directorist-range-slider-child\"></div>\n\t\t");
   var touch = ("ontouchstart" in document.documentElement);
-
   if (touch) {
     down = 'touchstart';
     up = 'touchend';
     move = 'touchmove';
-  } //RTL
+  }
 
-
+  //RTL
   var isRTL = directorist.rtl === 'true';
   var direction;
-
   if (isRTL) {
     direction = 'right';
   } else {
     direction = 'left';
   }
-
   var slider = document.querySelectorAll(selector);
   slider.forEach(function (id, index) {
     var sliderDataMin = min;
@@ -135,33 +131,28 @@ var directorist_range_slider = function directorist_range_slider(selector, obj) 
     id.setAttribute('style', "max-width: ".concat(obj.maxWidth, "; border: ").concat(obj.barBorder, "; width: 100%; height: 4px; background: ").concat(obj.barColor, "; position: relative; border-radius: 2px;"));
     id.innerHTML = div;
     var slide1 = id.querySelector('.directorist-range-slider1'),
-        width = id.clientWidth;
+      width = id.clientWidth;
     slide1.style.background = obj.pointerColor;
     slide1.style.border = obj.pointerBorder;
     id.closest('.directorist-range-slider-wrap').querySelector('.directorist-range-slider-current-value').innerHTML = "<span>".concat(min, "</span> ").concat(sliderDataUnit);
     var x = null,
-        count = 0,
-        slid1_val = 0,
-        slid1_val2 = sliderDataMin,
-        count2 = width;
-
+      count = 0,
+      slid1_val = 0,
+      slid1_val2 = sliderDataMin,
+      count2 = width;
     if (window.outerWidth < 600) {
       id.classList.add('m-device');
       slide1.classList.add('m-device2');
     }
-
     slide1.addEventListener(down, function (event) {
       if (!touch) {
         event.preventDefault();
         event.stopPropagation();
       }
-
       x = event.clientX;
-
       if (touch) {
         x = event.touches[0].clientX;
       }
-
       isDraging = true;
       event.target.classList.add('directorist-rs-active');
     });
@@ -170,14 +161,12 @@ var directorist_range_slider = function directorist_range_slider(selector, obj) 
         event2.preventDefault();
         event2.stopPropagation();
       }
-
       isDraging = false;
       slid1_val2 = slid1_val;
       slide1.classList.remove('directorist-rs-active');
     });
     slide1.classList.add('directorist-rs-active1');
     count = width / max;
-
     if (slide1.classList.contains('directorist-rs-active1')) {
       var onLoadValue = count * min;
       id.closest('.directorist-range-slider-wrap').querySelector('.directorist-range-slider-current-value span').innerHTML = sliderDataMin;
@@ -185,22 +174,18 @@ var directorist_range_slider = function directorist_range_slider(selector, obj) 
       id.querySelector('.directorist-rs-active1').style[direction] = onLoadValue <= 0 ? 0 : onLoadValue + 'px';
       id.querySelector('.directorist-range-slider-child').style.width = onLoadValue <= 0 ? 0 : onLoadValue + 'px';
     }
-
     document.body.addEventListener(move, function (e) {
       if (isDraging) {
         count = !isRTL ? e.clientX + slid1_val2 * width / max - x : -e.clientX + slid1_val2 * width / max + x;
-
         if (touch) {
           count = !isRTL ? e.touches[0].clientX + slid1_val2 * width / max - x : -e.touches[0].clientX + slid1_val2 * width / max + x;
         }
-
         if (count < 0) {
           count = 0;
         } else if (count > count2 - 18) {
           count = count2 - 18;
         }
       }
-
       if (slide1.classList.contains('directorist-rs-active')) {
         slid1_val = Math.floor(max / (width - 18) * count);
         id.closest('.directorist-range-slider-wrap').querySelector('.directorist-range-slider-current-value').innerHTML = "<span>".concat(slid1_val, "</span> ").concat(sliderDataUnit);
@@ -215,7 +200,7 @@ var directorist_range_slider = function directorist_range_slider(selector, obj) 
 function directorist_callingSlider() {
   var minValueWrapper = document.querySelector('.directorist-range-slider-value');
   var default_args = {
-    maxValue: 1000,
+    maxValue: directorist.args.search_max_radius_distance,
     minValue: parseInt(minValueWrapper && minValueWrapper.value),
     maxWidth: '100%',
     barColor: '#d4d5d9',
@@ -239,16 +224,15 @@ window.addEventListener("load", function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-function _typeof(obj) {
+function _typeof(o) {
   "@babel/helpers - typeof";
 
-  return (module.exports = _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) {
-    return typeof obj;
-  } : function (obj) {
-    return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-  }, module.exports.__esModule = true, module.exports["default"] = module.exports), _typeof(obj);
+  return (module.exports = _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
+    return typeof o;
+  } : function (o) {
+    return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+  }, module.exports.__esModule = true, module.exports["default"] = module.exports), _typeof(o);
 }
-
 module.exports = _typeof, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),

@@ -54,7 +54,6 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
 			add_filter( 'single_post_title', array( $this, 'update_taxonomy_single_page_title' ), 10, 2 );
 			add_filter( 'pre_get_document_title', array($this, 'atbdp_custom_page_title'), 10 );
 
-			add_action('wp_head', array($this, 'atbdp_add_meta_keywords'), 10, 2);
 			add_filter('wp_title', array($this, 'atbdp_custom_page_title'), 10, 2);
 
 			add_filter('wpseo_title', array($this, 'wpseo_title'));
@@ -66,7 +65,7 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
 
 			remove_action('wp_head', 'rel_canonical');
 			/* Exclude Multiple Taxonomies From Yoast SEO Sitemap */
-			add_filter( 'wpseo_sitemap_exclude_taxonomy', [ $this, 'yoast_sitemap_exclude_taxonomy'], 10, 2 );
+			// add_filter( 'wpseo_sitemap_exclude_taxonomy', [ $this, 'yoast_sitemap_exclude_taxonomy'], 10, 2 );
         }
 
         // Add Rank Math Compatibility
@@ -411,6 +410,10 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
                             if (array_key_exists('wpseo_focuskw', $meta['at_biz_dir-category'][$term->term_id])) {
                                 $replacements['%%term_title%%'] = $meta['at_biz_dir-category'][$term->term_id]['wpseo_focuskw'];
                             }
+
+                            if (array_key_exists('wpseo_title', $meta['at_biz_dir-category'][$term->term_id]) && !empty($meta['at_biz_dir-category'][$term->term_id]['wpseo_title'])) {
+                                $title_template = $meta['at_biz_dir-category'][$term->term_id]['wpseo_title'];
+                            }
                         }
                     }
                 }
@@ -438,6 +441,10 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
                             if (array_key_exists('wpseo_focuskw', $meta['at_biz_dir-location'][$term->term_id])) {
                                 $replacements['%%term_title%%'] = $meta['at_biz_dir-location'][$term->term_id]['wpseo_focuskw'];
                             }
+
+                            if (array_key_exists('wpseo_title', $meta['at_biz_dir-location'][$term->term_id]) && !empty($meta['at_biz_dir-location'][$term->term_id]['wpseo_title'])) {
+                                $title_template = $meta['at_biz_dir-location'][$term->term_id]['wpseo_title'];
+                            }
                         }
                     }
                 }
@@ -464,6 +471,10 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
 
                             if (array_key_exists('wpseo_focuskw', $meta['at_biz_dir-tags'][$term->term_id])) {
                                 $replacements['%%term_title%%'] = $meta['at_biz_dir-tags'][$term->term_id]['wpseo_focuskw'];
+                            }
+
+                            if (array_key_exists('wpseo_title', $meta['at_biz_dir-tags'][$term->term_id]) && !empty($meta['at_biz_dir-tags'][$term->term_id]['wpseo_title'])) {
+                                $title_template = $meta['at_biz_dir-tags'][$term->term_id]['wpseo_title'];
                             }
                         }
                     }

@@ -35,6 +35,24 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 			}
 
 			add_action( 'admin_footer', array( $this, 'quick_edit_scripts' ) );
+
+			add_action( 'init', array( $this, 'register_post_status' ) );
+		}
+
+		public function register_post_status() {
+			register_post_status(
+				'expired',
+				array(
+					'label'       => _x( 'Expired', 'post status', 'directorist' ),
+					'protected'   => true,
+					/* translators: %s: Number of expired listings. */
+					'label_count' => _n_noop(
+						'Expired <span class="count">(%s)</span>',
+						'Expired <span class="count">(%s)</span>',
+						'directorist'
+					),
+				)
+			);
 		}
 
 		public function quick_edit_scripts() {
@@ -122,10 +140,8 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 						<select name="directory_type">
 							<option value="">— <?php esc_html_e( 'Select type', 'directorist' ); ?> —</option>
 							<?php
-							$listing_types = get_terms( array(
-								'taxonomy'   => ATBDP_TYPE,
-								'hide_empty' => false,
-							) );
+							$listing_types = directorist_get_directories();
+
 							foreach ( $listing_types as $listing_type ) { ?>
 								<option value="<?php echo esc_attr( $listing_type->term_id ); ?>"><?php echo esc_html( $listing_type->name ); ?></option>
 							<?php } ?>
@@ -297,20 +313,17 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 		}
 
 		public function add_new_listing_columns( $columns ) {
-			$featured_active        = get_directorist_option( 'enable_featured_listing' );
-			$enable_multi_directory = get_directorist_option( 'enable_multi_directory', false );
-
 			$columns          = array();
 			$columns['cb']    = '<input type="checkbox" />';
 			$columns['title'] = __( 'Name', 'directorist' );
-			if ( atbdp_is_truthy( $enable_multi_directory ) ) {
+			if ( directorist_is_multi_directory_enabled() ) {
 				$columns['directory_type'] = __( 'Directory', 'directorist' );
 			}
 			$columns['atbdp_location'] = __( 'Location', 'directorist' );
 			$columns['atbdp_category'] = __( 'Categories', 'directorist' );
 			$columns['atbdp_author']   = __( 'Author', 'directorist' );
 			$columns['atbdp_status']   = __( 'Status', 'directorist' );
-			if ( $featured_active || is_fee_manager_active() ) {
+			if ( directorist_is_featured_listing_enabled() || is_fee_manager_active() ) {
 				$columns['atbdp_featured'] = __( 'Featured', 'directorist' );
 			}
 			$subscribed_package_id      = get_user_meta( get_current_user_id(), '_subscribed_users_plan_id', true );
@@ -382,9 +395,19 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 					break;
 
 				case 'atbdp_status':
-					$status = get_post_meta( $post_id, '_listing_status', true );
-					$status = ( $status !== 'post_status' ? $status : get_post_status( $post_id ) );
-					echo esc_html( ucfirst( $status ) );
+					// TODO: Status has been migrated, remove related code.
+					// $status = get_post_meta( $post_id, '_listing_status', true );
+					// $status = ( $status !== 'post_status' ? $status : get_post_status( $post_id ) );
+
+					$status = get_post_status( $post_id );
+
+					if ( $status === 'publish' && get_post_meta( $post_id, '_listing_status', true ) === 'renewal' ) {
+						$status_label = _x( 'Renewal', 'Noun: listing status', 'directorist' );
+					} else {
+						$status_label = get_post_status_object( $status )->label;
+					}
+
+					echo esc_html( $status_label );
 					break;
 
 				case 'atbdp_featured':

@@ -94,27 +94,23 @@
 /***/ (function(module, exports) {
 
 /* Single listing google map */
+
 window.addEventListener('DOMContentLoaded', function () {
   ;
-
   (function ($) {
     if ($('.directorist-single-map').length) {
       document.querySelectorAll('.directorist-single-map').forEach(function (mapElm) {
         var MAP_PIN = 'M0-48c-9.8 0-17.7 7.8-17.7 17.4 0 15.5 17.7 30.6 17.7 30.6s17.7-15.4 17.7-30.6c0-9.6-7.9-17.4-17.7-17.4z';
-
         var inherits = function inherits(childCtor, parentCtor) {
           /** @constructor */
           function tempCtor() {}
-
           tempCtor.prototype = parentCtor.prototype;
           childCtor.superClass_ = parentCtor.prototype;
           childCtor.prototype = new tempCtor();
           childCtor.prototype.constructor = childCtor;
         };
-
         function Marker(options) {
           google.maps.Marker.apply(this, arguments);
-
           if (options.map_icon_label) {
             this.MarkerLabel = new MarkerLabel({
               map: this.map,
@@ -123,33 +119,37 @@ window.addEventListener('DOMContentLoaded', function () {
             });
             this.MarkerLabel.bindTo('position', this, 'position');
           }
-        } // Apply the inheritance
+        }
 
+        // Apply the inheritance
+        inherits(Marker, google.maps.Marker);
 
-        inherits(Marker, google.maps.Marker); // Custom Marker SetMap
-
+        // Custom Marker SetMap
         Marker.prototype.setMap = function () {
           google.maps.Marker.prototype.setMap.apply(this, arguments);
           this.MarkerLabel && this.MarkerLabel.setMap.apply(this.MarkerLabel, arguments);
-        }; // Marker Label Overlay
+        };
 
-
+        // Marker Label Overlay
         var MarkerLabel = function MarkerLabel(options) {
           var self = this;
-          this.setValues(options); // Create the label container
+          this.setValues(options);
 
+          // Create the label container
           this.div = document.createElement('div');
-          this.div.className = 'map-icon-label'; // Trigger the marker click handler if clicking on the label
+          this.div.className = 'map-icon-label';
 
+          // Trigger the marker click handler if clicking on the label
           google.maps.event.addDomListener(this.div, 'click', function (e) {
             e.stopPropagation && e.stopPropagation();
             google.maps.event.trigger(self.marker, 'click');
           });
-        }; // Create MarkerLabel Object
+        };
 
+        // Create MarkerLabel Object
+        MarkerLabel.prototype = new google.maps.OverlayView();
 
-        MarkerLabel.prototype = new google.maps.OverlayView(); // Marker Label onAdd
-
+        // Marker Label onAdd
         MarkerLabel.prototype.onAdd = function () {
           var pane = this.getPanes().overlayImage.appendChild(this.div);
           var self = this;
@@ -160,35 +160,33 @@ window.addEventListener('DOMContentLoaded', function () {
           }), google.maps.event.addListener(this, 'zindex_changed', function () {
             self.draw();
           })];
-        }; // Marker Label onRemove
+        };
 
-
+        // Marker Label onRemove
         MarkerLabel.prototype.onRemove = function () {
           this.div.parentNode.removeChild(this.div);
-
           for (var i = 0, I = this.listeners.length; i < I; ++i) {
             google.maps.event.removeListener(this.listeners[i]);
           }
-        }; // Implement draw
+        };
 
-
+        // Implement draw
         MarkerLabel.prototype.draw = function () {
           var projection = this.getProjection();
           var position = projection.fromLatLngToDivPixel(this.get('position'));
           var div = this.div;
           this.div.innerHTML = this.get('text').toString();
           div.style.zIndex = this.get('zIndex'); // Allow label to overlay marker
-
           div.style.position = 'absolute';
           div.style.display = 'block';
           div.style.left = position.x - div.offsetWidth / 2 + 'px';
           div.style.top = position.y - div.offsetHeight + 'px';
         };
-
         $(document).ready(function () {
           // initialize all vars here to avoid hoisting related misunderstanding.
-          var map, info_window, saved_lat_lng, info_content; // Localized Data
+          var map, info_window, saved_lat_lng, info_content;
 
+          // Localized Data
           var mapData = JSON.parse(mapElm.getAttribute('data-map'));
           var loc_default_latitude = parseFloat(mapData.default_latitude);
           var loc_default_longitude = parseFloat(mapData.default_longitude);
@@ -205,14 +203,13 @@ window.addEventListener('DOMContentLoaded', function () {
           saved_lat_lng = {
             lat: loc_manual_lat,
             lng: loc_manual_lng
-          }; // create an info window for map
+          };
 
+          // create an info window for map
           if (display_map_info) {
             info_window = new google.maps.InfoWindow({
               content: info_content,
-              maxWidth: 400
-              /*Add configuration for max width*/
-
+              maxWidth: 400 /*Add configuration for max width*/
             });
           }
 
@@ -226,7 +223,6 @@ window.addEventListener('DOMContentLoaded', function () {
                 map: map,
                 position: saved_lat_lng
             });*/
-
             var marker = new Marker({
               position: saved_lat_lng,
               map: map,
@@ -239,7 +235,6 @@ window.addEventListener('DOMContentLoaded', function () {
               },
               map_icon_label: "<div class=\"atbd_map_shape\">".concat(cat_icon, "</div>")
             });
-
             if (display_map_info) {
               marker.addListener('click', function () {
                 info_window.open(map, marker);
@@ -252,9 +247,8 @@ window.addEventListener('DOMContentLoaded', function () {
               });
             }
           }
-
-          initMap(); //Convert address tags to google map links -
-
+          initMap();
+          //Convert address tags to google map links -
           $('address').each(function () {
             var link = "<a href='http://maps.google.com/maps?q=" + encodeURIComponent($(this).text()) + "' target='_blank'>" + $(this).text() + "</a>";
             $(this).html(link);

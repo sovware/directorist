@@ -24,8 +24,9 @@ $total            = ( $csv_from_builder ) ? count( $builder_posts ) : $total;
 
 // csv_from_builder
 function csv_from_builder( $data = [] ) {
-	if ( 'array' !== gettype( $data ) ) { return false; }
-	if ( ! count( $data ) ) { return false; }
+	if ( ! is_array( $data ) || count( $data ) < 1 ) {
+		return false;
+	}
 
 	if (  empty( $data[0]['directory_type'] ) ) {
 		return false;

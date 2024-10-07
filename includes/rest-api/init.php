@@ -79,5 +79,29 @@ function register_controllers() {
 
 	$builder = new \Directorist\Rest_Api\Controllers\Version1\Builder_Controller();
 	$builder->register_routes();
+
+	// Plans controller
+	require_once $dir . 'Version1/class-plans-controller.php';
+
+	$plans = new \Directorist\Rest_Api\Controllers\Version1\Plans_Controller();
+	$plans->register_routes();
+
+	// Temporary Media Upload controller
+	require_once $dir . 'Version1/class-temporary-media-upload-controller.php';
+
+	$temp_media_upload = new \Directorist\Rest_Api\Controllers\Version1\Temporary_Media_Upload_Controller();
+	$temp_media_upload->register_routes();
+
+	// Orders controller
+	require_once $dir . 'Version1/class-orders-controller.php';
+
+	$orders = new \Directorist\Rest_Api\Controllers\Version1\Orders_Controller();
+	$orders->register_routes();
+
+	// V2 Listings
+	require_once $dir . 'Version2/class-listings-controller.php';
+
+	$listings_v2 = new \Directorist\Rest_Api\Controllers\Version2\Listings_Controller();
+	$listings_v2->register_routes();
 }
 add_action( 'rest_api_init', __NAMESPACE__ . '\\register_controllers' );

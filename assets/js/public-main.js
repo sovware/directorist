@@ -94,7 +94,6 @@
 /***/ (function(module, exports) {
 
 ;
-
 (function ($) {
   window.addEventListener('DOMContentLoaded', function () {
     // Recovery Password Modal
@@ -102,14 +101,16 @@
     $(".atbdp_recovery_pass").on("click", function (e) {
       e.preventDefault();
       $("#recover-pass-modal").slideToggle().show();
-    }); // Contact form [on modal closed]
+    });
 
+    // Contact form [on modal closed]
     $('#atbdp-contact-modal').on('hidden.bs.modal', function (e) {
       $('#atbdp-contact-message').val('');
       $('#atbdp-contact-message-display').html('');
-    }); // Template Restructured
-    // Modal
+    });
 
+    // Template Restructured
+    // Modal
     var directoristModal = document.querySelector('.directorist-modal-js');
     $('body').on('click', '.directorist-btn-modal-js', function (e) {
       e.preventDefault();
@@ -138,52 +139,44 @@
 /***/ (function(module, exports) {
 
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
-
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 var $ = jQuery;
 window.addEventListener('load', waitAndInit);
 window.addEventListener('directorist-search-form-nav-tab-reloaded', waitAndInit);
 window.addEventListener('directorist-type-change', waitAndInit);
 window.addEventListener('directorist-instant-search-reloaded', waitAndInit);
-
 function waitAndInit() {
   setTimeout(init, 0);
-} // Initialize
+}
 
-
+// Initialize
 function init() {
   // Add custom dropdown toggle button
-  selec2_add_custom_dropdown_toggle_button(); // Add custom close button where needed
+  selec2_add_custom_dropdown_toggle_button();
 
-  selec2_add_custom_close_button_if_needed(); // Add custom close button if field contains value on change
+  // Add custom close button where needed
+  selec2_add_custom_close_button_if_needed();
 
+  // Add custom close button if field contains value on change
   $('.select2-hidden-accessible').on('change', function (e) {
     var value = $(this).children("option:selected").val();
-
     if (!value) {
       return;
     }
-
     selec2_add_custom_close_button($(this));
   });
 }
-
 function selec2_add_custom_dropdown_toggle_button() {
   // Remove Default
   $('.select2-selection__arrow').css({
     'display': 'none'
   });
   var addon_container = selec2_get_addon_container('.select2-hidden-accessible');
-
   if (!addon_container) {
     return;
   }
-
   var dropdown = addon_container.find('.directorist-select2-dropdown-toggle');
-
   if (!dropdown.length) {
     // Add Dropdown Toggle Button
     var iconURL = directorist.assets_url + 'icons/font-awesome/svgs/solid/chevron-down.svg';
@@ -191,9 +184,9 @@ function selec2_add_custom_dropdown_toggle_button() {
     var dropdownHTML = "<span class=\"directorist-select2-addon directorist-select2-dropdown-toggle\">".concat(iconHTML, "</span>");
     addon_container.append(dropdownHTML);
   }
+  var selec2_custom_dropdown = addon_container.find('.directorist-select2-dropdown-toggle');
 
-  var selec2_custom_dropdown = addon_container.find('.directorist-select2-dropdown-toggle'); // Toggle --is-open class
-
+  // Toggle --is-open class
   $('.select2-hidden-accessible').on('select2:open', function (e) {
     var dropdown_btn = $(this).next().find('.directorist-select2-dropdown-toggle');
     dropdown_btn.addClass('--is-open');
@@ -201,41 +194,36 @@ function selec2_add_custom_dropdown_toggle_button() {
   $('.select2-hidden-accessible').on('select2:close', function (e) {
     var dropdown_btn = $(this).next().find('.directorist-select2-dropdown-toggle');
     dropdown_btn.removeClass('--is-open');
-  }); // Toggle Dropdown
+  });
 
+  // Toggle Dropdown
   selec2_custom_dropdown.on('click', function (e) {
     var isOpen = $(this).hasClass('--is-open');
     var field = $(this).closest(".select2-container").siblings('select:enabled');
-
     if (isOpen) {
       field.select2('close');
     } else {
       field.select2('open');
     }
-  }); // Adjust space for addons
+  });
 
+  // Adjust space for addons
   selec2_adjust_space_for_addons();
 }
-
 function selec2_add_custom_close_button_if_needed() {
   var select2_fields = $('.select2-hidden-accessible');
-
   if (!select2_fields && !select2_fields.length) {
     return;
   }
-
   var _iterator = _createForOfIteratorHelper(select2_fields),
-      _step;
-
+    _step;
   try {
     for (_iterator.s(); !(_step = _iterator.n()).done;) {
       var field = _step.value;
       var value = $(field).children('option:selected').val();
-
       if (!value) {
         continue;
       }
-
       selec2_add_custom_close_button(field);
     }
   } catch (err) {
@@ -244,21 +232,20 @@ function selec2_add_custom_close_button_if_needed() {
     _iterator.f();
   }
 }
-
 function selec2_add_custom_close_button(field) {
   // Remove Default
   $('.select2-selection__clear').css({
     'display': 'none'
   });
   var addon_container = selec2_get_addon_container(field);
-
   if (!(addon_container && addon_container.length)) {
     return;
-  } // Remove if already exists
+  }
 
+  // Remove if already exists
+  addon_container.find('.directorist-select2-dropdown-close').remove();
 
-  addon_container.find('.directorist-select2-dropdown-close').remove(); // Add
-
+  // Add
   var iconURL = directorist.assets_url + 'icons/font-awesome/svgs/solid/times.svg';
   var iconHTML = directorist.icon_markup.replace('##URL##', iconURL).replace('##CLASS##', '');
   addon_container.prepend("<span class=\"directorist-select2-addon directorist-select2-dropdown-close\">".concat(iconHTML, "</span>"));
@@ -268,56 +255,46 @@ function selec2_add_custom_close_button(field) {
     field.val(null).trigger('change');
     addon_container.find('.directorist-select2-dropdown-close').remove();
     selec2_adjust_space_for_addons();
-  }); // Adjust space for addons
+  });
 
+  // Adjust space for addons
   selec2_adjust_space_for_addons();
 }
-
 function selec2_remove_custom_close_button(field) {
   var addon_container = selec2_get_addon_container(field);
-
   if (!(addon_container && addon_container.length)) {
     return;
-  } // Remove
+  }
 
+  // Remove
+  addon_container.find('.directorist-select2-dropdown-close').remove();
 
-  addon_container.find('.directorist-select2-dropdown-close').remove(); // Adjust space for addons
-
+  // Adjust space for addons
   selec2_adjust_space_for_addons();
 }
-
 function selec2_get_addon_container(field) {
   var container = field ? $(field).next('.select2-container') : $('.select2-container');
   container = $(container).find('.directorist-select2-addons-area');
-
   if (!container.length) {
     $('.select2-container').append('<span class="directorist-select2-addons-area"></span>');
     container = $('.select2-container').find('.directorist-select2-addons-area');
   }
-
   var container = field ? $(field).next('.select2-container') : null;
-
   if (!container) {
     return null;
   }
-
   var addonsArea = $(container).find('.directorist-select2-addons-area');
-
   if (!addonsArea.length) {
     container.append('<span class="directorist-select2-addons-area"></span>');
     return container.find('.directorist-select2-addons-area');
   }
-
   return addonsArea;
 }
-
 function selec2_adjust_space_for_addons() {
   var container = $('.select2-container').find('.directorist-select2-addons-area');
-
   if (!container.length) {
     return;
   }
-
   var width = container.outerWidth();
   $('.select2-container').find('.select2-selection__rendered').css({
     'padding-right': width + 'px'
@@ -344,18 +321,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _select2_custom_control__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_select2_custom_control__WEBPACK_IMPORTED_MODULE_3__);
 
 
-
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 
 
 var $ = jQuery;
 window.addEventListener('load', initSelect2);
 document.body.addEventListener('directorist-search-form-nav-tab-reloaded', initSelect2);
-document.body.addEventListener('directorist-reload-select2-fields', initSelect2); // Init Static Select 2 Fields
+document.body.addEventListener('directorist-reload-select2-fields', initSelect2);
 
+// Init Static Select 2 Fields
 function initSelect2() {
   var select_fields = [{
     elm: $('.directorist-select').find('select')
@@ -381,7 +356,8 @@ function initSelect2() {
     elm: $('#directorist-select-fr-s-js')
   }, {
     elm: $('#directorist-select-fr-e-js')
-  }, // { elm: $('#directorist-location-select') },
+  },
+  // { elm: $('#directorist-location-select') },
   // { elm: $('#directorist-category-select') },
   {
     elm: $('.select-basic')
@@ -389,30 +365,33 @@ function initSelect2() {
     elm: $('#loc-type')
   }, {
     elm: $('.bdas-location-search')
-  }, // { elm: $('.directorist-location-select') },
+  },
+  // { elm: $('.directorist-location-select') },
   {
     elm: $('#at_biz_dir-category')
   }, {
     elm: $('#cat-type')
   }, {
     elm: $('.bdas-category-search')
-  } // { elm: $('.directorist-category-select') },
+  }
+  // { elm: $('.directorist-category-select') },
   ];
+
   select_fields.forEach(function (field) {
     Object(_lib_helper__WEBPACK_IMPORTED_MODULE_2__["convertToSelect2"])(field);
   });
   var lazy_load_taxonomy_fields = directorist.lazy_load_taxonomy_fields;
-
   if (lazy_load_taxonomy_fields) {
     // Init Select2 Ajax Fields
     initSelect2AjaxFields();
   }
-} // Init Select2 Ajax Fields
+}
 
-
+// Init Select2 Ajax Fields
 function initSelect2AjaxFields() {
-  var rest_base_url = "".concat(directorist.rest_url, "directorist/v1"); // Init Select2 Ajax Category Field
+  var rest_base_url = "".concat(directorist.rest_url, "directorist/v1");
 
+  // Init Select2 Ajax Category Field
   initSelect2AjaxTaxonomy({
     selector: $('.directorist-search-category').find('select'),
     url: "".concat(rest_base_url, "/listings/categories")
@@ -420,8 +399,9 @@ function initSelect2AjaxFields() {
   initSelect2AjaxTaxonomy({
     selector: $('.directorist-form-categories-field').find('select'),
     url: "".concat(rest_base_url, "/listings/categories")
-  }); // Init Select2 Ajax Location Field
+  });
 
+  // Init Select2 Ajax Location Field
   initSelect2AjaxTaxonomy({
     selector: $('.directorist-search-location').find('select'),
     url: "".concat(rest_base_url, "/listings/locations")
@@ -429,17 +409,18 @@ function initSelect2AjaxFields() {
   initSelect2AjaxTaxonomy({
     selector: $('.directorist-form-location-field').find('select'),
     url: "".concat(rest_base_url, "/listings/locations")
-  }); // Init Select2 Ajax Tag Field
+  });
 
+  // Init Select2 Ajax Tag Field
   initSelect2AjaxTaxonomy({
     selector: $('.directorist-form-tag-field').find('select'),
     url: "".concat(rest_base_url, "/listings/tags")
   }, {
     has_directory_type: false
   });
-} // initSelect2AjaxTaxonomy
+}
 
-
+// initSelect2AjaxTaxonomy
 function initSelect2AjaxTaxonomy(args, terms_options) {
   var defaultArgs = {
     selector: '',
@@ -451,46 +432,42 @@ function initSelect2AjaxTaxonomy(args, terms_options) {
     has_directory_type: true
   };
   terms_options = terms_options ? _objectSpread(_objectSpread({}, default_terms_options), terms_options) : default_terms_options;
-
   if (!args.selector.length) {
     return;
   }
-
   _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(args.selector).forEach(function (item, index) {
     var directory_type_id = 0;
     var createNew = item.getAttribute("data-allow_new");
     var maxLength = item.getAttribute("data-max");
-
     if (terms_options.has_directory_type) {
       var search_form_parent = $(item).closest('.directorist-search-form');
       var archive_page_parent = $(item).closest('.directorist-archive-contents');
       var add_listing_form_hidden_input = $(item).closest('.directorist-add-listing-form').find('input[name="directory_type"]');
-      var nav_list_item = []; // If search page
+      var nav_list_item = [];
 
+      // If search page
       if (search_form_parent.length) {
         nav_list_item = search_form_parent.find('.directorist-listing-type-selection__link--current');
-      } // If archive page
+      }
 
-
+      // If archive page
       if (archive_page_parent.length) {
         nav_list_item = archive_page_parent.find('.directorist-type-nav__list li.current .directorist-type-nav__link');
-      } // If has nav item
+      }
 
-
+      // If has nav item
       if (nav_list_item.length) {
         directory_type_id = nav_list_item ? nav_list_item.data('listing_type_id') : 0;
-      } // If has nav item
+      }
 
-
+      // If has nav item
       if (add_listing_form_hidden_input.length) {
         directory_type_id = add_listing_form_hidden_input.val();
       }
-
       if (directory_type_id) {
         directory_type_id = parseInt(directory_type_id);
       }
     }
-
     var currentPage = 1;
     $(item).select2({
       allowClear: true,
@@ -512,11 +489,9 @@ function initSelect2AjaxTaxonomy(args, terms_options) {
             page: currentPage,
             per_page: args.perPage
           };
-
           if (directory_type_id) {
             query.directory = directory_type_id;
           }
-
           return query;
         },
         processResults: function processResults(data) {
@@ -547,16 +522,15 @@ function initSelect2AjaxTaxonomy(args, terms_options) {
           return $request;
         }
       }
-    }); // Setup Preselected Option
+    });
 
+    // Setup Preselected Option
     var selected_item_id = $(item).data('selected-id');
     var selected_item_label = $(item).data('selected-label');
-
     var setup_selected_items = function setup_selected_items(element, selected_id, selected_label) {
       if (!element || !selected_id) {
         return;
       }
-
       var selected_ids = "".concat(selected_id).split(',');
       var selected_labels = selected_label ? "".concat(selected_label).split(',') : [];
       selected_ids.forEach(function (id, index) {
@@ -574,7 +548,6 @@ function initSelect2AjaxTaxonomy(args, terms_options) {
         });
       });
     };
-
     setup_selected_items(item, selected_item_id, selected_item_label);
   });
 }
@@ -594,7 +567,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__);
 
 document.addEventListener('DOMContentLoaded', init, false);
-
 function Tasks() {
   return {
     init: function init() {
@@ -602,13 +574,10 @@ function Tasks() {
     },
     initToggleTabLinks: function initToggleTabLinks() {
       var links = document.querySelectorAll('.directorist-toggle-tab');
-
       if (!links) {
         return;
       }
-
       var self = this;
-
       _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(links).forEach(function (item) {
         item.addEventListener('click', function (event) {
           self.handleToggleTabLinksEvent(item, event);
@@ -620,53 +589,44 @@ function Tasks() {
       var navContainerClass = item.getAttribute('data-nav-container');
       var tabContainerClass = item.getAttribute('data-tab-container');
       var tabClass = item.getAttribute('data-tab');
-
       if (!navContainerClass || !tabContainerClass || !tabClass) {
         return;
       }
-
       var navContainer = item.closest('.' + navContainerClass);
       var tabContainer = document.querySelector('.' + tabContainerClass);
-
       if (!navContainer || !tabContainer) {
         return;
       }
-
       var tab = tabContainer.querySelector('.' + tabClass);
-
       if (!tab) {
         return;
-      } // Remove Active Class
+      }
 
-
+      // Remove Active Class
       var removeActiveClass = function removeActiveClass(item) {
         item.classList.remove('--is-active');
-      }; // Toggle Nav
+      };
 
-
+      // Toggle Nav
       var activeNavItems = navContainer.querySelectorAll('.--is-active');
-
       if (activeNavItems) {
         _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(activeNavItems).forEach(removeActiveClass);
       }
+      item.classList.add('--is-active');
 
-      item.classList.add('--is-active'); // Toggle Tab
-
+      // Toggle Tab
       var activeTabItems = tabContainer.querySelectorAll('.--is-active');
-
       if (activeTabItems) {
         _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(activeTabItems).forEach(removeActiveClass);
       }
+      tab.classList.add('--is-active');
 
-      tab.classList.add('--is-active'); // Update Query Var
-
+      // Update Query Var
       var queryVarKey = item.getAttribute('data-query-var-key');
       var queryVarValue = item.getAttribute('data-query-var-value');
-
       if (!queryVarKey || !queryVarValue) {
         return;
       }
-
       this.addQueryParam(queryVarKey, queryVarValue);
     },
     addQueryParam: function addQueryParam(key, value) {
@@ -676,7 +636,6 @@ function Tasks() {
     }
   };
 }
-
 function init() {
   var tasks = new Tasks();
   tasks.init();
@@ -695,18 +654,21 @@ window.addEventListener('DOMContentLoaded', function () {
   var $ = jQuery;
   document.querySelectorAll('.la-icon i').forEach(function (item) {
     className.push(item.getAttribute('class'));
-  }); // Handle Disabled Link Action
+  });
 
+  // Handle Disabled Link Action
   $('.atbdp-disabled').on('click', function (e) {
     e.preventDefault();
-  }); // Toggle Modal
+  });
 
+  // Toggle Modal
   $('.cptm-modal-toggle').on('click', function (e) {
     e.preventDefault();
     var target_class = $(this).data('target');
     $('.' + target_class).toggleClass('active');
-  }); // Change label on file select/change
+  });
 
+  // Change label on file select/change
   $('.cptm-file-field').on('change', function (e) {
     var target_id = $(this).attr('id');
     $('label[for=' + target_id + ']').text('Change');
@@ -758,18 +720,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var $ = jQuery;
-
 function get_dom_data(key, parent) {
   // var elmKey = 'directorist-dom-data-' + key;
   var elmKey = 'directorist-dom-data-' + key;
   var dataElm = parent ? parent.getElementsByClassName(elmKey) : document.getElementsByClassName(elmKey);
-
   if (!dataElm) {
     return '';
   }
-
   var is_script_debugging = directorist && directorist.script_debugging && directorist.script_debugging == '1' ? true : false;
-
   try {
     var dataValue = atob(dataElm[0].dataset.value);
     dataValue = JSON.parse(dataValue);
@@ -782,24 +740,19 @@ function get_dom_data(key, parent) {
         error: error
       });
     }
-
     return '';
   }
 }
-
 function convertToSelect2(field) {
   if (!field) {
     return;
   }
-
   if (!field.elm) {
     return;
   }
-
   if (!field.elm.length) {
     return;
   }
-
   _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1___default()(field.elm).forEach(function (item) {
     var default_args = {
       allowClear: true,
@@ -809,7 +762,6 @@ function convertToSelect2(field) {
         if (!data.field) {
           return data.text;
         }
-
         var $field = $(data.field);
         var $wrapper = $('<span></span>');
         $wrapper.addClass($field[0].className);
@@ -820,15 +772,12 @@ function convertToSelect2(field) {
     var args = field.args && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(field.args) === 'object' ? Object.assign(default_args, field.args) : default_args;
     var options = $(item).find('option');
     var placeholder = options.length ? options[0].innerHTML : '';
-
     if (placeholder.length) {
       args.placeholder = placeholder;
     }
-
     $(item).select2(args);
   });
 }
-
 
 
 /***/ }),
@@ -854,8 +803,11 @@ __webpack_require__.r(__webpack_exports__);
 // console.log( directorist_options )
 // Styles
 
- // Single Listing Page
+
+
+// Single Listing Page
 // import './components/single-listing-page/slider';
+
 // General Components
 // import './components/general';
 // import './components/helpers';
@@ -874,6 +826,7 @@ __webpack_require__.r(__webpack_exports__);
 // import './components/categoryLocation';
 // import './components/legacy-support';
 // import './components/author';
+
 // Booking
 // import './components/booking';
 
@@ -899,14 +852,9 @@ __webpack_require__.r(__webpack_exports__);
 
 function _arrayLikeToArray(arr, len) {
   if (len == null || len > arr.length) len = arr.length;
-
-  for (var i = 0, arr2 = new Array(len); i < len; i++) {
-    arr2[i] = arr[i];
-  }
-
+  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
   return arr2;
 }
-
 module.exports = _arrayLikeToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
@@ -919,11 +867,9 @@ module.exports = _arrayLikeToArray, module.exports.__esModule = true, module.exp
 /***/ (function(module, exports, __webpack_require__) {
 
 var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray.js */ "./node_modules/@babel/runtime/helpers/arrayLikeToArray.js");
-
 function _arrayWithoutHoles(arr) {
   if (Array.isArray(arr)) return arrayLikeToArray(arr);
 }
-
 module.exports = _arrayWithoutHoles, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
@@ -933,9 +879,11 @@ module.exports = _arrayWithoutHoles, module.exports.__esModule = true, module.ex
   !*** ./node_modules/@babel/runtime/helpers/defineProperty.js ***!
   \***************************************************************/
 /*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
+var toPropertyKey = __webpack_require__(/*! ./toPropertyKey.js */ "./node_modules/@babel/runtime/helpers/toPropertyKey.js");
 function _defineProperty(obj, key, value) {
+  key = toPropertyKey(key);
   if (key in obj) {
     Object.defineProperty(obj, key, {
       value: value,
@@ -946,10 +894,8 @@ function _defineProperty(obj, key, value) {
   } else {
     obj[key] = value;
   }
-
   return obj;
 }
-
 module.exports = _defineProperty, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
@@ -964,7 +910,6 @@ module.exports = _defineProperty, module.exports.__esModule = true, module.expor
 function _iterableToArray(iter) {
   if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
 }
-
 module.exports = _iterableToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
@@ -979,7 +924,6 @@ module.exports = _iterableToArray, module.exports.__esModule = true, module.expo
 function _nonIterableSpread() {
   throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
-
 module.exports = _nonIterableSpread, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
@@ -992,18 +936,52 @@ module.exports = _nonIterableSpread, module.exports.__esModule = true, module.ex
 /***/ (function(module, exports, __webpack_require__) {
 
 var arrayWithoutHoles = __webpack_require__(/*! ./arrayWithoutHoles.js */ "./node_modules/@babel/runtime/helpers/arrayWithoutHoles.js");
-
 var iterableToArray = __webpack_require__(/*! ./iterableToArray.js */ "./node_modules/@babel/runtime/helpers/iterableToArray.js");
-
 var unsupportedIterableToArray = __webpack_require__(/*! ./unsupportedIterableToArray.js */ "./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js");
-
 var nonIterableSpread = __webpack_require__(/*! ./nonIterableSpread.js */ "./node_modules/@babel/runtime/helpers/nonIterableSpread.js");
-
 function _toConsumableArray(arr) {
   return arrayWithoutHoles(arr) || iterableToArray(arr) || unsupportedIterableToArray(arr) || nonIterableSpread();
 }
-
 module.exports = _toConsumableArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/toPrimitive.js":
+/*!************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/toPrimitive.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _typeof = __webpack_require__(/*! ./typeof.js */ "./node_modules/@babel/runtime/helpers/typeof.js")["default"];
+function _toPrimitive(input, hint) {
+  if (_typeof(input) !== "object" || input === null) return input;
+  var prim = input[Symbol.toPrimitive];
+  if (prim !== undefined) {
+    var res = prim.call(input, hint || "default");
+    if (_typeof(res) !== "object") return res;
+    throw new TypeError("@@toPrimitive must return a primitive value.");
+  }
+  return (hint === "string" ? String : Number)(input);
+}
+module.exports = _toPrimitive, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/toPropertyKey.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/toPropertyKey.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _typeof = __webpack_require__(/*! ./typeof.js */ "./node_modules/@babel/runtime/helpers/typeof.js")["default"];
+var toPrimitive = __webpack_require__(/*! ./toPrimitive.js */ "./node_modules/@babel/runtime/helpers/toPrimitive.js");
+function _toPropertyKey(arg) {
+  var key = toPrimitive(arg, "string");
+  return _typeof(key) === "symbol" ? key : String(key);
+}
+module.exports = _toPropertyKey, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
 
@@ -1014,16 +992,15 @@ module.exports = _toConsumableArray, module.exports.__esModule = true, module.ex
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-function _typeof(obj) {
+function _typeof(o) {
   "@babel/helpers - typeof";
 
-  return (module.exports = _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) {
-    return typeof obj;
-  } : function (obj) {
-    return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-  }, module.exports.__esModule = true, module.exports["default"] = module.exports), _typeof(obj);
+  return (module.exports = _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
+    return typeof o;
+  } : function (o) {
+    return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+  }, module.exports.__esModule = true, module.exports["default"] = module.exports), _typeof(o);
 }
-
 module.exports = _typeof, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
@@ -1036,7 +1013,6 @@ module.exports = _typeof, module.exports.__esModule = true, module.exports["defa
 /***/ (function(module, exports, __webpack_require__) {
 
 var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray.js */ "./node_modules/@babel/runtime/helpers/arrayLikeToArray.js");
-
 function _unsupportedIterableToArray(o, minLen) {
   if (!o) return;
   if (typeof o === "string") return arrayLikeToArray(o, minLen);
@@ -1045,7 +1021,6 @@ function _unsupportedIterableToArray(o, minLen) {
   if (n === "Map" || n === "Set") return Array.from(o);
   if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return arrayLikeToArray(o, minLen);
 }
-
 module.exports = _unsupportedIterableToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),

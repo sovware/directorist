@@ -43,6 +43,7 @@ class Popular_Listings extends \WP_Widget {
 			'single_only' => [
 				'label'   => esc_html__( 'Display only on single listing', 'directorist' ),
 				'type'    => 'checkbox',
+				'value'   => 1,
 			],
         ];
 
@@ -54,7 +55,7 @@ class Popular_Listings extends \WP_Widget {
 
 		$instance['title']            = ! empty( $new_instance['title'] ) ? sanitize_text_field( $new_instance['title'] ) : '';
 		$instance['pop_listing_num']  = ! empty( $new_instance['pop_listing_num'] ) ? sanitize_text_field( $new_instance['pop_listing_num'] ) : '';
-		$instance['single_only']      = isset( $new_instance['single_only'] ) ? 1 : 0;
+		$instance['single_only']      = ! empty( $new_instance['single_only'] ) ? 1 : 0;
 
 		return $instance;
 	}
@@ -87,8 +88,7 @@ class Popular_Listings extends \WP_Widget {
 			'posts_per_page' => $count,
 		);
 
-		$has_featured               = (bool) get_directorist_option( 'enable_featured_listing' );
-		$has_featured               = $has_featured || is_fee_manager_active();
+		$has_featured               = directorist_is_featured_listing_enabled() || is_fee_manager_active();
 		$listing_popular_by         = get_directorist_option( 'listing_popular_by' );
 		$average_review_for_popular = (int) get_directorist_option( 'average_review_for_popular', 4 );
 		$view_to_popular            = (int) get_directorist_option( 'views_for_popular' );

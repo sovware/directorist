@@ -183,7 +183,7 @@ class Directorist_Listings {
 		$this->options['listing_columns']                 = get_directorist_option( 'all_listing_columns', 3 );
 		$this->options['listing_filters_button']          = ! empty( get_directorist_option( 'listing_filters_button', 1 ) ) ? 'yes' : '';
 		$this->options['listings_map_height']             = get_directorist_option( 'listings_map_height', 350 );
-		$this->options['enable_featured_listing']         = get_directorist_option( 'enable_featured_listing' );
+		$this->options['enable_featured_listing']         = directorist_is_featured_listing_enabled();
 		$this->options['listing_popular_by']              = get_directorist_option( 'listing_popular_by' );
 		$this->options['views_for_popular']               = get_directorist_option( 'views_for_popular', 4 );
 		$this->options['radius_search_unit']              = get_directorist_option( 'radius_search_unit', 'miles' );
@@ -216,7 +216,7 @@ class Directorist_Listings {
 		$this->options['display_readmore']                = get_directorist_option( 'display_readmore', 0) ? true : false;
 		$this->options['address_location']                = get_directorist_option( 'address_location', 'location' );
 		$this->options['excerpt_limit']                   = get_directorist_option( 'excerpt_limit', 20);
-		$this->options['g_currency']                      = get_directorist_option( 'g_currency', 'USD' );
+		$this->options['g_currency']                      = directorist_get_currency();
 		$this->options['use_def_lat_long']                = get_directorist_option('use_def_lat_long', 1) ? true : false;
 		$this->options['display_map_info']                = get_directorist_option('display_map_info', 1) ? true : false;
 		$this->options['display_image_map']               = get_directorist_option('display_image_map', 1) ? true : false;
@@ -231,7 +231,8 @@ class Directorist_Listings {
 		$this->options['display_publish_date']            = get_directorist_option('display_publish_date', 1) ? true : false;
 		$this->options['default_latitude']                = get_directorist_option('default_latitude', 40.7127753);
 		$this->options['default_longitude']               = get_directorist_option('default_longitude', -74.0059728);
-		$this->options['listing_instant_search']         = ! empty( get_directorist_option( 'listing_instant_search' ) ) ? 'yes' : '';
+		$this->options['listing_instant_search']          = ! empty( get_directorist_option( 'listing_instant_search' ) ) ? 'yes' : '';
+		$this->options['marker_clustering']               = get_directorist_option( 'marker_clustering', true ) ? 'markerclusterer' : '';
 	}
 
 	// update_search_options
@@ -471,11 +472,12 @@ class Directorist_Listings {
 			'compare' => '=',
 		);
 
-		$meta_queries['expired'] = array(
-			'key'     => '_listing_status',
-			'value'   => 'expired',
-			'compare' => '!=',
-		);
+		// TODO: Status has been migrated, remove related code.
+		// $meta_queries['expired'] = array(
+		// 	'key'     => '_listing_status',
+		// 	'value'   => 'expired',
+		// 	'compare' => '!=',
+		// );
 
 		if ( $this->has_featured ) {
 			if ( '_featured' == $this->filterby ) {
@@ -1191,54 +1193,39 @@ class Directorist_Listings {
 	}
 
 	public function get_listing_types() {
-		$listing_types = array();
-		$args          = array(
-			'taxonomy'   => ATBDP_TYPE,
-			'hide_empty' => false
-		);
-		if( $this->directory_type ) {
-			$args['slug']     = $this->directory_type;
-		}
-		$all_types     = get_terms( apply_filters( 'directorist_all_listings_directory_type_args', $args ) );
+		$args = array();
 
-		foreach ( $all_types as $type ) {
-			$listing_types[ $type->term_id ] = [
-				'term' => $type,
-				'name' => $type->name,
-				'data' => get_term_meta( $type->term_id, 'general_config', true ),
-			];
+		if ( $this->directory_type ) {
+			$args['slug']    = $this->directory_type;
+			$args['orderby'] = 'slug__in';
 		}
-		return $listing_types;
+
+		return directorist_get_directories_for_template( apply_filters( 'directorist_all_listings_directory_type_args', $args ) );
 	}
 
 	public function get_current_listing_type() {
-		$listing_types      = $this->get_listing_types();
-		$listing_type_count = count( $listing_types );
+		$directory = 0;
 
-		$current = !empty($listing_types) ? array_key_first( $listing_types ) : '';
-
-		if ( isset( $_REQUEST['directory_type'] ) ) {
-			$current = sanitize_text_field( wp_unslash( $_REQUEST['directory_type'] ) );
-		}
-		else if( $this->default_directory_type ) {
-			$current = $this->default_directory_type;
-		}
-		else {
-
-			foreach ( $listing_types as $id => $type ) {
-				$is_default = get_term_meta( $id, '_default', true );
-				if ( $is_default ) {
-					$current = $id;
-					break;
-				}
-			}
+		if ( is_singular( ATBDP_POST_TYPE ) ) {
+			$directory = get_post_meta( get_the_ID(), '_directory_type', true );
+		} else if ( ! empty( $_REQUEST['directory_type'] ) ) {
+			$directory = sanitize_text_field( wp_unslash( $_REQUEST['directory_type'] ) );
+		} else if ( ! empty( $this->default_directory_type ) ) {
+			$directory = $this->default_directory_type;
+		} else if ( ! empty( $this->directory_type ) ) {
+			$directory = array_key_first( $this->get_listing_types() );
 		}
 
-		if( ! is_numeric( $current ) ) {
-			$term = get_term_by( 'slug', $current, ATBDP_TYPE );
-			$current = $term->term_id;
+		if ( ! is_numeric( $directory ) ) {
+			$directory_term = get_term_by( 'slug', $directory, ATBDP_DIRECTORY_TYPE );
+			$directory      = $directory_term ? $directory_term->term_id : 0;
 		}
-		return (int) $current;
+
+		if ( directorist_is_directory( $directory ) ) {
+			return (int) $directory;
+		}
+
+		return directorist_get_default_directory();
 	}
 
 	public function search_category_location_args() {
@@ -1457,7 +1444,7 @@ class Directorist_Listings {
 		Helper::add_hidden_data_to_dom( 'atbdp_map', $data );
 		$map_height = !empty( $this->listings_map_height ) ? $this->listings_map_height: '';
 		?>
-		<div class="atbdp-body atbdp-map embed-responsive embed-responsive-16by9 atbdp-margin-bottom" data-type="markerclusterer" style="height: <?php echo esc_attr( $map_height );?>px;">
+		<div class="atbdp-body atbdp-map embed-responsive embed-responsive-16by9 atbdp-margin-bottom" data-type="<?php echo $this->options['marker_clustering']; ?>" style="height: <?php echo esc_attr( $map_height );?>px;">
 			<?php
 
 			$listings = $this->query_results;
@@ -1571,7 +1558,7 @@ class Directorist_Listings {
 
 		public function loop_get_title() {
 			if ( ! $this->disable_single_listing ) {
-				$title = sprintf('<a href="%s"%s>%s</a>', $this->loop['permalink'], $this->loop_link_attr(), $this->loop['title']);
+				$title = sprintf('<a href="%s"%s>%s</a>', apply_filters( 'directorist_archive_single_listing_url', $this->loop['permalink'], $this->loop['id'], 'title' ), $this->loop_link_attr(), $this->loop['title']);
 			}
 			else {
 				$title = $this->loop['title'];
@@ -1969,9 +1956,7 @@ class Directorist_Listings {
 		}
 
 		public function directory_type_nav_template() {
-			$count = count( $this->listing_types );
-			$enable_multi_directory = get_directorist_option( 'enable_multi_directory', false );
-			if ( $count > 1 && ! empty( $enable_multi_directory ) ) {
+			if ( count( $this->listing_types ) > 1 && directorist_is_multi_directory_enabled() ) {
 				Helper::get_template( 'archive/directory-type-nav', array('listings' => $this) );
 			}
 		}
@@ -2022,9 +2007,7 @@ class Directorist_Listings {
 
     	// Hooks ------------
 		public static function archive_type($listings) {
-			$count = count( $listings->listing_types );
-			$enable_multi_directory = get_directorist_option( 'enable_multi_directory', false );
-			if ( $count > 1 && ! empty( $enable_multi_directory ) ) {
+			if ( count( $listings->listing_types ) > 1 && directorist_is_multi_directory_enabled() ) {
 				Helper::get_template( 'archive/listing-types', array('listings' => $listings) );
 			}
 		}

@@ -29,10 +29,10 @@ class All_Locations extends \WP_Widget {
             'order_by'              => 'id',
             'order'                 => 'asc',
             'max_number'            => '',
-            'immediate_category'    => '',
-            'hide_empty'            => '',
-            'show_count'            => '',
-            'single_only'           => '',
+            'immediate_category'    => 1,
+            'hide_empty'            => 1,
+            'show_count'            => 1,
+            'single_only'           => 1,
 		];
 
 		$instance = wp_parse_args( (array) $instance, $defaults );
@@ -75,18 +75,22 @@ class All_Locations extends \WP_Widget {
             'immediate_category' => [
 				'label'   => esc_html__( 'Show all the top-level locations only', 'directorist' ),
 				'type'    => 'checkbox',
+				'value'   => 1,
 			],
             'hide_empty' => [
 				'label'   => esc_html__( 'Hide empty locations', 'directorist' ),
 				'type'    => 'checkbox',
+				'value'   => 1,
 			],
             'show_count' => [
 				'label'   => esc_html__( 'Display listing counts', 'directorist' ),
 				'type'    => 'checkbox',
+				'value'   => 1,
 			],
             'single_only' => [
 				'label'   => esc_html__( 'Display only on single listing', 'directorist' ),
 				'type'    => 'checkbox',
+				'value'   => 1,
 			],
         ];
 
@@ -110,51 +114,55 @@ class All_Locations extends \WP_Widget {
 	}
 
 	public function widget( $args, $instance ) {
-        $allowWidget = apply_filters('atbdp_allow_locations_widget', true);
+        $allowWidget = apply_filters( 'atbdp_allow_locations_widget', true );
 
-        if( ( ! empty( $instance['single_only'] ) && ! is_singular( ATBDP_POST_TYPE ) ) || ! $allowWidget)
+        if ( ( ! empty( $instance['single_only'] ) && ! is_singular( ATBDP_POST_TYPE ) ) || ! $allowWidget ) {
             return;
+		}
+
 		echo wp_kses_post( $args['before_widget'] );
 
-		$title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Directorist Locations', 'directorist');
-		$widget_title = $args['before_title'] . apply_filters( 'widget_title', $title ) . $args['after_title'];
+		$title = __( 'Directorist Locations', 'directorist' );
+		if ( ! empty( $instance['title'] ) ) {
+			$title = $instance['title'];
+		}
+
+		$widget_title = $args['before_title'] . esc_html( apply_filters( 'widget_title', $title ) ). $args['after_title'];
+
 		echo '<div class="atbd_widget_title">';
 		echo wp_kses_post( $widget_title );
 		echo '</div>';
 
         $query_args = array(
-            'template'       => !empty( $instance['display_as'] ) ? sanitize_text_field( $instance['display_as'] ) : 'list',
-            'parent'         => !empty( $instance['parent'] ) ? (int) $instance['parent'] : 0,
-            'term_id'        => !empty( $instance['parent'] ) ? (int) $instance['parent'] : 0,
-            'hide_empty'     => !empty( $instance['hide_empty'] ) ? 1 : 0,
-            'orderby'        => !empty( $instance['order_by'] ) ? sanitize_text_field( $instance['order_by'] ) : 'id',
-            'order'          => !empty( $instance['order'] ) ? sanitize_text_field( $instance['order'] ) : 'asc',
-            'max_number'     => !empty( $instance['max_number'] ) ? $instance['max_number'] : '',
-            'show_count'     => !empty( $instance['show_count'] ) ? 1 : 0,
-            'single_only'    => !empty( $instance['single_only'] ) ? 1 : 0,
-            'pad_counts'     => true,
+            'template'           => !empty( $instance['display_as'] ) ? sanitize_text_field( $instance['display_as'] ) : 'list',
+            'parent'             => !empty( $instance['parent'] ) ? (int) $instance['parent'] : 0,
+            'term_id'            => !empty( $instance['parent'] ) ? (int) $instance['parent'] : 0,
+            'hide_empty'         => !empty( $instance['hide_empty'] ) ? 1 : 0,
+            'orderby'            => !empty( $instance['order_by'] ) ? sanitize_text_field( $instance['order_by'] ) : 'id',
+            'order'              => !empty( $instance['order'] ) ? sanitize_text_field( $instance['order'] ) : 'asc',
+            'max_number'         => !empty( $instance['max_number'] ) ? $instance['max_number'] : '',
+            'show_count'         => !empty( $instance['show_count'] ) ? 1 : 0,
+            'single_only'        => !empty( $instance['single_only'] ) ? 1 : 0,
+            'pad_counts'         => true,
             'immediate_category' => ! empty( $instance['immediate_category'] ) ? 1 : 0,
-            'active_term_id' => 0,
-            'ancestors'      => array()
+            'active_term_id'     => 0,
+            'ancestors'          => array()
         );
 
-
-        if( $query_args['immediate_category'] ) {
+        if ( $query_args['immediate_category'] ) {
 
             $term_slug = get_query_var( ATBDP_LOCATION );
 
-            if( '' != $term_slug ) {
-				$term = get_term_by( 'slug', $term_slug, ATBDP_LOCATION );
+            if ( '' !== $term_slug ) {
+				$term                         = get_term_by( 'slug', $term_slug, ATBDP_LOCATION );
 				$query_args['active_term_id'] = $term->term_id;
-
-				$query_args['ancestors'] = get_ancestors( $query_args['active_term_id'], 'atbdp_categories' );
-				$query_args['ancestors'][] = $query_args['active_term_id'];
-				$query_args['ancestors'] = array_unique( $query_args['ancestors'] );
+				$query_args['ancestors']      = get_ancestors( $query_args['active_term_id'], 'atbdp_categories' );
+				$query_args['ancestors'][]    = $query_args['active_term_id'];
+				$query_args['ancestors']      = array_unique( $query_args['ancestors'] );
             }
-
         }
 
-        if( 'dropdown' == $query_args['template'] ) {
+        if ( 'dropdown' === $query_args['template'] ) {
             $categories = $this->dropdown_locations( $query_args );
         } else {
             $categories = $this->list_locations( $query_args );
@@ -166,13 +174,10 @@ class All_Locations extends \WP_Widget {
 	}
 
     public function list_locations( $settings ) {
-
-        if( $settings['immediate_category'] ) {
-
-            if( $settings['term_id'] > $settings['parent'] && ! in_array( $settings['term_id'], $settings['ancestors'] ) ) {
-                return;
-            }
-
+        if ( $settings['immediate_category'] &&
+			( $settings['term_id'] > $settings['parent'] ) &&
+			! in_array( $settings['term_id'], $settings['ancestors'] ) ) {
+			return;
         }
 
         $args = array(
@@ -186,103 +191,80 @@ class All_Locations extends \WP_Widget {
         );
 
         $terms = get_terms( $args );
-        $parent = $args['parent'];
-        $child_class = !empty($parent) ? 'atbdp_child_location' : 'atbdp_parent_location';
-        $html = '';
 
-        if( count( $terms ) > 0 ) {
-            $i = 1;
-            $html .= '<ul class="' .$child_class. '">';
-            foreach( $terms as $term ) {
-                $child_category = get_term_children($term->term_id,ATBDP_LOCATION);
-                $plus_icon = (!empty($child_category) && empty($parent) ) ? directorist_icon( 'las la-plus', false ) : '';
-                $settings['term_id'] = $term->term_id;
+		if ( is_wp_error( $terms ) ) {
+			return;
+		}
 
-                $count = 0;
-                if( ! empty( $settings['hide_empty'] ) || ! empty( $settings['show_count'] ) ) {
-                    $count = atbdp_listings_count_by_location( $term->term_id );
+        $parent      = $args['parent'];
+        $child_class = ! empty( $parent ) ? 'atbdp_child_location' : 'atbdp_parent_location';
+        $html        = '';
+		$html .= '<ul class="' .$child_class. '">';
 
-                    if( ! empty( $settings['hide_empty'] ) && 0 == $count ) continue;
-                }
+		foreach ( $terms as $term ) {
+			$child_category = get_term_children($term->term_id,ATBDP_LOCATION);
+			$plus_icon = (!empty($child_category) && empty($parent) ) ? directorist_icon( 'las la-plus', false ) : '';
+			$settings['term_id'] = $term->term_id;
 
-                $html .= '<li>';
-                $html .= '<a href="' . \ATBDP_Permalink::atbdp_get_location_page( $term ) . '">';
-                $html .= $term->name;
-                if( ! empty( $settings['show_count'] ) ) {
-                    $expired_listings = atbdp_get_expired_listings(ATBDP_LOCATION, $term->term_id);
-                    $number_of_expired = $expired_listings->post_count;
-                    $number_of_expired = !empty($number_of_expired)?$number_of_expired:'0';
-                    $totat = ($count)?($count-$number_of_expired):$count;
-                    $html .= ' (' . $totat . ')';
-                }
-                $html .= '</a>'. $plus_icon . '';
-                $html .= $this->list_locations( $settings );
-                $html .= '</li>';
-                if(!empty($args['number'])) {
-                    if( $i++ == $args['number'] ) break;
-                }
-            }
-            $html .= '</ul>';
+			$html .= '<li>';
+			$html .= '<a href="' . \ATBDP_Permalink::atbdp_get_location_page( $term ) . '">';
+			$html .= $term->name;
 
-        }
+			if ( ! empty( $settings['show_count'] ) ) {
+				$html .= ' (' . $term->count . ')';
+			}
+
+			$html .= '</a>'. $plus_icon . '';
+			$html .= $this->list_locations( $settings );
+			$html .= '</li>';
+		}
+
+		$html .= '</ul>';
 
         return $html;
 
     }
 
     public function dropdown_locations( $settings, $prefix = '' ) {
-
-        if( $settings['immediate_category'] ) {
-
-            if( $settings['term_id'] > $settings['parent'] && ! in_array( $settings['term_id'], $settings['ancestors'] ) ) {
-                return;
-            }
-
+        if ( $settings['immediate_category'] &&
+			( $settings['term_id'] > $settings['parent'] ) &&
+			! in_array( $settings['term_id'], $settings['ancestors'] ) ) {
+			return;
         }
 
         $term_slug = get_query_var( ATBDP_LOCATION );
 
         $args = array(
             'taxonomy'     => ATBDP_LOCATION,
-            'orderby'      => $settings['orderby'],
             'order'        => $settings['order'],
+            'orderby'      => $settings['orderby'],
             'hide_empty'   => $settings['hide_empty'],
-            'parent'       => !empty($settings['term_id']) ? $settings['term_id'] : '',
             'hierarchical' => ! empty( $settings['hide_empty'] ) ? true : false,
-            'number'       => !empty($settings['max_number']) ? $settings['max_number'] : ''
+            'parent'       => ! empty( $settings['term_id'] ) ? $settings['term_id'] : '',
+            'number'       => ! empty( $settings['max_number'] ) ? $settings['max_number'] : ''
         );
 
         $terms = get_terms( $args );
 
+		if ( is_wp_error( $terms ) ) {
+			return;
+		}
+
         $html = '';
 
-        if( count( $terms ) > 0 ) {
-            $i = 1;
-            foreach( $terms as $term ) {
-                $settings['term_id'] = $term->term_id;
+		foreach ( $terms as $term ) {
+			$settings['term_id'] = $term->term_id;
 
-                $count = 0;
-                if( ! empty( $settings['hide_empty'] ) || ! empty( $settings['show_count'] ) ) {
-                    $count = atbdp_listings_count_by_category( $term->term_id );
+			$html .= sprintf( '<option value="%s" %s>', $term->term_id, selected( $term->term_id, $term_slug, false ) );
+			$html .= $prefix . $term->name;
 
-                    if( ! empty( $settings['hide_empty'] ) && 0 == $count ) continue;
-                }
-
-                $html .= sprintf( '<option value="%s" %s>', $term->term_id, selected( $term->term_id, $term_slug, false ) );
-                $html .= $prefix . $term->name;
-                if( ! empty( $settings['show_count'] ) ) {
-                    $html .= ' (' . $count . ')';
-                }
-                //$html .= $this->dropdown_locations( $settings, $prefix . '&nbsp;&nbsp;&nbsp;' );
-                $html .= '</option>';
-                if(!empty($args['number'])) {
-                    if( $i++ == $args['number'] ) break;
-                }
-            }
-
-        }
+			if ( ! empty( $settings['show_count'] ) ) {
+				$html .= ' (' . $term->count . ')';
+			}
+			//$html .= $this->dropdown_locations( $settings, $prefix . '&nbsp;&nbsp;&nbsp;' );
+			$html .= '</option>';
+		}
 
         return $html;
-
     }
 }

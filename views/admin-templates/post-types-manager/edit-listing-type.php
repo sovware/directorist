@@ -1,8 +1,5 @@
 <div class="wrap">
     <?php
-        $enable_multi_directory = get_directorist_option( 'enable_multi_directory', false );
-        $enable_multi_directory = atbdp_is_truthy( $enable_multi_directory );
-
         $builder_data = base64_encode( json_encode( $data['directory_builder_data'] ) );
 
         /**

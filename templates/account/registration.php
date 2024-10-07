@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   7.0
- * @version 7.4.2
+ * @version 7.8.0
  */
 
 use \Directorist\Helper;
@@ -116,14 +116,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 						<?php if ( ! empty( get_directorist_option( 'registration_privacy', 1 ) ) ) { ?>
 							<div class="atbd_privacy_policy_area directory_regi_btn directorist-checkbox directorist-mb-15">
-								<input id="privacy_policy" type="checkbox" name="privacy_policy" <?php echo( ( isset( $privacy_policy ) && 'on' === $privacy_policy ) ? 'checked="checked"' : '' ); ?>>
-								<label for="privacy_policy" class="directorist-checkbox__label"><?php echo esc_html( $privacy_label ); ?> <a style="color: red" target="_blank" href="<?php echo esc_url( $privacy_page_link ); ?>"><?php echo esc_html( $privacy_label_link ); ?></a> <span class="directorist-form-required">*</span></label>
+								<input id="directorist_registration-privacy_policy" type="checkbox" name="privacy_policy" <?php echo( ( isset( $privacy_policy ) && 'on' === $privacy_policy ) ? 'checked="checked"' : '' ); ?>>
+								<label for="directorist_registration-privacy_policy" class="directorist-checkbox__label"><?php echo esc_html( $privacy_label ); ?> <a style="color: red" target="_blank" href="<?php echo esc_url( $privacy_page_link ); ?>"><?php echo esc_html( $privacy_label_link ); ?></a> <span class="directorist-form-required">*</span></label>
 							</div>
 						<?php } ?>
 						<?php if ( ! empty( get_directorist_option('regi_terms_condition', 1 ) ) ) { ?>
 							<div class="atbd_term_and_condition_area directory_regi_btn directorist-checkbox directorist-mb-15">
-								<input id="listing_t" type="checkbox" name="t_c_check" <?php echo( ( isset( $t_c_check ) && 'on' === $t_c_check ) ? 'checked="checked"' : '' ); ?>>
-								<label for="listing_t" class="directorist-checkbox__label"><?php echo esc_attr($terms_label); ?>
+								<input id="directorist_registration-listing_t" type="checkbox" name="t_c_check" <?php echo( ( isset( $t_c_check ) && 'on' === $t_c_check ) ? 'checked="checked"' : '' ); ?>>
+								<label for="directorist_registration-listing_t" class="directorist-checkbox__label"><?php echo esc_attr($terms_label); ?>
 									<a style="color: red" target="_blank" href="<?php echo esc_url($t_C_page_link)?>"><?php echo esc_attr($terms_label_link); ?></a> <span class="directorist-form-required">*</span></label>
 							</div>
 						<?php } ?>

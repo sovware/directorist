@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.7
- * @version 7.0.5.2
+ * @version 7.10.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -15,6 +15,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 		<span class="directorist-single-info__label--text"><?php echo esc_html( $data['label'] ); ?></span>
 	</div>
 
-	<div class="directorist-single-info__value"><a target="_blank" href="<?php echo esc_url( $value ); ?>" <?php echo !empty( $data['use_nofollow'] ) ? 'rel="nofollow"' : ''; ?>><?php echo esc_html( $value ); ?></a></div>
+	<div class="directorist-single-info__value"><a <?php echo ! empty( $data['form_data']['target'] ) ? esc_attr( 'target="_blank"' ) : ''; ?> href="<?php echo esc_url( $value ); ?>" <?php echo !empty( $data['use_nofollow'] ) ? 'rel="nofollow"' : ''; ?>><?php echo esc_html( $value ); ?></a></div>
 
 </div>

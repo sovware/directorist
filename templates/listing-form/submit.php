@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.0.6.3
+ * @version 7.8.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -30,9 +30,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 		<div class="directorist-form-privacy directorist-checkbox">
 
-			<input id="privacy_policy" type="checkbox" name="privacy_policy" <?php checked( $privacy_checked ); ?> <?php echo $privacy_is_required ? 'required="required"' : ''; ?>>
+			<input id="directorist_add-listing-privacy_policy" type="checkbox" name="privacy_policy" <?php checked( $privacy_checked ); ?> <?php echo $privacy_is_required ? 'required="required"' : ''; ?>>
 
-			<label for="privacy_policy" class="directorist-checkbox__label"><?php echo wp_kses_post( $listing_form->privacy_label() ); ?></label>
+			<label for="directorist_add-listing-privacy_policy" class="directorist-checkbox__label"><?php echo wp_kses_post( $listing_form->privacy_label() ); ?></label>
 
 			<?php if ( $privacy_is_required ): ?>
 				<span class="directorist-form-required"> *</span>
@@ -46,9 +46,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 		<div class="directorist-form-terms directorist-checkbox">
 
-			<input id="listing_t" type="checkbox" name="t_c_check" <?php checked( $terms_checked ); ?> <?php echo $terms_is_required ? 'required="required"' : ''; ?>>
+			<input id="directorist_add-listing-_t" type="checkbox" name="t_c_check" <?php checked( $terms_checked ); ?> <?php echo $terms_is_required ? 'required="required"' : ''; ?>>
 
-			<label for="listing_t" class="directorist-checkbox__label"><?php echo wp_kses_post( $listing_form->terms_label() ); ?></label>
+			<label for="directorist_add-listing-_t" class="directorist-checkbox__label"><?php echo wp_kses_post( $listing_form->terms_label() ); ?></label>
 
 			<?php if ($terms_is_required): ?>
 				<span class="directorist-form-required"> *</span>

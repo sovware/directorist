@@ -2,12 +2,10 @@
 /**
  * @author  wpWax
  * @since   6.7
- * @version 7.3.1
+ * @version 7.10.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
-
-$date_format = get_option( 'date_format' );
 ?>
 
 <div class="directorist-single-info directorist-single-info-date">
@@ -17,6 +15,6 @@ $date_format = get_option( 'date_format' );
 		<span class="directorist-single-info__label--text"><?php echo esc_html( $data['label'] ); ?></span>
 	</div>
 
-	<div class="directorist-single-info__value"><?php echo esc_html( date( $date_format, strtotime( esc_html( $value ) ) ) ); ?></div>
+	<div class="directorist-single-info__value"><?php echo esc_html( directorist_format_date( $value ) ); ?></div>
 
 </div>

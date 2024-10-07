@@ -83,7 +83,7 @@ class Widget_Fields {
 
 	protected static function checkbox( $id, $name, $value, $label, $options, $field ) {
 		?>
-		<input type="checkbox" id="<?php echo esc_attr( $id ); ?>" name="<?php echo esc_attr( $name ); ?>" value="<?php echo esc_attr( $value ); ?>" <?php checked( $value ); ?> />
+		<input type="checkbox" id="<?php echo esc_attr( $id ); ?>" name="<?php echo esc_attr( $name ); ?>" value="<?php echo esc_attr( $field['value'] ); ?>" <?php checked( $value, $field['value'] ); ?> />
 		<label for="<?php echo esc_attr( $id ); ?>" class="directorist-widget-label-inline"><?php echo esc_html( $label ); ?></label>
 		<?php
 	}

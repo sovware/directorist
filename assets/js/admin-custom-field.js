@@ -117,7 +117,6 @@ window.addEventListener('DOMContentLoaded', function () {
         });
       }
     });
-
     var fixHelper = function fixHelper(e, ui) {
       ui.children().children().each(function () {
         $(this).width($(this).width());

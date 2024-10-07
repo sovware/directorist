@@ -135,9 +135,37 @@ class Builder_Controller extends Abstract_Controller {
 	 * @return WP_REST_Response
 	 */
 	public function prepare_item_for_response( $item, $request ) {
+		$date_created = get_term_meta( $item->term_id, '_created_date', true );
+		$expiration   = get_term_meta( $item->term_id, 'default_expiration', true );
+		$new_status   = get_term_meta( $item->term_id, 'new_listing_status', true );
+		$edit_status  = directorist_get_listing_edit_status( $item->term_id );
+		$is_default   = get_term_meta( $item->term_id, '_default', true );
+		$config       = directorist_get_directory_general_settings( $item->term_id );
+		$data         = array(
+			'id'              => (int) $item->term_id,
+			'name'            => $item->name,
+			'slug'            => $item->slug,
+			'icon'            => null,
+			'image_url'       => null,
+			'count'           => (int) $item->count,
+			'is_default'      => (bool) $is_default,
+			'new_status'      => $new_status,
+			'edit_status'     => $edit_status,
+			'expiration_days' => (int) $expiration,
+			'date_created'    => directorist_rest_prepare_date_response( $date_created ),
+		);
 
-		// $data     = $this->add_additional_fields_to_object( $data, $request );
-		// $data     = $this->filter_response_by_context( $data, $context );
+		if ( ! empty( $config['icon'] ) ) {
+			$data['icon'] = $config['icon'];
+		}
+
+		if ( ! empty( $config['preview_image'] ) ) {
+			$data['image_url'] = $config['preview_image'];
+		}
+
+		$context  = ! empty( $request['context'] ) ? $request['context'] : 'view';
+		$data     = $this->add_additional_fields_to_object( $data, $request );
+		$data     = $this->filter_response_by_context( $data, $context );
 		$response = rest_ensure_response( $data );
 
 		// $response->add_links( $this->prepare_links( $item, $request ) );

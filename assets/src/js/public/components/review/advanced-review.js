@@ -110,7 +110,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
                 $wrap.addClass('directorist-comment-edit-request');
 
-                updateComment.success((data, status, request) => {
+                updateComment.done((data, status, request) => {
                     if (typeof data !== 'string' && !data.success) {
                         $wrap.removeClass('directorist-comment-edit-request');
                         CommentEditHandler.showError($form, data.data.html);
@@ -210,7 +210,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 $('#comment').prop('disabled', true);
                 form.find('[type="submit"]').prop('disabled', true).val('loading');
 
-                do_comment.success((data, status, request) => {
+                do_comment.done((data, status, request) => {
                     var body = $('<div></div>');
                     body.append(data);
                     var comment_section = '.directorist-review-container';

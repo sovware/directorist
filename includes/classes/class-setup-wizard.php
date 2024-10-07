@@ -238,8 +238,10 @@ class SetupWizard
                 $exp_dt = calc_listing_expiry_date();
                 update_post_meta($post_id, '_expiry_date', $exp_dt);
                 update_post_meta($post_id, '_featured', 0);
+
+				// TODO: Status has been migrated, remove related code.
                 update_post_meta($post_id, '_listing_status', 'post_status');
-                $preview_url = isset($post['Image']) ? $post['Image'] : '';
+                $preview_url = isset($post['listing_prv_img']) ? $post['listing_prv_img'] : '';
 
                 if ( $preview_image && $preview_url ) {
                    $attachment_id = ATBDP_Tools::atbdp_insert_attachment_from_url($preview_url, $post_id);
@@ -297,12 +299,14 @@ class SetupWizard
     /**
      * Show the setup wizard.
      */
-    public function setup_wizard()
-    {
-
-        if (empty($_GET['page']) || 'directorist-setup' !== $_GET['page']) {
+    public function setup_wizard() {
+        if ( empty( $_GET['page'] ) || 'directorist-setup' !== $_GET['page'] ) {
             return;
         }
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
 
         $this->set_steps();
 
@@ -431,22 +435,6 @@ class SetupWizard
                     <div>
                         <div class="w-toggle-switch">
                             <input type="checkbox" name='dashboard' class="w-switch" id='dashboard' value=1 checked disabled>
-                        </div>
-                    </div>
-                </div>
-                <div class="w-form-group">
-                    <label for="login"><?php esc_html_e( 'Login', 'directorist' ); ?></label>
-                    <div>
-                        <div class="w-toggle-switch">
-                            <input type="checkbox" name='login' class="w-switch" id='login' value=1 checked disabled>
-                        </div>
-                    </div>
-                </div>
-                <div class="w-form-group">
-                    <label for="registration"><?php esc_html_e( 'Registration', 'directorist' ); ?></label>
-                    <div>
-                        <div class="w-toggle-switch">
-                            <input type="checkbox" name='registration' class="w-switch" id='registration' value=1 checked disabled>
                         </div>
                     </div>
                 </div>

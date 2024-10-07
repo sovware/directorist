@@ -14,6 +14,10 @@ class Pricing_Field extends Base_Field {
 	public $type = 'pricing';
 
 	public function get_value( $posted_data ) {
+		if ( $this->get_price_type_prop() !== 'both' ) {
+			$posted_data['atbd_listing_pricing'] = $this->get_price_type_prop();
+		}
+
 		if ( ! isset( $posted_data['atbd_listing_pricing'] ) && ( isset( $posted_data['price'] ) || isset( $posted_data['price_range'] ) ) ) {
 			return array();
 		}
@@ -49,6 +53,18 @@ class Pricing_Field extends Base_Field {
 
 	protected function get_price_ranges() {
 		return array( 'skimming', 'moderate', 'economy', 'bellow_economy' );
+	}
+
+	protected function get_price_type_prop() {
+		$pricing_type = $this->__get( 'pricing_type' );
+
+		if ( $pricing_type === 'price_unit' ) {
+			return 'price';
+		} elseif ( $pricing_type === 'price_range' ) {
+			return 'range';
+		} else {
+			return 'both';
+		}
 	}
 }
 

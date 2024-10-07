@@ -138,13 +138,7 @@
                                                     <input type="checkbox" id="<?php echo esc_attr( $extension_base ); ?>" name="<?php echo esc_attr( $extension_base ); ?>" class="extension-name-checkbox">
                                                     <label class="directorist-checkbox__label" for="<?php echo esc_attr( $extension_base ); ?>">
                                                         <?php
-                                                            $img = 'https://via.placeholder.com/44';
-
-                                                            if ( ! empty($args['extension_list'][$extension_base] ) ) {
-                                                                $img = $args['extension_list'][$extension_base]['thumbnail'];
-                                                            } else if ( ! empty( $args['extension_list'][$extension_base_alias] ) ) {
-                                                                $img = $args['extension_list'][$extension_base_alias]['thumbnail'];
-                                                            }
+                                                            $img = ! empty( $extension['thumbnail'] ) ? $extension['thumbnail'] : DIRECTORIST_ASSETS . 'images/no-image.png';
                                                         ?>
                                                         <img src="<?php echo esc_url( $img ); ?>" width="44" height="44" alt=""><?php echo esc_html( $extension['title'] ) ?>
                                                     </label>

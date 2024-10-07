@@ -91,6 +91,9 @@ class Asset_Loader {
 	 * @return void
 	 */
 	public static function load_template_scripts( $template ) {
+		if ( empty( $template ) ) {
+			return;
+		}
 
 		if ( Helper::is_widget_template( $template ) && ! wp_script_is( 'directorist-widgets' ) ) {
 			wp_enqueue_script( 'directorist-widgets' );
@@ -210,6 +213,7 @@ class Asset_Loader {
 
 			case 'account/login':
 			case 'account/registration':
+			case 'account/login-registration-form':
 				wp_enqueue_script( 'directorist-account' );
 				break;
 

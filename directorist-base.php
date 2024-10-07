@@ -3,8 +3,8 @@
  * Plugin Name: Directorist - Business Directory Plugin
  * Plugin URI: https://wpwax.com
  * Description: A comprehensive solution to create professional looking directory site of any kind. Like Yelp, Foursquare, etc.
- * Version: 7.7.3
- * Author: wpWax
+ * Version: 7.12.5
+ * Author: wpWax - WP Business Directory Plugin and Classified Listings Directory
  * Author URI: https://wpwax.com
  * Text Domain: directorist
  * Domain Path: /languages
@@ -162,6 +162,8 @@ final class Directorist_Base
 	public $announcement;
 	public $review;
 
+	public $background_image_process = null;
+
 	/**
 	 * Main Directorist_Base Instance.
 	 *
@@ -187,7 +189,6 @@ final class Directorist_Base
 			add_action('plugins_loaded', array(self::$instance, 'add_polylang_swicher_support') );
 			add_action('widgets_init', array(self::$instance, 'register_widgets'));
 			add_action('after_setup_theme', array(self::$instance, 'add_image_sizes'));
-
 			add_action( 'template_redirect', [ self::$instance, 'check_single_listing_page_restrictions' ] );
 			add_action( 'atbdp_show_flush_messages', [ self::$instance, 'show_flush_messages' ] );
 
@@ -225,6 +226,8 @@ final class Directorist_Base
 			// self::$instance->ATBDP_Single_Templates = new ATBDP_Single_Templates;
 			self::$instance->tools = new ATBDP_Tools();
 			self::$instance->announcement = new ATBDP_Announcement();
+
+			self::$instance->background_image_process = new \Directorist\Background_Image_Process();
 
 			// Load widgets
 			Directorist\Widgets\Init::instance();
@@ -269,6 +272,7 @@ final class Directorist_Base
 			new ATBDP_Upgrade();
 			// add uninstall menu
 			add_filter('atbdp_settings_menus', array(self::$instance, 'add_uninstall_menu'));
+			add_filter( 'display_post_states', array(self::$instance, 'add_page_states'), 10, 2 );
 
 			self::init_hooks();
 
@@ -326,14 +330,16 @@ final class Directorist_Base
 
 	// check_single_listing_page_restrictions
 	public function check_single_listing_page_restrictions() {
-		$restricted_for_logged_in_user = get_directorist_option( 'restrict_single_listing_for_logged_in_user', false );
-		$current_user_id = get_current_user_id();
-
-		if ( is_singular( ATBDP_POST_TYPE ) && ! empty( $restricted_for_logged_in_user ) && empty( $current_user_id ) ) {
-
-			atbdp_auth_guard();
-			die;
+		if ( is_user_logged_in() || ! is_singular( ATBDP_POST_TYPE ) ) {
+			return;
 		}
+
+		$is_logged_in_users_only = (bool) get_directorist_option( 'restrict_single_listing_for_logged_in_user', false );
+		if ( ! $is_logged_in_users_only ) {
+			return;
+		}
+
+		atbdp_auth_guard();
 	}
 
 	// add_polylang_swicher_support
@@ -447,6 +453,8 @@ final class Directorist_Base
 		$this->autoload( ATBDP_INC_DIR . 'widgets/' );
 
 		self::require_files([
+			ATBDP_INC_DIR . 'directorist-core-functions',
+			ATBDP_INC_DIR . 'directorist-directory-functions',
 			ATBDP_INC_DIR . 'class-helper',
 			ATBDP_INC_DIR . 'helper-functions',
 			ATBDP_INC_DIR . 'template-functions',
@@ -454,15 +462,14 @@ final class Directorist_Base
 			ATBDP_INC_DIR . 'custom-filters',
 			ATBDP_INC_DIR . 'elementor/init',
 			ATBDP_INC_DIR . 'system-status/class-system-status',
-			ATBDP_INC_DIR . 'gutenberg/init',
 			ATBDP_INC_DIR . 'review/init',
 			ATBDP_INC_DIR . 'rest-api/init',
-			ATBDP_INC_DIR . 'directorist-directory-functions',
 			ATBDP_INC_DIR . 'fields/init',
 			ATBDP_INC_DIR . 'modules/multi-directory-setup/class-builder-data',
 			ATBDP_INC_DIR . 'modules/multi-directory-setup/trait-multi-directory-helper',
 			ATBDP_INC_DIR . 'modules/multi-directory-setup/class-multi-directory-migration',
 			ATBDP_INC_DIR . 'modules/multi-directory-setup/class-multi-directory-manager',
+			__DIR__ . '/blocks/init',
 		]);
 
 		$this->autoload( ATBDP_INC_DIR . 'database/' );
@@ -595,6 +602,69 @@ final class Directorist_Base
 		}
 	}
 
+	/**
+	* Add a post display state for special Directorist pages in the page list table.
+	*
+	* @param array   $post_states An array of post display states.
+	* @param WP_Post $post        The current post object.
+	*/
+	public function add_page_states( $post_states, $post ) {
+	   
+		if ( get_directorist_option( 'add_listing_page' ) === $post->ID ) {
+		   $post_states['directorist_add_listing'] = __( 'Directorist Add Listing', 'directorist' );
+	   	}
+		if ( get_directorist_option( 'all_listing_page' ) === $post->ID ) {
+		   $post_states['directorist_all_listing'] = __( 'Directorist All Listing', 'directorist' );
+	   	}
+		if ( get_directorist_option( 'user_dashboard' ) === $post->ID ) {
+		   $post_states['directorist_user_dashboard'] = __( 'Directorist Login, Registration & Dashboard', 'directorist' );
+	   	}
+		if ( get_directorist_option( 'author_profile_page' ) === $post->ID ) {
+		   $post_states['directorist_author_profile_page'] = __( 'Directorist Author Profile', 'directorist' );
+	   	}
+		if ( get_directorist_option( 'all_categories_page' ) === $post->ID ) {
+		   $post_states['directorist_all_categories_page'] = __( 'Directorist All Categories', 'directorist' );
+	   	}
+		if ( get_directorist_option( 'single_category_page' ) === $post->ID ) {
+		   $post_states['directorist_single_category_page'] = __( 'Directorist Single Category', 'directorist' );
+	   	}
+		if ( get_directorist_option( 'all_locations_page' ) === $post->ID ) {
+		   $post_states['directorist_all_locations_page'] = __( 'Directorist All Locations', 'directorist' );
+	   	}
+		if ( get_directorist_option( 'single_location_page' ) === $post->ID ) {
+		   $post_states['directorist_single_location_page'] = __( 'Directorist Single Location', 'directorist' );
+	   	}
+		if ( get_directorist_option( 'single_tag_page' ) === $post->ID ) {
+		   $post_states['directorist_single_tag_page'] = __( 'Directorist Single Tag', 'directorist' );
+	   	}
+		if ( get_directorist_option( 'search_listing' ) === $post->ID ) {
+		   $post_states['directorist_search_listing'] = __( 'Directorist Listing Search Form', 'directorist' );
+	   	}
+		if ( get_directorist_option( 'search_result_page' ) === $post->ID ) {
+		   $post_states['directorist_search_result_page'] = __( 'Directorist Search Result', 'directorist' );
+	   	}
+		if ( get_directorist_option( 'checkout_page' ) === $post->ID ) {
+		   $post_states['directorist_checkout_page'] = __( 'Directorist Checkout', 'directorist' );
+	   	}
+		if ( get_directorist_option( 'payment_receipt_page' ) === $post->ID ) {
+		   $post_states['directorist_payment_receipt_page'] = __( 'Directorist Payment Receipt', 'directorist' );
+	   	}
+		if ( get_directorist_option( 'transaction_failure_page' ) === $post->ID ) {
+		   $post_states['directorist_transaction_failure_page'] = __( 'Directorist Payment Failure', 'directorist' );
+	   	}
+		if ( get_directorist_option( 'privacy_policy' ) === $post->ID ) {
+		   $post_states['directorist_privacy_policy'] = __( 'Directorist Privacy Policy', 'directorist' );
+	   	}
+		if ( get_directorist_option( 'terms_conditions' ) === $post->ID ) {
+		   $post_states['directorist_terms_conditions'] = __( 'Directorist Terms & Conditions', 'directorist' );
+	   	}
+		if ( get_directorist_option( 'pricing_plans' ) === $post->ID ) {
+		   $post_states['directorist_pricing_plans'] = __( 'Directorist Pricing Plan', 'directorist' );
+	   	}
+   
+	   return $post_states;
+   }
+
 	public function add_uninstall_menu($menus) {
 		$menus['uninstall_menu'] = array(
 			'title' => __('Uninstall', 'directorist'),
@@ -669,36 +739,19 @@ final class Directorist_Base
 	}
 
 	/**
-	 * Parse the video URL and determine it's valid embeddable URL for usage.
+	 * Deprecated: 7.8.0
+	 *
+	 * This function is deprecated since version 7.8.0. Please use parse_video() instead.
+	 *
+	 * @param string $url The URL to parse for videos.
+	 * @return mixed The parsed video URL.
+	 *
+	 * @deprecated Use parse_video() for video parsing.
 	 */
-	public function atbdp_parse_videos($url)
-	{
-		$embeddable_url = '';
-		// Check for YouTube
-		$is_youtube = preg_match('/youtu\.be/i', $url) || preg_match('/youtube\.com\/watch/i', $url);
+	public function atbdp_parse_videos( $url ) {
+		_deprecated_function( __METHOD__, '7.8.0', 'Directorist\Helper::parse_video()' );
 
-		if ($is_youtube) {
-			$pattern = '/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/';
-			preg_match($pattern, $url, $matches);
-			if (count($matches) && strlen($matches[7]) == 11) {
-				$embeddable_url = 'https://www.youtube.com/embed/' . $matches[7];
-			}
-		}
-
-		// Check for Vimeo
-		$is_vimeo = preg_match('/vimeo\.com/i', $url);
-
-		if ($is_vimeo) {
-			$pattern = '/\/\/(www\.)?vimeo.com\/(\d+)($|\/)/';
-			preg_match($pattern, $url, $matches);
-			if (count($matches)) {
-				$embeddable_url = 'https://player.vimeo.com/video/' . $matches[2];
-			}
-		}
-
-		// Return
-		return $embeddable_url;
-
+		return \Directorist\Helper::parse_video( $url );
 	}
 
 	public function atbdp_body_class($c_classes)

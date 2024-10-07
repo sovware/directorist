@@ -51,6 +51,7 @@ class ATBDP_Shortcode {
 				// Single
 				'directorist_single_listings_header' => [ $this, 'single_listings_header' ],
 				'directorist_single_listing_section' => [ $this, 'single_listing_section' ],
+				'directorist_single_listing_field' => [ $this, 'single_listing_field' ],
 
 				// Single -- legacy shortcode
 				'directorist_listing_top_area'            => '__return_empty_string',
@@ -138,6 +139,55 @@ class ATBDP_Shortcode {
 			}
 
 			$listing->section_template( $section );
+		}
+
+		if ( isset( $_temp_post ) ) {
+			$post = $_temp_post;
+			unset( $_temp_post );
+		}
+
+		return ob_get_clean();
+	}
+
+	public function single_listing_field( $atts = array() ) {
+
+		if( ! isset( $atts[ 'field_key' ] ) || empty( $atts[ 'field_key' ] ) ) return;
+
+		// Render dummy shortcode content when user isn't in single listing page
+		if ( !is_singular( ATBDP_POST_TYPE ) ) {
+			return Helper::single_listing_dummy_shortcode( 'directorist_single_listing_field', $atts );
+		}
+
+		$listing_id = ( isset( $atts['post_id'] ) && is_numeric( $atts['post_id'] ) ) ? ( int ) esc_attr( $atts['post_id'] ) : 0;
+
+		if ( ! $listing_id ) {
+			global $post;
+			$_temp_post = $post; // Cache global post.
+			$listing_id = get_queried_object_id();
+			$post       = get_post( get_queried_object_id() ); // Assign custom single page as post.
+		}
+
+		$listing = Directorist_Single_Listing::instance( $listing_id );
+
+		ob_start();
+
+		foreach ( $listing->content_data as $section ) {
+			foreach ( $section[ 'fields' ] as $field ) {
+				if( isset( $field[ 'field_key' ] ) && $field[ 'field_key' ] === $atts[ 'field_key' ] ) {
+
+					/** Card & Wrapper - Open */
+					if( isset( $atts[ 'card' ] ) && $atts[ 'card' ] === 'true' ) echo '<div class="directorist-card"><div class="directorist-card__body">';
+					if( isset( $atts[ 'wrap' ] ) && $atts[ 'wrap' ] === 'true' ) echo '<div class="directorist-details-info-wrap">';
+					
+					$listing->field_template( $field );
+
+					/** Card & Wrapper - Close */
+					if( isset( $atts[ 'wrap' ] ) && $atts[ 'wrap' ] === 'true' ) echo '</div>';
+					if( isset( $atts[ 'card' ] ) && $atts[ 'card' ] === 'true' ) echo '</div></div>';
+
+					continue 2;
+				}
+			}
 		}
 
 		if ( isset( $_temp_post ) ) {
@@ -244,12 +294,24 @@ class ATBDP_Shortcode {
 	}
 
 	public function user_dashboard( $atts ) {
-		$atts = !empty( $atts ) ? $atts : array();
+		if ( ! is_user_logged_in() && get_option( 'directorist_merge_dashboard_login_reg_page' ) ) {
+			return $this->user_login_registration( $atts );
+		}
+		$atts      = ! empty( $atts ) ? $atts : array();
 		$dashboard = Directorist_Listing_Dashboard::instance();
 
 		$atts[ 'shortcode' ] = 'directorist_user_dashboard';
 
-		return $dashboard->render_shortcode($atts);
+		return $dashboard->render_shortcode( $atts );
+	}
+
+	public function user_login_registration( $atts ) {
+		$atts = !empty( $atts ) ? $atts : array();
+		$account = Directorist_Listing_Dashboard::instance();
+
+		$atts[ 'shortcode' ] = 'directorist_user_dashboard';
+
+		return $account->render_shortcode_login_registration( $atts );
 	}
 
 	public function add_listing( $atts ) {

@@ -48,7 +48,8 @@ class Localized_Data {
 	private static function search_form_localized_data() {
 		$directory_type_id = ( isset( $args['directory_type_id'] ) ) ? $args['directory_type_id'] : '';
 		$data = self::get_search_script_data([
-			'directory_type_id' => $directory_type_id
+			'directory_type_id' => $directory_type_id,
+			'search_max_radius_distance' => apply_filters( 'directorist_search_max_radius_distance', get_directorist_option( 'search_max_radius_distance', 1000 ) )
 		]);
 		return $data;
 	}
@@ -70,11 +71,12 @@ class Localized_Data {
 			'nonce'                       => wp_create_nonce( 'atbdp_nonce_action_js' ),
 			'directorist_nonce'           => wp_create_nonce( directorist_get_nonce_key() ),
 			'ajax_nonce'                  => wp_create_nonce( 'bdas_ajax_nonce' ),
-			'is_admin'		              => is_admin(),
+			'is_admin'                    => is_admin(),
 			'ajaxurl'                     => admin_url( 'admin-ajax.php' ),
 			'assets_url'                  => DIRECTORIST_ASSETS,
 			'home_url'                    => home_url(),
-			'rest_url'                    => rest_url(),
+			'rest_url'                    => esc_url_raw( rest_url() ),
+			'rest_nonce'                  => wp_create_nonce( 'wp_rest' ),
 			'nonceName'                   => 'atbdp_nonce_js',
 			'login_alert_message'         => __( 'Sorry, you need to login first.', 'directorist' ),
 			'rtl'                         => is_rtl() ? 'true' : 'false',
@@ -150,15 +152,17 @@ class Localized_Data {
 			'deleted'                 => __( 'Deleted!', 'directorist' ),
 			'max_location_creation'   => esc_attr( $max_loc_creation ),
 			'max_location_msg'        => sprintf( __('You can only use %s', 'directorist'), $max_loc_creation ),
+			'submission_wait_msg'     => esc_html__( 'Please wait, your submission is being processed.', 'directorist' ),
+			'image_uploading_msg'     => esc_html__( 'Please wait, your selected images being uploaded.', 'directorist' )
 		);
 
 		//get listing is if the screen in edit listing
 		$data = array(
-			'nonce'           => wp_create_nonce( 'atbdp_nonce_action_js' ),
-			'ajaxurl'         => admin_url( 'admin-ajax.php' ),
-			'nonceName'       => 'atbdp_nonce_js',
-			'is_admin'		    => is_admin(),
-			'media_uploader'  => apply_filters( 'atbdp_media_uploader', [
+			'nonce'          => wp_create_nonce( 'atbdp_nonce_action_js' ),
+			'ajaxurl'        => admin_url( 'admin-ajax.php' ),
+			'nonceName'      => 'atbdp_nonce_js',
+			'is_admin'       => is_admin(),
+			'media_uploader' => apply_filters( 'atbdp_media_uploader', [
 				[
 					'element_id'        => 'directorist-image-upload',
 					'meta_name'         => 'listing_img',

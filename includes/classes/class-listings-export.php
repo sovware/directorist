@@ -30,7 +30,7 @@ class Listings_Exporter {
             'post_content'   => '',
             'post_status'    => 'inherit'
         );
-        
+
         $attach_id = wp_insert_attachment( $attachment, $file );
         $attach_url = wp_get_attachment_url( $attach_id );
 
@@ -55,19 +55,20 @@ class Listings_Exporter {
             }
 
             $row_content = '';
-            $accepted_types = [ 'string', 'integer', 'double', 'boolean' ];
+
             foreach ( $row as $row_key => $row_value ) {
-                
+
                 $row_content__ = '';
-                
-                if ( in_array( gettype( $row_value ), $accepted_types ) ) {
+
+				// $accepted_types = [ 'string', 'integer', 'double', 'boolean' ];
+                if ( is_bool( $row_value ) || is_int( $row_value ) || is_double( $row_value ) || is_string( $row_value ) ) {
                     $row_content__ = $row_value;
                 }
 
-                if ( 'array' === gettype( $row_value ) ) {
+                if ( is_array( $row_value ) ) {
                     $row_content__ = maybe_serialize( $row_value );
                 }
-                
+
                 $row_content__ = str_replace( '"', "'", $row_content__ );
                 $row_content__ = '"' . $row_content__ . '",';
                 $row_content .= $row_content__;
@@ -78,7 +79,7 @@ class Listings_Exporter {
 
         return $contents;
     }
-    
+
     // get_listings_data
     public static function get_listings_data() {
         $listings_data = [];
@@ -121,7 +122,7 @@ class Listings_Exporter {
         if ( $listings->have_posts() ) {
             while ( $listings->have_posts() ) {
                 $listings->the_post();
-                
+
                 $row = [];
                 $row['id'] = get_the_ID();
                 $row['directory'] = self::get_directory_slug_by_id( get_the_id() );
@@ -129,12 +130,12 @@ class Listings_Exporter {
                 $directory_type_id = get_post_meta( get_the_ID(), '_directory_type', true );
                 $submission_form   = get_term_meta( $directory_type_id, 'submission_form_fields', true );
 
-                if ( 'array' === gettype( $submission_form ) && ! empty( $submission_form['fields'] ) ) {
+                if ( is_array( $submission_form ) && ! empty( $submission_form['fields'] ) ) {
                     foreach ( $submission_form['fields'] as $field_key => $field_args ) {
                         foreach ( $field_map as $field_map_key => $field_map_args ) {
                             $verify      = $field_map_args[ 'verify' ];
                             $update_data = $field_map_args[ 'update_data' ];
-    
+
                             if ( self::$verify( $field_args ) ) {
                                 $row = self::$update_data( $row, $field_key, $field_args );
                                 $row = apply_filters( 'directorist_listings_export_submission_form_fields_row', $row, $field_key, $field_args, $field_map_key );
@@ -143,7 +144,7 @@ class Listings_Exporter {
                         }
                     }
                 }
-                
+
                 $row = apply_filters( 'directorist_listings_export_row', $row );
                 $max_row_length = count( array_keys( $row ) );
                 $tr_lengths   [] = $max_row_length;
@@ -224,7 +225,7 @@ class Listings_Exporter {
         $taxonomy = [ 'category', 'location', 'tag' ];
 
         if ( ! in_array( $args['widget_name'], $taxonomy ) ) { return false; }
-        
+
         return true;
     }
 
@@ -235,7 +236,7 @@ class Listings_Exporter {
             'location' => ATBDP_LOCATION,
             'tag'      => ATBDP_TAGS,
         ];
-        
+
         $row[ $field_key ] = self::get_term_names( get_the_ID(), $term_map[ $field_args['widget_name'] ] );
 
         return $row;
@@ -249,13 +250,13 @@ class Listings_Exporter {
         if ( empty( $args['field_key'] ) ) { return false; }
         if ( 'preset' !== $args['widget_group'] ) { return false; }
         if ( 'listing_img' !== $args['field_key'] ) { return false; }
-        
+
         return true;
     }
 
     // updateListingImageModuleFieldsData
     public static function updateListingImageModuleFieldsData( array $row = [], string $field_key = '', array $field_args = [] ) {
-        
+
         $image_urls          = [];
         $_listing_prv_img_id = get_post_meta( get_the_ID(), '_listing_prv_img', true );
         $_listing_img_id     = get_post_meta( get_the_ID(), '_listing_img', true );
@@ -291,7 +292,7 @@ class Listings_Exporter {
         if ( empty( $args['widget_group'] ) ) { return false; }
         if ( empty( $args['widget_name'] ) ) { return false; }
         if ( empty( $args['field_key'] ) ) { return false; }
-        
+
         return true;
     }
 
@@ -310,7 +311,7 @@ class Listings_Exporter {
         if ( empty( $args['widget_group'] ) ) { return false; }
         if ( empty( $args['widget_name'] ) ) { return false; }
         if ( 'pricing' !== $args['widget_name'] ) { return false; }
-        
+
         return true;
     }
 
@@ -330,7 +331,7 @@ class Listings_Exporter {
         if ( empty( $args['widget_group'] ) ) { return false; }
         if ( empty( $args['widget_name'] ) ) { return false; }
         if ( 'map' !== $args['widget_name'] ) { return false; }
-        
+
         return true;
     }
 
@@ -357,11 +358,11 @@ class Listings_Exporter {
     // get_term_names
     public static function get_term_names( $post_id = 0, $taxonomy = '' ) {
         $terms = get_the_terms( $post_id, $taxonomy );
-    
+
         if ( is_wp_error( $terms ) || empty( $terms ) ) {
             return '';
         }
-        
+
         return join( ',', wp_list_pluck( $terms, 'name' ) );
     }
 
@@ -382,6 +383,11 @@ class Listings_Exporter {
 	 * @return string
 	 */
 	public static function escape_data( $data ) {
+
+        if( ! is_string( $data ) ) {
+            return $data;
+        }
+
 		$active_content_triggers = array( '=', '+', '-', '@' );
 
 		if ( in_array( mb_substr( $data, 0, 1 ), $active_content_triggers, true ) ) {

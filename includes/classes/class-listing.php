@@ -80,12 +80,11 @@ if (!class_exists('ATBDP_Listing')):
             if (isset($_GET['post_type'])) {
                 $type = ! empty( $_GET['post_type'] ) ? directorist_clean( wp_unslash( $_GET['post_type'] ) ) : '';
             }
-            $enable_multi_directory = get_directorist_option( 'enable_multi_directory', false );
 
             //only add filter to post type you want
-            if ( ( 'at_biz_dir' == $type ) && ( atbdp_is_truthy( $enable_multi_directory ) ) ) { ?>
+            if ( ( 'at_biz_dir' == $type ) && directorist_is_multi_directory_enabled() ) { ?>
                 <select name="directory_type">
-                    <option value=""><?php esc_html_e('Filter by directory ', 'directorist'); ?></option>
+                    <option value=""><?php esc_html_e( 'Filter by directory ', 'directorist' ); ?></option>
                     <?php
                     $current_v = ! empty( $_GET['directory_type'] ) ? directorist_clean( wp_unslash( $_GET['directory_type'] ) ) : '';
 
@@ -105,44 +104,53 @@ if (!class_exists('ATBDP_Listing')):
          * @since 6.3.5
          */
         public function atbdp_listing_status_controller() {
-            $status   = isset($_GET['listing_status']) ? directorist_clean( wp_unslash( $_GET['listing_status'] ) ) : '';
-            $preview  = isset($_GET['preview']) ? directorist_clean( wp_unslash( $_GET['preview'] ) ) : '';
-            $reviewed = isset($_GET['reviewed']) ? directorist_clean( wp_unslash( $_GET['reviewed'] ) ) : '';
+			if ( empty( $_GET['listing_status'] ) && empty( $_GET['preview'] ) && empty( $_GET['reviewed'] ) ) {
+				return;
+			}
 
-            if ( $preview || $status || $reviewed ) {
-                $listing_id = isset($_GET['atbdp_listing_id']) ? directorist_clean( wp_unslash( $_GET['atbdp_listing_id'] ) ) : '';
-                $listing_id = isset($_GET['post_id']) ? directorist_clean( wp_unslash( $_GET['post_id'] ) ) : $listing_id;
+			if ( ! empty( $_GET['listing_id'] ) ) {
+				$listing_id = (int) directorist_clean( wp_unslash( $_GET['listing_id'] ) );
+			} elseif ( ! empty( $_GET['post_id'] ) ) {
+				$listing_id = (int) directorist_clean( wp_unslash( $_GET['post_id'] ) );
+			} elseif ( ! empty( $_GET['atbdp_listing_id'] ) ) {
+				$listing_id = (int) directorist_clean( wp_unslash( $_GET['atbdp_listing_id'] ) );
+			} else {
+				$listing_id = get_the_ID();
+			}
 
-                $id = isset($_GET['listing_id']) ? (int)directorist_clean( wp_unslash( $_GET['listing_id'] ) ) : '';
-                $id = ( ! empty( $id ) ) ? $id : $listing_id;
-                $id = ( ! empty( $id ) ) ? $id : get_the_ID();
+			if ( ! $listing_id || ! directorist_is_listing_post_type( $listing_id ) ) {
+				return;
+			}
 
-                $directory_type = get_post_meta( $id, '_directory_type', true );
-                if( ! is_numeric($directory_type) ){
-                    $term = get_term_by( 'slug', $directory_type, ATBDP_TYPE );
-                    $directory_type = !empty( $term ) ? $term->term_id : '';
-                    update_post_meta( $id, '_directory_type', $directory_type );
-                    wp_set_object_terms($id, (int)$directory_type, ATBDP_TYPE);
-                }
-                $new_l_status = get_term_meta( $directory_type, 'new_listing_status', true );
-                $edit_l_status = get_term_meta( $directory_type, 'edit_listing_status', true );
+			$directory_id = get_post_meta( $listing_id, '_directory_type', true );
 
-                $edited = isset($_GET['edited']) ? directorist_clean( wp_unslash( $_GET['edited'] ) ) : '';
-                $args = [ 'id' => $id, 'edited' => $edited, 'new_l_status' => $new_l_status, 'edit_l_status' => $edit_l_status ];
-                $post_status = atbdp_get_listing_status_after_submission( $args );
+			if ( ! is_numeric( $directory_id ) ){
+				$directory_term = get_term_by( 'slug', $directory_id, ATBDP_TYPE );
 
-                $args = array(
-                    'ID' => $id ? $id : get_the_id(),
-                    'post_status' => $post_status,
-                );
+				if ( ! $directory_term ) {
+					return;
+				}
 
-                $is_directory_post = ( 'at_biz_dir' === get_post_type( $id ) ) ? true : false;
+				$directory_id = (int) $directory_term->term_id;
 
-                if ( $is_directory_post ) {
-                    wp_update_post( apply_filters('atbdp_reviewed_listing_status_controller_argument', $args) );
-                }
-            }
+				directorist_set_listing_directory( $listing_id, $directory_id );
+			}
 
+			$directory_id = absint( $directory_id );
+
+			$args = array(
+				'id'            => $listing_id,
+				'edited'        => isset( $_GET['edited'] ) ? directorist_clean( wp_unslash( $_GET['edited'] ) ) : '',
+				'new_l_status'  => directorist_get_listing_create_status( $directory_id ),
+				'edit_l_status' => directorist_get_listing_edit_status( $directory_id ),
+			);
+
+			$args = apply_filters( 'atbdp_reviewed_listing_status_controller_argument', array(
+				'ID'          => $listing_id,
+				'post_status' => atbdp_get_listing_status_after_submission( $args ),
+			) );
+
+			wp_update_post( $args );
         }
 
         // manage_listings_status
@@ -152,11 +160,15 @@ if (!class_exists('ATBDP_Listing')):
 
         // update_listing_status
         public function update_listing_status( $order_id, $listing_id ) {
-            $featured_enabled = get_directorist_option('enable_featured_listing');
             $pricing_plan_enabled = is_fee_manager_active();
 
-            if ( $pricing_plan_enabled ) { return; };
-            if ( ! $featured_enabled ) { return; };
+            if ( $pricing_plan_enabled ) {
+				return;
+			};
+
+            if ( ! directorist_is_featured_listing_enabled() ) {
+				return;
+			};
 
             $directory_type = get_post_meta( $listing_id, '_directory_type', true );
             $post_status = get_term_meta( $directory_type, 'new_listing_status', true );

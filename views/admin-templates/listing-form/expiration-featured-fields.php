@@ -57,14 +57,9 @@ endif;
             <strong><?php esc_html_e( "Featured", 'directorist' ); ?></strong>
         </label>
     </div>
-<?php } 
+<?php }
 
 $listing_types = array();
-$all_types     = get_terms(
-    array(
-        'taxonomy'   => ATBDP_TYPE,
-        'hide_empty' => false,
-    )
-);
+$all_types     = directorist_get_directories();
 ?>
 <input type="hidden" name="listing_status" value="<?php echo esc_attr( ! empty( $listing_status ) ? $listing_status : 'post_status' ); ?>" />

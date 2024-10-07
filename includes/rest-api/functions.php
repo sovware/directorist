@@ -367,3 +367,67 @@ function directorist_rest_check_user_favorite_permissions( $context = 'read', $o
 
 	return apply_filters( 'directorist_rest_check_permissions', $permission, $context, $object_id, 'user_favorite' );
 }
+
+function directorist_rest_count_paid_listings( $author_id, $plan_id, $order_id, $type = 'all' ) {
+	$args = array(
+		'post_type'              => ATBDP_POST_TYPE,
+		'post_status'            => array( 'publish', 'pending' ),
+		'fields'                 => 'ids',
+		'author'                 => $author_id,
+		'update_post_term_cache' => false,
+		'nopaging'               => true,
+	);
+
+	$meta_args = array();
+
+	if ( $plan_id ) {
+		$meta_args['plan_id'] = array(
+			'key'     => '_fm_plans',
+			'value'   => $plan_id,
+			'compare' => '=',
+			'type'    => 'UNSIGNED',
+		);
+	}
+
+	if ( $order_id ) {
+		$meta_args['order_id'] = array(
+			'key'     => '_plan_order_id',
+			'value'   => $order_id,
+			'compare' => '=',
+			'type'    => 'UNSIGNED',
+		);
+	}
+
+	if ( 'featured' === $type ) {
+		$meta_args['featured'] = array(
+			'key'     => '_featured',
+			'value'   => '1',
+			'compare' => '=',
+			'type'    => 'UNSIGNED',
+		);
+	}
+
+	if ( 'regular' === $type ) {
+		$meta_args['regular'] = array(
+			'key'     => '_featured',
+			'value'   => array( '', '0' ),
+			'compare' => 'IN',
+		);
+	}
+
+	$args['meta_query'] = array_merge( array(
+		'relation' => 'AND'
+	), $meta_args );
+
+	$query = new WP_Query( $args );
+
+	return (int) $query->post_count;
+}
+
+function directorist_rest_count_regular_paid_listings( $author_id, $plan_id, $order_id ) {
+	return directorist_rest_count_paid_listings( $author_id, $plan_id, $order_id, 'regular' );
+}
+
+function directorist_rest_count_featured_paid_listings( $author_id, $plan_id, $order_id ) {
+	return directorist_rest_count_paid_listings( $author_id, $plan_id, $order_id, 'featured' );
+}

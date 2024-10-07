@@ -162,7 +162,8 @@ class Orders_Controller extends Posts_Controller {
 		$args            = [];
 		$args['order']   = $request['order'];
 		$args['orderby'] = $request['orderby'];
-		$args['author']  = $request->get_param( 'customer' );
+		$args['paged']   = $request['page'];
+		$args['author']  = $request['customer'];
 
 		/**
 		 * Filter the query arguments for a request.
@@ -296,6 +297,12 @@ class Orders_Controller extends Posts_Controller {
 				case 'featured':
 					$data[ $field ] = (bool) get_post_meta( $order->ID, '_featured', true );
 					break;
+				case 'remaining_listings':
+					$data[ $field ] = $this->get_remaining_listings_count( $order );
+					break;
+				case 'remaining_featured_listings':
+					$data[ $field ] = $this->get_remaining_featured_listings_count( $order );
+					break;
 				case 'amount':
 					$data[ $field ] = (float) get_post_meta( $order->ID, '_amount', true );
 					break;
@@ -399,6 +406,16 @@ class Orders_Controller extends Posts_Controller {
 					'type'        => 'boolean',
 					'context'     => array( 'view', 'edit' ),
 				),
+				'remaining_listings'           => array(
+					'description' => __( 'Remaining regular listings count.', 'directorist' ),
+					'type'        => 'integer',
+					'context'     => array( 'view', 'edit' ),
+				),
+				'remaining_featured_listings'           => array(
+					'description' => __( 'Remaining featured listings count.', 'directorist' ),
+					'type'        => 'integer',
+					'context'     => array( 'view', 'edit' ),
+				),
 				'amount'           => array(
 					'description' => __( 'Amount.', 'directorist' ),
 					'type'        => 'float',
@@ -449,6 +466,7 @@ class Orders_Controller extends Posts_Controller {
 			'description'        => __( 'Sort collection by object attribute.', 'directorist' ),
 			'enum'               => array_keys( $this->get_orderby_possibles() ),
 			'type'               => 'string',
+			'default'            => 'date',
 			'sanitize_callback'  => 'sanitize_key',
 		);
 		$params['customer'] = array(
@@ -470,5 +488,33 @@ class Orders_Controller extends Posts_Controller {
 
 	protected function get_plan_id( $order ) {
 		return (int) get_post_meta( $order->ID, '_fm_plan_ordered', true );
+	}
+
+	protected function get_remaining_listings_count( $order ) {
+		$plan_id      = $this->get_plan_id( $order );
+		$is_unlimited = (bool) get_post_meta( $plan_id, 'num_regular_unl', true );
+
+		if ( $is_unlimited ) {
+			return -1;
+		}
+
+		$total_count = directorist_rest_count_regular_paid_listings( (int) $order->post_author, $plan_id, (int) $order->ID );
+		$limit       = (int) get_post_meta( $plan_id, 'num_regular', true );
+
+		return ( $limit - $total_count );
+	}
+
+	protected function get_remaining_featured_listings_count( $order ) {
+		$plan_id      = $this->get_plan_id( $order );
+		$is_unlimited = (bool) get_post_meta( $plan_id, 'num_featured_unl', true );
+
+		if ( $is_unlimited ) {
+			return -1;
+		}
+
+		$total_count = directorist_rest_count_featured_paid_listings( (int) $order->post_author, $plan_id, (int) $order->ID );
+		$limit       = (int) get_post_meta( $plan_id, 'num_featured', true );
+
+		return ( $limit - $total_count );
 	}
 }

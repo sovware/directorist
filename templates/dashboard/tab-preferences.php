@@ -21,16 +21,16 @@ $contact_owner_recipient = $dashboard->user_info( 'contact_owner_recipient' ) ? 
 			<div class="directorist-card__body">
 				<div class="directorist-user-info-wrap">
 					<input type="hidden" name="ID" value="<?php echo esc_attr( get_current_user_id() ); ?>">
-					<div class="directorist-user-hide-listing">
+					<div class="directorist-preference-toggle">
 						<label for="hide_contact_form" class="directorist-toggle">
 							<span class="directorist-toggle-label"><?php esc_html_e( 'Hide contact form in my listings', 'directorist' ); ?></span>
 							<input id="hide_contact_form" class="directorist-toggle-checkbox" name="directorist_hide_contact_form" value="1" type="checkbox" <?php echo esc_attr( ($dashboard->user_info( 'hide_contact_form' ) == '1' ) ? 'checked' : '' ); ?>>
 							<div class="directorist-toggle-switch"></div>
 						</label>
 					</div>
-					<div class="directorist-user-display-author">
+					<div class="directorist-preference-radio">
 						<div class="directorist-form-group">
-							<div class="display_author_email">
+							<div class="directorist-preference-radio__label">
 								<?php esc_html_e( 'Display Email on Author Page', 'directorist' ); ?>
 							</div>
 							<div class="directorist-flex directorist-flex-wrap directorist-radio-wrapper">
@@ -49,9 +49,9 @@ $contact_owner_recipient = $dashboard->user_info( 'contact_owner_recipient' ) ? 
 							</div>
 						</div>
 					</div>
-					<div class="directorist-user-display-author">
+					<div class="directorist-preference-radio">
 						<div class="directorist-form-group">
-							<div class="contact_owner_recipient">
+							<div class="directorist-preference-radio__label">
 								<?php esc_html_e( 'Contact Listing Owner Form Recipient', 'directorist' ); ?>
 							</div>
 							<div class="directorist-flex directorist-flex-wrap directorist-radio-wrapper">

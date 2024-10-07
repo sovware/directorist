@@ -354,6 +354,10 @@ class Directorist_Listing_Dashboard {
 			case 'display_author_email':
 			$result = get_user_meta( $id, 'directorist_display_author_email', true );
 			break;
+
+			case 'contact_owner_recipient':
+			$result = get_user_meta( $id, 'directorist_contact_owner_recipient', true );
+			break;
 		}
 
 		return $result;

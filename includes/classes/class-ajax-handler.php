@@ -1020,10 +1020,12 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 
 			$hide_contact_form 		= isset( $_POST['directorist_hide_contact_form'] ) ? sanitize_text_field( $_POST['directorist_hide_contact_form'] ) : '';
 			$display_author_email 	= isset( $_POST['directorist_display_author_email'] ) ? sanitize_text_field( $_POST['directorist_display_author_email'] ) : '';
+			$contact_owner_recipient 	= isset( $_POST['directorist_contact_owner_recipient'] ) ? sanitize_text_field( $_POST['directorist_contact_owner_recipient'] ) : '';
 			
 			// Save the sanitized value to user meta
 			update_user_meta( $user_id, 'directorist_hide_contact_form', $hide_contact_form );
 			update_user_meta( $user_id, 'directorist_display_author_email', $display_author_email );
+			update_user_meta( $user_id, 'directorist_contact_owner_recipient', $contact_owner_recipient );
 
 			// Return a success message
 			wp_send_json_success( array( 'message' => __( 'Preferences updated successfully.', 'directorist' ) ) );
@@ -1386,7 +1388,8 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			$current_time          = current_time( 'timestamp' );
 			$contact_email_subject = get_directorist_option( 'email_sub_listing_contact_email' );
 			$contact_email_body    = get_directorist_option( 'email_tmpl_listing_contact_email' );
-			$user_email            = get_directorist_option( 'user_email', 'author' );
+			$contact_recipient 	   = get_user_meta( $post_author_id, 'directorist_contact_owner_recipient', true );
+			$user_email            = ! empty( $contact_recipient ) ? $contact_recipient : 'author';
 
 			$placeholders = array(
 				'==NAME=='          => $user->display_name,

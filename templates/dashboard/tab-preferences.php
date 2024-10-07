@@ -9,6 +9,7 @@ use \Directorist\Helper;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 $display_author_email = $dashboard->user_info( 'display_author_email' ) ? $dashboard->user_info( 'display_author_email' ) : 'public';
+$contact_owner_recipient = $dashboard->user_info( 'contact_owner_recipient' ) ? $dashboard->user_info( 'contact_owner_recipient' ) : 'author';
 ?>
 
 <form action="#" id="user_preferences" method="post">
@@ -44,6 +45,24 @@ $display_author_email = $dashboard->user_info( 'display_author_email' ) ? $dashb
 								<div class="directorist-radio directorist-radio-circle">
 									<input type="radio" id="none_to_display" name="directorist_display_author_email" value="none_to_display" <?php checked( $display_author_email, 'none_to_display' ); ?>>
 									<label class="directorist-radio__label" for="none_to_display"><?php esc_html_e('Don’t Display', 'directorist') ?></label>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="directorist-user-display-author">
+						<div class="directorist-form-group">
+							<div class="contact_owner_recipient">
+								<?php esc_html_e( 'Contact Listing Owner Form Recipient', 'directorist' ); ?>
+							</div>
+							<div class="directorist-flex directorist-flex-wrap directorist-radio-wrapper">
+								<div class="directorist-radio directorist-radio-circle">
+									<input type="radio" id="author" name="directorist_contact_owner_recipient" value="author" <?php checked( $contact_owner_recipient, 'author' ); ?>>
+									<label class="directorist-radio__label" for="author"><?php esc_html_e( 'Author Email', 'directorist' ) ?></label>
+								</div>
+								<div class="directorist-radio directorist-radio-circle">
+									<input type="radio" id="listing_email" name="directorist_contact_owner_recipient" value="listing_email" <?php checked( $contact_owner_recipient, 'listing_email' ); ?>>
+									<label class="directorist-radio__label" for="listing_email"><?php esc_html_e( "Listing's Email", 'directorist' ) ?></label>
+								</div>
 								</div>
 							</div>
 						</div>

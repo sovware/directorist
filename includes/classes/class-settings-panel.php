@@ -1983,22 +1983,6 @@ Please remember that your order may be canceled if you do not make your payment 
                         ],
                     ],
                 ],
-                'user_email' => [
-                    'label' => __('Contact Listing Owner Form Recipient', 'directorist'),
-                    'type'  => 'select',
-                    'value' => 'author',
-                    'description' => __('Email recipient for receiving email from Contact Listing Owner Form.', 'directorist'),
-                    'options' => [
-                        [
-                            'value' => 'author',
-                            'label' => __('Author Email', 'directorist'),
-                        ],
-                        [
-                            'value' => 'listing_email',
-                            'label' => __('Listing\'s Email', 'directorist'),
-                        ],
-                    ],
-                ],
                 // badge settings
                 'new_badge_text' => [
                     'type' => 'text',
@@ -4666,7 +4650,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                 'email_notification' => [
                                     'title'       => __( 'Email Notifications', 'directorist' ),
                                     'fields'      => [
-                                        'disable_email_notification', 'user_email', 'admin_email_lists', 'notify_admin', 'notify_user'
+                                        'disable_email_notification', 'admin_email_lists', 'notify_admin', 'notify_user'
                                      ],
                                 ],
                             ] ),

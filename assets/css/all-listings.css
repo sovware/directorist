@@ -386,6 +386,8 @@
 }
 .directorist-content-module__contents .directorist-form-description-field .wp-editor-area {
   border: none;
+  resize: none;
+  min-height: 238px;
 }
 .directorist-content-module__contents .directorist-form-description-field .mce-top-part::before {
   display: none;

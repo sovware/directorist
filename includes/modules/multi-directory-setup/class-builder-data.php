@@ -430,6 +430,11 @@ class Builder_Data {
                                 'label' => __( 'Label', 'directorist' ),
                                 'value' => 'Author Info',
                             ],
+                            'display_email'        => [
+                                'type'  => 'toggle',
+                                'label' => __( 'Display Email', 'directorist' ),
+                                'value' => true,
+                            ],
                             'custom_block_id'      => [
                                 'type'  => 'text',
                                 'label' => __( 'Custom block ID', 'directorist' ),

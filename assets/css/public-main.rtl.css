@@ -21843,6 +21843,114 @@ Review: New Style
   margin-top: 15px;
 }
 
+/* User Preferences */
+.directorist-user_preferences .directorist-user-hide-listing .directorist-form-group {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 10px;
+}
+.directorist-user_preferences .directorist-user-hide-listing .directorist-form-group label {
+  margin-bottom: 0;
+  color: var(--directorist-color-dark);
+  font-size: 14px;
+  font-weight: 400;
+}
+.directorist-user_preferences .directorist-user-hide-listing .directorist-form-group input {
+  margin: 0;
+}
+.directorist-user_preferences .directorist-user-hide-listing .directorist-toggle-label {
+  font-size: 14px;
+  color: var(--directorist-color-dark);
+  font-weight: 600;
+  line-height: normal;
+}
+.directorist-user_preferences .directorist-user-display-author {
+  margin-top: 25px;
+}
+.directorist-user_preferences .directorist-user-display-author .display_author_email {
+  color: var(--directorist-color-dark);
+  font-weight: 700;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+.directorist-user_preferences .directorist-user-display-author .directorist-radio-wrapper {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 12px;
+}
+.directorist-user_preferences .select2.select2-container.select2-container--default .select2-selection__arrow b,
+.directorist-user_preferences .select2-selection__arrow, .directorist-user_preferences .select2-selection__clear {
+  display: block !important;
+}
+.directorist-user_preferences .select2.select2-container.select2-container--default.select2-container--open .select2-selection {
+  border-bottom-color: var(--directorist-color-primary);
+}
+
+/* Directorist Toggle */
+.directorist-toggle {
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 10px;
+}
+
+.directorist-toggle-switch {
+  display: inline-block;
+  background: var(--directorist-color-border);
+  border-radius: 16px;
+  width: 44px;
+  height: 22px;
+  position: relative;
+  vertical-align: middle;
+  -webkit-transition: background 0.25s;
+  transition: background 0.25s;
+}
+.directorist-toggle-switch:before, .directorist-toggle-switch:after {
+  content: "";
+}
+.directorist-toggle-switch:before {
+  display: block;
+  background: white;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  position: absolute;
+  top: 3px;
+  right: 4px;
+  -webkit-transition: right 0.25s;
+  transition: right 0.25s;
+}
+.directorist-toggle:hover .directorist-toggle-switch:before {
+  background: -webkit-gradient(linear, right top, right bottom, from(#fff), to(#fff));
+  background: linear-gradient(to bottom, #fff 0%, #fff 100%);
+}
+.directorist-toggle-checkbox:checked + .directorist-toggle-switch {
+  background: var(--directorist-color-primary);
+}
+.directorist-toggle-checkbox:checked + .directorist-toggle-switch:before {
+  right: 25px;
+}
+
+.directorist-toggle-checkbox {
+  position: absolute;
+  visibility: hidden;
+}
+
 .directorist-user-socials .directorist-user-social-label {
   font-size: 18px;
   padding-bottom: 18px;

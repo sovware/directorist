@@ -559,6 +559,11 @@
     &:hover {
       opacity: 0.85;
     }
+    &:disabled {
+      opacity: 0.5;
+      pointer-events: none;
+      cursor: not-allowed;
+    }
     @media (max-width: 375px) {
       gap: 15px;
     }
@@ -690,6 +695,7 @@
       }
     }
     @include e("items") {
+      position: relative;
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
@@ -1191,6 +1197,16 @@
     .leaflet-touch .leaflet-bar a {
       background: #ffffff;
     }
+  }
+  @include e("notice") {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    font-weight: 600;
+    font-style: italic;
+    color: #f80718;
   }
 }
 

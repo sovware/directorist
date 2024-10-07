@@ -707,12 +707,12 @@ class SetupWizard
                 <div class="directorist-setup-wizard__content__import__wrapper">
                     <h3 class="directorist-setup-wizard__content__import__title">Import Demo Data and Choose Data Sharing Preferences</h3>
                     <div class="directorist-setup-wizard__content__import__single">
-                        <input type="checkbox" name="import_listings" id="import-listing" value="yes" />
+                        <input type="checkbox" name="import_listings" id="import-listing" value="yes" checked />
                         <label for="import-listing">Import Demo Content</label>
                     </div>
                     <div class="directorist-setup-wizard__content__import__single">
-                        <input type="checkbox" name="share_non_sensitive_data" id="share-data" value="yes" checked/>
-                        <label for="share-data">Share Non-Sensitive Data <a href="#">[Learn what we collect]</a></label>
+                        <input type="checkbox" name="share_non_sensitive_data" id="share-data" value="yes" checked />
+                        <label for="share-data">Share Non-Sensitive Data <a href="https://appsero.com/privacy-policy/" target="_blank">[Learn what we collect]</a></label>
                     </div>
                 </div>
                 <a href="#" class="directorist-setup-wizard__content__import__btn directorist-setup-wizard__btn directorist-setup-wizard__btn--full directorist-submit-importing">
@@ -811,7 +811,7 @@ class SetupWizard
                     <p class="directorist-setup-wizard__counter__desc">You can add more from the directory builder </p>
                 </div>
                 <div class="directorist-setup-wizard__checkbox">
-                    <input type="checkbox" name="directory_type[]" id="business-directory" value="business" />
+                    <input type="checkbox" name="directory_type[]" id="business-directory" value="business" checked />
                     <label for="business-directory">Business Directory</label>
                 </div>
                 <div class="directorist-setup-wizard__checkbox">
@@ -885,6 +885,9 @@ class SetupWizard
                 <div class="directorist-setup-wizard__checkbox directorist-setup-wizard__checkbox--custom">
                     <input type="text" name="other_directory_type" id="others-listing" placeholder="Type Your Preferred Directory Name" />
                 </div>
+                <span class="directorist-setup-wizard__notice" style="display: none">
+                    Minimum 1 selection is required
+                </span>
             </div>
             <a href="<?php echo esc_attr( admin_url() ); ?>" class="directorist-setup-wizard__content__notice">
                 <svg xmlns="http://www.w3.org/2000/svg" width="14.932" height="16" viewBox="570 654 14.932 16"><path d="M580.32 669.25a.75.75 0 0 1-.75.75h-7.07a2.503 2.503 0 0 1-2.5-2.5v-11a2.503 2.503 0 0 1 2.5-2.5h7.07a.75.75 0 0 1 0 1.5h-7.07c-.552 0-1 .448-1 1v11c0 .552.448 1 1 1h7.07a.75.75 0 0 1 .75.75Zm4.393-7.78-3.564-3.564a.75.75 0 1 0-1.061 1.06l2.284 2.284h-5.905a.75.75 0 0 0 0 1.5h5.905l-2.284 2.284a.75.75 0 1 0 1.06 1.06l3.565-3.564a.75.75 0 0 0 0-1.06Z" fill="#484848" fill-rule="evenodd" data-name="Path 1620"/></svg> Not Right Now. Exit to Dashboard

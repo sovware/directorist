@@ -18227,6 +18227,10 @@ input[type=radio]:checked::before {
   display: -ms-flexbox;
   display: flex;
   gap: 6px;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   font-size: 14px;
   font-weight: 500;
   color: #383F47;
@@ -23423,6 +23427,10 @@ input[type=radio]:checked::before {
   display: -ms-flexbox;
   display: flex;
   gap: 6px;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   font-size: 14px;
   font-weight: 500;
   color: #383F47;
@@ -28886,6 +28894,10 @@ input[type=radio]:checked::before {
   display: -ms-flexbox;
   display: flex;
   gap: 6px;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   font-size: 14px;
   font-weight: 500;
   color: #383F47;

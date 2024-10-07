@@ -187,29 +187,36 @@
         >
           <!-- Display the placeholder label -->
           <span class="cptm-elements-settings__group__title">{{ placeholder.label }}</span>
-
-          <!-- Loop through acceptedWidgets and display only existing widgets from available_widgets -->
-          <div 
-            class="cptm-elements-settings__group__single"
-            v-for="(widget_key, widget_index) in placeholder.acceptedWidgets" 
-            :key="widget_index"
+          <Container 
+            @drop="onElementsDrop($event, placeholder_index)"
+            drag-handle-selector=".settings-drag-element"
           >
-            <!-- Check if widget exists in available_widgets before accessing properties -->
-            <template v-if="available_widgets[widget_key]">
-              <span class="drag-icon uil uil-draggabledots"></span>
-              <span class="cptm-elements-settings__group__single__label">
-                <!-- Display icon only if it exists -->
-                <span v-if="available_widgets[widget_key].icon" :class="available_widgets[widget_key].icon"></span>
-                {{ available_widgets[widget_key].label }}
-              </span>
+            <!-- Loop through acceptedWidgets and display only existing widgets from available_widgets -->
+            <Draggable
+              v-for="(widget_key, widget_index) in placeholder.acceptedWidgets" 
+              :key="widget_index"
+            >
+              <div
+                class="cptm-elements-settings__group__single"
+              >
+                <!-- Check if widget exists in available_widgets before accessing properties -->
+                <template v-if="available_widgets[widget_key]">
+                  <span class="settings-drag-element drag-icon uil uil-draggabledots"></span>
+                  <span class="cptm-elements-settings__group__single__label">
+                    <!-- Display icon only if it exists -->
+                    <span v-if="available_widgets[widget_key].icon" :class="available_widgets[widget_key].icon"></span>
+                    {{ available_widgets[widget_key].label }}
+                  </span>
 
-              <!-- Add toggle switch for widget -->
-              <span class="cptm-elements-settings__group__single__switch">
-                <input type="checkbox" :id="`settings-${widget_key}-${placeholder_index}`" />
-                <label :for="`settings-${widget_key}-${placeholder_index}`" />
-              </span>
-            </template>
-          </div>
+                  <!-- Add toggle switch for widget -->
+                  <span class="cptm-elements-settings__group__single__switch">
+                    <input type="checkbox" :id="`settings-${widget_key}-${placeholder_index}`" />
+                    <label :for="`settings-${widget_key}-${placeholder_index}`" />
+                  </span>
+                </template>
+              </div>
+            </Draggable>
+          </Container>
         </div>
       </div>
     </div>
@@ -546,6 +553,14 @@ export default {
 
     onDrop(dropResult) {
       this.placeholders = applyDrag(this.placeholders, dropResult);
+    },
+
+    onElementsDrop(dropResult, placeholder_index) {
+      console.log({ dropResult });
+      const updatedWidgets = applyDrag(this.allPlaceholderItems[placeholder_index].acceptedWidgets, dropResult);
+      
+      // Update the specific placeholder's acceptedWidgets
+      this.$set(this.allPlaceholderItems[placeholder_index], 'acceptedWidgets', updatedWidgets);
     },
 
     getGhostParent() {

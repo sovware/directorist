@@ -22979,6 +22979,15 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     onDrop: function onDrop(dropResult) {
       this.placeholders = Object(_helpers_vue_dndrop__WEBPACK_IMPORTED_MODULE_4__["applyDrag"])(this.placeholders, dropResult);
     },
+    onElementsDrop: function onElementsDrop(dropResult, placeholder_index) {
+      console.log({
+        dropResult: dropResult
+      });
+      var updatedWidgets = Object(_helpers_vue_dndrop__WEBPACK_IMPORTED_MODULE_4__["applyDrag"])(this.allPlaceholderItems[placeholder_index].acceptedWidgets, dropResult);
+
+      // Update the specific placeholder's acceptedWidgets
+      this.$set(this.allPlaceholderItems[placeholder_index], 'acceptedWidgets', updatedWidgets);
+    },
     getGhostParent: function getGhostParent() {
       return document.body;
     },
@@ -32506,17 +32515,27 @@ var render = function render() {
       staticClass: "cptm-elements-settings__group"
     }, [_c("span", {
       staticClass: "cptm-elements-settings__group__title"
-    }, [_vm._v(_vm._s(placeholder.label))]), _vm._v(" "), _vm._l(placeholder.acceptedWidgets, function (widget_key, widget_index) {
-      return _c("div", {
-        key: widget_index,
+    }, [_vm._v(_vm._s(placeholder.label))]), _vm._v(" "), _c("Container", {
+      attrs: {
+        "drag-handle-selector": ".settings-drag-element"
+      },
+      on: {
+        drop: function drop($event) {
+          return _vm.onElementsDrop($event, placeholder_index);
+        }
+      }
+    }, _vm._l(placeholder.acceptedWidgets, function (widget_key, widget_index) {
+      return _c("Draggable", {
+        key: widget_index
+      }, [_c("div", {
         staticClass: "cptm-elements-settings__group__single"
       }, [_vm.available_widgets[widget_key] ? [_c("span", {
-        staticClass: "drag-icon uil uil-draggabledots"
+        staticClass: "settings-drag-element drag-icon uil uil-draggabledots"
       }), _vm._v(" "), _c("span", {
         staticClass: "cptm-elements-settings__group__single__label"
       }, [_vm.available_widgets[widget_key].icon ? _c("span", {
         class: _vm.available_widgets[widget_key].icon
-      }) : _vm._e(), _vm._v("\n              " + _vm._s(_vm.available_widgets[widget_key].label) + "\n            ")]), _vm._v(" "), _c("span", {
+      }) : _vm._e(), _vm._v("\n                  " + _vm._s(_vm.available_widgets[widget_key].label) + "\n                ")]), _vm._v(" "), _c("span", {
         staticClass: "cptm-elements-settings__group__single__switch"
       }, [_c("input", {
         attrs: {
@@ -32527,8 +32546,8 @@ var render = function render() {
         attrs: {
           for: "settings-".concat(widget_key, "-").concat(placeholder_index)
         }
-      })])] : _vm._e()], 2);
-    })], 2) : _vm._e();
+      })])] : _vm._e()], 2)]);
+    }), 1)], 1) : _vm._e();
   }), 0)]) : _vm._e()]);
 };
 var staticRenderFns = [];

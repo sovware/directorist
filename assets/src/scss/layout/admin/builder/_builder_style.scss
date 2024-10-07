@@ -3790,6 +3790,7 @@ input[type="radio"] {
       @include e(label) {
         display: flex;
         gap: 6px;
+        align-items: center;
         font-size: 14px;
         font-weight: 500;
         color: #383F47;

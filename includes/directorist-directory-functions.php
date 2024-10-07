@@ -24,11 +24,21 @@ function directorist_get_directory_meta( $directory_id, string $meta_key ) {
 
 function directorist_get_listing_form_fields_data( $directory_id ) {
 	$form_data = directorist_get_directory_meta( $directory_id, 'submission_form_fields' );
+
+	if ( empty( $form_data ) || ! is_array( $form_data ) ) {
+		return array();
+	}
+
 	return directorist_get_var( $form_data['fields'], array() );
 }
 
 function directorist_get_listing_form_groups_data( $directory_id ) {
 	$form_data = directorist_get_directory_meta( $directory_id, 'submission_form_fields' );
+
+	if ( empty( $form_data ) || ! is_array( $form_data ) ) {
+		return array();
+	}
+
 	return directorist_get_var( $form_data['groups'], array() );
 }
 

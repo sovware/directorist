@@ -176,6 +176,7 @@ class Plans_Controller extends Posts_Controller {
 		$args                   = [];
 		$args['order']          = $request['order'];
 		$args['orderby']        = $request['orderby'];
+		$args['paged']          = $request['page'];
 
 		if ( directorist_is_multi_directory_enabled() && ! empty( $request['directory'] ) ) {
 			$args['meta_key'] = '_assign_to_directory';
@@ -849,6 +850,7 @@ class Plans_Controller extends Posts_Controller {
 		$params['orderby'] = array(
 			'description'        => __( 'Sort collection by object attribute.', 'directorist' ),
 			'enum'               => array_keys( $this->get_orderby_possibles() ),
+			'default'            => 'title',
 			'type'               => 'string',
 			'sanitize_callback'  => 'sanitize_key',
 		);

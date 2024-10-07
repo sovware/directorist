@@ -89,6 +89,106 @@
   }
 }
 
+/* User Preferences */
+
+
+.directorist-user_preferences{
+  .directorist-user-hide-listing{
+    .directorist-form-group{
+      display: flex;
+      align-items: center;
+      gap:10px;
+      label{
+        margin-bottom: 0;
+        color: var(--directorist-color-dark);
+        font-size: 14px;
+        font-weight: 400;
+      }
+      input{
+        margin: 0;
+      }
+    }
+    .directorist-toggle-label{
+      font-size: 14px;
+      color: var(--directorist-color-dark);
+      font-weight: 600;
+      line-height: normal;
+    }
+  }
+  .directorist-user-display-author{
+    margin-top: 25px;
+    .display_author_email{
+      color: var(--directorist-color-dark);
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+    .directorist-radio-wrapper{
+      flex-direction: column;
+      gap:12px;
+    }
+  }
+  .select2.select2-container.select2-container--default .select2-selection__arrow b,
+  .select2-selection__arrow, .select2-selection__clear{
+    display: block !important;
+  }
+  .select2.select2-container.select2-container--default{
+    &.select2-container--open{
+      .select2-selection{
+        border-bottom-color:var(--directorist-color-primary);
+      }
+    }
+  }
+}
+
+/* Directorist Toggle */
+.directorist-toggle {
+	cursor: pointer;
+	display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.directorist-toggle-switch {
+	display: inline-block;
+	background: var(--directorist-color-border);
+	border-radius: 16px;
+	width: 44px;
+	height: 22px;
+	position: relative;
+	vertical-align: middle;
+	transition: background 0.25s;
+	&:before,
+	&:after {
+		content: "";
+	}
+	&:before {
+		display: block;
+		background: white;
+		border-radius: 50%;
+		width: 16px;
+		height: 16px;
+		position: absolute;
+		top: 3px;
+		left: 4px;
+		transition: left 0.25s;
+	}
+	.directorist-toggle:hover &:before {
+		background: linear-gradient(to bottom, #fff 0%, #fff 100%);
+	}
+	.directorist-toggle-checkbox:checked + & {
+		background: var(--directorist-color-primary);
+		&:before {
+			left: 25px;
+		}
+	}
+}
+
+.directorist-toggle-checkbox {
+	position: absolute;
+	visibility: hidden;
+}
+
 // Users Social Info
 .directorist-user-socials {
   .directorist-user-social-label {

@@ -930,6 +930,9 @@ window.addEventListener('load', function () {
 
 ;
 (function ($) {
+  if ($('#display_author_email').length) {
+    $('#display_author_email').select2();
+  }
   window.addEventListener('load', function () {
     var is_processing = false;
     $('#user_preferences').on('submit', function (e) {

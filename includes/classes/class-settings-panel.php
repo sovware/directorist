@@ -4769,7 +4769,7 @@ Please remember that your order may be canceled if you do not make your payment 
                             ] ),
                         ],
                         'featured_listings' => [
-                            'label' => __('Featured Listing', 'directorist'),
+                            'label' => __('Featured Listings', 'directorist'),
                             'icon' => '<i class="fa fa-arrow-up"></i>',
                             'sections' => apply_filters( 'atbdp_listing_settings_featured_sections', [
                                 'featured' => [

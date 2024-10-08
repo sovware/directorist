@@ -236,7 +236,7 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="510 399 30 30"><path d="M536.667 399h-23.334a3.333 3.333 0 0 0-3.333 3.333V409a3.333 3.333 0 0 0 3.333 3.333h23.334A3.333 3.333 0 0 0 540 409v-6.667a3.333 3.333 0 0 0-3.333-3.333Zm-23.334 10v-6.667h23.334V409h-23.334Zm10 5h-10a3.333 3.333 0 0 0-3.333 3.333v8.334a3.333 3.333 0 0 0 3.333 3.333h10a3.333 3.333 0 0 0 3.334-3.333v-8.334a3.333 3.333 0 0 0-3.334-3.333Zm-10 11.667v-8.334h10v8.334h-10ZM536.667 414h-5a3.333 3.333 0 0 0-3.334 3.333v8.334a3.333 3.333 0 0 0 3.334 3.333h5a3.333 3.333 0 0 0 3.333-3.333v-8.334a3.333 3.333 0 0 0-3.333-3.333Zm-5 11.667v-8.334h5v8.334h-5Z" fill="#3e62f5" fill-rule="evenodd" data-name="template"/></svg>
                             </span>
                             <span class="modal-btn-text"><?php esc_html_e( 'Select a directory template', 'directorist' ); ?></span>
-                            <span><?php echo esc_html( 'Templatiq required', 'directorist' ); ?></span>
+                            <span><?php echo esc_html( 'This will install the Templatiq plugin', 'directorist' ); ?></span>
                         </a>
                         <a href="<?php echo esc_attr( $data['add_new_link'] ); ?>" class="cptm-create-directory-modal__action__single">
                             <span class="modal-btn-icon">

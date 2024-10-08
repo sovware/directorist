@@ -2188,6 +2188,10 @@ class Builder_Data {
                         ],
 
                     ],
+                    'isAdvanced' => [
+                        'lessText' => __( 'Basic', 'directorist' ),
+                        'moreText' => __( 'Advanced', 'directorist' ),
+                    ],
                 ],
                 'value'           => [],
             ],

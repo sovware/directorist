@@ -186,7 +186,7 @@ class Directorist_Listings {
 		$this->options['paginate_listings']               = ! empty( get_directorist_option( 'paginate_all_listings', 1 ) ) ? 'yes' : '';
 		$this->options['display_listings_header']         = ! empty( get_directorist_option( 'display_listings_header', 1 ) ) ? 'yes' : '';
 		$this->options['listing_header_title']            = get_directorist_option( 'all_listing_title', __( 'Items Found', 'directorist' ) );
-		$this->options['listing_columns']                 = get_directorist_option( 'all_listing_columns', 3 );
+		$this->options['listing_columns']                 = get_directorist_option( 'all_listing_columns', 2 );
 		$this->options['listing_filters_button']          = ! empty( get_directorist_option( 'listing_filters_button', 1 ) ) ? 'yes' : '';
 		$this->options['listings_map_height']             = get_directorist_option( 'listings_map_height', 350 );
 		$this->options['enable_featured_listing']         = directorist_is_featured_listing_enabled();
@@ -242,7 +242,7 @@ class Directorist_Listings {
 		$this->options['display_publish_date']            = get_directorist_option('display_publish_date', 1) ? true : false;
 		$this->options['default_latitude']                = get_directorist_option('default_latitude', 40.7127753);
 		$this->options['default_longitude']               = get_directorist_option('default_longitude', -74.0059728);
-		$this->options['listing_instant_search']          = ! empty( get_directorist_option( 'listing_instant_search' ) ) ? 'yes' : '';
+		$this->options['listing_instant_search']          = 'yes';
 		$this->options['all_listing_layout']         	  = get_directorist_option( 'all_listing_layout', 'left_sidebar' );
 		$this->options['listing_sidebar_top_search_bar']  = get_directorist_option( 'listing_hide_top_search_bar', false );
 		$this->options['sidebar_filter_text']    		  = get_directorist_option( 'listings_sidebar_filter_text', 'Filters' );
@@ -270,7 +270,7 @@ class Directorist_Listings {
 		$this->options['listings_sort_by_items']          = get_directorist_option( 'search_sort_by_items', array( 'a_z', 'z_a', 'latest', 'oldest', 'popular', 'price_low_high', 'price_high_low', 'random' ) );
 		$this->options['order_listing_by']                = apply_filters( 'atbdp_default_listing_orderby', get_directorist_option( 'search_order_listing_by', 'date' ) );
 		$this->options['sort_listing_by']                 = get_directorist_option( 'search_sort_listing_by', 'asc' );
-		$this->options['listing_columns']                 = get_directorist_option( 'search_listing_columns', 3 );
+		$this->options['listing_columns']                 = get_directorist_option( 'search_listing_columns', 2 );
 		$this->options['paginate_listings']               = ! empty( get_directorist_option( 'paginate_search_results', 1 ) ) ? 'yes' : '';
 		$this->options['listings_per_page']               = get_directorist_option( 'search_posts_num', 6 );
 		$this->options['all_listing_layout']         	  = get_directorist_option( 'search_result_layout', 'left_sidebar' );

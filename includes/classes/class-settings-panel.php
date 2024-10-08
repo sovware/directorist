@@ -1521,7 +1521,7 @@ Please remember that your order may be canceled if you do not make your payment 
                         ],
                         [
                             'value' => 'no_sidebar',
-                            'label' => __('No Sidebar Filter (Popup)', 'directorist'),
+                            'label' => __('Popup Filter', 'directorist'),
                         ],
                     ],
                 ],
@@ -1536,11 +1536,6 @@ Please remember that your order may be canceled if you do not make your payment 
                             ['key' => 'value', 'compare' => '!=', 'value' => 'no_sidebar'],
                         ],
                     ],
-                ],
-                'listing_instant_search' => [
-                    'type' => 'toggle',
-                    'label' => __('Ajax Search', 'directorist'),
-                    'value' => false,
                 ],
                 'listings_sidebar_filter_text' => [
                     'type' => 'text',
@@ -1595,17 +1590,23 @@ Please remember that your order may be canceled if you do not make your payment 
                     'type' => 'text',
                     'label' => __('Apply Button text', 'directorist'),
                     'value' => __('Apply Filters', 'directorist'),
+                    'show-if' => [
+                        'where' => "all_listing_layout",
+                        'conditions' => [
+                            [ 'key' => 'value', 'compare' => '=', 'value' => 'no_sidebar' ],
+                        ],
+                    ],
                 ],
 
 
                 'display_sort_by' => [
                     'type' => 'toggle',
-                    'label' => __('Display "Sort By" Dropdown', 'directorist'),
+                    'label' => __('Enable Sorting Options', 'directorist'),
                     'value' => true,
                 ],
                 'sort_by_text'    => [
                     'type'          => 'text',
-                    'label'         => __('"Sort By" Text', 'directorist'),
+                    'label'         => __('"Sort By" Label', 'directorist'),
                     'value'         => __('Sort By', 'directorist'),
                     'show-if' => [
                         'where' => "display_sort_by",
@@ -1732,7 +1733,7 @@ Please remember that your order may be canceled if you do not make your payment 
                             'label' => __('Full', 'directorist'),
                         ],
                     ],
-					'description' => sprintf( __( 'Default: %s.<br/>If you change this option, please regenerate all thumbnails using <a href="%s" target="_blank">this</a> plugin. Otherwise it may not work properly.', 'directorist' ), $default_preview_size_text, 'https://wordpress.org/plugins/regenerate-thumbnails/' ),
+					'description' => sprintf( __( 'Default: %s.<br/>If changed, regenerate thumbnails via <a href="%s" target="_blank">this</a> plugin for proper functionality.', 'directorist' ), $default_preview_size_text, 'https://wordpress.org/plugins/regenerate-thumbnails/' ),
                 ],
                 'way_to_show_preview' => [
                     'label' => __('Image Size', 'directorist'),
@@ -2688,7 +2689,7 @@ Please remember that your order may be canceled if you do not make your payment 
                         ],
                         [
                             'value' => 'no_sidebar',
-                            'label' => __('No Sidebar Filter (Popup)', 'directorist'),
+                            'label' => __('Popup Filter', 'directorist'),
                         ],
                     ],
                 ],
@@ -2756,6 +2757,12 @@ Please remember that your order may be canceled if you do not make your payment 
                     'type'          => 'text',
                     'label'         => __('Apply Filters Button text', 'directorist'),
                     'value'         => __('Apply Filters', 'directorist'),
+                    'show-if' => [
+                        'where' => "search_result_layout",
+                        'conditions' => [
+                            [ 'key' => 'value', 'compare' => '=', 'value' => 'no_sidebar' ],
+                        ],
+                    ],
                 ],
                 'search_view_as_items' => [
                     'type' => 'checkbox',
@@ -2783,12 +2790,12 @@ Please remember that your order may be canceled if you do not make your payment 
                 ],
                 'search_sort_by' => [
                     'type'  => 'toggle',
-                    'label' => __('Display "Sort By" Dropdown', 'directorist'),
+                    'label' => __('Enable Sorting Options', 'directorist'),
                     'value' => true,
                 ],
                 'search_sortby_text'    => [
                     'type'          => 'text',
-                    'label'         => __('"Sort By" Text', 'directorist'),
+                    'label'         => __('"Sort By" Label', 'directorist'),
                     'value'         => __('Sort By', 'directorist'),
                 ],
                 'search_sort_by_items' => [
@@ -4269,13 +4276,12 @@ Please remember that your order may be canceled if you do not make your payment 
                                     'title'       => __(' Layout & Search', 'directorist' ),
                                     'fields'      => [
                                         'all_listing_layout', 
-                                        'listing_hide_top_search_bar', 
-                                        'listing_instant_search', 
+                                        'all_listing_columns', 
+                                        'all_listing_page_items',
+                                        'listing_hide_top_search_bar',
                                         'listings_sidebar_filter_text', 
                                         'listings_reset_text', 
-                                        'listings_apply_text', 
-                                        'all_listing_columns', 
-                                        'all_listing_page_items'
+                                        'listings_apply_text',
                                      ],
                                 ],
                                 'header' => [
@@ -4420,12 +4426,12 @@ Please remember that your order may be canceled if you do not make your payment 
                                     'title'       => __('Layout & Search', 'directorist' ),
                                     'fields'      => [
                                         'search_result_layout', 
+                                        'search_listing_columns', 
+                                        'search_posts_num',
                                         'search_result_hide_top_search_bar',
                                         'search_result_sidebar_filter_text',
                                         'sresult_reset_text',
                                         'sresult_apply_text',
-                                        'search_listing_columns', 
-                                        'search_posts_num',
                                      ],
                                 ],
                                 'search_result_header' => [

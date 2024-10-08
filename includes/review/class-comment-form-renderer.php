@@ -484,7 +484,7 @@ class Comment_Form_Renderer {
 
 				foreach ( $comment_fields as $name => $field ) {
 
-					if ( 'comment' === $name ) {
+					if ( 'comment' === $name || 'gdpr_consent' === $name || 'cookies' === $name ) {
 
 						/**
 						 * Filters the content of the comment textarea field for display.

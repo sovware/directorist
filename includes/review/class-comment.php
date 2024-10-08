@@ -11,6 +11,7 @@ defined( 'ABSPATH' ) || die();
 
 use Exception;
 use Directorist\Review\Listing_Review_Meta as Review_Meta;
+use Directorist\Directorist_Single_Listing;
 
 class Comment {
 
@@ -77,11 +78,15 @@ class Comment {
 				throw new Exception( __( '<strong>Error</strong>: You must login to share review.', 'directorist' ), 401 );
 			}
 
-			if ( ! is_user_logged_in() && directorist_is_review_gdpr_consent_enabled() && ! isset( $_POST['directorist-gdpr-consent'] ) ) {
+			$listing       = Directorist_Single_Listing::instance();
+			$section_data  = $listing->get_review_section_data();
+			$builder       = Builder::get( $section_data['section_data'] );
+
+			if ( $builder->is_gdpr_consent() && ! isset( $_POST['directorist-gdpr-consent'] ) ) {
 				throw new Exception( sprintf(
 					/** translators: %1$s gdpr consent label */
 					__( '<strong>Error</strong>: Please agree to - %1$s', 'directorist' ),
-					directorist_get_review_gdpr_consent_label()
+					$builder->gdpr_consent_label()
 				), 400 );
 			}
 

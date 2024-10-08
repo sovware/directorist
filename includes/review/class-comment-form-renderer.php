@@ -12,6 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 use Exception;
+use Directorist\Directorist_Single_Listing;
 
 class Comment_Form_Renderer {
 
@@ -192,7 +193,9 @@ class Comment_Form_Renderer {
 
 			return;
 		}
-
+		$listing       = Directorist_Single_Listing::instance();
+		$section_data  = $listing->get_review_section_data();
+		$builder       = Builder::get( $section_data['section_data'] );
 		$commenter     = wp_get_current_commenter();
 		$user          = wp_get_current_user();
 		$user_identity = $user->exists() ? $user->display_name : '';
@@ -248,13 +251,13 @@ class Comment_Form_Renderer {
 			),
 		);
 
-		if ( directorist_is_review_gdpr_consent_enabled() && ! is_user_logged_in() ) {
+		if ( $builder->is_gdpr_consent()  ) {
 			$args['fields']['gdpr_consent'] = sprintf(
 				'<p class="comment-form-gdpr-consent comment-form-cookies-consent">
 					<input id="directorist-gdpr-consent" name="directorist-gdpr-consent" type="checkbox" value="yes" required />
 					<label for="directorist-gdpr-consent"><span class="required">*</span> %s</label>
 				</p>',
-				directorist_get_review_gdpr_consent_label()
+				$builder->gdpr_consent_label()
 			);
 		}
 

@@ -6,6 +6,7 @@
  * @since 8.0
  */
 namespace Directorist\Review;
+use ATBDP_Permalink;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -13,9 +14,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Builder {
 
-	protected $fields          = array();
-	protected $cookies_consent = false;
-	private   static $instance = null;
+	protected $fields	= array();
+	protected $cookies_consent;
+	protected $gdpr_consent;
+	protected $gdpr_consent_label;
+	private static $instance 	= null;
 
 	public static function get( $data ) {
 		if ( is_null( self::$instance ) ) {
@@ -27,7 +30,13 @@ class Builder {
 
 	private function __construct( $data ) {
 		$this->load_data( $data );
-		$this->cookies_consent = isset( $data['review_cookies_consent'] ) ? true : false;
+		$this->cookies_consent 		= ! empty( $data['review_cookies_consent'] ) ? true : false;
+		$this->gdpr_consent    		= ! empty( $data['review_enable_gdpr_consent'] ) ? true : false;
+		$this->gdpr_consent_label	= ! empty( $data['review_gdpr_consent_label'] ) ? $data['review_gdpr_consent_label'] : sprintf(
+			__( 'I have read and agree to the <a href="%s" target="_blank">Privacy Policy</a> and <a href="%s" target="_blank">Terms of Service</a>', 'directorist' ),
+			esc_url( ATBDP_Permalink::get_privacy_policy_page_url() ),
+			esc_url( ATBDP_Permalink::get_terms_and_conditions_page_url() )
+		);;
 	}
 
 	public function load_data( $data )  {
@@ -77,6 +86,14 @@ class Builder {
 
 	public function is_cookies_consent_active() {
 		return (bool) $this->cookies_consent;
+	}
+
+	public function is_gdpr_consent() {
+		return (bool) $this->gdpr_consent;
+	}
+
+	public function gdpr_consent_label() {
+		return $this->gdpr_consent_label;
 	}
 
 	public function is_website_field_active() {

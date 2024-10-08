@@ -73,6 +73,7 @@ class Asset_Loader {
 
 		// Reviews
 		if ( directorist_is_review_enabled() ) {
+			wp_enqueue_script( 'wp-hooks' );
 			wp_enqueue_script( 'comment-reply' );
 			wp_enqueue_script( 'directorist-jquery-barrating' );
 		}

@@ -8988,6 +8988,7 @@ body.stop-scrolling {
 }
 .directorist-form-image-upload-field .ez-media-uploader .ezmu__preview-section .ezmu__thumbnail-list-item {
   width: 175px;
+  min-width: 175px;
   -webkit-flex-basis: unset;
       -ms-flex-preferred-size: unset;
           flex-basis: unset;

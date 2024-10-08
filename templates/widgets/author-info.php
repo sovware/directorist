@@ -65,8 +65,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
             <?php } ?>
 
             <?php
-
-            $email_show = get_directorist_option('display_author_email', 'public');
+            $display_email 		= get_user_meta( $author_id, 'directorist_display_author_email', true );
+		    $email_show         = ! empty( $display_email ) ? $display_email : 'public';
             if ('public' === $email_show) {
                 if (!empty($email)) {
                     ?>

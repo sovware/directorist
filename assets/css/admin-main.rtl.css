@@ -8987,8 +8987,7 @@ body.stop-scrolling {
           mask-image: url(../images/6af1e9612a6d7346e1366489fb9fac45.svg);
 }
 .directorist-form-image-upload-field .ez-media-uploader .ezmu__preview-section .ezmu__thumbnail-list-item {
-  min-width: 120px;
-  max-width: 140px;
+  width: 175px;
   -webkit-flex-basis: unset;
       -ms-flex-preferred-size: unset;
           flex-basis: unset;
@@ -9030,7 +9029,7 @@ body.stop-scrolling {
 }
 .directorist-add-listing-wrapper .ezmu__thumbnail-list-item_back {
   position: relative;
-  height: 80px;
+  height: 100px;
   width: 100%;
 }
 .directorist-add-listing-wrapper .ezmu__thumbnail-list-item_back .ezmu__thumbnail-img {

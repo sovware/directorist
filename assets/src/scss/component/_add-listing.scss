@@ -894,8 +894,7 @@
         }
       }
       .ezmu__thumbnail-list-item {
-        min-width: 120px;
-        max-width: 140px;
+        width: 175px;
         flex-basis: unset;
       }
       .ezmu__front-item__sort-buttons {
@@ -941,7 +940,7 @@
 
   .ezmu__thumbnail-list-item_back {
     position: relative;
-    height: 80px;
+    height: 100px;
     width: 100%;
     .ezmu__thumbnail-img {
       object-fit: cover;

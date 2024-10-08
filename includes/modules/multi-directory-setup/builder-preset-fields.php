@@ -44,7 +44,7 @@ return apply_filters( 'atbdp_form_preset_widgets', array(
 
 	'description' => [
 		'label'   => __( 'Description', 'directorist' ),
-		'icon'    => 'las la-align-left',
+		'icon'    => 'uil uil-align-left',
 		'show'    => true,
 		'options' => [
 			'type' => [
@@ -263,7 +263,7 @@ return apply_filters( 'atbdp_form_preset_widgets', array(
 
 	'excerpt' => [
 		'label'   => __( 'Excerpt', 'directorist' ),
-		'icon'    => 'uil uil-subject',
+		'icon'    => 'uil uil-paragraph',
 		'options' => [
 			'type' => [
 				'type'  => 'hidden',
@@ -795,7 +795,7 @@ return apply_filters( 'atbdp_form_preset_widgets', array(
 
 	'social_info' => [
 		'label'   => 'Social Info',
-		'icon'    => 'uil uil-user-arrows',
+		'icon'    => 'uil uil-users-alt',
 		'options' => [
 			'type' => [
 				'type'  => 'hidden',

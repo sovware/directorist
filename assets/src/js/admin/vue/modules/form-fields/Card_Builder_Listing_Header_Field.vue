@@ -191,7 +191,7 @@
               @drop="onElementsDrop($event, placeholder_index)" 
               group-name="settings-widgets" 
               drag-handle-selector=".drag-handle"
-              :get-child-payload="getSettingsChildPayload"
+              :get-child-payload="(index) => getSettingsChildPayload(index, placeholder_index)"
             >
               <Draggable
                 v-for="(widget_key, widget_index) in placeholder.acceptedWidgets"
@@ -554,42 +554,54 @@ export default {
       this.placeholders = applyDrag(this.placeholders, dropResult);
     },
 
-    getSettingsChildPayload(index) {
-      return index;
+    getSettingsChildPayload(draggedItemIndex, placeholderIndex) {
+      // Log for debugging
+      console.log('Dragged Item Index:', draggedItemIndex);
+      console.log('Placeholder Index:', placeholderIndex);
+
+      // Return the payload containing both pieces of data
+      return {
+        draggedItemIndex: draggedItemIndex,
+        placeholderIndex: placeholderIndex,
+        // Add any other data you want to include in the payload
+      };
     },
 
     onElementsDrop(dropResult, placeholder_index) {
       console.log('dropResult: ', dropResult, 'placeholder_index: ', placeholder_index);  // Log to see the entire drop result
       const { removedIndex, addedIndex, payload } = dropResult;
 
+      const { draggedItemIndex, placeholderIndex } = payload; 
+
       // If there's no change, return
       if (removedIndex === null && addedIndex === null) return; 
+      
+      const destinationPlaceholderIndex = placeholder_index;
+      const sourcePlaceholderIndex = placeholderIndex;
+      const widgetKey = this.allPlaceholderItems[sourcePlaceholderIndex].acceptedWidgets[draggedItemIndex];
 
-      const widgetIndex = payload;
-      const sourceIndex = placeholder_index;
-
-      const widgetKey = this.allPlaceholderItems[placeholder_index].acceptedWidgets[widgetIndex];
-
-      console.log('#chk', { widgetIndex, sourceIndex, widgetKey, placeholder: this.allPlaceholderItems[placeholder_index] });
-
-      // Check if payload exists
-      // if (!payload || typeof payload.sourceIndex === 'undefined') {
-      //   console.error('Invalid payload:', payload);
-      //   return;
+      // // Add widget to target
+      // if (addedIndex !== null) {
+      //   destinationPlaceholderIndex = placeholder_index;
+      //   console.log('addedIndex', destinationPlaceholderIndex);
       // }
 
-      // const sourceIndex = payload.sourceIndex;
-      // const widgetKey = payload.widget_key;
+      // // Remove widget from source
+      // if (removedIndex !== null) {
+      //   sourcePlaceholderIndex = placeholder_index;
+      //   console.log('removedIndex', sourcePlaceholderIndex);
+      // }
 
-      // Remove widget from source
-      if (removedIndex !== null) {
-        this.allPlaceholderItems[sourceIndex].acceptedWidgets.splice(removedIndex, 1);
-      }
+      if (sourcePlaceholderIndex !== null && destinationPlaceholderIndex !== null && widgetKey !== null) {
 
-      // Add widget to target
-      if (addedIndex !== null) {
-        this.allPlaceholderItems[placeholder_index].acceptedWidgets.splice(addedIndex, 0, widgetKey);
+        console.log('#chk', { draggedItemIndex, widgetKey, sourcePlaceholderIndex, destinationPlaceholderIndex, placeholder: this.allPlaceholderItems[placeholder_index] });
+
+        this.allPlaceholderItems[sourcePlaceholderIndex].acceptedWidgets.splice(removedIndex, 1);
+        this.allPlaceholderItems[destinationPlaceholderIndex].acceptedWidgets.splice(destinationPlaceholderIndex, 0, widgetKey);
+      } else {
+        console.log('Source, Destination not Found', sourcePlaceholderIndex, destinationPlaceholderIndex);
       }
+      
     },
 
     getGhostParent() {

@@ -16285,10 +16285,10 @@ input[type=radio].cptm-radio {
   margin-bottom: 20px;
 }
 .cptm-option-card-body .directorist-type-icon-select .icon-picker-selector {
-  display: block;
-}
-.cptm-option-card-body .directorist-type-icon-select .icon-picker-selector .icon-picker-selector__btn {
-  margin-top: 10px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .cptm-widget-insert-area {
@@ -21281,10 +21281,10 @@ input[type=radio].cptm-radio {
   margin-bottom: 20px;
 }
 .cptm-option-card-body .directorist-type-icon-select .icon-picker-selector {
-  display: block;
-}
-.cptm-option-card-body .directorist-type-icon-select .icon-picker-selector .icon-picker-selector__btn {
-  margin-top: 10px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .cptm-widget-insert-area {
@@ -26544,10 +26544,10 @@ input[type=radio].cptm-radio {
   margin-bottom: 20px;
 }
 .cptm-option-card-body .directorist-type-icon-select .icon-picker-selector {
-  display: block;
-}
-.cptm-option-card-body .directorist-type-icon-select .icon-picker-selector .icon-picker-selector__btn {
-  margin-top: 10px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .cptm-widget-insert-area {

@@ -177,35 +177,34 @@
           </svg>
         </button>
       </div>
-      <div class="cptm-elements-settings__content">
-        <!-- Loop through all placeholders -->
-        <div 
-          class="cptm-elements-settings__group"
-          v-for="(placeholder, placeholder_index) in allPlaceholderItems" 
-          v-if="placeholder.type == 'placeholder_item'"
-          :key="placeholder_index"
-        >
-          <!-- Display the placeholder label -->
-          <span class="cptm-elements-settings__group__title">{{ placeholder.label }}</span>
-          <Container 
-            @drop="onElementsDrop($event, placeholder_index)"
-            drag-handle-selector=".settings-drag-element"
+
+      <template>
+        <div class="cptm-elements-settings__content">
+          <div 
+            class="cptm-elements-settings__group"
+            v-for="(placeholder, placeholder_index) in allPlaceholderItems"
+            :key="placeholder_index"
           >
-            <!-- Loop through acceptedWidgets and display only existing widgets from available_widgets -->
-            <Draggable
-              v-for="(widget_key, widget_index) in placeholder.acceptedWidgets" 
-              :key="widget_index"
+            <span class="cptm-elements-settings__group__title">{{ placeholder.label }}</span>
+
+            <Container
+              @drop="onElementsDrop($event, placeholder_index)" 
+              group-name="settings-widgets" 
+              drag-handle-selector=".drag-handle"
+              :get-child-payload="getSettingsChildPayload"
             >
-              <div
-                class="cptm-elements-settings__group__single"
+              <Draggable
+                v-for="(widget_key, widget_index) in placeholder.acceptedWidgets"
+                :key="widget_index"
+                :data="{ widget_key }" 
               >
-                <!-- Check if widget exists in available_widgets before accessing properties -->
-                <template v-if="available_widgets[widget_key]">
-                  <span class="settings-drag-element drag-icon uil uil-draggabledots"></span>
+                <div class="cptm-elements-settings__group__single">
+                  <span class="drag-handle drag-icon uil uil-draggabledots"></span>
                   <span class="cptm-elements-settings__group__single__label">
                     <!-- Display icon only if it exists -->
                     <span v-if="available_widgets[widget_key].icon" :class="available_widgets[widget_key].icon"></span>
-                    {{ available_widgets[widget_key].label }}
+                    <span v-if="available_widgets[widget_key]">{{ available_widgets[widget_key].label }}</span>
+                    <span v-else>Unknown Widget</span>
                   </span>
 
                   <!-- Add toggle switch for widget -->
@@ -213,12 +212,12 @@
                     <input type="checkbox" :id="`settings-${widget_key}-${placeholder_index}`" />
                     <label :for="`settings-${widget_key}-${placeholder_index}`" />
                   </span>
-                </template>
-              </div>
-            </Draggable>
-          </Container>
+                </div>
+              </Draggable>
+            </Container>
+          </div>
         </div>
-      </div>
+      </template>
     </div>
   </div>
 </template>
@@ -555,12 +554,42 @@ export default {
       this.placeholders = applyDrag(this.placeholders, dropResult);
     },
 
+    getSettingsChildPayload(index) {
+      return index;
+    },
+
     onElementsDrop(dropResult, placeholder_index) {
-      console.log({ dropResult });
-      const updatedWidgets = applyDrag(this.allPlaceholderItems[placeholder_index].acceptedWidgets, dropResult);
-      
-      // Update the specific placeholder's acceptedWidgets
-      this.$set(this.allPlaceholderItems[placeholder_index], 'acceptedWidgets', updatedWidgets);
+      console.log('dropResult: ', dropResult, 'placeholder_index: ', placeholder_index);  // Log to see the entire drop result
+      const { removedIndex, addedIndex, payload } = dropResult;
+
+      // If there's no change, return
+      if (removedIndex === null && addedIndex === null) return; 
+
+      const widgetIndex = payload;
+      const sourceIndex = placeholder_index;
+
+      const widgetKey = this.allPlaceholderItems[placeholder_index].acceptedWidgets[widgetIndex];
+
+      console.log('#chk', { widgetIndex, sourceIndex, widgetKey, placeholder: this.allPlaceholderItems[placeholder_index] });
+
+      // Check if payload exists
+      // if (!payload || typeof payload.sourceIndex === 'undefined') {
+      //   console.error('Invalid payload:', payload);
+      //   return;
+      // }
+
+      // const sourceIndex = payload.sourceIndex;
+      // const widgetKey = payload.widget_key;
+
+      // Remove widget from source
+      if (removedIndex !== null) {
+        this.allPlaceholderItems[sourceIndex].acceptedWidgets.splice(removedIndex, 1);
+      }
+
+      // Add widget to target
+      if (addedIndex !== null) {
+        this.allPlaceholderItems[placeholder_index].acceptedWidgets.splice(addedIndex, 0, widgetKey);
+      }
     },
 
     getGhostParent() {

@@ -3780,10 +3780,6 @@ input[type="radio"] {
       display: flex;
       gap: 12px;
       align-items: center;
-      margin-bottom: 16px;
-      &:last-child {
-        margin-bottom: 0;
-      }
       .drag-icon {
         color: #A1A9B2;
       }
@@ -3836,6 +3832,15 @@ input[type="radio"] {
           &:checked + label::after {
             transform: translateX(14px);
           }
+        }
+      }
+    }
+
+    .dndrop-container {
+      .dndrop-draggable-wrapper {
+        margin-bottom: 16px;
+        &:last-child {
+          margin-bottom: 0;
         }
       }
     }

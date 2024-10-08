@@ -18213,10 +18213,6 @@ input[type=radio]:checked::before {
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
-  margin-bottom: 16px;
-}
-.cptm-elements-settings__group__single:last-child {
-  margin-bottom: 0;
 }
 .cptm-elements-settings__group__single .drag-icon {
   color: #A1A9B2;
@@ -18289,6 +18285,12 @@ input[type=radio]:checked::before {
 .cptm-elements-settings__group__single__switch input[type=checkbox]:checked + label::after {
   -webkit-transform: translateX(-14px);
           transform: translateX(-14px);
+}
+.cptm-elements-settings__group .dndrop-container .dndrop-draggable-wrapper {
+  margin-bottom: 16px;
+}
+.cptm-elements-settings__group .dndrop-container .dndrop-draggable-wrapper:last-child {
+  margin-bottom: 0;
 }
 
 .atbdp-sidebar-nav-area {
@@ -23413,10 +23415,6 @@ input[type=radio]:checked::before {
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
-  margin-bottom: 16px;
-}
-.cptm-elements-settings__group__single:last-child {
-  margin-bottom: 0;
 }
 .cptm-elements-settings__group__single .drag-icon {
   color: #A1A9B2;
@@ -23489,6 +23487,12 @@ input[type=radio]:checked::before {
 .cptm-elements-settings__group__single__switch input[type=checkbox]:checked + label::after {
   -webkit-transform: translateX(-14px);
           transform: translateX(-14px);
+}
+.cptm-elements-settings__group .dndrop-container .dndrop-draggable-wrapper {
+  margin-bottom: 16px;
+}
+.cptm-elements-settings__group .dndrop-container .dndrop-draggable-wrapper:last-child {
+  margin-bottom: 0;
 }
 
 .atbdp-sidebar-nav-area {
@@ -28880,10 +28884,6 @@ input[type=radio]:checked::before {
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
-  margin-bottom: 16px;
-}
-.cptm-elements-settings__group__single:last-child {
-  margin-bottom: 0;
 }
 .cptm-elements-settings__group__single .drag-icon {
   color: #A1A9B2;
@@ -28956,6 +28956,12 @@ input[type=radio]:checked::before {
 .cptm-elements-settings__group__single__switch input[type=checkbox]:checked + label::after {
   -webkit-transform: translateX(-14px);
           transform: translateX(-14px);
+}
+.cptm-elements-settings__group .dndrop-container .dndrop-draggable-wrapper {
+  margin-bottom: 16px;
+}
+.cptm-elements-settings__group .dndrop-container .dndrop-draggable-wrapper:last-child {
+  margin-bottom: 0;
 }
 
 .atbdp-sidebar-nav-area {

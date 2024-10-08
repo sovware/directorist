@@ -23455,14 +23455,45 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     onDrop: function onDrop(dropResult) {
       this.placeholders = Object(_helpers_vue_dndrop__WEBPACK_IMPORTED_MODULE_4__["applyDrag"])(this.placeholders, dropResult);
     },
+    getSettingsChildPayload: function getSettingsChildPayload(index) {
+      return index;
+    },
     onElementsDrop: function onElementsDrop(dropResult, placeholder_index) {
-      console.log({
-        dropResult: dropResult
-      });
-      var updatedWidgets = Object(_helpers_vue_dndrop__WEBPACK_IMPORTED_MODULE_4__["applyDrag"])(this.allPlaceholderItems[placeholder_index].acceptedWidgets, dropResult);
+      console.log('dropResult: ', dropResult, 'placeholder_index: ', placeholder_index); // Log to see the entire drop result
+      var removedIndex = dropResult.removedIndex,
+        addedIndex = dropResult.addedIndex,
+        payload = dropResult.payload;
 
-      // Update the specific placeholder's acceptedWidgets
-      this.$set(this.allPlaceholderItems[placeholder_index], 'acceptedWidgets', updatedWidgets);
+      // If there's no change, return
+      if (removedIndex === null && addedIndex === null) return;
+      var widgetIndex = payload;
+      var sourceIndex = placeholder_index;
+      var widgetKey = this.allPlaceholderItems[placeholder_index].acceptedWidgets[widgetIndex];
+      console.log('#chk', {
+        widgetIndex: widgetIndex,
+        sourceIndex: sourceIndex,
+        widgetKey: widgetKey,
+        placeholder: this.allPlaceholderItems[placeholder_index]
+      });
+
+      // Check if payload exists
+      // if (!payload || typeof payload.sourceIndex === 'undefined') {
+      //   console.error('Invalid payload:', payload);
+      //   return;
+      // }
+
+      // const sourceIndex = payload.sourceIndex;
+      // const widgetKey = payload.widget_key;
+
+      // Remove widget from source
+      if (removedIndex !== null) {
+        this.allPlaceholderItems[sourceIndex].acceptedWidgets.splice(removedIndex, 1);
+      }
+
+      // Add widget to target
+      if (addedIndex !== null) {
+        this.allPlaceholderItems[placeholder_index].acceptedWidgets.splice(addedIndex, 0, widgetKey);
+      }
     },
     getGhostParent: function getGhostParent() {
       return document.body;
@@ -32948,17 +32979,19 @@ var render = function render() {
       d: "M5.24408 5.24408C5.56951 4.91864 6.09715 4.91864 6.42259 5.24408L10 8.82149L13.5774 5.24408C13.9028 4.91864 14.4305 4.91864 14.7559 5.24408C15.0814 5.56951 15.0814 6.09715 14.7559 6.42259L11.1785 10L14.7559 13.5774C15.0814 13.9028 15.0814 14.4305 14.7559 14.7559C14.4305 15.0814 13.9028 15.0814 13.5774 14.7559L10 11.1785L6.42259 14.7559C6.09715 15.0814 5.56951 15.0814 5.24408 14.7559C4.91864 14.4305 4.91864 13.9028 5.24408 13.5774L8.82149 10L5.24408 6.42259C4.91864 6.09715 4.91864 5.56951 5.24408 5.24408Z",
       fill: "#4D5761"
     }
-  })])])]), _vm._v(" "), _c("div", {
+  })])])]), _vm._v(" "), [_c("div", {
     staticClass: "cptm-elements-settings__content"
   }, _vm._l(_vm.allPlaceholderItems, function (placeholder, placeholder_index) {
-    return placeholder.type == "placeholder_item" ? _c("div", {
+    return _c("div", {
       key: placeholder_index,
       staticClass: "cptm-elements-settings__group"
     }, [_c("span", {
       staticClass: "cptm-elements-settings__group__title"
     }, [_vm._v(_vm._s(placeholder.label))]), _vm._v(" "), _c("Container", {
       attrs: {
-        "drag-handle-selector": ".settings-drag-element"
+        "group-name": "settings-widgets",
+        "drag-handle-selector": ".drag-handle",
+        "get-child-payload": _vm.getSettingsChildPayload
       },
       on: {
         drop: function drop($event) {
@@ -32967,16 +33000,21 @@ var render = function render() {
       }
     }, _vm._l(placeholder.acceptedWidgets, function (widget_key, widget_index) {
       return _c("Draggable", {
-        key: widget_index
+        key: widget_index,
+        attrs: {
+          data: {
+            widget_key: widget_key
+          }
+        }
       }, [_c("div", {
         staticClass: "cptm-elements-settings__group__single"
-      }, [_vm.available_widgets[widget_key] ? [_c("span", {
-        staticClass: "settings-drag-element drag-icon uil uil-draggabledots"
+      }, [_c("span", {
+        staticClass: "drag-handle drag-icon uil uil-draggabledots"
       }), _vm._v(" "), _c("span", {
         staticClass: "cptm-elements-settings__group__single__label"
       }, [_vm.available_widgets[widget_key].icon ? _c("span", {
         class: _vm.available_widgets[widget_key].icon
-      }) : _vm._e(), _vm._v("\n                  " + _vm._s(_vm.available_widgets[widget_key].label) + "\n                ")]), _vm._v(" "), _c("span", {
+      }) : _vm._e(), _vm._v(" "), _vm.available_widgets[widget_key] ? _c("span", [_vm._v(_vm._s(_vm.available_widgets[widget_key].label))]) : _c("span", [_vm._v("Unknown Widget")])]), _vm._v(" "), _c("span", {
         staticClass: "cptm-elements-settings__group__single__switch"
       }, [_c("input", {
         attrs: {
@@ -32987,9 +33025,9 @@ var render = function render() {
         attrs: {
           for: "settings-".concat(widget_key, "-").concat(placeholder_index)
         }
-      })])] : _vm._e()], 2)]);
-    }), 1)], 1) : _vm._e();
-  }), 0)]) : _vm._e()]);
+      })])])]);
+    }), 1)], 1);
+  }), 0)]], 2) : _vm._e()]);
 };
 var staticRenderFns = [];
 render._withStripped = true;

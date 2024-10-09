@@ -729,35 +729,11 @@ Please remember that your order may be canceled if you do not make your payment 
                     'options'   => [
                         [
                             'value' => 'solid_primary',
-                            'label' => __('Solid Primary', 'directorist'),
+                            'label' => __('Primary', 'directorist'),
                         ],
                         [
                             'value' => 'solid_secondary',
-                            'label' => __('Solid Secondary', 'directorist'),
-                        ],
-                        [
-                            'value' => 'solid_danger',
-                            'label' => __('Solid Danger', 'directorist'),
-                        ],
-                        [
-                            'value' => 'solid_success',
-                            'label' => __('Solid Success', 'directorist'),
-                        ],
-                        [
-                            'value' => 'solid_lighter',
-                            'label' => __('Solid Lighter', 'directorist'),
-                        ],
-                        [
-                            'value' => 'primary_outline',
-                            'label' => __('Primary Outline', 'directorist'),
-                        ],
-                        [
-                            'value' => 'primary_outline_light',
-                            'label' => __('Primary Outline Light', 'directorist'),
-                        ],
-                        [
-                            'value' => 'danger_outline',
-                            'label' => __('Danger Outline', 'directorist'),
+                            'label' => __('Secondary', 'directorist'),
                         ],
                     ]
                 ],
@@ -765,6 +741,7 @@ Please remember that your order may be canceled if you do not make your payment 
                 // solid primary color
                 'primary_example' => [
                     'label'       => __('Button Example', 'directorist'),
+                    'description'       => __('Modify the color of primary buttons like Save & Preview, Search, etc to match your design preferences', 'directorist'),
                     'type'        => 'wp-media-picker',
                     'default-img' => 'https://directorist.com/wp-content/uploads/2020/02/solid-primary.png',
                     'show-if' => [
@@ -786,7 +763,7 @@ Please remember that your order may be canceled if you do not make your payment 
                     ],
                 ],
                 'primary_hover_color' => [
-                    'label' => __('Text Hover Color', 'directorist'),
+                    'label' => __('Hover Color', 'directorist'),
                     'type' => 'color',
                     'value' => '#ffffff',
                     'show-if' => [
@@ -843,6 +820,7 @@ Please remember that your order may be canceled if you do not make your payment 
                 //solid secondary color
                 'secondary_example' => [
                     'label'       => __('Button Example', 'directorist'),
+                    'description'       => __('Modify the color of secondary buttons like Logout, etc to match your design preferences', 'directorist'),
                     'type'        => 'wp-media-picker',
                     'default-img' => 'https://directorist.com/wp-content/uploads/2020/02/solid-secondary.png',
                     'show-if' => [
@@ -864,7 +842,7 @@ Please remember that your order may be canceled if you do not make your payment 
                     ],
                 ],
                 'secondary_hover_color' => [
-                    'label' => __('Text Hover Color', 'directorist'),
+                    'label' => __('Hover Color', 'directorist'),
                     'type' => 'color',
                     'value' => '#fff',
                     'show-if' => [
@@ -4862,10 +4840,17 @@ Please remember that your order may be canceled if you do not make your payment 
                             'label' => __('Color', 'directorist'),
                             'icon' => '<i class="fa fa-palette directorist_info"></i>',
                             'sections'=> apply_filters('atbdp_style_settings_controls', [
+                                'primary_color' => array(
+                                    'title' => __('Brand Color', 'directorist'),
+                                    'fields' => apply_filters('atbdp_primary_dark_color', [
+                                        'primary_dark_back_color',
+                                    ])
+                                ),
+
                                 'button_type' => [
                                     'title' => __('Button Color', 'directorist'),
                                     'fields' => [
-                                        'button_type', 'primary_example', 'primary_color', 'primary_hover_color', 'back_primary_color', 'back_primary_hover_color', 'border_primary_color', 'border_primary_hover_color', 'secondary_example', 'secondary_color', 'secondary_hover_color', 'back_secondary_color', 'back_secondary_hover_color', 'secondary_border_color', 'secondary_border_hover_color', 'danger_example', 'danger_color', 'danger_hover_color', 'back_danger_color', 'back_danger_hover_color', 'danger_border_color', 'danger_border_hover_color', 'success_example', 'success_color', 'success_hover_color', 'back_success_color', 'back_success_hover_color', 'border_success_color', 'border_success_hover_color', 'lighter_example', 'lighter_color', 'lighter_hover_color', 'back_lighter_color', 'back_lighter_hover_color', 'border_lighter_color', 'border_lighter_hover_color', 'priout_example', 'priout_color', 'priout_hover_color', 'back_priout_color', 'back_priout_hover_color', 'border_priout_color', 'border_priout_hover_color', 'prioutlight_example', 'prioutlight_color', 'prioutlight_hover_color', 'back_prioutlight_color', 'back_prioutlight_hover_color', 'border_prioutlight_color', 'border_prioutlight_hover_color', 'danout_example', 'danout_color', 'danout_hover_color', 'back_danout_color', 'back_danout_hover_color', 'border_danout_color', 'border_danout_hover_color'
+                                        'button_type', 'primary_example', 'primary_color', 'back_primary_color', 'primary_hover_color', 'secondary_example', 'secondary_color', 'back_secondary_color', 'secondary_hover_color'
                                     ]
                                 ],
 
@@ -4887,14 +4872,6 @@ Please remember that your order may be canceled if you do not make your payment 
                                         'marker_icon_color'
                                     ])
                                 ],
-
-                                'primary_color' => array(
-                                    'title' => __('Primary Color', 'directorist'),
-                                    'fields' => apply_filters('atbdp_primary_dark_color', [
-                                        'primary_dark_back_color',
-                                        'primary_dark_border_color'
-                                    ])
-                                ),
                             ])
                         ],
                         'badge' => [

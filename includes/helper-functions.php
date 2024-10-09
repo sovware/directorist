@@ -917,7 +917,7 @@ if (!function_exists('atbdp_get_featured_settings_array')) {
     {
         return array(
             'active' => directorist_is_featured_listing_enabled(),
-            'label' => get_directorist_option('featured_listing_title'),
+            'label' => get_directorist_option( 'featured_listing_title', __('Featured', 'directorist') ),
             'desc' => get_directorist_option('featured_listing_desc'),
             'price' => get_directorist_option('featured_listing_price'),
         );

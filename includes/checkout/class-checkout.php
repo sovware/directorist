@@ -83,7 +83,7 @@ class ATBDP_Checkout
             // let's add featured listing data
             $featured_active = apply_filters('atbdp_featured_active_checkout', directorist_is_featured_listing_enabled() );
             if ($featured_active && !is_fee_manager_active()) {
-                $title = get_directorist_option('featured_listing_title', __('Featured', 'directorist'));
+                $title = get_the_title( $listing_id );
                 $desc = get_directorist_option('featured_listing_desc');
                 $price = get_directorist_option('featured_listing_price');
                 $form_data[] = array(

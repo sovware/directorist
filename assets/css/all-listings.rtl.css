@@ -20778,6 +20778,10 @@ Review: New Style
 .directorist-user-dashboard .directorist-alert {
   margin-bottom: 15px;
 }
+.directorist-user-dashboard #directorist-preference-notice .directorist-alert {
+  margin-top: 15px;
+  margin-bottom: 0;
+}
 
 /* user dashboard loader */
 #directorist-dashboard-preloader {

@@ -24,7 +24,7 @@ $contact_owner_recipient = $dashboard->user_info( 'contact_owner_recipient' ) ? 
 					<div class="directorist-preference-toggle">
 						<label for="hide_contact_form" class="directorist-toggle">
 							<span class="directorist-toggle-label"><?php esc_html_e( 'Hide contact form in my listings', 'directorist' ); ?></span>
-							<input id="hide_contact_form" class="directorist-toggle-checkbox" name="directorist_hide_contact_form" value="1" type="checkbox" <?php echo esc_attr( ($dashboard->user_info( 'hide_contact_form' ) == '1' ) ? 'checked' : '' ); ?>>
+							<input id="hide_contact_form" class="directorist-toggle-checkbox" name="directorist_hide_contact_form" value="yes" type="checkbox" <?php echo esc_attr( ( $dashboard->user_info( 'hide_contact_form' ) == 'yes' ) ? 'checked' : '' ); ?>>
 							<div class="directorist-toggle-switch"></div>
 						</label>
 					</div>

@@ -1018,14 +1018,22 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 				wp_send_json_error( array( 'message' => __( 'Ops! something went wrong. Try again.', 'directorist' ) ) );
 			}
 
-			$hide_contact_form 		= isset( $_POST['directorist_hide_contact_form'] ) ? sanitize_text_field( $_POST['directorist_hide_contact_form'] ) : '';
+			$hide_contact_form 		= isset( $_POST['directorist_hide_contact_form'] ) ? sanitize_text_field( $_POST['directorist_hide_contact_form'] ) : 'no';
 			$display_author_email 	= isset( $_POST['directorist_display_author_email'] ) ? sanitize_text_field( $_POST['directorist_display_author_email'] ) : '';
 			$contact_owner_recipient 	= isset( $_POST['directorist_contact_owner_recipient'] ) ? sanitize_text_field( $_POST['directorist_contact_owner_recipient'] ) : '';
-			
+
 			// Save the sanitized value to user meta
-			update_user_meta( $user_id, 'directorist_hide_contact_form', $hide_contact_form );
-			update_user_meta( $user_id, 'directorist_display_author_email', $display_author_email );
-			update_user_meta( $user_id, 'directorist_contact_owner_recipient', $contact_owner_recipient );
+			if ( ! empty( $hide_contact_form ) ) {
+				update_user_meta( $user_id, 'directorist_hide_contact_form', $hide_contact_form );
+			}
+
+			if ( ! empty( $display_author_email ) ) {
+				update_user_meta( $user_id, 'directorist_display_author_email', $display_author_email );
+			}
+
+			if( ! empty( $contact_owner_recipient ) ) {
+				update_user_meta( $user_id, 'directorist_contact_owner_recipient', $contact_owner_recipient );
+			}
 
 			// Return a success message
 			wp_send_json_success( array( 'message' => __( 'Preferences updated successfully.', 'directorist' ) ) );

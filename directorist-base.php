@@ -673,10 +673,10 @@ final class Directorist_Base
 		   $post_states['directorist_add_listing'] = __( 'Directorist Add Listing', 'directorist' );
 	   	}
 		if ( get_directorist_option( 'all_listing_page' ) === $post->ID ) {
-		   $post_states['directorist_all_listing'] = __( 'Directorist All Listing', 'directorist' );
+		   $post_states['directorist_all_listing'] = __( 'Directorist All Listings', 'directorist' );
 	   	}
 		if ( get_directorist_option( 'user_dashboard' ) === $post->ID ) {
-		   $post_states['directorist_user_dashboard'] = __( 'Directorist Login, Registration & Dashboard', 'directorist' );
+		   $post_states['directorist_user_dashboard'] = __( 'Directorist Dashboard', 'directorist' );
 	   	}
 		if ( get_directorist_option( 'author_profile_page' ) === $post->ID ) {
 		   $post_states['directorist_author_profile_page'] = __( 'Directorist Author Profile', 'directorist' );
@@ -721,7 +721,7 @@ final class Directorist_Base
 		   $post_states['directorist_pricing_plans'] = __( 'Directorist Pricing Plan', 'directorist' );
 	   	}
 		if ( get_directorist_option( 'signin_signup_page' ) === $post->ID ) {
-		   $post_states['directorist_signin_signup'] = __( 'Directorist Account', 'directorist' );
+		   $post_states['directorist_signin_signup'] = __( 'Directorist Sign In', 'directorist' );
 	   	}
 
 	   return $post_states;

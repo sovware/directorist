@@ -60,10 +60,9 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 				), 401 );
 			}
 
-			$params_json_decode 	= json_decode( stripslashes( $_POST['params'] ), true );
-			$params 				= directorist_clean( $params_json_decode);
-
-			$new_user_registration 	= ! empty( $params['new_user_registration'] ) && 'yes' == $params['new_user_registration']  ? 1 : 0;
+			$params_json_decode    = json_decode( stripslashes( $_POST['params'] ), true );
+			$params                = directorist_clean( $params_json_decode);
+			$new_user_registration = ! empty( $params['new_user_registration'] ) && 'yes' === $params['new_user_registration']  ? 1 : 0;
 
 			if ( ! $new_user_registration ) {
 				wp_send_json_error( array(
@@ -72,18 +71,18 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 			}
 
 			// if the form is submitted then save the form
-			$require_website      = ! empty( $params['registration_website_required'] ) && 'yes' == $params['registration_website_required']  ? 1 : 0;
-			$display_website      = ! empty( $params['enable_registration_website'] ) && 'yes' == $params['enable_registration_website']  ? 1 : 0;
-			$display_fname        = ! empty( $params['enable_registration_first_name'] ) && 'yes' == $params['enable_registration_first_name']  ? 1 : 0;
-			$require_fname        = ! empty( $params['registration_first_name_required'] ) && 'yes' == $params['registration_first_name_required']  ? 1 : 0;
-			$display_lname        = ! empty( $params['enable_registration_last_name'] ) && 'yes' == $params['enable_registration_last_name']  ? 1 : 0;
-			$require_lname        = ! empty( $params['registration_last_name_required'] ) && 'yes' == $params['registration_last_name_required']  ? 1 : 0;
-			$display_password     = ! empty( $params['enable_registration_password'] ) && 'yes' == $params['enable_registration_password']  ? 1 : 0;
-			$display_user_type    = ! empty( $params['enable_user_type'] ) && 'yes' == $params['enable_user_type']  ? 1 : 0;
-			$display_bio          = ! empty( $params['enable_registration_bio'] ) && 'yes' == $params['enable_registration_bio']  ? 1 : 0;
-			$require_bio          = ! empty( $params['registration_bio_required'] ) && 'yes' == $params['registration_bio_required']  ? 1 : 0;
-			$registration_privacy = ! empty( $params['enable_registration_privacy'] ) && 'yes' == $params['enable_registration_privacy']  ? 1 : 0;
-			$terms_condition      = ! empty( $params['enable_registration_terms'] ) && 'yes' == $params['enable_registration_terms']  ? 1 : 0;
+			$require_website      = ! empty( $params['registration_website_required'] ) && 'yes' === $params['registration_website_required']  ? 1 : 0;
+			$display_website      = ! empty( $params['enable_registration_website'] ) && 'yes' === $params['enable_registration_website']  ? 1 : 0;
+			$display_fname        = ! empty( $params['enable_registration_first_name'] ) && 'yes' === $params['enable_registration_first_name']  ? 1 : 0;
+			$require_fname        = ! empty( $params['registration_first_name_required'] ) && 'yes' === $params['registration_first_name_required']  ? 1 : 0;
+			$display_lname        = ! empty( $params['enable_registration_last_name'] ) && 'yes' === $params['enable_registration_last_name']  ? 1 : 0;
+			$require_lname        = ! empty( $params['registration_last_name_required'] ) && 'yes' === $params['registration_last_name_required']  ? 1 : 0;
+			$display_password     = ! empty( $params['enable_registration_password'] ) && 'yes' === $params['enable_registration_password']  ? 1 : 0;
+			$display_user_type    = ! empty( $params['enable_user_type'] ) && 'yes' === $params['enable_user_type']  ? 1 : 0;
+			$display_bio          = ! empty( $params['enable_registration_bio'] ) && 'yes' === $params['enable_registration_bio']  ? 1 : 0;
+			$require_bio          = ! empty( $params['registration_bio_required'] ) && 'yes' === $params['registration_bio_required']  ? 1 : 0;
+			$registration_privacy = ! empty( $params['enable_registration_privacy'] ) && 'yes' === $params['enable_registration_privacy']  ? 1 : 0;
+			$terms_condition      = ! empty( $params['enable_registration_terms'] ) && 'yes' === $params['enable_registration_terms']  ? 1 : 0;
 
 			$username       = ! empty( $_POST['username'] ) ? directorist_clean( wp_unslash( $_POST['username'] ) ) : '';
 			$password       = ! empty( $_POST['password'] ) ? $_POST['password'] : '';                                                 // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
@@ -224,7 +223,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 
 			ATBDP()->email->custom_wp_new_user_notification_email( $user_id );
 
-			$auto_login            = ! empty( $params['auto_login_after_registration'] ) && 'yes' == $params['auto_login_after_registration']  ? 1 : 0;
+			$auto_login            = ! empty( $params['auto_login_after_registration'] ) && 'yes' === $params['auto_login_after_registration']  ? 1 : 0;
 			$redirection_link      = ! empty( $params['redirection_after_registration'] ) ? $params['redirection_after_registration'] : '';
 
 			if ( ! empty( $auto_login ) ) {

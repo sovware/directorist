@@ -328,7 +328,7 @@
 
         allListingSlider();
 
-        $('body').on('click', '.directorist-viewas__item, .directorist-instant-search .directorist-search-field__btn--clear, .directorist-instant-search .directorist-btn-reset-js', function(e) {
+        $('body').on('click', '.directorist-viewas__item, .directorist-type-nav__link, .directorist-instant-search .directorist-search-field__btn--clear, .directorist-instant-search .directorist-btn-reset-js', function(e) {
             setTimeout(() => {
                 if($('.directorist-archive-items .directorist-swiper-listing')) {
                     allListingSlider();

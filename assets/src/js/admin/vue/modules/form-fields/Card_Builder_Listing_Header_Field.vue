@@ -568,41 +568,44 @@ export default {
     },
 
     onElementsDrop(dropResult, placeholder_index) {
-      console.log('dropResult: ', dropResult, 'placeholder_index: ', placeholder_index);  // Log to see the entire drop result
       const { removedIndex, addedIndex, payload } = dropResult;
-
       const { draggedItemIndex, placeholderIndex } = payload; 
 
-      // If there's no change, return
+      // If no changes, return
       if (removedIndex === null && addedIndex === null) return; 
-      
+
       const destinationPlaceholderIndex = placeholder_index;
       const sourcePlaceholderIndex = placeholderIndex;
-      const widgetKey = this.allPlaceholderItems[sourcePlaceholderIndex].acceptedWidgets[draggedItemIndex];
 
-      // // Add widget to target
-      // if (addedIndex !== null) {
-      //   destinationPlaceholderIndex = placeholder_index;
-      //   console.log('addedIndex', destinationPlaceholderIndex);
-      // }
+      // Get the widget key from the source placeholder
+      const widgetKey = this.allPlaceholderItems[sourcePlaceholderIndex]?.acceptedWidgets[draggedItemIndex];
 
-      // // Remove widget from source
-      // if (removedIndex !== null) {
-      //   sourcePlaceholderIndex = placeholder_index;
-      //   console.log('removedIndex', sourcePlaceholderIndex);
-      // }
+      if (widgetKey !== undefined) {
+        console.log('#chk', { 
+          draggedItemIndex, widgetKey, sourcePlaceholderIndex, destinationPlaceholderIndex, 
+          source: this.allPlaceholderItems[sourcePlaceholderIndex].acceptedWidgets,
+          destination: this.allPlaceholderItems[destinationPlaceholderIndex].acceptedWidgets
+        });
 
-      if (sourcePlaceholderIndex !== null && destinationPlaceholderIndex !== null && widgetKey !== null) {
+        // Remove the widget from the source
+        if (removedIndex !== null) {
+          this.allPlaceholderItems[sourcePlaceholderIndex].acceptedWidgets.splice(removedIndex, 1);
+        }
 
-        console.log('#chk', { draggedItemIndex, widgetKey, sourcePlaceholderIndex, destinationPlaceholderIndex, placeholder: this.allPlaceholderItems[placeholder_index] });
+        // Add the widget to the destination at the correct position
+        if (addedIndex !== null) {
+          this.allPlaceholderItems[destinationPlaceholderIndex].acceptedWidgets.splice(addedIndex, 0, widgetKey);
+        }
 
-        this.allPlaceholderItems[sourcePlaceholderIndex].acceptedWidgets.splice(removedIndex, 1);
-        this.allPlaceholderItems[destinationPlaceholderIndex].acceptedWidgets.splice(destinationPlaceholderIndex, 0, widgetKey);
+        console.log('Source, Destination updated', {
+          source: this.allPlaceholderItems[sourcePlaceholderIndex].acceptedWidgets,
+          destination: this.allPlaceholderItems[destinationPlaceholderIndex].acceptedWidgets
+        });
       } else {
-        console.log('Source, Destination not Found', sourcePlaceholderIndex, destinationPlaceholderIndex);
+        console.error('Widget key not found', { sourcePlaceholderIndex, draggedItemIndex });
       }
-      
     },
+
 
     getGhostParent() {
       return document.body;

@@ -22992,43 +22992,48 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       };
     },
     onElementsDrop: function onElementsDrop(dropResult, placeholder_index) {
-      console.log('dropResult: ', dropResult, 'placeholder_index: ', placeholder_index); // Log to see the entire drop result
+      var _this$allPlaceholderI;
       var removedIndex = dropResult.removedIndex,
         addedIndex = dropResult.addedIndex,
         payload = dropResult.payload;
       var draggedItemIndex = payload.draggedItemIndex,
         placeholderIndex = payload.placeholderIndex;
 
-      // If there's no change, return
+      // If no changes, return
       if (removedIndex === null && addedIndex === null) return;
       var destinationPlaceholderIndex = placeholder_index;
       var sourcePlaceholderIndex = placeholderIndex;
-      var widgetKey = this.allPlaceholderItems[sourcePlaceholderIndex].acceptedWidgets[draggedItemIndex];
 
-      // // Add widget to target
-      // if (addedIndex !== null) {
-      //   destinationPlaceholderIndex = placeholder_index;
-      //   console.log('addedIndex', destinationPlaceholderIndex);
-      // }
-
-      // // Remove widget from source
-      // if (removedIndex !== null) {
-      //   sourcePlaceholderIndex = placeholder_index;
-      //   console.log('removedIndex', sourcePlaceholderIndex);
-      // }
-
-      if (sourcePlaceholderIndex !== null && destinationPlaceholderIndex !== null && widgetKey !== null) {
+      // Get the widget key from the source placeholder
+      var widgetKey = (_this$allPlaceholderI = this.allPlaceholderItems[sourcePlaceholderIndex]) === null || _this$allPlaceholderI === void 0 ? void 0 : _this$allPlaceholderI.acceptedWidgets[draggedItemIndex];
+      if (widgetKey !== undefined) {
         console.log('#chk', {
           draggedItemIndex: draggedItemIndex,
           widgetKey: widgetKey,
           sourcePlaceholderIndex: sourcePlaceholderIndex,
           destinationPlaceholderIndex: destinationPlaceholderIndex,
-          placeholder: this.allPlaceholderItems[placeholder_index]
+          source: this.allPlaceholderItems[sourcePlaceholderIndex].acceptedWidgets,
+          destination: this.allPlaceholderItems[destinationPlaceholderIndex].acceptedWidgets
         });
-        this.allPlaceholderItems[sourcePlaceholderIndex].acceptedWidgets.splice(removedIndex, 1);
-        this.allPlaceholderItems[destinationPlaceholderIndex].acceptedWidgets.splice(destinationPlaceholderIndex, 0, widgetKey);
+
+        // Remove the widget from the source
+        if (removedIndex !== null) {
+          this.allPlaceholderItems[sourcePlaceholderIndex].acceptedWidgets.splice(removedIndex, 1);
+        }
+
+        // Add the widget to the destination at the correct position
+        if (addedIndex !== null) {
+          this.allPlaceholderItems[destinationPlaceholderIndex].acceptedWidgets.splice(addedIndex, 0, widgetKey);
+        }
+        console.log('Source, Destination updated', {
+          source: this.allPlaceholderItems[sourcePlaceholderIndex].acceptedWidgets,
+          destination: this.allPlaceholderItems[destinationPlaceholderIndex].acceptedWidgets
+        });
       } else {
-        console.log('Source, Destination not Found', sourcePlaceholderIndex, destinationPlaceholderIndex);
+        console.error('Widget key not found', {
+          sourcePlaceholderIndex: sourcePlaceholderIndex,
+          draggedItemIndex: draggedItemIndex
+        });
       }
     },
     getGhostParent: function getGhostParent() {

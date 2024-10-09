@@ -135,7 +135,6 @@ class Comment_Form_Renderer {
 	}
 
 	public static function get_fields( $comment ) {
-		$builder = Builder::get( $comment->comment_post_ID );
 		$fields  = array();
 	
 		$comment_type = __( 'comment', 'directorist' );

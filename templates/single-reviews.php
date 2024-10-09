@@ -23,7 +23,7 @@ $review_text   = sprintf( _n( '%s review', '%s reviews', $review_count, 'directo
 // Load walker class
 Bootstrap::load_walker();
 
-$listing       = Directorist_Single_Listing::instance();
+$listing       = Directorist_Single_Listing::instance( get_the_ID() );
 $section_data  = $listing->get_review_section_data();
 $builder       = Builder::get( $section_data['section_data'] );
 $section_id    = isset( $section_data['id'] ) ? $section_data['id'] : '';

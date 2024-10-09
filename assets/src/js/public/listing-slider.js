@@ -180,6 +180,7 @@
             let swiperCarouselSingleListingThumb = el.querySelector('.directorist-single-listing-slider-thumb');
             let swiperCarouselSingleListing = el.querySelector('.directorist-single-listing-slider');
 
+            // Single Listing Thumb Init
             let swiperSingleListingThumb = new Swiper(swiperCarouselSingleListingThumb, {
                 slidesPerView: 6,
                 spaceBetween: 10,
@@ -217,6 +218,7 @@
                 }
             });
             
+            // Single Listing Slider Config
             let swiperSingleListingConfig =  {
                 slidesPerView: 1,
                 spaceBetween: 0,
@@ -235,13 +237,49 @@
                 },
             };
 
+            // Single Slider Thumb Config
             if (swiperCarouselSingleListingThumb) {
                 swiperSingleListingConfig.thumbs = {
                     swiper: swiperSingleListingThumb
                 };
             }
             
+            // Initialize Swiper
             let swiperSingleListing = new Swiper(swiperCarouselSingleListing, swiperSingleListingConfig);
+
+             // Function to update blurred background
+             const updateBlurredBackground = () => {
+                // Check if the blurred background element exists
+                let blurredBackground = swiperCarouselSingleListing.querySelector('.blurred-background');
+
+                // If it doesn't exist, create it
+                if (!blurredBackground) {
+                    blurredBackground = document.createElement('div'); // Create a new div
+                    blurredBackground.classList.add('blurred-background'); // Add the class
+                    swiperCarouselSingleListing.appendChild(blurredBackground); // Append it to the section
+                }
+
+                // Get the active slide image
+                const activeSlide = swiperCarouselSingleListing.querySelector('.swiper-slide-active img');
+                if (activeSlide) {
+                    const activeImageSrc = activeSlide.src; // Get the source of the active image
+                    swiperCarouselSingleListing.style.backgroundColor = 'transparent'; // Remove background color
+                    blurredBackground.style.backgroundImage = `url(${activeImageSrc})`; // Set as background image
+                    blurredBackground.style.backgroundSize = 'cover'; // Ensure it covers the div
+                    blurredBackground.style.filter = 'blur(10px)'; // Apply blur
+                    blurredBackground.style.position = 'absolute'; // Position it behind other content
+                    blurredBackground.style.top = '0';
+                    blurredBackground.style.left = '0';
+                    blurredBackground.style.right = '0';
+                    blurredBackground.style.bottom = '0';
+                    blurredBackground.style.transform= 'scale(1.5)';
+                }
+            };
+
+            // Attach the slideChangeTransitionEnd event listener
+            if (dataBackgroundBlur === '1') {
+                swiperSingleListing.on('slideChangeTransitionEnd', updateBlurredBackground); // Use slideChangeTransitionEnd here
+            }
 
             // Loop Destroy on Single Slider Item
             let sliderItemsCount = swiperCarouselSingleListing.querySelectorAll('.directorist-swiper__pagination .swiper-pagination-bullet');
@@ -254,16 +292,29 @@
 
             // Add Styles
             if (swiperCarouselSingleListing) {
-
                 swiperCarouselSingleListing.dir = dataRTL !== '0' ? 'rtl' : 'ltr';
                 swiperCarouselSingleListing.style.width = dataWidth ? dataWidth + 'px' : '100%';
                 swiperCarouselSingleListing.style.height = dataHeight ? dataHeight + 'px' : 'auto';
-                swiperCarouselSingleListing.style.backgroundColor = dataBackgroundColor ? dataBackgroundColor : 'transparent';
                 swiperCarouselSingleListing.style.backgroundSize = dataBackgroundSize ? dataBackgroundSize : '';
+
+                // Initial setup
+                if (dataBackgroundSize === "contain") {
+                    swiperCarouselSingleListing.style.backgroundColor = dataBackgroundColor ? dataBackgroundColor : 'transparent';
+
+                    // Call the update function for initial setup if blur is active
+                    if (dataBackgroundBlur === '1') {
+                        updateBlurredBackground(); // Set initial blurred background
+                    } else {
+                        // If blur is not active, remove the blurred background if it exists
+                        const blurredBackground = swiperCarouselSingleListing.querySelector('.blurred-background');
+                        if (blurredBackground) {
+                            swiperCarouselSingleListing.removeChild(blurredBackground);
+                        }
+                    }
+                }
             }
 
             if(swiperCarouselSingleListingThumb) {
-
                 // swiperCarouselSingleListingThumb.style.display = dataShowThumbnails == '0' ? 'none' : '';
                 swiperCarouselSingleListingThumb.style.width = dataWidth ? dataWidth + 'px' : '100%';
                 swiperCarouselSingleListingThumb.style.backgroundColor = dataThumbnailsBackground ? dataThumbnailsBackground : 'transparent';

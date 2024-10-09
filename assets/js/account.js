@@ -274,6 +274,7 @@ jQuery(function ($) {
     e.preventDefault();
     var formData = new FormData(this);
     formData.append('action', 'directorist_register_form');
+    formData.append('params', JSON.stringify(directorist_signin_signup_params));
     $.ajax({
       url: directorist.ajaxurl,
       type: 'POST',

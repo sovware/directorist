@@ -2873,11 +2873,11 @@ Please remember that your order may be canceled if you do not make your payment 
                     'showDefaultOption' => true,
                     'options' => $this->get_pages_vl_arrays(),
                 ],
-                'user_account' => [
-                    'label'             => __( 'Account', 'directorist' ),
+                'signin_signup_page' => [
+                    'label'             => __( 'Sign In & Signup Page', 'directorist' ),
                     'type'              => 'select',
-                    'description'       => sprintf(__('Following shortcode must be in the selected page %s', 'directorist'), '<div class="atbdp_shortcodes" style="color: #ff4500;">[directorist_account]</div>'),
-                    'value'             => atbdp_get_option( 'user_account', 'atbdp_general' ),
+                    'description'       => sprintf(__('Following shortcode must be in the selected page %s', 'directorist'), '<div class="atbdp_shortcodes" style="color: #ff4500;">[directorist_signin_signup]</div>'),
+                    'value'             => atbdp_get_option( 'signin_signup_page', 'atbdp_general' ),
                     'showDefaultOption' => true,
                     'options'           => $this->get_pages_vl_arrays(),
                 ],
@@ -3669,7 +3669,7 @@ Please remember that your order may be canceled if you do not make your payment 
                 'redirection_after_reg' => [
                     'label' => __('Redirection after Registration', 'directorist'),
                     'type'  => 'select',
-                    'value' => get_directorist_option( 'user_account' ),
+                    'value' => get_directorist_option( 'signin_signup_page' ),
                     'options' => $this->get_pages_with_prev_page(),
                 ],
                 // login settings
@@ -4180,7 +4180,7 @@ Please remember that your order may be canceled if you do not make your payment 
                     <p align="center">If you did not sign up for this account you can ignore this email.</p>', 'directorist'),
                 ],
                 // single template settings
-                
+
                 'enable_uninstall'    => [
                     'type'           => 'toggle',
                     'label'          => __('Remove Data on Uninstall?', 'directorist'),
@@ -4238,39 +4238,39 @@ Please remember that your order may be canceled if you do not make your payment 
                                 'layout_search' => [
                                     'title'       => __(' Layout & Search', 'directorist' ),
                                     'fields'      => [
-                                        'all_listing_layout', 
-                                        'all_listing_columns', 
+                                        'all_listing_layout',
+                                        'all_listing_columns',
                                         'all_listing_page_items',
                                         'listing_hide_top_search_bar',
-                                        'listings_sidebar_filter_text', 
-                                        'listings_reset_text', 
+                                        'listings_sidebar_filter_text',
+                                        'listings_reset_text',
                                         'listings_apply_text',
                                      ],
                                 ],
                                 'header' => [
                                     'title'       => __( 'Header', 'directorist' ),
                                     'fields'      => [
-                                        'display_listings_header', 
-                                        'listing_filters_button', 
-                                        'listings_filter_button_text', 
+                                        'display_listings_header',
+                                        'listing_filters_button',
+                                        'listings_filter_button_text',
                                         'display_listings_count',
-                                        'all_listing_title', 
-                                        'listings_view_as_items', 
-                                        'default_listing_view', 
-                                        'display_sort_by', 
-                                        'sort_by_text', 
+                                        'all_listing_title',
+                                        'listings_view_as_items',
+                                        'default_listing_view',
+                                        'display_sort_by',
+                                        'sort_by_text',
                                         'listings_sort_by_items',
                                      ],
                                 ],
                                 'preview_image' => [
                                     'title'       => __( 'Preview Image', 'directorist' ),
                                     'fields'      => [
-                                         'preview_image_quality', 
-                                         'way_to_show_preview', 
-                                         'crop_width', 
-                                         'crop_height', 
-                                         'prv_container_size_by', 
-                                         'prv_background_type', 
+                                         'preview_image_quality',
+                                         'way_to_show_preview',
+                                         'crop_width',
+                                         'crop_height',
+                                         'prv_container_size_by',
+                                         'prv_background_type',
                                          'prv_background_color'
                                     ],
                                 ],
@@ -4373,7 +4373,7 @@ Please remember that your order may be canceled if you do not make your payment 
                             'title'       => __('Page, Links & View Settings', 'directorist'),
                             'description' => '',
                             'fields'      => apply_filters( 'atbdp_pages_settings_fields', [
-                                'add_listing_page', 'all_listing_page', 'user_dashboard', 'user_account', 'author_profile_page', 'all_categories_page', 'single_category_page', 'all_locations_page', 'single_location_page', 'single_tag_page', 'search_listing', 'search_result_page', 'checkout_page', 'payment_receipt_page', 'transaction_failure_page', 'privacy_policy', 'terms_conditions'
+                                'add_listing_page', 'all_listing_page', 'user_dashboard', 'signin_signup_page', 'author_profile_page', 'all_categories_page', 'single_category_page', 'all_locations_page', 'single_location_page', 'single_tag_page', 'search_listing', 'search_result_page', 'checkout_page', 'payment_receipt_page', 'transaction_failure_page', 'privacy_policy', 'terms_conditions'
                              ] ),
                         ],
                     ]),
@@ -4415,8 +4415,8 @@ Please remember that your order may be canceled if you do not make your payment 
                                 'search_result_layout' => [
                                     'title'       => __('Layout & Search', 'directorist' ),
                                     'fields'      => [
-                                        'search_result_layout', 
-                                        'search_listing_columns', 
+                                        'search_result_layout',
+                                        'search_listing_columns',
                                         'search_posts_num',
                                         'search_result_hide_top_search_bar',
                                         'search_result_sidebar_filter_text',
@@ -4427,14 +4427,14 @@ Please remember that your order may be canceled if you do not make your payment 
                                 'search_result_header' => [
                                     'title'       => __('Header', 'directorist' ),
                                     'fields'      => [
-                                        'search_header', 
+                                        'search_header',
                                         'search_result_filters_button_display',
                                         'search_result_filter_button_text',
                                         'display_search_result_listings_count',
                                         'search_result_listing_title',
-                                        'search_view_as_items', 
-                                        'search_sort_by', 
-                                        'search_sortby_text', 
+                                        'search_view_as_items',
+                                        'search_sort_by',
+                                        'search_sortby_text',
                                         'search_sort_by_items'
                                      ],
                                 ],

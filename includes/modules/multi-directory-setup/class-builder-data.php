@@ -430,6 +430,11 @@ class Builder_Data {
                                 'label' => __( 'Label', 'directorist' ),
                                 'value' => 'Author Info',
                             ],
+                            'display_email'        => [
+                                'type'  => 'toggle',
+                                'label' => __( 'Display Email', 'directorist' ),
+                                'value' => true,
+                            ],
                             'custom_block_id'      => [
                                 'type'  => 'text',
                                 'label' => __( 'Custom block ID', 'directorist' ),
@@ -2003,7 +2008,7 @@ class Builder_Data {
             ],
 
             'new_listing_status'                          => [
-                'label'   => __( 'New listing default status', 'directorist' ),
+                'label'   => __( 'New listing', 'directorist' ),
                 'type'    => 'select',
                 'value'   => 'pending',
                 'options' => [
@@ -2019,7 +2024,7 @@ class Builder_Data {
             ],
 
             'edit_listing_status'                         => [
-                'label'   => __( 'Edited listing default status', 'directorist' ),
+                'label'   => __( 'Edited listing', 'directorist' ),
                 'type'    => 'select',
                 'value'   => 'pending',
                 'options' => [
@@ -2182,6 +2187,10 @@ class Builder_Data {
                             ],
                         ],
 
+                    ],
+                    'isAdvanced' => [
+                        'lessText' => __( 'Basic', 'directorist' ),
+                        'moreText' => __( 'Advanced', 'directorist' ),
                     ],
                 ],
                 'value'           => [],
@@ -2583,7 +2592,7 @@ class Builder_Data {
                 'sections' => [
                     'labels'          => [
                         'title'  => __( 'Directory icon', 'directorist' ),
-                        'description' => __( 'Help text here', 'directorist' ),
+                        'description' => __( 'Select a directory type icon to display in all listings, add listing, and search pages.', 'directorist' ),
                         'fields' => ['icon'],
                     ],
 
@@ -2596,15 +2605,16 @@ class Builder_Data {
                     ],
 
                     'expiration'      => [
-                        'title'       => __( 'Default expiration in days', 'directorist' ),
-                        'fields'      => [
+                        'title'             => __( 'Default Listing Expiration Days', 'directorist' ),
+                        'description'       => __( 'Set the number of days before a listing automatically expires.', 'directorist' ),
+                        'fields'            => [
                             'default_expiration',
                         ],
                     ],
 
                     'default_preview' => [
                         'title'       => __( 'Default listing preview image', 'directorist' ),
-                        'description' => __( 'This image will be used when listing preview image is not present. Leave empty to hide the preview image completely.', 'directorist' ),
+                        'description' => __( 'This image will appear when a listing does not have a preview image uploaded. Leave it empty to hide the preview image.', 'directorist' ),
                         'fields'      => [
                             'preview_image',
                         ],

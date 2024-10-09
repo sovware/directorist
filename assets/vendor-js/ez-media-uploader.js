@@ -29,7 +29,7 @@
         // Label Texts
         label: {
           featured: 'Featured',
-          dragNDrop: 'Drag & Drop',
+          // dragNDrop: 'Drag & Drop',
           or: 'or',
           dropHere: 'Drop Here',
           selectFiles: 'Browse',
@@ -187,8 +187,8 @@
 
       var label_classes = [
         { key: 'featured', class: 'ezmu-dictionary-label-featured' },
-        { key: 'dragNDrop', class: 'ezmu-dictionary-label-drag-n-drop' },
-        { key: 'or', class: 'ezmu-dictionary-label-or' },
+        // { key: 'dragNDrop', class: 'ezmu-dictionary-label-drag-n-drop' },
+        // { key: 'or', class: 'ezmu-dictionary-label-or' },
         { key: 'to', class: 'ezmu-dictionary-label-to' },
         { key: 'dropHere', class: 'ezmu-dictionary-label-drop-here' },
         { key: 'selectFiles', class: 'ezmu-dictionary-label-select-files' },
@@ -1003,7 +1003,7 @@
 
     updateFileInputElement(upload_button_wrap, data);
 
-    media_picker_buttons.appendChild(titles_area);
+    // media_picker_buttons.appendChild(titles_area);
     media_picker_buttons.appendChild(upload_button_wrap);
     media_picker_controls.appendChild(media_picker_buttons);
 
@@ -1078,7 +1078,7 @@
     var label_title_1 = createElementWithClass("ezmu__label-title-1", "p", data.options.dictionary.label.or);
     var label_title_2 = createElementWithClass("ezmu__label-title-2", "p", data.options.dictionary.label.to);
 
-    container.appendChild(label_title_1);
+    // container.appendChild(label_title_1);
 
     container.appendChild(file_input);
     container.appendChild(file_input_label);

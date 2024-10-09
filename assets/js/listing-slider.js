@@ -262,6 +262,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       // Find Sliders
       var swiperCarouselSingleListingThumb = el.querySelector('.directorist-single-listing-slider-thumb');
       var swiperCarouselSingleListing = el.querySelector('.directorist-single-listing-slider');
+
+      // Single Listing Thumb Init
       var swiperSingleListingThumb = new Swiper(swiperCarouselSingleListingThumb, {
         slidesPerView: 6,
         spaceBetween: 10,
@@ -298,6 +300,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           }
         }
       });
+
+      // Single Listing Slider Config
       var swiperSingleListingConfig = {
         slidesPerView: 1,
         spaceBetween: 0,
@@ -315,12 +319,50 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           clickable: true
         }
       };
+
+      // Single Slider Thumb Config
       if (swiperCarouselSingleListingThumb) {
         swiperSingleListingConfig.thumbs = {
           swiper: swiperSingleListingThumb
         };
       }
+
+      // Initialize Swiper
       var swiperSingleListing = new Swiper(swiperCarouselSingleListing, swiperSingleListingConfig);
+
+      // Function to update blurred background
+      var updateBlurredBackground = function updateBlurredBackground() {
+        // Check if the blurred background element exists
+        var blurredBackground = swiperCarouselSingleListing.querySelector('.blurred-background');
+
+        // If it doesn't exist, create it
+        if (!blurredBackground) {
+          blurredBackground = document.createElement('div'); // Create a new div
+          blurredBackground.classList.add('blurred-background'); // Add the class
+          swiperCarouselSingleListing.appendChild(blurredBackground); // Append it to the section
+        }
+
+        // Get the active slide image
+        var activeSlide = swiperCarouselSingleListing.querySelector('.swiper-slide-active img');
+        if (activeSlide) {
+          var activeImageSrc = activeSlide.src; // Get the source of the active image
+          swiperCarouselSingleListing.style.backgroundColor = 'transparent'; // Remove background color
+          blurredBackground.style.backgroundImage = "url(".concat(activeImageSrc, ")"); // Set as background image
+          blurredBackground.style.backgroundSize = 'cover'; // Ensure it covers the div
+          blurredBackground.style.filter = 'blur(10px)'; // Apply blur
+          blurredBackground.style.position = 'absolute'; // Position it behind other content
+          blurredBackground.style.top = '0';
+          blurredBackground.style.left = '0';
+          blurredBackground.style.right = '0';
+          blurredBackground.style.bottom = '0';
+          blurredBackground.style.transform = 'scale(1.5)';
+        }
+      };
+
+      // Attach the slideChangeTransitionEnd event listener
+      if (dataBackgroundBlur === '1') {
+        swiperSingleListing.on('slideChangeTransitionEnd', updateBlurredBackground); // Use slideChangeTransitionEnd here
+      }
 
       // Loop Destroy on Single Slider Item
       var sliderItemsCount = swiperCarouselSingleListing.querySelectorAll('.directorist-swiper__pagination .swiper-pagination-bullet');
@@ -335,8 +377,23 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         swiperCarouselSingleListing.dir = dataRTL !== '0' ? 'rtl' : 'ltr';
         swiperCarouselSingleListing.style.width = dataWidth ? dataWidth + 'px' : '100%';
         swiperCarouselSingleListing.style.height = dataHeight ? dataHeight + 'px' : 'auto';
-        swiperCarouselSingleListing.style.backgroundColor = dataBackgroundColor ? dataBackgroundColor : 'transparent';
         swiperCarouselSingleListing.style.backgroundSize = dataBackgroundSize ? dataBackgroundSize : '';
+
+        // Initial setup
+        if (dataBackgroundSize === "contain") {
+          swiperCarouselSingleListing.style.backgroundColor = dataBackgroundColor ? dataBackgroundColor : 'transparent';
+
+          // Call the update function for initial setup if blur is active
+          if (dataBackgroundBlur === '1') {
+            updateBlurredBackground(); // Set initial blurred background
+          } else {
+            // If blur is not active, remove the blurred background if it exists
+            var blurredBackground = swiperCarouselSingleListing.querySelector('.blurred-background');
+            if (blurredBackground) {
+              swiperCarouselSingleListing.removeChild(blurredBackground);
+            }
+          }
+        }
       }
       if (swiperCarouselSingleListingThumb) {
         // swiperCarouselSingleListingThumb.style.display = dataShowThumbnails == '0' ? 'none' : '';
@@ -349,7 +406,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   // Slider Call on Page Load
   window.addEventListener('load', function () {
     allListingSlider();
-    $('body').on('click', '.directorist-viewas__item, .directorist-instant-search .directorist-search-field__btn--clear, .directorist-instant-search .directorist-btn-reset-js', function (e) {
+    $('body').on('click', '.directorist-viewas__item, .directorist-type-nav__link, .directorist-instant-search .directorist-search-field__btn--clear, .directorist-instant-search .directorist-btn-reset-js', function (e) {
       setTimeout(function () {
         if ($('.directorist-archive-items .directorist-swiper-listing')) {
           allListingSlider();

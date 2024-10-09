@@ -4,8 +4,6 @@
             <label v-if="( label.length )">
                 <component :is="labelType">{{ label }}</component>
             </label>
-            
-            <p class="cptm-form-group-info" v-if="description.length" v-html="description"></p>
 
             <div class="directorist_vertical-align-m">
                 <div class="directorist_item">
@@ -24,6 +22,8 @@
                     </a>
                 </div>
             </div>
+            
+            <p class="cptm-form-group-info" v-if="description.length" v-html="description"></p>
         </div>
 
         <confirmation-modal v-bind="confirmation" @cancel="confirmationOnCancel()" />

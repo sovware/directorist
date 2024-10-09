@@ -8,7 +8,7 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 ?>
-<section id="directorist-single-listing-slider-wrap" class="directorist-single-listing-slider-wrap"
+<section id="directorist-single-listing-slider-wrap" class="directorist-single-listing-slider-wrap background-<?php echo esc_attr( $data['background-size'] ); ?>"
 	data-width="<?php echo esc_attr( $data['width'] ); ?>"
 	data-height="<?php echo esc_attr( $data['height'] ); ?>"
 	data-rtl="<?php echo esc_attr( $data['rtl'] ); ?>"

@@ -516,6 +516,12 @@ class Directorist_Single_Listing {
 
 	public function get_slider_data( $data = null ) {
 
+		$show_slider = get_directorist_option( 'dsiplay_slider_single_page', true );
+
+		if( ! $show_slider ) {
+			return;
+		}
+
 		$listing_id    = $this->id;
 		$listing_title = get_the_title( $listing_id );
 

@@ -7753,6 +7753,7 @@ body.modal-overlay-enabled:before {
   max-width: 100%;
   margin: 10px auto 0;
   border-radius: 16px;
+  overflow: auto;
 }
 .directorist-single-listing-slider-thumb .directorist-swiper__navigation {
   display: none;
@@ -18319,6 +18320,10 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-single-listing-header .directorist-single-listing-slider-wrap {
   padding: 0;
   margin: 15px 0;
+}
+.directorist-single-listing-header .directorist-single-listing-slider-wrap.background-contain .directorist-single-listing-slider .swiper-slide img {
+  -o-object-fit: contain;
+     object-fit: contain;
 }
 
 .directorist-single-listing-quick-action {

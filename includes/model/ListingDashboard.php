@@ -379,7 +379,7 @@ class Directorist_Listing_Dashboard {
 			$list_found = $listings->found_posts;
 
 			$dashboard_tabs['dashboard_my_listings'] = array(
-				'title'     => sprintf(__('%s (%s)', 'directorist'), $my_listing_tab_text, $list_found),
+				'title'     => sprintf( '%1$s (%2$s)', $my_listing_tab_text, $list_found ),
 				'content'   => Helper::get_template_contents( 'dashboard/tab-my-listings', [ 'dashboard' => $this ] ),
 				'icon'	    => 'las la-list',
 			);

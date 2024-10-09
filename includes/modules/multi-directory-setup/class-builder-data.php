@@ -324,6 +324,22 @@ class Builder_Data {
                                 'type'  => 'toggle',
                                 'value' => false,
                             ],
+                            'review_enable_gdpr_consent' => [
+                                'label' => __( 'Enable GDPR Consent', 'directorist' ),
+                                'type'  => 'toggle',
+                                'value' => false,
+                            ],
+                            'review_gdpr_consent_label' => [
+                                'label'       => __( 'Consent Label', 'directorist' ),
+                                'type'        => 'textarea',
+                                'editor'      => 'wp_editor',
+                                'editorID'    => 'wp_editor_terms_privacy',
+                                'value'       => sprintf(
+                                    __( 'I have read and agree to the <a href="%s" target="_blank">Privacy Policy</a> and <a href="%s" target="_blank">Terms of Service</a>', 'directorist' ),
+                                    ATBDP_Permalink::get_privacy_policy_page_url(),
+                                    ATBDP_Permalink::get_terms_and_conditions_page_url(),
+                                ),
+                            ],
                         ],
 
                         'accepted_widgets' => [
@@ -557,23 +573,23 @@ class Builder_Data {
                             'similar_listings_logics'                     => [
                                 'type'    => 'radio',
                                 'name'    => 'similar_listings_logics',
-                                'label'   => __( 'Similar listings logics', 'directorist' ),
+                                'label'   => __( 'Related listings criteria', 'directorist' ),
                                 'options' => [
-                                    ['id' => 'match_category_nd_location', 'label' => __( 'Must match category and tag', 'directorist' ), 'value' => 'AND'],
-                                    ['id' => 'match_category_or_location', 'label' => __( 'Must match category or tag', 'directorist' ), 'value' => 'OR'],
+                                    ['id' => 'match_category_nd_location', 'label' => __( 'Match both category and tag', 'directorist' ), 'value' => 'AND'],
+                                    ['id' => 'match_category_or_location', 'label' => __( 'Match either category or tag', 'directorist' ), 'value' => 'OR'],
                                 ],
                                 'value'   => 'OR',
                             ],
                             'listing_from_same_author'                    => [
                                 'type'  => 'toggle',
-                                'label' => __( 'Listing from same author', 'directorist' ),
+                                'label' => __( 'Display listings by the same author', 'directorist' ),
                                 'value' => false,
                             ],
                             'similar_listings_number_of_listings_to_show' => [
                                 'type'  => 'range',
                                 'min'   => 0,
                                 'max'   => 20,
-                                'label' => __( 'Number of listings to show', 'directorist' ),
+                                'label' => __( 'Number of listings to display', 'directorist' ),
                                 'value' => 3,
                             ],
                             'similar_listings_number_of_columns'          => [
@@ -2008,7 +2024,7 @@ class Builder_Data {
             ],
 
             'new_listing_status'                          => [
-                'label'   => __( 'New listing default status', 'directorist' ),
+                'label'   => __( 'New listing', 'directorist' ),
                 'type'    => 'select',
                 'value'   => 'pending',
                 'options' => [
@@ -2024,7 +2040,7 @@ class Builder_Data {
             ],
 
             'edit_listing_status'                         => [
-                'label'   => __( 'Edited listing default status', 'directorist' ),
+                'label'   => __( 'Edited listing', 'directorist' ),
                 'type'    => 'select',
                 'value'   => 'pending',
                 'options' => [
@@ -2197,7 +2213,9 @@ class Builder_Data {
             ],
             'enable_single_listing_page'                  => [
                 'type'      => 'toggle',
-                'label'     => __( 'Enable', 'directorist' ),
+                'label'     => __( 'Enable Custom Single Listing Page', 'directorist' ),
+                'description' => __( 'Enabling this option will replace the default single listing page. After enabling you must create and assign a new page with generated shortcodes to display single listing content.
+', 'directorist' ),
                 'labelType' => 'h3',
                 'value'     => false,
             ],
@@ -2592,7 +2610,7 @@ class Builder_Data {
                 'sections' => [
                     'labels'          => [
                         'title'  => __( 'Directory icon', 'directorist' ),
-                        'description' => __( 'Help text here', 'directorist' ),
+                        'description' => __( 'Select a directory type icon to display in all listings, add listing, and search pages.', 'directorist' ),
                         'fields' => ['icon'],
                     ],
 
@@ -2605,15 +2623,16 @@ class Builder_Data {
                     ],
 
                     'expiration'      => [
-                        'title'       => __( 'Default expiration in days', 'directorist' ),
-                        'fields'      => [
+                        'title'             => __( 'Default Listing Expiration Days', 'directorist' ),
+                        'description'       => __( 'Set the number of days before a listing automatically expires.', 'directorist' ),
+                        'fields'            => [
                             'default_expiration',
                         ],
                     ],
 
                     'default_preview' => [
                         'title'       => __( 'Default listing preview image', 'directorist' ),
-                        'description' => __( 'This image will be used when listing preview image is not present. Leave empty to hide the preview image completely.', 'directorist' ),
+                        'description' => __( 'This image will appear when a listing does not have a preview image uploaded. Leave it empty to hide the preview image.', 'directorist' ),
                         'fields'      => [
                             'preview_image',
                         ],

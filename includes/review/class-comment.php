@@ -11,6 +11,7 @@ defined( 'ABSPATH' ) || die();
 
 use Exception;
 use Directorist\Review\Listing_Review_Meta as Review_Meta;
+use Directorist\Directorist_Single_Listing;
 
 class Comment {
 
@@ -76,20 +77,22 @@ class Comment {
 			if ( ! directorist_is_guest_review_enabled() && ! is_user_logged_in() ) {
 				throw new Exception( __( '<strong>Error</strong>: You must login to share review.', 'directorist' ), 401 );
 			}
+			$post_id       = absint( $_POST['comment_post_ID'] ); // @codingStandardsIgnoreLine.
+			$listing       = Directorist_Single_Listing::instance( $post_id );
+			$section_data  = $listing->get_review_section_data();
+			$builder       = Builder::get( $section_data['section_data'] );
 
-			if ( ! is_user_logged_in() && directorist_is_review_gdpr_consent_enabled() && ! isset( $_POST['directorist-gdpr-consent'] ) ) {
+			if ( $builder->is_gdpr_consent() && ! isset( $_POST['directorist-gdpr-consent'] ) ) {
 				throw new Exception( sprintf(
 					/** translators: %1$s gdpr consent label */
 					__( '<strong>Error</strong>: Please agree to - %1$s', 'directorist' ),
-					directorist_get_review_gdpr_consent_label()
+					$builder->gdpr_consent_label()
 				), 400 );
 			}
 
-			$post_id      = absint( $_POST['comment_post_ID'] ); // @codingStandardsIgnoreLine.
-			$user_id      = $comment_data['user_ID'];
-			$author_email = $comment_data['comment_author_email'];
-			$builder      = Builder::get( $post_id );
-			$errors       = array();
+			$user_id       = $comment_data['user_ID'];
+			$author_email  = $comment_data['comment_author_email'];
+			$errors        = array();
 
 			if ( isset( $_POST['comment_parent'], $_POST['rating'], $comment_data['comment_type'] ) && // @codingStandardsIgnoreLine.
 				$comment_data['comment_parent'] === 0 && self::is_default_comment_type( $comment_data['comment_type'] ) ) {
@@ -217,8 +220,10 @@ class Comment {
 			return $comment_data;
 		}
 
-		$builder = Builder::get( absint( $_POST['comment_post_ID'] ) ); // @codingStandardsIgnoreLine.
-
+		$listing       = Directorist_Single_Listing::instance( absint( $_POST['comment_post_ID'] ) );
+		$section_data  = $listing->get_review_section_data();
+		$builder       = Builder::get( $section_data['section_data'] );
+		error_log(  print_r( $section_data, true ) );
 		if ( isset( $_POST['comment_parent'], $_POST['rating'], $comment_data['comment_type'] ) && // @codingStandardsIgnoreLine.
 			$comment_data['comment_parent'] === 0 && self::is_default_comment_type( $comment_data['comment_type'] ) &&
 			( $builder->is_rating_type_single() && ! empty( $_POST['rating'] ) ) ) { // @codingStandardsIgnoreLine.
@@ -433,7 +438,9 @@ class Comment {
 			return;
 		}
 
-		$builder = Builder::get( $comment_data['comment_post_ID'] );
+		$listing       = Directorist_Single_Listing::instance( absint( $comment_data['comment_post_ID'] ) );
+		$section_data  = $listing->get_review_section_data();
+		$builder       = Builder::get( $section_data['section_data'] );
 		$rating  = 0;
 
 		if ( $builder->is_rating_type_single() ) {

@@ -404,7 +404,7 @@ class Directorist_Listing_Dashboard {
 		$dashboard_tabs['dashboard_preferences'] = array(
 			'title'     => __( 'Preferences', 'directorist' ),
 			'content'   => Helper::get_template_contents( 'dashboard/tab-preferences', [ 'dashboard' => $this ] ),
-			'icon'		=> 'las la-cog',
+			'icon'		=> 'las la-sliders-h',
 		);
 
 		if ( $announcement_tab ) {

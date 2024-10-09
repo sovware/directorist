@@ -101,6 +101,7 @@ class Directorist_Account {
 			'redirection_after_registration'	=> $atts['signup_redirect_url'],
 		];
 		wp_localize_script( 'directorist-account', 'directorist_signin_signup_params', $data );
+		wp_localize_script( 'jquery', 'directorist_signin_signup_params', $data );
 
 
 		$args = [

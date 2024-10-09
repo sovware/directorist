@@ -572,48 +572,48 @@ final class Directorist_Base
 		if ( $args['id'] === 'right-sidebar-listing' ) {
 			// Create a wrapper for the widget body
 			$widget_output = '';
-	
+
 			// Check and append before_widget if it exists
 			if ( isset( $instance['before_widget'] ) ) {
 				$widget_output .= $instance['before_widget'];
 			}
-	
+
 			// Check and append before_title, title, and after_title if they exist
 			if ( isset( $instance['before_title'] ) ) {
 				$widget_output .= $instance['before_title'];
 			}
-	
+
 			if ( isset( $instance['title'] ) ) {
 				$widget_output .= $instance['title'];
 			}
-	
+
 			if ( isset( $instance['after_title'] ) ) {
 				$widget_output .= $instance['after_title'];
 			}
-	
+
 			// Open custom body wrapper
 			$widget_output .= '<div class="directorist-card__body">';
-	
+
 			// Check for actual widget content (may vary based on your widget implementation)
 			if ( isset( $instance['content'] ) ) {
 				$widget_output .= $instance['content'];
 			}
-	
+
 			// Close custom body wrapper
 			$widget_output .= '</div>';
-	
+
 			// Check and append after_widget if it exists
 			if ( isset( $instance['after_widget'] ) ) {
 				$widget_output .= $instance['after_widget'];
 			}
-	
+
 			// Update instance output
 			$instance['content'] = $widget_output;
 		}
-	
+
 		return $instance;
 	}
-	
+
 
 	public function add_image_sizes() {
 		$current_preview_size = get_directorist_option( 'preview_image_quality', 'directorist_preview' );
@@ -720,7 +720,7 @@ final class Directorist_Base
 		if ( get_directorist_option( 'pricing_plans' ) === $post->ID ) {
 		   $post_states['directorist_pricing_plans'] = __( 'Directorist Pricing Plan', 'directorist' );
 	   	}
-		if ( get_directorist_option( 'account_page' ) === $post->ID ) {
+		if ( get_directorist_option( 'signin_signup_page' ) === $post->ID ) {
 		   $post_states['directorist_signin_signup'] = __( 'Directorist Account', 'directorist' );
 	   	}
 

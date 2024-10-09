@@ -184,10 +184,10 @@ class ATBDP_Permalink {
      * @param array $query_vars [optional] Array of query vars to be added to the registration page url
      * @return string
      */
-    public static function get_account_page_link( $query_vars = array() )
+    public static function get_signin_signup_page_link( $query_vars = array() )
     {
         $link    = home_url();
-        $page_id = get_directorist_option( 'account_page' );
+        $page_id = get_directorist_option( 'signin_signup_page' );
 
         if ( $page_id )  {
             $link = get_permalink( $page_id );

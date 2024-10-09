@@ -2656,8 +2656,8 @@ function atbdp_create_required_pages(){
             'title' => __('Dashboard', 'directorist'),
             'content' => '[directorist_user_dashboard]'
         ),
-        'account_page' => array(
-            'title' => __('Account', 'directorist'),
+        'signin_signup_page' => array(
+            'title' => __('Sign In', 'directorist'),
             'content' => '[directorist_signin_signup]'
         ),
         /* 'checkout_page' => array(
@@ -4063,7 +4063,7 @@ function directorist_password_reset_url( $user, $password_reset = true, $confirm
         $args['confirm_mail'] = true;
     }
 
-    $reset_password_url = ATBDP_Permalink::get_account_page_link( $args );
+    $reset_password_url = ATBDP_Permalink::get_signin_signup_page_link( $args );
 
     return apply_filters( 'directorist_password_reset_url', $reset_password_url );
 }

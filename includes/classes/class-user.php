@@ -62,9 +62,9 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 
 			$params_json_decode 	= json_decode( stripslashes( $_POST['params'] ), true );
 			$params 				= directorist_clean( $params_json_decode);
-			
+
 			$new_user_registration 	= ! empty( $params['new_user_registration'] ) && 'yes' == $params['new_user_registration']  ? 1 : 0;
-		
+
 			if ( ! $new_user_registration ) {
 				wp_send_json_error( array(
 					'error' => 'You are not allowed to register.'
@@ -213,7 +213,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 				ATBDP()->email->send_user_confirmation_email( get_user_by( 'ID', $user_id ) );
 
 				$response = array(
-					'redirect_url' => esc_url_raw( ATBDP_Permalink::get_account_page_link( array(
+					'redirect_url' => esc_url_raw( ATBDP_Permalink::get_signin_signup_page_link( array(
 						'user'         => $email,
 						'verification' => 1,
 					) ) )
@@ -225,7 +225,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 			ATBDP()->email->custom_wp_new_user_notification_email( $user_id );
 
 			$auto_login            = ! empty( $params['auto_login_after_registration'] ) && 'yes' == $params['auto_login_after_registration']  ? 1 : 0;
-			$redirection_link      = ! empty( $params['redirection_after_registration'] ) ? $params['redirection_after_registration'] : ''; 
+			$redirection_link      = ! empty( $params['redirection_after_registration'] ) ? $params['redirection_after_registration'] : '';
 
 			if ( ! empty( $auto_login ) ) {
 				wp_set_current_user( $user_id, $email );
@@ -241,7 +241,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 				wp_send_json_success( $response );
 			} else {
 				$response = array(
-					'redirect_url' => esc_url_raw( ATBDP_Permalink::get_account_page_link( array( 'registration_status' => true ) ) ),
+					'redirect_url' => esc_url_raw( ATBDP_Permalink::get_signin_signup_page_link( array( 'registration_status' => true ) ) ),
 					'message' => esc_html__( 'Registration completed. Please check your email for confirmation. You will be redirected...', 'directorist' ),
 				);
 

@@ -156,7 +156,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 				ATBDP()->email->send_user_confirmation_email( $user );
 			}
 
-			$args = ATBDP_Permalink::get_account_page_link( array(
+			$args = ATBDP_Permalink::get_signin_signup_page_link( array(
 				'send_verification_email' => true
 			) );
 
@@ -1020,7 +1020,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 
 			$hide_contact_form 		= isset( $_POST['directorist_hide_contact_form'] ) ? sanitize_text_field( $_POST['directorist_hide_contact_form'] ) : '';
 			$display_author_email 	= isset( $_POST['directorist_display_author_email'] ) ? sanitize_text_field( $_POST['directorist_display_author_email'] ) : '';
-			
+
 			// Save the sanitized value to user meta
 			update_user_meta( $user_id, 'directorist_hide_contact_form', $hide_contact_form );
 			update_user_meta( $user_id, 'directorist_display_author_email', $display_author_email );

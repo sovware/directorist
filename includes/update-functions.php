@@ -249,7 +249,7 @@ function directorist_800_migrate_builder_data() {
 	$options = get_option('atbdp_option');
 	$account = wp_insert_post(
 		array(
-			'post_title' 	 => 'Account',
+			'post_title' 	 => 'Sign In',
 			'post_content' 	 => '[directorist_signin_signup]',
 			'post_status' 	 => 'publish',
 			'post_type' 	 => 'page',
@@ -258,7 +258,7 @@ function directorist_800_migrate_builder_data() {
 	);
 
 	if ( $account ) {
-		$options['account_page'] = (int) $account;
+		$options['signin_signup_page'] = (int) $account;
 		update_option( 'atbdp_option', $options );
 	}
 

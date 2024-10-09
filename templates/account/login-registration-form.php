@@ -68,7 +68,7 @@ $key        = isset( $_GET['key'] ) ? sanitize_text_field( wp_unslash( $_GET['ke
 										?>
 										<p class="atbd_reset_success directorist-alert directorist-alert-success"><?php echo wp_kses( sprintf(
 											__( 'Password changed successfully. Please <a href="%s">click here to login</a>.', 'directorist' ),
-											esc_url( ATBDP_Permalink::get_account_page_link() )
+											esc_url( ATBDP_Permalink::get_signin_signup_page_link() )
 										), array( 'a' => array( 'href' => array() ) ) ); ?></p>
 									<?php endif;
 								endif;
@@ -87,7 +87,7 @@ $key        = isset( $_GET['key'] ) ? sanitize_text_field( wp_unslash( $_GET['ke
 									<div class="directorist-alert directorist-alert-success">
 										<?php echo wp_kses( sprintf(
 											__( 'Email verification successful. Please <a href="%s">click here to login</a>.', 'directorist' ),
-											esc_url( ATBDP_Permalink::get_account_page_link() )
+											esc_url( ATBDP_Permalink::get_signin_signup_page_link() )
 										), array( 'a' => array( 'href' => array() ) ) ); ?>
 									</div>
 									<?php
@@ -315,13 +315,13 @@ $key        = isset( $_GET['key'] ) ? sanitize_text_field( wp_unslash( $_GET['ke
 							<div class="atbd_user_type_area directory_regi_btn directorist-radio directorist-radio-circle directorist-mb-35">
 								<input id="author_type" type="radio" name="user_type" value="author" <?php echo esc_attr( $author_checked ); ?>><label for="author_type" class="directorist-radio__label"><?php echo esc_html( $author_role_label ); ?>
 							</div>
-							
+
 							<div class="atbd_user_type_area directory_regi_btn directorist-radio directorist-radio-circle directorist-mb-35">
 								<input id="general_type" type="radio" name="user_type" value="general" <?php echo esc_attr( $general_checked ); ?>><label for="general_type" class="directorist-radio__label"><?php echo esc_html( $user_role_label ); ?>
 							</div>
-							
+
 						<?php } ?>
-						
+
 						<?php if ( ! empty( $registration_privacy ) && 'yes' == $registration_privacy ) { ?>
 							<div class="atbd_privacy_policy_area directory_regi_btn directorist-checkbox directorist-mb-20">
 								<input id="directorist__authentication__signup__privacy_policy" type="checkbox" name="privacy_policy" <?php echo( ( isset( $privacy_policy ) && 'on' === $privacy_policy ) ? 'checked="checked"' : '' ); ?>>

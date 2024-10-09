@@ -272,7 +272,6 @@ function modalToggle() {
 jQuery(function ($) {
   $('.directorist__authentication__signup').on('submit', function (e) {
     e.preventDefault();
-    alert('dsfdsf');
     var formData = new FormData(this);
     formData.append('action', 'directorist_register_form');
     formData.append('params', JSON.stringify(directorist_signin_signup_params));

@@ -513,6 +513,18 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 		}
 
 		public function registration_redirection() {
+			$dashbord_page_id = (int) get_directorist_option( 'user_dashboard' );
+			$signin_page_id = (int) get_directorist_option( 'signin_signup_page' );
+
+			if ( $dashbord_page_id && ! is_user_logged_in() && is_page( $dashbord_page_id ) ) {
+				wp_safe_redirect( ATBDP_Permalink::get_signin_signup_page_link() );
+				exit;
+			}
+
+			if ( $signin_page_id && is_user_logged_in() && is_page( $signin_page_id ) ) {
+				wp_safe_redirect( ATBDP_Permalink::get_dashboard_page_link() );
+				exit;
+			}
 
 			$registration_page = get_directorist_option( 'custom_registration' );
 			if( ! get_directorist_option( 'new_user_registration', true ) && $registration_page && is_page( $registration_page ) ) {

@@ -28871,6 +28871,9 @@ input[type=radio]:checked::before {
 .atbdp-settings-panel .cptm-section .cptm-form-fields .cptm-form-group label {
   font-size: 15px;
 }
+.atbdp-settings-panel #style_settings__color_settings .cptm-section {
+  z-index: unset;
+}
 
 /* settings panel css */
 .atbdp-settings-manager .directorist_builder-header {

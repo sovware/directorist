@@ -531,18 +531,6 @@ Please remember that your order may be canceled if you do not make your payment 
                     ],
                 ],
 
-                'featured_listing_price' => [
-                    'label'         => __('Price in ', 'directorist') . atbdp_get_payment_currency(),
-                    'type'          => 'number',
-                    'value'         => 19.99,
-                    'description'   => __('Set the price you want to charge a user if he/she wants to upgrade his/her listing to featured listing. Note: you can change the currency settings under the gateway settings', 'directorist'),
-                    'show-if' => [
-                        'where' => "enable_featured_listing",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => true],
-                        ],
-                    ],
-                ],
                 'featured_listing_desc' => [
                     'type' => 'textarea',
                     'label' => __('Description', 'directorist'),
@@ -558,8 +546,9 @@ Please remember that your order may be canceled if you do not make your payment 
                 'featured_listing_price' => [
                     'label'         => __('Price in ', 'directorist') . atbdp_get_payment_currency(),
                     'type'          => 'number',
-                    'max'           => 0,
-                    'value'         => 15,
+                    'min'           => 0,
+                    'step'           => '0.01',
+                    'value'         => 19.99,
                     'description'   => __('Set the price you want to charge a user if he/she wants to upgrade his/her listing to featured listing. Note: you can change the currency settings under the gateway settings', 'directorist'),
                     'show-if' => [
                         'where' => "enable_featured_listing",
@@ -1494,26 +1483,6 @@ Please remember that your order may be canceled if you do not make your payment 
                     'type'  => 'toggle',
                     'value' => true,
                 ],
-                'display_author_email' => [
-                    'label' => __('Author Email', 'directorist'),
-                    'type'  => 'select',
-                    'value' => 'public',
-                    'options' => [
-                        [
-                            'value' => 'public',
-                            'label' => __('Display', 'directorist'),
-                        ],
-                        [
-                            'value' => 'logged_in',
-                            'label' => __('Display only for Logged in Users', 'directorist'),
-                        ],
-
-                        [
-                            'value' => 'none_to_display',
-                            'label' => __('Hide', 'directorist'),
-                        ],
-                    ],
-                ],
                 'atbdp_enable_cache' => [
                     'label' => __('Enable Cache', 'directorist'),
                     'type'  => 'toggle',
@@ -1552,7 +1521,7 @@ Please remember that your order may be canceled if you do not make your payment 
                         ],
                         [
                             'value' => 'no_sidebar',
-                            'label' => __('No Sidebar Filter (Popup)', 'directorist'),
+                            'label' => __('Popup Filter', 'directorist'),
                         ],
                     ],
                 ],
@@ -1567,11 +1536,6 @@ Please remember that your order may be canceled if you do not make your payment 
                             ['key' => 'value', 'compare' => '!=', 'value' => 'no_sidebar'],
                         ],
                     ],
-                ],
-                'listing_instant_search' => [
-                    'type' => 'toggle',
-                    'label' => __('Ajax Search', 'directorist'),
-                    'value' => false,
                 ],
                 'listings_sidebar_filter_text' => [
                     'type' => 'text',
@@ -1626,17 +1590,23 @@ Please remember that your order may be canceled if you do not make your payment 
                     'type' => 'text',
                     'label' => __('Apply Button text', 'directorist'),
                     'value' => __('Apply Filters', 'directorist'),
+                    'show-if' => [
+                        'where' => "all_listing_layout",
+                        'conditions' => [
+                            [ 'key' => 'value', 'compare' => '=', 'value' => 'no_sidebar' ],
+                        ],
+                    ],
                 ],
 
 
                 'display_sort_by' => [
                     'type' => 'toggle',
-                    'label' => __('Display "Sort By" Dropdown', 'directorist'),
+                    'label' => __('Enable Sorting Options', 'directorist'),
                     'value' => true,
                 ],
                 'sort_by_text'    => [
                     'type'          => 'text',
-                    'label'         => __('"Sort By" Text', 'directorist'),
+                    'label'         => __('"Sort By" Label', 'directorist'),
                     'value'         => __('Sort By', 'directorist'),
                     'show-if' => [
                         'where' => "display_sort_by",
@@ -1763,7 +1733,7 @@ Please remember that your order may be canceled if you do not make your payment 
                             'label' => __('Full', 'directorist'),
                         ],
                     ],
-					'description' => sprintf( __( 'Default: %s.<br/>If you change this option, please regenerate all thumbnails using <a href="%s" target="_blank">this</a> plugin. Otherwise it may not work properly.', 'directorist' ), $default_preview_size_text, 'https://wordpress.org/plugins/regenerate-thumbnails/' ),
+					'description' => sprintf( __( 'Default: %s.<br/>If changed, regenerate thumbnails via <a href="%s" target="_blank">this</a> plugin for proper functionality.', 'directorist' ), $default_preview_size_text, 'https://wordpress.org/plugins/regenerate-thumbnails/' ),
                 ],
                 'way_to_show_preview' => [
                     'label' => __('Image Size', 'directorist'),
@@ -2719,7 +2689,7 @@ Please remember that your order may be canceled if you do not make your payment 
                         ],
                         [
                             'value' => 'no_sidebar',
-                            'label' => __('No Sidebar Filter (Popup)', 'directorist'),
+                            'label' => __('Popup Filter', 'directorist'),
                         ],
                     ],
                 ],
@@ -2787,6 +2757,12 @@ Please remember that your order may be canceled if you do not make your payment 
                     'type'          => 'text',
                     'label'         => __('Apply Filters Button text', 'directorist'),
                     'value'         => __('Apply Filters', 'directorist'),
+                    'show-if' => [
+                        'where' => "search_result_layout",
+                        'conditions' => [
+                            [ 'key' => 'value', 'compare' => '=', 'value' => 'no_sidebar' ],
+                        ],
+                    ],
                 ],
                 'search_view_as_items' => [
                     'type' => 'checkbox',
@@ -2814,12 +2790,12 @@ Please remember that your order may be canceled if you do not make your payment 
                 ],
                 'search_sort_by' => [
                     'type'  => 'toggle',
-                    'label' => __('Display "Sort By" Dropdown', 'directorist'),
+                    'label' => __('Enable Sorting Options', 'directorist'),
                     'value' => true,
                 ],
                 'search_sortby_text'    => [
                     'type'          => 'text',
-                    'label'         => __('"Sort By" Text', 'directorist'),
+                    'label'         => __('"Sort By" Label', 'directorist'),
                     'value'         => __('Sort By', 'directorist'),
                 ],
                 'search_sort_by_items' => [
@@ -2933,6 +2909,14 @@ Please remember that your order may be canceled if you do not make your payment 
                     'value' => atbdp_get_option('user_dashboard', 'atbdp_general'),
                     'showDefaultOption' => true,
                     'options' => $this->get_pages_vl_arrays(),
+                ],
+                'user_account' => [
+                    'label'             => __( 'Account', 'directorist' ),
+                    'type'              => 'select',
+                    'description'       => sprintf(__('Following shortcode must be in the selected page %s', 'directorist'), '<div class="atbdp_shortcodes" style="color: #ff4500;">[directorist_account]</div>'),
+                    'value'             => atbdp_get_option( 'user_account', 'atbdp_general' ),
+                    'showDefaultOption' => true,
+                    'options'           => $this->get_pages_vl_arrays(),
                 ],
                 'author_profile_page' => [
                     'label' => __('User Profile Page', 'directorist'),
@@ -3216,20 +3200,23 @@ Please remember that your order may be canceled if you do not make your payment 
                 //currency settings
                 'g_currency_note'    => [
                     'type'          => 'note',
-                    'title'         => __('Note About This Currency Settings:', 'directorist'),
-                    'description' => __('This currency settings lets you customize how you would like to display price amount in your website. However, you can accept currency in a different currency. Therefore, for accepting currency in a different currency, Go to Gateway Settings Tab.', 'directorist'),
+                    'title'         => __('Note:', 'directorist'),
+                    'description' => __('Customize how prices are displayed on your site. To accept payments in a different currency, visit Monetization → General Settings', 'directorist'),
                 ],
-                'g_currency'    => [
-                    'type'          => 'text',
-                    'label'         => __('Currency Name', 'directorist'),
-                    'description'   => __('Enter the Name of the currency eg. USD or GBP etc.', 'directorist'),
-                    'value'         => 'USD',
+                'g_currency' => [
+                    'type'        => 'text',
+                    'label'       => __('Currency Code', 'directorist'),
+                    'description' => sprintf(
+                        __( 'Enter the 3-letter currency code (e.g., USD for US Dollar). For a full list of currency codes, refer to %s.', 'directorist' ),
+                        "<a href='" . esc_url( 'https://www.iban.com/currency-codes' ) . "'>" . __( 'ISO 4217 Currency Codes', 'directorist' ) . "</a>"
+                    ),
+                    'value'       => 'USD',
                 ],
                 'g_currency_position' => [
                     'label'        => __('Currency Position', 'directorist'),
                     'type'        => 'select',
                     'value'       => 'before',
-                    'description' => __('Select where you would like to show the currency symbol. Default is before. Eg. $5', 'directorist'),
+                    'description' => __( "Select where you'd like the currency symbol to appear. The default is before the amount (e.g., $5)", 'directorist' ),
                     'options' => [
                         [
                             'value' => 'before',
@@ -3465,7 +3452,7 @@ Please remember that your order may be canceled if you do not make your payment 
                 ],
                 // registration settings
                 'new_user_registration' => [
-                    'label'         => __('New User Registration', 'directorist'),
+                    'label'         => __('Enable Registration', 'directorist'),
                     'type'          => 'toggle',
                     'value'         => true,
                 ],
@@ -3719,7 +3706,7 @@ Please remember that your order may be canceled if you do not make your payment 
                 'redirection_after_reg' => [
                     'label' => __('Redirection after Registration', 'directorist'),
                     'type'  => 'select',
-                    'value' => get_directorist_option( 'user_dashboard' ),
+                    'value' => get_directorist_option( 'user_account' ),
                     'options' => $this->get_pages_with_prev_page(),
                 ],
                 // login settings
@@ -4230,51 +4217,7 @@ Please remember that your order may be canceled if you do not make your payment 
                     <p align="center">If you did not sign up for this account you can ignore this email.</p>', 'directorist'),
                 ],
                 // single template settings
-                'single_temp_max_width'    => [
-                    'type'           => 'text',
-                    'label'          => __('Maximum Width (px)', 'directorist'),
-                    'value'          => '1080',
-                ],
-                'single_temp_padding_top'    => [
-                    'type'           => 'text',
-                    'label'          => __('Top', 'directorist'),
-                    'value'          => '30',
-                ],
-                'single_temp_padding_bottom'    => [
-                    'type'           => 'text',
-                    'label'          => __('Bottom', 'directorist'),
-                    'value'          => '50',
-                ],
-                'single_temp_padding_left'  => [
-                    'type'           => 'text',
-                    'label'          => __('Left', 'directorist'),
-                    'value'          => '4',
-                ],
-                'single_temp_padding_right'    => [
-                    'type'           => 'text',
-                    'label'          => __('right', 'directorist'),
-                    'value'          => '4',
-                ],
-                'single_temp_margin_top' => [
-                    'type'           => 'text',
-                    'label'          => __('Top', 'directorist'),
-                    'value'          => '4',
-                ],
-                'single_temp_margin_bottom' => [
-                    'type'           => 'text',
-                    'label'          => __('Bottom', 'directorist'),
-                    'value'          => '50',
-                ],
-                'single_temp_margin_left'  => [
-                    'type'           => 'text',
-                    'label'          => __('Left', 'directorist'),
-                    'value'          => '4',
-                ],
-                'single_temp_margin_right'    => [
-                    'type'           => 'text',
-                    'label'          => __('right', 'directorist'),
-                    'value'          => '4',
-                ],
+                
                 'enable_uninstall'    => [
                     'type'           => 'toggle',
                     'label'          => __('Remove Data on Uninstall?', 'directorist'),
@@ -4311,10 +4254,17 @@ Please remember that your order may be canceled if you do not make your payment 
                                         'delete_expired_listing_permanently', 'delete_expired_listings_after',
                                      ],
                                 ],
-                                'general_bottom_settings' => [
+                                'listings_currency' => [
+                                    'title'       => __( 'Listing Currency', 'directorist' ),
                                     'fields'      => [
-                                        'display_author_email',
-                                    ],
+                                        'g_currency_note', 'g_currency', 'g_currency_position'
+                                     ],
+                                ],
+                                'registration' => [
+                                    'title'       => __( 'Registration', 'directorist' ),
+                                    'fields'      => [
+                                        'new_user_registration', 'enable_email_verification'
+                                     ],
                                 ],
                             ] ),
                         ],
@@ -4326,13 +4276,12 @@ Please remember that your order may be canceled if you do not make your payment 
                                     'title'       => __(' Layout & Search', 'directorist' ),
                                     'fields'      => [
                                         'all_listing_layout', 
-                                        'listing_hide_top_search_bar', 
-                                        'listing_instant_search', 
+                                        'all_listing_columns', 
+                                        'all_listing_page_items',
+                                        'listing_hide_top_search_bar',
                                         'listings_sidebar_filter_text', 
                                         'listings_reset_text', 
-                                        'listings_apply_text', 
-                                        'all_listing_columns', 
-                                        'all_listing_page_items'
+                                        'listings_apply_text',
                                      ],
                                 ],
                                 'header' => [
@@ -4370,7 +4319,7 @@ Please remember that your order may be canceled if you do not make your payment 
                             'sections' => apply_filters( 'atbdp_listing_settings_listing_page_sections', [
                                 'labels' => [
                                     'fields'      => [
-                                        'disable_single_listing', 'restrict_single_listing_for_logged_in_user', 'atbdp_listing_slug', 'single_listing_slug_with_directory_type', 'submission_confirmation', 'pending_confirmation_msg', 'publish_confirmation_msg', 'dsiplay_slider_single_page', 'single_slider_image_size', 'single_slider_background_type', 'single_slider_background_color', 'gallery_crop_width', 'gallery_crop_height'
+                                        'single_listing_template', 'disable_single_listing', 'restrict_single_listing_for_logged_in_user', 'atbdp_listing_slug', 'single_listing_slug_with_directory_type', 'submission_confirmation', 'pending_confirmation_msg', 'publish_confirmation_msg', 'dsiplay_slider_single_page', 'single_slider_image_size', 'single_slider_background_type', 'single_slider_background_color', 'gallery_crop_width', 'gallery_crop_height'
                                     ],
                                 ],
                             ] ),
@@ -4390,18 +4339,6 @@ Please remember that your order may be canceled if you do not make your payment 
                                     'description' => '',
                                     'fields'      => [
                                         'display_locations_as', 'locations_column_number', 'locations_depth_number', 'order_location_by', 'sort_location_by', 'display_location_listing_count', 'hide_empty_locations'
-                                     ],
-                                ],
-                            ] ),
-                        ],
-
-                        'currency_settings' => [
-                            'label' => __( 'Listing Currency', 'directorist' ),
-                            'icon' => '<i class="fa fa-money-bill"></i>',
-                            'sections' => apply_filters( 'atbdp_currency_settings_sections', [
-                                'title_metas' => [
-                                    'fields'      => [
-                                        'g_currency_note', 'g_currency', 'g_currency_position'
                                      ],
                                 ],
                             ] ),
@@ -4446,7 +4383,7 @@ Please remember that your order may be canceled if you do not make your payment 
                             'title'       => __('Page, Links & View Settings', 'directorist'),
                             'description' => '',
                             'fields'      => apply_filters( 'atbdp_pages_settings_fields', [
-                                'add_listing_page', 'all_listing_page', 'user_dashboard', 'author_profile_page', 'all_categories_page', 'single_category_page', 'all_locations_page', 'single_location_page', 'single_tag_page', 'search_listing', 'search_result_page', 'checkout_page', 'payment_receipt_page', 'transaction_failure_page', 'privacy_policy', 'terms_conditions'
+                                'add_listing_page', 'all_listing_page', 'user_dashboard', 'user_account', 'author_profile_page', 'all_categories_page', 'single_category_page', 'all_locations_page', 'single_location_page', 'single_tag_page', 'search_listing', 'search_result_page', 'checkout_page', 'payment_receipt_page', 'transaction_failure_page', 'privacy_policy', 'terms_conditions'
                              ] ),
                         ],
                     ]),
@@ -4489,12 +4426,12 @@ Please remember that your order may be canceled if you do not make your payment 
                                     'title'       => __('Layout & Search', 'directorist' ),
                                     'fields'      => [
                                         'search_result_layout', 
+                                        'search_listing_columns', 
+                                        'search_posts_num',
                                         'search_result_hide_top_search_bar',
                                         'search_result_sidebar_filter_text',
                                         'sresult_reset_text',
                                         'sresult_apply_text',
-                                        'search_listing_columns', 
-                                        'search_posts_num',
                                      ],
                                 ],
                                 'search_result_header' => [
@@ -4525,13 +4462,6 @@ Please remember that your order may be canceled if you do not make your payment 
                             'label' => __('Registration Form', 'directorist'),
                             'icon' => '<i class="fa fa-envelope-open"></i>',
                             'sections' => apply_filters( 'atbdp_reg_settings_sections', [
-                                'new_user' => [
-                                    'title'       => '',
-                                    'description' => '',
-                                    'fields'      => [
-                                        'new_user_registration', 'enable_email_verification'
-                                     ],
-                                ],
                                 'username' => [
                                     'title'       => __('Username', 'directorist'),
                                     'description' => '',
@@ -4928,34 +4858,6 @@ Please remember that your order may be canceled if you do not make your payment 
                     'label' => __( 'Personalization', 'directorist' ),
                     'icon' => '<i class="fa fa-paint-brush directorist_success"></i>',
                     'submenu' => apply_filters('atbdp_style_settings_submenu', [
-                        'single_template' => [
-                            'label' => __('Single Listing Template', 'directorist'),
-                            'icon' => '<i class="fa fa-swatchbook directorist_info"></i>',
-                            'sections' => apply_filters( 'atbdp_listing_settings_single_template_sections', [
-                                'general' => [
-                                    'title'       => '',
-                                    'description' => '',
-                                    'fields'      => [
-                                        'single_listing_template',
-                                        'single_temp_max_width'
-                                    ],
-                                ],
-                                'padding' => [
-                                    'title'       => __('Padding (PX)'),
-                                    'description' => '',
-                                    'fields'      => [
-                                        'single_temp_padding_top', 'single_temp_padding_bottom', 'single_temp_padding_left', 'single_temp_padding_right'
-                                    ],
-                                ],
-                                'margin' => [
-                                    'title'       => __('Margin (PX)'),
-                                    'description' => '',
-                                    'fields'      => [
-                                        'single_temp_margin_top', 'single_temp_margin_bottom', 'single_temp_margin_left', 'single_temp_margin_right'
-                                    ],
-                                ],
-                            ] ),
-                        ],
                         'color_settings' => [
                             'label' => __('Color', 'directorist'),
                             'icon' => '<i class="fa fa-palette directorist_info"></i>',

@@ -130,10 +130,11 @@
                 var breakpointValues = Object.entries(breakpoints); 
                 var currentBreakpoint = breakpointValues.filter(([key]) => key == currentBreakpointKey); 
 
-                var sliderItemsCount = document.querySelectorAll('.directorist-swiper-related-listing .directorist-swiper__pagination .swiper-pagination-bullet');
+                var sliderItemsCount = document.querySelectorAll(`.directorist-swiper-related-listing-${i} .directorist-swiper__pagination--related-${i} .swiper-pagination-bullet`);
 
                 if(sliderItemsCount.length == '1') {
                     swiper.loopDestroy();
+                    swiper.update();
                     var relatedListingSlider = document.querySelector('.directorist-swiper-related-listing');
                     relatedListingSlider.classList.add('slider-has-one-item');
                 }
@@ -142,6 +143,7 @@
                     var relatedListingSlider = document.querySelector('.directorist-swiper-related-listing');               
                     if (swiper.loopedSlides < elm.slidesPerView) {
                         swiper.loopDestroy();
+                        swiper.update();
                         relatedListingSlider.classList.add('slider-has-less-items');
                     } else {
                         if(relatedListingSlider && relatedListingSlider.classList.contains('slider-has-less-items')) {

@@ -140,6 +140,23 @@ jQuery(document).ready(function ($) {
 
     });
 
+    // Add focused class on parent when location input has value
+    $('body').on('keyup', '.directorist-location-js', function(e) {
+        e.preventDefault();
+        if($(this).val().length > 0) {
+            $(this).parent('.directorist-search-field').addClass('input-is-focused');
+        } else {
+            $(this).parent('.directorist-search-field').removeClass('input-is-focused');
+        }
+    });
+
+    // Clear location input value
+    $('body').on('click', '.directorist-setup-wizard__box__content__input--clear', function(e) {
+        e.preventDefault();
+        $(this).siblings('input').val('');
+        $(this).parent('.directorist-search-field').removeClass('input-is-focused');
+    });
+
     //options
     $('.atbdp-sw-gmap-key').hide();
     $('#select_map').on('change', function (e) {
@@ -204,6 +221,8 @@ jQuery(document).ready(function ($) {
 
     const setupWizardTypes = document.querySelectorAll('.directorist-setup-wizard__checkbox input[type="checkbox"]');
     const setupWizardTypeCounterDesc = document.querySelector('.directorist-setup-wizard__counter .directorist-setup-wizard__counter__desc');
+    const setupWizardTypeCounterNotice = document.querySelector('.directorist-setup-wizard__notice');
+    const setupWizardTypeNextStepBtn = document.querySelector('.directorist-setup-wizard__next .directorist-setup-wizard__btn--next');
     const setupWizardSelectedTypeCount = document.querySelector('.directorist-setup-wizard__counter .selected_count');
     const setupWizardTypesMaxCount = document.querySelector('.directorist-setup-wizard__counter .max_count');
     const setupWizardTypesMaxAllowed = 5;
@@ -214,6 +233,14 @@ jQuery(document).ready(function ($) {
         setupWizardSelectedTypeCount.textContent = setupWizardCheckedTypeCount;
         setupWizardTypesMaxCount.textContent = setupWizardTypesMaxAllowed;
         
+        if (setupWizardCheckedTypeCount < 1) {
+            setupWizardTypeCounterNotice.style.display = 'block';
+            setupWizardTypeNextStepBtn.disabled = true;
+        } else {
+            setupWizardTypeCounterNotice.style.display = 'none';
+            setupWizardTypeNextStepBtn.disabled = false;
+        }
+
         if (setupWizardCheckedTypeCount >= setupWizardTypesMaxAllowed) {
             setupWizardTypeCounterDesc.style.display = 'block';
             setupWizardTypes.forEach(checkbox => {

@@ -14,7 +14,6 @@
       v-bind="excludeShowIfCondition(field)"
       @update="update({ key: field_key, value: $event })"
     />
-
     <button 
       class="cptm-form-builder-group-options__advanced-toggle"
       @click="toggleAdvanced"
@@ -22,7 +21,7 @@
     >
       {{ showAdvanced ? field_list.isAdvanced.lessText : field_list.isAdvanced.moreText }}
     </button>
-  </div> 
+  </div>
 </template>
 
 <script>
@@ -89,10 +88,10 @@ export default {
   },
 
   methods: {
-    filteredFieldList() {
-      this.field_list = this.getFilteredFieldList(this.fieldList);
+    filtereFieldList() {
+      this.field_list = this.getFiltereFieldList(this.fieldList);
     },
-
+    
     toggleAdvanced() {
       this.showAdvanced = !this.showAdvanced;
     },

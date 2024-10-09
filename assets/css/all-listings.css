@@ -20811,6 +20811,10 @@ Review: New Style
 .directorist-user-dashboard .directorist-alert {
   margin-bottom: 15px;
 }
+.directorist-user-dashboard #directorist-preference-notice .directorist-alert {
+  margin-top: 15px;
+  margin-bottom: 0;
+}
 
 /* user dashboard loader */
 #directorist-dashboard-preloader {
@@ -21877,7 +21881,7 @@ Review: New Style
 }
 
 /* User Preferences */
-.directorist-user_preferences .directorist-user-hide-listing .directorist-form-group {
+.directorist-user_preferences .directorist-preference-toggle .directorist-form-group {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -21888,31 +21892,31 @@ Review: New Style
           align-items: center;
   gap: 10px;
 }
-.directorist-user_preferences .directorist-user-hide-listing .directorist-form-group label {
+.directorist-user_preferences .directorist-preference-toggle .directorist-form-group label {
   margin-bottom: 0;
   color: var(--directorist-color-dark);
   font-size: 14px;
   font-weight: 400;
 }
-.directorist-user_preferences .directorist-user-hide-listing .directorist-form-group input {
+.directorist-user_preferences .directorist-preference-toggle .directorist-form-group input {
   margin: 0;
 }
-.directorist-user_preferences .directorist-user-hide-listing .directorist-toggle-label {
+.directorist-user_preferences .directorist-preference-toggle .directorist-toggle-label {
   font-size: 14px;
   color: var(--directorist-color-dark);
   font-weight: 600;
   line-height: normal;
 }
-.directorist-user_preferences .directorist-user-display-author {
+.directorist-user_preferences .directorist-preference-radio {
   margin-top: 25px;
 }
-.directorist-user_preferences .directorist-user-display-author .display_author_email {
+.directorist-user_preferences .directorist-preference-radio .directorist-preference-radio__label {
   color: var(--directorist-color-dark);
   font-weight: 700;
   font-size: 14px;
   margin-bottom: 10px;
 }
-.directorist-user_preferences .directorist-user-display-author .directorist-radio-wrapper {
+.directorist-user_preferences .directorist-preference-radio .directorist-radio-wrapper {
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -webkit-flex-direction: column;

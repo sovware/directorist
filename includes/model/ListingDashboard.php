@@ -354,6 +354,10 @@ class Directorist_Listing_Dashboard {
 			case 'display_author_email':
 			$result = get_user_meta( $id, 'directorist_display_author_email', true );
 			break;
+
+			case 'contact_owner_recipient':
+			$result = get_user_meta( $id, 'directorist_contact_owner_recipient', true );
+			break;
 		}
 
 		return $result;
@@ -375,7 +379,7 @@ class Directorist_Listing_Dashboard {
 			$list_found = $listings->found_posts;
 
 			$dashboard_tabs['dashboard_my_listings'] = array(
-				'title'     => sprintf(__('%s (%s)', 'directorist'), $my_listing_tab_text, $list_found),
+				'title'     => sprintf( '%1$s (%2$s)', $my_listing_tab_text, $list_found ),
 				'content'   => Helper::get_template_contents( 'dashboard/tab-my-listings', [ 'dashboard' => $this ] ),
 				'icon'	    => 'las la-list',
 			);
@@ -400,7 +404,7 @@ class Directorist_Listing_Dashboard {
 		$dashboard_tabs['dashboard_preferences'] = array(
 			'title'     => __( 'Preferences', 'directorist' ),
 			'content'   => Helper::get_template_contents( 'dashboard/tab-preferences', [ 'dashboard' => $this ] ),
-			'icon'		=> 'las la-cog',
+			'icon'		=> 'las la-sliders-h',
 		);
 
 		if ( $announcement_tab ) {

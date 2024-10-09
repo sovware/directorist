@@ -490,7 +490,6 @@ Bank Name : [Enter your Bank Name]
 Please remember that your order may be canceled if you do not make your payment within next 72 hours.";
 
         $bank_payment_desc = __('You can make your payment directly to our bank account using this gateway. Please use your ORDER ID as a reference when making the payment. We will complete your order as soon as your deposit is cleared in our bank.', 'directorist');
-        $pricing_plan = '<a style="color: red" href="https://directorist.com/product/directorist-pricing-plans" target="_blank">Pricing Plans</a>';
 
 		$default_size = directorist_default_preview_size();
 		$default_preview_size_text = $default_size['width'].'x'.$default_size['height'].' px';
@@ -498,18 +497,25 @@ Please remember that your order may be canceled if you do not make your payment 
             $this->fields = apply_filters('atbdp_listing_type_settings_field_list', [
 
                 'enable_monetization' => [
-                    'label' => __('Enable Monetization Feature', 'directorist'),
-                    'type'  => 'toggle',
-                    'value' => false,
-                    'description' => __('Choose whether you want to monetize your site or not. Monetization features will let you accept payment from your users if they submit listing based on different criteria. Default is NO.', 'directorist'),
+                    'label'         => __( 'Enable Monetization', 'directorist' ),
+                    'type'          => 'toggle',
+                    'value'         => false,
+                    'description'   => __( 'Enable monetization to accept payments from users and earn through listing submissions.
+                    ', 'directorist' ),
 
                 ],
 
                 'enable_featured_listing' => [
-                    'label'         => __('Monetize by Featured Listing', 'directorist'),
+                    'label'         => __( 'Monetize with Featured Listings', 'directorist' ),
                     'type'          => 'toggle',
                     'value'         => false,
-                    'description'   => __('You can enabled this option to collect payment from your user for making their listing featured.', 'directorist'),
+                    'description'   => sprintf(
+                        __( 'Enable this option to charge users for featuring their listing.
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        Note: You need to add the "Listing Type" field to the add listing form for this feature to work properly. 
+                        <a href="%s" target="_blank">Watch how</a>', 'directorist' ),
+                        esc_url( '' ) // Replace with your URL
+                    ),
                     'show-if' => [
                         'where' => "enable_monetization",
                         'conditions' => [
@@ -518,38 +524,25 @@ Please remember that your order may be canceled if you do not make your payment 
                     ],
                 ],
 
-                'featured_listing_title' => [
-                    'type' => 'text',
-                    'label' => __('Title', 'directorist'),
-                    'description' => __('You can set the title for featured listing to show on the ORDER PAGE', 'directorist'),
-                    'value' => __('Featured', 'directorist'),
-                    'show-if' => [
-                        'where' => "enable_featured_listing",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => true],
-                        ],
-                    ],
-                ],
-
                 'featured_listing_desc' => [
                     'type' => 'textarea',
-                    'label' => __('Description', 'directorist'),
+                    'label' => __('Listing Description at Checkout', 'directorist'),
                     'show-if' => [
                         'where' => "enable_featured_listing",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
                     ],
-                    'value' => __('(Top of the search result and listings pages for a number days and it requires an additional payment.)', 'directorist'),
+                    'value' => __('You are about to feature your listing, promoting it to the top of search results and listings pages for enhanced visibility.', 'directorist'),
                 ],
 
                 'featured_listing_price' => [
-                    'label'         => __('Price in ', 'directorist') . atbdp_get_payment_currency(),
+                    'label'         => __('Featured Listing Fee', 'directorist'),
                     'type'          => 'number',
                     'min'           => 0,
                     'step'           => '0.01',
                     'value'         => 19.99,
-                    'description'   => __('Set the price you want to charge a user if he/she wants to upgrade his/her listing to featured listing. Note: you can change the currency settings under the gateway settings', 'directorist'),
+                    'description'   => __('Set the amount you want to charge users for featuring their listing.', 'directorist'),
                     'show-if' => [
                         'where' => "enable_featured_listing",
                         'conditions' => [
@@ -559,7 +552,8 @@ Please remember that your order may be canceled if you do not make your payment 
                 ],
 
                 'featured_listing_time' => [
-                    'label'         => __('Featured Duration in Days', 'directorist'),
+                    'label'         => __( 'Featured Listing Duration (in Days)', 'directorist' ),
+                    'description'   => __( 'Set how many days a listing stays featured', 'directorist' ),
                     'type'          => 'number',
                     'value'         => 30,
                     'show-if' => [
@@ -570,26 +564,8 @@ Please remember that your order may be canceled if you do not make your payment 
                     ],
                 ],
 
-                'monetization_promotion'    => [
-                    'type'          => 'note',
-                    'description' => sprintf(__('Monetize your website by selling listing plans using %s extension.', 'directorist'), $pricing_plan),
-                ],
-
-                'paypal_gateway_promotion'    => [
-                    'type'          => 'note',
-                    'title'         => __('Need more gateways?', 'directorist'),
-                    'description' => sprintf(__('You can use different payment gateways to process payment including PayPal. %s', 'directorist'), $this->extension_url),
-                ],
-
-                'gateway_test_mode' =>[
-                    'label'         => __('Enable Test Mode', 'directorist'),
-                    'type'          => 'toggle',
-                    'value'         => 1,
-                    'description'   => __('If you enable Test Mode, then no real transaction will occur. If you want to test the payment system of your website then you can set this option enabled. NOTE: Your payment gateway must support test mode eg. they should provide you a sandbox account to test. Otherwise, use only offline gateway to test.', 'directorist'),
-                ],
-
                 'active_gateways' => [
-                    'label'     => __('Active Gateways', 'directorist'),
+                    'label'     => __('Payment Methods', 'directorist'),
                     'type'      => 'checkbox',
                     'value'     => ['bank_transfer'],
                     'options'   => apply_filters( 'directorist_active_gateways', [
@@ -622,9 +598,12 @@ Please remember that your order may be canceled if you do not make your payment 
 
                 'payment_currency' => [
                     'type'          => 'text',
-                    'label'         => __('Currency Name', 'directorist'),
+                    'label'         => __('Currency Code', 'directorist'),
                     'value'         => __('USD', 'directorist'),
-                    'description'   => __( 'Enter the Name of the currency eg. USD or GBP etc.', 'directorist' ),
+                    'description' => sprintf(
+                        __( 'Enter the 3-letter currency code (e.g., USD for US Dollar). For a full list of currency codes, refer to %s.', 'directorist' ),
+                        "<a href='" . esc_url( 'https://www.iban.com/currency-codes' ) . "'>" . __( 'ISO 4217 Currency Codes', 'directorist' ) . "</a>"
+                    ),
                 ],
 
                 'payment_thousand_separator' => [
@@ -1981,22 +1960,6 @@ Please remember that your order may be canceled if you do not make your payment 
                         'where' => "dsiplay_slider_single_page",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
-                        ],
-                    ],
-                ],
-                'user_email' => [
-                    'label' => __('Contact Listing Owner Form Recipient', 'directorist'),
-                    'type'  => 'select',
-                    'value' => 'author',
-                    'description' => __('Email recipient for receiving email from Contact Listing Owner Form.', 'directorist'),
-                    'options' => [
-                        [
-                            'value' => 'author',
-                            'label' => __('Author Email', 'directorist'),
-                        ],
-                        [
-                            'value' => 'listing_email',
-                            'label' => __('Listing\'s Email', 'directorist'),
                         ],
                     ],
                 ],
@@ -3842,8 +3805,8 @@ Please remember that your order may be canceled if you do not make your payment 
                 ],
                 'email_from_name'    => [
                     'type'           => 'text',
-                    'label'          => __('Email\'s "From Name"', 'directorist'),
-                    'description'    => __('The name should be used as From Name in the email generated by the plugin.', 'directorist'),
+                    'label'          => __('Sender Name for Emails', 'directorist'),
+                    'description'    => __('The name that will appear as the sender in emails generated by Directorist.', 'directorist'),
                     'value'         => get_option('blogname'),
                     'show-if' => [
                         'where' => "disable_email_notification",
@@ -3852,24 +3815,24 @@ Please remember that your order may be canceled if you do not make your payment 
                         ],
                     ],
                 ],
-                'email_from_email'    => [
+                'email_from_email'   => [
                     'type'           => 'text',
-                    'label'          => __('Email\'s "From Email"', 'directorist'),
-                    'description'    => __('The email should be used as From Email in the email generated by the plugin.', 'directorist'),
+                    'label'          => __('Sender Email Address', 'directorist'),
+                    'description'    => __('The email address that will appear as the sender in emails generated by Directorist.', 'directorist'),
                     'value'          => get_option('admin_email'),
-                    'show-if' => [
+                    'show-if'        => [
                         'where' => "disable_email_notification",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => false],
                         ],
                     ],
                 ],
-                'admin_email_lists'    => [
-                    'type'           => 'textarea',
-                    'label'          => __('Admin Email Address(es)', 'directorist'),
-                    'description' => __('Enter the one or more admin email addresses (comma separated) to send notification. Eg. admin1@example.com, admin2@example.com etc', 'directorist'),
-                    'value'          => get_option('admin_email'),
-                    'show-if' => [
+                'admin_email_lists'     => [
+                    'type'              => 'textarea',
+                    'label'             => __('Admin Email Address(es) for Notifications', 'directorist'),
+                    'description'       => __('Enter one or more email addresses (comma-separated) where admin notifications will be sent. Example: admin1@example.com, admin2@example.com.', 'directorist'),
+                    'value'             => get_option('admin_email'),
+                    'show-if'           => [
                         'where' => "disable_email_notification",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => false],
@@ -4662,9 +4625,17 @@ Please remember that your order may be canceled if you do not make your payment 
                             'label' => __('Email General', 'directorist'),
                             'icon' => '<i class="fa fa-envelope-open directorist_info"></i>',
                             'sections' => apply_filters( 'atbdp_reg_settings_sections', [
-                                'username' => [
+                                'sender_details' => [
+                                    'title'       => __( 'Listings Renewal', 'directorist' ),
                                     'fields'      => [
-                                        'disable_email_notification', 'user_email', 'email_from_name', 'email_from_email', 'admin_email_lists', 'notify_admin', 'notify_user'
+                                        'email_from_name', 
+                                        'email_from_email',
+                                     ],
+                                ],
+                                'email_notification' => [
+                                    'title'       => __( 'Email Notifications', 'directorist' ),
+                                    'fields'      => [
+                                        'disable_email_notification', 'admin_email_lists', 'notify_admin', 'notify_user'
                                      ],
                                 ],
                             ] ),
@@ -4792,25 +4763,24 @@ Please remember that your order may be canceled if you do not make your payment 
                             'icon' => '<i class="fa fa-home"></i>',
                             'sections' => apply_filters( 'atbdp_listing_settings_monetization_general_sections', [
                                 'general' => [
-                                    'title'       => __('Monetization Settings', 'directorist'),
                                     'description' => '',
-                                    'fields'      => [ 'enable_monetization' ],
-                                ],
-                                'plan_promo' => [
-                                    'title'       => __('Monetize by Listing Plans', 'directorist'),
-                                    'description' => '',
-                                    'fields'      => [ 'monetization_promotion' ],
+                                    'fields'      => [ 
+                                        'enable_monetization',
+                                        'payment_currency_note',
+                                        'payment_currency',
+                                        'payment_thousand_separator',
+                                        'payment_decimal_separator',
+                                        'payment_currency_position'],
                                 ],
                             ] ),
                         ],
                         'featured_listings' => [
-                            'label' => __('Featured Listing', 'directorist'),
+                            'label' => __('Featured Listings', 'directorist'),
                             'icon' => '<i class="fa fa-arrow-up"></i>',
                             'sections' => apply_filters( 'atbdp_listing_settings_featured_sections', [
                                 'featured' => [
                                     'fields'      => [
                                         'enable_featured_listing',
-                                        'featured_listing_title',
                                         'featured_listing_desc',
                                         'featured_listing_price',
                                         'featured_listing_time',
@@ -4819,20 +4789,13 @@ Please remember that your order may be canceled if you do not make your payment 
                             ] ),
                         ],
                         'gateway' => [
-                            'label' => __('Gateways Settings', 'directorist'),
+                            'label' => __('Payment Gateways', 'directorist'),
                             'icon' => '<i class="fa fa-bezier-curve"></i>',
                             'sections' => apply_filters( 'atbdp_listing_settings_gateway_sections', [
                                 'gateway_general' => [
                                     'fields'      => [
-                                        'paypal_gateway_promotion',
-                                        'gateway_test_mode',
-                                        'active_gateways',
                                         'default_gateway',
-                                        'payment_currency_note',
-                                        'payment_currency',
-                                        'payment_thousand_separator',
-                                        'payment_decimal_separator',
-                                        'payment_currency_position'
+                                        'active_gateways',
                                     ],
                                 ],
                             ] ),

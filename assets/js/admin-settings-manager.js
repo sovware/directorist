@@ -36259,12 +36259,7 @@ var render = function render() {
     staticClass: "cptm-input-toggle-wrap"
   }, [_vm.label.length ? _c("label", [_c(_vm.labelType, {
     tag: "component"
-  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c("p", {
-    staticClass: "cptm-form-group-info",
-    domProps: {
-      innerHTML: _vm._s(_vm.description)
-    }
-  }) : _vm._e(), _vm._v(" "), _c("div", {
+  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _c("div", {
     staticClass: "directorist_vertical-align-m"
   }, [_c("div", {
     staticClass: "directorist_item"
@@ -36324,7 +36319,12 @@ var render = function render() {
     domProps: {
       innerHTML: _vm._s(_vm.comp.link.label)
     }
-  }) : _vm._e()])])]), _vm._v(" "), _c("confirmation-modal", _vm._b({
+  }) : _vm._e()])]), _vm._v(" "), _vm.description.length ? _c("p", {
+    staticClass: "cptm-form-group-info",
+    domProps: {
+      innerHTML: _vm._s(_vm.description)
+    }
+  }) : _vm._e()]), _vm._v(" "), _c("confirmation-modal", _vm._b({
     on: {
       cancel: function cancel($event) {
         return _vm.confirmationOnCancel();

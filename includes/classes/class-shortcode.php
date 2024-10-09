@@ -177,7 +177,7 @@ class ATBDP_Shortcode {
 					/** Card & Wrapper - Open */
 					if( isset( $atts[ 'card' ] ) && $atts[ 'card' ] === 'true' ) echo '<div class="directorist-card"><div class="directorist-card__body">';
 					if( isset( $atts[ 'wrap' ] ) && $atts[ 'wrap' ] === 'true' ) echo '<div class="directorist-details-info-wrap">';
-					
+
 					$listing->field_template( $field );
 
 					/** Card & Wrapper - Close */
@@ -307,7 +307,7 @@ class ATBDP_Shortcode {
 
 		$atts[ 'shortcode' ] = 'directorist_signin_signup';
 
-		return $account->render_account( $atts );
+		return $account->render( $atts );
 	}
 
 	public function add_listing( $atts ) {

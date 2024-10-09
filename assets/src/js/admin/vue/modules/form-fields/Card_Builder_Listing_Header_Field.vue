@@ -146,8 +146,8 @@
 import Vue from "vue";
 import { Container, Draggable } from "vue-dndrop";
 import { applyDrag } from "../../helpers/vue-dndrop";
-import card_builder from "./../../mixins/form-fields/card-builder";
 import helpers from "../../mixins/helpers";
+import card_builder from "./../../mixins/form-fields/card-builder";
 
 export default {
   name: "card-builder-listing-header-field",

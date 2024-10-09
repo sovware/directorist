@@ -8,8 +8,9 @@
 use \Directorist\Helper;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
-$display_author_email = $dashboard->user_info( 'display_author_email' ) ? $dashboard->user_info( 'display_author_email' ) : 'public';
-$contact_owner_recipient = $dashboard->user_info( 'contact_owner_recipient' ) ? $dashboard->user_info( 'contact_owner_recipient' ) : 'author';
+$hide_contact_form 			= $dashboard->user_info( 'hide_contact_form' ) ? $dashboard->user_info( 'hide_contact_form' ) : 'no';
+$display_author_email 		= $dashboard->user_info( 'display_author_email' ) ? $dashboard->user_info( 'display_author_email' ) : 'public';
+$contact_owner_recipient 	= $dashboard->user_info( 'contact_owner_recipient' ) ? $dashboard->user_info( 'contact_owner_recipient' ) : 'author';
 ?>
 
 <form action="#" id="user_preferences" method="post">
@@ -24,7 +25,7 @@ $contact_owner_recipient = $dashboard->user_info( 'contact_owner_recipient' ) ? 
 					<div class="directorist-preference-toggle">
 						<label for="hide_contact_form" class="directorist-toggle">
 							<span class="directorist-toggle-label"><?php esc_html_e( 'Hide contact form in my listings', 'directorist' ); ?></span>
-							<input id="hide_contact_form" class="directorist-toggle-checkbox" name="directorist_hide_contact_form" value="yes" type="checkbox" <?php echo esc_attr( ( $dashboard->user_info( 'hide_contact_form' ) == 'yes' ) ? 'checked' : '' ); ?>>
+							<input id="hide_contact_form" class="directorist-toggle-checkbox" name="directorist_hide_contact_form" value="yes" type="checkbox" <?php echo esc_attr( ( $hide_contact_form === 'yes' ) ? 'checked' : '' ); ?>>
 							<div class="directorist-toggle-switch"></div>
 						</label>
 					</div>

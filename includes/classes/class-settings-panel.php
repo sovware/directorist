@@ -740,10 +740,11 @@ Please remember that your order may be canceled if you do not make your payment 
 
                 // solid primary color
                 'primary_example' => [
-                    'label'       => __('Button Example', 'directorist'),
+                    'label'             => __('Button Example', 'directorist'),
                     'description'       => __('Modify the color of primary buttons like Save & Preview, Search, etc to match your design preferences', 'directorist'),
-                    'type'        => 'wp-media-picker',
-                    'default-img' => 'https://directorist.com/wp-content/uploads/2020/02/solid-primary.png',
+                    'type'              => 'button-example',
+                    'button-class'      => 'directorist-btn-primary',
+                    'button-label'      => __( 'Primary', 'directorist' ),
                     'show-if' => [
                         'where' => "button_type",
                         'conditions' => [
@@ -821,8 +822,9 @@ Please remember that your order may be canceled if you do not make your payment 
                 'secondary_example' => [
                     'label'       => __('Button Example', 'directorist'),
                     'description'       => __('Modify the color of secondary buttons like Logout, etc to match your design preferences', 'directorist'),
-                    'type'        => 'wp-media-picker',
-                    'default-img' => 'https://directorist.com/wp-content/uploads/2020/02/solid-secondary.png',
+                    'type'              => 'button-example',
+                    'button-class'      => 'directorist-btn-secondary',
+                    'button-label'      => __( 'Secondary', 'directorist' ),
                     'show-if' => [
                         'where' => "button_type",
                         'conditions' => [

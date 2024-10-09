@@ -15413,14 +15413,17 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof.js");
-/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _mixins_helpers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../mixins/helpers */ "./assets/src/js/admin/vue/mixins/helpers.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof.js");
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _mixins_helpers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../mixins/helpers */ "./assets/src/js/admin/vue/mixins/helpers.js");
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "field-list-compnents",
-  mixins: [_mixins_helpers__WEBPACK_IMPORTED_MODULE_1__["default"]],
+  mixins: [_mixins_helpers__WEBPACK_IMPORTED_MODULE_2__["default"]],
   props: {
     root: {
       default: ""
@@ -15451,7 +15454,7 @@ __webpack_require__.r(__webpack_exports__);
       if (!this.root) {
         return this.value;
       }
-      if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(this.root) !== "object") {
+      if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(this.root) !== "object") {
         return this.value;
       }
       return this.root;
@@ -15470,66 +15473,62 @@ __webpack_require__.r(__webpack_exports__);
       showAdvanced: false
     };
   },
-  methods: {
+  methods: _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({
     filteredFieldList: function filteredFieldList() {
       this.field_list = this.getFilteredFieldList(this.fieldList);
     },
     toggleAdvanced: function toggleAdvanced() {
       this.showAdvanced = !this.showAdvanced;
-    },
-    toggleAdvanced: function toggleAdvanced() {
-      this.showAdvanced = !this.showAdvanced;
-    },
-    excludeShowIfCondition: function excludeShowIfCondition(field) {
-      if (!field) {
-        return field;
-      }
-      if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(field) !== "object") {
-        return field;
-      }
-      if (field.showIf) {
-        delete field["showIf"];
-      }
-      if (field.show_if) {
-        delete field["show_if"];
-      }
-      return field;
-    },
-    getFilteredFieldList: function getFilteredFieldList(field_list) {
-      if (!field_list) {
-        return field_list;
-      }
-      var new_fields = JSON.parse(JSON.stringify(this.fieldList));
-      for (var field_key in new_fields) {
-        if (this.value && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(this.value) === "object" && typeof this.value[field_key] !== "undefined") {
-          new_fields[field_key].value = this.value[field_key];
-        }
-      }
-      for (var _field_key in new_fields) {
-        if (this.value && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(this.value) === "object" && typeof this.value[_field_key] !== "undefined") {
-          new_fields[_field_key].value = this.value[_field_key];
-        }
-      }
-      for (var _field_key2 in new_fields) {
-        if (!(new_fields[_field_key2].showIf || new_fields[_field_key2].show_if)) {
-          continue;
-        }
-        var show_if_condition = new_fields[_field_key2].showIf ? new_fields[_field_key2].showIf : new_fields[_field_key2].show_if;
-        var checkShowIfCondition = this.checkShowIfCondition({
-          root: new_fields,
-          condition: show_if_condition
-        });
-        if (!checkShowIfCondition.status) {
-          delete new_fields[_field_key2];
-        }
-      }
-      return new_fields;
-    },
-    update: function update(payload) {
-      this.$emit("update", payload);
-      this.filteredFieldList();
     }
-  }
+  }, "toggleAdvanced", function toggleAdvanced() {
+    this.showAdvanced = !this.showAdvanced;
+  }), "excludeShowIfCondition", function excludeShowIfCondition(field) {
+    if (!field) {
+      return field;
+    }
+    if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(field) !== "object") {
+      return field;
+    }
+    if (field.showIf) {
+      delete field["showIf"];
+    }
+    if (field.show_if) {
+      delete field["show_if"];
+    }
+    return field;
+  }), "getFilteredFieldList", function getFilteredFieldList(field_list) {
+    if (!field_list) {
+      return field_list;
+    }
+    var new_fields = JSON.parse(JSON.stringify(this.fieldList));
+    for (var field_key in new_fields) {
+      if (this.value && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(this.value) === "object" && typeof this.value[field_key] !== "undefined") {
+        new_fields[field_key].value = this.value[field_key];
+      }
+    }
+    for (var _field_key in new_fields) {
+      if (this.value && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(this.value) === "object" && typeof this.value[_field_key] !== "undefined") {
+        new_fields[_field_key].value = this.value[_field_key];
+      }
+    }
+    for (var _field_key2 in new_fields) {
+      if (!(new_fields[_field_key2].showIf || new_fields[_field_key2].show_if)) {
+        continue;
+      }
+      var show_if_condition = new_fields[_field_key2].showIf ? new_fields[_field_key2].showIf : new_fields[_field_key2].show_if;
+      var checkShowIfCondition = this.checkShowIfCondition({
+        root: new_fields,
+        condition: show_if_condition
+      });
+      if (!checkShowIfCondition.status) {
+        delete new_fields[_field_key2];
+      }
+    }
+    return new_fields;
+  }), "update", function update(payload) {
+    this.$emit("update", payload);
+    this.filteredFieldList();
+  })
 });
 
 /***/ }),

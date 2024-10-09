@@ -21,7 +21,7 @@
     >
       {{ showAdvanced ? field_list.isAdvanced.lessText : field_list.isAdvanced.moreText }}
     </button>
-  </div>
+  </div> 
 </template>
 
 <script>
@@ -88,8 +88,12 @@ export default {
   },
 
   methods: {
-    filtereFieldList() {
-      this.field_list = this.getFiltereFieldList(this.fieldList);
+    filteredFieldList() {
+      this.field_list = this.getFilteredFieldList(this.fieldList);
+    },
+
+    toggleAdvanced() {
+      this.showAdvanced = !this.showAdvanced;
     },
     
     toggleAdvanced() {

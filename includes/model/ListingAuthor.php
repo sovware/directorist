@@ -297,7 +297,8 @@ class Directorist_Listing_Author {
 		$bio = get_user_meta($author_id, 'description', true);
 		$bio = trim( $bio );
 
-		$display_email = get_directorist_option('display_author_email', 'public');
+		$display_email = get_user_meta( $author_id, 'directorist_display_author_email', true );
+		$display_email = ! empty( $display_email ) ? $display_email : 'public';
 
 		if ( $display_email == 'public' ) {
 			$email_endabled = true;

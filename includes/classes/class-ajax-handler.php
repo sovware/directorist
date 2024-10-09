@@ -1018,11 +1018,12 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 				wp_send_json_error( array( 'message' => __( 'Ops! something went wrong. Try again.', 'directorist' ) ) );
 			}
 
-			// Check if the hide_contact_form field is set and sanitize it
-			$hide_contact_form = isset( $_POST['hide_contact_form'] ) ? sanitize_text_field( $_POST['hide_contact_form'] ) : '';
-
+			$hide_contact_form 		= isset( $_POST['directorist_hide_contact_form'] ) ? sanitize_text_field( $_POST['directorist_hide_contact_form'] ) : '';
+			$display_author_email 	= isset( $_POST['directorist_display_author_email'] ) ? sanitize_text_field( $_POST['directorist_display_author_email'] ) : '';
+			
 			// Save the sanitized value to user meta
-			update_user_meta( $user_id, 'hide_contact_form', $hide_contact_form );
+			update_user_meta( $user_id, 'directorist_hide_contact_form', $hide_contact_form );
+			update_user_meta( $user_id, 'directorist_display_author_email', $display_author_email );
 
 			// Return a success message
 			wp_send_json_success( array( 'message' => __( 'Preferences updated successfully.', 'directorist' ) ) );

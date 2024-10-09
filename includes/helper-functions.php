@@ -2469,11 +2469,11 @@ function atbdp_guest_submission($guest_email)
 }
 
 function atbdp_get_listing_attachment_ids( $listing_id ) {
-	$featured_image = (int) get_post_meta( $listing_id, '_listing_prv_img', true );
+	$featured_image = get_post_meta( $listing_id, '_listing_prv_img', true );
 	$attachment_ids = array();
 
 	if ( $featured_image ) {
-		$attachment_ids[] = $featured_image;
+		$attachment_ids[] = (int) $featured_image;
 	}
 
     $gallery_images = (array) get_post_meta( $listing_id, '_listing_img', true );

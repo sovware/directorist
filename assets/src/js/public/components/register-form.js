@@ -1,5 +1,5 @@
 jQuery(($) => {
-    
+    alert('dsfdsf')
 	$('.directorist__authentication__signup').on( 'submit', function( e ) {
 		e.preventDefault();
         var formData = new FormData( this );

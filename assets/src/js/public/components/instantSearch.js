@@ -374,7 +374,6 @@ import debounce from '../../global/components/debounce';
                 instant_search_element.find('.directorist-header-bar .directorist-advanced-filter').removeClass('directorist-advanced-filter--show')
                 instant_search_element.find('.directorist-header-bar .directorist-advanced-filter').hide();
                 $(document).scrollTop(instant_search_element.offset().top);
-                closeAllSearchModal();
             },
             success: function (html) {
                 if (html.search_result) {

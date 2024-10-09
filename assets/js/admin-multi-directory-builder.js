@@ -15455,16 +15455,27 @@ __webpack_require__.r(__webpack_exports__);
         return this.value;
       }
       return this.root;
+    },
+    visibleFields: function visibleFields() {
+      // Convert field_list object to an array and then slice it
+      var fieldArray = Array.isArray(this.field_list) ? this.field_list : Object.values(this.field_list);
+
+      // Show only 2 items if showAdvanced is false, otherwise show all
+      return this.showAdvanced ? fieldArray : fieldArray.slice(0, 2);
     }
   },
   data: function data() {
     return {
-      field_list: null
+      field_list: null,
+      showAdvanced: false
     };
   },
   methods: {
     filtereFieldList: function filtereFieldList() {
       this.field_list = this.getFiltereFieldList(this.fieldList);
+    },
+    toggleAdvanced: function toggleAdvanced() {
+      this.showAdvanced = !this.showAdvanced;
     },
     excludeShowIfCondition: function excludeShowIfCondition(field) {
       if (!field) {
@@ -23152,8 +23163,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
 /* harmony import */ var vue_dndrop__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-dndrop */ "./node_modules/vue-dndrop/dist/vue-dndrop.esm.js");
 /* harmony import */ var _helpers_vue_dndrop__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../helpers/vue-dndrop */ "./assets/src/js/admin/vue/helpers/vue-dndrop.js");
-/* harmony import */ var _mixins_form_fields_card_builder__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../../mixins/form-fields/card-builder */ "./assets/src/js/admin/vue/mixins/form-fields/card-builder.js");
-/* harmony import */ var _mixins_helpers__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../mixins/helpers */ "./assets/src/js/admin/vue/mixins/helpers.js");
+/* harmony import */ var _mixins_helpers__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../mixins/helpers */ "./assets/src/js/admin/vue/mixins/helpers.js");
+/* harmony import */ var _mixins_form_fields_card_builder__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../../mixins/form-fields/card-builder */ "./assets/src/js/admin/vue/mixins/form-fields/card-builder.js");
 
 
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
@@ -23172,7 +23183,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     Container: vue_dndrop__WEBPACK_IMPORTED_MODULE_3__["Container"],
     Draggable: vue_dndrop__WEBPACK_IMPORTED_MODULE_3__["Draggable"]
   },
-  mixins: [_mixins_form_fields_card_builder__WEBPACK_IMPORTED_MODULE_5__["default"], _mixins_helpers__WEBPACK_IMPORTED_MODULE_6__["default"]],
+  mixins: [_mixins_form_fields_card_builder__WEBPACK_IMPORTED_MODULE_6__["default"], _mixins_helpers__WEBPACK_IMPORTED_MODULE_5__["default"]],
   props: {
     fieldId: {
       required: false,
@@ -27206,8 +27217,8 @@ var render = function render() {
     _c = _vm._self._c;
   return _vm.field_list && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(_vm.field_list) === "object" ? _c("div", {
     staticClass: "directorist-form-fields-area"
-  }, _vm._l(_vm.field_list, function (field, field_key) {
-    return _c(field.type + "-field", _vm._b({
+  }, [_vm._l(_vm.field_list.isAdvanced ? _vm.visibleFields : _vm.field_list, function (field, field_key) {
+    return field.type ? _c(field.type + "-field", _vm._b({
       key: field_key,
       tag: "component",
       attrs: {
@@ -27223,8 +27234,13 @@ var render = function render() {
           });
         }
       }
-    }, "component", _vm.excludeShowIfCondition(field), false));
-  }), 1) : _vm._e();
+    }, "component", _vm.excludeShowIfCondition(field), false)) : _vm._e();
+  }), _vm._v(" "), _vm.field_list.isAdvanced ? _c("button", {
+    staticClass: "cptm-form-builder-group-options__advanced-toggle",
+    on: {
+      click: _vm.toggleAdvanced
+    }
+  }, [_vm._v("\n    " + _vm._s(_vm.showAdvanced ? _vm.field_list.isAdvanced.lessText : _vm.field_list.isAdvanced.moreText) + "\n  ")]) : _vm._e()], 2) : _vm._e();
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -36404,12 +36420,7 @@ var render = function render() {
     staticClass: "cptm-input-toggle-wrap"
   }, [_vm.label.length ? _c("label", [_c(_vm.labelType, {
     tag: "component"
-  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c("p", {
-    staticClass: "cptm-form-group-info",
-    domProps: {
-      innerHTML: _vm._s(_vm.description)
-    }
-  }) : _vm._e(), _vm._v(" "), _c("div", {
+  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _c("div", {
     staticClass: "directorist_vertical-align-m"
   }, [_c("div", {
     staticClass: "directorist_item"
@@ -36469,7 +36480,12 @@ var render = function render() {
     domProps: {
       innerHTML: _vm._s(_vm.comp.link.label)
     }
-  }) : _vm._e()])])]), _vm._v(" "), _c("confirmation-modal", _vm._b({
+  }) : _vm._e()])]), _vm._v(" "), _vm.description.length ? _c("p", {
+    staticClass: "cptm-form-group-info",
+    domProps: {
+      innerHTML: _vm._s(_vm.description)
+    }
+  }) : _vm._e()]), _vm._v(" "), _c("confirmation-modal", _vm._b({
     on: {
       cancel: function cancel($event) {
         return _vm.confirmationOnCancel();

@@ -1481,6 +1481,18 @@ div[draggable="true"].cptm-form-builder-group-title-area {
       }
     }
   }
+  .cptm-form-builder-group-options__advanced-toggle {
+    font-size: 13px;
+    font-weight: 500;
+    color: #2E94FA;
+    background: transparent;
+    border: none;
+    padding: 0;
+    text-decoration: underline;
+    display: block;
+    margin-top: -7px;
+    cursor: pointer;
+  }
 }
 
 .cptm-form-builder-group-fields {
@@ -2173,10 +2185,7 @@ input[type="radio"].cptm-radio {
   .directorist-type-icon-select {
     margin-bottom: 20px;
     .icon-picker-selector {
-      display: block;
-      .icon-picker-selector__btn {
-        margin-top: 10px;
-      }
+      display: flex;
     }
   }
 }

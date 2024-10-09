@@ -19,7 +19,7 @@ class Helper {
 	}
 
 	public static function instant_search_enabled() {
-		return get_directorist_option( 'listing_instant_search', false, true );
+		return true;
 	}
 
 	/**

@@ -324,6 +324,22 @@ class Builder_Data {
                                 'type'  => 'toggle',
                                 'value' => false,
                             ],
+                            'review_enable_gdpr_consent' => [
+                                'label' => __( 'Enable GDPR Consent', 'directorist' ),
+                                'type'  => 'toggle',
+                                'value' => false,
+                            ],
+                            'review_gdpr_consent_label' => [
+                                'label'       => __( 'Consent Label', 'directorist' ),
+                                'type'        => 'textarea',
+                                'editor'      => 'wp_editor',
+                                'editorID'    => 'wp_editor_terms_privacy',
+                                'value'       => sprintf(
+                                    __( 'I have read and agree to the <a href="%s" target="_blank">Privacy Policy</a> and <a href="%s" target="_blank">Terms of Service</a>', 'directorist' ),
+                                    ATBDP_Permalink::get_privacy_policy_page_url(),
+                                    ATBDP_Permalink::get_terms_and_conditions_page_url(),
+                                ),
+                            ],
                         ],
 
                         'accepted_widgets' => [
@@ -557,23 +573,23 @@ class Builder_Data {
                             'similar_listings_logics'                     => [
                                 'type'    => 'radio',
                                 'name'    => 'similar_listings_logics',
-                                'label'   => __( 'Similar listings logics', 'directorist' ),
+                                'label'   => __( 'Related listings criteria', 'directorist' ),
                                 'options' => [
-                                    ['id' => 'match_category_nd_location', 'label' => __( 'Must match category and tag', 'directorist' ), 'value' => 'AND'],
-                                    ['id' => 'match_category_or_location', 'label' => __( 'Must match category or tag', 'directorist' ), 'value' => 'OR'],
+                                    ['id' => 'match_category_nd_location', 'label' => __( 'Match both category and tag', 'directorist' ), 'value' => 'AND'],
+                                    ['id' => 'match_category_or_location', 'label' => __( 'Match either category or tag', 'directorist' ), 'value' => 'OR'],
                                 ],
                                 'value'   => 'OR',
                             ],
                             'listing_from_same_author'                    => [
                                 'type'  => 'toggle',
-                                'label' => __( 'Listing from same author', 'directorist' ),
+                                'label' => __( 'Display listings by the same author', 'directorist' ),
                                 'value' => false,
                             ],
                             'similar_listings_number_of_listings_to_show' => [
                                 'type'  => 'range',
                                 'min'   => 0,
                                 'max'   => 20,
-                                'label' => __( 'Number of listings to show', 'directorist' ),
+                                'label' => __( 'Number of listings to display', 'directorist' ),
                                 'value' => 3,
                             ],
                             'similar_listings_number_of_columns'          => [

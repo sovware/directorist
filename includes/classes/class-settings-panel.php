@@ -83,7 +83,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
 
             $fields['single_listing_slug_with_directory_type'] = [
                 'type'  => 'toggle',
-                'label' => __('Listing Slug with Directory Type', 'directorist'),
+                'label' => __('Add Directory Type to Permalink', 'directorist'),
                 'value' => directorist_is_multi_directory_enabled(),
                 'show-if' => [
                     'where' => "enable_multi_directory",
@@ -1882,7 +1882,7 @@ Please remember that your order may be canceled if you do not make your payment 
                     ],
                 ],
                 'single_slider_image_size' => [
-                    'label' => __('Slider Image Size', 'directorist'),
+                    'label' => __('Image Size', 'directorist'),
                     'type'  => 'select',
                     'value' => 'cover',
                     'show-if' => [
@@ -1925,7 +1925,7 @@ Please remember that your order may be canceled if you do not make your payment 
                 ],
                 'single_slider_background_color' => [
                     'type' => 'color',
-                    'label' => __('Slider Background Color', 'directorist'),
+                    'label' => __('Background Color', 'directorist'),
                     'show-if' => [
                         'where' => "single_slider_background_type",
                         'conditions' => [
@@ -4280,9 +4280,36 @@ Please remember that your order may be canceled if you do not make your payment 
                             'label' => __('Single Listings', 'directorist'),
                             'icon' => '<i class="fa fa-info"></i>',
                             'sections' => apply_filters( 'atbdp_listing_settings_listing_page_sections', [
-                                'labels' => [
+                                'listing_template_view' => [
+                                    'title'       => __( 'Listing Template and View', 'directorist' ),
                                     'fields'      => [
-                                        'single_listing_template', 'disable_single_listing', 'restrict_single_listing_for_logged_in_user', 'atbdp_listing_slug', 'single_listing_slug_with_directory_type', 'submission_confirmation', 'pending_confirmation_msg', 'publish_confirmation_msg', 'dsiplay_slider_single_page', 'single_slider_image_size', 'single_slider_background_type', 'single_slider_background_color', 'gallery_crop_width', 'gallery_crop_height'
+                                        'single_listing_template', 'disable_single_listing', 'restrict_single_listing_for_logged_in_user',  
+                                    ],
+                                ],
+                                'listing_permalink' => [
+                                    'title'       => __( 'Listing Permalink', 'directorist' ),
+                                    'fields'      => [
+                                        'atbdp_listing_slug', 
+                                        'single_listing_slug_with_directory_type',
+                                    ],
+                                ],
+                                'submission_confirmation' => [
+                                    'title'       => __( 'Submission Confirmations', 'directorist' ),
+                                    'fields'      => [
+                                        'submission_confirmation', 
+                                        'pending_confirmation_msg', 
+                                        'publish_confirmation_msg',
+                                    ],
+                                ],
+                                'slider_image' => [
+                                    'title'       => __( 'Slider Image', 'directorist' ),
+                                    'fields'      => [
+                                        'dsiplay_slider_single_page', 
+                                        'single_slider_image_size', 
+                                        'single_slider_background_type', 
+                                        'single_slider_background_color', 
+                                        'gallery_crop_width', 
+                                        'gallery_crop_height'
                                     ],
                                 ],
                             ] ),

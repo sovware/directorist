@@ -1674,6 +1674,11 @@ class Directorist_Listings {
 				return $image;
 			}
 
+			$thumbnail_img_id = array_filter($thumbnail_img_id, function($value) {
+				return is_numeric($value);
+			});
+			
+
 			$image_count = count( $thumbnail_img_id );
 
 			if ( 1 === (int) $image_count ) {

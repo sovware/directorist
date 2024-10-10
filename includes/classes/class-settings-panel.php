@@ -3255,7 +3255,7 @@ Please remember that your order may be canceled if you do not make your payment 
                     ],
                 ],
                 'order_category_by' => [
-                    'label'        => __('Categories Order By', 'directorist'),
+                    'label'        => __('Order By', 'directorist'),
                     'type'        => 'select',
                     'value'       => 'id',
                     'options' => [
@@ -3278,7 +3278,7 @@ Please remember that your order may be canceled if you do not make your payment 
                     ],
                 ],
                 'sort_category_by' => [
-                    'label'       => __('Categories Sort By', 'directorist'),
+                    'label'       => __('Sort By', 'directorist'),
                     'type'        => 'select',
                     'value'       => 'asc',
                     'options' => [
@@ -3366,7 +3366,7 @@ Please remember that your order may be canceled if you do not make your payment 
                     ],
                 ],
                 'order_location_by' => [
-                    'label'        => __('Locations Order By', 'directorist'),
+                    'label'        => __('Order By', 'directorist'),
                     'type'        => 'select',
                     'value'       => 'id',
                     'options' => [
@@ -3389,7 +3389,7 @@ Please remember that your order may be canceled if you do not make your payment 
                     ],
                 ],
                 'sort_location_by' => [
-                    'label'       => __('Locations Sort By', 'directorist'),
+                    'label'       => __('Sort By', 'directorist'),
                     'type'        => 'select',
                     'value'       => 'asc',
                     'options' => [
@@ -4277,7 +4277,7 @@ Please remember that your order may be canceled if you do not make your payment 
                             ] ),
                         ],
                         'single_listing' => [
-                            'label' => __('Single Listings', 'directorist'),
+                            'label' => __('Single Listing', 'directorist'),
                             'icon' => '<i class="fa fa-info"></i>',
                             'sections' => apply_filters( 'atbdp_listing_settings_listing_page_sections', [
                                 'listing_template_view' => [
@@ -4315,17 +4315,17 @@ Please remember that your order may be canceled if you do not make your payment 
                             ] ),
                         ],
                         'categories_locations' => [
-                            'label' => __( 'Location & Category', 'directorist' ),
+                            'label' => __( 'Category & Location', 'directorist' ),
                             'icon' => '<i class="fa fa-list-alt"></i>',
                             'sections' => apply_filters( 'atbdp_categories_settings_sections', [
                                 'categories_settings' => [
-                                    'title'       => __('Categories Page Settings', 'directorist'),
+                                    'title'       => __('Categories Page', 'directorist'),
                                     'fields'      => [
                                         'display_categories_as', 'categories_column_number', 'categories_depth_number', 'order_category_by', 'sort_category_by', 'display_listing_count', 'hide_empty_categories'
                                      ],
                                 ],
                                 'locations_settings' => [
-                                    'title'       => __('Locations Page Settings', 'directorist'),
+                                    'title'       => __('Locations Page', 'directorist'),
                                     'description' => '',
                                     'fields'      => [
                                         'display_locations_as', 'locations_column_number', 'locations_depth_number', 'order_location_by', 'sort_location_by', 'display_location_listing_count', 'hide_empty_locations'
@@ -4793,6 +4793,12 @@ Please remember that your order may be canceled if you do not make your payment 
                                     'description' => '',
                                     'fields'      => [ 
                                         'enable_monetization',
+                                    ],
+                                ],
+                                'currency' => [
+                                    'title'       => __( 'Currency', 'directorist' ),
+                                    'description' => '',
+                                    'fields'      => [ 
                                         'payment_currency_note',
                                         'payment_currency',
                                         'payment_thousand_separator',
@@ -4828,7 +4834,7 @@ Please remember that your order may be canceled if you do not make your payment 
                             ] ),
                         ],
                         'offline_gateway' => [
-                            'label' => __('Offline Gateways Settings', 'directorist'),
+                            'label' => __('Bank Transfer', 'directorist'),
                             'icon' => '<i class="fa fa-university"></i>',
                             'sections' => apply_filters( 'atbdp_listing_settings_offline_gateway_sections', [
                                 'offline_gateway_general' => [

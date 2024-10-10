@@ -31,7 +31,7 @@ class Settings_Screen {
 						],
 					],
 					'moderation_options' => [
-						'title' => __( 'Moderation Options', 'directorist' ),
+						'title' => __( 'Moderation Option', 'directorist' ),
 						'fields' => [
 							'approve_immediately'
 						],

@@ -313,11 +313,13 @@ class Builder_Data {
                                 'type'  => 'text',
                                 'label' => __( 'Custom block ID', 'directorist' ),
                                 'value' => '',
+                                'field_type' => 'advanced',
                             ],
                             'custom_block_classes' => [
                                 'type'  => 'text',
                                 'label' => __( 'Custom block Classes', 'directorist' ),
                                 'value' => '',
+                                'field_type' => 'advanced',
                             ],
                             'review_cookies_consent' => [
                                 'label' => __( 'Show Cookies Consent', 'directorist' ),
@@ -2163,11 +2165,13 @@ class Builder_Data {
                         'type'  => 'text',
                         'label' => __( 'Custom block ID', 'directorist' ),
                         'value' => '',
+                        'field_type' => 'advanced',
                     ],
                     'custom_block_classes' => [
                         'type'  => 'text',
                         'label' => __( 'Custom block Classes', 'directorist' ),
                         'value' => '',
+                        'field_type' => 'advanced',
                     ],
                     'shortcode'            => [
                         'type'        => 'shortcode-list',
@@ -2203,10 +2207,6 @@ class Builder_Data {
                             ],
                         ],
 
-                    ],
-                    'isAdvanced' => [
-                        'lessText' => __( 'Basic', 'directorist' ),
-                        'moreText' => __( 'Advanced', 'directorist' ),
                     ],
                 ],
                 'value'           => [],

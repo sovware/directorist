@@ -14937,14 +14937,19 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof.js");
-/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _mixins_helpers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../mixins/helpers */ "./assets/src/js/admin/vue/mixins/helpers.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof.js");
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _mixins_helpers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../mixins/helpers */ "./assets/src/js/admin/vue/mixins/helpers.js");
 
+
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "field-list-components",
-  mixins: [_mixins_helpers__WEBPACK_IMPORTED_MODULE_1__["default"]],
+  mixins: [_mixins_helpers__WEBPACK_IMPORTED_MODULE_2__["default"]],
   props: {
     root: {
       default: ""
@@ -14975,27 +14980,36 @@ __webpack_require__.r(__webpack_exports__);
       if (!this.root) {
         return this.value;
       }
-      if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(this.root) !== "object") {
+      if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(this.root) !== "object") {
         return this.value;
       }
       return this.root;
     },
     visibleFields: function visibleFields() {
       var _this = this;
-      // Get all keys from the field_list, excluding "isAdvanced"
-      var fieldKeys = Object.keys(this.field_list).filter(function (key) {
-        return key !== "isAdvanced";
+      var basicFields = {};
+      var advancedFields = {};
+
+      // Separate basic and advanced fields
+      Object.keys(this.field_list).forEach(function (key) {
+        if (key !== "isAdvanced") {
+          var field = _this.field_list[key];
+          if (field.field_type === "advanced") {
+            advancedFields[key] = field;
+          } else {
+            basicFields[key] = field;
+          }
+        }
       });
 
-      // Limit the number of keys if showAdvanced is false
-      var limitedKeys = this.showAdvanced ? fieldKeys : fieldKeys.slice(0, 2);
-
-      // Create a new object with the limited keys
-      var limitedFields = {};
-      limitedKeys.forEach(function (key) {
-        limitedFields[key] = _this.field_list[key];
+      // Show basic fields or advanced fields based on the toggle state
+      return this.showAdvanced ? _objectSpread(_objectSpread({}, basicFields), advancedFields) : basicFields;
+    },
+    hasAdvancedFields: function hasAdvancedFields() {
+      // Check if there are any advanced fields
+      return Object.values(this.field_list).some(function (field) {
+        return field.field_type === "advanced";
       });
-      return limitedFields;
     }
   },
   data: function data() {
@@ -15015,7 +15029,7 @@ __webpack_require__.r(__webpack_exports__);
       if (!field) {
         return field;
       }
-      if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(field) !== "object") {
+      if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(field) !== "object") {
         return field;
       }
       if (field.showIf) {
@@ -15032,7 +15046,7 @@ __webpack_require__.r(__webpack_exports__);
       }
       var new_fields = JSON.parse(JSON.stringify(this.fieldList));
       for (var field_key in new_fields) {
-        if (this.value && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(this.value) === "object" && typeof this.value[field_key] !== "undefined") {
+        if (this.value && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(this.value) === "object" && typeof this.value[field_key] !== "undefined") {
           new_fields[field_key].value = this.value[field_key];
         }
       }
@@ -26799,12 +26813,12 @@ var render = function render() {
         }
       }
     }, "component", _vm.excludeShowIfCondition(field), false)) : _vm._e();
-  }), _vm._v(" "), _vm.field_list.isAdvanced ? _c("button", {
+  }), _vm._v(" "), _vm.hasAdvancedFields ? _c("button", {
     staticClass: "cptm-form-builder-group-options__advanced-toggle",
     on: {
       click: _vm.toggleAdvanced
     }
-  }, [_vm._v("\n    " + _vm._s(_vm.showAdvanced ? _vm.field_list.isAdvanced.lessText : _vm.field_list.isAdvanced.moreText) + "\n  ")]) : _vm._e()], 2) : _vm._e();
+  }, [_vm._v("\n    " + _vm._s(_vm.showAdvanced ? "Basic" : "Advanced") + "\n  ")]) : _vm._e()], 2) : _vm._e();
 };
 var staticRenderFns = [];
 render._withStripped = true;

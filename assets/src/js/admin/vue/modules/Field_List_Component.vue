@@ -17,9 +17,9 @@
     <button 
       class="cptm-form-builder-group-options__advanced-toggle"
       @click="toggleAdvanced"
-      v-if="field_list.isAdvanced"
+      v-if="hasAdvancedFields"
     >
-      {{ showAdvanced ? field_list.isAdvanced.lessText : field_list.isAdvanced.moreText }}
+      {{ showAdvanced ? "Basic" : "Advanced" }}
     </button>
   </div>
 </template>
@@ -71,21 +71,30 @@ export default {
     },
 
     visibleFields() {
-      // Get all keys from the field_list, excluding "isAdvanced"
-      const fieldKeys = Object.keys(this.field_list).filter(
-        (key) => key !== "isAdvanced"
-      );
+      const basicFields = {};
+      const advancedFields = {};
 
-      // Limit the number of keys if showAdvanced is false
-      const limitedKeys = this.showAdvanced ? fieldKeys : fieldKeys.slice(0, 2);
-
-      // Create a new object with the limited keys
-      const limitedFields = {};
-      limitedKeys.forEach((key) => {
-        limitedFields[key] = this.field_list[key];
+      // Separate basic and advanced fields
+      Object.keys(this.field_list).forEach((key) => {
+        if (key !== "isAdvanced") {
+          const field = this.field_list[key];
+          if (field.field_type === "advanced") {
+            advancedFields[key] = field;
+          } else {
+            basicFields[key] = field;
+          }
+        }
       });
 
-      return limitedFields;
+      // Show basic fields or advanced fields based on the toggle state
+      return this.showAdvanced ? { ...basicFields, ...advancedFields } : basicFields;
+    },
+
+    hasAdvancedFields() {
+      // Check if there are any advanced fields
+      return Object.values(this.field_list).some(
+        (field) => field.field_type === "advanced"
+      );
     },
   },
 

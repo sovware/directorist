@@ -52,6 +52,7 @@
 
 // Directorist Single Listing Style
 .directorist-single-contents-area {
+  box-sizing: border-box;
   .directorist-card {
     padding: 0;
     filter: none;
@@ -223,6 +224,15 @@
   .directorist-single-listing-slider-wrap {
     padding: 0;
     margin: 15px 0;
+    &.background-contain {
+      .directorist-single-listing-slider {
+        .swiper-slide {
+          img {
+            object-fit: contain;
+          }
+        }
+      }
+    }
   }
 }
 

@@ -1,6 +1,6 @@
 ;
 (function ($) {
-    window.addEventListener('DOMContentLoaded', () => {
+    window.addEventListener('load', () => {
         // Dashboard become an author
         $('.directorist-become-author').on('click', function (e) {
             e.preventDefault();

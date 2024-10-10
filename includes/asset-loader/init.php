@@ -73,6 +73,7 @@ class Asset_Loader {
 
 		// Reviews
 		if ( directorist_is_review_enabled() ) {
+			wp_enqueue_script( 'wp-hooks' );
 			wp_enqueue_script( 'comment-reply' );
 			wp_enqueue_script( 'directorist-jquery-barrating' );
 		}
@@ -129,6 +130,7 @@ class Asset_Loader {
 			// Dashboard
 			case 'dashboard-contents':
 				wp_enqueue_script( 'directorist-dashboard' );
+				wp_enqueue_script( 'directorist-select2-script' );
 				break;
 
 			// All Authors

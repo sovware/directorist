@@ -3,8 +3,9 @@
     <div class="directorist-input" v-if="!isButtonEditable">
       <button
         type="button"
-        class="cptm-btn cptm-btn-primary"
+        class="cptm-btn"
         @click="showEditableButton"
+        data-info="Click to edit button text"
       >
         <span class="cptm-save-text" v-html="value"></span>
         <span class="cptm-save-icon la la-pen"></span>
@@ -14,6 +15,7 @@
     <div class="directorist-input" v-if="isButtonEditable">
       <component
         is="text-field"
+        ref="formGroup"
         :value="value"
         @enter="hideEditableButton"
         @blur="hideEditableButton"
@@ -24,6 +26,7 @@
     </div>
   </div>
 </template>
+
 
 <script>
 import feild_helper from "./../../mixins/form-fields/helper";
@@ -42,6 +45,12 @@ export default {
   methods: {
     showEditableButton() {
       this.isButtonEditable = true;
+      this.$nextTick(() => {
+        const inputElement = this.$refs.formGroup.$el.querySelector('input');
+        if (inputElement) {
+          inputElement.focus();
+        }
+      });
     },
     hideEditableButton() {
       this.isButtonEditable = false;

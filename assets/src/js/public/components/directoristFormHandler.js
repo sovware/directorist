@@ -1,5 +1,5 @@
 (function ($) {
-    window.addEventListener('DOMContentLoaded', () => {
+    window.addEventListener('load', () => {
         this.ATBDP_Form_Handler = function (args) {
             this.option = {
                 el: $('.atbdp-form'),

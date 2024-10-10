@@ -516,6 +516,12 @@ class Directorist_Single_Listing {
 
 	public function get_slider_data( $data = null ) {
 
+		$show_slider = get_directorist_option( 'dsiplay_slider_single_page', true );
+
+		if( ! $show_slider ) {
+			return;
+		}
+
 		$listing_id    = $this->id;
 		$listing_title = get_the_title( $listing_id );
 
@@ -723,9 +729,9 @@ class Directorist_Single_Listing {
 		}
 	}
 
-	public function author_display_email() {
-		$email_display_type  = get_directorist_option('display_author_email', 'public');
-		$email = $this->author_info( 'name' );
+	public function author_display_email( $section_data = [] ) {
+		$email_display_type = ! empty( $section_data['display_email'] ) ?? true;
+		$email 				= $this->author_info( 'name' );
 
 		if ( !$email ) {
 			return false;

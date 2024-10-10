@@ -1,9 +1,9 @@
 // Scrips
-import './components/import-directory-modal';
 import './components/delete-directory-modal';
 import './components/directory-migration-modal';
+import './components/import-directory-modal';
 
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('load', () => {
     var $ = jQuery;
     const axios = require('axios').default;
 
@@ -12,7 +12,7 @@ window.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         const self = this;
 
-        $( '.cptm-create-directory-modal__action' ).after( "<span class='directorist_template_notice'>Installing Templetiq, Please wait..</span>" );
+        $( '.cptm-create-directory-modal__action' ).after( "<span class='directorist_template_notice'>Installing Templatiq, Please wait..</span>" );
 
         let form_data = new FormData();
         form_data.append( 'action', 'directorist_directory_type_library' );

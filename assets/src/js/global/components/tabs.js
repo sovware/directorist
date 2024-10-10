@@ -1,4 +1,4 @@
-document.addEventListener( 'DOMContentLoaded', init, false );
+document.addEventListener( 'load', init, false );
 
 function Tasks() {
     return {

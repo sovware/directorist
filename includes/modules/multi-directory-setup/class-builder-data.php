@@ -2624,7 +2624,7 @@ class Builder_Data {
                     ],
 
                     'expiration'      => [
-                        'title'             => __( 'Default Listing Expiration Days', 'directorist' ),
+                        'title'             => __( 'Default listing expiration days', 'directorist' ),
                         'description'       => __( 'Set the number of days before a listing automatically expires.', 'directorist' ),
                         'fields'            => [
                             'default_expiration',

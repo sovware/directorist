@@ -33,6 +33,7 @@ export default {
 
     data() {
         return {
+            formGroupClass: '',
             hovered: false, // Track hover state
         };
     },

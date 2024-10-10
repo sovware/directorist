@@ -4945,7 +4945,7 @@ Please remember that your order may be canceled if you do not make your payment 
 						continue;
 					}
 
-					$fields[ $key ][ $field_args_key ] = directorist_clean( $field_args_value );
+					$fields[ $key ][ $field_args_key ] = directorist_clean_post( $field_args_value );
 				}
 
 			}

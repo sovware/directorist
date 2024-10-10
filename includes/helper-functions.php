@@ -917,7 +917,7 @@ if (!function_exists('atbdp_get_featured_settings_array')) {
     {
         return array(
             'active' => directorist_is_featured_listing_enabled(),
-            'label' => get_directorist_option('featured_listing_title'),
+            'label' => get_directorist_option( 'featured_listing_title', __('Featured', 'directorist') ),
             'desc' => get_directorist_option('featured_listing_desc'),
             'price' => get_directorist_option('featured_listing_price'),
         );
@@ -2469,11 +2469,11 @@ function atbdp_guest_submission($guest_email)
 }
 
 function atbdp_get_listing_attachment_ids( $listing_id ) {
-	$featured_image = (int) get_post_meta( $listing_id, '_listing_prv_img', true );
+	$featured_image = get_post_meta( $listing_id, '_listing_prv_img', true );
 	$attachment_ids = array();
 
 	if ( $featured_image ) {
-		$attachment_ids[] = $featured_image;
+		$attachment_ids[] = (int) $featured_image;
 	}
 
     $gallery_images = (array) get_post_meta( $listing_id, '_listing_img', true );
@@ -2655,6 +2655,10 @@ function atbdp_create_required_pages(){
         'user_dashboard' => array(
             'title' => __('Dashboard', 'directorist'),
             'content' => '[directorist_user_dashboard]'
+        ),
+        'signin_signup_page' => array(
+            'title' => __('Sign In', 'directorist'),
+            'content' => '[directorist_signin_signup]'
         ),
         /* 'checkout_page' => array(
             'title' => __('Checkout', 'directorist'),
@@ -4059,7 +4063,7 @@ function directorist_password_reset_url( $user, $password_reset = true, $confirm
         $args['confirm_mail'] = true;
     }
 
-    $reset_password_url = ATBDP_Permalink::get_dashboard_page_link( $args );
+    $reset_password_url = ATBDP_Permalink::get_signin_signup_page_link( $args );
 
     return apply_filters( 'directorist_password_reset_url', $reset_password_url );
 }

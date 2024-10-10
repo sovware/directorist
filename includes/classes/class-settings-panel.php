@@ -2570,22 +2570,22 @@ Please remember that your order may be canceled if you do not make your payment 
                         ],
                     ],
                 ],
-                'announcement_tab' => [
-                    'type'  => 'toggle',
-                    'label' => __('Display Announcements Tab', 'directorist'),
-                    'value' => true,
-                ],
-                'announcement_tab_text'    => [
-                    'type'          => 'text',
-                    'label'         => __('"Announcement" Tab Label', 'directorist'),
-                    'value'         => __('Announcements', 'directorist'),
-                    'show-if' => [
-                        'where' => "announcement_tab",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => true],
-                        ],
-                    ],
-                ],
+                // 'announcement_tab' => [
+                //     'type'  => 'toggle',
+                //     'label' => __('Display Announcements Tab', 'directorist'),
+                //     'value' => true,
+                // ],
+                // 'announcement_tab_text'    => [
+                //     'type'          => 'text',
+                //     'label'         => __('"Announcement" Tab Label', 'directorist'),
+                //     'value'         => __('Announcements', 'directorist'),
+                //     'show-if' => [
+                //         'where' => "announcement_tab",
+                //         'conditions' => [
+                //             ['key' => 'value', 'compare' => '=', 'value' => true],
+                //         ],
+                //     ],
+                // ],
                 'submit_listing_button' => [
                     'type'  => 'toggle',
                     'label' => __('Display Submit Listing Button', 'directorist'),
@@ -5255,17 +5255,17 @@ Please remember that your order may be canceled if you do not make your payment 
                     'label' => __( 'Tools', 'directorist' ),
                     'icon' => '<i class="fa fa-tools directorist_info"></i>',
                     'submenu' => apply_filters('atbdp_tools_submenu', [
-                        'announcement_settings' => [
-                            'label'     => __('Announcement', 'directorist'),
-                            'icon' => '<i class="fa fa-bullhorn"></i>',
-                            'sections'  => apply_filters('atbdp_announcement_settings_controls', [
-                                'send-announcement'     => [
-                                    'fields'        => [
-                                        'announcement',
-                                    ]
-                                ],
-                            ]),
-                        ],
+                        // 'announcement_settings' => [
+                        //     'label'     => __('Announcement', 'directorist'),
+                        //     'icon' => '<i class="fa fa-bullhorn"></i>',
+                        //     'sections'  => apply_filters('atbdp_announcement_settings_controls', [
+                        //         'send-announcement'     => [
+                        //             'fields'        => [
+                        //                 'announcement',
+                        //             ]
+                        //         ],
+                        //     ]),
+                        // ],
 
                         'listings_import' => [
                             'label' => __('Listings Import/Export', 'directorist'),

@@ -1414,7 +1414,7 @@ Please remember that your order may be canceled if you do not make your payment 
 
                 'primary_dark_back_color' => [
                     'type' => 'color',
-                    'label' => __('Background Color', 'directorist'),
+                    'label' => __('Brand Color', 'directorist'),
                     'value' => '#444752',
                 ],
 
@@ -4843,14 +4843,14 @@ Please remember that your order may be canceled if you do not make your payment 
                             'icon' => '<i class="fa fa-palette directorist_info"></i>',
                             'sections'=> apply_filters('atbdp_style_settings_controls', [
                                 'primary_color' => array(
-                                    'title' => __('Brand Color', 'directorist'),
+                                    'title' => __('Brand', 'directorist'),
                                     'fields' => apply_filters('atbdp_primary_dark_color', [
                                         'primary_dark_back_color',
                                     ])
                                 ),
 
                                 'button_type' => [
-                                    'title' => __('Button Color', 'directorist'),
+                                    'title' => __('Button', 'directorist'),
                                     'fields' => [
                                         'button_type', 'primary_example', 'primary_color', 'back_primary_color', 'primary_hover_color', 'secondary_example', 'secondary_color', 'back_secondary_color', 'secondary_hover_color'
                                     ]

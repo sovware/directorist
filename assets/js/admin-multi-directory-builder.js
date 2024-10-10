@@ -607,14 +607,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'button-example-field',
-  mixins: [_input_field_props_js__WEBPACK_IMPORTED_MODULE_0__["default"]],
-  created: function created() {
-    console.log('Button Example Field', _input_field_props_js__WEBPACK_IMPORTED_MODULE_0__["default"]);
-  },
-  data: function data() {
-    return {};
-  },
-  methods: {}
+  mixins: [_input_field_props_js__WEBPACK_IMPORTED_MODULE_0__["default"]]
 });
 
 /***/ }),

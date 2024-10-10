@@ -1482,6 +1482,23 @@ Please remember that your order may be canceled if you do not make your payment 
                     'type' => 'text',
                     'label' => __('Reset Button text', 'directorist'),
                     'value' => __('Reset Filters', 'directorist'),
+                    'show-if' => [
+                        'where' => "all_listing_layout",
+                        'conditions' => [
+                            [ 'key' => 'value', 'compare' => '=', 'value' => 'no_sidebar' ],
+                        ],
+                    ],
+                ],
+                'listings_sidebar_reset_text' => [
+                    'type' => 'text',
+                    'label' => __('Reset text', 'directorist'),
+                    'value' => __('Clear All', 'directorist'),
+                    'show-if' => [
+                        'where' => "all_listing_layout",
+                        'conditions' => [
+                            [ 'key' => 'value', 'compare' => '!=', 'value' => 'no_sidebar' ],
+                        ],
+                    ],
                 ],
                 'listings_apply_text' => [
                     'type' => 'text',
@@ -2533,12 +2550,29 @@ Please remember that your order may be canceled if you do not make your payment 
                 ],
                 'sresult_reset_text'    => [
                     'type'          => 'text',
-                    'label'         => __('Reset Button text', 'directorist'),
+                    'label'         => __('Reset Button Text', 'directorist'),
                     'value'         => __('Reset Filters', 'directorist'),
+                    'show-if' => [
+                        'where' => "search_result_layout",
+                        'conditions' => [
+                            [ 'key' => 'value', 'compare' => '=', 'value' => 'no_sidebar' ],
+                        ],
+                    ],
+                ],
+                'sresult_sidebar_reset_text'    => [
+                    'type'          => 'text',
+                    'label'         => __('Reset text', 'directorist'),
+                    'value'         => __('Clear All', 'directorist'),
+                    'show-if' => [
+                        'where' => "search_result_layout",
+                        'conditions' => [
+                            [ 'key' => 'value', 'compare' => '!=', 'value' => 'no_sidebar' ],
+                        ],
+                    ],
                 ],
                 'sresult_apply_text'    => [
                     'type'          => 'text',
-                    'label'         => __('Apply Filters Button text', 'directorist'),
+                    'label'         => __('Apply Filters Button Text', 'directorist'),
                     'value'         => __('Apply Filters', 'directorist'),
                     'show-if' => [
                         'where' => "search_result_layout",
@@ -4064,6 +4098,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                         'listing_hide_top_search_bar',
                                         'listings_sidebar_filter_text',
                                         'listings_reset_text',
+                                        'listings_sidebar_reset_text',
                                         'listings_apply_text',
                                      ],
                                 ],
@@ -4268,6 +4303,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                         'search_result_hide_top_search_bar',
                                         'search_result_sidebar_filter_text',
                                         'sresult_reset_text',
+                                        'sresult_sidebar_reset_text',
                                         'sresult_apply_text',
                                      ],
                                 ],

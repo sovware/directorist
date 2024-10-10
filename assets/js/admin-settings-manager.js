@@ -28951,7 +28951,12 @@ var render = function render() {
     domProps: {
       innerHTML: _vm._s(_vm.label)
     }
-  })]), _vm._v(" "), _c("div", {
+  }), _vm._v(" "), _vm.sublabel.length ? _c("span", {
+    staticClass: "cptm-text-gray cptm-px-5",
+    domProps: {
+      innerHTML: _vm._s(_vm.sublabel)
+    }
+  }) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "cptm-form-builder-group-field-item-header-actions"
   }, [_c("a", {
     staticClass: "cptm-form-builder-header-action-link",

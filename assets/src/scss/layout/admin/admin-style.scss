@@ -4669,6 +4669,12 @@ body.wp-admin {
             flex: 1;
             padding: 0 20px;
           }
+          .directorist_listing-c-action {
+            display: inline-flex;
+            justify-content: flex-end;
+            opacity: 0;
+            visibility: hidden;
+          }
         }
       }
 
@@ -4774,6 +4780,7 @@ body.wp-admin {
           align-items: center;
           flex-wrap: wrap;
           gap: 10px;
+          justify-content: flex-end;
           .directorist_listing-actions {
             display: inline-flex;
             align-items: center;
@@ -4814,8 +4821,10 @@ body.wp-admin {
                 }
               }
 
-              &:hover {
-                .directorist_more-dropdown-toggle {
+              
+              .directorist_more-dropdown-toggle {
+                &:hover,
+                &.active {
                   background-color: #E5E7EB !important;
 
                   svg {
@@ -4825,6 +4834,8 @@ body.wp-admin {
               }
 
               .directorist_more-dropdown-option {
+                right: 0;
+                top: 35px;
                 border-radius: 10px;
                 border: 1px solid #F3F4F6;
                 box-shadow: 0px 12px 16px -4px rgba(16, 24, 40, 0.08), 0px 4px 6px -2px rgba(16, 24, 40, 0.03);
@@ -4924,6 +4935,19 @@ body.wp-admin {
   &[data-tooltip] {
     position: relative;
     cursor: pointer;
+    &.directorist-type-slug-content {
+      display: inline-flex;
+      &:after {
+        text-transform: none;
+      }
+      &[data-flow="bottom"]::before {
+        transform: translate(-50%, 0);
+      }
+      &[data-flow="bottom"]::after {
+        left: -50px;
+        transform: unset;
+      }
+    }
 
     &:before,
     &:after {

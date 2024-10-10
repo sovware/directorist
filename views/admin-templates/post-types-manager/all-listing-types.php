@@ -141,14 +141,9 @@
                                 </div>
                                 <div class="directorist-type-slug">
                                     <div class="directorist-type-slug-content directorist-row-tooltip" data-tooltip="Click here to rename the slug." data-flow="bottom">
-                                        <span class=" directorist_listing-slug-text directorist-slug-text-<?php echo esc_attr( $listing_type->term_id ); ?>" data-value="<?php echo esc_attr( ! empty( $listing_type->slug ) ? $listing_type->slug : '-' ); ?>" contenteditable="false">
+                                        <span class=" directorist_listing-slug-text directorist-slug-text-<?php echo esc_attr( $listing_type->term_id ); ?>" data-value="<?php echo esc_attr( ! empty( $listing_type->slug ) ? $listing_type->slug : '-' ); ?>" contenteditable="false"  data-type-id="<?php echo absint( $listing_type->term_id ); ?>">
                                             <?php echo esc_html( html_entity_decode( $listing_type->slug ) ); ?>
                                         </span>
-                                        <div class="directorist-listing-slug-edit-wrap ">
-                                            <a href="" class="directorist-listing-slug__edit" data-type-id="<?php echo absint( $listing_type->term_id ); ?>"></a>
-                                            <a href="" class="directorist_listing-slug-formText-add" data-type-id="<?php echo absint( $listing_type->term_id ); ?>"></a>
-                                            <a href="#" class="directorist_listing-slug-formText-remove directorist_listing-slug-formText-remove--hidden"></a>
-                                        </div>
                                     </div>
                                     <p class="directorist-slug-notice directorist-slug-notice-<?php echo esc_attr( $listing_type->term_id ); ?>"></p>
                                 </div>

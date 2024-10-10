@@ -37,7 +37,7 @@ class Settings_Screen {
 						],
 					],
 					'display_settings' => [
-						'title' => __( 'Review Options', 'directorist' ),
+						'title' => __( 'Display Settings', 'directorist' ),
 						'fields' => [
 							'review_num'
 						],

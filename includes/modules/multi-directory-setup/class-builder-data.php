@@ -2143,21 +2143,21 @@ class Builder_Data {
                     'addNewGroupButtonLabel' => __( 'Add Section', 'directorist' ),
                 ],
                 'groupFields'     => [
-                    'section_id'           => [
-                        'type'    => 'text',
-                        'disable' => true,
-                        'label'   => 'Section ID',
-                        'value'   => '',
+                    'label'                => [
+                        'type'  => 'text',
+                        'label' => __( 'Label', 'directorist' ),
+                        'value' => 'Section',
                     ],
                     'icon'                 => [
                         'type'  => 'icon',
                         'label' => __( 'Block/Section Icon', 'directorist' ),
                         'value' => '',
                     ],
-                    'label'                => [
-                        'type'  => 'text',
-                        'label' => __( 'Label', 'directorist' ),
-                        'value' => 'Section',
+                    'section_id'           => [
+                        'type'    => 'text',
+                        'disable' => true,
+                        'label'   => 'Section ID',
+                        'value'   => '',
                     ],
                     'custom_block_id'      => [
                         'type'  => 'text',

@@ -5,7 +5,7 @@
   >
     <component
       v-if="field.type"
-      v-for="(field, field_key) in field_list.isAdvanced ? visibleFields : field_list"
+      v-for="(field, field_key) in visibleFields"
       :key="field_key"
       :is="field.type + '-field'"
       :section-id="sectionId"
@@ -28,7 +28,7 @@
 import helpers from "./../mixins/helpers";
 
 export default {
-  name: "field-list-compnents",
+  name: "field-list-components",
   mixins: [helpers],
   props: {
     root: {
@@ -46,15 +46,15 @@ export default {
   },
 
   created() {
-    this.filtereFieldList();
+    this.filterFieldList();
   },
 
   watch: {
     fieldList() {
-      this.filtereFieldList();
+      this.filterFieldList();
     },
     value() {
-      this.filtereFieldList();
+      this.filterFieldList();
     },
   },
 
@@ -69,14 +69,23 @@ export default {
 
       return this.root;
     },
-    visibleFields() {
-      // Convert field_list object to an array and then slice it
-      const fieldArray = Array.isArray(this.field_list)
-        ? this.field_list
-        : Object.values(this.field_list);
 
-      // Show only 2 items if showAdvanced is false, otherwise show all
-      return this.showAdvanced ? fieldArray : fieldArray.slice(0, 2);
+    visibleFields() {
+      // Get all keys from the field_list, excluding "isAdvanced"
+      const fieldKeys = Object.keys(this.field_list).filter(
+        (key) => key !== "isAdvanced"
+      );
+
+      // Limit the number of keys if showAdvanced is false
+      const limitedKeys = this.showAdvanced ? fieldKeys : fieldKeys.slice(0, 2);
+
+      // Create a new object with the limited keys
+      const limitedFields = {};
+      limitedKeys.forEach((key) => {
+        limitedFields[key] = this.field_list[key];
+      });
+
+      return limitedFields;
     },
   },
 
@@ -88,8 +97,8 @@ export default {
   },
 
   methods: {
-    filtereFieldList() {
-      this.field_list = this.getFiltereFieldList(this.fieldList);
+    filterFieldList() {
+      this.field_list = this.getFilteredFieldList(this.fieldList);
     },
     
     toggleAdvanced() {
@@ -116,22 +125,12 @@ export default {
       return field;
     },
 
-    getFiltereFieldList(field_list) {
+    getFilteredFieldList(field_list) {
       if (!field_list) {
         return field_list;
       }
 
       let new_fields = JSON.parse(JSON.stringify(this.fieldList));
-
-      for (let field_key in new_fields) {
-        if (
-          this.value &&
-          typeof this.value === "object" &&
-          typeof this.value[field_key] !== "undefined"
-        ) {
-          new_fields[field_key].value = this.value[field_key];
-        }
-      }
 
       for (let field_key in new_fields) {
         if (
@@ -167,7 +166,7 @@ export default {
 
     update(payload) {
       this.$emit("update", payload);
-      this.filtereFieldList();
+      this.filterFieldList();
     },
   },
 };

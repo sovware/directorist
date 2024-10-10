@@ -15419,7 +15419,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "field-list-compnents",
+  name: "field-list-components",
   mixins: [_mixins_helpers__WEBPACK_IMPORTED_MODULE_1__["default"]],
   props: {
     root: {
@@ -15436,14 +15436,14 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   created: function created() {
-    this.filtereFieldList();
+    this.filterFieldList();
   },
   watch: {
     fieldList: function fieldList() {
-      this.filtereFieldList();
+      this.filterFieldList();
     },
     value: function value() {
-      this.filtereFieldList();
+      this.filterFieldList();
     }
   },
   computed: {
@@ -15457,11 +15457,21 @@ __webpack_require__.r(__webpack_exports__);
       return this.root;
     },
     visibleFields: function visibleFields() {
-      // Convert field_list object to an array and then slice it
-      var fieldArray = Array.isArray(this.field_list) ? this.field_list : Object.values(this.field_list);
+      var _this = this;
+      // Get all keys from the field_list, excluding "isAdvanced"
+      var fieldKeys = Object.keys(this.field_list).filter(function (key) {
+        return key !== "isAdvanced";
+      });
 
-      // Show only 2 items if showAdvanced is false, otherwise show all
-      return this.showAdvanced ? fieldArray : fieldArray.slice(0, 2);
+      // Limit the number of keys if showAdvanced is false
+      var limitedKeys = this.showAdvanced ? fieldKeys : fieldKeys.slice(0, 2);
+
+      // Create a new object with the limited keys
+      var limitedFields = {};
+      limitedKeys.forEach(function (key) {
+        limitedFields[key] = _this.field_list[key];
+      });
+      return limitedFields;
     }
   },
   data: function data() {
@@ -15471,8 +15481,8 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    filtereFieldList: function filtereFieldList() {
-      this.field_list = this.getFiltereFieldList(this.fieldList);
+    filterFieldList: function filterFieldList() {
+      this.field_list = this.getFilteredFieldList(this.fieldList);
     },
     toggleAdvanced: function toggleAdvanced() {
       this.showAdvanced = !this.showAdvanced;
@@ -15492,7 +15502,7 @@ __webpack_require__.r(__webpack_exports__);
       }
       return field;
     },
-    getFiltereFieldList: function getFiltereFieldList(field_list) {
+    getFilteredFieldList: function getFilteredFieldList(field_list) {
       if (!field_list) {
         return field_list;
       }
@@ -15503,28 +15513,23 @@ __webpack_require__.r(__webpack_exports__);
         }
       }
       for (var _field_key in new_fields) {
-        if (this.value && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(this.value) === "object" && typeof this.value[_field_key] !== "undefined") {
-          new_fields[_field_key].value = this.value[_field_key];
-        }
-      }
-      for (var _field_key2 in new_fields) {
-        if (!(new_fields[_field_key2].showIf || new_fields[_field_key2].show_if)) {
+        if (!(new_fields[_field_key].showIf || new_fields[_field_key].show_if)) {
           continue;
         }
-        var show_if_condition = new_fields[_field_key2].showIf ? new_fields[_field_key2].showIf : new_fields[_field_key2].show_if;
+        var show_if_condition = new_fields[_field_key].showIf ? new_fields[_field_key].showIf : new_fields[_field_key].show_if;
         var checkShowIfCondition = this.checkShowIfCondition({
           root: new_fields,
           condition: show_if_condition
         });
         if (!checkShowIfCondition.status) {
-          delete new_fields[_field_key2];
+          delete new_fields[_field_key];
         }
       }
       return new_fields;
     },
     update: function update(payload) {
       this.$emit("update", payload);
-      this.filtereFieldList();
+      this.filterFieldList();
     }
   }
 });
@@ -27217,7 +27222,7 @@ var render = function render() {
     _c = _vm._self._c;
   return _vm.field_list && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(_vm.field_list) === "object" ? _c("div", {
     staticClass: "directorist-form-fields-area"
-  }, [_vm._l(_vm.field_list.isAdvanced ? _vm.visibleFields : _vm.field_list, function (field, field_key) {
+  }, [_vm._l(_vm.visibleFields, function (field, field_key) {
     return field.type ? _c(field.type + "-field", _vm._b({
       key: field_key,
       tag: "component",

@@ -1,30 +1,30 @@
 /**
  * EZ Media Uploader
- * Company: Aazz Tech
- * Develoepr: Syed Galib Ahmed
+ * Company: SovWare
+ * Developer: Syed Galib Ahmed
  * Version: 1.0
  * Initial Release: 24 December, 2019
  * */
  .ez-media-uploader {
-  margin: 10px auto;
   position: relative;
-  padding: 10px 10px;
+  padding: 18px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
   min-height: 250px;
-  border: 3px dashed #ccc;
-  background-color: #eaeaea;
+  border: 2px dashed #ccc;
+  background-color: #f1f1f1;
+  border-radius: 5px;
 }
 
 .ezmu__old-files,
@@ -98,6 +98,7 @@
 }
 
 .ezmu__media-picker-icon-wrap-upload {
+  margin-bottom: 20px;
   display: inline-block;
   margin-bottom: 20px;
   width: 60px;
@@ -119,7 +120,8 @@
   background-size: contain;
   width: 100%;
   height: 100%;
-  filter: invert(48%) sepia(0%) saturate(2537%) hue-rotate(86deg) brightness(118%) contrast(119%);
+  -webkit-filter: invert(48%) sepia(0%) saturate(2537%) hue-rotate(86deg) brightness(118%) contrast(119%);
+          filter: invert(48%) sepia(0%) saturate(2537%) hue-rotate(86deg) brightness(118%) contrast(119%);
 }
 
 .ezmu-icon-upload {
@@ -244,23 +246,23 @@ input[type="file"].ezmu__file-input + .ezmu__input-label {
   display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
+      flex-wrap: wrap;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  gap: 15px;
 }
+
 .ezmu__thumbnail-list-item {
-  margin: 5px;
-  width: 100%;
-  max-width: 300px;
-  -ms-flex-preferred-size: 300px;
-  flex-basis: 300px;
   position: relative;
-  border-radius: 8px;
+  border-radius: 5px;
   overflow: hidden;
+  max-width: calc(50% - 7.5px);
+  -ms-flex-preferred-size: calc(50% - 7.5px);
+      flex-basis: calc(50% - 7.5px);
 }
 
 .ezmu__featured_tag {
@@ -293,27 +295,27 @@ input[type="file"].ezmu__file-input + .ezmu__input-label {
 }
 .ezmu__front-item__close-icon {
   position: relative;
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
   border-radius: 50%;
-  color: #000;
+  color: #222;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   cursor: pointer;
-  -webkit-transition: all ease-in-out 200ms;
-  -o-transition: all ease-in-out 200ms;
-  transition: all ease-in-out 200ms;
+  -webkit-transition: background-color ease-in .2s;
+  -o-transition: background-color ease-in .2s;
+  transition: background-color ease-in .2s;
   background-color: rgba(255, 255, 255, 0.8);
   background-image: url('../images/times-solid-dark.svg');
   background-repeat: no-repeat !important;
-  background-size: 12px;
+  background-size: 8px;
   background-position: center;
 }
 
@@ -387,22 +389,24 @@ input[type="file"].ezmu__file-input + .ezmu__input-label {
   cursor: pointer;
   text-align: center;
   border: none;
-  -webkit-transition: all ease-in-out 300ms;
-  -o-transition: all ease-in-out 300ms;
-  transition: all ease-in-out 300ms;
+  -webkit-transition: background-color ease-in .1s;
+  -o-transition: background-color ease-in .1s;
+  transition: background-color ease-in .1s;
   background-color: rgba(255, 255, 255, 0.8);
   background-position: center;
   background-repeat: no-repeat !important;
   background-size: 12px;
+  font-size: 10px;
 }
 
 .ezmu__front-item__sort-button.ezmu--sort-up {
   background-image: url('../images/chevron-right-solid.svg');
+  border-radius: 0 3px 3px 0;
 }
-
 
 .ezmu__front-item__sort-button.ezmu--sort-down {
   background-image: url('../images/chevron-left-solid.svg');
+  border-radius: 3px 0 0 3px;
 }
 
 .ezmu__front-item__sort-button:hover {
@@ -419,8 +423,8 @@ input[type="file"].ezmu__file-input + .ezmu__input-label {
 }
 
 .ezmu__thumbnail-list-item_back {
-  width: 100%;
-  height: 200px;
+  width: 140px;
+  height: 140px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -434,12 +438,18 @@ input[type="file"].ezmu__file-input + .ezmu__input-label {
   justify-content: center;
   background-color: #d4d4d4;
 }
+@media screen and (max-width: 1399px) and (min-width: 1199px) {
+  .ezmu__thumbnail-list-item_back{
+    width: 100px;
+    height: 100px;
+  }
+}
 .ezmu__thumbnail-img {
   display: block;
   width: 100%;
-  height: 100%;
-  -o-object-fit: contain;
-  object-fit: contain;
+  height: 100% !important;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 .ezmu__thumbnail-img-bg {
@@ -464,14 +474,21 @@ input[type="file"].ezmu__file-input + .ezmu__input-label {
 
 
 .ezmu__thumbnail-list-item.ezmu__thumbnail_avater {
-  width: 200px;
-  height: 200px;
-  flex-basis: 200px;
+  min-width: 140px;
+  width: 140px;
+  height: 140px;
   border-radius: 50%;
 }
-
+@media screen and (max-width: 1399px) and (min-width: 1199px) {
+  .ezmu__thumbnail-list-item.ezmu__thumbnail_avater{
+    min-width: 100px;
+    width: 100px;
+    height: 100px;
+  }
+}
 .ezmu__thumbnail-list-item.ezmu__thumbnail_avater .ezmu__thumbnail-img {
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 .ezmu__thumbnail-list-item.ezmu__thumbnail_avater .ezmu__front-item__close {
@@ -479,12 +496,14 @@ input[type="file"].ezmu__file-input + .ezmu__input-label {
   right: unset;
   bottom: 10px;
   left: 50%;
-  transform: scale(0.9) translateX(-50%);
+  -webkit-transform: scale(0.9) translateX(-50%);
+      -ms-transform: scale(0.9) translateX(-50%);
+          transform: scale(0.9) translateX(-50%);
 }
 
 .ezmu__info-list {
   padding: 0;
-  margin: 25px auto 10px;
+  margin: 0;
   text-align: center;
   max-width: 800px;
   width: 100%;
@@ -495,8 +514,10 @@ input[type="file"].ezmu__file-input + .ezmu__input-label {
   display: inline-block;
   margin-bottom: 5px;
   margin-right: 20px;
-  color:gray;
+  color:#777;
   font-size: 14px;
+  -webkit-transition: all ease-in-out 300ms;
+  -o-transition: all ease-in-out 300ms;
   transition: all ease-in-out 300ms;
 }
 
@@ -514,6 +535,8 @@ input[type="file"].ezmu__file-input + .ezmu__input-label {
   background-color:#c4c4c4;
   vertical-align: top;
   border-radius: 50%;
+  -webkit-transition: all ease-in-out 300ms;
+  -o-transition: all ease-in-out 300ms;
   transition: all ease-in-out 300ms;
 }
 

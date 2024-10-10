@@ -2160,6 +2160,7 @@ class Builder_Data {
                         'disable' => true,
                         'label'   => 'Section ID',
                         'value'   => '',
+                        'field_type' => 'advanced',
                     ],
                     'custom_block_id'      => [
                         'type'  => 'text',

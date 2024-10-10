@@ -4500,7 +4500,7 @@ Please remember that your order may be canceled if you do not make your payment 
                             'icon' => '<i class="fa fa-envelope-open directorist_info"></i>',
                             'sections' => apply_filters( 'atbdp_reg_settings_sections', [
                                 'sender_details' => [
-                                    'title'       => __( 'Listings Renewal', 'directorist' ),
+                                    'title'       => __( 'Sender Details', 'directorist' ),
                                     'fields'      => [
                                         'email_from_name', 
                                         'email_from_email',

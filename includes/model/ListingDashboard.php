@@ -407,24 +407,7 @@ class Directorist_Listing_Dashboard {
 			'icon'		=> 'las la-sliders-h',
 		);
 
-		if ( $announcement_tab ) {
-			$dashboard_tabs['dashboard_announcement'] = array(
-				'title'    => $this->get_announcement_label(),
-				'content'  => Helper::get_template_contents( 'dashboard/tab-announcement', [ 'dashboard' => $this ] ),
-				'icon'	   => 'las la-bullhorn',
-			);
-		}
-
 		return apply_filters( 'directorist_dashboard_tabs', $dashboard_tabs );
-	}
-
-	public function get_announcement_label() {
-		$announcement_label = get_directorist_option( 'announcement_tab_text', __( 'Announcements', 'directorist' ) );
-		$new_announcements  = ATBDP()->announcement->get_new_announcement_count();
-		if ( $new_announcements > 0 ) {
-			$announcement_label = $announcement_label . "<span class='directorist-announcement-count show'>{$new_announcements}</span>";
-		}
-		return apply_filters( 'directorist_announcement_label', $announcement_label );
 	}
 
 	public function get_announcements() {

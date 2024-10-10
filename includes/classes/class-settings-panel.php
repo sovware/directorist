@@ -4709,13 +4709,13 @@ Please remember that your order may be canceled if you do not make your payment 
                             ])
                         ],
 
-                        'primary_color' => array(
-                            'title' => __('Primary Color', 'directorist'),
+                        'primary_color' =>  [
+                            'title'  => __('Primary Color', 'directorist'),
                             'fields' => apply_filters('atbdp_primary_dark_color', [
                                 'primary_dark_back_color',
                                 'primary_dark_border_color'
                             ])
-                        ),
+                        ],
                     ])
                 ],
 

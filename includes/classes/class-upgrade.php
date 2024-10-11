@@ -18,16 +18,59 @@ class ATBDP_Upgrade
 		if ( !is_admin() ) return;
 
 		add_action('admin_init', array($this, 'configure_notices'));
-
+		
 		add_action('admin_notices', array($this, 'upgrade_notice'), 100);
-
+		
 		add_action('directorist_before_settings_panel_header', array($this, 'promo_banner') );
-
+		
 		add_action('directorist_before_all_directory_types', array($this, 'promo_banner') );
-
+		
 		add_action('directorist_before_directory_type_edited', array($this, 'promo_banner') );
-
+		
 		add_action( 'admin_notices', array( $this, 'bfcm_notice') );
+		
+		add_action('init', array($this, 'directorist_migrate_single_listing_header'));
+
+	}
+
+	public function directorist_migrate_single_listing_header() {
+		// Check if migration has already been performed
+		if ( get_option( 'directorist_v7_single_listing_header_migration', false ) ) {
+			return;
+		}
+		
+		// Ensure only administrators can run this migration
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
+	
+		// Check if the builder header has been migrated and if the DB version is greater than 8.0.0
+		if ( ! get_option( 'directorist_builder_header_migrated', false ) || version_compare( get_option( 'directorist_db_version', '0' ), '8.0.0', '<=' ) ) {
+			return;
+		}
+	
+		// Retrieve backup data
+		$backup_data_json  = get_option( 'directorist_builder_backup_data' );
+		$backup_data_array = json_decode( $backup_data_json, true );
+		
+		if ( empty( $backup_data_array ) || ! is_array( $backup_data_array ) ) {
+			return;
+		}
+	
+		// Process each directory type in the backup data
+		foreach ( $backup_data_array as $directory_type => $data ) {
+			if ( ! isset( $data['single_listing_header'] ) || ! is_array( $data['single_listing_header'] ) ) {
+				continue;
+			}
+	
+			$current_listing_header_data = $data['single_listing_header'];
+	
+			// Update the term meta with the new structure
+			update_term_meta( $directory_type, 'single_listing_header', $current_listing_header_data );
+		}
+	
+		// Mark migration as complete
+		update_option( 'directorist_v7_single_listing_header_migration', true );
 	}
 
 	public function is_pro_user() {

@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 				<div class="directorist-advanced-filter__advanced__element directorist-search-field-<?php echo esc_attr( $field['widget_name'] ) ?>"><?php $searchform->field_template( $field ); ?></div>
 			<?php endforeach; ?>
 			<div class="directorist-advanced-filter__action directorist-advanced-filter__action--ajax">
-				<button class="directorist-btn-reset-js directorist-btn-reset-ajax"><?php esc_html_e( 'Clear All', 'directorist' ); ?></button>
+				<button class="directorist-btn-reset-js directorist-btn-reset-ajax"><?php echo esc_html( $searchform->options['reset_sidebar_filters_text'] ?? esc_html__( 'Clear All', 'directorist' ) ); ?></button>
 			</div>
 		</div>
 

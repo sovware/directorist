@@ -48,5 +48,8 @@ $settings-primary-color: #3e62f5;
                 font-size: 15px;
             }
         }
+        &.enable_multi_directory {
+            z-index: 99;
+        }
     }
 }

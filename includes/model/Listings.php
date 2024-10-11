@@ -1673,7 +1673,7 @@ class Directorist_Listings {
 				}
 				return $image;
 			}
-
+			
 			$thumbnail_img_id = array_filter($thumbnail_img_id, function($value) {
 				return is_numeric($value);
 			});

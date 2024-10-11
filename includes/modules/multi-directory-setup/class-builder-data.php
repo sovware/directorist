@@ -313,16 +313,34 @@ class Builder_Data {
                                 'type'  => 'text',
                                 'label' => __( 'Custom block ID', 'directorist' ),
                                 'value' => '',
+                                'field_type' => 'advanced',
                             ],
                             'custom_block_classes' => [
                                 'type'  => 'text',
                                 'label' => __( 'Custom block Classes', 'directorist' ),
                                 'value' => '',
+                                'field_type' => 'advanced',
                             ],
                             'review_cookies_consent' => [
                                 'label' => __( 'Show Cookies Consent', 'directorist' ),
                                 'type'  => 'toggle',
                                 'value' => false,
+                            ],
+                            'review_enable_gdpr_consent' => [
+                                'label' => __( 'Enable GDPR Consent', 'directorist' ),
+                                'type'  => 'toggle',
+                                'value' => false,
+                            ],
+                            'review_gdpr_consent_label' => [
+                                'label'       => __( 'Consent Label', 'directorist' ),
+                                'type'        => 'textarea',
+                                'editor'      => 'wp_editor',
+                                'editorID'    => 'wp_editor_terms_privacy',
+                                'value'       => sprintf(
+                                    __( 'I have read and agree to the <a href="%s" target="_blank">Privacy Policy</a> and <a href="%s" target="_blank">Terms of Service</a>', 'directorist' ),
+                                    ATBDP_Permalink::get_privacy_policy_page_url(),
+                                    ATBDP_Permalink::get_terms_and_conditions_page_url(),
+                                ),
                             ],
                         ],
 
@@ -436,14 +454,16 @@ class Builder_Data {
                                 'value' => true,
                             ],
                             'custom_block_id'      => [
-                                'type'  => 'text',
-                                'label' => __( 'Custom block ID', 'directorist' ),
-                                'value' => '',
+                                'type'       => 'text',
+                                'label'      => __( 'Custom block ID', 'directorist' ),
+                                'value'      => '',
+                                'field_type' => 'advanced',
                             ],
                             'custom_block_classes' => [
-                                'type'  => 'text',
-                                'label' => __( 'Custom block Classes', 'directorist' ),
-                                'value' => '',
+                                'type'       => 'text',
+                                'label'      => __( 'Custom block Classes', 'directorist' ),
+                                'value'      => '',
+                                'field_type' => 'advanced',
                             ],
                         ],
                     ],
@@ -466,11 +486,13 @@ class Builder_Data {
                                 'type'  => 'text',
                                 'label' => __( 'Custom block ID', 'directorist' ),
                                 'value' => '',
+                                'field_type' => 'advanced',
                             ],
                             'custom_block_classes' => [
                                 'type'  => 'text',
                                 'label' => __( 'Custom block Classes', 'directorist' ),
                                 'value' => '',
+                                'field_type' => 'advanced',
                             ],
                         ],
                         'accepted_widgets' => [
@@ -545,35 +567,37 @@ class Builder_Data {
                                 'value' => 'Related Listings',
                             ],
                             'custom_block_id'      => [
-                                'type'  => 'text',
-                                'label' => __( 'Custom block ID', 'directorist' ),
-                                'value' => '',
+                                'type'       => 'text',
+                                'label'      => __( 'Custom block ID', 'directorist' ),
+                                'value'      => '',
+                                'field_type' => 'advanced',
                             ],
                             'custom_block_classes' => [
-                                'type'  => 'text',
-                                'label' => __( 'Custom block Classes', 'directorist' ),
-                                'value' => '',
+                                'type'       => 'text',
+                                'label'      => __( 'Custom block Classes', 'directorist' ),
+                                'value'      => '',
+                                'field_type' => 'advanced',
                             ],
                             'similar_listings_logics'                     => [
                                 'type'    => 'radio',
                                 'name'    => 'similar_listings_logics',
-                                'label'   => __( 'Similar listings logics', 'directorist' ),
+                                'label'   => __( 'Related listings criteria', 'directorist' ),
                                 'options' => [
-                                    ['id' => 'match_category_nd_location', 'label' => __( 'Must match category and tag', 'directorist' ), 'value' => 'AND'],
-                                    ['id' => 'match_category_or_location', 'label' => __( 'Must match category or tag', 'directorist' ), 'value' => 'OR'],
+                                    ['id' => 'match_category_nd_location', 'label' => __( 'Match both category and tag', 'directorist' ), 'value' => 'AND'],
+                                    ['id' => 'match_category_or_location', 'label' => __( 'Match either category or tag', 'directorist' ), 'value' => 'OR'],
                                 ],
                                 'value'   => 'OR',
                             ],
                             'listing_from_same_author'                    => [
                                 'type'  => 'toggle',
-                                'label' => __( 'Listing from same author', 'directorist' ),
+                                'label' => __( 'Display listings by the same author', 'directorist' ),
                                 'value' => false,
                             ],
                             'similar_listings_number_of_listings_to_show' => [
                                 'type'  => 'range',
                                 'min'   => 0,
                                 'max'   => 20,
-                                'label' => __( 'Number of listings to show', 'directorist' ),
+                                'label' => __( 'Number of listings to display', 'directorist' ),
                                 'value' => 3,
                             ],
                             'similar_listings_number_of_columns'          => [
@@ -2127,31 +2151,34 @@ class Builder_Data {
                     'addNewGroupButtonLabel' => __( 'Add Section', 'directorist' ),
                 ],
                 'groupFields'     => [
-                    'section_id'           => [
-                        'type'    => 'text',
-                        'disable' => true,
-                        'label'   => 'Section ID',
-                        'value'   => '',
+                    'label'                => [
+                        'type'  => 'text',
+                        'label' => __( 'Label', 'directorist' ),
+                        'value' => 'Section',
                     ],
                     'icon'                 => [
                         'type'  => 'icon',
                         'label' => __( 'Block/Section Icon', 'directorist' ),
                         'value' => '',
                     ],
-                    'label'                => [
-                        'type'  => 'text',
-                        'label' => __( 'Label', 'directorist' ),
-                        'value' => 'Section',
+                    'section_id'           => [
+                        'type'    => 'text',
+                        'disable' => true,
+                        'label'   => 'Section ID',
+                        'value'   => '',
+                        'field_type' => 'advanced',
                     ],
                     'custom_block_id'      => [
                         'type'  => 'text',
                         'label' => __( 'Custom block ID', 'directorist' ),
                         'value' => '',
+                        'field_type' => 'advanced',
                     ],
                     'custom_block_classes' => [
                         'type'  => 'text',
                         'label' => __( 'Custom block Classes', 'directorist' ),
                         'value' => '',
+                        'field_type' => 'advanced',
                     ],
                     'shortcode'            => [
                         'type'        => 'shortcode-list',
@@ -2187,10 +2214,6 @@ class Builder_Data {
                             ],
                         ],
 
-                    ],
-                    'isAdvanced' => [
-                        'lessText' => __( 'Basic', 'directorist' ),
-                        'moreText' => __( 'Advanced', 'directorist' ),
                     ],
                 ],
                 'value'           => [],
@@ -2607,7 +2630,7 @@ class Builder_Data {
                     ],
 
                     'expiration'      => [
-                        'title'             => __( 'Default Listing Expiration Days', 'directorist' ),
+                        'title'             => __( 'Default listing expiration days', 'directorist' ),
                         'description'       => __( 'Set the number of days before a listing automatically expires.', 'directorist' ),
                         'fields'            => [
                             'default_expiration',

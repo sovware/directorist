@@ -2663,6 +2663,7 @@ class Builder_Data {
                 'container' => 'full-width',
                 'video' => [
                     'url' => 'https://www.youtube.com/embed/0rjSHUPZgoE',
+                    'button_text' => __( 'Watch Tutorial', 'directorist' ),
                     'title' => __( 'Add Listing Form Tutorial', 'directorist' ),
                     'description' => __( 'Watch the video to learn how to create add listing form.', 'directorist' ),
                 ],
@@ -2694,6 +2695,7 @@ class Builder_Data {
                         'container' => 'full-width',
                         'video' => [
                             'url' => 'https://www.youtube.com/embed/NtLXjEAPQzc',
+                            'button_text' => __( 'Watch Tutorial', 'directorist' ),
                             'title' => __( 'Listing Header Tutorial', 'directorist' ),
                             'description' => __( 'Watch the video to learn how to create listing header.', 'directorist' ),
                         ],
@@ -2716,6 +2718,7 @@ class Builder_Data {
                         'container' => 'full-width',
                         'video' => [
                             'url' => 'https://www.youtube.com/embed/82CFngofqbM',
+                            'button_text' => __( 'Watch Tutorial', 'directorist' ),
                             'title' => __( 'Contents Tutorial', 'directorist' ),
                             'description' => __( 'Watch the video to learn how to create a custom contents.', 'directorist' ),
                         ],
@@ -2759,6 +2762,7 @@ class Builder_Data {
                         'container' => 'full-width',
                         'video' => [
                             'url' => 'https://www.youtube.com/embed/SijKFqgwXVQ',
+                            'button_text' => __( 'Watch Tutorial', 'directorist' ),
                             'title' => __( 'All Listing Grid Tutorial', 'directorist' ),
                             'description' => __( 'Watch the video to learn how to create all listing grid.', 'directorist' ),
                         ],
@@ -2782,6 +2786,7 @@ class Builder_Data {
                         'container' => 'full-width',
                         'video' => [
                             'url' => 'https://www.youtube.com/embed/T9VovVonLV0',
+                            'button_text' => __( 'Watch Tutorial', 'directorist' ),
                             'title' => __( 'All Listing List Tutorial', 'directorist' ),
                             'description' => __( 'Watch the video to learn how to create all listing list.', 'directorist' ),
                         ],
@@ -2811,6 +2816,7 @@ class Builder_Data {
                 'container' => 'full-width',
                 'video' => [
                     'url' => 'https://www.youtube.com/embed/bWRDFgFIvcI',
+                    'button_text' => __( 'Watch Tutorial', 'directorist' ),
                     'title' => __( 'Search Form Tutorial', 'directorist' ),
                     'description' => __( 'Watch the video to learn how to create search form.', 'directorist' ),
                 ],

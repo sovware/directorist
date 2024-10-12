@@ -32,7 +32,7 @@
                 fill="currentColor"
               />
             </svg>
-            Watch tutorial
+            {{video.button_text}}
           </a>
           <a
             :href="learn_more.url"

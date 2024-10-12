@@ -22,7 +22,7 @@
                     fill="currentColor"
                 />
                 </svg>
-                Watch tutorial
+                {{currentVideo.button_text}}
             </a>
         </div>
 

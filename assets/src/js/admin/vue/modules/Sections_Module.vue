@@ -35,12 +35,12 @@
             Watch tutorial
           </a>
           <a
-            href="#"
+            :href="learn_more.url"
+            target="_blank"
             class="directorist-form-doc__link"
-            v-if="section.fields[0] !== 'submission_form_fields' && section.fields[0] !== 'search_form_fields'"
-          >
-            What is it?
-          </a>
+            v-if="learn_more"
+            v-html="learn_more.title"
+          ></a>
 
         </div>
         <div class="directorist-form-doc-right">
@@ -194,6 +194,9 @@ export default {
       default: "",
     },
     video: {
+      type: Object,
+    },
+    learn_more: {
       type: Object,
     },
   },

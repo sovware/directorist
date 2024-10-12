@@ -101,7 +101,6 @@ export default {
 
         currentVideo() {
             const activeSubMenu = this.subNavigation[this.active_sub_nav];
-            console.log('@activeSubMenu', activeSubMenu?.video);
             return activeSubMenu?.video || null;
         }
     },

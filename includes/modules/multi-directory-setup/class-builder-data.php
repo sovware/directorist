@@ -454,14 +454,16 @@ class Builder_Data {
                                 'value' => true,
                             ],
                             'custom_block_id'      => [
-                                'type'  => 'text',
-                                'label' => __( 'Custom block ID', 'directorist' ),
-                                'value' => '',
+                                'type'       => 'text',
+                                'label'      => __( 'Custom block ID', 'directorist' ),
+                                'value'      => '',
+                                'field_type' => 'advanced',
                             ],
                             'custom_block_classes' => [
-                                'type'  => 'text',
-                                'label' => __( 'Custom block Classes', 'directorist' ),
-                                'value' => '',
+                                'type'       => 'text',
+                                'label'      => __( 'Custom block Classes', 'directorist' ),
+                                'value'      => '',
+                                'field_type' => 'advanced',
                             ],
                         ],
                     ],
@@ -484,11 +486,13 @@ class Builder_Data {
                                 'type'  => 'text',
                                 'label' => __( 'Custom block ID', 'directorist' ),
                                 'value' => '',
+                                'field_type' => 'advanced',
                             ],
                             'custom_block_classes' => [
                                 'type'  => 'text',
                                 'label' => __( 'Custom block Classes', 'directorist' ),
                                 'value' => '',
+                                'field_type' => 'advanced',
                             ],
                         ],
                         'accepted_widgets' => [
@@ -563,14 +567,16 @@ class Builder_Data {
                                 'value' => 'Related Listings',
                             ],
                             'custom_block_id'      => [
-                                'type'  => 'text',
-                                'label' => __( 'Custom block ID', 'directorist' ),
-                                'value' => '',
+                                'type'       => 'text',
+                                'label'      => __( 'Custom block ID', 'directorist' ),
+                                'value'      => '',
+                                'field_type' => 'advanced',
                             ],
                             'custom_block_classes' => [
-                                'type'  => 'text',
-                                'label' => __( 'Custom block Classes', 'directorist' ),
-                                'value' => '',
+                                'type'       => 'text',
+                                'label'      => __( 'Custom block Classes', 'directorist' ),
+                                'value'      => '',
+                                'field_type' => 'advanced',
                             ],
                             'similar_listings_logics'                     => [
                                 'type'    => 'radio',
@@ -2624,7 +2630,7 @@ class Builder_Data {
                     ],
 
                     'expiration'      => [
-                        'title'             => __( 'Default Listing Expiration Days', 'directorist' ),
+                        'title'             => __( 'Default listing expiration days', 'directorist' ),
                         'description'       => __( 'Set the number of days before a listing automatically expires.', 'directorist' ),
                         'fields'            => [
                             'default_expiration',

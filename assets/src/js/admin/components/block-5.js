@@ -102,52 +102,72 @@ window.addEventListener('load', () => {
     });
 
     $('.directorist-type-slug-content').each(function (id, element) {
-        let findElmSlug = $(element).find('.directorist_listing-slug-text');
-
-        // Store old slug value
         let slugWrapper = $(element).children('.directorist_listing-slug-text');
         let oldSlugVal = slugWrapper.attr('data-value');
-
-        // Slug Edit
+    
+        // Edit Slug on Click
+        slugWrapper.on('click', function (e) {
+            e.preventDefault();
+            // Check if any other slug is editable
+            $('.directorist_listing-slug-text[contenteditable="true"]').each(function () {
+                if ($(this).is(slugWrapper)) return; // Skip current slug
+                let currentSlugWrapper = $(this);
+                // Save the current slug before making another editable
+                if (currentSlugWrapper.text().trim() !== oldSlugVal) {
+                    saveSlug(currentSlugWrapper);
+                }
+                currentSlugWrapper.attr('contenteditable', 'false').removeClass('directorist_listing-slug-text--editable');
+            });
+            
+            // Set the current slug as editable
+            $(this).attr('contenteditable', true);
+            $(this).addClass('directorist_listing-slug-text--editable');
+            $(this).focus();
+        });
+    
+        // Slug Edit and Save on Enter Keypress
         slugWrapper.on('input keypress', function (e) {
             let slugText = $(this).text();
             $(this).attr('data-value', slugText);
-            var setSlugBtn = $(this).siblings('.directorist-listing-slug-edit-wrap').children('.directorist_listing-slug-formText-add');
-            $(this).attr('data-value') === '' ? setSlugBtn.addClass('disabled') : setSlugBtn.removeClass('disabled');
-            if (e.key === 'Enter' && $(this).attr('data-value') !== '') {
+    
+            // Save on Enter Key
+            if (e.key === 'Enter' && slugText.trim() !== '') {
                 e.preventDefault();
-                setSlugBtn.click();
+                saveSlug(slugWrapper);  // Trigger save function
             }
-            if ($(this).attr('data-value') === '' && e.key === 'Enter') {
+    
+            // Prevent empty save on Enter key
+            if (slugText.trim() === '' && e.key === 'Enter') {
                 e.preventDefault();
             }
-        })
-
-        // Edit Form Open
-        $('body').on('click', '.directorist-listing-slug__edit', function (e) {
-            e.preventDefault();
-            $('.directorist_listing-slug-formText-remove').click()
-            var editableSlug = $(this).closest('.directorist-listing-slug-edit-wrap').siblings('.directorist_listing-slug-text');
-            editableSlug.attr('contenteditable', true);
-            editableSlug.addClass('directorist_listing-slug-text--editable');
-            $(this).hide();
-            $(this).siblings('.directorist_listing-slug-formText-add').addClass('active');
-            $(this).siblings('.directorist_listing-slug-formText-remove').removeClass('directorist_listing-slug-formText-remove--hidden');
-            editableSlug.focus();
         });
+    
+        // Save Slug on Clicking Outside the Editable Field
+        $(document).on('click', function (e) {
+            if (slugWrapper.attr('contenteditable') === 'true' && !$(e.target).closest('.directorist_listing-slug-text').length) {
 
-        // edit directory type slug
-        $(element).find('.directorist_listing-slug-formText-add').on('click', function (e) {
-            e.preventDefault();
-            var _this = $(this);
-            var type_id = $(this).data('type-id');
-            var update_slug = $('.directorist-slug-text-' + type_id).attr('data-value');
-            oldSlugVal = slugWrapper.attr('data-value'); /* Update the slug values */
-            const addSlug = $(this);
-            let slugId = $('.directorist-slug-notice-' + type_id);
-            let thisSiblings = $(_this).closest('.directorist-listing-slug-edit-wrap').siblings('.directorist_listing-slug-text');
-            addSlug.closest('.directorist-listing-slug-edit-wrap').append(`<span class="directorist_loader"></span>`);
-
+                let slugText = slugWrapper.text();
+    
+                // If the slug was changed, save the new value
+                if (oldSlugVal !== slugText.trim()) {
+                    saveSlug(slugWrapper);
+                }
+    
+                // Exit editing mode
+                slugWrapper.attr('contenteditable', 'false').removeClass('directorist_listing-slug-text--editable');
+            }
+        });
+    
+        // Save slug function
+        function saveSlug(slugWrapper) {
+            let type_id = slugWrapper.data('type-id');
+            let newSlugVal = slugWrapper.attr('data-value');
+            let slugId = $('.directorist-slug-notice-' + type_id); // Use the correct slug notice element
+        
+            // Show loading indicator
+            slugWrapper.after(`<span class="directorist_loader"></span>`);
+        
+            // AJAX request to save the slug
             $.ajax({
                 type: 'post',
                 url: directorist_admin.ajaxurl,
@@ -155,77 +175,52 @@ window.addEventListener('load', () => {
                     action: 'directorist_type_slug_change',
                     directorist_nonce: directorist_admin.directorist_nonce,
                     type_id: type_id,
-                    update_slug: update_slug
+                    update_slug: newSlugVal
                 },
                 success(response) {
-                    addSlug.closest('.directorist-listing-slug-edit-wrap')
-                        .children('.directorist_loader')
-                        .remove();
+                    // Remove loader
+                    slugWrapper.siblings('.directorist_loader').remove();
+        
                     if (response) {
                         if (response.error) {
+                            // Handle error case
                             slugId.removeClass('directorist-slug-notice-success');
                             slugId.addClass('directorist-slug-notice-error');
                             slugId.empty().html(response.error);
-
-                            if ( response.old_slug ) {
-                                $('.directorist-slug-text-' + type_id).text(response.old_slug);
+        
+                            // Revert to old slug on error
+                            if (response.old_slug) {
+                                slugWrapper.text(response.old_slug);
                             }
-
-                            _this.siblings('.directorist-listing-slug__edit').show();
+        
                             setTimeout(function () {
                                 slugId.empty().html("");
                             }, 3000);
                         } else {
+                            // Handle success case
                             slugId.empty().html(response.success);
                             slugId.removeClass('directorist-slug-notice-error');
                             slugId.addClass('directorist-slug-notice-success');
-                            _this.siblings('.directorist-listing-slug__edit').show();
+        
                             setTimeout(function () {
-                                addSlug
-                                    .closest('.directorist-listing-slug__form')
-                                    .css({
-                                        "display": "none"
-                                    })
-                                slugId.html("");
+                                slugWrapper.closest('.directorist-listing-slug__form').css({
+                                    "display": "none"
+                                });
+                                slugId.html(""); // Clear the success message
                             }, 1500);
+        
+                            // Update old slug value
+                            oldSlugVal = newSlugVal;
                         }
                     }
-
-                    $(_this).removeClass('active');
-                    $(_this).siblings('.directorist_listing-slug-formText-remove').addClass('directorist_listing-slug-formText-remove--hidden');
-                    thisSiblings.removeClass('directorist_listing-slug-text--editable');
-                    thisSiblings.attr('contenteditable', 'false');
-                },
+        
+                    // Reset editable state and classes
+                    slugWrapper.attr('contenteditable', 'false').removeClass('directorist_listing-slug-text--editable');
+                }
             });
-        });
-
-        // Edit Form Remove
-        $(element).find('.directorist_listing-slug-formText-remove').on('click', function (e) {
-            e.preventDefault()
-            let thisClosestSibling = $(this).closest('.directorist-listing-slug-edit-wrap').siblings('.directorist_listing-slug-text');
-            $(this).siblings('.directorist-listing-slug__edit').show();
-            $(this).siblings('.directorist_listing-slug-formText-add').removeClass('active disabled');
-            thisClosestSibling.removeClass('directorist_listing-slug-text--editable');
-            thisClosestSibling.attr('contenteditable', 'false');
-            $(this).addClass('directorist_listing-slug-formText-remove--hidden');
-            thisClosestSibling.attr('data-value', oldSlugVal);
-            thisClosestSibling.text(oldSlugVal);
-        });
-
-        // Hide Slug Form outside click
-        $(document).on('click', function (e) {
-            if (!e.target.closest('.directorist-type-slug')) {
-                findElmSlug.attr('data-value', oldSlugVal);
-                findElmSlug.text(oldSlugVal);
-                findElmSlug.attr('contenteditable', 'false');
-                findElmSlug.removeClass('directorist_listing-slug-text--editable');
-                $(element).find('.directorist-listing-slug__edit').show();
-                findElmSlug.siblings('.directorist-listing-slug-edit-wrap').children('.directorist_listing-slug-formText-add').removeClass('active disabled');
-                findElmSlug.siblings('.directorist-listing-slug-edit-wrap').children('.directorist_listing-slug-formText-remove').addClass('directorist_listing-slug-formText-remove--hidden');
-            }
-        });
-
-    })
+        }
+        
+    });    
 
     // Tab Content
     // Modular, classes has no styling, so reusable

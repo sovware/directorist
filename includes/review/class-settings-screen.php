@@ -31,13 +31,13 @@ class Settings_Screen {
 						],
 					],
 					'moderation_options' => [
-						'title' => __( 'Moderation Options', 'directorist' ),
+						'title' => __( 'Moderation Option', 'directorist' ),
 						'fields' => [
 							'approve_immediately'
 						],
 					],
 					'display_settings' => [
-						'title' => __( 'Display Settings', 'directorist' ),
+						'title' => __( 'Display Setting', 'directorist' ),
 						'fields' => [
 							'review_num'
 						],

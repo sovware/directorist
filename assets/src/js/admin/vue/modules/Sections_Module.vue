@@ -8,14 +8,14 @@
     >
       <div
         class="directorist-form-doc"
-        v-if="section.fields[0] === 'submission_form_fields' || section.fields[0] === 'search_form_fields' || section.fields[0] === 'single_listing_header' || section.fields[0] === 'single_listing_header' || section.fields[0] === 'single_listings_contents' || section.fields[0] === 'listings_card_grid_view' || section.fields[0] === 'listings_card_list_view'"
+        v-if="['submission_form_fields', 'search_form_fields', 'single_listing_header', 'single_listings_contents', 'listings_card_grid_view', 'listings_card_list_view'].includes(section.fields[0])"
       >
         <div class="directorist-form-doc-left">
           <div class="directorist-form-doc-title" v-html="section.title"></div>
           <a
             href="#"
             class="directorist-form-doc__watch-tutorial"
-            v-if="video && section.fields[0] === 'submission_form_fields' || section.fields[0] === 'search_form_fields'"
+            v-if="video && ['submission_form_fields', 'search_form_fields'].includes(section.fields[0])"
             @click.prevent="openVideoPopup"
           >
             <svg
@@ -41,7 +41,6 @@
             v-if="learn_more"
             v-html="learn_more.title"
           ></a>
-
         </div>
         <div class="directorist-form-doc-right">
           <a
@@ -224,6 +223,7 @@ export default {
         ? this.fields[firstContainerField].group_label
         : "";
     },
+
   },
 
   methods: {

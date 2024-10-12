@@ -27398,7 +27398,7 @@ var render = function render() {
       key: section_key,
       staticClass: "cptm-section",
       class: _vm.sectionClass(section)
-    }, [section.fields[0] === "submission_form_fields" || section.fields[0] === "search_form_fields" || section.fields[0] === "single_listing_header" || section.fields[0] === "single_listing_header" || section.fields[0] === "single_listings_contents" || section.fields[0] === "listings_card_grid_view" || section.fields[0] === "listings_card_list_view" ? _c("div", {
+    }, [["submission_form_fields", "search_form_fields", "single_listing_header", "single_listings_contents", "listings_card_grid_view", "listings_card_list_view"].includes(section.fields[0]) ? _c("div", {
       staticClass: "directorist-form-doc"
     }, [_c("div", {
       staticClass: "directorist-form-doc-left"
@@ -27407,7 +27407,7 @@ var render = function render() {
       domProps: {
         innerHTML: _vm._s(section.title)
       }
-    }), _vm._v(" "), _vm.video && section.fields[0] === "submission_form_fields" || section.fields[0] === "search_form_fields" ? _c("a", {
+    }), _vm._v(" "), _vm.video && ["submission_form_fields", "search_form_fields"].includes(section.fields[0]) ? _c("a", {
       staticClass: "directorist-form-doc__watch-tutorial",
       attrs: {
         href: "#"

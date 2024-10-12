@@ -6,7 +6,7 @@
       v-for="(section, section_key) in sections"
       :key="section_key"
     >
-    <div
+      <div
         class="directorist-form-doc"
         v-if="section.fields[0] === 'submission_form_fields' || section.fields[0] === 'search_form_fields' || section.fields[0] === 'single_listing_header' || section.fields[0] === 'single_listing_header' || section.fields[0] === 'single_listings_contents' || section.fields[0] === 'listings_card_grid_view' || section.fields[0] === 'listings_card_list_view'"
       >
@@ -15,8 +15,8 @@
           <a
             href="#"
             class="directorist-form-doc__watch-tutorial"
+            v-if="video && section.fields[0] === 'submission_form_fields' || section.fields[0] === 'search_form_fields'"
             @click.prevent="openVideoPopup"
-            v-if="section.fields[0] === 'submission_form_fields' || section.fields[0] === 'search_form_fields'"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -69,12 +69,6 @@
         </div>
       </div>
 
-      <!-- Video Popup Modal -->
-      <form-builder-widget-video-component
-        :videoOpened="showVideo"
-        @close-video="closeVideoPopup"
-      />
-
       <div
         class="cptm-title-area"
         :class="sectionTitleAreaClass(section)"
@@ -87,6 +81,7 @@
           v-html="section.description"
         ></div>
       </div>
+
       <div class="cptm-form-fields" v-if="sectionFields(section)">
         <div
           v-for="(field, field_key) in sectionFields(section)"
@@ -157,6 +152,14 @@
         </div>
       </div>
     </div>
+
+    <!-- Video Popup Modal -->
+    <form-builder-widget-video-component
+      v-if="video"
+      :videoOpened="showVideo"
+      :video="video"
+      @close-video="closeVideoPopup"
+    />
   </div>
 </template>
 
@@ -189,6 +192,9 @@ export default {
     listing_type_id: {
       type: String,
       default: "",
+    },
+    video: {
+      type: Object,
     },
   },
 

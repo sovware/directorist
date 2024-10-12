@@ -34,7 +34,7 @@ $light-gray: #f4f5f7;
   right: 20px;
   top: 42px;
   width: calc(100% - 242px);
-  z-index: 9999;
+  z-index: 101;
   &:before {
     content: '';
     position: absolute;
@@ -168,7 +168,7 @@ $light-gray: #f4f5f7;
     padding: 0 30px;
     flex-wrap: nowrap;
     overflow-x: auto;
-    z-index: 999;
+    z-index: 100;
     @media only screen and (max-width: 960px) {
       width: calc(100% - 138px);
       justify-content: flex-start;
@@ -420,6 +420,14 @@ $light-gray: #f4f5f7;
   position: relative;
   display: block;
   color: $dark;
+  &.trash-overlay-visible {
+    position: fixed;
+    z-index: 9;
+    .directorist-directory-type-top,
+    .directorist-directory-type-bottom .cptm-header-navigation {
+      z-index: 1;
+    }
+  }
 }
 
 .atbdp-cptm-header {
@@ -3246,7 +3254,7 @@ input[type="radio"].cptm-radio {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 9999;
+  z-index: 102;
 }
 
 .video-popup-content {
@@ -3949,7 +3957,7 @@ input[type="radio"] {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 9999;
+  z-index: 10;
 
   .cptm-widget-trash-confirmation-modal {
     background: #fff;

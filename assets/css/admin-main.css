@@ -13794,7 +13794,7 @@ input:-webkit-autofill:active {
   right: 20px;
   top: 42px;
   width: calc(100% - 242px);
-  z-index: 9999;
+  z-index: 101;
 }
 .directorist-directory-type-top:before {
   content: "";
@@ -14009,7 +14009,7 @@ input:-webkit-autofill:active {
       -ms-flex-wrap: nowrap;
           flex-wrap: nowrap;
   overflow-x: auto;
-  z-index: 999;
+  z-index: 100;
 }
 @media only screen and (max-width: 960px) {
   .directorist-directory-type-bottom .cptm-header-navigation {
@@ -14336,6 +14336,14 @@ input:-webkit-autofill:active {
   position: relative;
   display: block;
   color: #23282d;
+}
+.atbdp-cpt-manager.trash-overlay-visible {
+  position: fixed;
+  z-index: 9;
+}
+.atbdp-cpt-manager.trash-overlay-visible .directorist-directory-type-top,
+.atbdp-cpt-manager.trash-overlay-visible .directorist-directory-type-bottom .cptm-header-navigation {
+  z-index: 1;
 }
 
 .atbdp-cptm-header {
@@ -17570,7 +17578,7 @@ input[type=radio].cptm-radio {
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
-  z-index: 9999;
+  z-index: 102;
 }
 
 .video-popup-content {
@@ -18412,7 +18420,7 @@ input[type=radio]:checked::before {
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
-  z-index: 9999;
+  z-index: 10;
 }
 .cptm-widget-trash-confirmation-modal-overlay .cptm-widget-trash-confirmation-modal {
   background: #fff;
@@ -18802,7 +18810,7 @@ input[type=radio]:checked::before {
   right: 20px;
   top: 42px;
   width: calc(100% - 242px);
-  z-index: 9999;
+  z-index: 101;
 }
 .directorist-directory-type-top:before {
   content: "";
@@ -19017,7 +19025,7 @@ input[type=radio]:checked::before {
       -ms-flex-wrap: nowrap;
           flex-wrap: nowrap;
   overflow-x: auto;
-  z-index: 999;
+  z-index: 100;
 }
 @media only screen and (max-width: 960px) {
   .directorist-directory-type-bottom .cptm-header-navigation {
@@ -19344,6 +19352,14 @@ input[type=radio]:checked::before {
   position: relative;
   display: block;
   color: #23282d;
+}
+.atbdp-cpt-manager.trash-overlay-visible {
+  position: fixed;
+  z-index: 9;
+}
+.atbdp-cpt-manager.trash-overlay-visible .directorist-directory-type-top,
+.atbdp-cpt-manager.trash-overlay-visible .directorist-directory-type-bottom .cptm-header-navigation {
+  z-index: 1;
 }
 
 .atbdp-cptm-header {
@@ -22578,7 +22594,7 @@ input[type=radio].cptm-radio {
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
-  z-index: 9999;
+  z-index: 102;
 }
 
 .video-popup-content {
@@ -23420,7 +23436,7 @@ input[type=radio]:checked::before {
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
-  z-index: 9999;
+  z-index: 10;
 }
 .cptm-widget-trash-confirmation-modal-overlay .cptm-widget-trash-confirmation-modal {
   background: #fff;
@@ -24077,7 +24093,7 @@ input[type=radio]:checked::before {
   right: 20px;
   top: 42px;
   width: calc(100% - 242px);
-  z-index: 9999;
+  z-index: 101;
 }
 .directorist-directory-type-top:before {
   content: "";
@@ -24292,7 +24308,7 @@ input[type=radio]:checked::before {
       -ms-flex-wrap: nowrap;
           flex-wrap: nowrap;
   overflow-x: auto;
-  z-index: 999;
+  z-index: 100;
 }
 @media only screen and (max-width: 960px) {
   .directorist-directory-type-bottom .cptm-header-navigation {
@@ -24619,6 +24635,14 @@ input[type=radio]:checked::before {
   position: relative;
   display: block;
   color: #23282d;
+}
+.atbdp-cpt-manager.trash-overlay-visible {
+  position: fixed;
+  z-index: 9;
+}
+.atbdp-cpt-manager.trash-overlay-visible .directorist-directory-type-top,
+.atbdp-cpt-manager.trash-overlay-visible .directorist-directory-type-bottom .cptm-header-navigation {
+  z-index: 1;
 }
 
 .atbdp-cptm-header {
@@ -27853,7 +27877,7 @@ input[type=radio].cptm-radio {
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
-  z-index: 9999;
+  z-index: 102;
 }
 
 .video-popup-content {
@@ -28695,7 +28719,7 @@ input[type=radio]:checked::before {
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
-  z-index: 9999;
+  z-index: 10;
 }
 .cptm-widget-trash-confirmation-modal-overlay .cptm-widget-trash-confirmation-modal {
   background: #fff;

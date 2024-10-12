@@ -265,11 +265,7 @@ export default {
 
     handleTrashClick() {
       this.expandedDropdown = !this.expandedDropdown;
-      if (this.isPresetOrCustomGroup && this.widgetKey !== "terms_privacy") {
-        this.openConfirmationModal();
-      } else {
-        this.$emit("trash-widget");
-      }
+      this.openConfirmationModal();
     },
 
     sync() {

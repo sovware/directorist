@@ -17945,11 +17945,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     handleTrashClick: function handleTrashClick() {
       this.expandedDropdown = !this.expandedDropdown;
-      if (this.isPresetOrCustomGroup && this.widgetKey !== "terms_privacy") {
-        this.openConfirmationModal();
-      } else {
-        this.$emit("trash-widget");
-      }
+      this.openConfirmationModal();
     },
     sync: function sync() {
       this.syncCurrentWidget();

@@ -1,0 +1,185 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "category": "directorist-blocks-collection",
+  "version": "1.0.0",
+  "title": "Sign In & Sign Up",
+  "name": "directorist/signin-signup",
+  "description": "Create user sign in and sign up form.",
+  "keywords": [
+    "login",
+    "registration",
+    "sign in",
+    "sign up"
+  ],
+  "supports": {
+    "html": false
+  },
+  "editorScript": "file:./index.js",
+  "attributes": {
+    "user_role": {
+      "type": "boolean",
+      "default": false
+    },
+    "author_role_label": {
+      "type": "string",
+      "default": "I am an author"
+    },
+    "user_role_label": {
+      "type": "string",
+      "default": "I am a user"
+    },
+    "registration": {
+      "type": "boolean",
+      "default": true
+    },
+    "username_label": {
+      "type": "string",
+      "default": "Username"
+    },
+    "password": {
+      "type": "boolean",
+      "default": true
+    },
+    "password_label": {
+      "type": "string",
+      "default": "Password"
+    },
+    "email_label": {
+      "type": "string",
+      "default": "Email"
+    },
+    "website": {
+      "type": "boolean",
+      "default": false
+    },
+    "website_label": {
+      "type": "string",
+      "default": "Website"
+    },
+    "website_required": {
+      "type": "boolean",
+      "default": false
+    },
+    "firstname": {
+      "type": "boolean",
+      "default": false
+    },
+    "firstname_label": {
+      "type": "string",
+      "default": "First Name"
+    },
+    "firstname_required": {
+      "type": "boolean",
+      "default": false
+    },
+    "lastname": {
+      "type": "boolean",
+      "default": false
+    },
+    "lastname_label": {
+      "type": "string",
+      "default": "Last Name"
+    },
+    "lastname_required": {
+      "type": "boolean",
+      "default": false
+    },
+    "bio": {
+      "type": "boolean",
+      "default": false
+    },
+    "bio_label": {
+      "type": "string",
+      "default": "About/bio"
+    },
+    "bio_required": {
+      "type": "boolean",
+      "default": false
+    },
+    "privacy": {
+      "type": "boolean",
+      "default": true
+    },
+    "privacy_label": {
+      "type": "string",
+      "default": "I agree to the"
+    },
+    "privacy_linking_text": {
+      "type": "string",
+      "default": "Privacy & Policy"
+    },
+    "terms": {
+      "type": "boolean",
+      "default": true
+    },
+    "terms_label": {
+      "type": "string",
+      "default": "I agree with all"
+    },
+    "terms_linking_text": {
+      "type": "string",
+      "default": "terms & conditions"
+    },
+    "signup_button_label": {
+      "type": "string",
+      "default": "Sign Up"
+    },
+    "signin_message": {
+      "type": "string",
+      "default": "Already have an account? Please Sign in"
+    },
+    "signin_linking_text": {
+      "type": "string",
+      "default": "Here"
+    },
+    "signin_after_signup": {
+      "type": "boolean",
+      "default": false
+    },
+    "signup_redirect_url": {
+      "type": "string",
+      "default": ""
+    },
+    "signin_username_label": {
+      "type": "string",
+      "default": "Username or Email Address"
+    },
+    "signin_button_label": {
+      "type": "string",
+      "default": "Sign In"
+    },
+    "signup_label": {
+      "type": "string",
+      "default": "Don't have an account?"
+    },
+    "signup_linking_text": {
+      "type": "string",
+      "default": "Sign Up"
+    },
+    "recovery_password_label": {
+      "type": "string",
+      "default": "Forgot Password?"
+    },
+    "recovery_password_description": {
+      "type": "string",
+      "default": "Lost your password? Please enter your email address. You will receive a link to create a new password via email."
+    },
+    "recovery_password_email_label": {
+      "type": "string",
+      "default": "E-mail:"
+    },
+    "recovery_password_email_placeholder": {
+      "type": "string",
+      "default": "eg. mail@example.com"
+    },
+    "recovery_password_button_label": {
+      "type": "string",
+      "default": "Get New Password"
+    },
+    "user_type": {
+      "type": "string",
+      "default": ""
+    }
+  }
+}

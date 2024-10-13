@@ -1,3 +1,44 @@
+/* Search Form */
+.directorist-search-form-box-wrap .directorist-search-form-box .directorist-search-form-top {
+    display: flex;
+    flex: 1;
+    gap: 18px;
+    flex-wrap: wrap;
+}
+.directorist-search-form-box-wrap .directorist-search-form-box .directorist-search-form-top .directorist-search-field {
+    flex: 30%;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 0;
+    position: relative;
+    padding-bottom: 0;
+    box-sizing: border-box;
+}
+
+.directorist-search-form-box-wrap .directorist-search-form-box .directorist-search-form-top .directorist-search-field.directorist-icon-left .location-name {
+    padding-left: 25px;
+}
+.directorist-search-form-box-wrap .directorist-search-form-box .directorist-search-form-top .directorist-search-field .directorist-select select {
+    background: transparent;
+}
+.directorist-search-form-box-wrap .directorist-search-form-box .directorist-search-form-top .directorist-search-field .directorist-search-tags {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    min-height: 40px;
+}
+
+.directorist-search-form-box-wrap .directorist-search-form-box .directorist-search-form-top .directorist-search-form-action {
+    padding: 0;
+}
+.directorist-search-form-box-wrap .directorist-search-form-box .directorist-search-form-top .directorist-search-form-action__filter {
+    display: none;
+}
+.directorist-search-form-box-wrap .directorist-search-form-box .directorist-search-form-top .directorist-search-form-action__submit .directorist-btn-search {
+    white-space: nowrap;
+}
+
+
 /* All Listing Card */
 .directorist-search-modal {
     display: none;

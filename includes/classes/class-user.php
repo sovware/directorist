@@ -215,7 +215,11 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 					'redirect_url' => esc_url_raw( ATBDP_Permalink::get_signin_signup_page_link( array(
 						'user'         => $email,
 						'verification' => 1,
-					) ) )
+					))),
+					'message'      => esc_html__( 
+						"Thank you for requesting a new verification email. Please check your inbox and verify to complete the registration.<br><br>If you still can't find it, please check your spam folder. And please contact if you are still having trouble.", 
+						'directorist' 
+					),
 				);
 
 				wp_send_json_success( $response );

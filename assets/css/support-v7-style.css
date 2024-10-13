@@ -1,0 +1,56 @@
+
+.directorist-search-modal {
+    display: none;
+}
+.directorist-content-active .directorist-listing-single {
+    background-color: var(--directorist-color-white);
+    border-radius: 12px;
+}
+
+.directorist-form-group.directorist-icon-left .location-name {
+    padding-left: 0;
+}
+.listing-with-sidebar__searchform .directorist-search-form .directorist-filter-location-icon {
+    left: unset;
+    bottom: 13px;
+}
+
+.directorist-content-active .directorist-listing-single.directorist-listing-card .directorist-badge, 
+.directorist-content-active .directorist-listing-single.directorist-listing-list .directorist-badge {
+    width: auto;
+    height: auto;
+    padding: 0 5px;
+    border-radius: 5px;
+}
+.directorist-content-active .directorist-listing-single .directorist-badge.directorist-badge-popular {
+    background-color: var(--directorist-color-popular-badge) !important;
+}
+.directorist-content-active .directorist-listing-single .directorist-badge.directorist-badge-new {
+    background-color: var(--directorist-color-new-badge) !important;
+}
+.directorist-content-active .directorist-listing-single .directorist-badge.directorist-badge-featured {
+    background-color: var(--directorist-color-featured-badge) !important;
+}
+.directorist-content-active .directorist-listing-single .directorist-badge.directorist-badge-closed {
+    background-color: var(--directorist-color-closed-badge) !important;
+}
+.directorist-content-active .directorist-listing-single .directorist-badge.directorist-badge-open {
+    background-color: var(--directorist-color-open-badge) !important;
+}
+
+.directorist-listing-single__info--top {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+.directorist-listing-single__info--list ul {
+    display: flex;
+    gap: 8px;
+    flex-direction: column;
+    margin-top: 10px;
+}
+.directorist-listing-single__info--list ul > div {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}

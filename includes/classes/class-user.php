@@ -215,7 +215,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 					'redirect_url' => esc_url_raw( ATBDP_Permalink::get_signin_signup_page_link( array(
 						'user'         			  => $email,
 						'send_verification_email' => 1,
-					) ) ),
+					) ) )
 				);
 
 				wp_send_json_success( $response );

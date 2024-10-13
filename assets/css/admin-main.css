@@ -15154,6 +15154,9 @@ input:-webkit-autofill:active {
     width: calc(100% - 2px);
   }
 }
+.cptm-section.new_listing_status {
+  z-index: 11;
+}
 .cptm-section:last-child {
   margin-bottom: 0;
 }
@@ -20161,6 +20164,9 @@ input[type=radio]:checked::before {
     bottom: 96px;
     width: calc(100% - 2px);
   }
+}
+.cptm-section.new_listing_status {
+  z-index: 11;
 }
 .cptm-section:last-child {
   margin-bottom: 0;
@@ -25436,6 +25442,9 @@ input[type=radio]:checked::before {
     bottom: 96px;
     width: calc(100% - 2px);
   }
+}
+.cptm-section.new_listing_status {
+  z-index: 11;
 }
 .cptm-section:last-child {
   margin-bottom: 0;

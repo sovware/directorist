@@ -286,18 +286,28 @@ class Directorist_Listing_Taxonomy {
 					$image = !empty($image) ? $image : '';
 				}
 
-				$child_terms = get_term_children($term->term_id, $this->tax);
-
+				$child_terms 	= get_term_children($term->term_id, $this->tax);
+				
+				$directory_type = '';
 				if( ! empty( $_GET['directory_type'] ) ) {
 					$directory_type = sanitize_text_field( wp_unslash( $_GET['directory_type'] ) );
-				} else {
-					$current_type = get_term( $this->current_listing_type, ATBDP_TYPE );
-					$current_directory_type_slug = ! empty( $current_type ) && ! is_wp_error( $current_type ) ? $current_type->slug : '';
-					$directory_type = ( 1 == $this->directory_type_count ) ? $this->directory_type[0] : $current_directory_type_slug;
+				} 
+
+				if( ! empty( $_GET['directory_type'] ) && 'all' == $_GET['directory_type'] ) {
+					$term_directory_types = get_term_meta( $term->term_id, '_directory_type', true );
+
+					if ( is_array( $term_directory_types ) ) {
+						$directory_type = $term_directory_types[0];
+						if( $directory_type ) {
+							$type    	   = get_term_by( 'id', $directory_type, ATBDP_TYPE );
+							$directory_type  = $type ? $type->slug : '';
+						}
+					}
+
 				}
 
 				$permalink = ( $this->type == 'category' ) ? ATBDP_Permalink::atbdp_get_category_page( $term, $directory_type ) : ATBDP_Permalink::atbdp_get_location_page( $term, $directory_type );
-
+				
 				$data = array(
 					'term'      => $term,
 					'has_child' => !empty($child_terms) ? true : false,
@@ -389,7 +399,7 @@ class Directorist_Listing_Taxonomy {
 
 		$current = !empty($listing_types) ? array_key_first( $listing_types ) : '';
 
-		if ( isset( $_GET['directory_type'] ) && 'all' != $_GET['directory_type'] ) {
+		if ( isset( $_GET['directory_type'] ) ) {
 			$current = sanitize_text_field( wp_unslash( $_GET['directory_type'] ) ) ;
 		}
 		else if( $this->default_directory_type ) {

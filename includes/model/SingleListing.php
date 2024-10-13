@@ -501,7 +501,7 @@ class Directorist_Single_Listing {
 
 		// Get the gallery images
 		$listing_img  = get_post_meta( $listing_id, '_listing_img', true );
-		$listing_imgs = ( ! empty( $listing_img ) ) ? $listing_img : array();
+		$listing_imgs = ! empty( $listing_img ) ? ( ! is_array( $listing_img ) ? array( $listing_img ) : $listing_img ) : array();
 		$image_links  = array(); // define a link placeholder variable
 
 		foreach ( $listing_imgs as $img_id ) {

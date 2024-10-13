@@ -15,19 +15,70 @@ class ATBDP_Upgrade
 
 	public function __construct()
 	{
+		add_action('init', array($this, 'migrate_single_listing_header_data'));
+
 		if ( !is_admin() ) return;
 
 		add_action('admin_init', array($this, 'configure_notices'));
-
+		
 		add_action('admin_notices', array($this, 'upgrade_notice'), 100);
-
+		
 		add_action('directorist_before_settings_panel_header', array($this, 'promo_banner') );
-
+		
 		add_action('directorist_before_all_directory_types', array($this, 'promo_banner') );
-
+		
 		add_action('directorist_before_directory_type_edited', array($this, 'promo_banner') );
-
+		
 		add_action( 'admin_notices', array( $this, 'bfcm_notice') );
+
+	}
+
+	/**
+	 * Migrate single listing header data.
+	 *
+	 * @since 7.0.0
+	 * @return void
+	 */
+	public function migrate_single_listing_header_data() {
+		// Check if migration has already been completed.
+		if (
+			get_option( 'v7_single_listing_header_migration', false ) 
+			|| ! current_user_can( 'manage_options' ) 
+			|| ( 
+				! get_option( 'directorist_builder_header_migrated', false ) 
+				&& version_compare( get_option( 'directorist_db_version', false ), '8.0.0', '<=' ) 
+			)
+		) {
+			return;
+		}
+
+		// Fetch backup data.
+		$header_backup_json  = get_option( 'directorist_builder_backup_data' );
+		$header_backup_array = json_decode( $header_backup_json, true );
+
+		if ( empty( $header_backup_array ) ) {
+			return;
+		}
+
+		// Process each directory type in the backup data.
+		foreach ( $header_backup_array as $directory_type => $data ) {
+			$current_header_data = [];
+
+			// Update listing header data where the key matches 'single_listing_header'.
+			foreach ( $data as $key => $value ) {
+				if ( 'single_listing_header' === $key ) {
+					$current_header_data = $value; // Merge backup options with the current fields.
+				}
+			}
+
+			// Update the term meta with the new structure for each directory type.
+			if ( ! empty( $current_header_data ) ) {
+				update_term_meta( $directory_type, 'single_listing_header', $current_header_data );
+			}
+		}
+
+		// Mark the migration as completed.
+		update_option( 'v7_single_listing_header_migration', true );
 	}
 
 	public function is_pro_user() {

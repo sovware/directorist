@@ -40,8 +40,15 @@
 
 
 /* All Listing Card */
-.directorist-search-modal {
+.directorist-search-modal,
+.directorist-content-active .directorist-listings-header__left .directorist-filter-btn {
     display: none;
+}
+.directorist-archive-contents  .directorist-header-bar {
+    margin-bottom: 30px;
+}
+.directorist-archive-contents .listing-with-sidebar__header .directorist-header-bar {
+    margin-bottom: 0;
 }
 .directorist-content-active .directorist-listing-single {
     background-color: var(--directorist-color-white);

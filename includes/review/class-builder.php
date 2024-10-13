@@ -82,6 +82,28 @@ class Builder {
 		return $this->get_field( 'website', 'placeholder', $default );
 	}
 
+	/**
+	 * Get the label for the comment field.
+	 *
+	 * @deprecated 8.0 Use get_comment_field_label() instead.
+	 * @param string $default Default label text if not set.
+	 * @return string The label for the comment field.
+	 */
+	public function get_comment_label( $default = '' ) {
+		_deprecated_function( __METHOD__, '8.0' );
+		return $this->get_comment_field_label( $default );
+	}
+
+	/**
+	 * Get comment field label.
+	 *
+	 * @param string $default Default label text.
+	 * @return string
+	 */
+	public function get_comment_field_label( $default = '' ) {
+		return $this->get_field( 'comment_label', $default );
+	}
+
 	public function get_comment_placeholder( $default = '' ) {
 		return $this->get_field( 'comment', 'placeholder', $default );
 	}

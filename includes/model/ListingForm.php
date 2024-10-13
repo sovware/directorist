@@ -462,6 +462,7 @@ class Directorist_Listing_Form {
 			'display_privacy'         => (bool) get_directorist_type_option( $type, 'listing_privacy', 1 ),
 			'privacy_is_required'     => get_directorist_type_option( $type, 'require_privacy', 1 ),
 			'privacy_checked'         => (bool) get_post_meta( $p_id, '_privacy_policy', true ),
+			'display_terms'           => false,
 			'terms_checked'           => (bool) get_post_meta( $p_id, '_t_c_check', true ),
 			'submit_label'            => get_directorist_type_option( $type, 'submit_button_label', __( 'Save & Preview', 'directorist' ) ),
 		);

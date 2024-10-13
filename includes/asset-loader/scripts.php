@@ -69,6 +69,13 @@ class Scripts {
 				'rtl' => true,
 			],
 
+			// Support v7 CSS
+			'directorist-support-v7-style' => [
+				'type' => 'css',
+				'path' => DIRECTORIST_CSS . 'support-v7-style',
+				'rtl' => true,
+			],
+
 			// Admin CSS
 			'directorist-admin-style' => [
 				'type' => 'css',

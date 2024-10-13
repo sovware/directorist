@@ -42,10 +42,12 @@ class ATBDP_Upgrade
 	public function migrate_single_listing_header_data() {
 		// Check if migration has already been completed.
 		if (
-			get_option( 'v7_single_listing_header_migration', false ) ||
-			! current_user_can( 'manage_options' ) ||
-			( ! get_option( 'directorist_builder_header_migrated', false ) &&
-			get_option( 'directorist_db_version', false ) <= '8.0.0' )
+			get_option( 'v7_single_listing_header_migration', false ) 
+			|| ! current_user_can( 'manage_options' ) 
+			|| ( 
+				! get_option( 'directorist_builder_header_migrated', false ) 
+				&& version_compare( get_option( 'directorist_db_version', false ), '8.0.0', '<=' ) 
+			)
 		) {
 			return;
 		}

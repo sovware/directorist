@@ -611,6 +611,7 @@ class Directorist_Single_Listing {
 
 		$args = array(
 			'listing'    => $this,
+			'has_slider' => true,
 			'data'       => $this->get_slider_data( $slider ),
 		);
 

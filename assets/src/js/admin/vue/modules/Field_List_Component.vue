@@ -9,7 +9,7 @@
       :key="field_key"
       :is="field.type + '-field'"
       :section-id="sectionId"
-      :field-id="field_key"
+      :field-id="`${sectionId}_${field_key}`"
       :root="field_list"
       v-bind="excludeShowIfCondition(field)"
       @update="update({ key: field_key, value: $event })"

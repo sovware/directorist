@@ -25238,6 +25238,11 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     }
   },
   created: function created() {
+    console.log('@CHK-1: value', {
+      fieldId: this.fieldId,
+      name: this.name,
+      value: this.value
+    });
     this.setup();
   },
   data: function data() {
@@ -25247,6 +25252,11 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   },
   watch: {
     value: function value() {
+      console.log('@CHK-2: value', {
+        fieldId: this.fieldId,
+        name: this.name,
+        value: this.value
+      });
       this.loadOldData();
     }
   },
@@ -25383,9 +25393,11 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     },
     loadOldData: function loadOldData() {
       if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(this.value) !== 'object') {
+        this.active_fields_groups = [];
         return false;
       }
       if (!this.value.length) {
+        this.active_fields_groups = [];
         return false;
       }
       var fields_groups = [];
@@ -27242,7 +27254,7 @@ var render = function render() {
       tag: "component",
       attrs: {
         "section-id": _vm.sectionId,
-        "field-id": field_key,
+        "field-id": "".concat(_vm.sectionId, "_").concat(field_key),
         root: _vm.field_list
       },
       on: {
@@ -33427,7 +33439,7 @@ var render = function render() {
       staticClass: "cptm-multi-option-group-section"
     }, [_c("h3", [_vm._v("# " + _vm._s(option_group_key + 1))]), _vm._v(" "), _vm._l(option_group, function (option, option_key) {
       return [_c(option.type + "-field", _vm._b({
-        key: option_key,
+        key: "".concat(_vm.fieldId, "_").concat(option_key),
         tag: "component",
         attrs: {
           root: option_group,

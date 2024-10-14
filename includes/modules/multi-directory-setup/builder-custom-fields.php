@@ -512,7 +512,7 @@ return apply_filters( 'atbdp_form_custom_widgets', array(
 	],
 
 	'select' => [
-		'label'   => __( 'Select', 'directorist' ),
+		'label'   => __( 'Dropdown', 'directorist' ),
 		'icon'    => 'uil uil-file-check-alt',
 		'options' => [
 			'type' => [

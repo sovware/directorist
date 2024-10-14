@@ -2718,6 +2718,9 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         'active': this.local_value
       };
     },
+    link: function link() {
+      return this.comp.link.url ? lodash.unescape(this.comp.link.url) : this.comp.link.url;
+    },
     compLinkIsEnable: function compLinkIsEnable() {
       if (!(this.componets && this.componets.link)) {
         return false;
@@ -34789,13 +34792,10 @@ var render = function render() {
     staticClass: "cptm-btn cptm-btn-outline directorist_btn-start",
     class: _vm.compLinkClass,
     attrs: {
-      href: _vm.comp.link.url,
+      href: _vm.link,
       target: _vm.comp.link.target
-    },
-    domProps: {
-      innerHTML: _vm._s(_vm.comp.link.label)
     }
-  }) : _vm._e()])]), _vm._v(" "), _c("form-field-validatior", {
+  }, [_vm._v("\n                        " + _vm._s(_vm.comp.link.label) + "\n                    ")]) : _vm._e()])]), _vm._v(" "), _c("form-field-validatior", {
     attrs: {
       "section-id": _vm.sectionId,
       "field-id": _vm.fieldId,

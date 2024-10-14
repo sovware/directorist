@@ -20,10 +20,10 @@
                         <a 
                             class="cptm-btn cptm-btn-outline directorist_btn-start" 
                             v-if="compLinkIsEnable" 
-                            :href="comp.link.url"
+                            :href="link"
                             :target="comp.link.target"
-                            :class="compLinkClass" 
-                            v-html="comp.link.label">
+                            :class="compLinkClass" >
+                            {{  comp.link.label  }}
                         </a>
                     </div>
                 </div>

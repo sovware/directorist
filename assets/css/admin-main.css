@@ -29531,6 +29531,10 @@ span.drop-toggle-caret:before {
   display: none;
 }
 
+#import_export .cptm-menu-title {
+  display: none;
+}
+
 .directorist-extensions > td > div {
   margin: -2px 35px 10px;
   border: 1px solid #E3E6EF;

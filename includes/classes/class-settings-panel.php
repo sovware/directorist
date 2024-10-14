@@ -4779,30 +4779,22 @@ Please remember that your order may be canceled if you do not make your payment 
                     ]),
                 ],
 
-                'tools' => [
-                    'label' => __( 'Tools', 'directorist' ),
+                'import_export' => [
+                    'label' => __( 'Import and Export', 'directorist' ),
                     'icon' => '<i class="fa fa-tools directorist_info"></i>',
-                    'submenu' => apply_filters('atbdp_tools_submenu', [
-
-                        'listings_import' => [
-                            'label'       => __('Import and Export', 'directorist'),
-                            'icon'        => '<i class="fa fa-upload"></i>',
-                            'sections'    => apply_filters('atbdp_listings_import_controls', [
-                                'import_methods' => array(
-                                    'title'      => __( 'Listings', 'directorist' ),
-                                    'fields'     => apply_filters('atbdp_csv_import_settings_fields', [
-                                        'listing_import_button', 'listing_export_button',
-                                    ]),
-                                ),
-                                'export_methods' => array(
-                                    'title'      => __( 'Settings', 'directorist' ),
-                                    'fields'     => apply_filters('atbdp_csv_export_settings_fields', [
-                                        'import_settings', 'export_settings', 'restore_default_settings'
-                                    ]),
-                                ),
+                    'sections'    => apply_filters('atbdp_listings_import_controls', [
+                        'import_methods' => array(
+                            'title'      => __( 'Listings', 'directorist' ),
+                            'fields'     => apply_filters('atbdp_csv_import_settings_fields', [
+                                'listing_import_button', 'listing_export_button',
                             ]),
-                        ],
-
+                        ),
+                        'export_methods' => array(
+                            'title'      => __( 'Settings', 'directorist' ),
+                            'fields'     => apply_filters('atbdp_csv_export_settings_fields', [
+                                'import_settings', 'export_settings', 'restore_default_settings'
+                            ]),
+                        ),
                     ]),
                 ],
 

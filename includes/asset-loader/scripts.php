@@ -331,10 +331,12 @@ class Scripts {
 			'directorist-multi-directory-builder' => [
 				'type' => 'js',
 				'path' => DIRECTORIST_JS . 'admin-multi-directory-builder',
+				'dep'  => [ 'lodash' ]
 			],
 			'directorist-settings-manager' => [
 				'type' => 'js',
 				'path' => DIRECTORIST_JS . 'admin-settings-manager',
+				'dep'  => [ 'lodash' ]
 			],
 			'directorist-plugins' => [
 				'type' => 'js',

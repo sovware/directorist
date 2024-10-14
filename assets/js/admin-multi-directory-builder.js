@@ -2773,6 +2773,9 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         'active': this.local_value
       };
     },
+    link: function link() {
+      return this.comp.link.url ? lodash.unescape(this.comp.link.url) : this.comp.link.url;
+    },
     compLinkIsEnable: function compLinkIsEnable() {
       if (!(this.componets && this.componets.link)) {
         return false;
@@ -25238,6 +25241,11 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     }
   },
   created: function created() {
+    console.log('@CHK-1: value', {
+      fieldId: this.fieldId,
+      name: this.name,
+      value: this.value
+    });
     this.setup();
   },
   data: function data() {
@@ -25247,6 +25255,11 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   },
   watch: {
     value: function value() {
+      console.log('@CHK-2: value', {
+        fieldId: this.fieldId,
+        name: this.name,
+        value: this.value
+      });
       this.loadOldData();
     }
   },
@@ -25383,9 +25396,11 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     },
     loadOldData: function loadOldData() {
       if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(this.value) !== 'object') {
+        this.active_fields_groups = [];
         return false;
       }
       if (!this.value.length) {
+        this.active_fields_groups = [];
         return false;
       }
       var fields_groups = [];
@@ -27242,7 +27257,7 @@ var render = function render() {
       tag: "component",
       attrs: {
         "section-id": _vm.sectionId,
-        "field-id": field_key,
+        "field-id": "".concat(_vm.sectionId, "_").concat(field_key),
         root: _vm.field_list
       },
       on: {
@@ -33427,7 +33442,7 @@ var render = function render() {
       staticClass: "cptm-multi-option-group-section"
     }, [_c("h3", [_vm._v("# " + _vm._s(option_group_key + 1))]), _vm._v(" "), _vm._l(option_group, function (option, option_key) {
       return [_c(option.type + "-field", _vm._b({
-        key: option_key,
+        key: "".concat(_vm.fieldId, "_").concat(option_key),
         tag: "component",
         attrs: {
           root: option_group,
@@ -35218,13 +35233,10 @@ var render = function render() {
     staticClass: "cptm-btn cptm-btn-outline directorist_btn-start",
     class: _vm.compLinkClass,
     attrs: {
-      href: _vm.comp.link.url,
+      href: _vm.link,
       target: _vm.comp.link.target
-    },
-    domProps: {
-      innerHTML: _vm._s(_vm.comp.link.label)
     }
-  }) : _vm._e()])]), _vm._v(" "), _c("form-field-validatior", {
+  }, [_vm._v("\n                        " + _vm._s(_vm.comp.link.label) + "\n                    ")]) : _vm._e()])]), _vm._v(" "), _c("form-field-validatior", {
     attrs: {
       "section-id": _vm.sectionId,
       "field-id": _vm.fieldId,

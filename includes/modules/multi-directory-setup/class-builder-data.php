@@ -623,11 +623,6 @@ class Builder_Data {
                     'title'        => [
                         'label'   => __( 'Search Box', 'directorist' ),
                         'options' => [
-                            'required'    => [
-                                'type'  => 'toggle',
-                                'label' => __( 'Required', 'directorist' ),
-                                'value' => false,
-                            ],
                             'label' => [
                                 'type'  => 'text',
                                 'label' => __( 'label', 'directorist' ),
@@ -637,6 +632,11 @@ class Builder_Data {
                                 'type'  => 'text',
                                 'label' => __( 'Placeholder', 'directorist' ),
                                 'value' => 'What are you looking for?',
+                            ],
+                            'required'    => [
+                                'type'  => 'toggle',
+                                'label' => __( 'Required', 'directorist' ),
+                                'value' => false,
                             ],
                         ],
                     ],

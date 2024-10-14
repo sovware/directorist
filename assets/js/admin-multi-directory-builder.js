@@ -29804,7 +29804,11 @@ var render = function render() {
     class: _vm.widgetsExpanded ? "expanded" : ""
   }, [_c("h3", {
     staticClass: "cptm-form-builder-group-title"
-  }, [_vm._v("\n    " + _vm._s(_vm.label) + "\n    "), _vm.groupFields && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(_vm.groupFields) === "object" ? _c("a", {
+  }, [_c("span", {
+    domProps: {
+      innerHTML: _vm._s(_vm.label)
+    }
+  }), _vm._v(" "), _vm.groupFields && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(_vm.groupFields) === "object" ? _c("a", {
     staticClass: "cptm-form-builder-header-action-link cptm-ml-5 cptm-link-light",
     attrs: {
       href: "#"

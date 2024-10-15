@@ -47,23 +47,23 @@ export default {
         // Get the colors based on the button type
         buttonStyles() {
             const { 
-                primary_color, 
-                primary_hover_color, 
-                back_primary_color, 
-                secondary_color, 
-                secondary_hover_color, 
-                back_secondary_color 
+                button_primary_color, 
+                button_primary_hover_color, 
+                button_primary_bg_color, 
+                button_secondary_color, 
+                button_secondary_hover_color, 
+                button_secondary_bg_color 
             } = this.$store.state.fields;
 
-            if (this.buttonType === 'solid_primary') {
+            if (this.buttonType === 'button_type_primary') {
                 return {
-                    color: this.hovered ? primary_hover_color.value : primary_color.value,
-                    backgroundColor: back_primary_color.value,
+                    color: this.hovered ? button_primary_hover_color.value : button_primary_color.value,
+                    backgroundColor: button_primary_bg_color.value,
                 };
-            } else if (this.buttonType === 'solid_secondary') {
+            } else if (this.buttonType === 'button_type_secondary') {
                 return {
-                    color: this.hovered ? secondary_hover_color.value : secondary_color.value,
-                    backgroundColor: back_secondary_color.value,
+                    color: this.hovered ? button_secondary_hover_color.value : button_secondary_color.value,
+                    backgroundColor: button_secondary_bg_color.value,
                 };
             } else {
                 return {}; // Default or other cases

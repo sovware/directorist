@@ -26255,21 +26255,21 @@ __webpack_require__.r(__webpack_exports__);
     // Get the colors based on the button type
     buttonStyles: function buttonStyles() {
       var _this$$store$state$fi = this.$store.state.fields,
-        primary_color = _this$$store$state$fi.primary_color,
-        primary_hover_color = _this$$store$state$fi.primary_hover_color,
-        back_primary_color = _this$$store$state$fi.back_primary_color,
-        secondary_color = _this$$store$state$fi.secondary_color,
-        secondary_hover_color = _this$$store$state$fi.secondary_hover_color,
-        back_secondary_color = _this$$store$state$fi.back_secondary_color;
-      if (this.buttonType === 'solid_primary') {
+        button_primary_color = _this$$store$state$fi.button_primary_color,
+        button_primary_hover_color = _this$$store$state$fi.button_primary_hover_color,
+        button_primary_bg_color = _this$$store$state$fi.button_primary_bg_color,
+        button_secondary_color = _this$$store$state$fi.button_secondary_color,
+        button_secondary_hover_color = _this$$store$state$fi.button_secondary_hover_color,
+        button_secondary_bg_color = _this$$store$state$fi.button_secondary_bg_color;
+      if (this.buttonType === 'button_type_primary') {
         return {
-          color: this.hovered ? primary_hover_color.value : primary_color.value,
-          backgroundColor: back_primary_color.value
+          color: this.hovered ? button_primary_hover_color.value : button_primary_color.value,
+          backgroundColor: button_primary_bg_color.value
         };
-      } else if (this.buttonType === 'solid_secondary') {
+      } else if (this.buttonType === 'button_type_secondary') {
         return {
-          color: this.hovered ? secondary_hover_color.value : secondary_color.value,
-          backgroundColor: back_secondary_color.value
+          color: this.hovered ? button_secondary_hover_color.value : button_secondary_color.value,
+          backgroundColor: button_secondary_bg_color.value
         };
       } else {
         return {}; // Default or other cases

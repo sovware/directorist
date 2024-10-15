@@ -640,18 +640,18 @@ Please remember that your order may be canceled if you do not make your payment 
                     'show-default-option' => true,
                     'options'   => [
                         [
-                            'value' => 'solid_primary',
+                            'value' => 'button_type_primary',
                             'label' => __('Primary', 'directorist'),
                         ],
                         [
-                            'value' => 'solid_secondary',
+                            'value' => 'button_type_secondary',
                             'label' => __('Secondary', 'directorist'),
                         ],
                     ]
                 ],
 
                 // solid primary color
-                'primary_example' => [
+                'button_primary_example' => [
                     'label'             => __('Button Example', 'directorist'),
                     'description'       => __('Modify the color of primary buttons like Save & Preview, Search, etc to match your design preferences', 'directorist'),
                     'type'              => 'button-example',
@@ -660,40 +660,40 @@ Please remember that your order may be canceled if you do not make your payment 
                     'show-if' => [
                         'where' => "button_type",
                         'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_primary'],
+                            ['key' => 'value', 'compare' => '=', 'value' => 'button_type_primary'],
                         ],
                     ],
                 ],
-                'primary_color' => [
+                'button_primary_color' => [
                     'label' => __('Text Color', 'directorist'),
                     'type' => 'color',
                     'value' => '#ffffff',
                     'show-if' => [
                         'where' => "button_type",
                         'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_primary'],
+                            ['key' => 'value', 'compare' => '=', 'value' => 'button_type_primary'],
                         ],
                     ],
                 ],
-                'primary_hover_color' => [
+                'button_primary_hover_color' => [
                     'label' => __('Hover Color', 'directorist'),
                     'type' => 'color',
                     'value' => '#ffffff',
                     'show-if' => [
                         'where' => "button_type",
                         'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_primary'],
+                            ['key' => 'value', 'compare' => '=', 'value' => 'button_type_primary'],
                         ],
                     ],
                 ],
-                'back_primary_color' => [
+                'button_primary_bg_color' => [
                     'label' => __('Background Color', 'directorist'),
                     'type' => 'color',
                     'value' => '#444752',
                     'show-if' => [
                         'where' => "button_type",
                         'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_primary'],
+                            ['key' => 'value', 'compare' => '=', 'value' => 'button_type_primary'],
                         ],
                     ],
                 ],
@@ -704,7 +704,7 @@ Please remember that your order may be canceled if you do not make your payment 
                     'show-if' => [
                         'where' => "button_type",
                         'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_primary'],
+                            ['key' => 'value', 'compare' => '=', 'value' => 'button_type_primary'],
                         ],
                     ],
                 ],
@@ -715,7 +715,7 @@ Please remember that your order may be canceled if you do not make your payment 
                     'show-if' => [
                         'where' => "button_type",
                         'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_primary'],
+                            ['key' => 'value', 'compare' => '=', 'value' => 'button_type_primary'],
                         ],
                     ],
                 ],
@@ -726,12 +726,12 @@ Please remember that your order may be canceled if you do not make your payment 
                     'show-if' => [
                         'where' => "button_type",
                         'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_primary'],
+                            ['key' => 'value', 'compare' => '=', 'value' => 'button_type_primary'],
                         ],
                     ],
                 ],
                 //solid secondary color
-                'secondary_example' => [
+                'button_secondary_example' => [
                     'label'       => __('Button Example', 'directorist'),
                     'description'       => __('Modify the color of secondary buttons like Logout, etc to match your design preferences', 'directorist'),
                     'type'              => 'button-example',
@@ -740,40 +740,40 @@ Please remember that your order may be canceled if you do not make your payment 
                     'show-if' => [
                         'where' => "button_type",
                         'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_secondary'],
+                            ['key' => 'value', 'compare' => '=', 'value' => 'button_type_secondary'],
                         ],
                     ],
                 ],
-                'secondary_color' => [
+                'button_secondary_color' => [
                     'label' => __('Text Color', 'directorist'),
                     'type' => 'color',
                     'value' => '#fff',
                     'show-if' => [
                         'where' => "button_type",
                         'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_secondary'],
+                            ['key' => 'value', 'compare' => '=', 'value' => 'button_type_secondary'],
                         ],
                     ],
                 ],
-                'secondary_hover_color' => [
+                'button_secondary_hover_color' => [
                     'label' => __('Hover Color', 'directorist'),
                     'type' => 'color',
                     'value' => '#fff',
                     'show-if' => [
                         'where' => "button_type",
                         'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_secondary'],
+                            ['key' => 'value', 'compare' => '=', 'value' => 'button_type_secondary'],
                         ],
                     ],
                 ],
-                'back_secondary_color' => [
+                'button_secondary_bg_color' => [
                     'label' => __('Background Color', 'directorist'),
                     'type' => 'color',
                     'value' => '#122069',
                     'show-if' => [
                         'where' => "button_type",
                         'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_secondary'],
+                            ['key' => 'value', 'compare' => '=', 'value' => 'button_type_secondary'],
                         ],
                     ],
                 ],
@@ -784,7 +784,7 @@ Please remember that your order may be canceled if you do not make your payment 
                     'show-if' => [
                         'where' => "button_type",
                         'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_secondary'],
+                            ['key' => 'value', 'compare' => '=', 'value' => 'button_type_secondary'],
                         ],
                     ],
                 ],
@@ -795,7 +795,7 @@ Please remember that your order may be canceled if you do not make your payment 
                     'show-if' => [
                         'where' => "button_type",
                         'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_secondary'],
+                            ['key' => 'value', 'compare' => '=', 'value' => 'button_type_secondary'],
                         ],
                     ],
                 ],
@@ -806,7 +806,7 @@ Please remember that your order may be canceled if you do not make your payment 
                     'show-if' => [
                         'where' => "button_type",
                         'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_secondary'],
+                            ['key' => 'value', 'compare' => '=', 'value' => 'button_type_secondary'],
                         ],
                     ],
                 ],
@@ -1309,7 +1309,7 @@ Please remember that your order may be canceled if you do not make your payment 
                     'value' => '#444752',
                 ],
 
-                'primary_dark_back_color' => [
+                'primary_color' => [
                     'type' => 'color',
                     'label' => __('Brand Color', 'directorist'),
                     'value' => '#444752',
@@ -4717,25 +4717,23 @@ Please remember that your order may be canceled if you do not make your payment 
                     'label' => __( 'Personalization', 'directorist' ),
                     'icon' => '<i class="fa fa-paint-brush directorist_success"></i>',
                     'sections'=> apply_filters('atbdp_style_settings_controls', [
-                        'button_type' => [
-                            'title' => __('Button Color', 'directorist'),
+                        'brand_color_section' =>  [
+                            'title'  => __('Brand', 'directorist'),
+                            'fields' => apply_filters('atbdp_primary_dark_color', [
+                                'primary_color',
+                            ])
+                        ],
+                        'button_type_section' => [
+                            'title' => __('Button', 'directorist'),
                             'fields' => [
-                                'button_type', 'primary_example', 'primary_color', 'back_primary_color', 'primary_hover_color', 'secondary_example', 'secondary_color', 'back_secondary_color', 'secondary_hover_color'
+                                'button_type', 'button_primary_example', 'button_primary_color', 'button_primary_bg_color', 'button_primary_hover_color', 'button_secondary_example', 'button_secondary_color', 'button_secondary_bg_color', 'button_secondary_hover_color'
                             ]
                         ],
-                        'map_marker' => [
+                        'map_marker_section' => [
                             'title' => __('All Listings Map Marker', 'directorist'),
                             'fields' => apply_filters('atbdp_map_marker_color', [
                                 'marker_shape_color',
                                 'marker_icon_color'
-                            ])
-                        ],
-
-                        'primary_color' =>  [
-                            'title'  => __('Primary Color', 'directorist'),
-                            'fields' => apply_filters('atbdp_primary_dark_color', [
-                                'primary_dark_back_color',
-                                'primary_dark_border_color'
                             ])
                         ],
                     ])

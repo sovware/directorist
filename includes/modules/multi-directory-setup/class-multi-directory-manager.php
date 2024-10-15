@@ -36,6 +36,8 @@ class Multi_Directory_Manager {
         add_action( 'wp_ajax_save_imported_post_type_data', [ $this, 'save_imported_post_type_data' ] );
         add_action( 'wp_ajax_directorist_force_migrate', [ $this, 'handle_force_migration' ] );
         add_action( 'wp_ajax_directorist_directory_type_library', [ $this, 'directorist_directory_type_library' ] );
+        add_action( 'wp_ajax_directorist_ai_directory_form', [ $this, 'directorist_ai_directory_form' ] );
+        add_action( 'wp_ajax_directorist_ai_directory_form_step_one', [ $this, 'directorist_ai_directory_form_step_one' ] );
     }
 
     public static function builder_data_backup( $term_id ) {
@@ -429,6 +431,82 @@ class Multi_Directory_Manager {
         }
 
         wp_send_json( $this->run_force_migration() );
+    }
+
+    // show the ai form
+    public function directorist_ai_directory_form() {
+
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_send_json([
+                'status' => [
+                    'success' => false,
+                    'message' => __( 'You are not allowed to access this resource', 'directorist' ),
+                ],
+            ], 200);
+        }
+
+        $installed['success'] = true;
+        ob_start();
+
+        atbdp_load_admin_template('post-types-manager/ai/step-one', []);
+        
+        $form = ob_get_clean();
+
+        $installed['html'] = $form;
+        wp_send_json( $installed );
+    }
+
+    // handle step one
+    public function directorist_ai_directory_form_step_one() {
+
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_send_json([
+                'status' => [
+                    'success' => false,
+                    'message' => __( 'You are not allowed to access this resource', 'directorist' ),
+                ],
+            ], 200);
+        }
+
+        $name       = ! empty( $_POST['name'] ) ? $_POST['name'] : '';
+        $location   = ! empty( $_POST['location'] ) ? $_POST['location'] : '';
+
+        $prompt = "$name is my directory business name located at $location. Give me 10 relative keywords separated by @. Don't use anything like 'Here is the ten possible keywords'";
+        $result = directorist_get_form_groq_ai( $prompt );
+
+        if( ! $result ) {
+            wp_send_json([
+                'status' => [
+                    'success' => false,
+                    'message' => __( 'Something went wrong, please try again', 'directorist' ),
+                ],
+            ], 200);
+        }
+
+        $list = explode("@", $result);
+
+        // Trim any leading/trailing spaces from each element
+        $list = array_map('trim', $list);
+
+        ob_start();?>
+
+        <h1>Step 2 Select Keyword</h1>
+        <?php 
+        if( ! empty( $list ) ) {
+            foreach( $list as $keyword ) { ?>
+                <blockquote><?php echo esc_html( $keyword ); ?></blockquote>
+            <?php }
+        }
+        ?>
+        
+        <button class="directorist-ai-directory-submit-step-two">Submit</button>
+        
+        <?php
+        $form = ob_get_clean();
+
+        $installed['success'] = true;
+        $installed['html'] = $form;
+        wp_send_json( $installed );
     }
 
     public function directorist_directory_type_library() {

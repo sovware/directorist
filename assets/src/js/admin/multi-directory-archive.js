@@ -59,4 +59,65 @@ window.addEventListener('load', () => {
             responseFaildCallback( response );
         });
     });
+
+
+    // show the form
+    $( '.directorist-ai-directory-creation' ).on( 'click', function( e ) {
+        e.preventDefault();
+        const self = this;
+
+        let form_data = new FormData();
+        form_data.append( 'action', 'directorist_ai_directory_form' );
+
+        // Response Success Callback
+        const responseAiFormSuccess = function ( response ) {
+
+            if ( response?.data?.success ) {
+                $( '.cptm-create-directory-modal__body' ).empty().html( response?.data?.html );
+                return;
+            }
+
+            alert('Something went wrong! Please try again');
+        };
+
+        // Send Request
+        axios.post( directorist_admin.ajax_url, form_data ).then( response => {
+            responseAiFormSuccess( response );
+        }).catch( response => {
+            alert('Something went wrong! Please try again');
+        });
+    });
+
+});
+
+
+var $ = jQuery;
+const axios = require('axios').default;
+// handle firm step
+$('body').on( 'click', '.directorist-ai-directory-submit-step-one', function( e ) {
+    e.preventDefault();
+    const self = this;
+
+    let form_data = new FormData();
+    form_data.append( 'action', 'directorist_ai_directory_form_step_one' );
+    form_data.append( 'name', $('#directorist-ai-business-name').val() );
+    form_data.append( 'location', $('#directorist-ai-business-location').val() );
+
+    // Response Success Callback
+    const responseAiFormSuccess = function ( response ) {
+
+        if ( response?.data?.success ) {
+            $( '.cptm-create-directory-modal__body' ).empty().html( response?.data?.html );
+            return;
+        }
+
+        alert('Something went wrong! Please try again');
+    };
+
+    // Send Request
+    axios.post( directorist_admin.ajax_url, form_data ).then( response => {
+        responseAiFormSuccess( response );
+    }).catch( response => {
+        alert('Something went wrong! Please try again');
+    });
 });

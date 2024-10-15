@@ -333,6 +333,61 @@ window.addEventListener('load', function () {
       responseFaildCallback(response);
     });
   });
+
+  // show the form
+  $('.directorist-ai-directory-creation').on('click', function (e) {
+    e.preventDefault();
+    var self = this;
+    var form_data = new FormData();
+    form_data.append('action', 'directorist_ai_directory_form');
+
+    // Response Success Callback
+    var responseAiFormSuccess = function responseAiFormSuccess(response) {
+      var _response$data4;
+      if (response !== null && response !== void 0 && (_response$data4 = response.data) !== null && _response$data4 !== void 0 && _response$data4.success) {
+        var _response$data5;
+        $('.cptm-create-directory-modal__body').empty().html(response === null || response === void 0 || (_response$data5 = response.data) === null || _response$data5 === void 0 ? void 0 : _response$data5.html);
+        return;
+      }
+      alert('Something went wrong! Please try again');
+    };
+
+    // Send Request
+    axios.post(directorist_admin.ajax_url, form_data).then(function (response) {
+      responseAiFormSuccess(response);
+    }).catch(function (response) {
+      alert('Something went wrong! Please try again');
+    });
+  });
+});
+var $ = jQuery;
+var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").default;
+// handle firm step
+$('body').on('click', '.directorist-ai-directory-submit-step-one', function (e) {
+  e.preventDefault();
+  var self = this;
+  var form_data = new FormData();
+  form_data.append('action', 'directorist_ai_directory_form_step_one');
+  form_data.append('name', $('#directorist-ai-business-name').val());
+  form_data.append('location', $('#directorist-ai-business-location').val());
+
+  // Response Success Callback
+  var responseAiFormSuccess = function responseAiFormSuccess(response) {
+    var _response$data6;
+    if (response !== null && response !== void 0 && (_response$data6 = response.data) !== null && _response$data6 !== void 0 && _response$data6.success) {
+      var _response$data7;
+      $('.cptm-create-directory-modal__body').empty().html(response === null || response === void 0 || (_response$data7 = response.data) === null || _response$data7 === void 0 ? void 0 : _response$data7.html);
+      return;
+    }
+    alert('Something went wrong! Please try again');
+  };
+
+  // Send Request
+  axios.post(directorist_admin.ajax_url, form_data).then(function (response) {
+    responseAiFormSuccess(response);
+  }).catch(function (response) {
+    alert('Something went wrong! Please try again');
+  });
 });
 
 /***/ }),

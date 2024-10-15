@@ -920,30 +920,6 @@ return apply_filters( 'atbdp_form_preset_widgets', array(
 		],
 	],
 
-	'hide_contact_owner' => [
-		'label'   => __( 'Hide Owner Contact Form', 'directorist' ),
-		'icon'    => 'uil uil-postcard',
-		'options' => [
-			'type' => [
-				'type'  => 'hidden',
-				'value' => 'checkbox',
-			],
-			'field_key' => [
-				'type'  => 'hidden',
-				'value' => 'hide_contact_owner',
-				'rules' => [
-					'unique'   => true,
-					'required' => true,
-				]
-			],
-			'label' => [
-				'type'  => 'text',
-				'label' => __( 'Label', 'directorist' ),
-				'value' => 'Hide contact owner form for single listing page',
-			],
-		],
-	],
-
 	'terms_privacy' => [
 		'label'   => __( 'Terms & Privacy', 'directorist' ),
 		'icon'    => 'uil uil-text-fields',

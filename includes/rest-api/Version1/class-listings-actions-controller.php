@@ -272,7 +272,8 @@ class Listings_Actions_Controller extends Abstract_Controller {
 		$current_time          = current_time('timestamp');
 		$contact_email_subject = get_directorist_option('email_sub_listing_contact_email');
 		$contact_email_body    = get_directorist_option('email_tmpl_listing_contact_email');
-		$user_email            = get_directorist_option('user_email', 'author');
+		$contact_recipient 	   = get_user_meta( $post_author_id, 'directorist_contact_owner_recipient', true );
+		$user_email            = ! empty( $contact_recipient ) ? $contact_recipient : 'author';
 
 		$placeholders = array(
 			'==NAME=='          => $user->display_name,

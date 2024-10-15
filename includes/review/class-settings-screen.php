@@ -24,8 +24,23 @@ class Settings_Screen {
 				'label' => __( 'Review', 'directorist' ),
 				'icon' => '<i class="fa fa-star"></i>',
 				'sections' => apply_filters( 'atbdp_listing_settings_review_sections', [
-					'labels' => [
-						'fields' => array_keys( self::get_fields() ),
+					'review_options' => [
+						'title' => __( 'Review Options', 'directorist' ),
+						'fields' => [
+							'enable_review', 'enable_owner_review', 'guest_review', 'review_enable_reply'
+						],
+					],
+					'moderation_options' => [
+						'title' => __( 'Moderation Option', 'directorist' ),
+						'fields' => [
+							'approve_immediately'
+						],
+					],
+					'display_settings' => [
+						'title' => __( 'Display Setting', 'directorist' ),
+						'fields' => [
+							'review_num'
+						],
 					],
 				] ),
 			];
@@ -38,14 +53,14 @@ class Settings_Screen {
 		return [
 			'enable_review' => [
 				'type'        => 'toggle',
-				'label'       => __( 'Enable Review', 'directorist' ),
-				'description' => __( 'Allow your customers, users, or listing owners to share their review or comment on listings.', 'directorist' ),
+				'label'       => __( 'Enable User Reviews', 'directorist' ),
+				'description' => __( 'Let customers and listing owners leave reviews on listings.', 'directorist' ),
 				'value'       => true,
 			],
 			'enable_owner_review' => [
 				'type'        => 'toggle',
-				'label'       => __( 'Allow Owner Review', 'directorist'),
-				'description' => __( 'You are allowing listing owners to post review on his/her own listings.', 'directorist' ),
+				'label'       => __( 'Enable Owner Reviews', 'directorist'),
+				'description' => __( 'Allow listing owners to review their own listings.', 'directorist' ),
 				'value'       => true,
 				'show-if'     => [
 					'where'      => 'enable_review',
@@ -60,8 +75,8 @@ class Settings_Screen {
 			],
 			'guest_review' => [
 				'type'        => 'toggle',
-				'label'       => __( 'Allow Guest Review', 'directorist' ),
-				'description' => __( 'Guest reviews are not published immediately even when the setting is enabled.', 'directorist' ),
+				'label'       => __( 'Enable Guest Reviews', 'directorist' ),
+				'description' => __( 'Allow non-logged-in users to leave reviews (subject to moderation).', 'directorist' ),
 				'value'       => false,
 				'show-if'     => [
 					'where'      => 'enable_review',
@@ -76,8 +91,8 @@ class Settings_Screen {
 			],
 			'approve_immediately' => [
 				'type'    => 'toggle',
-				'label'   => __( 'Approve Immediately?', 'directorist' ),
-				'description' => __( 'Are you sure you do not need any review or comment moderation?', 'directorist' ),
+				'label'   => __( 'Auto-Approve Reviews', 'directorist' ),
+				'description' => __( 'Automatically approve all submitted reviews without moderation.', 'directorist' ),
 				'value'   => true,
 				'show-if' => [
 					'where'      => 'enable_review',
@@ -92,8 +107,8 @@ class Settings_Screen {
 			],
 			'review_enable_reply' => [
 				'type'        => 'toggle',
-				'label'       => __( 'Enable Reply', 'directorist' ),
-				'description' => __( 'Allow users to reply to review or reply to another reply.', 'directorist' ),
+				'label'       => __( 'Allow Review Replies', 'directorist' ),
+				'description' => __( 'Let users reply to reviews or comments.', 'directorist' ),
 				'value'       => false,
 				'show-if'     => [
 					'where'      => 'enable_review',
@@ -169,8 +184,8 @@ class Settings_Screen {
 			// 	],
 			// ],
 			'review_num' => [
-				'label'       => __( 'Number of Reviews', 'directorist' ),
-				'description' => __( 'Number of reviews to show per page. More than 10 is not recommended due to impact on loading speed.', 'directorist' ),
+				'label'       => __( 'Reviews Per Page', 'directorist' ),
+				'description' => __( 'Set how many reviews to display per page (For the best performance, we suggest keeping it under 10)', 'directorist' ),
 				'type'        => 'number',
 				'value'       => 5,
 				'min'         => 1,
@@ -187,38 +202,7 @@ class Settings_Screen {
 					],
 				],
 			],
-			'enable_gdpr_consent' => [
-				'label'       => __( 'Enable GDPR Consent', 'directorist' ),
-				'description' => __( 'Make your site GDPR compliant by enabling this consent checkbox which will enforce users to accept the privacy policy before submitting any review or comment.', 'directorist' ),
-				'type'        => 'toggle',
-				'show-if'     => [
-					'where'      => 'enable_review',
-					'conditions' => [
-						[
-							'key'     => 'value',
-							'compare' => '=',
-							'value'   => true
-						],
-					],
-				],
-			],
-			'gdpr_consent_label' => [
-				'label'       => __( 'GDPR Consent Label', 'directorist' ),
-				'description' => __( 'Use [privacy_policy]privacy policy[/privacy_policy] for privacy link and [terms_conditions]terms and conditions[/terms_conditions] for terms and conditions link.', 'directorist' ),
-				'type'        => 'textarea',
-				'rows'        => 3,
-				'value'       => 'I have read and agree to the [privacy_policy]privacy policy[/privacy_policy] & [terms_conditions]terms and conditions[/terms_conditions].',
-				'show-if'     => [
-					'where'      => 'enable_review',
-					'conditions' => [
-						[
-							'key'     => 'value',
-							'compare' => '=',
-							'value'   => true
-						],
-					],
-				],
-			],
+			
 		];
 	}
 

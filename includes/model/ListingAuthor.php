@@ -178,17 +178,6 @@ class Directorist_Listing_Author {
 			$args['no_found_rows'] = true;
 		}
 
-		if ( ! empty( $this->current_listing_type ) ) {
-			$args['tax_query'] = array(
-				array(
-					'taxonomy'         => ATBDP_TYPE,
-					'field'            => 'term_id',
-					'terms'            => $this->current_listing_type ,
-					'include_children' => true, /*@todo; Add option to include children or exclude it*/
-				),
-			);
-		}
-
 		if ( ! empty( $category ) ) {
 			$category = array(
 				array(
@@ -204,14 +193,14 @@ class Directorist_Listing_Author {
 			$args['tax_query'] = $category;
 		}
 		$meta_queries   = array();
-		// TODO: Status has been migrated, remove related code.
-		// $meta_queries['expired'] = array(
-		// 	array(
-		// 		'key'     => '_listing_status',
-		// 		'value'   => 'expired',
-		// 		'compare' => '!=',
-		// 	),
-		// );
+
+		if ( ! empty( $this->current_listing_type ) ) {
+			$meta_queries['meta_query'] = array(
+				'key'     => '_directory_type',
+				'value'   => $this->current_listing_type,
+				'compare' => '=',
+			);
+		}
 
 		$meta_queries       = apply_filters( 'atbdp_author_listings_meta_queries', $meta_queries );
 		$count_meta_queries = count( $meta_queries );

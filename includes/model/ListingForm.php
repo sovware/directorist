@@ -457,8 +457,8 @@ class Directorist_Listing_Form {
 		$args = array(
 			'listing_form'            => $this,
 			'display_guest_listings'  => directorist_is_guest_submission_enabled(),
-			'guest_email_label'       => get_directorist_type_option( $type, 'guest_email_label', __( 'Your Email', 'directorist' ) ),
-			'guest_email_placeholder' => get_directorist_type_option( $type, 'guest_email_placeholder' ),
+			'guest_email_label'       => get_directorist_option( 'guest_email_label', __( 'Your Email', 'directorist' ) ),
+			'guest_email_placeholder' => get_directorist_option( 'guest_email_placeholder', __( 'example@email.com', 'directorist' ) ),
 			'display_privacy'         => (bool) get_directorist_type_option( $type, 'listing_privacy', 1 ),
 			'privacy_is_required'     => get_directorist_type_option( $type, 'require_privacy', 1 ),
 			'privacy_checked'         => (bool) get_post_meta( $p_id, '_privacy_policy', true ),

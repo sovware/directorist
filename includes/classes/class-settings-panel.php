@@ -1401,6 +1401,28 @@ Please remember that your order may be canceled if you do not make your payment 
                     'type'  => 'toggle',
                     'value' => false,
                 ],
+                'guest_email_label' => [
+                    'type'      => 'text',
+                    'label'     => __( 'Guest Email Label', 'directorist' ),
+                    'value'     => __( 'Your Email', 'directorist' ),
+                    'show-if'   => [
+                        'where' => "guest_listings",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'guest_email_placeholder' => [
+                    'type'      => 'text',
+                    'label'     => __( 'Guest Email Placeholder', 'directorist' ),
+                    'value'     => __( 'example@email.com', 'directorist' ),
+                    'show-if'   => [
+                        'where' => "guest_listings",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
 
                 // listings page
                 'all_listing_layout' => [
@@ -4057,6 +4079,8 @@ Please remember that your order may be canceled if you do not make your payment 
                                         // 'all_listing_layout',
                                         'enable_multi_directory',
                                         'guest_listings',
+                                        'guest_email_label',
+                                        'guest_email_placeholder',
                                     ],
                                 ],
                                 'listings_renewal' => [
@@ -4532,7 +4556,7 @@ Please remember that your order may be canceled if you do not make your payment 
                     'icon' => '<i class="fa fa-envelope directorist_Blue"></i>',
                     'submenu' => apply_filters('atbdp_email_settings_submenu', [
                         'email_general' => [
-                            'label' => __('Email General', 'directorist'),
+                            'label' => __('General', 'directorist'),
                             'icon' => '<i class="fa fa-envelope-open directorist_info"></i>',
                             'sections' => apply_filters( 'atbdp_reg_settings_sections', [
                                 'sender_details' => [
@@ -4551,7 +4575,7 @@ Please remember that your order may be canceled if you do not make your payment 
                             ] ),
                         ],
                         'email_templates' => [
-                            'label' => __('Email Templates', 'directorist'),
+                            'label' => __('Templates', 'directorist'),
                             'icon' => '<i class="fa fa-mail-bulk directorist_info"></i>',
                             'sections' => apply_filters( 'atbdp_email_templates_settings_sections', [
                                 'general' => [

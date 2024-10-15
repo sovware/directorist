@@ -11183,6 +11183,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
           align-items: center;
   border-bottom: 1px solid #d9d9d9;
   width: 100%;
+  gap: 10px;
 }
 .directorist-form-group__with-prefix:focus-within {
   border-bottom: 2px solid var(--directorist-color-dark);
@@ -11198,7 +11199,6 @@ svg.leaflet-image-layer.leaflet-interactive path {
 .directorist-form-group__with-prefix .directorist-single-info__value {
   font-size: 14px;
   font-weight: 500;
-  padding: 0 10px;
   margin: 0 !important;
 }
 .directorist-form-group__prefix {

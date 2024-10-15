@@ -4083,6 +4083,18 @@ Please remember that your order may be canceled if you do not make your payment 
                                         'guest_email_placeholder',
                                     ],
                                 ],
+                                'registration' => [
+                                    'title'       => __( 'Registration', 'directorist' ),
+                                    'fields'      => [
+                                        'new_user_registration', 'enable_email_verification'
+                                     ],
+                                ],
+                                'listings_currency' => [
+                                    'title'       => __( 'Listing Currency', 'directorist' ),
+                                    'fields'      => [
+                                        'g_currency_note', 'g_currency', 'g_currency_position'
+                                     ],
+                                ],
                                 'listings_renewal' => [
                                     'title'       => __( 'Listings Renewal', 'directorist' ),
                                     'fields'      => [
@@ -4093,18 +4105,6 @@ Please remember that your order may be canceled if you do not make your payment 
                                     'title'       => __( 'Expired Listings Management', 'directorist' ),
                                     'fields'      => [
                                         'delete_expired_listing_permanently', 'delete_expired_listings_after',
-                                     ],
-                                ],
-                                'listings_currency' => [
-                                    'title'       => __( 'Listing Currency', 'directorist' ),
-                                    'fields'      => [
-                                        'g_currency_note', 'g_currency', 'g_currency_position'
-                                     ],
-                                ],
-                                'registration' => [
-                                    'title'       => __( 'Registration', 'directorist' ),
-                                    'fields'      => [
-                                        'new_user_registration', 'enable_email_verification'
                                      ],
                                 ],
                             ] ),

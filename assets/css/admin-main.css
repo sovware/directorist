@@ -31088,6 +31088,13 @@ span.drop-toggle-caret:before {
 .directorist-setup-wizard__map .leaflet-touch .leaflet-bar a {
   background: #ffffff;
 }
+.directorist-setup-wizard__map .leaflet-marker-icon .directorist-icon-mask:after {
+  width: 30px;
+  height: 30px;
+  background-color: #e23636;
+  -webkit-mask-image: url(../images/2823e3547c32a23392a06652e69a8a71.svg);
+          mask-image: url(../images/2823e3547c32a23392a06652e69a8a71.svg);
+}
 .directorist-setup-wizard__notice {
   position: absolute;
   bottom: 10px;

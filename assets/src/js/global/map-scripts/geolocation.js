@@ -1,4 +1,16 @@
 window.addEventListener('load', () => {
+
+    // Add focus class to the parent field of .directorist-location-js
+    function addFocusClass(location) {
+        // Get the parent field of .directorist-location-js
+        let parentField = location.closest('.directorist-search-field');
+
+        // Add the 'input-is-focused' class if not already present
+        if (parentField && !parentField.hasClass('input-is-focused')) {
+            parentField.addClass('input-is-focused');
+        }
+    }
+
     (function ($) {
         /* get current location */
         setTimeout(() => {
@@ -133,17 +145,22 @@ window.addEventListener('load', () => {
                             $('.directorist-location-js, .atbdp-search-address').attr("data-value", data.display_name);
                             $('#cityLat').val(lat);
                             $('#cityLng').val(lng);
+                            addFocusClass($('.directorist-location-js'));
                         },
+                        error(err) {
+                            $('.directorist-location-js').val('Location not found');
+                            addFocusClass($('.directorist-location-js'));
+                        }
                     });
                 }
                 $('body').on("click", ".directorist-filter-location-icon", function (e) {
                     navigator.geolocation.getCurrentPosition((position) => displayLocation(position, e));
                     
-                    let parentField = e.target.closest('.directorist-search-field');
+                    // let parentField = e.target.closest('.directorist-search-field');
 
-                    if (parentField && !parentField.classList.contains('input-is-focused')) {
-                        parentField.classList.add('input-is-focused');
-                    }
+                    // if (parentField && !parentField.classList.contains('input-is-focused')) {
+                    //     parentField.classList.add('input-is-focused');
+                    // }
                 });
             }
 

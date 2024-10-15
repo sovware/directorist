@@ -18795,12 +18795,18 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
     min-width: 60px;
   }
 }
+.directorist-details-info-wrap .directorist-single-info-number .directorist-single-info__value {
+  -webkit-box-flex: 0;
+  -webkit-flex: none;
+      -ms-flex: none;
+          flex: none;
+}
 .directorist-details-info-wrap .directorist-single-info__value {
+  margin-top: 4px;
   -webkit-box-flex: 1;
   -webkit-flex: 1;
       -ms-flex: 1;
           flex: 1;
-  margin-top: 4px;
   color: var(--directorist-color-body);
 }
 .directorist-details-info-wrap .directorist-single-info__value a {

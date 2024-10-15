@@ -783,7 +783,7 @@ Please remember that your order may be canceled if you do not make your payment 
                 'primary_color' => [
                     'type' => 'color',
                     'label' => __('Brand Color', 'directorist'),
-                    'value' => '#444752',
+                    'value' => '#000000',
                 ],
 
                 // Email

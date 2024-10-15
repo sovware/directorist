@@ -11,7 +11,7 @@
             
             <div class="atbdp-col atbdp-col-8">
                 <button 
-                    class="directorist-btn"
+                    class="directorist-btn-example directorist-btn"
                     :class="buttonClass"
                     :style="buttonStyles"
                     @mouseover="hovered = true"

@@ -34324,7 +34324,7 @@ var render = function render() {
   }) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "atbdp-col atbdp-col-8"
   }, [_c("button", {
-    staticClass: "directorist-btn",
+    staticClass: "directorist-btn-example directorist-btn",
     class: _vm.buttonClass,
     style: _vm.buttonStyles,
     on: {

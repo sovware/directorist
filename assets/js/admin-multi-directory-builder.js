@@ -18275,15 +18275,13 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof.js");
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _helper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../../helper */ "./assets/src/js/helper.js");
-/* harmony import */ var _Form_Builder_Widget_Trash_Confirmation_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Form_Builder_Widget_Trash_Confirmation.vue */ "./assets/src/js/admin/vue/modules/form-builder-modules/widget-component/Form_Builder_Widget_Trash_Confirmation.vue");
-
+/* harmony import */ var _Form_Builder_Widget_Trash_Confirmation_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Form_Builder_Widget_Trash_Confirmation.vue */ "./assets/src/js/admin/vue/modules/form-builder-modules/widget-component/Form_Builder_Widget_Trash_Confirmation.vue");
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "form-builder-widget-component",
   components: {
-    ConfirmationModal: _Form_Builder_Widget_Trash_Confirmation_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+    ConfirmationModal: _Form_Builder_Widget_Trash_Confirmation_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   props: {
     widgetKey: {
@@ -18436,31 +18434,38 @@ __webpack_require__.r(__webpack_exports__);
       this.closeConfirmationModal();
     },
     syncCurrentWidget: function syncCurrentWidget() {
-      var current_widget = Object(_helper__WEBPACK_IMPORTED_MODULE_1__["findObjectItem"])("".concat(this.widgetKey), this.activeWidgets);
-      if (!current_widget) {
-        return;
+      if (!this.avilableWidgets) {
+        return '';
       }
-      var widget_group = current_widget.widget_group ? current_widget.widget_group : "";
-      var widget_name = current_widget.widget_name ? current_widget.widget_name : "";
-      var widget_child_name = current_widget.widget_name ? current_widget.widget_child_name : "";
+      if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(this.avilableWidgets) !== 'object') {
+        return '';
+      }
+      if (!this.activeWidgets) {
+        return '';
+      }
+      if (!this.activeWidgets[this.widgetKey]) {
+        return '';
+      }
+      var current_widget = this.activeWidgets[this.widgetKey];
+      var widget_group = current_widget.widget_group ? current_widget.widget_group : '';
+      var widget_name = current_widget.widget_name ? current_widget.widget_name : '';
       if (!this.avilableWidgets[widget_group]) {
-        return;
+        return '';
       }
       var the_current_widget = null;
-      var current_widget_name = "";
-      var current_widget_child_name = "";
+      var current_widget_name = '';
       if (this.avilableWidgets[widget_group][widget_name]) {
         the_current_widget = this.avilableWidgets[widget_group][widget_name];
         current_widget_name = widget_name;
       }
-      if (the_current_widget && the_current_widget.widgets && the_current_widget.widgets[widget_child_name]) {
-        the_current_widget = the_current_widget.widgets[widget_child_name];
-        current_widget_child_name = widget_child_name;
+      if (this.avilableWidgets[widget_group][this.widgetKey]) {
+        the_current_widget = this.avilableWidgets[widget_group][this.widgetKey];
+        current_widget_name = this.widgetKey;
       }
       if (!the_current_widget) {
-        return;
+        return '';
       }
-      this.checkIfHasUntrashableWidget(widget_group, current_widget_name, current_widget_child_name);
+      this.checkIfHasUntrashableWidget(widget_group, current_widget_name);
       this.current_widget = the_current_widget;
     },
     syncWidgetFields: function syncWidgetFields() {

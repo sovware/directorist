@@ -567,11 +567,31 @@ class Directorist_Listing_Form {
 			'section_data' => $section_data,
 		);
 
+		if ( ! is_admin() && $this->all_fields_only_for_admin( $section_data['fields'] ) ) {
+			return; // Exit if all fields are only for admin
+		}
+		
 		$load_section = apply_filters( 'directorist_section_template', true, $args );
-
+		
 		if( $load_section && ! empty( $section_data['fields'] ) ) {
 			Helper::get_template( 'listing-form/section', $args );
 		}
+	}
+
+	public function all_fields_only_for_admin( $fields ) {
+		// If fields array is empty, return false (no restriction)
+		if ( empty( $fields ) ) {
+			return false;
+		}
+	
+		// Check if all fields have 'only_for_admin' set to 1 or true
+		foreach ( $fields as $field ) {
+			if ( empty( $field['only_for_admin'] ) ) {
+				return false; // If any field is not for admin, return false
+			}
+		}
+	
+		return true; // All fields are for admin
 	}
 
 

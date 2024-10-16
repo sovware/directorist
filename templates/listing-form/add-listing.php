@@ -25,16 +25,18 @@ $action_url = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERV
                     <?php if( ! empty( $enable_sidebar ) ) : ?>
 
                         <div class="multistep-wizard__nav">
-                            <?php 
+                            <?php
                                 foreach ( $form_data as $key => $section ) {
-                                    $label        = $section['label'] ?? '';
-                                    $id           = str_replace(' ', '-', strtolower( $label ) );
-                                    $listing_type = isset( $section['fields']['listing_type'] ) ? $section['fields']['listing_type']['widget_name'] : '';
+                                    $label              = $section['label'] ?? '';
+                                    $id                 = str_replace(' ', '-', strtolower( $label ) );
+                                    $listing_type       = isset( $section['fields']['listing_type'] ) ? $section['fields']['listing_type']['widget_name'] : '';
+                                    $section['fields']  = array_filter( $section['fields'], function( $field ) {
+                                        return empty( $field['only_for_admin'] );
+                                    });
 
-                                    if ( empty( $listing_type ) ) {
+                                    if ( empty( $listing_type ) && ! empty( $section['fields'] ) ) {
                                         printf( '<a href="#add-listing-content-%s" id="add-listing-nav-%s" class="multistep-wizard__nav__btn">%s %s</a>', esc_attr( $id ), esc_attr( $id ), ( isset( $section['icon'] ) ? directorist_icon( $section['icon'], false ) : directorist_icon( 'fas fa-circle', false ) ), $section['label'] );
                                     }
-
                                 }
                             ?>
                             <a href="#add-listing-last-content" id="add-listing-last-nav" class="multistep-wizard__nav__btn multistep-wizard__nav__btn--finish  add-listing-nav-999"><?php directorist_icon( 'fas fa-check' ); ?><?php esc_html_e( 'Finish', 'directorist' ); ?></a>

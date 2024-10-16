@@ -2,10 +2,10 @@
 do_action('include_style_settings');
 $button_primary_color             = get_directorist_option('button_primary_color', '#ffffff');
 $button_primary_hover_color       = get_directorist_option('button_primary_hover_color', '#ffffff');
-$button_primary_bg_color          = get_directorist_option('button_primary_bg_color', '#444752');
-$button_secondary_color           = get_directorist_option('button_secondary_color', '#ffffff');
-$button_secondary_hover_color     = get_directorist_option('button_secondary_hover_color', '#ffffff');
-$button_secondary_bg_color        = get_directorist_option('button_secondary_bg_color', '#222222');
+$button_primary_bg_color          = get_directorist_option('button_primary_bg_color', '#000000');
+$button_secondary_color           = get_directorist_option('button_secondary_color', '#000000');
+$button_secondary_hover_color     = get_directorist_option('button_secondary_hover_color', '#000000');
+$button_secondary_bg_color        = get_directorist_option('button_secondary_bg_color', '#f2f3f5');
 
 $open_badge_color                 = get_directorist_option('open_back_color', '#28A800');
 $closed_badge_color               = get_directorist_option('closed_back_color', '#e23636');
@@ -49,7 +49,7 @@ $gray_color                       = get_directorist_option('color_gray', '#bcbcb
         --directorist-color-gray: <?php echo $gray_color; ?>;
         --directorist-color-gray-hover: #BCBCBC;
         --directorist-color-light: #ededed;
-        --directorist-color-light-hover: #BCBCBC;
+        --directorist-color-light-hover: #ffffff;
         --directorist-color-light-gray: #808080;
         --directorist-color-light-gray-rgb: 237, 237, 237;
         --directorist-color-deep-gray: #808080;
@@ -96,14 +96,18 @@ $gray_color                       = get_directorist_option('color_gray', '#bcbcb
         --directorist-color-btn-border:var(--directorist-color-primary);
 
         --directorist-color-btn-primary:<?php echo $button_primary_color; ?>;
+        --directorist-color-btn-primary-rgb: 0,0,0;
         --directorist-color-btn-primary-hover:<?php echo $button_primary_hover_color; ?>;
         --directorist-color-btn-primary-bg:<?php echo $button_primary_bg_color; ?>;
+        --directorist-color-btn-primary-border:<?php echo $button_primary_bg_color; ?>;
         --directorist-color-btn-secondary:<?php echo $button_secondary_color; ?>;
+        --directorist-color-btn-secondary-rgb:242, 243, 245;
         --directorist-color-btn-secondary-hover:<?php echo $button_secondary_hover_color; ?>;
         --directorist-color-btn-secondary-bg:<?php echo $button_secondary_bg_color; ?>;
+        --directorist-color-btn-secondary-border:<?php echo $button_secondary_bg_color; ?>;
 
         /* Star Color */
-        --directorist-color-star:var(--directorist-color-primary);
+        --directorist-color-star:var(--directorist-color-warning);
     }
 
     /* Settings Panel Structure
@@ -146,7 +150,7 @@ $gray_color                       = get_directorist_option('color_gray', '#bcbcb
     .atbdp_login_form_shortcode #loginform p input[type="submit"],
     .atbd_manage_fees_wrapper .table tr .action p .btn-block,
     #directorist.atbd_wrapper #atbdp-checkout-form #atbdp_checkout_submit_btn,
-    #directorist.atbd_wrapper .ezmu__btn, .default-ad-search .submit_btn .btn-primary, .directorist-btn.directorist-btn-primary, .directorist-content-active .widget.atbd_widget .directorist .btn, .directorist-btn.directorist-btn-dark, .atbd-add-payment-method form .atbd-save-card, #bhCopyTime, #bhAddNew, .directorist-content-active .widget.atbd_widget .atbd_author_info_widget .btn {
+    #directorist.atbd_wrapper .ezmu__btn, .default-ad-search .submit_btn .btn-primary, .directorist-content-active .widget.atbd_widget .directorist .btn, .directorist-btn.directorist-btn-dark, .atbd-add-payment-method form .atbd-save-card, #bhCopyTime, #bhAddNew, .directorist-content-active .widget.atbd_widget .atbd_author_info_widget .btn {
         color: var(--directorist-color-white);
     }
 
@@ -159,7 +163,7 @@ $gray_color                       = get_directorist_option('color_gray', '#bcbcb
     .atbdp_login_form_shortcode #loginform p input[type="submit"]:hover,
     .atbd_manage_fees_wrapper .table tr .action p .btn-block:hover,
     #directorist.atbd_wrapper #atbdp-checkout-form #atbdp_checkout_submit_btn:hover,
-    #directorist.atbd_wrapper .ezmu__btn:hover, .default-ad-search .submit_btn .btn-primary:hover, .directorist-btn.directorist-btn-primary:hover, .directorist-content-active .widget.atbd_widget .directorist .btn:hover, .directorist-btn.directorist-btn-dark:hover, .atbd-add-payment-method form .atbd-save-card:hover, #bhCopyTime:hover, #bhAddNew:hover, .bdb-select-hours .bdb-remove:hover, .directorist-content-active .widget.atbd_widget .atbd_author_info_widget .btn:hover {
+    #directorist.atbd_wrapper .ezmu__btn:hover, .default-ad-search .submit_btn .btn-primary:hover, .directorist-content-active .widget.atbd_widget .directorist .btn:hover, .directorist-btn.directorist-btn-dark:hover, .atbd-add-payment-method form .atbd-save-card:hover, #bhCopyTime:hover, #bhAddNew:hover, .bdb-select-hours .bdb-remove:hover, .directorist-content-active .widget.atbd_widget .atbd_author_info_widget .btn:hover {
         color: var(--directorist-color-white);
     }
 
@@ -171,7 +175,7 @@ $gray_color                       = get_directorist_option('color_gray', '#bcbcb
     #directorist.atbd_wrapper .at-modal .at-modal-close,
     .atbdp_login_form_shortcode #loginform p input[type="submit"],
     .atbd_manage_fees_wrapper .table tr .action p .btn-block,
-    #directorist.atbd_wrapper .ezmu__btn, .default-ad-search .submit_btn .btn-primary, .directorist-btn.directorist-btn-primary, .directorist-content-active .widget.atbd_widget .directorist .btn, .directorist-btn.directorist-btn-dark, .atbd-add-payment-method form .atbd-save-card, #bhCopyTime, #bhAddNew, .bdb-select-hours .bdb-remove, .directorist-content-active .widget.atbd_widget .atbd_author_info_widget .btn {
+    #directorist.atbd_wrapper .ezmu__btn, .default-ad-search .submit_btn .btn-primary .directorist-content-active .widget.atbd_widget .directorist .btn, .directorist-btn.directorist-btn-dark, .atbd-add-payment-method form .atbd-save-card, #bhCopyTime, #bhAddNew, .bdb-select-hours .bdb-remove, .directorist-content-active .widget.atbd_widget .atbd_author_info_widget .btn {
         background: var(--directorist-color-btn-primary-bg);
     }
 
@@ -182,54 +186,22 @@ $gray_color                       = get_directorist_option('color_gray', '#bcbcb
     .default-ad-search .submit_btn .btn-default:hover,
     .atbd_content_active #directorist.atbd_wrapper.dashboard_area .user_pro_img_area .user_img .choose_btn #upload_pro_pic:hover,
     .atbdp_login_form_shortcode #loginform p input[type="submit"]:hover,
-    #directorist.atbd_wrapper .ezmu__btn:hover, .default-ad-search .submit_btn .btn-primary:hover, .directorist-btn.directorist-btn-primary:hover, .directorist-content-active .widget.atbd_widget .directorist .btn:hover, .directorist-btn.directorist-btn-dark:hover, .atbd-add-payment-method form .atbd-save-card:hover, #bhCopyTime:hover, #bhAddNew:hover, .bdb-select-hours .bdb-remove:hover, .directorist-content-active .widget.atbd_widget .atbd_author_info_widget .btn:hover {
+    #directorist.atbd_wrapper .ezmu__btn:hover, .default-ad-search .submit_btn .btn-primary:hover, .directorist-content-active .widget.atbd_widget .directorist .btn:hover, .directorist-btn.directorist-btn-dark:hover, .atbd-add-payment-method form .atbd-save-card:hover, #bhCopyTime:hover, #bhAddNew:hover, .bdb-select-hours .bdb-remove:hover, .directorist-content-active .widget.atbd_widget .atbd_author_info_widget .btn:hover {
         background: var(--directorist-color-btn-hover);
     }
 
     /* Border Color */
     #directorist.atbd_wrapper .btn-primary,
     .default-ad-search .submit_btn .btn-default,
-    .atbdp_login_form_shortcode #loginform p input[type="submit"], .default-ad-search .submit_btn .btn-primary, .directorist-btn.directorist-btn-primary, .directorist-content-active .widget.atbd_widget .directorist .btn, .atbd-add-payment-method form .atbd-save-card, .directorist-content-active .widget.atbd_widget .atbd_author_info_widget .btn {
+    .atbdp_login_form_shortcode #loginform p input[type="submit"], .default-ad-search .submit_btn .btn-primary, .directorist-content-active .widget.atbd_widget .directorist .btn, .atbd-add-payment-method form .atbd-save-card, .directorist-content-active .widget.atbd_widget .atbd_author_info_widget .btn {
         border-color: var(--directorist-color-btn-border);
     }
 
     /* Hover Border Color */
     #directorist.atbd_wrapper .btn-primary:hover,
     .default-ad-search .submit_btn .btn-default:hover,
-    .atbdp_login_form_shortcode #loginform p input[type="submit"]:hover, .default-ad-search .submit_btn .btn-primary:hover, .directorist-btn.directorist-btn-primary:hover, .directorist-content-active .widget.atbd_widget .directorist .btn:hover, .atbd-add-payment-method form .atbd-save-card:hover, .directorist-content-active .widget.atbd_widget .atbd_author_info_widget .btn:hover {
+    .atbdp_login_form_shortcode #loginform p input[type="submit"]:hover, .default-ad-search .submit_btn .btn-primary:hover, .directorist-content-active .widget.atbd_widget .directorist .btn:hover, .atbd-add-payment-method form .atbd-save-card:hover, .directorist-content-active .widget.atbd_widget .atbd_author_info_widget .btn:hover {
         border-color: var(--directorist-color-primary);
-    }
-
-    /* =======================================
-     Button: Secondary
-    ======================================== */
-    /* Color */
-    #directorist.atbd_wrapper .btn-secondary, .directorist-btn.directorist-btn-secondary {
-        color: var(--directorist-color-btn-secondary) !important;
-    }
-
-    #directorist.atbd_wrapper .btn-secondary:hover, .directorist-btn.directorist-btn-secondary:hover {
-        color: var(--directorist-color-btn-secondary-hover) !important;
-    }
-
-    /* Background */
-    #directorist.atbd_wrapper .btn-secondary, .directorist-btn.directorist-btn-secondary {
-        background: var(--directorist-color-btn-secondary-bg) !important;
-    }
-
-    /* Hover Background */
-    #directorist.atbd_wrapper .btn-secondary:hover, .directorist-btn.directorist-btn-secondary:hover {
-        background: rgba(var(--directorist-color-secondary-rgb),.80) !important;
-    }
-
-    /* Border Color */
-    #directorist.atbd_wrapper .btn-secondary, .directorist-btn.directorist-btn-secondary {
-        border-color: var(--directorist-color-secondary);
-    }
-
-    /* Hover Border Color */
-    #directorist.atbd_wrapper .btn-secondary:hover, .directorist-btn.directorist-btn-secondary:hover {
-        border-color: var(--directorist-color-secondary);
     }
 
     /*

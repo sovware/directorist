@@ -716,7 +716,7 @@ Please remember that your order may be canceled if you do not make your payment 
                 'button_secondary_color' => [
                     'label' => __('Text Color', 'directorist'),
                     'type' => 'color',
-                    'value' => '#fff',
+                    'value' => '#404040',
                     'show-if' => [
                         'where' => "button_type",
                         'conditions' => [
@@ -727,7 +727,7 @@ Please remember that your order may be canceled if you do not make your payment 
                 'button_secondary_hover_color' => [
                     'label' => __('Hover Color', 'directorist'),
                     'type' => 'color',
-                    'value' => '#fff',
+                    'value' => '#404040',
                     'show-if' => [
                         'where' => "button_type",
                         'conditions' => [
@@ -738,7 +738,7 @@ Please remember that your order may be canceled if you do not make your payment 
                 'button_secondary_bg_color' => [
                     'label' => __('Background Color', 'directorist'),
                     'type' => 'color',
-                    'value' => '#122069',
+                    'value' => '#f2f3f5',
                     'show-if' => [
                         'where' => "button_type",
                         'conditions' => [
@@ -776,14 +776,14 @@ Please remember that your order may be canceled if you do not make your payment 
                 'marker_icon_color' => [
                     'type' => 'color',
                     'label' => __('Marker Icon Color', 'directorist'),
-                    'value' => '#444752',
+                    'value' => '#ffffff',
                 ],
 
                 // Primary Color
                 'primary_color' => [
                     'type' => 'color',
                     'label' => __('Brand Color', 'directorist'),
-                    'value' => '#000000',
+                    'value' => '#444752',
                 ],
 
                 // Email

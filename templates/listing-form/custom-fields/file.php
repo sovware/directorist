@@ -126,7 +126,7 @@ $multiple           = false;
 			?>
 			" id="<?php echo esc_attr( $id ); ?>plupload-upload-ui">
 				<input id="<?php echo esc_attr( $id ); ?>plupload-browse-button" type="button"
-					   value="<?php esc_attr_e( 'Select Files', 'directorist' ); ?>" class="directorist-btn directorist-btn-primary"/>
+					   value="<?php esc_attr_e( 'Select Files', 'directorist' ); ?>" class="directorist-btn"/>
 				<label for="<?php echo esc_attr( $id ); ?>plupload-browse-button" class="plupload-browse-button-label"><?php directorist_icon( 'far fa-image' ); ?></label>
 				<span class="plupload-browse-img-size">1600×1200 or larger</span>
 			</div>

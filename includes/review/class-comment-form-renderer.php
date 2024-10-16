@@ -121,7 +121,7 @@ class Comment_Form_Renderer {
 				printf(
 					'<button name="%1$s" type="submit" class="%2$s" value="%3$s">%4$s</button>',
 					'directorist-comment-submit',
-					'directorist-btn directorist-btn-primary',
+					'directorist-btn',
 					esc_attr( $submit_label ),
 					esc_html( $submit_label )
 				);

@@ -52,7 +52,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 				<div class="directorist-modal__footer">
 
-					<button type="submit" class="directorist-btn directorist-btn-primary directorist-btn-sm"><?php esc_html_e( 'Submit', 'directorist' ); ?></button>
+					<button type="submit" class="directorist-btn directorist-btn-sm"><?php esc_html_e( 'Submit', 'directorist' ); ?></button>
 
 				</div>
 

@@ -261,7 +261,7 @@ if ( ! class_exists( 'ATBDP_Stylesheet' ) ):
 
                 /* Marker icon color */
                 .map-icon-label i, .atbd_map_shape > span {
-                    color: <?php echo ! empty( $marker_icon_color ) ? esc_attr( $marker_icon_color ) : esc_attr( '#444752' ); ?> !important;
+                    color: <?php echo ! empty( $marker_icon_color ) ? esc_attr( $marker_icon_color ) : esc_attr( '#ffffff' ); ?> !important;
                 }
             <?php
 

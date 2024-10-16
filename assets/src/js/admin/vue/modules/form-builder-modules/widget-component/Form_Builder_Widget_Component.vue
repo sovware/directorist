@@ -87,7 +87,6 @@
 </template>
 
 <script>
-import { findObjectItem } from "../../../../../helper";
 import ConfirmationModal from "./Form_Builder_Widget_Trash_Confirmation.vue";
 
 export default {
@@ -292,58 +291,33 @@ export default {
     },
 
     syncCurrentWidget() {
-      const current_widget = findObjectItem(
-        `${this.widgetKey}`,
-        this.activeWidgets
-      );
+      if ( ! this.avilableWidgets ) { return ''; }
+      if ( typeof this.avilableWidgets !== 'object' ) { return ''; }
 
-      if (!current_widget) {
-        return;
-      }
+      if ( ! this.activeWidgets ) { return '' }
+      if ( ! this.activeWidgets[ this.widgetKey ] ) { return ''; }
 
-      const widget_group = current_widget.widget_group
-        ? current_widget.widget_group
-        : "";
+      const current_widget = this.activeWidgets[ this.widgetKey ];
+      const widget_group = ( current_widget.widget_group ) ? current_widget.widget_group : '';
+      const widget_name = ( current_widget.widget_name ) ? current_widget.widget_name : '';
 
-      const widget_name = current_widget.widget_name
-        ? current_widget.widget_name
-        : "";
-
-      const widget_child_name = current_widget.widget_name
-        ? current_widget.widget_child_name
-        : "";
-
-      if (!this.avilableWidgets[widget_group]) {
-        return;
-      }
+      if ( ! this.avilableWidgets[ widget_group ] ) { return ''; }
 
       let the_current_widget = null;
-      let current_widget_name = "";
-      let current_widget_child_name = "";
+      let current_widget_name = '';
 
-      if (this.avilableWidgets[widget_group][widget_name]) {
-        the_current_widget = this.avilableWidgets[widget_group][widget_name];
-        current_widget_name = widget_name;
+      if ( this.avilableWidgets[ widget_group ][ widget_name ] ) {
+          the_current_widget = this.avilableWidgets[ widget_group ][ widget_name ];
+          current_widget_name = widget_name;
       }
 
-      if (
-        the_current_widget &&
-        the_current_widget.widgets &&
-        the_current_widget.widgets[widget_child_name]
-      ) {
-        the_current_widget = the_current_widget.widgets[widget_child_name];
-        current_widget_child_name = widget_child_name;
+      if ( this.avilableWidgets[ widget_group ][ this.widgetKey ] ) {
+          the_current_widget = this.avilableWidgets[ widget_group ][ this.widgetKey ];
+          current_widget_name = this.widgetKey;
       }
 
-      if (!the_current_widget) {
-        return;
-      }
-
-      this.checkIfHasUntrashableWidget(
-        widget_group,
-        current_widget_name,
-        current_widget_child_name
-      );
+      if ( ! the_current_widget ) { return ''; }
+      this.checkIfHasUntrashableWidget( widget_group, current_widget_name );
 
       this.current_widget = the_current_widget;
     },

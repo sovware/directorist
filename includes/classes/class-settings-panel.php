@@ -780,7 +780,7 @@ Please remember that your order may be canceled if you do not make your payment 
                 ],
 
                 // Primary Color
-                'primary_color' => [
+                'brand_color' => [
                     'type' => 'color',
                     'label' => __('Brand Color', 'directorist'),
                     'value' => '#444752',
@@ -4211,7 +4211,7 @@ Please remember that your order may be canceled if you do not make your payment 
                         'brand_color_section' =>  [
                             'title'  => __('Brand', 'directorist'),
                             'fields' => apply_filters('atbdp_primary_dark_color', [
-                                'primary_color',
+                                'brand_color',
                             ])
                         ],
                         'button_type_section' => [

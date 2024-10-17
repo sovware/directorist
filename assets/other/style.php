@@ -16,7 +16,7 @@ $new_badge_color                  = get_directorist_option('new_back_color', '#2
 $marker_shape_color               = get_directorist_option('marker_shape_color', '#000000');
 $marker_icon_color                = get_directorist_option('marker_icon_color', '#ffffff');
 
-$primary_color                    = get_directorist_option('primary_color', '#000000');
+$primary_color                    = get_directorist_option('brand_color', '#000000');
 $secondary_color                  = get_directorist_option('color_secondary', '#F2F3F5');
 $dark_color                       = get_directorist_option('color_dark', '#000000');
 $white_color                      = get_directorist_option('color_white', '#ffffff');

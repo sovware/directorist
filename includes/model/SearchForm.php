@@ -237,9 +237,17 @@ class Directorist_Listing_Search_Form {
 		$this->location_class          = 'directory_field bdas-category-location';
 	}
 
-	public function build_search_data( $data ) {
-		$search_form_fields = get_term_meta( $this->listing_type, 'search_form_fields', true );
-		return $search_form_fields['fields'][ $data ];
+	public function get_radius_search_data() {
+		$form_data = $this->form_data;
+		$result    = array();
+
+		foreach ( $form_data as $each_array ) {
+			if ( !empty( $each_array['fields']['radius_search'] ) ) {
+				$result = $each_array['fields']['radius_search'];
+				break;
+			}
+		}
+		return $result;
 	}
 
 	public function get_default_listing_type() {
@@ -591,7 +599,7 @@ class Directorist_Listing_Search_Form {
 
 	public function zip_code_class() {
 		$class 					= 'directorist-form-element';
-		$radius_search 			= $this->build_search_data( 'radius_search' );
+		$radius_search 			= $this->get_radius_search_data();
 		$radius_search_based_on = ! empty( $radius_search['radius_search_based_on'] ) ? $radius_search['radius_search_based_on'] : 'address';
 
 		if( ! empty( $radius_search ) && 'zip' == $radius_search_based_on ) {

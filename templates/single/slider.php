@@ -43,21 +43,23 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 		<div class='directorist-swiper__pagination directorist-swiper__pagination--single-listing'></div>
 	</div>
 
-	<?php if( ! empty( $data['show-thumbnails'] ) ) : ?>
+	<?php if ( ! empty( $data['show-thumbnails'] ) ) : ?>
 	<div class="directorist-swiper directorist-single-listing-slider-thumb">
 		<div class="swiper-wrapper">
 			<?php
-				if ( ! empty( $data['images'] )  ):
-					foreach ( $data['images'] as $image ) {
-						if( empty( $image['src'] ) ) {
-							continue;
-						}
-						$img_src = $image['src'];
-						$img_alt = $image['alt'];
-						$output = "<div class='swiper-slide'><img src={$img_src} alt={$img_alt} /></div>" . "\n";
-						echo wp_kses_post( $output );
+			if ( ! empty( $data['images'] )  ):
+				foreach ( $data['images'] as $image ) {
+					if ( empty( $image['src'] ) ) {
+						continue;
 					}
-				endif;
+
+					printf(
+						'<div class="swiper-slide"><img src="%1$s" alt="%2$s"></div>',
+						esc_url( $image['src'] ),
+						esc_attr( $image['alt'] )
+					);
+				}
+			endif;
 			?>
 		</div>
 		<div class='directorist-swiper__navigation'>

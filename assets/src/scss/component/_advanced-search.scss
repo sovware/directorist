@@ -92,7 +92,7 @@
           font-size: 14px;
           font-weight: 400;
         }
-        .directorist-form-group__prefix{
+        .directorist-form-group__prefix--start{
           opacity: 0;
           transition: opacity 0.3s ease;
         }
@@ -120,7 +120,7 @@
             font-weight: 500;
             margin: 0;
           }
-          .directorist-form-group__prefix{
+          .directorist-form-group__prefix--start{
             opacity: 1;
           }
           .directorist-search-field__input {

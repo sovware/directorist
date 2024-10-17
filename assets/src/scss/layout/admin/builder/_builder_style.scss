@@ -152,8 +152,7 @@ $light-gray: #f4f5f7;
 }
 .directorist-directory-type-bottom {
   background: white;
-  border-radius: 0 0 6px 6px;
-  margin-top: 70px;
+  margin-top: 80px;
   overflow: hidden;
   .cptm-header-navigation {
     position: fixed;
@@ -161,7 +160,7 @@ $light-gray: #f4f5f7;
     top: 92px;
     width: calc(100% - 262px);
     background: #ffffff;
-    border-top: 10px solid #f3f4f6;
+    border-top: 20px solid #f3f4f6;
     border-bottom: 1px solid #e5e7eb;
     gap: 0 32px;
     padding: 0 30px;
@@ -1032,7 +1031,7 @@ $light-gray: #f4f5f7;
   }
 
   &.tab-full-width {
-    max-width: 100%;
+    max-width: 1345px;
   }
 }
 
@@ -1109,7 +1108,7 @@ $light-gray: #f4f5f7;
     width: calc(50% + 50px);
     padding: 24px 43px 50px;
     box-sizing: border-box;
-    z-index: 9;
+    z-index: 10;
     background: #f8f9fa;
     border: none;
     border-radius:0 0 8px 8px;

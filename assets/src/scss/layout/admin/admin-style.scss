@@ -4140,6 +4140,7 @@ body.wp-admin {
   align-items: center;
   width: 100%;
   margin-left: -24px;
+  margin-top: -10px;
   background-color: #fff;
   padding: 0 24px;
   box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
@@ -5077,7 +5078,6 @@ body.wp-admin {
   &--editable {
     display: inline-flex;
     padding: 8px;
-    justify-content: center;
     align-items: center;
     gap: 8px;
     border-radius: 6px;

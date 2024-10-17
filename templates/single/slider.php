@@ -23,13 +23,14 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 			<?php
 				if ( ! empty( $data['images'] )  ):
 					foreach ( $data['images'] as $image ) {
-						if( empty( $image['src'] ) ) {
+						if ( empty( $image['src'] ) ) {
 							continue;
 						}
-						$img_src = $image['src'];
-						$img_alt = $image['alt'];
-						$output = "<div class='swiper-slide'><img src={$img_src} alt={$img_alt} /></div>" . "\n";
-						echo wp_kses_post( $output );
+						printf(
+							'<div class="swiper-slide"><img src="%1$s" alt="%2$s"></div>',
+							esc_url( $image['src'] ),
+							esc_attr( $image['alt'] )
+						);
 					}
 				endif;
 			?>

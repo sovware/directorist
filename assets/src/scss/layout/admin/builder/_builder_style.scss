@@ -427,6 +427,9 @@ $light-gray: #f4f5f7;
     .directorist-directory-type-bottom .cptm-header-navigation {
       z-index: 1;
     }
+    .submission_form_fields {
+      z-index: 11;
+    }
   }
 }
 
@@ -1118,7 +1121,7 @@ $light-gray: #f4f5f7;
     width: calc(50% + 50px);
     padding: 24px 43px 50px;
     box-sizing: border-box;
-    z-index: 9;
+    z-index: 10;
     background: #f8f9fa;
     border: none;
     border-radius:0 0 8px 8px;

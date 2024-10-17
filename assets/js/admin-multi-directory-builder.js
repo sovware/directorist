@@ -14812,7 +14812,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
       footer_actions: {
         save: {
           show: true,
-          label: "Create",
+          label: "Create Directory",
           showLoading: false,
           isDisabled: false
         }
@@ -34751,7 +34751,8 @@ var render = function render() {
   }) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "atbdp-col atbdp-col-8"
   }, [_c("div", {
-    staticClass: "directorist_dropdown"
+    staticClass: "directorist_dropdown",
+    class: _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({}, "--open", _vm.show_option_modal)
   }, [_c("a", {
     staticClass: "directorist_dropdown-toggle",
     attrs: {
@@ -36061,7 +36062,8 @@ var render = function render() {
       innerHTML: _vm._s(_vm.description)
     }
   }) : _vm._e(), _vm._v(" "), _c("div", {
-    staticClass: "directorist_dropdown"
+    staticClass: "directorist_dropdown",
+    class: _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({}, "--open", _vm.show_option_modal)
   }, [_c("a", {
     staticClass: "directorist_dropdown-toggle",
     attrs: {

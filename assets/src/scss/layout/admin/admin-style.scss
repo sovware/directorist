@@ -4138,6 +4138,8 @@ body.wp-admin {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
+  margin-left: -24px;
   background-color: #fff;
   padding: 0 24px;
   box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
@@ -5071,7 +5073,7 @@ body.wp-admin {
   margin-right: 10px;
   text-transform: none;
   transition: 0.3s ease;
-
+  &:hover,
   &--editable {
     display: inline-flex;
     padding: 8px;
@@ -5384,7 +5386,12 @@ body.wp-admin {
   border-radius: 8px;
   position: relative;
   box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
-
+  &.--open {
+    border-color: #4D5761;
+    .directorist_dropdown-toggle:before {
+      content: '\eb56';
+    }
+  }
   .directorist_dropdown-toggle {
     text-decoration: none;
     color: #7a82a6;
@@ -5550,6 +5557,13 @@ body.wp-admin {
           }
         }
       }
+    }
+  }
+
+  &.default {
+    .directorist_more-dropdown-toggle {
+      opacity: 0.5;
+      pointer-events: none;
     }
   }
 }

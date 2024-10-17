@@ -5,7 +5,7 @@ Tags: member directory, listing, classifieds, directory plugin, business directo
 Requires at least: 4.6
 Tested up to: 6.6
 Requires PHP: 7.0
-Stable tag: 7.12.6
+Stable tag: 7.12.7
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -15,13 +15,13 @@ A user-centric yet powerful WordPress Business Directory Plugin to create a loca
 
 [Try Admin Demo](https://userdemo.wpwax.com/directorist/) | [Demos](https://directorist.com/demos/) | [Docs](https://directorist.com/documentation/directorist/) | [Themes](https://directorist.com/themes/) | [Extensions](https://directorist.com/extensions/) | [Roadmap](https://directorist.com/roadmap/)
 
-Are you ready to embark on the journey of creating your own online directory and classified ads listing site? 
+Are you ready to embark on the journey of creating your own online directory and classified ads listing site?
 
 If the answer is a resounding YES, then look no further! Directorist Business Directory Plugin is your ultimate companion, making the process not only seamless but also exciting. With Directorist, you'll unlock the power to craft dynamic and impactful business directories and classified websites of any kind, setting the stage for endless possibilities and opportunities. Let's dive in and unleash your creativity!
 
 [youtube https://www.youtube.com/watch?v=28gUzfsGmuk]
 
-Using Directorist, the potential of a directory site is boundless. It serves as a multifaceted platform, offering avenues for generating income, providing community service, supporting business operations, enhancing existing ventures, and more. With thousands of individuals already embarking on this journey, what stands in your way? Take the leap and discover the vast opportunities it presents. 
+Using Directorist, the potential of a directory site is boundless. It serves as a multifaceted platform, offering avenues for generating income, providing community service, supporting business operations, enhancing existing ventures, and more. With thousands of individuals already embarking on this journey, what stands in your way? Take the leap and discover the vast opportunities it presents.
 
 🎉 Use [Best Listing](https://wordpress.org/themes/best-listing/) FREE multi-purpose directory theme for a quick start.
 
@@ -303,6 +303,10 @@ Directorist is a complete directory solution and in combination with its advance
 * Real-estate directory and many more
 
 == Changelog ==
+
+7.12.7 - Oct 17, 2024
+
+* Fix -  Missing directorist blocks
 
 7.12.6 - Oct 14, 2024
 

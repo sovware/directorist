@@ -912,9 +912,10 @@ import './components/directoristSelect';
                                     });
                                 },
                                 error: function error(_error3) {
-                                    // console.log({
-                                    //     error: _error3
-                                    // });
+                                    console.log({
+                                        error: _error3
+                                    });
+                                    locationAddressField.removeClass('atbdp-form-fade');
                                 }
                             });
                         }

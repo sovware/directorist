@@ -138,13 +138,17 @@ if (!class_exists('ATBDP_Listing')):
 				directorist_set_listing_directory( $listing_id, $directory_id );
 			}
 
-			$directory_id = absint( $directory_id );
+			$directory_id  = absint( $directory_id );
+			$create_status = directorist_get_listing_create_status( $directory_id );
+			$edit_status   = directorist_get_listing_edit_status( $directory_id, $listing_id );
 
 			$args = array(
 				'id'            => $listing_id,
 				'edited'        => isset( $_GET['edited'] ) ? directorist_clean( wp_unslash( $_GET['edited'] ) ) : '',
-				'new_l_status'  => directorist_get_listing_create_status( $directory_id ),
-				'edit_l_status' => directorist_get_listing_edit_status( $directory_id, $listing_id ),
+				'new_l_status'  => $create_status,
+				'edit_l_status' => $edit_status,
+				'create_status' => $create_status,
+				'edit_status'   => $edit_status,
 			);
 
 			$args = apply_filters( 'atbdp_reviewed_listing_status_controller_argument', array(

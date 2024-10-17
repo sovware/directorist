@@ -330,12 +330,14 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 					 */
 					do_action( 'atbdp_before_processing_to_update_listing' );
 
-					$listing_data['ID'] = $listing_id; // set the ID of the post to update the post
-					if ( $preview_enable ) {
-						$listing_data['post_status'] = 'private';
-					} else {
-						$listing_data['post_status'] = directorist_get_listing_edit_status( $directory_id, $listing_id );
-					}
+					$listing_data['ID']          = $listing_id;
+					$listing_data['post_status'] = directorist_get_listing_edit_status( $directory_id, $listing_id );
+
+					// if ( $preview_enable ) {
+					// 	$listing_data['post_status'] = 'private';
+					// } else {
+					// 	$listing_data['post_status'] = directorist_get_listing_edit_status( $directory_id, $listing_id );
+					// }
 
 					$listing_id = wp_update_post( $listing_data );
 

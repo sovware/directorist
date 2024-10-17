@@ -264,11 +264,7 @@ export default {
 
     handleTrashClick() {
       this.expandedDropdown = !this.expandedDropdown;
-      if (this.isPresetOrCustomGroup && this.widgetKey !== "terms_privacy") {
-        this.openConfirmationModal();
-      } else {
-        this.$emit("trash-widget");
-      }
+      this.openConfirmationModal();
     },
 
     sync() {
@@ -279,10 +275,22 @@ export default {
     openConfirmationModal() {
       this.widgetName = this.widgetTitle;
       this.showConfirmationModal = true;
+
+      // Add class to parent with class 'atbdp-cpt-manager'
+      const parentElement = this.$el.closest('.atbdp-cpt-manager');
+      if (parentElement) {
+        parentElement.classList.add('trash-overlay-visible');
+      }
     },
 
     closeConfirmationModal() {
       this.showConfirmationModal = false;
+      
+      // Remove class from parent with class 'atbdp-cpt-manager'
+      const parentElement = this.$el.closest('.atbdp-cpt-manager');
+      if (parentElement) {
+        parentElement.classList.remove('trash-overlay-visible');
+      }
     },
 
     trashWidget() {

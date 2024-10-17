@@ -6,7 +6,7 @@
         
         <p class="cptm-form-group-info" v-if="description.length" v-html="description"></p>
 
-        <div class="directorist_dropdown">
+        <div class="directorist_dropdown" :class="{ ['--open']: show_option_modal }">
             <a href="#" class="directorist_dropdown-toggle" @click.prevent="toggleTheOptionModal()">
                 <span class="directorist_dropdown-toggle__text">{{  theCurrentOptionLabel }}</span>
             </a>

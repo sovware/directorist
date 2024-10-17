@@ -6,17 +6,17 @@
       v-for="(section, section_key) in sections"
       :key="section_key"
     >
-    <div
+      <div
         class="directorist-form-doc"
-        v-if="section.fields[0] === 'submission_form_fields' || section.fields[0] === 'search_form_fields' || section.fields[0] === 'single_listing_header' || section.fields[0] === 'single_listing_header' || section.fields[0] === 'single_listings_contents' || section.fields[0] === 'listings_card_grid_view' || section.fields[0] === 'listings_card_list_view'"
+        v-if="['submission_form_fields', 'search_form_fields', 'single_listing_header', 'single_listings_contents', 'listings_card_grid_view', 'listings_card_list_view'].includes(section.fields[0])"
       >
         <div class="directorist-form-doc-left">
           <div class="directorist-form-doc-title" v-html="section.title"></div>
           <a
             href="#"
             class="directorist-form-doc__watch-tutorial"
+            v-if="video && ['submission_form_fields', 'search_form_fields'].includes(section.fields[0])"
             @click.prevent="openVideoPopup"
-            v-if="section.fields[0] === 'submission_form_fields' || section.fields[0] === 'search_form_fields'"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -32,16 +32,15 @@
                 fill="currentColor"
               />
             </svg>
-            Watch tutorial
+            {{video.button_text}}
           </a>
           <a
-            href="#"
+            :href="learn_more.url"
+            target="_blank"
             class="directorist-form-doc__link"
-            v-if="section.fields[0] !== 'submission_form_fields' && section.fields[0] !== 'search_form_fields'"
-          >
-            What is it?
-          </a>
-
+            v-if="learn_more"
+            v-html="learn_more.title"
+          ></a>
         </div>
         <div class="directorist-form-doc-right">
           <a
@@ -69,12 +68,6 @@
         </div>
       </div>
 
-      <!-- Video Popup Modal -->
-      <form-builder-widget-video-component
-        :videoOpened="showVideo"
-        @close-video="closeVideoPopup"
-      />
-
       <div
         class="cptm-title-area"
         :class="sectionTitleAreaClass(section)"
@@ -87,6 +80,7 @@
           v-html="section.description"
         ></div>
       </div>
+
       <div class="cptm-form-fields" v-if="sectionFields(section)">
         <div
           v-for="(field, field_key) in sectionFields(section)"
@@ -157,6 +151,14 @@
         </div>
       </div>
     </div>
+
+    <!-- Video Popup Modal -->
+    <form-builder-widget-video-component
+      v-if="video"
+      :videoOpened="showVideo"
+      :video="video"
+      @close-video="closeVideoPopup"
+    />
   </div>
 </template>
 
@@ -190,6 +192,12 @@ export default {
       type: String,
       default: "",
     },
+    video: {
+      type: Object,
+    },
+    learn_more: {
+      type: Object,
+    },
   },
 
   computed: {
@@ -215,6 +223,7 @@ export default {
         ? this.fields[firstContainerField].group_label
         : "";
     },
+
   },
 
   methods: {

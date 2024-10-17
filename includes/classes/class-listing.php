@@ -144,7 +144,7 @@ if (!class_exists('ATBDP_Listing')):
 				'id'            => $listing_id,
 				'edited'        => isset( $_GET['edited'] ) ? directorist_clean( wp_unslash( $_GET['edited'] ) ) : '',
 				'new_l_status'  => directorist_get_listing_create_status( $directory_id ),
-				'edit_l_status' => directorist_get_listing_edit_status( $directory_id ),
+				'edit_l_status' => directorist_get_listing_edit_status( $directory_id, $listing_id ),
 			);
 
 			$args = apply_filters( 'atbdp_reviewed_listing_status_controller_argument', array(
@@ -311,14 +311,14 @@ if (!class_exists('ATBDP_Listing')):
             if ( is_user_logged_in() && empty( $count_loggedin ) ) {
                 return;
             }
-            
+
             if ( isset( $_POST['listing_id'] ) ) {
                 $listing_id         = absint( $_POST['listing_id'] );
                 $this->set_post_views( $listing_id );
                 // Return 'success' to the AJAX request to indicate that the view has been counted.
                 wp_send_json_success();
             }
-        
+
             die();
         }
     }

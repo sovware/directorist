@@ -308,7 +308,6 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 				}
 
 				$listing_create_status = directorist_get_listing_create_status( $directory_id );
-				$listing_edit_status   = ( 'publish' !== $listing_create_status ) ? $listing_create_status : directorist_get_listing_edit_status( $directory_id );
 				$default_expiration    = directorist_get_default_expiration( $directory_id );
 				$preview_enable        = atbdp_is_truthy( get_term_meta( $directory_id, 'preview_mode', true ) );
 
@@ -335,7 +334,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 					if ( $preview_enable ) {
 						$listing_data['post_status'] = 'private';
 					} else {
-						$listing_data['post_status'] = $listing_edit_status;
+						$listing_data['post_status'] = directorist_get_listing_edit_status( $directory_id, $listing_id );
 					}
 
 					$listing_id = wp_update_post( $listing_data );

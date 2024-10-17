@@ -32,7 +32,7 @@ do_action('directorist_before_reset_password_form');
 
 	<p class="directorist-form-row form-row">
 		<input type="hidden" name="directorist_reset_password" value="true" />
-		<button type="submit" class="directorist-btn directorist-btn-block directorist-btn-primary directorist-authentication__form__btn" value="<?php esc_attr_e('Save', 'directorist'); ?>"><?php esc_html_e('Save', 'directorist'); ?></button>
+		<button type="submit" class="directorist-btn directorist-btn-block directorist-authentication__form__btn" value="<?php esc_attr_e('Save', 'directorist'); ?>"><?php esc_html_e('Save', 'directorist'); ?></button>
 	</p>
 
 	<?php wp_nonce_field('reset_password', 'directorist-reset-password-nonce'); ?>

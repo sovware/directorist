@@ -48,8 +48,15 @@ $settings-primary-color: #3e62f5;
                 font-size: 15px;
             }
         }
+        &.button_type,
         &.enable_multi_directory {
-            z-index: 99;
+            z-index: 11;
+        }
+    }
+    
+    #style_settings__color_settings {
+        .cptm-section {
+            z-index: unset;
         }
     }
 }

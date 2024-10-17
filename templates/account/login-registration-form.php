@@ -122,7 +122,7 @@ $key        = isset( $_GET['key'] ) ? sanitize_text_field( wp_unslash( $_GET['ke
 							</div>
 
 							<div class="directorist-form-group atbd_login_btn_wrapper directorist-mb-15 directorist-authentication__form__btn-wrapper">
-								<button class="directorist-btn directorist-btn-block directorist-btn-primary directorist-authentication__form__btn" type="submit" value="<?php echo esc_attr( $log_button ); ?>" name="submit" aria-label="Signin Button"><?php echo esc_html( $log_button ); ?></button>
+								<button class="directorist-btn directorist-btn-block directorist-authentication__form__btn" type="submit" value="<?php echo esc_attr( $log_button ); ?>" name="submit" aria-label="Signin Button"><?php echo esc_html( $log_button ); ?></button>
 								<?php wp_nonce_field( 'ajax-login-nonce', 'security' );?>
 							</div>
 						</form>
@@ -210,7 +210,7 @@ $key        = isset( $_GET['key'] ) ? sanitize_text_field( wp_unslash( $_GET['ke
 									<input type="text" class="directorist-mb-15 directorist-form-element" name="user_login" id="reset_user_login" value="<?php echo isset( $_POST['user_login'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_POST['user_login'] ) ) ) : ''; ?>" placeholder="<?php echo esc_attr( $recpass_placeholder ); ?>" required="required" />
 									<div class="directorist-authentication__form__btn-wrapper">
 										<input type="hidden" name="action" value="reset" />
-										<button type="submit" class="directorist-btn directorist-btn-primary directorist-authentication__form__btn" id="directorist__authentication__submit" aria-label="Recover Password Button"><?php echo esc_html( $recpass_button ); ?></button>
+										<button type="submit" class="directorist-btn directorist-authentication__form__btn" id="directorist__authentication__submit" aria-label="Recover Password Button"><?php echo esc_html( $recpass_button ); ?></button>
 										<input type="hidden" value="<?php echo esc_attr( wp_create_nonce( directorist_get_nonce_key() ) ); ?>" name="directorist_nonce">
 									</div>
 								</fieldset>
@@ -347,7 +347,7 @@ $key        = isset( $_GET['key'] ) ? sanitize_text_field( wp_unslash( $_GET['ke
 							<input type="hidden" name='previous_page' value='<?php echo esc_url( wp_get_referer() ); ?>'>
 							<?php } ?>
 							<input type="hidden" value="<?php echo esc_attr( wp_create_nonce( directorist_get_nonce_key() ) ); ?>" name="directorist_nonce">
-							<button type="submit" class="directorist-btn directorist-btn-primary directorist-authentication__form__btn" name="atbdp_user_submit"><?php echo esc_html( $reg_signup ); ?></button>
+							<button type="submit" class="directorist-btn directorist-authentication__form__btn" name="atbdp_user_submit"><?php echo esc_html( $reg_signup ); ?></button>
 						</div>
 						<div class="directory_regi_btn directorist-authentication__form__toggle-area">
 							<p><?php echo esc_html( $login_text ); ?> <button class="directorist-authentication__btn directorist-authentication__btn--signin"><?php echo esc_html( $log_linkingmsg ); ?></button></p>

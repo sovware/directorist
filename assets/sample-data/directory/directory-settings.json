@@ -15,7 +15,7 @@
     "announcement_send_to_email": true,
     "button_type": 0,
     "primary_example": "{\"id\":null,\"url\":\"\"}",
-    "primary_color": "#444752",
+    "brand_color": "#444752",
     "primary_hover_color": "#ffffff",
     "button_primary_example": "{}",
     "button_primary_color": "#ffffff",

@@ -13,9 +13,9 @@ $action_url = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERV
 ?>
 
 <div class="directorist-add-listing-wrapper directorist-w-100">
-	<div class="<?php Helper::directorist_container_fluid(); ?>">
+    <div class="<?php Helper::directorist_container_fluid(); ?>">
+        <?php do_action('directorist_before_add_listing_from_frontend');?>
         <form action="<?php echo esc_url( $action_url ); ?>" method="post" id="directorist-add-listing-form">
-            <?php do_action('directorist_before_add_listing_from_frontend');?>
             <div class="directorist-add-listing-form">
                 <input type="hidden" name="add_listing_form" value="1">
                 <input type="hidden" name="listing_id" value="<?php echo !empty($p_id) ? esc_attr($p_id) : ''; ?>">
@@ -88,6 +88,9 @@ $action_url = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERV
                         <div class="default-add-listing-bottom">
                             <button type="submit" class="directorist-btn directorist-btn-primary directorist-form-submit__btn"><?php echo esc_html( $listing_form->submit_label() ); ?></button>
                         </div>
+                        
+                        <?php do_action( 'directorist_after_submit_listing_frontend' ); ?>
+                        
                     </div>
                 </div>
                 <!-- MultiStep Wizard End -->

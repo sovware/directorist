@@ -93,10 +93,13 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 					<?php do_action( 'directorist_dashboard_after_loop' ); ?>
 				</div>
+				
+				<?php do_action( 'directorist_dashboard_before_pagination' ); ?>
+					<div class="directorist-dashboard-pagination">
+						<?php echo wp_kses_post( $dashboard->listing_pagination() ); ?>
+					</div>
+				<?php do_action( 'directorist_dashboard_after_pagination' ); ?>
 
-				<div class="directorist-dashboard-pagination">
-					<?php echo wp_kses_post( $dashboard->listing_pagination() ); ?>
-				</div>
 			</div>
 
 		</div>

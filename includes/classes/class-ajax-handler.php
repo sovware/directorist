@@ -568,7 +568,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 				if ( $update_type_slug ) {
 					wp_send_json(
 						array(
-							'success' => __( 'Slug Changes Successfully.', 'directorist' ),
+							'success' => __( 'Slug changes successfully.', 'directorist' ),
 						)
 					);
 				}

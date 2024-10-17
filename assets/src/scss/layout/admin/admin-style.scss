@@ -5086,8 +5086,6 @@ body.wp-admin {
     &:focus {
       display: inline-flex;
       padding: var(--spacing-md, 8px);
-      justify-content: center;
-      align-items: center;
       gap: var(--spacing-md, 8px);
       border-radius: var(--radius-sm, 6px);
       background: var(--Gray-100, #F3F4F6);
@@ -5109,6 +5107,7 @@ body.wp-admin {
   .directorist-slug-notice,
   .directorist-count-notice {
     margin: 6px 0 0;
+    text-transform: math-auto;
 
     &.directorist-slug-notice-error {
       color: $danger;

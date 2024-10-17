@@ -11569,9 +11569,11 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .directorist-btn:hover, .directorist-btn:focus {
   color: var(--directorist-color-white);
-  background-color: rgba(var(--directorist-color-primary-rgb, 0.8));
-  border-color: rgb(var(--directorist-color-primary-rgb));
   outline: 0 !important;
+}
+.directorist-btn:hover:not(.directorist-single-listing-action), .directorist-btn:focus:not(.directorist-single-listing-action) {
+  -webkit-filter: brightness(0.85);
+          filter: brightness(0.85);
 }
 .directorist-btn:hover .directorist-icon-mask:after, .directorist-btn:focus .directorist-icon-mask:after {
   background-color: currentColor;
@@ -11584,7 +11586,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .directorist-btn.directorist-btn-primary:hover {
   color: var(--directorist-color-btn-primary-hover);
-  background-color: rgba(var(--directorist-color-btn-primary-rgb, 0.8));
 }
 .directorist-btn.directorist-btn-primary:hover .directorist-icon-mask:after {
   background-color: var(--directorist-color-btn-primary);

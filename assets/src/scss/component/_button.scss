@@ -38,9 +38,10 @@
   &:hover,
   &:focus {
     color: var(--directorist-color-white);
-    background-color: rgba(var(--directorist-color-primary-rgb,.80));
-    border-color: rgb(var(--directorist-color-primary-rgb));
     outline: 0 !important;
+    &:not(.directorist-single-listing-action){
+      filter: brightness(0.85);
+    }
     .directorist-icon-mask:after {
       background-color: currentColor;
     }
@@ -55,7 +56,6 @@
     border: 1px solid var(--directorist-color-btn-primary-border);
     &:hover {
       color: var(--directorist-color-btn-primary-hover);
-      background-color: rgba(var(--directorist-color-btn-primary-rgb,.80));
       .directorist-icon-mask:after {
         background-color: var(--directorist-color-btn-primary);
       }

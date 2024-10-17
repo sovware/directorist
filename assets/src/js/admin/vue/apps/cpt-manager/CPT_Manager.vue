@@ -142,7 +142,7 @@ export default {
       footer_actions: {
         save: {
           show: true,
-          label: "Create",
+          label: "Create Directory",
           showLoading: false,
           isDisabled: false,
         },

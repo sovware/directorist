@@ -29,11 +29,14 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 			</div>
 
-			<?php do_action( 'directorist_before_listings_pagination' ); ?>
-
 			<?php
 			if ( $listings->show_pagination ) {
+
+				do_action( 'directorist_before_listings_pagination' );
+
 				$listings->pagination();
+
+				do_action( 'directorist_after_listings_pagination' );
 			}
 			?>
 

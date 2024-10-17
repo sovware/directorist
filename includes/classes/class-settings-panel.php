@@ -633,6 +633,7 @@ Please remember that your order may be canceled if you do not make your payment 
                     'value' => true,
                 ],
 
+                // Button Type
                 'button_type' => [
                     'label' => __('Button Type', 'directorist'),
                     'type'  => 'select',
@@ -640,665 +641,113 @@ Please remember that your order may be canceled if you do not make your payment 
                     'show-default-option' => true,
                     'options'   => [
                         [
-                            'value' => 'solid_primary',
-                            'label' => __('Solid Primary', 'directorist'),
+                            'value' => 'button_type_primary',
+                            'label' => __('Primary', 'directorist'),
                         ],
                         [
-                            'value' => 'solid_secondary',
-                            'label' => __('Solid Secondary', 'directorist'),
-                        ],
-                        [
-                            'value' => 'solid_danger',
-                            'label' => __('Solid Danger', 'directorist'),
-                        ],
-                        [
-                            'value' => 'solid_success',
-                            'label' => __('Solid Success', 'directorist'),
-                        ],
-                        [
-                            'value' => 'solid_lighter',
-                            'label' => __('Solid Lighter', 'directorist'),
-                        ],
-                        [
-                            'value' => 'primary_outline',
-                            'label' => __('Primary Outline', 'directorist'),
-                        ],
-                        [
-                            'value' => 'primary_outline_light',
-                            'label' => __('Primary Outline Light', 'directorist'),
-                        ],
-                        [
-                            'value' => 'danger_outline',
-                            'label' => __('Danger Outline', 'directorist'),
+                            'value' => 'button_type_secondary',
+                            'label' => __('Secondary', 'directorist'),
                         ],
                     ]
                 ],
 
-                // solid primary color
-                'primary_example' => [
-                    'label'       => __('Button Example', 'directorist'),
-                    'type'        => 'wp-media-picker',
-                    'default-img' => 'https://directorist.com/wp-content/uploads/2020/02/solid-primary.png',
+                // Primary Button
+                'button_primary_example' => [
+                    'label'             => __('Button Example', 'directorist'),
+                    'description'       => __('Modify the color of primary buttons like Save & Preview, Search, etc to match your design preferences', 'directorist'),
+                    'type'              => 'button-example',
+                    'button-class'      => 'directorist-btn-primary',
+                    'button-label'      => __( 'Primary', 'directorist' ),
                     'show-if' => [
                         'where' => "button_type",
                         'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_primary'],
+                            ['key' => 'value', 'compare' => '=', 'value' => 'button_type_primary'],
                         ],
                     ],
                 ],
-                'primary_color' => [
+                'button_primary_color' => [
                     'label' => __('Text Color', 'directorist'),
                     'type' => 'color',
                     'value' => '#ffffff',
                     'show-if' => [
                         'where' => "button_type",
                         'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_primary'],
+                            ['key' => 'value', 'compare' => '=', 'value' => 'button_type_primary'],
                         ],
                     ],
                 ],
-                'primary_hover_color' => [
-                    'label' => __('Text Hover Color', 'directorist'),
+                'button_primary_hover_color' => [
+                    'label' => __('Hover Color', 'directorist'),
                     'type' => 'color',
                     'value' => '#ffffff',
                     'show-if' => [
                         'where' => "button_type",
                         'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_primary'],
+                            ['key' => 'value', 'compare' => '=', 'value' => 'button_type_primary'],
                         ],
                     ],
                 ],
-                'back_primary_color' => [
+                'button_primary_bg_color' => [
                     'label' => __('Background Color', 'directorist'),
                     'type' => 'color',
                     'value' => '#444752',
                     'show-if' => [
                         'where' => "button_type",
                         'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_primary'],
-                        ],
-                    ],
-                ],
-                'back_primary_hover_color' => [
-                    'label' => __('Background Hover Color', 'directorist'),
-                    'type' => 'color',
-                    'value' => '#222222',
-                    'show-if' => [
-                        'where' => "button_type",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_primary'],
-                        ],
-                    ],
-                ],
-                'border_primary_color' => [
-                    'label' => __('Border Color', 'directorist'),
-                    'type' => 'color',
-                    'value' => '#444752',
-                    'show-if' => [
-                        'where' => "button_type",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_primary'],
-                        ],
-                    ],
-                ],
-                'border_primary_hover_color' => [
-                    'label' => __('Border Hover Color', 'directorist'),
-                    'type' => 'color',
-                    'value' => '#222222',
-                    'show-if' => [
-                        'where' => "button_type",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_primary'],
-                        ],
-                    ],
-                ],
-                //solid secondary color
-                'secondary_example' => [
-                    'label'       => __('Button Example', 'directorist'),
-                    'type'        => 'wp-media-picker',
-                    'default-img' => 'https://directorist.com/wp-content/uploads/2020/02/solid-secondary.png',
-                    'show-if' => [
-                        'where' => "button_type",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_secondary'],
-                        ],
-                    ],
-                ],
-                'secondary_color' => [
-                    'label' => __('Text Color', 'directorist'),
-                    'type' => 'color',
-                    'value' => '#fff',
-                    'show-if' => [
-                        'where' => "button_type",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_secondary'],
-                        ],
-                    ],
-                ],
-                'secondary_hover_color' => [
-                    'label' => __('Text Hover Color', 'directorist'),
-                    'type' => 'color',
-                    'value' => '#fff',
-                    'show-if' => [
-                        'where' => "button_type",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_secondary'],
-                        ],
-                    ],
-                ],
-                'back_secondary_color' => [
-                    'label' => __('Background Color', 'directorist'),
-                    'type' => 'color',
-                    'value' => '#122069',
-                    'show-if' => [
-                        'where' => "button_type",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_secondary'],
-                        ],
-                    ],
-                ],
-                'back_secondary_hover_color' => [
-                    'label' => __('Background Hover Color', 'directorist'),
-                    'type' => 'color',
-                    'value' => '#131469',
-                    'show-if' => [
-                        'where' => "button_type",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_secondary'],
-                        ],
-                    ],
-                ],
-                'secondary_border_color' => [
-                    'label' => __('Border Color', 'directorist'),
-                    'type' => 'color',
-                    'value' => '#131469',
-                    'show-if' => [
-                        'where' => "button_type",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_secondary'],
-                        ],
-                    ],
-                ],
-                'secondary_border_hover_color' => [
-                    'label' => __('Border Hover Color', 'directorist'),
-                    'type' => 'color',
-                    'value' => '#131469',
-                    'show-if' => [
-                        'where' => "button_type",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_secondary'],
-                        ],
-                    ],
-                ],
-                // solid danger color
-                'danger_example' => [
-                    'label'       => __('Button Example', 'directorist'),
-                    'type'        => 'wp-media-picker',
-                    'default-img' => 'https://directorist.com/wp-content/uploads/2020/02/solid-danger.png',
-                    'show-if' => [
-                        'where' => "button_type",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_danger'],
-                        ],
-                    ],
-                ],
-                'danger_color' => [
-                    'label' => __('Text Color', 'directorist'),
-                    'type' => 'color',
-                    'value' => '#fff',
-                    'show-if' => [
-                        'where' => "button_type",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_danger'],
-                        ],
-                    ],
-                ],
-                'danger_hover_color' => [
-                    'label' => __('Text Hover Color', 'directorist'),
-                    'type' => 'color',
-                    'value' => '#fff',
-                    'show-if' => [
-                        'where' => "button_type",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_danger'],
-                        ],
-                    ],
-                ],
-                'back_danger_color' => [
-                    'label' => __('Background Color', 'directorist'),
-                    'type' => 'color',
-                    'value' => '#e23636',
-                    'show-if' => [
-                        'where' => "button_type",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_danger'],
-                        ],
-                    ],
-                ],
-                'back_danger_hover_color' => [
-                    'label' => __('Background Hover Color', 'directorist'),
-                    'type' => 'color',
-                    'value' => '#c5001e',
-                    'show-if' => [
-                        'where' => "button_type",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_danger'],
-                        ],
-                    ],
-                ],
-                'danger_border_color' => [
-                    'label' => __('Border Color', 'directorist'),
-                    'type' => 'color',
-                    'value' => '#e23636',
-                    'show-if' => [
-                        'where' => "button_type",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_danger'],
-                        ],
-                    ],
-                ],
-                'danger_border_hover_color' => [
-                    'label' => __('Border Hover Color', 'directorist'),
-                    'type' => 'color',
-                    'value' => '#c5001e',
-                    'show-if' => [
-                        'where' => "button_type",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_danger'],
-                        ],
-                    ],
-                ],
-                // solid success
-                'success_example' => [
-                    'label'       => __('Button Example', 'directorist'),
-                    'type'        => 'wp-media-picker',
-                    'default-img' => 'https://directorist.com/wp-content/uploads/2020/02/solid-success.png',
-                    'show-if' => [
-                        'where' => "button_type",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_success'],
-                        ],
-                    ],
-                ],
-                'success_color' => [
-                    'label' => __('Text Color', 'directorist'),
-                    'type' => 'color',
-                    'value' => '#fff',
-                    'show-if' => [
-                        'where' => "button_type",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_success'],
-                        ],
-                    ],
-                ],
-                'success_hover_color' => [
-                    'label' => __('Text Color', 'directorist'),
-                    'type' => 'color',
-                    'value' => '#fff',
-                    'show-if' => [
-                        'where' => "button_type",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_success'],
-                        ],
-                    ],
-                ],
-                'back_success_color' => [
-                    'label' => __('Background Color', 'directorist'),
-                    'type' => 'color',
-                    'value' => '#32cc6f',
-                    'show-if' => [
-                        'where' => "button_type",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_success'],
-                        ],
-                    ],
-                ],
-                'back_success_hover_color' => [
-                    'label' => __('Background Hover Color', 'directorist'),
-                    'type' => 'color',
-                    'value' => '#2ba251',
-                    'show-if' => [
-                        'where' => "button_type",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_success'],
-                        ],
-                    ],
-                ],
-                'border_success_color' => [
-                    'label' => __('Border Color', 'directorist'),
-                    'type' => 'color',
-                    'value' => '#32cc6f',
-                    'show-if' => [
-                        'where' => "button_type",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_success'],
-                        ],
-                    ],
-                ],
-                'border_success_hover_color' => [
-                    'label' => __('Border Hover Color', 'directorist'),
-                    'type' => 'color',
-                    'value' => '#2ba251',
-                    'show-if' => [
-                        'where' => "button_type",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_success'],
-                        ],
-                    ],
-                ],
-                // solid lighter
-                'lighter_example' => [
-                    'label'       => __('Button Example', 'directorist'),
-                    'type'        => 'wp-media-picker',
-                    'default-img' => 'https://directorist.com/wp-content/uploads/2021/05/roomrent.png',
-                    'show-if' => [
-                        'where' => "button_type",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_lighter'],
-                        ],
-                    ],
-                ],
-                'lighter_color' => [
-                    'label' => __('Text Color', 'directorist'),
-                    'type' => 'color',
-                    'value' => '#1A1B29',
-                    'show-if' => [
-                        'where' => "button_type",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_lighter'],
-                        ],
-                    ],
-                ],
-                'lighter_hover_color' => [
-                    'label' => __('Text Hover Color', 'directorist'),
-                    'type' => 'color',
-                    'value' => '#1A1B29',
-                    'show-if' => [
-                        'where' => "button_type",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_lighter'],
-                        ],
-                    ],
-                ],
-                'back_lighter_color' => [
-                    'label' => __('Background Color', 'directorist'),
-                    'type' => 'color',
-                    'value' => '#F6F7F9',
-                    'show-if' => [
-                        'where' => "button_type",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_lighter'],
-                        ],
-                    ],
-                ],
-                'back_lighter_hover_color' => [
-                    'label' => __('Background Hover Color', 'directorist'),
-                    'type' => 'color',
-                    'value' => '#F6F7F9',
-                    'show-if' => [
-                        'where' => "button_type",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_lighter'],
-                        ],
-                    ],
-                ],
-                'border_lighter_color' => [
-                    'label' => __('Border Color', 'directorist'),
-                    'type' => 'color',
-                    'value' => '#F6F7F9',
-                    'show-if' => [
-                        'where' => "button_type",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_lighter'],
-                        ],
-                    ],
-                ],
-                'border_lighter_hover_color' => [
-                    'label' => __('Border Hover Color', 'directorist'),
-                    'type' => 'color',
-                    'value' => '#F6F7F9',
-                    'show-if' => [
-                        'where' => "button_type",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_lighter'],
-                        ],
-                    ],
-                ],
-                // primary outline
-                'priout_example' => [
-                    'label'       => __('Button Example Outline', 'directorist'),
-                    'type'        => 'wp-media-picker',
-                    'default-img' => 'https://directorist.com/wp-content/uploads/2020/02/outline-primary.png',
-                    'show-if' => [
-                        'where' => "button_type",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'primary_outline'],
-                        ],
-                    ],
-                ],
-                'priout_color' => [
-                    'label' => __('Text Color Outline', 'directorist'),
-                    'type' => 'color',
-                    'value' => '#444752',
-                    'show-if' => [
-                        'where' => "button_type",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'primary_outline'],
-                        ],
-                    ],
-                ],
-                'priout_hover_color' => [
-                    'label' => __('Text Hover Color Outline', 'directorist'),
-                    'type' => 'color',
-                    'value' => '#444752',
-                    'show-if' => [
-                        'where' => "button_type",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'primary_outline'],
-                        ],
-                    ],
-                ],
-                'back_priout_color' => [
-                    'label' => __('Background Color Outline', 'directorist'),
-                    'type' => 'color',
-                    'value' => '#fff',
-                    'show-if' => [
-                        'where' => "button_type",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'primary_outline'],
-                        ],
-                    ],
-                ],
-                'back_priout_hover_color' => [
-                    'label' => __('Background Hover Color Outline', 'directorist'),
-                    'type' => 'color',
-                    'value' => '#fff',
-                    'show-if' => [
-                        'where' => "button_type",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'primary_outline'],
-                        ],
-                    ],
-                ],
-                'border_priout_color' => [
-                    'label' => __('Border Color Outline', 'directorist'),
-                    'type' => 'color',
-                    'value' => '#444752',
-                    'show-if' => [
-                        'where' => "button_type",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'primary_outline'],
-                        ],
-                    ],
-                ],
-                'border_priout_hover_color' => [
-                    'label' => __('Border Hover Color Outline', 'directorist'),
-                    'type' => 'color',
-                    'value' => '#9299b8',
-                    'show-if' => [
-                        'where' => "button_type",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'primary_outline'],
-                        ],
-                    ],
-                ],
-                 // primary outline light
-                 'prioutlight_example' => [
-                    'label'       => __('Button Example Outline Light', 'directorist'),
-                    'type'        => 'wp-media-picker',
-                    'default-img' => 'https://directorist.com/wp-content/uploads/2020/02/outline-primary-light.png',
-                    'show-if' => [
-                        'where' => "button_type",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'primary_outline_light'],
-                        ],
-                    ],
-                ],
-                'prioutlight_color' => [
-                    'label' => __('Text Color Outline Light', 'directorist'),
-                    'type' => 'color',
-                    'value' => '#444752',
-                    'show-if' => [
-                        'where' => "button_type",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'primary_outline_light'],
-                        ],
-                    ],
-                ],
-                'prioutlight_hover_color' => [
-                    'label' => __('Text Hover Color Outline Light', 'directorist'),
-                    'type' => 'color',
-                    'value' => '#ffffff',
-                    'show-if' => [
-                        'where' => "button_type",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'primary_outline_light'],
-                        ],
-                    ],
-                ],
-                'back_prioutlight_color' => [
-                    'label' => __('Background Color Outline Light', 'directorist'),
-                    'type' => 'color',
-                    'value' => '#ffffff',
-                    'show-if' => [
-                        'where' => "button_type",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'primary_outline_light'],
-                        ],
-                    ],
-                ],
-                'back_prioutlight_hover_color' => [
-                    'label' => __('Background Hover Color Outline Light', 'directorist'),
-                    'type' => 'color',
-                    'value' => '#444752',
-                    'show-if' => [
-                        'where' => "button_type",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'primary_outline_light'],
-                        ],
-                    ],
-                ],
-                'border_prioutlight_color' => [
-                    'label' => __('Border Color Outline Light', 'directorist'),
-                    'type' => 'color',
-                    'value' => '#e3e6ef',
-                    'show-if' => [
-                        'where' => "button_type",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'primary_outline_light'],
-                        ],
-                    ],
-                ],
-                'border_prioutlight_hover_color' => [
-                    'label' => __('Border Hover Color Outline Light', 'directorist'),
-                    'type' => 'color',
-                    'value' => '#444752',
-                    'show-if' => [
-                        'where' => "button_type",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'primary_outline_light'],
-                        ],
-                    ],
-                ],
-                // Danger outline
-                'danout_example' => [
-                    'label'       => __('Button Example', 'directorist'),
-                    'type'        => 'wp-media-picker',
-                    'default-img' => 'https://directorist.com/wp-content/uploads/2020/02/outline-danger.png',
-                    'show-if' => [
-                        'where' => "button_type",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'danger_outline'],
-                        ],
-                    ],
-                ],
-                'danout_color' => [
-                    'label' => __('Text Color', 'directorist'),
-                    'type' => 'color',
-                    'value' => '#e23636',
-                    'show-if' => [
-                        'where' => "button_type",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'danger_outline'],
-                        ],
-                    ],
-                ],
-                'danout_hover_color' => [
-                    'label' => __('Text Hover Color', 'directorist'),
-                    'type' => 'color',
-                    'value' => '#fff',
-                    'show-if' => [
-                        'where' => "button_type",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'danger_outline'],
-                        ],
-                    ],
-                ],
-                'back_danout_color' => [
-                    'label' => __('Background Color', 'directorist'),
-                    'type' => 'color',
-                    'value' => '#fff',
-                    'show-if' => [
-                        'where' => "button_type",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'danger_outline'],
-                        ],
-                    ],
-                ],
-                'back_danout_hover_color' => [
-                    'label' => __('Background Hover Color', 'directorist'),
-                    'type' => 'color',
-                    'value' => '#e23636',
-                    'show-if' => [
-                        'where' => "button_type",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'danger_outline'],
-                        ],
-                    ],
-                ],
-                'border_danout_color' => [
-                    'label' => __('Border Color', 'directorist'),
-                    'type' => 'color',
-                    'value' => '#e23636',
-                    'show-if' => [
-                        'where' => "button_type",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'danger_outline'],
-                        ],
-                    ],
-                ],
-                'border_danout_hover_color' => [
-                    'label' => __('Border Hover Color', 'directorist'),
-                    'type' => 'color',
-                    'value' => '#e23636',
-                    'show-if' => [
-                        'where' => "button_type",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'danger_outline'],
+                            ['key' => 'value', 'compare' => '=', 'value' => 'button_type_primary'],
                         ],
                     ],
                 ],
 
+                // Secondary Button
+                'button_secondary_example' => [
+                    'label'       => __('Button Example', 'directorist'),
+                    'description'       => __('Modify the color of secondary buttons like Logout, etc to match your design preferences', 'directorist'),
+                    'type'              => 'button-example',
+                    'button-class'      => 'directorist-btn-secondary',
+                    'button-label'      => __( 'Secondary', 'directorist' ),
+                    'show-if' => [
+                        'where' => "button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'button_type_secondary'],
+                        ],
+                    ],
+                ],
+                'button_secondary_color' => [
+                    'label' => __('Text Color', 'directorist'),
+                    'type' => 'color',
+                    'value' => '#404040',
+                    'show-if' => [
+                        'where' => "button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'button_type_secondary'],
+                        ],
+                    ],
+                ],
+                'button_secondary_hover_color' => [
+                    'label' => __('Hover Color', 'directorist'),
+                    'type' => 'color',
+                    'value' => '#404040',
+                    'show-if' => [
+                        'where' => "button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'button_type_secondary'],
+                        ],
+                    ],
+                ],
+                'button_secondary_bg_color' => [
+                    'label' => __('Background Color', 'directorist'),
+                    'type' => 'color',
+                    'value' => '#f2f3f5',
+                    'show-if' => [
+                        'where' => "button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'button_type_secondary'],
+                        ],
+                    ],
+                ],
+
+                // Badge Color
                 'featured_back_color' => [
                     'type' => 'color',
                     'label' => __('Background Color', 'directorist'),
@@ -1317,6 +766,7 @@ Please remember that your order may be canceled if you do not make your payment 
                     'value' => '#2C99FF',
                 ],
 
+                // Map Marker Color
                 'marker_shape_color' => [
                     'type' => 'color',
                     'label' => __('Marker Shape Color', 'directorist'),
@@ -1326,20 +776,17 @@ Please remember that your order may be canceled if you do not make your payment 
                 'marker_icon_color' => [
                     'type' => 'color',
                     'label' => __('Marker Icon Color', 'directorist'),
+                    'value' => '#ffffff',
+                ],
+
+                // Primary Color
+                'primary_color' => [
+                    'type' => 'color',
+                    'label' => __('Brand Color', 'directorist'),
                     'value' => '#444752',
                 ],
 
-                'primary_dark_back_color' => [
-                    'type' => 'color',
-                    'label' => __('Background Color', 'directorist'),
-                    'value' => '#444752',
-                ],
-
-                'primary_dark_border_color' => [
-                    'type' => 'color',
-                    'label' => __('Border Color', 'directorist'),
-                    'value' => '#444752',
-                ],
+                // Email
                 'email_to_expire_day' => [
                     'label' => __('When to send expire notice', 'directorist'),
                     'type'  => 'number',
@@ -4761,25 +4208,23 @@ Please remember that your order may be canceled if you do not make your payment 
                     'label' => __( 'Personalization', 'directorist' ),
                     'icon' => '<i class="fa fa-paint-brush directorist_success"></i>',
                     'sections'=> apply_filters('atbdp_style_settings_controls', [
-                        'button_type' => [
-                            'title' => __('Button Color', 'directorist'),
+                        'brand_color_section' =>  [
+                            'title'  => __('Brand', 'directorist'),
+                            'fields' => apply_filters('atbdp_primary_dark_color', [
+                                'primary_color',
+                            ])
+                        ],
+                        'button_type_section' => [
+                            'title' => __('Button', 'directorist'),
                             'fields' => [
-                                'button_type', 'primary_example', 'primary_color', 'primary_hover_color', 'back_primary_color', 'back_primary_hover_color', 'border_primary_color', 'border_primary_hover_color', 'secondary_example', 'secondary_color', 'secondary_hover_color', 'back_secondary_color', 'back_secondary_hover_color', 'secondary_border_color', 'secondary_border_hover_color', 'danger_example', 'danger_color', 'danger_hover_color', 'back_danger_color', 'back_danger_hover_color', 'danger_border_color', 'danger_border_hover_color', 'success_example', 'success_color', 'success_hover_color', 'back_success_color', 'back_success_hover_color', 'border_success_color', 'border_success_hover_color', 'lighter_example', 'lighter_color', 'lighter_hover_color', 'back_lighter_color', 'back_lighter_hover_color', 'border_lighter_color', 'border_lighter_hover_color', 'priout_example', 'priout_color', 'priout_hover_color', 'back_priout_color', 'back_priout_hover_color', 'border_priout_color', 'border_priout_hover_color', 'prioutlight_example', 'prioutlight_color', 'prioutlight_hover_color', 'back_prioutlight_color', 'back_prioutlight_hover_color', 'border_prioutlight_color', 'border_prioutlight_hover_color', 'danout_example', 'danout_color', 'danout_hover_color', 'back_danout_color', 'back_danout_hover_color', 'border_danout_color', 'border_danout_hover_color'
+                                'button_type', 'button_primary_example', 'button_primary_color', 'button_primary_bg_color', 'button_primary_hover_color', 'button_secondary_example', 'button_secondary_color', 'button_secondary_bg_color', 'button_secondary_hover_color'
                             ]
                         ],
-                        'map_marker' => [
+                        'map_marker_section' => [
                             'title' => __('All Listings Map Marker', 'directorist'),
                             'fields' => apply_filters('atbdp_map_marker_color', [
                                 'marker_shape_color',
                                 'marker_icon_color'
-                            ])
-                        ],
-
-                        'primary_color' =>  [
-                            'title'  => __('Primary Color', 'directorist'),
-                            'fields' => apply_filters('atbdp_primary_dark_color', [
-                                'primary_dark_back_color',
-                                'primary_dark_border_color'
                             ])
                         ],
                     ])

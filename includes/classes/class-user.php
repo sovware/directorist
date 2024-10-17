@@ -183,6 +183,13 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 			$bio           = ! empty( $_POST['bio'] ) ? sanitize_textarea_field( wp_unslash( $_POST['bio'] ) ) : '';
 			$previous_page = ! empty( $_POST['previous_page'] ) ? directorist_clean( $_POST['previous_page'] ) : '';
 
+			/**
+			 * It fires before processing a submitted registration from the front end
+			 * @param array $_POST the array containing the submitted listing data.
+			 * @since 8.0
+			 * */
+			do_action( 'atbdp_before_processing_submitted_user_registration', $_POST ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+
 			$user_id = $this->complete_registration( $username, $password, $email, $website, $first_name, $last_name, $bio );
 
 			if ( is_wp_error( $user_id ) || ! $user_id ) {

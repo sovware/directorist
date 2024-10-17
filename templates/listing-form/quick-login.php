@@ -37,11 +37,11 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 					<div class="directorist-form-feedback"></div>
 
 					<div class="directorist-form-actions directorist-text-center">
-						<button type="button" id="quick-login-from-submit-btn" data-form="#quick-login-from" data-modal="directorist-quick-login-modal" name="login" class="directorist-btn directorist-btn-primary directorist-btn-block">
+						<button type="button" id="quick-login-from-submit-btn" data-form="#quick-login-from" data-modal="directorist-quick-login-modal" name="login" class="directorist-btn directorist-btn-block">
 							<?php esc_html_e( 'Login', 'directorist' ); ?>
 						</button>
 
-						<button type="button" data-target="#directorist-quick-login-modal" class="directorist-btn directorist-btn-primary directorist-btn-block directorist-toggle-modal directorist-d-none">
+						<button type="button" data-target="#directorist-quick-login-modal" class="directorist-btn directorist-btn-block directorist-toggle-modal directorist-d-none">
 							<?php esc_html_e( 'Continue', 'directorist' ); ?>
 						</button>
 					</div>

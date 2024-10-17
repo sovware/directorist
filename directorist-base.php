@@ -3,7 +3,7 @@
  * Plugin Name: Directorist - Business Directory Plugin
  * Plugin URI: https://wpwax.com
  * Description: A comprehensive solution to create professional looking directory site of any kind. Like Yelp, Foursquare, etc.
- * Version: 7.12.6
+ * Version: 7.12.7
  * Author: wpWax - WP Business Directory Plugin and Classified Listings Directory
  * Author URI: https://wpwax.com
  * Text Domain: directorist
@@ -609,7 +609,7 @@ final class Directorist_Base
 	* @param WP_Post $post        The current post object.
 	*/
 	public function add_page_states( $post_states, $post ) {
-	   
+
 		if ( get_directorist_option( 'add_listing_page' ) === $post->ID ) {
 		   $post_states['directorist_add_listing'] = __( 'Directorist Add Listing', 'directorist' );
 	   	}
@@ -661,7 +661,7 @@ final class Directorist_Base
 		if ( get_directorist_option( 'pricing_plans' ) === $post->ID ) {
 		   $post_states['directorist_pricing_plans'] = __( 'Directorist Pricing Plan', 'directorist' );
 	   	}
-   
+
 	   return $post_states;
    }
 

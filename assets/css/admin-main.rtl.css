@@ -31439,8 +31439,8 @@ span.drop-toggle-caret:before {
       -ms-flex-pack: justify;
           justify-content: space-between;
   background-color: #ffffff;
-  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 12px 32px;
+  border-bottom: 1px solid #E5E7EB;
 }
 .directorist-create-directory__logo {
   display: -webkit-box;
@@ -31465,28 +31465,27 @@ span.drop-toggle-caret:before {
 .directorist-create-directory__logo img {
   width: 140px;
 }
-.directorist-create-directory__close {
+.directorist-create-directory__close__btn {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-align-self: stretch;
-      -ms-flex-item-align: stretch;
-          align-self: stretch;
+  gap: 8px;
   -webkit-box-align: center;
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
-  padding: 15px 25px;
-  -webkit-margin-start: 138px;
-          margin-inline-start: 138px;
-  border-right: 1px solid #e7e7e7;
+  padding: 14px 16px;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  color: #141921;
 }
-@media (max-width: 1199px) {
-  .directorist-create-directory__close {
-    -webkit-margin-start: 0;
-            margin-inline-start: 0;
-  }
+.directorist-create-directory__close__btn svg {
+  -webkit-box-flex: unset;
+  -webkit-flex-grow: unset;
+      -ms-flex-positive: unset;
+          flex-grow: unset;
 }
 .directorist-create-directory__close__btn svg path {
   fill: #b7b7b7;

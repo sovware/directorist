@@ -806,7 +806,7 @@ class SetupWizard
             <div class="directorist-setup-wizard__content__items">
                 <div class="directorist-setup-wizard__counter">
                     <h3 class="directorist-setup-wizard__counter__title">
-                        Selected Types: <span class="selected_count">0</span>/<span class="max_count">5</span>
+                        Selected Types: <span class="selected_count">1</span>/<span class="max_count">5</span>
                     </h3>
                     <p class="directorist-setup-wizard__counter__desc">You can add more from the directory builder </p>
                 </div>

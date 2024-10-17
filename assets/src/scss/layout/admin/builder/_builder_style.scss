@@ -1157,6 +1157,9 @@ $light-gray: #f4f5f7;
       width: calc(100% - 2px);
     }
   }
+  &.new_listing_status {
+    z-index: 11;
+  }
   &:last-child {
     margin-bottom: 0;
   }

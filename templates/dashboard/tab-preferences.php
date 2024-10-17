@@ -64,7 +64,6 @@ $contact_owner_recipient 	= $dashboard->user_info( 'contact_owner_recipient' ) ?
 									<input type="radio" id="listing_email" name="directorist_contact_owner_recipient" value="listing_email" <?php checked( $contact_owner_recipient, 'listing_email' ); ?>>
 									<label class="directorist-radio__label" for="listing_email"><?php esc_html_e( "Listing's Email", 'directorist' ) ?></label>
 								</div>
-								</div>
 							</div>
 						</div>
 					</div>

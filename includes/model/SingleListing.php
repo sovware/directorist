@@ -611,6 +611,7 @@ class Directorist_Single_Listing {
 
 		$args = array(
 			'listing'    => $this,
+			'has_slider' => true,
 			'data'       => $this->get_slider_data( $slider ),
 		);
 
@@ -681,8 +682,14 @@ class Directorist_Single_Listing {
 	}
 
 	public function contact_owner_form_disabled() {
-		$author_id = get_post_field( 'post_author', $this->id );
-		return get_user_meta( $author_id, 'hide_contact_form', true );
+		$author_id 			= get_post_field( 'post_author', $this->id );
+		$hide_contact_form  = get_user_meta( $author_id, 'directorist_hide_contact_form', true );
+		
+		if ( ! empty( $hide_contact_form ) && 'yes' == $hide_contact_form ) {
+			return true;
+		}
+		
+		return false;
 	}
 
 	public function contact_owner_fields( $field_data = [] ) {

@@ -227,7 +227,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 						if ( $field->get_key() === 'privacy_policy' ) {
 							$error->add(
 								$field->get_key(),
-								sprintf( '<strong>%1$s</strong>: %2$s', $field->text, $result['message'] )
+								sprintf( '%1$s', __( 'Terms & Privacy is required', 'directorist' ) )
 							);
 						} else {
 							$error->add(

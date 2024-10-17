@@ -1,11 +1,22 @@
 /* Add listing OSMap */
 
+import debounce from '../../components/debounce';
 import {
     get_dom_data
 } from './../../../lib/helper';
-import debounce from '../../components/debounce';
 
 (function ($) {
+    // Add focus class to the parent field of .directorist-location-js
+    function addFocusClass(location) {
+        // Get the parent field of .directorist-location-js
+        let parentField = location.closest('.directorist-search-field');
+
+        // Add the 'input-is-focused' class if not already present
+        if (parentField && !parentField.hasClass('input-is-focused')) {
+            parentField.addClass('input-is-focused');
+        }
+    }
+
     // Add Listing Map Initialize
     function initAddListingMap() {
         var mapData = get_dom_data('map_data');
@@ -22,7 +33,6 @@ import debounce from '../../components/debounce';
         loc_manual_lng = (isNaN(loc_manual_lng)) ? loc_default_longitude : loc_manual_lng;
 
         function mapLeaflet(lat, lon) {
-
             // @todo @kowsar / remove later. fix js error
             if ($("#gmap").length == 0) {
                 return;
@@ -36,20 +46,30 @@ import debounce from '../../components/debounce';
 
             var mymap = L.map('gmap').setView([lat, lon], loc_map_zoom_level);
 
-            L.marker([lat, lon], {
+            // Create draggable marker
+            var marker = L.marker([lat, lon], {
                 icon: fontAwesomeIcon,
                 draggable: true
-            }).addTo(mymap).addTo(mymap).on("drag", function (e) {
-                var marker = e.target;
+            }).addTo(mymap);
+
+            // Trigger AJAX request when marker is dropped
+            marker.on("dragend", function (e) {
                 var position = marker.getLatLng();
                 $('#manual_lat').val(position.lat);
                 $('#manual_lng').val(position.lng);
+                
+                // Make AJAX request after the drag ends (marker drop)
                 $.ajax({
                     url: `https://nominatim.openstreetmap.org/reverse?format=json&lon=${position.lng}&lat=${position.lat}`,
                     type: 'GET',
                     data: {},
                     success: function (data) {
                         $('.directorist-location-js').val(data.display_name);
+                        addFocusClass($('.directorist-location-js'));
+                    },
+                    error: function () {
+                        $('.directorist-location-js').val('Location not found');
+                        addFocusClass($('.directorist-location-js'));
                     }
                 });
             });

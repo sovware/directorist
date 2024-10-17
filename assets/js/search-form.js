@@ -1732,9 +1732,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                   });
                 },
                 error: function error(_error3) {
-                  // console.log({
-                  //     error: _error3
-                  // });
+                  console.log({
+                    error: _error3
+                  });
+                  locationAddressField.removeClass('atbdp-form-fade');
                 }
               });
             }

@@ -140,14 +140,19 @@ jQuery(document).ready(function ($) {
 
     });
 
-    // Add focused class on parent when location input has value
+    // Reusable function to check and toggle the class based on the input value
+    function handleInputFocus(inputElement) {
+        if ($(inputElement).val().length > 0) {
+            $(inputElement).parent('.directorist-search-field').addClass('input-is-focused');
+        } else {
+            $(inputElement).parent('.directorist-search-field').removeClass('input-is-focused');
+        }
+    }
+
+    // Keyup event listener for user typing in the input field
     $('body').on('keyup', '.directorist-location-js', function(e) {
         e.preventDefault();
-        if($(this).val().length > 0) {
-            $(this).parent('.directorist-search-field').addClass('input-is-focused');
-        } else {
-            $(this).parent('.directorist-search-field').removeClass('input-is-focused');
-        }
+        handleInputFocus(this);
     });
 
     // Clear location input value
@@ -259,7 +264,5 @@ jQuery(document).ready(function ($) {
     setupWizardTypes.forEach(type => {
         type.addEventListener('change', handleSetupWizardTypeChange);
     });
-
-    handleSetupWizardTypeChange();
 
 });

@@ -1197,6 +1197,12 @@
     .leaflet-touch .leaflet-bar a {
       background: #ffffff;
     }
+    .leaflet-marker-icon .directorist-icon-mask:after {
+      width: 30px;
+      height: 30px;
+      background-color: #e23636;
+      mask-image: url("../../../../icons/font-awesome/svgs/solid/map-marker-alt.svg");
+    }
   }
   @include e("notice") {
     position: absolute;

@@ -1185,7 +1185,7 @@ function atbdp_display_price_range($price_range)
  * @since    4.0.0
  *
  */
-function atbdp_listings_count_by_category( $term_id, $lisitng_type = '' )
+function atbdp_listings_count_by_category( $term_id, $listing_type = '' )
 {
     $args = array(
         'fields'         => 'ids',
@@ -1194,7 +1194,7 @@ function atbdp_listings_count_by_category( $term_id, $lisitng_type = '' )
         'post_status'    => 'publish',
     );
 
-    if( ! empty( $lisitng_type ) ) {
+    if( ! empty( $listing_type ) && 'all' !== $listing_type ) {
         $args['tax_query'] = array(
             'relation' => 'AND',
             array(
@@ -1206,7 +1206,7 @@ function atbdp_listings_count_by_category( $term_id, $lisitng_type = '' )
             array(
                 'taxonomy' => ATBDP_TYPE,
                 'field' => 'term_id',
-                'terms' => (int) $lisitng_type,
+                'terms' => (int) $listing_type,
             )
         );
     } else {
@@ -1293,7 +1293,7 @@ function atbdp_list_categories($settings)
  * @since    4.0.0
  *
  */
-function atbdp_listings_count_by_location( $term_id, $lisitng_type = '' ) {
+function atbdp_listings_count_by_location( $term_id, $listing_type = '' ) {
     $args = array(
         'fields' => 'ids',
         'posts_per_page' => -1,
@@ -1301,7 +1301,7 @@ function atbdp_listings_count_by_location( $term_id, $lisitng_type = '' ) {
         'post_status' => 'publish',
     );
 
-    if( ! empty( $lisitng_type ) ) {
+    if( ! empty( $listing_type ) && 'all' !== $listing_type ) {
         $args['tax_query'] = array(
             'relation' => 'AND',
             array(
@@ -1313,7 +1313,7 @@ function atbdp_listings_count_by_location( $term_id, $lisitng_type = '' ) {
             array(
                 'taxonomy' => ATBDP_TYPE,
                 'field' => 'term_id',
-                'terms' => (int) $lisitng_type,
+                'terms' => (int) $listing_type,
             )
         );
     } else {

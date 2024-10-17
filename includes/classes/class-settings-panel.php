@@ -1401,6 +1401,28 @@ Please remember that your order may be canceled if you do not make your payment 
                     'type'  => 'toggle',
                     'value' => false,
                 ],
+                'guest_email_label' => [
+                    'type'      => 'text',
+                    'label'     => __( 'Guest Email Label', 'directorist' ),
+                    'value'     => __( 'Your Email', 'directorist' ),
+                    'show-if'   => [
+                        'where' => "guest_listings",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'guest_email_placeholder' => [
+                    'type'      => 'text',
+                    'label'     => __( 'Guest Email Placeholder', 'directorist' ),
+                    'value'     => __( 'example@email.com', 'directorist' ),
+                    'show-if'   => [
+                        'where' => "guest_listings",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
 
                 // listings page
                 'all_listing_layout' => [
@@ -4057,7 +4079,21 @@ Please remember that your order may be canceled if you do not make your payment 
                                         // 'all_listing_layout',
                                         'enable_multi_directory',
                                         'guest_listings',
+                                        'guest_email_label',
+                                        'guest_email_placeholder',
                                     ],
+                                ],
+                                'registration' => [
+                                    'title'       => __( 'Registration', 'directorist' ),
+                                    'fields'      => [
+                                        'new_user_registration', 'enable_email_verification'
+                                     ],
+                                ],
+                                'listings_currency' => [
+                                    'title'       => __( 'Listing Currency', 'directorist' ),
+                                    'fields'      => [
+                                        'g_currency_note', 'g_currency', 'g_currency_position'
+                                     ],
                                 ],
                                 'listings_renewal' => [
                                     'title'       => __( 'Listings Renewal', 'directorist' ),
@@ -4069,18 +4105,6 @@ Please remember that your order may be canceled if you do not make your payment 
                                     'title'       => __( 'Expired Listings Management', 'directorist' ),
                                     'fields'      => [
                                         'delete_expired_listing_permanently', 'delete_expired_listings_after',
-                                     ],
-                                ],
-                                'listings_currency' => [
-                                    'title'       => __( 'Listing Currency', 'directorist' ),
-                                    'fields'      => [
-                                        'g_currency_note', 'g_currency', 'g_currency_position'
-                                     ],
-                                ],
-                                'registration' => [
-                                    'title'       => __( 'Registration', 'directorist' ),
-                                    'fields'      => [
-                                        'new_user_registration', 'enable_email_verification'
                                      ],
                                 ],
                             ] ),
@@ -4532,7 +4556,7 @@ Please remember that your order may be canceled if you do not make your payment 
                     'icon' => '<i class="fa fa-envelope directorist_Blue"></i>',
                     'submenu' => apply_filters('atbdp_email_settings_submenu', [
                         'email_general' => [
-                            'label' => __('Email General', 'directorist'),
+                            'label' => __('General', 'directorist'),
                             'icon' => '<i class="fa fa-envelope-open directorist_info"></i>',
                             'sections' => apply_filters( 'atbdp_reg_settings_sections', [
                                 'sender_details' => [
@@ -4551,7 +4575,7 @@ Please remember that your order may be canceled if you do not make your payment 
                             ] ),
                         ],
                         'email_templates' => [
-                            'label' => __('Email Templates', 'directorist'),
+                            'label' => __('Templates', 'directorist'),
                             'icon' => '<i class="fa fa-mail-bulk directorist_info"></i>',
                             'sections' => apply_filters( 'atbdp_email_templates_settings_sections', [
                                 'general' => [
@@ -4779,30 +4803,22 @@ Please remember that your order may be canceled if you do not make your payment 
                     ]),
                 ],
 
-                'tools' => [
-                    'label' => __( 'Tools', 'directorist' ),
+                'import_export' => [
+                    'label' => __( 'Import and Export', 'directorist' ),
                     'icon' => '<i class="fa fa-tools directorist_info"></i>',
-                    'submenu' => apply_filters('atbdp_tools_submenu', [
-
-                        'listings_import' => [
-                            'label'       => __('Import and Export', 'directorist'),
-                            'icon'        => '<i class="fa fa-upload"></i>',
-                            'sections'    => apply_filters('atbdp_listings_import_controls', [
-                                'import_methods' => array(
-                                    'title'      => __( 'Listings', 'directorist' ),
-                                    'fields'     => apply_filters('atbdp_csv_import_settings_fields', [
-                                        'listing_import_button', 'listing_export_button',
-                                    ]),
-                                ),
-                                'export_methods' => array(
-                                    'title'      => __( 'Settings', 'directorist' ),
-                                    'fields'     => apply_filters('atbdp_csv_export_settings_fields', [
-                                        'import_settings', 'export_settings', 'restore_default_settings'
-                                    ]),
-                                ),
+                    'sections'    => apply_filters('atbdp_listings_import_controls', [
+                        'import_methods' => array(
+                            'title'      => __( 'Listings', 'directorist' ),
+                            'fields'     => apply_filters('atbdp_csv_import_settings_fields', [
+                                'listing_import_button', 'listing_export_button',
                             ]),
-                        ],
-
+                        ),
+                        'export_methods' => array(
+                            'title'      => __( 'Settings', 'directorist' ),
+                            'fields'     => apply_filters('atbdp_csv_export_settings_fields', [
+                                'import_settings', 'export_settings', 'restore_default_settings'
+                            ]),
+                        ),
                     ]),
                 ],
 

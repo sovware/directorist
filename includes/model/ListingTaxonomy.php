@@ -107,6 +107,16 @@ class Directorist_Listing_Taxonomy {
         	'offset'       => $offset,
 		);
 
+		if( empty( $_GET['directory_type'] ) || 'all' != $_GET['directory_type'] ) {
+			$args['meta_query'] = array(
+				array(
+					'key' 		=> '_directory_type',
+					'value' 	=> 'i:' . absint( $this->current_listing_type ) . ';',
+					'compare' 	=> 'Like',
+				)
+			);
+		}
+
 		if ( $this->type === 'category' ) {
 			$args = apply_filters( 'atbdp_all_categories_argument', $args );
 		} else {
@@ -239,85 +249,70 @@ class Directorist_Listing_Taxonomy {
     public function tax_data() {
     	$result = array();
 
-    	foreach ($this->terms as $term) {
-			$directory_type_meta  = get_term_meta( $term->term_id, '_directory_type', true );
-			$directory_type_meta  = ! empty( $directory_type_meta ) ? $directory_type_meta : array();
-			$directory_type_meta  = is_array( $directory_type_meta ) ? $directory_type_meta : array( $directory_type_meta );
+    	foreach ( $this->terms as $term ) {
+			
+			$current_listing_type   = $this->current_listing_type;
+			$count 					= 0;
+			if ( $this->hide_empty || $this->show_count ) {
+				$count = ( $this->type == 'category' ) ? atbdp_listings_count_by_category( $term->term_id, $current_listing_type ) : atbdp_listings_count_by_location( $term->term_id, $current_listing_type );
 
-			$listing_type_meta = array();
-			foreach( $directory_type_meta as $type ) {
-
-				if( is_numeric( $type ) ) {
-					$get_type = get_term_by( 'term_id', $type, ATBDP_TYPE );
-					$listing_type_meta[] = ! empty( $get_type ) ? $get_type->slug : '';
-				} else {
-
-					$listing_type_meta[] = $type;
-
+				if ( $this->hide_empty && 0 == $count ) {
+					continue;
 				}
-
 			}
-			$current_type		  = $this->current_listing_type;
-			$current_slug = '';
-			if( $current_type ) {
-				$type    	   = get_term_by( 'id', $current_type, ATBDP_TYPE );
-				$current_slug  = $type ? $type->slug : '';
-			}
-			$get_current_url_type = isset( $_GET['directory_type'] ) ? sanitize_text_field( wp_unslash( $_GET['directory_type'] ) ) : $current_type;
-			if( in_array( $current_slug, $listing_type_meta ) || 'all' == $get_current_url_type ) {
-				$current_listing_type   = $this->current_listing_type;
-				$count 					= 0;
-				if ($this->hide_empty || $this->show_count) {
-					$count = ( $this->type == 'category' ) ? atbdp_listings_count_by_category( $term->term_id, $current_listing_type ) : atbdp_listings_count_by_location( $term->term_id, $current_listing_type );
 
-					if ($this->hide_empty && 0 == $count) {
-						continue;
+			$expired_listings = atbdp_get_expired_listings( $this->tax, $term->term_id );
+			$number_of_expired = $expired_listings->post_count;
+			$number_of_expired = !empty($number_of_expired) ? $number_of_expired : '0';
+			$total = ($count) ? ($count - $number_of_expired) : $count;
+
+			$image = get_term_meta($term->term_id, 'image', true);
+			if ( $image ) {
+				$image = atbdp_get_image_source($image, apply_filters("atbdp_{$this->type}_image_size", array('350', '280')));
+				$image = !empty($image) ? $image : '';
+			}
+
+			$child_terms 	= get_term_children($term->term_id, $this->tax);
+			
+			$directory_type = '';
+			if( ! empty( $_GET['directory_type'] ) ) {
+				$directory_type = sanitize_text_field( wp_unslash( $_GET['directory_type'] ) );
+			} 
+
+			if( ! empty( $_GET['directory_type'] ) && 'all' == $_GET['directory_type'] ) {
+				$term_directory_types = get_term_meta( $term->term_id, '_directory_type', true );
+
+				if ( is_array( $term_directory_types ) ) {
+					$directory_type = $term_directory_types[0];
+					if( $directory_type ) {
+						$type    	   = get_term_by( 'id', $directory_type, ATBDP_TYPE );
+						$directory_type  = $type ? $type->slug : '';
 					}
 				}
 
-				$expired_listings = atbdp_get_expired_listings($this->tax, $term->term_id);
-				$number_of_expired = $expired_listings->post_count;
-				$number_of_expired = !empty($number_of_expired) ? $number_of_expired : '0';
-				$total = ($count) ? ($count - $number_of_expired) : $count;
-
-				$image = get_term_meta($term->term_id, 'image', true);
-				if ( $image ) {
-					$image = atbdp_get_image_source($image, apply_filters("atbdp_{$this->type}_image_size", array('350', '280')));
-					$image = !empty($image) ? $image : '';
-				}
-
-				$child_terms = get_term_children($term->term_id, $this->tax);
-
-				if( ! empty( $_GET['directory_type'] ) ) {
-					$directory_type = sanitize_text_field( wp_unslash( $_GET['directory_type'] ) );
-				} else {
-					$current_type = get_term( $this->current_listing_type, ATBDP_TYPE );
-					$current_directory_type_slug = ! empty( $current_type ) && ! is_wp_error( $current_type ) ? $current_type->slug : '';
-					$directory_type = ( 1 == $this->directory_type_count ) ? $this->directory_type[0] : $current_directory_type_slug;
-				}
-
-				$permalink = ( $this->type == 'category' ) ? ATBDP_Permalink::atbdp_get_category_page( $term, $directory_type ) : ATBDP_Permalink::atbdp_get_location_page( $term, $directory_type );
-
-				$data = array(
-					'term'      => $term,
-					'has_child' => !empty($child_terms) ? true : false,
-					'name'      => $term->name,
-					'permalink' => $permalink,
-					'count'     => $total,
-					'grid_count_html' => $this->grid_count_html($term,$total),
-					'list_count_html' => $this->list_count_html($term,$total),
-					'img'        => $image,
-					'subterm_html' => ($this->view == 'list') ? $this->subterms_html($term) : '',
-				);
-
-				if ($this->type == 'category') {
-					$icon = get_term_meta($term->term_id, 'category_icon', true);
-					$data['has_icon']  = ( !empty( $icon ) && ( 'none' != $icon ) ) ? true : false;
-					$data['icon_class'] = $icon;
-				}
-
-				$result[] = $data;
 			}
+
+			$permalink = ( $this->type == 'category' ) ? ATBDP_Permalink::atbdp_get_category_page( $term, $directory_type ) : ATBDP_Permalink::atbdp_get_location_page( $term, $directory_type );
+			
+			$data = array(
+				'term'      => $term,
+				'has_child' => !empty($child_terms) ? true : false,
+				'name'      => $term->name,
+				'permalink' => $permalink,
+				'count'     => $total,
+				'grid_count_html' => $this->grid_count_html($term,$total),
+				'list_count_html' => $this->list_count_html($term,$total),
+				'img'        => $image,
+				'subterm_html' => ($this->view == 'list') ? $this->subterms_html($term) : '',
+			);
+
+			if ($this->type == 'category') {
+				$icon = get_term_meta($term->term_id, 'category_icon', true);
+				$data['has_icon']  = ( !empty( $icon ) && ( 'none' != $icon ) ) ? true : false;
+				$data['icon_class'] = $icon;
+			}
+
+			$result[] = $data;
     	}
 
     	return $result;
@@ -389,7 +384,7 @@ class Directorist_Listing_Taxonomy {
 
 		$current = !empty($listing_types) ? array_key_first( $listing_types ) : '';
 
-		if ( isset( $_GET['directory_type'] ) && 'all' != $_GET['directory_type'] ) {
+		if ( isset( $_GET['directory_type'] ) ) {
 			$current = sanitize_text_field( wp_unslash( $_GET['directory_type'] ) ) ;
 		}
 		else if( $this->default_directory_type ) {

@@ -11620,6 +11620,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .directorist-btn.directorist-btn-light {
   background-color: var(--directorist-color-light);
+  color: var(--directorist-color-primary);
 }
 .directorist-btn.directorist-btn-light:hover {
   background-color: var(--directorist-color-light-hover);

@@ -90,6 +90,7 @@
 
   &.directorist-btn-light {
     background-color: var(--directorist-color-light);
+    color: var(--directorist-color-primary);
     &:hover {
       background-color: var(--directorist-color-light-hover);
       color:var(--directorist-color-primary);

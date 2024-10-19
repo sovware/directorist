@@ -2141,6 +2141,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 				'license'      => $file_item['license'],
 				'item_id'      => $file_item['item_id'],
 				'get_info'     => 'download_link',
+				'beta'		   => ATBDP()->beta,
 			);
 
 			try {

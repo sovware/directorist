@@ -4138,6 +4138,9 @@ body.wp-admin {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
+  margin-left: -24px;
+  margin-top: -10px;
   background-color: #fff;
   padding: 0 24px;
   box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
@@ -5071,11 +5074,10 @@ body.wp-admin {
   margin-right: 10px;
   text-transform: none;
   transition: 0.3s ease;
-
+  &:hover,
   &--editable {
     display: inline-flex;
     padding: 8px;
-    justify-content: center;
     align-items: center;
     gap: 8px;
     border-radius: 6px;
@@ -5084,8 +5086,6 @@ body.wp-admin {
     &:focus {
       display: inline-flex;
       padding: var(--spacing-md, 8px);
-      justify-content: center;
-      align-items: center;
       gap: var(--spacing-md, 8px);
       border-radius: var(--radius-sm, 6px);
       background: var(--Gray-100, #F3F4F6);
@@ -5107,6 +5107,7 @@ body.wp-admin {
   .directorist-slug-notice,
   .directorist-count-notice {
     margin: 6px 0 0;
+    text-transform: math-auto;
 
     &.directorist-slug-notice-error {
       color: $danger;
@@ -5384,7 +5385,12 @@ body.wp-admin {
   border-radius: 8px;
   position: relative;
   box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
-
+  &.--open {
+    border-color: #4D5761;
+    .directorist_dropdown-toggle:before {
+      content: '\eb56';
+    }
+  }
   .directorist_dropdown-toggle {
     text-decoration: none;
     color: #7a82a6;
@@ -5550,6 +5556,13 @@ body.wp-admin {
           }
         }
       }
+    }
+  }
+
+  &.default {
+    .directorist_more-dropdown-toggle {
+      opacity: 0.5;
+      pointer-events: none;
     }
   }
 }

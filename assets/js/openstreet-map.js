@@ -124,16 +124,27 @@ function debounce(func, wait, immediate) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _lib_helper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../../lib/helper */ "./assets/src/js/lib/helper.js");
-/* harmony import */ var _components_debounce__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/debounce */ "./assets/src/js/global/components/debounce.js");
+/* harmony import */ var _components_debounce__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../components/debounce */ "./assets/src/js/global/components/debounce.js");
+/* harmony import */ var _lib_helper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../../lib/helper */ "./assets/src/js/lib/helper.js");
 /* Add listing OSMap */
 
 
 
 (function ($) {
+  // Add focus class to the parent field of .directorist-location-js
+  function addFocusClass(location) {
+    // Get the parent field of .directorist-location-js
+    var parentField = location.closest('.directorist-search-field');
+
+    // Add the 'input-is-focused' class if not already present
+    if (parentField && !parentField.hasClass('input-is-focused')) {
+      parentField.addClass('input-is-focused');
+    }
+  }
+
   // Add Listing Map Initialize
   function initAddListingMap() {
-    var mapData = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_0__["get_dom_data"])('map_data');
+    var mapData = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_1__["get_dom_data"])('map_data');
 
     // Localized Data
     var loc_default_latitude = parseFloat(mapData.default_latitude);
@@ -155,20 +166,31 @@ __webpack_require__.r(__webpack_exports__);
         className: 'myDivIcon'
       });
       var mymap = L.map('gmap').setView([lat, lon], loc_map_zoom_level);
-      L.marker([lat, lon], {
+
+      // Create draggable marker
+      var marker = L.marker([lat, lon], {
         icon: fontAwesomeIcon,
         draggable: true
-      }).addTo(mymap).addTo(mymap).on("drag", function (e) {
-        var marker = e.target;
+      }).addTo(mymap);
+
+      // Trigger AJAX request when marker is dropped
+      marker.on("dragend", function (e) {
         var position = marker.getLatLng();
         $('#manual_lat').val(position.lat);
         $('#manual_lng').val(position.lng);
+
+        // Make AJAX request after the drag ends (marker drop)
         $.ajax({
           url: "https://nominatim.openstreetmap.org/reverse?format=json&lon=".concat(position.lng, "&lat=").concat(position.lat),
           type: 'GET',
           data: {},
           success: function success(data) {
             $('.directorist-location-js').val(data.display_name);
+            addFocusClass($('.directorist-location-js'));
+          },
+          error: function error() {
+            $('.directorist-location-js').val('Location not found');
+            addFocusClass($('.directorist-location-js'));
           }
         });
       });
@@ -204,7 +226,7 @@ __webpack_require__.r(__webpack_exports__);
     }
     $('.directorist-location-js').each(function (id, elm) {
       var result_container = $(elm).siblings('.address_result');
-      $(elm).on('keyup', Object(_components_debounce__WEBPACK_IMPORTED_MODULE_1__["default"])(function (event) {
+      $(elm).on('keyup', Object(_components_debounce__WEBPACK_IMPORTED_MODULE_0__["default"])(function (event) {
         event.preventDefault();
         var blockedKeyCodes = [16, 17, 18, 19, 20, 27, 33, 34, 35, 36, 37, 38, 39, 40, 45, 91, 93, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 144, 145];
 

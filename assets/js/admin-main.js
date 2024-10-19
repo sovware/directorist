@@ -1405,12 +1405,8 @@ window.addEventListener('load', function () {
       // Check if any other slug is editable
       $('.directorist_listing-slug-text[contenteditable="true"]').each(function () {
         if ($(this).is(slugWrapper)) return; // Skip current slug
-        var currentSlugWrapper = $(this);
-        // Save the current slug before making another editable
-        if (currentSlugWrapper.text().trim() !== oldSlugVal) {
-          saveSlug(currentSlugWrapper);
-        }
-        currentSlugWrapper.attr('contenteditable', 'false').removeClass('directorist_listing-slug-text--editable');
+
+        $(document).trigger('click'); // Click outside to save the previous slug
       });
 
       // Set the current slug as editable
@@ -1442,7 +1438,7 @@ window.addEventListener('load', function () {
         var slugText = slugWrapper.text();
 
         // If the slug was changed, save the new value
-        if (oldSlugVal !== slugText.trim()) {
+        if (oldSlugVal.trim() !== slugText.trim()) {
           saveSlug(slugWrapper);
         }
 

@@ -62,7 +62,7 @@ Directorist\Helper::add_hidden_data_to_dom( 'map_data', $map_data );
 		</div>
 
 		<div class="directorist-form-group directorist-map-coordinates__generate">
-			<button class="directorist-btn directorist-btn-sm directorist-btn-primary" id="generate_admin_map" type="button"><?php esc_html_e( 'Generate on Map', 'directorist' ); ?></button>
+			<button class="directorist-btn directorist-btn-sm" id="generate_admin_map" type="button"><?php esc_html_e( 'Generate on Map', 'directorist' ); ?></button>
 		</div>
 
 	</div>

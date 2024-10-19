@@ -5,6 +5,7 @@
             <a
                 href="#"
                 class="directorist-form-doc__watch-tutorial"
+                v-if="currentVideo"
                 @click.prevent="openVideoPopup"
             >
                 <svg
@@ -21,7 +22,7 @@
                     fill="currentColor"
                 />
                 </svg>
-                Watch tutorial
+                {{currentVideo.button_text}}
             </a>
         </div>
 
@@ -39,6 +40,8 @@
 
         <!-- Video Popup Modal -->
         <form-builder-widget-video-component
+            v-if="currentVideo"
+            :video="currentVideo"
             :videoOpened="showVideo"
             @close-video="closeVideoPopup"
         />
@@ -94,6 +97,11 @@ export default {
             return [ ...this.subNavigation ].map( item => {
                 return item.label;
             });
+        },
+
+        currentVideo() {
+            const activeSubMenu = this.subNavigation[this.active_sub_nav];
+            return activeSubMenu?.video || null;
         }
     },
 

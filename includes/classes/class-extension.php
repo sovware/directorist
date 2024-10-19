@@ -2141,8 +2141,11 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 				'license'      => $file_item['license'],
 				'item_id'      => $file_item['item_id'],
 				'get_info'     => 'download_link',
-				'beta'		   => ATBDP()->beta,
 			);
+
+			if( ATBDP()->beta ) {
+				$query_args['beta'] = true;
+			}
 
 			try {
 				$response = wp_remote_get(

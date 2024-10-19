@@ -169,6 +169,7 @@ final class Directorist_Base
 	public $hooks;
 	public $announcement;
 	public $review;
+	public $beta;
 
 	public $background_image_process = null;
 
@@ -356,6 +357,15 @@ final class Directorist_Base
 
 	// add_polylang_swicher_support
 	public function add_polylang_swicher_support() {
+
+		// beta plugin lookup
+		$plugin_data = get_plugin_data( plugin_dir_path( __FILE__ ) . 'directorist-base.php' );
+
+		if( ! empty( $plugin_data['Version'] ) ) {
+			self::$instance->beta = strpos( $plugin_data['Version'], 'Beta' ) ? true : false;
+		}
+
+					
 		add_filter('pll_the_language_link', function($url, $current_lang) {
 			// Adjust the category link
 			$category_url = $this->get_polylang_swicher_link_for_term([

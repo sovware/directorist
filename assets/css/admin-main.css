@@ -31783,7 +31783,7 @@ span.drop-toggle-caret:before {
   height: 20px;
 }
 .directorist-create-directory__back__btn:hover {
-  opacity: 0.85;
+  color: #3E62F5;
 }
 .directorist-create-directory__step {
   display: -webkit-box;
@@ -31905,6 +31905,9 @@ span.drop-toggle-caret:before {
           flex-direction: column;
   gap: 28px;
 }
+.directorist-create-directory__content__form-group {
+  width: 100%;
+}
 .directorist-create-directory__content__input.form-control {
   max-width: 100%;
   width: 100%;
@@ -31937,6 +31940,11 @@ span.drop-toggle-caret:before {
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
+}
+.directorist-create-directory__content__input.form-control.--textarea {
+  resize: none;
+  min-height: 148px;
+  max-height: 148px;
 }
 .directorist-create-directory__content__input.form-control::-webkit-input-placeholder {
   overflow: hidden;
@@ -32019,10 +32027,8 @@ span.drop-toggle-caret:before {
       -ms-flex-align: center;
           align-items: center;
   position: absolute;
-  top: 50%;
+  top: 10px;
   left: 20px;
-  -webkit-transform: translate(0, -50%);
-          transform: translate(0, -50%);
   pointer-events: none;
 }
 .directorist-create-directory__content__input-icon svg,

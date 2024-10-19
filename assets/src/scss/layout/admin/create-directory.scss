@@ -252,7 +252,7 @@
       }
 
       &:hover {
-        opacity: 0.85;
+        color: #3E62F5;
       }
     }
   }
@@ -352,6 +352,10 @@
       }
     }
 
+    @include e("form-group"){
+      width: 100%;
+    }
+
     @include e("input") {
       &.form-control {
         max-width: 100%;
@@ -376,6 +380,12 @@
         appearance: none;
         -webkit-appearance: none;
         -moz-appearance: none;
+        
+        &.--textarea{
+          resize: none;
+          min-height:148px;
+          max-height: 148px;
+        }
 
         &::placeholder {
           overflow: hidden;
@@ -416,9 +426,8 @@
       display: flex;
       align-items: center;
       position: absolute;
-      top: 50%;
+      top: 10px;
       left: 20px;
-      transform: translate(0, -50%);
       pointer-events: none;
 
       svg,

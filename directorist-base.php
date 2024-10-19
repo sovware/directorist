@@ -358,7 +358,7 @@ final class Directorist_Base
 	// add_polylang_swicher_support
 	public function add_polylang_swicher_support() {
 
-		// Get plugin data
+		// beta plugin lookup
 		$plugin_data = get_plugin_data( plugin_dir_path( __FILE__ ) . 'directorist-base.php' );
 
 		if( ! empty( $plugin_data['Version'] ) ) {

@@ -2143,6 +2143,10 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 				'get_info'     => 'download_link',
 			);
 
+			if( ATBDP()->beta ) {
+				$query_args['beta'] = true;
+			}
+
 			try {
 				$response = wp_remote_get(
 					$activation_url,

@@ -3,13 +3,15 @@
   display: flex;
   flex-direction: column;
   font-family: 'Inter';
+  * {
+    flex-grow: unset !important;
+  }
   @include e("wrapper") {
+    width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
-    width: 100%;
     padding: 0;
-    background-color: #f4f5f7;
   }
   @include e("header") {
     display: flex;
@@ -57,6 +59,47 @@
       }
     }
   }
+  @include e("upgrade") {
+    display: flex;
+    gap: 12px;
+    @include e("title") {
+      display: flex;
+      gap: 4px;
+      font-size: 12px;
+      line-height: 16px;
+      font-weight: 600;
+      color: #141921;
+      margin: 0;
+    }
+    @include e("link") {
+      font-size: 10px;
+      line-height: 12px;
+      font-weight: 500;
+      color: #3E62F5;
+      margin: 0;
+      text-decoration: underline;
+    }
+  }
+  @include e("top") {
+    display: flex;
+    gap: 12px;
+    flex-direction: column;
+    padding: 32px;
+  }
+  @include e("info") {
+    @include e("title") {
+      font-size: 20px;
+      line-height: 28px;
+      font-weight: 600;
+      margin: 0 0 4px;
+    }
+    @include e("desc") {
+      font-size: 14px;
+      line-height: 22px;
+      font-weight: 400;
+      margin: 0;
+    }
+  }
   @include e("footer") {
     display: flex;
     gap: 30px;
@@ -73,7 +116,7 @@
   }
   @include e("btn") {
     padding: 0 20px;
-    height: 48px;
+    height: 40px;
     display: flex;
     align-items: center;
     gap: 20px;
@@ -85,6 +128,7 @@
     color: #fff;
     border: none;
     cursor: pointer;
+    white-space: nowrap;
     transition: opacity 0.3s ease;
     &:hover {
       opacity: 0.85;
@@ -113,11 +157,8 @@
     }
     @include m("next") {
       position: relative;
-      gap: 10px;
-      padding: 0 25px;
-      @media (max-width: 375px) {
-        padding: 0 20px;
-      }
+      gap: 8px;
+      padding: 0 16px;
     }
     &.loading {
       position: relative;
@@ -148,14 +189,6 @@
     }
   }
   @include e("next") {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    flex: 1;
-    justify-content: flex-end;
-    .directorist-create-directory__btn {
-      height: 44px;
-    }
     img {
       max-width: 10px;
     }
@@ -164,6 +197,8 @@
     }
   }
   @include e("back") {
+    display: flex;
+    gap: 8px;
     @include e("btn") {
       display: inline-flex;
       gap: 10px;
@@ -179,104 +214,52 @@
   }
   @include e("step") {
     display: flex;
-    flex: 1;
-    gap: 15px;
-    max-width: 700px;
-    padding: 15px 0;
-    flex-direction: column;
+    gap: 12px;
     align-items: center;
-    @media (max-width: 767px) {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      top: 80px;
-      width: 100%;
-      padding: 15px 20px 0;
-      box-sizing: border-box;
-    }
+    justify-content: center;
     .atbdp-setup-steps {
       width: 100%;
+      max-width: 130px;
       display: flex;
       flex-wrap: wrap;
       padding: 0;
       margin: 0;
       list-style: none;
-      border-radius: 25px;
+      border-radius: 4px;
       overflow: hidden;
       li {
         display: flex;
         flex: 1;
         position: relative;
         margin: 0;
+        flex-grow: 1 !important;
         &:after {
           content: "";
           display: inline-flex;
           width: 100%;
-          height: 12px;
-          background-color: #ebebeb;
+          height: 8px;
+          background-color: #D2D6DB;
         }
         &.done,
         &.active {
           &:after {
-            background-color: #4353ff;
+            background-color: #6E89F7;
           }
         }
       }
     }
+    .step-count {
+      font-size: 14px;
+      line-height: 19px;
+      font-weight: 600;
+      color: #747C89;
+    }
   }
   @include e("content") {
-    width: 100%;
-    display: flex;
-    gap: 30px;
-    flex-direction: column;
-    @include e("title") {
-      font-size: 30px;
-      line-height: 36px;
-      font-weight: 400;
-      margin: 0 0 10px;
-      color: #141414;
-      @include m("section") {
-        font-size: 24px;
-        font-weight: 500;
-        margin: 30px 0 15px;
-      }
-    }
-    @include e("section-title") {
-      font-size: 18px;
-      line-height: 26px;
-      font-weight: 600;
-      margin: 0 0 15px;
-      color: #141414;
-    }
-    @include e("desc") {
-      font-size: 16px;
-      font-weight: 400;
-      margin: 0 0 10px;
-      color: #484848;
-    }
-    @include e("header") {
-      margin: 0 auto;
-      text-align: center;
-      @include m("listings") {
-        max-width: 100%;
-        text-align: center;
-      }
-      @include e("title") {
-        font-size: 30px;
-        line-height: 36px;
-        font-weight: 400;
-        margin: 0 0 10px;
-        &:last-child {
-          margin: 0;
-        }
-      }
-      @include e("desc") {
-        font-size: 16px;
-        line-height: 26px;
-        font-weight: 400;
-        margin: 0;
-      }
-    }
+    border-radius: 12px;
+    border: 1px solid #E5E7EB;
+    box-shadow: 0 15px 24px rgba(27, 36, 44, .08);
+    overflow: hidden;
     @include e("items") {
       position: relative;
       display: flex;
@@ -288,265 +271,21 @@
       margin: 0 auto;
       background-color: #ffffff;
       border-radius: 10px;
-      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
       box-sizing: border-box;
-      @media (max-width: 480px) {
-        padding: 35px 25px;
-      }
-      @media (max-width: 375px) {
-        padding: 30px 20px;
-      }
-
-      @include m("listings") {
-        gap: 30px;
-        padding: 40px 180px;
-        flex-direction: column;
-        @media (max-width: 991px) {
-          padding: 40px 100px;
-        }
-        @media (max-width: 767px) {
-          padding: 40px 50px;
-        }
-        @media (max-width: 480px) {
-          padding: 35px 25px;
-        }
-        @media (max-width: 375) {
-          padding: 30px 20px;
-        }
-      }
-      @include m("completed") {
-        flex-direction: column;
-        text-align: center;
-        gap: 0;
-        padding: 40px 75px 50px;
-        @media (max-width: 480px) {
-          padding: 40px 30px 50px;
-        }
-        .congratulations-img {
-          margin: 0 auto 10px;
-        }
-      }
     }
-    @include e("import") {
-      flex-direction: column;
-      @include e("title") {
-        font-size: 18px;
-        font-weight: 500;
-        margin: 0;
-        color: #141414;
-      }
-      @include e("wrapper") {
-        display: flex;
-        gap: 20px;
-        flex-direction: column;
-      }
-      @include e("single") {
-        label {
-          font-size: 15px;
-          font-weight: 400;
-          position: relative;
-          padding-left: 30px;
-          color: #484848;
-          cursor: pointer;
-          &:before {
-            content: "";
-            display: inline-flex;
-            width: 18px;
-            height: 18px;
-            border-radius: 4px;
-            border: 1px solid #b7b7b7;
-            position: absolute;
-            left: 0;
-            top: -1px;
-          }
-          &:after {
-            content: "";
-            background-image: url("../../../../images/check.svg");
-            background-repeat: no-repeat;
-            width: 9px;
-            height: 7px;
-            position: absolute;
-            left: 5px;
-            top: 6px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-          }
-        }
-        input[type="checkbox"] {
-          display: none;
-          &:checked {
-            ~ label {
-              &:before {
-                background-color: #4353ff;
-                border-color: #4353ff;
-              }
-              &:after {
-                opacity: 1;
-              }
-            }
-          }
-        }
-      }
-      @include e("btn") {
-        margin-top: 20px;
-      }
-      @include e("notice") {
-        margin-top: 10px;
-        font-size: 14px;
-        font-weight: 400;
-        text-align: center;
-      }
+    @include e("footer") {
+      display: flex;
+      gap: 30px;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 32px;
+      border-top: 1px solid #E5E7EB;
     }
     @include e("btns") {
       display: flex;
       gap: 15px;
       flex-wrap: wrap;
       justify-content: center;
-    }
-    @include e("pricing") {
-      @include e("checkbox") {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 20px;
-        justify-content: space-between;
-        .feature-title {
-          font-size: 14px;
-          color: #484848;
-        }
-        label {
-          display: flex;
-          position: relative;
-          cursor: pointer;
-          &:before {
-            content: "";
-            width: 40px;
-            height: 20px;
-            border-radius: 15px;
-            border: 1px solid #4353ff;
-            background: transparent;
-            position: absolute;
-            right: 0;
-            top: 0;
-          }
-          &:after {
-            content: "";
-            position: absolute;
-            right: 22px;
-            top: 4px;
-            width: 14px;
-            height: 14px;
-            border-radius: 100%;
-            background-color: #4353ff;
-            transition: all 0.3s ease;
-          }
-        }
-        input[type="checkbox"] {
-          display: none;
-          &:checked {
-            ~ label {
-              &:before {
-                background-color: #4353ff;
-              }
-              &:after {
-                right: 5px;
-                background-color: #ffffff;
-              }
-            }
-            ~ .directorist-create-directory__content__pricing__amount {
-              display: flex;
-              align-items: center;
-              justify-content: space-between;
-              flex: 0 0 100%;
-            }
-          }
-        }
-      }
-      @include e("amount") {
-        display: none;
-        .price-title {
-          font-size: 14px;
-          color: #484848;
-        }
-        .price-amount {
-          font-size: 14px;
-          font-weight: 500;
-          color: #141414;
-          border-radius: 8px;
-          background-color: #ebebeb;
-          border: 1px solid #ebebeb;
-          padding: 10px 15px;
-          input {
-            border: none;
-            outline: none;
-            box-shadow: none;
-            padding: 0;
-            max-width: 45px;
-            background: transparent;
-          }
-        }
-      }
-    }
-    @include e("gateway") {
-      @include e("checkbox") {
-        display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        margin: 0 0 20px;
-        &:last-child {
-          margin: 0;
-        }
-        .gateway-title {
-          font-size: 14px;
-          color: #484848;
-        }
-        label {
-          display: flex;
-          position: relative;
-          cursor: pointer;
-          &:before {
-            content: "";
-            width: 40px;
-            height: 20px;
-            border-radius: 15px;
-            border: 1px solid #4353ff;
-            background: transparent;
-            position: absolute;
-            right: 0;
-            top: 0;
-          }
-          &:after {
-            content: "";
-            position: absolute;
-            right: 22px;
-            top: 4px;
-            width: 14px;
-            height: 14px;
-            border-radius: 100%;
-            background-color: #4353ff;
-            transition: all 0.3s ease;
-          }
-        }
-        input[type="checkbox"] {
-          display: none;
-          &:checked {
-            ~ label {
-              &:before {
-                background-color: #4353ff;
-              }
-              &:after {
-                right: 5px;
-                background-color: #ffffff;
-              }
-            }
-          }
-        }
-        .enable-warning {
-          flex: 0 0 100%;
-          font-size: 12px;
-          font-style: italic;
-        }
-      }
     }
     @include e("notice") {
       display: flex;
@@ -662,18 +401,6 @@
     margin: 0 auto;
     text-align: center;
     padding: 50px 0 100px;
-  }
-  @include e("step") {
-    display: flex;
-    flex: 1;
-    gap: 15px;
-    padding: 50px 15px;
-    flex-direction: column;
-    align-items: center;
-    box-sizing: border-box;
-    @media (max-width: 767px) {
-      padding-top: 100px;
-    }
   }
   @include e("info") {
     text-align: center;

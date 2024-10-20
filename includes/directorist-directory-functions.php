@@ -13,14 +13,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 function directorist_get_directory_meta( $directory_id, string $meta_key ) {
-	if ( ! term_exists( $directory_id, ATBDP_DIRECTORY_TYPE ) ) {
-		return false;
-	}
-
-	if ( empty( $meta_key ) ) {
-		return false;
-	}
-
     return get_term_meta( $directory_id, $meta_key, true );
 }
 
@@ -280,4 +272,8 @@ function directorist_get_category_custom_field_relations( $directory_id ) {
 	}
 
 	return $relations;
+}
+
+function directorist_is_preview_enabled( $directory_id ) {
+	return (bool) directorist_get_directory_meta( $directory_id, 'preview_mode' );
 }

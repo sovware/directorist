@@ -122,32 +122,38 @@ $('body').on( 'click', '.directorist-ai-directory-submit-step-one', function( e 
     });
 });
 
-// // handle second step
-// $('body').on( 'click', '.directorist-ai-directory-submit-step-two', function( e ) {
-//     e.preventDefault();
-//     const self = this;
+// handle second step
+$('body').on( 'click', '.directorist-ai-directory-submit-step-two', function( e ) {
+    e.preventDefault();
+    const self = this;
+    let checkedKeywords = $('input[name="keywords[]"]:checked').map(function() {
+        return this.value;
+    }).get();
+    let form_data = new FormData();
+    form_data.append( 'action', 'directorist_ai_directory_form_step_two' );
+    form_data.append( 'prompt', $('.directorist-builder-ai-prompt').val() );
+    form_data.append( 'keywords', checkedKeywords );
 
-//     let form_data = new FormData();
-//     form_data.append( 'action', 'directorist_ai_directory_form_step_two' );
-//     form_data.append( 'prompt', $('.directorist-builder-ai-prompt').val() );
-//     form_data.append( 'keywords[]', $('.directorist-builder-ai-prompt').val() );
+    // Response Success Callback
+    const responseAiFormSuccess = function ( response ) {
 
-//     // Response Success Callback
-//     const responseAiFormSuccess = function ( response ) {
+        console.log( response );
+        return;
 
-//         if ( response?.data?.success ) {
-//             $( '.directorist-ai-suggested-keywords' ).empty().html( response?.data?.html );
-//             $(self).removeClass('directorist-ai-directory-submit-step-one').addClass('directorist-ai-directory-submit-step-two');
-//             return;
-//         }
 
-//         alert('Something went wrong! Please try again');
-//     };
+        if ( response?.data?.success ) {
+            $( '.directorist-ai-suggested-keywords' ).empty().html( response?.data?.html );
+            $(self).removeClass('directorist-ai-directory-submit-step-one').addClass('directorist-ai-directory-submit-step-two');
+            return;
+        }
 
-//     // Send Request
-//     axios.post( directorist_admin.ajax_url, form_data ).then( response => {
-//         responseAiFormSuccess( response );
-//     }).catch( response => {
-//         alert('Something went wrong! Please try again');
-//     });
-// });
+        alert('Something went wrong! Please try again');
+    };
+
+    // Send Request
+    axios.post( directorist_admin.ajax_url, form_data ).then( response => {
+        responseAiFormSuccess( response );
+    }).catch( response => {
+        alert('Something went wrong! Please try again');
+    });
+});

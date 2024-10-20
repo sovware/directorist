@@ -390,35 +390,39 @@ $('body').on('click', '.directorist-ai-directory-submit-step-one', function (e) 
   });
 });
 
-// // handle second step
-// $('body').on( 'click', '.directorist-ai-directory-submit-step-two', function( e ) {
-//     e.preventDefault();
-//     const self = this;
+// handle second step
+$('body').on('click', '.directorist-ai-directory-submit-step-two', function (e) {
+  e.preventDefault();
+  var self = this;
+  var checkedKeywords = $('input[name="keywords[]"]:checked').map(function () {
+    return this.value;
+  }).get();
+  var form_data = new FormData();
+  form_data.append('action', 'directorist_ai_directory_form_step_two');
+  form_data.append('prompt', $('.directorist-builder-ai-prompt').val());
+  form_data.append('keywords', checkedKeywords);
 
-//     let form_data = new FormData();
-//     form_data.append( 'action', 'directorist_ai_directory_form_step_two' );
-//     form_data.append( 'prompt', $('.directorist-builder-ai-prompt').val() );
-//     form_data.append( 'keywords[]', $('.directorist-builder-ai-prompt').val() );
+  // Response Success Callback
+  var responseAiFormSuccess = function responseAiFormSuccess(response) {
+    var _response$data8;
+    console.log(response);
+    return;
+    if (response !== null && response !== void 0 && (_response$data8 = response.data) !== null && _response$data8 !== void 0 && _response$data8.success) {
+      var _response$data9;
+      $('.directorist-ai-suggested-keywords').empty().html(response === null || response === void 0 || (_response$data9 = response.data) === null || _response$data9 === void 0 ? void 0 : _response$data9.html);
+      $(self).removeClass('directorist-ai-directory-submit-step-one').addClass('directorist-ai-directory-submit-step-two');
+      return;
+    }
+    alert('Something went wrong! Please try again');
+  };
 
-//     // Response Success Callback
-//     const responseAiFormSuccess = function ( response ) {
-
-//         if ( response?.data?.success ) {
-//             $( '.directorist-ai-suggested-keywords' ).empty().html( response?.data?.html );
-//             $(self).removeClass('directorist-ai-directory-submit-step-one').addClass('directorist-ai-directory-submit-step-two');
-//             return;
-//         }
-
-//         alert('Something went wrong! Please try again');
-//     };
-
-//     // Send Request
-//     axios.post( directorist_admin.ajax_url, form_data ).then( response => {
-//         responseAiFormSuccess( response );
-//     }).catch( response => {
-//         alert('Something went wrong! Please try again');
-//     });
-// });
+  // Send Request
+  axios.post(directorist_admin.ajax_url, form_data).then(function (response) {
+    responseAiFormSuccess(response);
+  }).catch(function (response) {
+    alert('Something went wrong! Please try again');
+  });
+});
 
 /***/ }),
 

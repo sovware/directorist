@@ -31864,20 +31864,26 @@ span.drop-toggle-caret:before {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  gap: 10px;
+  gap: 28px;
   -webkit-flex-wrap: wrap;
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
   padding: 32px;
   width: 100%;
-  max-width: 720px;
   margin: 0 auto;
   background-color: #ffffff;
   border-radius: 10px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
-.directorist-create-directory__content__items label {
+.directorist-create-directory__content__items--columns {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+.directorist-create-directory__content__form-group-label {
   color: #141921;
   font-size: 14px;
   font-weight: 600;
@@ -31889,21 +31895,13 @@ span.drop-toggle-caret:before {
       -ms-flex-align: center;
           align-items: center;
 }
-.directorist-create-directory__content__items label .required-label {
+.directorist-create-directory__content__form-group-label .required-label {
   color: #D94A4A;
   font-weight: 600;
 }
-.directorist-create-directory__content__items label .optional-label {
+.directorist-create-directory__content__form-group-label .optional-label {
   color: #7E8C9A;
   font-weight: 400;
-}
-.directorist-create-directory__content__items--columns {
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: column;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  gap: 28px;
 }
 .directorist-create-directory__content__form-group {
   width: 100%;
@@ -31945,6 +31943,10 @@ span.drop-toggle-caret:before {
   resize: none;
   min-height: 148px;
   max-height: 148px;
+  background-color: #F9FAFB;
+}
+.directorist-create-directory__content__input.form-control.--textarea:focus {
+  background-color: white;
 }
 .directorist-create-directory__content__input.form-control::-webkit-input-placeholder {
   overflow: hidden;
@@ -32092,6 +32094,20 @@ span.drop-toggle-caret:before {
 .directorist-create-directory__content__notice:hover {
   color: #4353ff;
 }
+.directorist-create-directory__checkbox-wrapper {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 12px;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+}
 .directorist-create-directory__checkbox {
   display: -webkit-box;
   display: -webkit-flex;
@@ -32120,43 +32136,42 @@ span.drop-toggle-caret:before {
 }
 .directorist-create-directory__checkbox label {
   position: relative;
-  font-size: 14px;
-  font-weight: 500;
-  color: #141414;
-  height: 40px;
-  line-height: 38px;
-  padding: 0 15px 0 40px;
-  border-radius: 5px;
-  border: 1px solid #d6d6d6;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 8px;
+  height: 32px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
+  letter-spacing: 0.12px;
+  color: #4D5761;
+  border: 1px solid #F3F4F6;
+  background-color: #F3F4F6;
+  padding: 0 12px;
+  border-radius: 4px;
   -webkit-transition: background-color 0.3s ease;
   transition: background-color 0.3s ease;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   cursor: pointer;
 }
-.directorist-create-directory__checkbox label:before {
-  content: "";
-  background-image: url(../images/ce51f4953f209124fb4786d7d5946493.svg);
-  background-repeat: no-repeat;
-  width: 16px;
-  height: 16px;
-  position: absolute;
-  left: 10px;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-          transform: translateY(-50%);
-  font-size: 14px;
-  opacity: 0;
+.directorist-create-directory__checkbox label svg {
+  width: 20px;
+  height: 20px;
 }
 .directorist-create-directory__checkbox input[type=checkbox] {
   display: none;
 }
 .directorist-create-directory__checkbox input[type=checkbox]:checked ~ label {
-  background-color: rgba(67, 83, 255, 0.2509803922);
-  border-color: transparent;
-}
-.directorist-create-directory__checkbox input[type=checkbox]:checked ~ label::before {
-  opacity: 1;
+  color: #383F47;
+  background-color: #E5E7EB;
+  border-color: #E5E7EB;
 }
 .directorist-create-directory__checkbox input[type=checkbox]:disabled ~ label {
   background-color: #ebebeb;

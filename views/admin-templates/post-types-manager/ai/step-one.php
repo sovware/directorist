@@ -50,9 +50,9 @@
         </div>
         <div class="directorist-create-directory__content">
             <!-- first step -->
-            <!-- <div class="directorist-create-directory__content__items directorist-create-directory__content__items--columns">
+            <div class="directorist-create-directory__content__items directorist-create-directory__content__items--columns">
                 <div class="directorist-create-directory__content__form-group">
-                    <label for="business-name">
+                    <label class="directorist-create-directory__content__form-group-label" for="business-name">
                         Enter your business name <span class="required-label">*</span>
                     </label>
                     <div class="directorist-create-directory__content__input-group">
@@ -72,7 +72,7 @@
                     </div>
 
                     <div class="directorist-create-directory__content__form-group">
-                    <label for="business-location">
+                    <label class="directorist-create-directory__content__form-group-label" for="business-location">
                         Your business location <span class="optional-label">(optional)</span>
                     </label>
                     <div class="directorist-create-directory__content__input-group">
@@ -90,16 +90,123 @@
                         </select>
                     </div>
                 </div>
-            </div> -->
+            </div>
             <!-- Second Step -->
             <div class="directorist-create-directory__content__items">
                 <div class="directorist-create-directory__content__form-group">
-                    <label for="business-name">
+                    <label class="directorist-create-directory__content__form-group-label" for="business-name">
                         What type of business directory are you building?
                     </label>
+                    <div class="directorist-create-directory__checkbox-wrapper">
+                        <div class="directorist-create-directory__checkbox">
+                            <input type="checkbox" name="directory_type[]" id="car-directory" value="car">
+                            <label for="car-directory">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="19" height="14" viewBox="0 0 19 14" fill="none">
+                                    <path d="M6.99984 10.9997C6.99984 11.9201 6.25365 12.6663 5.33317 12.6663C4.4127 12.6663 3.6665 11.9201 3.6665 10.9997C3.6665 10.0792 4.4127 9.33301 5.33317 9.33301C6.25365 9.33301 6.99984 10.0792 6.99984 10.9997Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                                    <path d="M15.3333 10.9997C15.3333 11.9201 14.5871 12.6663 13.6667 12.6663C12.7462 12.6663 12 11.9201 12 10.9997C12 10.0792 12.7462 9.33301 13.6667 9.33301C14.5871 9.33301 15.3333 10.0792 15.3333 10.9997Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                                    <path d="M1.1665 5.1665L14.4998 5.1665" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                                    <path d="M17.8332 10.9998V11.4998C18.1093 11.4998 18.3332 11.2759 18.3332 10.9998H17.8332ZM17.8332 6.8331H18.3332C18.3332 6.64371 18.2262 6.47058 18.0568 6.38588L17.8332 6.8331ZM11.1665 0.999512L11.5569 0.687176C11.4621 0.568558 11.3184 0.499508 11.1665 0.499512L11.1665 0.999512ZM14.4998 5.16643L14.1094 5.47877C14.1546 5.53527 14.2115 5.58129 14.2762 5.61365L14.4998 5.16643ZM1.1665 5.16643L0.702266 4.98074C0.678641 5.0398 0.666503 5.10282 0.666504 5.16644L1.1665 5.16643ZM1.16655 10.9998L0.666546 10.9998C0.666548 11.2759 0.890405 11.4998 1.16655 11.4998L1.16655 10.9998ZM15.3332 11.4998H17.8332V10.4998H15.3332V11.4998ZM18.3332 10.9998L18.3332 6.8331L17.3332 6.8331L17.3332 10.9998H18.3332ZM11.1665 0.499512L1.16649 0.499765L1.16652 1.49977L11.1665 1.49951L11.1665 0.499512ZM14.8903 4.8541L11.5569 0.687176L10.7761 1.31185L14.1094 5.47877L14.8903 4.8541ZM18.0568 6.38588L14.7234 4.71922L14.2762 5.61365L17.6096 7.28031L18.0568 6.38588ZM2.36893 0.81407L0.702266 4.98074L1.63074 5.35213L3.29741 1.18546L2.36893 0.81407ZM0.666504 5.16644L0.666546 10.9998L1.66655 10.9998L1.6665 5.16643L0.666504 5.16644ZM3.6665 10.4998H1.16655L1.16655 11.4998H3.6665L3.6665 10.4998ZM6.99984 11.4998L11.9998 11.4998L11.9998 10.4998L6.99984 10.4998L6.99984 11.4998Z" fill="currentColor"/>
+                                    <path d="M7 5.16667L7 1" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                                </svg>
+                                Car Directory
+                            </label>
+                        </div>
+                        <div class="directorist-create-directory__checkbox">
+                            <input type="checkbox" name="directory_type[]" id="hotel-directory" value="hotel">
+                            <label for="hotel-directory">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="19" height="17" viewBox="0 0 19 17" fill="none">
+                                    <path d="M17.8332 13.1665L1.1665 13.1665" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                                    <path d="M17.8332 16.5L17.8332 9L1.1665 9L1.1665 16.5" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                                    <path d="M12 9V6.5L7 6.5L7 9" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                                    <path d="M5.33301 4L5.33301 4.75L5.76969 4.75L5.98525 4.37024L5.33301 4ZM13.6663 4L13.0141 4.37024L13.2297 4.75H13.6663V4ZM16.1663 4L16.9163 4C16.9163 3.58579 16.5806 3.25 16.1663 3.25V4ZM2.83301 4V3.25C2.41879 3.25 2.08301 3.58579 2.08301 4H2.83301ZM5.98525 4.37024C6.70692 3.09887 8.20066 2.25 9.49967 2.25V0.75C7.64232 0.75 5.65964 1.90527 4.68076 3.62976L5.98525 4.37024ZM9.49967 2.25C10.7987 2.25 12.2924 3.09887 13.0141 4.37024L14.3186 3.62976C13.3397 1.90527 11.357 0.75 9.49967 0.75V2.25ZM13.6663 4.75L16.1663 4.75V3.25L13.6663 3.25V4.75ZM15.4163 4L15.4163 9H16.9163V4L15.4163 4ZM5.33301 3.25L2.83301 3.25L2.83301 4.75H5.33301L5.33301 3.25ZM2.08301 4L2.08301 9H3.58301L3.58301 4H2.08301Z" fill="currentColor"/>
+                                </svg>
+                                Hotel Directory
+                            </label>
+                        </div>
+                        <div class="directorist-create-directory__checkbox">
+                            <input type="checkbox" name="directory_type[]" id="travel-directory" value="travel">
+                            <label for="travel-directory">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
+                                    <path d="M10.5 17.5C9.46444 17.5 8.49056 17.3028 7.57833 16.9083C6.66611 16.5133 5.8725 15.9783 5.1975 15.3033C4.52194 14.6278 3.98694 13.8339 3.5925 12.9217C3.1975 12.0094 3 11.0356 3 10C3 8.96444 3.19722 7.99056 3.59167 7.07833C3.98611 6.16611 4.52139 5.3725 5.1975 4.6975C5.87361 4.0225 6.66722 3.48722 7.57833 3.09167C8.49111 2.69722 9.465 2.5 10.5 2.5C12.4422 2.5 14.1178 3.14083 15.5267 4.4225C16.9356 5.70417 17.7419 7.28722 17.9458 9.17167H17.1025C16.9564 7.96556 16.5208 6.88306 15.7958 5.92417C15.0708 4.96528 14.1389 4.25778 13 3.80167V4.16667C13 4.625 12.8369 5.0175 12.5108 5.34417C12.1847 5.67083 11.7922 5.83389 11.3333 5.83333H9.66667V7.5C9.66667 7.73611 9.58667 7.93417 9.42667 8.09417C9.26667 8.25417 9.06889 8.33389 8.83333 8.33333H7.16667V10H8.705V12.5H8L4 8.5C3.95833 8.75 3.92028 9 3.88583 9.25C3.85139 9.5 3.83389 9.75 3.83333 10C3.83333 11.8194 4.47222 13.3819 5.75 14.6875C7.02778 15.9931 8.61111 16.6528 10.5 16.6667V17.5ZM18.0192 17.275L15.1442 14.4333C14.8953 14.6106 14.6256 14.7494 14.335 14.85C14.0444 14.95 13.7383 15 13.4167 15C12.5994 15 11.9092 14.7183 11.3458 14.155C10.7819 13.5906 10.5 12.9 10.5 12.0833C10.5 11.2667 10.7819 10.5764 11.3458 10.0125C11.9097 9.44861 12.6 9.16667 13.4167 9.16667C14.2333 9.16667 14.9239 9.44861 15.4883 10.0125C16.0528 10.5764 16.3344 11.2667 16.3333 12.0833C16.3333 12.4156 16.2806 12.7294 16.175 13.025C16.0694 13.3211 15.9222 13.5936 15.7333 13.8425L18.6083 16.6858L18.0192 17.275ZM13.4167 14.1667C14 14.1667 14.4931 13.9653 14.8958 13.5625C15.2986 13.1597 15.5 12.6667 15.5 12.0833C15.5 11.5 15.2986 11.0069 14.8958 10.6042C14.4931 10.2014 14 10 13.4167 10C12.8333 10 12.3403 10.2014 11.9375 10.6042C11.5347 11.0069 11.3333 11.5 11.3333 12.0833C11.3333 12.6667 11.5347 13.1597 11.9375 13.5625C12.3403 13.9653 12.8333 14.1667 13.4167 14.1667Z" fill="currentColor"/>
+                                </svg>
+                                Travel Directory
+                            </label>
+                        </div>
+                        <div class="directorist-create-directory__checkbox">
+                            <input type="checkbox" name="directory_type[]" id="job-listing" value="job">
+                            <label for="job-listing">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19" fill="none">
+                                    <path d="M16.1665 9.99984V1.6665L1.1665 1.6665L1.1665 16.6665L9.49984 16.6665" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                                    <path d="M1.1665 5.83301L16.1665 5.83301" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                                    <path d="M7.83333 12.9163L9.5 12.9163M4.5 12.9163H6.16667M7.83333 9.58301L12.8333 9.58301M4.5 9.58301H6.16667" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                                    <path d="M16.4169 16.9144L17.8332 18.3332M17.1665 14.6665C17.1665 13.0096 15.8234 11.6665 14.1665 11.6665C12.5096 11.6665 11.1665 13.0096 11.1665 14.6665C11.1665 16.3234 12.5096 17.6665 14.1665 17.6665C15.8234 17.6665 17.1665 16.3234 17.1665 14.6665Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                                </svg>
+                                Job Listing
+                            </label>
+                        </div>
+                        <div class="directorist-create-directory__checkbox">
+                            <input type="checkbox" name="directory_type[]" id="classified-ads" value="classified">
+                            <label for="classified-ads">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="19" height="20" viewBox="0 0 19 20" fill="none">
+                                    <path d="M5.37599 13.3332C2.93841 12.5838 1.1665 10.3143 1.1665 7.63103C1.1665 4.33691 3.83691 1.6665 7.13103 1.6665C9.81434 1.6665 12.0838 3.43841 12.8332 5.87599" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                                    <path d="M4.87037 8.33333C4.6367 7.99102 4.5 7.57676 4.5 7.13044C4.5 5.95383 5.45006 5 6.62202 5C7.07232 5 7.48986 5.14081 7.83333 5.38098" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                                    <path d="M17.8333 11.1111L7 7.5L10.6111 18.3333L12.4167 12.9167L17.8333 11.1111Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                                </svg>
+                                Classified Ads
+                            </label>
+                        </div>
+                        <div class="directorist-create-directory__checkbox">
+                            <input type="checkbox" name="directory_type[]" id="doctors-directory" value="doctors">
+                            <label for="doctors-directory">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19" fill="none">
+                                    <path d="M16.1665 9.99984V1.6665L1.1665 1.6665L1.1665 16.6665L9.49984 16.6665" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                                    <path d="M1.1665 5.83301L16.1665 5.83301" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                                    <path d="M7.83333 12.9163L9.5 12.9163M4.5 12.9163H6.16667M7.83333 9.58301L12.8333 9.58301M4.5 9.58301H6.16667" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                                    <path d="M16.4169 16.9144L17.8332 18.3332M17.1665 14.6665C17.1665 13.0096 15.8234 11.6665 14.1665 11.6665C12.5096 11.6665 11.1665 13.0096 11.1665 14.6665C11.1665 16.3234 12.5096 17.6665 14.1665 17.6665C15.8234 17.6665 17.1665 16.3234 17.1665 14.6665Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                                </svg>
+                                Doctor Directory
+                            </label>
+                        </div>
+                        <div class="directorist-create-directory__checkbox">
+                            <input type="checkbox" name="directory_type[]" id="job-listing" value="job">
+                            <label for="job-listing">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19" fill="none">
+                                    <path d="M16.1665 9.99984V1.6665L1.1665 1.6665L1.1665 16.6665L9.49984 16.6665" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                                    <path d="M1.1665 5.83301L16.1665 5.83301" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                                    <path d="M7.83333 12.9163L9.5 12.9163M4.5 12.9163H6.16667M7.83333 9.58301L12.8333 9.58301M4.5 9.58301H6.16667" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                                    <path d="M16.4169 16.9144L17.8332 18.3332M17.1665 14.6665C17.1665 13.0096 15.8234 11.6665 14.1665 11.6665C12.5096 11.6665 11.1665 13.0096 11.1665 14.6665C11.1665 16.3234 12.5096 17.6665 14.1665 17.6665C15.8234 17.6665 17.1665 16.3234 17.1665 14.6665Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                                </svg>
+                                Job Listing
+                            </label>
+                        </div>
+                        <div class="directorist-create-directory__checkbox">
+                            <input type="checkbox" name="directory_type[]" id="job-listing" value="job">
+                            <label for="job-listing">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19" fill="none">
+                                    <path d="M16.1665 9.99984V1.6665L1.1665 1.6665L1.1665 16.6665L9.49984 16.6665" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                                    <path d="M1.1665 5.83301L16.1665 5.83301" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                                    <path d="M7.83333 12.9163L9.5 12.9163M4.5 12.9163H6.16667M7.83333 9.58301L12.8333 9.58301M4.5 9.58301H6.16667" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                                    <path d="M16.4169 16.9144L17.8332 18.3332M17.1665 14.6665C17.1665 13.0096 15.8234 11.6665 14.1665 11.6665C12.5096 11.6665 11.1665 13.0096 11.1665 14.6665C11.1665 16.3234 12.5096 17.6665 14.1665 17.6665C15.8234 17.6665 17.1665 16.3234 17.1665 14.6665Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                                </svg>
+                                Job Listing
+                            </label>
+                        </div>
+                        <div class="directorist-create-directory__checkbox">
+                            <input type="checkbox" name="directory_type[]" id="job-listing" value="job">
+                            <label for="job-listing">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19" fill="none">
+                                    <path d="M16.1665 9.99984V1.6665L1.1665 1.6665L1.1665 16.6665L9.49984 16.6665" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                                    <path d="M1.1665 5.83301L16.1665 5.83301" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                                    <path d="M7.83333 12.9163L9.5 12.9163M4.5 12.9163H6.16667M7.83333 9.58301L12.8333 9.58301M4.5 9.58301H6.16667" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                                    <path d="M16.4169 16.9144L17.8332 18.3332M17.1665 14.6665C17.1665 13.0096 15.8234 11.6665 14.1665 11.6665C12.5096 11.6665 11.1665 13.0096 11.1665 14.6665C11.1665 16.3234 12.5096 17.6665 14.1665 17.6665C15.8234 17.6665 17.1665 16.3234 17.1665 14.6665Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                                </svg>
+                                Job Listing
+                            </label>
+                        </div>
+                    </div>
                 </div>
                 <div class="directorist-create-directory__content__form-group">
-                    <label for="business-location">
+                    <label class="directorist-create-directory__content__form-group-label" for="business-location">
                         Tell us about your business directory
                     </label>
                     <div class="directorist-create-directory__content__input-group">

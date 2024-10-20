@@ -311,7 +311,7 @@
 						</span>
 						<textarea class="form-control directorist-create-directory__content__input --textarea" name=""
 							id="tell-us"
-							placeholder="Tell AI about your business to get better AI-powered suggestions...">I want to create a </textarea>
+							placeholder="Tell AI about your business to get better AI-powered suggestions...">I want to create a Car directory in Dhaka, Bangladesh</textarea>
 					</div>
 				</div>
 			</div>

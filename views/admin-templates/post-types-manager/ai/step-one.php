@@ -71,8 +71,8 @@
 			</div>
 		</div>
 		<div class="directorist-create-directory__content">
-			<!-- first step -->
-			<!-- <div class="directorist-create-directory__content__items directorist-create-directory__content__items--columns">
+			<!-- Step 1 Building Directory -->
+			<div class="directorist-create-directory__content__items directorist-create-directory__content__items--columns">
                 <div class="directorist-create-directory__content__form-group">
                     <label class="directorist-create-directory__content__form-group-label" for="directory-name">
                     Directory Name <span class="required-label">*</span>
@@ -111,10 +111,10 @@
                             />
                     </div>
                 </div>
-            </div> -->
+            </div>
 
-			<!-- Second Step -->
-			<!-- <div class="directorist-create-directory__content__items">
+			<!-- Step 2 Describe business -->
+			<div class="directorist-create-directory__content__items">
                 <div class="directorist-create-directory__content__form-group">
                     <label class="directorist-create-directory__content__form-group-label" for="business-name">
                         Directory Type
@@ -244,10 +244,10 @@
                         <textarea class="form-control directorist-create-directory__content__input --textarea" name="" id="" placeholder="Tell AI about your business to get better AI-powered suggestions...">I want to create a </textarea>
                     </div>
                 </div>
-            </div> -->
+            </div>
 
-			<!-- Third step -->
-			<!-- <div class="directorist-create-directory__content__items">
+			<!-- Step 3 initial Page -->
+			<div class="directorist-create-directory__content__items">
                 <div class="directorist-create-directory__content__form-group">
                     <label class="directorist-create-directory__content__form-group-label" for="business-location">
                         Select keywords
@@ -382,9 +382,9 @@
                         </div>
                     </div>
                 </div>
-            </div> -->
+            </div>
 
-			<!-- Four Step -->
+			<!-- Step 3 pro Page -->
 			<div class="directorist-create-directory__content__items">
 				<div class="directorist-create-directory__content__form-group">
 					<label class="directorist-create-directory__content__form-group-label" for="business-location">

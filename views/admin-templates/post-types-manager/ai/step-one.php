@@ -74,8 +74,8 @@
 			<!-- first step -->
 			<!-- <div class="directorist-create-directory__content__items directorist-create-directory__content__items--columns">
                 <div class="directorist-create-directory__content__form-group">
-                    <label class="directorist-create-directory__content__form-group-label" for="business-name">
-                        Enter your business name <span class="required-label">*</span>
+                    <label class="directorist-create-directory__content__form-group-label" for="directory-name">
+                    Directory Name <span class="required-label">*</span>
                     </label>
                     <div class="directorist-create-directory__content__input-group">
                         <span class="directorist-create-directory__content__input-icon">
@@ -85,17 +85,17 @@
                         </span>
                         <input
                             type="text"
-                            id="business-name"
+                            id="directory-name"
                             class="form-control directorist-create-directory__content__input"
-                            placeholder="Business name"
+                            placeholder="Directory name"
                             required
                             />
                         </div>
                     </div>
 
                     <div class="directorist-create-directory__content__form-group">
-                    <label class="directorist-create-directory__content__form-group-label" for="business-location">
-                        Your business location <span class="optional-label">(optional)</span>
+                    <label class="directorist-create-directory__content__form-group-label" for="directory-location">
+                        Location <span class="optional-label">(optional)</span>
                     </label>
                     <div class="directorist-create-directory__content__input-group">
                         <span class="directorist-create-directory__content__input-icon">
@@ -103,13 +103,12 @@
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M10.5 2.50016C7.27834 2.50016 4.66667 5.11183 4.66667 8.3335C4.66667 9.91025 5.37764 11.3985 6.5769 12.9557C7.58951 14.2706 8.88561 15.5562 10.2769 16.9362C10.351 17.0097 10.4254 17.0835 10.5 17.1576C10.5746 17.0835 10.649 17.0097 10.7231 16.9362C12.1144 15.5562 13.4105 14.2706 14.4231 12.9557C15.6224 11.3985 16.3333 9.91025 16.3333 8.3335C16.3333 5.11183 13.7217 2.50016 10.5 2.50016ZM3 8.3335C3 4.19136 6.35786 0.833496 10.5 0.833496C14.6421 0.833496 18 4.19136 18 8.3335C18 10.4386 17.0443 12.2837 15.7436 13.9727C14.6566 15.384 13.2654 16.7632 11.8757 18.1409C11.6128 18.4015 11.35 18.662 11.0893 18.9228C10.7638 19.2482 10.2362 19.2482 9.91074 18.9228C9.65003 18.662 9.38719 18.4015 9.12431 18.1409C7.73456 16.7632 6.34337 15.384 5.25643 13.9727C3.95569 12.2837 3 10.4386 3 8.3335ZM10.5 6.66683C9.57953 6.66683 8.83333 7.41302 8.83333 8.3335C8.83333 9.25397 9.57953 10.0002 10.5 10.0002C11.4205 10.0002 12.1667 9.25397 12.1667 8.3335C12.1667 7.41302 11.4205 6.66683 10.5 6.66683ZM7.16667 8.3335C7.16667 6.49255 8.65905 5.00016 10.5 5.00016C12.3409 5.00016 13.8333 6.49255 13.8333 8.3335C13.8333 10.1744 12.3409 11.6668 10.5 11.6668C8.65905 11.6668 7.16667 10.1744 7.16667 8.3335Z" fill="currentColor"/>
                             </svg>
                         </span>
-                        <select id="business-location" class="form-control directorist-create-directory__content__input --select">
-                            <option value="" disabled selected>Enter your business location</option>
-                            <option value="Dhaka">Dhaka</option>
-                            <option value="Chittagong">Chittagong</option>
-                            <option value="Khulna">Khulna</option>
-                            <option value="Rajshahi">Rajshahi</option>  
-                        </select>
+                        <input
+                            type="text"
+                            id="directory-location"
+                            class="form-control directorist-create-directory__content__input"
+                            placeholder="Directory location"
+                            />
                     </div>
                 </div>
             </div> -->
@@ -118,11 +117,11 @@
 			<!-- <div class="directorist-create-directory__content__items">
                 <div class="directorist-create-directory__content__form-group">
                     <label class="directorist-create-directory__content__form-group-label" for="business-name">
-                        What type of business directory are you building?
+                        Directory Type
                     </label>
                     <div class="directorist-create-directory__checkbox-wrapper --gap-12 --svg-size-20">
                         <div class="directorist-create-directory__checkbox">
-                            <input type="checkbox" name="directory_type[]" id="car-directory" value="car">
+                            <input type="radio" name="directory_type[]" id="car-directory" value="car">
                             <label for="car-directory">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="19" height="14" viewBox="0 0 19 14" fill="none">
                                     <path d="M6.99984 10.9997C6.99984 11.9201 6.25365 12.6663 5.33317 12.6663C4.4127 12.6663 3.6665 11.9201 3.6665 10.9997C3.6665 10.0792 4.4127 9.33301 5.33317 9.33301C6.25365 9.33301 6.99984 10.0792 6.99984 10.9997Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
@@ -135,7 +134,7 @@
                             </label>
                         </div>
                         <div class="directorist-create-directory__checkbox">
-                            <input type="checkbox" name="directory_type[]" id="hotel-directory" value="hotel">
+                            <input type="radio" name="directory_type[]" id="hotel-directory" value="hotel">
                             <label for="hotel-directory">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="19" height="17" viewBox="0 0 19 17" fill="none">
                                     <path d="M17.8332 13.1665L1.1665 13.1665" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
@@ -147,7 +146,7 @@
                             </label>
                         </div>
                         <div class="directorist-create-directory__checkbox">
-                            <input type="checkbox" name="directory_type[]" id="travel-directory" value="travel">
+                            <input type="radio" name="directory_type[]" id="travel-directory" value="travel">
                             <label for="travel-directory">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
                                     <path d="M10.5 17.5C9.46444 17.5 8.49056 17.3028 7.57833 16.9083C6.66611 16.5133 5.8725 15.9783 5.1975 15.3033C4.52194 14.6278 3.98694 13.8339 3.5925 12.9217C3.1975 12.0094 3 11.0356 3 10C3 8.96444 3.19722 7.99056 3.59167 7.07833C3.98611 6.16611 4.52139 5.3725 5.1975 4.6975C5.87361 4.0225 6.66722 3.48722 7.57833 3.09167C8.49111 2.69722 9.465 2.5 10.5 2.5C12.4422 2.5 14.1178 3.14083 15.5267 4.4225C16.9356 5.70417 17.7419 7.28722 17.9458 9.17167H17.1025C16.9564 7.96556 16.5208 6.88306 15.7958 5.92417C15.0708 4.96528 14.1389 4.25778 13 3.80167V4.16667C13 4.625 12.8369 5.0175 12.5108 5.34417C12.1847 5.67083 11.7922 5.83389 11.3333 5.83333H9.66667V7.5C9.66667 7.73611 9.58667 7.93417 9.42667 8.09417C9.26667 8.25417 9.06889 8.33389 8.83333 8.33333H7.16667V10H8.705V12.5H8L4 8.5C3.95833 8.75 3.92028 9 3.88583 9.25C3.85139 9.5 3.83389 9.75 3.83333 10C3.83333 11.8194 4.47222 13.3819 5.75 14.6875C7.02778 15.9931 8.61111 16.6528 10.5 16.6667V17.5ZM18.0192 17.275L15.1442 14.4333C14.8953 14.6106 14.6256 14.7494 14.335 14.85C14.0444 14.95 13.7383 15 13.4167 15C12.5994 15 11.9092 14.7183 11.3458 14.155C10.7819 13.5906 10.5 12.9 10.5 12.0833C10.5 11.2667 10.7819 10.5764 11.3458 10.0125C11.9097 9.44861 12.6 9.16667 13.4167 9.16667C14.2333 9.16667 14.9239 9.44861 15.4883 10.0125C16.0528 10.5764 16.3344 11.2667 16.3333 12.0833C16.3333 12.4156 16.2806 12.7294 16.175 13.025C16.0694 13.3211 15.9222 13.5936 15.7333 13.8425L18.6083 16.6858L18.0192 17.275ZM13.4167 14.1667C14 14.1667 14.4931 13.9653 14.8958 13.5625C15.2986 13.1597 15.5 12.6667 15.5 12.0833C15.5 11.5 15.2986 11.0069 14.8958 10.6042C14.4931 10.2014 14 10 13.4167 10C12.8333 10 12.3403 10.2014 11.9375 10.6042C11.5347 11.0069 11.3333 11.5 11.3333 12.0833C11.3333 12.6667 11.5347 13.1597 11.9375 13.5625C12.3403 13.9653 12.8333 14.1667 13.4167 14.1667Z" fill="currentColor"/>
@@ -156,7 +155,7 @@
                             </label>
                         </div>
                         <div class="directorist-create-directory__checkbox">
-                            <input type="checkbox" name="directory_type[]" id="job-listing" value="job">
+                            <input type="radio" name="directory_type[]" id="job-listing" value="job">
                             <label for="job-listing">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19" fill="none">
                                     <path d="M16.1665 9.99984V1.6665L1.1665 1.6665L1.1665 16.6665L9.49984 16.6665" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
@@ -168,7 +167,7 @@
                             </label>
                         </div>
                         <div class="directorist-create-directory__checkbox">
-                            <input type="checkbox" name="directory_type[]" id="classified-ads" value="classified">
+                            <input type="radio" name="directory_type[]" id="classified-ads" value="classified">
                             <label for="classified-ads">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="19" height="20" viewBox="0 0 19 20" fill="none">
                                     <path d="M5.37599 13.3332C2.93841 12.5838 1.1665 10.3143 1.1665 7.63103C1.1665 4.33691 3.83691 1.6665 7.13103 1.6665C9.81434 1.6665 12.0838 3.43841 12.8332 5.87599" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
@@ -179,7 +178,7 @@
                             </label>
                         </div>
                         <div class="directorist-create-directory__checkbox">
-                            <input type="checkbox" name="directory_type[]" id="doctors-directory" value="doctors">
+                            <input type="radio" name="directory_type[]" id="doctors-directory" value="doctors">
                             <label for="doctors-directory">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="17" height="20" viewBox="0 0 17 20" fill="none">
                                     <path d="M9.33427 1.66699C10.2542 1.66699 11 2.44304 11 3.40035L11 5.41699L6 8.33366L1 5.41699L1 3.40017C1 2.44296 1.74569 1.66699 2.66555 1.66699" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
@@ -192,7 +191,7 @@
                             </label>
                         </div>
                         <div class="directorist-create-directory__checkbox">
-                            <input type="checkbox" name="directory_type[]" id="lawyer-directory" value="lawyer">
+                            <input type="radio" name="directory_type[]" id="lawyer-directory" value="lawyer">
                             <label for="lawyer-directory">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="19" height="20" viewBox="0 0 19 20" fill="none">
                                     <path d="M5.95841 11.4587C5.95841 11.4587 6.71297 10.4406 7.20841 10.2087C8.70411 9.50855 9.0083 9.20436 9.70841 7.70866C9.94033 7.21321 10.9584 6.45866 10.9584 6.45866M8.04175 13.542C8.04175 13.542 9.05984 12.7874 9.29175 12.292C9.99186 10.7963 10.2961 10.4921 11.7917 9.79199C12.2872 9.56008 13.0417 8.54199 13.0417 8.54199" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
@@ -205,7 +204,7 @@
                             </label>
                         </div>
                         <div class="directorist-create-directory__checkbox">
-                            <input type="checkbox" name="directory_type[]" id="realestate-Directory" value="realestate">
+                            <input type="radio" name="directory_type[]" id="realestate-Directory" value="realestate">
                              <label for="realestate-Directory">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="15" height="18" viewBox="0 0 15 18" fill="none">
                                     <path d="M0 16.5L15 16.5" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
@@ -217,7 +216,7 @@
                             </label>
                         </div>
                         <div class="directorist-create-directory__checkbox">
-                            <input type="checkbox" name="directory_type[]" id="others" value="others">
+                            <input type="radio" name="directory_type[]" id="others" value="others">
                             <label for="others">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="18" viewBox="0 0 16 18" fill="none">
                                     <path d="M10.1667 2.3335L16.0001 2.3335" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
@@ -234,7 +233,7 @@
                 </div>
                 <div class="directorist-create-directory__content__form-group">
                     <label class="directorist-create-directory__content__form-group-label" for="business-location">
-                        Tell us about your business directory
+                        Tell us about your directory
                     </label>
                     <div class="directorist-create-directory__content__input-group">
                         <span class="directorist-create-directory__content__input-icon">
@@ -242,7 +241,7 @@
                                 <path d="M5.00022 6C5.00022 5.80109 5.07924 5.61032 5.21989 5.46967C5.36055 5.32902 5.55131 5.25 5.75022 5.25H7.25022V3.75C7.25022 3.55109 7.32924 3.36032 7.46989 3.21967C7.61055 3.07902 7.80131 3 8.00022 3C8.19913 3 8.3899 3.07902 8.53055 3.21967C8.67121 3.36032 8.75022 3.55109 8.75022 3.75V5.25H10.2502C10.4491 5.25 10.6399 5.32902 10.7806 5.46967C10.9212 5.61032 11.0002 5.80109 11.0002 6C11.0002 6.19891 10.9212 6.38968 10.7806 6.53033C10.6399 6.67098 10.4491 6.75 10.2502 6.75H8.75022V8.25C8.75022 8.44891 8.67121 8.63968 8.53055 8.78033C8.3899 8.92098 8.19913 9 8.00022 9C7.80131 9 7.61055 8.92098 7.46989 8.78033C7.32924 8.63968 7.25022 8.44891 7.25022 8.25V6.75H5.75022C5.55131 6.75 5.36055 6.67098 5.21989 6.53033C5.07924 6.38968 5.00022 6.19891 5.00022 6ZM17.7502 18H17.0002V17.25C17.0002 17.0511 16.9212 16.8603 16.7806 16.7197C16.6399 16.579 16.4491 16.5 16.2502 16.5C16.0513 16.5 15.8605 16.579 15.7199 16.7197C15.5792 16.8603 15.5002 17.0511 15.5002 17.25V18H14.7502C14.5513 18 14.3605 18.079 14.2199 18.2197C14.0792 18.3603 14.0002 18.5511 14.0002 18.75C14.0002 18.9489 14.0792 19.1397 14.2199 19.2803C14.3605 19.421 14.5513 19.5 14.7502 19.5H15.5002V20.25C15.5002 20.4489 15.5792 20.6397 15.7199 20.7803C15.8605 20.921 16.0513 21 16.2502 21C16.4491 21 16.6399 20.921 16.7806 20.7803C16.9212 20.6397 17.0002 20.4489 17.0002 20.25V19.5H17.7502C17.9491 19.5 18.1399 19.421 18.2806 19.2803C18.4212 19.1397 18.5002 18.9489 18.5002 18.75C18.5002 18.5511 18.4212 18.3603 18.2806 18.2197C18.1399 18.079 17.9491 18 17.7502 18ZM23.0002 13.5H21.5002V12C21.5002 11.8011 21.4212 11.6103 21.2806 11.4697C21.1399 11.329 20.9491 11.25 20.7502 11.25C20.5513 11.25 20.3605 11.329 20.2199 11.4697C20.0792 11.6103 20.0002 11.8011 20.0002 12V13.5H18.5002C18.3013 13.5 18.1105 13.579 17.9699 13.7197C17.8292 13.8603 17.7502 14.0511 17.7502 14.25C17.7502 14.4489 17.8292 14.6397 17.9699 14.7803C18.1105 14.921 18.3013 15 18.5002 15H20.0002V16.5C20.0002 16.6989 20.0792 16.8897 20.2199 17.0303C20.3605 17.171 20.5513 17.25 20.7502 17.25C20.9491 17.25 21.1399 17.171 21.2806 17.0303C21.4212 16.8897 21.5002 16.6989 21.5002 16.5V15H23.0002C23.1991 15 23.3899 14.921 23.5306 14.7803C23.6712 14.6397 23.7502 14.4489 23.7502 14.25C23.7502 14.0511 23.6712 13.8603 23.5306 13.7197C23.3899 13.579 23.1991 13.5 23.0002 13.5ZM21.0605 7.5L8.00022 20.5603C7.71895 20.8414 7.33756 20.9993 6.93991 20.9993C6.54226 20.9993 6.16087 20.8414 5.8796 20.5603L3.93897 18.6216C3.79965 18.4823 3.68913 18.3169 3.61373 18.1349C3.53832 17.9529 3.49951 17.7578 3.49951 17.5608C3.49951 17.3638 3.53832 17.1687 3.61373 16.9867C3.68913 16.8047 3.79965 16.6393 3.93897 16.5L17.0002 3.43969C17.1395 3.30036 17.3049 3.18984 17.4869 3.11444C17.6689 3.03904 17.864 3.00023 18.061 3.00023C18.258 3.00023 18.4531 3.03904 18.6351 3.11444C18.8171 3.18984 18.9825 3.30036 19.1218 3.43969L21.0605 5.37844C21.1999 5.51773 21.3104 5.6831 21.3858 5.86511C21.4612 6.04713 21.5 6.24221 21.5 6.43922C21.5 6.63623 21.4612 6.83131 21.3858 7.01332C21.3104 7.19533 21.1999 7.36071 21.0605 7.5ZM15.939 10.5L14.0002 8.56031L5.00022 17.5603L6.93897 19.5L15.939 10.5ZM20.0002 6.43969L18.0605 4.5L15.0605 7.5L17.0002 9.43969L20.0002 6.43969Z" fill="currentColor"/>
                             </svg>
                         </span>
-                        <textarea class="form-control directorist-create-directory__content__input --textarea" name="" id="" placeholder="Tell AI about your business to get better AI-powered suggestions..."></textarea>
+                        <textarea class="form-control directorist-create-directory__content__input --textarea" name="" id="" placeholder="Tell AI about your business to get better AI-powered suggestions...">I want to create a </textarea>
                     </div>
                 </div>
             </div> -->

@@ -32405,6 +32405,14 @@ span.drop-toggle-caret:before {
           box-shadow: 0px 1px 2px 0px rgba(27, 36, 44, 0.12);
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  -webkit-transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease;
+}
+.directorist-create-directory__go-pro-button a:hover {
+  background-color: #3E62F5;
+  border-color: #3E62F5;
+  color: white;
+  opacity: 0.85;
 }
 .directorist-create-directory__counter {
   width: 100%;

@@ -104,7 +104,7 @@
                             </svg>
                         </span>
                         <input
-                            type="text"
+                            type="search"
                             id="directory-location"
                             class="form-control directorist-create-directory__content__input"
                             placeholder="Directory location"
@@ -114,7 +114,7 @@
             </div> -->
 
 			<!-- Second Step -->
-			<div class="directorist-create-directory__content__items">
+			<!-- <div class="directorist-create-directory__content__items">
                 <div class="directorist-create-directory__content__form-group">
                     <label class="directorist-create-directory__content__form-group-label" for="business-name">
                         Directory Type
@@ -244,7 +244,7 @@
                         <textarea class="form-control directorist-create-directory__content__input --textarea" name="" id="" placeholder="Tell AI about your business to get better AI-powered suggestions...">I want to create a </textarea>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
 			<!-- Third step -->
 			<!-- <div class="directorist-create-directory__content__items">
@@ -385,7 +385,7 @@
             </div> -->
 
 			<!-- Four Step -->
-			<!-- <div class="directorist-create-directory__content__items">
+			<div class="directorist-create-directory__content__items">
 				<div class="directorist-create-directory__content__form-group">
 					<label class="directorist-create-directory__content__form-group-label" for="business-location">
 						Select keywords
@@ -581,7 +581,7 @@
 						</div>
 					</div>
 				</div>
-			</div> -->
+			</div>
 
 			<!-- Footer -->
 			<div class="directorist-create-directory__content__footer">

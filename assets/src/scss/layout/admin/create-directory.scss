@@ -314,6 +314,9 @@
     min-width: 622px;
     max-height: 600px;
     overflow: auto;
+    &::-webkit-scrollbar {
+      display: none;
+    }
 
     @include e("items") {
       position: relative;

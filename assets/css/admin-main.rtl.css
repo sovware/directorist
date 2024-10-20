@@ -31860,6 +31860,9 @@ span.drop-toggle-caret:before {
   max-height: 600px;
   overflow: auto;
 }
+.directorist-create-directory__content::-webkit-scrollbar {
+  display: none;
+}
 .directorist-create-directory__content__items {
   position: relative;
   display: -webkit-box;

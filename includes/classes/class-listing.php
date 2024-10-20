@@ -59,10 +59,10 @@ if (!class_exists('ATBDP_Listing')):
             add_action('wp_ajax_directorist_track_listing_views', array( $this, 'directorist_track_listing_views' ) );
             add_action('wp_ajax_nopriv_directorist_track_listing_views', array( $this, 'directorist_track_listing_views' ) );
 
-			add_filter( 'the_title', array( $this, 'append_preview_prefix' ), 10, 2 );
+			add_filter( 'the_title', array( $this, 'add_preview_prefix_in_title' ), 10, 2 );
         }
 
-		public function append_preview_prefix( $title, $listing_id ) {
+		public function add_preview_prefix_in_title( $title, $listing_id ) {
 			if ( is_admin() || ! directorist_is_listing_post_type( $listing_id ) || ! isset( $_GET['preview'] ) ) {
 				return $title;
 			}

@@ -630,6 +630,35 @@
         }
       }
     }
+    input[type="radio"] {
+      display: none;
+
+      &:hover,
+      &:focus {
+        ~label {
+          color: #383F47;
+          background-color: #E5E7EB;
+          border-color: #E5E7EB;
+        }
+      }
+
+      &:checked {
+        ~label {
+          color: #FFFfff;
+          background-color: #6E89F7;
+          border-color: #6E89F7;
+        }
+      }
+
+      &:disabled {
+        ~label {
+          background-color: #F3F4F6;
+          color: #4D5761;
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
+      }
+    }
 
     input[type="text"] {
       width: 100%;

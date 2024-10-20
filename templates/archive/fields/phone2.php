@@ -15,4 +15,9 @@ $phone_args = array(
 );
 ?>
 
-<li class="directorist-listing-card-phone2"><?php directorist_icon( $icon ); ?><span class="directorist-listing-card-info-label"><?php $listings->print_label( $label ); ?></span><a href="<?php echo esc_url( Helper::phone_link( $phone_args ) ); ?>"><?php echo esc_html( $value ); ?></a></li>
+<li class="directorist-listing-card-phone2">
+	<?php directorist_icon( $icon ); ?><?php $listings->print_label( $label ); ?>
+	<a href="<?php echo esc_url( Helper::phone_link( $phone_args ) ); ?>">
+		<?php echo esc_html( $value ); ?>
+	</a>
+</li>

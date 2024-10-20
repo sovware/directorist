@@ -75,6 +75,10 @@ export default {
             type: String,
             default: '',
         },
+        buttonClass: {
+            type: String,
+            default: '',
+        },
         copyButtonLabel: {
             type: String,
             default: '<i class="far fa-copy"></i>',

@@ -27,7 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 	<?php if ( $searchform->has_search_button ): ?>
 
 		<div class="directorist-search-form-action__submit">
-			<button type="submit" class="directorist-btn directorist-btn-lg directorist-btn-dark directorist-btn-search">
+			<button type="submit" class="directorist-btn directorist-btn-lg directorist-btn-primary directorist-btn-search">
 
 				<?php if ( $searchform->has_search_button_icon() ): ?>
 					<?php directorist_icon( 'las la-search' ); ?>

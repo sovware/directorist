@@ -77,7 +77,7 @@
                                         <td>
                                             <div class="ext-action">
                                                 <?php if (in_array($extension_base, $outdated_plugins_key)) : ?>
-                                                    <a href="#" class="ext-update-btn ext-action-btn" data-key="<?php echo esc_attr( $extension_base ); ?>">Update</a>
+                                                    <a href="#" class="ext-update-btn ext-action-btn" data-key="<?php echo esc_attr( $extension_base ); ?>"><?php echo $args['is_beta'] ? 'Update Beta' : 'Update'; ?></a>
                                                 <?php endif; ?>
                                                 <a href="<?php echo esc_url( $args['settings_url'] ); ?>" class="ext-action-btn"><i class="la la-settings"></i> Settings</a>
                                                 <div>
@@ -120,7 +120,7 @@
                                             <div class="ei-action-dropdown">
                                                 <select id="bulk-actions" name="bulk-actions">
                                                     <option value="">Bulk Action</option>
-                                                    <option value="activate">Install</option>
+                                                    <option value="activate"><?php echo $args['is_beta'] ? 'Install Beta' : 'Install'; ?></option>
                                                 </select>
                                             </div>
                                             <button type="submit" class="ei-action-btn">Apply</button>
@@ -160,7 +160,7 @@
                                         <td>
                                             <div class="ext-action ext-action-<?php echo esc_attr( $extension_base ); ?>">
                                                 <a href="#" class="file-install-btn ext-action-btn" data-type="plugin" data-key="<?php echo esc_attr( $extension_base ); ?>">
-                                                    <i class="la la-download"></i> <?php esc_html_e('Install', 'directorist') ?>
+                                                    <i class="la la-download"></i> <?php echo $args['is_beta'] ? 'Install Beta' : 'Install'; ?>
                                                 </a>
                                             </div>
                                         </td>
@@ -260,7 +260,7 @@
                                                 </a>
                                                 <?php elseif ( $extension[ 'purchased' ] ) : ?>
                                                 <a href="#" class="file-install-btn ext-action-btn" data-type="plugin" data-key="<?php echo esc_attr( $extension_base ); ?>">
-                                                    <?php esc_html_e('Install', 'directorist') ?>
+                                                <?php echo $args['is_beta'] ? 'Install Beta' : 'Install'; ?>
                                                 </a>
                                                 <?php else: 
                                                     $download_link = ( ! empty( $args['extension_list'][$extension_base] ) ) ? $args['extension_list'][$extension_base]['link'] : '';

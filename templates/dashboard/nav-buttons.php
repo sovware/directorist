@@ -11,11 +11,11 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 <div class="directorist-tab__nav__action">
 
 	<?php if ( $dashboard->user_can_submit() ): ?>
-		<a href="<?php echo esc_url(ATBDP_Permalink::get_add_listing_page_link()); ?>" class="directorist-btn directorist-btn-dark directorist-btn--add-listing"><?php esc_html_e( 'Submit Listing', 'directorist' ); ?></a>
+		<a href="<?php echo esc_url(ATBDP_Permalink::get_add_listing_page_link()); ?>" class="directorist-btn directorist-btn--add-listing"><?php esc_html_e( 'Submit Listing', 'directorist' ); ?></a>
 	<?php endif; ?>
 
 	<?php if ( $dashboard->user_type == 'general' && ! empty( $dashboard->become_author_button)): ?>
-		<a href="#" class="directorist-btn directorist-btn-primary directorist-become-author"><?php echo esc_html( $dashboard->become_author_button_text ); ?></a>
+		<a href="#" class="directorist-btn directorist-become-author"><?php echo esc_html( $dashboard->become_author_button_text ); ?></a>
 		<p id="directorist-become-author-success"></p>
 
 		<div class="directorist-become-author-modal">

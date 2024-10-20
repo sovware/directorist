@@ -33,6 +33,4 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 	<?php endif; ?>
 	<div id="listing_notifier"></div>
 
-	<?php do_action( 'directorist_after_submit_listing_frontend' ); ?>
-
 </div>

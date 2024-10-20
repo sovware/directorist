@@ -111,12 +111,8 @@ window.addEventListener('load', () => {
             // Check if any other slug is editable
             $('.directorist_listing-slug-text[contenteditable="true"]').each(function () {
                 if ($(this).is(slugWrapper)) return; // Skip current slug
-                let currentSlugWrapper = $(this);
-                // Save the current slug before making another editable
-                if (currentSlugWrapper.text().trim() !== oldSlugVal) {
-                    saveSlug(currentSlugWrapper);
-                }
-                currentSlugWrapper.attr('contenteditable', 'false').removeClass('directorist_listing-slug-text--editable');
+                
+                $(document).trigger('click'); // Click outside to save the previous slug
             });
             
             // Set the current slug as editable
@@ -145,11 +141,10 @@ window.addEventListener('load', () => {
         // Save Slug on Clicking Outside the Editable Field
         $(document).on('click', function (e) {
             if (slugWrapper.attr('contenteditable') === 'true' && !$(e.target).closest('.directorist_listing-slug-text').length) {
-
                 let slugText = slugWrapper.text();
-    
+                
                 // If the slug was changed, save the new value
-                if (oldSlugVal !== slugText.trim()) {
+                if (oldSlugVal.trim() !== slugText.trim()) {
                     saveSlug(slugWrapper);
                 }
     

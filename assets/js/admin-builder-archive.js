@@ -362,21 +362,21 @@ window.addEventListener('load', function () {
 });
 var $ = jQuery;
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").default;
-// handle firm step
+// handle first step
 $('body').on('click', '.directorist-ai-directory-submit-step-one', function (e) {
   e.preventDefault();
   var self = this;
   var form_data = new FormData();
   form_data.append('action', 'directorist_ai_directory_form_step_one');
-  form_data.append('name', $('#directorist-ai-business-name').val());
-  form_data.append('location', $('#directorist-ai-business-location').val());
+  form_data.append('prompt', $('.directorist-builder-ai-prompt').val());
 
   // Response Success Callback
   var responseAiFormSuccess = function responseAiFormSuccess(response) {
     var _response$data6;
     if (response !== null && response !== void 0 && (_response$data6 = response.data) !== null && _response$data6 !== void 0 && _response$data6.success) {
       var _response$data7;
-      $('.cptm-create-directory-modal__body').empty().html(response === null || response === void 0 || (_response$data7 = response.data) === null || _response$data7 === void 0 ? void 0 : _response$data7.html);
+      $('.directorist-ai-suggested-keywords').empty().html(response === null || response === void 0 || (_response$data7 = response.data) === null || _response$data7 === void 0 ? void 0 : _response$data7.html);
+      $(self).removeClass('directorist-ai-directory-submit-step-one').addClass('directorist-ai-directory-submit-step-two');
       return;
     }
     alert('Something went wrong! Please try again');
@@ -389,6 +389,36 @@ $('body').on('click', '.directorist-ai-directory-submit-step-one', function (e) 
     alert('Something went wrong! Please try again');
   });
 });
+
+// // handle second step
+// $('body').on( 'click', '.directorist-ai-directory-submit-step-two', function( e ) {
+//     e.preventDefault();
+//     const self = this;
+
+//     let form_data = new FormData();
+//     form_data.append( 'action', 'directorist_ai_directory_form_step_two' );
+//     form_data.append( 'prompt', $('.directorist-builder-ai-prompt').val() );
+//     form_data.append( 'keywords[]', $('.directorist-builder-ai-prompt').val() );
+
+//     // Response Success Callback
+//     const responseAiFormSuccess = function ( response ) {
+
+//         if ( response?.data?.success ) {
+//             $( '.directorist-ai-suggested-keywords' ).empty().html( response?.data?.html );
+//             $(self).removeClass('directorist-ai-directory-submit-step-one').addClass('directorist-ai-directory-submit-step-two');
+//             return;
+//         }
+
+//         alert('Something went wrong! Please try again');
+//     };
+
+//     // Send Request
+//     axios.post( directorist_admin.ajax_url, form_data ).then( response => {
+//         responseAiFormSuccess( response );
+//     }).catch( response => {
+//         alert('Something went wrong! Please try again');
+//     });
+// });
 
 /***/ }),
 

@@ -32621,10 +32621,10 @@ span.drop-toggle-caret:before {
 .directory-generate-btn__content {
   border-radius: 6px;
   border-radius: 8px;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   padding: 12.5px 64px 12.5px 61px;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
@@ -32643,11 +32643,35 @@ span.drop-toggle-caret:before {
   font-size: 12px;
   font-weight: 600;
   line-height: 20px;
+  position: relative;
+  padding: 10px;
+  margin: 0 2px 3px 2px;
+  border-radius: 6px;
+}
+.directory-generate-btn--bg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  background-image: -webkit-gradient(linear, right top, right bottom, from(#EABAEB), to(#3E62F5));
+  background-image: linear-gradient(#EABAEB, #3E62F5);
+  -webkit-transition: width 0.3s ease;
+  transition: width 0.3s ease;
+  border-radius: 8px;
 }
 .directory-generate-btn svg {
   width: 20px;
   height: 20px;
 }
+.directory-generate-btn__wrapper {
+  position: relative;
+  width: 347px;
+  background-color: white;
+  border-radius: 5px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
 @keyframes spin {
   from {
     -webkit-transform: rotate(0deg);

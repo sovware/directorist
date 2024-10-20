@@ -961,7 +961,7 @@
   @include e("content"){
     border-radius: 6px;
     border-radius: 8px;
-    display: inline-flex;
+    display: flex;
     padding: 12.5px 61px 12.5px 64px;
     justify-content: center;
     align-items: center;
@@ -973,6 +973,19 @@
     font-size: 12px;
     font-weight: 600;
     line-height: 20px;
+    position: relative;
+    padding: 10px;
+    margin: 0 2px 3px 2px;
+    border-radius: 6px;
+  }
+  &--bg{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background-image: linear-gradient(#EABAEB, #3E62F5);
+    transition: width 0.3s ease;
+    border-radius: 8px;
   }
 
   svg {
@@ -980,7 +993,14 @@
     height:20px;
   }
 
-  @include e("wrapper") {}
+  @include e("wrapper") {
+    position: relative;
+    width: 347px;
+    background-color: white;
+    border-radius: 5px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+  }
 }
 
 // Keyframes

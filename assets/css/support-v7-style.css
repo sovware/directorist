@@ -50,7 +50,7 @@
 .directorist-archive-contents .listing-with-sidebar__header .directorist-header-bar {
     margin-bottom: 0;
 }
-.directorist-content-active .directorist-listing-single {
+.directorist-content-active .directorist-listing-single:not(.directorist-listing-single-quickinfo) {
     background-color: var(--directorist-color-white);
     border-radius: 12px;
 }

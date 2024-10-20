@@ -118,6 +118,13 @@
 }
 .atbd_all_categories .atbd_category_single:not(.atbd_category_no_image) {
     position: relative;
+    text-align: center;
+    padding: 50px 30px;
+    background-color: #fff;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, .1);
+    display: flex;
+    justify-content: center;
+    border-radius: 8px;
 }
 .atbd_all_categories .atbd_category_single:not(.atbd_category_no_image)::before {
     position: absolute;

@@ -31949,6 +31949,8 @@ span.drop-toggle-caret:before {
   min-height: 148px;
   max-height: 148px;
   background-color: #F9FAFB;
+  white-space: wrap;
+  overflow: auto;
 }
 .directorist-create-directory__content__input.form-control.--textarea:focus {
   background-color: white;

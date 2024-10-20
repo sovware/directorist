@@ -389,6 +389,8 @@
           min-height: 148px;
           max-height: 148px;
           background-color: #F9FAFB;
+          white-space: wrap;
+          overflow: auto;
 
           &:focus {
             background-color: white;

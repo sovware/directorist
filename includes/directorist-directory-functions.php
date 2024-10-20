@@ -108,13 +108,41 @@ function directorist_get_listing_create_status( $directory_id ) {
 
 /**
  * Get listing default edit status from directory settings.
+ * And if $listing_id is given then follow the conditions.
  *
  * @param  int  $directory_id
+ * @param  int  $listing_id Added in version 8.
  *
  * @return string Default edit status.
  */
-function directorist_get_listing_edit_status( $directory_id ) {
-	$status = directorist_get_directory_meta( $directory_id, 'edit_listing_status' );
+function directorist_get_listing_edit_status( $directory_id, $listing_id = 0 ) {
+	$builder_status = directorist_get_directory_meta( $directory_id, 'edit_listing_status' );
+	$status         = 'pending';
+	/**
+	 * Builder Edit Status, Listing Edit Status.
+	 * BES - Publish
+	 * LES - Publish
+	 * Result - Publish
+	 *
+	 * BES - Pending
+	 * LES - Pending
+	 * Result - Pending
+	 *
+	 * BES - Publish
+	 * LES - Pending
+	 * Result - Pending
+	 *
+	 * BES - Pending
+	 * LES - Publish
+	 * Result - Pending
+	 */
+	if ( $listing_id && ( $listing_status = get_post_status( $listing_id ) ) !== false ) {
+		if ( $builder_status === 'publish' && $listing_status === 'publish' ) {
+			$status = 'publish';
+		} else if ( $builder_status === 'pending' || $listing_status === 'pending' ) {
+			$status = 'pending';
+		}
+	}
 
 	return apply_filters( 'directorist_listing_edit_status', $status, $directory_id );
 }

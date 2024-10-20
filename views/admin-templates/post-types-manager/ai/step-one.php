@@ -158,49 +158,53 @@
                         <div class="directorist-create-directory__checkbox">
                             <input type="checkbox" name="directory_type[]" id="doctors-directory" value="doctors">
                             <label for="doctors-directory">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19" fill="none">
-                                    <path d="M16.1665 9.99984V1.6665L1.1665 1.6665L1.1665 16.6665L9.49984 16.6665" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-                                    <path d="M1.1665 5.83301L16.1665 5.83301" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-                                    <path d="M7.83333 12.9163L9.5 12.9163M4.5 12.9163H6.16667M7.83333 9.58301L12.8333 9.58301M4.5 9.58301H6.16667" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-                                    <path d="M16.4169 16.9144L17.8332 18.3332M17.1665 14.6665C17.1665 13.0096 15.8234 11.6665 14.1665 11.6665C12.5096 11.6665 11.1665 13.0096 11.1665 14.6665C11.1665 16.3234 12.5096 17.6665 14.1665 17.6665C15.8234 17.6665 17.1665 16.3234 17.1665 14.6665Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="20" viewBox="0 0 17 20" fill="none">
+                                    <path d="M9.33427 1.66699C10.2542 1.66699 11 2.44304 11 3.40035L11 5.41699L6 8.33366L1 5.41699L1 3.40017C1 2.44296 1.74569 1.66699 2.66555 1.66699" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                                    <path d="M6.00024 11.667L6.00024 14.5835C6.00024 16.6547 7.6793 18.3337 9.75052 18.3337C11.8217 18.3337 13.5008 16.6547 13.5008 14.5835V13.3337" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                                    <path d="M10.1668 5.8335L8.50016 10.0002L5.97483 11.6668L3.50016 10.0002L1.8335 5.8335" stroke="currentColor" stroke-width="1.5"/>
+                                    <path d="M16.0002 10.8335C16.0002 12.2142 14.881 13.3335 13.5002 13.3335C12.1195 13.3335 11.0002 12.2142 11.0002 10.8335C11.0002 9.45278 12.1195 8.3335 13.5002 8.3335C14.881 8.3335 16.0002 9.45278 16.0002 10.8335Z" stroke="currentColor" stroke-width="1.5"/>
+                                    <path d="M13.5068 10.8335L13.4993 10.8335" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
                                 Doctor Directory
                             </label>
                         </div>
                         <div class="directorist-create-directory__checkbox">
-                            <input type="checkbox" name="directory_type[]" id="job-listing" value="job">
-                            <label for="job-listing">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19" fill="none">
-                                    <path d="M16.1665 9.99984V1.6665L1.1665 1.6665L1.1665 16.6665L9.49984 16.6665" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-                                    <path d="M1.1665 5.83301L16.1665 5.83301" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-                                    <path d="M7.83333 12.9163L9.5 12.9163M4.5 12.9163H6.16667M7.83333 9.58301L12.8333 9.58301M4.5 9.58301H6.16667" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-                                    <path d="M16.4169 16.9144L17.8332 18.3332M17.1665 14.6665C17.1665 13.0096 15.8234 11.6665 14.1665 11.6665C12.5096 11.6665 11.1665 13.0096 11.1665 14.6665C11.1665 16.3234 12.5096 17.6665 14.1665 17.6665C15.8234 17.6665 17.1665 16.3234 17.1665 14.6665Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                            <input type="checkbox" name="directory_type[]" id="lawyer-directory" value="lawyer">
+                            <label for="lawyer-directory">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="19" height="20" viewBox="0 0 19 20" fill="none">
+                                    <path d="M5.95841 11.4587C5.95841 11.4587 6.71297 10.4406 7.20841 10.2087C8.70411 9.50855 9.0083 9.20436 9.70841 7.70866C9.94033 7.21321 10.9584 6.45866 10.9584 6.45866M8.04175 13.542C8.04175 13.542 9.05984 12.7874 9.29175 12.292C9.99186 10.7963 10.2961 10.4921 11.7917 9.79199C12.2872 9.56008 13.0417 8.54199 13.0417 8.54199" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                                    <path d="M2.75295 14.5835L2.03165 15.3048C1.43411 15.9023 1.43411 16.8711 2.03165 17.4687C2.62919 18.0662 3.59799 18.0662 4.19553 17.4687L4.91683 16.7474" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                                    <path d="M14.0835 3.25295L14.8048 2.53165C15.4023 1.93411 16.3711 1.93411 16.9687 2.53165C17.5662 3.12919 17.5662 4.09799 16.9687 4.69553L16.2474 5.41683" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                                    <path d="M14.9167 10.0003L14.3863 10.5307C14.6792 10.8235 15.1541 10.8235 15.447 10.5307L14.9167 10.0003ZM9.5 4.58366L8.96967 4.05333C8.82902 4.19398 8.75 4.38475 8.75 4.58366C8.75 4.78257 8.82902 4.97334 8.96967 5.11399L9.5 4.58366ZM12.4167 1.66699L12.947 1.13666C12.6541 0.843769 12.1792 0.843769 11.8863 1.13666L12.4167 1.66699ZM17.8333 7.08366L18.3637 7.61399C18.5043 7.47334 18.5833 7.28257 18.5833 7.08366C18.5833 6.88475 18.5043 6.69398 18.3637 6.55333L17.8333 7.08366ZM15.447 9.47L10.0303 4.05333L8.96967 5.11399L14.3863 10.5307L15.447 9.47ZM11.8863 2.19732L17.303 7.61399L18.3637 6.55333L12.947 1.13666L11.8863 2.19732ZM17.303 6.55333L14.3863 9.47L15.447 10.5307L18.3637 7.61399L17.303 6.55333ZM10.0303 5.11399L12.947 2.19732L11.8863 1.13666L8.96967 4.05333L10.0303 5.11399Z" fill="currentColor"/>
+                                    <path d="M6.58341 18.3333L6.05308 18.8637C6.34598 19.1566 6.82085 19.1566 7.11374 18.8637L6.58341 18.3333ZM1.16675 12.9167L0.636418 12.3863C0.343525 12.6792 0.343525 13.1541 0.636418 13.447L1.16675 12.9167ZM4.08341 10L4.61374 9.46967C4.47309 9.32902 4.28233 9.25 4.08341 9.25C3.8845 9.25 3.69374 9.32902 3.55308 9.46967L4.08341 10ZM9.50008 15.4167L10.0304 15.947C10.1711 15.8063 10.2501 15.6156 10.2501 15.4167C10.2501 15.2178 10.1711 15.027 10.0304 14.8863L9.50008 15.4167ZM7.11374 17.803L1.69708 12.3863L0.636418 13.447L6.05308 18.8637L7.11374 17.803ZM3.55308 10.5303L8.96975 15.947L10.0304 14.8863L4.61374 9.46967L3.55308 10.5303ZM8.96975 14.8863L6.05308 17.803L7.11374 18.8637L10.0304 15.947L8.96975 14.8863ZM1.69708 13.447L4.61374 10.5303L3.55308 9.46967L0.636418 12.3863L1.69708 13.447Z" fill="currentColor"/>
                                 </svg>
-                                Job Listing
+                                Lawyer Directory
                             </label>
                         </div>
                         <div class="directorist-create-directory__checkbox">
-                            <input type="checkbox" name="directory_type[]" id="job-listing" value="job">
-                            <label for="job-listing">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19" fill="none">
-                                    <path d="M16.1665 9.99984V1.6665L1.1665 1.6665L1.1665 16.6665L9.49984 16.6665" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-                                    <path d="M1.1665 5.83301L16.1665 5.83301" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-                                    <path d="M7.83333 12.9163L9.5 12.9163M4.5 12.9163H6.16667M7.83333 9.58301L12.8333 9.58301M4.5 9.58301H6.16667" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-                                    <path d="M16.4169 16.9144L17.8332 18.3332M17.1665 14.6665C17.1665 13.0096 15.8234 11.6665 14.1665 11.6665C12.5096 11.6665 11.1665 13.0096 11.1665 14.6665C11.1665 16.3234 12.5096 17.6665 14.1665 17.6665C15.8234 17.6665 17.1665 16.3234 17.1665 14.6665Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                            <input type="checkbox" name="directory_type[]" id="realestate-Directory" value="realestate">
+                             <label for="realestate-Directory">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="18" viewBox="0 0 15 18" fill="none">
+                                    <path d="M0 16.5L15 16.5" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                                    <path d="M8.33341 1.5L9.08341 1.5C9.08341 1.24689 8.95575 1.01086 8.74393 0.872321C8.5321 0.733784 8.26469 0.711432 8.0328 0.812882L8.33341 1.5ZM1.66675 4.41667L1.36613 3.72955L0.916748 3.92616L0.916748 4.41667H1.66675ZM8.0328 0.812882L1.36613 3.72955L1.96736 5.10378L8.63403 2.18712L8.0328 0.812882ZM0.916748 4.41667L0.916748 16.5H2.41675L2.41675 4.41667H0.916748ZM7.58341 1.5L7.58341 16.5H9.08341L9.08341 1.5L7.58341 1.5Z" fill="currentColor"/>
+                                    <path d="M13.3332 16.5002L13.3332 8.16686L8.26196 5.51953" stroke="currentColor" stroke-width="1.5"/>
+                                    <path d="M3.75 6.5L6.25 6.5M3.75 9.83333H6.25M3.75 13.1667H6.25" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
                                 </svg>
-                                Job Listing
+                                Real-estate Directory
                             </label>
                         </div>
                         <div class="directorist-create-directory__checkbox">
-                            <input type="checkbox" name="directory_type[]" id="job-listing" value="job">
-                            <label for="job-listing">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19" fill="none">
-                                    <path d="M16.1665 9.99984V1.6665L1.1665 1.6665L1.1665 16.6665L9.49984 16.6665" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-                                    <path d="M1.1665 5.83301L16.1665 5.83301" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-                                    <path d="M7.83333 12.9163L9.5 12.9163M4.5 12.9163H6.16667M7.83333 9.58301L12.8333 9.58301M4.5 9.58301H6.16667" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-                                    <path d="M16.4169 16.9144L17.8332 18.3332M17.1665 14.6665C17.1665 13.0096 15.8234 11.6665 14.1665 11.6665C12.5096 11.6665 11.1665 13.0096 11.1665 14.6665C11.1665 16.3234 12.5096 17.6665 14.1665 17.6665C15.8234 17.6665 17.1665 16.3234 17.1665 14.6665Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                            <input type="checkbox" name="directory_type[]" id="others" value="others">
+                            <label for="others">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="18" viewBox="0 0 16 18" fill="none">
+                                    <path d="M10.1667 2.3335L16.0001 2.3335" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                                    <path d="M10.1667 11.5L16.0001 11.5" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                                    <path d="M10.1667 6.5L16.0001 6.5" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                                    <path d="M10.1667 15.6665L16.0001 15.6665" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                                    <circle cx="3.91667" cy="4.41667" r="2.91667" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                                    <circle cx="3.91667" cy="13.5832" r="2.91667" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
                                 </svg>
-                                Job Listing
+                                Other’s
                             </label>
                         </div>
                     </div>

@@ -338,6 +338,7 @@ window.addEventListener('load', function () {
   $('.directorist-ai-directory-creation').on('click', function (e) {
     e.preventDefault();
     var self = this;
+    console.log("rony");
     var form_data = new FormData();
     form_data.append('action', 'directorist_ai_directory_form');
 
@@ -347,6 +348,9 @@ window.addEventListener('load', function () {
       if (response !== null && response !== void 0 && (_response$data4 = response.data) !== null && _response$data4 !== void 0 && _response$data4.success) {
         var _response$data5;
         $('.cptm-create-directory-modal__body').empty().html(response === null || response === void 0 || (_response$data5 = response.data) === null || _response$data5 === void 0 ? void 0 : _response$data5.html);
+        initializeKeyword();
+        initializeProgressBar();
+        initializeDropdownField();
         return;
       }
       alert('Something went wrong! Please try again');
@@ -360,23 +364,213 @@ window.addEventListener('load', function () {
     });
   });
 });
+
+// Function to initialize Keyword Selected
+function initializeKeyword() {
+  (function () {
+    var tagList = []; // Select default keyword
+    var maxFreeTags = 5; //Maz item for free user
+    var isProUser = false; //is it free user or pro user
+
+    var tagListElem = document.getElementById("directorist-box__tagList");
+    var newTagElem = document.getElementById("directorist-box__newTag");
+    var recommendedTagsElem = document.getElementById("directorist-recommendedTags");
+    var recommendedTags = Array.from(recommendedTagsElem.getElementsByTagName("li"));
+    var tagLimitMsgElem = document.getElementById("directorist-tagLimitMsg");
+    var proTagMsgElem = document.getElementById("directorist-proTagMsg");
+    var tagCountElem = document.getElementById("directorist-tagCount");
+    var initTagManagement = function initTagManagement() {
+      renderTagList();
+      toggleMessages();
+      updateRecommendedTagsState();
+    };
+    var toggleMessages = function toggleMessages() {
+      var displayStyle = isProUser ? "none" : "flex";
+      proTagMsgElem.style.display = displayStyle;
+      tagLimitMsgElem.style.display = displayStyle;
+    };
+    var renderTagList = function renderTagList() {
+      tagListElem.innerHTML = "";
+      tagList.forEach(function (tag) {
+        var li = document.createElement("li");
+        li.innerHTML = "".concat(tag, " <span class=\"directorist-rmTag\" style=\"cursor:pointer;\">&times;</span>");
+        tagListElem.appendChild(li);
+      });
+      var inputLi = document.createElement("li");
+      inputLi.appendChild(newTagElem);
+      tagListElem.appendChild(inputLi);
+      updateRecommendedTagsState();
+      updateTagCount();
+    };
+    var canAddMoreTags = function canAddMoreTags() {
+      return isProUser || tagList.length < maxFreeTags;
+    };
+    var updateTagCount = function updateTagCount() {
+      var tagCount = tagList.length;
+      tagCountElem.innerHTML = isProUser ? "".concat(tagCount) : "".concat(tagCount, "/").concat(maxFreeTags);
+    };
+    newTagElem.addEventListener("keyup", function (e) {
+      if (e.key === "Enter") {
+        var newTag = newTagElem.value.trim();
+        if (newTag && !tagList.includes(newTag) && canAddMoreTags()) {
+          tagList.push(newTag);
+          newTagElem.value = "";
+          renderTagList();
+          newTagElem.focus();
+        }
+      }
+    });
+    tagListElem.addEventListener("click", function (e) {
+      if (e.target.classList.contains("directorist-rmTag")) {
+        var index = Array.from(tagListElem.children).findIndex(function (child) {
+          return child.contains(e.target);
+        });
+        if (index !== -1) {
+          tagList.splice(index, 1);
+          renderTagList();
+        }
+      }
+    });
+    recommendedTagsElem.addEventListener("click", function (e) {
+      if (e.target.tagName === "LI" && !e.target.classList.contains("disabled")) {
+        if (isProUser) {
+          var recommendedTag = e.target.textContent.trim();
+          if (!tagList.includes(recommendedTag)) {
+            tagList.push(recommendedTag);
+            renderTagList();
+          }
+        } else {
+          proTagMsgElem.style.display = "flex";
+        }
+      }
+    });
+    var updateRecommendedTagsState = function updateRecommendedTagsState() {
+      recommendedTags.forEach(function (recommendedTagElem) {
+        var recommendedTag = recommendedTagElem.textContent.trim();
+        recommendedTagElem.classList.toggle("disabled", tagList.includes(recommendedTag));
+        recommendedTagElem.classList.toggle("free-disabled", !isProUser && !tagList.includes(recommendedTag));
+      });
+    };
+    initTagManagement();
+  })();
+}
+// Function to initialize Progress bar
+function initializeProgressBar() {
+  var generateBtnWrapper = document.querySelector(".directory-generate-btn__wrapper");
+  if (generateBtnWrapper) {
+    var finalWidth = generateBtnWrapper.getAttribute("data-width");
+    var btnPercentage = document.querySelector(".directory-generate-btn__percentage");
+    var progressBar = document.querySelector(".directory-generate-btn--bg");
+    var currentWidth = 0;
+    var updateProgress = function updateProgress() {
+      if (currentWidth <= finalWidth) {
+        btnPercentage.textContent = "".concat(currentWidth, "%");
+        progressBar.style.width = "".concat(currentWidth, "%");
+        if (typeof updateProgressList === 'function') {
+          updateProgressList(currentWidth);
+        }
+        currentWidth++;
+      } else {
+        clearInterval(progressInterval);
+      }
+    };
+    var progressInterval = setInterval(updateProgress, 30);
+  }
+  var steps = document.querySelectorAll(".directory-generate-progress-list li");
+  var updateProgressList = function updateProgressList(progress) {
+    if (steps.length > 0) {
+      steps.forEach(function (step, index) {
+        var stepNumber = index + 1;
+        var stepThreshold = stepNumber * (100 / steps.length);
+        if (progress >= stepThreshold) {
+          step.setAttribute("data-type", "completed");
+          step.querySelector(".completed-icon").style.display = "block";
+          step.querySelector(".progress-icon").style.display = "none";
+          step.querySelector(".default-icon").style.display = "none";
+        } else if (progress < stepThreshold && progress >= stepThreshold - 100 / steps.length) {
+          step.setAttribute("data-type", "progress");
+          step.querySelector(".completed-icon").style.display = "none";
+          step.querySelector(".progress-icon").style.display = "block";
+          step.querySelector(".default-icon").style.display = "none";
+        } else {
+          step.setAttribute("data-type", "default");
+          step.querySelector(".completed-icon").style.display = "none";
+          step.querySelector(".progress-icon").style.display = "none";
+          step.querySelector(".default-icon").style.display = "block";
+        }
+      });
+    }
+  };
+}
+//Function to initialize Dropdown
+function initializeDropdownField() {
+  var dropdowns = document.querySelectorAll(".directorist-ai-generate-dropdown");
+  var accordion = true;
+  dropdowns.forEach(function (dropdown) {
+    var header = dropdown.querySelector(".directorist-ai-generate-dropdown__header");
+    var content = dropdown.querySelector(".directorist-ai-generate-dropdown__content");
+    var icon = dropdown.querySelector(".directorist-ai-generate-dropdown__header-icon");
+    var pinIcon = dropdown.querySelector(".directorist-ai-generate-dropdown__pin-icon");
+    var dropdownItem = dropdown.closest('.directorist-ai-generate-box__item');
+    pinIcon.addEventListener("click", function (event) {
+      event.stopPropagation();
+      if (dropdownItem.classList.contains("pinned")) {
+        dropdownItem.classList.remove("pinned");
+        dropdownItem.classList.add("unpinned");
+      } else {
+        dropdownItem.classList.remove("unpinned");
+        dropdownItem.classList.add("pinned");
+      }
+    });
+    header.addEventListener("click", function (event) {
+      if (event.target === pinIcon || pinIcon.contains(event.target)) {
+        return;
+      }
+      var isExpanded = content.classList.toggle("directorist-ai-generate-dropdown__content--expanded");
+      dropdown.setAttribute("aria-expanded", isExpanded);
+      content.setAttribute("aria-expanded", isExpanded);
+      icon.classList.toggle("rotate", isExpanded);
+      if (accordion) {
+        dropdowns.forEach(function (otherDropdown) {
+          if (otherDropdown !== dropdown) {
+            var otherContent = otherDropdown.querySelector(".directorist-ai-generate-dropdown__content");
+            var otherIcon = otherDropdown.querySelector(".directorist-ai-generate-dropdown__header-icon");
+            otherContent.classList.remove("directorist-ai-generate-dropdown__content--expanded");
+            otherDropdown.setAttribute("aria-expanded", false);
+            otherContent.setAttribute("aria-expanded", false);
+            otherIcon.classList.remove("rotate");
+          }
+        });
+      }
+    });
+  });
+}
 var $ = jQuery;
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").default;
 // handle firm step
-$('body').on('click', '.directorist-ai-directory-submit-step-one', function (e) {
+$('body').on('click', '.directorist_generate_ai_directory', function (e) {
   e.preventDefault();
   var self = this;
+  var step = $(self).data('step');
+  var keywords = $('input[name="keywords[]"]:checked').map(function () {
+    return this.value;
+  }).get();
   var form_data = new FormData();
-  form_data.append('action', 'directorist_ai_directory_form_step_one');
-  form_data.append('name', $('#directorist-ai-business-name').val());
-  form_data.append('location', $('#directorist-ai-business-location').val());
+  form_data.append('action', 'directorist_ai_directory_creation');
+  form_data.append('prompt', $('.directorist-ai-prompt').val());
+  form_data.append('keywords', keywords);
+  form_data.append('step', step);
 
   // Response Success Callback
   var responseAiFormSuccess = function responseAiFormSuccess(response) {
     var _response$data6;
     if (response !== null && response !== void 0 && (_response$data6 = response.data) !== null && _response$data6 !== void 0 && _response$data6.success) {
-      var _response$data7;
-      $('.cptm-create-directory-modal__body').empty().html(response === null || response === void 0 || (_response$data7 = response.data) === null || _response$data7 === void 0 ? void 0 : _response$data7.html);
+      if (step == 1) {
+        var _response$data7;
+        $('.directorist-ai-keywords').empty().html(response === null || response === void 0 || (_response$data7 = response.data) === null || _response$data7 === void 0 ? void 0 : _response$data7.html);
+        $(self).data('step', step + 1);
+      }
+      console.log(response);
       return;
     }
     alert('Something went wrong! Please try again');

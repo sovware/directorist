@@ -66,6 +66,8 @@ window.addEventListener('load', () => {
         e.preventDefault();
         const self = this;
 
+        console.log("rony");
+
         let form_data = new FormData();
         form_data.append( 'action', 'directorist_ai_directory_form' );
 
@@ -74,6 +76,11 @@ window.addEventListener('load', () => {
 
             if ( response?.data?.success ) {
                 $( '.cptm-create-directory-modal__body' ).empty().html( response?.data?.html );
+
+                initializeKeyword();
+                initializeProgressBar();
+                initializeDropdownField();
+
                 return;
             }
 
@@ -90,9 +97,222 @@ window.addEventListener('load', () => {
 
 });
 
-document.addEventListener('load', () =>{
-        
-})
+// Function to initialize Keyword Selected
+function initializeKeyword(){
+    (function () {
+        const tagList = []; // Select default keyword
+        const maxFreeTags = 5; //Maz item for free user
+        const isProUser = false; //is it free user or pro user
+
+        const tagListElem = document.getElementById("directorist-box__tagList");
+        const newTagElem = document.getElementById("directorist-box__newTag");
+        const recommendedTagsElem = document.getElementById("directorist-recommendedTags");
+        const recommendedTags = Array.from(recommendedTagsElem.getElementsByTagName("li"));
+        const tagLimitMsgElem = document.getElementById("directorist-tagLimitMsg");
+        const proTagMsgElem = document.getElementById("directorist-proTagMsg");
+        const tagCountElem = document.getElementById("directorist-tagCount");
+
+        const initTagManagement = () => {
+            renderTagList();
+            toggleMessages();
+            updateRecommendedTagsState();
+        };
+
+        const toggleMessages = () => {
+            const displayStyle = isProUser ? "none" : "flex";
+            proTagMsgElem.style.display = displayStyle;
+            tagLimitMsgElem.style.display = displayStyle;
+        };
+
+        const renderTagList = () => {
+            tagListElem.innerHTML = "";
+            tagList.forEach((tag) => {
+                const li = document.createElement("li");
+                li.innerHTML = `${tag} <span class="directorist-rmTag" style="cursor:pointer;">&times;</span>`;
+                tagListElem.appendChild(li);
+            });
+
+            const inputLi = document.createElement("li");
+            inputLi.appendChild(newTagElem);
+            tagListElem.appendChild(inputLi);
+
+            updateRecommendedTagsState();
+            updateTagCount();
+        };
+
+        const canAddMoreTags = () => isProUser || tagList.length < maxFreeTags;
+
+        const updateTagCount = () => {
+            const tagCount = tagList.length;
+            tagCountElem.innerHTML = isProUser
+                ? `${tagCount}`
+                : `${tagCount}/${maxFreeTags}`;
+        };
+
+        newTagElem.addEventListener("keyup", (e) => {
+            if (e.key === "Enter") {
+                const newTag = newTagElem.value.trim();
+                if (newTag && !tagList.includes(newTag) && canAddMoreTags()) {
+                    tagList.push(newTag);
+                    newTagElem.value = "";
+                    renderTagList();
+                    newTagElem.focus();
+                }
+            }
+        });
+
+        tagListElem.addEventListener("click", (e) => {
+            if (e.target.classList.contains("directorist-rmTag")) {
+                const index = Array.from(tagListElem.children).findIndex((child) =>
+                    child.contains(e.target)
+                );
+                if (index !== -1) {
+                    tagList.splice(index, 1);
+                    renderTagList();
+                }
+            }
+        });
+
+        recommendedTagsElem.addEventListener("click", (e) => {
+            if (e.target.tagName === "LI" && !e.target.classList.contains("disabled")) {
+                if (isProUser) {
+                    const recommendedTag = e.target.textContent.trim();
+                    if (!tagList.includes(recommendedTag)) {
+                        tagList.push(recommendedTag);
+                        renderTagList();
+                    }
+                } else {
+                    proTagMsgElem.style.display = "flex";
+                }
+            }
+        });
+
+        const updateRecommendedTagsState = () => {
+            recommendedTags.forEach((recommendedTagElem) => {
+                const recommendedTag = recommendedTagElem.textContent.trim();
+                recommendedTagElem.classList.toggle(
+                    "disabled",
+                    tagList.includes(recommendedTag)
+                );
+                recommendedTagElem.classList.toggle(
+                    "free-disabled",
+                    !isProUser && !tagList.includes(recommendedTag)
+                );
+            });
+        };
+
+        initTagManagement();
+    })();
+}
+// Function to initialize Progress bar
+function initializeProgressBar() {
+    const generateBtnWrapper = document.querySelector(".directory-generate-btn__wrapper");
+
+    if (generateBtnWrapper) {
+        const finalWidth = generateBtnWrapper.getAttribute("data-width");
+        const btnPercentage = document.querySelector(".directory-generate-btn__percentage");
+        const progressBar = document.querySelector(".directory-generate-btn--bg");
+
+        let currentWidth = 0;
+
+        const updateProgress = () => {
+            if (currentWidth <= finalWidth) {
+                btnPercentage.textContent = `${currentWidth}%`;
+                progressBar.style.width = `${currentWidth}%`;
+
+                if (typeof updateProgressList === 'function') {
+                    updateProgressList(currentWidth);
+                }
+
+                currentWidth++;
+            } else {
+                clearInterval(progressInterval);
+            }
+        };
+
+        const progressInterval = setInterval(updateProgress, 30);
+    }
+
+    const steps = document.querySelectorAll(".directory-generate-progress-list li");
+
+    const updateProgressList = (progress) => {
+        if (steps.length > 0) {
+            steps.forEach((step, index) => {
+                const stepNumber = index + 1;
+                const stepThreshold = stepNumber * (100 / steps.length);
+
+                if (progress >= stepThreshold) {
+                    step.setAttribute("data-type", "completed");
+                    step.querySelector(".completed-icon").style.display = "block";
+                    step.querySelector(".progress-icon").style.display = "none";
+                    step.querySelector(".default-icon").style.display = "none";
+                } else if (progress < stepThreshold && progress >= stepThreshold - (100 / steps.length)) {
+                    step.setAttribute("data-type", "progress");
+                    step.querySelector(".completed-icon").style.display = "none";
+                    step.querySelector(".progress-icon").style.display = "block";
+                    step.querySelector(".default-icon").style.display = "none";
+                } else {
+                    step.setAttribute("data-type", "default");
+                    step.querySelector(".completed-icon").style.display = "none";
+                    step.querySelector(".progress-icon").style.display = "none";
+                    step.querySelector(".default-icon").style.display = "block";
+                }
+            });
+        }
+    };
+}
+//Function to initialize Dropdown
+function initializeDropdownField(){
+    const dropdowns = document.querySelectorAll(".directorist-ai-generate-dropdown");
+    const accordian = true;
+
+    dropdowns.forEach((dropdown) => {
+        const header = dropdown.querySelector(".directorist-ai-generate-dropdown__header");
+        const content = dropdown.querySelector(".directorist-ai-generate-dropdown__content");
+        const icon = dropdown.querySelector(".directorist-ai-generate-dropdown__header-icon");
+        const pinIcon = dropdown.querySelector(".directorist-ai-generate-dropdown__pin-icon");
+        const dropdownItem = dropdown.closest('.directorist-ai-generate-box__item');
+
+        pinIcon.addEventListener("click", (event) => {
+            event.stopPropagation();
+            if (dropdownItem.classList.contains("pinned")) {
+                dropdownItem.classList.remove("pinned");
+                dropdownItem.classList.add("unpinned");
+            } else {
+                dropdownItem.classList.remove("unpinned");
+                dropdownItem.classList.add("pinned");
+            }
+        });
+
+        header.addEventListener("click", (event) => {
+            if (event.target === pinIcon || pinIcon.contains(event.target)) {
+                return;
+            }
+
+            const isExpanded = content.classList.toggle("directorist-ai-generate-dropdown__content--expanded");
+            dropdown.setAttribute("aria-expanded", isExpanded);
+            content.setAttribute("aria-expanded", isExpanded);
+            icon.classList.toggle("rotate", isExpanded);
+
+            if (accordian) {
+                dropdowns.forEach((otherDropdown) => {
+                    if (otherDropdown !== dropdown) {
+                        const otherContent = otherDropdown.querySelector(".directorist-ai-generate-dropdown__content");
+                        const otherIcon = otherDropdown.querySelector(".directorist-ai-generate-dropdown__header-icon");
+
+                        otherContent.classList.remove("directorist-ai-generate-dropdown__content--expanded");
+                        otherDropdown.setAttribute("aria-expanded", false);
+                        otherContent.setAttribute("aria-expanded", false);
+                        otherIcon.classList.remove("rotate");
+                    }
+                });
+            }
+        });
+    });
+}
+
+
+
 
 
 var $ = jQuery;

@@ -309,7 +309,7 @@
 									fill="currentColor" />
 							</svg>
 						</span>
-						<textarea class="form-control directorist-create-directory__content__input --textarea" name=""
+						<textarea class="form-control directorist-create-directory__content__input --textarea directorist-ai-prompt" name=""
 							id="tell-us"
 							placeholder="Tell AI about your business to get better AI-powered suggestions...">I want to create a Car directory in Dhaka, Bangladesh</textarea>
 					</div>
@@ -358,9 +358,9 @@
 					<label class="directorist-create-directory__content__form-group-label">
 						Recommended keywords
 					</label>
-					<div class="directorist-create-directory__checkbox-wrapper --svg-size-16 --gap-8">
+					<div class="directorist-create-directory__checkbox-wrapper --svg-size-16 --gap-8 directorist-ai-keywords">
 						<div class="directorist-create-directory__checkbox">
-							<input type="checkbox" name="directory_type[]" id="electric-car" value="car">
+							<input type="checkbox" name="keywords[]" id="electric-car" value="car">
 							<label for="electric-car">
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
 									fill="none">
@@ -379,7 +379,7 @@
 							</label>
 						</div>
 						<div class="directorist-create-directory__checkbox">
-							<input type="checkbox" name="directory_type[]" id="transmission" value="transmission">
+							<input type="checkbox" name="keywords[]" id="transmission" value="transmission">
 							<label for="transmission">
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
 									fill="none">
@@ -391,7 +391,7 @@
 							</label>
 						</div>
 						<div class="directorist-create-directory__checkbox">
-							<input type="checkbox" name="directory_type[]" id="hacthback" value="hacthback">
+							<input type="checkbox" name="keywords[]" id="hacthback" value="hacthback">
 							<label for="hacthback">
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
 									fill="none">
@@ -403,7 +403,7 @@
 							</label>
 						</div>
 						<div class="directorist-create-directory__checkbox">
-							<input type="checkbox" name="directory_type[]" id="mileage" value="mileage">
+							<input type="checkbox" name="keywords[]" id="mileage" value="mileage">
 							<label for="mileage">
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
 									fill="none">
@@ -415,7 +415,7 @@
 							</label>
 						</div>
 						<div class="directorist-create-directory__checkbox">
-							<input type="checkbox" name="directory_type[]" id="price" value="price">
+							<input type="checkbox" name="keywords[]" id="price" value="price">
 							<label for="price">
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
 									fill="none">
@@ -427,7 +427,7 @@
 							</label>
 						</div>
 						<div class="directorist-create-directory__checkbox">
-							<input type="checkbox" name="directory_type[]" id="features" value="features">
+							<input type="checkbox" name="keywords[]" id="features" value="features">
 							<label for="features">
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
 									fill="none">
@@ -439,7 +439,7 @@
 							</label>
 						</div>
 						<div class="directorist-create-directory__checkbox">
-							<input type="checkbox" name="directory_type[]" id="location" value="location">
+							<input type="checkbox" name="keywords[]" id="location" value="location">
 							<label for="location">
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
 									fill="none">
@@ -451,7 +451,7 @@
 							</label>
 						</div>
 						<div class="directorist-create-directory__checkbox">
-							<input type="checkbox" name="directory_type[]" id="condition" value="condition">
+							<input type="checkbox" name="keywords[]" id="condition" value="condition">
 							<label for="condition">
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
 									fill="none">
@@ -470,7 +470,7 @@
 							</label>
 						</div>
 						<div class="directorist-create-directory__checkbox">
-							<input type="checkbox" name="directory_type[]" id="label-text" value="label">
+							<input type="checkbox" name="keywords[]" id="label-text" value="label">
 							<label for="label-text">
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
 									fill="none">
@@ -747,8 +747,8 @@
 					</a>
 				</div>
 				<div class="directorist-create-directory__next">
-					<button type="submit"
-						class="directorist-create-directory__btn directorist-create-directory__btn--next">
+					<button type="submit" data-step="1"
+						class="directorist-create-directory__btn directorist-create-directory__btn--next directorist_generate_ai_directory">
 						<svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path
 								d="M15.9357 10.0828L11.906 8.59375L10.4216 4.56094C10.3337 4.32213 10.1747 4.11604 9.96598 3.97046C9.75726 3.82488 9.50892 3.74682 9.25445 3.74682C8.99998 3.74682 8.75163 3.82488 8.54291 3.97046C8.3342 4.11604 8.17516 4.32213 8.08726 4.56094L6.59351 8.59375L2.5607 10.0781C2.32189 10.166 2.11579 10.3251 1.97022 10.5338C1.82464 10.7425 1.74658 10.9908 1.74658 11.2453C1.74658 11.4998 1.82464 11.7481 1.97022 11.9568C2.11579 12.1656 2.32189 12.3246 2.5607 12.4125L6.59351 13.9062L8.07788 17.9391C8.16579 18.1779 8.32482 18.384 8.53354 18.5295C8.74225 18.6751 8.9906 18.7532 9.24507 18.7532C9.49954 18.7532 9.74789 18.6751 9.9566 18.5295C10.1653 18.384 10.3244 18.1779 10.4123 17.9391L11.906 13.9062L15.9388 12.4219C16.1776 12.334 16.3837 12.1749 16.5293 11.9662C16.6749 11.7575 16.7529 11.5092 16.7529 11.2547C16.7529 11.0002 16.6749 10.7519 16.5293 10.5432C16.3837 10.3344 16.1776 10.1754 15.9388 10.0875L15.9357 10.0828ZM11.2029 12.8297C11.118 12.861 11.041 12.9103 10.9771 12.9742C10.9131 13.0381 10.8638 13.1152 10.8326 13.2L9.24976 17.4883L7.67007 13.2031C7.63885 13.1174 7.58925 13.0395 7.52473 12.975C7.46022 12.9105 7.38236 12.8609 7.29663 12.8297L3.01148 11.25L7.29663 9.67031C7.38236 9.6391 7.46022 9.58949 7.52473 9.52497C7.58925 9.46046 7.63885 9.3826 7.67007 9.29688L9.24976 5.01172L10.8294 9.29688C10.8607 9.38171 10.91 9.45875 10.9739 9.52269C11.0379 9.58662 11.1149 9.63592 11.1998 9.66719L15.488 11.25L11.2029 12.8297ZM11.7498 3.125C11.7498 2.95924 11.8156 2.80027 11.9328 2.68306C12.05 2.56585 12.209 2.5 12.3748 2.5H13.6248V1.25C13.6248 1.08424 13.6906 0.925268 13.8078 0.808058C13.925 0.690848 14.084 0.625 14.2498 0.625C14.4155 0.625 14.5745 0.690848 14.6917 0.808058C14.8089 0.925268 14.8748 1.08424 14.8748 1.25V2.5H16.1248C16.2905 2.5 16.4495 2.56585 16.5667 2.68306C16.6839 2.80027 16.7498 2.95924 16.7498 3.125C16.7498 3.29076 16.6839 3.44973 16.5667 3.56694C16.4495 3.68415 16.2905 3.75 16.1248 3.75H14.8748V5C14.8748 5.16576 14.8089 5.32473 14.6917 5.44194C14.5745 5.55915 14.4155 5.625 14.2498 5.625C14.084 5.625 13.925 5.55915 13.8078 5.44194C13.6906 5.32473 13.6248 5.16576 13.6248 5V3.75H12.3748C12.209 3.75 12.05 3.68415 11.9328 3.56694C11.8156 3.44973 11.7498 3.29076 11.7498 3.125ZM19.8748 6.875C19.8748 7.04076 19.8089 7.19973 19.6917 7.31694C19.5745 7.43415 19.4155 7.5 19.2498 7.5H18.6248V8.125C18.6248 8.29076 18.5589 8.44973 18.4417 8.56694C18.3245 8.68415 18.1655 8.75 17.9998 8.75C17.834 8.75 17.675 8.68415 17.5578 8.56694C17.4406 8.44973 17.3748 8.29076 17.3748 8.125V7.5H16.7498C16.584 7.5 16.425 7.43415 16.3078 7.31694C16.1906 7.19973 16.1248 7.04076 16.1248 6.875C16.1248 6.70924 16.1906 6.55027 16.3078 6.43306C16.425 6.31585 16.584 6.25 16.7498 6.25H17.3748V5.625C17.3748 5.45924 17.4406 5.30027 17.5578 5.18306C17.675 5.06585 17.834 5 17.9998 5C18.1655 5 18.3245 5.06585 18.4417 5.18306C18.5589 5.30027 18.6248 5.45924 18.6248 5.625V6.25H19.2498C19.4155 6.25 19.5745 6.31585 19.6917 6.43306C19.8089 6.55027 19.8748 6.70924 19.8748 6.875Z"

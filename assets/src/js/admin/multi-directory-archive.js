@@ -119,20 +119,32 @@ if(generateBtnWrapper){
 var $ = jQuery;
 const axios = require('axios').default;
 // handle firm step
-$('body').on( 'click', '.directorist-ai-directory-submit-step-one', function( e ) {
+$('body').on( 'click', '.directorist_generate_ai_directory', function( e ) {
     e.preventDefault();
     const self = this;
 
+    var step = $(self).data('step');
+    let keywords = $('input[name="keywords[]"]:checked').map(function() {
+        return this.value;
+    }).get();
+
     let form_data = new FormData();
-    form_data.append( 'action', 'directorist_ai_directory_form_step_one' );
-    form_data.append( 'name', $('#directorist-ai-business-name').val() );
-    form_data.append( 'location', $('#directorist-ai-business-location').val() );
+    form_data.append( 'action', 'directorist_ai_directory_creation' );
+    form_data.append( 'prompt', $('.directorist-ai-prompt').val() );
+    form_data.append( 'keywords', keywords );
+    form_data.append( 'step', step );
 
     // Response Success Callback
     const responseAiFormSuccess = function ( response ) {
 
         if ( response?.data?.success ) {
-            $( '.cptm-create-directory-modal__body' ).empty().html( response?.data?.html );
+
+            if( step == 1 ) {
+                $( '.directorist-ai-keywords' ).empty().html( response?.data?.html );
+                $(self).data('step', step + 1 );
+            }
+
+            console.log( response );
             return;
         }
 

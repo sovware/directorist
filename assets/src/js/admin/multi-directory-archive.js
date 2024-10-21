@@ -94,27 +94,6 @@ document.addEventListener('load', () =>{
         
 })
 
-//Generate btn
-const generateBtnWrapper = document.querySelector('.directory-generate-btn__wrapper');
-if(generateBtnWrapper){
-    const finalWidth = generateBtnWrapper.getAttribute('data-width');
-    const btnPercentage = document.querySelector('.directory-generate-btn__percentage');
-    const progressBar = document.querySelector('.directory-generate-btn--bg');
-
-    let currentWidth = 0;
-
-    const updateProgress = () => {
-    if (currentWidth <= finalWidth) {
-        btnPercentage.textContent = `${currentWidth}%`;
-        progressBar.style.width = `${currentWidth}%`;
-        currentWidth++;
-    } else {
-        clearInterval(progressInterval);
-    }
-    };
-
-    const progressInterval = setInterval(updateProgress, 30);
-}
 
 var $ = jQuery;
 const axios = require('axios').default;

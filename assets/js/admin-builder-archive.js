@@ -361,25 +361,6 @@ window.addEventListener('load', function () {
   });
 });
 document.addEventListener('load', function () {});
-
-//Generate btn
-var generateBtnWrapper = document.querySelector('.directory-generate-btn__wrapper');
-if (generateBtnWrapper) {
-  var finalWidth = generateBtnWrapper.getAttribute('data-width');
-  var btnPercentage = document.querySelector('.directory-generate-btn__percentage');
-  var progressBar = document.querySelector('.directory-generate-btn--bg');
-  var currentWidth = 0;
-  var updateProgress = function updateProgress() {
-    if (currentWidth <= finalWidth) {
-      btnPercentage.textContent = "".concat(currentWidth, "%");
-      progressBar.style.width = "".concat(currentWidth, "%");
-      currentWidth++;
-    } else {
-      clearInterval(progressInterval);
-    }
-  };
-  var progressInterval = setInterval(updateProgress, 30);
-}
 var $ = jQuery;
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").default;
 // handle firm step

@@ -969,7 +969,7 @@
 
   &__label {
     display: block;
-    color: var(--Gray-900, #141921);
+    color: #141921;
     font-family: Inter;
     font-size: 14px;
     font-style: normal;
@@ -980,17 +980,17 @@
 
   &__input-wrapper {
     display: flex;
-    padding: 8px;
+    padding: 4px 8px;
     align-items: center;
     gap: 8px;
     align-self: stretch;
     border-radius: 8px;
-    border: 1px solid var(--Gray-300, #d2d6db);
-    background: var(--White-White, #fff);
+    border: 1px solid #d2d6db;
+    background: #fff;
     transition: 0.3s;
     &:hover,
     &:focus {
-      border: 1px solid var(--Primary-500, #3e62f5);
+      border: 1px solid #3e62f5;
       box-shadow: 0px 0px 0px 3px rgba(103, 146, 244, 0.3);
     }
   }
@@ -999,30 +999,29 @@
     &[type=text]{
     padding: 0 8px;
     overflow: hidden;
-    color: var(--Gray-500, #141921);
+    color: #141921;
     text-overflow: ellipsis;
     white-space: nowrap;
     font-family: Inter;
     font-size: 14px;
     font-style: normal;
     font-weight: 500;
-    line-height: 24px; // 171.429%
+    line-height: 24px;
     letter-spacing: 0.14px;
-    border: none;
-    outline: none;
-    box-shadow: none;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    height: 30px;
 
     &::placeholder {
       overflow: hidden;
-      color: var(--Gray-500, #747c89);
-      font-feature-settings: "liga" off, "clig" off;
+      color:#747c89;
       text-overflow: ellipsis;
       white-space: nowrap;
-      font-family: Inter;
       font-size: 14px;
       font-style: normal;
       font-weight: 500;
-      line-height: 24px; // 171.429%
+      line-height: 24px;
       letter-spacing: 0.14px;
     }
     }
@@ -1042,15 +1041,15 @@
       margin: 0;
       &:not(:only-child, :last-child) {
         display: flex;
-        height: var(--xSmall, 24px);
+        height: 24px;
         padding: 0 8px;
         align-items: center;
         gap: 8px;
-        border-radius: var(--Medium, 4px);
-        background: var(--Gray-100, #f3f4f6);
+        border-radius:4px;
+        background:#f3f4f6;
         margin: 0;
         text-transform: capitalize;
-        color: var(--Gray-600, #4d5761);
+        color: #4d5761;
         font-size: 12px;
         font-weight: 600;
         line-height: 16px;
@@ -1087,7 +1086,8 @@
       cursor: pointer;
       margin: 0;
       &:hover {
-        background-color: #b0bec5;
+        color: #383F47;
+        background-color: #E5E7EB;
       }
 
       &.disabled {

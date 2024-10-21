@@ -32615,6 +32615,405 @@ span.drop-toggle-caret:before {
   color: #f80718;
 }
 
+.directorist-box {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+  -webkit-align-items: flex-start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 28px;
+  width: 100%;
+}
+.directorist-box__item {
+  width: 100%;
+}
+.directorist-box__label {
+  display: block;
+  color: var(--Gray-900, #141921);
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 20px;
+  margin-bottom: 8px;
+}
+.directorist-box__input-wrapper {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 8px;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 8px;
+  -webkit-align-self: stretch;
+      -ms-flex-item-align: stretch;
+          align-self: stretch;
+  border-radius: 8px;
+  border: 1px solid var(--Gray-300, #d2d6db);
+  background: var(--White-White, #fff);
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+.directorist-box__input-wrapper:hover, .directorist-box__input-wrapper:focus {
+  border: 1px solid var(--Primary-500, #3e62f5);
+  -webkit-box-shadow: 0px 0px 0px 3px rgba(103, 146, 244, 0.3);
+          box-shadow: 0px 0px 0px 3px rgba(103, 146, 244, 0.3);
+}
+.directorist-box__input[type=text] {
+  padding: 0 8px;
+  overflow: hidden;
+  color: var(--Gray-500, #141921);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 0.14px;
+  border: none;
+  outline: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+.directorist-box__input[type=text]::-webkit-input-placeholder {
+  overflow: hidden;
+  color: var(--Gray-500, #747c89);
+  -webkit-font-feature-settings: "liga" off, "clig" off;
+          font-feature-settings: "liga" off, "clig" off;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 0.14px;
+}
+.directorist-box__input[type=text]::-moz-placeholder {
+  overflow: hidden;
+  color: var(--Gray-500, #747c89);
+  font-feature-settings: "liga" off, "clig" off;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 0.14px;
+}
+.directorist-box__input[type=text]:-ms-input-placeholder {
+  overflow: hidden;
+  color: var(--Gray-500, #747c89);
+  font-feature-settings: "liga" off, "clig" off;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 0.14px;
+}
+.directorist-box__input[type=text]::-ms-input-placeholder {
+  overflow: hidden;
+  color: var(--Gray-500, #747c89);
+  font-feature-settings: "liga" off, "clig" off;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 0.14px;
+}
+.directorist-box__input[type=text]::placeholder {
+  overflow: hidden;
+  color: var(--Gray-500, #747c89);
+  -webkit-font-feature-settings: "liga" off, "clig" off;
+          font-feature-settings: "liga" off, "clig" off;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 0.14px;
+}
+.directorist-box__tagList {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-align-content: center;
+      -ms-flex-line-pack: center;
+          align-content: center;
+  gap: 8px;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.directorist-box__tagList li {
+  margin: 0;
+}
+.directorist-box__tagList li:not(:only-child, :last-child) {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  height: var(--xSmall, 24px);
+  padding: 0 8px;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 8px;
+  border-radius: var(--Medium, 4px);
+  background: var(--Gray-100, #f3f4f6);
+  margin: 0;
+  text-transform: capitalize;
+  color: var(--Gray-600, #4d5761);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
+  letter-spacing: 0.12px;
+}
+.directorist-box__recommended-list {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  gap: 8px;
+  padding: 0;
+  margin: 0;
+}
+.directorist-box__recommended-list li {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 8px;
+  height: 32px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
+  letter-spacing: 0.12px;
+  color: #4d5761;
+  border: 1px solid #f3f4f6;
+  background-color: #f3f4f6;
+  padding: 0 12px;
+  border-radius: 4px;
+  -webkit-transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  cursor: pointer;
+  margin: 0;
+}
+.directorist-box__recommended-list li:hover {
+  background-color: #b0bec5;
+}
+.directorist-box__recommended-list li.disabled {
+  background-color: #f3f4f6;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+.directorist-box__recommended-list li.free-disabled {
+  background-color: #f3f4f6;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+.directorist-box__recommended-list li.free-disabled:hover {
+  background-color: #cfd8dc;
+}
+
+.directorist-box-options__wrapper {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  gap: 15px 10px;
+  margin-top: 12px;
+}
+.directorist-box-options__left {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 8px;
+  overflow: hidden;
+  color: #747c89;
+  text-overflow: ellipsis;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
+}
+.directorist-box-options__right {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.12px;
+  color: #555f6d;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  gap: 5px;
+}
+.directorist-box-options__right strong {
+  font-weight: 500;
+}
+.directorist-box-options__hit-button {
+  border-radius: 4px;
+  background: #e5e7eb;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 0 8px;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 6px;
+  overflow: hidden;
+  color: #141921;
+  text-overflow: ellipsis;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.directorist-create-directory__go-pro {
+  margin-top: 20px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 8px;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-align-self: stretch;
+      -ms-flex-item-align: stretch;
+          align-self: stretch;
+  border-radius: 6px;
+  border: 1px solid #9eb0fa;
+  background: #f0f3ff;
+}
+.directorist-create-directory__go-pro-title {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 8px;
+  -webkit-box-align: start;
+  -webkit-align-items: flex-start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  gap: 10px;
+  color: #4d5761;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+}
+.directorist-create-directory__go-pro-title svg {
+  padding: 4px 8px;
+  width: 32px;
+  max-height: 16px;
+  color: #3e62f5;
+}
+.directorist-create-directory__go-pro-button a {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 146px;
+  height: 32px;
+  padding: 0 16px;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 8px;
+  color: #141921;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 19px;
+  text-transform: capitalize;
+  border-radius: 6px;
+  border: 1px solid #d2d6db;
+  background: #f0f3ff;
+  -webkit-box-shadow: 0px 1px 2px 0px rgba(27, 36, 44, 0.12);
+          box-shadow: 0px 1px 2px 0px rgba(27, 36, 44, 0.12);
+  -webkit-transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease;
+}
+.directorist-create-directory__go-pro-button a:hover {
+  background-color: #3e62f5;
+  border-color: #3e62f5;
+  color: white;
+  opacity: 0.85;
+}
+
 .directory-generate-btn {
   margin-bottom: 20px;
 }

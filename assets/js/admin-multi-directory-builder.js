@@ -19072,6 +19072,12 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     openConfirmationModal: function openConfirmationModal() {
       this.groupName = this.groupData.label;
       this.showConfirmationModal = true;
+
+      // Add class to parent with class 'atbdp-cpt-manager'
+      var parentElement = this.$el.closest('.atbdp-cpt-manager');
+      if (parentElement) {
+        parentElement.classList.add('trash-overlay-visible');
+      }
     },
     closeConfirmationModal: function closeConfirmationModal() {
       this.showConfirmationModal = false;

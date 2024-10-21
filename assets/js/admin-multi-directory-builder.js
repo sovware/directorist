@@ -26899,7 +26899,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      local_value: this.value
+      local_value: this.value,
+      editorInstance: null
     };
   },
   watch: {
@@ -26913,28 +26914,41 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
-    var _this = this;
-    var editorID = this.editorID;
-    var value = this.local_value;
-    tinymce.init({
-      selector: "#".concat(editorID),
-      plugins: "link",
-      toolbar: "undo redo | formatselect | bold italic | link",
-      menubar: false,
-      branding: false,
-      init_instance_callback: function init_instance_callback(editor) {
-        editor.setContent(value);
-        editor.on("Change KeyUp", function () {
-          _this.local_value = editor.getContent();
-        });
-      }
-    });
-    this.editorInstance = tinymce.get(editorID);
+    this.initializeEditor();
   },
   beforeDestroy: function beforeDestroy() {
-    if (this.editorInstance) {
-      this.editorInstance.destroy();
+    this.destroyEditor();
+  },
+  methods: {
+    initializeEditor: function initializeEditor() {
+      var _this = this;
+      if (!this.editor || !this.editorID || this.editorInstance) return;
+      var editorID = this.editorID;
+      var value = this.local_value;
+      tinymce.init({
+        selector: "#".concat(editorID),
+        plugins: "link",
+        toolbar: "undo redo | formatselect | bold italic | link",
+        menubar: false,
+        branding: false,
+        init_instance_callback: function init_instance_callback(editor) {
+          editor.setContent(value);
+          editor.on("Change KeyUp", function () {
+            _this.local_value = editor.getContent();
+          });
+        }
+      });
+      this.editorInstance = tinymce.get(editorID);
+    },
+    destroyEditor: function destroyEditor() {
+      if (this.editorInstance) {
+        this.editorInstance.destroy();
+      }
     }
+  },
+  updated: function updated() {
+    this.editorInstance = null; // Make sure to clean up
+    this.initializeEditor();
   }
 });
 

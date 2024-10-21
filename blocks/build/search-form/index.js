@@ -11,7 +11,8 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/primitives */ "@wordpress/primitives");
 /* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__);
 /**
  * WordPress dependencies
  */
@@ -51,23 +52,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @babel/runtime/helpers/getPrototypeOf */ "./node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js");
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @babel/runtime/helpers/inherits */ "./node_modules/@babel/runtime/helpers/esm/inherits.js");
 /* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
-/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./functions */ "./src/functions.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! lodash */ "lodash");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_11__);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_12__);
-/* harmony import */ var _vendors_token_multiselect_control__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./vendors/token-multiselect-control */ "./src/vendors/token-multiselect-control/index.js");
-/* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @wordpress/api-fetch */ "@wordpress/api-fetch");
-/* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(_wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_14__);
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_15__);
-
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./functions */ "./src/functions.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! lodash */ "lodash");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var _vendors_token_multiselect_control__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./vendors/token-multiselect-control */ "./src/vendors/token-multiselect-control/index.js");
+/* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @wordpress/api-fetch */ "@wordpress/api-fetch");
+/* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_14__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__);
 
 
 
@@ -93,7 +93,8 @@ var _directoristBlockConf = directoristBlockConfig,
   TAG_TAX = _directoristBlockConf.tagTax,
   TYPE_TAX = _directoristBlockConf.typeTax;
 
-var TypesControl = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_8__.withSelect)(function (select) {
+
+var TypesControl = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_7__.withSelect)(function (select) {
   var args = {
     per_page: -1,
     order: 'asc',
@@ -106,26 +107,26 @@ var TypesControl = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_8__.withSelect)(f
   var choices = [],
     defaultDirChoices = [];
   if (props.items) {
-    choices = (props.shouldRender ? (0,_functions__WEBPACK_IMPORTED_MODULE_10__.sortItemsBySelected)(props.items, props.selected, 'slug') : props.items).map(function (item) {
-      return (0,react__WEBPACK_IMPORTED_MODULE_7__.createElement)("li", {
-        key: item.id
-      }, (0,react__WEBPACK_IMPORTED_MODULE_7__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_15__.CheckboxControl, {
-        label: (0,lodash__WEBPACK_IMPORTED_MODULE_11__.truncate)((0,_functions__WEBPACK_IMPORTED_MODULE_10__.decodeHTML)(item.name), {
-          length: 30
-        }),
-        checked: props.selected.includes(item.slug),
-        onChange: function onChange(updated) {
-          var values = updated ? [].concat((0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_6__["default"])(props.selected), [item.slug]) : (0,lodash__WEBPACK_IMPORTED_MODULE_11__.without)(props.selected, item.slug);
-          props.onChange(values);
-        }
-      }));
+    choices = (props.shouldRender ? (0,_functions__WEBPACK_IMPORTED_MODULE_9__.sortItemsBySelected)(props.items, props.selected, 'slug') : props.items).map(function (item) {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("li", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_14__.CheckboxControl, {
+          label: (0,lodash__WEBPACK_IMPORTED_MODULE_10__.truncate)((0,_functions__WEBPACK_IMPORTED_MODULE_9__.decodeHTML)(item.name), {
+            length: 30
+          }),
+          checked: props.selected.includes(item.slug),
+          onChange: function onChange(updated) {
+            var values = updated ? [].concat((0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_6__["default"])(props.selected), [item.slug]) : (0,lodash__WEBPACK_IMPORTED_MODULE_10__.without)(props.selected, item.slug);
+            props.onChange(values);
+          }
+        })
+      }, item.id);
     });
     if (props.showDefault) {
       defaultDirChoices = (props.selected.length > 0 ? props.items.filter(function (item) {
         return props.selected.includes(item.slug);
       }) : props.items).map(function (item) {
         return {
-          label: (0,lodash__WEBPACK_IMPORTED_MODULE_11__.truncate)((0,_functions__WEBPACK_IMPORTED_MODULE_10__.decodeHTML)(item.name), {
+          label: (0,lodash__WEBPACK_IMPORTED_MODULE_10__.truncate)((0,_functions__WEBPACK_IMPORTED_MODULE_9__.decodeHTML)(item.name), {
             length: 30
           }),
           value: item.slug
@@ -133,19 +134,25 @@ var TypesControl = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_8__.withSelect)(f
       });
     }
   } else {
-    choices = [(0,react__WEBPACK_IMPORTED_MODULE_7__.createElement)("li", null, (0,react__WEBPACK_IMPORTED_MODULE_7__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_15__.Spinner, null))];
+    choices = [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("li", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_14__.Spinner, {})
+    })];
   }
-  return (0,react__WEBPACK_IMPORTED_MODULE_7__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_12__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_7__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_15__.BaseControl, {
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Directory Types', 'directorist'),
-    className: "directorist-gb-cb-list-control"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_7__.createElement)("ul", {
-    className: "editor-post-taxonomies__hierarchical-terms-list"
-  }, choices)), defaultDirChoices.length && props.showDefault ? (0,react__WEBPACK_IMPORTED_MODULE_7__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_15__.RadioControl, {
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Select Default Directory', 'directorist'),
-    selected: props.defaultType ? props.defaultType : window.directorist.default_directory_type,
-    options: defaultDirChoices,
-    onChange: props.onDefaultChange
-  }) : '');
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_wordpress_element__WEBPACK_IMPORTED_MODULE_11__.Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_14__.BaseControl, {
+      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Directory Types', 'directorist'),
+      className: "directorist-gb-cb-list-control",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("ul", {
+        className: "editor-post-taxonomies__hierarchical-terms-list",
+        children: choices
+      })
+    }), defaultDirChoices.length && props.showDefault ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_14__.RadioControl, {
+      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Select Default Directory', 'directorist'),
+      selected: props.defaultType ? props.defaultType : window.directorist.default_directory_type,
+      options: defaultDirChoices,
+      onChange: props.onDefaultChange
+    }) : '']
+  });
 });
 var TermsMultiSelectComponent = /*#__PURE__*/function (_Component) {
   function TermsMultiSelectComponent(props) {
@@ -165,11 +172,12 @@ var TermsMultiSelectComponent = /*#__PURE__*/function (_Component) {
     value: function render() {
       var _this2 = this;
       if (this.state.isLoading) {
-        return (0,react__WEBPACK_IMPORTED_MODULE_7__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_15__.BaseControl, {
-          label: this.props.label
-        }, (0,react__WEBPACK_IMPORTED_MODULE_7__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_15__.Spinner, null));
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_14__.BaseControl, {
+          label: this.props.label,
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_14__.Spinner, {})
+        });
       }
-      return (0,react__WEBPACK_IMPORTED_MODULE_7__.createElement)(_vendors_token_multiselect_control__WEBPACK_IMPORTED_MODULE_13__["default"], {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_vendors_token_multiselect_control__WEBPACK_IMPORTED_MODULE_12__["default"], {
         maxSuggestions: 10,
         label: this.props.label,
         value: this.state.value,
@@ -182,10 +190,10 @@ var TermsMultiSelectComponent = /*#__PURE__*/function (_Component) {
           _this2.props.onChange(value);
         },
         onInputChange: function onInputChange(term) {
-          _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_14___default()({
+          _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_13___default()({
             path: "wp/v2/".concat(_this2.props.taxonomy, "?per_page=10&search=").concat(term)
           }).then(function (terms) {
-            var options = (0,_functions__WEBPACK_IMPORTED_MODULE_10__.remapTaxTerms)(terms);
+            var options = (0,_functions__WEBPACK_IMPORTED_MODULE_9__.remapTaxTerms)(terms);
             _this2.setState({
               options: options
             });
@@ -196,48 +204,48 @@ var TermsMultiSelectComponent = /*#__PURE__*/function (_Component) {
   }], [{
     key: "getDerivedStateFromProps",
     value: function getDerivedStateFromProps(props, state) {
-      if (!(0,lodash__WEBPACK_IMPORTED_MODULE_11__.isEmpty)(props.options) || !(0,lodash__WEBPACK_IMPORTED_MODULE_11__.isEmpty)(state.options)) {
+      if (!(0,lodash__WEBPACK_IMPORTED_MODULE_10__.isEmpty)(props.options) || !(0,lodash__WEBPACK_IMPORTED_MODULE_10__.isEmpty)(state.options)) {
         return {
-          options: (0,lodash__WEBPACK_IMPORTED_MODULE_11__.uniqBy)(state.options.concat(props.options), 'value'),
+          options: (0,lodash__WEBPACK_IMPORTED_MODULE_10__.uniqBy)(state.options.concat(props.options), 'value'),
           isLoading: false
         };
       }
       return null;
     }
   }]);
-}(_wordpress_element__WEBPACK_IMPORTED_MODULE_12__.Component);
-var TermsMultiSelectControl = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_8__.withSelect)(function (select, props) {
+}(_wordpress_element__WEBPACK_IMPORTED_MODULE_11__.Component);
+var TermsMultiSelectControl = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_7__.withSelect)(function (select, props) {
   var args = {
     per_page: 10,
     order: 'asc',
     orderby: 'name'
   };
-  if (!(0,lodash__WEBPACK_IMPORTED_MODULE_11__.isEmpty)(props.value)) {
+  if (!(0,lodash__WEBPACK_IMPORTED_MODULE_10__.isEmpty)(props.value)) {
     args.slug = props.value;
     args.orderby = 'include_slugs';
     args.per_page = props.value.length;
   }
   var terms = select('core').getEntityRecords('taxonomy', props.taxonomy, args);
   return {
-    options: !(0,lodash__WEBPACK_IMPORTED_MODULE_11__.isEmpty)(terms) ? (0,_functions__WEBPACK_IMPORTED_MODULE_10__.remapTaxTerms)(terms) : []
+    options: !(0,lodash__WEBPACK_IMPORTED_MODULE_10__.isEmpty)(terms) ? (0,_functions__WEBPACK_IMPORTED_MODULE_9__.remapTaxTerms)(terms) : []
   };
 })(TermsMultiSelectComponent);
 var TagsControl = function TagsControl(props) {
-  return (0,react__WEBPACK_IMPORTED_MODULE_7__.createElement)(TermsMultiSelectControl, _objectSpread(_objectSpread({}, props), {}, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(TermsMultiSelectControl, _objectSpread(_objectSpread({}, props), {}, {
     taxonomy: TAG_TAX,
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Select Tags', 'directorist')
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Select Tags', 'directorist')
   }));
 };
 var CategoryControl = function CategoryControl(props) {
-  return (0,react__WEBPACK_IMPORTED_MODULE_7__.createElement)(TermsMultiSelectControl, _objectSpread(_objectSpread({}, props), {}, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(TermsMultiSelectControl, _objectSpread(_objectSpread({}, props), {}, {
     taxonomy: CATEGORY_TAX,
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Select Categories', 'directorist')
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Select Categories', 'directorist')
   }));
 };
 var LocationControl = function LocationControl(props) {
-  return (0,react__WEBPACK_IMPORTED_MODULE_7__.createElement)(TermsMultiSelectControl, _objectSpread(_objectSpread({}, props), {}, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(TermsMultiSelectControl, _objectSpread(_objectSpread({}, props), {}, {
     taxonomy: LOCATION_TAX,
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Select Locations', 'directorist')
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Select Locations', 'directorist')
   }));
 };
 var PostsMultiSelectComponent = /*#__PURE__*/function (_Component2) {
@@ -258,11 +266,12 @@ var PostsMultiSelectComponent = /*#__PURE__*/function (_Component2) {
     value: function render() {
       var _this4 = this;
       if (this.state.isLoading) {
-        return (0,react__WEBPACK_IMPORTED_MODULE_7__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_15__.BaseControl, {
-          label: this.props.label
-        }, (0,react__WEBPACK_IMPORTED_MODULE_7__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_15__.Spinner, null));
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_14__.BaseControl, {
+          label: this.props.label,
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_14__.Spinner, {})
+        });
       }
-      return (0,react__WEBPACK_IMPORTED_MODULE_7__.createElement)(_vendors_token_multiselect_control__WEBPACK_IMPORTED_MODULE_13__["default"], {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_vendors_token_multiselect_control__WEBPACK_IMPORTED_MODULE_12__["default"], {
         maxSuggestions: 10,
         label: this.props.label,
         value: this.state.value,
@@ -275,10 +284,10 @@ var PostsMultiSelectComponent = /*#__PURE__*/function (_Component2) {
           _this4.props.onChange(value);
         },
         onInputChange: function onInputChange(term) {
-          _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_14___default()({
+          _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_13___default()({
             path: "wp/v2/".concat(_this4.props.postType, "?per_page=10&search=").concat(term)
           }).then(function (posts) {
-            var options = (0,_functions__WEBPACK_IMPORTED_MODULE_10__.remapPosts)(posts);
+            var options = (0,_functions__WEBPACK_IMPORTED_MODULE_9__.remapPosts)(posts);
             _this4.setState({
               options: options
             });
@@ -289,36 +298,36 @@ var PostsMultiSelectComponent = /*#__PURE__*/function (_Component2) {
   }], [{
     key: "getDerivedStateFromProps",
     value: function getDerivedStateFromProps(props, state) {
-      if (!(0,lodash__WEBPACK_IMPORTED_MODULE_11__.isEmpty)(props.options) || !(0,lodash__WEBPACK_IMPORTED_MODULE_11__.isEmpty)(state.options)) {
+      if (!(0,lodash__WEBPACK_IMPORTED_MODULE_10__.isEmpty)(props.options) || !(0,lodash__WEBPACK_IMPORTED_MODULE_10__.isEmpty)(state.options)) {
         return {
-          options: (0,lodash__WEBPACK_IMPORTED_MODULE_11__.uniqBy)(state.options.concat(props.options), 'value'),
+          options: (0,lodash__WEBPACK_IMPORTED_MODULE_10__.uniqBy)(state.options.concat(props.options), 'value'),
           isLoading: false
         };
       }
       return null;
     }
   }]);
-}(_wordpress_element__WEBPACK_IMPORTED_MODULE_12__.Component);
-var PostsMultiSelectControl = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_8__.withSelect)(function (select, props) {
+}(_wordpress_element__WEBPACK_IMPORTED_MODULE_11__.Component);
+var PostsMultiSelectControl = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_7__.withSelect)(function (select, props) {
   var args = {
     per_page: 10,
     order: 'desc',
     orderby: 'date'
   };
-  if (!(0,lodash__WEBPACK_IMPORTED_MODULE_11__.isEmpty)(props.value)) {
+  if (!(0,lodash__WEBPACK_IMPORTED_MODULE_10__.isEmpty)(props.value)) {
     args.include = props.value;
     args.orderby = 'include';
     args.per_page = props.value.length;
   }
   var posts = select('core').getEntityRecords('postType', props.postType, args);
   return {
-    options: !(0,lodash__WEBPACK_IMPORTED_MODULE_11__.isEmpty)(posts) ? (0,_functions__WEBPACK_IMPORTED_MODULE_10__.remapPosts)(posts) : []
+    options: !(0,lodash__WEBPACK_IMPORTED_MODULE_10__.isEmpty)(posts) ? (0,_functions__WEBPACK_IMPORTED_MODULE_9__.remapPosts)(posts) : []
   };
 })(PostsMultiSelectComponent);
 var ListingControl = function ListingControl(props) {
-  return (0,react__WEBPACK_IMPORTED_MODULE_7__.createElement)(PostsMultiSelectControl, _objectSpread(_objectSpread({}, props), {}, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(PostsMultiSelectControl, _objectSpread(_objectSpread({}, props), {}, {
     postType: POST_TYPE,
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Select Listings', 'directorist')
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Select Listings', 'directorist')
   }));
 };
 
@@ -344,13 +353,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   sortItemsBySelected: function() { return /* binding */ sortItemsBySelected; }
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lodash */ "lodash");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _logo__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./logo */ "./src/logo.js");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "lodash");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _logo__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./logo */ "./src/logo.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__);
 
 
 
@@ -428,44 +437,50 @@ function getWithSharedAttributes() {
 }
 function getPreview(name) {
   var isPreviewPopup = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-  return (0,react__WEBPACK_IMPORTED_MODULE_1__.createElement)(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_1__.createElement)("img", {
-    style: {
-      display: 'block',
-      width: '100%',
-      height: 'auto'
-    },
-    className: "directorist-block-preview",
-    src: "".concat(directoristBlockConfig.previewUrl, "preview/").concat(name, ".svg"),
-    alt: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Preview', 'directorist')
-  }), !isPreviewPopup && (0,react__WEBPACK_IMPORTED_MODULE_1__.createElement)("div", {
-    style: {
-      textAlign: 'center',
-      fontSize: '12px',
-      marginTop: '5px'
-    }
-  }, (0,react__WEBPACK_IMPORTED_MODULE_1__.createElement)("em", null, "It's a placeholder. Please check the preview on frontend.")));
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
+      style: {
+        display: 'block',
+        width: '100%',
+        height: 'auto'
+      },
+      className: "directorist-block-preview",
+      src: "".concat(directoristBlockConfig.previewUrl, "preview/").concat(name, ".svg"),
+      alt: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Preview', 'directorist')
+    }), !isPreviewPopup && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+      style: {
+        textAlign: 'center',
+        fontSize: '12px',
+        marginTop: '5px'
+      },
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("em", {
+        children: "It's a placeholder. Please check the preview on frontend."
+      })
+    })]
+  });
 }
 function getPlaceholder(name) {
   var showLogo = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-  return (0,react__WEBPACK_IMPORTED_MODULE_1__.createElement)("div", {
-    className: "directorist-container"
-  }, showLogo ? (0,_logo__WEBPACK_IMPORTED_MODULE_4__["default"])() : (0,react__WEBPACK_IMPORTED_MODULE_1__.createElement)("img", {
-    style: {
-      display: 'block',
-      width: '100%',
-      height: 'auto'
-    },
-    className: "directorist-block-preview",
-    src: "".concat(directoristBlockConfig.previewUrl, "preview/").concat(name, ".svg"),
-    alt: "Placeholder for ".concat(name)
-  }));
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+    className: "directorist-container",
+    children: showLogo ? (0,_logo__WEBPACK_IMPORTED_MODULE_3__["default"])() : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
+      style: {
+        display: 'block',
+        width: '100%',
+        height: 'auto'
+      },
+      className: "directorist-block-preview",
+      src: "".concat(directoristBlockConfig.previewUrl, "preview/").concat(name, ".svg"),
+      alt: "Placeholder for ".concat(name)
+    })
+  });
 }
 function remapTaxTerms(terms) {
   var ignorables = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
   return terms.map(function (term) {
     return {
       value: term.slug,
-      label: (0,lodash__WEBPACK_IMPORTED_MODULE_3__.truncate)(decodeHTML(term.name), {
+      label: (0,lodash__WEBPACK_IMPORTED_MODULE_2__.truncate)(decodeHTML(term.name), {
         length: 30
       })
     };
@@ -476,7 +491,7 @@ function remapPosts(posts) {
   return posts.map(function (post) {
     return {
       value: post.id,
-      label: (0,lodash__WEBPACK_IMPORTED_MODULE_3__.truncate)(decodeHTML(post.title.rendered), {
+      label: (0,lodash__WEBPACK_IMPORTED_MODULE_2__.truncate)(decodeHTML(post.title.rendered), {
         length: 30
       })
     };
@@ -501,52 +516,54 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": function() { return /* binding */ getLogo; }
 /* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__);
 
 function getLogo() {
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("svg", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("svg", {
     xmlns: "http://www.w3.org/2000/svg",
-    viewBox: "0 0 222 221.7"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("linearGradient", {
-    id: "SVGID_1_111111",
-    gradientUnits: "userSpaceOnUse",
-    x1: "81.4946",
-    y1: "2852.0237",
-    x2: "188.5188",
-    y2: "2660.0842",
-    gradientTransform: "translate(0 -2658.8872)"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("stop", {
-    offset: "0",
-    "stop-color": "#2ae498"
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("stop", {
-    offset: ".01117462",
-    "stop-color": "#2ae299"
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("stop", {
-    offset: ".4845",
-    "stop-color": "#359dca"
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("stop", {
-    offset: ".8263",
-    "stop-color": "#3b72e9"
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("stop", {
-    offset: "1",
-    "stop-color": "#3e62f5"
-  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("path", {
-    d: "M171.4 5c-6.1 0-11.1 5-11.1 11.1v52.1C147.4 56 130.1 48.5 111 48.5c-39.5 0-71.5 32-71.5 71.5s32 71.5 71.5 71.5c19.1 0 36.4-7.5 49.2-19.7v4.4c0 6.1 5 11.1 11.1 11.1s11.1-5 11.1-11.1V16.1c0-6.1-5-11.1-11-11.1z",
-    fill: "url(#SVGID_1_111111)"
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("path", {
-    d: "M160.3 135.6v3.7c0 9.4-4 20.6-11.5 33-4 6.6-9 13.5-14.9 20.5-8.8 10.5-17.6 19.1-22.8 23.9-5.2-4.8-14-13.3-22.7-23.7-3.5-4.1-6.6-8.1-9.4-12.1-.3-.4-.6-.8-.8-1.1-3.5-4.9-6.4-9.7-8.8-14.3l-.3-.6c-4.8-9.4-7.2-17.9-7.2-25.4v-3.7c0-14.5 6-27.8 15.6-37.1C86.3 90.2 98 84.9 111 84.9s24.9 5.2 33.6 13.8c.9.9 1.8 1.9 2.7 2.9.4.3.6.7.9 1 .2.2.4.5.6.7 7.1 8.8 11.3 20.1 11.5 32.3z",
-    opacity: ".12"
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("path", {
-    fill: "#fff",
-    d: "M160.3 121.2v3.7c0 9.4-4 20.6-11.5 33-4 6.6-9 13.5-14.9 20.5-8.8 10.5-17.6 19.1-22.8 23.9-5.2-4.8-14-13.3-22.7-23.7-3.5-4.1-6.6-8.1-9.4-12.1-.3-.4-.6-.8-.8-1.1-3.5-4.9-6.4-9.7-8.8-14.3l-.3-.6c-4.8-9.4-7.2-17.9-7.2-25.4v-3.7c0-14.5 6-27.8 15.6-37.1C86.3 75.8 98 70.5 111 70.5s24.9 5.2 33.6 13.8c.9.9 1.8 1.9 2.7 2.9.4.3.6.7.9 1 .2.2.4.5.6.7 7.1 8.8 11.3 20.1 11.5 32.3z"
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("path", {
-    d: "M110.9 91.8c-15.6 0-28.2 12.6-28.2 28.2 0 5 1.3 9.8 3.6 13.9l-17.1 17.2c2.3 4.6 5.3 9.3 8.8 14.3l20.1-20.1c3.8 2 8.2 3.1 12.8 3.1 15.6 0 28.2-12.6 28.2-28.2s-12.6-28.4-28.2-28.4z",
-    fill: "#3e62f5"
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("path", {
-    fill: "#fff",
-    d: "M102.5 100.3c-3.7 1.6-6.6 4.2-8.5 7.3-.9 1.5-.1 3.6 1.6 3.9.1 0 .2 0 .3.1 1.1.2 2.1-.3 2.7-1.3 1.4-2.2 3.4-4 6-5.1 2.8-1.2 5.7-1.3 8.4-.6 1 .3 2.1 0 2.7-.9.1-.1.1-.2.2-.3 1-1.4.3-3.5-1.4-3.9-3.8-1.1-8.1-.9-12 .8z"
-  }));
+    viewBox: "0 0 222 221.7",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("linearGradient", {
+      id: "SVGID_1_111111",
+      gradientUnits: "userSpaceOnUse",
+      x1: "81.4946",
+      y1: "2852.0237",
+      x2: "188.5188",
+      y2: "2660.0842",
+      gradientTransform: "translate(0 -2658.8872)",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("stop", {
+        offset: "0",
+        "stop-color": "#2ae498"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("stop", {
+        offset: ".01117462",
+        "stop-color": "#2ae299"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("stop", {
+        offset: ".4845",
+        "stop-color": "#359dca"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("stop", {
+        offset: ".8263",
+        "stop-color": "#3b72e9"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("stop", {
+        offset: "1",
+        "stop-color": "#3e62f5"
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", {
+      d: "M171.4 5c-6.1 0-11.1 5-11.1 11.1v52.1C147.4 56 130.1 48.5 111 48.5c-39.5 0-71.5 32-71.5 71.5s32 71.5 71.5 71.5c19.1 0 36.4-7.5 49.2-19.7v4.4c0 6.1 5 11.1 11.1 11.1s11.1-5 11.1-11.1V16.1c0-6.1-5-11.1-11-11.1z",
+      fill: "url(#SVGID_1_111111)"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", {
+      d: "M160.3 135.6v3.7c0 9.4-4 20.6-11.5 33-4 6.6-9 13.5-14.9 20.5-8.8 10.5-17.6 19.1-22.8 23.9-5.2-4.8-14-13.3-22.7-23.7-3.5-4.1-6.6-8.1-9.4-12.1-.3-.4-.6-.8-.8-1.1-3.5-4.9-6.4-9.7-8.8-14.3l-.3-.6c-4.8-9.4-7.2-17.9-7.2-25.4v-3.7c0-14.5 6-27.8 15.6-37.1C86.3 90.2 98 84.9 111 84.9s24.9 5.2 33.6 13.8c.9.9 1.8 1.9 2.7 2.9.4.3.6.7.9 1 .2.2.4.5.6.7 7.1 8.8 11.3 20.1 11.5 32.3z",
+      opacity: ".12"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", {
+      fill: "#fff",
+      d: "M160.3 121.2v3.7c0 9.4-4 20.6-11.5 33-4 6.6-9 13.5-14.9 20.5-8.8 10.5-17.6 19.1-22.8 23.9-5.2-4.8-14-13.3-22.7-23.7-3.5-4.1-6.6-8.1-9.4-12.1-.3-.4-.6-.8-.8-1.1-3.5-4.9-6.4-9.7-8.8-14.3l-.3-.6c-4.8-9.4-7.2-17.9-7.2-25.4v-3.7c0-14.5 6-27.8 15.6-37.1C86.3 75.8 98 70.5 111 70.5s24.9 5.2 33.6 13.8c.9.9 1.8 1.9 2.7 2.9.4.3.6.7.9 1 .2.2.4.5.6.7 7.1 8.8 11.3 20.1 11.5 32.3z"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", {
+      d: "M110.9 91.8c-15.6 0-28.2 12.6-28.2 28.2 0 5 1.3 9.8 3.6 13.9l-17.1 17.2c2.3 4.6 5.3 9.3 8.8 14.3l20.1-20.1c3.8 2 8.2 3.1 12.8 3.1 15.6 0 28.2-12.6 28.2-28.2s-12.6-28.4-28.2-28.4z",
+      fill: "#3e62f5"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", {
+      fill: "#fff",
+      d: "M102.5 100.3c-3.7 1.6-6.6 4.2-8.5 7.3-.9 1.5-.1 3.6 1.6 3.9.1 0 .2 0 .3.1 1.1.2 2.1-.3 2.7-1.3 1.4-2.2 3.4-4 6-5.1 2.8-1.2 5.7-1.3 8.4-.6 1 .3 2.1 0 2.7-.9.1-.1.1-.2.2-.3 1-1.4.3-3.5-1.4-3.9-3.8-1.1-8.1-.9-12 .8z"
+    })]
+  });
 }
 
 /***/ }),
@@ -566,28 +583,27 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @babel/runtime/helpers/possibleConstructorReturn */ "./node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js");
 /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @babel/runtime/helpers/getPrototypeOf */ "./node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js");
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @babel/runtime/helpers/inherits */ "./node_modules/@babel/runtime/helpers/esm/inherits.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! lodash */ "lodash");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
-/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_11__);
-/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @wordpress/compose */ "@wordpress/compose");
-/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_wordpress_compose__WEBPACK_IMPORTED_MODULE_12__);
-/* harmony import */ var _wordpress_keycodes__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @wordpress/keycodes */ "@wordpress/keycodes");
-/* harmony import */ var _wordpress_keycodes__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_wordpress_keycodes__WEBPACK_IMPORTED_MODULE_13__);
-/* harmony import */ var _wordpress_is_shallow_equal__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @wordpress/is-shallow-equal */ "@wordpress/is-shallow-equal");
-/* harmony import */ var _wordpress_is_shallow_equal__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(_wordpress_is_shallow_equal__WEBPACK_IMPORTED_MODULE_14__);
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_15__);
-/* harmony import */ var _token__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./token */ "./src/vendors/token-multiselect-control/token.js");
-/* harmony import */ var _token_input__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./token-input */ "./src/vendors/token-multiselect-control/token-input.js");
-/* harmony import */ var _suggestions_list__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./suggestions-list */ "./src/vendors/token-multiselect-control/suggestions-list.js");
-
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! lodash */ "lodash");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! classnames */ "../node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @wordpress/compose */ "@wordpress/compose");
+/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_wordpress_compose__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var _wordpress_keycodes__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @wordpress/keycodes */ "@wordpress/keycodes");
+/* harmony import */ var _wordpress_keycodes__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_wordpress_keycodes__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var _wordpress_is_shallow_equal__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @wordpress/is-shallow-equal */ "@wordpress/is-shallow-equal");
+/* harmony import */ var _wordpress_is_shallow_equal__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_wordpress_is_shallow_equal__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_14__);
+/* harmony import */ var _token__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./token */ "./src/vendors/token-multiselect-control/token.js");
+/* harmony import */ var _token_input__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./token-input */ "./src/vendors/token-multiselect-control/token-input.js");
+/* harmony import */ var _suggestions_list__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./suggestions-list */ "./src/vendors/token-multiselect-control/suggestions-list.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__);
 
 
 
@@ -618,6 +634,7 @@ function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.
 /**
  * Internal dependencies
  */
+
 
 
 
@@ -668,7 +685,7 @@ var TokenMultiSelectControl = /*#__PURE__*/function (_Component) {
       var _this$props = this.props,
         options = _this$props.options,
         value = _this$props.value;
-      var suggestionsDidUpdate = !_wordpress_is_shallow_equal__WEBPACK_IMPORTED_MODULE_14___default()(options, prevProps.options);
+      var suggestionsDidUpdate = !_wordpress_is_shallow_equal__WEBPACK_IMPORTED_MODULE_13___default()(options, prevProps.options);
       if (suggestionsDidUpdate || value !== prevProps.value) {
         this.updateSuggestions(suggestionsDidUpdate);
       }
@@ -734,33 +751,33 @@ var TokenMultiSelectControl = /*#__PURE__*/function (_Component) {
     value: function onKeyDown(event) {
       var preventDefault = false;
       switch (event.keyCode) {
-        case _wordpress_keycodes__WEBPACK_IMPORTED_MODULE_13__.BACKSPACE:
+        case _wordpress_keycodes__WEBPACK_IMPORTED_MODULE_12__.BACKSPACE:
           preventDefault = this.handleDeleteKey(this.deleteTokenBeforeInput);
           break;
-        case _wordpress_keycodes__WEBPACK_IMPORTED_MODULE_13__.ENTER:
+        case _wordpress_keycodes__WEBPACK_IMPORTED_MODULE_12__.ENTER:
           preventDefault = this.addCurrentToken();
           break;
-        case _wordpress_keycodes__WEBPACK_IMPORTED_MODULE_13__.LEFT:
+        case _wordpress_keycodes__WEBPACK_IMPORTED_MODULE_12__.LEFT:
           preventDefault = this.handleLeftArrowKey();
           break;
-        case _wordpress_keycodes__WEBPACK_IMPORTED_MODULE_13__.UP:
+        case _wordpress_keycodes__WEBPACK_IMPORTED_MODULE_12__.UP:
           preventDefault = this.handleUpArrowKey();
           break;
-        case _wordpress_keycodes__WEBPACK_IMPORTED_MODULE_13__.RIGHT:
+        case _wordpress_keycodes__WEBPACK_IMPORTED_MODULE_12__.RIGHT:
           preventDefault = this.handleRightArrowKey();
           break;
-        case _wordpress_keycodes__WEBPACK_IMPORTED_MODULE_13__.DOWN:
+        case _wordpress_keycodes__WEBPACK_IMPORTED_MODULE_12__.DOWN:
           preventDefault = this.handleDownArrowKey();
           break;
-        case _wordpress_keycodes__WEBPACK_IMPORTED_MODULE_13__.DELETE:
+        case _wordpress_keycodes__WEBPACK_IMPORTED_MODULE_12__.DELETE:
           preventDefault = this.handleDeleteKey(this.deleteTokenAfterInput);
           break;
-        case _wordpress_keycodes__WEBPACK_IMPORTED_MODULE_13__.SPACE:
+        case _wordpress_keycodes__WEBPACK_IMPORTED_MODULE_12__.SPACE:
           if (this.props.tokenizeOnSpace) {
             preventDefault = this.addCurrentToken();
           }
           break;
-        case _wordpress_keycodes__WEBPACK_IMPORTED_MODULE_13__.ESCAPE:
+        case _wordpress_keycodes__WEBPACK_IMPORTED_MODULE_12__.ESCAPE:
           preventDefault = this.handleEscapeKey(event);
           event.stopPropagation();
           break;
@@ -986,14 +1003,14 @@ var TokenMultiSelectControl = /*#__PURE__*/function (_Component) {
     key: "addNewTokens",
     value: function addNewTokens(tokens) {
       var _this4 = this;
-      var tokensToAdd = (0,lodash__WEBPACK_IMPORTED_MODULE_8__.uniq)(tokens.map(this.props.saveTransform).filter(Boolean).filter(function (token) {
+      var tokensToAdd = (0,lodash__WEBPACK_IMPORTED_MODULE_7__.uniq)(tokens.map(this.props.saveTransform).filter(Boolean).filter(function (token) {
         return !_this4.valueContainsToken(token);
       }));
       if (tokensToAdd.length > 0) {
         var tokenValuesToAdd = tokensToAdd.map(function (tokenLabel) {
           return _this4.getValueFromLabel(tokenLabel);
         });
-        var newValue = (0,lodash__WEBPACK_IMPORTED_MODULE_8__.clone)(this.props.value);
+        var newValue = (0,lodash__WEBPACK_IMPORTED_MODULE_7__.clone)(this.props.value);
         newValue.splice.apply(newValue, [this.getIndexOfInput(), 0].concat(tokenValuesToAdd));
         // now remove duplicates if required
         newValue = (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__["default"])(new Set(newValue));
@@ -1050,7 +1067,7 @@ var TokenMultiSelectControl = /*#__PURE__*/function (_Component) {
       });
       if (match.length > 0) {
         match = match.toLocaleLowerCase();
-        (0,lodash__WEBPACK_IMPORTED_MODULE_8__.each)(suggestions, function (suggestion) {
+        (0,lodash__WEBPACK_IMPORTED_MODULE_7__.each)(suggestions, function (suggestion) {
           var index = suggestion.toLocaleLowerCase().indexOf(match);
           if (value.indexOf(suggestion) === -1) {
             if (index === 0) {
@@ -1063,8 +1080,8 @@ var TokenMultiSelectControl = /*#__PURE__*/function (_Component) {
         suggestions = startsWithMatch.concat(containsMatch);
       }
       // remove selected labels from suggestions
-      suggestions = (0,lodash__WEBPACK_IMPORTED_MODULE_8__.difference)(suggestions, activeLabels);
-      return (0,lodash__WEBPACK_IMPORTED_MODULE_8__.take)(suggestions, maxSuggestions);
+      suggestions = (0,lodash__WEBPACK_IMPORTED_MODULE_7__.difference)(suggestions, activeLabels);
+      return (0,lodash__WEBPACK_IMPORTED_MODULE_7__.take)(suggestions, maxSuggestions);
     }
   }, {
     key: "getSelectedSuggestion",
@@ -1077,7 +1094,7 @@ var TokenMultiSelectControl = /*#__PURE__*/function (_Component) {
     key: "valueContainsToken",
     value: function valueContainsToken(token) {
       var _this7 = this;
-      return (0,lodash__WEBPACK_IMPORTED_MODULE_8__.some)(this.props.value, function (item) {
+      return (0,lodash__WEBPACK_IMPORTED_MODULE_7__.some)(this.props.value, function (item) {
         return _this7.getTokenValue(token) === _this7.getTokenValue(item);
       });
     }
@@ -1124,15 +1141,15 @@ var TokenMultiSelectControl = /*#__PURE__*/function (_Component) {
       this.setState(newState);
       if (inputHasMinimumChars) {
         var debouncedSpeak = this.props.debouncedSpeak;
-        var message = hasMatchingSuggestions ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__.sprintf)( /* translators: %d: number of results. */
-        (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__._n)('%d result found, use up and down arrow keys to navigate.', '%d results found, use up and down arrow keys to navigate.', matchingSuggestions.length), matchingSuggestions.length) : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__.__)('No results.');
+        var message = hasMatchingSuggestions ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.sprintf)(/* translators: %d: number of results. */
+        (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__._n)('%d result found, use up and down arrow keys to navigate.', '%d results found, use up and down arrow keys to navigate.', matchingSuggestions.length), matchingSuggestions.length) : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('No results.');
         debouncedSpeak(message, 'assertive');
       }
     }
   }, {
     key: "renderTokensAndInput",
     value: function renderTokensAndInput() {
-      var components = (0,lodash__WEBPACK_IMPORTED_MODULE_8__.map)(this.props.value, this.renderToken);
+      var components = (0,lodash__WEBPACK_IMPORTED_MODULE_7__.map)(this.props.value, this.renderToken);
       components.splice(this.getIndexOfInput(), 0, this.renderInput());
       return components;
     }
@@ -1144,8 +1161,7 @@ var TokenMultiSelectControl = /*#__PURE__*/function (_Component) {
       var status = token.status ? token.status : undefined;
       var termPosition = index + 1;
       var termsCount = tokens.length;
-      return (0,react__WEBPACK_IMPORTED_MODULE_7__.createElement)(_token__WEBPACK_IMPORTED_MODULE_16__["default"], {
-        key: 'token-' + value,
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_token__WEBPACK_IMPORTED_MODULE_15__["default"], {
         value: value,
         label: label,
         status: status,
@@ -1159,7 +1175,7 @@ var TokenMultiSelectControl = /*#__PURE__*/function (_Component) {
         messages: this.props.messages,
         termsCount: termsCount,
         termPosition: termPosition
-      });
+      }, 'token-' + value);
     }
   }, {
     key: "renderInput",
@@ -1187,7 +1203,7 @@ var TokenMultiSelectControl = /*#__PURE__*/function (_Component) {
           onChange: this.onInputChange
         });
       }
-      return (0,react__WEBPACK_IMPORTED_MODULE_7__.createElement)(_token_input__WEBPACK_IMPORTED_MODULE_17__["default"], _objectSpread({}, props));
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_token_input__WEBPACK_IMPORTED_MODULE_16__["default"], _objectSpread({}, props));
     }
   }, {
     key: "render",
@@ -1195,11 +1211,11 @@ var TokenMultiSelectControl = /*#__PURE__*/function (_Component) {
       var _this$props3 = this.props,
         disabled = _this$props3.disabled,
         _this$props3$label = _this$props3.label,
-        label = _this$props3$label === void 0 ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__.__)('Add item') : _this$props3$label,
+        label = _this$props3$label === void 0 ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Add item') : _this$props3$label,
         instanceId = _this$props3.instanceId,
         className = _this$props3.className;
       var isExpanded = this.state.isExpanded;
-      var classes = classnames__WEBPACK_IMPORTED_MODULE_9___default()(className, 'components-form-token-field__input-container', {
+      var classes = classnames__WEBPACK_IMPORTED_MODULE_8___default()(className, 'components-form-token-field__input-container', {
         'is-active': this.state.isActive,
         'is-disabled': disabled
       });
@@ -1221,28 +1237,32 @@ var TokenMultiSelectControl = /*#__PURE__*/function (_Component) {
       // input container intended accessible usability.
       // TODO: Refactor click detection to use blur to stop propagation.
       /* eslint-disable jsx-a11y/no-static-element-interactions */
-      return (0,react__WEBPACK_IMPORTED_MODULE_7__.createElement)("div", _objectSpread({}, tokenFieldProps), (0,react__WEBPACK_IMPORTED_MODULE_7__.createElement)("label", {
-        htmlFor: "components-form-token-input-".concat(instanceId),
-        className: "components-form-token-field__label",
-        style: {
-          fontSize: '13px'
-        }
-      }, label), (0,react__WEBPACK_IMPORTED_MODULE_7__.createElement)("div", {
-        ref: this.bindTokensAndInput,
-        className: classes,
-        tabIndex: "-1",
-        onMouseDown: this.onContainerTouched,
-        onTouchStart: this.onContainerTouched
-      }, this.renderTokensAndInput(), isExpanded && (0,react__WEBPACK_IMPORTED_MODULE_7__.createElement)(_suggestions_list__WEBPACK_IMPORTED_MODULE_18__["default"], {
-        instanceId: instanceId,
-        match: this.props.saveTransform(this.state.incompleteTokenValue),
-        displayTransform: this.props.displayTransform,
-        suggestions: matchingSuggestions,
-        selectedIndex: this.state.selectedSuggestionIndex,
-        scrollIntoView: this.state.selectedSuggestionScroll,
-        onHover: this.onSuggestionHovered,
-        onSelect: this.onSuggestionSelected
-      })));
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", _objectSpread(_objectSpread({}, tokenFieldProps), {}, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("label", {
+          htmlFor: "components-form-token-input-".concat(instanceId),
+          className: "components-form-token-field__label",
+          style: {
+            fontSize: '13px'
+          },
+          children: label
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
+          ref: this.bindTokensAndInput,
+          className: classes,
+          tabIndex: "-1",
+          onMouseDown: this.onContainerTouched,
+          onTouchStart: this.onContainerTouched,
+          children: [this.renderTokensAndInput(), isExpanded && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_suggestions_list__WEBPACK_IMPORTED_MODULE_17__["default"], {
+            instanceId: instanceId,
+            match: this.props.saveTransform(this.state.incompleteTokenValue),
+            displayTransform: this.props.displayTransform,
+            suggestions: matchingSuggestions,
+            selectedIndex: this.state.selectedSuggestionIndex,
+            scrollIntoView: this.state.selectedSuggestionScroll,
+            onHover: this.onSuggestionHovered,
+            onSelect: this.onSuggestionSelected
+          })]
+        })]
+      }));
       /* eslint-enable jsx-a11y/no-static-element-interactions */
     }
   }], [{
@@ -1257,12 +1277,12 @@ var TokenMultiSelectControl = /*#__PURE__*/function (_Component) {
       };
     }
   }]);
-}(_wordpress_element__WEBPACK_IMPORTED_MODULE_11__.Component);
+}(_wordpress_element__WEBPACK_IMPORTED_MODULE_10__.Component);
 TokenMultiSelectControl.defaultProps = {
   options: Object.freeze([]),
   maxSuggestions: 100,
   value: Object.freeze([]),
-  displayTransform: lodash__WEBPACK_IMPORTED_MODULE_8__.identity,
+  displayTransform: lodash__WEBPACK_IMPORTED_MODULE_7__.identity,
   saveTransform: function saveTransform(token) {
     return token ? token.trim() : '';
   },
@@ -1272,12 +1292,12 @@ TokenMultiSelectControl.defaultProps = {
   disabled: false,
   tokenizeOnSpace: false,
   messages: {
-    added: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__.__)('Item added.'),
-    removed: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__.__)('Item removed.'),
-    remove: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__.__)('Remove item')
+    added: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Item added.'),
+    removed: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Item removed.'),
+    remove: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Remove item')
   }
 };
-/* harmony default export */ __webpack_exports__["default"] = ((0,_wordpress_components__WEBPACK_IMPORTED_MODULE_15__.withSpokenMessages)((0,_wordpress_compose__WEBPACK_IMPORTED_MODULE_12__.withInstanceId)(TokenMultiSelectControl)));
+/* harmony default export */ __webpack_exports__["default"] = ((0,_wordpress_components__WEBPACK_IMPORTED_MODULE_14__.withSpokenMessages)((0,_wordpress_compose__WEBPACK_IMPORTED_MODULE_11__.withInstanceId)(TokenMultiSelectControl)));
 
 /***/ }),
 
@@ -1294,18 +1314,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/possibleConstructorReturn */ "./node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js");
 /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/helpers/getPrototypeOf */ "./node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js");
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @babel/runtime/helpers/inherits */ "./node_modules/@babel/runtime/helpers/esm/inherits.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! lodash */ "lodash");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var dom_scroll_into_view__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! dom-scroll-into-view */ "./node_modules/dom-scroll-into-view/dist-web/index.js");
-/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
-/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @wordpress/compose */ "@wordpress/compose");
-/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_wordpress_compose__WEBPACK_IMPORTED_MODULE_9__);
-
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! lodash */ "lodash");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var dom_scroll_into_view__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! dom-scroll-into-view */ "../node_modules/dom-scroll-into-view/dist-web/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! classnames */ "../node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @wordpress/compose */ "@wordpress/compose");
+/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_wordpress_compose__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__);
 
 
 
@@ -1323,6 +1342,7 @@ function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.
 /**
  * WordPress dependencies
  */
+
 
 
 var SuggestionsList = /*#__PURE__*/function (_Component) {
@@ -1403,44 +1423,47 @@ var SuggestionsList = /*#__PURE__*/function (_Component) {
       // div when tabbing off of the input in `TokenField` -- not really sure
       // why, since usually a div isn't focusable by default
       // TODO does this still apply now that it's a <ul> and not a <div>?
-      return (0,react__WEBPACK_IMPORTED_MODULE_5__.createElement)("ul", {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("ul", {
         ref: this.bindList,
         className: "components-form-token-field__suggestions-list",
         id: "components-form-token-suggestions-".concat(this.props.instanceId),
-        role: "listbox"
-      }, (0,lodash__WEBPACK_IMPORTED_MODULE_6__.map)(this.props.suggestions, function (suggestion, index) {
-        var match = _this5.computeSuggestionMatch(suggestion);
-        var classeName = classnames__WEBPACK_IMPORTED_MODULE_7___default()('components-form-token-field__suggestion', {
-          'is-selected': index === _this5.props.selectedIndex
-        });
+        role: "listbox",
+        children: (0,lodash__WEBPACK_IMPORTED_MODULE_5__.map)(this.props.suggestions, function (suggestion, index) {
+          var match = _this5.computeSuggestionMatch(suggestion);
+          var classeName = classnames__WEBPACK_IMPORTED_MODULE_6___default()('components-form-token-field__suggestion', {
+            'is-selected': index === _this5.props.selectedIndex
+          });
 
-        /* eslint-disable jsx-a11y/click-events-have-key-events */
-        return (0,react__WEBPACK_IMPORTED_MODULE_5__.createElement)("li", {
-          id: "components-form-token-suggestions-".concat(_this5.props.instanceId, "-").concat(index),
-          role: "option",
-          className: classeName,
-          key: _this5.props.displayTransform(suggestion),
-          onMouseDown: _this5.handleMouseDown,
-          onClick: _this5.handleClick(suggestion),
-          onMouseEnter: _this5.handleHover(suggestion),
-          "aria-selected": index === _this5.props.selectedIndex
-        }, match ? (0,react__WEBPACK_IMPORTED_MODULE_5__.createElement)("span", {
-          "aria-label": _this5.props.displayTransform(suggestion)
-        }, match.suggestionBeforeMatch, (0,react__WEBPACK_IMPORTED_MODULE_5__.createElement)("strong", {
-          className: "components-form-token-field__suggestion-match"
-        }, match.suggestionMatch), match.suggestionAfterMatch) : _this5.props.displayTransform(suggestion));
-        /* eslint-enable jsx-a11y/click-events-have-key-events */
-      }));
+          /* eslint-disable jsx-a11y/click-events-have-key-events */
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("li", {
+            id: "components-form-token-suggestions-".concat(_this5.props.instanceId, "-").concat(index),
+            role: "option",
+            className: classeName,
+            onMouseDown: _this5.handleMouseDown,
+            onClick: _this5.handleClick(suggestion),
+            onMouseEnter: _this5.handleHover(suggestion),
+            "aria-selected": index === _this5.props.selectedIndex,
+            children: match ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("span", {
+              "aria-label": _this5.props.displayTransform(suggestion),
+              children: [match.suggestionBeforeMatch, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("strong", {
+                className: "components-form-token-field__suggestion-match",
+                children: match.suggestionMatch
+              }), match.suggestionAfterMatch]
+            }) : _this5.props.displayTransform(suggestion)
+          }, _this5.props.displayTransform(suggestion));
+          /* eslint-enable jsx-a11y/click-events-have-key-events */
+        })
+      });
     }
   }]);
-}(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__.Component);
+}(_wordpress_element__WEBPACK_IMPORTED_MODULE_7__.Component);
 SuggestionsList.defaultProps = {
   match: '',
   onHover: function onHover() {},
   onSelect: function onSelect() {},
   suggestions: Object.freeze([])
 };
-/* harmony default export */ __webpack_exports__["default"] = ((0,_wordpress_compose__WEBPACK_IMPORTED_MODULE_9__.withSafeTimeout)(SuggestionsList));
+/* harmony default export */ __webpack_exports__["default"] = ((0,_wordpress_compose__WEBPACK_IMPORTED_MODULE_8__.withSafeTimeout)(SuggestionsList));
 
 /***/ }),
 
@@ -1459,12 +1482,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @babel/runtime/helpers/possibleConstructorReturn */ "./node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js");
 /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @babel/runtime/helpers/getPrototypeOf */ "./node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js");
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @babel/runtime/helpers/inherits */ "./node_modules/@babel/runtime/helpers/esm/inherits.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
-/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! classnames */ "../node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__);
 
 
 
@@ -1473,7 +1496,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var _excluded = ["value", "isExpanded", "instanceId", "selectedSuggestionIndex", "className"];
-
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _callSuper(t, o, e) { return o = (0,_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__["default"])(o), (0,_babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4__["default"])(t, _isNativeReflectConstruct() ? Reflect.construct(o, e || [], (0,_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__["default"])(t).constructor) : o.apply(t, e)); }
@@ -1486,6 +1508,7 @@ function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.
 /**
  * WordPress dependencies
  */
+
 
 var TokenInput = /*#__PURE__*/function (_Component) {
   function TokenInput() {
@@ -1530,7 +1553,7 @@ var TokenInput = /*#__PURE__*/function (_Component) {
         className = _this$props.className,
         props = (0,_babel_runtime_helpers_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_1__["default"])(_this$props, _excluded);
       var size = value ? value.length + 1 : 0;
-      return (0,react__WEBPACK_IMPORTED_MODULE_7__.createElement)("input", _objectSpread(_objectSpread({
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("input", _objectSpread(_objectSpread({
         ref: this.bindInput,
         id: "components-form-token-input-".concat(instanceId),
         type: "text"
@@ -1538,7 +1561,7 @@ var TokenInput = /*#__PURE__*/function (_Component) {
         value: value || '',
         onChange: this.onChange,
         size: size,
-        className: classnames__WEBPACK_IMPORTED_MODULE_8___default()(className, 'components-form-token-field__input'),
+        className: classnames__WEBPACK_IMPORTED_MODULE_7___default()(className, 'components-form-token-field__input'),
         autoComplete: "off",
         role: "combobox",
         "aria-expanded": isExpanded,
@@ -1549,7 +1572,7 @@ var TokenInput = /*#__PURE__*/function (_Component) {
       }));
     }
   }]);
-}(_wordpress_element__WEBPACK_IMPORTED_MODULE_9__.Component);
+}(_wordpress_element__WEBPACK_IMPORTED_MODULE_8__.Component);
 /* harmony default export */ __webpack_exports__["default"] = (TokenInput);
 
 /***/ }),
@@ -1565,20 +1588,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": function() { return /* binding */ Token; }
 /* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
-/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "lodash");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/compose */ "@wordpress/compose");
-/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_compose__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! classnames */ "../node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "lodash");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/compose */ "@wordpress/compose");
+/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_compose__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/close-small.js");
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__);
-
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__);
 /**
  * External dependencies
  */
@@ -1596,6 +1618,7 @@ __webpack_require__.r(__webpack_exports__);
  * Internal dependencies
  */
 
+
 function Token(_ref) {
   var value = _ref.value,
     label = _ref.label,
@@ -1607,14 +1630,14 @@ function Token(_ref) {
     _ref$disabled = _ref.disabled,
     disabled = _ref$disabled === void 0 ? false : _ref$disabled,
     _ref$onClickRemove = _ref.onClickRemove,
-    onClickRemove = _ref$onClickRemove === void 0 ? lodash__WEBPACK_IMPORTED_MODULE_2__.noop : _ref$onClickRemove,
+    onClickRemove = _ref$onClickRemove === void 0 ? lodash__WEBPACK_IMPORTED_MODULE_1__.noop : _ref$onClickRemove,
     onMouseEnter = _ref.onMouseEnter,
     onMouseLeave = _ref.onMouseLeave,
     messages = _ref.messages,
     termPosition = _ref.termPosition,
     termsCount = _ref.termsCount;
-  var instanceId = (0,_wordpress_compose__WEBPACK_IMPORTED_MODULE_3__.useInstanceId)(Token);
-  var tokenClasses = classnames__WEBPACK_IMPORTED_MODULE_1___default()('components-form-token-field__token', {
+  var instanceId = (0,_wordpress_compose__WEBPACK_IMPORTED_MODULE_2__.useInstanceId)(Token);
+  var tokenClasses = classnames__WEBPACK_IMPORTED_MODULE_0___default()('components-form-token-field__token', {
     'is-error': 'error' === status,
     'is-success': 'success' === status,
     'is-validating': 'validating' === status,
@@ -1627,35 +1650,108 @@ function Token(_ref) {
     });
   };
   var transformedValue = displayTransform(label);
-  var termPositionAndCount = (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.sprintf)( /* translators: 1: term name, 2: term position in a set of terms, 3: total term set count. */
-  (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('%1$s (%2$s of %3$s)'), transformedValue, termPosition, termsCount);
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+  var termPositionAndCount = (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.sprintf)(/* translators: 1: term name, 2: term position in a set of terms, 3: total term set count. */
+  (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('%1$s (%2$s of %3$s)'), transformedValue, termPosition, termsCount);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("span", {
     className: tokenClasses,
     onMouseEnter: onMouseEnter,
     onMouseLeave: onMouseLeave,
-    title: title
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
-    className: "components-form-token-field__token-text",
-    id: "components-form-token-field__token-text-".concat(instanceId)
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__.VisuallyHidden, {
-    as: "span"
-  }, termPositionAndCount), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
-    "aria-hidden": "true"
-  }, transformedValue)), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__.Button, {
-    className: "components-form-token-field__remove-token",
-    icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_6__["default"],
-    onClick: !disabled && onClick,
-    label: messages.remove,
-    "aria-describedby": "components-form-token-field__token-text-".concat(instanceId)
-  }));
+    title: title,
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("span", {
+      className: "components-form-token-field__token-text",
+      id: "components-form-token-field__token-text-".concat(instanceId),
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.VisuallyHidden, {
+        as: "span",
+        children: termPositionAndCount
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+        "aria-hidden": "true",
+        children: transformedValue
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.Button, {
+      className: "components-form-token-field__remove-token",
+      icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_6__["default"],
+      onClick: !disabled && onClick,
+      label: messages.remove,
+      "aria-describedby": "components-form-token-field__token-text-".concat(instanceId)
+    })]
+  });
 }
 
 /***/ }),
 
-/***/ "./node_modules/dom-scroll-into-view/dist-web/index.js":
-/*!*************************************************************!*\
-  !*** ./node_modules/dom-scroll-into-view/dist-web/index.js ***!
-  \*************************************************************/
+/***/ "../node_modules/classnames/index.js":
+/*!*******************************************!*\
+  !*** ../node_modules/classnames/index.js ***!
+  \*******************************************/
+/***/ (function(module, exports) {
+
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+	Copyright (c) 2018 Jed Watson.
+	Licensed under the MIT License (MIT), see
+	http://jedwatson.github.io/classnames
+*/
+/* global define */
+
+(function () {
+	'use strict';
+
+	var hasOwn = {}.hasOwnProperty;
+	var nativeCodeString = '[native code]';
+
+	function classNames() {
+		var classes = [];
+
+		for (var i = 0; i < arguments.length; i++) {
+			var arg = arguments[i];
+			if (!arg) continue;
+
+			var argType = typeof arg;
+
+			if (argType === 'string' || argType === 'number') {
+				classes.push(arg);
+			} else if (Array.isArray(arg)) {
+				if (arg.length) {
+					var inner = classNames.apply(null, arg);
+					if (inner) {
+						classes.push(inner);
+					}
+				}
+			} else if (argType === 'object') {
+				if (arg.toString !== Object.prototype.toString && !arg.toString.toString().includes('[native code]')) {
+					classes.push(arg.toString());
+					continue;
+				}
+
+				for (var key in arg) {
+					if (hasOwn.call(arg, key) && arg[key]) {
+						classes.push(key);
+					}
+				}
+			}
+		}
+
+		return classes.join(' ');
+	}
+
+	if ( true && module.exports) {
+		classNames.default = classNames;
+		module.exports = classNames;
+	} else if (true) {
+		// register as 'classnames', consistent with npm package name
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = (function () {
+			return classNames;
+		}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+		__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	} else {}
+}());
+
+
+/***/ }),
+
+/***/ "../node_modules/dom-scroll-into-view/dist-web/index.js":
+/*!**************************************************************!*\
+  !*** ../node_modules/dom-scroll-into-view/dist-web/index.js ***!
+  \**************************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2309,1374 +2405,14 @@ function scrollIntoView(elem, container, config) {
 
 /***/ }),
 
-/***/ "./node_modules/react/cjs/react-jsx-runtime.development.js":
-/*!*****************************************************************!*\
-  !*** ./node_modules/react/cjs/react-jsx-runtime.development.js ***!
-  \*****************************************************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-/**
- * @license React
- * react-jsx-runtime.development.js
- *
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-
-
-if (true) {
-  (function() {
-'use strict';
-
-var React = __webpack_require__(/*! react */ "react");
-
-// ATTENTION
-// When adding new symbols to this file,
-// Please consider also adding to 'react-devtools-shared/src/backend/ReactSymbols'
-// The Symbol used to tag the ReactElement-like types.
-var REACT_ELEMENT_TYPE = Symbol.for('react.element');
-var REACT_PORTAL_TYPE = Symbol.for('react.portal');
-var REACT_FRAGMENT_TYPE = Symbol.for('react.fragment');
-var REACT_STRICT_MODE_TYPE = Symbol.for('react.strict_mode');
-var REACT_PROFILER_TYPE = Symbol.for('react.profiler');
-var REACT_PROVIDER_TYPE = Symbol.for('react.provider');
-var REACT_CONTEXT_TYPE = Symbol.for('react.context');
-var REACT_FORWARD_REF_TYPE = Symbol.for('react.forward_ref');
-var REACT_SUSPENSE_TYPE = Symbol.for('react.suspense');
-var REACT_SUSPENSE_LIST_TYPE = Symbol.for('react.suspense_list');
-var REACT_MEMO_TYPE = Symbol.for('react.memo');
-var REACT_LAZY_TYPE = Symbol.for('react.lazy');
-var REACT_OFFSCREEN_TYPE = Symbol.for('react.offscreen');
-var MAYBE_ITERATOR_SYMBOL = Symbol.iterator;
-var FAUX_ITERATOR_SYMBOL = '@@iterator';
-function getIteratorFn(maybeIterable) {
-  if (maybeIterable === null || typeof maybeIterable !== 'object') {
-    return null;
-  }
-
-  var maybeIterator = MAYBE_ITERATOR_SYMBOL && maybeIterable[MAYBE_ITERATOR_SYMBOL] || maybeIterable[FAUX_ITERATOR_SYMBOL];
-
-  if (typeof maybeIterator === 'function') {
-    return maybeIterator;
-  }
-
-  return null;
-}
-
-var ReactSharedInternals = React.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
-
-function error(format) {
-  {
-    {
-      for (var _len2 = arguments.length, args = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
-        args[_key2 - 1] = arguments[_key2];
-      }
-
-      printWarning('error', format, args);
-    }
-  }
-}
-
-function printWarning(level, format, args) {
-  // When changing this logic, you might want to also
-  // update consoleWithStackDev.www.js as well.
-  {
-    var ReactDebugCurrentFrame = ReactSharedInternals.ReactDebugCurrentFrame;
-    var stack = ReactDebugCurrentFrame.getStackAddendum();
-
-    if (stack !== '') {
-      format += '%s';
-      args = args.concat([stack]);
-    } // eslint-disable-next-line react-internal/safe-string-coercion
-
-
-    var argsWithFormat = args.map(function (item) {
-      return String(item);
-    }); // Careful: RN currently depends on this prefix
-
-    argsWithFormat.unshift('Warning: ' + format); // We intentionally don't use spread (or .apply) directly because it
-    // breaks IE9: https://github.com/facebook/react/issues/13610
-    // eslint-disable-next-line react-internal/no-production-logging
-
-    Function.prototype.apply.call(console[level], console, argsWithFormat);
-  }
-}
-
-// -----------------------------------------------------------------------------
-
-var enableScopeAPI = false; // Experimental Create Event Handle API.
-var enableCacheElement = false;
-var enableTransitionTracing = false; // No known bugs, but needs performance testing
-
-var enableLegacyHidden = false; // Enables unstable_avoidThisFallback feature in Fiber
-// stuff. Intended to enable React core members to more easily debug scheduling
-// issues in DEV builds.
-
-var enableDebugTracing = false; // Track which Fiber(s) schedule render work.
-
-var REACT_MODULE_REFERENCE;
-
-{
-  REACT_MODULE_REFERENCE = Symbol.for('react.module.reference');
-}
-
-function isValidElementType(type) {
-  if (typeof type === 'string' || typeof type === 'function') {
-    return true;
-  } // Note: typeof might be other than 'symbol' or 'number' (e.g. if it's a polyfill).
-
-
-  if (type === REACT_FRAGMENT_TYPE || type === REACT_PROFILER_TYPE || enableDebugTracing  || type === REACT_STRICT_MODE_TYPE || type === REACT_SUSPENSE_TYPE || type === REACT_SUSPENSE_LIST_TYPE || enableLegacyHidden  || type === REACT_OFFSCREEN_TYPE || enableScopeAPI  || enableCacheElement  || enableTransitionTracing ) {
-    return true;
-  }
-
-  if (typeof type === 'object' && type !== null) {
-    if (type.$$typeof === REACT_LAZY_TYPE || type.$$typeof === REACT_MEMO_TYPE || type.$$typeof === REACT_PROVIDER_TYPE || type.$$typeof === REACT_CONTEXT_TYPE || type.$$typeof === REACT_FORWARD_REF_TYPE || // This needs to include all possible module reference object
-    // types supported by any Flight configuration anywhere since
-    // we don't know which Flight build this will end up being used
-    // with.
-    type.$$typeof === REACT_MODULE_REFERENCE || type.getModuleId !== undefined) {
-      return true;
-    }
-  }
-
-  return false;
-}
-
-function getWrappedName(outerType, innerType, wrapperName) {
-  var displayName = outerType.displayName;
-
-  if (displayName) {
-    return displayName;
-  }
-
-  var functionName = innerType.displayName || innerType.name || '';
-  return functionName !== '' ? wrapperName + "(" + functionName + ")" : wrapperName;
-} // Keep in sync with react-reconciler/getComponentNameFromFiber
-
-
-function getContextName(type) {
-  return type.displayName || 'Context';
-} // Note that the reconciler package should generally prefer to use getComponentNameFromFiber() instead.
-
-
-function getComponentNameFromType(type) {
-  if (type == null) {
-    // Host root, text node or just invalid type.
-    return null;
-  }
-
-  {
-    if (typeof type.tag === 'number') {
-      error('Received an unexpected object in getComponentNameFromType(). ' + 'This is likely a bug in React. Please file an issue.');
-    }
-  }
-
-  if (typeof type === 'function') {
-    return type.displayName || type.name || null;
-  }
-
-  if (typeof type === 'string') {
-    return type;
-  }
-
-  switch (type) {
-    case REACT_FRAGMENT_TYPE:
-      return 'Fragment';
-
-    case REACT_PORTAL_TYPE:
-      return 'Portal';
-
-    case REACT_PROFILER_TYPE:
-      return 'Profiler';
-
-    case REACT_STRICT_MODE_TYPE:
-      return 'StrictMode';
-
-    case REACT_SUSPENSE_TYPE:
-      return 'Suspense';
-
-    case REACT_SUSPENSE_LIST_TYPE:
-      return 'SuspenseList';
-
-  }
-
-  if (typeof type === 'object') {
-    switch (type.$$typeof) {
-      case REACT_CONTEXT_TYPE:
-        var context = type;
-        return getContextName(context) + '.Consumer';
-
-      case REACT_PROVIDER_TYPE:
-        var provider = type;
-        return getContextName(provider._context) + '.Provider';
-
-      case REACT_FORWARD_REF_TYPE:
-        return getWrappedName(type, type.render, 'ForwardRef');
-
-      case REACT_MEMO_TYPE:
-        var outerName = type.displayName || null;
-
-        if (outerName !== null) {
-          return outerName;
-        }
-
-        return getComponentNameFromType(type.type) || 'Memo';
-
-      case REACT_LAZY_TYPE:
-        {
-          var lazyComponent = type;
-          var payload = lazyComponent._payload;
-          var init = lazyComponent._init;
-
-          try {
-            return getComponentNameFromType(init(payload));
-          } catch (x) {
-            return null;
-          }
-        }
-
-      // eslint-disable-next-line no-fallthrough
-    }
-  }
-
-  return null;
-}
-
-var assign = Object.assign;
-
-// Helpers to patch console.logs to avoid logging during side-effect free
-// replaying on render function. This currently only patches the object
-// lazily which won't cover if the log function was extracted eagerly.
-// We could also eagerly patch the method.
-var disabledDepth = 0;
-var prevLog;
-var prevInfo;
-var prevWarn;
-var prevError;
-var prevGroup;
-var prevGroupCollapsed;
-var prevGroupEnd;
-
-function disabledLog() {}
-
-disabledLog.__reactDisabledLog = true;
-function disableLogs() {
-  {
-    if (disabledDepth === 0) {
-      /* eslint-disable react-internal/no-production-logging */
-      prevLog = console.log;
-      prevInfo = console.info;
-      prevWarn = console.warn;
-      prevError = console.error;
-      prevGroup = console.group;
-      prevGroupCollapsed = console.groupCollapsed;
-      prevGroupEnd = console.groupEnd; // https://github.com/facebook/react/issues/19099
-
-      var props = {
-        configurable: true,
-        enumerable: true,
-        value: disabledLog,
-        writable: true
-      }; // $FlowFixMe Flow thinks console is immutable.
-
-      Object.defineProperties(console, {
-        info: props,
-        log: props,
-        warn: props,
-        error: props,
-        group: props,
-        groupCollapsed: props,
-        groupEnd: props
-      });
-      /* eslint-enable react-internal/no-production-logging */
-    }
-
-    disabledDepth++;
-  }
-}
-function reenableLogs() {
-  {
-    disabledDepth--;
-
-    if (disabledDepth === 0) {
-      /* eslint-disable react-internal/no-production-logging */
-      var props = {
-        configurable: true,
-        enumerable: true,
-        writable: true
-      }; // $FlowFixMe Flow thinks console is immutable.
-
-      Object.defineProperties(console, {
-        log: assign({}, props, {
-          value: prevLog
-        }),
-        info: assign({}, props, {
-          value: prevInfo
-        }),
-        warn: assign({}, props, {
-          value: prevWarn
-        }),
-        error: assign({}, props, {
-          value: prevError
-        }),
-        group: assign({}, props, {
-          value: prevGroup
-        }),
-        groupCollapsed: assign({}, props, {
-          value: prevGroupCollapsed
-        }),
-        groupEnd: assign({}, props, {
-          value: prevGroupEnd
-        })
-      });
-      /* eslint-enable react-internal/no-production-logging */
-    }
-
-    if (disabledDepth < 0) {
-      error('disabledDepth fell below zero. ' + 'This is a bug in React. Please file an issue.');
-    }
-  }
-}
-
-var ReactCurrentDispatcher = ReactSharedInternals.ReactCurrentDispatcher;
-var prefix;
-function describeBuiltInComponentFrame(name, source, ownerFn) {
-  {
-    if (prefix === undefined) {
-      // Extract the VM specific prefix used by each line.
-      try {
-        throw Error();
-      } catch (x) {
-        var match = x.stack.trim().match(/\n( *(at )?)/);
-        prefix = match && match[1] || '';
-      }
-    } // We use the prefix to ensure our stacks line up with native stack frames.
-
-
-    return '\n' + prefix + name;
-  }
-}
-var reentry = false;
-var componentFrameCache;
-
-{
-  var PossiblyWeakMap = typeof WeakMap === 'function' ? WeakMap : Map;
-  componentFrameCache = new PossiblyWeakMap();
-}
-
-function describeNativeComponentFrame(fn, construct) {
-  // If something asked for a stack inside a fake render, it should get ignored.
-  if ( !fn || reentry) {
-    return '';
-  }
-
-  {
-    var frame = componentFrameCache.get(fn);
-
-    if (frame !== undefined) {
-      return frame;
-    }
-  }
-
-  var control;
-  reentry = true;
-  var previousPrepareStackTrace = Error.prepareStackTrace; // $FlowFixMe It does accept undefined.
-
-  Error.prepareStackTrace = undefined;
-  var previousDispatcher;
-
-  {
-    previousDispatcher = ReactCurrentDispatcher.current; // Set the dispatcher in DEV because this might be call in the render function
-    // for warnings.
-
-    ReactCurrentDispatcher.current = null;
-    disableLogs();
-  }
-
-  try {
-    // This should throw.
-    if (construct) {
-      // Something should be setting the props in the constructor.
-      var Fake = function () {
-        throw Error();
-      }; // $FlowFixMe
-
-
-      Object.defineProperty(Fake.prototype, 'props', {
-        set: function () {
-          // We use a throwing setter instead of frozen or non-writable props
-          // because that won't throw in a non-strict mode function.
-          throw Error();
-        }
-      });
-
-      if (typeof Reflect === 'object' && Reflect.construct) {
-        // We construct a different control for this case to include any extra
-        // frames added by the construct call.
-        try {
-          Reflect.construct(Fake, []);
-        } catch (x) {
-          control = x;
-        }
-
-        Reflect.construct(fn, [], Fake);
-      } else {
-        try {
-          Fake.call();
-        } catch (x) {
-          control = x;
-        }
-
-        fn.call(Fake.prototype);
-      }
-    } else {
-      try {
-        throw Error();
-      } catch (x) {
-        control = x;
-      }
-
-      fn();
-    }
-  } catch (sample) {
-    // This is inlined manually because closure doesn't do it for us.
-    if (sample && control && typeof sample.stack === 'string') {
-      // This extracts the first frame from the sample that isn't also in the control.
-      // Skipping one frame that we assume is the frame that calls the two.
-      var sampleLines = sample.stack.split('\n');
-      var controlLines = control.stack.split('\n');
-      var s = sampleLines.length - 1;
-      var c = controlLines.length - 1;
-
-      while (s >= 1 && c >= 0 && sampleLines[s] !== controlLines[c]) {
-        // We expect at least one stack frame to be shared.
-        // Typically this will be the root most one. However, stack frames may be
-        // cut off due to maximum stack limits. In this case, one maybe cut off
-        // earlier than the other. We assume that the sample is longer or the same
-        // and there for cut off earlier. So we should find the root most frame in
-        // the sample somewhere in the control.
-        c--;
-      }
-
-      for (; s >= 1 && c >= 0; s--, c--) {
-        // Next we find the first one that isn't the same which should be the
-        // frame that called our sample function and the control.
-        if (sampleLines[s] !== controlLines[c]) {
-          // In V8, the first line is describing the message but other VMs don't.
-          // If we're about to return the first line, and the control is also on the same
-          // line, that's a pretty good indicator that our sample threw at same line as
-          // the control. I.e. before we entered the sample frame. So we ignore this result.
-          // This can happen if you passed a class to function component, or non-function.
-          if (s !== 1 || c !== 1) {
-            do {
-              s--;
-              c--; // We may still have similar intermediate frames from the construct call.
-              // The next one that isn't the same should be our match though.
-
-              if (c < 0 || sampleLines[s] !== controlLines[c]) {
-                // V8 adds a "new" prefix for native classes. Let's remove it to make it prettier.
-                var _frame = '\n' + sampleLines[s].replace(' at new ', ' at '); // If our component frame is labeled "<anonymous>"
-                // but we have a user-provided "displayName"
-                // splice it in to make the stack more readable.
-
-
-                if (fn.displayName && _frame.includes('<anonymous>')) {
-                  _frame = _frame.replace('<anonymous>', fn.displayName);
-                }
-
-                {
-                  if (typeof fn === 'function') {
-                    componentFrameCache.set(fn, _frame);
-                  }
-                } // Return the line we found.
-
-
-                return _frame;
-              }
-            } while (s >= 1 && c >= 0);
-          }
-
-          break;
-        }
-      }
-    }
-  } finally {
-    reentry = false;
-
-    {
-      ReactCurrentDispatcher.current = previousDispatcher;
-      reenableLogs();
-    }
-
-    Error.prepareStackTrace = previousPrepareStackTrace;
-  } // Fallback to just using the name if we couldn't make it throw.
-
-
-  var name = fn ? fn.displayName || fn.name : '';
-  var syntheticFrame = name ? describeBuiltInComponentFrame(name) : '';
-
-  {
-    if (typeof fn === 'function') {
-      componentFrameCache.set(fn, syntheticFrame);
-    }
-  }
-
-  return syntheticFrame;
-}
-function describeFunctionComponentFrame(fn, source, ownerFn) {
-  {
-    return describeNativeComponentFrame(fn, false);
-  }
-}
-
-function shouldConstruct(Component) {
-  var prototype = Component.prototype;
-  return !!(prototype && prototype.isReactComponent);
-}
-
-function describeUnknownElementTypeFrameInDEV(type, source, ownerFn) {
-
-  if (type == null) {
-    return '';
-  }
-
-  if (typeof type === 'function') {
-    {
-      return describeNativeComponentFrame(type, shouldConstruct(type));
-    }
-  }
-
-  if (typeof type === 'string') {
-    return describeBuiltInComponentFrame(type);
-  }
-
-  switch (type) {
-    case REACT_SUSPENSE_TYPE:
-      return describeBuiltInComponentFrame('Suspense');
-
-    case REACT_SUSPENSE_LIST_TYPE:
-      return describeBuiltInComponentFrame('SuspenseList');
-  }
-
-  if (typeof type === 'object') {
-    switch (type.$$typeof) {
-      case REACT_FORWARD_REF_TYPE:
-        return describeFunctionComponentFrame(type.render);
-
-      case REACT_MEMO_TYPE:
-        // Memo may contain any component type so we recursively resolve it.
-        return describeUnknownElementTypeFrameInDEV(type.type, source, ownerFn);
-
-      case REACT_LAZY_TYPE:
-        {
-          var lazyComponent = type;
-          var payload = lazyComponent._payload;
-          var init = lazyComponent._init;
-
-          try {
-            // Lazy may contain any component type so we recursively resolve it.
-            return describeUnknownElementTypeFrameInDEV(init(payload), source, ownerFn);
-          } catch (x) {}
-        }
-    }
-  }
-
-  return '';
-}
-
-var hasOwnProperty = Object.prototype.hasOwnProperty;
-
-var loggedTypeFailures = {};
-var ReactDebugCurrentFrame = ReactSharedInternals.ReactDebugCurrentFrame;
-
-function setCurrentlyValidatingElement(element) {
-  {
-    if (element) {
-      var owner = element._owner;
-      var stack = describeUnknownElementTypeFrameInDEV(element.type, element._source, owner ? owner.type : null);
-      ReactDebugCurrentFrame.setExtraStackFrame(stack);
-    } else {
-      ReactDebugCurrentFrame.setExtraStackFrame(null);
-    }
-  }
-}
-
-function checkPropTypes(typeSpecs, values, location, componentName, element) {
-  {
-    // $FlowFixMe This is okay but Flow doesn't know it.
-    var has = Function.call.bind(hasOwnProperty);
-
-    for (var typeSpecName in typeSpecs) {
-      if (has(typeSpecs, typeSpecName)) {
-        var error$1 = void 0; // Prop type validation may throw. In case they do, we don't want to
-        // fail the render phase where it didn't fail before. So we log it.
-        // After these have been cleaned up, we'll let them throw.
-
-        try {
-          // This is intentionally an invariant that gets caught. It's the same
-          // behavior as without this statement except with a better message.
-          if (typeof typeSpecs[typeSpecName] !== 'function') {
-            // eslint-disable-next-line react-internal/prod-error-codes
-            var err = Error((componentName || 'React class') + ': ' + location + ' type `' + typeSpecName + '` is invalid; ' + 'it must be a function, usually from the `prop-types` package, but received `' + typeof typeSpecs[typeSpecName] + '`.' + 'This often happens because of typos such as `PropTypes.function` instead of `PropTypes.func`.');
-            err.name = 'Invariant Violation';
-            throw err;
-          }
-
-          error$1 = typeSpecs[typeSpecName](values, typeSpecName, componentName, location, null, 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED');
-        } catch (ex) {
-          error$1 = ex;
-        }
-
-        if (error$1 && !(error$1 instanceof Error)) {
-          setCurrentlyValidatingElement(element);
-
-          error('%s: type specification of %s' + ' `%s` is invalid; the type checker ' + 'function must return `null` or an `Error` but returned a %s. ' + 'You may have forgotten to pass an argument to the type checker ' + 'creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and ' + 'shape all require an argument).', componentName || 'React class', location, typeSpecName, typeof error$1);
-
-          setCurrentlyValidatingElement(null);
-        }
-
-        if (error$1 instanceof Error && !(error$1.message in loggedTypeFailures)) {
-          // Only monitor this failure once because there tends to be a lot of the
-          // same error.
-          loggedTypeFailures[error$1.message] = true;
-          setCurrentlyValidatingElement(element);
-
-          error('Failed %s type: %s', location, error$1.message);
-
-          setCurrentlyValidatingElement(null);
-        }
-      }
-    }
-  }
-}
-
-var isArrayImpl = Array.isArray; // eslint-disable-next-line no-redeclare
-
-function isArray(a) {
-  return isArrayImpl(a);
-}
-
-/*
- * The `'' + value` pattern (used in in perf-sensitive code) throws for Symbol
- * and Temporal.* types. See https://github.com/facebook/react/pull/22064.
- *
- * The functions in this module will throw an easier-to-understand,
- * easier-to-debug exception with a clear errors message message explaining the
- * problem. (Instead of a confusing exception thrown inside the implementation
- * of the `value` object).
- */
-// $FlowFixMe only called in DEV, so void return is not possible.
-function typeName(value) {
-  {
-    // toStringTag is needed for namespaced types like Temporal.Instant
-    var hasToStringTag = typeof Symbol === 'function' && Symbol.toStringTag;
-    var type = hasToStringTag && value[Symbol.toStringTag] || value.constructor.name || 'Object';
-    return type;
-  }
-} // $FlowFixMe only called in DEV, so void return is not possible.
-
-
-function willCoercionThrow(value) {
-  {
-    try {
-      testStringCoercion(value);
-      return false;
-    } catch (e) {
-      return true;
-    }
-  }
-}
-
-function testStringCoercion(value) {
-  // If you ended up here by following an exception call stack, here's what's
-  // happened: you supplied an object or symbol value to React (as a prop, key,
-  // DOM attribute, CSS property, string ref, etc.) and when React tried to
-  // coerce it to a string using `'' + value`, an exception was thrown.
-  //
-  // The most common types that will cause this exception are `Symbol` instances
-  // and Temporal objects like `Temporal.Instant`. But any object that has a
-  // `valueOf` or `[Symbol.toPrimitive]` method that throws will also cause this
-  // exception. (Library authors do this to prevent users from using built-in
-  // numeric operators like `+` or comparison operators like `>=` because custom
-  // methods are needed to perform accurate arithmetic or comparison.)
-  //
-  // To fix the problem, coerce this object or symbol value to a string before
-  // passing it to React. The most reliable way is usually `String(value)`.
-  //
-  // To find which value is throwing, check the browser or debugger console.
-  // Before this exception was thrown, there should be `console.error` output
-  // that shows the type (Symbol, Temporal.PlainDate, etc.) that caused the
-  // problem and how that type was used: key, atrribute, input value prop, etc.
-  // In most cases, this console output also shows the component and its
-  // ancestor components where the exception happened.
-  //
-  // eslint-disable-next-line react-internal/safe-string-coercion
-  return '' + value;
-}
-function checkKeyStringCoercion(value) {
-  {
-    if (willCoercionThrow(value)) {
-      error('The provided key is an unsupported type %s.' + ' This value must be coerced to a string before before using it here.', typeName(value));
-
-      return testStringCoercion(value); // throw (to help callers find troubleshooting comments)
-    }
-  }
-}
-
-var ReactCurrentOwner = ReactSharedInternals.ReactCurrentOwner;
-var RESERVED_PROPS = {
-  key: true,
-  ref: true,
-  __self: true,
-  __source: true
-};
-var specialPropKeyWarningShown;
-var specialPropRefWarningShown;
-var didWarnAboutStringRefs;
-
-{
-  didWarnAboutStringRefs = {};
-}
-
-function hasValidRef(config) {
-  {
-    if (hasOwnProperty.call(config, 'ref')) {
-      var getter = Object.getOwnPropertyDescriptor(config, 'ref').get;
-
-      if (getter && getter.isReactWarning) {
-        return false;
-      }
-    }
-  }
-
-  return config.ref !== undefined;
-}
-
-function hasValidKey(config) {
-  {
-    if (hasOwnProperty.call(config, 'key')) {
-      var getter = Object.getOwnPropertyDescriptor(config, 'key').get;
-
-      if (getter && getter.isReactWarning) {
-        return false;
-      }
-    }
-  }
-
-  return config.key !== undefined;
-}
-
-function warnIfStringRefCannotBeAutoConverted(config, self) {
-  {
-    if (typeof config.ref === 'string' && ReactCurrentOwner.current && self && ReactCurrentOwner.current.stateNode !== self) {
-      var componentName = getComponentNameFromType(ReactCurrentOwner.current.type);
-
-      if (!didWarnAboutStringRefs[componentName]) {
-        error('Component "%s" contains the string ref "%s". ' + 'Support for string refs will be removed in a future major release. ' + 'This case cannot be automatically converted to an arrow function. ' + 'We ask you to manually fix this case by using useRef() or createRef() instead. ' + 'Learn more about using refs safely here: ' + 'https://reactjs.org/link/strict-mode-string-ref', getComponentNameFromType(ReactCurrentOwner.current.type), config.ref);
-
-        didWarnAboutStringRefs[componentName] = true;
-      }
-    }
-  }
-}
-
-function defineKeyPropWarningGetter(props, displayName) {
-  {
-    var warnAboutAccessingKey = function () {
-      if (!specialPropKeyWarningShown) {
-        specialPropKeyWarningShown = true;
-
-        error('%s: `key` is not a prop. Trying to access it will result ' + 'in `undefined` being returned. If you need to access the same ' + 'value within the child component, you should pass it as a different ' + 'prop. (https://reactjs.org/link/special-props)', displayName);
-      }
-    };
-
-    warnAboutAccessingKey.isReactWarning = true;
-    Object.defineProperty(props, 'key', {
-      get: warnAboutAccessingKey,
-      configurable: true
-    });
-  }
-}
-
-function defineRefPropWarningGetter(props, displayName) {
-  {
-    var warnAboutAccessingRef = function () {
-      if (!specialPropRefWarningShown) {
-        specialPropRefWarningShown = true;
-
-        error('%s: `ref` is not a prop. Trying to access it will result ' + 'in `undefined` being returned. If you need to access the same ' + 'value within the child component, you should pass it as a different ' + 'prop. (https://reactjs.org/link/special-props)', displayName);
-      }
-    };
-
-    warnAboutAccessingRef.isReactWarning = true;
-    Object.defineProperty(props, 'ref', {
-      get: warnAboutAccessingRef,
-      configurable: true
-    });
-  }
-}
-/**
- * Factory method to create a new React element. This no longer adheres to
- * the class pattern, so do not use new to call it. Also, instanceof check
- * will not work. Instead test $$typeof field against Symbol.for('react.element') to check
- * if something is a React Element.
- *
- * @param {*} type
- * @param {*} props
- * @param {*} key
- * @param {string|object} ref
- * @param {*} owner
- * @param {*} self A *temporary* helper to detect places where `this` is
- * different from the `owner` when React.createElement is called, so that we
- * can warn. We want to get rid of owner and replace string `ref`s with arrow
- * functions, and as long as `this` and owner are the same, there will be no
- * change in behavior.
- * @param {*} source An annotation object (added by a transpiler or otherwise)
- * indicating filename, line number, and/or other information.
- * @internal
- */
-
-
-var ReactElement = function (type, key, ref, self, source, owner, props) {
-  var element = {
-    // This tag allows us to uniquely identify this as a React Element
-    $$typeof: REACT_ELEMENT_TYPE,
-    // Built-in properties that belong on the element
-    type: type,
-    key: key,
-    ref: ref,
-    props: props,
-    // Record the component responsible for creating this element.
-    _owner: owner
-  };
-
-  {
-    // The validation flag is currently mutative. We put it on
-    // an external backing store so that we can freeze the whole object.
-    // This can be replaced with a WeakMap once they are implemented in
-    // commonly used development environments.
-    element._store = {}; // To make comparing ReactElements easier for testing purposes, we make
-    // the validation flag non-enumerable (where possible, which should
-    // include every environment we run tests in), so the test framework
-    // ignores it.
-
-    Object.defineProperty(element._store, 'validated', {
-      configurable: false,
-      enumerable: false,
-      writable: true,
-      value: false
-    }); // self and source are DEV only properties.
-
-    Object.defineProperty(element, '_self', {
-      configurable: false,
-      enumerable: false,
-      writable: false,
-      value: self
-    }); // Two elements created in two different places should be considered
-    // equal for testing purposes and therefore we hide it from enumeration.
-
-    Object.defineProperty(element, '_source', {
-      configurable: false,
-      enumerable: false,
-      writable: false,
-      value: source
-    });
-
-    if (Object.freeze) {
-      Object.freeze(element.props);
-      Object.freeze(element);
-    }
-  }
-
-  return element;
-};
-/**
- * https://github.com/reactjs/rfcs/pull/107
- * @param {*} type
- * @param {object} props
- * @param {string} key
- */
-
-function jsxDEV(type, config, maybeKey, source, self) {
-  {
-    var propName; // Reserved names are extracted
-
-    var props = {};
-    var key = null;
-    var ref = null; // Currently, key can be spread in as a prop. This causes a potential
-    // issue if key is also explicitly declared (ie. <div {...props} key="Hi" />
-    // or <div key="Hi" {...props} /> ). We want to deprecate key spread,
-    // but as an intermediary step, we will use jsxDEV for everything except
-    // <div {...props} key="Hi" />, because we aren't currently able to tell if
-    // key is explicitly declared to be undefined or not.
-
-    if (maybeKey !== undefined) {
-      {
-        checkKeyStringCoercion(maybeKey);
-      }
-
-      key = '' + maybeKey;
-    }
-
-    if (hasValidKey(config)) {
-      {
-        checkKeyStringCoercion(config.key);
-      }
-
-      key = '' + config.key;
-    }
-
-    if (hasValidRef(config)) {
-      ref = config.ref;
-      warnIfStringRefCannotBeAutoConverted(config, self);
-    } // Remaining properties are added to a new props object
-
-
-    for (propName in config) {
-      if (hasOwnProperty.call(config, propName) && !RESERVED_PROPS.hasOwnProperty(propName)) {
-        props[propName] = config[propName];
-      }
-    } // Resolve default props
-
-
-    if (type && type.defaultProps) {
-      var defaultProps = type.defaultProps;
-
-      for (propName in defaultProps) {
-        if (props[propName] === undefined) {
-          props[propName] = defaultProps[propName];
-        }
-      }
-    }
-
-    if (key || ref) {
-      var displayName = typeof type === 'function' ? type.displayName || type.name || 'Unknown' : type;
-
-      if (key) {
-        defineKeyPropWarningGetter(props, displayName);
-      }
-
-      if (ref) {
-        defineRefPropWarningGetter(props, displayName);
-      }
-    }
-
-    return ReactElement(type, key, ref, self, source, ReactCurrentOwner.current, props);
-  }
-}
-
-var ReactCurrentOwner$1 = ReactSharedInternals.ReactCurrentOwner;
-var ReactDebugCurrentFrame$1 = ReactSharedInternals.ReactDebugCurrentFrame;
-
-function setCurrentlyValidatingElement$1(element) {
-  {
-    if (element) {
-      var owner = element._owner;
-      var stack = describeUnknownElementTypeFrameInDEV(element.type, element._source, owner ? owner.type : null);
-      ReactDebugCurrentFrame$1.setExtraStackFrame(stack);
-    } else {
-      ReactDebugCurrentFrame$1.setExtraStackFrame(null);
-    }
-  }
-}
-
-var propTypesMisspellWarningShown;
-
-{
-  propTypesMisspellWarningShown = false;
-}
-/**
- * Verifies the object is a ReactElement.
- * See https://reactjs.org/docs/react-api.html#isvalidelement
- * @param {?object} object
- * @return {boolean} True if `object` is a ReactElement.
- * @final
- */
-
-
-function isValidElement(object) {
-  {
-    return typeof object === 'object' && object !== null && object.$$typeof === REACT_ELEMENT_TYPE;
-  }
-}
-
-function getDeclarationErrorAddendum() {
-  {
-    if (ReactCurrentOwner$1.current) {
-      var name = getComponentNameFromType(ReactCurrentOwner$1.current.type);
-
-      if (name) {
-        return '\n\nCheck the render method of `' + name + '`.';
-      }
-    }
-
-    return '';
-  }
-}
-
-function getSourceInfoErrorAddendum(source) {
-  {
-    if (source !== undefined) {
-      var fileName = source.fileName.replace(/^.*[\\\/]/, '');
-      var lineNumber = source.lineNumber;
-      return '\n\nCheck your code at ' + fileName + ':' + lineNumber + '.';
-    }
-
-    return '';
-  }
-}
-/**
- * Warn if there's no key explicitly set on dynamic arrays of children or
- * object keys are not valid. This allows us to keep track of children between
- * updates.
- */
-
-
-var ownerHasKeyUseWarning = {};
-
-function getCurrentComponentErrorInfo(parentType) {
-  {
-    var info = getDeclarationErrorAddendum();
-
-    if (!info) {
-      var parentName = typeof parentType === 'string' ? parentType : parentType.displayName || parentType.name;
-
-      if (parentName) {
-        info = "\n\nCheck the top-level render call using <" + parentName + ">.";
-      }
-    }
-
-    return info;
-  }
-}
-/**
- * Warn if the element doesn't have an explicit key assigned to it.
- * This element is in an array. The array could grow and shrink or be
- * reordered. All children that haven't already been validated are required to
- * have a "key" property assigned to it. Error statuses are cached so a warning
- * will only be shown once.
- *
- * @internal
- * @param {ReactElement} element Element that requires a key.
- * @param {*} parentType element's parent's type.
- */
-
-
-function validateExplicitKey(element, parentType) {
-  {
-    if (!element._store || element._store.validated || element.key != null) {
-      return;
-    }
-
-    element._store.validated = true;
-    var currentComponentErrorInfo = getCurrentComponentErrorInfo(parentType);
-
-    if (ownerHasKeyUseWarning[currentComponentErrorInfo]) {
-      return;
-    }
-
-    ownerHasKeyUseWarning[currentComponentErrorInfo] = true; // Usually the current owner is the offender, but if it accepts children as a
-    // property, it may be the creator of the child that's responsible for
-    // assigning it a key.
-
-    var childOwner = '';
-
-    if (element && element._owner && element._owner !== ReactCurrentOwner$1.current) {
-      // Give the component that originally created this child.
-      childOwner = " It was passed a child from " + getComponentNameFromType(element._owner.type) + ".";
-    }
-
-    setCurrentlyValidatingElement$1(element);
-
-    error('Each child in a list should have a unique "key" prop.' + '%s%s See https://reactjs.org/link/warning-keys for more information.', currentComponentErrorInfo, childOwner);
-
-    setCurrentlyValidatingElement$1(null);
-  }
-}
-/**
- * Ensure that every element either is passed in a static location, in an
- * array with an explicit keys property defined, or in an object literal
- * with valid key property.
- *
- * @internal
- * @param {ReactNode} node Statically passed child of any type.
- * @param {*} parentType node's parent's type.
- */
-
-
-function validateChildKeys(node, parentType) {
-  {
-    if (typeof node !== 'object') {
-      return;
-    }
-
-    if (isArray(node)) {
-      for (var i = 0; i < node.length; i++) {
-        var child = node[i];
-
-        if (isValidElement(child)) {
-          validateExplicitKey(child, parentType);
-        }
-      }
-    } else if (isValidElement(node)) {
-      // This element was passed in a valid location.
-      if (node._store) {
-        node._store.validated = true;
-      }
-    } else if (node) {
-      var iteratorFn = getIteratorFn(node);
-
-      if (typeof iteratorFn === 'function') {
-        // Entry iterators used to provide implicit keys,
-        // but now we print a separate warning for them later.
-        if (iteratorFn !== node.entries) {
-          var iterator = iteratorFn.call(node);
-          var step;
-
-          while (!(step = iterator.next()).done) {
-            if (isValidElement(step.value)) {
-              validateExplicitKey(step.value, parentType);
-            }
-          }
-        }
-      }
-    }
-  }
-}
-/**
- * Given an element, validate that its props follow the propTypes definition,
- * provided by the type.
- *
- * @param {ReactElement} element
- */
-
-
-function validatePropTypes(element) {
-  {
-    var type = element.type;
-
-    if (type === null || type === undefined || typeof type === 'string') {
-      return;
-    }
-
-    var propTypes;
-
-    if (typeof type === 'function') {
-      propTypes = type.propTypes;
-    } else if (typeof type === 'object' && (type.$$typeof === REACT_FORWARD_REF_TYPE || // Note: Memo only checks outer props here.
-    // Inner props are checked in the reconciler.
-    type.$$typeof === REACT_MEMO_TYPE)) {
-      propTypes = type.propTypes;
-    } else {
-      return;
-    }
-
-    if (propTypes) {
-      // Intentionally inside to avoid triggering lazy initializers:
-      var name = getComponentNameFromType(type);
-      checkPropTypes(propTypes, element.props, 'prop', name, element);
-    } else if (type.PropTypes !== undefined && !propTypesMisspellWarningShown) {
-      propTypesMisspellWarningShown = true; // Intentionally inside to avoid triggering lazy initializers:
-
-      var _name = getComponentNameFromType(type);
-
-      error('Component %s declared `PropTypes` instead of `propTypes`. Did you misspell the property assignment?', _name || 'Unknown');
-    }
-
-    if (typeof type.getDefaultProps === 'function' && !type.getDefaultProps.isReactClassApproved) {
-      error('getDefaultProps is only used on classic React.createClass ' + 'definitions. Use a static property named `defaultProps` instead.');
-    }
-  }
-}
-/**
- * Given a fragment, validate that it can only be provided with fragment props
- * @param {ReactElement} fragment
- */
-
-
-function validateFragmentProps(fragment) {
-  {
-    var keys = Object.keys(fragment.props);
-
-    for (var i = 0; i < keys.length; i++) {
-      var key = keys[i];
-
-      if (key !== 'children' && key !== 'key') {
-        setCurrentlyValidatingElement$1(fragment);
-
-        error('Invalid prop `%s` supplied to `React.Fragment`. ' + 'React.Fragment can only have `key` and `children` props.', key);
-
-        setCurrentlyValidatingElement$1(null);
-        break;
-      }
-    }
-
-    if (fragment.ref !== null) {
-      setCurrentlyValidatingElement$1(fragment);
-
-      error('Invalid attribute `ref` supplied to `React.Fragment`.');
-
-      setCurrentlyValidatingElement$1(null);
-    }
-  }
-}
-
-var didWarnAboutKeySpread = {};
-function jsxWithValidation(type, props, key, isStaticChildren, source, self) {
-  {
-    var validType = isValidElementType(type); // We warn in this case but don't throw. We expect the element creation to
-    // succeed and there will likely be errors in render.
-
-    if (!validType) {
-      var info = '';
-
-      if (type === undefined || typeof type === 'object' && type !== null && Object.keys(type).length === 0) {
-        info += ' You likely forgot to export your component from the file ' + "it's defined in, or you might have mixed up default and named imports.";
-      }
-
-      var sourceInfo = getSourceInfoErrorAddendum(source);
-
-      if (sourceInfo) {
-        info += sourceInfo;
-      } else {
-        info += getDeclarationErrorAddendum();
-      }
-
-      var typeString;
-
-      if (type === null) {
-        typeString = 'null';
-      } else if (isArray(type)) {
-        typeString = 'array';
-      } else if (type !== undefined && type.$$typeof === REACT_ELEMENT_TYPE) {
-        typeString = "<" + (getComponentNameFromType(type.type) || 'Unknown') + " />";
-        info = ' Did you accidentally export a JSX literal instead of a component?';
-      } else {
-        typeString = typeof type;
-      }
-
-      error('React.jsx: type is invalid -- expected a string (for ' + 'built-in components) or a class/function (for composite ' + 'components) but got: %s.%s', typeString, info);
-    }
-
-    var element = jsxDEV(type, props, key, source, self); // The result can be nullish if a mock or a custom function is used.
-    // TODO: Drop this when these are no longer allowed as the type argument.
-
-    if (element == null) {
-      return element;
-    } // Skip key warning if the type isn't valid since our key validation logic
-    // doesn't expect a non-string/function type and can throw confusing errors.
-    // We don't want exception behavior to differ between dev and prod.
-    // (Rendering will throw with a helpful message and as soon as the type is
-    // fixed, the key warnings will appear.)
-
-
-    if (validType) {
-      var children = props.children;
-
-      if (children !== undefined) {
-        if (isStaticChildren) {
-          if (isArray(children)) {
-            for (var i = 0; i < children.length; i++) {
-              validateChildKeys(children[i], type);
-            }
-
-            if (Object.freeze) {
-              Object.freeze(children);
-            }
-          } else {
-            error('React.jsx: Static children should always be an array. ' + 'You are likely explicitly calling React.jsxs or React.jsxDEV. ' + 'Use the Babel transform instead.');
-          }
-        } else {
-          validateChildKeys(children, type);
-        }
-      }
-    }
-
-    {
-      if (hasOwnProperty.call(props, 'key')) {
-        var componentName = getComponentNameFromType(type);
-        var keys = Object.keys(props).filter(function (k) {
-          return k !== 'key';
-        });
-        var beforeExample = keys.length > 0 ? '{key: someKey, ' + keys.join(': ..., ') + ': ...}' : '{key: someKey}';
-
-        if (!didWarnAboutKeySpread[componentName + beforeExample]) {
-          var afterExample = keys.length > 0 ? '{' + keys.join(': ..., ') + ': ...}' : '{}';
-
-          error('A props object containing a "key" prop is being spread into JSX:\n' + '  let props = %s;\n' + '  <%s {...props} />\n' + 'React keys must be passed directly to JSX without using spread:\n' + '  let props = %s;\n' + '  <%s key={someKey} {...props} />', beforeExample, componentName, afterExample, componentName);
-
-          didWarnAboutKeySpread[componentName + beforeExample] = true;
-        }
-      }
-    }
-
-    if (type === REACT_FRAGMENT_TYPE) {
-      validateFragmentProps(element);
-    } else {
-      validatePropTypes(element);
-    }
-
-    return element;
-  }
-} // These two functions exist to still get child warnings in dev
-// even with the prod transform. This means that jsxDEV is purely
-// opt-in behavior for better messages but that we won't stop
-// giving you warnings if you use production apis.
-
-function jsxWithValidationStatic(type, props, key) {
-  {
-    return jsxWithValidation(type, props, key, true);
-  }
-}
-function jsxWithValidationDynamic(type, props, key) {
-  {
-    return jsxWithValidation(type, props, key, false);
-  }
-}
-
-var jsx =  jsxWithValidationDynamic ; // we may want to special case jsxs internally to take advantage of static children.
-// for now we can ship identical prod functions
-
-var jsxs =  jsxWithValidationStatic ;
-
-exports.Fragment = REACT_FRAGMENT_TYPE;
-exports.jsx = jsx;
-exports.jsxs = jsxs;
-  })();
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/react/jsx-runtime.js":
-/*!*******************************************!*\
-  !*** ./node_modules/react/jsx-runtime.js ***!
-  \*******************************************/
-/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
-
-"use strict";
-
-
-if (false) {} else {
-  module.exports = __webpack_require__(/*! ./cjs/react-jsx-runtime.development.js */ "./node_modules/react/cjs/react-jsx-runtime.development.js");
-}
-
-
-/***/ }),
-
-/***/ "react":
-/*!************************!*\
-  !*** external "React" ***!
-  \************************/
+/***/ "react/jsx-runtime":
+/*!**********************************!*\
+  !*** external "ReactJSXRuntime" ***!
+  \**********************************/
 /***/ (function(module) {
 
 "use strict";
-module.exports = window["React"];
+module.exports = window["ReactJSXRuntime"];
 
 /***/ }),
 
@@ -3820,92 +2556,6 @@ module.exports = window["wp"]["primitives"];
 
 "use strict";
 module.exports = window["wp"]["serverSideRender"];
-
-/***/ }),
-
-/***/ "./node_modules/classnames/index.js":
-/*!******************************************!*\
-  !*** ./node_modules/classnames/index.js ***!
-  \******************************************/
-/***/ (function(module, exports) {
-
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
-	Copyright (c) 2018 Jed Watson.
-	Licensed under the MIT License (MIT), see
-	http://jedwatson.github.io/classnames
-*/
-/* global define */
-
-(function () {
-	'use strict';
-
-	var hasOwn = {}.hasOwnProperty;
-
-	function classNames () {
-		var classes = '';
-
-		for (var i = 0; i < arguments.length; i++) {
-			var arg = arguments[i];
-			if (arg) {
-				classes = appendClass(classes, parseValue(arg));
-			}
-		}
-
-		return classes;
-	}
-
-	function parseValue (arg) {
-		if (typeof arg === 'string' || typeof arg === 'number') {
-			return arg;
-		}
-
-		if (typeof arg !== 'object') {
-			return '';
-		}
-
-		if (Array.isArray(arg)) {
-			return classNames.apply(null, arg);
-		}
-
-		if (arg.toString !== Object.prototype.toString && !arg.toString.toString().includes('[native code]')) {
-			return arg.toString();
-		}
-
-		var classes = '';
-
-		for (var key in arg) {
-			if (hasOwn.call(arg, key) && arg[key]) {
-				classes = appendClass(classes, key);
-			}
-		}
-
-		return classes;
-	}
-
-	function appendClass (value, newClass) {
-		if (!newClass) {
-			return value;
-		}
-	
-		if (value) {
-			return value + ' ' + newClass;
-		}
-	
-		return value + newClass;
-	}
-
-	if ( true && module.exports) {
-		classNames.default = classNames;
-		module.exports = classNames;
-	} else if (true) {
-		// register as 'classnames', consistent with npm package name
-		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = (function () {
-			return classNames;
-		}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-		__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-	} else {}
-}());
-
 
 /***/ }),
 
@@ -4537,25 +3187,24 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
 /* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/blocks */ "@wordpress/blocks");
-/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
-/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _wordpress_server_side_render__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/server-side-render */ "@wordpress/server-side-render");
-/* harmony import */ var _wordpress_server_side_render__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_server_side_render__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _controls__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../controls */ "./src/controls.js");
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../functions */ "./src/functions.js");
-/* harmony import */ var _block_json__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./block.json */ "./src/search-form/block.json");
-/* harmony import */ var _logo__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../logo */ "./src/logo.js");
-
+/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/blocks */ "@wordpress/blocks");
+/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _wordpress_server_side_render__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/server-side-render */ "@wordpress/server-side-render");
+/* harmony import */ var _wordpress_server_side_render__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_server_side_render__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _controls__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../controls */ "./src/controls.js");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../functions */ "./src/functions.js");
+/* harmony import */ var _block_json__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./block.json */ "./src/search-form/block.json");
+/* harmony import */ var _logo__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../logo */ "./src/logo.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__);
 
 
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
@@ -4570,22 +3219,23 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 
 
 
+
 var Placeholder = function Placeholder() {
-  return (0,_functions__WEBPACK_IMPORTED_MODULE_10__.getPlaceholder)('search');
+  return (0,_functions__WEBPACK_IMPORTED_MODULE_9__.getPlaceholder)('search');
 };
-(0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_3__.registerBlockType)(_block_json__WEBPACK_IMPORTED_MODULE_11__.name, {
-  icon: (0,_logo__WEBPACK_IMPORTED_MODULE_12__["default"])(),
+(0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__.registerBlockType)(_block_json__WEBPACK_IMPORTED_MODULE_10__.name, {
+  icon: (0,_logo__WEBPACK_IMPORTED_MODULE_11__["default"])(),
   transforms: {
     from: [{
       type: 'shortcode',
       tag: 'directorist_search_listing',
-      attributes: (0,_functions__WEBPACK_IMPORTED_MODULE_10__.getAttsForTransform)(_block_json__WEBPACK_IMPORTED_MODULE_11__.attributes)
+      attributes: (0,_functions__WEBPACK_IMPORTED_MODULE_9__.getAttsForTransform)(_block_json__WEBPACK_IMPORTED_MODULE_10__.attributes)
     }]
   },
   edit: function edit(_ref) {
     var attributes = _ref.attributes,
       setAttributes = _ref.setAttributes;
-    var _useState = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_6__.useState)(true),
+    var _useState = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_5__.useState)(true),
       _useState2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState, 2),
       shouldRender = _useState2[0],
       setShouldRender = _useState2[1];
@@ -4604,151 +3254,158 @@ var Placeholder = function Placeholder() {
       default_directory_type = attributes.default_directory_type,
       show_popular_category = attributes.show_popular_category;
     var oldTypes = directory_type ? directory_type.split(',') : [];
-    return (0,react__WEBPACK_IMPORTED_MODULE_2__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_6__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_2__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_4__.InspectorControls, null, (0,react__WEBPACK_IMPORTED_MODULE_2__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__.PanelBody, {
-      title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)('General', 'directorist'),
-      initialOpen: true
-    }, (0,_functions__WEBPACK_IMPORTED_MODULE_10__.isMultiDirectoryEnabled)() ? (0,react__WEBPACK_IMPORTED_MODULE_2__.createElement)(_controls__WEBPACK_IMPORTED_MODULE_8__.TypesControl, {
-      shouldRender: shouldRender,
-      selected: oldTypes,
-      showDefault: true,
-      defaultType: default_directory_type,
-      onDefaultChange: function onDefaultChange(value) {
-        return setAttributes({
-          default_directory_type: value
-        });
-      },
-      onChange: function onChange(types) {
-        setAttributes({
-          directory_type: types.join(',')
-        });
-        if (types.length === 1) {
-          setAttributes({
-            default_directory_type: types[0]
-          });
-        }
-        setShouldRender(false);
-      }
-    }) : null, (0,react__WEBPACK_IMPORTED_MODULE_2__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__.ToggleControl, {
-      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)('Display Title & Subtitle', 'directorist'),
-      checked: show_title_subtitle,
-      onChange: function onChange(newState) {
-        return setAttributes({
-          show_title_subtitle: newState
-        });
-      }
-    }), show_title_subtitle ? (0,react__WEBPACK_IMPORTED_MODULE_2__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__.TextControl, {
-      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)('Search Form Title', 'directorist'),
-      type: "text",
-      value: search_bar_title,
-      onChange: function onChange(newState) {
-        return setAttributes({
-          search_bar_title: newState
-        });
-      }
-    }) : null, show_title_subtitle ? (0,react__WEBPACK_IMPORTED_MODULE_2__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__.TextControl, {
-      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)('Search Form Subtitle', 'directorist'),
-      type: "text",
-      value: search_bar_sub_title,
-      onChange: function onChange(newState) {
-        return setAttributes({
-          search_bar_sub_title: newState
-        });
-      }
-    }) : null, (0,react__WEBPACK_IMPORTED_MODULE_2__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__.ToggleControl, {
-      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)('Display More Filters Button', 'directorist'),
-      checked: more_filters_button,
-      onChange: function onChange(newState) {
-        return setAttributes({
-          more_filters_button: newState
-        });
-      }
-    }), more_filters_button ? (0,react__WEBPACK_IMPORTED_MODULE_2__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__.TextControl, {
-      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)('More Filters Button Label', 'directorist'),
-      type: "text",
-      value: more_filters_text,
-      onChange: function onChange(newState) {
-        return setAttributes({
-          more_filters_text: newState
-        });
-      }
-    }) : null, more_filters_button ? (0,react__WEBPACK_IMPORTED_MODULE_2__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__.ToggleControl, {
-      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)('Display Apply Filters Button', 'directorist'),
-      checked: apply_filters_button,
-      onChange: function onChange(newState) {
-        return setAttributes({
-          apply_filters_button: newState
-        });
-      }
-    }) : null, more_filters_button && apply_filters_button ? (0,react__WEBPACK_IMPORTED_MODULE_2__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__.TextControl, {
-      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)('Apply Filters Text', 'directorist'),
-      type: "text",
-      value: apply_filters_text,
-      onChange: function onChange(newState) {
-        return setAttributes({
-          apply_filters_text: newState
-        });
-      }
-    }) : null, more_filters_button ? (0,react__WEBPACK_IMPORTED_MODULE_2__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__.ToggleControl, {
-      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)('Display Reset Filters Button', 'directorist'),
-      checked: reset_filters_button,
-      onChange: function onChange(newState) {
-        return setAttributes({
-          reset_filters_button: newState
-        });
-      }
-    }) : null, more_filters_button && reset_filters_button ? (0,react__WEBPACK_IMPORTED_MODULE_2__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__.TextControl, {
-      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)('Reset Filters Text', 'directorist'),
-      type: "text",
-      value: reset_filters_text,
-      onChange: function onChange(newState) {
-        return setAttributes({
-          reset_filters_text: newState
-        });
-      }
-    }) : null, more_filters_button ? (0,react__WEBPACK_IMPORTED_MODULE_2__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__.SelectControl, {
-      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)('More Filter By', 'directorist'),
-      labelPosition: "side",
-      value: more_filters_display,
-      options: [{
-        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)('Overlapping', 'directorist'),
-        value: 'overlapping'
-      }, {
-        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)('Sliding', 'directorist'),
-        value: 'sliding'
-      }, {
-        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)('Always Open', 'directorist'),
-        value: 'always_open'
-      }],
-      onChange: function onChange(newState) {
-        return setAttributes({
-          more_filters_display: newState
-        });
-      },
-      className: "directorist-gb-fixed-control"
-    }) : null, (0,react__WEBPACK_IMPORTED_MODULE_2__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__.ToggleControl, {
-      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)('Display Popular Categories', 'directorist'),
-      checked: show_popular_category,
-      onChange: function onChange(newState) {
-        return setAttributes({
-          show_popular_category: newState
-        });
-      },
-      help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)('You can control the number of popular categories to show from settings panel.', 'directorist')
-    }), (0,react__WEBPACK_IMPORTED_MODULE_2__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__.ToggleControl, {
-      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)('Logged In User Can View Only', 'directorist'),
-      checked: logged_in_user_only,
-      onChange: function onChange(newState) {
-        return setAttributes({
-          logged_in_user_only: newState
-        });
-      }
-    }))), (0,react__WEBPACK_IMPORTED_MODULE_2__.createElement)("div", _objectSpread({}, (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_4__.useBlockProps)({
-      className: 'directorist-content-active directorist-w-100'
-    })), (0,react__WEBPACK_IMPORTED_MODULE_2__.createElement)((_wordpress_server_side_render__WEBPACK_IMPORTED_MODULE_5___default()), {
-      block: _block_json__WEBPACK_IMPORTED_MODULE_11__.name,
-      attributes: attributes,
-      LoadingResponsePlaceholder: Placeholder
-    })));
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_wordpress_element__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.InspectorControls, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__.PanelBody, {
+          title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)('General', 'directorist'),
+          initialOpen: true,
+          children: [(0,_functions__WEBPACK_IMPORTED_MODULE_9__.isMultiDirectoryEnabled)() ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_controls__WEBPACK_IMPORTED_MODULE_7__.TypesControl, {
+            shouldRender: shouldRender,
+            selected: oldTypes,
+            showDefault: true,
+            defaultType: default_directory_type,
+            onDefaultChange: function onDefaultChange(value) {
+              return setAttributes({
+                default_directory_type: value
+              });
+            },
+            onChange: function onChange(types) {
+              setAttributes({
+                directory_type: types.join(',')
+              });
+              if (types.length === 1) {
+                setAttributes({
+                  default_directory_type: types[0]
+                });
+              }
+              setShouldRender(false);
+            }
+          }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__.ToggleControl, {
+            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)('Display Title & Subtitle', 'directorist'),
+            checked: show_title_subtitle,
+            onChange: function onChange(newState) {
+              return setAttributes({
+                show_title_subtitle: newState
+              });
+            }
+          }), show_title_subtitle ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__.TextControl, {
+            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)('Search Form Title', 'directorist'),
+            type: "text",
+            value: search_bar_title,
+            onChange: function onChange(newState) {
+              return setAttributes({
+                search_bar_title: newState
+              });
+            }
+          }) : null, show_title_subtitle ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__.TextControl, {
+            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)('Search Form Subtitle', 'directorist'),
+            type: "text",
+            value: search_bar_sub_title,
+            onChange: function onChange(newState) {
+              return setAttributes({
+                search_bar_sub_title: newState
+              });
+            }
+          }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__.ToggleControl, {
+            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)('Display More Filters Button', 'directorist'),
+            checked: more_filters_button,
+            onChange: function onChange(newState) {
+              return setAttributes({
+                more_filters_button: newState
+              });
+            }
+          }), more_filters_button ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__.TextControl, {
+            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)('More Filters Button Label', 'directorist'),
+            type: "text",
+            value: more_filters_text,
+            onChange: function onChange(newState) {
+              return setAttributes({
+                more_filters_text: newState
+              });
+            }
+          }) : null, more_filters_button ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__.ToggleControl, {
+            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)('Display Apply Filters Button', 'directorist'),
+            checked: apply_filters_button,
+            onChange: function onChange(newState) {
+              return setAttributes({
+                apply_filters_button: newState
+              });
+            }
+          }) : null, more_filters_button && apply_filters_button ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__.TextControl, {
+            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)('Apply Filters Text', 'directorist'),
+            type: "text",
+            value: apply_filters_text,
+            onChange: function onChange(newState) {
+              return setAttributes({
+                apply_filters_text: newState
+              });
+            }
+          }) : null, more_filters_button ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__.ToggleControl, {
+            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)('Display Reset Filters Button', 'directorist'),
+            checked: reset_filters_button,
+            onChange: function onChange(newState) {
+              return setAttributes({
+                reset_filters_button: newState
+              });
+            }
+          }) : null, more_filters_button && reset_filters_button ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__.TextControl, {
+            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)('Reset Filters Text', 'directorist'),
+            type: "text",
+            value: reset_filters_text,
+            onChange: function onChange(newState) {
+              return setAttributes({
+                reset_filters_text: newState
+              });
+            }
+          }) : null, more_filters_button ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__.SelectControl, {
+            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)('More Filter By', 'directorist'),
+            labelPosition: "side",
+            value: more_filters_display,
+            options: [{
+              label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)('Overlapping', 'directorist'),
+              value: 'overlapping'
+            }, {
+              label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)('Sliding', 'directorist'),
+              value: 'sliding'
+            }, {
+              label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)('Always Open', 'directorist'),
+              value: 'always_open'
+            }],
+            onChange: function onChange(newState) {
+              return setAttributes({
+                more_filters_display: newState
+              });
+            },
+            className: "directorist-gb-fixed-control"
+          }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__.ToggleControl, {
+            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)('Display Popular Categories', 'directorist'),
+            checked: show_popular_category,
+            onChange: function onChange(newState) {
+              return setAttributes({
+                show_popular_category: newState
+              });
+            },
+            help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)('You can control the number of popular categories to show from settings panel.', 'directorist')
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__.ToggleControl, {
+            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)('Logged In User Can View Only', 'directorist'),
+            checked: logged_in_user_only,
+            onChange: function onChange(newState) {
+              return setAttributes({
+                logged_in_user_only: newState
+              });
+            }
+          })]
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", _objectSpread(_objectSpread({}, (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.useBlockProps)({
+        className: 'directorist-content-active directorist-w-100'
+      })), {}, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)((_wordpress_server_side_render__WEBPACK_IMPORTED_MODULE_4___default()), {
+          block: _block_json__WEBPACK_IMPORTED_MODULE_10__.name,
+          attributes: attributes,
+          LoadingResponsePlaceholder: Placeholder
+        })
+      }))]
+    });
   }
 });
 }();

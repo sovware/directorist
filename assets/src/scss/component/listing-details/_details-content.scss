@@ -353,7 +353,6 @@
   .directorist-icon-mask::after {
     width: 15px;
     height: 15px;
-    color: var(--directorist-color-body);
   }
 
   a {
@@ -368,13 +367,7 @@
     width: 100%;
     height: 100%;
 
-    i,
-    span.la,
-    span.las,
-    span.lab,
-    span.fa,
-    span.fas,
-    span.fab {
+    i{
       pointer-events: none;
     }
   }
@@ -442,11 +435,6 @@
 .directorist-single-contents-area .directorist-single-map {
   border-radius: 16px;
   z-index: 1;
-  .atbd_map_shape {
-    .directorist-icon-mask:after {
-      background-color: var(--directorist-color-white);
-    }
-  }
   .directorist-info-item a {
     font-size: 14px;
   }

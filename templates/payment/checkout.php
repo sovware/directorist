@@ -159,7 +159,7 @@ use \Directorist\Helper;
             <input type="hidden" id="listing_id" name="listing_id" value="<?php echo esc_attr( $listing_id ); ?>"/>
             <div class="directorist-payment-action directorist-flex directorist-justify-content-between" id="atbdp_pay_notpay_btn">
                 <a href="<?php echo esc_url( apply_filters( 'atbdp_checkout_not_now_link', $url ) ); ?>" class="directorist-btn directorist-btn-lg directorist-btn-light atbdp_not_now_button"><?php esc_html_e('Not Now', 'directorist'); ?></a>
-                <button type="submit" id="atbdp_checkout_submit_btn" class="directorist-btn directorist-btn-lg directorist-btn-primary directorist-btn-payment-submit" value="<?php echo esc_attr( $submit_button_label ); ?>"><?php echo esc_html( $submit_button_label ); ?></button>
+                <button type="submit" id="atbdp_checkout_submit_btn" class="directorist-btn directorist-btn-lg directorist-btn-payment-submit" value="<?php echo esc_attr( $submit_button_label ); ?>"><?php echo esc_html( $submit_button_label ); ?></button>
                 <input type="hidden" id="atbdp_checkout_submit_btn_label" value="<?php echo esc_attr( $submit_button_label ); ?>"/>
             </div> <!--ends pull-right-->
 

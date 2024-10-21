@@ -35,6 +35,10 @@
     color: var(--directorist-color-body);
     transition: opacity 0.3s ease, top 0.3s ease, font-size 0.3s ease;
   }
+  .directorist-form-group__prefix--start{
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
   @include e(input) {
     &::placeholder {
       opacity: 0;
@@ -96,6 +100,13 @@
     .directorist-search-field__btn i::after {
       opacity: 1;
       visibility: visible;
+    }
+
+    .directorist-form-group__prefix--start{
+      opacity: 1;
+    }
+    .directorist-form-group__prefix--end{
+      margin-right: 25px;
     }
 
     .directorist-select,
@@ -705,10 +716,12 @@
       padding: 0 18px;
       font-weight: 400;
       background-color: var(--directorist-color-white);
+      border-color: var(--directorist-color-white);
+      color:var(--directorist-color-btn-primary-bg);
       .directorist-icon-mask::after {
         height: 12px;
         width: 14px;
-        background-color: var(--directorist-color-body);
+        background-color: var(--directorist-color-btn-primary-bg);
       }
       @media only screen and (max-width: 767px) {
         padding-left: 0;

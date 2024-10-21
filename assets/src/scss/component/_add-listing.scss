@@ -752,7 +752,6 @@
     height: 40px;
     cursor: pointer;
     border-radius: 100%;
-    background-color: var(--directorist-color-marker-shape);
     &:before {
       content: "";
       position: absolute;
@@ -765,14 +764,11 @@
       border-radius: 50%;
       transition: all 0.3s ease-in-out;
       border: none;
-      border: 40px solid rgba(var(--directorist-color-primary-rgb), 0.2);
-      animation: atbd_scale 3s linear alternate infinite;
     }
     .directorist-icon-mask {
       &:after {
         width: 16px;
         height: 16px;
-        background-color: var(--directorist-color-white);
       }
     }
     &:hover {
@@ -829,8 +825,8 @@
         align-items: center;
         gap: 6px;
         border-radius: 8px;
-        background: #141921;
-        color: #fff;
+        background: var(--directorist-color-primary);
+        color: var(--directorist-color-white);
         text-align: center;
         font-size: 13px;
         font-weight: 500;
@@ -1191,7 +1187,6 @@
     .directorist-icon-mask::after {
       width: 12px;
       height: 20px;
-      background-color: var(--directorist-color-white);
     }
   }
 }

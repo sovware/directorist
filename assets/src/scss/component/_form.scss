@@ -44,6 +44,18 @@
     }
   }
 }
+.directorist-advanced-filter__advanced__element{
+  .directorist-search-field{
+    &.input-is-focused {
+      .directorist-form-group__with-prefix{
+        .directorist-search-field__input{
+          padding-right: 0;
+        }
+      }
+    }
+  }
+}
+
 
 // Form Element
 .directorist-form-group {

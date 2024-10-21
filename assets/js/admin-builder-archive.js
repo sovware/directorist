@@ -505,7 +505,7 @@ function initializeProgressBar() {
 //Function to initialize Dropdown
 function initializeDropdownField() {
   var dropdowns = document.querySelectorAll(".directorist-ai-generate-dropdown");
-  var accordian = true;
+  var accordion = true;
   dropdowns.forEach(function (dropdown) {
     var header = dropdown.querySelector(".directorist-ai-generate-dropdown__header");
     var content = dropdown.querySelector(".directorist-ai-generate-dropdown__content");
@@ -530,7 +530,7 @@ function initializeDropdownField() {
       dropdown.setAttribute("aria-expanded", isExpanded);
       content.setAttribute("aria-expanded", isExpanded);
       icon.classList.toggle("rotate", isExpanded);
-      if (accordian) {
+      if (accordion) {
         dropdowns.forEach(function (otherDropdown) {
           if (otherDropdown !== dropdown) {
             var otherContent = otherDropdown.querySelector(".directorist-ai-generate-dropdown__content");

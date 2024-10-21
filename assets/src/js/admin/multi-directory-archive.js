@@ -95,7 +95,6 @@ document.addEventListener('load', () =>{
 })
 
 //Generate btn
-console.log("rony 1")
 const generateBtnWrapper = document.querySelector('.directory-generate-btn__wrapper');
 if(generateBtnWrapper){
     const finalWidth = generateBtnWrapper.getAttribute('data-width');
@@ -115,12 +114,7 @@ if(generateBtnWrapper){
     };
 
     const progressInterval = setInterval(updateProgress, 30);
-    console.log("rony 2")
-} else{
-    console.log("dom not valid")
 }
-console.log("rony 3")
-
 
 var $ = jQuery;
 const axios = require('axios').default;

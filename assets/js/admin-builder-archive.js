@@ -363,7 +363,6 @@ window.addEventListener('load', function () {
 document.addEventListener('load', function () {});
 
 //Generate btn
-console.log("rony 1");
 var generateBtnWrapper = document.querySelector('.directory-generate-btn__wrapper');
 if (generateBtnWrapper) {
   var finalWidth = generateBtnWrapper.getAttribute('data-width');
@@ -380,11 +379,7 @@ if (generateBtnWrapper) {
     }
   };
   var progressInterval = setInterval(updateProgress, 30);
-  console.log("rony 2");
-} else {
-  console.log("dom not valid");
 }
-console.log("rony 3");
 var $ = jQuery;
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").default;
 // handle firm step

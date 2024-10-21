@@ -37,7 +37,7 @@ class Multi_Directory_Manager {
         add_action( 'wp_ajax_directorist_force_migrate', [ $this, 'handle_force_migration' ] );
         add_action( 'wp_ajax_directorist_directory_type_library', [ $this, 'directorist_directory_type_library' ] );
         add_action( 'wp_ajax_directorist_ai_directory_form', [ $this, 'directorist_ai_directory_form' ] );
-        add_action( 'wp_ajax_directorist_ai_directory_form_step_one', [ $this, 'directorist_ai_directory_form_step_one' ] );
+        add_action( 'wp_ajax_directorist_ai_directory_creation', [ $this, 'directorist_ai_directory' ] );
     }
 
     public static function builder_data_backup( $term_id ) {
@@ -457,7 +457,7 @@ class Multi_Directory_Manager {
     }
 
     // handle step one
-    public function directorist_ai_directory_form_step_one() {
+    public function directorist_ai_directory() {
 
         if ( ! current_user_can( 'manage_options' ) ) {
             wp_send_json([
@@ -468,13 +468,29 @@ class Multi_Directory_Manager {
             ], 200);
         }
 
-        $name       = ! empty( $_POST['name'] ) ? $_POST['name'] : '';
-        $location   = ! empty( $_POST['location'] ) ? $_POST['location'] : '';
+        $prompt     = ! empty( $_POST['prompt'] ) ? $_POST['prompt'] : '';
+        $keywords   = ! empty( $_POST['keywords'] ) ? $_POST['keywords'] : '';
+        $step       = ! empty( $_POST['step'] ) ? $_POST['step'] : '';
 
-        $prompt = "$name is my directory business name located at $location. Give me 10 relative keywords separated by @. Don't use anything like 'Here is the ten possible keywords'";
-        $result = directorist_get_form_groq_ai( $prompt );
+        if( 1 == $step ) {
+            $html = $this->ai_create_keywords( $prompt );
+        }
 
-        if( ! $result ) {
+        if( 2 == $step ) {
+            $html = $this->ai_create_fields( $prompt, $keywords );
+        }
+
+
+        $installed['success'] = true;
+        $installed['html'] = $html;
+        wp_send_json( $installed );
+    }
+
+    public function ai_create_fields( $prompt ) {
+        $prompt = "$prompt.I need add listing page fields list. Don not add any intro just give me every individual fields within @@ so that I can easily extract. Also add field type for every html field with <type> tag with best possible options for select type fields. Don not add something like 'Here is the list of fields for a..'";
+        $response = directorist_get_form_groq_ai( $prompt );
+
+        if( ! $response ) {
             wp_send_json([
                 'status' => [
                     'success' => false,
@@ -483,30 +499,93 @@ class Multi_Directory_Manager {
             ], 200);
         }
 
-        $list = explode("@", $result);
+
+
+        $lines = explode("\n", $response);
+
+        $result = [];
+
+        foreach ($lines as $line) {
+            // Use regex to extract field label and type, handling possible special characters like forward slashes
+            if (preg_match('/@@(.*?)<(.*?)>/', $line, $matches)) {
+                $label = trim($matches[1]);  // Field label (e.g., "Car Title")
+                $label = preg_replace('/^@@/', '', $label);  // Remove the @@ from the start of the label
+                
+                $type = trim($matches[2]);   // Field type (e.g., "text", "select")
+        
+                // Store each field's label and type in the result array
+                $result[] = [
+                    'label' => $label,
+                    'type' => $type
+                ];
+            }
+        }
+
+        return $result;
+
+
+        ob_start();?>
+
+        <?php 
+        if( ! empty( $list ) ) {
+            foreach( $list as $keyword ) { ?>
+                <div class="directorist-create-directory__checkbox">
+                    <input type="checkbox" name="keywords[]" id="<?php echo esc_html( $keyword ); ?></" value="<?php echo esc_html( $keyword ); ?></">
+                    <label for="<?php echo esc_html( $keyword ); ?></">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+                            fill="none">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M11.7635 4.70687C10.2238 2.94328 7.60389 2.45502 5.49985 3.66979C4.06087 4.50059 3.19067 5.93811 3.02705 7.47526C2.98808 7.84138 2.65969 8.10659 2.29357 8.06762C1.92745 8.02865 1.66224 7.70026 1.70121 7.33414C1.90799 5.39143 3.00951 3.56799 4.83318 2.51509C7.58574 0.925898 11.0354 1.63775 12.9547 4.0538L13.0271 3.78349C13.1224 3.42785 13.4879 3.21679 13.8436 3.31208C14.1992 3.40738 14.4103 3.77294 14.315 4.12858L13.827 5.94995C13.7812 6.12074 13.6695 6.26635 13.5163 6.35475C13.3632 6.44316 13.1812 6.46712 13.0105 6.42135L11.1891 5.93332C10.8334 5.83803 10.6224 5.47247 10.7177 5.11682C10.813 4.76118 11.1785 4.55012 11.5342 4.64542L11.7635 4.70687ZM13.7059 7.93247C14.072 7.97144 14.3373 8.29984 14.2983 8.66596C14.0915 10.6087 12.99 12.4321 11.1663 13.485C8.41388 15.0741 4.96444 14.3624 3.04511 11.9466L2.97277 12.2166C2.87748 12.5723 2.51192 12.7833 2.15627 12.688C1.80063 12.5927 1.58957 12.2272 1.68487 11.8715L2.1729 10.0502C2.2682 9.69451 2.63376 9.48346 2.9894 9.57875L4.81077 10.0668C5.16641 10.1621 5.37747 10.5276 5.28217 10.8833C5.18688 11.2389 4.82132 11.45 4.46567 11.3547L4.23585 11.2931C5.77553 13.0568 8.39555 13.5451 10.4996 12.3303C11.9386 11.4995 12.8088 10.062 12.9724 8.52483C13.0114 8.15871 13.3398 7.8935 13.7059 7.93247Z"
+                                fill="currentColor" />
+                        </svg>
+                        <?php echo ucwords( $keyword ); ?></
+                    </label>
+                </div>
+            <?php }
+        }
+
+        return ob_get_clean();
+    }
+
+    public function ai_create_keywords( $prompt ) {
+        $prompt = "$prompt. Give me 10 relative keywords separated by @. Don't use anything like 'Here is the ten possible keywords'";
+        $response = directorist_get_form_groq_ai( $prompt );
+
+        if( ! $response ) {
+            wp_send_json([
+                'status' => [
+                    'success' => false,
+                    'message' => __( 'Something went wrong, please try again', 'directorist' ),
+                ],
+            ], 200);
+        }
+
+        $list = explode("@", $response);
 
         // Trim any leading/trailing spaces from each element
         $list = array_map('trim', $list);
 
         ob_start();?>
 
-        <h1>Step 2 Select Keyword</h1>
         <?php 
         if( ! empty( $list ) ) {
             foreach( $list as $keyword ) { ?>
-                <blockquote><?php echo esc_html( $keyword ); ?></blockquote>
+                <div class="directorist-create-directory__checkbox">
+                    <input type="checkbox" name="keywords[]" id="<?php echo esc_html( $keyword ); ?></" value="<?php echo esc_html( $keyword ); ?></">
+                    <label for="<?php echo esc_html( $keyword ); ?></">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+                            fill="none">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M11.7635 4.70687C10.2238 2.94328 7.60389 2.45502 5.49985 3.66979C4.06087 4.50059 3.19067 5.93811 3.02705 7.47526C2.98808 7.84138 2.65969 8.10659 2.29357 8.06762C1.92745 8.02865 1.66224 7.70026 1.70121 7.33414C1.90799 5.39143 3.00951 3.56799 4.83318 2.51509C7.58574 0.925898 11.0354 1.63775 12.9547 4.0538L13.0271 3.78349C13.1224 3.42785 13.4879 3.21679 13.8436 3.31208C14.1992 3.40738 14.4103 3.77294 14.315 4.12858L13.827 5.94995C13.7812 6.12074 13.6695 6.26635 13.5163 6.35475C13.3632 6.44316 13.1812 6.46712 13.0105 6.42135L11.1891 5.93332C10.8334 5.83803 10.6224 5.47247 10.7177 5.11682C10.813 4.76118 11.1785 4.55012 11.5342 4.64542L11.7635 4.70687ZM13.7059 7.93247C14.072 7.97144 14.3373 8.29984 14.2983 8.66596C14.0915 10.6087 12.99 12.4321 11.1663 13.485C8.41388 15.0741 4.96444 14.3624 3.04511 11.9466L2.97277 12.2166C2.87748 12.5723 2.51192 12.7833 2.15627 12.688C1.80063 12.5927 1.58957 12.2272 1.68487 11.8715L2.1729 10.0502C2.2682 9.69451 2.63376 9.48346 2.9894 9.57875L4.81077 10.0668C5.16641 10.1621 5.37747 10.5276 5.28217 10.8833C5.18688 11.2389 4.82132 11.45 4.46567 11.3547L4.23585 11.2931C5.77553 13.0568 8.39555 13.5451 10.4996 12.3303C11.9386 11.4995 12.8088 10.062 12.9724 8.52483C13.0114 8.15871 13.3398 7.8935 13.7059 7.93247Z"
+                                fill="currentColor" />
+                        </svg>
+                        <?php echo ucwords( $keyword ); ?></
+                    </label>
+                </div>
             <?php }
         }
-        ?>
-        
-        <button class="directorist-ai-directory-submit-step-two">Submit</button>
-        
-        <?php
-        $form = ob_get_clean();
 
-        $installed['success'] = true;
-        $installed['html'] = $form;
-        wp_send_json( $installed );
+        return ob_get_clean();
     }
 
     public function directorist_directory_type_library() {

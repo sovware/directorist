@@ -1274,6 +1274,60 @@
     margin-bottom: 20px;
   }
 }
+.directory-generate-progress-list{
+  margin-top: 34px;
+  ul{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    li{
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 12px;
+      align-self: stretch;
+      color: #4D5761;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 20px;
+      svg{
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+  &__btn{
+    position: relative;
+    gap: 8px;
+    padding: 0 16px;
+    font-size: 14px;
+    font-weight: 600;
+    background-color: #3E62F5;
+    border:1px solid #3E62F5;
+    color: #FFF;
+    box-shadow: 0px 1px 2px 0px rgba(27, 36, 44, 0.12);
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 32px;
+    margin-bottom: 30px;
+    svg{
+      width: 20px;
+      height: 20px;
+    }
+    &.disabled{
+      opacity: 0.5;
+    }
+  }
+}
 
 //Ai Generate box
 .directorist-ai-generate-box {

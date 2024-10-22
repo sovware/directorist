@@ -534,7 +534,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 			}
 
 			$registration_page = get_directorist_option( 'custom_registration' );
-			if( ! get_directorist_option( 'new_user_registration', true ) && $registration_page && is_page( $registration_page ) ) {
+			if ( ! directorist_is_user_registration_enabled() && $registration_page && is_page( $registration_page ) ) {
 				wp_redirect( home_url( '/' ) );
 				exit;
 			}
@@ -804,8 +804,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 		}
 
 		public function handle_user_registration() {
-			$new_user_registration = (bool) get_directorist_option( 'new_user_registration', true );
-			if ( ! directorist_verify_nonce() || ! isset( $_POST['atbdp_user_submit'] ) || ! $new_user_registration ) {
+			if ( ! directorist_verify_nonce() || ! isset( $_POST['atbdp_user_submit'] ) || ! directorist_is_user_registration_enabled() ) {
 				return;
 			}
 

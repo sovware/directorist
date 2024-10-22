@@ -72,8 +72,7 @@
 		</div>
 		<div class="directorist-create-directory__content">
 			<!-- Step 1 Building Directory -->
-			<div
-				class="directorist-create-directory__content__items directorist-create-directory__content__items--columns">
+			<div class="directorist-create-directory__content__items directorist-create-directory__content__items--columns" data-step="1">
 				<div class="directorist-create-directory__content__form-group">
 					<label class="directorist-create-directory__content__form-group-label" for="directory-name">
 						Directory Name <span class="required-label">*</span>
@@ -114,7 +113,7 @@
 			</div>
 
 			<!-- Step 2 Describe business -->
-			<div class="directorist-create-directory__content__items">
+			<div class="directorist-create-directory__content__items" data-step="2">
 				<div class="directorist-create-directory__content__form-group">
 					<label class="directorist-create-directory__content__form-group-label" for="business-name">
 						Directory Type
@@ -318,7 +317,7 @@
 			</div>
 
 			<!-- Step 3 initial Page -->
-			<div class="directorist-create-directory__content__items">
+			<div class="directorist-create-directory__content__items" data-step="3">
 				<div class="directorist-box">
 					<div class="directorist-box__item">
 						<label class="directorist-box__label" for="directorist-tagList">Select keywords</label>
@@ -399,7 +398,7 @@
 			</div>
 
 			<!-- Generate Field -->
-			<div class="directorist-ai-generate-box">
+			<div class="directorist-ai-generate-box" data-step="4">
 				<div class="directorist-ai-generate-box__header">
 					<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
 						<path
@@ -1088,7 +1087,7 @@
 			</div>
 
 			<!-- Generating Directory -->
-			<div class="directorist-create-directory__generate">
+			<div class="directorist-create-directory__generate" data-step="5">
 				<div class="directory-img">
 					<svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42" fill="none">
 						<path
@@ -1112,8 +1111,7 @@
 					</svg>
 				</div>
 				<h4 class="directory-title">Directory AI is generating fields... </h4>
-				<p class="directory-description"><strong>Almost there!</strong> We're using your infomation to finalize
-					your directory fields.</p>
+				<p class="directory-description"><strong>Almost there!</strong> We're using your infomation to finalize your directory fields.</p>
 				<div class="directory-generate-btn__wrapper" data-width="70">
 					<div class="directory-generate-btn--bg" style="width: 0%;">
 						<!-- Initial width set to 0% -->
@@ -1136,7 +1134,7 @@
 				</div>
 			</div>
 
-			<div class="directory-generate-progress-list">
+			<div class="directory-generate-progress-list" data-step="6">
 				<ul>
 					<li data-type="completed">
 						<div class="completed-icon" style="display: none;">
@@ -1336,3 +1334,18 @@
 		</div>
 	</div>
 </div>
+
+<!-- Step 1 Building Directory -->
+<!-- <div class="directorist-create-directory__content__items directorist-create-directory__content__items--columns" data-step="1">
+	Stwp One
+</div> -->
+
+<!-- Step 2 Describe business -->
+<!-- <div class="directorist-create-directory__content__items" data-step="2">
+	Step Two
+</div> -->
+
+<!-- Step 3 initial Page -->
+<!-- <div class="directorist-create-directory__content__items" data-step="3">
+	Step Three
+</div> -->

@@ -547,6 +547,11 @@ function initializeDropdownField() {
 }
 var $ = jQuery;
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").default;
+
+// Hide all steps except the first one initially
+$('.directorist-create-directory__content__items').hide();
+$('.directorist-create-directory__content__items[data-step="1"]').show();
+
 // handle firm step
 $('body').on('click', '.directorist_generate_ai_directory', function (e) {
   e.preventDefault();
@@ -565,12 +570,38 @@ $('body').on('click', '.directorist_generate_ai_directory', function (e) {
   var responseAiFormSuccess = function responseAiFormSuccess(response) {
     var _response$data6;
     if (response !== null && response !== void 0 && (_response$data6 = response.data) !== null && _response$data6 !== void 0 && _response$data6.success) {
-      if (step == 1) {
-        var _response$data7;
-        $('#directorist-recommendedTags').empty().html(response === null || response === void 0 || (_response$data7 = response.data) === null || _response$data7 === void 0 ? void 0 : _response$data7.html);
-        $(self).data('step', step + 1);
+      // Hide the current step and show the next one
+      $('.directorist-create-directory__content__items[data-step="' + step + '"]').hide(); // Hide current step
+      var nextStep = step + 1;
+      if ($('.directorist-create-directory__content__items[data-step="' + nextStep + '"]').length) {
+        $('.directorist-create-directory__content__items[data-step="' + nextStep + '"]').show(); // Show next step
+      } else {
+        console.log('No more steps available');
       }
-      if (step == 2) {}
+      if (step == 1) {
+        var _response$data7, _response$data8;
+        console.log('Response for Step One', response === null || response === void 0 || (_response$data7 = response.data) === null || _response$data7 === void 0 ? void 0 : _response$data7.success);
+        $('#directorist-recommendedTags').empty().html(response === null || response === void 0 || (_response$data8 = response.data) === null || _response$data8 === void 0 ? void 0 : _response$data8.html);
+      }
+      if (step == 2) {
+        var _response$data9;
+        console.log('Response for Step Two', response === null || response === void 0 || (_response$data9 = response.data) === null || _response$data9 === void 0 ? void 0 : _response$data9.success);
+      }
+      if (step == 3) {
+        var _response$data10;
+        console.log('Response for Step Three', response === null || response === void 0 || (_response$data10 = response.data) === null || _response$data10 === void 0 ? void 0 : _response$data10.success);
+      }
+      if (step == 4) {
+        var _response$data11;
+        console.log('Response for Step Four', response === null || response === void 0 || (_response$data11 = response.data) === null || _response$data11 === void 0 ? void 0 : _response$data11.success);
+      }
+      if (step == 5) {
+        var _response$data12;
+        console.log('Response for Step Five', response === null || response === void 0 || (_response$data12 = response.data) === null || _response$data12 === void 0 ? void 0 : _response$data12.success);
+      }
+
+      // Update step data attribute
+      $(self).data('step', nextStep);
       console.log(response);
       return;
     }

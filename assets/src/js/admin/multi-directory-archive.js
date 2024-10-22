@@ -317,6 +317,11 @@ function initializeDropdownField(){
 
 var $ = jQuery;
 const axios = require('axios').default;
+
+// Hide all steps except the first one initially
+$('.directorist-create-directory__content__items').hide();
+$('.directorist-create-directory__content__items[data-step="1"]').show();
+
 // handle firm step
 $('body').on( 'click', '.directorist_generate_ai_directory', function( e ) {
     e.preventDefault();
@@ -337,17 +342,41 @@ $('body').on( 'click', '.directorist_generate_ai_directory', function( e ) {
     const responseAiFormSuccess = function ( response ) {
 
         if ( response?.data?.success ) {
+            // Hide the current step and show the next one
+            $('.directorist-create-directory__content__items[data-step="' + step + '"]').hide(); // Hide current step
+            let nextStep = step + 1;
 
-            if( step == 1 ) {
+            if ($('.directorist-create-directory__content__items[data-step="' + nextStep + '"]').length) {
+                $('.directorist-create-directory__content__items[data-step="' + nextStep + '"]').show(); // Show next step
+            } else {
+                console.log('No more steps available');
+            }
+
+            if ( step == 1 ) {
+                console.log( 'Response for Step One', response?.data?.success );
                 $( '#directorist-recommendedTags' ).empty().html( response?.data?.html );
-                $(self).data('step', step + 1 );
             }
 
-            if( step == 2 ) {
-
+            if ( step == 2 ) {
+                console.log( 'Response for Step Two', response?.data?.success );
             }
 
-            console.log( response );
+            if ( step == 3 ) {
+                console.log( 'Response for Step Three', response?.data?.success );
+            }
+
+            if ( step == 4 ) {
+                console.log( 'Response for Step Four', response?.data?.success );
+            }
+
+            if ( step == 5 ) {
+                console.log( 'Response for Step Five', response?.data?.success );
+            }
+
+            // Update step data attribute
+            $(self).data('step', nextStep);
+
+            console.log(response);
             return;
         }
 

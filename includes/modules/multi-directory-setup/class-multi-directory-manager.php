@@ -487,8 +487,8 @@ class Multi_Directory_Manager {
     }
 
     public function ai_create_fields( $prompt ) {
-        $prompt = "$prompt.I need add listing page fields list. Don not add any intro just give me every individual fields within @@ so that I can easily extract. Also add html field type with for every field within ## tag. Add best possible options for select, radio & checkbox fields.";
-        $prompt = 'I want to create a Car directory in Dhaka, Bangladesh. I need the listing page fields list. For each field, return an array with the following keys:
+        
+        $prompt = $prompt . '. I need the listing page fields list. For each field, return an array with the following keys:
 
 "label": The label of the field without the @@.
 "type": The input type (e.g., <input type="text">, <textarea>, etc.).

@@ -48,7 +48,6 @@
 					<li class="active"></li>
 					<li></li>
 					<li></li>
-					<li></li>
 				</ul>
 				<span class="step-count">
 					<span class="current-step">

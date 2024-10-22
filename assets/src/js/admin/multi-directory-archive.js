@@ -364,6 +364,8 @@ $('body').on( 'click', '.directorist_generate_ai_directory', function( e ) {
             // Update step data attribute
             $(self).data('step', nextStep);
             $('.directorist-create-directory__step .step-count .current-step').html(nextStep);
+            // Add 'active' class to the next step
+            $(`.directorist-create-directory__step .atbdp-setup-steps li:nth-child(${nextStep})`).addClass('active');
 
             if ($('.directorist-create-directory__content__items[data-step="' + nextStep + '"]').length) {
                 // Show next step

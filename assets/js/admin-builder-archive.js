@@ -370,7 +370,7 @@ function initializeKeyword() {
   (function () {
     var tagList = []; // Select default keyword
     var maxFreeTags = 5; //Maz item for free user
-    var isProUser = true; //is it free user or pro user
+    var isProUser = false; //is it free user or pro user
 
     var tagListElem = document.getElementById("directorist-box__tagList");
     var newTagElem = document.getElementById("directorist-box__newTag");

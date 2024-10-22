@@ -31859,6 +31859,7 @@ span.drop-toggle-caret:before {
   min-width: 622px;
   max-height: 600px;
   overflow: auto;
+  margin: 0 auto;
 }
 .directorist-create-directory__content::-webkit-scrollbar {
   display: none;

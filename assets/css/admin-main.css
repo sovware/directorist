@@ -33239,12 +33239,6 @@ span.drop-toggle-caret:before {
       -ms-flex-item-align: stretch;
           align-self: stretch;
 }
-.directorist-ai-generate-box__item.pinned {
-  -webkit-box-ordinal-group: 0;
-  -webkit-order: -1;
-      -ms-flex-order: -1;
-          order: -1;
-}
 .directorist-ai-generate-box__item.pinned .directorist-ai-generate-dropdown__pin-icon svg {
   color: #3E62F5;
 }

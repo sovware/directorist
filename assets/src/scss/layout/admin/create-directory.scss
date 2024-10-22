@@ -1394,8 +1394,6 @@
     align-self: stretch;
 
     &.pinned {
-      order: -1;
-
       .directorist-ai-generate-dropdown__pin-icon {
         svg {
           color: #3E62F5;

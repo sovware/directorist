@@ -61,39 +61,42 @@ window.addEventListener('load', () => {
     });
 
 
-    // show the form
-    $( '.directorist-ai-directory-creation' ).on( 'click', function( e ) {
+    // Show the form when the '.directorist-ai-directory-creation' element is clicked
+    $('.directorist-ai-directory-creation').on('click', function(e) {
         e.preventDefault();
-        const self = this;
 
-        console.log("rony");
-
+        // Prepare form data for the request
         let form_data = new FormData();
-        form_data.append( 'action', 'directorist_ai_directory_form' );
+        form_data.append('action', 'directorist_ai_directory_form');
 
-        // Response Success Callback
-        const responseAiFormSuccess = function ( response ) {
+        // Success callback to handle the response
+        const responseAIFormSuccess = function(response) {
+            if (response?.data?.success) {
+                // Replace the content inside '#wpbody' with the response HTML
+                $('#wpbody').empty().html(response?.data?.html);
+                console.log('Form Loaded Successfully');
 
-            if ( response?.data?.success ) {
-                $( '#wpbody' ).empty().html( response?.data?.html );
-
-                initializeKeyword();
-                initializeProgressBar();
-                initializeDropdownField();
+                // Initialize any required steps after form load
+                initialStepContents(); // Initialize the content for the first step
+                // initializeKeyword();   
+                // initializeProgressBar(); 
+                // initializeDropdownField();
 
                 return;
             }
 
-            alert('Something went wrong! Please try again');
+            // Show an error message if the request was not successful
+            alert('Initi Something went wrong! Please try again');
         };
 
-        // Send Request
-        axios.post( directorist_admin.ajax_url, form_data ).then( response => {
-            responseAiFormSuccess( response );
-        }).catch( response => {
-            alert('Something went wrong! Please try again');
-        });
+        // Send the request using Axios
+        axios.post(directorist_admin.ajax_url, form_data)
+            .then(response => {
+                console.log('@Response Successfully', response);
+                responseAIFormSuccess(response);  // Handle the response
+            })
     });
+
 
 });
 
@@ -195,9 +198,6 @@ function initializeKeyword() {
         initTagManagement();
     })();
 }
-
-
-
 
 // Function to initialize Progress bar
 function initializeProgressBar() {
@@ -306,18 +306,39 @@ function initializeDropdownField(){
     });
 }
 
+// Initial Step Contents
+function initialStepContents() {
+    console.log('Initial Step Contents');
+    // Hide all steps except the first one initially
+    $('#directorist-create-directory__creating').hide();
+    $('#directorist-create-directory__ai-fields').hide();
+    $('#directorist-create-directory__generating').hide();
+    $('.directorist-create-directory__content__items').hide();
+    $('.directorist-create-directory__content__items[data-step="1"]').show();
+    $('.directorist-create-directory__step .step-count .current-step').html(1);
+}
 
+// Handle Step One
+function handleStepOne(response) {
+    console.log('Handle Step One');
+    $( '#directorist-recommendedTags' ).empty().html( response );
+}
 
+// Handle Step Two
+function handleStepTwo() {
+    console.log('Handle Step Two');
+}
+
+// Handle Step Three
+function handleStepThree() {
+    console.log('Handle Step Three');
+}
 
 
 var $ = jQuery;
 const axios = require('axios').default;
 
-// Hide all steps except the first one initially
-$('.directorist-create-directory__content__items').hide();
-$('.directorist-create-directory__content__items[data-step="1"]').show();
-
-// handle firm step
+// handle form step
 $('body').on( 'click', '.directorist_generate_ai_directory', function( e ) {
     e.preventDefault();
     const self = this;
@@ -334,44 +355,33 @@ $('body').on( 'click', '.directorist_generate_ai_directory', function( e ) {
     form_data.append( 'step', step );
 
     // Response Success Callback
-    const responseAiFormSuccess = function ( response ) {
-
+    const responseAIFormSuccess = function ( response ) {
         if ( response?.data?.success ) {
             // Hide the current step and show the next one
-            $('.directorist-create-directory__content__items[data-step="' + step + '"]').hide(); // Hide current step
+            $('.directorist-create-directory__content__items[data-step="' + step + '"]').hide(); 
+            
             let nextStep = step + 1;
+            // Update step data attribute
+            $(self).data('step', nextStep);
+            $('.directorist-create-directory__step .step-count .current-step').html(nextStep);
 
             if ($('.directorist-create-directory__content__items[data-step="' + nextStep + '"]').length) {
-                $('.directorist-create-directory__content__items[data-step="' + nextStep + '"]').show(); // Show next step
+                // Show next step
+                $('.directorist-create-directory__content__items[data-step="' + nextStep + '"]').show();
             } else {
                 console.log('No more steps available');
             }
 
             if ( step == 1 ) {
-                console.log( 'Response for Step One', response?.data?.success );
-                $( '#directorist-recommendedTags' ).empty().html( response?.data?.html );
+                handleStepOne(response?.data?.html);
+            } else if ( step == 2 ) {
+                handleStepTwo();
+            } else if ( step == 3 ) {
+                handleStepThree();
+            } else {
+                console.log('No more steps available');
             }
 
-            if ( step == 2 ) {
-                console.log( 'Response for Step Two', response?.data?.success );
-            }
-
-            if ( step == 3 ) {
-                console.log( 'Response for Step Three', response?.data?.success );
-            }
-
-            if ( step == 4 ) {
-                console.log( 'Response for Step Four', response?.data?.success );
-            }
-
-            if ( step == 5 ) {
-                console.log( 'Response for Step Five', response?.data?.success );
-            }
-
-            // Update step data attribute
-            $(self).data('step', nextStep);
-
-            console.log(response);
             return;
         }
 
@@ -380,7 +390,7 @@ $('body').on( 'click', '.directorist_generate_ai_directory', function( e ) {
 
     // Send Request
     axios.post( directorist_admin.ajax_url, form_data ).then( response => {
-        responseAiFormSuccess( response );
+        responseAIFormSuccess( response );
     }).catch( response => {
         alert('Something went wrong! Please try again');
     });

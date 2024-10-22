@@ -50,10 +50,14 @@
 					<li></li>
 					<li></li>
 				</ul>
-				<span class="step-count"><?php esc_html_e(
-                    sprintf("%d/4", $active_number),
-                    "directorist"
-                ); ?></span>
+				<span class="step-count">
+					<span class="current-step">
+						<?php esc_html_e(
+							sprintf("%d", $active_number),
+						"directorist"
+					); ?>
+					</span>/3
+				</span>
 			</div>
 			<div class="directorist-create-directory__info">
 				<h1 class="directorist-create-directory__info__title">
@@ -323,8 +327,7 @@
 						<label class="directorist-box__label" for="directorist-tagList">Select keywords</label>
 						<div class="directorist-box__input-wrapper">
 							<ul id="directorist-box__tagList" class="directorist-box__tagList">
-								<li><input type="text" id="directorist-box__newTag" class="directorist-box__input"
-										placeholder="Add keyword..." /></li>
+								<li><input type="text" id="directorist-box__newTag" class="directorist-box__input" placeholder="Add keyword..." /></li>
 							</ul>
 						</div>
 						<div class="directorist-box-options__wrapper">
@@ -367,8 +370,56 @@
 				</div>
 			</div>
 
+			<!-- Generating Directory -->
+			<div id="directorist-create-directory__generating" class="directorist-create-directory__generate">
+				<div class="directory-img">
+					<svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42" fill="none">
+						<path
+							d="M27 1L28.0775 5.78315C28.9914 9.8403 32.1597 13.0086 36.2168 13.9225L41 15L36.2168 16.0775C32.1597 16.9914 28.9914 20.1597 28.0775 24.2168L27 29L25.9225 24.2168C25.0086 20.1597 21.8403 16.9914 17.7832 16.0775L13 15L17.7832 13.9225C21.8403 13.0086 25.0086 9.8403 25.9225 5.78316L27 1Z"
+							stroke="url(#paint0_linear_5920_1562)" stroke-width="1.5" stroke-linejoin="round"></path>
+						<path
+							d="M11 21L11.7696 24.4165C12.4224 27.3145 14.6855 29.5776 17.5835 30.2304L21 31L17.5835 31.7696C14.6855 32.4224 12.4224 34.6855 11.7696 37.5835L11 41L10.2304 37.5835C9.57758 34.6855 7.3145 32.4224 4.41654 31.7696L1 31L4.41654 30.2304C7.3145 29.5776 9.57759 27.3145 10.2304 24.4165L11 21Z"
+							stroke="url(#paint1_linear_5920_1562)" stroke-width="1.5" stroke-linejoin="round"></path>
+						<defs>
+							<linearGradient id="paint0_linear_5920_1562" x1="27" y1="1" x2="27" y2="29"
+								gradientUnits="userSpaceOnUse">
+								<stop stop-color="#6E89F7"></stop>
+								<stop offset="1" stop-color="#092AAF"></stop>
+							</linearGradient>
+							<linearGradient id="paint1_linear_5920_1562" x1="11" y1="21" x2="11" y2="41"
+								gradientUnits="userSpaceOnUse">
+								<stop stop-color="#6E89F7"></stop>
+								<stop offset="1" stop-color="#092AAF"></stop>
+							</linearGradient>
+						</defs>
+					</svg>
+				</div>
+				<h4 class="directory-title">Directory AI is generating fields... </h4>
+				<p class="directory-description"><strong>Almost there!</strong> We're using your infomation to finalize your directory fields.</p>
+				<div class="directory-generate-btn__wrapper" data-width="70">
+					<div class="directory-generate-btn--bg" style="width: 0%;">
+						<!-- Initial width set to 0% -->
+					</div>
+					<div class="directory-generate-btn__content">
+						<svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none">
+							<path
+								d="M15.9359 10.5828L11.9063 9.09375L10.4219 5.06094C10.334 4.82213 10.1749 4.61604 9.96622 4.47046C9.75751 4.32488 9.50916 4.24682 9.25469 4.24682C9.00022 4.24682 8.75187 4.32488 8.54316 4.47046C8.33444 4.61604 8.17541 4.82213 8.0875 5.06094L6.59375 9.09375L2.56094 10.5781C2.32213 10.666 2.11604 10.8251 1.97046 11.0338C1.82488 11.2425 1.74683 11.4908 1.74683 11.7453C1.74683 11.9998 1.82488 12.2481 1.97046 12.4568C2.11604 12.6656 2.32213 12.8246 2.56094 12.9125L6.59375 14.4062L8.07813 18.4391C8.16603 18.6779 8.32507 18.884 8.53378 19.0295C8.7425 19.1751 8.99085 19.2532 9.24532 19.2532C9.49979 19.2532 9.74813 19.1751 9.95685 19.0295C10.1656 18.884 10.3246 18.6779 10.4125 18.4391L11.9063 14.4062L15.9391 12.9219C16.1779 12.834 16.384 12.6749 16.5295 12.4662C16.6751 12.2575 16.7532 12.0092 16.7532 11.7547C16.7532 11.5002 16.6751 11.2519 16.5295 11.0432C16.384 10.8344 16.1779 10.6754 15.9391 10.5875L15.9359 10.5828ZM11.2031 13.3297C11.1183 13.361 11.0412 13.4103 10.9773 13.4742C10.9134 13.5381 10.8641 13.6152 10.8328 13.7L9.25 17.9883L7.67031 13.7031C7.6391 13.6174 7.58949 13.5395 7.52498 13.475C7.46046 13.4105 7.38261 13.3609 7.29688 13.3297L3.01172 11.75L7.29688 10.1703C7.38261 10.1391 7.46046 10.0895 7.52498 10.025C7.58949 9.96046 7.6391 9.8826 7.67031 9.79688L9.25 5.51172L10.8297 9.79688C10.861 9.88171 10.9103 9.95875 10.9742 10.0227C11.0381 10.0866 11.1152 10.1359 11.2 10.1672L15.4883 11.75L11.2031 13.3297ZM11.75 3.625C11.75 3.45924 11.8158 3.30027 11.9331 3.18306C12.0503 3.06585 12.2092 3 12.375 3H13.625V1.75C13.625 1.58424 13.6908 1.42527 13.8081 1.30806C13.9253 1.19085 14.0842 1.125 14.25 1.125C14.4158 1.125 14.5747 1.19085 14.6919 1.30806C14.8092 1.42527 14.875 1.58424 14.875 1.75V3H16.125C16.2908 3 16.4497 3.06585 16.5669 3.18306C16.6842 3.30027 16.75 3.45924 16.75 3.625C16.75 3.79076 16.6842 3.94973 16.5669 4.06694C16.4497 4.18415 16.2908 4.25 16.125 4.25H14.875V5.5C14.875 5.66576 14.8092 5.82473 14.6919 5.94194C14.5747 6.05915 14.4158 6.125 14.25 6.125C14.0842 6.125 13.9253 6.05915 13.8081 5.94194C13.6908 5.82473 13.625 5.66576 13.625 5.5V4.25H12.375C12.2092 4.25 12.0503 4.18415 11.9331 4.06694C11.8158 3.94973 11.75 3.79076 11.75 3.625ZM19.875 7.375C19.875 7.54076 19.8092 7.69973 19.6919 7.81694C19.5747 7.93415 19.4158 8 19.25 8H18.625V8.625C18.625 8.79076 18.5592 8.94973 18.4419 9.06694C18.3247 9.18415 18.1658 9.25 18 9.25C17.8342 9.25 17.6753 9.18415 17.5581 9.06694C17.4408 8.94973 17.375 8.79076 17.375 8.625V8H16.75C16.5842 8 16.4253 7.93415 16.3081 7.81694C16.1908 7.69973 16.125 7.54076 16.125 7.375C16.125 7.20924 16.1908 7.05027 16.3081 6.93306C16.4253 6.81585 16.5842 6.75 16.75 6.75H17.375V6.125C17.375 5.95924 17.4408 5.80027 17.5581 5.68306C17.6753 5.56585 17.8342 5.5 18 5.5C18.1658 5.5 18.3247 5.56585 18.4419 5.68306C18.5592 5.80027 18.625 5.95924 18.625 6.125V6.75H19.25C19.4158 6.75 19.5747 6.81585 19.6919 6.93306C19.8092 7.05027 19.875 7.20924 19.875 7.375Z"
+								fill="url(#paint0_linear_5661_2975)"></path>
+							<defs>
+								<linearGradient id="paint0_linear_5661_2975" x1="10.8109" y1="1.125" x2="10.8109"
+									y2="19.2532" gradientUnits="userSpaceOnUse">
+									<stop stop-color="#E7B9EB"></stop>
+									<stop offset="1" stop-color="#092AAF"></stop>
+								</linearGradient>
+							</defs>
+						</svg>
+						Fields are being generated... <span class="directory-generate-btn__percentage">0%</span>
+					</div>
+				</div>
+			</div>
+
 			<!-- Generate Field -->
-			<div class="directorist-ai-generate-box" data-step="4">
+			<div id="directorist-create-directory__ai-fields" class="directorist-ai-generate-box" data-step="4">
 				<div class="directorist-ai-generate-box__header">
 					<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
 						<path
@@ -1056,55 +1107,7 @@
 				</div>
 			</div>
 
-			<!-- Generating Directory -->
-			<div class="directorist-create-directory__generate" data-step="5">
-				<div class="directory-img">
-					<svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42" fill="none">
-						<path
-							d="M27 1L28.0775 5.78315C28.9914 9.8403 32.1597 13.0086 36.2168 13.9225L41 15L36.2168 16.0775C32.1597 16.9914 28.9914 20.1597 28.0775 24.2168L27 29L25.9225 24.2168C25.0086 20.1597 21.8403 16.9914 17.7832 16.0775L13 15L17.7832 13.9225C21.8403 13.0086 25.0086 9.8403 25.9225 5.78316L27 1Z"
-							stroke="url(#paint0_linear_5920_1562)" stroke-width="1.5" stroke-linejoin="round"></path>
-						<path
-							d="M11 21L11.7696 24.4165C12.4224 27.3145 14.6855 29.5776 17.5835 30.2304L21 31L17.5835 31.7696C14.6855 32.4224 12.4224 34.6855 11.7696 37.5835L11 41L10.2304 37.5835C9.57758 34.6855 7.3145 32.4224 4.41654 31.7696L1 31L4.41654 30.2304C7.3145 29.5776 9.57759 27.3145 10.2304 24.4165L11 21Z"
-							stroke="url(#paint1_linear_5920_1562)" stroke-width="1.5" stroke-linejoin="round"></path>
-						<defs>
-							<linearGradient id="paint0_linear_5920_1562" x1="27" y1="1" x2="27" y2="29"
-								gradientUnits="userSpaceOnUse">
-								<stop stop-color="#6E89F7"></stop>
-								<stop offset="1" stop-color="#092AAF"></stop>
-							</linearGradient>
-							<linearGradient id="paint1_linear_5920_1562" x1="11" y1="21" x2="11" y2="41"
-								gradientUnits="userSpaceOnUse">
-								<stop stop-color="#6E89F7"></stop>
-								<stop offset="1" stop-color="#092AAF"></stop>
-							</linearGradient>
-						</defs>
-					</svg>
-				</div>
-				<h4 class="directory-title">Directory AI is generating fields... </h4>
-				<p class="directory-description"><strong>Almost there!</strong> We're using your infomation to finalize your directory fields.</p>
-				<div class="directory-generate-btn__wrapper" data-width="70">
-					<div class="directory-generate-btn--bg" style="width: 0%;">
-						<!-- Initial width set to 0% -->
-					</div>
-					<div class="directory-generate-btn__content">
-						<svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none">
-							<path
-								d="M15.9359 10.5828L11.9063 9.09375L10.4219 5.06094C10.334 4.82213 10.1749 4.61604 9.96622 4.47046C9.75751 4.32488 9.50916 4.24682 9.25469 4.24682C9.00022 4.24682 8.75187 4.32488 8.54316 4.47046C8.33444 4.61604 8.17541 4.82213 8.0875 5.06094L6.59375 9.09375L2.56094 10.5781C2.32213 10.666 2.11604 10.8251 1.97046 11.0338C1.82488 11.2425 1.74683 11.4908 1.74683 11.7453C1.74683 11.9998 1.82488 12.2481 1.97046 12.4568C2.11604 12.6656 2.32213 12.8246 2.56094 12.9125L6.59375 14.4062L8.07813 18.4391C8.16603 18.6779 8.32507 18.884 8.53378 19.0295C8.7425 19.1751 8.99085 19.2532 9.24532 19.2532C9.49979 19.2532 9.74813 19.1751 9.95685 19.0295C10.1656 18.884 10.3246 18.6779 10.4125 18.4391L11.9063 14.4062L15.9391 12.9219C16.1779 12.834 16.384 12.6749 16.5295 12.4662C16.6751 12.2575 16.7532 12.0092 16.7532 11.7547C16.7532 11.5002 16.6751 11.2519 16.5295 11.0432C16.384 10.8344 16.1779 10.6754 15.9391 10.5875L15.9359 10.5828ZM11.2031 13.3297C11.1183 13.361 11.0412 13.4103 10.9773 13.4742C10.9134 13.5381 10.8641 13.6152 10.8328 13.7L9.25 17.9883L7.67031 13.7031C7.6391 13.6174 7.58949 13.5395 7.52498 13.475C7.46046 13.4105 7.38261 13.3609 7.29688 13.3297L3.01172 11.75L7.29688 10.1703C7.38261 10.1391 7.46046 10.0895 7.52498 10.025C7.58949 9.96046 7.6391 9.8826 7.67031 9.79688L9.25 5.51172L10.8297 9.79688C10.861 9.88171 10.9103 9.95875 10.9742 10.0227C11.0381 10.0866 11.1152 10.1359 11.2 10.1672L15.4883 11.75L11.2031 13.3297ZM11.75 3.625C11.75 3.45924 11.8158 3.30027 11.9331 3.18306C12.0503 3.06585 12.2092 3 12.375 3H13.625V1.75C13.625 1.58424 13.6908 1.42527 13.8081 1.30806C13.9253 1.19085 14.0842 1.125 14.25 1.125C14.4158 1.125 14.5747 1.19085 14.6919 1.30806C14.8092 1.42527 14.875 1.58424 14.875 1.75V3H16.125C16.2908 3 16.4497 3.06585 16.5669 3.18306C16.6842 3.30027 16.75 3.45924 16.75 3.625C16.75 3.79076 16.6842 3.94973 16.5669 4.06694C16.4497 4.18415 16.2908 4.25 16.125 4.25H14.875V5.5C14.875 5.66576 14.8092 5.82473 14.6919 5.94194C14.5747 6.05915 14.4158 6.125 14.25 6.125C14.0842 6.125 13.9253 6.05915 13.8081 5.94194C13.6908 5.82473 13.625 5.66576 13.625 5.5V4.25H12.375C12.2092 4.25 12.0503 4.18415 11.9331 4.06694C11.8158 3.94973 11.75 3.79076 11.75 3.625ZM19.875 7.375C19.875 7.54076 19.8092 7.69973 19.6919 7.81694C19.5747 7.93415 19.4158 8 19.25 8H18.625V8.625C18.625 8.79076 18.5592 8.94973 18.4419 9.06694C18.3247 9.18415 18.1658 9.25 18 9.25C17.8342 9.25 17.6753 9.18415 17.5581 9.06694C17.4408 8.94973 17.375 8.79076 17.375 8.625V8H16.75C16.5842 8 16.4253 7.93415 16.3081 7.81694C16.1908 7.69973 16.125 7.54076 16.125 7.375C16.125 7.20924 16.1908 7.05027 16.3081 6.93306C16.4253 6.81585 16.5842 6.75 16.75 6.75H17.375V6.125C17.375 5.95924 17.4408 5.80027 17.5581 5.68306C17.6753 5.56585 17.8342 5.5 18 5.5C18.1658 5.5 18.3247 5.56585 18.4419 5.68306C18.5592 5.80027 18.625 5.95924 18.625 6.125V6.75H19.25C19.4158 6.75 19.5747 6.81585 19.6919 6.93306C19.8092 7.05027 19.875 7.20924 19.875 7.375Z"
-								fill="url(#paint0_linear_5661_2975)"></path>
-							<defs>
-								<linearGradient id="paint0_linear_5661_2975" x1="10.8109" y1="1.125" x2="10.8109"
-									y2="19.2532" gradientUnits="userSpaceOnUse">
-									<stop stop-color="#E7B9EB"></stop>
-									<stop offset="1" stop-color="#092AAF"></stop>
-								</linearGradient>
-							</defs>
-						</svg>
-						Fields are being generated... <span class="directory-generate-btn__percentage">0%</span>
-					</div>
-				</div>
-			</div>
-
-			<div class="directory-generate-progress-list" data-step="6">
+			<div id="directorist-create-directory__creating" class="directory-generate-progress-list">
 				<ul>
 					<li data-type="completed">
 						<div class="completed-icon" style="display: none;">

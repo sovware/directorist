@@ -567,7 +567,7 @@ $('body').on('click', '.directorist_generate_ai_directory', function (e) {
     if (response !== null && response !== void 0 && (_response$data6 = response.data) !== null && _response$data6 !== void 0 && _response$data6.success) {
       if (step == 1) {
         var _response$data7;
-        $('.directorist-ai-keywords').empty().html(response === null || response === void 0 || (_response$data7 = response.data) === null || _response$data7 === void 0 ? void 0 : _response$data7.html);
+        $('#directorist-recommendedTags').empty().html(response === null || response === void 0 || (_response$data7 = response.data) === null || _response$data7 === void 0 ? void 0 : _response$data7.html);
         $(self).data('step', step + 1);
       }
       console.log(response);

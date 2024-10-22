@@ -339,7 +339,7 @@ $('body').on( 'click', '.directorist_generate_ai_directory', function( e ) {
         if ( response?.data?.success ) {
 
             if( step == 1 ) {
-                $( '.directorist-ai-keywords' ).empty().html( response?.data?.html );
+                $( '#directorist-recommendedTags' ).empty().html( response?.data?.html );
                 $(self).data('step', step + 1 );
             }
 

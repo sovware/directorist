@@ -31853,6 +31853,7 @@ span.drop-toggle-caret:before {
 .directorist-create-directory__content {
   border-radius: 12px;
   border: 1px solid #E5E7EB;
+  background-color: white;
   -webkit-box-shadow: 0px 3px 2px -1px rgba(27, 36, 44, 0.02), 0px 15px 24px -6px rgba(27, 36, 44, 0.08);
           box-shadow: 0px 3px 2px -1px rgba(27, 36, 44, 0.02), 0px 15px 24px -6px rgba(27, 36, 44, 0.08);
   max-width: 622px;

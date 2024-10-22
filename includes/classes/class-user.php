@@ -62,9 +62,8 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 
 			$params_json_decode    = json_decode( stripslashes( $_POST['params'] ), true );
 			$params                = directorist_clean( $params_json_decode);
-			$new_user_registration = ! empty( $params['new_user_registration'] ) && 'yes' === $params['new_user_registration']  ? 1 : 0;
 
-			if ( ! $new_user_registration ) {
+			if ( ! directorist_is_user_registration_enabled() ) {
 				wp_send_json_error( array(
 					'error' => 'You are not allowed to register.'
 				), 400 );

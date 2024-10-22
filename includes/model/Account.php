@@ -36,7 +36,6 @@ class Directorist_Account {
 			'user_role'            => get_directorist_option( 'display_user_type', false ) ? 'yes' : 'no',
 			'author_role_label'    => __( 'I am an author', 'directorist' ),
 			'user_role_label'      => __( 'I am a user', 'directorist' ),
-			'registration'         => get_directorist_option( 'new_user_registration', true ) ? 'yes' : 'no',
 			'username_label'       => get_directorist_option( 'reg_username', __( 'Username', 'directorist' ) ),
 			'password'             => get_directorist_option( 'display_password_reg', true ) ? 'yes' : 'no',
 			'password_label'       => get_directorist_option( 'reg_password', __( 'Password', 'directorist' ) ),
@@ -81,10 +80,9 @@ class Directorist_Account {
 
 		$user_type = ! empty( $_REQUEST['user_type'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['user_type'] ) ) : $atts['user_type'];
 
-		$data        = [
+		$data = [
 			'enable_user_type'					=> $atts['user_role'],
 			'user_type' 						=> $user_type,
-			'new_user_registration' 			=> $atts['registration'],
 			'enable_registration_password' 		=> $atts['password'],
 			'registration_username' 			=> $atts['username_label'],
 			'enable_registration_website' 		=> $atts['website'],
@@ -116,7 +114,7 @@ class Directorist_Account {
 			'reg_text'                  => $atts['signup_label'],
 			'reg_url'                   => ATBDP_Permalink::get_registration_page_link(),
 			'reg_linktxt'               => $atts['signup_linking_text'],
-			'new_user_registration'     => $atts['registration'],
+			'new_user_registration'     => directorist_is_user_registration_enabled(),
 			'parent'                    => 0,
 			'container_fluid'           => is_directoria_active() ? 'container' : 'container-fluid',
 			'username'                  => $atts['username_label'],
@@ -157,5 +155,4 @@ class Directorist_Account {
 
 		return Helper::get_template_contents( 'account/login-registration-form', $args );
 	}
-
 }

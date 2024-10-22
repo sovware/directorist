@@ -309,6 +309,7 @@
   @include e("content") {
     border-radius: 12px;
     border: 1px solid #E5E7EB;
+    background-color: white;
     box-shadow: 0px 3px 2px -1px rgba(27, 36, 44, 0.02), 0px 15px 24px -6px rgba(27, 36, 44, 0.08);
     max-width: 622px;
     min-width: 622px;
@@ -1068,6 +1069,10 @@
     gap: 8px;
     padding: 0;
     margin: 0;
+    &.recommend-disable{
+      opacity: 0.5;
+      pointer-events: none;
+    }
 
     li {
       position: relative;
@@ -1095,15 +1100,11 @@
       }
 
       &.disabled {
-        background-color: #f3f4f6;
-        cursor: not-allowed;
-        opacity: 0.5;
+        display: none;
       }
 
       &.free-disabled {
-        background-color: #f3f4f6;
-        cursor: not-allowed;
-        opacity: 0.5;
+        display: none;
 
         &:hover {
           background-color: #cfd8dc; // Hover disabled for free users
@@ -1393,8 +1394,6 @@
     align-self: stretch;
 
     &.pinned {
-      order: -1;
-
       .directorist-ai-generate-dropdown__pin-icon {
         svg {
           color: #3E62F5;

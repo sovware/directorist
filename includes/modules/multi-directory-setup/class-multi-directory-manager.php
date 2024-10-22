@@ -487,7 +487,7 @@ class Multi_Directory_Manager {
     }
 
     public function ai_create_fields( $prompt ) {
-        $prompt = "$prompt.I need add listing page fields list. Don not add any intro just give me every individual fields within @@ so that I can easily extract. Also add field type for every html field with <type> tag with best possible options for select type fields. Don not add something like 'Here is the list of fields for a..'";
+        $prompt = "$prompt.I need add listing page fields list. Don not add any intro just give me every individual fields within @@ so that I can easily extract. Also add html field type with for every field within ## tag. Add best possible options for select, radio & checkbox fields. Don not add something like 'Here is the list of fields for a..'";
         $response = directorist_get_form_groq_ai( $prompt );
 
         if( ! $response ) {
@@ -498,7 +498,6 @@ class Multi_Directory_Manager {
                 ],
             ], 200);
         }
-
 
 
         $lines = explode("\n", $response);
@@ -516,7 +515,8 @@ class Multi_Directory_Manager {
                 // Store each field's label and type in the result array
                 $result[] = [
                     'label' => $label,
-                    'type' => $type
+                    'type' => $type,
+                    'response' => $response,
                 ];
             }
         }

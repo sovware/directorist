@@ -322,6 +322,7 @@ function initialStepContents() {
 function handleStepOne(response) {
     console.log('Handle Step One');
     $( '#directorist-recommendedTags' ).empty().html( response );
+    initializeKeyword();
 }
 
 // Handle Step Two
@@ -332,6 +333,20 @@ function handleStepTwo() {
 // Handle Step Three
 function handleStepThree() {
     console.log('Handle Step Three');
+    $('#directorist-create-directory__generating').show();
+    $('.directorist-create-directory__top').hide();
+    $('.directorist-create-directory__header').hide();
+    $('.directorist-create-directory__content__footer').hide();
+    $('.directorist-create-directory__content').toggleClass('full-width');
+    initializeProgressBar();
+    setTimeout(() => {
+        $('#directorist-create-directory__ai-fields').show();
+        $('.directorist-create-directory__header').show();
+        $('#directorist-create-directory__generating').hide();
+        $('.directorist-create-directory__content__footer').show();
+        $('.directorist-create-directory__content').toggleClass('full-width');
+        initializeDropdownField();
+    }, 3000);
 }
 
 

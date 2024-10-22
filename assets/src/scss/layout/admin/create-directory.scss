@@ -23,6 +23,7 @@
     justify-content: space-between;
     background-color: #ffffff;
     padding: 12px 32px;
+    margin-bottom: 50px;
     border-bottom: 1px solid #E5E7EB;
   }
 
@@ -313,10 +314,17 @@
     box-shadow: 0px 3px 2px -1px rgba(27, 36, 44, 0.02), 0px 15px 24px -6px rgba(27, 36, 44, 0.08);
     max-width: 622px;
     min-width: 622px;
-    max-height: 600px;
     overflow: auto;
     margin: 0 auto;
-
+    &.full-width {
+      height: 100vh;
+      max-width: 100%;
+      min-width: 100%;
+      border: none;
+      box-shadow: none;
+      border-radius: unset;
+      background-color: transparent;
+    }
     &::-webkit-scrollbar {
       display: none;
     }
@@ -546,9 +554,10 @@
 
   @include e("generate") {
     display: flex;
+    height: 100%;
+    align-items: center;
     flex-direction: column;
-    text-align: center;
-
+    justify-content: center;
     .directory-img {
       display: flex;
       padding: 4px;

@@ -344,14 +344,12 @@ $('body').on( 'click', '.directorist_generate_ai_directory', function( e ) {
             }
 
             if( step == 2 ) {
-
+                $( '#directorist_ai_generated_fields' ).empty().html( response?.data?.html );
+                $(self).data('step', step + 1 );
             }
 
-            console.log( response );
-            return;
         }
 
-        alert('Something went wrong! Please try again');
     };
 
     // Send Request

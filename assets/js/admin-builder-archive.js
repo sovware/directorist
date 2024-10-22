@@ -334,49 +334,310 @@ window.addEventListener('load', function () {
     });
   });
 
-  // show the form
+  // Show the form when the '.directorist-ai-directory-creation' element is clicked
   $('.directorist-ai-directory-creation').on('click', function (e) {
     e.preventDefault();
-    var self = this;
+
+    // Prepare form data for the request
     var form_data = new FormData();
     form_data.append('action', 'directorist_ai_directory_form');
 
-    // Response Success Callback
-    var responseAiFormSuccess = function responseAiFormSuccess(response) {
+    // Success callback to handle the response
+    var responseAIFormSuccess = function responseAIFormSuccess(response) {
       var _response$data4;
       if (response !== null && response !== void 0 && (_response$data4 = response.data) !== null && _response$data4 !== void 0 && _response$data4.success) {
         var _response$data5;
-        $('.cptm-create-directory-modal__body').empty().html(response === null || response === void 0 || (_response$data5 = response.data) === null || _response$data5 === void 0 ? void 0 : _response$data5.html);
+        // Replace the content inside '#wpbody' with the response HTML
+        $('#wpbody').empty().html(response === null || response === void 0 || (_response$data5 = response.data) === null || _response$data5 === void 0 ? void 0 : _response$data5.html);
+        console.log('Form Loaded Successfully');
+
+        // Initialize any required steps after form load
+        initialStepContents(); // Initialize the content for the first step
+        // initializeKeyword();   
+        // initializeProgressBar(); 
+        // initializeDropdownField();
+
         return;
       }
-      alert('Something went wrong! Please try again');
+
+      // Show an error message if the request was not successful
+      alert('Initi Something went wrong! Please try again');
     };
 
-    // Send Request
+    // Send the request using Axios
     axios.post(directorist_admin.ajax_url, form_data).then(function (response) {
-      responseAiFormSuccess(response);
-    }).catch(function (response) {
-      alert('Something went wrong! Please try again');
+      console.log('@Response Successfully', response);
+      responseAIFormSuccess(response); // Handle the response
     });
   });
 });
+
+// Function to initialize Keyword Selected
+function initializeKeyword() {
+  (function () {
+    var tagList = []; // Select default keyword
+    var maxFreeTags = 5; // Max item limit for all users
+
+    var tagListElem = document.getElementById("directorist-box__tagList");
+    var newTagElem = document.getElementById("directorist-box__newTag");
+    var recommendedTagsElem = document.getElementById("directorist-recommendedTags");
+    var recommendedTags = Array.from(recommendedTagsElem.getElementsByTagName("li"));
+    var tagLimitMsgElem = document.getElementById("directorist-tagLimitMsg");
+    var tagCountElem = document.getElementById("directorist-tagCount");
+    var initTagManagement = function initTagManagement() {
+      renderTagList();
+      updateRecommendedTagsState();
+    };
+    var renderTagList = function renderTagList() {
+      tagListElem.innerHTML = "";
+      tagList.forEach(function (tag) {
+        var li = document.createElement("li");
+        li.innerHTML = "".concat(tag, " <span class=\"directorist-rmTag\" style=\"cursor:pointer;\">&times;</span>");
+        tagListElem.appendChild(li);
+      });
+      var inputLi = document.createElement("li");
+      inputLi.appendChild(newTagElem);
+      tagListElem.appendChild(inputLi);
+      updateRecommendedTagsState();
+      updateTagCount();
+    };
+    var canAddMoreTags = function canAddMoreTags() {
+      return tagList.length < maxFreeTags;
+    };
+    var updateTagCount = function updateTagCount() {
+      var tagCount = tagList.length;
+      tagCountElem.innerHTML = "".concat(tagCount, "/").concat(maxFreeTags);
+      // Always display the tag limit message
+      tagLimitMsgElem.style.display = "flex";
+      // Add or remove 'recommend-disable' class based on the tag limit
+      if (canAddMoreTags()) {
+        recommendedTagsElem.classList.remove("recommend-disable");
+      } else {
+        recommendedTagsElem.classList.add("recommend-disable");
+      }
+    };
+    newTagElem.addEventListener("keyup", function (e) {
+      if (e.key === "Enter") {
+        var newTag = newTagElem.value.trim();
+        if (newTag && !tagList.includes(newTag) && canAddMoreTags()) {
+          tagList.push(newTag);
+          newTagElem.value = "";
+          renderTagList();
+          newTagElem.focus();
+        }
+      }
+    });
+    tagListElem.addEventListener("click", function (e) {
+      if (e.target.classList.contains("directorist-rmTag")) {
+        var index = Array.from(tagListElem.children).findIndex(function (child) {
+          return child.contains(e.target);
+        });
+        if (index !== -1) {
+          tagList.splice(index, 1);
+          renderTagList();
+        }
+      }
+    });
+    recommendedTagsElem.addEventListener("click", function (e) {
+      if (e.target.tagName === "LI" && !e.target.classList.contains("disabled")) {
+        if (canAddMoreTags()) {
+          var recommendedTag = e.target.textContent.trim();
+          if (!tagList.includes(recommendedTag)) {
+            tagList.push(recommendedTag);
+            renderTagList();
+          }
+        }
+      }
+    });
+    var updateRecommendedTagsState = function updateRecommendedTagsState() {
+      recommendedTags.forEach(function (recommendedTagElem) {
+        var recommendedTag = recommendedTagElem.textContent.trim();
+        recommendedTagElem.classList.toggle("disabled", tagList.includes(recommendedTag));
+      });
+    };
+    initTagManagement();
+  })();
+}
+
+// Function to initialize Progress bar
+function initializeProgressBar() {
+  var generateBtnWrapper = document.querySelector(".directory-generate-btn__wrapper");
+  if (generateBtnWrapper) {
+    var finalWidth = generateBtnWrapper.getAttribute("data-width");
+    var btnPercentage = document.querySelector(".directory-generate-btn__percentage");
+    var progressBar = document.querySelector(".directory-generate-btn--bg");
+    var currentWidth = 0;
+    var updateProgress = function updateProgress() {
+      if (currentWidth <= finalWidth) {
+        btnPercentage.textContent = "".concat(currentWidth, "%");
+        progressBar.style.width = "".concat(currentWidth, "%");
+        if (typeof updateProgressList === 'function') {
+          updateProgressList(currentWidth);
+        }
+        currentWidth++;
+      } else {
+        clearInterval(progressInterval);
+      }
+    };
+    var progressInterval = setInterval(updateProgress, 30);
+  }
+  var steps = document.querySelectorAll(".directory-generate-progress-list li");
+  var updateProgressList = function updateProgressList(progress) {
+    if (steps.length > 0) {
+      steps.forEach(function (step, index) {
+        var stepNumber = index + 1;
+        var stepThreshold = stepNumber * (100 / steps.length);
+        if (progress >= stepThreshold) {
+          step.setAttribute("data-type", "completed");
+          step.querySelector(".completed-icon").style.display = "block";
+          step.querySelector(".progress-icon").style.display = "none";
+          step.querySelector(".default-icon").style.display = "none";
+        } else if (progress < stepThreshold && progress >= stepThreshold - 100 / steps.length) {
+          step.setAttribute("data-type", "progress");
+          step.querySelector(".completed-icon").style.display = "none";
+          step.querySelector(".progress-icon").style.display = "block";
+          step.querySelector(".default-icon").style.display = "none";
+        } else {
+          step.setAttribute("data-type", "default");
+          step.querySelector(".completed-icon").style.display = "none";
+          step.querySelector(".progress-icon").style.display = "none";
+          step.querySelector(".default-icon").style.display = "block";
+        }
+      });
+    }
+  };
+}
+//Function to initialize Dropdown
+function initializeDropdownField() {
+  var dropdowns = document.querySelectorAll(".directorist-ai-generate-dropdown");
+  var accordion = true;
+  dropdowns.forEach(function (dropdown) {
+    var header = dropdown.querySelector(".directorist-ai-generate-dropdown__header");
+    var content = dropdown.querySelector(".directorist-ai-generate-dropdown__content");
+    var icon = dropdown.querySelector(".directorist-ai-generate-dropdown__header-icon");
+    var pinIcon = dropdown.querySelector(".directorist-ai-generate-dropdown__pin-icon");
+    var dropdownItem = dropdown.closest('.directorist-ai-generate-box__item');
+    pinIcon.addEventListener("click", function (event) {
+      event.stopPropagation();
+      if (dropdownItem.classList.contains("pinned")) {
+        dropdownItem.classList.remove("pinned");
+        dropdownItem.classList.add("unpinned");
+      } else {
+        dropdownItem.classList.remove("unpinned");
+        dropdownItem.classList.add("pinned");
+      }
+    });
+    header.addEventListener("click", function (event) {
+      if (event.target === pinIcon || pinIcon.contains(event.target)) {
+        return;
+      }
+      var isExpanded = content.classList.toggle("directorist-ai-generate-dropdown__content--expanded");
+      dropdown.setAttribute("aria-expanded", isExpanded);
+      content.setAttribute("aria-expanded", isExpanded);
+      icon.classList.toggle("rotate", isExpanded);
+      if (accordion) {
+        dropdowns.forEach(function (otherDropdown) {
+          if (otherDropdown !== dropdown) {
+            var otherContent = otherDropdown.querySelector(".directorist-ai-generate-dropdown__content");
+            var otherIcon = otherDropdown.querySelector(".directorist-ai-generate-dropdown__header-icon");
+            otherContent.classList.remove("directorist-ai-generate-dropdown__content--expanded");
+            otherDropdown.setAttribute("aria-expanded", false);
+            otherContent.setAttribute("aria-expanded", false);
+            otherIcon.classList.remove("rotate");
+          }
+        });
+      }
+    });
+  });
+}
+
+// Initial Step Contents
+function initialStepContents() {
+  console.log('Initial Step Contents');
+  // Hide all steps except the first one initially
+  $('#directorist-create-directory__creating').hide();
+  $('#directorist-create-directory__ai-fields').hide();
+  $('#directorist-create-directory__generating').hide();
+  $('.directorist-create-directory__content__items').hide();
+  $('.directorist-create-directory__content__items[data-step="1"]').show();
+  $('.directorist-create-directory__step .step-count .current-step').html(1);
+}
+
+// Handle Step One
+function handleStepOne(response) {
+  console.log('Handle Step One');
+  $('#directorist-recommendedTags').empty().html(response);
+  initializeKeyword();
+}
+
+// Handle Step Two
+function handleStepTwo() {
+  console.log('Handle Step Two');
+}
+
+// Handle Step Three
+function handleStepThree() {
+  console.log('Handle Step Three');
+  $('#directorist-create-directory__generating').show();
+  $('.directorist-create-directory__top').hide();
+  $('.directorist-create-directory__header').hide();
+  $('.directorist-create-directory__content__footer').hide();
+  $('.directorist-create-directory__content').toggleClass('full-width');
+  initializeProgressBar();
+  setTimeout(function () {
+    $('#directorist-create-directory__ai-fields').show();
+    $('.directorist-create-directory__header').show();
+    $('#directorist-create-directory__generating').hide();
+    $('.directorist-create-directory__content__footer').show();
+    $('.directorist-create-directory__content').toggleClass('full-width');
+    initializeDropdownField();
+  }, 3000);
+}
 var $ = jQuery;
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").default;
-// handle firm step
-$('body').on('click', '.directorist-ai-directory-submit-step-one', function (e) {
+
+// handle form step
+$('body').on('click', '.directorist_generate_ai_directory', function (e) {
   e.preventDefault();
   var self = this;
+  var step = $(self).data('step');
+  var keywords = $('input[name="keywords[]"]:checked').map(function () {
+    return this.value;
+  }).get();
   var form_data = new FormData();
-  form_data.append('action', 'directorist_ai_directory_form_step_one');
-  form_data.append('name', $('#directorist-ai-business-name').val());
-  form_data.append('location', $('#directorist-ai-business-location').val());
+  form_data.append('action', 'directorist_ai_directory_creation');
+  form_data.append('prompt', $('.directorist-ai-prompt').val());
+  form_data.append('keywords', keywords);
+  form_data.append('step', step);
 
   // Response Success Callback
-  var responseAiFormSuccess = function responseAiFormSuccess(response) {
+  var responseAIFormSuccess = function responseAIFormSuccess(response) {
     var _response$data6;
     if (response !== null && response !== void 0 && (_response$data6 = response.data) !== null && _response$data6 !== void 0 && _response$data6.success) {
-      var _response$data7;
-      $('.cptm-create-directory-modal__body').empty().html(response === null || response === void 0 || (_response$data7 = response.data) === null || _response$data7 === void 0 ? void 0 : _response$data7.html);
+      // Hide the current step and show the next one
+      $('.directorist-create-directory__content__items[data-step="' + step + '"]').hide();
+      var nextStep = step + 1;
+      // Update step data attribute
+      $(self).data('step', nextStep);
+      $('.directorist-create-directory__step .step-count .current-step').html(nextStep);
+      // Add 'active' class to the next step
+      $(".directorist-create-directory__step .atbdp-setup-steps li:nth-child(".concat(nextStep, ")")).addClass('active');
+      if ($('.directorist-create-directory__content__items[data-step="' + nextStep + '"]').length) {
+        // Show next step
+        $('.directorist-create-directory__content__items[data-step="' + nextStep + '"]').show();
+      } else {
+        console.log('No more steps available');
+      }
+      if (step == 1) {
+        var _response$data7;
+        handleStepOne(response === null || response === void 0 || (_response$data7 = response.data) === null || _response$data7 === void 0 ? void 0 : _response$data7.html);
+      } else if (step == 2) {
+        handleStepTwo();
+      } else if (step == 3) {
+        handleStepThree();
+      } else {
+        console.log('No more steps available');
+      }
       return;
     }
     alert('Something went wrong! Please try again');
@@ -384,7 +645,7 @@ $('body').on('click', '.directorist-ai-directory-submit-step-one', function (e) 
 
   // Send Request
   axios.post(directorist_admin.ajax_url, form_data).then(function (response) {
-    responseAiFormSuccess(response);
+    responseAIFormSuccess(response);
   }).catch(function (response) {
     alert('Something went wrong! Please try again');
   });

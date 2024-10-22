@@ -347,7 +347,7 @@ window.addEventListener('load', function () {
       var _response$data4;
       if (response !== null && response !== void 0 && (_response$data4 = response.data) !== null && _response$data4 !== void 0 && _response$data4.success) {
         var _response$data5;
-        $('.cptm-create-directory-modal__body').empty().html(response === null || response === void 0 || (_response$data5 = response.data) === null || _response$data5 === void 0 ? void 0 : _response$data5.html);
+        $('#wpbody').empty().html(response === null || response === void 0 || (_response$data5 = response.data) === null || _response$data5 === void 0 ? void 0 : _response$data5.html);
         initializeKeyword();
         initializeProgressBar();
         initializeDropdownField();
@@ -370,7 +370,7 @@ function initializeKeyword() {
   (function () {
     var tagList = []; // Select default keyword
     var maxFreeTags = 5; //Maz item for free user
-    var isProUser = false; //is it free user or pro user
+    var isProUser = true; //is it free user or pro user
 
     var tagListElem = document.getElementById("directorist-box__tagList");
     var newTagElem = document.getElementById("directorist-box__newTag");
@@ -567,9 +567,10 @@ $('body').on('click', '.directorist_generate_ai_directory', function (e) {
     if (response !== null && response !== void 0 && (_response$data6 = response.data) !== null && _response$data6 !== void 0 && _response$data6.success) {
       if (step == 1) {
         var _response$data7;
-        $('.directorist-ai-keywords').empty().html(response === null || response === void 0 || (_response$data7 = response.data) === null || _response$data7 === void 0 ? void 0 : _response$data7.html);
+        $('#directorist-recommendedTags').empty().html(response === null || response === void 0 || (_response$data7 = response.data) === null || _response$data7 === void 0 ? void 0 : _response$data7.html);
         $(self).data('step', step + 1);
       }
+      if (step == 2) {}
       console.log(response);
       return;
     }

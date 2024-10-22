@@ -32805,6 +32805,10 @@ span.drop-toggle-caret:before {
   padding: 0;
   margin: 0;
 }
+.directorist-box__recommended-list.recommend-disable {
+  opacity: 0.5;
+  pointer-events: none;
+}
 .directorist-box__recommended-list li {
   position: relative;
   display: -webkit-box;
@@ -32838,14 +32842,10 @@ span.drop-toggle-caret:before {
   background-color: #E5E7EB;
 }
 .directorist-box__recommended-list li.disabled {
-  background-color: #f3f4f6;
-  cursor: not-allowed;
-  opacity: 0.5;
+  display: none;
 }
 .directorist-box__recommended-list li.free-disabled {
-  background-color: #f3f4f6;
-  cursor: not-allowed;
-  opacity: 0.5;
+  display: none;
 }
 .directorist-box__recommended-list li.free-disabled:hover {
   background-color: #cfd8dc;

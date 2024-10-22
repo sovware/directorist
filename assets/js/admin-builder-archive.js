@@ -369,25 +369,17 @@ window.addEventListener('load', function () {
 function initializeKeyword() {
   (function () {
     var tagList = []; // Select default keyword
-    var maxFreeTags = 5; //Maz item for free user
-    var isProUser = false; //is it free user or pro user
+    var maxFreeTags = 5; // Max item limit for all users
 
     var tagListElem = document.getElementById("directorist-box__tagList");
     var newTagElem = document.getElementById("directorist-box__newTag");
     var recommendedTagsElem = document.getElementById("directorist-recommendedTags");
     var recommendedTags = Array.from(recommendedTagsElem.getElementsByTagName("li"));
     var tagLimitMsgElem = document.getElementById("directorist-tagLimitMsg");
-    var proTagMsgElem = document.getElementById("directorist-proTagMsg");
     var tagCountElem = document.getElementById("directorist-tagCount");
     var initTagManagement = function initTagManagement() {
       renderTagList();
-      toggleMessages();
       updateRecommendedTagsState();
-    };
-    var toggleMessages = function toggleMessages() {
-      var displayStyle = isProUser ? "none" : "flex";
-      proTagMsgElem.style.display = displayStyle;
-      tagLimitMsgElem.style.display = displayStyle;
     };
     var renderTagList = function renderTagList() {
       tagListElem.innerHTML = "";
@@ -403,11 +395,19 @@ function initializeKeyword() {
       updateTagCount();
     };
     var canAddMoreTags = function canAddMoreTags() {
-      return isProUser || tagList.length < maxFreeTags;
+      return tagList.length < maxFreeTags;
     };
     var updateTagCount = function updateTagCount() {
       var tagCount = tagList.length;
-      tagCountElem.innerHTML = isProUser ? "".concat(tagCount) : "".concat(tagCount, "/").concat(maxFreeTags);
+      tagCountElem.innerHTML = "".concat(tagCount, "/").concat(maxFreeTags);
+      // Always display the tag limit message
+      tagLimitMsgElem.style.display = "flex";
+      // Add or remove 'recommend-disable' class based on the tag limit
+      if (canAddMoreTags()) {
+        recommendedTagsElem.classList.remove("recommend-disable");
+      } else {
+        recommendedTagsElem.classList.add("recommend-disable");
+      }
     };
     newTagElem.addEventListener("keyup", function (e) {
       if (e.key === "Enter") {
@@ -433,14 +433,12 @@ function initializeKeyword() {
     });
     recommendedTagsElem.addEventListener("click", function (e) {
       if (e.target.tagName === "LI" && !e.target.classList.contains("disabled")) {
-        if (isProUser) {
+        if (canAddMoreTags()) {
           var recommendedTag = e.target.textContent.trim();
           if (!tagList.includes(recommendedTag)) {
             tagList.push(recommendedTag);
             renderTagList();
           }
-        } else {
-          proTagMsgElem.style.display = "flex";
         }
       }
     });
@@ -448,12 +446,12 @@ function initializeKeyword() {
       recommendedTags.forEach(function (recommendedTagElem) {
         var recommendedTag = recommendedTagElem.textContent.trim();
         recommendedTagElem.classList.toggle("disabled", tagList.includes(recommendedTag));
-        recommendedTagElem.classList.toggle("free-disabled", !isProUser && !tagList.includes(recommendedTag));
       });
     };
     initTagManagement();
   })();
 }
+
 // Function to initialize Progress bar
 function initializeProgressBar() {
   var generateBtnWrapper = document.querySelector(".directory-generate-btn__wrapper");

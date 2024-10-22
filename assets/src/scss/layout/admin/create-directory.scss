@@ -1068,6 +1068,10 @@
     gap: 8px;
     padding: 0;
     margin: 0;
+    &.recommend-disable{
+      opacity: 0.5;
+      pointer-events: none;
+    }
 
     li {
       position: relative;
@@ -1095,15 +1099,11 @@
       }
 
       &.disabled {
-        background-color: #f3f4f6;
-        cursor: not-allowed;
-        opacity: 0.5;
+        display: none;
       }
 
       &.free-disabled {
-        background-color: #f3f4f6;
-        cursor: not-allowed;
-        opacity: 0.5;
+        display: none;
 
         &:hover {
           background-color: #cfd8dc; // Hover disabled for free users

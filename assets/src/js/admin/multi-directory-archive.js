@@ -98,30 +98,21 @@ window.addEventListener('load', () => {
 });
 
 // Function to initialize Keyword Selected
-function initializeKeyword(){
+function initializeKeyword() {
     (function () {
         const tagList = []; // Select default keyword
-        const maxFreeTags = 5; //Maz item for free user
-        const isProUser = false; //is it free user or pro user
+        const maxFreeTags = 5; // Max item limit for all users
 
         const tagListElem = document.getElementById("directorist-box__tagList");
         const newTagElem = document.getElementById("directorist-box__newTag");
         const recommendedTagsElem = document.getElementById("directorist-recommendedTags");
         const recommendedTags = Array.from(recommendedTagsElem.getElementsByTagName("li"));
         const tagLimitMsgElem = document.getElementById("directorist-tagLimitMsg");
-        const proTagMsgElem = document.getElementById("directorist-proTagMsg");
         const tagCountElem = document.getElementById("directorist-tagCount");
 
         const initTagManagement = () => {
             renderTagList();
-            toggleMessages();
             updateRecommendedTagsState();
-        };
-
-        const toggleMessages = () => {
-            const displayStyle = isProUser ? "none" : "flex";
-            proTagMsgElem.style.display = displayStyle;
-            tagLimitMsgElem.style.display = displayStyle;
         };
 
         const renderTagList = () => {
@@ -140,13 +131,19 @@ function initializeKeyword(){
             updateTagCount();
         };
 
-        const canAddMoreTags = () => isProUser || tagList.length < maxFreeTags;
+        const canAddMoreTags = () => tagList.length < maxFreeTags;
 
         const updateTagCount = () => {
             const tagCount = tagList.length;
-            tagCountElem.innerHTML = isProUser
-                ? `${tagCount}`
-                : `${tagCount}/${maxFreeTags}`;
+            tagCountElem.innerHTML = `${tagCount}/${maxFreeTags}`;
+            // Always display the tag limit message
+            tagLimitMsgElem.style.display = "flex";
+            // Add or remove 'recommend-disable' class based on the tag limit
+            if (canAddMoreTags()) {
+                recommendedTagsElem.classList.remove("recommend-disable");
+            } else {
+                recommendedTagsElem.classList.add("recommend-disable");
+            }
         };
 
         newTagElem.addEventListener("keyup", (e) => {
@@ -175,14 +172,12 @@ function initializeKeyword(){
 
         recommendedTagsElem.addEventListener("click", (e) => {
             if (e.target.tagName === "LI" && !e.target.classList.contains("disabled")) {
-                if (isProUser) {
+                if (canAddMoreTags()) {
                     const recommendedTag = e.target.textContent.trim();
                     if (!tagList.includes(recommendedTag)) {
                         tagList.push(recommendedTag);
                         renderTagList();
                     }
-                } else {
-                    proTagMsgElem.style.display = "flex";
                 }
             }
         });
@@ -194,16 +189,16 @@ function initializeKeyword(){
                     "disabled",
                     tagList.includes(recommendedTag)
                 );
-                recommendedTagElem.classList.toggle(
-                    "free-disabled",
-                    !isProUser && !tagList.includes(recommendedTag)
-                );
             });
         };
 
         initTagManagement();
     })();
 }
+
+
+
+
 // Function to initialize Progress bar
 function initializeProgressBar() {
     const generateBtnWrapper = document.querySelector(".directory-generate-btn__wrapper");

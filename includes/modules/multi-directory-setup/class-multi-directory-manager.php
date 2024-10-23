@@ -478,7 +478,7 @@ class Multi_Directory_Manager {
             $html = $this->ai_create_keywords( $prompt );
         }
 
-        if( 3 == $step ) {
+        if( 2 == $step ) {
             $response = $this->ai_create_fields( $prompt, $keywords );
             wp_send_json([
                 'success' => true,
@@ -501,48 +501,61 @@ class Multi_Directory_Manager {
     private function merge_ai_fields($existing_config, $new_fields, $name ) {
 
  
+  
             // Decode new fields JSON safely
-    $new_fields = stripslashes($new_fields);
-    $new_fields_array = json_decode($new_fields, true);
+    $new_fields_array = json_decode(stripslashes($new_fields), true);
 
-    if ($new_fields_array === null) {
+    if (is_null($new_fields_array)) {
         // throw new Exception('Failed to decode new fields JSON: ' . json_last_error_msg());
     }
 
-    // Reformat new fields to match the old format
-    foreach ($new_fields_array as $key => &$field) {
-        $field['widget_group'] = 'car_details';
-        $field['widget_name'] = $key;
-        $field['field_key'] = $key;
-        $field['widget_key'] = $key;
+    // Reformat new fields to match the old format and ensure unique field keys for same type fields
+    $type_counts = [];
+    $formatted_fields = [];
+    foreach ($new_fields_array as $field) {
+        $type = strtolower($field['type']);
+        if (!isset($type_counts[$type])) {
+            $type_counts[$type] = 0;
+        } else {
+            $type_counts[$type]++;
+        }
+        $suffix = $type_counts[$type] > 0 ? '-' . $type_counts[$type] : '';
+        $field_key = 'custom-' . $type . $suffix;
+
+        $formatted_fields[$type] = array_merge($field, [
+            'widget_group' => 'custom',
+            'widget_name' => $type,
+            'field_key' => $field_key,
+            'widget_key' => $type . $suffix,
+        ]);
     }
 
-    if (isset($existing_config['submission_form_fields']['fields'])) {
-        // Keep old title and description fields
-        $old_fields = $existing_config['submission_form_fields']['fields'];
-        $title_description_fields = array_filter($old_fields, function($key) {
-            return in_array($key, ['title', 'description']);
-        }, ARRAY_FILTER_USE_KEY);
+    // Keep old title and description fields
+    $title_description_fields = array_intersect_key(
+        $existing_config['submission_form_fields']['fields'] ?? [],
+        array_flip(['title', 'description'])
+    );
 
-        // Replace the old fields with new fields, keeping title and description
-        $existing_config['submission_form_fields']['fields'] = array_merge(
-            $title_description_fields,
-            $new_fields_array
-        );
-    } else {
-        // Add new fields if none exist
-        $existing_config['submission_form_fields']['fields'] = $new_fields_array;
-    }
+    // Replace the old fields with new fields, keeping title and description
+    $existing_config['submission_form_fields']['fields'] = array_merge(
+        $title_description_fields,
+        $formatted_fields
+    );
 
     // Replace old groups with a new group containing the new fields and keeping title and description
     $existing_config['submission_form_fields']['groups'] = [
         [
             "type" => "general_group",
-            "label" => "Car Details",
-            "fields" => array_merge(['title', 'description'], array_keys($new_fields_array)),
-            "defaultGroupLabel" => "Car Details",
-            "disableTrashIfGroupHasWidgets" => [],
-            "icon" => "las la-car",
+            "label" => "General Information",
+            "fields" => array_merge(['title', 'description'], array_keys($formatted_fields)),
+            "defaultGroupLabel" => "Section",
+            "disableTrashIfGroupHasWidgets" => [
+                [
+                    "widget_name" => "title",
+                    "widget_group" => "preset"
+                ]
+            ],
+            "icon" => "las la-pen-nib",
         ]
     ];
 
@@ -580,9 +593,9 @@ class Multi_Directory_Manager {
         ];
     }
 
-    public function ai_create_fields( $prompt ) {
+    public function ai_create_fields( $prompt, $keywords ) {
 
-        $prompt = $prompt . '. I need the listing page fields list. For each field, return an array with the following keys:
+        $prompt = $prompt . '. I need the listing page fields list. Here is some keywords: '.$keywords.'. For each field, return an array with the following keys:
 "label": The label of the field without the @@.
 "type": The input type (e.g., <input type="text">, <textarea>, etc.).
 "options": An array of options if applicable (for select, radio, or checkbox fields), otherwise an empty array.

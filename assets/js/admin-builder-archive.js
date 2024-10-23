@@ -529,6 +529,7 @@ function initializeProgressBar() {
 function initializeDropdownField() {
   var dropdowns = document.querySelectorAll(".directorist-ai-generate-dropdown");
   var accordion = true;
+  $('#directorist-create-directory__ai-fields .fields-count').html(dropdowns.length);
 
   // Initialize each dropdown
   dropdowns.forEach(function (dropdown) {
@@ -537,7 +538,6 @@ function initializeDropdownField() {
     var icon = dropdown.querySelector(".directorist-ai-generate-dropdown__header-icon");
     var pinIcon = dropdown.querySelector(".directorist-ai-generate-dropdown__pin-icon");
     var dropdownItem = dropdown.closest('.directorist-ai-generate-box__item');
-    $('#directorist-create-directory__ai-fields .fields-count').html(dropdowns.length);
 
     // Pin Field
     pinIcon.addEventListener("click", function (event) {
@@ -689,7 +689,7 @@ function handleKeywordStep() {
 
 // Handle Generated Fields
 function handleGenerateFields(response) {
-  var _response$data6;
+  var _response$data6, _response$data7;
   console.log('handleGenerateFields', currentStep, response);
   $('#directorist-create-directory__ai-fields').show();
   $('.directorist-create-directory__header').show();
@@ -698,13 +698,14 @@ function handleGenerateFields(response) {
   $('.directorist-create-directory__content').toggleClass('full-width');
   $('#directorist-ai-generated-fields-array').val(JSON.stringify(response === null || response === void 0 || (_response$data6 = response.data) === null || _response$data6 === void 0 ? void 0 : _response$data6.fields));
   $('#directorist_ai_generated_fields').empty().html(response);
+  directoryFields = response === null || response === void 0 || (_response$data7 = response.data) === null || _response$data7 === void 0 ? void 0 : _response$data7.fields;
   initializeDropdownField();
 }
 
 // Response Success Callback
 function handleAIFormResponse(response) {
-  var _response$data7;
-  if (response !== null && response !== void 0 && (_response$data7 = response.data) !== null && _response$data7 !== void 0 && _response$data7.success) {
+  var _response$data8;
+  if (response !== null && response !== void 0 && (_response$data8 = response.data) !== null && _response$data8 !== void 0 && _response$data8.success) {
     console.log('Response Success:', currentStep, response);
     var nextStep = currentStep + 1;
     $('.directorist-create-directory__content__items[data-step="' + currentStep + '"]').hide();
@@ -714,11 +715,11 @@ function handleAIFormResponse(response) {
       $('.directorist-create-directory__content__items[data-step="' + nextStep + '"]').show();
     }
     if (currentStep == 2) {
-      var _response$data8;
-      handlePromptStep(response === null || response === void 0 || (_response$data8 = response.data) === null || _response$data8 === void 0 ? void 0 : _response$data8.html);
-    } else if (currentStep == 3) {
       var _response$data9;
-      handleGenerateFields(response === null || response === void 0 || (_response$data9 = response.data) === null || _response$data9 === void 0 ? void 0 : _response$data9.html);
+      handlePromptStep(response === null || response === void 0 || (_response$data9 = response.data) === null || _response$data9 === void 0 ? void 0 : _response$data9.html);
+    } else if (currentStep == 3) {
+      var _response$data10;
+      handleGenerateFields(response === null || response === void 0 || (_response$data10 = response.data) === null || _response$data10 === void 0 ? void 0 : _response$data10.html);
     }
     return;
   } else {
@@ -742,8 +743,8 @@ $('body').on('click', '.directorist_generate_ai_directory', function (e) {
   form_data.append('prompt', directoryPrompt);
   form_data.append('keywords', directoryKeywords);
   form_data.append('fields', directoryFields);
-  form_data.append('step', currentStep === 2 ? 1 : currentStep);
-
+  form_data.append('step', currentStep - 1);
+  console.log('Form Data:', form_data);
   // Handle Axios Request
   axios.post(directorist_admin.ajax_url, form_data).then(function (response) {
     handleEnableButton();

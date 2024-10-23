@@ -262,6 +262,7 @@ function initializeProgressBar() {
 function initializeDropdownField(){
     const dropdowns = document.querySelectorAll(".directorist-ai-generate-dropdown");
     const accordion = true;
+    $('#directorist-create-directory__ai-fields .fields-count').html(dropdowns.length);
 
     // Initialize each dropdown
     dropdowns.forEach((dropdown) => {
@@ -270,8 +271,6 @@ function initializeDropdownField(){
         const icon = dropdown.querySelector(".directorist-ai-generate-dropdown__header-icon");
         const pinIcon = dropdown.querySelector(".directorist-ai-generate-dropdown__pin-icon");
         const dropdownItem = dropdown.closest('.directorist-ai-generate-box__item');
-
-        $('#directorist-create-directory__ai-fields .fields-count').html(dropdowns.length);
 
         // Pin Field
         pinIcon.addEventListener("click", (event) => {
@@ -446,6 +445,8 @@ function handleGenerateFields(response) {
     $('#directorist-ai-generated-fields-array' ).val( JSON.stringify( response?.data?.fields ))
     $('#directorist_ai_generated_fields').empty().html(response);
 
+    directoryFields = response?.data?.fields;
+
     initializeDropdownField();
 }
 
@@ -493,8 +494,9 @@ $('body').on('click', '.directorist_generate_ai_directory', function(e) {
     form_data.append('prompt', directoryPrompt);
     form_data.append('keywords', directoryKeywords);
     form_data.append('fields', directoryFields);
-    form_data.append('step', currentStep === 2 ? 1 : currentStep);
+    form_data.append('step', currentStep - 1);
 
+    console.log('Form Data:', form_data);
     // Handle Axios Request
     axios.post(directorist_admin.ajax_url, form_data)
         .then(response => {

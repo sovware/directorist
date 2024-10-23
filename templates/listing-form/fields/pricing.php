@@ -37,12 +37,12 @@ $currency_symbol         = atbdp_currency_symbol( directorist_get_currency() );
 	<?php } ?>
 
 	<?php if ( $data['pricing_type'] === 'both' || $data['pricing_type'] === 'price_unit' ) { ?>
-		<input class="directorist-form-element directory_field directory_pricing_field" id="price" type="<?php echo esc_attr( $data['price_unit_field_type'] ); ?>" name="price" step="<?php echo esc_attr( $allow_decimal ? 'any' : 1 ); ?>" value="<?php echo esc_attr( $price ); ?>" placeholder="<?php echo esc_attr( $data['price_unit_field_placeholder'] ); ?>" />
+		<input class="directorist-form-element directory_field directory_pricing_field" id="price" type="<?php echo esc_attr( $data['price_unit_field_type'] ); ?>" name="price" step="<?php echo esc_attr( $allow_decimal ? 'any' : 1 ); ?>" value="<?php echo esc_attr( $price ); ?>" placeholder="<?php echo esc_attr( ! empty( $data['price_unit_field_placeholder'] ) ? $data['price_unit_field_placeholder'] : '' ); ?>" />
 	<?php } ?>
 
 	<?php if ( $data['pricing_type'] === 'both' || $data['pricing_type'] === 'price_range' ) { ?>
 		<select class="directorist-form-element directory_field directory_pricing_field" id="price_range" name="price_range">
-			<option value=""><?php echo esc_html( $data['price_range_placeholder'] ); ?></option>
+			<option value=""><?php echo esc_html( ! empty( $data['price_range_placeholder'] ) ? $data['price_range_placeholder'] : '' ); ?></option>
 			<option value="skimming"<?php selected( $price_range, 'skimming' ); ?>><?php echo esc_html( sprintf( __( 'Ultra High (%s)', 'directorist' ), str_repeat( $currency_symbol, 4 ) ) );?></option>
 			<option value="moderate" <?php selected( $price_range, 'moderate' ); ?>><?php echo esc_html( sprintf( __( 'Expensive (%s)', 'directorist' ), str_repeat( $currency_symbol, 3 ) ) );?></option>
 			<option value="economy" <?php selected( $price_range, 'economy' ); ?>><?php echo esc_html( sprintf( __( 'Moderate (%s)', 'directorist' ), str_repeat( $currency_symbol, 2 ) ) ); ?></option>

@@ -225,8 +225,21 @@
   }
 
   @include e("next") {
+    display: flex;
+    gap: 8px;
+    align-items: center;
     img {
       max-width: 10px;
+    }
+
+    .directorist_regenerate_fields {
+      gap: 8px;
+      font-size: 14px;
+      line-height: 20px;
+      font-weight: 500;
+      color: #3E62F5 !important;
+      background: transparent !important;
+      border-color: transparent !important;
     }
 
     @media (max-width: 375px) {

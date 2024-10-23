@@ -31748,8 +31748,28 @@ span.drop-toggle-caret:before {
   -webkit-animation: spin 3s linear infinite;
           animation: spin 3s linear infinite;
 }
+.directorist-create-directory__next {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 8px;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
 .directorist-create-directory__next img {
   max-width: 10px;
+}
+.directorist-create-directory__next .directorist_regenerate_fields {
+  gap: 8px;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  color: #3E62F5 !important;
+  background: transparent !important;
+  border-color: transparent !important;
 }
 @media (max-width: 375px) {
   .directorist-create-directory__next {

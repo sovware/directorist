@@ -408,7 +408,7 @@
 				</div>
 				<h4 class="directory-title">Directory AI is generating fields... </h4>
 				<p class="directory-description"><strong>Almost there!</strong> We're using your infomation to finalize your directory fields.</p>
-				<div id="directory-generate-btn__progress" class="directory-generate-btn__wrapper" data-width="0">
+				<div id="directory-generate-btn__progress" class="directory-generate-btn__wrapper" data-width="100">
 					<div class="directory-generate-btn--bg" style="width: 0%;">
 						<!-- Initial width set to 0% -->
 					</div>
@@ -640,6 +640,13 @@
 					</a>
 				</div>
 				<div class="directorist-create-directory__next">
+					<button class="directorist-create-directory__btn directorist_regenerate_fields" style="display: none;">
+						<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path fill-rule="evenodd" clip-rule="evenodd" d="M14.7043 5.88371C12.7797 3.67922 9.50477 3.0689 6.87472 4.58736C5.07599 5.62586 3.98824 7.42276 3.78372 9.3442C3.73501 9.80185 3.32452 10.1334 2.86687 10.0847C2.40922 10.0359 2.0777 9.62545 2.12642 9.16779C2.3849 6.73941 3.7618 4.4601 6.04139 3.14399C9.48209 1.15749 13.7941 2.04731 16.1932 5.06737L16.2838 4.72948C16.4029 4.28493 16.8598 4.02111 17.3044 4.14023C17.7489 4.25935 18.0128 4.71629 17.8936 5.16085L17.2836 7.43756C17.2264 7.65104 17.0867 7.83306 16.8953 7.94356C16.7039 8.05407 16.4765 8.08402 16.263 8.02681L13.9863 7.41677C13.5417 7.29765 13.2779 6.84071 13.397 6.39615C13.5161 5.9516 13.9731 5.68778 14.4176 5.8069L14.7043 5.88371ZM17.1323 9.91571C17.59 9.96443 17.9215 10.3749 17.8728 10.8326C17.6143 13.261 16.2374 15.5403 13.9578 16.8564C10.5173 18.8428 6.20546 17.9531 3.80629 14.9334L3.71587 15.2709C3.59675 15.7154 3.13981 15.9793 2.69525 15.8601C2.2507 15.741 1.98688 15.2841 2.10599 14.8395L2.71604 12.5628C2.83516 12.1183 3.2921 11.8544 3.73666 11.9736L6.01337 12.5836C6.45792 12.7027 6.72174 13.1597 6.60262 13.6042C6.4835 14.0488 6.02656 14.3126 5.582 14.1935L5.29472 14.1165C7.21932 16.3211 10.4943 16.9315 13.1245 15.413C14.9232 14.3745 16.0109 12.5776 16.2155 10.6562C16.2642 10.1985 16.6747 9.867 17.1323 9.91571Z" fill="#3E62F5"/>
+						</svg>
+						<span class="directorist_generate_ai_directory__text">Re-generate Unpinned</span>
+					</button>
+
 					<button type="submit" class="directorist-create-directory__btn directorist-create-directory__btn--next directorist_generate_ai_directory">
 						<svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path

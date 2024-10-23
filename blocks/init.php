@@ -82,8 +82,7 @@ function directorist_register_blocks() {
 	register_block_type( __DIR__ . '/build/checkout', $args );
 	register_block_type( __DIR__ . '/build/payment-receipt', $args );
 	register_block_type( __DIR__ . '/build/transaction-failure', $args );
-	register_block_type( __DIR__ . '/build/login', $args );
-	register_block_type( __DIR__ . '/build/registration', $args );
+	register_block_type( __DIR__ . '/build/signin-signup', $args );
 	register_block_type( __DIR__ . '/build/dashboard', $args );
 	register_block_type( __DIR__ . '/build/single-listing', $args );
 	register_block_type( __DIR__ . '/build/account-button' );
@@ -152,6 +151,10 @@ function directorist_block_render_callback( $attributes, $content, $instance ) {
 
 		unset( $key );
 		unset( $value );
+	}
+
+	if ( isset( $_GET['context'] ) && $_GET['context'] === 'edit' && $shortcode === 'directorist_signin_signup' ) {
+		return _directorist_render_editor_signin_signup_template( $attributes );
 	}
 
 	$attributes['is_block_editor'] = true;
@@ -309,3 +312,9 @@ function directorist_register_blocks_common_assets() {
 	}
 }
 add_action( 'enqueue_block_assets', 'directorist_register_blocks_common_assets' );
+
+function _directorist_render_editor_signin_signup_template( $attributes = array() ) {
+	ob_start();
+	include_once __DIR__ . '/templates/signin-signup.php';
+	return ob_get_clean();
+}

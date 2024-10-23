@@ -271,6 +271,8 @@ function initializeDropdownField(){
         const pinIcon = dropdown.querySelector(".directorist-ai-generate-dropdown__pin-icon");
         const dropdownItem = dropdown.closest('.directorist-ai-generate-box__item');
 
+        $('#directorist-create-directory__ai-fields .fields-count').html(dropdowns.length);
+
         // Pin Field
         pinIcon.addEventListener("click", (event) => {
             event.stopPropagation();
@@ -441,7 +443,8 @@ function handleGenerateFields(response) {
     $('.directorist-create-directory__content__footer').show();
     $('.directorist-create-directory__content').toggleClass('full-width');
 
-    $('#directorist-ai-generate-box__fields' ).val( JSON.stringify( response?.data?.fields ))
+    $('#directorist-ai-generated-fields-array' ).val( JSON.stringify( response?.data?.fields ))
+    $('#directorist_ai_generated_fields').empty().html(response);
 
     initializeDropdownField();
 }
@@ -490,7 +493,7 @@ $('body').on('click', '.directorist_generate_ai_directory', function(e) {
     form_data.append('prompt', directoryPrompt);
     form_data.append('keywords', directoryKeywords);
     form_data.append('fields', directoryFields);
-    form_data.append('step', currentStep - 1);
+    form_data.append('step', currentStep === 2 ? 1 : currentStep);
 
     // Handle Axios Request
     axios.post(directorist_admin.ajax_url, form_data)

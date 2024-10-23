@@ -269,6 +269,12 @@
       &:hover {
         color: #3E62F5;
       }
+      
+      &.disabled {
+        opacity: 0.5;
+        pointer-events: none;
+        cursor: not-allowed;
+      }
     }
   }
 

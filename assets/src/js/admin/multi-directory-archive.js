@@ -92,8 +92,6 @@ window.addEventListener('load', () => {
 
 let totalStep = 3;
 let currentStep = 1;
-let currentStepTitle = '';
-let currentStepDesc = '';
 let directoryTitle = '';
 let directoryLocation = '';
 let directoryType = '';
@@ -101,6 +99,22 @@ let directoryPrompt = 'I want to create a car directory';
 let directoryKeywords = [];
 let directoryFields = [];
 let directoryPinnedFields = [];
+
+
+// Update Step Title
+function updateStepTitle(title) {
+    $('.directorist-create-directory__info__title').html(title);
+}
+
+// Update Step Description
+function updateStepDescription(desc) {
+    $('.directorist-create-directory__info__desc').html(desc);
+}
+
+// Update Button Text
+function updateButtonText(text) {
+    $('.directorist_generate_ai_directory .directorist_generate_ai_directory__text').html(text);
+}
 
 // Update Directory Prompt
 function updatePrompt() {
@@ -342,12 +356,12 @@ function initializeDropdownField(){
 // });
 
 // Enable Submit Button
-function handleEnableButton() {
+function handleCreateButtonEnable() {
     $('.directorist_generate_ai_directory').removeClass('disabled');
 }
 
 // Disable Submit Button
-function handleDisableButton() {
+function handleCreateButtonDisable() {
     $('.directorist_generate_ai_directory').addClass('disabled');
 }
 
@@ -361,17 +375,18 @@ function initialStepContents() {
     $('.directorist-create-directory__content__items[data-step="1"]').show();
     $('.directorist-create-directory__step .step-count .total-step').html(totalStep);
     $('.directorist-create-directory__step .step-count .current-step').html(1);
-    
-    handleDisableButton()
+    $('.directorist-create-directory__back__btn').addClass('disabled');
+
+    handleCreateButtonDisable()
 
     // Directory Title Input Listener
     $('body').on( 'keyup change ', '.directorist-create-directory__content__input[name="directory-name"]', function( e ) {
         directoryTitle = e.target.value;
         
         if (directoryTitle) {
-            handleEnableButton();
+            handleCreateButtonEnable();
         } else {
-            handleDisableButton();
+            handleCreateButtonDisable();
         }
     });
     
@@ -407,15 +422,18 @@ function initialStepContents() {
     // Generate AI Directory Button Click Handler
     $('body').on('click', '.directorist_generate_ai_directory', function(e) {
         e.preventDefault();
-        if (currentStep === 1) {
+        if (currentStep == 1) {
             $('.directorist-create-directory__content__items[data-step="1"]').hide();
             $('.directorist-create-directory__content__items[data-step="2"]').show();
+            $('.directorist-create-directory__back__btn').removeClass('disabled');
              
             $('.directorist-create-directory__step .step-count .current-step').html(2);
             $(`.directorist-create-directory__step .atbdp-setup-steps li:nth-child(2)`).addClass('active');
 
+            updateStepTitle('Describe your business in plain language');
+
             currentStep = 2;
-        }
+        } 
     });
 }
 
@@ -425,6 +443,10 @@ function handlePromptStep(response) {
     $('.directorist-create-directory__content__items[data-step="3"]').show();
     $('#directorist-recommendedTags').empty().html(response);
     initializeKeyword();
+
+    updateStepTitle('Select relevant keywords to <br /> optimize AI-generated content');
+    updateStepDescription('Keywords helps AI to generate relevant categories and fields');
+    updateButtonText('Generate Directory');
 
     currentStep = 3;
 }
@@ -437,6 +459,8 @@ function handleKeywordStep() {
     $('.directorist-create-directory__header').hide();
     $('.directorist-create-directory__content__footer').hide();
     $('.directorist-create-directory__content').toggleClass('full-width');
+
+    updateButtonText('Build Directory');
     
     initializeProgressBar();
 }
@@ -468,6 +492,9 @@ function handleCreateDirectory() {
     $('.directorist-create-directory__header').hide();
     $('.directorist-create-directory__content__footer').hide();
     $('.directorist-create-directory__content').addClass('full-width');
+
+    $('#directorist-create-directory__generating .directory-title').html('Directory AI is Building your directory... ');
+    $('#directorist-create-directory__generating .directory-description').html('We\'re using your infomation to finalize your directory fields.');
     
     initializeProgressBar();
 
@@ -507,13 +534,13 @@ function handleAIFormResponse(response) {
 $('body').on('click', '.directorist_generate_ai_directory', function(e) {
     e.preventDefault();
 
-    if (currentStep === 1) {
+    if (currentStep == 1) {
         return;
-    } else if (currentStep === 3) {
+    } else if (currentStep == 3) {
         handleKeywordStep();
     } 
  
-    handleDisableButton();
+    handleCreateButtonDisable();
 
     let form_data = new FormData();
     form_data.append('action', 'directorist_ai_directory_creation');
@@ -526,11 +553,11 @@ $('body').on('click', '.directorist_generate_ai_directory', function(e) {
     // Handle Axios Request
     axios.post(directorist_admin.ajax_url, form_data)
         .then(response => {
-            handleEnableButton();
+            handleCreateButtonEnable();
             handleAIFormResponse(response);
         })
         .catch(error => {
-            handleEnableButton();
+            handleCreateButtonEnable();
             console.error(error);
         });
 });

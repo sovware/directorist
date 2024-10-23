@@ -31806,6 +31806,11 @@ span.drop-toggle-caret:before {
 .directorist-create-directory__back__btn:hover {
   color: #3E62F5;
 }
+.directorist-create-directory__back__btn.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: not-allowed;
+}
 .directorist-create-directory__step {
   display: -webkit-box;
   display: -webkit-flex;

@@ -527,7 +527,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 				exit;
 			}
 
-			if ( $signin_page_id && is_user_logged_in() && is_page( $signin_page_id ) ) {
+			if ( $signin_page_id && is_user_logged_in() && is_page( $signin_page_id ) && empty( $_GET ) ) {
 				wp_safe_redirect( ATBDP_Permalink::get_dashboard_page_link() );
 				exit;
 			}

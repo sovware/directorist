@@ -111,44 +111,48 @@ function updatePrompt() {
 // Function to initialize Keyword Selected
 function initializeKeyword() {
     const tagList = []; // Internal list for selected keywords
-    const maxFreeTags = 5; // Max item limit for all users
+    const maxFreeTags = 5; // Max item limit for users
 
-    const tagListElem = document.getElementById("directorist-box__tagList");
-    const newTagElem = document.getElementById("directorist-box__newTag");
-    const recommendedTagsElem = document.getElementById("directorist-recommendedTags");
-    const recommendedTags = Array.from(recommendedTagsElem.getElementsByTagName("li"));
-    const tagLimitMsgElem = document.getElementById("directorist-tagLimitMsg");
-    const tagCountElem = document.getElementById("directorist-tagCount");
+    const tagListElem = $('#directorist-box__tagList'); 
+    const newTagElem = $('#directorist-box__newTag'); 
+    const recommendedTagsElem = $('#directorist-recommendedTags'); 
+    const tagLimitMsgElem = $('#directorist-tagLimitMsg'); 
+    const tagCountElem = $('#directorist-tagCount'); 
+
+    // Convert recommended tags to an array of jQuery objects
+    const recommendedTags = recommendedTagsElem.find("li").toArray(); 
 
     const canAddMoreTags = () => tagList.length < maxFreeTags;
 
     // Update the global keywords list
     const updateDirectoryKeywords = () => {
         // Sync global keywords
-        directoryKeywords = [...tagList]; 
+        directoryKeywords = [...tagList];
     };
 
     // Update the tag count and recommended tags state
     const updateTagCount = () => {
-        tagCountElem.textContent = `${tagList.length}/${maxFreeTags}`;
-        tagLimitMsgElem.style.display = "flex";
-        recommendedTagsElem.classList.toggle('recommend-disable', !canAddMoreTags());
+        tagCountElem.text(`${tagList.length}/${maxFreeTags}`);
+        tagLimitMsgElem.css("display", "flex"); 
+        recommendedTagsElem.toggleClass('recommend-disable', !canAddMoreTags()); 
     };
 
     // Update the recommended tags state based on the selected tags
     const updateRecommendedTagsState = () => {
         recommendedTags.forEach(tagElem => {
-            const tagText = tagElem.textContent.trim();
-            tagElem.classList.toggle('disabled', tagList.includes(tagText));
+            const tagText = $(tagElem).text().trim(); 
+            $(tagElem).toggleClass('disabled', tagList.includes(tagText)); 
         });
     };
 
     // Render the tag list
     const renderTagList = () => {
-        tagListElem.innerHTML = tagList.map(tag => (
-            `<li>${tag} <span class="directorist-rmTag" style="cursor:pointer;">&times;</span></li>`
-        )).join('');
-        tagListElem.appendChild(newTagElem.parentNode || document.createElement('li').appendChild(newTagElem));
+        tagListElem.empty(); // Clear the tag list element
+        tagList.forEach(tag => {
+            tagListElem.append(`<li>${tag} <span class="directorist-rmTag" style="cursor:pointer;">&times;</span></li>`); // Append each tag
+        });
+        // Append the new tag element
+        tagListElem.append(newTagElem.parent() || $('<li>').append(newTagElem)); 
 
         updateRecommendedTagsState();
         updateTagCount();
@@ -172,32 +176,33 @@ function initializeKeyword() {
     };
 
     // Event listener for adding tags via input
-    newTagElem.addEventListener("keyup", (e) => {
+    newTagElem.on("keyup", (e) => { 
         if (e.key === "Enter") {
-            const newTag = newTagElem.value.trim();
+            const newTag = newTagElem.val().trim(); 
             addTag(newTag);
-            newTagElem.value = '';
+            newTagElem.val(''); 
         }
     });
 
     // Event delegation for removing tags
-    tagListElem.addEventListener("click", (e) => {
-        if (e.target.classList.contains("directorist-rmTag")) {
-            const index = Array.from(tagListElem.children).indexOf(e.target.parentElement);
+    tagListElem.on("click", (e) => {
+        if ($(e.target).hasClass("directorist-rmTag")) { 
+            const index = Array.from(tagListElem.children()).indexOf(e.target.parentElement);
             removeTag(index);
         }
     });
 
     // Event listener for adding recommended tags
-    recommendedTagsElem.addEventListener("click", (e) => {
-        if (e.target.tagName === "LI" && !e.target.classList.contains("disabled")) {
-            addTag(e.target.textContent.trim());
+    recommendedTagsElem.on("click", "li", (e) => { 
+        if (!$(e.target).hasClass("disabled")) { 
+            addTag($(e.target).text().trim()); 
         }
     });
 
     // Initialize the tag management interface
     renderTagList();
 }
+
 
 // Function to initialize Progress bar
 function initializeProgressBar() {
@@ -423,9 +428,9 @@ function initialStepContents() {
 function handlePromptStep(response) {
     $('.directorist-create-directory__content__items[data-step="2"]').hide();
     $('.directorist-create-directory__content__items[data-step="3"]').show();
+    $('#directorist-recommendedTags').empty().html(response);
     initializeKeyword();
 
-    $('#directorist-recommendedTags').empty().html(response);
     currentStep = 3;
 }
 
@@ -477,6 +482,8 @@ function handleCreateDirectory() {
 // Response Success Callback
 function handleAIFormResponse(response) {
     if (response?.data?.success) {
+        console.log('Response Success:', currentStep, response);
+
         let nextStep = currentStep + 1;
 
         $('.directorist-create-directory__content__items[data-step="' + currentStep + '"]').hide(); 

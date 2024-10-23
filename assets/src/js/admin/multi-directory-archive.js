@@ -330,6 +330,12 @@ function handleStepTwo() {
     console.log('Handle Step Two');
 }
 
+// Handle Step Four
+function handleStepFour( response ) {
+    console.log('Handle Step Four');
+    console.log( response );
+}
+
 // Handle Step Three
 function handleStepThree(response) {
 
@@ -368,6 +374,8 @@ $('body').on( 'click', '.directorist_generate_ai_directory', function( e ) {
     let form_data = new FormData();
     form_data.append( 'action', 'directorist_ai_directory_creation' );
     form_data.append( 'prompt', $('.directorist-ai-prompt').val() );
+    form_data.append( 'name', $('#directory-name').val() );
+    form_data.append( 'fields', $('#directorist-ai-generated-fields-array').val() );
     form_data.append( 'keywords', keywords );
     form_data.append( 'step', step );
 
@@ -396,7 +404,10 @@ $('body').on( 'click', '.directorist_generate_ai_directory', function( e ) {
             } else if ( step == 2 ) {
                 handleStepTwo();
             } else if ( step == 3 ) {
+                $( '#directorist-ai-generated-fields-array' ).val( JSON.stringify( response?.data?.fields ) )
                 handleStepThree(response?.data?.html);
+            } else if ( step == 4 ) {
+                handleStepFour(response?.data?.html);
             } else {
                 console.log('No more steps available');
             }

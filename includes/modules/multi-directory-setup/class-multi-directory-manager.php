@@ -10,7 +10,7 @@ class Multi_Directory_Manager {
     public static $config  = [];
     public static $options = [];
 
-    public static $migration = null;
+    public static $migration  = null;
 
 
     public function __construct() {
@@ -471,19 +471,113 @@ class Multi_Directory_Manager {
         $prompt     = ! empty( $_POST['prompt'] ) ? $_POST['prompt'] : '';
         $keywords   = ! empty( $_POST['keywords'] ) ? $_POST['keywords'] : '';
         $step       = ! empty( $_POST['step'] ) ? $_POST['step'] : '';
+        $name       = ! empty( $_POST['name'] ) ? $_POST['name'] : '';
+        $fields     = ! empty( $_POST['fields'] ) ? $_POST['fields'] : [];
 
         if( 1 == $step ) {
             $html = $this->ai_create_keywords( $prompt );
         }
 
         if( 3 == $step ) {
-            $html = $this->ai_create_fields( $prompt, $keywords );
+            $response = $this->ai_create_fields( $prompt, $keywords );
+            wp_send_json([
+                'success' => true,
+                'html' => $response['html'],
+                'fields' => $response['fields'],
+            ]);
+
+        }
+
+        if( 3 < $step ) {
+            $html = $this->build_directory( $name, $fields, $step );
         }
 
 
         $installed['success'] = true;
         $installed['html'] = $html;
         wp_send_json( $installed );
+    }
+
+    private function merge_ai_fields($existing_config, $new_fields, $name ) {
+
+ 
+            // Decode new fields JSON safely
+    $new_fields = stripslashes($new_fields);
+    $new_fields_array = json_decode($new_fields, true);
+
+    if ($new_fields_array === null) {
+        // throw new Exception('Failed to decode new fields JSON: ' . json_last_error_msg());
+    }
+
+    // Reformat new fields to match the old format
+    foreach ($new_fields_array as $key => &$field) {
+        $field['widget_group'] = 'car_details';
+        $field['widget_name'] = $key;
+        $field['field_key'] = $key;
+        $field['widget_key'] = $key;
+    }
+
+    if (isset($existing_config['submission_form_fields']['fields'])) {
+        // Keep old title and description fields
+        $old_fields = $existing_config['submission_form_fields']['fields'];
+        $title_description_fields = array_filter($old_fields, function($key) {
+            return in_array($key, ['title', 'description']);
+        }, ARRAY_FILTER_USE_KEY);
+
+        // Replace the old fields with new fields, keeping title and description
+        $existing_config['submission_form_fields']['fields'] = array_merge(
+            $title_description_fields,
+            $new_fields_array
+        );
+    } else {
+        // Add new fields if none exist
+        $existing_config['submission_form_fields']['fields'] = $new_fields_array;
+    }
+
+    // Replace old groups with a new group containing the new fields and keeping title and description
+    $existing_config['submission_form_fields']['groups'] = [
+        [
+            "type" => "general_group",
+            "label" => "Car Details",
+            "fields" => array_merge(['title', 'description'], array_keys($new_fields_array)),
+            "defaultGroupLabel" => "Car Details",
+            "disableTrashIfGroupHasWidgets" => [],
+            "icon" => "las la-car",
+        ]
+    ];
+
+    return $existing_config;
+
+
+    }
+
+    public function build_directory( $name, $fields, $step = '' ){
+
+        $builder_content = directorist_get_json_from_url( 'http://app.directorist.com/wp-content/uploads/2024/10/business-1.zip' );
+
+        $updated_config = $this->merge_ai_fields($builder_content, $fields, $name );
+
+
+        self::prepare_settings();
+        $term = self::add_directory([
+            'directory_name' => $name . $step,
+            'fields_value'   => $updated_config,
+            'is_json'        => false
+        ]);
+
+        if( ! $term['status']['success'] ) {
+            $term_id = $term['status']['term_id'];
+        }else{
+            $term_id = $term['term_id'];
+        }
+
+        return [
+            'name' => $name,
+            'term_id' => $term_id,
+            'fields' => $fields,
+            'ready_builder' => $builder_content,
+            'updated' => $updated_config,
+        ];
     }
 
     public function ai_create_fields( $prompt ) {
@@ -514,7 +608,6 @@ Return the result as an array of associative arrays in PHP format.';
         
         // Evaluate the array string into a PHP array
         $fields = eval("return $php_array_string;");
-
 
         ob_start();?>
 
@@ -581,7 +674,12 @@ Return the result as an array of associative arrays in PHP format.';
             <?php }
         }
 
-        return ob_get_clean();
+        $html = ob_get_clean();
+
+        return [
+            'fields' => $fields,
+            'html' => $html,
+        ];
     }
 
     public function ai_create_keywords( $prompt ) {

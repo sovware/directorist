@@ -1104,6 +1104,7 @@
 						</div>
 					</div>
 				</div>
+				<input type="hidden" id="directorist-ai-generated-fields-array">
 			</div>
 
 			<div id="directorist-create-directory__creating" class="directory-generate-progress-list">

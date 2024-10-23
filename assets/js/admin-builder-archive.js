@@ -623,6 +623,7 @@ function initialStepContents() {
   $('#directorist-create-directory__generating').hide();
   $('.directorist-create-directory__content__items').hide();
   $('.directorist-create-directory__content__items[data-step="1"]').show();
+  $('.directorist-create-directory__step .step-count .total-step').html(totalStep);
   $('.directorist-create-directory__step .step-count .current-step').html(1);
   handleDisableButton();
 

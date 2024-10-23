@@ -367,17 +367,7 @@
 					</div>
 					<div class="directorist-box__item">
 						<label class="directorist-box__label">Recommended keywords</label>
-						<ul id="directorist-recommendedTags" class="directorist-box__recommended-list">
-							<li>Electric Car</li>
-							<li>Transmission</li>
-							<li>Hatchback</li>
-							<li>Mileage</li>
-							<li>Price</li>
-							<li>Features</li>
-							<li>Location</li>
-							<li>Condition</li>
-							<li>Label Text</li>
-						</ul>
+						<ul id="directorist-recommendedTags" class="directorist-box__recommended-list"></ul>
 					</div>
 				</div>
 			</div>

@@ -478,7 +478,7 @@ class Multi_Directory_Manager {
             $html = $this->ai_create_keywords( $prompt );
         }
 
-        if( 3 == $step ) {
+        if( 2 == $step ) {
             $response = $this->ai_create_fields( $prompt, $keywords );
             wp_send_json([
                 'success' => true,
@@ -593,9 +593,9 @@ class Multi_Directory_Manager {
         ];
     }
 
-    public function ai_create_fields( $prompt ) {
+    public function ai_create_fields( $prompt, $keywords ) {
 
-        $prompt = $prompt . '. I need the listing page fields list. For each field, return an array with the following keys:
+        $prompt = $prompt . '. I need the listing page fields list. Here is some keywords: '.$keywords.'. For each field, return an array with the following keys:
 "label": The label of the field without the @@.
 "type": The input type (e.g., <input type="text">, <textarea>, etc.).
 "options": An array of options if applicable (for select, radio, or checkbox fields), otherwise an empty array.

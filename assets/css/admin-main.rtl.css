@@ -31748,8 +31748,28 @@ span.drop-toggle-caret:before {
   -webkit-animation: spin 3s linear infinite;
           animation: spin 3s linear infinite;
 }
+.directorist-create-directory__next {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 8px;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
 .directorist-create-directory__next img {
   max-width: 10px;
+}
+.directorist-create-directory__next .directorist_regenerate_fields {
+  gap: 8px;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  color: #3E62F5 !important;
+  background: transparent !important;
+  border-color: transparent !important;
 }
 @media (max-width: 375px) {
   .directorist-create-directory__next {
@@ -31785,6 +31805,11 @@ span.drop-toggle-caret:before {
 }
 .directorist-create-directory__back__btn:hover {
   color: #3E62F5;
+}
+.directorist-create-directory__back__btn.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: not-allowed;
 }
 .directorist-create-directory__step {
   display: -webkit-box;
@@ -31863,6 +31888,23 @@ span.drop-toggle-caret:before {
   margin: 0 auto;
 }
 .directorist-create-directory__content.full-width {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   height: 100vh;
   max-width: 100%;
   min-width: 100%;
@@ -32201,7 +32243,6 @@ span.drop-toggle-caret:before {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  height: 100%;
   -webkit-box-align: center;
   -webkit-align-items: center;
       -ms-flex-align: center;
@@ -33149,7 +33190,7 @@ span.drop-toggle-caret:before {
   font-weight: 600;
   background-color: #3E62F5;
   border: 1px solid #3E62F5;
-  color: #FFF;
+  color: #fff !important;
   -webkit-box-shadow: 0px 1px 2px 0px rgba(27, 36, 44, 0.12);
           box-shadow: 0px 1px 2px 0px rgba(27, 36, 44, 0.12);
   height: 40px;

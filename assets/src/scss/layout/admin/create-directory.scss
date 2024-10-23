@@ -318,6 +318,10 @@
     overflow: auto;
     margin: 0 auto;
     &.full-width {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       height: 100vh;
       max-width: 100%;
       min-width: 100%;
@@ -555,7 +559,6 @@
 
   @include e("generate") {
     display: flex;
-    height: 100%;
     align-items: center;
     flex-direction: column;
     justify-content: center;
@@ -1336,7 +1339,7 @@
     font-weight: 600;
     background-color: #3E62F5;
     border:1px solid #3E62F5;
-    color: #FFF;
+    color: #fff !important;
     box-shadow: 0px 1px 2px 0px rgba(27, 36, 44, 0.12);
     height: 40px;
     border-radius: 8px;

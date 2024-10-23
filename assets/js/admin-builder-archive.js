@@ -371,7 +371,7 @@ var currentStepDesc = '';
 var directoryTitle = '';
 var directoryLocation = '';
 var directoryType = '';
-var directoryPrompt = '';
+var directoryPrompt = 'I want to create a car directory';
 var directoryKeywords = [];
 var directoryFields = [];
 
@@ -474,28 +474,32 @@ function initializeKeyword() {
 
 // Function to initialize Progress bar
 function initializeProgressBar() {
-  var generateBtnWrapper = document.querySelector(".directory-generate-btn__wrapper");
-  if (generateBtnWrapper) {
-    var finalWidth = generateBtnWrapper.getAttribute("data-width");
-    var btnPercentage = document.querySelector(".directory-generate-btn__percentage");
-    var progressBar = document.querySelector(".directory-generate-btn--bg");
-    var currentWidth = 0;
+  // Reset currentWidth to 0 each time the function is called
+  var currentWidth = 0; // Move this here to reset on each call
 
-    // Update the progress bar width
-    var updateProgress = function updateProgress() {
-      if (currentWidth <= finalWidth) {
-        btnPercentage.textContent = "".concat(currentWidth, "%");
-        progressBar.style.width = "".concat(currentWidth, "%");
-        if (typeof updateProgressList === 'function') {
-          updateProgressList(currentWidth);
-        }
-        currentWidth++;
-      } else {
-        clearInterval(progressInterval);
+  console.log('initializeProgressBar', $('#directory-generate-btn__progress').data('width'));
+  var finalWidth = $('#directory-generate-btn__progress').data('width');
+  var btnPercentage = document.querySelector(".directory-generate-btn__percentage");
+  var progressBar = document.querySelector(".directory-generate-btn--bg");
+  console.log('generateBtnWrapper Width:', currentWidth, finalWidth);
+
+  // Update the progress bar width
+  var updateProgress = function updateProgress() {
+    if (currentWidth <= finalWidth) {
+      btnPercentage.textContent = "".concat(currentWidth, "%");
+      progressBar.style.width = "".concat(currentWidth, "%");
+      if (typeof updateProgressList === 'function') {
+        updateProgressList(currentWidth);
       }
-    };
-    var progressInterval = setInterval(updateProgress, 30);
-  }
+      currentWidth++;
+    } else {
+      clearInterval(progressInterval);
+    }
+  };
+
+  // Clear any previous interval to prevent multiple overlapping intervals
+  clearInterval(window.progressInterval);
+  window.progressInterval = setInterval(updateProgress, 30);
   var steps = document.querySelectorAll(".directory-generate-progress-list li");
 
   // Update the progress list based on the current progress
@@ -599,8 +603,6 @@ function handleDisableButton() {
 
 // Initial Step Contents
 function initialStepContents() {
-  console.log('Initial Step Contents', currentStep);
-
   // Hide all steps except the first one initially
   $('#directorist-create-directory__creating').hide();
   $('#directorist-create-directory__ai-fields').hide();
@@ -667,7 +669,6 @@ function initialStepContents() {
 
 // Handle Prompt Step 
 function handlePromptStep(response) {
-  console.log('handlePromptStep', currentStep, response);
   $('.directorist-create-directory__content__items[data-step="2"]').hide();
   $('.directorist-create-directory__content__items[data-step="3"]').show();
   initializeKeyword();
@@ -677,35 +678,49 @@ function handlePromptStep(response) {
 
 // Handle Keyword Step
 function handleKeywordStep() {
-  console.log('handleKeywordStep', currentStep);
   $('#directorist-create-directory__generating').show();
   $('.directorist-create-directory__top').hide();
   $('.directorist-create-directory__content__items').hide();
   $('.directorist-create-directory__header').hide();
   $('.directorist-create-directory__content__footer').hide();
   $('.directorist-create-directory__content').toggleClass('full-width');
+  $('#directory-generate-btn__progress').data('width', 100);
   initializeProgressBar();
 }
 
 // Handle Generated Fields
 function handleGenerateFields(response) {
-  var _response$data6, _response$data7;
-  console.log('handleGenerateFields', currentStep, response);
+  var _response$data6;
   $('#directorist-create-directory__ai-fields').show();
   $('.directorist-create-directory__header').show();
   $('#directorist-create-directory__generating').hide();
   $('.directorist-create-directory__content__footer').show();
-  $('.directorist-create-directory__content').toggleClass('full-width');
+  $('.directorist-create-directory__content').removeClass('full-width');
   $('#directorist-ai-generated-fields-array').val(JSON.stringify(response === null || response === void 0 || (_response$data6 = response.data) === null || _response$data6 === void 0 ? void 0 : _response$data6.fields));
   $('#directorist_ai_generated_fields').empty().html(response);
-  directoryFields = response === null || response === void 0 || (_response$data7 = response.data) === null || _response$data7 === void 0 ? void 0 : _response$data7.fields;
   initializeDropdownField();
+  currentStep = 4;
+}
+
+// Handle Create Directory
+function handleCreateDirectory() {
+  $('#directorist-create-directory__generating').show();
+  $('#directorist-create-directory__creating').show();
+  $('#directorist-create-directory__ai-fields').hide();
+  $('.directorist-create-directory__top').hide();
+  $('.directorist-create-directory__content__items').hide();
+  $('.directorist-create-directory__header').hide();
+  $('.directorist-create-directory__content__footer').hide();
+  $('.directorist-create-directory__content').addClass('full-width');
+  $('#directory-generate-btn__progress').data('width', 100);
+  initializeProgressBar();
+  $('#directorist-create-directory__preview-btn').attr('href', 'https://www.directorist.com');
 }
 
 // Response Success Callback
 function handleAIFormResponse(response) {
-  var _response$data8;
-  if (response !== null && response !== void 0 && (_response$data8 = response.data) !== null && _response$data8 !== void 0 && _response$data8.success) {
+  var _response$data7;
+  if (response !== null && response !== void 0 && (_response$data7 = response.data) !== null && _response$data7 !== void 0 && _response$data7.success) {
     console.log('Response Success:', currentStep, response);
     var nextStep = currentStep + 1;
     $('.directorist-create-directory__content__items[data-step="' + currentStep + '"]').hide();
@@ -715,11 +730,14 @@ function handleAIFormResponse(response) {
       $('.directorist-create-directory__content__items[data-step="' + nextStep + '"]').show();
     }
     if (currentStep == 2) {
-      var _response$data9;
-      handlePromptStep(response === null || response === void 0 || (_response$data9 = response.data) === null || _response$data9 === void 0 ? void 0 : _response$data9.html);
+      var _response$data8;
+      handlePromptStep(response === null || response === void 0 || (_response$data8 = response.data) === null || _response$data8 === void 0 ? void 0 : _response$data8.html);
     } else if (currentStep == 3) {
-      var _response$data10;
-      handleGenerateFields(response === null || response === void 0 || (_response$data10 = response.data) === null || _response$data10 === void 0 ? void 0 : _response$data10.html);
+      var _response$data9, _response$data10;
+      handleGenerateFields(response === null || response === void 0 || (_response$data9 = response.data) === null || _response$data9 === void 0 ? void 0 : _response$data9.html);
+      directoryFields = JSON.stringify(response === null || response === void 0 || (_response$data10 = response.data) === null || _response$data10 === void 0 ? void 0 : _response$data10.fields);
+    } else if (currentStep == 4) {
+      handleCreateDirectory();
     }
     return;
   } else {
@@ -745,6 +763,7 @@ $('body').on('click', '.directorist_generate_ai_directory', function (e) {
   form_data.append('fields', directoryFields);
   form_data.append('step', currentStep - 1);
   console.log('Form Data:', form_data);
+
   // Handle Axios Request
   axios.post(directorist_admin.ajax_url, form_data).then(function (response) {
     handleEnableButton();

@@ -30,12 +30,11 @@ window.addEventListener('load', () => {
                 return;
             }
 
-            responseFaildCallback( response );
+            responseFieldCallback( response );
         };
 
         // Response Error Callback
-        const responseFaildCallback = function ( response ) {
-            // console.log( { response } );
+        const responseFieldCallback = function ( response ) {
 
             let msg = ( response?.data?.message ) ?? 'Something went wrong please try again';
             let alert_content = `
@@ -56,10 +55,9 @@ window.addEventListener('load', () => {
         axios.post( directorist_admin.ajax_url, form_data ).then( response => {
             responseSuccessCallback( response );
         }).catch( response => {
-            responseFaildCallback( response );
+            responseFieldCallback( response );
         });
     });
-
 
     // Show the form when the '.directorist-ai-directory-creation' element is clicked
     $('.directorist-ai-directory-creation').on('click', function(e) {
@@ -70,11 +68,10 @@ window.addEventListener('load', () => {
         form_data.append('action', 'directorist_ai_directory_form');
 
         // Success callback to handle the response
-        const responseAIFormSuccess = function(response) {
+        function handleAIFormInit(response) {
             if (response?.data?.success) {
                 // Replace the content inside '#wpbody' with the response HTML
                 $('#wpbody').empty().html(response?.data?.html);
-                console.log('Form Loaded Successfully');
 
                 // Initialize Step Contents
                 initialStepContents(); 
@@ -88,12 +85,9 @@ window.addEventListener('load', () => {
         // Send the request using Axios
         axios.post(directorist_admin.ajax_url, form_data)
             .then(response => {
-                console.log('@Response Successfully', response);
-                responseAIFormSuccess(response);  // Handle the response
+                handleAIFormInit(response);  // Handle the response
             })
     });
-
-
 });
 
 let totalStep = 3;
@@ -126,17 +120,20 @@ function initializeKeyword() {
 
     const canAddMoreTags = () => tagList.length < maxFreeTags;
 
+    // Update the global keywords list
     const updateDirectoryKeywords = () => {
         directoryKeywords = [...tagList]; // Sync global keywords
         console.log('Updated directoryKeywords:', directoryKeywords);
     };
 
+    // Update the tag count and recommended tags state
     const updateTagCount = () => {
         tagCountElem.textContent = `${tagList.length}/${maxFreeTags}`;
         tagLimitMsgElem.style.display = "flex";
         recommendedTagsElem.classList.toggle('recommend-disable', !canAddMoreTags());
     };
 
+    // Update the recommended tags state based on the selected tags
     const updateRecommendedTagsState = () => {
         recommendedTags.forEach(tagElem => {
             const tagText = tagElem.textContent.trim();
@@ -144,6 +141,7 @@ function initializeKeyword() {
         });
     };
 
+    // Render the tag list
     const renderTagList = () => {
         tagListElem.innerHTML = tagList.map(tag => (
             `<li>${tag} <span class="directorist-rmTag" style="cursor:pointer;">&times;</span></li>`
@@ -155,6 +153,7 @@ function initializeKeyword() {
         updateDirectoryKeywords();
     };
 
+    // Add a new tag to the list
     const addTag = (tag) => {
         if (tag && !tagList.includes(tag) && canAddMoreTags()) {
             tagList.push(tag);
@@ -162,6 +161,7 @@ function initializeKeyword() {
         }
     };
 
+    // Remove a tag from the list
     const removeTag = (index) => {
         if (index !== -1) {
             tagList.splice(index, 1);
@@ -208,6 +208,7 @@ function initializeProgressBar() {
 
         let currentWidth = 0;
 
+        // Update the progress bar width
         const updateProgress = () => {
             if (currentWidth <= finalWidth) {
                 btnPercentage.textContent = `${currentWidth}%`;
@@ -228,6 +229,7 @@ function initializeProgressBar() {
 
     const steps = document.querySelectorAll(".directory-generate-progress-list li");
 
+    // Update the progress list based on the current progress
     const updateProgressList = (progress) => {
         if (steps.length > 0) {
             steps.forEach((step, index) => {
@@ -260,6 +262,7 @@ function initializeDropdownField(){
     const dropdowns = document.querySelectorAll(".directorist-ai-generate-dropdown");
     const accordion = true;
 
+    // Initialize each dropdown
     dropdowns.forEach((dropdown) => {
         const header = dropdown.querySelector(".directorist-ai-generate-dropdown__header");
         const content = dropdown.querySelector(".directorist-ai-generate-dropdown__content");
@@ -267,6 +270,7 @@ function initializeDropdownField(){
         const pinIcon = dropdown.querySelector(".directorist-ai-generate-dropdown__pin-icon");
         const dropdownItem = dropdown.closest('.directorist-ai-generate-box__item');
 
+        // Pin Field
         pinIcon.addEventListener("click", (event) => {
             event.stopPropagation();
             if (dropdownItem.classList.contains("pinned")) {
@@ -278,6 +282,7 @@ function initializeDropdownField(){
             }
         });
 
+        // Toggle the dropdown content
         header.addEventListener("click", (event) => {
             if (event.target === pinIcon || pinIcon.contains(event.target)) {
                 return;
@@ -310,6 +315,12 @@ function initializeDropdownField(){
 //     console.log('Handle Back Button', currentStep);
 // }
 
+// handle back btn
+$('body').on( 'click', '.directorist-create-directory__back__btn', function( e ) {
+    e.preventDefault();
+    // handleBackButton();
+});
+
 // Enable Submit Button
 function handleEnableButton() {
     $('.directorist_generate_ai_directory').removeClass('disabled');
@@ -323,6 +334,7 @@ function handleDisableButton() {
 // Initial Step Contents
 function initialStepContents() {
     console.log('Initial Step Contents', currentStep);
+
     // Hide all steps except the first one initially
     $('#directorist-create-directory__creating').hide();
     $('#directorist-create-directory__ai-fields').hide();
@@ -330,9 +342,10 @@ function initialStepContents() {
     $('.directorist-create-directory__content__items').hide();
     $('.directorist-create-directory__content__items[data-step="1"]').show();
     $('.directorist-create-directory__step .step-count .current-step').html(1);
+    
     handleDisableButton()
 
-
+    // Directory Title Input Listener
     $('body').on( 'keyup change ', '.directorist-create-directory__content__input[name="directory-name"]', function( e ) {
         directoryTitle = e.target.value;
         console.log('directoryTitle Changed', directoryTitle);
@@ -385,20 +398,21 @@ function initialStepContents() {
     });
 }
 
-// Handle Step One 
+// Handle Prompt Step 
 function handlePromptStep(response) {
     console.log('handlePromptStep', currentStep, response);
 
     $('.directorist-create-directory__content__items[data-step="2"]').hide();
     $('.directorist-create-directory__content__items[data-step="3"]').show();
     initializeKeyword();
+
     $('#directorist-recommendedTags').empty().html(response);
     currentStep = 3;
 }
 
-// Handle Step Two
-function handleKeywordStep(response) {
-    console.log('handleKeywordStep', currentStep, response);
+// Handle Keyword Step
+function handleKeywordStep() {
+    console.log('handleKeywordStep', currentStep);
     
     $('#directorist-create-directory__generating').show();
     $('.directorist-create-directory__top').hide();
@@ -408,32 +422,33 @@ function handleKeywordStep(response) {
     $('.directorist-create-directory__content').toggleClass('full-width');
     
     initializeProgressBar();
-
-    setTimeout(() => {
-        $('#directorist-create-directory__ai-fields').show();
-        $('.directorist-create-directory__header').show();
-        $('#directorist-create-directory__generating').hide();
-        $('.directorist-create-directory__content__footer').show();
-        $('.directorist-create-directory__content').toggleClass('full-width');
-
-        $('#directorist-ai-generate-box__fields').empty().html(response);
-
-        initializeDropdownField();
-    }, 3000);
-    currentStep = 4;
 }
 
+// Handle Generated Fields
+function handleGenerateFields(response) {
+    console.log('handleGenerateFields', currentStep, response);
+
+    $('#directorist-create-directory__ai-fields').show();
+    $('.directorist-create-directory__header').show();
+    $('#directorist-create-directory__generating').hide();
+    $('.directorist-create-directory__content__footer').show();
+    $('.directorist-create-directory__content').toggleClass('full-width');
+
+    $('#directorist-ai-generate-box__fields').empty().html(response);
+
+    initializeDropdownField();
+}
 
 // Response Success Callback
-const responseAIFormSuccess = function(response) {
+function handleAIFormResponse(response) {
     if (response?.data?.success) {
+        console.log('Response Success:', currentStep);
+
         let nextStep = currentStep + 1;
 
-        console.log('Response Success:', currentStep);
         $('.directorist-create-directory__content__items[data-step="' + currentStep + '"]').hide(); 
         $('.directorist-create-directory__step .step-count .current-step').html(nextStep);
         $(`.directorist-create-directory__step .atbdp-setup-steps li:nth-child(${nextStep})`).addClass('active');
-        
         if ($('.directorist-create-directory__content__items[data-step="' + nextStep + '"]').length) {
             $('.directorist-create-directory__content__items[data-step="' + nextStep + '"]').show();
         }
@@ -441,55 +456,42 @@ const responseAIFormSuccess = function(response) {
         if (currentStep == 2) {
             handlePromptStep(response?.data?.html);
         } else if (currentStep == 3) {
-            handleKeywordStep(response?.data?.html);
+            handleGenerateFields(response?.data?.html);
         } 
 
         return;
+    } else {
+        console.error('Something went wrong! Please try again');
     }
-
-    alert('Something went wrong! Please try again');
 };
-
-
-// handle back btn
-$('body').on( 'click', '.directorist-create-directory__back__btn', function( e ) {
-    e.preventDefault();
-    // handleBackButton();
-});
-
-// handle axios request
-function handleAxiosRequest(step) {
-    console.log('handleAxiosRequest', step);
-
-    if (step === 1) {
-        return;
-     }
- 
-     handleDisableButton();
- 
-     let form_data = new FormData();
-     form_data.append('action', 'directorist_ai_directory_creation');
-     form_data.append('prompt', directoryPrompt);
-     form_data.append('keywords', directoryKeywords);
-     form_data.append('step', step - 1);
- 
-     axios.post(directorist_admin.ajax_url, form_data)
-         .then(response => {
-             handleEnableButton();
-             responseAIFormSuccess(response);
-         })
-         .catch(error => {
-             handleEnableButton();
-             console.log(error);
-             alert('Something went wrong! Please try again');
-         });
-}
 
 // Form Submission Handler
 $('body').on('click', '.directorist_generate_ai_directory', function(e) {
     e.preventDefault();
 
+    if (currentStep === 1) {
+        return;
+    } else if (currentStep === 3) {
+        handleKeywordStep();
+    }
+ 
+    handleDisableButton();
+
+    let form_data = new FormData();
+    form_data.append('action', 'directorist_ai_directory_creation');
+    form_data.append('prompt', directoryPrompt);
+    form_data.append('keywords', directoryKeywords);
+    form_data.append('step', currentStep - 1);
+
     // Handle Axios Request
-    handleAxiosRequest(currentStep);
+    axios.post(directorist_admin.ajax_url, form_data)
+        .then(response => {
+            handleEnableButton();
+            handleAIFormResponse(response);
+        })
+        .catch(error => {
+            handleEnableButton();
+            console.log(error);
+        });
 });
 

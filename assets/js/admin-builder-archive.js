@@ -289,10 +289,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+var $ = jQuery;
+var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").default;
 window.addEventListener('load', function () {
-  var $ = jQuery;
-  var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").default;
-
   // Migration Link
   $('.directorist_directory_template_library').on('click', function (e) {
     e.preventDefault();
@@ -351,12 +350,8 @@ window.addEventListener('load', function () {
         $('#wpbody').empty().html(response === null || response === void 0 || (_response$data5 = response.data) === null || _response$data5 === void 0 ? void 0 : _response$data5.html);
         console.log('Form Loaded Successfully');
 
-        // Initialize any required steps after form load
-        initialStepContents(); // Initialize the content for the first step
-        // initializeKeyword();   
-        // initializeProgressBar(); 
-        // initializeDropdownField();
-
+        // Initialize Step Contents
+        initialStepContents();
         return;
       }
 
@@ -372,91 +367,99 @@ window.addEventListener('load', function () {
   });
 });
 
+var totalStep = 3;
+var currentStep = 1;
+var currentStepTitle = '';
+var currentStepDesc = '';
+var directoryTitle = '';
+var directoryLocation = '';
+var directoryType = '';
+var directoryPrompt = '';
+var directoryKeywords = [];
+
+// Update Directory Prompt
+function updatePrompt() {
+  directoryPrompt = "I want to create a ".concat(directoryType || 'car', " directory").concat(directoryLocation ? " in ".concat(directoryLocation) : '');
+  $('#directorist-ai-prompt').html(directoryPrompt);
+}
+
 // Function to initialize Keyword Selected
 function initializeKeyword() {
-  (function () {
-    var tagList = []; // Select default keyword
-    var maxFreeTags = 5; // Max item limit for all users
+  var tagList = []; // Internal list for selected keywords
+  var maxFreeTags = 5; // Max item limit for all users
 
-    var tagListElem = document.getElementById("directorist-box__tagList");
-    var newTagElem = document.getElementById("directorist-box__newTag");
-    var recommendedTagsElem = document.getElementById("directorist-recommendedTags");
-    var recommendedTags = Array.from(recommendedTagsElem.getElementsByTagName("li"));
-    var tagLimitMsgElem = document.getElementById("directorist-tagLimitMsg");
-    var tagCountElem = document.getElementById("directorist-tagCount");
-    var initTagManagement = function initTagManagement() {
+  var tagListElem = document.getElementById("directorist-box__tagList");
+  var newTagElem = document.getElementById("directorist-box__newTag");
+  var recommendedTagsElem = document.getElementById("directorist-recommendedTags");
+  var recommendedTags = Array.from(recommendedTagsElem.getElementsByTagName("li"));
+  var tagLimitMsgElem = document.getElementById("directorist-tagLimitMsg");
+  var tagCountElem = document.getElementById("directorist-tagCount");
+  var canAddMoreTags = function canAddMoreTags() {
+    return tagList.length < maxFreeTags;
+  };
+  var updateDirectoryKeywords = function updateDirectoryKeywords() {
+    directoryKeywords = [].concat(tagList); // Sync global keywords
+    console.log('Updated directoryKeywords:', directoryKeywords);
+  };
+  var updateTagCount = function updateTagCount() {
+    tagCountElem.textContent = "".concat(tagList.length, "/").concat(maxFreeTags);
+    tagLimitMsgElem.style.display = "flex";
+    recommendedTagsElem.classList.toggle('recommend-disable', !canAddMoreTags());
+  };
+  var updateRecommendedTagsState = function updateRecommendedTagsState() {
+    recommendedTags.forEach(function (tagElem) {
+      var tagText = tagElem.textContent.trim();
+      tagElem.classList.toggle('disabled', tagList.includes(tagText));
+    });
+  };
+  var renderTagList = function renderTagList() {
+    tagListElem.innerHTML = tagList.map(function (tag) {
+      return "<li>".concat(tag, " <span class=\"directorist-rmTag\" style=\"cursor:pointer;\">&times;</span></li>");
+    }).join('');
+    tagListElem.appendChild(newTagElem.parentNode || document.createElement('li').appendChild(newTagElem));
+    updateRecommendedTagsState();
+    updateTagCount();
+    updateDirectoryKeywords();
+  };
+  var addTag = function addTag(tag) {
+    if (tag && !tagList.includes(tag) && canAddMoreTags()) {
+      tagList.push(tag);
       renderTagList();
-      updateRecommendedTagsState();
-    };
-    var renderTagList = function renderTagList() {
-      tagListElem.innerHTML = "";
-      tagList.forEach(function (tag) {
-        var li = document.createElement("li");
-        li.innerHTML = "".concat(tag, " <span class=\"directorist-rmTag\" style=\"cursor:pointer;\">&times;</span>");
-        tagListElem.appendChild(li);
-      });
-      var inputLi = document.createElement("li");
-      inputLi.appendChild(newTagElem);
-      tagListElem.appendChild(inputLi);
-      updateRecommendedTagsState();
-      updateTagCount();
-    };
-    var canAddMoreTags = function canAddMoreTags() {
-      return tagList.length < maxFreeTags;
-    };
-    var updateTagCount = function updateTagCount() {
-      var tagCount = tagList.length;
-      tagCountElem.innerHTML = "".concat(tagCount, "/").concat(maxFreeTags);
-      // Always display the tag limit message
-      tagLimitMsgElem.style.display = "flex";
-      // Add or remove 'recommend-disable' class based on the tag limit
-      if (canAddMoreTags()) {
-        recommendedTagsElem.classList.remove("recommend-disable");
-      } else {
-        recommendedTagsElem.classList.add("recommend-disable");
-      }
-    };
-    newTagElem.addEventListener("keyup", function (e) {
-      if (e.key === "Enter") {
-        var newTag = newTagElem.value.trim();
-        if (newTag && !tagList.includes(newTag) && canAddMoreTags()) {
-          tagList.push(newTag);
-          newTagElem.value = "";
-          renderTagList();
-          newTagElem.focus();
-        }
-      }
-    });
-    tagListElem.addEventListener("click", function (e) {
-      if (e.target.classList.contains("directorist-rmTag")) {
-        var index = Array.from(tagListElem.children).findIndex(function (child) {
-          return child.contains(e.target);
-        });
-        if (index !== -1) {
-          tagList.splice(index, 1);
-          renderTagList();
-        }
-      }
-    });
-    recommendedTagsElem.addEventListener("click", function (e) {
-      if (e.target.tagName === "LI" && !e.target.classList.contains("disabled")) {
-        if (canAddMoreTags()) {
-          var recommendedTag = e.target.textContent.trim();
-          if (!tagList.includes(recommendedTag)) {
-            tagList.push(recommendedTag);
-            renderTagList();
-          }
-        }
-      }
-    });
-    var updateRecommendedTagsState = function updateRecommendedTagsState() {
-      recommendedTags.forEach(function (recommendedTagElem) {
-        var recommendedTag = recommendedTagElem.textContent.trim();
-        recommendedTagElem.classList.toggle("disabled", tagList.includes(recommendedTag));
-      });
-    };
-    initTagManagement();
-  })();
+    }
+  };
+  var removeTag = function removeTag(index) {
+    if (index !== -1) {
+      tagList.splice(index, 1);
+      renderTagList();
+    }
+  };
+
+  // Event listener for adding tags via input
+  newTagElem.addEventListener("keyup", function (e) {
+    if (e.key === "Enter") {
+      var newTag = newTagElem.value.trim();
+      addTag(newTag);
+      newTagElem.value = '';
+    }
+  });
+
+  // Event delegation for removing tags
+  tagListElem.addEventListener("click", function (e) {
+    if (e.target.classList.contains("directorist-rmTag")) {
+      var index = Array.from(tagListElem.children).indexOf(e.target.parentElement);
+      removeTag(index);
+    }
+  });
+
+  // Event listener for adding recommended tags
+  recommendedTagsElem.addEventListener("click", function (e) {
+    if (e.target.tagName === "LI" && !e.target.classList.contains("disabled")) {
+      addTag(e.target.textContent.trim());
+    }
+  });
+
+  // Initialize the tag management interface
+  renderTagList();
 }
 
 // Function to initialize Progress bar
@@ -507,6 +510,7 @@ function initializeProgressBar() {
     }
   };
 }
+
 //Function to initialize Dropdown
 function initializeDropdownField() {
   var dropdowns = document.querySelectorAll(".directorist-ai-generate-dropdown");
@@ -551,9 +555,24 @@ function initializeDropdownField() {
   });
 }
 
+// Function to handle back button
+// function handleBackButton() {
+//     console.log('Handle Back Button', currentStep);
+// }
+
+// Enable Submit Button
+function handleEnableButton() {
+  $('.directorist_generate_ai_directory').removeClass('disabled');
+}
+
+// Disable Submit Button
+function handleDisableButton() {
+  $('.directorist_generate_ai_directory').addClass('disabled');
+}
+
 // Initial Step Contents
 function initialStepContents() {
-  console.log('Initial Step Contents');
+  console.log('Initial Step Contents', currentStep);
   // Hide all steps except the first one initially
   $('#directorist-create-directory__creating').hide();
   $('#directorist-create-directory__ai-fields').hide();
@@ -561,25 +580,71 @@ function initialStepContents() {
   $('.directorist-create-directory__content__items').hide();
   $('.directorist-create-directory__content__items[data-step="1"]').show();
   $('.directorist-create-directory__step .step-count .current-step').html(1);
+  handleDisableButton();
+  $('body').on('keyup change ', '.directorist-create-directory__content__input[name="directory-name"]', function (e) {
+    directoryTitle = e.target.value;
+    console.log('directoryTitle Changed', directoryTitle);
+    if (directoryTitle) {
+      handleEnableButton();
+    } else {
+      handleDisableButton();
+    }
+  });
+
+  // Directory Location Input Listener
+  $('body').on('keyup change', '.directorist-create-directory__content__input[name="directory-location"]', function (e) {
+    directoryLocation = e.target.value;
+    console.log('directoryLocation Changed', directoryLocation);
+    updatePrompt();
+  });
+
+  // Directory Type Input Listener
+  $('body').on('change', '[name="directory_type[]"]', function (e) {
+    directoryType = e.target.value;
+    console.log('directoryType Changed', directoryType);
+    // Show or hide the input based on the selected value
+    if (directoryType === 'others') {
+      directoryType = $('#new-directory-type').val();
+      $('#directorist-create-directory__checkbox__others').show();
+      $('body').on('keyup', '[name="new-directory-type"]', function (e) {
+        directoryType = e.target.value;
+        updatePrompt();
+      });
+    } else {
+      $('#directorist-create-directory__checkbox__others').hide();
+    }
+    updatePrompt();
+  });
+
+  // Generate AI Directory Button Click Handler
+  $('body').on('click', '.directorist_generate_ai_directory', function (e) {
+    e.preventDefault();
+    if (currentStep === 1) {
+      $('.directorist-create-directory__content__items[data-step="1"]').hide();
+      $('.directorist-create-directory__content__items[data-step="2"]').show();
+      $('.directorist-create-directory__step .step-count .current-step').html(2);
+      $(".directorist-create-directory__step .atbdp-setup-steps li:nth-child(2)").addClass('active');
+      currentStep = 2;
+    }
+  });
 }
 
-// Handle Step One
-function handleStepOne(response) {
-  console.log('Handle Step One');
-  $('#directorist-recommendedTags').empty().html(response);
+// Handle Step One 
+function handlePromptStep(response) {
+  console.log('handlePromptStep', currentStep, response);
+  $('.directorist-create-directory__content__items[data-step="2"]').hide();
+  $('.directorist-create-directory__content__items[data-step="3"]').show();
   initializeKeyword();
+  $('#directorist-recommendedTags').empty().html(response);
+  currentStep = 3;
 }
 
 // Handle Step Two
-function handleStepTwo() {
-  console.log('Handle Step Two');
-}
-
-// Handle Step Three
-function handleStepThree() {
-  console.log('Handle Step Three');
+function handleKeywordStep(response) {
+  console.log('handleKeywordStep', currentStep, response);
   $('#directorist-create-directory__generating').show();
   $('.directorist-create-directory__top').hide();
+  $('.directorist-create-directory__content__items').hide();
   $('.directorist-create-directory__header').hide();
   $('.directorist-create-directory__content__footer').hide();
   $('.directorist-create-directory__content').toggleClass('full-width');
@@ -590,65 +655,70 @@ function handleStepThree() {
     $('#directorist-create-directory__generating').hide();
     $('.directorist-create-directory__content__footer').show();
     $('.directorist-create-directory__content').toggleClass('full-width');
+    $('#directorist-ai-generate-box__fields').empty().html(response);
     initializeDropdownField();
   }, 3000);
+  currentStep = 4;
 }
-var $ = jQuery;
-var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").default;
 
-// handle form step
-$('body').on('click', '.directorist_generate_ai_directory', function (e) {
+// Response Success Callback
+var responseAIFormSuccess = function responseAIFormSuccess(response) {
+  var _response$data6;
+  if (response !== null && response !== void 0 && (_response$data6 = response.data) !== null && _response$data6 !== void 0 && _response$data6.success) {
+    var nextStep = currentStep + 1;
+    console.log('Response Success:', currentStep);
+    $('.directorist-create-directory__content__items[data-step="' + currentStep + '"]').hide();
+    $('.directorist-create-directory__step .step-count .current-step').html(nextStep);
+    $(".directorist-create-directory__step .atbdp-setup-steps li:nth-child(".concat(nextStep, ")")).addClass('active');
+    if ($('.directorist-create-directory__content__items[data-step="' + nextStep + '"]').length) {
+      $('.directorist-create-directory__content__items[data-step="' + nextStep + '"]').show();
+    }
+    if (currentStep == 2) {
+      var _response$data7;
+      handlePromptStep(response === null || response === void 0 || (_response$data7 = response.data) === null || _response$data7 === void 0 ? void 0 : _response$data7.html);
+    } else if (currentStep == 3) {
+      var _response$data8;
+      handleKeywordStep(response === null || response === void 0 || (_response$data8 = response.data) === null || _response$data8 === void 0 ? void 0 : _response$data8.html);
+    }
+    return;
+  }
+  alert('Something went wrong! Please try again');
+};
+
+// handle back btn
+$('body').on('click', '.directorist-create-directory__back__btn', function (e) {
   e.preventDefault();
-  var self = this;
-  var step = $(self).data('step');
-  var keywords = $('input[name="keywords[]"]:checked').map(function () {
-    return this.value;
-  }).get();
+  // handleBackButton();
+});
+
+// handle axios request
+function handleAxiosRequest(step) {
+  console.log('handleAxiosRequest', step);
+  if (step === 1) {
+    return;
+  }
+  handleDisableButton();
   var form_data = new FormData();
   form_data.append('action', 'directorist_ai_directory_creation');
-  form_data.append('prompt', $('.directorist-ai-prompt').val());
-  form_data.append('keywords', keywords);
-  form_data.append('step', step);
-
-  // Response Success Callback
-  var responseAIFormSuccess = function responseAIFormSuccess(response) {
-    var _response$data6;
-    if (response !== null && response !== void 0 && (_response$data6 = response.data) !== null && _response$data6 !== void 0 && _response$data6.success) {
-      // Hide the current step and show the next one
-      $('.directorist-create-directory__content__items[data-step="' + step + '"]').hide();
-      var nextStep = step + 1;
-      // Update step data attribute
-      $(self).data('step', nextStep);
-      $('.directorist-create-directory__step .step-count .current-step').html(nextStep);
-      // Add 'active' class to the next step
-      $(".directorist-create-directory__step .atbdp-setup-steps li:nth-child(".concat(nextStep, ")")).addClass('active');
-      if ($('.directorist-create-directory__content__items[data-step="' + nextStep + '"]').length) {
-        // Show next step
-        $('.directorist-create-directory__content__items[data-step="' + nextStep + '"]').show();
-      } else {
-        console.log('No more steps available');
-      }
-      if (step == 1) {
-        var _response$data7;
-        handleStepOne(response === null || response === void 0 || (_response$data7 = response.data) === null || _response$data7 === void 0 ? void 0 : _response$data7.html);
-      } else if (step == 2) {
-        handleStepTwo();
-      } else if (step == 3) {
-        handleStepThree();
-      } else {
-        console.log('No more steps available');
-      }
-      return;
-    }
-    alert('Something went wrong! Please try again');
-  };
-
-  // Send Request
+  form_data.append('prompt', directoryPrompt);
+  form_data.append('keywords', directoryKeywords);
+  form_data.append('step', step - 1);
   axios.post(directorist_admin.ajax_url, form_data).then(function (response) {
+    handleEnableButton();
     responseAIFormSuccess(response);
-  }).catch(function (response) {
+  }).catch(function (error) {
+    handleEnableButton();
+    console.log(error);
     alert('Something went wrong! Please try again');
   });
+}
+
+// Form Submission Handler
+$('body').on('click', '.directorist_generate_ai_directory', function (e) {
+  e.preventDefault();
+
+  // Handle Axios Request
+  handleAxiosRequest(currentStep);
 });
 
 /***/ }),

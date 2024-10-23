@@ -31500,6 +31500,7 @@ span.drop-toggle-caret:before {
       -ms-flex-direction: column;
           flex-direction: column;
   padding: 0;
+  margin: 50px 0;
 }
 .directorist-create-directory__header {
   display: -webkit-box;
@@ -31517,7 +31518,6 @@ span.drop-toggle-caret:before {
           justify-content: space-between;
   background-color: #ffffff;
   padding: 12px 32px;
-  margin-bottom: 50px;
   border-bottom: 1px solid #E5E7EB;
 }
 .directorist-create-directory__logo {
@@ -31680,7 +31680,7 @@ span.drop-toggle-caret:before {
 .directorist-create-directory__btn:hover {
   opacity: 0.85;
 }
-.directorist-create-directory__btn:disabled {
+.directorist-create-directory__btn:disabled, .directorist-create-directory__btn.disabled {
   opacity: 0.5;
   pointer-events: none;
   cursor: not-allowed;
@@ -32298,6 +32298,17 @@ span.drop-toggle-caret:before {
   .directorist-create-directory__checkbox label {
     width: 100%;
   }
+}
+.directorist-create-directory__checkbox__others .directorist-create-directory__content__input-icon {
+  top: 8px;
+  left: 16px;
+}
+.directorist-create-directory__checkbox__others .directorist-create-directory__content__input-icon svg {
+  width: 16px;
+  height: 16px;
+}
+.directorist-create-directory__checkbox__others .directorist-create-directory__content__input {
+  padding: 4px 16px 4px 36px;
 }
 .directorist-create-directory__checkbox--custom {
   -webkit-box-flex: 0;

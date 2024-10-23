@@ -55,7 +55,8 @@
 							sprintf("%d", $active_number),
 						"directorist"
 					); ?>
-					</span>/3
+					</span>/
+					<span class="total-step">3</span>
 				</span>
 			</div>
 			<div class="directorist-create-directory__info">
@@ -89,7 +90,7 @@
 									fill="currentColor" />
 							</svg>
 						</span>
-						<input type="text" id="directory-name"
+						<input type="text" id="directory-name" name="directory-name"
 							class="form-control directorist-create-directory__content__input"
 							placeholder="Directory name" required />
 					</div>
@@ -108,7 +109,7 @@
 									fill="currentColor" />
 							</svg>
 						</span>
-						<input type="search" id="directory-location"
+						<input type="search" id="directory-location" name="directory-location"
 							class="form-control directorist-create-directory__content__input"
 							placeholder="Directory location" />
 					</div>
@@ -123,7 +124,7 @@
 					</label>
 					<div class="directorist-create-directory__checkbox-wrapper --gap-12 --svg-size-20">
 						<div class="directorist-create-directory__checkbox">
-							<input type="radio" name="directory_type[]" id="car-directory" value="car">
+							<input type="radio" name="directory_type[]" id="car-directory" value="car" checked />
 							<label for="car-directory">
 								<svg xmlns="http://www.w3.org/2000/svg" width="19" height="14" viewBox="0 0 19 14"
 									fill="none">
@@ -145,7 +146,7 @@
 							</label>
 						</div>
 						<div class="directorist-create-directory__checkbox">
-							<input type="radio" name="directory_type[]" id="hotel-directory" value="hotel">
+							<input type="radio" name="directory_type[]" id="hotel-directory" value="hotel" />
 							<label for="hotel-directory">
 								<svg xmlns="http://www.w3.org/2000/svg" width="19" height="17" viewBox="0 0 19 17"
 									fill="none">
@@ -163,7 +164,7 @@
 							</label>
 						</div>
 						<div class="directorist-create-directory__checkbox">
-							<input type="radio" name="directory_type[]" id="travel-directory" value="travel">
+							<input type="radio" name="directory_type[]" id="travel-directory" value="travel" />
 							<label for="travel-directory">
 								<svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20"
 									fill="none">
@@ -175,7 +176,7 @@
 							</label>
 						</div>
 						<div class="directorist-create-directory__checkbox">
-							<input type="radio" name="directory_type[]" id="job-listing" value="job">
+							<input type="radio" name="directory_type[]" id="job-listing" value="job" />
 							<label for="job-listing">
 								<svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19"
 									fill="none">
@@ -194,7 +195,7 @@
 							</label>
 						</div>
 						<div class="directorist-create-directory__checkbox">
-							<input type="radio" name="directory_type[]" id="classified-ads" value="classified">
+							<input type="radio" name="directory_type[]" id="classified-ads" value="classified" />
 							<label for="classified-ads">
 								<svg xmlns="http://www.w3.org/2000/svg" width="19" height="20" viewBox="0 0 19 20"
 									fill="none">
@@ -211,7 +212,7 @@
 							</label>
 						</div>
 						<div class="directorist-create-directory__checkbox">
-							<input type="radio" name="directory_type[]" id="doctors-directory" value="doctors">
+							<input type="radio" name="directory_type[]" id="doctors-directory" value="doctors" />
 							<label for="doctors-directory">
 								<svg xmlns="http://www.w3.org/2000/svg" width="17" height="20" viewBox="0 0 17 20"
 									fill="none">
@@ -234,7 +235,7 @@
 							</label>
 						</div>
 						<div class="directorist-create-directory__checkbox">
-							<input type="radio" name="directory_type[]" id="lawyer-directory" value="lawyer">
+							<input type="radio" name="directory_type[]" id="lawyer-directory" value="lawyer" />
 							<label for="lawyer-directory">
 								<svg xmlns="http://www.w3.org/2000/svg" width="19" height="20" viewBox="0 0 19 20"
 									fill="none">
@@ -258,7 +259,7 @@
 							</label>
 						</div>
 						<div class="directorist-create-directory__checkbox">
-							<input type="radio" name="directory_type[]" id="realestate-Directory" value="realestate">
+							<input type="radio" name="directory_type[]" id="realestate-Directory" value="realestate" />
 							<label for="realestate-Directory">
 								<svg xmlns="http://www.w3.org/2000/svg" width="15" height="18" viewBox="0 0 15 18"
 									fill="none">
@@ -276,7 +277,7 @@
 							</label>
 						</div>
 						<div class="directorist-create-directory__checkbox">
-							<input type="radio" name="directory_type[]" id="others" value="others">
+							<input type="radio" name="directory_type[]" id="others" value="others" />
 							<label for="others">
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="18" viewBox="0 0 16 18"
 									fill="none">
@@ -296,10 +297,22 @@
 								Other’s
 							</label>
 						</div>
+						<!-- Input for new type name -->
+						<div id="directorist-create-directory__checkbox__others" class="directorist-create-directory__content__input-group directorist-create-directory__checkbox__others" style="display: none;">
+							<span class="directorist-create-directory__content__input-icon">
+								<svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20"
+									fill="none">
+									<path fill-rule="evenodd" clip-rule="evenodd"
+										d="M6.30668 2.5H14.6933C15.0589 2.49999 15.3743 2.49998 15.6353 2.51779C15.9102 2.53655 16.1851 2.5778 16.4567 2.6903C17.0693 2.94404 17.556 3.43072 17.8097 4.04329C17.9222 4.3149 17.9635 4.58982 17.9822 4.86468C18 5.12573 18 5.44114 18 5.80668V5.83333C18 6.29357 17.6269 6.66667 17.1667 6.66667C16.7064 6.66667 16.3333 6.29357 16.3333 5.83333C16.3333 5.43365 16.3329 5.17562 16.3194 4.97813C16.3064 4.78814 16.2843 4.71578 16.2699 4.6811C16.1853 4.47691 16.0231 4.31468 15.8189 4.2301C15.7842 4.21574 15.7119 4.19356 15.5219 4.18059C15.3244 4.16712 15.0664 4.16667 14.6667 4.16667H11.3333V15.8333H13C13.4602 15.8333 13.8333 16.2064 13.8333 16.6667C13.8333 17.1269 13.4602 17.5 13 17.5H8C7.53976 17.5 7.16667 17.1269 7.16667 16.6667C7.16667 16.2064 7.53976 15.8333 8 15.8333H9.66667V4.16667H6.33333C5.93365 4.16667 5.67562 4.16712 5.47813 4.18059C5.28814 4.19356 5.21578 4.21574 5.1811 4.2301C4.97691 4.31468 4.81468 4.47691 4.7301 4.6811C4.71574 4.71578 4.69356 4.78814 4.68059 4.97813C4.66712 5.17562 4.66667 5.43365 4.66667 5.83333C4.66667 6.29357 4.29357 6.66667 3.83333 6.66667C3.3731 6.66667 3 6.29357 3 5.83333L3 5.80668C2.99999 5.44114 2.99998 5.12573 3.01779 4.86468C3.03655 4.58982 3.0778 4.3149 3.1903 4.04329C3.44404 3.43072 3.93072 2.94404 4.54329 2.6903C4.8149 2.5778 5.08982 2.53655 5.36468 2.51779C5.62573 2.49998 5.94114 2.49999 6.30668 2.5Z"
+										fill="currentColor" />
+								</svg>
+							</span>
+							<input type="text" id="new-directory-type" class="form-control directorist-create-directory__content__input" name="new-directory-type" placeholder="New directory type" />
+						</div>
 					</div>
 				</div>
 				<div class="directorist-create-directory__content__form-group">
-					<label class="directorist-create-directory__content__form-group-label" for="tell-us">
+					<label class="directorist-create-directory__content__form-group-label" for="directorist-ai-prompt">
 						Tell us about your directory
 					</label>
 					<div class="directorist-create-directory__content__input-group">
@@ -313,7 +326,7 @@
 						</span>
 						<textarea
 							class="form-control directorist-create-directory__content__input --textarea directorist-ai-prompt"
-							name="" id="tell-us"
+							name="directorist-ai-prompt" id="directorist-ai-prompt"
 							placeholder="Tell AI about your business to get better AI-powered suggestions...">I want to create a Car directory in Dhaka, Bangladesh</textarea>
 					</div>
 				</div>
@@ -418,7 +431,7 @@
 			</div>
 
 			<!-- Generate Field -->
-			<div id="directorist-create-directory__ai-fields" class="directorist-ai-generate-box" data-step="4">
+			<div id="directorist-create-directory__ai-fields" class="directorist-ai-generate-box">
 				<div class="directorist-ai-generate-box__header">
 					<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
 						<path
@@ -1104,6 +1117,7 @@
 						</div>
 					</div>
 				</div>
+				<div id="directorist-ai-generate-box__fields" class=""></div>
 				<input type="hidden" id="directorist-ai-generated-fields-array">
 			</div>
 

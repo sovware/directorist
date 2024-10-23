@@ -3,10 +3,10 @@ import './components/delete-directory-modal';
 import './components/directory-migration-modal';
 import './components/import-directory-modal';
 
-window.addEventListener('load', () => {
-    var $ = jQuery;
-    const axios = require('axios').default;
+var $ = jQuery;
+const axios = require('axios').default;
 
+window.addEventListener('load', () => {
     // Migration Link
     $( '.directorist_directory_template_library' ).on( 'click', function( e ) {
         e.preventDefault();
@@ -30,12 +30,11 @@ window.addEventListener('load', () => {
                 return;
             }
 
-            responseFaildCallback( response );
+            responseFieldCallback( response );
         };
 
         // Response Error Callback
-        const responseFaildCallback = function ( response ) {
-            // console.log( { response } );
+        const responseFieldCallback = function ( response ) {
 
             let msg = ( response?.data?.message ) ?? 'Something went wrong please try again';
             let alert_content = `
@@ -56,10 +55,9 @@ window.addEventListener('load', () => {
         axios.post( directorist_admin.ajax_url, form_data ).then( response => {
             responseSuccessCallback( response );
         }).catch( response => {
-            responseFaildCallback( response );
+            responseFieldCallback( response );
         });
     });
-
 
     // Show the form when the '.directorist-ai-directory-creation' element is clicked
     $('.directorist-ai-directory-creation').on('click', function(e) {
@@ -70,18 +68,13 @@ window.addEventListener('load', () => {
         form_data.append('action', 'directorist_ai_directory_form');
 
         // Success callback to handle the response
-        const responseAIFormSuccess = function(response) {
+        function handleAIFormInit(response) {
             if (response?.data?.success) {
                 // Replace the content inside '#wpbody' with the response HTML
                 $('#wpbody').empty().html(response?.data?.html);
-                console.log('Form Loaded Successfully');
 
-                // Initialize any required steps after form load
-                initialStepContents(); // Initialize the content for the first step
-                // initializeKeyword();   
-                // initializeProgressBar(); 
-                // initializeDropdownField();
-
+                // Initialize Step Contents
+                initialStepContents(); 
                 return;
             }
 
@@ -92,111 +85,117 @@ window.addEventListener('load', () => {
         // Send the request using Axios
         axios.post(directorist_admin.ajax_url, form_data)
             .then(response => {
-                console.log('@Response Successfully', response);
-                responseAIFormSuccess(response);  // Handle the response
+                handleAIFormInit(response);  // Handle the response
             })
     });
+}); 
 
+let totalStep = 3;
+let currentStep = 1;
+let currentStepTitle = '';
+let currentStepDesc = '';
+let directoryTitle = '';
+let directoryLocation = '';
+let directoryType = '';
+let directoryPrompt = '';
+let directoryKeywords = [];
+let directoryFields = [];
 
-});
+// Update Directory Prompt
+function updatePrompt() {
+    directoryPrompt = `I want to create a ${directoryType || 'car'} directory${directoryLocation ? ` in ${directoryLocation}` : ''}`;
+    $('#directorist-ai-prompt').html(directoryPrompt);
+}
 
 // Function to initialize Keyword Selected
 function initializeKeyword() {
-    (function () {
-        const tagList = []; // Select default keyword
-        const maxFreeTags = 5; // Max item limit for all users
+    const tagList = []; // Internal list for selected keywords
+    const maxFreeTags = 5; // Max item limit for all users
 
-        const tagListElem = document.getElementById("directorist-box__tagList");
-        const newTagElem = document.getElementById("directorist-box__newTag");
-        const recommendedTagsElem = document.getElementById("directorist-recommendedTags");
-        const recommendedTags = Array.from(recommendedTagsElem.getElementsByTagName("li"));
-        const tagLimitMsgElem = document.getElementById("directorist-tagLimitMsg");
-        const tagCountElem = document.getElementById("directorist-tagCount");
+    const tagListElem = document.getElementById("directorist-box__tagList");
+    const newTagElem = document.getElementById("directorist-box__newTag");
+    const recommendedTagsElem = document.getElementById("directorist-recommendedTags");
+    const recommendedTags = Array.from(recommendedTagsElem.getElementsByTagName("li"));
+    const tagLimitMsgElem = document.getElementById("directorist-tagLimitMsg");
+    const tagCountElem = document.getElementById("directorist-tagCount");
 
-        const initTagManagement = () => {
+    const canAddMoreTags = () => tagList.length < maxFreeTags;
+
+    // Update the global keywords list
+    const updateDirectoryKeywords = () => {
+        directoryKeywords = [...tagList]; // Sync global keywords
+        console.log('Updated directoryKeywords:', directoryKeywords);
+    };
+
+    // Update the tag count and recommended tags state
+    const updateTagCount = () => {
+        tagCountElem.textContent = `${tagList.length}/${maxFreeTags}`;
+        tagLimitMsgElem.style.display = "flex";
+        recommendedTagsElem.classList.toggle('recommend-disable', !canAddMoreTags());
+    };
+
+    // Update the recommended tags state based on the selected tags
+    const updateRecommendedTagsState = () => {
+        recommendedTags.forEach(tagElem => {
+            const tagText = tagElem.textContent.trim();
+            tagElem.classList.toggle('disabled', tagList.includes(tagText));
+        });
+    };
+
+    // Render the tag list
+    const renderTagList = () => {
+        tagListElem.innerHTML = tagList.map(tag => (
+            `<li>${tag} <span class="directorist-rmTag" style="cursor:pointer;">&times;</span></li>`
+        )).join('');
+        tagListElem.appendChild(newTagElem.parentNode || document.createElement('li').appendChild(newTagElem));
+
+        updateRecommendedTagsState();
+        updateTagCount();
+        updateDirectoryKeywords();
+    };
+
+    // Add a new tag to the list
+    const addTag = (tag) => {
+        if (tag && !tagList.includes(tag) && canAddMoreTags()) {
+            tagList.push(tag);
             renderTagList();
-            updateRecommendedTagsState();
-        };
+        }
+    };
 
-        const renderTagList = () => {
-            tagListElem.innerHTML = "";
-            tagList.forEach((tag) => {
-                const li = document.createElement("li");
-                li.innerHTML = `${tag} <span class="directorist-rmTag" style="cursor:pointer;">&times;</span>`;
-                tagListElem.appendChild(li);
-            });
+    // Remove a tag from the list
+    const removeTag = (index) => {
+        if (index !== -1) {
+            tagList.splice(index, 1);
+            renderTagList();
+        }
+    };
 
-            const inputLi = document.createElement("li");
-            inputLi.appendChild(newTagElem);
-            tagListElem.appendChild(inputLi);
+    // Event listener for adding tags via input
+    newTagElem.addEventListener("keyup", (e) => {
+        if (e.key === "Enter") {
+            const newTag = newTagElem.value.trim();
+            addTag(newTag);
+            newTagElem.value = '';
+        }
+    });
 
-            updateRecommendedTagsState();
-            updateTagCount();
-        };
+    // Event delegation for removing tags
+    tagListElem.addEventListener("click", (e) => {
+        if (e.target.classList.contains("directorist-rmTag")) {
+            const index = Array.from(tagListElem.children).indexOf(e.target.parentElement);
+            removeTag(index);
+        }
+    });
 
-        const canAddMoreTags = () => tagList.length < maxFreeTags;
+    // Event listener for adding recommended tags
+    recommendedTagsElem.addEventListener("click", (e) => {
+        if (e.target.tagName === "LI" && !e.target.classList.contains("disabled")) {
+            addTag(e.target.textContent.trim());
+        }
+    });
 
-        const updateTagCount = () => {
-            const tagCount = tagList.length;
-            tagCountElem.innerHTML = `${tagCount}/${maxFreeTags}`;
-            // Always display the tag limit message
-            tagLimitMsgElem.style.display = "flex";
-            // Add or remove 'recommend-disable' class based on the tag limit
-            if (canAddMoreTags()) {
-                recommendedTagsElem.classList.remove("recommend-disable");
-            } else {
-                recommendedTagsElem.classList.add("recommend-disable");
-            }
-        };
-
-        newTagElem.addEventListener("keyup", (e) => {
-            if (e.key === "Enter") {
-                const newTag = newTagElem.value.trim();
-                if (newTag && !tagList.includes(newTag) && canAddMoreTags()) {
-                    tagList.push(newTag);
-                    newTagElem.value = "";
-                    renderTagList();
-                    newTagElem.focus();
-                }
-            }
-        });
-
-        tagListElem.addEventListener("click", (e) => {
-            if (e.target.classList.contains("directorist-rmTag")) {
-                const index = Array.from(tagListElem.children).findIndex((child) =>
-                    child.contains(e.target)
-                );
-                if (index !== -1) {
-                    tagList.splice(index, 1);
-                    renderTagList();
-                }
-            }
-        });
-
-        recommendedTagsElem.addEventListener("click", (e) => {
-            if (e.target.tagName === "LI" && !e.target.classList.contains("disabled")) {
-                if (canAddMoreTags()) {
-                    const recommendedTag = e.target.textContent.trim();
-                    if (!tagList.includes(recommendedTag)) {
-                        tagList.push(recommendedTag);
-                        renderTagList();
-                    }
-                }
-            }
-        });
-
-        const updateRecommendedTagsState = () => {
-            recommendedTags.forEach((recommendedTagElem) => {
-                const recommendedTag = recommendedTagElem.textContent.trim();
-                recommendedTagElem.classList.toggle(
-                    "disabled",
-                    tagList.includes(recommendedTag)
-                );
-            });
-        };
-
-        initTagManagement();
-    })();
+    // Initialize the tag management interface
+    renderTagList();
 }
 
 // Function to initialize Progress bar
@@ -210,6 +209,7 @@ function initializeProgressBar() {
 
         let currentWidth = 0;
 
+        // Update the progress bar width
         const updateProgress = () => {
             if (currentWidth <= finalWidth) {
                 btnPercentage.textContent = `${currentWidth}%`;
@@ -230,6 +230,7 @@ function initializeProgressBar() {
 
     const steps = document.querySelectorAll(".directory-generate-progress-list li");
 
+    // Update the progress list based on the current progress
     const updateProgressList = (progress) => {
         if (steps.length > 0) {
             steps.forEach((step, index) => {
@@ -256,11 +257,13 @@ function initializeProgressBar() {
         }
     };
 }
+
 //Function to initialize Dropdown
 function initializeDropdownField(){
     const dropdowns = document.querySelectorAll(".directorist-ai-generate-dropdown");
     const accordion = true;
 
+    // Initialize each dropdown
     dropdowns.forEach((dropdown) => {
         const header = dropdown.querySelector(".directorist-ai-generate-dropdown__header");
         const content = dropdown.querySelector(".directorist-ai-generate-dropdown__content");
@@ -268,6 +271,7 @@ function initializeDropdownField(){
         const pinIcon = dropdown.querySelector(".directorist-ai-generate-dropdown__pin-icon");
         const dropdownItem = dropdown.closest('.directorist-ai-generate-box__item');
 
+        // Pin Field
         pinIcon.addEventListener("click", (event) => {
             event.stopPropagation();
             if (dropdownItem.classList.contains("pinned")) {
@@ -279,6 +283,7 @@ function initializeDropdownField(){
             }
         });
 
+        // Toggle the dropdown content
         header.addEventListener("click", (event) => {
             if (event.target === pinIcon || pinIcon.contains(event.target)) {
                 return;
@@ -306,9 +311,31 @@ function initializeDropdownField(){
     });
 }
 
+// Function to handle back button
+// function handleBackButton() {
+//     console.log('Handle Back Button', currentStep);
+// }
+
+// handle back btn
+$('body').on( 'click', '.directorist-create-directory__back__btn', function( e ) {
+    e.preventDefault();
+    // handleBackButton();
+});
+
+// Enable Submit Button
+function handleEnableButton() {
+    $('.directorist_generate_ai_directory').removeClass('disabled');
+}
+
+// Disable Submit Button
+function handleDisableButton() {
+    $('.directorist_generate_ai_directory').addClass('disabled');
+}
+
 // Initial Step Contents
 function initialStepContents() {
-    console.log('Initial Step Contents');
+    console.log('Initial Step Contents', currentStep);
+
     // Hide all steps except the first one initially
     $('#directorist-create-directory__creating').hide();
     $('#directorist-create-directory__ai-fields').hide();
@@ -316,112 +343,164 @@ function initialStepContents() {
     $('.directorist-create-directory__content__items').hide();
     $('.directorist-create-directory__content__items[data-step="1"]').show();
     $('.directorist-create-directory__step .step-count .current-step').html(1);
+    
+    handleDisableButton()
+
+    // Directory Title Input Listener
+    $('body').on( 'keyup change ', '.directorist-create-directory__content__input[name="directory-name"]', function( e ) {
+        directoryTitle = e.target.value;
+        console.log('directoryTitle Changed', directoryTitle);
+        
+        if (directoryTitle) {
+            handleEnableButton();
+        } else {
+            handleDisableButton();
+        }
+    });
+    
+    // Directory Location Input Listener
+    $('body').on('keyup change', '.directorist-create-directory__content__input[name="directory-location"]', function(e) {
+        directoryLocation = e.target.value;
+        console.log('directoryLocation Changed', directoryLocation);
+        updatePrompt();
+    });
+    
+    // Directory Location Input Listener
+    $('body').on('keyup change', '#directorist-ai-prompt', function(e) {
+        directoryPrompt = e.target.value;
+        console.log('directoryPrompt Changed', directoryPrompt);
+    });
+
+    // Directory Type Input Listener
+    $('body').on('change', '[name="directory_type[]"]', function(e) {
+        directoryType = e.target.value;
+        console.log('directoryType Changed', directoryType);
+        // Show or hide the input based on the selected value
+        if (directoryType === 'others') {
+            directoryType = $('#new-directory-type').val();
+            $('#directorist-create-directory__checkbox__others').show();
+            $('body').on('keyup', '[name="new-directory-type"]', function(e) {
+                directoryType = e.target.value;
+                updatePrompt();
+            });
+        } else {
+            $('#directorist-create-directory__checkbox__others').hide();
+        }
+
+        updatePrompt();
+    });
+
+    // Generate AI Directory Button Click Handler
+    $('body').on('click', '.directorist_generate_ai_directory', function(e) {
+        e.preventDefault();
+        if (currentStep === 1) {
+            $('.directorist-create-directory__content__items[data-step="1"]').hide();
+            $('.directorist-create-directory__content__items[data-step="2"]').show();
+             
+            $('.directorist-create-directory__step .step-count .current-step').html(2);
+            $(`.directorist-create-directory__step .atbdp-setup-steps li:nth-child(2)`).addClass('active');
+
+            currentStep = 2;
+        }
+    });
 }
 
-// Handle Step One
-function handleStepOne(response) {
-    console.log('Handle Step One');
-    $( '#directorist-recommendedTags' ).empty().html( response );
+// Handle Prompt Step 
+function handlePromptStep(response) {
+    console.log('handlePromptStep', currentStep, response);
+
+    $('.directorist-create-directory__content__items[data-step="2"]').hide();
+    $('.directorist-create-directory__content__items[data-step="3"]').show();
     initializeKeyword();
+
+    $('#directorist-recommendedTags').empty().html(response);
+    currentStep = 3;
 }
 
-// Handle Step Two
-function handleStepTwo() {
-    console.log('Handle Step Two');
-}
-
-// Handle Step Four
-function handleStepFour( response ) {
-    console.log('Handle Step Four');
-    console.log( response );
-}
-
-// Handle Step Three
-function handleStepThree(response) {
-
-    console.log('Handle Step Three');
+// Handle Keyword Step
+function handleKeywordStep() {
+    console.log('handleKeywordStep', currentStep);
+    
     $('#directorist-create-directory__generating').show();
     $('.directorist-create-directory__top').hide();
+    $('.directorist-create-directory__content__items').hide();
     $('.directorist-create-directory__header').hide();
     $('.directorist-create-directory__content__footer').hide();
     $('.directorist-create-directory__content').toggleClass('full-width');
+    
     initializeProgressBar();
-    setTimeout(() => {
-        $('#directorist-create-directory__ai-fields').show();
-        $('.directorist-create-directory__header').show();
-        $('#directorist-create-directory__generating').hide();
-        $('.directorist-create-directory__content__footer').show();
-        $('.directorist-create-directory__content').toggleClass('full-width');
-        initializeDropdownField();
-        $( '#directorist-recommendedTags' ).empty().html( response );
-    }, 3000);
 }
 
+// Handle Generated Fields
+function handleGenerateFields(response) {
+    console.log('handleGenerateFields', currentStep, response);
 
-var $ = jQuery;
-const axios = require('axios').default;
+    $('#directorist-create-directory__ai-fields').show();
+    $('.directorist-create-directory__header').show();
+    $('#directorist-create-directory__generating').hide();
+    $('.directorist-create-directory__content__footer').show();
+    $('.directorist-create-directory__content').toggleClass('full-width');
 
-// handle form step
-$('body').on( 'click', '.directorist_generate_ai_directory', function( e ) {
-    e.preventDefault();
-    const self = this;
+    $('#directorist-ai-generate-box__fields' ).val( JSON.stringify( response?.data?.fields ))
 
-    var step = $(self).data('step');
-    let keywords = $('input[name="keywords[]"]:checked').map(function() {
-        return this.value;
-    }).get();
+    initializeDropdownField();
+}
 
-    let form_data = new FormData();
-    form_data.append( 'action', 'directorist_ai_directory_creation' );
-    form_data.append( 'prompt', $('.directorist-ai-prompt').val() );
-    form_data.append( 'name', $('#directory-name').val() );
-    form_data.append( 'fields', $('#directorist-ai-generated-fields-array').val() );
-    form_data.append( 'keywords', keywords );
-    form_data.append( 'step', step );
+// Response Success Callback
+function handleAIFormResponse(response) {
+    if (response?.data?.success) {
+        console.log('Response Success:', currentStep, response);
 
-    // Response Success Callback
-    const responseAIFormSuccess = function ( response ) {
-        if ( response?.data?.success ) {
-            // Hide the current step and show the next one
-            $('.directorist-create-directory__content__items[data-step="' + step + '"]').hide(); 
-            
-            let nextStep = step + 1;
-            // Update step data attribute
-            $(self).data('step', nextStep);
-            $('.directorist-create-directory__step .step-count .current-step').html(nextStep);
-            // Add 'active' class to the next step
-            $(`.directorist-create-directory__step .atbdp-setup-steps li:nth-child(${nextStep})`).addClass('active');
+        let nextStep = currentStep + 1;
 
-            if ($('.directorist-create-directory__content__items[data-step="' + nextStep + '"]').length) {
-                // Show next step
-                $('.directorist-create-directory__content__items[data-step="' + nextStep + '"]').show();
-            } else {
-                console.log('No more steps available');
-            }
-
-            if ( step == 1 ) {
-                handleStepOne(response?.data?.html);
-            } else if ( step == 2 ) {
-                handleStepTwo();
-            } else if ( step == 3 ) {
-                $( '#directorist-ai-generated-fields-array' ).val( JSON.stringify( response?.data?.fields ) )
-                handleStepThree(response?.data?.html);
-            } else if ( step == 4 ) {
-                handleStepFour(response?.data?.html);
-            } else {
-                console.log('No more steps available');
-            }
-
-            return;
+        $('.directorist-create-directory__content__items[data-step="' + currentStep + '"]').hide(); 
+        $('.directorist-create-directory__step .step-count .current-step').html(nextStep);
+        $(`.directorist-create-directory__step .atbdp-setup-steps li:nth-child(${nextStep})`).addClass('active');
+        if ($('.directorist-create-directory__content__items[data-step="' + nextStep + '"]').length) {
+            $('.directorist-create-directory__content__items[data-step="' + nextStep + '"]').show();
         }
 
-        alert('Something went wrong! Please try again');
-    };
+        if (currentStep == 2) {
+            handlePromptStep(response?.data?.html);
+        } else if (currentStep == 3) {
+            handleGenerateFields(response?.data?.html);
+        } 
 
-    // Send Request
-    axios.post( directorist_admin.ajax_url, form_data ).then( response => {
-        responseAIFormSuccess( response );
-    }).catch( response => {
-        alert('Something went wrong! Please try again');
-    });
+        return;
+    } else {
+        console.error('Something went wrong! Please try again');
+    }
+}; 
+
+// Generate AI Directory Form Submission Handler
+$('body').on('click', '.directorist_generate_ai_directory', function(e) {
+    e.preventDefault();
+
+    if (currentStep === 1) {
+        return;
+    } else if (currentStep === 3) {
+        handleKeywordStep();
+    }
+ 
+    handleDisableButton();
+
+    let form_data = new FormData();
+    form_data.append('action', 'directorist_ai_directory_creation');
+    form_data.append('name', directoryTitle);
+    form_data.append('prompt', directoryPrompt);
+    form_data.append('keywords', directoryKeywords);
+    form_data.append('fields', directoryFields);
+    form_data.append('step', currentStep - 1);
+
+    // Handle Axios Request
+    axios.post(directorist_admin.ajax_url, form_data)
+        .then(response => {
+            handleEnableButton();
+            handleAIFormResponse(response);
+        })
+        .catch(error => {
+            handleEnableButton();
+            console.log(error);
+        });
 });
+

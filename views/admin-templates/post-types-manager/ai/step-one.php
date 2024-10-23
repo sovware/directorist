@@ -437,7 +437,7 @@
 						<p>Pin items or regenerate up to 3 times</p>
 					</div>
 				</div>
-				<div class="directorist-ai-generate-box__items">
+				<div class="directorist-ai-generate-box__items" id="directorist_ai_generated_fields">
 					<div class="directorist-ai-generate-box__item">
 						<div class="directorist-ai-generate-dropdown" aria-expanded="false">
 							<div class="directorist-ai-generate-dropdown__header">

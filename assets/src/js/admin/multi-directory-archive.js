@@ -331,7 +331,8 @@ function handleStepTwo() {
 }
 
 // Handle Step Three
-function handleStepThree() {
+function handleStepThree(response) {
+
     console.log('Handle Step Three');
     $('#directorist-create-directory__generating').show();
     $('.directorist-create-directory__top').hide();
@@ -346,6 +347,7 @@ function handleStepThree() {
         $('.directorist-create-directory__content__footer').show();
         $('.directorist-create-directory__content').toggleClass('full-width');
         initializeDropdownField();
+        $( '#directorist-recommendedTags' ).empty().html( response );
     }, 3000);
 }
 
@@ -394,7 +396,7 @@ $('body').on( 'click', '.directorist_generate_ai_directory', function( e ) {
             } else if ( step == 2 ) {
                 handleStepTwo();
             } else if ( step == 3 ) {
-                handleStepThree();
+                handleStepThree(response?.data?.html);
             } else {
                 console.log('No more steps available');
             }

@@ -4596,7 +4596,7 @@ function directorist_get_form_groq_ai( $command ) {
         'messages' => [
             [
                 'role' => 'system',
-                'content' => 'You are a helpful assistant.'
+                'content' => 'I need a PHP array for a Car directory in Dhaka, Bangladesh. Please return only the PHP array in PHP syntax. Do not include any introductory or closing sentences, just the array itself.'
             ],
             [
                 'role' => 'user',

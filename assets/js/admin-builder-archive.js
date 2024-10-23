@@ -373,6 +373,7 @@ var directoryLocation = '';
 var directoryType = '';
 var directoryPrompt = '';
 var directoryKeywords = [];
+var directoryFields = [];
 
 // Update Directory Prompt
 function updatePrompt() {
@@ -626,6 +627,12 @@ function initialStepContents() {
     updatePrompt();
   });
 
+  // Directory Location Input Listener
+  $('body').on('keyup change', '#directorist-ai-prompt', function (e) {
+    directoryPrompt = e.target.value;
+    console.log('directoryPrompt Changed', directoryPrompt);
+  });
+
   // Directory Type Input Listener
   $('body').on('change', '[name="directory_type[]"]', function (e) {
     directoryType = e.target.value;
@@ -681,21 +688,22 @@ function handleKeywordStep() {
 
 // Handle Generated Fields
 function handleGenerateFields(response) {
+  var _response$data6;
   console.log('handleGenerateFields', currentStep, response);
   $('#directorist-create-directory__ai-fields').show();
   $('.directorist-create-directory__header').show();
   $('#directorist-create-directory__generating').hide();
   $('.directorist-create-directory__content__footer').show();
   $('.directorist-create-directory__content').toggleClass('full-width');
-  $('#directorist-ai-generate-box__fields').empty().html(response);
+  $('#directorist-ai-generate-box__fields').val(JSON.stringify(response === null || response === void 0 || (_response$data6 = response.data) === null || _response$data6 === void 0 ? void 0 : _response$data6.fields));
   initializeDropdownField();
 }
 
 // Response Success Callback
 function handleAIFormResponse(response) {
-  var _response$data6;
-  if (response !== null && response !== void 0 && (_response$data6 = response.data) !== null && _response$data6 !== void 0 && _response$data6.success) {
-    console.log('Response Success:', currentStep);
+  var _response$data7;
+  if (response !== null && response !== void 0 && (_response$data7 = response.data) !== null && _response$data7 !== void 0 && _response$data7.success) {
+    console.log('Response Success:', currentStep, response);
     var nextStep = currentStep + 1;
     $('.directorist-create-directory__content__items[data-step="' + currentStep + '"]').hide();
     $('.directorist-create-directory__step .step-count .current-step').html(nextStep);
@@ -704,11 +712,11 @@ function handleAIFormResponse(response) {
       $('.directorist-create-directory__content__items[data-step="' + nextStep + '"]').show();
     }
     if (currentStep == 2) {
-      var _response$data7;
-      handlePromptStep(response === null || response === void 0 || (_response$data7 = response.data) === null || _response$data7 === void 0 ? void 0 : _response$data7.html);
-    } else if (currentStep == 3) {
       var _response$data8;
-      handleGenerateFields(response === null || response === void 0 || (_response$data8 = response.data) === null || _response$data8 === void 0 ? void 0 : _response$data8.html);
+      handlePromptStep(response === null || response === void 0 || (_response$data8 = response.data) === null || _response$data8 === void 0 ? void 0 : _response$data8.html);
+    } else if (currentStep == 3) {
+      var _response$data9;
+      handleGenerateFields(response === null || response === void 0 || (_response$data9 = response.data) === null || _response$data9 === void 0 ? void 0 : _response$data9.html);
     }
     return;
   } else {
@@ -717,7 +725,7 @@ function handleAIFormResponse(response) {
 }
 ;
 
-// Form Submission Handler
+// Generate AI Directory Form Submission Handler
 $('body').on('click', '.directorist_generate_ai_directory', function (e) {
   e.preventDefault();
   if (currentStep === 1) {
@@ -728,8 +736,10 @@ $('body').on('click', '.directorist_generate_ai_directory', function (e) {
   handleDisableButton();
   var form_data = new FormData();
   form_data.append('action', 'directorist_ai_directory_creation');
+  form_data.append('name', directoryTitle);
   form_data.append('prompt', directoryPrompt);
   form_data.append('keywords', directoryKeywords);
+  form_data.append('fields', directoryFields);
   form_data.append('step', currentStep - 1);
 
   // Handle Axios Request

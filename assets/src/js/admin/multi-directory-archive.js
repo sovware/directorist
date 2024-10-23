@@ -482,7 +482,7 @@ function handleGenerateFields(response) {
 }
 
 // Handle Create Directory
-function handleCreateDirectory() {    
+function handleCreateDirectory( redirect_url ) {    
     $('#directorist-create-directory__generating').show();
     $('#directorist-create-directory__creating').show();
     $('#directorist-create-directory__ai-fields').hide();
@@ -498,7 +498,7 @@ function handleCreateDirectory() {
     
     initializeProgressBar();
 
-    $('#directorist-create-directory__preview-btn').attr('href', 'https://www.directorist.com');
+    $('#directorist-create-directory__preview-btn').attr('href', redirect_url );
 }
 
 // Response Success Callback
@@ -521,7 +521,7 @@ function handleAIFormResponse(response) {
             handleGenerateFields(response?.data?.html);
             directoryFields = JSON.stringify( response?.data?.fields );
         } else if (currentStep == 4) {
-            handleCreateDirectory();
+            handleCreateDirectory( response?.data?.url );
         }
 
         return;

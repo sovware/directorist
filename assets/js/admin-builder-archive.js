@@ -734,7 +734,7 @@ function handleGenerateFields(response) {
 }
 
 // Handle Create Directory
-function handleCreateDirectory() {
+function handleCreateDirectory(redirect_url) {
   $('#directorist-create-directory__generating').show();
   $('#directorist-create-directory__creating').show();
   $('#directorist-create-directory__ai-fields').hide();
@@ -747,7 +747,7 @@ function handleCreateDirectory() {
   $('#directorist-create-directory__generating .directory-title').html('Directory AI is Building your directory... ');
   $('#directorist-create-directory__generating .directory-description').html('We\'re using your infomation to finalize your directory fields.');
   initializeProgressBar();
-  $('#directorist-create-directory__preview-btn').attr('href', 'https://www.directorist.com');
+  $('#directorist-create-directory__preview-btn').attr('href', redirect_url);
 }
 
 // Response Success Callback
@@ -770,7 +770,8 @@ function handleAIFormResponse(response) {
       handleGenerateFields(response === null || response === void 0 || (_response$data9 = response.data) === null || _response$data9 === void 0 ? void 0 : _response$data9.html);
       directoryFields = JSON.stringify(response === null || response === void 0 || (_response$data10 = response.data) === null || _response$data10 === void 0 ? void 0 : _response$data10.fields);
     } else if (currentStep == 4) {
-      handleCreateDirectory();
+      var _response$data11;
+      handleCreateDirectory(response === null || response === void 0 || (_response$data11 = response.data) === null || _response$data11 === void 0 ? void 0 : _response$data11.url);
     }
     return;
   } else {
@@ -819,8 +820,8 @@ $('body').on('click', '.directorist_regenerate_fields', function (e) {
 
   // Handle Axios Request
   axios.post(directorist_admin.ajax_url, form_data).then(function (response) {
-    var _response$data11;
-    handleGenerateFields(response === null || response === void 0 || (_response$data11 = response.data) === null || _response$data11 === void 0 ? void 0 : _response$data11.html);
+    var _response$data12;
+    handleGenerateFields(response === null || response === void 0 || (_response$data12 = response.data) === null || _response$data12 === void 0 ? void 0 : _response$data12.html);
   }).catch(function (error) {
     console.error(error);
   });

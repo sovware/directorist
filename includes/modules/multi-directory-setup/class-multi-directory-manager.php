@@ -488,8 +488,12 @@ class Multi_Directory_Manager {
 
         }
 
-        if( 3 < $step ) {
-            $html = $this->build_directory( $name, $fields, $step );
+        if( 3 == $step ) {
+            $directory_id = $this->build_directory( $name, $fields );
+            wp_send_json([
+                'success' => true,
+                'url' => admin_url("edit.php?post_type=at_biz_dir&page=atbdp-directory-types&listing_type_id=$directory_id&action=edit"),
+            ]);
         }
 
 
@@ -564,7 +568,7 @@ class Multi_Directory_Manager {
 
     }
 
-    public function build_directory( $name, $fields, $step = '' ){
+    public function build_directory( $name, $fields ){
 
         $builder_content = directorist_get_json_from_url( 'http://app.directorist.com/wp-content/uploads/2024/10/business-1.zip' );
 
@@ -573,7 +577,7 @@ class Multi_Directory_Manager {
 
         self::prepare_settings();
         $term = self::add_directory([
-            'directory_name' => $name . $step,
+            'directory_name' => $name,
             'fields_value'   => $updated_config,
             'is_json'        => false
         ]);
@@ -584,18 +588,12 @@ class Multi_Directory_Manager {
             $term_id = $term['term_id'];
         }
 
-        return [
-            'name' => $name,
-            'term_id' => $term_id,
-            'fields' => $fields,
-            'ready_builder' => $builder_content,
-            'updated' => $updated_config,
-        ];
+        return $term_id;
     }
 
     public function ai_create_fields( $prompt, $keywords ) {
 
-        $prompt = $prompt . '. I need the listing page fields list. Here is some keywords: '.$keywords.'. For each field, return an array with the following keys:
+        $prompt = $prompt . '. I need the listing page fields list minimum of 20+. Here is some keywords: '.$keywords.'. For each field, return an array with the following keys:
 "label": The label of the field without the @@.
 "type": The input type (e.g., <input type="text">, <textarea>, etc.).
 "options": An array of options if applicable (for select, radio, or checkbox fields), otherwise an empty array.
@@ -656,11 +654,15 @@ Return the result as an array of associative arrays in PHP format.';
                                     </div>
                                 </div>
                             </div>
+                            <?php 
+                            if( $options ):
+                            ?>
                             <div class="directorist-ai-generate-dropdown__header-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                                     <path fill-rule="evenodd" clip-rule="evenodd" d="M4.41058 6.91058C4.73602 6.58514 5.26366 6.58514 5.58909 6.91058L9.99984 11.3213L14.4106 6.91058C14.736 6.58514 15.2637 6.58514 15.5891 6.91058C15.9145 7.23602 15.9145 7.76366 15.5891 8.08909L10.5891 13.0891C10.2637 13.4145 9.73602 13.4145 9.41058 13.0891L4.41058 8.08909C4.08514 7.76366 4.08514 7.23602 4.41058 6.91058Z" fill="#4D5761"></path>
                                 </svg>
                             </div>
+                            <?php endif; ?>
                         </div>
                         <?php if( $options ): ?>
                             <div class="directorist-ai-generate-dropdown__content" aria-expanded="false">

@@ -364,6 +364,12 @@ function initialStepContents() {
         console.log('directoryLocation Changed', directoryLocation);
         updatePrompt();
     });
+    
+    // Directory Location Input Listener
+    $('body').on('keyup change', '#directorist-ai-prompt', function(e) {
+        directoryPrompt = e.target.value;
+        console.log('directoryPrompt Changed', directoryPrompt);
+    });
 
     // Directory Type Input Listener
     $('body').on('change', '[name="directory_type[]"]', function(e) {
@@ -443,7 +449,7 @@ function handleGenerateFields(response) {
 // Response Success Callback
 function handleAIFormResponse(response) {
     if (response?.data?.success) {
-        console.log('Response Success:', currentStep);
+        console.log('Response Success:', currentStep, response);
 
         let nextStep = currentStep + 1;
 
@@ -466,7 +472,7 @@ function handleAIFormResponse(response) {
     }
 }; 
 
-// Form Submission Handler
+// Generate AI Directory Form Submission Handler
 $('body').on('click', '.directorist_generate_ai_directory', function(e) {
     e.preventDefault();
 

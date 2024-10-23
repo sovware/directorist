@@ -7,14 +7,13 @@
 
 use \Directorist\Helper;
 
-$user_email = isset( $_GET['user'] ) ? sanitize_email( wp_unslash( base64_decode( $_GET['user'] ) ) ) : '';
-$key        = isset( $_GET['key'] ) ? sanitize_text_field( wp_unslash( $_GET['key'] ) ) : '';
-
+$user_email  = isset( $_GET['user'] ) ? sanitize_email( wp_unslash( base64_decode( $_GET['user'] ) ) ) : '';
+$key         = isset( $_GET['key'] ) ? sanitize_text_field( wp_unslash( $_GET['key'] ) ) : '';
 ?>
 <div class="directorist-w-100">
     <div class="<?php Helper::directorist_container_fluid(); ?>">
         <div class="<?php Helper::directorist_row(); ?>">
-            <div class="directorist-login-wrapper directorist-authentication active directorist-col-md-6 directorist-offset-md-3">
+            <div class="directorist-col-md-6 directorist-offset-md-3 directorist-login-wrapper directorist-authentication <?php echo esc_attr( $active_form === 'signin' ? 'active' : '' ); ?>">
 				<div class="atbdp_login_form_shortcode directorist-authentication__form">
 					<?php if ( directorist_is_email_verification_enabled() && ! empty( $_GET['verification'] ) && is_email( $user_email ) ) : ?>
 						<p class="directorist-alert directorist-alert-success"><span>
@@ -222,7 +221,7 @@ $key        = isset( $_GET['key'] ) ? sanitize_text_field( wp_unslash( $_GET['ke
 			</div>
 
 			<?php if ( directorist_is_user_registration_enabled() ) : ?>
-			<div class="directorist-registration-wrapper directorist-authentication directorist-col-md-6 directorist-offset-md-3">
+			<div class="directorist-col-md-6 directorist-offset-md-3 directorist-registration-wrapper directorist-authentication <?php echo esc_attr( $active_form === 'signup' ? 'active' : '' ); ?>">
 				<div class="directory_register_form_wrap directorist-authentication__form">
 					<div class="add_listing_title atbd_success_mesage directorist-authentication__message">
 						<?php

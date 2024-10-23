@@ -1,5 +1,5 @@
 <?php
-/**
+  /**
  * @author wpWax
  */
 
@@ -33,6 +33,7 @@ class Directorist_Account {
 		}
 
 		$atts = shortcode_atts( array(
+			'active_form'          => 'signin',
 			'user_role'            => get_directorist_option( 'display_user_type', false ) ? 'yes' : 'no',
 			'author_role_label'    => __( 'I am an author', 'directorist' ),
 			'user_role_label'      => __( 'I am a user', 'directorist' ),
@@ -63,12 +64,12 @@ class Directorist_Account {
 			'signin_linking_text'  => get_directorist_option( 'log_linkingmsg', __( 'Here', 'directorist' ) ),
 			'signin_after_signup'  => get_directorist_option( 'auto_login', 0 ) ? 'yes' : 'no',
 			'signup_redirect_url'  => '',
-			// login atts
+			  // login atts
 			'signin_username_label' => get_directorist_option( 'log_username', __( 'Username or Email Address', 'directorist' ) ),
 			'signin_button_label'   => get_directorist_option( 'log_button', __( 'Sign In', 'directorist' ) ),
 			'signup_label'          => get_directorist_option( 'reg_text', __( "Don't have an account?", 'directorist' ) ),
 			'signup_linking_text'   => get_directorist_option( 'reg_linktxt', __( 'Sign Up', 'directorist' ) ),
-			// recover password atts
+			  // recover password atts
 			'enable_recovery_password'            => get_directorist_option( 'display_recpass', 1 ) ? 'yes' : 'no',
 			'recovery_password_label'             => get_directorist_option( 'recpass_text', __( 'Forgot Password?', 'directorist' ) ),
 			'recovery_password_description'       => get_directorist_option( 'recpass_desc', __( 'Lost your password? Please enter your email address. You will receive a link to create a new password via email.', 'directorist' ) ),
@@ -79,24 +80,26 @@ class Directorist_Account {
 		), $atts );
 
 		$user_type = ! empty( $_REQUEST['user_type'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['user_type'] ) ) : $atts['user_type'];
+		$active_form = ( isset( $_GET['signup'] ) && directorist_is_user_registration_enabled() ) ? 'signup' : $atts['active_form'];
 
 		$data = [
-			'enable_user_type'					=> $atts['user_role'],
-			'user_type' 						=> $user_type,
-			'enable_registration_password' 		=> $atts['password'],
-			'registration_username' 			=> $atts['username_label'],
-			'enable_registration_website' 		=> $atts['website'],
-			'registration_website_required' 	=> $atts['website_required'],
-			'enable_registration_first_name' 	=> $atts['firstname'],
-			'registration_first_name_required' 	=> $atts['firstname_required'],
-			'enable_registration_last_name' 	=> $atts['lastname'],
-			'registration_last_name_required' 	=> $atts['lastname_required'],
-			'enable_registration_bio' 			=> $atts['bio'],
-			'registration_bio_required' 		=> $atts['bio_required'],
-			'enable_registration_privacy'		=> $atts['privacy'],
-			'enable_registration_terms'			=> $atts['terms'],
-			'auto_login_after_registration'		=> $atts['signin_after_signup'],
-			'redirection_after_registration'	=> $atts['signup_redirect_url'],
+			'enable_user_type'                 => $atts['user_role'],
+			'user_type'                        => $user_type,
+			'enable_registration_password'     => $atts['password'],
+			'registration_username'            => $atts['username_label'],
+			'enable_registration_website'      => $atts['website'],
+			'registration_website_required'    => $atts['website_required'],
+			'enable_registration_first_name'   => $atts['firstname'],
+			'registration_first_name_required' => $atts['firstname_required'],
+			'enable_registration_last_name'    => $atts['lastname'],
+			'registration_last_name_required'  => $atts['lastname_required'],
+			'enable_registration_bio'          => $atts['bio'],
+			'registration_bio_required'        => $atts['bio_required'],
+			'enable_registration_privacy'      => $atts['privacy'],
+			'enable_registration_terms'        => $atts['terms'],
+			'auto_login_after_registration'    => $atts['signin_after_signup'],
+			'redirection_after_registration'   => $atts['signup_redirect_url'],
+			'active_form'                      => $active_form,
 		];
 		wp_localize_script( 'directorist-account', 'directorist_signin_signup_params', $data );
 		wp_localize_script( 'jquery', 'directorist_signin_signup_params', $data );
@@ -151,6 +154,7 @@ class Directorist_Account {
 			'enable_user_type'          => $atts['user_role'],
 			'author_role_label'         => $atts['author_role_label'],
 			'user_role_label'           => $atts['user_role_label'],
+			'active_form'               => $active_form,
 		];
 
 		return Helper::get_template_contents( 'account/login-registration-form', $args );

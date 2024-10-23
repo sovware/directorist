@@ -4576,3 +4576,14 @@ function directorist_download_plugin( array $args = array() ) {
 
     return $status;
 }
+
+/**
+ * Check user can signup.
+ *
+ * @since 8.0.0
+ *
+ * @return bool
+ */
+function directorist_is_user_registration_enabled() {
+	return (bool) get_directorist_option( 'new_user_registration', true );
+}

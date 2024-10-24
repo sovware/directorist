@@ -361,7 +361,7 @@
 							</div>
 							<div id="directorist-tagLimitMsg" class="directorist-box-options__right"
 								style="display: none;">
-								Max 5 in free <strong> | <span id="directorist-tagCount">0</span></strong>
+								Max 5 <strong> | <span id="directorist-tagCount">0</span></strong>
 							</div>
 						</div>
 					</div>

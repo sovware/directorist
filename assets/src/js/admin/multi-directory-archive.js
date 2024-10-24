@@ -237,7 +237,7 @@ function initializeProgressBar(finalProgress) {
                 if (!finalProgress) {
                     setTimeout(() => {
                         progressBar.style.width = '0';
-                    }, 2000);
+                    }, 5000);
                 }
                 clearInterval(progressInterval);
                 return;

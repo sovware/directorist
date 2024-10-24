@@ -608,15 +608,17 @@ function initializeDropdownField() {
 }
 
 // Function to handle back button
-// function handleBackButton() {
-//     console.log('Handle Back Button', currentStep);
-// }
+function handleBackButton() {
+  currentStep = 1;
+  // Back to initial step
+  initialStepContents();
+}
 
 // handle back btn
-// $('body').on( 'click', '.directorist-create-directory__back__btn', function( e ) {
-//     e.preventDefault();
-//     handleBackButton();
-// });
+$('body').on('click', '.directorist-create-directory__back__btn', function (e) {
+  e.preventDefault();
+  handleBackButton();
+});
 
 // Enable Submit Button
 function handleCreateButtonEnable() {
@@ -639,11 +641,15 @@ function initialStepContents() {
   $('.directorist-create-directory__step .step-count .total-step').html(totalStep);
   $('.directorist-create-directory__step .step-count .current-step').html(1);
   $('.directorist-create-directory__back__btn').addClass('disabled');
-  handleCreateButtonDisable();
+  var $directoryName = $('.directorist-create-directory__content__input[name="directory-name"]');
+  var $directoryLocation = $('.directorist-create-directory__content__input[name="directory-location"]');
+  if (!$directoryName.val()) {
+    handleCreateButtonDisable();
+  }
 
   // Directory Title Input Listener
-  $('body').on('keyup change ', '.directorist-create-directory__content__input[name="directory-name"]', function (e) {
-    directoryTitle = e.target.value;
+  $directoryName.on('keyup change ', function (e) {
+    directoryTitle = $(this).val();
     if (directoryTitle) {
       handleCreateButtonEnable();
     } else {
@@ -652,8 +658,8 @@ function initialStepContents() {
   });
 
   // Directory Location Input Listener
-  $('body').on('keyup change', '.directorist-create-directory__content__input[name="directory-location"]', function (e) {
-    directoryLocation = e.target.value;
+  $directoryLocation.on('keyup change', function (e) {
+    directoryLocation = $(this).val();
     updatePrompt();
   });
 
@@ -678,26 +684,13 @@ function initialStepContents() {
     }
     updatePrompt();
   });
-
-  // Generate AI Directory Button Click Handler
-  $('body').on('click', '.directorist_generate_ai_directory', function (e) {
-    e.preventDefault();
-    if (currentStep == 1) {
-      $('.directorist-create-directory__content__items[data-step="1"]').hide();
-      $('.directorist-create-directory__content__items[data-step="2"]').show();
-      $('.directorist-create-directory__back__btn').removeClass('disabled');
-      $('.directorist-create-directory__step .step-count .current-step').html(2);
-      $(".directorist-create-directory__step .atbdp-setup-steps li:nth-child(2)").addClass('active');
-      updateStepTitle('Describe your business in plain language');
-      currentStep = 2;
-    }
-  });
 }
 
 // Handle Prompt Step 
 function handlePromptStep(response) {
   $('.directorist-create-directory__content__items[data-step="2"]').hide();
   $('.directorist-create-directory__content__items[data-step="3"]').show();
+  $('.directorist-create-directory__back__btn').hide();
   $('#directorist-recommendedTags').empty().html(response);
   initializeKeyword();
   updateStepTitle('Select relevant keywords to <br /> optimize AI-generated content');
@@ -754,7 +747,6 @@ function handleCreateDirectory() {
 function handleAIFormResponse(response) {
   var _response$data7;
   if (response !== null && response !== void 0 && (_response$data7 = response.data) !== null && _response$data7 !== void 0 && _response$data7.success) {
-    console.log('Response Success:', currentStep, response);
     var nextStep = currentStep + 1;
     $('.directorist-create-directory__content__items[data-step="' + currentStep + '"]').hide();
     $('.directorist-create-directory__step .step-count .current-step').html(nextStep);
@@ -783,6 +775,13 @@ function handleAIFormResponse(response) {
 $('body').on('click', '.directorist_generate_ai_directory', function (e) {
   e.preventDefault();
   if (currentStep == 1) {
+    $('.directorist-create-directory__content__items[data-step="1"]').hide();
+    $('.directorist-create-directory__content__items[data-step="2"]').show();
+    $('.directorist-create-directory__back__btn').removeClass('disabled');
+    $('.directorist-create-directory__step .step-count .current-step').html(2);
+    $(".directorist-create-directory__step .atbdp-setup-steps li:nth-child(2)").addClass('active');
+    updateStepTitle('Describe your business in plain language');
+    currentStep = 2;
     return;
   } else if (currentStep == 3) {
     handleKeywordStep();
@@ -808,7 +807,9 @@ $('body').on('click', '.directorist_generate_ai_directory', function (e) {
 
 // Regenerate Fields
 $('body').on('click', '.directorist_regenerate_fields', function (e) {
+  var _this = this;
   e.preventDefault();
+  $(this).addClass('loading');
   var form_data = new FormData();
   form_data.append('action', 'directorist_ai_directory_creation');
   form_data.append('name', directoryTitle);
@@ -820,8 +821,10 @@ $('body').on('click', '.directorist_regenerate_fields', function (e) {
   // Handle Axios Request
   axios.post(directorist_admin.ajax_url, form_data).then(function (response) {
     var _response$data11;
+    $(_this).removeClass('loading');
     handleGenerateFields(response === null || response === void 0 || (_response$data11 = response.data) === null || _response$data11 === void 0 ? void 0 : _response$data11.html);
   }).catch(function (error) {
+    $(_this).removeClass('loading');
     console.error(error);
   });
 });

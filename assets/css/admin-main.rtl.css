@@ -31741,7 +31741,7 @@ span.drop-toggle-caret:before {
   border: 2px solid #ffffff;
   border-top-color: #4353ff;
   position: absolute;
-  top: 12px;
+  top: 10px;
   left: 50%;
   -webkit-transform: translateX(50%);
           transform: translateX(50%);
@@ -31770,6 +31770,16 @@ span.drop-toggle-caret:before {
   color: #3E62F5 !important;
   background: transparent !important;
   border-color: transparent !important;
+}
+.directorist-create-directory__next .directorist_regenerate_fields.loading {
+  pointer-events: none;
+}
+.directorist-create-directory__next .directorist_regenerate_fields.loading svg {
+  -webkit-animation: spin 2s linear infinite;
+          animation: spin 2s linear infinite;
+}
+.directorist-create-directory__next .directorist_regenerate_fields.loading:before, .directorist-create-directory__next .directorist_regenerate_fields.loading:after {
+  display: none;
 }
 @media (max-width: 375px) {
   .directorist-create-directory__next {
@@ -31805,6 +31815,11 @@ span.drop-toggle-caret:before {
 }
 .directorist-create-directory__back__btn:hover {
   color: #3E62F5;
+}
+.directorist-create-directory__back__btn:focus {
+  outline: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 .directorist-create-directory__back__btn.disabled {
   opacity: 0.5;

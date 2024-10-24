@@ -770,6 +770,9 @@ function handleAIFormResponse(response) {
       directoryFields = JSON.stringify(response === null || response === void 0 || (_response$data10 = response.data) === null || _response$data10 === void 0 ? void 0 : _response$data10.fields);
     } else if (currentStep == 4) {
       var _response$data11;
+      // $('#directorist-create-directory__creating').hide();
+      // $('#directorist-create-directory__generating').hide();
+      // $('#directorist-create-directory__ai-fields').show();
       handleCreateDirectory(response === null || response === void 0 || (_response$data11 = response.data) === null || _response$data11 === void 0 ? void 0 : _response$data11.url);
     }
     return;

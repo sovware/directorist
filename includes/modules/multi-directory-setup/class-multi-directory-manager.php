@@ -481,21 +481,60 @@ class Multi_Directory_Manager {
         }
 
         if( 2 == $step ) {
-            $system_prompt = 'You are a directory builder generator. Based on the following user input, generate 20 plus relevant fields with the following JSON structure. Provide the output in the JSON format:"text":{"type":"text","field_key":"custom-text","label":"Text","description":"","placeholder":"","required":false,"only_for_admin":false,"assign_to":false,"category":"","widget_group":"custom","widget_name":"text","widget_key":"text", "group_name":"General Info"} . Please do not add any additional text like here are the json data or something. ';
+            // $system_prompt = 'You are a directory builder generator. Based on the following user input, generate 20 plus relevant fields with the following JSON structure. Provide the output in the JSON format:"text":{"type":"text","field_key":"custom-text","label":"Text","description":"","placeholder":"","required":false,"only_for_admin":false,"assign_to":false,"category":"","widget_group":"custom","widget_name":"text","widget_key":"text", "group_name":"General Info"} . Please do not add any additional text like here are the json data or something. ';
+            $system_prompt = 'You are a directory builder generator. Based on the following user input, generate 20+ relevant fields with the following JSON structure, maintaining consistency with the existing format:
+
+{
+    "text": {
+        "type": "text",
+        "field_key": "custom-text",
+        "label": "Text",
+        "description": "",
+        "placeholder": "",
+        "required": false,
+        "only_for_admin": false,
+        "assign_to": false,
+        "category": "",
+        "widget_group": "custom",
+        "widget_name": "text",
+        "widget_key": "text",
+        "group_name": "General Info"
+    },
+    "textarea": {
+        "type": "textarea",
+        "field_key": "custom-textarea",
+        "label": "Textarea",
+        "description": "",
+        "placeholder": "",
+        "required": false,
+        "only_for_admin": false,
+        "assign_to": false,
+        "category": "",
+        "widget_group": "custom",
+        "widget_name": "textarea",
+        "widget_key": "textarea",
+        "group_name": "Features"
+    }
+}
+
+Please generate fields with different field types like text, textarea, email, phone, url, number, select, checkbox ect. Include group names that are appropriate for each field. Provide the output only in JSON format. Do not add anything like "Here is the generated JSON structure"';
             $response = $this->ai_create_fields( $prompt, $keywords, $pinned, $system_prompt );
             wp_send_json([
                 'success' => true,
                 'html' => $response['html'],
+                'data' => $response['data'],
                 'fields' => $response['fields'],
             ]);
 
         }
 
         if( 3 == $step ) {
-            $directory_id = $this->build_directory( $name, $fields );
+            $data = $this->build_directory( $name, $fields );
+            $id = ! empty( $data['id'] ) ? $data['id'] : '';
             wp_send_json([
+                'data' => $data,
                 'success' => true,
-                'url' => admin_url("edit.php?post_type=at_biz_dir&page=atbdp-directory-types&listing_type_id=$directory_id&action=edit"),
+                'url' => admin_url("edit.php?post_type=at_biz_dir&page=atbdp-directory-types&listing_type_id=$id&action=edit"),
             ]);
         }
 
@@ -505,15 +544,15 @@ class Multi_Directory_Manager {
         wp_send_json( $installed );
     }
 
-    private function merge_ai_fields($existing_config, $new_fields, $name ) {
-
- 
-        $new_fields_array = json_decode($new_fields, true);
-
+    public function merge_new_fields( $existing_config, $new_fields ) {
+        
+        $new_fields_array = json_decode(stripslashes($new_fields), true);
+        
+        
         if (is_null($new_fields_array)) {
             // throw new Exception('Failed to decode new fields JSON: ' . json_last_error_msg());
         }
-    
+
         // Reformat new fields to match the old format and ensure unique field keys for same type fields
         $type_counts = [];
         $formatted_fields = [];
@@ -525,25 +564,26 @@ class Multi_Directory_Manager {
                 $type_counts[$type]++;
             }
             $suffix = $type_counts[$type] > 0 ? '-' . $type_counts[$type] : '';
-            $field_key = $field['field_key'] . $suffix;
-    
+            $field_key = "custom-{$type}{$suffix}";
+
             $formatted_fields[$field_key] = array_merge($field, [
                 'widget_group' => 'custom',
                 'widget_name' => $type,
                 'field_key' => $field_key,
-                'widget_key' => $type . $suffix,
+                'widget_key' => $key,
             ]);
         }
-    
+
         // Group the fields based on 'group_name'
         $groups = [];
+        $counter = 0;
         foreach ($formatted_fields as $field_key => $field) {
             $group_name = $field['group_name'];
             if (!isset($groups[$group_name])) {
                 $groups[$group_name] = [
                     "type" => "general_group",
                     "label" => $group_name,
-                    "fields" => [],
+                    "fields" =>  $counter == 0 ? ['title', 'description'] : [],
                     "defaultGroupLabel" => "Section",
                     "disableTrashIfGroupHasWidgets" => [
                         [
@@ -555,50 +595,93 @@ class Multi_Directory_Manager {
                 ];
             }
             $groups[$group_name]['fields'][] = $field_key;
+            $counter++;
         }
-    
+
         // Keep old title and description fields
         $title_description_fields = array_intersect_key(
             $existing_config['submission_form_fields']['fields'] ?? [],
             array_flip(['title', 'description'])
         );
-    
+
         // Replace the old fields with new fields, keeping title and description
         $existing_config['submission_form_fields']['fields'] = array_merge(
             $title_description_fields,
             $formatted_fields
         );
-    
-        // Replace old groups with new groups, keeping title and description in "General Info"
-        $existing_groups = [
-            "type" => "general_group",
-            "label" => "General Info",
-            "fields" => array_merge(['title', 'description'], array_keys($title_description_fields)),
-            "defaultGroupLabel" => "Section",
-            "disableTrashIfGroupHasWidgets" => [
-                [
-                    "widget_name" => "title",
-                    "widget_group" => "preset"
-                ]
-            ],
-            "icon" => "las la-pen-nib",
-        ];
-    
-        $existing_config['submission_form_fields']['groups'] = array_merge([$existing_groups], array_values($groups));
 
+        $existing_config['submission_form_fields']['groups'] = array_values($groups);
 
+        return $existing_config;
     }
 
-    public function build_directory( $name, $fields ){
+    public function merge_new_fields_v2( $structure, $new_fields ) {
+        
+        $new_fields_array = json_decode(stripslashes($new_fields), true);
+        
+        if (is_null($new_fields_array)) {
+            return [];
+        }
+        array_walk($new_fields_array, function (&$field, $key) {
+            // Generate the field_key dynamically by type and prefix "custom-"
+            $type = strtolower($field['type']);
+            $field_key = "custom-{$type}";
+    
+            $field = array_merge($field, [
+                'widget_group' => 'custom',
+                'widget_name' => $type,
+                'field_key' => $field_key,
+                'widget_key' => $key,
+            ]);
+        });
 
-        $builder_content = directorist_get_json_from_url( 'http://app.directorist.com/wp-content/uploads/2024/10/business-1.zip' );
+        // Keep old title and description fields
+        $title_description_fields = array_intersect_key(
+            $structure['submission_form_fields']['fields'] ?? [],
+            array_flip(['title', 'description'])
+        );
 
-        $updated_config = $this->merge_ai_fields($builder_content, $fields, $name );
+        // Replace the old fields with new fields, keeping title and description
+        $structure['submission_form_fields']['fields'] = array_merge(
+            $title_description_fields,
+            $new_fields_array
+        );
 
+        // Replace old groups with a new group containing the new fields and keeping title and description
+        $structure['submission_form_fields']['groups'] = [
+            [
+                "type" => "general_group",
+                "label" => "General Information",
+                "fields" => array_merge(['title', 'description'], array_keys($new_fields_array)),
+                "defaultGroupLabel" => "Section",
+                "disableTrashIfGroupHasWidgets" => [
+                    [
+                        "widget_name" => "title",
+                        "widget_group" => "preset"
+                    ]
+                ],
+                "icon" => "las la-pen-nib",
+            ]
+        ];
+
+        return $structure;
+    }
+
+    public function build_directory( $name, $new_fields ){
+
+        $structure = directorist_get_json_from_url( 'http://app.directorist.com/wp-content/uploads/2024/10/business-1.zip' );
+
+        $updated_config = $this->merge_new_fields( $structure, $new_fields );
+
+        // return [
+        //     'fields' => $new_fields,
+        //     'builder_content' => $structure,
+        //     'updated_config' => $updated_config,
+        // ];
 
         self::prepare_settings();
         $term = self::add_directory([
-            'directory_name' => $name,
+            'directory_name' => $name . time(),
             'fields_value'   => $updated_config,
             'is_json'        => false
         ]);
@@ -609,7 +692,12 @@ class Multi_Directory_Manager {
             $term_id = $term['term_id'];
         }
 
-        return $term_id;
+        return [
+            'structure' => $structure,
+            'new_fields' => $new_fields,
+            'updated_config' => $updated_config,
+            'id' => $term_id,
+        ];
     }
 
     public function ai_create_fields( $prompt, $keywords, $pinned = '', $system_prompt ) {
@@ -710,6 +798,7 @@ $html = ob_get_clean();
 return [
     'fields' => $fields,
     'html' => $html,
+    'data' => $response,
 ];
 
     }

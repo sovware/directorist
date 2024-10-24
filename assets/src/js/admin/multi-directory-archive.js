@@ -526,6 +526,9 @@ function handleAIFormResponse(response) {
             handleGenerateFields(response?.data?.html);
             directoryFields = JSON.stringify( response?.data?.fields );
         } else if (currentStep == 4) {
+            // $('#directorist-create-directory__creating').hide();
+            // $('#directorist-create-directory__generating').hide();
+            // $('#directorist-create-directory__ai-fields').show();
             handleCreateDirectory( response?.data?.url );
         }
 

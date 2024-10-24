@@ -5,7 +5,6 @@ import './components/import-directory-modal';
 
 var $ = jQuery;
 const axios = require('axios').default;
-const debugMode = false;
 
 window.addEventListener('load', () => {
     // Migration Link
@@ -238,7 +237,7 @@ function initializeProgressBar(finalProgress) {
                 if (!finalProgress) {
                     setTimeout(() => {
                         progressBar.style.width = '0';
-                    }, 2000);
+                    }, 5000);
                 }
                 clearInterval(progressInterval);
                 return;
@@ -286,7 +285,7 @@ function initializeDropdownField(){
 
     // Initialize each dropdown
     dropdowns.forEach((dropdown) => {
-        const header = dropdown.querySelector(".directorist-ai-generate-dropdown__header");
+        const header = dropdown.querySelector(".directorist-ai-generate-dropdown__header.has-options");
         const content = dropdown.querySelector(".directorist-ai-generate-dropdown__content");
         const icon = dropdown.querySelector(".directorist-ai-generate-dropdown__header-icon");
         const pinIcon = dropdown.querySelector(".directorist-ai-generate-dropdown__pin-icon");
@@ -308,12 +307,12 @@ function initializeDropdownField(){
         });
 
         // Toggle the dropdown content
-        header.addEventListener("click", (event) => {
+        header && header.addEventListener("click", (event) => {
             if (event.target === pinIcon || pinIcon.contains(event.target)) {
                 return;
             }
 
-            const isExpanded = content.classList.toggle("directorist-ai-generate-dropdown__content--expanded");
+            const isExpanded = content && content.classList.toggle("directorist-ai-generate-dropdown__content--expanded");
             dropdown.setAttribute("aria-expanded", isExpanded);
             content.setAttribute("aria-expanded", isExpanded);
             icon.classList.toggle("rotate", isExpanded);
@@ -323,11 +322,15 @@ function initializeDropdownField(){
                     if (otherDropdown !== dropdown) {
                         const otherContent = otherDropdown.querySelector(".directorist-ai-generate-dropdown__content");
                         const otherIcon = otherDropdown.querySelector(".directorist-ai-generate-dropdown__header-icon");
-
-                        otherContent.classList.remove("directorist-ai-generate-dropdown__content--expanded");
                         otherDropdown.setAttribute("aria-expanded", false);
-                        otherContent.setAttribute("aria-expanded", false);
-                        otherIcon.classList.remove("rotate");
+
+                        if (otherContent) {
+                            otherContent.classList.remove("directorist-ai-generate-dropdown__content--expanded");
+                            otherContent.setAttribute("aria-expanded", false);
+                        }
+                        if (otherIcon) {
+                            otherIcon.classList.remove("rotate");
+                        }
                     }
                 });
             }
@@ -486,7 +489,7 @@ function handleCreateDirectory( redirect_url ) {
 
 // Response Success Callback
 function handleAIFormResponse(response) {
-    if (!debugMode && response?.data?.success) {
+    if (response?.data?.success) {
         let nextStep = currentStep + 1;
 
         $('.directorist-create-directory__content__items[data-step="' + currentStep + '"]').hide(); 
@@ -506,8 +509,6 @@ function handleAIFormResponse(response) {
         }
 
         return;
-    } else if (debugMode && response) {
-        console.log(response);
     } else {
         console.error('Something went wrong! Please try again');
     }
@@ -527,9 +528,9 @@ $('body').on('click', '.directorist_generate_ai_directory', function(e) {
         updateStepTitle('Describe your business in plain language');
         currentStep = 2;
         return;
-    } else if (!debugMode && currentStep == 3) {
+    } else if (currentStep == 3) {
         handleKeywordStep(); 
-    } else if (!debugMode && currentStep == 4) {
+    } else if (currentStep == 4) {
         $('#directorist-create-directory__generating').show();
         $('#directorist-create-directory__creating').show();
         $('#directorist-create-directory__ai-fields').hide();

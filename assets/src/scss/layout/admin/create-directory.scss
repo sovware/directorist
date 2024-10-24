@@ -1483,10 +1483,11 @@
     justify-content: space-between;
     align-items: center;
     padding: 14px 16px;
-    cursor: pointer;
     border-radius: 8px 8px 0 0;
     border-bottom: 1px solid transparent;
-
+    &.has-options {
+      cursor: pointer;
+    }
     &-title {
       display: flex;
       align-items: center;

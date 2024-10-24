@@ -291,7 +291,6 @@ __webpack_require__.r(__webpack_exports__);
 
 var $ = jQuery;
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").default;
-var debugMode = false;
 window.addEventListener('load', function () {
   // Migration Link
   $('.directorist_directory_template_library').on('click', function (e) {
@@ -508,7 +507,7 @@ function initializeProgressBar(finalProgress) {
         if (!finalProgress) {
           setTimeout(function () {
             progressBar.style.width = '0';
-          }, 2000);
+          }, 5000);
         }
         clearInterval(progressInterval);
         return;
@@ -553,7 +552,7 @@ function initializeDropdownField() {
 
   // Initialize each dropdown
   dropdowns.forEach(function (dropdown) {
-    var header = dropdown.querySelector(".directorist-ai-generate-dropdown__header");
+    var header = dropdown.querySelector(".directorist-ai-generate-dropdown__header.has-options");
     var content = dropdown.querySelector(".directorist-ai-generate-dropdown__content");
     var icon = dropdown.querySelector(".directorist-ai-generate-dropdown__header-icon");
     var pinIcon = dropdown.querySelector(".directorist-ai-generate-dropdown__pin-icon");
@@ -575,11 +574,11 @@ function initializeDropdownField() {
     });
 
     // Toggle the dropdown content
-    header.addEventListener("click", function (event) {
+    header && header.addEventListener("click", function (event) {
       if (event.target === pinIcon || pinIcon.contains(event.target)) {
         return;
       }
-      var isExpanded = content.classList.toggle("directorist-ai-generate-dropdown__content--expanded");
+      var isExpanded = content && content.classList.toggle("directorist-ai-generate-dropdown__content--expanded");
       dropdown.setAttribute("aria-expanded", isExpanded);
       content.setAttribute("aria-expanded", isExpanded);
       icon.classList.toggle("rotate", isExpanded);
@@ -588,10 +587,14 @@ function initializeDropdownField() {
           if (otherDropdown !== dropdown) {
             var otherContent = otherDropdown.querySelector(".directorist-ai-generate-dropdown__content");
             var otherIcon = otherDropdown.querySelector(".directorist-ai-generate-dropdown__header-icon");
-            otherContent.classList.remove("directorist-ai-generate-dropdown__content--expanded");
             otherDropdown.setAttribute("aria-expanded", false);
-            otherContent.setAttribute("aria-expanded", false);
-            otherIcon.classList.remove("rotate");
+            if (otherContent) {
+              otherContent.classList.remove("directorist-ai-generate-dropdown__content--expanded");
+              otherContent.setAttribute("aria-expanded", false);
+            }
+            if (otherIcon) {
+              otherIcon.classList.remove("rotate");
+            }
           }
         });
       }
@@ -742,7 +745,7 @@ function handleCreateDirectory(redirect_url) {
 // Response Success Callback
 function handleAIFormResponse(response) {
   var _response$data7;
-  if (!debugMode && response !== null && response !== void 0 && (_response$data7 = response.data) !== null && _response$data7 !== void 0 && _response$data7.success) {
+  if (response !== null && response !== void 0 && (_response$data7 = response.data) !== null && _response$data7 !== void 0 && _response$data7.success) {
     var nextStep = currentStep + 1;
     $('.directorist-create-directory__content__items[data-step="' + currentStep + '"]').hide();
     $('.directorist-create-directory__step .step-count .current-step').html(nextStep);
@@ -762,8 +765,6 @@ function handleAIFormResponse(response) {
       handleCreateDirectory(response === null || response === void 0 || (_response$data11 = response.data) === null || _response$data11 === void 0 ? void 0 : _response$data11.url);
     }
     return;
-  } else if (debugMode && response) {
-    console.log(response);
   } else {
     console.error('Something went wrong! Please try again');
   }
@@ -782,9 +783,9 @@ $('body').on('click', '.directorist_generate_ai_directory', function (e) {
     updateStepTitle('Describe your business in plain language');
     currentStep = 2;
     return;
-  } else if (!debugMode && currentStep == 3) {
+  } else if (currentStep == 3) {
     handleKeywordStep();
-  } else if (!debugMode && currentStep == 4) {
+  } else if (currentStep == 4) {
     $('#directorist-create-directory__generating').show();
     $('#directorist-create-directory__creating').show();
     $('#directorist-create-directory__ai-fields').hide();

@@ -33354,9 +33354,11 @@ span.drop-toggle-caret:before {
       -ms-flex-align: center;
           align-items: center;
   padding: 14px 16px;
-  cursor: pointer;
   border-radius: 8px 8px 0 0;
   border-bottom: 1px solid transparent;
+}
+.directorist-ai-generate-dropdown__header.has-options {
+  cursor: pointer;
 }
 .directorist-ai-generate-dropdown__header-title {
   display: -webkit-box;

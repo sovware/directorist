@@ -470,16 +470,18 @@ class Multi_Directory_Manager {
 
         $prompt     = ! empty( $_POST['prompt'] ) ? $_POST['prompt'] : '';
         $keywords   = ! empty( $_POST['keywords'] ) ? $_POST['keywords'] : '';
+        $pinned     = ! empty( $_POST['pinned'] ) ? $_POST['pinned'] : '';
         $step       = ! empty( $_POST['step'] ) ? $_POST['step'] : '';
         $name       = ! empty( $_POST['name'] ) ? $_POST['name'] : '';
         $fields     = ! empty( $_POST['fields'] ) ? $_POST['fields'] : [];
 
         if( 1 == $step ) {
-            $html = $this->ai_create_keywords( $prompt );
+            $system_prompt = 'You are a keyword generator. Based on the following user input, generate exactly 10 relevant keywords, which are separated by commas. Provide the output in the JSON format: {"keywords": ["keyword1", "keyword2", ...]} . Please do not add any additional text like here are the json data or something. ';
+            $html = $this->ai_create_keywords( $prompt, $system_prompt );
         }
 
         if( 2 == $step ) {
-            $response = $this->ai_create_fields( $prompt, $keywords );
+            $response = $this->ai_create_fields( $prompt, $keywords, $pinned );
             wp_send_json([
                 'success' => true,
                 'html' => $response['html'],
@@ -591,9 +593,11 @@ class Multi_Directory_Manager {
         return $term_id;
     }
 
-    public function ai_create_fields( $prompt, $keywords ) {
+    public function ai_create_fields( $prompt, $keywords, $pinned = '' ) {
 
-        $prompt = $prompt . '. I need the listing page fields list minimum of 20+. Here is some keywords: '.$keywords.'. For each field, return an array with the following keys:
+        $pinned = ! empty( $pinned ) ? " Make sure you have included the following fields: " . $pinned . '.' : '';
+        
+        $prompt = $prompt . '. I need the listing page fields list minimum of 20+. Here is some keywords: '.$keywords.'. '.$pinned.' For each field, return an array with the following keys:
 "label": The label of the field without the @@.
 "type": The input type (e.g., <input type="text">, <textarea>, etc.).
 "options": An array of options if applicable (for select, radio, or checkbox fields), otherwise an empty array.
@@ -697,9 +701,8 @@ Return the result as an array of associative arrays in PHP format.';
         ];
     }
 
-    public function ai_create_keywords( $prompt ) {
-        $prompt = "$prompt. Give me 10 relative keywords separated by @. Don't use anything like 'Here is the ten possible keywords'";
-        $response = directorist_get_form_groq_ai( $prompt );
+    public function ai_create_keywords( $prompt, $system_prompt ) {
+        $response = directorist_get_form_groq_ai( $prompt, $system_prompt );
 
         if( ! $response ) {
             wp_send_json([
@@ -710,16 +713,16 @@ Return the result as an array of associative arrays in PHP format.';
             ], 200);
         }
 
-        $list = explode("@", $response);
+        // file_put_contents( __DIR__ . '/test.json', $response );
 
-        // Trim any leading/trailing spaces from each element
-        $list = array_map('trim', $list);
+
+        $list = json_decode( $response, true);
 
         ob_start();?>
 
         <?php 
-        if( ! empty( $list ) ) {
-            foreach( $list as $keyword ) { ?>
+        if( ! empty( $list['keywords'] ) ) {
+            foreach( $list['keywords'] as $keyword ) { ?>
                 <li class="free-enabled"><?php echo ucwords( $keyword ); ?></li>
             <?php }
         }

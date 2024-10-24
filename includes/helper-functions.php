@@ -4578,7 +4578,7 @@ function directorist_download_plugin( array $args = array() ) {
     return $status;
 }
 
-function directorist_get_form_groq_ai( $command ) {
+function directorist_get_form_groq_ai( $command, $system_prompt = 'You are a helful assistant' ) {
 
     $key = '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';
 
@@ -4596,7 +4596,7 @@ function directorist_get_form_groq_ai( $command ) {
         'messages' => [
             [
                 'role' => 'system',
-                'content' => 'I need a PHP array for a Car directory in Dhaka, Bangladesh. Please return only the PHP array in PHP syntax. Do not include any introductory or closing sentences, just the array itself.'
+                'content' => $system_prompt
             ],
             [
                 'role' => 'user',

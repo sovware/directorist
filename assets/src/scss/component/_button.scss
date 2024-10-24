@@ -29,7 +29,7 @@
   transition: all ease 0.3s;
   text-decoration: none !important;
   .directorist-icon-mask:after {
-    transition: all ease 0.3s;
+    background-color: currentColor;
   }
   &.directorist-btn--add-listing,
   &.directorist-btn--logout {
@@ -41,9 +41,6 @@
     outline: 0 !important;
     &:not(.directorist-single-listing-action){
       filter: brightness(0.85);
-    }
-    .directorist-icon-mask:after {
-      background-color: currentColor;
     }
   }
 }

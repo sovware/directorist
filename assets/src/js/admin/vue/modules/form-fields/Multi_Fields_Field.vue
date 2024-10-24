@@ -8,7 +8,7 @@
                     <component 
                         :is="option.type + '-field'"
                         :root="option_group"
-                        :key="option_key"
+                        :key="`${fieldId}_${option_key}`"
                         v-bind="getSanitizedOption( option )"
                         :validation="getValidation( option_key, option_group_key, option )"
                         :value="option.value"
@@ -71,8 +71,12 @@ export default {
         },
     },
     
-
     created() {
+        console.log( '@CHK-1: value', { 
+            fieldId: this.fieldId,
+            name: this.name,
+            value: this.value,
+        } );
         this.setup();
     },
 
@@ -84,6 +88,12 @@ export default {
 
     watch: {
         value() {
+            console.log( '@CHK-2: value', { 
+                fieldId: this.fieldId,
+                name: this.name,
+                value: this.value,
+             } );
+
             this.loadOldData();
         },
     },
@@ -232,8 +242,15 @@ export default {
         },
 
         loadOldData() {
-            if ( typeof this.value !== 'object' ) { return false; }
-            if ( ! this.value.length ) { return false; }
+            if ( typeof this.value !== 'object' ) { 
+                this.active_fields_groups = [];
+                return false; 
+            }
+
+            if ( ! this.value.length ) {
+                this.active_fields_groups = []; 
+                return false; 
+            }
 
             let fields_groups = [];
 

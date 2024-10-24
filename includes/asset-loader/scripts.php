@@ -69,6 +69,13 @@ class Scripts {
 				'rtl' => true,
 			],
 
+			// Support v7 CSS
+			'directorist-support-v7-style' => [
+				'type' => 'css',
+				'path' => DIRECTORIST_CSS . 'support-v7-style',
+				'rtl' => true,
+			],
+
 			// Admin CSS
 			'directorist-admin-style' => [
 				'type' => 'css',
@@ -324,10 +331,12 @@ class Scripts {
 			'directorist-multi-directory-builder' => [
 				'type' => 'js',
 				'path' => DIRECTORIST_JS . 'admin-multi-directory-builder',
+				'dep'  => [ 'lodash' ]
 			],
 			'directorist-settings-manager' => [
 				'type' => 'js',
 				'path' => DIRECTORIST_JS . 'admin-settings-manager',
+				'dep'  => [ 'lodash' ]
 			],
 			'directorist-plugins' => [
 				'type' => 'js',

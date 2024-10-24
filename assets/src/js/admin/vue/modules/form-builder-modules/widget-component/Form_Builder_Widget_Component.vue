@@ -265,11 +265,7 @@ export default {
 
     handleTrashClick() {
       this.expandedDropdown = !this.expandedDropdown;
-      if (this.isPresetOrCustomGroup && this.widgetKey !== "terms_privacy") {
-        this.openConfirmationModal();
-      } else {
-        this.$emit("trash-widget");
-      }
+      this.openConfirmationModal();
     },
 
     sync() {
@@ -280,10 +276,22 @@ export default {
     openConfirmationModal() {
       this.widgetName = this.widgetTitle;
       this.showConfirmationModal = true;
+
+      // Add class to parent with class 'atbdp-cpt-manager'
+      const parentElement = this.$el.closest('.atbdp-cpt-manager');
+      if (parentElement) {
+        parentElement.classList.add('trash-overlay-visible');
+      }
     },
 
     closeConfirmationModal() {
       this.showConfirmationModal = false;
+      
+      // Remove class from parent with class 'atbdp-cpt-manager'
+      const parentElement = this.$el.closest('.atbdp-cpt-manager');
+      if (parentElement) {
+        parentElement.classList.remove('trash-overlay-visible');
+      }
     },
 
     trashWidget() {
@@ -305,11 +313,11 @@ export default {
         ? current_widget.widget_group
         : "";
 
-      const widget_name = current_widget.widget_name
-        ? current_widget.widget_name
-        : "";
+      const widget_name = current_widget.original_widget_key
+        ? current_widget.original_widget_key
+        : current_widget.widget_name ? current_widget.widget_name : "";
 
-      const widget_child_name = current_widget.widget_name
+      const widget_child_name = current_widget.widget_child_name
         ? current_widget.widget_child_name
         : "";
 

@@ -1,12 +1,10 @@
+import debounce from '../global/components/debounce';
 import './../global/components/select2-custom-control';
 import './../global/components/setup-select2';
+import initSearchCategoryCustomFields from './components/category-custom-fields';
 import './components/colorPicker';
 import './components/directoristDropdown';
 import './components/directoristSelect';
-import { directorist_callingSlider } from './range-slider';
-import { directorist_range_slider } from './range-slider';
-import debounce from '../global/components/debounce';
-import initSearchCategoryCustomFields from './components/category-custom-fields';
 
 (function ($) {
     window.addEventListener('load', () => {
@@ -32,7 +30,7 @@ import initSearchCategoryCustomFields from './components/category-custom-fields'
             });
         }
 
-        $(window).on('load', defaultTags);
+        defaultTags();
         window.addEventListener('triggerSlice', defaultTags);
 
         // See More Tags Button
@@ -719,6 +717,13 @@ import initSearchCategoryCustomFields from './components/category-custom-fields'
             handleRadiusVisibility();
         });
 
+        // handleRadiusVisibility Trigger on directory type change
+        $('body').on('click', '.directorist-instant-search .directorist-type-nav__link', function(e) {
+            setTimeout(() => {
+                handleRadiusVisibility();
+            }, 600)
+        });
+
         // Hide Country Result Click on Outside of Zipcode Field
         $(document).on('click', function (e) {
             if (!$(e.target).closest('.directorist-zip-code').length) {
@@ -742,7 +747,7 @@ import initSearchCategoryCustomFields from './components/category-custom-fields'
         $('.address_result').hide();
 
         // Init Location
-        window.addEventListener('load', init_map_api_field);
+        init_map_api_field();
         document.body.addEventListener('directorist-reload-map-api-field', init_map_api_field);
 
         function init_map_api_field() {
@@ -914,9 +919,10 @@ import initSearchCategoryCustomFields from './components/category-custom-fields'
                                     });
                                 },
                                 error: function error(_error3) {
-                                    // console.log({
-                                    //     error: _error3
-                                    // });
+                                    console.log({
+                                        error: _error3
+                                    });
+                                    locationAddressField.removeClass('atbdp-form-fade');
                                 }
                             });
                         }

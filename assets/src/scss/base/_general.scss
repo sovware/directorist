@@ -126,6 +126,8 @@
       }
       .wp-editor-area {
         border: none;
+        resize: none;
+        min-height: 238px;
       }
       .mce-top-part::before {
         display: none;

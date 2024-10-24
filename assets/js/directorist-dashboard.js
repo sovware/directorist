@@ -930,6 +930,9 @@ window.addEventListener('load', function () {
 
 ;
 (function ($) {
+  if ($('#display_author_email').length) {
+    $('#display_author_email').select2();
+  }
   window.addEventListener('load', function () {
     var is_processing = false;
     $('#user_preferences').on('submit', function (e) {
@@ -964,7 +967,6 @@ window.addEventListener('load', function () {
         success: function success(response) {
           submit_button.removeAttr('disabled');
           submit_button.removeClass("directorist-loader");
-          console.log(response);
           if (response.success) {
             $('#directorist-preference-notice').html('<span class="directorist-alert directorist-alert-success">' + response.data.message + '</span>');
           } else {

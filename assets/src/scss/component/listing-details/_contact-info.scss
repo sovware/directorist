@@ -72,9 +72,15 @@
     }
   }
 
+  .directorist-single-info-number{
+    .directorist-single-info__value{
+      flex: none;
+    }
+  }
+
   .directorist-single-info__value {
-    flex: 1;
     margin-top: 4px;
+    flex: 1;
     color: var(--directorist-color-body);
     a {
       color: var(--directorist-color-body);

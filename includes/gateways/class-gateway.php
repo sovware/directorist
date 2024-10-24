@@ -66,6 +66,11 @@ class ATBDP_Gateway{
                             'label' => 'Featured label',
                             'value' => 'Featured',
                         ],
+                        'featured_description' => [
+                            'type'  => 'text',
+                            'label' => 'Featured description',
+                            'value' => 'Promote your listing to the top of search results and listings pages for a specific duration, with an additional payment',
+                        ],
                     ],
                 ];
             }

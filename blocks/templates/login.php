@@ -155,7 +155,7 @@ extract( $login_args );
 					</div>
 					
 					<div class="directorist-form-group atbd_login_btn_wrapper">
-						<button class="directorist-btn directorist-btn-block directorist-btn-primary" type="submit" value="<?php echo esc_attr( $log_button ); ?>" name="submit"><?php echo esc_html( $log_button ); ?></button>
+						<button class="directorist-btn directorist-btn-block" type="submit" value="<?php echo esc_attr( $log_button ); ?>" name="submit"><?php echo esc_html( $log_button ); ?></button>
 						<?php wp_nonce_field( 'ajax-login-nonce', 'security' );?>
 					</div>
 				</form>
@@ -174,7 +174,7 @@ extract( $login_args );
 						<input type="text" class="directorist-form-element" name="user_login" id="reset_user_login" value="<?php echo isset( $_POST['user_login'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_POST['user_login'] ) ) ) : ''; ?>" placeholder="<?php echo esc_attr( $recpass_placeholder ); ?>" required="required" />
 						<p>
 							<input type="hidden" name="action" value="reset" />
-							<button type="submit" class="directorist-btn directorist-btn-primary" id="submit"><?php echo esc_html( $recpass_button ); ?></button>
+							<button type="submit" class="directorist-btn" id="submit"><?php echo esc_html( $recpass_button ); ?></button>
 							<input type="hidden" value="<?php echo esc_attr( wp_create_nonce( directorist_get_nonce_key() ) ); ?>" name="directorist_nonce">
 						</p>
 					</fieldset>

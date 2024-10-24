@@ -206,6 +206,28 @@ jQuery(document).ready(function ($) {
     import_dummy();
   });
 
+  // Reusable function to check and toggle the class based on the input value
+  function handleInputFocus(inputElement) {
+    if ($(inputElement).val().length > 0) {
+      $(inputElement).parent('.directorist-search-field').addClass('input-is-focused');
+    } else {
+      $(inputElement).parent('.directorist-search-field').removeClass('input-is-focused');
+    }
+  }
+
+  // Keyup event listener for user typing in the input field
+  $('body').on('keyup', '.directorist-location-js', function (e) {
+    e.preventDefault();
+    handleInputFocus(this);
+  });
+
+  // Clear location input value
+  $('body').on('click', '.directorist-setup-wizard__box__content__input--clear', function (e) {
+    e.preventDefault();
+    $(this).siblings('input').val('');
+    $(this).parent('.directorist-search-field').removeClass('input-is-focused');
+  });
+
   //options
   $('.atbdp-sw-gmap-key').hide();
   $('#select_map').on('change', function (e) {
@@ -266,6 +288,8 @@ jQuery(document).ready(function ($) {
   });
   var setupWizardTypes = document.querySelectorAll('.directorist-setup-wizard__checkbox input[type="checkbox"]');
   var setupWizardTypeCounterDesc = document.querySelector('.directorist-setup-wizard__counter .directorist-setup-wizard__counter__desc');
+  var setupWizardTypeCounterNotice = document.querySelector('.directorist-setup-wizard__notice');
+  var setupWizardTypeNextStepBtn = document.querySelector('.directorist-setup-wizard__next .directorist-setup-wizard__btn--next');
   var setupWizardSelectedTypeCount = document.querySelector('.directorist-setup-wizard__counter .selected_count');
   var setupWizardTypesMaxCount = document.querySelector('.directorist-setup-wizard__counter .max_count');
   var setupWizardTypesMaxAllowed = 5;
@@ -275,6 +299,13 @@ jQuery(document).ready(function ($) {
     }).length;
     setupWizardSelectedTypeCount.textContent = setupWizardCheckedTypeCount;
     setupWizardTypesMaxCount.textContent = setupWizardTypesMaxAllowed;
+    if (setupWizardCheckedTypeCount < 1) {
+      setupWizardTypeCounterNotice.style.display = 'block';
+      setupWizardTypeNextStepBtn.disabled = true;
+    } else {
+      setupWizardTypeCounterNotice.style.display = 'none';
+      setupWizardTypeNextStepBtn.disabled = false;
+    }
     if (setupWizardCheckedTypeCount >= setupWizardTypesMaxAllowed) {
       setupWizardTypeCounterDesc.style.display = 'block';
       setupWizardTypes.forEach(function (checkbox) {
@@ -292,7 +323,6 @@ jQuery(document).ready(function ($) {
   setupWizardTypes.forEach(function (type) {
     type.addEventListener('change', handleSetupWizardTypeChange);
   });
-  handleSetupWizardTypeChange();
 });
 
 /***/ })

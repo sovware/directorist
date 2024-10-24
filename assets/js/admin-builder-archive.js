@@ -279,12 +279,12 @@ window.addEventListener('load', function () {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _components_import_directory_modal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/import-directory-modal */ "./assets/src/js/admin/components/import-directory-modal.js");
-/* harmony import */ var _components_import_directory_modal__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_components_import_directory_modal__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _components_delete_directory_modal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/delete-directory-modal */ "./assets/src/js/admin/components/delete-directory-modal.js");
-/* harmony import */ var _components_delete_directory_modal__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_components_delete_directory_modal__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _components_directory_migration_modal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/directory-migration-modal */ "./assets/src/js/admin/components/directory-migration-modal.js");
-/* harmony import */ var _components_directory_migration_modal__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_components_directory_migration_modal__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _components_delete_directory_modal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/delete-directory-modal */ "./assets/src/js/admin/components/delete-directory-modal.js");
+/* harmony import */ var _components_delete_directory_modal__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_components_delete_directory_modal__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_directory_migration_modal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/directory-migration-modal */ "./assets/src/js/admin/components/directory-migration-modal.js");
+/* harmony import */ var _components_directory_migration_modal__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_components_directory_migration_modal__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _components_import_directory_modal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/import-directory-modal */ "./assets/src/js/admin/components/import-directory-modal.js");
+/* harmony import */ var _components_import_directory_modal__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_components_import_directory_modal__WEBPACK_IMPORTED_MODULE_2__);
 // Scrips
 
 
@@ -297,7 +297,7 @@ window.addEventListener('load', function () {
   $('.directorist_directory_template_library').on('click', function (e) {
     e.preventDefault();
     var self = this;
-    $('.cptm-create-directory-modal__action').after("<span class='directorist_template_notice'>Installing Templetiq, Please wait..</span>");
+    $('.cptm-create-directory-modal__action').after("<span class='directorist_template_notice'>Installing Templatiq, Please wait..</span>");
     var form_data = new FormData();
     form_data.append('action', 'directorist_directory_type_library');
     form_data.append('directorist_nonce', directorist_admin.directorist_nonce);

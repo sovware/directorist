@@ -457,11 +457,12 @@ class Directorist_Listing_Form {
 		$args = array(
 			'listing_form'            => $this,
 			'display_guest_listings'  => directorist_is_guest_submission_enabled(),
-			'guest_email_label'       => get_directorist_type_option( $type, 'guest_email_label', __( 'Your Email', 'directorist' ) ),
-			'guest_email_placeholder' => get_directorist_type_option( $type, 'guest_email_placeholder' ),
+			'guest_email_label'       => get_directorist_option( 'guest_email_label', __( 'Your Email', 'directorist' ) ),
+			'guest_email_placeholder' => get_directorist_option( 'guest_email_placeholder', __( 'example@email.com', 'directorist' ) ),
 			'display_privacy'         => (bool) get_directorist_type_option( $type, 'listing_privacy', 1 ),
 			'privacy_is_required'     => get_directorist_type_option( $type, 'require_privacy', 1 ),
 			'privacy_checked'         => (bool) get_post_meta( $p_id, '_privacy_policy', true ),
+			'display_terms'           => false,
 			'terms_checked'           => (bool) get_post_meta( $p_id, '_t_c_check', true ),
 			'submit_label'            => get_directorist_type_option( $type, 'submit_button_label', __( 'Save & Preview', 'directorist' ) ),
 		);
@@ -566,11 +567,31 @@ class Directorist_Listing_Form {
 			'section_data' => $section_data,
 		);
 
+		if ( ! is_admin() && $this->all_fields_only_for_admin( $section_data['fields'] ) ) {
+			return; // Exit if all fields are only for admin
+		}
+		
 		$load_section = apply_filters( 'directorist_section_template', true, $args );
-
-		if( $load_section ) {
+		
+		if( $load_section && ! empty( $section_data['fields'] ) ) {
 			Helper::get_template( 'listing-form/section', $args );
 		}
+	}
+
+	public function all_fields_only_for_admin( $fields ) {
+		// If fields array is empty, return false (no restriction)
+		if ( empty( $fields ) ) {
+			return false;
+		}
+	
+		// Check if all fields have 'only_for_admin' set to 1 or true
+		foreach ( $fields as $field ) {
+			if ( empty( $field['only_for_admin'] ) ) {
+				return false; // If any field is not for admin, return false
+			}
+		}
+	
+		return true; // All fields are for admin
 	}
 
 

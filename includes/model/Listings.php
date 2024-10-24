@@ -186,7 +186,7 @@ class Directorist_Listings {
 		$this->options['paginate_listings']               = ! empty( get_directorist_option( 'paginate_all_listings', 1 ) ) ? 'yes' : '';
 		$this->options['display_listings_header']         = ! empty( get_directorist_option( 'display_listings_header', 1 ) ) ? 'yes' : '';
 		$this->options['listing_header_title']            = get_directorist_option( 'all_listing_title', __( 'Items Found', 'directorist' ) );
-		$this->options['listing_columns']                 = get_directorist_option( 'all_listing_columns', 3 );
+		$this->options['listing_columns']                 = get_directorist_option( 'all_listing_columns', 2 );
 		$this->options['listing_filters_button']          = ! empty( get_directorist_option( 'listing_filters_button', 1 ) ) ? 'yes' : '';
 		$this->options['listings_map_height']             = get_directorist_option( 'listings_map_height', 350 );
 		$this->options['enable_featured_listing']         = directorist_is_featured_listing_enabled();
@@ -242,7 +242,7 @@ class Directorist_Listings {
 		$this->options['display_publish_date']            = get_directorist_option('display_publish_date', 1) ? true : false;
 		$this->options['default_latitude']                = get_directorist_option('default_latitude', 40.7127753);
 		$this->options['default_longitude']               = get_directorist_option('default_longitude', -74.0059728);
-		$this->options['listing_instant_search']          = ! empty( get_directorist_option( 'listing_instant_search' ) ) ? 'yes' : '';
+		$this->options['listing_instant_search']          = 'yes';
 		$this->options['all_listing_layout']         	  = get_directorist_option( 'all_listing_layout', 'left_sidebar' );
 		$this->options['listing_sidebar_top_search_bar']  = get_directorist_option( 'listing_hide_top_search_bar', false );
 		$this->options['sidebar_filter_text']    		  = get_directorist_option( 'listings_sidebar_filter_text', 'Filters' );
@@ -270,7 +270,7 @@ class Directorist_Listings {
 		$this->options['listings_sort_by_items']          = get_directorist_option( 'search_sort_by_items', array( 'a_z', 'z_a', 'latest', 'oldest', 'popular', 'price_low_high', 'price_high_low', 'random' ) );
 		$this->options['order_listing_by']                = apply_filters( 'atbdp_default_listing_orderby', get_directorist_option( 'search_order_listing_by', 'date' ) );
 		$this->options['sort_listing_by']                 = get_directorist_option( 'search_sort_listing_by', 'asc' );
-		$this->options['listing_columns']                 = get_directorist_option( 'search_listing_columns', 3 );
+		$this->options['listing_columns']                 = get_directorist_option( 'search_listing_columns', 2 );
 		$this->options['paginate_listings']               = ! empty( get_directorist_option( 'paginate_search_results', 1 ) ) ? 'yes' : '';
 		$this->options['listings_per_page']               = get_directorist_option( 'search_posts_num', 6 );
 		$this->options['all_listing_layout']         	  = get_directorist_option( 'search_result_layout', 'left_sidebar' );
@@ -902,9 +902,14 @@ class Directorist_Listings {
 
 			foreach ( $custom_fields as $key => $values ) {
 				$key = sanitize_text_field( $key );
+				$meta_query = [];
+
 				if ( is_array( $values ) ) {
 					if ( count( $values ) > 1 ) {
-						$sub_meta_queries = array();
+						$sub_meta_queries = array(
+							'relation' => 'OR'
+						);
+
 						foreach ( $values as $value ) {
 							$sub_meta_queries[] = array(
 								'key'     => '_' . $key,
@@ -912,9 +917,10 @@ class Directorist_Listings {
 								'compare' => 'LIKE'
 							);
 						}
-						$meta_queries[] = array_merge( array( 'relation' => 'OR' ), $sub_meta_queries );
+
+						$meta_query = $sub_meta_queries;
 					} else {
-						$meta_queries[] = array(
+						$meta_query = array(
 							'key'     => '_' . $key,
 							'value'   => sanitize_text_field( $values[0] ),
 							'compare' => 'LIKE'
@@ -924,11 +930,11 @@ class Directorist_Listings {
 					$field_type = str_replace( 'custom-', '', $key );
 					$field_type = preg_replace( '/([!^0-9])|(-)/', '', $field_type ); //replaces any additional numbering to just keep the field name, for example if previous line gives us "text-2", this line makes it "text"
 					// Check if $values contains a hyphen
-					if (strpos($values, '-') !== false) {
+					if ( strpos( $values, '-' ) !== false ) {
 						// If $values is in the format "40-50", create a range query
 						list( $min_value, $max_value ) = array_map( 'intval', explode( '-', $values ) );
 
-						$meta_queries[] = array(
+						$meta_query = array(
 							'key'     => '_' . $key,
 							'value'   => array( $min_value, $max_value ),
 							'type'    => 'NUMERIC',
@@ -936,12 +942,30 @@ class Directorist_Listings {
 						);
 					} else {
 						$operator   = in_array( $field_type, array( 'text', 'textarea', 'url' ), true ) ? 'LIKE' : '=';
-						$meta_queries[] = array(
+						$meta_query = array(
 							'key'     => '_' . $key,
 							'value'   => sanitize_text_field( $values ),
 							'compare' => $operator
 						);
 					}
+				}
+
+				/**
+				 * Filters the custom field meta query used in Directorist search functionality.
+				 *
+				 * This filter allows customization of the meta query for specific search criteria 
+				 * by modifying the meta query parameters, key, and values.
+				 *
+				 * @since 8.0
+				 *
+				 * @param array  $meta_query Array of meta query parameters used in the search.
+				 * @param string $key        Meta key being queried.
+				 * @param mixed  $values     Values associated with the meta key for querying.
+				 *
+				 * @return array Filtered meta query.
+				 */
+				if ( ! empty( $meta_query ) ) {
+					$meta_queries[] = apply_filters( 'directorist_custom_fields_meta_query_args', $meta_query, $key, $values );
 				}
 			}
 		}
@@ -1649,7 +1673,11 @@ class Directorist_Listings {
 				}
 				return $image;
 			}
-
+			
+			$thumbnail_img_id = array_filter($thumbnail_img_id, function($value) {
+				return is_numeric($value);
+			});
+			
 			$image_count = count( $thumbnail_img_id );
 
 			if ( 1 === (int) $image_count ) {
@@ -1666,6 +1694,7 @@ class Directorist_Listings {
 					<div class='swiper-wrapper'>";
 
 				foreach ( $thumbnail_img_id as $img_id ) {
+
 					$image_src = atbdp_get_image_source( $img_id, $image_quality );
 					$image_alt = get_post_meta( $img_id, '_wp_attachment_image_alt', true );
 					$image_alt = ! empty( $image_alt ) ? esc_attr( $image_alt ) : esc_html( get_the_title( $img_id ) );
@@ -2018,7 +2047,7 @@ class Directorist_Listings {
 
 		public function print_label( $label ) {
 			if ( $label ) {
-				$label_text = $label . ': ';
+				$label_text = $label . ' : ';
 				$label_text = apply_filters( 'directorist_loop_label', $label_text, $label );
 				echo wp_kses_post( $label_text );
 			}

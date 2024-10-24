@@ -24,6 +24,10 @@ export default {
             }
         },
 
+        link() {
+            return this.comp.link.url ? lodash.unescape( this.comp.link.url ) : this.comp.link.url;
+        },
+
         compLinkIsEnable() {
             if ( ! ( this.componets && this.componets.link ) ) {
                 return false;

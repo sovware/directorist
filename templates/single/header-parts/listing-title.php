@@ -17,4 +17,6 @@ if ( $display_tagline && $listing->get_tagline() ): ?>
 
     <p class="directorist-listing-details__tagline"><?php echo esc_html( $listing->get_tagline() ); ?></p>
     
-<?php endif;
+<?php endif; ?>
+
+<?php do_action( 'directorist_single_listing_after_title', $listing->id ); ?>

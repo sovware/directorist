@@ -75,6 +75,10 @@ export default {
             type: String,
             default: '',
         },
+        buttonClass: {
+            type: String,
+            default: '',
+        },
         copyButtonLabel: {
             type: String,
             default: '<i class="far fa-copy"></i>',
@@ -153,15 +157,15 @@ export default {
         },
         min: {
             type: [String, Number],
-            default: 0,
+            default: undefined,
         },
         max: {
             type: [String, Number],
-            default: 100,
+            default: undefined,
         },
         step: {
             type: [String, Number],
-            default: 1,
+            default: undefined,
         },
         componets: {
             required: false,

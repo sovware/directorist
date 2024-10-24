@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 			<a href="#" class="directorist-user-dashboard__toggle__link"><?php directorist_icon( 'las la-bars' ); ?></a>
 		</div>
 
-		<div class="directorist-user-dashboard__contents directorist-tab">
+		<div class="directorist-user-dashboard__contents directorist-tab directorist-tab-content-grid-fix">
 			<?php $dashboard->navigation_template(); ?>
 			<?php $dashboard->main_contents_template(); ?>
 		</div>

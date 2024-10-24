@@ -208,6 +208,10 @@
           color: var(--directorist-color-body);
           transition: opacity 0.3s ease, top 0.3s ease, font-size 0.3s ease;
         }
+        .directorist-form-group__prefix--start{
+          opacity: 0;
+          transition: opacity 0.3s ease;
+        }
         .directorist-search-field__input {
           &.directorist-form-element {
             padding-right: 20px;
@@ -269,6 +273,12 @@
             &::placeholder {
               opacity: 1;
             }
+          }
+          .directorist-form-group__prefix--start{
+            opacity: 1;
+          }
+          .directorist-form-group__prefix--end{
+            margin-right: 25px;
           }
           .directorist-search-field__label {
             top: 0;

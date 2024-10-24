@@ -154,7 +154,7 @@ class Directorist_Single_Listing {
 			'id'           => !empty( $section_data['custom_block_id'] ) ? $section_data['custom_block_id'] : '',
 			'class'        => !empty( $section_data['custom_block_classes'] ) ? $section_data['custom_block_classes'] : '',
 		);
-		
+
 		if ( $section_data['type'] == 'general_group' ) {
 			if ( $this->section_has_contents( $section_data ) ) {
 				Helper::get_template( 'single/section-general', $args );
@@ -516,6 +516,12 @@ class Directorist_Single_Listing {
 
 	public function get_slider_data( $data = null ) {
 
+		$show_slider = get_directorist_option( 'dsiplay_slider_single_page', true );
+
+		if( ! $show_slider ) {
+			return;
+		}
+
 		$listing_id    = $this->id;
 		$listing_title = get_the_title( $listing_id );
 
@@ -605,6 +611,7 @@ class Directorist_Single_Listing {
 
 		$args = array(
 			'listing'    => $this,
+			'has_slider' => true,
 			'data'       => $this->get_slider_data( $slider ),
 		);
 
@@ -675,8 +682,14 @@ class Directorist_Single_Listing {
 	}
 
 	public function contact_owner_form_disabled() {
-		$author_id = get_post_field( 'post_author', $this->id );
-		return get_user_meta( $author_id, 'hide_contact_form', true );
+		$author_id 			= get_post_field( 'post_author', $this->id );
+		$hide_contact_form  = get_user_meta( $author_id, 'directorist_hide_contact_form', true );
+
+		if ( ! empty( $hide_contact_form ) && 'yes' == $hide_contact_form ) {
+			return true;
+		}
+
+		return false;
 	}
 
 	public function contact_owner_fields( $field_data = [] ) {
@@ -692,9 +705,9 @@ class Directorist_Single_Listing {
 				'placeholder' => __( 'Message...', 'directorist' ),
 			),
 		);
-	
+
 		$field_keys = ['contact_name' => 'name', 'contact_email' => 'email', 'contact_message' => 'message'];
-	
+
 		foreach ( $field_keys as $key => $field ) {
 			if ( ! empty( $field_data[ $key ] ) ) {
 				$default_fields[ $field ]['placeholder'] = $field_data[ $key ]['placeholder'] ?? $default_fields[ $field ]['placeholder'];
@@ -703,7 +716,7 @@ class Directorist_Single_Listing {
 				}
 			}
 		}
-	
+
 		return $default_fields;
 	}
 
@@ -723,9 +736,9 @@ class Directorist_Single_Listing {
 		}
 	}
 
-	public function author_display_email() {
-		$email_display_type  = get_directorist_option('display_author_email', 'public');
-		$email = $this->author_info( 'name' );
+	public function author_display_email( $section_data = [] ) {
+		$email_display_type = ! empty( $section_data['display_email'] ) ?? true;
+		$email 				= $this->author_info( 'name' );
 
 		if ( !$email ) {
 			return false;
@@ -918,25 +931,28 @@ class Directorist_Single_Listing {
 	}
 
 	public function notice_text() {
-		$notice_text = '';
-
-		if( isset( $_GET['notice'] ) ) {
-			$new_listing_status  = get_term_meta( $this->type, 'new_listing_status', true );
-			$edit_listing_status = ( 'publish' !== $new_listing_status ) ? $new_listing_status : directorist_get_listing_edit_status( $this->type );
-			$edited = ( isset( $_GET['edited'] ) ) ? sanitize_text_field( wp_unslash( $_GET['edited'] ) ): 'no';
-
-			$pending_msg = get_directorist_option('pending_confirmation_msg', __( 'Thank you for your submission. Your listing is being reviewed and it may take up to 24 hours to complete the review.', 'directorist' ) );
-			$publish_msg = get_directorist_option('publish_confirmation_msg', __( 'Congratulations! Your listing has been approved/published. Now it is publicly available.', 'directorist' ) );
-
-			if ( $edited === 'no' ) {
-				$notice_text = 'publish' === $new_listing_status ? $publish_msg : $pending_msg;
-			}
-			else {
-				$notice_text = 'publish' === $edit_listing_status ? $publish_msg : $pending_msg;
-			}
+		if ( ! isset( $_GET['notice'] ) ) {
+			return '';
 		}
 
-		return $notice_text;
+		$listing_id = isset( $_GET['post_id'] ) ? absint( $_GET['post_id'] ) : 0;
+		if ( $listing_id && ! directorist_is_listing_post_type( $listing_id ) ) {
+			return;
+		}
+
+		if ( get_post_status( $listing_id ) === 'publish' ) {
+			$message = get_directorist_option(
+				'publish_confirmation_msg',
+				__( 'Congratulations! Your listing has been approved/published. Now it is publicly available.', 'directorist' )
+			);
+		} else {
+			$message = get_directorist_option(
+				'pending_confirmation_msg',
+				__( 'Thank you for your submission. Your listing is being reviewed and it may take up to 24 hours to complete the review.', 'directorist' )
+			);
+		}
+
+		return $message;
 	}
 
 	public function listing_header( $key = '', $group = '', $subgroup = '' ) {

@@ -12,6 +12,4 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
     <?php $listing->quick_info_template(); ?>
 
-    <?php do_action( 'directorist_single_listing_after_title', $listing->id ); ?>
-
 </div>

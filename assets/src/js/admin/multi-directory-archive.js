@@ -213,13 +213,13 @@ function initializeKeyword() {
 }
 
 // Function to initialize Progress bar
-function initializeProgressBar() {
+function initializeProgressBar(finalProgress) {
     const generateBtnWrapper = document.querySelector(".directory-generate-btn__wrapper");
+    const btnPercentage = document.querySelector(".directory-generate-btn__percentage");
+    const progressBar = document.querySelector(".directory-generate-btn--bg");
 
     if (generateBtnWrapper) {
         const finalWidth = generateBtnWrapper.getAttribute("data-width");
-        const btnPercentage = document.querySelector(".directory-generate-btn__percentage");
-        const progressBar = document.querySelector(".directory-generate-btn--bg");
 
         let currentWidth = 0;
 
@@ -235,7 +235,11 @@ function initializeProgressBar() {
 
                 currentWidth++;
             } else {
+                if (!finalProgress) {
+                    progressBar.style.width = '0';
+                }
                 clearInterval(progressInterval);
+                return;
             }
         };
 
@@ -373,12 +377,12 @@ function initialStepContents() {
     // Hide all steps except the first one initially
     $('#directorist-create-directory__creating').hide();
     $('#directorist-create-directory__ai-fields').hide();
+    $('.directorist-create-directory__back__btn').hide();
     $('#directorist-create-directory__generating').hide();
     $('.directorist-create-directory__content__items').hide();
     $('.directorist-create-directory__content__items[data-step="1"]').show();
     $('.directorist-create-directory__step .step-count .total-step').html(totalStep);
     $('.directorist-create-directory__step .step-count .current-step').html(1);
-    $('.directorist-create-directory__back__btn').addClass('disabled');
 
     const $directoryName = $('.directorist-create-directory__content__input[name="directory-name"]');
     const $directoryLocation = $('.directorist-create-directory__content__input[name="directory-location"]');
@@ -488,7 +492,7 @@ function handleCreateDirectory() {
     $('#directorist-create-directory__generating .directory-title').html('Directory AI is Building your directory... ');
     $('#directorist-create-directory__generating .directory-description').html('We\'re using your infomation to finalize your directory fields.');
     
-    initializeProgressBar();
+    initializeProgressBar('finalProgress');
 
     $('#directorist-create-directory__preview-btn').attr('href', 'https://www.directorist.com');
 }
@@ -525,9 +529,9 @@ $('body').on('click', '.directorist_generate_ai_directory', function(e) {
     e.preventDefault();
 
     if (currentStep == 1) {
+        $('.directorist-create-directory__back__btn').show();
         $('.directorist-create-directory__content__items[data-step="1"]').hide();
         $('.directorist-create-directory__content__items[data-step="2"]').show();
-        $('.directorist-create-directory__back__btn').removeClass('disabled');
         $('.directorist-create-directory__step .step-count .current-step').html(2);
         $(`.directorist-create-directory__step .atbdp-setup-steps li:nth-child(2)`).addClass('active');
 

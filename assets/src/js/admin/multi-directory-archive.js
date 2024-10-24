@@ -99,7 +99,7 @@ let directoryPrompt = 'I want to create a car directory';
 let directoryKeywords = [];
 let directoryFields = [];
 let directoryPinnedFields = [];
-
+const debugMode = true;
 
 // Update Step Title
 function updateStepTitle(title) {
@@ -238,7 +238,7 @@ function initializeProgressBar(finalProgress) {
                 if (!finalProgress) {
                     setTimeout(() => {
                         progressBar.style.width = '0';
-                    }, 1250);
+                    }, 2000);
                 }
                 clearInterval(progressInterval);
                 return;
@@ -378,9 +378,9 @@ function initialStepContents() {
     // Hide all steps except the first one initially
     $('#directorist-create-directory__creating').hide();
     $('#directorist-create-directory__ai-fields').hide();
-    $('.directorist-create-directory__back__btn').hide();
     $('#directorist-create-directory__generating').hide();
     $('.directorist-create-directory__content__items').hide();
+    $('.directorist-create-directory__back__btn').addClass('disabled');
     $('.directorist-create-directory__content__items[data-step="1"]').show();
     $('.directorist-create-directory__step .step-count .total-step').html(totalStep);
     $('.directorist-create-directory__step .step-count .current-step').html(1);
@@ -516,7 +516,7 @@ $('body').on('click', '.directorist_generate_ai_directory', function(e) {
     e.preventDefault();
 
     if (currentStep == 1) {
-        $('.directorist-create-directory__back__btn').show();
+        $('.directorist-create-directory__back__btn').removeClass('disabled');
         $('.directorist-create-directory__content__items[data-step="1"]').hide();
         $('.directorist-create-directory__content__items[data-step="2"]').show();
         $('.directorist-create-directory__step .step-count .current-step').html(2);

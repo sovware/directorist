@@ -553,7 +553,7 @@ function initializeDropdownField() {
 
   // Initialize each dropdown
   dropdowns.forEach(function (dropdown) {
-    var header = dropdown.querySelector(".directorist-ai-generate-dropdown__header");
+    var header = dropdown.querySelector(".directorist-ai-generate-dropdown__header.has-options");
     var content = dropdown.querySelector(".directorist-ai-generate-dropdown__content");
     var icon = dropdown.querySelector(".directorist-ai-generate-dropdown__header-icon");
     var pinIcon = dropdown.querySelector(".directorist-ai-generate-dropdown__pin-icon");
@@ -575,11 +575,11 @@ function initializeDropdownField() {
     });
 
     // Toggle the dropdown content
-    header.addEventListener("click", function (event) {
+    header && header.addEventListener("click", function (event) {
       if (event.target === pinIcon || pinIcon.contains(event.target)) {
         return;
       }
-      var isExpanded = content.classList.toggle("directorist-ai-generate-dropdown__content--expanded");
+      var isExpanded = content && content.classList.toggle("directorist-ai-generate-dropdown__content--expanded");
       dropdown.setAttribute("aria-expanded", isExpanded);
       content.setAttribute("aria-expanded", isExpanded);
       icon.classList.toggle("rotate", isExpanded);
@@ -588,10 +588,14 @@ function initializeDropdownField() {
           if (otherDropdown !== dropdown) {
             var otherContent = otherDropdown.querySelector(".directorist-ai-generate-dropdown__content");
             var otherIcon = otherDropdown.querySelector(".directorist-ai-generate-dropdown__header-icon");
-            otherContent.classList.remove("directorist-ai-generate-dropdown__content--expanded");
             otherDropdown.setAttribute("aria-expanded", false);
-            otherContent.setAttribute("aria-expanded", false);
-            otherIcon.classList.remove("rotate");
+            if (otherContent) {
+              otherContent.classList.remove("directorist-ai-generate-dropdown__content--expanded");
+              otherContent.setAttribute("aria-expanded", false);
+            }
+            if (otherIcon) {
+              otherIcon.classList.remove("rotate");
+            }
           }
         });
       }

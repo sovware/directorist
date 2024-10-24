@@ -286,7 +286,7 @@ function initializeDropdownField(){
 
     // Initialize each dropdown
     dropdowns.forEach((dropdown) => {
-        const header = dropdown.querySelector(".directorist-ai-generate-dropdown__header");
+        const header = dropdown.querySelector(".directorist-ai-generate-dropdown__header.has-options");
         const content = dropdown.querySelector(".directorist-ai-generate-dropdown__content");
         const icon = dropdown.querySelector(".directorist-ai-generate-dropdown__header-icon");
         const pinIcon = dropdown.querySelector(".directorist-ai-generate-dropdown__pin-icon");
@@ -308,12 +308,12 @@ function initializeDropdownField(){
         });
 
         // Toggle the dropdown content
-        header.addEventListener("click", (event) => {
+        header && header.addEventListener("click", (event) => {
             if (event.target === pinIcon || pinIcon.contains(event.target)) {
                 return;
             }
 
-            const isExpanded = content.classList.toggle("directorist-ai-generate-dropdown__content--expanded");
+            const isExpanded = content && content.classList.toggle("directorist-ai-generate-dropdown__content--expanded");
             dropdown.setAttribute("aria-expanded", isExpanded);
             content.setAttribute("aria-expanded", isExpanded);
             icon.classList.toggle("rotate", isExpanded);
@@ -323,11 +323,15 @@ function initializeDropdownField(){
                     if (otherDropdown !== dropdown) {
                         const otherContent = otherDropdown.querySelector(".directorist-ai-generate-dropdown__content");
                         const otherIcon = otherDropdown.querySelector(".directorist-ai-generate-dropdown__header-icon");
-
-                        otherContent.classList.remove("directorist-ai-generate-dropdown__content--expanded");
                         otherDropdown.setAttribute("aria-expanded", false);
-                        otherContent.setAttribute("aria-expanded", false);
-                        otherIcon.classList.remove("rotate");
+
+                        if (otherContent) {
+                            otherContent.classList.remove("directorist-ai-generate-dropdown__content--expanded");
+                            otherContent.setAttribute("aria-expanded", false);
+                        }
+                        if (otherIcon) {
+                            otherIcon.classList.remove("rotate");
+                        }
                     }
                 });
             }

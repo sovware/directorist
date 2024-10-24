@@ -291,6 +291,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var $ = jQuery;
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").default;
+var debugMode = false;
 window.addEventListener('load', function () {
   // Migration Link
   $('.directorist_directory_template_library').on('click', function (e) {
@@ -486,12 +487,12 @@ function initializeKeyword() {
 }
 
 // Function to initialize Progress bar
-function initializeProgressBar() {
+function initializeProgressBar(finalProgress) {
   var generateBtnWrapper = document.querySelector(".directory-generate-btn__wrapper");
+  var btnPercentage = document.querySelector(".directory-generate-btn__percentage");
+  var progressBar = document.querySelector(".directory-generate-btn--bg");
   if (generateBtnWrapper) {
     var finalWidth = generateBtnWrapper.getAttribute("data-width");
-    var btnPercentage = document.querySelector(".directory-generate-btn__percentage");
-    var progressBar = document.querySelector(".directory-generate-btn--bg");
     var currentWidth = 0;
 
     // Update the progress bar width
@@ -504,7 +505,13 @@ function initializeProgressBar() {
         }
         currentWidth++;
       } else {
+        if (!finalProgress) {
+          setTimeout(function () {
+            progressBar.style.width = '0';
+          }, 2000);
+        }
         clearInterval(progressInterval);
+        return;
       }
     };
     var progressInterval = setInterval(updateProgress, 30);
@@ -608,15 +615,17 @@ function initializeDropdownField() {
 }
 
 // Function to handle back button
-// function handleBackButton() {
-//     console.log('Handle Back Button', currentStep);
-// }
+function handleBackButton() {
+  currentStep = 1;
+  // Back to initial step
+  initialStepContents();
+}
 
 // handle back btn
-// $('body').on( 'click', '.directorist-create-directory__back__btn', function( e ) {
-//     e.preventDefault();
-//     handleBackButton();
-// });
+$('body').on('click', '.directorist-create-directory__back__btn', function (e) {
+  e.preventDefault();
+  handleBackButton();
+});
 
 // Enable Submit Button
 function handleCreateButtonEnable() {
@@ -635,15 +644,19 @@ function initialStepContents() {
   $('#directorist-create-directory__ai-fields').hide();
   $('#directorist-create-directory__generating').hide();
   $('.directorist-create-directory__content__items').hide();
+  $('.directorist-create-directory__back__btn').addClass('disabled');
   $('.directorist-create-directory__content__items[data-step="1"]').show();
   $('.directorist-create-directory__step .step-count .total-step').html(totalStep);
   $('.directorist-create-directory__step .step-count .current-step').html(1);
-  $('.directorist-create-directory__back__btn').addClass('disabled');
-  handleCreateButtonDisable();
+  var $directoryName = $('.directorist-create-directory__content__input[name="directory-name"]');
+  var $directoryLocation = $('.directorist-create-directory__content__input[name="directory-location"]');
+  if (!$directoryName.val()) {
+    handleCreateButtonDisable();
+  }
 
   // Directory Title Input Listener
-  $('body').on('keyup change ', '.directorist-create-directory__content__input[name="directory-name"]', function (e) {
-    directoryTitle = e.target.value;
+  $directoryName.on('keyup change ', function (e) {
+    directoryTitle = $(this).val();
     if (directoryTitle) {
       handleCreateButtonEnable();
     } else {
@@ -652,8 +665,8 @@ function initialStepContents() {
   });
 
   // Directory Location Input Listener
-  $('body').on('keyup change', '.directorist-create-directory__content__input[name="directory-location"]', function (e) {
-    directoryLocation = e.target.value;
+  $directoryLocation.on('keyup change', function (e) {
+    directoryLocation = $(this).val();
     updatePrompt();
   });
 
@@ -678,26 +691,13 @@ function initialStepContents() {
     }
     updatePrompt();
   });
-
-  // Generate AI Directory Button Click Handler
-  $('body').on('click', '.directorist_generate_ai_directory', function (e) {
-    e.preventDefault();
-    if (currentStep == 1) {
-      $('.directorist-create-directory__content__items[data-step="1"]').hide();
-      $('.directorist-create-directory__content__items[data-step="2"]').show();
-      $('.directorist-create-directory__back__btn').removeClass('disabled');
-      $('.directorist-create-directory__step .step-count .current-step').html(2);
-      $(".directorist-create-directory__step .atbdp-setup-steps li:nth-child(2)").addClass('active');
-      updateStepTitle('Describe your business in plain language');
-      currentStep = 2;
-    }
-  });
 }
 
 // Handle Prompt Step 
 function handlePromptStep(response) {
   $('.directorist-create-directory__content__items[data-step="2"]').hide();
   $('.directorist-create-directory__content__items[data-step="3"]').show();
+  $('.directorist-create-directory__back__btn').hide();
   $('#directorist-recommendedTags').empty().html(response);
   initializeKeyword();
   updateStepTitle('Select relevant keywords to <br /> optimize AI-generated content');
@@ -735,26 +735,14 @@ function handleGenerateFields(response) {
 
 // Handle Create Directory
 function handleCreateDirectory(redirect_url) {
-  $('#directorist-create-directory__generating').show();
-  $('#directorist-create-directory__creating').show();
-  $('#directorist-create-directory__ai-fields').hide();
-  $('.directorist_regenerate_fields').hide();
-  $('.directorist-create-directory__top').hide();
-  $('.directorist-create-directory__content__items').hide();
-  $('.directorist-create-directory__header').hide();
-  $('.directorist-create-directory__content__footer').hide();
-  $('.directorist-create-directory__content').addClass('full-width');
-  $('#directorist-create-directory__generating .directory-title').html('Directory AI is Building your directory... ');
-  $('#directorist-create-directory__generating .directory-description').html('We\'re using your infomation to finalize your directory fields.');
-  initializeProgressBar();
+  $('#directorist-create-directory__preview-btn').removeClass('disabled');
   $('#directorist-create-directory__preview-btn').attr('href', redirect_url);
 }
 
 // Response Success Callback
 function handleAIFormResponse(response) {
   var _response$data7;
-  if (response !== null && response !== void 0 && (_response$data7 = response.data) !== null && _response$data7 !== void 0 && _response$data7.success) {
-    console.log('Response Success:', currentStep, response);
+  if (!debugMode && response !== null && response !== void 0 && (_response$data7 = response.data) !== null && _response$data7 !== void 0 && _response$data7.success) {
     var nextStep = currentStep + 1;
     $('.directorist-create-directory__content__items[data-step="' + currentStep + '"]').hide();
     $('.directorist-create-directory__step .step-count .current-step').html(nextStep);
@@ -774,6 +762,8 @@ function handleAIFormResponse(response) {
       handleCreateDirectory(response === null || response === void 0 || (_response$data11 = response.data) === null || _response$data11 === void 0 ? void 0 : _response$data11.url);
     }
     return;
+  } else if (debugMode && response) {
+    console.log(response);
   } else {
     console.error('Something went wrong! Please try again');
   }
@@ -784,9 +774,30 @@ function handleAIFormResponse(response) {
 $('body').on('click', '.directorist_generate_ai_directory', function (e) {
   e.preventDefault();
   if (currentStep == 1) {
+    $('.directorist-create-directory__back__btn').removeClass('disabled');
+    $('.directorist-create-directory__content__items[data-step="1"]').hide();
+    $('.directorist-create-directory__content__items[data-step="2"]').show();
+    $('.directorist-create-directory__step .step-count .current-step').html(2);
+    $(".directorist-create-directory__step .atbdp-setup-steps li:nth-child(2)").addClass('active');
+    updateStepTitle('Describe your business in plain language');
+    currentStep = 2;
     return;
-  } else if (currentStep == 3) {
+  } else if (!debugMode && currentStep == 3) {
     handleKeywordStep();
+  } else if (!debugMode && currentStep == 4) {
+    $('#directorist-create-directory__generating').show();
+    $('#directorist-create-directory__creating').show();
+    $('#directorist-create-directory__ai-fields').hide();
+    $('.directorist_regenerate_fields').hide();
+    $('.directorist-create-directory__top').hide();
+    $('.directorist-create-directory__content__items').hide();
+    $('.directorist-create-directory__header').hide();
+    $('.directorist-create-directory__content__footer').hide();
+    $('.directorist-create-directory__content').addClass('full-width');
+    $('#directorist-create-directory__preview-btn').addClass('disabled');
+    $('#directorist-create-directory__generating .directory-title').html('Directory AI is Building your directory... ');
+    $('#directorist-create-directory__generating .directory-description').html('We\'re using your infomation to finalize your directory fields.');
+    initializeProgressBar('finalProgress');
   }
   handleCreateButtonDisable();
   var form_data = new FormData();
@@ -809,7 +820,9 @@ $('body').on('click', '.directorist_generate_ai_directory', function (e) {
 
 // Regenerate Fields
 $('body').on('click', '.directorist_regenerate_fields', function (e) {
+  var _this = this;
   e.preventDefault();
+  $(this).addClass('loading');
   var form_data = new FormData();
   form_data.append('action', 'directorist_ai_directory_creation');
   form_data.append('name', directoryTitle);
@@ -821,8 +834,10 @@ $('body').on('click', '.directorist_regenerate_fields', function (e) {
   // Handle Axios Request
   axios.post(directorist_admin.ajax_url, form_data).then(function (response) {
     var _response$data12;
+    $(_this).removeClass('loading');
     handleGenerateFields(response === null || response === void 0 || (_response$data12 = response.data) === null || _response$data12 === void 0 ? void 0 : _response$data12.html);
   }).catch(function (error) {
+    $(_this).removeClass('loading');
     console.error(error);
   });
 });

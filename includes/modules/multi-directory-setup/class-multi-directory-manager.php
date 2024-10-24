@@ -470,16 +470,18 @@ class Multi_Directory_Manager {
 
         $prompt     = ! empty( $_POST['prompt'] ) ? $_POST['prompt'] : '';
         $keywords   = ! empty( $_POST['keywords'] ) ? $_POST['keywords'] : '';
+        $pinned     = ! empty( $_POST['pinned'] ) ? $_POST['pinned'] : '';
         $step       = ! empty( $_POST['step'] ) ? $_POST['step'] : '';
         $name       = ! empty( $_POST['name'] ) ? $_POST['name'] : '';
         $fields     = ! empty( $_POST['fields'] ) ? $_POST['fields'] : [];
 
         if( 1 == $step ) {
-            $html = $this->ai_create_keywords( $prompt );
+            $system_prompt = 'You are a keyword generator. Based on the following user input, generate exactly 10 relevant keywords, which are separated by commas. Provide the output in the JSON format: {"keywords": ["keyword1", "keyword2", ...]} . Please do not add any additional text like here are the json data or something. ';
+            $html = $this->ai_create_keywords( $prompt, $system_prompt );
         }
 
         if( 2 == $step ) {
-            $response = $this->ai_create_fields( $prompt, $keywords );
+            $response = $this->ai_create_fields( $prompt, $keywords, $pinned );
             wp_send_json([
                 'success' => true,
                 'html' => $response['html'],
@@ -488,8 +490,12 @@ class Multi_Directory_Manager {
 
         }
 
-        if( 3 < $step ) {
-            $html = $this->build_directory( $name, $fields, $step );
+        if( 3 == $step ) {
+            $directory_id = $this->build_directory( $name, $fields );
+            wp_send_json([
+                'success' => true,
+                'url' => admin_url("edit.php?post_type=at_biz_dir&page=atbdp-directory-types&listing_type_id=$directory_id&action=edit"),
+            ]);
         }
 
 
@@ -564,7 +570,7 @@ class Multi_Directory_Manager {
 
     }
 
-    public function build_directory( $name, $fields, $step = '' ){
+    public function build_directory( $name, $fields ){
 
         $builder_content = directorist_get_json_from_url( 'http://app.directorist.com/wp-content/uploads/2024/10/business-1.zip' );
 
@@ -573,7 +579,7 @@ class Multi_Directory_Manager {
 
         self::prepare_settings();
         $term = self::add_directory([
-            'directory_name' => $name . $step,
+            'directory_name' => $name,
             'fields_value'   => $updated_config,
             'is_json'        => false
         ]);
@@ -584,18 +590,14 @@ class Multi_Directory_Manager {
             $term_id = $term['term_id'];
         }
 
-        return [
-            'name' => $name,
-            'term_id' => $term_id,
-            'fields' => $fields,
-            'ready_builder' => $builder_content,
-            'updated' => $updated_config,
-        ];
+        return $term_id;
     }
 
-    public function ai_create_fields( $prompt, $keywords ) {
+    public function ai_create_fields( $prompt, $keywords, $pinned = '' ) {
 
-        $prompt = $prompt . '. I need the listing page fields list. Here is some keywords: '.$keywords.'. For each field, return an array with the following keys:
+        $pinned = ! empty( $pinned ) ? " Make sure you have included the following fields: " . $pinned . '.' : '';
+        
+        $prompt = $prompt . '. I need the listing page fields list minimum of 20+. Here is some keywords: '.$keywords.'. '.$pinned.' For each field, return an array with the following keys:
 "label": The label of the field without the @@.
 "type": The input type (e.g., <input type="text">, <textarea>, etc.).
 "options": An array of options if applicable (for select, radio, or checkbox fields), otherwise an empty array.
@@ -656,11 +658,15 @@ Return the result as an array of associative arrays in PHP format.';
                                     </div>
                                 </div>
                             </div>
+                            <?php 
+                            if( $options ):
+                            ?>
                             <div class="directorist-ai-generate-dropdown__header-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                                     <path fill-rule="evenodd" clip-rule="evenodd" d="M4.41058 6.91058C4.73602 6.58514 5.26366 6.58514 5.58909 6.91058L9.99984 11.3213L14.4106 6.91058C14.736 6.58514 15.2637 6.58514 15.5891 6.91058C15.9145 7.23602 15.9145 7.76366 15.5891 8.08909L10.5891 13.0891C10.2637 13.4145 9.73602 13.4145 9.41058 13.0891L4.41058 8.08909C4.08514 7.76366 4.08514 7.23602 4.41058 6.91058Z" fill="#4D5761"></path>
                                 </svg>
                             </div>
+                            <?php endif; ?>
                         </div>
                         <?php if( $options ): ?>
                             <div class="directorist-ai-generate-dropdown__content" aria-expanded="false">
@@ -695,9 +701,8 @@ Return the result as an array of associative arrays in PHP format.';
         ];
     }
 
-    public function ai_create_keywords( $prompt ) {
-        $prompt = "$prompt. Give me 10 relative keywords separated by @. Don't use anything like 'Here is the ten possible keywords'";
-        $response = directorist_get_form_groq_ai( $prompt );
+    public function ai_create_keywords( $prompt, $system_prompt ) {
+        $response = directorist_get_form_groq_ai( $prompt, $system_prompt );
 
         if( ! $response ) {
             wp_send_json([
@@ -708,16 +713,16 @@ Return the result as an array of associative arrays in PHP format.';
             ], 200);
         }
 
-        $list = explode("@", $response);
+        // file_put_contents( __DIR__ . '/test.json', $response );
 
-        // Trim any leading/trailing spaces from each element
-        $list = array_map('trim', $list);
+
+        $list = json_decode( $response, true);
 
         ob_start();?>
 
         <?php 
-        if( ! empty( $list ) ) {
-            foreach( $list as $keyword ) { ?>
+        if( ! empty( $list['keywords'] ) ) {
+            foreach( $list['keywords'] as $keyword ) { ?>
                 <li class="free-enabled"><?php echo ucwords( $keyword ); ?></li>
             <?php }
         }

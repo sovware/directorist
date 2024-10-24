@@ -505,7 +505,9 @@ function initializeProgressBar(finalProgress) {
         currentWidth++;
       } else {
         if (!finalProgress) {
-          progressBar.style.width = '0';
+          setTimeout(function () {
+            progressBar.style.width = '0';
+          }, 1250);
         }
         clearInterval(progressInterval);
         return;
@@ -731,20 +733,9 @@ function handleGenerateFields(response) {
 }
 
 // Handle Create Directory
-function handleCreateDirectory() {
-  $('#directorist-create-directory__generating').show();
-  $('#directorist-create-directory__creating').show();
-  $('#directorist-create-directory__ai-fields').hide();
-  $('.directorist_regenerate_fields').hide();
-  $('.directorist-create-directory__top').hide();
-  $('.directorist-create-directory__content__items').hide();
-  $('.directorist-create-directory__header').hide();
-  $('.directorist-create-directory__content__footer').hide();
-  $('.directorist-create-directory__content').addClass('full-width');
-  $('#directorist-create-directory__generating .directory-title').html('Directory AI is Building your directory... ');
-  $('#directorist-create-directory__generating .directory-description').html('We\'re using your infomation to finalize your directory fields.');
-  initializeProgressBar('finalProgress');
-  $('#directorist-create-directory__preview-btn').attr('href', 'https://www.directorist.com');
+function handleCreateDirectory(redirect_url) {
+  $('#directorist-create-directory__preview-btn').removeClass('disabled');
+  $('#directorist-create-directory__preview-btn').attr('href', redirect_url);
 }
 
 // Response Success Callback
@@ -766,7 +757,8 @@ function handleAIFormResponse(response) {
       handleGenerateFields(response === null || response === void 0 || (_response$data9 = response.data) === null || _response$data9 === void 0 ? void 0 : _response$data9.html);
       directoryFields = JSON.stringify(response === null || response === void 0 || (_response$data10 = response.data) === null || _response$data10 === void 0 ? void 0 : _response$data10.fields);
     } else if (currentStep == 4) {
-      handleCreateDirectory();
+      var _response$data11;
+      handleCreateDirectory(response === null || response === void 0 || (_response$data11 = response.data) === null || _response$data11 === void 0 ? void 0 : _response$data11.url);
     }
     return;
   } else {
@@ -789,6 +781,20 @@ $('body').on('click', '.directorist_generate_ai_directory', function (e) {
     return;
   } else if (currentStep == 3) {
     handleKeywordStep();
+  } else if (currentStep == 4) {
+    $('#directorist-create-directory__generating').show();
+    $('#directorist-create-directory__creating').show();
+    $('#directorist-create-directory__ai-fields').hide();
+    $('.directorist_regenerate_fields').hide();
+    $('.directorist-create-directory__top').hide();
+    $('.directorist-create-directory__content__items').hide();
+    $('.directorist-create-directory__header').hide();
+    $('.directorist-create-directory__content__footer').hide();
+    $('.directorist-create-directory__content').addClass('full-width');
+    $('#directorist-create-directory__preview-btn').addClass('disabled');
+    $('#directorist-create-directory__generating .directory-title').html('Directory AI is Building your directory... ');
+    $('#directorist-create-directory__generating .directory-description').html('We\'re using your infomation to finalize your directory fields.');
+    initializeProgressBar('finalProgress');
   }
   handleCreateButtonDisable();
   var form_data = new FormData();
@@ -824,9 +830,9 @@ $('body').on('click', '.directorist_regenerate_fields', function (e) {
 
   // Handle Axios Request
   axios.post(directorist_admin.ajax_url, form_data).then(function (response) {
-    var _response$data11;
+    var _response$data12;
     $(_this).removeClass('loading');
-    handleGenerateFields(response === null || response === void 0 || (_response$data11 = response.data) === null || _response$data11 === void 0 ? void 0 : _response$data11.html);
+    handleGenerateFields(response === null || response === void 0 || (_response$data12 = response.data) === null || _response$data12 === void 0 ? void 0 : _response$data12.html);
   }).catch(function (error) {
     $(_this).removeClass('loading');
     console.error(error);

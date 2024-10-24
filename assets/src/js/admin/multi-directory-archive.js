@@ -373,7 +373,6 @@ function handleCreateButtonDisable() {
 
 // Initial Step Contents
 function initialStepContents() {
-
     // Hide all steps except the first one initially
     $('#directorist-create-directory__creating').hide();
     $('#directorist-create-directory__ai-fields').hide();
@@ -474,11 +473,11 @@ function handleGenerateFields(response) {
     $('#directorist_ai_generated_fields').empty().html(response);
 
     initializeDropdownField();
-    currentStep = 4;
+    currentStep = 4; 
 }
 
 // Handle Create Directory
-function handleCreateDirectory() {    
+function handleCreateDirectory( redirect_url ) {    
     $('#directorist-create-directory__generating').show();
     $('#directorist-create-directory__creating').show();
     $('#directorist-create-directory__ai-fields').hide();
@@ -494,7 +493,7 @@ function handleCreateDirectory() {
     
     initializeProgressBar('finalProgress');
 
-    $('#directorist-create-directory__preview-btn').attr('href', 'https://www.directorist.com');
+    $('#directorist-create-directory__preview-btn').attr('href', redirect_url );
 }
 
 // Response Success Callback
@@ -515,7 +514,7 @@ function handleAIFormResponse(response) {
             handleGenerateFields(response?.data?.html);
             directoryFields = JSON.stringify( response?.data?.fields );
         } else if (currentStep == 4) {
-            handleCreateDirectory();
+            handleCreateDirectory( response?.data?.url );
         }
 
         return;
@@ -540,8 +539,8 @@ $('body').on('click', '.directorist_generate_ai_directory', function(e) {
         return;
     } else if (currentStep == 3) {
         handleKeywordStep();
-    } 
-
+    }  
+    
     handleCreateButtonDisable();
 
     let form_data = new FormData();

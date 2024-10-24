@@ -32418,6 +32418,7 @@ span.drop-toggle-caret:before {
   color: #4D5761;
   opacity: 0.5;
   cursor: not-allowed;
+  pointer-events: none;
 }
 .directorist-create-directory__checkbox input[type=radio] {
   display: none;
@@ -32437,6 +32438,7 @@ span.drop-toggle-caret:before {
   color: #4D5761;
   opacity: 0.5;
   cursor: not-allowed;
+  pointer-events: none;
 }
 .directorist-create-directory__checkbox input[type=text] {
   width: 100%;
@@ -33232,6 +33234,7 @@ span.drop-toggle-caret:before {
 }
 .directory-generate-progress-list__btn.disabled {
   opacity: 0.5;
+  pointer-events: none;
 }
 
 .directorist-ai-generate-box {

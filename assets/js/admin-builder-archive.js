@@ -291,6 +291,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var $ = jQuery;
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").default;
+var debugMode = false;
 window.addEventListener('load', function () {
   // Migration Link
   $('.directorist_directory_template_library').on('click', function (e) {
@@ -373,7 +374,6 @@ var directoryPrompt = 'I want to create a car directory';
 var directoryKeywords = [];
 var directoryFields = [];
 var directoryPinnedFields = [];
-var debugMode = true;
 
 // Update Step Title
 function updateStepTitle(title) {
@@ -742,7 +742,7 @@ function handleCreateDirectory(redirect_url) {
 // Response Success Callback
 function handleAIFormResponse(response) {
   var _response$data7;
-  if (response !== null && response !== void 0 && (_response$data7 = response.data) !== null && _response$data7 !== void 0 && _response$data7.success) {
+  if (!debugMode && response !== null && response !== void 0 && (_response$data7 = response.data) !== null && _response$data7 !== void 0 && _response$data7.success) {
     var nextStep = currentStep + 1;
     $('.directorist-create-directory__content__items[data-step="' + currentStep + '"]').hide();
     $('.directorist-create-directory__step .step-count .current-step').html(nextStep);
@@ -762,6 +762,8 @@ function handleAIFormResponse(response) {
       handleCreateDirectory(response === null || response === void 0 || (_response$data11 = response.data) === null || _response$data11 === void 0 ? void 0 : _response$data11.url);
     }
     return;
+  } else if (debugMode && response) {
+    console.log(response);
   } else {
     console.error('Something went wrong! Please try again');
   }
@@ -780,9 +782,9 @@ $('body').on('click', '.directorist_generate_ai_directory', function (e) {
     updateStepTitle('Describe your business in plain language');
     currentStep = 2;
     return;
-  } else if (currentStep == 3) {
+  } else if (!debugMode && currentStep == 3) {
     handleKeywordStep();
-  } else if (currentStep == 4) {
+  } else if (!debugMode && currentStep == 4) {
     $('#directorist-create-directory__generating').show();
     $('#directorist-create-directory__creating').show();
     $('#directorist-create-directory__ai-fields').hide();

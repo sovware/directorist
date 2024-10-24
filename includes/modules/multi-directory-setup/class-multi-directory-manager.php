@@ -508,53 +508,72 @@ class Multi_Directory_Manager {
     private function merge_ai_fields($existing_config, $new_fields, $name ) {
 
  
-  
-            // Decode new fields JSON safely
-    $new_fields_array = json_decode(stripslashes($new_fields), true);
+        $new_fields_array = json_decode($new_fields, true);
 
-    if (is_null($new_fields_array)) {
-        // throw new Exception('Failed to decode new fields JSON: ' . json_last_error_msg());
-    }
-
-    // Reformat new fields to match the old format and ensure unique field keys for same type fields
-    $type_counts = [];
-    $formatted_fields = [];
-    foreach ($new_fields_array as $field) {
-        $type = strtolower($field['type']);
-        if (!isset($type_counts[$type])) {
-            $type_counts[$type] = 0;
-        } else {
-            $type_counts[$type]++;
+        if (is_null($new_fields_array)) {
+            // throw new Exception('Failed to decode new fields JSON: ' . json_last_error_msg());
         }
-        $suffix = $type_counts[$type] > 0 ? '-' . $type_counts[$type] : '';
-        $field_key = 'custom-' . $type . $suffix;
-
-        $formatted_fields[$type] = array_merge($field, [
-            'widget_group' => 'custom',
-            'widget_name' => $type,
-            'field_key' => $field_key,
-            'widget_key' => $type . $suffix,
-        ]);
-    }
-
-    // Keep old title and description fields
-    $title_description_fields = array_intersect_key(
-        $existing_config['submission_form_fields']['fields'] ?? [],
-        array_flip(['title', 'description'])
-    );
-
-    // Replace the old fields with new fields, keeping title and description
-    $existing_config['submission_form_fields']['fields'] = array_merge(
-        $title_description_fields,
-        $formatted_fields
-    );
-
-    // Replace old groups with a new group containing the new fields and keeping title and description
-    $existing_config['submission_form_fields']['groups'] = [
-        [
+    
+        // Reformat new fields to match the old format and ensure unique field keys for same type fields
+        $type_counts = [];
+        $formatted_fields = [];
+        foreach ($new_fields_array as $key => $field) {
+            $type = strtolower($field['type']);
+            if (!isset($type_counts[$type])) {
+                $type_counts[$type] = 0;
+            } else {
+                $type_counts[$type]++;
+            }
+            $suffix = $type_counts[$type] > 0 ? '-' . $type_counts[$type] : '';
+            $field_key = $field['field_key'] . $suffix;
+    
+            $formatted_fields[$field_key] = array_merge($field, [
+                'widget_group' => 'custom',
+                'widget_name' => $type,
+                'field_key' => $field_key,
+                'widget_key' => $type . $suffix,
+            ]);
+        }
+    
+        // Group the fields based on 'group_name'
+        $groups = [];
+        foreach ($formatted_fields as $field_key => $field) {
+            $group_name = $field['group_name'];
+            if (!isset($groups[$group_name])) {
+                $groups[$group_name] = [
+                    "type" => "general_group",
+                    "label" => $group_name,
+                    "fields" => [],
+                    "defaultGroupLabel" => "Section",
+                    "disableTrashIfGroupHasWidgets" => [
+                        [
+                            "widget_name" => "title",
+                            "widget_group" => "preset"
+                        ]
+                    ],
+                    "icon" => "las la-pen-nib",
+                ];
+            }
+            $groups[$group_name]['fields'][] = $field_key;
+        }
+    
+        // Keep old title and description fields
+        $title_description_fields = array_intersect_key(
+            $existing_config['submission_form_fields']['fields'] ?? [],
+            array_flip(['title', 'description'])
+        );
+    
+        // Replace the old fields with new fields, keeping title and description
+        $existing_config['submission_form_fields']['fields'] = array_merge(
+            $title_description_fields,
+            $formatted_fields
+        );
+    
+        // Replace old groups with new groups, keeping title and description in "General Info"
+        $existing_groups = [
             "type" => "general_group",
-            "label" => "General Information",
-            "fields" => array_merge(['title', 'description'], array_keys($formatted_fields)),
+            "label" => "General Info",
+            "fields" => array_merge(['title', 'description'], array_keys($title_description_fields)),
             "defaultGroupLabel" => "Section",
             "disableTrashIfGroupHasWidgets" => [
                 [
@@ -563,10 +582,9 @@ class Multi_Directory_Manager {
                 ]
             ],
             "icon" => "las la-pen-nib",
-        ]
-    ];
-
-    return $existing_config;
+        ];
+    
+        $existing_config['submission_form_fields']['groups'] = array_merge([$existing_groups], array_values($groups));
 
 
     }

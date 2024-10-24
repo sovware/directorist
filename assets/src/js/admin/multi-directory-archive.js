@@ -5,7 +5,6 @@ import './components/import-directory-modal';
 
 var $ = jQuery;
 const axios = require('axios').default;
-const debugMode = false;
 
 window.addEventListener('load', () => {
     // Migration Link
@@ -490,7 +489,7 @@ function handleCreateDirectory( redirect_url ) {
 
 // Response Success Callback
 function handleAIFormResponse(response) {
-    if (!debugMode && response?.data?.success) {
+    if (response?.data?.success) {
         let nextStep = currentStep + 1;
 
         $('.directorist-create-directory__content__items[data-step="' + currentStep + '"]').hide(); 
@@ -510,8 +509,6 @@ function handleAIFormResponse(response) {
         }
 
         return;
-    } else if (debugMode && response) {
-        console.log(response);
     } else {
         console.error('Something went wrong! Please try again');
     }
@@ -531,9 +528,9 @@ $('body').on('click', '.directorist_generate_ai_directory', function(e) {
         updateStepTitle('Describe your business in plain language');
         currentStep = 2;
         return;
-    } else if (!debugMode && currentStep == 3) {
+    } else if (currentStep == 3) {
         handleKeywordStep(); 
-    } else if (!debugMode && currentStep == 4) {
+    } else if (currentStep == 4) {
         $('#directorist-create-directory__generating').show();
         $('#directorist-create-directory__creating').show();
         $('#directorist-create-directory__ai-fields').hide();

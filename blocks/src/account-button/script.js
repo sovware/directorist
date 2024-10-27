@@ -5,6 +5,11 @@ function authorDropdownActive() {
 		'.directorist-account-block-logged-mode .avatar'
 	);
 
+	const requiredElements = Object.values(authorTriggers);
+	if (requiredElements.some(element => !element)) {
+		return;
+	}
+
 	authorTriggers.forEach( ( authorTrigger ) => {
 		const parentBlock = authorTrigger.closest(
 			'.directorist-account-block-logged-mode'
@@ -45,8 +50,6 @@ function authorDropdownActive() {
 
 document.addEventListener( 'DOMContentLoaded', authorDropdownActive );
 
-document.addEventListener( 'DOMContentLoaded', authorDropdownActive );
-
 function login() {
 	const elements = {
 		clickBtns: document.querySelectorAll(
@@ -69,8 +72,23 @@ function login() {
 		),
 	};
 
-	const showModal = ( modal ) => ( modal.style.display = 'block' );
-	const hideModal = ( modal ) => ( modal.style.display = 'none' );
+	// Check if all required elements exist
+	const requiredElements = Object.values(elements);
+	if (requiredElements.some(element => !element)) {
+		return;
+	}
+	
+	const showModal = (modal) => {
+        if (modal) {
+            modal.style.display = 'block';
+        }
+    };
+    const hideModal = (modal) => {
+        if (modal) {
+            modal.style.display = 'none';
+        }
+    };
+
 	const toggleModals = ( hide, show ) => {
 		hideModal( hide );
 		showModal( show );

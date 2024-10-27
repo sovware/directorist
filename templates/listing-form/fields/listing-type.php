@@ -27,8 +27,8 @@ if( is_admin() || $data['value'] ) {
 
 		<input id="directorist-form-listing-type__featured" type="radio" class="atbdp_radio_input" name="listing_type" value="featured">
 		<label for="directorist-form-listing-type__featured" class="directorist-form-listing-type__featured directorist-radio__label">
-			<?php echo esc_attr( $data['featured_label'] ); ?>
-			<small class="atbdp_make_str_green"><?php echo esc_html( $listing_form->featured_listing_description() ) ;?></small>
+			<?php echo esc_html( $data['featured_label'] ); ?>
+			<small class="atbdp_make_str_green"><?php echo esc_html( ! empty( $data['featured_description'] ) ? $data['featured_description'] : __( 'Promote your listing to the top of search results and listings pages for a specific duration, with an additional payment.', 'directorist' ) ); ?></small>
 		</label>
 
 	</div>

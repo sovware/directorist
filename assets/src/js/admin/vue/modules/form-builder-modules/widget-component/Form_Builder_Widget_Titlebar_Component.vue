@@ -3,6 +3,7 @@
     <h4 class="cptm-title-3">
       <span class="cptm-title-icon" :class="icon"></span>
       <span v-html="label"></span>
+      <span v-if="sublabel.length" class="cptm-text-gray cptm-px-5" v-html="sublabel"></span>
     </h4>
 
     <div class="cptm-form-builder-group-field-item-header-actions">

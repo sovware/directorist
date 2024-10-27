@@ -598,7 +598,7 @@ class SetupWizard
                         <label for="enable_featured"></label>
 
                         <div class="directorist-setup-wizard__content__pricing__amount">
-                            <span class="price-title">Featured Listing Price</span>
+                            <span class="price-title">Featured Listing Fee</span>
                             <div class="price-amount">
                                 <span class="price-prefix">$</span>
                                 <input type="text" name='featured_listing_price' id='featured_listing_price' value=19.99 />
@@ -701,7 +701,7 @@ class SetupWizard
     ?>
         <div class="directorist-setup-wizard__content">
             <div class="directorist-setup-wizard__content__header text-center">
-                <h1 class="directorist-setup-wizard__content__header__title"><?php esc_html_e('Jumpstart Your Directory by Importing Demo Content', 'directorist'); ?></h1>
+                <h1 class="directorist-setup-wizard__content__header__title"><?php esc_html_e( 'Demo Content and Data Sharing Preference', 'directorist' ); ?></h1>
             </div>
             <div class="directorist-setup-wizard__content__items directorist-setup-wizard__content__import">
                 <div class="directorist-setup-wizard__content__import__wrapper">
@@ -806,7 +806,7 @@ class SetupWizard
             <div class="directorist-setup-wizard__content__items">
                 <div class="directorist-setup-wizard__counter">
                     <h3 class="directorist-setup-wizard__counter__title">
-                        Selected Types: <span class="selected_count">0</span>/<span class="max_count">5</span>
+                        Selected Types: <span class="selected_count">1</span>/<span class="max_count">5</span>
                     </h3>
                     <p class="directorist-setup-wizard__counter__desc">You can add more from the directory builder </p>
                 </div>

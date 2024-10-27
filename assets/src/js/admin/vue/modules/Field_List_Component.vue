@@ -5,11 +5,11 @@
   >
     <component
       v-if="field.type"
-      v-for="(field, field_key) in field_list.isAdvanced ? visibleFields : field_list"
+      v-for="(field, field_key) in visibleFields"
       :key="field_key"
       :is="field.type + '-field'"
       :section-id="sectionId"
-      :field-id="field_key"
+      :field-id="`${sectionId}_${field_key}`"
       :root="field_list"
       v-bind="excludeShowIfCondition(field)"
       @update="update({ key: field_key, value: $event })"
@@ -17,9 +17,9 @@
     <button 
       class="cptm-form-builder-group-options__advanced-toggle"
       @click="toggleAdvanced"
-      v-if="field_list.isAdvanced"
+      v-if="hasAdvancedFields"
     >
-      {{ showAdvanced ? field_list.isAdvanced.lessText : field_list.isAdvanced.moreText }}
+      {{ showAdvanced ? "Basic" : "Advanced" }}
     </button>
   </div> 
 </template>
@@ -28,7 +28,7 @@
 import helpers from "./../mixins/helpers";
 
 export default {
-  name: "field-list-compnents",
+  name: "field-list-components",
   mixins: [helpers],
   props: {
     root: {
@@ -46,15 +46,15 @@ export default {
   },
 
   created() {
-    this.filteredFieldList();
+    this.filterFieldList();
   },
 
   watch: {
     fieldList() {
-      this.filteredFieldList();
+      this.filterFieldList();
     },
     value() {
-      this.filteredFieldList();
+      this.filterFieldList();
     },
   },
 
@@ -69,14 +69,32 @@ export default {
 
       return this.root;
     },
-    visibleFields() {
-      // Convert field_list object to an array and then slice it
-      const fieldArray = Array.isArray(this.field_list)
-        ? this.field_list
-        : Object.values(this.field_list);
 
-      // Show only 2 items if showAdvanced is false, otherwise show all
-      return this.showAdvanced ? fieldArray : fieldArray.slice(0, 2);
+    visibleFields() {
+      const basicFields = {};
+      const advancedFields = {};
+
+      // Separate basic and advanced fields
+      Object.keys(this.field_list).forEach((key) => {
+        if (key !== "isAdvanced") {
+          const field = this.field_list[key];
+          if (field.field_type === "advanced") {
+            advancedFields[key] = field;
+          } else {
+            basicFields[key] = field;
+          }
+        }
+      });
+
+      // Show basic fields or advanced fields based on the toggle state
+      return this.showAdvanced ? { ...basicFields, ...advancedFields } : basicFields;
+    },
+
+    hasAdvancedFields() {
+      // Check if there are any advanced fields
+      return Object.values(this.field_list).some(
+        (field) => field.field_type === "advanced"
+      );
     },
   },
 
@@ -88,12 +106,8 @@ export default {
   },
 
   methods: {
-    filteredFieldList() {
+    filterFieldList() {
       this.field_list = this.getFilteredFieldList(this.fieldList);
-    },
-
-    toggleAdvanced() {
-      this.showAdvanced = !this.showAdvanced;
     },
     
     toggleAdvanced() {
@@ -138,16 +152,6 @@ export default {
       }
 
       for (let field_key in new_fields) {
-        if (
-          this.value &&
-          typeof this.value === "object" &&
-          typeof this.value[field_key] !== "undefined"
-        ) {
-          new_fields[field_key].value = this.value[field_key];
-        }
-      }
-
-      for (let field_key in new_fields) {
         if (!(new_fields[field_key].showIf || new_fields[field_key].show_if)) {
           continue;
         }
@@ -171,7 +175,7 @@ export default {
 
     update(payload) {
       this.$emit("update", payload);
-      this.filteredFieldList();
+      this.filterFieldList();
     },
   },
 };

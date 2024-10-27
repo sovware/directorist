@@ -94,7 +94,7 @@ return apply_filters( 'atbdp_form_preset_widgets', array(
 			],
 			'only_for_admin' => [
 				'type'  => 'toggle',
-				'label' => __( 'Administrative Only', 'directorist' ),
+				'label' => __( 'Admin Only', 'directorist' ),
 				'value' => false,
 			],
 		]
@@ -134,7 +134,7 @@ return apply_filters( 'atbdp_form_preset_widgets', array(
 			],
 			'only_for_admin' => [
 				'type'  => 'toggle',
-				'label' => __( 'Administrative Only', 'directorist' ),
+				'label' => __( 'Admin Only', 'directorist' ),
 				'value' => false,
 			],
 
@@ -179,7 +179,7 @@ return apply_filters( 'atbdp_form_preset_widgets', array(
 						['key' => 'value', 'compare' => '=', 'value' => 'price_range'],
 					],
 				],
-				'label' => __( 'Select Pricing Type', 'directorist' ),
+				'label' => __( 'Price Range Label', 'directorist' ),
 				'value' => 'Price Range',
 			],
 			'price_range_placeholder' => [
@@ -240,7 +240,7 @@ return apply_filters( 'atbdp_form_preset_widgets', array(
 			],
 			'only_for_admin' => [
 				'type'  => 'toggle',
-				'label' => __( 'Administrative Only', 'directorist' ),
+				'label' => __( 'Admin Only', 'directorist' ),
 				'value' => false,
 			],
 			'modules' => [
@@ -294,7 +294,7 @@ return apply_filters( 'atbdp_form_preset_widgets', array(
 			],
 			'only_for_admin' => [
 				'type'  => 'toggle',
-				'label' => __( 'Administrative Only', 'directorist' ),
+				'label' => __( 'Admin Only', 'directorist' ),
 				'value' => false,
 			],
 		],
@@ -361,7 +361,7 @@ return apply_filters( 'atbdp_form_preset_widgets', array(
 			],
 			'only_for_admin' => [
 				'type'  => 'toggle',
-				'label' => __( 'Administrative Only', 'directorist' ),
+				'label' => __( 'Admin Only', 'directorist' ),
 				'value' => false,
 			],
 		],
@@ -416,7 +416,7 @@ return apply_filters( 'atbdp_form_preset_widgets', array(
 			],
 			'only_for_admin' => [
 				'type'  => 'toggle',
-				'label' => __( 'Administrative Only', 'directorist' ),
+				'label' => __( 'Admin Only', 'directorist' ),
 				'value' => false,
 			],
 		],
@@ -471,7 +471,7 @@ return apply_filters( 'atbdp_form_preset_widgets', array(
 			],
 			'only_for_admin' => [
 				'type'  => 'toggle',
-				'label' => __( 'Administrative Only', 'directorist' ),
+				'label' => __( 'Admin Only', 'directorist' ),
 				'value' => false,
 			],
 		],
@@ -504,7 +504,7 @@ return apply_filters( 'atbdp_form_preset_widgets', array(
 			],
 			'only_for_admin' => [
 				'type'  => 'toggle',
-				'label' => __( 'Administrative Only', 'directorist' ),
+				'label' => __( 'Admin Only', 'directorist' ),
 				'value' => false,
 			],
 		],
@@ -543,7 +543,7 @@ return apply_filters( 'atbdp_form_preset_widgets', array(
 			],
 			'only_for_admin' => [
 				'type'  => 'toggle',
-				'label' => __( 'Administrative Only', 'directorist' ),
+				'label' => __( 'Admin Only', 'directorist' ),
 				'value' => false,
 			],
 		],
@@ -582,7 +582,7 @@ return apply_filters( 'atbdp_form_preset_widgets', array(
 			],
 			'only_for_admin' => [
 				'type'  => 'toggle',
-				'label' => __( 'Administrative Only'),
+				'label' => __( 'Admin Only', 'directorist' ),
 				'value' => false,
 			],
 		],
@@ -621,7 +621,7 @@ return apply_filters( 'atbdp_form_preset_widgets', array(
 			],
 			'only_for_admin' => [
 				'type'  => 'toggle',
-				'label' => __( 'Administrative Only', 'directorist' ),
+				'label' => __( 'Admin Only', 'directorist' ),
 				'value' => false,
 			],
 			'whatsapp' => [
@@ -665,7 +665,7 @@ return apply_filters( 'atbdp_form_preset_widgets', array(
 			],
 			'only_for_admin' => [
 				'type'  => 'toggle',
-				'label' => __( 'Administrative Only', 'directorist' ),
+				'label' => __( 'Admin Only', 'directorist' ),
 				'value' => false,
 			],
 			'whatsapp' => [
@@ -709,7 +709,7 @@ return apply_filters( 'atbdp_form_preset_widgets', array(
 			],
 			'only_for_admin' => [
 				'type'  => 'toggle',
-				'label' => __( 'Administrative Only', 'directorist' ),
+				'label' => __( 'Admin Only', 'directorist' ),
 				'value' => false,
 			],
 		],
@@ -748,7 +748,7 @@ return apply_filters( 'atbdp_form_preset_widgets', array(
 			],
 			'only_for_admin' => [
 				'type'  => 'toggle',
-				'label' => __( 'Administrative Only', 'directorist' ),
+				'label' => __( 'Admin Only', 'directorist' ),
 				'value' => false,
 			],
 		],
@@ -787,7 +787,7 @@ return apply_filters( 'atbdp_form_preset_widgets', array(
 			],
 			'only_for_admin' => [
 				'type'  => 'toggle',
-				'label' => __( 'Administrative Only', 'directorist' ),
+				'label' => __( 'Admin Only', 'directorist' ),
 				'value' => false,
 			],
 		],
@@ -821,7 +821,7 @@ return apply_filters( 'atbdp_form_preset_widgets', array(
 			],
 			'only_for_admin' => [
 				'type'  => 'toggle',
-				'label' => __( 'Administrative Only', 'directorist' ),
+				'label' => __( 'Admin Only', 'directorist' ),
 				'value' => false,
 			],
 		],
@@ -875,7 +875,7 @@ return apply_filters( 'atbdp_form_preset_widgets', array(
 			],
 			'only_for_admin' => [
 				'type'  => 'toggle',
-				'label' => __( 'Administrative Only', 'directorist' ),
+				'label' => __( 'Admin Only', 'directorist' ),
 				'value' => false,
 			]
 		],
@@ -914,32 +914,8 @@ return apply_filters( 'atbdp_form_preset_widgets', array(
 			],
 			'only_for_admin' => [
 				'type'  => 'toggle',
-				'label' => __( 'Administrative Only', 'directorist' ),
+				'label' => __( 'Admin Only', 'directorist' ),
 				'value' => false,
-			],
-		],
-	],
-
-	'hide_contact_owner' => [
-		'label'   => __( 'Hide Owner Contact Form', 'directorist' ),
-		'icon'    => 'uil uil-postcard',
-		'options' => [
-			'type' => [
-				'type'  => 'hidden',
-				'value' => 'checkbox',
-			],
-			'field_key' => [
-				'type'  => 'hidden',
-				'value' => 'hide_contact_owner',
-				'rules' => [
-					'unique'   => true,
-					'required' => true,
-				]
-			],
-			'label' => [
-				'type'  => 'text',
-				'label' => __( 'Label', 'directorist' ),
-				'value' => 'Hide contact owner form for single listing page',
 			],
 		],
 	],

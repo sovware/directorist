@@ -3,7 +3,7 @@
  * Plugin Name: Directorist - Business Directory Plugin
  * Plugin URI: https://wpwax.com
  * Description: A comprehensive solution to create professional looking directory site of any kind. Like Yelp, Foursquare, etc.
- * Version: 8.0.0 - Beta
+ * Version: 8.0.0 - Beta 1 
  * Author: wpWax
  * Author URI: https://wpwax.com
  * Text Domain: directorist
@@ -169,6 +169,7 @@ final class Directorist_Base
 	public $hooks;
 	public $announcement;
 	public $review;
+	public $beta;
 
 	public $background_image_process = null;
 
@@ -356,6 +357,15 @@ final class Directorist_Base
 
 	// add_polylang_swicher_support
 	public function add_polylang_swicher_support() {
+
+		// beta plugin lookup
+		$plugin_data = get_plugin_data( plugin_dir_path( __FILE__ ) . 'directorist-base.php' );
+
+		if( ! empty( $plugin_data['Version'] ) ) {
+			self::$instance->beta = strpos( $plugin_data['Version'], 'Beta' ) ? true : false;
+		}
+
+					
 		add_filter('pll_the_language_link', function($url, $current_lang) {
 			// Adjust the category link
 			$category_url = $this->get_polylang_swicher_link_for_term([
@@ -572,48 +582,48 @@ final class Directorist_Base
 		if ( $args['id'] === 'right-sidebar-listing' ) {
 			// Create a wrapper for the widget body
 			$widget_output = '';
-	
+
 			// Check and append before_widget if it exists
 			if ( isset( $instance['before_widget'] ) ) {
 				$widget_output .= $instance['before_widget'];
 			}
-	
+
 			// Check and append before_title, title, and after_title if they exist
 			if ( isset( $instance['before_title'] ) ) {
 				$widget_output .= $instance['before_title'];
 			}
-	
+
 			if ( isset( $instance['title'] ) ) {
 				$widget_output .= $instance['title'];
 			}
-	
+
 			if ( isset( $instance['after_title'] ) ) {
 				$widget_output .= $instance['after_title'];
 			}
-	
+
 			// Open custom body wrapper
 			$widget_output .= '<div class="directorist-card__body">';
-	
+
 			// Check for actual widget content (may vary based on your widget implementation)
 			if ( isset( $instance['content'] ) ) {
 				$widget_output .= $instance['content'];
 			}
-	
+
 			// Close custom body wrapper
 			$widget_output .= '</div>';
-	
+
 			// Check and append after_widget if it exists
 			if ( isset( $instance['after_widget'] ) ) {
 				$widget_output .= $instance['after_widget'];
 			}
-	
+
 			// Update instance output
 			$instance['content'] = $widget_output;
 		}
-	
+
 		return $instance;
 	}
-	
+
 
 	public function add_image_sizes() {
 		$current_preview_size = get_directorist_option( 'preview_image_quality', 'directorist_preview' );
@@ -673,10 +683,10 @@ final class Directorist_Base
 		   $post_states['directorist_add_listing'] = __( 'Directorist Add Listing', 'directorist' );
 	   	}
 		if ( get_directorist_option( 'all_listing_page' ) === $post->ID ) {
-		   $post_states['directorist_all_listing'] = __( 'Directorist All Listing', 'directorist' );
+		   $post_states['directorist_all_listing'] = __( 'Directorist All Listings', 'directorist' );
 	   	}
 		if ( get_directorist_option( 'user_dashboard' ) === $post->ID ) {
-		   $post_states['directorist_user_dashboard'] = __( 'Directorist Login, Registration & Dashboard', 'directorist' );
+		   $post_states['directorist_user_dashboard'] = __( 'Directorist Dashboard', 'directorist' );
 	   	}
 		if ( get_directorist_option( 'author_profile_page' ) === $post->ID ) {
 		   $post_states['directorist_author_profile_page'] = __( 'Directorist Author Profile', 'directorist' );
@@ -719,6 +729,9 @@ final class Directorist_Base
 	   	}
 		if ( get_directorist_option( 'pricing_plans' ) === $post->ID ) {
 		   $post_states['directorist_pricing_plans'] = __( 'Directorist Pricing Plan', 'directorist' );
+	   	}
+		if ( get_directorist_option( 'signin_signup_page' ) === $post->ID ) {
+		   $post_states['directorist_signin_signup'] = __( 'Directorist Sign In', 'directorist' );
 	   	}
 
 	   return $post_states;

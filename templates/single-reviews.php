@@ -23,7 +23,7 @@ $review_text   = sprintf( _n( '%s review', '%s reviews', $review_count, 'directo
 // Load walker class
 Bootstrap::load_walker();
 
-$listing       = Directorist_Single_Listing::instance();
+$listing       = Directorist_Single_Listing::instance( get_the_ID() );
 $section_data  = $listing->get_review_section_data();
 $builder       = Builder::get( $section_data['section_data'] );
 $section_id    = isset( $section_data['id'] ) ? $section_data['id'] : '';
@@ -43,9 +43,9 @@ $section_label = isset( $section_data['label'] ) ? $section_data['label'] : '';
 			</h3>
 
 			<?php if ( directorist_can_current_user_review() || directorist_can_guest_review() ) : ?>
-				<a href="#respond" rel="nofollow" class="directorist-btn directorist-btn-primary"><?php directorist_icon( 'las la-star' ); ?><?php esc_attr_e( 'Write a Review', 'directorist' ); ?></a>
+				<a href="#respond" rel="nofollow" class="directorist-btn"><?php directorist_icon( 'las la-star' ); ?><?php esc_attr_e( 'Write a Review', 'directorist' ); ?></a>
 			<?php elseif ( ! is_user_logged_in() ) : ?>
-				<a href="<?php echo esc_url( ATBDP_Permalink::get_login_page_url( array( 'redirect' => get_the_permalink(), 'scope' => 'review' ) ) ); ?>" rel="nofollow" class="directorist-btn directorist-btn-primary"><?php directorist_icon( 'las la-star' ); ?><?php esc_attr_e( 'Login to Write Your Review', 'directorist' ); ?></a>
+				<a href="<?php echo esc_url( ATBDP_Permalink::get_login_page_url( array( 'redirect' => get_the_permalink(), 'scope' => 'review' ) ) ); ?>" rel="nofollow" class="directorist-btn"><?php directorist_icon( 'las la-star' ); ?><?php esc_attr_e( 'Login to Write Your Review', 'directorist' ); ?></a>
 			<?php endif; ?>
 		</div><!-- ends: .directorist-review-content__header -->
 
@@ -176,7 +176,7 @@ $section_label = isset( $section_data['label'] ) ? $section_data['label'] : '';
 			'title_reply_before' => '<div class="directorist-card__header directorist-review-submit__header"><h3 id="reply-title" class="directorist-card__header__title">',
 			'title_reply_after'  => '</h3></div>',
 			'class_form'         => 'directorist-card__body directorist-review-submit__form',
-			'class_submit'       => 'directorist-btn directorist-btn-primary directorist-btn-lg',
+			'class_submit'       => 'directorist-btn directorist-btn-lg',
 			'label_submit'       => __( 'Submit Your Review', 'directorist' ),
 			'format'             => 'html5',
 			'submit_field'       => '<div class="directorist-form-group directorist-mb-0">%1$s %2$s</div>',

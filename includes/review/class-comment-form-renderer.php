@@ -12,6 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 use Exception;
+use Directorist\Directorist_Single_Listing;
 
 class Comment_Form_Renderer {
 
@@ -120,7 +121,7 @@ class Comment_Form_Renderer {
 				printf(
 					'<button name="%1$s" type="submit" class="%2$s" value="%3$s">%4$s</button>',
 					'directorist-comment-submit',
-					'directorist-btn directorist-btn-primary',
+					'directorist-btn',
 					esc_attr( $submit_label ),
 					esc_html( $submit_label )
 				);
@@ -134,7 +135,6 @@ class Comment_Form_Renderer {
 	}
 
 	public static function get_fields( $comment ) {
-		$builder = Builder::get( $comment->comment_post_ID );
 		$fields  = array();
 	
 		$comment_type = __( 'comment', 'directorist' );
@@ -192,7 +192,9 @@ class Comment_Form_Renderer {
 
 			return;
 		}
-
+		$listing       = Directorist_Single_Listing::instance();
+		$section_data  = $listing->get_review_section_data();
+		$builder       = Builder::get( $section_data['section_data'] );
 		$commenter     = wp_get_current_commenter();
 		$user          = wp_get_current_user();
 		$user_identity = $user->exists() ? $user->display_name : '';
@@ -248,13 +250,13 @@ class Comment_Form_Renderer {
 			),
 		);
 
-		if ( directorist_is_review_gdpr_consent_enabled() && ! is_user_logged_in() ) {
+		if ( $builder->is_gdpr_consent()  ) {
 			$args['fields']['gdpr_consent'] = sprintf(
 				'<p class="comment-form-gdpr-consent comment-form-cookies-consent">
 					<input id="directorist-gdpr-consent" name="directorist-gdpr-consent" type="checkbox" value="yes" required />
 					<label for="directorist-gdpr-consent"><span class="required">*</span> %s</label>
 				</p>',
-				directorist_get_review_gdpr_consent_label()
+				$builder->gdpr_consent_label()
 			);
 		}
 
@@ -481,7 +483,7 @@ class Comment_Form_Renderer {
 
 				foreach ( $comment_fields as $name => $field ) {
 
-					if ( 'comment' === $name ) {
+					if ( 'comment' === $name || 'gdpr_consent' === $name || 'cookies' === $name ) {
 
 						/**
 						 * Filters the content of the comment textarea field for display.

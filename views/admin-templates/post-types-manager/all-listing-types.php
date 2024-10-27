@@ -141,14 +141,9 @@
                                 </div>
                                 <div class="directorist-type-slug">
                                     <div class="directorist-type-slug-content directorist-row-tooltip" data-tooltip="Click here to rename the slug." data-flow="bottom">
-                                        <span class=" directorist_listing-slug-text directorist-slug-text-<?php echo esc_attr( $listing_type->term_id ); ?>" data-value="<?php echo esc_attr( ! empty( $listing_type->slug ) ? $listing_type->slug : '-' ); ?>" contenteditable="false">
+                                        <span class=" directorist_listing-slug-text directorist-slug-text-<?php echo esc_attr( $listing_type->term_id ); ?>" data-value="<?php echo esc_attr( ! empty( $listing_type->slug ) ? $listing_type->slug : '-' ); ?>" contenteditable="false"  data-type-id="<?php echo absint( $listing_type->term_id ); ?>">
                                             <?php echo esc_html( html_entity_decode( $listing_type->slug ) ); ?>
                                         </span>
-                                        <div class="directorist-listing-slug-edit-wrap ">
-                                            <a href="" class="directorist-listing-slug__edit" data-type-id="<?php echo absint( $listing_type->term_id ); ?>"></a>
-                                            <a href="" class="directorist_listing-slug-formText-add" data-type-id="<?php echo absint( $listing_type->term_id ); ?>"></a>
-                                            <a href="#" class="directorist_listing-slug-formText-remove directorist_listing-slug-formText-remove--hidden"></a>
-                                        </div>
                                     </div>
                                     <p class="directorist-slug-notice directorist-slug-notice-<?php echo esc_attr( $listing_type->term_id ); ?>"></p>
                                 </div>
@@ -173,8 +168,8 @@
                                                 </svg>
                                             <?php esc_html_e( 'Edit', 'directorist' ); ?>
                                         </a>
-                                        <?php if( ! $default ) {  ?>
-                                        <div class="directorist_more-dropdown">
+                                        
+                                        <div class="directorist_more-dropdown <?php echo ( $default ) ? 'default' : ''; ?>">
                                             <a href="#" class="directorist_more-dropdown-toggle">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                                                     <path fill-rule="evenodd" clip-rule="evenodd" d="M2.5 10C2.5 9.07957 3.24619 8.33337 4.16667 8.33337C5.08714 8.33337 5.83333 9.07957 5.83333 10C5.83333 10.9205 5.08714 11.6667 4.16667 11.6667C3.24619 11.6667 2.5 10.9205 2.5 10ZM8.33333 10C8.33333 9.07957 9.07953 8.33337 10 8.33337C10.9205 8.33337 11.6667 9.07957 11.6667 10C11.6667 10.9205 10.9205 11.6667 10 11.6667C9.07953 11.6667 8.33333 10.9205 8.33333 10ZM14.1667 10C14.1667 9.07957 14.9129 8.33337 15.8333 8.33337C16.7538 8.33337 17.5 9.07957 17.5 10C17.5 10.9205 16.7538 11.6667 15.8333 11.6667C14.9129 11.6667 14.1667 10.9205 14.1667 10Z" fill="currentColor"/>
@@ -200,7 +195,6 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                        <?php } ?>
                                     </div>
                                     <div class="directorist_notifier"></div>
                                 </div>

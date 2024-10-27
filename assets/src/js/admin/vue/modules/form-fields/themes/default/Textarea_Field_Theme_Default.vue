@@ -63,6 +63,7 @@ export default {
   data() {
     return {
       local_value: this.value,
+      editorInstance: null,
     };
   },
 
@@ -78,30 +79,47 @@ export default {
   },
 
   mounted() {
-    let editorID = this.editorID;
-    let value = this.local_value;
-
-    tinymce.init({
-      selector: `#${editorID}`,
-      plugins: "link",
-      toolbar: "undo redo | formatselect | bold italic | link",
-      menubar: false,
-      branding: false,
-      init_instance_callback: (editor) => {
-        editor.setContent(value);
-        editor.on("Change KeyUp", () => {
-          this.local_value = editor.getContent();
-        });
-      },
-    });
-
-    this.editorInstance = tinymce.get(editorID);
+    this.initializeEditor();
   },
 
   beforeDestroy() {
-    if (this.editorInstance) {
-      this.editorInstance.destroy();
-    }
+    this.destroyEditor();
+  },
+
+  methods: {
+    initializeEditor() {
+      if (!this.editor || !this.editorID || this.editorInstance) return;
+
+      let editorID = this.editorID;
+      let value = this.local_value;
+
+      tinymce.init({
+        selector: `#${editorID}`,
+        plugins: "link",
+        toolbar: "undo redo | formatselect | bold italic | link",
+        menubar: false,
+        branding: false,
+        init_instance_callback: (editor) => {
+          editor.setContent(value);
+          editor.on("Change KeyUp", () => {
+            this.local_value = editor.getContent();
+          });
+        },
+      });
+
+      this.editorInstance = tinymce.get(editorID);
+    },
+
+    destroyEditor() {
+      if (this.editorInstance) {
+        this.editorInstance.destroy();
+      }
+    },
+  },
+
+  updated() {
+    this.editorInstance = null; // Make sure to clean up
+    this.initializeEditor();
   },
 };
 </script>

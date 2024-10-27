@@ -123,22 +123,24 @@ class Directorist_Listing_Search_Form {
 		$this->options['search_placeholder']      = get_directorist_option('listings_search_text_placeholder', __('What are you looking for?', 'directorist'));
 		$this->options['filters_buttons']         = get_directorist_option( 'listings_filters_button', array( 'reset_button', 'apply_button' ) );
 
-		$this->options['more_filters_button']        = get_directorist_option( 'listing_filters_button', 1 );
-		$this->options['display_more_filter_icon']   = get_directorist_option('listing_filters_icon', 1);
-		$this->options['display_search_button_icon'] = get_directorist_option('listing_filters_icon', 1);
-		$this->options['open_filter_fields']         = get_directorist_option('listings_display_filter', 'sliding');
+		$this->options['more_filters_button']        	= get_directorist_option( 'listing_filters_button', 1 );
+		$this->options['display_more_filter_icon']   	= get_directorist_option('listing_filters_icon', 1);
+		$this->options['display_search_button_icon'] 	= get_directorist_option('listing_filters_icon', 1);
+		$this->options['open_filter_fields']         	= get_directorist_option('listings_display_filter', 'sliding');
 
-		$this->options['reset_filters_text']      = get_directorist_option('listings_reset_text', __('Reset Filters', 'directorist'));
-		$this->options['apply_filters_text']      = get_directorist_option( 'listings_apply_text', __( 'Apply Filters', 'directorist' ) );
+		$this->options['reset_filters_text']      		= get_directorist_option('listings_reset_text', __('Reset Filters', 'directorist'));
+		$this->options['reset_sidebar_filters_text']    = get_directorist_option( 'listings_sidebar_reset_text', __('Clear All', 'directorist') );
+		$this->options['apply_filters_text']      		= get_directorist_option( 'listings_apply_text', __( 'Apply Filters', 'directorist' ) );
 	}
 
 	// update_options_for_search_result_page
 	public function update_options_for_search_result_page() {
-		$this->options['more_filters_fields']     = get_directorist_option('search_result_filters_fields', array('search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields', 'radius_search'));
-		$this->options['search_filters']          = get_directorist_option('search_result_filters_button', array( 'reset_button', 'apply_button' ), true);
-		$this->options['more_filters_button']     = get_directorist_option( 'search_result_filters_button_display', 1 );
-		$this->options['reset_filters_text']      = get_directorist_option('sresult_reset_text', __('Reset Filters', 'directorist'));
-		$this->options['apply_filters_text']      = get_directorist_option( 'sresult_apply_text', __( 'Apply Filters', 'directorist' ) );
+		$this->options['more_filters_fields']     		= get_directorist_option('search_result_filters_fields', array('search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields', 'radius_search'));
+		$this->options['search_filters']          		= get_directorist_option('search_result_filters_button', array( 'reset_button', 'apply_button' ), true);
+		$this->options['more_filters_button']     		= get_directorist_option( 'search_result_filters_button_display', 1 );
+		$this->options['reset_filters_text']      		= get_directorist_option('sresult_reset_text', __('Reset Filters', 'directorist'));
+		$this->options['reset_sidebar_filters_text']    = get_directorist_option( 'sresult_sidebar_reset_text', __('Clear All', 'directorist') );
+		$this->options['apply_filters_text']      		= get_directorist_option( 'sresult_apply_text', __( 'Apply Filters', 'directorist' ) );
 	}
 
 	// update_options_for_search_form
@@ -213,7 +215,7 @@ class Directorist_Listing_Search_Form {
 		$this->default_directory_type   = !empty( $this->params['default_directory_type'] ) ? $this->params['default_directory_type'] : '';
 
 		$this->category_id             = '';
-		$this->category_class          = 'search_fields bdas-category-search';
+		$this->category_class          = 'search_fields bdas-category-search directorist-category-select';
 		$this->location_id             = '';
 		$this->location_class          = 'search_fields directorist-location-select';
 		$this->connectors_title        = get_directorist_option('connectors_title', __('Or', 'directorist'));
@@ -229,9 +231,9 @@ class Directorist_Listing_Search_Form {
 		$this->apply_filters_text       = get_directorist_option( 'listings_apply_text', __( 'Apply Filters', 'directorist' ) );
 
 		$this->category_id             = 'cat-type';
-		$this->category_class          = 'directory_field bdas-category-search';
+		$this->category_class          = 'directory_field bdas-category-search directorist-category-select';
 		$this->location_id             = 'loc-type';
-		$this->location_class          = 'directory_field bdas-category-location';
+		$this->location_class          = 'directory_field bdas-category-location directorist-location-select';
 	}
 
 	public function build_search_data( $data ) {

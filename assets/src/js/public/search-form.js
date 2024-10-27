@@ -717,6 +717,13 @@ import './components/directoristSelect';
             handleRadiusVisibility();
         });
 
+        // handleRadiusVisibility Trigger on directory type change
+        $('body').on('click', '.directorist-instant-search .directorist-type-nav__link', function(e) {
+            setTimeout(() => {
+                handleRadiusVisibility();
+            }, 600)
+        });
+
         // Hide Country Result Click on Outside of Zipcode Field
         $(document).on('click', function (e) {
             if (!$(e.target).closest('.directorist-zip-code').length) {
@@ -912,9 +919,10 @@ import './components/directoristSelect';
                                     });
                                 },
                                 error: function error(_error3) {
-                                    // console.log({
-                                    //     error: _error3
-                                    // });
+                                    console.log({
+                                        error: _error3
+                                    });
+                                    locationAddressField.removeClass('atbdp-form-fade');
                                 }
                             });
                         }

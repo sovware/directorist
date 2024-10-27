@@ -1673,7 +1673,11 @@ class Directorist_Listings {
 				}
 				return $image;
 			}
-
+			
+			$thumbnail_img_id = array_filter($thumbnail_img_id, function($value) {
+				return is_numeric($value);
+			});
+			
 			$image_count = count( $thumbnail_img_id );
 
 			if ( 1 === (int) $image_count ) {
@@ -1690,10 +1694,6 @@ class Directorist_Listings {
 					<div class='swiper-wrapper'>";
 
 				foreach ( $thumbnail_img_id as $img_id ) {
-					
-					if( ! is_numeric( $img_id ) ) {
-						continue;
-					}
 
 					$image_src = atbdp_get_image_source( $img_id, $image_quality );
 					$image_alt = get_post_meta( $img_id, '_wp_attachment_image_alt', true );
@@ -2047,7 +2047,7 @@ class Directorist_Listings {
 
 		public function print_label( $label ) {
 			if ( $label ) {
-				$label_text = $label . ': ';
+				$label_text = $label . ' : ';
 				$label_text = apply_filters( 'directorist_loop_label', $label_text, $label );
 				echo wp_kses_post( $label_text );
 			}

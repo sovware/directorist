@@ -21,14 +21,15 @@
   min-height: 45px;
   line-height: 1.5;
   border-radius: 10px;
-  border: 1px solid transparent;
+  border: 1px solid var(--directorist-color-primary);
   box-sizing: border-box;
   text-decoration: none;
-  color: var(--directorist-color-btn);
+  background-color: var(--directorist-color-primary);
+  color: var(--directorist-color-white);
   transition: all ease 0.3s;
   text-decoration: none !important;
   .directorist-icon-mask:after {
-    transition: all ease 0.3s;
+    background-color: currentColor;
   }
   &.directorist-btn--add-listing,
   &.directorist-btn--logout {
@@ -36,10 +37,10 @@
   }
   &:hover,
   &:focus {
-    color: var(--directorist-color-primary);
+    color: var(--directorist-color-white);
     outline: 0 !important;
-    .directorist-icon-mask:after {
-      background-color: var(--directorist-color-primary);
+    &:not(.directorist-single-listing-action){
+      filter: brightness(0.85);
     }
   }
 }
@@ -47,24 +48,30 @@
 // Button Type
 .directorist-btn {
   &.directorist-btn-primary {
-    background-color: var(--directorist-color-primary);
-    color: var(--directorist-color-white);
-    @include btnFocusBg(var(--directorist-color-primary));
+    background-color: var(--directorist-color-btn-primary-bg);
+    color: var(--directorist-color-btn-primary);
+    border: 1px solid var(--directorist-color-btn-primary-border);
     &:hover {
-      background-color: var(--directorist-color-primary-hover);
+      color: var(--directorist-color-btn-primary-hover);
       .directorist-icon-mask:after {
-        background-color: var(--directorist-color-primary);
+        background-color: var(--directorist-color-btn-primary);
       }
     }
   }
 
   &.directorist-btn-secondary {
-    background-color: var(--directorist-color-secondary);
-    color: var(--directorist-color-body);
+    background-color: var(--directorist-color-btn-secondary-bg);
+    color: var(--directorist-color-btn-secondary);
+    border: 1px solid var(--directorist-color-btn-secondary-border);
+    &:hover{
+      background-color: transparent;
+      color:currentColor;
+      border-color: var(--directorist-color-btn-secondary-bg);
+    }
   }
 
   &.directorist-btn-dark {
-    background-color: var(--directorist-color-primary);
+    background-color: var(--directorist-color-dark);
     color: var(--directorist-color-white);
   }
 
@@ -80,8 +87,11 @@
 
   &.directorist-btn-light {
     background-color: var(--directorist-color-light);
+    color: var(--directorist-color-primary);
     &:hover {
       background-color: var(--directorist-color-light-hover);
+      color:var(--directorist-color-primary);
+      border-color:var(--directorist-color-color-primary);
     }
   }
 

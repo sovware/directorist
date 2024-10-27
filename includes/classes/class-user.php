@@ -54,13 +54,16 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 		}
 
 		public function directorist_register_form() {
-			if ( ! directorist_verify_nonce()  ) {
+			if ( ! directorist_verify_nonce() || ! isset( $_POST['params'] )  ) {
 				wp_send_json_error( array(
 					'error' => 'Invalid request.'
 				), 401 );
 			}
 
-			$new_user_registration = (bool) get_directorist_option( 'new_user_registration', true );
+			$params_json_decode    = json_decode( stripslashes( $_POST['params'] ), true );
+			$params                = directorist_clean( $params_json_decode);
+			$new_user_registration = ! empty( $params['new_user_registration'] ) && 'yes' === $params['new_user_registration']  ? 1 : 0;
+
 			if ( ! $new_user_registration ) {
 				wp_send_json_error( array(
 					'error' => 'You are not allowed to register.'
@@ -68,19 +71,18 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 			}
 
 			// if the form is submitted then save the form
-			$require_website      = get_directorist_option( 'require_website_reg', 0 );
-			$display_website      = get_directorist_option( 'display_website_reg', 1 );
-			$display_fname        = get_directorist_option( 'display_fname_reg', 1 );
-			$require_fname        = get_directorist_option( 'require_fname_reg', 0 );
-			$display_lname        = get_directorist_option( 'display_lname_reg', 1 );
-			$require_lname        = get_directorist_option( 'require_lname_reg', 0 );
-			$display_password     = get_directorist_option( 'display_password_reg', 1 );
-			$require_password     = get_directorist_option( 'require_password_reg', 0 );
-			$display_user_type    = get_directorist_option( 'display_user_type', 0 );
-			$display_bio          = get_directorist_option( 'display_bio_reg', 1 );
-			$require_bio          = get_directorist_option( 'require_bio_reg', 0 );
-			$registration_privacy = get_directorist_option( 'registration_privacy', 1 );
-			$terms_condition      = get_directorist_option( 'regi_terms_condition', 1 );
+			$require_website      = ! empty( $params['registration_website_required'] ) && 'yes' === $params['registration_website_required']  ? 1 : 0;
+			$display_website      = ! empty( $params['enable_registration_website'] ) && 'yes' === $params['enable_registration_website']  ? 1 : 0;
+			$display_fname        = ! empty( $params['enable_registration_first_name'] ) && 'yes' === $params['enable_registration_first_name']  ? 1 : 0;
+			$require_fname        = ! empty( $params['registration_first_name_required'] ) && 'yes' === $params['registration_first_name_required']  ? 1 : 0;
+			$display_lname        = ! empty( $params['enable_registration_last_name'] ) && 'yes' === $params['enable_registration_last_name']  ? 1 : 0;
+			$require_lname        = ! empty( $params['registration_last_name_required'] ) && 'yes' === $params['registration_last_name_required']  ? 1 : 0;
+			$display_password     = ! empty( $params['enable_registration_password'] ) && 'yes' === $params['enable_registration_password']  ? 1 : 0;
+			$display_user_type    = ! empty( $params['enable_user_type'] ) && 'yes' === $params['enable_user_type']  ? 1 : 0;
+			$display_bio          = ! empty( $params['enable_registration_bio'] ) && 'yes' === $params['enable_registration_bio']  ? 1 : 0;
+			$require_bio          = ! empty( $params['registration_bio_required'] ) && 'yes' === $params['registration_bio_required']  ? 1 : 0;
+			$registration_privacy = ! empty( $params['enable_registration_privacy'] ) && 'yes' === $params['enable_registration_privacy']  ? 1 : 0;
+			$terms_condition      = ! empty( $params['enable_registration_terms'] ) && 'yes' === $params['enable_registration_terms']  ? 1 : 0;
 
 			$username       = ! empty( $_POST['username'] ) ? directorist_clean( wp_unslash( $_POST['username'] ) ) : '';
 			$password       = ! empty( $_POST['password'] ) ? $_POST['password'] : '';                                                 // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
@@ -95,7 +97,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 			$previous_page  = ! empty( $_POST['previous_page'] ) ? directorist_clean( $_POST['previous_page'] ) : '';
 
 			//password validation
-			if ( ! empty( $require_password ) && ! empty( $display_password ) && empty( $password ) ) {
+			if ( ! empty( $display_password ) && empty( $password ) ) {
 				$password_validation = 'yes';
 			}
 
@@ -181,6 +183,13 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 			$bio           = ! empty( $_POST['bio'] ) ? sanitize_textarea_field( wp_unslash( $_POST['bio'] ) ) : '';
 			$previous_page = ! empty( $_POST['previous_page'] ) ? directorist_clean( $_POST['previous_page'] ) : '';
 
+			/**
+			 * It fires before processing a submitted registration from the front end
+			 * @param array $_POST the array containing the submitted listing data.
+			 * @since 8.0
+			 * */
+			do_action( 'atbdp_before_processing_submitted_user_registration', $_POST ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+
 			$user_id = $this->complete_registration( $username, $password, $email, $website, $first_name, $last_name, $bio );
 
 			if ( is_wp_error( $user_id ) || ! $user_id ) {
@@ -210,7 +219,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 				ATBDP()->email->send_user_confirmation_email( get_user_by( 'ID', $user_id ) );
 
 				$response = array(
-					'redirect_url' => esc_url_raw( ATBDP_Permalink::get_dashboard_page_link( array(
+					'redirect_url' => esc_url_raw( ATBDP_Permalink::get_signin_signup_page_link( array(
 						'user'         => $email,
 						'verification' => 1,
 					) ) )
@@ -221,25 +230,25 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 
 			ATBDP()->email->custom_wp_new_user_notification_email( $user_id );
 
-			$redirection_after_reg = get_directorist_option( 'redirection_after_reg');
-			$auto_login            = get_directorist_option( 'auto_login' );
+			$auto_login            = ! empty( $params['auto_login_after_registration'] ) && 'yes' === $params['auto_login_after_registration']  ? 1 : 0;
+			$redirection_link      = ! empty( $params['redirection_after_registration'] ) ? $params['redirection_after_registration'] : '';
 
 			if ( ! empty( $auto_login ) ) {
 				wp_set_current_user( $user_id, $email );
 				wp_set_auth_cookie( $user_id );
 			}
 
-			if ( ! empty( $redirection_after_reg ) ) {
+			if ( ! empty( $redirection_link ) ) {
 				$response = array(
-					'redirect_url' => esc_url_raw( ATBDP_Permalink::get_reg_redirection_page_link( $previous_page,  array( 'registration_status' => true ) ) ),
-					'message' => esc_html( 'Registration completed. Please check your email for confirmation. You will be redirected...', 'directorist' ),
+					'redirect_url' => esc_url_raw( ATBDP_Permalink::get_reg_redirection_page_link( $previous_page,  array( 'registration_status' => true ), $redirection_link ) ),
+					'message' => esc_html__( 'Registration completed. Please check your email for confirmation. You will be redirected...', 'directorist' ),
 				);
 
 				wp_send_json_success( $response );
 			} else {
 				$response = array(
-					'redirect_url' => esc_url_raw( ATBDP_Permalink::get_dashboard_page_link( array( 'registration_status' => true ) ) ),
-					'message' => esc_html( 'Registration completed. Please check your email for confirmation. You will be redirected...', 'directorist' ),
+					'redirect_url' => esc_url_raw( ATBDP_Permalink::get_signin_signup_page_link( array( 'registration_status' => true ) ) ),
+					'message' => esc_html__( 'Registration completed. Please check your email for confirmation. You will be redirected...', 'directorist' ),
 				);
 
 				wp_send_json_success( $response );
@@ -511,6 +520,18 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 		}
 
 		public function registration_redirection() {
+			$dashbord_page_id = (int) get_directorist_option( 'user_dashboard' );
+			$signin_page_id = (int) get_directorist_option( 'signin_signup_page' );
+
+			if ( $dashbord_page_id && ! is_user_logged_in() && is_page( $dashbord_page_id ) ) {
+				wp_safe_redirect( ATBDP_Permalink::get_signin_signup_page_link() );
+				exit;
+			}
+
+			if ( $signin_page_id && is_user_logged_in() && is_page( $signin_page_id ) ) {
+				wp_safe_redirect( ATBDP_Permalink::get_dashboard_page_link() );
+				exit;
+			}
 
 			$registration_page = get_directorist_option( 'custom_registration' );
 			if( ! get_directorist_option( 'new_user_registration', true ) && $registration_page && is_page( $registration_page ) ) {

@@ -148,7 +148,7 @@ return apply_filters( 'atbdp_form_custom_widgets', array(
 			],
 			'only_for_admin' => [
 				'type'  => 'toggle',
-				'label' => __( 'Administrative Only', 'directorist' ),
+				'label' => __( 'Admin Only', 'directorist' ),
 				'value' => false,
 			],
 			'assign_to' => [
@@ -205,7 +205,7 @@ return apply_filters( 'atbdp_form_custom_widgets', array(
 			],
 			'only_for_admin' => [
 				'type'  => 'toggle',
-				'label' => __( 'Administrative Only', 'directorist' ),
+				'label' => __( 'Admin Only', 'directorist' ),
 				'value' => false,
 			],
 			'assign_to' => [
@@ -257,7 +257,7 @@ return apply_filters( 'atbdp_form_custom_widgets', array(
 			],
 			'only_for_admin' => [
 				'type'  => 'toggle',
-				'label' => __( 'Administrative Only', 'directorist' ),
+				'label' => __( 'Admin Only', 'directorist' ),
 				'value' => false,
 			],
 			'min_value' => [
@@ -341,7 +341,7 @@ return apply_filters( 'atbdp_form_custom_widgets', array(
 			],
 			'only_for_admin' => [
 				'type'  => 'toggle',
-				'label' => __( 'Administrative Only', 'directorist' ),
+				'label' => __( 'Admin Only', 'directorist' ),
 				'value' => false,
 			],
 			'assign_to' => [
@@ -393,7 +393,7 @@ return apply_filters( 'atbdp_form_custom_widgets', array(
 			],
 			'only_for_admin' => [
 				'type'  => 'toggle',
-				'label' => __( 'Administrative Only', 'directorist' ),
+				'label' => __( 'Admin Only', 'directorist' ),
 				'value' => false,
 			],
 			'assign_to' => [
@@ -445,7 +445,7 @@ return apply_filters( 'atbdp_form_custom_widgets', array(
 			],
 			'only_for_admin' => [
 				'type'  => 'toggle',
-				'label' => __( 'Administrative Only', 'directorist' ),
+				'label' => __( 'Admin Only', 'directorist' ),
 				'value' => false,
 			],
 			'assign_to' => [
@@ -492,7 +492,7 @@ return apply_filters( 'atbdp_form_custom_widgets', array(
 			],
 			'only_for_admin' => [
 				'type'  => 'toggle',
-				'label' => __( 'Administrative Only', 'directorist' ),
+				'label' => __( 'Admin Only', 'directorist' ),
 				'value' => false,
 			],
 			'assign_to' => [
@@ -512,7 +512,7 @@ return apply_filters( 'atbdp_form_custom_widgets', array(
 	],
 
 	'select' => [
-		'label'   => __( 'Select', 'directorist' ),
+		'label'   => __( 'Dropdown', 'directorist' ),
 		'icon'    => 'uil uil-file-check-alt',
 		'options' => [
 			'type' => [
@@ -556,7 +556,7 @@ return apply_filters( 'atbdp_form_custom_widgets', array(
 			],
 			'only_for_admin' => [
 				'type'  => 'toggle',
-				'label' => __( 'Administrative Only', 'directorist' ),
+				'label' => __( 'Admin Only', 'directorist' ),
 				'value' => false,
 			],
 			'assign_to' => [
@@ -620,7 +620,7 @@ return apply_filters( 'atbdp_form_custom_widgets', array(
 			],
 			'only_for_admin' => [
 				'type'  => 'toggle',
-				'label' => __( 'Administrative Only', 'directorist' ),
+				'label' => __( 'Admin Only', 'directorist' ),
 				'value' => false,
 			],
 			'assign_to' => [
@@ -684,7 +684,7 @@ return apply_filters( 'atbdp_form_custom_widgets', array(
 			],
 			'only_for_admin' => [
 				'type'  => 'toggle',
-				'label' => __( 'Administrative Only', 'directorist' ),
+				'label' => __( 'Admin Only', 'directorist' ),
 				'value' => false,
 			],
 			'assign_to' => [
@@ -744,7 +744,7 @@ return apply_filters( 'atbdp_form_custom_widgets', array(
 			],
 			'only_for_admin' => [
 				'type'  => 'toggle',
-				'label' => __( 'Administrative Only', 'directorist' ),
+				'label' => __( 'Admin Only', 'directorist' ),
 				'value' => false,
 			],
 		]

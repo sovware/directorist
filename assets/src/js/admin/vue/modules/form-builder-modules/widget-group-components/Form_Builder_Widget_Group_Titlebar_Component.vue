@@ -4,7 +4,7 @@
     :class="widgetsExpanded ? 'expanded' : ''"
   >
     <h3 class="cptm-form-builder-group-title">
-      {{ label }}
+      <span v-html="label"></span>
       <a
         href="#"
         class="cptm-form-builder-header-action-link cptm-ml-5 cptm-link-light"

@@ -287,22 +287,21 @@ endif;
 if ( ! function_exists( 'atbdp_get_listing_status_after_submission' ) ) :
 // atbdp_get_listing_status_after_submission
 function atbdp_get_listing_status_after_submission( array $args = [] ) {
-    $default = ['id' => '', 'edited' => true];
-    $args = array_merge( $default, $args );
+    $args = array_merge( array(
+		'id'     => 0,
+		'edited' => false
+	), $args );
 
-    $args['edited'] = ( true === $args['edited'] || '1' === $args['edited'] || 'yes' === $args['edited'] ) ? true : false;
-    $listing_id = $args['id'];
+	if ( true === $args['edited'] || '1' === $args['edited'] || 'yes' === $args['edited'] ) {
+		$args['edited'] = true;
+	}
 
-    $new_l_status   = $args['new_l_status'];
-    $edit_l_status  = ( 'publish' !== $new_l_status ) ? $new_l_status : $args['edit_l_status'];
-    $edited         = $args['edited'];
-    $listing_status = ( true === $edited || 'yes' === $edited || '1' === $edited ) ? $edit_l_status : $new_l_status;
-
+    $listing_id            = $args['id'];
+    $listing_status        = $args['edited'] ? $args['edit_status'] : $args['create_status'];
     $monitization          = directorist_is_monetization_enabled();
     $featured_enabled      = directorist_is_featured_listing_enabled();
     $pricing_plans_enabled = is_fee_manager_active();
-
-    $post_status =  $listing_status;
+    $post_status           = $listing_status;
 
     // If Pricing Plans are Enabled
     if ( $monitization && $pricing_plans_enabled ) {
@@ -917,7 +916,7 @@ if (!function_exists('atbdp_get_featured_settings_array')) {
     {
         return array(
             'active' => directorist_is_featured_listing_enabled(),
-            'label' => get_directorist_option('featured_listing_title'),
+            'label' => get_directorist_option( 'featured_listing_title', __('Featured', 'directorist') ),
             'desc' => get_directorist_option('featured_listing_desc'),
             'price' => get_directorist_option('featured_listing_price'),
         );
@@ -1185,7 +1184,7 @@ function atbdp_display_price_range($price_range)
  * @since    4.0.0
  *
  */
-function atbdp_listings_count_by_category( $term_id, $lisitng_type = '' )
+function atbdp_listings_count_by_category( $term_id, $listing_type = '' )
 {
     $args = array(
         'fields'         => 'ids',
@@ -1194,7 +1193,7 @@ function atbdp_listings_count_by_category( $term_id, $lisitng_type = '' )
         'post_status'    => 'publish',
     );
 
-    if( ! empty( $lisitng_type ) ) {
+    if( ! empty( $listing_type ) && 'all' !== $listing_type ) {
         $args['tax_query'] = array(
             'relation' => 'AND',
             array(
@@ -1206,7 +1205,7 @@ function atbdp_listings_count_by_category( $term_id, $lisitng_type = '' )
             array(
                 'taxonomy' => ATBDP_TYPE,
                 'field' => 'term_id',
-                'terms' => (int) $lisitng_type,
+                'terms' => (int) $listing_type,
             )
         );
     } else {
@@ -1293,7 +1292,7 @@ function atbdp_list_categories($settings)
  * @since    4.0.0
  *
  */
-function atbdp_listings_count_by_location( $term_id, $lisitng_type = '' ) {
+function atbdp_listings_count_by_location( $term_id, $listing_type = '' ) {
     $args = array(
         'fields' => 'ids',
         'posts_per_page' => -1,
@@ -1301,7 +1300,7 @@ function atbdp_listings_count_by_location( $term_id, $lisitng_type = '' ) {
         'post_status' => 'publish',
     );
 
-    if( ! empty( $lisitng_type ) ) {
+    if( ! empty( $listing_type ) && 'all' !== $listing_type ) {
         $args['tax_query'] = array(
             'relation' => 'AND',
             array(
@@ -1313,7 +1312,7 @@ function atbdp_listings_count_by_location( $term_id, $lisitng_type = '' ) {
             array(
                 'taxonomy' => ATBDP_TYPE,
                 'field' => 'term_id',
-                'terms' => (int) $lisitng_type,
+                'terms' => (int) $listing_type,
             )
         );
     } else {
@@ -2469,11 +2468,11 @@ function atbdp_guest_submission($guest_email)
 }
 
 function atbdp_get_listing_attachment_ids( $listing_id ) {
-	$featured_image = (int) get_post_meta( $listing_id, '_listing_prv_img', true );
+	$featured_image = get_post_meta( $listing_id, '_listing_prv_img', true );
 	$attachment_ids = array();
 
 	if ( $featured_image ) {
-		$attachment_ids[] = $featured_image;
+		$attachment_ids[] = (int) $featured_image;
 	}
 
     $gallery_images = (array) get_post_meta( $listing_id, '_listing_img', true );
@@ -2655,6 +2654,10 @@ function atbdp_create_required_pages(){
         'user_dashboard' => array(
             'title' => __('Dashboard', 'directorist'),
             'content' => '[directorist_user_dashboard]'
+        ),
+        'signin_signup_page' => array(
+            'title' => __('Sign In', 'directorist'),
+            'content' => '[directorist_signin_signup]'
         ),
         /* 'checkout_page' => array(
             'title' => __('Checkout', 'directorist'),
@@ -4059,7 +4062,7 @@ function directorist_password_reset_url( $user, $password_reset = true, $confirm
         $args['confirm_mail'] = true;
     }
 
-    $reset_password_url = ATBDP_Permalink::get_dashboard_page_link( $args );
+    $reset_password_url = ATBDP_Permalink::get_signin_signup_page_link( $args );
 
     return apply_filters( 'directorist_password_reset_url', $reset_password_url );
 }

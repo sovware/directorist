@@ -1,10 +1,8 @@
 <?php
 do_action('include_style_settings');
 $button_primary_color             = get_directorist_option('button_primary_color', '#ffffff');
-$button_primary_hover_color       = get_directorist_option('button_primary_hover_color', '#ffffff');
 $button_primary_bg_color          = get_directorist_option('button_primary_bg_color', '#000000');
 $button_secondary_color           = get_directorist_option('button_secondary_color', '#000000');
-$button_secondary_hover_color     = get_directorist_option('button_secondary_hover_color', '#000000');
 $button_secondary_bg_color        = get_directorist_option('button_secondary_bg_color', '#f2f3f5');
 
 $open_badge_color                 = get_directorist_option('open_back_color', '#28A800');
@@ -97,12 +95,10 @@ $gray_color                       = get_directorist_option('color_gray', '#bcbcb
 
         --directorist-color-btn-primary:<?php echo $button_primary_color; ?>;
         --directorist-color-btn-primary-rgb: 0,0,0;
-        --directorist-color-btn-primary-hover:<?php echo $button_primary_hover_color; ?>;
         --directorist-color-btn-primary-bg:<?php echo $button_primary_bg_color; ?>;
         --directorist-color-btn-primary-border:<?php echo $button_primary_bg_color; ?>;
         --directorist-color-btn-secondary:<?php echo $button_secondary_color; ?>;
         --directorist-color-btn-secondary-rgb:242, 243, 245;
-        --directorist-color-btn-secondary-hover:<?php echo $button_secondary_hover_color; ?>;
         --directorist-color-btn-secondary-bg:<?php echo $button_secondary_bg_color; ?>;
         --directorist-color-btn-secondary-border:<?php echo $button_secondary_bg_color; ?>;
 

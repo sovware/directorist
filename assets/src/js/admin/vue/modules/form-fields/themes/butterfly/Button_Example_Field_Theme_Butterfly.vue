@@ -14,8 +14,6 @@
                     class="directorist-btn-example directorist-btn"
                     :class="buttonClass"
                     :style="buttonStyles"
-                    @mouseover="hovered = true"
-                    @mouseleave="hovered = false"
                 >
                     {{ buttonLabel }}
                 </button>
@@ -34,7 +32,6 @@ export default {
     data() {
         return {
             formGroupClass: '',
-            hovered: false, // Track hover state
         };
     },
 
@@ -48,21 +45,19 @@ export default {
         buttonStyles() {
             const { 
                 button_primary_color, 
-                button_primary_hover_color, 
                 button_primary_bg_color, 
                 button_secondary_color, 
-                button_secondary_hover_color, 
                 button_secondary_bg_color 
             } = this.$store.state.fields;
 
             if (this.buttonType === 'button_type_primary') {
                 return {
-                    color: this.hovered ? button_primary_hover_color.value : button_primary_color.value,
+                    color: button_primary_color.value,
                     backgroundColor: button_primary_bg_color.value,
                 };
             } else if (this.buttonType === 'button_type_secondary') {
                 return {
-                    color: this.hovered ? button_secondary_hover_color.value : button_secondary_color.value,
+                    color: button_secondary_color.value,
                     backgroundColor: button_secondary_bg_color.value,
                 };
             } else {

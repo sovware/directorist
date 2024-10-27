@@ -26345,11 +26345,9 @@ __webpack_require__.r(__webpack_exports__);
   mixins: [_mixins_form_fields_button_example_field__WEBPACK_IMPORTED_MODULE_0__["default"]],
   data: function data() {
     return {
-      formGroupClass: '',
-      hovered: false // Track hover state
+      formGroupClass: ''
     };
   },
-
   computed: {
     // Get button type from store
     buttonType: function buttonType() {
@@ -26359,19 +26357,17 @@ __webpack_require__.r(__webpack_exports__);
     buttonStyles: function buttonStyles() {
       var _this$$store$state$fi = this.$store.state.fields,
         button_primary_color = _this$$store$state$fi.button_primary_color,
-        button_primary_hover_color = _this$$store$state$fi.button_primary_hover_color,
         button_primary_bg_color = _this$$store$state$fi.button_primary_bg_color,
         button_secondary_color = _this$$store$state$fi.button_secondary_color,
-        button_secondary_hover_color = _this$$store$state$fi.button_secondary_hover_color,
         button_secondary_bg_color = _this$$store$state$fi.button_secondary_bg_color;
       if (this.buttonType === 'button_type_primary') {
         return {
-          color: this.hovered ? button_primary_hover_color.value : button_primary_color.value,
+          color: button_primary_color.value,
           backgroundColor: button_primary_bg_color.value
         };
       } else if (this.buttonType === 'button_type_secondary') {
         return {
-          color: this.hovered ? button_secondary_hover_color.value : button_secondary_color.value,
+          color: button_secondary_color.value,
           backgroundColor: button_secondary_bg_color.value
         };
       } else {
@@ -34559,15 +34555,7 @@ var render = function render() {
   }, [_c("button", {
     staticClass: "directorist-btn-example directorist-btn",
     class: _vm.buttonClass,
-    style: _vm.buttonStyles,
-    on: {
-      mouseover: function mouseover($event) {
-        _vm.hovered = true;
-      },
-      mouseleave: function mouseleave($event) {
-        _vm.hovered = false;
-      }
-    }
+    style: _vm.buttonStyles
   }, [_vm._v("\n                " + _vm._s(_vm.buttonLabel) + "\n            ")])])])]);
 };
 var staticRenderFns = [];

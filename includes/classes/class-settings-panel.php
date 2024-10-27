@@ -676,17 +676,6 @@ Please remember that your order may be canceled if you do not make your payment 
                         ],
                     ],
                 ],
-                'button_primary_hover_color' => [
-                    'label' => __('Hover Color', 'directorist'),
-                    'type' => 'color',
-                    'value' => '#ffffff',
-                    'show-if' => [
-                        'where' => "button_type",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'button_type_primary'],
-                        ],
-                    ],
-                ],
                 'button_primary_bg_color' => [
                     'label' => __('Background Color', 'directorist'),
                     'type' => 'color',
@@ -715,17 +704,6 @@ Please remember that your order may be canceled if you do not make your payment 
                 ],
                 'button_secondary_color' => [
                     'label' => __('Text Color', 'directorist'),
-                    'type' => 'color',
-                    'value' => '#404040',
-                    'show-if' => [
-                        'where' => "button_type",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'button_type_secondary'],
-                        ],
-                    ],
-                ],
-                'button_secondary_hover_color' => [
-                    'label' => __('Hover Color', 'directorist'),
                     'type' => 'color',
                     'value' => '#404040',
                     'show-if' => [
@@ -4217,7 +4195,7 @@ Please remember that your order may be canceled if you do not make your payment 
                         'button_type_section' => [
                             'title' => __('Button', 'directorist'),
                             'fields' => [
-                                'button_type', 'button_primary_example', 'button_primary_color', 'button_primary_bg_color', 'button_primary_hover_color', 'button_secondary_example', 'button_secondary_color', 'button_secondary_bg_color', 'button_secondary_hover_color'
+                                'button_type', 'button_primary_example', 'button_primary_color', 'button_primary_bg_color', 'button_secondary_example', 'button_secondary_color', 'button_secondary_bg_color'
                             ]
                         ],
                         'map_marker_section' => [

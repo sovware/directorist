@@ -52,7 +52,6 @@
     color: var(--directorist-color-btn-primary);
     border: 1px solid var(--directorist-color-btn-primary-border);
     &:hover {
-      color: var(--directorist-color-btn-primary-hover);
       .directorist-icon-mask:after {
         background-color: var(--directorist-color-btn-primary);
       }

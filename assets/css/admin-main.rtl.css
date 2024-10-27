@@ -11586,9 +11586,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   color: var(--directorist-color-btn-primary);
   border: 1px solid var(--directorist-color-btn-primary-border);
 }
-.directorist-btn.directorist-btn-primary:hover {
-  color: var(--directorist-color-btn-primary-hover);
-}
 .directorist-btn.directorist-btn-primary:hover .directorist-icon-mask:after {
   background-color: var(--directorist-color-btn-primary);
 }
@@ -12452,7 +12449,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   margin-bottom: 10px;
 }
 .directorist-search-modal--basic .directorist-select .select2-container.select2-container--default .select2-selection--single {
-  height: auto;
+  height: 40px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;

@@ -770,9 +770,9 @@ function handleAIFormResponse(response) {
       directoryFields = JSON.stringify(response === null || response === void 0 || (_response$data10 = response.data) === null || _response$data10 === void 0 ? void 0 : _response$data10.fields);
     } else if (currentStep == 4) {
       var _response$data11;
-      // $('#directorist-create-directory__creating').hide();
-      // $('#directorist-create-directory__generating').hide();
-      // $('#directorist-create-directory__ai-fields').show();
+      $('#directorist-create-directory__creating').hide();
+      $('#directorist-create-directory__generating').hide();
+      $('#directorist-create-directory__ai-fields').show();
       handleCreateDirectory(response === null || response === void 0 || (_response$data11 = response.data) === null || _response$data11 === void 0 ? void 0 : _response$data11.url);
     }
     return;
@@ -797,16 +797,17 @@ $('body').on('click', '.directorist_generate_ai_directory', function (e) {
   } else if (currentStep == 3) {
     handleKeywordStep();
   } else if (currentStep == 4) {
-    $('#directorist-create-directory__generating').show();
-    $('#directorist-create-directory__creating').show();
-    $('#directorist-create-directory__ai-fields').hide();
-    $('.directorist_regenerate_fields').hide();
-    $('.directorist-create-directory__top').hide();
-    $('.directorist-create-directory__content__items').hide();
-    $('.directorist-create-directory__header').hide();
-    $('.directorist-create-directory__content__footer').hide();
-    $('.directorist-create-directory__content').addClass('full-width');
-    $('#directorist-create-directory__preview-btn').addClass('disabled');
+    // $('#directorist-create-directory__generating').show();
+    // $('#directorist-create-directory__creating').show();
+    // $('#directorist-create-directory__ai-fields').hide();
+    // $('.directorist_regenerate_fields').hide();
+    // $('.directorist-create-directory__top').hide();
+    // $('.directorist-create-directory__content__items').hide();
+    // $('.directorist-create-directory__header').hide();
+    // $('.directorist-create-directory__content__footer').hide();
+    // $('.directorist-create-directory__content').addClass('full-width');
+    // $('#directorist-create-directory__preview-btn').addClass('disabled');
+
     $('#directorist-create-directory__generating .directory-title').html('Directory AI is Building your directory... ');
     $('#directorist-create-directory__generating .directory-description').html('We\'re using your infomation to finalize your directory fields.');
     initializeProgressBar('finalProgress');

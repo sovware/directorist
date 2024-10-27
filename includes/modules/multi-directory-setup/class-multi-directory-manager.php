@@ -544,15 +544,13 @@ Please generate fields with different field types like text, textarea, email, ph
         wp_send_json( $installed );
     }
 
-    public function merge_new_fields( $existing_config, $new_fields ) {
-        
+    public function merge_new_fields($existing_config, $new_fields) {
         $new_fields_array = json_decode(stripslashes($new_fields), true);
-        
-        
+    
         if (is_null($new_fields_array)) {
             // throw new Exception('Failed to decode new fields JSON: ' . json_last_error_msg());
         }
-
+    
         // Reformat new fields to match the old format and ensure unique field keys for same type fields
         $type_counts = [];
         $formatted_fields = [];
@@ -565,7 +563,23 @@ Please generate fields with different field types like text, textarea, email, ph
             }
             $suffix = $type_counts[$type] > 0 ? '-' . $type_counts[$type] : '';
             $field_key = "custom-{$type}{$suffix}";
-
+    
+            // Handle specific structures for checkbox, radio, and select fields
+            if (in_array($type, ['checkbox', 'radio', 'select']) && isset($field['options']) && is_array($field['options'])) {
+                $field['options'] = array_map(function ($option) {
+                    if (is_array($option)) {
+                        return [
+                            'option_value' => $option['option_value'] ?? $option['value'],
+                            'option_label' => $option['option_label'] ?? $option['label']
+                        ];
+                    }
+                    return [
+                        'option_value' => $option,
+                        'option_label' => $option
+                    ];
+                }, $field['options']);
+            }
+    
             $formatted_fields[$field_key] = array_merge($field, [
                 'widget_group' => 'custom',
                 'widget_name' => $type,
@@ -573,17 +587,16 @@ Please generate fields with different field types like text, textarea, email, ph
                 'widget_key' => $key,
             ]);
         }
-
+    
         // Group the fields based on 'group_name'
         $groups = [];
-        $counter = 0;
         foreach ($formatted_fields as $field_key => $field) {
             $group_name = $field['group_name'];
             if (!isset($groups[$group_name])) {
                 $groups[$group_name] = [
                     "type" => "general_group",
                     "label" => $group_name,
-                    "fields" =>  $counter == 0 ? ['title', 'description'] : [],
+                    "fields" => [],
                     "defaultGroupLabel" => "Section",
                     "disableTrashIfGroupHasWidgets" => [
                         [
@@ -595,23 +608,39 @@ Please generate fields with different field types like text, textarea, email, ph
                 ];
             }
             $groups[$group_name]['fields'][] = $field_key;
-            $counter++;
         }
-
+    
         // Keep old title and description fields
         $title_description_fields = array_intersect_key(
             $existing_config['submission_form_fields']['fields'] ?? [],
             array_flip(['title', 'description'])
         );
-
+    
         // Replace the old fields with new fields, keeping title and description
         $existing_config['submission_form_fields']['fields'] = array_merge(
             $title_description_fields,
             $formatted_fields
         );
-
+    
         $existing_config['submission_form_fields']['groups'] = array_values($groups);
-
+    
+        // Update the single listing layout to use the new fields
+        $single_listing_fields = array_merge(
+            $existing_config['single_listings_contents']['fields'] ?? [],
+            array_map(function ($field) {
+                return [
+                    'icon' => $field['icon'] ?? '',
+                    'widget_group' => $field['widget_group'],
+                    'widget_name' => $field['widget_name'],
+                    'original_widget_key' => $field['field_key'],
+                    'widget_key' => $field['field_key'],
+                ];
+            }, $formatted_fields)
+        );
+    
+        $existing_config['single_listings_contents']['fields'] = $single_listing_fields;
+        $existing_config['single_listings_contents']['groups'] = array_values($groups);
+    
         return $existing_config;
     }
 
@@ -681,7 +710,7 @@ Please generate fields with different field types like text, textarea, email, ph
 
         self::prepare_settings();
         $term = self::add_directory([
-            'directory_name' => $name . time(),
+            'directory_name' => $name,
             'fields_value'   => $updated_config,
             'is_json'        => false
         ]);

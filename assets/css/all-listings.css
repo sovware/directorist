@@ -7050,8 +7050,7 @@ body.modal-overlay-enabled:before {
   text-decoration: none !important;
 }
 .directorist-btn .directorist-icon-mask:after {
-  -webkit-transition: all ease 0.3s;
-  transition: all ease 0.3s;
+  background-color: currentColor;
 }
 .directorist-btn.directorist-btn--add-listing, .directorist-btn.directorist-btn--logout {
   line-height: 43px;
@@ -7063,9 +7062,6 @@ body.modal-overlay-enabled:before {
 .directorist-btn:hover:not(.directorist-single-listing-action), .directorist-btn:focus:not(.directorist-single-listing-action) {
   -webkit-filter: brightness(0.85);
           filter: brightness(0.85);
-}
-.directorist-btn:hover .directorist-icon-mask:after, .directorist-btn:focus .directorist-icon-mask:after {
-  background-color: currentColor;
 }
 
 .directorist-btn.directorist-btn-primary {

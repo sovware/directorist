@@ -34660,8 +34660,11 @@ var render = function render() {
   }, [_c("div", {
     staticClass: "atbdp-col atbdp-col-4"
   }, [_vm.label.length ? _c("label", [_c(_vm.labelType, {
-    tag: "component"
-  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c("p", {
+    tag: "component",
+    domProps: {
+      innerHTML: _vm._s(_vm.label)
+    }
+  })], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c("p", {
     staticClass: "cptm-form-group-info",
     domProps: {
       innerHTML: _vm._s(_vm.description)

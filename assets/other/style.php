@@ -41,7 +41,7 @@ $gray_color_rgb       = directorist_hex_to_rgb( get_directorist_option( 'color_g
     :root {
         /* theme color */
         --directorist-color-primary: <?php echo $primary_color; ?>;
-        --directorist-color-primary-rgb: <?php echo $primary_color_rgb ?? '0,0,0'; ?>;
+        --directorist-color-primary-rgb: <?php echo $primary_color_rgb; ?>;
         --directorist-color-secondary: <?php echo $secondary_color; ?>;
         --directorist-color-secondary-rgb: <?php echo $secondary_color_rgb ?? '242,243,245'; ?>;
         --directorist-color-dark: <?php echo $dark_color; ?>;

@@ -17433,11 +17433,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-single-map.leaflet-container .leaflet-popup-tip-container {
   display: none;
 }
-#map.leaflet-container .leaflet-control-zoom,
-#gmap.leaflet-container .leaflet-control-zoom,
-.directorist-single-map.leaflet-container .leaflet-control-zoom {
-  display: none;
-}
 
 .directorist-single-map .gm-style-iw-c,
 .directorist-single-map .gm-style-iw-d {

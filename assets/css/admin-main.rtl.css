@@ -9522,13 +9522,16 @@ body.stop-scrolling {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  gap: 0 10px;
   -webkit-flex-wrap: wrap;
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
 }
 .directorist-custom-field-radio .directorist-form-label,
+.directorist-custom-field-radio .directorist-form-description,
 .directorist-custom-field-radio .directorist-custom-field-btn-more,
 .directorist-custom-field-checkbox .directorist-form-label,
+.directorist-custom-field-checkbox .directorist-form-description,
 .directorist-custom-field-checkbox .directorist-custom-field-btn-more {
   width: 100%;
   -webkit-box-flex: 0;
@@ -9541,9 +9544,9 @@ body.stop-scrolling {
 .directorist-custom-field-checkbox .directorist-checkbox,
 .directorist-custom-field-checkbox .directorist-radio {
   -webkit-box-flex: 0;
-  -webkit-flex: 0 0 50%;
-      -ms-flex: 0 0 50%;
-          flex: 0 0 50%;
+  -webkit-flex: 0 0 49%;
+      -ms-flex: 0 0 49%;
+          flex: 0 0 49%;
 }
 @media only screen and (max-width: 767px) {
   .directorist-custom-field-radio .directorist-checkbox,
@@ -9633,6 +9636,8 @@ body.stop-scrolling {
   height: -moz-fit-content;
   height: fit-content;
   max-height: 100vh;
+  min-width: 290px;
+  max-width: 290px;
   overflow-y: auto;
   padding: 10px;
   margin: -10px;

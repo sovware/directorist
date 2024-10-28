@@ -2286,20 +2286,6 @@ Please remember that your order may be canceled if you do not make your payment 
                     'showDefaultOption' => true,
                     'options' => $this->get_pages_vl_arrays(),
                 ],
-                'privacy_policy' => [
-                    'label' => __('Privacy Policy Page', 'directorist'),
-                    'type'  => 'select',
-                    'value' => '',
-                    'showDefaultOption' => true,
-                    'options' => $this->get_pages_vl_arrays(),
-                ],
-                'terms_conditions' => [
-                    'label' => __('Terms & Conditions Page', 'directorist'),
-                    'type'  => 'select',
-                    'value' => '',
-                    'showDefaultOption' => true,
-                    'options' => $this->get_pages_vl_arrays(),
-                ],
                 // seo settings
                 'atbdp_enable_seo' => [
                     'type'  => 'toggle',
@@ -3704,7 +3690,7 @@ Please remember that your order may be canceled if you do not make your payment 
                             'title'       => __('Page, Links & View Settings', 'directorist'),
                             'description' => '',
                             'fields'      => apply_filters( 'atbdp_pages_settings_fields', [
-                                'add_listing_page', 'all_listing_page', 'user_dashboard', 'signin_signup_page', 'author_profile_page', 'all_categories_page', 'single_category_page', 'all_locations_page', 'single_location_page', 'single_tag_page', 'search_listing', 'search_result_page', 'checkout_page', 'payment_receipt_page', 'transaction_failure_page', 'privacy_policy', 'terms_conditions'
+                                'add_listing_page', 'all_listing_page', 'user_dashboard', 'signin_signup_page', 'author_profile_page', 'all_categories_page', 'single_category_page', 'all_locations_page', 'single_location_page', 'single_tag_page', 'search_listing', 'search_result_page', 'checkout_page', 'payment_receipt_page', 'transaction_failure_page'
                              ] ),
                         ],
                     ]),

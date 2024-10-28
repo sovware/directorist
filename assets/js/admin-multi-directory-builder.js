@@ -35276,8 +35276,11 @@ var render = function render() {
   }, [_c("div", {
     staticClass: "atbdp-col atbdp-col-4"
   }, [_vm.label.length ? _c("label", [_c(_vm.labelType, {
-    tag: "component"
-  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c("p", {
+    tag: "component",
+    domProps: {
+      innerHTML: _vm._s(_vm.label)
+    }
+  })], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c("p", {
     staticClass: "cptm-form-group-info",
     domProps: {
       innerHTML: _vm._s(_vm.description)
@@ -35351,12 +35354,12 @@ var render = function render() {
       value: _vm.theDefaultOption.value
     }
   }, [_vm._v(_vm._s(_vm.theDefaultOption.label))]) : _vm._e(), _vm._v(" "), _vm._l(_vm.theOptions, function (option, option_key) {
-    return [_c("option", {
+    return _c("option", {
       key: option_key,
       domProps: {
         value: option.value
       }
-    }, [_vm._v(_vm._s(option.label))])];
+    }, [_vm._v("\n                    " + _vm._s(option.label) + "\n                ")]);
   })], 2), _vm._v(" "), _c("form-field-validatior", {
     attrs: {
       "section-id": _vm.sectionId,

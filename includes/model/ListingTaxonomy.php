@@ -350,12 +350,7 @@ class Directorist_Listing_Taxonomy {
     		$template_file = 'taxonomies/locations-'. $this->view;
     	}
 
-    	if ( !empty( $this->terms ) && !is_wp_error( $this->terms ) ) {
-			return Helper::get_template_contents( $template_file, $args );
-    	}
-    	else {
-    		return __('<p>No Results found!</p>', 'directorist');
-    	}
+    	return Helper::get_template_contents( $template_file, $args );
 	}
 
 	/**

@@ -14,7 +14,8 @@ $new_badge_color                  = get_directorist_option('new_back_color', '#2
 $marker_shape_color               = get_directorist_option('marker_shape_color', '#000000');
 $marker_icon_color                = get_directorist_option('marker_icon_color', '#ffffff');
 
-$primary_color                    = get_directorist_option('brand_color', '#000000');
+$primary_color                    = get_directorist_option( 'brand_color', '#000000' );
+$primary_color_rgb                = directorist_hex_to_rgb( $primary_color );
 $secondary_color                  = get_directorist_option('color_secondary', '#F2F3F5');
 $dark_color                       = get_directorist_option('color_dark', '#000000');
 $white_color                      = get_directorist_option('color_white', '#ffffff');
@@ -29,7 +30,7 @@ $gray_color                       = get_directorist_option('color_gray', '#bcbcb
     :root {
         /* theme color */
         --directorist-color-primary: <?php echo $primary_color; ?>;
-        --directorist-color-primary-rgb: 0,0,0;
+        --directorist-color-primary-rgb: <?php echo $primary_color_rgb ?? 0,0,0; ?>;
         --directorist-color-secondary: <?php echo $secondary_color; ?>;
         --directorist-color-dark: <?php echo $dark_color; ?>;
         --directorist-color-dark-rgb: 0,0,0;

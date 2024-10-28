@@ -18607,6 +18607,9 @@ __webpack_require__.r(__webpack_exports__);
 
       // Remove class from parent with class 'atbdp-cpt-manager'
       var parentElement = this.$el.closest('.atbdp-cpt-manager');
+      console.log('@chk close', {
+        parentElement: parentElement
+      });
       if (parentElement) {
         parentElement.classList.remove('trash-overlay-visible');
       }
@@ -19081,6 +19084,15 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     },
     closeConfirmationModal: function closeConfirmationModal() {
       this.showConfirmationModal = false;
+
+      // Remove class to parent with class 'atbdp-cpt-manager'
+      var parentElement = this.$el.closest('.atbdp-cpt-manager');
+      console.log('@chk group close', {
+        parentElement: parentElement
+      });
+      if (parentElement) {
+        parentElement.classList.remove('trash-overlay-visible');
+      }
     },
     trashGroup: function trashGroup() {
       this.$emit("trash-group");

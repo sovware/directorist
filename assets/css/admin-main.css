@@ -11577,8 +11577,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   outline: 0 !important;
 }
 .directorist-btn:hover:not(.directorist-single-listing-action), .directorist-btn:focus:not(.directorist-single-listing-action) {
-  -webkit-filter: brightness(0.85);
-          filter: brightness(0.85);
+  background-color: rgba(var(--directorist-color-primary-rgb), 0.85);
 }
 
 .directorist-btn.directorist-btn-primary {

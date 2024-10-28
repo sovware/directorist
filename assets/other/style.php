@@ -15,7 +15,6 @@ $marker_shape_color               = get_directorist_option('marker_shape_color',
 $marker_icon_color                = get_directorist_option('marker_icon_color', '#ffffff');
 
 $primary_color                    = get_directorist_option( 'brand_color', '#000000' );
-$primary_color_rgb                = directorist_hex_to_rgb( $primary_color );
 $secondary_color                  = get_directorist_option('color_secondary', '#F2F3F5');
 $dark_color                       = get_directorist_option('color_dark', '#000000');
 $white_color                      = get_directorist_option('color_white', '#ffffff');
@@ -24,28 +23,42 @@ $info_color                       = get_directorist_option('color_info', '#2c99f
 $warning_color                    = get_directorist_option('color_warning', '#f28100');
 $danger_color                     = get_directorist_option('color_danger', '#f80718');
 $gray_color                       = get_directorist_option('color_gray', '#bcbcbc');
+
+$button_primary_color_rgb         = directorist_hex_to_rgb( get_directorist_option( 'button_primary_bg_color', '#000000' ) );
+$button_secondary_color_rgb         = directorist_hex_to_rgb( get_directorist_option( 'button_secondary_bg_color', '#000000' ) );
+$primary_color_rgb    = directorist_hex_to_rgb( get_directorist_option( 'brand_color', '#000000' ) );
+$secondary_color_rgb  = directorist_hex_to_rgb( get_directorist_option( 'color_secondary', '#F2F3F5' ) );
+$dark_color_rgb       = directorist_hex_to_rgb( get_directorist_option( 'color_dark', '#000000' ) );
+$white_color_rgb      = directorist_hex_to_rgb( get_directorist_option( 'color_white', '#ffffff' ) );
+$success_color_rgb    = directorist_hex_to_rgb( get_directorist_option( 'color_success', '#28A800' ) );
+$info_color_rgb       = directorist_hex_to_rgb( get_directorist_option( 'color_info', '#2c99ff' ) );
+$warning_color_rgb    = directorist_hex_to_rgb( get_directorist_option( 'color_warning', '#f28100' ) );
+$danger_color_rgb     = directorist_hex_to_rgb( get_directorist_option( 'color_danger', '#f80718' ) );
+$gray_color_rgb       = directorist_hex_to_rgb( get_directorist_option( 'color_gray', '#bcbcbc' ) );
 ?>
 <style>
     /* Css Variable */
     :root {
         /* theme color */
         --directorist-color-primary: <?php echo $primary_color; ?>;
-        --directorist-color-primary-rgb: <?php echo $primary_color_rgb ?? 0,0,0; ?>;
+        --directorist-color-primary-rgb: <?php echo $primary_color_rgb ?? '0,0,0'; ?>;
         --directorist-color-secondary: <?php echo $secondary_color; ?>;
+        --directorist-color-secondary-rgb: <?php echo $secondary_color_rgb ?? '242,243,245'; ?>;
         --directorist-color-dark: <?php echo $dark_color; ?>;
-        --directorist-color-dark-rgb: 0,0,0;
+        --directorist-color-dark-rgb: <?php echo $dark_color_rgb ?? '0,0,0'; ?>;
         --directorist-color-success: <?php echo $success_color; ?>;
-        --directorist-color-success-rgb: 40, 168, 0;
+        --directorist-color-success-rgb: <?php echo $success_color_rgb ?? '40,168,0'; ?>;
         --directorist-color-info: <?php echo $info_color; ?>;
-        --directorist-color-info-rgb: 44, 153, 255;
+        --directorist-color-info-rgb: <?php echo $info_color_rgb ?? '44,153,255'; ?>;
         --directorist-color-warning: <?php echo $warning_color; ?>;
-        --directorist-color-warning-rgb: 242, 129, 0;
+        --directorist-color-warning-rgb: <?php echo $warning_color_rgb ?? '242,129,0'; ?>;
         --directorist-color-danger: <?php echo $danger_color; ?>;
-        --directorist-color-danger-rgb: 248, 7, 24;
+        --directorist-color-danger-rgb: <?php echo $danger_color_rgb ?? '248,7,24'; ?>;
         --directorist-color-white: <?php echo $white_color; ?>;
         --directorist-color-white-rgb: 255,255,255;
         --directorist-color-body: #404040;
         --directorist-color-gray: <?php echo $gray_color; ?>;
+        --directorist-color-gray-rgb: <?php echo $gray_color_rgb ?? '188,188,188'; ?>;
         --directorist-color-gray-hover: #BCBCBC;
         --directorist-color-light: #ededed;
         --directorist-color-light-hover: #ffffff;
@@ -95,11 +108,11 @@ $gray_color                       = get_directorist_option('color_gray', '#bcbcb
         --directorist-color-btn-border:var(--directorist-color-primary);
 
         --directorist-color-btn-primary:<?php echo $button_primary_color; ?>;
-        --directorist-color-btn-primary-rgb: 0,0,0;
+        --directorist-color-btn-primary-rgb: <?php echo $button_primary_color_rgb ?? '0,0,0'; ?>;
         --directorist-color-btn-primary-bg:<?php echo $button_primary_bg_color; ?>;
         --directorist-color-btn-primary-border:<?php echo $button_primary_bg_color; ?>;
         --directorist-color-btn-secondary:<?php echo $button_secondary_color; ?>;
-        --directorist-color-btn-secondary-rgb:242, 243, 245;
+        --directorist-color-btn-secondary-rgb:<?php echo $button_secondary_color_rgb ?? '0,0,0'; ?>;
         --directorist-color-btn-secondary-bg:<?php echo $button_secondary_bg_color; ?>;
         --directorist-color-btn-secondary-border:<?php echo $button_secondary_bg_color; ?>;
 

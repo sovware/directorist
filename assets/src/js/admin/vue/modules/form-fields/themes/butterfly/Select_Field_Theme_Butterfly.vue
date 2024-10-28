@@ -38,9 +38,9 @@
 
                 <select @change="update_value( $event.target.value )" :value="local_value" class="cptm-d-none">
                     <option v-if="showDefaultOption && theDefaultOption" :value="theDefaultOption.value">{{ theDefaultOption.label }}</option>
-                    <template v-for="( option, option_key ) in theOptions">
-                        <option :key="option_key" :value="option.value">{{ option.label }}</option>
-                    </template>
+                    <option v-for="(option, option_key) in theOptions" :key="option_key" :value="option.value">
+                        {{ option.label }}
+                    </option>
                 </select>
                 
                 <form-field-validatior 

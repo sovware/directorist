@@ -35176,12 +35176,12 @@ var render = function render() {
       value: _vm.theDefaultOption.value
     }
   }, [_vm._v(_vm._s(_vm.theDefaultOption.label))]) : _vm._e(), _vm._v(" "), _vm._l(_vm.theOptions, function (option, option_key) {
-    return [_c("option", {
+    return _c("option", {
       key: option_key,
       domProps: {
         value: option.value
       }
-    }, [_vm._v(_vm._s(option.label))])];
+    }, [_vm._v("\n                    " + _vm._s(option.label) + "\n                ")]);
   })], 2), _vm._v(" "), _c("form-field-validatior", {
     attrs: {
       "section-id": _vm.sectionId,

@@ -4415,7 +4415,7 @@ body.stop-scrolling {
 .directorist-add-listing-form .leaflet-pane .leaflet-marker-icon .atbd_map_shape:before {
   left: -25px;
   top: -25px;
-  border: 50px solid rgba(var(--directorist-color-primary-rgb), 0.2);
+  border: 50px solid rgba(var(--directorist-color-marker-shape-rgb), 0.2);
 }
 .directorist-add-listing-form .leaflet-pane .leaflet-marker-icon .atbd_map_shape .directorist-icon-mask::after {
   width: 12px;
@@ -4603,13 +4603,16 @@ body.stop-scrolling {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  gap: 0 10px;
   -webkit-flex-wrap: wrap;
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
 }
 .directorist-custom-field-radio .directorist-form-label,
+.directorist-custom-field-radio .directorist-form-description,
 .directorist-custom-field-radio .directorist-custom-field-btn-more,
 .directorist-custom-field-checkbox .directorist-form-label,
+.directorist-custom-field-checkbox .directorist-form-description,
 .directorist-custom-field-checkbox .directorist-custom-field-btn-more {
   width: 100%;
   -webkit-box-flex: 0;
@@ -4622,9 +4625,9 @@ body.stop-scrolling {
 .directorist-custom-field-checkbox .directorist-checkbox,
 .directorist-custom-field-checkbox .directorist-radio {
   -webkit-box-flex: 0;
-  -webkit-flex: 0 0 50%;
-      -ms-flex: 0 0 50%;
-          flex: 0 0 50%;
+  -webkit-flex: 0 0 49%;
+      -ms-flex: 0 0 49%;
+          flex: 0 0 49%;
 }
 @media only screen and (max-width: 767px) {
   .directorist-custom-field-radio .directorist-checkbox,
@@ -4714,6 +4717,8 @@ body.stop-scrolling {
   height: -moz-fit-content;
   height: fit-content;
   max-height: 100vh;
+  min-width: 290px;
+  max-width: 290px;
   overflow-y: auto;
   padding: 10px;
   margin: -10px;
@@ -6437,6 +6442,11 @@ button[type=submit] {
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+.select2.select2-container.select2-container--default .select2-selection__rendered::-webkit-scrollbar {
+  display: none;
 }
 .select2.select2-container.select2-container--default .select2-selection__rendered .select2-selection__clear {
   padding-right: 25px;
@@ -7045,8 +7055,7 @@ body.modal-overlay-enabled:before {
   text-decoration: none !important;
 }
 .directorist-btn .directorist-icon-mask:after {
-  -webkit-transition: all ease 0.3s;
-  transition: all ease 0.3s;
+  background-color: currentColor;
 }
 .directorist-btn.directorist-btn--add-listing, .directorist-btn.directorist-btn--logout {
   line-height: 43px;
@@ -7056,11 +7065,7 @@ body.modal-overlay-enabled:before {
   outline: 0 !important;
 }
 .directorist-btn:hover:not(.directorist-single-listing-action), .directorist-btn:focus:not(.directorist-single-listing-action) {
-  -webkit-filter: brightness(0.85);
-          filter: brightness(0.85);
-}
-.directorist-btn:hover .directorist-icon-mask:after, .directorist-btn:focus .directorist-icon-mask:after {
-  background-color: currentColor;
+  background-color: rgba(var(--directorist-color-primary-rgb), 0.8);
 }
 
 .directorist-btn.directorist-btn-primary {
@@ -7069,7 +7074,7 @@ body.modal-overlay-enabled:before {
   border: 1px solid var(--directorist-color-btn-primary-border);
 }
 .directorist-btn.directorist-btn-primary:hover {
-  color: var(--directorist-color-btn-primary-hover);
+  background-color: rgba(var(--directorist-color-btn-primary-rgb), 0.8);
 }
 .directorist-btn.directorist-btn-primary:hover .directorist-icon-mask:after {
   background-color: var(--directorist-color-btn-primary);
@@ -7746,6 +7751,7 @@ body.modal-overlay-enabled:before {
 .directorist-single-listing-slider .swiper-slide img {
   width: 100%;
   height: 100%;
+  max-width: 740px;
   -o-object-fit: cover;
      object-fit: cover;
   border-radius: 16px;
@@ -9133,7 +9139,7 @@ body.modal-overlay-enabled:before {
   margin-bottom: 10px;
 }
 .directorist-search-modal--basic .directorist-select .select2-container.select2-container--default .select2-selection--single {
-  height: auto;
+  height: 40px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -11177,7 +11183,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   font-size: 14px;
   font-weight: 400;
   color: var(--directorist-color-body);
-  background-color: var(--directorist-color-light);
+  background-color: var(--directorist-color-light) !important;
   border: 2px solid var(--directorist-color-white);
   padding: 0 20px;
   border-radius: 8px;
@@ -11191,7 +11197,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   margin-right: 2px;
 }
 .directorist-content-active .directorist-listings-header__left .directorist-filter-btn:hover {
-  background-color: var(--directorist-color-gray);
+  background-color: transparent !important;
+  color: rgba(var(--directorist-color-btn-primary-rgb), 0.8);
 }
 .directorist-content-active .directorist-listings-header__right {
   display: -webkit-box;
@@ -13443,7 +13450,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   height: 50px;
   padding: 0 18px;
   font-weight: 400;
-  background-color: var(--directorist-color-white);
+  background-color: var(--directorist-color-white) !important;
   border-color: var(--directorist-color-white);
   color: var(--directorist-color-btn-primary-bg);
 }
@@ -13451,6 +13458,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   height: 12px;
   width: 14px;
   background-color: var(--directorist-color-btn-primary-bg);
+}
+.directorist-search-form-action__filter .directorist-filter-btn:hover {
+  color: rgba(var(--directorist-color-btn-primary-rgb), 0.8);
 }
 @media only screen and (max-width: 767px) {
   .directorist-search-form-action__filter .directorist-filter-btn {
@@ -17431,11 +17441,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-single-map.leaflet-container .leaflet-popup-tip-container {
   display: none;
 }
-#map.leaflet-container .leaflet-control-zoom,
-#gmap.leaflet-container .leaflet-control-zoom,
-.directorist-single-map.leaflet-container .leaflet-control-zoom {
-  display: none;
-}
 
 .directorist-single-map .gm-style-iw-c,
 .directorist-single-map .gm-style-iw-d {
@@ -17693,7 +17698,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
   border: none;
-  border: 40px solid rgba(var(--directorist-color-primary-rgb), 0.2);
+  border: 40px solid rgba(var(--directorist-color-marker-shape-rgb), 0.2);
   -webkit-animation: atbd_scale 3s linear alternate infinite;
           animation: atbd_scale 3s linear alternate infinite;
 }
@@ -17710,7 +17715,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .marker-cluster-shape {
   width: 35px;
   height: 35px;
-  background-color: #444752;
+  background-color: var(--directorist-color-marker-shape);
   border-radius: 50%;
   display: -webkit-box;
   display: -webkit-flex;
@@ -17724,7 +17729,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   -webkit-justify-content: center;
       -ms-flex-pack: center;
           justify-content: center;
-  color: var(--directorist-color-white);
+  color: var(--directorist-color-marker-icon);
   font-size: 15px;
   font-weight: 700;
   position: relative;
@@ -17737,7 +17742,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   height: 47px;
   left: -6px;
   top: -6px;
-  background: rgba(var(--directorist-color-dark-rgb), 0.15);
+  background: rgba(var(--directorist-color-marker-shape-rgb), 0.15);
   border-radius: 50%;
 }
 

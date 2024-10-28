@@ -676,17 +676,6 @@ Please remember that your order may be canceled if you do not make your payment 
                         ],
                     ],
                 ],
-                'button_primary_hover_color' => [
-                    'label' => __('Hover Color', 'directorist'),
-                    'type' => 'color',
-                    'value' => '#ffffff',
-                    'show-if' => [
-                        'where' => "button_type",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'button_type_primary'],
-                        ],
-                    ],
-                ],
                 'button_primary_bg_color' => [
                     'label' => __('Background Color', 'directorist'),
                     'type' => 'color',
@@ -715,17 +704,6 @@ Please remember that your order may be canceled if you do not make your payment 
                 ],
                 'button_secondary_color' => [
                     'label' => __('Text Color', 'directorist'),
-                    'type' => 'color',
-                    'value' => '#404040',
-                    'show-if' => [
-                        'where' => "button_type",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'button_type_secondary'],
-                        ],
-                    ],
-                ],
-                'button_secondary_hover_color' => [
-                    'label' => __('Hover Color', 'directorist'),
                     'type' => 'color',
                     'value' => '#404040',
                     'show-if' => [
@@ -2308,20 +2286,6 @@ Please remember that your order may be canceled if you do not make your payment 
                     'showDefaultOption' => true,
                     'options' => $this->get_pages_vl_arrays(),
                 ],
-                'privacy_policy' => [
-                    'label' => __('Privacy Policy Page', 'directorist'),
-                    'type'  => 'select',
-                    'value' => '',
-                    'showDefaultOption' => true,
-                    'options' => $this->get_pages_vl_arrays(),
-                ],
-                'terms_conditions' => [
-                    'label' => __('Terms & Conditions Page', 'directorist'),
-                    'type'  => 'select',
-                    'value' => '',
-                    'showDefaultOption' => true,
-                    'options' => $this->get_pages_vl_arrays(),
-                ],
                 // seo settings
                 'atbdp_enable_seo' => [
                     'type'  => 'toggle',
@@ -3726,7 +3690,7 @@ Please remember that your order may be canceled if you do not make your payment 
                             'title'       => __('Page, Links & View Settings', 'directorist'),
                             'description' => '',
                             'fields'      => apply_filters( 'atbdp_pages_settings_fields', [
-                                'add_listing_page', 'all_listing_page', 'user_dashboard', 'signin_signup_page', 'author_profile_page', 'all_categories_page', 'single_category_page', 'all_locations_page', 'single_location_page', 'single_tag_page', 'search_listing', 'search_result_page', 'checkout_page', 'payment_receipt_page', 'transaction_failure_page', 'privacy_policy', 'terms_conditions'
+                                'add_listing_page', 'all_listing_page', 'user_dashboard', 'signin_signup_page', 'author_profile_page', 'all_categories_page', 'single_category_page', 'all_locations_page', 'single_location_page', 'single_tag_page', 'search_listing', 'search_result_page', 'checkout_page', 'payment_receipt_page', 'transaction_failure_page'
                              ] ),
                         ],
                     ]),
@@ -4217,7 +4181,7 @@ Please remember that your order may be canceled if you do not make your payment 
                         'button_type_section' => [
                             'title' => __('Button', 'directorist'),
                             'fields' => [
-                                'button_type', 'button_primary_example', 'button_primary_color', 'button_primary_bg_color', 'button_primary_hover_color', 'button_secondary_example', 'button_secondary_color', 'button_secondary_bg_color', 'button_secondary_hover_color'
+                                'button_type', 'button_primary_example', 'button_primary_color', 'button_primary_bg_color', 'button_secondary_example', 'button_secondary_color', 'button_secondary_bg_color'
                             ]
                         ],
                         'map_marker_section' => [

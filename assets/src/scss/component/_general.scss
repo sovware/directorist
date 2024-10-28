@@ -207,6 +207,11 @@ button[type="submit"] {
       font-size: 14px;
       overflow-y: auto;
       align-items: center;
+      -ms-overflow-style: none;  /* Internet Explorer 10+ */
+      scrollbar-width: none;  /* Firefox */
+      &::-webkit-scrollbar {
+          display: none;
+      }
       .select2-selection__clear {
         padding-right: 25px;
       }

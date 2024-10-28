@@ -40,7 +40,7 @@
     color: var(--directorist-color-white);
     outline: 0 !important;
     &:not(.directorist-single-listing-action){
-      background-color: rgba(var(--directorist-color-primary-rgb), 0.85);
+      background-color: rgba(var(--directorist-color-primary-rgb), 0.80);
     }
   }
 }
@@ -52,6 +52,7 @@
     color: var(--directorist-color-btn-primary);
     border: 1px solid var(--directorist-color-btn-primary-border);
     &:hover {
+      background-color: rgba(var(--directorist-color-btn-primary-rgb), 0.80) ;
       .directorist-icon-mask:after {
         background-color: var(--directorist-color-btn-primary);
       }

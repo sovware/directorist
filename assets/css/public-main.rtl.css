@@ -4415,7 +4415,7 @@ body.stop-scrolling {
 .directorist-add-listing-form .leaflet-pane .leaflet-marker-icon .atbd_map_shape:before {
   right: -25px;
   top: -25px;
-  border: 50px solid rgba(var(--directorist-color-primary-rgb), 0.2);
+  border: 50px solid rgba(var(--directorist-color-marker-shape-rgb), 0.2);
 }
 .directorist-add-listing-form .leaflet-pane .leaflet-marker-icon .atbd_map_shape .directorist-icon-mask::after {
   width: 12px;
@@ -7060,13 +7060,16 @@ body.modal-overlay-enabled:before {
   outline: 0 !important;
 }
 .directorist-btn:hover:not(.directorist-single-listing-action), .directorist-btn:focus:not(.directorist-single-listing-action) {
-  background-color: rgba(var(--directorist-color-primary-rgb), 0.85);
+  background-color: rgba(var(--directorist-color-primary-rgb), 0.8);
 }
 
 .directorist-btn.directorist-btn-primary {
   background-color: var(--directorist-color-btn-primary-bg);
   color: var(--directorist-color-btn-primary);
   border: 1px solid var(--directorist-color-btn-primary-border);
+}
+.directorist-btn.directorist-btn-primary:hover {
+  background-color: rgba(var(--directorist-color-btn-primary-rgb), 0.8);
 }
 .directorist-btn.directorist-btn-primary:hover .directorist-icon-mask:after {
   background-color: var(--directorist-color-btn-primary);
@@ -11174,7 +11177,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   font-size: 14px;
   font-weight: 400;
   color: var(--directorist-color-body);
-  background-color: var(--directorist-color-light);
+  background-color: var(--directorist-color-light) !important;
   border: 2px solid var(--directorist-color-white);
   padding: 0 20px;
   border-radius: 8px;
@@ -11188,7 +11191,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   margin-left: 2px;
 }
 .directorist-content-active .directorist-listings-header__left .directorist-filter-btn:hover {
-  background-color: var(--directorist-color-gray);
+  background-color: transparent !important;
+  color: rgba(var(--directorist-color-btn-primary-rgb), 0.8);
 }
 .directorist-content-active .directorist-listings-header__right {
   display: -webkit-box;
@@ -13440,7 +13444,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   height: 50px;
   padding: 0 18px;
   font-weight: 400;
-  background-color: var(--directorist-color-white);
+  background-color: var(--directorist-color-white) !important;
   border-color: var(--directorist-color-white);
   color: var(--directorist-color-btn-primary-bg);
 }
@@ -13448,6 +13452,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   height: 12px;
   width: 14px;
   background-color: var(--directorist-color-btn-primary-bg);
+}
+.directorist-search-form-action__filter .directorist-filter-btn:hover {
+  color: rgba(var(--directorist-color-btn-primary-rgb), 0.8);
 }
 @media only screen and (max-width: 767px) {
   .directorist-search-form-action__filter .directorist-filter-btn {
@@ -17689,7 +17696,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
   border: none;
-  border: 40px solid rgba(var(--directorist-color-primary-rgb), 0.2);
+  border: 40px solid rgba(var(--directorist-color-marker-shape-rgb), 0.2);
   -webkit-animation: atbd_scale 3s linear alternate infinite;
           animation: atbd_scale 3s linear alternate infinite;
 }
@@ -17706,7 +17713,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .marker-cluster-shape {
   width: 35px;
   height: 35px;
-  background-color: #444752;
+  background-color: var(--directorist-color-marker-shape);
   border-radius: 50%;
   display: -webkit-box;
   display: -webkit-flex;
@@ -17720,7 +17727,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   -webkit-justify-content: center;
       -ms-flex-pack: center;
           justify-content: center;
-  color: var(--directorist-color-white);
+  color: var(--directorist-color-marker-icon);
   font-size: 15px;
   font-weight: 700;
   position: relative;
@@ -17733,7 +17740,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   height: 47px;
   right: -6px;
   top: -6px;
-  background: rgba(var(--directorist-color-dark-rgb), 0.15);
+  background: rgba(var(--directorist-color-marker-shape-rgb), 0.15);
   border-radius: 50%;
 }
 

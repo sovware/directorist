@@ -5,6 +5,9 @@ $button_primary_bg_color          = get_directorist_option('button_primary_bg_co
 $button_secondary_color           = get_directorist_option('button_secondary_color', '#000000');
 $button_secondary_bg_color        = get_directorist_option('button_secondary_bg_color', '#f2f3f5');
 
+$button_primary_color_rgb         = directorist_hex_to_rgb( get_directorist_option( 'button_primary_bg_color', '#000000' ) );
+$button_secondary_color_rgb       = directorist_hex_to_rgb( get_directorist_option( 'button_secondary_bg_color', '#000000' ) );
+
 $open_badge_color                 = get_directorist_option('open_back_color', '#28A800');
 $closed_badge_color               = get_directorist_option('closed_back_color', '#e23636');
 $featured_badge_color             = get_directorist_option('featured_back_color', '#fa8b0c');
@@ -13,6 +16,8 @@ $new_badge_color                  = get_directorist_option('new_back_color', '#2
 
 $marker_shape_color               = get_directorist_option('marker_shape_color', '#000000');
 $marker_icon_color                = get_directorist_option('marker_icon_color', '#ffffff');
+
+$marker_shape_color_rgb           = directorist_hex_to_rgb( get_directorist_option( 'marker_shape_color', '#000000' ) );
 
 $primary_color                    = get_directorist_option( 'brand_color', '#000000' );
 $secondary_color                  = get_directorist_option('color_secondary', '#F2F3F5');
@@ -24,8 +29,6 @@ $warning_color                    = get_directorist_option('color_warning', '#f2
 $danger_color                     = get_directorist_option('color_danger', '#f80718');
 $gray_color                       = get_directorist_option('color_gray', '#bcbcbc');
 
-$button_primary_color_rgb         = directorist_hex_to_rgb( get_directorist_option( 'button_primary_bg_color', '#000000' ) );
-$button_secondary_color_rgb         = directorist_hex_to_rgb( get_directorist_option( 'button_secondary_bg_color', '#000000' ) );
 $primary_color_rgb    = directorist_hex_to_rgb( get_directorist_option( 'brand_color', '#000000' ) );
 $secondary_color_rgb  = directorist_hex_to_rgb( get_directorist_option( 'color_secondary', '#F2F3F5' ) );
 $dark_color_rgb       = directorist_hex_to_rgb( get_directorist_option( 'color_dark', '#000000' ) );
@@ -71,8 +74,8 @@ $gray_color_rgb       = directorist_hex_to_rgb( get_directorist_option( 'color_g
         --directorist-color-placeholder: #6c757d;
 
         /* other color */
-        --directorist-color-overlay: rgba(0,0,0,0.5);
-        --directorist-color-overlay-normal: rgba(0,0,0,0.2);
+        --directorist-color-overlay: rgba(var(--directorist-color-dark-rgb),0.5);
+        --directorist-color-overlay-normal: rgba(var(--directorist-color-dark-rgb),0.2);
         --directorist-color-border: #e9e9e9;
         --directorist-color-border-gray: #d9d9d9;
 
@@ -89,6 +92,7 @@ $gray_color_rgb       = directorist_hex_to_rgb( get_directorist_option( 'color_g
         /* Map marker Color */
         --directorist-color-marker-shape: <?php echo $marker_shape_color; ?>;
         --directorist-color-marker-icon: <?php echo $marker_icon_color; ?>;
+        --directorist-color-marker-shape-rgb: <?php echo $marker_shape_color_rgb ?? '0,0,0'; ?>;
 
         /* Font config */
         --directorist-fw-regular: 400;

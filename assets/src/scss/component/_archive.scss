@@ -161,7 +161,7 @@
         font-size: 14px;
         font-weight: 400;
         color: var(--directorist-color-body);
-        background-color: var(--directorist-color-light);
+        background-color: var(--directorist-color-light) !important;
         border: 2px solid var(--directorist-color-white);
         padding: 0 20px;
         border-radius: 8px;
@@ -173,7 +173,8 @@
           margin-right: 2px;
         }
         &:hover {
-          background-color: var(--directorist-color-gray);
+          background-color: transparent !important;
+          color:rgba(var(--directorist-color-btn-primary-rgb), 0.8);
         }
       }
     }

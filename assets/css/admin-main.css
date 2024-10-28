@@ -9334,7 +9334,7 @@ body.stop-scrolling {
 .directorist-add-listing-form .leaflet-pane .leaflet-marker-icon .atbd_map_shape:before {
   left: -25px;
   top: -25px;
-  border: 50px solid rgba(var(--directorist-color-primary-rgb), 0.2);
+  border: 50px solid rgba(var(--directorist-color-marker-shape-rgb), 0.2);
 }
 .directorist-add-listing-form .leaflet-pane .leaflet-marker-icon .atbd_map_shape .directorist-icon-mask::after {
   width: 12px;
@@ -11577,13 +11577,16 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   outline: 0 !important;
 }
 .directorist-btn:hover:not(.directorist-single-listing-action), .directorist-btn:focus:not(.directorist-single-listing-action) {
-  background-color: rgba(var(--directorist-color-primary-rgb), 0.85);
+  background-color: rgba(var(--directorist-color-primary-rgb), 0.8);
 }
 
 .directorist-btn.directorist-btn-primary {
   background-color: var(--directorist-color-btn-primary-bg);
   color: var(--directorist-color-btn-primary);
   border: 1px solid var(--directorist-color-btn-primary-border);
+}
+.directorist-btn.directorist-btn-primary:hover {
+  background-color: rgba(var(--directorist-color-btn-primary-rgb), 0.8);
 }
 .directorist-btn.directorist-btn-primary:hover .directorist-icon-mask:after {
   background-color: var(--directorist-color-btn-primary);

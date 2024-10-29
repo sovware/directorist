@@ -3,7 +3,8 @@
     <div class="theme-card-wrapper">
         <div class="theme-card">
             <figure>
-                <?php if ( ! empty( $args['current_active_theme_info']['thumbnail'] ) ): ?>
+                <?php 
+                if ( ! empty( $args['current_active_theme_info']['thumbnail'] ) ): ?>
                 <img src="<?php echo esc_url( $args['current_active_theme_info']['thumbnail'] ); ?>" alt="">
                 <?php endif;?>
 
@@ -21,7 +22,7 @@
             <?php if ( $args['current_active_theme_info']['has_update'] ): ?>
             <div class="theme-card__footer">
                 <p class="theme-update theme-update--available"><?php esc_html_e( 'Update available', 'directorist' )?> <!-- <a hre="#" class="whats-new" data-target="whats-new-modal">What's new?</a> --></p>
-                <a href="#" class="theme-update-btn" data-target="<?php echo esc_attr( $args['current_active_theme_info']['stylesheet'] ); ?>"><?php esc_html_e( 'Update', 'directorist' )?></a>
+                <a href="#" class="theme-update-btn" data-target="<?php echo esc_attr( $args['current_active_theme_info']['stylesheet'] ); ?>"><?php echo $args['is_beta'] ? 'Update Beta' : 'Update'; ?></a>
             </div>
             <?php endif;?>
 
@@ -71,7 +72,7 @@
                                     </div><!-- ends: .update-list -->
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="submit" class="btn btn-primary"><?php esc_html_e( 'Update Now', 'directorist' )?></button>
+                                    <button type="submit" class="btn btn-primary"><?php echo $args['is_beta'] ? 'Update Beta' : 'Update'; ?></button>
                                 </div>
                             </div>
                         </div>
@@ -107,7 +108,7 @@
 
                             <?php else: ?>
                                 <a href="#" data-type="theme" data-key="<?php echo esc_attr( $_theme_base ) ?>" class="theme-action-btn file-install-btn">
-                                    <i class="la la-download"></i>                                                                   <?php esc_html_e( 'Install', 'directorist' )?>
+                                    <i class="la la-download"></i>                                                                   <?php echo $args['is_beta'] ? 'Install Beta' : 'Install'; ?>
                                 </a>
 
                                 <?php if ( ! empty( $_theme_args['demo_link'] ) ): ?>

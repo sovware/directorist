@@ -1592,7 +1592,7 @@ span.atbdp-tick-cross {
         cursor: pointer;
 
         &.btn-primary {
-          background: $primary;
+          background: var(--directorist-color-primary);
           border: 0 none;
           color: #fff;
         }

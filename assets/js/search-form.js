@@ -1582,6 +1582,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     $('body').on('click', '.directorist-instant-search .directorist-type-nav__link', function (e) {
       setTimeout(function () {
         handleRadiusVisibility();
+        directorist_custom_range_slider();
       }, 600);
     });
 

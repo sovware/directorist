@@ -213,7 +213,7 @@
     padding: 20px 30px;
     border-bottom: 1px solid #e3e6ef;
     i {
-      background-color: var(--directorist-color-dark);
+      background-color: var(--directorist-color-primary);
       &:after {
         background-color: var(--directorist-color-white);
       }
@@ -341,7 +341,7 @@
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background-color: #202428;
+    background-color: var(--directorist-color-primary);
     border: 0 none;
     mask-image: none;
     z-index: 2;
@@ -769,6 +769,7 @@
       &:after {
         width: 16px;
         height: 16px;
+        background-color: var(--directorist-color-marker-icon);
       }
     }
     &:hover {

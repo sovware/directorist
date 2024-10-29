@@ -1063,6 +1063,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 					'type' => $type,
 				)
 			);
+
 			wp_send_json( $installation_status );
 		}
 
@@ -1134,7 +1135,9 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 				return array( 'status' => $status );
 			}
 
-			$link          = $installing_file['download_link'];
+			$beta_link = ! empty( $installing_file['beta_link'] ) ? $installing_file['beta_link'] : '';
+
+			$link          = ATBDP()->beta ? $beta_link : $installing_file['download_link'];
 			$download_args = array( 'url' => $link );
 
 			if ( 'plugin' === $type ) {

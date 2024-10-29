@@ -307,44 +307,75 @@ class AI_Builder {
 		$system_prompt = <<<SYSTEM_PROMPT
 You are an assistant for a directory setup tool. Based on selected keywords, suggest exactly 20 fields grouped by relevance, ensuring each group contains at least 3 fields.
 
-For each field, include:
-- "type": Field type as specified (use only the types provided exactly as written).
+For each field, include the following attributes:
+- "type": The field type as specified (use only the types provided exactly as written).
 - "label": The display name for the field.
 - "group": The name of the field's group.
 - "options": Include only if the field type is "select", "checkbox", or "radio".
 
-**Preset Fields** (single use only):
+**Preset Fields** (to be used only once):
 - Description (type: "description")
+  - Use case: Main description with WYSIWYG editor, supporting HTML tags.
 - Tagline (type: "tagline")
+  - Use case: For tagline or motto-related text.
 - Pricing (type: "pricing")
+  - Use case: For price input with options for numeric or range types (ultra high, expensive, moderate, cheap).
 - Excerpt (type: "excerpt")
+  - Use case: Short description; does not support HTML.
+- Title (type: "title")
+  - Use case: Always required; use whenever a title or similar information is needed.
 - Location (type: "location")
+  - Use case: WordPress custom hierarchical taxonomy for location.
 - Tag (type: "tag")
+  - Use case: Non-hierarchical taxonomy for tagging.
 - Category (type: "category")
+  - Use case: Hierarchical taxonomy for categorizing listings.
 - Map (type: "map")
+  - Use case: Displays the live location based on address using Google or OpenStreetMap API.
 - Address (type: "address")
+  - Use case: Field for listing address; maps in real-time.
 - Post code (type: "postcode")
+  - Use case: Field for listing postal code.
 - Phone (type: "phone")
+  - Use case: Primary phone number for the listing.
 - Phone 2 (type: "phone2")
+  - Use case: Secondary phone number for the listing.
 - Fax (type: "fax")
+  - Use case: Field for listing fax number.
 - Email (type: "email")
+  - Use case: Field for listing email address.
 - Website (type: "website")
+  - Use case: Field for listing website URL.
 - Social Info (type: "socialinfo")
+  - Use case: Repeater field for social media links; use only when social links are needed.
 - Images (type: "images")
+  - Use case: Field for uploading one or multiple images.
 - Video (type: "video")
+  - Use case: Field for video links (supports YouTube and Vimeo by default).
 
-**Custom Fields** (multiple uses allowed with incremental naming if used more than once):
+**Custom Fields** (multiple uses allowed, using incremental naming if applicable):
 - Text (type: "text")
+  - Use case: Any single-line text attributes for listings.
 - Textarea (type: "textarea")
+  - Use case: Any multi-line text attributes for listings.
 - Number (type: "number")
+  - Use case: Numeric input for listing attributes.
 - URL (type: "url")
+  - Use case: Any URL attributes (e.g., video, audio, file).
 - Date (type: "date")
+  - Use case: Date attributes for listings.
 - Time (type: "time")
+  - Use case: Time attributes for listings.
 - Color Picker (type: "color_picker")
+  - Use case: Color selection for attributes.
 - Select (type: "select")
+  - Use case: Attributes with multiple options, allowing single selection.
 - Checkbox (type: "checkbox")
+  - Use case: Attributes allowing multiple selections.
 - Radio (type: "radio")
+  - Use case: Attributes allowing a single selection (similar to select).
 - File Upload (type: "file_upload")
+  - Use case: Field for uploading files (e.g., images, PDFs, videos).
 
 Respond **only in JSON format** as follows:
 {
@@ -510,6 +541,7 @@ USER_PROMPT;
 
 		$preset_fields_map = [
 			// ai field type => widget_key
+			'title'       => 'title',
 			'description' => 'description',
 			'tagline'     => 'tagline',
 			'pricing'     => 'pricing',

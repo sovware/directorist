@@ -1476,7 +1476,7 @@ span.atbdp-tick-cross {
   cursor: pointer;
 }
 .postbox-container .postbox .form-group .btn.btn-primary {
-  background: var(--directorist-color-primary, #444752);
+  background: #444752;
   border: 0 none;
   color: #fff;
 }
@@ -8348,7 +8348,7 @@ body.stop-scrolling {
   border-bottom: 1px solid #e3e6ef;
 }
 #directiost-listing-fields_wrapper .directorist-content-module__title i {
-  background-color: var(--directorist-color-primary);
+  background-color: var(--directorist-color-dark);
 }
 #directiost-listing-fields_wrapper .directorist-content-module__title i:after {
   background-color: var(--directorist-color-white);
@@ -8883,7 +8883,6 @@ body.stop-scrolling {
 .directorist-form-map-field .atbd_map_shape .directorist-icon-mask:after {
   width: 16px;
   height: 16px;
-  background-color: var(--directorist-color-marker-icon);
 }
 .directorist-form-map-field .atbd_map_shape:hover:before {
   opacity: 1;
@@ -11591,10 +11590,10 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   color: var(--directorist-color-btn-primary);
   border: 1px solid var(--directorist-color-btn-primary-border);
 }
-.directorist-btn.directorist-btn-primary:hover {
+.directorist-btn.directorist-btn-primary:focus, .directorist-btn.directorist-btn-primary:hover {
   background-color: rgba(var(--directorist-color-btn-primary-rgb), 0.8);
 }
-.directorist-btn.directorist-btn-primary:hover .directorist-icon-mask:after {
+.directorist-btn.directorist-btn-primary:focus .directorist-icon-mask:after, .directorist-btn.directorist-btn-primary:hover .directorist-icon-mask:after {
   background-color: var(--directorist-color-btn-primary);
 }
 .directorist-btn.directorist-btn-secondary {
@@ -11602,41 +11601,48 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   color: var(--directorist-color-btn-secondary);
   border: 1px solid var(--directorist-color-btn-secondary-border);
 }
-.directorist-btn.directorist-btn-secondary:hover {
+.directorist-btn.directorist-btn-secondary:focus, .directorist-btn.directorist-btn-secondary:hover {
   background-color: transparent;
   color: currentColor;
   border-color: var(--directorist-color-btn-secondary-bg);
 }
 .directorist-btn.directorist-btn-dark {
   background-color: var(--directorist-color-dark);
+  border-color: var(--directorist-color-dark);
   color: var(--directorist-color-white);
 }
 .directorist-btn.directorist-btn-success {
   background-color: var(--directorist-color-success);
+  border-color: var(--directorist-color-success);
   color: var(--directorist-color-white);
 }
 .directorist-btn.directorist-btn-info {
   background-color: var(--directorist-color-info);
+  border-color: var(--directorist-color-info);
   color: var(--directorist-color-white);
 }
 .directorist-btn.directorist-btn-light {
   background-color: var(--directorist-color-light);
+  border-color: var(--directorist-color-light);
   color: var(--directorist-color-primary);
 }
-.directorist-btn.directorist-btn-light:hover {
+.directorist-btn.directorist-btn-light:focus, .directorist-btn.directorist-btn-light:hover {
   background-color: var(--directorist-color-light-hover);
   color: var(--directorist-color-primary);
   border-color: var(--directorist-color-color-primary);
 }
 .directorist-btn.directorist-btn-lighter {
+  border-color: var(--directorist-color-dark);
   background-color: #f6f7f9;
   color: var(--directorist-color-primary);
 }
 .directorist-btn.directorist-btn-warning {
+  border-color: var(--directorist-color-warning);
   background-color: var(--directorist-color-warning);
   color: var(--directorist-color-white);
 }
 .directorist-btn.directorist-btn-danger {
+  border-color: var(--directorist-color-danger);
   background-color: var(--directorist-color-danger);
   color: var(--directorist-color-white);
 }

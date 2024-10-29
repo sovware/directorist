@@ -51,6 +51,7 @@
     background-color: var(--directorist-color-btn-primary-bg);
     color: var(--directorist-color-btn-primary);
     border: 1px solid var(--directorist-color-btn-primary-border);
+    &:focus,
     &:hover {
       background-color: rgba(var(--directorist-color-btn-primary-rgb), 0.80) ;
       .directorist-icon-mask:after {
@@ -63,6 +64,7 @@
     background-color: var(--directorist-color-btn-secondary-bg);
     color: var(--directorist-color-btn-secondary);
     border: 1px solid var(--directorist-color-btn-secondary-border);
+    &:focus,
     &:hover{
       background-color: transparent;
       color:currentColor;
@@ -72,22 +74,27 @@
 
   &.directorist-btn-dark {
     background-color: var(--directorist-color-dark);
+    border-color:var(--directorist-color-dark);
     color: var(--directorist-color-white);
   }
 
   &.directorist-btn-success {
     background-color: var(--directorist-color-success);
+    border-color:var(--directorist-color-success);
     color: var(--directorist-color-white);
   }
 
   &.directorist-btn-info {
     background-color: var(--directorist-color-info);
+    border-color:var(--directorist-color-info);
     color: var(--directorist-color-white);
   }
 
   &.directorist-btn-light {
     background-color: var(--directorist-color-light);
+    border-color:var(--directorist-color-light);
     color: var(--directorist-color-primary);
+    &:focus,
     &:hover {
       background-color: var(--directorist-color-light-hover);
       color:var(--directorist-color-primary);
@@ -96,16 +103,19 @@
   }
 
   &.directorist-btn-lighter {
+    border-color:var(--directorist-color-dark);
     background-color: #f6f7f9;
     color: var(--directorist-color-primary);
   }
 
   &.directorist-btn-warning {
+    border-color:var(--directorist-color-warning);
     background-color: var(--directorist-color-warning);
     color: var(--directorist-color-white);
   }
 
   &.directorist-btn-danger {
+    border-color:var(--directorist-color-danger);
     background-color: var(--directorist-color-danger);
     color: var(--directorist-color-white);
   }

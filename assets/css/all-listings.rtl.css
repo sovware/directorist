@@ -3528,7 +3528,7 @@ body.stop-scrolling {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background-color: #202428;
+  background-color: var(--directorist-color-primary);
   border: 0 none;
   -webkit-mask-image: none;
           mask-image: none;

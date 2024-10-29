@@ -712,6 +712,7 @@ import './components/directoristSelect';
         $('body').on('click', '.directorist-instant-search .directorist-type-nav__link', function(e) {
             setTimeout(() => {
                 handleRadiusVisibility();
+                directorist_custom_range_slider();
             }, 600)
         });
 

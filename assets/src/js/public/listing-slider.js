@@ -283,11 +283,14 @@
 
             // Loop Destroy on Single Slider Item
             let sliderItemsCount = swiperCarouselSingleListing.querySelectorAll('.directorist-swiper__pagination .swiper-pagination-bullet');
+            let swiperListingThumb = swiperCarouselSingleListing.parentElement.querySelector('.directorist-single-listing-slider-thumb');
 
             if(sliderItemsCount.length <= '1') {
                 swiperSingleListing.loopDestroy();
                 swiperCarouselSingleListing.classList.add('slider-has-one-item');
-                swiperCarouselSingleListing.parentElement.querySelector('.directorist-single-listing-slider-thumb').style.display = 'none';
+                if (swiperListingThumb) {
+                    swiperListingThumb.style.display = 'none';
+                }
             }
 
             // Add Styles

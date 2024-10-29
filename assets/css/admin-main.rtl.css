@@ -3680,10 +3680,10 @@ input.atbdp-form-control {
 }
 
 #directorist.atbd_wrapper .et-column {
-  -webkit-box-flex: 0;
-  -webkit-flex: 0 0 50%;
-      -ms-flex: 0 0 50%;
-          flex: 0 0 50%;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
   padding: 25px;
 }
 @media only screen and (max-width: 767px) {
@@ -9741,6 +9741,10 @@ body.stop-scrolling {
 }
 .multistep-wizard__nav__btn.active i::after, .multistep-wizard__nav__btn:hover i::after {
   background-color: var(--directorist-color-primary);
+}
+.multistep-wizard__nav__btn:focus {
+  outline: none;
+  color: var(--directorist-color-light-gray);
 }
 .multistep-wizard__nav__btn.completed {
   color: var(--directorist-color-primary);

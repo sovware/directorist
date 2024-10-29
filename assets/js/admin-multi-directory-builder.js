@@ -18607,6 +18607,9 @@ __webpack_require__.r(__webpack_exports__);
 
       // Remove class from parent with class 'atbdp-cpt-manager'
       var parentElement = this.$el.closest('.atbdp-cpt-manager');
+      console.log('@chk close', {
+        parentElement: parentElement
+      });
       if (parentElement) {
         parentElement.classList.remove('trash-overlay-visible');
       }
@@ -19081,6 +19084,15 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     },
     closeConfirmationModal: function closeConfirmationModal() {
       this.showConfirmationModal = false;
+
+      // Remove class to parent with class 'atbdp-cpt-manager'
+      var parentElement = this.$el.closest('.atbdp-cpt-manager');
+      console.log('@chk group close', {
+        parentElement: parentElement
+      });
+      if (parentElement) {
+        parentElement.classList.remove('trash-overlay-visible');
+      }
     },
     trashGroup: function trashGroup() {
       this.$emit("trash-group");
@@ -27793,12 +27805,12 @@ var render = function render() {
       domProps: {
         innerHTML: _vm._s(_vm.learn_more.title)
       }
-    }) : _vm._e()]), _vm._v(" "), _c("div", {
+    }) : _vm._e()]), _vm._v(" "), section.fields[0] === "submission_form_fields" ? _c("div", {
       staticClass: "directorist-form-doc-right"
     }, [_c("a", {
       staticClass: "directorist-form-doc__preview",
       attrs: {
-        href: "",
+        href: "#",
         target: "_blank"
       },
       on: {
@@ -27821,7 +27833,7 @@ var render = function render() {
         d: "M5.33749 1.86822C5.34546 1.87353 5.35345 1.87886 5.36147 1.88421L12.394 6.57255C12.5975 6.70817 12.7861 6.83392 12.931 6.95077C13.0822 7.07273 13.2605 7.24185 13.3631 7.48925C13.4987 7.81625 13.4987 8.18376 13.3631 8.51077C13.2605 8.75817 13.0822 8.92729 12.931 9.04924C12.7861 9.1661 12.5975 9.29184 12.394 9.42746L5.33751 14.1318C5.08879 14.2976 4.86513 14.4468 4.67535 14.5496C4.48544 14.6525 4.22477 14.7701 3.92052 14.752C3.53135 14.7287 3.17185 14.5363 2.93665 14.2254C2.75276 13.9823 2.70602 13.7002 2.68631 13.4851C2.66662 13.2701 2.66664 13.0014 2.66666 12.7024L2.66666 3.32643C2.66666 3.31679 2.66666 3.30718 2.66666 3.2976C2.66664 2.99867 2.66662 2.72987 2.68631 2.51492C2.70602 2.29982 2.75276 2.01769 2.93665 1.77461C3.17185 1.46369 3.53135 1.27129 3.92052 1.24806C4.22477 1.22989 4.48545 1.3475 4.67536 1.45042C4.86513 1.55326 5.08878 1.70238 5.33749 1.86822ZM4.01674 2.61031C4.01584 2.61839 4.01495 2.62713 4.01409 2.63658C4.00066 2.78307 3.99999 2.98946 3.99999 3.32643V12.6736C3.99999 13.0106 4.00066 13.2169 4.01409 13.3634C4.01495 13.3729 4.01584 13.3816 4.01674 13.3897C4.02396 13.386 4.03173 13.3819 4.04007 13.3773C4.1694 13.3073 4.3415 13.1933 4.62187 13.0064L11.6322 8.33283C11.8655 8.17735 12.0022 8.08542 12.094 8.01137C12.099 8.00736 12.1036 8.00357 12.1079 8.00001C12.1036 7.99644 12.099 7.99265 12.094 7.98864C12.0022 7.9146 11.8655 7.82267 11.6322 7.66719L4.62187 2.99361C4.3415 2.80669 4.1694 2.69277 4.04007 2.62267C4.03173 2.61815 4.02396 2.61405 4.01674 2.61031Z",
         fill: "currentColor"
       }
-    })]), _vm._v("\n          preview\n        ")])])]) : _vm._e(), _vm._v(" "), section.fields[0] !== "submission_form_fields" && section.fields[0] !== "search_form_fields" && section.fields[0] !== "single_listing_header" && section.fields[0] !== "single_listing_header" && section.fields[0] !== "single_listings_contents" && section.fields[0] !== "listings_card_grid_view" && section.fields[0] !== "listings_card_list_view" ? _c("div", {
+    })]), _vm._v("\n          preview\n        ")])]) : _vm._e()]) : _vm._e(), _vm._v(" "), section.fields[0] !== "submission_form_fields" && section.fields[0] !== "search_form_fields" && section.fields[0] !== "single_listing_header" && section.fields[0] !== "single_listing_header" && section.fields[0] !== "single_listings_contents" && section.fields[0] !== "listings_card_grid_view" && section.fields[0] !== "listings_card_list_view" ? _c("div", {
       staticClass: "cptm-title-area",
       class: _vm.sectionTitleAreaClass(section)
     }, [section.title ? _c("h3", {

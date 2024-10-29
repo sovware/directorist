@@ -14362,6 +14362,7 @@ input:-webkit-autofill:active {
 .atbdp-cpt-manager.trash-overlay-visible {
   position: fixed;
   z-index: 9;
+  width: calc(100% - 200px);
 }
 .atbdp-cpt-manager.trash-overlay-visible .directorist-directory-type-top,
 .atbdp-cpt-manager.trash-overlay-visible .directorist-directory-type-bottom .cptm-header-navigation {
@@ -19580,6 +19581,7 @@ input[type=radio]:checked::before {
 .atbdp-cpt-manager.trash-overlay-visible {
   position: fixed;
   z-index: 9;
+  width: calc(100% - 200px);
 }
 .atbdp-cpt-manager.trash-overlay-visible .directorist-directory-type-top,
 .atbdp-cpt-manager.trash-overlay-visible .directorist-directory-type-bottom .cptm-header-navigation {
@@ -25065,6 +25067,7 @@ input[type=radio]:checked::before {
 .atbdp-cpt-manager.trash-overlay-visible {
   position: fixed;
   z-index: 9;
+  width: calc(100% - 200px);
 }
 .atbdp-cpt-manager.trash-overlay-visible .directorist-directory-type-top,
 .atbdp-cpt-manager.trash-overlay-visible .directorist-directory-type-bottom .cptm-header-navigation {

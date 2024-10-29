@@ -22394,6 +22394,9 @@ Review: New Style
   padding: 0;
   margin: 0;
 }
+.directorist-payment-gateways li:not(:last-child) {
+  margin-bottom: 15px;
+}
 .directorist-payment-gateways li .gateway_list {
   margin-bottom: 10px;
 }

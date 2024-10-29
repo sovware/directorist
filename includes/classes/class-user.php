@@ -62,9 +62,8 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 
 			$params_json_decode    = json_decode( stripslashes( $_POST['params'] ), true );
 			$params                = directorist_clean( $params_json_decode);
-			$new_user_registration = ! empty( $params['new_user_registration'] ) && 'yes' === $params['new_user_registration']  ? 1 : 0;
 
-			if ( ! $new_user_registration ) {
+			if ( ! directorist_is_user_registration_enabled() ) {
 				wp_send_json_error( array(
 					'error' => 'You are not allowed to register.'
 				), 400 );
@@ -528,13 +527,13 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 				exit;
 			}
 
-			if ( $signin_page_id && is_user_logged_in() && is_page( $signin_page_id ) ) {
+			if ( $signin_page_id && is_user_logged_in() && is_page( $signin_page_id ) && empty( $_GET ) ) {
 				wp_safe_redirect( ATBDP_Permalink::get_dashboard_page_link() );
 				exit;
 			}
 
 			$registration_page = get_directorist_option( 'custom_registration' );
-			if( ! get_directorist_option( 'new_user_registration', true ) && $registration_page && is_page( $registration_page ) ) {
+			if ( ! directorist_is_user_registration_enabled() && $registration_page && is_page( $registration_page ) ) {
 				wp_redirect( home_url( '/' ) );
 				exit;
 			}
@@ -804,8 +803,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 		}
 
 		public function handle_user_registration() {
-			$new_user_registration = (bool) get_directorist_option( 'new_user_registration', true );
-			if ( ! directorist_verify_nonce() || ! isset( $_POST['atbdp_user_submit'] ) || ! $new_user_registration ) {
+			if ( ! directorist_verify_nonce() || ! isset( $_POST['atbdp_user_submit'] ) || ! directorist_is_user_registration_enabled() ) {
 				return;
 			}
 

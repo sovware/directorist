@@ -21,7 +21,7 @@
     >
       {{ showAdvanced ? "Basic" : "Advanced" }}
     </button>
-  </div> 
+  </div>
 </template>
 
 <script>

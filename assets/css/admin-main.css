@@ -1476,7 +1476,7 @@ span.atbdp-tick-cross {
   cursor: pointer;
 }
 .postbox-container .postbox .form-group .btn.btn-primary {
-  background: #444752;
+  background: var(--directorist-color-primary, #444752);
   border: 0 none;
   color: #fff;
 }
@@ -8348,7 +8348,7 @@ body.stop-scrolling {
   border-bottom: 1px solid #e3e6ef;
 }
 #directiost-listing-fields_wrapper .directorist-content-module__title i {
-  background-color: var(--directorist-color-dark);
+  background-color: var(--directorist-color-primary);
 }
 #directiost-listing-fields_wrapper .directorist-content-module__title i:after {
   background-color: var(--directorist-color-white);
@@ -8883,6 +8883,7 @@ body.stop-scrolling {
 .directorist-form-map-field .atbd_map_shape .directorist-icon-mask:after {
   width: 16px;
   height: 16px;
+  background-color: var(--directorist-color-marker-icon);
 }
 .directorist-form-map-field .atbd_map_shape:hover:before {
   opacity: 1;

@@ -230,7 +230,7 @@ export default {
       // Add class to parent with class 'atbdp-cpt-manager'
       const parentElement = this.$el.closest('.atbdp-cpt-manager');
       if (parentElement) {
-        parentElement.classList.add('trash-overlay-visible');
+        parentElement.classList.add('directorist-overlay-visible');
       }
     },
 
@@ -241,7 +241,7 @@ export default {
       const parentElement = this.$el.closest('.atbdp-cpt-manager');
       console.log('@chk group close', {parentElement});
       if (parentElement) {
-        parentElement.classList.remove('trash-overlay-visible');
+        parentElement.classList.remove('directorist-overlay-visible');
       }
     },
 

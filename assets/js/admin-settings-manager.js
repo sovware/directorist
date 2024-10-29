@@ -18126,7 +18126,7 @@ __webpack_require__.r(__webpack_exports__);
       // Add class to parent with class 'atbdp-cpt-manager'
       var parentElement = this.$el.closest('.atbdp-cpt-manager');
       if (parentElement) {
-        parentElement.classList.add('trash-overlay-visible');
+        parentElement.classList.add('directorist-overlay-visible');
       }
     },
     closeConfirmationModal: function closeConfirmationModal() {
@@ -18134,11 +18134,8 @@ __webpack_require__.r(__webpack_exports__);
 
       // Remove class from parent with class 'atbdp-cpt-manager'
       var parentElement = this.$el.closest('.atbdp-cpt-manager');
-      console.log('@chk close', {
-        parentElement: parentElement
-      });
       if (parentElement) {
-        parentElement.classList.remove('trash-overlay-visible');
+        parentElement.classList.remove('directorist-overlay-visible');
       }
     },
     trashWidget: function trashWidget() {
@@ -18606,7 +18603,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       // Add class to parent with class 'atbdp-cpt-manager'
       var parentElement = this.$el.closest('.atbdp-cpt-manager');
       if (parentElement) {
-        parentElement.classList.add('trash-overlay-visible');
+        parentElement.classList.add('directorist-overlay-visible');
       }
     },
     closeConfirmationModal: function closeConfirmationModal() {
@@ -18618,7 +18615,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         parentElement: parentElement
       });
       if (parentElement) {
-        parentElement.classList.remove('trash-overlay-visible');
+        parentElement.classList.remove('directorist-overlay-visible');
       }
     },
     trashGroup: function trashGroup() {

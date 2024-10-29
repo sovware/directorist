@@ -9742,6 +9742,10 @@ body.stop-scrolling {
 .multistep-wizard__nav__btn.active i::after, .multistep-wizard__nav__btn:hover i::after {
   background-color: var(--directorist-color-primary);
 }
+.multistep-wizard__nav__btn:focus {
+  outline: none;
+  color: var(--directorist-color-light-gray);
+}
 .multistep-wizard__nav__btn.completed {
   color: var(--directorist-color-primary);
 }

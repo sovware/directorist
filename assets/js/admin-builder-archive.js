@@ -689,7 +689,7 @@ function initialStepContents() {
   updatePrompt();
 
   // Directory Title Input Listener
-  $directoryName.on('keyup change ', function (e) {
+  $directoryName.on('input', function (e) {
     directoryTitle = $(this).val();
     if (directoryTitle) {
       handleCreateButtonEnable();
@@ -699,7 +699,7 @@ function initialStepContents() {
   });
 
   // Directory Location Input Listener
-  $directoryLocation.on('keyup change', function (e) {
+  $directoryLocation.on('input', function (e) {
     directoryLocation = $(this).val();
     updatePrompt();
   });

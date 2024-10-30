@@ -17,13 +17,6 @@ if ( ! is_admin() ) {
 class AI_Builder {
 
 	/**
-	 * Add listing form fields.
-	 *
-	 * @var array
-	 */
-	protected static $form_fields = null;
-
-	/**
 	 * Preset fields map
 	 */
 	protected static $preset_fields = [
@@ -290,19 +283,14 @@ class AI_Builder {
 		$directory_config_file = DIRECTORIST_ASSETS_DIR . 'sample-data/directory/directory.json';
 		$directory_config      = json_decode( file_get_contents( $directory_config_file ), 1 );
 
-		$fields          = json_decode( wp_unslash( $fields, 1 ), 1 );
-		$prepared_fields = static::prepare_fields( $fields );
+		$fields        = json_decode( wp_unslash( $fields, 1 ), 1 );
+		$form_fields   = static::prepare_form_fields( $fields );
+		$single_fields = static::prepare_single_fields( $form_fields );
 
-		$directory_config['submission_form_fields'] = $prepared_fields;
-
-
-		// $updated_config = static::merge_new_fields( $defaults, $fields );
-
-		// return [
-		//     'fields' => $new_fields,
-		//     'builder_content' => $structure,
-		//     'updated_config' => $updated_config,
-		// ];
+		$directory_config['submission_form_fields'] = $form_fields;
+		// $directory_config['single_listing_header']  = $single_fields['header'];
+		// unset( $single_fields['header'] );
+		// $directory_config['single_listings_contents'] = $single_fields;
 
 		DirectoryManager::load_builder_data();
 
@@ -318,9 +306,13 @@ class AI_Builder {
 			$term_id = $directory['status']['term_id'];
 		}
 
+		update_term_meta( $term_id, 'single_listing_header', $single_fields['header'] );
+		unset( $single_fields['header'] );
+		update_term_meta( $term_id, 'single_listings_contents', $single_fields );
+
 		return [
 			'structure'      => $directory_config,
-			'new_fields'     => $prepared_fields['fields'],
+			'new_fields'     => $form_fields['fields'],
 			'updated_config' => $directory_config,
 			'id'             => $term_id,
 		];
@@ -438,11 +430,7 @@ USER_PROMPT;
 			$user_prompt = sprintf( $user_prompt_with_pinned, $keywords, $pinned );
 		}
 
-		// file_put_contents( __DIR__ . '/data.txt', print_r( [$user_prompt, $system_prompt], 1 ), FILE_APPEND );
-
 		$response = directorist_get_form_groq_ai( $user_prompt, $system_prompt );
-
-		// file_put_contents( __DIR__ . '/data.txt', print_r( $response, 1 ), FILE_APPEND );
 
 		if( ! $response ) {
 			wp_send_json([
@@ -501,19 +489,14 @@ USER_PROMPT;
 		return ob_get_clean();
 	}
 
-	protected static function prepare_fields( $fields ) {
-		static::load_form_fields();
+	protected static function prepare_form_fields( $fields ) {
+		$form_fields_file = DIRECTORIST_ASSETS_DIR . 'sample-data/listing-form-fields.json';
+		$form_fields      = json_decode( file_get_contents( $form_fields_file ), 1 );
 
 		$prepared_fields      = [];
 		$prepared_groups      = [];
 		$counter              = [];
 		$should_include_group = false;
-
-		// array (
-		// 	'type' => 'description',
-		// 	'label' => 'Description',
-		// 	'group' => 'Basic Information',
-		//   ),
 
 		foreach ( $fields as $field ) {
 			if ( empty( $field['type'] ) ) {
@@ -524,8 +507,8 @@ USER_PROMPT;
 			if ( isset( static::$preset_fields[ $field['type'] ] ) ) {
 				$field_name = static::$preset_fields[ $field['type'] ];
 
-				if ( isset( static::$form_fields[ $field_name ] ) ) {
-					$_field                         = static::$form_fields[ $field_name ];
+				if ( isset( $form_fields[ $field_name ] ) ) {
+					$_field                         = $form_fields[ $field_name ];
 					$_field['label']                = $field['label'];
 					$prepared_fields[ $field_name ] = $_field;
 
@@ -533,8 +516,8 @@ USER_PROMPT;
 				}
 
 			// Handle custom fields
-			} elseif ( isset( static::$form_fields[ $field['type'] ] ) ) {
-				$_field          = static::$form_fields[ $field['type'] ];
+			} elseif ( isset( $form_fields[ $field['type'] ] ) ) {
+				$_field          = $form_fields[ $field['type'] ];
 				$_field['label'] = $field['label'];
 
 				if ( in_array( $field['type'], [ 'select', 'radio', 'checkbox' ], true ) &&
@@ -590,17 +573,249 @@ USER_PROMPT;
 		];
 	}
 
-	protected static function load_form_fields() {
-		$file = DIRECTORIST_ASSETS_DIR . 'sample-data/listing-form-fields.json';
+	protected static function prepare_single_fields( $form_fields ) {
+		$fields           = [];
+		$ignorable_fields = [
+			'title'        => false,
+			'tagline'      => false,
+			'image_upload' => false,
+			'location'     => false,
+			'category'     => false,
+			'pricing'      => false,
+		];
 
-		if ( is_null( static::$form_fields ) ) {
-			$r = json_decode( file_get_contents( $file ), 1 );
-			if ( $r ) {
-				static::$form_fields = $r;
-			} else {
-				static::$form_fields = [];
+		// Prepare fields
+		foreach ( $form_fields['fields'] as $field_key => $field ) {
+			if ( isset( $ignorable_fields[ $field_key ] ) ) {
+				$ignorable_fields[ $field_key ] = true;
+
+				continue;
+			}
+
+			$fields[ $field_key ] = [
+				'icon'                => 'las la-tag',
+				'widget_group'        => 'preset_widgets',
+				'widget_name'         => $field['widget_name'],
+				'original_widget_key' => $field_key,
+				'widget_key'          => $field_key
+			];
+
+			if ( $field_key === 'address' ) {
+				$fields[ $field_key ]['address_link_with_map'] = false;
+			}
+
+			if ( $field_key === 'website' ) {
+				$fields[ $field_key ]['use_nofollow'] = true;
 			}
 		}
+
+		// Prepare groups
+		$groups               = [];
+		$ignorable_field_keys = array_keys( $ignorable_fields );
+		$section_id           = 0;
+
+		foreach ( $form_fields['groups'] as $group ) {
+			$group_fields = array_diff( $group['fields'], $ignorable_field_keys );
+
+			if ( ! $group_fields ) {
+				continue;
+			}
+
+			$groups[] = [
+				'type'       => 'general_group',
+				'label'      => $group['label'],
+				'fields'     => $group_fields,
+				'section_id' => ++$section_id,
+			];
+		}
+
+		$groups[] = [
+			'type'          => 'section',
+			'label'         => 'Author Info',
+			'section_id'    => ++$section_id,
+			'icon'          => 'las la-user',
+			'display_email' => true,
+			'widget_group'  => 'other_widgets',
+			'widget_name'   => 'author_info',
+		];
+
+		$groups[] = [
+			'type'   => 'section',
+			'label'  => 'Contact Listings Owner Form',
+			'fields' => [
+				'contact_name',
+				'contact_email',
+				'contact_message',
+			],
+			'section_id'       => ++$section_id,
+			'icon'             => 'las la-phone',
+			'accepted_widgets' => [
+				[
+					'widget_group'      => 'other_widgets',
+					'widget_name'       => 'contact_listings_owner',
+					'widget_child_name' => 'contact_name',
+				],
+				[
+					'widget_group'      => 'other_widgets',
+					'widget_name'       => 'contact_listings_owner',
+					'widget_child_name' => 'contact_email',
+				],
+				[
+					'widget_group'      => 'other_widgets',
+					'widget_name'       => 'contact_listings_owner',
+					'widget_child_name' => 'contact_message',
+				],
+			],
+			'widget_group' => 'other_widgets',
+			'widget_name'  => 'contact_listings_owner',
+		];
+
+		// Prepare header
+		$header = static::prepare_single_header_fields( $ignorable_fields );
+
+		return [
+			'header' => $header,
+			'groups' => $groups,
+			'fields' => $fields
+		];
+	}
+
+	protected static function prepare_single_header_fields( $header_fields ) {
+		$fields = [
+			'quick-widgets-placeholder' => [
+				'type'           => 'placeholder_group',
+				'placeholderKey' => 'quick-widgets-placeholder',
+				'placeholders'   => [
+					[
+						'type'           => 'placeholder_group',
+						'placeholderKey' => 'quick-info-placeholder',
+						'selectedWidgets' => [
+							[
+								'type'        => 'button',
+								'label'       => 'Back',
+								'widget_name' => 'back',
+								'widget_key'  => 'back',
+							],
+						],
+					],
+					[
+						'type'           => 'placeholder_group',
+						'placeholderKey' => 'quick-action-placeholder',
+						'selectedWidgets' => [
+							[
+								'type'        => 'button',
+								'label'       => 'Bookmark',
+								'widget_name' => 'bookmark',
+								'widget_key'  => 'bookmark',
+							],
+							[
+								'type'        => 'badge',
+								'label'       => 'Share',
+								'widget_name' => 'share',
+								'widget_key'  => 'share',
+								'icon'        => 'las la-share',
+							],
+							[
+								'type'        => 'badge',
+								'label'       => 'Report',
+								'widget_name' => 'report',
+								'widget_key'  => 'report',
+								'icon'        => 'las la-flag',
+							],
+						],
+					],
+				],
+			],
+			'slider-placeholder' => [
+				'type'           => 'placeholder_item',
+				'placeholderKey' => 'slider-placeholder',
+				'selectedWidgets' => [
+					[
+						'type'           => 'thumbnail',
+						'label'          => 'Listing Image/Slider',
+						'widget_name'    => 'slider',
+						'widget_key'     => 'slider',
+						'footer_thumbnail' => true,
+					],
+				],
+			],
+			'listing-title-placeholder' => [
+				'type'           => 'placeholder_item',
+				'placeholderKey' => 'listing-title-placeholder',
+				'selectedWidgets' => [
+					[
+						'type'          => 'title',
+						'label'         => 'Listing Title',
+						'widget_name'   => 'title',
+						'widget_key'    => 'title',
+						'enable_tagline' => true,
+					],
+				],
+			],
+			'more-widgets-placeholder' => [
+				'type'           => 'placeholder_item',
+				'placeholderKey' => 'more-widgets-placeholder',
+				'selectedWidgets' => [
+					[
+						'type'        => 'badge',
+						'label'       => 'Pricing',
+						'widget_name' => 'price',
+						'widget_key'  => 'price',
+					],
+					[
+						'type'        => 'ratings-count',
+						'label'       => 'Rating',
+						'widget_name' => 'ratings_count',
+						'widget_key'  => 'ratings_count',
+					],
+					[
+						'type'          => 'badge',
+						'label'         => 'Badges',
+						'widget_name'   => 'badges',
+						'widget_key'    => 'badges',
+						'new_badge'     => true,
+						'popular_badge' => true,
+						'featured_badge' => true,
+					],
+					[
+						'type'        => 'badge',
+						'label'       => 'Category',
+						'widget_name' => 'category',
+						'widget_key'  => 'category',
+					],
+					[
+						'type'        => 'badge',
+						'label'       => 'Location',
+						'widget_name' => 'location',
+						'widget_key'  => 'location',
+					],
+				],
+			],
+		];
+
+		if ( ! $header_fields['image_upload'] ) {
+			$fields['slider-placeholder']['selectedWidgets'] = [];
+		}
+
+		if ( ! $header_fields['title'] ) {
+			$fields['listing-title-placeholder']['selectedWidgets'] = [];
+		}
+
+		if ( $header_fields['title'] && $header_fields['tagline'] ) {
+			$fields['listing-title-placeholder']['selectedWidgets'][0]['enable_tagline'] = true;
+		}
+
+		foreach ( $fields['more-widgets-placeholder']['selectedWidgets'] as $index => $widget ) {
+			if (
+				( $widget['widget_key'] === 'price' && ! $header_fields['pricing'] ) ||
+				( $widget['widget_key'] === 'location' && ! $header_fields['location'] ) ||
+				( $widget['widget_key'] === 'category' && ! $header_fields['category'] )
+			) {
+				unset( $fields['more-widgets-placeholder']['selectedWidgets'][ $index ] );
+			}
+		}
+
+		return array_values( $fields );
 	}
 
 	protected static function render_fields( $fields ) {

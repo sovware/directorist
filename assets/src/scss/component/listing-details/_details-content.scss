@@ -333,8 +333,11 @@
   cursor: pointer;
   text-decoration: none;
   color: var(--directorist-color-body);
-  border: 2px solid var(--directorist-color-white);
+  border: 2px solid var(--directorist-color-white) !important;
   transition: 0.2s background-color ease-in-out;
+  &:hover{
+    background-color: var(--directorist-color-white) !important;
+  }
   @media screen and (max-width: 575px) {
     gap: 0;
     padding: 0;

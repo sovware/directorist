@@ -7078,8 +7078,6 @@ body.modal-overlay-enabled:before {
 .directorist-btn:hover, .directorist-btn:focus {
   color: var(--directorist-color-white);
   outline: 0 !important;
-}
-.directorist-btn:hover:not(.directorist-single-listing-action), .directorist-btn:focus:not(.directorist-single-listing-action) {
   background-color: rgba(var(--directorist-color-primary-rgb), 0.8);
 }
 
@@ -7109,15 +7107,24 @@ body.modal-overlay-enabled:before {
   border-color: var(--directorist-color-dark);
   color: var(--directorist-color-white);
 }
+.directorist-btn.directorist-btn-dark:hover {
+  background-color: rgba(var(--directorist-color-dark-rgb), 0.8);
+}
 .directorist-btn.directorist-btn-success {
   background-color: var(--directorist-color-success);
   border-color: var(--directorist-color-success);
   color: var(--directorist-color-white);
 }
+.directorist-btn.directorist-btn-success:hover {
+  background-color: rgba(var(--directorist-color-success-rgb), 0.8);
+}
 .directorist-btn.directorist-btn-info {
   background-color: var(--directorist-color-info);
   border-color: var(--directorist-color-info);
   color: var(--directorist-color-white);
+}
+.directorist-btn.directorist-btn-info:hover {
+  background-color: rgba(var(--directorist-color-success-rgb), 0.8);
 }
 .directorist-btn.directorist-btn-light {
   background-color: var(--directorist-color-light);
@@ -7139,10 +7146,16 @@ body.modal-overlay-enabled:before {
   background-color: var(--directorist-color-warning);
   color: var(--directorist-color-white);
 }
+.directorist-btn.directorist-btn-warning:hover {
+  background-color: rgba(var(--directorist-color-warning-rgb), 0.8);
+}
 .directorist-btn.directorist-btn-danger {
   border-color: var(--directorist-color-danger);
   background-color: var(--directorist-color-danger);
   color: var(--directorist-color-white);
+}
+.directorist-btn.directorist-btn-danger:hover {
+  background-color: rgba(var(--directorist-color-danger-rgb), 0.8);
 }
 .directorist-btn.directorist-btn-bg-normal {
   background: #F9F9F9;
@@ -18547,9 +18560,12 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   cursor: pointer;
   text-decoration: none;
   color: var(--directorist-color-body);
-  border: 2px solid var(--directorist-color-white);
+  border: 2px solid var(--directorist-color-white) !important;
   -webkit-transition: 0.2s background-color ease-in-out;
   transition: 0.2s background-color ease-in-out;
+}
+.directorist-single-listing-action:hover {
+  background-color: var(--directorist-color-white) !important;
 }
 @media screen and (max-width: 575px) {
   .directorist-single-listing-action {

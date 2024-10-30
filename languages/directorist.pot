@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-10-28 09:57+0000\n"
+"POT-Creation-Date: 2024-10-30 10:11+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -14,32 +14,32 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../blocks/init.php:107, ../includes/elementor/init.php:40
+#: ../blocks/init.php:106, ../includes/elementor/init.php:40
 msgid "Directorist"
 msgstr ""
 
-#: ../blocks/init.php:164
+#: ../blocks/init.php:167
 msgid "Current block is %s and it is empty! Maybe the block is used incorrectly or there is something wrong."
 msgstr ""
 
-#: ../blocks/init.php:246
+#: ../blocks/init.php:249
 msgid "shortcode"
 msgstr ""
 
-#: ../blocks/init.php:244
+#: ../blocks/init.php:247
 msgctxt "noun"
 msgid "block"
 msgstr ""
 
-#: ../blocks/init.php:251
+#: ../blocks/init.php:254
 msgid "The only purpose of <mark>single listing %s</mark> is to show the single listing details. Maybe the block has been used in a wrong way!"
 msgstr ""
 
-#: ../blocks/init.php:255
+#: ../blocks/init.php:258
 msgid "Looks like you are using <mark>single listing %s</mark> inside your custom single listing page. Please use the generated shortcodes from directory builder."
 msgstr ""
 
-#: ../blocks/init.php:259
+#: ../blocks/init.php:262
 msgid "<mark>Single listing %s</mark> has been used in a wrong way, please check documentation."
 msgstr ""
 
@@ -51,7 +51,7 @@ msgstr ""
 msgid "Single Listing Page"
 msgstr ""
 
-#: ../blocks/templates/account.php:30, ../includes/helper-functions.php:2659, ../includes/model/Account.php:69
+#: ../blocks/templates/account.php:30, ../blocks/templates/signin-signup.php:38, ../includes/helper-functions.php:2659, ../includes/model/Account.php:69
 msgid "Sign In"
 msgstr ""
 
@@ -59,11 +59,11 @@ msgstr ""
 msgid "Registration"
 msgstr ""
 
-#: ../blocks/templates/login.php:13, ../blocks/templates/login.php:115, ../includes/classes/class-settings-panel.php:2966, ../includes/model/Account.php:68
+#: ../blocks/templates/login.php:13, ../blocks/templates/login.php:115, ../blocks/templates/signin-signup.php:37, ../includes/classes/class-settings-panel.php:2966, ../includes/model/Account.php:68
 msgid "Username or Email Address"
 msgstr ""
 
-#: ../blocks/templates/login.php:14, ../blocks/templates/login.php:116, ../blocks/templates/registration.php:17, ../includes/classes/class-settings-panel.php:2728, ../includes/classes/class-settings-panel.php:2971, ../includes/classes/class-settings-panel.php:3781, ../includes/classes/class-settings-panel.php:3879, ../includes/model/Account.php:42
+#: ../blocks/templates/login.php:14, ../blocks/templates/login.php:116, ../blocks/templates/registration.php:17, ../blocks/templates/signin-signup.php:11, ../includes/classes/class-settings-panel.php:2728, ../includes/classes/class-settings-panel.php:2971, ../includes/classes/class-settings-panel.php:3781, ../includes/classes/class-settings-panel.php:3879, ../includes/model/Account.php:42
 msgid "Password"
 msgstr ""
 
@@ -79,27 +79,27 @@ msgstr ""
 msgid "Recover Password"
 msgstr ""
 
-#: ../blocks/templates/login.php:20, ../blocks/templates/login.php:122, ../includes/classes/class-settings-panel.php:3040, ../includes/model/Account.php:75
+#: ../blocks/templates/login.php:20, ../blocks/templates/login.php:122, ../blocks/templates/signin-signup.php:44, ../includes/classes/class-settings-panel.php:3040, ../includes/model/Account.php:75
 msgid "Lost your password? Please enter your email address. You will receive a link to create a new password via email."
 msgstr ""
 
-#: ../blocks/templates/login.php:21, ../blocks/templates/login.php:123, ../includes/model/Account.php:76
+#: ../blocks/templates/login.php:21, ../blocks/templates/login.php:123, ../blocks/templates/signin-signup.php:45, ../includes/model/Account.php:76
 msgid "E-mail:"
 msgstr ""
 
-#: ../blocks/templates/login.php:22, ../blocks/templates/login.php:124, ../includes/classes/class-settings-panel.php:3062, ../includes/model/Account.php:77
+#: ../blocks/templates/login.php:22, ../blocks/templates/login.php:124, ../blocks/templates/signin-signup.php:46, ../includes/classes/class-settings-panel.php:3062, ../includes/model/Account.php:77
 msgid "eg. mail@example.com"
 msgstr ""
 
-#: ../blocks/templates/login.php:23, ../blocks/templates/login.php:125, ../includes/classes/class-settings-panel.php:3073, ../includes/model/Account.php:78
+#: ../blocks/templates/login.php:23, ../blocks/templates/login.php:125, ../blocks/templates/signin-signup.php:47, ../includes/classes/class-settings-panel.php:3073, ../includes/model/Account.php:78
 msgid "Get New Password"
 msgstr ""
 
-#: ../blocks/templates/login.php:24, ../blocks/templates/login.php:126, ../includes/classes/class-settings-panel.php:3002, ../includes/model/Account.php:70
+#: ../blocks/templates/login.php:24, ../blocks/templates/login.php:126, ../blocks/templates/signin-signup.php:39, ../includes/classes/class-settings-panel.php:3002, ../includes/model/Account.php:70
 msgid "Don't have an account?"
 msgstr ""
 
-#: ../blocks/templates/login.php:26, ../blocks/templates/login.php:128, ../blocks/templates/registration.php:33, ../includes/classes/class-settings-panel.php:2922, ../includes/classes/class-settings-panel.php:3013, ../includes/model/Account.php:62, ../includes/model/Account.php:71
+#: ../blocks/templates/login.php:26, ../blocks/templates/login.php:128, ../blocks/templates/registration.php:33, ../blocks/templates/signin-signup.php:31, ../blocks/templates/signin-signup.php:40, ../includes/classes/class-settings-panel.php:2922, ../includes/classes/class-settings-panel.php:3013, ../includes/model/Account.php:62, ../includes/model/Account.php:71
 msgid "Sign Up"
 msgstr ""
 
@@ -182,7 +182,7 @@ msgstr ""
 msgid "Log Out"
 msgstr ""
 
-#: ../blocks/templates/registration.php:16, ../includes/classes/class-settings-panel.php:2718, ../includes/classes/class-settings-panel.php:3774, ../includes/classes/class-settings-panel.php:3872, ../includes/model/Account.php:40
+#: ../blocks/templates/registration.php:16, ../blocks/templates/signin-signup.php:9, ../includes/classes/class-settings-panel.php:2718, ../includes/classes/class-settings-panel.php:3774, ../includes/classes/class-settings-panel.php:3872, ../includes/model/Account.php:40
 msgid "Username"
 msgstr ""
 
@@ -190,19 +190,19 @@ msgstr ""
 msgid "Email"
 msgstr ""
 
-#: ../blocks/templates/registration.php:22, ../includes/classes/class-settings-panel.php:1750, ../includes/classes/class-settings-panel.php:2760, ../includes/classes/class-settings-panel.php:3795, ../includes/model/Account.php:45, ../includes/review/class-comment-form-renderer.php:243, ../includes/modules/multi-directory-setup/class-builder-data.php:417, ../templates/single-reviews.php:134, ../templates/dashboard/tab-profile.php:105
+#: ../blocks/templates/registration.php:22, ../blocks/templates/signin-signup.php:14, ../includes/classes/class-settings-panel.php:1750, ../includes/classes/class-settings-panel.php:2760, ../includes/classes/class-settings-panel.php:3795, ../includes/model/Account.php:45, ../includes/review/class-comment-form-renderer.php:243, ../includes/modules/multi-directory-setup/class-builder-data.php:417, ../templates/single-reviews.php:134, ../templates/dashboard/tab-profile.php:105
 msgid "Website"
 msgstr ""
 
-#: ../blocks/templates/registration.php:25, ../includes/classes/class-settings-panel.php:2787, ../includes/classes/class-settings-panel.php:3802, ../includes/model/Account.php:48, ../templates/dashboard/tab-profile.php:65
+#: ../blocks/templates/registration.php:25, ../blocks/templates/signin-signup.php:17, ../includes/classes/class-settings-panel.php:2787, ../includes/classes/class-settings-panel.php:3802, ../includes/model/Account.php:48, ../templates/dashboard/tab-profile.php:65
 msgid "First Name"
 msgstr ""
 
-#: ../blocks/templates/registration.php:28, ../includes/classes/class-settings-panel.php:2814, ../includes/classes/class-settings-panel.php:3809, ../includes/model/Account.php:51, ../templates/dashboard/tab-profile.php:73
+#: ../blocks/templates/registration.php:28, ../blocks/templates/signin-signup.php:20, ../includes/classes/class-settings-panel.php:2814, ../includes/classes/class-settings-panel.php:3809, ../includes/model/Account.php:51, ../templates/dashboard/tab-profile.php:73
 msgid "Last Name"
 msgstr ""
 
-#: ../blocks/templates/registration.php:31, ../includes/classes/class-settings-panel.php:2841, ../includes/model/Account.php:54
+#: ../blocks/templates/registration.php:31, ../blocks/templates/signin-signup.php:23, ../includes/classes/class-settings-panel.php:2841, ../includes/model/Account.php:54
 msgid "About/bio"
 msgstr ""
 
@@ -210,11 +210,11 @@ msgstr ""
 msgid "Already have an account? Please login"
 msgstr ""
 
-#: ../blocks/templates/registration.php:37, ../blocks/templates/registration.php:67, ../blocks/templates/registration.php:59, ../includes/helper-functions.php:939, ../includes/classes/class-helper.php:539, ../includes/model/Account.php:64, ../templates/account/login-registration-form.php:247, ../templates/account/login-registration-form.php:239
+#: ../blocks/templates/registration.php:37, ../blocks/templates/registration.php:67, ../blocks/templates/registration.php:59, ../blocks/templates/signin-signup.php:33, ../includes/helper-functions.php:939, ../includes/classes/class-helper.php:539, ../includes/model/Account.php:64, ../templates/account/login-registration-form.php:241, ../templates/account/login-registration-form.php:233
 msgid "Here"
 msgstr ""
 
-#: ../blocks/templates/registration.php:38, ../includes/classes/class-settings-panel.php:2895, ../includes/model/Account.php:60
+#: ../blocks/templates/registration.php:38, ../blocks/templates/signin-signup.php:29, ../includes/classes/class-settings-panel.php:2895, ../includes/model/Account.php:60
 msgid "I agree with all"
 msgstr ""
 
@@ -222,11 +222,11 @@ msgstr ""
 msgid "terms & conditions"
 msgstr ""
 
-#: ../blocks/templates/registration.php:42, ../includes/classes/class-settings-panel.php:2868, ../includes/model/Account.php:57
+#: ../blocks/templates/registration.php:42, ../blocks/templates/signin-signup.php:26, ../includes/classes/class-settings-panel.php:2868, ../includes/model/Account.php:57
 msgid "I agree to the"
 msgstr ""
 
-#: ../blocks/templates/registration.php:43, ../includes/classes/class-settings-panel.php:2879, ../includes/model/Account.php:58, ../includes/model/ListingForm.php:515
+#: ../blocks/templates/registration.php:43, ../blocks/templates/signin-signup.php:27, ../includes/classes/class-settings-panel.php:2879, ../includes/model/Account.php:58, ../includes/model/ListingForm.php:515
 msgid "Privacy & Policy"
 msgstr ""
 
@@ -234,7 +234,7 @@ msgstr ""
 msgid " Registration completed. Please check your email for confirmation."
 msgstr ""
 
-#: ../blocks/templates/registration.php:67, ../templates/account/login-registration-form.php:247
+#: ../blocks/templates/registration.php:67, ../templates/account/login-registration-form.php:241
 msgid "Or click %s to login."
 msgstr ""
 
@@ -242,16 +242,28 @@ msgstr ""
 msgid " Go to your inbox or spam/junk and get your password."
 msgstr ""
 
-#: ../blocks/templates/registration.php:59, ../templates/account/login-registration-form.php:239
+#: ../blocks/templates/registration.php:59, ../templates/account/login-registration-form.php:233
 msgid "Click %s to login."
 msgstr ""
 
-#: ../blocks/templates/registration.php:140, ../includes/model/Account.php:37
+#: ../blocks/templates/registration.php:140, ../blocks/templates/signin-signup.php:6, ../includes/model/Account.php:38
 msgid "I am an author"
 msgstr ""
 
-#: ../blocks/templates/registration.php:145, ../includes/model/Account.php:38
+#: ../blocks/templates/registration.php:145, ../blocks/templates/signin-signup.php:7, ../includes/model/Account.php:39
 msgid "I am a user"
+msgstr ""
+
+#: ../blocks/templates/signin-signup.php:12, ../includes/model/Account.php:43
+msgid "Email "
+msgstr ""
+
+#: ../blocks/templates/signin-signup.php:32, ../includes/model/Account.php:63
+msgid "Already have an account? Please Sign in"
+msgstr ""
+
+#: ../blocks/templates/signin-signup.php:43, ../includes/model/Account.php:74
+msgid "Forgot Password?"
 msgstr ""
 
 #: ../config.php:65
@@ -703,7 +715,7 @@ msgstr ""
 msgid "This email is already registered. Please %1$sclick here to login%2$s."
 msgstr ""
 
-#: ../includes/helper-functions.php:3304, ../includes/classes/class-user.php:737
+#: ../includes/helper-functions.php:3304, ../includes/classes/class-user.php:736
 msgid "Username too short. At least 4 characters is required"
 msgstr ""
 
@@ -712,11 +724,11 @@ msgstr ""
 msgid "This username is already registered. Please %1$sclick here to login%2$s."
 msgstr ""
 
-#: ../includes/helper-functions.php:3311, ../includes/classes/class-user.php:751
+#: ../includes/helper-functions.php:3311, ../includes/classes/class-user.php:750
 msgid "Password length must be greater than 5"
 msgstr ""
 
-#: ../includes/helper-functions.php:3312, ../includes/classes/class-user.php:766
+#: ../includes/helper-functions.php:3312, ../includes/classes/class-user.php:765
 msgid "Email is not valid"
 msgstr ""
 
@@ -728,15 +740,15 @@ msgstr ""
 msgid "Please make sure you filed up the user type"
 msgstr ""
 
-#: ../includes/helper-functions.php:4483, ../includes/classes/class-extension.php:1250, ../includes/classes/class-extension.php:1359
+#: ../includes/helper-functions.php:4483, ../includes/classes/class-extension.php:1253, ../includes/classes/class-extension.php:1362
 msgid "Invalid download link"
 msgstr ""
 
-#: ../includes/helper-functions.php:4523, ../includes/classes/class-extension.php:1290, ../includes/classes/class-extension.php:1399
+#: ../includes/helper-functions.php:4523, ../includes/classes/class-extension.php:1293, ../includes/classes/class-extension.php:1402
 msgid "Could not create temp directory"
 msgstr ""
 
-#: ../includes/helper-functions.php:4575, ../includes/classes/class-extension.php:1342
+#: ../includes/helper-functions.php:4575, ../includes/classes/class-extension.php:1345
 msgid "The plugin has been downloaded successfully"
 msgstr ""
 
@@ -1101,11 +1113,11 @@ msgstr ""
 msgid "Something is wrong! Please refresh and retry."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:328, ../includes/classes/class-settings-panel.php:3766, ../includes/classes/class-user.php:568
+#: ../includes/classes/class-ajax-handler.php:328, ../includes/classes/class-settings-panel.php:3766, ../includes/classes/class-user.php:567
 msgid "User"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:340, ../includes/classes/class-custom-post.php:371, ../includes/classes/class-user.php:566
+#: ../includes/classes/class-ajax-handler.php:340, ../includes/classes/class-custom-post.php:371, ../includes/classes/class-user.php:565
 msgid "Author"
 msgstr ""
 
@@ -1965,55 +1977,55 @@ msgstr ""
 msgid "Your purchase has been refreshed successfuly"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1084
+#: ../includes/classes/class-extension.php:1085
 msgid "Item key is missing"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1091
+#: ../includes/classes/class-extension.php:1092
 msgid "Type not specified"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1098
+#: ../includes/classes/class-extension.php:1099
 msgid "Invalid type"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1113
+#: ../includes/classes/class-extension.php:1114
 msgid "Nothing available in subscriptions"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1120
+#: ../includes/classes/class-extension.php:1121
 msgid "The item is not available in your subscriptions"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1132
+#: ../includes/classes/class-extension.php:1133
 msgid "The license is not valid, please check you subscription."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1153
+#: ../includes/classes/class-extension.php:1156
 msgid "Installed Successfully"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1197, ../includes/classes/class-extension.php:2061
+#: ../includes/classes/class-extension.php:1200, ../includes/classes/class-extension.php:2064
 msgid "Activation failed"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1233
+#: ../includes/classes/class-extension.php:1236
 msgid "Donloaded"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1451, ../includes/classes/class-extension.php:1463
+#: ../includes/classes/class-extension.php:1454, ../includes/classes/class-extension.php:1466
 msgid "The theme has been downloaded successfully"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1680
+#: ../includes/classes/class-extension.php:1683
 msgid "Get Extensions"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1681
+#: ../includes/classes/class-extension.php:1684
 msgid "Themes & Extensions"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:2016
+#: ../includes/classes/class-extension.php:2019
 msgid "Nothing to activate"
 msgstr ""
 
@@ -4423,121 +4435,121 @@ msgstr ""
 msgid "<p class=\"directorist__notice_new\"><span style=\"font-size: 16px;\">📣 Directorist Theme Compatibility Notice!</span><br/> Congratulations and welcome to Directorist v8.0 with some cool <a href=\"%s\" target=\"_blank\">new features</a>.Please update <a target=\"_blank\" href=\"%s\">%s theme</a> </p>"
 msgstr ""
 
-#: ../includes/classes/class-user.php:251, ../includes/classes/class-user.php:244
+#: ../includes/classes/class-user.php:250, ../includes/classes/class-user.php:243
 msgid "Registration completed. Please check your email for confirmation. You will be redirected..."
 msgstr ""
 
-#: ../includes/classes/class-user.php:262, ../includes/classes/class-user.php:459
+#: ../includes/classes/class-user.php:261, ../includes/classes/class-user.php:458
 msgid "Request email verification"
 msgstr ""
 
-#: ../includes/classes/class-user.php:263
+#: ../includes/classes/class-user.php:262
 msgid "Mark as email verified"
 msgstr ""
 
-#: ../includes/classes/class-user.php:264
+#: ../includes/classes/class-user.php:263
 msgid "Mark as email unverified"
 msgstr ""
 
-#: ../includes/classes/class-user.php:286, ../includes/classes/class-user.php:589
+#: ../includes/classes/class-user.php:285, ../includes/classes/class-user.php:588
 msgid "Email Verified?"
 msgstr ""
 
-#: ../includes/classes/class-user.php:289
+#: ../includes/classes/class-user.php:288
 msgid "Check this option to mark user email as verified"
 msgstr ""
 
-#: ../includes/classes/class-user.php:399
+#: ../includes/classes/class-user.php:398
 msgid "Email verification request sent to %s user."
 msgid_plural "Email verification request sent to %s users."
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../includes/classes/class-user.php:407
+#: ../includes/classes/class-user.php:406
 msgid "%s user marked as email verified."
 msgid_plural "%s users marked as email verified."
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../includes/classes/class-user.php:415
+#: ../includes/classes/class-user.php:414
 msgid "%s user marked as email unverified."
 msgid_plural "%s users marked as email unverified."
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../includes/classes/class-user.php:517
+#: ../includes/classes/class-user.php:516
 msgid "Your account is not yet verified. Please check your email to verify your account. If you did not receive the verification email, please click on the %s"
 msgstr ""
 
-#: ../includes/classes/class-user.php:518
+#: ../includes/classes/class-user.php:517
 msgid "Resend confirmation email"
 msgstr ""
 
-#: ../includes/classes/class-user.php:570, ../includes/payments/functions.php:52, ../includes/modules/multi-directory-setup/class-builder-data.php:2040, ../includes/modules/multi-directory-setup/class-builder-data.php:2056, ../templates/dashboard/tab-my-listings.php:36
+#: ../includes/classes/class-user.php:569, ../includes/payments/functions.php:52, ../includes/modules/multi-directory-setup/class-builder-data.php:2040, ../includes/modules/multi-directory-setup/class-builder-data.php:2056, ../templates/dashboard/tab-my-listings.php:36
 msgid "Pending"
 msgstr ""
 
-#: ../includes/classes/class-user.php:571
+#: ../includes/classes/class-user.php:570
 msgid "Approve"
 msgstr ""
 
-#: ../includes/classes/class-user.php:572
+#: ../includes/classes/class-user.php:571
 msgid "Deny"
 msgstr ""
 
-#: ../includes/classes/class-user.php:591
+#: ../includes/classes/class-user.php:590
 msgid "User Type"
 msgstr ""
 
-#: ../includes/classes/class-user.php:733
+#: ../includes/classes/class-user.php:732
 msgid "Required form field is missing. Please fill all required fields."
 msgstr ""
 
-#: ../includes/classes/class-user.php:741
+#: ../includes/classes/class-user.php:740
 msgid "Sorry, that username already exists!"
 msgstr ""
 
-#: ../includes/classes/class-user.php:744
+#: ../includes/classes/class-user.php:743
 msgid "Sorry, space is not allowed in username!"
 msgstr ""
 
-#: ../includes/classes/class-user.php:747
+#: ../includes/classes/class-user.php:746
 msgid "Sorry, the username you entered is not valid"
 msgstr ""
 
-#: ../includes/classes/class-user.php:755
+#: ../includes/classes/class-user.php:754
 msgid "Privacy field is required"
 msgstr ""
 
-#: ../includes/classes/class-user.php:758, ../includes/classes/class-user.php:762
+#: ../includes/classes/class-user.php:757, ../includes/classes/class-user.php:761
 msgid "Terms and Condition field is required"
 msgstr ""
 
-#: ../includes/classes/class-user.php:769
+#: ../includes/classes/class-user.php:768
 msgid "Email Already in use"
 msgstr ""
 
-#: ../includes/classes/class-user.php:773
+#: ../includes/classes/class-user.php:772
 msgid "First Name must be letters or combination of letters and number"
 msgstr ""
 
-#: ../includes/classes/class-user.php:778
+#: ../includes/classes/class-user.php:777
 msgid "Last Name must be letters or combination of letters and number"
 msgstr ""
 
-#: ../includes/classes/class-user.php:784
+#: ../includes/classes/class-user.php:783
 msgid "Website is not a valid URL"
 msgstr ""
 
-#: ../includes/classes/class-user.php:1055
+#: ../includes/classes/class-user.php:1053
 msgid "Password should be matched and more than five character"
 msgstr ""
 
-#: ../includes/classes/class-user.php:1065
+#: ../includes/classes/class-user.php:1063
 msgid "Oops! Something wrong."
 msgstr ""
 
-#: ../includes/classes/class-user.php:1061
+#: ../includes/classes/class-user.php:1059
 msgid "Congratulations! Your profile updated successfully"
 msgstr ""
 
@@ -5041,18 +5053,6 @@ msgstr ""
 
 #: ../includes/model/Account.php:29
 msgid "The account page is only accessible to logged-out users.<a href=\"%s\">Go to Dashboard</a>"
-msgstr ""
-
-#: ../includes/model/Account.php:43
-msgid "Email "
-msgstr ""
-
-#: ../includes/model/Account.php:63
-msgid "Already have an account? Please Sign in"
-msgstr ""
-
-#: ../includes/model/Account.php:74
-msgid "Forgot Password?"
 msgstr ""
 
 #: ../includes/model/ListingAuthor.php:247, ../templates/single/section-author_info.php:49, ../templates/widgets/author-info.php:35
@@ -7042,7 +7042,7 @@ msgstr ""
 msgid "Submit Button Label"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2144, ../views/admin-templates/theme-extensions/my-themes-extensions/themes-tab.php:24
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2144
 msgid "Update"
 msgstr ""
 
@@ -8327,11 +8327,11 @@ msgstr ""
 msgid "Submit Your Review"
 msgstr ""
 
-#: ../templates/account/login-registration-form.php:245
+#: ../templates/account/login-registration-form.php:239
 msgid "Registration completed. Please check your email for confirmation."
 msgstr ""
 
-#: ../templates/account/login-registration-form.php:237
+#: ../templates/account/login-registration-form.php:231
 msgid "Go to your inbox or spam/junk and get your password."
 msgstr ""
 
@@ -9149,7 +9149,7 @@ msgstr ""
 msgid "Get Now"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/my-themes-extensions/extensions-tab.php:259, ../views/admin-templates/theme-extensions/my-themes-extensions/themes-tab.php:101
+#: ../views/admin-templates/theme-extensions/my-themes-extensions/extensions-tab.php:259, ../views/admin-templates/theme-extensions/my-themes-extensions/themes-tab.php:102
 msgid "Activate"
 msgstr ""
 
@@ -9165,31 +9165,23 @@ msgstr ""
 msgid "Active Theme"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/my-themes-extensions/themes-tab.php:16
+#: ../views/admin-templates/theme-extensions/my-themes-extensions/themes-tab.php:17
 msgid "Customize"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/my-themes-extensions/themes-tab.php:23
+#: ../views/admin-templates/theme-extensions/my-themes-extensions/themes-tab.php:24
 msgid "Update available"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/my-themes-extensions/themes-tab.php:74
-msgid "Update Now"
-msgstr ""
-
-#: ../views/admin-templates/theme-extensions/my-themes-extensions/themes-tab.php:87
+#: ../views/admin-templates/theme-extensions/my-themes-extensions/themes-tab.php:88
 msgid "Available in your subscription"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/my-themes-extensions/themes-tab.php:110
-msgid "Install"
-msgstr ""
-
-#: ../views/admin-templates/theme-extensions/my-themes-extensions/themes-tab.php:114
+#: ../views/admin-templates/theme-extensions/my-themes-extensions/themes-tab.php:115
 msgid "Demo"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/my-themes-extensions/themes-tab.php:105
+#: ../views/admin-templates/theme-extensions/my-themes-extensions/themes-tab.php:106
 msgid "Live Preview"
 msgstr ""
 

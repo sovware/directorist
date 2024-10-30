@@ -11587,8 +11587,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-btn:hover, .directorist-btn:focus {
   color: var(--directorist-color-white);
   outline: 0 !important;
-}
-.directorist-btn:hover:not(.directorist-single-listing-action), .directorist-btn:focus:not(.directorist-single-listing-action) {
   background-color: rgba(var(--directorist-color-primary-rgb), 0.8);
 }
 
@@ -11618,15 +11616,24 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   border-color: var(--directorist-color-dark);
   color: var(--directorist-color-white);
 }
+.directorist-btn.directorist-btn-dark:hover {
+  background-color: rgba(var(--directorist-color-dark-rgb), 0.8);
+}
 .directorist-btn.directorist-btn-success {
   background-color: var(--directorist-color-success);
   border-color: var(--directorist-color-success);
   color: var(--directorist-color-white);
 }
+.directorist-btn.directorist-btn-success:hover {
+  background-color: rgba(var(--directorist-color-success-rgb), 0.8);
+}
 .directorist-btn.directorist-btn-info {
   background-color: var(--directorist-color-info);
   border-color: var(--directorist-color-info);
   color: var(--directorist-color-white);
+}
+.directorist-btn.directorist-btn-info:hover {
+  background-color: rgba(var(--directorist-color-success-rgb), 0.8);
 }
 .directorist-btn.directorist-btn-light {
   background-color: var(--directorist-color-light);
@@ -11648,10 +11655,16 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   background-color: var(--directorist-color-warning);
   color: var(--directorist-color-white);
 }
+.directorist-btn.directorist-btn-warning:hover {
+  background-color: rgba(var(--directorist-color-warning-rgb), 0.8);
+}
 .directorist-btn.directorist-btn-danger {
   border-color: var(--directorist-color-danger);
   background-color: var(--directorist-color-danger);
   color: var(--directorist-color-white);
+}
+.directorist-btn.directorist-btn-danger:hover {
+  background-color: rgba(var(--directorist-color-danger-rgb), 0.8);
 }
 .directorist-btn.directorist-btn-bg-normal {
   background: #F9F9F9;

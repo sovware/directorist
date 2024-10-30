@@ -32298,6 +32298,14 @@ span.drop-toggle-caret:before {
       -ms-flex-align: center;
           align-items: center;
 }
+.directorist-create-directory__generate .directory-img #directory-img__generating {
+  width: 48px;
+  height: 48px;
+}
+.directorist-create-directory__generate .directory-img #directory-img__building {
+  width: 322px;
+  height: auto;
+}
 .directorist-create-directory__generate .directory-img svg {
   width: var(--Large, 48px);
   height: var(--Large, 48px);
@@ -33425,6 +33433,7 @@ span.drop-toggle-caret:before {
       -ms-flex-align: center;
           align-items: center;
   color: #4D5761;
+  font-size: 28px;
 }
 .directorist-ai-generate-dropdown__title-icon svg {
   width: 28px;

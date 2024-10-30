@@ -375,7 +375,9 @@
 			<!-- Generating Directory -->
 			<div id="directorist-create-directory__generating" class="directorist-create-directory__generate">
 				<div class="directory-img">
-					<svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42" fill="none">
+					<img id="directory-img__generating" src="<?php echo DIRECTORIST_ASSETS . '/images/directorist-ai-directory-transparent.gif'; ?>" alt="Directory AI is generating fields..." />
+					<img id="directory-img__building" src="<?php echo DIRECTORIST_ASSETS . '/images/directorist-ai-directory-building.svg'; ?>" alt="Directory AI is generating fields..." />
+					<!-- <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42" fill="none">
 						<path
 							d="M27 1L28.0775 5.78315C28.9914 9.8403 32.1597 13.0086 36.2168 13.9225L41 15L36.2168 16.0775C32.1597 16.9914 28.9914 20.1597 28.0775 24.2168L27 29L25.9225 24.2168C25.0086 20.1597 21.8403 16.9914 17.7832 16.0775L13 15L17.7832 13.9225C21.8403 13.0086 25.0086 9.8403 25.9225 5.78316L27 1Z"
 							stroke="url(#paint0_linear_5920_1562)" stroke-width="1.5" stroke-linejoin="round"></path>
@@ -394,7 +396,7 @@
 								<stop offset="1" stop-color="#092AAF"></stop>
 							</linearGradient>
 						</defs>
-					</svg>
+					</svg> -->
 				</div>
 				<h4 class="directory-title">Directory AI is generating fields... </h4>
 				<p class="directory-description"><strong>Almost there!</strong> We're using your infomation to finalize your directory fields.</p>

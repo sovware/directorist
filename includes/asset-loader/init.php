@@ -239,6 +239,7 @@ class Asset_Loader {
 	public static function admin_scripts() {
 
 		if ( Helper::is_admin_page( 'builder-archive' ) ) {
+			wp_enqueue_style( 'directorist-unicons' );
 			wp_enqueue_style( 'directorist-admin-style' );
 			wp_enqueue_script( 'directorist-admin-script' );
 			wp_enqueue_script( 'directorist-admin-builder-archive' );

@@ -4578,9 +4578,9 @@ function directorist_download_plugin( array $args = array() ) {
     return $status;
 }
 
-function directorist_get_form_groq_ai( $command, $system_prompt = 'You are a helful assistant' ) {
+function directorist_get_form_groq_ai( $command, $system_prompt = '' ) {
 
-    $key = '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';
+    $key = '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';
 
     $url = 'https://api.groq.com/openai/v1/chat/completions';
 
@@ -4623,13 +4623,13 @@ function directorist_get_form_groq_ai( $command, $system_prompt = 'You are a hel
 
     try {
         $response = wp_remote_post( $url, $config );
-        
+
         if ( is_wp_error( $response ) ) {
             return false;
         } else {
             $response_body = json_decode( $response['body'], true );
             if ( isset( $response_body['choices'][0]['message']['content'] ) ) {
-                return $response_body['choices'][0]['message']['content'];
+                return directorist_extract_json_from_response( $response_body['choices'][0]['message']['content'] );
             } else {
                 return false;
             }
@@ -4637,5 +4637,49 @@ function directorist_get_form_groq_ai( $command, $system_prompt = 'You are a hel
     } catch ( Exception $e ) {
         return false;
     }
+}
 
+/**
+ * Extract JSON data from a response string.
+ *
+ * @param string $response The response string containing potential JSON data.
+ * @return mixed Decoded JSON data as an associative array or false on failure.
+ */
+function directorist_extract_json_from_response( $response ) {
+    // Detect the first '{' and the last '}' to extract JSON object.
+    $start_pos = strpos( $response, '{' );
+    $end_pos   = strrpos( $response, '}' );
+
+    if ( false !== $start_pos && false !== $end_pos ) {
+        // Extract the JSON part based on positions.
+        $json_data = substr( $response, $start_pos, $end_pos - $start_pos + 1 );
+
+        // Decode the JSON string into a PHP array.
+        $data = json_decode( $json_data, true );
+
+        if ( JSON_ERROR_NONE === json_last_error() ) {
+            // JSON is valid, return the data.
+            return $data;
+        }
+    }
+
+    // If no valid JSON object found, try detecting an array (using '[' and ']').
+    $start_pos = strpos( $response, '[' );
+    $end_pos   = strrpos( $response, ']' );
+
+    if ( false !== $start_pos && false !== $end_pos ) {
+        // Extract the JSON part based on positions.
+        $json_data = substr( $response, $start_pos, $end_pos - $start_pos + 1 );
+
+        // Decode the JSON string into a PHP array.
+        $data = json_decode( $json_data, true );
+
+        if ( JSON_ERROR_NONE === json_last_error() ) {
+            // JSON is valid, return the data.
+            return $data;
+        }
+    }
+
+    // Return false if no valid JSON data found.
+    return false;
 }

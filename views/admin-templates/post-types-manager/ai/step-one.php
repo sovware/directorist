@@ -327,7 +327,7 @@
 						<textarea
 							class="form-control directorist-create-directory__content__input --textarea directorist-ai-prompt"
 							name="directorist-ai-prompt" id="directorist-ai-prompt"
-							placeholder="Tell AI about your business to get better AI-powered suggestions...">I want to create a Car directory in Dhaka, Bangladesh</textarea>
+							placeholder="Tell AI about your business to get better AI-powered suggestions..."></textarea>
 					</div>
 				</div>
 			</div>

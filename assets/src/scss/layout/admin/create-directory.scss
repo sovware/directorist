@@ -467,6 +467,18 @@
           box-shadow: 0px 0px 0px 3px rgba(103, 146, 244, 0.30);
         }
       }
+      &[name="directory-location"] {
+        &::-webkit-search-cancel-button{
+            position:relative;
+            right:0;  
+            margin: 0;
+            height: 20px;
+            width: 20px;
+            background: #D1D1D7;
+            -webkit-appearance: none;
+            mask-image: url("../../../../icons/font-awesome/svgs/solid/times-circle.svg");
+        }
+      }
     }
 
     @include e("input-group") {

@@ -392,7 +392,8 @@ function updateButtonText(text) {
 // Update Directory Prompt
 function updatePrompt() {
   directoryPrompt = "I want to create a ".concat(directoryType || 'car', " directory").concat(directoryLocation ? " in ".concat(directoryLocation) : '');
-  $('#directorist-ai-prompt').html(directoryPrompt);
+  $('#directorist-ai-prompt').val(directoryPrompt);
+  handleCreateButtonEnable();
 }
 
 // Function to initialize Keyword Selected
@@ -663,7 +664,14 @@ function initialStepContents() {
   var $directoryLocation = $('.directorist-create-directory__content__input[name="directory-location"]');
   if (!$directoryName.val()) {
     handleCreateButtonDisable();
+    directoryTitle = '';
   }
+  if (!$directoryLocation.val()) {
+    directoryLocation = '';
+  }
+
+  // Initial Prompt
+  updatePrompt();
 
   // Directory Title Input Listener
   $directoryName.on('keyup change ', function (e) {
@@ -683,7 +691,13 @@ function initialStepContents() {
 
   // Directory Location Input Listener
   $('body').on('keyup change', '#directorist-ai-prompt', function (e) {
-    directoryPrompt = e.target.value;
+    if (!e.target.value) {
+      directoryPrompt = '';
+      handleCreateButtonDisable();
+    } else {
+      directoryPrompt = e.target.value;
+      handleCreateButtonEnable();
+    }
   });
 
   // Directory Type Input Listener

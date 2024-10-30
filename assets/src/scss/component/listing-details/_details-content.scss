@@ -2,6 +2,11 @@
   gap: 20px;
   margin: 15px 0 30px;
   align-items: flex-start;
+  @media screen and (max-width: 575px) {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
   .directorist-return-back {
     gap: 8px;
     margin: 0;
@@ -240,8 +245,12 @@
 .directorist-single-listing-quick-action {
   gap: 8px;
   flex-wrap: wrap;
+  @media screen and (max-width: 767px){
+    justify-content: flex-end;
+  }
   @media screen and (max-width: 575px) {
     gap: 12px;
+    justify-content: center;
   }
   .directorist-social-share {
     position: relative;
@@ -340,13 +349,14 @@
   }
   @media screen and (max-width: 575px) {
     gap: 0;
-    padding: 0;
     border: none;
     &.directorist-btn.directorist-btn-light {
       background-color: transparent;
     }
-    .directorist-single-listing-action__text {
-      display: none;
+    &.directorist-single-listing-top__btn-edit {
+      .directorist-single-listing-action__text {
+        display: none;
+      }
     }
   }
   .directorist-icon-mask.directorist-added-to-favorite::after {

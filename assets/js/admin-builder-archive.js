@@ -392,9 +392,13 @@ function updateButtonText(text) {
 
 // Update Directory Prompt
 function updatePrompt() {
-  directoryPrompt = "I want to create a ".concat(directoryType || 'car', " directory").concat(directoryLocation ? " in ".concat(directoryLocation) : '');
+  directoryPrompt = "I want to create a ".concat(directoryType, " directory").concat(directoryLocation ? " in ".concat(directoryLocation) : '');
   $('#directorist-ai-prompt').val(directoryPrompt);
-  handleCreateButtonEnable();
+  if (directoryType) {
+    handleCreateButtonEnable();
+  } else {
+    handleCreateButtonDisable();
+  }
 }
 
 // Function to initialize Keyword Selected
@@ -687,14 +691,12 @@ function initialStepContents() {
     directoryLocation = '';
   }
 
-  // Initial Prompt
-  updatePrompt();
-
   // Directory Title Input Listener
   $directoryName.on('input', function (e) {
     directoryTitle = $(this).val();
     if (directoryTitle) {
       handleCreateButtonEnable();
+      updatePrompt();
     } else {
       handleCreateButtonDisable();
     }
@@ -706,14 +708,33 @@ function initialStepContents() {
     updatePrompt();
   });
 
-  // Directory Location Input Listener
-  $('body').on('keyup change', '#directorist-ai-prompt', function (e) {
+  // Directory Prompt Input Listener
+  $('body').on('input', '#directorist-ai-prompt', function (e) {
     if (!e.target.value) {
       directoryPrompt = '';
       handleCreateButtonDisable();
     } else {
       directoryPrompt = e.target.value;
       handleCreateButtonEnable();
+    }
+  });
+
+  // Other Directory Type Input Listener
+  function checkOtherDirectoryType(type) {
+    updatePrompt();
+    if (type === '') {
+      handleCreateButtonDisable();
+      $('#new-directory-type').addClass('empty');
+    } else {
+      handleCreateButtonEnable();
+      $('#new-directory-type').removeClass('empty');
+    }
+  }
+
+  // Check if any item is initially checked
+  $('[name="directory_type[]"]').each(function () {
+    if ($(this).is(':checked')) {
+      directoryType = $(this).val();
     }
   });
 
@@ -724,14 +745,16 @@ function initialStepContents() {
     if (directoryType === 'others') {
       directoryType = $('#new-directory-type').val();
       $('#directorist-create-directory__checkbox__others').show();
-      $('body').on('keyup', '[name="new-directory-type"]', function (e) {
+      checkOtherDirectoryType(directoryType);
+      $('#new-directory-type').focus();
+      $('body').on('input', '[name="new-directory-type"]', function (e) {
         directoryType = e.target.value;
-        updatePrompt();
+        checkOtherDirectoryType(directoryType);
       });
     } else {
       $('#directorist-create-directory__checkbox__others').hide();
+      updatePrompt();
     }
-    updatePrompt();
   });
 }
 

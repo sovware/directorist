@@ -32094,6 +32094,11 @@ span.drop-toggle-caret:before {
   -webkit-mask-image: url(../images/fbe9a71fb4cca6c00727edfa817798b2.svg);
           mask-image: url(../images/fbe9a71fb4cca6c00727edfa817798b2.svg);
 }
+.directorist-create-directory__content__input.empty {
+  border-color: #ff0808;
+  -webkit-box-shadow: 0px 0px 3px 3px rgba(212, 15, 15, 0.3);
+          box-shadow: 0px 0px 3px 3px rgba(212, 15, 15, 0.3);
+}
 .directorist-create-directory__content__input-group {
   display: -webkit-box;
   display: -webkit-flex;

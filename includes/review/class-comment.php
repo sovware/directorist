@@ -223,7 +223,7 @@ class Comment {
 		$listing       = Directorist_Single_Listing::instance( absint( $_POST['comment_post_ID'] ) );
 		$section_data  = $listing->get_review_section_data();
 		$builder       = Builder::get( $section_data['section_data'] );
-		error_log(  print_r( $section_data, true ) );
+		
 		if ( isset( $_POST['comment_parent'], $_POST['rating'], $comment_data['comment_type'] ) && // @codingStandardsIgnoreLine.
 			$comment_data['comment_parent'] === 0 && self::is_default_comment_type( $comment_data['comment_type'] ) &&
 			( $builder->is_rating_type_single() && ! empty( $_POST['rating'] ) ) ) { // @codingStandardsIgnoreLine.

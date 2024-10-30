@@ -439,7 +439,7 @@
 					</svg>
 					<div class="directorist-ai-generate-box__title">
 						<h6>AI-generate <span class="fields-count">12</span> fields</h6>
-						<p>Pin items or regenerate up to 3 times</p>
+						<p>Pin items or regenerate up to 1 time</p>
 					</div>
 				</div>
 				<div class="directorist-ai-generate-box__items" id="directorist_ai_generated_fields"></div>

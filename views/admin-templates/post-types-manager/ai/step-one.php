@@ -417,7 +417,7 @@
 								</linearGradient>
 							</defs>
 						</svg>
-						Fields are being generated... <span class="directory-generate-btn__percentage">0%</span>
+						<span id="directory-generate-btn__content__text">Fields are being generated... </span><span class="directory-generate-btn__percentage">0%</span>
 					</div>
 				</div>
 			</div>

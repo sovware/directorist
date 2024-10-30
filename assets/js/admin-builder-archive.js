@@ -492,6 +492,7 @@ function initializeProgressBar(finalProgress) {
   if (finalProgress) {
     $('#directorist-create-directory__generating .directory-img #directory-img__generating').hide();
     $('#directorist-create-directory__generating .directory-img #directory-img__building').show();
+    $('#directory-generate-btn__content__text').html('Generating directory...');
   } else {
     $('#directorist-create-directory__generating .directory-img #directory-img__generating').show();
     $('#directorist-create-directory__generating .directory-img #directory-img__building').hide();
@@ -506,8 +507,9 @@ function initializeProgressBar(finalProgress) {
     // Update the progress bar width
     var updateProgress = function updateProgress() {
       if (creationCompleted) {
-        btnPercentage.textContent = "".concat(finalWidth, "%");
         progressBar.style.width = "".concat(finalWidth, "%");
+        btnPercentage.textContent = '';
+        $('#directory-generate-btn__content__text').html('Generated Successfully');
         if (typeof updateProgressList === 'function') {
           updateProgressList(finalWidth);
         }

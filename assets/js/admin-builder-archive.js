@@ -373,6 +373,7 @@ var directoryPrompt = 'I want to create a car directory';
 var directoryKeywords = [];
 var directoryFields = [];
 var directoryPinnedFields = [];
+var creationCompleted = false;
 
 // Update Step Title
 function updateStepTitle(title) {
@@ -391,8 +392,13 @@ function updateButtonText(text) {
 
 // Update Directory Prompt
 function updatePrompt() {
-  directoryPrompt = "I want to create a ".concat(directoryType || 'car', " directory").concat(directoryLocation ? " in ".concat(directoryLocation) : '');
-  $('#directorist-ai-prompt').html(directoryPrompt);
+  directoryPrompt = "I want to create a ".concat(directoryType, " directory").concat(directoryLocation ? " in ".concat(directoryLocation) : '');
+  $('#directorist-ai-prompt').val(directoryPrompt);
+  if (directoryType) {
+    handleCreateButtonEnable();
+  } else {
+    handleCreateButtonDisable();
+  }
 }
 
 // Function to initialize Keyword Selected
@@ -487,6 +493,14 @@ function initializeKeyword() {
 
 // Function to initialize Progress bar
 function initializeProgressBar(finalProgress) {
+  if (finalProgress) {
+    $('#directorist-create-directory__generating .directory-img #directory-img__generating').hide();
+    $('#directorist-create-directory__generating .directory-img #directory-img__building').show();
+    $('#directory-generate-btn__content__text').html('Generating directory...');
+  } else {
+    $('#directorist-create-directory__generating .directory-img #directory-img__generating').show();
+    $('#directorist-create-directory__generating .directory-img #directory-img__building').hide();
+  }
   var generateBtnWrapper = document.querySelector(".directory-generate-btn__wrapper");
   var btnPercentage = document.querySelector(".directory-generate-btn__percentage");
   var progressBar = document.querySelector(".directory-generate-btn--bg");
@@ -496,7 +510,16 @@ function initializeProgressBar(finalProgress) {
 
     // Update the progress bar width
     var updateProgress = function updateProgress() {
-      if (currentWidth <= finalWidth) {
+      if (creationCompleted) {
+        progressBar.style.width = "".concat(finalWidth, "%");
+        btnPercentage.textContent = '';
+        $('#directory-generate-btn__content__text').html('Generated Successfully');
+        if (typeof updateProgressList === 'function') {
+          updateProgressList(finalWidth);
+        }
+        clearInterval(progressInterval);
+        return;
+      } else if (currentWidth <= finalWidth) {
         btnPercentage.textContent = "".concat(currentWidth, "%");
         progressBar.style.width = "".concat(currentWidth, "%");
         if (typeof updateProgressList === 'function') {
@@ -507,10 +530,9 @@ function initializeProgressBar(finalProgress) {
         if (!finalProgress) {
           setTimeout(function () {
             progressBar.style.width = '0';
-          }, 5000);
+          }, 3000);
         }
         clearInterval(progressInterval);
-        return;
       }
     };
     var progressInterval = setInterval(updateProgress, 30);
@@ -663,27 +685,57 @@ function initialStepContents() {
   var $directoryLocation = $('.directorist-create-directory__content__input[name="directory-location"]');
   if (!$directoryName.val()) {
     handleCreateButtonDisable();
+    directoryTitle = '';
+  }
+  if (!$directoryLocation.val()) {
+    directoryLocation = '';
   }
 
   // Directory Title Input Listener
-  $directoryName.on('keyup change ', function (e) {
+  $directoryName.on('input', function (e) {
     directoryTitle = $(this).val();
     if (directoryTitle) {
       handleCreateButtonEnable();
+      updatePrompt();
     } else {
       handleCreateButtonDisable();
     }
   });
 
   // Directory Location Input Listener
-  $directoryLocation.on('keyup change', function (e) {
+  $directoryLocation.on('input', function (e) {
     directoryLocation = $(this).val();
     updatePrompt();
   });
 
-  // Directory Location Input Listener
-  $('body').on('keyup change', '#directorist-ai-prompt', function (e) {
-    directoryPrompt = e.target.value;
+  // Directory Prompt Input Listener
+  $('body').on('input', '#directorist-ai-prompt', function (e) {
+    if (!e.target.value) {
+      directoryPrompt = '';
+      handleCreateButtonDisable();
+    } else {
+      directoryPrompt = e.target.value;
+      handleCreateButtonEnable();
+    }
+  });
+
+  // Other Directory Type Input Listener
+  function checkOtherDirectoryType(type) {
+    updatePrompt();
+    if (type === '') {
+      handleCreateButtonDisable();
+      $('#new-directory-type').addClass('empty');
+    } else {
+      handleCreateButtonEnable();
+      $('#new-directory-type').removeClass('empty');
+    }
+  }
+
+  // Check if any item is initially checked
+  $('[name="directory_type[]"]').each(function () {
+    if ($(this).is(':checked')) {
+      directoryType = $(this).val();
+    }
   });
 
   // Directory Type Input Listener
@@ -693,14 +745,16 @@ function initialStepContents() {
     if (directoryType === 'others') {
       directoryType = $('#new-directory-type').val();
       $('#directorist-create-directory__checkbox__others').show();
-      $('body').on('keyup', '[name="new-directory-type"]', function (e) {
+      checkOtherDirectoryType(directoryType);
+      $('#new-directory-type').focus();
+      $('body').on('input', '[name="new-directory-type"]', function (e) {
         directoryType = e.target.value;
-        updatePrompt();
+        checkOtherDirectoryType(directoryType);
       });
     } else {
       $('#directorist-create-directory__checkbox__others').hide();
+      updatePrompt();
     }
-    updatePrompt();
   });
 }
 
@@ -748,6 +802,8 @@ function handleGenerateFields(response) {
 function handleCreateDirectory(redirect_url) {
   $('#directorist-create-directory__preview-btn').removeClass('disabled');
   $('#directorist-create-directory__preview-btn').attr('href', redirect_url);
+  $('#directorist-create-directory__generating .directory-title').html('Your directory is ready to use');
+  creationCompleted = true;
 }
 
 // Response Success Callback
@@ -770,9 +826,9 @@ function handleAIFormResponse(response) {
       directoryFields = JSON.stringify(response === null || response === void 0 || (_response$data10 = response.data) === null || _response$data10 === void 0 ? void 0 : _response$data10.fields);
     } else if (currentStep == 4) {
       var _response$data11;
-      $('#directorist-create-directory__creating').hide();
-      $('#directorist-create-directory__generating').hide();
-      $('#directorist-create-directory__ai-fields').show();
+      // $('#directorist-create-directory__creating').hide();
+      // $('#directorist-create-directory__generating').hide();
+      // $('#directorist-create-directory__ai-fields').show();
       handleCreateDirectory(response === null || response === void 0 || (_response$data11 = response.data) === null || _response$data11 === void 0 ? void 0 : _response$data11.url);
     }
     return;
@@ -797,17 +853,16 @@ $('body').on('click', '.directorist_generate_ai_directory', function (e) {
   } else if (currentStep == 3) {
     handleKeywordStep();
   } else if (currentStep == 4) {
-    // $('#directorist-create-directory__generating').show();
-    // $('#directorist-create-directory__creating').show();
-    // $('#directorist-create-directory__ai-fields').hide();
-    // $('.directorist_regenerate_fields').hide();
-    // $('.directorist-create-directory__top').hide();
-    // $('.directorist-create-directory__content__items').hide();
-    // $('.directorist-create-directory__header').hide();
-    // $('.directorist-create-directory__content__footer').hide();
-    // $('.directorist-create-directory__content').addClass('full-width');
-    // $('#directorist-create-directory__preview-btn').addClass('disabled');
-
+    $('#directorist-create-directory__generating').show();
+    $('#directorist-create-directory__creating').show();
+    $('#directorist-create-directory__ai-fields').hide();
+    $('.directorist_regenerate_fields').hide();
+    $('.directorist-create-directory__top').hide();
+    $('.directorist-create-directory__content__items').hide();
+    $('.directorist-create-directory__header').hide();
+    $('.directorist-create-directory__content__footer').hide();
+    $('.directorist-create-directory__content').addClass('full-width');
+    $('#directorist-create-directory__preview-btn').addClass('disabled');
     $('#directorist-create-directory__generating .directory-title').html('Directory AI is Building your directory... ');
     $('#directorist-create-directory__generating .directory-description').html('We\'re using your infomation to finalize your directory fields.');
     initializeProgressBar('finalProgress');

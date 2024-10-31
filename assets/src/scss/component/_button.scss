@@ -41,9 +41,7 @@
   &:focus {
     color: var(--directorist-color-white);
     outline: 0 !important;
-    &:not(.directorist-single-listing-action){
-      background-color: rgba(var(--directorist-color-primary-rgb), 0.80);
-    }
+    background-color: rgba(var(--directorist-color-primary-rgb), 0.80);
   }
 }
 
@@ -78,18 +76,27 @@
     background-color: var(--directorist-color-dark);
     border-color:var(--directorist-color-dark);
     color: var(--directorist-color-white);
+    &:hover{
+      background-color: rgba(var(--directorist-color-dark-rgb), 0.80) ;
+    }
   }
 
   &.directorist-btn-success {
     background-color: var(--directorist-color-success);
     border-color:var(--directorist-color-success);
     color: var(--directorist-color-white);
+    &:hover{
+      background-color: rgba(var(--directorist-color-success-rgb), 0.80) ;
+    }
   }
 
   &.directorist-btn-info {
     background-color: var(--directorist-color-info);
     border-color:var(--directorist-color-info);
     color: var(--directorist-color-white);
+    &:hover{
+      background-color: rgba(var(--directorist-color-success-rgb), 0.80) ;
+    }
   }
 
   &.directorist-btn-light {
@@ -114,12 +121,18 @@
     border-color:var(--directorist-color-warning);
     background-color: var(--directorist-color-warning);
     color: var(--directorist-color-white);
+    &:hover{
+      background-color: rgba(var(--directorist-color-warning-rgb), 0.80) ;
+    }
   }
 
   &.directorist-btn-danger {
     border-color:var(--directorist-color-danger);
     background-color: var(--directorist-color-danger);
     color: var(--directorist-color-white);
+    &:hover{
+      background-color: rgba(var(--directorist-color-danger-rgb), 0.80);
+    }
   }
 
   &.directorist-btn-bg-normal {

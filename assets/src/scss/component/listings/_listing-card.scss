@@ -173,6 +173,9 @@
         box-shadow: none;
         color: var(--directorist-color-body);
         transition: color 0.3s ease;
+        &.directorist-compare-btn{
+          background-color:rgba( var(--directorist-color-dark-rgb), .10);
+        }
         &:hover {
           color: var(--directorist-color-primary);
         }
@@ -578,10 +581,22 @@
 
       &.directorist-badge-negotiation {
         background-color: var(--directorist-color-info);
+        width: auto !important;
+        height: 21px !important;
+        line-height: 21px !important;
+        margin: 0 !important;
+        padding: 0 5px !important;
+        border-radius: 4px !important;
       }
 
       &.directorist-badge-sold {
         background-color: var(--directorist-color-danger);
+        width: auto !important;
+        height: 21px !important;
+        line-height: 21px !important;
+        margin: 0 !important;
+        padding: 0 5px !important;
+        border-radius: 4px !important;
       }
     }
 

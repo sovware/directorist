@@ -288,9 +288,9 @@ class AI_Builder {
 		$single_fields = static::prepare_single_fields( $form_fields );
 
 		$directory_config['submission_form_fields'] = $form_fields;
-		// $directory_config['single_listing_header']  = $single_fields['header'];
-		// unset( $single_fields['header'] );
-		// $directory_config['single_listings_contents'] = $single_fields;
+		$directory_config['single_listing_header']  = $single_fields['header'];
+		unset( $single_fields['header'] );
+		$directory_config['single_listings_contents'] = $single_fields;
 
 		DirectoryManager::load_builder_data();
 
@@ -306,9 +306,9 @@ class AI_Builder {
 			$term_id = $directory['status']['term_id'];
 		}
 
-		update_term_meta( $term_id, 'single_listing_header', $single_fields['header'] );
-		unset( $single_fields['header'] );
-		update_term_meta( $term_id, 'single_listings_contents', $single_fields );
+		// update_term_meta( $term_id, 'single_listing_header', $single_fields['header'] );
+		// unset( $single_fields['header'] );
+		// update_term_meta( $term_id, 'single_listings_contents', $single_fields );
 
 		return [
 			'structure'      => $directory_config,

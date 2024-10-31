@@ -17974,13 +17974,15 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof.js");
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _Form_Builder_Widget_Trash_Confirmation_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Form_Builder_Widget_Trash_Confirmation.vue */ "./assets/src/js/admin/vue/modules/form-builder-modules/widget-component/Form_Builder_Widget_Trash_Confirmation.vue");
+/* harmony import */ var _helper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../../helper */ "./assets/src/js/helper.js");
+/* harmony import */ var _Form_Builder_Widget_Trash_Confirmation_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Form_Builder_Widget_Trash_Confirmation.vue */ "./assets/src/js/admin/vue/modules/form-builder-modules/widget-component/Form_Builder_Widget_Trash_Confirmation.vue");
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "form-builder-widget-component",
   components: {
-    ConfirmationModal: _Form_Builder_Widget_Trash_Confirmation_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+    ConfirmationModal: _Form_Builder_Widget_Trash_Confirmation_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   props: {
     widgetKey: {
@@ -18141,7 +18143,7 @@ __webpack_require__.r(__webpack_exports__);
       this.closeConfirmationModal();
     },
     syncCurrentWidget: function syncCurrentWidget() {
-      var current_widget = findObjectItem("".concat(this.widgetKey), this.activeWidgets);
+      var current_widget = Object(_helper__WEBPACK_IMPORTED_MODULE_1__["findObjectItem"])("".concat(this.widgetKey), this.activeWidgets);
       if (!current_widget) {
         return;
       }
@@ -18152,19 +18154,20 @@ __webpack_require__.r(__webpack_exports__);
         return;
       }
       var the_current_widget = null;
-      var current_widget_name = '';
+      var current_widget_name = "";
+      var current_widget_child_name = "";
       if (this.avilableWidgets[widget_group][widget_name]) {
         the_current_widget = this.avilableWidgets[widget_group][widget_name];
         current_widget_name = widget_name;
       }
-      if (this.avilableWidgets[widget_group][this.widgetKey]) {
-        the_current_widget = this.avilableWidgets[widget_group][this.widgetKey];
-        current_widget_name = this.widgetKey;
+      if (the_current_widget && the_current_widget.widgets && the_current_widget.widgets[widget_child_name]) {
+        the_current_widget = the_current_widget.widgets[widget_child_name];
+        current_widget_child_name = widget_child_name;
       }
       if (!the_current_widget) {
-        return '';
+        return;
       }
-      this.checkIfHasUntrashableWidget(widget_group, current_widget_name);
+      this.checkIfHasUntrashableWidget(widget_group, current_widget_name, current_widget_child_name);
       this.current_widget = the_current_widget;
     },
     syncWidgetFields: function syncWidgetFields() {

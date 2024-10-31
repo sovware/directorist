@@ -87,6 +87,7 @@
 </template>
 
 <script>
+import { findObjectItem } from "../../../../../helper";
 import ConfirmationModal from "./Form_Builder_Widget_Trash_Confirmation.vue";
 
 export default {
@@ -322,23 +323,35 @@ export default {
 
       if (!this.avilableWidgets[widget_group]) {
         return;
-      } 
+      }
 
       let the_current_widget = null;
-      let current_widget_name = '';
+      let current_widget_name = "";
+      let current_widget_child_name = "";
 
-      if ( this.avilableWidgets[ widget_group ][ widget_name ] ) {
-          the_current_widget = this.avilableWidgets[ widget_group ][ widget_name ];
-          current_widget_name = widget_name;
+      if (this.avilableWidgets[widget_group][widget_name]) {
+        the_current_widget = this.avilableWidgets[widget_group][widget_name];
+        current_widget_name = widget_name;
       }
 
-      if ( this.avilableWidgets[ widget_group ][ this.widgetKey ] ) {
-          the_current_widget = this.avilableWidgets[ widget_group ][ this.widgetKey ];
-          current_widget_name = this.widgetKey;
+      if (
+        the_current_widget &&
+        the_current_widget.widgets &&
+        the_current_widget.widgets[widget_child_name]
+      ) {
+        the_current_widget = the_current_widget.widgets[widget_child_name];
+        current_widget_child_name = widget_child_name;
       }
 
-      if ( ! the_current_widget ) { return ''; }
-      this.checkIfHasUntrashableWidget( widget_group, current_widget_name );
+      if (!the_current_widget) {
+        return;
+      }
+
+      this.checkIfHasUntrashableWidget(
+        widget_group,
+        current_widget_name,
+        current_widget_child_name
+      );
 
       this.current_widget = the_current_widget;
     },

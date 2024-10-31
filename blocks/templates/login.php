@@ -25,7 +25,7 @@ $login_args = [
 	'reg_url'               => ATBDP_Permalink::get_registration_page_link(),
 	'reg_linktxt'           => get_directorist_option( 'reg_linktxt', __( 'Sign Up', 'directorist' ) ),
 	'display_signup'        => get_directorist_option( 'display_signup', 1 ),
-	'new_user_registration' => get_directorist_option( 'new_user_registration', true ),
+	'new_user_registration' => directorist_is_user_registration_enabled(),
 ];
 
 extract( $login_args );
@@ -153,7 +153,7 @@ extract( $login_args );
 							printf( '<p><a href="" class="atbdp_recovery_pass">%s</a></p>', esc_html( $recpass_text ) );
 						endif; ?>
 					</div>
-					
+
 					<div class="directorist-form-group atbd_login_btn_wrapper">
 						<button class="directorist-btn directorist-btn-block" type="submit" value="<?php echo esc_attr( $log_button ); ?>" name="submit"><?php echo esc_html( $log_button ); ?></button>
 						<?php wp_nonce_field( 'ajax-login-nonce', 'security' );?>
@@ -164,7 +164,7 @@ extract( $login_args );
 					<?php do_action( 'atbdp_before_login_form_end' );?>
 				</div>
 			</div>
-			
+
 
 			<div id="recover-pass-modal" class="directorist-mt-15">
 				<form method="post">

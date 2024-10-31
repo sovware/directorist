@@ -138,15 +138,6 @@ import './components/directoristSelect';
 
         // Check Empty Search Fields on Search Modal
         function initSearchFields() {
-            // const inputFields = document.querySelectorAll('.directorist-search-modal__input');
-
-            // if ( inputFields.length ) {
-            //     inputFields.forEach( inputField => {
-            //         if ( ! inputField.children.length ) {
-            //             inputField.remove();
-            //         }
-            //     } );
-            // }
 
             const searchFields = document.querySelectorAll('.directorist-search-field__input:not(.directorist-search-basic-dropdown)');
 
@@ -715,6 +706,14 @@ import './components/directoristSelect';
         // handleRadiusVisibility Trigger
         $('body').on('keyup keydown input change focus', '.directorist-location-js, .zip-radius-search', function (e) {
             handleRadiusVisibility();
+        });
+
+        // handleRadiusVisibility Trigger on directory type change
+        $('body').on('click', '.directorist-instant-search .directorist-type-nav__link', function(e) {
+            setTimeout(() => {
+                handleRadiusVisibility();
+                directorist_custom_range_slider();
+            }, 600)
         });
 
         // Hide Country Result Click on Outside of Zipcode Field

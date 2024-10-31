@@ -279,7 +279,7 @@ export default {
       // Add class to parent with class 'atbdp-cpt-manager'
       const parentElement = this.$el.closest('.atbdp-cpt-manager');
       if (parentElement) {
-        parentElement.classList.add('trash-overlay-visible');
+        parentElement.classList.add('directorist-overlay-visible');
       }
     },
 
@@ -289,7 +289,7 @@ export default {
       // Remove class from parent with class 'atbdp-cpt-manager'
       const parentElement = this.$el.closest('.atbdp-cpt-manager');
       if (parentElement) {
-        parentElement.classList.remove('trash-overlay-visible');
+        parentElement.classList.remove('directorist-overlay-visible');
       }
     },
 
@@ -299,17 +299,30 @@ export default {
     },
 
     syncCurrentWidget() {
-      if ( ! this.avilableWidgets ) { return ''; }
-      if ( typeof this.avilableWidgets !== 'object' ) { return ''; }
+      const current_widget = findObjectItem(
+        `${this.widgetKey}`,
+        this.activeWidgets
+      );
 
-      if ( ! this.activeWidgets ) { return '' }
-      if ( ! this.activeWidgets[ this.widgetKey ] ) { return ''; }
+      if (!current_widget) {
+        return;
+      }
 
-      const current_widget = this.activeWidgets[ this.widgetKey ];
-      const widget_group = ( current_widget.widget_group ) ? current_widget.widget_group : '';
-      const widget_name = ( current_widget.widget_name ) ? current_widget.widget_name : '';
+      const widget_group = current_widget.widget_group
+        ? current_widget.widget_group
+        : "";
 
-      if ( ! this.avilableWidgets[ widget_group ] ) { return ''; }
+      const widget_name = current_widget.original_widget_key
+        ? current_widget.original_widget_key
+        : current_widget.widget_name ? current_widget.widget_name : "";
+
+      const widget_child_name = current_widget.widget_child_name
+        ? current_widget.widget_child_name
+        : "";
+
+      if (!this.avilableWidgets[widget_group]) {
+        return;
+      } 
 
       let the_current_widget = null;
       let current_widget_name = '';

@@ -3,7 +3,7 @@
  * Plugin Name: Directorist - Business Directory Plugin
  * Plugin URI: https://wpwax.com
  * Description: A comprehensive solution to create professional looking directory site of any kind. Like Yelp, Foursquare, etc.
- * Version: 8.0.0 - Beta 1
+ * Version: 8.0.0 - Beta 2
  * Author: wpWax
  * Author URI: https://wpwax.com
  * Text Domain: directorist
@@ -365,7 +365,7 @@ final class Directorist_Base
 			self::$instance->beta = strpos( $plugin_data['Version'], 'Beta' ) ? true : false;
 		}
 
-
+					
 		add_filter('pll_the_language_link', function($url, $current_lang) {
 			// Adjust the category link
 			$category_url = $this->get_polylang_swicher_link_for_term([

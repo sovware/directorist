@@ -287,22 +287,21 @@ endif;
 if ( ! function_exists( 'atbdp_get_listing_status_after_submission' ) ) :
 // atbdp_get_listing_status_after_submission
 function atbdp_get_listing_status_after_submission( array $args = [] ) {
-    $default = ['id' => '', 'edited' => true];
-    $args = array_merge( $default, $args );
+    $args = array_merge( array(
+		'id'     => 0,
+		'edited' => false
+	), $args );
 
-    $args['edited'] = ( true === $args['edited'] || '1' === $args['edited'] || 'yes' === $args['edited'] ) ? true : false;
-    $listing_id = $args['id'];
+	if ( true === $args['edited'] || '1' === $args['edited'] || 'yes' === $args['edited'] ) {
+		$args['edited'] = true;
+	}
 
-    $new_l_status   = $args['new_l_status'];
-    $edit_l_status  = ( 'publish' !== $new_l_status ) ? $new_l_status : $args['edit_l_status'];
-    $edited         = $args['edited'];
-    $listing_status = ( true === $edited || 'yes' === $edited || '1' === $edited ) ? $edit_l_status : $new_l_status;
-
+    $listing_id            = $args['id'];
+    $listing_status        = $args['edited'] ? $args['edit_status'] : $args['create_status'];
     $monitization          = directorist_is_monetization_enabled();
     $featured_enabled      = directorist_is_featured_listing_enabled();
     $pricing_plans_enabled = is_fee_manager_active();
-
-    $post_status =  $listing_status;
+    $post_status           = $listing_status;
 
     // If Pricing Plans are Enabled
     if ( $monitization && $pricing_plans_enabled ) {
@@ -4576,110 +4575,4 @@ function directorist_download_plugin( array $args = array() ) {
     $status['message'] = __( 'The plugin has been downloaded successfully', 'directorist' );
 
     return $status;
-}
-
-function directorist_get_form_groq_ai( $command, $system_prompt = '' ) {
-
-    $key = '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';
-
-    $url = 'https://api.groq.com/openai/v1/chat/completions';
-
-    $headers = array(
-        'user-agent' => md5( esc_url( home_url() ) ),
-        'Accept' => 'application/json',
-        'Authorization' => 'Bearer ' . $key,
-        'Content-Type' => 'application/json'
-    );
-
-    $body = [
-        'model' => 'llama3-70b-8192', //llama3-70b-8192, llama-3.1-70b-versatile
-        'messages' => [
-            [
-                'role' => 'system',
-                'content' => $system_prompt
-            ],
-            [
-                'role' => 'user',
-                'content' => $command,
-            ]
-        ],
-        'temperature' => 0.5,
-        'max_tokens' => 2000,
-        'top_p' => 1,
-        'stream' => false,
-        'stop' => null,
-    ];
-
-    $config = array(
-        'method' => 'POST',
-        'timeout' => 30,
-        'redirection' => 5,
-        'httpversion' => '1.0',
-        'headers' => $headers,
-        'body' => json_encode($body),
-    );
-
-    $response_body = array();
-
-    try {
-        $response = wp_remote_post( $url, $config );
-
-        if ( is_wp_error( $response ) ) {
-            return false;
-        } else {
-            $response_body = json_decode( $response['body'], true );
-            if ( isset( $response_body['choices'][0]['message']['content'] ) ) {
-                return directorist_extract_json_from_response( $response_body['choices'][0]['message']['content'] );
-            } else {
-                return false;
-            }
-        }
-    } catch ( Exception $e ) {
-        return false;
-    }
-}
-
-/**
- * Extract JSON data from a response string.
- *
- * @param string $response The response string containing potential JSON data.
- * @return mixed Decoded JSON data as an associative array or false on failure.
- */
-function directorist_extract_json_from_response( $response ) {
-    // Detect the first '{' and the last '}' to extract JSON object.
-    $start_pos = strpos( $response, '{' );
-    $end_pos   = strrpos( $response, '}' );
-
-    if ( false !== $start_pos && false !== $end_pos ) {
-        // Extract the JSON part based on positions.
-        $json_data = substr( $response, $start_pos, $end_pos - $start_pos + 1 );
-
-        // Decode the JSON string into a PHP array.
-        $data = json_decode( $json_data, true );
-
-        if ( JSON_ERROR_NONE === json_last_error() ) {
-            // JSON is valid, return the data.
-            return $data;
-        }
-    }
-
-    // If no valid JSON object found, try detecting an array (using '[' and ']').
-    $start_pos = strpos( $response, '[' );
-    $end_pos   = strrpos( $response, ']' );
-
-    if ( false !== $start_pos && false !== $end_pos ) {
-        // Extract the JSON part based on positions.
-        $json_data = substr( $response, $start_pos, $end_pos - $start_pos + 1 );
-
-        // Decode the JSON string into a PHP array.
-        $data = json_decode( $json_data, true );
-
-        if ( JSON_ERROR_NONE === json_last_error() ) {
-            // JSON is valid, return the data.
-            return $data;
-        }
-    }
-
-    // Return false if no valid JSON data found.
-    return false;
 }

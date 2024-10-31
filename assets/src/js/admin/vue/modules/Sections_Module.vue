@@ -10,7 +10,9 @@
         class="directorist-form-doc"
         v-if="['submission_form_fields', 'search_form_fields', 'single_listing_header', 'single_listings_contents', 'listings_card_grid_view', 'listings_card_list_view'].includes(section.fields[0])"
       >
-        <div class="directorist-form-doc-left">
+        <div 
+          class="directorist-form-doc-left"
+        >
           <div class="directorist-form-doc-title" v-html="section.title"></div>
           <a
             href="#"
@@ -42,9 +44,12 @@
             v-html="learn_more.title"
           ></a>
         </div>
-        <div class="directorist-form-doc-right">
+        <div 
+          class="directorist-form-doc-right"
+          v-if="section.fields[0] === 'submission_form_fields'"
+        >
           <a
-            href=""
+            href="#"
             target="_blank"
             class="directorist-form-doc__preview"
             @click="saveData()"

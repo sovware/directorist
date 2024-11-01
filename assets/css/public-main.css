@@ -15872,9 +15872,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   -webkit-transition: color 0.3s ease;
   transition: color 0.3s ease;
 }
-.directorist-content-active .directorist-listing-single__info a.directorist-compare-btn {
-  background-color: rgba(var(--directorist-color-dark-rgb), 0.1);
-}
 .directorist-content-active .directorist-listing-single__info a:hover {
   color: var(--directorist-color-primary);
 }
@@ -16342,21 +16339,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .directorist-content-active .directorist-listing-single .directorist-badge.directorist-badge-negotiation {
   background-color: var(--directorist-color-info);
-  width: auto !important;
-  height: 21px !important;
-  line-height: 21px !important;
-  margin: 0 !important;
-  padding: 0 5px !important;
-  border-radius: 4px !important;
 }
 .directorist-content-active .directorist-listing-single .directorist-badge.directorist-badge-sold {
   background-color: var(--directorist-color-danger);
-  width: auto !important;
-  height: 21px !important;
-  line-height: 21px !important;
-  margin: 0 !important;
-  padding: 0 5px !important;
-  border-radius: 4px !important;
 }
 .directorist-content-active .directorist-listing-single .directorist_open_status_badge {
   display: -webkit-box;

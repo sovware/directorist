@@ -333,7 +333,6 @@ window.addEventListener('load', function () {
 
   // Show the form when the '.directorist-ai-directory-creation' element is clicked
   $('.directorist-ai-directory-creation').on('click', function (e) {
-    console.log('clicked ai builder');
     e.preventDefault();
 
     // Prepare form data for the request

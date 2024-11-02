@@ -2430,7 +2430,7 @@ class Builder_Data {
                         'options' => [
                             'title' => __( "Share Settings", "directorist" ),
                             'fields' => [
-                                'icon' => [
+                                'share_icon' => [
                                     'type' => "icon",
                                     'label' => __( "Icon", "directorist" ),
                                     'value' => 'las la-share',
@@ -2445,7 +2445,7 @@ class Builder_Data {
                         'options' => [
                             'title' => __( "Report Settings", "directorist" ),
                             'fields' => [
-                                'icon' => [
+                                'report_icon' => [
                                     'type' => "icon",
                                     'label' => __( "Icon", "directorist" ),
                                     'value' => 'las la-flag',

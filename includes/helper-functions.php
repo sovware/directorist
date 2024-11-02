@@ -287,22 +287,21 @@ endif;
 if ( ! function_exists( 'atbdp_get_listing_status_after_submission' ) ) :
 // atbdp_get_listing_status_after_submission
 function atbdp_get_listing_status_after_submission( array $args = [] ) {
-    $default = ['id' => '', 'edited' => true];
-    $args = array_merge( $default, $args );
+    $args = array_merge( array(
+		'id'     => 0,
+		'edited' => false
+	), $args );
 
-    $args['edited'] = ( true === $args['edited'] || '1' === $args['edited'] || 'yes' === $args['edited'] ) ? true : false;
-    $listing_id = $args['id'];
+	if ( true === $args['edited'] || '1' === $args['edited'] || 'yes' === $args['edited'] ) {
+		$args['edited'] = true;
+	}
 
-    $new_l_status   = $args['new_l_status'];
-    $edit_l_status  = ( 'publish' !== $new_l_status ) ? $new_l_status : $args['edit_l_status'];
-    $edited         = $args['edited'];
-    $listing_status = ( true === $edited || 'yes' === $edited || '1' === $edited ) ? $edit_l_status : $new_l_status;
-
+    $listing_id            = $args['id'];
+    $listing_status        = $args['edited'] ? $args['edit_status'] : $args['create_status'];
     $monitization          = directorist_is_monetization_enabled();
     $featured_enabled      = directorist_is_featured_listing_enabled();
     $pricing_plans_enabled = is_fee_manager_active();
-
-    $post_status =  $listing_status;
+    $post_status           = $listing_status;
 
     // If Pricing Plans are Enabled
     if ( $monitization && $pricing_plans_enabled ) {
@@ -4576,6 +4575,33 @@ function directorist_download_plugin( array $args = array() ) {
     $status['message'] = __( 'The plugin has been downloaded successfully', 'directorist' );
 
     return $status;
+}
+
+
+/**
+ * Check user can signup.
+ *
+ * @since 8.0.0
+ *
+ * @return bool
+ */
+function directorist_is_user_registration_enabled() {
+	return (bool) get_directorist_option( 'new_user_registration', true );
+}
+
+function directorist_hex_to_rgb( $hex ) {
+    $hex = str_replace( "#", "", $hex );
+
+    if ( strlen( $hex ) == 3 ) {
+        $r = hexdec( str_repeat( substr( $hex, 0, 1 ), 2 ) );
+        $g = hexdec( str_repeat( substr( $hex, 1, 1 ), 2 ) );
+        $b = hexdec( str_repeat( substr( $hex, 2, 1 ), 2 ) );
+    } else {
+        $r = hexdec( substr( $hex, 0, 2 ) );
+        $g = hexdec( substr( $hex, 2, 2 ) );
+        $b = hexdec( substr( $hex, 4, 2 ) );
+    }
+    return "$r, $g, $b";
 }
 
 function directorist_get_form_groq_ai( $command, $system_prompt = '' ) {

@@ -418,9 +418,10 @@ $light-gray: #f4f5f7;
   position: relative;
   display: block;
   color: $dark;
-  &.trash-overlay-visible {
+  &.directorist-overlay-visible {
     position: fixed;
     z-index: 9;
+    width: calc(100% - 200px);
     .directorist-directory-type-top,
     .directorist-directory-type-bottom .cptm-header-navigation {
       z-index: 1;
@@ -3261,7 +3262,7 @@ input[type="radio"].cptm-radio {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 102;
+  z-index: 9999;
 }
 
 .video-popup-content {

@@ -927,6 +927,9 @@
       .directorist_open_status_badge {
         display: flex;
       }
+      .directorist-listing-single__info{
+        z-index: 1;
+      }
       .directorist-listing-single__header {
         align-items: center;
         justify-content: space-between;

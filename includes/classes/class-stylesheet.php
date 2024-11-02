@@ -91,10 +91,8 @@ if ( ! class_exists( 'ATBDP_Stylesheet' ) ):
         public static function style_settings_css() {
             do_action( 'include_style_settings' );
             $button_primary_color             = get_directorist_option('button_primary_color', '#ffffff');
-            $button_primary_hover_color       = get_directorist_option('button_primary_hover_color', '#ffffff');
             $button_primary_bg_color          = get_directorist_option('button_primary_bg_color', '#444752');
             $button_secondary_color           = get_directorist_option('button_secondary_color', '#ffffff');
-            $button_secondary_hover_color     = get_directorist_option('button_secondary_hover_color', '#ffffff');
             $button_secondary_bg_color        = get_directorist_option('button_secondary_bg_color', '#222222');
             $open_back_color                = get_directorist_option( 'open_back_color', '#32cc6f' );
             $closed_back_color              = get_directorist_option( 'closed_back_color', '#e23636' );
@@ -143,11 +141,6 @@ if ( ! class_exists( 'ATBDP_Stylesheet' ) ):
                     color: <?php echo ! empty( $button_primary_color ) ? esc_attr( $button_primary_color ) : esc_attr( '#fff' ); ?> !important;
                 }
 
-                /* Color Hover */
-                .pricing .price_action .price_action--btn:hover, #directorist.atbd_wrapper .btn-primary:hover, .default-ad-search .submit_btn .btn-default:hover, .atbd_content_active #directorist.atbd_wrapper.dashboard_area .user_pro_img_area .user_img .choose_btn #upload_pro_pic:hover, #directorist.atbd_wrapper .at-modal .at-modal-close:hover, .atbdp_login_form_shortcode #loginform p input[type="submit"]:hover, .atbd_manage_fees_wrapper .table tr .action p .btn-block:hover, #directorist.atbd_wrapper #atbdp-checkout-form #atbdp_checkout_submit_btn:hover, #directorist.atbd_wrapper .ezmu__btn:hover{
-                    color: <?php echo ! empty( $button_primary_hover_color ) ? esc_attr( $button_primary_hover_color ) : esc_attr( '#fff' ); ?> !important;
-                }
-
                 /* Background */
                 .pricing .price_action .price_action--btn, #directorist.atbd_wrapper .btn-primary, .default-ad-search .submit_btn .btn-default, .atbd_content_active #directorist.atbd_wrapper.dashboard_area .user_pro_img_area .user_img .choose_btn #upload_pro_pic, #directorist.atbd_wrapper .at-modal .at-modal-close, .atbdp_login_form_shortcode #loginform p input[type="submit"], .atbd_manage_fees_wrapper .table tr .action p .btn-block, #directorist.atbd_wrapper #atbdp-checkout-form #atbdp_checkout_submit_btn, #directorist.atbd_wrapper .ezmu__btn{
                     background: <?php echo ! empty( $button_primary_bg_color ) ? esc_attr( $button_primary_bg_color ) : esc_attr( '#444752' ); ?> !important;
@@ -174,9 +167,6 @@ if ( ! class_exists( 'ATBDP_Stylesheet' ) ):
                 /* Color */
                 #directorist.atbd_wrapper .btn-secondary {
                     color: <?php echo ! empty( $button_secondary_color ) ? esc_attr( $button_secondary_color ) : esc_attr( '#fff' ); ?> !important;
-                }
-                #directorist.atbd_wrapper .btn-secondary:hover{
-                    color: <?php echo ! empty( $button_secondary_hover_color ) ? esc_attr( $button_secondary_hover_color ) : esc_attr( '#fff' ); ?> !important;
                 }
 
                 /* Background */

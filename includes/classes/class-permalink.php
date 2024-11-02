@@ -225,7 +225,7 @@ class ATBDP_Permalink {
     public static function get_registration_page_link($query_vars=array())
     {
         $link = home_url();
-        $page_id = get_directorist_option('custom_registration'); // get the page id of the custom registration page.
+        $page_id = get_directorist_option('signin_signup_page'); // get the page id of the custom registration page.
 
         if ( $page_id ) {
             $link = get_permalink( $page_id );
@@ -296,7 +296,7 @@ class ATBDP_Permalink {
     public static function get_login_page_url($query_vars=array())
     {
         $link = home_url() .'/login';
-        $page_id = get_directorist_option( 'user_login' );
+        $page_id = get_directorist_option( 'signin_signup_page' );
 
         if( $page_id ) {
             $link = get_permalink( $page_id );

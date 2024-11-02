@@ -983,56 +983,57 @@ import './components/directoristSelect';
             sliders.forEach(function (sliderItem) {
                 let slider = sliderItem.querySelector('.directorist-custom-range-slider__slide');
 
-                if (slider) {
-                    let sliderStep = parseInt(slider.getAttribute('step')) || 1;
-                    let sliderDefaultValue = parseInt(slider.getAttribute('value'));
-                    let minInput = sliderItem.querySelector('.directorist-custom-range-slider__value__min');
-                    let maxInput = sliderItem.querySelector('.directorist-custom-range-slider__value__max');
-                    let sliderRange = sliderItem.querySelector('.directorist-custom-range-slider__range');
-                    let sliderRangeShow = sliderItem.querySelector('.directorist-custom-range-slider__range__show');
+                // Check if the slider is already initialized
+                if (!slider || slider.directoristCustomRangeSlider) return;
+                
+                let sliderStep = parseInt(slider.getAttribute('step')) || 1;
+                let sliderDefaultValue = parseInt(slider.getAttribute('value'));
+                let minInput = sliderItem.querySelector('.directorist-custom-range-slider__value__min');
+                let maxInput = sliderItem.querySelector('.directorist-custom-range-slider__value__max');
+                let sliderRange = sliderItem.querySelector('.directorist-custom-range-slider__range');
+                let sliderRangeShow = sliderItem.querySelector('.directorist-custom-range-slider__range__show');
 
-                    directoristCustomRangeSlider?.create(slider, {
-                        start: [0, sliderDefaultValue ? sliderDefaultValue : 100],
-                        connect: true,
-                        step: sliderStep ? sliderStep : 1,
-                        range: {
-                            'min': Number(minInput.value ? minInput.value : 0),
-                            'max': Number(maxInput.value ? maxInput.value : 100)
-                        }
-                    });
+                directoristCustomRangeSlider?.create(slider, {
+                    start: [0, sliderDefaultValue ? sliderDefaultValue : 100],
+                    connect: true,
+                    step: sliderStep ? sliderStep : 1,
+                    range: {
+                        'min': Number(minInput.value ? minInput.value : 0),
+                        'max': Number(maxInput.value ? maxInput.value : 100)
+                    }
+                });
 
-                    slider.directoristCustomRangeSlider?.on('update', function (values, handle) {
-                        let value = values[handle];
-                        handle === 0 ? minInput.value = Math.round(value) : maxInput.value = Math.round(value);
-                        let rangeValue = minInput.value + '-' + maxInput.value;
-                        sliderRange.value = rangeValue;
-                        sliderRangeShow && (sliderRangeShow.innerHTML = rangeValue);
-                    });
+                slider.directoristCustomRangeSlider?.on('update', function (values, handle) {
+                    let value = values[handle];
+                    handle === 0 ? minInput.value = Math.round(value) : maxInput.value = Math.round(value);
+                    let rangeValue = minInput.value + '-' + maxInput.value;
+                    sliderRange.value = rangeValue;
+                    sliderRangeShow && (sliderRangeShow.innerHTML = rangeValue);
+                });
 
-                    minInput.addEventListener('change', function () {
-                        let minValue = Math.round(parseInt(this.value, 10) / sliderStep) * sliderStep;
-                        let maxValue = Math.round(parseInt(maxInput.value, 10) / sliderStep) * sliderStep;
+                minInput.addEventListener('change', function () {
+                    let minValue = Math.round(parseInt(this.value, 10) / sliderStep) * sliderStep;
+                    let maxValue = Math.round(parseInt(maxInput.value, 10) / sliderStep) * sliderStep;
 
-                        if (minValue > maxValue) {
-                            this.value = maxValue;
-                            minValue = maxValue;
-                        }
+                    if (minValue > maxValue) {
+                        this.value = maxValue;
+                        minValue = maxValue;
+                    }
 
-                        slider.directoristCustomRangeSlider.set([minValue, null]);
-                    });
+                    slider.directoristCustomRangeSlider.set([minValue, null]);
+                });
 
-                    maxInput.addEventListener('change', function () {
-                        let minValue = Math.round(parseInt(minInput.value, 10) / sliderStep) * sliderStep;
-                        let maxValue = Math.round(parseInt(this.value, 10) / sliderStep) * sliderStep;
+                maxInput.addEventListener('change', function () {
+                    let minValue = Math.round(parseInt(minInput.value, 10) / sliderStep) * sliderStep;
+                    let maxValue = Math.round(parseInt(this.value, 10) / sliderStep) * sliderStep;
 
-                        if (maxValue < minValue) {
-                            this.value = minValue;
-                            maxValue = minValue;
-                        }
+                    if (maxValue < minValue) {
+                        this.value = minValue;
+                        maxValue = minValue;
+                    }
 
-                        slider.directoristCustomRangeSlider.set([null, maxValue]);
-                    });
-                }
+                    slider.directoristCustomRangeSlider.set([null, maxValue]);
+                });
             });
         }
 

@@ -1578,8 +1578,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       handleRadiusVisibility();
     });
 
-    // handleRadiusVisibility Trigger on directory type change
-    $('body').on('click', '.directorist-instant-search .directorist-type-nav__link', function (e) {
+    // handleRadiusVisibility Trigger on directory type | page change
+    $('body').on('click', '.directorist-instant-search .directorist-type-nav__link, .directorist-instant-search .directorist-pagination .page-numbers', function (e) {
       setTimeout(function () {
         handleRadiusVisibility();
         directorist_custom_range_slider();

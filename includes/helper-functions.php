@@ -4577,7 +4577,6 @@ function directorist_download_plugin( array $args = array() ) {
     return $status;
 }
 
-
 /**
  * Check user can signup.
  *
@@ -4605,16 +4604,14 @@ function directorist_hex_to_rgb( $hex ) {
 }
 
 function directorist_get_form_groq_ai( $command, $system_prompt = '' ) {
-
     $key = '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';
-
     $url = 'https://api.groq.com/openai/v1/chat/completions';
 
     $headers = array(
-        'user-agent' => md5( esc_url( home_url() ) ),
-        'Accept' => 'application/json',
+        'user-agent'    => md5( esc_url( home_url() ) ),
+        'Accept'        => 'application/json',
         'Authorization' => 'Bearer ' . $key,
-        'Content-Type' => 'application/json'
+        'Content-Type'  => 'application/json'
     );
 
     $body = [

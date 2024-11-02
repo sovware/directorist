@@ -67,11 +67,10 @@ if (!class_exists('ATBDP_Listing')):
 				return $title;
 			}
 
-			if ( 'private' !== get_post_status( $listing_id ) ) {
-				return $title;
-			}
-
-			return sprintf( __( 'Preview: %s', 'directorist' ), str_replace( 'Private:', '', $title ) );
+			return sprintf(
+				__( 'Preview: %s', 'directorist' ),
+				( 'private' === get_post_status( $listing_id ) ? str_replace( 'Private:', '', $title ) : $title )
+			);
 		}
 
         public function listing_type_search_query( $query )

@@ -226,10 +226,23 @@ export default {
     openConfirmationModal() {
       this.groupName = this.groupData.label;
       this.showConfirmationModal = true;
+
+      // Add class to parent with class 'atbdp-cpt-manager'
+      const parentElement = this.$el.closest('.atbdp-cpt-manager');
+      if (parentElement) {
+        parentElement.classList.add('directorist-overlay-visible');
+      }
     },
 
     closeConfirmationModal() {
       this.showConfirmationModal = false;
+
+      // Remove class to parent with class 'atbdp-cpt-manager'
+      const parentElement = this.$el.closest('.atbdp-cpt-manager');
+      console.log('@chk group close', {parentElement});
+      if (parentElement) {
+        parentElement.classList.remove('directorist-overlay-visible');
+      }
     },
 
     trashGroup() {

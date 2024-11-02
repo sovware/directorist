@@ -197,6 +197,15 @@ function selec2_add_custom_dropdown_toggle_button() {
   $('.select2-hidden-accessible').on('select2:close', function (e) {
     var dropdown_btn = $(this).next().find('.directorist-select2-dropdown-toggle');
     dropdown_btn.removeClass('--is-open');
+    var dropdownParent = $(this).closest('.directorist-search-field');
+    var renderTitle = $(this).next().find('.select2-selection__rendered').attr('title');
+
+    // Check if renderTitle is empty and remove the focus class if so
+    if (!renderTitle) {
+      dropdownParent.removeClass('input-is-focused');
+    } else {
+      dropdownParent.addClass('input-has-value');
+    }
   });
 
   // Toggle Dropdown
@@ -1083,16 +1092,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
     // Check Empty Search Fields on Search Modal
     function initSearchFields() {
-      // const inputFields = document.querySelectorAll('.directorist-search-modal__input');
-
-      // if ( inputFields.length ) {
-      //     inputFields.forEach( inputField => {
-      //         if ( ! inputField.children.length ) {
-      //             inputField.remove();
-      //         }
-      //     } );
-      // }
-
       var searchFields = document.querySelectorAll('.directorist-search-field__input:not(.directorist-search-basic-dropdown)');
       searchFields.forEach(function (searchField) {
         var inputFieldValue = searchField.value;
@@ -1577,6 +1576,14 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     // handleRadiusVisibility Trigger
     $('body').on('keyup keydown input change focus', '.directorist-location-js, .zip-radius-search', function (e) {
       handleRadiusVisibility();
+    });
+
+    // handleRadiusVisibility Trigger on directory type change
+    $('body').on('click', '.directorist-instant-search .directorist-type-nav__link', function (e) {
+      setTimeout(function () {
+        handleRadiusVisibility();
+        directorist_custom_range_slider();
+      }, 600);
     });
 
     // Hide Country Result Click on Outside of Zipcode Field

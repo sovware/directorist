@@ -17,10 +17,10 @@
         position: relative;
         &:focus,
         &:hover {
-            background-color: var(--directorist-color-light);
-            border-color:var(--directorist-color-light);
+            background-color: var(--directorist-color-light) !important;
+            border-color:var(--directorist-color-light) !important;
             outline: 0 !important;
-            color: currentColor;
+            color: var(--directorist);
         }
 
         &.directorist-toggle-has-icon {

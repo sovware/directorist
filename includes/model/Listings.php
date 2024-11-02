@@ -2047,7 +2047,7 @@ class Directorist_Listings {
 
 		public function print_label( $label ) {
 			if ( $label ) {
-				$label_text = $label . ': ';
+				$label_text = $label . ' : ';
 				$label_text = apply_filters( 'directorist_loop_label', $label_text, $label );
 				echo wp_kses_post( $label_text );
 			}

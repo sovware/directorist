@@ -213,7 +213,7 @@
     padding: 20px 30px;
     border-bottom: 1px solid #e3e6ef;
     i {
-      background-color: var(--directorist-color-dark);
+      background-color: var(--directorist-color-primary);
       &:after {
         background-color: var(--directorist-color-white);
       }
@@ -341,7 +341,7 @@
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background-color: #202428;
+    background-color: var(--directorist-color-primary);
     border: 0 none;
     mask-image: none;
     z-index: 2;
@@ -769,6 +769,7 @@
       &:after {
         width: 16px;
         height: 16px;
+        background-color: var(--directorist-color-marker-icon);
       }
     }
     &:hover {
@@ -1182,7 +1183,7 @@
     &:before {
       left: -25px;
       top: -25px;
-      border: 50px solid rgba(var(--directorist-color-primary-rgb), 0.2);
+      border: 50px solid rgba(var(--directorist-color-marker-shape-rgb), 0.2);
     }
     .directorist-icon-mask::after {
       width: 12px;
@@ -1349,9 +1350,11 @@
 .directorist-custom-field-radio,
 .directorist-custom-field-checkbox {
   display: flex;
+  gap: 0 10px;
   flex-wrap: wrap;
 
   .directorist-form-label,
+  .directorist-form-description,
   .directorist-custom-field-btn-more {
     width: 100%;
     flex: 0 0 100%;
@@ -1359,7 +1362,7 @@
 
   .directorist-checkbox,
   .directorist-radio {
-    flex: 0 0 50%;
+    flex: 0 0 49%;
 
     @media only screen and (max-width: 767px) {
       flex: 0 0 100%;
@@ -1419,6 +1422,8 @@
     flex-direction: column;
     height: fit-content;
     max-height: 100vh;
+    min-width: 290px;
+    max-width: 290px;
     overflow-y: auto;
     padding: 10px;
     margin: -10px;
@@ -1494,6 +1499,10 @@
         i::after {
           background-color: var(--directorist-color-primary);
         }
+      }
+      &:focus {
+        outline: none;
+        color: var(--directorist-color-light-gray);
       }
       &.completed {
         color: var(--directorist-color-primary);

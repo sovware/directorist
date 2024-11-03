@@ -183,6 +183,11 @@
 .directorist-search-popup-block-hidden {
   overflow: hidden;
 }
+.directorist-search-popup-block{
+  display: inline-flex;
+  align-items: center;
+}
+
 .directorist-search-popup-block__button {
   cursor: pointer;
   display: inline-flex;

@@ -344,12 +344,3 @@ if (!class_exists('ATBDP_Listing')):
     }
 
 endif;
-
-
-
-
-
-
-
-
-

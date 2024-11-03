@@ -55,12 +55,13 @@ window.addEventListener('load', () => {
                 "<p class='copy-notify' style='color: #32cc6f; margin-top: 5px;'>Copied to clipboard!</p>"
             );
 
-            setTimeout(function () {
+            let timeout = setTimeout(function () {
                 $this.siblings('.copy-notify').fadeOut(300, function () {
                     $(this).remove();
                 });
+
+                clearTimeout(timeout);
             }, 3000);
         }
     });
 });
-

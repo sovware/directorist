@@ -491,6 +491,7 @@ final class Directorist_Base
 			ATBDP_INC_DIR . 'modules/multi-directory-setup/trait-multi-directory-helper',
 			ATBDP_INC_DIR . 'modules/multi-directory-setup/class-multi-directory-migration',
 			ATBDP_INC_DIR . 'modules/multi-directory-setup/class-multi-directory-manager',
+			ATBDP_INC_DIR . 'modules/multi-directory-setup/class-ai-builder',
 		]);
 
 		$this->autoload( ATBDP_INC_DIR . 'database/' );

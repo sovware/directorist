@@ -48,14 +48,30 @@ if (!class_exists('ATBDP_Listing')):
 
             add_filter('post_thumbnail_html', array($this, 'post_thumbnail_html'), 10, 3);
             add_action('wp_head', array($this, 'og_metatags'));
-            add_action('template_redirect', array($this, 'atbdp_listing_status_controller'));
+
+			// add_action('template_redirect', array($this, 'atbdp_listing_status_controller')); // This method has been renamed to update_listing_status_after_review
+            add_action('template_redirect', array( $this, 'update_listing_status_after_review' ) );
+
             // listing filter
             add_action('restrict_manage_posts', array($this, 'atbdp_listings_filter'));
             add_filter('parse_query', array($this, 'listing_type_search_query'));
 
             add_action('wp_ajax_directorist_track_listing_views', array( $this, 'directorist_track_listing_views' ) );
             add_action('wp_ajax_nopriv_directorist_track_listing_views', array( $this, 'directorist_track_listing_views' ) );
+
+			add_filter( 'the_title', array( $this, 'add_preview_prefix_in_title' ), 10, 2 );
         }
+
+		public function add_preview_prefix_in_title( $title, $listing_id ) {
+			if ( is_admin() || ! directorist_is_listing_post_type( $listing_id ) || ! isset( $_GET['preview'] ) ) {
+				return $title;
+			}
+
+			return sprintf(
+				__( 'Preview: %s', 'directorist' ),
+				( 'private' === get_post_status( $listing_id ) ? str_replace( 'Private:', '', $title ) : $title )
+			);
+		}
 
         public function listing_type_search_query( $query )
         {
@@ -105,8 +121,8 @@ if (!class_exists('ATBDP_Listing')):
         /**
          * @since 6.3.5
          */
-        public function atbdp_listing_status_controller() {
-			if ( empty( $_GET['listing_status'] ) && empty( $_GET['preview'] ) && empty( $_GET['reviewed'] ) ) {
+        public function update_listing_status_after_review( )  {
+			if ( ( empty( $_GET['listing_status'] ) && empty( $_GET['reviewed'] ) ) || isset( $_GET['preview'] ) ) {
 				return;
 			}
 

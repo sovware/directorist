@@ -9683,6 +9683,7 @@ body.stop-scrolling {
   }
 }
 .multistep-wizard__nav__btn i {
+  min-width: 36px;
   width: 36px;
   height: 36px;
   display: -webkit-box;

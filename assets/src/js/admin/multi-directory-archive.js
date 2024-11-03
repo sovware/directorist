@@ -644,7 +644,7 @@ $('body').on('click', '.directorist_generate_ai_directory', function(e) {
         })
         .catch(error => {
             if (error.response.data?.success === false && error.response.data?.data?.code === 'limit_exceeded') {
-                alert('🙌 You\'ve exceeded the 15 requests beta limit.');
+                alert('🙌 You\'ve exceeded the request/site beta limit.');
             }
 
             handleCreateButtonEnable();
@@ -675,7 +675,7 @@ $('body').on('click', '.directorist_regenerate_fields', function(e) {
         })
         .catch(error => {
             if (error.response.data?.success === false && error.response.data?.data?.code === 'limit_exceeded') {
-                alert('🙌 You\'ve exceeded the 15 requests beta limit.');
+                alert('🙌 You\'ve exceeded the request/site beta limit.');
             }
 
             $(this).removeClass('loading');

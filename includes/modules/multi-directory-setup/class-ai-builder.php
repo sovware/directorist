@@ -624,7 +624,7 @@ USER_PROMPT;
 			$groups[] = [
 				'type'       => 'general_group',
 				'label'      => $group['label'],
-				'fields'     => $group_fields,
+				'fields'     => array_values( $group_fields ),
 				'section_id' => ++$section_id,
 			];
 		}

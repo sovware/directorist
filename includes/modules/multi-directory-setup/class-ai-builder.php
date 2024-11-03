@@ -8,6 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use WP_Error;
 use Directorist\Multi_Directory\Multi_Directory_Manager as DirectoryManager;
 
 if ( ! is_admin() ) {
@@ -15,6 +16,8 @@ if ( ! is_admin() ) {
 }
 
 class AI_Builder {
+
+	const API_URL = 'https://app.directorist.com/wp-json/waxai/v1/';
 
 	/**
 	 * Preset fields map
@@ -96,6 +99,15 @@ class AI_Builder {
 
 		if ( 1 === $step ) {
 			$html = static::ai_create_keywords( $prompt );
+
+			if ( is_wp_error( $html ) ) {
+				wp_send_json([
+					'status' => [
+						'success' => false,
+						'message' => $html->get_error_message(),
+					],
+				], 200);
+			}
 		}
 
 		if ( 2 === $step ) {
@@ -319,129 +331,21 @@ class AI_Builder {
 	}
 
 	public static function ai_create_fields( $keywords, $pinned = null ) {
-		$system_prompt = <<<SYSTEM_PROMPT
-You are an assistant for a directory setup tool. Based on selected keywords, suggest exactly 20 fields grouped by relevance, ensuring each group contains at least 3 fields.
+		$response = static::request_fields( [
+			'keywords' => $keywords,
+			'pinned' => $pinned,
+		] );
 
-For each field, include the following attributes:
-- "type": The field type as specified (use only the types provided exactly as written).
-- "label": The display name for the field.
-- "group": The name of the field's group.
-- "options": Include only if the field type is "select", "checkbox", or "radio".
-
-**Preset Fields** (to be used only once):
-- Description (type: "description")
-  - Use case: Main description with WYSIWYG editor, supporting HTML tags.
-- Tagline (type: "tagline")
-  - Use case: For tagline or motto-related text.
-- Pricing (type: "pricing")
-  - Use case: For price input with options for numeric or range types (ultra high, expensive, moderate, cheap).
-- Excerpt (type: "excerpt")
-  - Use case: Short description; does not support HTML.
-- Title (type: "title")
-  - Use case: Always required; use whenever a title or similar information is needed.
-- Location (type: "location")
-  - Use case: WordPress custom hierarchical taxonomy for location.
-- Tag (type: "tag")
-  - Use case: Non-hierarchical taxonomy for tagging.
-- Category (type: "category")
-  - Use case: Hierarchical taxonomy for categorizing listings.
-- Map (type: "map")
-  - Use case: Displays the live location based on address using Google or OpenStreetMap API.
-- Address (type: "address")
-  - Use case: Field for listing address; maps in real-time.
-- Post code (type: "postcode")
-  - Use case: Field for listing postal code.
-- Phone (type: "phone")
-  - Use case: Primary phone number for the listing.
-- Phone 2 (type: "phone2")
-  - Use case: Secondary phone number for the listing.
-- Fax (type: "fax")
-  - Use case: Field for listing fax number.
-- Email (type: "email")
-  - Use case: Field for listing email address.
-- Website (type: "website")
-  - Use case: Field for listing website URL.
-- Social Info (type: "socialinfo")
-  - Use case: Repeater field for social media links; use only when social links are needed.
-- Images (type: "images")
-  - Use case: Field for uploading one or multiple images.
-- Video (type: "video")
-  - Use case: Field for video links (supports YouTube and Vimeo by default).
-
-**Custom Fields** (multiple uses allowed, using incremental naming if applicable):
-- Text (type: "text")
-  - Use case: Any single-line text attributes for listings.
-- Textarea (type: "textarea")
-  - Use case: Any multi-line text attributes for listings.
-- Number (type: "number")
-  - Use case: Numeric input for listing attributes.
-- URL (type: "url")
-  - Use case: Any URL attributes (e.g., video, audio, file).
-- Date (type: "date")
-  - Use case: Date attributes for listings.
-- Time (type: "time")
-  - Use case: Time attributes for listings.
-- Color Picker (type: "color_picker")
-  - Use case: Color selection for attributes.
-- Select (type: "select")
-  - Use case: Attributes with multiple options, allowing single selection.
-- Checkbox (type: "checkbox")
-  - Use case: Attributes allowing multiple selections.
-- Radio (type: "radio")
-  - Use case: Attributes allowing a single selection (similar to select).
-- File Upload (type: "file_upload")
-  - Use case: Field for uploading files (e.g., images, PDFs, videos).
-
-Respond **only in JSON format** as follows:
-{
-  "fields": [
-    {
-      "type": "description",
-      "label": "Description",
-      "group": "Basic Information"
-    },
-    {
-      "type": "select",
-      "label": "Color",
-      "group": "Attributes",
-      "options": ["Red", "Blue", "Green"]
-    },
-    ...
-  ]
-}
-SYSTEM_PROMPT;
-
-		$user_prompt_basic = <<<USER_PROMPT
-Selected Keywords: [%s]
-
-Please suggest fields based on the selected keywords. Return exactly 20 fields, grouped by relevance. Each field should have the following attributes: "type", "label", "group", and "options" (only for select, checkbox, or radio types). Respond only in JSON format.
-USER_PROMPT;
-
-		$user_prompt_with_pinned = <<<USER_PROMPT
-Selected Keywords: [%s]
-Pinned Fields: [%s]
-
-Please regenerate the fields and must include the pinned fields list while maintaining relevance to the selected keywords. Return all fields only in JSON format with only the following keys for each field: "type", "label", "group", and, if applicable, "options".
-USER_PROMPT;
-
-		if ( empty( $pinned ) ) {
-			$user_prompt = sprintf( $user_prompt_basic, $keywords );
-		} else {
-			$user_prompt = sprintf( $user_prompt_with_pinned, $keywords, $pinned );
-		}
-
-		$response = directorist_get_form_groq_ai( $user_prompt, $system_prompt );
-
-		if( ! $response ) {
+		if ( is_wp_error( $response ) ) {
 			wp_send_json([
 				'status' => [
 					'success' => false,
-					'message' => __( 'Something went wrong, please try again', 'directorist' ),
+					'message' => $response->get_error_message(),
 				],
 			], 200);
 		}
 
-		if ( empty( $response['fields'] ) || ! is_array( $response['fields'] ) ) {
+		if ( empty( $response['response']['fields'] ) || ! is_array( $response['response']['fields'] ) ) {
 			return [
 				'fields' => [],
 				'html'   => '',
@@ -451,37 +355,30 @@ USER_PROMPT;
 
 		ob_start();
 
-		if ( ! empty( $response['fields'] ) ) {
-			static::render_fields( $response['fields'] );
+		if ( ! empty( $response['response']['fields'] ) ) {
+			static::render_fields( $response['response']['fields'] );
 		}
 
 		$html = ob_get_clean();
 
 		return [
-			'fields' => $response['fields'],
+			'fields' => $response['response']['fields'],
 			'html'   => $html,
 			'data'   => $response,
 		];
 	}
 
 	public static function ai_create_keywords( $prompt ) {
-		$system_prompt = 'Analyze the user input and determine the main subject or domain and **only** pick the first domain. And you are a keyword generator. Based on the following user input, generate exactly 10 relevant keywords, focusing on a single main topic only. Respond **only** with JSON in this format: {"keywords": ["keyword1", "keyword2", ...]} and no other text.';
+		$response = static::request_keywords( ['prompt' => $prompt] );
 
-		$response = directorist_get_form_groq_ai( $prompt, $system_prompt );
-
-		if ( ! $response ) {
-			wp_send_json([
-				'status' => [
-					'success' => false,
-					'message' => __( 'Something went wrong, please try again', 'directorist' ),
-				],
-			], 200);
+		if ( is_wp_error( $response ) ) {
+			return $response;
 		}
 
 		ob_start();
 
-		if ( ! empty( $response['keywords'] ) ) {
-			foreach ( $response['keywords'] as $keyword ) { ?>
+		if ( ! empty( $response['response']['keywords'] ) ) {
+			foreach ( $response['response']['keywords'] as $keyword ) { ?>
 				<li class="free-enabled"><?php echo ucwords( $keyword ); ?></li>
 			<?php }
 		}
@@ -903,6 +800,51 @@ USER_PROMPT;
 			</div>
 			<?php
 		}
+	}
+
+	protected static function request_keywords( $params ) {
+		return static::request( 'keywords', $params );
+	}
+
+	protected static function request_fields( $params ) {
+		return static::request( 'fields', $params );
+	}
+
+	protected static function request( $endpoint = 'keywords', $params = array() ) {
+		$headers = array(
+			'user-agent'    => 'Directorist\\' . ATBDP_VERSION,
+			'Accept'        => 'application/json',
+			'Content-Type'  => 'application/json'
+		);
+
+		$config = array(
+			'method'      => 'POST',
+			'timeout'     => 30,
+			'redirection' => 5,
+			'httpversion' => '1.0',
+			'headers'     => $headers,
+			'body'        => json_encode( $params ),
+		);
+
+		$response = wp_remote_post( static::API_URL . $endpoint, $config );
+
+		if ( is_wp_error( $response ) ) {
+			return $response;
+		}
+
+		$response = wp_remote_retrieve_body( $response );
+		if ( empty( $response ) ) {
+			return new WP_Error( 'empty_data', 'Empty response', 400 );
+		}
+
+		// Decode the JSON string into a PHP array.
+        $response = json_decode( $response, true );
+
+        if ( JSON_ERROR_NONE !== json_last_error() ) {
+			return new WP_Error( 'invalid_data', 'Malformed JSON response', 400 );
+        }
+
+		return $response;
 	}
 }
 

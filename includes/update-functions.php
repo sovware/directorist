@@ -246,7 +246,7 @@ function directorist_800_migrate_builder_data() {
 	}
 
 	//create account page
-	$options = get_option('atbdp_option');
+	$options = get_option( 'atbdp_option' );
 	$account = wp_insert_post(
 		array(
 			'post_title' 	 => 'Sign In',
@@ -259,6 +259,9 @@ function directorist_800_migrate_builder_data() {
 
 	if ( $account ) {
 		$options['signin_signup_page'] = (int) $account;
+		$options['marker_shape_color'] 	= '#444752';
+		$options['marker_icon_color'] 	= '#ffffff';
+		
 		update_option( 'atbdp_option', $options );
 	}
 

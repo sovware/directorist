@@ -876,7 +876,7 @@ $('body').on('click', '.directorist_generate_ai_directory', function (e) {
   }).catch(function (error) {
     var _error$response$data, _error$response$data2;
     if (((_error$response$data = error.response.data) === null || _error$response$data === void 0 ? void 0 : _error$response$data.success) === false && ((_error$response$data2 = error.response.data) === null || _error$response$data2 === void 0 || (_error$response$data2 = _error$response$data2.data) === null || _error$response$data2 === void 0 ? void 0 : _error$response$data2.code) === 'limit_exceeded') {
-      alert('🙌 You\'ve exceeded the 15 requests beta limit.');
+      alert('🙌 You\'ve exceeded the request/site beta limit.');
     }
     handleCreateButtonEnable();
     console.error(error.response.data);
@@ -905,7 +905,7 @@ $('body').on('click', '.directorist_regenerate_fields', function (e) {
   }).catch(function (error) {
     var _error$response$data3, _error$response$data4;
     if (((_error$response$data3 = error.response.data) === null || _error$response$data3 === void 0 ? void 0 : _error$response$data3.success) === false && ((_error$response$data4 = error.response.data) === null || _error$response$data4 === void 0 || (_error$response$data4 = _error$response$data4.data) === null || _error$response$data4 === void 0 ? void 0 : _error$response$data4.code) === 'limit_exceeded') {
-      alert('🙌 You\'ve exceeded the 15 requests beta limit.');
+      alert('🙌 You\'ve exceeded the request/site beta limit.');
     }
     $(_this).removeClass('loading');
     console.error(error.response.data);

@@ -3,6 +3,7 @@
   display: flex;
   flex-direction: column;
   font-family: 'Inter';
+  margin-left: -20px;
 
   * {
     flex-grow: unset !important;
@@ -282,7 +283,7 @@
         outline: none;
         box-shadow: none;
       }
-      
+
       &.disabled {
         opacity: 0.5;
         pointer-events: none;
@@ -470,7 +471,7 @@
       &[name="directory-location"] {
         &::-webkit-search-cancel-button{
             position:relative;
-            right:0;  
+            right:0;
             margin: 0;
             height: 20px;
             width: 20px;

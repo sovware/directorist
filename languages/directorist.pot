@@ -6,11 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-<<<<<<< HEAD
-"POT-Creation-Date: 2024-11-03 11:08+0000\n"
-=======
-"POT-Creation-Date: 2024-11-03 13:26+0000\n"
->>>>>>> c87a5f38271c34eefc5066ef2280a824db690fb9
+"POT-Creation-Date: 2024-11-03 15:26+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -2171,7 +2167,7 @@ msgstr ""
 msgid "Congratulations! Your listing has been approved/published. Now it is publicly available."
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:329, ../includes/modules/multi-directory-setup/class-ai-builder.php:57, ../includes/modules/multi-directory-setup/class-ai-builder.php:88, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:426, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:542, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:664
+#: ../includes/classes/class-settings-panel.php:329, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:426, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:542, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:664
 msgid "You are not allowed to access this resource"
 msgstr ""
 

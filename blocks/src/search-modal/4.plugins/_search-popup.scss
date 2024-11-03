@@ -1,5 +1,7 @@
 /* Header Search Popup */
 .directorist-search-popup-block{
+    display: inline-flex;
+    align-items: center;
     &__popup{
         &:not(.responsive-true){
             position: fixed;
@@ -112,8 +114,23 @@
     }
     &__button{
         cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        @include media-custom-max(600px){
+            width: 40px;
+            height: 40px;
+            justify-content: center;
+            border: 1px solid var(--directorist-color-border);
+            border-radius: 50%;
+            &:hover{
+                .directorist-icon-mask:after{
+                    background-color: currentColor;
+                }
+            }
+        }
         .directorist-icon-mask:after{
-            background-color: var(--directorist-color-body);
+            background-color: var(--directorist-color-gray);
         }
     }
 

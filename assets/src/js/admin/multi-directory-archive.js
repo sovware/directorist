@@ -643,8 +643,12 @@ $('body').on('click', '.directorist_generate_ai_directory', function(e) {
             handleAIFormResponse(response);
         })
         .catch(error => {
+            if (error.response.data?.success === false && error.response.data?.data?.code === 'limit_exceeded') {
+                alert('🙌 You\'ve exceeded the 15 requests beta limit.');
+            }
+
             handleCreateButtonEnable();
-            console.error(error);
+            console.error(error.response.data);
         });
 });
 
@@ -666,12 +670,15 @@ $('body').on('click', '.directorist_regenerate_fields', function(e) {
     axios.post(directorist_admin.ajax_url, form_data)
         .then(response => {
             $(this).removeClass('loading');
-            handleGenerateFields(response?.data?.html);
+            handleGenerateFields(response?.data?.data?.html);
             $('.directorist_regenerate_fields').hide();
         })
         .catch(error => {
+            if (error.response.data?.success === false && error.response.data?.data?.code === 'limit_exceeded') {
+                alert('🙌 You\'ve exceeded the 15 requests beta limit.');
+            }
+
             $(this).removeClass('loading');
-            console.error(error);
+            console.error(error.response.data);
         });
 });
-

@@ -2458,7 +2458,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 
   // Clear Input Value
   $('body').on("click", ".directorist-instant-search .directorist-search-field__btn--clear", function (e) {
-    var inputValue = $(this).closest('.directorist-search-field').find('input, select').val('');
+    var inputValue = $(this).closest('.directorist-search-field').find('input:not([type="checkbox"]):not([type="radio"]), select').val('');
     if (inputValue) {
       var searchElm = $(document.querySelector('.directorist-instant-search form'));
       filterListing(searchElm);

@@ -1259,7 +1259,7 @@ import debounce from '../../global/components/debounce';
 
     // Clear Input Value
     $('body').on("click", ".directorist-instant-search .directorist-search-field__btn--clear", function(e) {
-        let inputValue = $(this).closest('.directorist-search-field').find('input, select').val('');
+        let inputValue = $(this).closest('.directorist-search-field').find('input:not([type="checkbox"]):not([type="radio"]), select').val('');
 
         if (inputValue) {
             let searchElm = $(document.querySelector('.directorist-instant-search form'));

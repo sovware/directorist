@@ -339,31 +339,24 @@ window.addEventListener('load', function () {
     var form_data = new FormData();
     form_data.append('action', 'directorist_ai_directory_form');
 
-    // Success callback to handle the response
-    function handleAIFormInit(response) {
+    // Send the request using Axios
+    axios.post(directorist_admin.ajax_url, form_data).then(function (response) {
       var _response$data4;
       if (response !== null && response !== void 0 && (_response$data4 = response.data) !== null && _response$data4 !== void 0 && _response$data4.success) {
         var _response$data5;
         // Replace the content inside '#wpbody' with the response HTML
-        $('#wpbody').empty().html(response === null || response === void 0 || (_response$data5 = response.data) === null || _response$data5 === void 0 ? void 0 : _response$data5.html);
+        $('#wpbody').empty().html(response === null || response === void 0 || (_response$data5 = response.data) === null || _response$data5 === void 0 || (_response$data5 = _response$data5.data) === null || _response$data5 === void 0 ? void 0 : _response$data5.form);
 
         // Initialize Step Contents
         initialStepContents();
-        return;
+      } else {
+        console.log(response.data);
       }
-
-      // Show an error message if the request was not successful
-      alert('Initi Something went wrong! Please try again');
-    }
-    ;
-
-    // Send the request using Axios
-    axios.post(directorist_admin.ajax_url, form_data).then(function (response) {
-      handleAIFormInit(response); // Handle the response
+    }).catch(function (response) {
+      console.log(response.data);
     });
   });
 });
-
 var totalStep = 3;
 var currentStep = 1;
 var directoryTitle = '';
@@ -758,7 +751,7 @@ function initialStepContents() {
   });
 }
 
-// Handle Prompt Step 
+// Handle Prompt Step
 function handlePromptStep(response) {
   $('.directorist-create-directory__content__items[data-step="2"]').hide();
   $('.directorist-create-directory__content__items[data-step="3"]').show();
@@ -819,21 +812,21 @@ function handleAIFormResponse(response) {
     }
     if (currentStep == 2) {
       var _response$data8;
-      handlePromptStep(response === null || response === void 0 || (_response$data8 = response.data) === null || _response$data8 === void 0 ? void 0 : _response$data8.html);
+      handlePromptStep(response === null || response === void 0 || (_response$data8 = response.data) === null || _response$data8 === void 0 || (_response$data8 = _response$data8.data) === null || _response$data8 === void 0 ? void 0 : _response$data8.html);
     } else if (currentStep == 3) {
       var _response$data9, _response$data10;
-      handleGenerateFields(response === null || response === void 0 || (_response$data9 = response.data) === null || _response$data9 === void 0 ? void 0 : _response$data9.html);
-      directoryFields = JSON.stringify(response === null || response === void 0 || (_response$data10 = response.data) === null || _response$data10 === void 0 ? void 0 : _response$data10.fields);
+      console.log(response === null || response === void 0 ? void 0 : response.data);
+      handleGenerateFields(response === null || response === void 0 || (_response$data9 = response.data) === null || _response$data9 === void 0 || (_response$data9 = _response$data9.data) === null || _response$data9 === void 0 ? void 0 : _response$data9.html);
+      directoryFields = JSON.stringify(response === null || response === void 0 || (_response$data10 = response.data) === null || _response$data10 === void 0 || (_response$data10 = _response$data10.data) === null || _response$data10 === void 0 ? void 0 : _response$data10.fields);
     } else if (currentStep == 4) {
       var _response$data11;
       // $('#directorist-create-directory__creating').hide();
       // $('#directorist-create-directory__generating').hide();
       // $('#directorist-create-directory__ai-fields').show();
-      handleCreateDirectory(response === null || response === void 0 || (_response$data11 = response.data) === null || _response$data11 === void 0 ? void 0 : _response$data11.url);
+      handleCreateDirectory(response === null || response === void 0 || (_response$data11 = response.data) === null || _response$data11 === void 0 || (_response$data11 = _response$data11.data) === null || _response$data11 === void 0 ? void 0 : _response$data11.url);
     }
-    return;
   } else {
-    console.error('Something went wrong! Please try again');
+    console.error(response === null || response === void 0 ? void 0 : response.data);
   }
 }
 ;

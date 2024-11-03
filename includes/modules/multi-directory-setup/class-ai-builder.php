@@ -51,24 +51,16 @@ class AI_Builder {
 
 	public static function form_handler() {
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_send_json([
-				'status' => [
-					'success' => false,
-					'message' => __( 'You are not allowed to access this resource', 'directorist' ),
-				],
-			], 200);
+			wp_send_json_error( 'You are not authorized.', 401 );
 		}
-
-		$installed['success'] = true;
 
 		ob_start();
 
-		atbdp_load_admin_template('post-types-manager/ai/step-one', []);
+		atbdp_load_admin_template( 'post-types-manager/ai/step-one', [] );
 
 		$form = ob_get_clean();
 
-		$installed['html'] = $form;
-		wp_send_json( $installed );
+		wp_send_json_success( ['form' => $form ] );
 	}
 
 	protected static function prepare_keywords( $keywords ) {
@@ -82,12 +74,7 @@ class AI_Builder {
 	// handle step one
 	public static function create_directory() {
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_send_json([
-				'status' => [
-					'success' => false,
-					'message' => __( 'You are not allowed to access this resource', 'directorist' ),
-				],
-			], 200);
+			wp_send_json_error( 'You are not authorized.', 401 );
 		}
 
 		$prompt     = ! empty( $_POST['prompt'] ) ? sanitize_textarea_field( $_POST['prompt'] ) : '';
@@ -98,27 +85,23 @@ class AI_Builder {
 		$fields     = ! empty( $_POST['fields'] ) ? $_POST['fields'] : [];
 
 		if ( 1 === $step ) {
-			$html = static::ai_create_keywords( $prompt );
+			$response = static::ai_create_keywords( $prompt );
 
-			if ( is_wp_error( $html ) ) {
-				wp_send_json([
-					'status' => [
-						'success' => false,
-						'message' => $html->get_error_message(),
-					],
-				], 200);
+			if ( is_wp_error( $response ) ) {
+				wp_send_json_error( $response->get_error_message(), 400 );
+			} else {
+				wp_send_json_success( $response );
 			}
 		}
 
 		if ( 2 === $step ) {
 			$response = static::ai_create_fields( $keywords, $pinned );
 
-			wp_send_json( [
-				'success' => true,
-				'html'    => $response['html'],
-				'data'    => $response['data'],
-				'fields'  => $response['fields'],
-			] );
+			if ( is_wp_error( $response ) ) {
+				wp_send_json_error( $response->get_error_message(), 400 );
+			} else {
+				wp_send_json_success( $response );
+			}
 		}
 
 		if ( 3 === $step ) {
@@ -126,17 +109,10 @@ class AI_Builder {
 
 			$id = ! empty( $data['id'] ) ? $data['id'] : '';
 
-			wp_send_json( [
-				'data'    => $data,
-				'success' => true,
-				'url'     => admin_url( 'edit.php?post_type=at_biz_dir&page=atbdp-directory-types&listing_type_id=' . $id . '&action=edit' ),
+			wp_send_json_success( [
+				'url' => esc_url_raw( admin_url( 'edit.php?post_type=at_biz_dir&page=atbdp-directory-types&listing_type_id=' . $id . '&action=edit' ) ),
 			] );
 		}
-
-		$installed['success'] = true;
-		$installed['html'] = $html;
-
-		wp_send_json( $installed );
 	}
 
 	public static function merge_new_fields($existing_config, $new_fields) {
@@ -318,10 +294,6 @@ class AI_Builder {
 			$term_id = $directory['status']['term_id'];
 		}
 
-		// update_term_meta( $term_id, 'single_listing_header', $single_fields['header'] );
-		// unset( $single_fields['header'] );
-		// update_term_meta( $term_id, 'single_listings_contents', $single_fields );
-
 		return [
 			'structure'      => $directory_config,
 			'new_fields'     => $form_fields['fields'],
@@ -333,23 +305,18 @@ class AI_Builder {
 	public static function ai_create_fields( $keywords, $pinned = null ) {
 		$response = static::request_fields( [
 			'keywords' => $keywords,
-			'pinned' => $pinned,
+			'pinned'   => $pinned,
 		] );
 
 		if ( is_wp_error( $response ) ) {
-			wp_send_json([
-				'status' => [
-					'success' => false,
-					'message' => $response->get_error_message(),
-				],
-			], 200);
+			return $response;
 		}
 
 		if ( empty( $response['response']['fields'] ) || ! is_array( $response['response']['fields'] ) ) {
 			return [
-				'fields' => [],
-				'html'   => '',
-				'data'   => $response,
+				'fields'        => [],
+				'html'          => '',
+				'request_count' => $response['request_count']
 			];
 		}
 
@@ -362,9 +329,9 @@ class AI_Builder {
 		$html = ob_get_clean();
 
 		return [
-			'fields' => $response['response']['fields'],
-			'html'   => $html,
-			'data'   => $response,
+			'fields'        => $response['response']['fields'],
+			'html'          => $html,
+			'request_count' => $response['request_count']
 		];
 	}
 
@@ -383,7 +350,12 @@ class AI_Builder {
 			<?php }
 		}
 
-		return ob_get_clean();
+		$html = ob_get_clean();
+
+		return [
+			'html'          => $html,
+			'request_count' => $response['request_count']
+		];
 	}
 
 	protected static function prepare_form_fields( $fields ) {

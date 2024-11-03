@@ -31543,6 +31543,7 @@ span.drop-toggle-caret:before {
       -ms-flex-direction: column;
           flex-direction: column;
   font-family: "Inter";
+  margin-left: -20px;
 }
 .directorist-create-directory * {
   -webkit-box-flex: unset !important;

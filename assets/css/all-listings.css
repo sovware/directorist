@@ -18605,6 +18605,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .directorist-single-listing-action:hover {
   background-color: var(--directorist-color-white) !important;
+  border-color: var(--directorist-color-primary) !important;
 }
 @media screen and (max-width: 575px) {
   .directorist-single-listing-action {

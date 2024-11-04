@@ -88,7 +88,10 @@ class AI_Builder {
 			$response = static::ai_create_keywords( $prompt );
 
 			if ( is_wp_error( $response ) ) {
-				wp_send_json_error( $response->get_error_message(), 400 );
+				wp_send_json_error( [
+					'message' => $response->get_error_message(),
+					'code'    => $response->get_error_code()
+				], ( $response->get_error_code() === 'limit_exceeded' ? 429 : 400 ) );
 			} else {
 				wp_send_json_success( $response );
 			}
@@ -98,7 +101,10 @@ class AI_Builder {
 			$response = static::ai_create_fields( $keywords, $pinned );
 
 			if ( is_wp_error( $response ) ) {
-				wp_send_json_error( $response->get_error_message(), 400 );
+				wp_send_json_error( [
+					'message' => $response->get_error_message(),
+					'code'    => $response->get_error_code()
+				], ( $response->get_error_code() === 'limit_exceeded' ? 429 : 400 ) );
 			} else {
 				wp_send_json_success( $response );
 			}
@@ -816,7 +822,19 @@ class AI_Builder {
 			return new WP_Error( 'invalid_data', 'Malformed JSON response', 400 );
         }
 
+		if ( static::is_response_error( $response ) ) {
+			return static::get_response_wp_error( $response );
+		}
+
 		return $response;
+	}
+
+	protected static function is_response_error( $response ) {
+		return ( isset( $response['code'] ) || isset( $response['message'] ) );
+	}
+
+	protected static function get_response_wp_error( $response ) {
+		return new WP_Error( $response['code'], $response['message'], $response['data'] );
 	}
 }
 

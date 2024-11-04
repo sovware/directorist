@@ -18480,12 +18480,15 @@ input[type=radio]:checked::before {
   text-decoration: none;
   display: block;
   width: 100%;
+  max-height: 38px;
   font-size: 14px;
   font-weight: 500;
   background-color: transparent;
   color: #4d5761;
   padding: 12px 15px;
   line-height: 1;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 .directorist_dropdown .directorist_dropdown-toggle:focus {
   outline: 0 none;
@@ -23505,12 +23508,15 @@ input[type=radio]:checked::before {
   text-decoration: none;
   display: block;
   width: 100%;
+  max-height: 38px;
   font-size: 14px;
   font-weight: 500;
   background-color: transparent;
   color: #4d5761;
   padding: 12px 15px;
   line-height: 1;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 .directorist_dropdown .directorist_dropdown-toggle:focus {
   outline: 0 none;
@@ -28797,12 +28803,15 @@ input[type=radio]:checked::before {
   text-decoration: none;
   display: block;
   width: 100%;
+  max-height: 38px;
   font-size: 14px;
   font-weight: 500;
   background-color: transparent;
   color: #4d5761;
   padding: 12px 15px;
   line-height: 1;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 .directorist_dropdown .directorist_dropdown-toggle:focus {
   outline: 0 none;

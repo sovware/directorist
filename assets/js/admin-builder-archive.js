@@ -296,6 +296,8 @@ window.addEventListener('load', function () {
   $('.directorist_directory_template_library').on('click', function (e) {
     e.preventDefault();
     var self = this;
+    // Add 'disabled' class to all siblings with the specific class and also to self
+    $(self).siblings('.cptm-create-directory-modal__action__single').addBack().addClass('disabled');
     $('.cptm-create-directory-modal__action').after("<span class='directorist_template_notice'>Installing Templatiq, Please wait..</span>");
     var form_data = new FormData();
     form_data.append('action', 'directorist_directory_type_library');
@@ -307,7 +309,7 @@ window.addEventListener('load', function () {
       if (response !== null && response !== void 0 && (_response$data = response.data) !== null && _response$data !== void 0 && _response$data.success) {
         var _response$data$messag, _response$data2;
         var msg = (_response$data$messag = response === null || response === void 0 || (_response$data2 = response.data) === null || _response$data2 === void 0 ? void 0 : _response$data2.message) !== null && _response$data$messag !== void 0 ? _response$data$messag : 'Imported successfully!';
-        $('.directorist_template_notice').text(msg);
+        $('.directorist_template_notice').addClass('cptm-section-alert-success').text(msg);
         location.reload();
         return;
       }
@@ -317,6 +319,8 @@ window.addEventListener('load', function () {
     // Response Error Callback
     var responseFieldCallback = function responseFieldCallback(response) {
       var _response$data$messag2, _response$data3;
+      // Remove 'disabled' class from all siblings and self in case of failure
+      $(self).siblings('.cptm-create-directory-modal__action__single').addBack().removeClass('disabled');
       var msg = (_response$data$messag2 = response === null || response === void 0 || (_response$data3 = response.data) === null || _response$data3 === void 0 ? void 0 : _response$data3.message) !== null && _response$data$messag2 !== void 0 ? _response$data$messag2 : 'Something went wrong please try again';
       var alert_content = "\n            <div class=\"cptm-section-alert-content\">\n                <div class=\"cptm-section-alert-icon cptm-alert-error\">\n                    <span class=\"fa fa-times\"></span>\n                </div>\n\n                <div class=\"cptm-section-alert-message\">".concat(msg, "</div>\n            </div>\n            ");
       $('.cptm-directory-migration-form').find('.cptm-comfirmation-text').html(alert_content);
@@ -815,14 +819,10 @@ function handleAIFormResponse(response) {
       handlePromptStep(response === null || response === void 0 || (_response$data8 = response.data) === null || _response$data8 === void 0 || (_response$data8 = _response$data8.data) === null || _response$data8 === void 0 ? void 0 : _response$data8.html);
     } else if (currentStep == 3) {
       var _response$data9, _response$data10;
-      console.log(response === null || response === void 0 ? void 0 : response.data);
       handleGenerateFields(response === null || response === void 0 || (_response$data9 = response.data) === null || _response$data9 === void 0 || (_response$data9 = _response$data9.data) === null || _response$data9 === void 0 ? void 0 : _response$data9.html);
       directoryFields = JSON.stringify(response === null || response === void 0 || (_response$data10 = response.data) === null || _response$data10 === void 0 || (_response$data10 = _response$data10.data) === null || _response$data10 === void 0 ? void 0 : _response$data10.fields);
     } else if (currentStep == 4) {
       var _response$data11;
-      // $('#directorist-create-directory__creating').hide();
-      // $('#directorist-create-directory__generating').hide();
-      // $('#directorist-create-directory__ai-fields').show();
       handleCreateDirectory(response === null || response === void 0 || (_response$data11 = response.data) === null || _response$data11 === void 0 || (_response$data11 = _response$data11.data) === null || _response$data11 === void 0 ? void 0 : _response$data11.url);
     }
   } else {

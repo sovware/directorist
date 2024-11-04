@@ -11,6 +11,9 @@ window.addEventListener('load', () => {
     $( '.directorist_directory_template_library' ).on( 'click', function( e ) {
         e.preventDefault();
         const self = this;
+        // Add 'disabled' class to all siblings with the specific class and also to self
+        $( self ).siblings( '.cptm-create-directory-modal__action__single' ).addBack().addClass( 'disabled' );
+
 
         $( '.cptm-create-directory-modal__action' ).after( "<span class='directorist_template_notice'>Installing Templatiq, Please wait..</span>" );
 
@@ -23,8 +26,9 @@ window.addEventListener('load', () => {
 
             if ( response?.data?.success ) {
                 let msg = ( response?.data?.message ) ?? 'Imported successfully!';
-
-                $( '.directorist_template_notice' ).text( msg );
+                $( '.directorist_template_notice' )
+                .addClass( 'cptm-section-alert-success' )
+                .text( msg );
 
                 location.reload();
                 return;
@@ -35,6 +39,8 @@ window.addEventListener('load', () => {
 
         // Response Error Callback
         const responseFieldCallback = function ( response ) {
+            // Remove 'disabled' class from all siblings and self in case of failure
+            $( self ).siblings( '.cptm-create-directory-modal__action__single' ).addBack().removeClass( 'disabled' );
 
             let msg = ( response?.data?.message ) ?? 'Something went wrong please try again';
             let alert_content = `
@@ -577,14 +583,10 @@ function handleAIFormResponse(response) {
         if (currentStep == 2) {
             handlePromptStep(response?.data?.data?.html);
         } else if (currentStep == 3) {
-            console.log(response?.data)
 
             handleGenerateFields(response?.data?.data?.html);
             directoryFields = JSON.stringify(response?.data?.data?.fields );
         } else if (currentStep == 4) {
-            // $('#directorist-create-directory__creating').hide();
-            // $('#directorist-create-directory__generating').hide();
-            // $('#directorist-create-directory__ai-fields').show();
             handleCreateDirectory( response?.data?.data?.url );
         }
     } else {

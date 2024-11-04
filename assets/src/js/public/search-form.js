@@ -708,8 +708,8 @@ import './components/directoristSelect';
             handleRadiusVisibility();
         });
 
-        // handleRadiusVisibility Trigger on directory type | page change
-        $('body').on('click', '.directorist-type-nav__link, .directorist-pagination .page-numbers', function(e) {
+        // rangeSlider, defaultTags Trigger on directory type | page change
+        $('body').on('click', '.directorist-type-nav__link, .directorist-pagination .page-numbers, .directorist-viewas .directorist-viewas__item', function(e) {
             setTimeout(() => {
                 handleRadiusVisibility();
                 directorist_custom_range_slider();

@@ -12193,6 +12193,12 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
             flex: 0 0 100%;
   }
 }
+.directorist-advanced-filter__advanced__element .directorist-search-tags .directorist-checkbox {
+  display: none;
+}
+.directorist-advanced-filter__advanced__element .directorist-search-tags .directorist-checkbox:nth-child(-n+4) {
+  display: block;
+}
 .directorist-advanced-filter__advanced__element .directorist-form-group .directorist-filter-location-icon {
   margin-top: 1px;
   z-index: 99;

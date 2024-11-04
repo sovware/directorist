@@ -159,6 +159,15 @@
           }
         }
       }
+      .directorist-search-tags {
+        .directorist-checkbox {
+          display: none;
+      
+          &:nth-child(-n+4) {
+            display: block;
+          }
+        }      
+      }
       .directorist-form-group {
         .directorist-filter-location-icon {
           margin-top: 1px;

@@ -7,6 +7,7 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
 use Directorist\Multi_Directory\Multi_Directory_Manager;
 
 // Migrate old reviews data from review table to comments table
@@ -431,6 +432,13 @@ function directorist_800_migrate_builder_data() {
 
 		update_term_meta( $directory_type->term_id, 'single_listing_header', $new_structure );
 
+	}
+
+	directorist_download_plugin( [ 'url' => 'https://downloads.wordpress.org/plugin/addonskit-for-elementor.zip' ] );
+	$path = WP_PLUGIN_DIR . '/addonskit-for-elementor/addonskit-for-elementor.php';
+
+	if ( ! is_plugin_active( $path ) ){
+		activate_plugin( $path );
 	}
 
 	update_option( 'directorist_builder_header_migrated', true );

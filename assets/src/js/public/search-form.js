@@ -709,10 +709,11 @@ import './components/directoristSelect';
         });
 
         // handleRadiusVisibility Trigger on directory type | page change
-        $('body').on('click', '.directorist-instant-search .directorist-type-nav__link, .directorist-instant-search .directorist-pagination .page-numbers', function(e) {
+        $('body').on('click', '.directorist-type-nav__link, .directorist-pagination .page-numbers', function(e) {
             setTimeout(() => {
                 handleRadiusVisibility();
                 directorist_custom_range_slider();
+                defaultTags();
             }, 600)
         });
 

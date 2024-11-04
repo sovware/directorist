@@ -74,70 +74,72 @@ class Directorist_Single_Listing {
 		$single_fields          = get_term_meta( $this->type, 'single_listings_contents', true );
 		$submission_form_fields = get_term_meta( $this->type, 'submission_form_fields', true );
 
-		if( !empty( $single_fields['fields'] ) ) {
-
+		if ( ! empty( $single_fields['fields'] ) ) {
 			foreach ( $single_fields['fields'] as $key => $value ) {
-
-				if ( ! is_array( $value ) ) {
-					continue;
-				}
-
-				// If 'other_widgets', then no need to set values from submission form fields
-				if ( $value['widget_group'] === 'other_widgets' ) {
+				// If no array or 'other_widgets', then no need to set values from submission form fields
+				if ( ! is_array( $value ) || $value['widget_group'] === 'other_widgets' ) {
 					continue;
 				}
 
 				// Make sure form key name is valid
-				if ( !isset( $value['original_widget_key'] ) ) {
-					unset( $single_fields['fields'][$key] );
+				if ( ! isset( $value['original_widget_key'] ) ) {
+					unset( $single_fields['fields'][ $key ] );
 					continue;
 				}
 
 				$form_key = $value['original_widget_key'];
 
 				// Make sure the same form field exists
-				if ( empty( $submission_form_fields['fields'][$form_key] ) ) {
-					unset( $single_fields['fields'][$key] );
+				if ( empty( $submission_form_fields['fields'][ $form_key ] ) ) {
+					unset( $single_fields['fields'][ $key ] );
 					continue;
 				}
 
-				$single_fields['fields'][$key]['field_key'] = '';
-				$single_fields['fields'][$key]['options'] = [];
+				$single_fields['fields'][ $key ]['field_key'] = '';
+				$single_fields['fields'][ $key ]['options']   = [];
 
-				unset( $single_fields['fields'][$key]['widget_key'] );
-				unset( $single_fields['fields'][$key]['original_widget_key'] );
+				unset( $single_fields['fields'][ $key ]['widget_key'] );
+				unset( $single_fields['fields'][ $key ]['original_widget_key'] );
 
 				// Added form_field, field_key, label, widget_group from submission form
-				$form_data = $submission_form_fields['fields'][$form_key];
+				$form_data = $submission_form_fields['fields'][ $form_key ];
 
-				$single_fields['fields'][$key]['form_data'] = $form_data;
+				$single_fields['fields'][ $key ]['form_data'] = $form_data;
 
-				if ( !empty( $form_data['field_key'] ) ) {
-					$single_fields['fields'][$key]['field_key'] = $form_data['field_key'];
+				if ( ! empty( $form_data['field_key'] ) ) {
+					$single_fields['fields'][ $key ]['field_key'] = $form_data['field_key'];
 				}
 
-				if ( !empty( $form_data['options'] ) ) {
-					$single_fields['fields'][$key]['options'] = $form_data['options'];
+				if ( ! empty( $form_data['options'] ) ) {
+					$single_fields['fields'][ $key ]['options'] = $form_data['options'];
 				}
 
-				$single_fields['fields'][$key]['label'] = !empty( $form_data['label'] ) ? $form_data['label'] : '';
+				$single_fields['fields'][ $key ]['label'] = ! empty( $form_data['label'] ) ? $form_data['label'] : '';
 
-				if( !empty( $form_data['widget_group'] ) ) {
-					$single_fields['fields'][$key]['widget_group'] = $form_data['widget_group'];
+				if ( ! empty( $form_data['widget_group'] ) ) {
+					$single_fields['fields'][ $key ]['widget_group'] = $form_data['widget_group'];
 				}
 			}
 		}
 
-		if( !empty( $single_fields['groups'] ) ) {
+		if ( ! empty( $single_fields['groups'] ) ) {
 			foreach ( $single_fields['groups'] as $group ) {
 				$section           = $group;
 				$section['fields'] = array();
+
+				if ( empty( $group['fields'] ) ) {
+					$content_data[] = $section;
+					continue;
+				}
+
 				foreach ( $group['fields'] as $field ) {
 					if ( ! isset( $single_fields['fields'][ $field ] ) ) {
 						continue;
 					}
+
 					$section['fields'][ $field ] = $single_fields['fields'][ $field ];
 				}
+
 				$content_data[] = $section;
 			}
 		}

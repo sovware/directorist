@@ -512,6 +512,7 @@ class AI_Builder {
 			'display_email' => true,
 			'widget_group'  => 'other_widgets',
 			'widget_name'   => 'author_info',
+			'fields'        => []
 		];
 
 		$groups[] = [
@@ -543,6 +544,32 @@ class AI_Builder {
 			],
 			'widget_group' => 'other_widgets',
 			'widget_name'  => 'contact_listings_owner',
+		];
+
+		// Contact form fields
+		$fields['contact_name'] = [
+			'enable'           => 1,
+			'placeholder'      => 'Name',
+			'widget_group'     => 'other_widgets',
+			'widget_name'      => 'contact_listings_owner',
+			'widget_child_name'=> 'contact_name',
+			'widget_key'       => 'contact_name',
+		];
+
+		$fields['contact_email'] = [
+			'placeholder'      => 'Email',
+			'widget_group'     => 'other_widgets',
+			'widget_name'      => 'contact_listings_owner',
+			'widget_child_name'=> 'contact_email',
+			'widget_key'       => 'contact_email',
+		];
+
+		$fields['contact_message'] = [
+			'placeholder'      => 'Message...',
+			'widget_group'     => 'other_widgets',
+			'widget_name'      => 'contact_listings_owner',
+			'widget_child_name'=> 'contact_message',
+			'widget_key'       => 'contact_message',
 		];
 
 		// Prepare header

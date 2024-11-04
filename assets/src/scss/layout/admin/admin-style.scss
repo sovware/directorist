@@ -1592,7 +1592,7 @@ span.atbdp-tick-cross {
         cursor: pointer;
 
         &.btn-primary {
-          background: $primary;
+          background: var(--directorist-color-primary);
           border: 0 none;
           color: #fff;
         }
@@ -3769,7 +3769,7 @@ input.atbdp-form-control {
 }
 
 #directorist.atbd_wrapper .et-column {
-  flex: 0 0 50%;
+  flex: 1;
   padding: 25px;
 
   @media only screen and (max-width: 767px) {
@@ -5769,98 +5769,154 @@ img.atbdp-file-info {
 .cptm-create-directory-modal {
   .cptm-modal {
     width: 100%;
-    max-width: 560px;
-    padding: 0;
+    max-width: 680px;
+    padding: 40px 36px;
+    border-radius: 8px;
+    box-sizing: border-box;
   }
 
   .cptm-create-directory-modal__header {
-    padding: 40px 55px 0;
+    padding: 0;
     margin: 0;
     border: none;
 
     .cptm-modal-action-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       position: absolute;
-      top: 18px;
-      right: 18px;
+      top: -28px;
+      right: -24px;
       margin: 0;
       padding: 0;
-      height: 40px;
-      width: 40px;
+      height: 32px;
+      width: 32px;
       border-radius: 50%;
       border: none;
       color: #3c3c3c;
-      background-color: #e6e6e6;
+      background-color: transparent;
       cursor: pointer;
       transition: background-color 0.3s;
-
+      svg path {
+        transition: fill ease 0.3s;
+      }
       &:hover {
-        background-color: #e3e6ef;
+        svg path {
+          fill: #9746FF;
+        }
       }
     }
   }
 
   .cptm-create-directory-modal__body {
-    padding: 35px 65px 50px;
+    padding-top: 36px;
+    .directorist_template_notice {
+      margin-top: 10px;
+      color: #f80718;
+      &.cptm-section-alert-success {
+        color: #28A800;
+      }
+    }
   }
 
   .cptm-create-directory-modal__title {
-    font-size: 24px;
-    line-height: 38px;
-    font-weight: 400;
-    color: #000000;
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: 600;
+    color: #141921;
     text-align: center;
   }
 
   .cptm-create-directory-modal__desc {
-    font-size: 16px;
-    line-height: 26px;
+    font-size: 12px;
+    line-height: 18px;
     font-weight: 400;
-    color: #3c3c3c;
+    color: #4D5761;
     text-align: center;
     margin: 0;
   }
 
   .cptm-create-directory-modal__action {
     display: flex;
-    gap: 30px;
+    gap: 16px;
 
     .cptm-create-directory-modal__action__single {
+      position: relative;
       display: flex;
-      gap: 20px;
+      gap: 8px;
       align-items: center;
       flex-direction: column;
-      justify-content: center;
+      flex: 1;
       text-align: center;
-      max-width: 200px;
-      padding: 40px 25px;
-      background-color: #ffffff;
-      border: 1px solid #e3e6ef;
-      border-radius: 10px;
+      padding: 32px 24px;
+      background-color: #F3F4F6;
+      border: 1px solid #F3F4F6;
+      border-radius: 8px;
       cursor: pointer;
       box-sizing: border-box;
       box-shadow: none;
-      transition: background-color 0.3s;
+      transition: all ease 0.3s;
 
       &:hover,
       &:focus {
-        background-color: #e3e6ef;
+        background-color: #F0F3FF;
+        border-color: #3E62F5;
+      }
+      &.disabled {
+        opacity: 0.5;
+        pointer-events: none;
       }
 
       .modal-btn-icon {
         display: flex;
         align-items: center;
         justify-content: center;
-        height: 80px;
-        width: 80px;
-        border-radius: 12px;
-        background-color: #3e62f520;
+        flex-grow: unset;
+        height: 40px;
+        width: 40px;
+        min-height: 40px;
+        min-width: 40px;
+        border-radius: 50%;
+        background-color: #0B99FF;
+        &.create-template {
+          background-color: #FF5C16;
+        }
+        &.create-scratch {
+          background-color: #0B99FF;
+        }
+        &.create-ai {
+          background-color: #9746FF;
+        }
+
       }
 
       .modal-btn-text {
-        font-size: 16px;
-        line-height: 22px;
-        font-weight: 500;
-        color: #000000;
+        font-size: 14px;
+        line-height: 19px;
+        font-weight: 600;
+        color: #4D5761;
+      }
+      .modal-btn-desc {
+        font-size: 12px;
+        line-height: 18px;
+        font-weight: 400;
+        color: #3E62F5;
+      }
+      .modal-badge {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        height: 24px;
+        padding: 4px 8px;
+        border-radius: 4px;
+        box-sizing: border-box;
+        &.modal-badge--new {
+          color: #3E62F5;
+          background-color: #C0CCFC;
+        }
       }
     }
   }
@@ -5897,3 +5953,4 @@ img.atbdp-file-info {
 @import "./settings-manager.scss";
 @import "./plugins.scss";
 @import "./setup-wizard.scss";
+@import "./create-directory.scss";

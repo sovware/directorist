@@ -174,10 +174,6 @@
   .leaflet-popup-tip-container {
     display: none;
   }
-
-  .leaflet-control-zoom {
-    display: none;
-  }
 }
 
 .directorist-single-map {
@@ -400,7 +396,7 @@
     border-radius: 50%;
     transition: all 0.3s ease-in-out;
     border: none;
-    border: 40px solid rgba(var(--directorist-color-primary-rgb), 0.2);
+    border: 40px solid rgba(var(--directorist-color-marker-shape-rgb), 0.2);
     animation: atbd_scale 3s linear alternate infinite;
   }
   .directorist-icon-mask {
@@ -421,12 +417,12 @@
 .marker-cluster-shape {
   width: 35px;
   height: 35px;
-  background-color: #444752;
+  background-color: var(--directorist-color-marker-shape);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--directorist-color-white);
+  color: var(--directorist-color-marker-icon);
   font-size: 15px;
   font-weight: 700;
   position: relative;
@@ -439,7 +435,7 @@
     height: 47px;
     left: -6px;
     top: -6px;
-    background: rgba(var(--directorist-color-dark-rgb), 0.15);
+    background: rgba(var(--directorist-color-marker-shape-rgb), 0.15);
     border-radius: 50%;
   }
 }

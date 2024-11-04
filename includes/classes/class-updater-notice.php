@@ -23,7 +23,7 @@ class Updater_Notice {
 	 */
 	public static function hide_notices() {
 
-		if( is_admin() && isset( $_GET["page"] ) && ( ( $_GET["page"] == 'atbdp-settings' ) || ( $_GET["page"] == 'atbdp-directory-types' ) ) ) {
+		if( is_admin() && isset( $_GET["page"] ) && ( ( $_GET["page"] == 'atbdp-settings' ) || ( $_GET["page"] == 'atbdp-directory-types' ) || ( 'atbdp-layout-builder' === $_GET["page"] ) ) ) {
 			remove_all_actions('admin_notices');
 		}
 

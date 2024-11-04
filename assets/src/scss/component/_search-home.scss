@@ -715,13 +715,16 @@
       height: 50px;
       padding: 0 18px;
       font-weight: 400;
-      background-color: var(--directorist-color-white);
+      background-color: var(--directorist-color-white) !important;
       border-color: var(--directorist-color-white);
       color:var(--directorist-color-btn-primary-bg);
       .directorist-icon-mask::after {
         height: 12px;
         width: 14px;
         background-color: var(--directorist-color-btn-primary-bg);
+      }
+      &:hover{
+        color: rgba(var(--directorist-color-btn-primary-rgb), 0.8);
       }
       @media only screen and (max-width: 767px) {
         padding-left: 0;

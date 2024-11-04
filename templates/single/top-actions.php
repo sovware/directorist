@@ -27,7 +27,7 @@ $listing = Directorist_Single_Listing::instance();
 			</div>
 		<?php endif; ?>
 		
-		<?php if ( is_user_logged_in() ): ?>
+		<?php if ( $listing->current_user_is_author() ): ?>
 			<a href="<?php echo esc_url( $listing->edit_link() ) ?>" class="directorist-single-listing-action directorist-btn directorist-btn-sm directorist-btn-light directorist-single-listing-top__btn-edit">
 				<?php directorist_icon( 'las la-pen' ); ?>
 				<span class="directorist-single-listing-action__text"><?php esc_html_e( 'Edit', 'directorist' ); ?></span>	

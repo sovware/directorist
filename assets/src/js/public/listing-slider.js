@@ -283,11 +283,14 @@
 
             // Loop Destroy on Single Slider Item
             let sliderItemsCount = swiperCarouselSingleListing.querySelectorAll('.directorist-swiper__pagination .swiper-pagination-bullet');
+            let swiperListingThumb = swiperCarouselSingleListing.parentElement.querySelector('.directorist-single-listing-slider-thumb');
 
             if(sliderItemsCount.length <= '1') {
                 swiperSingleListing.loopDestroy();
                 swiperCarouselSingleListing.classList.add('slider-has-one-item');
-                swiperCarouselSingleListing.parentElement.querySelector('.directorist-single-listing-slider-thumb').style.display = 'none';
+                if (swiperListingThumb) {
+                    swiperListingThumb.style.display = 'none';
+                }
             }
 
             // Add Styles
@@ -328,7 +331,7 @@
 
         allListingSlider();
 
-        $('body').on('click', '.directorist-viewas__item, .directorist-type-nav__link, .directorist-instant-search .directorist-search-field__btn--clear, .directorist-instant-search .directorist-btn-reset-js', function(e) {
+        $('body').on('click', '.directorist-viewas__item, .directorist-type-nav__link, .directorist-pagination .page-numbers, .directorist-instant-search .directorist-search-field__btn--clear, .directorist-instant-search .directorist-btn-reset-js', function(e) {
             setTimeout(() => {
                 if($('.directorist-archive-items .directorist-swiper-listing')) {
                     allListingSlider();

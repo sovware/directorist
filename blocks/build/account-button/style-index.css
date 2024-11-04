@@ -161,7 +161,9 @@
   color: var(--directorist-color-dark);
 }
 .directorist-account-block-authentication-modal .modal-header .directorist-account-block-close {
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 34px;
   height: 34px;
   border-radius: 50%;

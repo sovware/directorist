@@ -641,6 +641,8 @@ class SetupWizard
         $atbdp_option['enable_featured_listing'] = !empty($_post_data['featured_listing']) ? $_post_data['featured_listing'] : '';
         $atbdp_option['featured_listing_price'] = !empty($_post_data['featured_listing_price']) ? $_post_data['featured_listing_price'] : '';
         $atbdp_option['active_gateways'] = !empty($_post_data['active_gateways']) ? $_post_data['active_gateways'] : array();
+        $atbdp_option['paypal_gateway_title'] = __( 'PayPal', 'directorist-paypal' );
+        $atbdp_option['paypal_gateway_description'] = __( 'You can make payment using paypal if you choose this payment gateway.', 'directorist-paypal' );
 
 
         if( ! empty( $_post_data['active_gateways'] ) && in_array( 'paypal_gateway',$_post_data['active_gateways'] ) ) {

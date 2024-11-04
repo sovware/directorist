@@ -480,7 +480,7 @@ $(function () {
   }
 
   // Create container div after category (in frontend)
-  $('.directorist-form-categories-field').after('<div class="atbdp_category_custom_fields"></div>');
+  $('.directorist-form-categories-field').after('<div class="directorist-form-group  atbdp_category_custom_fields"></div>');
   window.addEventListener('directorist-type-change', function () {
     renderCategoryCustomFields();
     Object(_global_components_cache_category_custom_fields__WEBPACK_IMPORTED_MODULE_1__["cacheCategoryCustomFields"])();
@@ -1357,6 +1357,15 @@ function selec2_add_custom_dropdown_toggle_button() {
   $('.select2-hidden-accessible').on('select2:close', function (e) {
     var dropdown_btn = $(this).next().find('.directorist-select2-dropdown-toggle');
     dropdown_btn.removeClass('--is-open');
+    var dropdownParent = $(this).closest('.directorist-search-field');
+    var renderTitle = $(this).next().find('.select2-selection__rendered').attr('title');
+
+    // Check if renderTitle is empty and remove the focus class if so
+    if (!renderTitle) {
+      dropdownParent.removeClass('input-is-focused');
+    } else {
+      dropdownParent.addClass('input-has-value');
+    }
   });
 
   // Toggle Dropdown

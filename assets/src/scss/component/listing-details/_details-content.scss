@@ -157,6 +157,11 @@
     flex-direction: column;
     .directorist-single-info {
       margin: 0;
+      &.directorist-single-info-number{
+        .directorist-form-group__with-prefix {
+          flex: 1;
+        }
+      }
       .directorist-form-group__with-prefix {
         border: none;
         margin-top: 4px;

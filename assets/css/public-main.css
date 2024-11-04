@@ -18381,6 +18381,12 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-single-contents-area .directorist-single-wrapper .directorist-details-info-wrap .directorist-single-info {
   margin: 0;
 }
+.directorist-single-contents-area .directorist-single-wrapper .directorist-details-info-wrap .directorist-single-info.directorist-single-info-number .directorist-form-group__with-prefix {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
 .directorist-single-contents-area .directorist-single-wrapper .directorist-details-info-wrap .directorist-single-info .directorist-form-group__with-prefix {
   border: none;
   margin-top: 4px;

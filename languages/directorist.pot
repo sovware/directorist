@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-11-04 04:59+0000\n"
+"POT-Creation-Date: 2024-11-04 07:01+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -186,7 +186,7 @@ msgstr ""
 msgid "Username"
 msgstr ""
 
-#: ../blocks/templates/registration.php:20, ../includes/classes/class-settings-panel.php:1742, ../includes/classes/class-settings-panel.php:2750, ../includes/classes/class-settings-panel.php:3788, ../includes/classes/class-settings-panel.php:3966, ../includes/model/SingleListing.php:702, ../includes/review/class-comment-form-renderer.php:229, ../includes/modules/multi-directory-setup/class-builder-data.php:383, ../includes/modules/multi-directory-setup/class-builder-data.php:534, ../includes/modules/multi-directory-setup/class-builder-data.php:541, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:207, ../templates/single-reviews.php:119, ../templates/widgets/contact-form.php:19
+#: ../blocks/templates/registration.php:20, ../includes/classes/class-settings-panel.php:1742, ../includes/classes/class-settings-panel.php:2750, ../includes/classes/class-settings-panel.php:3788, ../includes/classes/class-settings-panel.php:3966, ../includes/model/SingleListing.php:704, ../includes/review/class-comment-form-renderer.php:229, ../includes/modules/multi-directory-setup/class-builder-data.php:383, ../includes/modules/multi-directory-setup/class-builder-data.php:534, ../includes/modules/multi-directory-setup/class-builder-data.php:541, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:207, ../templates/single-reviews.php:119, ../templates/widgets/contact-form.php:19
 msgid "Email"
 msgstr ""
 
@@ -366,15 +366,15 @@ msgstr ""
 msgid "Listings Import"
 msgstr ""
 
-#: ../includes/class-helper.php:234, ../includes/classes/class-helper.php:299, ../includes/model/SingleListing.php:471, ../templates/dashboard/tab-profile.php:152
+#: ../includes/class-helper.php:234, ../includes/classes/class-helper.php:299, ../includes/model/SingleListing.php:473, ../templates/dashboard/tab-profile.php:152
 msgid "Facebook"
 msgstr ""
 
-#: ../includes/class-helper.php:235, ../includes/classes/class-helper.php:300, ../includes/model/SingleListing.php:476, ../templates/dashboard/tab-profile.php:162
+#: ../includes/class-helper.php:235, ../includes/classes/class-helper.php:300, ../includes/model/SingleListing.php:478, ../templates/dashboard/tab-profile.php:162
 msgid "Twitter"
 msgstr ""
 
-#: ../includes/class-helper.php:236, ../includes/classes/class-helper.php:301, ../includes/model/SingleListing.php:481, ../templates/dashboard/tab-profile.php:172
+#: ../includes/class-helper.php:236, ../includes/classes/class-helper.php:301, ../includes/model/SingleListing.php:483, ../templates/dashboard/tab-profile.php:172
 msgid "LinkedIn"
 msgstr ""
 
@@ -1454,11 +1454,11 @@ msgstr ""
 msgid "Directory listings"
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:365, ../includes/classes/class-settings-panel.php:2559, ../includes/classes/class-settings-panel.php:2670, ../includes/classes/class-settings-panel.php:3028, ../includes/elementor/all-categories.php:93, ../includes/elementor/all-locations.php:93, ../includes/model/SingleListing.php:699, ../includes/review/class-comment-form-renderer.php:216, ../includes/system-status/system-info-template.php:475, ../includes/widgets/all-categories.php:59, ../includes/widgets/all-locations.php:59, ../includes/widgets/all-tags.php:58, ../includes/modules/multi-directory-setup/class-builder-data.php:400, ../includes/modules/multi-directory-setup/class-builder-data.php:517, ../includes/modules/multi-directory-setup/class-builder-data.php:529, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:200, ../includes/system-status/system-information/system-information-template.php:652, ../templates/single-reviews.php:105, ../templates/widgets/contact-form.php:15, ../views/admin-templates/post-types-manager/all-listing-types.php:117
+#: ../includes/classes/class-custom-post.php:365, ../includes/classes/class-settings-panel.php:2559, ../includes/classes/class-settings-panel.php:2670, ../includes/classes/class-settings-panel.php:3028, ../includes/elementor/all-categories.php:93, ../includes/elementor/all-locations.php:93, ../includes/model/SingleListing.php:701, ../includes/review/class-comment-form-renderer.php:216, ../includes/system-status/system-info-template.php:475, ../includes/widgets/all-categories.php:59, ../includes/widgets/all-locations.php:59, ../includes/widgets/all-tags.php:58, ../includes/modules/multi-directory-setup/class-builder-data.php:400, ../includes/modules/multi-directory-setup/class-builder-data.php:517, ../includes/modules/multi-directory-setup/class-builder-data.php:529, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:200, ../includes/system-status/system-information/system-information-template.php:652, ../templates/single-reviews.php:105, ../templates/widgets/contact-form.php:15, ../views/admin-templates/post-types-manager/all-listing-types.php:117
 msgid "Name"
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:369, ../includes/model/SingleListing.php:1266, ../includes/modules/multi-directory-setup/class-multi-directory-migration.php:668
+#: ../includes/classes/class-custom-post.php:369, ../includes/model/SingleListing.php:1268, ../includes/modules/multi-directory-setup/class-multi-directory-migration.php:668
 msgid "Location"
 msgstr ""
 
@@ -2155,7 +2155,7 @@ msgstr ""
 msgid "Pending Confirmation Message"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:268, ../includes/model/ListingDashboard.php:487, ../includes/model/SingleListing.php:951
+#: ../includes/classes/class-settings-panel.php:268, ../includes/model/ListingDashboard.php:487, ../includes/model/SingleListing.php:953
 msgid "Thank you for your submission. Your listing is being reviewed and it may take up to 24 hours to complete the review."
 msgstr ""
 
@@ -2163,7 +2163,7 @@ msgstr ""
 msgid "Publish Confirmation Message"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:280, ../includes/model/ListingDashboard.php:482, ../includes/model/SingleListing.php:946
+#: ../includes/classes/class-settings-panel.php:280, ../includes/model/ListingDashboard.php:482, ../includes/model/SingleListing.php:948
 msgid "Congratulations! Your listing has been approved/published. Now it is publicly available."
 msgstr ""
 
@@ -5216,26 +5216,26 @@ msgstr ""
 msgid "1 Star & Up"
 msgstr ""
 
-#: ../includes/model/SingleListing.php:705, ../includes/modules/multi-directory-setup/class-builder-data.php:553, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:214, ../templates/widgets/contact-form.php:23, ../templates/single/fields/report.php:43
+#: ../includes/model/SingleListing.php:707, ../includes/modules/multi-directory-setup/class-builder-data.php:553, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:214, ../templates/widgets/contact-form.php:23, ../templates/single/fields/report.php:43
 msgid "Message..."
 msgstr ""
 
-#: ../includes/model/SingleListing.php:1069
+#: ../includes/model/SingleListing.php:1071
 msgctxt "Number of reviews"
 msgid "Review"
 msgid_plural "Reviews"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../includes/model/SingleListing.php:1097
+#: ../includes/model/SingleListing.php:1099
 msgid "Email Address"
 msgstr ""
 
-#: ../includes/model/SingleListing.php:1101
+#: ../includes/model/SingleListing.php:1103
 msgid "Enter email address"
 msgstr ""
 
-#: ../includes/model/SingleListing.php:1215, ../includes/widgets/single-map.php:73
+#: ../includes/model/SingleListing.php:1217, ../includes/widgets/single-map.php:73
 msgid "No Title"
 msgstr ""
 

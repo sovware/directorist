@@ -219,7 +219,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 
 				$response = array(
 					'redirect_url' => esc_url_raw( ATBDP_Permalink::get_signin_signup_page_link( array(
-						'user'         => $email,
+						'user'         => base64_encode( $email ),
 						'verification' => 1,
 					) ) )
 				);

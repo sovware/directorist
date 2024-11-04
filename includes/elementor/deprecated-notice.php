@@ -43,10 +43,6 @@ class DeprecatedNotice {
 	public function maybe_show_notice_for_required_plugins() {
 		global $pagenow;
 
-		if ( get_option( 'directorist_builder_header_migrated', false ) ) {
-			return;
-		}
-
 		if ( 'update.php' === $pagenow ) {
 			return;
 		}
@@ -139,4 +135,3 @@ class DeprecatedNotice {
 		return wp_nonce_url( self_admin_url( "update.php?action=install-plugin&plugin={$slug}" ), 'install-plugin_' . $slug );
 	}
 }
-

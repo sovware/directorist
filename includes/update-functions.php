@@ -434,11 +434,14 @@ function directorist_800_migrate_builder_data() {
 
 	}
 
-	directorist_download_plugin( [ 'url' => 'https://downloads.wordpress.org/plugin/addonskit-for-elementor.zip' ] );
-	$path = WP_PLUGIN_DIR . '/addonskit-for-elementor/addonskit-for-elementor.php';
+	if ( did_action( 'elementor/loaded' ) ) {
+		directorist_download_plugin( [ 'url' => 'https://downloads.wordpress.org/plugin/addonskit-for-elementor.zip' ] );
 
-	if ( ! is_plugin_active( $path ) ){
-		activate_plugin( $path );
+		$path = WP_PLUGIN_DIR . '/addonskit-for-elementor/addonskit-for-elementor.php';
+
+		if ( ! is_plugin_active( $path ) ){
+			activate_plugin( $path );
+		}
 	}
 
 	update_option( 'directorist_builder_header_migrated', true );

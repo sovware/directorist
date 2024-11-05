@@ -646,7 +646,7 @@ class SetupWizard
 
 
         if( ! empty( $_post_data['active_gateways'] ) && in_array( 'paypal_gateway',$_post_data['active_gateways'] ) ) {
-            directorist_download_plugin( [ 'url' => 'https://directorist.com/wp-content/uploads/edd/2022/10/directorist-paypal.zip' ] );
+            directorist_download_plugin( [ 'url' => 'https://directorist.com/wp-content/uploads/2024/11/directorist-paypal.zip' ] );
 
             $path = WP_PLUGIN_DIR . '/directorist-paypal/directorist-paypal.php';
 

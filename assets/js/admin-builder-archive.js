@@ -367,7 +367,7 @@ var directoryTitle = '';
 var directoryLocation = '';
 var directoryType = '';
 var directoryPrompt = 'I want to create a car directory';
-var maxPromptLength = 100;
+var maxPromptLength = 200;
 var directoryKeywords = [];
 var directoryFields = [];
 var directoryPinnedFields = [];
@@ -506,6 +506,8 @@ function initializeProgressBar(finalProgress) {
   if (generateBtnWrapper) {
     var finalWidth = generateBtnWrapper.getAttribute("data-width");
     var currentWidth = 0;
+    var intervalDuration = 20; // Interval time in milliseconds
+    var increment = finalWidth / (2000 / intervalDuration);
 
     // Update the progress bar width
     var updateProgress = function updateProgress() {
@@ -524,7 +526,7 @@ function initializeProgressBar(finalProgress) {
         if (typeof updateProgressList === 'function') {
           updateProgressList(currentWidth);
         }
-        currentWidth++;
+        currentWidth += increment;
       } else {
         if (!finalProgress) {
           setTimeout(function () {
@@ -534,7 +536,7 @@ function initializeProgressBar(finalProgress) {
         clearInterval(progressInterval);
       }
     };
-    var progressInterval = setInterval(updateProgress, 30);
+    var progressInterval = setInterval(updateProgress, intervalDuration);
   }
   var steps = document.querySelectorAll(".directory-generate-progress-list li");
 
@@ -832,8 +834,11 @@ function handleAIFormResponse(response) {
       var _response$data8;
       handlePromptStep(response === null || response === void 0 || (_response$data8 = response.data) === null || _response$data8 === void 0 || (_response$data8 = _response$data8.data) === null || _response$data8 === void 0 ? void 0 : _response$data8.html);
     } else if (currentStep == 3) {
-      var _response$data9, _response$data10;
-      handleGenerateFields(response === null || response === void 0 || (_response$data9 = response.data) === null || _response$data9 === void 0 || (_response$data9 = _response$data9.data) === null || _response$data9 === void 0 ? void 0 : _response$data9.html);
+      var _response$data10;
+      setTimeout(function () {
+        var _response$data9;
+        handleGenerateFields(response === null || response === void 0 || (_response$data9 = response.data) === null || _response$data9 === void 0 || (_response$data9 = _response$data9.data) === null || _response$data9 === void 0 ? void 0 : _response$data9.html);
+      }, 1000);
       directoryFields = JSON.stringify(response === null || response === void 0 || (_response$data10 = response.data) === null || _response$data10 === void 0 || (_response$data10 = _response$data10.data) === null || _response$data10 === void 0 ? void 0 : _response$data10.fields);
     } else if (currentStep == 4) {
       var _response$data11;

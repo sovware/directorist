@@ -98,7 +98,7 @@ let directoryTitle = '';
 let directoryLocation = '';
 let directoryType = '';
 let directoryPrompt = 'I want to create a car directory';
-let maxPromptLength = 100;
+let maxPromptLength = 200;
 let directoryKeywords = [];
 let directoryFields = [];
 let directoryPinnedFields = [];
@@ -239,6 +239,9 @@ function initializeProgressBar(finalProgress) {
         const finalWidth = generateBtnWrapper.getAttribute("data-width");
 
         let currentWidth = 0;
+        
+        const intervalDuration = 20; // Interval time in milliseconds
+        const increment = finalWidth / (2000 / intervalDuration);
 
         // Update the progress bar width
         const updateProgress = () => {
@@ -260,7 +263,7 @@ function initializeProgressBar(finalProgress) {
                     updateProgressList(currentWidth);
                 }
 
-                currentWidth++;
+                currentWidth += increment;
             } else {
                 if (!finalProgress) {
                     setTimeout(() => {
@@ -271,7 +274,7 @@ function initializeProgressBar(finalProgress) {
             }
         };
 
-        const progressInterval = setInterval(updateProgress, 30);
+        const progressInterval = setInterval(updateProgress, intervalDuration);
     }
 
     const steps = document.querySelectorAll(".directory-generate-progress-list li");
@@ -598,8 +601,9 @@ function handleAIFormResponse(response) {
         if (currentStep == 2) {
             handlePromptStep(response?.data?.data?.html);
         } else if (currentStep == 3) {
-
-            handleGenerateFields(response?.data?.data?.html);
+            setTimeout(() => {
+                handleGenerateFields(response?.data?.data?.html);
+            }, 1000);
             directoryFields = JSON.stringify(response?.data?.data?.fields );
         } else if (currentStep == 4) {
             handleCreateDirectory( response?.data?.data?.url );

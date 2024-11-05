@@ -11,6 +11,9 @@ window.addEventListener('load', () => {
     $( '.directorist_directory_template_library' ).on( 'click', function( e ) {
         e.preventDefault();
         const self = this;
+        // Add 'disabled' class to all siblings with the specific class and also to self
+        $( self ).siblings( '.cptm-create-directory-modal__action__single' ).addBack().addClass( 'disabled' );
+
 
         $( '.cptm-create-directory-modal__action' ).after( "<span class='directorist_template_notice'>Installing Templatiq, Please wait..</span>" );
 
@@ -23,8 +26,9 @@ window.addEventListener('load', () => {
 
             if ( response?.data?.success ) {
                 let msg = ( response?.data?.message ) ?? 'Imported successfully!';
-
-                $( '.directorist_template_notice' ).text( msg );
+                $( '.directorist_template_notice' )
+                .addClass( 'cptm-section-alert-success' )
+                .text( msg );
 
                 location.reload();
                 return;
@@ -35,6 +39,8 @@ window.addEventListener('load', () => {
 
         // Response Error Callback
         const responseFieldCallback = function ( response ) {
+            // Remove 'disabled' class from all siblings and self in case of failure
+            $( self ).siblings( '.cptm-create-directory-modal__action__single' ).addBack().removeClass( 'disabled' );
 
             let msg = ( response?.data?.message ) ?? 'Something went wrong please try again';
             let alert_content = `
@@ -92,6 +98,7 @@ let directoryTitle = '';
 let directoryLocation = '';
 let directoryType = '';
 let directoryPrompt = 'I want to create a car directory';
+let maxPromptLength = 200;
 let directoryKeywords = [];
 let directoryFields = [];
 let directoryPinnedFields = [];
@@ -116,6 +123,7 @@ function updateButtonText(text) {
 function updatePrompt() {
     directoryPrompt = `I want to create a ${directoryType} directory${directoryLocation ? ` in ${directoryLocation}` : ''}`;
     $('#directorist-ai-prompt').val(directoryPrompt);
+    $('#directorist-ai-prompt').siblings('.character-count').find('.current-count').text(directoryPrompt.length);
     if (directoryType) {
         handleCreateButtonEnable();
     } else {
@@ -231,6 +239,9 @@ function initializeProgressBar(finalProgress) {
         const finalWidth = generateBtnWrapper.getAttribute("data-width");
 
         let currentWidth = 0;
+        
+        const intervalDuration = 20; // Interval time in milliseconds
+        const increment = finalWidth / (2000 / intervalDuration);
 
         // Update the progress bar width
         const updateProgress = () => {
@@ -252,7 +263,7 @@ function initializeProgressBar(finalProgress) {
                     updateProgressList(currentWidth);
                 }
 
-                currentWidth++;
+                currentWidth += increment;
             } else {
                 if (!finalProgress) {
                     setTimeout(() => {
@@ -263,7 +274,7 @@ function initializeProgressBar(finalProgress) {
             }
         };
 
-        const progressInterval = setInterval(updateProgress, 30);
+        const progressInterval = setInterval(updateProgress, intervalDuration);
     }
 
     const steps = document.querySelectorAll(".directory-generate-progress-list li");
@@ -427,6 +438,7 @@ function initialStepContents() {
     $('.directorist-create-directory__content__items[data-step="1"]').show();
     $('.directorist-create-directory__step .step-count .total-step').html(totalStep);
     $('.directorist-create-directory__step .step-count .current-step').html(1);
+    $('#directorist-ai-prompt').siblings('.character-count').find('.max-count').text(maxPromptLength);
 
     const $directoryName = $('.directorist-create-directory__content__input[name="directory-name"]');
     const $directoryLocation = $('.directorist-create-directory__content__input[name="directory-location"]');
@@ -458,7 +470,19 @@ function initialStepContents() {
     });
 
     // Directory Prompt Input Listener
-    $('body').on('input', '#directorist-ai-prompt', function(e) {
+    $('body').on('input keyup', '#directorist-ai-prompt', function(e) {
+        $('#directorist-ai-prompt').siblings('.character-count').find('.current-count').text(directoryPrompt.length);
+        if (e.target.value.length > maxPromptLength) {
+            // Limit to maxPromptLength characters by preventing additional input
+            e.target.value = e.target.value.substring(0, maxPromptLength);
+
+            // Add a class to indicate the maximum character limit reached
+            $(e.target).addClass('max-char-reached');
+        } else {
+            // Remove the class if below the maximum character limit
+            $(e.target).removeClass('max-char-reached');
+        }
+        
         if (!e.target.value) {
             directoryPrompt = '';
             handleCreateButtonDisable();
@@ -577,14 +601,11 @@ function handleAIFormResponse(response) {
         if (currentStep == 2) {
             handlePromptStep(response?.data?.data?.html);
         } else if (currentStep == 3) {
-            console.log(response?.data)
-
-            handleGenerateFields(response?.data?.data?.html);
+            setTimeout(() => {
+                handleGenerateFields(response?.data?.data?.html);
+            }, 1000);
             directoryFields = JSON.stringify(response?.data?.data?.fields );
         } else if (currentStep == 4) {
-            // $('#directorist-create-directory__creating').hide();
-            // $('#directorist-create-directory__generating').hide();
-            // $('#directorist-create-directory__ai-fields').show();
             handleCreateDirectory( response?.data?.data?.url );
         }
     } else {
@@ -643,8 +664,12 @@ $('body').on('click', '.directorist_generate_ai_directory', function(e) {
             handleAIFormResponse(response);
         })
         .catch(error => {
+            if (error.response.data?.success === false && error.response.data?.data?.code === 'limit_exceeded') {
+                alert('🙌 You\'ve exceeded the request/site beta limit.');
+            }
+
             handleCreateButtonEnable();
-            console.error(error);
+            console.error(error.response.data);
         });
 });
 
@@ -666,12 +691,16 @@ $('body').on('click', '.directorist_regenerate_fields', function(e) {
     axios.post(directorist_admin.ajax_url, form_data)
         .then(response => {
             $(this).removeClass('loading');
-            handleGenerateFields(response?.data?.html);
+            handleGenerateFields(response?.data?.data?.html);
             $('.directorist_regenerate_fields').hide();
+            directoryFields = JSON.stringify( response.data.data.fields );
         })
         .catch(error => {
+            if (error.response.data?.success === false && error.response.data?.data?.code === 'limit_exceeded') {
+                alert('🙌 You\'ve exceeded the request/site beta limit.');
+            }
+
             $(this).removeClass('loading');
-            console.error(error);
+            console.error(error.response.data);
         });
 });
-

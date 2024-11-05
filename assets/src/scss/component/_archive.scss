@@ -488,6 +488,7 @@
         border: none;
         text-align: end;
         margin: -20px 0 20px;
+        z-index: 1;
         .directorist-btn-reset-ajax {
           padding: 0;
           color: var(--directorist-color-info);

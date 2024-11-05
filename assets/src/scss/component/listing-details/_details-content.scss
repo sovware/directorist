@@ -47,6 +47,8 @@
       color: var(--directorist-color-white);
       &:hover {
         background-color: #2a3cd9 !important;
+        color: var(--directorist-color-white);
+        border-color: var(--directorist-color-white) !important;
       }
       .directorist-single-listing-action__text {
         display: block;
@@ -157,6 +159,11 @@
     flex-direction: column;
     .directorist-single-info {
       margin: 0;
+      &.directorist-single-info-number{
+        .directorist-form-group__with-prefix {
+          flex: 1;
+        }
+      }
       .directorist-form-group__with-prefix {
         border: none;
         margin-top: 4px;

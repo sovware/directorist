@@ -296,6 +296,8 @@ window.addEventListener('load', function () {
   $('.directorist_directory_template_library').on('click', function (e) {
     e.preventDefault();
     var self = this;
+    // Add 'disabled' class to all siblings with the specific class and also to self
+    $(self).siblings('.cptm-create-directory-modal__action__single').addBack().addClass('disabled');
     $('.cptm-create-directory-modal__action').after("<span class='directorist_template_notice'>Installing Templatiq, Please wait..</span>");
     var form_data = new FormData();
     form_data.append('action', 'directorist_directory_type_library');
@@ -307,7 +309,7 @@ window.addEventListener('load', function () {
       if (response !== null && response !== void 0 && (_response$data = response.data) !== null && _response$data !== void 0 && _response$data.success) {
         var _response$data$messag, _response$data2;
         var msg = (_response$data$messag = response === null || response === void 0 || (_response$data2 = response.data) === null || _response$data2 === void 0 ? void 0 : _response$data2.message) !== null && _response$data$messag !== void 0 ? _response$data$messag : 'Imported successfully!';
-        $('.directorist_template_notice').text(msg);
+        $('.directorist_template_notice').addClass('cptm-section-alert-success').text(msg);
         location.reload();
         return;
       }
@@ -317,6 +319,8 @@ window.addEventListener('load', function () {
     // Response Error Callback
     var responseFieldCallback = function responseFieldCallback(response) {
       var _response$data$messag2, _response$data3;
+      // Remove 'disabled' class from all siblings and self in case of failure
+      $(self).siblings('.cptm-create-directory-modal__action__single').addBack().removeClass('disabled');
       var msg = (_response$data$messag2 = response === null || response === void 0 || (_response$data3 = response.data) === null || _response$data3 === void 0 ? void 0 : _response$data3.message) !== null && _response$data$messag2 !== void 0 ? _response$data$messag2 : 'Something went wrong please try again';
       var alert_content = "\n            <div class=\"cptm-section-alert-content\">\n                <div class=\"cptm-section-alert-icon cptm-alert-error\">\n                    <span class=\"fa fa-times\"></span>\n                </div>\n\n                <div class=\"cptm-section-alert-message\">".concat(msg, "</div>\n            </div>\n            ");
       $('.cptm-directory-migration-form').find('.cptm-comfirmation-text').html(alert_content);
@@ -363,6 +367,7 @@ var directoryTitle = '';
 var directoryLocation = '';
 var directoryType = '';
 var directoryPrompt = 'I want to create a car directory';
+var maxPromptLength = 200;
 var directoryKeywords = [];
 var directoryFields = [];
 var directoryPinnedFields = [];
@@ -387,6 +392,7 @@ function updateButtonText(text) {
 function updatePrompt() {
   directoryPrompt = "I want to create a ".concat(directoryType, " directory").concat(directoryLocation ? " in ".concat(directoryLocation) : '');
   $('#directorist-ai-prompt').val(directoryPrompt);
+  $('#directorist-ai-prompt').siblings('.character-count').find('.current-count').text(directoryPrompt.length);
   if (directoryType) {
     handleCreateButtonEnable();
   } else {
@@ -500,6 +506,8 @@ function initializeProgressBar(finalProgress) {
   if (generateBtnWrapper) {
     var finalWidth = generateBtnWrapper.getAttribute("data-width");
     var currentWidth = 0;
+    var intervalDuration = 20; // Interval time in milliseconds
+    var increment = finalWidth / (2000 / intervalDuration);
 
     // Update the progress bar width
     var updateProgress = function updateProgress() {
@@ -518,7 +526,7 @@ function initializeProgressBar(finalProgress) {
         if (typeof updateProgressList === 'function') {
           updateProgressList(currentWidth);
         }
-        currentWidth++;
+        currentWidth += increment;
       } else {
         if (!finalProgress) {
           setTimeout(function () {
@@ -528,7 +536,7 @@ function initializeProgressBar(finalProgress) {
         clearInterval(progressInterval);
       }
     };
-    var progressInterval = setInterval(updateProgress, 30);
+    var progressInterval = setInterval(updateProgress, intervalDuration);
   }
   var steps = document.querySelectorAll(".directory-generate-progress-list li");
 
@@ -674,6 +682,7 @@ function initialStepContents() {
   $('.directorist-create-directory__content__items[data-step="1"]').show();
   $('.directorist-create-directory__step .step-count .total-step').html(totalStep);
   $('.directorist-create-directory__step .step-count .current-step').html(1);
+  $('#directorist-ai-prompt').siblings('.character-count').find('.max-count').text(maxPromptLength);
   var $directoryName = $('.directorist-create-directory__content__input[name="directory-name"]');
   var $directoryLocation = $('.directorist-create-directory__content__input[name="directory-location"]');
   if (!$directoryName.val()) {
@@ -702,7 +711,18 @@ function initialStepContents() {
   });
 
   // Directory Prompt Input Listener
-  $('body').on('input', '#directorist-ai-prompt', function (e) {
+  $('body').on('input keyup', '#directorist-ai-prompt', function (e) {
+    $('#directorist-ai-prompt').siblings('.character-count').find('.current-count').text(directoryPrompt.length);
+    if (e.target.value.length > maxPromptLength) {
+      // Limit to maxPromptLength characters by preventing additional input
+      e.target.value = e.target.value.substring(0, maxPromptLength);
+
+      // Add a class to indicate the maximum character limit reached
+      $(e.target).addClass('max-char-reached');
+    } else {
+      // Remove the class if below the maximum character limit
+      $(e.target).removeClass('max-char-reached');
+    }
     if (!e.target.value) {
       directoryPrompt = '';
       handleCreateButtonDisable();
@@ -814,15 +834,14 @@ function handleAIFormResponse(response) {
       var _response$data8;
       handlePromptStep(response === null || response === void 0 || (_response$data8 = response.data) === null || _response$data8 === void 0 || (_response$data8 = _response$data8.data) === null || _response$data8 === void 0 ? void 0 : _response$data8.html);
     } else if (currentStep == 3) {
-      var _response$data9, _response$data10;
-      console.log(response === null || response === void 0 ? void 0 : response.data);
-      handleGenerateFields(response === null || response === void 0 || (_response$data9 = response.data) === null || _response$data9 === void 0 || (_response$data9 = _response$data9.data) === null || _response$data9 === void 0 ? void 0 : _response$data9.html);
+      var _response$data10;
+      setTimeout(function () {
+        var _response$data9;
+        handleGenerateFields(response === null || response === void 0 || (_response$data9 = response.data) === null || _response$data9 === void 0 || (_response$data9 = _response$data9.data) === null || _response$data9 === void 0 ? void 0 : _response$data9.html);
+      }, 1000);
       directoryFields = JSON.stringify(response === null || response === void 0 || (_response$data10 = response.data) === null || _response$data10 === void 0 || (_response$data10 = _response$data10.data) === null || _response$data10 === void 0 ? void 0 : _response$data10.fields);
     } else if (currentStep == 4) {
       var _response$data11;
-      // $('#directorist-create-directory__creating').hide();
-      // $('#directorist-create-directory__generating').hide();
-      // $('#directorist-create-directory__ai-fields').show();
       handleCreateDirectory(response === null || response === void 0 || (_response$data11 = response.data) === null || _response$data11 === void 0 || (_response$data11 = _response$data11.data) === null || _response$data11 === void 0 ? void 0 : _response$data11.url);
     }
   } else {
@@ -874,8 +893,12 @@ $('body').on('click', '.directorist_generate_ai_directory', function (e) {
     handleCreateButtonEnable();
     handleAIFormResponse(response);
   }).catch(function (error) {
+    var _error$response$data, _error$response$data2;
+    if (((_error$response$data = error.response.data) === null || _error$response$data === void 0 ? void 0 : _error$response$data.success) === false && ((_error$response$data2 = error.response.data) === null || _error$response$data2 === void 0 || (_error$response$data2 = _error$response$data2.data) === null || _error$response$data2 === void 0 ? void 0 : _error$response$data2.code) === 'limit_exceeded') {
+      alert('🙌 You\'ve exceeded the request/site beta limit.');
+    }
     handleCreateButtonEnable();
-    console.error(error);
+    console.error(error.response.data);
   });
 });
 
@@ -896,11 +919,16 @@ $('body').on('click', '.directorist_regenerate_fields', function (e) {
   axios.post(directorist_admin.ajax_url, form_data).then(function (response) {
     var _response$data12;
     $(_this).removeClass('loading');
-    handleGenerateFields(response === null || response === void 0 || (_response$data12 = response.data) === null || _response$data12 === void 0 ? void 0 : _response$data12.html);
+    handleGenerateFields(response === null || response === void 0 || (_response$data12 = response.data) === null || _response$data12 === void 0 || (_response$data12 = _response$data12.data) === null || _response$data12 === void 0 ? void 0 : _response$data12.html);
     $('.directorist_regenerate_fields').hide();
+    directoryFields = JSON.stringify(response.data.data.fields);
   }).catch(function (error) {
+    var _error$response$data3, _error$response$data4;
+    if (((_error$response$data3 = error.response.data) === null || _error$response$data3 === void 0 ? void 0 : _error$response$data3.success) === false && ((_error$response$data4 = error.response.data) === null || _error$response$data4 === void 0 || (_error$response$data4 = _error$response$data4.data) === null || _error$response$data4 === void 0 ? void 0 : _error$response$data4.code) === 'limit_exceeded') {
+      alert('🙌 You\'ve exceeded the request/site beta limit.');
+    }
     $(_this).removeClass('loading');
-    console.error(error);
+    console.error(error.response.data);
   });
 });
 

@@ -5810,6 +5810,13 @@ img.atbdp-file-info {
 
   .cptm-create-directory-modal__body {
     padding-top: 36px;
+    .directorist_template_notice {
+      margin-top: 10px;
+      color: #f80718;
+      &.cptm-section-alert-success {
+        color: #28A800;
+      }
+    }
   }
 
   .cptm-create-directory-modal__title {
@@ -5854,6 +5861,10 @@ img.atbdp-file-info {
       &:focus {
         background-color: #F0F3FF;
         border-color: #3E62F5;
+      }
+      &.disabled {
+        opacity: 0.5;
+        pointer-events: none;
       }
 
       .modal-btn-icon {

@@ -5,7 +5,7 @@ Tags: member directory, listing, classifieds, directory plugin, business directo
 Requires at least: 4.6
 Tested up to: 6.5
 Requires PHP: 7.0
-Stable tag: 8.0.0-beta
+Stable tag: 8.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -15,7 +15,7 @@ The Best WordPress Directory Plugin to Create Business Directory, Job Listings, 
 
 [Try Admin Demo](https://userdemo.wpwax.com/directorist/) | [Demos](https://directorist.com/demos/) | [Docs](https://directorist.com/documentation/directorist/) | [Themes](https://directorist.com/themes/) | [Extensions](https://directorist.com/extensions/) | [Roadmap](https://directorist.com/roadmap/)
 
-Are you ready to embark on the journey of creating your own online directory and classified ads listing site? 
+Are you ready to embark on the journey of creating your own online directory and classified ads listing site with AI? 
 
 If the answer is a resounding YES, then look no further! Directorist Business Directory Plugin is your ultimate companion, making the process not only seamless but also exciting. With Directorist, you'll unlock the power to craft dynamic and impactful business directories and classified websites of any kind, setting the stage for endless possibilities and opportunities. Let's dive in and unleash your creativity!
 
@@ -303,6 +303,36 @@ Directorist is a complete directory solution and in combination with its advance
 * Real-estate directory and many more
 
 == Changelog ==
+
+8.0 - Nov 5, 2024
+
+Enhancements:
+* New: Complete design overhaul for a modern and intuitive interface.
+* New: Improved drag-and-drop builder experience and added live previews for smoother customization.
+* New: Added section navigation in the add listing form for quick navigation to specific sections.
+* New: The “All Listings” page has been redesigned with a modern interface.
+* New: New REST API endpoints for easier integration with external platforms.
+* New: AI-powered directory creation feature (coming in November).
+* New: Redesigned login, and registration, and checkout processes for a better user experience.
+* New: Added a Preferences tab in the dashboard with new customization options for listings.
+* New: Added min/max values, step control, and text display options in Number custom field.
+* New: Pagination added to “All Categories” and “All Locations” pages.
+* New: Introduced Bricks Directorist Blocks (Pro version).
+* New extension: Listing Search Alerts (Pro version) to notify users based on their search criteria.
+* Improved: Optimized performance with reduced database queries for faster page load times.
+* Improved: Improved instant search with AJAX search functionality.
+* Improved: Improved Gutenberg and Elementor block integrations.
+* Improved: Mobile App v2.0 now supports listing submission and payment integration.
+Fixes:
+* Fixed category custom field issue in search forms.
+* Fixed mobile search functionality problems.
+* Fixed category filtering issues in author profile listings.
+* Fixed conflicts with custom field values in the builder.
+* Fixed directory type and listing count issues on “All Categories” and “All Locations” pages.
+Other:
+* Separated the announcement feature into the Directorist Announcement extension.
+* Reorganized and optimized settings for better usability and performance.
+
 
 7.9.0 - Apr 2, 2024
 

@@ -11938,7 +11938,10 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   background-color: var(--directorist-color-bg-light);
 }
 .directorist-modal__content .directorist-modal__header .directorist-modal-close:hover {
+  color: var(--directorist-color-body);
   background-color: var(--directorist-color-light-hover);
+  -webkit-box-shadow: var(--directorist-box-shadow);
+          box-shadow: var(--directorist-box-shadow);
 }
 .directorist-modal__content .directorist-modal__body {
   padding: 25px 40px;

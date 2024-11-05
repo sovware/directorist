@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 function directorist_is_multi_directory_enabled() {
-	return (bool) get_directorist_option( 'enable_multi_directory', false );
+	return (bool) get_directorist_option( 'enable_multi_directory', true );
 }
 
 function directorist_is_guest_submission_enabled() {

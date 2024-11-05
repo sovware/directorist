@@ -96,7 +96,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
             $fields['enable_multi_directory'] = [
                 'type'  => 'toggle',
                 'label' => 'Enable Multi Directory',
-                'value' => false,
+                'value' => true,
                 'confirm-before-change' => true,
                 'confirmation-modal' => [
                     'show-model-header' => false

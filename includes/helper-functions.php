@@ -285,49 +285,33 @@ if ( ! function_exists( 'atbdp_get_listing_order' ) ) :
 endif;
 
 if ( ! function_exists( 'atbdp_get_listing_status_after_submission' ) ) :
-// atbdp_get_listing_status_after_submission
 function atbdp_get_listing_status_after_submission( array $args = [] ) {
-    $args = array_merge( array(
-		'id'     => 0,
-		'edited' => false
-	), $args );
+    // Set default values and sanitize input parameters
+    $args = array_merge( [
+        'id'     => 0,
+        'edited' => 'no',  // Default to 'no' if not set
+    ], $args);
 
-	if ( true === $args['edited'] || '1' === $args['edited'] || 'yes' === $args['edited'] ) {
-		$args['edited'] = true;
-	}
+    $args['edited'] = filter_var( $args['edited'], FILTER_VALIDATE_BOOLEAN );
 
     $listing_id            = $args['id'];
     $listing_status        = $args['edited'] ? $args['edit_status'] : $args['create_status'];
-    $monitization          = directorist_is_monetization_enabled();
+    $monetization_enabled  = directorist_is_monetization_enabled();
     $featured_enabled      = directorist_is_featured_listing_enabled();
     $pricing_plans_enabled = is_fee_manager_active();
-    $post_status           = $listing_status;
 
-    // If Pricing Plans are Enabled
-    if ( $monitization && $pricing_plans_enabled ) {
-        $plan_id   = get_post_meta($listing_id, '_fm_plans', true);
-        $plan_meta = get_post_meta($plan_id);
-        $plan_type = ( ! empty( $plan_meta['plan_type'] ) && ! empty( $plan_meta['plan_type'][0] ) ) ? $plan_meta['plan_type'][0] : '';
-        // $plan_type = $plan_meta['plan_type'][0];
-
-        $_listing_id    = ( 'pay_per_listng' === $plan_type ) ? $listing_id : false;
-        $plan_purchased = subscribed_package_or_PPL_plans(get_current_user_id(), 'completed', $plan_id, $_listing_id);
-
-        $post_status = ( ! $plan_purchased ) ? 'pending' : $listing_status;
+    // Determine post status based on monetization settings and plans
+    if ( $monetization_enabled ) {
+        if ( $pricing_plans_enabled ) {
+            return directorist_get_pricing_plan_status( $listing_id, $listing_status );
+        } elseif ( $featured_enabled ) {
+            return directorist_get_featured_listing_status( $listing_id, $listing_status );
+        }
     }
 
-    // If Featured Listing is Enabled
-    if ( $monitization && ! $pricing_plans_enabled && $featured_enabled ) {
-        $has_order      = atbdp_get_listing_order( $listing_id );
-        $payment_status = ( $has_order ) ? get_post_meta( $has_order->ID, '_payment_status', true) : null;
-
-        $post_status = ( $has_order && 'completed' !== $payment_status ) ? 'pending' : $listing_status;
-    }
-
-    return $post_status;
+    return $listing_status;
 }
 endif;
-
 
 if (!function_exists('load_dependencies')):
     /**
@@ -4601,4 +4585,40 @@ function directorist_hex_to_rgb( $hex ) {
         $b = hexdec( substr( $hex, 4, 2 ) );
     }
     return "$r, $g, $b";
+}
+
+/**
+ * Determine post status based on pricing plan.
+ *
+ * @param int $listing_id
+ * @param string $default_status
+ * @return string
+ */
+function directorist_get_pricing_plan_status( $listing_id, $default_status ) {
+    $plan_id   = (int) get_post_meta( $listing_id, '_fm_plans', true );
+    $plan_meta = get_post_meta( $plan_id );
+    $plan_type = ( isset( $plan_meta['plan_type'] ) && isset( $plan_meta['plan_type'][0] ) ) ? $plan_meta['plan_type'][0] : '';
+
+    $listing_id_for_plan = ( 'pay_per_listng' === $plan_type ) ? $listing_id : false;
+    $plan_purchased = subscribed_package_or_PPL_plans( get_current_user_id(), 'completed', $plan_id, $listing_id_for_plan );
+
+    return $plan_purchased ? $default_status : 'pending';
+}
+
+/**
+ * Determine post status for featured listings.
+ *
+ * @param int $listing_id
+ * @param string $default_status
+ * @return string
+ */
+function directorist_get_featured_listing_status( $listing_id, $default_status ) {
+    $order = atbdp_get_listing_order( $listing_id );
+
+    if ( $order ) {
+        $payment_status = get_post_meta( $order->ID, '_payment_status', true );
+        return ( 'completed' === $payment_status ) ? $default_status : 'pending';
+    }
+
+    return $default_status;
 }

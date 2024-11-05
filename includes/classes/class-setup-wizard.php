@@ -617,7 +617,7 @@ class SetupWizard
                         <span class="gateway-title">Enable payments via <strong>PayPal</strong></span>
                         <input type="checkbox" name="active_gateways[]" id="enable_paypal" value="paypal_gateway" />
                         <label for="enable_paypal"></label>
-                        <span class="enable-warning">This will install the PayPal extension</sp>
+                        <span class="enable-warning">This will install the PayPal extension</span>
                     </div>
                 </div>
             </div>

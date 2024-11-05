@@ -916,6 +916,7 @@ $('body').on('click', '.directorist_regenerate_fields', function (e) {
     $(_this).removeClass('loading');
     handleGenerateFields(response === null || response === void 0 || (_response$data12 = response.data) === null || _response$data12 === void 0 || (_response$data12 = _response$data12.data) === null || _response$data12 === void 0 ? void 0 : _response$data12.html);
     $('.directorist_regenerate_fields').hide();
+    directoryFields = JSON.stringify(response.data.data.fields);
   }).catch(function (error) {
     var _error$response$data3, _error$response$data4;
     if (((_error$response$data3 = error.response.data) === null || _error$response$data3 === void 0 ? void 0 : _error$response$data3.success) === false && ((_error$response$data4 = error.response.data) === null || _error$response$data4 === void 0 || (_error$response$data4 = _error$response$data4.data) === null || _error$response$data4 === void 0 ? void 0 : _error$response$data4.code) === 'limit_exceeded') {

@@ -689,6 +689,7 @@ $('body').on('click', '.directorist_regenerate_fields', function(e) {
             $(this).removeClass('loading');
             handleGenerateFields(response?.data?.data?.html);
             $('.directorist_regenerate_fields').hide();
+            directoryFields = JSON.stringify( response.data.data.fields );
         })
         .catch(error => {
             if (error.response.data?.success === false && error.response.data?.data?.code === 'limit_exceeded') {

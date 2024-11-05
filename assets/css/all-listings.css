@@ -7135,7 +7135,7 @@ body.modal-overlay-enabled:before {
 .directorist-btn.directorist-btn-light:focus, .directorist-btn.directorist-btn-light:hover {
   background-color: var(--directorist-color-light-hover);
   color: var(--directorist-color-primary);
-  border-color: var(--directorist-color-color-primary);
+  border-color: var(--directorist-color-primary);
 }
 .directorist-btn.directorist-btn-lighter {
   border-color: var(--directorist-color-dark);

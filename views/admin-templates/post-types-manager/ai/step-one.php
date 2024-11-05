@@ -328,6 +328,10 @@
 							class="form-control directorist-create-directory__content__input --textarea directorist-ai-prompt"
 							name="directorist-ai-prompt" id="directorist-ai-prompt"
 							placeholder="Tell AI about your business to get better AI-powered suggestions..."></textarea>
+						<span class="character-count">
+							<span class="current-count">0</span>/
+							<span class="max-count">500</span>
+						</span>
 					</div>
 				</div>
 			</div>

@@ -480,15 +480,26 @@
             mask-image: url("../../../../icons/font-awesome/svgs/solid/times-circle.svg");
         }
       }
-      &.empty {
-        border-color: #ff0808;
-        box-shadow: 0px 0px 3px 3px rgba(212, 15, 15, 0.3);
+      &.empty,
+      &.max-char-reached {
+        border-color: #ff0808 !important;
+        box-shadow: 0px 0px 3px 3px rgba(212, 15, 15, 0.3) !important;
+      }
+      ~ .character-count {
+        width: 100%;
+        text-align: end;
+        font-size: 12px;
+        line-height: 20px;
+        font-weight: 500;
+        color: #555F6D;
+        margin-top: 8px;
       }
     }
 
     @include e("input-group") {
       display: flex;
       align-items: center;
+      flex-wrap: wrap;
       position: relative;
       color: #747C89;
 

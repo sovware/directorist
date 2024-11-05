@@ -121,59 +121,87 @@ if (!class_exists('ATBDP_Listing')):
         /**
          * @since 6.3.5
          */
-        public function update_listing_status_after_review( )  {
+		public function update_listing_status_after_review() {
+			// Exit early if listing status or review status isn't set, or if preview mode is enabled
 			if ( ( empty( $_GET['listing_status'] ) && empty( $_GET['reviewed'] ) ) || isset( $_GET['preview'] ) ) {
 				return;
 			}
 
-			if ( ! empty( $_GET['listing_id'] ) ) {
-				$listing_id = (int) directorist_clean( wp_unslash( $_GET['listing_id'] ) );
-			} elseif ( ! empty( $_GET['post_id'] ) ) {
-				$listing_id = (int) directorist_clean( wp_unslash( $_GET['post_id'] ) );
-			} elseif ( ! empty( $_GET['atbdp_listing_id'] ) ) {
-				$listing_id = (int) directorist_clean( wp_unslash( $_GET['atbdp_listing_id'] ) );
-			} else {
-				$listing_id = get_the_ID();
-			}
-
+			// Retrieve listing ID from multiple possible query parameters
+			$listing_id = $this->get_listing_id_from_request();
 			if ( ! $listing_id || ! directorist_is_listing_post_type( $listing_id ) ) {
 				return;
 			}
 
-			$directory_id = get_post_meta( $listing_id, '_directory_type', true );
-
-			if ( ! is_numeric( $directory_id ) ){
-				$directory_term = get_term_by( 'slug', $directory_id, ATBDP_TYPE );
-
-				if ( ! $directory_term ) {
-					return;
-				}
-
-				$directory_id = (int) $directory_term->term_id;
-
-				directorist_set_listing_directory( $listing_id, $directory_id );
+			// Retrieve directory ID and validate or set it if not numeric
+			$directory_id = $this->get_or_set_directory_id( $listing_id );
+			if ( ! $directory_id ) {
+				return;
 			}
 
-			$directory_id  = absint( $directory_id );
+			// Prepare status for post update
+			$args = $this->prepare_post_update_args( $listing_id, $directory_id );
+
+			// Update post status
+			wp_update_post( $args );
+			
+			// Trigger custom action after updating listing status
+			do_action( 'directorist_listing_status_updated', $listing_id, $args );
+		}
+
+		protected function get_listing_id_from_request() {
+			if ( ! empty( $_GET['listing_id'] ) ) {
+				return absint( $_GET['listing_id'] );
+			}
+
+			if ( ! empty( $_GET['post_id'] ) ) {
+				return absint( $_GET['post_id'] );
+			}
+
+			if ( ! empty( $_GET['atbdp_listing_id'] ) ) {
+				return absint( $_GET['atbdp_listing_id'] );
+			}
+		
+			return get_the_ID();
+		}
+		
+		protected function get_or_set_directory_id( $listing_id ) {
+			$directory_id = get_post_meta( $listing_id, '_directory_type', true );
+		
+			// Check if directory_id is numeric, if not try to retrieve and set it
+			if ( ! is_numeric( $directory_id ) ) {
+				$directory_term = get_term_by( 'slug', $directory_id, ATBDP_TYPE );
+		
+				if ( ! $directory_term ) {
+					return null;
+				}
+		
+				$directory_id = (int) $directory_term->term_id;
+				directorist_set_listing_directory( $listing_id, $directory_id );
+			}
+		
+			return absint( $directory_id );
+		}
+		
+		protected function prepare_post_update_args( $listing_id, $directory_id ) {
 			$create_status = directorist_get_listing_create_status( $directory_id );
 			$edit_status   = directorist_get_listing_edit_status( $directory_id, $listing_id );
-
-			$args = array(
+		
+			$args = [
 				'id'            => $listing_id,
-				'edited'        => isset( $_GET['edited'] ) ? directorist_clean( wp_unslash( $_GET['edited'] ) ) : '',
+				'edited'        => isset( $_GET['edited'] ) ? sanitize_text_field( $_GET['edited'] ) : 'no',
 				'new_l_status'  => $create_status,
 				'edit_l_status' => $edit_status,
 				'create_status' => $create_status,
 				'edit_status'   => $edit_status,
-			);
-
-			$args = apply_filters( 'atbdp_reviewed_listing_status_controller_argument', array(
+			];
+		
+			// Filter for custom argument modifications
+			return apply_filters( 'atbdp_reviewed_listing_status_controller_argument', [
 				'ID'          => $listing_id,
 				'post_status' => atbdp_get_listing_status_after_submission( $args ),
-			) );
-
-			wp_update_post( $args );
-        }
+			] );
+		}
 
         // manage_listings_status
         public function manage_listings_status() {

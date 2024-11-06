@@ -28,6 +28,8 @@ class ATBDP_Upgrade
 		// add_action('directorist_before_directory_type_edited', array($this, 'promo_banner') );
 
 		add_action( 'admin_notices', array( $this, 'bfcm_notice') );
+
+		add_action( 'admin_init', array( $this, 'v8_search_form_fields_label') );
 	}
 
 	public function is_pro_user() {
@@ -186,4 +188,43 @@ class ATBDP_Upgrade
 		return $link;
 	}
 
+	public function v8_search_form_fields_label() {
+
+		if ( empty( get_option( 'directorist_builder_header_migrated', false ) ) ) {
+			return;
+		}
+	
+		if ( get_option( 'directorist_v8_search_fields_label_migration', false ) ) {
+			return;
+		}
+	
+		$directory_types = get_terms( [
+			'taxonomy'   => ATBDP_DIRECTORY_TYPE,
+			'hide_empty' => false,
+		] );
+	
+		foreach ( $directory_types as $directory_type ) {
+	
+			$search_form_fields_data = get_term_meta( $directory_type->term_id, 'search_form_fields', true );
+	
+			$fields = isset($search_form_fields_data['fields']) && ! empty($search_form_fields_data['fields']) ? $search_form_fields_data['fields'] : [];
+	
+			foreach ( $fields as $key => $values ) {
+	
+				$placeholder = isset( $values['placeholder'] ) && ! empty( $values['placeholder'] ) ? $values['placeholder'] : '';
+	
+				$label = isset( $values['label'] ) && ! empty( $values['label'] ) ? $values['label'] : $placeholder;
+	
+				// Update the field data
+				$updated_field_data['label'] = $label;
+	
+				// Merge the updated data back into the form fields
+				$search_form_fields_data['fields'][$key] = array_merge( $fields[$key], $updated_field_data );
+			}
+	
+			update_term_meta( $directory_type->term_id, 'search_form_fields', $search_form_fields_data );
+		}
+	
+		update_option( 'directorist_v8_search_fields_label_migration', true );
+	}
 }

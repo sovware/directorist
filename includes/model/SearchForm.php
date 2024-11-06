@@ -613,12 +613,6 @@ class Directorist_Listing_Search_Form {
 		return $term_data->slug;
 	}
 
-	public function background_img_style() {
-		$bgimg = get_directorist_option('search_home_bg');
-		$style = !empty( $bgimg ) ? sprintf( "background-image: url(%s)", esc_url( $bgimg ) ) : '';
-		return $style;
-	}
-
 	public function border_class() {
 		$search_border = get_directorist_option( 'search_border', 1 );
 		return empty( $search_border ) ? 'directorist-no-search-border' : 'directorist-with-search-border';

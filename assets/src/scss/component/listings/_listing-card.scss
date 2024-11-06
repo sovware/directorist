@@ -440,7 +440,8 @@
         border-radius: 12px;
         overflow: hidden;
         z-index: 0;
-
+        background-color: var(--directorist-color-bg-gray);
+        
         .directorist-thumnail-card-front-wrap,
         .directorist-thumnail-card-back-wrap {
           position: absolute;
@@ -479,7 +480,6 @@
         height: 100%;
         object-fit: cover;
         margin: 0;
-        background-color: var(--directorist-color-bg-gray);
       }
 
       .directorist-thumnail-card-back-img {
@@ -936,6 +936,13 @@
         figure {
           margin: 0;
           flex: none;
+        }
+
+        .directorist-listing-single__header__left,
+        .directorist-listing-single__header__right {
+          &:empty {
+            display: none;
+          }
         }
       }
       @media screen and (max-width: 991px) {

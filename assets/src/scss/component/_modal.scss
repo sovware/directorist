@@ -64,7 +64,9 @@
         transition: 0.2s background-color ease-in-out;
         background-color: var(--directorist-color-bg-light);
         &:hover {
+          color: var(--directorist-color-body);
           background-color: var(--directorist-color-light-hover);
+          box-shadow: var(--directorist-box-shadow);
         }
       }
     }

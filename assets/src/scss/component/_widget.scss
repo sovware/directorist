@@ -265,8 +265,11 @@
 				background: none;
 				padding: 0;
 				min-height: auto;
-				span{
+				span {
 					font-weight: var(--directorist-fw-normal);
+					&:empty {
+						display: none;
+					}
 				}
 			}
 			@include e('icon') {

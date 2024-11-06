@@ -367,6 +367,7 @@ var directoryTitle = '';
 var directoryLocation = '';
 var directoryType = '';
 var directoryPrompt = 'I want to create a car directory';
+var maxPromptLength = 200;
 var directoryKeywords = [];
 var directoryFields = [];
 var directoryPinnedFields = [];
@@ -391,6 +392,7 @@ function updateButtonText(text) {
 function updatePrompt() {
   directoryPrompt = "I want to create a ".concat(directoryType, " directory").concat(directoryLocation ? " in ".concat(directoryLocation) : '');
   $('#directorist-ai-prompt').val(directoryPrompt);
+  $('#directorist-ai-prompt').siblings('.character-count').find('.current-count').text(directoryPrompt.length);
   if (directoryType) {
     handleCreateButtonEnable();
   } else {
@@ -504,6 +506,8 @@ function initializeProgressBar(finalProgress) {
   if (generateBtnWrapper) {
     var finalWidth = generateBtnWrapper.getAttribute("data-width");
     var currentWidth = 0;
+    var intervalDuration = 20; // Interval time in milliseconds
+    var increment = finalWidth / (2000 / intervalDuration);
 
     // Update the progress bar width
     var updateProgress = function updateProgress() {
@@ -522,7 +526,7 @@ function initializeProgressBar(finalProgress) {
         if (typeof updateProgressList === 'function') {
           updateProgressList(currentWidth);
         }
-        currentWidth++;
+        currentWidth += increment;
       } else {
         if (!finalProgress) {
           setTimeout(function () {
@@ -532,7 +536,7 @@ function initializeProgressBar(finalProgress) {
         clearInterval(progressInterval);
       }
     };
-    var progressInterval = setInterval(updateProgress, 30);
+    var progressInterval = setInterval(updateProgress, intervalDuration);
   }
   var steps = document.querySelectorAll(".directory-generate-progress-list li");
 
@@ -678,6 +682,7 @@ function initialStepContents() {
   $('.directorist-create-directory__content__items[data-step="1"]').show();
   $('.directorist-create-directory__step .step-count .total-step').html(totalStep);
   $('.directorist-create-directory__step .step-count .current-step').html(1);
+  $('#directorist-ai-prompt').siblings('.character-count').find('.max-count').text(maxPromptLength);
   var $directoryName = $('.directorist-create-directory__content__input[name="directory-name"]');
   var $directoryLocation = $('.directorist-create-directory__content__input[name="directory-location"]');
   if (!$directoryName.val()) {
@@ -706,7 +711,18 @@ function initialStepContents() {
   });
 
   // Directory Prompt Input Listener
-  $('body').on('input', '#directorist-ai-prompt', function (e) {
+  $('body').on('input keyup', '#directorist-ai-prompt', function (e) {
+    $('#directorist-ai-prompt').siblings('.character-count').find('.current-count').text(directoryPrompt.length);
+    if (e.target.value.length > maxPromptLength) {
+      // Limit to maxPromptLength characters by preventing additional input
+      e.target.value = e.target.value.substring(0, maxPromptLength);
+
+      // Add a class to indicate the maximum character limit reached
+      $(e.target).addClass('max-char-reached');
+    } else {
+      // Remove the class if below the maximum character limit
+      $(e.target).removeClass('max-char-reached');
+    }
     if (!e.target.value) {
       directoryPrompt = '';
       handleCreateButtonDisable();
@@ -818,8 +834,11 @@ function handleAIFormResponse(response) {
       var _response$data8;
       handlePromptStep(response === null || response === void 0 || (_response$data8 = response.data) === null || _response$data8 === void 0 || (_response$data8 = _response$data8.data) === null || _response$data8 === void 0 ? void 0 : _response$data8.html);
     } else if (currentStep == 3) {
-      var _response$data9, _response$data10;
-      handleGenerateFields(response === null || response === void 0 || (_response$data9 = response.data) === null || _response$data9 === void 0 || (_response$data9 = _response$data9.data) === null || _response$data9 === void 0 ? void 0 : _response$data9.html);
+      var _response$data10;
+      setTimeout(function () {
+        var _response$data9;
+        handleGenerateFields(response === null || response === void 0 || (_response$data9 = response.data) === null || _response$data9 === void 0 || (_response$data9 = _response$data9.data) === null || _response$data9 === void 0 ? void 0 : _response$data9.html);
+      }, 1000);
       directoryFields = JSON.stringify(response === null || response === void 0 || (_response$data10 = response.data) === null || _response$data10 === void 0 || (_response$data10 = _response$data10.data) === null || _response$data10 === void 0 ? void 0 : _response$data10.fields);
     } else if (currentStep == 4) {
       var _response$data11;
@@ -902,6 +921,7 @@ $('body').on('click', '.directorist_regenerate_fields', function (e) {
     $(_this).removeClass('loading');
     handleGenerateFields(response === null || response === void 0 || (_response$data12 = response.data) === null || _response$data12 === void 0 || (_response$data12 = _response$data12.data) === null || _response$data12 === void 0 ? void 0 : _response$data12.html);
     $('.directorist_regenerate_fields').hide();
+    directoryFields = JSON.stringify(response.data.data.fields);
   }).catch(function (error) {
     var _error$response$data3, _error$response$data4;
     if (((_error$response$data3 = error.response.data) === null || _error$response$data3 === void 0 ? void 0 : _error$response$data3.success) === false && ((_error$response$data4 = error.response.data) === null || _error$response$data4 === void 0 || (_error$response$data4 = _error$response$data4.data) === null || _error$response$data4 === void 0 ? void 0 : _error$response$data4.code) === 'limit_exceeded') {

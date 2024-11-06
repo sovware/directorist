@@ -47,6 +47,8 @@
       color: var(--directorist-color-white);
       &:hover {
         background-color: #2a3cd9 !important;
+        color: var(--directorist-color-white);
+        border-color: var(--directorist-color-white) !important;
       }
       .directorist-single-listing-action__text {
         display: block;

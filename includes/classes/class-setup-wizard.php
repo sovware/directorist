@@ -614,10 +614,10 @@ class SetupWizard
                         <label for="enable_bank_transfer"></label>
                     </div>
                     <div class="directorist-setup-wizard__content__gateway__checkbox">
-                        <span class="gateway-title">Enable payments via <strong>Paypal</strong></span>
+                        <span class="gateway-title">Enable payments via <strong>PayPal</strong></span>
                         <input type="checkbox" name="active_gateways[]" id="enable_paypal" value="paypal_gateway" />
                         <label for="enable_paypal"></label>
-                        <span class="enable-warning">This will install the Paypal extension</sp>
+                        <span class="enable-warning">This will install the PayPal extension</span>
                     </div>
                 </div>
             </div>
@@ -646,7 +646,7 @@ class SetupWizard
 
 
         if( ! empty( $_post_data['active_gateways'] ) && in_array( 'paypal_gateway',$_post_data['active_gateways'] ) ) {
-            directorist_download_plugin( [ 'url' => 'https://directorist.com/wp-content/uploads/edd/2022/10/directorist-paypal.zip' ] );
+            directorist_download_plugin( [ 'url' => 'https://directorist.com/wp-content/uploads/2024/11/directorist-paypal.zip' ] );
 
             $path = WP_PLUGIN_DIR . '/directorist-paypal/directorist-paypal.php';
 

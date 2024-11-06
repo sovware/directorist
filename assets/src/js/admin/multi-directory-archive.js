@@ -98,6 +98,7 @@ let directoryTitle = '';
 let directoryLocation = '';
 let directoryType = '';
 let directoryPrompt = 'I want to create a car directory';
+let maxPromptLength = 200;
 let directoryKeywords = [];
 let directoryFields = [];
 let directoryPinnedFields = [];
@@ -122,6 +123,7 @@ function updateButtonText(text) {
 function updatePrompt() {
     directoryPrompt = `I want to create a ${directoryType} directory${directoryLocation ? ` in ${directoryLocation}` : ''}`;
     $('#directorist-ai-prompt').val(directoryPrompt);
+    $('#directorist-ai-prompt').siblings('.character-count').find('.current-count').text(directoryPrompt.length);
     if (directoryType) {
         handleCreateButtonEnable();
     } else {
@@ -237,6 +239,9 @@ function initializeProgressBar(finalProgress) {
         const finalWidth = generateBtnWrapper.getAttribute("data-width");
 
         let currentWidth = 0;
+        
+        const intervalDuration = 20; // Interval time in milliseconds
+        const increment = finalWidth / (2000 / intervalDuration);
 
         // Update the progress bar width
         const updateProgress = () => {
@@ -258,7 +263,7 @@ function initializeProgressBar(finalProgress) {
                     updateProgressList(currentWidth);
                 }
 
-                currentWidth++;
+                currentWidth += increment;
             } else {
                 if (!finalProgress) {
                     setTimeout(() => {
@@ -269,7 +274,7 @@ function initializeProgressBar(finalProgress) {
             }
         };
 
-        const progressInterval = setInterval(updateProgress, 30);
+        const progressInterval = setInterval(updateProgress, intervalDuration);
     }
 
     const steps = document.querySelectorAll(".directory-generate-progress-list li");
@@ -433,6 +438,7 @@ function initialStepContents() {
     $('.directorist-create-directory__content__items[data-step="1"]').show();
     $('.directorist-create-directory__step .step-count .total-step').html(totalStep);
     $('.directorist-create-directory__step .step-count .current-step').html(1);
+    $('#directorist-ai-prompt').siblings('.character-count').find('.max-count').text(maxPromptLength);
 
     const $directoryName = $('.directorist-create-directory__content__input[name="directory-name"]');
     const $directoryLocation = $('.directorist-create-directory__content__input[name="directory-location"]');
@@ -464,7 +470,19 @@ function initialStepContents() {
     });
 
     // Directory Prompt Input Listener
-    $('body').on('input', '#directorist-ai-prompt', function(e) {
+    $('body').on('input keyup', '#directorist-ai-prompt', function(e) {
+        $('#directorist-ai-prompt').siblings('.character-count').find('.current-count').text(directoryPrompt.length);
+        if (e.target.value.length > maxPromptLength) {
+            // Limit to maxPromptLength characters by preventing additional input
+            e.target.value = e.target.value.substring(0, maxPromptLength);
+
+            // Add a class to indicate the maximum character limit reached
+            $(e.target).addClass('max-char-reached');
+        } else {
+            // Remove the class if below the maximum character limit
+            $(e.target).removeClass('max-char-reached');
+        }
+        
         if (!e.target.value) {
             directoryPrompt = '';
             handleCreateButtonDisable();
@@ -583,8 +601,9 @@ function handleAIFormResponse(response) {
         if (currentStep == 2) {
             handlePromptStep(response?.data?.data?.html);
         } else if (currentStep == 3) {
-
-            handleGenerateFields(response?.data?.data?.html);
+            setTimeout(() => {
+                handleGenerateFields(response?.data?.data?.html);
+            }, 1000);
             directoryFields = JSON.stringify(response?.data?.data?.fields );
         } else if (currentStep == 4) {
             handleCreateDirectory( response?.data?.data?.url );
@@ -674,6 +693,7 @@ $('body').on('click', '.directorist_regenerate_fields', function(e) {
             $(this).removeClass('loading');
             handleGenerateFields(response?.data?.data?.html);
             $('.directorist_regenerate_fields').hide();
+            directoryFields = JSON.stringify( response.data.data.fields );
         })
         .catch(error => {
             if (error.response.data?.success === false && error.response.data?.data?.code === 'limit_exceeded') {

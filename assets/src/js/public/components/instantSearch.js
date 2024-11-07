@@ -1105,13 +1105,13 @@ import debounce from '../../global/components/debounce';
         if (fields.address && fields.address.length) {
             fields.cityLat = searchElm.find('#cityLat').val();
             fields.cityLng = searchElm.find('#cityLng').val();
-            fields.miles = searchElm.find('.directorist-custom-range-slider__value input').val();
+            fields.miles = searchElm.find('input[name="miles"]').val();
         }
 
         if (fields.zip && fields.zip.length) {
             fields.zip_cityLat = searchElm.find('.zip-cityLat').val();
             fields.zip_cityLng = searchElm.find('.zip-cityLng').val();
-            fields.miles = searchElm.find('.directorist-custom-range-slider__value input').val();
+            fields.miles = searchElm.find('input[name="miles"]').val();
         }
 
         var form_data = {

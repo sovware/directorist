@@ -26093,7 +26093,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       return options_values.includes(value);
     }
     /* syncValidationWithLocalState( validation_log ) {
-         return validation_log;
+          return validation_log;
     } */
   }
 });
@@ -33734,7 +33734,7 @@ var render = function render() {
       key: alert_key,
       staticClass: "cptm-form-alert",
       class: "cptm-" + alert.type
-    }, [_vm._v("\n            " + _vm._s(alert.message) + "\n        ")]);
+    }, [_vm._v("\r\n            " + _vm._s(alert.message) + "\r\n        ")]);
   }), 0) : _vm._e()]);
 };
 var staticRenderFns = [];
@@ -34714,7 +34714,7 @@ var render = function render() {
       }
     }
   }, [_c("span", {
-    staticClass: "fa fa-upload"
+    staticClass: "fas fa-download"
   }), _vm._v("\n                " + _vm._s(_vm.buttonLabel) + "\n            ")])]), _vm._v(" "), _vm.validation_message ? _c("div", {
     staticClass: "cptm-form-group-feedback"
   }, [_c("div", {
@@ -34773,7 +34773,7 @@ var render = function render() {
       for: _vm.fieldId
     }
   }, [_c("span", {
-    staticClass: "fa fa-download"
+    staticClass: "fas fa-upload"
   }), _vm._v("\n                " + _vm._s(_vm.buttonLabel) + "\n            ")]), _vm._v(" "), _vm.validation_message ? _c("div", {
     staticClass: "cptm-form-group-feedback"
   }, [_c("div", {
@@ -35061,7 +35061,7 @@ var render = function render() {
       }
     }
   }, [_c("span", {
-    staticClass: "fa fa-download"
+    staticClass: "fas fa-sync-alt"
   }), _vm._v("\n                " + _vm._s(_vm.buttonLabel) + "\n            ")]), _vm._v(" "), _vm.validation_message ? _c("div", {
     staticClass: "cptm-form-group-feedback"
   }, [_c("div", {
@@ -36058,7 +36058,7 @@ var render = function render() {
       }
     }
   }, [_c("span", {
-    staticClass: "fa fa-upload"
+    staticClass: "fas fa-download"
   }), _vm._v("\n        " + _vm._s(_vm.buttonLabel) + "\n    ")]), _vm._v(" "), _vm.validation_message ? _c("div", {
     staticClass: "cptm-form-group-feedback"
   }, [_c("div", {
@@ -36111,7 +36111,7 @@ var render = function render() {
       for: _vm.fieldId
     }
   }, [_c("span", {
-    staticClass: "fa fa-download"
+    staticClass: "fas fa-upload"
   }), _vm._v("\n        " + _vm._s(_vm.buttonLabel) + "\n    ")]), _vm._v(" "), _vm.validation_message ? _c("div", {
     staticClass: "cptm-form-group-feedback"
   }, [_c("div", {
@@ -36381,7 +36381,7 @@ var render = function render() {
       }
     }
   }, [_c("span", {
-    staticClass: "fa fa-download"
+    staticClass: "fas fa-sync-alt"
   }), _vm._v("\n        " + _vm._s(_vm.buttonLabel) + "\n    ")]), _vm._v(" "), _vm.validation_message ? _c("div", {
     staticClass: "cptm-form-group-feedback"
   }, [_c("div", {

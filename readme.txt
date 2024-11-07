@@ -1,11 +1,11 @@
-﻿=== Directorist - WordPress Business Directory Plugin with Classified Ads Listings ===
+﻿=== Directorist - AI-Powered WordPress Business Directory Plugin with Classified Ads Listings ===
 Contributors: wpwax
 Donate link: https://directorist.com/extensions/
 Tags: member directory, listing, classifieds, directory plugin, business directory
 Requires at least: 4.6
 Tested up to: 6.5
 Requires PHP: 7.0
-Stable tag: 8.0
+Stable tag: 8.0.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -15,29 +15,39 @@ The Best WordPress Directory Plugin to Create Business Directory, Job Listings, 
 
 [Try Admin Demo](https://userdemo.wpwax.com/directorist/) | [Demos](https://directorist.com/demos/) | [Docs](https://directorist.com/documentation/directorist/) | [Themes](https://directorist.com/themes/) | [Extensions](https://directorist.com/extensions/) | [Roadmap](https://directorist.com/roadmap/)
 
-Are you ready to embark on the journey of creating your own online directory and classified ads listing site with AI? 
+Are you ready to embark on the journey of creating your own online directory and classified ads listing site? 
 
-If the answer is a resounding YES, then look no further! Directorist Business Directory Plugin is your ultimate companion, making the process not only seamless but also exciting. With Directorist, you'll unlock the power to craft dynamic and impactful business directories and classified websites of any kind, setting the stage for endless possibilities and opportunities. Let's dive in and unleash your creativity!
+Discover Directorist, the AI-powered solution that simplifies directory & classified creations smarter, faster, and more secure. And, eventually, it enhances user experience like never before. 
 
 [youtube https://www.youtube.com/watch?v=28gUzfsGmuk]
 
-Using Directorist, the potential of a directory site is boundless. It serves as a multifaceted platform, offering avenues for generating income, providing community service, supporting business operations, enhancing existing ventures, and more. With thousands of individuals already embarking on this journey, what stands in your way? Take the leap and discover the vast opportunities it presents. 
+
+Using Directorist, the opportunities for scalability in a directory site go beyond the boundary. At 
+Directorist, the Preferences tab in the Dashboard is where you can easily customize settings, like hiding contact forms or showing emails, to suit your style.  
+
+Moreover, serving as a multifaceted platform, it offers different avenues for generating income, providing community service, supporting business operations, enhancing existing ventures, and more. The secret of creating a powerful and lucrative directory and classified website lies in the shell of the Directorist. 
+
+Let’s jump right straight into the juicy part of Directorist. 
 
 🎉 Use [Best Listing](https://wordpress.org/themes/best-listing/) FREE multi-purpose directory theme for a quick start.
 
 == THE ONLY WORDPRESS BUSINESS DIRECTORY PLUGIN YOU NEED ==
 
-Meet our powerful Directorist Business Directory plugin, highly optimized that can scale to millions of listings ensuring the most dynamic experience of managing online directory business. Using Directorist, you can create lists of directories based on the location, category, and other interests without writing a single line of code.
+Introducing our robust Directorist, optimized for scalability to an ocean of listings, providing a dynamic experience for managing your online directory and classified website. With Directorist, easily create directories and classifieds by location, category, and interests—all without any coding required.
 
 🔥🔥🔥 **Directorist Mobile App for Android & iOS** 🔥🔥🔥
-
-If you want to make your directory website better accessible, highly interactive, and turn your visitors into paying customers, the Directorist mobile app is the one to take you to the rescue!
+Boost your directory website’s accessibility and interactivity while turning visitors into paying customers with the Directorist mobile app!
+🔥🔥🔥 **AI-Generated Directory Creation** 🔥🔥🔥
+One of our standout features is AI-driven directory creation, which accelerates and streamlines the content creation for directories, making it faster, smarter, and more efficient.
+Enhanced Integrations with Popular Page Builders Like Bricks  
+The enhanced integrations of Directorist with Gutenberg, Elementor, and the latest integration with Bricks, Directorist provide the flexibility you need to build a lucrative directory in the blink of an eye.
+28 Pre-Made Templates
+Directorist now offers over 28 pre-made templates, allowing users to quickly set up their directories without having to start from scratch. Amazing, right?
+Redesigned Login and Registration Forms
+We've also redesigned the login and registration forms to provide a more user-friendly and visually appealing interface, making it easier for users to interact with your site. 
 
 📱 [Launch Your Mobile App Now](https://directorist.com/mobile-app/)
 
-== TYPES OF WEBSITES YOU CAN BUILD ==
-
-Using Directorist Business Directory plugin you can create classifieds websites and listing directories like a local business directory, car directory, booking directory, land selling directory, classified ads, team directory, job portal, directory portal, staff directory, medical directory, doctor directory, address book, review sites, restaurant directory, real estate, and many more!
 
 👉 Join Our FB Community : [Directorist Community](https://www.facebook.com/groups/directorist)
 👉 Official Facebook Page : [Like and Follow on Facebook](https://www.facebook.com/directorist)
@@ -45,15 +55,15 @@ Using Directorist Business Directory plugin you can create classifieds websites 
 👉 Official YouTube Channel : [Follow on YouTube](https://www.youtube.com/c/wpWax)
 👉 Official Support : [Contact](https://directorist.com/dashboard/)
 
-Directorist Business Directory & Classified Listings is one of the leading and fast-growing business directory plugins in WordPress. It’s fully compatible with popular WordPress themes that allow you to transform your existing website into a personalized business directory with tons of advanced features.
+The design of Directorist has been completely revamped with a sleek, modern look that elevates the aesthetics and usability of your directory site.
 
-== WHY SHOULD YOU USE DIRECTORIST - THE BUSINESS DIRECTORY PLUGIN? ==
+== WHY SHOULD YOU USE DIRECTORIST - THE AI BUILDER FOR CLASSIFIED AND DIRECTORY WEBSITE? ==
 
 👉 **Multi Directory:** Boost your business directory possibilities by creating multiple directory types within the same directory.
 
 👉 **Custom Form and Layout Builder:** Directorist form and layout builder allows you to build custom add listing and search form using drag and drop technology.
 
-👉 **Listing CSV Import/Export with Custom Field:** The new Directorist allows you to import listings with custom fields from the CSV file for no cost.
+👉 **Listing CSV Import/Export with Custom Field:** The new Directorist, the best AI directory builder allows you to import listings with custom fields from the CSV file for no cost.
 
 👉 **Beginner Friendly:** Thoughtfully designed user interface lets users operate the plugin with zero coding skills and get the most compelling user experience.
 
@@ -66,8 +76,9 @@ Directorist Business Directory & Classified Listings is one of the leading and f
 👉 **Live Chat*:** Integrate a private messaging system on your directory listing website that allows users to have a real-time private conversation with business owners.
 
 👉 **Gutenberg Blocks:** Directorist offers 16 blocks/widgets for the Gutenberg editor, which is the default visual interface for editing WordPress posts and pages.
+👉 ** Sleek Checkout and Payment Process
 
-Let’s take a look at some of the core features that make this WordPress directory plugin exclusive from others:
+Let’s take a look at some of the core features that set this AI Directory Builder apart from others:
 
 == CORE DIRECTORIST FEATURES AT A GLANCE ==
 
@@ -98,22 +109,23 @@ Let’s take a look at some of the core features that make this WordPress direct
 * New, Popular, Featured, and Open/Close badges.
 * Create an Unlimited listing based on location and category.
 * List and grid view for categories, locations, and listings pages.
-* Translate to any language effortlessly using Loco Translate plugin.
+* Translate to any language effortlessly using the Loco Translate plugin.
 * Sustainable for long-term use.
 * Updated regularly for flawless operation.
-* And many more!
+* Multiple directory templates within a single theme
+* Intuitive and seamless UI
+* Brand-new sidebar filter layout
+* Modern and improved form for Add listings 
 
-== Scalable Listing Platform with Lightning-Speed Performance ==
-
-Swift loading times are vital for user experiences and search engine performance. The Directorist Business Directory plugin ensures lightning-fast loading with industry-standard optimization, scaling effortlessly to millions of listings while maintaining low memory consumption and efficient query execution.
+Advanced Review System
+Introducing a new review system that supports multi-criteria and media. Now users can provide more detailed feedback, increasing trust and engagement.
 
 == Beautiful Modern Design and 100% Responsive Attire ==
 
-Directorist features contemporary responsive designs with versatile grid, list, and map views. Compatible with popular themes such as Astra, Avada, and Divi, kickstart your Business Directory with trending designs instantly.
+Directorist offers modern, responsive designs with flexible grid, list, and map views. Instantly launch your business directory with popular theme compatibility, including Astra, Avada, and Divi.
 
 == Easy Translation, RTL & Built-in SEO Solution ==
-
-Translate your business directory or classifieds website to any language effortlessly using the Loco Translate plugin that provides in-browser editing of the translation files and get your directory listing website optimized for SEO.
+Easily translate your business directory or classified websites with the Loco Translate plugin, which lets you edit translations directly in the browser and boosts your site’s SEO.
 
 👉 **Multilingual Facility:** Directory listing websites created by Directorist Business Directory are 100% translatable and can be translated into multiple languages.
 
@@ -121,9 +133,9 @@ Translate your business directory or classifieds website to any language effortl
 
 👉 **RTL (Right to Left):** Directorist Business Directory plugin is fully compatible with RTL languages like Arabic, Aramaic, Hebrew, etc.
 
-== Powerful Ajax Powered Instant Search and Advanced Filters ==
+== Powerful Ajax-Powered Instant Search and Advanced Filters ==
 
-The Directorist Business Directory & Classified Listings advanced filter lets your users search listings based on numerous criteria like custom fields, tags, price range, etc. along with default text field, category, and location fields to elevate the search experience to a greater level.
+The Directorist & Classified Listings’ advanced filter allows users to search listings with precision, using criteria like custom fields, tags, and price range, as well as default text, category, and location fields—taking their search experience to a whole new level.
 
 * Filtering using numerous fields to yield accurate results.
 * Geolocation and nearby listings.
@@ -181,20 +193,8 @@ If you want to scale up your payment gateway using an online payment method, and
 
 WordPress developers can extend the plugin functionalities infinitely using available hooks and filters.
 
-**OTHER AMAZING PRODUCTS FROM WPWAX**
-
-👉  [HelpGent](https://wordpress.org/plugins/helpgent/) – Your Ultimate Help Agent for Video, Voice, and Text Messaging with Screen Record Facility
-
-👉  [Legal Pages](https://wordpress.org/plugins/legal-pages/) – Privacy Policy, Terms & Conditions, GDPR, CCPA, and Cookie Notice Generator
-
-👉  [Post Grid, Slider & Carousel Ultimate](https://wordpress.org/plugins/post-grid-carousel-ultimate/) – The easiest and most useful plugin to display blog posts, pages, or custom posts in beautiful post layouts like post grid, post carousel & post slider
-
-👉  [Product Carousel Slider & Grid Ultimate for WooCommerce](https://wordpress.org/plugins/woo-product-carousel-slider-and-grid-ultimate/) – The most intuitive solution to make your eCommerce site visually appealing by creating WooCommerce product carousel, sliders, or grids easily
-
-👉  [Logo Showcase Ultimate](https://wordpress.org/plugins/post-grid-carousel-ultimate/) – Ultimate logo showcase plugin to create responsive logo carousel, logo slider & logo grid and display unlimited clients, partners, sponsors logos
 
 == Extensive Extensions ==
-
 Directorist Business Directory offers cost-effective premium [Extensions](https://directorist.com/extensions/) to extend the functionalities of your directory listing website.
 
 👉 **[Pricing Plans](https://directorist.com/product/directorist-pricing-plans/)** - This feature extension allows you to create unlimited pricing plans with no time. Create private plans and set up recurring payments to your system which enhances your pricing plans on your directory listing website.
@@ -221,31 +221,32 @@ Directorist Business Directory offers cost-effective premium [Extensions](https:
 
 👉 **[Mark as Sold](https://directorist.com/product/directorist-mark-as-sold/)** - This allows the listing authors an opportunity to let their visitors know if a particular item is sold or not on their directory listing website.
 
-👉 **[Google ReCAPTCHA](https://directorist.com/product/google-recaptcha/)** - If you want to protect your directory listing website from fake/spam user registration, this feature extension is the right choice to ensure spam protection. This will stop all the auto-generated bots from submitting by setting up a Google reCAPTCHA challenge while registering users.
+👉 **[Google ReCAPTCHA](https://directorist.com/product/google-recaptcha/)** - Protect your directory site from spam registrations with this feature extension, using Google reCAPTCHA to block bots during user sign-up.
 
-👉 **[Listing Slider & Carousel](https://directorist.com/product/directorist-listings-slider-carousel/)** - Display your listings with beautiful sliders and carousels. This highly customizable tool will allow you to display sliders and carousel on any pages, posts, and even in widgets. There are 18 shortcode attributes for sliders and 28 shortcode attributes for Carousel.
+👉 **[Listing Slider & Carousel](https://directorist.com/product/directorist-listings-slider-carousel/)** - Showcase your listings with stunning, customizable sliders and carousels anywhere on your site, using 18 slider and 28 carousel shortcode options.
 
-👉 **[Business Hours](https://directorist.com/product/directorist-business-hours/)** - This feature extension is used to inform the customers when the business is open and when to close. It shows the opening and closing duration of your business hours. You can customize the timezone with a badge system.
+👉 **[Business Hours](https://directorist.com/product/directorist-business-hours/)** - This feature displays business opening and closing times with customizable timezones and badge options.
 
-👉 **[Listing FAQs](https://directorist.com/product/directorist-listing-faqs/)** - Set up an **FAQ** section on your directory listing website to satisfy your visitors and convert them into your loyal customers.
+👉 **[Listing FAQs](https://directorist.com/product/directorist-listing-faqs/)** - Add an FAQ section to your directory site to engage and convert visitors into loyal customers.
 
-👉 **[Social Login](https://directorist.com/product/directorist-social-login/)** - Allow you users to register and login to your directory listing website using their social media channels. In this process, the registration process becomes faster and handy without waiting for the validation process.
+👉 **[Social Login](https://directorist.com/product/directorist-social-login/)** - Let users register and log in via social media for a quick, hassle-free signup process on your directory site.
 
-👉 **[Rank Featured Listings](https://directorist.com/product/directorist-rank-featured-listings/)** - To rank your featured listing items on your directory website. Sometimes you may need to rank all your featured listings if it happens on a larger scale. Using this extension, you will get complete and the most affordable solution out there you needed.
+👉 **[Rank Featured Listings](https://directorist.com/product/directorist-rank-featured-listings/)** - Easily rank all featured listings on your directory website with this affordable, comprehensive extension.
 
 👉 **[Compare Listings](https://directorist.com/product/directorist-compare-listings/)** - Allows visitors to add a set of listings in a list and compare its features by viewing in a comparison table.
 
 👉 **[Oxygen Builder Integration](https://directorist.com/product/directorist-oxygen-integration/)** - It combines all the functionalities needed to create a complete WordPress directory website using Oxygen Builder.
 
-👉 **[BuddyBoss Integration](https://directorist.com/product/directorist-buddyboss-integration/)** - It is used to integrate the giant Directorist with the popular BuddyBoss plugin. It combines all the functionalities needed to create a complete community based WordPress directory website using Directorist plugin and BuddyBoss platform.
+👉 **[BuddyBoss Integration](https://directorist.com/product/directorist-buddyboss-integration/)** - It integrates Directorist with BuddyBoss, combining features to build a full community-driven directory website on WordPress.
 
-👉 **[BuddyPress Integration](https://directorist.com/product/directorist-buddypress-integration/)** - Directorist - BuddyPress Integration is a premium extension which makes Directorist and BuddyPress work as a single integrated app, allowing you to build a hybrid listings directory and social network together.
+👉 **[BuddyPress Integration](https://directorist.com/product/directorist-buddypress-integration/)** - Directorist - BuddyPress Integration is a premium extension that seamlessly combines Directorist and BuddyPress, enabling you to create a hybrid directory and social network.
+
 
 👉 **[Multi Directory Linking](https://directorist.com/product/directorist-directory-linking/)** - If you are running multi-directories on your directory website, Multi-directory Linking will be an awesome extension that will allow your users to connect to other types of directories.
 
 👉 **[Mailchimp Integration](https://directorist.com/product/directorist-mailchimp-integration/)** - Directorist Mailchimp Integration Connects Directorist with Mailchimp. It helps you to make your directory business grow faster and smarter with more leads.
 
-👉 **[GamiPress Integration](https://directorist.com/product/directorist-gamipress-integration/)** - Directorist GamiPress Integration allows you to coalesce the famous plugin, GamiPress with Directorist activity events based on the points gained and features to make your directory website even more magnetic and interactive.
+👉 **[GamiPress Integration](https://directorist.com/product/directorist-gamipress-integration/)** - Directorist GamiPress Integration combines GamiPress with Directorist activity events, enhancing your directory website’s interactivity and appeal through a points-based rewards system.
 
 👉 **[WPML Integration](https://directorist.com/product/directorist-wpml-integration/)** - Directorist WPML Integration allows you to create multilingual directory with few steps.
 
@@ -300,39 +301,12 @@ Directorist is a complete directory solution and in combination with its advance
 * Professional directory
 * Car directory
 * Member directory
-* Real-estate directory and many more
+* Real-estate directory
+* AI tools directory 
+* Therapists directory 
+ * and many more
 
 == Changelog ==
-
-8.0 - Nov 5, 2024
-
-Enhancements:
-* New: Complete design overhaul for a modern and intuitive interface.
-* New: Improved drag-and-drop builder experience and added live previews for smoother customization.
-* New: Added section navigation in the add listing form for quick navigation to specific sections.
-* New: The “All Listings” page has been redesigned with a modern interface.
-* New: New REST API endpoints for easier integration with external platforms.
-* New: AI-powered directory creation feature (coming in November).
-* New: Redesigned login, and registration, and checkout processes for a better user experience.
-* New: Added a Preferences tab in the dashboard with new customization options for listings.
-* New: Added min/max values, step control, and text display options in Number custom field.
-* New: Pagination added to “All Categories” and “All Locations” pages.
-* New: Introduced Bricks Directorist Blocks (Pro version).
-* New extension: Listing Search Alerts (Pro version) to notify users based on their search criteria.
-* Improved: Optimized performance with reduced database queries for faster page load times.
-* Improved: Improved instant search with AJAX search functionality.
-* Improved: Improved Gutenberg and Elementor block integrations.
-* Improved: Mobile App v2.0 now supports listing submission and payment integration.
-Fixes:
-* Fixed category custom field issue in search forms.
-* Fixed mobile search functionality problems.
-* Fixed category filtering issues in author profile listings.
-* Fixed conflicts with custom field values in the builder.
-* Fixed directory type and listing count issues on “All Categories” and “All Locations” pages.
-Other:
-* Separated the announcement feature into the Directorist Announcement extension.
-* Reorganized and optimized settings for better usability and performance.
-
 
 7.9.0 - Apr 2, 2024
 

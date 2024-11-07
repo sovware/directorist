@@ -11,7 +11,7 @@
             
             <div class="atbdp-col atbdp-col-8">
                 <button type="button" class="cptm-btn cptm-btn-secondery" @click="exportJSON()">
-                    <span class="fa fa-upload"></span>
+                    <span class="fas fa-download"></span>
                     {{ buttonLabel }}
                 </button>
             </div>

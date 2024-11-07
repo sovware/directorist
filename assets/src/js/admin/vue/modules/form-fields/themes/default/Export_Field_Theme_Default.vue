@@ -7,7 +7,7 @@
         <p class="cptm-form-group-info" v-if="description.length" v-html="description"></p>
 
         <button type="button" class="cptm-btn cptm-btn-secondery" @click="exportJSON()">
-            <span class="fa fa-upload"></span>
+            <span class="fas fa-download"></span>
             {{ buttonLabel }}
         </button>
 

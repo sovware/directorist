@@ -622,6 +622,11 @@ $light-gray: #f4f5f7;
     color: $primary;
     border-color: $primary;
     background-color: transparent;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 500;
+    font-size: 15px !important;
 
     &:hover {
       color: #fff;

@@ -34709,7 +34709,7 @@ var render = function render() {
       }
     }
   }, [_c("span", {
-    staticClass: "fa fa-upload"
+    staticClass: "fas fa-download"
   }), _vm._v("\n                " + _vm._s(_vm.buttonLabel) + "\n            ")])]), _vm._v(" "), _vm.validation_message ? _c("div", {
     staticClass: "cptm-form-group-feedback"
   }, [_c("div", {
@@ -34768,7 +34768,7 @@ var render = function render() {
       for: _vm.fieldId
     }
   }, [_c("span", {
-    staticClass: "fa fa-download"
+    staticClass: "fas fa-upload"
   }), _vm._v("\n                " + _vm._s(_vm.buttonLabel) + "\n            ")]), _vm._v(" "), _vm.validation_message ? _c("div", {
     staticClass: "cptm-form-group-feedback"
   }, [_c("div", {
@@ -35056,7 +35056,7 @@ var render = function render() {
       }
     }
   }, [_c("span", {
-    staticClass: "fa fa-download"
+    staticClass: "fas fa-sync-alt"
   }), _vm._v("\n                " + _vm._s(_vm.buttonLabel) + "\n            ")]), _vm._v(" "), _vm.validation_message ? _c("div", {
     staticClass: "cptm-form-group-feedback"
   }, [_c("div", {
@@ -36053,7 +36053,7 @@ var render = function render() {
       }
     }
   }, [_c("span", {
-    staticClass: "fa fa-upload"
+    staticClass: "fas fa-download"
   }), _vm._v("\n        " + _vm._s(_vm.buttonLabel) + "\n    ")]), _vm._v(" "), _vm.validation_message ? _c("div", {
     staticClass: "cptm-form-group-feedback"
   }, [_c("div", {
@@ -36106,7 +36106,7 @@ var render = function render() {
       for: _vm.fieldId
     }
   }, [_c("span", {
-    staticClass: "fa fa-download"
+    staticClass: "fas fa-upload"
   }), _vm._v("\n        " + _vm._s(_vm.buttonLabel) + "\n    ")]), _vm._v(" "), _vm.validation_message ? _c("div", {
     staticClass: "cptm-form-group-feedback"
   }, [_c("div", {
@@ -36376,7 +36376,7 @@ var render = function render() {
       }
     }
   }, [_c("span", {
-    staticClass: "fa fa-download"
+    staticClass: "fas fa-sync-alt"
   }), _vm._v("\n        " + _vm._s(_vm.buttonLabel) + "\n    ")]), _vm._v(" "), _vm.validation_message ? _c("div", {
     staticClass: "cptm-form-group-feedback"
   }, [_c("div", {

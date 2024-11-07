@@ -7,7 +7,7 @@
         <p class="cptm-form-group-info" v-if="description.length" v-html="description"></p>
 
         <button type="button" class="cptm-btn cptm-btn-secondery" @click="restore()">
-            <span class="fa fa-download"></span>
+            <span class="fas fa-sync-alt"></span>
             {{ buttonLabel }}
         </button>
 

@@ -26093,7 +26093,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       return options_values.includes(value);
     }
     /* syncValidationWithLocalState( validation_log ) {
-          return validation_log;
+         return validation_log;
     } */
   }
 });
@@ -26325,7 +26325,12 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'button-field-theme-butterfly',
-  mixins: [_mixins_form_fields_button_field__WEBPACK_IMPORTED_MODULE_0__["default"]]
+  mixins: [_mixins_form_fields_button_field__WEBPACK_IMPORTED_MODULE_0__["default"]],
+  computed: {
+    formattedUrl: function formattedUrl() {
+      return this.url.replace(/&amp;/g, '&');
+    }
+  }
 });
 
 /***/ }),
@@ -33729,7 +33734,7 @@ var render = function render() {
       key: alert_key,
       staticClass: "cptm-form-alert",
       class: "cptm-" + alert.type
-    }, [_vm._v("\r\n            " + _vm._s(alert.message) + "\r\n        ")]);
+    }, [_vm._v("\n            " + _vm._s(alert.message) + "\n        ")]);
   }), 0) : _vm._e()]);
 };
 var staticRenderFns = [];
@@ -34415,7 +34420,7 @@ var render = function render() {
   }, [_c("a", {
     staticClass: "settings-save-btn",
     attrs: {
-      href: _vm.url,
+      href: _vm.formattedUrl,
       target: _vm.openInNewTab ? "_blank" : "_self"
     },
     domProps: {

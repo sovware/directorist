@@ -614,9 +614,8 @@ class Directorist_Listing_Search_Form {
 	}
 
 	public function background_img_style() {
-		$bgimg = get_directorist_option('search_home_bg');
-		$style = !empty( $bgimg ) ? sprintf( "background-image: url(%s)", esc_url( $bgimg ) ) : '';
-		return $style;
+		_deprecated_function( __METHOD__, '8.0.1' );
+		return true;
 	}
 
 	public function border_class() {

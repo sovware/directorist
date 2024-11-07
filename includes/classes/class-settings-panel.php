@@ -64,13 +64,13 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
             $fields['import_settings'] = [
                 'type'         => 'import',
                 'label'        => 'Import',
-                'button-label' => 'Upload .json File',
+                'button-label' => 'Upload Settings File',
             ];
 
             $fields['export_settings'] = [
                 'type'             => 'export',
                 'label'            => 'Export',
-                'button-label'     => 'Download Export File',
+                'button-label'     => 'Download Settings File',
                 'export-file-name' => 'directory-settings',
             ];
 

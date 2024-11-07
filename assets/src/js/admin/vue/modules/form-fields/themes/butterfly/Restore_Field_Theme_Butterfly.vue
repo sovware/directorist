@@ -11,7 +11,7 @@
             
             <div class="atbdp-col atbdp-col-8">
                 <button type="button" class="cptm-btn cptm-btn-secondery" @click="restore()">
-                    <span class="fa fa-download"></span>
+                    <span class="fas fa-sync-alt"></span>
                     {{ buttonLabel }}
                 </button>
 

@@ -10,7 +10,7 @@
             </div>
             
             <div class="atbdp-col atbdp-col-8">
-                <a :href="url" 
+                <a :href="formattedUrl" 
                     class="settings-save-btn" 
                     :target="( openInNewTab ) ? '_blank' : '_self'" 
                     v-html="buttonLabel">
@@ -26,5 +26,10 @@ import button_feild from './../../../../mixins/form-fields/button-field';
 export default {
     name: 'button-field-theme-butterfly',
     mixins: [ button_feild ],
+    computed: {
+        formattedUrl() {
+            return this.url.replace(/&amp;/g, '&');
+        }
+    },
 }
 </script>

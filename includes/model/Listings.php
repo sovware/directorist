@@ -1050,14 +1050,16 @@ class Directorist_Listings {
 				'compare' => 'LIKE'
 			);
 		}
-
+		
 		if ( 'address' == $this->radius_search_based_on && ! empty( $_REQUEST['miles'] ) && ! empty( $_REQUEST['address'] ) && ! empty( $_REQUEST['cityLat'] ) && ! empty( $_REQUEST['cityLng'] ) ) {
-			$args['atbdp_geo_query'] = array(
+			$distance =	directorist_get_distance_range( $_REQUEST['miles'] );
+;			$args['atbdp_geo_query'] = array(
 				'lat_field' => '_manual_lat',
 				'lng_field' => '_manual_lng',
 				'latitude'  => sanitize_text_field( wp_unslash( $_REQUEST['cityLat'] ) ),
 				'longitude' => sanitize_text_field( wp_unslash( $_REQUEST['cityLng'] ) ),
-				'distance'  => sanitize_text_field( wp_unslash( $_REQUEST['miles'] ) ),
+				'min_distance' => $distance['min'],  // Minimum distance extracted from URL
+    			'max_distance' => $distance['max'],  // Maximum distance extracted from URL
 				'units'     => $this->radius_search_unit
 			);
 		} elseif ( ! empty($_REQUEST['address']) ) {

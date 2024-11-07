@@ -1181,6 +1181,7 @@
     color: var(--directorist-color-primary);
   }
   @include e(range) {
+    display: none;
     @include e(wrap) {
       display: flex;
       gap: 5px;

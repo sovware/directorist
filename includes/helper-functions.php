@@ -4622,3 +4622,20 @@ function directorist_get_featured_listing_status( $listing_id, $default_status )
 
     return $default_status;
 }
+
+function directorist_get_distance_range( $miles ) {
+    // Set default values for min and max distance
+    $min_distance = 0;
+    $max_distance = 100;
+
+    // Check if the 'miles' parameter is in the "min-max" format
+    if ( !empty( $miles ) && strpos( $miles, '-' ) !== false ) {
+        $miles = sanitize_text_field( $miles );
+
+        list( $min_distance, $max_distance ) = explode( '-', $miles );
+        $min_distance = floatval( $min_distance );
+        $max_distance = floatval( $max_distance );
+    }
+
+    return array( 'min' => $min_distance, 'max' => $max_distance );
+}

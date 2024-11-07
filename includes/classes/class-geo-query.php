@@ -48,26 +48,27 @@ if ( ! class_exists( 'ATBDP_GJSGeoQuery' ) ) {
 		public function posts_where( $sql, $query ) {
 			global $wpdb;
 			$atbdp_geo_query = $query->get( 'atbdp_geo_query' );
+		
 			if ( $atbdp_geo_query ) {
-				$lat_field = 'latitude';
-				if ( ! empty( $atbdp_geo_query['lat_field'] ) ) {
-					$lat_field = $atbdp_geo_query['lat_field'];
-				}
-				$lng_field = 'longitude';
-				if ( ! empty( $atbdp_geo_query['lng_field'] ) ) {
-					$lng_field = $atbdp_geo_query['lng_field'];
-				}
-				$distance = 20;
-				if ( isset( $atbdp_geo_query['distance'] ) ) {
-					$distance = $atbdp_geo_query['distance'];
-				}
+				$lat_field = ! empty( $atbdp_geo_query['lat_field'] ) ? $atbdp_geo_query['lat_field'] : 'latitude';
+				$lng_field = ! empty( $atbdp_geo_query['lng_field'] ) ? $atbdp_geo_query['lng_field'] : 'longitude';
+		
+				// Use the distance range from the query arguments
+				$min_distance = isset( $atbdp_geo_query['min_distance'] ) ? $atbdp_geo_query['min_distance'] : 0;
+				$max_distance = isset( $atbdp_geo_query['max_distance'] ) ? $atbdp_geo_query['max_distance'] : 100;
+		
 				if ( $sql ) {
 					$sql .= ' AND ';
 				}
+		
+				// Generate the Haversine formula for distance
 				$haversine = $this->haversine_term( $atbdp_geo_query );
-				$new_sql = '( atbdp_geo_query_lat.meta_key = %s AND atbdp_geo_query_lng.meta_key = %s AND ' . $haversine . ' <= %f )';
-				$sql .= $wpdb->prepare( $new_sql, $lat_field, $lng_field, $distance );
+		
+				// Prepare SQL with BETWEEN for min and max distance
+				$new_sql = '( atbdp_geo_query_lat.meta_key = %s AND atbdp_geo_query_lng.meta_key = %s AND ' . $haversine . ' BETWEEN %f AND %f )';
+				$sql .= $wpdb->prepare( $new_sql, $lat_field, $lng_field, $min_distance, $max_distance );
 			}
+		
 			return $sql;
 		}
 

@@ -14141,6 +14141,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   font-weight: 500;
   color: var(--directorist-color-primary);
 }
+.directorist-custom-range-slider__range {
+  display: none;
+}
 .directorist-custom-range-slider__range__wrap {
   display: -webkit-box;
   display: -webkit-flex;

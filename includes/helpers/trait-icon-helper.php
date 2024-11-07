@@ -32,6 +32,11 @@ trait Icon_Helper {
 	}
 
 	private static function get_icon_file( $icon ) {
+
+		if( empty( $icon ) || ! is_string( $icon ) ) {
+			return '';
+		}
+
 		if ( str_starts_with( $icon, 'fa' ) ) {
 			return self::get_font_awesome_file( $icon );
 		} elseif ( str_starts_with( $icon, 'la' ) ) {

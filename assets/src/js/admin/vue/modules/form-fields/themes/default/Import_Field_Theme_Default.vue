@@ -8,7 +8,7 @@
         
         <input type="file" accept=".json" :id="fieldId" class="cptm-d-none" @input="importJSON">
         <label :for="fieldId" class="cptm-btn cptm-label-btn cptm-btn-secondery">
-            <span class="fa fa-download"></span>
+            <span class="fas fa-upload"></span>
             {{ buttonLabel }}
         </label>
 

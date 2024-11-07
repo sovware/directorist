@@ -26,7 +26,7 @@ class Background_Updater extends Background_Process {
 	 * Initiate new background process.
 	 */
 	public function __construct() {
-		add_action( 'admin_init', [ __CLASS__, 'v8_set_search_form_fields_label' ] );
+		add_action( 'admin_init', [ $this, 'migrate_search_form_placeholder_to_label' ] );
 		// Uses unique prefix per blog so each blog has separate queue.
 		$this->prefix = 'wp_' . get_current_blog_id();
 		$this->action = 'directorist_updater';
@@ -150,13 +150,13 @@ class Background_Updater extends Background_Process {
 		return $this->memory_exceeded();
 	}
 
-	public function v8_set_search_form_fields_label() {
+	public static function migrate_search_form_placeholder_to_label() {
 
 		if ( empty( get_option( 'directorist_builder_header_migrated', false ) ) ) {
 			return;
 		}
 	
-		if ( get_option( 'directorist_v8_search_fields_label_migration', false ) ) {
+		if ( get_option( 'directorist_v8_search_form_labels_migrated', false ) ) {
 			return;
 		}
 	
@@ -187,6 +187,6 @@ class Background_Updater extends Background_Process {
 			update_term_meta( $directory_type->term_id, 'search_form_fields', $search_form_fields_data );
 		}
 	
-		update_option( 'directorist_v8_search_fields_label_migration', true );
+		update_option( 'directorist_v8_search_form_labels_migrated', true );
 	}
 }

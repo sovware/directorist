@@ -613,6 +613,11 @@ class Directorist_Listing_Search_Form {
 		return $term_data->slug;
 	}
 
+	public function background_img_style() {
+		_deprecated_function( __METHOD__, '8.0' );
+		return true;
+	}
+
 	public function border_class() {
 		$search_border = get_directorist_option( 'search_border', 1 );
 		return empty( $search_border ) ? 'directorist-no-search-border' : 'directorist-with-search-border';

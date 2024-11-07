@@ -143,7 +143,7 @@ window.addEventListener('load', function () {
 
       if (response !== null && response !== void 0 && (_response$data = response.data) !== null && _response$data !== void 0 && _response$data.success) {
         var _response$data$messag, _response$data2;
-        var msg = (_response$data$messag = response === null || response === void 0 || (_response$data2 = response.data) === null || _response$data2 === void 0 ? void 0 : _response$data2.message) !== null && _response$data$messag !== void 0 ? _response$data$messag : 'Migration Successful';
+        var msg = (_response$data$messag = response === null || response === void 0 ? void 0 : (_response$data2 = response.data) === null || _response$data2 === void 0 ? void 0 : _response$data2.message) !== null && _response$data$messag !== void 0 ? _response$data$messag : 'Migration Successful';
         var alert_content = "\n                <div class=\"cptm-section-alert-content\">\n                    <div class=\"cptm-section-alert-icon cptm-alert-success\">\n                        <span class=\"fa fa-check\"></span>\n                    </div>\n\n                    <div class=\"cptm-section-alert-message\">".concat(msg, "</div>\n                </div>\n                ");
         $('.cptm-directory-migration-form').find('.cptm-comfirmation-text').html(alert_content);
         $(self).remove();
@@ -158,7 +158,7 @@ window.addEventListener('load', function () {
       var _response$data$messag2, _response$data3;
       // console.log( { response } );
 
-      var msg = (_response$data$messag2 = response === null || response === void 0 || (_response$data3 = response.data) === null || _response$data3 === void 0 ? void 0 : _response$data3.message) !== null && _response$data$messag2 !== void 0 ? _response$data$messag2 : 'Something went wrong please try again';
+      var msg = (_response$data$messag2 = response === null || response === void 0 ? void 0 : (_response$data3 = response.data) === null || _response$data3 === void 0 ? void 0 : _response$data3.message) !== null && _response$data$messag2 !== void 0 ? _response$data$messag2 : 'Something went wrong please try again';
       var alert_content = "\n            <div class=\"cptm-section-alert-content\">\n                <div class=\"cptm-section-alert-icon cptm-alert-error\">\n                    <span class=\"fa fa-times\"></span>\n                </div>\n\n                <div class=\"cptm-section-alert-message\">".concat(msg, "</div>\n            </div>\n            ");
       $('.cptm-directory-migration-form').find('.cptm-comfirmation-text').html(alert_content);
       $(self).remove();
@@ -308,7 +308,7 @@ window.addEventListener('load', function () {
       var _response$data;
       if (response !== null && response !== void 0 && (_response$data = response.data) !== null && _response$data !== void 0 && _response$data.success) {
         var _response$data$messag, _response$data2;
-        var msg = (_response$data$messag = response === null || response === void 0 || (_response$data2 = response.data) === null || _response$data2 === void 0 ? void 0 : _response$data2.message) !== null && _response$data$messag !== void 0 ? _response$data$messag : 'Imported successfully!';
+        var msg = (_response$data$messag = response === null || response === void 0 ? void 0 : (_response$data2 = response.data) === null || _response$data2 === void 0 ? void 0 : _response$data2.message) !== null && _response$data$messag !== void 0 ? _response$data$messag : 'Imported successfully!';
         $('.directorist_template_notice').addClass('cptm-section-alert-success').text(msg);
         location.reload();
         return;
@@ -321,7 +321,7 @@ window.addEventListener('load', function () {
       var _response$data$messag2, _response$data3;
       // Remove 'disabled' class from all siblings and self in case of failure
       $(self).siblings('.cptm-create-directory-modal__action__single').addBack().removeClass('disabled');
-      var msg = (_response$data$messag2 = response === null || response === void 0 || (_response$data3 = response.data) === null || _response$data3 === void 0 ? void 0 : _response$data3.message) !== null && _response$data$messag2 !== void 0 ? _response$data$messag2 : 'Something went wrong please try again';
+      var msg = (_response$data$messag2 = response === null || response === void 0 ? void 0 : (_response$data3 = response.data) === null || _response$data3 === void 0 ? void 0 : _response$data3.message) !== null && _response$data$messag2 !== void 0 ? _response$data$messag2 : 'Something went wrong please try again';
       var alert_content = "\n            <div class=\"cptm-section-alert-content\">\n                <div class=\"cptm-section-alert-icon cptm-alert-error\">\n                    <span class=\"fa fa-times\"></span>\n                </div>\n\n                <div class=\"cptm-section-alert-message\">".concat(msg, "</div>\n            </div>\n            ");
       $('.cptm-directory-migration-form').find('.cptm-comfirmation-text').html(alert_content);
       $(self).remove();
@@ -347,9 +347,9 @@ window.addEventListener('load', function () {
     axios.post(directorist_admin.ajax_url, form_data).then(function (response) {
       var _response$data4;
       if (response !== null && response !== void 0 && (_response$data4 = response.data) !== null && _response$data4 !== void 0 && _response$data4.success) {
-        var _response$data5;
+        var _response$data5, _response$data5$data;
         // Replace the content inside '#wpbody' with the response HTML
-        $('#wpbody').empty().html(response === null || response === void 0 || (_response$data5 = response.data) === null || _response$data5 === void 0 || (_response$data5 = _response$data5.data) === null || _response$data5 === void 0 ? void 0 : _response$data5.form);
+        $('#wpbody').empty().html(response === null || response === void 0 ? void 0 : (_response$data5 = response.data) === null || _response$data5 === void 0 ? void 0 : (_response$data5$data = _response$data5.data) === null || _response$data5$data === void 0 ? void 0 : _response$data5$data.form);
 
         // Initialize Step Contents
         initialStepContents();
@@ -805,7 +805,7 @@ function handleGenerateFields(response) {
   $('#directorist-create-directory__generating').hide();
   $('.directorist-create-directory__content__footer').show();
   $('.directorist-create-directory__content').removeClass('full-width');
-  $('#directorist-ai-generated-fields-array').val(JSON.stringify(response === null || response === void 0 || (_response$data6 = response.data) === null || _response$data6 === void 0 ? void 0 : _response$data6.fields));
+  $('#directorist-ai-generated-fields-array').val(JSON.stringify(response === null || response === void 0 ? void 0 : (_response$data6 = response.data) === null || _response$data6 === void 0 ? void 0 : _response$data6.fields));
   $('#directorist_ai_generated_fields').empty().html(response);
   initializeDropdownField();
   currentStep = 4;
@@ -831,18 +831,18 @@ function handleAIFormResponse(response) {
       $('.directorist-create-directory__content__items[data-step="' + nextStep + '"]').show();
     }
     if (currentStep == 2) {
-      var _response$data8;
-      handlePromptStep(response === null || response === void 0 || (_response$data8 = response.data) === null || _response$data8 === void 0 || (_response$data8 = _response$data8.data) === null || _response$data8 === void 0 ? void 0 : _response$data8.html);
+      var _response$data8, _response$data8$data;
+      handlePromptStep(response === null || response === void 0 ? void 0 : (_response$data8 = response.data) === null || _response$data8 === void 0 ? void 0 : (_response$data8$data = _response$data8.data) === null || _response$data8$data === void 0 ? void 0 : _response$data8$data.html);
     } else if (currentStep == 3) {
-      var _response$data10;
+      var _response$data10, _response$data10$data;
       setTimeout(function () {
-        var _response$data9;
-        handleGenerateFields(response === null || response === void 0 || (_response$data9 = response.data) === null || _response$data9 === void 0 || (_response$data9 = _response$data9.data) === null || _response$data9 === void 0 ? void 0 : _response$data9.html);
+        var _response$data9, _response$data9$data;
+        handleGenerateFields(response === null || response === void 0 ? void 0 : (_response$data9 = response.data) === null || _response$data9 === void 0 ? void 0 : (_response$data9$data = _response$data9.data) === null || _response$data9$data === void 0 ? void 0 : _response$data9$data.html);
       }, 1000);
-      directoryFields = JSON.stringify(response === null || response === void 0 || (_response$data10 = response.data) === null || _response$data10 === void 0 || (_response$data10 = _response$data10.data) === null || _response$data10 === void 0 ? void 0 : _response$data10.fields);
+      directoryFields = JSON.stringify(response === null || response === void 0 ? void 0 : (_response$data10 = response.data) === null || _response$data10 === void 0 ? void 0 : (_response$data10$data = _response$data10.data) === null || _response$data10$data === void 0 ? void 0 : _response$data10$data.fields);
     } else if (currentStep == 4) {
-      var _response$data11;
-      handleCreateDirectory(response === null || response === void 0 || (_response$data11 = response.data) === null || _response$data11 === void 0 || (_response$data11 = _response$data11.data) === null || _response$data11 === void 0 ? void 0 : _response$data11.url);
+      var _response$data11, _response$data11$data;
+      handleCreateDirectory(response === null || response === void 0 ? void 0 : (_response$data11 = response.data) === null || _response$data11 === void 0 ? void 0 : (_response$data11$data = _response$data11.data) === null || _response$data11$data === void 0 ? void 0 : _response$data11$data.url);
     }
   } else {
     console.error(response === null || response === void 0 ? void 0 : response.data);
@@ -893,8 +893,8 @@ $('body').on('click', '.directorist_generate_ai_directory', function (e) {
     handleCreateButtonEnable();
     handleAIFormResponse(response);
   }).catch(function (error) {
-    var _error$response$data, _error$response$data2;
-    if (((_error$response$data = error.response.data) === null || _error$response$data === void 0 ? void 0 : _error$response$data.success) === false && ((_error$response$data2 = error.response.data) === null || _error$response$data2 === void 0 || (_error$response$data2 = _error$response$data2.data) === null || _error$response$data2 === void 0 ? void 0 : _error$response$data2.code) === 'limit_exceeded') {
+    var _error$response$data, _error$response$data2, _error$response$data3;
+    if (((_error$response$data = error.response.data) === null || _error$response$data === void 0 ? void 0 : _error$response$data.success) === false && ((_error$response$data2 = error.response.data) === null || _error$response$data2 === void 0 ? void 0 : (_error$response$data3 = _error$response$data2.data) === null || _error$response$data3 === void 0 ? void 0 : _error$response$data3.code) === 'limit_exceeded') {
       alert('🙌 You\'ve exceeded the request/site beta limit.');
     }
     handleCreateButtonEnable();
@@ -917,14 +917,14 @@ $('body').on('click', '.directorist_regenerate_fields', function (e) {
 
   // Handle Axios Request
   axios.post(directorist_admin.ajax_url, form_data).then(function (response) {
-    var _response$data12;
+    var _response$data12, _response$data12$data;
     $(_this).removeClass('loading');
-    handleGenerateFields(response === null || response === void 0 || (_response$data12 = response.data) === null || _response$data12 === void 0 || (_response$data12 = _response$data12.data) === null || _response$data12 === void 0 ? void 0 : _response$data12.html);
+    handleGenerateFields(response === null || response === void 0 ? void 0 : (_response$data12 = response.data) === null || _response$data12 === void 0 ? void 0 : (_response$data12$data = _response$data12.data) === null || _response$data12$data === void 0 ? void 0 : _response$data12$data.html);
     $('.directorist_regenerate_fields').hide();
     directoryFields = JSON.stringify(response.data.data.fields);
   }).catch(function (error) {
-    var _error$response$data3, _error$response$data4;
-    if (((_error$response$data3 = error.response.data) === null || _error$response$data3 === void 0 ? void 0 : _error$response$data3.success) === false && ((_error$response$data4 = error.response.data) === null || _error$response$data4 === void 0 || (_error$response$data4 = _error$response$data4.data) === null || _error$response$data4 === void 0 ? void 0 : _error$response$data4.code) === 'limit_exceeded') {
+    var _error$response$data4, _error$response$data5, _error$response$data6;
+    if (((_error$response$data4 = error.response.data) === null || _error$response$data4 === void 0 ? void 0 : _error$response$data4.success) === false && ((_error$response$data5 = error.response.data) === null || _error$response$data5 === void 0 ? void 0 : (_error$response$data6 = _error$response$data5.data) === null || _error$response$data6 === void 0 ? void 0 : _error$response$data6.code) === 'limit_exceeded') {
       alert('🙌 You\'ve exceeded the request/site beta limit.');
     }
     $(_this).removeClass('loading');

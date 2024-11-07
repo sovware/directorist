@@ -26,6 +26,7 @@ class Background_Updater extends Background_Process {
 	 * Initiate new background process.
 	 */
 	public function __construct() {
+		add_action( 'admin_init', [ $this, 'migrate_search_form_placeholder_to_label' ] );
 		// Uses unique prefix per blog so each blog has separate queue.
 		$this->prefix = 'wp_' . get_current_blog_id();
 		$this->action = 'directorist_updater';
@@ -147,5 +148,45 @@ class Background_Updater extends Background_Process {
 	 */
 	public function is_memory_exceeded() {
 		return $this->memory_exceeded();
+	}
+
+	public static function migrate_search_form_placeholder_to_label() {
+
+		if ( empty( get_option( 'directorist_builder_header_migrated', false ) ) ) {
+			return;
+		}
+	
+		if ( get_option( 'directorist_v8_search_form_labels_migrated', false ) ) {
+			return;
+		}
+	
+		$directory_types = get_terms( [
+			'taxonomy'   => ATBDP_DIRECTORY_TYPE,
+			'hide_empty' => false,
+		] );
+	
+		foreach ( $directory_types as $directory_type ) {
+	
+			$search_form_fields_data = get_term_meta( $directory_type->term_id, 'search_form_fields', true );
+	
+			$fields = isset($search_form_fields_data['fields']) && ! empty($search_form_fields_data['fields']) ? $search_form_fields_data['fields'] : [];
+	
+			foreach ( $fields as $key => $values ) {
+	
+				$placeholder = isset( $values['placeholder'] ) && ! empty( $values['placeholder'] ) ? $values['placeholder'] : '';
+	
+				$label = isset( $values['label'] ) && ! empty( $values['label'] ) ? $values['label'] : $placeholder;
+	
+				// Update the field data
+				$updated_field_data['label'] = $label;
+	
+				// Merge the updated data back into the form fields
+				$search_form_fields_data['fields'][$key] = array_merge( $fields[$key], $updated_field_data );
+			}
+	
+			update_term_meta( $directory_type->term_id, 'search_form_fields', $search_form_fields_data );
+		}
+	
+		update_option( 'directorist_v8_search_form_labels_migrated', true );
 	}
 }

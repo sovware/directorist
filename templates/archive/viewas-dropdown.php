@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 6.7
+ * @version 8.0.1
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 <div class="directorist-viewas">
 	<!-- Archive sidebar offcanvas toggle -->
-	<?php if( $listings->options['all_listing_layout'] != 'no_sidebar' ) : ?>
+	<?php if( $listings->sidebar != 'no_sidebar' ) : ?>
 		<button class="directorist-archive-sidebar-toggle" aria-label="Sidebar Filter Toggle Button">
 			<?php directorist_icon( 'fas fa-filter' ); ?>
 			Filter

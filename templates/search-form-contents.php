@@ -10,7 +10,7 @@ use \Directorist\Helper;
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div class="directorist-search-contents directorist-contents-wrap" data-atts='<?php echo esc_attr( $searchform->get_atts_data() ); ?>' style="<?php echo esc_attr( $searchform->background_img_style() ); ?>">
+<div class="directorist-search-contents directorist-contents-wrap" data-atts="<?php echo esc_attr( $searchform->get_atts_data() ); ?>">
 
 	<div class="<?php Helper::directorist_container_fluid(); ?>">
 

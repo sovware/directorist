@@ -94,8 +94,8 @@ class ATBDP_Upgrade
 
 		// v8.0 compatibility notice
 		// theme check
-		$theme = wp_get_theme();
-		if( ( $theme->display( 'Author', FALSE ) === 'wpWax' ) && ( 2 > $theme['Version'] ) ) {
+		$theme = wp_get_theme( is_child_theme() ? get_template() : '' );
+		if( ( $theme->display( 'Author', FALSE ) === 'wpWax' ) && ( 2 > $theme['Version'] ) && ( 'Pixetiq' !== $theme['Name'] ) ) {
 			// show theme
 			$this->v8_theme_upgrade_notice( $theme );
 		}

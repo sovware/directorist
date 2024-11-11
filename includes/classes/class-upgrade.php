@@ -122,7 +122,7 @@ class ATBDP_Upgrade
 		}
 
 		$text = '';
-		$link = 'https://directorist.com/blog/directorist-7-0-released/';
+		$link = 'https://directorist.com/blog/directorist-version-8-0/';
 		$membership_page = admin_url('edit.php?post_type=at_biz_dir&page=atbdp-extension');
 
 		$wp_rollback = admin_url( 'plugin-install.php?s=rollback&tab=search&type=term' );
@@ -145,7 +145,7 @@ class ATBDP_Upgrade
 		}
 
 		$text = '';
-		$link = 'https://directorist.com/blog/directorist-7-0-released/';
+		$link = 'https://directorist.com/blog/directorist-version-8-0/';
 		$membership_page = admin_url('edit.php?post_type=at_biz_dir&page=atbdp-extension');
 
 		$wp_rollback = admin_url( 'plugin-install.php?s=rollback&tab=search&type=term' );

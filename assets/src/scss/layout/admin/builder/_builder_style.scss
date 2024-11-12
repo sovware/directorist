@@ -1531,6 +1531,8 @@ div[draggable="true"].cptm-form-builder-group-title-area {
     input[type="text"].cptm-form-control {
       padding: 5px 20px;
       min-height: 20px;
+      background-color: transparent;
+      outline: none;
     }
     .directorist-selected-icon {
       position: unset;

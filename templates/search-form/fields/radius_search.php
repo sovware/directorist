@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 8.0
+ * @version 8.0.2
  */
 
 if (!defined('ABSPATH')) exit;
@@ -32,7 +32,7 @@ if ( ! empty( $_REQUEST['miles'] ) ) {
 		<div class="directorist-custom-range-slider__wrap">
 			<input type="hidden" placeholder="Min" value="<?php echo esc_attr($min_distance); ?>" class="directorist-custom-range-slider__radius directorist-custom-range-slider__value__min">
 			<input type="hidden" placeholder="Max" value="<?php echo esc_attr($max_distance); ?>" class="directorist-custom-range-slider__radius directorist-custom-range-slider__value__max">
-			<input type="text" name="miles" class="directorist-custom-range-slider__range" value="<?php echo esc_attr( $value ); ?>">
+			<input type="hidden" name="miles" class="directorist-custom-range-slider__range" value="<?php echo esc_attr( $value ); ?>">
 		</div>
 	</div>
 

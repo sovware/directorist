@@ -94,8 +94,8 @@ class ATBDP_Upgrade
 
 		// v8.0 compatibility notice
 		// theme check
-		$theme = wp_get_theme();
-		if( ( $theme->display( 'Author', FALSE ) === 'wpWax' ) && ( 2 > $theme['Version'] ) ) {
+		$theme = wp_get_theme( is_child_theme() ? get_template() : '' );
+		if( ( $theme->display( 'Author', FALSE ) === 'wpWax' ) && ( version_compare( 2, $theme['Version'], '>' ) ) && ( 'Pixetiq' !== $theme['Name'] ) ) {
 			// show theme
 			$this->v8_theme_upgrade_notice( $theme );
 		}
@@ -104,7 +104,7 @@ class ATBDP_Upgrade
 		$outdated_extensions = [];
 		if( ! empty( $plugins ) ) {
 			foreach( $plugins as $key => $plugin ) {
-				if( ( str_starts_with($key, 'directorist') ) && ( 2 > $plugin['Version'] ) ) {
+				if( ( str_starts_with($key, 'directorist') ) && ( version_compare( 2, $plugin['Version'], '>' ) ) ) {
 					$outdated_extensions[] = $plugin['Name'];
 				}
 			}
@@ -122,7 +122,7 @@ class ATBDP_Upgrade
 		}
 
 		$text = '';
-		$link = 'https://directorist.com/blog/directorist-7-0-released/';
+		$link = 'https://directorist.com/blog/directorist-version-8-0/';
 		$membership_page = admin_url('edit.php?post_type=at_biz_dir&page=atbdp-extension');
 
 		$wp_rollback = admin_url( 'plugin-install.php?s=rollback&tab=search&type=term' );
@@ -145,7 +145,7 @@ class ATBDP_Upgrade
 		}
 
 		$text = '';
-		$link = 'https://directorist.com/blog/directorist-7-0-released/';
+		$link = 'https://directorist.com/blog/directorist-version-8-0/';
 		$membership_page = admin_url('edit.php?post_type=at_biz_dir&page=atbdp-extension');
 
 		$wp_rollback = admin_url( 'plugin-install.php?s=rollback&tab=search&type=term' );

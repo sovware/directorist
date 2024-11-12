@@ -12,6 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 use ATBDP_Installation;
+use Directorist\Multi_Directory\Multi_Directory_Manager;
 
 if ( ! class_exists( __NAMESPACE__ . '\Background_Process', false ) ) {
 	include_once ATBDP_INC_DIR . 'classes/class-abstract-background-process.php';
@@ -26,7 +27,7 @@ class Background_Updater extends Background_Process {
 	 * Initiate new background process.
 	 */
 	public function __construct() {
-		add_action( 'admin_init', [ $this, 'update_search_field_label' ] );
+		add_action( 'admin_init', [ $this, 'v8_force_migration' ] );
 
 		// Uses unique prefix per blog so each blog has separate queue.
 		$this->prefix = 'wp_' . get_current_blog_id();
@@ -151,43 +152,247 @@ class Background_Updater extends Background_Process {
 		return $this->memory_exceeded();
 	}
 
-	public static function update_search_field_label() {
+	public function v8_force_migration() {
 
-		if ( empty( get_option( 'directorist_builder_header_migrated', false ) ) ) {
-			return;
+		if( ! get_option( 'directorist_v8_force_migrated' ) ) {
+
+			$this->run_v8_migration();
+
+			update_option( 'directorist_v8_force_migrated', true );
 		}
+	}
+
+	public function run_v8_migration() {
+
+		$migrated = get_option( 'directorist_builder_header_migrated', false );
 	
-		if ( get_option( 'directorist_v8_search_form_labels_migrated', false ) ) {
-			return;
-		}
+		if ( ! $migrated ) {
 	
-		$directory_types = get_terms( [
-			'taxonomy'   => ATBDP_DIRECTORY_TYPE,
-			'hide_empty' => false,
-		] );
-	
-		foreach ( $directory_types as $directory_type ) {
-	
-			$search_form_fields_data = get_term_meta( $directory_type->term_id, 'search_form_fields', true );
-	
-			$fields = isset($search_form_fields_data['fields']) && ! empty($search_form_fields_data['fields']) ? $search_form_fields_data['fields'] : [];
-	
-			foreach ( $fields as $key => $values ) {
-	
-				$placeholder = isset( $values['placeholder'] ) && ! empty( $values['placeholder'] ) ? $values['placeholder'] : '';
-	
-				$label = isset( $values['label'] ) && ! empty( $values['label'] ) ? $values['label'] : $placeholder;
-	
-				// Update the field data
-				$updated_field_data['label'] = $label;
-	
-				// Merge the updated data back into the form fields
-				$search_form_fields_data['fields'][$key] = array_merge( $fields[$key], $updated_field_data );
+			//create account page
+			$options = get_option( 'atbdp_option' );
+			$account = wp_insert_post(
+				array(
+					'post_title' 	 => 'Sign In',
+					'post_content' 	 => '[directorist_signin_signup]',
+					'post_status' 	 => 'publish',
+					'post_type' 	 => 'page',
+					'comment_status' => 'closed'
+				)
+			);
+		
+			if ( $account ) {
+				$options['signin_signup_page'] = (int) $account;
+				$options['marker_shape_color'] 	= '#444752';
+				$options['marker_icon_color'] 	= '#ffffff';
+				
+				update_option( 'atbdp_option', $options );
 			}
-	
-			update_term_meta( $directory_type->term_id, 'search_form_fields', $search_form_fields_data );
+		
+			$directory_types = get_terms([
+				'taxonomy'   => ATBDP_DIRECTORY_TYPE,
+				'hide_empty' => false,
+			]);
+		
+			if ( is_wp_error( $directory_types ) || empty( $directory_types ) ) {
+				return;
+			}
+		
+			foreach ( $directory_types as $directory_type ) {
+		
+				$this->search_field_label_migration( $directory_type );
+
+				// backup the builder data
+				Multi_Directory_Manager::builder_data_backup( $directory_type->term_id );
+				//migrate custom field
+				Multi_Directory_Manager::migrate_custom_field( $directory_type->term_id );
+				//migrate review settings
+				Multi_Directory_Manager::migrate_review_settings( $directory_type->term_id );
+				//migrate contact form
+				Multi_Directory_Manager::migrate_contact_owner_settings( $directory_type->term_id );
+				//migrate related listing settings
+				Multi_Directory_Manager::migrate_related_listing_settings( $directory_type->term_id );
+				//migrate privacy policy
+				Multi_Directory_Manager::migrate_privacy_policy( $directory_type->term_id );
+		
+				//migrate builder single listing header
+				$new_structure   = [];
+				$header_contents = get_term_meta( $directory_type->term_id, 'single_listing_header', true );
+		
+				if ( empty( $header_contents ) ) {
+					continue;
+				}
+		
+				$description = ! empty( $header_contents['options']['content_settings']['listing_description']['enable'] ) ? $header_contents['options']['content_settings']['listing_description']['enable'] : false;
+				$tagline     = ! empty( $header_contents['options']['content_settings']['listing_title']['enable_tagline'] ) ? $header_contents['options']['content_settings']['listing_title']['enable_tagline'] : false;
+				$contents    = get_term_meta( $directory_type->term_id, 'single_listings_contents', true );
+		
+				if ( $description ) {
+		
+					$contents['fields']['description'] = [
+						"icon" => "las la-tag",
+						"widget_group" => "preset_widgets",
+						"widget_name" => "description",
+						"original_widget_key" => "description",
+						"widget_key" => "description"
+					];
+		
+					$details = [
+						"type" => "general_group",
+						"label" => "Description",
+						"fields" => [
+							"description"
+						],
+						"section_id" => "1627188303" . $directory_type->term_id
+					];
+		
+					array_unshift( $contents['groups'], $details );
+		
+					update_term_meta( $directory_type->term_id, 'single_listings_contents', $contents );
+		
+				}
+		
+				if ( empty( $header_contents['listings_header'] ) ) {
+					continue;
+				}
+		
+				foreach ( $header_contents['listings_header'] as $section_name => $widgets ) {
+		
+					if ( 'quick_actions' === $section_name ) {
+						$quick_widget = [
+							"type" => "placeholder_group",
+							"placeholderKey" => "quick-widgets-placeholder",
+							"placeholders" => [
+								[
+									"type" => "placeholder_group",
+									"placeholderKey" => "quick-info-placeholder",
+									"selectedWidgets" => [
+										[
+											"type" => "button",
+											"label" => "Back",
+											"widget_name" => "back",
+											"widget_key" => "back"
+										]
+									]
+								],
+								[
+									"type" => "placeholder_group",
+									"placeholderKey" => "quick-action-placeholder",
+									"selectedWidgets" => $widgets,
+								]
+							]
+						];
+		
+						array_push( $new_structure, $quick_widget );
+					}
+		
+		
+					if ( 'thumbnail' === $section_name ) {
+						$footer_thumbnail = ! empty( $widgets[0]['footer_thumbail'] ) ? $widgets[0]['footer_thumbail'] : true;
+						$slider_widget = [
+							"type" => "placeholder_item",
+							"placeholderKey" => "slider-placeholder",
+							"selectedWidgets" => [
+								[
+									"type" => "thumbnail",
+									"label" => "Listing Image/Slider",
+									"widget_name" => "slider",
+									"widget_key" => "slider",
+									'options'  => [
+										'title'  => __( 'Listings Slider Settings', 'directorist' ),
+										'fields' => [
+											'footer_thumbnail' => [
+												'type'  => 'toggle',
+												'label' => __( 'Enable Footer Thumbnail', 'directorist' ),
+												'value' => $footer_thumbnail,
+											],
+										],
+									],
+								]
+							]
+						];
+		
+						array_push( $new_structure, $slider_widget );
+					}
+		
+					if ( 'quick_info' === $section_name ) {
+		
+						$title_widget = [
+							"type" => "placeholder_item",
+							"placeholderKey" => "listing-title-placeholder",
+							"selectedWidgets" => [
+								[
+									"type" => "title",
+									"label" => "Listing Title",
+									"widget_name" => "title",
+									"widget_key" => "title",
+									'options' => [
+										'title' => __( "Listing Title Settings", "directorist" ),
+										'fields' => [
+											'enable_tagline' => [
+												'type' => "toggle",
+												'label' => __( "Show Tagline", "directorist" ),
+												'value' => $tagline,
+											],
+										],
+									],
+								]
+							]
+						];
+		
+						array_push( $new_structure, $title_widget );
+		
+						$more_widget = [
+							"type" => "placeholder_item",
+							"placeholderKey" => "more-widgets-placeholder",
+							"selectedWidgets" => $widgets,
+						];
+		
+						array_push( $new_structure, $more_widget );
+					}
+		
+				}
+		
+				$new_structure = apply_filters( 'directorist_single_listing_header_migration_data', $new_structure, $header_contents );
+		
+				update_term_meta( $directory_type->term_id, 'single_listing_header', $new_structure );
+		
+			}
+		
+			update_option( 'directorist_builder_header_migrated', true );
+
 		}
+
+		$path = WP_PLUGIN_DIR . '/addonskit-for-elementor/addonskit-for-elementor.php';
+
+		if ( did_action( 'elementor/loaded' ) && ! file_exists( $path ) ) {
+			
+			directorist_download_plugin( [ 'url' => 'https://downloads.wordpress.org/plugin/addonskit-for-elementor.zip' ] );
 	
-		update_option( 'directorist_v8_search_form_labels_migrated', true );
+			if ( ! is_plugin_active( $path ) ){
+				activate_plugin( $path );
+			}
+		}
+	}
+
+	private function search_field_label_migration( $directory_type ) {
+
+		$search_form_fields_data = get_term_meta( $directory_type->term_id, 'search_form_fields', true );
+	
+		$fields = isset($search_form_fields_data['fields']) && ! empty($search_form_fields_data['fields']) ? $search_form_fields_data['fields'] : [];
+
+		foreach ( $fields as $key => $values ) {
+
+			$placeholder = isset( $values['placeholder'] ) && ! empty( $values['placeholder'] ) ? $values['placeholder'] : '';
+
+			$label = isset( $values['label'] ) && ! empty( $values['label'] ) ? $values['label'] : $placeholder;
+
+			// Update the field data
+			$updated_field_data['label'] = $label;
+
+			// Merge the updated data back into the form fields
+			$search_form_fields_data['fields'][$key] = array_merge( $fields[$key], $updated_field_data );
+		}
+
+		update_term_meta( $directory_type->term_id, 'search_form_fields', $search_form_fields_data );
 	}
 }

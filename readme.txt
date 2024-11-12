@@ -3,7 +3,7 @@ Contributors: wpwax
 Donate link: https://directorist.com/extensions/
 Tags: member directory, listing, classifieds, directory plugin, business directory
 Requires at least: 4.6
-Tested up to: 6.5
+Tested up to: 6.7
 Requires PHP: 7.0
 Stable tag: 8.0.1
 License: GPLv3
@@ -310,12 +310,14 @@ Directorist is a complete directory solution and in combination with its advance
 
 == Changelog ==
 
-8.0.1 - Nov 7, 2024
+8.0.1 - Nov 10, 2024
 
 * Fix - Search form removal issue with AI created directory
 * Fix - Search-form fields label migration & removed search-form BG image
+* Fix - All listing sidebar conflict between setting and attribute
 * Fix - Issue in search form icon
-* Fix - Radius search issue
+* Fix - Listing import
+* Fix - Builder style issue
 * Improve - Settings panel
 
 8.0 - Nov 5, 2024

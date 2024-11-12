@@ -993,6 +993,7 @@ import './components/directoristSelect';
                 let maxInput = sliderItem.querySelector('.directorist-custom-range-slider__value__max');
                 let sliderRange = sliderItem.querySelector('.directorist-custom-range-slider__range');
                 let sliderRangeShow = sliderItem.querySelector('.directorist-custom-range-slider__range__show');
+                let sliderRangeValue = sliderItem.querySelector('.directorist-custom-range-slider__wrap .directorist-custom-range-slider__range');
 
                 directoristCustomRangeSlider?.create(slider, {
                     start: [0, sliderDefaultValue ? sliderDefaultValue : 100],
@@ -1010,6 +1011,10 @@ import './components/directoristSelect';
                     let rangeValue = minInput.value + '-' + maxInput.value;
                     sliderRange.value = rangeValue;
                     sliderRangeShow && (sliderRangeShow.innerHTML = rangeValue);
+                    if (sliderRangeValue) {
+                        sliderRangeValue.setAttribute('value', rangeValue);
+                        $(sliderRangeValue).trigger('change'); 
+                    }
                 });
 
                 minInput.addEventListener('change', function () {

@@ -116,21 +116,10 @@ class ATBDP_Installation {
 	 * @since 7.1.0
 	 */
 	public static function install_actions() {
-		if ( ! empty( $_GET['do_update_directorist'] ) ) { // WPCS: input var ok.
-			check_admin_referer( 'directorist_db_update', 'directorist_db_update_nonce' );
+
+		if( ! get_option( 'directorist_v8_force_migration' ) ) {
 			self::update();
-		}
-
-		if ( ! empty( $_GET['force_update_directorist'] ) ) { // WPCS: input var ok.
-			check_admin_referer( 'directorist_force_db_update', 'directorist_force_db_update_nonce' );
-			$blog_id = get_current_blog_id();
-
-			// Used to fire an action added in WP_Background_Process::_construct() that calls WP_Background_Process::handle_cron_healthcheck().
-			// This method will make sure the database updates are executed even if cron is disabled. Nothing will happen if the updates are already running.
-			do_action( 'wp_' . $blog_id . '_directorist_updater_cron' );
-
-			wp_safe_redirect( admin_url( 'edit.php?post_type=at_biz_dir&page=atbdp-settings' ) );
-			exit;
+			update_option( 'directorist_v8_force_migration', true );
 		}
 	}
 

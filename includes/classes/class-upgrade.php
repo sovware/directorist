@@ -19,6 +19,8 @@ class ATBDP_Upgrade
 
 		add_action('admin_init', array($this, 'configure_notices'));
 
+		add_action('directorist_search_setting_sections', array($this, 'support_themes_hook'));
+
 		add_action('admin_notices', array($this, 'upgrade_notice'), 100);
 
 		add_action('directorist_before_settings_panel_header', array($this, 'promo_banner') );
@@ -29,6 +31,31 @@ class ATBDP_Upgrade
 
 		add_action( 'admin_notices', array( $this, 'bfcm_notice') );
 	}
+
+	public function support_themes_hook( $data ) {
+		$theme = wp_get_theme( is_child_theme() ? get_template() : '' );
+	
+		// Check if theme author is 'wpWax'
+		if ( $theme->display( 'Author', false ) === 'wpWax' ) {
+			$theme_name = $theme['Name'];
+			$theme_version = $theme['Version'];
+	
+			// Define conditions for specific themes and versions
+			$conditions = [
+				'Pixetiq' => 2,
+				'Direo' => 3,
+			];
+	
+			// Apply search form modification if theme name and version meet conditions
+			if ( isset( $conditions[ $theme_name ] ) && version_compare( $theme_version, $conditions[ $theme_name ], '<' ) ) {
+				$data['search_form'] = [
+					'fields' => [],
+				];
+			}
+		}
+	
+		return $data;
+	}	
 
 	public function is_pro_user() {
 		$plugin = get_user_meta( get_current_user_id(), '_plugins_available_in_subscriptions', true );

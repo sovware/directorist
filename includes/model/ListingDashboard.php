@@ -44,20 +44,19 @@ class Directorist_Listing_Dashboard {
 	public function ajax_listing_tab() {
 		check_ajax_referer( directorist_get_nonce_key() );
 
-		$data     = array_filter( $_POST, 'sanitize_text_field' ); // sanitization
-		$type     = $data['tab'];
-		$paged    = $data['paged'];
-		$search   = !empty( $data['search'] ) ? $data['search'] : '';
-		$task     = !empty( $data['task'] ) ? $data['task'] : '';
-		$taskdata = !empty( $data['taskdata'] ) ? $data['taskdata'] : '';
+		$tab        = isset( $_POST['tab'] ) ? sanitize_key( $_POST['tab'] ) : 'all';
+		$paged      = isset( $_POST['paged'] ) ? absint( $_POST['paged'] ) : 1;
+		$search     = isset( $_POST['search'] ) ? sanitize_text_field( $_POST['search'] ) : '';
+		$action     = isset( $_POST['task'] ) ? sanitize_key( $_POST['task'] ) : '';
+		$listing_id = isset( $_POST['taskdata'] ) ? absint( $_POST['taskdata'] ) : 0;
 
-		if ( $task ) {
-			$this->listing_task( $task, $taskdata );
+		if ( $action && $listing_id && in_array( $action, array( 'delete' ), true ) ) {
+			$this->handle_listing_action( $action, $listing_id );
 		}
 
 		$args = array(
 			'dashboard' => $this,
-			'query'     => $this->listings_query( $type, $paged, $search ),
+			'query'     => $this->listings_query( $tab, $paged, $search ),
 		);
 
 		$result = [
@@ -70,47 +69,43 @@ class Directorist_Listing_Dashboard {
 		wp_die();
 	}
 
-	public function listing_task( $task, $taskdata ){
-		if ( $task === 'delete' ) {
-			if ( current_user_can( get_post_type_object( ATBDP_POST_TYPE )->cap->delete_post, $taskdata ) )  {
-				wp_delete_post( $taskdata );
+	public function handle_listing_action( $action, $listing_id ) {
+		if ( $action === 'delete' && current_user_can( get_post_type_object( ATBDP_POST_TYPE )->cap->delete_post, $listing_id ) ) {
+			wp_delete_post( $listing_id );
 
-				do_action( 'directorist_listing_deleted', $taskdata );
-			}
+			do_action( 'directorist_listing_deleted', $listing_id );
 		}
 	}
 
-	public function listings_query( $type = 'all', $paged = 1, $search = '' ) {
-		$pagination        = get_directorist_option('user_listings_pagination',1);
-		$listings_per_page = get_directorist_option('user_listings_per_page',9);
+	public function listings_query( $status = 'all', $paged = 1, $search = '' ) {
+		$pagination_enabled = (bool) get_directorist_option( 'user_listings_pagination', 1 );
+		$per_page           = (int) get_directorist_option( 'user_listings_per_page', 9 );
 
-		$args  = array(
+		$args = array(
 			'author'         => get_current_user_id(),
 			'post_type'      => ATBDP_POST_TYPE,
-			'posts_per_page' => (int) $listings_per_page,
+			'posts_per_page' => $per_page,
 			'order'          => 'DESC',
 			'orderby'        => 'date',
-			'post_status'    => array('publish', 'pending', 'private'),
 		);
 
-		if( ! empty( $pagination) ) {
+		if ( $pagination_enabled) {
 			$args['paged'] = $paged;
-		}
-		else{
+		} else{
 			$args['no_found_rows'] = false;
 		}
 
-		if ( $type === 'pending' || $type === 'expired' ||  $type === 'publish' ) {
-			$args['post_status'] = $type;
+		if ( $status === 'pending' || $status === 'expired' || $status === 'publish' ) {
+			$args['post_status'] = $status;
 		} else {
-			$args['post_status'] = array( 'publish', 'pending', 'expired' );
+			$args['post_status'] = array( 'publish', 'pending', 'expired', 'private' );
 		}
 
 		if ( $search ) {
-			$args['s'] = $search;
+			$args['s'] = esc_sql( $search );
 		}
 
-		$this->current_listings_query = new \WP_Query( apply_filters( 'directorist_dashboard_query_arguments', $args, $type ) );
+		$this->current_listings_query = new \WP_Query( apply_filters( 'directorist_dashboard_query_arguments', $args, $status ) );
 
 		return $this->current_listings_query;
 	}

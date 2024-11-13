@@ -37,17 +37,14 @@ class ATBDP_Upgrade
 	
 		// Check if theme author is 'wpWax'
 		if ( $theme->display( 'Author', false ) === 'wpWax' ) {
-			$theme_name = $theme['Name'];
-			$theme_version = $theme['Version'];
-	
-			// Define conditions for specific themes and versions
-			$conditions = [
-				'Pixetiq' => 2,
-				'Direo' => 3,
-			];
-	
-			// Apply search form modification if theme name and version meet conditions
-			if ( isset( $conditions[ $theme_name ] ) && version_compare( $theme_version, $conditions[ $theme_name ], '<' ) ) {
+
+			if ( ( 'Pixetiq' !== $theme['Name'] ) && ( version_compare( 2, $theme['Version'], '>' ) ) ) {
+				$data['search_form'] = [
+					'fields' => [],
+				];
+			}
+
+			if ( ( 'Direo' === $theme['Name'] ) && ( version_compare( 3, $theme['Version'], '>' ) ) ) {
 				$data['search_form'] = [
 					'fields' => [],
 				];

@@ -584,7 +584,6 @@ $(function () {
           scrollTo('.' + uploader.uploaders_data.element_id);
           break;
         }
-        selectedImages = uploader.media_uploader.getTheFiles();
         uploader.media_uploader.getTheFiles().forEach(function (file) {
           selectedImages.push({
             field: uploader.uploaders_data.meta_name,

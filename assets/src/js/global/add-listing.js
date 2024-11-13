@@ -522,7 +522,6 @@ $(function() {
                     break;
                 }
 
-                selectedImages = uploader.media_uploader.getTheFiles();
                 uploader.media_uploader.getTheFiles().forEach( function( file ) {
                     selectedImages.push( {
                         field: uploader.uploaders_data.meta_name,

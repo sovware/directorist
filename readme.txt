@@ -1,11 +1,11 @@
-﻿=== Directorist - AI-Powered WordPress Business Directory Plugin with Classified Ads Listings ===
+﻿=== Directorist: AI-Powered WordPress Business Directory Plugin with Classified Ads Listings ===
 Contributors: wpwax
 Donate link: https://directorist.com/extensions/
 Tags: member directory, listing, classifieds, directory plugin, business directory
 Requires at least: 4.6
 Tested up to: 6.7
 Requires PHP: 7.0
-Stable tag: 8.0.1
+Stable tag: 8.0.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -39,13 +39,17 @@ Introducing our robust Directorist, optimized for scalability to an ocean of lis
 
 🔥🔥🔥 **Directorist Mobile App for Android & iOS** 🔥🔥🔥
 Boost your directory website’s accessibility and interactivity while turning visitors into paying customers with the Directorist mobile app!
+
 🔥🔥🔥 **AI-Generated Directory Creation** 🔥🔥🔥
 One of our standout features is AI-driven directory creation, which accelerates and streamlines the content creation for directories, making it faster, smarter, and more efficient.
-Enhanced Integrations with Popular Page Builders Like Bricks  
+
+🔥🔥🔥 **Enhanced Integrations with Popular Page Builders Like Bricks** 🔥🔥🔥 
 The enhanced integrations of Directorist with Gutenberg, Elementor, and the latest integration with Bricks, Directorist provide the flexibility you need to build a lucrative directory in the blink of an eye.
-28 Pre-Made Templates
+
+🔥🔥🔥 **28 Pre-Made Templates** 🔥🔥🔥
 Directorist now offers over 28 pre-made templates, allowing users to quickly set up their directories without having to start from scratch. Amazing, right?
-Redesigned Login and Registration Forms
+
+🔥🔥🔥 **Redesigned Login and Registration Forms** 🔥🔥🔥
 We've also redesigned the login and registration forms to provide a more user-friendly and visually appealing interface, making it easier for users to interact with your site. 
 
 📱 [Launch Your Mobile App Now](https://directorist.com/mobile-app/)
@@ -309,6 +313,15 @@ Directorist is a complete directory solution and in combination with its advance
  * and many more
 
 == Changelog ==
+
+8.0.2 - Nov 13, 2024
+
+* Fix - Ajax search with Radius
+* Fix - Category icon picker width and color issue
+* Fix - Add listing image uploading issue with gallery extension
+* Improve - Migration form v7 to v8
+* Improve - User dashboard
+* Improve - Admin notices
 
 8.0.1 - Nov 10, 2024
 

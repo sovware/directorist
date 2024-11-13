@@ -44,7 +44,7 @@ class ATBDP_Upgrade
 				];
 			}
 
-			if ( ( 'Direo' === $theme['Name'] ) && ( version_compare( 3, $theme['Version'], '>' ) ) ) {
+			if ( ( ( 'Direo' === $theme['Name'] ) || ( 'dList' === $theme['Name'] ) ) && ( version_compare( 3, $theme['Version'], '>' ) ) ) {
 				$data['search_form'] = [
 					'fields' => [],
 				];

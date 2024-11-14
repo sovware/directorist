@@ -142,9 +142,14 @@ if (!class_exists('ATBDP_Listing')):
 			// Prepare status for post update
 			$args = $this->prepare_post_update_args( $listing_id, $directory_id );
 
+			// If the post status is already the same, don't update it
+			if ( get_post_status( $listing_id ) === $args['post_status'] ) {
+				return;
+			}
+
 			// Update post status
 			wp_update_post( $args );
-			
+
 			// Trigger custom action after updating listing status
 			do_action( 'directorist_listing_status_updated', $listing_id, $args );
 		}
@@ -161,45 +166,47 @@ if (!class_exists('ATBDP_Listing')):
 			if ( ! empty( $_GET['atbdp_listing_id'] ) ) {
 				return absint( $_GET['atbdp_listing_id'] );
 			}
-		
+
 			return get_the_ID();
 		}
-		
+
 		protected function get_or_set_directory_id( $listing_id ) {
 			$directory_id = get_post_meta( $listing_id, '_directory_type', true );
-		
+
 			// Check if directory_id is numeric, if not try to retrieve and set it
 			if ( ! is_numeric( $directory_id ) ) {
 				$directory_term = get_term_by( 'slug', $directory_id, ATBDP_TYPE );
-		
+
 				if ( ! $directory_term ) {
 					return null;
 				}
-		
+
 				$directory_id = (int) $directory_term->term_id;
 				directorist_set_listing_directory( $listing_id, $directory_id );
 			}
-		
+
 			return absint( $directory_id );
 		}
-		
+
 		protected function prepare_post_update_args( $listing_id, $directory_id ) {
 			$create_status = directorist_get_listing_create_status( $directory_id );
 			$edit_status   = directorist_get_listing_edit_status( $directory_id, $listing_id );
-		
+			$edited        = isset( $_GET['edited'] ) ? sanitize_text_field( $_GET['edited'] ) : 'no';
+
 			$args = [
 				'id'            => $listing_id,
-				'edited'        => isset( $_GET['edited'] ) ? sanitize_text_field( $_GET['edited'] ) : 'no',
+				'edited'        => filter_var( $edited, FILTER_VALIDATE_BOOLEAN ),
 				'new_l_status'  => $create_status,
 				'edit_l_status' => $edit_status,
 				'create_status' => $create_status,
 				'edit_status'   => $edit_status,
 			];
-		
+
 			// Filter for custom argument modifications
 			return apply_filters( 'atbdp_reviewed_listing_status_controller_argument', [
 				'ID'          => $listing_id,
 				'post_status' => atbdp_get_listing_status_after_submission( $args ),
+				'edited'      => $args['edited'],
 			] );
 		}
 

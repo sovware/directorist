@@ -124,7 +124,7 @@ class Localized_Data {
 
 		$listing_id           = 0;
 		$current_url          = ( ! empty( $_SERVER['REQUEST_URI'] ) ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
-		$current_listing_type = isset( $_GET['directory_type'] ) ? sanitize_text_field( wp_unslash( $_GET['directory_type'] ) ) : get_post_meta( $listing_id, '_directory_type', true );
+		$current_listing_type = isset( $_GET['directory_type'] ) ? sanitize_text_field( wp_unslash( $_GET['directory_type'] ) ) : directorist_get_listing_directory( $listing_id );
 
 		if( ! empty( $current_listing_type ) && ! is_numeric( $current_listing_type ) ) {
 			$term = get_term_by( 'slug', $current_listing_type, ATBDP_TYPE );

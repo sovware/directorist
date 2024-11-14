@@ -527,7 +527,7 @@ class Directorist_Single_Listing {
 		$listing_id    = $this->id;
 		$listing_title = get_the_title( $listing_id );
 
-		$type          = (int) get_post_meta( $this->id, '_directory_type', true );
+		$type          = directorist_get_listing_directory( $this->id );
 		$default_image = Helper::default_preview_image_src( $type );
 
 		$image_size = apply_filters( 'directorist_single_listing_slider_image_size', 'large' );

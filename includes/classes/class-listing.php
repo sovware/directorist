@@ -171,7 +171,7 @@ if (!class_exists('ATBDP_Listing')):
 		}
 
 		protected function get_or_set_directory_id( $listing_id ) {
-			$directory_id = get_post_meta( $listing_id, '_directory_type', true );
+			$directory_id = directorist_get_listing_directory( $listing_id );
 
 			// Check if directory_id is numeric, if not try to retrieve and set it
 			if ( ! is_numeric( $directory_id ) ) {
@@ -227,7 +227,7 @@ if (!class_exists('ATBDP_Listing')):
 				return;
 			};
 
-            $directory_type = get_post_meta( $listing_id, '_directory_type', true );
+            $directory_type = directorist_get_listing_directory( $listing_id );
             $post_status = get_term_meta( $directory_type, 'new_listing_status', true );
 
             $order_meta = get_post_meta( $order_id );

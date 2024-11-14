@@ -953,7 +953,7 @@ class Directorist_Listings {
 				/**
 				 * Filters the custom field meta query used in Directorist search functionality.
 				 *
-				 * This filter allows customization of the meta query for specific search criteria 
+				 * This filter allows customization of the meta query for specific search criteria
 				 * by modifying the meta query parameters, key, and values.
 				 *
 				 * @since 8.0
@@ -1050,7 +1050,7 @@ class Directorist_Listings {
 				'compare' => 'LIKE'
 			);
 		}
-		
+
 		if ( 'address' == $this->radius_search_based_on && ! empty( $_REQUEST['miles'] ) && ! empty( $_REQUEST['address'] ) && ! empty( $_REQUEST['cityLat'] ) && ! empty( $_REQUEST['cityLng'] ) ) {
 			$distance =	directorist_get_distance_range( $_REQUEST['miles'] );
 ;			$args['atbdp_geo_query'] = array(
@@ -1506,7 +1506,7 @@ class Directorist_Listings {
 					$ls_data['prv_image'] = atbdp_get_image_source( $ls_data['listing_prv_img'], 'large' );
 				}
 
-				$listing_type  				= get_post_meta( $listings_id, '_directory_type', true );
+				$listing_type  				= directorist_get_listing_directory( $listings_id );
 				$ls_data['default_image'] 	= Helper::default_preview_image_src( $listing_type );
 
 				if ( ! empty( $ls_data['listing_img'][0] ) ) {
@@ -1592,7 +1592,7 @@ class Directorist_Listings {
 					$cat_icon = directorist_icon( $this->loop_map_cat_icon(), false );
 					$ls_data['cat_icon'] = json_encode( $cat_icon );
 
-					$listing_type  			= get_post_meta( $listings_id, '_directory_type', true );
+					$listing_type  			= directorist_get_listing_directory( $listings_id );
 					$ls_data['default_img'] = Helper::default_preview_image_src( $listing_type );
 
 					if (!empty($ls_data['listing_prv_img'])) {
@@ -1675,11 +1675,11 @@ class Directorist_Listings {
 				}
 				return $image;
 			}
-			
+
 			$thumbnail_img_id = array_filter($thumbnail_img_id, function($value) {
 				return is_numeric($value);
 			});
-			
+
 			$image_count = count( $thumbnail_img_id );
 
 			if ( 1 === (int) $image_count ) {

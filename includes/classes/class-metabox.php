@@ -226,7 +226,7 @@ class ATBDP_Metabox {
         wp_enqueue_script( 'atbdp-markerclusterer' );
 		$all_types     	= directory_types();
 		$default     	= default_directory_type();
-		$current_type   =  get_post_meta( $post->ID, '_directory_type', true );
+		$current_type   = directorist_get_listing_directory( $post->ID );
 		$value 			= $current_type ? $current_type : $default;
 		wp_nonce_field( 'listing_info_action', 'listing_info_nonce' );
 

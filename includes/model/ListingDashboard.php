@@ -176,15 +176,14 @@ class Directorist_Listing_Dashboard {
 	}
 
 	public function get_listing_type() {
-		$id   = get_the_ID();
-		$type = get_post_meta( $id, '_directory_type', true );
+		$type = directorist_get_listing_directory( get_the_ID() );
 		$term = get_term( $type );
 		return !empty( $term->name ) ? $term->name : '';
 	}
 
 	public function get_listing_thumbnail() {
 		$id                = get_the_ID();
-		$type              = get_post_meta( $id, '_directory_type', true );
+		$type              = directorist_get_listing_directory( $id );
 
 		$default_image_src = Helper::default_preview_image_src( $type );
 		$image_quality     = get_directorist_option('preview_image_quality', 'directorist_preview');
@@ -226,7 +225,7 @@ class Directorist_Listing_Dashboard {
 
 		if ( $fav_listings->have_posts() ){
 			foreach ( $fav_listings->posts as $post ) {
-				$listing_type  = get_post_meta( $post->ID, '_directory_type', true );
+				$listing_type  = directorist_get_listing_directory( $post->ID );
 				$title         = ! empty( $post->post_title ) ? $post->post_title : __( 'Untitled', 'directorist' );
 				$cats          = get_the_terms( $post->ID, ATBDP_CATEGORY );
 				$category      = get_post_meta( $post->ID, '_admin_category_select', true );

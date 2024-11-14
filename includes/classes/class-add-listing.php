@@ -968,7 +968,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 			// Updating listing
 			wp_update_post( $post_array );
 
-			$directory_type = get_post_meta( $listing_id, '_directory_type', true );
+			$directory_type = directorist_get_listing_directory( $listing_id );
 			// Update the post_meta into the database
 			// TODO: Status has been migrated, remove related code.
 			// $old_status = get_post_meta( $listing_id, '_listing_status', true );

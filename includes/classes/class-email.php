@@ -714,7 +714,7 @@ This email is sent automatically for information purpose only. Please do not res
 			$user = $this->get_owner( $listing_id );
 			$subject = $this->replace_in_content( get_directorist_option( 'email_sub_edit_listing' ), null, $listing_id, $user );
 			$to = $user->user_email;
-			$directory_type = get_post_meta( $listing_id, '_directory_type', true );
+			$directory_type = directorist_get_listing_directory( $listing_id );
 			$edited_status  = directorist_get_listing_edit_status( $directory_type );
 			if ( 'publish' === $edited_status ) {
 				$body = $this->replace_in_content( get_directorist_option( 'email_tmpl_edit_listing' ), null, $listing_id, $user );

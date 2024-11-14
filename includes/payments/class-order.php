@@ -490,7 +490,7 @@ class ATBDP_Order
     {
         $old_status     = get_post_meta( $post_id, '_payment_status', true);
         $listing_id     = get_post_meta( $post_id, '_listing_id', true);
-        $directory_type = get_post_meta( $listing_id, '_directory_type', true );
+        $directory_type = directorist_get_listing_directory( $listing_id );
 		$new_l_status 	= get_term_meta( $directory_type, 'new_listing_status', true );
         $new_status     = str_replace('set_to_', '', $action);
         $new_status     = sanitize_key($new_status);

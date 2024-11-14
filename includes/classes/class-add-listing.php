@@ -411,20 +411,17 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 				$permalink = get_permalink( $listing_id );
 				// no pay extension own yet let treat as general user
 
-				$submission_notice = get_directorist_option( 'submission_confirmation', 1 );
 				$redirect_page     = get_directorist_option( 'edit_listing_redirect', 'view_listing' );
 
 				if ( 'view_listing' === $redirect_page ) {
-					$redirect_url = $permalink;
+					$data['redirect_url'] = $permalink;
 				} else {
-					$redirect_url = add_query_arg( 'listing_id', $listing_id, ATBDP_Permalink::get_dashboard_page_link() );
+					$data['redirect_url'] = add_query_arg( 'listing_id', $listing_id, ATBDP_Permalink::get_dashboard_page_link() );
 				}
 
 				if ( (bool) get_directorist_option( 'submission_confirmation', 1 ) ) {
-					$redirect_url = urlencode( add_query_arg( 'notice', true, $redirect_url ) );
+					$data['redirect_url'] = add_query_arg( 'notice', true, $data['redirect_url'] );
 				}
-
-				$data['redirect_url'] = $redirect_url;
 
 				$is_listing_featured = ( ! empty( $posted_data['listing_type'] ) && ( 'featured' === $posted_data['listing_type'] ) );
 				$should_monetize     = ( directorist_is_monetization_enabled() && directorist_is_featured_listing_enabled() && $is_listing_featured );
@@ -465,6 +462,8 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 				if ( ! empty( $posted_data['redirect_url'] ) ) {
 					$data['redirect_url'] = Helper::escape_query_strings_from_url( $posted_data['redirect_url'] );
 				}
+
+				$data['redirect_url'] = urlencode( wp_nonce_url( $data['redirect_url'], 'directorist_listing_form_redirect_url_' . $listing_id, '_token' ) );
 
 				wp_send_json( apply_filters( 'atbdp_listing_form_submission_info', $data ) );
 			} catch (Exception $e ) {

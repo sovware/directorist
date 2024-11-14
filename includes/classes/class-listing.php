@@ -133,6 +133,10 @@ if (!class_exists('ATBDP_Listing')):
 				return;
 			}
 
+			if ( ! $this->validate_nonce( $listing_id ) ) {
+				return;
+			}
+
 			// Retrieve directory ID and validate or set it if not numeric
 			$directory_id = $this->get_or_set_directory_id( $listing_id );
 			if ( ! $directory_id ) {
@@ -152,6 +156,20 @@ if (!class_exists('ATBDP_Listing')):
 
 			// Trigger custom action after updating listing status
 			do_action( 'directorist_listing_status_updated', $listing_id, $args );
+		}
+
+		protected function validate_nonce( $listing_id ) {
+			if ( ! isset( $_GET['_token'] ) ) {
+				return false;
+			}
+
+			$nonce = wp_unslash( $_GET['_token'] );
+
+			if ( ! wp_verify_nonce( $nonce, 'directorist_listing_form_redirect_url_' . $listing_id ) ) {
+				return false;
+			}
+
+			return true;
 		}
 
 		protected function get_listing_id_from_request() {

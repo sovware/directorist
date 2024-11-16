@@ -749,7 +749,6 @@ class Builder_Data {
                     ],
 
                     'phone'        => [
-                        'canTrash'          => false,
                         'draggable'         => false,
                         'options' => [
                             'label'       => [

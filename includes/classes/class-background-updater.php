@@ -382,7 +382,7 @@ class Background_Updater extends Background_Process {
 
 		foreach ( $fields as $key => $values ) {
 
-			$placeholder = isset( $values['placeholder'] ) && ! empty( $values['placeholder'] ) ? $values['placeholder'] : '';
+			$placeholder = isset( $values['placeholder'] ) && ! empty( $values['placeholder'] ) ? $values['placeholder'] : [];
 
 			$label = isset( $values['label'] ) && ! empty( $values['label'] ) ? $values['label'] : $placeholder;
 

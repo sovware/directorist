@@ -5,7 +5,7 @@ Tags: member directory, listing, classifieds, directory plugin, business directo
 Requires at least: 4.6
 Tested up to: 6.7
 Requires PHP: 7.0
-Stable tag: 8.0.3
+Stable tag: 8.0.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -313,6 +313,14 @@ Directorist is a complete directory solution and in combination with its advance
  * and many more
 
 == Changelog ==
+
+8.0.4 - Nov 16, 2024
+
+* Added: Backward compatibility for deprecated shortcodes.
+* Fixed: Issue with the phone field being deleted in the builder search form.
+* Fixed: Map listing preview issue in settings.
+* Fixed: Edit listing email confirmation notice
+* Improved: Builder migration process for users of the old theme.
 
 8.0.3 - Nov 14, 2024
 

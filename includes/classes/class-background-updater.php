@@ -199,7 +199,7 @@ class Background_Updater extends Background_Process {
 		
 			foreach ( $directory_types as $directory_type ) {
 		
-				$this->search_field_label_migration( $directory_type );
+				$this->search_field_label_migration( $directory_type->term_id );
 
 				// backup the builder data
 				Multi_Directory_Manager::builder_data_backup( $directory_type->term_id );
@@ -374,25 +374,18 @@ class Background_Updater extends Background_Process {
 		}
 	}
 
-	private function search_field_label_migration( $directory_type ) {
+	private function search_field_label_migration( $directory_id ) {
+		$search_fields = get_term_meta( $directory_id, 'search_form_fields', true );
+		$fields        = empty( $search_fields['fields'] ) ? [] : $search_fields['fields'];
 
-		$search_form_fields_data = get_term_meta( $directory_type->term_id, 'search_form_fields', true );
-	
-		$fields = isset($search_form_fields_data['fields']) && ! empty($search_form_fields_data['fields']) ? $search_form_fields_data['fields'] : [];
+		foreach ( $fields as $key => $field ) {
+			$placeholder    = empty( $field['placeholder'] ) ? '' : $field['placeholder'];
+			$label          = empty( $field['label'] ) ? $placeholder : $field['label'];
+			$field['label'] = $label;
 
-		foreach ( $fields as $key => $values ) {
-
-			$placeholder = isset( $values['placeholder'] ) && ! empty( $values['placeholder'] ) ? $values['placeholder'] : '';
-
-			$label = isset( $values['label'] ) && ! empty( $values['label'] ) ? $values['label'] : $placeholder;
-
-			// Update the field data
-			$updated_field_data['label'] = $label;
-
-			// Merge the updated data back into the form fields
-			$search_form_fields_data['fields'][$key] = array_merge( $fields[$key], $updated_field_data );
+			$search_fields['fields'][ $key ] = $field;
 		}
 
-		update_term_meta( $directory_type->term_id, 'search_form_fields', $search_form_fields_data );
+		update_term_meta( $directory_id, 'search_form_fields', $search_fields );
 	}
 }

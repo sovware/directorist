@@ -937,12 +937,11 @@ class Directorist_Single_Listing {
 			return '';
 		}
 
-		$listing_id = isset( $_GET['post_id'] ) ? absint( $_GET['post_id'] ) : 0;
-		if ( $listing_id && ! directorist_is_listing_post_type( $listing_id ) ) {
+		if ( ! directorist_is_listing_post_type( get_the_ID() ) ) {
 			return;
 		}
 
-		if ( get_post_status( $listing_id ) === 'publish' ) {
+		if ( get_post_status( get_the_ID() ) === 'publish' ) {
 			$message = get_directorist_option(
 				'publish_confirmation_msg',
 				__( 'Congratulations! Your listing has been approved/published. Now it is publicly available.', 'directorist' )

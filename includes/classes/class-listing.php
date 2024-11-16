@@ -146,16 +146,13 @@ if (!class_exists('ATBDP_Listing')):
 			// Prepare status for post update
 			$args = $this->prepare_post_update_args( $listing_id, $directory_id );
 
-			// If the post status is already the same, don't update it
-			if ( get_post_status( $listing_id ) === $args['post_status'] ) {
-				return;
-			}
-
 			// Update post status
 			wp_update_post( $args );
 
 			// Trigger custom action after updating listing status
 			do_action( 'directorist_listing_status_updated', $listing_id, $args );
+
+			wp_safe_redirect( remove_query_arg( [ '_token', 'edited', 'post_id', 'reviewed' ] ) );
 		}
 
 		protected function validate_nonce( $listing_id ) {

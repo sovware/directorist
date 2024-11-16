@@ -34,10 +34,12 @@ class ATBDP_Shortcode {
 				'directorist_search_result'  => [ $this, 'search_result' ],
 
 				// Author
-				'directorist_author_profile' => [ $this, 'author_profile' ],
-				'directorist_user_dashboard' => [ $this, 'user_dashboard' ],
-				'directorist_all_authors' 	 => [ $this, 'all_authors' ],
-				'directorist_signin_signup'  => [ $this, 'directorist_signin_signup' ],
+				'directorist_author_profile'      => [ $this, 'author_profile' ],
+				'directorist_user_dashboard'      => [ $this, 'user_dashboard' ],
+				'directorist_all_authors'         => [ $this, 'all_authors' ],
+				'directorist_signin_signup'       => [ $this, 'directorist_signin_signup' ],
+				'directorist_custom_registration' => [ $this, 'register_registration_shortcode' ],
+				'directorist_user_login'          => [ $this, 'register_login_shortcode' ],
 
 				// Forms
 				'directorist_add_listing'         => [ $this, 'add_listing' ],
@@ -322,4 +324,33 @@ class ATBDP_Shortcode {
 		return $forms->render_shortcode($atts);
 	}
 
+	/**
+	 * Render custom registration shortcode.
+	 * Added for backward compatibility with version 8.0.0
+	 *
+	 * @return string
+	 */
+	public function register_registration_shortcode() {
+		$atts = [
+			'shortcode'   => 'directorist_custom_registration',
+			'active_form' => 'signup',
+		];
+
+		return Directorist_Account::instance()->render( $atts );
+	}
+
+	/**
+	 * Render custom login shortcode.
+	 * Added for backward compatibility with version 8.0.0
+	 *
+	 * @return string
+	 */
+	public function register_login_shortcode() {
+		$atts = [
+			'shortcode'   => 'directorist_user_login',
+			'active_form' => 'signin',
+		];
+
+		return Directorist_Account::instance()->render( $atts );
+	}
 }

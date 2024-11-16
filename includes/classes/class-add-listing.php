@@ -409,15 +409,8 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 				self::upload_images( $listing_id, $posted_data );
 
 				$permalink = get_permalink( $listing_id );
-				// no pay extension own yet let treat as general user
 
-				$redirect_page     = get_directorist_option( 'edit_listing_redirect', 'view_listing' );
-
-				if ( 'view_listing' === $redirect_page ) {
-					$data['redirect_url'] = $permalink;
-				} else {
-					$data['redirect_url'] = add_query_arg( 'listing_id', $listing_id, ATBDP_Permalink::get_dashboard_page_link() );
-				}
+				$data['redirect_url'] = $permalink;
 
 				if ( (bool) get_directorist_option( 'submission_confirmation', 1 ) ) {
 					$data['redirect_url'] = add_query_arg( 'notice', true, $data['redirect_url'] );
@@ -441,7 +434,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 					}
 				}
 
-				$data['success'] = true;
+				$data['success']     = true;
 				$data['success_msg'] = __( 'Your listing submission is completed! Redirecting...', 'directorist' );
 				$data['preview_url'] = $permalink;
 
@@ -463,9 +456,14 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 					$data['redirect_url'] = Helper::escape_query_strings_from_url( $posted_data['redirect_url'] );
 				}
 
-				$data['redirect_url'] = urlencode( wp_nonce_url( $data['redirect_url'], 'directorist_listing_form_redirect_url_' . $listing_id, '_token' ) );
+				if ( $preview_enable ) {
+					$data['redirect_url'] = wp_nonce_url( $data['redirect_url'], 'directorist_listing_form_redirect_url_' . $listing_id, '_token' );
+				}
+
+				$data['redirect_url'] = urlencode( $data['redirect_url'] );
 
 				wp_send_json( apply_filters( 'atbdp_listing_form_submission_info', $data ) );
+
 			} catch (Exception $e ) {
 				return wp_send_json( array(
 					'error'     => true,

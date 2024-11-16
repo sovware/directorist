@@ -527,7 +527,7 @@ class Directorist_Single_Listing {
 		$listing_id    = $this->id;
 		$listing_title = get_the_title( $listing_id );
 
-		$type          = (int) get_post_meta( $this->id, '_directory_type', true );
+		$type          = directorist_get_listing_directory( $this->id );
 		$default_image = Helper::default_preview_image_src( $type );
 
 		$image_size = apply_filters( 'directorist_single_listing_slider_image_size', 'large' );
@@ -937,12 +937,11 @@ class Directorist_Single_Listing {
 			return '';
 		}
 
-		$listing_id = isset( $_GET['post_id'] ) ? absint( $_GET['post_id'] ) : 0;
-		if ( $listing_id && ! directorist_is_listing_post_type( $listing_id ) ) {
+		if ( ! directorist_is_listing_post_type( get_the_ID() ) ) {
 			return;
 		}
 
-		if ( get_post_status( $listing_id ) === 'publish' ) {
+		if ( get_post_status( get_the_ID() ) === 'publish' ) {
 			$message = get_directorist_option(
 				'publish_confirmation_msg',
 				__( 'Congratulations! Your listing has been approved/published. Now it is publicly available.', 'directorist' )

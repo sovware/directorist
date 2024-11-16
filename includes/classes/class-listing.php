@@ -133,6 +133,10 @@ if (!class_exists('ATBDP_Listing')):
 				return;
 			}
 
+			if ( ! $this->validate_nonce( $listing_id ) ) {
+				return;
+			}
+
 			// Retrieve directory ID and validate or set it if not numeric
 			$directory_id = $this->get_or_set_directory_id( $listing_id );
 			if ( ! $directory_id ) {
@@ -144,9 +148,25 @@ if (!class_exists('ATBDP_Listing')):
 
 			// Update post status
 			wp_update_post( $args );
-			
+
 			// Trigger custom action after updating listing status
 			do_action( 'directorist_listing_status_updated', $listing_id, $args );
+
+			wp_safe_redirect( remove_query_arg( [ '_token', 'edited', 'post_id', 'reviewed' ] ) );
+		}
+
+		protected function validate_nonce( $listing_id ) {
+			if ( ! isset( $_GET['_token'] ) ) {
+				return false;
+			}
+
+			$nonce = wp_unslash( $_GET['_token'] );
+
+			if ( ! wp_verify_nonce( $nonce, 'directorist_listing_form_redirect_url_' . $listing_id ) ) {
+				return false;
+			}
+
+			return true;
 		}
 
 		protected function get_listing_id_from_request() {
@@ -161,45 +181,47 @@ if (!class_exists('ATBDP_Listing')):
 			if ( ! empty( $_GET['atbdp_listing_id'] ) ) {
 				return absint( $_GET['atbdp_listing_id'] );
 			}
-		
+
 			return get_the_ID();
 		}
-		
+
 		protected function get_or_set_directory_id( $listing_id ) {
-			$directory_id = get_post_meta( $listing_id, '_directory_type', true );
-		
+			$directory_id = directorist_get_listing_directory( $listing_id );
+
 			// Check if directory_id is numeric, if not try to retrieve and set it
 			if ( ! is_numeric( $directory_id ) ) {
 				$directory_term = get_term_by( 'slug', $directory_id, ATBDP_TYPE );
-		
+
 				if ( ! $directory_term ) {
 					return null;
 				}
-		
+
 				$directory_id = (int) $directory_term->term_id;
 				directorist_set_listing_directory( $listing_id, $directory_id );
 			}
-		
+
 			return absint( $directory_id );
 		}
-		
+
 		protected function prepare_post_update_args( $listing_id, $directory_id ) {
 			$create_status = directorist_get_listing_create_status( $directory_id );
 			$edit_status   = directorist_get_listing_edit_status( $directory_id, $listing_id );
-		
+			$edited        = isset( $_GET['edited'] ) ? sanitize_text_field( $_GET['edited'] ) : 'no';
+
 			$args = [
 				'id'            => $listing_id,
-				'edited'        => isset( $_GET['edited'] ) ? sanitize_text_field( $_GET['edited'] ) : 'no',
+				'edited'        => filter_var( $edited, FILTER_VALIDATE_BOOLEAN ),
 				'new_l_status'  => $create_status,
 				'edit_l_status' => $edit_status,
 				'create_status' => $create_status,
 				'edit_status'   => $edit_status,
 			];
-		
+
 			// Filter for custom argument modifications
 			return apply_filters( 'atbdp_reviewed_listing_status_controller_argument', [
 				'ID'          => $listing_id,
 				'post_status' => atbdp_get_listing_status_after_submission( $args ),
+				'edited'      => $args['edited'],
 			] );
 		}
 
@@ -220,7 +242,7 @@ if (!class_exists('ATBDP_Listing')):
 				return;
 			};
 
-            $directory_type = get_post_meta( $listing_id, '_directory_type', true );
+            $directory_type = directorist_get_listing_directory( $listing_id );
             $post_status = get_term_meta( $directory_type, 'new_listing_status', true );
 
             $order_meta = get_post_meta( $order_id );

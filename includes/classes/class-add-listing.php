@@ -409,22 +409,12 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 				self::upload_images( $listing_id, $posted_data );
 
 				$permalink = get_permalink( $listing_id );
-				// no pay extension own yet let treat as general user
 
-				$submission_notice = get_directorist_option( 'submission_confirmation', 1 );
-				$redirect_page     = get_directorist_option( 'edit_listing_redirect', 'view_listing' );
-
-				if ( 'view_listing' === $redirect_page ) {
-					$redirect_url = $permalink;
-				} else {
-					$redirect_url = add_query_arg( 'listing_id', $listing_id, ATBDP_Permalink::get_dashboard_page_link() );
-				}
+				$data['redirect_url'] = $permalink;
 
 				if ( (bool) get_directorist_option( 'submission_confirmation', 1 ) ) {
-					$redirect_url = urlencode( add_query_arg( 'notice', true, $redirect_url ) );
+					$data['redirect_url'] = add_query_arg( 'notice', true, $data['redirect_url'] );
 				}
-
-				$data['redirect_url'] = $redirect_url;
 
 				$is_listing_featured = ( ! empty( $posted_data['listing_type'] ) && ( 'featured' === $posted_data['listing_type'] ) );
 				$should_monetize     = ( directorist_is_monetization_enabled() && directorist_is_featured_listing_enabled() && $is_listing_featured );
@@ -444,7 +434,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 					}
 				}
 
-				$data['success'] = true;
+				$data['success']     = true;
 				$data['success_msg'] = __( 'Your listing submission is completed! Redirecting...', 'directorist' );
 				$data['preview_url'] = $permalink;
 
@@ -466,7 +456,14 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 					$data['redirect_url'] = Helper::escape_query_strings_from_url( $posted_data['redirect_url'] );
 				}
 
+				if ( $preview_enable ) {
+					$data['redirect_url'] = wp_nonce_url( $data['redirect_url'], 'directorist_listing_form_redirect_url_' . $listing_id, '_token' );
+				}
+
+				$data['redirect_url'] = urlencode( $data['redirect_url'] );
+
 				wp_send_json( apply_filters( 'atbdp_listing_form_submission_info', $data ) );
+
 			} catch (Exception $e ) {
 				return wp_send_json( array(
 					'error'     => true,
@@ -968,7 +965,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 			// Updating listing
 			wp_update_post( $post_array );
 
-			$directory_type = get_post_meta( $listing_id, '_directory_type', true );
+			$directory_type = directorist_get_listing_directory( $listing_id );
 			// Update the post_meta into the database
 			// TODO: Status has been migrated, remove related code.
 			// $old_status = get_post_meta( $listing_id, '_listing_status', true );

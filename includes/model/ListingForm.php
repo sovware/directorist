@@ -570,9 +570,9 @@ class Directorist_Listing_Form {
 		if ( ! is_admin() && $this->all_fields_only_for_admin( $section_data['fields'] ) ) {
 			return; // Exit if all fields are only for admin
 		}
-		
+
 		$load_section = apply_filters( 'directorist_section_template', true, $args );
-		
+
 		if( $load_section && ! empty( $section_data['fields'] ) ) {
 			Helper::get_template( 'listing-form/section', $args );
 		}
@@ -583,14 +583,14 @@ class Directorist_Listing_Form {
 		if ( empty( $fields ) ) {
 			return false;
 		}
-	
+
 		// Check if all fields have 'only_for_admin' set to 1 or true
 		foreach ( $fields as $field ) {
 			if ( empty( $field['only_for_admin'] ) ) {
 				return false; // If any field is not for admin, return false
 			}
 		}
-	
+
 		return true; // All fields are for admin
 	}
 
@@ -757,7 +757,7 @@ class Directorist_Listing_Form {
 	public function get_current_listing_type() {
 		$listing_types      = $this->get_listing_types();
 		$listing_type_count = count( $listing_types );
-		$get_listing_type   = get_post_meta( $this->add_listing_id, '_directory_type', true );
+		$get_listing_type   = directorist_get_listing_directory( $this->add_listing_id );
 
 		if ( $listing_type_count == 1 ) {
 			$type = array_key_first( $listing_types );

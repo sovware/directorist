@@ -289,10 +289,8 @@ function atbdp_get_listing_status_after_submission( array $args = [] ) {
     // Set default values and sanitize input parameters
     $args = array_merge( [
         'id'     => 0,
-        'edited' => 'no',  // Default to 'no' if not set
+        'edited' => false,  // Default to false if not set
     ], $args);
-
-    $args['edited'] = filter_var( $args['edited'], FILTER_VALIDATE_BOOLEAN );
 
     $listing_id            = $args['id'];
     $listing_status        = $args['edited'] ? $args['edit_status'] : $args['create_status'];
@@ -4638,4 +4636,16 @@ function directorist_get_distance_range( $miles ) {
     }
 
     return array( 'min' => $min_distance, 'max' => $max_distance );
+}
+
+/**
+ * Get listing directory id.
+ *
+ * @since 8.0.3
+ * @param  int  $listing_id
+ *
+ * @return int
+ */
+function directorist_get_listing_directory( $listing_id = 0 ) {
+	return (int) get_post_meta( $listing_id, '_directory_type', true );
 }

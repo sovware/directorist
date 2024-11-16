@@ -302,6 +302,13 @@ function directorist_get_category_custom_field_relations( $directory_id ) {
 	return $relations;
 }
 
+/**
+ * Check if the given directory has preview mode enabled.
+ *
+ * @param  int $directory_id
+ *
+ * @return bool
+ */
 function directorist_is_preview_enabled( $directory_id ) {
 	return (bool) directorist_get_directory_meta( $directory_id, 'preview_mode' );
 }

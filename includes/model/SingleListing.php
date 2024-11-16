@@ -1201,6 +1201,7 @@ class Directorist_Single_Listing {
 		$display_user_avatar_map    = get_directorist_option( 'display_user_avatar_map', 1 );
 		$display_review_map         = get_directorist_option( 'display_review_map', 1 );
 		$display_price_map          = get_directorist_option( 'display_price_map', 1 );
+		$display_phone_map          = get_directorist_option( 'display_phone_map', 1 );
 		$display_favorite_badge_map = get_directorist_option( 'display_favorite_badge_map', 1 );
 
 		$listing_prv_img = get_post_meta($id, '_listing_prv_img', true);
@@ -1226,29 +1227,47 @@ class Directorist_Single_Listing {
 		if( ! empty( $display_favorite_badge_map ) ) {
 			$info_content .= $this->favorite_badge_template_map();
 		}
-		if (!empty($display_image_map)) {
+
+		if ( ! empty( $display_image_map ) ) {
 			$info_content .= "<div class='map-listing-card-single__img'>$image</div>";
 		}
-		$info_content .= $this->user_avatar();
+
+		if ( ! empty( $display_user_avatar_map ) ) {
+			$info_content .= $this->user_avatar();
+		}
+
 		$info_content .= "<div class='map-listing-card-single__content'>";
-		if (!empty($display_title_map)) {
+
+		if ( ! empty( $display_title_map ) ) {
 			$info_content .= "<h3 class='map-listing-card-single__content__title'>$t</h3>";
 		}
-		$info_content .= "<div class='map-listing-card-single__content__meta'>";
-		$info_content .= $this->get_review_template();
-		$info_content .= $this->price_html();
-		$info_content .= "</div><div class='map-listing-card-single__content__info'>";
 
-		if( ! empty( $phone ) ) {
+		if ( ! empty( $display_review_map ) || ! empty( $display_price_map ) ) {
+			$info_content .= "<div class='map-listing-card-single__content__meta'>";
+
+			if ( ! empty( $display_review_map ) ) {
+				$info_content .= $this->get_review_template();
+			}
+
+			if ( ! empty( $display_price_map ) ) {
+				$info_content .= $this->price_html();
+			}
+
+			$info_content .= "</div>";
+		}
+
+		$info_content .= "<div class='map-listing-card-single__content__info'>";
+
+		if( ! empty( $phone ) && ! empty( $display_phone_map ) ) {
 			$info_content .= "<div class='directorist-info-item map-listing-card-single__content__phone'>" . directorist_icon( 'fas fa-phone-alt', false ) . "<div class='directorist-info-item'><a href='tel:{$phone}'>{$phone}</a></div></div>";
 		}
 
 		if (!empty($display_address_map) && !empty($ad)) {
 			$info_content .= "<div class='directorist-info-item map-listing-card-single__content__address'>" .directorist_icon('fas fa-map-marker-alt', false). "<div class='directorist-info-item'>";
-			$info_content .= apply_filters("atbdp_address_in_map_info_window", "<a href='http://www.google.com/maps?daddr={$manual_lat},{$manual_lng}' target='_blank'>{$ad}</a>");
+			$info_content .= apply_filters("atbdp_address_in_map_info_window", "<a href='http://www.google.com/maps?daddr={$manual_lat},{$manual_lng}' target='_blank'>{$ad}</a></div></div>");
 		}
 
-		$info_content .= "</div></div></div>";
+		$info_content .= "</div>";
 
 
 		$cats = get_the_terms($this->id, ATBDP_CATEGORY);

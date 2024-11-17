@@ -59,7 +59,9 @@ window.IconPicker = function (args) {
                     const fullIcon = this.getFullIcon(icon.key, iconGroupKey, icon.types[0]);
                     const buttonClass = (this.value === fullIcon) ? 'cptm-btn-primary' : 'cptm-btn-secondery';
                     markup += `
-                        <button class="font-icon-btn cptm-btn ${buttonClass} ${fullIcon}" data-group-key="${iconGroupKey}" data-icon-key="${icon.key}" data-icon-type="${[icon.types]}"></button>
+                        <button class="font-icon-btn cptm-btn ${buttonClass}" data-group-key="${iconGroupKey}" data-icon-key="${icon.key}" data-icon-type="${[icon.types]}">
+                            <span class="${fullIcon}"></span>
+                        </button>
                     `;
                 }
                 markup += `</div></div>`;

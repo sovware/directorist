@@ -23904,6 +23904,10 @@ input[type=radio]:checked::before {
   padding: 17px 0 17px 17px;
 }
 .icon-picker__content .icons-group-icons .font-icon-btn {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   margin: 5px 3px;
   width: 70px;
   height: 70px;

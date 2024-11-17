@@ -185,6 +185,9 @@ function modalToggle() {
     $('form#login').on('submit', function (e) {
       e.preventDefault();
       var $this = $(this);
+      var $button = $(this).find('.directorist-authentication__form__btn');
+      $button.addClass('directorist-btn-loading'); // Added loading class
+
       $('p.status').show().html('<div class="directorist-alert directorist-alert-info"><span>' + directorist.loading_message + '</span></div>');
       var form_data = {
         'action': 'ajaxlogin',
@@ -199,6 +202,10 @@ function modalToggle() {
         url: directorist.ajax_url,
         data: form_data,
         success: function success(data) {
+          // Removed loading class
+          setTimeout(function () {
+            return $button.removeClass('directorist-btn-loading');
+          }, 1000);
           if ('nonce_faild' in data && data.nonce_faild) {
             $('p.status').html('<div class="directorist-alert directorist-alert-success"><span>' + data.message + '</span></div>');
           }

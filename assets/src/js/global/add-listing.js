@@ -471,7 +471,7 @@ $(function() {
 
     let on_processing = false;
     let has_media = true;
-    let quick_login_modal__success_callback = null;
+    let quickLoginModalSuccessCallback = null;
     const $notification = $('#listing_notifier');
 
     // -----------------------------
@@ -733,14 +733,16 @@ $(function() {
                             // Show the modal
                             modal.addClass('show');
 
-                            quick_login_modal__success_callback = function (args) {
+                            quickLoginModalSuccessCallback = function($form, $submitButton) {
                                 $('#guest_user_email').prop('disabled', true);
+
                                 $notification.hide().html('');
 
-                                args.elements.submit_button.remove();
+                                $submitButton.remove();
 
-                                var form_actions = args.elements.form.find('.directorist-form-actions');
-                                form_actions.find('.directorist-toggle-modal').removeClass('directorist-d-none');
+                                $form.find('.directorist-form-actions')
+                                    .find('.directorist-toggle-modal')
+                                    .removeClass('directorist-d-none');
                             }
                         }
                     } else {
@@ -836,7 +838,8 @@ $(function() {
         e.preventDefault();
 
         const $form              = $( $(this).data('form') );
-        const $feedback          = $form.find('.directorist-form-feedback');
+        let   $feedback          = $form.find('.directorist-modal-alerts-area');
+              $feedback          = $feedback.length ? $feedback : $form.find('.directorist-form-feedback');
         const $email             = $form.find('input[name="email"]');
         const $password          = $form.find('input[name="password"]');
         const $token             = $form.find('input[name="directorist-quick-login-security"]');
@@ -871,17 +874,8 @@ $(function() {
 
                     $feedback.html(msg);
 
-                    if (quick_login_modal__success_callback) {
-                        var args = {
-                            elements: {
-                                modal_id     : $form.attr('id'),
-                                form         : $form,
-                                email        : $email,
-                                password     : $password,
-                                submit_button: $submit_button
-                            }
-                        };
-                        quick_login_modal__success_callback(args);
+                    if (quickLoginModalSuccessCallback) {
+                        quickLoginModalSuccessCallback($form, $submit_button);
                     }
 
                     regenerate_and_update_nonce();

@@ -538,7 +538,7 @@ $(function () {
   }
   var on_processing = false;
   var has_media = true;
-  var quick_login_modal__success_callback = null;
+  var quickLoginModalSuccessCallback = null;
   var $notification = $('#listing_notifier');
 
   // -----------------------------
@@ -766,12 +766,11 @@ $(function () {
 
               // Show the modal
               modal.addClass('show');
-              quick_login_modal__success_callback = function quick_login_modal__success_callback(args) {
+              quickLoginModalSuccessCallback = function quickLoginModalSuccessCallback($form, $submitButton) {
                 $('#guest_user_email').prop('disabled', true);
                 $notification.hide().html('');
-                args.elements.submit_button.remove();
-                var form_actions = args.elements.form.find('.directorist-form-actions');
-                form_actions.find('.directorist-toggle-modal').removeClass('directorist-d-none');
+                $submitButton.remove();
+                $form.find('.directorist-form-actions').find('.directorist-toggle-modal').removeClass('directorist-d-none');
               };
             }
           } else {
@@ -852,7 +851,8 @@ $(function () {
   $('#quick-login-from-submit-btn').on('click', function (e) {
     e.preventDefault();
     var $form = $($(this).data('form'));
-    var $feedback = $form.find('.directorist-form-feedback');
+    var $feedback = $form.find('.directorist-modal-alerts-area');
+    $feedback = $feedback.length ? $feedback : $form.find('.directorist-form-feedback');
     var $email = $form.find('input[name="email"]');
     var $password = $form.find('input[name="password"]');
     var $token = $form.find('input[name="directorist-quick-login-security"]');
@@ -881,17 +881,8 @@ $(function () {
           var message = 'Successfully logged in, please continue to the listing submission';
           var msg = '<div class="directorist-alert directorist-alert-success directorist-text-center directorist-mb-20">' + message + '</div>';
           $feedback.html(msg);
-          if (quick_login_modal__success_callback) {
-            var args = {
-              elements: {
-                modal_id: $form.attr('id'),
-                form: $form,
-                email: $email,
-                password: $password,
-                submit_button: $submit_button
-              }
-            };
-            quick_login_modal__success_callback(args);
+          if (quickLoginModalSuccessCallback) {
+            quickLoginModalSuccessCallback($form, $submit_button);
           }
           regenerate_and_update_nonce();
         } else {

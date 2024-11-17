@@ -95,19 +95,16 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _global_components_cache_category_custom_fields__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../global/components/cache-category-custom-fields */ "./assets/src/js/global/components/cache-category-custom-fields.js");
-/* harmony import */ var _global_components_load_category_custom_fields__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../global/components/load-category-custom-fields */ "./assets/src/js/global/components/load-category-custom-fields.js");
-/* harmony import */ var _global_components_setup_select2__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../global/components/setup-select2 */ "./assets/src/js/global/components/setup-select2.js");
-/* harmony import */ var _public_components_colorPicker__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../public/components/colorPicker */ "./assets/src/js/public/components/colorPicker.js");
-/* harmony import */ var _public_components_colorPicker__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_public_components_colorPicker__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _public_components_directoristDropdown__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../public/components/directoristDropdown */ "./assets/src/js/public/components/directoristDropdown.js");
-/* harmony import */ var _public_components_directoristDropdown__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_public_components_directoristDropdown__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _public_components_directoristSelect__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../public/components/directoristSelect */ "./assets/src/js/public/components/directoristSelect.js");
-/* harmony import */ var _public_components_directoristSelect__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_public_components_directoristSelect__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _components_debounce__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/debounce */ "./assets/src/js/global/components/debounce.js");
-
+/* harmony import */ var _global_components_cache_category_custom_fields__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../global/components/cache-category-custom-fields */ "./assets/src/js/global/components/cache-category-custom-fields.js");
+/* harmony import */ var _global_components_load_category_custom_fields__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../global/components/load-category-custom-fields */ "./assets/src/js/global/components/load-category-custom-fields.js");
+/* harmony import */ var _global_components_setup_select2__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../global/components/setup-select2 */ "./assets/src/js/global/components/setup-select2.js");
+/* harmony import */ var _public_components_colorPicker__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../public/components/colorPicker */ "./assets/src/js/public/components/colorPicker.js");
+/* harmony import */ var _public_components_colorPicker__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_public_components_colorPicker__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _public_components_directoristDropdown__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../public/components/directoristDropdown */ "./assets/src/js/public/components/directoristDropdown.js");
+/* harmony import */ var _public_components_directoristDropdown__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_public_components_directoristDropdown__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _public_components_directoristSelect__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../public/components/directoristSelect */ "./assets/src/js/public/components/directoristSelect.js");
+/* harmony import */ var _public_components_directoristSelect__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_public_components_directoristSelect__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _components_debounce__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/debounce */ "./assets/src/js/global/components/debounce.js");
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
@@ -429,7 +426,7 @@ $(function () {
         });
       }
     }
-    Object(_global_components_load_category_custom_fields__WEBPACK_IMPORTED_MODULE_2__["default"])({
+    Object(_global_components_load_category_custom_fields__WEBPACK_IMPORTED_MODULE_1__["default"])({
       categoryIds: categoryIds,
       listingId: listingId,
       directoryId: directoryId,
@@ -462,7 +459,7 @@ $(function () {
         });
         $('.atbdp_category_custom_fields-wrapper', getWrapper()).show();
         customFieldSeeMore();
-        var fieldsCache = Object(_global_components_cache_category_custom_fields__WEBPACK_IMPORTED_MODULE_1__["getCategoryCustomFieldsCache"])();
+        var fieldsCache = Object(_global_components_cache_category_custom_fields__WEBPACK_IMPORTED_MODULE_0__["getCategoryCustomFieldsCache"])();
         Object.keys(fieldsCache).forEach(function (key) {
           var el = document.querySelector("[data-id=\"".concat(key, "\"]"));
           if (el === null) {
@@ -483,19 +480,19 @@ $(function () {
   $('.directorist-form-categories-field').after('<div class="directorist-form-group  atbdp_category_custom_fields"></div>');
   window.addEventListener('directorist-type-change', function () {
     renderCategoryCustomFields();
-    Object(_global_components_cache_category_custom_fields__WEBPACK_IMPORTED_MODULE_1__["cacheCategoryCustomFields"])();
+    Object(_global_components_cache_category_custom_fields__WEBPACK_IMPORTED_MODULE_0__["cacheCategoryCustomFields"])();
   });
 
   // Render category based fields on category change (frontend)
-  $('#at_biz_dir-categories').on('change', Object(_components_debounce__WEBPACK_IMPORTED_MODULE_7__["default"])(function () {
+  $('#at_biz_dir-categories').on('change', Object(_components_debounce__WEBPACK_IMPORTED_MODULE_6__["default"])(function () {
     renderCategoryCustomFields();
-    Object(_global_components_cache_category_custom_fields__WEBPACK_IMPORTED_MODULE_1__["cacheCategoryCustomFields"])();
+    Object(_global_components_cache_category_custom_fields__WEBPACK_IMPORTED_MODULE_0__["cacheCategoryCustomFields"])();
   }, 270));
 
   // Render category based fields on category change (backend)
-  $('#at_biz_dir-categorychecklist').on('change', Object(_components_debounce__WEBPACK_IMPORTED_MODULE_7__["default"])(function () {
+  $('#at_biz_dir-categorychecklist').on('change', Object(_components_debounce__WEBPACK_IMPORTED_MODULE_6__["default"])(function () {
     renderCategoryCustomFields();
-    Object(_global_components_cache_category_custom_fields__WEBPACK_IMPORTED_MODULE_1__["cacheCategoryCustomFields"])();
+    Object(_global_components_cache_category_custom_fields__WEBPACK_IMPORTED_MODULE_0__["cacheCategoryCustomFields"])();
   }, 270));
 
   // Make sure to place the following event trigger after the event bindings.
@@ -854,67 +851,66 @@ $(function () {
   });
   $('#quick-login-from-submit-btn').on('click', function (e) {
     e.preventDefault();
-    var form_id = $(this).data('form');
-    var modal_id = $(this).data('form');
-    var modal = $(modal_id);
-    var form = $(form_id);
-    var form_feedback = form.find('.directorist-form-feedback');
-    var email = $(form).find('input[name="email"]');
-    var password = $(form).find('input[name="password"]');
-    var security = $(form).find('input[name="directorist-quick-login-security"]');
-    var form_data = _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({
+    var $form = $($(this).data('form'));
+    var $feedback = $form.find('.directorist-form-feedback');
+    var $email = $form.find('input[name="email"]');
+    var $password = $form.find('input[name="password"]');
+    var $token = $form.find('input[name="directorist-quick-login-security"]');
+    var $submit_button = $(this);
+    var submit_button_html = $submit_button.html();
+    var form_data = {
       action: 'directorist_ajax_quick_login',
-      username: email.val(),
-      password: password.val(),
-      rememberme: false
-    }, 'directorist-quick-login-security', security.val());
-    var submit_button = $(this);
-    var submit_button_default_html = submit_button.html();
+      username: $email.val(),
+      password: $password.val(),
+      rememberme: false,
+      token: $token.val()
+    };
     $.ajax({
       method: 'POST',
       url: directorist.ajaxurl,
       data: form_data,
       beforeSend: function beforeSend() {
-        form_feedback.html('');
-        submit_button.prop('disabled', true);
-        submit_button.prepend('<i class="fas fa-circle-notch fa-spin"></i> ');
+        $feedback.html('');
+        $submit_button.prop('disabled', true);
+        $submit_button.prepend('<i class="fas fa-circle-notch fa-spin"></i> ');
       },
       success: function success(response) {
-        submit_button.html(submit_button_default_html);
+        $submit_button.html(submit_button_html);
         if (response.loggedin) {
-          password.prop('disabled', true);
+          $password.prop('disabled', true);
           var message = 'Successfully logged in, please continue to the listing submission';
           var msg = '<div class="directorist-alert directorist-alert-success directorist-text-center directorist-mb-20">' + message + '</div>';
-          form_feedback.html(msg);
+          $feedback.html(msg);
           if (quick_login_modal__success_callback) {
             var args = {
               elements: {
-                modal_id: modal_id,
-                form: form,
-                email: email,
-                password: password,
-                submit_button: submit_button
+                modal_id: $form.attr('id'),
+                form: $form,
+                email: $email,
+                password: $password,
+                submit_button: $submit_button
               }
             };
             quick_login_modal__success_callback(args);
           }
+          regenerate_and_update_nonce();
         } else {
           var msg = '<div class="directorist-alert directorist-alert-danger directorist-text-center directorist-mb-20">' + response.message + '</div>';
-          form_feedback.html(msg);
-          submit_button.prop('disabled', false);
+          $feedback.html(msg);
+          $submit_button.prop('disabled', false);
         }
       },
       error: function error(_error2) {
         console.log({
           error: _error2
         });
-        submit_button.prop('disabled', false);
-        submit_button.html(submit_button_default_html);
+        $submit_button.prop('disabled', false);
+        $submit_button.html(submit_button_html);
       }
     });
   });
   function addSticky() {
-    $(window).scroll(Object(_components_debounce__WEBPACK_IMPORTED_MODULE_7__["default"])(function () {
+    $(window).scroll(Object(_components_debounce__WEBPACK_IMPORTED_MODULE_6__["default"])(function () {
       var windowWidth = $(window).width();
       var sidebarWidth = $(".multistep-wizard__nav").width();
       var sidebarHeight = $(".multistep-wizard__nav").height();
@@ -1170,6 +1166,20 @@ $('body').on('click', function (e) {
     multiStepWizard();
   }
 });
+function regenerate_and_update_nonce() {
+  $.ajax({
+    type: 'POST',
+    url: localized_data.ajaxurl,
+    data: {
+      action: 'directorist_generate_nonce'
+    },
+    success: function success(response) {
+      if (response.success) {
+        window.directorist.directorist_nonce = response.data.directorist_nonce;
+      }
+    }
+  });
+}
 
 /***/ }),
 

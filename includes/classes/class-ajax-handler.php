@@ -123,6 +123,8 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			// zipcode search
 			add_action( 'wp_ajax_directorist_zipcode_search', array( $this, 'zipcode_search' ) );
 			add_action( 'wp_ajax_nopriv_directorist_zipcode_search', array( $this, 'zipcode_search' ) );
+
+			add_action( 'wp_ajax_directorist_generate_nonce', [ $this, 'handle_generate_nonce' ] );
 		}
 
 		public function send_confirm_email() {
@@ -241,7 +243,15 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 
 		// directorist_quick_ajax_login
 		public function directorist_quick_ajax_login() {
-			if ( ! check_ajax_referer( 'directorist-quick-login-nonce', 'directorist-quick-login-security', false ) ) {
+			$nonce = '';
+
+			if ( isset( $_POST['token'] ) ) {
+				$nonce = sanitize_text_field( wp_unslash( $_POST['token'] ) );
+			} elseif ( isset( $_POST['directorist-quick-login-security'] ) ) {
+				$nonce = sanitize_text_field( wp_unslash( $_POST['directorist-quick-login-security'] ) );
+			}
+
+			if ( ! wp_verify_nonce( $nonce, 'directorist-quick-login-nonce' ) ) {
 				wp_send_json(
 					array(
 						'loggedin' => false,
@@ -263,13 +273,13 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			$password   = ! empty( $_POST['password'] ) ? $_POST['password'] : ''; // @codingStandardsIgnoreLine.WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			$rememberme = ! empty( $_POST['rememberme'] ) ? boolval( $_POST['rememberme'] ) : false;
 
-			$logged_in_user = wp_signon( array(
+			$user = wp_signon( array(
 				'user_login'    => $username,
 				'user_password' => $password,
 				'remember'      => $rememberme,
 			) );
 
-			if ( is_wp_error( $logged_in_user ) ) {
+			if ( is_wp_error( $user ) ) {
 				wp_send_json(
 					array(
 						'loggedin' => false,
@@ -1689,6 +1699,17 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			if ( $ajax ) {
 				wp_die();
 			}
+		}
+
+		public function handle_generate_nonce() {
+			// Ensure the user is logged in
+			if ( ! is_user_logged_in() ) {
+				wp_send_json_error( [ 'message' => __( 'User not logged in.', 'your-plugin-textdomain' ) ] );
+			}
+
+			wp_send_json_success( [
+				'directorist_nonce' => wp_create_nonce( directorist_get_nonce_key() )
+			] );
 		}
 	}
 

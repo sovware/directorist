@@ -636,9 +636,12 @@ final class Directorist_Base
 	}
 
 	public function load_textdomain() {
-		// Load from global languages directory
-		load_textdomain( 'directorist', WP_LANG_DIR . '/plugins/directorist-' . get_locale() . '.mo' );
-
+		// Determine the current locale
+		$locale = determine_locale();
+		// Allow filters to modify the locale
+		$locale = apply_filters( 'plugin_locale', $locale, 'directorist' );
+		load_textdomain( 'directorist', WP_LANG_DIR . '/plugins/directorist-' . $locale . '.mo' );
+	
 		load_plugin_textdomain( 'directorist', false, ATBDP_LANG_DIR );
 		if ( is_admin() && get_transient( '_directorist_setup_page_redirect' ) ) {
 			directorist_redirect_to_admin_setup_wizard();

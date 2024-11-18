@@ -11747,6 +11747,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .directorist-btn.directorist-btn-loading {
   position: relative;
+  font-size: 0;
   pointer-events: none;
 }
 .directorist-btn.directorist-btn-loading:before {
@@ -11757,7 +11758,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   width: 100%;
   height: 100%;
   border-radius: 8px;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: inherit;
 }
 .directorist-btn.directorist-btn-loading:after {
   content: "";
@@ -11771,12 +11772,12 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   border: 2px solid var(--directorist-color-white);
   border-top-color: var(--directorist-color-primary);
   position: absolute;
-  top: 12px;
-  right: 50%;
+  top: 13px;
+  left: 50%;
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
-  -webkit-animation: spin 3s linear infinite;
-          animation: spin 3s linear infinite;
+  -webkit-animation: spin-centered 3s linear infinite;
+          animation: spin-centered 3s linear infinite;
 }
 
 .directorist-btn.directorist-btn-outline {
@@ -11884,25 +11885,25 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   display: flex;
 }
 
-@-webkit-keyframes spin {
+@-webkit-keyframes spin-centered {
   from {
-    -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
+    -webkit-transform: translateX(-50%) rotate(0deg);
+            transform: translateX(-50%) rotate(0deg);
   }
   to {
-    -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
+    -webkit-transform: translateX(-50%) rotate(360deg);
+            transform: translateX(-50%) rotate(360deg);
   }
 }
 
-@keyframes spin {
+@keyframes spin-centered {
   from {
-    -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
+    -webkit-transform: translateX(-50%) rotate(0deg);
+            transform: translateX(-50%) rotate(0deg);
   }
   to {
-    -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
+    -webkit-transform: translateX(-50%) rotate(360deg);
+            transform: translateX(-50%) rotate(360deg);
   }
 }
 /* Modal Core Styles */
@@ -31428,6 +31429,17 @@ span.drop-toggle-caret:before {
   font-weight: 600;
   font-style: italic;
   color: #f80718;
+}
+
+@-webkit-keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
 }
 
 @keyframes spin {

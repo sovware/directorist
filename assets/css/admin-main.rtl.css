@@ -23876,6 +23876,7 @@ input[type=radio]:checked::before {
   position: absolute;
   left: 20px;
   top: 23px;
+  z-index: 1;
   -webkit-transition: 0.3s ease;
   transition: 0.3s ease;
 }
@@ -23892,13 +23893,21 @@ input[type=radio]:checked::before {
   width: 75%;
   overflow: auto;
 }
+.icon-picker__content .icons-group {
+  padding-top: 80px;
+}
 .icon-picker__content .icons-group h4 {
   font-size: 16px;
   font-weight: 500;
   color: #272B41;
+  background-color: #ffffff;
   padding: 33px 20px 27px 0;
   border-bottom: 1px solid #E3E6EF;
   margin: 0;
+  position: absolute;
+  right: 185px;
+  top: 0;
+  width: 75%;
 }
 .icon-picker__content .icons-group-icons {
   padding: 17px 17px 17px 0;

@@ -194,7 +194,7 @@ final class Directorist_Base
 			self::$instance = new Directorist_Base();
 			self::$instance->setup_constants();
 
-			add_action('plugins_loaded', array(self::$instance, 'load_textdomain'));
+			add_action('init', array(self::$instance, 'load_textdomain'));
 			add_action('plugins_loaded', array(self::$instance, 'add_polylang_swicher_support') );
 			add_action('widgets_init', array(self::$instance, 'register_widgets'));
 			add_filter('widget_display_callback', array(self::$instance, 'custom_widget_body_wrapper'), 10, 3);
@@ -635,10 +635,11 @@ final class Directorist_Base
 		}
 	}
 
-	public function load_textdomain()
-	{
+	public function load_textdomain() {
+		// Load from global languages directory
+		load_textdomain( 'directorist', WP_LANG_DIR . '/plugins/directorist-' . get_locale() . '.mo' );
 
-		load_plugin_textdomain('directorist', false, ATBDP_LANG_DIR);
+		load_plugin_textdomain( 'directorist', false, ATBDP_LANG_DIR );
 		if ( is_admin() && get_transient( '_directorist_setup_page_redirect' ) ) {
 			directorist_redirect_to_admin_setup_wizard();
 		}

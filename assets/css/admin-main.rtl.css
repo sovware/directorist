@@ -23924,6 +23924,7 @@ input[type=radio]:checked::before {
   border-radius: 5px;
   font-size: 24px;
   color: #868EAE;
+  font-size: 18px !important;
   border: 0 none;
   -webkit-transition: 0.3s ease;
   transition: 0.3s ease;

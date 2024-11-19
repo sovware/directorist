@@ -471,7 +471,7 @@ $(function() {
 
     let on_processing = false;
     let has_media = true;
-    let quick_login_modal__success_callback = null;
+    let quickLoginModalSuccessCallback = null;
     const $notification = $('#listing_notifier');
 
     // -----------------------------
@@ -733,14 +733,16 @@ $(function() {
                             // Show the modal
                             modal.addClass('show');
 
-                            quick_login_modal__success_callback = function (args) {
+                            quickLoginModalSuccessCallback = function($form, $submitButton) {
                                 $('#guest_user_email').prop('disabled', true);
+
                                 $notification.hide().html('');
 
-                                args.elements.submit_button.remove();
+                                $submitButton.remove();
 
-                                var form_actions = args.elements.form.find('.directorist-form-actions');
-                                form_actions.find('.directorist-toggle-modal').removeClass('directorist-d-none');
+                                $form.find('.directorist-form-actions')
+                                    .find('.directorist-toggle-modal')
+                                    .removeClass('directorist-d-none');
                             }
                         }
                     } else {
@@ -835,70 +837,62 @@ $(function() {
     $('#quick-login-from-submit-btn').on('click', function (e) {
         e.preventDefault();
 
-        var form_id = $(this).data('form');
-        var modal_id = $(this).data('form');
+        const $form              = $( $(this).data('form') );
+        let   $feedback          = $form.find('.directorist-modal-alerts-area');
+              $feedback          = $feedback.length ? $feedback : $form.find('.directorist-form-feedback');
+        const $email             = $form.find('input[name="email"]');
+        const $password          = $form.find('input[name="password"]');
+        const $token             = $form.find('input[name="directorist-quick-login-security"]');
+        const $submit_button     = $(this);
+        const submit_button_html = $submit_button.html();
 
-        var modal = $(modal_id);
-        var form = $(form_id);
-        var form_feedback = form.find('.directorist-form-feedback');
-
-        var email = $(form).find('input[name="email"]');
-        var password = $(form).find('input[name="password"]');
-        var security = $(form).find('input[name="directorist-quick-login-security"]');
-
-        var form_data = {
-            action: 'directorist_ajax_quick_login',
-            username: email.val(),
-            password: password.val(),
+        const form_data = {
+            action    : 'directorist_ajax_quick_login',
+            username  : $email.val(),
+            password  : $password.val(),
             rememberme: false,
-            ['directorist-quick-login-security']: security.val(),
+            token     : $token.val(),
         };
-
-        var submit_button = $(this);
-        var submit_button_default_html = submit_button.html();
 
         $.ajax({
             method: 'POST',
             url: directorist.ajaxurl,
             data: form_data,
             beforeSend: function () {
-                form_feedback.html('');
-                submit_button.prop('disabled', true);
-                submit_button.prepend('<i class="fas fa-circle-notch fa-spin"></i> ');
+                $feedback.html('');
+                $submit_button.prop('disabled', true);
+                $submit_button.prepend('<i class="fas fa-circle-notch fa-spin"></i> ');
             },
             success: function (response) {
-                submit_button.html(submit_button_default_html);
+                $submit_button.html(submit_button_html);
 
                 if (response.loggedin) {
-                    password.prop('disabled', true);
+                    $password.prop('disabled', true);
+
                     var message = 'Successfully logged in, please continue to the listing submission';
                     var msg = '<div class="directorist-alert directorist-alert-success directorist-text-center directorist-mb-20">' + message + '</div>';
-                    form_feedback.html(msg);
 
-                    if (quick_login_modal__success_callback) {
-                        var args = {
-                            elements: {
-                                modal_id,
-                                form,
-                                email,
-                                password,
-                                submit_button
-                            }
-                        };
-                        quick_login_modal__success_callback(args);
+                    $feedback.html(msg);
+
+                    if (quickLoginModalSuccessCallback) {
+                        quickLoginModalSuccessCallback($form, $submit_button);
                     }
+
+                    regenerate_and_update_nonce();
                 } else {
                     var msg = '<div class="directorist-alert directorist-alert-danger directorist-text-center directorist-mb-20">' + response.message + '</div>';
-                    form_feedback.html(msg);
-                    submit_button.prop('disabled', false);
+
+                    $feedback.html(msg);
+                    $submit_button.prop('disabled', false);
                 }
             },
             error: function (error) {
                 console.log({
                     error
                 });
-                submit_button.prop('disabled', false);
-                submit_button.html(submit_button_default_html);
+
+                $submit_button.prop('disabled', false);
+                $submit_button.html(submit_button_html);
             },
         });
     });
@@ -1176,3 +1170,18 @@ $('body').on('click', function (e) {
         multiStepWizard();
     }
 });
+
+function regenerate_and_update_nonce() {
+    $.ajax({
+        type: 'POST',
+        url: localized_data.ajaxurl,
+        data: {
+            action: 'directorist_generate_nonce'
+        },
+        success: function (response) {
+            if (response.success) {
+                window.directorist.directorist_nonce = response.data.directorist_nonce
+            }
+        }
+    });
+}

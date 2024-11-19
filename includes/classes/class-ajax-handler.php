@@ -1704,7 +1704,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 		public function handle_generate_nonce() {
 			// Ensure the user is logged in
 			if ( ! is_user_logged_in() ) {
-				wp_send_json_error( [ 'message' => __( 'User not logged in.', 'your-plugin-textdomain' ) ] );
+				wp_send_json_error( [ 'message' => __( 'User not logged in.', 'directorist' ) ] );
 			}
 
 			wp_send_json_success( [

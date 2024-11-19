@@ -358,6 +358,10 @@ final class Directorist_Base
 	// add_polylang_swicher_support
 	public function add_polylang_swicher_support() {
 
+		if ( is_admin() && get_transient( '_directorist_setup_page_redirect' ) ) {
+			directorist_redirect_to_admin_setup_wizard();
+		}
+		
 		// beta plugin lookup
 		$plugin_data = get_plugin_data( plugin_dir_path( __FILE__ ) . 'directorist-base.php' );
 
@@ -643,9 +647,6 @@ final class Directorist_Base
 		load_textdomain( 'directorist', WP_LANG_DIR . '/plugins/directorist-' . $locale . '.mo' );
 	
 		load_plugin_textdomain( 'directorist', false, ATBDP_LANG_DIR );
-		if ( is_admin() && get_transient( '_directorist_setup_page_redirect' ) ) {
-			directorist_redirect_to_admin_setup_wizard();
-		}
 	}
 
 	/**

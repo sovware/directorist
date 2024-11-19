@@ -5,7 +5,7 @@ Tags: member directory, listing, classifieds, directory plugin, business directo
 Requires at least: 4.6
 Tested up to: 6.7
 Requires PHP: 7.0
-Stable tag: 8.0.4
+Stable tag: 8.0.5
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -313,6 +313,14 @@ Directorist is a complete directory solution and in combination with its advance
  * and many more
 
 == Changelog ==
+
+8.0.5 - Nov 19, 2024
+
+* Added: Loader on authentication button while processing (#2109)
+* Fixed: Add listing form nonce validation issue when using quick login (#2110)
+* Fixed: Settings linking issue (#2112)
+* Fixed: Translation issue with WP 6.7 (#2111)
+* Updated: Button icon markup on change directory icon (#2108)
 
 8.0.4 - Nov 16, 2024
 

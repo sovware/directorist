@@ -23885,12 +23885,14 @@ input[type=radio]:checked::before {
   background-color: #222;
 }
 .icon-picker__sidebar {
-  width: 25%;
+  width: 30%;
   background-color: #eff0f3;
   padding: 30px 20px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 .icon-picker__content {
-  width: 75%;
+  width: 70%;
   overflow: auto;
 }
 .icon-picker__content .icons-group {
@@ -23905,9 +23907,9 @@ input[type=radio]:checked::before {
   border-bottom: 1px solid #E3E6EF;
   margin: 0;
   position: absolute;
-  left: 185px;
+  left: 30%;
   top: 0;
-  width: 75%;
+  width: 70%;
 }
 .icon-picker__content .icons-group-icons {
   padding: 17px 0 17px 17px;

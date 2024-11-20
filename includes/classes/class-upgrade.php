@@ -42,13 +42,7 @@ class ATBDP_Upgrade
 			return;
 		}
 
-		$listings = get_posts( 
-			[
-				'post_type' => 'at_biz_dir', 
-				'posts_per_page' => 1,
-				'fields' => 'ids'
-			] 
-		);
+		$listings = wp_count_posts('at_biz_dir')->publish;
 
 		if( empty( $listings ) ) {
 			update_option( 'directorist_v8_force_migrated', true );

@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-11-13 17:48+0000\n"
+"POT-Creation-Date: 2024-11-19 06:51+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -51,7 +51,7 @@ msgstr ""
 msgid "Single Listing Page"
 msgstr ""
 
-#: ../blocks/templates/account.php:30, ../blocks/templates/signin-signup.php:38, ../includes/helper-functions.php:2643, ../includes/model/Account.php:69
+#: ../blocks/templates/account.php:30, ../blocks/templates/signin-signup.php:38, ../includes/helper-functions.php:2641, ../includes/model/Account.php:69
 msgid "Sign In"
 msgstr ""
 
@@ -174,7 +174,7 @@ msgstr ""
 msgid "Sorry! user not found"
 msgstr ""
 
-#: ../blocks/templates/navigation.php:52, ../includes/helper-functions.php:2607
+#: ../blocks/templates/navigation.php:52, ../includes/helper-functions.php:2605
 msgid "Add Listing"
 msgstr ""
 
@@ -210,7 +210,7 @@ msgstr ""
 msgid "Already have an account? Please login"
 msgstr ""
 
-#: ../blocks/templates/registration.php:37, ../blocks/templates/registration.php:67, ../blocks/templates/registration.php:59, ../blocks/templates/signin-signup.php:33, ../includes/helper-functions.php:923, ../includes/classes/class-helper.php:539, ../includes/model/Account.php:64, ../templates/account/login-registration-form.php:241, ../templates/account/login-registration-form.php:233
+#: ../blocks/templates/registration.php:37, ../blocks/templates/registration.php:67, ../blocks/templates/registration.php:59, ../blocks/templates/signin-signup.php:33, ../includes/helper-functions.php:921, ../includes/classes/class-helper.php:539, ../includes/model/Account.php:64, ../templates/account/login-registration-form.php:241, ../templates/account/login-registration-form.php:233
 msgid "Here"
 msgstr ""
 
@@ -270,99 +270,99 @@ msgstr ""
 msgid "You do not have the right to access this file directly"
 msgstr ""
 
-#: ../directorist-base.php:543, ../directorist-base.php:556
+#: ../directorist-base.php:547, ../directorist-base.php:560
 msgid "Cheatin&#8217; huh?"
 msgstr ""
 
-#: ../directorist-base.php:570
+#: ../directorist-base.php:574
 msgid "Directorist - Listing Right Sidebar"
 msgstr ""
 
-#: ../directorist-base.php:572
+#: ../directorist-base.php:576
 msgid "Add widgets for the right sidebar on single listing page"
 msgstr ""
 
-#: ../directorist-base.php:684
+#: ../directorist-base.php:689
 msgid "Directorist Add Listing"
 msgstr ""
 
-#: ../directorist-base.php:687
+#: ../directorist-base.php:692
 msgid "Directorist All Listings"
 msgstr ""
 
-#: ../directorist-base.php:690
+#: ../directorist-base.php:695
 msgid "Directorist Dashboard"
 msgstr ""
 
-#: ../directorist-base.php:693
+#: ../directorist-base.php:698
 msgid "Directorist Author Profile"
 msgstr ""
 
-#: ../directorist-base.php:696
+#: ../directorist-base.php:701
 msgid "Directorist All Categories"
 msgstr ""
 
-#: ../directorist-base.php:699
+#: ../directorist-base.php:704
 msgid "Directorist Single Category"
 msgstr ""
 
-#: ../directorist-base.php:702
+#: ../directorist-base.php:707
 msgid "Directorist All Locations"
 msgstr ""
 
-#: ../directorist-base.php:705
+#: ../directorist-base.php:710
 msgid "Directorist Single Location"
 msgstr ""
 
-#: ../directorist-base.php:708
+#: ../directorist-base.php:713
 msgid "Directorist Single Tag"
 msgstr ""
 
-#: ../directorist-base.php:711
+#: ../directorist-base.php:716
 msgid "Directorist Listing Search Form"
 msgstr ""
 
-#: ../directorist-base.php:714
+#: ../directorist-base.php:719
 msgid "Directorist Search Result"
 msgstr ""
 
-#: ../directorist-base.php:717
+#: ../directorist-base.php:722
 msgid "Directorist Checkout"
 msgstr ""
 
-#: ../directorist-base.php:720
+#: ../directorist-base.php:725
 msgid "Directorist Payment Receipt"
 msgstr ""
 
-#: ../directorist-base.php:723
+#: ../directorist-base.php:728
 msgid "Directorist Payment Failure"
 msgstr ""
 
-#: ../directorist-base.php:726
+#: ../directorist-base.php:731
 msgid "Directorist Privacy Policy"
 msgstr ""
 
-#: ../directorist-base.php:729
+#: ../directorist-base.php:734
 msgid "Directorist Terms & Conditions"
 msgstr ""
 
-#: ../directorist-base.php:732
+#: ../directorist-base.php:737
 msgid "Directorist Pricing Plan"
 msgstr ""
 
-#: ../directorist-base.php:735
+#: ../directorist-base.php:740
 msgid "Directorist Sign In"
 msgstr ""
 
-#: ../directorist-base.php:743, ../includes/classes/class-settings-panel.php:4251
+#: ../directorist-base.php:748, ../includes/classes/class-settings-panel.php:4251
 msgid "Uninstall"
 msgstr ""
 
-#: ../directorist-base.php:749
+#: ../directorist-base.php:754
 msgid "Uninstall Settings"
 msgstr ""
 
-#: ../directorist-base.php:755, ../directorist-base.php:761
+#: ../directorist-base.php:760, ../directorist-base.php:766
 msgid "Listings Import"
 msgstr ""
 
@@ -482,273 +482,269 @@ msgstr ""
 msgid "You need to be logged in to view the content of this page"
 msgstr ""
 
-#: ../includes/helper-functions.php:903, ../includes/checkout/class-checkout.php:181, ../includes/classes/class-custom-post.php:374, ../includes/classes/class-custom-post.php:382, ../includes/classes/class-settings-panel.php:1368, ../includes/model/Listings.php:217, ../includes/model/Listings.php:2309, ../includes/payments/class-order.php:340, ../includes/modules/multi-directory-setup/class-builder-data.php:1433, ../templates/archive/fields/badge.php:14, ../views/admin-templates/listing-form/expiration-featured-fields.php:57
+#: ../includes/helper-functions.php:901, ../includes/checkout/class-checkout.php:181, ../includes/classes/class-custom-post.php:374, ../includes/classes/class-custom-post.php:382, ../includes/classes/class-settings-panel.php:1368, ../includes/model/Listings.php:217, ../includes/model/Listings.php:2309, ../includes/payments/class-order.php:340, ../includes/modules/multi-directory-setup/class-builder-data.php:1432, ../templates/archive/fields/badge.php:14, ../views/admin-templates/listing-form/expiration-featured-fields.php:57
 msgid "Featured"
 msgstr ""
 
-#: ../includes/helper-functions.php:923
+#: ../includes/helper-functions.php:921
 msgid "You need to be logged in to view the content of this page. You can login/sign up %s"
 msgstr ""
 
-#: ../includes/helper-functions.php:952
+#: ../includes/helper-functions.php:950
 msgid "Jan"
 msgstr ""
 
-#: ../includes/helper-functions.php:953
+#: ../includes/helper-functions.php:951
 msgid "Feb"
 msgstr ""
 
-#: ../includes/helper-functions.php:954
+#: ../includes/helper-functions.php:952
 msgid "Mar"
 msgstr ""
 
-#: ../includes/helper-functions.php:955
+#: ../includes/helper-functions.php:953
 msgid "Apr"
 msgstr ""
 
-#: ../includes/helper-functions.php:956
+#: ../includes/helper-functions.php:954
 msgid "May"
 msgstr ""
 
-#: ../includes/helper-functions.php:957
+#: ../includes/helper-functions.php:955
 msgid "Jun"
 msgstr ""
 
-#: ../includes/helper-functions.php:958
+#: ../includes/helper-functions.php:956
 msgid "Jul"
 msgstr ""
 
-#: ../includes/helper-functions.php:959
+#: ../includes/helper-functions.php:957
 msgid "Aug"
 msgstr ""
 
-#: ../includes/helper-functions.php:960
+#: ../includes/helper-functions.php:958
 msgid "Sep"
 msgstr ""
 
-#: ../includes/helper-functions.php:961
+#: ../includes/helper-functions.php:959
 msgid "Oct"
 msgstr ""
 
-#: ../includes/helper-functions.php:962
+#: ../includes/helper-functions.php:960
 msgid "Nov"
 msgstr ""
 
-#: ../includes/helper-functions.php:963
+#: ../includes/helper-functions.php:961
 msgid "Dec"
 msgstr ""
 
-#: ../includes/helper-functions.php:1516, ../includes/classes/class-settings-panel.php:995, ../includes/classes/class-settings-panel.php:2066
+#: ../includes/helper-functions.php:1514, ../includes/classes/class-settings-panel.php:995, ../includes/classes/class-settings-panel.php:2066
 msgid "A to Z (title)"
 msgstr ""
 
-#: ../includes/helper-functions.php:1517, ../includes/classes/class-settings-panel.php:999, ../includes/classes/class-settings-panel.php:2070
+#: ../includes/helper-functions.php:1515, ../includes/classes/class-settings-panel.php:999, ../includes/classes/class-settings-panel.php:2070
 msgid "Z to A (title)"
 msgstr ""
 
-#: ../includes/helper-functions.php:1518, ../includes/classes/class-settings-panel.php:1003, ../includes/classes/class-settings-panel.php:2074
+#: ../includes/helper-functions.php:1516, ../includes/classes/class-settings-panel.php:1003, ../includes/classes/class-settings-panel.php:2074
 msgid "Latest listings"
 msgstr ""
 
-#: ../includes/helper-functions.php:1519, ../includes/classes/class-settings-panel.php:1007, ../includes/classes/class-settings-panel.php:2078
+#: ../includes/helper-functions.php:1517, ../includes/classes/class-settings-panel.php:1007, ../includes/classes/class-settings-panel.php:2078
 msgid "Oldest listings"
 msgstr ""
 
-#: ../includes/helper-functions.php:1520, ../includes/classes/class-settings-panel.php:1011, ../includes/classes/class-settings-panel.php:2082
+#: ../includes/helper-functions.php:1518, ../includes/classes/class-settings-panel.php:1011, ../includes/classes/class-settings-panel.php:2082
 msgid "Popular listings"
 msgstr ""
 
-#: ../includes/helper-functions.php:1521, ../includes/classes/class-settings-panel.php:1015, ../includes/classes/class-settings-panel.php:2086
+#: ../includes/helper-functions.php:1519, ../includes/classes/class-settings-panel.php:1015, ../includes/classes/class-settings-panel.php:2086
 msgid "Price (low to high)"
 msgstr ""
 
-#: ../includes/helper-functions.php:1522, ../includes/classes/class-settings-panel.php:1019, ../includes/classes/class-settings-panel.php:2090
+#: ../includes/helper-functions.php:1520, ../includes/classes/class-settings-panel.php:1019, ../includes/classes/class-settings-panel.php:2090
 msgid "Price (high to low)"
 msgstr ""
 
-#: ../includes/helper-functions.php:1523, ../includes/classes/class-settings-panel.php:1023, ../includes/classes/class-settings-panel.php:2094
+#: ../includes/helper-functions.php:1521, ../includes/classes/class-settings-panel.php:1023, ../includes/classes/class-settings-panel.php:2094
 msgid "Random listings"
 msgstr ""
 
-#: ../includes/helper-functions.php:1671, ../includes/classes/class-settings-panel.php:1042, ../includes/classes/class-settings-panel.php:1061, ../includes/classes/class-settings-panel.php:2031, ../includes/classes/class-settings-panel.php:2477, ../includes/classes/class-settings-panel.php:2588, ../includes/widgets/all-categories.php:49, ../includes/widgets/all-locations.php:49, ../includes/widgets/all-tags.php:48
+#: ../includes/helper-functions.php:1669, ../includes/classes/class-settings-panel.php:1042, ../includes/classes/class-settings-panel.php:1061, ../includes/classes/class-settings-panel.php:2031, ../includes/classes/class-settings-panel.php:2477, ../includes/classes/class-settings-panel.php:2588, ../includes/widgets/all-categories.php:49, ../includes/widgets/all-locations.php:49, ../includes/widgets/all-tags.php:48
 msgid "List"
 msgstr ""
 
-#: ../includes/helper-functions.php:1674, ../includes/classes/class-settings-panel.php:1038, ../includes/classes/class-settings-panel.php:1057, ../includes/classes/class-settings-panel.php:2027, ../includes/classes/class-settings-panel.php:2473, ../includes/classes/class-settings-panel.php:2584
+#: ../includes/helper-functions.php:1672, ../includes/classes/class-settings-panel.php:1038, ../includes/classes/class-settings-panel.php:1057, ../includes/classes/class-settings-panel.php:2027, ../includes/classes/class-settings-panel.php:2473, ../includes/classes/class-settings-panel.php:2584
 msgid "Grid"
 msgstr ""
 
-#: ../includes/helper-functions.php:1677, ../includes/classes/class-settings-panel.php:1046, ../includes/classes/class-settings-panel.php:1065, ../includes/classes/class-settings-panel.php:2035, ../includes/classes/class-settings-panel.php:3612, ../includes/classes/class-settings-panel.php:3616, ../includes/widgets/single-map.php:27, ../includes/modules/multi-directory-setup/builder-preset-fields.php:481, ../includes/modules/multi-directory-setup/builder-preset-fields.php:498
+#: ../includes/helper-functions.php:1675, ../includes/classes/class-settings-panel.php:1046, ../includes/classes/class-settings-panel.php:1065, ../includes/classes/class-settings-panel.php:2035, ../includes/classes/class-settings-panel.php:3612, ../includes/classes/class-settings-panel.php:3616, ../includes/widgets/single-map.php:27, ../includes/modules/multi-directory-setup/builder-preset-fields.php:481, ../includes/modules/multi-directory-setup/builder-preset-fields.php:498
 msgid "Map"
 msgstr ""
 
-#: ../includes/helper-functions.php:2424
+#: ../includes/helper-functions.php:2422
 msgid "Email already registered. Please login first"
 msgstr ""
 
-#: ../includes/helper-functions.php:2486, ../includes/classes/class-settings-panel.php:3457
+#: ../includes/helper-functions.php:2484, ../includes/classes/class-settings-panel.php:3457
 msgid "Remove Data on Uninstall?"
 msgstr ""
 
-#: ../includes/helper-functions.php:2487, ../includes/classes/class-settings-panel.php:3458
+#: ../includes/helper-functions.php:2485, ../includes/classes/class-settings-panel.php:3458
 msgid "Checked it if you would like Directorist to completely remove all of its data when the plugin is deleted."
 msgstr ""
 
-#: ../includes/helper-functions.php:2498
+#: ../includes/helper-functions.php:2496
 msgid "CSV"
 msgstr ""
 
-#: ../includes/helper-functions.php:2599
+#: ../includes/helper-functions.php:2597
 msgid "Search Home"
 msgstr ""
 
-#: ../includes/helper-functions.php:2603, ../includes/classes/class-settings-panel.php:3713, ../includes/elementor/search-result.php:15
+#: ../includes/helper-functions.php:2601, ../includes/classes/class-settings-panel.php:3713, ../includes/elementor/search-result.php:15
 msgid "Search Result"
 msgstr ""
 
-#: ../includes/helper-functions.php:2611, ../includes/classes/class-custom-post.php:290, ../includes/classes/class-settings-panel.php:3508, ../includes/elementor/all-listing.php:16, ../templates/dashboard/tab-my-listings.php:28
+#: ../includes/helper-functions.php:2609, ../includes/classes/class-custom-post.php:290, ../includes/classes/class-settings-panel.php:3508, ../includes/elementor/all-listing.php:16, ../templates/dashboard/tab-my-listings.php:28
 msgid "All Listings"
 msgstr ""
 
-#: ../includes/helper-functions.php:2619, ../includes/elementor/category.php:15
+#: ../includes/helper-functions.php:2617, ../includes/elementor/category.php:15
 msgid "Single Category"
 msgstr ""
 
-#: ../includes/helper-functions.php:2627, ../includes/elementor/location.php:15
+#: ../includes/helper-functions.php:2625, ../includes/elementor/location.php:15
 msgid "Single Location"
 msgstr ""
 
-#: ../includes/helper-functions.php:2631, ../includes/elementor/tag.php:15
+#: ../includes/helper-functions.php:2629, ../includes/elementor/tag.php:15
 msgid "Single Tag"
 msgstr ""
 
-#: ../includes/helper-functions.php:2635
+#: ../includes/helper-functions.php:2633
 msgid "Author Profile"
 msgstr ""
 
-#: ../includes/helper-functions.php:2639, ../includes/classes/class-settings-panel.php:3909, ../includes/elementor/user-dashboard.php:15
+#: ../includes/helper-functions.php:2637, ../includes/classes/class-settings-panel.php:3909, ../includes/elementor/user-dashboard.php:15
 msgid "Dashboard"
 msgstr ""
 
-#: ../includes/helper-functions.php:2916
+#: ../includes/helper-functions.php:2914
 msgid "File '%s' could not be opened. Check the file's permissions to make sure it's readable by your server."
 msgstr ""
 
-#: ../includes/helper-functions.php:3088
+#: ../includes/helper-functions.php:3086
 msgid "Add listing page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:3089, ../includes/helper-functions.php:3097, ../includes/helper-functions.php:3105, ../includes/helper-functions.php:3113, ../includes/helper-functions.php:3121, ../includes/helper-functions.php:3129, ../includes/helper-functions.php:3137, ../includes/helper-functions.php:3145, ../includes/helper-functions.php:3153, ../includes/helper-functions.php:3161, ../includes/helper-functions.php:3169, ../includes/helper-functions.php:3177, ../includes/helper-functions.php:3185
+#: ../includes/helper-functions.php:3087, ../includes/helper-functions.php:3095, ../includes/helper-functions.php:3103, ../includes/helper-functions.php:3111, ../includes/helper-functions.php:3119, ../includes/helper-functions.php:3127, ../includes/helper-functions.php:3135, ../includes/helper-functions.php:3143, ../includes/helper-functions.php:3151, ../includes/helper-functions.php:3159, ../includes/helper-functions.php:3167, ../includes/helper-functions.php:3175
 msgid "Contains a collection of relevant data that will help you debug your website accurately and more efficiently."
 msgstr ""
 
-#: ../includes/helper-functions.php:3091, ../includes/helper-functions.php:3099, ../includes/helper-functions.php:3107, ../includes/helper-functions.php:3115, ../includes/helper-functions.php:3123, ../includes/helper-functions.php:3131, ../includes/helper-functions.php:3139, ../includes/helper-functions.php:3147, ../includes/helper-functions.php:3155, ../includes/helper-functions.php:3163, ../includes/helper-functions.php:3171, ../includes/helper-functions.php:3179
+#: ../includes/helper-functions.php:3089, ../includes/helper-functions.php:3097, ../includes/helper-functions.php:3105, ../includes/helper-functions.php:3113, ../includes/helper-functions.php:3121, ../includes/helper-functions.php:3129, ../includes/helper-functions.php:3137, ../includes/helper-functions.php:3145, ../includes/helper-functions.php:3153, ../includes/helper-functions.php:3161, ../includes/helper-functions.php:3169
 msgid "Select Page"
 msgstr ""
 
-#: ../includes/helper-functions.php:3096
+#: ../includes/helper-functions.php:3094
 msgid "Dashboard page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:3104
+#: ../includes/helper-functions.php:3102
 msgid "User Profile page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:3112
+#: ../includes/helper-functions.php:3110
 msgid "Single Category page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:3120, ../includes/helper-functions.php:3128
+#: ../includes/helper-functions.php:3118, ../includes/helper-functions.php:3126
 msgid "Single Location page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:3136
-msgid "Registration page not selected"
+#: ../includes/helper-functions.php:3134
+msgid "Sign In & Signup page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:3144
-msgid "Login page not selected"
-msgstr ""
-
-#: ../includes/helper-functions.php:3152
+#: ../includes/helper-functions.php:3142
 msgid "Search Result page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:3160
+#: ../includes/helper-functions.php:3150
 msgid "Checkout page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:3168
+#: ../includes/helper-functions.php:3158
 msgid "Payment Receipt page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:3176
+#: ../includes/helper-functions.php:3166
 msgid "Transaction Failure page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:3184
+#: ../includes/helper-functions.php:3174
 msgid "Map Api Key is missing"
 msgstr ""
 
-#: ../includes/helper-functions.php:3187
+#: ../includes/helper-functions.php:3177
 msgid "Give the Api"
 msgstr ""
 
-#: ../includes/helper-functions.php:3192
+#: ../includes/helper-functions.php:3182
 msgid "SMTP not configured"
 msgstr ""
 
-#: ../includes/helper-functions.php:3193
+#: ../includes/helper-functions.php:3183
 msgid "SMTP is a TCP/IP protocol responsible for email deliveries. You must configure SMTP to send or receive emails."
 msgstr ""
 
-#: ../includes/helper-functions.php:3280
+#: ../includes/helper-functions.php:3270
 msgid "Something went wrong!"
 msgstr ""
 
-#: ../includes/helper-functions.php:3281
+#: ../includes/helper-functions.php:3271
 msgid "Registration failed. Please make sure you filed up all the necessary fields marked with <span style=\"color: red\">*</span>"
 msgstr ""
 
 #. translators: %1$s - link opening, %2$s - link closing
-#: ../includes/helper-functions.php:3284
+#: ../includes/helper-functions.php:3274
 msgid "This email is already registered. Please %1$sclick here to login%2$s."
 msgstr ""
 
-#: ../includes/helper-functions.php:3288, ../includes/classes/class-user.php:736
+#: ../includes/helper-functions.php:3278, ../includes/classes/class-user.php:736
 msgid "Username too short. At least 4 characters is required"
 msgstr ""
 
 #. translators: %1$s - link opening, %2$s - link closing
-#: ../includes/helper-functions.php:3291
+#: ../includes/helper-functions.php:3281
 msgid "This username is already registered. Please %1$sclick here to login%2$s."
 msgstr ""
 
-#: ../includes/helper-functions.php:3295, ../includes/classes/class-user.php:750
+#: ../includes/helper-functions.php:3285, ../includes/classes/class-user.php:750
 msgid "Password length must be greater than 5"
 msgstr ""
 
-#: ../includes/helper-functions.php:3296, ../includes/classes/class-user.php:765
+#: ../includes/helper-functions.php:3286, ../includes/classes/class-user.php:765
 msgid "Email is not valid"
 msgstr ""
 
-#: ../includes/helper-functions.php:3297
+#: ../includes/helper-functions.php:3287
 msgid "Space is not allowed in username"
 msgstr ""
 
-#: ../includes/helper-functions.php:3298
+#: ../includes/helper-functions.php:3288
 msgid "Please make sure you filed up the user type"
 msgstr ""
 
-#: ../includes/helper-functions.php:4467, ../includes/classes/class-extension.php:1253, ../includes/classes/class-extension.php:1362
+#: ../includes/helper-functions.php:4457, ../includes/classes/class-extension.php:1253, ../includes/classes/class-extension.php:1362
 msgid "Invalid download link"
 msgstr ""
 
-#: ../includes/helper-functions.php:4507, ../includes/classes/class-extension.php:1293, ../includes/classes/class-extension.php:1402
+#: ../includes/helper-functions.php:4497, ../includes/classes/class-extension.php:1293, ../includes/classes/class-extension.php:1402
 msgid "Could not create temp directory"
 msgstr ""
 
-#: ../includes/helper-functions.php:4559, ../includes/classes/class-extension.php:1345
+#: ../includes/helper-functions.php:4549, ../includes/classes/class-extension.php:1345
 msgid "The plugin has been downloaded successfully"
 msgstr ""
 
@@ -984,7 +980,7 @@ msgstr ""
 msgid "Sending user info, please wait..."
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:292, ../includes/classes/class-ajax-handler.php:276, ../includes/classes/class-ajax-handler.php:387
+#: ../includes/asset-loader/localized_data.php:292, ../includes/classes/class-ajax-handler.php:286, ../includes/classes/class-ajax-handler.php:397
 msgid "Wrong username or password."
 msgstr ""
 
@@ -1013,7 +1009,7 @@ msgstr ""
 msgid "Every %d minutes"
 msgstr ""
 
-#: ../includes/classes/class-add-listing.php:59, ../includes/classes/class-ajax-handler.php:361, ../includes/review/class-comment-form-processor.php:32, ../includes/review/class-comment-form-renderer.php:46
+#: ../includes/classes/class-add-listing.php:59, ../includes/classes/class-ajax-handler.php:371, ../includes/review/class-comment-form-processor.php:32, ../includes/review/class-comment-form-renderer.php:46
 msgid "Invalid request."
 msgstr ""
 
@@ -1021,7 +1017,7 @@ msgstr ""
 msgid "Could not upload (%s), please try again."
 msgstr ""
 
-#: ../includes/classes/class-add-listing.php:139, ../includes/classes/class-ajax-handler.php:580, ../includes/classes/class-setup-wizard.php:41, ../includes/classes/class-setup-wizard.php:221, ../includes/classes/class-tools.php:70
+#: ../includes/classes/class-add-listing.php:139, ../includes/classes/class-ajax-handler.php:590, ../includes/classes/class-setup-wizard.php:41, ../includes/classes/class-setup-wizard.php:221, ../includes/classes/class-tools.php:70
 msgid "Invalid request!"
 msgstr ""
 
@@ -1049,172 +1045,176 @@ msgstr ""
 msgid "Terms & Privacy is required"
 msgstr ""
 
-#: ../includes/classes/class-add-listing.php:448
+#: ../includes/classes/class-add-listing.php:438
 msgid "Your listing submission is completed! Redirecting..."
 msgstr ""
 
-#: ../includes/classes/class-add-listing.php:452
+#: ../includes/classes/class-add-listing.php:442
 msgid "Payment required! Redirecting to checkout..."
 msgstr ""
 
-#: ../includes/classes/class-add-listing.php:872, ../includes/fields/class-directorist-image-upload-field.php:35
+#: ../includes/classes/class-add-listing.php:869, ../includes/fields/class-directorist-image-upload-field.php:35
 msgid "This field is required."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:132, ../includes/classes/class-ajax-handler.php:248
+#: ../includes/classes/class-ajax-handler.php:134, ../includes/classes/class-ajax-handler.php:258
 msgid "Invalid Nonce"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:140
+#: ../includes/classes/class-ajax-handler.php:142
 msgid "Invalid Request"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:149
+#: ../includes/classes/class-ajax-handler.php:151
 msgid "Invalid email address"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:171, ../includes/classes/class-ajax-handler.php:199, ../includes/classes/class-ajax-handler.php:408
+#: ../includes/classes/class-ajax-handler.php:173, ../includes/classes/class-ajax-handler.php:201, ../includes/classes/class-ajax-handler.php:418
 msgid "Something went wrong, please try again."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:188
+#: ../includes/classes/class-ajax-handler.php:190
 msgid "<div class=\"error_message\">%s <p>%s</p></div>"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:189
+#: ../includes/classes/class-ajax-handler.php:191
 msgid "Please enter a valid zip code."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:257, ../includes/classes/class-ajax-handler.php:370
+#: ../includes/classes/class-ajax-handler.php:267, ../includes/classes/class-ajax-handler.php:380
 msgid "Your are already loggedin"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:284, ../includes/classes/class-ajax-handler.php:398, ../includes/classes/class-ajax-handler.php:756, ../includes/classes/class-ajax-handler.php:785
+#: ../includes/classes/class-ajax-handler.php:294, ../includes/classes/class-ajax-handler.php:408, ../includes/classes/class-ajax-handler.php:766, ../includes/classes/class-ajax-handler.php:795
 msgid "Login successful, redirecting..."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:310, ../includes/classes/class-ajax-handler.php:1332, ../includes/classes/class-ajax-handler.php:1544, ../includes/classes/class-settings-panel.php:320, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:417, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:528, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:650
+#: ../includes/classes/class-ajax-handler.php:320, ../includes/classes/class-ajax-handler.php:1342, ../includes/classes/class-ajax-handler.php:1554, ../includes/classes/class-settings-panel.php:320, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:417, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:528, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:650
 msgid "Something is wrong! Please refresh and retry."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:328, ../includes/classes/class-settings-panel.php:3750, ../includes/classes/class-user.php:567
+#: ../includes/classes/class-ajax-handler.php:338, ../includes/classes/class-settings-panel.php:3750, ../includes/classes/class-user.php:567
 msgid "User"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:340, ../includes/classes/class-custom-post.php:371, ../includes/classes/class-user.php:565
+#: ../includes/classes/class-ajax-handler.php:350, ../includes/classes/class-custom-post.php:371, ../includes/classes/class-user.php:565
 msgid "Author"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:351
+#: ../includes/classes/class-ajax-handler.php:361
 msgid "Sent successfully"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:431
+#: ../includes/classes/class-ajax-handler.php:441
 msgid "Invalid request, please reload the page and try again."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:449, ../includes/classes/class-ajax-handler.php:600
+#: ../includes/classes/class-ajax-handler.php:459, ../includes/classes/class-ajax-handler.php:610
 msgid "Invalid directory."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:539, ../includes/classes/class-listing.php:353
+#: ../includes/classes/class-ajax-handler.php:549, ../includes/classes/class-listing.php:375
 msgid "Session expired, please reload the window and try again."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:571
+#: ../includes/classes/class-ajax-handler.php:581
 msgid "Slug changes successfully."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:562
+#: ../includes/classes/class-ajax-handler.php:572
 msgid "This slug already in use."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:588
+#: ../includes/classes/class-ajax-handler.php:598
 msgid "No category selected."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:592
+#: ../includes/classes/class-ajax-handler.php:602
 msgid "Invalid listing."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:645
+#: ../includes/classes/class-ajax-handler.php:655
 msgid "The session has expired, please reload and try again."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:735
+#: ../includes/classes/class-ajax-handler.php:745
 msgid "Congratulations! All old pages have been updated successfully"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:744
+#: ../includes/classes/class-ajax-handler.php:754
 msgid "Something went wrong, please reload the page"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:806
+#: ../includes/classes/class-ajax-handler.php:816
 msgid "Invalid upload request!"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:810
+#: ../includes/classes/class-ajax-handler.php:820
 msgid "Invalid directory type!"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:971, ../includes/classes/class-ajax-handler.php:1014
+#: ../includes/classes/class-ajax-handler.php:981, ../includes/classes/class-ajax-handler.php:1024
 msgid "You are not allowed to perform this operation"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:975, ../includes/classes/class-ajax-handler.php:1000, ../includes/classes/class-ajax-handler.php:1004, ../includes/classes/class-ajax-handler.php:1018
+#: ../includes/classes/class-ajax-handler.php:985, ../includes/classes/class-ajax-handler.php:1010, ../includes/classes/class-ajax-handler.php:1014, ../includes/classes/class-ajax-handler.php:1028
 msgid "Ops! something went wrong. Try again."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:997
+#: ../includes/classes/class-ajax-handler.php:1007
 msgid "Profile updated successfully"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1039
+#: ../includes/classes/class-ajax-handler.php:1049
 msgid "Preferences updated successfully."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1130, ../includes/classes/class-ajax-handler.php:1203, ../includes/review/class-email.php:77
+#: ../includes/classes/class-ajax-handler.php:1140, ../includes/classes/class-ajax-handler.php:1213, ../includes/review/class-email.php:77
 msgid "[{site_name}] New review at \"{listing_title}\""
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1133
+#: ../includes/classes/class-ajax-handler.php:1143
 msgid "Dear User,<br /><br />A new review at {listing_url}.<br /><br />"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1206
+#: ../includes/classes/class-ajax-handler.php:1216
 msgid "Dear Administrator,<br /><br />A new review at {listing_url}.<br /><br />Name: {sender_name}<br />Email: {sender_email}"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1312, ../includes/rest-api/Version1/class-listings-actions-controller.php:241
+#: ../includes/classes/class-ajax-handler.php:1322, ../includes/rest-api/Version1/class-listings-actions-controller.php:241
 msgid "{site_name} Report Abuse via \"{listing_title}\""
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1315, ../includes/rest-api/Version1/class-listings-actions-controller.php:244
+#: ../includes/classes/class-ajax-handler.php:1325, ../includes/rest-api/Version1/class-listings-actions-controller.php:244
 msgid "Dear Administrator,<br /><br />This is an email abuse report for a listing at {listing_url}.<br /><br />Name: {sender_name}<br />Email: {sender_email}<br />Message: {message}"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1342
+#: ../includes/classes/class-ajax-handler.php:1352
 msgid "Trying to report invalid listing."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1349
+#: ../includes/classes/class-ajax-handler.php:1359
 msgid "Report message cannot be empty."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1357, ../includes/classes/class-ajax-handler.php:1559
+#: ../includes/classes/class-ajax-handler.php:1367, ../includes/classes/class-ajax-handler.php:1569
 msgid "Sorry! Please try again."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1362, ../includes/classes/class-ajax-handler.php:1603
+#: ../includes/classes/class-ajax-handler.php:1372, ../includes/classes/class-ajax-handler.php:1613
 msgid "Your message sent successfully."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1498
+#: ../includes/classes/class-ajax-handler.php:1508
 msgid "{site_name} Contact via {listing_title}"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1500
+#: ../includes/classes/class-ajax-handler.php:1510
 msgid "Dear Administrator,<br /><br />A listing on your website {site_name} received a message.<br /><br />Listing URL: {listing_url}<br /><br />Name: {sender_name}<br />Email: {sender_email}<br />Message: {message}<br />Time: {now}<br /><br />This is just a copy of the original email and was already sent to the listing owner. You don't have to reply this unless necessary."
+msgstr ""
+
+#: ../includes/classes/class-ajax-handler.php:1707
+msgid "User not logged in."
 msgstr ""
 
 #: ../includes/classes/class-announcement.php:30, ../includes/classes/class-announcement.php:278
@@ -1269,11 +1269,11 @@ msgstr ""
 msgid "Enable Footer Thumbnail"
 msgstr ""
 
-#: ../includes/classes/class-background-updater.php:329, ../includes/modules/multi-directory-setup/class-builder-data.php:1115, ../includes/modules/multi-directory-setup/class-builder-data.php:2363, ../includes/modules/multi-directory-setup/class-builder-data.php:2395
+#: ../includes/classes/class-background-updater.php:329, ../includes/modules/multi-directory-setup/class-builder-data.php:1114, ../includes/modules/multi-directory-setup/class-builder-data.php:2362, ../includes/modules/multi-directory-setup/class-builder-data.php:2394
 msgid "Listing Title Settings"
 msgstr ""
 
-#: ../includes/classes/class-background-updater.php:333, ../includes/modules/multi-directory-setup/class-builder-data.php:1119, ../includes/modules/multi-directory-setup/class-builder-data.php:2372, ../includes/modules/multi-directory-setup/class-builder-data.php:2399
+#: ../includes/classes/class-background-updater.php:333, ../includes/modules/multi-directory-setup/class-builder-data.php:1118, ../includes/modules/multi-directory-setup/class-builder-data.php:2371, ../includes/modules/multi-directory-setup/class-builder-data.php:2398
 msgid "Show Tagline"
 msgstr ""
 
@@ -1301,7 +1301,7 @@ msgstr ""
 msgid "Select type"
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:194, ../includes/classes/class-settings-panel.php:1384, ../includes/modules/multi-directory-setup/class-builder-data.php:1461
+#: ../includes/classes/class-custom-post.php:194, ../includes/classes/class-settings-panel.php:1384, ../includes/modules/multi-directory-setup/class-builder-data.php:1460
 msgid "View Count"
 msgstr ""
 
@@ -1458,7 +1458,7 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:369, ../includes/model/SingleListing.php:1268, ../includes/modules/multi-directory-setup/class-multi-directory-migration.php:668
+#: ../includes/classes/class-custom-post.php:369, ../includes/model/SingleListing.php:1286, ../includes/modules/multi-directory-setup/class-multi-directory-migration.php:668
 msgid "Location"
 msgstr ""
 
@@ -1474,7 +1474,7 @@ msgstr ""
 msgid "Listing views"
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:387, ../includes/elementor/all-listing.php:192, ../includes/elementor/category.php:93, ../includes/elementor/location.php:92, ../includes/elementor/search-result.php:106, ../includes/elementor/tag.php:92, ../includes/payments/class-order.php:297, ../includes/modules/multi-directory-setup/builder-custom-fields.php:364, ../includes/modules/multi-directory-setup/class-builder-data.php:1609, ../templates/payment/payment-receipt.php:38
+#: ../includes/classes/class-custom-post.php:387, ../includes/elementor/all-listing.php:192, ../includes/elementor/category.php:93, ../includes/elementor/location.php:92, ../includes/elementor/search-result.php:106, ../includes/elementor/tag.php:92, ../includes/payments/class-order.php:297, ../includes/modules/multi-directory-setup/builder-custom-fields.php:364, ../includes/modules/multi-directory-setup/class-builder-data.php:1608, ../templates/payment/payment-receipt.php:38
 msgid "Date"
 msgstr ""
 
@@ -1664,7 +1664,7 @@ msgstr ""
 msgid "Tags"
 msgstr ""
 
-#: ../includes/classes/class-custom-taxonomy.php:618, ../includes/modules/multi-directory-setup/class-builder-data.php:48, ../includes/modules/multi-directory-setup/class-builder-data.php:62, ../includes/modules/multi-directory-setup/class-builder-data.php:72, ../includes/modules/multi-directory-setup/class-builder-data.php:81, ../includes/modules/multi-directory-setup/class-builder-data.php:95, ../includes/modules/multi-directory-setup/class-builder-data.php:104, ../includes/modules/multi-directory-setup/class-builder-data.php:113, ../includes/modules/multi-directory-setup/class-builder-data.php:122, ../includes/modules/multi-directory-setup/class-builder-data.php:131, ../includes/modules/multi-directory-setup/class-builder-data.php:140, ../includes/modules/multi-directory-setup/class-builder-data.php:149, ../includes/modules/multi-directory-setup/class-builder-data.php:163, ../includes/modules/multi-directory-setup/class-builder-data.php:172, ../includes/modules/multi-directory-setup/class-builder-data.php:181, ../includes/modules/multi-directory-setup/class-builder-data.php:190, ../includes/modules/multi-directory-setup/class-builder-data.php:199, ../includes/modules/multi-directory-setup/class-builder-data.php:208, ../includes/modules/multi-directory-setup/class-builder-data.php:217, ../includes/modules/multi-directory-setup/class-builder-data.php:226, ../includes/modules/multi-directory-setup/class-builder-data.php:235, ../includes/modules/multi-directory-setup/class-builder-data.php:244, ../includes/modules/multi-directory-setup/class-builder-data.php:253, ../includes/modules/multi-directory-setup/class-builder-data.php:262, ../includes/modules/multi-directory-setup/class-builder-data.php:271, ../includes/modules/multi-directory-setup/class-builder-data.php:296, ../includes/modules/multi-directory-setup/class-builder-data.php:482, ../includes/modules/multi-directory-setup/class-builder-data.php:1177, ../includes/modules/multi-directory-setup/class-builder-data.php:1199, ../includes/modules/multi-directory-setup/class-builder-data.php:1231, ../includes/modules/multi-directory-setup/class-builder-data.php:1259, ../includes/modules/multi-directory-setup/class-builder-data.php:1287, ../includes/modules/multi-directory-setup/class-builder-data.php:1315, ../includes/modules/multi-directory-setup/class-builder-data.php:1343, ../includes/modules/multi-directory-setup/class-builder-data.php:1371, ../includes/modules/multi-directory-setup/class-builder-data.php:1399, ../includes/modules/multi-directory-setup/class-builder-data.php:1469, ../includes/modules/multi-directory-setup/class-builder-data.php:1492, ../includes/modules/multi-directory-setup/class-builder-data.php:1539, ../includes/modules/multi-directory-setup/class-builder-data.php:1567, ../includes/modules/multi-directory-setup/class-builder-data.php:1595, ../includes/modules/multi-directory-setup/class-builder-data.php:1623, ../includes/modules/multi-directory-setup/class-builder-data.php:1651, ../includes/modules/multi-directory-setup/class-builder-data.php:1679, ../includes/modules/multi-directory-setup/class-builder-data.php:1702, ../includes/modules/multi-directory-setup/class-builder-data.php:1730, ../includes/modules/multi-directory-setup/class-builder-data.php:1758, ../includes/modules/multi-directory-setup/class-builder-data.php:2351, ../includes/modules/multi-directory-setup/class-builder-data.php:2435, ../includes/modules/multi-directory-setup/class-builder-data.php:2450
+#: ../includes/classes/class-custom-taxonomy.php:618, ../includes/modules/multi-directory-setup/class-builder-data.php:48, ../includes/modules/multi-directory-setup/class-builder-data.php:62, ../includes/modules/multi-directory-setup/class-builder-data.php:72, ../includes/modules/multi-directory-setup/class-builder-data.php:81, ../includes/modules/multi-directory-setup/class-builder-data.php:95, ../includes/modules/multi-directory-setup/class-builder-data.php:104, ../includes/modules/multi-directory-setup/class-builder-data.php:113, ../includes/modules/multi-directory-setup/class-builder-data.php:122, ../includes/modules/multi-directory-setup/class-builder-data.php:131, ../includes/modules/multi-directory-setup/class-builder-data.php:140, ../includes/modules/multi-directory-setup/class-builder-data.php:149, ../includes/modules/multi-directory-setup/class-builder-data.php:163, ../includes/modules/multi-directory-setup/class-builder-data.php:172, ../includes/modules/multi-directory-setup/class-builder-data.php:181, ../includes/modules/multi-directory-setup/class-builder-data.php:190, ../includes/modules/multi-directory-setup/class-builder-data.php:199, ../includes/modules/multi-directory-setup/class-builder-data.php:208, ../includes/modules/multi-directory-setup/class-builder-data.php:217, ../includes/modules/multi-directory-setup/class-builder-data.php:226, ../includes/modules/multi-directory-setup/class-builder-data.php:235, ../includes/modules/multi-directory-setup/class-builder-data.php:244, ../includes/modules/multi-directory-setup/class-builder-data.php:253, ../includes/modules/multi-directory-setup/class-builder-data.php:262, ../includes/modules/multi-directory-setup/class-builder-data.php:271, ../includes/modules/multi-directory-setup/class-builder-data.php:296, ../includes/modules/multi-directory-setup/class-builder-data.php:482, ../includes/modules/multi-directory-setup/class-builder-data.php:1176, ../includes/modules/multi-directory-setup/class-builder-data.php:1198, ../includes/modules/multi-directory-setup/class-builder-data.php:1230, ../includes/modules/multi-directory-setup/class-builder-data.php:1258, ../includes/modules/multi-directory-setup/class-builder-data.php:1286, ../includes/modules/multi-directory-setup/class-builder-data.php:1314, ../includes/modules/multi-directory-setup/class-builder-data.php:1342, ../includes/modules/multi-directory-setup/class-builder-data.php:1370, ../includes/modules/multi-directory-setup/class-builder-data.php:1398, ../includes/modules/multi-directory-setup/class-builder-data.php:1468, ../includes/modules/multi-directory-setup/class-builder-data.php:1491, ../includes/modules/multi-directory-setup/class-builder-data.php:1538, ../includes/modules/multi-directory-setup/class-builder-data.php:1566, ../includes/modules/multi-directory-setup/class-builder-data.php:1594, ../includes/modules/multi-directory-setup/class-builder-data.php:1622, ../includes/modules/multi-directory-setup/class-builder-data.php:1650, ../includes/modules/multi-directory-setup/class-builder-data.php:1678, ../includes/modules/multi-directory-setup/class-builder-data.php:1701, ../includes/modules/multi-directory-setup/class-builder-data.php:1729, ../includes/modules/multi-directory-setup/class-builder-data.php:1757, ../includes/modules/multi-directory-setup/class-builder-data.php:2350, ../includes/modules/multi-directory-setup/class-builder-data.php:2434, ../includes/modules/multi-directory-setup/class-builder-data.php:2449
 msgid "Icon"
 msgstr ""
 
@@ -1672,31 +1672,31 @@ msgstr ""
 msgid "No Category"
 msgstr ""
 
-#: ../includes/classes/class-email.php:119, ../includes/model/ListingDashboard.php:143, ../views/admin-templates/listing-form/expiration-featured-fields.php:45
+#: ../includes/classes/class-email.php:138, ../includes/model/ListingDashboard.php:143, ../views/admin-templates/listing-form/expiration-featured-fields.php:45
 msgid "Never Expires"
 msgstr ""
 
-#: ../includes/classes/class-email.php:121
+#: ../includes/classes/class-email.php:140
 msgid "Visit Listing Renewal Page"
 msgstr ""
 
-#: ../includes/classes/class-email.php:128
+#: ../includes/classes/class-email.php:147
 msgid "View Order/Payment Receipt"
 msgstr ""
 
-#: ../includes/classes/class-email.php:134
+#: ../includes/classes/class-email.php:153
 msgid "Click Here"
 msgstr ""
 
-#: ../includes/classes/class-email.php:136
+#: ../includes/classes/class-email.php:155
 msgid "Confirm Email Address"
 msgstr ""
 
-#: ../includes/classes/class-email.php:137
+#: ../includes/classes/class-email.php:156
 msgid "Set Password And Confirm Email Address"
 msgstr ""
 
-#: ../includes/classes/class-email.php:190
+#: ../includes/classes/class-email.php:209
 msgid ""
 "\n"
 "Dear Administrator,\n"
@@ -1712,7 +1712,7 @@ msgid ""
 ""
 msgstr ""
 
-#: ../includes/classes/class-email.php:214
+#: ../includes/classes/class-email.php:233
 msgid ""
 "\n"
 "Dear Administrator,\n"
@@ -1732,7 +1732,7 @@ msgid ""
 ""
 msgstr ""
 
-#: ../includes/classes/class-email.php:242
+#: ../includes/classes/class-email.php:261
 msgid ""
 "\n"
 "Dear Administrator,\n"
@@ -1752,7 +1752,7 @@ msgid ""
 ""
 msgstr ""
 
-#: ../includes/classes/class-email.php:270
+#: ../includes/classes/class-email.php:289
 msgid ""
 "\n"
 "Dear Administrator,\n"
@@ -1770,7 +1770,7 @@ msgid ""
 ""
 msgstr ""
 
-#: ../includes/classes/class-email.php:296
+#: ../includes/classes/class-email.php:315
 msgid ""
 "\n"
 "Dear User,\n"
@@ -1784,7 +1784,7 @@ msgid ""
 ""
 msgstr ""
 
-#: ../includes/classes/class-email.php:318
+#: ../includes/classes/class-email.php:337
 msgid ""
 "\n"
 "Dear Administrator,\n"
@@ -1802,7 +1802,7 @@ msgid ""
 ""
 msgstr ""
 
-#: ../includes/classes/class-email.php:344
+#: ../includes/classes/class-email.php:363
 msgid ""
 "\n"
 "Dear Administrator,\n"
@@ -1820,7 +1820,7 @@ msgid ""
 ""
 msgstr ""
 
-#: ../includes/classes/class-email.php:370
+#: ../includes/classes/class-email.php:389
 msgid ""
 "\n"
 "Dear Administrator,\n"
@@ -1838,7 +1838,7 @@ msgid ""
 ""
 msgstr ""
 
-#: ../includes/classes/class-email.php:390
+#: ../includes/classes/class-email.php:409
 msgid ""
 "\n"
 "                        Hello Administrator,\n"
@@ -1849,47 +1849,47 @@ msgid ""
 "                        "
 msgstr ""
 
-#: ../includes/classes/class-email.php:611
+#: ../includes/classes/class-email.php:630
 msgid "[==SITE_NAME==] The Listing #==LISTING_ID== has been published on your website"
 msgstr ""
 
-#: ../includes/classes/class-email.php:925
+#: ../includes/classes/class-email.php:944
 msgid "[==SITE_NAME==] A Listing has been deleted [ID#: ==LISTING_ID==] on your website"
 msgstr ""
 
-#: ../includes/classes/class-email.php:937
+#: ../includes/classes/class-email.php:956
 msgid "[==SITE_NAME==] New Author Request"
 msgstr ""
 
-#: ../includes/classes/class-email.php:989
+#: ../includes/classes/class-email.php:1008
 msgid "[==SITE_NAME==] You have a new order #==ORDER_ID== on your website"
 msgstr ""
 
-#: ../includes/classes/class-email.php:1034
+#: ../includes/classes/class-email.php:1053
 msgid "[==SITE_NAME==] Payment Notification : Order #==ORDER_ID== Completed"
 msgstr ""
 
-#: ../includes/classes/class-email.php:1076
+#: ../includes/classes/class-email.php:1095
 msgid "[==SITE_NAME==] A new listing has been submitted on your website"
 msgstr ""
 
-#: ../includes/classes/class-email.php:1111
+#: ../includes/classes/class-email.php:1130
 msgid "[%s] Password Reset PIN"
 msgstr ""
 
-#: ../includes/classes/class-email.php:1142
+#: ../includes/classes/class-email.php:1161
 msgid "[==SITE_NAME==] The Listing #==LISTING_ID== has been edited on your website"
 msgstr ""
 
-#: ../includes/classes/class-email.php:1178, ../includes/classes/class-settings-panel.php:3422
+#: ../includes/classes/class-email.php:1197, ../includes/classes/class-settings-panel.php:3422
 msgid "Registration Confirmation!"
 msgstr ""
 
-#: ../includes/classes/class-email.php:1204
+#: ../includes/classes/class-email.php:1223
 msgid "Verify your email address"
 msgstr ""
 
-#: ../includes/classes/class-email.php:1206
+#: ../includes/classes/class-email.php:1225
 msgid "[==NAME==] Verify Your Email Address"
 msgstr ""
 
@@ -2113,7 +2113,7 @@ msgstr ""
 msgid "Run Importer"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:154, ../includes/modules/multi-directory-setup/class-builder-data.php:2020
+#: ../includes/classes/class-settings-panel.php:154, ../includes/modules/multi-directory-setup/class-builder-data.php:2019
 msgid "Export"
 msgstr ""
 
@@ -2155,7 +2155,7 @@ msgstr ""
 msgid "Pending Confirmation Message"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:268, ../includes/model/ListingDashboard.php:482, ../includes/model/SingleListing.php:953
+#: ../includes/classes/class-settings-panel.php:268, ../includes/model/ListingDashboard.php:481, ../includes/model/SingleListing.php:952
 msgid "Thank you for your submission. Your listing is being reviewed and it may take up to 24 hours to complete the review."
 msgstr ""
 
@@ -2163,7 +2163,7 @@ msgstr ""
 msgid "Publish Confirmation Message"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:280, ../includes/model/ListingDashboard.php:477, ../includes/model/SingleListing.php:948
+#: ../includes/classes/class-settings-panel.php:280, ../includes/model/ListingDashboard.php:476, ../includes/model/SingleListing.php:947
 msgid "Congratulations! Your listing has been approved/published. Now it is publicly available."
 msgstr ""
 
@@ -2473,7 +2473,7 @@ msgstr ""
 msgid "Guest Listing Submission"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:831, ../includes/modules/multi-directory-setup/class-builder-data.php:2844
+#: ../includes/classes/class-settings-panel.php:831, ../includes/modules/multi-directory-setup/class-builder-data.php:2843
 msgid "Guest Email Label"
 msgstr ""
 
@@ -2481,7 +2481,7 @@ msgstr ""
 msgid "Your Email"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:842, ../includes/modules/multi-directory-setup/class-builder-data.php:2850
+#: ../includes/classes/class-settings-panel.php:842, ../includes/modules/multi-directory-setup/class-builder-data.php:2849
 msgid "Guest Email Placeholder"
 msgstr ""
 
@@ -2725,7 +2725,7 @@ msgstr ""
 msgid "Text displayed on the badge when a listing is newly created."
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:1353, ../includes/modules/multi-directory-setup/class-builder-data.php:1440, ../includes/modules/multi-directory-setup/class-multi-directory-migration.php:1595, ../templates/archive/fields/badge.php:17
+#: ../includes/classes/class-settings-panel.php:1353, ../includes/modules/multi-directory-setup/class-builder-data.php:1439, ../includes/modules/multi-directory-setup/class-multi-directory-migration.php:1595, ../templates/archive/fields/badge.php:17
 msgid "New"
 msgstr ""
 
@@ -2745,7 +2745,7 @@ msgstr ""
 msgid "Text displayed on the badge when an item is marked as popular."
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:1374, ../includes/model/Listings.php:216, ../includes/model/Listings.php:2321, ../includes/modules/multi-directory-setup/class-builder-data.php:1447, ../includes/modules/multi-directory-setup/class-multi-directory-migration.php:1602, ../templates/archive/fields/badge.php:20
+#: ../includes/classes/class-settings-panel.php:1374, ../includes/model/Listings.php:216, ../includes/model/Listings.php:2321, ../includes/modules/multi-directory-setup/class-builder-data.php:1446, ../includes/modules/multi-directory-setup/class-multi-directory-migration.php:1602, ../templates/archive/fields/badge.php:20
 msgid "Popular"
 msgstr ""
 
@@ -2889,7 +2889,7 @@ msgstr ""
 msgid "\"My Listing\" Tab Label"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:1594, ../includes/model/ListingDashboard.php:371
+#: ../includes/classes/class-settings-panel.php:1594, ../includes/model/ListingDashboard.php:370
 msgid "My Listing"
 msgstr ""
 
@@ -2905,7 +2905,7 @@ msgstr ""
 msgid "\"My Profile\" Tab Label"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:1635, ../includes/model/ListingDashboard.php:385, ../templates/dashboard/tab-profile.php:31
+#: ../includes/classes/class-settings-panel.php:1635, ../includes/model/ListingDashboard.php:384, ../templates/dashboard/tab-profile.php:31
 msgid "My Profile"
 msgstr ""
 
@@ -2917,7 +2917,7 @@ msgstr ""
 msgid "\"Favourite Listings\" Tab Label"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:1651, ../includes/model/ListingDashboard.php:393
+#: ../includes/classes/class-settings-panel.php:1651, ../includes/model/ListingDashboard.php:392
 msgid "Favorite Listings"
 msgstr ""
 
@@ -3065,7 +3065,7 @@ msgstr ""
 msgid "Display Popular Categories"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:1878, ../includes/modules/multi-directory-setup/class-builder-data.php:2329
+#: ../includes/classes/class-settings-panel.php:1878, ../includes/modules/multi-directory-setup/class-builder-data.php:2328
 msgid "Section Title"
 msgstr ""
 
@@ -3389,15 +3389,15 @@ msgstr ""
 msgid "All Users"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:2701, ../includes/classes/class-settings-panel.php:2711, ../includes/classes/class-settings-panel.php:2733, ../includes/classes/class-settings-panel.php:2743, ../includes/classes/class-settings-panel.php:2770, ../includes/classes/class-settings-panel.php:2797, ../includes/classes/class-settings-panel.php:2824, ../includes/classes/class-settings-panel.php:2851, ../includes/classes/class-settings-panel.php:2878, ../includes/classes/class-settings-panel.php:2949, ../includes/classes/class-settings-panel.php:2954, ../includes/classes/class-settings-panel.php:2964, ../includes/modules/multi-directory-setup/builder-custom-fields.php:131, ../includes/modules/multi-directory-setup/builder-custom-fields.php:183, ../includes/modules/multi-directory-setup/builder-custom-fields.php:240, ../includes/modules/multi-directory-setup/builder-custom-fields.php:319, ../includes/modules/multi-directory-setup/builder-custom-fields.php:376, ../includes/modules/multi-directory-setup/builder-custom-fields.php:428, ../includes/modules/multi-directory-setup/builder-custom-fields.php:480, ../includes/modules/multi-directory-setup/builder-custom-fields.php:527, ../includes/modules/multi-directory-setup/builder-custom-fields.php:547, ../includes/modules/multi-directory-setup/builder-custom-fields.php:591, ../includes/modules/multi-directory-setup/builder-custom-fields.php:611, ../includes/modules/multi-directory-setup/builder-custom-fields.php:655, ../includes/modules/multi-directory-setup/builder-custom-fields.php:675, ../includes/modules/multi-directory-setup/builder-custom-fields.php:719, ../includes/modules/multi-directory-setup/builder-preset-fields.php:29, ../includes/modules/multi-directory-setup/builder-preset-fields.php:75, ../includes/modules/multi-directory-setup/builder-preset-fields.php:122, ../includes/modules/multi-directory-setup/builder-preset-fields.php:158, ../includes/modules/multi-directory-setup/builder-preset-fields.php:282, ../includes/modules/multi-directory-setup/builder-preset-fields.php:317, ../includes/modules/multi-directory-setup/builder-preset-fields.php:384, ../includes/modules/multi-directory-setup/builder-preset-fields.php:439, ../includes/modules/multi-directory-setup/builder-preset-fields.php:531, ../includes/modules/multi-directory-setup/builder-preset-fields.php:570, ../includes/modules/multi-directory-setup/builder-preset-fields.php:609, ../includes/modules/multi-directory-setup/builder-preset-fields.php:653, ../includes/modules/multi-directory-setup/builder-preset-fields.php:697, ../includes/modules/multi-directory-setup/builder-preset-fields.php:736, ../includes/modules/multi-directory-setup/builder-preset-fields.php:775, ../includes/modules/multi-directory-setup/builder-preset-fields.php:814, ../includes/modules/multi-directory-setup/builder-preset-fields.php:902, ../includes/modules/multi-directory-setup/class-builder-data.php:291, ../includes/modules/multi-directory-setup/class-builder-data.php:388, ../includes/modules/multi-directory-setup/class-builder-data.php:405, ../includes/modules/multi-directory-setup/class-builder-data.php:427, ../includes/modules/multi-directory-setup/class-builder-data.php:448, ../includes/modules/multi-directory-setup/class-builder-data.php:477, ../includes/modules/multi-directory-setup/class-builder-data.php:566, ../includes/modules/multi-directory-setup/class-builder-data.php:653, ../includes/modules/multi-directory-setup/class-builder-data.php:674, ../includes/modules/multi-directory-setup/class-builder-data.php:705, ../includes/modules/multi-directory-setup/class-builder-data.php:715, ../includes/modules/multi-directory-setup/class-builder-data.php:735, ../includes/modules/multi-directory-setup/class-builder-data.php:757, ../includes/modules/multi-directory-setup/class-builder-data.php:777, ../includes/modules/multi-directory-setup/class-builder-data.php:797, ../includes/modules/multi-directory-setup/class-builder-data.php:817, ../includes/modules/multi-directory-setup/class-builder-data.php:837, ../includes/modules/multi-directory-setup/class-builder-data.php:857, ../includes/modules/multi-directory-setup/class-builder-data.php:877, ../includes/modules/multi-directory-setup/class-builder-data.php:909, ../includes/modules/multi-directory-setup/class-builder-data.php:930, ../includes/modules/multi-directory-setup/class-builder-data.php:951, ../includes/modules/multi-directory-setup/class-builder-data.php:972, ../includes/modules/multi-directory-setup/class-builder-data.php:988, ../includes/modules/multi-directory-setup/class-builder-data.php:1009, ../includes/modules/multi-directory-setup/class-builder-data.php:1025, ../includes/modules/multi-directory-setup/class-builder-data.php:1050, ../includes/modules/multi-directory-setup/class-builder-data.php:1061, ../includes/modules/multi-directory-setup/class-builder-data.php:2156, ../includes/modules/multi-directory-setup/class-builder-data.php:2340
+#: ../includes/classes/class-settings-panel.php:2701, ../includes/classes/class-settings-panel.php:2711, ../includes/classes/class-settings-panel.php:2733, ../includes/classes/class-settings-panel.php:2743, ../includes/classes/class-settings-panel.php:2770, ../includes/classes/class-settings-panel.php:2797, ../includes/classes/class-settings-panel.php:2824, ../includes/classes/class-settings-panel.php:2851, ../includes/classes/class-settings-panel.php:2878, ../includes/classes/class-settings-panel.php:2949, ../includes/classes/class-settings-panel.php:2954, ../includes/classes/class-settings-panel.php:2964, ../includes/modules/multi-directory-setup/builder-custom-fields.php:131, ../includes/modules/multi-directory-setup/builder-custom-fields.php:183, ../includes/modules/multi-directory-setup/builder-custom-fields.php:240, ../includes/modules/multi-directory-setup/builder-custom-fields.php:319, ../includes/modules/multi-directory-setup/builder-custom-fields.php:376, ../includes/modules/multi-directory-setup/builder-custom-fields.php:428, ../includes/modules/multi-directory-setup/builder-custom-fields.php:480, ../includes/modules/multi-directory-setup/builder-custom-fields.php:527, ../includes/modules/multi-directory-setup/builder-custom-fields.php:547, ../includes/modules/multi-directory-setup/builder-custom-fields.php:591, ../includes/modules/multi-directory-setup/builder-custom-fields.php:611, ../includes/modules/multi-directory-setup/builder-custom-fields.php:655, ../includes/modules/multi-directory-setup/builder-custom-fields.php:675, ../includes/modules/multi-directory-setup/builder-custom-fields.php:719, ../includes/modules/multi-directory-setup/builder-preset-fields.php:29, ../includes/modules/multi-directory-setup/builder-preset-fields.php:75, ../includes/modules/multi-directory-setup/builder-preset-fields.php:122, ../includes/modules/multi-directory-setup/builder-preset-fields.php:158, ../includes/modules/multi-directory-setup/builder-preset-fields.php:282, ../includes/modules/multi-directory-setup/builder-preset-fields.php:317, ../includes/modules/multi-directory-setup/builder-preset-fields.php:384, ../includes/modules/multi-directory-setup/builder-preset-fields.php:439, ../includes/modules/multi-directory-setup/builder-preset-fields.php:531, ../includes/modules/multi-directory-setup/builder-preset-fields.php:570, ../includes/modules/multi-directory-setup/builder-preset-fields.php:609, ../includes/modules/multi-directory-setup/builder-preset-fields.php:653, ../includes/modules/multi-directory-setup/builder-preset-fields.php:697, ../includes/modules/multi-directory-setup/builder-preset-fields.php:736, ../includes/modules/multi-directory-setup/builder-preset-fields.php:775, ../includes/modules/multi-directory-setup/builder-preset-fields.php:814, ../includes/modules/multi-directory-setup/builder-preset-fields.php:902, ../includes/modules/multi-directory-setup/class-builder-data.php:291, ../includes/modules/multi-directory-setup/class-builder-data.php:388, ../includes/modules/multi-directory-setup/class-builder-data.php:405, ../includes/modules/multi-directory-setup/class-builder-data.php:427, ../includes/modules/multi-directory-setup/class-builder-data.php:448, ../includes/modules/multi-directory-setup/class-builder-data.php:477, ../includes/modules/multi-directory-setup/class-builder-data.php:566, ../includes/modules/multi-directory-setup/class-builder-data.php:653, ../includes/modules/multi-directory-setup/class-builder-data.php:674, ../includes/modules/multi-directory-setup/class-builder-data.php:705, ../includes/modules/multi-directory-setup/class-builder-data.php:715, ../includes/modules/multi-directory-setup/class-builder-data.php:735, ../includes/modules/multi-directory-setup/class-builder-data.php:756, ../includes/modules/multi-directory-setup/class-builder-data.php:776, ../includes/modules/multi-directory-setup/class-builder-data.php:796, ../includes/modules/multi-directory-setup/class-builder-data.php:816, ../includes/modules/multi-directory-setup/class-builder-data.php:836, ../includes/modules/multi-directory-setup/class-builder-data.php:856, ../includes/modules/multi-directory-setup/class-builder-data.php:876, ../includes/modules/multi-directory-setup/class-builder-data.php:908, ../includes/modules/multi-directory-setup/class-builder-data.php:929, ../includes/modules/multi-directory-setup/class-builder-data.php:950, ../includes/modules/multi-directory-setup/class-builder-data.php:971, ../includes/modules/multi-directory-setup/class-builder-data.php:987, ../includes/modules/multi-directory-setup/class-builder-data.php:1008, ../includes/modules/multi-directory-setup/class-builder-data.php:1024, ../includes/modules/multi-directory-setup/class-builder-data.php:1049, ../includes/modules/multi-directory-setup/class-builder-data.php:1060, ../includes/modules/multi-directory-setup/class-builder-data.php:2155, ../includes/modules/multi-directory-setup/class-builder-data.php:2339
 msgid "Label"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:2705, ../includes/classes/class-settings-panel.php:2737, ../includes/classes/class-settings-panel.php:2764, ../includes/classes/class-settings-panel.php:2791, ../includes/classes/class-settings-panel.php:2818, ../includes/classes/class-settings-panel.php:2845, ../includes/classes/class-settings-panel.php:2872, ../includes/classes/class-settings-panel.php:2899, ../includes/classes/class-settings-panel.php:2909, ../includes/classes/class-settings-panel.php:2958, ../includes/classes/class-settings-panel.php:2979, ../includes/classes/class-settings-panel.php:3006, ../includes/modules/multi-directory-setup/class-builder-data.php:522, ../includes/modules/multi-directory-setup/class-builder-data.php:2321
+#: ../includes/classes/class-settings-panel.php:2705, ../includes/classes/class-settings-panel.php:2737, ../includes/classes/class-settings-panel.php:2764, ../includes/classes/class-settings-panel.php:2791, ../includes/classes/class-settings-panel.php:2818, ../includes/classes/class-settings-panel.php:2845, ../includes/classes/class-settings-panel.php:2872, ../includes/classes/class-settings-panel.php:2899, ../includes/classes/class-settings-panel.php:2909, ../includes/classes/class-settings-panel.php:2958, ../includes/classes/class-settings-panel.php:2979, ../includes/classes/class-settings-panel.php:3006, ../includes/modules/multi-directory-setup/class-builder-data.php:522, ../includes/modules/multi-directory-setup/class-builder-data.php:2320
 msgid "Enable"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:2721, ../includes/classes/class-settings-panel.php:2753, ../includes/classes/class-settings-panel.php:2780, ../includes/classes/class-settings-panel.php:2807, ../includes/classes/class-settings-panel.php:2834, ../includes/modules/multi-directory-setup/builder-custom-fields.php:146, ../includes/modules/multi-directory-setup/builder-custom-fields.php:203, ../includes/modules/multi-directory-setup/builder-custom-fields.php:255, ../includes/modules/multi-directory-setup/builder-custom-fields.php:339, ../includes/modules/multi-directory-setup/builder-custom-fields.php:391, ../includes/modules/multi-directory-setup/builder-custom-fields.php:443, ../includes/modules/multi-directory-setup/builder-custom-fields.php:490, ../includes/modules/multi-directory-setup/builder-custom-fields.php:554, ../includes/modules/multi-directory-setup/builder-custom-fields.php:618, ../includes/modules/multi-directory-setup/builder-custom-fields.php:682, ../includes/modules/multi-directory-setup/builder-custom-fields.php:742, ../includes/modules/multi-directory-setup/builder-preset-fields.php:39, ../includes/modules/multi-directory-setup/builder-preset-fields.php:92, ../includes/modules/multi-directory-setup/builder-preset-fields.php:132, ../includes/modules/multi-directory-setup/builder-preset-fields.php:292, ../includes/modules/multi-directory-setup/builder-preset-fields.php:359, ../includes/modules/multi-directory-setup/builder-preset-fields.php:409, ../includes/modules/multi-directory-setup/builder-preset-fields.php:469, ../includes/modules/multi-directory-setup/builder-preset-fields.php:541, ../includes/modules/multi-directory-setup/builder-preset-fields.php:580, ../includes/modules/multi-directory-setup/builder-preset-fields.php:619, ../includes/modules/multi-directory-setup/builder-preset-fields.php:663, ../includes/modules/multi-directory-setup/builder-preset-fields.php:707, ../includes/modules/multi-directory-setup/builder-preset-fields.php:746, ../includes/modules/multi-directory-setup/builder-preset-fields.php:785, ../includes/modules/multi-directory-setup/builder-preset-fields.php:819, ../includes/modules/multi-directory-setup/builder-preset-fields.php:873, ../includes/modules/multi-directory-setup/builder-preset-fields.php:912, ../includes/modules/multi-directory-setup/builder-preset-fields.php:953, ../includes/modules/multi-directory-setup/class-builder-data.php:638, ../includes/modules/multi-directory-setup/class-builder-data.php:648, ../includes/modules/multi-directory-setup/class-builder-data.php:669, ../includes/modules/multi-directory-setup/class-builder-data.php:745, ../includes/modules/multi-directory-setup/class-builder-data.php:767, ../includes/modules/multi-directory-setup/class-builder-data.php:787, ../includes/modules/multi-directory-setup/class-builder-data.php:807, ../includes/modules/multi-directory-setup/class-builder-data.php:827, ../includes/modules/multi-directory-setup/class-builder-data.php:847, ../includes/modules/multi-directory-setup/class-builder-data.php:867, ../includes/modules/multi-directory-setup/class-builder-data.php:898, ../includes/modules/multi-directory-setup/class-builder-data.php:919, ../includes/modules/multi-directory-setup/class-builder-data.php:940, ../includes/modules/multi-directory-setup/class-builder-data.php:961, ../includes/modules/multi-directory-setup/class-builder-data.php:977, ../includes/modules/multi-directory-setup/class-builder-data.php:998, ../includes/modules/multi-directory-setup/class-builder-data.php:1014, ../includes/modules/multi-directory-setup/class-builder-data.php:1030
+#: ../includes/classes/class-settings-panel.php:2721, ../includes/classes/class-settings-panel.php:2753, ../includes/classes/class-settings-panel.php:2780, ../includes/classes/class-settings-panel.php:2807, ../includes/classes/class-settings-panel.php:2834, ../includes/modules/multi-directory-setup/builder-custom-fields.php:146, ../includes/modules/multi-directory-setup/builder-custom-fields.php:203, ../includes/modules/multi-directory-setup/builder-custom-fields.php:255, ../includes/modules/multi-directory-setup/builder-custom-fields.php:339, ../includes/modules/multi-directory-setup/builder-custom-fields.php:391, ../includes/modules/multi-directory-setup/builder-custom-fields.php:443, ../includes/modules/multi-directory-setup/builder-custom-fields.php:490, ../includes/modules/multi-directory-setup/builder-custom-fields.php:554, ../includes/modules/multi-directory-setup/builder-custom-fields.php:618, ../includes/modules/multi-directory-setup/builder-custom-fields.php:682, ../includes/modules/multi-directory-setup/builder-custom-fields.php:742, ../includes/modules/multi-directory-setup/builder-preset-fields.php:39, ../includes/modules/multi-directory-setup/builder-preset-fields.php:92, ../includes/modules/multi-directory-setup/builder-preset-fields.php:132, ../includes/modules/multi-directory-setup/builder-preset-fields.php:292, ../includes/modules/multi-directory-setup/builder-preset-fields.php:359, ../includes/modules/multi-directory-setup/builder-preset-fields.php:409, ../includes/modules/multi-directory-setup/builder-preset-fields.php:469, ../includes/modules/multi-directory-setup/builder-preset-fields.php:541, ../includes/modules/multi-directory-setup/builder-preset-fields.php:580, ../includes/modules/multi-directory-setup/builder-preset-fields.php:619, ../includes/modules/multi-directory-setup/builder-preset-fields.php:663, ../includes/modules/multi-directory-setup/builder-preset-fields.php:707, ../includes/modules/multi-directory-setup/builder-preset-fields.php:746, ../includes/modules/multi-directory-setup/builder-preset-fields.php:785, ../includes/modules/multi-directory-setup/builder-preset-fields.php:819, ../includes/modules/multi-directory-setup/builder-preset-fields.php:873, ../includes/modules/multi-directory-setup/builder-preset-fields.php:912, ../includes/modules/multi-directory-setup/builder-preset-fields.php:953, ../includes/modules/multi-directory-setup/class-builder-data.php:638, ../includes/modules/multi-directory-setup/class-builder-data.php:648, ../includes/modules/multi-directory-setup/class-builder-data.php:669, ../includes/modules/multi-directory-setup/class-builder-data.php:745, ../includes/modules/multi-directory-setup/class-builder-data.php:766, ../includes/modules/multi-directory-setup/class-builder-data.php:786, ../includes/modules/multi-directory-setup/class-builder-data.php:806, ../includes/modules/multi-directory-setup/class-builder-data.php:826, ../includes/modules/multi-directory-setup/class-builder-data.php:846, ../includes/modules/multi-directory-setup/class-builder-data.php:866, ../includes/modules/multi-directory-setup/class-builder-data.php:897, ../includes/modules/multi-directory-setup/class-builder-data.php:918, ../includes/modules/multi-directory-setup/class-builder-data.php:939, ../includes/modules/multi-directory-setup/class-builder-data.php:960, ../includes/modules/multi-directory-setup/class-builder-data.php:976, ../includes/modules/multi-directory-setup/class-builder-data.php:997, ../includes/modules/multi-directory-setup/class-builder-data.php:1013, ../includes/modules/multi-directory-setup/class-builder-data.php:1029
 msgid "Required"
 msgstr ""
 
@@ -3405,7 +3405,7 @@ msgstr ""
 msgid "Linking Text"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:2905, ../includes/classes/class-settings-panel.php:2915, ../includes/classes/class-settings-panel.php:2975, ../includes/classes/class-settings-panel.php:2985, ../includes/modules/multi-directory-setup/builder-custom-fields.php:119, ../includes/modules/multi-directory-setup/builder-preset-fields.php:941, ../includes/modules/multi-directory-setup/class-builder-data.php:1525
+#: ../includes/classes/class-settings-panel.php:2905, ../includes/classes/class-settings-panel.php:2915, ../includes/classes/class-settings-panel.php:2975, ../includes/classes/class-settings-panel.php:2985, ../includes/modules/multi-directory-setup/builder-custom-fields.php:119, ../includes/modules/multi-directory-setup/builder-preset-fields.php:941, ../includes/modules/multi-directory-setup/class-builder-data.php:1524
 msgid "Text"
 msgstr ""
 
@@ -3923,7 +3923,7 @@ msgstr ""
 msgid "Map Info Window Settings"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:3632, ../includes/modules/multi-directory-setup/class-builder-data.php:2464
+#: ../includes/classes/class-settings-panel.php:3632, ../includes/modules/multi-directory-setup/class-builder-data.php:2463
 msgid "Badges"
 msgstr ""
 
@@ -3947,7 +3947,7 @@ msgstr ""
 msgid "Page, Links & View Settings"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:3692, ../includes/modules/multi-directory-setup/class-builder-data.php:2292
+#: ../includes/classes/class-settings-panel.php:3692, ../includes/modules/multi-directory-setup/class-builder-data.php:2291
 msgid "Search Bar"
 msgstr ""
 
@@ -4481,7 +4481,7 @@ msgstr ""
 msgid "Resend confirmation email"
 msgstr ""
 
-#: ../includes/classes/class-user.php:569, ../includes/payments/functions.php:52, ../includes/modules/multi-directory-setup/class-builder-data.php:2040, ../includes/modules/multi-directory-setup/class-builder-data.php:2056, ../templates/dashboard/tab-my-listings.php:36
+#: ../includes/classes/class-user.php:569, ../includes/payments/functions.php:52, ../includes/modules/multi-directory-setup/class-builder-data.php:2039, ../includes/modules/multi-directory-setup/class-builder-data.php:2055, ../templates/dashboard/tab-my-listings.php:36
 msgid "Pending"
 msgstr ""
 
@@ -4549,7 +4549,7 @@ msgstr ""
 msgid "Congratulations! Your profile updated successfully"
 msgstr ""
 
-#: ../includes/elementor/add-listing.php:16, ../includes/modules/multi-directory-setup/class-builder-data.php:2659
+#: ../includes/elementor/add-listing.php:16, ../includes/modules/multi-directory-setup/class-builder-data.php:2658
 msgid "Add Listing Form"
 msgstr ""
 
@@ -4765,7 +4765,7 @@ msgstr ""
 msgid "Payment Receipt"
 msgstr ""
 
-#: ../includes/elementor/search-listing.php:16, ../includes/modules/multi-directory-setup/class-builder-data.php:2812, ../includes/modules/multi-directory-setup/class-builder-data.php:2825
+#: ../includes/elementor/search-listing.php:16, ../includes/modules/multi-directory-setup/class-builder-data.php:2811, ../includes/modules/multi-directory-setup/class-builder-data.php:2824
 msgid "Search Form"
 msgstr ""
 
@@ -4777,15 +4777,15 @@ msgstr ""
 msgid "Title/Subtitle Alignment"
 msgstr ""
 
-#: ../includes/elementor/search-listing.php:50, ../includes/modules/multi-directory-setup/class-builder-data.php:1515
+#: ../includes/elementor/search-listing.php:50, ../includes/modules/multi-directory-setup/class-builder-data.php:1514
 msgid "Left"
 msgstr ""
 
-#: ../includes/elementor/search-listing.php:54, ../includes/modules/multi-directory-setup/class-builder-data.php:1514
+#: ../includes/elementor/search-listing.php:54, ../includes/modules/multi-directory-setup/class-builder-data.php:1513
 msgid "Center"
 msgstr ""
 
-#: ../includes/elementor/search-listing.php:58, ../includes/modules/multi-directory-setup/class-builder-data.php:1513
+#: ../includes/elementor/search-listing.php:58, ../includes/modules/multi-directory-setup/class-builder-data.php:1512
 msgid "Right"
 msgstr ""
 
@@ -5073,23 +5073,23 @@ msgstr[1] ""
 msgid "Expired"
 msgstr ""
 
-#: ../includes/model/ListingDashboard.php:230
+#: ../includes/model/ListingDashboard.php:229
 msgid "Untitled"
 msgstr ""
 
-#: ../includes/model/ListingDashboard.php:400, ../templates/dashboard/tab-preferences.php:20
+#: ../includes/model/ListingDashboard.php:399, ../templates/dashboard/tab-preferences.php:20
 msgid "Preferences"
 msgstr ""
 
-#: ../includes/model/ListingDashboard.php:604
+#: ../includes/model/ListingDashboard.php:603
 msgid "Renew"
 msgstr ""
 
-#: ../includes/model/ListingDashboard.php:614
+#: ../includes/model/ListingDashboard.php:613
 msgid "Promote"
 msgstr ""
 
-#: ../includes/model/ListingDashboard.php:623
+#: ../includes/model/ListingDashboard.php:622
 msgid "Delete Listing"
 msgstr ""
 
@@ -5105,7 +5105,7 @@ msgstr ""
 msgid "I agree to the %privacy_name% and %terms_name%"
 msgstr ""
 
-#: ../includes/model/ListingForm.php:448, ../includes/model/ListingForm.php:467, ../includes/modules/multi-directory-setup/class-builder-data.php:2138
+#: ../includes/model/ListingForm.php:448, ../includes/model/ListingForm.php:467, ../includes/modules/multi-directory-setup/class-builder-data.php:2137
 msgid "Save & Preview"
 msgstr ""
 
@@ -5212,18 +5212,18 @@ msgstr ""
 msgid "Message..."
 msgstr ""
 
-#: ../includes/model/SingleListing.php:1071
+#: ../includes/model/SingleListing.php:1070
 msgctxt "Number of reviews"
 msgid "Review"
 msgid_plural "Reviews"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../includes/model/SingleListing.php:1099
+#: ../includes/model/SingleListing.php:1098
 msgid "Email Address"
 msgstr ""
 
-#: ../includes/model/SingleListing.php:1103
+#: ../includes/model/SingleListing.php:1102
 msgid "Enter email address"
 msgstr ""
 
@@ -5441,7 +5441,7 @@ msgstr ""
 msgid "Review Data"
 msgstr ""
 
-#: ../includes/review/class-admin.php:164, ../includes/review/class-markup.php:20, ../includes/modules/multi-directory-setup/class-builder-data.php:1426, ../includes/modules/multi-directory-setup/class-builder-data.php:2489
+#: ../includes/review/class-admin.php:164, ../includes/review/class-markup.php:20, ../includes/modules/multi-directory-setup/class-builder-data.php:1425, ../includes/modules/multi-directory-setup/class-builder-data.php:2488
 msgid "Rating"
 msgstr ""
 
@@ -6390,15 +6390,15 @@ msgstr ""
 msgid "Key"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/builder-custom-fields.php:22, ../includes/modules/multi-directory-setup/class-builder-data.php:2903
+#: ../includes/modules/multi-directory-setup/builder-custom-fields.php:22, ../includes/modules/multi-directory-setup/class-builder-data.php:2902
 msgid "Assign to"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/builder-custom-fields.php:26, ../includes/modules/multi-directory-setup/class-builder-data.php:2907
+#: ../includes/modules/multi-directory-setup/builder-custom-fields.php:26, ../includes/modules/multi-directory-setup/class-builder-data.php:2906
 msgid "Form"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/builder-custom-fields.php:30, ../includes/modules/multi-directory-setup/builder-preset-fields.php:426, ../includes/modules/multi-directory-setup/class-builder-data.php:1478, ../includes/modules/multi-directory-setup/class-builder-data.php:2911
+#: ../includes/modules/multi-directory-setup/builder-custom-fields.php:30, ../includes/modules/multi-directory-setup/builder-preset-fields.php:426, ../includes/modules/multi-directory-setup/class-builder-data.php:1477, ../includes/modules/multi-directory-setup/class-builder-data.php:2910
 msgid "Category"
 msgstr ""
 
@@ -6406,27 +6406,27 @@ msgstr ""
 msgid "Select Category"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/builder-custom-fields.php:86, ../includes/modules/multi-directory-setup/class-builder-data.php:2923
+#: ../includes/modules/multi-directory-setup/builder-custom-fields.php:86, ../includes/modules/multi-directory-setup/class-builder-data.php:2922
 msgid "All types"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/builder-custom-fields.php:90, ../includes/modules/multi-directory-setup/class-builder-data.php:2927
+#: ../includes/modules/multi-directory-setup/builder-custom-fields.php:90, ../includes/modules/multi-directory-setup/class-builder-data.php:2926
 msgid "Image types"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/builder-custom-fields.php:94, ../includes/modules/multi-directory-setup/class-builder-data.php:2931
+#: ../includes/modules/multi-directory-setup/builder-custom-fields.php:94, ../includes/modules/multi-directory-setup/class-builder-data.php:2930
 msgid "Audio types"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/builder-custom-fields.php:98, ../includes/modules/multi-directory-setup/class-builder-data.php:2935
+#: ../includes/modules/multi-directory-setup/builder-custom-fields.php:98, ../includes/modules/multi-directory-setup/class-builder-data.php:2934
 msgid "Video types"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/builder-custom-fields.php:102, ../includes/modules/multi-directory-setup/class-builder-data.php:2939
+#: ../includes/modules/multi-directory-setup/builder-custom-fields.php:102, ../includes/modules/multi-directory-setup/class-builder-data.php:2938
 msgid "Document types"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/builder-custom-fields.php:141, ../includes/modules/multi-directory-setup/builder-custom-fields.php:193, ../includes/modules/multi-directory-setup/builder-custom-fields.php:250, ../includes/modules/multi-directory-setup/builder-custom-fields.php:329, ../includes/modules/multi-directory-setup/builder-custom-fields.php:386, ../includes/modules/multi-directory-setup/builder-custom-fields.php:438, ../includes/modules/multi-directory-setup/builder-preset-fields.php:34, ../includes/modules/multi-directory-setup/builder-preset-fields.php:80, ../includes/modules/multi-directory-setup/builder-preset-fields.php:127, ../includes/modules/multi-directory-setup/builder-preset-fields.php:287, ../includes/modules/multi-directory-setup/builder-preset-fields.php:322, ../includes/modules/multi-directory-setup/builder-preset-fields.php:389, ../includes/modules/multi-directory-setup/builder-preset-fields.php:444, ../includes/modules/multi-directory-setup/builder-preset-fields.php:536, ../includes/modules/multi-directory-setup/builder-preset-fields.php:575, ../includes/modules/multi-directory-setup/builder-preset-fields.php:614, ../includes/modules/multi-directory-setup/builder-preset-fields.php:658, ../includes/modules/multi-directory-setup/builder-preset-fields.php:702, ../includes/modules/multi-directory-setup/builder-preset-fields.php:741, ../includes/modules/multi-directory-setup/builder-preset-fields.php:780, ../includes/modules/multi-directory-setup/builder-preset-fields.php:907, ../includes/modules/multi-directory-setup/class-builder-data.php:376, ../includes/modules/multi-directory-setup/class-builder-data.php:393, ../includes/modules/multi-directory-setup/class-builder-data.php:410, ../includes/modules/multi-directory-setup/class-builder-data.php:432, ../includes/modules/multi-directory-setup/class-builder-data.php:527, ../includes/modules/multi-directory-setup/class-builder-data.php:539, ../includes/modules/multi-directory-setup/class-builder-data.php:551, ../includes/modules/multi-directory-setup/class-builder-data.php:633, ../includes/modules/multi-directory-setup/class-builder-data.php:659, ../includes/modules/multi-directory-setup/class-builder-data.php:680, ../includes/modules/multi-directory-setup/class-builder-data.php:740, ../includes/modules/multi-directory-setup/class-builder-data.php:762, ../includes/modules/multi-directory-setup/class-builder-data.php:782, ../includes/modules/multi-directory-setup/class-builder-data.php:802, ../includes/modules/multi-directory-setup/class-builder-data.php:822, ../includes/modules/multi-directory-setup/class-builder-data.php:842, ../includes/modules/multi-directory-setup/class-builder-data.php:862, ../includes/modules/multi-directory-setup/class-builder-data.php:882, ../includes/modules/multi-directory-setup/class-builder-data.php:914, ../includes/modules/multi-directory-setup/class-builder-data.php:935, ../includes/modules/multi-directory-setup/class-builder-data.php:956, ../includes/modules/multi-directory-setup/class-builder-data.php:993
+#: ../includes/modules/multi-directory-setup/builder-custom-fields.php:141, ../includes/modules/multi-directory-setup/builder-custom-fields.php:193, ../includes/modules/multi-directory-setup/builder-custom-fields.php:250, ../includes/modules/multi-directory-setup/builder-custom-fields.php:329, ../includes/modules/multi-directory-setup/builder-custom-fields.php:386, ../includes/modules/multi-directory-setup/builder-custom-fields.php:438, ../includes/modules/multi-directory-setup/builder-preset-fields.php:34, ../includes/modules/multi-directory-setup/builder-preset-fields.php:80, ../includes/modules/multi-directory-setup/builder-preset-fields.php:127, ../includes/modules/multi-directory-setup/builder-preset-fields.php:287, ../includes/modules/multi-directory-setup/builder-preset-fields.php:322, ../includes/modules/multi-directory-setup/builder-preset-fields.php:389, ../includes/modules/multi-directory-setup/builder-preset-fields.php:444, ../includes/modules/multi-directory-setup/builder-preset-fields.php:536, ../includes/modules/multi-directory-setup/builder-preset-fields.php:575, ../includes/modules/multi-directory-setup/builder-preset-fields.php:614, ../includes/modules/multi-directory-setup/builder-preset-fields.php:658, ../includes/modules/multi-directory-setup/builder-preset-fields.php:702, ../includes/modules/multi-directory-setup/builder-preset-fields.php:741, ../includes/modules/multi-directory-setup/builder-preset-fields.php:780, ../includes/modules/multi-directory-setup/builder-preset-fields.php:907, ../includes/modules/multi-directory-setup/class-builder-data.php:376, ../includes/modules/multi-directory-setup/class-builder-data.php:393, ../includes/modules/multi-directory-setup/class-builder-data.php:410, ../includes/modules/multi-directory-setup/class-builder-data.php:432, ../includes/modules/multi-directory-setup/class-builder-data.php:527, ../includes/modules/multi-directory-setup/class-builder-data.php:539, ../includes/modules/multi-directory-setup/class-builder-data.php:551, ../includes/modules/multi-directory-setup/class-builder-data.php:633, ../includes/modules/multi-directory-setup/class-builder-data.php:659, ../includes/modules/multi-directory-setup/class-builder-data.php:680, ../includes/modules/multi-directory-setup/class-builder-data.php:740, ../includes/modules/multi-directory-setup/class-builder-data.php:761, ../includes/modules/multi-directory-setup/class-builder-data.php:781, ../includes/modules/multi-directory-setup/class-builder-data.php:801, ../includes/modules/multi-directory-setup/class-builder-data.php:821, ../includes/modules/multi-directory-setup/class-builder-data.php:841, ../includes/modules/multi-directory-setup/class-builder-data.php:861, ../includes/modules/multi-directory-setup/class-builder-data.php:881, ../includes/modules/multi-directory-setup/class-builder-data.php:913, ../includes/modules/multi-directory-setup/class-builder-data.php:934, ../includes/modules/multi-directory-setup/class-builder-data.php:955, ../includes/modules/multi-directory-setup/class-builder-data.php:992
 msgid "Placeholder"
 msgstr ""
 
@@ -6446,7 +6446,7 @@ msgstr ""
 msgid "Rows"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/builder-custom-fields.php:228, ../includes/modules/multi-directory-setup/class-builder-data.php:1553
+#: ../includes/modules/multi-directory-setup/builder-custom-fields.php:228, ../includes/modules/multi-directory-setup/class-builder-data.php:1552
 msgid "Number"
 msgstr ""
 
@@ -6478,7 +6478,7 @@ msgstr ""
 msgid "Appears after The Input"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/builder-custom-fields.php:307, ../includes/modules/multi-directory-setup/class-builder-data.php:1581
+#: ../includes/modules/multi-directory-setup/builder-custom-fields.php:307, ../includes/modules/multi-directory-setup/class-builder-data.php:1580
 msgid "URL"
 msgstr ""
 
@@ -6486,11 +6486,11 @@ msgstr ""
 msgid "Open in new tab"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/builder-custom-fields.php:416, ../includes/modules/multi-directory-setup/class-builder-data.php:1637
+#: ../includes/modules/multi-directory-setup/builder-custom-fields.php:416, ../includes/modules/multi-directory-setup/class-builder-data.php:1636
 msgid "Time"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/builder-custom-fields.php:468, ../includes/modules/multi-directory-setup/class-builder-data.php:1665
+#: ../includes/modules/multi-directory-setup/builder-custom-fields.php:468, ../includes/modules/multi-directory-setup/class-builder-data.php:1664
 msgid "Color Picker"
 msgstr ""
 
@@ -6506,11 +6506,11 @@ msgstr ""
 msgid "Value"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/builder-custom-fields.php:579, ../includes/modules/multi-directory-setup/class-builder-data.php:1716
+#: ../includes/modules/multi-directory-setup/builder-custom-fields.php:579, ../includes/modules/multi-directory-setup/class-builder-data.php:1715
 msgid "Checkbox"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/builder-custom-fields.php:643, ../includes/modules/multi-directory-setup/class-builder-data.php:1744
+#: ../includes/modules/multi-directory-setup/builder-custom-fields.php:643, ../includes/modules/multi-directory-setup/class-builder-data.php:1743
 msgid "Radio"
 msgstr ""
 
@@ -6546,7 +6546,7 @@ msgstr ""
 msgid "Tagline"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/builder-preset-fields.php:145, ../includes/modules/multi-directory-setup/class-builder-data.php:1413, ../includes/modules/multi-directory-setup/class-builder-data.php:2459, ../templates/search-form/fields/pricing.php:13
+#: ../includes/modules/multi-directory-setup/builder-preset-fields.php:145, ../includes/modules/multi-directory-setup/class-builder-data.php:1412, ../includes/modules/multi-directory-setup/class-builder-data.php:2458, ../templates/search-form/fields/pricing.php:13
 msgid "Pricing"
 msgstr ""
 
@@ -6578,7 +6578,7 @@ msgstr ""
 msgid "Price Unit"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/builder-preset-fields.php:265, ../includes/modules/multi-directory-setup/class-builder-data.php:1128
+#: ../includes/modules/multi-directory-setup/builder-preset-fields.php:265, ../includes/modules/multi-directory-setup/class-builder-data.php:1127
 msgid "Excerpt"
 msgstr ""
 
@@ -6662,7 +6662,7 @@ msgstr ""
 msgid "Preset Fields"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:22, ../includes/modules/multi-directory-setup/class-builder-data.php:39, ../includes/modules/multi-directory-setup/class-builder-data.php:280, ../includes/modules/multi-directory-setup/class-builder-data.php:619, ../includes/modules/multi-directory-setup/class-builder-data.php:1041
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:22, ../includes/modules/multi-directory-setup/class-builder-data.php:39, ../includes/modules/multi-directory-setup/class-builder-data.php:280, ../includes/modules/multi-directory-setup/class-builder-data.php:619, ../includes/modules/multi-directory-setup/class-builder-data.php:1040
 msgid "Click on a field to use it"
 msgstr ""
 
@@ -6686,7 +6686,7 @@ msgstr ""
 msgid "Use rel=\"nofollow\" in Website Link"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:279, ../includes/modules/multi-directory-setup/class-builder-data.php:1040
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:279, ../includes/modules/multi-directory-setup/class-builder-data.php:1039
 msgid "Other Fields"
 msgstr ""
 
@@ -6702,11 +6702,11 @@ msgstr ""
 msgid "You can use any text or shortcode"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:314, ../includes/modules/multi-directory-setup/class-builder-data.php:458, ../includes/modules/multi-directory-setup/class-builder-data.php:487, ../includes/modules/multi-directory-setup/class-builder-data.php:571, ../includes/modules/multi-directory-setup/class-builder-data.php:2173
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:314, ../includes/modules/multi-directory-setup/class-builder-data.php:458, ../includes/modules/multi-directory-setup/class-builder-data.php:487, ../includes/modules/multi-directory-setup/class-builder-data.php:571, ../includes/modules/multi-directory-setup/class-builder-data.php:2172
 msgid "Custom block ID"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:320, ../includes/modules/multi-directory-setup/class-builder-data.php:464, ../includes/modules/multi-directory-setup/class-builder-data.php:493, ../includes/modules/multi-directory-setup/class-builder-data.php:577, ../includes/modules/multi-directory-setup/class-builder-data.php:2179
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:320, ../includes/modules/multi-directory-setup/class-builder-data.php:464, ../includes/modules/multi-directory-setup/class-builder-data.php:493, ../includes/modules/multi-directory-setup/class-builder-data.php:577, ../includes/modules/multi-directory-setup/class-builder-data.php:2178
 msgid "Custom block Classes"
 msgstr ""
 
@@ -6798,505 +6798,505 @@ msgstr ""
 msgid "Price Range Max Placeholder"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:887
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:886
 msgid "Search Type"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:1056
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:1055
 msgid "Radius Search"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:1066
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:1065
 msgid "Default Radius Distance"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:1073
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:1072
 msgid "Maximum Radius Distance"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:1080
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:1079
 msgid "Radius Search Unit"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:1089
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:1088
 msgid "Radius Search Based on"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:1105, ../includes/modules/multi-directory-setup/class-builder-data.php:2361, ../includes/modules/multi-directory-setup/class-builder-data.php:2392, ../includes/modules/multi-directory-setup/class-builder-data.php:2542
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:1104, ../includes/modules/multi-directory-setup/class-builder-data.php:2360, ../includes/modules/multi-directory-setup/class-builder-data.php:2391, ../includes/modules/multi-directory-setup/class-builder-data.php:2541
 msgid "Listing Title"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:1138
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:1137
 msgid "Excerpt Settings"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:1142
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:1141
 msgid "Words Limit"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:1149
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:1148
 msgid "Show Readmore"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:1154
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:1153
 msgid "Read More Text"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:1163, ../includes/modules/multi-directory-setup/class-builder-data.php:2505
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:1162, ../includes/modules/multi-directory-setup/class-builder-data.php:2504
 msgid "Listings Location"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:1173
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:1172
 msgid "Listings Location Settings"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:1182, ../includes/modules/multi-directory-setup/class-builder-data.php:1236, ../includes/modules/multi-directory-setup/class-builder-data.php:1264, ../includes/modules/multi-directory-setup/class-builder-data.php:1292, ../includes/modules/multi-directory-setup/class-builder-data.php:1320, ../includes/modules/multi-directory-setup/class-builder-data.php:1348, ../includes/modules/multi-directory-setup/class-builder-data.php:1376, ../includes/modules/multi-directory-setup/class-builder-data.php:1404, ../includes/modules/multi-directory-setup/class-builder-data.php:1544, ../includes/modules/multi-directory-setup/class-builder-data.php:1572, ../includes/modules/multi-directory-setup/class-builder-data.php:1600, ../includes/modules/multi-directory-setup/class-builder-data.php:1628, ../includes/modules/multi-directory-setup/class-builder-data.php:1656, ../includes/modules/multi-directory-setup/class-builder-data.php:1707, ../includes/modules/multi-directory-setup/class-builder-data.php:1735, ../includes/modules/multi-directory-setup/class-builder-data.php:1763
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:1181, ../includes/modules/multi-directory-setup/class-builder-data.php:1235, ../includes/modules/multi-directory-setup/class-builder-data.php:1263, ../includes/modules/multi-directory-setup/class-builder-data.php:1291, ../includes/modules/multi-directory-setup/class-builder-data.php:1319, ../includes/modules/multi-directory-setup/class-builder-data.php:1347, ../includes/modules/multi-directory-setup/class-builder-data.php:1375, ../includes/modules/multi-directory-setup/class-builder-data.php:1403, ../includes/modules/multi-directory-setup/class-builder-data.php:1543, ../includes/modules/multi-directory-setup/class-builder-data.php:1571, ../includes/modules/multi-directory-setup/class-builder-data.php:1599, ../includes/modules/multi-directory-setup/class-builder-data.php:1627, ../includes/modules/multi-directory-setup/class-builder-data.php:1655, ../includes/modules/multi-directory-setup/class-builder-data.php:1706, ../includes/modules/multi-directory-setup/class-builder-data.php:1734, ../includes/modules/multi-directory-setup/class-builder-data.php:1762
 msgid "Show Label"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:1191, ../includes/modules/multi-directory-setup/class-builder-data.php:1195
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:1190, ../includes/modules/multi-directory-setup/class-builder-data.php:1194
 msgid "Posted Date"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:1204
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:1203
 msgid "Date Type"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:1217
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:1216
 msgid "Listings Website"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:1227
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:1226
 msgid "Listings Website Settings"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:1245
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:1244
 msgid "Listings Zip"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:1255
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:1254
 msgid "Listings Zip Settings"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:1273
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:1272
 msgid "Listings Email"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:1283
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:1282
 msgid "Listings Email Settings"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:1301
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:1300
 msgid "Listings Fax"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:1311
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:1310
 msgid "Listings Fax Settings"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:1329
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:1328
 msgid "Listings Phone"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:1339
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:1338
 msgid "Listings Phone Settings"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:1357
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:1356
 msgid "Listings Phone 2"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:1367
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:1366
 msgid "Listings Phone 2 Settings"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:1385
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:1384
 msgid "Listings Address"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:1395
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:1394
 msgid "Listings Address Settings"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:1454
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:1453
 msgid "Favorite"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:1465
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:1464
 msgid "View Count Settings"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:1488
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:1487
 msgid "Category Settings"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:1501
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:1500
 msgid "User Avatar"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:1506
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:1505
 msgid "User Avatar Settings"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:1510
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:1509
 msgid "Align"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:1535
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:1534
 msgid "Text Settings"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:1591
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:1590
 msgid "URL Settings"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:1619
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:1618
 msgid "Date Settings"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:1647
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:1646
 msgid "Time Settings"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:1675
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:1674
 msgid "Color Picker Settings"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:1688, ../includes/modules/multi-directory-setup/class-builder-data.php:2013, ../templates/dashboard/profile-pic.php:40, ../templates/dashboard/profile-pic.php:42, ../templates/search-form/custom-fields/select.php:19, ../templates/search-form/custom-fields/select.php:21, ../templates/search-form/custom-fields/number/dropdown.php:23
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:1687, ../includes/modules/multi-directory-setup/class-builder-data.php:2012, ../templates/dashboard/profile-pic.php:40, ../templates/dashboard/profile-pic.php:42, ../templates/search-form/custom-fields/select.php:19, ../templates/search-form/custom-fields/select.php:21, ../templates/search-form/custom-fields/number/dropdown.php:23
 msgid "Select"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:1698
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:1697
 msgid "Select Settings"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:1754
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:1753
 msgid "Radio Settings"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:1786, ../includes/modules/multi-directory-setup/class-builder-data.php:1902
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:1785, ../includes/modules/multi-directory-setup/class-builder-data.php:1901
 msgid "Top Right"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:1851, ../templates/single/section-author_info.php:41
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:1850, ../templates/single/section-author_info.php:41
 msgid "Avatar"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:1911, ../includes/modules/multi-directory-setup/class-builder-data.php:1958
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:1910, ../includes/modules/multi-directory-setup/class-builder-data.php:1957
 msgid "Body Top"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:1917, ../includes/modules/multi-directory-setup/class-builder-data.php:1964
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:1916, ../includes/modules/multi-directory-setup/class-builder-data.php:1963
 msgid "Body Right"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:1923, ../includes/modules/multi-directory-setup/class-builder-data.php:1970
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:1922, ../includes/modules/multi-directory-setup/class-builder-data.php:1969
 msgid "Body Bottom"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2007
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2006
 msgid "las la-home"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2035
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2034
 msgid "New listing"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2044, ../includes/modules/multi-directory-setup/class-builder-data.php:2060
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2043, ../includes/modules/multi-directory-setup/class-builder-data.php:2059
 msgid "Publish"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2051
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2050
 msgid "Edited listing"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2067
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2066
 msgid "Global Listing Type"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2077, ../includes/modules/multi-directory-setup/class-builder-data.php:2151
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2076, ../includes/modules/multi-directory-setup/class-builder-data.php:2150
 msgid "Add Section"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2078
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2077
 msgid "You can not add in this section"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2094, ../includes/modules/multi-directory-setup/class-builder-data.php:2161
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2093, ../includes/modules/multi-directory-setup/class-builder-data.php:2160
 msgid "Block/Section Icon"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2124
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2123
 msgid "Enable Sidebar"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2129
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2128
 msgid "Enable Listing Preview"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2136, ../includes/modules/multi-directory-setup/class-builder-data.php:2142
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2135, ../includes/modules/multi-directory-setup/class-builder-data.php:2141
 msgid "Submit Button Label"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2144
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2143
 msgid "Update"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2185
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2184
 msgid "Shortcode"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2186
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2185
 msgid "Click the wizerd button to generate the shortcode."
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2223
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2222
 msgid "Enable Custom Single Listing Page"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2224
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2223
 msgid ""
 "Enabling this option will replace the default single listing page. After enabling you must create and assign a new page with generated shortcodes to display single listing content.\n"
 ""
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2230
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2229
 msgid "Single listing page"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2246
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2245
 msgid "Generate shortcodes"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2247
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2246
 msgid "Generate single listing shortcodes"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2298
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2297
 msgid "Search Filter"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2315, ../includes/modules/multi-directory-setup/class-builder-data.php:2387, ../templates/listing-form/add-listing.php:73
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2314, ../includes/modules/multi-directory-setup/class-builder-data.php:2386, ../templates/listing-form/add-listing.php:73
 msgid "Back"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2317
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2316
 msgid "Back Button Settings"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2331
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2330
 msgid "Section Title Options"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2335
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2334
 msgid "Use Listing Title"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2367
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2366
 msgid "Show Title"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2407
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2406
 msgid "Listing Image/Slider"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2410
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2409
 msgid "Image/Slider Settings"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2414
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2413
 msgid "Show Thumbnail"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2423
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2422
 msgid "Bookmark"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2428, ../templates/single/fields/share.php:15
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2427, ../templates/single/fields/share.php:15
 msgid "Share"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2431
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2430
 msgid "Share Settings"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2443, ../templates/single/fields/report.php:16, ../templates/single/fields/report.php:13
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2442, ../templates/single/fields/report.php:16, ../templates/single/fields/report.php:13
 msgid "Report"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2446
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2445
 msgid "Report Settings"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2467
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2466
 msgid "Badge Settings"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2471
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2470
 msgid "Display New Badge"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2476
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2475
 msgid "Display Popular Badge"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2481
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2480
 msgid "Display Featured Badge"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2494
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2493
 msgid "Listings Category"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2524
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2523
 msgid "Quick info"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2532
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2531
 msgid "Quick Action"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2550
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2549
 msgid "More Widgets"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2576, ../includes/modules/multi-directory-setup/class-builder-data.php:2594
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2575, ../includes/modules/multi-directory-setup/class-builder-data.php:2593
 msgid "With Preview Image"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2582, ../includes/modules/multi-directory-setup/class-builder-data.php:2600
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2581, ../includes/modules/multi-directory-setup/class-builder-data.php:2599
 msgid "Without Preview Image"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2619
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2618
 msgid "Directory icon"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2620
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2619
 msgid "Select a directory type icon to display in all listings, add listing, and search pages."
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2625
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2624
 msgid "Default listing status"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2633
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2632
 msgid "Default listing expiration days"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2634
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2633
 msgid "Set the number of days before a listing automatically expires."
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2641
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2640
 msgid "Default listing preview image"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2642
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2641
 msgid "This image will appear when a listing does not have a preview image uploaded. Leave it empty to hide the preview image."
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2649
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2648
 msgid "Export the config file"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2650
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2649
 msgid "Export all the form, layout and settings"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2666, ../includes/modules/multi-directory-setup/class-builder-data.php:2698, ../includes/modules/multi-directory-setup/class-builder-data.php:2721, ../includes/modules/multi-directory-setup/class-builder-data.php:2765, ../includes/modules/multi-directory-setup/class-builder-data.php:2789, ../includes/modules/multi-directory-setup/class-builder-data.php:2819
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2665, ../includes/modules/multi-directory-setup/class-builder-data.php:2697, ../includes/modules/multi-directory-setup/class-builder-data.php:2720, ../includes/modules/multi-directory-setup/class-builder-data.php:2764, ../includes/modules/multi-directory-setup/class-builder-data.php:2788, ../includes/modules/multi-directory-setup/class-builder-data.php:2818
 msgid "Watch Tutorial"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2667
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2666
 msgid "Add Listing Form Tutorial"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2668
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2667
 msgid "Watch the video to learn how to create add listing form."
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2672
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2671
 msgid "Add listing form"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2673, ../includes/modules/multi-directory-setup/class-builder-data.php:2732, ../includes/modules/multi-directory-setup/class-builder-data.php:2777, ../includes/modules/multi-directory-setup/class-builder-data.php:2801, ../includes/modules/multi-directory-setup/class-builder-data.php:2826
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2672, ../includes/modules/multi-directory-setup/class-builder-data.php:2731, ../includes/modules/multi-directory-setup/class-builder-data.php:2776, ../includes/modules/multi-directory-setup/class-builder-data.php:2800, ../includes/modules/multi-directory-setup/class-builder-data.php:2825
 msgid "Need help?"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2688
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2687
 msgid "Single Page Layout"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2694, ../includes/modules/multi-directory-setup/class-builder-data.php:2708
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2693, ../includes/modules/multi-directory-setup/class-builder-data.php:2707
 msgid "Listing Header"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2699
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2698
 msgid "Listing Header Tutorial"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2700
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2699
 msgid "Watch the video to learn how to create listing header."
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2704, ../includes/modules/multi-directory-setup/class-builder-data.php:2727, ../includes/modules/multi-directory-setup/class-builder-data.php:2771, ../includes/modules/multi-directory-setup/class-builder-data.php:2795
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2703, ../includes/modules/multi-directory-setup/class-builder-data.php:2726, ../includes/modules/multi-directory-setup/class-builder-data.php:2770, ../includes/modules/multi-directory-setup/class-builder-data.php:2794
 msgid "What is it?"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2717, ../includes/modules/multi-directory-setup/class-builder-data.php:2731
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2716, ../includes/modules/multi-directory-setup/class-builder-data.php:2730
 msgid "Contents"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2722
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2721
 msgid "Contents Tutorial"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2723
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2722
 msgid "Watch the video to learn how to create a custom contents."
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2740
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2739
 msgid "Custom Single Listing Page"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2755
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2754
 msgid "All Listing Layout"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2761, ../includes/modules/multi-directory-setup/class-builder-data.php:2775
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2760, ../includes/modules/multi-directory-setup/class-builder-data.php:2774
 msgid "All Listing Grid Layout"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2766
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2765
 msgid "All Listing Grid Tutorial"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2767
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2766
 msgid "Watch the video to learn how to create all listing grid."
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2777, ../includes/modules/multi-directory-setup/class-builder-data.php:2801
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2776, ../includes/modules/multi-directory-setup/class-builder-data.php:2800
 msgid "Read the documentation or open a ticket in our helpdesk."
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2785, ../includes/modules/multi-directory-setup/class-builder-data.php:2799
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2784, ../includes/modules/multi-directory-setup/class-builder-data.php:2798
 msgid "All Listing List Layout"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2790
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2789
 msgid "All Listing List Tutorial"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2791
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2790
 msgid "Watch the video to learn how to create all listing list."
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2820
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2819
 msgid "Search Form Tutorial"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2821
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2820
 msgid "Watch the video to learn how to create search form."
 msgstr ""
 

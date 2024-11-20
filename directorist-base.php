@@ -3,7 +3,7 @@
  * Plugin Name: Directorist - Business Directory Plugin
  * Plugin URI: https://wpwax.com
  * Description: A comprehensive solution to create professional looking directory site of any kind. Like Yelp, Foursquare, etc.
- * Version: 8.0.3
+ * Version: 8.0.5
  * Author: wpWax - WP Business Directory Plugin and Classified Listings Directory
  * Author URI: https://wpwax.com
  * Text Domain: directorist
@@ -194,7 +194,7 @@ final class Directorist_Base
 			self::$instance = new Directorist_Base();
 			self::$instance->setup_constants();
 
-			add_action('plugins_loaded', array(self::$instance, 'load_textdomain'));
+			add_action('init', array(self::$instance, 'load_textdomain'));
 			add_action('plugins_loaded', array(self::$instance, 'add_polylang_swicher_support') );
 			add_action('widgets_init', array(self::$instance, 'register_widgets'));
 			add_filter('widget_display_callback', array(self::$instance, 'custom_widget_body_wrapper'), 10, 3);
@@ -358,6 +358,10 @@ final class Directorist_Base
 	// add_polylang_swicher_support
 	public function add_polylang_swicher_support() {
 
+		if ( is_admin() && get_transient( '_directorist_setup_page_redirect' ) ) {
+			directorist_redirect_to_admin_setup_wizard();
+		}
+		
 		// beta plugin lookup
 		$plugin_data = get_plugin_data( plugin_dir_path( __FILE__ ) . 'directorist-base.php' );
 
@@ -635,13 +639,14 @@ final class Directorist_Base
 		}
 	}
 
-	public function load_textdomain()
-	{
-
-		load_plugin_textdomain('directorist', false, ATBDP_LANG_DIR);
-		if ( is_admin() && get_transient( '_directorist_setup_page_redirect' ) ) {
-			directorist_redirect_to_admin_setup_wizard();
-		}
+	public function load_textdomain() {
+		// Determine the current locale
+		$locale = determine_locale();
+		// Allow filters to modify the locale
+		$locale = apply_filters( 'plugin_locale', $locale, 'directorist' );
+		load_textdomain( 'directorist', WP_LANG_DIR . '/plugins/directorist-' . $locale . '.mo' );
+	
+		load_plugin_textdomain( 'directorist', false, ATBDP_LANG_DIR );
 	}
 
 	/**

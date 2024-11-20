@@ -14,11 +14,12 @@ if ( ! class_exists( 'ATBDP_Email' ) ) :
 			add_action( 'atbdp_listing_inserted', array( $this, 'notify_admin_listing_submitted' ) );
 			add_action( 'atbdp_listing_inserted', array( $this, 'notify_owner_listing_submitted' ) );
 			/*Fire up emails for updated/edited listings */
-			add_action( 'atbdp_listing_updated', array( $this, 'notify_admin_listing_edited' ) );
-			add_action( 'atbdp_listing_updated', array( $this, 'notify_owner_listing_edited' ) );
+			add_action( 'atbdp_listing_updated', array( $this, 'send_email_after_listing_updated' ), 10, 2 );
+			add_action( 'directorist_listing_status_updated', array( $this, 'send_email_after_listing_preview_status_updated' ), 10, 2 );
 			/*Fire up emails for published listings */
 			add_action( 'atbdp_listing_published', array( $this, 'notify_admin_listing_published' ) );
 			add_action( 'atbdp_listing_published', array( $this, 'notify_owner_listing_published' ) );
+
 			/*Fire up emails for created order*/
 			add_action( 'atbdp_order_created', array( $this, 'notify_admin_order_created' ), 10, 2 );
 			add_action( 'atbdp_order_created', array( $this, 'notify_owner_order_created' ), 10, 2 );
@@ -43,6 +44,24 @@ if ( ! class_exists( 'ATBDP_Email' ) ) :
 			/*Fire up emails when a general user apply for become author user*/
 			add_action( 'atbdp_become_author', array( $this, 'notify_admin_become_author' ) );
 			// add_action('atbdp_become_author', array($this, 'notify_owner_become_author'));
+		}
+
+		public function send_email_after_listing_preview_status_updated( $listing_id, $args ) {
+			$directory_id = directorist_get_listing_directory( $listing_id );
+
+			if ( directorist_is_preview_enabled( $directory_id ) && $args['edited'] ) {
+				$this->notify_admin_listing_edited( $listing_id );
+				$this->notify_owner_listing_edited( $listing_id );
+			}
+		}
+
+		public function send_email_after_listing_updated( $listing_id ) {
+			$directory_id = directorist_get_listing_directory( $listing_id );
+
+			if ( ! directorist_is_preview_enabled( $directory_id ) ) {
+				$this->notify_admin_listing_edited( $listing_id );
+				$this->notify_owner_listing_edited( $listing_id );
+			}
 		}
 
 		  /**
@@ -695,7 +714,7 @@ This email is sent automatically for information purpose only. Please do not res
 			$user = $this->get_owner( $listing_id );
 			$subject = $this->replace_in_content( get_directorist_option( 'email_sub_edit_listing' ), null, $listing_id, $user );
 			$to = $user->user_email;
-			$directory_type = get_post_meta( $listing_id, '_directory_type', true );
+			$directory_type = directorist_get_listing_directory( $listing_id );
 			$edited_status  = directorist_get_listing_edit_status( $directory_type );
 			if ( 'publish' === $edited_status ) {
 				$body = $this->replace_in_content( get_directorist_option( 'email_tmpl_edit_listing' ), null, $listing_id, $user );
@@ -1214,7 +1233,7 @@ We look forward to seeing you soon'
 			To activate your account simply click on the link below and verify your email address within 24 hours. For your safety, you will not be able to access your account until verification of your email has been completed.
 
 			==CONFIRM_EMAIL_ADDRESS_URL==
-            
+
             <p align="center">If you did not sign up for this account you can ignore this email.</p>'
 			);
 

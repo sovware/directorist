@@ -752,7 +752,7 @@ class Listings_Controller extends Posts_Controller {
 					$base_data['tagline'] = get_post_meta( $listing->ID, '_tagline', true );
 					break;
 				case 'directory':
-					$base_data['directory'] = (int) get_post_meta( $listing->ID, '_directory_type', true );
+					$base_data['directory'] = directorist_get_listing_directory( $listing->ID );
 					break;
 				case 'date_expired':
 					$base_data['date_expired'] = directorist_rest_prepare_date_response( get_post_meta( $listing->ID, '_expiry_date', true ) );
@@ -837,7 +837,7 @@ class Listings_Controller extends Posts_Controller {
 	}
 
 	protected function get_related_listings_ids( $listing_id ) {
-		$directory_type = (int) get_post_meta( $listing_id, '_directory_type', true );
+		$directory_type = directorist_get_listing_directory( $listing_id );
 		$number         = get_directorist_type_option( $directory_type, 'similar_listings_number_of_listings_to_show', 2 );
 		$same_author    = get_directorist_type_option( $directory_type, 'listing_from_same_author', false );
 		$logic          = get_directorist_type_option( $directory_type, 'similar_listings_logics', 'OR' );

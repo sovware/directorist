@@ -2,19 +2,32 @@
 /**
  * @author  wpWax
  * @since   7.8.3
- * @version 7.8.3
+ * @version 8.0.6
  */
 
 use \Directorist\Helper;
 
-$user_email  = isset( $_GET['user'] ) ? sanitize_email( wp_unslash( base64_decode( $_GET['user'] ) ) ) : '';
-$key         = isset( $_GET['key'] ) ? sanitize_text_field( wp_unslash( $_GET['key'] ) ) : '';
+$user_email           = isset( $_GET['user'] ) ? sanitize_email( wp_unslash( base64_decode( $_GET['user'] ) ) ) : '';
+$key                  = isset( $_GET['key'] ) ? sanitize_text_field( wp_unslash( $_GET['key'] ) ) : '';
+$registration_success = false;
+
+if ( ! empty( $_GET['registration_status'] ) ) {
+	$active_form          = 'signin';
+	$registration_success = true;
+}
 ?>
 <div class="directorist-w-100">
     <div class="<?php Helper::directorist_container_fluid(); ?>">
         <div class="<?php Helper::directorist_row(); ?>">
             <div class="directorist-col-md-6 directorist-offset-md-3 directorist-login-wrapper directorist-authentication <?php echo esc_attr( $active_form === 'signin' ? 'active' : '' ); ?>">
 				<div class="atbdp_login_form_shortcode directorist-authentication__form">
+
+					<?php if ( $registration_success ): ?>
+						<p style="padding: 20px" class="alert-success directorist-alert directorist-alert-success">
+							<span><?php esc_html_e('Registration completed. Please check your email for confirmation. Or login here.', 'directorist');?></span>
+						</p>
+					<?php endif; ?>
+
 					<?php if ( directorist_is_email_verification_enabled() && ! empty( $_GET['verification'] ) && is_email( $user_email ) ) : ?>
 						<p class="directorist-alert directorist-alert-success"><span>
 							<?php
@@ -228,7 +241,7 @@ $key         = isset( $_GET['key'] ) ? sanitize_text_field( wp_unslash( $_GET['k
 						if ( ! empty( $_GET['registration_status'] ) && true == $_GET['registration_status'] ) {
 							if ( empty( $display_password_reg ) || 'yes' != $display_password_reg ) {
 								?>
-								<p style="padding: 20px" class="alert-success directorist-alert directorist-alert-success"><span><?php directorist_icon( 'las la-check' ); ?> <?php esc_html_e('Go to your inbox or spam/junk and get your password.', 'directorist'); ?>
+								<p style="padding: 20px" class="alert-success directorist-alert directorist-alert-success"><span> <?php esc_html_e('Go to your inbox or spam/junk and get your password.', 'directorist'); ?>
 									<?php
 									$output = sprintf( __( 'Click %s to login.', 'directorist' ), '<a href="' . ATBDP_Permalink::get_login_page_link() . '"><i style="color: red">' . __( 'Here', 'directorist' ) . '</i></a>' );
 									echo wp_kses_post( $output );
@@ -236,9 +249,9 @@ $key         = isset( $_GET['key'] ) ? sanitize_text_field( wp_unslash( $_GET['k
 								</span></p>
 							<?php } else { ?>
 								<!--registration succeeded, so show notification -->
-								<p style="padding: 20px" class="alert-success directorist-alert directorist-alert-success"><span><?php directorist_icon( 'las la-check' ); ?> <?php esc_html_e('Registration completed. Please check your email for confirmation.', 'directorist'); ?>
+								<p style="padding: 20px" class="alert-success directorist-alert directorist-alert-success"><span> <?php esc_html_e('Registration completed. Please check your email for confirmation.', 'directorist'); ?>
 									<?php
-									$output = sprintf( __('Or click %s to login.', 'directorist' ), '<a href="' . ATBDP_Permalink::get_login_page_link() . '"><span style="color: red">' . __( 'Here', 'directorist' ) . '</span></a>' );
+									$output = sprintf( __('Or click %s to login.', 'directorist' ), '<button class="directorist-authentication__btn directorist-authentication__btn--signin"><span style="color: red">' . __( 'Here', 'directorist' ) . '</span></button>' );
 									echo wp_kses_post( $output );
 									?>
 								</span></p>

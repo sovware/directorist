@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-11-19 06:51+0000\n"
+"POT-Creation-Date: 2024-11-20 12:50+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -67,7 +67,7 @@ msgstr ""
 msgid "Password"
 msgstr ""
 
-#: ../blocks/templates/login.php:16, ../blocks/templates/login.php:118, ../includes/classes/class-settings-panel.php:2965, ../templates/account/login-registration-form.php:114
+#: ../blocks/templates/login.php:16, ../blocks/templates/login.php:118, ../includes/classes/class-settings-panel.php:2965, ../templates/account/login-registration-form.php:127
 msgid "Remember Me"
 msgstr ""
 
@@ -103,20 +103,20 @@ msgstr ""
 msgid "Sign Up"
 msgstr ""
 
-#: ../blocks/templates/login.php:44, ../templates/account/login-registration-form.php:27
+#: ../blocks/templates/login.php:44, ../templates/account/login-registration-form.php:40
 msgid "Thank you for signing up! To complete the registration, please verify your email address by clicking on the link we have sent to your email.<br><br>If you didn't find the verification email, please check your spam folder. If you still can't find it, click on the <a href='%s'>Resend confirmation email</a> to have a new email sent to you."
 msgstr ""
 
-#: ../blocks/templates/login.php:51, ../templates/account/login-registration-form.php:34
+#: ../blocks/templates/login.php:51, ../templates/account/login-registration-form.php:47
 msgid "Thank you for requesting a new verification email. Please check your inbox and verify to complete the registration.<br><br>If you still can't find it, please check your spam folder. And please contact if you are still having trouble."
 msgstr ""
 
 #. translators: %s: site name
-#: ../blocks/templates/login.php:210, ../templates/account/login-registration-form.php:159
+#: ../blocks/templates/login.php:210, ../templates/account/login-registration-form.php:172
 msgid "[%s] Reset Your Password"
 msgstr ""
 
-#: ../blocks/templates/login.php:211, ../templates/account/login-registration-form.php:160
+#: ../blocks/templates/login.php:211, ../templates/account/login-registration-form.php:173
 msgid "Password Reset Request"
 msgstr ""
 
@@ -130,47 +130,47 @@ msgid ""
 "						If this was a mistake, just ignore this email and nothing will happen."
 msgstr ""
 
-#: ../blocks/templates/login.php:241, ../templates/account/login-registration-form.php:190
+#: ../blocks/templates/login.php:241, ../templates/account/login-registration-form.php:203
 msgid "Something went wrong, unable to send the password reset email. If the issue persists please contact with the site administrator."
 msgstr ""
 
-#: ../blocks/templates/login.php:239, ../templates/account/login-registration-form.php:188
+#: ../blocks/templates/login.php:239, ../templates/account/login-registration-form.php:201
 msgid "A password reset email has been sent to the email address on file for your account, but may take several minutes to show up in your inbox."
 msgstr ""
 
-#: ../blocks/templates/login.php:206, ../templates/account/login-registration-form.php:155
+#: ../blocks/templates/login.php:206, ../templates/account/login-registration-form.php:168
 msgid "There is no user registered with that email address."
 msgstr ""
 
-#: ../blocks/templates/login.php:204, ../templates/account/login-registration-form.php:153
+#: ../blocks/templates/login.php:204, ../templates/account/login-registration-form.php:166
 msgid "Invalid e-mail address."
 msgstr ""
 
-#: ../blocks/templates/login.php:202, ../templates/account/login-registration-form.php:151
+#: ../blocks/templates/login.php:202, ../templates/account/login-registration-form.php:164
 msgid "Email address cannot be empty."
 msgstr ""
 
-#: ../blocks/templates/login.php:247, ../templates/account/login-registration-form.php:196
+#: ../blocks/templates/login.php:247, ../templates/account/login-registration-form.php:209
 msgid "<strong>ERROR: </strong> %s"
 msgstr ""
 
-#: ../blocks/templates/login.php:87, ../templates/account/login-registration-form.php:70
+#: ../blocks/templates/login.php:87, ../templates/account/login-registration-form.php:83
 msgid "Password changed successfully. Please <a href=\"%s\">click here to login</a>."
 msgstr ""
 
-#: ../blocks/templates/login.php:80, ../templates/account/login-registration-form.php:63
+#: ../blocks/templates/login.php:80, ../templates/account/login-registration-form.php:76
 msgid "Passwords do not match!"
 msgstr ""
 
-#: ../blocks/templates/login.php:78, ../templates/account/login-registration-form.php:61
+#: ../blocks/templates/login.php:78, ../templates/account/login-registration-form.php:74
 msgid "Passwords cannot be empty."
 msgstr ""
 
-#: ../blocks/templates/login.php:106, ../templates/account/login-registration-form.php:89
+#: ../blocks/templates/login.php:106, ../templates/account/login-registration-form.php:102
 msgid "Email verification successful. Please <a href=\"%s\">click here to login</a>."
 msgstr ""
 
-#: ../blocks/templates/login.php:62, ../templates/account/login-registration-form.php:45
+#: ../blocks/templates/login.php:62, ../templates/account/login-registration-form.php:58
 msgid "Sorry! user not found"
 msgstr ""
 
@@ -210,7 +210,7 @@ msgstr ""
 msgid "Already have an account? Please login"
 msgstr ""
 
-#: ../blocks/templates/registration.php:37, ../blocks/templates/registration.php:67, ../blocks/templates/registration.php:59, ../blocks/templates/signin-signup.php:33, ../includes/helper-functions.php:921, ../includes/classes/class-helper.php:539, ../includes/model/Account.php:64, ../templates/account/login-registration-form.php:241, ../templates/account/login-registration-form.php:233
+#: ../blocks/templates/registration.php:37, ../blocks/templates/registration.php:67, ../blocks/templates/registration.php:59, ../blocks/templates/signin-signup.php:33, ../includes/helper-functions.php:921, ../includes/classes/class-helper.php:539, ../includes/model/Account.php:64, ../templates/account/login-registration-form.php:254, ../templates/account/login-registration-form.php:246
 msgid "Here"
 msgstr ""
 
@@ -234,7 +234,7 @@ msgstr ""
 msgid " Registration completed. Please check your email for confirmation."
 msgstr ""
 
-#: ../blocks/templates/registration.php:67, ../templates/account/login-registration-form.php:241
+#: ../blocks/templates/registration.php:67, ../templates/account/login-registration-form.php:254
 msgid "Or click %s to login."
 msgstr ""
 
@@ -242,7 +242,7 @@ msgstr ""
 msgid " Go to your inbox or spam/junk and get your password."
 msgstr ""
 
-#: ../blocks/templates/registration.php:59, ../templates/account/login-registration-form.php:233
+#: ../blocks/templates/registration.php:59, ../templates/account/login-registration-form.php:246
 msgid "Click %s to login."
 msgstr ""
 
@@ -1259,22 +1259,6 @@ msgstr ""
 
 #: ../includes/classes/class-announcement.php:571
 msgid "The announcement has been closed successfully"
-msgstr ""
-
-#: ../includes/classes/class-background-updater.php:301
-msgid "Listings Slider Settings"
-msgstr ""
-
-#: ../includes/classes/class-background-updater.php:305
-msgid "Enable Footer Thumbnail"
-msgstr ""
-
-#: ../includes/classes/class-background-updater.php:329, ../includes/modules/multi-directory-setup/class-builder-data.php:1114, ../includes/modules/multi-directory-setup/class-builder-data.php:2362, ../includes/modules/multi-directory-setup/class-builder-data.php:2394
-msgid "Listing Title Settings"
-msgstr ""
-
-#: ../includes/classes/class-background-updater.php:333, ../includes/modules/multi-directory-setup/class-builder-data.php:1118, ../includes/modules/multi-directory-setup/class-builder-data.php:2371, ../includes/modules/multi-directory-setup/class-builder-data.php:2398
-msgid "Show Tagline"
 msgstr ""
 
 #: ../includes/classes/class-cron.php:55
@@ -4415,19 +4399,35 @@ msgstr ""
 msgid "Directorist data update complete. Thank you for updating to the latest version!"
 msgstr ""
 
-#: ../includes/classes/class-upgrade.php:105
+#: ../includes/classes/class-upgrade.php:201
+msgid "Listings Slider Settings"
+msgstr ""
+
+#: ../includes/classes/class-upgrade.php:205
+msgid "Enable Footer Thumbnail"
+msgstr ""
+
+#: ../includes/classes/class-upgrade.php:229, ../includes/modules/multi-directory-setup/class-builder-data.php:1114, ../includes/modules/multi-directory-setup/class-builder-data.php:2362, ../includes/modules/multi-directory-setup/class-builder-data.php:2394
+msgid "Listing Title Settings"
+msgstr ""
+
+#: ../includes/classes/class-upgrade.php:233, ../includes/modules/multi-directory-setup/class-builder-data.php:1118, ../includes/modules/multi-directory-setup/class-builder-data.php:2371, ../includes/modules/multi-directory-setup/class-builder-data.php:2398
+msgid "Show Tagline"
+msgstr ""
+
+#: ../includes/classes/class-upgrade.php:347
 msgid "Dismiss this notice."
 msgstr ""
 
-#: ../includes/classes/class-upgrade.php:154
+#: ../includes/classes/class-upgrade.php:396
 msgid "<p class=\"directorist__notice_new\"><span style=\"font-size: 16px;\">📣 Directorist Extension Compatibility Notice!</span><br/> Congratulations and welcome to Directorist v8.0 with some cool <a href=\"%s\" target=\"_blank\">new features</a>.You are using %s of our extensions which are not compatible with v8.0. Please <a target=\"_blank\" href=\"%s\">update your extensions</a> </p>"
 msgstr ""
 
-#: ../includes/classes/class-upgrade.php:157, ../includes/classes/class-upgrade.php:180
+#: ../includes/classes/class-upgrade.php:399, ../includes/classes/class-upgrade.php:422
 msgid "<p class=\"directorist__notice_new_action\">Mistakenly updated? Use <a target=\"_blank\" href=\"%s\">WP Rollback</a> to install your old Directorist</p>"
 msgstr ""
 
-#: ../includes/classes/class-upgrade.php:177
+#: ../includes/classes/class-upgrade.php:419
 msgid "<p class=\"directorist__notice_new\"><span style=\"font-size: 16px;\">📣 Directorist Theme Compatibility Notice!</span><br/> Congratulations and welcome to Directorist v8.0 with some cool <a href=\"%s\" target=\"_blank\">new features</a>.Please update <a target=\"_blank\" href=\"%s\">%s theme</a> </p>"
 msgstr ""
 
@@ -8323,11 +8323,15 @@ msgstr ""
 msgid "Submit Your Review"
 msgstr ""
 
-#: ../templates/account/login-registration-form.php:239
+#: ../templates/account/login-registration-form.php:27
+msgid "Registration completed. Please check your email for confirmation. Or login here."
+msgstr ""
+
+#: ../templates/account/login-registration-form.php:252
 msgid "Registration completed. Please check your email for confirmation."
 msgstr ""
 
-#: ../templates/account/login-registration-form.php:231
+#: ../templates/account/login-registration-form.php:244
 msgid "Go to your inbox or spam/junk and get your password."
 msgstr ""
 

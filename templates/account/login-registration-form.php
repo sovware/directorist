@@ -2,18 +2,18 @@
 /**
  * @author  wpWax
  * @since   7.8.3
- * @version 7.8.3
+ * @version 8.0.6
  */
 
 use \Directorist\Helper;
 
-$user_email  = isset( $_GET['user'] ) ? sanitize_email( wp_unslash( base64_decode( $_GET['user'] ) ) ) : '';
-$key         = isset( $_GET['key'] ) ? sanitize_text_field( wp_unslash( $_GET['key'] ) ) : '';
+$user_email           = isset( $_GET['user'] ) ? sanitize_email( wp_unslash( base64_decode( $_GET['user'] ) ) ) : '';
+$key                  = isset( $_GET['key'] ) ? sanitize_text_field( wp_unslash( $_GET['key'] ) ) : '';
+$registration_success = false;
 
-$registration_success = ! empty( $_GET['registration_status'] ) && true == $_GET['registration_status'] ? true : false;
-
-if ( isset( $_GET['registration_status'] ) && $_GET['registration_status'] == true ) {
-	$active_form = 'signin';
+if ( ! empty( $_GET['registration_status'] ) ) {
+	$active_form          = 'signin';
+	$registration_success = true;
 }
 ?>
 <div class="directorist-w-100">

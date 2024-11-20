@@ -1808,9 +1808,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         var sliderRange = sliderItem.querySelector('.directorist-custom-range-slider__range');
         var sliderRangeShow = sliderItem.querySelector('.directorist-custom-range-slider__range__show');
         var sliderRangeValue = sliderItem.querySelector('.directorist-custom-range-slider__wrap .directorist-custom-range-slider__range');
+        var isRTL = document.dir === 'rtl';
         (_directoristCustomRan = directoristCustomRangeSlider) === null || _directoristCustomRan === void 0 || _directoristCustomRan.create(slider, {
           start: [0, sliderDefaultValue ? sliderDefaultValue : 100],
           connect: true,
+          direction: isRTL ? 'rtl' : 'ltr',
           step: sliderStep ? sliderStep : 1,
           range: {
             'min': Number(minInput.value ? minInput.value : 0),

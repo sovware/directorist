@@ -1,7 +1,7 @@
 <?php
 /**
  * @author  wpWax
- * @since   6.7
+ * @since   6.8
  * @version 8.0
  */
 

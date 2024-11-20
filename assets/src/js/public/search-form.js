@@ -994,10 +994,12 @@ import './components/directoristSelect';
                 let sliderRange = sliderItem.querySelector('.directorist-custom-range-slider__range');
                 let sliderRangeShow = sliderItem.querySelector('.directorist-custom-range-slider__range__show');
                 let sliderRangeValue = sliderItem.querySelector('.directorist-custom-range-slider__wrap .directorist-custom-range-slider__range');
+                let isRTL = document.dir === 'rtl';
 
                 directoristCustomRangeSlider?.create(slider, {
                     start: [0, sliderDefaultValue ? sliderDefaultValue : 100],
                     connect: true,
+                    direction: isRTL ? 'rtl' : 'ltr',
                     step: sliderStep ? sliderStep : 1,
                     range: {
                         'min': Number(minInput.value ? minInput.value : 0),

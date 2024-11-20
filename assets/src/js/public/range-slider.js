@@ -1989,7 +1989,9 @@
             // 'scale' to change the width of the element;
             // As the element has a width of 100%, a translation of 100% is equal to 100% of the parent (.directorist-custom-range-slider-base)
             var connectWidth = h - l;
-            var translateRule = "translate(" + inRuleOrder(transformDirection(l, connectWidth) + "%", "0") + ")";
+            var translateRule = options.dir
+                ? "translate(" + inRuleOrder(-l + "%", "0") + ")" // RTL
+                : "translate(" + inRuleOrder(l + "%", "0") + ")"; // LTR
             var scaleRule = "scale(" + inRuleOrder(connectWidth / 100, "1") + ")";
             scope_Connects[index].style[options.transformRule] =
                 translateRule + " " + scaleRule;

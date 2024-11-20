@@ -3184,7 +3184,7 @@ if( ! function_exists( 'directorist_warnings' ) ) {
             );
         }
 
-        return $warnings;
+        return apply_filters( 'directorist_warnings', $warnings );
     }
 }
 

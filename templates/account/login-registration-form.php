@@ -10,16 +10,21 @@ use \Directorist\Helper;
 $user_email  = isset( $_GET['user'] ) ? sanitize_email( wp_unslash( base64_decode( $_GET['user'] ) ) ) : '';
 $key         = isset( $_GET['key'] ) ? sanitize_text_field( wp_unslash( $_GET['key'] ) ) : '';
 
+if ( isset( $_GET['registration_status'] ) && $_GET['registration_status'] == true ) {
+	$active_form = 'signin';
+}
+
+$users_can_register   = get_option( 'users_can_register' );
 $registration_success = ! empty( $_GET['registration_status'] ) && true == $_GET['registration_status'] ? true : false;
-$active_form          = $registration_success ? 'signin' : $active_form;
 ?>
+
 <div class="directorist-w-100">
     <div class="<?php Helper::directorist_container_fluid(); ?>">
         <div class="<?php Helper::directorist_row(); ?>">
             <div class="directorist-col-md-6 directorist-offset-md-3 directorist-login-wrapper directorist-authentication <?php echo esc_attr( $active_form === 'signin' ? 'active' : '' ); ?>">
 				<div class="atbdp_login_form_shortcode directorist-authentication__form">
 
-					<?php if ( $registration_success ): ?>
+					<?php if ( $registration_success && $users_can_register ): ?>
 						<p style="padding: 20px" class="alert-success directorist-alert directorist-alert-success">
 							<span><?php esc_html_e('Registration completed. Please check your email for confirmation. Or login here.', 'directorist');?></span>
 						</p>
@@ -141,7 +146,7 @@ $active_form          = $registration_success ? 'signin' : $active_form;
 							<?php do_action( 'atbdp_before_login_form_end' );?>
 						</div>
 
-						<?php if ( directorist_is_user_registration_enabled() ) : ?>
+						<?php if ( directorist_is_user_registration_enabled() && $users_can_register ) : ?>
 							<div class="directorist-authentication__form__toggle-area">
 								<?php echo esc_html( $reg_text ); ?>
 								<button class="directorist-authentication__btn directorist-authentication__btn--signup" aria-label="Signup Button"><?php echo esc_html( $reg_linktxt ); ?></button>
@@ -230,7 +235,7 @@ $active_form          = $registration_success ? 'signin' : $active_form;
 				</div><!-- /.atbdp_login_form_shortcode -->
 			</div>
 
-			<?php if ( directorist_is_user_registration_enabled() ) : ?>
+			<?php if ( directorist_is_user_registration_enabled() && $users_can_register ) : ?>
 			<div class="directorist-col-md-6 directorist-offset-md-3 directorist-registration-wrapper directorist-authentication <?php echo esc_attr( $active_form === 'signup' ? 'active' : '' ); ?>">
 				<div class="directory_register_form_wrap directorist-authentication__form">
 					<div class="add_listing_title atbd_success_mesage directorist-authentication__message">

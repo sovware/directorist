@@ -5,7 +5,7 @@ Tags: member directory, listing, classifieds, directory plugin, business directo
 Requires at least: 4.6
 Tested up to: 6.7
 Requires PHP: 7.0
-Stable tag: 8.0.5
+Stable tag: 8.0.6
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -313,6 +313,14 @@ Directorist is a complete directory solution and in combination with its advance
  * and many more
 
 == Changelog ==
+
+8.0.6 - Nov 20, 2024
+
+* Fixed: RTL style issues (#2120)
+* Fixed: Registration confirmation notice when email verification disabled (#2117)
+* Fixed: Improve v8 migration (#2118)
+* Fixed: Empty markup issue in single listing (#2121)
+* Added: Filter hook on System Status warnings (#2114)
 
 8.0.5 - Nov 19, 2024
 

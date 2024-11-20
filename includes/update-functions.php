@@ -235,3 +235,7 @@ function directorist_7123_remove_upload_files_cap() {
 function directorist_7123_update_db_version() {
 	\ATBDP_Installation::update_db_version( '7.12.3' );
 }
+
+function directorist_800_update_db_version() {
+    \ATBDP_Installation::update_db_version( '8.0.0' );
+}

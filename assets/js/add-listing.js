@@ -913,22 +913,22 @@ $(function () {
         // Check if the user has scrolled down to the container position
         if (scrollPos >= multiStepWizardOffset) {
           $(".multistep-wizard__nav").addClass("sticky");
-          $(".multistep-wizard__content").css("padding-left", sidebarWidth + 30 + 'px');
+          $(".multistep-wizard__content").css("padding-inline-start", sidebarWidth + 30 + 'px');
           // Check if the user has fully scrolled the container
           if (scrollPos >= multiStepWizardOffset + multiStepWizardHeight - sidebarHeight) {
             $(".multistep-wizard__nav").removeClass("sticky");
-            $(".multistep-wizard__content").css("padding-left", '0px');
+            $(".multistep-wizard__content").css("padding-inline-start", '0px');
           } else {
             $(".multistep-wizard__nav").addClass("sticky");
-            $(".multistep-wizard__content").css("padding-left", sidebarWidth + 30 + 'px');
+            $(".multistep-wizard__content").css("padding-inline-start", sidebarWidth + 30 + 'px');
           }
         } else {
           $(".multistep-wizard__nav").removeClass("sticky");
-          $(".multistep-wizard__content").css("padding-left", '0px');
+          $(".multistep-wizard__content").css("padding-inline-start", '0px');
         }
       } else {
         $(".multistep-wizard__nav").removeClass("sticky");
-        $(".multistep-wizard__content").css("padding-left", '0px');
+        $(".multistep-wizard__content").css("padding-inline-start", '0px');
       }
     }, 100));
   }

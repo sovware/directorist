@@ -1,5 +1,6 @@
 {
     "name": "wpwax/directorist",
+    "type": "wordpress-plugin",
     "authors": [
         {
             "name": "wpWax",

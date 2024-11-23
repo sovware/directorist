@@ -65,7 +65,7 @@
             }
         };
 
-        this.navLinksSetup = function(selector) {
+        this.navLinksSetup = function (selector) {
             var elements = document.querySelectorAll(selector);
             if (!elements.length) return;
 
@@ -75,21 +75,57 @@
                     link.style.cursor = 'pointer';
                     link.addEventListener('click', (event) => {
                         event.preventDefault();
+                        event.stopPropagation();
 
-                        const nav = event.target.closest('.directorist-tab__nav');
-                        const main = nav?.nextElementSibling;
-                        const items = nav?.querySelectorAll('.directorist-tab__nav__link');
-                        const sections = main?.querySelectorAll('.directorist-tab__pane');
+                        var ul = event.target.closest('.directorist-tab__nav'),
+                            main = ul.nextElementSibling,
+                            item_link = ul.querySelectorAll('.directorist-tab__nav__link'),
+                            section = main.querySelectorAll('.directorist-tab__pane');
 
-                        items?.forEach((item) => item.classList.remove('directorist-tab__nav__active'));
-                        sections?.forEach((section) => section.classList.remove('directorist-tab__pane--active'));
+                        // Activate Navigation Panel
+                        item_link.forEach((link) => {
+                            link.classList.remove('directorist-tab__nav__active');
+                        });
 
-                        const targetId = event.target.getAttribute('target');
-                        const targetPane = document.getElementById(targetId);
-                        if (targetPane) targetPane.classList.add('directorist-tab__pane--active');
+                        const parentNavRef = event.target.getAttribute( 'data-parent-nav' );
 
-                        event.target.classList.add('directorist-tab__nav__active');
-                        window.location.hash = `#${targetId}`;
+                        if ( parentNavRef ) {
+                            const parentNav = document.querySelector( parentNavRef );
+                            if ( parentNav ) {
+                                parentNav.classList.add('directorist-tab__nav__active');
+                            }
+                        } else {
+                            event.target.classList.add('directorist-tab__nav__active');
+                            var dropDownToggler = event.target.closest('.atbdp_tab_nav--has-child')?.querySelector('.atbd-dash-nav-dropdown');
+                            if (dropDownToggler && !dropDownToggler.classList.contains('directorist-tab__nav__active')) {
+                                dropDownToggler.classList.add('directorist-tab__nav__active');
+                            }
+                        }
+
+                        // Activate Content Panel
+                        section.forEach((sectionItem) => {
+                            sectionItem.classList.remove('directorist-tab__pane--active');
+                        });
+
+                        const content_id = event.target.getAttribute('target');
+                        document.getElementById(content_id).classList.add('directorist-tab__pane--active');
+
+                        // Add Hash To Window Location
+                        let hashID = content_id;
+                        const link = event.target.getAttribute('href');
+
+                        if (link) {
+                            const matchLink = link.match(/#(.+)/);
+                            hashID = matchLink ? matchLink[1] : hashID;
+                        }
+
+                        const hasMatch = window.location.hash.match( new RegExp( `^${link}$` ) );
+                        window.location.hash = hasMatch ? hasMatch[0] : "#" + hashID;
+
+                        var newHash = window.location.hash;
+                        var newUrl = window.location.pathname + newHash;
+
+                        window.history.replaceState(null, null, newUrl);
                     });
                 });
             });

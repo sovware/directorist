@@ -1110,130 +1110,54 @@ window.addEventListener('load', function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
-/*
-    Plugin: Dash Tab
-    Version: 1.0.0
-    License: MIT
-*/
 (function () {
   this.DashTab = function (selector) {
     this.globalSetup = function () {
-      if (window.isInitializedDashTab) {
-        return;
-      }
+      if (window.isInitializedDashTab) return;
       window.isInitializedDashTab = true;
       this.activateNavLinkByURL();
     };
     this.activateNavLinkByURL = function () {
       var hash = window.location.hash;
-      var queryStrings = null;
-
-      // Split the URL into its components
-      var urlParts = hash.split(/[?|&]/);
-      if (urlParts.length > 1) {
-        // Get Hash Link
-        var hashLink = urlParts[0];
-
-        // Get the search parameters
-        queryStrings = JSON.parse(JSON.stringify(urlParts));
-        queryStrings.splice(0, 1);
-        queryStrings = queryStrings.filter(function (item) {
-          return "".concat(item).length;
-        });
-        queryStrings = queryStrings.join('&');
-        window.location.hash = hashLink;
-        hash = window.location.hash;
-      }
-
-      // Activate Current Navigation Item
+      if (!hash) return;
       var navLinks = document.querySelectorAll('.directorist-tab__nav__link');
-      var _iterator = _createForOfIteratorHelper(navLinks),
-        _step;
-      try {
-        for (_iterator.s(); !(_step = _iterator.n()).done;) {
-          var link = _step.value;
-          var href = link.getAttribute('href');
-          var target = link.getAttribute('target');
-          if (href === hash || "#".concat(target) === hash || window.location.hash.match(new RegExp("^".concat(href, "$")))) {
-            var parent = link.closest('.atbdp_tab_nav--has-child');
-            if (parent) {
-              var dropdownMenu = parent.querySelector('.atbd-dashboard-nav');
-              if (dropdownMenu) {
-                dropdownMenu.style.display = 'block';
-              }
-            }
-            link.click();
-            break;
+      navLinks.forEach(function (link) {
+        var href = link.getAttribute('href');
+        var target = link.getAttribute('target');
+        if (href === hash || "#".concat(target) === hash) {
+          var parent = link.closest('.atbdp_tab_nav--has-child');
+          if (parent) {
+            var dropdownMenu = parent.querySelector('.atbd-dashboard-nav');
+            if (dropdownMenu) dropdownMenu.style.display = 'block';
           }
+          link.click();
         }
-
-        // Update Window History
-      } catch (err) {
-        _iterator.e(err);
-      } finally {
-        _iterator.f();
-      }
-      if (queryStrings) {
-        // Reconstruct the URL with the updated search parameters
-        var newUrl = window.location.pathname + window.location.hash + "?" + queryStrings;
-        window.history.replaceState(null, null, newUrl);
-      }
+      });
     };
     this.navLinksSetup = function (selector) {
-      var selector = document.querySelectorAll(selector);
-      selector.forEach(function (el) {
-        a = el.querySelectorAll('.directorist-tab__nav__link:not(.atbd-dash-nav-dropdown)');
-        a.forEach(function (element) {
-          element.style.cursor = 'pointer';
-          element.addEventListener('click', function (event) {
+      var elements = document.querySelectorAll(selector);
+      if (!elements.length) return;
+      elements.forEach(function (el) {
+        var links = el.querySelectorAll('.directorist-tab__nav__link:not(.atbd-dash-nav-dropdown)');
+        links.forEach(function (link) {
+          link.style.cursor = 'pointer';
+          link.addEventListener('click', function (event) {
             event.preventDefault();
-            event.stopPropagation();
-            var ul = event.target.closest('.directorist-tab__nav'),
-              main = ul.nextElementSibling,
-              item_link = ul.querySelectorAll('.directorist-tab__nav__link'),
-              section = main.querySelectorAll('.directorist-tab__pane');
-
-            // Activate Navigation Panel
-            item_link.forEach(function (link) {
-              link.classList.remove('directorist-tab__nav__active');
+            var nav = event.target.closest('.directorist-tab__nav');
+            var main = nav === null || nav === void 0 ? void 0 : nav.nextElementSibling;
+            var items = nav === null || nav === void 0 ? void 0 : nav.querySelectorAll('.directorist-tab__nav__link');
+            var sections = main === null || main === void 0 ? void 0 : main.querySelectorAll('.directorist-tab__pane');
+            items === null || items === void 0 || items.forEach(function (item) {
+              return item.classList.remove('directorist-tab__nav__active');
             });
-            var parentNavRef = event.target.getAttribute('data-parent-nav');
-            if (parentNavRef) {
-              var parentNav = document.querySelector(parentNavRef);
-              if (parentNav) {
-                parentNav.classList.add('directorist-tab__nav__active');
-              }
-            } else {
-              var _event$target$closest;
-              event.target.classList.add('directorist-tab__nav__active');
-              var dropDownToggler = (_event$target$closest = event.target.closest('.atbdp_tab_nav--has-child')) === null || _event$target$closest === void 0 ? void 0 : _event$target$closest.querySelector('.atbd-dash-nav-dropdown');
-              if (dropDownToggler && !dropDownToggler.classList.contains('directorist-tab__nav__active')) {
-                dropDownToggler.classList.add('directorist-tab__nav__active');
-              }
-            }
-
-            // Activate Content Panel
-            section.forEach(function (sectionItem) {
-              sectionItem.classList.remove('directorist-tab__pane--active');
+            sections === null || sections === void 0 || sections.forEach(function (section) {
+              return section.classList.remove('directorist-tab__pane--active');
             });
-            var content_id = event.target.getAttribute('target');
-            document.getElementById(content_id).classList.add('directorist-tab__pane--active');
-
-            // Add Hash To Window Location
-            var hashID = content_id;
-            var link = event.target.getAttribute('href');
-            if (link) {
-              var matchLink = link.match(/#(.+)/);
-              hashID = matchLink ? matchLink[1] : hashID;
-            }
-            var hasMatch = window.location.hash.match(new RegExp("^".concat(link, "$")));
-            window.location.hash = hasMatch ? hasMatch[0] : "#" + hashID;
-            var newHash = window.location.hash;
-            var newUrl = window.location.pathname + newHash;
-            window.history.replaceState(null, null, newUrl);
+            var targetId = event.target.getAttribute('target');
+            var targetPane = document.getElementById(targetId);
+            if (targetPane) targetPane.classList.add('directorist-tab__pane--active');
+            event.target.classList.add('directorist-tab__nav__active');
+            window.location.hash = "#".concat(targetId);
           });
         });
       });

@@ -1809,6 +1809,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         var sliderRangeShow = sliderItem.querySelector('.directorist-custom-range-slider__range__show');
         var sliderRangeValue = sliderItem.querySelector('.directorist-custom-range-slider__wrap .directorist-custom-range-slider__range');
         var isRTL = document.dir === 'rtl';
+
+        // init rangeInitiLoad on initial Load
+        var rangeInitLoad = true;
         (_directoristCustomRan = directoristCustomRangeSlider) === null || _directoristCustomRan === void 0 || _directoristCustomRan.create(slider, {
           start: [0, sliderDefaultValue ? sliderDefaultValue : 100],
           connect: true,
@@ -1827,9 +1830,14 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           sliderRangeShow && (sliderRangeShow.innerHTML = rangeValue);
           if (sliderRangeValue) {
             sliderRangeValue.setAttribute('value', rangeValue);
-            $(sliderRangeValue).trigger('change');
+            if (!rangeInitLoad) {
+              $(sliderRangeValue).trigger('change'); // Trigger change event
+            }
           }
         });
+
+        // false rangeInitLoad after call
+        rangeInitLoad = false;
         minInput.addEventListener('change', function () {
           var minValue = Math.round(parseInt(this.value, 10) / sliderStep) * sliderStep;
           var maxValue = Math.round(parseInt(maxInput.value, 10) / sliderStep) * sliderStep;

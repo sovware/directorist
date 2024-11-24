@@ -275,8 +275,8 @@ class ATBDP_Upgrade
 		$fields        = isset( $search_fields['fields'] ) && is_array( $search_fields['fields'] ) ? $search_fields['fields'] : [];
 
 		foreach ( $fields as $key => $field ) {
-			$placeholder    = ! empty( $field['placeholder'] ) ? $field['placeholder'] : '';
-			$label          = ! empty( $field['label'] ) ? $field['label'] : $placeholder;
+			$placeholder    = empty( $field['placeholder'] ) ? '' : $field['placeholder'];
+			$label          = empty( $field['label'] ) ? $placeholder : $field['label'];
 			$field['label'] = $label;
 
 			$search_fields['fields'][ $key ] = $field;

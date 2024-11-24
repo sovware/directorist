@@ -1183,12 +1183,13 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       }
     };
     this.navLinksSetup = function (selector) {
-      var selector = document.querySelectorAll(selector);
-      selector.forEach(function (el) {
-        a = el.querySelectorAll('.directorist-tab__nav__link:not(.atbd-dash-nav-dropdown)');
-        a.forEach(function (element) {
-          element.style.cursor = 'pointer';
-          element.addEventListener('click', function (event) {
+      var elements = document.querySelectorAll(selector);
+      if (!elements.length) return;
+      elements.forEach(function (el) {
+        var links = el.querySelectorAll('.directorist-tab__nav__link:not(.atbd-dash-nav-dropdown)');
+        links.forEach(function (link) {
+          link.style.cursor = 'pointer';
+          link.addEventListener('click', function (event) {
             event.preventDefault();
             event.stopPropagation();
             var ul = event.target.closest('.directorist-tab__nav'),

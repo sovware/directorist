@@ -216,11 +216,11 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 			$this->extensions = apply_filters( 'atbdp_extension_list', $products['extensions'] );
 			$this->themes = apply_filters( 'atbdp_theme_list', $products['themes'] );
 
-			if ( empty($this->extensions ) ) {
+			if ( empty( $this->extensions ) ) {
 				$this->extensions = $this->get_default_extensions();
 			}
 		
-			if ( empty($this->themes ) ) {
+			if ( empty( $this->themes ) ) {
 				$this->themes = $this->get_default_themes();
 			}
 		}

@@ -5,7 +5,7 @@ Tags: member directory, listing, classifieds, directory plugin, business directo
 Requires at least: 4.6
 Tested up to: 6.7
 Requires PHP: 7.0
-Stable tag: 8.0.6
+Stable tag: 8.0.7
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -313,6 +313,19 @@ Directorist is a complete directory solution and in combination with its advance
  * and many more
 
 == Changelog ==
+
+8.0.7 - Nov 24, 2024
+
+* Fixed: Feature listing border color now dynamically changes (#2141).
+* Fixed: Fatal error issue when updating the plugin from v7 to v8; added all listings and search result layout during migration for no sidebar selection (#2139).
+* Fixed: Single listing slider container width and height issue (#2138).
+* Fixed: Responsive issue with 6-column layout (#2129).
+* Fixed: Missing space in the listing card heading title when the author link is absent (#2130).
+* Fixed: Initial load issue in all listing sliders (#2128).
+* Fixed: Prevented re-declaration of constant variables in DashTab script (#2127).
+* Fixed: Listing list view responsiveness on mobile (#2124).
+* Fixed: "No extension installed" issue on the membership page (#2124).
+* Improved: Single listing header options now align responsively in a single line (#2140).
 
 8.0.6 - Nov 20, 2024
 

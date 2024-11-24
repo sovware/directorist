@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-11-20 12:50+0000\n"
+"POT-Creation-Date: 2024-11-24 11:05+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -186,7 +186,7 @@ msgstr ""
 msgid "Username"
 msgstr ""
 
-#: ../blocks/templates/registration.php:20, ../includes/classes/class-settings-panel.php:1726, ../includes/classes/class-settings-panel.php:2734, ../includes/classes/class-settings-panel.php:3772, ../includes/classes/class-settings-panel.php:3950, ../includes/model/SingleListing.php:704, ../includes/review/class-comment-form-renderer.php:229, ../includes/modules/multi-directory-setup/class-builder-data.php:383, ../includes/modules/multi-directory-setup/class-builder-data.php:534, ../includes/modules/multi-directory-setup/class-builder-data.php:541, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:207, ../templates/single-reviews.php:119, ../templates/widgets/contact-form.php:19
+#: ../blocks/templates/registration.php:20, ../includes/classes/class-settings-panel.php:1726, ../includes/classes/class-settings-panel.php:2734, ../includes/classes/class-settings-panel.php:3772, ../includes/classes/class-settings-panel.php:3950, ../includes/model/SingleListing.php:704, ../includes/review/class-comment-form-renderer.php:229, ../includes/modules/multi-directory-setup/class-builder-data.php:383, ../includes/modules/multi-directory-setup/class-builder-data.php:534, ../includes/modules/multi-directory-setup/class-builder-data.php:541, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:215, ../templates/single-reviews.php:119, ../templates/widgets/contact-form.php:19
 msgid "Email"
 msgstr ""
 
@@ -736,15 +736,15 @@ msgstr ""
 msgid "Please make sure you filed up the user type"
 msgstr ""
 
-#: ../includes/helper-functions.php:4457, ../includes/classes/class-extension.php:1253, ../includes/classes/class-extension.php:1362
+#: ../includes/helper-functions.php:4457, ../includes/classes/class-extension.php:1552, ../includes/classes/class-extension.php:1661
 msgid "Invalid download link"
 msgstr ""
 
-#: ../includes/helper-functions.php:4497, ../includes/classes/class-extension.php:1293, ../includes/classes/class-extension.php:1402
+#: ../includes/helper-functions.php:4497, ../includes/classes/class-extension.php:1592, ../includes/classes/class-extension.php:1701
 msgid "Could not create temp directory"
 msgstr ""
 
-#: ../includes/helper-functions.php:4549, ../includes/classes/class-extension.php:1345
+#: ../includes/helper-functions.php:4549, ../includes/classes/class-extension.php:1644
 msgid "The plugin has been downloaded successfully"
 msgstr ""
 
@@ -1089,7 +1089,7 @@ msgstr ""
 msgid "Login successful, redirecting..."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:320, ../includes/classes/class-ajax-handler.php:1342, ../includes/classes/class-ajax-handler.php:1554, ../includes/classes/class-settings-panel.php:320, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:417, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:528, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:650
+#: ../includes/classes/class-ajax-handler.php:320, ../includes/classes/class-ajax-handler.php:1342, ../includes/classes/class-ajax-handler.php:1554, ../includes/classes/class-settings-panel.php:320, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:425, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:536, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:658
 msgid "Something is wrong! Please refresh and retry."
 msgstr ""
 
@@ -1229,7 +1229,7 @@ msgstr ""
 msgid "Sorry, something went wrong, please try again"
 msgstr ""
 
-#: ../includes/classes/class-announcement.php:415, ../includes/system-status/custom-url.php:15, ../includes/system-status/custom-url.php:42, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:898
+#: ../includes/classes/class-announcement.php:415, ../includes/system-status/custom-url.php:15, ../includes/system-status/custom-url.php:42, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:906
 msgid "Invalid request"
 msgstr ""
 
@@ -1438,7 +1438,7 @@ msgstr ""
 msgid "Directory listings"
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:365, ../includes/classes/class-settings-panel.php:2543, ../includes/classes/class-settings-panel.php:2654, ../includes/classes/class-settings-panel.php:3012, ../includes/elementor/all-categories.php:93, ../includes/elementor/all-locations.php:93, ../includes/model/SingleListing.php:701, ../includes/review/class-comment-form-renderer.php:216, ../includes/system-status/system-info-template.php:475, ../includes/widgets/all-categories.php:59, ../includes/widgets/all-locations.php:59, ../includes/widgets/all-tags.php:58, ../includes/modules/multi-directory-setup/class-builder-data.php:400, ../includes/modules/multi-directory-setup/class-builder-data.php:517, ../includes/modules/multi-directory-setup/class-builder-data.php:529, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:200, ../includes/system-status/system-information/system-information-template.php:652, ../templates/single-reviews.php:105, ../templates/widgets/contact-form.php:15, ../views/admin-templates/post-types-manager/all-listing-types.php:117
+#: ../includes/classes/class-custom-post.php:365, ../includes/classes/class-settings-panel.php:2543, ../includes/classes/class-settings-panel.php:2654, ../includes/classes/class-settings-panel.php:3012, ../includes/elementor/all-categories.php:93, ../includes/elementor/all-locations.php:93, ../includes/model/SingleListing.php:701, ../includes/review/class-comment-form-renderer.php:216, ../includes/system-status/system-info-template.php:475, ../includes/widgets/all-categories.php:59, ../includes/widgets/all-locations.php:59, ../includes/widgets/all-tags.php:58, ../includes/modules/multi-directory-setup/class-builder-data.php:400, ../includes/modules/multi-directory-setup/class-builder-data.php:517, ../includes/modules/multi-directory-setup/class-builder-data.php:529, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:208, ../includes/system-status/system-information/system-information-template.php:652, ../templates/single-reviews.php:105, ../templates/widgets/contact-form.php:15, ../views/admin-templates/post-types-manager/all-listing-types.php:117
 msgid "Name"
 msgstr ""
 
@@ -1877,139 +1877,291 @@ msgstr ""
 msgid "[==NAME==] Verify Your Email Address"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:352
+#: ../includes/classes/class-extension.php:232
+msgid "It lets you offer discounts to users when purchasing listing plans or paying for featured listings."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:239
+msgid "Compare Listings extension allows users to add a set of listings in a list and compare its features by viewing in a comparison table."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:246
+msgid "Post your expected services according to your need and get the respective service provider with no time."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:253
+msgid "Show your listings with the interactive maps and make your business visible comprehensively. This awesome extension will make your website the brand recognition it deserves."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:261
+msgid "Do you have a growing directory site? Do you want to make money with your site very easily? Start generating a handsome amount of revenue from your directory site with Directorist Pricing Plans today."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:268
+msgid "Do you have a growing directory site? Do you want to make money with your site by integrating your favorite WooCommerce payment gateway? Start generating a handsome amount of revenue from your directory site with Directorist WooCommerce Pricing Plans today."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:275
+msgid "Do you want to boost your income on your business directory site? Are you looking for a robust payment gateway with worldwide acceptance? If you are, then Directorist PayPal Payment Gateway is the perfect fit for you."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:282
+msgid "Are you looking for a versatile Directorist payment gateway for your business directory that accepts a great number of currencies? If yes, then Directorist Stripe Payment Gateway is the smartest way to go"
+msgstr ""
+
+#: ../includes/classes/class-extension.php:289
+msgid "Let business owners maintain tons of listings by claiming them and monetize your directory listing website with instant revenue."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:296
+msgid "Mark as sold is a dynamic extension that provides listing authors the opportunity to show visitors if a particular item is sold or not."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:303
+msgid "Use Directorist Social Login to accelerate the registration process by offering a single-click login option using Facebook or Google profile."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:310
+msgid "Use reCAPTCHA service from Google to help your directory site protect from spam and further abuse. This Google reCAPTCHA extension allows you to make it happen by taking care of your site."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:317
+msgid "Use an organized FAQ page on your directory website and provide quick information to help customers make a potential decision. Here, the idea is to keep the answers short and direct so that people find info quickly."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:324
+msgid "Inform your customers about your business hours in the best way possible especially when your businesses are opened and when they are closed"
+msgstr ""
+
+#: ../includes/classes/class-extension.php:332
+msgid "Increase the beauty of your directory website by displaying numerous listings through attractive sliders or carousels with this highly customizable extension."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:340
+msgid "Live Chat is an extension that allows the visitors to contact business owners immediately and easily. It makes the business more credible as customer satisfaction increases notably."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:347
+msgid "This extension comes with all the solutions you need to set up a dynamic booking and reservation system on your directory website."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:354
+msgid "Use a quality image gallery and increase conversation by reducing your return rate on your directory listing website."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:362
+msgid "Are you wondering about placing advertisements in your directory? Directorist Ads Manager allows you to insert advertisements on specific Directorist pages such as All listings, Single Listings, All Location, All Category, etc."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:369
+msgid "Directorist - BuddyBoss Integration extension is used to integrate the giant Directorist with the popular BuddyBoss plugin. It combines all the functionalities needed to create a complete community based WordPress directory website using Directorist plugin and BuddyBoss platform"
+msgstr ""
+
+#: ../includes/classes/class-extension.php:376
+msgid "Directorist Oxygen is used to integrate the giant Directorist with the popular Oxygen Page Builder plugin. It combines all the functionalities needed to create a complete WordPress directory website using Oxygen Builder."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:383
+msgid "Directorist Authorize Payment Gateway is a secured payment solution that accepts a great number of payment options for Directorist Pricing Plan like Visa, MasterCard, Discover, AmEx, JCB, PayPal, and more."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:390
+msgid "Directorist - BuddyPress Integration is a premium extension which makes Direcorist and BuddyPress work as a single integrated app, allowing you to build a hybrid listings directory and social network together."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:397
+msgid "If you are running multi-directories on your directory website, Multi-directory Linking will be an awesome extension that will allow your users to connect to other types of directories. This opens up a new window to earn money from your directory website."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:404
+msgid "If you're wondering how to place job listings with detailed specifications, then Directorist-Job Manager gets you rid out of this problem"
+msgstr ""
+
+#: ../includes/classes/class-extension.php:411
+msgid "Directorist Mailchimp Integration Connects Directorist with Mailchimp. It helps you to make your directory business grow faster and smarter with more leads."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:418
+msgid "Directorist HelpGent Integration puts Directorist and HelpGent on the same avenue. The integration helps you to make your directory website more accessible to your audience which eventually creates more leads and conversions"
+msgstr ""
+
+#: ../includes/classes/class-extension.php:425
+msgid "Directorist WPML Integration connects Directorist and WPML in one place. It helps you to make your directory sites multilingual more conveniently & efficiently by switching your directory website from one language to another."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:432
+msgid "If you want to create a marketplace of fixed-price services or digital downloads, then the Digital Marketplace Extension will be a worth-investment to kickstart."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:439
+msgid "Directorist GamiPress Integration Connects Directorist with GamiPress in one place. It helps you to aggrandize the engagement of your directory business with the utmost possible ease."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:452
+msgid "DList is a listing directory WordPress theme that provides immense opportunities to build any kind of directory or listing site. You may design pages on the front-end and watch them instantly come to life."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:460
+msgid "DService is a kind of listing Directory WordPress theme that brings business owners and customers on the same platform. This multifunctional WordPress theme provides them the opportunity to interact with one another for business purposes."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:468
+msgid "Directoria is an astonishing directory and listing WordPress theme that is designed and developed to provide fastest page loading speed without knowing a single line of code."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:476
+msgid "dLawyers is a beautiful WordPress directory theme for legal, legal adviser companies, legal offices, court consultants, lawyers, counsel bureau, attorney agencies, and other law-related businesses."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:484
+msgid "dDoctors is a beautiful WordPress directory theme for doctor, nurse, medical techonologist, hospital, clinic, and other medical-related businesses."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:492
+msgid "Onelisting Pro is a beautiful WordPress directory theme for doctor, nurse, medical techonologist, hospital, clinic, and other medical-related businesses."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:500
+msgid "dPlace theme is tailored to meet all the nitty gritties to build attractive mobile responsive travel agency directory websites. As a full-fledged theme, it will allow you to create travel & tour directories with booking and reservation features."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:508
+msgid "Are you looking for the best restaurant directory theme that brings you more business? Then, nothing can beat dRestaurant, as it is the most powerful theme that checks all your visual needs with the concept of scalability in mind."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:651
 msgid "All plugins are up to date"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:358
+#: ../includes/classes/class-extension.php:657
 msgid "The plugin is up to date"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:379
+#: ../includes/classes/class-extension.php:678
 msgid "The plugin has been updated successfully"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:375
+#: ../includes/classes/class-extension.php:674
 msgid "The plugin could not update"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:409
+#: ../includes/classes/class-extension.php:708
 msgid "Some of the plugin could not update"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:414
+#: ../includes/classes/class-extension.php:713
 msgid "All the plugins are updated successfully"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:419
+#: ../includes/classes/class-extension.php:718
 msgid "No plugins could not update"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:534
+#: ../includes/classes/class-extension.php:833
 msgid "Theme's stylesheet is missing"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:558
+#: ../includes/classes/class-extension.php:857
 msgid "Please specefy which plugin to activate"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:597
+#: ../includes/classes/class-extension.php:896
 msgid "All themes are up to date"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:603
+#: ../includes/classes/class-extension.php:902
 msgid "The theme is up to date"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:617
+#: ../includes/classes/class-extension.php:916
 msgid "The theme is already upto date"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:634
+#: ../includes/classes/class-extension.php:933
 msgid "The theme has been updated successfully"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:630
+#: ../includes/classes/class-extension.php:929
 msgid "The theme could not update"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:670
+#: ../includes/classes/class-extension.php:969
 msgid "Some of the theme could not update"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:675
+#: ../includes/classes/class-extension.php:974
 msgid "All the themes are updated successfully"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:680
+#: ../includes/classes/class-extension.php:979
 msgid "No themes could not update"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:764
+#: ../includes/classes/class-extension.php:1063
 msgid "Something went wrong"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:855
+#: ../includes/classes/class-extension.php:1154
 msgid "Password is required"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:866
+#: ../includes/classes/class-extension.php:1165
 msgid "Sassion is destroyed, please sign-in again"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:906
+#: ../includes/classes/class-extension.php:1205
 msgid "Your purchase has been refreshed successfuly"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1085
+#: ../includes/classes/class-extension.php:1384
 msgid "Item key is missing"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1092
+#: ../includes/classes/class-extension.php:1391
 msgid "Type not specified"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1099
+#: ../includes/classes/class-extension.php:1398
 msgid "Invalid type"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1114
+#: ../includes/classes/class-extension.php:1413
 msgid "Nothing available in subscriptions"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1121
+#: ../includes/classes/class-extension.php:1420
 msgid "The item is not available in your subscriptions"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1133
+#: ../includes/classes/class-extension.php:1432
 msgid "The license is not valid, please check you subscription."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1156
+#: ../includes/classes/class-extension.php:1455
 msgid "Installed Successfully"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1200, ../includes/classes/class-extension.php:2064
+#: ../includes/classes/class-extension.php:1499, ../includes/classes/class-extension.php:2363
 msgid "Activation failed"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1236
+#: ../includes/classes/class-extension.php:1535
 msgid "Donloaded"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1454, ../includes/classes/class-extension.php:1466
+#: ../includes/classes/class-extension.php:1753, ../includes/classes/class-extension.php:1765
 msgid "The theme has been downloaded successfully"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1683
+#: ../includes/classes/class-extension.php:1982
 msgid "Get Extensions"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1684
+#: ../includes/classes/class-extension.php:1983
 msgid "Themes & Extensions"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:2019
+#: ../includes/classes/class-extension.php:2318
 msgid "Nothing to activate"
 msgstr ""
 
@@ -2151,7 +2303,7 @@ msgstr ""
 msgid "Congratulations! Your listing has been approved/published. Now it is publicly available."
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:329, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:426, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:542, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:664
+#: ../includes/classes/class-settings-panel.php:329, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:434, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:550, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:672
 msgid "You are not allowed to access this resource"
 msgstr ""
 
@@ -4399,35 +4551,35 @@ msgstr ""
 msgid "Directorist data update complete. Thank you for updating to the latest version!"
 msgstr ""
 
-#: ../includes/classes/class-upgrade.php:201
+#: ../includes/classes/class-upgrade.php:211
 msgid "Listings Slider Settings"
 msgstr ""
 
-#: ../includes/classes/class-upgrade.php:205
+#: ../includes/classes/class-upgrade.php:215
 msgid "Enable Footer Thumbnail"
 msgstr ""
 
-#: ../includes/classes/class-upgrade.php:229, ../includes/modules/multi-directory-setup/class-builder-data.php:1114, ../includes/modules/multi-directory-setup/class-builder-data.php:2362, ../includes/modules/multi-directory-setup/class-builder-data.php:2394
+#: ../includes/classes/class-upgrade.php:239, ../includes/modules/multi-directory-setup/class-builder-data.php:1114, ../includes/modules/multi-directory-setup/class-builder-data.php:2362, ../includes/modules/multi-directory-setup/class-builder-data.php:2394
 msgid "Listing Title Settings"
 msgstr ""
 
-#: ../includes/classes/class-upgrade.php:233, ../includes/modules/multi-directory-setup/class-builder-data.php:1118, ../includes/modules/multi-directory-setup/class-builder-data.php:2371, ../includes/modules/multi-directory-setup/class-builder-data.php:2398
+#: ../includes/classes/class-upgrade.php:243, ../includes/modules/multi-directory-setup/class-builder-data.php:1118, ../includes/modules/multi-directory-setup/class-builder-data.php:2371, ../includes/modules/multi-directory-setup/class-builder-data.php:2398
 msgid "Show Tagline"
 msgstr ""
 
-#: ../includes/classes/class-upgrade.php:347
+#: ../includes/classes/class-upgrade.php:360
 msgid "Dismiss this notice."
 msgstr ""
 
-#: ../includes/classes/class-upgrade.php:396
+#: ../includes/classes/class-upgrade.php:409
 msgid "<p class=\"directorist__notice_new\"><span style=\"font-size: 16px;\">📣 Directorist Extension Compatibility Notice!</span><br/> Congratulations and welcome to Directorist v8.0 with some cool <a href=\"%s\" target=\"_blank\">new features</a>.You are using %s of our extensions which are not compatible with v8.0. Please <a target=\"_blank\" href=\"%s\">update your extensions</a> </p>"
 msgstr ""
 
-#: ../includes/classes/class-upgrade.php:399, ../includes/classes/class-upgrade.php:422
+#: ../includes/classes/class-upgrade.php:412, ../includes/classes/class-upgrade.php:435
 msgid "<p class=\"directorist__notice_new_action\">Mistakenly updated? Use <a target=\"_blank\" href=\"%s\">WP Rollback</a> to install your old Directorist</p>"
 msgstr ""
 
-#: ../includes/classes/class-upgrade.php:419
+#: ../includes/classes/class-upgrade.php:432
 msgid "<p class=\"directorist__notice_new\"><span style=\"font-size: 16px;\">📣 Directorist Theme Compatibility Notice!</span><br/> Congratulations and welcome to Directorist v8.0 with some cool <a href=\"%s\" target=\"_blank\">new features</a>.Please update <a target=\"_blank\" href=\"%s\">%s theme</a> </p>"
 msgstr ""
 
@@ -5208,7 +5360,7 @@ msgstr ""
 msgid "1 Star & Up"
 msgstr ""
 
-#: ../includes/model/SingleListing.php:707, ../includes/modules/multi-directory-setup/class-builder-data.php:553, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:214, ../templates/widgets/contact-form.php:23, ../templates/single/fields/report.php:43
+#: ../includes/model/SingleListing.php:707, ../includes/modules/multi-directory-setup/class-builder-data.php:553, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:222, ../templates/widgets/contact-form.php:23, ../templates/single/fields/report.php:43
 msgid "Message..."
 msgstr ""
 
@@ -6654,7 +6806,7 @@ msgstr ""
 msgid "Terms & Privacy"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/builder-preset-fields.php:946, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:271
+#: ../includes/modules/multi-directory-setup/builder-preset-fields.php:946, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:279
 msgid "I agree to the <a href=\"%s\" target=\"_blank\">Privacy Policy</a> and <a href=\"%s\" target=\"_blank\">Terms of Service</a>"
 msgstr ""
 
@@ -7300,65 +7452,65 @@ msgstr ""
 msgid "Watch the video to learn how to create search form."
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:440
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:448
 msgid "Something is wrong! Please refresh and retryyy."
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:449
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:457
 msgid "You are not allowed to add/activate new plugin"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:479
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:487
 msgid "Migration Successful"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:479
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:487
 msgid "Migration Failed"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:566
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:574
 msgid "File is missing"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:577, ../includes/modules/multi-directory-setup/trait-multi-directory-helper.php:174
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:585, ../includes/modules/multi-directory-setup/trait-multi-directory-helper.php:174
 msgid "The data is invalid"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:678, ../includes/modules/multi-directory-setup/trait-multi-directory-helper.php:79
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:686, ../includes/modules/multi-directory-setup/trait-multi-directory-helper.php:79
 msgid "Name is missing"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:761, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:765
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:769, ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:773
 msgid "Directory Builder"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:902
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:910
 msgid "You are not allowed to delete directory type"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:927
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:935
 msgid "Failed to delete the listing type"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:920
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:928
 msgid "Successfully Deleted the listing type"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:938
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:946
 msgctxt "taxonomy general name"
 msgid "Listing Directory"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:939
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:947
 msgctxt "taxonomy singular name"
 msgid "Listing Directory"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:940
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:948
 msgid "Search listing directory"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:941
+#: ../includes/modules/multi-directory-setup/class-multi-directory-manager.php:949
 msgid "Listing Directory"
 msgstr ""
 

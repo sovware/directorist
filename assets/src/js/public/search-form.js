@@ -996,6 +996,9 @@ import './components/directoristSelect';
                 let sliderRangeValue = sliderItem.querySelector('.directorist-custom-range-slider__wrap .directorist-custom-range-slider__range');
                 let isRTL = document.dir === 'rtl';
 
+                // init rangeInitiLoad on initial Load
+                let rangeInitLoad = true;
+    
                 directoristCustomRangeSlider?.create(slider, {
                     start: [0, sliderDefaultValue ? sliderDefaultValue : 100],
                     connect: true,
@@ -1015,9 +1018,14 @@ import './components/directoristSelect';
                     sliderRangeShow && (sliderRangeShow.innerHTML = rangeValue);
                     if (sliderRangeValue) {
                         sliderRangeValue.setAttribute('value', rangeValue);
-                        $(sliderRangeValue).trigger('change'); 
+                        if (!rangeInitLoad) {
+                            $(sliderRangeValue).trigger('change'); // Trigger change event
+                        }
                     }
                 });
+
+                // false rangeInitLoad after call
+                rangeInitLoad = false;
 
                 minInput.addEventListener('change', function () {
                     let minValue = Math.round(parseInt(this.value, 10) / sliderStep) * sliderStep;
@@ -1043,6 +1051,7 @@ import './components/directoristSelect';
                     slider.directoristCustomRangeSlider.set([null, maxValue]);
                 });
             });
+
         }
 
         directorist_custom_range_slider();

@@ -237,6 +237,9 @@
     }
   }
   @include e(author) {
+    + .map-listing-card-single__content{
+      padding-top: 0;
+    }
     a {
       width: 42px;
       height: 42px;
@@ -254,7 +257,7 @@
     }
   }
   @include e(content) {
-    padding: 0 10px 10px;
+    padding: 15px 10px 10px;
     @include e(title) {
       font-size: 16px;
       font-weight: 500;

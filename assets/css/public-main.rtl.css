@@ -16818,7 +16818,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   background-color: var(--directorist-color-white);
 }
 .directorist-content-active .directorist-listing-single.directorist-featured {
-  border: 1px solid var(--directorist-color-warning);
+  border: 1px solid var(--directorist-color-featured-badge);
 }
 .directorist-content-active .directorist-listing-single.directorist-listing-no-thumb .directorist_open_status_badge {
   display: -webkit-box;

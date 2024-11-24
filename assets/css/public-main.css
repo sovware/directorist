@@ -7826,6 +7826,8 @@ body.modal-overlay-enabled:before {
 }
 
 .directorist-single-listing-slider {
+  width: var(--gallery-crop-width, 740px);
+  height: var(--gallery-crop-height, 580px);
   max-width: 100%;
   margin: 0 auto;
   border-radius: 16px;
@@ -7879,7 +7881,7 @@ body.modal-overlay-enabled:before {
 .directorist-single-listing-slider .swiper-slide img {
   width: 100%;
   height: 100%;
-  max-width: 740px;
+  max-width: var(--gallery-crop-width, 740px);
   -o-object-fit: cover;
      object-fit: cover;
   border-radius: 16px;
@@ -7890,10 +7892,14 @@ body.modal-overlay-enabled:before {
 }
 
 .directorist-single-listing-slider-thumb {
+  width: var(--gallery-crop-width, 740px);
   max-width: 100%;
   margin: 10px auto 0;
   border-radius: 16px;
   overflow: auto;
+}
+.directorist-single-listing-slider-thumb .swiper-wrapper {
+  gap: 10px;
 }
 .directorist-single-listing-slider-thumb .directorist-swiper__navigation {
   display: none;
@@ -7907,6 +7913,7 @@ body.modal-overlay-enabled:before {
   max-width: 100px;
   height: 90px;
   cursor: pointer;
+  margin: 0 !important;
 }
 .directorist-single-listing-slider-thumb .swiper-slide img {
   width: 100%;

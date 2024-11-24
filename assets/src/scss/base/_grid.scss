@@ -97,11 +97,6 @@
     width: 8.3333333333%;
 }
 
-.directorist-col-2 {
-    flex: 0 0 auto;
-    width: 16.6666666667%;
-}
-
 .directorist-col-2-5{
     flex: 0 0 auto;
     width: 100%;
@@ -202,6 +197,7 @@
 }
 
 @media (min-width: 576px) {
+    .directorist-col-2,
     .directorist-col-2-5{
         flex: 0 0 auto;
         width: 50%;
@@ -326,7 +322,7 @@
 }
 
 @media (min-width: 768px) {
-
+    .directorist-col-2,
     .directorist-col-2-5{
         flex: 0 0 auto;
         width: 33.3333333333%;
@@ -451,7 +447,7 @@
 }
 
 @media (min-width: 992px) {
-
+    .directorist-col-2,
     .directorist-col-2-5{
         flex: 0 0 auto;
         width: 25%;
@@ -594,7 +590,7 @@
         flex: 0 0 auto;
         width: 16.6666666667%;
     }
-
+    .directorist-col-2,
     .directorist-col-2-5{
         flex: 0 0 auto;
         width: 20%;
@@ -700,6 +696,10 @@
 }
 
 @media (min-width: 1400px) {
+    .directorist-col-2{
+        flex: 0 0 auto;
+        width: 16.6666666667%;
+    }
     .directorist-col-xxl {
         flex: 1 0 0%;
     }

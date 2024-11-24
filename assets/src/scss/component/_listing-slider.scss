@@ -93,6 +93,8 @@
 }
 
 .directorist-single-listing-slider {
+  width: var(--gallery-crop-width, 740px);
+  height: var(--gallery-crop-height, 580px);
   max-width: 100%;
   margin: 0 auto;
   border-radius: 16px;
@@ -144,7 +146,7 @@
     img {
       width: 100%;
       height: 100%;
-      max-width: 740px;
+      max-width: var(--gallery-crop-width, 740px);
       object-fit: cover;
       border-radius: 16px;
     }
@@ -159,10 +161,14 @@
 }
 
 .directorist-single-listing-slider-thumb {
+  width: var(--gallery-crop-width, 740px);
   max-width: 100%;
   margin: 10px auto 0;
   border-radius: 16px;
   overflow: auto;
+  .swiper-wrapper{
+    gap: 10px;
+  }
   .directorist-swiper {
     @include e(navigation) {
       display: none;
@@ -177,6 +183,7 @@
     max-width: 100px;
     height: 90px;
     cursor: pointer;
+    margin: 0 !important;
     img {
       width: 100%;
       height: 100%;

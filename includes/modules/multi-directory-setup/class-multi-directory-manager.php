@@ -93,6 +93,14 @@ class Multi_Directory_Manager {
         $old_review_settings = get_term_meta( $term_id, 'review_config', true );
         $new_review_builder  = get_term_meta( $term_id, 'single_listings_contents', true );
 
+        // If no value is found, initialize the new review builder structure
+        if ( empty( $new_review_builder ) ) {
+            $new_review_builder = [
+                'fields' => [],
+                'groups' => [],
+            ];
+        }
+
         // Update review_cookies_consent in the 'groups' array if the review widget exists
         if ( ! empty( $old_review_settings['review_cookies_consent'] ) && is_array( $new_review_builder['groups'] ) ) {
             foreach ( $new_review_builder['groups'] as &$group ) {

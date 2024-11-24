@@ -69,9 +69,11 @@ class ATBDP_Upgrade
 		);
 	
 		if ( $account ) {
-			$options['signin_signup_page'] = (int) $account;
-			$options['marker_shape_color'] 	= '#444752';
-			$options['marker_icon_color'] 	= '#ffffff';
+			$options['signin_signup_page'] 		= (int) $account;
+			$options['marker_shape_color'] 		= '#444752';
+			$options['marker_icon_color'] 		= '#ffffff';
+			$options['all_listing_layout'] 		= 'no_sidebar';
+			$options['search_result_layout'] 	= 'no_sidebar';
 			
 			update_option( 'atbdp_option', $options );
 		}
@@ -125,6 +127,14 @@ class ATBDP_Upgrade
 			$description = ! empty( $header_contents['options']['content_settings']['listing_description']['enable'] ) ? $header_contents['options']['content_settings']['listing_description']['enable'] : false;
 			$tagline     = ! empty( $header_contents['options']['content_settings']['listing_title']['enable_tagline'] ) ? $header_contents['options']['content_settings']['listing_title']['enable_tagline'] : false;
 			$contents    = get_term_meta( $directory_type->term_id, 'single_listings_contents', true );
+
+			// Initialize contents if empty
+			if ( empty( $contents ) ) {
+				$contents = [
+					'fields' => [],
+					'groups' => [],
+				];
+			}
 	
 			if ( $description ) {
 	
@@ -261,7 +271,8 @@ class ATBDP_Upgrade
 
 	private function search_field_label_migration( $directory_id ) {
 		$search_fields = get_term_meta( $directory_id, 'search_form_fields', true );
-		$fields        = empty( $search_fields['fields'] ) ? [] : $search_fields['fields'];
+		$search_fields = is_array( $search_fields ) ? $search_fields : [];
+		$fields        = isset( $search_fields['fields'] ) && is_array( $search_fields['fields'] ) ? $search_fields['fields'] : [];
 
 		foreach ( $fields as $key => $field ) {
 			$placeholder    = empty( $field['placeholder'] ) ? '' : $field['placeholder'];
@@ -271,7 +282,9 @@ class ATBDP_Upgrade
 			$search_fields['fields'][ $key ] = $field;
 		}
 
-		update_term_meta( $directory_id, 'search_form_fields', $search_fields );
+		if ( ! empty( $search_fields ) ) {
+			update_term_meta( $directory_id, 'search_form_fields', $search_fields );
+		}
 	}
 
 	public function support_themes_hook( $data ) {

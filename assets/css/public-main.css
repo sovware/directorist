@@ -18239,19 +18239,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 @media screen and (max-width: 575px) {
   .directorist-single-listing-top {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -webkit-flex-direction: column;
-        -ms-flex-direction: column;
-            flex-direction: column;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-        -ms-flex-align: center;
-            align-items: center;
-    -webkit-box-pack: center;
-    -webkit-justify-content: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+    gap: 10px;
   }
 }
 .directorist-single-listing-top .directorist-return-back {
@@ -18269,12 +18257,18 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
           justify-content: flex-start;
   border: 2px solid var(--directorist-color-white);
 }
+@media screen and (max-width: 575px) {
+  .directorist-single-listing-top .directorist-return-back {
+    border: none;
+    min-width: auto;
+  }
+}
 .directorist-single-listing-top .directorist-return-back .directorist-single-listing-action__text {
   display: block;
 }
 @media screen and (max-width: 575px) {
-  .directorist-single-listing-top .directorist-return-back {
-    border: none;
+  .directorist-single-listing-top .directorist-return-back .directorist-single-listing-action__text {
+    display: none;
   }
 }
 .directorist-single-listing-top__btn-wrapper {
@@ -18683,10 +18677,21 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
     border: none;
   }
   .directorist-single-listing-action.directorist-btn.directorist-btn-light {
-    background-color: transparent;
+    background-color: var(--directorist-color-white);
   }
   .directorist-single-listing-action.directorist-single-listing-top__btn-edit .directorist-single-listing-action__text {
     display: none;
+  }
+}
+@media screen and (max-width: 480px) {
+  .directorist-single-listing-action {
+    padding: 0 10px;
+    font-size: 12px;
+  }
+}
+@media screen and (max-width: 380px) {
+  .directorist-single-listing-action.directorist-btn-sm {
+    min-height: 38px;
   }
 }
 .directorist-single-listing-action .directorist-icon-mask.directorist-added-to-favorite::after {

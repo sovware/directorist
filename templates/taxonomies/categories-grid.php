@@ -13,15 +13,17 @@ if ( '5' == $taxonomy->columns ) {
 }
 ?>
 <div id="directorist" class="atbd_wrapper directorist-w-100">
-	<?php
-	/**
-	 * @since 5.6.6
-	 */
-	do_action( 'atbdp_before_all_categories_loop', $taxonomy );
-	?>
 	<div class="<?php Helper::directorist_container_fluid(); ?>">
 		<div class="directorist-categories">
 			<div class="<?php Helper::directorist_row(); ?>">
+				<div class="directorist-col-12">
+					<?php
+						/**
+						 * @since 5.6.6
+						 */
+						do_action( 'atbdp_before_all_categories_loop', $taxonomy );
+					?>
+				</div>
 				<?php
 				if( $categories ) {
 					foreach ($categories as $category) {

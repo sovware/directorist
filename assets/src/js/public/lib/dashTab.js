@@ -66,13 +66,14 @@
         };
 
         this.navLinksSetup = function (selector) {
-            var selector = document.querySelectorAll(selector);
+            var elements = document.querySelectorAll(selector);
+            if (!elements.length) return;
 
-            selector.forEach((el) => {
-                a = el.querySelectorAll('.directorist-tab__nav__link:not(.atbd-dash-nav-dropdown)');
-                a.forEach((element) => {
-                    element.style.cursor = 'pointer';
-                    element.addEventListener('click', (event) => {
+            elements.forEach((el) => {
+                const links = el.querySelectorAll('.directorist-tab__nav__link:not(.atbd-dash-nav-dropdown)');
+                links.forEach((link) => {
+                    link.style.cursor = 'pointer';
+                    link.addEventListener('click', (event) => {
                         event.preventDefault();
                         event.stopPropagation();
 

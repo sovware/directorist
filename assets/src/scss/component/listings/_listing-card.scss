@@ -668,9 +668,11 @@
 
     // Single Listing List
     &.directorist-listing-list {
-      display: flex;
-      flex-wrap: wrap;
       margin-bottom: 30px;
+      @media screen and (min-width: 576.99px){
+        display: flex;
+        flex-wrap: wrap;
+      }
       @media screen and (max-width: 575px) {
         .directorist-rating-meta {
           i:not(:first-child) {
@@ -732,21 +734,19 @@
           width: 12px;
           height: 14px;
         }
-        .directorist-swiper__navigation,
-        .directorist-swiper__pagination {
-          display: none;
-        }
       }
       .directorist-listing-single {
         @include e("thumb") {
-          flex: 1;
           margin: 0;
-          max-width: 320px;
-          min-height: 240px;
-          padding: 10px 0 10px 10px;
+
+          @media only screen and (min-width: 576.99px){
+            flex: 1;
+            max-width: 320px;
+            min-height: 240px;
+            padding: 10px 0 10px 10px;
+          }
           @media only screen and (max-width: 575px) {
-            flex: unset;
-            width: 100px;
+           padding: 10px 10px 0 10px;
             .directorist-badge {
               width: 20px;
               height: 20px;
@@ -758,7 +758,9 @@
             }
           }
           .directorist-thumnail-card {
-            height: 100% !important;
+            @media only screen and (min-width: 576.99px){
+              height: 100% !important;
+            }
           }
           .directorist-thumnail-card .directorist-thumnail-card-front-img {
             border-radius: 12px;
@@ -868,7 +870,9 @@
         }
       }
       .directorist-listing-single__meta {
-        padding: 14px 20px 7px;
+        @media only screen and (min-width: 576.99px){
+          padding: 14px 20px 7px;
+        }
       }
     }
 

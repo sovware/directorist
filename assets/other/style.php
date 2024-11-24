@@ -39,8 +39,9 @@ $warning_color_rgb    = directorist_hex_to_rgb( get_directorist_option( 'color_w
 $danger_color_rgb     = directorist_hex_to_rgb( get_directorist_option( 'color_danger', '#f80718' ) );
 $gray_color_rgb       = directorist_hex_to_rgb( get_directorist_option( 'color_gray', '#bcbcbc' ) );
 
-$gallery_crop_width                    = get_directorist_option( 'gallery_crop_width', '740' );
-$gallery_crop_height                    = get_directorist_option( 'gallery_crop_height', '580' );
+$gallery_crop_width  = get_directorist_option('gallery_crop_width', '740') . 'px';
+$gallery_crop_height = get_directorist_option('gallery_crop_height', '580') . 'px';
+
 ?>
 <style>
     /* Css Variable */
@@ -125,6 +126,10 @@ $gallery_crop_height                    = get_directorist_option( 'gallery_crop_
 
         /* Star Color */
         --directorist-color-star:var(--directorist-color-warning);
+
+        /* Single Listing Slider Width Height Control */
+        --gallery-crop-width:<?php echo $gallery_crop_width; ?>;
+        --gallery-crop-height:<?php echo $gallery_crop_height; ?>;
     }
 
     /* Settings Panel Structure

@@ -38,6 +38,9 @@ $info_color_rgb       = directorist_hex_to_rgb( get_directorist_option( 'color_i
 $warning_color_rgb    = directorist_hex_to_rgb( get_directorist_option( 'color_warning', '#f28100' ) );
 $danger_color_rgb     = directorist_hex_to_rgb( get_directorist_option( 'color_danger', '#f80718' ) );
 $gray_color_rgb       = directorist_hex_to_rgb( get_directorist_option( 'color_gray', '#bcbcbc' ) );
+
+$gallery_crop_width                    = get_directorist_option( 'gallery_crop_width', '740' );
+$gallery_crop_height                    = get_directorist_option( 'gallery_crop_height', '580' );
 ?>
 <style>
     /* Css Variable */

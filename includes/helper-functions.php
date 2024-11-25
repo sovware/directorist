@@ -1969,7 +1969,10 @@ function atbdp_is_page($atbdppages = '')
                 return true;
             }
             break;
-        case 'signin_signup' || 'login' || 'registration':
+        
+        case 'signin_signup':
+        case 'login':
+        case 'registration':
             if (is_page() && get_the_ID() == get_directorist_option('signin_signup_page')) {
                 return true;
             } elseif (is_page() && isset($post->post_content) && has_shortcode($post->post_content, 'directorist_signin_signup')) {

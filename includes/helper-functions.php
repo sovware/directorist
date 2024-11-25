@@ -1958,17 +1958,17 @@ if ( ! function_exists('atbdp_is_page') ) {
         // Check if the specified page type matches the current page.
         if ( isset( $page_map[ $page_type ] ) ) {
             $option    = $page_map[ $page_type ]['option'];
-            $shortcode = $page_map[ $page_type ]['shortcode'];
             $page_id   = get_directorist_option( $option );
 
-            // Verify the page ID or the presence of the shortcode in the page content.
             if ( is_page( $page_id ) ) {
-                $is_matching_page = ( get_the_ID() == $page_id );
-                $has_matching_shortcode = isset( $post->post_content ) && has_shortcode( $post->post_content, $shortcode );
+                return true;
+            }
 
-                if ( $is_matching_page || $has_matching_shortcode ) {
-                    return true;
-                }
+            $shortcode     = $page_map[ $page_type ]['shortcode'];
+            $has_shortcode = isset( $post->post_content ) && has_shortcode( $post->post_content, $shortcode );
+
+            if ( $has_shortcode ) {
+                return true;
             }
         }
 

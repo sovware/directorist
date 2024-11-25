@@ -1882,113 +1882,99 @@ endif;
  * @since   1.0.0
  * @since   1.5.6 Added to check GD invoices and GD checkout pages.
  */
-function atbdp_is_page($atbdppages = '')
-{
-    global $post;
 
-    $atbdppages = preg_replace( '/[-]/', '_', $atbdppages );
+if ( ! function_exists('atbdp_is_page') ) {
+    function atbdp_is_page( $page_type = '' ) {
+        global $post;
 
-    switch ($atbdppages):
-        case 'home':
-            if (is_page() && get_the_ID() == get_directorist_option('search_listing')) {
-                return true;
-            } elseif (is_page() && isset($post->post_content) && has_shortcode($post->post_content, 'directorist_search_listing')) {
-                return true;
-            }
-            break;
-        case 'search_result':
-            if (is_page() && get_the_ID() == get_directorist_option('search_result_page')) {
-                return true;
-            } elseif (is_page() && isset($post->post_content) && has_shortcode($post->post_content, 'directorist_search_result')) {
-                return true;
-            }
-            break;
-        case 'add_listing':
-            if (is_page() && get_the_ID() == get_directorist_option('add_listing_page')) {
-                return true;
-            } elseif (is_page() && isset($post->post_content) && has_shortcode($post->post_content, 'directorist_add_listing')) {
-                return true;
-            }
-            break;
-        case 'all_listing':
-            if (is_page() && get_the_ID() == get_directorist_option('all_listing_page')) {
-                return true;
-            } elseif (is_page() && isset($post->post_content) && has_shortcode($post->post_content, 'directorist_all_listing')) {
-                return true;
-            }
-            break;
-        case 'dashboard':
-            if (is_page() && get_the_ID() == get_directorist_option('user_dashboard')) {
-                return true;
-            } elseif (is_page() && isset($post->post_content) && has_shortcode($post->post_content, 'directorist_user_dashboard')) {
-                return true;
-            }
-            break;
-        case 'author':
-            if (is_page() && get_the_ID() == get_directorist_option('author_profile_page')) {
-                return true;
-            } elseif (is_page() && isset($post->post_content) && has_shortcode($post->post_content, 'directorist_author_profile')) {
-                return true;
-            }
-            break;
-        case 'category':
-            if (is_page() && get_the_ID() == get_directorist_option('all_categories_page')) {
-                return true;
-            } elseif (is_page() && isset($post->post_content) && has_shortcode($post->post_content, 'directorist_all_categories')) {
-                return true;
-            }
-            break;
-        case 'single_listing':
-            return is_singular('at_biz_dir');
-            break;
-        case 'single_category':
-            if (is_page() && get_the_ID() == get_directorist_option('single_category_page')) {
-                return true;
-            } elseif (is_page() && isset($post->post_content) && has_shortcode($post->post_content, 'directorist_category')) {
-                return true;
-            }
-            break;
-        case 'all_locations':
-            if (is_page() && get_the_ID() == get_directorist_option('all_locations_page')) {
-                return true;
-            } elseif (is_page() && isset($post->post_content) && has_shortcode($post->post_content, 'directorist_all_locations')) {
-                return true;
-            }
-            break;
-        case 'single_location':
-            if (is_page() && get_the_ID() == get_directorist_option('single_location_page')) {
-                return true;
-            } elseif (is_page() && isset($post->post_content) && has_shortcode($post->post_content, 'directorist_location')) {
-                return true;
-            }
-            break;
-        case 'single_tag':
-            if (is_page() && get_the_ID() == get_directorist_option('single_tag_page')) {
-                return true;
-            } elseif (is_page() && isset($post->post_content) && has_shortcode($post->post_content, 'directorist_tag')) {
-                return true;
-            }
-            break;
-        case 'registration':
-            if (is_page() && get_the_ID() == get_directorist_option('custom_registration')) {
-                return true;
-            } elseif (is_page() && isset($post->post_content) && has_shortcode($post->post_content, 'directorist_custom_registration')) {
-                return true;
-            }
-            break;
-        case 'login':
-            if (is_page() && get_the_ID() == get_directorist_option('user_login')) {
-                return true;
-            } elseif (is_page() && isset($post->post_content) && has_shortcode($post->post_content, 'directorist_user_login')) {
-                return true;
-            }
-            break;
+        // Normalize page type by replacing dashes with underscores for consistency.
+        $page_type = str_replace( '-', '_', $page_type );
 
-    endswitch;
+        // Handle singular page types separately.
+        if ( $page_type === 'single_listing' ) {
+            return is_singular( 'at_biz_dir' );
+        }
 
-    //endif;
+        // Map page types to their corresponding options and shortcodes.
+        $page_map = [
+            'home' => [
+                'option'    => 'search_listing',
+                'shortcode' => 'directorist_search_listing',
+            ],
+            'search_result' => [
+                'option'    => 'search_result_page',
+                'shortcode' => 'directorist_search_result',
+            ],
+            'add_listing' => [
+                'option'    => 'add_listing_page',
+                'shortcode' => 'directorist_add_listing',
+            ],
+            'all_listing' => [
+                'option'    => 'all_listing_page',
+                'shortcode' => 'directorist_all_listing',
+            ],
+            'dashboard' => [
+                'option'    => 'user_dashboard',
+                'shortcode' => 'directorist_user_dashboard',
+            ],
+            'author' => [
+                'option'    => 'author_profile_page',
+                'shortcode' => 'directorist_author_profile',
+            ],
+            'category' => [
+                'option'    => 'all_categories_page',
+                'shortcode' => 'directorist_all_categories',
+            ],
+            'single_category' => [
+                'option'    => 'single_category_page',
+                'shortcode' => 'directorist_category',
+            ],
+            'all_locations' => [
+                'option'    => 'all_locations_page',
+                'shortcode' => 'directorist_all_locations',
+            ],
+            'single_location' => [
+                'option'    => 'single_location_page',
+                'shortcode' => 'directorist_location',
+            ],
+            'single_tag' => [
+                'option'    => 'single_tag_page',
+                'shortcode' => 'directorist_tag',
+            ],
+            'signin_signup' => [
+                'option'    => 'signin_signup_page',
+                'shortcode' => 'directorist_signin_signup',
+            ],
+            'login' => [
+                'option'    => 'signin_signup_page',
+                'shortcode' => 'directorist_signin_signup',
+            ],
+            'registration' => [
+                'option'    => 'signin_signup_page',
+                'shortcode' => 'directorist_signin_signup',
+            ],
+        ];
 
-    return false;
+        // Check if the specified page type matches the current page.
+        if ( isset( $page_map[ $page_type ] ) ) {
+            $option    = $page_map[ $page_type ]['option'];
+            $page_id   = get_directorist_option( $option );
+
+            if ( is_page( $page_id ) ) {
+                return true;
+            }
+
+            $shortcode     = $page_map[ $page_type ]['shortcode'];
+            $has_shortcode = isset( $post->post_content ) && has_shortcode( $post->post_content, $shortcode );
+
+            if ( $has_shortcode ) {
+                return true;
+            }
+        }
+
+        // Return false if no match is found.
+        return false;
+    }
 }
 
 /**

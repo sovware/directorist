@@ -2,16 +2,15 @@
 /**
  * @author  AazzTech
  * @since   6.7
- * @version 6.7
+ * @version 8.0.7
  */
-$form                       = $listing_form;
-$p_id                		= $form->get_add_listing_id();
-$listing_imgs		 		= get_post_meta($p_id, '_listing_img', true);
-$listing_prv_img_id	 		= get_post_meta($p_id, '_listing_prv_img', true);
-$listing_prv_img 	 		= !empty($listing_prv_img_id) ? atbdp_get_image_source($listing_prv_img_id) : '';
-$display_prv_field 	 		= get_directorist_option('display_prv_field', 1);
-$display_gallery_field 		= get_directorist_option('display_gallery_field', 1);
-$image_links = []; // define a link placeholder variable
+$listing_id            = $listing_form->get_add_listing_id();
+$listing_imgs          = directorist_get_listing_gallery_images( $listing_id );
+$listing_prv_img_id    = directorist_get_listing_preview_image( $listing_id );
+$listing_prv_img       = !empty($listing_prv_img_id) ? atbdp_get_image_source($listing_prv_img_id) : '';
+$display_prv_field     = get_directorist_option('display_prv_field', 1);
+$display_gallery_field = get_directorist_option('display_gallery_field', 1);
+$image_links           = [];                                                                              // define a link placeholder variable
 if( !empty( $listing_imgs ) && is_array( $listing_imgs ) ) {
     foreach ($listing_imgs as $id) {
         $image_links[$id] = atbdp_get_image_source($id); // store the attachment id and url

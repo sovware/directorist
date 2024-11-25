@@ -1882,6 +1882,7 @@ endif;
  * @since   1.0.0
  * @since   1.5.6 Added to check GD invoices and GD checkout pages.
  */
+
 if ( ! function_exists('atbdp_is_page') ) {
     function atbdp_is_page( $page_type = '' ) {
         global $post;

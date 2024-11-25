@@ -109,10 +109,10 @@ if ( ! class_exists( 'ATBDP_Helper' ) ) :
 			$blur_background   = $is_blur;
 			$background_color  = get_directorist_option( 'prv_background_color', 'gainsboro' );
 
-			$listing_img     = get_post_meta( get_the_ID(), '_listing_img', true );
+			$listing_img     = directorist_get_listing_gallery_images( get_the_ID() );
 			$listing_img_src = atbdp_get_image_source( $listing_img[0], 'medium' );
 
-			$listing_prv_img = get_post_meta( get_the_ID(), '_listing_prv_img', true );
+			$listing_prv_img = directorist_get_listing_preview_image( get_the_ID() );
 			$prv_image_src   = atbdp_get_image_source( $listing_prv_img, 'medium' );
 
 			$default_image_src = get_directorist_option( 'default_preview_image', DIRECTORIST_ASSETS . 'images/grid.jpg' );

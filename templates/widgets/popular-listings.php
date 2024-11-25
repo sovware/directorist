@@ -24,8 +24,8 @@ $default_icon = 'las la-tags';
                 $id                     = get_the_ID();
                 $disable_single_listing = get_directorist_option( 'disable_single_listing' );
                 $top_category           = ATBDP()->taxonomy->get_one_high_level_term( $id, ATBDP_CATEGORY );
-                $listing_img            = get_post_meta( $id, '_listing_img', true );
-                $listing_prv_img        = get_post_meta( $id, '_listing_prv_img', true );
+                $listing_img            = directorist_get_listing_gallery_images( $id );
+                $listing_prv_img        = directorist_get_listing_preview_image( $id );
                 $cats                   = get_the_terms( $id, ATBDP_CATEGORY );
                 $post_link              = get_the_permalink( $id );
                 $review_rating          = directorist_get_listing_rating( get_the_ID() );
@@ -80,13 +80,13 @@ $default_icon = 'las la-tags';
 
                                 <span><?php atbdp_display_price( $price ); ?></span>
 
-                            <?php 
+                            <?php
                                 } else {
 
                                     $output = atbdp_display_price_range( $price_range );
                                     echo wp_kses_post( $output );
 
-                                } 
+                                }
                             ?>
                         </div>
                     </div>

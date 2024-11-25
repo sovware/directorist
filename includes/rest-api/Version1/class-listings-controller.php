@@ -595,14 +595,14 @@ class Listings_Controller extends Posts_Controller {
 		if ( has_post_thumbnail( $listing ) ) {
 			$attachment_ids[] = get_post_thumbnail_id( $listing );
 		} else {
-			$thumbnail_id = get_post_meta( $listing->ID, '_listing_prv_img', true );
+			$thumbnail_id = directorist_get_listing_preview_image( $listing->ID );
 			if ( ! empty( $thumbnail_id ) ) {
 				$attachment_ids[] = (int) $thumbnail_id;
 			}
 		}
 
 		// Add gallery images.
-		$gallery_images = get_post_meta( $listing->ID, '_listing_img', true );
+		$gallery_images = directorist_get_listing_gallery_images( $listing->ID );
 		if ( ! empty( $gallery_images ) || is_array( $gallery_images ) ) {
 			$attachment_ids = array_merge( $attachment_ids, $gallery_images );
 		}

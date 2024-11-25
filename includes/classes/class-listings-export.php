@@ -258,8 +258,8 @@ class Listings_Exporter {
     public static function updateListingImageModuleFieldsData( array $row = [], string $field_key = '', array $field_args = [] ) {
 
         $image_urls          = [];
-        $_listing_prv_img_id = get_post_meta( get_the_ID(), '_listing_prv_img', true );
-        $_listing_img_id     = get_post_meta( get_the_ID(), '_listing_img', true );
+        $_listing_prv_img_id = directorist_get_listing_preview_image( get_the_ID() );
+        $_listing_img_id     = directorist_get_listing_gallery_images( get_the_ID() );
 
         if ( empty( $_listing_prv_img_id ) && empty( $_listing_img_id ) ) {
             return $row;

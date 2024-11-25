@@ -2450,21 +2450,14 @@ function atbdp_guest_submission($guest_email)
 }
 
 function atbdp_get_listing_attachment_ids( $listing_id ) {
-	$featured_image = get_post_meta( $listing_id, '_listing_prv_img', true );
+	$featured_image = directorist_get_listing_preview_image( $listing_id );
 	$attachment_ids = array();
 
 	if ( $featured_image ) {
 		$attachment_ids[] = (int) $featured_image;
 	}
 
-    $gallery_images = (array) get_post_meta( $listing_id, '_listing_img', true );
-
-	if ( empty( $gallery_images ) ) {
-		return $attachment_ids;
-	}
-
-	$gallery_images = wp_parse_id_list( $gallery_images );
-	$gallery_images = array_filter( $gallery_images );
+    $gallery_images = directorist_get_listing_gallery_images( $listing_id );
 
 	if ( empty( $gallery_images ) ) {
 		return $attachment_ids;
@@ -2744,8 +2737,8 @@ function atbdp_thumbnail_card($img_src = '', $_args = array())
 
     $thumbnail_img = '';
 
-    $listing_prv_img   = get_post_meta(get_the_ID(), '_listing_prv_img', true);
-    $listing_img       = get_post_meta(get_the_ID(), '_listing_img', true);
+    $listing_prv_img   = directorist_get_listing_preview_image( get_the_ID() );
+    $listing_img       = directorist_get_listing_gallery_images( get_the_ID() );
     $default_image_src = get_directorist_option('default_preview_image', DIRECTORIST_ASSETS . 'images/grid.jpg');
 
     if ( is_array( $listing_img ) && ! empty( $listing_img ) ) {
@@ -4640,4 +4633,43 @@ function directorist_get_distance_range( $miles ) {
  */
 function directorist_get_listing_directory( $listing_id = 0 ) {
 	return (int) get_post_meta( $listing_id, '_directory_type', true );
+}
+
+/**
+ * Get listing preview image.
+ *
+ * @since 8.0.7
+ *
+ * @param int $listing_id Listing ID.
+ * @return int
+ */
+function directorist_get_listing_preview_image( $listing_id = 0 ) {
+	$image = get_post_meta( $listing_id, '_listing_prv_img', true );
+
+	if ( empty( $image ) || ! is_numeric( $image ) ) {
+		return 0;
+	}
+
+	return $image;
+}
+
+/**
+ * Get listing gallery images.
+ *
+ * @since 8.0.7
+ *
+ * @param int $listing_id Listing ID.
+ * @return array
+ */
+function directorist_get_listing_gallery_images( $listing_id = 0 ) {
+	$images = get_post_meta( $listing_id, '_listing_img', true );
+
+	if ( empty( $images ) || ! is_array( $images ) ) {
+		return [];
+	}
+
+	$images = wp_parse_id_list( $images );
+	$images = array_filter( $images );
+
+	return $images;
 }

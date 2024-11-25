@@ -984,10 +984,10 @@ if ( ! class_exists( 'ATBDP_SEO' ) ) :
             $seo_meta['image']       = get_the_post_thumbnail_url();
 
             if ( empty( $seo_meta['image'] ) ) {
-                $listing_img_id = get_post_meta( get_the_ID(), '_listing_prv_img', true);
+                $listing_img_id = directorist_get_listing_preview_image( get_the_ID() );
 
                 if ( empty( $listing_img_id ) || ! is_string( $listing_img_id ) || ! is_numeric( $listing_img_id ) ) {
-                    $listing_img_id = get_post_meta( get_the_ID(), '_listing_img', true );
+                    $listing_img_id = directorist_get_listing_gallery_images( get_the_ID() );
                     $listing_img_id = ( ! empty( $listing_img_id ) ) ? $listing_img_id[0] : null;
                 }
 

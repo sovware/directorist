@@ -4638,7 +4638,7 @@ function directorist_get_listing_directory( $listing_id = 0 ) {
 /**
  * Get listing preview image.
  *
- * @since 8.0.7
+ * @since 8.0.8
  *
  * @param int $listing_id Listing ID.
  * @return int
@@ -4656,7 +4656,7 @@ function directorist_get_listing_preview_image( $listing_id = 0 ) {
 /**
  * Get listing gallery images.
  *
- * @since 8.0.7
+ * @since 8.0.8
  *
  * @param int $listing_id Listing ID.
  * @return array

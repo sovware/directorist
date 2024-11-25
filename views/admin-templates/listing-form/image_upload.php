@@ -2,7 +2,7 @@
 /**
  * @author  AazzTech
  * @since   6.7
- * @version 8.0.7
+ * @version 8.0.8
  */
 $listing_id            = $listing_form->get_add_listing_id();
 $listing_imgs          = directorist_get_listing_gallery_images( $listing_id );

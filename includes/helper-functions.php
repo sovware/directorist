@@ -1969,17 +1969,10 @@ function atbdp_is_page($atbdppages = '')
                 return true;
             }
             break;
-        case 'registration':
-            if (is_page() && get_the_ID() == get_directorist_option('custom_registration')) {
+        case 'signin_signup' || 'login' || 'registration':
+            if (is_page() && get_the_ID() == get_directorist_option('signin_signup_page')) {
                 return true;
-            } elseif (is_page() && isset($post->post_content) && has_shortcode($post->post_content, 'directorist_custom_registration')) {
-                return true;
-            }
-            break;
-        case 'login':
-            if (is_page() && get_the_ID() == get_directorist_option('user_login')) {
-                return true;
-            } elseif (is_page() && isset($post->post_content) && has_shortcode($post->post_content, 'directorist_user_login')) {
+            } elseif (is_page() && isset($post->post_content) && has_shortcode($post->post_content, 'directorist_signin_signup')) {
                 return true;
             }
             break;

@@ -256,32 +256,32 @@ class Listings_Exporter {
 
     // updateListingImageModuleFieldsData
     public static function updateListingImageModuleFieldsData( array $row = [], string $field_key = '', array $field_args = [] ) {
+        $preview_image  = directorist_get_listing_preview_image( get_the_ID() );
+        $gallery_images = directorist_get_listing_gallery_images( get_the_ID() );
 
-        $image_urls          = [];
-        $_listing_prv_img_id = directorist_get_listing_preview_image( get_the_ID() );
-        $_listing_img_id     = directorist_get_listing_gallery_images( get_the_ID() );
-
-        if ( empty( $_listing_prv_img_id ) && empty( $_listing_img_id ) ) {
+        if ( empty( $preview_image ) && empty( $gallery_images ) ) {
             return $row;
         }
 
-        if ( ! empty( $_listing_prv_img_id ) ) {
-            $preview_image_url = wp_get_attachment_image_url( $_listing_prv_img_id, 'full' );
-            $image_urls[] = $preview_image_url;
-        }
+		$image_urls = [];
+		$image_url  = wp_get_attachment_image_url( $preview_image, 'full' );
 
-        if ( ! empty( $_listing_img_id ) && is_array( $_listing_img_id ) ) {
-            foreach ( $_listing_img_id as $_img_id ) {
+		if ( $image_url ) {
+			$image_urls[] = $image_url;
+		}
 
-                if ( $_img_id === $_listing_prv_img_id ) { continue; }
+        foreach ( $gallery_images as $image ) {
+			if ( $image === $preview_image ) {
+				continue;
+			}
+			
+			$image_url = wp_get_attachment_image_url( $image, 'full' );
+			if ( $image_url ) {
+				$image_urls[] = $image_url;
+			}
+		}
 
-                $image_url = wp_get_attachment_image_url( $_img_id, 'full' );
-                $image_urls[] = $image_url;
-            }
-        }
-
-        $image_urls = implode( ',', $image_urls );
-        $row[ $field_args['field_key'] ] = $image_urls;
+        $row[ $field_args['field_key'] ] = implode( ',', $image_urls );
 
         return $row;
     }

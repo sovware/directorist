@@ -187,8 +187,8 @@ class Directorist_Listing_Dashboard {
 
 		$default_image_src = Helper::default_preview_image_src( $type );
 		$image_quality     = get_directorist_option('preview_image_quality', 'directorist_preview');
-		$listing_prv_img   = get_post_meta($id, '_listing_prv_img', true);
-		$listing_img       = get_post_meta($id, '_listing_img', true);
+		$listing_prv_img   = directorist_get_listing_preview_image( $id );
+		$listing_img       = directorist_get_listing_gallery_images( $id );
 
 		if ( is_array( $listing_img ) && ! empty( $listing_img[0] ) ) {
 			$thumbnail_img = atbdp_get_image_source( $listing_img[0], $image_quality );
@@ -242,8 +242,8 @@ class Directorist_Listing_Dashboard {
 				$category_link = ! empty( $cats ) ? esc_url( ATBDP_Permalink::atbdp_get_category_page( $cats[0] ) ) : '#';
 				$post_link     = esc_url( get_post_permalink( $post->ID ) );
 
-				$listing_img     	= get_post_meta( $post->ID, '_listing_img', true );
-				$listing_prv_img 	= get_post_meta( $post->ID, '_listing_prv_img', true );
+				$listing_img     	= directorist_get_listing_gallery_images( $post->ID );
+				$listing_prv_img 	= directorist_get_listing_preview_image( $post->ID );
 				$default_image_src 	= Helper::default_preview_image_src( $listing_type );
 				$crop_width      	= get_directorist_option( 'crop_width', 360 );
 				$crop_height     	= get_directorist_option( 'crop_height', 300 );

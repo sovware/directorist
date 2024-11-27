@@ -272,8 +272,8 @@ class Directorist_Single_Listing {
 				$value = true;
 			}
 		} elseif( 'image_upload' === $data['widget_name'] ) {
-			$listing_img 	=  get_post_meta( $this->id, '_listing_img', true );
-			$preview_img   	= get_post_meta( $this->id, '_listing_prv_img', true);
+			$listing_img 	=  directorist_get_listing_gallery_images( $this->id );
+			$preview_img   	= directorist_get_listing_preview_image( $this->id );
 			if( $listing_img || $preview_img ) {
 				$value = true;
 			}
@@ -533,13 +533,13 @@ class Directorist_Single_Listing {
 		$image_size = apply_filters( 'directorist_single_listing_slider_image_size', 'large' );
 
 		// Get the preview images
-		$preview_img_id   = get_post_meta( $listing_id, '_listing_prv_img', true);
+		$preview_img_id   = directorist_get_listing_preview_image( $listing_id );
 		$preview_img_link = ! empty($preview_img_id) ? atbdp_get_image_source( $preview_img_id, $image_size ) : '';
 		$preview_img_alt  = get_post_meta($preview_img_id, '_wp_attachment_image_alt', true);
 		$preview_img_alt  = ( ! empty( $preview_img_alt )  ) ? $preview_img_alt : get_the_title( $preview_img_id );
 
 		// Get the gallery images
-		$listing_img  = get_post_meta( $listing_id, '_listing_img', true );
+		$listing_img  = directorist_get_listing_gallery_images( $listing_id );
 		$listing_imgs = ! empty( $listing_img ) ? ( ! is_array( $listing_img ) ? array( $listing_img ) : $listing_img ) : array();
 		$image_links  = array(); // define a link placeholder variable
 
@@ -1203,7 +1203,7 @@ class Directorist_Single_Listing {
 		$display_phone_map          = get_directorist_option( 'display_phone_map', 1 );
 		$display_favorite_badge_map = get_directorist_option( 'display_favorite_badge_map', 1 );
 
-		$listing_prv_img = get_post_meta($id, '_listing_prv_img', true);
+		$listing_prv_img = directorist_get_listing_preview_image( $id );
 		$default_image = get_directorist_option('default_preview_image', DIRECTORIST_ASSETS . 'images/grid.jpg');
 		$listing_prv_imgurl = !empty($listing_prv_img) ? atbdp_get_image_source($listing_prv_img, 'small') : '';
 		$listing_prv_imgurl = atbdp_image_cropping($listing_prv_img, 150, 150, true, 100)['url'];

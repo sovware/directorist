@@ -651,6 +651,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 		 */
 		private function complete_registration($username, $password, $email, $website, $first_name, $last_name, $bio) {
 			global $reg_errors, $username, $password, $email, $website, $first_name, $last_name,  $bio;
+			$default_role = get_option( 'default_role', 'subscriber' );
 			$reg_errors = new WP_Error;
 
 			if ( 1 > count( $reg_errors->get_error_messages() ) ) {
@@ -662,7 +663,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 					'first_name'  => $first_name,
 					'last_name'   => $last_name,
 					'description' => $bio,
-					'role'        => 'subscriber', // @since 7.0.6.3
+					'role'        => $default_role, // @since 7.0.6.3
 				);
 
 				return wp_insert_user( $userdata ); // return inserted user id or a WP_Error

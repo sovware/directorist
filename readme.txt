@@ -5,7 +5,7 @@ Tags: member directory, listing, classifieds, directory plugin, business directo
 Requires at least: 4.6
 Tested up to: 6.7
 Requires PHP: 7.0
-Stable tag: 8.0.7
+Stable tag: 8.0.8
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -31,7 +31,7 @@ Moreover, serving as a multifaceted platform, it offers different avenues for ge
 
 Let’s jump right straight into the juicy part of Directorist. 
 
-🎉 Use [Best Listing](https://wordpress.org/themes/best-listing/) FREE multi-purpose directory theme for a quick start.
+🎉 Try **[Pixetiq](https://wordpress.org/themes/pixetiq/)** the FREE, ultra-fast, modern block theme perfect for building a stunning directory effortlessly!
 
 == THE ONLY WORDPRESS BUSINESS DIRECTORY PLUGIN YOU NEED ==
 
@@ -43,17 +43,13 @@ Boost your directory website’s accessibility and interactivity while turning v
 🔥🔥🔥 **AI-Generated Directory Creation** 🔥🔥🔥
 One of our standout features is AI-driven directory creation, which accelerates and streamlines the content creation for directories, making it faster, smarter, and more efficient.
 
-🔥🔥🔥 **Enhanced Integrations with Popular Page Builders Like Bricks** 🔥🔥🔥 
-The enhanced integrations of Directorist with Gutenberg, Elementor, and the latest integration with Bricks, Directorist provide the flexibility you need to build a lucrative directory in the blink of an eye.
+🔥🔥🔥 **Enhanced Integrations with Popular Page Builders Like Gutenberg, Elementor, Bricks, Oxygen** 🔥🔥🔥 
+The enhanced integrations of Directorist with Gutenberg, Elementor, Oxygen, and the latest integration with Bricks, Directorist provide the flexibility you need to build a lucrative directory in the blink of an eye.
 
-🔥🔥🔥 **28 Pre-Made Templates** 🔥🔥🔥
-Directorist now offers over 28 pre-made templates, allowing users to quickly set up their directories without having to start from scratch. Amazing, right?
-
-🔥🔥🔥 **Redesigned Login and Registration Forms** 🔥🔥🔥
-We've also redesigned the login and registration forms to provide a more user-friendly and visually appealing interface, making it easier for users to interact with your site. 
+🔥🔥🔥 **14 Pre-Made Full-Site Templates** 🔥🔥🔥
+Directorist now offers over 14 pre-made templates, allowing users to quickly set up their directories without having to start from scratch. Amazing, right?
 
 📱 [Launch Your Mobile App Now](https://directorist.com/mobile-app/)
-
 
 👉 Join Our FB Community : [Directorist Community](https://www.facebook.com/groups/directorist)
 👉 Official Facebook Page : [Like and Follow on Facebook](https://www.facebook.com/directorist)
@@ -82,7 +78,10 @@ The design of Directorist has been completely revamped with a sleek, modern look
 👉 **Live Chat*:** Integrate a private messaging system on your directory listing website that allows users to have a real-time private conversation with business owners.
 
 👉 **Gutenberg Blocks:** Directorist offers 16 blocks/widgets for the Gutenberg editor, which is the default visual interface for editing WordPress posts and pages.
-👉 ** Sleek Checkout and Payment Process
+
+👉 **Elementor, Bricks, and Oxygent Builder Integration:** Directorist seamlessly integrates with popular page builders like Elementor, Bricks, and Oxygen, offering customizable elements. Build and design your directory exactly the way you want with ease!
+
+👉 **Sleek Checkout and Payment Process**
 
 Let’s take a look at some of the core features that set this AI Directory Builder apart from others:
 
@@ -93,25 +92,21 @@ Let’s take a look at some of the core features that set this AI Directory Buil
 * Highly optimized and rocket-fast performance to ensure scalability.
 * 25+ Elementor Page Builder widgets.
 * Gutenberg support and 16 Gutenberg blocks.
-* Advanced search filters with custom filter.
+* Advanced search filters with custom filters.
 * Front-end and Back-end listing submission.
 * Front-end user dashboard to manage listings.
 * Open Street Map and Google Map Integration.
 * Unlimited custom fields on the listing form.
 * 100% responsive and modern-day design.
-* WooCommerce multi-vendor plugin compatible [Exclusive].
+* WooCommerce multi-vendor plugin compatible.
 * Built-in SEO optimization system as well as Yoast SEO compatibility.
 * Personalize the directory using a wide range of shortcodes.
-* GDPR compliant.
 * Ajax-powered listing and review submission.
 * Listing owner contact form.
-* Bulk or individual user announcement
 * Listing image slider.
 * Listing and Review submission without login (Guest Submission).
 * Listing reviews and ratings.
 * Google reCAPTCHA
-* Custom sidebar for single listing page.
-* Custom user Registration and Login.
 * New, Popular, Featured, and Open/Close badges.
 * Create an Unlimited listing based on location and category.
 * List and grid view for categories, locations, and listings pages.
@@ -119,86 +114,75 @@ Let’s take a look at some of the core features that set this AI Directory Buil
 * Sustainable for long-term use.
 * Updated regularly for flawless operation.
 * Multiple directory templates within a single theme
-* Intuitive and seamless UI
 * Brand-new sidebar filter layout
 * Modern and improved form for Add listings 
 
-Advanced Review System
+== Advanced Review System (Arriving December 2024) ==
+
 Introducing a new review system that supports multi-criteria and media. Now users can provide more detailed feedback, increasing trust and engagement.
 
-== Beautiful Modern Design and 100% Responsive Attire ==
+== Beautiful Design, Fully Responsive ==
 
-Directorist offers modern, responsive designs with flexible grid, list, and map views. Instantly launch your business directory with popular theme compatibility, including Astra, Avada, and Divi.
+Enjoy sleek, modern layouts with responsive grid, list, and map views. Compatible with popular themes like Astra, Divi, and Avada, Directorist helps you launch a stunning directory effortlessly.
 
-== Easy Translation, RTL & Built-in SEO Solution ==
-Easily translate your business directory or classified websites with the Loco Translate plugin, which lets you edit translations directly in the browser and boosts your site’s SEO.
+== Translation-Friendly, SEO-Ready & RTL Support ==
 
-👉 **Multilingual Facility:** Directory listing websites created by Directorist Business Directory are 100% translatable and can be translated into multiple languages.
+Easily translate your directory into any language with tools like Loco Translate. Boost SEO with custom meta titles, descriptions, and Yoast SEO integration. It fully supports RTL languages like Arabic.
 
-👉 **Built-in SEO:** Directorist Business Directory plugin lets you set custom meta titles and descriptions on every directory page. It is also compatible with the Yoast SEO plugin.
+👉 **Multilingual Support:** Translate your directory into multiple languages.
+👉 **Built-in SEO:** Optimize every page for search engines.
+👉 **RTL Ready:** Perfect for right-to-left languages.
 
-👉 **RTL (Right to Left):** Directorist Business Directory plugin is fully compatible with RTL languages like Arabic, Aramaic, Hebrew, etc.
+== Powerful Search & Filters ==
 
-== Powerful Ajax-Powered Instant Search and Advanced Filters ==
+Find what you need instantly with advanced search and filtering options.
 
-The Directorist & Classified Listings’ advanced filter allows users to search listings with precision, using criteria like custom fields, tags, and price range, as well as default text, category, and location fields—taking their search experience to a whole new level.
+👉 **Ajax-Powered Search:** Results load instantly.
+👉 **Custom Filters:** Filter by category, location, price, and custom fields.
+👉 **Geolocation:** Discover listings nearby with a radius search.
 
-* Filtering using numerous fields to yield accurate results.
-* Geolocation and nearby listings.
-* Radius search based on address and zip.
-* Use custom fields as search filters.
-* Search widgets with 14 different filters.
+== Effortless Data Migration with CSV ==
 
-== CSV Import/Export ==
+Easily import/export thousands of listings via CSV.
 
-Get a compelling user-friendly system that simplifies the migration process by letting you import thousands of listings from a CSV file.
-
-* Complete migration to Directorist Business Directory in just a few clicks.
-* Import thousands of listings or more in no time.
-* Map any field types to Directory listing fields.
+* Complete directory migration in just a few clicks.
+* Map your data fields effortlessly.
 
 == Unlimited Custom Fields ==
 
-Add unlimited custom fields to accommodate custom requirements on the listing form also, you can use custom fields as search filters to get the best search results. You can add fields like select, file, URL, radio, checkbox, and many more
+Tailor your directory with custom fields for any requirement.
 
-* Create unlimited custom fields for the listing form.
-* Create custom fields by choosing from 11 different field types.
-* Search using custom fields for accurate search results.
+* Add unlimited fields (checkboxes, URLs, files, etc.).
+* Use custom fields to refine search results.
 
-== Extensive Monetization Facility ==
+== Monetization Made Simple ==
 
-Directorist Business Directory & Classified Listings allows you to monetize your business directory website in various ways. Let’s take a look at them:
+Turn your directory into a revenue-generating platform.
 
-👉 **Featured Listing:** Earn money by featuring each of the listings of your site users according to their purchase. In this process, you make listings featured and promote them that are displayed at the top of the listing page.
-👉 **Paid Listing*:** Get paid for each listing your users submit! You can create unlimited pricing plans by providing different sets of values to get paid by listing the submissions. To make it happen requires a cost-effective premium extension.
-👉 **Claim Listing*:** Make money by allowing business owners to claim their listing and get verified.
-👉 **Pay Per Submit*:** Earn by charging users to create a listing on your site.
->*Requires Additional Purchase
+👉 **Featured Listings:** Highlight top listings for extra revenue.
+👉 **Paid Listings:** Charge users for submitting listings.
+👉 **Claim Listings:** Let business owners claim and pay for their listings.
+👉 **Pay Per Submit:** Charge users to create listings.
 
-== Frontend Listing Submission and Listing Management ==
+== Frontend Listing & Management ==
 
-Directorist Business Directory & Classified Listings allows users to submit and manage listings from the front end of the site without having to log in to the admin panel.
+Users can easily submit and manage listings without accessing the admin panel.
 
-* Add listings using the frontend listing form.
-* Renew/Change plan from the frontend.
-* Intuitive user dashboard for managing the listings.
+* Add listings via a user-friendly form.
+* Manage and renew plans directly from the frontend.
+* User dashboards for seamless management.
 
-== Multiple Mapping Source ==
-
-Location or address search is an important aspect of a business directory and classified ads site. Directorist Business Directory provides a flexible mapping source offering Google Maps and OpenStreetMap to help users to find their desired service.
+== Flexible Mapping Options ==
+Help users find businesses with Google Maps or OpenStreetMap integration.
 
 == Robust Payment Gateways ==
+Get paid effortlessly with built-in offline payments or expand with online gateways like [PayPal](https://directorist.com/product/directorist-paypal/) , [Stripe](https://directorist.com/product/directorist-stripe/) or [Authorize.Net](https://directorist.com/product/directorist-authorize-net/). Taxes and recurring payments are supported.
 
-More options for getting paid means more ways to earn revenue. By default, Directorist Business Directory allows you to use an offline payment method for free.
+== Developer-Friendly for Unlimited Customization ==
+Directorist is perfect for developers who want to customize or extend functionality.
 
-If you want to scale up your payment gateway using an online payment method, and you can use [PayPal](https://directorist.com/product/directorist-paypal/) , [Stripe](https://directorist.com/product/directorist-stripe/) or [Authorize.Net](https://directorist.com/product/directorist-authorize-net/) by purchasing cost-effective extensions. Using this WordPress directory plugin, taxes and recurring options can be added into your online payment system respectively.
-
-== Developer Friendly ==
-
-🎉 **Templating:**  Directorist offers a robust templating system that allows you to override all the Directorist default template files without amending any of the plugin codes.
-
-WordPress developers can extend the plugin functionalities infinitely using available hooks and filters.
-
+* Override templates without touching plugin code.
+* Use hooks and filters for endless possibilities.
 
 == Extensive Extensions ==
 Directorist Business Directory offers cost-effective premium [Extensions](https://directorist.com/extensions/) to extend the functionalities of your directory listing website.
@@ -246,7 +230,6 @@ Directorist Business Directory offers cost-effective premium [Extensions](https:
 👉 **[BuddyBoss Integration](https://directorist.com/product/directorist-buddyboss-integration/)** - It integrates Directorist with BuddyBoss, combining features to build a full community-driven directory website on WordPress.
 
 👉 **[BuddyPress Integration](https://directorist.com/product/directorist-buddypress-integration/)** - Directorist - BuddyPress Integration is a premium extension that seamlessly combines Directorist and BuddyPress, enabling you to create a hybrid directory and social network.
-
 
 👉 **[Multi Directory Linking](https://directorist.com/product/directorist-directory-linking/)** - If you are running multi-directories on your directory website, Multi-directory Linking will be an awesome extension that will allow your users to connect to other types of directories.
 
@@ -313,6 +296,12 @@ Directorist is a complete directory solution and in combination with its advance
  * and many more
 
 == Changelog ==
+
+8.0.8 - Nov 27, 2024
+
+* Fixed: Translation notice issue with WP v6.7.1
+* Fixed: Listing layout issue in search result page (#2148)
+* Improved: Listing image getter functions (#2146)
 
 8.0.7 - Nov 24, 2024
 

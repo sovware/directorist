@@ -106,6 +106,22 @@ class Settings_Screen {
 					],
 				],
 			],
+			'review_enable_multiple' => [
+				'type'        => 'toggle',
+				'label'       => __( 'Enable Multiple Review', 'directorist' ),
+				'description' => __( 'Allow users to submit multiple reviews.', 'directorist' ),
+				'value'       => false,
+				'show-if'     => [
+					'where'      => 'enable_review',
+					'conditions' => [
+						[
+							'key'     => 'value',
+							'compare' => '=',
+							'value'   => true
+						],
+					],
+				],
+			],
 			// 'review_approval_text' => [
 			// 	'type'        => 'textarea',
 			// 	'label'       => __( 'Approval Notification Text', 'directorist'),

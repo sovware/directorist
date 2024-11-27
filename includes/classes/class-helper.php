@@ -316,7 +316,7 @@ if ( ! class_exists( 'ATBDP_Helper' ) ) :
 			);
 			asort( $s );
 
-			return $s;
+			return apply_filters( 'atbdp_listing_social_links', $s );
 		}
 
 		public static function getFreshIcon( $id ) {

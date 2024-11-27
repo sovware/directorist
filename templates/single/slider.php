@@ -11,6 +11,20 @@ if ( !$has_slider ) {
    return;
 }
 $img_size_class = ( 'contain' === $data['background-size'] ) ? '' : ' plasmaSlider__cover';
+
+$allowed_attr_for_image_item = [
+	'class'    => true,
+	'alt'      => true,
+	'src'      => true,
+	'data-src' => true,
+	'data-alt' => true,
+];
+
+$allowed_html_for_image_item = [
+	'img'  => $allowed_attr_for_image_item,
+	'span' => $allowed_attr_for_image_item,
+];
+
 ?>
 <div id="directorist-single-listing-slider" class="plasmaSlider"
 	data-width="<?php echo esc_attr( $data['width'] ); ?>"

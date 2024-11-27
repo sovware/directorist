@@ -60,6 +60,9 @@ class ATBDP_Rewrite {
 	protected function get_page_slug( $page_id, $default_slug ) {
 		$home_url = home_url( '/' );
 		$slug     = str_replace( $home_url, '', get_permalink( $page_id ) );
+		if(function_exists('wpml_get_current_language') && $home_url != ($site_url = site_url().'/')) {
+            $slug     = str_replace( $site_url, '', $slug );
+        }
 		$slug     = rtrim( $slug, '/' );
 		$slug     = preg_match( '/([?])/', $slug ) ? $default_slug : $slug;
 

@@ -23,7 +23,7 @@
       line-height: 20px;
       text-align: center;
       padding: 40px 25px;
-      border-radius: 16px;
+      border-radius: 12px;
       text-decoration: none !important;
       box-shadow: var(--directorist-box-shadow);
       border: 1px solid var(--directorist-color-border-light);
@@ -98,7 +98,7 @@
 #directiost-listing-fields_wrapper {
   .directorist-content-module {
     margin-bottom: 35px;
-    border-radius: 16px;
+    border-radius: 12px;
     @media (max-width: 480px) {
       margin-bottom: 20px;
     }
@@ -479,7 +479,7 @@
       font-size: 14px;
       font-weight: 500;
       padding-left: 55px;
-      border-radius: 16px;
+      border-radius: 12px;
       color: var(--directorist-color-body);
       border: 3px solid var(--directorist-color-border-gray);
       cursor: pointer;
@@ -670,7 +670,7 @@
       position: relative;
       height: 400px;
       z-index: 1;
-      border-radius: 16px;
+      border-radius: 12px;
       #gmap_full_screen_button,
       .gm-fullscreen-control {
         display: none;
@@ -786,7 +786,7 @@
 .directorist-form-image-upload-field {
   .ez-media-uploader {
     text-align: center;
-    border-radius: 16px;
+    border-radius: 12px;
     padding: 35px 10px;
     margin: 0;
     background-color: var(--directorist-color-bg-gray) !important;
@@ -1042,7 +1042,7 @@
   @include e(action) {
     display: flex;
     flex-direction: column;
-    border-radius: 16px;
+    border-radius: 12px;
     box-shadow: var(--directorist-box-shadow);
     border: 1px solid var(--directorist-color-border-light);
     .directorist-form-submit {
@@ -1263,7 +1263,7 @@
   max-width: 400px;
   margin: 0 auto;
   background-color: var(--directorist-color-white);
-  border-radius: 10px;
+  border-radius: 8px;
   overflow: hidden;
 }
 
@@ -1446,7 +1446,7 @@
       cursor: pointer;
       font-size: 14px;
       font-weight: 400;
-      border-radius: 12px;
+      border-radius: 8px;
       text-decoration: none !important;
       color: var(--directorist-color-light-gray);
       background-color: transparent;
@@ -1527,7 +1527,7 @@
     flex: 1;
   }
   @include e(single) {
-    border-radius: 16px;
+    border-radius: 12px;
     background-color: var(--directorist-color-white);
     label {
       display: block;
@@ -1583,7 +1583,7 @@
     display: flex;
     width: 100%;
     margin-top: 50px;
-    border-radius: 10px;
+    border-radius: 8px;
     &:before {
       content: "";
       position: absolute;
@@ -1592,7 +1592,7 @@
       width: 100%;
       height: 2px;
       background-color: var(--directorist-color-border);
-      border-radius: 10px;
+      border-radius: 8px;
       transition: width 0.3s ease-in-out;
     }
     @include e(width) {
@@ -1609,7 +1609,7 @@
         width: 100%;
         height: 2px;
         background-color: var(--directorist-color-primary);
-        border-radius: 10px;
+        border-radius: 8px;
         transition: width 0.3s ease-in-out;
       }
     }

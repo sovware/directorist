@@ -400,7 +400,7 @@
 .directorist-content-module__contents .directorist-form-description-field .quicktags-toolbar {
   border: none;
   padding: 8px 12px;
-  border-radius: 10px;
+  border-radius: 8px;
 }
 .directorist-content-module__contents .directorist-form-description-field .mce-toolbar .mce-ico {
   color: var(--directorist-color-body);
@@ -585,7 +585,7 @@
   width: 100%;
   max-height: 345px !important;
   overflow-y: scroll;
-  border-radius: 10px;
+  border-radius: 8px;
   background-color: var(--directorist-color-white);
   -webkit-box-shadow: 0 5px 20px rgba(var(--directorist-color-dark-rgb), 0.1);
           box-shadow: 0 5px 20px rgba(var(--directorist-color-dark-rgb), 0.1);
@@ -596,7 +596,7 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  border-radius: 10px;
+  border-radius: 8px;
 }
 .directorist-address-field .address_result li,
 .directorist-form-address-field .address_result li {
@@ -655,7 +655,7 @@
   padding: 18px 5px 11px;
   max-width: 270px;
   min-width: 200px;
-  border-radius: 10px;
+  border-radius: 8px;
 }
 @media (max-width: 575px) {
   .pac-container {
@@ -693,7 +693,7 @@
   height: 36px;
   width: 36px;
   min-width: 36px;
-  border-radius: 10px;
+  border-radius: 8px;
   margin: 0 0 0 15px;
   background-color: var(--directorist-color-border-gray);
 }
@@ -862,7 +862,7 @@ body.logged-in .select2-container--open .select2-dropdown--above {
     -webkit-justify-content: center;
         -ms-flex-pack: center;
             justify-content: center;
-    border-radius: 10px;
+    border-radius: 8px;
     background-color: var(--directorist-color-bg-light);
   }
 }
@@ -3158,7 +3158,7 @@ body.stop-scrolling {
   line-height: 20px;
   text-align: center;
   padding: 40px 25px;
-  border-radius: 16px;
+  border-radius: 12px;
   text-decoration: none !important;
   -webkit-box-shadow: var(--directorist-box-shadow);
           box-shadow: var(--directorist-box-shadow);
@@ -3241,7 +3241,7 @@ body.stop-scrolling {
 .directorist-add-listing-form .directorist-content-module,
 #directiost-listing-fields_wrapper .directorist-content-module {
   margin-bottom: 35px;
-  border-radius: 16px;
+  border-radius: 12px;
   /* social info */
 }
 @media (max-width: 480px) {
@@ -3667,7 +3667,7 @@ body.stop-scrolling {
   font-size: 14px;
   font-weight: 500;
   padding-right: 55px;
-  border-radius: 16px;
+  border-radius: 12px;
   color: var(--directorist-color-body);
   border: 3px solid var(--directorist-color-border-gray);
   cursor: pointer;
@@ -3850,7 +3850,7 @@ body.stop-scrolling {
   position: relative;
   height: 400px;
   z-index: 1;
-  border-radius: 16px;
+  border-radius: 12px;
 }
 .directorist-form-map-field__maps #gmap #gmap_full_screen_button,
 .directorist-form-map-field__maps #gmap .gm-fullscreen-control {
@@ -3979,7 +3979,7 @@ body.stop-scrolling {
 /* EZ Media Upload */
 .directorist-form-image-upload-field .ez-media-uploader {
   text-align: center;
-  border-radius: 16px;
+  border-radius: 12px;
   padding: 35px 10px;
   margin: 0;
   background-color: var(--directorist-color-bg-gray) !important;
@@ -4256,7 +4256,7 @@ body.stop-scrolling {
   -webkit-flex-direction: column;
       -ms-flex-direction: column;
           flex-direction: column;
-  border-radius: 16px;
+  border-radius: 12px;
   -webkit-box-shadow: var(--directorist-box-shadow);
           box-shadow: var(--directorist-box-shadow);
   border: 1px solid var(--directorist-color-border-light);
@@ -4503,7 +4503,7 @@ body.stop-scrolling {
   max-width: 400px;
   margin: 0 auto;
   background-color: var(--directorist-color-white);
-  border-radius: 10px;
+  border-radius: 8px;
   overflow: hidden;
 }
 
@@ -4753,7 +4753,7 @@ body.stop-scrolling {
   cursor: pointer;
   font-size: 14px;
   font-weight: 400;
-  border-radius: 12px;
+  border-radius: 8px;
   text-decoration: none !important;
   color: var(--directorist-color-light-gray);
   background-color: transparent;
@@ -4858,7 +4858,7 @@ body.stop-scrolling {
           flex: 1;
 }
 .multistep-wizard__single {
-  border-radius: 16px;
+  border-radius: 12px;
   background-color: var(--directorist-color-white);
 }
 .multistep-wizard__single label {
@@ -4918,7 +4918,7 @@ body.stop-scrolling {
   display: flex;
   width: 100%;
   margin-top: 50px;
-  border-radius: 10px;
+  border-radius: 8px;
 }
 .multistep-wizard__progressbar:before {
   content: "";
@@ -4928,7 +4928,7 @@ body.stop-scrolling {
   width: 100%;
   height: 2px;
   background-color: var(--directorist-color-border);
-  border-radius: 10px;
+  border-radius: 8px;
   -webkit-transition: width 0.3s ease-in-out;
   transition: width 0.3s ease-in-out;
 }
@@ -4946,7 +4946,7 @@ body.stop-scrolling {
   width: 100%;
   height: 2px;
   background-color: var(--directorist-color-primary);
-  border-radius: 10px;
+  border-radius: 8px;
   -webkit-transition: width 0.3s ease-in-out;
   transition: width 0.3s ease-in-out;
 }
@@ -5238,7 +5238,7 @@ body.stop-scrolling {
   -webkit-flex-direction: column;
       -ms-flex-direction: column;
           flex-direction: column;
-  border-radius: 16px;
+  border-radius: 12px;
   margin: 0 !important;
   background-color: var(--directorist-color-bg-gray);
   border: 2px dashed var(--directorist-color-border-gray);
@@ -5275,14 +5275,14 @@ body.stop-scrolling {
   position: relative;
   height: 150px;
   width: 200px;
-  border-radius: 16px;
+  border-radius: 12px;
 }
 .plupload-thumbs .thumb img {
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
-  border-radius: 16px;
+  border-radius: 12px;
 }
 .plupload-thumbs .thumb:hover .atbdp-thumb-actions::before {
   opacity: 1;
@@ -5345,7 +5345,7 @@ body.stop-scrolling {
   top: 0;
   opacity: 0;
   visibility: hidden;
-  border-radius: 16px;
+  border-radius: 12px;
   -webkit-transition: all ease 0.3s;
   transition: all ease 0.3s;
   background-color: rgba(var(--directorist-color-dark-rgb), 0.5);
@@ -5950,7 +5950,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
 .leaflet-popup-content-wrapper {
   padding: 1px;
   text-align: right;
-  border-radius: 12px;
+  border-radius: 10px;
 }
 
 .leaflet-popup-content {
@@ -6159,7 +6159,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
   -webkit-justify-content: center;
       -ms-flex-pack: center;
           justify-content: center;
-  border-radius: 10px;
+  border-radius: 8px;
   background-color: var(--directorist-color-white);
   cursor: pointer;
 }
@@ -6606,7 +6606,7 @@ body.modal-overlay-enabled:before {
 .directorist-widget__listing-contact .directorist-form-group .directorist-form-element {
   height: 46px;
   padding: 8px 16px;
-  border-radius: 10px;
+  border-radius: 8px;
   border: 1px solid var(--directorist-color-border);
 }
 .directorist-widget__listing-contact .directorist-form-group .directorist-form-element:focus {
@@ -6638,7 +6638,7 @@ body.modal-overlay-enabled:before {
 
 .directorist-single-map.directorist-widget__map.leaflet-container {
   margin-bottom: 0;
-  border-radius: 16px;
+  border-radius: 12px;
 }
 
 .directorist-widget-listing__single {
@@ -6669,7 +6669,7 @@ body.modal-overlay-enabled:before {
 .directorist-widget-listing__image img {
   width: 100%;
   height: 100%;
-  border-radius: 12px;
+  border-radius: 10px;
 }
 
 .directorist-widget-listing__content {
@@ -6749,7 +6749,7 @@ body.modal-overlay-enabled:before {
 .directorist-widget__video .directorist-embaded-item {
   width: 100%;
   height: 100%;
-  border-radius: 12px;
+  border-radius: 10px;
 }
 
 .directorist-widget .directorist-widget-list li:hover .directorist-widget-list__icon {
@@ -6990,7 +6990,7 @@ body.modal-overlay-enabled:before {
   font-size: 14px;
   font-weight: 400;
   letter-spacing: 0;
-  border-radius: 10px;
+  border-radius: 8px;
   text-decoration: none;
   text-transform: capitalize;
   display: -webkit-box;
@@ -7028,7 +7028,7 @@ body.modal-overlay-enabled:before {
 .directorist-widget-authentication p input:not(input[type=checkbox]) {
   height: 46px;
   padding: 8px 16px;
-  border-radius: 10px;
+  border-radius: 8px;
   border: 1px solid var(--directorist-color-border);
   width: 100%;
   -webkit-box-sizing: border-box;
@@ -7066,7 +7066,7 @@ body.modal-overlay-enabled:before {
   padding: 0 26px;
   min-height: 45px;
   line-height: 1.5;
-  border-radius: 10px;
+  border-radius: 8px;
   border: 1px solid var(--directorist-color-primary);
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -7833,7 +7833,7 @@ body.modal-overlay-enabled:before {
   height: var(--gallery-crop-height, 580px);
   max-width: 100%;
   margin: 0 auto;
-  border-radius: 16px;
+  border-radius: 12px;
 }
 @media screen and (max-width: 991px) {
   .directorist-single-listing-slider {
@@ -7887,7 +7887,7 @@ body.modal-overlay-enabled:before {
   max-width: var(--gallery-crop-width, 740px);
   -o-object-fit: cover;
      object-fit: cover;
-  border-radius: 16px;
+  border-radius: 12px;
 }
 .directorist-single-listing-slider.slider-has-one-item .directorist-swiper__navigation,
 .directorist-single-listing-slider.slider-has-one-item .directorist-swiper__pagination {
@@ -7898,7 +7898,7 @@ body.modal-overlay-enabled:before {
   width: var(--gallery-crop-width, 740px);
   max-width: 100%;
   margin: 10px auto 0;
-  border-radius: 16px;
+  border-radius: 12px;
   overflow: auto;
 }
 .directorist-single-listing-slider-thumb .swiper-wrapper {
@@ -8017,7 +8017,7 @@ body.modal-overlay-enabled:before {
   top: 30px;
   padding: 10px;
   border: none;
-  border-radius: 12px;
+  border-radius: 8px;
   background-color: var(--directorist-color-white);
   -webkit-box-shadow: var(--directorist-box-shadow);
           box-shadow: var(--directorist-box-shadow);
@@ -8374,7 +8374,7 @@ body.modal-overlay-enabled:before {
 .directorist-alert {
   font-size: 15px;
   word-break: break-word;
-  border-radius: 10px;
+  border-radius: 8px;
   background-color: #f4f4f4;
   padding: 15px 20px;
   display: -webkit-box;
@@ -8574,7 +8574,7 @@ body.modal-overlay-enabled:before {
   width: 100%;
   background-color: var(--directorist-color-white);
   pointer-events: auto;
-  border-radius: 16px;
+  border-radius: 12px;
   position: relative;
 }
 .directorist-modal__content .directorist-modal__header {
@@ -8716,7 +8716,7 @@ body.modal-overlay-enabled:before {
   opacity: 0;
   visibility: hidden;
   z-index: 9999;
-  border-radius: 16px;
+  border-radius: 12px;
   -webkit-transition: all ease 0.3s;
   transition: all ease 0.3s;
   background-color: var(--directorist-color-white);
@@ -9025,7 +9025,7 @@ body.modal-overlay-enabled:before {
           transform: translateX(50%);
   width: 50px;
   height: 5px;
-  border-radius: 10px;
+  border-radius: 8px;
   background-color: var(--directorist-color-border);
   opacity: 0;
   visibility: hidden;
@@ -9075,7 +9075,7 @@ body.modal-overlay-enabled:before {
           mask-image: url(../images/9ddfe727fdcddbb985d69ce2e9a06358.svg);
 }
 .directorist-search-modal--basic .directorist-search-form-action__modal__btn-search {
-  border-radius: 10px;
+  border-radius: 8px;
   color: var(--directorist-color-white);
   background-color: var(--directorist-color-primary);
 }
@@ -9361,7 +9361,7 @@ body.modal-overlay-enabled:before {
       -ms-flex-align: center;
           align-items: center;
   border: 1px solid var(--directorist-color-border);
-  border-radius: 10px;
+  border-radius: 8px;
   min-height: 40px;
   margin: 0 0 15px;
   -webkit-transition: all ease 0.3s;
@@ -9557,7 +9557,7 @@ body.modal-overlay-enabled:before {
   width: 100%;
   min-width: 150px;
   padding: 15px 20px;
-  border-radius: 10px;
+  border-radius: 8px;
   background-color: var(--directorist-color-white);
   -webkit-box-shadow: var(--directorist-box-shadow);
           box-shadow: var(--directorist-box-shadow);
@@ -9640,7 +9640,7 @@ input:-webkit-autofill:active {
 .directorist-content-active .directorist-card {
   border: none;
   padding: 0;
-  border-radius: 16px;
+  border-radius: 12px;
   background-color: var(--directorist-color-white);
   -webkit-box-shadow: var(--directorist-box-shadow);
           box-shadow: var(--directorist-box-shadow);
@@ -10528,7 +10528,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   padding: 18px;
   margin: 0;
   padding-left: 75px;
-  border-radius: 12px;
+  border-radius: 10px;
   background-color: var(--directorist-color-bg-gray);
 }
 .directorist-content-active .directorist-author-profile__meta-list__item i {
@@ -10547,7 +10547,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   width: 44px;
   height: 44px;
   background-color: var(--directorist-color-primary);
-  border-radius: 12px;
+  border-radius: 10px;
 }
 .directorist-content-active .directorist-author-profile__meta-list__item i:after {
   width: 18px;
@@ -11778,7 +11778,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   line-height: 50px;
   padding: 0 32px;
   border: none;
-  border-radius: 10px;
+  border-radius: 8px;
   text-align: center;
   text-transform: none;
   text-decoration: none;
@@ -12338,7 +12338,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-advanced-filter__action .directorist-btn {
   font-size: 15px;
   font-weight: 700;
-  border-radius: 10px;
+  border-radius: 8px;
   padding: 0 32px;
   height: 50px;
   letter-spacing: 0;
@@ -12565,7 +12565,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   .directorist-search-field .directorist-price-ranges__price-frequency {
     gap: 0;
     margin: 0;
-    border-radius: 10px;
+    border-radius: 8px;
     border: 1px solid var(--directorist-color-border);
   }
   .directorist-search-field .directorist-price-ranges__price-frequency label {
@@ -12958,7 +12958,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
           flex-wrap: wrap;
   width: 100%;
   border: none;
-  border-radius: 12px;
+  border-radius: 10px;
   padding: 22px 25px 22px 22px;
   background-color: var(--directorist-color-white);
   -webkit-box-shadow: var(--directorist-box-shadow);
@@ -13540,7 +13540,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   width: 100%;
   min-width: 150px;
   padding: 15px 20px;
-  border-radius: 10px;
+  border-radius: 8px;
   background-color: var(--directorist-color-white);
   -webkit-box-shadow: var(--directorist-box-shadow);
           box-shadow: var(--directorist-box-shadow);
@@ -13633,7 +13633,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   padding: 0 25px;
   font-size: 15px;
   font-weight: 700;
-  border-radius: 10px;
+  border-radius: 8px;
 }
 .directorist-search-form-action__submit .directorist-btn-search .directorist-icon-mask::after {
   height: 16px;
@@ -13714,10 +13714,10 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .atbdp-form-fade.directorist-search-form__box {
   padding: 15px;
-  border-radius: 12px;
+  border-radius: 10px;
 }
 .atbdp-form-fade.directorist-search-form__box:after {
-  border-radius: 12px;
+  border-radius: 10px;
 }
 .atbdp-form-fade.directorist-search-field input[type=text] {
   padding-right: 15px;
@@ -13999,7 +13999,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   min-width: 250px;
   max-height: 345px !important;
   overflow-y: scroll;
-  border-radius: 10px;
+  border-radius: 8px;
   background-color: var(--directorist-color-white);
   -webkit-box-shadow: var(--directorist-box-shadow);
           box-shadow: var(--directorist-box-shadow);
@@ -14036,7 +14036,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   margin: 0 13px;
   color: var(--directorist-color-body);
   background-color: var(--directorist-color-white);
-  border-radius: 10px;
+  border-radius: 8px;
   text-decoration: none;
 }
 .directorist-search-field .directorist-location-js + .address_result ul a .location-icon {
@@ -14055,7 +14055,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   min-width: 36px;
   max-width: 36px;
   height: 36px;
-  border-radius: 10px;
+  border-radius: 8px;
   background-color: var(--directorist-color-bg-gray);
 }
 .directorist-search-field .directorist-location-js + .address_result ul a .location-icon i:after {
@@ -14253,7 +14253,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   height: 40px;
   font-size: 14px;
   font-weight: 400;
-  border-radius: 10px;
+  border-radius: 8px;
   color: var(--directorist-color-body);
   background-color: var(--directorist-color-white);
   border: 2px solid var(--directorist-color-border);
@@ -14283,7 +14283,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   margin-top: 15px;
 }
 .directorist-categories__single {
-  border-radius: 16px;
+  border-radius: 12px;
   -webkit-box-shadow: var(--directorist-box-shadow);
           box-shadow: var(--directorist-box-shadow);
   border: 1px solid var(--directorist-color-border-light);
@@ -14594,7 +14594,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .directorist-taxonomy-list-one .directorist-taxonomy-list__card + .directorist-taxonomy-list__sub-item {
   background-color: var(--directorist-color-light);
-  border-radius: 16px;
+  border-radius: 12px;
   -webkit-padding-start: 35px;
           padding-inline-start: 35px;
   -webkit-padding-end: 20px;
@@ -15153,7 +15153,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   max-width: 540px;
   margin: 0 auto;
   padding: 50px 40px;
-  border-radius: 16px;
+  border-radius: 12px;
   background-color: var(--directorist-color-white);
   -webkit-box-shadow: var(--directorist-box-shadow);
           box-shadow: var(--directorist-box-shadow);
@@ -15167,7 +15167,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-author__form__btn {
   width: 100%;
   height: 50px;
-  border-radius: 12px;
+  border-radius: 8px;
 }
 .directorist-author__form__actions {
   display: -webkit-box;
@@ -15238,7 +15238,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   max-width: 540px;
   margin: 0 auto 15px;
   padding: 50px 40px;
-  border-radius: 16px;
+  border-radius: 12px;
   background-color: #fff;
   -webkit-box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
           box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
@@ -15252,7 +15252,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   width: 100%;
   height: 50px;
   border: none;
-  border-radius: 12px;
+  border-radius: 8px;
   -webkit-transition: background-color 0.3s ease;
   transition: background-color 0.3s ease;
 }
@@ -15415,7 +15415,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .directorist-content-active .directorist-authors__card {
   padding: 20px;
-  border-radius: 12px;
+  border-radius: 10px;
   background-color: var(--directorist-color-white);
   -webkit-box-shadow: var(--directorist-box-shadow);
           box-shadow: var(--directorist-box-shadow);
@@ -15737,7 +15737,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   margin-bottom: 15px;
 }
 .directorist-content-active .directorist-listing-single--bg {
-  border-radius: 12px;
+  border-radius: 10px;
   background-color: var(--directorist-color-white);
   -webkit-box-shadow: var(--directorist-box-shadow);
           box-shadow: var(--directorist-box-shadow);
@@ -16290,7 +16290,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   position: relative;
   width: 100%;
   height: 100%;
-  border-radius: 12px;
+  border-radius: 10px;
   overflow: hidden;
   z-index: 0;
   background-color: var(--directorist-color-bg-gray);
@@ -16483,7 +16483,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   color: var(--directorist-color-danger);
 }
 .directorist-content-active .directorist-listing-single.directorist-listing-card .directorist-thumnail-card-front-img {
-  border-radius: 12px;
+  border-radius: 10px;
 }
 .directorist-content-active .directorist-listing-single.directorist-listing-card .directorist-thumb-listing-author {
   position: absolute;
@@ -16636,7 +16636,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   }
 }
 .directorist-content-active .directorist-listing-single.directorist-listing-list .directorist-listing-single__thumb .directorist-thumnail-card .directorist-thumnail-card-front-img {
-  border-radius: 12px;
+  border-radius: 10px;
 }
 .directorist-content-active .directorist-listing-single.directorist-listing-list .directorist-listing-single__content {
   display: -webkit-box;
@@ -17302,7 +17302,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   right: -30px;
   padding: 10px;
   border: none;
-  border-radius: 12px;
+  border-radius: 10px;
   background-color: var(--directorist-color-white);
   -webkit-box-shadow: var(--directorist-box-shadow);
           box-shadow: var(--directorist-box-shadow);
@@ -17379,7 +17379,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 #map.leaflet-container .leaflet-popup-content-wrapper,
 #gmap.leaflet-container .leaflet-popup-content-wrapper,
 .directorist-single-map.leaflet-container .leaflet-popup-content-wrapper {
-  border-radius: 10px;
+  border-radius: 8px;
   padding: 0;
 }
 #map.leaflet-container .leaflet-popup-content,
@@ -17628,7 +17628,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .map-listing-card-single {
   position: relative;
   padding: 10px;
-  border-radius: 10px;
+  border-radius: 8px;
   -webkit-box-shadow: 0px 5px 20px rgba(var(--directorist-color-dark-rgb), 0.33);
           box-shadow: 0px 5px 20px rgba(var(--directorist-color-dark-rgb), 0.33);
   background-color: var(--directorist-color-white);
@@ -17673,7 +17673,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   max-height: 200px;
   -o-object-fit: cover;
      object-fit: cover;
-  border-radius: 10px;
+  border-radius: 8px;
 }
 .map-listing-card-single__author + .map-listing-card-single__content {
   padding-top: 0;
@@ -17929,7 +17929,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-details-info-wrap .gm-style .gm-style-iw {
   width: 350px;
   padding: 0;
-  border-radius: 10px;
+  border-radius: 8px;
   -webkit-box-shadow: unset;
           box-shadow: unset;
 }
@@ -18020,7 +18020,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   min-height: 90px;
   resize: none;
   padding: 10px 16px;
-  border-radius: 10px;
+  border-radius: 8px;
   border: 1px solid var(--directorist-color-border);
 }
 .directorist-report-abuse-modal .directorist-modal__body textarea:focus {
@@ -18258,7 +18258,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .directorist-sidebar .directorist-taxonomy-list-one .directorist-taxonomy-list__toggle--open + .directorist-taxonomy-list__sub-item {
   background-color: var(--directorist-color-light);
-  border-radius: 16px;
+  border-radius: 12px;
 }
 .directorist-sidebar .directorist-taxonomy-list-one .directorist-taxonomy-list__toggle--open + .directorist-taxonomy-list__sub-item li {
   margin-top: 0;
@@ -18329,7 +18329,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .directorist-single-listing-top__btn-continue.directorist-btn {
   height: 46px;
-  border-radius: 10px;
+  border-radius: 8px;
   font-size: 15px;
   font-weight: 600;
   padding: 0 25px;
@@ -18617,7 +18617,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   left: 0;
   top: calc(100% + 30px);
   background-color: var(--directorist-color-white);
-  border-radius: 10px;
+  border-radius: 8px;
   width: 150px;
   -webkit-box-shadow: 0 5px 15px rgba(var(--directorist-color-dark-rgb), 0.15);
           box-shadow: 0 5px 15px rgba(var(--directorist-color-dark-rgb), 0.15);
@@ -18818,7 +18818,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   width: 100%;
   height: 400px;
   border: 0 none;
-  border-radius: 16px;
+  border-radius: 12px;
 }
 @media (max-width: 768px) {
   .directorist-single-contents-area .directorist-embaded-video {
@@ -18827,7 +18827,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 
 .directorist-single-contents-area .directorist-single-map {
-  border-radius: 16px;
+  border-radius: 12px;
   z-index: 1;
 }
 .directorist-single-contents-area .directorist-single-map .directorist-info-item a {
@@ -20725,7 +20725,7 @@ Review: New Style
   }
 }
 .directorist-review-submit__form .form-group-comment textarea {
-  border-radius: 16px;
+  border-radius: 12px;
   resize: none;
   padding: 20px;
   min-height: 140px;
@@ -20911,7 +20911,7 @@ Review: New Style
 .directorist-favourite-items-wrap .directorist-favourirte-items {
   background-color: var(--directorist-color-white);
   padding: 20px 10px;
-  border-radius: 16px;
+  border-radius: 12px;
 }
 .directorist-favourite-items-wrap .directorist-dashboard-items-list {
   font-size: 15px;
@@ -21151,7 +21151,7 @@ Review: New Style
       -ms-flex-pack: justify;
           justify-content: space-between;
   padding: 0 20px;
-  border-radius: 16px;
+  border-radius: 12px;
   background-color: var(--directorist-color-white);
   -webkit-box-shadow: var(--directorist-box-shadow);
           box-shadow: var(--directorist-box-shadow);
@@ -21207,7 +21207,7 @@ Review: New Style
   bottom: -4px;
   width: 100%;
   height: 2px;
-  border-radius: 10px;
+  border-radius: 8px;
   opacity: 0;
   visibility: hidden;
   content: "";
@@ -21227,7 +21227,7 @@ Review: New Style
 }
 .directorist-user-dashboard-tab .directorist-user-dashboard-search {
   position: relative;
-  border-radius: 16px;
+  border-radius: 12px;
   margin: 16px 16px 16px 0;
 }
 .directorist-user-dashboard-tab .directorist-user-dashboard-search__icon {
@@ -21274,11 +21274,11 @@ Review: New Style
   -webkit-box-shadow: var(--directorist-box-shadow);
           box-shadow: var(--directorist-box-shadow);
   border: 1px solid var(--directorist-color-border-light);
-  border-radius: 16px;
+  border-radius: 12px;
   margin-top: 15px;
 }
 .directorist-user-dashboard-tabcontent .directorist-listing-table {
-  border-radius: 12px;
+  border-radius: 10px;
 }
 .directorist-user-dashboard-tabcontent .directorist-listing-table .directorist-table {
   display: table;
@@ -21677,7 +21677,7 @@ Review: New Style
       -ms-flex-pack: center;
           justify-content: center;
   border: 2px solid var(--directorist-color-border);
-  border-radius: 10px;
+  border-radius: 8px;
   background-color: var(--directorist-color-white);
   -webkit-transition: 0.3s;
   transition: 0.3s;
@@ -21762,7 +21762,7 @@ Review: New Style
   font-size: 12px;
   font-weight: 500;
   padding: 0 10px;
-  border-radius: 12px;
+  border-radius: 10px;
   margin-top: 9px;
   color: var(--directorist-color-primary);
   background: rgba(var(--directorist-color-primary), 0.1);
@@ -21920,7 +21920,7 @@ Review: New Style
   transition: 0.3s ease;
   position: relative;
   right: 0;
-  border-radius: 16px;
+  border-radius: 12px;
   overflow: hidden;
   overflow-y: auto;
   background-color: var(--directorist-color-white);
@@ -22086,7 +22086,7 @@ Review: New Style
 .directorist-image-profile-wrap {
   padding: 25px;
   background-color: var(--directorist-color-white);
-  border-radius: 16px;
+  border-radius: 12px;
   border: 1px solid #ececec;
 }
 .directorist-image-profile-wrap .ezmu__upload-button-wrap .ezmu__btn {
@@ -22100,7 +22100,7 @@ Review: New Style
   color: var(--directorist-color-dark);
 }
 .directorist-image-profile-wrap .directorist-profile-uploader {
-  border-radius: 16px;
+  border-radius: 12px;
 }
 .directorist-image-profile-wrap .directorist-profile-uploader .ezmu__front-item__close-icon {
   background-image: none;
@@ -22226,7 +22226,7 @@ Review: New Style
 .directorist-toggle-switch {
   display: inline-block;
   background: var(--directorist-color-border);
-  border-radius: 16px;
+  border-radius: 12px;
   width: 44px;
   height: 22px;
   position: relative;
@@ -22301,7 +22301,7 @@ Review: New Style
 
 .directorist-announcement-wrapper {
   background-color: var(--directorist-color-white);
-  border-radius: 16px;
+  border-radius: 12px;
   padding: 20px 10px;
   -webkit-box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
           box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
@@ -22572,7 +22572,7 @@ Review: New Style
 
 .directorist-btn-view-listing {
   min-height: 54px;
-  border-radius: 12px;
+  border-radius: 10px;
 }
 
 .directorist-checkout-card {
@@ -22660,7 +22660,7 @@ Review: New Style
 .directorist-payment-action .directorist-btn {
   min-height: 54px;
   padding: 0 80px;
-  border-radius: 12px;
+  border-radius: 8px;
   margin: 7px;
   max-width: none;
   width: auto;

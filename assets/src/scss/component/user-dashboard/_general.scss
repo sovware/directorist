@@ -86,7 +86,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 0 20px;
-    border-radius: 16px;
+    border-radius: 12px;
     background-color: var(--directorist-color-white);
     box-shadow: var(--directorist-box-shadow);
     border: 1px solid var(--directorist-color-border-light);
@@ -128,7 +128,7 @@
         bottom: -4px;
         width: 100%;
         height: 2px;
-        border-radius: 10px;
+        border-radius: 8px;
         opacity: 0;
         visibility: hidden;
         content: "";
@@ -150,7 +150,7 @@
 
   .directorist-user-dashboard-search {
     position: relative;
-    border-radius: 16px;
+    border-radius: 12px;
     margin: 16px 0 16px 16px;
 
     @include e("icon") {
@@ -196,11 +196,11 @@
   background-color: var(--directorist-color-white);
   box-shadow: var(--directorist-box-shadow);
   border: 1px solid var(--directorist-color-border-light);
-  border-radius: 16px;
+  border-radius: 12px;
   margin-top: 15px;
 
   .directorist-listing-table {
-    border-radius: 12px;
+    border-radius: 10px;
 
     .directorist-table {
       display: table;
@@ -605,7 +605,7 @@
       align-items: center;
       justify-content: center;
       border: 2px solid var(--directorist-color-border);
-      border-radius: 10px;
+      border-radius: 8px;
       background-color: var(--directorist-color-white);
       transition: 0.3s;
       color: var(--directorist-color-body);
@@ -702,7 +702,7 @@
   font-size: 12px;
   font-weight: 500;
   padding: 0 10px;
-  border-radius: 12px;
+  border-radius: 10px;
   margin-top: 9px;
   color: var(--directorist-color-primary);
   background: rgba(var(--directorist-color-primary), 0.1);

@@ -2,7 +2,7 @@
 .directorist-categories {
   margin-top: 15px;
   @include e("single") {
-    border-radius: 16px;
+    border-radius: 12px;
     box-shadow: var(--directorist-box-shadow);
     border: 1px solid var(--directorist-color-border-light);
     display: flex;
@@ -277,7 +277,7 @@
   @include e("card") {
     + .directorist-taxonomy-list__sub-item {
       background-color: var(--directorist-color-light);
-      border-radius: 16px;
+      border-radius: 12px;
       padding-inline-start: 35px;
       padding-inline-end: 20px;
       height: 0;

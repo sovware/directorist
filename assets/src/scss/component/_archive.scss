@@ -285,6 +285,7 @@
     @media only screen and (max-width: 575px) {
       .directorist-search-form__box {
         box-shadow: var(--directorist-box-shadow);
+        border: 1px solid var(--directorist-color-border-light);
       }
     }
     .directorist-search-form {

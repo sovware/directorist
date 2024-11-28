@@ -6,6 +6,7 @@
         border-radius: 16px;
         background-color: var(--directorist-color-white);
         box-shadow: var(--directorist-box-shadow);
+        border: 1px solid var(--directorist-color-border-light);
         @include e('header'){
             padding: 20px 25px;
             border-bottom: 1px solid var(--directorist-color-border);

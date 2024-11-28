@@ -67,6 +67,7 @@
           color: var(--directorist-color-body);
           background-color: var(--directorist-color-light-hover);
           box-shadow: var(--directorist-box-shadow);
+          border: 1px solid var(--directorist-color-border-light);
         }
       }
     }
@@ -844,6 +845,7 @@
       border-radius: 10px;
       background-color: var(--directorist-color-white);
       box-shadow: var(--directorist-box-shadow);
+      border: 1px solid var(--directorist-color-border-light);
       max-height: 250px;
       box-sizing: border-box;
       overflow-y: auto;

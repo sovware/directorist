@@ -4,6 +4,7 @@
   @include e("single") {
     border-radius: 16px;
     box-shadow: var(--directorist-box-shadow);
+    border: 1px solid var(--directorist-color-border-light);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -373,6 +374,7 @@
 /* Taxonomy List Style Two */
 .directorist-taxonomy-list-two .directorist-taxonomy-list {
   box-shadow: var(--directorist-box-shadow);
+  border: 1px solid var(--directorist-color-border-light);
   border-radius: var(--directorist-border-radius-lg);
   background-color: var(--directorist-color-white);
   @include e("card") {
@@ -487,6 +489,7 @@
       &:not(.directorist-location__single--img) {
         height: 300px;
         box-shadow: var(--directorist-box-shadow);
+        border: 1px solid var(--directorist-color-border-light);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -560,6 +563,7 @@
       &:not(.directorist-location__single--img) {
         height: 300px;
         box-shadow: var(--directorist-box-shadow);
+        border: 1px solid var(--directorist-color-border-light);
         display: flex;
         align-items: center;
         justify-content: center;

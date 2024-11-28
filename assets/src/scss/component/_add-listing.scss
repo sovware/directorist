@@ -26,6 +26,7 @@
       border-radius: 16px;
       text-decoration: none !important;
       box-shadow: var(--directorist-box-shadow);
+      border: 1px solid var(--directorist-color-border-light);
       transition: background 0.2s ease;
       .directorist-icon-mask {
         display: flex;
@@ -70,6 +71,7 @@
 .directorist-add-listing-form {
   .directorist-content-module {
     box-shadow: var(--directorist-box-shadow);
+    border: 1px solid var(--directorist-color-border-light);
     @include e(title) {
       i {
         background-color: var(--directorist-color-primary);
@@ -95,7 +97,6 @@
 .directorist-add-listing-form,
 #directiost-listing-fields_wrapper {
   .directorist-content-module {
-    border: none;
     margin-bottom: 35px;
     border-radius: 16px;
     @media (max-width: 480px) {
@@ -1043,6 +1044,7 @@
     flex-direction: column;
     border-radius: 16px;
     box-shadow: var(--directorist-box-shadow);
+    border: 1px solid var(--directorist-color-border-light);
     .directorist-form-submit {
       margin-top: 15px;
 
@@ -1489,9 +1491,9 @@
       &:hover {
         font-weight: 600;
         color: var(--directorist-color-primary);
-        box-shadow: var(--directorist-box-shadow-sm);
+        box-shadow: var(--directorist-box-shadow);
+        border: 1px solid var(--directorist-color-border-light);
         background-color: var(--directorist-color-white);
-        border: 0 none;
         outline: none;
         &:before {
           opacity: 1;

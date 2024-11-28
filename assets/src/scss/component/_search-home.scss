@@ -172,6 +172,7 @@
     padding: 22px 22px 22px 25px;
     background-color: var(--directorist-color-white);
     box-shadow: var(--directorist-box-shadow);
+    border: 1px solid var(--directorist-color-border-light);
     box-sizing: border-box;
     @media screen and (max-width: 767px) {
       gap: 15px;
@@ -665,6 +666,7 @@
         border-radius: 10px;
         background-color: var(--directorist-color-white);
         box-shadow: var(--directorist-box-shadow);
+        border: 1px solid var(--directorist-color-border-light);
         box-sizing: border-box;
         max-height: 250px;
         overflow-y: auto;
@@ -1032,6 +1034,7 @@
   border-radius: 10px;
   background-color: var(--directorist-color-white);
   box-shadow: var(--directorist-box-shadow);
+  border: 1px solid var(--directorist-color-border-light);
   z-index: 10;
   ul {
     display: flex;

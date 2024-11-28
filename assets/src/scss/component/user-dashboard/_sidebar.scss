@@ -10,6 +10,7 @@
   overflow-y: auto;
   background-color: var(--directorist-color-white);
   box-shadow: var(--directorist-box-shadow);
+  border: 1px solid var(--directorist-color-border-light);
   @media only screen and (max-width: 1199px) {
     position: fixed;
     top: 0;

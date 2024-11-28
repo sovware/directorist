@@ -60,6 +60,7 @@
         border-radius: 12px;
         background-color: var(--directorist-color-white);
         box-shadow: var(--directorist-box-shadow);
+        border: 1px solid var(--directorist-color-border-light);
 
         @include e(img) {
             margin-bottom: 15px;

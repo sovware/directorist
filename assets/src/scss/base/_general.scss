@@ -509,6 +509,7 @@ body.logged-in .select2-container--open .select2-dropdown--above {
     border-radius: 10px !important;
     background-color: var(--directorist-color-white);
     box-shadow: var(--directorist-box-shadow);
+    border: 1px solid var(--directorist-color-border-light);
   }
   .select2-search--dropdown {
     padding: 20px 20px 10px 20px;

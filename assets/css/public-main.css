@@ -12932,6 +12932,10 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   bottom: 8px;
 }
 
+.directorist-preload .directorist-search-field__label {
+  top: 0;
+}
+
 .directorist-search-form__box {
   display: -webkit-box;
   display: -webkit-flex;

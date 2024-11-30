@@ -159,6 +159,13 @@
   }
 }
 
+// Search Field Style During Loading
+.directorist-preload {
+  .directorist-search-field__label {
+    top: 0;
+  }
+}
+
 // Search Form
 .directorist-search-form {
   @include e("box") {

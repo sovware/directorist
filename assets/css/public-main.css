@@ -17344,6 +17344,15 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   pointer-events: all;
 }
 
+.directorist-listing-single__meta__right .directorist-listing-category__popup__content {
+  left: unset;
+  right: -30px;
+}
+.directorist-listing-single__meta__right .directorist-listing-category__popup__content:after {
+  left: unset;
+  right: 40px;
+}
+
 .directorist-listing-price-range span {
   font-weight: 600;
   color: rgba(122, 130, 166, 0.3);

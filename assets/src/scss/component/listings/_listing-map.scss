@@ -5,7 +5,7 @@
   direction: ltr;
 
   .leaflet-popup-content-wrapper {
-    border-radius: 10px;
+    border-radius: 8px;
     padding: 0;
   }
   .leaflet-popup-content {
@@ -191,7 +191,7 @@
 .map-listing-card-single {
   position: relative;
   padding: 10px;
-  border-radius: 10px;
+  border-radius: 8px;
   box-shadow: 0px 5px 20px rgba(var(--directorist-color-dark-rgb), 0.33);
   background-color: var(--directorist-color-white);
 
@@ -233,7 +233,7 @@
       max-width: 100%;
       max-height: 200px;
       object-fit: cover;
-      border-radius: 10px;
+      border-radius: 8px;
     }
   }
   @include e(author) {
@@ -450,7 +450,7 @@
   .gm-style .gm-style-iw {
     width: 350px;
     padding: 0;
-    border-radius: 10px;
+    border-radius: 8px;
     box-shadow: unset;
     @media only screen and (max-width: 375px) {
       width: 275px;

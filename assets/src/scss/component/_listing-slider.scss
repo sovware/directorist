@@ -97,7 +97,7 @@
   height: var(--gallery-crop-height, 580px);
   max-width: 100%;
   margin: 0 auto;
-  border-radius: 16px;
+  border-radius: 12px;
   @media screen and (max-width: 991px) {
     max-height: 450px !important;
   }
@@ -148,7 +148,7 @@
       height: 100%;
       max-width: var(--gallery-crop-width, 740px);
       object-fit: cover;
-      border-radius: 16px;
+      border-radius: 12px;
     }
   }
 
@@ -164,7 +164,7 @@
   width: var(--gallery-crop-width, 740px);
   max-width: 100%;
   margin: 10px auto 0;
-  border-radius: 16px;
+  border-radius: 12px;
   overflow: auto;
   .swiper-wrapper{
     gap: 10px;

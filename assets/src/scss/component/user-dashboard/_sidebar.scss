@@ -5,11 +5,12 @@
   transition: 0.3s ease;
   position: relative;
   left: 0;
-  border-radius: 16px;
+  border-radius: 12px;
   overflow: hidden;
   overflow-y: auto;
   background-color: var(--directorist-color-white);
   box-shadow: var(--directorist-box-shadow);
+  border: 1px solid var(--directorist-color-border-light);
   @media only screen and (max-width: 1199px) {
     position: fixed;
     top: 0;

@@ -4,16 +4,17 @@
         max-width: 540px;
         margin: 0 auto;
         padding: 50px 40px;
-        border-radius: 16px;
+        border-radius: 12px;
         background-color: var(--directorist-color-white);
         box-shadow: var(--directorist-box-shadow);
+        border: 1px solid var(--directorist-color-border-light);
         @media only screen and (max-width: 480px) {
             padding: 40px 25px;
         }
         @include e(btn) {
             width: 100%;
             height: 50px;
-            border-radius: 12px;
+            border-radius: 8px;
         }
         @include e(actions) {
             display: flex;
@@ -80,7 +81,7 @@
         max-width: 540px;
         margin: 0 auto 15px;
         padding: 50px 40px;
-        border-radius: 16px;
+        border-radius: 12px;
         background-color: #fff;
         box-shadow: 0 5px 20px rgba(0,0,0,.1);
         @media only screen and (max-width: 480px) {
@@ -90,7 +91,7 @@
             width: 100%;
             height: 50px;
             border: none;
-            border-radius: 12px;
+            border-radius: 8px;
             transition: background-color .3s ease;
         }
         @include e(actions) {

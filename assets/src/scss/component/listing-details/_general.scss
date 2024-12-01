@@ -53,7 +53,7 @@
       min-height: 90px;
       resize: none;
       padding: 10px 16px;
-      border-radius: 10px;
+      border-radius: 8px;
       border: 1px solid var(--directorist-color-border);
       &:focus {
         border: 1px solid var(--directorist-color-primary);
@@ -279,7 +279,7 @@
     .directorist-taxonomy-list__toggle--open
     + .directorist-taxonomy-list__sub-item {
     background-color: var(--directorist-color-light);
-    border-radius: 16px;
+    border-radius: 12px;
   }
   .directorist-taxonomy-list-one
     .directorist-taxonomy-list__toggle--open

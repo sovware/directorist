@@ -24668,11 +24668,11 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       var updatedValue = props.payload.value;
       if (props.payload.key === "placeholder" && !props.payload.value) {
         if (!activeWidget.label) {
-          updatedValue = directorist_admin.default_placeholder;
+          updatedValue = directorist_admin.search_form_default_placeholder;
         }
       } else if (props.payload.key === "label" && !props.payload.value) {
         if (!activeWidget.placeholder) {
-          updatedValue = directorist_admin.default_label;
+          updatedValue = directorist_admin.search_form_default_label;
         }
       }
       vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(this.active_widget_fields[props.widget_key], props.payload.key, updatedValue);

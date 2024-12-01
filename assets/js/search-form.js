@@ -1587,6 +1587,13 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       }, 600);
     });
 
+    // active class add on view as button
+    $('body').on('click', '.directorist-viewas .directorist-viewas__item', function (e) {
+      var parent = $(this).closest('.directorist-viewas');
+      parent.find('.directorist-viewas__item').removeClass('active');
+      $(this).addClass('active');
+    });
+
     // Hide Country Result Click on Outside of Zipcode Field
     $(document).on('click', function (e) {
       if (!$(e.target).closest('.directorist-zip-code').length) {

@@ -371,12 +371,25 @@ export default {
       this.$emit("group-field-updated");
     },
 
-    updateWidgetField(payload) {
+    updateWidgetField(props) {
       this.isDataChanged = true;
+      let activeWidget = this.active_widget_fields[props.widget_key];
+      let updatedValue = props.payload.value;
+
+      if (props.payload.key === "placeholder" && !props.payload.value) {
+        if (!activeWidget.label) {
+          updatedValue = directorist_admin.default_placeholder;
+        }
+      } else if (props.payload.key === "label" && !props.payload.value) {
+        if (!activeWidget.placeholder) {
+          updatedValue = directorist_admin.default_label;
+        }
+      }
+        
       Vue.set(
-        this.active_widget_fields[payload.widget_key],
-        payload.payload.key,
-        payload.payload.value
+        this.active_widget_fields[props.widget_key],
+        props.payload.key,
+        updatedValue
       );
 
       this.$emit("update", this.finalValue);

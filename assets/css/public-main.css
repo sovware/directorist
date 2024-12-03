@@ -6349,6 +6349,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
 }
 .entry-content .directorist-search-modal__contents__title {
   margin: 0;
+  padding: 0;
   color: var(--directorist-color-dark);
 }
 

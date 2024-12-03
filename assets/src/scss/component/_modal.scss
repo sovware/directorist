@@ -532,7 +532,7 @@
           &.input-is-focused {
             margin: 0 40px;
             .directorist-search-field__label {
-              font-size: 0;
+              font-size: 0 !important;
               top: 50%;
               transform: translateY(-50%);
               left: -25px;
@@ -580,7 +580,7 @@
           &.input-has-value:not(.input-is-focused) {
             .directorist-search-field__label {
               opacity: 0;
-              font-size: 0;
+              font-size: 0 !important;
             }
             .directorist-search-field__input::placeholder {
               opacity: 0;

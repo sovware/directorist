@@ -173,7 +173,7 @@
           margin-right: 2px;
         }
         &:hover {
-          background-color: transparent !important;
+          background-color: var(--directorist-color-bg-gray) !important;
           color:rgba(var(--directorist-color-btn-primary-rgb), 0.8);
         }
       }

@@ -11336,7 +11336,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   margin-left: 2px;
 }
 .directorist-content-active .directorist-listings-header__left .directorist-filter-btn:hover {
-  background-color: transparent !important;
+  background-color: var(--directorist-color-bg-gray) !important;
   color: rgba(var(--directorist-color-btn-primary-rgb), 0.8);
 }
 .directorist-content-active .directorist-listings-header__right {

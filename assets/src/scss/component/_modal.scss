@@ -478,7 +478,7 @@
       color: var(--directorist-color-white);
       background-color: var(--directorist-color-primary);
       i::after {
-        background-color: var(--directorist-color-white);
+        background-color: currentColor;
       }
     }
     @media screen and (max-width: 575px) {

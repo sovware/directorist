@@ -9070,7 +9070,7 @@ body.modal-overlay-enabled:before {
   background-color: var(--directorist-color-primary);
 }
 .directorist-search-modal--basic .directorist-search-form-action__modal__btn-search i::after {
-  background-color: var(--directorist-color-white);
+  background-color: currentColor;
 }
 @media screen and (max-width: 575px) {
   .directorist-search-modal--basic .directorist-search-modal__input {

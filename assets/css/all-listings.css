@@ -6129,15 +6129,14 @@ svg.leaflet-image-layer.leaflet-interactive path {
   border-right-color: var(--directorist-color-white);
 }
 
-#map {
+.directorist-content-active #map {
   position: relative;
   width: 100%;
   height: 660px;
   border: none;
   z-index: 1;
 }
-
-#gmap_full_screen_button {
+.directorist-content-active #gmap_full_screen_button {
   position: absolute;
   top: 20px;
   right: 20px;
@@ -6160,18 +6159,17 @@ svg.leaflet-image-layer.leaflet-interactive path {
   background-color: var(--directorist-color-white);
   cursor: pointer;
 }
-#gmap_full_screen_button i::after {
+.directorist-content-active #gmap_full_screen_button i::after {
   width: 22px;
   height: 22px;
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
   background-color: var(--directorist-color-dark);
 }
-#gmap_full_screen_button .fullscreen-disable {
+.directorist-content-active #gmap_full_screen_button .fullscreen-disable {
   display: none;
 }
-
-#progress {
+.directorist-content-active #progress {
   display: none;
   position: absolute;
   z-index: 1000;
@@ -6186,15 +6184,13 @@ svg.leaflet-image-layer.leaflet-interactive path {
   border-radius: 4px;
   padding: 2px;
 }
-
-#progress-bar {
+.directorist-content-active #progress-bar {
   width: 0;
   height: 100%;
   background-color: #76A6FC;
   border-radius: 4px;
 }
-
-.gm-fullscreen-control {
+.directorist-content-active .gm-fullscreen-control {
   width: 50px !important;
   height: 50px !important;
   margin: 20px !important;
@@ -6202,28 +6198,27 @@ svg.leaflet-image-layer.leaflet-interactive path {
   -webkit-box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.26) !important;
           box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.26) !important;
 }
-
-.gmnoprint,
-.gm-style-cc {
+.directorist-content-active .gmnoprint {
+  border-radius: 5px;
+}
+.directorist-content-active .gm-style-cc,
+.directorist-content-active .gm-style-mtc-bbw,
+.directorist-content-active button.gm-svpc {
   display: none;
 }
-
-.italic {
+.directorist-content-active .italic {
   font-style: italic;
 }
-
-.buttonsTable {
+.directorist-content-active .buttonsTable {
   border: 1px solid grey;
   border-collapse: collapse;
 }
-
-.buttonsTable td,
-.buttonsTable th {
+.directorist-content-active .buttonsTable td,
+.directorist-content-active .buttonsTable th {
   padding: 8px;
   border: 1px solid grey;
 }
-
-.version-disabled {
+.directorist-content-active .version-disabled {
   text-decoration: line-through;
 }
 

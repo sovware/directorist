@@ -6344,6 +6344,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
 }
 .entry-content .directorist-search-modal__contents__title {
   margin: 0;
+  padding: 0;
   color: var(--directorist-color-dark);
 }
 
@@ -6368,12 +6369,12 @@ button[type=submit] {
   margin-bottom: 0;
 }
 
-.select2-container--open .select2-dropdown.select2-dropdown--below {
+.directorist-add-listing-form .select2-container--open .select2-dropdown.select2-dropdown--below {
   top: 0;
   border-color: var(--directorist-color-border);
 }
 
-.logged-in .select2-container--open .select2-dropdown.select2-dropdown--below {
+.logged-in .directorist-add-listing-form .select2-container--open .select2-dropdown.select2-dropdown--below {
   top: 32px;
 }
 
@@ -6381,10 +6382,10 @@ button[type=submit] {
   display: none;
 }
 
-.select2.select2-container.select2-container--default {
+.directorist-add-listing-form .select2.select2-container.select2-container--default {
   width: 100% !important;
 }
-.select2.select2-container.select2-container--default .select2-selection {
+.directorist-add-listing-form .select2.select2-container.select2-container--default .select2-selection {
   min-height: 40px;
   display: -webkit-box;
   display: -webkit-flex;
@@ -6400,11 +6401,11 @@ button[type=submit] {
   background: transparent;
   border-bottom: 1px solid var(--directorist-color-border-gray);
 }
-.select2.select2-container.select2-container--default .select2-selection:focus {
+.directorist-add-listing-form .select2.select2-container.select2-container--default .select2-selection:focus {
   border-color: var(--directorist-color-primary);
   outline: none;
 }
-.select2.select2-container.select2-container--default .select2-selection__choice {
+.directorist-add-listing-form .select2.select2-container.select2-container--default .select2-selection__choice {
   height: 28px;
   line-height: 28px;
   font-size: 12px;
@@ -6419,14 +6420,14 @@ button[type=submit] {
   color: var(--directorist-color-white);
   background-color: var(--directorist-color-primary);
 }
-.select2.select2-container.select2-container--default .select2-selection__choice__remove {
+.directorist-add-listing-form .select2.select2-container.select2-container--default .select2-selection__choice__remove {
   position: relative;
   width: 12px;
   margin: 0;
   font-size: 0;
   color: var(--directorist-color-white);
 }
-.select2.select2-container.select2-container--default .select2-selection__choice__remove:before {
+.directorist-add-listing-form .select2.select2-container.select2-container--default .select2-selection__choice__remove:before {
   content: "";
   -webkit-mask-image: url(../images/4ff79f85f2a1666e0f80c7ca71039465.svg);
           mask-image: url(../images/4ff79f85f2a1666e0f80c7ca71039465.svg);
@@ -6440,7 +6441,7 @@ button[type=submit] {
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
 }
-.select2.select2-container.select2-container--default .select2-selection__rendered {
+.directorist-add-listing-form .select2.select2-container.select2-container--default .select2-selection__rendered {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -6457,46 +6458,46 @@ button[type=submit] {
   -ms-overflow-style: none; /* Internet Explorer 10+ */
   scrollbar-width: none; /* Firefox */
 }
-.select2.select2-container.select2-container--default .select2-selection__rendered::-webkit-scrollbar {
+.directorist-add-listing-form .select2.select2-container.select2-container--default .select2-selection__rendered::-webkit-scrollbar {
   display: none;
 }
-.select2.select2-container.select2-container--default .select2-selection__rendered .select2-selection__clear {
+.directorist-add-listing-form .select2.select2-container.select2-container--default .select2-selection__rendered .select2-selection__clear {
   padding-right: 25px;
 }
-.select2.select2-container.select2-container--default .select2-selection__arrow b {
+.directorist-add-listing-form .select2.select2-container.select2-container--default .select2-selection__arrow b {
   display: none;
 }
-.select2.select2-container.select2-container--focus .select2-selection {
+.directorist-add-listing-form .select2.select2-container.select2-container--focus .select2-selection {
   border: none;
   border-bottom: 1px solid var(--directorist-color-primary);
 }
 
-.select2-container--default .select2-selection .select2-selection__arrow b {
+.directorist-add-listing-form .select2-container--default .select2-selection .select2-selection__arrow b {
   margin-top: 0;
 }
 
-.select2-container.select2-container--open {
+.directorist-add-listing-form .select2-container.select2-container--open {
   z-index: 99999;
 }
 @media only screen and (max-width: 575px) {
-  .select2-container.select2-container--open {
+  .directorist-add-listing-form .select2-container.select2-container--open {
     width: calc(100% - 40px);
   }
 }
 
-.select2-container .directorist-select2-addons-area {
+.directorist-add-listing-form .select2-container .directorist-select2-addons-area {
   top: unset;
   bottom: 20px;
   right: 0;
 }
-.select2-container .directorist-select2-addons-area .directorist-select2-dropdown-toggle {
+.directorist-add-listing-form .select2-container .directorist-select2-addons-area .directorist-select2-dropdown-toggle {
   position: absolute;
   right: 0;
   padding: 0;
   width: auto;
   pointer-events: none;
 }
-.select2-container .directorist-select2-addons-area .directorist-select2-dropdown-close {
+.directorist-add-listing-form .select2-container .directorist-select2-addons-area .directorist-select2-dropdown-close {
   position: absolute;
   right: 15px;
   padding: 0;
@@ -10067,7 +10068,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-checkbox input[type=radio],
 .directorist-radio input[type=checkbox],
 .directorist-radio input[type=radio] {
-  display: none;
+  display: none !important;
 }
 .directorist-checkbox input[type=checkbox] + .directorist-checkbox__label, .directorist-checkbox input[type=checkbox] + .directorist-radio__label,
 .directorist-checkbox input[type=radio] + .directorist-checkbox__label,
@@ -11330,7 +11331,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   margin-right: 2px;
 }
 .directorist-content-active .directorist-listings-header__left .directorist-filter-btn:hover {
-  background-color: transparent !important;
+  background-color: var(--directorist-color-bg-gray) !important;
   color: rgba(var(--directorist-color-btn-primary-rgb), 0.8);
 }
 .directorist-content-active .directorist-listings-header__right {

@@ -1481,6 +1481,12 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           parentField.classList.remove('input-is-focused');
         }
       }
+      // Check if the label exists inside the parentField
+      if (!parentField.querySelector('.directorist-search-field__label')) {
+        parentField.classList.add('input-is-noLabel');
+      } else {
+        parentField.classList.remove('input-is-noLabel'); // Optional: remove class if label exists
+      }
     });
 
     // Listing Type Change

@@ -584,16 +584,21 @@ import './components/directoristSelect';
         });
 
         // Search Form Input Field Back Button
-        $('body').on('click', '.directorist-search-field__label:not(.directorist-search-basic-dropdown-label)', function(e) {
+        $('body').on('click', '.directorist-search-field__label:not(.directorist-search-basic-dropdown-label)', function (e) {
             let windowScreen = window.innerWidth;
             let parentField = this.closest('.directorist-search-field');
-
             if (windowScreen <= 575) {
-                if(parentField.classList.contains('input-is-focused')) {
+                if (parentField.classList.contains('input-is-focused')) {
                     parentField.classList.remove('input-is-focused');
                 }
             }
-        })
+            // Check if the label exists inside the parentField
+            if (!parentField.querySelector('.directorist-search-field__label')) {
+                parentField.classList.add('input-is-noLabel');
+            } else {
+                parentField.classList.remove('input-is-noLabel'); // Optional: remove class if label exists
+            }
+        });
 
         // Listing Type Change
         $('body').on('click', '.search_listing_types', function (event) {

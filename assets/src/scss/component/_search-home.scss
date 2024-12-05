@@ -467,6 +467,9 @@
         &.input-is-focused {
           padding: 0;
           margin: 0 40px;
+          &.input-is-noLabel{
+            margin: 0 20px;
+          }
           .directorist-search-field__input {
             bottom: 0;
             &::placeholder {

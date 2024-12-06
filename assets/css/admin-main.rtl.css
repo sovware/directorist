@@ -5888,23 +5888,23 @@ img.atbdp-file-info {
   text-align: center;
 }
 
-.directorist_select .select2.select2-container .select2-selection--single {
+.select2.select2-container .select2-selection--single {
   border: 1px solid #8c8f94;
   min-height: 40px;
 }
-.directorist_select .select2.select2-container .select2-selection--single .select2-selection__rendered {
+.select2.select2-container .select2-selection--single .select2-selection__rendered {
   height: auto;
   line-height: 38px;
   padding: 0 15px;
 }
-.directorist_select .select2.select2-container .select2-results__option i,
-.directorist_select .select2.select2-container .select2-results__option span.las,
-.directorist_select .select2.select2-container .select2-results__option span.lab,
-.directorist_select .select2.select2-container .select2-results__option span.la,
-.directorist_select .select2.select2-container .select2-results__option span.fas,
-.directorist_select .select2.select2-container .select2-results__option span.fab,
-.directorist_select .select2.select2-container .select2-results__option span.far,
-.directorist_select .select2.select2-container .select2-results__option span.fa {
+.select2.select2-container .select2-results__option i,
+.select2.select2-container .select2-results__option span.las,
+.select2.select2-container .select2-results__option span.lab,
+.select2.select2-container .select2-results__option span.la,
+.select2.select2-container .select2-results__option span.fas,
+.select2.select2-container .select2-results__option span.fab,
+.select2.select2-container .select2-results__option span.far,
+.select2.select2-container .select2-results__option span.fa {
   font-size: 16px;
 }
 
@@ -13282,7 +13282,7 @@ input:-webkit-autofill:active {
 .directorist-checkbox input[type=radio],
 .directorist-radio input[type=checkbox],
 .directorist-radio input[type=radio] {
-  display: none !important;
+  display: none;
 }
 .directorist-checkbox input[type=checkbox] + .directorist-checkbox__label, .directorist-checkbox input[type=checkbox] + .directorist-radio__label,
 .directorist-checkbox input[type=radio] + .directorist-checkbox__label,

@@ -467,8 +467,11 @@
         &.input-is-focused {
           padding: 0;
           margin: 0 40px;
-          &.input-is-noLabel{
+          &.input-has-noLabel{
             margin: 0 20px;
+            .directorist-search-field__btn{
+              right: 0;
+            }
           }
           .directorist-search-field__input {
             bottom: 0;

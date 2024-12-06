@@ -529,7 +529,7 @@
             }
           }
 
-          &.input-is-focused:not(.input-is-noLabel) {
+          &.input-is-focused:not(.input-has-noLabel) {
             margin: 0 40px;
             .directorist-search-field__label {
               font-size: 0 !important;

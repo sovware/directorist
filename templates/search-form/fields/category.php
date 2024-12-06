@@ -7,9 +7,8 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 	$selected_item = $searchform::get_selected_category_option_data();
-	$additional_class = empty( $data['label'] ) ? 'input-is-noLabel' : '';
 ?>
-<div class="directorist-search-field directorist-form-group <?php echo esc_attr( $additional_class ); ?>">
+<div class="directorist-search-field directorist-form-group <?php echo esc_attr( $empty_label ); ?>">
 	<div class="directorist-select directorist-search-category directorist-search-field__input">
 
 		<?php if ( ! empty( $data['label'] ) ) : ?>

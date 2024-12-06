@@ -7,7 +7,7 @@
 
     input[type="checkbox"],
     input[type="radio"]{
-        display: none;
+        display: none !important;
 
         & +.directorist-checkbox__label,
         & +.directorist-radio__label{

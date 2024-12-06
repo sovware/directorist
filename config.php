@@ -1,6 +1,6 @@
 <?php
 // Plugin version.
-if ( ! defined( 'ATBDP_VERSION' ) ) {define( 'ATBDP_VERSION', '8.0.6' );}
+if ( ! defined( 'ATBDP_VERSION' ) ) {define( 'ATBDP_VERSION', '8.0.8' );}
 // Plugin Folder Path.
 if ( ! defined( 'ATBDP_DIR' ) ) { define( 'ATBDP_DIR', plugin_dir_path( __FILE__ ) ); }
 // Plugin Folder URL.

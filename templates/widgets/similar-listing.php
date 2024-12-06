@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   7.3.0
- * @version 7.7.0
+ * @version 8.0.8
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -23,8 +23,8 @@ $default_icon = 'las la-tags';
 
       // get only one parent or high level term object
       $top_category = ATBDP()->taxonomy->get_one_high_level_term($related_listing->ID, ATBDP_CATEGORY);
-      $listing_img = get_post_meta($related_listing->ID, '_listing_img', true);
-      $listing_prv_img = get_post_meta($related_listing->ID, '_listing_prv_img', true);
+      $listing_img = directorist_get_listing_gallery_images( $related_listing->ID );
+      $listing_prv_img = directorist_get_listing_preview_image( $related_listing->ID );
       $review_rating = directorist_get_listing_rating( get_the_ID() );
       $review_count  = directorist_get_listing_review_count( get_the_ID() );
       $review_text   = sprintf( _n( '%s review', $review_count > 0 ?  '%s reviews' : '%s review', $review_count, 'directorist' ), number_format_i18n( $review_count ) );

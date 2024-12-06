@@ -212,12 +212,18 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 				$args = directorist_clean( (array) wp_unslash( $_POST['data_atts'] ) );
 			}
 
+			if( ! empty( $args['_current_page'] ) && 'search_result' == $args['_current_page'] ) {
+				$type = 'search_result';
+			} else {
+				$type = 'instant_search';
+			}
+
 			if ( ! empty( $args['ids'] ) && ! isset( $_REQUEST['ids'] ) ) {
 				$_REQUEST['ids'] = $args['ids'];
 				$_POST['ids']    = $args['ids'];
 			}
 
-			$listings = new Directorist\Directorist_Listings( $args, 'instant_search' );
+			$listings = new Directorist\Directorist_Listings( $args, $type );
 
 			ob_start();
 			$listings->archive_view_template();

@@ -3,7 +3,7 @@
  * Plugin Name: Directorist - Business Directory Plugin
  * Plugin URI: https://wpwax.com
  * Description: A comprehensive solution to create professional looking directory site of any kind. Like Yelp, Foursquare, etc.
- * Version: 8.0.6
+ * Version: 8.0.8
  * Author: wpWax - WP Business Directory Plugin and Classified Listings Directory
  * Author URI: https://wpwax.com
  * Text Domain: directorist
@@ -194,8 +194,9 @@ final class Directorist_Base
 			self::$instance = new Directorist_Base();
 			self::$instance->setup_constants();
 
+			add_action( 'plugins_loaded', array( self::$instance, 'redirect_to_setup_wizard' ) );
 			add_action('init', array(self::$instance, 'load_textdomain'));
-			add_action('plugins_loaded', array(self::$instance, 'add_polylang_swicher_support') );
+			add_action('init', array(self::$instance, 'add_polylang_swicher_support') );
 			add_action('widgets_init', array(self::$instance, 'register_widgets'));
 			add_filter('widget_display_callback', array(self::$instance, 'custom_widget_body_wrapper'), 10, 3);
 			add_action('after_setup_theme', array(self::$instance, 'add_image_sizes'));
@@ -356,12 +357,7 @@ final class Directorist_Base
 	}
 
 	// add_polylang_swicher_support
-	public function add_polylang_swicher_support() {
-
-		if ( is_admin() && get_transient( '_directorist_setup_page_redirect' ) ) {
-			directorist_redirect_to_admin_setup_wizard();
-		}
-		
+	public function add_polylang_swicher_support() {	
 		// beta plugin lookup
 		$plugin_data = get_plugin_data( plugin_dir_path( __FILE__ ) . 'directorist-base.php' );
 
@@ -636,6 +632,21 @@ final class Directorist_Base
 		if ( $current_preview_size == 'directorist_preview' ) {
 			$preview_size = directorist_default_preview_size();
 			add_image_size( 'directorist_preview', $preview_size['width'], $preview_size['height'], $preview_size['crop'] );
+		}
+	}
+
+	/**
+	 * Handles redirection to the Directorist setup wizard.
+	 *
+	 * This method checks if the user is currently in the WordPress admin area and if the
+	 * _directorist_setup_page_redirect transient exists. If both conditions are met,
+	 * it triggers the redirection to the Directorist setup wizard page.
+	 *
+	 * @return void
+	 */
+	public function redirect_to_setup_wizard() {
+		if ( is_admin() && get_transient( '_directorist_setup_page_redirect' ) ) {
+			directorist_redirect_to_admin_setup_wizard();
 		}
 	}
 

@@ -123,14 +123,12 @@ function directorist_get_listing_thumbnail_id( $listing = null ) {
 		return $thumbnail_id;
 	}
 
-	$thumbnail_id = (int) get_post_meta( $listing->ID, '_listing_prv_img', true );
+	$thumbnail_id = directorist_get_listing_preview_image( $listing->ID );
 	if ( $thumbnail_id ) {
 		return $thumbnail_id;
 	}
 
-	$gallery_image_ids = (array) get_post_meta( $listing->ID, '_listing_img', true );
-	$gallery_image_ids = wp_parse_id_list( $gallery_image_ids );
-	$gallery_image_ids = array_filter( $gallery_image_ids );
+	$gallery_image_ids = directorist_get_listing_gallery_images( $listing->ID );
 	if ( empty( $gallery_image_ids ) ) {
 		return false;
 	}

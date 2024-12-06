@@ -430,8 +430,8 @@ class Directorist_Listings {
 			'cats'                 => get_the_terms( $id, ATBDP_CATEGORY ),
 			'locs'                 => get_the_terms( $id, ATBDP_LOCATION ),
 			'featured'             => get_post_meta( $id, '_featured', true ),
-			'listing_img'          => get_post_meta( $id, '_listing_img', true ),
-			'listing_prv_img'      => get_post_meta( $id, '_listing_prv_img', true ),
+			'listing_img'          => directorist_get_listing_gallery_images( $id ),
+			'listing_prv_img'      => directorist_get_listing_preview_image( $id ),
 			'tagline'              => get_post_meta( $id, '_tagline', true ),
 			'category'             => get_post_meta( $id, '_admin_category_select', true ),
 			'post_view'            => directorist_get_listing_views_count( $id ),
@@ -1488,8 +1488,8 @@ class Directorist_Listings {
 
 				$ls_data['manual_lat']      = get_post_meta($listings_id, '_manual_lat', true);
 				$ls_data['manual_lng']      = get_post_meta($listings_id, '_manual_lng', true);
-				$ls_data['listing_img']     = get_post_meta($listings_id, '_listing_img', true);
-				$ls_data['listing_prv_img'] = get_post_meta($listings_id, '_listing_prv_img', true);
+				$ls_data['listing_img']     = directorist_get_listing_gallery_images( $listings_id );
+				$ls_data['listing_prv_img'] = directorist_get_listing_preview_image( $listings_id );
 				$ls_data['address']         = get_post_meta($listings_id, '_address', true);
 				$ls_data['phone'] 			= get_post_meta($listings_id, '_phone', true);
 				$ls_data['font_type']       = $this->options['font_type'];
@@ -1578,8 +1578,8 @@ class Directorist_Listings {
 					$ls_data['post_id']         = $listings_id;
 					$ls_data['manual_lat']      = get_post_meta($listings_id, '_manual_lat', true);
 					$ls_data['manual_lng']      = get_post_meta($listings_id, '_manual_lng', true);
-					$ls_data['listing_img']     = get_post_meta($listings_id, '_listing_img', true);
-					$ls_data['listing_prv_img'] = get_post_meta($listings_id, '_listing_prv_img', true);
+					$ls_data['listing_img']     = directorist_get_listing_gallery_images( $listings_id );
+					$ls_data['listing_prv_img'] = directorist_get_listing_preview_image( $listings_id );
 					$ls_data['phone'] 			= get_post_meta($listings_id, '_phone', true);
 					$ls_data['crop_width']      = $this->options['crop_width'];
 					$ls_data['crop_height']     = $this->options['crop_height'];
@@ -1657,8 +1657,8 @@ class Directorist_Listings {
 
 			$id = get_the_ID();
 			$image_quality     = get_directorist_option('preview_image_quality', 'directorist_preview');
-			$listing_prv_img   = get_post_meta($id, '_listing_prv_img', true);
-			$listing_img       = get_post_meta($id, '_listing_img', true);
+			$listing_prv_img   = directorist_get_listing_preview_image( $id );
+			$listing_img       = directorist_get_listing_gallery_images( $id );
 
 
 

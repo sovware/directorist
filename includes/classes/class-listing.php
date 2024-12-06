@@ -296,7 +296,7 @@ if (!class_exists('ATBDP_Listing')):
                     <meta property="og:description" content="<?php echo esc_attr( wp_trim_words($post->post_content, 150) ); ?>" />
                 <?php }
 
-                $images = get_post_meta($post->ID, '_listing_prv_img', true);
+                $images = directorist_get_listing_preview_image( $post->ID );
                 if (!empty($images)) {
                     $thumbnail = atbdp_get_image_source($images, 'full');
 

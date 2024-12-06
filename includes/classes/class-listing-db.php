@@ -31,9 +31,9 @@ class ATBDP_Listing_DB {
     public function atbdp_delete_attachment($id){
 
         if( 'at_biz_dir' === get_post_type( $id ) ){
-            $listing_img = get_post_meta($id, '_listing_img', true);
+            $listing_img = directorist_get_listing_gallery_images( $id );
             $listing_img = !empty($listing_img) ? $listing_img : array();
-            $listing_prv_img = get_post_meta($id, '_listing_prv_img', true);
+            $listing_prv_img = directorist_get_listing_preview_image( $id );
 
             if ( is_array( $listing_img ) ) {
                 array_unshift($listing_img, $listing_prv_img);

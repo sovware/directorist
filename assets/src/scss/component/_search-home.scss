@@ -518,7 +518,9 @@
           .select2-container
             .directorist-select2-addons-area
             .directorist-select2-dropdown-toggle {
-            right: -5px;
+              position: absolute;
+              right: -5px;
+              padding: 0;
           }
         }
         &.input-has-value {

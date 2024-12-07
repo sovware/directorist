@@ -11313,6 +11313,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
   padding: 0;
   width: 100%;
   max-width: unset;
+  min-height: unset;
   height: 40px;
   font-size: 14px;
   font-weight: 500;

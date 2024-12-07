@@ -9779,6 +9779,7 @@ input:-webkit-autofill:active {
   padding: 0;
   width: 100%;
   max-width: unset;
+  min-height: unset;
   height: 40px;
   font-size: 14px;
   font-weight: 500;
@@ -13341,7 +13342,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
     right: -20px;
   }
   .directorist-search-form__top .directorist-search-field.input-is-focused .select2-container .directorist-select2-addons-area .directorist-select2-dropdown-toggle {
+    position: absolute;
     right: -5px;
+    padding: 0;
   }
   .directorist-search-form__top .directorist-search-field.input-has-value:not(.input-is-focused) .directorist-search-field__label {
     opacity: 0;

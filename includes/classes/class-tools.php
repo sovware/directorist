@@ -109,6 +109,8 @@
                 wp_send_json( $data );
             }
 
+            do_action( 'directorist_before_listings_import' );
+
             // Counters
             $imported = 0;
             $failed   = 0;
@@ -254,6 +256,11 @@
                     }
 
                     /**
+                     * Add Listing Meta - to track which listings are imported by CSV
+                     */
+                    update_post_meta( $post_id, '_directorist_imported_by_csv', 'yes' );
+
+                    /**
                      * Fire this event once a listing is successfully imported from CSV.
                      *
                      * @since 7.2.0
@@ -272,6 +279,8 @@
             $data['total']         = $total_length;
             $data['imported']      = $imported;
             $data['failed']        = $failed;
+
+            do_action( 'directorist_after_listings_import' );
 
             wp_send_json( $data );
         }

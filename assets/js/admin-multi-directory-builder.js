@@ -24662,9 +24662,20 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       this.$emit("updated-state");
       this.$emit("group-field-updated");
     },
-    updateWidgetField: function updateWidgetField(payload) {
+    updateWidgetField: function updateWidgetField(props) {
       this.isDataChanged = true;
-      vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(this.active_widget_fields[payload.widget_key], payload.payload.key, payload.payload.value);
+      var activeWidget = this.active_widget_fields[props.widget_key];
+      var updatedValue = props.payload.value;
+      if (props.payload.key === "placeholder" && !props.payload.value) {
+        if (!activeWidget.label) {
+          updatedValue = directorist_admin.search_form_default_placeholder;
+        }
+      } else if (props.payload.key === "label" && !props.payload.value) {
+        if (!activeWidget.placeholder) {
+          updatedValue = directorist_admin.search_form_default_label;
+        }
+      }
+      vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(this.active_widget_fields[props.widget_key], props.payload.key, updatedValue);
       this.$emit("update", this.finalValue);
       this.$emit("updated-state");
       this.$emit("widget-field-updated");

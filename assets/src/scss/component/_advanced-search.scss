@@ -91,16 +91,18 @@
           transform: unset;
           font-size: 14px;
           font-weight: 400;
+          ~ .directorist-search-field__input {
+            &::placeholder {
+              opacity: 0;
+              transition: opacity 0.3s ease;
+            }
+          }
         }
         .directorist-form-group__prefix--start{
           opacity: 0;
           transition: opacity 0.3s ease;
         }
         .directorist-search-field__input {
-          &::placeholder {
-            opacity: 0;
-            transition: opacity 0.3s all;
-          }
           &[type="date"] {
             padding-right: 0;
           }

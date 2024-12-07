@@ -235,15 +235,16 @@ button[type="submit"] {
   }
 }
 
-.directorist-add-listing-form .select2-container--default .select2-selection .select2-selection__arrow b {
-  margin-top: 0;
-}
 
-.directorist-add-listing-form .select2-container.select2-container--open {
+.select2-container.select2-container--open {
   z-index: 99999;
   @media only screen and (max-width: 575px) {
     width: calc(100% - 40px);
   }
+}
+
+.directorist-add-listing-form .select2-container--default .select2-selection .select2-selection__arrow b {
+  margin-top: 0;
 }
 
 .directorist-add-listing-form .select2-container .directorist-select2-addons-area {

@@ -521,6 +521,7 @@
               position: absolute;
               right: -5px;
               padding: 0;
+              width: auto;
           }
         }
         &.input-has-value {
@@ -558,6 +559,11 @@
       }
       .directorist-select2-dropdown-close {
         display: none;
+      }
+      .directorist-select2-dropdown-toggle {
+        position: absolute;
+        padding: 0;
+        width: auto;
       }
     }
 

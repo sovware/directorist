@@ -549,7 +549,13 @@
       width: 100%;
 
       &.select2-container--default .select2-selection--single {
+        display: flex;
+        align-items: center;
+        padding: 5px 0;
         border: 0 none;
+      }
+      .directorist-select2-dropdown-close {
+        display: none;
       }
     }
 

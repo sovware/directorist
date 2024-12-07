@@ -13385,7 +13385,19 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   width: 100%;
 }
 .directorist-search-form__top .select2-container.select2-container--default .select2-selection--single {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 5px 0;
   border: 0 none;
+}
+.directorist-search-form__top .select2-container .directorist-select2-dropdown-close {
+  display: none;
 }
 .directorist-search-form__top input[type=number]::-webkit-outer-spin-button,
 .directorist-search-form__top input[type=number]::-webkit-inner-spin-button {

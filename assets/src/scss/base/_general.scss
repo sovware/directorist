@@ -495,15 +495,15 @@ p.status:empty {
 }
 
 //select 2
-.select2-container--open .select2-dropdown--above {
+.directorist-content-active .select2-container--open .select2-dropdown--above {
   top: 0;
   border-color: var(--directorist-color-border);
 }
-body.logged-in .select2-container--open .select2-dropdown--above {
+body.logged-in.directorist-content-active .select2-container--open .select2-dropdown--above {
   top: 32px;
 }
 
-.select2-container--default {
+.directorist-content-active .select2-container--default {
   .select2-dropdown {
     border: none;
     border-radius: 10px !important;

@@ -555,7 +555,7 @@
         display: flex;
         align-items: center;
         padding: 5px 0;
-        border: 0 none;
+        border: 0 none !important;
       }
       .directorist-select2-dropdown-close {
         display: none;

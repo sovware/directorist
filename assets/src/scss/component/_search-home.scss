@@ -364,6 +364,10 @@
         @media screen and (max-width: 575px) {
           border: 0 none;
           border-radius: 0;
+          overflow: hidden;
+          -o-text-overflow: ellipsis;
+          -ms-text-overflow: ellipsis;
+          text-overflow: ellipsis;
         }
       }
 
@@ -468,9 +472,11 @@
           padding: 0;
           margin: 0 40px;
           &.input-has-noLabel{
-            margin: 0 20px;
-            .directorist-search-field__btn{
-              right: 0;
+            @media screen and (max-width: 575px) {
+              margin: 0 20px;
+              .directorist-search-field__btn{
+                right: 0;
+              }
             }
           }
           .directorist-search-field__input {

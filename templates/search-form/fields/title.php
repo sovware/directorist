@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 $value = isset( $_GET['q'] ) ? sanitize_text_field( wp_unslash( $_GET['q'] ) ) : '';
 ?>
 
-<div class="directorist-search-field directorist-form-group directorist-search-query">
+<div class="directorist-search-field directorist-form-group directorist-search-query <?php echo esc_attr( $empty_label ); ?>">
 
 	<?php if ( ! empty( $data['label'] ) ) : ?>
 		<label class="directorist-search-field__label" for="<?php echo esc_attr( $data['field_key'] ?? '' ); ?>"><?php echo esc_attr( $data['label'] ); ?></label>

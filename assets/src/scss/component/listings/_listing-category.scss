@@ -77,3 +77,14 @@
         }
     }
 }
+
+.directorist-listing-single__meta__right {
+    .directorist-listing-category__popup__content {
+        left: unset;
+        right: -30px;
+        &:after {
+            left: unset;
+            right: 40px;
+        }
+    }
+}

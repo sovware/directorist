@@ -10,7 +10,7 @@ $lat = ! empty( $_REQUEST['zip_cityLat'] ) ? sanitize_text_field( wp_unslash( $_
 $lng = ! empty( $_REQUEST['zip_cityLng'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['zip_cityLng'] ) ) : '';
 ?>
 
-<div class="directorist-search-field directorist-form-group directorist-zipcode-search">
+<div class="directorist-search-field directorist-form-group directorist-zipcode-search <?php echo esc_attr( $empty_label ); ?>">
 
 	<?php if ( ! empty( $data['label'] ) ) : ?>
 		<label class="directorist-search-field__label" for="<?php echo esc_attr( $data['field_key'] ?? '' ); ?>"><?php echo esc_attr( $data['label'] ); ?></label>

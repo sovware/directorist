@@ -18631,6 +18631,10 @@ input[type=radio]:checked::before {
   background-color: #f0f3ff;
 }
 
+.cptm-form-group .directorist_dropdown-option {
+  max-height: 240px;
+}
+
 .cptm-import-directory-modal .cptm-file-input-wrap {
   margin: 16px -5px 0 -5px;
 }
@@ -23670,6 +23674,10 @@ input[type=radio]:checked::before {
 .directorist_dropdown .directorist_dropdown-option ul li a.active {
   color: #3e62f5;
   background-color: #f0f3ff;
+}
+
+.cptm-form-group .directorist_dropdown-option {
+  max-height: 240px;
 }
 
 .cptm-import-directory-modal .cptm-file-input-wrap {
@@ -28999,6 +29007,10 @@ input[type=radio]:checked::before {
 .directorist_dropdown .directorist_dropdown-option ul li a.active {
   color: #3e62f5;
   background-color: #f0f3ff;
+}
+
+.cptm-form-group .directorist_dropdown-option {
+  max-height: 240px;
 }
 
 .cptm-import-directory-modal .cptm-file-input-wrap {

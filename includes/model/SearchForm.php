@@ -418,10 +418,12 @@ class Directorist_Listing_Search_Form {
 			$value = $key && isset( $_REQUEST[$key] ) ? sanitize_text_field( wp_unslash( $_REQUEST[$key] ) ): '';
 		}
 
+
 		$args = array(
 			'searchform' 		=> $this,
 			'data'       		=> $field_data,
 			'value'      		=> $value,
+			'empty_label'  => empty( $field_data['label'] ) ? 'input-has-noLabel' : '',
 		);
 
 		// if ( $this->is_custom_field( $field_data ) && ( ! in_array( $field_data['field_key'], $this->assign_to_category()['custom_field_key'] ) ) ) {

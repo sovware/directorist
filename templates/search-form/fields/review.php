@@ -8,7 +8,7 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div class="directorist-search-field directorist-search-field-review directorist-search-form-dropdown directorist-form-group">
+<div class="directorist-search-field directorist-search-field-review directorist-search-form-dropdown directorist-form-group <?php echo esc_attr( $empty_label ); ?>">
 	<div class="directorist-search-basic-dropdown directorist-search-field__input">
 
 		<?php if ( !empty($data['label']) ): ?>

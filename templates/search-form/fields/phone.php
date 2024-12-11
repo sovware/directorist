@@ -8,7 +8,7 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div class="directorist-search-field directorist-form-group">
+<div class="directorist-search-field directorist-form-group <?php echo esc_attr( $empty_label ); ?>">
 	
 	<?php if ( ! empty( $data['label'] ) ) : ?>
 		<label class="directorist-search-field__label" for="<?php echo esc_attr( $data['field_key'] ?? '' ); ?>"><?php echo esc_attr( $data['label'] ); ?></label>

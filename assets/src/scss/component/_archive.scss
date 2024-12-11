@@ -173,7 +173,7 @@
           margin-right: 2px;
         }
         &:hover {
-          background-color: transparent !important;
+          background-color: var(--directorist-color-bg-gray) !important;
           color:rgba(var(--directorist-color-btn-primary-rgb), 0.8);
         }
       }
@@ -347,10 +347,12 @@
       color: var(--directorist-color-primary);
       background-color: var(--directorist-color-light);
       border: 2px solid var(--directorist-color-white);
+      cursor: pointer;
       display: none;
       .directorist-icon-mask {
         margin-right: 5px;
         &::after {
+          background-color: currentColor;
           width: 14px;
           height: 14px;
         }
@@ -625,8 +627,14 @@
     .directorist-search-field {
       @media screen and (max-width: 575px) {
         margin: 0 20px 0 0;
-        &.input-is-focued {
+        &.input-is-focused {
           margin: 0 25px;
+          &.input-has-noLabel{
+            margin: 0;
+            .directorist-filter-location-icon{
+              right:0;
+            }
+          }
         }
         .directorist-filter-location-icon {
           right: -15px;

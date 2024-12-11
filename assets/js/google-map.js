@@ -560,7 +560,7 @@ __webpack_require__.r(__webpack_exports__);
         map.markers.push(marker);
         // if marker contains HTML, add it to an infoWindow
         if ($marker.html()) {
-          // map info window close button
+          //map info window close button
           google.maps.event.addListener(infowindow, 'domready', function () {
             var closeBtn = $('.iw-close-btn').get();
             google.maps.event.addDomListener(closeBtn[0], 'click', function () {
@@ -574,7 +574,7 @@ __webpack_require__.r(__webpack_exports__);
               var marker_childrens = $($marker).children();
               if (marker_childrens.length) {
                 var marker_content = marker_childrens[0];
-                $(marker_content).addClass('map-info-wrapper--show');
+                $(marker_content).toggleClass('map-info-wrapper--show');
               }
               infowindow.setContent($marker.html());
               infowindow.open(map, marker);

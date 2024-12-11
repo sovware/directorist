@@ -13,7 +13,7 @@ if ( $location_source == 'listing' ) {
 	$selected_item = $searchform::get_selected_location_option_data();
 	?>
 
-	<div class="directorist-search-field">
+	<div class="directorist-search-field <?php echo esc_attr( $empty_label ); ?>">
 		<div class="directorist-select directorist-search-location directorist-search-field__input">
 
 			<?php if ( ! empty( $data['label'] ) ) : ?>

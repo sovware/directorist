@@ -29,6 +29,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
         </div>
 	<?php endif; ?>
 
-	<a href="<?php echo esc_url(wp_logout_url(home_url())); ?>" class="directorist-btn directorist-btn-secondary directorist-btn--logout"><?php esc_html_e( 'Log Out', 'directorist' ); ?></a>
+	<a href="<?php echo esc_url(wp_logout_url(home_url())); ?>" class="directorist-btn directorist-btn-secondary directorist-btn--logout"><?php esc_html_e( 'Sign Out', 'directorist' ); ?></a>
 
 </div>

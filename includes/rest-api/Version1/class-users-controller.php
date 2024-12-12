@@ -567,19 +567,20 @@ class Users_Controller extends Abstract_Controller {
 			'id'             => $id,
 			'date_created'   => directorist_rest_prepare_date_response( $user->user_registered ),
 			'name'           => $user->display_name,
-			'username'       => $user->user_login,
-			'nickname'       => $user->nickname,
+			'username'       => null, //$user->user_login,
+			'nickname'       => null, //$user->nickname,
 			'first_name'     => $user->first_name,
 			'last_name'      => $user->last_name,
 			'description'    => $user->description,
-			'email'          => $user->user_email,
+			'email'          => is_user_logged_in() ? $user->user_email : null,
 			'url'            => $user->user_url,
 			'phone'          => get_user_meta( $id, 'atbdp_phone', true ),
 			'address'        => get_user_meta( $id, 'address', true ),
 			'avater'         => null,
+			'avatar'         => null,
 			'social_links'   => null,
 			'favorite'       => null,
-			'roles'          => array_values( $user->roles ),
+			'roles'          => null, //array_values( $user->roles ),
 			'listings_count' => (int) count_user_posts( $id, ATBDP_POST_TYPE, true ),
 		);
 
@@ -588,10 +589,10 @@ class Users_Controller extends Abstract_Controller {
 			$data['social_links'][ $field ] = ( ! empty( $value ) ? $value : null );
 		}
 
-		// User avater.
+		// User 'avatar'.
 		$image_id = get_user_meta( $id, 'pro_pic', true );
 		if ( $image_id && ! empty( $attachment = get_post( $image_id ) ) ) {
-			$data['avater'] = array(
+			$data['avatar'] = array(
 				'id'                => (int) $image_id,
 				'date_created'      => directorist_rest_prepare_date_response( $attachment->post_date ),
 				'date_created_gmt'  => directorist_rest_prepare_date_response( $attachment->post_date_gmt ),
@@ -599,6 +600,8 @@ class Users_Controller extends Abstract_Controller {
 				'date_modified_gmt' => directorist_rest_prepare_date_response( $attachment->post_modified_gmt ),
 				'src'               => wp_get_attachment_url( $image_id ),
 			);
+
+			$data['avater'] = $data['avatar'];
 		}
 
 		// User favorite.
@@ -800,8 +803,50 @@ class Users_Controller extends Abstract_Controller {
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 				),
+				'avatar'       => array(
+					'description' => __( 'User avatar image data.', 'directorist' ),
+					'type'        => 'object',
+					'context'     => array( 'view', 'edit' ),
+					'properties'  => array(
+						'id'                => array(
+							'description' => __( 'Image ID.', 'directorist' ),
+							'type'        => 'integer',
+							'context'     => array( 'view', 'edit' ),
+						),
+						'date_created'      => array(
+							'description' => __( "The date the image was created, in the site's timezone.", 'directorist' ),
+							'type'        => 'date-time',
+							'context'     => array( 'view', 'edit' ),
+							'readonly'    => true,
+						),
+						'date_created_gmt'  => array(
+							'description' => __( 'The date the image was created, as GMT.', 'directorist' ),
+							'type'        => 'date-time',
+							'context'     => array( 'view', 'edit' ),
+							'readonly'    => true,
+						),
+						'date_modified'     => array(
+							'description' => __( "The date the image was last modified, in the site's timezone.", 'directorist' ),
+							'type'        => 'date-time',
+							'context'     => array( 'view', 'edit' ),
+							'readonly'    => true,
+						),
+						'date_modified_gmt' => array(
+							'description' => __( 'The date the image was last modified, as GMT.', 'directorist' ),
+							'type'        => 'date-time',
+							'context'     => array( 'view', 'edit' ),
+							'readonly'    => true,
+						),
+						'src'               => array(
+							'description' => __( 'Image URL.', 'directorist' ),
+							'type'        => 'string',
+							'format'      => 'uri',
+							'context'     => array( 'view', 'edit' ),
+						),
+					),
+				),
 				'avater'       => array(
-					'description' => __( 'User avater image data.', 'directorist' ),
+					'description' => __( 'User avatar image data.', 'directorist' ),
 					'type'        => 'object',
 					'context'     => array( 'view', 'edit' ),
 					'properties'  => array(

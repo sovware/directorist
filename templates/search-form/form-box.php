@@ -29,11 +29,14 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 		<?php echo esc_html( $searchform->search_button_text );?>
 
 	</a>
-	<a href="#" class="directorist-search-form-action__modal__btn-advanced directorist-modal-btn directorist-modal-btn--advanced">
 
-		<?php directorist_icon( 'fas fa-sliders-h' ); ?>
+	<?php if ( $searchform->has_more_filters_button ): ?>
+		<a href="#" class="directorist-search-form-action__modal__btn-advanced directorist-modal-btn directorist-modal-btn--advanced">
 
-	</a>
+			<?php directorist_icon( 'fas fa-sliders-h' ); ?>
+
+		</a>
+	<?php endif ?>
 </div>
 
 <div class="directorist-search-modal directorist-search-modal--advanced">

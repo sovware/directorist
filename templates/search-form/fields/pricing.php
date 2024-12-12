@@ -13,7 +13,7 @@ $min_placeholder = !empty( $data['price_range_min_placeholder'] ) ? $data['price
 $label           = ! empty( $data['label'] ) ? $data['label'] : __( 'Pricing', 'directorist' );
 ?>
 
-<div class="directorist-search-field directorist-search-form-dropdown directorist-form-group">
+<div class="directorist-search-field directorist-search-form-dropdown directorist-form-group <?php echo esc_attr( $empty_label ); ?>">
 	<div class="directorist-search-basic-dropdown directorist-search-field__input">
 		<?php if ( ! empty( $label ) ) : ?>
 			<label class="directorist-search-field__label directorist-search-basic-dropdown-label">

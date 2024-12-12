@@ -18,9 +18,10 @@
             left: -30px;
             padding: 10px;
             border: none;
-            border-radius: 12px;
+            border-radius: 10px;
             background-color: var(--directorist-color-white);
             box-shadow: var(--directorist-box-shadow);
+            border: 1px solid var(--directorist-color-border-light);
             line-break: auto;
             word-break: break-all;
             transition: 0.3s ease;

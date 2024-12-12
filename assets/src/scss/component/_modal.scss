@@ -35,7 +35,7 @@
   width: 100%;
   background-color: var(--directorist-color-white);
   pointer-events: auto;
-  border-radius: 16px;
+  border-radius: 12px;
   position: relative;
   .directorist-modal {
     @include e(header) {
@@ -67,6 +67,7 @@
           color: var(--directorist-color-body);
           background-color: var(--directorist-color-light-hover);
           box-shadow: var(--directorist-box-shadow);
+          border: 1px solid var(--directorist-color-border-light);
         }
       }
     }
@@ -160,7 +161,7 @@
     opacity: 0;
     visibility: hidden;
     z-index: 9999;
-    border-radius: 16px;
+    border-radius: 12px;
     transition: all ease 0.3s;
     background-color: var(--directorist-color-white);
     @media only screen and (max-width: 575px) {
@@ -431,7 +432,7 @@
     transform: translateX(-50%);
     width: 50px;
     height: 5px;
-    border-radius: 10px;
+    border-radius: 8px;
     background-color: var(--directorist-color-border);
     opacity: 0;
     visibility: hidden;
@@ -474,7 +475,7 @@
       }
     }
     .directorist-search-form-action__modal__btn-search {
-      border-radius: 10px;
+      border-radius: 8px;
       color: var(--directorist-color-white);
       background-color: var(--directorist-color-primary);
       i::after {
@@ -696,7 +697,7 @@
     display: flex;
     align-items: center;
     border: 1px solid var(--directorist-color-border);
-    border-radius: 10px;
+    border-radius: 8px;
     min-height: 40px;
     margin: 0 0 15px;
     transition: all ease 0.3s;
@@ -841,9 +842,10 @@
       width: 100%;
       min-width: 150px;
       padding: 15px 20px;
-      border-radius: 10px;
+      border-radius: 8px;
       background-color: var(--directorist-color-white);
       box-shadow: var(--directorist-box-shadow);
+      border: 1px solid var(--directorist-color-border-light);
       max-height: 250px;
       box-sizing: border-box;
       overflow-y: auto;

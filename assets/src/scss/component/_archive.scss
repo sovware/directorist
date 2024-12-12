@@ -285,6 +285,7 @@
     @media only screen and (max-width: 575px) {
       .directorist-search-form__box {
         box-shadow: var(--directorist-box-shadow);
+        border: 1px solid var(--directorist-color-border-light);
       }
     }
     .directorist-search-form {
@@ -515,7 +516,7 @@
       line-height: 50px;
       padding: 0 32px;
       border: none;
-      border-radius: 10px;
+      border-radius: 8px;
       text-align: center;
       text-transform: none;
       text-decoration: none;

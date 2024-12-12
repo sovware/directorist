@@ -6,9 +6,10 @@
     margin-bottom: 15px;
 
     @include m(bg) {
-      border-radius: 12px;
+      border-radius: 10px;
       background-color: var(--directorist-color-white);
       box-shadow: var(--directorist-box-shadow);
+      border: 1px solid var(--directorist-color-border-light);
     }
 
     // Single Listing Content
@@ -266,7 +267,7 @@
       }
 
       .directorist-listing-title {
-        font-size: 16px;
+        font-size: 18px;
         font-weight: 500;
         padding: 0;
         text-transform: none;
@@ -437,7 +438,7 @@
         position: relative;
         width: 100%;
         height: 100%;
-        border-radius: 12px;
+        border-radius: 10px;
         overflow: hidden;
         z-index: 0;
         background-color: var(--directorist-color-bg-gray);
@@ -621,7 +622,7 @@
         }
       }
       .directorist-thumnail-card-front-img {
-        border-radius: 12px;
+        border-radius: 10px;
       }
       .directorist-thumb-listing-author {
         position: absolute;
@@ -763,7 +764,7 @@
             }
           }
           .directorist-thumnail-card .directorist-thumnail-card-front-img {
-            border-radius: 12px;
+            border-radius: 10px;
           }
         }
         @include e("content") {

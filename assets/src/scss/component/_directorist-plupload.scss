@@ -92,7 +92,7 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    border-radius: 16px;
+    border-radius: 12px;
     margin: 0 !important;
     background-color: var(--directorist-color-bg-gray);
     border: 2px dashed var(--directorist-color-border-gray);
@@ -128,12 +128,12 @@
         position: relative;
         height: 150px;
         width: 200px;
-        border-radius: 16px;
+        border-radius: 12px;
         img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 16px;
+            border-radius: 12px;
         }
         &:hover {
             .atbdp-thumb-actions::before {
@@ -187,7 +187,7 @@
             top: 0;
             opacity: 0;
             visibility: hidden;
-            border-radius: 16px;
+            border-radius: 12px;
             transition: all ease 0.3s;
             background-color: rgba(var(--directorist-color-dark-rgb), .5);
         }

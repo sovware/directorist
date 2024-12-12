@@ -719,9 +719,7 @@ import './components/directoristSelect';
 
         // active class add on view as button
         $('body').on('click', '.directorist-viewas .directorist-viewas__item', function(e) {
-            let parent = $(this).closest('.directorist-viewas');
-            parent.find('.directorist-viewas__item').removeClass('active');
-            $(this).addClass('active');
+            $(this).addClass('active').siblings().removeClass('active');
         });
 
         // Hide Country Result Click on Outside of Zipcode Field

@@ -11160,7 +11160,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
   -webkit-justify-content: center;
       -ms-flex-pack: center;
           justify-content: center;
-  border-radius: 8px;
+  border-radius: 10px;
   background-color: var(--directorist-color-white);
   cursor: pointer;
 }

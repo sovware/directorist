@@ -311,46 +311,46 @@ Directorist is a complete directory solution and in combination with its advance
 
 8.0.8 - Nov 27, 2024
 
-* Fixed: Translation notice issue with WP v6.7.1
-* Fixed: Listing layout issue in search result page (#2148)
-* Improved: Listing image getter functions (#2146)
+* Fix: Translation notice issue with WP v6.7.1
+* Fix: Listing layout issue in search result page (#2148)
+* Improve: Listing image getter functions (#2146)
 
 8.0.7 - Nov 24, 2024
 
-* Fixed: Feature listing border color now dynamically changes (#2141).
-* Fixed: Fatal error issue when updating the plugin from v7 to v8; added all listings and search result layout during migration for no sidebar selection (#2139).
-* Fixed: Single listing slider container width and height issue (#2138).
-* Fixed: Responsive issue with 6-column layout (#2129).
-* Fixed: Missing space in the listing card heading title when the author link is absent (#2130).
-* Fixed: Initial load issue in all listing sliders (#2128).
-* Fixed: Prevented re-declaration of constant variables in DashTab script (#2127).
-* Fixed: Listing list view responsiveness on mobile (#2124).
-* Fixed: "No extension installed" issue on the membership page (#2124).
-* Improved: Single listing header options now align responsively in a single line (#2140).
+* Fix: Feature listing border color now dynamically changes (#2141).
+* Fix: Fatal error issue when updating the plugin from v7 to v8; added all listings and search result layout during migration for no sidebar selection (#2139).
+* Fix: Single listing slider container width and height issue (#2138).
+* Fix: Responsive issue with 6-column layout (#2129).
+* Fix: Missing space in the listing card heading title when the author link is absent (#2130).
+* Fix: Initial load issue in all listing sliders (#2128).
+* Fix: Prevented re-declaration of constant variables in DashTab script (#2127).
+* Fix: Listing list view responsiveness on mobile (#2124).
+* Fix: "No extension installed" issue on the membership page (#2124).
+* Improve: Single listing header options now align responsively in a single line (#2140).
 
 8.0.6 - Nov 20, 2024
 
-* Fixed: RTL style issues (#2120)
-* Fixed: Registration confirmation notice when email verification disabled (#2117)
-* Fixed: Improve v8 migration (#2118)
-* Fixed: Empty markup issue in single listing (#2121)
-* Added: Filter hook on System Status warnings (#2114)
+* Fix: RTL style issues (#2120)
+* Fix: Registration confirmation notice when email verification disabled (#2117)
+* Fix: Improve v8 migration (#2118)
+* Fix: Empty markup issue in single listing (#2121)
+* New: Filter hook on System Status warnings (#2114)
 
 8.0.5 - Nov 19, 2024
 
-* Added: Loader on authentication button while processing (#2109)
-* Fixed: Add listing form nonce validation issue when using quick login (#2110)
-* Fixed: Settings linking issue (#2112)
-* Fixed: Translation issue with WP 6.7 (#2111)
+* New: Loader on authentication button while processing (#2109)
+* Fix: Add listing form nonce validation issue when using quick login (#2110)
+* Fix: Settings linking issue (#2112)
+* Fix: Translation issue with WP 6.7 (#2111)
 * Updated: Button icon markup on change directory icon (#2108)
 
 8.0.4 - Nov 16, 2024
 
-* Added: Backward compatibility for deprecated shortcodes.
-* Fixed: Issue with the phone field being deleted in the builder search form.
-* Fixed: Map listing preview issue in settings.
-* Fixed: Edit listing email confirmation notice
-* Improved: Builder migration process for users of the old theme.
+* New: Backward compatibility for deprecated shortcodes.
+* Fix: Issue with the phone field being deleted in the builder search form.
+* Fix: Map listing preview issue in settings.
+* Fix: Edit listing email confirmation notice
+* Improve: Builder migration process for users of the old theme.
 
 8.0.3 - Nov 14, 2024
 
@@ -379,27 +379,27 @@ Directorist is a complete directory solution and in combination with its advance
 
 Enhancements:
 * New: Complete design overhaul for a modern and intuitive interface.
-* New: Improved drag-and-drop builder experience and added live previews for smoother customization.
-* New: Added section navigation in the add listing form for quick navigation to specific sections.
+* New: Improve drag-and-drop builder experience and added live previews for smoother customization.
+* New: New section navigation in the add listing form for quick navigation to specific sections.
 * New: The “All Listings” page has been redesigned with a modern interface.
 * New: New REST API endpoints for easier integration with external platforms.
 * New: AI-powered directory creation feature (coming in November).
 * New: Redesigned login, and registration, and checkout processes for a better user experience.
-* New: Added a Preferences tab in the dashboard with new customization options for listings.
-* New: Added min/max values, step control, and text display options in Number custom field.
+* New: New a Preferences tab in the dashboard with new customization options for listings.
+* New: New min/max values, step control, and text display options in Number custom field.
 * New: Pagination added to “All Categories” and “All Locations” pages.
 * New: Introduced Bricks Directorist Blocks (Pro version).
 * New extension: Listing Search Alerts (Pro version) to notify users based on their search criteria.
-* Improved: Optimized performance with reduced database queries for faster page load times.
-* Improved: Improved instant search with AJAX search functionality.
-* Improved: Improved Gutenberg and Elementor block integrations.
-* Improved: Mobile App v2.0 now supports listing submission and payment integration.
+* Improve: Optimized performance with reduced database queries for faster page load times.
+* Improve: Improve instant search with AJAX search functionality.
+* Improve: Improve Gutenberg and Elementor block integrations.
+* Improve: Mobile App v2.0 now supports listing submission and payment integration.
 Fixes:
-* Fixed category custom field issue in search forms.
-* Fixed mobile search functionality problems.
-* Fixed category filtering issues in author profile listings.
-* Fixed conflicts with custom field values in the builder.
-* Fixed directory type and listing count issues on “All Categories” and “All Locations” pages.
+* Fix category custom field issue in search forms.
+* Fix mobile search functionality problems.
+* Fix category filtering issues in author profile listings.
+* Fix conflicts with custom field values in the builder.
+* Fix directory type and listing count issues on “All Categories” and “All Locations” pages.
 Other:
 * Separated the announcement feature into the Directorist Announcement extension.
 * Reorganized and optimized settings for better usability and performance.

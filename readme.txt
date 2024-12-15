@@ -5,7 +5,7 @@ Tags: member directory, listing, classifieds, directory plugin, business directo
 Requires at least: 4.6
 Tested up to: 6.7
 Requires PHP: 7.0
-Stable tag: 8.0.8
+Stable tag: 8.0.9
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -19,17 +19,17 @@ Struggling to create a niche directory or classified ad website that stands out?
 
 You’re not alone—many find it overwhelming to manage listings and keep everything organized.
 
-Discover Directorist, the AI-powered solution that simplifies directory & classified creations smarter, faster, and more secure. And, eventually, it enhances user experience like never before. 
+Discover Directorist, the AI-powered solution that simplifies directory & classified creations smarter, faster, and more secure. And, eventually, it enhances user experience like never before.
 
 [youtube https://www.youtube.com/watch?v=28gUzfsGmuk]
 
 
-Using Directorist, the opportunities for scalability in a directory site go beyond the boundary. At 
-Directorist, the Preferences tab in the Dashboard is where you can easily customize settings, like hiding contact forms or showing emails, to suit your style.  
+Using Directorist, the opportunities for scalability in a directory site go beyond the boundary. At
+Directorist, the Preferences tab in the Dashboard is where you can easily customize settings, like hiding contact forms or showing emails, to suit your style.
 
-Moreover, serving as a multifaceted platform, it offers different avenues for generating income, providing community service, supporting business operations, enhancing existing ventures, and more. The secret of creating a powerful and lucrative directory and classified website lies in the shell of the Directorist. 
+Moreover, serving as a multifaceted platform, it offers different avenues for generating income, providing community service, supporting business operations, enhancing existing ventures, and more. The secret of creating a powerful and lucrative directory and classified website lies in the shell of the Directorist.
 
-Let’s jump right straight into the juicy part of Directorist. 
+Let’s jump right straight into the juicy part of Directorist.
 
 🎉 Try **[Pixetiq](https://wordpress.org/themes/pixetiq/)** the FREE, ultra-fast, modern block theme perfect for building a stunning directory effortlessly!
 
@@ -43,7 +43,7 @@ Boost your directory website’s accessibility and interactivity while turning v
 🔥🔥🔥 **AI-Generated Directory Creation** 🔥🔥🔥
 One of our standout features is AI-driven directory creation, which accelerates and streamlines the content creation for directories, making it faster, smarter, and more efficient.
 
-🔥🔥🔥 **Enhanced Integrations with Popular Page Builders Like Gutenberg, Elementor, Bricks, Oxygen** 🔥🔥🔥 
+🔥🔥🔥 **Enhanced Integrations with Popular Page Builders Like Gutenberg, Elementor, Bricks, Oxygen** 🔥🔥🔥
 The enhanced integrations of Directorist with Gutenberg, Elementor, Oxygen, and the latest integration with Bricks, Directorist provide the flexibility you need to build a lucrative directory in the blink of an eye.
 
 🔥🔥🔥 **14 Pre-Made Full-Site Templates** 🔥🔥🔥
@@ -115,7 +115,7 @@ Let’s take a look at some of the core features that set this AI Directory Buil
 * Updated regularly for flawless operation.
 * Multiple directory templates within a single theme
 * Brand-new sidebar filter layout
-* Modern and improved form for Add listings 
+* Modern and improved form for Add listings
 
 == Advanced Review System (Arriving December 2024) ==
 
@@ -291,11 +291,23 @@ Directorist is a complete directory solution and in combination with its advance
 * Car directory
 * Member directory
 * Real-estate directory
-* AI tools directory 
-* Therapists directory 
+* AI tools directory
+* Therapists directory
  * and many more
 
 == Changelog ==
+
+8.0.9 - Dec 15, 2024
+
+* Improve: Search form search box placeholder visibility based on label (#2152)
+* Improve: Logout button text (#2166)
+* Improve: Box shadow and border radius across the UI (#2151)
+* Fix: Missing active class in view as control (#2154)
+* Fix: Taxonomy permalink (#2165)
+* Fix: Search form responsive styles (#2157)
+* Fix: Listing card category popup alignment (#2155)
+* Fix: Search form more filter button visibility issue in mobile (#2153)
+* Fix: Map zoom in-out controls issue (#2158)
 
 8.0.8 - Nov 27, 2024
 

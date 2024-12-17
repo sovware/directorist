@@ -55,7 +55,7 @@ class ATBDP_Upgrade
 	}
 
 	public function run_v8_migration() {
-	
+
 		//create account page
 		$options = get_option( 'atbdp_option' );
 		$account = wp_insert_post(
@@ -67,23 +67,23 @@ class ATBDP_Upgrade
 				'comment_status' => 'closed'
 			)
 		);
-	
+
 		if ( $account ) {
 			$options['signin_signup_page'] 		= (int) $account;
 			$options['marker_shape_color'] 		= '#444752';
 			$options['marker_icon_color'] 		= '#ffffff';
 			$options['all_listing_layout'] 		= 'no_sidebar';
 			$options['search_result_layout'] 	= 'no_sidebar';
-			
+
 			update_option( 'atbdp_option', $options );
 		}
 		// need to update adons kit for elementor
 		$path = WP_PLUGIN_DIR . '/addonskit-for-elementor/addonskit-for-elementor.php';
 
 		if ( did_action( 'elementor/loaded' ) && ! file_exists( $path ) ) {
-			
+
 			directorist_download_plugin( [ 'url' => 'https://downloads.wordpress.org/plugin/addonskit-for-elementor.zip' ] );
-	
+
 			if ( ! is_plugin_active( $path ) ){
 				activate_plugin( $path );
 			}
@@ -94,13 +94,13 @@ class ATBDP_Upgrade
 			'hide_empty' => false,
 		]);
 
-	
+
 		if ( is_wp_error( $directory_types ) || empty( $directory_types ) ) {
 			return;
 		}
-	
+
 		foreach ( $directory_types as $directory_type ) {
-	
+
 			$this->search_field_label_migration( $directory_type->term_id );
 
 			// backup the builder data
@@ -115,15 +115,15 @@ class ATBDP_Upgrade
 			Multi_Directory_Manager::migrate_related_listing_settings( $directory_type->term_id );
 			//migrate privacy policy
 			Multi_Directory_Manager::migrate_privacy_policy( $directory_type->term_id );
-	
+
 			//migrate builder single listing header
 			$new_structure   = [];
 			$header_contents = get_term_meta( $directory_type->term_id, 'single_listing_header', true );
-	
+
 			if ( empty( $header_contents ) ) {
 				continue;
 			}
-	
+
 			$description = ! empty( $header_contents['options']['content_settings']['listing_description']['enable'] ) ? $header_contents['options']['content_settings']['listing_description']['enable'] : false;
 			$tagline     = ! empty( $header_contents['options']['content_settings']['listing_title']['enable_tagline'] ) ? $header_contents['options']['content_settings']['listing_title']['enable_tagline'] : false;
 			$contents    = get_term_meta( $directory_type->term_id, 'single_listings_contents', true );
@@ -135,9 +135,9 @@ class ATBDP_Upgrade
 					'groups' => [],
 				];
 			}
-	
+
 			if ( $description ) {
-	
+
 				$contents['fields']['description'] = [
 					"icon" => "las la-tag",
 					"widget_group" => "preset_widgets",
@@ -145,7 +145,7 @@ class ATBDP_Upgrade
 					"original_widget_key" => "description",
 					"widget_key" => "description"
 				];
-	
+
 				$details = [
 					"type" => "general_group",
 					"label" => "Description",
@@ -154,19 +154,19 @@ class ATBDP_Upgrade
 					],
 					"section_id" => "1627188303" . $directory_type->term_id
 				];
-	
+
 				array_unshift( $contents['groups'], $details );
-	
+
 				update_term_meta( $directory_type->term_id, 'single_listings_contents', $contents );
-	
+
 			}
-	
+
 			if ( empty( $header_contents['listings_header'] ) ) {
 				continue;
 			}
-	
+
 			foreach ( $header_contents['listings_header'] as $section_name => $widgets ) {
-	
+
 				if ( 'quick_actions' === $section_name ) {
 					$quick_widget = [
 						"type" => "placeholder_group",
@@ -191,11 +191,11 @@ class ATBDP_Upgrade
 							]
 						]
 					];
-	
+
 					array_push( $new_structure, $quick_widget );
 				}
-	
-	
+
+
 				if ( 'thumbnail' === $section_name ) {
 					$footer_thumbnail = ! empty( $widgets[0]['footer_thumbail'] ) ? $widgets[0]['footer_thumbail'] : true;
 					$slider_widget = [
@@ -220,12 +220,12 @@ class ATBDP_Upgrade
 							]
 						]
 					];
-	
+
 					array_push( $new_structure, $slider_widget );
 				}
-	
+
 				if ( 'quick_info' === $section_name ) {
-	
+
 					$title_widget = [
 						"type" => "placeholder_item",
 						"placeholderKey" => "listing-title-placeholder",
@@ -248,22 +248,22 @@ class ATBDP_Upgrade
 							]
 						]
 					];
-	
+
 					array_push( $new_structure, $title_widget );
-	
+
 					$more_widget = [
 						"type" => "placeholder_item",
 						"placeholderKey" => "more-widgets-placeholder",
 						"selectedWidgets" => $widgets,
 					];
-	
+
 					array_push( $new_structure, $more_widget );
 				}
-	
+
 			}
-	
+
 			$new_structure = apply_filters( 'directorist_single_listing_header_migration_data', $new_structure, $header_contents );
-	
+
 			update_term_meta( $directory_type->term_id, 'single_listing_header', $new_structure );
 
 		}
@@ -289,7 +289,7 @@ class ATBDP_Upgrade
 
 	public function support_themes_hook( $data ) {
 		$theme = wp_get_theme( is_child_theme() ? get_template() : '' );
-	
+
 		// Check if theme author is 'wpWax'
 		if ( $theme->display( 'Author', false ) === 'wpWax' ) {
 
@@ -305,9 +305,9 @@ class ATBDP_Upgrade
 				];
 			}
 		}
-	
+
 		return $data;
-	}	
+	}
 
 	public function is_pro_user() {
 		$plugin = get_user_meta( get_current_user_id(), '_plugins_available_in_subscriptions', true );
@@ -378,35 +378,44 @@ class ATBDP_Upgrade
 			// show theme
 			$this->v8_theme_upgrade_notice( $theme );
 		}
+
 		// extension check
-		$plugins = get_plugins();
+		$plugins_data        = get_plugins();
 		$outdated_extensions = [];
-		if( ! empty( $plugins ) ) {
-			foreach( $plugins as $key => $plugin ) {
-				if( ( str_starts_with($key, 'directorist') ) && ( version_compare( 2, $plugin['Version'], '>' ) ) ) {
-					$outdated_extensions[] = $plugin['Name'];
-				}
+
+		foreach ( ATBDP_Extensions::get_default_extensions() as $slug => $extension ) {
+			$extension_base = $extension['base'] ?? $slug . '/' . $slug . '.php';
+
+			if ( isset( $plugins_data[ $extension_base ] ) && version_compare( 2, $plugins_data[ $extension_base ]['Version'], '>' ) ) {
+				$outdated_extensions[ $extension_base ] = $plugins_data[ $extension_base ]['Name'];
 			}
 		}
 
-		if( ! empty( $outdated_extensions ) ) {
+		if ( ! empty( $outdated_extensions ) ) {
 			$this->v8_extension_upgrade_notice( $outdated_extensions );
 		}
-
 	}
 
-	public function v8_extension_upgrade_notice( $list = [] ) {
+	public function v8_extension_upgrade_notice( $outdated_extensions = [] ) {
 		if ( ! self::can_manage_plugins() ) {
 			return;
 		}
 
-		$text = '';
-		$link = 'https://directorist.com/blog/directorist-version-8-0/';
-		$membership_page = admin_url('edit.php?post_type=at_biz_dir&page=atbdp-extension');
+		$text                   = '';
+		$link                   = 'https://directorist.com/blog/directorist-version-8-0/';
+		$wp_rollback            = admin_url( 'plugin-install.php?s=rollback&tab=search&type=term' );
+		$extension_update_links = [];
 
-		$wp_rollback = admin_url( 'plugin-install.php?s=rollback&tab=search&type=term' );
+		foreach ( $outdated_extensions as $extension_base => $extension ) {
+			$extension_update_links[] = '- <a class="directorist-update-extension" href="' . $extension_base . '">' . $extension . '</a>';
+		}
 
-		$text .= sprintf( __( '<p class="directorist__notice_new"><span style="font-size: 16px;">📣 Directorist Extension Compatibility Notice!</span><br/> Congratulations and welcome to Directorist v8.0 with some cool <a href="%s" target="_blank">new features</a>.You are using %s of our extensions which are not compatible with v8.0. Please <a target="_blank" href="%s">update your extensions</a> </p>', 'directorist' ), $link, count( $list ), $membership_page );
+		$text .= sprintf(
+			__( '<p class="directorist__notice_new"><span style="font-size: 16px;">📣 Directorist Extension Compatibility Notice!</span><br/> Congratulations and welcome to Directorist v8.0 with <a href="%s" target="_blank">some cool new features</a>. You are using <b style="color:#dba617">%s outdated extension(s)</b> which are incompatible with Directorist v8.0. Please update the following outdated extensions:<br>%s</p><br>', 'directorist' ),
+			$link,
+			count( $outdated_extensions ),
+			implode( '<br>', $extension_update_links )
+		);
 
 		$text .= sprintf(
 			__( '<p class="directorist__notice_new_action">Mistakenly updated? Use <a target="_blank" href="%s">WP Rollback</a> to install your old Directorist</p>', 'directorist' ),
@@ -414,8 +423,21 @@ class ATBDP_Upgrade
 		);
 
 		$notice = '<div class="notice notice-warning is-dismissible directorist-plugin-updater-notice" style="padding-top: 5px;padding-bottom: 5px;">' . $text . '</div>';
+		$notice_script = <<<SCRIPT
+		<script>
+		document.querySelectorAll('.directorist-update-extension').forEach(anchor => {
+			anchor.addEventListener('click', function (e) {
+				e.preventDefault();
 
-		echo wp_kses_post( $notice );
+				document.querySelector('[data-plugin="'+ this.getAttribute('href') +'"]').scrollIntoView({
+					behavior: 'smooth'
+				});
+			});
+		});
+		</script>
+SCRIPT;
+
+		echo wp_kses_post( $notice ) . $notice_script;
 	}
 
 	public function v8_theme_upgrade_notice( $theme ) {

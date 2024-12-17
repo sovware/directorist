@@ -61,6 +61,8 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 			add_action( 'wp_ajax_atbdp_close_subscriptions_sassion', array( $this, 'handle_close_subscriptions_sassion_request' ) );
 
 			// add_action( 'wp_ajax_atbdp_download_purchased_items', array($this, 'download_purchased_items') );
+
+			$this->setup_extension_updater();
 		}
 
 		// initial_setup
@@ -211,21 +213,64 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
 		// get_the_products_list
 		public function setup_products_list() {
+			// Fetch products from the API
 			$products = API::get_products();
 
-			$this->extensions = apply_filters( 'atbdp_extension_list', $products['extensions'] );
-			$this->themes = apply_filters( 'atbdp_theme_list', $products['themes'] );
+			// Apply filters for extensions and themes
+			$this->extensions = apply_filters('atbdp_extension_list', $products['extensions']);
+			$this->themes = apply_filters('atbdp_theme_list', $products['themes']);
 
-			if ( empty( $this->extensions ) ) {
-				$this->extensions = $this->get_default_extensions();
+			// Set default values if extensions or themes are empty
+			$this->extensions = empty($this->extensions) ? static::get_default_extensions() : $this->extensions;
+			$this->themes = empty($this->themes) ? static::get_default_themes() : $this->themes;
+		}
+
+		// get_the_products_list
+		public function setup_extension_updater() {
+
+			// Include the plugin updater class if not already included
+			if ( ! class_exists( 'EDD_SL_Plugin_Updater' ) ) {
+				include_once ATBDP_INC_DIR . '/modules/updater/EDD_SL_Plugin_Updater.php';
 			}
-		
-			if ( empty( $this->themes ) ) {
-				$this->themes = $this->get_default_themes();
+
+			$licenses     = get_user_meta( get_current_user_id(), '_plugins_available_in_subscriptions', true ); // Get license key for the current user from user meta
+			$plugins_data = get_plugins();
+
+			// Loop through default extensions and process them
+			foreach ( static::get_default_extensions() as $key => $extension ) {
+				// Get the item ID of the extension (if available)
+				$item_id = $extension['item_id'] ?? 0;
+				if ( ! $item_id ) {
+					continue;
+				}
+
+				// Get the base file path of the extension
+				$base        = $extension['base'] ?? $key . '/' . $key . '.php';
+				$base_file   = WP_PLUGIN_DIR . '/' . $base;
+				$plugin_data = $plugins_data[ $base ] ?? [];
+
+				if ( empty( $plugin_data ) ) {
+					continue;
+				}
+
+				$extension_license_map = $licenses[ $key ] ?? [];
+				if ( empty( $extension_license_map ) || empty( $extension_license_map['license'] ) ) {
+					continue;
+				}
+
+				// Initialize the plugin updater for the extension
+				new EDD_SL_Plugin_Updater( 'https://directorist.com', $base_file, [
+					'version' => $plugin_data['Version'],             // Current version number
+					'license' => $extension_license_map['license'],   // License key from user meta
+					'item_id' => $item_id,                            // Plugin ID
+					'author'  => 'AazzTech',                          // Plugin author
+					'url'     => home_url(),                          // Site URL
+					'beta'    => false,                               // Beta release flag
+				] );
 			}
 		}
 
-		private function get_default_extensions() {
+		public static function get_default_extensions() {
 			return [
                 'directorist-coupon' => [
                     'name'        => 'Coupon',
@@ -233,6 +278,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'link'        => 'https://directorist.com/product/directorist-coupon/',
                     'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/11/19_Coupon.png',
                     'active'      => true,
+                    'item_id'     => 32345,
                 ],
                 'directorist-compare-listing' => [
                     'name'        => 'Compare Listings',
@@ -240,13 +286,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'link'        => 'https://directorist.com/product/directorist-compare-listing/',
                     'thumbnail'   => 'https://directorist.com/wp-content/uploads/2020/07/Compare-Listings.png',
                     'active'      => true,
-                ],
-                'directorist-post-your-need' => [
-                    'name'        => 'Post Your Need',
-                    'description' => __( 'Post your expected services according to your need and get the respective service provider with no time.', 'directorist' ),
-                    'link'        => 'https://directorist.com/product/directorist-post-your-need/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/05_Post-Your-Need-1.png',
-                    'active'      => true,
+					'item_id'	  => 26378,
                 ],
                 'directorist-listings-with-map' => [
                     'name'        => 'Listings With Map',
@@ -255,6 +295,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/06_Listings-With-Map-1.png',
                     'base'        => 'directorist-listings-with-map/directorist-listings-map.php',
                     'active'      => true,
+					'item_id'	  => 13794,
                 ],
                 'directorist-pricing-plans' => [
                     'name'        => 'Pricing Plans',
@@ -262,6 +303,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'link'        => 'https://directorist.com/product/directorist-pricing-plans/',
                     'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/15_Pricing-Plans-1.png',
                     'active'      => true,
+					'item_id'	  => 13776,
                 ],
                 'directorist-woocommerce-pricing-plans' => [
                     'name'        => 'WooCommerce Pricing Plans',
@@ -269,6 +311,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'link'        => 'https://directorist.com/product/directorist-woocommerce-pricing-plans/',
                     'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/16_WooCommerce-Pricing-Plans-1.png',
                     'active'      => true,
+					'item_id'	  => 13784,
                 ],
                 'directorist-paypal' => [
                     'name'        => 'PayPal Payment Gateway',
@@ -276,6 +319,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'link'        => 'https://directorist.com/product/directorist-paypal/',
                     'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/14_PayPal-Payment-Gateway-2.png',
                     'active'      => true,
+					'item_id'	  => 13702,
                 ],
                 'directorist-stripe' => [
                     'name'        => 'Stripe Payment Gateway',
@@ -283,6 +327,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'link'        => 'https://directorist.com/product/directorist-stripe/',
                     'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/13_Stripe-Payment-Gateway-3.png',
                     'active'      => true,
+					'item_id'	  => 13700,
                 ],
                 'directorist-claim-listing' => [
                     'name'        => 'Claim Listing',
@@ -290,6 +335,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'link'        => 'https://directorist.com/product/directorist-claim-listing/',
                     'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/12_Claim-Listing-2.png',
                     'active'      => true,
+					'item_id'	  => 13786,
                 ],
                 'directorist-mark-as-sold' => [
                     'name'        => 'Mark as Sold',
@@ -297,6 +343,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'link'        => 'https://directorist.com/product/directorist-mark-as-sold/',
                     'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/03_Mark-As-Sold-1.png',
                     'active'      => true,
+					'item_id'	  => 20204,
                 ],
                 'directorist-social-login' => [
                     'name'        => 'Social Login',
@@ -304,6 +351,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'link'        => 'https://directorist.com/product/directorist-social-login/',
                     'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/04_Social-Login-1.png',
                     'active'      => true,
+					'item_id'	  => 13795,
                 ],
                 'directorist-google-recaptcha' => [
                     'name'        => 'Google reCAPTCHA',
@@ -311,6 +359,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'link'        => 'https://directorist.com/product/directorist-google-recaptcha/',
                     'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/10_Google-ReCAPTCHA-2.png',
                     'active'      => true,
+					'item_id'	  => 13768,
                 ],
                 'directorist-faqs' => [
                     'name'        => 'Listing FAQs',
@@ -318,6 +367,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'link'        => 'https://directorist.com/product/directorist-faqs/',
                     'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/08_Listing-FAQs-1.png',
                     'active'      => true,
+					'item_id'	  => 13780,
                 ],
                 'directorist-business-hours' => [
                     'name'        => 'Business Hours',
@@ -326,6 +376,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/11_Business-Hours.png',
                     'base'        => 'directorist-business-hours/bd-business-hour.php',
                     'active'      => true,
+					'item_id'     => 13714,
                 ],
                 'directorist-slider-carousel' => [
                     'name'        => 'Listings Slider & Carousel',
@@ -334,6 +385,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/09_Listings-Slider-Carousel-1.png',
                     'base'        => 'directorist-slider-carousel/bd-directorist-slider.php',
                     'active'      => true,
+					'item_id'	  => 13774
                 ],
                 'directorist-live-chat' => [
                     'name'        => 'Live Chat',
@@ -341,6 +393,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'link'        => 'https://directorist.com/product/directorist-live-chat/',
                     'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/02_Live-Chats-1.png',
                     'active'      => true,
+					'item_id'	  => 21274
                 ],
                 'directorist-booking' => [
                     'name'        => 'Booking (Reservation & Appointment)',
@@ -348,6 +401,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'link'        => 'https://directorist.com/product/directorist-booking/',
                     'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/01_Booking-1.png',
                     'active'      => true,
+					'item_id'	  => 21718,
                 ],
                 'directorist-gallery' => [
                     'name'        => 'Image Gallery',
@@ -356,6 +410,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/07_Image-Gallery-1.png',
                     'base'        => 'directorist-gallery/bd-directorist-gallery.php',
                     'active'      => true,
+					'item_id'	  => 13778,
                 ],
                 'directorist-adverts-manager' => [
                     'name'        => 'Directorist Ads Manager',
@@ -363,6 +418,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'link'        => 'https://directorist.com/product/directorist-adverts-manager/',
                     'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/12/single-ad-manager.png',
                     'active'      => true,
+					'item_id'	  => 32342,
                 ],
                 'directorist-buddyboss-integration' => [
                     'name'        => 'BuddyBoss Integration',
@@ -370,6 +426,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'link'        => 'https://directorist.com/product/directorist-buddyboss-integration/',
                     'thumbnail'   => 'https://directorist.com/wp-content/uploads/2021/07/BuddyBoss-Integration.png',
                     'active'      => true,
+					'item_id'	  => 60945,
                 ],
                 'directorist-oxygen-integration' => [
                     'name'        => 'Directorist Oxygen',
@@ -377,6 +434,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'link'        => 'https://directorist.com/product/directorist-oxygen-integration/',
                     'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2021/06/Oxygen-Builder.png',
                     'active'      => true,
+					'item_id'	  => 56997,
                 ],
                 'directorist-authorize-net' => [
                     'name'        => 'Authorize.net Payment Gateway',
@@ -384,6 +442,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'link'        => 'https://directorist.com/product/directorist-authorize-net/',
                     'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2021/04/21_Authorize.net2_.png',
                     'active'      => true,
+					'item_id'	  => 52499,
                 ],
                 'directorist-buddypress-integration' => [
                     'name'        => 'BuddyPress Integration',
@@ -391,6 +450,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'link'        => 'https://directorist.com/product/directorist-buddypress-integration/',
                     'thumbnail'   => 'https://directorist.com/wp-content/uploads/2021/08/BuddyPress.svg',
                     'active'      => true,
+					'item_id'	  => 62897,
                 ],
                 'directorist-directory-linking' => [
                     'name'        => 'Multi Directory Linking',
@@ -398,6 +458,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'link'        => 'https://directorist.com/product/directorist-directory-linking/',
                     'thumbnail'   => 'https://directorist.com/wp-content/uploads/2021/10/25_Type-Linking.svg',
                     'active'      => true,
+					'item_id'	  => 70261,
                 ],
 				'directorist-job-manager' => [
                     'name'        => 'Job Manager',
@@ -405,6 +466,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'link'        => 'https://directorist.com/product/directorist-job-manager/',
                     'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2024/05/30_Jobs_Manager.svg',
                     'active'      => true,
+					'item_id'	  => 134332,
                 ],
 				'directorist-mailchimp-integration' => [
                     'name'        => 'Mailchimp Integration',
@@ -412,6 +474,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'link'        => 'https://directorist.com/product/directorist-mailchimp-integration/',
                     'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2021/11/27_Mailchimp.svg',
                     'active'      => true,
+					'item_id'	  => 76269,
                 ],
 				'directorist-helpgent-integration' => [
                     'name'        => 'HelpGent Integration',
@@ -419,13 +482,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'link'        => 'https://directorist.com/product/directorist-helpgent-integration/',
                     'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2024/05/31_Directorist_-_HelpGent_Integration.svg',
                     'active'      => true,
-                ],
-				'directorist-wpml-integration' => [
-                    'name'        => 'WPML Integration',
-                    'description' => __( 'Directorist WPML Integration connects Directorist and WPML in one place. It helps you to make your directory sites multilingual more conveniently & efficiently by switching your directory website from one language to another.', 'directorist' ),
-                    'link'        => 'https://directorist.com/product/directorist-wpml-integration/',
-                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2022/04/29_WPML.svg',
-                    'active'      => true,
+					'item_id'	  => 188735,
                 ],
 				'directorist-digital-marketplace' => [
                     'name'        => 'Digital Marketplace',
@@ -433,6 +490,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'link'        => 'https://directorist.com/product/directorist-digital-marketplace/',
                     'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2022/10/30_Marketplace.svg',
                     'active'      => true,
+					'item_id'	  => 148417,
                 ],
 				'directorist-gamipress-integration' => [
                     'name'        => 'Gamipress Integration',
@@ -440,12 +498,13 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'link'        => 'https://directorist.com/product/directorist-gamipress-integration/',
                     'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2022/04/28_Gamipress.svg',
                     'active'      => true,
+					'item_id'	  => 102370,
                 ],
-            
+
             ];
 		}
 
-		private function get_default_themes() {
+		public static function get_default_themes() {
 			return [
                 'dlist' => [
                     'name'        => 'DList',
@@ -511,8 +570,8 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2021/11/1.png',
                     'active'      => true,
                 ],
-               
-                
+
+
             ];
 		}
 

@@ -34,16 +34,16 @@
     font-weight: 400;
     color: var(--directorist-color-body);
     transition: opacity 0.3s ease, top 0.3s ease, font-size 0.3s ease;
+    ~ .directorist-search-field__input {
+      &::placeholder {
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+    }
   }
   .directorist-form-group__prefix--start{
     opacity: 0;
     transition: opacity 0.3s ease;
-  }
-  @include e(input) {
-    &::placeholder {
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
   }
   @include e(btn) {
     display: flex;
@@ -159,6 +159,13 @@
   }
 }
 
+// Search Field Style During Loading
+.directorist-preload {
+  .directorist-search-field__label {
+    top: 0;
+  }
+}
+
 // Search Form
 .directorist-search-form {
   @include e("box") {
@@ -168,10 +175,11 @@
     flex-wrap: wrap;
     width: 100%;
     border: none;
-    border-radius: 12px;
+    border-radius: 10px;
     padding: 22px 22px 22px 25px;
     background-color: var(--directorist-color-white);
     box-shadow: var(--directorist-box-shadow);
+    border: 1px solid var(--directorist-color-border-light);
     box-sizing: border-box;
     @media screen and (max-width: 767px) {
       gap: 15px;
@@ -688,9 +696,10 @@
         width: 100%;
         min-width: 150px;
         padding: 15px 20px;
-        border-radius: 10px;
+        border-radius: 8px;
         background-color: var(--directorist-color-white);
         box-shadow: var(--directorist-box-shadow);
+        border: 1px solid var(--directorist-color-border-light);
         box-sizing: border-box;
         max-height: 250px;
         overflow-y: auto;
@@ -767,7 +776,7 @@
       padding: 0 25px;
       font-size: 15px;
       font-weight: 700;
-      border-radius: 10px;
+      border-radius: 8px;
       .directorist-icon-mask::after {
         height: 16px;
         width: 16px;
@@ -822,9 +831,9 @@
   overflow: visible;
   &.directorist-search-form__box {
     padding: 15px;
-    border-radius: 12px;
+    border-radius: 10px;
     &:after {
-      border-radius: 12px;
+      border-radius: 10px;
     }
   }
   &.directorist-search-field input[type="text"] {
@@ -1055,9 +1064,10 @@
   min-width: 250px;
   max-height: 345px !important;
   overflow-y: scroll;
-  border-radius: 10px;
+  border-radius: 8px;
   background-color: var(--directorist-color-white);
   box-shadow: var(--directorist-box-shadow);
+  border: 1px solid var(--directorist-color-border-light);
   z-index: 10;
   ul {
     display: flex;
@@ -1075,7 +1085,7 @@
       margin: 0 13px;
       color: var(--directorist-color-body);
       background-color: var(--directorist-color-white);
-      border-radius: 10px;
+      border-radius: 8px;
       text-decoration: none;
       .location-icon {
         display: flex;
@@ -1084,7 +1094,7 @@
         min-width: 36px;
         max-width: 36px;
         height: 36px;
-        border-radius: 10px;
+        border-radius: 8px;
         background-color: var(--directorist-color-bg-gray);
         i:after {
           width: 16px;

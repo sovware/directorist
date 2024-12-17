@@ -5,8 +5,8 @@ on:
     - "*"
 jobs:
   tag:
-    name: New tag
-    runs-on: ubuntu-latest
+    name: Deploy on new tag
+    runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@master
     - name: WordPress Plugin Deploy

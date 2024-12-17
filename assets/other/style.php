@@ -81,10 +81,11 @@ $gallery_crop_height = get_directorist_option('gallery_crop_height', '580') . 'p
         --directorist-color-overlay: rgba(var(--directorist-color-dark-rgb),0.5);
         --directorist-color-overlay-normal: rgba(var(--directorist-color-dark-rgb),0.2);
         --directorist-color-border: #e9e9e9;
+        --directorist-color-border-light: #f5f5f5;
         --directorist-color-border-gray: #d9d9d9;
 
-        --directorist-box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-        --directorist-box-shadow-sm: 0 2px 10px rgba(0,0,0,0.1);
+        --directorist-box-shadow: 0 4px 6px rgba(0,0,0,.04);
+        --directorist-box-shadow-sm: 0 2px 5px rgba(0,0,0,0.05);
 
         /* Badge Color */
         --directorist-color-open-badge: <?php echo $open_badge_color; ?>;

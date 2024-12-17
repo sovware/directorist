@@ -14,7 +14,7 @@
 .directorist-image-profile-wrap {
   padding: 25px;
   background-color: var(--directorist-color-white);
-  border-radius: 16px;
+  border-radius: 12px;
   border: 1px solid #ececec;
 
   .ezmu__upload-button-wrap .ezmu__btn {
@@ -28,7 +28,7 @@
   }
 
   .directorist-profile-uploader {
-    border-radius: 16px;
+    border-radius: 12px;
     .ezmu__front-item__close-icon {
       background-image: none;
       .directorist-icon-mask::after {
@@ -152,7 +152,7 @@
 .directorist-toggle-switch {
 	display: inline-block;
 	background: var(--directorist-color-border);
-	border-radius: 16px;
+	border-radius: 12px;
 	width: 44px;
 	height: 22px;
 	position: relative;

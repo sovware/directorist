@@ -216,7 +216,7 @@ $light-gray: #f4f5f7;
 
 /* Body Header */
 .directorist-form-doc {
-  border-radius: 10px;
+  border-radius: 8px;
   background: #f3f4f6;
   min-height: 52px;
   display: flex;
@@ -1404,7 +1404,7 @@ div[draggable="true"].cptm-form-builder-group-title-area {
   width: 32px;
   height: 32px;
   background-color: transparent;
-  border-radius: 10px;
+  border-radius: 8px;
   transition: background ease 0.3s;
   &:hover,
   &:focus {
@@ -1439,7 +1439,7 @@ div[draggable="true"].cptm-form-builder-group-title-area {
       height: 50px;
       font-size: 14px;
       font-weight: 500;
-      border-radius: 10px;
+      border-radius: 8px;
       box-sizing: border-box;
       border: 1px solid #e5e7eb;
       box-shadow: 0 12px 16px rgba(16, 24, 40, 0.08);
@@ -2258,14 +2258,14 @@ input[type="radio"].cptm-radio {
 }
 
 .cptm-widget-card-drop-prepend {
-  border-radius: 10px;
+  border-radius: 8px;
 }
 
 .cptm-widget-card-drop-append {
   display: block;
   width: 100%;
   height: 0;
-  border-radius: 10px;
+  border-radius: 8px;
   transition: all ease-in-out 300ms;
   background-color: transparent;
   border: 1px dashed transparent;
@@ -2463,7 +2463,7 @@ input[type="radio"].cptm-radio {
 .cptm-card-preview-widget {
   max-width: 450px;
   margin: 0 auto;
-  border-radius: 10px;
+  border-radius: 8px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
   background-color: #fff;
 
@@ -3003,7 +3003,7 @@ input[type="radio"].cptm-radio {
   max-width: 100%;
   height: 224px;
   flex-shrink: 0;
-  border-radius: 12px;
+  border-radius: 10px;
   position: relative;
   overflow: hidden;
   &:not(.cptm-preview-image-upload--show) {
@@ -3907,7 +3907,7 @@ input[type="radio"] {
     box-shadow: 0 12px 16px -4px rgba(16, 24, 40, 0.08),
       0px 4px 6px -2px rgba(16, 24, 40, 0.03);
     border: 1px solid #e5e7eb;
-    border-radius: 10px;
+    border-radius: 8px;
     z-index: 99999;
     overflow-y: auto;
 
@@ -3944,6 +3944,12 @@ input[type="radio"] {
         }
       }
     }
+  }
+}
+
+.cptm-form-group{
+  .directorist_dropdown-option{
+    max-height: 240px;
   }
 }
 

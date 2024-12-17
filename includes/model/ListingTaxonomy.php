@@ -275,6 +275,10 @@ class Directorist_Listing_Taxonomy {
 			$child_terms 	= get_term_children($term->term_id, $this->tax);
 			
 			$directory_type = '';
+			if ( isset( $this->directory_type ) && is_array( $this->directory_type ) && count( $this->directory_type ) === 1  ) {
+				$directory_type = sanitize_text_field( wp_unslash( $this->directory_type[0] ) );
+			}
+
 			if( ! empty( $_GET['directory_type'] ) ) {
 				$directory_type = sanitize_text_field( wp_unslash( $_GET['directory_type'] ) );
 			} 

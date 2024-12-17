@@ -538,7 +538,10 @@
           .select2-container
             .directorist-select2-addons-area
             .directorist-select2-dropdown-toggle {
-            right: -5px;
+              position: absolute;
+              right: -5px;
+              padding: 0;
+              width: auto;
           }
         }
         &.input-has-value {
@@ -569,7 +572,18 @@
       width: 100%;
 
       &.select2-container--default .select2-selection--single {
-        border: 0 none;
+        display: flex;
+        align-items: center;
+        padding: 5px 0;
+        border: 0 none !important;
+      }
+      .directorist-select2-dropdown-close {
+        display: none;
+      }
+      .directorist-select2-dropdown-toggle {
+        position: absolute;
+        padding: 0;
+        width: auto;
       }
     }
 

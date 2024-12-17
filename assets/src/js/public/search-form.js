@@ -9,10 +9,8 @@ import './components/directoristSelect';
 (function ($) {
     window.addEventListener('load', () => {
         //Remove Preload after Window Load
-        $(window).on('load', function () {
-            $('body').removeClass("directorist-preload");
-            $('.button.wp-color-result').attr('style', ' ');
-        });
+        $('body').removeClass("directorist-preload");
+        $('.button.wp-color-result').attr('style', ' ');
 
         /* ----------------
         Search Form

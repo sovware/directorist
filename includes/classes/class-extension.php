@@ -215,11 +215,11 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 		public function setup_products_list() {
 			// Fetch products from the API
 			$products = API::get_products();
-		
+
 			// Apply filters for extensions and themes
 			$this->extensions = apply_filters('atbdp_extension_list', $products['extensions']);
 			$this->themes = apply_filters('atbdp_theme_list', $products['themes']);
-		
+
 			// Set default values if extensions or themes are empty
 			$this->extensions = empty($this->extensions) ? $this->get_default_extensions() : $this->extensions;
 			$this->themes = empty($this->themes) ? $this->get_default_themes() : $this->themes;
@@ -227,49 +227,46 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
 		// get_the_products_list
 		public function setup_extension_updater() {
-		
+
 			// Include the plugin updater class if not already included
-			if (!class_exists('EDD_SL_Plugin_Updater')) {
-				include ATBDP_INC_DIR . '/modules/updater/EDD_SL_Plugin_Updater.php';
+			if ( ! class_exists( 'EDD_SL_Plugin_Updater' ) ) {
+				include_once ATBDP_INC_DIR . '/modules/updater/EDD_SL_Plugin_Updater.php';
 			}
-		
+
+			$licenses     = get_user_meta( get_current_user_id(), '_plugins_available_in_subscriptions', true ); // Get license key for the current user from user meta
+			$plugins_data = get_plugins();
+
 			// Loop through default extensions and process them
-			foreach ($this->get_default_extensions() as $key => $extension) {
-				// Get the base file path of the extension
-				$base = !empty($extension['base']) ? $extension['base'] : $key . '/' . $key . '.php';
-				$base_file = WP_PLUGIN_DIR . '/' . $base;
-		
-				// Skip if the plugin base file does not exist
-				if (!file_exists($base_file)) {
-					continue;
-				}
-		
-				// Get plugin data (e.g., version) using get_plugin_data
-				$plugin_data = get_plugin_data($base_file);
-				$version = isset($plugin_data['Version']) ? $plugin_data['Version'] : '';
-		
+			foreach ( $this->get_default_extensions() as $key => $extension ) {
 				// Get the item ID of the extension (if available)
-				$item_id = !empty($extension['item_id']) ? $extension['item_id'] : '';
-				if (empty($item_id)) {
+				$item_id = $extension['item_id'] ?? 0;
+				if ( ! $item_id ) {
 					continue;
 				}
-		
-				// Get license key for the current user from user meta
-				$data = get_user_meta(get_current_user_id(), '_plugins_available_in_subscriptions', true);
-				$license_key = !empty($data[$key]['license']) ? $data[$key]['license'] : '';
-				if ( ! $license_key ) {
+
+				// Get the base file path of the extension
+				$base        = $extension['base'] ?? $key . '/' . $key . '.php';
+				$base_file   = WP_PLUGIN_DIR . '/' . $base;
+				$plugin_data = $plugins_data[ $base ] ?? [];
+
+				if ( empty( $plugin_data ) ) {
 					continue;
 				}
-		
+
+				$extension_license_map = $licenses[ $key ] ?? [];
+				if ( empty( $extension_license_map ) || empty( $extension_license_map['license'] ) ) {
+					continue;
+				}
+
 				// Initialize the plugin updater for the extension
-				new EDD_SL_Plugin_Updater('https://directorist.com', $base_file, [
-					'version' => $version,       // Current version number
-					'license' => $license_key,   // License key from user meta
-					'item_id' => $item_id,       // Plugin ID
-					'author'  => 'AazzTech',     // Plugin author
-					'url'     => home_url(),     // Site URL
-					'beta'    => false,          // Beta release flag
-				]);
+				new EDD_SL_Plugin_Updater( 'https://directorist.com', $base_file, [
+					'version' => $plugin_data['Version'],             // Current version number
+					'license' => $extension_license_map['license'],   // License key from user meta
+					'item_id' => $item_id,                            // Plugin ID
+					'author'  => 'AazzTech',                          // Plugin author
+					'url'     => home_url(),                          // Site URL
+					'beta'    => false,                               // Beta release flag
+				] );
 			}
 		}
 
@@ -503,7 +500,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'active'      => true,
 					'item_id'	  => 102370,
                 ],
-            
+
             ];
 		}
 
@@ -573,8 +570,8 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2021/11/1.png',
                     'active'      => true,
                 ],
-               
-                
+
+
             ];
 		}
 

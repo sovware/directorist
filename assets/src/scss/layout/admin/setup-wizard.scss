@@ -408,12 +408,12 @@
   border-top: 0 none !important;
 }
 
-.select2-container--default .select2-results__option[aria-selected="true"] {
+.directorist-content-active .select2-container--default .select2-results__option[aria-selected="true"] {
   background-color: #eee !important;
 }
 
-.select2-container--default .select2-results__option--highlighted,
-.select2-container--default
+.directorist-content-active .select2-container--default .select2-results__option--highlighted,
+.directorist-content-active .select2-container--default
   .select2-results__option[aria-selected="true"].select2-results__option--highlighted {
   background-color: #4353ff !important;
 }

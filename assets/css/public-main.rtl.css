@@ -16213,6 +16213,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
+  word-break: break-word;
   -webkit-transition: color 0.3s ease;
   transition: color 0.3s ease;
 }

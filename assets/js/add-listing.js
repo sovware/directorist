@@ -1106,13 +1106,30 @@ function defaultAddListing() {
 
   // Function to scroll smoothly to the target section
   function smoothScroll(targetSection) {
+    var scrollDuration = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1000;
     var targetElement = document.getElementById(targetSection);
-    if (targetElement) {
-      targetElement.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-      });
+    if (!targetElement) return;
+    var targetPosition = targetElement.getBoundingClientRect().top + window.scrollY;
+    var startPosition = window.scrollY;
+    var scrollDistance = targetPosition - startPosition;
+    var startTime = null;
+    function scrollAnimation(currentTime) {
+      if (startTime === null) startTime = currentTime;
+      var timeElapsed = currentTime - startTime;
+      var run = easeInOutQuad(timeElapsed, startPosition, scrollDistance, scrollDuration);
+      window.scrollTo(0, run);
+      if (timeElapsed < scrollDuration) {
+        requestAnimationFrame(scrollAnimation); // Continue the scrollAnimation
+      }
     }
+
+    function easeInOutQuad(t, b, c, d) {
+      t /= d / 2;
+      if (t < 1) return c / 2 * t * t + b;
+      t--;
+      return -c / 2 * (t * (t - 2) - 1) + b;
+    }
+    requestAnimationFrame(scrollAnimation); // Start the scrollAnimation
   }
 
   // Initial update and update on scroll
@@ -1126,7 +1143,8 @@ function defaultAddListing() {
     link.addEventListener("click", function (e) {
       e.preventDefault();
       var targetSection = this.getAttribute("href").substring(1);
-      smoothScroll(targetSection);
+      // Scroll to an element with a custom scrollDuration of 1500ms
+      smoothScroll(targetSection, 1250);
     });
   });
 }

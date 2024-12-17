@@ -974,10 +974,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 (function ($) {
   window.addEventListener('load', function () {
     //Remove Preload after Window Load
-    $(window).on('load', function () {
-      $('body').removeClass("directorist-preload");
-      $('.button.wp-color-result').attr('style', ' ');
-    });
+    $('body').removeClass("directorist-preload");
+    $('.button.wp-color-result').attr('style', ' ');
 
     /* ----------------
     Search Form

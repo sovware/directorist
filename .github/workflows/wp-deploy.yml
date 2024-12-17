@@ -6,13 +6,9 @@ on:
 jobs:
   tag:
     name: Deploy on new tag
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@master
-    - name: Install SVN
-      run: |
-        apt-get update
-        apt-get install -y subversion
     - name: WordPress Plugin Deploy
       uses: 10up/action-wordpress-plugin-deploy@stable
       env:

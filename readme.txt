@@ -297,7 +297,7 @@ Directorist is a complete directory solution and in combination with its advance
 
 == Changelog ==
 
-8.0.9 - Dec 15, 2024
+8.0.9 - Dec 17, 2024
 
 * Improve: Search form search box placeholder visibility based on label (#2152)
 * Improve: Logout button text (#2166)

@@ -221,8 +221,8 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 			$this->themes = apply_filters('atbdp_theme_list', $products['themes']);
 
 			// Set default values if extensions or themes are empty
-			$this->extensions = empty($this->extensions) ? $this->get_default_extensions() : $this->extensions;
-			$this->themes = empty($this->themes) ? $this->get_default_themes() : $this->themes;
+			$this->extensions = empty($this->extensions) ? static::get_default_extensions() : $this->extensions;
+			$this->themes = empty($this->themes) ? static::get_default_themes() : $this->themes;
 		}
 
 		// get_the_products_list
@@ -237,7 +237,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 			$plugins_data = get_plugins();
 
 			// Loop through default extensions and process them
-			foreach ( $this->get_default_extensions() as $key => $extension ) {
+			foreach ( static::get_default_extensions() as $key => $extension ) {
 				// Get the item ID of the extension (if available)
 				$item_id = $extension['item_id'] ?? 0;
 				if ( ! $item_id ) {
@@ -270,7 +270,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 			}
 		}
 
-		private function get_default_extensions() {
+		public static function get_default_extensions() {
 			return [
                 'directorist-coupon' => [
                     'name'        => 'Coupon',
@@ -504,7 +504,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             ];
 		}
 
-		private function get_default_themes() {
+		public static function get_default_themes() {
 			return [
                 'dlist' => [
                     'name'        => 'DList',

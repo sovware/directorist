@@ -1074,6 +1074,13 @@ function multiStepWizard() {
 function defaultAddListing() {
     const navLinks = document.querySelectorAll(".default-add-listing .multistep-wizard__nav .multistep-wizard__nav__btn");
 
+    // Add 'active' class to the first navigation item on page load
+    window.addEventListener("load", () => {
+        if (navLinks.length > 0) {
+            navLinks[0].classList.add("active");
+        }
+    });
+
     // Function to determine which section is currently in view
     function getCurrentSectionInView() {
         let currentSection = null;
@@ -1094,20 +1101,14 @@ function defaultAddListing() {
     // Function to update active class on navigation items
     function updateActiveNav() {
         const currentSection = getCurrentSectionInView();
-        if ( currentSection == null) {
-            navLinks[0].classList.add("active");
-        } else {
-            if(navLinks[0].classList.contains("active")){
-                navLinks[0].classList.remove("active");
+
+        navLinks.forEach((link) => {
+            if (link.getAttribute("href") === `#${currentSection}`) {
+                link.classList.add("active");
+            } else {
+                link.classList.remove("active");
             }
-            navLinks.forEach((link) => {
-                if (link.getAttribute("href") === `#${currentSection}`) {
-                    link.classList.add("active");
-                } else {
-                    link.classList.remove("active");
-                }
-            });
-        }
+        });
     }
 
     // Function to scroll smoothly to the target section

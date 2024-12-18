@@ -9810,7 +9810,7 @@ body.stop-scrolling {
 .multistep-wizard__nav__btn.active, .multistep-wizard__nav__btn:hover {
   -webkit-box-shadow: var(--directorist-box-shadow);
           box-shadow: var(--directorist-box-shadow);
-  border: 1px solid var(--directorist-color-border-light);
+  border-color: var(--directorist-color-border-light);
   background-color: var(--directorist-color-white);
   outline: none;
 }

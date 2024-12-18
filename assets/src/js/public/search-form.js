@@ -5,6 +5,7 @@ import initSearchCategoryCustomFields from './components/category-custom-fields'
 import './components/colorPicker';
 import './components/directoristDropdown';
 import './components/directoristSelect';
+import './range-slider';
 
 (function ($) {
     window.addEventListener('load', () => {

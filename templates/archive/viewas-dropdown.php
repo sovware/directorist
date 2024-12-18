@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 	<?php if( $listings->sidebar != 'no_sidebar' ) : ?>
 		<button class="directorist-archive-sidebar-toggle" aria-label="Sidebar Filter Toggle Button">
 			<?php directorist_icon( 'fas fa-filter' ); ?>
-			Filter
+			<?php esc_html_e( 'Filter', 'directorist' ) ?>
 		</button>
 	<?php endif; ?>
 	<?php foreach ( array_unique($listings->get_view_as_link_list(), SORT_REGULAR) as $key => $value ): ?>

@@ -4809,7 +4809,7 @@ body.stop-scrolling {
           mask-repeat: no-repeat;
   width: 12px;
   height: 12px;
-  background-color: var(--directorist-color-dark);
+  background-color: var(--directorist-color-light-gray);
   display: block;
   opacity: 0;
   -webkit-transition: opacity 0.2s ease;
@@ -4817,8 +4817,6 @@ body.stop-scrolling {
   z-index: 2;
 }
 .multistep-wizard__nav__btn.active, .multistep-wizard__nav__btn:hover {
-  font-weight: 600;
-  color: var(--directorist-color-primary);
   -webkit-box-shadow: var(--directorist-box-shadow);
           box-shadow: var(--directorist-box-shadow);
   border: 1px solid var(--directorist-color-border-light);
@@ -4827,14 +4825,17 @@ body.stop-scrolling {
 }
 .multistep-wizard__nav__btn.active:before, .multistep-wizard__nav__btn:hover:before {
   opacity: 1;
-  background-color: var(--directorist-color-primary);
-}
-.multistep-wizard__nav__btn.active i::after, .multistep-wizard__nav__btn:hover i::after {
-  background-color: var(--directorist-color-primary);
 }
 .multistep-wizard__nav__btn:focus {
   outline: none;
-  color: var(--directorist-color-light-gray);
+  font-weight: 600;
+  color: var(--directorist-color-primary);
+}
+.multistep-wizard__nav__btn:focus:before {
+  background-color: var(--directorist-color-primary);
+}
+.multistep-wizard__nav__btn:focus i::after {
+  background-color: var(--directorist-color-primary);
 }
 .multistep-wizard__nav__btn.completed {
   color: var(--directorist-color-primary);

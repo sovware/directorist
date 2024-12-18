@@ -329,6 +329,7 @@
           box-shadow: none;
           display: flex;
           align-items: center;
+          word-break: break-word;
           transition: color 0.3s ease;
           &:hover {
             color: var(--directorist-color-primary);

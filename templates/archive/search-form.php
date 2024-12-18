@@ -17,7 +17,7 @@ if (is_numeric($searchform->listing_type)) {
 	<div class="directorist-search-modal__contents directorist-archive-adv-filter directorist-advanced-filter">
 		<form action="<?php atbdp_search_result_page_link(); ?>" class="directorist-advanced-filter__form">
 			<div class="directorist-search-modal__contents__header">
-				<h3 class="directorist-search-modal__contents__title">More Filters</h3>
+				<h3 class="directorist-search-modal__contents__title"><?php esc_html_e( 'More Filters', 'directorist' ) ?></h3>
 				<button class="directorist-search-modal__contents__btn directorist-search-modal__contents__btn--close">
 					<?php directorist_icon( 'fas fa-times' ); ?>
 				</button>

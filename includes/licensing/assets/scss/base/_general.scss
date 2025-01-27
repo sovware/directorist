@@ -1,0 +1,49 @@
+// Common Classes
+.directorist-flex {
+  display: flex;
+}
+
+.directorist-flex-wrap {
+  flex-wrap: wrap;
+}
+
+.directorist-align-center {
+  align-items: center;
+}
+
+.directorist-justify-content-center {
+  justify-content: center;
+}
+
+.directorist-justify-content-between {
+  justify-content: space-between;
+}
+
+.directorist-justify-content-around {
+  justify-content: space-around;
+}
+
+.directorist-justify-content-start {
+  justify-content: flex-start;
+}
+
+.directorist-justify-content-end {
+  justify-content: flex-end;
+}
+
+.directorist-display-none {
+  display: none;
+}
+
+.directorist-icon-mask {
+  &:after {
+    content: "";
+    display: block;
+    width: 18px;
+    height: 18px;
+    background-color: var(--directorist-color-dark);
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-image: var(--directorist-icon);
+  }
+}

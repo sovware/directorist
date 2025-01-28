@@ -732,19 +732,19 @@
   }
 }
 .directorist-gap-y-55 {
-  gap: 55px 0;
+  gap: 55px 0 !important;
 }
 
 .directorist-mt-24 {
-  margin-top: 24px;
+  margin-top: 24px !important;
 }
 
 .directorist-mb-60 {
-  margin-bottom: 60px;
+  margin-bottom: 60px !important;
 }
 
 .directorist-mb-16 {
-  margin-bottom: 16px;
+  margin-bottom: 16px !important;
 }
 
 .font-inter {
@@ -971,6 +971,7 @@
   gap: var(--spacing-md, 8px);
   align-self: stretch;
   border-radius: 8px;
+  background-color: white;
   border: 1px solid var(--Primary-500, #3E62F5);
   box-shadow: 0px 2px 4px 0px rgba(60, 41, 170, 0.12);
   color: var(--Primary-500, #3E62F5);
@@ -979,6 +980,7 @@
   line-height: 16px;
   padding: 0;
   margin: 0;
+  cursor: pointer;
 }
 .membership-card-signin a {
   color: inherit;
@@ -1041,6 +1043,7 @@
   border: 1px solid var(--Gray-200, #E5E7EB);
   background: var(--Gray-200, #E5E7EB);
   position: relative;
+  margin-bottom: 0;
 }
 .directorist-nav-tab-wrapper:after {
   content: "";
@@ -1092,17 +1095,65 @@
   font-weight: 600;
 }
 
-.directorist-tab-content {
+.directorist-tabs-content {
+  min-height: 300px;
+}
+.directorist-tabs-item {
   display: none;
   opacity: 0;
   transform: translateY(10px);
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
-
-.directorist-tab-content.active {
+.directorist-tabs-item.active {
   display: block;
   opacity: 1;
   transform: translateY(0);
+}
+.directorist-tabs-header {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px 30px;
+}
+
+.directorist-product-search {
+  display: flex;
+  width: 100%;
+  height: 36px;
+  padding: 8px 16px;
+  align-items: center;
+  gap: 8px;
+  border-radius: 8px;
+  background: var(--White-White, #FFF);
+}
+@media screen and (min-width: 1299.99px) {
+  .directorist-product-search {
+    width: 468px;
+  }
+}
+.directorist-product-search-icon {
+  width: 20px;
+  height: 20px;
+}
+.directorist-product-search-input[type=text] {
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 14px;
+  width: 100%;
+  box-shadow: none !important;
+  outline: none !important;
+  border: none !important;
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+  -ms-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #141921;
+}
+.directorist-product-search-input[type=text]::placeholder {
+  color: #747C89;
 }
 
 .directorist-extension-item {
@@ -1193,6 +1244,7 @@
   border-top: 1px solid #E5E7EB;
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   justify-content: space-between;
   gap: 15px;
   padding: 12px 0;
@@ -1243,18 +1295,25 @@
   overflow: hidden;
   padding: 20px 24px 0;
   position: relative;
+  height: 100%;
+  box-sizing: border-box;
 }
 .directorist-theme-image {
-  display: flex;
-  width: 100%;
-  min-height: 220px;
-  max-height: 220px;
-  padding: 12px 14.33px 0px 15px;
-  justify-content: center;
-  align-items: center;
   border-radius: 4px;
   background: var(--Gray-100, #F3F4F6);
+  margin: 0 auto;
+  height: 220px;
+  padding: 12px 14.33px 0px 15px;
   overflow: hidden;
+}
+.directorist-theme-image img {
+  -webkit-transition: transform 3s;
+  -moz-transition: transform 3s;
+  transition: transform 3s;
+  width: 100%;
+}
+.directorist-theme-image:hover img {
+  transform: translateY(-71%);
 }
 .directorist-theme-content {
   margin-top: 28px;
@@ -1301,7 +1360,36 @@
   line-height: 14px;
   letter-spacing: 0.12px;
 }
-.directorist-theme-btn {
+.directorist-theme-cta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+}
+.directorist-theme-get {
+  display: flex;
+  padding: 8px 16px;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-md, 8px);
+  border-radius: 4px;
+  color: white;
+  background-color: #3E62F5;
+  border: 1px solid var(--Primary-500, #3E62F5);
+  box-shadow: 0px 2px 4px 0px rgba(60, 41, 170, 0.12);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 16px;
+  text-decoration: none;
+  transition: all 0.35s ease;
+  position: relative;
+}
+.directorist-theme-get:hover {
+  opacity: 0.85;
+  color: white;
+}
+.directorist-theme-demo {
   display: flex;
   padding: 8px 16px;
   justify-content: center;
@@ -1319,7 +1407,7 @@
   transition: all 0.35s ease;
   position: relative;
 }
-.directorist-theme-btn:hover {
+.directorist-theme-demo:hover {
   color: white;
   background-color: #3E62F5;
 }

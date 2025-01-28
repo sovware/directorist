@@ -11,7 +11,7 @@
 				<section class="membership-section directorist-mb-60">
 					<div class="directorist-container-fluid">
 						<div class="directorist-row directorist-row-48 directorist-align-center">
-							<div class="directorist-col-xxl-3 directorist-col-md-4">
+							<div class="directorist-col-xxl-3 directorist-col-lg-6">
 								<header class="membership-header">
 									<div class="membership-header-author">
 										<img src="https://picsum.photos/200" alt="Author image">
@@ -70,21 +70,21 @@
 											</svg>
 											Get Membership
 										</a>
-										<p class="membership-card-signin">
+										<button type="button" class="membership-card-signin">
 											<svg xmlns="http://www.w3.org/2000/svg" width="17" height="16"
 												viewBox="0 0 17 16" fill="none">
 												<path fill-rule="evenodd" clip-rule="evenodd"
 													d="M8.50006 2.66659C7.21139 2.66659 6.16672 3.71125 6.16672 4.99992C6.16672 6.28858 7.21139 7.33325 8.50006 7.33325C9.78872 7.33325 10.8334 6.28858 10.8334 4.99992C10.8334 3.71125 9.78872 2.66659 8.50006 2.66659ZM4.83339 4.99992C4.83339 2.97487 6.47501 1.33325 8.50006 1.33325C10.5251 1.33325 12.1667 2.97487 12.1667 4.99992C12.1667 7.02496 10.5251 8.66659 8.50006 8.66659C6.47501 8.66659 4.83339 7.02496 4.83339 4.99992ZM6.71757 9.66656C6.75561 9.66657 6.79421 9.66658 6.83339 9.66658H10.1667C10.2059 9.66658 10.2445 9.66657 10.2825 9.66656C11.1007 9.66625 11.6594 9.66605 12.1343 9.81012C13.1997 10.1333 14.0334 10.967 14.3565 12.0323C14.5006 12.5072 14.5004 13.0659 14.5001 13.8841C14.5001 13.9221 14.5001 13.9607 14.5001 13.9999C14.5001 14.3681 14.2016 14.6666 13.8334 14.6666C13.4652 14.6666 13.1667 14.3681 13.1667 13.9999C13.1667 13.021 13.1595 12.6794 13.0806 12.4193C12.8867 11.7801 12.3865 11.2799 11.7473 11.086C11.4872 11.0072 11.1456 10.9999 10.1667 10.9999H6.83339C5.85451 10.9999 5.51286 11.0072 5.25282 11.086C4.61362 11.2799 4.11341 11.7801 3.91951 12.4193C3.84063 12.6794 3.83339 13.021 3.83339 13.9999C3.83339 14.3681 3.53491 14.6666 3.16672 14.6666C2.79853 14.6666 2.50006 14.3681 2.50006 13.9999C2.50006 13.9607 2.50004 13.9221 2.50003 13.8841C2.49972 13.0659 2.49952 12.5072 2.64359 12.0323C2.96676 10.967 3.80043 10.1333 4.86577 9.81012C5.34071 9.66605 5.89938 9.66625 6.71757 9.66656Z"
 													fill="#3E62F5" />
 											</svg>
-											Already a member? <a href="#">Sign In</a>
-										</p>
+											Already a member? Sign In
+										</button>
 									</div>
 								</div>
 							</div>
-							<div class="directorist-col-xxl-9 directorist-col-md-8">
+							<div class="directorist-col-xxl-9 directorist-col-lg-6">
 								<div class="directorist-row directorist-gap-y-55">
-									<div class="directorist-col-xxl-4 directorist-col-md-6">
+									<div class="directorist-col-xxl-4 directorist-col-lg-6 directorist-col-sm-6">
 										<div class="membership-benefits">
 											<div class="membership-benefits-img">
 												<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
@@ -101,7 +101,7 @@
 											</div>
 										</div>
 									</div>
-									<div class="directorist-col-xxl-4 directorist-col-md-6">
+									<div class="directorist-col-xxl-4 directorist-col-lg-6 directorist-col-sm-6">
 										<div class="membership-benefits">
 											<div class="membership-benefits-img">
 												<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26"
@@ -125,7 +125,7 @@
 											</div>
 										</div>
 									</div>
-									<div class="directorist-col-xxl-4 directorist-col-md-6">
+									<div class="directorist-col-xxl-4 directorist-col-lg-6 directorist-col-sm-6">
 										<div class="membership-benefits">
 											<div class="membership-benefits-img">
 												<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
@@ -143,7 +143,7 @@
 											</div>
 										</div>
 									</div>
-									<div class="directorist-col-xxl-4 directorist-col-md-6">
+									<div class="directorist-col-xxl-4 directorist-col-lg-6 directorist-col-sm-6">
 
 										<div class="membership-benefits">
 											<div class="membership-benefits-img">
@@ -161,7 +161,7 @@
 											</div>
 										</div>
 									</div>
-									<div class="directorist-col-xxl-4 directorist-col-md-6">
+									<div class="directorist-col-xxl-4 directorist-col-lg-6 directorist-col-sm-6 d-lg-block d-none">
 										<div class="membership-benefits">
 											<div class="membership-benefits-img">
 												<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
@@ -179,7 +179,7 @@
 											</div>
 										</div>
 									</div>
-									<div class="directorist-col-xxl-4 directorist-col-md-6">
+									<div class="directorist-col-xxl-4 directorist-col-lg-6 directorist-col-sm-6 d-lg-block d-none">
 
 										<div class="membership-benefits">
 											<div class="membership-benefits-img">
@@ -202,36 +202,272 @@
 						</div>
 					</div>
 				</section>
-				<div class="directorist-mt-24">
-					<article class="directorist-theme-item">
-						<figure class="directorist-theme-image">
-							<img src="https://picsum.photos/200" alt="Directorist themes">
-						</figure>
-						<div class="directorist-theme-content">
-							<header class="directorist-theme-header">
-								<h2 class="directorist-theme-title">Directorist Ads Manager</h2>
-							</header>
-							<p class="directorist-theme-description">
-								Directorist Ads Manager allows you to insert advertisements on specific
-								Directorist pages.
-							</p>
-						</div>
-						<footer class="directorist-theme-footer">
-							<div class="directorist-theme-price-wrap">
-								<span class="directorist-theme-price">$29</span>
-								<span class="directorist-theme-year">/ year</span>
-							</div>
-							<div class="directorist-theme-cta">
-								<a href="#" class="directorist-theme-btn">View Details</a>
-							</div>
-						</footer>
-					</article>
-
-				</div>
 				<div class="directorist-tabs">
-					<ul class="directorist-nav-tab-wrapper directorist-mb-16">
+					<div class="directorist-tabs-header directorist-mb-16">
+						<div class="directorist-tabs-header-left">
+							<ul class="directorist-nav-tab-wrapper">
+								<li>
+									<button data-target="#directorist-extensions" class="directorist-nav-tab active">
+										<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+											viewBox="0 0 20 20" fill="none">
+											<path
+												d="M1.66602 7.50033C1.66602 6.83728 1.92941 6.2014 2.39825 5.73256C2.86709 5.26372 3.50297 5.00033 4.16602 5.00033H6.54352C6.79102 5.00033 6.94352 4.74283 6.84852 4.51449C6.80063 4.4022 6.76271 4.28592 6.73518 4.16699C6.45935 2.92783 7.39518 1.66699 8.74935 1.66699C10.1043 1.66699 11.0393 2.92783 10.7635 4.16699C10.736 4.28592 10.6981 4.4022 10.6502 4.51449C10.5543 4.74283 10.7077 5.00033 10.9552 5.00033H12.4993C13.1624 5.00033 13.7983 5.26372 14.2671 5.73256C14.736 6.2014 14.9993 6.83728 14.9993 7.50033V9.04449C14.9993 9.29199 15.256 9.44449 15.4852 9.34949C15.5977 9.30283 15.7127 9.26283 15.8327 9.23616C17.0718 8.96033 18.3327 9.89533 18.3327 11.2503C18.3327 12.6053 17.0718 13.5403 15.8327 13.2645C15.7138 13.237 15.5975 13.199 15.4852 13.1512C15.2568 13.0553 14.9993 13.2087 14.9993 13.4562V15.8337C14.9993 16.4967 14.736 17.1326 14.2671 17.6014C13.7983 18.0703 13.1624 18.3337 12.4993 18.3337H10.9218C10.6818 18.3337 10.5277 18.0912 10.5968 17.862C10.6318 17.7453 10.6555 17.6248 10.6677 17.5003C10.6898 17.235 10.6567 16.9679 10.5703 16.716C10.484 16.4641 10.3463 16.2329 10.166 16.0369C9.9857 15.8409 9.76671 15.6845 9.52287 15.5775C9.27902 15.4705 9.01563 15.4153 8.74935 15.4153C8.48306 15.4153 8.21967 15.4705 7.97583 15.5775C7.73199 15.6845 7.513 15.8409 7.33271 16.0369C7.15241 16.2329 7.01473 16.4641 6.92838 16.716C6.84203 16.9679 6.80887 17.235 6.83102 17.5003C6.84268 17.6248 6.86657 17.7453 6.90268 17.862C6.97102 18.0912 6.81685 18.3337 6.57768 18.3337H4.16602C3.50297 18.3337 2.86709 18.0703 2.39825 17.6014C1.92941 17.1326 1.66602 16.4967 1.66602 15.8337V13.4228C1.66602 13.1828 1.90852 13.0287 2.13768 13.0978C2.25435 13.1328 2.3749 13.1564 2.49935 13.1687C2.76471 13.1908 3.03178 13.1576 3.28368 13.0713C3.53557 12.9849 3.76681 12.8473 3.96278 12.667C4.15874 12.4867 4.31517 12.2677 4.42217 12.0238C4.52917 11.78 4.58442 11.5166 4.58442 11.2503C4.58442 10.984 4.52917 10.7206 4.42217 10.4768C4.31517 10.233 4.15874 10.014 3.96278 9.83368C3.76681 9.65339 3.53557 9.51571 3.28368 9.42936C3.03178 9.343 2.76471 9.30985 2.49935 9.33199C2.3749 9.34366 2.25435 9.36755 2.13768 9.40366C1.90852 9.47199 1.66602 9.31783 1.66602 9.07866V7.50033Z"
+												fill="currentColor" />
+										</svg>
+										Extensions<span class="total-extensions"> (32)</span>
+									</button>
+								</li>
+								<li>
+									<button data-target="#directorist-themes" class="directorist-nav-tab">
+										<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+											viewBox="0 0 20 20" fill="none">
+											<path
+												d="M9.99935 18.3337C5.40768 18.3337 1.66602 14.592 1.66602 10.0003C1.66602 5.40866 5.40768 1.66699 9.99935 1.66699C14.591 1.66699 18.3327 5.03366 18.3327 9.16699C18.3327 11.9253 16.091 14.167 13.3327 14.167H11.8577C11.6243 14.167 11.441 14.3503 11.441 14.5837C11.441 14.6837 11.4827 14.7753 11.5493 14.8587C11.891 15.2503 12.0827 15.742 12.0827 16.2503C12.0827 16.8029 11.8632 17.3328 11.4725 17.7235C11.0818 18.1142 10.5519 18.3337 9.99935 18.3337ZM9.99935 3.33366C6.32435 3.33366 3.33268 6.32533 3.33268 10.0003C3.33268 13.6753 6.32435 16.667 9.99935 16.667C10.2327 16.667 10.416 16.4837 10.416 16.2503C10.4134 16.1422 10.372 16.0387 10.2993 15.9587C9.95768 15.5753 9.77435 15.0837 9.77435 14.5837C9.77435 14.0311 9.99384 13.5012 10.3845 13.1105C10.7752 12.7198 11.3051 12.5003 11.8577 12.5003H13.3327C15.1743 12.5003 16.666 11.0087 16.666 9.16699C16.666 5.95033 13.6743 3.33366 9.99935 3.33366Z"
+												fill="currentColor" />
+											<path
+												d="M5.41602 10.833C6.10637 10.833 6.66602 10.2734 6.66602 9.58301C6.66602 8.89265 6.10637 8.33301 5.41602 8.33301C4.72566 8.33301 4.16602 8.89265 4.16602 9.58301C4.16602 10.2734 4.72566 10.833 5.41602 10.833Z"
+												fill="currentColor" />
+											<path
+												d="M7.91699 7.5C8.60735 7.5 9.16699 6.94036 9.16699 6.25C9.16699 5.55964 8.60735 5 7.91699 5C7.22664 5 6.66699 5.55964 6.66699 6.25C6.66699 6.94036 7.22664 7.5 7.91699 7.5Z"
+												fill="currentColor" />
+											<path
+												d="M12.083 7.5C12.7734 7.5 13.333 6.94036 13.333 6.25C13.333 5.55964 12.7734 5 12.083 5C11.3927 5 10.833 5.55964 10.833 6.25C10.833 6.94036 11.3927 7.5 12.083 7.5Z"
+												fill="currentColor" />
+											<path
+												d="M14.584 10.833C15.2743 10.833 15.834 10.2734 15.834 9.58301C15.834 8.89265 15.2743 8.33301 14.584 8.33301C13.8936 8.33301 13.334 8.89265 13.334 9.58301C13.334 10.2734 13.8936 10.833 14.584 10.833Z"
+												fill="currentColor" />
+										</svg>
+										Themes
+										<span class="total-themes"> (14)</span>
+									</button>
+								</li>
+							</ul>
+						</div>
+						<div class="directorist-tabs-header-right">
+							<div class="directorist-product-search">
+								<span class="directorist-product-search-icon">
+									<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+										fill="none">
+										<path fill-rule="evenodd" clip-rule="evenodd"
+											d="M9.1665 3.33341C5.94484 3.33341 3.33317 5.94509 3.33317 9.16675C3.33317 12.3884 5.94484 15.0001 9.1665 15.0001C10.7381 15.0001 12.1646 14.3786 13.2135 13.3679C13.2354 13.3394 13.2595 13.312 13.2856 13.2858C13.3117 13.2597 13.3391 13.2357 13.3677 13.2137C14.3783 12.1648 14.9998 10.7384 14.9998 9.16675C14.9998 5.94509 12.3882 3.33341 9.1665 3.33341ZM15.0264 13.8482C16.0528 12.5651 16.6665 10.9376 16.6665 9.16675C16.6665 5.02461 13.3086 1.66675 9.1665 1.66675C5.02437 1.66675 1.6665 5.02461 1.6665 9.16675C1.6665 13.3089 5.02437 16.6667 9.1665 16.6667C10.9373 16.6667 12.5649 16.053 13.8479 15.0267L16.9106 18.0893C17.236 18.4148 17.7637 18.4148 18.0891 18.0893C18.4145 17.7639 18.4145 17.2363 18.0891 16.9108L15.0264 13.8482Z"
+											fill="#747C89" />
+									</svg>
+								</span>
+								<input type="text" placeholder="Search..." class="directorist-product-search-input">
+							</div>
+
+						</div>
+					</div>
+					<div class="directorist-tabs-content">
+						<div id="directorist-extensions" class="directorist-tabs-item active">
+							<div class="directorist-row">
+								<div class="directorist-col-xxl-3 directorist-col-lg-4 directorist-col-sm-6">
+									<article class="directorist-extension-item">
+										<figure class="directorist-extension-image">
+											<img src="https://picsum.photos/200" alt="Directorist themes">
+										</figure>
+										<div class="directorist-extension-content">
+											<header class="directorist-extension-header">
+												<h2 class="directorist-extension-title">Directorist Ads Manager</h2>
+											</header>
+											<p class="directorist-extension-description">
+												Directorist Ads Manager allows you to insert advertisements on specific
+												Directorist
+												pages.
+											</p>
+										</div>
+										<footer class="directorist-extension-footer">
+											<div class="directorist-extension-price-wrap">
+												<span class="directorist-extension-price">$29</span>
+												<span class="directorist-extension-year">/ year</span>
+											</div>
+											<div class="directorist-extension-cta">
+												<a href="#" class="directorist-extension-btn">View Details</a>
+											</div>
+										</footer>
+									</article>
+								</div>
+								<div class="directorist-col-xxl-3 directorist-col-lg-4 directorist-col-sm-6">
+									<article class="directorist-extension-item">
+										<figure class="directorist-extension-image">
+											<img src="https://picsum.photos/200" alt="Directorist themes">
+										</figure>
+										<div class="directorist-extension-content">
+											<header class="directorist-extension-header">
+												<h2 class="directorist-extension-title">Directorist Oxygen</h2>
+											</header>
+											<p class="directorist-extension-description">
+												Integrate the giant Directorist with the popular Oxygen Page Builder
+												plugin.
+											</p>
+										</div>
+										<footer class="directorist-extension-footer">
+											<div class="directorist-extension-price-wrap">
+												<span class="directorist-extension-price">$29</span>
+												<span class="directorist-extension-year">/ year</span>
+											</div>
+											<div class="directorist-extension-cta">
+												<a href="#" class="directorist-extension-btn">View Details</a>
+											</div>
+										</footer>
+									</article>
+								</div>
+								<div class="directorist-col-xxl-3 directorist-col-lg-4 directorist-col-sm-6">
+									<article class="directorist-extension-item">
+										<figure class="directorist-extension-image">
+											<img src="https://picsum.photos/200" alt="Directorist themes">
+										</figure>
+										<div class="directorist-extension-content">
+											<header class="directorist-extension-header">
+												<h2 class="directorist-extension-title">Digital Marketplace</h2>
+											</header>
+											<p class="directorist-extension-description">
+												Create a marketplace of fixed-price services or digital downloads.
+											</p>
+										</div>
+										<footer class="directorist-extension-footer">
+											<div class="directorist-extension-price-wrap">
+												<span class="directorist-extension-price">$29</span>
+												<span class="directorist-extension-year">/ year</span>
+											</div>
+											<div class="directorist-extension-cta">
+												<a href="#" class="directorist-extension-btn">View Details</a>
+											</div>
+										</footer>
+									</article>
+								</div>
+								<div class="directorist-col-xxl-3 directorist-col-lg-4 directorist-col-sm-6">
+									<article class="directorist-extension-item">
+										<figure class="directorist-extension-image">
+											<img src="https://picsum.photos/200" alt="Directorist themes">
+										</figure>
+										<div class="directorist-extension-overlay">
+											<div class="badge badge-popular">
+												popular
+											</div>
+											<div class="badge badge-latest">
+												Latest
+											</div>
+										</div>
+										<div class="directorist-extension-content">
+											<header class="directorist-extension-header">
+												<h2 class="directorist-extension-title">Listings with Map</h2>
+											</header>
+											<p class="directorist-extension-description">
+												Listings with the interactive maps and make business visible widely.
+											</p>
+										</div>
+										<footer class="directorist-extension-footer">
+											<div class="directorist-extension-price-wrap">
+												<span class="directorist-extension-price">$29</span>
+												<span class="directorist-extension-year">/ year</span>
+											</div>
+											<div class="directorist-extension-cta">
+												<a href="#" class="directorist-extension-btn">View Details</a>
+											</div>
+										</footer>
+									</article>
+								</div>
+							</div>
+						</div>
+						<div id="directorist-themes" class="directorist-tabs-item">
+							<div class="directorist-row">
+								<div class="directorist-col-xxl-3 directorist-col-lg-4 directorist-col-sm-6">
+									<article class="directorist-theme-item">
+										<figure class="directorist-theme-image">
+											<img src="https://i.postimg.cc/KjZyr2kn/Image-Area.png"
+												alt="Directorist themes">
+										</figure>
+										<div class="directorist-theme-content">
+											<header class="directorist-theme-header">
+												<h2 class="directorist-theme-title">dHotels</h2>
+											</header>
+											<p class="directorist-theme-description">
+												The Best Hotel Directory WordPress Theme for listing business.
+											</p>
+										</div>
+										<footer class="directorist-theme-footer">
+											<div class="directorist-theme-cta">
+												<a href="#" class="directorist-theme-get">Get it now</a>
+												<a href="#" class="directorist-theme-demo">Live Demo</a>
+											</div>
+										</footer>
+									</article>
+								</div>
+								<div class="directorist-col-xxl-3 directorist-col-lg-4 directorist-col-sm-6">
+									<article class="directorist-theme-item">
+										<figure class="directorist-theme-image">
+											<img src="https://i.postimg.cc/KjZyr2kn/Image-Area.png"
+												alt="Directorist themes">
+										</figure>
+										<div class="directorist-theme-content">
+											<header class="directorist-theme-header">
+												<h2 class="directorist-theme-title">dClassified</h2>
+											</header>
+											<p class="directorist-theme-description">
+												The Best Classified Ads WordPress Theme for Classified Listing Business
+											</p>
+										</div>
+										<footer class="directorist-theme-footer">
+											<div class="directorist-theme-cta">
+												<a href="#" class="directorist-theme-get">Get it now</a>
+												<a href="#" class="directorist-theme-demo">Live Demo</a>
+											</div>
+										</footer>
+									</article>
+								</div>
+								<div class="directorist-col-xxl-3 directorist-col-lg-4 directorist-col-sm-6">
+									<article class="directorist-theme-item">
+										<figure class="directorist-theme-image">
+											<img src="https://i.postimg.cc/KjZyr2kn/Image-Area.png"
+												alt="Directorist themes">
+										</figure>
+										<div class="directorist-theme-content">
+											<header class="directorist-theme-header">
+												<h2 class="directorist-theme-title">dJobs</h2>
+											</header>
+											<p class="directorist-theme-description">
+												The Best Classified Ads WordPress Theme for Classified Listing Business
+											</p>
+										</div>
+										<footer class="directorist-theme-footer">
+											<div class="directorist-theme-cta">
+												<a href="#" class="directorist-theme-get">Get it now</a>
+												<a href="#" class="directorist-theme-demo">Live Demo</a>
+											</div>
+										</footer>
+									</article>
+								</div>
+								<div class="directorist-col-xxl-3 directorist-col-lg-4 directorist-col-sm-6">
+									<article class="directorist-theme-item">
+										<figure class="directorist-theme-image">
+											<img src="https://i.postimg.cc/KjZyr2kn/Image-Area.png"
+												alt="Directorist themes">
+										</figure>
+										<div class="directorist-theme-content">
+											<header class="directorist-theme-header">
+												<h2 class="directorist-theme-title">dRestaurant</h2>
+											</header>
+											<p class="directorist-theme-description">
+												Restaurant Directory Theme for WordPress.
+											</p>
+										</div>
+										<footer class="directorist-theme-footer">
+											<div class="directorist-theme-cta">
+												<a href="#" class="directorist-theme-get">Get it now</a>
+												<a href="#" class="directorist-theme-demo">Live Demo</a>
+											</div>
+										</footer>
+									</article>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="directorist-tabs directorist-mt-24">
+					<ul class="directorist-nav-tab-wrapper directorist-mb-16 tab-2-active">
 						<li>
-							<button data-target="#directorist-extensions" class="directorist-nav-tab active">
+							<button data-target="#directorist-extensions-2" class="directorist-nav-tab">
 								<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
 									fill="none">
 									<path
@@ -242,7 +478,7 @@
 							</button>
 						</li>
 						<li>
-							<button data-target="#directorist-themes" class="directorist-nav-tab">
+							<button data-target="#directorist-themes-2" class="directorist-nav-tab active">
 								<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
 									fill="none">
 									<path
@@ -266,119 +502,210 @@
 							</button>
 						</li>
 					</ul>
-					<div id="directorist-extensions" class="directorist-tab-content active">
-						<div class="directorist-row">
-							<div class="directorist-col-xxl-3 directorist-col-md-4 directorist-col-sm-6">
-								<article class="directorist-extension-item">
-									<figure class="directorist-extension-image">
-										<img src="https://picsum.photos/200" alt="Directorist themes">
-									</figure>
-									<div class="directorist-extension-content">
-										<header class="directorist-extension-header">
-											<h2 class="directorist-extension-title">Directorist Ads Manager</h2>
-										</header>
-										<p class="directorist-extension-description">
-											Directorist Ads Manager allows you to insert advertisements on specific
-											Directorist
-											pages.
-										</p>
-									</div>
-									<footer class="directorist-extension-footer">
-										<div class="directorist-extension-price-wrap">
-											<span class="directorist-extension-price">$29</span>
-											<span class="directorist-extension-year">/ year</span>
+					<div class="directorist-tabs-content">
+						<div id="directorist-extensions-2" class="directorist-tabs-item ">
+							<div class="directorist-row">
+								<div class="directorist-col-xxl-3 directorist-col-lg-4 directorist-col-sm-6">
+									<article class="directorist-extension-item">
+										<figure class="directorist-extension-image">
+											<img src="https://picsum.photos/200" alt="Directorist themes">
+										</figure>
+										<div class="directorist-extension-content">
+											<header class="directorist-extension-header">
+												<h2 class="directorist-extension-title">Directorist Ads Manager</h2>
+											</header>
+											<p class="directorist-extension-description">
+												Directorist Ads Manager allows you to insert advertisements on specific
+												Directorist
+												pages.
+											</p>
 										</div>
-										<div class="directorist-extension-cta">
-											<a href="#" class="directorist-extension-btn">View Details</a>
+										<footer class="directorist-extension-footer">
+											<div class="directorist-extension-price-wrap">
+												<span class="directorist-extension-price">$29</span>
+												<span class="directorist-extension-year">/ year</span>
+											</div>
+											<div class="directorist-extension-cta">
+												<a href="#" class="directorist-extension-btn">View Details</a>
+											</div>
+										</footer>
+									</article>
+								</div>
+								<div class="directorist-col-xxl-3 directorist-col-lg-4 directorist-col-sm-6">
+									<article class="directorist-extension-item">
+										<figure class="directorist-extension-image">
+											<img src="https://picsum.photos/200" alt="Directorist themes">
+										</figure>
+										<div class="directorist-extension-content">
+											<header class="directorist-extension-header">
+												<h2 class="directorist-extension-title">Directorist Oxygen</h2>
+											</header>
+											<p class="directorist-extension-description">
+												Integrate the giant Directorist with the popular Oxygen Page Builder
+												plugin.
+											</p>
 										</div>
-									</footer>
-								</article>
-							</div>
-							<div class="directorist-col-xxl-3 directorist-col-md-4 directorist-col-sm-6">
-								<article class="directorist-extension-item">
-									<figure class="directorist-extension-image">
-										<img src="https://picsum.photos/200" alt="Directorist themes">
-									</figure>
-									<div class="directorist-extension-content">
-										<header class="directorist-extension-header">
-											<h2 class="directorist-extension-title">Directorist Oxygen</h2>
-										</header>
-										<p class="directorist-extension-description">
-											Integrate the giant Directorist with the popular Oxygen Page Builder plugin.
-										</p>
-									</div>
-									<footer class="directorist-extension-footer">
-										<div class="directorist-extension-price-wrap">
-											<span class="directorist-extension-price">$29</span>
-											<span class="directorist-extension-year">/ year</span>
+										<footer class="directorist-extension-footer">
+											<div class="directorist-extension-price-wrap">
+												<span class="directorist-extension-price">$29</span>
+												<span class="directorist-extension-year">/ year</span>
+											</div>
+											<div class="directorist-extension-cta">
+												<a href="#" class="directorist-extension-btn">View Details</a>
+											</div>
+										</footer>
+									</article>
+								</div>
+								<div class="directorist-col-xxl-3 directorist-col-lg-4 directorist-col-sm-6">
+									<article class="directorist-extension-item">
+										<figure class="directorist-extension-image">
+											<img src="https://picsum.photos/200" alt="Directorist themes">
+										</figure>
+										<div class="directorist-extension-content">
+											<header class="directorist-extension-header">
+												<h2 class="directorist-extension-title">Digital Marketplace</h2>
+											</header>
+											<p class="directorist-extension-description">
+												Create a marketplace of fixed-price services or digital downloads.
+											</p>
 										</div>
-										<div class="directorist-extension-cta">
-											<a href="#" class="directorist-extension-btn">View Details</a>
+										<footer class="directorist-extension-footer">
+											<div class="directorist-extension-price-wrap">
+												<span class="directorist-extension-price">$29</span>
+												<span class="directorist-extension-year">/ year</span>
+											</div>
+											<div class="directorist-extension-cta">
+												<a href="#" class="directorist-extension-btn">View Details</a>
+											</div>
+										</footer>
+									</article>
+								</div>
+								<div class="directorist-col-xxl-3 directorist-col-lg-4 directorist-col-sm-6">
+									<article class="directorist-extension-item">
+										<figure class="directorist-extension-image">
+											<img src="https://picsum.photos/200" alt="Directorist themes">
+										</figure>
+										<div class="directorist-extension-overlay">
+											<div class="badge badge-popular">
+												popular
+											</div>
+											<div class="badge badge-latest">
+												Latest
+											</div>
 										</div>
-									</footer>
-								</article>
-							</div>
-							<div class="directorist-col-xxl-3 directorist-col-md-4 directorist-col-sm-6">
-								<article class="directorist-extension-item">
-									<figure class="directorist-extension-image">
-										<img src="https://picsum.photos/200" alt="Directorist themes">
-									</figure>
-									<div class="directorist-extension-content">
-										<header class="directorist-extension-header">
-											<h2 class="directorist-extension-title">Digital Marketplace</h2>
-										</header>
-										<p class="directorist-extension-description">
-											Create a marketplace of fixed-price services or digital downloads.
-										</p>
-									</div>
-									<footer class="directorist-extension-footer">
-										<div class="directorist-extension-price-wrap">
-											<span class="directorist-extension-price">$29</span>
-											<span class="directorist-extension-year">/ year</span>
+										<div class="directorist-extension-content">
+											<header class="directorist-extension-header">
+												<h2 class="directorist-extension-title">Listings with Map</h2>
+											</header>
+											<p class="directorist-extension-description">
+												Listings with the interactive maps and make business visible widely.
+											</p>
 										</div>
-										<div class="directorist-extension-cta">
-											<a href="#" class="directorist-extension-btn">View Details</a>
-										</div>
-									</footer>
-								</article>
-							</div>
-							<div class="directorist-col-xxl-3 directorist-col-md-4 directorist-col-sm-6">
-								<article class="directorist-extension-item">
-									<figure class="directorist-extension-image">
-										<img src="https://picsum.photos/200" alt="Directorist themes">
-									</figure>
-									<div class="directorist-extension-overlay">
-										<div class="badge badge-popular">
-											popular
-										</div>
-										<div class="badge badge-latest">
-											Latest
-										</div>
-									</div>
-									<div class="directorist-extension-content">
-										<header class="directorist-extension-header">
-											<h2 class="directorist-extension-title">Listings with Map</h2>
-										</header>
-										<p class="directorist-extension-description">
-											Listings with the interactive maps and make business visible widely.
-										</p>
-									</div>
-									<footer class="directorist-extension-footer">
-										<div class="directorist-extension-price-wrap">
-											<span class="directorist-extension-price">$29</span>
-											<span class="directorist-extension-year">/ year</span>
-										</div>
-										<div class="directorist-extension-cta">
-											<a href="#" class="directorist-extension-btn">View Details</a>
-										</div>
-									</footer>
-								</article>
+										<footer class="directorist-extension-footer">
+											<div class="directorist-extension-price-wrap">
+												<span class="directorist-extension-price">$29</span>
+												<span class="directorist-extension-year">/ year</span>
+											</div>
+											<div class="directorist-extension-cta">
+												<a href="#" class="directorist-extension-btn">View Details</a>
+											</div>
+										</footer>
+									</article>
+								</div>
 							</div>
 						</div>
-					</div>
-					<div id="directorist-themes" class="directorist-tab-content ">
-						<h2>Installed Extensions</h2>
-						<p>List of extensions goes here...</p>
+						<div id="directorist-themes-2" class="directorist-tabs-item active">
+							<div class="directorist-row">
+								<div class="directorist-col-xxl-3 directorist-col-lg-4 directorist-col-sm-6">
+									<article class="directorist-theme-item">
+										<figure class="directorist-theme-image">
+											<img src="https://i.postimg.cc/KjZyr2kn/Image-Area.png"
+												alt="Directorist themes">
+										</figure>
+										<div class="directorist-theme-content">
+											<header class="directorist-theme-header">
+												<h2 class="directorist-theme-title">dHotels</h2>
+											</header>
+											<p class="directorist-theme-description">
+												The Best Hotel Directory WordPress Theme for listing business.
+											</p>
+										</div>
+										<footer class="directorist-theme-footer">
+											<div class="directorist-theme-cta">
+												<a href="#" class="directorist-theme-get">Get it now</a>
+												<a href="#" class="directorist-theme-demo">Live Demo</a>
+											</div>
+										</footer>
+									</article>
+								</div>
+								<div class="directorist-col-xxl-3 directorist-col-lg-4 directorist-col-sm-6">
+									<article class="directorist-theme-item">
+										<figure class="directorist-theme-image">
+											<img src="https://i.postimg.cc/KjZyr2kn/Image-Area.png"
+												alt="Directorist themes">
+										</figure>
+										<div class="directorist-theme-content">
+											<header class="directorist-theme-header">
+												<h2 class="directorist-theme-title">dClassified</h2>
+											</header>
+											<p class="directorist-theme-description">
+												The Best Classified Ads WordPress Theme for Classified Listing Business
+											</p>
+										</div>
+										<footer class="directorist-theme-footer">
+											<div class="directorist-theme-cta">
+												<a href="#" class="directorist-theme-get">Get it now</a>
+												<a href="#" class="directorist-theme-demo">Live Demo</a>
+											</div>
+										</footer>
+									</article>
+								</div>
+								<div class="directorist-col-xxl-3 directorist-col-lg-4 directorist-col-sm-6">
+									<article class="directorist-theme-item">
+										<figure class="directorist-theme-image">
+											<img src="https://i.postimg.cc/KjZyr2kn/Image-Area.png"
+												alt="Directorist themes">
+										</figure>
+										<div class="directorist-theme-content">
+											<header class="directorist-theme-header">
+												<h2 class="directorist-theme-title">dJobs</h2>
+											</header>
+											<p class="directorist-theme-description">
+												The Best Classified Ads WordPress Theme for Classified Listing Business
+											</p>
+										</div>
+										<footer class="directorist-theme-footer">
+											<div class="directorist-theme-cta">
+												<a href="#" class="directorist-theme-get">Get it now</a>
+												<a href="#" class="directorist-theme-demo">Live Demo</a>
+											</div>
+										</footer>
+									</article>
+								</div>
+								<div class="directorist-col-xxl-3 directorist-col-lg-4 directorist-col-sm-6">
+									<article class="directorist-theme-item">
+										<figure class="directorist-theme-image">
+											<img src="https://i.postimg.cc/KjZyr2kn/Image-Area.png"
+												alt="Directorist themes">
+										</figure>
+										<div class="directorist-theme-content">
+											<header class="directorist-theme-header">
+												<h2 class="directorist-theme-title">dRestaurant</h2>
+											</header>
+											<p class="directorist-theme-description">
+												Restaurant Directory Theme for WordPress.
+											</p>
+										</div>
+										<footer class="directorist-theme-footer">
+											<div class="directorist-theme-cta">
+												<a href="#" class="directorist-theme-get">Get it now</a>
+												<a href="#" class="directorist-theme-demo">Live Demo</a>
+											</div>
+										</footer>
+									</article>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

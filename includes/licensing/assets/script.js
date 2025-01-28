@@ -1,61 +1,78 @@
 "use strict";
 
 // Function to initialize tab switching functionality
-function initializeDirectoristTabs(tabSelector, contentSelector) {
-    const tabs = document.querySelectorAll(tabSelector);
-    const contents = document.querySelectorAll(contentSelector);
+function initializeDirectoristTabs(containerSelector, tabSelector, contentSelector) {
+    document.querySelectorAll(containerSelector).forEach(container => {
+        const tabs = container.querySelectorAll(tabSelector);
+        const contents = container.querySelectorAll(contentSelector);
 
-    if (tabs.length > 0 && contents.length > 0) {
-        tabs.forEach(tab => {
-            tab.addEventListener("click", function () {
-                const targetId = this.getAttribute("data-target"); // Get target ID from button
-                const targetContent = document.querySelector(targetId);
+        if (tabs.length > 0 && contents.length > 0) {
+            container.addEventListener("click", function (event) {
+                const tab = event.target.closest(tabSelector);
+                if (!tab) return; // Ignore clicks outside tabs
+
+                const targetId = tab.getAttribute("data-target"); // Get target ID
+                const targetContent = container.querySelector(targetId);
 
                 if (!targetContent) return; // If target not found, do nothing
 
-                // Remove 'active' class from all tabs and contents
+                // Remove 'active' class from all tabs and contents in this container only
                 tabs.forEach(t => t.classList.remove("active"));
                 contents.forEach(c => {
                     c.style.display = "none"; // Hide all content sections
                     c.classList.remove("active");
                 });
 
-                // Add 'active' class to the clicked tab
-                this.classList.add("active");
-
-                // Smooth transition effect
-                setTimeout(() => {
-                    targetContent.style.display = "block";
-                    setTimeout(() => targetContent.classList.add("active"), 10);
-                }, 50);
+                // Activate the clicked tab and show the associated content
+                tab.classList.add("active");
+                targetContent.style.display = "block";
+                requestAnimationFrame(() => targetContent.classList.add("active")); // Ensures smooth transition
             });
+        }
+    });
+}
+
+// Function to add an 'active' class to the parent when a pricing tab is clicked
+function handlePricingTabClick(containerSelector, tabsSelector, parentSelector) {
+    document.querySelectorAll(containerSelector).forEach(container => {
+        const tabs = container.querySelectorAll(tabsSelector);
+        const parent = container.closest(parentSelector);
+        if (!parent) return; // Ensure parent exists
+
+        // Function to update active class
+        function updateActiveClass(tab) {
+            // Remove all existing "tab-X-active" classes from parent
+            parent.classList.forEach(className => {
+                if (className.startsWith("tab-") && className.endsWith("-active")) {
+                    parent.classList.remove(className);
+                }
+            });
+
+            // Add a new active class based on the tab index
+            const index = [...tabs].indexOf(tab);
+            if (index !== -1) {
+                parent.classList.add(`tab-${index + 1}-active`);
+            }
+        }
+
+        // Set initial active class
+        const initialActiveTab = container.querySelector(`${tabsSelector}.active`);
+        if (initialActiveTab) {
+            updateActiveClass(initialActiveTab);
+        }
+
+        // Handle click events to update active class
+        container.addEventListener("click", function (event) {
+            const tab = event.target.closest(tabsSelector);
+            if (!tab) return;
+            updateActiveClass(tab);
         });
-    }
+    });
 }
 
-// Function to add an 'active' class to the parent when the pricing tab is clicked
-function handlePricingTabClick(tabsSelector, parentSelector) {
-	const tabs = document.querySelectorAll(tabsSelector);
-	const parent = document.querySelector(parentSelector);
-	if(tabsSelector && parentSelector){
-		tabs.forEach((tab, index) => {
-			tab.addEventListener("click", function () {
-				parent.classList.forEach(className => {
-					if (className.startsWith("tab-") && className.endsWith("-active")) {
-						parent.classList.remove(className);
-					}
-				});
-				const newClass = `tab-${index + 1}-active`;
-				parent.classList.add(newClass);
-			});
-		});
-	}
-}
 
-// Wait until the DOM content is fully loaded before initializing the tabs
+// Wait until the DOM is fully loaded before initializing the tabs
 document.addEventListener("DOMContentLoaded", function () {
-    // Initialize the Directorist tabs (with tab and content selectors)
-    initializeDirectoristTabs(".directorist-nav-tab", ".directorist-tab-content");
-    // Handle the pricing tab click (add active class to parent element)
-    handlePricingTabClick(".directorist-nav-tab-wrapper button", ".directorist-nav-tab-wrapper");
+    initializeDirectoristTabs(".directorist-tabs", ".directorist-nav-tab", ".directorist-tabs-item");
+    handlePricingTabClick(".directorist-nav-tab-wrapper", "button", ".directorist-nav-tab-wrapper");
 });

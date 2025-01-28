@@ -1,5 +1,12 @@
 .directorist-gap-y-55{
     gap: 55px 0 !important;
+    @media screen and (max-width: 1199.99px) {
+        gap: 30px 0 !important;
+    }
+    
+    @media screen and (max-width: 991.99px) {
+        gap: 15px 0 !important;
+    }
 }
 
 .directorist-mt-24{
@@ -16,4 +23,8 @@
 
 .font-inter{
     font-family: 'Inter', sans-serif;
+}
+
+.border-box *{
+    box-sizing: border-box;
 }

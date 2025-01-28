@@ -734,6 +734,16 @@
 .directorist-gap-y-55 {
   gap: 55px 0 !important;
 }
+@media screen and (max-width: 1199.99px) {
+  .directorist-gap-y-55 {
+    gap: 30px 0 !important;
+  }
+}
+@media screen and (max-width: 991.99px) {
+  .directorist-gap-y-55 {
+    gap: 15px 0 !important;
+  }
+}
 
 .directorist-mt-24 {
   margin-top: 24px !important;
@@ -749,6 +759,10 @@
 
 .font-inter {
   font-family: "Inter", sans-serif;
+}
+
+.border-box * {
+  box-sizing: border-box;
 }
 
 @-webkit-keyframes shiny-btn1 {
@@ -866,6 +880,7 @@
 }
 .membership-card-discount {
   display: flex;
+  flex-wrap: wrap;
   padding: var(--spacing-xxs, 2px) var(--spacing-md, 8px);
   align-items: center;
   border-radius: 4px;
@@ -886,6 +901,7 @@
 }
 .membership-card-rating {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 2px;
   margin-top: 16px;
@@ -982,6 +998,11 @@
   margin: 0;
   cursor: pointer;
 }
+@media screen and (max-width: 480.99px) {
+  .membership-card-signin {
+    font-size: 12px;
+  }
+}
 .membership-card-signin a {
   color: inherit;
   text-decoration: none;
@@ -993,6 +1014,7 @@
 
 .membership-benefits {
   display: flex;
+  flex-wrap: wrap;
   align-items: flex-start;
   gap: 15px;
 }
@@ -1119,7 +1141,6 @@
 
 .directorist-product-search {
   display: flex;
-  width: 100%;
   height: 36px;
   padding: 8px 16px;
   align-items: center;
@@ -1164,6 +1185,7 @@
   overflow: hidden;
   padding: 20px 24px 0;
   position: relative;
+  height: 100%;
 }
 .directorist-extension-overlay {
   position: absolute;
@@ -1296,7 +1318,6 @@
   padding: 20px 24px 0;
   position: relative;
   height: 100%;
-  box-sizing: border-box;
 }
 .directorist-theme-image {
   border-radius: 4px;
@@ -1410,6 +1431,45 @@
 .directorist-theme-demo:hover {
   color: white;
   background-color: #3E62F5;
+}
+
+.directorist-pagination .directorist-pagination-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+}
+.directorist-pagination .directorist-pagination-list .directorist-pagination-item {
+  display: inline-block;
+  margin: 0;
+}
+.directorist-pagination .directorist-pagination-list .directorist-pagination-item .directorist-pagination-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  text-decoration: none;
+  color: #404040;
+  font-size: 14px;
+  font-weight: 400;
+  border: 2px solid #E9E9E9;
+  background-color: white;
+  border-radius: 8px;
+  transition: background-color 0.3s, color 0.3s;
+}
+.directorist-pagination .directorist-pagination-list .directorist-pagination-item .directorist-pagination-link:hover {
+  background-color: #f1f1f1;
+}
+.directorist-pagination .directorist-pagination-list .directorist-pagination-item.directorist-pagination-item-active .directorist-pagination-link {
+  color: #141921;
+  border-color: #141921;
+}
+.directorist-pagination .directorist-pagination-list .directorist-pagination-item .directorist-pagination-link[aria-current=page] {
+  font-weight: bold;
 }
 
 /*# sourceMappingURL=style.css.map */

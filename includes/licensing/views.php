@@ -4,7 +4,7 @@
 	href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
 	rel="stylesheet">
 
-<main class="font-inter directorist-mt-24">
+<main class="font-inter directorist-mt-24 border-box">
 	<div class="directorist-container-fluid">
 		<div class="directorist-row">
 			<div class="directorist-col-12">
@@ -161,7 +161,8 @@
 											</div>
 										</div>
 									</div>
-									<div class="directorist-col-xxl-4 directorist-col-lg-6 directorist-col-sm-6 d-lg-block d-none">
+									<div
+										class="directorist-col-xxl-4 directorist-col-lg-6 directorist-col-sm-6 d-lg-block d-none">
 										<div class="membership-benefits">
 											<div class="membership-benefits-img">
 												<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
@@ -179,7 +180,8 @@
 											</div>
 										</div>
 									</div>
-									<div class="directorist-col-xxl-4 directorist-col-lg-6 directorist-col-sm-6 d-lg-block d-none">
+									<div
+										class="directorist-col-xxl-4 directorist-col-lg-6 directorist-col-sm-6 d-lg-block d-none">
 
 										<div class="membership-benefits">
 											<div class="membership-benefits-img">
@@ -708,6 +710,39 @@
 						</div>
 					</div>
 				</div>
+				<nav class="directorist-pagination directorist-mt-24" aria-label="Page navigation">
+					<ul class="directorist-pagination-list">
+						<!-- Previous Page Link -->
+						<li class="directorist-pagination-item">
+							<a href="#" class="directorist-pagination-link" aria-label="Previous">
+								<span aria-hidden="true">&laquo;</span>
+							</a>
+						</li>
+						<!-- Page Numbers -->
+						<li class="directorist-pagination-item">
+							<a href="#" class="directorist-pagination-link">1</a>
+						</li>
+						<li class="directorist-pagination-item directorist-pagination-item-active">
+							<a href="#" class="directorist-pagination-link" aria-current="page">2</a>
+						</li>
+						<li class="directorist-pagination-item">
+							<a href="#" class="directorist-pagination-link">3</a>
+						</li>
+						<li class="directorist-pagination-item">
+							<a href="#" class="directorist-pagination-link">4</a>
+						</li>
+						<li class="directorist-pagination-item">
+							<a href="#" class="directorist-pagination-link">5</a>
+						</li>
+
+						<!-- Next Page Link -->
+						<li class="directorist-pagination-item">
+							<a href="#" class="directorist-pagination-link" aria-label="Next">
+								<span aria-hidden="true">&raquo;</span>
+							</a>
+						</li>
+					</ul>
+				</nav>
 			</div>
 		</div>
 	</div>

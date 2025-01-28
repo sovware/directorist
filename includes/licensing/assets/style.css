@@ -735,6 +735,10 @@
   gap: 55px 0;
 }
 
+.directorist-mt-24 {
+  margin-top: 24px;
+}
+
 .directorist-mb-60 {
   margin-bottom: 60px;
 }
@@ -747,6 +751,24 @@
   font-family: "Inter", sans-serif;
 }
 
+@-webkit-keyframes shiny-btn1 {
+  0% {
+    -webkit-transform: scale(0) rotate(45deg);
+    opacity: 0;
+  }
+  80% {
+    -webkit-transform: scale(0) rotate(45deg);
+    opacity: 0.5;
+  }
+  81% {
+    -webkit-transform: scale(4) rotate(45deg);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scale(50) rotate(45deg);
+    opacity: 0;
+  }
+}
 .membership-section {
   font-family: "Inter", serif;
   padding: 21px 24px;
@@ -902,6 +924,7 @@
   width: 100%;
 }
 .membership-card-get {
+  position: relative;
   display: flex;
   height: 40px;
   padding: 0 20px;
@@ -918,9 +941,26 @@
   font-weight: 600;
   line-height: 16px;
   text-decoration: none;
+  transition: all 0.35s ease;
+  overflow: hidden;
+}
+.membership-card-get:after {
+  position: absolute;
+  content: "";
+  display: inline-block;
+  top: -180px;
+  left: 0;
+  width: 30px;
+  height: 100%;
+  background-color: #fff;
+  animation: shiny-btn1 3s ease-in-out infinite;
 }
 .membership-card-get:hover {
   color: #fff;
+  opacity: 0.85;
+}
+.membership-card-get:hover:after {
+  background-color: transparent;
 }
 .membership-card-signin {
   display: flex;
@@ -943,6 +983,10 @@
 .membership-card-signin a {
   color: inherit;
   text-decoration: none;
+  transition: all 0.35s ease;
+}
+.membership-card-signin a:hover {
+  color: black;
 }
 
 .membership-benefits {
@@ -1033,8 +1077,11 @@
   width: 150px;
   height: 32px;
   text-decoration: none;
+  box-shadow: none;
+  border: none;
   position: relative;
   z-index: 1;
+  cursor: pointer;
 }
 .directorist-nav-tab-wrapper li .directorist-nav-tab svg {
   width: 20px;
@@ -1180,9 +1227,101 @@
   font-weight: 600;
   line-height: 16px;
   text-decoration: none;
+  transition: all 0.35s ease;
+  position: relative;
 }
 .directorist-extension-btn:hover {
+  color: white;
+  background-color: #3E62F5;
+}
+
+.directorist-theme-item {
+  border-radius: 8px;
+  border: 1px solid var(--Gray-100, #F3F4F6);
+  background: var(--White-White, #FFF);
+  box-shadow: 0px 1px 2px 0px var(--Colors-Effects-Shadows-shadow-xs, rgba(16, 24, 40, 0.05));
+  overflow: hidden;
+  padding: 20px 24px 0;
+  position: relative;
+}
+.directorist-theme-image {
+  display: flex;
+  width: 100%;
+  min-height: 220px;
+  max-height: 220px;
+  padding: 12px 14.33px 0px 15px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  background: var(--Gray-100, #F3F4F6);
+  overflow: hidden;
+}
+.directorist-theme-content {
+  margin-top: 28px;
+}
+.directorist-theme-title {
+  padding: 0;
+  margin: 0 0 8px;
+  color: var(--Gray-900, #141921);
+  font-size: 19px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 25px;
+}
+.directorist-theme-description {
+  color: var(--Gray-500, #747C89);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  padding: 0;
+  margin: 0;
+}
+.directorist-theme-footer {
+  margin-top: 30px;
+  border-top: 1px solid #E5E7EB;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 12px 0;
+}
+.directorist-theme-price {
+  color: var(--Gray-900, #141921);
+  font-size: 19px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 25px;
+}
+.directorist-theme-year {
+  color: var(--Gray-500, #747C89);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 14px;
+  letter-spacing: 0.12px;
+}
+.directorist-theme-btn {
+  display: flex;
+  padding: 8px 16px;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-md, 8px);
+  border-radius: 4px;
+  border: 1px solid var(--Primary-500, #3E62F5);
+  box-shadow: 0px 2px 4px 0px rgba(60, 41, 170, 0.12);
   color: var(--Primary-500, #3E62F5);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 16px;
+  text-decoration: none;
+  transition: all 0.35s ease;
+  position: relative;
+}
+.directorist-theme-btn:hover {
+  color: white;
+  background-color: #3E62F5;
 }
 
 /*# sourceMappingURL=style.css.map */

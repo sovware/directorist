@@ -173,6 +173,7 @@
     }
 
     &-get {
+        position: relative;
         display: flex;
         height: 40px;
         padding: 0 20px;
@@ -189,9 +190,26 @@
         font-weight: 600;
         line-height: 16px;
         text-decoration: none;
+        transition:all 0.35s ease;
+        overflow: hidden;
+        &:after{
+            position: absolute;
+            content: '';
+            display: inline-block;
+            top: -180px;
+            left: 0;
+            width: 30px;
+            height: 100%;
+            background-color: #fff;
+            animation: shiny-btn1 3s ease-in-out infinite;
+        }
 
         &:hover {
             color: #fff;
+            opacity: 0.85;
+            &:after{
+                background-color: transparent;
+            }
         }
     }
 
@@ -216,6 +234,10 @@
         a {
             color: inherit;
             text-decoration: none;
+            transition:all 0.35s ease;
+            &:hover{
+                color: black;
+            }
         }
     }
 }
@@ -316,8 +338,11 @@
             width: 150px;
             height: 32px;
             text-decoration: none;
+            box-shadow: none;
+            border: none;
             position: relative;
             z-index: 1;
+            cursor: pointer;
 
             svg {
                 width: 20px;
@@ -346,7 +371,7 @@
     transform: translateY(0);
 }
 
-//Theme Items
+//Extension Items
 .directorist-extension {
     &-item {
         border-radius: 8px;
@@ -483,9 +508,113 @@
         font-weight: 600;
         line-height: 16px;
         text-decoration: none;
+        transition:all 0.35s ease;
+        position: relative;
 
         &:hover {
-            color: var(--Primary-500, #3E62F5);
+            color: white;
+            background-color: #3E62F5;
+        }
+    }
+}
+
+//Themes items
+.directorist-theme {
+    &-item {
+        border-radius: 8px;
+        border: 1px solid var(--Gray-100, #F3F4F6);
+        background: var(--White-White, #FFF);
+        box-shadow: 0px 1px 2px 0px var(--Colors-Effects-Shadows-shadow-xs, rgba(16, 24, 40, 0.05));
+        overflow: hidden;
+        padding: 20px 24px 0;
+        position: relative;
+    }
+
+    &-image {
+        display: flex;
+        width: 100%;
+        min-height: 220px;
+        max-height: 220px;
+        padding: 12px 14.33px 0px 15px;
+        justify-content: center;
+        align-items: center;
+        border-radius: 4px;
+        background: var(--Gray-100, #F3F4F6);
+        overflow: hidden;
+    }
+
+    &-content {
+        margin-top: 28px;
+    }
+
+    &-title {
+        padding: 0;
+        margin: 0 0 8px;
+        color: var(--Gray-900, #141921);
+        font-size: 19px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 25px;
+    }
+
+    &-description {
+        color: var(--Gray-500, #747C89);
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 20px;
+        padding: 0;
+        margin: 0;
+    }
+
+    &-footer {
+        margin-top: 30px;
+        border-top: 1px solid #E5E7EB;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 15px;
+        padding: 12px 0;
+    }
+
+    &-price {
+        color: var(--Gray-900, #141921);
+        font-size: 19px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 25px;
+    }
+
+    &-year {
+        color: var(--Gray-500, #747C89);
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 14px;
+        letter-spacing: 0.12px;
+    }
+
+    &-btn {
+        display: flex;
+        padding: 8px 16px;
+        justify-content: center;
+        align-items: center;
+        gap: var(--spacing-md, 8px);
+        border-radius: 4px;
+        border: 1px solid var(--Primary-500, #3E62F5);
+        box-shadow: 0px 2px 4px 0px rgba(60, 41, 170, 0.12);
+        color: var(--Primary-500, #3E62F5);
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 16px;
+        text-decoration: none;
+        transition:all 0.35s ease;
+        position: relative;
+
+        &:hover {
+            color: white;
+            background-color: #3E62F5;
         }
     }
 }

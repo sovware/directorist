@@ -4,7 +4,7 @@
 	href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
 	rel="stylesheet">
 
-<main class="font-inter">
+<main class="font-inter directorist-mt-24">
 	<div class="directorist-container-fluid">
 		<div class="directorist-row">
 			<div class="directorist-col-12">
@@ -202,10 +202,36 @@
 						</div>
 					</div>
 				</section>
+				<div class="directorist-mt-24">
+					<article class="directorist-theme-item">
+						<figure class="directorist-theme-image">
+							<img src="https://picsum.photos/200" alt="Directorist themes">
+						</figure>
+						<div class="directorist-theme-content">
+							<header class="directorist-theme-header">
+								<h2 class="directorist-theme-title">Directorist Ads Manager</h2>
+							</header>
+							<p class="directorist-theme-description">
+								Directorist Ads Manager allows you to insert advertisements on specific
+								Directorist pages.
+							</p>
+						</div>
+						<footer class="directorist-theme-footer">
+							<div class="directorist-theme-price-wrap">
+								<span class="directorist-theme-price">$29</span>
+								<span class="directorist-theme-year">/ year</span>
+							</div>
+							<div class="directorist-theme-cta">
+								<a href="#" class="directorist-theme-btn">View Details</a>
+							</div>
+						</footer>
+					</article>
+
+				</div>
 				<div class="directorist-tabs">
 					<ul class="directorist-nav-tab-wrapper directorist-mb-16">
 						<li>
-							<a href="#directorist-extensions" class="directorist-nav-tab active">
+							<button data-target="#directorist-extensions" class="directorist-nav-tab active">
 								<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
 									fill="none">
 									<path
@@ -213,10 +239,10 @@
 										fill="currentColor" />
 								</svg>
 								Extensions<span class="total-extensions"> (32)</span>
-							</a>
+							</button>
 						</li>
 						<li>
-							<a href="#directorist-themes" class="directorist-nav-tab">
+							<button data-target="#directorist-themes" class="directorist-nav-tab">
 								<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
 									fill="none">
 									<path
@@ -237,11 +263,10 @@
 								</svg>
 								Themes
 								<span class="total-themes"> (14)</span>
-							</a>
+							</button>
 						</li>
 					</ul>
 					<div id="directorist-extensions" class="directorist-tab-content active">
-
 						<div class="directorist-row">
 							<div class="directorist-col-xxl-3 directorist-col-md-4 directorist-col-sm-6">
 								<article class="directorist-extension-item">

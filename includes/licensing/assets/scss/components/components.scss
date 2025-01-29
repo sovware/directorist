@@ -297,6 +297,14 @@
         }
     }
 }
+.directorist-membership-info{
+    &-wrapper{}
+    &-status{}
+    &-status-active{}
+    &-status-payment{}
+    &-upgrade-lifetime{}
+    &-author{}
+}
 
 //Directorist Tab
 .directorist-nav-tab-wrapper {
@@ -589,7 +597,7 @@
         margin: 0;
     }
 
-    &-update-available{
+    &-update-available {
         margin-top: 16px;
         display: inline-flex;
         align-items: center;
@@ -602,7 +610,8 @@
         letter-spacing: 0.12px;
         margin-inline-start: 12px;
         position: relative;
-        &:after{
+
+        &:after {
             content: '';
             position: absolute;
             left: -12px;
@@ -762,6 +771,27 @@
         font-style: normal;
         font-weight: 600;
         line-height: 25px;
+        display: inline-flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 4px;
+    }
+    &-title-badge-active {
+        display: inline-flex;
+        height: 24px;
+        padding: 2px var(--spacing-md, 8px);
+        align-items: center;
+        border-radius: 6px;
+        border: 1px solid var(--Component-colors-Utility-Success-utility-success-200, #ABEFC6);
+        background: var(--Component-colors-Utility-Success-utility-success-50, #ECFDF3);
+        color: var(--Success-500, #14B570);
+        text-align: center;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 14px;
+        letter-spacing: 0.12px;
+        text-transform: capitalize;
     }
 
     &-description {
@@ -854,6 +884,104 @@
         &:hover {
             color: white;
             background-color: #3E62F5;
+        }
+    }
+
+    &-btn {
+        display: flex;
+        padding: 8px 16px;
+        justify-content: center;
+        align-items: center;
+        gap: var(--spacing-md, 8px);
+        border-radius: 4px;
+        border: 1px solid #E5E7EB;
+        color: #4D5761;
+        background-color: #F3F4F6;
+        box-shadow: none;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 16px;
+        text-decoration: none;
+        transition: all 0.35s ease;
+        position: relative;
+        cursor: pointer;
+
+        &:hover {
+            opacity: 0.85;
+            color: #4D5761;
+        }
+    }
+
+    &-customize {
+        background-color: #3E62F5;
+        border: 1px solid var(--Primary-500, #3E62F5);
+        box-shadow: 0px 2px 4px 0px rgba(60, 41, 170, 0.12);
+        color: white;
+
+        &:hover {
+            opacity: 0.85;
+            color: white;
+        }
+    }
+
+    &-btn-primary {
+        border: 1px solid var(--Primary-500, #3E62F5);
+        box-shadow: 0px 2px 4px 0px rgba(60, 41, 170, 0.12);
+        color: var(--Primary-500, #3E62F5);
+        background-color: white;
+
+        &:hover {
+            color: white;
+            background-color: #3E62F5;
+        }
+    }
+
+    &-btn-warning {
+        border: 1px solid var(--Primary-500, #F6C879);
+        background-color: #FEF8EC;
+        box-shadow: none;
+        color: #DD8C08;
+
+        &:hover {
+            color: white;
+            background-color: #DD8C08;
+            border-color: #DD8C08;
+        }
+    }
+
+    &-installing {}
+
+    &-installing-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: rotate360 2s linear infinite;
+
+        svg {
+            width: 16px;
+            height: 16px;
+        }
+    }
+
+    &-btn-disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+
+        &:hover {
+            opacity: 0.5;
+        }
+    }
+
+    &-btn-failed {
+        border: 1px solid var(--Error-300, #F2AFAF);
+        background: var(--Error-50, #FDF3F3);
+        color: #D94A4A;
+
+        &:hover {
+            color: white;
+            background-color: #D94A4A;
+            border-color: #D94A4A;
         }
     }
 }

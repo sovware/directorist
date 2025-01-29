@@ -280,6 +280,44 @@
 						</div>
 					</div>
 				</section>
+				<section class="directorist-membership-section directorist-mb-60">
+					<div class="directorist-container-fluid">
+						<div class="directorist-row">
+							<div class="directorist-col-12">
+								<div class="directorist-membership-info-wrapper">
+									<div class="directorist-membership-info">
+										<h1 class="directorist-membership-info-title">You’re on Directorist 1-Year Premium
+											membership
+										</h1>
+										<div class="directorist-membership-info-status">
+											<div class="directorist-membership-info-status-active">1-Year Membership</div>
+											<div class="directorist-membership-info-status-payment">Next payment: <strong>May 20,
+													2025</strong></div>
+										</div>
+										<a href="#" class="directorist-membership-info-upgrade-lifetime">
+											<svg xmlns="http://www.w3.org/2000/svg" width="13" height="16"
+												viewBox="0 0 13 16" fill="none">
+												<path
+													d="M10.1572 1.82865C10.3858 1.37151 10.1572 0.80008 9.70006 0.571509C9.35721 0.457223 9.01435 0.571509 8.78578 0.685794L1.24292 7.31437C0.900064 7.65722 0.785779 8.22865 1.24292 8.57151C1.47149 8.80008 1.70006 8.91437 1.92864 8.91437H5.12864L2.84292 14.1715C2.61435 14.6286 2.84292 15.2001 3.30006 15.4287C3.64292 15.5429 3.98578 15.4286 4.32864 15.3144L11.7572 8.80008C12.1001 8.45722 12.2144 7.88579 11.7572 7.54294C11.5286 7.31437 11.3001 7.20008 11.0715 7.20008H7.87149L10.1572 1.94294V1.82865Z"
+													fill="white"></path>
+											</svg>
+											Upgrade to Lifetime
+										</a>
+									</div>
+									<div class="directorist-membership-info-author">
+										<div class="directorist-membership-info-author-img">
+											<img src="https://directorist.com/wp-content/uploads/2021/05/author.png"
+												alt="author">
+										</div>
+										<div class="directorist-membership-info-author-dropdown">
+											<div class="directorist-membership-info-author-name">John Doe</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
 				<div class="directorist-tabs">
 					<div class="directorist-tabs-header directorist-mb-16">
 						<div class="directorist-tabs-header-left">
@@ -491,7 +529,9 @@
 										</figure>
 										<div class="directorist-extension-content">
 											<header class="directorist-extension-header">
-												<h2 class="directorist-extension-title">Listings with Map <span class="directorist-extension-title-badge-active">active</span></h2>
+												<h2 class="directorist-extension-title">Listings with Map <span
+														class="directorist-extension-title-badge-active">active</span>
+												</h2>
 											</header>
 											<p class="directorist-extension-description">
 												Listings with the interactive maps and make business visible widely.
@@ -556,8 +596,8 @@
 										</div>
 										<footer class="directorist-theme-footer">
 											<div class="directorist-theme-cta">
-												<a href="#" class="directorist-theme-get">Get it now</a>
-												<a href="#" class="directorist-theme-demo">Live Demo</a>
+												<a href="#"
+													class="directorist-theme-btn directorist-theme-customize">Customize</a>
 											</div>
 										</footer>
 									</article>
@@ -578,8 +618,17 @@
 										</div>
 										<footer class="directorist-theme-footer">
 											<div class="directorist-theme-cta">
-												<a href="#" class="directorist-theme-get">Get it now</a>
-												<a href="#" class="directorist-theme-demo">Live Demo</a>
+												<a href="#"
+													class="directorist-theme-btn directorist-theme-btn-primary directorist-theme-btn-install">
+													<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+														viewBox="0 0 16 16" fill="none">
+														<path fill-rule="evenodd" clip-rule="evenodd"
+															d="M7.99992 1.33325C8.36811 1.33325 8.66659 1.63173 8.66659 1.99992V9.72378L11.5285 6.86185C11.7889 6.6015 12.211 6.6015 12.4713 6.86185C12.7317 7.1222 12.7317 7.54431 12.4713 7.80466L8.47132 11.8047C8.21097 12.065 7.78886 12.065 7.52851 11.8047L3.52851 7.80466C3.26816 7.54431 3.26816 7.1222 3.52851 6.86185C3.78886 6.6015 4.21097 6.6015 4.47132 6.86185L7.33325 9.72378V1.99992C7.33325 1.63173 7.63173 1.33325 7.99992 1.33325ZM1.33325 13.9999C1.33325 13.6317 1.63173 13.3333 1.99992 13.3333H13.9999C14.3681 13.3333 14.6666 13.6317 14.6666 13.9999C14.6666 14.3681 14.3681 14.6666 13.9999 14.6666H1.99992C1.63173 14.6666 1.33325 14.3681 1.33325 13.9999Z"
+															fill="currentColor" />
+													</svg>
+													Install
+												</a>
+												<a href="#" class="directorist-theme-btn">Live demo</a>
 											</div>
 										</footer>
 									</article>
@@ -600,8 +649,22 @@
 										</div>
 										<footer class="directorist-theme-footer">
 											<div class="directorist-theme-cta">
-												<a href="#" class="directorist-theme-get">Get it now</a>
-												<a href="#" class="directorist-theme-demo">Live Demo</a>
+												<a href="#"
+													class="directorist-theme-btn directorist-theme-btn-primary directorist-theme-btn-Installing">
+													Installing
+													<div class="directorist-theme-installing-icon">
+														<svg xmlns="http://www.w3.org/2000/svg" width="15" height="16"
+															viewBox="0 0 15 16" fill="none">
+															<path fill-rule="evenodd" clip-rule="evenodd"
+																d="M1.90296 7.79723C1.90296 10.8412 4.10996 12.9152 6.58896 13.3442C6.6564 13.3559 6.72087 13.3808 6.7787 13.4174C6.83652 13.454 6.88658 13.5016 6.92599 13.5576C6.96541 13.6135 6.99342 13.6767 7.00843 13.7434C7.02344 13.8102 7.02515 13.8793 7.01346 13.9467C7.00177 14.0142 6.97692 14.0786 6.94032 14.1365C6.90371 14.1943 6.85608 14.2443 6.80013 14.2838C6.74418 14.3232 6.68102 14.3512 6.61424 14.3662C6.54747 14.3812 6.4784 14.3829 6.41096 14.3712C3.49996 13.8672 0.860962 11.4132 0.860962 7.79723C0.860962 6.26023 1.55996 5.05223 2.37596 4.13423C2.96096 3.47623 3.62996 2.94123 4.16796 2.53223H2.53196C2.39935 2.53223 2.27218 2.47955 2.17841 2.38578C2.08464 2.29201 2.03196 2.16483 2.03196 2.03223C2.03196 1.89962 2.08464 1.77244 2.17841 1.67867C2.27218 1.58491 2.39935 1.53223 2.53196 1.53223H5.53196C5.66457 1.53223 5.79175 1.58491 5.88552 1.67867C5.97928 1.77244 6.03196 1.89962 6.03196 2.03223V5.03223C6.03196 5.16483 5.97928 5.29201 5.88552 5.38578C5.79175 5.47955 5.66457 5.53223 5.53196 5.53223C5.39935 5.53223 5.27218 5.47955 5.17841 5.38578C5.08464 5.29201 5.03196 5.16483 5.03196 5.03223V3.18623L5.03096 3.18823C4.45896 3.61823 3.76096 4.14523 3.15596 4.82623C2.44096 5.63023 1.90296 6.60323 1.90296 7.79723ZM13.011 8.20223C13.011 5.19023 10.851 3.12923 8.40396 2.66923C8.33576 2.65765 8.27055 2.63262 8.21212 2.59557C8.1537 2.55853 8.10324 2.51022 8.06369 2.45347C8.02413 2.39672 7.99628 2.33266 7.98174 2.26503C7.96721 2.19739 7.96629 2.12754 7.97904 2.05955C7.99179 1.99156 8.01795 1.92679 8.056 1.86902C8.09404 1.81124 8.14321 1.76163 8.20064 1.72306C8.25807 1.68449 8.3226 1.65774 8.39047 1.64438C8.45835 1.63102 8.5282 1.63131 8.59596 1.64523C11.47 2.18523 14.053 4.62523 14.053 8.20223C14.053 9.73923 13.354 10.9462 12.538 11.8652C11.953 12.5232 11.284 13.0582 10.746 13.4672H12.382C12.5146 13.4672 12.6417 13.5199 12.7355 13.6137C12.8293 13.7074 12.882 13.8346 12.882 13.9672C12.882 14.0998 12.8293 14.227 12.7355 14.3208C12.6417 14.4145 12.5146 14.4672 12.382 14.4672H9.38196C9.24935 14.4672 9.12218 14.4145 9.02841 14.3208C8.93464 14.227 8.88196 14.0998 8.88196 13.9672V10.9672C8.88196 10.8346 8.93464 10.7074 9.02841 10.6137C9.12218 10.5199 9.24935 10.4672 9.38196 10.4672C9.51457 10.4672 9.64175 10.5199 9.73552 10.6137C9.82928 10.7074 9.88196 10.8346 9.88196 10.9672V12.8122H9.88396C10.455 12.3802 11.154 11.8542 11.758 11.1722C12.473 10.3692 13.011 9.39723 13.011 8.20223Z"
+																fill="currentColor" />
+														</svg>
+													</div>
+												</a>
+												<a href="#"
+													class="directorist-theme-btn directorist-theme-btn-disabled">
+													Live Demo
+												</a>
 											</div>
 										</footer>
 									</article>
@@ -792,7 +855,10 @@
 										</figure>
 										<div class="directorist-theme-content">
 											<header class="directorist-theme-header">
-												<h2 class="directorist-theme-title">dClassified</h2>
+												<h2 class="directorist-theme-title">
+													dClassified
+													<span class="directorist-theme-title-badge-active">active</span>
+												</h2>
 											</header>
 											<p class="directorist-theme-description">
 												The Best Classified Ads WordPress Theme for Classified Listing Business
@@ -800,8 +866,8 @@
 										</div>
 										<footer class="directorist-theme-footer">
 											<div class="directorist-theme-cta">
-												<a href="#" class="directorist-theme-get">Get it now</a>
-												<a href="#" class="directorist-theme-demo">Live Demo</a>
+												<a href="#"
+													class="directorist-theme-btn directorist-theme-customize">Customize</a>
 											</div>
 										</footer>
 									</article>
@@ -822,8 +888,17 @@
 										</div>
 										<footer class="directorist-theme-footer">
 											<div class="directorist-theme-cta">
-												<a href="#" class="directorist-theme-get">Get it now</a>
-												<a href="#" class="directorist-theme-demo">Live Demo</a>
+												<a href="#"
+													class="directorist-theme-btn directorist-theme-btn-primary directorist-theme-btn-install">
+													<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+														viewBox="0 0 16 16" fill="none">
+														<path fill-rule="evenodd" clip-rule="evenodd"
+															d="M7.99992 1.33325C8.36811 1.33325 8.66659 1.63173 8.66659 1.99992V9.72378L11.5285 6.86185C11.7889 6.6015 12.211 6.6015 12.4713 6.86185C12.7317 7.1222 12.7317 7.54431 12.4713 7.80466L8.47132 11.8047C8.21097 12.065 7.78886 12.065 7.52851 11.8047L3.52851 7.80466C3.26816 7.54431 3.26816 7.1222 3.52851 6.86185C3.78886 6.6015 4.21097 6.6015 4.47132 6.86185L7.33325 9.72378V1.99992C7.33325 1.63173 7.63173 1.33325 7.99992 1.33325ZM1.33325 13.9999C1.33325 13.6317 1.63173 13.3333 1.99992 13.3333H13.9999C14.3681 13.3333 14.6666 13.6317 14.6666 13.9999C14.6666 14.3681 14.3681 14.6666 13.9999 14.6666H1.99992C1.63173 14.6666 1.33325 14.3681 1.33325 13.9999Z"
+															fill="currentColor" />
+													</svg>
+													Install
+												</a>
+												<a href="#" class="directorist-theme-btn">Live demo</a>
 											</div>
 										</footer>
 									</article>
@@ -844,8 +919,53 @@
 										</div>
 										<footer class="directorist-theme-footer">
 											<div class="directorist-theme-cta">
-												<a href="#" class="directorist-theme-get">Get it now</a>
-												<a href="#" class="directorist-theme-demo">Live Demo</a>
+												<a href="#"
+													class="directorist-theme-btn directorist-theme-btn-primary directorist-theme-btn-Installing">
+													Installing
+													<div class="directorist-theme-installing-icon">
+														<svg xmlns="http://www.w3.org/2000/svg" width="15" height="16"
+															viewBox="0 0 15 16" fill="none">
+															<path fill-rule="evenodd" clip-rule="evenodd"
+																d="M1.90296 7.79723C1.90296 10.8412 4.10996 12.9152 6.58896 13.3442C6.6564 13.3559 6.72087 13.3808 6.7787 13.4174C6.83652 13.454 6.88658 13.5016 6.92599 13.5576C6.96541 13.6135 6.99342 13.6767 7.00843 13.7434C7.02344 13.8102 7.02515 13.8793 7.01346 13.9467C7.00177 14.0142 6.97692 14.0786 6.94032 14.1365C6.90371 14.1943 6.85608 14.2443 6.80013 14.2838C6.74418 14.3232 6.68102 14.3512 6.61424 14.3662C6.54747 14.3812 6.4784 14.3829 6.41096 14.3712C3.49996 13.8672 0.860962 11.4132 0.860962 7.79723C0.860962 6.26023 1.55996 5.05223 2.37596 4.13423C2.96096 3.47623 3.62996 2.94123 4.16796 2.53223H2.53196C2.39935 2.53223 2.27218 2.47955 2.17841 2.38578C2.08464 2.29201 2.03196 2.16483 2.03196 2.03223C2.03196 1.89962 2.08464 1.77244 2.17841 1.67867C2.27218 1.58491 2.39935 1.53223 2.53196 1.53223H5.53196C5.66457 1.53223 5.79175 1.58491 5.88552 1.67867C5.97928 1.77244 6.03196 1.89962 6.03196 2.03223V5.03223C6.03196 5.16483 5.97928 5.29201 5.88552 5.38578C5.79175 5.47955 5.66457 5.53223 5.53196 5.53223C5.39935 5.53223 5.27218 5.47955 5.17841 5.38578C5.08464 5.29201 5.03196 5.16483 5.03196 5.03223V3.18623L5.03096 3.18823C4.45896 3.61823 3.76096 4.14523 3.15596 4.82623C2.44096 5.63023 1.90296 6.60323 1.90296 7.79723ZM13.011 8.20223C13.011 5.19023 10.851 3.12923 8.40396 2.66923C8.33576 2.65765 8.27055 2.63262 8.21212 2.59557C8.1537 2.55853 8.10324 2.51022 8.06369 2.45347C8.02413 2.39672 7.99628 2.33266 7.98174 2.26503C7.96721 2.19739 7.96629 2.12754 7.97904 2.05955C7.99179 1.99156 8.01795 1.92679 8.056 1.86902C8.09404 1.81124 8.14321 1.76163 8.20064 1.72306C8.25807 1.68449 8.3226 1.65774 8.39047 1.64438C8.45835 1.63102 8.5282 1.63131 8.59596 1.64523C11.47 2.18523 14.053 4.62523 14.053 8.20223C14.053 9.73923 13.354 10.9462 12.538 11.8652C11.953 12.5232 11.284 13.0582 10.746 13.4672H12.382C12.5146 13.4672 12.6417 13.5199 12.7355 13.6137C12.8293 13.7074 12.882 13.8346 12.882 13.9672C12.882 14.0998 12.8293 14.227 12.7355 14.3208C12.6417 14.4145 12.5146 14.4672 12.382 14.4672H9.38196C9.24935 14.4672 9.12218 14.4145 9.02841 14.3208C8.93464 14.227 8.88196 14.0998 8.88196 13.9672V10.9672C8.88196 10.8346 8.93464 10.7074 9.02841 10.6137C9.12218 10.5199 9.24935 10.4672 9.38196 10.4672C9.51457 10.4672 9.64175 10.5199 9.73552 10.6137C9.82928 10.7074 9.88196 10.8346 9.88196 10.9672V12.8122H9.88396C10.455 12.3802 11.154 11.8542 11.758 11.1722C12.473 10.3692 13.011 9.39723 13.011 8.20223Z"
+																fill="currentColor" />
+														</svg>
+													</div>
+												</a>
+												<a href="#"
+													class="directorist-theme-btn directorist-theme-btn-disabled">
+													Live Demo
+												</a>
+											</div>
+										</footer>
+									</article>
+								</div>
+								<div class="directorist-col-xxl-3 directorist-col-lg-4 directorist-col-sm-6">
+									<article class="directorist-theme-item">
+										<figure class="directorist-theme-image">
+											<img src="https://i.postimg.cc/KjZyr2kn/Image-Area.png"
+												alt="Directorist themes">
+										</figure>
+										<div class="directorist-theme-content">
+											<header class="directorist-theme-header">
+												<h2 class="directorist-theme-title">dRestaurant</h2>
+											</header>
+											<p class="directorist-theme-description">
+												Restaurant Directory Theme for WordPress.
+											</p>
+										</div>
+										<footer class="directorist-theme-footer">
+											<div class="directorist-theme-cta">
+												<a href="#" class="directorist-theme-btn directorist-theme-btn-primary">
+													Active
+												</a>
+												<a href="#"
+													class="directorist-theme-btn directorist-theme-btn-disabled">
+													Live Demo
+												</a>
+												<button type="button"
+													class="directorist-theme-btn directorist-theme-btn-failed">
+													Failed
+												</button>
 											</div>
 										</footer>
 									</article>

@@ -1483,6 +1483,27 @@
   font-style: normal;
   font-weight: 600;
   line-height: 25px;
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.directorist-theme-title-badge-active {
+  display: inline-flex;
+  height: 24px;
+  padding: 2px var(--spacing-md, 8px);
+  align-items: center;
+  border-radius: 6px;
+  border: 1px solid var(--Component-colors-Utility-Success-utility-success-200, #ABEFC6);
+  background: var(--Component-colors-Utility-Success-utility-success-50, #ECFDF3);
+  color: var(--Success-500, #14B570);
+  text-align: center;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 14px;
+  letter-spacing: 0.12px;
+  text-transform: capitalize;
 }
 .directorist-theme-description {
   color: var(--Gray-500, #747C89);
@@ -1567,6 +1588,88 @@
 .directorist-theme-demo:hover {
   color: white;
   background-color: #3E62F5;
+}
+.directorist-theme-btn {
+  display: flex;
+  padding: 8px 16px;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-md, 8px);
+  border-radius: 4px;
+  border: 1px solid #E5E7EB;
+  color: #4D5761;
+  background-color: #F3F4F6;
+  box-shadow: none;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 16px;
+  text-decoration: none;
+  transition: all 0.35s ease;
+  position: relative;
+  cursor: pointer;
+}
+.directorist-theme-btn:hover {
+  opacity: 0.85;
+  color: #4D5761;
+}
+.directorist-theme-customize {
+  background-color: #3E62F5;
+  border: 1px solid var(--Primary-500, #3E62F5);
+  box-shadow: 0px 2px 4px 0px rgba(60, 41, 170, 0.12);
+  color: white;
+}
+.directorist-theme-customize:hover {
+  opacity: 0.85;
+  color: white;
+}
+.directorist-theme-btn-primary {
+  border: 1px solid var(--Primary-500, #3E62F5);
+  box-shadow: 0px 2px 4px 0px rgba(60, 41, 170, 0.12);
+  color: var(--Primary-500, #3E62F5);
+  background-color: white;
+}
+.directorist-theme-btn-primary:hover {
+  color: white;
+  background-color: #3E62F5;
+}
+.directorist-theme-btn-warning {
+  border: 1px solid var(--Primary-500, #F6C879);
+  background-color: #FEF8EC;
+  box-shadow: none;
+  color: #DD8C08;
+}
+.directorist-theme-btn-warning:hover {
+  color: white;
+  background-color: #DD8C08;
+  border-color: #DD8C08;
+}
+.directorist-theme-installing-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: rotate360 2s linear infinite;
+}
+.directorist-theme-installing-icon svg {
+  width: 16px;
+  height: 16px;
+}
+.directorist-theme-btn-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.directorist-theme-btn-disabled:hover {
+  opacity: 0.5;
+}
+.directorist-theme-btn-failed {
+  border: 1px solid var(--Error-300, #F2AFAF);
+  background: var(--Error-50, #FDF3F3);
+  color: #D94A4A;
+}
+.directorist-theme-btn-failed:hover {
+  color: white;
+  background-color: #D94A4A;
+  border-color: #D94A4A;
 }
 
 .directorist-pagination .directorist-pagination-list {

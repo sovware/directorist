@@ -249,20 +249,25 @@
 																class="directorist-access-form-connect-btn">Connect
 																Now</button>
 
-															<a href="#" class="directorist-access-form-help-link">How to get my
+															<a href="#" class="directorist-access-form-help-link">How to
+																get my
 																access
 																key?</a>
 														</form>
 													</div>
 													<div id="directorist-account" class="directorist-tabs-item">
 														<form class="directorist-account">
-															<div class="directorist-account-form-group directorist-mb-12">
-																<input type="text" placeholder="Username or Email" required>
+															<div
+																class="directorist-account-form-group directorist-mb-12">
+																<input type="text" placeholder="Username or Email"
+																	required>
 															</div>
-															<div class="directorist-account-form-group directorist-mb-12">
+															<div
+																class="directorist-account-form-group directorist-mb-12">
 																<input type="password" placeholder="Password" required>
 															</div>
-															<button type="submit" class="directorist-account-login-btn">Log In
+															<button type="submit"
+																class="directorist-account-login-btn">Log In
 																with Directorist Account</button>
 														</form>
 													</div>
@@ -355,7 +360,9 @@
 												<span class="directorist-extension-year">/ year</span>
 											</div>
 											<div class="directorist-extension-cta">
-												<a href="#" class="directorist-extension-btn">View Details</a>
+												<a href="#"
+													class="directorist-extension-link directorist-extension-btn directorist-extension-btn-primary">View
+													Details</a>
 											</div>
 										</footer>
 									</article>
@@ -375,12 +382,9 @@
 											</p>
 										</div>
 										<footer class="directorist-extension-footer">
-											<div class="directorist-extension-price-wrap">
-												<span class="directorist-extension-price">$29</span>
-												<span class="directorist-extension-year">/ year</span>
-											</div>
 											<div class="directorist-extension-cta">
-												<a href="#" class="directorist-extension-btn">View Details</a>
+												<button type="button"
+													class="directorist-extension-btn directorist-extension-btn-primary directorist-extension-btn-install">Install</button>
 											</div>
 										</footer>
 									</article>
@@ -399,12 +403,19 @@
 											</p>
 										</div>
 										<footer class="directorist-extension-footer">
-											<div class="directorist-extension-price-wrap">
-												<span class="directorist-extension-price">$29</span>
-												<span class="directorist-extension-year">/ year</span>
-											</div>
 											<div class="directorist-extension-cta">
-												<a href="#" class="directorist-extension-btn">View Details</a>
+												<button type="button"
+													class="directorist-extension-btn directorist-extension-installing directorist-extension-btn-primary">
+													Installing
+													<div class="directorist-extension-installing-icon">
+														<svg xmlns="http://www.w3.org/2000/svg" width="15" height="16"
+															viewBox="0 0 15 16" fill="none">
+															<path fill-rule="evenodd" clip-rule="evenodd"
+																d="M1.90296 7.79723C1.90296 10.8412 4.10996 12.9152 6.58896 13.3442C6.6564 13.3559 6.72087 13.3808 6.7787 13.4174C6.83652 13.454 6.88658 13.5016 6.92599 13.5576C6.96541 13.6135 6.99342 13.6767 7.00843 13.7434C7.02344 13.8102 7.02515 13.8793 7.01346 13.9467C7.00177 14.0142 6.97692 14.0786 6.94032 14.1365C6.90371 14.1943 6.85608 14.2443 6.80013 14.2838C6.74418 14.3232 6.68102 14.3512 6.61424 14.3662C6.54747 14.3812 6.4784 14.3829 6.41096 14.3712C3.49996 13.8672 0.860962 11.4132 0.860962 7.79723C0.860962 6.26023 1.55996 5.05223 2.37596 4.13423C2.96096 3.47623 3.62996 2.94123 4.16796 2.53223H2.53196C2.39935 2.53223 2.27218 2.47955 2.17841 2.38578C2.08464 2.29201 2.03196 2.16483 2.03196 2.03223C2.03196 1.89962 2.08464 1.77244 2.17841 1.67867C2.27218 1.58491 2.39935 1.53223 2.53196 1.53223H5.53196C5.66457 1.53223 5.79175 1.58491 5.88552 1.67867C5.97928 1.77244 6.03196 1.89962 6.03196 2.03223V5.03223C6.03196 5.16483 5.97928 5.29201 5.88552 5.38578C5.79175 5.47955 5.66457 5.53223 5.53196 5.53223C5.39935 5.53223 5.27218 5.47955 5.17841 5.38578C5.08464 5.29201 5.03196 5.16483 5.03196 5.03223V3.18623L5.03096 3.18823C4.45896 3.61823 3.76096 4.14523 3.15596 4.82623C2.44096 5.63023 1.90296 6.60323 1.90296 7.79723ZM13.011 8.20223C13.011 5.19023 10.851 3.12923 8.40396 2.66923C8.33576 2.65765 8.27055 2.63262 8.21212 2.59557C8.1537 2.55853 8.10324 2.51022 8.06369 2.45347C8.02413 2.39672 7.99628 2.33266 7.98174 2.26503C7.96721 2.19739 7.96629 2.12754 7.97904 2.05955C7.99179 1.99156 8.01795 1.92679 8.056 1.86902C8.09404 1.81124 8.14321 1.76163 8.20064 1.72306C8.25807 1.68449 8.3226 1.65774 8.39047 1.64438C8.45835 1.63102 8.5282 1.63131 8.59596 1.64523C11.47 2.18523 14.053 4.62523 14.053 8.20223C14.053 9.73923 13.354 10.9462 12.538 11.8652C11.953 12.5232 11.284 13.0582 10.746 13.4672H12.382C12.5146 13.4672 12.6417 13.5199 12.7355 13.6137C12.8293 13.7074 12.882 13.8346 12.882 13.9672C12.882 14.0998 12.8293 14.227 12.7355 14.3208C12.6417 14.4145 12.5146 14.4672 12.382 14.4672H9.38196C9.24935 14.4672 9.12218 14.4145 9.02841 14.3208C8.93464 14.227 8.88196 14.0998 8.88196 13.9672V10.9672C8.88196 10.8346 8.93464 10.7074 9.02841 10.6137C9.12218 10.5199 9.24935 10.4672 9.38196 10.4672C9.51457 10.4672 9.64175 10.5199 9.73552 10.6137C9.82928 10.7074 9.88196 10.8346 9.88196 10.9672V12.8122H9.88396C10.455 12.3802 11.154 11.8542 11.758 11.1722C12.473 10.3692 13.011 9.39723 13.011 8.20223Z"
+																fill="currentColor" />
+														</svg>
+													</div>
+												</button>
 											</div>
 										</footer>
 									</article>
@@ -431,12 +442,74 @@
 											</p>
 										</div>
 										<footer class="directorist-extension-footer">
-											<div class="directorist-extension-price-wrap">
-												<span class="directorist-extension-price">$29</span>
-												<span class="directorist-extension-year">/ year</span>
-											</div>
 											<div class="directorist-extension-cta">
-												<a href="#" class="directorist-extension-btn">View Details</a>
+												<button type="button"
+													class="directorist-extension-btn directorist-extension-active directorist-extension-btn-primary">Active</button>
+											</div>
+										</footer>
+									</article>
+								</div>
+								<div class="directorist-col-xxl-3 directorist-col-lg-4 directorist-col-sm-6">
+									<article class="directorist-extension-item">
+										<figure class="directorist-extension-image">
+											<img src="https://picsum.photos/200" alt="Directorist themes">
+										</figure>
+										<div class="directorist-extension-content">
+											<header class="directorist-extension-header">
+												<h2 class="directorist-extension-title">Listings with Map</h2>
+											</header>
+											<p class="directorist-extension-description">
+												Listings with the interactive maps and make business visible widely.
+											</p>
+											<div class="directorist-extension-update-available">
+												Update available
+											</div>
+										</div>
+										<footer class="directorist-extension-footer">
+											<div class="directorist-extension-cta">
+												<button type="button"
+													class="directorist-extension-btn directorist-extension-btn-warning directorist-extension-btn-deactivate">Deactivate</button>
+												<div class="directorist-extension-btn directorist-extension-btn-docs">
+													<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+														viewBox="0 0 16 16" fill="none">
+														<path fill-rule="evenodd" clip-rule="evenodd"
+															d="M5.83913 0.666748H10.1609C10.6975 0.66674 11.1404 0.666733 11.5012 0.696211C11.876 0.726828 12.2204 0.792537 12.544 0.957398C13.0457 1.21306 13.4537 1.62101 13.7094 2.12277C13.8742 2.44633 13.9399 2.7908 13.9705 3.16553C14 3.52632 14 3.96923 14 4.50587V11.4943C14 12.0309 14 12.4738 13.9705 12.8346C13.9399 13.2094 13.8742 13.5538 13.7094 13.8774C13.4537 14.3792 13.0457 14.7871 12.544 15.0428C12.2204 15.2076 11.876 15.2733 11.5012 15.304C11.1404 15.3334 10.6975 15.3334 10.1609 15.3334H5.83912C5.30248 15.3334 4.85958 15.3334 4.49878 15.304C4.12405 15.2733 3.77958 15.2076 3.45603 15.0428C2.95426 14.7871 2.54631 14.3792 2.29065 13.8774C2.12579 13.5538 2.06008 13.2094 2.02946 12.8346C1.99998 12.4738 1.99999 12.0309 2 11.4943V4.50588C1.99999 3.96924 1.99998 3.52633 2.02946 3.16553C2.06008 2.7908 2.12579 2.44633 2.29065 2.12277C2.54631 1.62101 2.95426 1.21306 3.45603 0.957398C3.77958 0.792537 4.12405 0.726828 4.49878 0.696211C4.85958 0.666733 5.30249 0.66674 5.83913 0.666748ZM4.60736 2.02512C4.31508 2.049 4.16561 2.09228 4.06135 2.14541C3.81046 2.27324 3.60649 2.47721 3.47866 2.72809C3.42553 2.83236 3.38225 2.98183 3.35837 3.27411C3.33385 3.57417 3.33333 3.96236 3.33333 4.53342V11.4667C3.33333 12.0378 3.33385 12.426 3.35837 12.7261C3.38225 13.0183 3.42553 13.1678 3.47866 13.2721C3.60649 13.523 3.81046 13.7269 4.06135 13.8548C4.16561 13.9079 4.31508 13.9512 4.60736 13.975C4.90742 13.9996 5.29561 14.0001 5.86667 14.0001H10.1333C10.7044 14.0001 11.0926 13.9996 11.3926 13.975C11.6849 13.9512 11.8344 13.9079 11.9387 13.8548C12.1895 13.7269 12.3935 13.523 12.5213 13.2721C12.5745 13.1678 12.6178 13.0183 12.6416 12.7261C12.6661 12.426 12.6667 12.0378 12.6667 11.4667V4.53342C12.6667 3.96236 12.6661 3.57417 12.6416 3.27411C12.6178 2.98183 12.5745 2.83236 12.5213 2.72809C12.3935 2.47721 12.1895 2.27324 11.9387 2.14541C11.8344 2.09228 11.6849 2.049 11.3926 2.02512C11.0926 2.0006 10.7044 2.00008 10.1333 2.00008H5.86667C5.29561 2.00008 4.90742 2.0006 4.60736 2.02512ZM4.66667 4.66675C4.66667 4.29856 4.96514 4.00008 5.33333 4.00008H10.6667C11.0349 4.00008 11.3333 4.29856 11.3333 4.66675C11.3333 5.03494 11.0349 5.33342 10.6667 5.33342H5.33333C4.96514 5.33342 4.66667 5.03494 4.66667 4.66675ZM4.66667 7.33342C4.66667 6.96523 4.96514 6.66675 5.33333 6.66675H9.33333C9.70152 6.66675 10 6.96523 10 7.33342C10 7.70161 9.70152 8.00008 9.33333 8.00008H5.33333C4.96514 8.00008 4.66667 7.70161 4.66667 7.33342ZM4.66667 10.0001C4.66667 9.63189 4.96514 9.33342 5.33333 9.33342H6.66667C7.03486 9.33342 7.33333 9.63189 7.33333 10.0001C7.33333 10.3683 7.03486 10.6667 6.66667 10.6667H5.33333C4.96514 10.6667 4.66667 10.3683 4.66667 10.0001Z"
+															fill="currentColor" />
+													</svg>
+													Docs
+												</div>
+												<div class="directorist-extension-btn directorist-extension-btn-update">
+													Update</div>
+											</div>
+										</footer>
+									</article>
+								</div>
+								<div class="directorist-col-xxl-3 directorist-col-lg-4 directorist-col-sm-6">
+									<article class="directorist-extension-item">
+										<figure class="directorist-extension-image">
+											<img src="https://picsum.photos/200" alt="Directorist themes">
+										</figure>
+										<div class="directorist-extension-content">
+											<header class="directorist-extension-header">
+												<h2 class="directorist-extension-title">Listings with Map <span class="directorist-extension-title-badge-active">active</span></h2>
+											</header>
+											<p class="directorist-extension-description">
+												Listings with the interactive maps and make business visible widely.
+											</p>
+										</div>
+										<footer class="directorist-extension-footer">
+											<div class="directorist-extension-cta">
+												<button type="button"
+													class="directorist-extension-btn directorist-extension-btn-warning directorist-extension-btn-deactivate">Deactivate</button>
+												<div class="directorist-extension-btn directorist-extension-btn-docs">
+													<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+														viewBox="0 0 16 16" fill="none">
+														<path fill-rule="evenodd" clip-rule="evenodd"
+															d="M5.83913 0.666748H10.1609C10.6975 0.66674 11.1404 0.666733 11.5012 0.696211C11.876 0.726828 12.2204 0.792537 12.544 0.957398C13.0457 1.21306 13.4537 1.62101 13.7094 2.12277C13.8742 2.44633 13.9399 2.7908 13.9705 3.16553C14 3.52632 14 3.96923 14 4.50587V11.4943C14 12.0309 14 12.4738 13.9705 12.8346C13.9399 13.2094 13.8742 13.5538 13.7094 13.8774C13.4537 14.3792 13.0457 14.7871 12.544 15.0428C12.2204 15.2076 11.876 15.2733 11.5012 15.304C11.1404 15.3334 10.6975 15.3334 10.1609 15.3334H5.83912C5.30248 15.3334 4.85958 15.3334 4.49878 15.304C4.12405 15.2733 3.77958 15.2076 3.45603 15.0428C2.95426 14.7871 2.54631 14.3792 2.29065 13.8774C2.12579 13.5538 2.06008 13.2094 2.02946 12.8346C1.99998 12.4738 1.99999 12.0309 2 11.4943V4.50588C1.99999 3.96924 1.99998 3.52633 2.02946 3.16553C2.06008 2.7908 2.12579 2.44633 2.29065 2.12277C2.54631 1.62101 2.95426 1.21306 3.45603 0.957398C3.77958 0.792537 4.12405 0.726828 4.49878 0.696211C4.85958 0.666733 5.30249 0.66674 5.83913 0.666748ZM4.60736 2.02512C4.31508 2.049 4.16561 2.09228 4.06135 2.14541C3.81046 2.27324 3.60649 2.47721 3.47866 2.72809C3.42553 2.83236 3.38225 2.98183 3.35837 3.27411C3.33385 3.57417 3.33333 3.96236 3.33333 4.53342V11.4667C3.33333 12.0378 3.33385 12.426 3.35837 12.7261C3.38225 13.0183 3.42553 13.1678 3.47866 13.2721C3.60649 13.523 3.81046 13.7269 4.06135 13.8548C4.16561 13.9079 4.31508 13.9512 4.60736 13.975C4.90742 13.9996 5.29561 14.0001 5.86667 14.0001H10.1333C10.7044 14.0001 11.0926 13.9996 11.3926 13.975C11.6849 13.9512 11.8344 13.9079 11.9387 13.8548C12.1895 13.7269 12.3935 13.523 12.5213 13.2721C12.5745 13.1678 12.6178 13.0183 12.6416 12.7261C12.6661 12.426 12.6667 12.0378 12.6667 11.4667V4.53342C12.6667 3.96236 12.6661 3.57417 12.6416 3.27411C12.6178 2.98183 12.5745 2.83236 12.5213 2.72809C12.3935 2.47721 12.1895 2.27324 11.9387 2.14541C11.8344 2.09228 11.6849 2.049 11.3926 2.02512C11.0926 2.0006 10.7044 2.00008 10.1333 2.00008H5.86667C5.29561 2.00008 4.90742 2.0006 4.60736 2.02512ZM4.66667 4.66675C4.66667 4.29856 4.96514 4.00008 5.33333 4.00008H10.6667C11.0349 4.00008 11.3333 4.29856 11.3333 4.66675C11.3333 5.03494 11.0349 5.33342 10.6667 5.33342H5.33333C4.96514 5.33342 4.66667 5.03494 4.66667 4.66675ZM4.66667 7.33342C4.66667 6.96523 4.96514 6.66675 5.33333 6.66675H9.33333C9.70152 6.66675 10 6.96523 10 7.33342C10 7.70161 9.70152 8.00008 9.33333 8.00008H5.33333C4.96514 8.00008 4.66667 7.70161 4.66667 7.33342ZM4.66667 10.0001C4.66667 9.63189 4.96514 9.33342 5.33333 9.33342H6.66667C7.03486 9.33342 7.33333 9.63189 7.33333 10.0001C7.33333 10.3683 7.03486 10.6667 6.66667 10.6667H5.33333C4.96514 10.6667 4.66667 10.3683 4.66667 10.0001Z"
+															fill="currentColor" />
+													</svg>
+													Docs
+												</div>
 											</div>
 										</footer>
 									</article>

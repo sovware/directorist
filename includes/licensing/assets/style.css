@@ -757,12 +757,44 @@
   margin-bottom: 16px !important;
 }
 
+.directorist-mb-12 {
+  margin-bottom: 12px !important;
+}
+
 .font-inter {
   font-family: "Inter", sans-serif;
 }
 
 .border-box * {
   box-sizing: border-box;
+}
+
+.directorist-justify-center {
+  justify-content: center !important;
+}
+
+.directorist-text-center {
+  text-align: center !important;
+}
+
+.directorist-min-h-140 {
+  min-height: 140px !important;
+}
+
+.directorist-min-h-170 {
+  min-height: 170px !important;
+}
+
+.directorist-d-none {
+  display: none !important;
+}
+
+.directorist-d-block {
+  display: block !important;
+}
+
+.directorist-mt-0 {
+  margin-top: 0 !important;
 }
 
 @-webkit-keyframes shiny-btn1 {
@@ -783,8 +815,7 @@
     opacity: 0;
   }
 }
-.membership-section {
-  font-family: "Inter", serif;
+.directorist-membership-section {
   padding: 21px 24px;
   gap: 48px;
   border-radius: 12px;
@@ -792,11 +823,11 @@
   /* shadow-lg */
   box-shadow: 0px 8px 16px 0px rgba(16, 24, 40, 0.1), 0px 6px 8px 2px rgba(16, 24, 40, 0.04);
 }
-.membership-section.m-15 {
+.directorist-membership-section.m-15 {
   margin: 15px;
 }
 
-.membership-header {
+.directorist-membership-header {
   display: flex;
   padding: 8px 9px;
   align-items: center;
@@ -805,31 +836,31 @@
   border-radius: 6px;
   background: var(--Gray-50, #F9FAFB);
 }
-.membership-header-author {
+.directorist-membership-header-author {
   width: 40px;
   height: 40px;
   border-radius: 40px;
   overflow: hidden;
   border: 1px solid var(--White-White, #FFF);
 }
-.membership-header-author img {
+.directorist-membership-header-author img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   background-color: lightgray;
 }
-.membership-header-body {
+.directorist-membership-header-body {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
-.membership-header-title {
+.directorist-membership-header-title {
   color: var(--Gray-900, #141921);
   font-size: 16px;
   font-weight: 600;
   line-height: 22px;
 }
-.membership-header-alert {
+.directorist-membership-header-alert {
   color: var(--Gray-500, #747C89);
   font-size: 12px;
   font-weight: 400;
@@ -838,7 +869,7 @@
   margin: 0;
 }
 
-.membership-card {
+.directorist-membership-card {
   margin-top: 2px;
   display: flex;
   padding: 20px 24px;
@@ -849,7 +880,7 @@
   border-radius: 8px;
   background: var(--Gray-50, #F9FAFB);
 }
-.membership-card-title {
+.directorist-membership-card-title {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -863,22 +894,22 @@
   margin-bottom: 17px;
   padding: 0;
 }
-.membership-card-title svg {
+.directorist-membership-card-title svg {
   height: 20px;
 }
-.membership-card-price .price-amount {
+.directorist-membership-card-price .price-amount {
   color: var(--Gray-800, #2C3239);
   font-size: 32px;
   font-weight: 700;
   line-height: 40px;
 }
-.membership-card-price .price-duration {
+.directorist-membership-card-price .price-duration {
   color: var(--Gray-500, #747C89);
   font-size: 14px;
   font-weight: 400;
   line-height: normal;
 }
-.membership-card-discount {
+.directorist-membership-card-discount {
   display: flex;
   flex-wrap: wrap;
   padding: var(--spacing-xxs, 2px) var(--spacing-md, 8px);
@@ -894,12 +925,12 @@
   line-height: var(--Line-height-text-xs, 18px);
   margin: 8px 0 0;
 }
-.membership-card-discount strong {
+.directorist-membership-card-discount strong {
   font-weight: 600;
   letter-spacing: 0.12px;
   margin: 0 4px;
 }
-.membership-card-rating {
+.directorist-membership-card-rating {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -907,7 +938,7 @@
   margin-top: 16px;
   margin-bottom: 32px;
 }
-.membership-card-rating .rating-score {
+.directorist-membership-card-rating .rating-score {
   color: var(--Gray-700, #383F47);
   text-align: center;
   font-size: 16px;
@@ -918,7 +949,7 @@
   align-items: center;
   gap: 8px;
 }
-.membership-card-rating .rating-reviews {
+.directorist-membership-card-rating .rating-reviews {
   color: var(--Gray-600, #4D5761);
   font-size: 12px;
   font-style: normal;
@@ -932,14 +963,14 @@
   text-underline-offset: auto;
   text-underline-position: from-font;
 }
-.membership-card-actions {
+.directorist-membership-card-actions {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 12px;
   width: 100%;
 }
-.membership-card-get {
+.directorist-membership-card-get {
   position: relative;
   display: flex;
   height: 40px;
@@ -960,7 +991,7 @@
   transition: all 0.35s ease;
   overflow: hidden;
 }
-.membership-card-get:after {
+.directorist-membership-card-get:after {
   position: absolute;
   content: "";
   display: inline-block;
@@ -971,14 +1002,14 @@
   background-color: #fff;
   animation: shiny-btn1 3s ease-in-out infinite;
 }
-.membership-card-get:hover {
-  color: #fff;
+.directorist-membership-card-get:hover {
+  color: #fff !important;
   opacity: 0.85;
 }
-.membership-card-get:hover:after {
+.directorist-membership-card-get:hover:after {
   background-color: transparent;
 }
-.membership-card-signin {
+.directorist-membership-card-signin {
   display: flex;
   height: 40px;
   padding: 0 20px;
@@ -999,42 +1030,42 @@
   cursor: pointer;
 }
 @media screen and (max-width: 480.99px) {
-  .membership-card-signin {
+  .directorist-membership-card-signin {
     font-size: 12px;
   }
 }
-.membership-card-signin a {
+.directorist-membership-card-signin a {
   color: inherit;
   text-decoration: none;
   transition: all 0.35s ease;
 }
-.membership-card-signin a:hover {
+.directorist-membership-card-signin a:hover {
   color: black;
 }
 
-.membership-benefits {
+.directorist-membership-benefits {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
   gap: 15px;
 }
-.membership-benefits-img {
+.directorist-membership-benefits-img {
   width: 32px;
   min-width: 32px;
 }
-.membership-benefits-img svg,
-.membership-benefits-img img {
+.directorist-membership-benefits-img svg,
+.directorist-membership-benefits-img img {
   width: 100%;
   height: 100%;
   object-fit: contain;
 }
-.membership-benefits-content {
+.directorist-membership-benefits-content {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 8px;
 }
-.membership-benefits-content .title {
+.directorist-membership-benefits-content .title {
   color: var(--Gray-900, #141921);
   font-size: 19px;
   font-style: normal;
@@ -1043,7 +1074,7 @@
   margin: 0;
   padding: 0;
 }
-.membership-benefits-content .title-details {
+.directorist-membership-benefits-content .title-details {
   color: var(--Gray-600, #4D5761);
   font-size: 16px;
   font-style: normal;
@@ -1116,8 +1147,21 @@
   color: #2C3239;
   font-weight: 600;
 }
+.directorist-nav-tab-wrapper.directorist-login-tab-wrapper:after {
+  width: 100px;
+}
+.directorist-nav-tab-wrapper.directorist-login-tab-wrapper.tab-2-active:after {
+  width: 144px;
+  left: 107px;
+}
+.directorist-nav-tab-wrapper.directorist-login-tab-wrapper li:first-child button {
+  width: 100px;
+}
+.directorist-nav-tab-wrapper.directorist-login-tab-wrapper li:nth-child(2) button {
+  width: 144px;
+}
 
-.directorist-tabs-content {
+.directorist-tabs-content.min-h-300 {
   min-height: 300px;
 }
 .directorist-tabs-item {
@@ -1470,6 +1514,166 @@
 }
 .directorist-pagination .directorist-pagination-list .directorist-pagination-item .directorist-pagination-link[aria-current=page] {
   font-weight: bold;
+}
+
+.directorist-login-form {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 2px solid #E5E7EB;
+}
+.directorist-login-form .directorist-d-none {
+  opacity: 0;
+  overflow: hidden;
+  transform: translateY(10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.directorist-login-form.directorist-d-block {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.directorist-access-form-key {
+  display: flex;
+  height: 48px;
+  padding: 10px 16px 10px 0;
+  align-items: center;
+  gap: var(--spacing-md, 8px);
+  align-self: stretch;
+  border-radius: var(--radius-md, 8px);
+  border: 1px solid var(--Gray-300, #D2D6DB);
+  background: var(--White-White, #FFF);
+  box-shadow: 0px 1px 2px 0px var(--Colors-Effects-Shadows-shadow-xs, rgba(16, 24, 40, 0.05));
+  position: relative;
+}
+.directorist-access-form-key .directorist-icon {
+  display: flex;
+  height: 46px;
+  padding: 0px 16px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border-radius: 7px 0px 0px 7px;
+  border-right: 1px solid var(--Gray-200, #E5E7EB);
+  background: var(--Gray-100, #F3F4F6);
+}
+.directorist-access-form-key input {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+  color: #2C3239;
+  text-overflow: ellipsis;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 18px;
+  width: 100%;
+  border: none !important;
+  box-shadow: none !important;
+}
+.directorist-access-form-key input::placeholder {
+  color: var(--Gray-500, #747C89);
+}
+.directorist-access-form-connect-btn {
+  margin-top: 12px;
+  display: flex;
+  height: 48px;
+  padding: 12px 24px;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-md, 8px);
+  align-self: stretch;
+  border-radius: 6px;
+  background: var(--Primary-500, #3E62F5);
+  border: 1px solid var(--Primary-500, #3E62F5);
+  box-shadow: 0px 2px 4px 0px rgba(60, 41, 170, 0.12);
+  color: var(--White-White, #FFF);
+  text-align: center;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 16px;
+  width: 100%;
+  transition: all 0.35s ease;
+  cursor: pointer;
+}
+.directorist-access-form-connect-btn:hover {
+  color: white !important;
+  opacity: 0.85;
+}
+.directorist-access-form-help-link {
+  display: block;
+  margin-top: 12px;
+  color: var(--Gray-500, #747C89);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 16px;
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+  text-decoration-skip-ink: none;
+  text-decoration-thickness: auto;
+  text-underline-offset: auto;
+  text-underline-position: from-font;
+  transition: all 0.35s ease;
+}
+.directorist-access-form-help-link:hover {
+  color: var(--Gray-700, #3E62F5);
+}
+
+.directorist-account-form-group input {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  width: 100%;
+  display: flex;
+  height: 48px;
+  padding: 10px 16px;
+  align-items: center;
+  gap: var(--spacing-md, 8px);
+  align-self: stretch;
+  border-radius: var(--radius-md, 8px);
+  border: 1px solid var(--Gray-300, #D2D6DB);
+  background: var(--White-White, #FFF);
+  box-shadow: 0px 1px 2px 0px var(--Colors-Effects-Shadows-shadow-xs, rgba(16, 24, 40, 0.05));
+  overflow: hidden;
+  color: #2C3239;
+  text-overflow: ellipsis;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 18px;
+}
+.directorist-account-form-group input::placeholder {
+  color: var(--Gray-500, #747C89);
+}
+.directorist-account-login-btn {
+  margin-top: 12px;
+  display: flex;
+  height: 48px;
+  padding: 12px 24px;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-md, 8px);
+  align-self: stretch;
+  border-radius: 6px;
+  background: var(--Primary-500, #3E62F5);
+  border: 1px solid var(--Primary-500, #3E62F5);
+  box-shadow: 0px 2px 4px 0px rgba(60, 41, 170, 0.12);
+  color: var(--White-White, #FFF);
+  text-align: center;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 16px;
+  width: 100%;
+  transition: all 0.35s ease;
+  cursor: pointer;
+}
+.directorist-account-login-btn:hover {
+  color: white !important;
+  opacity: 0.85;
 }
 
 /*# sourceMappingURL=style.css.map */

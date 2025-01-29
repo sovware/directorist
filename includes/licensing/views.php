@@ -8,21 +8,21 @@
 	<div class="directorist-container-fluid">
 		<div class="directorist-row">
 			<div class="directorist-col-12">
-				<section class="membership-section directorist-mb-60">
+				<section class="directorist-membership-section directorist-mb-60">
 					<div class="directorist-container-fluid">
 						<div class="directorist-row directorist-row-48 directorist-align-center">
 							<div class="directorist-col-xxl-3 directorist-col-lg-6">
-								<header class="membership-header">
-									<div class="membership-header-author">
+								<header class="directorist-membership-header">
+									<div class="directorist-membership-header-author">
 										<img src="https://picsum.photos/200" alt="Author image">
 									</div>
-									<div class="membership-header-body">
-										<div class="membership-header-title">Hello, John!</div>
-										<p class="membership-header-alert">Welcome back</p>
+									<div class="directorist-membership-header-body">
+										<div class="directorist-membership-header-title">Hello, John!</div>
+										<p class="directorist-membership-header-alert">Welcome back</p>
 									</div>
 								</header>
-								<div class="membership-card">
-									<h3 class="membership-card-title">
+								<div class="directorist-membership-card">
+									<h3 class="directorist-membership-card-title">
 										<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
 											viewBox="0 0 20 20" fill="none">
 											<path
@@ -31,14 +31,15 @@
 										</svg>
 										Directorist Membership
 									</h3>
-									<div class="membership-card-price">
+									<div class="directorist-membership-card-price">
 										<span class="price-amount">$89</span>
 										<span class="price-duration">/ year</span>
 									</div>
-									<p class="membership-card-discount">Save <strong>30%</strong> with annual billing
+									<p class="directorist-membership-card-discount">Save <strong>30%</strong> with
+										annual billing
 									</p>
 
-									<div class="membership-card-rating">
+									<div class="directorist-membership-card-rating">
 										<div class="rating-score"><svg width="80" height="16" viewBox="0 0 80 16"
 												fill="none" xmlns="http://www.w3.org/2000/svg">
 												<path
@@ -60,8 +61,8 @@
 										<span class="rating-reviews">(From 23,004 Reviews)</span>
 									</div>
 
-									<div class="membership-card-actions">
-										<a href="#" class="membership-card-get">
+									<div class="directorist-membership-card-actions">
+										<a href="#" class="directorist-membership-card-get">
 											<svg xmlns="http://www.w3.org/2000/svg" width="13" height="16"
 												viewBox="0 0 13 16" fill="none">
 												<path
@@ -70,7 +71,7 @@
 											</svg>
 											Get Membership
 										</a>
-										<button type="button" class="membership-card-signin">
+										<button type="button" class="directorist-membership-card-signin">
 											<svg xmlns="http://www.w3.org/2000/svg" width="17" height="16"
 												viewBox="0 0 17 16" fill="none">
 												<path fill-rule="evenodd" clip-rule="evenodd"
@@ -85,8 +86,8 @@
 							<div class="directorist-col-xxl-9 directorist-col-lg-6">
 								<div class="directorist-row directorist-gap-y-55">
 									<div class="directorist-col-xxl-4 directorist-col-lg-6 directorist-col-sm-6">
-										<div class="membership-benefits">
-											<div class="membership-benefits-img">
+										<div class="directorist-membership-benefits">
+											<div class="directorist-membership-benefits-img">
 												<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
 													viewBox="0 0 32 32" fill="none">
 													<path fill-rule="evenodd" clip-rule="evenodd"
@@ -94,7 +95,7 @@
 														fill="#3E62F5" />
 												</svg>
 											</div>
-											<div class="membership-benefits-content">
+											<div class="directorist-membership-benefits-content">
 												<h3 class="title">All Access Pass</h3>
 												<p class="title-details">Get unlimited access to all themes and
 													plugins.</p>
@@ -102,8 +103,8 @@
 										</div>
 									</div>
 									<div class="directorist-col-xxl-4 directorist-col-lg-6 directorist-col-sm-6">
-										<div class="membership-benefits">
-											<div class="membership-benefits-img">
+										<div class="directorist-membership-benefits">
+											<div class="directorist-membership-benefits-img">
 												<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26"
 													viewBox="0 0 26 26" fill="none">
 													<g clip-path="url(#clip0_6982_3088)">
@@ -118,7 +119,7 @@
 													</defs>
 												</svg>
 											</div>
-											<div class="membership-benefits-content">
+											<div class="directorist-membership-benefits-content">
 												<h3 class="title">Premium Features</h3>
 												<p class="title-details">Access to exclusive premium features and
 													tools.</p>
@@ -126,8 +127,8 @@
 										</div>
 									</div>
 									<div class="directorist-col-xxl-4 directorist-col-lg-6 directorist-col-sm-6">
-										<div class="membership-benefits">
-											<div class="membership-benefits-img">
+										<div class="directorist-membership-benefits">
+											<div class="directorist-membership-benefits-img">
 												<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
 													viewBox="0 0 32 32" fill="none">
 													<path
@@ -135,7 +136,7 @@
 														fill="#DD8C08" />
 												</svg>
 											</div>
-											<div class="membership-benefits-content">
+											<div class="directorist-membership-benefits-content">
 												<h3 class="title">Regular Updates</h3>
 												<p class="title-details">Stay up-to-date with the latest features &
 													security
@@ -145,8 +146,8 @@
 									</div>
 									<div class="directorist-col-xxl-4 directorist-col-lg-6 directorist-col-sm-6">
 
-										<div class="membership-benefits">
-											<div class="membership-benefits-img">
+										<div class="directorist-membership-benefits">
+											<div class="directorist-membership-benefits-img">
 												<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
 													viewBox="0 0 32 32" fill="none">
 													<path
@@ -154,7 +155,7 @@
 														fill="#9658F9" />
 												</svg>
 											</div>
-											<div class="membership-benefits-content">
+											<div class="directorist-membership-benefits-content">
 												<h3 class="title">Premium Features</h3>
 												<p class="title-details">Access to exclusive premium features and
 													tools.</p>
@@ -163,8 +164,8 @@
 									</div>
 									<div
 										class="directorist-col-xxl-4 directorist-col-lg-6 directorist-col-sm-6 d-lg-block d-none">
-										<div class="membership-benefits">
-											<div class="membership-benefits-img">
+										<div class="directorist-membership-benefits">
+											<div class="directorist-membership-benefits-img">
 												<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
 													viewBox="0 0 32 32" fill="none">
 													<path
@@ -172,7 +173,7 @@
 														fill="#DD8C08" />
 												</svg>
 											</div>
-											<div class="membership-benefits-content">
+											<div class="directorist-membership-benefits-content">
 												<h3 class="title">Regular Updates</h3>
 												<p class="title-details">Stay up-to-date with the latest features &
 													security
@@ -183,8 +184,8 @@
 									<div
 										class="directorist-col-xxl-4 directorist-col-lg-6 directorist-col-sm-6 d-lg-block d-none">
 
-										<div class="membership-benefits">
-											<div class="membership-benefits-img">
+										<div class="directorist-membership-benefits">
+											<div class="directorist-membership-benefits-img">
 												<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
 													viewBox="0 0 32 32" fill="none">
 													<path
@@ -192,10 +193,80 @@
 														fill="#9658F9" />
 												</svg>
 											</div>
-											<div class="membership-benefits-content">
+											<div class="directorist-membership-benefits-content">
 												<h3 class="title">Premium Features</h3>
 												<p class="title-details">Access to exclusive premium features and
 													tools.</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="directorist-col-lg-12 directorist-mt-0">
+								<div class="directorist-login-form directorist-d-none">
+									<div class="directorist-row directorist-justify-center directorist-text-center">
+										<div class="directorist-col-xl-5 directorist-col-lg-6 directorist-col-md-8">
+											<div class="directorist-tabs directorist-login-container">
+												<div
+													class="directorist-tabs-header directorist-mb-16 directorist-justify-center">
+													<ul
+														class="directorist-nav-tab-wrapper directorist-login-tab-wrapper">
+														<li>
+															<button data-target="#directorist-access-key"
+																class="directorist-nav-tab active">Access Key</button>
+														</li>
+														<li>
+															<button data-target="#directorist-account"
+																class="directorist-nav-tab">Directorist
+																Account</button>
+														</li>
+													</ul>
+												</div>
+												<div class="directorist-tabs-content directorist-min-h-130">
+													<div id="directorist-access-key"
+														class="directorist-tabs-item active">
+														<form class="directorist-access-form">
+															<div class="directorist-access-form-key">
+																<span class="directorist-icon">
+																	<svg xmlns="http://www.w3.org/2000/svg" width="22"
+																		height="22" viewBox="0 0 22 22" fill="none">
+																		<path
+																			d="M14.5004 7L16.8004 9.3C16.9873 9.48323 17.2386 9.58586 17.5004 9.58586C17.7621 9.58586 18.0135 9.48323 18.2004 9.3L20.3004 7.2C20.4836 7.01307 20.5862 6.76175 20.5862 6.5C20.5862 6.23825 20.4836 5.98693 20.3004 5.8L18.0004 3.5M20.0004 1.5L10.4004 11.1"
+																			stroke="#747C89" stroke-width="2"
+																			stroke-linecap="round"
+																			stroke-linejoin="round" />
+																		<path
+																			d="M6.5 20.5C9.53757 20.5 12 18.0376 12 15C12 11.9624 9.53757 9.5 6.5 9.5C3.46243 9.5 1 11.9624 1 15C1 18.0376 3.46243 20.5 6.5 20.5Z"
+																			stroke="#747C89" stroke-width="2"
+																			stroke-linecap="round"
+																			stroke-linejoin="round" />
+																	</svg>
+																</span>
+																<input type="text" placeholder="Enter your access key"
+																	required>
+															</div>
+															<button type="submit"
+																class="directorist-access-form-connect-btn">Connect
+																Now</button>
+
+															<a href="#" class="directorist-access-form-help-link">How to get my
+																access
+																key?</a>
+														</form>
+													</div>
+													<div id="directorist-account" class="directorist-tabs-item">
+														<form class="directorist-account">
+															<div class="directorist-account-form-group directorist-mb-12">
+																<input type="text" placeholder="Username or Email" required>
+															</div>
+															<div class="directorist-account-form-group directorist-mb-12">
+																<input type="password" placeholder="Password" required>
+															</div>
+															<button type="submit" class="directorist-account-login-btn">Log In
+																with Directorist Account</button>
+														</form>
+													</div>
+												</div>
 											</div>
 										</div>
 									</div>
@@ -260,7 +331,7 @@
 
 						</div>
 					</div>
-					<div class="directorist-tabs-content">
+					<div class="directorist-tabs-content directorist-min-h-140">
 						<div id="directorist-extensions" class="directorist-tabs-item active">
 							<div class="directorist-row">
 								<div class="directorist-col-xxl-3 directorist-col-lg-4 directorist-col-sm-6">
@@ -504,7 +575,7 @@
 							</button>
 						</li>
 					</ul>
-					<div class="directorist-tabs-content">
+					<div class="directorist-tabs-content min-h-300">
 						<div id="directorist-extensions-2" class="directorist-tabs-item ">
 							<div class="directorist-row">
 								<div class="directorist-col-xxl-3 directorist-col-lg-4 directorist-col-sm-6">

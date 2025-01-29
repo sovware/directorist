@@ -1,5 +1,27 @@
 "use strict";
 
+//Toggles the visibility of specified elements when a button is clicked.
+function toggleMembershipVisibility(closetClass, buttonSelector, hideSelector, showSelector) {
+    document.querySelectorAll(buttonSelector).forEach(button => {
+        button.addEventListener('click', () => {
+            const parent = button.closest(closetClass);
+            if (parent) {
+                [hideSelector, showSelector].forEach(selector => {
+                    const element = parent.querySelector(selector);
+                    if (element) {
+                        const isHidden = element.classList.contains('directorist-d-none');
+                        requestAnimationFrame(() => {
+                            // element.style.display = isHidden ? 'block' : 'none';
+                            element.classList.toggle('directorist-d-block', isHidden);
+                            element.classList.toggle('directorist-d-none', !isHidden);
+                        });
+                    }
+                });
+            }
+        });
+    });
+}
+
 // Function to initialize tab switching functionality
 function initializeDirectoristTabs(containerSelector, tabSelector, contentSelector) {
     document.querySelectorAll(containerSelector).forEach(container => {
@@ -73,6 +95,8 @@ function handlePricingTabClick(containerSelector, tabsSelector, parentSelector) 
 
 // Wait until the DOM is fully loaded before initializing the tabs
 document.addEventListener("DOMContentLoaded", function () {
+    // Call the function with your specific selectors
+    toggleMembershipVisibility('.directorist-membership-section', '.directorist-membership-card-signin', '.directorist-login-form');
     initializeDirectoristTabs(".directorist-tabs", ".directorist-nav-tab", ".directorist-tabs-item");
     handlePricingTabClick(".directorist-nav-tab-wrapper", "button", ".directorist-nav-tab-wrapper");
 });

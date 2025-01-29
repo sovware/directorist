@@ -21,10 +21,42 @@
     margin-bottom: 16px !important;
 }
 
+.directorist-mb-12{
+    margin-bottom: 12px !important;
+}
+
 .font-inter{
     font-family: 'Inter', sans-serif;
 }
 
 .border-box *{
     box-sizing: border-box;
+}
+
+.directorist-justify-center{
+    justify-content: center !important;
+}
+
+.directorist-text-center{
+    text-align: center !important;
+}
+
+.directorist-min-h-140{
+    min-height: 140px !important;
+}
+
+.directorist-min-h-170{
+    min-height: 170px !important;
+}
+
+.directorist-d-none{
+    display: none !important;
+}
+
+.directorist-d-block{
+    display: block !important;
+}
+
+.directorist-mt-0{
+    margin-top: 0 !important;
 }

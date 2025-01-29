@@ -1,5 +1,6 @@
-.membership-section {
-    font-family: "Inter", serif;
+//Welcoming message
+
+.directorist-membership-section {
     padding: 21px 24px;
     gap: 48px;
     border-radius: 12px;
@@ -12,9 +13,7 @@
     }
 }
 
-//Welcoming message
-
-.membership-header {
+.directorist-membership-header {
     display: flex;
     padding: 8px 9px;
     align-items: center;
@@ -61,7 +60,7 @@
     }
 }
 
-.membership-card {
+.directorist-membership-card {
     margin-top: 2px;
     display: flex;
     padding: 20px 24px;
@@ -208,7 +207,7 @@
         }
 
         &:hover {
-            color: #fff;
+            color: #fff !important;
             opacity: 0.85;
 
             &:after {
@@ -236,8 +235,9 @@
         padding: 0;
         margin: 0;
         cursor: pointer;
+
         @media screen and (max-width: 480.99px) {
-           font-size: 12px;
+            font-size: 12px;
         }
 
         a {
@@ -252,7 +252,7 @@
     }
 }
 
-.membership-benefits {
+.directorist-membership-benefits {
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
@@ -298,7 +298,7 @@
     }
 }
 
-//tabs
+//Directorist Tab
 .directorist-nav-tab-wrapper {
     margin-top: 0;
     display: inline-flex;
@@ -369,11 +369,41 @@
             }
         }
     }
+
+    //Directorist Login Tab
+    &.directorist-login-tab-wrapper {
+        &:after {
+            width: 100px;
+        }
+
+        &.tab-2-active {
+            &:after {
+                width: 144px;
+                left: 107px;
+            }
+        }
+
+        li {
+            &:first-child {
+                button {
+                    width: 100px;
+                }
+            }
+
+            &:nth-child(2) {
+                button {
+                    width: 144px;
+                }
+            }
+        }
+    }
 }
 
 .directorist-tabs {
     &-content {
-        min-height: 300px;
+        &.min-h-300 {
+            min-height: 300px;
+        }
     }
 
     &-item {
@@ -398,6 +428,7 @@
     }
 }
 
+//Directorist Product Search
 .directorist-product-search {
     display: flex;
     height: 36px;
@@ -406,6 +437,7 @@
     gap: 8px;
     border-radius: 8px;
     background: var(--White-White, #FFF);
+
     @media screen and (min-width: 1299.99px) {
         width: 468px;
     }
@@ -431,16 +463,15 @@
             text-overflow: ellipsis;
             white-space: nowrap;
             color: #141921;
-            &::placeholder{
+
+            &::placeholder {
                 color: #747C89;
             }
         }
     }
 }
 
-
-
-//Extension Items
+//Extension Product Items
 .directorist-extension {
     &-item {
         border-radius: 8px;
@@ -589,7 +620,7 @@
     }
 }
 
-//Themes items
+//Themes Product items
 .directorist-theme {
     &-item {
         border-radius: 8px;
@@ -734,6 +765,7 @@
 
 // Pagination Container
 .directorist-pagination {
+
     // Pagination List
     .directorist-pagination-list {
         list-style: none;
@@ -782,6 +814,181 @@
             .directorist-pagination-link[aria-current="page"] {
                 font-weight: bold;
             }
+        }
+    }
+}
+
+//Directorist Login Form
+.directorist-login-form {
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 2px solid #E5E7EB;
+    .directorist-d-none{
+        opacity: 0;
+        overflow: hidden;
+        transform: translateY(10px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    &.directorist-d-block{
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.directorist-access-form {
+    &-key {
+        display: flex;
+        height: 48px;
+        padding: 10px 16px 10px 0;
+        align-items: center;
+        gap: var(--spacing-md, 8px);
+        align-self: stretch;
+        border-radius: var(--radius-md, 8px);
+        border: 1px solid var(--Gray-300, #D2D6DB);
+        background: var(--White-White, #FFF);
+        box-shadow: 0px 1px 2px 0px var(--Colors-Effects-Shadows-shadow-xs, rgba(16, 24, 40, 0.05));
+        position: relative;
+
+        .directorist-icon {
+            display: flex;
+            height: 46px;
+            padding: 0px 16px;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            border-radius: 7px 0px 0px 7px;
+            border-right: 1px solid var(--Gray-200, #E5E7EB);
+            background: var(--Gray-100, #F3F4F6);
+        }
+
+        input {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 1;
+            overflow: hidden;
+            color: #2C3239;
+            text-overflow: ellipsis;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 18px;
+            width: 100%;
+            border: none !important;
+            box-shadow: none !important;
+
+            &::placeholder {
+                color: var(--Gray-500, #747C89);
+            }
+        }
+    }
+
+    &-connect-btn {
+        margin-top: 12px;
+        display: flex;
+        height: 48px;
+        padding: 12px 24px;
+        justify-content: center;
+        align-items: center;
+        gap: var(--spacing-md, 8px);
+        align-self: stretch;
+        border-radius: 6px;
+        background: var(--Primary-500, #3E62F5);
+        border: 1px solid var(--Primary-500, #3E62F5);
+        box-shadow: 0px 2px 4px 0px rgba(60, 41, 170, 0.12);
+        color: var(--White-White, #FFF);
+        text-align: center;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 16px;
+        width: 100%;
+        transition: all 0.35s ease;
+        cursor: pointer;
+
+        &:hover {
+            color: white !important;
+            opacity: 0.85;
+        }
+    }
+
+    &-help-link {
+        display: block;
+        margin-top: 12px;
+        color: var(--Gray-500, #747C89);
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 16px;
+        text-decoration-line: underline;
+        text-decoration-style: solid;
+        text-decoration-skip-ink: none;
+        text-decoration-thickness: auto;
+        text-underline-offset: auto;
+        text-underline-position: from-font;
+        transition: all 0.35s ease;
+        &:hover{
+            color: var(--Gray-700, #3E62F5);
+        }
+    }
+}
+
+.directorist-account {
+    &-form-group {
+        input {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 1;
+            width: 100%;
+            display: flex;
+            height: 48px;
+            padding: 10px 16px;
+            align-items: center;
+            gap: var(--spacing-md, 8px);
+            align-self: stretch;
+            border-radius: var(--radius-md, 8px);
+            border: 1px solid var(--Gray-300, #D2D6DB);
+            background: var(--White-White, #FFF);
+            box-shadow: 0px 1px 2px 0px var(--Colors-Effects-Shadows-shadow-xs, rgba(16, 24, 40, 0.05));
+            overflow: hidden;
+            color: #2C3239;
+            text-overflow: ellipsis;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 18px;
+            &::placeholder{
+                color: var(--Gray-500, #747C89);
+            }
+        }
+    }
+
+    &-login-btn {
+        margin-top: 12px;
+        display: flex;
+        height: 48px;
+        padding: 12px 24px;
+        justify-content: center;
+        align-items: center;
+        gap: var(--spacing-md, 8px);
+        align-self: stretch;
+        border-radius: 6px;
+        background: var(--Primary-500, #3E62F5);
+        border: 1px solid var(--Primary-500, #3E62F5);
+        box-shadow: 0px 2px 4px 0px rgba(60, 41, 170, 0.12);
+        color: var(--White-White, #FFF);
+        text-align: center;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 16px;
+        width: 100%;
+        transition: all 0.35s ease;
+        cursor: pointer;
+
+        &:hover {
+            color: white !important;
+            opacity: 0.85;
         }
     }
 }

@@ -3,7 +3,8 @@
 //Toggles the visibility of specified elements when a button is clicked.
 function toggleMembershipVisibility(closetClass, buttonSelector, hideSelector, showSelector) {
     document.querySelectorAll(buttonSelector).forEach(button => {
-        button.addEventListener('click', () => {
+        button.addEventListener('click', event => {
+            event.stopPropagation(); // Prevent outside click from triggering immediately
             const parent = button.closest(closetClass);
             if (parent) {
                 [hideSelector, showSelector].forEach(selector => {
@@ -11,7 +12,6 @@ function toggleMembershipVisibility(closetClass, buttonSelector, hideSelector, s
                     if (element) {
                         const isHidden = element.classList.contains('directorist-d-none');
                         requestAnimationFrame(() => {
-                            // element.style.display = isHidden ? 'block' : 'none';
                             element.classList.toggle('directorist-d-block', isHidden);
                             element.classList.toggle('directorist-d-none', !isHidden);
                         });
@@ -20,7 +20,26 @@ function toggleMembershipVisibility(closetClass, buttonSelector, hideSelector, s
             }
         });
     });
+
+    // Close when clicking outside
+    document.addEventListener('click', event => {
+        document.querySelectorAll(closetClass).forEach(parent => {
+            if (!parent.contains(event.target)) {
+                [hideSelector, showSelector].forEach(selector => {
+                    const element = parent.querySelector(selector);
+                    if (element) {
+                        requestAnimationFrame(() => {
+                            element.classList.remove('directorist-d-block');
+                            element.classList.add('directorist-d-none');
+                        });
+                    }
+                });
+            }
+        });
+    });
 }
+
+
 
 // Function to initialize tab switching functionality
 function initializeDirectoristTabs(containerSelector, tabSelector, contentSelector) {
@@ -97,6 +116,7 @@ function handlePricingTabClick(containerSelector, tabsSelector, parentSelector) 
 document.addEventListener("DOMContentLoaded", function () {
     // Call the function with your specific selectors
     toggleMembershipVisibility('.directorist-membership-section', '.directorist-membership-card-signin', '.directorist-login-form');
+    toggleMembershipVisibility('.directorist-membership-info-author', '.directorist-membership-info-author-img', '.directorist-membership-info-author-dropdown');
     initializeDirectoristTabs(".directorist-tabs", ".directorist-nav-tab", ".directorist-tabs-item");
     handlePricingTabClick(".directorist-nav-tab-wrapper", "button", ".directorist-nav-tab-wrapper");
 });

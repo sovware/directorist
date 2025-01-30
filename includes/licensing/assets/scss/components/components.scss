@@ -297,13 +297,350 @@
         }
     }
 }
-.directorist-membership-info{
-    &-wrapper{}
-    &-status{}
-    &-status-active{}
-    &-status-payment{}
-    &-upgrade-lifetime{}
-    &-author{}
+
+.directorist-membership-user {
+    border-radius: 12px;
+    background: var(--White-White, #FFF);
+    box-shadow: 0px 8px 16px 0px rgba(16, 24, 40, 0.10), 0px 6px 8px 2px rgba(16, 24, 40, 0.04);
+}
+
+.directorist-membership-info {
+    &-wrapper {
+        padding: 24px 32px 16px;
+        border-radius: 10px;
+        background: var(--White-White, #FFF);
+        box-shadow: 0px 1px 2px 0px var(--Colors-Effects-Shadows-shadow-xs, rgba(16, 24, 40, 0.05));
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+    }
+
+    &-title {
+        color: var(--Gray-900, #141921);
+        font-size: 22px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 29px;
+        margin: 0 0 10px;
+    }
+
+    &-status {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 10px 16px;
+    }
+
+    &-status-active {
+        display: flex;
+        padding: 4px 6px;
+        justify-content: center;
+        align-items: center;
+        gap: 4px;
+        border-radius: var(--radius-sm, 6px);
+        border: 1px solid var(--Success-300, #79E6B0);
+        background: var(--Success-50, #ECFDF3);
+        color: var(--Success-700, #06764B);
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 14px;
+    }
+
+    &-status-expired {
+        display: flex;
+        padding: 4px 6px;
+        justify-content: center;
+        align-items: center;
+        gap: 4px;
+        border-radius: var(--radius-sm, 6px);
+        border: 1px solid var(--Success-300, #FBE5E5);
+        background: var(--Success-50, #FBE5E5);
+        color: var(--Success-700, #A72E2E);
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 14px;
+    }
+
+    &-status-payment {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        color: var(--Gray-500, #747C89);
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 14px;
+
+        strong {
+            font-weight: 600;
+            letter-spacing: 0.12px;
+        }
+    }
+
+    &-upgrade-lifetime {
+        margin-top: 14px;
+        position: relative;
+        display: inline-flex;
+        height: 40px;
+        padding: 0 24px;
+        justify-content: center;
+        align-items: center;
+        gap: var(--spacing-md, 8px);
+        align-self: stretch;
+        border-radius: 8px;
+        background: var(--Primary-500, #3E62F5);
+        box-shadow: 0px 2px 4px 0px rgba(60, 41, 170, 0.12);
+        color: var(--White-White, #FFF);
+        text-align: center;
+        font-size: 15px;
+        font-weight: 600;
+        line-height: 16px;
+        text-decoration: none;
+        transition: all 0.35s ease;
+        overflow: hidden;
+
+        &:hover {
+            color: #fff !important;
+            opacity: 0.85;
+        }
+    }
+
+    &-author {
+        position: relative;
+    }
+
+    &-author-img {
+        width: 40px;
+        height: 40px;
+        border-radius: 40px;
+        border: 1px solid var(--White-White, #FFF);
+        background: lightgray;
+        overflow: hidden;
+        cursor: pointer;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+
+    &-author-dropdown {
+        position: absolute;
+        top: 40px;
+        right: 0;
+        display: flex;
+        width: 300px;
+        padding: 4px 0px;
+        flex-direction: column;
+        align-items: flex-start;
+        border-radius: 8px;
+        border: 1px solid var(--Gray-200, #E5E7EB);
+        background: var(--White-White, #FFF);
+        box-shadow: 0px 8px 16px 0px rgba(16, 24, 40, 0.10), 0px 6px 8px 2px rgba(16, 24, 40, 0.04);
+    }
+}
+
+.directorist-membership-author {
+    display: flex;
+    padding: 12px 16px 12px 16px;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid var(--Gray-200, #E5E7EB);
+
+    &-img {
+        width: 36px;
+        height: 36px;
+        border-radius: 36px;
+        border: 1px solid var(--White-White, #FFF);
+        background: lightgray;
+        overflow: hidden;
+
+        img {
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    &-heading {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 4px;
+    }
+
+    &-name {
+        color: var(--Gray-900, #141921);
+        font-size: 15px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 16px;
+    }
+
+    &-email {
+        color: var(--Gray-600, #4D5761);
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 14px;
+    }
+
+    &-accessKey-wrapper {
+        display: flex;
+        padding: 12px 16px 12px 16px;
+        align-items: center;
+        gap: 12px;
+        align-self: stretch;
+        border-bottom: 1px solid var(--Gray-200, #E5E7EB);
+    }
+
+    &-accessKey-img {
+        display: flex;
+        width: 36px;
+        height: 36px;
+        padding: 6px;
+        justify-content: center;
+        align-items: center;
+        gap: 6px;
+        border-radius: 32px;
+        background: var(--Gray-200, #E5E7EB);
+
+        svg {
+            width: 100%;
+        }
+    }
+
+    &-accessKey {
+        color: var(--Gray-900, #141921);
+        font-size: 15px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 16px;
+    }
+
+    &-lists {
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column;
+        color: var(--Gray-600, #4D5761);
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 16.24px;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+    }
+
+    &-list {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 0;
+        padding: 12px 16px 12px 16px;
+        height: 42px;
+        color: var(--Gray-600, #4D5761);
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 16.24px;
+        width: 100%;
+
+        svg {
+            width: 18px;
+            height: 18px;
+        }
+    }
+
+    &-list-link {
+        background-color: transparent;
+        box-shadow: none;
+        border: none;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        gap: 2px;
+        width: 100%;
+        color: var(--Gray-600, #4D5761);
+        text-decoration: none;
+        transition: all 0.35s ease;
+        cursor: pointer;
+
+        &:hover {
+            color: #1E1E1E;
+        }
+
+        svg {
+            color: #1E1E1E;
+        }
+    }
+}
+
+
+.directorist-membership-status {
+    display: flex;
+    padding: 45px 42px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    border-radius: 10px;
+    background: var(--Gray-50, #F9FAFB);
+    box-shadow: 0px 1px 2px 0px var(--Colors-Effects-Shadows-shadow-xs, rgba(16, 24, 40, 0.05));
+    height: 100%;
+
+    &-wrapper {
+        padding: 16px;
+    }
+
+    &-number {
+        color: var(--Gray-900, #141921);
+        font-size: 32px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 32px;
+    }
+
+    &-active-extension {
+        color: #14B570;
+    }
+
+    &-update-available {
+        color: #DD8C08;
+    }
+
+    &-description {
+        color: var(--Gray-700, #383F47);
+        text-align: center;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 16.24px;
+    }
+
+    &-update-all {
+        display: flex;
+        padding: 8px 16px;
+        justify-content: center;
+        align-items: center;
+        gap: var(--spacing-md, 8px);
+        border-radius: 4px;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 16px;
+        text-decoration: none;
+        transition: all 0.35s ease;
+        position: relative;
+        cursor: pointer;
+        border: 1px solid var(--Primary-500, #3E62F5);
+        box-shadow: 0px 2px 4px 0px rgba(60, 41, 170, 0.12);
+        color: var(--Primary-500, #3E62F5);
+        background-color: white;
+    }
 }
 
 //Directorist Tab
@@ -461,6 +798,8 @@
             font-style: normal;
             font-weight: 400;
             line-height: 14px;
+            min-height: auto;
+            height: auto;
             width: 100%;
             box-shadow: none !important;
             outline: none !important;
@@ -776,6 +1115,7 @@
         flex-wrap: wrap;
         gap: 4px;
     }
+
     &-title-badge-active {
         display: inline-flex;
         height: 24px;

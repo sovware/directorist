@@ -1522,11 +1522,34 @@
         transition: all 0.35s ease;
         cursor: pointer;
 
+        svg {
+            display: none;
+        }
+
         &:hover {
             color: white !important;
             opacity: 0.85;
         }
+
+        &.valid-submit {
+            color: #4D5761;
+            border-color: #D2D6DB;
+            background: var(--Gray-300, #D2D6DB);
+            box-shadow: 0px 2px 4px 0px rgba(60, 41, 170, 0.12);
+
+            svg {
+                animation: rotate360 2s linear infinite;
+                display: inline-flex;
+            }
+
+            &:hover {
+                color: #4D5761 !important;
+                opacity: 0.85;
+            }
+        }
     }
+
+
 
     &-help-link {
         display: block;
@@ -1603,10 +1626,30 @@
         width: 100%;
         transition: all 0.35s ease;
         cursor: pointer;
+        svg{
+            display: none;
+        }
 
         &:hover {
             color: white !important;
             opacity: 0.85;
+        }
+
+        &.valid-submit {
+            color: #4D5761;
+            border-color: #D2D6DB;
+            background: var(--Gray-300, #D2D6DB);
+            box-shadow: 0px 2px 4px 0px rgba(60, 41, 170, 0.12);
+
+            svg {
+                animation: rotate360 2s linear infinite;
+                display: inline-flex;
+            }
+
+            &:hover {
+                color: #4D5761 !important;
+                opacity: 0.85;
+            }
         }
     }
 }
@@ -1717,12 +1760,12 @@
         list-style: none;
         gap: 10px;
         overflow-y: auto;
-        
+
         &::-webkit-scrollbar {
             width: 12px;
             background-color: white;
         }
-        
+
         &::-webkit-scrollbar-thumb {
             border: 4px solid white;
             -webkit-background-clip: padding-box;
@@ -1809,13 +1852,16 @@
     width: 100%;
     border-radius: 16px;
     overflow: hidden;
-    &-completed{
-        background-color:#37D089 ;
+
+    &-completed {
+        background-color: #37D089;
     }
-    &-updating{
-        background-color:#EEAD44 ;
+
+    &-updating {
+        background-color: #EEAD44;
     }
-    &-update-failed{
+
+    &-update-failed {
         background-color: #D94A4A;
     }
 
@@ -1885,7 +1931,8 @@
 
     &-status-message-updating {
         color: #DD8C08;
-        svg{
+
+        svg {
             animation: rotate360 2s linear infinite;
         }
     }

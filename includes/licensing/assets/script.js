@@ -128,6 +128,31 @@ function progressbar(target) {
     });
 };
 
+function handleFormValidation(parentClass,targetClass,successText) {
+    document.querySelectorAll(parentClass).forEach(form => {
+        form.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            if (form.checkValidity()) {
+                const submitButton = form.querySelector("[type='submit']");
+                const span = submitButton.querySelector("span"); // Target only the text wrapper
+                if (submitButton) {
+                    submitButton.classList.add(targetClass); // Add the class
+                }
+                if (span) {
+                    span.textContent = successText;
+                }
+            } else {
+                form.reportValidity();
+            }
+        });
+    });
+}
+
+// Call the function with your desired class
+
+
+
 
 // Wait until the DOM is fully loaded before initializing the tabs
 document.addEventListener("DOMContentLoaded", function () {
@@ -138,4 +163,6 @@ document.addEventListener("DOMContentLoaded", function () {
     initializeDirectoristTabs(".directorist-tabs", ".directorist-nav-tab", ".directorist-tabs-item");
     handlePricingTabClick(".directorist-nav-tab-wrapper", "button", ".directorist-nav-tab-wrapper");
     progressbar(".directorist-progress-inner");
+    handleFormValidation(".directorist-access-form","valid-submit", "Connecting...");
+    handleFormValidation(".directorist-account","valid-submit", "Login...");
 });

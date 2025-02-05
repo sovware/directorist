@@ -2147,8 +2147,25 @@
   transition: all 0.35s ease;
   cursor: pointer;
 }
+.directorist-access-form-connect-btn svg {
+  display: none;
+}
 .directorist-access-form-connect-btn:hover {
   color: white !important;
+  opacity: 0.85;
+}
+.directorist-access-form-connect-btn.valid-submit {
+  color: #4D5761;
+  border-color: #D2D6DB;
+  background: var(--Gray-300, #D2D6DB);
+  box-shadow: 0px 2px 4px 0px rgba(60, 41, 170, 0.12);
+}
+.directorist-access-form-connect-btn.valid-submit svg {
+  animation: rotate360 2s linear infinite;
+  display: inline-flex;
+}
+.directorist-access-form-connect-btn.valid-submit:hover {
+  color: #4D5761 !important;
   opacity: 0.85;
 }
 .directorist-access-form-help-link {
@@ -2220,8 +2237,25 @@
   transition: all 0.35s ease;
   cursor: pointer;
 }
+.directorist-account-login-btn svg {
+  display: none;
+}
 .directorist-account-login-btn:hover {
   color: white !important;
+  opacity: 0.85;
+}
+.directorist-account-login-btn.valid-submit {
+  color: #4D5761;
+  border-color: #D2D6DB;
+  background: var(--Gray-300, #D2D6DB);
+  box-shadow: 0px 2px 4px 0px rgba(60, 41, 170, 0.12);
+}
+.directorist-account-login-btn.valid-submit svg {
+  animation: rotate360 2s linear infinite;
+  display: inline-flex;
+}
+.directorist-account-login-btn.valid-submit:hover {
+  color: #4D5761 !important;
   opacity: 0.85;
 }
 

@@ -1711,6 +1711,10 @@
         max-height: 788px;
         border-radius: 12px;
         background: var(--White-White, #FFF);
+        @media only screen and (max-width: 767px){
+            width: 100%;
+            margin: 0 10px;
+        }
     }
 
     &-header {
@@ -1726,6 +1730,7 @@
     &-header-title {
         display: flex;
         align-items: center;
+        flex-wrap: wrap;
         gap: 4px;
         color: var(--Gray-800, #2C3239);
         font-size: 19px;
@@ -1760,6 +1765,9 @@
         list-style: none;
         gap: 10px;
         overflow-y: auto;
+        @media only screen and (max-width: 767px){
+            max-height: calc(100vh - 50vh);
+        }
 
         &::-webkit-scrollbar {
             width: 12px;
@@ -1903,7 +1911,12 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+        flex-wrap: wrap;
         gap: 5px;
+        @media only screen and (max-width: 575px){
+            flex-direction: column;
+            align-items: flex-start;
+        }
     }
 
     &-status-title {

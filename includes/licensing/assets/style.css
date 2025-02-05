@@ -2312,6 +2312,12 @@
   border-radius: 12px;
   background: var(--White-White, #FFF);
 }
+@media only screen and (max-width: 767px) {
+  .directorist-custom-modal-content {
+    width: 100%;
+    margin: 0 10px;
+  }
+}
 .directorist-custom-modal-header {
   width: 100%;
   padding: 16px 24px;
@@ -2324,6 +2330,7 @@
 .directorist-custom-modal-header-title {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 4px;
   color: var(--Gray-800, #2C3239);
   font-size: 19px;
@@ -2353,6 +2360,11 @@
   list-style: none;
   gap: 10px;
   overflow-y: auto;
+}
+@media only screen and (max-width: 767px) {
+  .directorist-update-extension-items {
+    max-height: 50vh;
+  }
 }
 .directorist-update-extension-items::-webkit-scrollbar {
   width: 12px;
@@ -2478,7 +2490,14 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
   gap: 5px;
+}
+@media only screen and (max-width: 575px) {
+  .directorist-progress-status {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 .directorist-progress-status-title {
   color: var(--Gray-900, #141921);

@@ -128,6 +128,7 @@ function progressbar(target) {
     });
 };
 
+//Submit form button loading
 function handleFormValidation(parentClass,targetClass,successText) {
     document.querySelectorAll(parentClass).forEach(form => {
         form.addEventListener("submit", function (event) {

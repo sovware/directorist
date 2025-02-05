@@ -1,44 +1,53 @@
 "use strict";
 
 //Toggles the visibility of specified elements when a button is clicked.
-function toggleMembershipVisibility(closetClass, buttonSelector, hideSelector, showSelector) {
+function toggleMembershipVisibility(closetClass, buttonSelector, modalSelector, closeButtonSelector) {
+    const toggleElements = (parent) => {
+        const modal = parent.querySelector(modalSelector);
+        if (modal) {
+            const isHidden = modal.classList.contains('directorist-d-none');
+            requestAnimationFrame(() => {
+                modal.classList.toggle('directorist-d-block', isHidden);
+                modal.classList.toggle('directorist-d-none', !isHidden);
+            });
+        }
+    };
+
+    // Toggle modal on button click
     document.querySelectorAll(buttonSelector).forEach(button => {
         button.addEventListener('click', event => {
-            event.stopPropagation(); // Prevent outside click from triggering immediately
+            event.stopPropagation();
             const parent = button.closest(closetClass);
-            if (parent) {
-                [hideSelector, showSelector].forEach(selector => {
-                    const element = parent.querySelector(selector);
-                    if (element) {
-                        const isHidden = element.classList.contains('directorist-d-none');
-                        requestAnimationFrame(() => {
-                            element.classList.toggle('directorist-d-block', isHidden);
-                            element.classList.toggle('directorist-d-none', !isHidden);
-                        });
-                    }
-                });
-            }
+            if (parent) toggleElements(parent);
         });
     });
 
-    // Close when clicking outside
+    // Close modal when clicking outside
     document.addEventListener('click', event => {
-        document.querySelectorAll(closetClass).forEach(parent => {
-            if (!parent.contains(event.target)) {
-                [hideSelector, showSelector].forEach(selector => {
-                    const element = parent.querySelector(selector);
-                    if (element) {
-                        requestAnimationFrame(() => {
-                            element.classList.remove('directorist-d-block');
-                            element.classList.add('directorist-d-none');
-                        });
-                    }
+        document.querySelectorAll(modalSelector).forEach(modal => {
+            if (!modal.contains(event.target)) {
+                requestAnimationFrame(() => {
+                    modal.classList.remove('directorist-d-block');
+                    modal.classList.add('directorist-d-none');
                 });
             }
         });
     });
-}
 
+    // Close modal on close button click
+    document.querySelectorAll(closeButtonSelector).forEach(closeButton => {
+        closeButton.addEventListener('click', event => {
+            event.stopPropagation();
+            const parent = closeButton.closest(closetClass);
+            if (parent) {
+                requestAnimationFrame(() => {
+                    parent.querySelector(modalSelector).classList.remove('directorist-d-block');
+                    parent.querySelector(modalSelector).classList.add('directorist-d-none');
+                });
+            }
+        });
+    });
+};
 
 
 // Function to initialize tab switching functionality
@@ -71,7 +80,7 @@ function initializeDirectoristTabs(containerSelector, tabSelector, contentSelect
             });
         }
     });
-}
+};
 
 // Function to add an 'active' class to the parent when a pricing tab is clicked
 function handlePricingTabClick(containerSelector, tabsSelector, parentSelector) {
@@ -109,7 +118,15 @@ function handlePricingTabClick(containerSelector, tabsSelector, parentSelector) 
             updateActiveClass(tab);
         });
     });
-}
+};
+
+//ProgressBar
+function progressbar(target) {
+    document.querySelectorAll(target).forEach(progress => {
+        progress.style.width = progress.getAttribute('data-done') + '%';
+        progress.style.opacity = 1;
+    });
+};
 
 
 // Wait until the DOM is fully loaded before initializing the tabs
@@ -117,6 +134,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // Call the function with your specific selectors
     toggleMembershipVisibility('.directorist-membership-section', '.directorist-membership-card-signin', '.directorist-login-form');
     toggleMembershipVisibility('.directorist-membership-info-author', '.directorist-membership-info-author-img', '.directorist-membership-info-author-dropdown');
+    toggleMembershipVisibility('main', '.directorist-membership-status-update-all', '.directorist-custom-modal','.directorist-custom-modal-close');
     initializeDirectoristTabs(".directorist-tabs", ".directorist-nav-tab", ".directorist-tabs-item");
     handlePricingTabClick(".directorist-nav-tab-wrapper", "button", ".directorist-nav-tab-wrapper");
+    progressbar(".directorist-progress-inner");
 });

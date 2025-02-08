@@ -34,11 +34,11 @@ class Routes {
 	 */
 	public function register_routes() {
 		$routes = [
-			'login_with_access_key' => 'login_with_access_key',
-			'login_with_account'    => 'login_with_account',
-			'install_theme'         => 'install_theme',
-			'install_extension'     => 'install_extension',
-			'account_data'          => 'account_data',
+			'login-with-access-key' => 'login_with_access_key',
+			'login-with-account'    => 'login_with_account',
+			'install-theme'         => 'install_theme',
+			'install-extension'     => 'install_extension',
+			'account-data'          => 'account_data',
 		];
 
 		foreach ( $routes as $route => $method ) {

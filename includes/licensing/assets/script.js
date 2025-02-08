@@ -150,8 +150,76 @@ function handleFormValidation(parentClass,targetClass,successText) {
     });
 }
 
-// Call the function with your desired class
+function handlePostRequest(formSelector, endpoint, successCallback, errorCallback) {
+    document.querySelectorAll(formSelector).forEach(form => {
+        form.addEventListener("submit", function (event) {
+            event.preventDefault();
 
+            if (form.checkValidity()) {
+                const formData = new FormData(form);
+                const formDataObject = {};
+                formData.forEach((value, key) => {
+                    formDataObject[key] = value;
+                });
+
+                fetch(endpoint, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-WP-Nonce': wpApiSettings.nonce // Ensure you have wpApiSettings.nonce available
+                    },
+                    body: JSON.stringify(formDataObject)
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (successCallback) {
+                        successCallback(data);
+                    }
+                })
+                .catch(error => {
+                    if (errorCallback) {
+                        errorCallback(error);
+                    }
+                });
+            } else {
+                form.reportValidity();
+            }
+        });
+    });
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    handlePostRequest(
+        ".directorist-login-with-access-key", // Form selector
+        "/wp-json/directorist/v1/admin/login-with-access-key", // REST API endpoint
+        function (data) {
+            console.log("Success:", data);
+            // Handle success (e.g., show a success message)
+        },
+        function (error) {
+            console.error("Error:", error);
+            // Handle error (e.g., show an error message)
+        }
+    );
+
+    handlePostRequest(
+        ".directorist-login-with-account", // Form selector
+        "/wp-json/directorist/v1/admin/login-with-account", // REST API endpoint
+        function (data) {
+            console.log("Success:", data);
+            // Handle success (e.g., show a success message)
+        },
+        function (error) {
+            console.error("Error:", error);
+            // Handle error (e.g., show an error message)
+        }
+    );
+});
 
 
 
@@ -164,6 +232,6 @@ document.addEventListener("DOMContentLoaded", function () {
     initializeDirectoristTabs(".directorist-tabs", ".directorist-nav-tab", ".directorist-tabs-item");
     handlePricingTabClick(".directorist-nav-tab-wrapper", "button", ".directorist-nav-tab-wrapper");
     progressbar(".directorist-progress-inner");
-    handleFormValidation(".directorist-access-form","valid-submit", "Connecting...");
-    handleFormValidation(".directorist-account","valid-submit", "Login...");
+    // handleFormValidation(".directorist-login-with-access-key","valid-submit", "Connecting...");
+    handleFormValidation(".directorist-login-with-account","valid-submit", "Login...");
 });

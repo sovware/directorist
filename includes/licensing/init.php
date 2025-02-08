@@ -42,7 +42,7 @@ class Init {
 	}
 
 	public function directorist_licensing() {
-		include 'views.php';
+		include 'views/themes-extensions.php';
 	}
 }
 

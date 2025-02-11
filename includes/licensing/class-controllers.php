@@ -13,28 +13,52 @@ defined( 'ABSPATH' ) || exit;
 class Controllers {
 
 	public function login_with_access_key( \WP_REST_Request $request ) {
-		// Debug incoming request data
-		$data       = $request->get_params(); // Get request data (JSON, query params, etc.)
-		$access_key = (string) $request->get_param( 'login-with-access-key' );
 
-		return rest_ensure_response( [
-			'success'    => true,
-			'access_key' => $access_key,
-			'data'       => $data,
-		] );
+		$access_key = (string) $request->get_param( 'access_key' );
+
+		if ( empty( $access_key ) ) {
+			return rest_ensure_response( ['success' => false, 'message' => __( 'Access key is required', 'directorist' )] );
+		}
+
+		try {
+			$repo = new Repository();
+			$repo->login_with_access_key( $access_key );
+
+			return rest_ensure_response( [
+				'success' => true,
+				'message' => __( 'Connected successfully', 'directorist' ),
+			] );
+
+		} catch ( \Throwable $th ) {
+			return rest_ensure_response( [
+				'success' => false,
+				'message' => $th->getMessage(),
+			] );
+		}
 	}
 
 	public function login_with_account( \WP_REST_Request $request ) {
-		// Debug incoming request data
-		$data     = $request->get_params(); // Get request data (JSON, query params, etc.)
-		$username = (string) $request->get_param( 'directorist-username' );
-		$password = (string) $request->get_param( 'directorist-password' );
+		$email = (string) $request->get_param( 'email' );
+		$pass  = (string) $request->get_param( 'pass' );
 
-		return rest_ensure_response( [
-			'success'  => true,
-			'username' => $username,
-			'password' => $password,
-			'data'     => $data,
-		] );
+		if ( empty( $email ) || empty( $pass ) ) {
+			return rest_ensure_response( ['success' => false, 'message' => __( 'Email and Password is required', 'directorist' )] );
+		}
+
+		try {
+			$repo = new Repository();
+			$repo->login_with_account( $email, $pass );
+
+			return rest_ensure_response( [
+				'success' => true,
+				'message' => __( 'Connected successfully', 'directorist' ),
+			] );
+
+		} catch ( \Throwable $th ) {
+			return rest_ensure_response( [
+				'success' => false,
+				'message' => $th->getMessage(),
+			] );
+		}
 	}
 }

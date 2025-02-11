@@ -9,6 +9,8 @@ defined( 'ABSPATH' ) || die();
 class Init {
 	public function __construct() {
 		require_once trailingslashit( __DIR__ ) . 'functions.php';
+		require_once trailingslashit( __DIR__ ) . 'utils/init.php';
+		require_once trailingslashit( __DIR__ ) . 'class-repository.php';
 		require_once trailingslashit( __DIR__ ) . 'class-controllers.php';
 		require_once trailingslashit( __DIR__ ) . 'class-routes.php';
 
@@ -27,6 +29,13 @@ class Init {
 
 		wp_enqueue_style( 'directorist-licensing-css' );
 		wp_enqueue_script( 'directorist-licensing-js' );
+
+		wp_localize_script( 'directorist-licensing-js', 'directorist_licensing',
+			[
+				'root'  => esc_url_raw( rest_url() ),
+				'nonce' => wp_create_nonce( 'wp_rest' ),
+			]
+		);
 	}
 
 	public function add_menu_page() {

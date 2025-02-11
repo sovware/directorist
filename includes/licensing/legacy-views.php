@@ -216,7 +216,7 @@
 																class="directorist-nav-tab active">Access Key</button>
 														</li>
 														<li>
-															<button data-target="#directorist-login-with-account"
+															<button data-target="#directorist-account"
 																class="directorist-nav-tab">Directorist
 																Account</button>
 														</li>
@@ -225,8 +225,8 @@
 												<div class="directorist-tabs-content directorist-min-h-130">
 													<div id="directorist-access-key"
 														class="directorist-tabs-item active">
-														<form class="directorist-login-with-access-key">
-															<div class="directorist-login-with-access-key">
+														<form class="directorist-access-form">
+															<div class="directorist-access-form-key">
 																<span class="directorist-icon">
 																	<svg xmlns="http://www.w3.org/2000/svg" width="22"
 																		height="22" viewBox="0 0 22 22" fill="none">
@@ -246,7 +246,7 @@
 																	required>
 															</div>
 															<button type="submit"
-																class="directorist-login-with-access-key-connect-btn">
+																class="directorist-access-form-connect-btn">
 																<svg xmlns="http://www.w3.org/2000/svg" width="20"
 																	height="20" viewBox="0 0 20 20" fill="none">
 																	<g clip-path="url(#clip0_7132_1372)">
@@ -263,24 +263,24 @@
 																<span>Connect Now</span>
 															</button>
 
-															<a href="#" class="directorist-login-with-access-key-help-link">How to
+															<a href="#" class="directorist-access-form-help-link">How to
 																get my
 																access
 																key?</a>
 														</form>
 													</div>
-													<div id="directorist-login-with-account" class="directorist-tabs-item">
-														<form class="directorist-login-with-account">
+													<div id="directorist-account" class="directorist-tabs-item">
+														<form class="directorist-account">
 															<div
-																class="directorist-login-with-account-form-group directorist-mb-12">
+																class="directorist-account-form-group directorist-mb-12">
 																<input type="text" placeholder="Username or Email"
 																	required>
 															</div>
 															<div
-																class="directorist-login-with-account-form-group directorist-mb-12">
+																class="directorist-account-form-group directorist-mb-12">
 																<input type="password" placeholder="Password" required>
 															</div>
-															<button type="submit" class="directorist-login-with-account-login-btn">
+															<button type="submit" class="directorist-account-login-btn">
 																<svg xmlns="http://www.w3.org/2000/svg" width="20"
 																	height="20" viewBox="0 0 20 20" fill="none">
 																	<g clip-path="url(#clip0_7132_1372)">

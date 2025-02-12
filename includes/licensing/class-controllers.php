@@ -61,4 +61,15 @@ class Controllers {
 			] );
 		}
 	}
+
+	public function logout_account() {
+		delete_option( 'directorist_licensing_account_data' );
+
+		// Remove 'logout' from the URL
+		$redirect_url = remove_query_arg( 'logout' );
+
+		// Redirect to the new URL without 'logout' parameter
+		wp_safe_redirect( $redirect_url );
+		exit;
+	}
 }

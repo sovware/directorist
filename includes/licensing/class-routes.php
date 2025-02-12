@@ -27,6 +27,8 @@ class Routes {
 
 		// Hook into the REST API initialization
 		add_action( 'rest_api_init', [$this, 'register_routes'] );
+
+		add_action( 'init', [$this, 'logout'] );
 	}
 
 	/**
@@ -64,5 +66,20 @@ class Routes {
 	 */
 	public function check_permissions(): bool {
 		return true; //current_user_can( 'edit_options' );
+	}
+
+	/**
+	 * Logout the user from directorist.com account
+	 */
+	public function logout() {
+		if ( isset( $_GET['post_type'] )
+			&& 'at_biz_dir' === $_GET['post_type']
+			&& isset( $_GET['page'] )
+			&& isset( $_GET['logout'] )
+			&& 'true' === $_GET['logout'] ) {
+
+			$this->controller->logout_account();
+
+		}
 	}
 }

@@ -123,9 +123,9 @@
 								d="M6 9C6 8.58579 6.33579 8.25 6.75 8.25H15.75C16.1642 8.25 16.5 8.58579 16.5 9C16.5 9.41421 16.1642 9.75 15.75 9.75H6.75C6.33579 9.75 6 9.41421 6 9Z"
 								fill="#747C89" />
 						</svg>
-						<button type="button" class="directorist-membership-author-list-link" id="directorist-licensing-logout">
+						<a href="<?php echo directorist_licensing_get_disconnect_url();?>" type="button" class="directorist-membership-author-list-link" id="directorist-licensing-logout">
 							<?php esc_attr_e( 'Logout', 'directorist' ); ?>
-						</button>
+						</a>
 					</li>
 				</ul>
 			</div>

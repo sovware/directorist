@@ -5,13 +5,28 @@
 defined( 'ABSPATH' ) || exit;
 
 function directorist_licensing_data(): array {
-	return get_option( 'directorist_licensing_account_data' ) ?? [];
+	$data = (array) get_option( 'directorist_licensing_account_data' );
+
+	return $data ?? [];
 }
 
 function directorist_licensing_is_connected(): bool {
 	$data = directorist_licensing_data();
 
 	return isset( $data['account_data']['user_id'] );
+}
+
+function directorist_licensing_get_disconnect_url(): string {
+	$url = add_query_arg(
+		[
+			'post_type' => 'at_biz_dir',
+			'page'      => 'directorist-licensing',
+			'logout'    => 'true',
+		],
+		admin_url( 'edit.php' )
+	);
+
+	return $url;
 }
 
 function directorist_licensing_get_access_key(): string {

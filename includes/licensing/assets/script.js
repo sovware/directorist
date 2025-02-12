@@ -195,12 +195,19 @@ function handlePostRequest(formSelector, endpoint, successCallback, errorCallbac
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+    
+    handleFormValidation(".directorist-login-with-access-key","valid-submit", "Connecting...");
+
     handlePostRequest(
         ".directorist-login-with-access-key", // Form selector
         "directorist/v1/admin/login-with-access-key", // REST API endpoint
         function (data) {
-            console.log("Success:", data);
-            // Handle success (e.g., show a success message)
+            if ( data.success === true ) {
+               location.reload();
+            } else {
+                // Display error message in the UI
+                alert(data.message);
+            }
         },
         function (error) {
             console.error("Error:", error);
@@ -208,18 +215,33 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     );
 
+     handleFormValidation(".directorist-login-with-account","valid-submit", "Login...");
+
     handlePostRequest(
         ".directorist-login-with-account", // Form selector
         "directorist/v1/admin/login-with-account", // REST API endpoint
         function (data) {
-            console.log("Success:", data);
-            // Handle success (e.g., show a success message)
+            if ( data.success === true ) {
+                location.reload();
+             } else {
+                 // Display error message in the UI
+                 alert(data.message);
+             }
         },
         function (error) {
             console.error("Error:", error);
             // Handle error (e.g., show an error message)
         }
     );
+
+    document.getElementById("directorist-activate-license").addEventListener("click", function () {
+        const licenseKey = document.getElementById("directorist-license-key").value;
+        const licenseEmail = document.getElementById("directorist-license-email").value;
+        const license = {
+            license_key: licenseKey,
+            license_email: licenseEmail
+        };
+    })
 });
 
 

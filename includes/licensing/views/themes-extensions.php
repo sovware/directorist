@@ -11,13 +11,13 @@ $user = wp_get_current_user();
 		<div class="directorist-row">
 			<div class="directorist-col-12">
 
-				<?php if ( directorist_licensing_is_connected() ) : ?>
+				<?php if ( ! directorist_licensing_is_connected() ) : ?>
 					<?php include_once 'not-connected.php';?>
 				<?php else : ?>
 					<?php include_once 'connected.php';?>
 				<?php endif; ?>
 
-				<?php if ( directorist_licensing_is_connected() ) : ?>
+				<?php if ( ! directorist_licensing_is_connected() ) : ?>
 					<?php include_once 'not-connected-themes-extensions.php';?>
 				<?php else : ?>
 					<?php include_once 'connected-themes-extensions.php';?>

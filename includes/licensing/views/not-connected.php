@@ -57,7 +57,7 @@
 					</div>
 
 					<div class="directorist-membership-card-actions">
-						<a href="https://directorist.com/checkout?edd_action=add_to_cart&download_id=70487&discount=HAPPY1Y" class="directorist-membership-card-get">
+						<a target="__blank" href="https://directorist.com/checkout?edd_action=add_to_cart&download_id=70487&discount=HAPPY1Y" class="directorist-membership-card-get">
 							<svg xmlns="http://www.w3.org/2000/svg" width="13" height="16"
 								viewBox="0 0 13 16" fill="none">
 								<path
@@ -92,8 +92,7 @@
 							</div>
 							<div class="directorist-membership-benefits-content">
 								<h3 class="title">All Access Pass</h3>
-								<p class="title-details">Get unlimited access to all themes and
-									plugins.</p>
+								<p class="title-details">Get unlimited access to all themes and plugins.</p>
 							</div>
 						</div>
 					</div>
@@ -116,8 +115,7 @@
 							</div>
 							<div class="directorist-membership-benefits-content">
 								<h3 class="title">Premium Features</h3>
-								<p class="title-details">Access to exclusive premium features and
-									tools.</p>
+								<p class="title-details">Access to exclusive premium features and tools.</p>
 							</div>
 						</div>
 					</div>
@@ -133,9 +131,7 @@
 							</div>
 							<div class="directorist-membership-benefits-content">
 								<h3 class="title">Regular Updates</h3>
-								<p class="title-details">Stay up-to-date with the latest features &
-									security
-									updates.</p>
+								<p class="title-details">Stay up-to-date with the latest features & security updates.</p>
 							</div>
 						</div>
 					</div>
@@ -152,13 +148,11 @@
 							</div>
 							<div class="directorist-membership-benefits-content">
 								<h3 class="title">Premium Features</h3>
-								<p class="title-details">Access to exclusive premium features and
-									tools.</p>
+								<p class="title-details">Access to exclusive premium features and tools.</p>
 							</div>
 						</div>
 					</div>
-					<div
-						class="directorist-col-xxl-4 directorist-col-lg-6 directorist-col-sm-6 d-lg-block d-none">
+					<div class="directorist-col-xxl-4 directorist-col-lg-6 directorist-col-sm-6 d-lg-block d-none">
 						<div class="directorist-membership-benefits">
 							<div class="directorist-membership-benefits-img">
 								<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
@@ -170,14 +164,11 @@
 							</div>
 							<div class="directorist-membership-benefits-content">
 								<h3 class="title">Regular Updates</h3>
-								<p class="title-details">Stay up-to-date with the latest features &
-									security
-									updates.</p>
+								<p class="title-details">Stay up-to-date with the latest features & security updates.</p>
 							</div>
 						</div>
 					</div>
-					<div
-						class="directorist-col-xxl-4 directorist-col-lg-6 directorist-col-sm-6 d-lg-block d-none">
+					<div class="directorist-col-xxl-4 directorist-col-lg-6 directorist-col-sm-6 d-lg-block d-none">
 
 						<div class="directorist-membership-benefits">
 							<div class="directorist-membership-benefits-img">
@@ -190,8 +181,7 @@
 							</div>
 							<div class="directorist-membership-benefits-content">
 								<h3 class="title">Premium Features</h3>
-								<p class="title-details">Access to exclusive premium features and
-									tools.</p>
+								<p class="title-details">Access to exclusive premium features and tools.</p>
 							</div>
 						</div>
 					</div>
@@ -202,18 +192,13 @@
 					<div class="directorist-row directorist-justify-center directorist-text-center">
 						<div class="directorist-col-xl-5 directorist-col-lg-6 directorist-col-md-8">
 							<div class="directorist-tabs directorist-login-container">
-								<div
-									class="directorist-tabs-header directorist-mb-16 directorist-justify-center">
-									<ul
-										class="directorist-nav-tab-wrapper directorist-login-tab-wrapper">
+								<div class="directorist-tabs-header directorist-mb-16 directorist-justify-center">
+									<ul class="directorist-nav-tab-wrapper directorist-login-tab-wrapper">
 										<li>
-											<button data-target="#directorist-access-key"
-												class="directorist-nav-tab active">Access Key</button>
+											<button data-target="#directorist-access-key" class="directorist-nav-tab active"><?php esc_html_e( 'Access Key', 'directorist' ); ?></button>
 										</li>
 										<li>
-											<button data-target="#directorist-account"
-												class="directorist-nav-tab">Directorist
-												Account</button>
+											<button data-target="#directorist-account" class="directorist-nav-tab"><?php esc_html_e( 'Directorist Account', 'directorist' ); ?></button>
 										</li>
 									</ul>
 								</div>
@@ -237,8 +222,7 @@
 															stroke-linejoin="round" />
 													</svg>
 												</span>
-												<input name="access_key" type="text" placeholder="Enter your access key"
-													required>
+												<input name="access_key" type="text" placeholder="<?php esc_attr_e( 'Enter your access key', 'directorist' ); ?>" required>
 											</div>
 											<button type="submit"
 												class="directorist-access-form-connect-btn">
@@ -265,12 +249,12 @@
 										<form class="directorist-account directorist-login-with-account">
 											<div
 												class="directorist-account-form-group directorist-mb-12">
-												<input name="email" type="text" placeholder="Email address"
+												<input name="email" type="text" placeholder="<?php esc_attr_e( 'Email address', 'directorist' ); ?>"
 													required>
 											</div>
 											<div
 												class="directorist-account-form-group directorist-mb-12">
-												<input name="pass" type="password" placeholder="Password" required>
+												<input name="pass" type="password" placeholder="<?php esc_attr_e( 'Password', 'directorist' ); ?>" required>
 											</div>
 											<button type="submit" class="directorist-account-login-btn">
 												<svg xmlns="http://www.w3.org/2000/svg" width="20"
@@ -286,7 +270,7 @@
 														</clipPath>
 													</defs>
 												</svg>
-												<span>Log In with Directorist Account</span>
+												<span><?php esc_html_e( 'Log In with Directorist Account', 'directorist' ); ?></span>
 											</button>
 										</form>
 									</div>

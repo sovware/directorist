@@ -144,6 +144,10 @@ class Orders_Controller extends Posts_Controller {
 				$amount = $order_detail['price'];
 			}
 		}
+		// TODO:
+		// Status: completed, canceled, failed
+		// plan id missing
+		// amount missing
 
 		if ( $request['created_by'] === 'app' ) {
 			$playstore_price = get_post_meta( $plan_id, '_dpp_playstore_product_price', true );

@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-02-07 04:37+0000\n"
+"POT-Creation-Date: 2025-02-13 06:33+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -7723,7 +7723,7 @@ msgstr ""
 msgid "Offset the result set by a specific number of items. Applies to hierarchical taxonomies only."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-abstract-terms-controller.php:771, ../includes/rest-api/Version1/class-listing-reviews-controller.php:527, ../includes/rest-api/Version1/class-listings-controller.php:1372, ../includes/rest-api/Version1/class-orders-controller.php:561, ../includes/rest-api/Version1/class-plans-controller.php:886, ../includes/rest-api/Version1/class-users-controller.php:1020
+#: ../includes/rest-api/Version1/class-abstract-terms-controller.php:771, ../includes/rest-api/Version1/class-listing-reviews-controller.php:527, ../includes/rest-api/Version1/class-listings-controller.php:1372, ../includes/rest-api/Version1/class-orders-controller.php:601, ../includes/rest-api/Version1/class-plans-controller.php:886, ../includes/rest-api/Version1/class-users-controller.php:1020
 msgid "Order sort attribute ascending or descending."
 msgstr ""
 
@@ -7936,7 +7936,7 @@ msgstr ""
 msgid "Offset the result set by a specific number of items."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-listing-reviews-controller.php:536, ../includes/rest-api/Version1/class-listings-controller.php:1380, ../includes/rest-api/Version1/class-orders-controller.php:567, ../includes/rest-api/Version1/class-plans-controller.php:892, ../includes/rest-api/Version1/class-users-controller.php:1028
+#: ../includes/rest-api/Version1/class-listing-reviews-controller.php:536, ../includes/rest-api/Version1/class-listings-controller.php:1380, ../includes/rest-api/Version1/class-orders-controller.php:607, ../includes/rest-api/Version1/class-plans-controller.php:892, ../includes/rest-api/Version1/class-users-controller.php:1028
 msgid "Sort collection by object attribute."
 msgstr ""
 
@@ -8004,7 +8004,7 @@ msgstr ""
 msgid "Action message."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-listings-controller.php:506, ../includes/rest-api/Version1/class-orders-controller.php:305, ../includes/rest-api/Version1/class-plans-controller.php:234
+#: ../includes/rest-api/Version1/class-listings-controller.php:506, ../includes/rest-api/Version1/class-orders-controller.php:336, ../includes/rest-api/Version1/class-plans-controller.php:234
 msgid "Invalid ID."
 msgstr ""
 
@@ -8288,7 +8288,7 @@ msgstr ""
 msgid "Limit result set to listings specific to author ID."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-orders-controller.php:66, ../includes/rest-api/Version1/class-orders-controller.php:452, ../includes/rest-api/Version2/class-listings-controller.php:61
+#: ../includes/rest-api/Version1/class-orders-controller.php:66, ../includes/rest-api/Version1/class-orders-controller.php:483, ../includes/rest-api/Version2/class-listings-controller.php:61
 msgid "Order id."
 msgstr ""
 
@@ -8304,67 +8304,71 @@ msgstr ""
 msgid "Invalid plan."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-orders-controller.php:128
+#: ../includes/rest-api/Version1/class-orders-controller.php:129
 msgid "Unable to create order."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-orders-controller.php:458
+#: ../includes/rest-api/Version1/class-orders-controller.php:489
 msgid "Order title."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-orders-controller.php:463
+#: ../includes/rest-api/Version1/class-orders-controller.php:495
 msgid "The date the order was created, in the site's timezone."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-orders-controller.php:469
+#: ../includes/rest-api/Version1/class-orders-controller.php:501
 msgid "The date the order was last modified, in the site's timezone."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-orders-controller.php:475
+#: ../includes/rest-api/Version1/class-orders-controller.php:507
 msgid "Customer id."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-orders-controller.php:480
+#: ../includes/rest-api/Version1/class-orders-controller.php:512
 msgid "Pricing plan id."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-orders-controller.php:491
+#: ../includes/rest-api/Version1/class-orders-controller.php:523
 msgid "Directory type of the plan."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-orders-controller.php:497, ../includes/rest-api/Version1/class-users-favorites-controller.php:60
+#: ../includes/rest-api/Version1/class-orders-controller.php:529, ../includes/rest-api/Version1/class-users-favorites-controller.php:60
 msgid "Listing id."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-orders-controller.php:503
+#: ../includes/rest-api/Version1/class-orders-controller.php:535
 msgid "Featured status."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-orders-controller.php:508
+#: ../includes/rest-api/Version1/class-orders-controller.php:540
 msgid "Remaining regular listings count."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-orders-controller.php:514
+#: ../includes/rest-api/Version1/class-orders-controller.php:546
 msgid "Remaining featured listings count."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-orders-controller.php:520
+#: ../includes/rest-api/Version1/class-orders-controller.php:552
 msgid "Amount."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-orders-controller.php:525
+#: ../includes/rest-api/Version1/class-orders-controller.php:558
 msgid "Payment status."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-orders-controller.php:531
+#: ../includes/rest-api/Version1/class-orders-controller.php:564
 msgid "Payment gateway."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-orders-controller.php:537
+#: ../includes/rest-api/Version1/class-orders-controller.php:570
 msgid "Transaction id."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-orders-controller.php:574
+#: ../includes/rest-api/Version1/class-orders-controller.php:575
+msgid "Created by."
+msgstr ""
+
+#: ../includes/rest-api/Version1/class-orders-controller.php:614
 msgid "Limit result set to specific customer id."
 msgstr ""
 

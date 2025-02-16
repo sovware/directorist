@@ -58,3 +58,21 @@ function directorist_licensing_get_account_email(): string {
 
 	return $data['user_email'] ?? '';
 }
+
+function directorist_licensing_get_plan_data(): array {
+	$data = directorist_licensing_data();
+
+	return $data['plan_data'] ?? [];
+}
+
+function directorist_licensing_get_plan_upgrade_url(): string {
+	$data = directorist_licensing_get_plan_data();
+
+	if ( isset( $data['upgrade_to'] ) && $data['upgrade_to'] ) {
+		if ( strpos( $data['upgrade_to'], 'sl_license_upgrade' ) !== false ) {
+			return $data['upgrade_to'];
+		}
+	}
+
+	return '';
+}

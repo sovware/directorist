@@ -50,15 +50,19 @@
 						2025</strong>
 				</div>
 			</div>
-			<a href="#" class="directorist-membership-info-upgrade-lifetime">
-				<svg xmlns="http://www.w3.org/2000/svg" width="13" height="16" viewBox="0 0 13 16"
-					fill="none">
-					<path
-						d="M10.1572 1.82865C10.3858 1.37151 10.1572 0.80008 9.70006 0.571509C9.35721 0.457223 9.01435 0.571509 8.78578 0.685794L1.24292 7.31437C0.900064 7.65722 0.785779 8.22865 1.24292 8.57151C1.47149 8.80008 1.70006 8.91437 1.92864 8.91437H5.12864L2.84292 14.1715C2.61435 14.6286 2.84292 15.2001 3.30006 15.4287C3.64292 15.5429 3.98578 15.4286 4.32864 15.3144L11.7572 8.80008C12.1001 8.45722 12.2144 7.88579 11.7572 7.54294C11.5286 7.31437 11.3001 7.20008 11.0715 7.20008H7.87149L10.1572 1.94294V1.82865Z"
-						fill="white"></path>
-				</svg>
-				Upgrade to Lifetime
-			</a>
+
+			<?php if ( directorist_licensing_get_plan_upgrade_url() ): ?>
+				<a target="__blank" href="<?php echo directorist_licensing_get_plan_upgrade_url(); ?>" class="directorist-membership-info-upgrade-lifetime">
+					<svg xmlns="http://www.w3.org/2000/svg" width="13" height="16" viewBox="0 0 13 16"
+						fill="none">
+						<path
+							d="M10.1572 1.82865C10.3858 1.37151 10.1572 0.80008 9.70006 0.571509C9.35721 0.457223 9.01435 0.571509 8.78578 0.685794L1.24292 7.31437C0.900064 7.65722 0.785779 8.22865 1.24292 8.57151C1.47149 8.80008 1.70006 8.91437 1.92864 8.91437H5.12864L2.84292 14.1715C2.61435 14.6286 2.84292 15.2001 3.30006 15.4287C3.64292 15.5429 3.98578 15.4286 4.32864 15.3144L11.7572 8.80008C12.1001 8.45722 12.2144 7.88579 11.7572 7.54294C11.5286 7.31437 11.3001 7.20008 11.0715 7.20008H7.87149L10.1572 1.94294V1.82865Z"
+							fill="white"></path>
+					</svg>
+					<?php esc_html_e( 'Upgrade the plan', 'directorist' );?>
+				</a>
+			<?php endif; ?>
+
 		</div>
 		<div class="directorist-membership-info-author">
 			<div class="directorist-membership-info-author-img">
@@ -123,7 +127,7 @@
 								d="M6 9C6 8.58579 6.33579 8.25 6.75 8.25H15.75C16.1642 8.25 16.5 8.58579 16.5 9C16.5 9.41421 16.1642 9.75 15.75 9.75H6.75C6.33579 9.75 6 9.41421 6 9Z"
 								fill="#747C89" />
 						</svg>
-						<a href="<?php echo directorist_licensing_get_disconnect_url();?>" type="button" class="directorist-membership-author-list-link" id="directorist-licensing-logout">
+						<a href="<?php echo directorist_licensing_get_disconnect_url(); ?>" type="button" class="directorist-membership-author-list-link" id="directorist-licensing-logout">
 							<?php esc_attr_e( 'Logout', 'directorist' ); ?>
 						</a>
 					</li>

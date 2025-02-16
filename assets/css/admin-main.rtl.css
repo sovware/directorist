@@ -15251,6 +15251,7 @@ input:-webkit-autofill:active {
   top: 50%;
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
+  z-index: 11;
 }
 @media only screen and (max-width: 782px) {
   .cptm-tab-content-header .cptm-sub-navigation {
@@ -20822,6 +20823,7 @@ input[type=radio]:checked::before {
   top: 50%;
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
+  z-index: 11;
 }
 @media only screen and (max-width: 782px) {
   .cptm-tab-content-header .cptm-sub-navigation {
@@ -26681,6 +26683,7 @@ input[type=radio]:checked::before {
   top: 50%;
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
+  z-index: 11;
 }
 @media only screen and (max-width: 782px) {
   .cptm-tab-content-header .cptm-sub-navigation {

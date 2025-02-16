@@ -992,11 +992,11 @@ $light-gray: #f4f5f7;
     display: flex;
     gap: 10px;
     align-items: center;
-
     position: absolute;
     right: 30px;
     top: 50%;
     transform: translateY(-50%);
+    z-index: 11;
   }
   @media only screen and (max-width: 782px) {
     .cptm-sub-navigation {

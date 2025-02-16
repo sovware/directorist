@@ -205,6 +205,11 @@
                     <!-- Add edit button for widget -->
                     <span
                       class="cptm-elements-settings__group__single__edit"
+                      :class="{
+                        'cptm-elements-settings__group__single__edit--disabled': !active_widgets[
+                          widget_key
+                        ],
+                      }"
                       @click.prevent="editWidget(widget_key)"
                       v-if="available_widgets[widget_key].options"
                     >

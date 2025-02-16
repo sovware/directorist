@@ -4376,6 +4376,10 @@ input[type="radio"] {
           font-size: 12px;
           color: #fff;
         }
+        &--disabled {
+          opacity: 0.4;
+          pointer-events: none;
+        }
       }
 
       @include e(switch) {

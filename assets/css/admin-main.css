@@ -19280,6 +19280,10 @@ input[type=radio]:checked::before {
   font-size: 12px;
   color: #fff;
 }
+.cptm-elements-settings__group__single__edit--disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
 .cptm-elements-settings__group__single__switch label {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
@@ -24851,6 +24855,10 @@ input[type=radio]:checked::before {
 .cptm-elements-settings__group__single__edit__icon {
   font-size: 12px;
   color: #fff;
+}
+.cptm-elements-settings__group__single__edit--disabled {
+  opacity: 0.4;
+  pointer-events: none;
 }
 .cptm-elements-settings__group__single__switch label {
   display: -webkit-inline-box;
@@ -30711,6 +30719,10 @@ input[type=radio]:checked::before {
 .cptm-elements-settings__group__single__edit__icon {
   font-size: 12px;
   color: #fff;
+}
+.cptm-elements-settings__group__single__edit--disabled {
+  opacity: 0.4;
+  pointer-events: none;
 }
 .cptm-elements-settings__group__single__switch label {
   display: -webkit-inline-box;

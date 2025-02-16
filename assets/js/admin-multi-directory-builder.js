@@ -33921,6 +33921,9 @@ var render = function render() {
         staticClass: "cptm-elements-settings__group__single__action"
       }, [_vm.available_widgets[widget_key].options ? _c("span", {
         staticClass: "cptm-elements-settings__group__single__edit",
+        class: {
+          "cptm-elements-settings__group__single__edit--disabled": !_vm.active_widgets[widget_key]
+        },
         on: {
           click: function click($event) {
             $event.preventDefault();

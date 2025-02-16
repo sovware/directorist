@@ -26,7 +26,7 @@
               )
             "
             :data-tooltip="video?.description"
-            data-flow="bottom"
+            data-flow="bottom-right"
             @click.prevent="openModal()"
           >
             <svg
@@ -50,7 +50,7 @@
             class="directorist-row-tooltip directorist-form-doc__modal-btn"
             v-if="learn_more"
             :data-tooltip="learn_more?.description"
-            data-flow="bottom"
+            data-flow="bottom-right"
             @click.prevent="openModal()"
           >
             ?

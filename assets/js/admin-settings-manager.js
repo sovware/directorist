@@ -27809,7 +27809,7 @@ var render = function render() {
       attrs: {
         href: "#",
         "data-tooltip": (_vm$video = _vm.video) === null || _vm$video === void 0 ? void 0 : _vm$video.description,
-        "data-flow": "bottom"
+        "data-flow": "bottom-right"
       },
       on: {
         click: function click($event) {
@@ -27837,7 +27837,7 @@ var render = function render() {
       attrs: {
         href: "#",
         "data-tooltip": (_vm$learn_more = _vm.learn_more) === null || _vm$learn_more === void 0 ? void 0 : _vm$learn_more.description,
-        "data-flow": "bottom"
+        "data-flow": "bottom-right"
       },
       on: {
         click: function click($event) {
@@ -28192,7 +28192,7 @@ var render = function render() {
     attrs: {
       href: "#",
       "data-tooltip": (_vm$activeSubMenu = _vm.activeSubMenu) === null || _vm$activeSubMenu === void 0 || (_vm$activeSubMenu = _vm$activeSubMenu.learn_more) === null || _vm$activeSubMenu === void 0 ? void 0 : _vm$activeSubMenu.description,
-      "data-flow": "bottom"
+      "data-flow": "bottom-right"
     },
     on: {
       click: function click($event) {
@@ -28205,7 +28205,7 @@ var render = function render() {
     attrs: {
       href: "#",
       "data-tooltip": (_vm$activeSubMenu2 = _vm.activeSubMenu) === null || _vm$activeSubMenu2 === void 0 || (_vm$activeSubMenu2 = _vm$activeSubMenu2.video) === null || _vm$activeSubMenu2 === void 0 ? void 0 : _vm$activeSubMenu2.description,
-      "data-flow": "bottom"
+      "data-flow": "bottom-right"
     },
     on: {
       click: function click($event) {

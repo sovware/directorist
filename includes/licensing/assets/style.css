@@ -1221,6 +1221,7 @@
   border: 1px solid var(--Gray-200, #E5E7EB);
   background: var(--White-White, #FFF);
   box-shadow: 0px 8px 16px 0px rgba(16, 24, 40, 0.1), 0px 6px 8px 2px rgba(16, 24, 40, 0.04);
+  z-index: 1;
 }
 
 .directorist-membership-author {
@@ -2527,6 +2528,79 @@
 }
 .directorist-progress-status-message-failed {
   color: #D94A4A;
+}
+
+.directorist_builder-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0 24px;
+  border-radius: 12px;
+  background: var(--White-White, #FFF);
+  box-shadow: 0px 8px 16px 0px rgba(16, 24, 40, 0.1), 0px 6px 8px 2px rgba(16, 24, 40, 0.04);
+  margin-bottom: 24px;
+  border-radius: 8px;
+}
+@media only screen and (max-width: 575px) {
+  .directorist_builder-header {
+    flex-direction: column;
+    padding: 20px 0;
+  }
+}
+@media only screen and (max-width: 575px) {
+  .directorist_builder-header .directorist_builder-header__left {
+    margin-bottom: 15px;
+  }
+}
+.directorist_builder-header .directorist_logo {
+  max-width: 108px;
+  max-height: 32px;
+}
+.directorist_builder-header .directorist_logo img {
+  width: 100%;
+  max-height: inherit;
+}
+.directorist_builder-header .directorist_builder-links {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+}
+.directorist_builder-header .directorist_builder-links li {
+  display: inline-block;
+  margin-bottom: 0;
+}
+.directorist_builder-header .directorist_builder-links a {
+  display: flex;
+  align-items: center;
+  gap: 2px 5px;
+  padding: 17px 0;
+  text-decoration: none;
+  font-size: 13px;
+  color: #4D5761;
+  font-weight: 500;
+  line-height: 14px;
+}
+.directorist_builder-header .directorist_builder-links a .svg-icon {
+  display: inline-flex;
+  align-items: center;
+  color: #747C89;
+}
+.directorist_builder-header .directorist_builder-links a:hover {
+  color: #3E62F5;
+}
+.directorist_builder-header .directorist_builder-links a:hover .svg-icon {
+  color: inherit;
+}
+@media only screen and (max-width: 575px) {
+  .directorist_builder-header .directorist_builder-links a {
+    padding: 6px 0;
+  }
+}
+.directorist_builder-header .directorist_builder-links a i {
+  font-size: 16px;
 }
 
 /*# sourceMappingURL=style.css.map */

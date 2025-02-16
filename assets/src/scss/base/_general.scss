@@ -600,6 +600,15 @@ body.logged-in.directorist-content-active .select2-container--open .select2-drop
             background-color: var(--directorist-color-bg-light);
           }
         }
+        &.item-level-2 {
+          padding-left: 20px;
+        }
+        &.item-level-3 {
+          padding-left: 40px;
+        }
+        &.item-level-4 {
+          padding-left: 60px;
+        }
       }
     }
   }

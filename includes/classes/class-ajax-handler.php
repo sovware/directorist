@@ -125,6 +125,30 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			add_action( 'wp_ajax_nopriv_directorist_zipcode_search', array( $this, 'zipcode_search' ) );
 
 			add_action( 'wp_ajax_directorist_generate_nonce', [ $this, 'handle_generate_nonce' ] );
+
+			add_action( 'wp_ajax_directorist_taxonomy_pagination', [ $this, 'directorist_taxonomy_pagination' ] );
+			add_action( 'wp_ajax_nopriv_directorist_taxonomy_pagination', [ $this, 'directorist_taxonomy_pagination' ] );
+
+		}
+
+		public function directorist_taxonomy_pagination() {
+			// Verify nonce for security
+			if ( ! directorist_verify_nonce( 'nonce' ) ) {
+				wp_send_json(
+					array(
+						'search_form' => __( 'Something went wrong, please try again.', 'directorist' ),
+					)
+				);
+			}
+
+			$page = isset($_REQUEST['page']) ? absint($_REQUEST['page']) : '';
+			$atts = !empty( $_REQUEST['attrs'] ) && is_array($_REQUEST['attrs']) ? $_REQUEST['attrs'] : [];
+			$type = is_array($atts) && isset($atts['type']) ? $atts['type'] : '';
+
+			$taxonomy = new Directorist\Directorist_Listing_Taxonomy($atts, $type );
+			$taxonomy->set_terms($page);
+
+			wp_send_json_success(array('content' => $taxonomy->render_shortcode( $atts )));
 		}
 
 		public function send_confirm_email() {
@@ -226,8 +250,17 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			$listings = new Directorist\Directorist_Listings( $args, $type );
 
 			ob_start();
+			if( 'list' === $listings->view ) {
+				$listings->render_list_view( $listings->post_ids() );
+			} else {
+				$listings->render_grid_view( $listings->post_ids() );
+			}
+			$render_listings = ob_get_clean();
+
+			ob_start();
 			$listings->archive_view_template();
 			$archive_view 			= ob_get_clean();
+
 			$display_listings_count = get_directorist_option( 'display_listings_count', true );
 			$category_id 			= ! empty( $_POST['in_cat'] ) ? absint( $_POST['in_cat'] ) : 0;
 			$category 				= get_term_by( 'id', $category_id, ATBDP_CATEGORY );
@@ -243,6 +276,9 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 					'header_title'   => $display_listings_count ? $listings->listings_header_title() : '',
 					'category_name'	 => $category ? $category->name : '',
 					'location_name'	 => $location ? $location->name : '',
+
+					'render_listings' => $render_listings,
+					'view' => $listings->view
 				)
 			);
 		}

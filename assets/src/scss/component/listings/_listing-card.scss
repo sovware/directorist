@@ -329,6 +329,7 @@
           box-shadow: none;
           display: flex;
           align-items: center;
+          word-break: break-word;
           transition: color 0.3s ease;
           &:hover {
             color: var(--directorist-color-primary);
@@ -669,7 +670,6 @@
 
     // Single Listing List
     &.directorist-listing-list {
-      margin-bottom: 30px;
       @media screen and (min-width: 576.99px){
         display: flex;
         flex-wrap: wrap;
@@ -893,6 +893,7 @@
           width: 12px;
           height: 12px;
         }
+        &.directorist-badge-featured--only-text,
         &.directorist-badge-open,
         &.directorist-badge-close {
           display: inline-flex;
@@ -918,6 +919,10 @@
 
         &.directorist-badge-featured {
           background-color: var(--directorist-color-white);
+        }
+        &.directorist-badge-featured--only-text{
+          background-color: var(--directorist-color-featured-badge);
+          color: var(--directorist-color-white);
         }
       }
     }

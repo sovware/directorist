@@ -97,6 +97,7 @@
             v-if="fields[field]"
             :is="getFormFieldName(fields[field].type)"
             :field-id="field_key"
+            :fieldKey="field"
             :id="menuKey + '__' + section_key + '__' + field"
             :ref="field"
             :class="{ ['highlight-field']: getHighlightState(field) }"

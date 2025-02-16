@@ -230,7 +230,8 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 			ATBDP()->email->custom_wp_new_user_notification_email( $user_id );
 
 			$auto_login            = ! empty( $params['auto_login_after_registration'] ) && 'yes' === $params['auto_login_after_registration']  ? 1 : 0;
-			$redirection_link      = ! empty( $params['redirection_after_registration'] ) ? $params['redirection_after_registration'] : '';
+			$redirect_after_reg	   = ATBDP_Permalink::get_reg_redirection_page_link('');
+			$redirection_link      = ! empty( $params['redirection_after_registration'] ) ? $params['redirection_after_registration'] : $redirect_after_reg;
 
 			if ( ! empty( $auto_login ) ) {
 				wp_set_current_user( $user_id, $email );

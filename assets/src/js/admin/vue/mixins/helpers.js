@@ -1,6 +1,7 @@
 import { mapState } from 'vuex';
 
 export default {
+
     computed: {
         ...mapState({
             fields: 'fields',
@@ -110,11 +111,48 @@ export default {
             });
         },
 
+        checkChangeIfCondition( payload ) { 
+            let root = this.fields;   
+            let isChangeable = false;     
+
+            // Extract from payload   
+            const { condition, fieldKey } = payload;
+            
+            let currentField = root[fieldKey];
+            let conditionField = root[condition.where];
+
+            // Loop through the conditions to check if they match
+            for (let item of condition.conditions) {
+                if (item.key === "value" && item.compare === "=") {
+                    // Compare the value
+                    if (conditionField && conditionField.value === item.value) {
+                        isChangeable = true;
+                        break;
+                    }
+                }
+            }
+
+            // If the isChangeable is true, apply all effects
+            if (isChangeable) {
+                for (let effect of condition.effects) {
+                    currentField[effect.key] = effect.value; // Apply the effect value
+                }
+            } else {
+                // Reset to default values for all effects if not changeable
+                for (let effect of condition.effects) {
+                    if (effect.default_value !== undefined) {
+                        currentField[effect.key] = effect.default_value;
+                    }
+                }
+            }
+
+            return isChangeable;
+        },
+
         checkShowIfCondition( payload ) {
             let args = { condition: null };
             Object.assign( args, payload );
             
-
             let condition = args.condition;
 
             let root = this.fields;

@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 if ( $display_title ): ?>
 
-    <h2 class="directorist-listing-details__listing-title"><?php echo esc_html( $listing->get_title() ); ?></h2>
+    <h1 class="directorist-listing-details__listing-title"><?php echo esc_html( $listing->get_title() ); ?></h1>
 
 <?php endif;
 

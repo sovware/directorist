@@ -271,7 +271,7 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
 					wp_update_post(
 						array(
 							'ID'          => $listing->ID,
-							'post_status' => 'private',      // update the status to private so that we do not run this func a second time
+							'post_status' => 'expired',      // update the status to private so that we do not run this func a second time
 							'meta_input'  => $metas,         // insert all meta data once to reduce update meta query
 						)
 					);

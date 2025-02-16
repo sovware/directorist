@@ -89,12 +89,13 @@ class Directorist_Listing_Taxonomy {
 		$this->current_listing_type       = $this->get_current_listing_type();
 		$this->set_terms();
 
-
 	}
 
-	public function set_terms() {
-		$current_page = max( 1, get_query_var( 'paged' ) );
+	public function set_terms( ?int $current_page = null ) {
+		$current_page = is_int($current_page) ? $current_page : max( 1, get_query_var( 'paged' ) );
     	$offset 	  = ( $current_page - 1 ) * $this->per_page;
+
+
 
 		$args = array(
 			'orderby'      => $this->orderby,
@@ -129,6 +130,7 @@ class Directorist_Listing_Taxonomy {
 		$this->terms 			= array_slice( $all_terms, $offset, $this->per_page) ;
 		$this->total_pages		= ceil( $total_terms / $this->per_page );
 		$this->current_page 	= $current_page; // Store current page for reference
+
 	}
 
 	public function grid_count_html($term,$total) {
@@ -223,26 +225,44 @@ class Directorist_Listing_Taxonomy {
     }
 
 	public function pagination() {
-		$pagination_args = array(
+		$links = paginate_links( array(
 			'base'      => esc_url_raw( str_replace( 999999999, '%#%', get_pagenum_link( 999999999, false ) ) ),
 			'format'    => '',
 			'current'   => $this->current_page,
 			'total'     => $this->total_pages,
 			'prev_text' => apply_filters( 'directorist_pagination_prev_text', directorist_icon( 'fas fa-chevron-left', false ) ),
 			'next_text' => apply_filters( 'directorist_pagination_next_text', directorist_icon( 'fas fa-chevron-right', false ) ),
-		);
-
-		$links = paginate_links( $pagination_args );
+			'type'      => 'array', // Generate an array of links instead of a string
+		) );
 
 		if ( ! $links ) {
 			return;
 		}
+
+		$links = array_map( function( $link ) {
+			// Match the page number from the URL (handles both query parameters and path structures)
+			if ( preg_match( '/page\/([0-9]+)/', $link, $matches ) ) {
+				// Matches URLs like `/page/2/`
+				$page_number = $matches[1];
+			} elseif ( preg_match( '/paged=([0-9]+)/', $link, $matches ) ) {
+				// Matches URLs like `?paged=2`
+				$page_number = $matches[1];
+			} else {
+				$page_number = 1; // Default to page 1 if no number is found
+			}
+	
+			// Add the `data-page` attribute
+			$link = str_replace( '<a ', '<a data-page="' . esc_attr( $page_number ) . '" ', $link );
+			return $link;
+		}, $links );
 		?>
+
 		<div class="directorist-col-12">
 			<nav class="directorist-pagination">
-				<?php echo wp_kses_post( $links ); ?>
+				<?php echo implode( '', $links ); ?>
 			</div>
 		</nav>
+
 		<?php
 	}
 
@@ -323,6 +343,9 @@ class Directorist_Listing_Taxonomy {
     }
 
     public function render_shortcode( $atts = [] ) {
+
+		// e_var_dump($atts);
+
     	if ( $this->logged_in_user_only && ! is_user_logged_in() ) {
     		return ATBDP()->helper->guard( array('type' => 'auth') );
     	}
@@ -342,9 +365,7 @@ class Directorist_Listing_Taxonomy {
     			'list_col_class' => 'col-md-' . floor(12 / $column ),
     		);
     		$template_file = 'taxonomies/categories-'. $this->view;
-    	}
-
-    	else {
+    	} else {
     		$args = array(
     			'taxonomy'   => $this,
     			'locations' => $this->tax_data(),

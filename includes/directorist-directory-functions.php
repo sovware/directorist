@@ -29,9 +29,13 @@ function directorist_get_listing_form_fields( $directory_id ) {
 	}
 
 	foreach ( $fields_keys as $field_key ) {
-		$fields[ $field_key ] = $_fields[ $field_key ];
+		$fields[ $field_key ] = $_fields[ $field_key ] ?? [];
 	}
 
+	if( isset( $fields['view_count'] ) ) {
+		unset( $fields['view_count'] );
+	}
+	
 	return $fields;
 }
 

@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.7.0
+ * @version 8.0.13
  */
 
 use \Directorist\Helper;
@@ -12,6 +12,9 @@ $columns = floor( 12 / $taxonomy->columns );
 if ( '5' == $taxonomy->columns ) {
 	$columns = $columns . '-5';
 }
+
+$taxonomy->atts['type'] = 'location';
+$taxonomy->atts['directory_type'] = isset( $_GET['directory_type'] ) && ! empty( $_GET['directory_type'] ) ? $_GET['directory_type'] : '';
 ?>
 <div id="directorist" class="atbd_wrapper directorist-w-100">
 	<div class="<?php Helper::directorist_container_fluid(); ?>">

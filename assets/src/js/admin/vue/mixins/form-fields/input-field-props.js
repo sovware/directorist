@@ -8,6 +8,10 @@ export default {
             type: [String, Number],
             default: '',
         },
+        fieldKey: {
+            type: [String, Number],
+            default: '',
+        },
         root: {
             required: false,
         },
@@ -44,6 +48,9 @@ export default {
         },
         saveOptionData: {
             default: false,
+        },
+        changeIf: {
+            required: false,
         },
         showIf: {
             required: false,

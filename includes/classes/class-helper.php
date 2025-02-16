@@ -297,7 +297,7 @@ if ( ! class_exists( 'ATBDP_Helper' ) ) :
 		public function social_links() {
 			$s = array(
 				'facebook'       => __( 'Facebook', 'directorist' ),
-				'twitter'        => __( 'Twitter', 'directorist' ),
+				'twitter'        => __( 'X', 'directorist' ),
 				'linkedin'       => __( 'LinkedIn', 'directorist' ),
 				'pinterest'      => __( 'Pinterest', 'directorist' ),
 				'instagram'      => __( 'Instagram', 'directorist' ),
@@ -305,7 +305,7 @@ if ( ! class_exists( 'ATBDP_Helper' ) ) :
 				'flickr'         => __( 'Flickr', 'directorist' ),
 				'snapchat'       => __( 'Snapchat', 'directorist' ),
 				'reddit'         => __( 'Reddit', 'directorist' ),
-				'youtube'   => __( 'Youtube', 'directorist' ),
+				'youtube'        => __( 'Youtube', 'directorist' ),
 				'vimeo'          => __( 'Vimeo', 'directorist' ),
 				'vine'           => __( 'Vine', 'directorist' ),
 				'github'         => __( 'Github', 'directorist' ),

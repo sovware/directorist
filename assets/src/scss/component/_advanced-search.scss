@@ -91,6 +91,7 @@
           transform: unset;
           font-size: 14px;
           font-weight: 400;
+          ~ .directorist-form-group__with-prefix .directorist-form-element,
           ~ .directorist-search-field__input {
             &::placeholder {
               opacity: 0;

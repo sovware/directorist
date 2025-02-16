@@ -26,7 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 				<header class="directorist-modal__header">
 
-					<h2 class="directorist-modal-title" id="directorist-report-abuse-modal__label"><?php esc_html_e('Report Abuse', 'directorist'); ?></h2>
+					<div class="directorist-modal-title" id="directorist-report-abuse-modal__label"><?php esc_html_e('Report Abuse', 'directorist'); ?></div>
 
 					<button class="directorist-modal-close directorist-modal-close-js" aria-label="Report Modal Close">
 						<span aria-hidden="true">&times;</span>

@@ -163,6 +163,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
 
             $c = '<b><span style="color:#c71585;">'; //color start
             $e = '</span></b>'; // end color
+
             $description = <<<SWBD
                 You can use the following keywords/placeholder in any of your email bodies/templates or subjects to output dynamic value. **Usage: place the placeholder name between $c == $e and $c == $e . For Example: use {$c}==SITE_NAME=={$e} to output The Your Website Name etc. <br/><br/>
                 {$c}==NAME=={$e} : It outputs The listing owner's display name on the site<br/>
@@ -426,6 +427,7 @@ Please remember that your order may be canceled if you do not make your payment 
 
 		$default_size = directorist_default_preview_size();
 		$default_preview_size_text = $default_size['width'].'x'.$default_size['height'].' px';
+
 
             $this->fields = apply_filters('atbdp_listing_type_settings_field_list', [
 
@@ -724,12 +726,28 @@ Please remember that your order may be canceled if you do not make your payment 
                         ],
                     ],
                 ],
-
                 // Badge Color
                 'featured_back_color' => [
-                    'type' => 'color',
-                    'label' => __('Background Color', 'directorist'),
-                    'value' => '#fa8b0c',
+                    'type'        => 'color',
+                    'label'       => __('Background Color', 'directorist'),
+                    'value'       => '#fa8b0c',
+                    'change-if'    => [
+                        'where' => 'feature_badge_type',
+                        'conditions' => [
+                            [
+                                'key' => 'value', 
+                                'compare' => '=', 
+                                'value' => 'icon_badge'
+                            ],
+                        ],
+                        'effects' => [
+                            [ 
+                                'key' => 'label', 
+                                'value' => __('Hover Background Color', 'directorist'),
+                                'default_value' => __('Background Color', 'directorist')
+                            ],
+                        ],
+                    ],
                 ],
 
                 'popular_back_color' => [
@@ -1188,6 +1206,21 @@ Please remember that your order may be canceled if you do not make your payment 
                     'max' => '100',
                     'step' => '1',
                 ],
+                'pagination_type' => [
+                    'label' => __( 'Pagination Type', 'directorist' ),
+                    'type'  => 'select',
+                    'value' => 'numbered',
+                    'options' => [
+                        [
+                            'value' => 'numbered',
+                            'label' => __( 'Numbered', 'directorist' ),
+                        ],
+                        [
+                            'value' => 'infinite_scroll',
+                            'label' => __( 'Infinite Scroll', 'directorist' ),
+                        ],
+                    ],
+                ],
                 'display_listings_header' => [
                     'label' => __('Enable Header', 'directorist'),
                     'type'  => 'toggle',
@@ -1361,11 +1394,43 @@ Please remember that your order may be canceled if you do not make your payment 
                     'max'           => '100',
                     'step'          => '1',
                 ],
+                'feature_badge_type' => [
+                    'label'     => __('Badge Type', 'directorist'),
+                    'type'      => 'select',
+                    'value'     => 'text_badge',
+                    'options'   => [
+                        [
+                            'value' => 'text_badge',
+                            'label' => __('Text Badge', 'directorist'),
+                        ],
+                        [
+                            'value' => 'icon_badge',
+                            'label' => __('Icon with Hover Text', 'directorist'),
+                        ],
+                    ],
+                ],
                 'feature_badge_text' => [
-                    'type'          => 'text',
-                    'label'         => __('Badge Text', 'directorist'),
-                    'description'   => __('Text displayed on the badge when a listing is marked as featured.', 'directorist'),
-                    'value'         => __('Featured', 'directorist'),
+                    'type'         => 'text',
+                    'label'        => __('Badge Text', 'directorist'),
+                    'description'  => __('Text displayed on the badge when a listing is marked as featured.', 'directorist'),
+                    'value'        => __('Featured', 'directorist'),
+                    'change-if'    => [
+                        'where' => 'feature_badge_type',
+                        'conditions' => [
+                            [
+                                'key' => 'value', 
+                                'compare' => '=', 
+                                'value' => 'icon_badge'
+                            ],
+                        ],
+                        'effects' => [
+                            [ 
+                                'key' => 'label', 
+                                'value' => __('Badge Hover Text', 'directorist'),
+                                'default_value' => __('Badge Text', 'directorist')
+                            ],
+                        ],
+                    ],
                 ],
                 'popular_badge_text' => [
                     'type'          => 'text',
@@ -2525,14 +2590,13 @@ Please remember that your order may be canceled if you do not make your payment 
                     ],
                 ],
                 'categories_depth_number' => [
-                    'label' => __('Sub-category Depth', 'directorist'),
+                    'label'       => __('Sub-category Depth', 'directorist'),
                     'description' => __('Set how many sub-categories to display.', 'directorist'),
-                    'type'  => 'number',
-                    'value' => '4',
-                    'min' => '1',
-                    'max' => '15',
-                    'step' => '2',
-                    'show-if' => [
+                    'type'        => 'number',
+                    'value'       => '4',
+                    'min'         => '1',
+                    'step'        => '1',
+                    'show-if'     => [
                         'where' => "display_categories_as",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => 'list'],
@@ -2636,14 +2700,13 @@ Please remember that your order may be canceled if you do not make your payment 
                     ],
                 ],
                 'locations_depth_number' => [
-                    'label' => __('Sub-location Depth', 'directorist'),
+                    'label'       => __('Sub-location Depth', 'directorist'),
                     'description' => __('Set how many sub-locations to display.', 'directorist'),
-                    'type'  => 'number',
-                    'value' => '4',
-                    'min' => '1',
-                    'max' => '15',
-                    'step' => '2',
-                    'show-if' => [
+                    'type'        => 'number',
+                    'value'       => '4',
+                    'min'         => '1',
+                    'step'        => '1',
+                    'show-if'     => [
                         'where' => "display_locations_as",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => 'list'],
@@ -3528,6 +3591,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                         'all_listing_layout',
                                         'all_listing_columns',
                                         'all_listing_page_items',
+                                        'pagination_type',
                                         'listing_hide_top_search_bar',
                                         'listings_sidebar_filter_text',
                                         'listings_reset_text',
@@ -3664,7 +3728,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                     'title'       => __('Featured Badge', 'directorist'),
                                     'description' => '',
                                     'fields'      => [
-                                        'feature_badge_text', 'featured_back_color',
+                                        'feature_badge_type', 'feature_badge_text', 'featured_back_color',
                                     ],
                                 ],
                             ] ),

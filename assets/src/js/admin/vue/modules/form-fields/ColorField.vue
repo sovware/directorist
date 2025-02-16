@@ -2,6 +2,7 @@
     <component 
         :is="getTheTheme( 'color-field' )" 
         v-if="canShow"
+        :canChange="canChange"
         v-bind="$props"
         @do-action="$emit( 'do-action', $event )"
         @update="$emit( 'update', $event )"

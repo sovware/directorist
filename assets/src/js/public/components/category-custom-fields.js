@@ -9,7 +9,11 @@ function hideAllCustomFieldsExceptSelected(relations, category, $container) {
 
     fields.forEach((field) => {
         const fieldCategory = relations[field];
-        const $field = $container.find(`[name="custom_field\[${field}]"\]`);
+        let $field = $container.find(`[name="custom_field\[${field}]"\]`);
+
+        if (!$field.length) {
+            $field = $container.find(`[name="custom_field\[${field}][]"\]`);
+        }
 
         if (category === fieldCategory) {
             $field.prop('disabled', false);

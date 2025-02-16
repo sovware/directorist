@@ -184,6 +184,7 @@ class Directorist_Listings {
 		$this->options['sort_listing_by']                 = get_directorist_option( 'sort_listing_by', 'asc' );
 		$this->options['listings_per_page']               = get_directorist_option( 'all_listing_page_items', 6 );
 		$this->options['paginate_listings']               = ! empty( get_directorist_option( 'paginate_all_listings', 1 ) ) ? 'yes' : '';
+		$this->options['pagination_type']                 = get_directorist_option( 'pagination_type', 'numbered' );
 		$this->options['display_listings_header']         = ! empty( get_directorist_option( 'display_listings_header', 1 ) ) ? 'yes' : '';
 		$this->options['listing_header_title']            = get_directorist_option( 'all_listing_title', __( 'Items Found', 'directorist' ) );
 		$this->options['listing_columns']                 = get_directorist_option( 'all_listing_columns', 2 );
@@ -294,6 +295,7 @@ class Directorist_Listings {
 			'order'                    => $this->options['sort_listing_by'],
 			'listings_per_page'        => $this->options['listings_per_page'],
 			'show_pagination'          => $this->options['paginate_listings'],
+			'pagination_type'          => $this->options['pagination_type'],
 			'header'                   => $this->options['display_listings_header'],
 			'header_title'             => $this->options['listing_header_title'],
 			'category'                 => '',
@@ -1147,6 +1149,37 @@ class Directorist_Listings {
 		return ob_get_clean();
 	}
 
+	public function render_list_view( $post_ids ) {
+
+		if ( ! is_array( $post_ids ) || empty( $post_ids ) ) {
+			// Exit early or log an error if the input is invalid
+			return;
+		}
+		
+		foreach ( $post_ids as $listing_id ) {
+			?>
+			<div class="directorist-col-12 directorist-all-listing-col">
+			<?php $this->loop_template( 'list', $listing_id ); ?>
+			</div>
+			<?php
+        }
+	}
+
+	public function render_grid_view( $post_ids ) {
+		if ( ! is_array( $post_ids ) || empty( $post_ids ) ) {
+			// Exit early or log an error if the input is invalid
+			return;
+		}
+		
+		foreach ( $post_ids as $listing_id ) {
+			?>
+			<div class="<?php Helper::directorist_column( $this->columns ); ?> directorist-all-listing-col">
+				<?php $this->loop_template( 'grid', $listing_id ); ?>
+			</div>
+			<?php
+        }
+	}
+
 	public function have_posts() {
 		return !empty( $this->query_results->ids ) ? true : false;
 	}
@@ -1824,6 +1857,13 @@ class Directorist_Listings {
 			return $this->view_as == 'masonry_grid' ? 'directorist-grid-masonary' : 'directorist-grid-normal';
 		}
 
+		public function pagination_infinite_scroll_class() {
+			return ! empty( $this->show_pagination ) 
+			&& isset( $this->options['pagination_type'] ) 
+			&& $this->options['pagination_type'] === 'infinite_scroll' 
+			? 'directorist-infinite-scroll' 
+			: '';
+		}
 		public function get_the_location() {
 			return get_the_term_list( get_the_ID(), ATBDP_LOCATION, '', ', ', '' );
 		}
@@ -2083,8 +2123,11 @@ class Directorist_Listings {
 				break;
 
 				case 'featured_badge':
-				$field['class'] = 'featured';
-				$field['label'] = Helper::featured_badge_text();
+				$field['class']               = 'featured';
+				$field['label']               = Helper::featured_badge_text();
+				$field['featured_badge_type']  = get_directorist_option( 'feature_badge_type', 'icon_badge');
+				$field['featured_badge_class'] = ( 'text_badge' === $field['featured_badge_type'] ) ? 'directorist-badge-featured--only-text' : '';
+
 				if ( Helper::is_featured( $id ) ) {
 					Helper::get_template( 'archive/fields/badge', apply_filters( 'directorist_featured_badge_field_data', $field ) );
 				}

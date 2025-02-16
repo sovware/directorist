@@ -212,8 +212,8 @@ class ATBDP_Shortcode {
 
 	public function category_archive( $atts ) {
 		$atts             = !empty( $atts ) ? $atts : array();
-		$category_slug    = !empty( $_GET['category'] ) ? directorist_clean( wp_unslash( $_GET['category'] ) ) : get_query_var('atbdp_category');
-		$atts['category'] = sanitize_title_for_query( $category_slug );
+		$category_slug    = !empty( $_GET['category'] ) ? directorist_clean( wp_unslash( $_GET['category'] ) ) : urldecode( get_query_var('atbdp_category') );
+		$atts['category'] = sanitize_text_field( $category_slug );
 
 		$atts[ 'shortcode' ] = 'directorist_category';
 
@@ -232,8 +232,8 @@ class ATBDP_Shortcode {
 
 	public function location_archive( $atts ) {
 		$atts             = !empty( $atts ) ? $atts : array();
-		$location_slug    = !empty( $_GET['location'] ) ? directorist_clean( wp_unslash( $_GET['location'] ) ) : get_query_var('atbdp_location');
-		$atts['location'] = sanitize_title_for_query( $location_slug );
+		$location_slug    = !empty( $_GET['location'] ) ? directorist_clean( wp_unslash( $_GET['location'] ) ) : urldecode( get_query_var('atbdp_location') );
+		$atts['location'] = sanitize_text_field( $location_slug );
 
 		$atts[ 'shortcode' ] = 'directorist_location';
 

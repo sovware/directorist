@@ -1492,9 +1492,9 @@ function atbdp_get_listings_current_order($default_order = '')
 
     $order = $default_order;
 
-    if (isset($_REQUEST['sort'])) {
+    if ( isset( $_REQUEST['sort'] ) && ! empty( $_REQUEST['sort'] ) ) {
         $order = directorist_clean( wp_unslash( $_REQUEST['sort'] ) );
-    } else if (isset($_REQUEST['order'])) {
+    } else if ( isset( $_REQUEST['order'] ) && ! empty( $_REQUEST['order'] ) ) {
         $order = directorist_clean( wp_unslash( $_REQUEST['order'] ) );
     }
 
@@ -3599,6 +3599,22 @@ function directorist_owner_notifiable_for( $event_name = '' ) {
  */
 function directorist_get_listing_views_count_meta_key() {
 	return '_atbdp_post_views_count';
+}
+
+/**
+ * This function returns the types of listing statuses.
+ *
+ * @since 8.1.1
+ *
+ * @return array
+ */
+function directorist_get_listing_statuses() {
+	return array(
+        'draft'   => __( 'Draft', 'directorist' ),
+        'pending' => __( 'Pending Review', 'directorist' ),
+        'private' => __( 'Private', 'directorist' ),
+        'publish' => __( 'Published', 'directorist' ),
+    );
 }
 
 /**

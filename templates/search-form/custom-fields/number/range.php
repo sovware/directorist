@@ -16,7 +16,7 @@ $max_value = $data['options']['max_value'] ?? 100;
         <label><?php echo esc_html( $data['label'] ); ?></label>
     <?php endif; ?>
     <div class="directorist-custom-range-slider">
-        <div class="directorist-custom-range-slider__slide" step="<?php echo esc_attr( ! empty( $data['options']['step'] ) ? absint( $data['options']['step'] ) : 1 ); ?>" aria-label="Range"></div>
+        <div class="directorist-custom-range-slider__slide" step="<?php echo esc_attr( ! empty( $data['options']['step'] ) ? absint( $data['options']['step'] ) : 1 ); ?>" aria-label="Range" max-value="<?php echo esc_attr($max_value); ?>"></div>
         <div class="directorist-custom-range-slider__wrap">
             <div class="directorist-custom-range-slider__value">
                 <label for="directorist-custom-range-slider__value__min__number" class="directorist-custom-range-slider__label"><?php esc_html_e( 'Min', 'directorist' ); ?></label>

@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   7.0
- * @version8.0
+ * @version 8.1.1
  */
 
 extract( $checkout );
@@ -108,7 +108,7 @@ use \Directorist\Helper;
                                     <span class="directorist-summery-label"><?php printf( esc_html__( 'Total amount [%s]', 'directorist' ), esc_html( $currency ) ); ?></h4>
                                 </td>
                                 <td class="directorist-text-right">
-                                    <div id="atbdp_checkout_total_amount" class="directorist-summery-amount"><?php echo number_format( $subtotal, 2 ) ?></div>
+                                    <div id="atbdp_checkout_total_amount" class="directorist-summery-amount"><?php echo atbdp_format_payment_amount( $subtotal ) ?></div>
                                     <input type="hidden" name="price" id="atbdp_checkout_total_amount_hidden" value="<?php echo esc_attr( $subtotal ) ?>">
                                 </td>
                             </tr>

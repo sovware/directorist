@@ -258,6 +258,9 @@ class Users_Controller extends Abstract_Controller {
 			$prepared_args['role'] = $request['role'];
 		}
 
+		// Limit users to having published listings only
+		$prepared_args['has_published_posts'] = [ ATBDP_POST_TYPE ];
+
 		/**
 		 * Filter arguments, before passing to WP_User_Query, when querying users via the REST API.
 		 *

@@ -18,7 +18,7 @@ $options = directorist_calculate_number_options( $data );
 			<label class="directorist-search-field__label"><?php echo esc_attr( $data['label'] ); ?></label>
 		<?php endif; ?>
 
-		<select name='custom_field[<?php echo esc_attr( $data['field_key'] ); ?>]' <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?> data-isSearch="true">
+		<select name='custom_field[<?php echo esc_attr( $data['field_key'] ); ?>]' <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?> data-isSearch="true" data-placeholder="<?php echo esc_attr( $data['placeholder'] ?? '' ); ?>">
 
 			<option value=""><?php echo esc_html( ! empty( $data['placeholder'] ) ? $data['placeholder'] : __( 'Select', 'directorist' ) )?></option>
 

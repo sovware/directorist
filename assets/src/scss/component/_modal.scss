@@ -210,6 +210,7 @@
           font-weight: 400;
           color: var(--directorist-color-body);
           transition: opacity 0.3s ease, top 0.3s ease, font-size 0.3s ease;
+          ~ .directorist-form-group__with-prefix .directorist-form-element,
           ~ .directorist-search-field__input {
             &::placeholder {
               opacity: 0;

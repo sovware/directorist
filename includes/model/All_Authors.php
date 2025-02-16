@@ -99,6 +99,8 @@ class Directorist_All_Authors {
 			$args['role__in'] = array( $all_authors_select_role );
 		}
 
+		// $args['has_published_posts'] = [ ATBDP_POST_TYPE ];
+
 		if( ! empty( $_REQUEST['alphabet'] ) && 'ALL' != $_REQUEST['alphabet'] ) {
 			$args['search'] 		= sanitize_text_field( wp_unslash( $_REQUEST['alphabet'] ) ) . '*';
 			$args['search_columns'] = array('display_name');

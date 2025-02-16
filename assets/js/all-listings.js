@@ -122,9 +122,9 @@ function debounce(func, wait, immediate) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t.return || t.return(); } finally { if (u) throw o; } } }; }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 var $ = jQuery;
 window.addEventListener('load', waitAndInit);
 window.addEventListener('directorist-search-form-nav-tab-reloaded', waitAndInit);
@@ -360,7 +360,6 @@ function initSelect2() {
   // Not found in any template
   '.bdas-category-search' // Not found in any template
   ];
-
   selectors.forEach(function (selector) {
     return Object(_lib_helper__WEBPACK_IMPORTED_MODULE_1__["convertToSelect2"])(selector);
   });
@@ -454,6 +453,42 @@ function maybeLazyLoadTaxonomyTermsSelect2(args) {
     width: '100%',
     escapeMarkup: function escapeMarkup(text) {
       return text;
+    },
+    templateResult: function templateResult(data) {
+      if (!data.id) {
+        return data.text;
+      }
+
+      // Fetch the data-icon attribute
+      var iconURI = $(data.element).attr('data-icon');
+
+      // Get the original text
+      var originalText = data.text;
+
+      // Match and count leading spaces
+      var leadingSpaces = originalText.match(/^\s+/);
+      var spaceCount = leadingSpaces ? leadingSpaces[0].length : 0;
+
+      // Trim leading spaces from the original text
+      originalText = originalText.trim();
+
+      // Construct the icon element
+      var iconElm = iconURI ? "<i class=\"directorist-icon-mask\" aria-hidden=\"true\" style=\"--directorist-icon: url('".concat(iconURI, "')\"></i>") : '';
+
+      // Prepare the combined text (icon + text)
+      var combinedText = iconElm + originalText;
+
+      // Create the state container
+      var $state = $('<div class="directorist-select2-contents"></div>');
+
+      // Determine the level based on space count
+      var level = Math.floor(spaceCount / 8) + 1; // 8 spaces = level 2, 16 spaces = level 3, etc.
+      if (level > 1) {
+        $state.addClass('item-level-' + level); // Add class for the level (e.g., level-1, level-2, etc.)
+      }
+      $state.html(combinedText); // Set the combined content (icon + text)
+
+      return $state;
     }
   };
   if (directorist.lazy_load_taxonomy_fields) {
@@ -663,6 +698,8 @@ window.addEventListener('load', function () {
 /***/ (function(module, exports) {
 
 window.addEventListener('load', function () {
+  var $ = jQuery;
+
   /* Make sure the codes in this file runs only once, even if enqueued twice */
   if (typeof window.directorist_catloc_executed === 'undefined') {
     window.directorist_catloc_executed = true;
@@ -694,6 +731,61 @@ window.addEventListener('load', function () {
   }
   categoryDropdown('.directorist-taxonomy-list-one .directorist-taxonomy-list__toggle', '.directorist-taxonomy-list-one .directorist-taxonomy-list');
   categoryDropdown('.directorist-taxonomy-list-one .directorist-taxonomy-list__sub-item-toggle', '.directorist-taxonomy-list-one .directorist-taxonomy-list');
+
+  // Taxonomy Ajax
+  $(document).on('click', '.directorist-categories .directorist-pagination a', function (e) {
+    taxonomyPagination(e, $(this), '.directorist-categories');
+  });
+  $(document).on('click', '.directorist-location .directorist-pagination a', function (e) {
+    taxonomyPagination(e, $(this), '.directorist-location');
+  });
+  function taxonomyPagination(event, clickedElement, containerSelector) {
+    event.preventDefault();
+    var pageNumber = (clickedElement === null || clickedElement === void 0 ? void 0 : clickedElement.attr('data-page')) || 1;
+    var container = clickedElement.closest(containerSelector);
+    var containerAttributes = container ? $(container).data('attrs') : {};
+    $.ajax({
+      url: directorist.ajax_url,
+      type: 'POST',
+      dataType: 'json',
+      data: {
+        action: 'directorist_taxonomy_pagination',
+        nonce: directorist.directorist_nonce,
+        page: parseInt(pageNumber),
+        attrs: containerAttributes
+      },
+      beforeSend: function beforeSend() {
+        $(containerSelector).addClass('atbdp-form-fade');
+      },
+      success: function success(response) {
+        var _tempContainer$queryS, _tempContainer$queryS2;
+        if (!(response !== null && response !== void 0 && response.success)) {
+          console.error('Failed to load taxonomy content');
+          return;
+        }
+        var tempContainer = document.createElement('div');
+        tempContainer.innerHTML = response.data.content;
+        // Handle both category and location wrappers
+        var taxonomyWrapper = document.querySelector('.taxonomy-category-wrapper');
+        var locationWrapper = document.querySelector('.taxonomy-location-wrapper');
+        var updatedCategoryContent = (_tempContainer$queryS = tempContainer.querySelector('.taxonomy-category-wrapper')) === null || _tempContainer$queryS === void 0 ? void 0 : _tempContainer$queryS.innerHTML;
+        var updatedLocationContent = (_tempContainer$queryS2 = tempContainer.querySelector('.taxonomy-location-wrapper')) === null || _tempContainer$queryS2 === void 0 ? void 0 : _tempContainer$queryS2.innerHTML;
+        if (taxonomyWrapper && updatedCategoryContent) {
+          taxonomyWrapper.innerHTML = updatedCategoryContent;
+        }
+        if (locationWrapper && updatedLocationContent) {
+          locationWrapper.innerHTML = updatedLocationContent;
+        }
+        if (!taxonomyWrapper && !locationWrapper) {
+          console.error('Required elements not found in response');
+          return;
+        }
+      },
+      complete: function complete() {
+        $(containerSelector).removeClass('atbdp-form-fade');
+      }
+    });
+  }
 });
 
 /***/ }),
@@ -1288,9 +1380,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _global_components_debounce__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../global/components/debounce */ "./assets/src/js/global/components/debounce.js");
 
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t.return || t.return(); } finally { if (u) throw o; } } }; }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 
@@ -1398,9 +1490,37 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     });
   }
 
+  // Scrolling Pagination
+  var page = 1;
+  var infinitePaginationIsLoading = false;
+  var infinitePaginationCompleted = false;
+  function handleScroll() {
+    var container = $('.directorist-infinite-scroll .directorist-container-fluid .directorist-row');
+    if (!container.length || infinitePaginationIsLoading) return;
+    var containerBottom = container.offset().top + container.outerHeight();
+    var scrollBottom = window.scrollY + window.innerHeight;
+    if (scrollBottom >= containerBottom) {
+      infinitePaginationIsLoading = true;
+      page++;
+      var instantSearchElement = $('.directorist-instant-search');
+      var activeForm = getActiveForm(instantSearchElement);
+      var formData = buildFormData(activeForm, instantSearchElement);
+      loadMoreListings(formData);
+    }
+  }
+  ;
+  window.addEventListener('scroll', function () {
+    if (infinitePaginationCompleted) return;
+    handleScroll();
+  });
+
   /* Directorist instant search */
   $('body').on("submit", ".directorist-instant-search form", function (e) {
     e.preventDefault();
+    // infinite pagination loading reset
+    page = 1;
+    infinitePaginationIsLoading = false;
+    infinitePaginationCompleted = false;
     var instant_search_element = $(this).closest('.directorist-instant-search');
     var tag = [];
     var search_by_rating = [];
@@ -1788,6 +1908,10 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   // Directorist type changes
   $('body').on("click", ".directorist-instant-search .directorist-type-nav__link", function (e) {
     e.preventDefault();
+    // infinite pagination loading reset
+    page = 1;
+    infinitePaginationIsLoading = false;
+    infinitePaginationCompleted = false;
     var _this = $(this);
     var type_href = $(this).attr('href');
     var type = type_href.match(/directory_type=.+/);
@@ -1815,6 +1939,9 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
           $(_this).closest('.directorist-instant-search').find('.atbdp-form-fade').removeClass('atbdp-form-fade');
           window.dispatchEvent(new CustomEvent('directorist-instant-search-reloaded'));
           window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
+
+          // SearchForm Item in Single Category Location Page Init
+          singleCategoryLocationInit();
         }
         var events = [new CustomEvent('directorist-instant-search-reloaded'), new CustomEvent('directorist-search-form-nav-tab-reloaded'), new CustomEvent('directorist-reload-select2-fields'), new CustomEvent('directorist-reload-map-api-field')];
         events.forEach(function (event) {
@@ -1831,6 +1958,10 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   // Directorist view as changes
   $('body').on("click", ".directorist-instant-search .directorist-viewas .directorist-viewas__item", function (e) {
     e.preventDefault();
+    // infinite pagination loading reset
+    page = 1;
+    infinitePaginationIsLoading = false;
+    infinitePaginationCompleted = false;
     var instant_search_element = $(this).closest('.directorist-instant-search');
     var tag = [];
     var price = [];
@@ -1950,7 +2081,6 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         instant_search_element.find('.directorist-header-bar .directorist-advanced-filter').css('visibility', 'hidden');
         //$(document).scrollTop( $(this).closest(".directorist-instant-search").offset().top );
       },
-
       success: function success(html) {
         if (html.view_as) {
           instant_search_element.find('.directorist-header-found-title span').text(html.count);
@@ -1970,6 +2100,10 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   // Directorist sort by changes
   $('body').on("click", ".directorist-instant-search .directorist-sortby-dropdown .directorist-dropdown__links__single-js", function (e) {
     e.preventDefault();
+    // infinite pagination loading reset
+    page = 1;
+    infinitePaginationIsLoading = false;
+    infinitePaginationCompleted = false;
     var instant_search_element = $(this).closest('.directorist-instant-search');
     var tag = [];
     var price = [];
@@ -2230,11 +2364,136 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     });
   });
 
+  // Helper function to determine the active form
+  function getActiveForm(instantSearchElement) {
+    var sidebarListing = instantSearchElement.find('.listing-with-sidebar');
+    var advancedForm = instantSearchElement.find('.directorist-advanced-filter__form');
+    var searchForm = instantSearchElement.find('.directorist-search-form');
+    return sidebarListing.length ? instantSearchElement : screen.width > 575 ? advancedForm : searchForm;
+  }
+
+  // Helper function to build form data
+  function buildFormData(activeForm, instantSearchElement) {
+    var tag = [];
+    var price = [];
+    var customField = {};
+    var dataAtts = JSON.parse(instantSearchElement.attr('data-atts'));
+    activeForm.find('input[name^="in_tag["]:checked').each(function (_, el) {
+      return tag.push($(el).val());
+    });
+    activeForm.find('input[name^="price["]').each(function (_, el) {
+      return price.push($(el).val());
+    });
+    activeForm.find('[name^="custom_field"]').each(function (_, el) {
+      var name = $(el).attr('name');
+      var type = $(el).attr('type');
+      var postId = name.replace(/(custom_field\[)/, '').replace(/\]/, '').split('[]')[0];
+      if (type === 'radio') {
+        customField[postId] = activeForm.find("input[name='custom_field[".concat(postId, "]']:checked")).val();
+      } else if (type === 'checkbox') {
+        customField[postId] = activeForm.find("input[name='custom_field[".concat(postId, "][]']:checked")).map(function (_, e) {
+          return $(e).val();
+        }).get();
+      } else {
+        customField[postId] = $(el).val();
+      }
+    });
+    var view_href = $(".directorist-viewas .directorist-viewas__item.active").attr('href');
+    var view_as = view_href && view_href.length ? view_href.match(/view=.+/) : '';
+    var view = view_as && view_as.length ? view_as[0].replace(/view=/, '') : '';
+    var getValue = function getValue(selector, fallback) {
+      return activeForm.find(selector).val() || fallback;
+    };
+    return {
+      action: 'directorist_instant_search',
+      _nonce: directorist.ajax_nonce,
+      current_page_id: directorist.current_page_id,
+      q: getValue('input[name="q"]', getURLParameter(full_url, 'q')),
+      in_cat: getValue('.directorist-category-select', getURLParameter(full_url, 'in_cat')),
+      in_loc: getValue('.directorist-location-select', getURLParameter(full_url, 'in_loc')),
+      in_tag: tag || getURLParameter(full_url, 'in_tag'),
+      price: price || getURLParameter(full_url, 'price'),
+      price_range: getValue("input[name='price_range']:checked", getURLParameter(full_url, 'price_range')),
+      search_by_rating: getValue('select[name=search_by_rating]', getURLParameter(full_url, 'search_by_rating')),
+      cityLat: getValue('#cityLat', getURLParameter(full_url, 'cityLat')),
+      cityLng: getValue('#cityLng', getURLParameter(full_url, 'cityLng')),
+      miles: getValue('input[name="miles"]', getURLParameter(full_url, 'miles')),
+      address: getValue('input[name="address"]', getURLParameter(full_url, 'address')),
+      zip: getValue('input[name="zip"]', getURLParameter(full_url, 'zip')),
+      fax: getValue('input[name="fax"]', getURLParameter(full_url, 'fax')),
+      email: getValue('input[name="email"]', getURLParameter(full_url, 'email')),
+      website: getValue('input[name="website"]', getURLParameter(full_url, 'website')),
+      phone: getValue('input[name="phone"]', getURLParameter(full_url, 'phone')),
+      custom_field: customField,
+      view: view,
+      paged: page,
+      data_atts: dataAtts,
+      sort: getSortValue(instantSearchElement),
+      directory_type: getDirectoryType(instantSearchElement),
+      open_now: activeForm.find('input[name="open_now"]:checked').val()
+    };
+  }
+
+  // Helper function to get sort value
+  function getSortValue(instantSearchElement) {
+    var sortHref = instantSearchElement.find('.directorist-sortby-dropdown .directorist-dropdown__links__single.active').data('link');
+    return sortHref ? sortHref.split('sort=')[1] : '';
+  }
+
+  // Helper function to get directory type
+  function getDirectoryType(instantSearchElement) {
+    var typeHref = instantSearchElement.find('.directorist-type-nav__list .directorist-type-nav__list__current a').attr('href');
+    return typeHref ? getURLParameter(typeHref, 'directory_type') : '';
+  }
+
+  // AJAX call to load more listings
+  function loadMoreListings(formData) {
+    var loadingDiv;
+    var container = $('.directorist-infinite-scroll .directorist-container-fluid .directorist-row');
+    $.ajax({
+      url: directorist.ajaxurl,
+      type: 'POST',
+      data: formData,
+      beforeSend: function beforeSend() {
+        loadingDiv = $('<div>', {
+          class: 'directorist-on-scroll-loading'
+        }).append($('<div>', {
+          class: 'directorist-spinner'
+        }), $('<span>').text('Loading more...'));
+        container.append(loadingDiv);
+      },
+      success: function success(html) {
+        if (loadingDiv) loadingDiv.remove();
+        if (html.count > 0) {
+          container.append(html.render_listings);
+        } else {
+          infinitePaginationCompleted = true;
+        }
+        triggerCustomEvents();
+      },
+      complete: function complete() {
+        infinitePaginationIsLoading = false;
+        if (loadingDiv) loadingDiv.remove();
+      }
+    });
+  }
+
+  // Helper function to trigger custom events
+  function triggerCustomEvents() {
+    window.dispatchEvent(new Event('directorist-instant-search-reloaded'));
+    window.dispatchEvent(new Event('directorist-reload-listings-map-archive'));
+  }
+
   // Filter on AJAX Search
   function filterListing(searchElm) {
     if (!searchElm) {
       return;
     }
+
+    // infinite pagination loading reset
+    page = 1;
+    infinitePaginationIsLoading = false;
+    infinitePaginationCompleted = false;
     var _this = searchElm;
     var tag = [];
     var price = [];
@@ -2428,8 +2687,32 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     });
   }
 
+  // Single Location Category Page Search Form Item Disable
+  function singleCategoryLocationInit() {
+    var directoristDataAttributes = document.querySelector('.directorist-archive-contents').getAttribute('data-atts');
+    var _JSON$parse = JSON.parse(directoristDataAttributes),
+      shortcode = _JSON$parse.shortcode,
+      location = _JSON$parse.location,
+      category = _JSON$parse.category;
+    if (shortcode === 'directorist_category' && category.trim() !== '') {
+      var categorySelect = document.querySelector('.directorist-search-form .directorist-category-select');
+      if (categorySelect) {
+        categorySelect.closest('.directorist-search-category').classList.add('directorist-search-form__single-category');
+      }
+    }
+    if (shortcode === 'directorist_location' && location.trim() !== '') {
+      var locationSelect = document.querySelector('.directorist-search-form .directorist-location-select');
+      if (locationSelect) {
+        locationSelect.closest('.directorist-search-location').classList.add('directorist-search-form__single-location');
+      }
+    }
+  }
+
   // sidebar on keyup searching
   $('body').on("keyup", ".directorist-instant-search .listing-with-sidebar form", Object(_global_components_debounce__WEBPACK_IMPORTED_MODULE_1__["default"])(function (e) {
+    if ($(e.target).closest('.directorist-custom-range-slider__value').length > 0) {
+      return; // Skip calling `filterListing` for this element
+    }
     e.preventDefault();
     var searchElm = $(this).closest('.listing-with-sidebar');
     filterListing(searchElm);
@@ -2478,6 +2761,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   }
   window.addEventListener('load', function () {
     Object(_global_components_debounce__WEBPACK_IMPORTED_MODULE_1__["default"])(initObserver(), 250);
+    singleCategoryLocationInit();
   });
 })(jQuery);
 
@@ -2605,9 +2889,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__);
 
 
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t.return || t.return(); } finally { if (u) throw o; } } }; }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 window.addEventListener('load', function () {
   ;
   (function ($) {
@@ -2622,7 +2906,7 @@ window.addEventListener('load', function () {
           return _this.init();
         });
       }
-      _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(ReplyFormObserver, [{
+      return _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(ReplyFormObserver, [{
         key: "init",
         value: function init() {
           var node = document.querySelector('.commentlist');
@@ -2725,14 +3009,13 @@ window.addEventListener('load', function () {
           }
         }
       }]);
-      return ReplyFormObserver;
     }();
     var CommentEditHandler = /*#__PURE__*/function () {
       function CommentEditHandler() {
         _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, CommentEditHandler);
         this.init();
       }
-      _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(CommentEditHandler, [{
+      return _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(CommentEditHandler, [{
         key: "init",
         value: function init() {
           $(document).on('submit', '#directorist-form-comment-edit', this.onSubmit);
@@ -2801,14 +3084,13 @@ window.addEventListener('load', function () {
           $form.prepend(msg);
         }
       }]);
-      return CommentEditHandler;
     }();
     var CommentAddReplyHandler = /*#__PURE__*/function () {
       function CommentAddReplyHandler() {
         _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, CommentAddReplyHandler);
         this.init();
       }
-      _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(CommentAddReplyHandler, [{
+      return _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(CommentAddReplyHandler, [{
         key: "init",
         value: function init() {
           var t = setTimeout(function () {
@@ -2925,7 +3207,6 @@ window.addEventListener('load', function () {
           form.prepend($error);
         }
       }]);
-      return CommentAddReplyHandler;
     }();
     var CommentsManager = /*#__PURE__*/function () {
       function CommentsManager() {
@@ -2934,7 +3215,7 @@ window.addEventListener('load', function () {
         this.setupComponents();
         this.addEventListeners();
       }
-      _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(CommentsManager, [{
+      return _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(CommentsManager, [{
         key: "initStarRating",
         value: function initStarRating() {
           $('.directorist-review-criteria-select').barrating({
@@ -3027,7 +3308,6 @@ window.addEventListener('load', function () {
           new CommentEditHandler();
         }
       }]);
-      return CommentsManager;
     }();
     var commentsManager = new CommentsManager();
   })(jQuery);
@@ -3145,10 +3425,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
+function _classCallCheck(a, n) {
+  if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function");
 }
 module.exports = _classCallCheck, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
@@ -3162,22 +3440,16 @@ module.exports = _classCallCheck, module.exports.__esModule = true, module.expor
 /***/ (function(module, exports, __webpack_require__) {
 
 var toPropertyKey = __webpack_require__(/*! ./toPropertyKey.js */ "./node_modules/@babel/runtime/helpers/toPropertyKey.js");
-function _defineProperties(target, props) {
-  for (var i = 0; i < props.length; i++) {
-    var descriptor = props[i];
-    descriptor.enumerable = descriptor.enumerable || false;
-    descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
-    Object.defineProperty(target, toPropertyKey(descriptor.key), descriptor);
+function _defineProperties(e, r) {
+  for (var t = 0; t < r.length; t++) {
+    var o = r[t];
+    o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, toPropertyKey(o.key), o);
   }
 }
-function _createClass(Constructor, protoProps, staticProps) {
-  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-  if (staticProps) _defineProperties(Constructor, staticProps);
-  Object.defineProperty(Constructor, "prototype", {
-    writable: false
-  });
-  return Constructor;
+function _createClass(e, r, t) {
+  return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", {
+    writable: !1
+  }), e;
 }
 module.exports = _createClass, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
@@ -3191,19 +3463,13 @@ module.exports = _createClass, module.exports.__esModule = true, module.exports[
 /***/ (function(module, exports, __webpack_require__) {
 
 var toPropertyKey = __webpack_require__(/*! ./toPropertyKey.js */ "./node_modules/@babel/runtime/helpers/toPropertyKey.js");
-function _defineProperty(obj, key, value) {
-  key = toPropertyKey(key);
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-  return obj;
+function _defineProperty(e, r, t) {
+  return (r = toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
+    value: t,
+    enumerable: !0,
+    configurable: !0,
+    writable: !0
+  }) : e[r] = t, e;
 }
 module.exports = _defineProperty, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
@@ -3217,17 +3483,17 @@ module.exports = _defineProperty, module.exports.__esModule = true, module.expor
 /***/ (function(module, exports, __webpack_require__) {
 
 var _typeof = __webpack_require__(/*! ./typeof.js */ "./node_modules/@babel/runtime/helpers/typeof.js")["default"];
-function _toPrimitive(input, hint) {
-  if (_typeof(input) !== "object" || input === null) return input;
-  var prim = input[Symbol.toPrimitive];
-  if (prim !== undefined) {
-    var res = prim.call(input, hint || "default");
-    if (_typeof(res) !== "object") return res;
+function toPrimitive(t, r) {
+  if ("object" != _typeof(t) || !t) return t;
+  var e = t[Symbol.toPrimitive];
+  if (void 0 !== e) {
+    var i = e.call(t, r || "default");
+    if ("object" != _typeof(i)) return i;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
-  return (hint === "string" ? String : Number)(input);
+  return ("string" === r ? String : Number)(t);
 }
-module.exports = _toPrimitive, module.exports.__esModule = true, module.exports["default"] = module.exports;
+module.exports = toPrimitive, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
 
@@ -3240,11 +3506,11 @@ module.exports = _toPrimitive, module.exports.__esModule = true, module.exports[
 
 var _typeof = __webpack_require__(/*! ./typeof.js */ "./node_modules/@babel/runtime/helpers/typeof.js")["default"];
 var toPrimitive = __webpack_require__(/*! ./toPrimitive.js */ "./node_modules/@babel/runtime/helpers/toPrimitive.js");
-function _toPropertyKey(arg) {
-  var key = toPrimitive(arg, "string");
-  return _typeof(key) === "symbol" ? key : String(key);
+function toPropertyKey(t) {
+  var i = toPrimitive(t, "string");
+  return "symbol" == _typeof(i) ? i : i + "";
 }
-module.exports = _toPropertyKey, module.exports.__esModule = true, module.exports["default"] = module.exports;
+module.exports = toPropertyKey, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
 
@@ -3258,11 +3524,11 @@ module.exports = _toPropertyKey, module.exports.__esModule = true, module.export
 function _typeof(o) {
   "@babel/helpers - typeof";
 
-  return (module.exports = _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
+  return module.exports = _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
     return typeof o;
   } : function (o) {
     return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
-  }, module.exports.__esModule = true, module.exports["default"] = module.exports), _typeof(o);
+  }, module.exports.__esModule = true, module.exports["default"] = module.exports, _typeof(o);
 }
 module.exports = _typeof, module.exports.__esModule = true, module.exports["default"] = module.exports;
 

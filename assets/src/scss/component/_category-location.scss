@@ -186,6 +186,10 @@
       width: 100%;
     }
   }
+  
+  .directorist-type-nav{
+    margin-bottom: 15px;
+  }
 }
 
 /* Taxonomy List Style One */
@@ -614,7 +618,6 @@
       width: 100%;
     }
   }
-
   .directorist-col-4 {
     @media screen and (max-width: 991px) {
       width: 33.33%;
@@ -625,5 +628,8 @@
     @media screen and (max-width: 575px) {
       width: 100%;
     }
+  }
+  .directorist-type-nav{
+    margin-bottom: 15px;
   }
 }

@@ -1,15 +1,15 @@
-﻿=== Directorist: AI-Powered WordPress Business Directory Plugin with Classified Ads Listings ===
+﻿=== Directorist: AI-Powered Business Directory Plugin with Classified Ads Listings ===
 Contributors: wpwax
 Donate link: https://directorist.com/extensions/
 Tags: member directory, listing, classifieds, directory plugin, business directory
 Requires at least: 4.6
 Tested up to: 6.7
 Requires PHP: 7.0
-Stable tag: 8.0.10
+Stable tag: 8.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-The Best WordPress Directory Plugin to Create Business Directory, Job Listings, Classified Ads, Booking Directory, Local Directory, Service Directory
+An Excellent WP Directory Plugin to Create Business Directories, Job Listings, Classified Ads, Booking Directories, Local Directories, and Service Directories.
 
 == Description ==
 
@@ -296,6 +296,54 @@ Directorist is a complete directory solution and in combination with its advance
  * and many more
 
 == Changelog ==
+
+8.1 - Jan 29, 2025
+
+**Added**
+ - Infinite Scroll Pagination for listings archive pages, including all listings, search results, single category, and single location pages (#2210)
+ - AJAX Pagination for all taxonomy pages, including categories and locations (#2199)
+ - User Query Limit restricted to published listings owners for users accessing the `users` REST API endpoint (#2198)
+
+**Changed**
+ - Disabled the category dropdown search field on the single category page (#2203)
+ - Disabled the location dropdown search field on the single location page (#2203)
+
+**Fixed**
+ - Number custom field range issue (#2173)
+ - Title markup inconsistency issue (#2195)
+ - Pagination issue on single taxonomy pages (#2188)
+ - Category conflict with the number custom field (#2197)
+ - Badge display issue on the all listings page (#2189)
+ - Category custom field issue in the search form (#2190)
+ - Incorrect Twitter text in the social info section (#2191)
+ - Listing expired status handling issue (#2194)
+ - View count reset issue (#2207)
+ - Translation issue (#2192)
+ - Listing directory update on quick and bulk edit screens (#2201)
+ - Zipcode radius search issue with OpenStreetMap (#2208)
+ - Checkout Amount Format (#2214)
+
+8.0.12 - Jan 10, 2025
+
+* Improve: Community guidelines
+
+8.0.11 - Jan 02, 2025
+
+* Improve: Location Value Change on Filter | Radius Search Value on Search (#2178)
+* Improve: Smooth Scroll Transition on Add Listing Section (#2170)
+* Improve: The search field when the filter button is disabled in the popup layout. (#2181)
+* Improve: Developer flexibility adding listing import before after hooks (#2161)
+* Improve: Listing Category Word Break (#2171)
+* Fix: Field Specific Query Fix (#2184)
+* Fix: Inheritance and Initialization of AdvancedMarkerElement in Custom Marker Implementation (#2182)
+* Fix: Account Block Alert Issue (#2176)
+* Fix: Made the Add Listing sidebar fully responsive. (#2180)
+* Fix: All Listings Default Map View - Resolved the issue where the listing card was being cut off (#2177)
+* Fix: Translate issue (#2174)
+* Fix: Privacy policy & terms condition page linking issue (#2172)
+* Fix: Float value issue of number custom field (#2175)
+* Fix: Taxonomy linking issue (#2186)
+
 
 8.0.10 - Dec 17, 2024
 

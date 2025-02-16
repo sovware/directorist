@@ -19336,6 +19336,7 @@ input[type=radio]:checked::before {
   top: 30px;
   right: 0;
   z-index: 1;
+  padding-bottom: 20px;
 }
 .cptm-elements-settings__group__options .cptm-option-card {
   margin: 0;
@@ -24912,6 +24913,7 @@ input[type=radio]:checked::before {
   top: 30px;
   right: 0;
   z-index: 1;
+  padding-bottom: 20px;
 }
 .cptm-elements-settings__group__options .cptm-option-card {
   margin: 0;
@@ -30776,6 +30778,7 @@ input[type=radio]:checked::before {
   top: 30px;
   right: 0;
   z-index: 1;
+  padding-bottom: 20px;
 }
 .cptm-elements-settings__group__options .cptm-option-card {
   margin: 0;

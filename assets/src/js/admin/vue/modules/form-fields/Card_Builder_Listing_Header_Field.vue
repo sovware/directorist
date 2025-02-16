@@ -1,10 +1,13 @@
 <template>
   <div class="cptm-builder-section">
-
     <!-- cptm-preview-area -->
-    <div 
+    <div
       class="cptm-preview-placeholder"
-      :class="!elementsSettingsOpened ? 'cptm-preview-placeholder--settings-closed' : ''"
+      :class="
+        !elementsSettingsOpened
+          ? 'cptm-preview-placeholder--settings-closed'
+          : ''
+      "
     >
       <div class="cptm-preview-placeholder__card">
         <!-- Draggable Bottom Widgets -->
@@ -12,11 +15,9 @@
           v-for="(placeholderItem, index) in placeholders"
           :key="index"
           v-if="placeholderItem.type == 'placeholder_group'"
-          class="cptm-preview-placeholder__card__item cptm-preview-placeholder__card__item--top" 
+          class="cptm-preview-placeholder__card__item cptm-preview-placeholder__card__item--top"
         >
-          <div
-            class="cptm-preview-placeholder__card__content"
-          >
+          <div class="cptm-preview-placeholder__card__content">
             <card-widget-placeholder
               v-for="(
                 placeholderSubItem, subIndex
@@ -36,7 +37,7 @@
             />
           </div>
         </div>
-        <Container 
+        <Container
           @drop="onDrop"
           drag-handle-selector=".cptm-drag-element"
           class="cptm-preview-placeholder__card__item cptm-preview-placeholder__card__item--bottom"
@@ -47,13 +48,8 @@
             :key="index"
             v-if="placeholderItem.type == 'placeholder_item'"
           >
-
-            <div
-              class="draggable-item"
-            >
-              <div
-                class="cptm-preview-placeholder__card__content"
-              >
+            <div class="draggable-item">
+              <div class="cptm-preview-placeholder__card__content">
                 <card-widget-placeholder
                   :placeholderKey="placeholderItem.placeholderKey"
                   :id="'listings_header_' + index"
@@ -90,7 +86,7 @@
           </Draggable>
         </Container>
       </div>
-    </div>  
+    </div>
 
     <!-- Toggle Button -->
     <button
@@ -99,40 +95,66 @@
       v-if="!elementsSettingsOpened"
       @click.prevent="toggleElementsSettings"
     >
-      <svg width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M16.0834 10.6668C15.9167 10.5001 15.8334 10.2501 15.8334 10.0001C15.8334 9.75012 15.8334 9.50012 16.0834 9.33346L16.75 8.33346C17.0834 7.91679 17.25 7.41679 17.25 6.91679C17.25 6.41679 17.1667 5.91679 16.9167 5.41679C16.6667 5.00012 16.25 4.58346 15.8334 4.33346C15.3334 4.08346 14.8334 4.00012 14.3334 4.08346L13.1667 4.25012C12.9167 4.25012 12.6667 4.25012 12.4167 4.08346C12.1667 3.91679 12 3.75012 11.9167 3.50012L11.4167 2.41679C11.1667 1.91679 10.8334 1.58346 10.4167 1.25012C9.58336 0.666789 8.33336 0.666789 7.50003 1.25012C7.08336 1.50012 6.75003 1.91679 6.50003 2.41679L6.00003 3.50012C5.9167 3.75012 5.75003 3.91679 5.50003 4.08346C5.25003 4.25012 5.00003 4.25012 4.75003 4.25012L3.58336 4.08346C3.08336 4.08346 2.58336 4.08346 2.08336 4.33346C1.58336 4.58346 1.25003 4.91679 1.00003 5.41679C0.75003 5.83346 0.583364 6.41679 0.666697 6.91679C0.666697 7.41679 0.833364 7.91679 1.1667 8.33346L1.83336 9.33346C2.00003 9.50012 2.08336 9.75012 2.08336 10.0001C2.08336 10.2501 2.08336 10.5001 1.83336 10.6668L1.1667 11.6668C0.833364 12.0835 0.666697 12.5835 0.666697 13.0835C0.666697 13.5835 0.75003 14.0835 1.00003 14.5835C1.25003 15.0001 1.6667 15.4168 2.08336 15.6668C2.58336 15.9168 3.08336 16.0001 3.58336 15.9168L4.75003 15.7501C5.00003 15.7501 5.25003 15.7501 5.50003 15.9168C5.75003 16.0001 5.9167 16.2501 6.00003 16.5001L6.50003 17.5835C6.75003 18.0835 7.08336 18.4168 7.50003 18.7501C7.9167 19.0835 8.4167 19.1668 9.00003 19.1668C9.58337 19.1668 10 19.0001 10.5 18.7501C11 18.5001 11.25 18.0835 11.5 17.5835L12 16.5001C12.0834 16.2501 12.25 16.0835 12.5 15.9168C12.75 15.7501 13 15.7501 13.25 15.7501L14.4167 15.9168C14.9167 15.9168 15.4167 15.9168 15.9167 15.6668C16.4167 15.4168 16.75 15.0835 17 14.5835C17.25 14.1668 17.4167 13.5835 17.3334 13.0835C17.3334 12.5835 17.1667 12.0835 16.8334 11.6668L16.1667 10.6668H16.0834ZM14.75 11.6668L15.4167 12.6668C15.5 12.8335 15.5834 13.0001 15.5834 13.1668C15.5834 13.3335 15.5834 13.5835 15.4167 13.7501C15.3334 13.9168 15.1667 14.0835 15 14.1668C14.8334 14.2501 14.6667 14.2501 14.4167 14.2501L13.25 14.0835C12.6667 14.0835 12.0834 14.0835 11.5 14.4168C11 14.7501 10.5834 15.1668 10.3334 15.7501L9.83337 16.8335C9.83337 17.0001 9.6667 17.1668 9.50003 17.2501C9.1667 17.5001 8.75003 17.5001 8.4167 17.2501C8.25003 17.1668 8.08336 17.0001 8.08336 16.8335L7.58336 15.7501C7.33336 15.1668 6.9167 14.7501 6.4167 14.4168C5.9167 14.0835 5.25003 14.0001 4.6667 14.0835L3.50003 14.2501C3.33336 14.2501 3.08336 14.2501 2.9167 14.1668C2.75003 14.0835 2.58336 13.9168 2.50003 13.7501C2.4167 13.5835 2.33336 13.4168 2.33336 13.1668C2.33336 13.0001 2.33336 12.7501 2.50003 12.6668L3.1667 11.6668C3.50003 11.1668 3.75003 10.5835 3.75003 10.0001C3.75003 9.41679 3.58336 8.83346 3.1667 8.33346L2.50003 7.33346C2.4167 7.16679 2.33336 7.00012 2.33336 6.75012C2.33336 6.58346 2.33336 6.33346 2.50003 6.16679C2.58336 6.00012 2.75003 5.83346 2.9167 5.75012C3.08336 5.66679 3.25003 5.58346 3.50003 5.66679L4.6667 5.83346C5.25003 5.83346 5.83336 5.83346 6.4167 5.50012C6.9167 5.16679 7.33336 4.75012 7.58336 4.16679L8.08336 3.08346C8.08336 2.91679 8.33336 2.75012 8.4167 2.66679C8.75003 2.41679 9.1667 2.41679 9.50003 2.66679C9.6667 2.75012 9.83337 2.91679 9.83337 3.08346L10.3334 4.16679C10.5834 4.75012 11 5.16679 11.5 5.50012C12 5.83346 12.5834 5.91679 13.25 5.83346L14.4167 5.66679C14.5834 5.66679 14.8334 5.66679 15 5.75012C15.1667 5.83346 15.3334 6.00012 15.4167 6.16679C15.5 6.33346 15.5834 6.50012 15.5834 6.75012C15.5834 6.91679 15.5834 7.16679 15.4167 7.33346L14.75 8.33346C14.4167 8.83346 14.1667 9.41679 14.1667 10.0001C14.1667 10.5835 14.3334 11.1668 14.75 11.6668Z" fill="#3E62F5"/>
-        <path d="M9.00008 6.66675C7.16675 6.66675 5.66675 8.16675 5.66675 10.0001C5.66675 11.8334 7.16675 13.3334 9.00008 13.3334C10.8334 13.3334 12.3334 11.8334 12.3334 10.0001C12.3334 8.16675 10.8334 6.66675 9.00008 6.66675ZM9.00008 11.6667C8.08341 11.6667 7.33341 10.9167 7.33341 10.0001C7.33341 9.08341 8.08341 8.33341 9.00008 8.33341C9.91675 8.33341 10.6667 9.08341 10.6667 10.0001C10.6667 10.9167 9.91675 11.6667 9.00008 11.6667Z" fill="#3E62F5"/>
+      <svg
+        width="18"
+        height="20"
+        viewBox="0 0 18 20"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M16.0834 10.6668C15.9167 10.5001 15.8334 10.2501 15.8334 10.0001C15.8334 9.75012 15.8334 9.50012 16.0834 9.33346L16.75 8.33346C17.0834 7.91679 17.25 7.41679 17.25 6.91679C17.25 6.41679 17.1667 5.91679 16.9167 5.41679C16.6667 5.00012 16.25 4.58346 15.8334 4.33346C15.3334 4.08346 14.8334 4.00012 14.3334 4.08346L13.1667 4.25012C12.9167 4.25012 12.6667 4.25012 12.4167 4.08346C12.1667 3.91679 12 3.75012 11.9167 3.50012L11.4167 2.41679C11.1667 1.91679 10.8334 1.58346 10.4167 1.25012C9.58336 0.666789 8.33336 0.666789 7.50003 1.25012C7.08336 1.50012 6.75003 1.91679 6.50003 2.41679L6.00003 3.50012C5.9167 3.75012 5.75003 3.91679 5.50003 4.08346C5.25003 4.25012 5.00003 4.25012 4.75003 4.25012L3.58336 4.08346C3.08336 4.08346 2.58336 4.08346 2.08336 4.33346C1.58336 4.58346 1.25003 4.91679 1.00003 5.41679C0.75003 5.83346 0.583364 6.41679 0.666697 6.91679C0.666697 7.41679 0.833364 7.91679 1.1667 8.33346L1.83336 9.33346C2.00003 9.50012 2.08336 9.75012 2.08336 10.0001C2.08336 10.2501 2.08336 10.5001 1.83336 10.6668L1.1667 11.6668C0.833364 12.0835 0.666697 12.5835 0.666697 13.0835C0.666697 13.5835 0.75003 14.0835 1.00003 14.5835C1.25003 15.0001 1.6667 15.4168 2.08336 15.6668C2.58336 15.9168 3.08336 16.0001 3.58336 15.9168L4.75003 15.7501C5.00003 15.7501 5.25003 15.7501 5.50003 15.9168C5.75003 16.0001 5.9167 16.2501 6.00003 16.5001L6.50003 17.5835C6.75003 18.0835 7.08336 18.4168 7.50003 18.7501C7.9167 19.0835 8.4167 19.1668 9.00003 19.1668C9.58337 19.1668 10 19.0001 10.5 18.7501C11 18.5001 11.25 18.0835 11.5 17.5835L12 16.5001C12.0834 16.2501 12.25 16.0835 12.5 15.9168C12.75 15.7501 13 15.7501 13.25 15.7501L14.4167 15.9168C14.9167 15.9168 15.4167 15.9168 15.9167 15.6668C16.4167 15.4168 16.75 15.0835 17 14.5835C17.25 14.1668 17.4167 13.5835 17.3334 13.0835C17.3334 12.5835 17.1667 12.0835 16.8334 11.6668L16.1667 10.6668H16.0834ZM14.75 11.6668L15.4167 12.6668C15.5 12.8335 15.5834 13.0001 15.5834 13.1668C15.5834 13.3335 15.5834 13.5835 15.4167 13.7501C15.3334 13.9168 15.1667 14.0835 15 14.1668C14.8334 14.2501 14.6667 14.2501 14.4167 14.2501L13.25 14.0835C12.6667 14.0835 12.0834 14.0835 11.5 14.4168C11 14.7501 10.5834 15.1668 10.3334 15.7501L9.83337 16.8335C9.83337 17.0001 9.6667 17.1668 9.50003 17.2501C9.1667 17.5001 8.75003 17.5001 8.4167 17.2501C8.25003 17.1668 8.08336 17.0001 8.08336 16.8335L7.58336 15.7501C7.33336 15.1668 6.9167 14.7501 6.4167 14.4168C5.9167 14.0835 5.25003 14.0001 4.6667 14.0835L3.50003 14.2501C3.33336 14.2501 3.08336 14.2501 2.9167 14.1668C2.75003 14.0835 2.58336 13.9168 2.50003 13.7501C2.4167 13.5835 2.33336 13.4168 2.33336 13.1668C2.33336 13.0001 2.33336 12.7501 2.50003 12.6668L3.1667 11.6668C3.50003 11.1668 3.75003 10.5835 3.75003 10.0001C3.75003 9.41679 3.58336 8.83346 3.1667 8.33346L2.50003 7.33346C2.4167 7.16679 2.33336 7.00012 2.33336 6.75012C2.33336 6.58346 2.33336 6.33346 2.50003 6.16679C2.58336 6.00012 2.75003 5.83346 2.9167 5.75012C3.08336 5.66679 3.25003 5.58346 3.50003 5.66679L4.6667 5.83346C5.25003 5.83346 5.83336 5.83346 6.4167 5.50012C6.9167 5.16679 7.33336 4.75012 7.58336 4.16679L8.08336 3.08346C8.08336 2.91679 8.33336 2.75012 8.4167 2.66679C8.75003 2.41679 9.1667 2.41679 9.50003 2.66679C9.6667 2.75012 9.83337 2.91679 9.83337 3.08346L10.3334 4.16679C10.5834 4.75012 11 5.16679 11.5 5.50012C12 5.83346 12.5834 5.91679 13.25 5.83346L14.4167 5.66679C14.5834 5.66679 14.8334 5.66679 15 5.75012C15.1667 5.83346 15.3334 6.00012 15.4167 6.16679C15.5 6.33346 15.5834 6.50012 15.5834 6.75012C15.5834 6.91679 15.5834 7.16679 15.4167 7.33346L14.75 8.33346C14.4167 8.83346 14.1667 9.41679 14.1667 10.0001C14.1667 10.5835 14.3334 11.1668 14.75 11.6668Z"
+          fill="#3E62F5"
+        />
+        <path
+          d="M9.00008 6.66675C7.16675 6.66675 5.66675 8.16675 5.66675 10.0001C5.66675 11.8334 7.16675 13.3334 9.00008 13.3334C10.8334 13.3334 12.3334 11.8334 12.3334 10.0001C12.3334 8.16675 10.8334 6.66675 9.00008 6.66675ZM9.00008 11.6667C8.08341 11.6667 7.33341 10.9167 7.33341 10.0001C7.33341 9.08341 8.08341 8.33341 9.00008 8.33341C9.91675 8.33341 10.6667 9.08341 10.6667 10.0001C10.6667 10.9167 9.91675 11.6667 9.00008 11.6667Z"
+          fill="#3E62F5"
+        />
       </svg>
     </button>
 
     <!-- cptm-elements-settings -->
-    <div
-      class="cptm-elements-settings"
-      v-if="elementsSettingsOpened"
-    >
+    <div class="cptm-elements-settings" v-if="elementsSettingsOpened">
       <div class="cptm-elements-settings__header">
-        <h4 class="cptm-elements-settings__header__title">Header elements settings</h4>
+        <h4 class="cptm-elements-settings__header__title">
+          Header elements settings
+        </h4>
         <button
           type="button"
           class="cptm-elements-settings__header__close"
           @click.prevent="closeElementsSettings"
         >
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd" clip-rule="evenodd" d="M5.24408 5.24408C5.56951 4.91864 6.09715 4.91864 6.42259 5.24408L10 8.82149L13.5774 5.24408C13.9028 4.91864 14.4305 4.91864 14.7559 5.24408C15.0814 5.56951 15.0814 6.09715 14.7559 6.42259L11.1785 10L14.7559 13.5774C15.0814 13.9028 15.0814 14.4305 14.7559 14.7559C14.4305 15.0814 13.9028 15.0814 13.5774 14.7559L10 11.1785L6.42259 14.7559C6.09715 15.0814 5.56951 15.0814 5.24408 14.7559C4.91864 14.4305 4.91864 13.9028 5.24408 13.5774L8.82149 10L5.24408 6.42259C4.91864 6.09715 4.91864 5.56951 5.24408 5.24408Z" fill="#4D5761"/>
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M5.24408 5.24408C5.56951 4.91864 6.09715 4.91864 6.42259 5.24408L10 8.82149L13.5774 5.24408C13.9028 4.91864 14.4305 4.91864 14.7559 5.24408C15.0814 5.56951 15.0814 6.09715 14.7559 6.42259L11.1785 10L14.7559 13.5774C15.0814 13.9028 15.0814 14.4305 14.7559 14.7559C14.4305 15.0814 13.9028 15.0814 13.5774 14.7559L10 11.1785L6.42259 14.7559C6.09715 15.0814 5.56951 15.0814 5.24408 14.7559C4.91864 14.4305 4.91864 13.9028 5.24408 13.5774L8.82149 10L5.24408 6.42259C4.91864 6.09715 4.91864 5.56951 5.24408 5.24408Z"
+              fill="#4D5761"
+            />
           </svg>
         </button>
       </div>
 
       <template>
         <div class="cptm-elements-settings__content">
-          <div 
+          <div
             class="cptm-elements-settings__group"
             v-for="(placeholder, placeholder_index) in allPlaceholderItems"
             :key="placeholder_index"
           >
-            <span 
+            <span
               class="cptm-elements-settings__group__title"
-              v-if="placeholder.label && placeholder?.placeholderKey !== 'listing-title-placeholder' && placeholder?.placeholderKey !== 'slider-placeholder'"
+              v-if="
+                placeholder.label &&
+                placeholder?.placeholderKey !== 'listing-title-placeholder' &&
+                placeholder?.placeholderKey !== 'slider-placeholder'
+              "
             >
               {{ placeholder.label }}
             </span>
@@ -141,62 +163,96 @@
               @drop="onElementsDrop($event, placeholder_index)"
               group-name="settings-widgets"
               drag-handle-selector=".drag-handle"
-              :get-child-payload="(index) => getSettingsChildPayload(index, placeholder_index)"
+              :get-child-payload="
+                (index) => getSettingsChildPayload(index, placeholder_index)
+              "
             >
               <Draggable
-                v-for="(widget_key, widget_index) in placeholder.acceptedWidgets"
+                v-for="(
+                  widget_key, widget_index
+                ) in placeholder.acceptedWidgets"
                 :key="widget_index"
-                :data="{ widget_key }" 
+                :data="{ widget_key }"
               >
-                <div class="cptm-elements-settings__group__single">
-                  <span 
+                <div
+                  class="cptm-elements-settings__group__single"
+                  :class="{
+                    'cptm-elements-settings__group__single--disabled':
+                      placeholder.maxWidget > 0 &&
+                      placeholder.selectedWidgets.length >=
+                        placeholder.maxWidget &&
+                      !placeholder.selectedWidgets.some(
+                        (widget) => widget.widget_key === widget_key
+                      ),
+                  }"
+                >
+                  <span
                     class="drag-handle drag-icon uil uil-draggabledots"
                     v-if="placeholder.acceptedWidgets.length > 1"
                   ></span>
                   <span class="cptm-elements-settings__group__single__label">
                     <!-- Display icon only if it exists -->
-                    <span v-if="available_widgets[widget_key].icon" :class="available_widgets[widget_key].icon"></span>
-                    <span v-if="available_widgets[widget_key]">{{ available_widgets[widget_key].label }}</span>
+                    <span
+                      v-if="available_widgets[widget_key].icon"
+                      :class="available_widgets[widget_key].icon"
+                    ></span>
+                    <span v-if="available_widgets[widget_key]">{{
+                      available_widgets[widget_key].label
+                    }}</span>
                     <span v-else>Unknown Widget</span>
                   </span>
-                  <div 
-                    class="cptm-elements-settings__group__single__action"
-                  >
+                  <div class="cptm-elements-settings__group__single__action">
                     <!-- Add edit button for widget -->
                     <span
                       class="cptm-elements-settings__group__single__edit"
                       @click.prevent="editWidget(widget_key)"
                       v-if="available_widgets[widget_key].options"
                     >
-                      <span class="cptm-elements-settings__group__single__edit__icon uil uil-cog"></span>
+                      <span
+                        class="cptm-elements-settings__group__single__edit__icon uil uil-cog"
+                      ></span>
                     </span>
 
                     <!-- Add toggle switch for widget -->
                     <span class="cptm-elements-settings__group__single__switch">
-                      <input 
-                        type="checkbox" 
-                        :id="`settings-${widget_key}-${placeholder_index}`" 
-                        :checked="placeholder.selectedWidgets && placeholder.selectedWidgets.some(widget => widget.widget_key === widget_key)" 
-                        @click="handleWidgetSwitch($event, widget_key, placeholder_index)"
+                      <input
+                        type="checkbox"
+                        :id="`settings-${widget_key}-${placeholder_index}`"
+                        :checked="
+                          placeholder.selectedWidgets &&
+                          placeholder.selectedWidgets.some(
+                            (widget) => widget.widget_key === widget_key
+                          )
+                        "
+                        @click="
+                          handleWidgetSwitch(
+                            $event,
+                            widget_key,
+                            placeholder_index
+                          )
+                        "
                       />
-                      <label :for="`settings-${widget_key}-${placeholder_index}`" />
+                      <label
+                        :for="`settings-${widget_key}-${placeholder_index}`"
+                      />
                     </span>
-
                   </div>
                 </div>
 
                 <!-- Widget Options -->
-                <div 
+                <div
                   class="cptm-elements-settings__group__options"
                   v-if="widgetOptionsWindowActiveStatus(widget_key)"
                 >
                   <options-window
                     :active="widgetOptionsWindowActiveStatus(widget_key)"
                     v-bind="widgetOptionsWindow"
-                    @update="updateWidgetOptionsData($event, widgetOptionsWindow)"
+                    @update="
+                      updateWidgetOptionsData($event, widgetOptionsWindow)
+                    "
                     @close="closeWidgetOptionsWindow"
                   />
-                </div>  
+                </div>
               </Draggable>
             </Container>
           </div>
@@ -257,7 +313,7 @@ export default {
 
   watch: {
     output_data() {
-      console.log( '@CHK: output_data', { output_data: this.output_data } );
+      console.log("@CHK: output_data", { output_data: this.output_data });
 
       this.$emit("update", this.output_data);
     },
@@ -276,13 +332,19 @@ export default {
 
         let data = [];
 
-        let acceptedWidgets     = placeholderData.acceptedWidgets || [];
-        let selectedWidgets     = placeholderData.selectedWidgets || [];
-        let selectedWidgetList  = placeholderData.selectedWidgetList || [];
+        let acceptedWidgets = placeholderData.acceptedWidgets || [];
+        let selectedWidgets = placeholderData.selectedWidgets || [];
+        let selectedWidgetList = placeholderData.selectedWidgetList || [];
 
         // Sort the selectedWidgetList & selectedWidgets based on acceptedWidgets order
-        selectedWidgetList.sort((a, b) => acceptedWidgets.indexOf(a) - acceptedWidgets.indexOf(b));
-        selectedWidgets.sort((a, b) => acceptedWidgets.indexOf(a.widget_key) - acceptedWidgets.indexOf(b.widget_key));
+        selectedWidgetList.sort(
+          (a, b) => acceptedWidgets.indexOf(a) - acceptedWidgets.indexOf(b)
+        );
+        selectedWidgets.sort(
+          (a, b) =>
+            acceptedWidgets.indexOf(a.widget_key) -
+            acceptedWidgets.indexOf(b.widget_key)
+        );
 
         // Filter out invalid widgets (without widget_key)
         let validWidgets = selectedWidgets
@@ -293,12 +355,15 @@ export default {
             let widget_name = selectedWidgetList?.[index];
             return widget_name ? { widget_key: widget_name, ...widget } : null;
           })
-          .filter(widget => widget && widget.widget_key); // Remove invalid items
+          .filter((widget) => widget && widget.widget_key); // Remove invalid items
 
         for (let widget of validWidgets) {
           const widget_name = widget.widget_key;
 
-          if (!this.active_widgets[widget_name] || typeof this.active_widgets[widget_name] !== "object") {
+          if (
+            !this.active_widgets[widget_name] ||
+            typeof this.active_widgets[widget_name] !== "object"
+          ) {
             continue;
           }
 
@@ -310,11 +375,15 @@ export default {
           }
 
           // Process widget options if available
-          if (typeof this.active_widgets[widget_name].options === "object" && typeof this.active_widgets[widget_name].options.fields === "object") {
-            let widget_options = this.active_widgets[widget_name].options.fields;
+          if (
+            typeof this.active_widgets[widget_name].options === "object" &&
+            typeof this.active_widgets[widget_name].options.fields === "object"
+          ) {
+            let widget_options = this.active_widgets[widget_name].options
+              .fields;
 
             for (let option in widget_options) {
-              if ( widget_data[option]?.options.fields ) {
+              if (widget_data[option]?.options.fields) {
                 widget_data[option].options.fields = widget_options[option];
               }
             }
@@ -429,7 +498,12 @@ export default {
 
     widgetOptionsWindowActiveStatus() {
       return (widgetKey) => {
-        if (!widgetKey || this.widgetOptionsWindow.widget === '' || this.widgetOptionsWindow.widget !== widgetKey || typeof this.active_widgets[widgetKey] === "undefined") {
+        if (
+          !widgetKey ||
+          this.widgetOptionsWindow.widget === "" ||
+          this.widgetOptionsWindow.widget !== widgetKey ||
+          typeof this.active_widgets[widgetKey] === "undefined"
+        ) {
           return false;
         }
         return true;
@@ -533,7 +607,7 @@ export default {
           // If a matched item is found, push it to newAllPlaceholderItems
           if (matchedItem) {
             newAllPlaceholderItems.push(matchedItem); // Push only the matchedItem
-          } 
+          }
         } else if (placeholder.type === "placeholder_group") {
           // Iterate over subPlaceholders for a group
           placeholder.placeholders.forEach((subPlaceholder) => {
@@ -563,13 +637,13 @@ export default {
 
     onElementsDrop(dropResult, placeholder_index) {
       const { removedIndex, addedIndex, payload } = dropResult;
-      const { draggedItemIndex, placeholderIndex } = payload; 
+      const { draggedItemIndex, placeholderIndex } = payload;
 
-      if ( removedIndex !== null || addedIndex !== null) {
+      if (removedIndex !== null || addedIndex !== null) {
         let destinationItemIndex;
         let destinationPlaceholderIndex;
-        const sourceItemIndex = draggedItemIndex;  
-        const sourcePlaceholderIndex = placeholderIndex;  
+        const sourceItemIndex = draggedItemIndex;
+        const sourcePlaceholderIndex = placeholderIndex;
 
         if (addedIndex !== null) {
           destinationItemIndex = addedIndex;
@@ -580,24 +654,30 @@ export default {
         }
 
         // Get the widget key from the source placeholder
-        const widgetKey = this.allPlaceholderItems[sourcePlaceholderIndex]?.acceptedWidgets[draggedItemIndex];
+        const widgetKey = this.allPlaceholderItems[sourcePlaceholderIndex]
+          ?.acceptedWidgets[draggedItemIndex];
 
         if (widgetKey !== undefined) {
-
           if (sourcePlaceholderIndex === destinationPlaceholderIndex) {
             // Moving within the same placeholder
-            const widgets = this.allPlaceholderItems[sourcePlaceholderIndex].acceptedWidgets;
-            const selectedWidgets = this.allPlaceholderItems[sourcePlaceholderIndex].selectedWidgets;
-            const selectedWidgetList = this.allPlaceholderItems[sourcePlaceholderIndex].selectedWidgetList;
-            
+            const widgets = this.allPlaceholderItems[sourcePlaceholderIndex]
+              .acceptedWidgets;
+            const selectedWidgets = this.allPlaceholderItems[
+              sourcePlaceholderIndex
+            ].selectedWidgets;
+            const selectedWidgetList = this.allPlaceholderItems[
+              sourcePlaceholderIndex
+            ].selectedWidgetList;
+
             // Remove the widget from the source position
             const [movedWidget] = widgets.splice(sourceItemIndex, 1);
-            
+
             // Insert the widget at the destination position
             widgets.splice(destinationItemIndex, 0, movedWidget);
 
             // Update selectedWidgetList position based on acceptedWidgets
-            const selectedWidgetIndex = selectedWidgetList && selectedWidgetList.indexOf(movedWidget);
+            const selectedWidgetIndex =
+              selectedWidgetList && selectedWidgetList.indexOf(movedWidget);
             if (selectedWidgetIndex && selectedWidgetIndex !== -1) {
               // Remove the widget from the selected position
               selectedWidgetList.splice(selectedWidgetIndex, 1);
@@ -608,14 +688,18 @@ export default {
             }
 
             // Reorder `selectedWidgets` based on `selectedWidgetList`
-            selectedWidgets && selectedWidgets.sort((a, b) => {
-              return selectedWidgetList.indexOf(a.widget_key) - selectedWidgetList.indexOf(b.widget_key);
-            });
+            selectedWidgets &&
+              selectedWidgets.sort((a, b) => {
+                return (
+                  selectedWidgetList.indexOf(a.widget_key) -
+                  selectedWidgetList.indexOf(b.widget_key)
+                );
+              });
 
             // Update Placeholders
             const updatedPlaceholders = this.syncPlaceholdersWithAllPlaceholderItems(
               this.allPlaceholderItems,
-              this.placeholders || [],
+              this.placeholders || []
             );
 
             this.placeholders = updatedPlaceholders;
@@ -668,29 +752,31 @@ export default {
       const addActiveWidget = (widget) => {
         // Ensure that the widget exists in the available widgets
         if (!this.theAvailableWidgets[widget.widget_name]) {
-            console.error(`Widget ${widget.widget_name} not found in available widgets.`);
-            return; // Exit if widget is not available
+          console.error(
+            `Widget ${widget.widget_name} not found in available widgets.`
+          );
+          return; // Exit if widget is not available
         }
 
         let widgets_template = {
-            ...this.theAvailableWidgets[widget.widget_name],
+          ...this.theAvailableWidgets[widget.widget_name],
         };
 
         let has_widget_options = false;
 
         if (widgets_template.options && widgets_template.options.fields) {
-            has_widget_options = true;
+          has_widget_options = true;
         }
 
         // Iterate over the properties of widgets_template and copy values from widget
         for (let root_option in widgets_template) {
           if ("options" === root_option) {
-              continue;
+            continue;
           }
 
           // Ensure that the value exists in the widget and is not undefined
           if (typeof widget[root_option] === "undefined") {
-              continue;
+            continue;
           }
 
           widgets_template[root_option] = widget[root_option];
@@ -700,10 +786,11 @@ export default {
         if (has_widget_options) {
           for (let option_key in widgets_template.options.fields) {
             if (typeof widget.options?.fields[option_key] === "undefined") {
-                continue;
+              continue;
             }
 
-            widgets_template.options.fields[option_key] = widget.options.fields[option_key];
+            widgets_template.options.fields[option_key] =
+              widget.options.fields[option_key];
           }
         }
 
@@ -719,14 +806,16 @@ export default {
         let newPlaceholder = JSON.parse(
           JSON.stringify(this.placeholdersMap[placeholder.placeholderKey])
         );
-        
-        if ( placeholder.acceptedWidgets ) {
+
+        if (placeholder.acceptedWidgets) {
           newPlaceholder.acceptedWidgets = placeholder.acceptedWidgets;
         }
 
         if (placeholder.selectedWidgets) {
           newPlaceholder.selectedWidgets = placeholder.selectedWidgets;
-          newPlaceholder.selectedWidgetList = placeholder.selectedWidgets.map(widget => widget.widget_name);
+          newPlaceholder.selectedWidgetList = placeholder.selectedWidgets.map(
+            (widget) => widget.widget_name
+          );
         }
 
         // if ( placeholder.selectedWidgetList ) {
@@ -745,7 +834,10 @@ export default {
 
         // Add active widgets based on selectedWidgets
         placeholder.selectedWidgets.forEach((widget) => {
-          if (typeof widget !== "undefined" && typeof this.available_widgets[widget.widget_name] !== "undefined") {
+          if (
+            typeof widget !== "undefined" &&
+            typeof this.available_widgets[widget.widget_name] !== "undefined"
+          ) {
             addActiveWidget(widget);
           }
         });
@@ -789,7 +881,7 @@ export default {
           });
         }
       });
-      
+
       this.placeholders = newPlaceholders;
       this.allPlaceholderItems = newAllPlaceholders;
     },
@@ -835,12 +927,6 @@ export default {
         if (!this.isTruthyObject(placeholder)) {
           placeholder = {};
         }
-
-        // if (placeholder.insertByButton) {
-        //   return null;
-        // }
-
-        // placeholder.selectedWidgets = [];
 
         if (typeof placeholder.label === "undefined") {
           placeholder.label = "";
@@ -945,18 +1031,37 @@ export default {
 
     // Handle widget toggle from UI
     handleWidgetSwitch(event, widget_key, placeholder_index) {
-      if (!this.allPlaceholderItems[placeholder_index]) {
-        console.error(`Invalid placeholder index: ${placeholder_index}`);
+      const placeholder = this.allPlaceholderItems[placeholder_index];
+
+      // Return if placeholder is not found
+      if (!placeholder) {
+        return;
+      }
+
+      // Prevent selecting more than maxWidget
+      if (
+        event.target.checked &&
+        placeholder.maxWidget > 0 &&
+        placeholder.selectedWidgets.length >= placeholder.maxWidget
+      ) {
+        event.preventDefault(); // Prevent the checkbox from being checked
         return;
       }
 
       const isChecked = event.target.checked;
 
       // Toggle widget in selectedWidgets
-      this.toggleWidgetInSelectedWidgets(widget_key, placeholder_index, isChecked);
+      this.toggleWidgetInSelectedWidgets(
+        widget_key,
+        placeholder_index,
+        isChecked
+      );
 
       // Sync selectedWidgets between allPlaceholderItems and placeholders
-      this.placeholders = this.syncSelectedWidgets(this.allPlaceholderItems, this.placeholders);
+      this.placeholders = this.syncSelectedWidgets(
+        this.allPlaceholderItems,
+        this.placeholders
+      );
     },
 
     // Add/remove widget from selectedWidgets & active_widgets
@@ -967,37 +1072,61 @@ export default {
       let selectedWidgetList = placeholder.selectedWidgetList || [];
 
       if (!Array.isArray(selectedWidgets)) {
-          selectedWidgets = Object.values(selectedWidgets); // Convert object to array if needed
+        selectedWidgets = Object.values(selectedWidgets); // Convert object to array if needed
       }
 
       if (isChecked) {
-          // Add widget if it does not exist
-          if (!selectedWidgets.some(widget => widget.widget_key === widget_key)) {
-              const widgetIndex = acceptedWidgets.indexOf(widget_key);
-              if (widgetIndex !== -1) {
-                  selectedWidgetList.push(widget_key);
-                  selectedWidgets.push(this.theAvailableWidgets[widget_key]);
-              }
+        // Add widget if it does not exist
+        if (
+          !selectedWidgets.some((widget) => widget.widget_key === widget_key)
+        ) {
+          const widgetIndex = acceptedWidgets.indexOf(widget_key);
+          if (widgetIndex !== -1) {
+            selectedWidgetList.push(widget_key);
+            selectedWidgets.push(this.theAvailableWidgets[widget_key]);
           }
+        }
       } else {
-          // Remove widget if unchecked
-          selectedWidgets = selectedWidgets.filter(widget => widget.widget_key !== widget_key);
-          selectedWidgetList = selectedWidgetList.filter(widget => widget !== widget_key);
+        // Remove widget if unchecked
+        selectedWidgets = selectedWidgets.filter(
+          (widget) => widget.widget_key !== widget_key
+        );
+        selectedWidgetList = selectedWidgetList.filter(
+          (widget) => widget !== widget_key
+        );
       }
 
       // Sort the selectedWidgetList and selectedWidgets based on acceptedWidgets order
-      selectedWidgetList.sort((a, b) => acceptedWidgets.indexOf(a) - acceptedWidgets.indexOf(b));
-      selectedWidgets.sort((a, b) => acceptedWidgets.indexOf(a.widget_key) - acceptedWidgets.indexOf(b.widget_key));
+      selectedWidgetList.sort(
+        (a, b) => acceptedWidgets.indexOf(a) - acceptedWidgets.indexOf(b)
+      );
+      selectedWidgets.sort(
+        (a, b) =>
+          acceptedWidgets.indexOf(a.widget_key) -
+          acceptedWidgets.indexOf(b.widget_key)
+      );
 
       // Update selectedWidgets array
-      this.$set(this.allPlaceholderItems[placeholder_index], 'selectedWidgets', selectedWidgets);
-      this.$set(this.allPlaceholderItems[placeholder_index], 'selectedWidgetList', selectedWidgetList);
+      this.$set(
+        this.allPlaceholderItems[placeholder_index],
+        "selectedWidgets",
+        selectedWidgets
+      );
+      this.$set(
+        this.allPlaceholderItems[placeholder_index],
+        "selectedWidgetList",
+        selectedWidgetList
+      );
 
       // Update active_widgets separately
       if (isChecked) {
-          this.$set(this.active_widgets, widget_key, this.theAvailableWidgets[widget_key]);
+        this.$set(
+          this.active_widgets,
+          widget_key,
+          this.theAvailableWidgets[widget_key]
+        );
       } else {
-          this.$delete(this.active_widgets, widget_key);
+        this.$delete(this.active_widgets, widget_key);
       }
     },
 
@@ -1011,18 +1140,27 @@ export default {
       const updatePlaceholders = (placeholders) => {
         return placeholders.map((placeholder) => {
           if (allItemsMap[placeholder.placeholderKey]) {
-            let selectedWidgets = allItemsMap[placeholder.placeholderKey].selectedWidgets || [];
-            let selectedWidgetList = allItemsMap[placeholder.placeholderKey].selectedWidgetList || [];
+            let selectedWidgets =
+              allItemsMap[placeholder.placeholderKey].selectedWidgets || [];
+            let selectedWidgetList =
+              allItemsMap[placeholder.placeholderKey].selectedWidgetList || [];
 
             if (!Array.isArray(selectedWidgetList)) {
               selectedWidgetList = Object.values(selectedWidgetList);
             }
-            Vue.set(placeholder, 'selectedWidgets', selectedWidgets);
-            Vue.set(placeholder, 'selectedWidgetList', selectedWidgetList);
+            Vue.set(placeholder, "selectedWidgets", selectedWidgets);
+            Vue.set(placeholder, "selectedWidgetList", selectedWidgetList);
           }
 
-          if (placeholder.type === 'placeholder_group' && placeholder.placeholders) {
-            Vue.set(placeholder, 'placeholders', updatePlaceholders(placeholder.placeholders));
+          if (
+            placeholder.type === "placeholder_group" &&
+            placeholder.placeholders
+          ) {
+            Vue.set(
+              placeholder,
+              "placeholders",
+              updatePlaceholders(placeholder.placeholders)
+            );
           }
 
           return placeholder;
@@ -1048,9 +1186,9 @@ export default {
       const updatePlaceholders = (placeholders) => {
         placeholders &&
           placeholders.forEach((placeholder) => {
-            if (placeholder.type === 'placeholder_group') {
+            if (placeholder.type === "placeholder_group") {
               updatePlaceholders(placeholder.placeholders);
-            } else if (placeholder.type === 'placeholder_item') {
+            } else if (placeholder.type === "placeholder_item") {
               const matchingItem = allPlaceholderItems.find(
                 (item) => item.placeholderKey === placeholder.placeholderKey
               );
@@ -1065,7 +1203,7 @@ export default {
       updatePlaceholders(placeholders);
       return placeholders;
     },
-    
+
     onDragStartWidget(key, origin) {
       this.currentDraggingWidget.key = key;
       this.currentDraggingWidget.origin = origin;
@@ -1276,7 +1414,10 @@ export default {
         return;
       }
 
-      if (typeof this.active_widgets[options_window.widget].options === "undefined") {
+      if (
+        typeof this.active_widgets[options_window.widget].options ===
+        "undefined"
+      ) {
         return;
       }
     },

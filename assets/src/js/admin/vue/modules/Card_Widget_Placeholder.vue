@@ -82,7 +82,7 @@
             @dragend="$emit('dragend-widget', widget)"
             @edit="$emit('edit-widget', widget)"
             @trash="$emit('trash-widget', widget)"
-            :disabled="!selectedWidgets.includes(widget)"
+            :disabled="disabledWidget(widget)"
             :readOnly="readOnly"
           >
           </component>
@@ -101,7 +101,7 @@ export default {
       default: "",
     },
     containerClass: {
-      // type: String,
+      type: String,
       default: "",
     },
     placeholderKey: {
@@ -156,6 +156,7 @@ export default {
 
       return this.selectedWidgets.length < this.maxWidget;
     },
+
     getContainerClass() {
       let classNames = {
         "drag-enter": this.placeholderDragEnter,
@@ -181,6 +182,17 @@ export default {
       }
 
       return classNames;
+    },
+
+    disabledWidget(widget) {
+      console.log("@disabledWidget", { widget });
+      return (widget) => {
+        if (this.selectedWidgets.includes(widget)) {
+          return false;
+        } else {
+          return true;
+        }
+      };
     },
   },
 

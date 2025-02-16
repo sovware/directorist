@@ -14996,7 +14996,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       default: ""
     },
     containerClass: {
-      type: String,
+      // type: String,
       default: ""
     },
     placeholderKey: {
@@ -15064,18 +15064,8 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       }
       return classNames;
     },
-    disabledWidget: function disabledWidget(widget) {
-      var _this = this;
-      console.log("@disabledWidget", {
-        widget: widget
-      });
-      return function (widget) {
-        if (_this.selectedWidgets.includes(widget)) {
-          return false;
-        } else {
-          return true;
-        }
-      };
+    displayedWidgets: function displayedWidgets() {
+      return this.readOnly ? this.acceptedWidgets : this.selectedWidgets;
     }
   },
   data: function data() {
@@ -27384,14 +27374,14 @@ var render = function render() {
     }
   }, [_c("span", {
     staticClass: "fa fa-plus"
-  })]) : _vm._e()])]) : _vm._e(), _vm._v(" "), _vm.acceptedWidgets && _vm.acceptedWidgets.length ? _c("div", {
+  })]) : _vm._e()])]) : _vm._e(), _vm._v(" "), _vm.displayedWidgets.length > 0 ? _c("div", {
     staticClass: "cptm-widget-preview-area"
-  }, [_vm._l(_vm.acceptedWidgets, function (widget, widget_index) {
+  }, [_vm._l(_vm.displayedWidgets, function (widget, widget_index) {
     return [_vm.hasValidWidget(widget) ? [_c(_vm.availableWidgets[widget].type + "-card-widget", {
       key: widget_index,
       tag: "component",
       class: {
-        "cptm-widget-card-disabled": !_vm.selectedWidgets.includes(widget)
+        "cptm-widget-card-disabled": _vm.readOnly && !_vm.selectedWidgets.includes(widget)
       },
       attrs: {
         label: typeof _vm.availableWidgets[widget] !== "undefined" ? _vm.availableWidgets[widget].label : "Not Available",
@@ -27400,7 +27390,7 @@ var render = function render() {
         widgetDropable: _vm.widgetDropable,
         canMove: _vm.activeWidgets[widget] && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(_vm.activeWidgets[widget].can_move) !== undefined ? _vm.activeWidgets[widget].can_move : true,
         canEdit: _vm.activeWidgets[widget] && _vm.widgetHasOptions(_vm.activeWidgets[widget]),
-        disabled: _vm.disabledWidget(widget),
+        disabled: _vm.readOnly && !_vm.selectedWidgets.includes(widget),
         readOnly: _vm.readOnly
       },
       on: {

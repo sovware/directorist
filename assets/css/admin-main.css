@@ -16896,6 +16896,7 @@ input[type=radio].cptm-radio {
 
 .cptm-placeholder-block {
   padding: 2px;
+  min-height: 40px;
   position: relative;
   border: 1px dashed rgba(255, 255, 255, 0.15);
   -webkit-transition: all ease-in-out 300ms;
@@ -22466,6 +22467,7 @@ input[type=radio].cptm-radio {
 
 .cptm-placeholder-block {
   padding: 2px;
+  min-height: 40px;
   position: relative;
   border: 1px dashed rgba(255, 255, 255, 0.15);
   -webkit-transition: all ease-in-out 300ms;
@@ -28324,6 +28326,7 @@ input[type=radio].cptm-radio {
 
 .cptm-placeholder-block {
   padding: 2px;
+  min-height: 40px;
   position: relative;
   border: 1px dashed rgba(255, 255, 255, 0.15);
   -webkit-transition: all ease-in-out 300ms;

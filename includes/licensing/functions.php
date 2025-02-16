@@ -16,6 +16,12 @@ function directorist_licensing_is_connected(): bool {
 	return isset( $data['account_data']['user_id'] );
 }
 
+function directorist_licensing_connection_method(): bool {
+	$data = directorist_licensing_data();
+
+	return $data['method'] ?? 'access_token';
+}
+
 function directorist_licensing_get_disconnect_url(): string {
 	$url = add_query_arg(
 		[
@@ -29,6 +35,9 @@ function directorist_licensing_get_disconnect_url(): string {
 	return $url;
 }
 
+/**
+ * Access Key Functions
+ */
 function directorist_licensing_get_access_key(): string {
 	$data = directorist_licensing_data();
 
@@ -41,6 +50,9 @@ function directorist_licensing_get_access_key_with_obfuscation(): string {
 	return str_replace( ' ', ' ', substr( $key, 0, 3 ) . '********' . substr( $key, -3 ) );
 }
 
+/**
+ * Account Functions
+ */
 function directorist_licensing_get_account_data(): array {
 	$data = directorist_licensing_data();
 
@@ -59,6 +71,9 @@ function directorist_licensing_get_account_email(): string {
 	return $data['user_email'] ?? '';
 }
 
+/**
+ * Plan Functions
+ */
 function directorist_licensing_get_plan_data(): array {
 	$data = directorist_licensing_data();
 
@@ -75,4 +90,32 @@ function directorist_licensing_get_plan_upgrade_url(): string {
 	}
 
 	return '';
+}
+
+function directorist_licensing_get_plan_has_active(): bool {
+	$data = directorist_licensing_get_plan_data();
+
+	return isset( $data['license_data'][0]['item_id'] );
+}
+
+function directorist_licensing_get_plan_is_expired(): bool {
+	$data = directorist_licensing_get_plan_data();
+
+	return false;
+}
+
+function directorist_licensing_get_plan_next_payment(): string {
+	$data = directorist_licensing_get_plan_data();
+
+	if ( isset( $data['license_data'][0]['expiration'] ) ) {
+		return \date( 'M d, Y', $data['license_data'][0]['expiration'] );
+	}
+
+	return '';
+}
+
+function directorist_licensing_get_plan_name(): string {
+	$data = directorist_licensing_get_plan_data();
+
+	return $data['license_data'][0]['item_name'] ?? __( 'You’re on Directorist Premium Membership', 'directorist' );
 }

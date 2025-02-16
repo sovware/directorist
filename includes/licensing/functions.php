@@ -119,3 +119,102 @@ function directorist_licensing_get_plan_name(): string {
 
 	return $data['license_data'][0]['item_name'] ?? __( 'You’re on Directorist Premium Membership', 'directorist' );
 }
+
+/**
+ * Themes and Extensions
+ */
+function directorist_licensing_get( $endpoint = '' ) {
+	$args = [
+		'method'      => 'GET',
+		'timeout'     => 30,
+		'redirection' => 5,
+		'headers'     => [
+			'user-agent' => 'Directorist/' . ATBDP_VERSION,
+			'Accept'     => 'application/json',
+		],
+		'cookies'     => [],
+	];
+
+	$url      = 'https://app.directorist.com/wp-json/directorist/' . $endpoint;
+	$response = wp_remote_get( $url, $args );
+
+	return wp_remote_retrieve_body( $response );
+}
+
+function directorist_licensing_get_products() {
+	$products = get_transient( 'directorist_products' );
+
+	if ( ! empty( $products ) ) {
+		return $products;
+	}
+
+	$products = directorist_licensing_get( 'v1/get-remote-products' );
+
+	if ( empty( $products ) ) {
+		return [
+			'themes'     => [],
+			'extensions' => [],
+		];
+	}
+
+	$products = json_decode( $products, true );
+
+	set_transient( 'directorist_products', $products, 30 * DAY_IN_SECONDS );
+
+	return $products;
+}
+
+function directorist_licensing_get_extensions_overview( string $type ) {
+	$extensions = directorist_licensing_get_products();
+
+	// Get Extensions Details
+	$plugin_updates       = get_site_transient( 'update_plugins' );
+	$outdated_plugins     = $plugin_updates->response;
+	$outdated_plugins_key = ( is_array( $outdated_plugins ) ) ? array_keys( $outdated_plugins ) : [];
+	$official_extensions  = is_array( $extensions ) ? array_keys( $extensions ) : [];
+
+	$installed_plugins    = get_plugins();
+	$installed_extensions = [];
+	$active_extensions    = 0;
+	$outdated_extensions  = 0;
+
+	foreach ( $installed_plugins as $plugin_base => $plugin_data ) {
+
+		$folder_base = strtok( $plugin_base, '/' );
+
+		if (
+			preg_match( '/^directorist-/', $plugin_base )
+			// && in_array( $folder_base, $official_extensions )
+		) {
+			$installed_extensions[$plugin_base] = $plugin_data;
+
+			if ( is_plugin_active( $plugin_base ) ) {
+				$active_extensions++;
+			}
+
+			if ( in_array( $plugin_base, $outdated_plugins_key ) ) {
+				$outdated_extensions++;
+			}
+		}
+	}
+
+	switch ( $type ) {
+		case 'active':
+			$number = $active_extensions;
+			break;
+
+		case 'available':
+			$number = count( $installed_extensions );
+			break;
+
+		case 'outdated':
+			$number = $outdated_extensions;
+			break;
+
+		default:
+			$number = 0;
+			break;
+	}
+
+	return $number;
+}

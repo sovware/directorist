@@ -164,32 +164,31 @@
 		<div class="directorist-row">
 			<div class="directorist-col-xxl-3 directorist-col-lg-4 directorist-col-sm-6">
 				<div class="directorist-membership-status">
-					<div
-						class="directorist-membership-status-number directorist-membership-status-active-extension">
-						0
+					<div class="directorist-membership-status-number directorist-membership-status-active-extension">
+						<?php echo directorist_licensing_get_extensions_overview( 'active' ); ?>
 					</div>
 					<div class="directorist-membership-status-description">
-						Active Extensions
+						<?php esc_html_e( 'Active Extensions', 'directorist' )?>
 					</div>
 				</div>
 			</div>
 			<div class="directorist-col-xxl-3 directorist-col-lg-4 directorist-col-sm-6">
 				<div class="directorist-membership-status">
 					<div class="directorist-membership-status-number">
-						06
+						<?php echo directorist_licensing_get_extensions_overview( 'available' ); ?>
 					</div>
 					<div class="directorist-membership-status-description">
-						Available Extensions
+						<?php esc_html_e( 'Available Extensions', 'directorist' )?>
 					</div>
 				</div>
 			</div>
 			<div class="directorist-col-xxl-3 directorist-col-lg-4 directorist-col-sm-6">
 				<div class="directorist-membership-status">
 					<div class="directorist-membership-status-number">
-						04
+						<?php echo directorist_licensing_get_extensions_overview( 'templates' ); ?>
 					</div>
 					<div class="directorist-membership-status-description">
-						Available Themes
+						<?php esc_html_e( 'Available Templates', 'directorist' )?>
 					</div>
 				</div>
 			</div>

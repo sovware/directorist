@@ -2,7 +2,7 @@
   <div class="">
     <template v-if="card_templates">
       <div class="cptm-card-top-area cptm-text-center cptm-mb-20">
-        <select-field theme="default" :options="theCardBiulderTemplateOptionList" v-model="template_id" />
+        <tab-field theme="default" :options="theCardBiulderTemplateOptionList" v-model="template_id" />
       </div>
 
       <component

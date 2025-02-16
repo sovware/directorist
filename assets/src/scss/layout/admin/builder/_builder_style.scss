@@ -3033,6 +3033,47 @@ input[type="radio"].cptm-radio {
   }
 }
 
+// Tab Style
+.cptm-form-group-tab-list {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 100px;
+  .cptm-form-group-tab-item {
+    margin: 0;
+  }
+  .cptm-form-group-tab-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 26px;
+    padding: 0 16px;
+    border-radius: 100px;
+    margin: 0;
+    cursor: pointer;
+    background-color: #ffffff;
+    transition: all ease-in-out 300ms;
+    color: #4d5761;
+    font-weight: 500;
+    text-decoration: none;
+    box-shadow: none;
+    outline: none;
+    &:hover {
+      color: #3e62f5;
+    }
+
+    &.active {
+      background-color: #d8e0fd;
+      color: #3e62f5;
+    }
+  }
+}
+
 //Form fields preview image upload
 .cptm-preview-image-upload {
   width: 350px;

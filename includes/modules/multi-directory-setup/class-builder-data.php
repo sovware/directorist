@@ -2602,6 +2602,24 @@ class Builder_Data {
                 ],
             ] ),
 
+            'listings_card_map_view'                     => apply_filters( 'directorist_listing_map_layouts', [
+                'type'           => 'card-builder',
+                'card_templates' => [
+                    'list_view_with_thumbnail'    => [
+                        'label'    => __( 'With Preview Image', 'directorist' ),
+                        'template' => 'list-view-with-thumbnail',
+                        'widgets'  => $listing_card_conditional_widget,
+                        'layout'   => $listing_card_list_view_with_thumbnail_layout,
+                    ],
+                    'list_view_without_thumbnail' => [
+                        'label'    => __( 'Without Preview Image', 'directorist' ),
+                        'template' => 'list-view-without-thumbnail',
+                        'widgets'  => $listing_card_conditional_widget,
+                        'layout'   => $listing_card_list_view_without_thumbnail_layout,
+                    ],
+                ],
+            ] ),
+
         ] );
 
         self::$layouts = apply_filters( 'directorist_builder_layouts', [
@@ -2764,25 +2782,18 @@ class Builder_Data {
                 </svg>',
                 'submenu' => [
                     'grid_view' => [
-                        'label'     => __( 'All Listing Grid Layout', 'directorist' ),
+                        'label'     => __( 'Grid View', 'directorist' ),
                         'container' => 'full-width',
                         'video' => [
                             'type' => 'video',
                             'url' => 'https://www.youtube.com/embed/SijKFqgwXVQ',
                             'button_text' => __( 'Watch Tutorial', 'directorist' ),
-                            'title' => __( 'All Listing Grid Tutorial', 'directorist' ),
-                            'description' => __( 'Watch the video to learn how to create all listing grid.', 'directorist' ),
-                        ],
-                        'learn_more' => [
-                            'type' => 'image',
-                            'url'  => DIRECTORIST_ASSETS . 'images/single-listing-header-preview.png',
-                            'button_text' => __( 'What is it?', 'directorist' ),
-                            'title' => __( 'All Listing Grid', 'directorist' ),
-                            'description' => __( 'Details of All Listing Grid', 'directorist' ),
+                            'title' => __( 'Grid Tutorial', 'directorist' ),
+                            'description' => __( 'Watch the video to learn how to create listing grid.', 'directorist' ),
                         ],
                         'sections'  => [
                             'listings_card' => [
-                                'title'       => __( 'All Listing Grid Layout', 'directorist' ),
+                                'title'       => __( 'All Listing Grid View', 'directorist' ),
                                 'title_align' => 'center',
                                 'description' => '<a target="_blank" href="https://directorist.com/documentation/directorist/form-and-layout-builder/multiple-directories/"> ' . __( 'Need help?', 'directorist' ) . ' </a>' . __( 'Read the documentation or open a ticket in our helpdesk.', 'directorist' ),
                                 'fields'      => [
@@ -2792,21 +2803,14 @@ class Builder_Data {
                         ],
                     ],
                     'list_view' => [
-                        'label'     => __( 'All Listing List Layout', 'directorist' ),
+                        'label'     => __( 'List View', 'directorist' ),
                         'container' => 'full-width',
                         'video' => [
                             'type' => 'video',
                             'url' => 'https://www.youtube.com/embed/T9VovVonLV0',
                             'button_text' => __( 'Watch Tutorial', 'directorist' ),
-                            'title' => __( 'All Listing List Tutorial', 'directorist' ),
-                            'description' => __( 'Watch the video to learn how to create all listing list.', 'directorist' ),
-                        ],
-                        'learn_more' => [
-                            'type' => 'image',
-                            'url'  => DIRECTORIST_ASSETS . 'images/single-listing-header-preview.png',
-                            'button_text' => __( 'What is it?', 'directorist' ),
-                            'title' => __( 'All Listing List', 'directorist' ),
-                            'description' => __( 'Details of All Listing List', 'directorist' ),
+                            'title' => __( 'List View Tutorial', 'directorist' ),
+                            'description' => __( 'Watch the video to learn how to create listing list.', 'directorist' ),
                         ],
                         'sections'  => [
                             'listings_card' => [
@@ -2815,6 +2819,27 @@ class Builder_Data {
                                 'description' => '<a target="_blank" href="https://directorist.com/documentation/directorist/form-and-layout-builder/multiple-directories/"> ' . __( 'Need help?', 'directorist' ) . ' </a>' . __( 'Read the documentation or open a ticket in our helpdesk.', 'directorist' ),
                                 'fields'      => [
                                     'listings_card_list_view',
+                                ],
+                            ],
+                        ],
+                    ],
+                    'map_view' => [
+                        'label'     => __( 'Map View', 'directorist' ),
+                        'container' => 'full-width',
+                        'video' => [
+                            'type' => 'video',
+                            'url' => 'https://www.youtube.com/embed/T9VovVonLV0',
+                            'button_text' => __( 'Watch Tutorial', 'directorist' ),
+                            'title' => __( 'All Listing List Tutorial', 'directorist' ),
+                            'description' => __( 'Watch the video to learn how to create all listing map.', 'directorist' ),
+                        ],
+                        'sections'  => [
+                            'listings_card' => [
+                                'title'       => __( 'All Listing Map Layout', 'directorist' ),
+                                'title_align' => 'center',
+                                'description' => '<a target="_blank" href="https://directorist.com/documentation/directorist/form-and-layout-builder/multiple-directories/"> ' . __( 'Need help?', 'directorist' ) . ' </a>' . __( 'Read the documentation or open a ticket in our helpdesk.', 'directorist' ),
+                                'fields'      => [
+                                    'listings_card_map_view',
                                 ],
                             ],
                         ],

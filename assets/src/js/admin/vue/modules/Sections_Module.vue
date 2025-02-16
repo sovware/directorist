@@ -97,6 +97,7 @@
             'single_listings_contents',
             'listings_card_grid_view',
             'listings_card_list_view',
+            'listings_card_map_view',
           ].includes(section.fields[0])
         "
       >

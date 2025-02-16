@@ -88,7 +88,7 @@
 				<?php echo get_avatar( $user->ID, 100 ) ?>
 			</div>
 			<div class="directorist-membership-info-author-dropdown directorist-d-none">
-				<?php if ( 'access_token' !== directorist_licensing_connection_method() ): ?>
+				<?php if ( 'access_token' === directorist_licensing_connection_method() ): ?>
 					<div class="directorist-membership-author-accessKey-wrapper">
 						<div class="directorist-membership-author-accessKey-img">
 							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"

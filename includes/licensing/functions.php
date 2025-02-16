@@ -16,7 +16,7 @@ function directorist_licensing_is_connected(): bool {
 	return isset( $data['account_data']['user_id'] );
 }
 
-function directorist_licensing_connection_method(): bool {
+function directorist_licensing_connection_method(): string {
 	$data = directorist_licensing_data();
 
 	return $data['method'] ?? 'access_token';

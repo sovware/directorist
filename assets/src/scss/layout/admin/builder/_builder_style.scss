@@ -969,7 +969,6 @@ $light-gray: #f4f5f7;
   .cptm-sub-navigation {
     gap: 10px;
     padding: 10px 20px;
-    padding-right: 160px;
     margin: 0 15px;
     max-width: 1050px;
     margin: 0 auto;
@@ -2414,6 +2413,7 @@ input[type="radio"].cptm-radio {
 
 .cptm-placeholder-block {
   padding: 2px;
+  min-height: 40px;
   position: relative;
   border: 1px dashed rgba(255, 255, 255, 0.15);
   transition: all ease-in-out 300ms;
@@ -4415,6 +4415,11 @@ input[type="radio"] {
             transform: translateX(14px);
           }
         }
+      }
+
+      @include m(disabled) {
+        opacity: 0.4;
+        pointer-events: none;
       }
     }
     @include e(options) {

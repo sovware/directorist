@@ -8,7 +8,7 @@
           class="directorist-row-tooltip directorist-form-doc__modal-btn"
           v-if="activeSubMenu.learn_more"
           :data-tooltip="activeSubMenu?.learn_more?.description"
-          data-flow="bottom"
+          data-flow="bottom-right"
           @click.prevent="openModal(activeSubMenu.learn_more)"
         >
           ?
@@ -19,7 +19,7 @@
           class="directorist-row-tooltip directorist-form-doc__modal-btn"
           v-if="activeSubMenu.video"
           :data-tooltip="activeSubMenu?.video?.description"
-          data-flow="bottom"
+          data-flow="bottom-right"
           @click.prevent="openModal(activeSubMenu.video)"
         >
           <svg

@@ -15063,6 +15063,9 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         classNames = _objectSpread(_objectSpread({}, classNames), this.containerClass);
       }
       return classNames;
+    },
+    displayedWidgets: function displayedWidgets() {
+      return this.readOnly ? this.acceptedWidgets : this.selectedWidgets;
     }
   },
   data: function data() {
@@ -23302,7 +23305,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   },
   watch: {
     output_data: function output_data() {
-      console.log('@CHK: output_data', {
+      console.log("@CHK: output_data", {
         output_data: this.output_data
       });
       this.$emit("update", this.output_data);
@@ -23485,7 +23488,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     widgetOptionsWindowActiveStatus: function widgetOptionsWindowActiveStatus() {
       var _this2 = this;
       return function (widgetKey) {
-        if (!widgetKey || _this2.widgetOptionsWindow.widget === '' || _this2.widgetOptionsWindow.widget !== widgetKey || typeof _this2.active_widgets[widgetKey] === "undefined") {
+        if (!widgetKey || _this2.widgetOptionsWindow.widget === "" || _this2.widgetOptionsWindow.widget !== widgetKey || typeof _this2.active_widgets[widgetKey] === "undefined") {
           return false;
         }
         return true;
@@ -23832,13 +23835,6 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         if (!_this5.isTruthyObject(placeholder)) {
           placeholder = {};
         }
-
-        // if (placeholder.insertByButton) {
-        //   return null;
-        // }
-
-        // placeholder.selectedWidgets = [];
-
         if (typeof placeholder.label === "undefined") {
           placeholder.label = "";
         }
@@ -23913,8 +23909,16 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     },
     // Handle widget toggle from UI
     handleWidgetSwitch: function handleWidgetSwitch(event, widget_key, placeholder_index) {
-      if (!this.allPlaceholderItems[placeholder_index]) {
-        console.error("Invalid placeholder index: ".concat(placeholder_index));
+      var placeholder = this.allPlaceholderItems[placeholder_index];
+
+      // Return if placeholder is not found
+      if (!placeholder) {
+        return;
+      }
+
+      // Prevent selecting more than maxWidget
+      if (event.target.checked && placeholder.maxWidget > 0 && placeholder.selectedWidgets.length >= placeholder.maxWidget) {
+        event.preventDefault(); // Prevent the checkbox from being checked
         return;
       }
       var isChecked = event.target.checked;
@@ -23965,8 +23969,8 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       });
 
       // Update selectedWidgets array
-      this.$set(this.allPlaceholderItems[placeholder_index], 'selectedWidgets', selectedWidgets);
-      this.$set(this.allPlaceholderItems[placeholder_index], 'selectedWidgetList', selectedWidgetList);
+      this.$set(this.allPlaceholderItems[placeholder_index], "selectedWidgets", selectedWidgets);
+      this.$set(this.allPlaceholderItems[placeholder_index], "selectedWidgetList", selectedWidgetList);
 
       // Update active_widgets separately
       if (isChecked) {
@@ -23989,11 +23993,11 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
             if (!Array.isArray(selectedWidgetList)) {
               selectedWidgetList = Object.values(selectedWidgetList);
             }
-            vue__WEBPACK_IMPORTED_MODULE_4__["default"].set(placeholder, 'selectedWidgets', selectedWidgets);
-            vue__WEBPACK_IMPORTED_MODULE_4__["default"].set(placeholder, 'selectedWidgetList', selectedWidgetList);
+            vue__WEBPACK_IMPORTED_MODULE_4__["default"].set(placeholder, "selectedWidgets", selectedWidgets);
+            vue__WEBPACK_IMPORTED_MODULE_4__["default"].set(placeholder, "selectedWidgetList", selectedWidgetList);
           }
-          if (placeholder.type === 'placeholder_group' && placeholder.placeholders) {
-            vue__WEBPACK_IMPORTED_MODULE_4__["default"].set(placeholder, 'placeholders', updatePlaceholders(placeholder.placeholders));
+          if (placeholder.type === "placeholder_group" && placeholder.placeholders) {
+            vue__WEBPACK_IMPORTED_MODULE_4__["default"].set(placeholder, "placeholders", updatePlaceholders(placeholder.placeholders));
           }
           return placeholder;
         });
@@ -24013,9 +24017,9 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       };
       var updatePlaceholders = function updatePlaceholders(placeholders) {
         placeholders && placeholders.forEach(function (placeholder) {
-          if (placeholder.type === 'placeholder_group') {
+          if (placeholder.type === "placeholder_group") {
             updatePlaceholders(placeholder.placeholders);
-          } else if (placeholder.type === 'placeholder_item') {
+          } else if (placeholder.type === "placeholder_item") {
             var matchingItem = allPlaceholderItems.find(function (item) {
               return item.placeholderKey === placeholder.placeholderKey;
             });
@@ -27370,14 +27374,14 @@ var render = function render() {
     }
   }, [_c("span", {
     staticClass: "fa fa-plus"
-  })]) : _vm._e()])]) : _vm._e(), _vm._v(" "), _vm.acceptedWidgets && _vm.acceptedWidgets.length ? _c("div", {
+  })]) : _vm._e()])]) : _vm._e(), _vm._v(" "), _vm.displayedWidgets.length > 0 ? _c("div", {
     staticClass: "cptm-widget-preview-area"
-  }, [_vm._l(_vm.acceptedWidgets, function (widget, widget_index) {
+  }, [_vm._l(_vm.displayedWidgets, function (widget, widget_index) {
     return [_vm.hasValidWidget(widget) ? [_c(_vm.availableWidgets[widget].type + "-card-widget", {
       key: widget_index,
       tag: "component",
       class: {
-        "cptm-widget-card-disabled": !_vm.selectedWidgets.includes(widget)
+        "cptm-widget-card-disabled": _vm.readOnly && !_vm.selectedWidgets.includes(widget)
       },
       attrs: {
         label: typeof _vm.availableWidgets[widget] !== "undefined" ? _vm.availableWidgets[widget].label : "Not Available",
@@ -27386,7 +27390,7 @@ var render = function render() {
         widgetDropable: _vm.widgetDropable,
         canMove: _vm.activeWidgets[widget] && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(_vm.activeWidgets[widget].can_move) !== undefined ? _vm.activeWidgets[widget].can_move : true,
         canEdit: _vm.activeWidgets[widget] && _vm.widgetHasOptions(_vm.activeWidgets[widget]),
-        disabled: !_vm.selectedWidgets.includes(widget),
+        disabled: _vm.readOnly && !_vm.selectedWidgets.includes(widget),
         readOnly: _vm.readOnly
       },
       on: {
@@ -27809,7 +27813,7 @@ var render = function render() {
       attrs: {
         href: "#",
         "data-tooltip": (_vm$video = _vm.video) === null || _vm$video === void 0 ? void 0 : _vm$video.description,
-        "data-flow": "bottom"
+        "data-flow": "bottom-right"
       },
       on: {
         click: function click($event) {
@@ -27837,7 +27841,7 @@ var render = function render() {
       attrs: {
         href: "#",
         "data-tooltip": (_vm$learn_more = _vm.learn_more) === null || _vm$learn_more === void 0 ? void 0 : _vm$learn_more.description,
-        "data-flow": "bottom"
+        "data-flow": "bottom-right"
       },
       on: {
         click: function click($event) {
@@ -28192,7 +28196,7 @@ var render = function render() {
     attrs: {
       href: "#",
       "data-tooltip": (_vm$activeSubMenu = _vm.activeSubMenu) === null || _vm$activeSubMenu === void 0 || (_vm$activeSubMenu = _vm$activeSubMenu.learn_more) === null || _vm$activeSubMenu === void 0 ? void 0 : _vm$activeSubMenu.description,
-      "data-flow": "bottom"
+      "data-flow": "bottom-right"
     },
     on: {
       click: function click($event) {
@@ -28205,7 +28209,7 @@ var render = function render() {
     attrs: {
       href: "#",
       "data-tooltip": (_vm$activeSubMenu2 = _vm.activeSubMenu) === null || _vm$activeSubMenu2 === void 0 || (_vm$activeSubMenu2 = _vm$activeSubMenu2.video) === null || _vm$activeSubMenu2 === void 0 ? void 0 : _vm$activeSubMenu2.description,
-      "data-flow": "bottom"
+      "data-flow": "bottom-right"
     },
     on: {
       click: function click($event) {
@@ -33408,7 +33412,7 @@ var render = function render() {
     staticClass: "cptm-elements-settings__header"
   }, [_c("h4", {
     staticClass: "cptm-elements-settings__header__title"
-  }, [_vm._v("Header elements settings")]), _vm._v(" "), _c("button", {
+  }, [_vm._v("\n        Header elements settings\n      ")]), _vm._v(" "), _c("button", {
     staticClass: "cptm-elements-settings__header__close",
     attrs: {
       type: "button"
@@ -33464,7 +33468,12 @@ var render = function render() {
           }
         }
       }, [_c("div", {
-        staticClass: "cptm-elements-settings__group__single"
+        staticClass: "cptm-elements-settings__group__single",
+        class: {
+          "cptm-elements-settings__group__single--disabled": placeholder.maxWidget > 0 && placeholder.selectedWidgets.length >= placeholder.maxWidget && !placeholder.selectedWidgets.some(function (widget) {
+            return widget.widget_key === widget_key;
+          })
+        }
       }, [placeholder.acceptedWidgets.length > 1 ? _c("span", {
         staticClass: "drag-handle drag-icon uil uil-draggabledots"
       }) : _vm._e(), _vm._v(" "), _c("span", {

@@ -44,16 +44,14 @@
       </div>
     </div>
 
-    <div
-      class="cptm-widget-preview-area"
-      v-if="acceptedWidgets && acceptedWidgets.length"
-    >
-      <template v-for="(widget, widget_index) in acceptedWidgets">
+    <div class="cptm-widget-preview-area" v-if="displayedWidgets.length > 0">
+      <template v-for="(widget, widget_index) in displayedWidgets">
         <template v-if="hasValidWidget(widget)">
           <component
             :is="availableWidgets[widget].type + '-card-widget'"
             :class="{
-              'cptm-widget-card-disabled': !selectedWidgets.includes(widget),
+              'cptm-widget-card-disabled':
+                readOnly && !selectedWidgets.includes(widget),
             }"
             :key="widget_index"
             :label="
@@ -82,7 +80,7 @@
             @dragend="$emit('dragend-widget', widget)"
             @edit="$emit('edit-widget', widget)"
             @trash="$emit('trash-widget', widget)"
-            :disabled="!selectedWidgets.includes(widget)"
+            :disabled="readOnly && !selectedWidgets.includes(widget)"
             :readOnly="readOnly"
           >
           </component>
@@ -181,6 +179,10 @@ export default {
       }
 
       return classNames;
+    },
+
+    displayedWidgets() {
+      return this.readOnly ? this.acceptedWidgets : this.selectedWidgets;
     },
   },
 

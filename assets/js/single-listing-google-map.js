@@ -212,6 +212,7 @@
             maxWidth: 400 /*Add configuration for max width*/
           });
         }
+
         function initMap() {
           /* Create new map instance*/
           map = new google.maps.Map(mapElm, {

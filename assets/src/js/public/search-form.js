@@ -241,7 +241,7 @@ import './components/directoristSelect';
         $('body').on('change', '.directorist-contents-wrap form select', function (e) {
             let searchForm = this.closest('form');
 
-            if(this.value !== undefined) {
+            if(this.value !== undefined && this.value !== '') {
                 enableResetButton(searchForm);
             } else {
                 setTimeout(function(){
@@ -318,8 +318,6 @@ import './components/directoristSelect';
                     dropDownParent.classList.remove('input-has-value', 'input-is-focused');
                 }
             })
-
-
 
             let irisPicker = searchForm.querySelector("input.wp-picker-clear");
             if (irisPicker !== null) {

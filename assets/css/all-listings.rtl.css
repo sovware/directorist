@@ -21579,7 +21579,7 @@ Review: New Style
   color: var(--directorist-color-primary);
   background-color: rgba(var(--directorist-color-primary), 0.15);
 }
-.directorist-user-dashboard-tabcontent .directorist-listing-table .directorist_badge.directorist_status_published {
+.directorist-user-dashboard-tabcontent .directorist-listing-table .directorist_badge.directorist_status_publish {
   color: var(--directorist-color-success);
   background-color: rgba(var(--directorist-color-success-rgb), 0.15);
 }

@@ -1278,7 +1278,7 @@ class Directorist_Single_Listing {
 		$cat_icon = directorist_icon( $cat_icon, false );
 
 		// Unset or empty the post_content
-		if ( is_singular(post_types: ATBDP_POST_TYPE) && isset($this->post->post_content)) {
+		if ( is_singular(ATBDP_POST_TYPE) && isset($this->post->post_content)) {
 			$this->post->post_content = ''; // Empty the post_content
 		}
 

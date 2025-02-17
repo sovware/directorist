@@ -126,7 +126,7 @@ if ( ! empty( $_GET['registration_status'] ) ) {
 									<div class="keep_signed directorist-checkbox">
 										<input type="checkbox" id="directorist_login_keep_signed_in" value="1" name="keep_signed_in" checked />
 										<label for="directorist_login_keep_signed_in" class="directorist-checkbox__label not_empty">
-											<?php echo esc_html( $log_rememberme ); ?>
+											<?php echo esc_html( $rememberme_label ); ?>
 										</label>
 									</div>
 								<?php endif; ?>

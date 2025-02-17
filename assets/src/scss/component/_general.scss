@@ -115,8 +115,10 @@
 }
 
 button[type="submit"] {
-  display: flex;
-  align-items: center;
+  &.directorist-btn {
+    display: flex;
+    align-items: center;
+  }
 }
 
 /* Container within container spacing issue fix */

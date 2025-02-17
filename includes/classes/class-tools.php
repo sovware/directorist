@@ -372,9 +372,15 @@
             }
             $attachment = array( 'post_title' => basename($upload['file']), 'post_content' => '', 'post_type' => 'attachment', 'post_mime_type' => $type, 'guid' => $upload['url'] );
             $id = wp_insert_attachment( $attachment, $upload['file'], $post_id );
-            wp_update_attachment_metadata( $id, wp_generate_attachment_metadata($id, $upload['file']) );
-            return $id;
 
+            // Ensure the required file is included before calling the function
+            if ( ! function_exists( 'wp_generate_attachment_metadata' ) ) {
+                require_once ABSPATH . 'wp-admin/includes/image.php';
+            }
+
+            wp_update_attachment_metadata( $id, wp_generate_attachment_metadata($id, $upload['file']) );
+            
+            return $id;
         }
 
 

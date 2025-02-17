@@ -1057,6 +1057,15 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 				}
 			}
 			if (!is_wp_error($uid)){
+				/**
+				 * Fires after user profile updated successfully
+				 *
+				 * @since 8.2
+				 *
+				 * @param int $ID The user ID
+				 * @param array $data The user data
+				 */
+				do_action( 'directorist_user_profile_updated', $ID, $data );
 				$congz_txt = esc_html__('Congratulations! Your profile updated successfully', 'directorist');
 				wp_send_json_success( $congz_txt, 'directorist');
 				return true;

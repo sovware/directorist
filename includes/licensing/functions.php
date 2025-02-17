@@ -1,4 +1,6 @@
 <?php
+
+use Directorist\Core\API;
 /**
  * Licensing helper functions.
  */
@@ -141,31 +143,8 @@ function directorist_licensing_get( $endpoint = '' ) {
 	return wp_remote_retrieve_body( $response );
 }
 
-function directorist_licensing_get_products() {
-	$products = get_transient( 'directorist_products' );
-
-	if ( ! empty( $products ) ) {
-		return $products;
-	}
-
-	$products = directorist_licensing_get( 'v1/get-remote-products' );
-
-	if ( empty( $products ) ) {
-		return [
-			'themes'     => [],
-			'extensions' => [],
-		];
-	}
-
-	$products = json_decode( $products, true );
-
-	set_transient( 'directorist_products', $products, 30 * DAY_IN_SECONDS );
-
-	return $products;
-}
-
 function directorist_licensing_get_extensions_overview( string $type ) {
-	$extensions = directorist_licensing_get_products();
+	$extensions = directorist_licensing_get_products( 'extensions' ); // themes
 
 	// Get Extensions Details
 	$plugin_updates       = get_site_transient( 'update_plugins' );
@@ -184,7 +163,7 @@ function directorist_licensing_get_extensions_overview( string $type ) {
 
 		if (
 			preg_match( '/^directorist-/', $plugin_base )
-			// && in_array( $folder_base, $official_extensions )
+			&& in_array( $folder_base, $official_extensions )
 		) {
 			$installed_extensions[$plugin_base] = $plugin_data;
 
@@ -217,4 +196,10 @@ function directorist_licensing_get_extensions_overview( string $type ) {
 	}
 
 	return $number;
+}
+
+function directorist_licensing_get_products( string $type ) {
+	$products = API::get_products();
+
+	return $products[$type] ?? [];
 }

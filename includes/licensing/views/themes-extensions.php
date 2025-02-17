@@ -11,6 +11,8 @@ $user = wp_get_current_user();
 		<div class="directorist-row">
 			<div class="directorist-col-12">
 
+				<?php include_once 'header.php';?>
+
 				<?php if ( ! directorist_licensing_is_connected() ) : ?>
 					<?php include_once 'not-connected.php';?>
 				<?php else : ?>

@@ -1129,6 +1129,15 @@ class Directorist_Listings {
 			Helper::add_shortcode_comment( $atts['shortcode'] );
 		}
 
+		$search_field_atts = array_filter( $this->atts, function( $key ) {
+			return substr( $key, 0, 7 ) == 'filter_';
+		}, ARRAY_FILTER_USE_KEY );
+
+		$args = array(
+			'listings'   => $this,
+			'searchform' => new Directorist_Listing_Search_Form( $this->type, $this->current_listing_type, $search_field_atts ),
+		);
+
 		switch ( $this->sidebar ) {
 			case 'left_sidebar':
 				$template = 'sidebar-archive-contents';
@@ -1144,7 +1153,13 @@ class Directorist_Listings {
 		}
 
 		// Load the template
-		Helper::get_template( $template, array( 'listings' => $this ), 'listings_archive' );
+		Helper::get_template( $template, 
+			array(
+				'listings'   => $this,
+				'searchform' => new Directorist_Listing_Search_Form( $this->type, $this->current_listing_type, $search_field_atts ),
+			),
+			 'listings_archive',
+		);
 
 		return ob_get_clean();
 	}

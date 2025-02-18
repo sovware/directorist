@@ -144,62 +144,33 @@ function directorist_licensing_get( $endpoint = '' ) {
 }
 
 function directorist_licensing_get_extensions_overview( string $type ) {
-	$extensions = directorist_licensing_get_products( 'extensions' ); // themes
+	$extensions = directorist_licensing_get_products( 'extensions' );
 
-	// Get Extensions Details
-	$plugin_updates       = get_site_transient( 'update_plugins' );
-	$outdated_plugins     = $plugin_updates->response;
-	$outdated_plugins_key = ( is_array( $outdated_plugins ) ) ? array_keys( $outdated_plugins ) : [];
-	$official_extensions  = is_array( $extensions ) ? array_keys( $extensions ) : [];
+	if ( ! is_array( $extensions ) ) {
+		return 0;
+	}
 
+	$official_extensions  = array_keys( $extensions );
 	$installed_plugins    = get_plugins();
-	$installed_extensions = [];
-	$active_extensions    = 0;
-	$outdated_extensions  = 0;
+	$updates_available    = get_site_transient( 'update_plugins' );
+	$outdated_plugins_key = isset( $updates_available->response ) ? array_keys( $updates_available->response ) : [];
 
-	foreach ( $installed_plugins as $plugin_base => $plugin_data ) {
+	$installed_extensions = array_filter( $installed_plugins, function ( $plugin_data, $plugin_base ) use ( $official_extensions ) {
+		return preg_match( '/^directorist-/', $plugin_base ) && in_array( strtok( $plugin_base, '/' ), $official_extensions, true );
+	}, ARRAY_FILTER_USE_BOTH );
 
-		$folder_base = strtok( $plugin_base, '/' );
+	$active_extensions   = count( array_filter( array_keys( $installed_extensions ), 'is_plugin_active' ) );
+	$outdated_extensions = count( array_intersect( array_keys( $installed_extensions ), $outdated_plugins_key ) );
 
-		if (
-			preg_match( '/^directorist-/', $plugin_base )
-			&& in_array( $folder_base, $official_extensions )
-		) {
-			$installed_extensions[$plugin_base] = $plugin_data;
+	$counts = [
+		'active'    => $active_extensions,
+		'available' => count( $installed_extensions ),
+		'outdated'  => $outdated_extensions,
+	];
 
-			if ( is_plugin_active( $plugin_base ) ) {
-				$active_extensions++;
-			}
-
-			if ( in_array( $plugin_base, $outdated_plugins_key ) ) {
-				$outdated_extensions++;
-			}
-		}
-	}
-
-	switch ( $type ) {
-		case 'active':
-			$number = $active_extensions;
-			break;
-
-		case 'available':
-			$number = count( $installed_extensions );
-			break;
-
-		case 'outdated':
-			$number = $outdated_extensions;
-			break;
-
-		default:
-			$number = 0;
-			break;
-	}
-
-	return $number;
+	return $counts[$type] ?? 0;
 }
 
 function directorist_licensing_get_products( string $type ) {
-	$products = API::get_products();
-
-	return $products[$type] ?? [];
+	return API::get_products()[$type] ?? [];
 }

@@ -4,6 +4,7 @@
   display: flex;
   justify-content: center;
   gap: 8px;
+  flex-wrap: wrap;
   .page-numbers {
     display: inline-flex;
     align-items: center;

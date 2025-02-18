@@ -1217,7 +1217,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     });
     $('body').on('change', '.directorist-contents-wrap form select', function (e) {
       var searchForm = this.closest('form');
-      if (this.value !== undefined) {
+      if (this.value !== undefined && this.value !== '') {
         enableResetButton(searchForm);
       } else {
         setTimeout(function () {

@@ -4754,7 +4754,7 @@ body.stop-scrolling {
       -ms-flex-align: center;
           align-items: center;
   gap: 12px;
-  width: 270px;
+  width: 290px;
   min-height: 36px;
   padding: 7px 16px;
   border: none;
@@ -4766,6 +4766,7 @@ body.stop-scrolling {
   text-decoration: none !important;
   color: var(--directorist-color-light-gray);
   background-color: transparent;
+  border: 1px solid transparent;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   -webkit-transition: background 0.2s ease, color 0.2s ease, -webkit-box-shadow 0.2s ease;
@@ -4829,7 +4830,7 @@ body.stop-scrolling {
   color: var(--directorist-color-primary);
   -webkit-box-shadow: var(--directorist-box-shadow);
           box-shadow: var(--directorist-box-shadow);
-  border: 1px solid var(--directorist-color-border-light);
+  border-color: var(--directorist-color-border-light);
   background-color: var(--directorist-color-white);
   outline: none;
 }
@@ -4855,7 +4856,7 @@ body.stop-scrolling {
 .multistep-wizard__nav__btn.completed i::after {
   background-color: var(--directorist-color-primary);
 }
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 991px) {
   .multistep-wizard__nav {
     display: none;
   }
@@ -4876,7 +4877,7 @@ body.stop-scrolling {
 .multistep-wizard__single span.required {
   color: var(--directorist-color-danger);
 }
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 991px) {
   .multistep-wizard__single .directorist-content-module__title {
     position: relative;
     cursor: pointer;
@@ -6331,11 +6332,11 @@ svg.leaflet-image-layer.leaflet-interactive path {
   font-size: 15px;
 }
 
-.diectorist-show {
+.directorist-show {
   display: block;
 }
 
-.diectorist-hide {
+.directorist-hide {
   display: none;
 }
 
@@ -6360,7 +6361,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
   color: var(--directorist-color-dark);
 }
 
-button[type=submit] {
+button[type=submit].directorist-btn {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -11642,6 +11643,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 @media screen and (max-width: 1199px) {
   .listing-with-sidebar__sidebar {
     max-width: 300px;
+    min-width: 300px;
   }
 }
 @media only screen and (max-width: 991px) {
@@ -11649,7 +11651,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
     position: fixed;
     left: -360px;
     top: 0;
-    height: 100%;
+    height: 100svh;
+    background-color: white;
     z-index: 9999;
     overflow: auto;
     -webkit-box-shadow: 0 10px 15px rgba(var(--directorist-color-dark-rgb), 0.15);
@@ -11691,6 +11694,18 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .listing-with-sidebar__sidebar .directorist-search-form__box {
   padding: 0;
+}
+@media only screen and (max-width: 991px) {
+  .listing-with-sidebar__sidebar .directorist-search-form__box {
+    display: block;
+    height: 100svh;
+    -webkit-box-shadow: none;
+            box-shadow: none;
+    border: none;
+  }
+  .listing-with-sidebar__sidebar .directorist-search-form__box .directorist-advanced-filter__advanced {
+    display: block;
+  }
 }
 .listing-with-sidebar__sidebar .directorist-search-field__input.directorist-form-element {
   padding-right: 20px;
@@ -12961,8 +12976,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   bottom: 8px;
 }
 
-.directorist-preload .directorist-search-field__label {
-  top: 0;
+.directorist-preload .directorist-search-form-top .directorist-search-field__label ~ .directorist-search-field__input {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .directorist-search-form__box {
@@ -14353,6 +14369,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
       -ms-flex-pack: center;
           justify-content: center;
   gap: 8px;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
 }
 .directorist-pagination .page-numbers {
   display: -webkit-inline-box;

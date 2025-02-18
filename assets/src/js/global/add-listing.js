@@ -1144,7 +1144,7 @@ function addListingAccordion() {
 
         let windowScreen = window.innerWidth ;
 
-        if(windowScreen <= 480) {
+        if(windowScreen <= 991) {
             $(this).toggleClass('opened');
             $(this).next('.directorist-content-module__contents').toggleClass('active');
         }

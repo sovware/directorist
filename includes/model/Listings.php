@@ -2117,6 +2117,9 @@ class Directorist_Listings {
 				case 'popular_badge':
 				$field['class'] = 'popular';
 				$field['label'] = Helper::popular_badge_text();
+				$field['popular_badge_type']  = get_directorist_option( 'popular_badge_type', 'icon_badge');
+				$field['popular_badge_class'] = ( 'text_badge' === $field['popular_badge_type'] ) ? 'directorist-badge--only-text' : '';
+
 				if ( Helper::is_popular( $id ) ) {
 					Helper::get_template( 'archive/fields/badge', $field );
 				}
@@ -2126,7 +2129,7 @@ class Directorist_Listings {
 				$field['class']               = 'featured';
 				$field['label']               = Helper::featured_badge_text();
 				$field['featured_badge_type']  = get_directorist_option( 'feature_badge_type', 'icon_badge');
-				$field['featured_badge_class'] = ( 'text_badge' === $field['featured_badge_type'] ) ? 'directorist-badge-featured--only-text' : '';
+				$field['featured_badge_class'] = ( 'text_badge' === $field['featured_badge_type'] ) ? 'directorist-badge--only-text' : '';
 
 				if ( Helper::is_featured( $id ) ) {
 					Helper::get_template( 'archive/fields/badge', apply_filters( 'directorist_featured_badge_field_data', $field ) );
@@ -2135,6 +2138,9 @@ class Directorist_Listings {
 
 				case 'new_badge':
 				$field['class'] = 'new';
+				$field['new_badge_type']  = get_directorist_option( 'new_badge_type', 'icon_badge');
+				$field['new_badge_class'] = ( 'text_badge' === $field['new_badge_type'] ) ? 'directorist-badge--only-text' : '';
+
 				$field['label'] = Helper::new_badge_text();
 				if ( Helper::is_new( $id ) ) {
 					Helper::get_template( 'archive/fields/badge', $field );

@@ -10,10 +10,16 @@ import debounce from '../../global/components/debounce';
             var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname;
 
             if (form_data.paged && form_data.paged.length) {
-                var query = '?paged=' + form_data.paged + '';
+                var query = (query && query.length) ? query + '&paged=' + form_data.paged : '?paged=' + form_data.paged;
+            }
+            if (form_data.directory_type && form_data.directory_type.length) {
+                var query = (query && query.length) ? query + '&view=' + form_data.directory_type : '?directory_type=' + form_data.directory_type;
+            }
+            if (form_data.view && form_data.view.length) {
+                var query = (query && query.length) ? query + '&view=' + form_data.view : '?view=' + form_data.view;
             }
             if (form_data.q && form_data.q.length) {
-                var query = '?q=' + form_data.q;
+                var query = (query && query.length) ? query + '&q=' + form_data.q : '?q=' + form_data.q;
             }
             if (form_data.in_cat && form_data.in_cat.length) {
                 var query = (query && query.length) ? query + '&in_cat=' + form_data.in_cat : '?in_cat=' + form_data.in_cat;
@@ -42,7 +48,7 @@ import debounce from '../../global/components/debounce';
             if (form_data.cityLng && form_data.cityLng.length && form_data.address && form_data.address.length) {
                 var query = (query && query.length) ? query + '&cityLng=' + form_data.cityLng : '?cityLng=' + form_data.cityLng;
             }
-            if (form_data.miles && form_data.miles > 0) {
+            if (form_data.miles && form_data.miles.length) {
                 var query = (query && query.length) ? query + '&miles=' + form_data.miles : '?miles=' + form_data.miles;
             }
             if (form_data.address && form_data.address.length) {

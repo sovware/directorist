@@ -1,92 +1,98 @@
 <template>
-  <div
-    class="cptm-placeholder-block"
-    :class="getContainerClass"
-    @drop.prevent="placeholderOnDrop()"
-    @dragover.prevent="$emit('placeholder-dragover-on')"
-    @dragenter="placeholderOnDragEnter()"
-    @dragleave="placeholderOnDragLeave()"
-  >
-    <p
-      class="cptm-placeholder-label"
-      :class="{ hide: acceptedWidgets && acceptedWidgets.length }"
+  <div class="cptm-placeholder-block-wrapper">
+    <div
+      class="cptm-placeholder-block"
+      :class="getContainerClass"
+      @drop.prevent="placeholderOnDrop()"
+      @dragover.prevent="$emit('placeholder-dragover-on')"
+      @dragenter="placeholderOnDragEnter()"
+      @dragleave="placeholderOnDragLeave()"
     >
-      {{ label }}
-    </p>
+      <p
+        class="cptm-placeholder-label"
+        :class="{ hide: acceptedWidgets && acceptedWidgets.length }"
+      >
+        {{ label }}
+      </p>
 
-    <div class="cptm-widget-insert-area" v-if="!readOnly">
-      <div class="cptm-widget-insert-wrap">
-        <div class="cptm-widget-insert-modal-container">
-          <widgets-window
-            :id="id"
-            :availableWidgets="availableWidgets"
-            :acceptedWidgets="acceptedWidgets"
-            :rejectedWidgets="rejectedWidgets"
-            :activeWidgets="activeWidgets"
-            :selectedWidgets="selectedWidgets"
-            :active="showWidgetsPickerWindow"
-            :maxWidget="maxWidget"
-            :maxWidgetInfoText="maxWidgetInfoText"
-            :bottomAchhor="true"
-            @widget-selection="$emit('insert-widget', $event)"
-            @close="$emit('close-widgets-picker-window')"
-          />
+      <div class="cptm-widget-insert-area" v-if="!readOnly">
+        <div class="cptm-widget-insert-wrap">
+          <div class="cptm-widget-insert-modal-container">
+            <widgets-window
+              :id="id"
+              :availableWidgets="availableWidgets"
+              :acceptedWidgets="acceptedWidgets"
+              :rejectedWidgets="rejectedWidgets"
+              :activeWidgets="activeWidgets"
+              :selectedWidgets="selectedWidgets"
+              :active="showWidgetsPickerWindow"
+              :maxWidget="maxWidget"
+              :maxWidgetInfoText="maxWidgetInfoText"
+              :bottomAchhor="true"
+              @widget-selection="$emit('insert-widget', $event)"
+              @close="$emit('close-widgets-picker-window')"
+            />
+          </div>
+
+          <a
+            v-if="canAddMore"
+            href="#"
+            class="cptm-widget-insert-link"
+            @click.prevent="$emit('open-widgets-picker-window')"
+          >
+            <span class="fa fa-plus"></span>
+          </a>
         </div>
+      </div>
 
-        <a
-          v-if="canAddMore"
-          href="#"
-          class="cptm-widget-insert-link"
-          @click.prevent="$emit('open-widgets-picker-window')"
-        >
-          <span class="fa fa-plus"></span>
-        </a>
+      <div class="cptm-widget-preview-area" v-if="displayedWidgets.length > 0">
+        <template v-for="(widget, widget_index) in displayedWidgets">
+          <template v-if="hasValidWidget(widget)">
+            <component
+              :is="availableWidgets[widget].type + '-card-widget'"
+              :class="{
+                'cptm-widget-card-disabled':
+                  readOnly && !selectedWidgets.includes(widget),
+              }"
+              :key="widget_index"
+              :label="
+                typeof availableWidgets[widget] !== 'undefined'
+                  ? availableWidgets[widget].label
+                  : 'Not Available'
+              "
+              :icon="
+                typeof availableWidgets[widget].icon === 'string'
+                  ? availableWidgets[widget].icon
+                  : ''
+              "
+              :options="availableWidgets[widget].options"
+              :widgetDropable="widgetDropable"
+              :hasDisableButton="hasDisableButton"
+              :canMove="
+                activeWidgets[widget] &&
+                typeof activeWidgets[widget].can_move !== undefined
+                  ? activeWidgets[widget].can_move
+                  : true
+              "
+              :canEdit="
+                activeWidgets[widget] && widgetHasOptions(activeWidgets[widget])
+              "
+              @drag="$emit('drag-widget', widget)"
+              @drop="$emit('drop-widget', widget)"
+              @dragend="$emit('dragend-widget', widget)"
+              @edit="$emit('edit-widget', widget)"
+              @trash="$emit('trash-widget', widget)"
+              :disabled="readOnly && !selectedWidgets.includes(widget)"
+              :readOnly="readOnly"
+            >
+            </component>
+          </template>
+        </template>
       </div>
     </div>
-
-    <div class="cptm-widget-preview-area" v-if="displayedWidgets.length > 0">
-      <template v-for="(widget, widget_index) in displayedWidgets">
-        <template v-if="hasValidWidget(widget)">
-          <component
-            :is="availableWidgets[widget].type + '-card-widget'"
-            :class="{
-              'cptm-widget-card-disabled':
-                readOnly && !selectedWidgets.includes(widget),
-            }"
-            :key="widget_index"
-            :label="
-              typeof availableWidgets[widget] !== 'undefined'
-                ? availableWidgets[widget].label
-                : 'Not Available'
-            "
-            :icon="
-              typeof availableWidgets[widget].icon === 'string'
-                ? availableWidgets[widget].icon
-                : ''
-            "
-            :options="availableWidgets[widget].options"
-            :widgetDropable="widgetDropable"
-            :canMove="
-              activeWidgets[widget] &&
-              typeof activeWidgets[widget].can_move !== undefined
-                ? activeWidgets[widget].can_move
-                : true
-            "
-            :canEdit="
-              activeWidgets[widget] && widgetHasOptions(activeWidgets[widget])
-            "
-            @drag="$emit('drag-widget', widget)"
-            @drop="$emit('drop-widget', widget)"
-            @dragend="$emit('dragend-widget', widget)"
-            @edit="$emit('edit-widget', widget)"
-            @trash="$emit('trash-widget', widget)"
-            :disabled="readOnly && !selectedWidgets.includes(widget)"
-            :readOnly="readOnly"
-          >
-          </component>
-        </template>
-      </template>
-    </div>
+    <span class="cptm-widget-card-disable" v-if="hasDisableButton">
+      Enable/Disable
+    </span>
   </div>
 </template>
 
@@ -129,6 +135,10 @@ export default {
       default: false,
     },
     widgetDropable: {
+      type: Boolean,
+      default: false,
+    },
+    hasDisableButton: {
       type: Boolean,
       default: false,
     },

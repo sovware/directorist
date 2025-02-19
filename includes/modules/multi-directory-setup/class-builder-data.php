@@ -1812,11 +1812,16 @@ class Builder_Data {
                         "listing_title", "favorite_badge", "popular_badge", "featured_badge", "new_badge", "rating", "pricing", "posted_date",
                     ],
                 ],
+                'tagline'     => [
+                    'maxWidget'       => 0,
+                    'acceptedWidgets' => [
+                        "listing_title", "tagline", "favorite_badge", "popular_badge", "featured_badge", "new_badge", "rating", "pricing", "posted_date",
+                    ],
+                ],
                 'bottom'  => [
                     'maxWidget'       => 0,
                     'acceptedWidgets' => [
-                        'listings_location', 'phone', 'phone2', 'website', 'zip', 'fax', 'address', 'email',
-                        'text', 'textarea', 'number', 'url', 'date', 'time', 'color', 'select', 'checkbox', 'radio', 'file', 'posted_date',
+                        'listings_location', 'phone', 'phone2', 'website', 'zip', 'fax', 'address', 'email', 'text', 'textarea', 'number', 'url', 'date', 'time', 'color', 'select', 'checkbox', 'radio', 'file', 'posted_date',
                     ],
                 ],
                 'excerpt' => [
@@ -2566,6 +2571,13 @@ class Builder_Data {
                 ],
             ] ),
 
+            'enable_grid_view_layout' => [
+                'type'  => 'toggle',
+                'label' => __( 'Enable Grid View Layout', 'directorist' ),
+                'labelType' => 'h5',
+                'value' => true,
+            ],
+
             'listings_card_grid_view'                     => apply_filters( 'directorist_listing_card_layouts', [
                 'type'           => 'card-builder',
                 'card_templates' => [
@@ -2584,6 +2596,13 @@ class Builder_Data {
                 ],
             ] ),
 
+            'enable_list_view_layout' => [
+                'type'  => 'toggle',
+                'label' => __( 'Enable List View Layout', 'directorist' ),
+                'labelType' => 'h3',
+                'value' => true,
+            ],
+
             'listings_card_list_view'                     => apply_filters( 'directorist_listing_list_layouts', [
                 'type'           => 'card-builder',
                 'card_templates' => [
@@ -2601,6 +2620,13 @@ class Builder_Data {
                     ],
                 ],
             ] ),
+
+            'enable_map_view_layout' => [
+                'type'  => 'toggle',
+                'label' => __( 'Enable Map View Layout', 'directorist' ),
+                'labelType' => 'h5',
+                'value' => true,
+            ],
 
             'listings_card_map_view'                     => apply_filters( 'directorist_listing_map_layouts', [
                 'type'           => 'card-builder',
@@ -2797,6 +2823,7 @@ class Builder_Data {
                                 'title_align' => 'center',
                                 'description' => '<a target="_blank" href="https://directorist.com/documentation/directorist/form-and-layout-builder/multiple-directories/"> ' . __( 'Need help?', 'directorist' ) . ' </a>' . __( 'Read the documentation or open a ticket in our helpdesk.', 'directorist' ),
                                 'fields'      => [
+                                    'enable_grid_view_layout',
                                     'listings_card_grid_view',
                                 ],
                             ],
@@ -2818,6 +2845,7 @@ class Builder_Data {
                                 'title_align' => 'center',
                                 'description' => '<a target="_blank" href="https://directorist.com/documentation/directorist/form-and-layout-builder/multiple-directories/"> ' . __( 'Need help?', 'directorist' ) . ' </a>' . __( 'Read the documentation or open a ticket in our helpdesk.', 'directorist' ),
                                 'fields'      => [
+                                    'enable_list_view_layout',
                                     'listings_card_list_view',
                                 ],
                             ],
@@ -2839,6 +2867,7 @@ class Builder_Data {
                                 'title_align' => 'center',
                                 'description' => '<a target="_blank" href="https://directorist.com/documentation/directorist/form-and-layout-builder/multiple-directories/"> ' . __( 'Need help?', 'directorist' ) . ' </a>' . __( 'Read the documentation or open a ticket in our helpdesk.', 'directorist' ),
                                 'fields'      => [
+                                    'enable_map_view_layout',
                                     'listings_card_map_view',
                                 ],
                             ],

@@ -15641,6 +15641,10 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       type: Boolean,
       default: false
     },
+    hasDisableButton: {
+      type: Boolean,
+      default: false
+    },
     maxWidget: {
       type: Number,
       default: 0
@@ -20495,7 +20499,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   props: {
     fieldId: {
       required: false,
-      default: ''
+      default: ""
     },
     value: {
       required: false,
@@ -20512,11 +20516,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   },
   created: function created() {
     this.init();
-    this.$emit('update', this.output_data);
+    this.$emit("update", this.output_data);
   },
   watch: {
     output_data: function output_data() {
-      this.$emit('update', this.output_data);
+      this.$emit("update", this.output_data);
     }
   },
   computed: {
@@ -20543,16 +20547,16 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
             }
             var widget_data = {};
             for (var root_option in this.active_widgets[widget_name]) {
-              if ('options' === root_option) {
+              if ("options" === root_option) {
                 continue;
               }
-              if ('icon' === root_option) {
+              if ("icon" === root_option) {
                 continue;
               }
-              if ('show_if' === root_option) {
+              if ("show_if" === root_option) {
                 continue;
               }
-              if ('fields' === root_option) {
+              if ("fields" === root_option) {
                 continue;
               }
               widget_data[root_option] = this.active_widgets[widget_name][root_option];
@@ -20599,14 +20603,14 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
               for (_iterator.s(); !(_step = _iterator.n()).done;) {
                 var matched_field = _step.value;
                 var _main_widget = JSON.parse(JSON.stringify(main_widget));
-                var current_key = widget_keys.includes(widget) ? widget + '_' + (widget_keys.length + 1) : widget;
+                var current_key = widget_keys.includes(widget) ? widget + "_" + (widget_keys.length + 1) : widget;
                 _main_widget.widget_key = current_key;
                 if (matched_field.widget_key) {
                   _main_widget.original_widget_key = matched_field.widget_key;
                   // console.log( { widget, widget_key: matched_field.widget_key,  matched_field } );
                 }
 
-                if (typeof matched_field.label === 'string' && matched_field.label.length) {
+                if (typeof matched_field.label === "string" && matched_field.label.length) {
                   _main_widget.label = matched_field.label;
                 }
                 available_widgets[current_key] = _main_widget;
@@ -20626,7 +20630,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       if (!this.widgetOptionsWindow.widget.length) {
         return false;
       }
-      if (typeof this.active_widgets[this.widgetOptionsWindow.widget] === 'undedined') {
+      if (typeof this.active_widgets[this.widgetOptionsWindow.widget] === "undedined") {
         return false;
       }
       return true;
@@ -20635,8 +20639,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       return this.currentDraggingWidget;
     },
     getAvatarPlaceholderClass: function getAvatarPlaceholderClass() {
-      var accepted_align_options = ['right', 'center', 'left'];
-      var align_option = '';
+      var accepted_align_options = ["right", "center", "left"];
+      var align_option = "";
       var active_widgets = JSON.parse(JSON.stringify(this.active_widgets));
       var has_option = false;
       if (this.isObject(active_widgets)) {
@@ -20654,38 +20658,38 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       if (has_option && !active_widgets.user_avatar.options.fields.align) {
         has_option = false;
       }
-      if (has_option && !(typeof active_widgets.user_avatar.options.fields.align.value === 'string')) {
+      if (has_option && !(typeof active_widgets.user_avatar.options.fields.align.value === "string")) {
         has_option = false;
       }
       if (has_option) {
         align_option = active_widgets.user_avatar.options.fields.align.value;
       }
       if (!accepted_align_options.includes(align_option)) {
-        align_option = 'center';
+        align_option = "center";
       }
       return {
-        'cptm-listing-card-author-avatar-placeholder cptm-card-dark-light cptm-mb-20': true,
-        'cptm-text-right': 'right' === align_option ? true : false,
-        'cptm-text-center': 'center' === align_option ? true : false,
-        'cptm-text-left': 'left' === align_option ? true : false
+        "cptm-listing-card-author-avatar-placeholder cptm-card-dark-light cptm-mb-20": true,
+        "cptm-text-right": "right" === align_option ? true : false,
+        "cptm-text-center": "center" === align_option ? true : false,
+        "cptm-text-left": "left" === align_option ? true : false
       };
     }
   },
   data: function data() {
     return {
-      active_insert_widget_key: '',
+      active_insert_widget_key: "",
       // Widget Options Window
       widgetOptionsWindowDefault: {
-        animation: 'cptm-animation-flip',
-        widget: ''
+        animation: "cptm-animation-flip",
+        widget: ""
       },
       widgetOptionsWindow: {
-        animation: 'cptm-animation-flip',
-        widget: ''
+        animation: "cptm-animation-flip",
+        widget: ""
       },
       currentDraggingWidget: {
         origin: {},
-        key: ''
+        key: ""
       },
       // Available Widgets
       available_widgets: {},
@@ -20695,47 +20699,51 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       local_layout: {
         thumbnail: {
           top_right: {
-            label: 'Top Right',
+            label: "Top Right",
             selectedWidgets: []
           },
           top_left: {
-            label: 'Top Left',
+            label: "Top Left",
             selectedWidgets: []
           },
           bottom_right: {
-            label: 'Bottom Right',
+            label: "Bottom Right",
             selectedWidgets: []
           },
           bottom_left: {
-            label: 'Bottom Left',
+            label: "Bottom Left",
             selectedWidgets: []
           },
           avatar: {
-            label: 'Avatar',
+            label: "Avatar",
             selectedWidgets: []
           }
         },
         body: {
           top: {
-            label: 'Body Top',
+            label: "Body Top",
+            selectedWidgets: []
+          },
+          tagline: {
+            label: "Tagline",
             selectedWidgets: []
           },
           bottom: {
-            label: 'Body Bottom',
+            label: "Body Bottom",
             selectedWidgets: []
           },
           excerpt: {
-            label: 'Excerpt',
+            label: "Excerpt",
             selectedWidgets: []
           }
         },
         footer: {
           right: {
-            label: 'Footer Right',
+            label: "Footer Right",
             selectedWidgets: []
           },
           left: {
-            label: 'Footer Left',
+            label: "Footer Left",
             selectedWidgets: []
           }
         }
@@ -20749,7 +20757,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       this.importOldData();
     },
     isTruthyObject: function isTruthyObject(obj) {
-      if (!obj && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(obj) !== 'object') {
+      if (!obj && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(obj) !== "object") {
         return false;
       }
       return true;
@@ -20772,11 +20780,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       // Get Active Widgets Data
       var active_widgets_data = {};
       for (var section in value) {
-        if (!value[section] && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(value[section]) !== 'object') {
+        if (!value[section] && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(value[section]) !== "object") {
           continue;
         }
         for (var area in value[section]) {
-          if (!value[section][area] && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(value[section][area]) !== 'object') {
+          if (!value[section][area] && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(value[section][area]) !== "object") {
             continue;
           }
           var _iterator2 = _createForOfIteratorHelper(value[section][area]),
@@ -20784,19 +20792,19 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           try {
             for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
               var widget = _step2.value;
-              if (typeof widget.widget_name === 'undefined') {
+              if (typeof widget.widget_name === "undefined") {
                 continue;
               }
-              if (typeof widget.widget_key === 'undefined') {
+              if (typeof widget.widget_key === "undefined") {
                 continue;
               }
-              if (typeof this.available_widgets[widget.widget_name] === 'undefined') {
+              if (typeof this.available_widgets[widget.widget_name] === "undefined") {
                 continue;
               }
-              if (typeof this.local_layout[section] === 'undefined') {
+              if (typeof this.local_layout[section] === "undefined") {
                 continue;
               }
-              if (typeof this.local_layout[section][area] === 'undefined') {
+              if (typeof this.local_layout[section][area] === "undefined") {
                 continue;
               }
               active_widgets_data[widget.widget_key] = widget;
@@ -20823,10 +20831,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         // let widget_options = ( ! active_widgets_data[widget_key].options && typeof active_widgets_data[widget_key].options !== "object" ) ? false : active_widgets_data[widget_key].options;
 
         for (var root_option in widgets_template) {
-          if ('options' === root_option) {
+          if ("options" === root_option) {
             continue;
           }
-          if (typeof active_widgets_data[widget_key][root_option] === 'undefined') {
+          if (typeof active_widgets_data[widget_key][root_option] === "undefined") {
             continue;
           }
           widgets_template[root_option] = active_widgets_data[widget_key][root_option];
@@ -20880,8 +20888,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       this.currentDraggingWidget.origin = origin;
     },
     onDragEndWidget: function onDragEndWidget() {
-      this.currentDraggingWidget.key = '';
-      this.currentDraggingWidget.origin = '';
+      this.currentDraggingWidget.key = "";
+      this.currentDraggingWidget.origin = "";
     },
     maxWidgetLimitIsReached: function maxWidgetLimitIsReached(path) {
       if (!path.maxWidget) {
@@ -20967,10 +20975,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       // console.log( 'handleDragleaveOnPlaceholder', where );
     },
     editWidget: function editWidget(key) {
-      if (typeof this.active_widgets[key] === 'undefined') {
+      if (typeof this.active_widgets[key] === "undefined") {
         return;
       }
-      if (!this.active_widgets[key].options && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(this.active_widgets[key].options) !== 'object') {
+      if (!this.active_widgets[key].options && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(this.active_widgets[key].options) !== "object") {
         return;
       }
       var opt = this.active_widgets[key].options;
@@ -20983,13 +20991,13 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     },
     updateWidgetOptionsData: function updateWidgetOptionsData(data, widget) {
       return;
-      if (typeof this.active_widgets[widget.widget] === 'undefined') {
+      if (typeof this.active_widgets[widget.widget] === "undefined") {
         return;
       }
-      if (typeof this.active_widgets[widget.widget].options === 'undefined') {
+      if (typeof this.active_widgets[widget.widget].options === "undefined") {
         return;
       }
-      vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(this.active_widgets[widget.widget].options, 'fields', data);
+      vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(this.active_widgets[widget.widget].options, "fields", data);
     },
     closeWidgetOptionsWindow: function closeWidgetOptionsWindow() {
       this.widgetOptionsWindow = this.widgetOptionsWindowDefault;
@@ -21000,7 +21008,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       }
       var index = where.selectedWidgets.indexOf(key);
       vue__WEBPACK_IMPORTED_MODULE_2__["default"].delete(where.selectedWidgets, index);
-      if (typeof this.active_widgets[key] === 'undefined') {
+      if (typeof this.active_widgets[key] === "undefined") {
         return;
       }
       vue__WEBPACK_IMPORTED_MODULE_2__["default"].delete(this.active_widgets, key);
@@ -21010,7 +21018,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     },
     activeInsertWindow: function activeInsertWindow(current_item_key) {
       if (this.active_insert_widget_key === current_item_key) {
-        this.active_insert_widget_key = '';
+        this.active_insert_widget_key = "";
         return;
       }
       this.active_insert_widget_key = current_item_key;
@@ -21020,10 +21028,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         return;
       }
       vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(this.active_widgets, payload.key, _objectSpread({}, this.theAvailableWidgets[payload.key]));
-      vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(where, 'selectedWidgets', payload.selected_widgets);
+      vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(where, "selectedWidgets", payload.selected_widgets);
     },
     closeInsertWindow: function closeInsertWindow(widget_insert_window) {
-      this.active_insert_widget_key = '';
+      this.active_insert_widget_key = "";
     },
     getActiveInsertWindowStatus: function getActiveInsertWindowStatus(current_item_key) {
       if (current_item_key === this.active_insert_widget_key) {
@@ -27930,6 +27938,8 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
+    staticClass: "cptm-placeholder-block-wrapper"
+  }, [_c("div", {
     staticClass: "cptm-placeholder-block",
     class: _vm.getContainerClass,
     on: {
@@ -27953,7 +27963,7 @@ var render = function render() {
     class: {
       hide: _vm.acceptedWidgets && _vm.acceptedWidgets.length
     }
-  }, [_vm._v("\n    " + _vm._s(_vm.label) + "\n  ")]), _vm._v(" "), !_vm.readOnly ? _c("div", {
+  }, [_vm._v("\n      " + _vm._s(_vm.label) + "\n    ")]), _vm._v(" "), !_vm.readOnly ? _c("div", {
     staticClass: "cptm-widget-insert-area"
   }, [_c("div", {
     staticClass: "cptm-widget-insert-wrap"
@@ -28007,6 +28017,7 @@ var render = function render() {
         icon: typeof _vm.availableWidgets[widget].icon === "string" ? _vm.availableWidgets[widget].icon : "",
         options: _vm.availableWidgets[widget].options,
         widgetDropable: _vm.widgetDropable,
+        hasDisableButton: _vm.hasDisableButton,
         canMove: _vm.activeWidgets[widget] && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(_vm.activeWidgets[widget].can_move) !== undefined ? _vm.activeWidgets[widget].can_move : true,
         canEdit: _vm.activeWidgets[widget] && _vm.widgetHasOptions(_vm.activeWidgets[widget]),
         disabled: _vm.readOnly && !_vm.selectedWidgets.includes(widget),
@@ -28030,7 +28041,9 @@ var render = function render() {
         }
       }
     })] : _vm._e()];
-  })], 2) : _vm._e()]);
+  })], 2) : _vm._e()]), _vm._v(" "), _vm.hasDisableButton ? _c("span", {
+    staticClass: "cptm-widget-card-disable"
+  }, [_vm._v("\n    Enable/Disable\n  ")]) : _vm._e()]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -32034,6 +32047,49 @@ var render = function render() {
     }
   }), _vm._v(" "), _c("card-widget-placeholder", {
     attrs: {
+      id: "thumbnail_body_tagline",
+      containerClass: "cptm-listing-card-preview-tagline-placeholder cptm-card-light cptm-mb-20 cptm-align-left",
+      label: _vm.local_layout.body.tagline.label,
+      availableWidgets: _vm.theAvailableWidgets,
+      activeWidgets: _vm.active_widgets,
+      acceptedWidgets: _vm.local_layout.body.tagline.acceptedWidgets,
+      selectedWidgets: _vm.local_layout.body.tagline.selectedWidgets,
+      maxWidget: _vm.local_layout.body.tagline.maxWidget,
+      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_body_tagline"),
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.body.tagline),
+      hasDisableButton: true
+    },
+    on: {
+      "insert-widget": function insertWidget($event) {
+        return _vm.insertWidget($event, _vm.local_layout.body.tagline);
+      },
+      "drag-widget": function dragWidget($event) {
+        return _vm.onDragStartWidget($event, _vm.local_layout.body.tagline);
+      },
+      "drop-widget": function dropWidget($event) {
+        return _vm.appendWidget($event, _vm.local_layout.body.tagline);
+      },
+      "dragend-widget": function dragendWidget($event) {
+        return _vm.onDragEndWidget();
+      },
+      "edit-widget": function editWidget($event) {
+        return _vm.editWidget($event);
+      },
+      "trash-widget": function trashWidget($event) {
+        return _vm.trashWidget($event, _vm.local_layout.body.tagline);
+      },
+      "placeholder-on-drop": function placeholderOnDrop($event) {
+        return _vm.handleDropOnPlaceholder(_vm.local_layout.body.tagline);
+      },
+      "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
+        return _vm.activeInsertWindow("thumbnail_body_tagline");
+      },
+      "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
+        return _vm.closeInsertWindow();
+      }
+    }
+  }), _vm._v(" "), _c("card-widget-placeholder", {
+    attrs: {
       id: "thumbnail_body_bottom",
       containerClass: "cptm-listing-card-preview-body-placeholder cptm-card-light",
       label: _vm.local_layout.body.bottom.label,
@@ -32074,7 +32130,7 @@ var render = function render() {
         return _vm.closeInsertWindow();
       }
     }
-  }), _vm._v(" "), _c("br"), _vm._v(" "), _vm.placeholderIsActive(_vm.local_layout.body.excerpt) ? _c("card-widget-placeholder", {
+  }), _vm._v(" "), _vm.placeholderIsActive(_vm.local_layout.body.excerpt) ? _c("card-widget-placeholder", {
     attrs: {
       id: "body_excerpt",
       containerClass: "cptm-listing-card-preview-body-excerpt-placeholder cptm-card-light",

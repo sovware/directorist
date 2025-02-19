@@ -2411,6 +2411,15 @@ input[type="radio"].cptm-radio {
   }
 }
 
+.cptm-placeholder-block-wrapper {
+  display: flex;
+  gap: 6px;
+  flex: 1;
+  .cptm-placeholder-block {
+    flex: 1;
+  }
+}
+
 .cptm-placeholder-block {
   padding: 2px;
   min-height: 40px;

@@ -2599,7 +2599,7 @@ class Builder_Data {
             'enable_list_view_layout' => [
                 'type'  => 'toggle',
                 'label' => __( 'Enable List View Layout', 'directorist' ),
-                'labelType' => 'h3',
+                'labelType' => 'h5',
                 'value' => true,
             ],
 

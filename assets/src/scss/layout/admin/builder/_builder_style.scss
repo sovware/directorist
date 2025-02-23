@@ -1165,6 +1165,25 @@ $light-gray: #f4f5f7;
       width: calc(100% - 2px);
     }
   }
+  &.enable_grid_view_layout,
+  &.enable_list_view_layout,
+  &.enable_map_view_layout {
+    .cptm-form-group {
+      margin-bottom: 0;
+    }
+    .cptm-input-toggle-wrap {
+      max-width: 275px;
+      position: absolute;
+      top: 10px;
+      left: 0;
+      label {
+        h5 {
+          margin: 0;
+        }
+      }
+    }
+  }
+
   &.new_listing_status {
     z-index: 11;
   }

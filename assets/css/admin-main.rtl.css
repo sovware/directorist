@@ -15449,6 +15449,18 @@ input:-webkit-autofill:active {
     width: calc(100% - 2px);
   }
 }
+.cptm-section.enable_grid_view_layout .cptm-form-group, .cptm-section.enable_list_view_layout .cptm-form-group, .cptm-section.enable_map_view_layout .cptm-form-group {
+  margin-bottom: 0;
+}
+.cptm-section.enable_grid_view_layout .cptm-input-toggle-wrap, .cptm-section.enable_list_view_layout .cptm-input-toggle-wrap, .cptm-section.enable_map_view_layout .cptm-input-toggle-wrap {
+  max-width: 275px;
+  position: absolute;
+  top: 10px;
+  right: 0;
+}
+.cptm-section.enable_grid_view_layout .cptm-input-toggle-wrap label h5, .cptm-section.enable_list_view_layout .cptm-input-toggle-wrap label h5, .cptm-section.enable_map_view_layout .cptm-input-toggle-wrap label h5 {
+  margin: 0;
+}
 .cptm-section.new_listing_status {
   z-index: 11;
 }
@@ -21101,6 +21113,18 @@ input[type=radio]:checked::before {
     bottom: 96px;
     width: calc(100% - 2px);
   }
+}
+.cptm-section.enable_grid_view_layout .cptm-form-group, .cptm-section.enable_list_view_layout .cptm-form-group, .cptm-section.enable_map_view_layout .cptm-form-group {
+  margin-bottom: 0;
+}
+.cptm-section.enable_grid_view_layout .cptm-input-toggle-wrap, .cptm-section.enable_list_view_layout .cptm-input-toggle-wrap, .cptm-section.enable_map_view_layout .cptm-input-toggle-wrap {
+  max-width: 275px;
+  position: absolute;
+  top: 10px;
+  right: 0;
+}
+.cptm-section.enable_grid_view_layout .cptm-input-toggle-wrap label h5, .cptm-section.enable_list_view_layout .cptm-input-toggle-wrap label h5, .cptm-section.enable_map_view_layout .cptm-input-toggle-wrap label h5 {
+  margin: 0;
 }
 .cptm-section.new_listing_status {
   z-index: 11;
@@ -27042,6 +27066,18 @@ input[type=radio]:checked::before {
     bottom: 96px;
     width: calc(100% - 2px);
   }
+}
+.cptm-section.enable_grid_view_layout .cptm-form-group, .cptm-section.enable_list_view_layout .cptm-form-group, .cptm-section.enable_map_view_layout .cptm-form-group {
+  margin-bottom: 0;
+}
+.cptm-section.enable_grid_view_layout .cptm-input-toggle-wrap, .cptm-section.enable_list_view_layout .cptm-input-toggle-wrap, .cptm-section.enable_map_view_layout .cptm-input-toggle-wrap {
+  max-width: 275px;
+  position: absolute;
+  top: 10px;
+  right: 0;
+}
+.cptm-section.enable_grid_view_layout .cptm-input-toggle-wrap label h5, .cptm-section.enable_list_view_layout .cptm-input-toggle-wrap label h5, .cptm-section.enable_map_view_layout .cptm-input-toggle-wrap label h5 {
+  margin: 0;
 }
 .cptm-section.new_listing_status {
   z-index: 11;

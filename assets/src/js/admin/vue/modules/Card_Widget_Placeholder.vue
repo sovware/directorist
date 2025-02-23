@@ -2,7 +2,10 @@
   <div class="cptm-placeholder-block-wrapper">
     <div
       class="cptm-placeholder-block"
-      :class="getContainerClass"
+      :class="[
+        getContainerClass,
+        { 'cptm-widget-picker-open': showWidgetsPickerWindow },
+      ]"
       @drop.prevent="placeholderOnDrop()"
       @dragover.prevent="$emit('placeholder-dragover-on')"
       @dragenter="placeholderOnDragEnter()"
@@ -10,7 +13,7 @@
     >
       <p
         class="cptm-placeholder-label"
-        :class="{ hide: acceptedWidgets && acceptedWidgets.length }"
+        :class="{ hide: displayedWidgets && displayedWidgets.length }"
       >
         {{ label }}
       </p>
@@ -90,8 +93,10 @@
         </template>
       </div>
     </div>
-    <span class="cptm-widget-card-disable" v-if="hasDisableButton">
-      Enable/Disable
+    <span class="cptm-widget-card-status" v-if="enable_widget">
+      <span
+        :class="enable_widget.value === true ? 'fa fa-eye' : 'fa fa-eye-slash'"
+      ></span>
     </span>
   </div>
 </template>
@@ -110,6 +115,9 @@ export default {
     },
     placeholderKey: {
       default: "",
+    },
+    enable_widget: {
+      type: Object,
     },
     label: {
       type: String,

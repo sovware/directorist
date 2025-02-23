@@ -261,6 +261,7 @@
               id="thumbnail_avatar"
               :containerClass="getAvatarPlaceholderClass"
               :label="local_layout.thumbnail.avatar.label"
+              :enable_widget="local_layout.thumbnail.avatar.enable_widget"
               :availableWidgets="theAvailableWidgets"
               :activeWidgets="active_widgets"
               :acceptedWidgets="local_layout.thumbnail.avatar.acceptedWidgets"
@@ -291,26 +292,27 @@
           </div>
 
           <card-widget-placeholder
-            id="thumbnail_body_top"
+            id="thumbnail_body_title"
             containerClass="cptm-listing-card-preview-title-placeholder cptm-card-light cptm-mb-20 cptm-align-left"
-            :label="local_layout.body.top.label"
+            :label="local_layout.body.title.label"
+            :enable_widget="local_layout.body.title.enable_widget"
             :availableWidgets="theAvailableWidgets"
             :activeWidgets="active_widgets"
-            :acceptedWidgets="local_layout.body.top.acceptedWidgets"
-            :selectedWidgets="local_layout.body.top.selectedWidgets"
-            :maxWidget="local_layout.body.top.maxWidget"
+            :acceptedWidgets="local_layout.body.title.acceptedWidgets"
+            :selectedWidgets="local_layout.body.title.selectedWidgets"
+            :maxWidget="local_layout.body.title.maxWidget"
             :showWidgetsPickerWindow="
               getActiveInsertWindowStatus('thumbnail_body_top')
             "
-            :widgetDropable="widgetIsDropable(local_layout.body.top)"
-            @insert-widget="insertWidget($event, local_layout.body.top)"
-            @drag-widget="onDragStartWidget($event, local_layout.body.top)"
-            @drop-widget="appendWidget($event, local_layout.body.top)"
+            :widgetDropable="widgetIsDropable(local_layout.body.title)"
+            @insert-widget="insertWidget($event, local_layout.body.title)"
+            @drag-widget="onDragStartWidget($event, local_layout.body.title)"
+            @drop-widget="appendWidget($event, local_layout.body.title)"
             @dragend-widget="onDragEndWidget()"
             @edit-widget="editWidget($event)"
-            @trash-widget="trashWidget($event, local_layout.body.top)"
+            @trash-widget="trashWidget($event, local_layout.body.title)"
             @placeholder-on-drop="
-              handleDropOnPlaceholder(local_layout.body.top)
+              handleDropOnPlaceholder(local_layout.body.title)
             "
             @open-widgets-picker-window="
               activeInsertWindow('thumbnail_body_top')
@@ -321,6 +323,7 @@
             id="thumbnail_body_tagline"
             containerClass="cptm-listing-card-preview-tagline-placeholder cptm-card-light cptm-mb-20 cptm-align-left"
             :label="local_layout.body.tagline.label"
+            :enable_widget="local_layout.body.tagline.enable_widget"
             :availableWidgets="theAvailableWidgets"
             :activeWidgets="active_widgets"
             :acceptedWidgets="local_layout.body.tagline.acceptedWidgets"
@@ -345,7 +348,33 @@
             "
             @close-widgets-picker-window="closeInsertWindow()"
           />
-
+          <card-widget-placeholder
+            id="thumbnail_body_badges"
+            containerClass="cptm-listing-card-preview-badges-placeholder cptm-card-light cptm-mb-20 cptm-align-left"
+            :label="local_layout.body.badges.label"
+            :availableWidgets="theAvailableWidgets"
+            :activeWidgets="active_widgets"
+            :acceptedWidgets="local_layout.body.badges.acceptedWidgets"
+            :selectedWidgets="local_layout.body.badges.selectedWidgets"
+            :maxWidget="local_layout.body.badges.maxWidget"
+            :showWidgetsPickerWindow="
+              getActiveInsertWindowStatus('thumbnail_body_badges')
+            "
+            :widgetDropable="widgetIsDropable(local_layout.body.badges)"
+            @insert-widget="insertWidget($event, local_layout.body.badges)"
+            @drag-widget="onDragStartWidget($event, local_layout.body.badges)"
+            @drop-widget="appendWidget($event, local_layout.body.badges)"
+            @dragend-widget="onDragEndWidget()"
+            @edit-widget="editWidget($event)"
+            @trash-widget="trashWidget($event, local_layout.body.badges)"
+            @placeholder-on-drop="
+              handleDropOnPlaceholder(local_layout.body.badges)
+            "
+            @open-widgets-picker-window="
+              activeInsertWindow('thumbnail_body_badges')
+            "
+            @close-widgets-picker-window="closeInsertWindow()"
+          />
           <card-widget-placeholder
             id="thumbnail_body_bottom"
             containerClass="cptm-listing-card-preview-body-placeholder cptm-card-light"
@@ -374,7 +403,7 @@
             @close-widgets-picker-window="closeInsertWindow()"
           />
 
-          <card-widget-placeholder
+          <!-- <card-widget-placeholder
             id="body_excerpt"
             containerClass="cptm-listing-card-preview-body-excerpt-placeholder cptm-card-light"
             v-if="placeholderIsActive(local_layout.body.excerpt)"
@@ -399,7 +428,7 @@
             "
             @open-widgets-picker-window="activeInsertWindow('body_excerpr')"
             @close-widgets-picker-window="closeInsertWindow()"
-          />
+          /> -->
         </div>
 
         <!-- cptm-listing-card-preview-footer -->
@@ -735,19 +764,19 @@ export default {
       local_layout: {
         thumbnail: {
           top_right: {
-            label: "Top Right",
+            label: "Add Element",
             selectedWidgets: [],
           },
           top_left: {
-            label: "Top Left",
+            label: "Add Element",
             selectedWidgets: [],
           },
           bottom_right: {
-            label: "Bottom Right",
+            label: "Add Element",
             selectedWidgets: [],
           },
           bottom_left: {
-            label: "Bottom Left",
+            label: "Add Element",
             selectedWidgets: [],
           },
           avatar: {
@@ -757,20 +786,19 @@ export default {
         },
 
         body: {
-          top: {
-            label: "Body Top",
+          title: {
             selectedWidgets: [],
           },
           tagline: {
-            label: "Tagline",
+            selectedWidgets: [],
+          },
+          badges: {
             selectedWidgets: [],
           },
           bottom: {
-            label: "Body Bottom",
             selectedWidgets: [],
           },
           excerpt: {
-            label: "Excerpt",
             selectedWidgets: [],
           },
         },

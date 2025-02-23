@@ -2236,6 +2236,9 @@ input[type="radio"].cptm-radio {
   left: 50%;
   z-index: 99;
   transform: translate(-50%, 50%);
+  opacity: 0;
+  visibility: hidden;
+  transition: all ease-in-out 0.3s;
 }
 
 .cptm-widget-insert-wrap {
@@ -2267,6 +2270,10 @@ input[type="radio"].cptm-radio {
   background-color: #fff;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
   color: #5a5f7d;
+  &:focus {
+    outline: none;
+    box-shadow: none;
+  }
 }
 
 .cptm-listing-card-preview-body,
@@ -2432,10 +2439,41 @@ input[type="radio"].cptm-radio {
 
 .cptm-placeholder-block-wrapper {
   display: flex;
-  gap: 6px;
+  gap: 8px;
   flex: 1;
   .cptm-placeholder-block {
     flex: 1;
+  }
+  .cptm-widget-card-status {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    margin-top: 4px;
+    background: #f3f4f6;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+  .cptm-listing-card-preview-title-placeholder {
+    .cptm-placeholder-label {
+      left: 20px;
+      transform: translate(0, -50%);
+      font-size: 14px;
+      font-weight: 500;
+      color: #4d5761;
+    }
+  }
+  .cptm-listing-card-preview-tagline-placeholder {
+    .cptm-placeholder-label {
+      left: 20px;
+      transform: translate(0, -50%);
+      font-size: 13px;
+      font-weight: 400;
+      color: #747c89;
+    }
   }
 }
 
@@ -2450,8 +2488,13 @@ input[type="radio"].cptm-radio {
   z-index: 99;
 
   &:hover,
-  &.drag-enter {
+  &.drag-enter,
+  &.cptm-widget-picker-open {
     border-color: rgba(255, 255, 255, 1);
+    .cptm-widget-insert-area {
+      opacity: 1;
+      visibility: visible;
+    }
   }
 }
 
@@ -2878,10 +2921,9 @@ input[type="radio"].cptm-radio {
 
 .cptm-listing-card-preview-footer {
   display: flex;
+  gap: 12px;
   flex-wrap: wrap;
-  padding: 20px;
-  background-color: #f4f5f7;
-  border-radius: 0 0 5px 5px;
+  padding: 0 20px 20px;
 }
 
 .cptm-listing-card-preview-footer-left-placeholder {

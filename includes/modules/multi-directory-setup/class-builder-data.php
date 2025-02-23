@@ -1802,49 +1802,72 @@ class Builder_Data {
                 'avatar'       => [
                     'maxWidget'       => 1,
                     'acceptedWidgets' => ['user_avatar'],
+                    'enable_widget' => [
+                        'type'  => 'toggle',
+                        'value' => false,
+                    ],
                 ],
             ],
 
             'body'      => [
-                'top'     => [
+                'title'     => [
+                    'label'           => __( 'Title', 'directorist' ),
                     'maxWidget'       => 0,
                     'acceptedWidgets' => [
-                        "listing_title", "favorite_badge", "popular_badge", "featured_badge", "new_badge", "rating", "pricing", "posted_date",
+                        "listing_title",
+                    ],
+                    'enable_widget' => [
+                        'type'  => 'toggle',
+                        'value' => true,
                     ],
                 ],
                 'tagline'     => [
+                    'label'           => __( 'Tagline', 'directorist' ),
                     'maxWidget'       => 0,
                     'acceptedWidgets' => [
-                        "listing_title", "tagline", "favorite_badge", "popular_badge", "featured_badge", "new_badge", "rating", "pricing", "posted_date",
+                        "tagline",
+                    ],
+                    'enable_widget' => [
+                        'type'  => 'toggle',
+                        'value' => false,
+                    ],
+                ],
+                'badges'     => [
+                    'label'           => __( 'Add Element', 'directorist' ),
+                    'maxWidget'       => 0,
+                    'acceptedWidgets' => [
+                        "favorite_badge", "popular_badge", "featured_badge", "new_badge",
                     ],
                 ],
                 'bottom'  => [
+                    'label'           => __( 'Add Element', 'directorist' ),
                     'maxWidget'       => 0,
                     'acceptedWidgets' => [
                         'listings_location', 'phone', 'phone2', 'website', 'zip', 'fax', 'address', 'email', 'text', 'textarea', 'number', 'url', 'date', 'time', 'color', 'select', 'checkbox', 'radio', 'file', 'posted_date',
                     ],
                 ],
-                'excerpt' => [
-                    'maxWidget'       => 1,
-                    'acceptedWidgets' => ['excerpt'],
-                    'show_if'         => [
-                        'where'      => 'submission_form_fields.value.fields',
-                        'conditions' => [
-                            ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'excerpt'],
-                        ],
-                    ],
-                ],
+                // 'excerpt' => [
+                //     'label'           => __( 'Add Element', 'directorist' ),
+                //     'maxWidget'       => 1,
+                //     'acceptedWidgets' => ['excerpt'],
+                //     'show_if'         => [
+                //         'where'      => 'submission_form_fields.value.fields',
+                //         'conditions' => [
+                //             ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'excerpt'],
+                //         ],
+                //     ],
+                // ],
             ],
 
             'footer'    => [
                 'right' => [
                     'maxWidget'       => 2,
-                    'acceptedWidgets' => ['category', 'favorite_badge', 'view_count'],
+                    'acceptedWidgets' => ['category', 'view_count'],
                 ],
 
                 'left'  => [
                     'maxWidget'       => 1,
-                    'acceptedWidgets' => ['category', 'favorite_badge', 'view_count'],
+                    'acceptedWidgets' => ['category', 'view_count'],
                 ],
             ],
         ];

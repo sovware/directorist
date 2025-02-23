@@ -16950,7 +16950,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   width: 12px;
   height: 12px;
 }
-.directorist-content-active .directorist-listing-single.directorist-listing-card .directorist-badge.directorist-badge-featured--only-text, .directorist-content-active .directorist-listing-single.directorist-listing-card .directorist-badge.directorist-badge-open, .directorist-content-active .directorist-listing-single.directorist-listing-card .directorist-badge.directorist-badge-close, .directorist-content-active .directorist-listing-single.directorist-listing-list .directorist-badge.directorist-badge-featured--only-text, .directorist-content-active .directorist-listing-single.directorist-listing-list .directorist-badge.directorist-badge-open, .directorist-content-active .directorist-listing-single.directorist-listing-list .directorist-badge.directorist-badge-close {
+.directorist-content-active .directorist-listing-single.directorist-listing-card .directorist-badge.directorist-badge--only-text, .directorist-content-active .directorist-listing-single.directorist-listing-card .directorist-badge.directorist-badge-open, .directorist-content-active .directorist-listing-single.directorist-listing-card .directorist-badge.directorist-badge-close, .directorist-content-active .directorist-listing-single.directorist-listing-list .directorist-badge.directorist-badge--only-text, .directorist-content-active .directorist-listing-single.directorist-listing-list .directorist-badge.directorist-badge-open, .directorist-content-active .directorist-listing-single.directorist-listing-list .directorist-badge.directorist-badge-close {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -16962,7 +16962,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   border-radius: 4px;
 }
 @media screen and (max-width: 575px) {
-  .directorist-content-active .directorist-listing-single.directorist-listing-card .directorist-badge.directorist-badge-featured--only-text, .directorist-content-active .directorist-listing-single.directorist-listing-card .directorist-badge.directorist-badge-open, .directorist-content-active .directorist-listing-single.directorist-listing-card .directorist-badge.directorist-badge-close, .directorist-content-active .directorist-listing-single.directorist-listing-list .directorist-badge.directorist-badge-featured--only-text, .directorist-content-active .directorist-listing-single.directorist-listing-list .directorist-badge.directorist-badge-open, .directorist-content-active .directorist-listing-single.directorist-listing-list .directorist-badge.directorist-badge-close {
+  .directorist-content-active .directorist-listing-single.directorist-listing-card .directorist-badge.directorist-badge--only-text, .directorist-content-active .directorist-listing-single.directorist-listing-card .directorist-badge.directorist-badge-open, .directorist-content-active .directorist-listing-single.directorist-listing-card .directorist-badge.directorist-badge-close, .directorist-content-active .directorist-listing-single.directorist-listing-list .directorist-badge.directorist-badge--only-text, .directorist-content-active .directorist-listing-single.directorist-listing-list .directorist-badge.directorist-badge-open, .directorist-content-active .directorist-listing-single.directorist-listing-list .directorist-badge.directorist-badge-close {
     height: 18px;
     line-height: 18px;
     font-size: 8px;
@@ -16977,8 +16977,16 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-content-active .directorist-listing-single.directorist-listing-card .directorist-badge.directorist-badge-featured, .directorist-content-active .directorist-listing-single.directorist-listing-list .directorist-badge.directorist-badge-featured {
   background-color: var(--directorist-color-white);
 }
-.directorist-content-active .directorist-listing-single.directorist-listing-card .directorist-badge.directorist-badge-featured--only-text, .directorist-content-active .directorist-listing-single.directorist-listing-list .directorist-badge.directorist-badge-featured--only-text {
+.directorist-content-active .directorist-listing-single.directorist-listing-card .directorist-badge.directorist-badge--only-text.directorist-badge-featured, .directorist-content-active .directorist-listing-single.directorist-listing-list .directorist-badge.directorist-badge--only-text.directorist-badge-featured {
   background-color: var(--directorist-color-featured-badge);
+  color: var(--directorist-color-white);
+}
+.directorist-content-active .directorist-listing-single.directorist-listing-card .directorist-badge.directorist-badge--only-text.directorist-badge-popular, .directorist-content-active .directorist-listing-single.directorist-listing-list .directorist-badge.directorist-badge--only-text.directorist-badge-popular {
+  background-color: var(--directorist-color-popular-badge);
+  color: var(--directorist-color-white);
+}
+.directorist-content-active .directorist-listing-single.directorist-listing-card .directorist-badge.directorist-badge--only-text.directorist-badge-new, .directorist-content-active .directorist-listing-single.directorist-listing-list .directorist-badge.directorist-badge--only-text.directorist-badge-new {
+  background-color: var(--directorist-color-new-badge);
   color: var(--directorist-color-white);
 }
 .directorist-content-active .directorist-listing-single.directorist-featured {

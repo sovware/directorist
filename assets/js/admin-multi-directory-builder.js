@@ -15702,6 +15702,18 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       }
       return true;
     },
+    toggleWidgetStatus: function toggleWidgetStatus() {
+      var _this = this;
+      if (this.enable_widget.value) {
+        this.enable_widget.value = false;
+        this.selectedWidgets.map(function (widget) {
+          _this.$emit("trash-widget", widget);
+        });
+      } else {
+        this.enable_widget.value = true;
+        console.log("@acceptedWidgets", this.acceptedWidgets);
+      }
+    },
     placeholderOnDrop: function placeholderOnDrop() {
       this.placeholderDragEnter = false;
       this.$emit("placeholder-on-drop");
@@ -28046,9 +28058,12 @@ var render = function render() {
       }
     })] : _vm._e()];
   })], 2) : _vm._e()]), _vm._v(" "), _vm.enable_widget ? _c("span", {
-    staticClass: "cptm-widget-card-status"
+    staticClass: "cptm-widget-card-status",
+    on: {
+      click: _vm.toggleWidgetStatus
+    }
   }, [_c("span", {
-    class: _vm.enable_widget.value === true ? "fa fa-eye" : "fa fa-eye-slash"
+    class: _vm.enable_widget.value ? "fa fa-eye" : "fa fa-eye-slash"
   })]) : _vm._e()]);
 };
 var staticRenderFns = [];

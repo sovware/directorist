@@ -93,9 +93,13 @@
         </template>
       </div>
     </div>
-    <span class="cptm-widget-card-status" v-if="enable_widget">
+    <span
+      class="cptm-widget-card-status"
+      v-if="enable_widget"
+      @click="toggleWidgetStatus"
+    >
       <span
-        :class="enable_widget.value === true ? 'fa fa-eye' : 'fa fa-eye-slash'"
+        :class="enable_widget.value ? 'fa fa-eye' : 'fa fa-eye-slash'"
       ></span>
     </span>
   </div>
@@ -221,6 +225,17 @@ export default {
         return false;
       }
       return true;
+    },
+    toggleWidgetStatus() {
+      if (this.enable_widget.value) {
+        this.enable_widget.value = false;
+        this.selectedWidgets.map((widget) => {
+          this.$emit("trash-widget", widget);
+        });
+      } else {
+        this.enable_widget.value = true;
+        console.log("@acceptedWidgets", this.acceptedWidgets);
+      }
     },
     placeholderOnDrop() {
       this.placeholderDragEnter = false;

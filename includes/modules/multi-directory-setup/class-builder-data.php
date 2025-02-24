@@ -1810,8 +1810,8 @@ class Builder_Data {
             ],
 
             'body'      => [
-                'title'     => [
-                    'label'           => __( 'Title', 'directorist' ),
+                'top'     => [
+                    'label'           => __( 'Listing Title', 'directorist' ),
                     'maxWidget'       => 0,
                     'acceptedWidgets' => [
                         "listing_title",

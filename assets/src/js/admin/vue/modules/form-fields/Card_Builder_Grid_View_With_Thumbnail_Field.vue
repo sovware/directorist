@@ -292,27 +292,27 @@
           </div>
 
           <card-widget-placeholder
-            id="thumbnail_body_title"
-            containerClass="cptm-listing-card-preview-title-placeholder cptm-card-light cptm-mb-20 cptm-align-left"
-            :label="local_layout.body.title.label"
-            :enable_widget="local_layout.body.title.enable_widget"
+            id="thumbnail_body_top"
+            containerClass="cptm-listing-card-preview-top-placeholder cptm-card-light cptm-mb-20 cptm-align-left"
+            :label="local_layout.body.top.label"
+            :enable_widget="local_layout.body.top.enable_widget"
             :availableWidgets="theAvailableWidgets"
             :activeWidgets="active_widgets"
-            :acceptedWidgets="local_layout.body.title.acceptedWidgets"
-            :selectedWidgets="local_layout.body.title.selectedWidgets"
-            :maxWidget="local_layout.body.title.maxWidget"
+            :acceptedWidgets="local_layout.body.top.acceptedWidgets"
+            :selectedWidgets="local_layout.body.top.selectedWidgets"
+            :maxWidget="local_layout.body.top.maxWidget"
             :showWidgetsPickerWindow="
               getActiveInsertWindowStatus('thumbnail_body_top')
             "
-            :widgetDropable="widgetIsDropable(local_layout.body.title)"
-            @insert-widget="insertWidget($event, local_layout.body.title)"
-            @drag-widget="onDragStartWidget($event, local_layout.body.title)"
-            @drop-widget="appendWidget($event, local_layout.body.title)"
+            :widgetDropable="widgetIsDropable(local_layout.body.top)"
+            @insert-widget="insertWidget($event, local_layout.body.top)"
+            @drag-widget="onDragStartWidget($event, local_layout.body.top)"
+            @drop-widget="appendWidget($event, local_layout.body.top)"
             @dragend-widget="onDragEndWidget()"
             @edit-widget="editWidget($event)"
-            @trash-widget="trashWidget($event, local_layout.body.title)"
+            @trash-widget="trashWidget($event, local_layout.body.top)"
             @placeholder-on-drop="
-              handleDropOnPlaceholder(local_layout.body.title)
+              handleDropOnPlaceholder(local_layout.body.top)
             "
             @open-widgets-picker-window="
               activeInsertWindow('thumbnail_body_top')
@@ -786,7 +786,7 @@ export default {
         },
 
         body: {
-          title: {
+          top: {
             selectedWidgets: [],
           },
           tagline: {

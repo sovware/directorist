@@ -20723,7 +20723,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           }
         },
         body: {
-          title: {
+          top: {
             selectedWidgets: []
           },
           tagline: {
@@ -32012,27 +32012,27 @@ var render = function render() {
     }
   })], 1), _vm._v(" "), _c("card-widget-placeholder", {
     attrs: {
-      id: "thumbnail_body_title",
-      containerClass: "cptm-listing-card-preview-title-placeholder cptm-card-light cptm-mb-20 cptm-align-left",
-      label: _vm.local_layout.body.title.label,
-      enable_widget: _vm.local_layout.body.title.enable_widget,
+      id: "thumbnail_body_top",
+      containerClass: "cptm-listing-card-preview-top-placeholder cptm-card-light cptm-mb-20 cptm-align-left",
+      label: _vm.local_layout.body.top.label,
+      enable_widget: _vm.local_layout.body.top.enable_widget,
       availableWidgets: _vm.theAvailableWidgets,
       activeWidgets: _vm.active_widgets,
-      acceptedWidgets: _vm.local_layout.body.title.acceptedWidgets,
-      selectedWidgets: _vm.local_layout.body.title.selectedWidgets,
-      maxWidget: _vm.local_layout.body.title.maxWidget,
+      acceptedWidgets: _vm.local_layout.body.top.acceptedWidgets,
+      selectedWidgets: _vm.local_layout.body.top.selectedWidgets,
+      maxWidget: _vm.local_layout.body.top.maxWidget,
       showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_body_top"),
-      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.body.title)
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.body.top)
     },
     on: {
       "insert-widget": function insertWidget($event) {
-        return _vm.insertWidget($event, _vm.local_layout.body.title);
+        return _vm.insertWidget($event, _vm.local_layout.body.top);
       },
       "drag-widget": function dragWidget($event) {
-        return _vm.onDragStartWidget($event, _vm.local_layout.body.title);
+        return _vm.onDragStartWidget($event, _vm.local_layout.body.top);
       },
       "drop-widget": function dropWidget($event) {
-        return _vm.appendWidget($event, _vm.local_layout.body.title);
+        return _vm.appendWidget($event, _vm.local_layout.body.top);
       },
       "dragend-widget": function dragendWidget($event) {
         return _vm.onDragEndWidget();
@@ -32041,10 +32041,10 @@ var render = function render() {
         return _vm.editWidget($event);
       },
       "trash-widget": function trashWidget($event) {
-        return _vm.trashWidget($event, _vm.local_layout.body.title);
+        return _vm.trashWidget($event, _vm.local_layout.body.top);
       },
       "placeholder-on-drop": function placeholderOnDrop($event) {
-        return _vm.handleDropOnPlaceholder(_vm.local_layout.body.title);
+        return _vm.handleDropOnPlaceholder(_vm.local_layout.body.top);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
         return _vm.activeInsertWindow("thumbnail_body_top");

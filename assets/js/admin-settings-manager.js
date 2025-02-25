@@ -2911,7 +2911,6 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       if (typeof task.action !== 'string') {
         return;
       }
-      console.log('@CHK handleDataOnChange', task);
       this.$emit('do-action', task);
     }
   }

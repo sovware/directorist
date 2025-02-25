@@ -1182,7 +1182,11 @@ $light-gray: #f4f5f7;
       position: absolute;
       top: 10px;
       left: 0;
+      display: flex;
+      gap: 10px;
+      flex-direction: row-reverse;
       label {
+        padding: 0;
         h5 {
           margin: 0;
         }

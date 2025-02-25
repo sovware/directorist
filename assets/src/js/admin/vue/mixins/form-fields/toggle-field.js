@@ -174,9 +174,7 @@ export default {
 
             if ( ! ( task && typeof task === 'object' ) ) { return; }
             if ( ! task.action ) { return; }
-            if ( typeof task.action !== 'string' ) { return; }
-
-            console.log('@CHK handleDataOnChange', task);
+            if ( typeof task.action !== 'string' ) { return; }       
 
             this.$emit( 'do-action', task );
         },

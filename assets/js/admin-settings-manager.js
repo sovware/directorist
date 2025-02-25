@@ -2911,6 +2911,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       if (typeof task.action !== 'string') {
         return;
       }
+      console.log('@CHK handleDataOnChange', task);
       this.$emit('do-action', task);
     }
   }
@@ -16090,6 +16091,9 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   computed: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(["metaKeys", "fields", "cached_fields"])), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])({
     layout: function layout(state) {
       return state.layouts;
+    },
+    fields: function fields(state) {
+      return state.fields;
     }
   })), {}, {
     containerClass: function containerClass() {
@@ -16151,10 +16155,9 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       return groupedFields;
     },
     sectionClass: function sectionClass(section) {
-      return section.fields[0];
-      // return {
-      //   "cptm-short-wide": "short-width" === section.container ? true : false,
-      // };
+      var isDisabled = this.fields[section.fields[0]].value !== true;
+      var sectionClass = "".concat(isDisabled ? "cptm-section--disabled" : "", " ").concat(section.fields[0]).trim();
+      return sectionClass;
     },
     sectionTitleAreaClass: function sectionTitleAreaClass(section) {
       return {

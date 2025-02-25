@@ -234,6 +234,7 @@ export default {
     ...mapState(["metaKeys", "fields", "cached_fields"]),
     ...mapState({
       layout: (state) => state.layouts,
+      fields: (state) => state.fields,
     }),
 
     containerClass() {
@@ -288,6 +289,7 @@ export default {
       if (!Array.isArray(section.fields)) {
         return false;
       }
+
       return section.fields;
     },
 
@@ -307,10 +309,12 @@ export default {
     },
 
     sectionClass(section) {
-      return section.fields[0];
-      // return {
-      //   "cptm-short-wide": "short-width" === section.container ? true : false,
-      // };
+      const isDisabled = this.fields[section.fields[0]].value !== true;
+      const sectionClass = `${isDisabled ? "cptm-section--disabled" : ""} ${
+        section.fields[0]
+      }`.trim();
+
+      return sectionClass;
     },
 
     sectionTitleAreaClass(section) {

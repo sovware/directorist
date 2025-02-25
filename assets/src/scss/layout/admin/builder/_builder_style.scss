@@ -1112,6 +1112,12 @@ $light-gray: #f4f5f7;
   position: relative;
   margin-bottom: 50px;
   z-index: 10;
+  &.cptm-section--disabled {
+    .cptm-builder-section {
+      opacity: 0.6;
+      pointer-events: none;
+    }
+  }
   &.submission_form_fields {
     .cptm-form-builder-active-fields-container {
       height: 100%;

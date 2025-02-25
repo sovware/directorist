@@ -1136,7 +1136,7 @@ function addListingAccordion() {
   $('body').on('click', '.directorist-add-listing-form .directorist-content-module__title', function (e) {
     e.preventDefault();
     var windowScreen = window.innerWidth;
-    if (windowScreen <= 480) {
+    if (windowScreen <= 991) {
       $(this).toggleClass('opened');
       $(this).next('.directorist-content-module__contents').toggleClass('active');
     }

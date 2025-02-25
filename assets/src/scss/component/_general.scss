@@ -83,11 +83,11 @@
   }
 }
 
-.diectorist-show {
+.directorist-show {
   display: block;
 }
 
-.diectorist-hide {
+.directorist-hide {
   display: none;
 }
 
@@ -115,8 +115,10 @@
 }
 
 button[type="submit"] {
-  display: flex;
-  align-items: center;
+  &.directorist-btn {
+    display: flex;
+    align-items: center;
+  }
 }
 
 /* Container within container spacing issue fix */

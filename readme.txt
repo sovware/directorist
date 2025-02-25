@@ -5,7 +5,7 @@ Tags: member directory, listing, classifieds, directory plugin, business directo
 Requires at least: 4.6
 Tested up to: 6.7
 Requires PHP: 7.0
-Stable tag: 8.1
+Stable tag: 8.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -117,7 +117,7 @@ Let’s take a look at some of the core features that set this AI Directory Buil
 * Brand-new sidebar filter layout
 * Modern and improved form for Add listings
 
-== Advanced Review System (Arriving December 2024) ==
+== Advanced Review System (Coming Soon) ==
 
 Introducing a new review system that supports multi-criteria and media. Now users can provide more detailed feedback, increasing trust and engagement.
 
@@ -296,6 +296,35 @@ Directorist is a complete directory solution and in combination with its advance
  * and many more
 
 == Changelog ==
+
+8.2 - Feb 28, 2025
+
+**New**
+ - Category and location bulk edit actions to assign or reset directory (#2229)
+ - New filter hook directorist_user_profile_updated to modify user profile data when updated (#2235)
+
+**Changed**
+ - Refactored and improved the category and location management screen (#2234)
+ - Improved button styling by adding a button[type="submit"] dependency with directorist-btn for better styling and consistency (#2227)
+
+**Fixed**
+ - Dashboard Status translation issue (#2251)
+ - Number custom field label issue in the search form (#2216)
+ - Filter disable issue on mobile view (#2219)
+ - Depth limitation issue in the taxonomy list view (#2220)
+ - Warning appearing on the Add Listing page (#2225)
+ - Responsive issues with the All Listings sidebar (#2209)
+ - Label alignment issue in the search form, which appeared for 0.5 – 2 seconds on slow networks (#2200)
+ - "Remember Me" field issue on the login form (#2223)
+ - Pagination style issue on mobile devices (#2226)
+ - Required field issue in the search form when changing the "View As" option (#2228)
+ - Description conflict issue with the single listing map (#2231)
+ - Zipcode Radius search issue (#2228)
+ - Advanced filter issue in the All Listings layout (#2240)
+ - Privacy Policy & Terms page issue (#2236)
+ - Removed Extra Ending Tag in Category Grid Template (#2242)
+ - Error with wp_generate_attachment_metadata() in background tasks by loading the required file (#2232)
+ - Clarified text for the price range to avoid confusion (#2230)
 
 8.1 - Jan 29, 2025
 

@@ -24074,7 +24074,9 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         _iterator2.f();
       }
       this.placeholders = output;
-      this.$store.commit("updateSingleListingLayout", output);
+
+      // this.$store.commit("updateSingleListingLayout", output);
+
       return output;
     },
     theAvailableWidgets: function theAvailableWidgets() {

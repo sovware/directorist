@@ -840,43 +840,32 @@ window.addEventListener('load', function () {
    * @since    1.0.0
    */
   function atbdp_render_media_uploader(page) {
-    var file_frame;
-    var image_data;
-    var json;
-
-    // If an instance of file_frame already exists, then we can open it rather than creating a new instance
-    if (undefined !== file_frame) {
-      file_frame.open();
+    var frame;
+    if (frame) {
+      frame.open();
       return;
     }
-    // Here, use the wp.media library to define the settings of the media uploader
-    file_frame = wp.media.frames.file_frame = wp.media({
-      frame: 'post',
-      state: 'insert',
-      multiple: false
-    });
-
-    // Setup an event handler for what to do when an image has been selected
-    file_frame.on('insert', function () {
-      // Read the JSON data returned from the media uploader
-      json = file_frame.state().get('selection').first().toJSON();
-
-      // First, make sure that we have the URL of an image to display
-      if ($.trim(json.url.length) < 0) {
-        return;
+    frame = wp.media({
+      title: directorist_admin.i18n_text.image_uploader_title,
+      multiple: false,
+      library: {
+        type: 'image'
+      },
+      button: {
+        text: directorist_admin.i18n_text.choose_image
       }
-      // After that, set the properties of the image and display it
-      if (page == 'listings') {
-        var html = "".concat('<tr class="atbdp-image-row">' + '<td class="atbdp-handle"><span class="dashicons dashicons-screenoptions"></span></td>' + '<td class="atbdp-image">' + '<img src="').concat(json.url, "\" />") + "<input type=\"hidden\" name=\"images[]\" value=\"".concat(json.id, "\" />") + "</td>" + "<td>".concat(json.url, "<br />") + "<a href=\"post.php?post=".concat(json.id, "&action=edit\" target=\"_blank\">").concat(atbdp.edit, "</a> | ") + "<a href=\"javascript:;\" class=\"atbdp-delete-image\" data-attachment_id=\"".concat(json.id, "\">").concat(atbdp.delete_permanently, "</a>") + "</td>" + "</tr>";
+    });
+    frame.on('select', function () {
+      var image = frame.state().get('selection').first().toJSON();
+      if (page === 'listings') {
+        var html = "".concat('<tr class="atbdp-image-row">' + '<td class="atbdp-handle"><span class="dashicons dashicons-screenoptions"></span></td>' + '<td class="atbdp-image">' + '<img src="').concat(image.url, "\" />") + "<input type=\"hidden\" name=\"images[]\" value=\"".concat(image.id, "\" />") + "</td>" + "<td>".concat(image.url, "<br />") + "<a href=\"post.php?post=".concat(image.id, "&action=edit\" target=\"_blank\">").concat(atbdp.edit, "</a> | ") + "<a href=\"javascript:;\" class=\"atbdp-delete-image\" data-attachment_id=\"".concat(json.id, "\">").concat(atbdp.delete_permanently, "</a>") + "</td>" + "</tr>";
         $('#atbdp-images').append(html);
       } else {
-        $('#atbdp-categories-image-id').val(json.id);
-        $('#atbdp-categories-image-wrapper').html("<img src=\"".concat(json.url, "\" /><a href=\"\" class=\"remove_cat_img\"><span class=\"fa fa-times\" title=\"Remove it\"></span></a>"));
+        $('#atbdp-categories-image-id').val(image.id);
+        $('#atbdp-categories-image-wrapper').html("<img src=\"".concat(image.url, "\" /><a href=\"\" class=\"remove_cat_img\"><span class=\"fa fa-times\" title=\"Remove it\"></span></a>"));
       }
     });
-
-    // Now display the actual file_frame
-    file_frame.open();
+    frame.open();
   }
 
   // Display the media uploader when "Upload Image" button clicked in the custom taxonomy "atbdp_categories"

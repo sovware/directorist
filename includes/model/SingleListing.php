@@ -1277,6 +1277,11 @@ class Directorist_Single_Listing {
 		$cat_icon = !empty($cat_icon) ? $cat_icon : 'fas fa-map-pin';
 		$cat_icon = directorist_icon( $cat_icon, false );
 
+		// Unset or empty the post_content
+		if ( is_singular(ATBDP_POST_TYPE) && isset($this->post->post_content)) {
+			$this->post->post_content = ''; // Empty the post_content
+		}
+
 		$args = array(
 			'listing'               => $this,
 			'default_latitude'      => get_directorist_option('default_latitude', '40.7127753'),

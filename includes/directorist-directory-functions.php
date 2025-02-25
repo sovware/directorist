@@ -35,7 +35,7 @@ function directorist_get_listing_form_fields( $directory_id ) {
 	if( isset( $fields['view_count'] ) ) {
 		unset( $fields['view_count'] );
 	}
-	
+
 	return $fields;
 }
 
@@ -193,6 +193,10 @@ function directorist_update_term_directory( $term_id, array $directory_ids = arr
 	}
 
 	update_term_meta( $term_id, '_directory_type', $directory_ids );
+
+	foreach ( $directory_ids as $directory_id ) {
+		update_term_meta( $term_id, '_directory_type_' . $directory_id, true );
+	}
 }
 
 function directorist_update_location_directory( $location_id, array $directory_ids = array(), $append = false) {
@@ -201,6 +205,16 @@ function directorist_update_location_directory( $location_id, array $directory_i
 
 function directorist_update_category_directory( $location_id, array $directory_ids = array(), $append = false) {
 	directorist_update_term_directory( $location_id, $directory_ids, $append );
+}
+
+function directorist_delete_term_directory( $term_id ) {
+	$directory_ids = directorist_get_term_directory( $term_id );
+
+	delete_term_meta( $term_id, '_directory_type' );
+
+	foreach ( $directory_ids as $directory_id ) {
+		delete_term_meta( $term_id, '_directory_type_' . $directory_id );
+	}
 }
 
 function directorist_get_term_directory( $term_id ) {

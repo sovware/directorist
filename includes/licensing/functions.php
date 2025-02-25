@@ -99,15 +99,25 @@ function directorist_licensing_get_plan_has_active(): bool {
 }
 
 function directorist_licensing_get_plan_is_expired(): bool {
-	$data = directorist_licensing_get_plan_data();
+	$data   = directorist_licensing_get_plan_data();
+	$expire = $data['license_data'][0]['expiration'] ?? '';
+
+	if ( 'lifetime' !== $expire ) {
+		if ( $expire > time() ) {
+			return false;
+		} else {
+			return true;
+		}
+	}
 
 	return false;
 }
 
 function directorist_licensing_get_plan_next_payment(): string {
-	$data = directorist_licensing_get_plan_data();
+	$data   = directorist_licensing_get_plan_data();
+	$expire = $data['license_data'][0]['expiration'] ?? '';
 
-	if ( isset( $data['license_data'][0]['expiration'] ) ) {
+	if ( 'lifetime' !== $expire && $expire > time() ) {
 		return \date( 'M d, Y', $data['license_data'][0]['expiration'] );
 	}
 

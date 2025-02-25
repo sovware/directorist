@@ -121,12 +121,15 @@ if ( ! empty( $_GET['registration_status'] ) ) {
 							</div>
 
 							<div class="directorist-authentication__form__actions">
-								<div class="keep_signed directorist-checkbox">
-									<input type="checkbox" id="directorist_login_keep_signed_in" value="1" name="keep_signed_in" checked />
-									<label for="directorist_login_keep_signed_in" class="directorist-checkbox__label not_empty">
-										<?php esc_html_e( 'Remember Me', 'directorist' ); ?>
-									</label>
-								</div>
+
+								<?php if ( ! empty( $display_rememberme ) && 'yes' == $display_rememberme ) :?>
+									<div class="keep_signed directorist-checkbox">
+										<input type="checkbox" id="directorist_login_keep_signed_in" value="1" name="keep_signed_in" checked />
+										<label for="directorist_login_keep_signed_in" class="directorist-checkbox__label not_empty">
+											<?php echo esc_html( $rememberme_label ); ?>
+										</label>
+									</div>
+								<?php endif; ?>
 
 								<?php if ( ! empty( $display_recpass ) && 'yes' == $display_recpass ) :
 									$output = sprintf( "<a href='' class='atbdp_recovery_pass'> " . $recpass_text . '</a>' );

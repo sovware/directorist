@@ -198,6 +198,7 @@ class Localized_Data {
 			'select_prv_img'          => __( 'Select Preview Image', 'directorist' ),
 			'insert_prv_img'          => __( 'Insert Preview Image', 'directorist' ),
 			'add_listing_url'         => \ATBDP_Permalink::get_add_listing_page_link(),
+			'image_uploader_title'    => esc_html__( 'Select or upload image', 'directorist' ),
 		);
 
 		$icon_picker_labels = [
@@ -290,13 +291,13 @@ class Localized_Data {
 		$redirection_url = $redirection ? $redirection : \ATBDP_Permalink::get_dashboard_page_link();
 		$current_time = time();
 		$redirection_url = strpos( $redirection_url, '?' ) !== false ? $redirection . '&rand=' . $current_time : $redirection . '?rand=' . $current_time;
-		
+
 		if( strpos( $redirection_url, '?' ) !== false ) {
 			$redirection_url = $redirection_url . '&rand=' . $current_time;
 		} else {
 			$redirection_url = $redirection_url . '?rand=' . $current_time;
 		}
-		
+
 		$data = [
 			'ajax_url'            => admin_url( 'admin-ajax.php' ),
 			'redirect_url'        => $redirection_url,

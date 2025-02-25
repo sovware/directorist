@@ -1438,7 +1438,7 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      width: 270px;
+      width: 290px;
       min-height: 36px;
       padding: 7px 16px;
       border: none;
@@ -1450,6 +1450,7 @@
       text-decoration: none !important;
       color: var(--directorist-color-light-gray);
       background-color: transparent;
+      border: 1px solid transparent;
       box-sizing: border-box;
       transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
       @media only screen and (max-width: 991px) {
@@ -1492,7 +1493,7 @@
         font-weight: 600;
         color: var(--directorist-color-primary);
         box-shadow: var(--directorist-box-shadow);
-        border: 1px solid var(--directorist-color-border-light);
+        border-color:var(--directorist-color-border-light);
         background-color: var(--directorist-color-white);
         outline: none;
         &:before {
@@ -1519,7 +1520,7 @@
       }
     }
 
-    @media only screen and (max-width: 480px) {
+    @media only screen and (max-width:991px) {
       display: none;
     }
   }
@@ -1536,7 +1537,7 @@
       color: var(--directorist-color-danger);
     }
 
-    @media only screen and (max-width: 480px) {
+    @media only screen and (max-width: 991px) {
       .directorist-content-module {
         @include e(title) {
           position: relative;

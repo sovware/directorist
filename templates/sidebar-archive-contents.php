@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 8.0
+ * @version 8.2
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -39,11 +39,13 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 				<?php endif; ?>
 
 				<div class="listing-with-sidebar__contents">
-					<aside class="listing-with-sidebar__sidebar <?php echo esc_attr( $listings->sidebar_class() ); ?>">
-						<?php
-							$listings->advance_search_form_template();
-						?>
-					</aside>
+					<?php if( isset( $searchform->form_data[1]['fields'] ) && ! empty( $searchform->form_data[1]['fields'] ) ) : ?>
+						<aside class="listing-with-sidebar__sidebar <?php echo esc_attr( $listings->sidebar_class() ); ?>">
+							<?php
+								$listings->advance_search_form_template();
+							?>
+						</aside>
+					<?php endif; ?>
 					<section class="listing-with-sidebar__listing">
 						<?php
 							$listings->archive_view_template();

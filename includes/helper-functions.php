@@ -4147,7 +4147,15 @@ function directorist_generate_password_reset_pin_code( $user ) {
 	$tail_code          = substr( $password_reset_key, 4 );
 
 	directorist_set_password_reset_code_transient( $user, $tail_code );
-	update_user_meta( $user->ID, 'directorist_pasword_reset_key', wp_hash_password( $password_reset_key ) );
+	// update_user_meta( $user->ID, 'directorist_pasword_reset_key', wp_hash_password( $password_reset_key ) );
+	update_user_meta(
+		$user->ID,
+		'directorist_pasword_reset_key',
+		[
+			'reset_attempt' => 5,
+			'reset_hash'    => wp_hash_password( $password_reset_key ),
+		]
+	);
 
 	return $pin_code;
 }
@@ -4158,15 +4166,25 @@ function directorist_check_password_reset_pin_code( $user, $pin_code ) {
 	$tail_code = directorist_get_password_reset_code_transient( $user );
 
 	if ( empty( $tail_code ) ) {
-		return false;
+		return new WP_Error(
+			'directorist_rest_password_reset_pin_invalid',
+			__( 'Pin code expired. Please regenerate new pin code.', 'directorist' ),
+			array( 'status' => 400 )
+		);
 	}
 
-	$reset_key      = $pin_code . $tail_code;
-	$reset_key_hash = get_user_meta( $user->ID, 'directorist_pasword_reset_key', true );
+	$reset_key  = $pin_code . $tail_code;
+	$reset_data = get_user_meta( $user->ID, 'directorist_pasword_reset_key', true );
 
-	if ( empty( $reset_key_hash ) ) {
-		return false;
+	if ( empty( $reset_data ) || ! is_array( $reset_data ) ) {
+		return new WP_Error(
+			'directorist_rest_password_reset_pin_invalid',
+			__( 'Invalid pin code. Please regenerate new pin code.', 'directorist' ),
+			array( 'status' => 400 )
+		);
 	}
+
+	$reset_key_hash = $reset_data['reset_hash'];
 
 	/*
 	 * If the stored hash is longer than an MD5,
@@ -4178,8 +4196,45 @@ function directorist_check_password_reset_pin_code( $user, $pin_code ) {
 		$wp_hasher = new PasswordHash( 8, true );
 	}
 
-	return $wp_hasher->CheckPassword( $reset_key, $reset_key_hash );
+	if ( ! $wp_hasher->CheckPassword( $reset_key, $reset_key_hash ) ) {
+		$reset_attempt = absint( $reset_data['reset_attempt'] ) - 1;
+
+		if ( $reset_attempt < 0 ) {
+			directorist_delete_password_reset_code_transient( $user );
+			delete_user_meta( $user->ID, 'directorist_pasword_reset_key' );
+
+			return new WP_Error(
+				'directorist_rest_password_reset_pin_invalid',
+				__( 'Too many false attempts. Please regenerate the pin code and try again.', 'directorist' ),
+				array('status' => 400 )
+			);
+		}
+
+		$reset_data = array_merge( $reset_data, array(
+			'reset_attempt' => $reset_attempt,
+		) );
+
+		update_user_meta( $user->ID, 'directorist_pasword_reset_key', $reset_data );
+
+		return new WP_Error(
+			'directorist_rest_password_reset_pin_invalid',
+			sprintf(
+				_nx(
+					'Invalid pin code. You have %s attempt left.',
+					'Invalid pin code. You have %s attempts left.',
+					$reset_attempt,
+					'Pin code validation attempt left',
+					'directorist'
+				),
+				$reset_attempt
+			),
+			array('status' => 400 )
+		);
+	}
+
+	return true;
 }
+
 function directorist_validate_youtube_vimeo_url( $url ) {
     if ( preg_match( '/^(https?:\/\/)?(www\.)?vimeo\.com\/(\d+)/i', $url ) ) {
         return true;

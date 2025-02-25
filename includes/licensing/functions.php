@@ -85,10 +85,8 @@ function directorist_licensing_get_plan_data(): array {
 function directorist_licensing_get_plan_upgrade_url(): string {
 	$data = directorist_licensing_get_plan_data();
 
-	if ( isset( $data['upgrade_to'] ) && $data['upgrade_to'] ) {
-		if ( strpos( $data['upgrade_to'], 'sl_license_upgrade' ) !== false ) {
-			return $data['upgrade_to'];
-		}
+	if ( isset( $data['license_data'][0]['upgrade_to'] ) && $data['license_data'][0]['upgrade_to'] ) {
+		return $data['license_data'][0]['upgrade_to'];
 	}
 
 	return '';

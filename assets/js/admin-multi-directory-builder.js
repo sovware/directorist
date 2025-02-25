@@ -15705,11 +15705,13 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     toggleWidgetStatus: function toggleWidgetStatus() {
       var _this = this;
       if (this.enable_widget.value) {
+        console.log("Disabled", this.enable_widget.value);
         this.enable_widget.value = false;
         this.selectedWidgets.map(function (widget) {
           _this.$emit("trash-widget", widget);
         });
       } else {
+        console.log("Enabled", this.enable_widget.value);
         this.enable_widget.value = true;
         console.log("@acceptedWidgets", this.acceptedWidgets);
       }
@@ -16626,7 +16628,8 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       return groupedFields;
     },
     sectionClass: function sectionClass(section) {
-      var isDisabled = this.fields[section.fields[0]].value !== true;
+      var _this$fields$section$;
+      var isDisabled = ((_this$fields$section$ = this.fields[section.fields[0]]) === null || _this$fields$section$ === void 0 ? void 0 : _this$fields$section$.type) === "toggle" && this.fields[section.fields[0]].value !== true;
       var sectionClass = "".concat(isDisabled ? "cptm-section--disabled" : "", " ").concat(section.fields[0]).trim();
       return sectionClass;
     },

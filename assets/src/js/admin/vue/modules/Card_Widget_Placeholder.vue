@@ -228,11 +228,13 @@ export default {
     },
     toggleWidgetStatus() {
       if (this.enable_widget.value) {
+        console.log("Disabled", this.enable_widget.value);
         this.enable_widget.value = false;
         this.selectedWidgets.map((widget) => {
           this.$emit("trash-widget", widget);
         });
       } else {
+        console.log("Enabled", this.enable_widget.value);
         this.enable_widget.value = true;
         console.log("@acceptedWidgets", this.acceptedWidgets);
       }

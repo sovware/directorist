@@ -309,7 +309,9 @@ export default {
     },
 
     sectionClass(section) {
-      const isDisabled = this.fields[section.fields[0]].value !== true;
+      const isDisabled =
+        this.fields[section.fields[0]]?.type === "toggle" &&
+        this.fields[section.fields[0]].value !== true;
       const sectionClass = `${isDisabled ? "cptm-section--disabled" : ""} ${
         section.fields[0]
       }`.trim();

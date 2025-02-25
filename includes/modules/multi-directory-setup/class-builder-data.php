@@ -2008,6 +2008,11 @@ class Builder_Data {
                     'required' => false,
                 ],
             ],
+            'test-repeater' => [
+                'label'       => 'Test Repeater',
+                'type'        => 'repeater',
+                'value'       => '45456',
+            ],
             'preview_image'                               => [
                 'button-label' => __( 'Select', 'directorist' ),
                 'type'         => 'wp-media-picker',
@@ -2617,7 +2622,7 @@ class Builder_Data {
                     'labels'          => [
                         'title'  => __( 'Directory icon', 'directorist' ),
                         'description' => __( 'Select a directory type icon to display in all listings, add listing, and search pages.', 'directorist' ),
-                        'fields' => ['icon'],
+                        'fields' => ['icon', 'test-repeater'],
                     ],
 
                     'listing_status'  => [

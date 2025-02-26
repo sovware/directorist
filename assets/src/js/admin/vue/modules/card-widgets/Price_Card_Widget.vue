@@ -1,6 +1,7 @@
 <template>
   <div
     class="cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap"
+    @click.prevent="editOnClick ? $emit('edit') : null"
   >
     <div
       class="cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
@@ -16,7 +17,7 @@
         @dragend="dragEnd()"
         @edit="$emit('edit')"
         @trash="$emit('trash')"
-        v-if="!readOnly"
+        v-if="!readOnly && !editOnClick"
       />
     </div>
 
@@ -70,6 +71,11 @@ export default {
     },
 
     readOnly: {
+      type: Boolean,
+      default: false,
+    },
+
+    editOnClick: {
       type: Boolean,
       default: false,
     },

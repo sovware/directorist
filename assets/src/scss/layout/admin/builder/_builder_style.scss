@@ -2606,6 +2606,13 @@ input[type="radio"].cptm-radio {
       }
     }
   }
+  &.grid-view-with-thumbnail {
+    .cptm-widget-card {
+      .cptm-widget-card-disabled-badge {
+        display: none;
+      }
+    }
+  }
 }
 
 .cptm-field-wraper-key-single_listing_header {

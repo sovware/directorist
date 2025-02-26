@@ -72,6 +72,7 @@
                     activeInsertWindow('thumbnail_top_left')
                   "
                   @close-widgets-picker-window="closeInsertWindow()"
+                  editOnClick
                 />
               </div>
 
@@ -127,6 +128,7 @@
                     activeInsertWindow('thumbnail_top_right')
                   "
                   @close-widgets-picker-window="closeInsertWindow()"
+                  editOnClick
                 />
               </div>
 
@@ -185,6 +187,7 @@
                     activeInsertWindow('thumbnail_bottom_left')
                   "
                   @close-widgets-picker-window="closeInsertWindow()"
+                  editOnClick
                 />
               </div>
 
@@ -243,6 +246,7 @@
                     activeInsertWindow('thumbnail_bottom_right')
                   "
                   @close-widgets-picker-window="closeInsertWindow()"
+                  editOnClick
                 />
               </div>
 
@@ -291,6 +295,7 @@
               @toggle-widget-status="
                 toggleWidgetStatus(local_layout.thumbnail.avatar)
               "
+              editOnClick
             />
           </div>
 
@@ -322,6 +327,7 @@
             "
             @close-widgets-picker-window="closeInsertWindow()"
             @toggle-widget-status="toggleWidgetStatus(local_layout.body.top)"
+            editOnClick
           />
           <card-widget-placeholder
             id="thumbnail_body_tagline"
@@ -354,6 +360,7 @@
             @toggle-widget-status="
               toggleWidgetStatus(local_layout.body.tagline)
             "
+            editOnClick
           />
           <card-widget-placeholder
             id="thumbnail_body_badges"
@@ -381,6 +388,7 @@
               activeInsertWindow('thumbnail_body_badges')
             "
             @close-widgets-picker-window="closeInsertWindow()"
+            editOnClick
           />
           <card-widget-placeholder
             id="thumbnail_body_bottom"
@@ -408,6 +416,7 @@
               activeInsertWindow('thumbnail_body_bottom')
             "
             @close-widgets-picker-window="closeInsertWindow()"
+            editOnClick
           />
 
           <!-- <card-widget-placeholder
@@ -435,6 +444,7 @@
             "
             @open-widgets-picker-window="activeInsertWindow('body_excerpr')"
             @close-widgets-picker-window="closeInsertWindow()"
+            editOnClick
           /> -->
         </div>
 
@@ -467,6 +477,7 @@
               activeInsertWindow('thumbnail_footer_left')
             "
             @close-widgets-picker-window="closeInsertWindow()"
+            editOnClick
           />
 
           <!-- cptm-listing-card-preview-footer-right-placeholder -->
@@ -496,6 +507,7 @@
               activeInsertWindow('thumbnail_footer_right')
             "
             @close-widgets-picker-window="closeInsertWindow()"
+            editOnClick
           />
         </div>
       </div>

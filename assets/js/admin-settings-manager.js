@@ -15187,6 +15187,10 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     readOnly: {
       type: Boolean,
       default: false
+    },
+    editOnClick: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {
@@ -16705,7 +16709,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'avatar-card-widget',
+  name: "avatar-card-widget",
   props: {
     label: {
       type: String
@@ -16732,13 +16736,17 @@ __webpack_require__.r(__webpack_exports__);
     readOnly: {
       type: Boolean,
       default: false
+    },
+    editOnClick: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {
     dropAppendClass: function dropAppendClass() {
       return {
-        'dropable': !this.dragging && (this.drop_append_dropable || this.widgetDropable),
-        'drag-enter': this.drop_append_drag_enter
+        dropable: !this.dragging && (this.drop_append_dropable || this.widgetDropable),
+        "drag-enter": this.drop_append_drag_enter
       };
     }
   },
@@ -16752,22 +16760,22 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     dragStart: function dragStart() {
       this.dragging = true;
-      this.$emit('drag');
+      this.$emit("drag");
     },
     dragEnd: function dragEnd() {
       this.dragging = false;
-      this.$emit('dragend');
+      this.$emit("dragend");
     },
     handleDragEnter: function handleDragEnter() {
-      this.$emit('dragenter');
+      this.$emit("dragenter");
       this.drop_append_drag_enter = true;
     },
     handleDragLeave: function handleDragLeave() {
-      this.$emit('dragleave');
+      this.$emit("dragleave");
       this.drop_append_drag_enter = false;
     },
     handleDrop: function handleDrop() {
-      this.$emit('drop');
+      this.$emit("drop");
       this.dragging = false;
       this.drop_append_dropable = false;
       this.drop_append_drag_enter = false;
@@ -16815,6 +16823,10 @@ __webpack_require__.r(__webpack_exports__);
       default: true
     },
     readOnly: {
+      type: Boolean,
+      default: false
+    },
+    editOnClick: {
       type: Boolean,
       default: false
     }
@@ -16902,6 +16914,10 @@ __webpack_require__.r(__webpack_exports__);
     readOnly: {
       type: Boolean,
       default: false
+    },
+    editOnClick: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {
@@ -16957,88 +16973,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'category-card-widget',
-  props: {
-    icon: {
-      type: String
-    },
-    label: {
-      type: String
-    },
-    options: {
-      type: Object
-    },
-    widgetDropable: {
-      type: Boolean,
-      default: false
-    },
-    canMove: {
-      type: Boolean,
-      default: true
-    },
-    canEdit: {
-      type: Boolean,
-      default: true
-    },
-    canTrash: {
-      type: Boolean,
-      default: true
-    }
-  },
-  computed: {
-    dropAppendClass: function dropAppendClass() {
-      return {
-        'dropable': !this.dragging && (this.drop_append_dropable || this.widgetDropable),
-        'drag-enter': this.drop_append_drag_enter
-      };
-    }
-  },
-  data: function data() {
-    return {
-      drop_append_dropable: false,
-      drop_append_drag_enter: false,
-      dragging: false
-    };
-  },
-  methods: {
-    dragStart: function dragStart() {
-      this.dragging = true;
-      this.$emit('drag');
-    },
-    dragEnd: function dragEnd() {
-      this.dragging = false;
-      this.$emit('dragend');
-    },
-    handleDragEnter: function handleDragEnter() {
-      this.$emit('dragenter');
-      this.drop_append_drag_enter = true;
-    },
-    handleDragLeave: function handleDragLeave() {
-      this.$emit('dragleave');
-      this.drop_append_drag_enter = false;
-    },
-    handleDrop: function handleDrop() {
-      this.$emit('drop');
-      this.dragging = false;
-      this.drop_append_dropable = false;
-      this.drop_append_drag_enter = false;
-    }
-  }
-});
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./assets/src/js/admin/vue/modules/card-widgets/Excerpt_Card_Widget.vue?vue&type=script&lang=js":
-/*!**************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--3-0!./node_modules/vue-loader/lib??vue-loader-options!./assets/src/js/admin/vue/modules/card-widgets/Excerpt_Card_Widget.vue?vue&type=script&lang=js ***!
-  \**************************************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'excerpt-card-widget',
+  name: "category-card-widget",
   props: {
     icon: {
       type: String
@@ -17068,13 +17003,17 @@ __webpack_require__.r(__webpack_exports__);
     readOnly: {
       type: Boolean,
       default: false
+    },
+    editOnClick: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {
     dropAppendClass: function dropAppendClass() {
       return {
-        'dropable': !this.dragging && (this.drop_append_dropable || this.widgetDropable),
-        'drag-enter': this.drop_append_drag_enter
+        dropable: !this.dragging && (this.drop_append_dropable || this.widgetDropable),
+        "drag-enter": this.drop_append_drag_enter
       };
     }
   },
@@ -17088,22 +17027,111 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     dragStart: function dragStart() {
       this.dragging = true;
-      this.$emit('drag');
+      this.$emit("drag");
     },
     dragEnd: function dragEnd() {
       this.dragging = false;
-      this.$emit('dragend');
+      this.$emit("dragend");
     },
     handleDragEnter: function handleDragEnter() {
-      this.$emit('dragenter');
+      this.$emit("dragenter");
       this.drop_append_drag_enter = true;
     },
     handleDragLeave: function handleDragLeave() {
-      this.$emit('dragleave');
+      this.$emit("dragleave");
       this.drop_append_drag_enter = false;
     },
     handleDrop: function handleDrop() {
-      this.$emit('drop');
+      this.$emit("drop");
+      this.dragging = false;
+      this.drop_append_dropable = false;
+      this.drop_append_drag_enter = false;
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./assets/src/js/admin/vue/modules/card-widgets/Excerpt_Card_Widget.vue?vue&type=script&lang=js":
+/*!**************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--3-0!./node_modules/vue-loader/lib??vue-loader-options!./assets/src/js/admin/vue/modules/card-widgets/Excerpt_Card_Widget.vue?vue&type=script&lang=js ***!
+  \**************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "excerpt-card-widget",
+  props: {
+    icon: {
+      type: String
+    },
+    label: {
+      type: String
+    },
+    options: {
+      type: Object
+    },
+    widgetDropable: {
+      type: Boolean,
+      default: false
+    },
+    canMove: {
+      type: Boolean,
+      default: true
+    },
+    canEdit: {
+      type: Boolean,
+      default: true
+    },
+    canTrash: {
+      type: Boolean,
+      default: true
+    },
+    readOnly: {
+      type: Boolean,
+      default: false
+    },
+    editOnClick: {
+      type: Boolean,
+      default: false
+    }
+  },
+  computed: {
+    dropAppendClass: function dropAppendClass() {
+      return {
+        dropable: !this.dragging && (this.drop_append_dropable || this.widgetDropable),
+        "drag-enter": this.drop_append_drag_enter
+      };
+    }
+  },
+  data: function data() {
+    return {
+      drop_append_dropable: false,
+      drop_append_drag_enter: false,
+      dragging: false
+    };
+  },
+  methods: {
+    dragStart: function dragStart() {
+      this.dragging = true;
+      this.$emit("drag");
+    },
+    dragEnd: function dragEnd() {
+      this.dragging = false;
+      this.$emit("dragend");
+    },
+    handleDragEnter: function handleDragEnter() {
+      this.$emit("dragenter");
+      this.drop_append_drag_enter = true;
+    },
+    handleDragLeave: function handleDragLeave() {
+      this.$emit("dragleave");
+      this.drop_append_drag_enter = false;
+    },
+    handleDrop: function handleDrop() {
+      this.$emit("drop");
       this.dragging = false;
       this.drop_append_dropable = false;
       this.drop_append_drag_enter = false;
@@ -17151,6 +17179,10 @@ __webpack_require__.r(__webpack_exports__);
       default: true
     },
     readOnly: {
+      type: Boolean,
+      default: false
+    },
+    editOnClick: {
       type: Boolean,
       default: false
     }
@@ -17211,14 +17243,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'list-item-card-widget',
+  name: "list-item-card-widget",
   props: {
     label: {
       type: String
     },
     icon: {
       type: String,
-      default: ''
+      default: ""
     },
     options: {
       type: Object
@@ -17242,29 +17274,33 @@ __webpack_require__.r(__webpack_exports__);
     readOnly: {
       type: Boolean,
       default: false
+    },
+    editOnClick: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {
     dropAppendClass: function dropAppendClass() {
       return {
-        'dropable': !this.dragging && (this.drop_append_dropable || this.widgetDropable),
-        'drag-enter': this.drop_append_drag_enter
+        dropable: !this.dragging && (this.drop_append_dropable || this.widgetDropable),
+        "drag-enter": this.drop_append_drag_enter
       };
     },
     listIcon: function listIcon() {
-      if (!this.options && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(this.options) !== 'object') {
+      if (!this.options && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(this.options) !== "object") {
         // console.log( 'no options' );
         return this.icon;
       }
-      if (!this.options.fields && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(this.options.fields) !== 'object') {
+      if (!this.options.fields && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(this.options.fields) !== "object") {
         // console.log( 'no fields' );
         return this.icon;
       }
-      if (!this.options.fields.icon && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(this.options.fields.icon) !== 'object') {
+      if (!this.options.fields.icon && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(this.options.fields.icon) !== "object") {
         // console.log( 'no icon', this.options );
         return this.icon;
       }
-      if (typeof this.options.fields.icon.value !== 'string' && !this.options.fields.icon.value.length) {
+      if (typeof this.options.fields.icon.value !== "string" && !this.options.fields.icon.value.length) {
         // console.log( 'empty icon' );
         return this.icon;
       }
@@ -17281,22 +17317,22 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     dragStart: function dragStart() {
       this.dragging = true;
-      this.$emit('drag');
+      this.$emit("drag");
     },
     dragEnd: function dragEnd() {
       this.dragging = false;
-      this.$emit('dragend');
+      this.$emit("dragend");
     },
     handleDragEnter: function handleDragEnter() {
-      this.$emit('dragenter');
+      this.$emit("dragenter");
       this.drop_append_drag_enter = true;
     },
     handleDragLeave: function handleDragLeave() {
-      this.$emit('dragleave');
+      this.$emit("dragleave");
       this.drop_append_drag_enter = false;
     },
     handleDrop: function handleDrop() {
-      this.$emit('drop');
+      this.$emit("drop");
       this.dragging = false;
       this.drop_append_dropable = false;
       this.drop_append_drag_enter = false;
@@ -17344,6 +17380,10 @@ __webpack_require__.r(__webpack_exports__);
       default: true
     },
     readOnly: {
+      type: Boolean,
+      default: false
+    },
+    editOnClick: {
       type: Boolean,
       default: false
     }
@@ -17401,7 +17441,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'rating-card-widget',
+  name: "rating-card-widget",
   props: {
     icon: {
       type: String
@@ -17431,13 +17471,17 @@ __webpack_require__.r(__webpack_exports__);
     readOnly: {
       type: Boolean,
       default: false
+    },
+    editOnClick: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {
     dropAppendClass: function dropAppendClass() {
       return {
-        'dropable': !this.dragging && (this.drop_append_dropable || this.widgetDropable),
-        'drag-enter': this.drop_append_drag_enter
+        dropable: !this.dragging && (this.drop_append_dropable || this.widgetDropable),
+        "drag-enter": this.drop_append_drag_enter
       };
     }
   },
@@ -17451,22 +17495,22 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     dragStart: function dragStart() {
       this.dragging = true;
-      this.$emit('drag');
+      this.$emit("drag");
     },
     dragEnd: function dragEnd() {
       this.dragging = false;
-      this.$emit('dragend');
+      this.$emit("dragend");
     },
     handleDragEnter: function handleDragEnter() {
-      this.$emit('dragenter');
+      this.$emit("dragenter");
       this.drop_append_drag_enter = true;
     },
     handleDragLeave: function handleDragLeave() {
-      this.$emit('dragleave');
+      this.$emit("dragleave");
       this.drop_append_drag_enter = false;
     },
     handleDrop: function handleDrop() {
-      this.$emit('drop');
+      this.$emit("drop");
       this.dragging = false;
       this.drop_append_dropable = false;
       this.drop_append_drag_enter = false;
@@ -17486,7 +17530,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'ratings-count-card-widget',
+  name: "ratings-count-card-widget",
   props: {
     icon: {
       type: String
@@ -17516,13 +17560,17 @@ __webpack_require__.r(__webpack_exports__);
     readOnly: {
       type: Boolean,
       default: false
+    },
+    editOnClick: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {
     dropAppendClass: function dropAppendClass() {
       return {
-        'dropable': !this.dragging && (this.drop_append_dropable || this.widgetDropable),
-        'drag-enter': this.drop_append_drag_enter
+        dropable: !this.dragging && (this.drop_append_dropable || this.widgetDropable),
+        "drag-enter": this.drop_append_drag_enter
       };
     }
   },
@@ -17536,22 +17584,22 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     dragStart: function dragStart() {
       this.dragging = true;
-      this.$emit('drag');
+      this.$emit("drag");
     },
     dragEnd: function dragEnd() {
       this.dragging = false;
-      this.$emit('dragend');
+      this.$emit("dragend");
     },
     handleDragEnter: function handleDragEnter() {
-      this.$emit('dragenter');
+      this.$emit("dragenter");
       this.drop_append_drag_enter = true;
     },
     handleDragLeave: function handleDragLeave() {
-      this.$emit('dragleave');
+      this.$emit("dragleave");
       this.drop_append_drag_enter = false;
     },
     handleDrop: function handleDrop() {
-      this.$emit('drop');
+      this.$emit("drop");
       this.dragging = false;
       this.drop_append_dropable = false;
       this.drop_append_drag_enter = false;
@@ -17599,6 +17647,10 @@ __webpack_require__.r(__webpack_exports__);
       default: true
     },
     readOnly: {
+      type: Boolean,
+      default: false
+    },
+    editOnClick: {
       type: Boolean,
       default: false
     }
@@ -17656,7 +17708,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'section-title-card-widget',
+  name: "section-title-card-widget",
   props: {
     label: {
       type: String
@@ -17683,13 +17735,17 @@ __webpack_require__.r(__webpack_exports__);
     readOnly: {
       type: Boolean,
       default: false
+    },
+    editOnClick: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {
     dropAppendClass: function dropAppendClass() {
       return {
-        'dropable': !this.dragging && (this.drop_append_dropable || this.widgetDropable),
-        'drag-enter': this.drop_append_drag_enter
+        dropable: !this.dragging && (this.drop_append_dropable || this.widgetDropable),
+        "drag-enter": this.drop_append_drag_enter
       };
     }
   },
@@ -17703,22 +17759,22 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     dragStart: function dragStart() {
       this.dragging = true;
-      this.$emit('drag');
+      this.$emit("drag");
     },
     dragEnd: function dragEnd() {
       this.dragging = false;
-      this.$emit('dragend');
+      this.$emit("dragend");
     },
     handleDragEnter: function handleDragEnter() {
-      this.$emit('dragenter');
+      this.$emit("dragenter");
       this.drop_append_drag_enter = true;
     },
     handleDragLeave: function handleDragLeave() {
-      this.$emit('dragleave');
+      this.$emit("dragleave");
       this.drop_append_drag_enter = false;
     },
     handleDrop: function handleDrop() {
-      this.$emit('drop');
+      this.$emit("drop");
       this.dragging = false;
       this.drop_append_dropable = false;
       this.drop_append_drag_enter = false;
@@ -17767,6 +17823,10 @@ __webpack_require__.r(__webpack_exports__);
       default: false
     },
     readOnly: {
+      type: Boolean,
+      default: false
+    },
+    editOnClick: {
       type: Boolean,
       default: false
     }
@@ -17824,7 +17884,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'title-card-widget',
+  name: "title-card-widget",
   props: {
     label: {
       type: String
@@ -17855,13 +17915,17 @@ __webpack_require__.r(__webpack_exports__);
     readOnly: {
       type: Boolean,
       default: false
+    },
+    editOnClick: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {
     dropAppendClass: function dropAppendClass() {
       return {
-        'dropable': !this.dragging && (this.drop_append_dropable || this.widgetDropable),
-        'drag-enter': this.drop_append_drag_enter
+        dropable: !this.dragging && (this.drop_append_dropable || this.widgetDropable),
+        "drag-enter": this.drop_append_drag_enter
       };
     }
   },
@@ -17875,22 +17939,22 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     dragStart: function dragStart() {
       this.dragging = true;
-      this.$emit('drag');
+      this.$emit("drag");
     },
     dragEnd: function dragEnd() {
       this.dragging = false;
-      this.$emit('dragend');
+      this.$emit("dragend");
     },
     handleDragEnter: function handleDragEnter() {
-      this.$emit('dragenter');
+      this.$emit("dragenter");
       this.drop_append_drag_enter = true;
     },
     handleDragLeave: function handleDragLeave() {
-      this.$emit('dragleave');
+      this.$emit("dragleave");
       this.drop_append_drag_enter = false;
     },
     handleDrop: function handleDrop() {
-      this.$emit('drop');
+      this.$emit("drop");
       this.dragging = false;
       this.drop_append_dropable = false;
       this.drop_append_drag_enter = false;
@@ -17910,7 +17974,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'view-count-card-widget',
+  name: "view-count-card-widget",
   props: {
     label: {
       type: String
@@ -17937,13 +18001,17 @@ __webpack_require__.r(__webpack_exports__);
     readOnly: {
       type: Boolean,
       default: false
+    },
+    editOnClick: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {
     dropAppendClass: function dropAppendClass() {
       return {
-        'dropable': !this.dragging && (this.drop_append_dropable || this.widgetDropable),
-        'drag-enter': this.drop_append_drag_enter
+        dropable: !this.dragging && (this.drop_append_dropable || this.widgetDropable),
+        "drag-enter": this.drop_append_drag_enter
       };
     }
   },
@@ -17957,22 +18025,22 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     dragStart: function dragStart() {
       this.dragging = true;
-      this.$emit('drag');
+      this.$emit("drag");
     },
     dragEnd: function dragEnd() {
       this.dragging = false;
-      this.$emit('dragend');
+      this.$emit("dragend");
     },
     handleDragEnter: function handleDragEnter() {
-      this.$emit('dragenter');
+      this.$emit("dragenter");
       this.drop_append_drag_enter = true;
     },
     handleDragLeave: function handleDragLeave() {
-      this.$emit('dragleave');
+      this.$emit("dragleave");
       this.drop_append_drag_enter = false;
     },
     handleDrop: function handleDrop() {
-      this.$emit('drop');
+      this.$emit("drop");
       this.dragging = false;
       this.drop_append_dropable = false;
       this.drop_append_drag_enter = false;
@@ -27613,7 +27681,8 @@ var render = function render() {
         canMove: _vm.activeWidgets[widget] && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(_vm.activeWidgets[widget].can_move) !== undefined ? _vm.activeWidgets[widget].can_move : true,
         canEdit: _vm.activeWidgets[widget] && _vm.widgetHasOptions(_vm.activeWidgets[widget]),
         disabled: _vm.readOnly && !_vm.selectedWidgets.includes(widget),
-        readOnly: _vm.readOnly
+        readOnly: _vm.readOnly,
+        editOnClick: _vm.editOnClick
       },
       on: {
         drag: function drag($event) {
@@ -28707,10 +28776,16 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap"
+    staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap",
+    on: {
+      click: function click($event) {
+        $event.preventDefault();
+        _vm.editOnClick ? _vm.$emit("edit") : null;
+      }
+    }
   }, [_c("div", {
     staticClass: "cptm-widget-card cptm-has-widget-control cptm-widget-actions-tools-wrap"
-  }, [_vm._m(0), _vm._v(" "), !_vm.readOnly ? _c("widget-action-tools", {
+  }, [_vm._m(0), _vm._v(" "), !_vm.readOnly && !_vm.editOnClick ? _c("widget-action-tools", {
     attrs: {
       canEdit: _vm.canEdit,
       canMove: _vm.canMove,
@@ -28781,12 +28856,18 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap"
+    staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap",
+    on: {
+      click: function click($event) {
+        $event.preventDefault();
+        _vm.editOnClick ? _vm.$emit("edit") : null;
+      }
+    }
   }, [_c("div", {
     staticClass: "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
   }, [_vm.icon ? _c("span", {
     class: _vm.icon
-  }) : _vm._e(), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.label))]), _vm._v(" "), !_vm.readOnly ? _c("widget-action-tools", {
+  }) : _vm._e(), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.label))]), _vm._v(" "), !_vm.readOnly && !_vm.editOnClick ? _c("widget-action-tools", {
     attrs: {
       canEdit: _vm.canEdit,
       canMove: _vm.canMove,
@@ -28846,12 +28927,18 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap"
+    staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap",
+    on: {
+      click: function click($event) {
+        $event.preventDefault();
+        _vm.editOnClick ? _vm.$emit("edit") : null;
+      }
+    }
   }, [_c("div", {
     staticClass: "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
   }, [_vm.icon ? _c("span", {
     class: _vm.icon
-  }) : _vm._e(), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.label))]), _vm._v(" "), !_vm.readOnly ? _c("widget-action-tools", {
+  }) : _vm._e(), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.label))]), _vm._v(" "), !_vm.readOnly && !_vm.editOnClick ? _c("widget-action-tools", {
     attrs: {
       canEdit: _vm.canEdit,
       canMove: _vm.canMove,
@@ -28911,12 +28998,18 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap"
+    staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap",
+    on: {
+      click: function click($event) {
+        $event.preventDefault();
+        _vm.editOnClick ? _vm.$emit("edit") : null;
+      }
+    }
   }, [_c("div", {
     staticClass: "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
   }, [_vm.icon ? _c("span", {
     class: _vm.icon
-  }) : _vm._e(), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.label))]), _vm._v(" "), _c("widget-action-tools", {
+  }) : _vm._e(), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.label))]), _vm._v(" "), !_vm.readOnly && !_vm.editOnClick ? _c("widget-action-tools", {
     attrs: {
       canEdit: _vm.canEdit,
       canMove: _vm.canMove,
@@ -28936,7 +29029,7 @@ var render = function render() {
         return _vm.$emit("trash");
       }
     }
-  })], 1), _vm._v(" "), _c("span", {
+  }) : _vm._e()], 1), _vm._v(" "), _c("span", {
     staticClass: "cptm-widget-card-drop-append",
     class: _vm.dropAppendClass,
     on: {
@@ -28976,12 +29069,18 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap"
+    staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap",
+    on: {
+      click: function click($event) {
+        $event.preventDefault();
+        _vm.editOnClick ? _vm.$emit("edit") : null;
+      }
+    }
   }, [_c("div", {
     staticClass: "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
   }, [_vm.icon ? _c("span", {
     class: _vm.icon
-  }) : _vm._e(), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.label))]), _vm._v(" "), !_vm.readOnly ? _c("widget-action-tools", {
+  }) : _vm._e(), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.label))]), _vm._v(" "), !_vm.readOnly && !_vm.editOnClick ? _c("widget-action-tools", {
     attrs: {
       canEdit: _vm.canEdit,
       canMove: _vm.canMove,
@@ -29041,12 +29140,18 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap"
+    staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap",
+    on: {
+      click: function click($event) {
+        $event.preventDefault();
+        _vm.editOnClick ? _vm.$emit("edit") : null;
+      }
+    }
   }, [_c("div", {
     staticClass: "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
   }, [_vm.icon ? _c("span", {
     class: _vm.icon
-  }) : _vm._e(), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.label))]), _vm._v(" "), !_vm.readOnly ? _c("widget-action-tools", {
+  }) : _vm._e(), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.label))]), _vm._v(" "), !_vm.readOnly && !_vm.editOnClick ? _c("widget-action-tools", {
     attrs: {
       canEdit: _vm.canEdit,
       canMove: _vm.canMove,
@@ -29106,7 +29211,13 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "cptm-widget-card-wrap cptm-widget-card-block-wrap cptm-widget-badge-card-wrap"
+    staticClass: "cptm-widget-card-wrap cptm-widget-card-block-wrap cptm-widget-badge-card-wrap",
+    on: {
+      click: function click($event) {
+        $event.preventDefault();
+        _vm.editOnClick ? _vm.$emit("edit") : null;
+      }
+    }
   }, [_c("div", {
     staticClass: "cptm-widget-card cptm-list-item-card cptm-has-widget-control cptm-widget-actions-tools-wrap"
   }, [_c("div", {
@@ -29117,7 +29228,7 @@ var render = function render() {
     class: _vm.listIcon
   })]), _vm._v(" "), _c("span", {
     staticClass: "cptm-list-item-label"
-  }, [_vm._v(_vm._s(_vm.label))])]), _vm._v(" "), !_vm.readOnly ? _c("widget-action-tools", {
+  }, [_vm._v(_vm._s(_vm.label))])]), _vm._v(" "), !_vm.readOnly && !_vm.editOnClick ? _c("widget-action-tools", {
     attrs: {
       canEdit: _vm.canEdit,
       canMove: _vm.canMove,
@@ -29177,12 +29288,18 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap"
+    staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap",
+    on: {
+      click: function click($event) {
+        $event.preventDefault();
+        _vm.editOnClick ? _vm.$emit("edit") : null;
+      }
+    }
   }, [_c("div", {
     staticClass: "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
   }, [_vm.icon ? _c("span", {
     class: _vm.icon
-  }) : _vm._e(), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.label))]), _vm._v(" "), !_vm.readOnly ? _c("widget-action-tools", {
+  }) : _vm._e(), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.label))]), _vm._v(" "), !_vm.readOnly && !_vm.editOnClick ? _c("widget-action-tools", {
     attrs: {
       canEdit: _vm.canEdit,
       canMove: _vm.canMove,
@@ -29242,12 +29359,18 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap"
+    staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap",
+    on: {
+      click: function click($event) {
+        $event.preventDefault();
+        _vm.editOnClick ? _vm.$emit("edit") : null;
+      }
+    }
   }, [_c("div", {
     staticClass: "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
   }, [_vm.icon ? _c("span", {
     class: _vm.icon
-  }) : _vm._e(), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.label))]), _vm._v(" "), !_vm.readOnly ? _c("widget-action-tools", {
+  }) : _vm._e(), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.label))]), _vm._v(" "), !_vm.readOnly && !_vm.editOnClick ? _c("widget-action-tools", {
     attrs: {
       canEdit: _vm.canEdit,
       canMove: _vm.canMove,
@@ -29307,12 +29430,18 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap"
+    staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap",
+    on: {
+      click: function click($event) {
+        $event.preventDefault();
+        _vm.editOnClick ? _vm.$emit("edit") : null;
+      }
+    }
   }, [_c("div", {
     staticClass: "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
   }, [_vm.icon ? _c("span", {
     class: _vm.icon
-  }) : _vm._e(), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.label))]), _vm._v(" "), !_vm.readOnly ? _c("widget-action-tools", {
+  }) : _vm._e(), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.label))]), _vm._v(" "), !_vm.readOnly && !_vm.editOnClick ? _c("widget-action-tools", {
     attrs: {
       canEdit: _vm.canEdit,
       canMove: _vm.canMove,
@@ -29372,12 +29501,18 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap"
+    staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap",
+    on: {
+      click: function click($event) {
+        $event.preventDefault();
+        _vm.editOnClick ? _vm.$emit("edit") : null;
+      }
+    }
   }, [_c("div", {
     staticClass: "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
   }, [_vm.icon ? _c("span", {
     class: _vm.icon
-  }) : _vm._e(), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.label))]), _vm._v(" "), !_vm.readOnly ? _c("widget-action-tools", {
+  }) : _vm._e(), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.label))]), _vm._v(" "), !_vm.readOnly && !_vm.editOnClick ? _c("widget-action-tools", {
     attrs: {
       canEdit: _vm.canEdit,
       canMove: _vm.canMove,
@@ -29437,12 +29572,18 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "cptm-widget-card-wrap cptm-widget-card-block-wrap cptm-widget-title-card-wrap"
+    staticClass: "cptm-widget-card-wrap cptm-widget-card-block-wrap cptm-widget-title-card-wrap",
+    on: {
+      click: function click($event) {
+        $event.preventDefault();
+        _vm.editOnClick ? _vm.$emit("edit") : null;
+      }
+    }
   }, [_c("div", {
     staticClass: "cptm-widget-card cptm-widget-title-card cptm-has-widget-control cptm-widget-actions-tools-wrap"
   }, [_c("div", {
     staticClass: "cptm-widget-title-block"
-  }, [_vm._v("\n            " + _vm._s(_vm.label) + "\n        ")]), _vm._v(" "), !_vm.readOnly ? _c("widget-action-tools", {
+  }, [_vm._v("\n      " + _vm._s(_vm.label) + "\n    ")]), _vm._v(" "), !_vm.readOnly && !_vm.editOnClick ? _c("widget-action-tools", {
     attrs: {
       canEdit: _vm.canEdit,
       canMove: _vm.canMove,
@@ -29502,14 +29643,20 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap cptm-widget-thumb-card-wrap"
+    staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap cptm-widget-thumb-card-wrap",
+    on: {
+      click: function click($event) {
+        $event.preventDefault();
+        _vm.editOnClick ? _vm.$emit("edit") : null;
+      }
+    }
   }, [_c("div", {
     staticClass: "cptm-widget-card cptm-widget-thumb cptm-has-widget-control cptm-widget-actions-tools-wrap"
   }, [_vm._m(0), _vm._v(" "), _c("div", {
     staticClass: "cptm-widget-label"
   }, [_vm._v("\n      " + _vm._s(_vm.label) + "\n    ")]), _vm._v(" "), _vm.disabled ? _c("span", {
     staticClass: "cptm-widget-card-disabled-badge"
-  }, [_vm._v("\n      Disable\n    ")]) : _vm._e(), _vm._v(" "), !_vm.readOnly ? _c("widget-action-tools", {
+  }, [_vm._v("\n      Disable\n    ")]) : _vm._e(), _vm._v(" "), !_vm.readOnly && !_vm.editOnClick ? _c("widget-action-tools", {
     attrs: {
       canEdit: _vm.canEdit,
       canMove: _vm.canMove,
@@ -29577,14 +29724,20 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "cptm-widget-card-wrap cptm-widget-card-block-wrap cptm-widget-title-card-wrap"
+    staticClass: "cptm-widget-card-wrap cptm-widget-card-block-wrap cptm-widget-title-card-wrap",
+    on: {
+      click: function click($event) {
+        $event.preventDefault();
+        _vm.editOnClick ? _vm.$emit("edit") : null;
+      }
+    }
   }, [_c("div", {
     staticClass: "cptm-widget-card cptm-widget-title-card cptm-has-widget-control cptm-widget-actions-tools-wrap"
   }, [_c("div", {
     staticClass: "cptm-widget-title-block"
-  }, [_vm._v("\n            " + _vm._s(_vm.label) + "\n        ")]), _vm._v(" "), _vm.disabled ? _c("span", {
+  }, [_vm._v("\n      " + _vm._s(_vm.label) + "\n    ")]), _vm._v(" "), _vm.disabled ? _c("span", {
     staticClass: "cptm-widget-card-disabled-badge"
-  }, [_vm._v(" \n            Disable \n        ")]) : _vm._e(), _vm._v(" "), !_vm.readOnly ? _c("widget-action-tools", {
+  }, [_vm._v("\n      Disable\n    ")]) : _vm._e(), _vm._v(" "), !_vm.readOnly && !_vm.editOnClick ? _c("widget-action-tools", {
     attrs: {
       canEdit: _vm.canEdit,
       canMove: _vm.canMove,
@@ -29644,10 +29797,16 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap"
+    staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap",
+    on: {
+      click: function click($event) {
+        $event.preventDefault();
+        _vm.editOnClick ? _vm.$emit("edit") : null;
+      }
+    }
   }, [_c("div", {
     staticClass: "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
-  }, [_vm._m(0), _vm._v(" "), !_vm.readOnly ? _c("widget-action-tools", {
+  }, [_vm._m(0), _vm._v(" "), !_vm.readOnly && !_vm.editOnClick ? _c("widget-action-tools", {
     attrs: {
       canEdit: _vm.canEdit,
       canMove: _vm.canMove,
@@ -29695,7 +29854,7 @@ var staticRenderFns = [function () {
     }
   }, [_c("i", {
     staticClass: "uil uil-eye"
-  }), _vm._v("\n            0\n        ")]);
+  }), _vm._v("\n      0\n    ")]);
 }];
 render._withStripped = true;
 
@@ -31367,7 +31526,8 @@ var render = function render() {
       selectedWidgets: _vm.local_layout.thumbnail.top_left.selectedWidgets,
       maxWidget: _vm.local_layout.thumbnail.top_left.maxWidget,
       showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_top_left"),
-      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.thumbnail.top_left)
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.thumbnail.top_left),
+      editOnClick: ""
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -31420,7 +31580,8 @@ var render = function render() {
       selectedWidgets: _vm.local_layout.thumbnail.top_right.selectedWidgets,
       maxWidget: _vm.local_layout.thumbnail.top_right.maxWidget,
       showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_top_right"),
-      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.thumbnail.top_right)
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.thumbnail.top_right),
+      editOnClick: ""
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -31470,7 +31631,8 @@ var render = function render() {
       selectedWidgets: _vm.local_layout.thumbnail.bottom_left.selectedWidgets,
       maxWidget: _vm.local_layout.thumbnail.bottom_left.maxWidget,
       showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_bottom_left"),
-      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.thumbnail.bottom_left)
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.thumbnail.bottom_left),
+      editOnClick: ""
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -31520,7 +31682,8 @@ var render = function render() {
       selectedWidgets: _vm.local_layout.thumbnail.bottom_right.selectedWidgets,
       maxWidget: _vm.local_layout.thumbnail.bottom_right.maxWidget,
       showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_bottom_right"),
-      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.thumbnail.bottom_right)
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.thumbnail.bottom_right),
+      editOnClick: ""
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -31573,7 +31736,8 @@ var render = function render() {
       selectedWidgets: _vm.local_layout.thumbnail.avatar.selectedWidgets,
       maxWidget: _vm.local_layout.thumbnail.avatar.maxWidget,
       showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_avatar"),
-      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.thumbnail.avatar)
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.thumbnail.avatar),
+      editOnClick: ""
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -31619,7 +31783,8 @@ var render = function render() {
       selectedWidgets: _vm.local_layout.body.top.selectedWidgets,
       maxWidget: _vm.local_layout.body.top.maxWidget,
       showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_body_top"),
-      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.body.top)
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.body.top),
+      editOnClick: ""
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -31666,7 +31831,8 @@ var render = function render() {
       maxWidget: _vm.local_layout.body.tagline.maxWidget,
       showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_body_tagline"),
       widgetDropable: _vm.widgetIsDropable(_vm.local_layout.body.tagline),
-      hasDisableButton: true
+      hasDisableButton: true,
+      editOnClick: ""
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -31711,7 +31877,8 @@ var render = function render() {
       selectedWidgets: _vm.local_layout.body.badges.selectedWidgets,
       maxWidget: _vm.local_layout.body.badges.maxWidget,
       showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_body_badges"),
-      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.body.badges)
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.body.badges),
+      editOnClick: ""
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -31753,7 +31920,8 @@ var render = function render() {
       selectedWidgets: _vm.local_layout.body.bottom.selectedWidgets,
       maxWidget: _vm.local_layout.body.bottom.maxWidget,
       showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_body_bottom"),
-      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.body.bottom)
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.body.bottom),
+      editOnClick: ""
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -31797,7 +31965,8 @@ var render = function render() {
       selectedWidgets: _vm.local_layout.footer.left.selectedWidgets,
       maxWidget: _vm.local_layout.footer.left.maxWidget,
       showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_footer_left"),
-      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.footer.left)
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.footer.left),
+      editOnClick: ""
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -31839,7 +32008,8 @@ var render = function render() {
       selectedWidgets: _vm.local_layout.footer.right.selectedWidgets,
       maxWidget: _vm.local_layout.footer.right.maxWidget,
       showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_footer_right"),
-      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.footer.right)
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.footer.right),
+      editOnClick: ""
     },
     on: {
       "insert-widget": function insertWidget($event) {

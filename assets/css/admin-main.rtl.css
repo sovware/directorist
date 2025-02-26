@@ -17131,6 +17131,9 @@ input[type=radio].cptm-radio {
     min-width: 100%;
   }
 }
+.cptm-card-preview-widget.grid-view-with-thumbnail .cptm-widget-card .cptm-widget-card-disabled-badge {
+  display: none;
+}
 
 .cptm-field-wraper-key-single_listing_header .cptm-card-preview-area-wrap,
 .cptm-field-wraper-key-single_listing_header .cptm-card-preview-widget {
@@ -22867,6 +22870,9 @@ input[type=radio].cptm-radio {
   .cptm-card-preview-widget.cptm-card-list-view .cptm-listing-card-preview-header {
     min-width: 100%;
   }
+}
+.cptm-card-preview-widget.grid-view-with-thumbnail .cptm-widget-card .cptm-widget-card-disabled-badge {
+  display: none;
 }
 
 .cptm-field-wraper-key-single_listing_header .cptm-card-preview-area-wrap,
@@ -28892,6 +28898,9 @@ input[type=radio].cptm-radio {
   .cptm-card-preview-widget.cptm-card-list-view .cptm-listing-card-preview-header {
     min-width: 100%;
   }
+}
+.cptm-card-preview-widget.grid-view-with-thumbnail .cptm-widget-card .cptm-widget-card-disabled-badge {
+  display: none;
 }
 
 .cptm-field-wraper-key-single_listing_header .cptm-card-preview-area-wrap,

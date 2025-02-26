@@ -306,41 +306,35 @@ class Builder_Data {
                     ],
                     'review'                 => [
                         'type'    => 'section',
-                        'label'   => __( 'Review', 'directorist' ),
-                        'icon'    => 'las la-star',
+                        'draggable'         => true,
+                        'canTrash' => true,
+                        'canMove'  => true,
                         'options' => [
-                            'custom_block_id'      => [
+                            'repeater-section-title' => [
                                 'type'  => 'text',
-                                'label' => __( 'Custom block ID', 'directorist' ),
-                                'value' => '',
-                                'field_type' => 'advanced',
+                                'label' => __( 'Section Title', 'directorist' ),
+                                'value' => 'Leave a Review',
                             ],
-                            'custom_block_classes' => [
-                                'type'  => 'text',
-                                'label' => __( 'Custom block Classes', 'directorist' ),
-                                'value' => '',
-                                'field_type' => 'advanced',
-                            ],
-                            'review_cookies_consent' => [
-                                'label' => __( 'Show Cookies Consent', 'directorist' ),
+                            'enable-multi-criteria' => [
                                 'type'  => 'toggle',
+                                'label' => __( 'Enable Multi-Criteria', 'directorist' ),
                                 'value' => false,
                             ],
-                            'review_enable_gdpr_consent' => [
-                                'label' => __( 'Enable GDPR Consent', 'directorist' ),
-                                'type'  => 'toggle',
-                                'value' => false,
+                            'repeater-description' => [
+                                'type'  => 'text',
+                                'value' => 'e.g Service Quality, Price...',
                             ],
-                            'review_gdpr_consent_label' => [
-                                'label'       => __( 'Consent Label', 'directorist' ),
-                                'type'        => 'textarea',
-                                'editor'      => 'wp_editor',
-                                'editorID'    => 'wp_editor_terms_privacy',
-                                'value'       => sprintf(
-                                    __( 'I have read and agree to the <a href="%s" target="_blank">Privacy Policy</a> and <a href="%s" target="_blank">Terms of Service</a>', 'directorist' ),
-                                    ATBDP_Permalink::get_privacy_policy_page_url(),
-                                    ATBDP_Permalink::get_terms_and_conditions_page_url(),
-                                ),
+                            'repeater-multi-options' => [
+                                'type'                 => 'repeater',
+                                'add-new-button-label' => __( 'Add New Criteria', 'directorist' ),
+                                'options'              => [
+                                    'option_value' => [
+                                        'type'  => 'text',
+                                        'value' => 'e.g Service Quality, Price...',
+                                        'label' => __( 'Option Value', 'directorist' ),
+
+                                    ],
+                                ]
                             ],
                         ],
 
@@ -2008,11 +2002,6 @@ class Builder_Data {
                     'required' => false,
                 ],
             ],
-            'test-repeater' => [
-                'label'       => 'Test Repeater',
-                'type'        => 'repeater',
-                'value'       => '45456',
-            ],
             'preview_image'                               => [
                 'button-label' => __( 'Select', 'directorist' ),
                 'type'         => 'wp-media-picker',
@@ -2619,11 +2608,6 @@ class Builder_Data {
                                 </svg>',
                 'container' => 'short-wide',
                 'sections' => [
-                    'labels'          => [
-                        'title'  => __( 'Directory icon', 'directorist' ),
-                        'description' => __( 'Select a directory type icon to display in all listings, add listing, and search pages.', 'directorist' ),
-                        'fields' => ['icon', 'test-repeater'],
-                    ],
 
                     'listing_status'  => [
                         'title'  => __( 'Default listing status', 'directorist' ),

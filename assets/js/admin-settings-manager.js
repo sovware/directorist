@@ -25580,23 +25580,405 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _mixins_form_fields_helper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../mixins/form-fields/helper */ "./assets/src/js/admin/vue/mixins/form-fields/helper.js");
-/* harmony import */ var _mixins_form_fields_input_field_props__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../mixins/form-fields/input-field-props */ "./assets/src/js/admin/vue/mixins/form-fields/input-field-props.js");
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof.js");
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _mixins_helpers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../mixins/helpers */ "./assets/src/js/admin/vue/mixins/helpers.js");
+
+
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'repeater-field',
-  mixins: [_mixins_form_fields_input_field_props__WEBPACK_IMPORTED_MODULE_1__["default"], _mixins_form_fields_helper__WEBPACK_IMPORTED_MODULE_0__["default"]],
+  'name': 'repeater-field',
+  mixins: [_mixins_helpers__WEBPACK_IMPORTED_MODULE_3__["default"]],
+  props: {
+    fieldId: {
+      type: [String, Number],
+      required: false,
+      default: ''
+    },
+    name: {
+      type: String,
+      default: ''
+    },
+    label: {
+      type: String,
+      default: ''
+    },
+    value: {
+      default: ''
+    },
+    options: {
+      type: Object
+    },
+    addNewButtonLabel: {
+      type: String,
+      default: 'Add new'
+    },
+    removeButtonLabel: {
+      type: String,
+      default: 'Remove'
+    },
+    validation: {
+      type: Array,
+      required: false
+    }
+  },
+  created: function created() {
+    console.log('@CHK-1: value', {
+      fieldId: this.fieldId,
+      name: this.name,
+      value: this.value
+    });
+    this.setup();
+  },
   data: function data() {
     return {
-      testData: 'Test Old'
+      active_fields_groups: []
     };
   },
-  methods: {
-    updateTestData: function updateTestData() {
-      this.testData = 'Test Updated';
+  watch: {
+    value: function value() {
+      console.log('@CHK-2: value', {
+        fieldId: this.fieldId,
+        name: this.name,
+        value: this.value
+      });
+      this.loadOldData();
     }
-  }
+  },
+  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapState"])({
+    fields: 'fields'
+  })), {}, {
+    finalValue: function finalValue() {
+      return this.syncedValue;
+    },
+    valuesByFieldKey: function valuesByFieldKey() {
+      var values = {};
+      var _iterator = _createForOfIteratorHelper(this.active_fields_groups),
+        _step;
+      try {
+        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+          var group = _step.value;
+          for (var field_key in group) {
+            if (typeof values[field_key] === 'undefined') {
+              values[field_key] = [];
+            }
+            values[field_key].push(group[field_key].value);
+          }
+        }
+      } catch (err) {
+        _iterator.e(err);
+      } finally {
+        _iterator.f();
+      }
+      return values;
+    },
+    theActiveGroups: function theActiveGroups() {
+      var active_fields_groups = JSON.parse(JSON.stringify(this.active_fields_groups));
+      var group_count = 0;
+      var _iterator2 = _createForOfIteratorHelper(active_fields_groups),
+        _step2;
+      try {
+        for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+          var group = _step2.value;
+          for (var _i = 0, _Object$keys = Object.keys(group); _i < _Object$keys.length; _i++) {
+            var field = _Object$keys[_i];
+            if (!this.isObject(group[field].show_if)) {
+              continue;
+            }
+            var show_if_cond = this.checkShowIfCondition({
+              root: JSON.parse(JSON.stringify(group)),
+              condition: group[field].show_if
+            });
+            if (!show_if_cond.status) {
+              delete group[field];
+            }
+          }
+          group_count++;
+        }
+      } catch (err) {
+        _iterator2.e(err);
+      } finally {
+        _iterator2.f();
+      }
+      return active_fields_groups;
+    },
+    syncedValue: function syncedValue() {
+      var updated_value = [];
+      this.theActiveGroups.forEach(function (field_group_item) {
+        var option_group_item = {};
+        for (var key in field_group_item) {
+          option_group_item[key] = field_group_item[key].value;
+        }
+        updated_value.push(option_group_item);
+      });
+      return updated_value;
+    }
+  }),
+  methods: _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()({
+    setup: function setup() {
+      this.loadOldData();
+      /* if ( ! this.loadOldData() && this.options && typeof this.options === 'object' ) {
+          this.active_fields_groups.push( JSON.parse( JSON.stringify( this.options ) ) );
+      } */
+    },
+    hasDuplicateKey: function hasDuplicateKey(array) {
+      if (!array || _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(array) !== 'object') {
+        return null;
+      }
+      return new Set(array).size !== array.length;
+    },
+    getValidation: function getValidation(option_key, option_group_key, option) {
+      var validation = [];
+      var unique = option.unique;
+      var value_length = option.value.length;
+      var hasDuplicateFeildValue = this.hasDuplicateFeildValue(option_key, option.value, option_group_key);
+      if (option.unique && hasDuplicateFeildValue) {
+        validation.push({
+          error_key: 'duplicate_value'
+        });
+      }
+      return validation;
+    },
+    hasDuplicateFeildValue: function hasDuplicateFeildValue(current_field_key, current_value, current_group_index) {
+      if (current_value === '') {
+        return false;
+      }
+      var matched_fields = [];
+      var has_duplicate = false;
+      this.theActiveGroups.forEach(function (item, group_index) {
+        if (group_index === current_group_index) {
+          return;
+        }
+        if (typeof item[current_field_key] === 'undefined') {
+          /* console.log( this.name, {
+              item,
+              group_index,
+              current_field_key, 
+              current_value, 
+              current_group_index
+          }); */
+          return;
+        }
+        var terget_value = item[current_field_key].value;
+        if (terget_value === current_value) {
+          if ('the_plan_id' === current_field_key) {
+            console.log('terget_value_matched');
+            console.log({
+              current_field_key: current_field_key,
+              terget_value: terget_value,
+              group_index: group_index,
+              current_value: current_value
+            });
+          }
+          has_duplicate = true;
+          return;
+        }
+      });
+      return has_duplicate;
+    },
+    loadOldData: function loadOldData() {
+      if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(this.value) !== 'object') {
+        this.active_fields_groups = [];
+        return false;
+      }
+      if (!this.value.length) {
+        this.active_fields_groups = [];
+        return false;
+      }
+      var fields_groups = [];
+      var _iterator3 = _createForOfIteratorHelper(this.value),
+        _step3;
+      try {
+        for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+          var option_group_item = _step3.value;
+          var fields = JSON.parse(JSON.stringify(this.options));
+          for (var value_key in option_group_item) {
+            if (typeof fields[value_key] !== 'undefined') {
+              fields[value_key].value = option_group_item[value_key];
+            }
+          }
+          fields_groups.push(fields);
+        }
+      } catch (err) {
+        _iterator3.e(err);
+      } finally {
+        _iterator3.f();
+      }
+      this.active_fields_groups = fields_groups;
+      return true;
+    },
+    updateValue: function updateValue(group_key, field_key, value) {
+      this.active_fields_groups[group_key][field_key].value = value;
+      // console.log( { field_key, value } );
+      this.$emit('update', this.finalValue);
+    },
+    addNewOptionGroup: function addNewOptionGroup() {
+      this.active_fields_groups.push(JSON.parse(JSON.stringify(this.options)));
+      this.$emit('update', this.finalValue);
+    },
+    // Check if the option can be moved
+    canMove: function canMove(optionKey) {
+      // Add your condition logic for enabling/disabling "move"
+      return optionKey % 2 === 0; // Example: Enable move for even options
+    },
+    // Check if the option can be edited
+    canEdit: function canEdit(optionKey) {
+      // Add your condition logic for enabling/disabling "edit"
+      return true; // Example: Always enable edit for now
+    },
+    // Check if the option can be trashed
+    canTrash: function canTrash(optionKey) {
+      // Add your condition logic for enabling/disabling "trash"
+      return optionKey !== 0; // Example: Disable trash for the first option
+    },
+    // Handle drag action for specific option
+    handleDrag: function handleDrag(optionKey) {
+      console.log('Option dragging:', optionKey);
+    },
+    // Handle drag end action for specific option
+    handleDragEnd: function handleDragEnd(optionKey) {
+      console.log('Drag ended for option:', optionKey);
+    },
+    // Handle edit action for specific option
+    handleEdit: function handleEdit(optionKey) {
+      console.log('Editing option:', optionKey);
+    },
+    // Handle trash action for specific option
+    handleTrash: function handleTrash(optionKey) {
+      console.log('Trash option:', optionKey);
+      this.removeOption(optionKey);
+    },
+    removeOptionGroup: function removeOptionGroup(option_group_key) {
+      this.active_fields_groups.splice(option_group_key, 1);
+      this.$emit('update', this.finalValue);
+    }
+  }, "updateValue", function updateValue(groupKey, optionKey, newValue) {
+    var group = this.active_fields_groups[groupKey];
+    if (group) {
+      group.options[optionKey].value = newValue;
+    }
+  }), "getSanitizedOption", function getSanitizedOption(option) {
+    if (typeof option.value !== 'undefined') {
+      var sanitized_option = JSON.parse(JSON.stringify(option));
+      delete sanitized_option.value;
+      return sanitized_option;
+    }
+    return option;
+  }), "__checkShowIfCondition", function __checkShowIfCondition(option_key, option, option_group_key) {
+    if (!option.show_if) {
+      return true;
+    }
+    var accepted_condition_comparations = ['or', 'and'];
+    var accepted_value_comparations = ['=', 'not'];
+    var success_conditions = 0;
+    var faild_conditions = 0;
+    var _iterator4 = _createForOfIteratorHelper(option.show_if),
+      _step4;
+    try {
+      for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
+        var condition = _step4.value;
+        var terget_fields = 'self';
+        var condition_compare_type = 'or';
+        var condition_status = null;
+        if (condition.where && condition.where.length) {
+          terget_fields = condition.where;
+        }
+        if (condition.compare && accepted_condition_comparations.indexOf(condition.compare)) {
+          condition_compare_type = condition.compare;
+        }
+        terget_fields = terget_fields.split('.');
+        var base_field = this.finalValue[option_group_key];
+        var base_terget_missmatched = false;
+        if ('self' !== terget_fields[0]) {
+          base_field = this.fields;
+        }
+        var _iterator5 = _createForOfIteratorHelper(terget_fields),
+          _step5;
+        try {
+          for (_iterator5.s(); !(_step5 = _iterator5.n()).done;) {
+            var field = _step5.value;
+            if ('self' === field || 'root' === field) {
+              continue;
+            }
+            if (typeof base_field[field] === 'undefined') {
+              base_terget_missmatched = true;
+              break;
+            }
+            base_field = base_field[field];
+          }
+        } catch (err) {
+          _iterator5.e(err);
+        } finally {
+          _iterator5.f();
+        }
+        if (base_terget_missmatched) {
+          return true;
+        }
+        var success_subconditions = 0;
+        var faild_subconditions = 0;
+        var _iterator6 = _createForOfIteratorHelper(condition.conditions),
+          _step6;
+        try {
+          for (_iterator6.s(); !(_step6 = _iterator6.n()).done;) {
+            var sub_condition = _step6.value;
+            var terget_value = base_field[sub_condition.key];
+            var compare_value = sub_condition.value;
+            var compare_type = sub_condition.compare ? sub_condition.compare : '=';
+            if ('=' === compare_type) {
+              if (terget_value === compare_value) {
+                success_subconditions++;
+              } else {
+                faild_subconditions++;
+              }
+            }
+            if ('not' === compare_type) {
+              if (terget_value !== compare_value) {
+                success_subconditions++;
+              } else {
+                faild_subconditions++;
+              }
+            }
+          }
+        } catch (err) {
+          _iterator6.e(err);
+        } finally {
+          _iterator6.f();
+        }
+        var status = false;
+        if ('or' === condition_compare_type && success_subconditions) {
+          status = true;
+        }
+        if ('and' === condition_compare_type && !faild_subconditions) {
+          status = true;
+        }
+        if (!status) {
+          faild_conditions++;
+        }
+
+        // console.log( {option_key, condition_compare_type, faild_conditions, success_conditions, status} );
+        // console.log( {option_key, option, terget_fields, base_field, option_group_key, base_terget_missmatched} );
+      }
+
+      // console.log( { option_key, faild_conditions } );
+    } catch (err) {
+      _iterator4.e(err);
+    } finally {
+      _iterator4.f();
+    }
+    if (faild_conditions) {
+      return false;
+    }
+    return true;
+  })
 });
 
 /***/ }),
@@ -33759,37 +34141,79 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "cptm-form-group",
-    class: _vm.formGroupClass
-  }, ["hidden" !== _vm.input_type && _vm.label.length ? _c("label", [_c(_vm.labelType, {
-    tag: "component"
-  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _c("input", {
-    attrs: {
-      type: "text"
-    },
-    domProps: {
-      value: _vm.value
-    },
-    on: {
-      input: function input($event) {
-        return _vm.$emit("update", $event.target.value);
+    staticClass: "cptm-multi-option-group"
+  }, [_c("h3", {
+    staticClass: "cptm-multi-option-label"
+  }, [_vm._v(_vm._s(_vm.label))]), _vm._v(" "), _vm._l(_vm.theActiveGroups, function (option_group, option_group_key) {
+    return [_c("div", {
+      key: option_group_key,
+      staticClass: "cptm-multi-option-group-section"
+    }, [_c("h3", [_vm._v("# " + _vm._s(option_group_key + 1))]), _vm._v(" "), _vm._l(option_group, function (option, option_key) {
+      return [_c("div", {
+        key: "".concat(_vm.fieldId, "_").concat(option_key),
+        staticClass: "option-container"
+      }, [_c("widget-action-tools", {
+        attrs: {
+          canMove: _vm.canMove(option_key),
+          canEdit: _vm.canEdit(option_key),
+          canTrash: _vm.canTrash(option_key)
+        },
+        on: {
+          drag: function drag($event) {
+            return _vm.handleDrag(option_key);
+          },
+          dragend: function dragend($event) {
+            return _vm.handleDragEnd(option_key);
+          },
+          edit: function edit($event) {
+            return _vm.handleEdit(option_key);
+          },
+          trash: function trash($event) {
+            return _vm.handleTrash(option_key);
+          }
+        }
+      }), _vm._v(" "), _c(option.type + "-field", _vm._b({
+        key: "".concat(_vm.fieldId, "_").concat(option_key),
+        tag: "component",
+        attrs: {
+          root: option_group,
+          validation: _vm.getValidation(option_key, option_group_key, option),
+          value: option.value
+        },
+        on: {
+          update: function update($event) {
+            return _vm.updateValue(option_group_key, option_key, $event);
+          }
+        }
+      }, "component", _vm.getSanitizedOption(option), false))], 1)];
+    }), _vm._v(" "), _c("p", {
+      staticStyle: {
+        "text-align": "right"
       }
-    }
-  }), _vm._v(" "), _vm.description.length ? _c("p", {
-    staticClass: "cptm-form-group-info",
-    domProps: {
-      innerHTML: _vm._s(_vm.description)
-    }
-  }) : _vm._e(), _vm._v(" "), _c("p", [_vm._v("\n        Test Data: " + _vm._s(_vm.testData) + "\n        "), _c("button", {
+    }, [_c("button", {
+      staticClass: "cptm-btn cptm-btn-secondery",
+      attrs: {
+        type: "button"
+      },
+      on: {
+        click: function click($event) {
+          return _vm.removeOptionGroup(option_group_key);
+        }
+      }
+    }, [_vm._v("\n                    " + _vm._s(_vm.removeButtonLabel) + "\n                ")])])], 2)];
+  }), _vm._v(" "), _c("button", {
+    staticClass: "cptm-form-builder-group-options__repeater",
     attrs: {
       type: "button"
     },
     on: {
       click: function click($event) {
-        return _vm.updateTestData();
+        return _vm.addNewOptionGroup();
       }
     }
-  }, [_vm._v("Update Test Data")])])]);
+  }, [_c("span", {
+    staticClass: "uil uil-plus"
+  }), _vm._v(_vm._s(_vm.addNewButtonLabel) + "\n    ")])], 2);
 };
 var staticRenderFns = [];
 render._withStripped = true;

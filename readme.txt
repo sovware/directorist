@@ -302,13 +302,14 @@ Directorist is a complete directory solution and in combination with its advance
 **New**
  - Category and location bulk edit actions to assign or reset directory (#2229)
  - New filter hook directorist_user_profile_updated to modify user profile data when updated (#2235)
+ - Added pin code verification request limit (#2245)
 
 **Changed**
  - Refactored and improved the category and location management screen (#2234)
  - Improved button styling by adding a button[type="submit"] dependency with directorist-btn for better styling and consistency (#2227)
 
 **Fixed**
- - Dashboard Status translation issue (#2251)
+ - Dashboard Status translation issue (#2215)
  - Number custom field label issue in the search form (#2216)
  - Filter disable issue on mobile view (#2219)
  - Depth limitation issue in the taxonomy list view (#2220)
@@ -319,12 +320,14 @@ Directorist is a complete directory solution and in combination with its advance
  - Pagination style issue on mobile devices (#2226)
  - Required field issue in the search form when changing the "View As" option (#2228)
  - Description conflict issue with the single listing map (#2231)
- - Zipcode Radius search issue (#2228)
+ - Zipcode Radius search issue (#2239)
  - Advanced filter issue in the All Listings layout (#2240)
  - Privacy Policy & Terms page issue (#2236)
  - Removed Extra Ending Tag in Category Grid Template (#2242)
  - Error with wp_generate_attachment_metadata() in background tasks by loading the required file (#2232)
  - Clarified text for the price range to avoid confusion (#2230)
+ - Login and Registration Redirection Issue (#2218)
+ - Number custom field step issue (#2173)
 
 8.1 - Jan 29, 2025
 

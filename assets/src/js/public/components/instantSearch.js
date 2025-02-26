@@ -69,8 +69,10 @@ import debounce from '../../global/components/debounce';
             if (form_data.phone && form_data.phone.length) {
                 var query = (query && query.length) ? query + '&phone=' + form_data.phone : '?phone=' + form_data.phone;
             }
-            if (form_data.custom_field && form_data.custom_field.length) {
-                var query = (query && query.length) ? query + '&custom_field=' + form_data.custom_field : '?custom_field=' + form_data.custom_field;
+            if (form_data.custom_field && Object.keys(form_data.custom_field).length) {
+                Object.keys(form_data.custom_field).forEach((key) => {
+                    query = (query.length) ? query + `&${key}=${form_data.custom_field[key]}` : `?${key}=${form_data.custom_field[key]}`;
+                });
             }
             if (form_data.open_now && form_data.open_now.length) {
                 var query = (query && query.length) ? query + '&open_now=' + form_data.open_now : '?open_now=' + form_data.open_now;
@@ -1457,6 +1459,24 @@ import debounce from '../../global/components/debounce';
         var searchElm = $(this).closest('.listing-with-sidebar');
         filterListing(searchElm);
     }, 250));
+
+    // sidebar on change location, zipcode changing
+    $('body').on("change", ".directorist-instant-search .listing-with-sidebar .directorist-search-location, .directorist-instant-search .listing-with-sidebar .directorist-zipcode-search", debounce(function (e) {
+        e.preventDefault();
+        
+        const searchElm = $(this).closest('.listing-with-sidebar');
+        
+        // If it's a location field, ensure it has a value before triggering the filter
+        if ($(this).hasClass('directorist-search-location')) {
+            const locationField = $(this).find('input[name="address"]');
+            if (!locationField.val()) {
+                return;
+            }
+        }
+    
+        filterListing(searchElm);
+    }, 250));
+    
 
     // select on change with value - searching
     $('body').on("change", ".directorist-instant-search .listing-with-sidebar select", debounce( function(e) {

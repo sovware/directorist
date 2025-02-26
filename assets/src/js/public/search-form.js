@@ -904,6 +904,11 @@ import './components/directoristSelect';
                                             $('.directorist-location-js, .atbdp-search-address').attr("data-value", data.display_name);
                                             $('#cityLat').val(lat);
                                             $('#cityLng').val(lng);
+
+                                            const locationSearch = $(".directorist-search-location");
+                                            if (locationSearch.length) {
+                                                locationSearch.trigger("change");
+                                            }
                                           }
                                         });
                                     }
@@ -922,7 +927,9 @@ import './components/directoristSelect';
 
                                     locationAddressField.removeClass('atbdp-form-fade');
 
-                                    $('body').on("click", '.address_result .current-location', function (e) {
+                                    $('body').off("click", '.address_result .current-location').on("click", '.address_result .current-location', function (e) {
+                                        e.preventDefault();
+                                        
                                         navigator.geolocation.getCurrentPosition(function (position) {
                                             return displayLocation(position, e);
                                         });
@@ -941,7 +948,17 @@ import './components/directoristSelect';
 
                 // hide address result when click outside the input field
                 $(document).on('click', function (e) {
-                    if (!$(e.target).closest('.directorist-location-js, #q_addressss, .atbdp-search-address').length) {
+                    if (!$(e.target).closest('.directorist-location-js, #q_addressss, .atbdp-search-address, .current-location').length) {
+                        const locationSearch = $(e.target).closest(".directorist-search-location");
+                        const zipCodeSearch = $(e.target).closest(".directorist-zipcode-search");
+                        
+                        if (locationSearch.length) {
+                            locationSearch.trigger("change");
+                        }
+                        if (zipCodeSearch.length) {
+                            zipCodeSearch.trigger("change");
+                        }
+                        
                         $('.address_result').hide();
                     }
                 });
@@ -1005,8 +1022,9 @@ import './components/directoristSelect';
                 if (!slider || slider.directoristCustomRangeSlider) return;
 
                 let sliderStep = parseInt(slider.getAttribute('step')) || 1;
-                let sliderDefaultValue = parseInt(slider.getAttribute('value') || 0);
-                let sliderMaxValue = parseInt(slider.getAttribute('max-value') || 100);
+                let sliderMinValue = parseInt(slider.getAttribute('min-value'));
+                let sliderMaxValue = parseInt(slider.getAttribute('max-value'));
+                let sliderDefaultValue = parseInt(slider.getAttribute('default-value'));
                 let minInput = sliderItem.querySelector('.directorist-custom-range-slider__value__min');
                 let maxInput = sliderItem.querySelector('.directorist-custom-range-slider__value__max');
                 let sliderRange = sliderItem.querySelector('.directorist-custom-range-slider__range');
@@ -1018,15 +1036,16 @@ import './components/directoristSelect';
                 let rangeInitLoad = true;
                 // Parse the URL parameters
                 const milesParams = new URLSearchParams(window.location.search).has('miles');
+                const customParams = new URLSearchParams(window.location.search).has('miles');
 
                 directoristCustomRangeSlider?.create(slider, {
-                    start: [0, sliderDefaultValue ? sliderDefaultValue : 100],
+                    start: [minInput.value, milesParams || customParams ? maxInput.value : sliderDefaultValue || sliderMaxValue],
                     connect: true,
                     direction: isRTL ? 'rtl' : 'ltr',
                     step: sliderStep ? sliderStep : 1,
                     range: {
-                        'min': Number(minInput.value ? minInput.value : 0),
-                        'max': Number(maxInput.value ? maxInput.value : 100)
+                        'min': Number(sliderMinValue || 0),
+                        'max': Number(sliderMaxValue || 100)
                     }
                 });
 

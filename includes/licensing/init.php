@@ -51,7 +51,7 @@ class Init {
 	}
 
 	public function directorist_licensing() {
-		include 'views/themes-extensions.php';
+		include 'views/templates-extensions.php';
 	}
 }
 

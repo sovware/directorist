@@ -97,7 +97,7 @@
 											</div>
 											<div class="directorist-membership-benefits-content">
 												<h3 class="title">All Access Pass</h3>
-												<p class="title-details">Get unlimited access to all themes and
+												<p class="title-details">Get unlimited access to all templates and
 													plugins.</p>
 											</div>
 										</div>
@@ -470,7 +470,7 @@
 										04
 									</div>
 									<div class="directorist-membership-status-description">
-										Available Themes
+										Available Templates
 									</div>
 								</div>
 							</div>
@@ -508,7 +508,7 @@
 									</button>
 								</li>
 								<li>
-									<button data-target="#directorist-themes" class="directorist-nav-tab">
+									<button data-target="#directorist-templates" class="directorist-nav-tab">
 										<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
 											viewBox="0 0 20 20" fill="none">
 											<path
@@ -527,8 +527,8 @@
 												d="M14.584 10.833C15.2743 10.833 15.834 10.2734 15.834 9.58301C15.834 8.89265 15.2743 8.33301 14.584 8.33301C13.8936 8.33301 13.334 8.89265 13.334 9.58301C13.334 10.2734 13.8936 10.833 14.584 10.833Z"
 												fill="currentColor" />
 										</svg>
-										Themes
-										<span class="total-themes"> (14)</span>
+										Templates
+										<span class="total-templates"> (14)</span>
 									</button>
 								</li>
 							</ul>
@@ -554,7 +554,7 @@
 								<div class="directorist-col-xxl-3 directorist-col-lg-4 directorist-col-sm-6">
 									<article class="directorist-extension-item">
 										<figure class="directorist-extension-image">
-											<img src="https://picsum.photos/200" alt="Directorist themes">
+											<img src="https://picsum.photos/200" alt="Directorist templates">
 										</figure>
 										<div class="directorist-extension-content">
 											<header class="directorist-extension-header">
@@ -582,7 +582,7 @@
 								<div class="directorist-col-xxl-3 directorist-col-lg-4 directorist-col-sm-6">
 									<article class="directorist-extension-item">
 										<figure class="directorist-extension-image">
-											<img src="https://picsum.photos/200" alt="Directorist themes">
+											<img src="https://picsum.photos/200" alt="Directorist templates">
 										</figure>
 										<div class="directorist-extension-content">
 											<header class="directorist-extension-header">
@@ -604,7 +604,7 @@
 								<div class="directorist-col-xxl-3 directorist-col-lg-4 directorist-col-sm-6">
 									<article class="directorist-extension-item">
 										<figure class="directorist-extension-image">
-											<img src="https://picsum.photos/200" alt="Directorist themes">
+											<img src="https://picsum.photos/200" alt="Directorist templates">
 										</figure>
 										<div class="directorist-extension-content">
 											<header class="directorist-extension-header">
@@ -635,7 +635,7 @@
 								<div class="directorist-col-xxl-3 directorist-col-lg-4 directorist-col-sm-6">
 									<article class="directorist-extension-item">
 										<figure class="directorist-extension-image">
-											<img src="https://picsum.photos/200" alt="Directorist themes">
+											<img src="https://picsum.photos/200" alt="Directorist templates">
 										</figure>
 										<div class="directorist-extension-overlay">
 											<div class="badge badge-popular">
@@ -664,7 +664,7 @@
 								<div class="directorist-col-xxl-3 directorist-col-lg-4 directorist-col-sm-6">
 									<article class="directorist-extension-item">
 										<figure class="directorist-extension-image">
-											<img src="https://picsum.photos/200" alt="Directorist themes">
+											<img src="https://picsum.photos/200" alt="Directorist templates">
 										</figure>
 										<div class="directorist-extension-content">
 											<header class="directorist-extension-header">
@@ -699,7 +699,7 @@
 								<div class="directorist-col-xxl-3 directorist-col-lg-4 directorist-col-sm-6">
 									<article class="directorist-extension-item">
 										<figure class="directorist-extension-image">
-											<img src="https://picsum.photos/200" alt="Directorist themes">
+											<img src="https://picsum.photos/200" alt="Directorist templates">
 										</figure>
 										<div class="directorist-extension-content">
 											<header class="directorist-extension-header">
@@ -732,7 +732,7 @@
 													Docs
 												</div>
 												<div
-													class="directorist-extension-btn directorist-extension-btn-update directorist-theme-btn-disabled">
+													class="directorist-extension-btn directorist-extension-btn-update directorist-template-btn-disabled">
 													Update</div>
 											</div>
 										</footer>
@@ -741,7 +741,7 @@
 								<div class="directorist-col-xxl-3 directorist-col-lg-4 directorist-col-sm-6">
 									<article class="directorist-extension-item">
 										<figure class="directorist-extension-image">
-											<img src="https://picsum.photos/200" alt="Directorist themes">
+											<img src="https://picsum.photos/200" alt="Directorist templates">
 										</figure>
 										<div class="directorist-extension-content">
 											<header class="directorist-extension-header">
@@ -780,7 +780,7 @@
 								<div class="directorist-col-xxl-3 directorist-col-lg-4 directorist-col-sm-6">
 									<article class="directorist-extension-item">
 										<figure class="directorist-extension-image">
-											<img src="https://picsum.photos/200" alt="Directorist themes">
+											<img src="https://picsum.photos/200" alt="Directorist templates">
 										</figure>
 										<div class="directorist-extension-content">
 											<header class="directorist-extension-header">
@@ -828,7 +828,7 @@
 								<div class="directorist-col-xxl-3 directorist-col-lg-4 directorist-col-sm-6">
 									<article class="directorist-extension-item">
 										<figure class="directorist-extension-image">
-											<img src="https://picsum.photos/200" alt="Directorist themes">
+											<img src="https://picsum.photos/200" alt="Directorist templates">
 										</figure>
 										<div class="directorist-extension-content">
 											<header class="directorist-extension-header">
@@ -859,70 +859,70 @@
 								</div>
 							</div>
 						</div>
-						<div id="directorist-themes" class="directorist-tabs-item">
+						<div id="directorist-templates" class="directorist-tabs-item">
 							<div class="directorist-row">
 								<div class="directorist-col-xxl-3 directorist-col-lg-4 directorist-col-sm-6">
-									<article class="directorist-theme-item">
-										<figure class="directorist-theme-image">
+									<article class="directorist-template-item">
+										<figure class="directorist-template-image">
 											<img src="https://i.postimg.cc/KjZyr2kn/Image-Area.png"
-												alt="Directorist themes">
+												alt="Directorist templates">
 										</figure>
-										<div class="directorist-theme-content">
-											<header class="directorist-theme-header">
-												<h2 class="directorist-theme-title">dHotels</h2>
+										<div class="directorist-template-content">
+											<header class="directorist-template-header">
+												<h2 class="directorist-template-title">dHotels</h2>
 											</header>
-											<p class="directorist-theme-description">
+											<p class="directorist-template-description">
 												The Best Hotel Directory WordPress Theme for listing business.
 											</p>
 										</div>
-										<footer class="directorist-theme-footer">
-											<div class="directorist-theme-cta">
-												<a href="#" class="directorist-theme-get">Get it now</a>
-												<a href="#" class="directorist-theme-demo">Live Demo</a>
+										<footer class="directorist-template-footer">
+											<div class="directorist-template-cta">
+												<a href="#" class="directorist-template-get">Get it now</a>
+												<a href="#" class="directorist-template-demo">Live Demo</a>
 											</div>
 										</footer>
 									</article>
 								</div>
 								<div class="directorist-col-xxl-3 directorist-col-lg-4 directorist-col-sm-6">
-									<article class="directorist-theme-item">
-										<figure class="directorist-theme-image">
+									<article class="directorist-template-item">
+										<figure class="directorist-template-image">
 											<img src="https://i.postimg.cc/KjZyr2kn/Image-Area.png"
-												alt="Directorist themes">
+												alt="Directorist templates">
 										</figure>
-										<div class="directorist-theme-content">
-											<header class="directorist-theme-header">
-												<h2 class="directorist-theme-title">dClassified</h2>
+										<div class="directorist-template-content">
+											<header class="directorist-template-header">
+												<h2 class="directorist-template-title">dClassified</h2>
 											</header>
-											<p class="directorist-theme-description">
+											<p class="directorist-template-description">
 												The Best Classified Ads WordPress Theme for Classified Listing Business
 											</p>
 										</div>
-										<footer class="directorist-theme-footer">
-											<div class="directorist-theme-cta">
+										<footer class="directorist-template-footer">
+											<div class="directorist-template-cta">
 												<a href="#"
-													class="directorist-theme-btn directorist-theme-customize">Customize</a>
+													class="directorist-template-btn directorist-template-customize">Customize</a>
 											</div>
 										</footer>
 									</article>
 								</div>
 								<div class="directorist-col-xxl-3 directorist-col-lg-4 directorist-col-sm-6">
-									<article class="directorist-theme-item">
-										<figure class="directorist-theme-image">
+									<article class="directorist-template-item">
+										<figure class="directorist-template-image">
 											<img src="https://i.postimg.cc/KjZyr2kn/Image-Area.png"
-												alt="Directorist themes">
+												alt="Directorist templates">
 										</figure>
-										<div class="directorist-theme-content">
-											<header class="directorist-theme-header">
-												<h2 class="directorist-theme-title">dJobs</h2>
+										<div class="directorist-template-content">
+											<header class="directorist-template-header">
+												<h2 class="directorist-template-title">dJobs</h2>
 											</header>
-											<p class="directorist-theme-description">
+											<p class="directorist-template-description">
 												The Best Classified Ads WordPress Theme for Classified Listing Business
 											</p>
 										</div>
-										<footer class="directorist-theme-footer">
-											<div class="directorist-theme-cta">
+										<footer class="directorist-template-footer">
+											<div class="directorist-template-cta">
 												<a href="#"
-													class="directorist-theme-btn directorist-theme-btn-primary directorist-theme-btn-install">
+													class="directorist-template-btn directorist-template-btn-primary directorist-template-btn-install">
 													<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
 														viewBox="0 0 16 16" fill="none">
 														<path fill-rule="evenodd" clip-rule="evenodd"
@@ -931,31 +931,31 @@
 													</svg>
 													Install
 												</a>
-												<a href="#" class="directorist-theme-btn">Live demo</a>
+												<a href="#" class="directorist-template-btn">Live demo</a>
 											</div>
 										</footer>
 									</article>
 								</div>
 								<div class="directorist-col-xxl-3 directorist-col-lg-4 directorist-col-sm-6">
-									<article class="directorist-theme-item">
-										<figure class="directorist-theme-image">
+									<article class="directorist-template-item">
+										<figure class="directorist-template-image">
 											<img src="https://i.postimg.cc/KjZyr2kn/Image-Area.png"
-												alt="Directorist themes">
+												alt="Directorist templates">
 										</figure>
-										<div class="directorist-theme-content">
-											<header class="directorist-theme-header">
-												<h2 class="directorist-theme-title">dRestaurant</h2>
+										<div class="directorist-template-content">
+											<header class="directorist-template-header">
+												<h2 class="directorist-template-title">dRestaurant</h2>
 											</header>
-											<p class="directorist-theme-description">
+											<p class="directorist-template-description">
 												Restaurant Directory Theme for WordPress.
 											</p>
 										</div>
-										<footer class="directorist-theme-footer">
-											<div class="directorist-theme-cta">
+										<footer class="directorist-template-footer">
+											<div class="directorist-template-cta">
 												<a href="#"
-													class="directorist-theme-btn directorist-theme-btn-primary directorist-theme-btn-Installing">
+													class="directorist-template-btn directorist-template-btn-primary directorist-template-btn-Installing">
 													Installing
-													<div class="directorist-theme-installing-icon">
+													<div class="directorist-template-installing-icon">
 														<svg xmlns="http://www.w3.org/2000/svg" width="15" height="16"
 															viewBox="0 0 15 16" fill="none">
 															<path fill-rule="evenodd" clip-rule="evenodd"
@@ -965,7 +965,7 @@
 													</div>
 												</a>
 												<a href="#"
-													class="directorist-theme-btn directorist-theme-btn-disabled">
+													class="directorist-template-btn directorist-template-btn-disabled">
 													Live Demo
 												</a>
 											</div>
@@ -990,7 +990,7 @@
 							</button>
 						</li>
 						<li>
-							<button data-target="#directorist-themes-2" class="directorist-nav-tab active">
+							<button data-target="#directorist-templates-2" class="directorist-nav-tab active">
 								<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
 									fill="none">
 									<path
@@ -1009,8 +1009,8 @@
 										d="M14.584 10.833C15.2743 10.833 15.834 10.2734 15.834 9.58301C15.834 8.89265 15.2743 8.33301 14.584 8.33301C13.8936 8.33301 13.334 8.89265 13.334 9.58301C13.334 10.2734 13.8936 10.833 14.584 10.833Z"
 										fill="currentColor" />
 								</svg>
-								Themes
-								<span class="total-themes"> (14)</span>
+								Templates
+								<span class="total-templates"> (14)</span>
 							</button>
 						</li>
 					</ul>
@@ -1020,7 +1020,7 @@
 								<div class="directorist-col-xxl-3 directorist-col-lg-4 directorist-col-sm-6">
 									<article class="directorist-extension-item">
 										<figure class="directorist-extension-image">
-											<img src="https://picsum.photos/200" alt="Directorist themes">
+											<img src="https://picsum.photos/200" alt="Directorist templates">
 										</figure>
 										<div class="directorist-extension-content">
 											<header class="directorist-extension-header">
@@ -1046,7 +1046,7 @@
 								<div class="directorist-col-xxl-3 directorist-col-lg-4 directorist-col-sm-6">
 									<article class="directorist-extension-item">
 										<figure class="directorist-extension-image">
-											<img src="https://picsum.photos/200" alt="Directorist themes">
+											<img src="https://picsum.photos/200" alt="Directorist templates">
 										</figure>
 										<div class="directorist-extension-content">
 											<header class="directorist-extension-header">
@@ -1071,7 +1071,7 @@
 								<div class="directorist-col-xxl-3 directorist-col-lg-4 directorist-col-sm-6">
 									<article class="directorist-extension-item">
 										<figure class="directorist-extension-image">
-											<img src="https://picsum.photos/200" alt="Directorist themes">
+											<img src="https://picsum.photos/200" alt="Directorist templates">
 										</figure>
 										<div class="directorist-extension-content">
 											<header class="directorist-extension-header">
@@ -1095,7 +1095,7 @@
 								<div class="directorist-col-xxl-3 directorist-col-lg-4 directorist-col-sm-6">
 									<article class="directorist-extension-item">
 										<figure class="directorist-extension-image">
-											<img src="https://picsum.photos/200" alt="Directorist themes">
+											<img src="https://picsum.photos/200" alt="Directorist templates">
 										</figure>
 										<div class="directorist-extension-overlay">
 											<div class="badge badge-popular">
@@ -1126,73 +1126,73 @@
 								</div>
 							</div>
 						</div>
-						<div id="directorist-themes-2" class="directorist-tabs-item active">
+						<div id="directorist-templates-2" class="directorist-tabs-item active">
 							<div class="directorist-row">
 								<div class="directorist-col-xxl-3 directorist-col-lg-4 directorist-col-sm-6">
-									<article class="directorist-theme-item">
-										<figure class="directorist-theme-image">
+									<article class="directorist-template-item">
+										<figure class="directorist-template-image">
 											<img src="https://i.postimg.cc/KjZyr2kn/Image-Area.png"
-												alt="Directorist themes">
+												alt="Directorist templates">
 										</figure>
-										<div class="directorist-theme-content">
-											<header class="directorist-theme-header">
-												<h2 class="directorist-theme-title">dHotels</h2>
+										<div class="directorist-template-content">
+											<header class="directorist-template-header">
+												<h2 class="directorist-template-title">dHotels</h2>
 											</header>
-											<p class="directorist-theme-description">
+											<p class="directorist-template-description">
 												The Best Hotel Directory WordPress Theme for listing business.
 											</p>
 										</div>
-										<footer class="directorist-theme-footer">
-											<div class="directorist-theme-cta">
-												<a href="#" class="directorist-theme-get">Get it now</a>
-												<a href="#" class="directorist-theme-demo">Live Demo</a>
+										<footer class="directorist-template-footer">
+											<div class="directorist-template-cta">
+												<a href="#" class="directorist-template-get">Get it now</a>
+												<a href="#" class="directorist-template-demo">Live Demo</a>
 											</div>
 										</footer>
 									</article>
 								</div>
 								<div class="directorist-col-xxl-3 directorist-col-lg-4 directorist-col-sm-6">
-									<article class="directorist-theme-item">
-										<figure class="directorist-theme-image">
+									<article class="directorist-template-item">
+										<figure class="directorist-template-image">
 											<img src="https://i.postimg.cc/KjZyr2kn/Image-Area.png"
-												alt="Directorist themes">
+												alt="Directorist templates">
 										</figure>
-										<div class="directorist-theme-content">
-											<header class="directorist-theme-header">
-												<h2 class="directorist-theme-title">
+										<div class="directorist-template-content">
+											<header class="directorist-template-header">
+												<h2 class="directorist-template-title">
 													dClassified
-													<span class="directorist-theme-title-badge-active">active</span>
+													<span class="directorist-template-title-badge-active">active</span>
 												</h2>
 											</header>
-											<p class="directorist-theme-description">
+											<p class="directorist-template-description">
 												The Best Classified Ads WordPress Theme for Classified Listing Business
 											</p>
 										</div>
-										<footer class="directorist-theme-footer">
-											<div class="directorist-theme-cta">
+										<footer class="directorist-template-footer">
+											<div class="directorist-template-cta">
 												<a href="#"
-													class="directorist-theme-btn directorist-theme-customize">Customize</a>
+													class="directorist-template-btn directorist-template-customize">Customize</a>
 											</div>
 										</footer>
 									</article>
 								</div>
 								<div class="directorist-col-xxl-3 directorist-col-lg-4 directorist-col-sm-6">
-									<article class="directorist-theme-item">
-										<figure class="directorist-theme-image">
+									<article class="directorist-template-item">
+										<figure class="directorist-template-image">
 											<img src="https://i.postimg.cc/KjZyr2kn/Image-Area.png"
-												alt="Directorist themes">
+												alt="Directorist templates">
 										</figure>
-										<div class="directorist-theme-content">
-											<header class="directorist-theme-header">
-												<h2 class="directorist-theme-title">dJobs</h2>
+										<div class="directorist-template-content">
+											<header class="directorist-template-header">
+												<h2 class="directorist-template-title">dJobs</h2>
 											</header>
-											<p class="directorist-theme-description">
+											<p class="directorist-template-description">
 												The Best Classified Ads WordPress Theme for Classified Listing Business
 											</p>
 										</div>
-										<footer class="directorist-theme-footer">
-											<div class="directorist-theme-cta">
+										<footer class="directorist-template-footer">
+											<div class="directorist-template-cta">
 												<a href="#"
-													class="directorist-theme-btn directorist-theme-btn-primary directorist-theme-btn-install">
+													class="directorist-template-btn directorist-template-btn-primary directorist-template-btn-install">
 													<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
 														viewBox="0 0 16 16" fill="none">
 														<path fill-rule="evenodd" clip-rule="evenodd"
@@ -1201,31 +1201,31 @@
 													</svg>
 													Install
 												</a>
-												<a href="#" class="directorist-theme-btn">Live demo</a>
+												<a href="#" class="directorist-template-btn">Live demo</a>
 											</div>
 										</footer>
 									</article>
 								</div>
 								<div class="directorist-col-xxl-3 directorist-col-lg-4 directorist-col-sm-6">
-									<article class="directorist-theme-item">
-										<figure class="directorist-theme-image">
+									<article class="directorist-template-item">
+										<figure class="directorist-template-image">
 											<img src="https://i.postimg.cc/KjZyr2kn/Image-Area.png"
-												alt="Directorist themes">
+												alt="Directorist templates">
 										</figure>
-										<div class="directorist-theme-content">
-											<header class="directorist-theme-header">
-												<h2 class="directorist-theme-title">dRestaurant</h2>
+										<div class="directorist-template-content">
+											<header class="directorist-template-header">
+												<h2 class="directorist-template-title">dRestaurant</h2>
 											</header>
-											<p class="directorist-theme-description">
+											<p class="directorist-template-description">
 												Restaurant Directory Theme for WordPress.
 											</p>
 										</div>
-										<footer class="directorist-theme-footer">
-											<div class="directorist-theme-cta">
+										<footer class="directorist-template-footer">
+											<div class="directorist-template-cta">
 												<a href="#"
-													class="directorist-theme-btn directorist-theme-btn-primary directorist-theme-btn-Installing">
+													class="directorist-template-btn directorist-template-btn-primary directorist-template-btn-Installing">
 													Installing
-													<div class="directorist-theme-installing-icon">
+													<div class="directorist-template-installing-icon">
 														<svg xmlns="http://www.w3.org/2000/svg" width="15" height="16"
 															viewBox="0 0 15 16" fill="none">
 															<path fill-rule="evenodd" clip-rule="evenodd"
@@ -1235,7 +1235,7 @@
 													</div>
 												</a>
 												<a href="#"
-													class="directorist-theme-btn directorist-theme-btn-disabled">
+													class="directorist-template-btn directorist-template-btn-disabled">
 													Live Demo
 												</a>
 											</div>
@@ -1243,30 +1243,30 @@
 									</article>
 								</div>
 								<div class="directorist-col-xxl-3 directorist-col-lg-4 directorist-col-sm-6">
-									<article class="directorist-theme-item">
-										<figure class="directorist-theme-image">
+									<article class="directorist-template-item">
+										<figure class="directorist-template-image">
 											<img src="https://i.postimg.cc/KjZyr2kn/Image-Area.png"
-												alt="Directorist themes">
+												alt="Directorist templates">
 										</figure>
-										<div class="directorist-theme-content">
-											<header class="directorist-theme-header">
-												<h2 class="directorist-theme-title">dRestaurant</h2>
+										<div class="directorist-template-content">
+											<header class="directorist-template-header">
+												<h2 class="directorist-template-title">dRestaurant</h2>
 											</header>
-											<p class="directorist-theme-description">
+											<p class="directorist-template-description">
 												Restaurant Directory Theme for WordPress.
 											</p>
 										</div>
-										<footer class="directorist-theme-footer">
-											<div class="directorist-theme-cta">
-												<a href="#" class="directorist-theme-btn directorist-theme-btn-primary">
+										<footer class="directorist-template-footer">
+											<div class="directorist-template-cta">
+												<a href="#" class="directorist-template-btn directorist-template-btn-primary">
 													Active
 												</a>
 												<a href="#"
-													class="directorist-theme-btn directorist-theme-btn-disabled">
+													class="directorist-template-btn directorist-template-btn-disabled">
 													Live Demo
 												</a>
 												<button type="button"
-													class="directorist-theme-btn directorist-theme-btn-failed">
+													class="directorist-template-btn directorist-template-btn-failed">
 													Failed
 												</button>
 											</div>

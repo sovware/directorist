@@ -1800,7 +1800,7 @@
   height: 16px;
 }
 
-.directorist-theme-item {
+.directorist-template-item {
   border-radius: 8px;
   border: 1px solid var(--Gray-100, #F3F4F6);
   background: var(--White-White, #FFF);
@@ -1810,7 +1810,7 @@
   position: relative;
   height: 100%;
 }
-.directorist-theme-image {
+.directorist-template-image {
   border-radius: 4px;
   background: var(--Gray-100, #F3F4F6);
   margin: 0 auto;
@@ -1818,19 +1818,19 @@
   padding: 12px 14.33px 0px 15px;
   overflow: hidden;
 }
-.directorist-theme-image img {
+.directorist-template-image img {
   -webkit-transition: transform 3s;
   -moz-transition: transform 3s;
   transition: transform 3s;
   width: 100%;
 }
-.directorist-theme-image:hover img {
+.directorist-template-image:hover img {
   transform: translateY(-71%);
 }
-.directorist-theme-content {
+.directorist-template-content {
   margin-top: 28px;
 }
-.directorist-theme-title {
+.directorist-template-title {
   padding: 0;
   margin: 0 0 8px;
   color: var(--Gray-900, #141921);
@@ -1843,7 +1843,7 @@
   flex-wrap: wrap;
   gap: 4px;
 }
-.directorist-theme-title-badge-active {
+.directorist-template-title-badge-active {
   display: inline-flex;
   height: 24px;
   padding: 2px var(--spacing-md, 8px);
@@ -1860,7 +1860,7 @@
   letter-spacing: 0.12px;
   text-transform: capitalize;
 }
-.directorist-theme-description {
+.directorist-template-description {
   color: var(--Gray-500, #747C89);
   font-size: 16px;
   font-style: normal;
@@ -1869,7 +1869,7 @@
   padding: 0;
   margin: 0;
 }
-.directorist-theme-footer {
+.directorist-template-footer {
   margin-top: 30px;
   border-top: 1px solid #E5E7EB;
   display: flex;
@@ -1878,14 +1878,14 @@
   gap: 15px;
   padding: 12px 0;
 }
-.directorist-theme-price {
+.directorist-template-price {
   color: var(--Gray-900, #141921);
   font-size: 19px;
   font-style: normal;
   font-weight: 700;
   line-height: 25px;
 }
-.directorist-theme-year {
+.directorist-template-year {
   color: var(--Gray-500, #747C89);
   font-size: 12px;
   font-style: normal;
@@ -1893,13 +1893,13 @@
   line-height: 14px;
   letter-spacing: 0.12px;
 }
-.directorist-theme-cta {
+.directorist-template-cta {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   gap: 6px 12px;
 }
-.directorist-theme-get {
+.directorist-template-get {
   display: flex;
   padding: 8px 16px;
   justify-content: center;
@@ -1918,11 +1918,11 @@
   transition: all 0.35s ease;
   position: relative;
 }
-.directorist-theme-get:focus, .directorist-theme-get:hover {
+.directorist-template-get:focus, .directorist-template-get:hover {
   opacity: 0.85;
   color: white;
 }
-.directorist-theme-demo {
+.directorist-template-demo {
   display: flex;
   padding: 8px 16px;
   justify-content: center;
@@ -1940,11 +1940,11 @@
   transition: all 0.35s ease;
   position: relative;
 }
-.directorist-theme-demo:hover {
+.directorist-template-demo:hover {
   color: white;
   background-color: #3E62F5;
 }
-.directorist-theme-btn {
+.directorist-template-btn {
   display: flex;
   padding: 8px 16px;
   justify-content: center;
@@ -1964,64 +1964,64 @@
   position: relative;
   cursor: pointer;
 }
-.directorist-theme-btn:hover {
+.directorist-template-btn:hover {
   opacity: 0.85;
   color: #4D5761;
 }
-.directorist-theme-customize {
+.directorist-template-customize {
   background-color: #3E62F5;
   border: 1px solid var(--Primary-500, #3E62F5);
   box-shadow: 0px 2px 4px 0px rgba(60, 41, 170, 0.12);
   color: white;
 }
-.directorist-theme-customize:hover {
+.directorist-template-customize:hover {
   opacity: 0.85;
   color: white;
 }
-.directorist-theme-btn-primary {
+.directorist-template-btn-primary {
   border: 1px solid var(--Primary-500, #3E62F5);
   box-shadow: 0px 2px 4px 0px rgba(60, 41, 170, 0.12);
   color: var(--Primary-500, #3E62F5);
   background-color: white;
 }
-.directorist-theme-btn-primary:hover {
+.directorist-template-btn-primary:hover {
   color: white;
   background-color: #3E62F5;
 }
-.directorist-theme-btn-warning {
+.directorist-template-btn-warning {
   border: 1px solid var(--Primary-500, #F6C879);
   background-color: #FEF8EC;
   box-shadow: none;
   color: #DD8C08;
 }
-.directorist-theme-btn-warning:hover {
+.directorist-template-btn-warning:hover {
   color: white;
   background-color: #DD8C08;
   border-color: #DD8C08;
 }
-.directorist-theme-installing-icon {
+.directorist-template-installing-icon {
   display: flex;
   align-items: center;
   justify-content: center;
   animation: rotate360 2s linear infinite;
 }
-.directorist-theme-installing-icon svg {
+.directorist-template-installing-icon svg {
   width: 16px;
   height: 16px;
 }
-.directorist-theme-btn-disabled {
+.directorist-template-btn-disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
-.directorist-theme-btn-disabled:hover {
+.directorist-template-btn-disabled:hover {
   opacity: 0.5;
 }
-.directorist-theme-btn-failed {
+.directorist-template-btn-failed {
   border: 1px solid var(--Error-300, #F2AFAF);
   background: var(--Error-50, #FDF3F3);
   color: #D94A4A;
 }
-.directorist-theme-btn-failed:hover {
+.directorist-template-btn-failed:hover {
   color: white;
   background-color: #D94A4A;
   border-color: #D94A4A;

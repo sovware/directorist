@@ -93,7 +93,7 @@
 							</div>
 							<div class="directorist-membership-benefits-content">
 								<h3 class="title">All Access Pass</h3>
-								<p class="title-details">Get unlimited access to all themes and plugins.</p>
+								<p class="title-details">Get unlimited access to all templates and plugins.</p>
 							</div>
 						</div>
 					</div>

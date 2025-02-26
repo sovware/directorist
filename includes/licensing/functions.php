@@ -131,7 +131,7 @@ function directorist_licensing_get_plan_name(): string {
 }
 
 /**
- * Themes and Extensions
+ * Templates and Extensions
  */
 function directorist_licensing_get( $endpoint = '' ) {
 	$args = [
@@ -151,8 +151,20 @@ function directorist_licensing_get( $endpoint = '' ) {
 	return wp_remote_retrieve_body( $response );
 }
 
+function directorist_licensing_get_products( string $type ) {
+	return API::get_products()[$type] ?? [];
+}
+
+function directorist_licensing_get_template_list() {
+	return directorist_licensing_get_products( 'themes' );
+}
+
+function directorist_licensing_get_extension_list() {
+	return directorist_licensing_get_products( 'extensions' );
+}
+
 function directorist_licensing_get_extensions_overview( string $type ) {
-	$extensions = directorist_licensing_get_products( 'extensions' );
+	$extensions = directorist_licensing_get_extension_list();
 
 	if ( ! is_array( $extensions ) ) {
 		return 0;
@@ -179,6 +191,96 @@ function directorist_licensing_get_extensions_overview( string $type ) {
 	return $counts[$type] ?? 0;
 }
 
-function directorist_licensing_get_products( string $type ) {
-	return API::get_products()[$type] ?? [];
+function directorist_licensing_get_extension_list_html() {
+	$extensions = directorist_licensing_get_extension_list();
+	$html       = '';
+
+	if ( ! empty( $extensions ) ) {
+		ob_start(); // Start output buffering
+		foreach ( $extensions as $slug => $extension ): ?>
+
+			<div class="directorist-col-xxl-3 directorist-col-lg-4 directorist-col-sm-6" extension-slug="<?php echo esc_attr( $slug ); ?>">
+
+				<article class="directorist-extension-item">
+
+					<figure class="directorist-extension-image">
+                        <img src="<?php echo esc_url( $extension['thumbnail'] ); ?>" alt="<?php echo esc_attr( $extension['name'] ); ?>">
+                    </figure>
+
+					<div class="directorist-extension-content">
+                        <header class="directorist-extension-header">
+                            <h2 class="directorist-extension-title"><?php echo esc_html( $extension['name'] ); ?></h2>
+                        </header>
+                        <p class="directorist-extension-description">
+                            <?php echo esc_html( $extension['description'] ); ?>
+                        </p>
+                    </div>
+
+                    <footer class="directorist-extension-footer">
+
+                        <div class="directorist-extension-price-wrap">
+                            <span class="directorist-extension-price">$29</span>
+                            <span class="directorist-extension-year">/ year</span>
+                        </div>
+
+                        <?php if ( isset( $extension['link'] ) ): ?>
+                            <div class="directorist-extension-cta">
+                                <a target="__blank" href="<?php echo esc_url( $extension['link'] ); ?>" class="directorist-extension-link directorist-extension-btn directorist-extension-btn-primary">
+                                    <?php esc_html_e( 'Details', 'directorist' ); ?>
+                                </a>
+                            </div>
+                        <?php endif; ?>
+
+                    </footer>
+
+                </article>
+
+            </div>
+
+        <?php endforeach;
+		$html = ob_get_clean(); // Get buffered content and clear buffer
+	}
+
+	return $html;
+}
+
+function directorist_licensing_get_template_list_html() {
+	$templates = directorist_licensing_get_template_list();
+	$html       = '';
+
+	if ( ! empty( $templates ) ) {
+		ob_start(); // Start output buffering
+		foreach ( $templates as $slug => $template ): ?>
+
+			<div class="directorist-col-xxl-3 directorist-col-lg-4 directorist-col-sm-6">
+				<article class="directorist-template-item">
+					<figure class="directorist-template-image">
+						<img src="<?php echo esc_attr( $template['thumbnail'] ); ?>" alt="<?php echo esc_attr( $template['name'] ); ?>">
+					</figure>
+					<div class="directorist-template-content">
+						<header class="directorist-template-header">
+							<h2 class="directorist-template-title">
+								<?php echo esc_html( $template['name'] ); ?>
+							</h2>
+						</header>
+						<p class="directorist-template-description">
+							<?php echo esc_html( $template['description'] ); ?>
+						</p>
+					</div>
+					<footer class="directorist-template-footer">
+						<div class="directorist-template-cta">
+							<a href="<?php echo esc_attr( $template['permalinks'] ); ?>" class="directorist-template-get">
+								<?php esc_attr_e( 'Get it now', 'directorist' ); ?>
+							</a>
+							<a href="#" class="directorist-template-demo">Live Demo</a>
+						</div>
+					</footer>
+				</article>
+			</div>
+
+        <?php endforeach;
+		$html = ob_get_clean(); // Get buffered content and clear buffer
+	}
+
+	return $html;
 }

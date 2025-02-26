@@ -20,12 +20,12 @@ $user = wp_get_current_user();
 				<?php endif; ?>
 
 				<?php if ( ! directorist_licensing_is_connected() ) : ?>
-					<?php include_once 'not-connected-themes-extensions.php';?>
+					<?php include_once 'not-connected-templates-extensions.php';?>
 				<?php else : ?>
-					<?php include_once 'connected-themes-extensions.php';?>
+					<?php include_once 'connected-templates-extensions.php';?>
 				<?php endif; ?>
 
-				<?php include_once 'pagination.php';?>
+				<?php //include_once 'pagination.php';?>
 				
 			</div>
 		</div>

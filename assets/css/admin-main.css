@@ -16972,6 +16972,12 @@ input[type=radio].cptm-radio {
   border-radius: 8px;
   cursor: pointer;
 }
+.cptm-placeholder-block-wrapper .cptm-widget-card-status span {
+  color: #747c89;
+}
+.cptm-placeholder-block-wrapper .cptm-widget-card-status.disabled {
+  background: #d2d6db;
+}
 .cptm-placeholder-block-wrapper .cptm-listing-card-preview-top-placeholder .cptm-placeholder-label {
   left: 20px;
   -webkit-transform: translate(0, -50%);
@@ -22702,6 +22708,12 @@ input[type=radio].cptm-radio {
   background: #f3f4f6;
   border-radius: 8px;
   cursor: pointer;
+}
+.cptm-placeholder-block-wrapper .cptm-widget-card-status span {
+  color: #747c89;
+}
+.cptm-placeholder-block-wrapper .cptm-widget-card-status.disabled {
+  background: #d2d6db;
 }
 .cptm-placeholder-block-wrapper .cptm-listing-card-preview-top-placeholder .cptm-placeholder-label {
   left: 20px;
@@ -28721,6 +28733,12 @@ input[type=radio].cptm-radio {
   background: #f3f4f6;
   border-radius: 8px;
   cursor: pointer;
+}
+.cptm-placeholder-block-wrapper .cptm-widget-card-status span {
+  color: #747c89;
+}
+.cptm-placeholder-block-wrapper .cptm-widget-card-status.disabled {
+  background: #d2d6db;
 }
 .cptm-placeholder-block-wrapper .cptm-listing-card-preview-top-placeholder .cptm-placeholder-label {
   left: 20px;

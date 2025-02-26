@@ -15663,6 +15663,9 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   },
   computed: {
     canAddMore: function canAddMore() {
+      if (this.enable_widget) {
+        return false;
+      }
       if (this.maxWidget < 1) {
         return true;
       }
@@ -15701,20 +15704,6 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         return false;
       }
       return true;
-    },
-    toggleWidgetStatus: function toggleWidgetStatus() {
-      var _this = this;
-      if (this.enable_widget.value) {
-        console.log("Disabled", this.enable_widget.value);
-        this.enable_widget.value = false;
-        this.selectedWidgets.map(function (widget) {
-          _this.$emit("trash-widget", widget);
-        });
-      } else {
-        console.log("Enabled", this.enable_widget.value);
-        this.enable_widget.value = true;
-        console.log("@acceptedWidgets", this.acceptedWidgets);
-      }
     },
     placeholderOnDrop: function placeholderOnDrop() {
       this.placeholderDragEnter = false;
@@ -21033,6 +21022,23 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       vue__WEBPACK_IMPORTED_MODULE_2__["default"].delete(this.active_widgets, key);
       if (key === this.widgetOptionsWindow.widget) {
         this.closeWidgetOptionsWindow();
+      }
+    },
+    toggleWidgetStatus: function toggleWidgetStatus(layout) {
+      var _this = this;
+      if (layout.selectedWidgets.length > 0) {
+        var _layout$selectedWidge;
+        (_layout$selectedWidge = layout.selectedWidgets) === null || _layout$selectedWidge === void 0 || _layout$selectedWidge.map(function (widget) {
+          _this.trashWidget(widget, layout);
+        });
+      } else {
+        var _layout$acceptedWidge;
+        (_layout$acceptedWidge = layout.acceptedWidgets) === null || _layout$acceptedWidge === void 0 || _layout$acceptedWidge.map(function (widget) {
+          _this.insertWidget({
+            key: widget,
+            selected_widgets: [widget]
+          }, layout);
+        });
       }
     },
     activeInsertWindow: function activeInsertWindow(current_item_key) {
@@ -28066,11 +28072,14 @@ var render = function render() {
     })] : _vm._e()];
   })], 2) : _vm._e()]), _vm._v(" "), _vm.enable_widget ? _c("span", {
     staticClass: "cptm-widget-card-status",
+    class: this.selectedWidgets.length > 0 ? "enabled" : "disabled",
     on: {
-      click: _vm.toggleWidgetStatus
+      click: function click($event) {
+        return _vm.$emit("toggle-widget-status");
+      }
     }
   }, [_c("span", {
-    class: _vm.enable_widget.value ? "fa fa-eye" : "fa fa-eye-slash"
+    class: this.selectedWidgets.length > 0 ? "fa fa-eye" : "fa fa-eye-slash"
   })]) : _vm._e()]);
 };
 var staticRenderFns = [];
@@ -32030,6 +32039,9 @@ var render = function render() {
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
+      },
+      "toggle-widget-status": function toggleWidgetStatus($event) {
+        return _vm.toggleWidgetStatus(_vm.local_layout.thumbnail.avatar);
       }
     }
   })], 1), _vm._v(" "), _c("card-widget-placeholder", {
@@ -32073,6 +32085,9 @@ var render = function render() {
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
+      },
+      "toggle-widget-status": function toggleWidgetStatus($event) {
+        return _vm.toggleWidgetStatus(_vm.local_layout.body.top);
       }
     }
   }), _vm._v(" "), _c("card-widget-placeholder", {
@@ -32117,6 +32132,9 @@ var render = function render() {
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
+      },
+      "toggle-widget-status": function toggleWidgetStatus($event) {
+        return _vm.toggleWidgetStatus(_vm.local_layout.body.tagline);
       }
     }
   }), _vm._v(" "), _c("card-widget-placeholder", {

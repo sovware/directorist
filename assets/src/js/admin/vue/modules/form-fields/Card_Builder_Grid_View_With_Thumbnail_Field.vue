@@ -288,6 +288,9 @@
                 activeInsertWindow('thumbnail_avatar')
               "
               @close-widgets-picker-window="closeInsertWindow()"
+              @toggle-widget-status="
+                toggleWidgetStatus(local_layout.thumbnail.avatar)
+              "
             />
           </div>
 
@@ -318,6 +321,7 @@
               activeInsertWindow('thumbnail_body_top')
             "
             @close-widgets-picker-window="closeInsertWindow()"
+            @toggle-widget-status="toggleWidgetStatus(local_layout.body.top)"
           />
           <card-widget-placeholder
             id="thumbnail_body_tagline"
@@ -347,6 +351,9 @@
               activeInsertWindow('thumbnail_body_tagline')
             "
             @close-widgets-picker-window="closeInsertWindow()"
+            @toggle-widget-status="
+              toggleWidgetStatus(local_layout.body.tagline)
+            "
           />
           <card-widget-placeholder
             id="thumbnail_body_badges"
@@ -1160,6 +1167,21 @@ export default {
 
       if (key === this.widgetOptionsWindow.widget) {
         this.closeWidgetOptionsWindow();
+      }
+    },
+
+    toggleWidgetStatus(layout) {
+      if (layout.selectedWidgets.length > 0) {
+        layout.selectedWidgets?.map((widget) => {
+          this.trashWidget(widget, layout);
+        });
+      } else {
+        layout.acceptedWidgets?.map((widget) => {
+          this.insertWidget(
+            { key: widget, selected_widgets: [widget] },
+            layout
+          );
+        });
       }
     },
 

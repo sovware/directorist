@@ -14,11 +14,10 @@ defined( 'ABSPATH' ) || exit;
 
 class Repository {
 
-	private string $endpoint = 'http://localhost:10014/wp-json/directorist-license-manager';
+	private static $endpoint = 'http://localhost:10014/wp-json/directorist-license-manager/';
 
 	private static function remote_request( $endpoint = '' ) {
 		$args = [
-			'method'      => 'GET',
 			'timeout'     => 30,
 			'redirection' => 5,
 			'headers'     => [
@@ -26,11 +25,12 @@ class Repository {
 				'Accept'     => 'application/json',
 			],
 			'cookies'     => [],
+			'version'     => ATBDP_VERSION,
 		];
 
 		$url = self::$endpoint . $endpoint;
 
-		$response = wp_remote_get( $url, $args );
+		$response = wp_remote_post( $url, $args );
 
 		return wp_remote_retrieve_body( $response );
 	}
@@ -46,7 +46,7 @@ class Repository {
 
 		if ( empty( $content ) ) {
 			return [
-				'themes'     => [],
+				'templates'  => [],
 				'extensions' => [],
 			];
 		}

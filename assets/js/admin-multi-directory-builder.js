@@ -1444,6 +1444,10 @@ __webpack_require__.r(__webpack_exports__);
       type: [String, Number],
       default: ''
     },
+    subLabel: {
+      type: [String],
+      default: ''
+    },
     labelType: {
       type: [String],
       default: 'span'
@@ -26636,7 +26640,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       return options_values.includes(value);
     }
     /* syncValidationWithLocalState( validation_log ) {
-          return validation_log;
+         return validation_log;
     } */
   }
 });
@@ -27531,8 +27535,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_form_fields_toggle_field__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../../../mixins/form-fields/toggle-field */ "./assets/src/js/admin/vue/mixins/form-fields/toggle-field.js");
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'toggle-field-theme-default',
-  mixins: [_mixins_form_fields_toggle_field__WEBPACK_IMPORTED_MODULE_0__["default"]]
+  name: "toggle-field-theme-default",
+  mixins: [_mixins_form_fields_toggle_field__WEBPACK_IMPORTED_MODULE_0__["default"]],
+  mounted: function mounted() {
+    console.log("@CHK1 toggle", {
+      label: label,
+      subLabel: subLabel
+    });
+  }
 });
 
 /***/ }),
@@ -34293,7 +34303,7 @@ var render = function render() {
       key: alert_key,
       staticClass: "cptm-form-alert",
       class: "cptm-" + alert.type
-    }, [_vm._v("\r\n            " + _vm._s(alert.message) + "\r\n        ")]);
+    }, [_vm._v("\n            " + _vm._s(alert.message) + "\n        ")]);
   }), 0) : _vm._e()]);
 };
 var staticRenderFns = [];
@@ -37461,7 +37471,9 @@ var render = function render() {
     staticClass: "cptm-input-toggle-wrap"
   }, [_vm.label.length ? _c("label", [_c(_vm.labelType, {
     tag: "component"
-  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _c("div", {
+  }, [_vm._v(_vm._s(_vm.label))]), _vm._v(" "), _vm.subLabel.length ? _c("small", {
+    staticClass: "cptm-sub-label"
+  }, [_vm._v(_vm._s(_vm.subLabel))]) : _vm._e()], 1) : _vm._e(), _vm._v(" "), _c("div", {
     staticClass: "directorist_vertical-align-m"
   }, [_c("div", {
     staticClass: "directorist_item"

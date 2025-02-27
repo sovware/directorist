@@ -28,6 +28,6 @@ $user = wp_get_current_user();
 		</div>
 	</div>
 
-	<?php include_once 'connected-update-all.php'; ?>
+	<?php include_once 'update-all.php'; ?>
 
 </main>

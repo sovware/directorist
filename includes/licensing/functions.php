@@ -163,12 +163,19 @@ function directorist_get_item_buttons_html( array $item, string $type ): string 
 
 	<?php if ( 'template' === $type ): ?>
        <div class="directorist-template-cta">
-			<a target="__blank" href="<?php echo esc_attr( $item['permalink'] ); ?>" class="directorist-template-get">
-				<?php esc_attr_e( 'Get it now', 'directorist' ); ?>
-			</a>
-			<a target="__blank" href="<?php echo esc_attr( $item['preview'] ); ?>" class="directorist-template-demo">
-				<?php esc_html_e( 'Live Demo' ); ?>
-			</a>
+
+	  		<?php if ( isset( $item['preview'] ) ): ?>
+				<a target="__blank" href="<?php echo esc_attr( $item['permalink'] ); ?>" class="directorist-template-get">
+					<?php esc_attr_e( 'Get it now', 'directorist' ); ?>
+				</a>
+			<?php endif; ?>
+
+			<?php if ( isset( $item['preview'] ) ): ?>
+				<a target="__blank" href="<?php echo esc_attr( $item['preview'] ); ?>" class="directorist-template-demo">
+					<?php esc_html_e( 'Live Demo' ); ?>
+				</a>
+			<?php endif; ?>
+
 		</div>
     <?php endif; ?>
 

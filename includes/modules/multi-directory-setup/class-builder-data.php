@@ -318,6 +318,7 @@ class Builder_Data {
                             'enable-multi-criteria' => [
                                 'type'  => 'toggle',
                                 'label' => __( 'Enable Multi-Criteria', 'directorist' ),
+                                'sub_label' => __( '(Only 05 criteria)', 'directorist' ),
                                 'value' => false,
                             ],
                             'repeater-description' => [

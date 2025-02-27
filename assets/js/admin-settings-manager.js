@@ -25825,13 +25825,6 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       if (this.active_fields_groups.length < 4) {
         this.active_fields_groups.push(JSON.parse(JSON.stringify(this.options)));
         this.$emit('update', this.finalValue);
-        var newGroup = JSON.parse(JSON.stringify(this.options));
-
-        // Assign a unique ID
-        newGroup.id = Date.now(); // Use timestamp as a unique ID
-
-        // Push to the list
-        this.theActiveGroups.push(newGroup);
       }
     },
     removeOptionGroup: function removeOptionGroup(option_group_key) {

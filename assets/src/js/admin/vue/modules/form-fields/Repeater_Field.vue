@@ -284,13 +284,6 @@ export default {
             if (this.active_fields_groups.length < 4) {
                 this.active_fields_groups.push(JSON.parse(JSON.stringify(this.options)));
                 this.$emit('update', this.finalValue);
-                let newGroup = JSON.parse(JSON.stringify(this.options));
-
-                // Assign a unique ID
-                newGroup.id = Date.now(); // Use timestamp as a unique ID
-
-                // Push to the list
-                this.theActiveGroups.push(newGroup);
             }
         },
 

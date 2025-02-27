@@ -14,7 +14,7 @@ $user = wp_get_current_user();
 		<div class="directorist-row">
 			<div class="directorist-col-12">
 
-				<?php include_once 'header.php'; ?>
+				<?php include_once 'top-header.php'; ?>
 
 				<?php if ( ! Licensing::is_connected() ): ?>
 					<?php include_once 'not-connected.php'; ?>
@@ -23,8 +23,6 @@ $user = wp_get_current_user();
 				<?php endif; ?>
 
 				<?php include_once 'templates-extensions.php'; ?>
-
-				<?php //include_once 'pagination.php';?>
 
 			</div>
 		</div>

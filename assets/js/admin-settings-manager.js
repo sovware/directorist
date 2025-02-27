@@ -8913,14 +8913,15 @@ __webpack_require__.r(__webpack_exports__);
 /*!************************************************************************!*\
   !*** ./assets/src/js/admin/vue/modules/form-fields/Repeater_Field.vue ***!
   \************************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Repeater_Field_vue_vue_type_template_id_241e2b1e__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Repeater_Field.vue?vue&type=template&id=241e2b1e */ "./assets/src/js/admin/vue/modules/form-fields/Repeater_Field.vue?vue&type=template&id=241e2b1e");
 /* harmony import */ var _Repeater_Field_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Repeater_Field.vue?vue&type=script&lang=js */ "./assets/src/js/admin/vue/modules/form-fields/Repeater_Field.vue?vue&type=script&lang=js");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _Repeater_Field_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _Repeater_Field_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -8950,7 +8951,7 @@ component.options.__file = "assets/src/js/admin/vue/modules/form-fields/Repeater
 /*!************************************************************************************************!*\
   !*** ./assets/src/js/admin/vue/modules/form-fields/Repeater_Field.vue?vue&type=script&lang=js ***!
   \************************************************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -26168,7 +26169,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       return options_values.includes(value);
     }
     /* syncValidationWithLocalState( validation_log ) {
-         return validation_log;
+          return validation_log;
     } */
   }
 });
@@ -27066,10 +27067,7 @@ __webpack_require__.r(__webpack_exports__);
   name: "toggle-field-theme-default",
   mixins: [_mixins_form_fields_toggle_field__WEBPACK_IMPORTED_MODULE_0__["default"]],
   mounted: function mounted() {
-    console.log("@CHK1 toggle", {
-      label: label,
-      subLabel: subLabel
-    });
+    // console.log("@CHK1 toggle", { label, subLabel });
   }
 });
 
@@ -33866,7 +33864,7 @@ var render = function render() {
       key: alert_key,
       staticClass: "cptm-form-alert",
       class: "cptm-" + alert.type
-    }, [_vm._v("\n            " + _vm._s(alert.message) + "\n        ")]);
+    }, [_vm._v("\r\n            " + _vm._s(alert.message) + "\r\n        ")]);
   }), 0) : _vm._e()]);
 };
 var staticRenderFns = [];

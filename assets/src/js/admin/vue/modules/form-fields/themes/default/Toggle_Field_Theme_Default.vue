@@ -69,7 +69,7 @@ export default {
   mixins: [toggle_feild],
 
   mounted() {
-    console.log("@CHK1 toggle", { label, subLabel });
+    // console.log("@CHK1 toggle", { label, subLabel });
   },
 };
 </script>

@@ -679,8 +679,7 @@
 										</div>
 										<footer class="directorist-extension-footer">
 											<div class="directorist-extension-cta">
-												<button type="button"
-													class="directorist-extension-btn directorist-extension-active directorist-extension-btn-primary">Active</button>
+												<button type="button" class="directorist-extension-btn directorist-extension-active directorist-extension-btn-primary">Active</button>
 												<div class="directorist-extension-btn directorist-extension-btn-docs">
 													<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
 														viewBox="0 0 16 16" fill="none">

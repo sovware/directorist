@@ -1,3 +1,5 @@
+<?php namespace Directorist\Licensing; ?>
+
 <div class="directorist-tabs">
 	<div class="directorist-tabs-header directorist-mb-16">
 		<div class="directorist-tabs-header-left">
@@ -11,7 +13,7 @@
 								fill="currentColor" />
 						</svg>
 						<?php esc_html_e( 'Extensions', 'directorist' ); ?>
-						<span class="total-extensions"> (<?php echo directorist_licensing_get_extensions_overview( 'officials' ); ?>)</span>
+						<span class="total-extensions"> (<?php echo Licensing_Overview::get_extensions_overview( 'officials' ); ?>)</span>
 					</button>
 				</li>
 				<li>
@@ -35,7 +37,7 @@
 								fill="currentColor" />
 						</svg>
 						<?php esc_html_e( 'Templates', 'directorist' ); ?>
-						<span class="total-templates"> (<?php echo directorist_licensing_get_templates_overview(); ?>)</span>
+						<span class="total-templates"> (<?php echo Licensing_Overview::get_templates_overview(); ?>)</span>
 					</button>
 				</li>
 			</ul>
@@ -44,25 +46,22 @@
 		<div class="directorist-tabs-header-right">
 			<div class="directorist-product-search">
 				<span class="directorist-product-search-icon">
-					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
-						fill="none">
-						<path fill-rule="evenodd" clip-rule="evenodd"
-							d="M9.1665 3.33341C5.94484 3.33341 3.33317 5.94509 3.33317 9.16675C3.33317 12.3884 5.94484 15.0001 9.1665 15.0001C10.7381 15.0001 12.1646 14.3786 13.2135 13.3679C13.2354 13.3394 13.2595 13.312 13.2856 13.2858C13.3117 13.2597 13.3391 13.2357 13.3677 13.2137C14.3783 12.1648 14.9998 10.7384 14.9998 9.16675C14.9998 5.94509 12.3882 3.33341 9.1665 3.33341ZM15.0264 13.8482C16.0528 12.5651 16.6665 10.9376 16.6665 9.16675C16.6665 5.02461 13.3086 1.66675 9.1665 1.66675C5.02437 1.66675 1.6665 5.02461 1.6665 9.16675C1.6665 13.3089 5.02437 16.6667 9.1665 16.6667C10.9373 16.6667 12.5649 16.053 13.8479 15.0267L16.9106 18.0893C17.236 18.4148 17.7637 18.4148 18.0891 18.0893C18.4145 17.7639 18.4145 17.2363 18.0891 16.9108L15.0264 13.8482Z"
-							fill="#747C89" />
+					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+						<path fill-rule="evenodd" clip-rule="evenodd" d="M9.1665 3.33341C5.94484 3.33341 3.33317 5.94509 3.33317 9.16675C3.33317 12.3884 5.94484 15.0001 9.1665 15.0001C10.7381 15.0001 12.1646 14.3786 13.2135 13.3679C13.2354 13.3394 13.2595 13.312 13.2856 13.2858C13.3117 13.2597 13.3391 13.2357 13.3677 13.2137C14.3783 12.1648 14.9998 10.7384 14.9998 9.16675C14.9998 5.94509 12.3882 3.33341 9.1665 3.33341ZM15.0264 13.8482C16.0528 12.5651 16.6665 10.9376 16.6665 9.16675C16.6665 5.02461 13.3086 1.66675 9.1665 1.66675C5.02437 1.66675 1.6665 5.02461 1.6665 9.16675C1.6665 13.3089 5.02437 16.6667 9.1665 16.6667C10.9373 16.6667 12.5649 16.053 13.8479 15.0267L16.9106 18.0893C17.236 18.4148 17.7637 18.4148 18.0891 18.0893C18.4145 17.7639 18.4145 17.2363 18.0891 16.9108L15.0264 13.8482Z" fill="#747C89" />
 					</svg>
 				</span>
-				
+
 				<input type="text" placeholder="<?php esc_html_e( 'Search...', 'directorist' ); ?>" class="directorist-product-search-input">
 			</div>
 		</div>
 
 	</div>
-	
+
 	<div class="directorist-tabs-content directorist-min-h-140">
-		
+
 		<div id="directorist-extensions" class="directorist-tabs-item active">
 			<div class="directorist-row">
-				<?php echo directorist_licensing_get_extension_list_html();?>
+				<?php echo directorist_licensing_get_extension_list_html(); ?>
 			</div>
 		</div>
 
@@ -71,5 +70,6 @@
 				<?php echo directorist_licensing_get_template_list_html(); ?>
 			</div>
 		</div>
+		
 	</div>
 </div>

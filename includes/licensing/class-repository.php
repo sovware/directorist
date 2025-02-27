@@ -14,7 +14,9 @@ defined( 'ABSPATH' ) || exit;
 
 class Repository {
 
-	private static $endpoint = 'http://localhost:10014/wp-json/directorist-license-manager/';
+	private static function get_endpoint( string $endpoint ) {
+		return 'http://localhost:10014/wp-json/directorist-license-manager/' . $endpoint;
+	}
 
 	private static function remote_request( $endpoint = '' ) {
 		$args = [
@@ -28,7 +30,7 @@ class Repository {
 			'version'     => ATBDP_VERSION,
 		];
 
-		$url = self::$endpoint . $endpoint;
+		$url = self::get_endpoint( $endpoint );
 
 		$response = wp_remote_post( $url, $args );
 
@@ -61,7 +63,7 @@ class Repository {
 	public function login_with_access_key( string $access_key ) {
 		try {
 			$http = new Http(
-				self::$endpoint . '/user-connect',
+				self::get_endpoint( 'user-connect' ),
 				[
 					'access_key' => $access_key,
 				]
@@ -87,7 +89,7 @@ class Repository {
 	public function login_with_account( string $email, string $pass ) {
 		try {
 			$http = new Http(
-				self::$endpoint . '/user-login',
+				self::get_endpoint( 'user-login' ),
 				[
 					'email' => $email,
 					'pass'  => $pass,

@@ -16,10 +16,52 @@ class Repository {
 
 	private string $endpoint = 'http://localhost:10014/wp-json/directorist-license-manager';
 
+	private static function remote_request( $endpoint = '' ) {
+		$args = [
+			'method'      => 'GET',
+			'timeout'     => 30,
+			'redirection' => 5,
+			'headers'     => [
+				'user-agent' => 'Directorist/' . ATBDP_VERSION,
+				'Accept'     => 'application/json',
+			],
+			'cookies'     => [],
+		];
+
+		$url = self::$endpoint . $endpoint;
+
+		$response = wp_remote_get( $url, $args );
+
+		return wp_remote_retrieve_body( $response );
+	}
+
+	public static function get_promotional_content() {
+		$content = get_transient( 'directorist_promotional_content' );
+
+		if ( ! empty( $content ) ) {
+			return $content;
+		}
+
+		$content = self::remote_request( 'promotional-content' );
+
+		if ( empty( $content ) ) {
+			return [
+				'themes'     => [],
+				'extensions' => [],
+			];
+		}
+
+		$content = json_decode( $content, true );
+
+		set_transient( 'directorist_promotional_content', $content, 30 * DAY_IN_SECONDS );
+
+		return $content;
+	}
+
 	public function login_with_access_key( string $access_key ) {
 		try {
 			$http = new Http(
-				$this->endpoint . '/user-connect',
+				self::$endpoint . '/user-connect',
 				[
 					'access_key' => $access_key,
 				]
@@ -45,7 +87,7 @@ class Repository {
 	public function login_with_account( string $email, string $pass ) {
 		try {
 			$http = new Http(
-				$this->endpoint . '/user-login',
+				self::$endpoint . '/user-login',
 				[
 					'email' => $email,
 					'pass'  => $pass,
@@ -68,4 +110,5 @@ class Repository {
 			throw $th;
 		}
 	}
+
 }

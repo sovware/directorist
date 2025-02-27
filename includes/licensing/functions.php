@@ -1,6 +1,6 @@
 <?php
 
-use Directorist\Core\API;
+use Directorist\Licensing\Repository;
 /**
  * Licensing helper functions.
  */
@@ -130,29 +130,8 @@ function directorist_licensing_get_plan_name(): string {
 	return $data['license_data'][0]['item_name'] ?? __( 'You’re on Directorist Premium Membership', 'directorist' );
 }
 
-/**
- * Templates and Extensions
- */
-function directorist_licensing_get( $endpoint = '' ) {
-	$args = [
-		'method'      => 'GET',
-		'timeout'     => 30,
-		'redirection' => 5,
-		'headers'     => [
-			'user-agent' => 'Directorist/' . ATBDP_VERSION,
-			'Accept'     => 'application/json',
-		],
-		'cookies'     => [],
-	];
-
-	$url      = 'https://app.directorist.com/wp-json/directorist/' . $endpoint;
-	$response = wp_remote_get( $url, $args );
-
-	return wp_remote_retrieve_body( $response );
-}
-
 function directorist_licensing_get_products( string $type ) {
-	return API::get_products()[$type] ?? [];
+	return Repository::get_promotional_content()[$type] ?? [];
 }
 
 function directorist_licensing_get_template_list() {
@@ -186,9 +165,14 @@ function directorist_licensing_get_extensions_overview( string $type ) {
 		'active'    => $active_extensions,
 		'available' => count( $installed_extensions ),
 		'outdated'  => $outdated_extensions,
+		'officials' => count( $official_extensions ),
 	];
 
 	return $counts[$type] ?? 0;
+}
+
+function directorist_licensing_get_templates_overview() {
+	return count( directorist_licensing_get_template_list() );
 }
 
 function directorist_licensing_get_extension_list_html() {
@@ -246,7 +230,7 @@ function directorist_licensing_get_extension_list_html() {
 
 function directorist_licensing_get_template_list_html() {
 	$templates = directorist_licensing_get_template_list();
-	$html       = '';
+	$html      = '';
 
 	if ( ! empty( $templates ) ) {
 		ob_start(); // Start output buffering

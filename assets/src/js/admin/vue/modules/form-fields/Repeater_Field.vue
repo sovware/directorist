@@ -1,47 +1,33 @@
 <template>
     <div class="cptm-multi-option-group">
-        <h3 class="cptm-multi-option-label">{{ label }}</h3>
         <template v-for="( option_group, option_group_key ) in theActiveGroups">
-            <div class="cptm-multi-option-group-section" :key="option_group_key">
-                <h3># {{ ( option_group_key + 1 ) }}</h3>
-                <template v-for="(option, option_key) in option_group">
-                    <div :key="`${fieldId}_${option_key}`" class="option-container">
-
-                        <!-- Widget Actions for Each Option -->
-                        <widget-action-tools 
-                            :canMove="canMove(option_key)"
-                            :canEdit="canEdit(option_key)"
-                            :canTrash="canTrash(option_key)"
-                            @drag="handleDrag(option_key)"
-                            @dragend="handleDragEnd(option_key)"
-                            @edit="handleEdit(option_key)"
-                            @trash="handleTrash(option_key)"
-                        ></widget-action-tools>
-
-                        <!-- Dynamically Render Component Based on Option Type -->
-                        <component 
-                            :is="option.type + '-field'"
-                            :root="option_group"
-                            :key="`${fieldId}_${option_key}`"
-                            v-bind="getSanitizedOption(option)"
-                            :validation="getValidation(option_key, option_group_key, option)"
-                            :value="option.value"
-                            @update="updateValue(option_group_key, option_key, $event)">
-                        </component>
-
-                    </div>
+            <div class="cptm-multi-option-group-section" :key="option_group_key + 1">
+                <template v-for="( option, option_key ) in option_group">
+                    <component 
+                        :is="option.type + '-field'"
+                        :root="option_group"
+                        :key="`${option_group.id}_${option_key}`"
+                        v-bind="getSanitizedOption( option )"
+                        :validation="getValidation( option_key, option_group_key, option )"
+                        :value="option.value"
+                        @update="updateValue( option_group_key, option_key, $event )">
+                    </component>
                 </template>
-
 
                 <p style="text-align: right">
                     <button type="button" class="cptm-btn cptm-btn-secondery" @click="removeOptionGroup( option_group_key )">
-                        {{ removeButtonLabel }}
+                       <span class="uil uil-trash-alt"></span>
                     </button>
                 </p>
             </div>
         </template>
         
-        <button type="button" class="cptm-form-builder-group-options__repeater" @click="addNewOptionGroup()">
+        <button 
+            v-if="active_fields_groups.length < 4" 
+            type="button" 
+            class="cptm-form-builder-group-options__repeater" 
+            @click="addNewOptionGroup"
+        >
             <span class="uil uil-plus"></span>{{ addNewButtonLabel }}
         </button>
     </div>
@@ -49,7 +35,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import helpers from '../../mixins/helpers'
+import helpers from '../../mixins/helpers';
 
 export default {
     'name': 'repeater-field',
@@ -295,60 +281,22 @@ export default {
         },
 
         addNewOptionGroup() {
-            this.active_fields_groups.push( JSON.parse( JSON.stringify( this.options ) ) );
-            this.$emit( 'update',  this.finalValue );
-        },
+            if (this.active_fields_groups.length < 4) {
+                this.active_fields_groups.push(JSON.parse(JSON.stringify(this.options)));
+                this.$emit('update', this.finalValue);
+                let newGroup = JSON.parse(JSON.stringify(this.options));
 
-        // Check if the option can be moved
-        canMove(optionKey) {
-            // Add your condition logic for enabling/disabling "move"
-            return optionKey % 2 === 0; // Example: Enable move for even options
-        },
+                // Assign a unique ID
+                newGroup.id = Date.now(); // Use timestamp as a unique ID
 
-        // Check if the option can be edited
-        canEdit(optionKey) {
-            // Add your condition logic for enabling/disabling "edit"
-            return true; // Example: Always enable edit for now
-        },
-
-        // Check if the option can be trashed
-        canTrash(optionKey) {
-            // Add your condition logic for enabling/disabling "trash"
-            return optionKey !== 0; // Example: Disable trash for the first option
-        },
-
-        // Handle drag action for specific option
-        handleDrag(optionKey) {
-            console.log('Option dragging:', optionKey);
-        },
-
-        // Handle drag end action for specific option
-        handleDragEnd(optionKey) {
-            console.log('Drag ended for option:', optionKey);
-        },
-
-        // Handle edit action for specific option
-        handleEdit(optionKey) {
-            console.log('Editing option:', optionKey);
-        },
-
-        // Handle trash action for specific option
-        handleTrash(optionKey) {
-            console.log('Trash option:', optionKey);
-            this.removeOption(optionKey);
+                // Push to the list
+                this.theActiveGroups.push(newGroup);
+            }
         },
 
         removeOptionGroup( option_group_key ) {
             this.active_fields_groups.splice( option_group_key, 1 );
             this.$emit( 'update',  this.finalValue );
-        },
-
-         // Method to update value for an option
-         updateValue(groupKey, optionKey, newValue) {
-            const group = this.active_fields_groups[groupKey];
-            if (group) {
-                group.options[optionKey].value = newValue;
-            }
         },
 
         getSanitizedOption( option ) {

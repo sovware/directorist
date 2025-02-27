@@ -330,9 +330,7 @@ class Builder_Data {
                                 'options'              => [
                                     'option_value' => [
                                         'type'  => 'text',
-                                        'value' => 'e.g Service Quality, Price...',
-                                        'label' => __( 'Option Value', 'directorist' ),
-
+                                        'value' => '',
                                     ],
                                 ]
                             ],

@@ -1511,6 +1511,23 @@ div[draggable="true"].cptm-form-builder-group-title-area {
     margin-top: -7px;
     cursor: pointer;
   }
+  .cptm-form-builder-group-options__repeater{
+    font-size: 12px;
+    font-weight: 600;
+    color: #2E94FA;
+    background: transparent;
+    border: none;
+    padding: 0;
+    text-decoration: none;
+    display: flex;
+    align-items:center;
+    gap: 6px;
+    cursor: pointer;
+    letter-spacing: 0.12px;
+    span{
+      font-size: 16px;
+    }
+  }
 }
 
 .cptm-form-builder-group-fields {

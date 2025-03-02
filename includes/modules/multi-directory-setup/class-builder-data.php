@@ -324,8 +324,8 @@ class Builder_Data {
                             'repeater-multi-options' => [
                                 'type'                 => 'repeater',
                                 'add-new-button-label' => __( 'Add New Criteria', 'directorist' ),
-                                'max-group' => __( 2, 'directorist' ),
-                                'value' => 'e.g Service Quality, Price...',
+                                'max-group' => __( 5, 'directorist' ),
+                                'placeholder' => 'e.g Service Quality, Price...',
                             ],
                         ],
 

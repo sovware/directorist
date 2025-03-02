@@ -8963,15 +8963,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!************************************************************************!*\
   !*** ./assets/src/js/admin/vue/modules/form-fields/Repeater_Field.vue ***!
   \************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Repeater_Field_vue_vue_type_template_id_241e2b1e__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Repeater_Field.vue?vue&type=template&id=241e2b1e */ "./assets/src/js/admin/vue/modules/form-fields/Repeater_Field.vue?vue&type=template&id=241e2b1e");
 /* harmony import */ var _Repeater_Field_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Repeater_Field.vue?vue&type=script&lang=js */ "./assets/src/js/admin/vue/modules/form-fields/Repeater_Field.vue?vue&type=script&lang=js");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _Repeater_Field_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _Repeater_Field_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -9001,7 +9000,7 @@ component.options.__file = "assets/src/js/admin/vue/modules/form-fields/Repeater
 /*!************************************************************************************************!*\
   !*** ./assets/src/js/admin/vue/modules/form-fields/Repeater_Field.vue?vue&type=script&lang=js ***!
   \************************************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9015,7 +9014,7 @@ __webpack_require__.r(__webpack_exports__);
 /*!******************************************************************************************************!*\
   !*** ./assets/src/js/admin/vue/modules/form-fields/Repeater_Field.vue?vue&type=template&id=241e2b1e ***!
   \******************************************************************************************************/
-/*! no static exports found */
+/*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -26066,6 +26065,10 @@ __webpack_require__.r(__webpack_exports__);
     },
     value: {
       type: String,
+      default: 'Service..'
+    },
+    placeholder: {
+      type: String,
       default: 'e.g Service Quality, Price...'
     },
     addNewButtonLabel: {
@@ -26092,10 +26095,18 @@ __webpack_require__.r(__webpack_exports__);
         name: ""
       }],
       // Initially 1 group
-      maxGroups: this.maxGroup // Set maxGroup directly here
+      maxGroups: this.maxGroup,
+      // Set maxGroup directly here
+      isDragging: false
     };
   },
   methods: {
+    onDragStart: function onDragStart() {
+      this.isDragging = true; // Set dragging to true
+    },
+    onDragEnd: function onDragEnd() {
+      this.isDragging = false; // Set dragging to false
+    },
     addNewOptionGroup: function addNewOptionGroup() {
       if (this.active_fields_groups.length < this.maxGroups) {
         this.active_fields_groups.push({
@@ -34239,11 +34250,14 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
-    staticClass: "cptm-form-repeater-container"
-  }, [_c('draggable', {
+  return _c('div', [_c('draggable', {
+    staticClass: "form-repeater__container",
     attrs: {
-      "handle": ".cptm-form-repeater-drag-handle"
+      "handle": ".form-repeater__drag-handle"
+    },
+    on: {
+      "start": _vm.onDragStart,
+      "end": _vm.onDragEnd
     },
     model: {
       value: _vm.active_fields_groups,
@@ -34255,25 +34269,27 @@ var render = function render() {
   }, _vm._l(_vm.active_fields_groups, function (group, index) {
     return _c('div', {
       key: group.id,
-      staticClass: "cptm-form-repeater-group",
+      staticClass: "form-repeater__group",
       attrs: {
-        "id": 'cptm-form-repeater-group-' + (index + 1)
+        "id": 'form-repeater__group-' + (index + 1)
       }
-    }, [_c('div', {}, [_c('button', {
-      staticClass: "cptm-form-repeater-drag-handle cptm-form-repeater-drag-btn",
+    }, [_c('button', {
+      staticClass: "form-repeater__drag-handle form-repeater__drag-btn",
       attrs: {
         "disabled": _vm.active_fields_groups.length <= 1
       }
-    }, [_vm._v("⠿")]), _vm._v(" "), _c('input', {
+    }, [_c('i', {
+      staticClass: "uil uil-draggabledots"
+    })]), _vm._v(" "), _c('input', {
       directives: [{
         name: "model",
         rawName: "v-model",
         value: group.name,
         expression: "group.name"
       }],
-      staticClass: "cptm-form-repeater-input",
+      staticClass: "form-repeater__input",
       attrs: {
-        "placeholder": index === 0 ? _vm.value : ''
+        "placeholder": _vm.placeholder
       },
       domProps: {
         "value": group.name
@@ -34285,7 +34301,7 @@ var render = function render() {
         }
       }
     }), _vm._v(" "), _c('button', {
-      staticClass: "cptm-form-repeater-remove-btn",
+      staticClass: "form-repeater__remove-btn",
       attrs: {
         "disabled": _vm.active_fields_groups.length <= 1
       },
@@ -34294,16 +34310,20 @@ var render = function render() {
           return _vm.removeGroup(index);
         }
       }
-    }, [_vm._v("Remove")])])]);
+    }, [_c('i', {
+      staticClass: "uil uil-trash-alt"
+    })])]);
   }), 0), _vm._v(" "), _c('button', {
-    staticClass: "cptm-form-repeater-add-group-btn",
+    staticClass: "form-repeater__add-group-btn",
     attrs: {
       "disabled": _vm.active_fields_groups.length >= _vm.maxGroups
     },
     on: {
       "click": _vm.addNewOptionGroup
     }
-  }, [_vm._v("\n    " + _vm._s(_vm.addNewButtonLabel) + "\n  ")])], 1);
+  }, [_c('i', {
+    staticClass: "uil uil-plus"
+  }), _vm._v(_vm._s(_vm.addNewButtonLabel) + "\n  ")])], 1);
 };
 var staticRenderFns = [];
 render._withStripped = true;

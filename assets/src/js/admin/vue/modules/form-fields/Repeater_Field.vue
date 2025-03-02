@@ -1,29 +1,33 @@
 <template>
-    <div class="cptm-form-repeater-container">
-      <draggable v-model="active_fields_groups" handle=".cptm-form-repeater-drag-handle">
-        <div v-for="(group, index) in active_fields_groups" :key="group.id" :id="'cptm-form-repeater-group-' + (index + 1)" class="cptm-form-repeater-group">
-          <div class="">
-            <!-- Drag Button (Initially Disabled) -->
-            <button class="cptm-form-repeater-drag-handle cptm-form-repeater-drag-btn" :disabled="active_fields_groups.length <= 1">⠿</button>
-  
-            <!-- Use options.options_value.value as placeholder only for the first group -->
-            <input 
-              v-model="group.name" 
-              class="cptm-form-repeater-input" 
-              :placeholder="index === 0 ? value : ''" 
-            />
-  
-            <!-- Remove Button (Initially Disabled) -->
-            <button @click="removeGroup(index)" class="cptm-form-repeater-remove-btn" :disabled="active_fields_groups.length <= 1">Remove</button>
-          </div>
-        </div>
-      </draggable>
-  
-      <button @click="addNewOptionGroup" class="cptm-form-repeater-add-group-btn" :disabled="active_fields_groups.length >= maxGroups">
-        {{ addNewButtonLabel }}
-      </button>
-    </div>
-  </template>
+  <div>
+    <draggable class="form-repeater__container" v-model="active_fields_groups" handle=".form-repeater__drag-handle" @start="onDragStart"
+    @end="onDragEnd">
+      <div v-for="(group, index) in active_fields_groups" :key="group.id" :id="'form-repeater__group-' + (index + 1)" class="form-repeater__group">
+        <!-- Drag Button (Initially Disabled) -->
+        <button class="form-repeater__drag-handle form-repeater__drag-btn" :disabled="active_fields_groups.length <= 1">
+          <i class="uil uil-draggabledots"></i>
+        </button>
+
+        <!-- Use options.options_value.value as placeholder only for the first group -->
+        <input 
+          v-model="group.name" 
+          class="form-repeater__input" 
+          :placeholder="placeholder"
+        />
+
+        <!-- Remove Button (Initially Disabled) -->
+        <button @click="removeGroup(index)" class="form-repeater__remove-btn" :disabled="active_fields_groups.length <= 1">
+          <i class="uil uil-trash-alt"></i>
+        </button>
+      </div>
+    </draggable>
+
+    <button @click="addNewOptionGroup" class="form-repeater__add-group-btn" :disabled="active_fields_groups.length >= maxGroups">
+      <i class="uil uil-plus"></i>{{ addNewButtonLabel }}
+    </button>
+  </div>
+</template>
+
   
   <script>
   import draggable from "vuedraggable"; // Install via npm: `npm install vuedraggable`
@@ -51,6 +55,10 @@
       },
       value: {
         type: String,
+        default: 'Service..',
+      },
+      placeholder: {
+        type: String,
         default: 'e.g Service Quality, Price...',
       },
       addNewButtonLabel: {
@@ -74,9 +82,16 @@
       return {
         active_fields_groups: [{ id: 1, name: "" }], // Initially 1 group
         maxGroups: this.maxGroup, // Set maxGroup directly here
+        isDragging: false,
       };
     },
     methods: {
+      onDragStart() {
+        this.isDragging = true;  // Set dragging to true
+      },
+      onDragEnd() {
+        this.isDragging = false;  // Set dragging to false
+      },
       addNewOptionGroup() {
         if (this.active_fields_groups.length < this.maxGroups) {
           this.active_fields_groups.push({ id: Date.now(), name: "" });

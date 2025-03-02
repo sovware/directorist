@@ -1513,72 +1513,6 @@ div[draggable="true"].cptm-form-builder-group-title-area {
   }
 }
 
-//Review Repeater
-.cptm-form-repeater-container {
-  padding: 20px;
-  background-color: #f4f4f4;
-  border-radius: 5px;
-}
-
-.cptm-form-repeater-group {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px;
-  border: 1px solid #ddd;
-  margin-bottom: 5px;
-}
-
-.cptm-form-repeater-group-title {
-  font-size: 16px;
-}
-
-.cptm-form-repeater-input {
-  padding: 5px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.cptm-form-repeater-drag-handle {
-  cursor: grab;
-  background: none;
-  border: none;
-  font-size: 18px;
-}
-
-.cptm-form-repeater-drag-btn {
-  cursor: pointer;
-  background: none;
-  border: none;
-  font-size: 18px;
-}
-
-.cptm-form-repeater-remove-btn {
-  background-color: red;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  cursor: pointer;
-}
-
-.cptm-form-repeater-add-group-btn {
-  font-size: 12px;
-  font-weight: 600;
-  color: #2E94FA;
-  background: transparent;
-  border: none;
-  padding: 0;
-  text-decoration: none;
-  display: flex;
-  align-items:center;
-  gap: 6px;
-  cursor: pointer;
-  letter-spacing: 0.12px;
-  span{
-    font-size: 16px;
-  }
-}
-
 .cptm-form-builder-group-fields {
   display: block;
   position: relative;
@@ -3322,6 +3256,122 @@ input[type="radio"].cptm-radio {
   display: block;
   margin-bottom: 10px;
   font-weight: 500;
+}
+
+//Review Repeater
+.form-repeater{
+  &__container{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  &__group{
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    position: relative;
+    &.sortable-chosen{
+      .form-repeater__input{
+        background: #F9FAFB;
+        border: 1px solid #F9FAFB;
+        box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+      }
+    }
+  }
+  &__remove-btn,
+  &__drag-btn{
+    color: #4D5761;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    outline: none;
+    padding: 0;
+    margin: 0;
+    transition: all 0.3s ease;
+    &:disabled{
+      cursor: not-allowed;
+      opacity: 0.60;
+    }
+    svg{
+      width: 12px;
+      height: 12px;
+    }
+    i{
+      font-size: 16px;
+      margin: 0;
+      padding: 0;
+    }
+  }
+  &__drag-btn{
+    cursor: move;
+    position: absolute;
+    left: 0;
+  }
+  &__remove-btn{
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+
+    &:hover{
+      color: #C83A3A;
+    }
+  }
+  &__input{
+    flex: 1;
+    height: 40px;
+    padding: 5px 16px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    border: 1px solid var(--Gray-200, #E5E7EB);
+    background: white;
+    box-shadow: 0px 1px 2px 0px var(--Colors-Effects-Shadows-shadow-xs, rgba(16, 24, 40, 0.05));
+    color: #2C3239;
+    outline: none;
+    transition: all 0.3s ease;
+    margin: 0 32px;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    &:focus{
+      background: var(--Gray-50, #F9FAFB);
+      border-color:#E5E7EB;
+    }
+    &::placeholder{
+      color: var(--Gray-500, #747C89);
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 16.24px ;
+    }
+  }
+  &__add-group-btn{
+    font-size: 12px;
+    font-weight: 600;
+    color: #2E94FA;
+    background: transparent;
+    border: none;
+    padding: 0;
+    text-decoration: none;
+    display: flex;
+    align-items:center;
+    gap: 6px;
+    cursor: pointer;
+    letter-spacing: 0.12px;
+    margin: 17px 32px 0;
+    padding: 0;
+    &:disabled{
+      cursor: not-allowed;
+      opacity: 0.60;
+    }
+    svg{
+      width: 16px;
+      height: 16px;
+    }
+    i{
+      font-size: 16px;
+    }
+  }
 }
 
 /* Style the video popup */

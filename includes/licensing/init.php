@@ -77,7 +77,7 @@ class Init {
 
 	public function directorist_licensing() {
 		include 'views/main.php';
-		include 'legacy-views.php';
+		// include 'legacy-views.php';
 	}
 }
 

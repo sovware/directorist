@@ -29,7 +29,15 @@ class Licensing_Plan {
 		return self::get_license_data()['upgrade_to'] ?? '';
 	}
 
+	public static function get_unlocked_products( string $type ): array {
+		return self::get_downloads()[$type] ?? [];
+	}
+
 	private static function get_license_data(): array {
 		return Licensing::get_data()['plan_data']['license_data'][0] ?? [];
+	}
+
+	public static function get_downloads(): array {
+		return Licensing::get_data()['plan_data']['downloads'] ?? [];
 	}
 }

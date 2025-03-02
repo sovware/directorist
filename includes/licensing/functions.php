@@ -130,16 +130,16 @@ function directorist_get_item_buttons_html( array $item, string $type ): string 
 	<?php if ( 'extension' === $type && isset( $item['permalink'] ) ): ?>
         <div class="directorist-extension-cta">
 
-			<?php if ( ! Licensing::is_connected() ): ?>
+			<?php if ( ! Licensing::is_connected() || ! isset( $item['download_link'] ) ): ?>
 				<a target="__blank" href="<?php echo esc_url( $item['permalink'] ); ?>" class="directorist-extension-link directorist-extension-btn directorist-extension-btn-primary">
 					<?php esc_html_e( 'View Details', 'directorist' ); ?>
 				</a>
 			<?php else: ?>
 
 				<?php if ( in_array( $item['slug'], $active_slugs ) ): ?>
-					<button type="button" class="directorist-extension-btn directorist-extension-btn-warning directorist-extension-btn-deactivate"><?php esc_html_e( 'Deactivate', 'directorist' ); ?></button>
-				<?php else: ?>
-					<button type="button" class="directorist-extension-btn directorist-extension-btn-primary directorist-extension-btn-install">Install</button>
+					<a href="#deactivate" type="button" class="directorist-extension-btn directorist-extension-btn-warning directorist-extension-btn-deactivate"><?php esc_html_e( 'Deactivate', 'directorist' ); ?></a>
+				<?php elseif ( isset( $item['download_link'] ) ): ?>
+					<a href="<?php echo esc_attr( $item['download_link'] ); ?>" type="button" class="directorist-extension-btn directorist-extension-btn-primary directorist-extension-btn-install">Install</a>
 				<?php endif; ?>
 
 				<?php if ( isset( $item['doc_url'] ) && ! empty( $item['doc_url'] ) ): ?>
@@ -164,7 +164,11 @@ function directorist_get_item_buttons_html( array $item, string $type ): string 
 	<?php if ( 'template' === $type ): ?>
        <div class="directorist-template-cta">
 
-	  		<?php if ( isset( $item['preview'] ) ): ?>
+	   		<?php if ( isset( $item['license'] ) ): ?>
+				<a href="<?php echo esc_attr( $item['item_id'] ); ?>" class="directorist-template-get">
+					<?php esc_attr_e( 'Insert', 'directorist' ); ?>
+				</a>
+			<?php else: ?>
 				<a target="__blank" href="<?php echo esc_attr( $item['permalink'] ); ?>" class="directorist-template-get">
 					<?php esc_attr_e( 'Get it now', 'directorist' ); ?>
 				</a>

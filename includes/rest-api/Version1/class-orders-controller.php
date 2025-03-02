@@ -179,7 +179,7 @@ class Orders_Controller extends Posts_Controller {
 		update_post_meta( $order_id, '_amount', $amount );
 		update_post_meta( $order_id, '_payment_status', $payment_status );
 		update_post_meta( $order_id, '_payment_gateway', $gateway );
-		update_post_meta( $order_id, '_fm_plan_ordered', $plan_id );
+		// update_post_meta( $order_id, '_fm_plan_ordered', $plan_id );
 		update_post_meta( $order_id, '_created_by', $request['created_by'] );
 
 		if ( $listing_id ) {

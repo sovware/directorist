@@ -107,6 +107,9 @@ class Orders_Controller extends Posts_Controller {
 		if ( get_post_type( $plan_id ) !== 'atbdp_pricing_plans' ) {
 			return new WP_Error( 'invalid_plan', __( 'Invalid plan.', 'directorist' ), array( 'status' => 400 ) );
 		}
+		// To satisfy some odd stuffs.
+		$_GET['plan_id'] = $plan_id;
+		$_GET['plan']    = $plan_id;
 
 		if ( isset( $request['listing'] ) && ! directorist_is_listing_post_type( $request['listing'] ) ) {
 			return new WP_Error( 'invalid_listing', __( 'Invalid listing.', 'directorist' ), array( 'status' => 400 ) );

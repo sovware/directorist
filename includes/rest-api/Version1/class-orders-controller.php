@@ -85,7 +85,7 @@ class Orders_Controller extends Posts_Controller {
 	}
 
 	public function get_items_permissions_check( $request ) {
-		return true; //is_user_logged_in();
+		return is_user_logged_in();
 	}
 
 	public function create_item( $request ) {

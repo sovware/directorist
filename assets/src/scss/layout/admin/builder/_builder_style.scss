@@ -1530,6 +1530,21 @@ div[draggable="true"].cptm-form-builder-group-title-area {
   }
 }
 
+.group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  margin-bottom: 5px;
+}
+.drag-handle {
+  cursor: grab;
+  background: none;
+  border: none;
+  font-size: 18px;
+}
+
 .cptm-form-builder-group-fields {
   display: block;
   position: relative;

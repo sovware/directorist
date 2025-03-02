@@ -8912,14 +8912,15 @@ __webpack_require__.r(__webpack_exports__);
 /*!************************************************************************!*\
   !*** ./assets/src/js/admin/vue/modules/form-fields/Repeater_Field.vue ***!
   \************************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Repeater_Field_vue_vue_type_template_id_241e2b1e__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Repeater_Field.vue?vue&type=template&id=241e2b1e */ "./assets/src/js/admin/vue/modules/form-fields/Repeater_Field.vue?vue&type=template&id=241e2b1e");
 /* harmony import */ var _Repeater_Field_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Repeater_Field.vue?vue&type=script&lang=js */ "./assets/src/js/admin/vue/modules/form-fields/Repeater_Field.vue?vue&type=script&lang=js");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _Repeater_Field_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _Repeater_Field_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -8949,7 +8950,7 @@ component.options.__file = "assets/src/js/admin/vue/modules/form-fields/Repeater
 /*!************************************************************************************************!*\
   !*** ./assets/src/js/admin/vue/modules/form-fields/Repeater_Field.vue?vue&type=script&lang=js ***!
   \************************************************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -25573,10 +25574,49 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuedraggable */ "./node_modules/vuedraggable/dist/vuedraggable.umd.js");
 /* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuedraggable__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _mixins_helpers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../mixins/helpers */ "./assets/src/js/admin/vue/mixins/helpers.js");
+ // Install via npm: `npm install vuedraggable`
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'repeater-field',
+  mixins: [_mixins_helpers__WEBPACK_IMPORTED_MODULE_1__["default"]],
   components: {
     draggable: vuedraggable__WEBPACK_IMPORTED_MODULE_0___default.a
+  },
+  props: {
+    fieldId: {
+      type: [String, Number],
+      required: false,
+      default: ''
+    },
+    name: {
+      type: String,
+      default: ''
+    },
+    label: {
+      type: String,
+      default: ''
+    },
+    value: {
+      type: String,
+      default: 'e.g Service Quality, Price...'
+    },
+    addNewButtonLabel: {
+      type: String,
+      default: 'Add new'
+    },
+    removeButtonLabel: {
+      type: String,
+      default: 'Remove'
+    },
+    validation: {
+      type: Array,
+      required: false
+    },
+    maxGroup: {
+      type: Number,
+      default: 5 // Set the default maxGroup value directly as a number
+    }
   },
   data: function data() {
     return {
@@ -25585,7 +25625,7 @@ __webpack_require__.r(__webpack_exports__);
         name: ""
       }],
       // Initially 1 group
-      maxGroups: 5
+      maxGroups: this.maxGroup // Set maxGroup directly here
     };
   },
   methods: {
@@ -33767,9 +33807,11 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', [_c('draggable', {
+  return _c('div', {
+    staticClass: "cptm-form-repeater-container"
+  }, [_c('draggable', {
     attrs: {
-      "handle": ".drag-handle"
+      "handle": ".cptm-form-repeater-drag-handle"
     },
     model: {
       value: _vm.active_fields_groups,
@@ -33781,12 +33823,12 @@ var render = function render() {
   }, _vm._l(_vm.active_fields_groups, function (group, index) {
     return _c('div', {
       key: group.id,
-      staticClass: "group",
+      staticClass: "cptm-form-repeater-group",
       attrs: {
-        "id": 'group-' + (index + 1)
+        "id": 'cptm-form-repeater-group-' + (index + 1)
       }
-    }, [_c('h3', [_vm._v("Group " + _vm._s(index + 1))]), _vm._v(" "), _c('button', {
-      staticClass: "drag-handle",
+    }, [_c('div', {}, [_c('button', {
+      staticClass: "cptm-form-repeater-drag-handle cptm-form-repeater-drag-btn",
       attrs: {
         "disabled": _vm.active_fields_groups.length <= 1
       }
@@ -33797,8 +33839,9 @@ var render = function render() {
         value: group.name,
         expression: "group.name"
       }],
+      staticClass: "cptm-form-repeater-input",
       attrs: {
-        "placeholder": "Enter group name"
+        "placeholder": index === 0 ? _vm.value : ''
       },
       domProps: {
         "value": group.name
@@ -33810,6 +33853,7 @@ var render = function render() {
         }
       }
     }), _vm._v(" "), _c('button', {
+      staticClass: "cptm-form-repeater-remove-btn",
       attrs: {
         "disabled": _vm.active_fields_groups.length <= 1
       },
@@ -33818,15 +33862,16 @@ var render = function render() {
           return _vm.removeGroup(index);
         }
       }
-    }, [_vm._v("Remove")])]);
+    }, [_vm._v("Remove")])])]);
   }), 0), _vm._v(" "), _c('button', {
+    staticClass: "cptm-form-repeater-add-group-btn",
     attrs: {
       "disabled": _vm.active_fields_groups.length >= _vm.maxGroups
     },
     on: {
       "click": _vm.addNewOptionGroup
     }
-  }, [_vm._v("\n    Add New Group\n  ")])], 1);
+  }, [_vm._v("\n    " + _vm._s(_vm.addNewButtonLabel) + "\n  ")])], 1);
 };
 var staticRenderFns = [];
 render._withStripped = true;

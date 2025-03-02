@@ -15825,7 +15825,62 @@ div[draggable=true].cptm-form-builder-group-title-area {
   margin-top: -7px;
   cursor: pointer;
 }
-.cptm-form-builder-group-options .cptm-form-builder-group-options__repeater {
+
+.cptm-form-repeater-container {
+  padding: 20px;
+  background-color: #f4f4f4;
+  border-radius: 5px;
+}
+
+.cptm-form-repeater-group {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  margin-bottom: 5px;
+}
+
+.cptm-form-repeater-group-title {
+  font-size: 16px;
+}
+
+.cptm-form-repeater-input {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.cptm-form-repeater-drag-handle {
+  cursor: -webkit-grab;
+  cursor: grab;
+  background: none;
+  border: none;
+  font-size: 18px;
+}
+
+.cptm-form-repeater-drag-btn {
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 18px;
+}
+
+.cptm-form-repeater-remove-btn {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.cptm-form-repeater-add-group-btn {
   font-size: 12px;
   font-weight: 600;
   color: #2E94FA;
@@ -15845,31 +15900,8 @@ div[draggable=true].cptm-form-builder-group-title-area {
   cursor: pointer;
   letter-spacing: 0.12px;
 }
-.cptm-form-builder-group-options .cptm-form-builder-group-options__repeater span {
+.cptm-form-repeater-add-group-btn span {
   font-size: 16px;
-}
-
-.group {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
-  gap: 10px;
-  padding: 10px;
-  border: 1px solid #ddd;
-  margin-bottom: 5px;
-}
-
-.drag-handle {
-  cursor: -webkit-grab;
-  cursor: grab;
-  background: none;
-  border: none;
-  font-size: 18px;
 }
 
 .cptm-form-builder-group-fields {
@@ -20916,7 +20948,62 @@ div[draggable=true].cptm-form-builder-group-title-area {
   margin-top: -7px;
   cursor: pointer;
 }
-.cptm-form-builder-group-options .cptm-form-builder-group-options__repeater {
+
+.cptm-form-repeater-container {
+  padding: 20px;
+  background-color: #f4f4f4;
+  border-radius: 5px;
+}
+
+.cptm-form-repeater-group {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  margin-bottom: 5px;
+}
+
+.cptm-form-repeater-group-title {
+  font-size: 16px;
+}
+
+.cptm-form-repeater-input {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.cptm-form-repeater-drag-handle {
+  cursor: -webkit-grab;
+  cursor: grab;
+  background: none;
+  border: none;
+  font-size: 18px;
+}
+
+.cptm-form-repeater-drag-btn {
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 18px;
+}
+
+.cptm-form-repeater-remove-btn {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.cptm-form-repeater-add-group-btn {
   font-size: 12px;
   font-weight: 600;
   color: #2E94FA;
@@ -20936,31 +21023,8 @@ div[draggable=true].cptm-form-builder-group-title-area {
   cursor: pointer;
   letter-spacing: 0.12px;
 }
-.cptm-form-builder-group-options .cptm-form-builder-group-options__repeater span {
+.cptm-form-repeater-add-group-btn span {
   font-size: 16px;
-}
-
-.group {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
-  gap: 10px;
-  padding: 10px;
-  border: 1px solid #ddd;
-  margin-bottom: 5px;
-}
-
-.drag-handle {
-  cursor: -webkit-grab;
-  cursor: grab;
-  background: none;
-  border: none;
-  font-size: 18px;
 }
 
 .cptm-form-builder-group-fields {
@@ -26295,7 +26359,62 @@ div[draggable=true].cptm-form-builder-group-title-area {
   margin-top: -7px;
   cursor: pointer;
 }
-.cptm-form-builder-group-options .cptm-form-builder-group-options__repeater {
+
+.cptm-form-repeater-container {
+  padding: 20px;
+  background-color: #f4f4f4;
+  border-radius: 5px;
+}
+
+.cptm-form-repeater-group {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  margin-bottom: 5px;
+}
+
+.cptm-form-repeater-group-title {
+  font-size: 16px;
+}
+
+.cptm-form-repeater-input {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.cptm-form-repeater-drag-handle {
+  cursor: -webkit-grab;
+  cursor: grab;
+  background: none;
+  border: none;
+  font-size: 18px;
+}
+
+.cptm-form-repeater-drag-btn {
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 18px;
+}
+
+.cptm-form-repeater-remove-btn {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.cptm-form-repeater-add-group-btn {
   font-size: 12px;
   font-weight: 600;
   color: #2E94FA;
@@ -26315,31 +26434,8 @@ div[draggable=true].cptm-form-builder-group-title-area {
   cursor: pointer;
   letter-spacing: 0.12px;
 }
-.cptm-form-builder-group-options .cptm-form-builder-group-options__repeater span {
+.cptm-form-repeater-add-group-btn span {
   font-size: 16px;
-}
-
-.group {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
-  gap: 10px;
-  padding: 10px;
-  border: 1px solid #ddd;
-  margin-bottom: 5px;
-}
-
-.drag-handle {
-  cursor: -webkit-grab;
-  cursor: grab;
-  background: none;
-  border: none;
-  font-size: 18px;
 }
 
 .cptm-form-builder-group-fields {

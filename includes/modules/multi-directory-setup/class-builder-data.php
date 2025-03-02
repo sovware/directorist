@@ -321,19 +321,11 @@ class Builder_Data {
                                 'subLabel' => __( '(Only 05 criteria)', 'directorist' ),
                                 'value' => false,
                             ],
-                            'repeater-description' => [
-                                'type'  => 'text',
-                                'value' => 'e.g Service Quality, Price...',
-                            ],
                             'repeater-multi-options' => [
                                 'type'                 => 'repeater',
                                 'add-new-button-label' => __( 'Add New Criteria', 'directorist' ),
-                                'options'              => [
-                                    'option_value' => [
-                                        'type'  => 'text',
-                                        'value' => '',
-                                    ],
-                                ]
+                                'max-group' => __( 2, 'directorist' ),
+                                'value' => 'e.g Service Quality, Price...',
                             ],
                         ],
 

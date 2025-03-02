@@ -144,21 +144,15 @@ class Orders_Controller extends Posts_Controller {
 				$amount = $order_detail['price'];
 			}
 		}
-		// TODO:
-		// Status: completed, canceled, failed
-		// plan id missing
-		// amount missing
 
-		if ( $request['created_by'] === 'app' ) {
-			$playstore_price = get_post_meta( $plan_id, '_dpp_playstore_product_price', true );
-			$appstore_price  = get_post_meta( $plan_id, '_dpp_appstore_product_price', true );
+		$payment_status = 'created';
 
-			if ( $playstore_price > 0 ) {
-				$amount = $playstore_price;
-			}
+		if ( $request['created_by'] === 'app-store' || $request['created_by'] === 'play-store' ) {
+			$amount         = $request['amount'];
+			$payment_status = $request['payment_status'];
 
-			if ( $appstore_price > 0 ) {
-				$amount = $appstore_price;
+			if ( isset( $request['currency'] ) ) {
+				update_post_meta( $order_id, '_currency', $request['currency'] );
 			}
 		}
 
@@ -180,7 +174,7 @@ class Orders_Controller extends Posts_Controller {
 		}
 
 		update_post_meta( $order_id, '_amount', $amount );
-		update_post_meta( $order_id, '_payment_status', 'created' );
+		update_post_meta( $order_id, '_payment_status', $payment_status );
 		update_post_meta( $order_id, '_payment_gateway', $gateway );
 		update_post_meta( $order_id, '_fm_plan_ordered', $plan_id );
 		update_post_meta( $order_id, '_created_by', $request['created_by'] );
@@ -418,9 +412,6 @@ class Orders_Controller extends Posts_Controller {
 				case 'directory':
 					$data[ $field ] = (int) get_post_meta( $this->get_plan_id( $order ), '_assign_to_directory', true );
 					break;
-				// case 'plan_position':
-				// 	$data[ $field ] = (int) get_post_meta( $order->ID, '_dpp_plan_sorting_order', true );
-				// 	break;
 				case 'listing':
 					$data[ $field ] = (int) get_post_meta( $order->ID, '_listing_id', true );
 					break;
@@ -436,6 +427,9 @@ class Orders_Controller extends Posts_Controller {
 				case 'amount':
 					$data[ $field ] = round( (float) get_post_meta( $order->ID, '_amount', true ), 2 );
 					break;
+				case 'currency':
+					$data[ $field ] = get_post_meta( $order->ID, '_currency', true );
+					break;
 				case 'payment_status':
 					$data[ $field ] = get_post_meta( $order->ID, '_payment_status', true );
 					break;
@@ -444,6 +438,9 @@ class Orders_Controller extends Posts_Controller {
 					break;
 				case 'transaction_id':
 					$data[ $field ] = get_post_meta( $order->ID, '_transaction_id', true );
+					break;
+				case 'created_by':
+					$data[ $field ] = get_post_meta( $order->ID, '_created_by', true );
 					break;
 			}
 		}
@@ -518,11 +515,6 @@ class Orders_Controller extends Posts_Controller {
 					'required'    => true,
 					'context'     => array( 'view', 'edit' ),
 				),
-				// 'plan_position'           => array(
-				// 	'description' => __( 'Pricing plan order position.', 'directorist' ),
-				// 	'type'        => 'integer',
-				// 	'context'     => array( 'view', 'edit' ),
-				// ),
 				'directory'         => array(
 					'description' => __( 'Directory type of the plan.', 'directorist' ),
 					'type'        => 'integer',
@@ -553,15 +545,20 @@ class Orders_Controller extends Posts_Controller {
 					'readonly'    => true,
 				),
 				'amount'           => array(
-					'description' => __( 'Amount.', 'directorist' ),
+					'description' => __( 'Payment amount.', 'directorist' ),
 					'type'        => 'float',
 					'context'     => array( 'view', 'edit' ),
-					'readonly'    => true,
+				),
+				'currency'           => array(
+					'description' => __( 'Payment currency.', 'directorist' ),
+					'type'        => 'string',
+					'context'     => array( 'view', 'edit' ),
 				),
 				'payment_status' => array(
 					'description' => __( 'Payment status.', 'directorist' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
+					'required'    => true,
 					'enum'        => array_keys( atbdp_get_payment_statuses() )
 				),
 				'payment_gateway' => array(
@@ -580,7 +577,7 @@ class Orders_Controller extends Posts_Controller {
 					'type'        => 'string',
 					'required'    => true,
 					'context'     => array( 'view', 'edit' ),
-					'enum'        => array( 'app', 'web' )
+					'enum'        => array( 'app-store', 'play-store', 'web' )
 				),
 			),
 		);

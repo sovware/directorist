@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.4.2
+ * @version 8.2
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -44,8 +44,8 @@ $currency_symbol         = atbdp_currency_symbol( directorist_get_currency() );
 		<select class="directorist-form-element directory_field directory_pricing_field" id="price_range" name="price_range">
 			<option value=""><?php echo esc_html( ! empty( $data['price_range_placeholder'] ) ? $data['price_range_placeholder'] : '' ); ?></option>
 			<option value="skimming"<?php selected( $price_range, 'skimming' ); ?>><?php echo esc_html( sprintf( __( 'Ultra High (%s)', 'directorist' ), str_repeat( $currency_symbol, 4 ) ) );?></option>
-			<option value="moderate" <?php selected( $price_range, 'moderate' ); ?>><?php echo esc_html( sprintf( __( 'Expensive (%s)', 'directorist' ), str_repeat( $currency_symbol, 3 ) ) );?></option>
-			<option value="economy" <?php selected( $price_range, 'economy' ); ?>><?php echo esc_html( sprintf( __( 'Moderate (%s)', 'directorist' ), str_repeat( $currency_symbol, 2 ) ) ); ?></option>
+			<option value="moderate" <?php selected( $price_range, 'moderate' ); ?>><?php echo esc_html( sprintf( __( 'Moderate (%s)', 'directorist' ), str_repeat( $currency_symbol, 3 ) ) );?></option>
+			<option value="economy" <?php selected( $price_range, 'economy' ); ?>><?php echo esc_html( sprintf( __( 'Economy (%s)', 'directorist' ), str_repeat( $currency_symbol, 2 ) ) ); ?></option>
 			<option value="bellow_economy" <?php selected( $price_range, 'bellow_economy' ); ?>><?php echo esc_html( sprintf( __( 'Cheap (%s)', 'directorist' ), str_repeat( $currency_symbol, 1 ) ) ); ?></option>
 		</select>
 	<?php } ?>

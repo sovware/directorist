@@ -1217,7 +1217,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     });
     $('body').on('change', '.directorist-contents-wrap form select', function (e) {
       var searchForm = this.closest('form');
-      if (this.value !== undefined) {
+      if (this.value !== undefined && this.value !== '') {
         enableResetButton(searchForm);
       } else {
         setTimeout(function () {
@@ -1779,6 +1779,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                         $('.directorist-location-js, .atbdp-search-address').attr("data-value", data.display_name);
                         $('#cityLat').val(lat);
                         $('#cityLng').val(lng);
+                        var locationSearch = $(".directorist-search-location");
+                        if (locationSearch.length) {
+                          locationSearch.trigger("change");
+                        }
                       }
                     });
                   }
@@ -1789,7 +1793,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                     result_container.hide();
                   }
                   locationAddressField.removeClass('atbdp-form-fade');
-                  $('body').on("click", '.address_result .current-location', function (e) {
+                  $('body').off("click", '.address_result .current-location').on("click", '.address_result .current-location', function (e) {
+                    e.preventDefault();
                     navigator.geolocation.getCurrentPosition(function (position) {
                       return displayLocation(position, e);
                     });
@@ -1808,7 +1813,15 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
         // hide address result when click outside the input field
         $(document).on('click', function (e) {
-          if (!$(e.target).closest('.directorist-location-js, #q_addressss, .atbdp-search-address').length) {
+          if (!$(e.target).closest('.directorist-location-js, #q_addressss, .atbdp-search-address, .current-location').length) {
+            var locationSearch = $(e.target).closest(".directorist-search-location");
+            var zipCodeSearch = $(e.target).closest(".directorist-zipcode-search");
+            if (locationSearch.length) {
+              locationSearch.trigger("change");
+            }
+            if (zipCodeSearch.length) {
+              zipCodeSearch.trigger("change");
+            }
             $('.address_result').hide();
           }
         });
@@ -1858,8 +1871,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         // Check if the slider is already initialized
         if (!slider || slider.directoristCustomRangeSlider) return;
         var sliderStep = parseInt(slider.getAttribute('step')) || 1;
-        var sliderDefaultValue = parseInt(slider.getAttribute('value') || 0);
-        var sliderMaxValue = parseInt(slider.getAttribute('max-value') || 100);
+        var sliderMinValue = parseInt(slider.getAttribute('min-value'));
+        var sliderMaxValue = parseInt(slider.getAttribute('max-value'));
+        var sliderDefaultValue = parseInt(slider.getAttribute('default-value'));
         var minInput = sliderItem.querySelector('.directorist-custom-range-slider__value__min');
         var maxInput = sliderItem.querySelector('.directorist-custom-range-slider__value__max');
         var sliderRange = sliderItem.querySelector('.directorist-custom-range-slider__range');
@@ -1871,14 +1885,15 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         var rangeInitLoad = true;
         // Parse the URL parameters
         var milesParams = new URLSearchParams(window.location.search).has('miles');
+        var customParams = new URLSearchParams(window.location.search).has('miles');
         (_directoristCustomRan = directoristCustomRangeSlider) === null || _directoristCustomRan === void 0 || _directoristCustomRan.create(slider, {
-          start: [0, sliderDefaultValue ? sliderDefaultValue : 100],
+          start: [minInput.value, milesParams || customParams ? maxInput.value : sliderDefaultValue || sliderMaxValue],
           connect: true,
           direction: isRTL ? 'rtl' : 'ltr',
           step: sliderStep ? sliderStep : 1,
           range: {
-            'min': Number(minInput.value ? minInput.value : 0),
-            'max': Number(maxInput.value ? maxInput.value : 100)
+            'min': Number(sliderMinValue || 0),
+            'max': Number(sliderMaxValue || 100)
           }
         });
         (_slider$directoristCu = slider.directoristCustomRangeSlider) === null || _slider$directoristCu === void 0 || _slider$directoristCu.on('update', function (values, handle) {

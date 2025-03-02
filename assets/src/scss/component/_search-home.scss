@@ -162,8 +162,13 @@
 
 // Search Field Style During Loading
 .directorist-preload {
-  .directorist-search-field__label {
-    top: 0;
+  .directorist-search-form-top{
+    .directorist-search-field__label {
+      ~ .directorist-search-field__input {
+        opacity: 0;
+        pointer-events: none;
+      }
+    }
   }
 }
 

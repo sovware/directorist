@@ -1397,10 +1397,16 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     if (history.pushState) {
       var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname;
       if (form_data.paged && form_data.paged.length) {
-        var query = '?paged=' + form_data.paged + '';
+        var query = query && query.length ? query + '&paged=' + form_data.paged : '?paged=' + form_data.paged;
+      }
+      if (form_data.directory_type && form_data.directory_type.length) {
+        var query = query && query.length ? query + '&view=' + form_data.directory_type : '?directory_type=' + form_data.directory_type;
+      }
+      if (form_data.view && form_data.view.length) {
+        var query = query && query.length ? query + '&view=' + form_data.view : '?view=' + form_data.view;
       }
       if (form_data.q && form_data.q.length) {
-        var query = '?q=' + form_data.q;
+        var query = query && query.length ? query + '&q=' + form_data.q : '?q=' + form_data.q;
       }
       if (form_data.in_cat && form_data.in_cat.length) {
         var query = query && query.length ? query + '&in_cat=' + form_data.in_cat : '?in_cat=' + form_data.in_cat;
@@ -1429,7 +1435,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       if (form_data.cityLng && form_data.cityLng.length && form_data.address && form_data.address.length) {
         var query = query && query.length ? query + '&cityLng=' + form_data.cityLng : '?cityLng=' + form_data.cityLng;
       }
-      if (form_data.miles && form_data.miles > 0) {
+      if (form_data.miles && form_data.miles.length) {
         var query = query && query.length ? query + '&miles=' + form_data.miles : '?miles=' + form_data.miles;
       }
       if (form_data.address && form_data.address.length) {
@@ -1450,8 +1456,10 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       if (form_data.phone && form_data.phone.length) {
         var query = query && query.length ? query + '&phone=' + form_data.phone : '?phone=' + form_data.phone;
       }
-      if (form_data.custom_field && form_data.custom_field.length) {
-        var query = query && query.length ? query + '&custom_field=' + form_data.custom_field : '?custom_field=' + form_data.custom_field;
+      if (form_data.custom_field && Object.keys(form_data.custom_field).length) {
+        Object.keys(form_data.custom_field).forEach(function (key) {
+          query = query.length ? query + "&".concat(key, "=").concat(form_data.custom_field[key]) : "?".concat(key, "=").concat(form_data.custom_field[key]);
+        });
       }
       if (form_data.open_now && form_data.open_now.length) {
         var query = query && query.length ? query + '&open_now=' + form_data.open_now : '?open_now=' + form_data.open_now;
@@ -1993,9 +2001,9 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       price.push($(el).val());
     });
     activeForm.find('[name^="custom_field"]').each(function (index, el) {
-      var test = $(el).attr('name');
+      var name = $(el).attr('name');
       var type = $(el).attr('type');
-      var post_id = test.replace(/(custom_field\[)/, '').replace(/\]/, '');
+      var post_id = name.replace(/(custom_field\[)/, '').replace(/\]/, '');
       if ('radio' === type) {
         $.each($("input[name='custom_field[" + post_id + "]']:checked"), function () {
           value = $(this).val();
@@ -2029,6 +2037,17 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     var email = activeForm.find('input[name="email"]').val();
     var website = activeForm.find('input[name="website"]').val();
     var phone = activeForm.find('input[name="phone"]').val();
+
+    // Required fields Check
+    var isQueryRequired = activeForm.find('input[name="q"]').prop("required");
+    var isCategoryRequired = activeForm.find('.directorist-category-select').prop("required");
+    var isLocationRequired = activeForm.find('.directorist-location-select').prop("required");
+
+    // Validate: If a field is required but empty, return false
+    var requiredFieldsAreValid = true;
+    if (isQueryRequired && !q) requiredFieldsAreValid = false;
+    if (isCategoryRequired && (!in_cat || in_cat.length === 0)) requiredFieldsAreValid = false;
+    if (isLocationRequired && (!in_loc || in_loc.length === 0)) requiredFieldsAreValid = false;
     $(".directorist-viewas .directorist-viewas__item").removeClass('active');
     $(this).addClass("active");
     var form_data = {
@@ -2036,22 +2055,22 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       _nonce: directorist.ajax_nonce,
       current_page_id: directorist.current_page_id,
       view: view && view.length ? view[0].replace(/view=/, '') : '',
-      q: q || getURLParameter(full_url, 'q'),
-      in_cat: in_cat || getURLParameter(full_url, 'in_cat'),
-      in_loc: in_loc || getURLParameter(full_url, 'in_loc'),
-      in_tag: tag || getURLParameter(full_url, 'in_tag'),
-      price: price || getURLParameter(full_url, 'price'),
-      price_range: price_range || getURLParameter(full_url, 'price_range'),
-      search_by_rating: search_by_rating || getURLParameter(full_url, 'search_by_rating'),
-      cityLat: cityLat || getURLParameter(full_url, 'cityLat'),
-      cityLng: cityLng || getURLParameter(full_url, 'cityLng'),
-      miles: miles || getURLParameter(full_url, 'miles'),
-      address: address || getURLParameter(full_url, 'address'),
-      zip: zip || getURLParameter(full_url, 'zip'),
-      fax: fax || getURLParameter(full_url, 'fax'),
-      email: email || getURLParameter(full_url, 'email'),
-      website: website || getURLParameter(full_url, 'website'),
-      phone: phone || getURLParameter(full_url, 'phone'),
+      q: requiredFieldsAreValid && q || getURLParameter(full_url, 'q'),
+      in_cat: requiredFieldsAreValid && in_cat || getURLParameter(full_url, 'in_cat'),
+      in_loc: requiredFieldsAreValid && in_loc || getURLParameter(full_url, 'in_loc'),
+      in_tag: requiredFieldsAreValid && tag || getURLParameter(full_url, 'in_tag'),
+      price: requiredFieldsAreValid && price || getURLParameter(full_url, 'price'),
+      price_range: requiredFieldsAreValid && price_range || getURLParameter(full_url, 'price_range'),
+      search_by_rating: requiredFieldsAreValid && search_by_rating || getURLParameter(full_url, 'search_by_rating'),
+      cityLat: requiredFieldsAreValid && cityLat || getURLParameter(full_url, 'cityLat'),
+      cityLng: requiredFieldsAreValid && cityLng || getURLParameter(full_url, 'cityLng'),
+      miles: requiredFieldsAreValid && miles || getURLParameter(full_url, 'miles'),
+      address: requiredFieldsAreValid && address || getURLParameter(full_url, 'address'),
+      zip: requiredFieldsAreValid && zip || getURLParameter(full_url, 'zip'),
+      fax: requiredFieldsAreValid && fax || getURLParameter(full_url, 'fax'),
+      email: requiredFieldsAreValid && email || getURLParameter(full_url, 'email'),
+      website: requiredFieldsAreValid && website || getURLParameter(full_url, 'website'),
+      phone: requiredFieldsAreValid && phone || getURLParameter(full_url, 'phone'),
       custom_field: custom_field || getURLParameter(full_url, 'custom_field'),
       data_atts: JSON.parse(data_atts)
     };
@@ -2137,9 +2156,9 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       price.push($(el).val());
     });
     activeForm.find('[name^="custom_field"]').each(function (index, el) {
-      var test = $(el).attr('name');
+      var name = $(el).attr('name');
       var type = $(el).attr('type');
-      var post_id = test.replace(/(custom_field\[)/, '').replace(/\]/, '');
+      var post_id = name.replace(/(custom_field\[)/, '').replace(/\]/, '');
       if ('radio' === type) {
         $.each($("input[name='custom_field[" + post_id + "]']:checked"), function () {
           value = $(this).val();
@@ -2266,9 +2285,9 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       price.push($(el).val());
     });
     activeForm.find('[name^="custom_field"]').each(function (index, el) {
-      var test = $(el).attr('name');
+      var name = $(el).attr('name');
       var type = $(el).attr('type');
-      var post_id = test.replace(/(custom_field\[)/, '').replace(/\]/, '');
+      var post_id = name.replace(/(custom_field\[)/, '').replace(/\]/, '');
       if ('radio' === type) {
         $.each($("input[name='custom_field[" + post_id + "]']:checked"), function () {
           value = $(this).val();
@@ -2726,6 +2745,21 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   $('body').on("change", ".directorist-instant-search .listing-with-sidebar input[type='checkbox'],.directorist-instant-search .listing-with-sidebar input[type='radio'], .directorist-custom-range-slider__wrap .directorist-custom-range-slider__range", Object(_global_components_debounce__WEBPACK_IMPORTED_MODULE_1__["default"])(function (e) {
     e.preventDefault();
     var searchElm = $(this).closest('.listing-with-sidebar');
+    filterListing(searchElm);
+  }, 250));
+
+  // sidebar on change location, zipcode changing
+  $('body').on("change", ".directorist-instant-search .listing-with-sidebar .directorist-search-location, .directorist-instant-search .listing-with-sidebar .directorist-zipcode-search", Object(_global_components_debounce__WEBPACK_IMPORTED_MODULE_1__["default"])(function (e) {
+    e.preventDefault();
+    var searchElm = $(this).closest('.listing-with-sidebar');
+
+    // If it's a location field, ensure it has a value before triggering the filter
+    if ($(this).hasClass('directorist-search-location')) {
+      var locationField = $(this).find('input[name="address"]');
+      if (!locationField.val()) {
+        return;
+      }
+    }
     filterListing(searchElm);
   }, 250));
 

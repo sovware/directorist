@@ -3272,9 +3272,9 @@ input[type="radio"].cptm-radio {
     position: relative;
     &.sortable-chosen{
       .form-repeater__input{
-        background: #F9FAFB;
-        border: 1px solid #F9FAFB;
-        box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+        background: #E1E4E8 !important;
+        border: 1px solid #D1D5DB !important;
+        box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.01) !important;
       }
     }
   }
@@ -3339,7 +3339,7 @@ input[type="radio"].cptm-radio {
     }
     &:focus{
       background: var(--Gray-50, #F9FAFB);
-      border-color:#E5E7EB;
+      border-color:#3e62f5;
     }
     &::placeholder{
       color: var(--Gray-500, #747C89);

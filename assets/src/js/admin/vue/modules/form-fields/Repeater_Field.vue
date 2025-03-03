@@ -11,6 +11,7 @@
         <!-- Use options.options_value.value as placeholder only for the first group -->
         <input 
           v-model="group.name" 
+          :class="{'form-repeater__input-value-added': group.name}"
           class="form-repeater__input" 
           :placeholder="placeholder"
         />

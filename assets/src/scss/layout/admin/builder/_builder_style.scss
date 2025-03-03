@@ -3333,6 +3333,10 @@ input[type="radio"].cptm-radio {
     -o-text-overflow: ellipsis;
     -ms-text-overflow: ellipsis;
     text-overflow: ellipsis;
+    &-value-added{
+      background: var(--Gray-50, #F9FAFB);
+      border-color:#E5E7EB;
+    }
     &:focus{
       background: var(--Gray-50, #F9FAFB);
       border-color:#E5E7EB;

@@ -17914,6 +17914,10 @@ input[type=radio].cptm-radio {
   -ms-text-overflow: ellipsis;
   text-overflow: ellipsis;
 }
+.form-repeater__input-value-added {
+  background: var(--Gray-50, #F9FAFB);
+  border-color: #E5E7EB;
+}
 .form-repeater__input:focus {
   background: var(--Gray-50, #F9FAFB);
   border-color: #E5E7EB;
@@ -23123,6 +23127,10 @@ input[type=radio].cptm-radio {
   overflow: hidden;
   -ms-text-overflow: ellipsis;
   text-overflow: ellipsis;
+}
+.form-repeater__input-value-added {
+  background: var(--Gray-50, #F9FAFB);
+  border-color: #E5E7EB;
 }
 .form-repeater__input:focus {
   background: var(--Gray-50, #F9FAFB);
@@ -28621,6 +28629,10 @@ input[type=radio].cptm-radio {
   overflow: hidden;
   -ms-text-overflow: ellipsis;
   text-overflow: ellipsis;
+}
+.form-repeater__input-value-added {
+  background: var(--Gray-50, #F9FAFB);
+  border-color: #E5E7EB;
 }
 .form-repeater__input:focus {
   background: var(--Gray-50, #F9FAFB);

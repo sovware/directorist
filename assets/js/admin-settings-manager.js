@@ -33856,6 +33856,9 @@ var render = function render() {
         expression: "group.name"
       }],
       staticClass: "form-repeater__input",
+      class: {
+        'form-repeater__input-value-added': group.name
+      },
       attrs: {
         "placeholder": _vm.placeholder
       },

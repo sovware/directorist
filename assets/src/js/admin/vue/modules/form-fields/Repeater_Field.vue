@@ -38,6 +38,9 @@
       :widgetName="widgetName"
       @confirm="trashWidget"
       @cancel="closeConfirmationModal"
+      :reviewDeleteTitle="reviewDeleteTitle"
+      :reviewDeleteMsg="reviewDeleteMsg"
+      :reviewCancelBtnText="reviewCancelBtnText"
     />
   </div>
 </template>
@@ -91,6 +94,18 @@ export default {
     maxGroup: {
       type: Number,
       default: 5,  
+    },
+    reviewDeleteTitle: {
+      type: String,
+      default: 'will completely remove from the single listing page.',
+    },
+    reviewDeleteMsg: {
+      type: String,
+      default: 'Yes, Delete It', // Default text
+    },
+    reviewCancelBtnText: {
+      type: String,
+      default: 'Keep It', // Default text
     },
   },
   data() {

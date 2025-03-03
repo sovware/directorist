@@ -18405,6 +18405,18 @@ __webpack_require__.r(__webpack_exports__);
     widgetName: {
       type: String,
       default: ""
+    },
+    reviewDeleteTitle: {
+      type: String,
+      default: 'field will also remove it from the single and search pages.'
+    },
+    reviewDeleteMsg: {
+      type: String,
+      default: 'Yes, Delete it!'
+    },
+    reviewCancelBtnText: {
+      type: String,
+      default: 'Cancel'
     }
   },
   methods: {
@@ -25622,6 +25634,18 @@ __webpack_require__.r(__webpack_exports__);
     maxGroup: {
       type: Number,
       default: 5
+    },
+    reviewDeleteTitle: {
+      type: String,
+      default: 'will completely remove from the single listing page.'
+    },
+    reviewDeleteMsg: {
+      type: String,
+      default: 'Yes, Delete It' // Default text
+    },
+    reviewCancelBtnText: {
+      type: String,
+      default: 'Keep It' // Default text
     }
   },
   data: function data() {
@@ -29637,16 +29661,16 @@ var render = function render() {
         $event.stopPropagation();
       }
     }
-  }, [_c('h2', [_vm._v("Are you sure you want to proceed?")]), _vm._v(" "), _c('p', [_vm._v("\n      Removing \""), _c('strong', [_vm._v(_vm._s(_vm.widgetName))]), _vm._v("\" field will also remove it from the single and search pages.\n    ")]), _vm._v(" "), _c('button', {
+  }, [_c('h2', [_vm._v("Are you sure you want to proceed?")]), _vm._v(" "), _c('p', [_vm._v("\n      Deleting \""), _c('strong', [_vm._v(_vm._s(_vm.widgetName))]), _vm._v("\" " + _vm._s(_vm.reviewDeleteTitle) + "\n    ")]), _vm._v(" "), _c('button', {
     on: {
       "click": _vm.confirmDelete
     }
-  }, [_vm._v("Yes, delete")]), _vm._v(" "), _c('button', {
+  }, [_vm._v(_vm._s(_vm.reviewDeleteMsg))]), _vm._v(" "), _c('button', {
     staticClass: "cptm-widget-trash-confirmation-modal-action-btn__cancel",
     on: {
       "click": _vm.cancelDelete
     }
-  }, [_vm._v("\n      Cancel\n    ")])])]) : _vm._e();
+  }, [_vm._v("\n    " + _vm._s(_vm.reviewCancelBtnText) + "\n    ")])])]) : _vm._e();
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -33946,7 +33970,10 @@ var render = function render() {
   }), _vm._v(_vm._s(_vm.addNewButtonLabel) + "\n  ")]), _vm._v(" "), _c('confirmation-modal', {
     attrs: {
       "visible": _vm.showConfirmationModal,
-      "widgetName": _vm.widgetName
+      "widgetName": _vm.widgetName,
+      "reviewDeleteTitle": _vm.reviewDeleteTitle,
+      "reviewDeleteMsg": _vm.reviewDeleteMsg,
+      "reviewCancelBtnText": _vm.reviewCancelBtnText
     },
     on: {
       "confirm": _vm.trashWidget,

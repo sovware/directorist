@@ -10,10 +10,11 @@
 
         <!-- Input field for the group name -->
         <input 
-          v-model="group.name" 
+          :value="group.name" 
           :class="{'form-repeater__input-value-added': group.name}"
           class="form-repeater__input" 
           :placeholder="placeholder"
+          @input="updateGroupField( index, $event.target.value )"
         />
 
         <!-- Button to remove a group -->
@@ -72,8 +73,12 @@ export default {
       default: '',
     },
     value: {
+      type: Array,
+      default: [],
+    },
+    fieldType: {
       type: String,
-      default: 'Service..',
+      default: 'text',
     },
     placeholder: {
       type: String,
@@ -108,11 +113,28 @@ export default {
       default: 'Keep It', // Default text
     },
   },
+
+  created() {
+    console.log('Repeater Field created with value:', this.value);
+
+    if ( this.value.length ) {
+      this.active_fields_groups = this.value.slice( 0, this.maxGroups );
+    }
+  },
+
+  watch: {
+    active_fields_groups() {
+      console.log('active_fields_groups:', this.active_fields_groups);
+
+      this.$emit( 'update', this.active_fields_groups );
+    },
+  },
+
   data() {
     return {
       showConfirmationModal: false,
       active_fields_groups: [{ id: 1, name: "" }],
-      maxGroups: this.maxGroup, 
+      maxGroups: this.maxGroup,
       isDragging: false,
       widgetName: '',
       groupToDelete: null,  // To store the index of the group to be deleted
@@ -131,6 +153,13 @@ export default {
       if (modal && !modal.contains(event.target)) {
         this.closeConfirmationModal();
       }
+    },
+
+    updateGroupField( index, value ) {
+
+      console.log('Updating group at index:', index, 'with value:', value); 
+
+      this.active_fields_groups.splice( index, 1, { id: this.active_fields_groups[index].id, name: value });
     },
     
     // Prepares and shows the confirmation modal for deletion

@@ -25612,8 +25612,12 @@ __webpack_require__.r(__webpack_exports__);
       default: ''
     },
     value: {
+      type: Array,
+      default: []
+    },
+    fieldType: {
       type: String,
-      default: 'Service..'
+      default: 'text'
     },
     placeholder: {
       type: String,
@@ -25648,6 +25652,18 @@ __webpack_require__.r(__webpack_exports__);
       default: 'Keep It' // Default text
     }
   },
+  created: function created() {
+    console.log('Repeater Field created with value:', this.value);
+    if (this.value.length) {
+      this.active_fields_groups = this.value.slice(0, this.maxGroups);
+    }
+  },
+  watch: {
+    active_fields_groups: function active_fields_groups() {
+      console.log('active_fields_groups:', this.active_fields_groups);
+      this.$emit('update', this.active_fields_groups);
+    }
+  },
   data: function data() {
     return {
       showConfirmationModal: false,
@@ -25674,6 +25690,13 @@ __webpack_require__.r(__webpack_exports__);
       if (modal && !modal.contains(event.target)) {
         this.closeConfirmationModal();
       }
+    },
+    updateGroupField: function updateGroupField(index, value) {
+      console.log('Updating group at index:', index, 'with value:', value);
+      this.active_fields_groups.splice(index, 1, {
+        id: this.active_fields_groups[index].id,
+        name: value
+      });
     },
     // Prepares and shows the confirmation modal for deletion
     handleTrashClick: function handleTrashClick(index) {
@@ -33922,12 +33945,6 @@ var render = function render() {
     }, [_c('i', {
       staticClass: "uil uil-draggabledots"
     })]), _vm._v(" "), _c('input', {
-      directives: [{
-        name: "model",
-        rawName: "v-model",
-        value: group.name,
-        expression: "group.name"
-      }],
       staticClass: "form-repeater__input",
       class: {
         'form-repeater__input-value-added': group.name
@@ -33940,8 +33957,7 @@ var render = function render() {
       },
       on: {
         "input": function input($event) {
-          if ($event.target.composing) return;
-          _vm.$set(group, "name", $event.target.value);
+          return _vm.updateGroupField(index, $event.target.value);
         }
       }
     }), _vm._v(" "), _c('button', {

@@ -25574,13 +25574,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuedraggable */ "./node_modules/vuedraggable/dist/vuedraggable.umd.js");
 /* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuedraggable__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _mixins_helpers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../mixins/helpers */ "./assets/src/js/admin/vue/mixins/helpers.js");
- // Install via npm: `npm install vuedraggable`
+/* harmony import */ var _form_builder_modules_widget_component_Form_Builder_Widget_Trash_Confirmation_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../form-builder-modules/widget-component/Form_Builder_Widget_Trash_Confirmation.vue */ "./assets/src/js/admin/vue/modules/form-builder-modules/widget-component/Form_Builder_Widget_Trash_Confirmation.vue");
+
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'repeater-field',
   mixins: [_mixins_helpers__WEBPACK_IMPORTED_MODULE_1__["default"]],
   components: {
-    draggable: vuedraggable__WEBPACK_IMPORTED_MODULE_0___default.a
+    draggable: vuedraggable__WEBPACK_IMPORTED_MODULE_0___default.a,
+    ConfirmationModal: _form_builder_modules_widget_component_Form_Builder_Widget_Trash_Confirmation_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   props: {
     fieldId: {
@@ -25618,27 +25621,70 @@ __webpack_require__.r(__webpack_exports__);
     },
     maxGroup: {
       type: Number,
-      default: 5 // Set the default maxGroup value directly as a number
+      default: 5
     }
   },
   data: function data() {
     return {
+      showConfirmationModal: false,
       active_fields_groups: [{
         id: 1,
         name: ""
       }],
-      // Initially 1 group
       maxGroups: this.maxGroup,
-      // Set maxGroup directly here
-      isDragging: false
+      isDragging: false,
+      widgetName: '',
+      groupToDelete: null // To store the index of the group to be deleted
     };
   },
+  mounted: function mounted() {
+    document.addEventListener("mousedown", this.handleClickOutside);
+  },
+  beforeDestroy: function beforeDestroy() {
+    document.removeEventListener("mousedown", this.handleClickOutside);
+  },
   methods: {
+    handleClickOutside: function handleClickOutside(event) {
+      var modal = this.$el.querySelector('.confirmation-modal');
+      if (modal && !modal.contains(event.target)) {
+        this.closeConfirmationModal();
+      }
+    },
+    handleTrashClick: function handleTrashClick(index) {
+      console.log('Preparing to remove group at index:', index);
+      this.groupToDelete = index; // Store the index of the group to be deleted
+      this.widgetName = "Group ".concat(index + 1);
+      this.openConfirmationModal(); // Show the confirmation modal
+    },
+    openConfirmationModal: function openConfirmationModal() {
+      this.showConfirmationModal = true;
+      var parentElement = this.$el.closest('.atbdp-cpt-manager');
+      if (parentElement) {
+        parentElement.classList.add('directorist-overlay-visible');
+      }
+    },
+    closeConfirmationModal: function closeConfirmationModal() {
+      this.showConfirmationModal = false;
+      var parentElement = this.$el.closest('.atbdp-cpt-manager');
+      if (parentElement) {
+        parentElement.classList.remove('directorist-overlay-visible');
+      }
+    },
+    trashWidget: function trashWidget() {
+      console.log("trashWidget called!");
+      if (this.groupToDelete !== null && this.groupToDelete >= 0 && this.groupToDelete < this.active_fields_groups.length) {
+        console.log('Deleting group at index:', this.groupToDelete);
+        this.active_fields_groups.splice(this.groupToDelete, 1); // Remove the group
+        this.closeConfirmationModal(); // Close the modal after deletion
+      } else {
+        console.error('Invalid group index for deletion');
+      }
+    },
     onDragStart: function onDragStart() {
-      this.isDragging = true; // Set dragging to true
+      this.isDragging = true;
     },
     onDragEnd: function onDragEnd() {
-      this.isDragging = false; // Set dragging to false
+      this.isDragging = false;
     },
     addNewOptionGroup: function addNewOptionGroup() {
       if (this.active_fields_groups.length < this.maxGroups) {
@@ -25646,11 +25692,6 @@ __webpack_require__.r(__webpack_exports__);
           id: Date.now(),
           name: ""
         });
-      }
-    },
-    removeGroup: function removeGroup(index) {
-      if (this.active_fields_groups.length > 1) {
-        this.active_fields_groups.splice(index, 1);
       }
     }
   }
@@ -33878,7 +33919,7 @@ var render = function render() {
       },
       on: {
         "click": function click($event) {
-          return _vm.removeGroup(index);
+          return _vm.handleTrashClick(index);
         }
       }
     }, [_c('i', {
@@ -33894,7 +33935,16 @@ var render = function render() {
     }
   }, [_c('i', {
     staticClass: "uil uil-plus"
-  }), _vm._v(_vm._s(_vm.addNewButtonLabel) + "\n  ")])], 1);
+  }), _vm._v(_vm._s(_vm.addNewButtonLabel) + "\n  ")]), _vm._v(" "), _c('confirmation-modal', {
+    attrs: {
+      "visible": _vm.showConfirmationModal,
+      "widgetName": _vm.widgetName
+    },
+    on: {
+      "confirm": _vm.trashWidget,
+      "cancel": _vm.closeConfirmationModal
+    }
+  })], 1);
 };
 var staticRenderFns = [];
 render._withStripped = true;

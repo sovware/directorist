@@ -10,8 +10,8 @@
 
         <!-- Input field for the group name -->
         <input 
-          :value="group.name" 
-          :class="{'form-repeater__input-value-added': group.name}"
+          :value="group.value" 
+          :class="{'form-repeater__input-value-added': group.value}"
           class="form-repeater__input" 
           :placeholder="placeholder"
           @input="updateGroupField( index, $event.target.value )"
@@ -133,7 +133,7 @@ export default {
   data() {
     return {
       showConfirmationModal: false,
-      active_fields_groups: [{ id: 1, name: "" }],
+      active_fields_groups: [{ id: 1, value: "" }],
       maxGroups: this.maxGroup,
       isDragging: false,
       widgetName: '',
@@ -159,15 +159,15 @@ export default {
 
       console.log('Updating group at index:', index, 'with value:', value); 
 
-      this.active_fields_groups.splice( index, 1, { id: this.active_fields_groups[index].id, name: value });
+      this.active_fields_groups.splice( index, 1, { id: this.active_fields_groups[index].id, value: value });
     },
     
     // Prepares and shows the confirmation modal for deletion
     handleTrashClick(index) {
       console.log('Preparing to remove group at index:', index);
       this.groupToDelete = index;  // Store the index of the group to be deleted
-      this.widgetName = this.active_fields_groups[index].name 
-                        ? this.active_fields_groups[index].name 
+      this.widgetName = this.active_fields_groups[index].value 
+                        ? this.active_fields_groups[index].value 
                         : `Group ${index + 1}`;  // Default to 'Group X' if name is not defined
       this.openConfirmationModal();  // Show the confirmation modal
     },
@@ -215,7 +215,7 @@ export default {
     // Add a new group to the active fields
     addNewOptionGroup() {
       if (this.active_fields_groups.length < this.maxGroups) {
-        this.active_fields_groups.push({ id: Date.now(), name: "" });
+        this.active_fields_groups.push({ id: Date.now(), value: "" });
       }
     },
   },

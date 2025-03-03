@@ -25669,7 +25669,7 @@ __webpack_require__.r(__webpack_exports__);
       showConfirmationModal: false,
       active_fields_groups: [{
         id: 1,
-        name: ""
+        value: ""
       }],
       maxGroups: this.maxGroup,
       isDragging: false,
@@ -25695,14 +25695,14 @@ __webpack_require__.r(__webpack_exports__);
       console.log('Updating group at index:', index, 'with value:', value);
       this.active_fields_groups.splice(index, 1, {
         id: this.active_fields_groups[index].id,
-        name: value
+        value: value
       });
     },
     // Prepares and shows the confirmation modal for deletion
     handleTrashClick: function handleTrashClick(index) {
       console.log('Preparing to remove group at index:', index);
       this.groupToDelete = index; // Store the index of the group to be deleted
-      this.widgetName = this.active_fields_groups[index].name ? this.active_fields_groups[index].name : "Group ".concat(index + 1); // Default to 'Group X' if name is not defined
+      this.widgetName = this.active_fields_groups[index].value ? this.active_fields_groups[index].value : "Group ".concat(index + 1); // Default to 'Group X' if name is not defined
       this.openConfirmationModal(); // Show the confirmation modal
     },
     // Show the confirmation modal
@@ -25745,7 +25745,7 @@ __webpack_require__.r(__webpack_exports__);
       if (this.active_fields_groups.length < this.maxGroups) {
         this.active_fields_groups.push({
           id: Date.now(),
-          name: ""
+          value: ""
         });
       }
     }
@@ -33947,13 +33947,13 @@ var render = function render() {
     })]), _vm._v(" "), _c('input', {
       staticClass: "form-repeater__input",
       class: {
-        'form-repeater__input-value-added': group.name
+        'form-repeater__input-value-added': group.value
       },
       attrs: {
         "placeholder": _vm.placeholder
       },
       domProps: {
-        "value": group.name
+        "value": group.value
       },
       on: {
         "input": function input($event) {

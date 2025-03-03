@@ -26111,18 +26111,21 @@ __webpack_require__.r(__webpack_exports__);
     document.removeEventListener("mousedown", this.handleClickOutside);
   },
   methods: {
+    // Handle click outside to close the confirmation modal
     handleClickOutside: function handleClickOutside(event) {
       var modal = this.$el.querySelector('.confirmation-modal');
       if (modal && !modal.contains(event.target)) {
         this.closeConfirmationModal();
       }
     },
+    // Prepares and shows the confirmation modal for deletion
     handleTrashClick: function handleTrashClick(index) {
       console.log('Preparing to remove group at index:', index);
       this.groupToDelete = index; // Store the index of the group to be deleted
-      this.widgetName = "Group ".concat(index + 1);
+      this.widgetName = this.active_fields_groups[index].name ? this.active_fields_groups[index].name : "Group ".concat(index + 1); // Default to 'Group X' if name is not defined
       this.openConfirmationModal(); // Show the confirmation modal
     },
+    // Show the confirmation modal
     openConfirmationModal: function openConfirmationModal() {
       this.showConfirmationModal = true;
       var parentElement = this.$el.closest('.atbdp-cpt-manager');
@@ -26130,6 +26133,7 @@ __webpack_require__.r(__webpack_exports__);
         parentElement.classList.add('directorist-overlay-visible');
       }
     },
+    // Close the confirmation modal
     closeConfirmationModal: function closeConfirmationModal() {
       this.showConfirmationModal = false;
       var parentElement = this.$el.closest('.atbdp-cpt-manager');
@@ -26137,6 +26141,7 @@ __webpack_require__.r(__webpack_exports__);
         parentElement.classList.remove('directorist-overlay-visible');
       }
     },
+    // Perform the deletion of the group
     trashWidget: function trashWidget() {
       console.log("trashWidget called!");
       if (this.groupToDelete !== null && this.groupToDelete >= 0 && this.groupToDelete < this.active_fields_groups.length) {
@@ -26147,12 +26152,15 @@ __webpack_require__.r(__webpack_exports__);
         console.error('Invalid group index for deletion');
       }
     },
+    // Triggered when dragging starts
     onDragStart: function onDragStart() {
       this.isDragging = true;
     },
+    // Triggered when dragging ends
     onDragEnd: function onDragEnd() {
       this.isDragging = false;
     },
+    // Add a new group to the active fields
     addNewOptionGroup: function addNewOptionGroup() {
       if (this.active_fields_groups.length < this.maxGroups) {
         this.active_fields_groups.push({

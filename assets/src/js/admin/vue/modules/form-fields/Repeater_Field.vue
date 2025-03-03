@@ -1,11 +1,14 @@
 <template>
   <div>
+    <!-- Draggable container for repeating fields -->
     <draggable class="form-repeater__container" v-model="active_fields_groups" handle=".form-repeater__drag-handle" @start="onDragStart" @end="onDragEnd">
       <div v-for="(group, index) in active_fields_groups" :key="group.id" :id="'form-repeater__group-' + (index + 1)" class="form-repeater__group">
+        <!-- Drag handle button for the group -->
         <button class="form-repeater__drag-handle form-repeater__drag-btn" :disabled="active_fields_groups.length <= 1">
           <i class="uil uil-draggabledots"></i>
         </button>
 
+        <!-- Input field for the group name -->
         <input 
           v-model="group.name" 
           :class="{'form-repeater__input-value-added': group.name}"
@@ -13,6 +16,7 @@
           :placeholder="placeholder"
         />
 
+        <!-- Button to remove a group -->
         <button
           @click="handleTrashClick(index)"
           class="form-repeater__remove-btn"
@@ -23,6 +27,7 @@
       </div>
     </draggable>
 
+    <!-- Button to add a new option group -->
     <button @click="addNewOptionGroup" class="form-repeater__add-group-btn" :disabled="active_fields_groups.length >= maxGroups">
       <i class="uil uil-plus"></i>{{ addNewButtonLabel }}
     </button>
@@ -105,18 +110,25 @@ export default {
     document.removeEventListener("mousedown", this.handleClickOutside);
   },
   methods: {
+    // Handle click outside to close the confirmation modal
     handleClickOutside(event) {
       const modal = this.$el.querySelector('.confirmation-modal');
       if (modal && !modal.contains(event.target)) {
         this.closeConfirmationModal();
       }
     },
+    
+    // Prepares and shows the confirmation modal for deletion
     handleTrashClick(index) {
       console.log('Preparing to remove group at index:', index);
       this.groupToDelete = index;  // Store the index of the group to be deleted
-      this.widgetName = `Group ${index + 1}`;
+      this.widgetName = this.active_fields_groups[index].name 
+                        ? this.active_fields_groups[index].name 
+                        : `Group ${index + 1}`;  // Default to 'Group X' if name is not defined
       this.openConfirmationModal();  // Show the confirmation modal
     },
+
+    // Show the confirmation modal
     openConfirmationModal() {
       this.showConfirmationModal = true;
       const parentElement = this.$el.closest('.atbdp-cpt-manager');
@@ -124,6 +136,8 @@ export default {
         parentElement.classList.add('directorist-overlay-visible');
       }
     },
+
+    // Close the confirmation modal
     closeConfirmationModal() {
       this.showConfirmationModal = false;
       const parentElement = this.$el.closest('.atbdp-cpt-manager');
@@ -131,6 +145,8 @@ export default {
         parentElement.classList.remove('directorist-overlay-visible');
       }
     },
+
+    // Perform the deletion of the group
     trashWidget() {
       console.log("trashWidget called!");
       if (this.groupToDelete !== null && this.groupToDelete >= 0 && this.groupToDelete < this.active_fields_groups.length) {
@@ -141,12 +157,18 @@ export default {
         console.error('Invalid group index for deletion');
       }
     },
+
+    // Triggered when dragging starts
     onDragStart() {
       this.isDragging = true;  
     },
+
+    // Triggered when dragging ends
     onDragEnd() {
       this.isDragging = false;  
     },
+
+    // Add a new group to the active fields
     addNewOptionGroup() {
       if (this.active_fields_groups.length < this.maxGroups) {
         this.active_fields_groups.push({ id: Date.now(), name: "" });

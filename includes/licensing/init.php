@@ -36,6 +36,7 @@ class Init {
 
 			// Other Core Classes (These might depend on licensing)
 			'class-repository.php', // Data repository (May use Licensing data)
+			'class-extension-handler.php', // Extension Handler
 			'class-controllers.php', // Business logic controllers (May call Repository)
 			'class-routes.php', // API/route handling (Uses Controllers)
 		];
@@ -66,8 +67,8 @@ class Init {
 	public function add_menu_page() {
 		add_submenu_page(
 			'edit.php?post_type=at_biz_dir',
-			'Licensing',
-			'Licensing',
+			'Extensions & Templates',
+			'Extensions & Templates',
 			'manage_options',
 			'directorist-licensing',
 			[$this, 'directorist_licensing'],

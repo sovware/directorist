@@ -72,4 +72,28 @@ class Controllers {
 		wp_safe_redirect( $redirect_url );
 		exit;
 	}
+
+	public function install_extension( \WP_REST_Request $request ) {
+		$slug = (string) $request->get_param( 'slug' );
+
+		if ( empty( $slug ) ) {
+			return rest_ensure_response( ['success' => false, 'message' => __( 'Valid extension slug missing', 'directorist' )] );
+		}
+
+		try {
+			$repo = new Extension_Handler();
+			$repo->install( $slug );
+
+			return rest_ensure_response( [
+				'success' => true,
+				'message' => __( 'Installed successfully', 'directorist' ),
+			] );
+
+		} catch ( \Throwable $th ) {
+			return rest_ensure_response( [
+				'success' => false,
+				'message' => $th->getMessage(),
+			] );
+		}
+	}
 }

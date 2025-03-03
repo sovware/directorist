@@ -244,6 +244,47 @@ document.addEventListener("DOMContentLoaded", function () {
     })
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".directorist-extension-btn-install").forEach(button => {
+        button.addEventListener("click", function (event) {
+            event.preventDefault();
+            
+            const extensionSlug = this.getAttribute("data-item-slug");
+            if (!extensionSlug) return;
+            
+            this.textContent = "Installing...";
+            this.disabled = true;
+            
+            fetch(directorist_licensing.root + "directorist/v1/admin/install-extension", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-WP-Nonce": directorist_licensing.nonce
+                },
+                body: JSON.stringify({ slug: extensionSlug })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    this.textContent = "Installed";
+                    this.classList.remove("directorist-extension-btn-install");
+                    this.classList.add("directorist-extension-btn-installed");
+                } else {
+                    this.textContent = "Install";
+                    alert(data.message || "Installation failed.");
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                this.textContent = "Install";
+                alert("An error occurred while installing the extension.");
+            })
+            .finally(() => {
+                this.disabled = false;
+            });
+        });
+    });
+});
 
 
 // Wait until the DOM is fully loaded before initializing the tabs

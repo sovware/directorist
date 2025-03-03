@@ -33,6 +33,7 @@ class Licensing_Overview {
 			'officials'      => count( $official_extensions ),
 			'backdated'      => count( $backdated_slugs ), // Add count for backdated extensions
 			'active_list'    => $active_slugs,
+			'inactive_list'  => $installed_extensions,
 			'backdated_list' => $backdated_slugs, // List of backdated slugs
 		];
 

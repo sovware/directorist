@@ -19,6 +19,7 @@
       :label="widgetTitle"
       :sublabel="widgetSubtitle"
       :icon="widgetIcon"
+      :info="widgetInfo"
       :expanded="expandState"
       @toggle-expand="toggleExpand"
     />
@@ -197,6 +198,21 @@ export default {
       }
 
       return icon;
+    },
+
+    widgetInfo() {
+      console.log("Print:" + this.activeWidgets[this.widgetKey]);
+      let info = "";
+
+      if (this.activeWidgets[this.widgetKey] && this.activeWidgets[this.widgetKey].info) {
+        info = this.activeWidgets[this.widgetKey].info;
+      }
+
+      if (!info.length && this.current_widget && this.current_widget.info) {
+        info = this.current_widget.info;
+      }
+
+      return info;
     },
 
     expandState() {

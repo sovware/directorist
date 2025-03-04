@@ -4,6 +4,9 @@
       <span class="cptm-title-icon" :class="icon"></span>
       <span v-html="label"></span>
       <span v-if="sublabel.length" class="cptm-text-gray cptm-px-5" v-html="sublabel"></span>
+      <span v-if="info.length" class="cptm-title-info" :data-info="info">
+        <i class="uil uil-question-circle"></i>
+      </span>
     </h4>
 
     <div class="cptm-form-builder-group-field-item-header-actions">
@@ -30,6 +33,9 @@ export default {
       default: "",
     },
     icon: {
+      default: "",
+    },
+    info: {
       default: "",
     },
     expanded: {

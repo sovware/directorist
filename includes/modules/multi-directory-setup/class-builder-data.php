@@ -437,6 +437,7 @@ class Builder_Data {
                             ],
                             'review_criteria' => [
                                 'label'    => __( 'Review Criteria', 'directorist' ),
+                                'info' => 'Please fill up the criteria fields below. You can add up to 05 criteria.',
                                 'canTrash' => false,
                                 'canMove'  => false,
                                 'options'  => [

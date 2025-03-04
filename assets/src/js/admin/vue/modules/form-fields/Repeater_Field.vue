@@ -1,18 +1,32 @@
 <template>
   <div>
     <!-- Draggable container for repeating fields -->
-    <draggable class="form-repeater__container" v-model="active_fields_groups" handle=".form-repeater__drag-handle" @start="onDragStart" @end="onDragEnd">
-      <div v-for="(group, index) in active_fields_groups" :key="group.id" :id="'form-repeater__group-' + (index + 1)" class="form-repeater__group">
+    <draggable
+      class="form-repeater__container"
+      v-model="active_fields_groups"
+      handle=".form-repeater__drag-handle"
+      @start="onDragStart"
+      @end="onDragEnd"
+    >
+      <div
+        v-for="(group, index) in active_fields_groups"
+        :key="group.id"
+        :id="'form-repeater__group-' + (index + 1)"
+        class="form-repeater__group"
+      >
         <!-- Drag handle button for the group -->
-        <button class="form-repeater__drag-handle form-repeater__drag-btn" :disabled="active_fields_groups.length <= 1">
+        <button
+          class="form-repeater__drag-handle form-repeater__drag-btn"
+          :disabled="active_fields_groups.length <= 1"
+        >
           <i class="uil uil-draggabledots"></i>
         </button>
 
         <!-- Input field for the group name -->
-        <input 
-          :value="group.value" 
+        <input
+          :value="group.value"
           :class="{'form-repeater__input-value-added': group.value}"
-          class="form-repeater__input" 
+          class="form-repeater__input"
           :placeholder="placeholder"
           @input="updateGroupField( index, $event.target.value )"
         />
@@ -29,7 +43,11 @@
     </draggable>
 
     <!-- Button to add a new option group -->
-    <button @click="addNewOptionGroup" class="form-repeater__add-group-btn" :disabled="active_fields_groups.length >= maxGroups">
+    <button
+      @click="addNewOptionGroup"
+      class="form-repeater__add-group-btn"
+      :disabled="active_fields_groups.length >= maxGroups"
+    >
       <i class="uil uil-plus"></i>{{ addNewButtonLabel }}
     </button>
 
@@ -47,7 +65,7 @@
 </template>
 
 <script>
-import draggable from "vuedraggable"; 
+import draggable from "vuedraggable";
 import helpers from '../../mixins/helpers';
 import ConfirmationModal from "../form-builder-modules/widget-component/Form_Builder_Widget_Trash_Confirmation.vue";
 
@@ -98,7 +116,7 @@ export default {
     },
     maxGroup: {
       type: Number,
-      default: 5,  
+      default: 5,
     },
     reviewDeleteTitle: {
       type: String,
@@ -156,18 +174,15 @@ export default {
     },
 
     updateGroupField( index, value ) {
-
-      console.log('Updating group at index:', index, 'with value:', value); 
-
       this.active_fields_groups.splice( index, 1, { id: this.active_fields_groups[index].id, value: value });
     },
-    
+
     // Prepares and shows the confirmation modal for deletion
     handleTrashClick(index) {
       console.log('Preparing to remove group at index:', index);
       this.groupToDelete = index;  // Store the index of the group to be deleted
-      this.widgetName = this.active_fields_groups[index].value 
-                        ? this.active_fields_groups[index].value 
+      this.widgetName = this.active_fields_groups[index].value
+                        ? this.active_fields_groups[index].value
                         : `Group ${index + 1}`;  // Default to 'Group X' if name is not defined
       this.openConfirmationModal();  // Show the confirmation modal
     },
@@ -192,9 +207,7 @@ export default {
 
     // Perform the deletion of the group
     trashWidget() {
-      console.log("trashWidget called!");
       if (this.groupToDelete !== null && this.groupToDelete >= 0 && this.groupToDelete < this.active_fields_groups.length) {
-        console.log('Deleting group at index:', this.groupToDelete);
         this.active_fields_groups.splice(this.groupToDelete, 1);  // Remove the group
         this.closeConfirmationModal();  // Close the modal after deletion
       } else {
@@ -204,12 +217,12 @@ export default {
 
     // Triggered when dragging starts
     onDragStart() {
-      this.isDragging = true;  
+      this.isDragging = true;
     },
 
     // Triggered when dragging ends
     onDragEnd() {
-      this.isDragging = false;  
+      this.isDragging = false;
     },
 
     // Add a new group to the active fields

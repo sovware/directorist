@@ -18674,6 +18674,17 @@ __webpack_require__.r(__webpack_exports__);
       }
       return icon;
     },
+    widgetInfo: function widgetInfo() {
+      console.log("Print:" + this.activeWidgets[this.widgetKey]);
+      var info = "";
+      if (this.activeWidgets[this.widgetKey] && this.activeWidgets[this.widgetKey].info) {
+        info = this.activeWidgets[this.widgetKey].info;
+      }
+      if (!info.length && this.current_widget && this.current_widget.info) {
+        info = this.current_widget.info;
+      }
+      return info;
+    },
     expandState: function expandState() {
       var state = this.expanded;
       if (!this.isEnabledGroupDragging) {
@@ -18843,6 +18854,9 @@ __webpack_require__.r(__webpack_exports__);
       default: ""
     },
     icon: {
+      default: ""
+    },
+    info: {
       default: ""
     },
     expanded: {
@@ -26159,7 +26173,6 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     updateGroupField: function updateGroupField(index, value) {
-      console.log('Updating group at index:', index, 'with value:', value);
       this.active_fields_groups.splice(index, 1, {
         id: this.active_fields_groups[index].id,
         value: value
@@ -26190,9 +26203,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     // Perform the deletion of the group
     trashWidget: function trashWidget() {
-      console.log("trashWidget called!");
       if (this.groupToDelete !== null && this.groupToDelete >= 0 && this.groupToDelete < this.active_fields_groups.length) {
-        console.log('Deleting group at index:', this.groupToDelete);
         this.active_fields_groups.splice(this.groupToDelete, 1); // Remove the group
         this.closeConfirmationModal(); // Close the modal after deletion
       } else {
@@ -29946,6 +29957,7 @@ var render = function render() {
       "label": _vm.widgetTitle,
       "sublabel": _vm.widgetSubtitle,
       "icon": _vm.widgetIcon,
+      "info": _vm.widgetInfo,
       "expanded": _vm.expandState
     },
     on: {
@@ -30063,7 +30075,14 @@ var render = function render() {
     domProps: {
       "innerHTML": _vm._s(_vm.sublabel)
     }
-  }) : _vm._e()]), _vm._v(" "), _c('div', {
+  }) : _vm._e(), _vm._v(" "), _vm.info.length ? _c('span', {
+    staticClass: "cptm-title-info",
+    attrs: {
+      "data-info": _vm.info
+    }
+  }, [_c('i', {
+    staticClass: "uil uil-question-circle"
+  })]) : _vm._e()]), _vm._v(" "), _c('div', {
     staticClass: "cptm-form-builder-group-field-item-header-actions"
   }, [_c('a', {
     staticClass: "cptm-form-builder-header-action-link",

@@ -27635,21 +27635,7 @@ var render = function render() {
     _c = _vm._self._c;
   return _c("div", {
     staticClass: "cptm-placeholder-block-wrapper"
-  }, [_vm.optionWidgetKey === _vm.activeWidgetKey ? _c("div", {
-    staticClass: "cptm-options-area"
-  }, [_c("options-window", _vm._b({
-    attrs: {
-      active: _vm.optionWidgetKey.length !== 0
-    },
-    on: {
-      update: function update($event) {
-        return _vm.$emit("update-option-window");
-      },
-      close: function close($event) {
-        return _vm.$emit("close-option-window");
-      }
-    }
-  }, "options-window", _vm.widgetOptionsWindow, false))], 1) : _vm._e(), _vm._v(" "), _c("div", {
+  }, [_c("div", {
     staticClass: "cptm-placeholder-block",
     class: [_vm.getContainerClass, {
       "cptm-widget-picker-open": _vm.showWidgetsPickerWindow
@@ -27762,7 +27748,21 @@ var render = function render() {
         }
       }
     })], 1)] : _vm._e()];
-  })], 2) : _vm._e()]), _vm._v(" "), _vm.enable_widget ? _c("span", {
+  })], 2) : _vm._e(), _vm._v(" "), _vm.optionWidgetKey === _vm.activeWidgetKey ? _c("div", {
+    staticClass: "cptm-options-area"
+  }, [_c("options-window", _vm._b({
+    attrs: {
+      active: _vm.optionWidgetKey.length !== 0
+    },
+    on: {
+      update: function update($event) {
+        return _vm.$emit("update-option-window");
+      },
+      close: function close($event) {
+        return _vm.$emit("close-option-window");
+      }
+    }
+  }, "options-window", _vm.widgetOptionsWindow, false))], 1) : _vm._e()]), _vm._v(" "), _vm.enable_widget ? _c("span", {
     staticClass: "cptm-widget-card-status",
     class: this.selectedWidgets.length > 0 ? "enabled" : "disabled",
     on: {

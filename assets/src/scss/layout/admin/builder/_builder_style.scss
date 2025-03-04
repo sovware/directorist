@@ -1171,28 +1171,6 @@ $light-gray: #f4f5f7;
       width: calc(100% - 2px);
     }
   }
-  &.enable_grid_view_layout,
-  &.enable_list_view_layout,
-  &.enable_map_view_layout {
-    .cptm-form-group {
-      margin-bottom: 0;
-    }
-    .cptm-input-toggle-wrap {
-      max-width: 275px;
-      position: absolute;
-      top: 10px;
-      left: 0;
-      display: flex;
-      gap: 10px;
-      flex-direction: row-reverse;
-      label {
-        padding: 0;
-        h5 {
-          margin: 0;
-        }
-      }
-    }
-  }
 
   &.new_listing_status {
     z-index: 11;
@@ -2454,10 +2432,33 @@ input[type="radio"].cptm-radio {
   position: relative;
   .cptm-placeholder-block {
     flex: 1;
+    &.cptm-text-left,
+    &.cptm-card-preview-top-left-placeholder,
+    &.cptm-listing-card-preview-footer-left-placeholder {
+      .cptm-options-area {
+        left: unset;
+        right: 100%;
+      }
+    }
+    &.cptm-text-right,
+    &.cptm-card-preview-top-right-placeholder,
+    &.cptm-listing-card-preview-footer-right-placeholder {
+      .cptm-options-area {
+        right: unset;
+        left: 100%;
+      }
+    }
     &:not(.cptm-listing-card-preview-body-placeholder) {
       .cptm-widget-preview-card {
         display: inline-flex;
         vertical-align: top;
+      }
+    }
+    &.cptm-listing-card-preview-footer-left-placeholder,
+    &.cptm-listing-card-preview-footer-right-placeholder {
+      .cptm-options-area {
+        top: unset;
+        bottom: 0;
       }
     }
   }
@@ -2624,7 +2625,8 @@ input[type="radio"].cptm-radio {
   .cptm-options-area {
     position: absolute;
     top: 0;
-    left: 0;
+    left: unset;
+    right: 100%;
     z-index: 100;
   }
 }

@@ -1,14 +1,5 @@
 <template>
   <div class="cptm-placeholder-block-wrapper">
-    <div class="cptm-options-area" v-if="optionWidgetKey === activeWidgetKey">
-      <options-window
-        :active="optionWidgetKey.length !== 0"
-        v-bind="widgetOptionsWindow"
-        @update="$emit('update-option-window')"
-        @close="$emit('close-option-window')"
-      />
-    </div>
-
     <div
       class="cptm-placeholder-block"
       :class="[
@@ -107,6 +98,15 @@
             </div>
           </template>
         </template>
+      </div>
+
+      <div class="cptm-options-area" v-if="optionWidgetKey === activeWidgetKey">
+        <options-window
+          :active="optionWidgetKey.length !== 0"
+          v-bind="widgetOptionsWindow"
+          @update="$emit('update-option-window')"
+          @close="$emit('close-option-window')"
+        />
       </div>
     </div>
     <span

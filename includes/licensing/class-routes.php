@@ -40,6 +40,8 @@ class Routes {
 			'login-with-account'    => 'login_with_account',
 			'install-theme'         => 'install_theme',
 			'install-extension'     => 'install_extension',
+			'activate-extension'    => 'activate_extension',
+			'deactivate-extension'  => 'deactivate_extension',
 			'account-data'          => 'account_data',
 		];
 

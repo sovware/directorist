@@ -96,4 +96,52 @@ class Controllers {
 			] );
 		}
 	}
+
+	public function activate_extension( \WP_REST_Request $request ) {
+		$slug = (string) $request->get_param( 'slug' );
+
+		if ( empty( $slug ) ) {
+			return rest_ensure_response( ['success' => false, 'message' => __( 'Valid extension slug missing', 'directorist' )] );
+		}
+
+		try {
+			$repo = new Extension_Handler();
+			$repo->activate( $slug );
+
+			return rest_ensure_response( [
+				'success' => true,
+				'message' => __( 'Activated successfully', 'directorist' ),
+			] );
+
+		} catch ( \Throwable $th ) {
+			return rest_ensure_response( [
+				'success' => false,
+				'message' => $th->getMessage(),
+			] );
+		}
+	}
+
+	public function deactivate_extension( \WP_REST_Request $request ) {
+		$slug = (string) $request->get_param( 'slug' );
+
+		if ( empty( $slug ) ) {
+			return rest_ensure_response( ['success' => false, 'message' => __( 'Valid extension slug missing', 'directorist' )] );
+		}
+
+		try {
+			$repo = new Extension_Handler();
+			$repo->deactivate( $slug );
+
+			return rest_ensure_response( [
+				'success' => true,
+				'message' => __( 'Installed successfully', 'directorist' ),
+			] );
+
+		} catch ( \Throwable $th ) {
+			return rest_ensure_response( [
+				'success' => false,
+				'message' => $th->getMessage(),
+			] );
+		}
+	}
 }

@@ -37,22 +37,7 @@ class Extension_Handler {
 		try {
 			$this->installer( $plugin_data );
 
-			// Get the list of installed plugins
-			$installed_plugins = $this->get();
-
-			// Find the correct plugin file dynamically
-			$file_name = null;
-			foreach ( $installed_plugins as $plugin_file => $plugin_info ) {
-				if ( strpos( $plugin_file, $slug . '/' ) === 0 || strpos( $plugin_file, $slug . '-' ) === 0 ) {
-					$file_name = $plugin_file;
-					break;
-				}
-			}
-
-			// If the plugin file is found, activate it
-			if ( $file_name ) {
-				$this->activate( $file_name );
-			}
+			$this->activate( $slug );
 
 			return [
 				'success' => true,
@@ -102,17 +87,73 @@ class Extension_Handler {
 		];
 	}
 
-	public function activate( string $file ) {
-		if ( ! is_plugin_inactive( $file ) ) {
+	public function activate( string $slug ) {
+		$installed_plugins = $this->get();
+
+		// Find the correct plugin file
+		$file_name = null;
+		foreach ( $installed_plugins as $plugin_file => $plugin_info ) {
+			if ( strpos( $plugin_file, $slug . '/' ) === 0 || strpos( $plugin_file, $slug . '-' ) === 0 ) {
+				$file_name = $plugin_file;
+				break;
+			}
+		}
+
+		if ( ! $file_name ) {
+			throw new \Exception(
+				__( 'Plugin file not found for activation.', 'directorist' ),
+				404
+			);
+		}
+
+		if ( ! is_plugin_inactive( $file_name ) ) {
 			return true;
 		}
 
-		$result = activate_plugin( $file, false, false );
+		$result = activate_plugin( $file_name, false, false );
 
 		if ( is_wp_error( $result ) ) {
 			throw new \Exception(
 				esc_html__( $result->get_error_message(), 'directorist' ),
 				401
+			);
+		}
+
+		return true;
+	}
+
+	public function deactivate( string $slug ) {
+		$installed_plugins = $this->get();
+
+		// Find the correct plugin file
+		$file_name = null;
+		foreach ( $installed_plugins as $plugin_file => $plugin_info ) {
+			if ( strpos( $plugin_file, $slug . '/' ) === 0 || strpos( $plugin_file, $slug . '-' ) === 0 ) {
+				$file_name = $plugin_file;
+				break;
+			}
+		}
+
+		if ( ! $file_name ) {
+			throw new \Exception(
+				__( 'Plugin file not found for deactivation.', 'directorist' ),
+				404
+			);
+		}
+
+		// Check if the plugin is already inactive
+		if ( ! is_plugin_active( $file_name ) ) {
+			return true; // Plugin is already inactive
+		}
+
+		// Deactivate the plugin
+		deactivate_plugins( $file_name ); // Use deactivate_plugins for deactivation
+
+		// Ensure the plugin is deactivated after calling deactivate_plugins
+		if ( is_plugin_active( $file_name ) ) {
+			throw new \Exception(
+				__( 'Failed to deactivate the plugin.', 'directorist' ),
+				500
 			);
 		}
 

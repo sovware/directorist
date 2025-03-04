@@ -32,8 +32,9 @@ class Licensing_Overview {
 			'outdated'       => count( array_intersect( array_keys( $installed_extensions ), $outdated_plugins ) ),
 			'officials'      => count( $official_extensions ),
 			'backdated'      => count( $backdated_slugs ), // Add count for backdated extensions
+			
 			'active_list'    => $active_slugs,
-			'inactive_list'  => $installed_extensions,
+			'inactive_list'  => array_diff( array_keys( $installed_extensions ), $active_plugins ), // Fetch only inactive plugins
 			'backdated_list' => $backdated_slugs, // List of backdated slugs
 		];
 

@@ -1,5 +1,14 @@
 <template>
   <div class="cptm-placeholder-block-wrapper">
+    <div class="cptm-options-area" v-if="optionWidgetKey === activeWidgetKey">
+      <options-window
+        :active="optionWidgetKey.length !== 0"
+        v-bind="widgetOptionsWindow"
+        @update="$emit('update-option-window')"
+        @close="$emit('close-option-window')"
+      />
+    </div>
+
     <div
       class="cptm-placeholder-block"
       :class="[
@@ -51,45 +60,51 @@
       <div class="cptm-widget-preview-area" v-if="displayedWidgets.length > 0">
         <template v-for="(widget, widget_index) in displayedWidgets">
           <template v-if="hasValidWidget(widget)">
-            <component
-              :is="availableWidgets[widget].type + '-card-widget'"
-              :class="{
-                'cptm-widget-card-disabled':
-                  readOnly && !selectedWidgets.includes(widget),
-              }"
-              :key="widget_index"
-              :label="
-                typeof availableWidgets[widget] !== 'undefined'
-                  ? availableWidgets[widget].label
-                  : 'Not Available'
-              "
-              :icon="
-                typeof availableWidgets[widget].icon === 'string'
-                  ? availableWidgets[widget].icon
-                  : ''
-              "
-              :options="availableWidgets[widget].options"
-              :widgetDropable="widgetDropable"
-              :hasDisableButton="hasDisableButton"
-              :canMove="
-                activeWidgets[widget] &&
-                typeof activeWidgets[widget].can_move !== undefined
-                  ? activeWidgets[widget].can_move
-                  : true
-              "
-              :canEdit="
-                activeWidgets[widget] && widgetHasOptions(activeWidgets[widget])
-              "
-              @drag="$emit('drag-widget', widget)"
-              @drop="$emit('drop-widget', widget)"
-              @dragend="$emit('dragend-widget', widget)"
-              @edit="$emit('edit-widget', widget)"
-              @trash="$emit('trash-widget', widget)"
-              :disabled="readOnly && !selectedWidgets.includes(widget)"
-              :readOnly="readOnly"
-              :editOnClick="editOnClick"
+            <div
+              class="cptm-widget-preview-card"
+              @click.prevent="setActiveWidget(widget)"
             >
-            </component>
+              <component
+                :is="availableWidgets[widget].type + '-card-widget'"
+                :class="{
+                  'cptm-widget-card-disabled':
+                    readOnly && !selectedWidgets.includes(widget),
+                }"
+                :key="widget_index"
+                :label="
+                  typeof availableWidgets[widget] !== 'undefined'
+                    ? availableWidgets[widget].label
+                    : 'Not Available'
+                "
+                :icon="
+                  typeof availableWidgets[widget].icon === 'string'
+                    ? availableWidgets[widget].icon
+                    : ''
+                "
+                :options="availableWidgets[widget].options"
+                :widgetDropable="widgetDropable"
+                :hasDisableButton="hasDisableButton"
+                :canMove="
+                  activeWidgets[widget] &&
+                  typeof activeWidgets[widget].can_move !== undefined
+                    ? activeWidgets[widget].can_move
+                    : true
+                "
+                :canEdit="
+                  activeWidgets[widget] &&
+                  widgetHasOptions(activeWidgets[widget])
+                "
+                @drag="$emit('drag-widget', widget)"
+                @drop="$emit('drop-widget', widget)"
+                @dragend="$emit('dragend-widget', widget)"
+                @edit="$emit('edit-widget', widget)"
+                @trash="$emit('trash-widget', widget)"
+                :disabled="readOnly && !selectedWidgets.includes(widget)"
+                :readOnly="readOnly"
+                :editOnClick="editOnClick"
+              >
+              </component>
+            </div>
           </template>
         </template>
       </div>
@@ -174,6 +189,14 @@ export default {
       type: Boolean,
       default: false,
     },
+    widgetOptionsWindowActiveStatus: {
+      type: Boolean,
+      default: false,
+    },
+    widgetOptionsWindow: {
+      type: Object,
+      default: () => ({}),
+    },
   },
 
   computed: {
@@ -218,13 +241,19 @@ export default {
     displayedWidgets() {
       return this.readOnly ? this.acceptedWidgets : this.selectedWidgets;
     },
+
+    optionWidgetKey() {
+      return this.widgetOptionsWindow?.widget || null;
+    },
   },
 
   data() {
     return {
       placeholderDragEnter: false,
+      activeWidgetKey: "",
     };
   },
+
   methods: {
     widgetHasOptions(active_widget) {
       if (!active_widget.options && typeof active_widget.options !== "object") {
@@ -261,6 +290,13 @@ export default {
         return false;
       }
       return true;
+    },
+    setActiveWidget(widgetKey) {
+      if (!this.editOnClick) {
+        return;
+      }
+
+      this.activeWidgetKey = widgetKey;
     },
   },
 };

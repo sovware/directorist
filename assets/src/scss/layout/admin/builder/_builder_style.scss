@@ -2451,8 +2451,15 @@ input[type="radio"].cptm-radio {
   display: flex;
   gap: 8px;
   flex: 1;
+  position: relative;
   .cptm-placeholder-block {
     flex: 1;
+    &:not(.cptm-listing-card-preview-body-placeholder) {
+      .cptm-widget-preview-card {
+        display: inline-flex;
+        vertical-align: top;
+      }
+    }
   }
   .cptm-widget-card-status {
     display: flex;
@@ -2613,6 +2620,13 @@ input[type="radio"].cptm-radio {
       }
     }
   }
+
+  .cptm-options-area {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+  }
 }
 
 .cptm-field-wraper-key-single_listing_header {
@@ -2729,7 +2743,7 @@ input[type="radio"].cptm-radio {
 }
 
 .cptm-listing-card-author-avatar {
-  z-index: 99;
+  z-index: 100;
   position: absolute;
   left: 50%;
   top: 0;

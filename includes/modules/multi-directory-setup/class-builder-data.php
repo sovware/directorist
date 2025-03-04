@@ -434,39 +434,7 @@ class Builder_Data {
                                         'value'   => '',
                                     ],
                                 ]
-                            ],
-                            'review_criteria' => [
-                                'label'    => __( 'Review Criteria', 'directorist' ),
-                                'info' => 'Please fill up the criteria fields below. You can add up to 05 criteria.',
-                                'canTrash' => false,
-                                'canMove'  => false,
-                                'options'  => [
-                                        'repeater-section-title' => [
-                                        'type'  => 'text',
-                                        'label' => __( 'Section Title', 'directorist' ),
-                                        'value' => 'Leave a Review',
-                                    ],
-                                    'enable-multi-criteria' => [
-                                        'type'  => 'toggle',
-                                        'label' => __( 'Enable Multi-Criteria', 'directorist' ),
-                                        'subLabel' => __( '(Only 05 criteria)', 'directorist' ),
-                                        'value' => true,
-                                    ],
-                                    'repeater-multi-option' => [
-                                        'type'                 => 'repeater',
-                                        'add-new-button-label' => __( 'Add New Criteria', 'directorist' ),
-                                        'max-group'            => 5,
-                                        'value'                => [],
-                                        'placeholder'          => 'e.g Service Quality, Price...',
-                                        'show_if'              => [
-                                            'where'      => 'self.enable-multi-criteria',
-                                            'conditions' => [
-                                                ['key' => 'value', 'compare' => '=', 'value' => true],
-                                            ],
-                                        ],
-                                    ],
-                                ]
-                            ],
+                            ]
                         ]
 
                     ],

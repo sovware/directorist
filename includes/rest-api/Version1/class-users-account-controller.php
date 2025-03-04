@@ -246,15 +246,10 @@ class Users_Account_Controller extends Abstract_Controller {
 
 	protected function validate_reset_pin_code( $request ) {
 		if ( strlen( $request['pin'] ) < 4 ) {
-			return new WP_Error( 'directorist_rest_password_reset_pin_invalid', __( 'Invalid pin code.', 'directorist' ), array( 'status' => 400 ) );
+			return new WP_Error( 'directorist_rest_password_reset_pin_invalid', __( 'Pin code must be 4 letters long.', 'directorist' ), array( 'status' => 400 ) );
 		}
 
-		$user = $this->get_user_by_email( $request['email'] );
-
-		if ( ! directorist_check_password_reset_pin_code( $user, $request['pin'] ) ) {
-			return new WP_Error( 'directorist_rest_password_reset_pin_invalid', __( 'Invalid pin code.', 'directorist' ), array( 'status' => 400 ) );
-		}
-
-		return true;
+		$user   = $this->get_user_by_email( $request['email'] );
+		return directorist_check_password_reset_pin_code( $user, $request['pin'] );
 	}
 }

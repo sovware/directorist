@@ -1811,6 +1811,35 @@ li[class="cptm-form-builder-field-list-item"][draggable="true"] {
   color: #383f47;
 }
 
+.cptm-option-card--draggable {
+  .cptm-form-builder-field-list {
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    .cptm-form-builder-field-list-item-wrapper {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin: 0;
+    }
+    .cptm-form-builder-field-list-item {
+      width: 100%;
+      display: flex;
+      gap: 8px;
+      justify-content: space-between;
+      border-radius: 8px;
+      border-color: #e5e7eb;
+      background: transparent;
+    }
+    .cptm-form-builder-field-list-item-drag {
+      cursor: move;
+    }
+    .cptm-form-builder-field-list-item-action {
+      cursor: pointer;
+    }
+  }
+}
+
 .cptm-info-text-area {
   margin-bottom: 10px;
 }
@@ -2142,7 +2171,7 @@ input[type="radio"].cptm-radio {
 }
 
 .cptm-option-card-header {
-  border-radius: 5px;
+  border-radius: 8px;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
   background-color: $primary;
@@ -2199,7 +2228,7 @@ input[type="radio"].cptm-radio {
 
 .cptm-option-card-body {
   padding: 18px 20px 20px;
-  border-radius: 5px;
+  border-radius: 8px;
   border-top-right-radius: 0;
   border-top-left-radius: 0;
   box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.2);
@@ -2243,6 +2272,42 @@ input[type="radio"].cptm-radio {
 
   &.active {
     pointer-events: all;
+  }
+}
+
+.cptm-widget-option-modal-container {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 330px;
+  transform: translate(-50%, -100%);
+  pointer-events: none;
+  z-index: 100;
+  &.active {
+    pointer-events: all;
+  }
+
+  .cptm-option-card-header {
+    background-color: #fff;
+    border: 1px solid #e5e7eb;
+  }
+  .cptm-header-action-link {
+    color: #747c89;
+    &:hover {
+      color: #2c3239;
+    }
+  }
+
+  .cptm-option-card-body {
+    background-color: #fff;
+    border: 1px solid #e5e7eb;
+    border-top: none;
+    box-shadow: none;
+  }
+
+  .cptm-option-card-header-title-section,
+  .cptm-option-card-header-title {
+    color: #2c3239;
   }
 }
 

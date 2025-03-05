@@ -16213,6 +16213,52 @@ li[class=cptm-form-builder-field-list-item][draggable=true] {
   color: #383f47;
 }
 
+.cptm-option-card--draggable .cptm-form-builder-field-list {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 10px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-form-builder-field-list-item-wrapper {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 12px;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 0;
+}
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-form-builder-field-list-item {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 8px;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  border-radius: 8px;
+  border-color: #e5e7eb;
+  background: transparent;
+}
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-form-builder-field-list-item-drag {
+  cursor: move;
+}
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-form-builder-field-list-item-action {
+  cursor: pointer;
+}
+
 .cptm-info-text-area {
   margin-bottom: 10px;
 }
@@ -16566,7 +16612,7 @@ input[type=radio].cptm-radio {
 }
 
 .cptm-option-card-header {
-  border-radius: 5px;
+  border-radius: 8px;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
   background-color: #3e62f5;
@@ -16649,7 +16695,7 @@ input[type=radio].cptm-radio {
 
 .cptm-option-card-body {
   padding: 18px 20px 20px;
-  border-radius: 5px;
+  border-radius: 8px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
   -webkit-box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.2);
@@ -16699,6 +16745,41 @@ input[type=radio].cptm-radio {
 }
 .cptm-widget-insert-modal-container.active {
   pointer-events: all;
+}
+
+.cptm-widget-option-modal-container {
+  position: absolute;
+  right: 50%;
+  top: 0;
+  width: 330px;
+  -webkit-transform: translate(50%, -100%);
+          transform: translate(50%, -100%);
+  pointer-events: none;
+  z-index: 100;
+}
+.cptm-widget-option-modal-container.active {
+  pointer-events: all;
+}
+.cptm-widget-option-modal-container .cptm-option-card-header {
+  background-color: #fff;
+  border: 1px solid #e5e7eb;
+}
+.cptm-widget-option-modal-container .cptm-header-action-link {
+  color: #747c89;
+}
+.cptm-widget-option-modal-container .cptm-header-action-link:hover {
+  color: #2c3239;
+}
+.cptm-widget-option-modal-container .cptm-option-card-body {
+  background-color: #fff;
+  border: 1px solid #e5e7eb;
+  border-top: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+.cptm-widget-option-modal-container .cptm-option-card-header-title-section,
+.cptm-widget-option-modal-container .cptm-option-card-header-title {
+  color: #2c3239;
 }
 
 .cptm-widget-insert-link {
@@ -21955,6 +22036,52 @@ li[class=cptm-form-builder-field-list-item][draggable=true] {
   color: #383f47;
 }
 
+.cptm-option-card--draggable .cptm-form-builder-field-list {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 10px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-form-builder-field-list-item-wrapper {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 12px;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 0;
+}
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-form-builder-field-list-item {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 8px;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  border-radius: 8px;
+  border-color: #e5e7eb;
+  background: transparent;
+}
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-form-builder-field-list-item-drag {
+  cursor: move;
+}
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-form-builder-field-list-item-action {
+  cursor: pointer;
+}
+
 .cptm-info-text-area {
   margin-bottom: 10px;
 }
@@ -22308,7 +22435,7 @@ input[type=radio].cptm-radio {
 }
 
 .cptm-option-card-header {
-  border-radius: 5px;
+  border-radius: 8px;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
   background-color: #3e62f5;
@@ -22391,7 +22518,7 @@ input[type=radio].cptm-radio {
 
 .cptm-option-card-body {
   padding: 18px 20px 20px;
-  border-radius: 5px;
+  border-radius: 8px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
   -webkit-box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.2);
@@ -22441,6 +22568,41 @@ input[type=radio].cptm-radio {
 }
 .cptm-widget-insert-modal-container.active {
   pointer-events: all;
+}
+
+.cptm-widget-option-modal-container {
+  position: absolute;
+  right: 50%;
+  top: 0;
+  width: 330px;
+  -webkit-transform: translate(50%, -100%);
+          transform: translate(50%, -100%);
+  pointer-events: none;
+  z-index: 100;
+}
+.cptm-widget-option-modal-container.active {
+  pointer-events: all;
+}
+.cptm-widget-option-modal-container .cptm-option-card-header {
+  background-color: #fff;
+  border: 1px solid #e5e7eb;
+}
+.cptm-widget-option-modal-container .cptm-header-action-link {
+  color: #747c89;
+}
+.cptm-widget-option-modal-container .cptm-header-action-link:hover {
+  color: #2c3239;
+}
+.cptm-widget-option-modal-container .cptm-option-card-body {
+  background-color: #fff;
+  border: 1px solid #e5e7eb;
+  border-top: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+.cptm-widget-option-modal-container .cptm-option-card-header-title-section,
+.cptm-widget-option-modal-container .cptm-option-card-header-title {
+  color: #2c3239;
 }
 
 .cptm-widget-insert-link {
@@ -27985,6 +28147,52 @@ li[class=cptm-form-builder-field-list-item][draggable=true] {
   color: #383f47;
 }
 
+.cptm-option-card--draggable .cptm-form-builder-field-list {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 10px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-form-builder-field-list-item-wrapper {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 12px;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 0;
+}
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-form-builder-field-list-item {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 8px;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  border-radius: 8px;
+  border-color: #e5e7eb;
+  background: transparent;
+}
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-form-builder-field-list-item-drag {
+  cursor: move;
+}
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-form-builder-field-list-item-action {
+  cursor: pointer;
+}
+
 .cptm-info-text-area {
   margin-bottom: 10px;
 }
@@ -28338,7 +28546,7 @@ input[type=radio].cptm-radio {
 }
 
 .cptm-option-card-header {
-  border-radius: 5px;
+  border-radius: 8px;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
   background-color: #3e62f5;
@@ -28421,7 +28629,7 @@ input[type=radio].cptm-radio {
 
 .cptm-option-card-body {
   padding: 18px 20px 20px;
-  border-radius: 5px;
+  border-radius: 8px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
   -webkit-box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.2);
@@ -28471,6 +28679,41 @@ input[type=radio].cptm-radio {
 }
 .cptm-widget-insert-modal-container.active {
   pointer-events: all;
+}
+
+.cptm-widget-option-modal-container {
+  position: absolute;
+  right: 50%;
+  top: 0;
+  width: 330px;
+  -webkit-transform: translate(50%, -100%);
+          transform: translate(50%, -100%);
+  pointer-events: none;
+  z-index: 100;
+}
+.cptm-widget-option-modal-container.active {
+  pointer-events: all;
+}
+.cptm-widget-option-modal-container .cptm-option-card-header {
+  background-color: #fff;
+  border: 1px solid #e5e7eb;
+}
+.cptm-widget-option-modal-container .cptm-header-action-link {
+  color: #747c89;
+}
+.cptm-widget-option-modal-container .cptm-header-action-link:hover {
+  color: #2c3239;
+}
+.cptm-widget-option-modal-container .cptm-option-card-body {
+  background-color: #fff;
+  border: 1px solid #e5e7eb;
+  border-top: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+.cptm-widget-option-modal-container .cptm-option-card-header-title-section,
+.cptm-widget-option-modal-container .cptm-option-card-header-title {
+  color: #2c3239;
 }
 
 .cptm-widget-insert-link {

@@ -1,18 +1,17 @@
 <template>
   <div class="cptm-placeholder-block-wrapper">
-    <div class="cptm-widget-insert-modal-container">
-      <widgets-window
+    <div class="cptm-widget-option-modal-container">
+      <widgets-option-window
         :id="id"
         :availableWidgets="availableWidgets"
-        :acceptedWidgets="acceptedWidgets"
-        :rejectedWidgets="rejectedWidgets"
-        :activeWidgets="activeWidgets"
         :selectedWidgets="selectedWidgets"
-        :active="showWidgetsOptionWindow && !showWidgetsPickerWindow"
-        :maxWidget="maxWidget"
+        :active="
+          showWidgetsOptionWindow &&
+          selectedWidgets.length &&
+          !showWidgetsPickerWindow
+        "
         :maxWidgetInfoText="maxWidgetInfoText"
-        :bottomAchhor="true"
-        @widget-selection="$emit('trash-widget', $event)"
+        @trash-widget="$emit('trash-widget', $event)"
         @close="$emit('close-widgets-option-window')"
       />
     </div>

@@ -1,5 +1,21 @@
 <template>
   <div class="cptm-placeholder-block-wrapper">
+    <div class="cptm-widget-insert-modal-container">
+      <widgets-window
+        :id="id"
+        :availableWidgets="availableWidgets"
+        :acceptedWidgets="acceptedWidgets"
+        :rejectedWidgets="rejectedWidgets"
+        :activeWidgets="activeWidgets"
+        :selectedWidgets="selectedWidgets"
+        :active="showWidgetsOptionWindow && !showWidgetsPickerWindow"
+        :maxWidget="maxWidget"
+        :maxWidgetInfoText="maxWidgetInfoText"
+        :bottomAchhor="true"
+        @widget-selection="$emit('trash-widget', $event)"
+        @close="$emit('close-widgets-option-window')"
+      />
+    </div>
     <div
       class="cptm-placeholder-block"
       :class="[
@@ -10,6 +26,7 @@
       @dragover.prevent="$emit('placeholder-dragover-on')"
       @dragenter="placeholderOnDragEnter()"
       @dragleave="placeholderOnDragLeave()"
+      @click.prevent="$emit('open-widgets-option-window')"
     >
       <p
         class="cptm-placeholder-label"
@@ -162,6 +179,10 @@ export default {
       type: Array,
     },
     showWidgetsPickerWindow: {
+      type: Boolean,
+      default: false,
+    },
+    showWidgetsOptionWindow: {
       type: Boolean,
       default: false,
     },

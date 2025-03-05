@@ -35,44 +35,25 @@
                   :showWidgetsPickerWindow="
                     getActiveInsertWindowStatus('thumbnail_top_left')
                   "
-                  :widgetOptionsWindow="widgetOptionsWindow"
-                  :widgetDropable="
-                    widgetIsDropable(local_layout.thumbnail.top_left)
+                  :showWidgetsOptionWindow="
+                    getActiveOptionWindowStatus('thumbnail_top_left')
                   "
+                  :widgetOptionsWindow="widgetOptionsWindow"
                   @insert-widget="
                     insertWidget($event, local_layout.thumbnail.top_left)
                   "
-                  @drag-widget="
-                    onDragStartWidget($event, local_layout.thumbnail.top_left)
-                  "
-                  @drop-widget="
-                    appendWidget($event, local_layout.thumbnail.top_left)
-                  "
-                  @dragend-widget="onDragEndWidget()"
                   @edit-widget="editWidget($event)"
                   @trash-widget="
                     trashWidget($event, local_layout.thumbnail.top_left)
                   "
-                  @placeholder-on-drop="
-                    handleDropOnPlaceholder(local_layout.thumbnail.top_left)
-                  "
-                  @placeholder-on-dragover="
-                    handleDragOverOnPlaceholder(local_layout.thumbnail.top_left)
-                  "
-                  @placeholder-on-dragenter="
-                    handleDragEnterOnPlaceholder(
-                      local_layout.thumbnail.top_left
-                    )
-                  "
-                  @placeholder-on-dragleave="
-                    handleDragleaveOnPlaceholder(
-                      local_layout.thumbnail.top_left
-                    )
-                  "
                   @open-widgets-picker-window="
                     activeInsertWindow('thumbnail_top_left')
                   "
+                  @open-widgets-option-window="
+                    activeOptionWindow('thumbnail_top_left')
+                  "
                   @close-widgets-picker-window="closeInsertWindow()"
+                  @close-widgets-option-window="closeOptionWindow()"
                   @update-option-window="
                     updateWidgetOptionsData($event, widgetOptionsWindow)
                   "
@@ -99,41 +80,25 @@
                   :showWidgetsPickerWindow="
                     getActiveInsertWindowStatus('thumbnail_top_right')
                   "
-                  :widgetOptionsWindow="widgetOptionsWindow"
-                  :widgetDropable="
-                    widgetIsDropable(local_layout.thumbnail.top_right)
+                  :showWidgetsOptionWindow="
+                    getActiveOptionWindowStatus('thumbnail_top_right')
                   "
+                  :widgetOptionsWindow="widgetOptionsWindow"
                   @insert-widget="
                     insertWidget($event, local_layout.thumbnail.top_right)
                   "
-                  @drag-widget="
-                    onDragStartWidget($event, local_layout.thumbnail.top_right)
-                  "
-                  @drop-widget="
-                    appendWidget($event, local_layout.thumbnail.top_right)
-                  "
-                  @dragend-widget="onDragEndWidget()"
                   @edit-widget="editWidget($event)"
                   @trash-widget="
                     trashWidget($event, local_layout.thumbnail.top_right)
                   "
-                  @placeholder-on-drop="
-                    handleDropOnPlaceholder(local_layout.thumbnail.top_right)
-                  "
-                  @placeholder-on-dragover="
-                    handleDragOverOnPlaceholder(
-                      local_layout.thumbnail.top_right
-                    )
-                  "
-                  @placeholder-on-dragenter="
-                    handleDragEnterOnPlaceholder(
-                      local_layout.thumbnail.top_right
-                    )
-                  "
                   @open-widgets-picker-window="
                     activeInsertWindow('thumbnail_top_right')
                   "
+                  @open-widgets-option-window="
+                    activeOptionWindow('thumbnail_top_right')
+                  "
                   @close-widgets-picker-window="closeInsertWindow()"
+                  @close-widgets-option-window="closeOptionWindow()"
                   @update-option-window="
                     updateWidgetOptionsData($event, widgetOptionsWindow)
                   "
@@ -160,44 +125,25 @@
                   :showWidgetsPickerWindow="
                     getActiveInsertWindowStatus('thumbnail_bottom_left')
                   "
-                  :widgetOptionsWindow="widgetOptionsWindow"
-                  :widgetDropable="
-                    widgetIsDropable(local_layout.thumbnail.bottom_left)
+                  :showWidgetsOptionWindow="
+                    getActiveOptionWindowStatus('thumbnail_bottom_left')
                   "
+                  :widgetOptionsWindow="widgetOptionsWindow"
                   @insert-widget="
                     insertWidget($event, local_layout.thumbnail.bottom_left)
                   "
-                  @drag-widget="
-                    onDragStartWidget(
-                      $event,
-                      local_layout.thumbnail.bottom_left
-                    )
-                  "
-                  @drop-widget="
-                    appendWidget($event, local_layout.thumbnail.bottom_left)
-                  "
-                  @dragend-widget="onDragEndWidget()"
                   @edit-widget="editWidget($event)"
                   @trash-widget="
                     trashWidget($event, local_layout.thumbnail.bottom_left)
                   "
-                  @placeholder-on-drop="
-                    handleDropOnPlaceholder(local_layout.thumbnail.bottom_left)
-                  "
-                  @placeholder-on-dragover="
-                    handleDragOverOnPlaceholder(
-                      local_layout.thumbnail.bottom_left
-                    )
-                  "
-                  @placeholder-on-dragenter="
-                    handleDragEnterOnPlaceholder(
-                      local_layout.thumbnail.bottom_left
-                    )
-                  "
                   @open-widgets-picker-window="
                     activeInsertWindow('thumbnail_bottom_left')
                   "
+                  @open-widgets-option-window="
+                    activeOptionWindow('thumbnail_bottom_left')
+                  "
                   @close-widgets-picker-window="closeInsertWindow()"
+                  @close-widgets-option-window="closeOptionWindow()"
                   @update-option-window="
                     updateWidgetOptionsData($event, widgetOptionsWindow)
                   "
@@ -224,44 +170,25 @@
                   :showWidgetsPickerWindow="
                     getActiveInsertWindowStatus('thumbnail_bottom_right')
                   "
-                  :widgetOptionsWindow="widgetOptionsWindow"
-                  :widgetDropable="
-                    widgetIsDropable(local_layout.thumbnail.bottom_right)
+                  :showWidgetsOptionWindow="
+                    getActiveOptionWindowStatus('thumbnail_bottom_right')
                   "
+                  :widgetOptionsWindow="widgetOptionsWindow"
                   @insert-widget="
                     insertWidget($event, local_layout.thumbnail.bottom_right)
                   "
-                  @drag-widget="
-                    onDragStartWidget(
-                      $event,
-                      local_layout.thumbnail.bottom_right
-                    )
-                  "
-                  @drop-widget="
-                    appendWidget($event, local_layout.thumbnail.bottom_right)
-                  "
-                  @dragend-widget="onDragEndWidget()"
                   @edit-widget="editWidget($event)"
                   @trash-widget="
                     trashWidget($event, local_layout.thumbnail.bottom_right)
                   "
-                  @placeholder-on-drop="
-                    handleDropOnPlaceholder(local_layout.thumbnail.bottom_right)
-                  "
-                  @placeholder-on-dragover="
-                    handleDragOverOnPlaceholder(
-                      local_layout.thumbnail.bottom_right
-                    )
-                  "
-                  @placeholder-on-dragenter="
-                    handleDragEnterOnPlaceholder(
-                      local_layout.thumbnail.bottom_right
-                    )
-                  "
                   @open-widgets-picker-window="
                     activeInsertWindow('thumbnail_bottom_right')
                   "
+                  @open-widgets-option-window="
+                    activeOptionWindow('thumbnail_bottom_right')
+                  "
                   @close-widgets-picker-window="closeInsertWindow()"
+                  @close-widgets-option-window="closeOptionWindow()"
                   @update-option-window="
                     updateWidgetOptionsData($event, widgetOptionsWindow)
                   "
@@ -294,25 +221,23 @@
               :showWidgetsPickerWindow="
                 getActiveInsertWindowStatus('thumbnail_avatar')
               "
+              :showWidgetsOptionWindow="
+                getActiveOptionWindowStatus('thumbnail_avatar')
+              "
               :widgetOptionsWindow="widgetOptionsWindow"
-              :widgetDropable="widgetIsDropable(local_layout.thumbnail.avatar)"
               @insert-widget="
                 insertWidget($event, local_layout.thumbnail.avatar)
               "
-              @drag-widget="
-                onDragStartWidget($event, local_layout.thumbnail.avatar)
-              "
-              @drop-widget="appendWidget($event, local_layout.thumbnail.avatar)"
-              @dragend-widget="onDragEndWidget()"
               @edit-widget="editWidget($event)"
               @trash-widget="trashWidget($event, local_layout.thumbnail.avatar)"
-              @placeholder-on-drop="
-                handleDropOnPlaceholder(local_layout.thumbnail.avatar)
-              "
               @open-widgets-picker-window="
                 activeInsertWindow('thumbnail_avatar')
               "
+              @open-widgets-option-window="
+                activeOptionWindow('thumbnail_avatar')
+              "
               @close-widgets-picker-window="closeInsertWindow()"
+              @close-widgets-option-window="closeOptionWindow()"
               @toggle-widget-status="
                 toggleWidgetStatus(local_layout.thumbnail.avatar)
               "
@@ -334,24 +259,9 @@
             :acceptedWidgets="local_layout.body.top.acceptedWidgets"
             :selectedWidgets="local_layout.body.top.selectedWidgets"
             :maxWidget="local_layout.body.top.maxWidget"
-            :showWidgetsPickerWindow="
-              getActiveInsertWindowStatus('thumbnail_body_top')
-            "
             :widgetOptionsWindow="widgetOptionsWindow"
-            :widgetDropable="widgetIsDropable(local_layout.body.top)"
-            @insert-widget="insertWidget($event, local_layout.body.top)"
-            @drag-widget="onDragStartWidget($event, local_layout.body.top)"
-            @drop-widget="appendWidget($event, local_layout.body.top)"
-            @dragend-widget="onDragEndWidget()"
             @edit-widget="editWidget($event)"
             @trash-widget="trashWidget($event, local_layout.body.top)"
-            @placeholder-on-drop="
-              handleDropOnPlaceholder(local_layout.body.top)
-            "
-            @open-widgets-picker-window="
-              activeInsertWindow('thumbnail_body_top')
-            "
-            @close-widgets-picker-window="closeInsertWindow()"
             @toggle-widget-status="toggleWidgetStatus(local_layout.body.top)"
             @update-option-window="
               updateWidgetOptionsData($event, widgetOptionsWindow)
@@ -369,25 +279,10 @@
             :acceptedWidgets="local_layout.body.tagline.acceptedWidgets"
             :selectedWidgets="local_layout.body.tagline.selectedWidgets"
             :maxWidget="local_layout.body.tagline.maxWidget"
-            :showWidgetsPickerWindow="
-              getActiveInsertWindowStatus('thumbnail_body_tagline')
-            "
             :widgetOptionsWindow="widgetOptionsWindow"
-            :widgetDropable="widgetIsDropable(local_layout.body.tagline)"
             :hasDisableButton="true"
-            @insert-widget="insertWidget($event, local_layout.body.tagline)"
-            @drag-widget="onDragStartWidget($event, local_layout.body.tagline)"
-            @drop-widget="appendWidget($event, local_layout.body.tagline)"
-            @dragend-widget="onDragEndWidget()"
             @edit-widget="editWidget($event)"
             @trash-widget="trashWidget($event, local_layout.body.tagline)"
-            @placeholder-on-drop="
-              handleDropOnPlaceholder(local_layout.body.tagline)
-            "
-            @open-widgets-picker-window="
-              activeInsertWindow('thumbnail_body_tagline')
-            "
-            @close-widgets-picker-window="closeInsertWindow()"
             @toggle-widget-status="
               toggleWidgetStatus(local_layout.body.tagline)
             "
@@ -409,21 +304,21 @@
             :showWidgetsPickerWindow="
               getActiveInsertWindowStatus('thumbnail_body_badges')
             "
+            :showWidgetsOptionWindow="
+              getActiveOptionWindowStatus('thumbnail_body_badges')
+            "
             :widgetOptionsWindow="widgetOptionsWindow"
-            :widgetDropable="widgetIsDropable(local_layout.body.badges)"
             @insert-widget="insertWidget($event, local_layout.body.badges)"
-            @drag-widget="onDragStartWidget($event, local_layout.body.badges)"
-            @drop-widget="appendWidget($event, local_layout.body.badges)"
-            @dragend-widget="onDragEndWidget()"
             @edit-widget="editWidget($event)"
             @trash-widget="trashWidget($event, local_layout.body.badges)"
-            @placeholder-on-drop="
-              handleDropOnPlaceholder(local_layout.body.badges)
-            "
             @open-widgets-picker-window="
               activeInsertWindow('thumbnail_body_badges')
             "
+            @open-widgets-option-window="
+              activeOptionWindow('thumbnail_body_badges')
+            "
             @close-widgets-picker-window="closeInsertWindow()"
+            @close-widgets-option-window="closeOptionWindow()"
             @update-option-window="
               updateWidgetOptionsData($event, widgetOptionsWindow)
             "
@@ -442,21 +337,21 @@
             :showWidgetsPickerWindow="
               getActiveInsertWindowStatus('thumbnail_body_bottom')
             "
+            :showWidgetsOptionWindow="
+              getActiveOptionWindowStatus('thumbnail_body_bottom')
+            "
             :widgetOptionsWindow="widgetOptionsWindow"
-            :widgetDropable="widgetIsDropable(local_layout.body.bottom)"
             @insert-widget="insertWidget($event, local_layout.body.bottom)"
-            @drag-widget="onDragStartWidget($event, local_layout.body.bottom)"
-            @drop-widget="appendWidget($event, local_layout.body.bottom)"
-            @dragend-widget="onDragEndWidget()"
             @edit-widget="editWidget($event)"
             @trash-widget="trashWidget($event, local_layout.body.bottom)"
-            @placeholder-on-drop="
-              handleDropOnPlaceholder(local_layout.body.bottom)
-            "
             @open-widgets-picker-window="
               activeInsertWindow('thumbnail_body_bottom')
             "
+            @open-widgets-option-window="
+              activeOptionWindow('thumbnail_body_bottom')
+            "
             @close-widgets-picker-window="closeInsertWindow()"
+            @close-widgets-option-window="closeOptionWindow()"
             @update-option-window="
               updateWidgetOptionsData($event, widgetOptionsWindow)
             "
@@ -475,21 +370,19 @@
             :selectedWidgets="local_layout.body.excerpt.selectedWidgets"
             :maxWidget="local_layout.body.excerpt.maxWidget"
             :showWidgetsPickerWindow="
-              getActiveInsertWindowStatus('body_excerpr')
+              getActiveInsertWindowStatus('body_excerpt')
+            "
+            :showWidgetsOptionWindow="
+              getActiveOptionWindowStatus('body_excerpt')
             "
             :widgetOptionsWindow="widgetOptionsWindow"
-            :widgetDropable="widgetIsDropable(local_layout.body.excerpt)"
             @insert-widget="insertWidget($event, local_layout.body.excerpt)"
-            @drag-widget="onDragStartWidget($event, local_layout.body.excerpt)"
-            @drop-widget="appendWidget($event, local_layout.body.excerpt)"
-            @dragend-widget="onDragEndWidget()"
             @edit-widget="editWidget($event)"
             @trash-widget="trashWidget($event, local_layout.body.excerpt)"
-            @placeholder-on-drop="
-              handleDropOnPlaceholder(local_layout.body.excerpt)
-            "
-            @open-widgets-picker-window="activeInsertWindow('body_excerpr')"
+            @open-widgets-picker-window="activeInsertWindow('body_excerpt')"
+            @open-widgets-option-window="activeOptionWindow('body_excerpt')"
             @close-widgets-picker-window="closeInsertWindow()"
+            @close-widgets-option-window="closeOptionWindow()"
             @update-option-window="
               updateWidgetOptionsData($event, widgetOptionsWindow)
             "
@@ -513,21 +406,21 @@
             :showWidgetsPickerWindow="
               getActiveInsertWindowStatus('thumbnail_footer_left')
             "
+            :showWidgetsOptionWindow="
+              getActiveOptionWindowStatus('thumbnail_footer_left')
+            "
             :widgetOptionsWindow="widgetOptionsWindow"
-            :widgetDropable="widgetIsDropable(local_layout.footer.left)"
             @insert-widget="insertWidget($event, local_layout.footer.left)"
-            @drag-widget="onDragStartWidget($event, local_layout.footer.left)"
-            @drop-widget="appendWidget($event, local_layout.footer.left)"
-            @dragend-widget="onDragEndWidget()"
             @edit-widget="editWidget($event)"
             @trash-widget="trashWidget($event, local_layout.footer.left)"
-            @placeholder-on-drop="
-              handleDropOnPlaceholder(local_layout.footer.left)
-            "
             @open-widgets-picker-window="
               activeInsertWindow('thumbnail_footer_left')
             "
+            @open-widgets-option-window="
+              activeOptionWindow('thumbnail_footer_left')
+            "
             @close-widgets-picker-window="closeInsertWindow()"
+            @close-widgets-option-window="closeOptionWindow()"
             @update-option-window="
               updateWidgetOptionsData($event, widgetOptionsWindow)
             "
@@ -548,21 +441,21 @@
             :showWidgetsPickerWindow="
               getActiveInsertWindowStatus('thumbnail_footer_right')
             "
+            :showWidgetsOptionWindow="
+              getActiveOptionWindowStatus('thumbnail_footer_right')
+            "
             :widgetOptionsWindow="widgetOptionsWindow"
-            :widgetDropable="widgetIsDropable(local_layout.footer.right)"
             @insert-widget="insertWidget($event, local_layout.footer.right)"
-            @drag-widget="onDragStartWidget($event, local_layout.footer.right)"
-            @drop-widget="appendWidget($event, local_layout.footer.right)"
-            @dragend-widget="onDragEndWidget()"
             @edit-widget="editWidget($event)"
             @trash-widget="trashWidget($event, local_layout.footer.right)"
-            @placeholder-on-drop="
-              handleDropOnPlaceholder(local_layout.footer.right)
-            "
             @open-widgets-picker-window="
               activeInsertWindow('thumbnail_footer_right')
             "
+            @open-widgets-option-window="
+              activeOptionWindow('thumbnail_footer_right')
+            "
             @close-widgets-picker-window="closeInsertWindow()"
+            @close-widgets-option-window="closeOptionWindow()"
             @update-option-window="
               updateWidgetOptionsData($event, widgetOptionsWindow)
             "
@@ -822,6 +715,7 @@ export default {
   data() {
     return {
       active_insert_widget_key: "",
+      active_option_widget_key: "",
 
       // Widget Options Window
       widgetOptionsWindowDefault: {
@@ -1283,6 +1177,15 @@ export default {
       this.active_insert_widget_key = current_item_key;
     },
 
+    activeOptionWindow(current_item_key) {
+      if (this.active_option_widget_key === current_item_key) {
+        this.active_option_widget_key = "";
+        return;
+      }
+
+      this.active_option_widget_key = current_item_key;
+    },
+
     insertWidget(payload, where) {
       if (!this.isTruthyObject(this.theAvailableWidgets[payload.key])) {
         return;
@@ -1298,8 +1201,20 @@ export default {
       this.active_insert_widget_key = "";
     },
 
+    closeOptionWindow(widget_option_window) {
+      this.active_option_widget_key = "";
+    },
+
     getActiveInsertWindowStatus(current_item_key) {
       if (current_item_key === this.active_insert_widget_key) {
+        return true;
+      }
+
+      return false;
+    },
+
+    getActiveOptionWindowStatus(current_item_key) {
+      if (current_item_key === this.active_option_widget_key) {
         return true;
       }
 

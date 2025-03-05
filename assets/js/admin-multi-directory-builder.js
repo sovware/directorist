@@ -15640,6 +15640,10 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       type: Boolean,
       default: false
     },
+    showWidgetsOptionWindow: {
+      type: Boolean,
+      default: false
+    },
     widgetDropable: {
       type: Boolean,
       default: false
@@ -20782,6 +20786,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   data: function data() {
     return {
       active_insert_widget_key: "",
+      active_option_widget_key: "",
       // Widget Options Window
       widgetOptionsWindowDefault: {
         animation: "cptm-animation-flip",
@@ -21154,6 +21159,13 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       }
       this.active_insert_widget_key = current_item_key;
     },
+    activeOptionWindow: function activeOptionWindow(current_item_key) {
+      if (this.active_option_widget_key === current_item_key) {
+        this.active_option_widget_key = "";
+        return;
+      }
+      this.active_option_widget_key = current_item_key;
+    },
     insertWidget: function insertWidget(payload, where) {
       if (!this.isTruthyObject(this.theAvailableWidgets[payload.key])) {
         return;
@@ -21164,8 +21176,17 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     closeInsertWindow: function closeInsertWindow(widget_insert_window) {
       this.active_insert_widget_key = "";
     },
+    closeOptionWindow: function closeOptionWindow(widget_option_window) {
+      this.active_option_widget_key = "";
+    },
     getActiveInsertWindowStatus: function getActiveInsertWindowStatus(current_item_key) {
       if (current_item_key === this.active_insert_widget_key) {
+        return true;
+      }
+      return false;
+    },
+    getActiveOptionWindowStatus: function getActiveOptionWindowStatus(current_item_key) {
+      if (current_item_key === this.active_option_widget_key) {
         return true;
       }
       return false;
@@ -28073,6 +28094,29 @@ var render = function render() {
   return _c("div", {
     staticClass: "cptm-placeholder-block-wrapper"
   }, [_c("div", {
+    staticClass: "cptm-widget-insert-modal-container"
+  }, [_c("widgets-window", {
+    attrs: {
+      id: _vm.id,
+      availableWidgets: _vm.availableWidgets,
+      acceptedWidgets: _vm.acceptedWidgets,
+      rejectedWidgets: _vm.rejectedWidgets,
+      activeWidgets: _vm.activeWidgets,
+      selectedWidgets: _vm.selectedWidgets,
+      active: _vm.showWidgetsOptionWindow && !_vm.showWidgetsPickerWindow,
+      maxWidget: _vm.maxWidget,
+      maxWidgetInfoText: _vm.maxWidgetInfoText,
+      bottomAchhor: true
+    },
+    on: {
+      "widget-selection": function widgetSelection($event) {
+        return _vm.$emit("trash-widget", $event);
+      },
+      close: function close($event) {
+        return _vm.$emit("close-widgets-option-window");
+      }
+    }
+  })], 1), _vm._v(" "), _c("div", {
     staticClass: "cptm-placeholder-block",
     class: [_vm.getContainerClass, {
       "cptm-widget-picker-open": _vm.showWidgetsPickerWindow
@@ -28091,6 +28135,10 @@ var render = function render() {
       },
       dragleave: function dragleave($event) {
         return _vm.placeholderOnDragLeave();
+      },
+      click: function click($event) {
+        $event.preventDefault();
+        return _vm.$emit("open-widgets-option-window");
       }
     }
   }, [_c("p", {
@@ -32009,22 +32057,13 @@ var render = function render() {
       selectedWidgets: _vm.local_layout.thumbnail.top_left.selectedWidgets,
       maxWidget: _vm.local_layout.thumbnail.top_left.maxWidget,
       showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_top_left"),
+      showWidgetsOptionWindow: _vm.getActiveOptionWindowStatus("thumbnail_top_left"),
       widgetOptionsWindow: _vm.widgetOptionsWindow,
-      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.thumbnail.top_left),
       editOnClick: ""
     },
     on: {
       "insert-widget": function insertWidget($event) {
         return _vm.insertWidget($event, _vm.local_layout.thumbnail.top_left);
-      },
-      "drag-widget": function dragWidget($event) {
-        return _vm.onDragStartWidget($event, _vm.local_layout.thumbnail.top_left);
-      },
-      "drop-widget": function dropWidget($event) {
-        return _vm.appendWidget($event, _vm.local_layout.thumbnail.top_left);
-      },
-      "dragend-widget": function dragendWidget($event) {
-        return _vm.onDragEndWidget();
       },
       "edit-widget": function editWidget($event) {
         return _vm.editWidget($event);
@@ -32032,23 +32071,17 @@ var render = function render() {
       "trash-widget": function trashWidget($event) {
         return _vm.trashWidget($event, _vm.local_layout.thumbnail.top_left);
       },
-      "placeholder-on-drop": function placeholderOnDrop($event) {
-        return _vm.handleDropOnPlaceholder(_vm.local_layout.thumbnail.top_left);
-      },
-      "placeholder-on-dragover": function placeholderOnDragover($event) {
-        return _vm.handleDragOverOnPlaceholder(_vm.local_layout.thumbnail.top_left);
-      },
-      "placeholder-on-dragenter": function placeholderOnDragenter($event) {
-        return _vm.handleDragEnterOnPlaceholder(_vm.local_layout.thumbnail.top_left);
-      },
-      "placeholder-on-dragleave": function placeholderOnDragleave($event) {
-        return _vm.handleDragleaveOnPlaceholder(_vm.local_layout.thumbnail.top_left);
-      },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
         return _vm.activeInsertWindow("thumbnail_top_left");
       },
+      "open-widgets-option-window": function openWidgetsOptionWindow($event) {
+        return _vm.activeOptionWindow("thumbnail_top_left");
+      },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
+      },
+      "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
+        return _vm.closeOptionWindow();
       },
       "update-option-window": function updateOptionWindow($event) {
         return _vm.updateWidgetOptionsData($event, _vm.widgetOptionsWindow);
@@ -32070,22 +32103,13 @@ var render = function render() {
       selectedWidgets: _vm.local_layout.thumbnail.top_right.selectedWidgets,
       maxWidget: _vm.local_layout.thumbnail.top_right.maxWidget,
       showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_top_right"),
+      showWidgetsOptionWindow: _vm.getActiveOptionWindowStatus("thumbnail_top_right"),
       widgetOptionsWindow: _vm.widgetOptionsWindow,
-      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.thumbnail.top_right),
       editOnClick: ""
     },
     on: {
       "insert-widget": function insertWidget($event) {
         return _vm.insertWidget($event, _vm.local_layout.thumbnail.top_right);
-      },
-      "drag-widget": function dragWidget($event) {
-        return _vm.onDragStartWidget($event, _vm.local_layout.thumbnail.top_right);
-      },
-      "drop-widget": function dropWidget($event) {
-        return _vm.appendWidget($event, _vm.local_layout.thumbnail.top_right);
-      },
-      "dragend-widget": function dragendWidget($event) {
-        return _vm.onDragEndWidget();
       },
       "edit-widget": function editWidget($event) {
         return _vm.editWidget($event);
@@ -32093,20 +32117,17 @@ var render = function render() {
       "trash-widget": function trashWidget($event) {
         return _vm.trashWidget($event, _vm.local_layout.thumbnail.top_right);
       },
-      "placeholder-on-drop": function placeholderOnDrop($event) {
-        return _vm.handleDropOnPlaceholder(_vm.local_layout.thumbnail.top_right);
-      },
-      "placeholder-on-dragover": function placeholderOnDragover($event) {
-        return _vm.handleDragOverOnPlaceholder(_vm.local_layout.thumbnail.top_right);
-      },
-      "placeholder-on-dragenter": function placeholderOnDragenter($event) {
-        return _vm.handleDragEnterOnPlaceholder(_vm.local_layout.thumbnail.top_right);
-      },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
         return _vm.activeInsertWindow("thumbnail_top_right");
       },
+      "open-widgets-option-window": function openWidgetsOptionWindow($event) {
+        return _vm.activeOptionWindow("thumbnail_top_right");
+      },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
+      },
+      "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
+        return _vm.closeOptionWindow();
       },
       "update-option-window": function updateOptionWindow($event) {
         return _vm.updateWidgetOptionsData($event, _vm.widgetOptionsWindow);
@@ -32128,22 +32149,13 @@ var render = function render() {
       selectedWidgets: _vm.local_layout.thumbnail.bottom_left.selectedWidgets,
       maxWidget: _vm.local_layout.thumbnail.bottom_left.maxWidget,
       showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_bottom_left"),
+      showWidgetsOptionWindow: _vm.getActiveOptionWindowStatus("thumbnail_bottom_left"),
       widgetOptionsWindow: _vm.widgetOptionsWindow,
-      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.thumbnail.bottom_left),
       editOnClick: ""
     },
     on: {
       "insert-widget": function insertWidget($event) {
         return _vm.insertWidget($event, _vm.local_layout.thumbnail.bottom_left);
-      },
-      "drag-widget": function dragWidget($event) {
-        return _vm.onDragStartWidget($event, _vm.local_layout.thumbnail.bottom_left);
-      },
-      "drop-widget": function dropWidget($event) {
-        return _vm.appendWidget($event, _vm.local_layout.thumbnail.bottom_left);
-      },
-      "dragend-widget": function dragendWidget($event) {
-        return _vm.onDragEndWidget();
       },
       "edit-widget": function editWidget($event) {
         return _vm.editWidget($event);
@@ -32151,20 +32163,17 @@ var render = function render() {
       "trash-widget": function trashWidget($event) {
         return _vm.trashWidget($event, _vm.local_layout.thumbnail.bottom_left);
       },
-      "placeholder-on-drop": function placeholderOnDrop($event) {
-        return _vm.handleDropOnPlaceholder(_vm.local_layout.thumbnail.bottom_left);
-      },
-      "placeholder-on-dragover": function placeholderOnDragover($event) {
-        return _vm.handleDragOverOnPlaceholder(_vm.local_layout.thumbnail.bottom_left);
-      },
-      "placeholder-on-dragenter": function placeholderOnDragenter($event) {
-        return _vm.handleDragEnterOnPlaceholder(_vm.local_layout.thumbnail.bottom_left);
-      },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
         return _vm.activeInsertWindow("thumbnail_bottom_left");
       },
+      "open-widgets-option-window": function openWidgetsOptionWindow($event) {
+        return _vm.activeOptionWindow("thumbnail_bottom_left");
+      },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
+      },
+      "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
+        return _vm.closeOptionWindow();
       },
       "update-option-window": function updateOptionWindow($event) {
         return _vm.updateWidgetOptionsData($event, _vm.widgetOptionsWindow);
@@ -32186,22 +32195,13 @@ var render = function render() {
       selectedWidgets: _vm.local_layout.thumbnail.bottom_right.selectedWidgets,
       maxWidget: _vm.local_layout.thumbnail.bottom_right.maxWidget,
       showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_bottom_right"),
+      showWidgetsOptionWindow: _vm.getActiveOptionWindowStatus("thumbnail_bottom_right"),
       widgetOptionsWindow: _vm.widgetOptionsWindow,
-      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.thumbnail.bottom_right),
       editOnClick: ""
     },
     on: {
       "insert-widget": function insertWidget($event) {
         return _vm.insertWidget($event, _vm.local_layout.thumbnail.bottom_right);
-      },
-      "drag-widget": function dragWidget($event) {
-        return _vm.onDragStartWidget($event, _vm.local_layout.thumbnail.bottom_right);
-      },
-      "drop-widget": function dropWidget($event) {
-        return _vm.appendWidget($event, _vm.local_layout.thumbnail.bottom_right);
-      },
-      "dragend-widget": function dragendWidget($event) {
-        return _vm.onDragEndWidget();
       },
       "edit-widget": function editWidget($event) {
         return _vm.editWidget($event);
@@ -32209,20 +32209,17 @@ var render = function render() {
       "trash-widget": function trashWidget($event) {
         return _vm.trashWidget($event, _vm.local_layout.thumbnail.bottom_right);
       },
-      "placeholder-on-drop": function placeholderOnDrop($event) {
-        return _vm.handleDropOnPlaceholder(_vm.local_layout.thumbnail.bottom_right);
-      },
-      "placeholder-on-dragover": function placeholderOnDragover($event) {
-        return _vm.handleDragOverOnPlaceholder(_vm.local_layout.thumbnail.bottom_right);
-      },
-      "placeholder-on-dragenter": function placeholderOnDragenter($event) {
-        return _vm.handleDragEnterOnPlaceholder(_vm.local_layout.thumbnail.bottom_right);
-      },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
         return _vm.activeInsertWindow("thumbnail_bottom_right");
       },
+      "open-widgets-option-window": function openWidgetsOptionWindow($event) {
+        return _vm.activeOptionWindow("thumbnail_bottom_right");
+      },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
+      },
+      "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
+        return _vm.closeOptionWindow();
       },
       "update-option-window": function updateOptionWindow($event) {
         return _vm.updateWidgetOptionsData($event, _vm.widgetOptionsWindow);
@@ -32247,22 +32244,13 @@ var render = function render() {
       selectedWidgets: _vm.local_layout.thumbnail.avatar.selectedWidgets,
       maxWidget: _vm.local_layout.thumbnail.avatar.maxWidget,
       showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_avatar"),
+      showWidgetsOptionWindow: _vm.getActiveOptionWindowStatus("thumbnail_avatar"),
       widgetOptionsWindow: _vm.widgetOptionsWindow,
-      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.thumbnail.avatar),
       editOnClick: ""
     },
     on: {
       "insert-widget": function insertWidget($event) {
         return _vm.insertWidget($event, _vm.local_layout.thumbnail.avatar);
-      },
-      "drag-widget": function dragWidget($event) {
-        return _vm.onDragStartWidget($event, _vm.local_layout.thumbnail.avatar);
-      },
-      "drop-widget": function dropWidget($event) {
-        return _vm.appendWidget($event, _vm.local_layout.thumbnail.avatar);
-      },
-      "dragend-widget": function dragendWidget($event) {
-        return _vm.onDragEndWidget();
       },
       "edit-widget": function editWidget($event) {
         return _vm.editWidget($event);
@@ -32270,14 +32258,17 @@ var render = function render() {
       "trash-widget": function trashWidget($event) {
         return _vm.trashWidget($event, _vm.local_layout.thumbnail.avatar);
       },
-      "placeholder-on-drop": function placeholderOnDrop($event) {
-        return _vm.handleDropOnPlaceholder(_vm.local_layout.thumbnail.avatar);
-      },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
         return _vm.activeInsertWindow("thumbnail_avatar");
       },
+      "open-widgets-option-window": function openWidgetsOptionWindow($event) {
+        return _vm.activeOptionWindow("thumbnail_avatar");
+      },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
+      },
+      "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
+        return _vm.closeOptionWindow();
       },
       "toggle-widget-status": function toggleWidgetStatus($event) {
         return _vm.toggleWidgetStatus(_vm.local_layout.thumbnail.avatar);
@@ -32300,38 +32291,15 @@ var render = function render() {
       acceptedWidgets: _vm.local_layout.body.top.acceptedWidgets,
       selectedWidgets: _vm.local_layout.body.top.selectedWidgets,
       maxWidget: _vm.local_layout.body.top.maxWidget,
-      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_body_top"),
       widgetOptionsWindow: _vm.widgetOptionsWindow,
-      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.body.top),
       editOnClick: ""
     },
     on: {
-      "insert-widget": function insertWidget($event) {
-        return _vm.insertWidget($event, _vm.local_layout.body.top);
-      },
-      "drag-widget": function dragWidget($event) {
-        return _vm.onDragStartWidget($event, _vm.local_layout.body.top);
-      },
-      "drop-widget": function dropWidget($event) {
-        return _vm.appendWidget($event, _vm.local_layout.body.top);
-      },
-      "dragend-widget": function dragendWidget($event) {
-        return _vm.onDragEndWidget();
-      },
       "edit-widget": function editWidget($event) {
         return _vm.editWidget($event);
       },
       "trash-widget": function trashWidget($event) {
         return _vm.trashWidget($event, _vm.local_layout.body.top);
-      },
-      "placeholder-on-drop": function placeholderOnDrop($event) {
-        return _vm.handleDropOnPlaceholder(_vm.local_layout.body.top);
-      },
-      "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.activeInsertWindow("thumbnail_body_top");
-      },
-      "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
-        return _vm.closeInsertWindow();
       },
       "toggle-widget-status": function toggleWidgetStatus($event) {
         return _vm.toggleWidgetStatus(_vm.local_layout.body.top);
@@ -32354,39 +32322,16 @@ var render = function render() {
       acceptedWidgets: _vm.local_layout.body.tagline.acceptedWidgets,
       selectedWidgets: _vm.local_layout.body.tagline.selectedWidgets,
       maxWidget: _vm.local_layout.body.tagline.maxWidget,
-      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_body_tagline"),
       widgetOptionsWindow: _vm.widgetOptionsWindow,
-      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.body.tagline),
       hasDisableButton: true,
       editOnClick: ""
     },
     on: {
-      "insert-widget": function insertWidget($event) {
-        return _vm.insertWidget($event, _vm.local_layout.body.tagline);
-      },
-      "drag-widget": function dragWidget($event) {
-        return _vm.onDragStartWidget($event, _vm.local_layout.body.tagline);
-      },
-      "drop-widget": function dropWidget($event) {
-        return _vm.appendWidget($event, _vm.local_layout.body.tagline);
-      },
-      "dragend-widget": function dragendWidget($event) {
-        return _vm.onDragEndWidget();
-      },
       "edit-widget": function editWidget($event) {
         return _vm.editWidget($event);
       },
       "trash-widget": function trashWidget($event) {
         return _vm.trashWidget($event, _vm.local_layout.body.tagline);
-      },
-      "placeholder-on-drop": function placeholderOnDrop($event) {
-        return _vm.handleDropOnPlaceholder(_vm.local_layout.body.tagline);
-      },
-      "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.activeInsertWindow("thumbnail_body_tagline");
-      },
-      "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
-        return _vm.closeInsertWindow();
       },
       "toggle-widget-status": function toggleWidgetStatus($event) {
         return _vm.toggleWidgetStatus(_vm.local_layout.body.tagline);
@@ -32409,22 +32354,13 @@ var render = function render() {
       selectedWidgets: _vm.local_layout.body.badges.selectedWidgets,
       maxWidget: _vm.local_layout.body.badges.maxWidget,
       showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_body_badges"),
+      showWidgetsOptionWindow: _vm.getActiveOptionWindowStatus("thumbnail_body_badges"),
       widgetOptionsWindow: _vm.widgetOptionsWindow,
-      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.body.badges),
       editOnClick: ""
     },
     on: {
       "insert-widget": function insertWidget($event) {
         return _vm.insertWidget($event, _vm.local_layout.body.badges);
-      },
-      "drag-widget": function dragWidget($event) {
-        return _vm.onDragStartWidget($event, _vm.local_layout.body.badges);
-      },
-      "drop-widget": function dropWidget($event) {
-        return _vm.appendWidget($event, _vm.local_layout.body.badges);
-      },
-      "dragend-widget": function dragendWidget($event) {
-        return _vm.onDragEndWidget();
       },
       "edit-widget": function editWidget($event) {
         return _vm.editWidget($event);
@@ -32432,14 +32368,17 @@ var render = function render() {
       "trash-widget": function trashWidget($event) {
         return _vm.trashWidget($event, _vm.local_layout.body.badges);
       },
-      "placeholder-on-drop": function placeholderOnDrop($event) {
-        return _vm.handleDropOnPlaceholder(_vm.local_layout.body.badges);
-      },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
         return _vm.activeInsertWindow("thumbnail_body_badges");
       },
+      "open-widgets-option-window": function openWidgetsOptionWindow($event) {
+        return _vm.activeOptionWindow("thumbnail_body_badges");
+      },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
+      },
+      "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
+        return _vm.closeOptionWindow();
       },
       "update-option-window": function updateOptionWindow($event) {
         return _vm.updateWidgetOptionsData($event, _vm.widgetOptionsWindow);
@@ -32459,22 +32398,13 @@ var render = function render() {
       selectedWidgets: _vm.local_layout.body.bottom.selectedWidgets,
       maxWidget: _vm.local_layout.body.bottom.maxWidget,
       showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_body_bottom"),
+      showWidgetsOptionWindow: _vm.getActiveOptionWindowStatus("thumbnail_body_bottom"),
       widgetOptionsWindow: _vm.widgetOptionsWindow,
-      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.body.bottom),
       editOnClick: ""
     },
     on: {
       "insert-widget": function insertWidget($event) {
         return _vm.insertWidget($event, _vm.local_layout.body.bottom);
-      },
-      "drag-widget": function dragWidget($event) {
-        return _vm.onDragStartWidget($event, _vm.local_layout.body.bottom);
-      },
-      "drop-widget": function dropWidget($event) {
-        return _vm.appendWidget($event, _vm.local_layout.body.bottom);
-      },
-      "dragend-widget": function dragendWidget($event) {
-        return _vm.onDragEndWidget();
       },
       "edit-widget": function editWidget($event) {
         return _vm.editWidget($event);
@@ -32482,14 +32412,17 @@ var render = function render() {
       "trash-widget": function trashWidget($event) {
         return _vm.trashWidget($event, _vm.local_layout.body.bottom);
       },
-      "placeholder-on-drop": function placeholderOnDrop($event) {
-        return _vm.handleDropOnPlaceholder(_vm.local_layout.body.bottom);
-      },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
         return _vm.activeInsertWindow("thumbnail_body_bottom");
       },
+      "open-widgets-option-window": function openWidgetsOptionWindow($event) {
+        return _vm.activeOptionWindow("thumbnail_body_bottom");
+      },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
+      },
+      "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
+        return _vm.closeOptionWindow();
       },
       "update-option-window": function updateOptionWindow($event) {
         return _vm.updateWidgetOptionsData($event, _vm.widgetOptionsWindow);
@@ -32511,22 +32444,13 @@ var render = function render() {
       selectedWidgets: _vm.local_layout.footer.left.selectedWidgets,
       maxWidget: _vm.local_layout.footer.left.maxWidget,
       showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_footer_left"),
+      showWidgetsOptionWindow: _vm.getActiveOptionWindowStatus("thumbnail_footer_left"),
       widgetOptionsWindow: _vm.widgetOptionsWindow,
-      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.footer.left),
       editOnClick: ""
     },
     on: {
       "insert-widget": function insertWidget($event) {
         return _vm.insertWidget($event, _vm.local_layout.footer.left);
-      },
-      "drag-widget": function dragWidget($event) {
-        return _vm.onDragStartWidget($event, _vm.local_layout.footer.left);
-      },
-      "drop-widget": function dropWidget($event) {
-        return _vm.appendWidget($event, _vm.local_layout.footer.left);
-      },
-      "dragend-widget": function dragendWidget($event) {
-        return _vm.onDragEndWidget();
       },
       "edit-widget": function editWidget($event) {
         return _vm.editWidget($event);
@@ -32534,14 +32458,17 @@ var render = function render() {
       "trash-widget": function trashWidget($event) {
         return _vm.trashWidget($event, _vm.local_layout.footer.left);
       },
-      "placeholder-on-drop": function placeholderOnDrop($event) {
-        return _vm.handleDropOnPlaceholder(_vm.local_layout.footer.left);
-      },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
         return _vm.activeInsertWindow("thumbnail_footer_left");
       },
+      "open-widgets-option-window": function openWidgetsOptionWindow($event) {
+        return _vm.activeOptionWindow("thumbnail_footer_left");
+      },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
+      },
+      "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
+        return _vm.closeOptionWindow();
       },
       "update-option-window": function updateOptionWindow($event) {
         return _vm.updateWidgetOptionsData($event, _vm.widgetOptionsWindow);
@@ -32561,22 +32488,13 @@ var render = function render() {
       selectedWidgets: _vm.local_layout.footer.right.selectedWidgets,
       maxWidget: _vm.local_layout.footer.right.maxWidget,
       showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_footer_right"),
+      showWidgetsOptionWindow: _vm.getActiveOptionWindowStatus("thumbnail_footer_right"),
       widgetOptionsWindow: _vm.widgetOptionsWindow,
-      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.footer.right),
       editOnClick: ""
     },
     on: {
       "insert-widget": function insertWidget($event) {
         return _vm.insertWidget($event, _vm.local_layout.footer.right);
-      },
-      "drag-widget": function dragWidget($event) {
-        return _vm.onDragStartWidget($event, _vm.local_layout.footer.right);
-      },
-      "drop-widget": function dropWidget($event) {
-        return _vm.appendWidget($event, _vm.local_layout.footer.right);
-      },
-      "dragend-widget": function dragendWidget($event) {
-        return _vm.onDragEndWidget();
       },
       "edit-widget": function editWidget($event) {
         return _vm.editWidget($event);
@@ -32584,14 +32502,17 @@ var render = function render() {
       "trash-widget": function trashWidget($event) {
         return _vm.trashWidget($event, _vm.local_layout.footer.right);
       },
-      "placeholder-on-drop": function placeholderOnDrop($event) {
-        return _vm.handleDropOnPlaceholder(_vm.local_layout.footer.right);
-      },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
         return _vm.activeInsertWindow("thumbnail_footer_right");
       },
+      "open-widgets-option-window": function openWidgetsOptionWindow($event) {
+        return _vm.activeOptionWindow("thumbnail_footer_right");
+      },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
+      },
+      "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
+        return _vm.closeOptionWindow();
       },
       "update-option-window": function updateOptionWindow($event) {
         return _vm.updateWidgetOptionsData($event, _vm.widgetOptionsWindow);

@@ -12,8 +12,9 @@ use Directorist\Licensing\Utils\Formatter;
 defined( 'ABSPATH' ) || exit;
 
 function directorist_licensing_get_extension_list_html() {
-	$extensions = Licensing_Products::get_extensions();
-	$html       = '';
+	$extensions       = Licensing_Products::get_extensions();
+	$active_slug_list = Licensing_Overview::get( 'active_slug_list' );
+	$html             = '';
 
 	if ( ! empty( $extensions ) ) {
 		ob_start(); // Start output buffering
@@ -28,19 +29,19 @@ function directorist_licensing_get_extension_list_html() {
                     </figure>
 
 					<div class="directorist-extension-overlay">
-						<?php if ( '1' === $extension['is_popular'] ): ?>
+						<?php if ( isset( $extension['is_popular'] ) && '1' === $extension['is_popular'] ): ?>
 							<div class="badge badge-popular">
 								Popular
 							</div>
 						<?php endif; ?>
 
-						<?php if ( '1' === $extension['is_trending'] ): ?>
+						<?php if ( isset( $extension['is_trending'] ) && '1' === $extension['is_trending'] ): ?>
 							<div class="badge badge-trendy">
 								Trendy
 							</div>
 						<?php endif; ?>
 
-						<?php if ( '1' === $extension['is_new'] ): ?>
+						<?php if ( isset( $extension['is_new'] ) && '1' === $extension['is_new'] ): ?>
 							<div class="badge badge-latest">
 								Latest
 							</div>
@@ -51,14 +52,16 @@ function directorist_licensing_get_extension_list_html() {
                         <header class="directorist-extension-header">
                             <h2 class="directorist-extension-title">
 								<?php echo esc_html( $extension['title'] ); ?>
-								<?php if ( in_array( $extension['slug'], Licensing_Overview::get_extensions_overview( 'active_list' ) ) ): ?>
+								<?php if ( in_array( $extension['slug'], $active_slug_list ) ): ?>
 									<span class="directorist-extension-title-badge-active"><?php esc_html_e( 'Active', 'directorist' ); ?></span>
 								<?php endif; ?>
 							</h2>
                         </header>
-                        <p class="directorist-extension-description">
-                            <?php echo esc_html( $extension['excerpt'] ); ?>
-                        </p>
+						<?php if ( isset( $extension['excerpt'] ) ): ?>
+							<p class="directorist-extension-description">
+								<?php echo esc_html( $extension['excerpt'] ); ?>
+							</p>
+						<?php endif; ?>
                     </div>
 
                     <footer class="directorist-extension-footer">
@@ -122,11 +125,15 @@ function directorist_licensing_get_template_list_html() {
 
 function directorist_get_item_buttons_html( array $item, string $type ): string {
 
-	$active_slugs    = Licensing_Overview::get_extensions_overview( 'active_list' );
-	$backdated_slugs = Licensing_Overview::get_extensions_overview( 'backdated_list' );
+	// add_action( 'admin_enqueue_scripts', function () {
+	// 	wp_enqueue_script( 'updates' );
+	// } );
+
+	$active_slugs    = Licensing_Overview::get( 'active_slug_list' );
+	$backdated_slugs = Licensing_Overview::get( 'backdated_slug_list' );
 	$inactive_slugs  = array_map( function ( $path ) {
 		return dirname( $path ); // Gets only the folder name
-	}, Licensing_Overview::get_extensions_overview( 'inactive_list' ) );
+	}, Licensing_Overview::get( 'inactive_slug_list' ) );
 
 	// error_log( '$inactive_slug  : ' . print_r($inactive_slug  ,true) );
 	// error_log( ' $active_slugs  : ' . print_r( $active_slugs, true ) );
@@ -139,14 +146,14 @@ function directorist_get_item_buttons_html( array $item, string $type ): string 
 
 			<?php if ( ! Licensing::is_connected() || ! isset( $item['download_link'] ) ): ?>
 				<a target="__blank" href="<?php echo esc_url( $item['permalink'] ); ?>" class="directorist-extension-link directorist-extension-btn directorist-extension-btn-primary">
-					<?php esc_html_e( 'View Details', 'directorist' ); ?>
+					<?php esc_html_e( 'Details', 'directorist' ); ?>
 				</a>
 			<?php else: ?>
 
-				<?php if ( in_array( $item['slug'], $inactive_slugs ) ): ?>
-					<a data-item-slug="<?php echo esc_attr( $item['slug'] ); ?>" href="#" type="button" class="directorist-extension-btn directorist-extension-btn-primary directorist-extension-btn-activate"><?php esc_html_e( 'Activate', 'directorist' ); ?></a>
-				<?php elseif ( in_array( $item['slug'], $active_slugs ) ): ?>
+				<?php if ( in_array( $item['slug'], $active_slugs ) ): ?>
 					<a data-item-slug="<?php echo esc_attr( $item['slug'] ); ?>" href="#" type="button" class="directorist-extension-btn directorist-extension-btn-warning directorist-extension-btn-deactivate"><?php esc_html_e( 'Deactivate', 'directorist' ); ?></a>
+				<?php elseif ( in_array( $item['slug'], $inactive_slugs ) ): ?>
+					<a data-item-slug="<?php echo esc_attr( $item['slug'] ); ?>" href="#" type="button" class="directorist-extension-btn directorist-extension-btn-primary directorist-extension-btn-activate"><?php esc_html_e( 'Activate', 'directorist' ); ?></a>
 				<?php elseif ( isset( $item['download_link'] ) ): ?>
 					<a data-item-slug="<?php echo esc_attr( $item['slug'] ); ?>" href="#" type="button" class="directorist-extension-btn directorist-extension-btn-primary directorist-extension-btn-install"><?php esc_html_e( 'Install', 'directorist' ); ?></a>
 				<?php endif; ?>
@@ -161,9 +168,7 @@ function directorist_get_item_buttons_html( array $item, string $type ): string 
 				<?php endif; ?>
 
 				<?php if ( in_array( $item['slug'], $backdated_slugs ) ): ?>
-					<a class="directorist-extension-btn directorist-extension-btn-update" href="#">
-						<?php esc_html_e( 'Update', 'directorist' ); ?>
-					</a>
+					<a data-item-slug="<?php echo esc_attr( $item['slug'] ); ?>" href="#" type="button" class="directorist-extension-btn directorist-extension-btn-primary directorist-extension-btn-update"><?php esc_html_e( 'Update', 'directorist' ); ?></a>
 				<?php endif; ?>
 
 			<?php endif; ?>

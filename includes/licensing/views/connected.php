@@ -170,7 +170,7 @@
 			<div class="directorist-col-xxl-3 directorist-col-lg-4 directorist-col-sm-6">
 				<div class="directorist-membership-status">
 					<div class="directorist-membership-status-number directorist-membership-status-active-extension">
-						<?php echo Licensing_Overview::get_extensions_overview( 'active' ); ?>
+						<?php echo Licensing_Overview::get( 'active_count' ); ?>
 					</div>
 					<div class="directorist-membership-status-description">
 						<?php esc_html_e( 'Active Extensions', 'directorist' )?>
@@ -180,7 +180,7 @@
 			<div class="directorist-col-xxl-3 directorist-col-lg-4 directorist-col-sm-6">
 				<div class="directorist-membership-status">
 					<div class="directorist-membership-status-number">
-						<?php echo Licensing_Overview::get_extensions_overview( 'available' ); ?>
+						<?php echo Licensing_Overview::get( 'available_count' ); ?>
 					</div>
 					<div class="directorist-membership-status-description">
 						<?php esc_html_e( 'Available Extensions', 'directorist' )?>
@@ -190,7 +190,7 @@
 			<div class="directorist-col-xxl-3 directorist-col-lg-4 directorist-col-sm-6">
 				<div class="directorist-membership-status">
 					<div class="directorist-membership-status-number">
-						<?php echo Licensing_Overview::get_extensions_overview( 'templates' ); ?>
+						<?php echo Licensing_Overview::get( 'templates_count' ); ?>
 					</div>
 					<div class="directorist-membership-status-description">
 						<?php esc_html_e( 'Available Templates', 'directorist' )?>
@@ -199,16 +199,16 @@
 			</div>
 			<div class="directorist-col-xxl-3 directorist-col-lg-4 directorist-col-sm-6">
 				<div class="directorist-membership-status">
-					
+
 					<div class="directorist-membership-status-number directorist-membership-status-update-available">
-						<?php echo Licensing_Overview::get_extensions_overview( 'backdated' ); ?>
+						<?php echo Licensing_Overview::get( 'backdated_count' ); ?>
 					</div>
 
 					<div class="directorist-membership-status-description">
 						<?php esc_html_e( 'Update Available', 'directorist' )?>
 					</div>
 
-					<?php if ( Licensing_Overview::get_extensions_overview( 'backdated' ) ): ?>
+					<?php if ( Licensing_Overview::get( 'backdated_count' ) ): ?>
 						<button type="button" class="directorist-membership-status-update-all">
 							<?php esc_html_e( 'Update All', 'directorist' )?>
 						</button>

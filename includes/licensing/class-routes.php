@@ -42,6 +42,7 @@ class Routes {
 			'install-extension'     => 'install_extension',
 			'activate-extension'    => 'activate_extension',
 			'deactivate-extension'  => 'deactivate_extension',
+			'update-extension'      => 'update_extension',
 			'account-data'          => 'account_data',
 		];
 

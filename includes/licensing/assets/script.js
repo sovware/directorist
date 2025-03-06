@@ -407,6 +407,46 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
     
+    document.querySelectorAll(".directorist-extension-btn-update").forEach(button => {
+        button.addEventListener("click", function (event) {
+            event.preventDefault();
+            
+            const extensionSlug = this.getAttribute("data-item-slug");
+            if (!extensionSlug) return;
+            
+            this.textContent = "Updating...";
+            this.disabled = true;
+            
+            fetch(directorist_licensing.root + "directorist/v1/admin/update-extension", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-WP-Nonce": directorist_licensing.nonce
+                },
+                body: JSON.stringify({ slug: extensionSlug })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    this.textContent = "Updated";
+                    this.classList.remove("directorist-extension-btn-update");
+                    this.classList.add("directorist-extension-btn-updated");
+                } else {
+                    this.textContent = "Update";
+                    alert(data.message || "Updating failed.");
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                this.textContent = "Update";
+                alert("An error occurred while updating the extension.");
+            })
+            .finally(() => {
+                this.disabled = false;
+            });
+        });
+    });
+    
 });
 
 

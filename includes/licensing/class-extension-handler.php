@@ -160,6 +160,46 @@ class Extension_Handler {
 		return true;
 	}
 
+	public function update( string $slug ) {
+		$extensions = $this->get_unlocked_extensions();
+
+		// Find the extension by slug
+		$plugin_data = null;
+		foreach ( $extensions as $extension ) {
+			if ( $extension['slug'] === $slug ) {
+				$plugin_data = $extension;
+				break;
+			}
+		}
+
+		if ( ! $plugin_data ) {
+			throw new \Exception(
+				__( 'You do not have access to update this extension.', 'directorist' ),
+				403
+			);
+		}
+
+		try {
+			// Attempt to update the plugin by reinstalling
+			$this->installer( $plugin_data );
+
+			// Optionally, activate after update
+			$this->activate( $slug );
+
+			return [
+				'success' => true,
+				'message' => __( 'Plugin updated and activated successfully.', 'directorist' ),
+			];
+
+		} catch ( \Exception $e ) {
+			return [
+				'success' => false,
+				'message' => $e->getMessage(),
+				'code'    => $e->getCode(),
+			];
+		}
+	}
+
 	private function get(): array {
 		$this->includes();
 

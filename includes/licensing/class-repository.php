@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) || exit;
 class Repository {
 
 	private static function get_endpoint( string $endpoint ) {
-		return 'http://localhost:10014/wp-json/directorist-license-manager/' . $endpoint;
+		return 'https://directorist.com/wp-json/directorist-license-manager/' . $endpoint;
 	}
 
 	private static function remote_request( $endpoint = '' ) {

@@ -13,7 +13,7 @@
 								fill="currentColor" />
 						</svg>
 						<?php esc_html_e( 'Extensions', 'directorist' ); ?>
-						<span class="total-extensions"> (<?php echo Licensing_Overview::get_extensions_overview( 'officials' ); ?>)</span>
+						<span class="total-extensions"> (<?php echo Licensing_Overview::get( 'officials_count' ); ?>)</span>
 					</button>
 				</li>
 				<li>
@@ -37,7 +37,7 @@
 								fill="currentColor" />
 						</svg>
 						<?php esc_html_e( 'Templates', 'directorist' ); ?>
-						<span class="total-templates"> (<?php echo Licensing_Overview::get_templates_overview(); ?>)</span>
+						<span class="total-templates"> (<?php echo Licensing_Overview::get( 'templates_count' ); ?>)</span>
 					</button>
 				</li>
 			</ul>
@@ -70,6 +70,6 @@
 				<?php echo directorist_licensing_get_template_list_html(); ?>
 			</div>
 		</div>
-		
+
 	</div>
 </div>

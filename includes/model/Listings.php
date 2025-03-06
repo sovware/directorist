@@ -294,7 +294,7 @@ class Directorist_Listings {
 			'orderby'                  => $this->options['order_listing_by'],
 			'order'                    => $this->options['sort_listing_by'],
 			'listings_per_page'        => $this->options['listings_per_page'],
-			'show_pagination'          => $this->options['paginate_listings'],
+			'show_pagination'          => 'yes',
 			'pagination_type'          => $this->options['pagination_type'],
 			'header'                   => $this->options['display_listings_header'],
 			'header_title'             => $this->options['listing_header_title'],

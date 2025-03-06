@@ -3614,6 +3614,7 @@ function directorist_get_listing_statuses() {
         'pending' => __( 'Pending Review', 'directorist' ),
         'private' => __( 'Private', 'directorist' ),
         'publish' => __( 'Published', 'directorist' ),
+        'expired' => __( 'Expired', 'directorist' ),
     );
 }
 

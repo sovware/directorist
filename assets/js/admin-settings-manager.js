@@ -16184,8 +16184,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = (_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({
-  name: 'sub-navigation',
-  props: ['navLists', 'active']
+  name: "sub-navigation",
+  props: ["navLists", "active"]
 }, "props", {
   navLists: Array,
   active: {
@@ -16193,16 +16193,27 @@ __webpack_require__.r(__webpack_exports__);
     required: false
   }
 }), "mixins", [_mixins_helpers__WEBPACK_IMPORTED_MODULE_1__["default"]]), "model", {
-  prop: 'active',
-  event: 'change'
+  prop: "active",
+  event: "change"
 }), "data", function data() {
   return {
-    active_nav: 0
+    active_nav: 0,
+    showModal: false,
+    modalContent: null
   };
 }), "methods", {
   swichNav: function swichNav(index) {
     this.active_nav = index;
-    this.$emit('change', index);
+    this.$emit("change", index);
+  },
+  openModal: function openModal(content) {
+    if (!content) return; // Prevent setting invalid content
+    this.modalContent = content;
+    this.showModal = true;
+  },
+  closeModal: function closeModal() {
+    this.showModal = false;
+    this.modalContent = null; // Reset content after closing
   }
 }));
 
@@ -16260,7 +16271,7 @@ __webpack_require__.r(__webpack_exports__);
         return [];
       }
       return _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(this.subNavigation).map(function (item) {
-        return item.label;
+        return item;
       });
     },
     activeSubMenu: function activeSubMenu() {
@@ -28136,9 +28147,12 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("ul", {
+  return _c("div", {
+    staticClass: "cptm-sub-navigation-wrapper"
+  }, [_c("ul", {
     staticClass: "cptm-sub-navigation"
   }, _vm._l(_vm.navLists, function (nav, index) {
+    var _nav$learn_more;
     return _c("li", {
       key: index,
       staticClass: "cptm-sub-nav__item"
@@ -28154,8 +28168,29 @@ var render = function render() {
           return _vm.swichNav(index);
         }
       }
-    }, [_vm._v("\n            " + _vm._s(nav) + "\n        ")])]);
-  }), 0);
+    }, [_vm._v("\n        " + _vm._s(nav.label) + "\n        "), nav.learn_more ? _c("span", {
+      staticClass: "directorist-row-tooltip cptm-sub-nav__item-tooltip",
+      attrs: {
+        "data-tooltip": nav === null || nav === void 0 || (_nav$learn_more = nav.learn_more) === null || _nav$learn_more === void 0 ? void 0 : _nav$learn_more.description,
+        "data-flow": "bottom-right"
+      },
+      on: {
+        click: function click($event) {
+          $event.preventDefault();
+          return _vm.openModal(nav.learn_more);
+        }
+      }
+    }, [_vm._v("\n          ?\n        ")]) : _vm._e()])]);
+  }), 0), _vm._v(" "), _vm.modalContent ? _c("form-builder-widget-modal-component", {
+    attrs: {
+      modalOpened: _vm.showModal,
+      content: _vm.modalContent,
+      type: _vm.modalContent.type
+    },
+    on: {
+      "close-modal": _vm.closeModal
+    }
+  }) : _vm._e()], 1);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -28175,7 +28210,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
 var render = function render() {
-  var _vm$activeSubMenu, _vm$activeSubMenu2;
+  var _vm$activeSubMenu;
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", [_c("div", {
@@ -28193,24 +28228,11 @@ var render = function render() {
     }
   }), _vm._v(" "), _c("div", {
     staticClass: "cptm-tab-content-header__action"
-  }, [_vm.activeSubMenu.learn_more ? _c("a", {
+  }, [_vm.activeSubMenu.video ? _c("a", {
     staticClass: "directorist-row-tooltip directorist-form-doc__modal-btn",
     attrs: {
       href: "#",
-      "data-tooltip": (_vm$activeSubMenu = _vm.activeSubMenu) === null || _vm$activeSubMenu === void 0 || (_vm$activeSubMenu = _vm$activeSubMenu.learn_more) === null || _vm$activeSubMenu === void 0 ? void 0 : _vm$activeSubMenu.description,
-      "data-flow": "bottom-right"
-    },
-    on: {
-      click: function click($event) {
-        $event.preventDefault();
-        return _vm.openModal(_vm.activeSubMenu.learn_more);
-      }
-    }
-  }, [_vm._v("\n        ?\n        ")]) : _vm._e(), _vm._v(" "), _vm.activeSubMenu.video ? _c("a", {
-    staticClass: "directorist-row-tooltip directorist-form-doc__modal-btn",
-    attrs: {
-      href: "#",
-      "data-tooltip": (_vm$activeSubMenu2 = _vm.activeSubMenu) === null || _vm$activeSubMenu2 === void 0 || (_vm$activeSubMenu2 = _vm$activeSubMenu2.video) === null || _vm$activeSubMenu2 === void 0 ? void 0 : _vm$activeSubMenu2.description,
+      "data-tooltip": (_vm$activeSubMenu = _vm.activeSubMenu) === null || _vm$activeSubMenu === void 0 || (_vm$activeSubMenu = _vm$activeSubMenu.video) === null || _vm$activeSubMenu === void 0 ? void 0 : _vm$activeSubMenu.description,
       "data-flow": "bottom-right"
     },
     on: {

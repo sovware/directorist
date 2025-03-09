@@ -128,8 +128,9 @@
                                 $delete_link = admin_url('admin-post.php?listing_type_id=' . absint( $listing_type->term_id ) . '&action=delete_listing_type');
                                 $delete_link = wp_nonce_url( $delete_link, 'delete_listing_type');
                                 $created_time = get_term_meta( $listing_type->term_id, '_created_date', true );
+                                $sort_order = get_term_meta( $listing_type->term_id, 'sort_order', true );
                             ?>
-                            <div class="directorist_table-row directory-type-row" data-term-id="<?php echo esc_attr( $listing_type->term_id ); ?>">
+                            <div class="directorist_table-row directory-type-row" data-term-id="<?php echo esc_attr( $listing_type->term_id ); ?>" data-term-sort-order="<?php echo esc_attr( $sort_order ); ?>">
                                 <div class="directorist_title">
                                     <a  href="<?php echo esc_url( ! empty( $edit_link ) ? $edit_link : '#' ); ?>">
                                         <?php echo esc_html( ! empty( $listing_type->name ) ? $listing_type->name : '-' ); ?>

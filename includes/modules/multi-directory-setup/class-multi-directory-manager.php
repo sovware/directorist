@@ -22,7 +22,7 @@ class Multi_Directory_Manager {
         add_action( 'init', [$this, 'register_directory_taxonomy'] );
         add_action( 'init', [$this, 'setup_migration'] );
         
-        add_filter( 'directorist_directory_index_query', [ $this, 'directory_type_sorting_query' ], 10 );
+        add_filter( 'directorist_directory_index_query', [ $this, 'directory_type_sorting_query' ] );
 
         if ( ! is_admin() ) {
             return;

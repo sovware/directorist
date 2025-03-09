@@ -22,6 +22,7 @@ class Multi_Directory_Manager {
         add_action( 'init', [$this, 'register_directory_taxonomy'] );
         add_action( 'init', [$this, 'setup_migration'] );
         
+        // Directory Type Sorting
         add_filter( 'directorist_directory_index_query', [ $this, 'directory_type_sorting_query' ] );
 
         if ( ! is_admin() ) {
@@ -40,11 +41,11 @@ class Multi_Directory_Manager {
         add_action( 'wp_ajax_directorist_directory_type_library', [ $this, 'directorist_directory_type_library' ] );
 
         // Directory Type Sorting
-        add_action( 'directorist_after_create_directory_type', [ $this, 'add_directory_sorting_to_new_directory' ] );
-        add_action( 'directorist_after_activation', [ $this, 'add_directory_type_sorting_to_missing_ones' ] );
+        add_action( 'directorist_after_create_directory_type', [ $this, 'add_directory_sorting_order_to_new_directory' ] );
+        add_action( 'directorist_after_activation', [ $this, 'add_directory_type_sorting_order_to_missing_ones' ] );
     }
 
-    public function add_directory_sorting_to_new_directory( $term ): void {
+    public function add_directory_sorting_order_to_new_directory( $term ): void {
         if ( ! is_array( $term ) ) {
             return;
         }
@@ -411,10 +412,10 @@ class Multi_Directory_Manager {
         }
     }
 
-    public function add_directory_type_sorting_to_missing_ones(): void {
+    public function add_directory_type_sorting_order_to_missing_ones(): void {
         $this->register_directory_taxonomy();
 
-        $directories_with_no_sorting = $this->get_directories_with_no_sorting();
+        $directories_with_no_sorting = $this->get_directories_with_no_sorting_order();
 
         if ( is_wp_error( $directories_with_no_sorting ) || empty( $directories_with_no_sorting ) ) {
             return;
@@ -428,7 +429,7 @@ class Multi_Directory_Manager {
         }
     }
 
-    public function get_directories_with_no_sorting() {
+    public function get_directories_with_no_sorting_order() {
         $terms = get_terms( [
             'taxonomy'   => ATBDP_DIRECTORY_TYPE,
             'hide_empty' => false,

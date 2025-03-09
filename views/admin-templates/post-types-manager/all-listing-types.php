@@ -100,12 +100,12 @@
                 </div>
                 <?php
                     $all_items =  wp_count_terms(ATBDP_DIRECTORY_TYPE);
-                    $listing_types = get_terms([
+                    $listing_types = get_terms(  apply_filters( 'directorist_directory_index_query', [
                        'taxonomy'   => ATBDP_DIRECTORY_TYPE,
                        'hide_empty' => false,
                        'orderby'    => 'date',
                        'order'      => 'DSCE',
-                    ]);
+                    ] ) );
                 ?>
                 <div class="directorist_builder__content__right">
                     <div class="directorist-total-types">

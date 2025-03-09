@@ -39,25 +39,23 @@ class Multi_Directory_Manager {
 
         // Directory Type Sorting
         add_action( 'directorist_after_create_directory_type', [ $this, 'add_directory_sorting_to_new_directory' ] );
+        add_filter( 'directorist_directory_index_query', [ $this, 'directory_type_sorting_query' ] );
     }
 
-    public function add_directory_sorting_to_new_directory( $term ) {
+    public function add_directory_sorting_to_new_directory( $term ): void {
         if ( ! is_array( $term ) ) {
             return;
         }
-
-        $max_order = get_terms( [
-            'taxonomy'   => ATBDP_DIRECTORY_TYPE,
-            'hide_empty' => false,
-            'meta_key'   => 'sort_order',
-            'orderby'    => 'meta_value_num',
-            'order'      => 'DESC',
-            'number'     => 1,
-        ] );
-    
-        $new_sort_order = ! empty( $max_order ) ? intval( get_term_meta( $max_order[0]->term_id, 'sort_order', true ) ) + 1 : 1;
         
-        update_term_meta( $term['term_id'], 'sort_order', $new_sort_order );
+        update_term_meta( $term['term_id'], 'sort_order', $this->get_directory_type_max_sort_order() + 1 );
+    }
+
+    public function directory_type_sorting_query( array $query ): array {
+        $query['meta_key'] = 'sort_order';
+        $query['orderby']  = 'meta_value_num';
+        $query['order']    = 'ASC';
+
+        return $query;
     }
 
     public static function builder_data_backup( $term_id ) {
@@ -409,6 +407,19 @@ class Multi_Directory_Manager {
             $this->prepare_settings();
             $this->import_default_directory();
         }
+    }
+
+    public function get_directory_type_max_sort_order(): int {
+        $max_order = get_terms( [
+            'taxonomy'   => ATBDP_DIRECTORY_TYPE,
+            'hide_empty' => false,
+            'meta_key'   => 'sort_order',
+            'orderby'    => 'meta_value_num',
+            'order'      => 'DESC',
+            'number'     => 1,
+        ] );
+
+        return ! empty( $max_order ) ? intval( get_term_meta( $max_order[0]->term_id, 'sort_order', true ) ) : 0;
     }
 
     // has_multidirectory

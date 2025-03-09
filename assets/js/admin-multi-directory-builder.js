@@ -16908,8 +16908,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = (_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({
-  name: 'sub-navigation',
-  props: ['navLists', 'active']
+  name: "sub-navigation",
+  props: ["navLists", "active"]
 }, "props", {
   navLists: Array,
   active: {
@@ -16917,16 +16917,27 @@ __webpack_require__.r(__webpack_exports__);
     required: false
   }
 }), "mixins", [_mixins_helpers__WEBPACK_IMPORTED_MODULE_1__["default"]]), "model", {
-  prop: 'active',
-  event: 'change'
+  prop: "active",
+  event: "change"
 }), "data", function data() {
   return {
-    active_nav: 0
+    active_nav: 0,
+    showModal: false,
+    modalContent: null
   };
 }), "methods", {
   swichNav: function swichNav(index) {
     this.active_nav = index;
-    this.$emit('change', index);
+    this.$emit("change", index);
+  },
+  openModal: function openModal(content) {
+    if (!content) return; // Prevent setting invalid content
+    this.modalContent = content;
+    this.showModal = true;
+  },
+  closeModal: function closeModal() {
+    this.showModal = false;
+    this.modalContent = null; // Reset content after closing
   }
 }));
 
@@ -16984,7 +16995,7 @@ __webpack_require__.r(__webpack_exports__);
         return [];
       }
       return _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(this.subNavigation).map(function (item) {
-        return item.label;
+        return item;
       });
     },
     activeSubMenu: function activeSubMenu() {
@@ -19878,9 +19889,12 @@ __webpack_require__.r(__webpack_exports__);
       default: false
     }
   },
-  created: function created() {
-    // this.setup()
+  data: function data() {
+    return {
+      optionsExpanded: false // Track the state of the options text
+    };
   },
+
   computed: {
     label: function label() {
       var label = "";
@@ -19891,12 +19905,16 @@ __webpack_require__.r(__webpack_exports__);
         label = this.groupData.label;
       }
       return label;
+    },
+    optionsText: function optionsText() {
+      return this.optionsExpanded ? "Hide" : "Options";
     }
   },
-  data: function data() {
-    return {
-      // label: ''
-    };
+  methods: {
+    toggleExpandGroup: function toggleExpandGroup() {
+      this.optionsExpanded = !this.optionsExpanded;
+      this.$emit("toggle-expand-group");
+    }
   }
 });
 
@@ -24507,7 +24525,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       },
       placeholdersMap: {},
       placeholders: [],
-      elementsSettingsOpened: false
+      elementsSettingsOpened: true
     };
   },
   methods: {
@@ -29173,9 +29191,12 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("ul", {
+  return _c("div", {
+    staticClass: "cptm-sub-navigation-wrapper"
+  }, [_c("ul", {
     staticClass: "cptm-sub-navigation"
   }, _vm._l(_vm.navLists, function (nav, index) {
+    var _nav$learn_more;
     return _c("li", {
       key: index,
       staticClass: "cptm-sub-nav__item"
@@ -29191,8 +29212,58 @@ var render = function render() {
           return _vm.swichNav(index);
         }
       }
-    }, [_vm._v("\n            " + _vm._s(nav) + "\n        ")])]);
-  }), 0);
+    }, [_vm._v("\n        " + _vm._s(nav.label) + "\n        "), nav.learn_more ? _c("span", {
+      staticClass: "directorist-row-tooltip cptm-sub-nav__item-tooltip",
+      attrs: {
+        "data-tooltip": nav === null || nav === void 0 || (_nav$learn_more = nav.learn_more) === null || _nav$learn_more === void 0 ? void 0 : _nav$learn_more.description,
+        "data-flow": "bottom-right"
+      },
+      on: {
+        click: function click($event) {
+          $event.preventDefault();
+          return _vm.openModal(nav.learn_more);
+        }
+      }
+    }, [_c("svg", {
+      attrs: {
+        width: "14",
+        height: "14",
+        viewBox: "0 0 14 14",
+        fill: "none",
+        xmlns: "http://www.w3.org/2000/svg"
+      }
+    }, [_c("g", {
+      attrs: {
+        "clip-path": "url(#clip0_8183_2901)"
+      }
+    }, [_c("path", {
+      attrs: {
+        "fill-rule": "evenodd",
+        "clip-rule": "evenodd",
+        d: "M7.00004 1.75004C4.10055 1.75004 1.75004 4.10055 1.75004 7.00004C1.75004 9.89954 4.10055 12.25 7.00004 12.25C9.89954 12.25 12.25 9.89954 12.25 7.00004C12.25 4.10055 9.89954 1.75004 7.00004 1.75004ZM0.583374 7.00004C0.583374 3.45621 3.45621 0.583374 7.00004 0.583374C10.5439 0.583374 13.4167 3.45621 13.4167 7.00004C13.4167 10.5439 10.5439 13.4167 7.00004 13.4167C3.45621 13.4167 0.583374 10.5439 0.583374 7.00004ZM6.41671 4.66671C6.41671 4.34454 6.67787 4.08337 7.00004 4.08337H7.00587C7.32804 4.08337 7.58921 4.34454 7.58921 4.66671C7.58921 4.98887 7.32804 5.25004 7.00587 5.25004H7.00004C6.67787 5.25004 6.41671 4.98887 6.41671 4.66671ZM7.00004 6.41671C7.32221 6.41671 7.58337 6.67787 7.58337 7.00004V9.33337C7.58337 9.65554 7.32221 9.91671 7.00004 9.91671C6.67787 9.91671 6.41671 9.65554 6.41671 9.33337V7.00004C6.41671 6.67787 6.67787 6.41671 7.00004 6.41671Z",
+        fill: "#747C89"
+      }
+    })]), _vm._v(" "), _c("defs", [_c("clipPath", {
+      attrs: {
+        id: "clip0_8183_2901"
+      }
+    }, [_c("rect", {
+      attrs: {
+        width: "14",
+        height: "14",
+        fill: "white"
+      }
+    })])])])]) : _vm._e()])]);
+  }), 0), _vm._v(" "), _vm.modalContent ? _c("form-builder-widget-modal-component", {
+    attrs: {
+      modalOpened: _vm.showModal,
+      content: _vm.modalContent,
+      type: _vm.modalContent.type
+    },
+    on: {
+      "close-modal": _vm.closeModal
+    }
+  }) : _vm._e()], 1);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -29212,7 +29283,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
 var render = function render() {
-  var _vm$activeSubMenu, _vm$activeSubMenu2;
+  var _vm$activeSubMenu;
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", [_c("div", {
@@ -29230,24 +29301,11 @@ var render = function render() {
     }
   }), _vm._v(" "), _c("div", {
     staticClass: "cptm-tab-content-header__action"
-  }, [_vm.activeSubMenu.learn_more ? _c("a", {
+  }, [_vm.activeSubMenu.video ? _c("a", {
     staticClass: "directorist-row-tooltip directorist-form-doc__modal-btn",
     attrs: {
       href: "#",
-      "data-tooltip": (_vm$activeSubMenu = _vm.activeSubMenu) === null || _vm$activeSubMenu === void 0 || (_vm$activeSubMenu = _vm$activeSubMenu.learn_more) === null || _vm$activeSubMenu === void 0 ? void 0 : _vm$activeSubMenu.description,
-      "data-flow": "bottom-right"
-    },
-    on: {
-      click: function click($event) {
-        $event.preventDefault();
-        return _vm.openModal(_vm.activeSubMenu.learn_more);
-      }
-    }
-  }, [_vm._v("\n        ?\n        ")]) : _vm._e(), _vm._v(" "), _vm.activeSubMenu.video ? _c("a", {
-    staticClass: "directorist-row-tooltip directorist-form-doc__modal-btn",
-    attrs: {
-      href: "#",
-      "data-tooltip": (_vm$activeSubMenu2 = _vm.activeSubMenu) === null || _vm$activeSubMenu2 === void 0 || (_vm$activeSubMenu2 = _vm$activeSubMenu2.video) === null || _vm$activeSubMenu2 === void 0 ? void 0 : _vm$activeSubMenu2.description,
+      "data-tooltip": (_vm$activeSubMenu = _vm.activeSubMenu) === null || _vm$activeSubMenu === void 0 || (_vm$activeSubMenu = _vm$activeSubMenu.video) === null || _vm$activeSubMenu === void 0 ? void 0 : _vm$activeSubMenu.description,
       "data-flow": "bottom-right"
     },
     on: {
@@ -31552,7 +31610,7 @@ var render = function render() {
     on: {
       click: function click($event) {
         $event.preventDefault();
-        return _vm.$emit("toggle-expand-group");
+        return _vm.toggleExpandGroup.apply(null, arguments);
       }
     }
   }, [_c("span", {
@@ -31560,7 +31618,7 @@ var render = function render() {
     attrs: {
       "aria-hidden": "true"
     }
-  }), _vm._v(" Options\n    ")]) : _vm._e()]), _vm._v(" "), _vm.groupData && _vm.groupData.fields && _vm.groupData.fields.length ? _c("div", {
+  }), _vm._v("\n      " + _vm._s(_vm.optionsText) + "\n    ")]) : _vm._e()]), _vm._v(" "), _vm.groupData && _vm.groupData.fields && _vm.groupData.fields.length ? _c("div", {
     staticClass: "cptm-form-builder-group-title-actions"
   }, [_c("a", {
     staticClass: "cptm-form-builder-header-action-link",

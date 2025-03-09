@@ -248,12 +248,13 @@ $light-gray: #f4f5f7;
   }
   &__modal-btn {
     display: inline-flex;
-    padding: 8px 12px;
     width: max-content;
     justify-content: center;
     align-items: center;
     gap: 6px;
-    border-radius: 8px;
+    width: 30px;
+    height: 30px;
+    border-radius: 6px;
     border: 1px solid #bee3ff;
     background: #eff8ff;
     color: #217aef;
@@ -264,6 +265,7 @@ $light-gray: #f4f5f7;
     font-weight: 500;
     line-height: 14px;
     letter-spacing: 0.12px;
+    box-sizing: border-box;
     text-transform: capitalize;
     svg {
       width: 14px;
@@ -962,31 +964,9 @@ $light-gray: #f4f5f7;
 .cptm-tab-content-header {
   position: relative;
   background: transparent;
-  margin-top: 61px;
+  margin-top: 76px;
   @media only screen and (max-width: 600px) {
     margin-top: 0;
-  }
-  .cptm-sub-navigation {
-    gap: 10px;
-    padding: 10px 20px;
-    margin: 0 15px;
-    max-width: 1050px;
-    margin: 0 auto;
-    .cptm-sub-nav__item {
-      margin: 0;
-    }
-    .cptm-sub-nav__item-link {
-      margin: 0;
-      padding: 10px 25px;
-      background-color: #e3e6ef;
-      &.active,
-      &:hover {
-        background-color: #3e62f5;
-      }
-    }
-    @media screen and (max-width: 480px) {
-      margin: 0;
-    }
   }
   .cptm-tab-content-header__action {
     display: flex;
@@ -1027,7 +1007,7 @@ $light-gray: #f4f5f7;
 .cptm-tab-content {
   position: relative;
   margin: 0 auto;
-  padding: 30px;
+  padding: 16px 30px;
   min-height: 500px;
   box-sizing: border-box;
 
@@ -2061,6 +2041,7 @@ input[type="radio"].cptm-radio {
   padding: 0;
   margin: 0;
   display: flex;
+  gap: 8px;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
@@ -2073,25 +2054,49 @@ input[type="radio"].cptm-radio {
 
 .cptm-sub-nav__item-link {
   @extend .reset-pseudo-link;
-  display: block;
+  display: flex;
+  gap: 12px;
+  align-items: center;
   text-decoration: none;
-  padding: 12px 25px;
-  border-radius: 30px;
-  margin: 22px 5px;
-  color: #7a8289;
-  font-weight: 600;
-  background-color: #f1f2f6;
+  height: 30px;
+  padding: 0 16px;
+  color: #4d5761;
+  font-size: 13px;
+  line-height: 14px;
+  font-weight: 500;
+  border-radius: 8px;
+  border: 1px solid #d2d6db;
   transition: 0.3s ease;
-
-  &:hover,
+  .cptm-sub-nav__item-tooltip {
+    padding: 0 12px;
+    margin-right: -16px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border-radius: 0 8px 8px 0;
+    &:hover {
+      background: #d2d6db;
+    }
+  }
   &.active {
-    font-weight: 600;
     color: #fff;
     background: $primary;
+    border-color: $primary;
+    .cptm-sub-nav__item-tooltip {
+      svg path {
+        fill: #ffffff;
+      }
+      &:hover {
+        background: #092aaf;
+      }
+    }
   }
-
-  &.active {
-    font-weight: bold;
+  &:hover:not(.active) {
+    color: #4d5761;
+    background: #e5e7eb;
+    border-color: #e5e7eb;
   }
 }
 
@@ -4478,7 +4483,7 @@ input[type="radio"] {
   @include e(toggle) {
     position: absolute;
     right: 0;
-    top: 0;
+    top: 84px;
     height: 44px;
     width: 44px;
     padding: 0;
@@ -4544,8 +4549,6 @@ input[type="radio"] {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 28px;
-        height: 28px;
         font-size: 15px;
         color: #868eae;
         background: transparent;
@@ -4554,7 +4557,6 @@ input[type="radio"] {
         cursor: grab;
         &:hover {
           color: #1e1e1e;
-          background: #e5e7eb;
         }
       }
 

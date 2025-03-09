@@ -4983,7 +4983,7 @@ body.wp-admin {
 
     &:before {
       content: "";
-      border: 5px solid transparent;
+      border: 6px solid transparent;
       z-index: 100;
     }
 
@@ -4992,14 +4992,19 @@ body.wp-admin {
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      border-radius: 6px;
+      border-radius: 8px;
       background: #141921;
       color: #ffffff;
-      z-index: 99;
+      font-size: 13px;
+      line-height: 18px;
       padding: 10px 12px;
-      height: 34px;
+      width: 200px;
+      height: auto;
+      white-space: normal;
       align-items: center;
-      line-height: normal;
+      justify-content: center;
+      text-align: center;
+      z-index: 99;
     }
 
     &:hover:before,
@@ -5017,7 +5022,7 @@ body.wp-admin {
 
     &:not([data-flow])::after,
     &[data-flow="top"]::after {
-      bottom: calc(100% + 5px);
+      bottom: calc(100% + 6px);
     }
 
     &:not([data-flow])::before,
@@ -5035,7 +5040,7 @@ body.wp-admin {
     }
 
     &[data-flow="bottom"]::after {
-      top: calc(100% + 5px);
+      top: calc(100% + 6px);
     }
 
     &[data-flow="bottom"]::before,
@@ -5044,43 +5049,61 @@ body.wp-admin {
       transform: translate(-50%, 6px);
     }
 
+    &[data-flow="top-left"]::after,
     &[data-flow="bottom-left"]::after {
       left: 0;
     }
 
+    &[data-flow="top-right"]::after,
     &[data-flow="bottom-right"]::after {
       right: 0;
     }
 
+    &[data-flow="top-left"]::after,
+    &[data-flow="top-right"]::after {
+      top: unset;
+      bottom: calc(100% + 6px);
+    }
+
     &[data-flow="bottom-left"]::after,
     &[data-flow="bottom-right"]::after {
-      width: 200px;
-      height: auto;
-      white-space: normal;
-      justify-content: center;
-      top: calc(100% + 5px);
+      top: calc(100% + 6px);
+    }
+
+    &[data-flow="top-left"]::before,
+    &[data-flow="top-right"]::before {
+      bottom: 100%;
+      border-bottom-width: 0;
+      border-top-color: #141921;
     }
 
     &[data-flow="bottom-left"]::before,
     &[data-flow="bottom-right"]::before {
       top: 100%;
-      left: 50%;
-      transform: translateX(-50%);
       border-top-width: 0;
       border-bottom-color: #141921;
+    }
+
+    &[data-flow="top-left"]::before,
+    &[data-flow="bottom-left"]::before {
+      left: 6px;
+    }
+    &[data-flow="top-right"]::before,
+    &[data-flow="bottom-right"]::before {
+      right: 6px;
     }
 
     &[data-flow="left"]::before {
       top: 50%;
       border-right-width: 0;
       border-left-color: #141921;
-      left: calc(0em - 5px);
+      left: calc(0em - 6px);
       transform: translate(-6px, -50%);
     }
 
     &[data-flow="left"]::after {
       top: 50%;
-      right: calc(100% + 5px);
+      right: calc(100% + 6px);
       transform: translate(-6px, -50%);
     }
 
@@ -5088,13 +5111,13 @@ body.wp-admin {
       top: 50%;
       border-left-width: 0;
       border-right-color: #141921;
-      right: calc(0em - 5px);
+      right: calc(0em - 6px);
       transform: translate(6px, -50%);
     }
 
     &[data-flow="right"]::after {
       top: 50%;
-      left: calc(100% + 5px);
+      left: calc(100% + 6px);
       transform: translate(6px, -50%);
     }
 

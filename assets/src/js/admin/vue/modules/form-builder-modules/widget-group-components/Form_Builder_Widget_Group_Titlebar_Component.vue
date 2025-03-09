@@ -9,13 +9,14 @@
         href="#"
         class="cptm-form-builder-header-action-link cptm-ml-5 cptm-link-light"
         v-if="groupFields && typeof groupFields === 'object'"
-        @click.prevent="$emit('toggle-expand-group')"
+        @click.prevent="toggleExpandGroup"
       >
-        <span class="fa fa-cog" aria-hidden="true"></span> Options
+        <span class="fa fa-cog" aria-hidden="true"></span>
+        {{ optionsText }}
       </a>
     </h3>
 
-    <div 
+    <div
       class="cptm-form-builder-group-title-actions"
       v-if="groupData && groupData.fields && groupData.fields.length"
     >
@@ -49,8 +50,10 @@ export default {
     },
   },
 
-  created() {
-    // this.setup()
+  data() {
+    return {
+      optionsExpanded: false, // Track the state of the options text
+    };
   },
 
   computed: {
@@ -67,12 +70,17 @@ export default {
 
       return label;
     },
+
+    optionsText() {
+      return this.optionsExpanded ? "Hide" : "Options";
+    },
   },
 
-  data() {
-    return {
-      // label: ''
-    };
+  methods: {
+    toggleExpandGroup() {
+      this.optionsExpanded = !this.optionsExpanded;
+      this.$emit("toggle-expand-group");
+    },
   },
 };
 </script>

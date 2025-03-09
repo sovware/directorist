@@ -6,17 +6,6 @@
         <a
           href="#"
           class="directorist-row-tooltip directorist-form-doc__modal-btn"
-          v-if="activeSubMenu.learn_more"
-          :data-tooltip="activeSubMenu?.learn_more?.description"
-          data-flow="bottom-right"
-          @click.prevent="openModal(activeSubMenu.learn_more)"
-        >
-          ?
-          <!-- {{ activeSubMenu?.learn_more?.button_text }} -->
-        </a>
-        <a
-          href="#"
-          class="directorist-row-tooltip directorist-form-doc__modal-btn"
           v-if="activeSubMenu.video"
           :data-tooltip="activeSubMenu?.video?.description"
           data-flow="bottom-right"
@@ -36,7 +25,6 @@
               fill="currentColor"
             />
           </svg>
-          <!-- {{ activeSubMenu?.video?.button_text }} -->
         </a>
       </div>
     </div>
@@ -114,7 +102,7 @@ export default {
       }
 
       return [...this.subNavigation].map((item) => {
-        return item.label;
+        return item;
       });
     },
 

@@ -2792,6 +2792,13 @@ class Builder_Data {
                             'title' => __( 'Contents Tutorial', 'directorist' ),
                             'description' => __( 'Watch the video to learn how to create a custom contents.', 'directorist' ),
                         ],
+                        'learn_more' => [
+                            'type' => 'image',
+                            'url'  => DIRECTORIST_ASSETS . 'images/single-listing-header-preview.png',
+                            'button_text' => __( 'What is it?', 'directorist' ),
+                            'title' => __( 'Single Listing Contents', 'directorist' ),
+                            'description' => __( 'Details of Single Listing Contents', 'directorist' ),
+                        ],
                         'sections'  => [
                             'contents' => [
                                 'title'       => __( 'Listing Contents', 'directorist' ),

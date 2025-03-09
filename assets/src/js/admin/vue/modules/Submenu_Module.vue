@@ -74,7 +74,7 @@ export default {
       }
 
       let sub_navigation = [];
-
+    
       for (let submenu_key in this.submenu) {
         let submenu = this.submenu[submenu_key];
 

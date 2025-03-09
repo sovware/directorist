@@ -19445,9 +19445,12 @@ __webpack_require__.r(__webpack_exports__);
       default: false
     }
   },
-  created: function created() {
-    // this.setup()
+  data: function data() {
+    return {
+      optionsExpanded: false // Track the state of the options text
+    };
   },
+
   computed: {
     label: function label() {
       var label = "";
@@ -19458,12 +19461,16 @@ __webpack_require__.r(__webpack_exports__);
         label = this.groupData.label;
       }
       return label;
+    },
+    optionsText: function optionsText() {
+      return this.optionsExpanded ? "Hide" : "Options";
     }
   },
-  data: function data() {
-    return {
-      // label: ''
-    };
+  methods: {
+    toggleExpandGroup: function toggleExpandGroup() {
+      this.optionsExpanded = !this.optionsExpanded;
+      this.$emit("toggle-expand-group");
+    }
   }
 });
 
@@ -30820,7 +30827,7 @@ var render = function render() {
     on: {
       click: function click($event) {
         $event.preventDefault();
-        return _vm.$emit("toggle-expand-group");
+        return _vm.toggleExpandGroup.apply(null, arguments);
       }
     }
   }, [_c("span", {
@@ -30828,7 +30835,7 @@ var render = function render() {
     attrs: {
       "aria-hidden": "true"
     }
-  }), _vm._v(" Options\n    ")]) : _vm._e()]), _vm._v(" "), _vm.groupData && _vm.groupData.fields && _vm.groupData.fields.length ? _c("div", {
+  }), _vm._v("\n      " + _vm._s(_vm.optionsText) + "\n    ")]) : _vm._e()]), _vm._v(" "), _vm.groupData && _vm.groupData.fields && _vm.groupData.fields.length ? _c("div", {
     staticClass: "cptm-form-builder-group-title-actions"
   }, [_c("a", {
     staticClass: "cptm-form-builder-header-action-link",

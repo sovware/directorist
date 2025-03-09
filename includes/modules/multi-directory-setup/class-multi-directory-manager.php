@@ -22,7 +22,7 @@ class Multi_Directory_Manager {
         add_action( 'init', [$this, 'register_directory_taxonomy'] );
         add_action( 'init', [$this, 'setup_migration'] );
         
-        // Directory Type Sorting
+        // Directory Type Sorting Query
         add_filter( 'directorist_directory_index_query', [ $this, 'directory_type_sorting_query' ] );
 
         if ( ! is_admin() ) {
@@ -40,7 +40,7 @@ class Multi_Directory_Manager {
         add_action( 'wp_ajax_directorist_force_migrate', [ $this, 'handle_force_migration' ] );
         add_action( 'wp_ajax_directorist_directory_type_library', [ $this, 'directorist_directory_type_library' ] );
 
-        // Directory Type Sorting
+        // Add Directory Type Sorting Order
         add_action( 'directorist_after_create_directory_type', [ $this, 'add_directory_sorting_order_to_new_directory' ] );
         add_action( 'directorist_after_activation', [ $this, 'add_directory_type_sorting_order_to_missing_ones' ] );
     }

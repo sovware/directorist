@@ -40,6 +40,7 @@ class Multi_Directory_Manager {
         // Directory Type Sorting
         add_action( 'directorist_after_create_directory_type', [ $this, 'add_directory_sorting_to_new_directory' ] );
         add_filter( 'directorist_directory_index_query', [ $this, 'directory_type_sorting_query' ] );
+        add_action( 'directorist_after_activation', [ $this, 'add_directory_type_sorting_to_missing_ones' ] );
     }
 
     public function add_directory_sorting_to_new_directory( $term ): void {
@@ -407,6 +408,40 @@ class Multi_Directory_Manager {
             $this->prepare_settings();
             $this->import_default_directory();
         }
+    }
+
+    public function add_directory_type_sorting_to_missing_ones(): void {
+        $this->register_directory_taxonomy();
+
+        $directories_with_no_sorting = $this->get_directories_with_no_sorting();
+
+        if ( is_wp_error( $directories_with_no_sorting ) || empty( $directories_with_no_sorting ) ) {
+            return;
+        }
+        
+        $max_order = $this->get_directory_type_max_sort_order();
+
+        foreach ( $directories_with_no_sorting as $term ) {
+            $max_order++;
+            update_term_meta( $term->term_id, 'sort_order', $max_order );
+        }
+    }
+
+    public function get_directories_with_no_sorting() {
+        $terms = get_terms( [
+            'taxonomy'   => ATBDP_DIRECTORY_TYPE,
+            'hide_empty' => false,
+            'meta_query' => [
+                [
+                    'key'     => 'sort_order',
+                    'compare' => 'NOT EXISTS',
+                ],
+            ],
+            'orderby' => 'term_id',
+            'order'   => 'ASC',
+        ] );
+
+        return $terms;
     }
 
     public function get_directory_type_max_sort_order(): int {

@@ -525,6 +525,8 @@ final class Directorist_Base
 	{
 		include ATBDP_INC_DIR . 'classes/class-installation.php';
 		ATBDP_Installation::install();
+
+		do_action( 'directorist_after_activation' );
 	}
 
 	/**

@@ -21,6 +21,8 @@ class Multi_Directory_Manager {
     public function run() {
         add_action( 'init', [$this, 'register_directory_taxonomy'] );
         add_action( 'init', [$this, 'setup_migration'] );
+        
+        add_filter( 'directorist_directory_index_query', [ $this, 'directory_type_sorting_query' ], 10 );
 
         if ( ! is_admin() ) {
             return;
@@ -39,7 +41,6 @@ class Multi_Directory_Manager {
 
         // Directory Type Sorting
         add_action( 'directorist_after_create_directory_type', [ $this, 'add_directory_sorting_to_new_directory' ] );
-        add_filter( 'directorist_directory_index_query', [ $this, 'directory_type_sorting_query' ] );
         add_action( 'directorist_after_activation', [ $this, 'add_directory_type_sorting_to_missing_ones' ] );
     }
 
@@ -51,7 +52,7 @@ class Multi_Directory_Manager {
         update_term_meta( $term['term_id'], 'sort_order', $this->get_directory_type_max_sort_order() + 1 );
     }
 
-    public function directory_type_sorting_query( array $query ): array {
+    public function directory_type_sorting_query( array $query, string $debug_key = '' ): array {
         $query['meta_key'] = 'sort_order';
         $query['orderby']  = 'meta_value_num';
         $query['order']    = 'ASC';

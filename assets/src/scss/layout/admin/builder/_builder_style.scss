@@ -248,12 +248,13 @@ $light-gray: #f4f5f7;
   }
   &__modal-btn {
     display: inline-flex;
-    padding: 8px 12px;
     width: max-content;
     justify-content: center;
     align-items: center;
     gap: 6px;
-    border-radius: 8px;
+    width: 30px;
+    height: 30px;
+    border-radius: 6px;
     border: 1px solid #bee3ff;
     background: #eff8ff;
     color: #217aef;
@@ -264,6 +265,7 @@ $light-gray: #f4f5f7;
     font-weight: 500;
     line-height: 14px;
     letter-spacing: 0.12px;
+    box-sizing: border-box;
     text-transform: capitalize;
     svg {
       width: 14px;
@@ -2038,22 +2040,27 @@ input[type="radio"].cptm-radio {
     justify-content: center;
     background: transparent;
     border-radius: 0 8px 8px 0;
+    &:hover {
+      background: #d2d6db;
+    }
   }
   &.active {
     color: #fff;
     background: $primary;
     border-color: $primary;
     .cptm-sub-nav__item-tooltip {
-      background: #092aaf;
+      svg path {
+        fill: #ffffff;
+      }
+      &:hover {
+        background: #092aaf;
+      }
     }
   }
   &:hover:not(.active) {
     color: #4d5761;
     background: #e5e7eb;
     border-color: #e5e7eb;
-    .cptm-sub-nav__item-tooltip {
-      background: #d2d6db;
-    }
   }
 }
 
@@ -4261,7 +4268,7 @@ input[type="radio"] {
   @include e(toggle) {
     position: absolute;
     right: 0;
-    top: 0;
+    top: 84px;
     height: 44px;
     width: 44px;
     padding: 0;
@@ -4327,8 +4334,6 @@ input[type="radio"] {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 28px;
-        height: 28px;
         font-size: 15px;
         color: #868eae;
         background: transparent;
@@ -4337,7 +4342,6 @@ input[type="radio"] {
         cursor: grab;
         &:hover {
           color: #1e1e1e;
-          background: #e5e7eb;
         }
       }
 

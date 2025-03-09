@@ -566,7 +566,7 @@ export default {
 
       placeholders: [],
 
-      elementsSettingsOpened: false,
+      elementsSettingsOpened: true,
     };
   },
 

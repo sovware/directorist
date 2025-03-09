@@ -353,7 +353,7 @@ class SetupWizard
                 //directory type
                 if( !empty( $directory_id ) ){
                     update_post_meta($post_id, '_directory_type', $directory_id);
-                    wp_set_object_terms($post_id, (int)$directory_id, 'atbdp_listing_types');
+                    wp_set_object_terms($post_id, (int)$directory_id, ATBDP_DIRECTORY_TYPE);
                 }
 
                 $count++;

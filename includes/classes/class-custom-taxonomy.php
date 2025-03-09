@@ -76,14 +76,14 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
 								foreach ( $old_data as $single_data ) {
 
 									if ( ! is_numeric( $single_data ) ) {
-										$term_with_directory_slug = get_term_by( 'slug', $single_data, 'atbdp_listing_types' );
+										$term_with_directory_slug = get_term_by( 'slug', $single_data, ATBDP_DIRECTORY_TYPE );
 										$id                       = $term_with_directory_slug->term_id;
 										update_term_meta( $data->term_id, '_directory_type', array( $id ) );
 									}
 								}
 							} else {
 								if ( ! is_numeric( $old_data ) ) {
-									$term_with_directory_slug = get_term_by( 'slug', $old_data, 'atbdp_listing_types' );
+									$term_with_directory_slug = get_term_by( 'slug', $old_data, ATBDP_DIRECTORY_TYPE );
 									$id                       = $term_with_directory_slug->term_id;
 									update_term_meta( $data->term_id, '_directory_type', array( $id ) );
 								} else {

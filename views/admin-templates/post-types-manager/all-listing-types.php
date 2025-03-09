@@ -99,9 +99,9 @@
                     <?php endif; ?>
                 </div>
                 <?php
-                    $all_items =  wp_count_terms('atbdp_listing_types');
+                    $all_items =  wp_count_terms(ATBDP_DIRECTORY_TYPE);
                     $listing_types = get_terms([
-                       'taxonomy'   => 'atbdp_listing_types',
+                       'taxonomy'   => ATBDP_DIRECTORY_TYPE,
                        'hide_empty' => false,
                        'orderby'    => 'date',
                        'order'      => 'DSCE',

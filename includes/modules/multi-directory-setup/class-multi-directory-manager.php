@@ -494,7 +494,7 @@ class Multi_Directory_Manager {
 
     // run_force_migration
     public function run_force_migration() {
-        $general_directory = term_exists( 'General', 'atbdp_listing_types' );
+        $general_directory = term_exists( 'General', ATBDP_DIRECTORY_TYPE );
         $args = [];
 
         if ( $general_directory ) {
@@ -539,7 +539,7 @@ class Multi_Directory_Manager {
                 while ( $listings->have_posts() ) {
                     $listings->the_post();
 
-                    wp_set_object_terms( get_the_id(), $add_directory['term_id'], 'atbdp_listing_types' );
+                    wp_set_object_terms( get_the_id(), $add_directory['term_id'], ATBDP_DIRECTORY_TYPE );
                 }
                 wp_reset_postdata();
             }
@@ -865,7 +865,7 @@ class Multi_Directory_Manager {
     }
 
     public function update_fields_with_old_data( $listing_type_id = 0 ) {
-        $term = get_term($listing_type_id, 'atbdp_listing_types');
+        $term = get_term($listing_type_id, ATBDP_DIRECTORY_TYPE);
 
         if ( is_wp_error( $term ) || empty( $term ) ) {
             return;
@@ -943,7 +943,7 @@ class Multi_Directory_Manager {
     // delete_listing_type
     public function delete_listing_type($term_id = 0)
     {
-        if (wp_delete_term($term_id, 'atbdp_listing_types')) {
+        if (wp_delete_term($term_id, ATBDP_DIRECTORY_TYPE)) {
             atbdp_add_flush_alert([
                 'id'      => 'deleting_listing_type_status',
                 'page'    => 'all-listing-type',

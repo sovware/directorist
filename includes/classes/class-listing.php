@@ -107,7 +107,7 @@ if (!class_exists('ATBDP_Listing')):
                     $current_v = ! empty( $_GET['directory_type'] ) ? directorist_clean( wp_unslash( $_GET['directory_type'] ) ) : '';
 
                     $listing_types = get_terms([
-                        'taxonomy'   => 'atbdp_listing_types',
+                        'taxonomy'   => ATBDP_DIRECTORY_TYPE,
                         'hide_empty' => false,
                       ]);
                       foreach ($listing_types as $listing_type) { ?>

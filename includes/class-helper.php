@@ -578,7 +578,7 @@ class Helper {
 		$pages = [];
 
 		$types = get_terms( array(
-			'taxonomy'   => 'atbdp_listing_types',
+			'taxonomy'   => ATBDP_DIRECTORY_TYPE,
 			'hide_empty' => false,
 			'meta_query' => array(
 				array(

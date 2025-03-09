@@ -36,6 +36,28 @@ class Multi_Directory_Manager {
         add_action( 'wp_ajax_save_imported_post_type_data', [ $this, 'save_imported_post_type_data' ] );
         add_action( 'wp_ajax_directorist_force_migrate', [ $this, 'handle_force_migration' ] );
         add_action( 'wp_ajax_directorist_directory_type_library', [ $this, 'directorist_directory_type_library' ] );
+
+        // Directory Type Sorting
+        add_action( 'directorist_after_create_directory_type', [ $this, 'add_directory_sorting_to_new_directory' ] );
+    }
+
+    public function add_directory_sorting_to_new_directory( $term ) {
+        if ( ! is_array( $term ) ) {
+            return;
+        }
+
+        $max_order = get_terms( [
+            'taxonomy'   => ATBDP_DIRECTORY_TYPE,
+            'hide_empty' => false,
+            'meta_key'   => 'sort_order',
+            'orderby'    => 'meta_value_num',
+            'order'      => 'DESC',
+            'number'     => 1,
+        ] );
+    
+        $new_sort_order = ! empty( $max_order ) ? intval( get_term_meta( $max_order[0]->term_id, 'sort_order', true ) ) + 1 : 1;
+        
+        update_term_meta( $term['term_id'], 'sort_order', $new_sort_order );
     }
 
     public static function builder_data_backup( $term_id ) {

@@ -586,7 +586,7 @@ class Helper {
 					'compare' => 'EXISTS',
 				),
 			),
-		), 'builder_selected_single_pages' ) );
+		) ) );
 
 		foreach ( $types as $type ) {
 			$page_id   = get_directorist_type_option( $type->term_id, 'single_listing_page' );

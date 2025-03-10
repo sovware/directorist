@@ -762,7 +762,7 @@ class Multi_Directory_Manager {
             ], 200);
         }
 
-        $directory_name = sanitize_text_field( wp_unslash( $_POST['name'] ) );
+        $directory_name = isset( $_POST['name'] ) ? sanitize_text_field( wp_unslash( $_POST['name'] ) ) : '';
 
         $fields     = [];
         $field_list = ! empty( $_POST['field_list'] ) ? directorist_maybe_json( wp_unslash( $_POST['field_list'] ) ) : [];

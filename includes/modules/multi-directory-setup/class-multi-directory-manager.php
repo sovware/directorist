@@ -746,7 +746,9 @@ class Multi_Directory_Manager {
             ], 200);
         }
 
-        if ( empty( $_POST['name'] ) ) {
+        $term_id = ( ! empty( $_POST['listing_type_id'] ) ) ? absint( $_POST['listing_type_id'] ) : 0;
+
+        if ( 0 === $term_id && empty( $_POST['name'] ) ) {
             wp_send_json([
                 'status' => [
                     'success' => false,
@@ -760,7 +762,6 @@ class Multi_Directory_Manager {
             ], 200);
         }
 
-        $term_id        = ( ! empty( $_POST['listing_type_id'] ) ) ? absint( $_POST['listing_type_id'] ) : 0;
         $directory_name = sanitize_text_field( wp_unslash( $_POST['name'] ) );
 
         $fields     = [];
@@ -805,10 +806,6 @@ class Multi_Directory_Manager {
 
     // update_validated_term_meta
     public static function update_validated_term_meta( $term_id, $field_key, $value ) {
-        if ( ! isset( self::$fields[$field_key] ) && ! array_key_exists( $field_key, self::$config['fields_group'] ) ) {
-            return;
-        }
-
         if ( ! empty( self::$fields[$field_key]['type'] ) && 'toggle' === self::$fields[$field_key]['type'] ) {
             $value = ('true' === $value || true === $value || '1' === $value || 1 === $value) ? true : 0;
         }

@@ -19,7 +19,7 @@ class Multi_Directory_Manager {
 
     // run
     public function run() {
-        add_action( 'init', [$this, 'register_directory_taxonomy'] );
+        add_action( 'init', [ self::class, 'register_directory_taxonomy'] );
         add_action( 'init', [$this, 'setup_migration'] );
         
         // Directory Type Sorting Query
@@ -50,7 +50,7 @@ class Multi_Directory_Manager {
             return;
         }
         
-        update_term_meta( $term['term_id'], 'sort_order', $this->get_directory_type_max_sort_order() + 1 );
+        update_term_meta( $term['term_id'], 'sort_order', self::get_directory_type_max_sort_order() + 1 );
     }
 
     public function directory_type_sorting_query( array $query ): array {
@@ -412,16 +412,18 @@ class Multi_Directory_Manager {
         }
     }
 
-    public function add_directory_type_sorting_order_to_missing_ones(): void {
-        $this->register_directory_taxonomy();
+    public static function add_directory_type_sorting_order_to_missing_ones( bool $register_directory_taxonomy = true ): void {
+        if ( $register_directory_taxonomy ) {
+            self::register_directory_taxonomy();
+        }
 
-        $directories_with_no_sorting = $this->get_directories_with_no_sorting_order();
+        $directories_with_no_sorting = self::get_directories_with_no_sorting_order();
 
         if ( is_wp_error( $directories_with_no_sorting ) || empty( $directories_with_no_sorting ) ) {
             return;
         }
         
-        $max_order = $this->get_directory_type_max_sort_order();
+        $max_order = self::get_directory_type_max_sort_order();
 
         foreach ( $directories_with_no_sorting as $term ) {
             $max_order++;
@@ -429,7 +431,7 @@ class Multi_Directory_Manager {
         }
     }
 
-    public function get_directories_with_no_sorting_order() {
+    public static function get_directories_with_no_sorting_order() {
         $terms = get_terms( [
             'taxonomy'   => ATBDP_DIRECTORY_TYPE,
             'hide_empty' => false,
@@ -446,7 +448,7 @@ class Multi_Directory_Manager {
         return $terms;
     }
 
-    public function get_directory_type_max_sort_order(): int {
+    public static function get_directory_type_max_sort_order(): int {
         $max_order = get_terms( [
             'taxonomy'   => ATBDP_DIRECTORY_TYPE,
             'hide_empty' => false,
@@ -1005,8 +1007,7 @@ class Multi_Directory_Manager {
     }
 
     // register_directory_taxonomy
-    public function register_directory_taxonomy()
-    {
+    public static function register_directory_taxonomy() {
         register_taxonomy( ATBDP_DIRECTORY_TYPE, [ ATBDP_POST_TYPE ], [
             'hierarchical' => false,
             'labels'       => [

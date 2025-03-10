@@ -217,8 +217,8 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 			$products = API::get_products();
 
 			// Apply filters for extensions and themes
-			$this->extensions = apply_filters('atbdp_extension_list', $products['extensions']);
-			$this->themes = apply_filters('atbdp_theme_list', $products['themes']);
+			$this->extensions = apply_filters( 'atbdp_extension_list', $products['extensions'] ?? [] );
+			$this->themes = apply_filters( 'atbdp_theme_list', $products['themes'] ?? [] );
 
 			// Set default values if extensions or themes are empty
 			$this->extensions = empty($this->extensions) ? static::get_default_extensions() : $this->extensions;

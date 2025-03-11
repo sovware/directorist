@@ -99,13 +99,13 @@
                     <?php endif; ?>
                 </div>
                 <?php
-                    $all_items =  wp_count_terms(ATBDP_DIRECTORY_TYPE);
-                    $listing_types = get_terms(  apply_filters( 'directorist_directory_index_query', [
-                       'taxonomy'   => ATBDP_DIRECTORY_TYPE,
+                    $all_items =  wp_count_terms('atbdp_listing_types');
+                    $listing_types = get_terms([
+                       'taxonomy'   => 'atbdp_listing_types',
                        'hide_empty' => false,
                        'orderby'    => 'date',
                        'order'      => 'DSCE',
-                    ] ) );
+                    ]);
                 ?>
                 <div class="directorist_builder__content__right">
                     <div class="directorist-total-types">
@@ -121,17 +121,15 @@
                                 <div class="directorist_listing-c-action"><?php esc_html_e( 'Action', 'directorist' ); ?></div>
                             </div>
                         </div>
-                        <div class="directorist_table-body">
-                            <?php if( $listing_types ) { foreach( $listing_types as $listing_type) {
+                        <div class="directorist_table-body directorist_builder__list" id="directorist_builder__list">
+                            <?php if( $listing_types ) { foreach( $listing_types as $index => $listing_type) {
                                 $default = get_term_meta( $listing_type->term_id, '_default', true );
                                 $edit_link = admin_url('edit.php?post_type=at_biz_dir&page=atbdp-directory-types&listing_type_id=' . absint( $listing_type->term_id ) . '&action=edit');
                                 $delete_link = admin_url('admin-post.php?listing_type_id=' . absint( $listing_type->term_id ) . '&action=delete_listing_type');
                                 $delete_link = wp_nonce_url( $delete_link, 'delete_listing_type');
                                 $created_time = get_term_meta( $listing_type->term_id, '_created_date', true );
-                                $sort_order = get_term_meta( $listing_type->term_id, 'sort_order', true );
-                                $sort_order = $sort_order === '' ? $listing_type->term_id : $sort_order;
                             ?>
-                            <div class="directorist_table-row directory-type-row" data-term-id="<?php echo esc_attr( $listing_type->term_id ); ?>" data-term-sort-order="<?php echo esc_attr( $sort_order ); ?>">
+                            <div class="directorist_table-row directory-type-row directorist_builder__list__item" data-term-id="<?php echo esc_attr( $listing_type->term_id ); ?>" data-order="<?php echo esc_attr($index); ?>" draggable="true">
                                 <div class="directorist_title">
                                     <a  href="<?php echo esc_url( ! empty( $edit_link ) ? $edit_link : '#' ); ?>">
                                         <?php echo esc_html( ! empty( $listing_type->name ) ? $listing_type->name : '-' ); ?>

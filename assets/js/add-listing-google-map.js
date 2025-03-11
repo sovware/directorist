@@ -128,6 +128,7 @@ __webpack_require__.r(__webpack_exports__);
         // replace with your marker icon URL
         scaledSize: new google.maps.Size(40, 40) // set the size of the icon
       };
+
       loc_manual_lat = isNaN(loc_manual_lat) ? loc_default_latitude : loc_manual_lat;
       loc_manual_lng = isNaN(loc_manual_lng) ? loc_default_longitude : loc_manual_lng;
       $manual_lat = $('#manual_lat');
@@ -148,6 +149,9 @@ __webpack_require__.r(__webpack_exports__);
       if (address_input !== null) {
         address_input.addEventListener('focus', geolocate);
       }
+
+      // create a Geocode instance
+      var geocoder = new google.maps.Geocoder();
 
       // this function will work on sites that uses SSL, it applies to Chrome especially, other browsers may allow location sharing without securing.
       function geolocate() {
@@ -205,6 +209,34 @@ __webpack_require__.r(__webpack_exports__);
 
         // add the marker to the markers array to keep track of it, so that we can show/hide/delete them all later.
         markers.push(marker);
+
+        // This event listener update the lat long field of the form so that we can add the lat long to the database when the MARKER is drag.
+        google.maps.event.addListener(marker, 'dragend', function (event) {
+          var lat = event.latLng.lat();
+          var lng = event.latLng.lng();
+
+          // Update latitude and longitude input fields
+          $manual_lat.val(lat);
+          $manual_lng.val(lng);
+
+          // Reverse Geocode to get address
+          addressFieldUpdater(geocoder, lat, lng);
+        });
+      }
+      function addressFieldUpdater(geocoder, lat, lng) {
+        geocoder.geocode({
+          location: {
+            lat: lat,
+            lng: lng
+          }
+        }, function (results, status) {
+          if (status === 'OK' && results[0]) {
+            var address = results[0].formatted_address;
+            address_input.value = address; // Update address input field
+          } else {
+            console.error('Geocoder failed due to:', status);
+          }
+        });
       }
       initAutocomplete(); // start google map place auto complete API call
 
@@ -223,9 +255,6 @@ __webpack_require__.r(__webpack_exports__);
           icon: searchIcon
         });
         markers.push(marker);
-
-        // create a Geocode instance
-        var geocoder = new google.maps.Geocoder();
         document.getElementById('generate_admin_map').addEventListener('click', function (e) {
           e.preventDefault();
           geocodeAddress(geocoder, map);
@@ -241,11 +270,18 @@ __webpack_require__.r(__webpack_exports__);
           // add the marker to the given map.
           addMarker(event.latLng, map);
         });
+
         // This event listener update the lat long field of the form so that we can add the lat long to the database when the MARKER is drag.
         google.maps.event.addListener(marker, 'dragend', function (event) {
-          // set the value of input field to save them to the database
-          $manual_lat.val(event.latLng.lat());
-          $manual_lng.val(event.latLng.lng());
+          var lat = event.latLng.lat();
+          var lng = event.latLng.lng();
+
+          // Update latitude and longitude input fields
+          $manual_lat.val(lat);
+          $manual_lng.val(lng);
+
+          // Reverse Geocode to get address
+          addressFieldUpdater(geocoder, lat, lng);
         });
       }
 

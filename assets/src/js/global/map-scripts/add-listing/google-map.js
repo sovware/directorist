@@ -116,6 +116,9 @@ import {
                 // marker.addListener('click', function () {
                 //     info_window.open(map, marker);
                 // });
+                
+                // at first remove previous marker and then set new marker;
+                deleteMarker();
 
                 // add the marker to the markers array to keep track of it, so that we can show/hide/delete them all later.
                 markers.push(marker);

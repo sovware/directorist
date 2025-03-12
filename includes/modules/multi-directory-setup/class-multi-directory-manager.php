@@ -846,15 +846,6 @@ class Multi_Directory_Manager {
             }
         }
 
-        error_log( print_r( [
-            'data' => [
-                'field_list' => $field_list,
-                'post' => $_POST,
-                'fields' => $fields,
-            ],
-            'path' => __FILE__ . ':' . __LINE__,
-        ], true ) );
-
         /**
          * @since 7.7.0
          * It fires before directory data updated

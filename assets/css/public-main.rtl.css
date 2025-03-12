@@ -13023,6 +13023,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
     padding: 0;
     -webkit-box-shadow: unset;
             box-shadow: unset;
+    border: none;
   }
   .directorist-search-form__box .directorist-search-form-action {
     display: none;

@@ -1578,9 +1578,6 @@ window.addEventListener('load', function () {
         order: index // Assign initial order
       };
     });
-    console.log("Initial Order:", {
-      initialOrder: initialOrder
-    });
   });
 
   // Drag Over

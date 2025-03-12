@@ -295,8 +295,6 @@ window.addEventListener('load', () => {
             id: item.dataset.termId,
             order: index // Assign initial order
         }));
-
-        console.log("Initial Order:", {initialOrder});
     });
 
     // Drag Over

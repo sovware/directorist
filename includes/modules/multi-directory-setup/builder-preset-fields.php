@@ -828,7 +828,7 @@ return apply_filters( 'atbdp_form_preset_widgets', array(
 	],
 
 	'image_upload' => [
-		'label'   => __( 'Images', 'directirst' ),
+		'label'   => __( 'Images', 'directorist' ),
 		'icon'    => 'uil uil-image',
 		'options' => [
 			'type' => [

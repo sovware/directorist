@@ -276,7 +276,7 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
 								</div>
 							<?php endforeach; ?>
 						</div>
-						<p class="description"><?php esc_html_e( 'You can assign any one or more of the above directories to this category.', 'directories' ); ?></p>
+						<p class="description"><?php esc_html_e( 'You can assign any one or more of the above directories to this category.', 'directorist' ); ?></p>
 					</td>
 				</tr>
 			<?php endif; ?>
@@ -335,7 +335,7 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
 								</div>
 							<?php endforeach; ?>
 						</div>
-						<p class="description"><?php esc_html_e( 'You can assign any one or more of the above directories to this location.', 'directories' ); ?></p>
+						<p class="description"><?php esc_html_e( 'You can assign any one or more of the above directories to this location.', 'directorist' ); ?></p>
 					</td>
 				</tr>
 			<?php endif; ?>

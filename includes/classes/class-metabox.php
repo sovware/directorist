@@ -168,7 +168,7 @@ class ATBDP_Metabox {
 	{
 		// show expiration date and featured listing.
 		$directory_type         = isset( $term_id ) ? $term_id : default_directory_type();
-		$expiration				= get_term_meta( $directory_type, 'default_expiration', true );
+		$expiration				= directorist_get_default_expiration( $directory_type );
 		$expire_in_days         = ! empty( $expiration ) ? $expiration : '90';
 		$f_active               = directorist_is_featured_listing_enabled();
 		$never_expire           = get_post_meta( $listing_id, '_never_expire', true );
@@ -309,7 +309,7 @@ class ATBDP_Metabox {
 		if(ATBDP_POST_TYPE !=$post->post_type) return; // vail if it is not our post type
 		// show expiration date and featured listing.
 		$directory_type         = default_directory_type();
-		$expiration				= get_term_meta( $directory_type, 'default_expiration', true );
+		$expiration				= directorist_get_default_expiration( $directory_type );
 		$expire_in_days         = ! empty( $expiration ) ? $expiration : '90';
 		$f_active               = directorist_is_featured_listing_enabled();
 		$never_expire           = get_post_meta($post->ID, '_never_expire', true);

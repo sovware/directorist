@@ -36,6 +36,7 @@ class Multi_Directory_Manager {
 
         // Ajax
         add_action( 'wp_ajax_save_post_type_data', [ $this, 'save_post_type_data' ] );
+        add_action( 'wp_ajax_update_directory_type_sorting_order', [ $this, 'update_directory_type_sorting_order' ] );
         add_action( 'wp_ajax_save_imported_post_type_data', [ $this, 'save_imported_post_type_data' ] );
         add_action( 'wp_ajax_directorist_force_migrate', [ $this, 'handle_force_migration' ] );
         add_action( 'wp_ajax_directorist_directory_type_library', [ $this, 'directorist_directory_type_library' ] );
@@ -458,7 +459,7 @@ class Multi_Directory_Manager {
             'number'     => 1,
         ] );
 
-        return ! empty( $max_order ) ? intval( get_term_meta( $max_order[0]->term_id, 'sort_order', true ) ) : 0;
+        return empty( $max_order ) ? -1 : intval( get_term_meta( $max_order[0]->term_id, 'sort_order', true ) );
     }
 
     // has_multidirectory
@@ -715,6 +716,72 @@ class Multi_Directory_Manager {
         }
 
         return $new_fields;
+    }
+
+    public function update_directory_type_sorting_order() {
+        if ( ! directorist_verify_nonce() ) {
+            wp_send_json(
+                [
+                    'status' => [
+                        'success' => false,
+                        'message' => __( 'Access forbidden', 'directorist' ),
+                    ],
+                ],
+                403 
+            );
+        }
+
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_send_json(
+                [
+                    'status' => [
+                        'success' => false,
+                        'message' => __( 'You are not allowed to access this resource', 'directorist' ),
+                    ],
+                ],
+                403 
+            );
+        }
+
+        if ( ! isset( $_POST['sorting_orders'] ) ) {
+            wp_send_json(
+                [
+                    'status' => [
+                        'success' => false,
+                        'message' => __( 'The sorting_orders is required', 'directorist' ),
+                    ],
+                ],
+                422
+            );
+        }
+
+        $sorting_orders = json_decode( wp_unslash( $_POST['sorting_orders'] ), true );
+
+        if ( ! is_array( $sorting_orders ) ) {
+            wp_send_json(
+                [
+                    'status' => [
+                        'success' => false,
+                        'message' => __( 'The sorting_orders is not valid', 'directorist' ),
+                    ],
+                ],
+                422
+            );
+        }
+
+        foreach ( $sorting_orders as $item ) {
+            update_term_meta( $item['id'], 'sort_order', $item['order'] );
+        }
+
+        wp_send_json(
+            [
+                'status' => [
+                    'success' => true,
+                    'message' => __( 'The sorting order was successfuly updated', 'directorist' ),
+                ],
+            ],
+            200
+        );
     }
 
     // save_post_type_data

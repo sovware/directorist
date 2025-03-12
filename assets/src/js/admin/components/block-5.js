@@ -1,5 +1,6 @@
 window.addEventListener('load', () => {
     const $ = jQuery;
+    const axios = require('axios').default;
 
     // Init Category Icon Picker
     function initCategoryIconPicker() {
@@ -271,5 +272,108 @@ window.addEventListener('load', () => {
             $(data_target).slideToggle();
         }
     });
+
+    // Builder Directory Types Drag and Drop
+    const builderDragNDropWrapper = document.querySelector(".directorist_builder__list");
+
+    let builderDraggableItem = null;
+    let initialOrder = []; // Store initial order before drag
+
+    // Store initial order when dragging starts
+    builderDragNDropWrapper.addEventListener("dragstart", (event) => {
+        builderDraggableItem = event.target.closest(".directorist_builder__list__item");
+
+        if (!builderDraggableItem || !builderDraggableItem.hasAttribute("draggable")) {
+            event.preventDefault();
+            return;
+        }
+
+        builderDraggableItem.classList.add("dragging");
+
+        // Save initial order
+        initialOrder = [...builderDragNDropWrapper.children].map((item, index) => ({
+            id: item.dataset.termId,
+            order: index // Assign initial order
+        }));
+    });
+
+    // Drag Over
+    builderDragNDropWrapper.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        const draggingItem = document.querySelector(".dragging");
+        if (!draggingItem) return;
+
+        const afterElement = getDragAfterElement(builderDragNDropWrapper, e.clientY);
+        
+        if (afterElement && afterElement !== draggingItem.nextSibling) {
+            builderDragNDropWrapper.insertBefore(draggingItem, afterElement);
+        } else if (!afterElement) {
+            builderDragNDropWrapper.appendChild(draggingItem);
+        }
+    });
+
+    // Drag End
+    builderDragNDropWrapper.addEventListener("dragend", async () => {
+        builderDraggableItem.classList.remove("dragging");
+
+        const newOrder = [...builderDragNDropWrapper.children].map((item, index) => {
+            item.setAttribute("data-order", index); // Update data-order attribute
+            return {
+                id: item.dataset.termId,
+                order: index // Assign new order
+            };
+        });
+
+        // Find only swapped items
+        const swappedItems = newOrder.filter(newItem => {
+            const oldItem = initialOrder.find(i => i.id === newItem.id);
+            return oldItem && oldItem.order != newItem.order;
+        });
+
+        if ( swappedItems.length > 0 ) {
+            await updateDirectorySortingOrders( swappedItems );
+            initialOrder = newOrder; // Update initial order
+        }
+    });
+
+    // Get the closest element to the dragged item
+    function getDragAfterElement(container, y) {
+        const draggableElements = [...container.querySelectorAll(".directorist_builder__list__item:not(.dragging)")];
+        if (draggableElements.length === 0) return null;
+
+        return draggableElements.reduce(
+            (closest, child) => {
+                const box = child.getBoundingClientRect();
+                const offset = y - box.top - box.height / 2;
+
+                return offset < 0 && offset > closest.offset ? { offset, element: child } : closest;
+            },
+            { offset: Number.NEGATIVE_INFINITY, element: null }
+        ).element;
+    }
+
+    async function updateDirectorySortingOrders( sortingOrders ) {
+        if ( ! Array.isArray( sortingOrders ) ) {
+            return false;
+        }
     
+        const form_data = new FormData();
+        
+        form_data.append( 'action', 'update_directory_type_sorting_order' );
+        form_data.append( 'directorist_nonce', directorist_admin.directorist_nonce );
+        form_data.append( 'sorting_orders', JSON.stringify( sortingOrders ) );
+
+        try {
+            const response = await axios.post( directorist_admin.ajax_url, form_data );
+    
+            if ( response.data && response.data.status && response.data.status.success ) {
+                return true;
+            }
+    
+            return false;
+        } catch ( error ) {
+            console.error( error );
+            return false;
+        }
+    }
 });

@@ -967,7 +967,6 @@ span.atbdp-tick-cross {
   display: block;
   margin-top: 15px;
   color: #9299b8;
-  font-weight: 500;
 }
 .csv-action-steps ul li.active .step {
   background-color: #272b41;
@@ -1038,9 +1037,19 @@ span.atbdp-tick-cross {
   position: absolute;
   right: 0;
   top: 0;
+  width: 1px;
+  height: 0;
 }
 .csv-wrapper form .form-content .directorist-importer-options .csv-upload #upload + label {
-  display: inline-block;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  cursor: pointer;
 }
 .csv-wrapper form .form-content .directorist-importer-options .csv-upload #upload + label .upload-btn {
   line-height: 40px;
@@ -1061,6 +1070,7 @@ span.atbdp-tick-cross {
   background-color: #5a5f7d;
   color: #fff;
   font-weight: 500;
+  min-width: 140px;
 }
 .csv-wrapper form .form-content .directorist-importer-options .csv-upload #upload + label .file-name {
   color: #9299b8;
@@ -1091,7 +1101,7 @@ span.atbdp-tick-cross {
   font-weight: 500;
   color: #272b41;
   display: block;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 .csv-wrapper form .form-content .directorist-importer-options .csv-delimiter input {
   width: 120px;
@@ -1168,16 +1178,19 @@ span.atbdp-tick-cross {
           justify-content: flex-end;
   padding: 20px 30px;
   background-color: #f4f5f7;
+  border-radius: 0 0 5px 5px;
 }
 .csv-wrapper form .atbdp-actions .button {
-  background-color: #2c99ff;
+  background-color: #3e62f5;
   color: #fff;
   border: 0 none;
   line-height: 44px;
   padding: 0 20px;
   border-radius: 5px;
-  font-weight: 500;
   font-size: 15px;
+}
+.csv-wrapper form .atbdp-actions .button:hover, .csv-wrapper form .atbdp-actions .button:focus {
+  opacity: 0.9;
 }
 .csv-wrapper .directorist-importer__importing header {
   padding: 30px 30px 20px;
@@ -1195,22 +1208,35 @@ span.atbdp-tick-cross {
 .csv-wrapper .directorist-importer__importing section {
   padding: 25px 30px 30px;
 }
-.csv-wrapper .directorist-importer__importing span.importer-notice {
-  display: block;
+.csv-wrapper .directorist-importer__importing .importer-progress-notice {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   color: #5a5f7d;
-  font-size: 15px;
-  padding-bottom: 13px;
+  margin-top: 10px;
+}
+.csv-wrapper .directorist-importer__importing span.importer-notice {
+  padding-bottom: 0;
+  font-size: 14px;
+  font-style: italic;
 }
 .csv-wrapper .directorist-importer__importing span.importer-details {
-  display: block;
-  color: #5a5f7d;
-  font-size: 15px;
-  padding-top: 13px;
+  padding-top: 0;
+  font-size: 14px;
 }
 .csv-wrapper .directorist-importer__importing progress {
   border-radius: 15px;
   width: 100%;
-  height: 30px;
+  height: 15px;
   overflow: hidden;
 }
 .csv-wrapper .directorist-importer__importing progress::-webkit-progress-bar {
@@ -1218,7 +1244,8 @@ span.atbdp-tick-cross {
   border-radius: 15px;
 }
 .csv-wrapper .directorist-importer__importing progress::-webkit-progress-value {
-  background-color: #2c99ff;
+  background-color: #3e62f5;
+  border-radius: 15px;
 }
 .csv-wrapper .directorist-importer__importing progress::-moz-progress-bar {
   background-color: #e8f0f8;
@@ -1227,7 +1254,8 @@ span.atbdp-tick-cross {
   box-shadow: none;
 }
 .csv-wrapper .directorist-importer__importing progress[value]::-moz-progress-bar {
-  background-color: #2c99ff;
+  background-color: #3e62f5;
+  border-radius: 15px;
 }
 .csv-wrapper .csv-import-done .wc-progress-form-content {
   padding: 100px 30px 80px;
@@ -5817,8 +5845,8 @@ body.wp-admin {
   transition: all ease-in-out 300ms;
 }
 #atbdp_ie_download_sample:hover {
-  border-color: rgb(37.7561576355, 78.2783251232, 243.7438423645);
-  background: rgb(37.7561576355, 78.2783251232, 243.7438423645);
+  border-color: #264ef4;
+  background: #264ef4;
   color: #fff;
 }
 
@@ -14803,7 +14831,7 @@ input:-webkit-autofill:active {
   background-color: #3e62f5;
 }
 .cptm-btn.cptm-btn-primary:hover {
-  background-color: rgb(52.3024630542, 90.1113300493, 244.4975369458);
+  background-color: #345af4;
 }
 .cptm-btn.cptm-btn-secondery {
   color: #3e62f5;
@@ -17346,7 +17374,7 @@ input[type=radio].cptm-radio {
   transition: all ease-in-out 300ms;
 }
 .cptm-widget-control-action:hover {
-  background-color: rgb(13.5123152709, 58.5566502463, 242.4876847291);
+  background-color: #0e3bf2;
 }
 
 .cptm-listing-card-preview-body-placeholder {
@@ -20066,7 +20094,7 @@ input[type=radio]:checked::before {
   background-color: #3e62f5;
 }
 .cptm-btn.cptm-btn-primary:hover {
-  background-color: rgb(52.3024630542, 90.1113300493, 244.4975369458);
+  background-color: #345af4;
 }
 .cptm-btn.cptm-btn-secondery {
   color: #3e62f5;
@@ -22609,7 +22637,7 @@ input[type=radio].cptm-radio {
   transition: all ease-in-out 300ms;
 }
 .cptm-widget-control-action:hover {
-  background-color: rgb(13.5123152709, 58.5566502463, 242.4876847291);
+  background-color: #0e3bf2;
 }
 
 .cptm-listing-card-preview-body-placeholder {
@@ -25617,7 +25645,7 @@ input[type=radio]:checked::before {
   background-color: #3e62f5;
 }
 .cptm-btn.cptm-btn-primary:hover {
-  background-color: rgb(52.3024630542, 90.1113300493, 244.4975369458);
+  background-color: #345af4;
 }
 .cptm-btn.cptm-btn-secondery {
   color: #3e62f5;
@@ -28160,7 +28188,7 @@ input[type=radio].cptm-radio {
   transition: all ease-in-out 300ms;
 }
 .cptm-widget-control-action:hover {
-  background-color: rgb(13.5123152709, 58.5566502463, 242.4876847291);
+  background-color: #0e3bf2;
 }
 
 .cptm-listing-card-preview-body-placeholder {
@@ -30309,8 +30337,8 @@ input[type=radio]:checked::before {
   outline: none;
 }
 .settings-save-btn:hover {
-  border-color: rgb(37.7561576355, 78.2783251232, 243.7438423645);
-  background: rgb(37.7561576355, 78.2783251232, 243.7438423645);
+  border-color: #264ef4;
+  background: #264ef4;
   color: #fff;
 }
 .settings-save-btn:disabled {
@@ -31009,8 +31037,8 @@ span.drop-toggle-caret:before {
   border-radius: 50%;
   border: 3px solid #ddd;
   position: absolute;
-  left: 0;
-  top: 0;
+  left: 20px;
+  top: 26px;
   background: transparent;
   border-left-color: #4353ff;
   -webkit-animation: swRotate 2s linear infinite;

@@ -1049,7 +1049,6 @@ span.atbdp-tick-cross {
         display: block;
         margin-top: 15px;
         color: #9299b8;
-        font-weight: 500;
       }
 
       &.active {
@@ -1141,9 +1140,13 @@ span.atbdp-tick-cross {
             position: absolute;
             left: 0;
             top: 0;
+            width: 1px;
+            height: 0;
 
             &+label {
-              display: inline-block;
+              display: inline-flex;
+              align-items: center;
+              cursor: pointer;
 
               .upload-btn {
                 line-height: 40px;
@@ -1155,6 +1158,7 @@ span.atbdp-tick-cross {
                 background-color: #5a5f7d;
                 color: #fff;
                 font-weight: 500;
+                min-width: 140px;
               }
 
               .file-name {
@@ -1193,7 +1197,7 @@ span.atbdp-tick-cross {
             font-weight: 500;
             color: #272b41;
             display: block;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
           }
 
           input {
@@ -1290,16 +1294,21 @@ span.atbdp-tick-cross {
       justify-content: flex-end;
       padding: 20px 30px;
       background-color: #f4f5f7;
+      border-radius: 0 0 5px 5px;
 
       .button {
-        background-color: #2c99ff;
+        background-color: #3e62f5;
         color: #fff;
         border: 0 none;
         line-height: 44px;
         padding: 0 20px;
         border-radius: 5px;
-        font-weight: 500;
         font-size: 15px;
+
+        &:hover,
+        &:focus {
+          opacity: .9;
+        }
       }
     }
   }
@@ -1325,24 +1334,29 @@ span.atbdp-tick-cross {
       padding: 25px 30px 30px;
     }
 
-    span.importer-notice {
-      display: block;
+    .importer-progress-notice {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       color: #5a5f7d;
-      font-size: 15px;
-      padding-bottom: 13px;
+      margin-top: 10px;
+    }
+
+    span.importer-notice {
+      padding-bottom: 0;
+      font-size: 14px;
+      font-style: italic;
     }
 
     span.importer-details {
-      display: block;
-      color: #5a5f7d;
-      font-size: 15px;
-      padding-top: 13px;
+      padding-top: 0;
+      font-size: 14px;
     }
 
     progress {
       border-radius: 15px;
       width: 100%;
-      height: 30px;
+      height: 15px;
       overflow: hidden;
     }
 
@@ -1352,7 +1366,8 @@ span.atbdp-tick-cross {
     }
 
     progress::-webkit-progress-value {
-      background-color: #2c99ff;
+      background-color: #3e62f5;
+      border-radius: 15px;
     }
 
     progress::-moz-progress-bar {
@@ -1363,7 +1378,8 @@ span.atbdp-tick-cross {
     }
 
     progress[value]::-moz-progress-bar {
-      background-color: #2c99ff;
+      background-color: #3e62f5;
+      border-radius: 15px;
     }
   }
 
@@ -4824,7 +4840,7 @@ body.wp-admin {
                 }
               }
 
-              
+
               .directorist_more-dropdown-toggle {
                 &:hover,
                 &.active {

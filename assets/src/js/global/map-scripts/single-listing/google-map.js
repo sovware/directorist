@@ -6,7 +6,7 @@
         if ($('.directorist-single-map').length) {
             document.querySelectorAll('.directorist-single-map').forEach(mapElm => {
                 var MAP_PIN = 'M0-48c-9.8 0-17.7 7.8-17.7 17.4 0 15.5 17.7 30.6 17.7 30.6s17.7-15.4 17.7-30.6c0-9.6-7.9-17.4-17.7-17.4z';
-    
+
                 var inherits = function (childCtor, parentCtor) {
                     /** @constructor */
                     function tempCtor() {}
@@ -15,7 +15,7 @@
                     childCtor.prototype = new tempCtor();
                     childCtor.prototype.constructor = childCtor;
                 };
-    
+
                 function Marker(options) {
                     google.maps.Marker.apply(this, arguments);
                     if (options.map_icon_label) {
@@ -27,35 +27,35 @@
                         this.MarkerLabel.bindTo('position', this, 'position');
                     }
                 }
-    
+
                 // Apply the inheritance
                 inherits(Marker, google.maps.Marker);
-    
+
                 // Custom Marker SetMap
                 Marker.prototype.setMap = function () {
                     google.maps.Marker.prototype.setMap.apply(this, arguments);
                     (this.MarkerLabel) && this.MarkerLabel.setMap.apply(this.MarkerLabel, arguments);
                 };
-    
+
                 // Marker Label Overlay
                 var MarkerLabel = function (options) {
                     var self = this;
                     this.setValues(options);
-    
+
                     // Create the label container
                     this.div = document.createElement('div');
                     this.div.className = 'map-icon-label';
-    
+
                     // Trigger the marker click handler if clicking on the label
                     google.maps.event.addDomListener(this.div, 'click', function (e) {
                         (e.stopPropagation) && e.stopPropagation();
                         google.maps.event.trigger(self.marker, 'click');
                     });
                 };
-    
+
                 // Create MarkerLabel Object
                 MarkerLabel.prototype = new google.maps.OverlayView;
-    
+
                 // Marker Label onAdd
                 MarkerLabel.prototype.onAdd = function () {
                     var pane = this.getPanes().overlayImage.appendChild(this.div);
@@ -72,7 +72,7 @@
                         })
                     ];
                 };
-    
+
                 // Marker Label onRemove
                 MarkerLabel.prototype.onRemove = function () {
                     this.div.parentNode.removeChild(this.div);
@@ -80,7 +80,7 @@
                         google.maps.event.removeListener(this.listeners[i]);
                     }
                 };
-    
+
                 // Implement draw
                 MarkerLabel.prototype.draw = function () {
                     var projection = this.getProjection();
@@ -93,7 +93,7 @@
                     div.style.left = (position.x - (div.offsetWidth / 2)) + 'px';
                     div.style.top = (position.y - div.offsetHeight) + 'px';
                 };
-                
+
                 // initialize all vars here to avoid hoisting related misunderstanding.
                 var map, info_window, saved_lat_lng, info_content;
 
@@ -169,7 +169,7 @@
                     var link = "<a href='http://maps.google.com/maps?q=" + encodeURIComponent($(this).text()) + "' target='_blank'>" + $(this).text() + "</a>";
                     $(this).html(link);
                 });
-                
+
             })
         }
     }
@@ -178,7 +178,7 @@
         initSingleMap()
     })
 
-    // Single Listing Map on Elementor EditMode 
+    // Single Listing Map on Elementor EditMode
     $(window).on('elementor/frontend/init', function () {
         setTimeout(function() {
             if ($('body').hasClass('elementor-editor-active')) {

@@ -22,7 +22,7 @@ jQuery(document).ready(function ($) {
             type: 'post',
             url: directorist_admin.ajaxurl,
             data: {
-                action: 'directorist_listing_type_form_fields',
+                action: 'directorist_update_csv_columns_to_listing_fields_table',
                 directory_type: directory_type,
                 delimiter: delimiter,
                 directorist_nonce: directorist_admin.directorist_nonce,
@@ -47,19 +47,7 @@ jQuery(document).ready(function ($) {
         });
     }
 
-
-
-    $('#atbdp_ie_download_sample').on('click', function (e) {
-        const ie_file = $(this).attr('data-sample-csv');
-        if (ie_file) {
-            window.location.href = ie_file;
-            return false;
-        }
-    });
-
-    const stepTwo = $('#atbdp_csv_step_two');
-
-    $( stepTwo ).on('submit', function (e) {
+    $('#atbdp_csv_step_two').on('submit', function (e) {
         e.preventDefault();
 
         $('.atbdp-importer-mapping-table-wrapper').fadeOut(300);
@@ -72,18 +60,18 @@ jQuery(document).ready(function ($) {
             .addClass('done');
         $('.atbdp-progress-step').addClass('active');
 
-        let position = 0;
-        let failed   = 0;
-        let imported = 0;
+        $('.importer-details').html(`1/${$(this).data('total')}`);
+        $('.directorist-importer-length').css( 'width', '10%' );
+        $('.directorist-importer-progress').val(10);
 
         const configFields = $( '.directorist-listings-importer-config-field' );
+        let position = 0;
 
-        let counter = 0;
         var run_import = function () {
             const form_data = new FormData();
 
             // ajax action
-            form_data.append( 'action', 'atbdp_import_listing' );
+            form_data.append( 'action', 'directorist_import_listings' );
             form_data.append( 'position', position );
 
             form_data.append('directorist_nonce', directorist_admin.directorist_nonce);
@@ -112,7 +100,7 @@ jQuery(document).ready(function ($) {
             if( directory_type ) {
                 form_data.append( 'directory_type', directory_type );
             }
-            
+
             if ( map_elm ) {
                 var log = [];
                 map_elm.each( function () {
@@ -155,27 +143,22 @@ jQuery(document).ready(function ($) {
                 url: directorist_admin.ajaxurl,
                 data: form_data,
                 success( response ) {
+                    console.log(response)
 
                     if ( response.error ) {
                         console.log({ response });
                         return;
                     }
 
-                    imported += response.imported;
-                    failed += response.failed;
-
-                    $('.importer-details').html(
-                        `Imported ${response.next_position} out of ${response.total}`
-                    );
-
+                    $('.importer-details').html(`${response.position}/${response.total}`);
                     $('.directorist-importer-progress').val( response.percentage );
 
-                    if ( response.percentage != '100' ) {
-                        position = response.next_position;
+                    if ( ! response.done ) {
+                        position = response.position;
+
                         run_import();
-                        counter++;
                     } else {
-                        window.location = `${response.url}&listing-imported=${imported}&listing-failed=${failed}`;
+                        window.location = `${response.redirect_url}&listing-imported=${response.imported_items.length}&listing-failed=${response.failed_items.length}`;
                     }
 
                     $('.directorist-importer-length').css( 'width', response.percentage + '%' );
@@ -190,6 +173,7 @@ jQuery(document).ready(function ($) {
 
         run_import();
     });
+
     /* csv upload */
     $('#upload').change(function (e) {
         const filename = e.target.files[0].name;

@@ -321,7 +321,7 @@ import {
         }
     });
 
-})(); 
+})();
 
 
 /* Add listing google map */

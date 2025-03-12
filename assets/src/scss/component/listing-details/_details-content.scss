@@ -160,7 +160,7 @@
     flex-direction: column;
     .directorist-single-info {
       margin: 0;
-      &.directorist-single-info-number{
+      &.directorist-single-info-number {
         .directorist-form-group__with-prefix {
           flex: 1;
         }
@@ -234,6 +234,8 @@
   margin-bottom: 25px;
   margin-top: -15px;
   padding: 0;
+}
+.directorist-single-wrapper {
   .directorist-single-listing-slider-wrap {
     padding: 0;
     margin: 15px 0;
@@ -253,7 +255,7 @@
 .directorist-single-listing-quick-action {
   gap: 8px;
   flex-wrap: wrap;
-  @media screen and (max-width: 767px){
+  @media screen and (max-width: 767px) {
     justify-content: flex-end;
   }
   @media screen and (max-width: 575px) {
@@ -352,7 +354,7 @@
   color: var(--directorist-color-body);
   border: 2px solid var(--directorist-color-white) !important;
   transition: 0.2s background-color ease-in-out;
-  &:hover{
+  &:hover {
     background-color: var(--directorist-color-white) !important;
     border-color: var(--directorist-color-primary) !important;
   }
@@ -360,7 +362,7 @@
     gap: 0;
     border: none;
     &.directorist-btn.directorist-btn-light {
-      background-color:var(--directorist-color-white);
+      background-color: var(--directorist-color-white);
     }
     &.directorist-single-listing-top__btn-edit {
       .directorist-single-listing-action__text {
@@ -373,7 +375,7 @@
     font-size: 12px;
   }
   @media screen and (max-width: 380px) {
-    &.directorist-btn-sm{
+    &.directorist-btn-sm {
       min-height: 38px;
     }
   }
@@ -398,7 +400,7 @@
     width: 100%;
     height: 100%;
 
-    i{
+    i {
       pointer-events: none;
     }
   }

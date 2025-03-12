@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 <div class="directorist-search-form-action">
 
-	<?php if ( $searchform->has_more_filters_button ): ?>
+	<?php if ( $searchform->has_more_filters_button && ! empty( $searchform->form_data[1]['fields'] ) ) : ?>
 
 		<div class="directorist-search-form-action__filter">
 			<a href="#" class="directorist-btn directorist-btn-lg directorist-filter-btn directorist-modal-btn directorist-modal-btn--advanced">

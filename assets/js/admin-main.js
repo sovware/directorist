@@ -3373,27 +3373,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "convertToSelect2", function() { return convertToSelect2; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "get_dom_data", function() { return get_dom_data; });
 var $ = jQuery;
-function get_dom_data(key, parent) {
-  // var elmKey = 'directorist-dom-data-' + key;
-  var elmKey = 'directorist-dom-data-' + key;
-  var dataElm = parent ? parent.getElementsByClassName(elmKey) : document.getElementsByClassName(elmKey);
-  if (!dataElm) {
-    return '';
+function get_dom_data(selector, parent) {
+  selector = '.directorist-dom-data-' + selector;
+  if (!parent) {
+    parent = document;
   }
-  var is_script_debugging = directorist && directorist.script_debugging && directorist.script_debugging == '1' ? true : false;
+  var el = parent.querySelector(selector);
+  if (!el || !el.dataset.value) {
+    return {};
+  }
+  var IS_SCRIPT_DEBUGGING = directorist && directorist.script_debugging && directorist.script_debugging == '1';
   try {
-    var dataValue = atob(dataElm[0].dataset.value);
-    dataValue = JSON.parse(dataValue);
-    return dataValue;
+    var value = atob(el.dataset.value);
+    return JSON.parse(value);
   } catch (error) {
-    if (is_script_debugging) {
-      console.warn({
-        key: key,
-        dataElm: dataElm,
-        error: error
-      });
+    if (IS_SCRIPT_DEBUGGING) {
+      console.log(el, error);
     }
-    return '';
+    return {};
   }
 }
 function convertToSelect2(selector) {
@@ -3428,9 +3425,9 @@ function convertToSelect2(selector) {
   !*** ./assets/src/scss/layout/admin/admin-style.scss ***!
   \*******************************************************/
 /*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-// extracted by mini-css-extract-plugin
+throw new Error("Module build failed (from ./node_modules/mini-css-extract-plugin/dist/loader.js):\nModuleBuildError: Module build failed (from ./node_modules/sass-loader/dist/cjs.js):\nSassError: expected selector.\n     ╷\n4859 │               }\n     │                ^\n     ╵\n  assets/src/scss/layout/admin/admin-style.scss 4859:16  root stylesheet\n    at /Users/syedgalibahmed/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/webpack/lib/NormalModule.js:316:20\n    at /Users/syedgalibahmed/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/webpack/node_modules/loader-runner/lib/LoaderRunner.js:367:11\n    at /Users/syedgalibahmed/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/webpack/node_modules/loader-runner/lib/LoaderRunner.js:233:18\n    at context.callback (/Users/syedgalibahmed/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/webpack/node_modules/loader-runner/lib/LoaderRunner.js:111:13)\n    at /Users/syedgalibahmed/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/sass-loader/dist/index.js:55:7\n    at Function.call$2 (/Users/syedgalibahmed/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:126842:16)\n    at render_closure1.call$2 (/Users/syedgalibahmed/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:108124:12)\n    at _RootZone.runBinary$3$3 (/Users/syedgalibahmed/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:39781:18)\n    at _FutureListener.handleError$1 (/Users/syedgalibahmed/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:38287:21)\n    at _Future__propagateToListeners_handleError.call$0 (/Users/syedgalibahmed/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:38612:49)\n    at Object._Future__propagateToListeners (/Users/syedgalibahmed/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:5255:77)\n    at _Future._completeError$2 (/Users/syedgalibahmed/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:38453:9)\n    at _AsyncAwaitCompleter.completeError$2 (/Users/syedgalibahmed/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:38057:12)\n    at Object._asyncRethrow (/Users/syedgalibahmed/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:5014:17)\n    at /Users/syedgalibahmed/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:28735:20\n    at _wrapJsFunctionForAsync_closure.$protected (/Users/syedgalibahmed/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:5039:15)\n    at _wrapJsFunctionForAsync_closure.call$2 (/Users/syedgalibahmed/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:38076:12)\n    at _awaitOnObject_closure0.call$2 (/Users/syedgalibahmed/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:38070:25)\n    at _RootZone.runBinary$3$3 (/Users/syedgalibahmed/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:39781:18)\n    at _FutureListener.handleError$1 (/Users/syedgalibahmed/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:38287:21)\n    at _Future__propagateToListeners_handleError.call$0 (/Users/syedgalibahmed/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:38612:49)\n    at Object._Future__propagateToListeners (/Users/syedgalibahmed/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:5255:77)\n    at _Future._completeError$2 (/Users/syedgalibahmed/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:38453:9)\n    at _AsyncAwaitCompleter.completeError$2 (/Users/syedgalibahmed/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:38057:12)\n    at Object._asyncRethrow (/Users/syedgalibahmed/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:5014:17)\n    at /Users/syedgalibahmed/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:20812:20\n    at _wrapJsFunctionForAsync_closure.$protected (/Users/syedgalibahmed/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:5039:15)\n    at _wrapJsFunctionForAsync_closure.call$2 (/Users/syedgalibahmed/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:38076:12)\n    at _awaitOnObject_closure0.call$2 (/Users/syedgalibahmed/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:38070:25)\n    at _RootZone.runBinary$3$3 (/Users/syedgalibahmed/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:39781:18)\n    at _FutureListener.handleError$1 (/Users/syedgalibahmed/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:38287:21)\n    at _Future__propagateToListeners_handleError.call$0 (/Users/syedgalibahmed/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:38612:49)\n    at Object._Future__propagateToListeners (/Users/syedgalibahmed/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:5255:77)\n    at _Future._completeError$2 (/Users/syedgalibahmed/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:38453:9)\n    at _AsyncAwaitCompleter.completeError$2 (/Users/syedgalibahmed/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:38057:12)\n    at Object._asyncRethrow (/Users/syedgalibahmed/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:5014:17)\n    at /Users/syedgalibahmed/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:20857:20\n    at _wrapJsFunctionForAsync_closure.$protected (/Users/syedgalibahmed/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:5039:15)\n    at _wrapJsFunctionForAsync_closure.call$2 (/Users/syedgalibahmed/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:38076:12)\n    at _awaitOnObject_closure0.call$2 (/Users/syedgalibahmed/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:38070:25)\n    at _RootZone.runBinary$3$3 (/Users/syedgalibahmed/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:39781:18)\n    at _FutureListener.handleError$1 (/Users/syedgalibahmed/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:38287:21)\n    at _Future__propagateToListeners_handleError.call$0 (/Users/syedgalibahmed/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:38612:49)\n    at Object._Future__propagateToListeners (/Users/syedgalibahmed/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:5255:77)\n    at _Future._completeError$2 (/Users/syedgalibahmed/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:38453:9)\n    at _AsyncAwaitCompleter.completeError$2 (/Users/syedgalibahmed/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:38057:12)\n    at Object._asyncRethrow (/Users/syedgalibahmed/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:5014:17)\n    at /Users/syedgalibahmed/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:86016:24\n    at _wrapJsFunctionForAsync_closure.$protected (/Users/syedgalibahmed/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:5039:15)\n    at _wrapJsFunctionForAsync_closure.call$2 (/Users/syedgalibahmed/Local Sites/directorist/app/public/wp-content/plugins/directorist/node_modules/sass/sass.dart.js:38076:12)");
 
 /***/ }),
 

@@ -1960,7 +1960,7 @@ if ( ! function_exists('atbdp_is_page') ) {
             $option    = $page_map[ $page_type ]['option'];
             $page_id   = get_directorist_option( $option );
 
-            if ( is_page( $page_id ) ) {
+            if ( $page_id && is_page( $page_id ) ) {
                 return true;
             }
 
@@ -2872,9 +2872,9 @@ if(!function_exists('csv_get_data')){
             $post = array();
 
             // Get first row in CSV, which is of course the headers
-            $header = fgetcsv( $_file, 0, $delimiter );
+            $header = fgetcsv( $_file, 0, $delimiter, '"', '\\' );
 
-            while ( $row = fgetcsv( $_file, 0, $delimiter ) ) {
+            while ( $row = fgetcsv( $_file, 0, $delimiter, '"', '\\' ) ) {
 
                 foreach ( $header as $i => $key ) {
                     $post[ $key ] = $row[ $i ];

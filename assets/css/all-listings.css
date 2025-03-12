@@ -18724,11 +18724,12 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   margin-top: -15px;
   padding: 0;
 }
-.directorist-single-listing-header .directorist-single-listing-slider-wrap {
+
+.directorist-single-wrapper .directorist-single-listing-slider-wrap {
   padding: 0;
   margin: 15px 0;
 }
-.directorist-single-listing-header .directorist-single-listing-slider-wrap.background-contain .directorist-single-listing-slider .swiper-slide img {
+.directorist-single-wrapper .directorist-single-listing-slider-wrap.background-contain .directorist-single-listing-slider .swiper-slide img {
   -o-object-fit: contain;
      object-fit: contain;
 }

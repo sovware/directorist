@@ -13,7 +13,7 @@ import debounce from '../../global/components/debounce';
                 var query = (query && query.length) ? query + '&paged=' + form_data.paged : '?paged=' + form_data.paged;
             }
             if (form_data.directory_type && form_data.directory_type.length) {
-                var query = (query && query.length) ? query + '&view=' + form_data.directory_type : '?directory_type=' + form_data.directory_type;
+                var query = (query && query.length) ? query + '&directory_type=' + form_data.directory_type : '?directory_type=' + form_data.directory_type;
             }
             if (form_data.view && form_data.view.length) {
                 var query = (query && query.length) ? query + '&view=' + form_data.view : '?view=' + form_data.view;
@@ -1008,9 +1008,9 @@ import debounce from '../../global/components/debounce';
         let search_by_rating = activeForm.find('select[name=search_by_rating]').val();
         let cityLat          = activeForm.find('#cityLat').val();
         let cityLng          = activeForm.find('#cityLng').val();
-        let miles            = activeForm.find('input[name="miles"]').val();
         let address          = activeForm.find('input[name="address"]').val();
         let zip              = activeForm.find('input[name="zip"]').val();
+        let miles            = (address.length || zip.length) && activeForm.find('input[name="miles"]').val();
         let fax              = activeForm.find('input[name="fax"]').val();
         let email            = activeForm.find('input[name="email"]').val();
         let website          = activeForm.find('input[name="website"]').val();
@@ -1020,36 +1020,36 @@ import debounce from '../../global/components/debounce';
         $(this).addClass("current");
 
         var paginate_link = $(this).attr('href');
-        var page          = ( paginate_link && paginate_link.length ) ? paginate_link.match(/page\/.+/) : '';
-        var page_value    = (page && page.length) ? page[0].replace(/page\//, '') : '';
-        var page_no       = (page_value && page_value.length) ? page_value.replace(/\//, '') : '';
-        if (!page_no) {
-            var page    = ( paginate_link && paginate_link.length ) ? paginate_link.match(/paged=.+/) : '';
-            var page_no = (page && page.length) ? page[0].replace(/paged=/, '') : '';
+        var page_no = '';
+
+        if (paginate_link) {
+            var pageMatch = paginate_link.match(/(?:page\/|paged=)(\d+)/);
+            if (pageMatch) {
+                page_no = pageMatch[1]; // Extracts only the numeric value
+            }
         }
 
         var form_data = {
             action          : 'directorist_instant_search',
             _nonce          : directorist.ajax_nonce,
             current_page_id : directorist.current_page_id,
-            view            : (view && view.length) ? view[0].replace(/view=/, '') : '',
-            q               : q || getURLParameter( full_url, 'q' ),
-            in_cat          : in_cat || getURLParameter( full_url, 'in_cat' ),
-            in_loc          : in_loc || getURLParameter( full_url, 'in_loc' ),
-            in_tag          : tag || getURLParameter( full_url, 'in_tag' ),
-            price           : price || getURLParameter( full_url, 'price' ),
-            price_range     : price_range || getURLParameter( full_url, 'price_range' ),
-            search_by_rating: search_by_rating || getURLParameter( full_url, 'search_by_rating' ),
-            cityLat         : cityLat || getURLParameter( full_url, 'cityLat' ),
-            cityLng         : cityLng || getURLParameter( full_url, 'cityLng' ),
-            miles           : miles || getURLParameter( full_url, 'miles' ),
-            address         : address || getURLParameter( full_url, 'address' ),
-            zip             : zip || getURLParameter( full_url, 'zip' ),
-            fax             : fax || getURLParameter( full_url, 'fax' ),
-            email           : email || getURLParameter( full_url, 'email' ),
-            website         : website || getURLParameter( full_url, 'website' ),
-            phone           : phone || getURLParameter( full_url, 'phone' ),
-            custom_field    : custom_field || getURLParameter( full_url, 'custom_field' ),
+            q               : q,
+            in_cat          : in_cat,
+            in_loc          : in_loc,
+            in_tag          : tag,
+            price           : price,
+            price_range     : price_range,
+            search_by_rating: search_by_rating,
+            cityLat         : cityLat,
+            cityLng         : cityLng,
+            address         : address,
+            zip             : zip,
+            fax             : fax,
+            email           : email,
+            website         : website,
+            phone           : phone,
+            custom_field    : custom_field,
+            miles           : miles,
             view            : view,
             paged           : page_no,
             data_atts       : JSON.parse(data_atts)
@@ -1060,8 +1060,6 @@ import debounce from '../../global/components/debounce';
             form_data.open_now = activeForm.find('input[name="open_now"]').val();
         }
 
-        update_instant_search_url(form_data);
-
         if (directory_type && directory_type.length) {
             form_data.directory_type = directory_type;
         }
@@ -1069,6 +1067,8 @@ import debounce from '../../global/components/debounce';
         if (sort && sort.length) {
             form_data.sort = sort
         }
+
+        update_instant_search_url(form_data);
 
         $.ajax({
             url: directorist.ajaxurl,

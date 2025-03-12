@@ -415,6 +415,11 @@ $(function() {
     // Create container div after category (in frontend)
     $('.directorist-form-categories-field').after('<div class="directorist-form-group  atbdp_category_custom_fields"></div>');
 
+    window.addEventListener( 'load', function() {
+        renderCategoryCustomFields();
+        cacheCategoryCustomFields();
+    } );
+
     window.addEventListener( 'directorist-type-change', function() {
         renderCategoryCustomFields();
         cacheCategoryCustomFields();

@@ -96,7 +96,7 @@ class Builder_Controller extends Abstract_Controller {
 	public function prepare_item_for_response( $item, $request ) {
 		// Created date.
 		$date_created = get_term_meta( $item->term_id, '_created_date', true );
-		$expiration   = get_term_meta( $item->term_id, 'default_expiration', true );
+		$expiration   = directorist_get_default_expiration( $item->term_id );
 		$new_status   = get_term_meta( $item->term_id, 'new_listing_status', true );
 		$edit_status  = directorist_get_listing_edit_status( $item->term_id );
 		$is_default   = get_term_meta( $item->term_id, '_default', true );

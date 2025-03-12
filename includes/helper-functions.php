@@ -972,19 +972,22 @@ if (!function_exists('calc_listing_expiry_date')) {
      * @since    3.1.0
      *
      */
-    function calc_listing_expiry_date($start_date = NULL, $expire = NULL, $directory_type = '' )
-    {
-        $type = $directory_type ? $directory_type : default_directory_type();
-        $exp_days = get_term_meta( $type, 'default_expiration', true );
-        $exp_days = !empty( $exp_days ) ? $exp_days : 0;
-        $expired_date = !empty($expire) ? $expire : $exp_days;
-        // Current time
-        $start_date = !empty($start_date) ? $start_date : current_time('mysql');
-        // Calculate new date
-        $date = new DateTime($start_date);
-        $date->add(new DateInterval("P{$expired_date}D")); // set the interval in days
-        return $date->format('Y-m-d H:i:s');
+    function calc_listing_expiry_date( $start_date = null, $expire_date = null, $directory_id = 0 ) {
+		if ( empty( $expire_date ) ) {
+			if ( ! $directory_id ) {
+				$directory_id = directorist_get_default_directory();
+			}
 
+			$expire_date = directorist_get_default_expiration( $directory_id );
+		}
+
+		$start_date  = ! empty( $start_date ) ? $start_date : current_time( 'mysql' );
+
+        // Calculate new date
+        $date = new \DateTime($start_date);
+        $date->add( new DateInterval( "P{$expire_date}D" ) ); // set the interval in days
+
+        return $date->format( 'Y-m-d H:i:s' );
     }
 }
 

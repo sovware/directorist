@@ -459,7 +459,7 @@ class Multi_Directory_Manager {
             'number'     => 1,
         ] );
 
-        return ! empty( $max_order ) ? intval( get_term_meta( $max_order[0]->term_id, 'sort_order', true ) ) : 0;
+        return empty( $max_order ) ? -1 : intval( get_term_meta( $max_order[0]->term_id, 'sort_order', true ) );
     }
 
     // has_multidirectory

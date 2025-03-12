@@ -1671,7 +1671,7 @@ window.addEventListener('load', function () {
             return axios.post(directorist_admin.ajax_url, form_data);
           case 9:
             response = _context2.sent;
-            if (!(response.data && response.data.status.success)) {
+            if (!(response.data && response.data.status && response.data.status.success)) {
               _context2.next = 12;
               break;
             }

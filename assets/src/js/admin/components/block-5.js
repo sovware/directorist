@@ -368,7 +368,7 @@ window.addEventListener('load', () => {
         try {
             const response = await axios.post( directorist_admin.ajax_url, form_data );
     
-            if ( response.data && response.data.status.success ) {
+            if ( response.data && response.data.status && response.data.status.success ) {
                 return true;
             }
     

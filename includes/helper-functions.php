@@ -1960,7 +1960,7 @@ if ( ! function_exists('atbdp_is_page') ) {
             $option    = $page_map[ $page_type ]['option'];
             $page_id   = get_directorist_option( $option );
 
-            if ( is_page( $page_id ) ) {
+            if ( $page_id && is_page( $page_id ) ) {
                 return true;
             }
 

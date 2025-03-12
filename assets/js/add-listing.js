@@ -478,6 +478,10 @@ $(function () {
 
   // Create container div after category (in frontend)
   $('.directorist-form-categories-field').after('<div class="directorist-form-group  atbdp_category_custom_fields"></div>');
+  window.addEventListener('load', function () {
+    renderCategoryCustomFields();
+    Object(_global_components_cache_category_custom_fields__WEBPACK_IMPORTED_MODULE_0__["cacheCategoryCustomFields"])();
+  });
   window.addEventListener('directorist-type-change', function () {
     renderCategoryCustomFields();
     Object(_global_components_cache_category_custom_fields__WEBPACK_IMPORTED_MODULE_0__["cacheCategoryCustomFields"])();

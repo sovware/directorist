@@ -1285,7 +1285,6 @@ __webpack_require__.r(__webpack_exports__);
       }
       return []; // pips.mode = never
     }
-
     function mapToRange(values, stepped) {
       return values.map(function (value) {
         return scope_Spectrum.fromStepping(stepped ? scope_Spectrum.getStep(value) : value);
@@ -2362,7 +2361,6 @@ __webpack_require__.r(__webpack_exports__);
       },
       pips: pips // Issue #594
     };
-
     return scope_Self;
   }
   // Run the standard initializer
@@ -2403,11 +2401,11 @@ __webpack_require__.r(__webpack_exports__);
 function _typeof(o) {
   "@babel/helpers - typeof";
 
-  return (module.exports = _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
+  return module.exports = _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
     return typeof o;
   } : function (o) {
     return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
-  }, module.exports.__esModule = true, module.exports["default"] = module.exports), _typeof(o);
+  }, module.exports.__esModule = true, module.exports["default"] = module.exports, _typeof(o);
 }
 module.exports = _typeof, module.exports.__esModule = true, module.exports["default"] = module.exports;
 

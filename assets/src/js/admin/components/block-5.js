@@ -295,8 +295,6 @@ window.addEventListener('load', () => {
             id: item.dataset.termId,
             order: index // Assign initial order
         }));
-
-        console.log("Initial Order:", {initialOrder});
     });
 
     // Drag Over
@@ -332,14 +330,8 @@ window.addEventListener('load', () => {
             return oldItem && oldItem.order != newItem.order;
         });
 
-        if (swappedItems.length > 0) {
-            console.log("Swapped Items:", {swappedItems, newOrder});
-
-            // Send only swapped items via Axios
-            for (const item of swappedItems) {
-                const status = await update_directory_meta(item.id, { sort_order: item.order });
-                console.log("Update Status after swappedItems:", {status});
-            }
+        if ( swappedItems.length > 0 ) {
+            await updateDirectorySortingOrders( swappedItems );
             initialOrder = newOrder; // Update initial order
         }
     });
@@ -360,34 +352,21 @@ window.addEventListener('load', () => {
         ).element;
     }
 
-    // Update function with Axios
-    async function update_directory_meta( id, meta ) {
-        if ( ! id ) {
-            return false;
-        }
-    
-        const isObject = ( obj ) => obj !== null && typeof obj === 'object' && ! Array.isArray( obj );
-    
-        if ( ! isObject( meta ) ) {
+    async function updateDirectorySortingOrders( sortingOrders ) {
+        if ( ! Array.isArray( sortingOrders ) ) {
             return false;
         }
     
         const form_data = new FormData();
         
-        form_data.append( 'action', 'save_post_type_data' );
+        form_data.append( 'action', 'update_directory_type_sorting_order' );
         form_data.append( 'directorist_nonce', directorist_admin.directorist_nonce );
-        form_data.append( 'listing_type_id', id );
-    
-        for ( const [ key, value ] of Object.entries( meta ) ) {
-            form_data.append( key, value );
-        }
-    
-        form_data.append( 'field_list', JSON.stringify( Object.keys( meta ) ) );
-    
+        form_data.append( 'sorting_orders', JSON.stringify( sortingOrders ) );
+
         try {
             const response = await axios.post( directorist_admin.ajax_url, form_data );
     
-            if ( response.data && response.data.status.success ) {
+            if ( response.data && response.data.status && response.data.status.success ) {
                 return true;
             }
     
@@ -397,5 +376,4 @@ window.addEventListener('load', () => {
             return false;
         }
     }
-    
 });

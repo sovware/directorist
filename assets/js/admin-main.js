@@ -1621,7 +1621,7 @@ window.addEventListener('load', function () {
             break;
           }
           _context.next = 6;
-          return update_directory_sorting_orders(swappedItems);
+          return updateDirectorySortingOrders(swappedItems);
         case 6:
           initialOrder = newOrder; // Update initial order
         case 7:
@@ -1647,11 +1647,11 @@ window.addEventListener('load', function () {
       element: null
     }).element;
   }
-  function update_directory_sorting_orders(_x) {
-    return _update_directory_sorting_orders.apply(this, arguments);
+  function updateDirectorySortingOrders(_x) {
+    return _updateDirectorySortingOrders.apply(this, arguments);
   }
-  function _update_directory_sorting_orders() {
-    _update_directory_sorting_orders = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0___default()(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default.a.mark(function _callee2(sortingOrders) {
+  function _updateDirectorySortingOrders() {
+    _updateDirectorySortingOrders = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0___default()(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default.a.mark(function _callee2(sortingOrders) {
       var form_data, response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default.a.wrap(function _callee2$(_context2) {
         while (1) switch (_context2.prev = _context2.next) {
@@ -1689,7 +1689,7 @@ window.addEventListener('load', function () {
         }
       }, _callee2, null, [[6, 15]]);
     }));
-    return _update_directory_sorting_orders.apply(this, arguments);
+    return _updateDirectorySortingOrders.apply(this, arguments);
   }
 });
 

@@ -333,7 +333,7 @@ window.addEventListener('load', () => {
         });
 
         if ( swappedItems.length > 0 ) {
-            await update_directory_sorting_orders( swappedItems );
+            await updateDirectorySortingOrders( swappedItems );
             initialOrder = newOrder; // Update initial order
         }
     });
@@ -354,7 +354,7 @@ window.addEventListener('load', () => {
         ).element;
     }
 
-    async function update_directory_sorting_orders( sortingOrders ) {
+    async function updateDirectorySortingOrders( sortingOrders ) {
         if ( ! Array.isArray( sortingOrders ) ) {
             return false;
         }

@@ -275,64 +275,76 @@ window.addEventListener('load', () => {
 
     // Builder Directory Types Drag and Drop
     const builderDragNDropWrapper = document.querySelector(".directorist_builder__list");
+    let initialOrder = [];
 
-    let builderDraggableItem = null;
-    let initialOrder = []; // Store initial order before drag
-
-    // Store initial order when dragging starts
-    builderDragNDropWrapper.addEventListener("dragstart", (event) => {
-        builderDraggableItem = event.target.closest(".directorist_builder__list__item");
-
-        if (!builderDraggableItem || !builderDraggableItem.hasAttribute("draggable")) {
-            event.preventDefault();
+    // Dragging Start
+    builderDragNDropWrapper.addEventListener("dragstart", (e) => {
+        const draggingItem = e.target.closest(".directorist_builder__list__item");
+        if (!draggingItem) {
+            e.preventDefault();
             return;
         }
 
-        builderDraggableItem.classList.add("dragging");
+        draggingItem.classList.add("dragging");
+
+        // Clone the item for visibility
+        const cloneItem = draggingItem.cloneNode(true);
+        cloneItem.classList.add("drag-clone");
+        Object.assign(cloneItem.style, {
+            width: `${draggingItem.offsetWidth}px`,
+            height: `${draggingItem.offsetHeight}px`,
+            position: "absolute",
+            top: "-100%",
+            opacity: "1",
+        });
+
+        draggingItem.after(cloneItem);
+        e.dataTransfer.setDragImage(cloneItem, 0, 0);
 
         // Save initial order
         initialOrder = [...builderDragNDropWrapper.children].map((item, index) => ({
             id: item.dataset.termId,
-            order: index // Assign initial order
+            order: index
         }));
     });
 
     // Drag Over
     builderDragNDropWrapper.addEventListener("dragover", (e) => {
         e.preventDefault();
+        
         const draggingItem = document.querySelector(".dragging");
         if (!draggingItem) return;
 
+        document.querySelectorAll(".directorist_builder__list__item").forEach(item => 
+            item.classList.remove("drag-over")
+        );
+
         const afterElement = getDragAfterElement(builderDragNDropWrapper, e.clientY);
-        
-        if (afterElement && afterElement !== draggingItem.nextSibling) {
-            builderDragNDropWrapper.insertBefore(draggingItem, afterElement);
-        } else if (!afterElement) {
-            builderDragNDropWrapper.appendChild(draggingItem);
-        }
+        if (afterElement) afterElement.classList.add("drag-over");
     });
 
     // Drag End
     builderDragNDropWrapper.addEventListener("dragend", async () => {
-        builderDraggableItem.classList.remove("dragging");
+        const draggingItem = document.querySelector(".dragging");
+        if (!draggingItem) return;
 
+        const afterElement = getDragAfterElement(builderDragNDropWrapper, event.clientY);
+        afterElement ? afterElement.before(draggingItem) : builderDragNDropWrapper.appendChild(draggingItem);
+
+        document.querySelector(".drag-clone")?.remove();
+        document.querySelectorAll(".dragging, .drag-over").forEach(el => el.classList.remove("dragging", "drag-over"));
+
+        // Update order
         const newOrder = [...builderDragNDropWrapper.children].map((item, index) => {
-            item.setAttribute("data-order", index); // Update data-order attribute
-            return {
-                id: item.dataset.termId,
-                order: index // Assign new order
-            };
+            item.dataset.order = index;
+            return { id: item.dataset.termId, order: index };
         });
 
-        // Find only swapped items
-        const swappedItems = newOrder.filter(newItem => {
-            const oldItem = initialOrder.find(i => i.id === newItem.id);
-            return oldItem && oldItem.order != newItem.order;
-        });
+        const swappedItems = newOrder.filter(newItem => initialOrder.find(i => i.id === newItem.id && i.order !== newItem.order));
 
-        if ( swappedItems.length > 0 ) {
-            await updateDirectorySortingOrders( swappedItems );
-            initialOrder = newOrder; // Update initial order
+        if (swappedItems.length) {
+            await updateDirectorySortingOrders(swappedItems);
+            initialOrder = newOrder;
         }
     });
 

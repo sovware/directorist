@@ -4702,26 +4702,38 @@ body.wp-admin {
       .directorist_table-body {
         display: flex;
         flex-direction: column;
-        gap: 8px;
+        gap: 16px;
 
         .directorist_table-row {
-          background: white;
-          border-radius: 8px;
+          position: relative;
           display: flex;
           align-items: center;
           min-height: 72px;
           max-height: 72px;
-          font-size: 13px;
+          font-size: 16px;
           font-weight: 500;
-          line-height: 14px;
+          line-height: 18px;
           color: #4d5761;
-          text-transform: capitalize;
-          box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
-          border-left: 4px solid white;
+          background: white;
+          border-radius: 12px;
+          border: 1px solid #e5e7eb;
           transition: 0.3s ease;
+          &:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 8px;
+            height: 100%;
+            background: #e5e7eb;
+            border-radius: 12px 0 0 12px;
+          }
 
           &:hover {
             border-color: #3e62f5;
+            &:before {
+              background: #3e62f5;
+            }
 
             .directorist-type-actions .directorist_listing-actions {
               > a {
@@ -4732,10 +4744,6 @@ body.wp-admin {
                   color: inherit;
                 }
               }
-
-              .directorist_more-dropdown .directorist_more-dropdown-toggle svg {
-                color: #747c89;
-              }
             }
           }
 
@@ -4745,11 +4753,16 @@ body.wp-admin {
           }
         }
 
+        .directorist_drag {
+          flex: unset !important;
+          padding: 0 12px !important;
+          position: relative;
+        }
+
         .directorist_title {
-          color: #2c3239;
-          font-size: 15px;
-          font-weight: 500;
-          line-height: 16px;
+          color: #141921;
+          font-weight: 600;
+          padding-left: 0 !important;
 
           a {
             color: inherit;
@@ -4757,7 +4770,7 @@ body.wp-admin {
             box-shadow: none;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 4px;
 
             &:hover {
               color: #3e62f5;
@@ -4766,34 +4779,32 @@ body.wp-admin {
 
           .directorist_badge {
             display: inline-flex;
-            padding: 0 6px;
+            gap: 4px;
             justify-content: center;
             align-items: center;
-            gap: 8px;
+            color: #113997;
+            background: #d7e4ff;
+            font-family: "Helvetica Neue";
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 24px;
+            letter-spacing: 0.14px;
             border-radius: 4px;
-            background: #d8e0fd;
-            color: #061e7e;
-            font-size: 10px;
-            font-weight: 600;
-            line-height: 14px;
-            letter-spacing: 0.4px;
-            text-transform: uppercase;
-            height: 18px;
+            padding: 0 8px;
             margin: 0;
           }
 
           .directorist_listing-id {
-            color: #747c89;
-            font-size: 12px;
+            color: #000833a6;
+            font-size: 14px;
             font-weight: 500;
-            line-height: 14px;
-            letter-spacing: 0.12px;
-            margin-top: 8px;
+            line-height: 16px;
+            margin-top: 4px;
           }
         }
 
         .directorist-type-count {
-          color: #2e94fa;
+          color: #1974a8;
         }
 
         .directorist-type-actions {
@@ -4949,9 +4960,34 @@ body.wp-admin {
 
         &.directorist_builder__list {
           .directorist_builder__list__item {
-            cursor: move;
-            &.dragging {
-              opacity: 0.6;
+            &.dragging:not(.drag-clone) {
+              background: #f3f4f6;
+              border: 1px dashed #3e62f5;
+              * {
+                opacity: 0;
+              }
+            }
+            &.drag-over {
+              position: relative;
+              &:before {
+                content: "";
+                position: absolute;
+                top: -10px;
+                left: 0;
+                height: 3px;
+                width: 100%;
+                background: #3e62f5;
+              }
+              &:after {
+                content: "";
+                position: absolute;
+                top: -14px;
+                left: 0;
+                height: 10px;
+                width: 10px;
+                border-radius: 50%;
+                background: #3e62f5;
+              }
             }
           }
         }

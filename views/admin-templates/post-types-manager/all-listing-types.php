@@ -129,7 +129,12 @@
                                 $delete_link = wp_nonce_url( $delete_link, 'delete_listing_type');
                                 $created_time = get_term_meta( $listing_type->term_id, '_created_date', true );
                             ?>
-                            <div class="directorist_table-row directory-type-row directorist_builder__list__item" data-term-id="<?php echo esc_attr( $listing_type->term_id ); ?>" data-order="<?php echo esc_attr($index); ?>" draggable="true">
+                            <div class="directorist_table-row directory-type-row directorist_builder__list__item" data-term-id="<?php echo esc_attr( $listing_type->term_id ); ?>" data-order="<?php echo esc_attr($index); ?>">
+                                <div class="directorist_drag directorist-row-tooltip" data-tooltip="Drag and drop to Reorder" data-flow="bottom-left" draggable="true">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M2.66663 4.66663C2.66663 4.29844 2.9651 4 3.33329 4H12.6666C13.0348 4 13.3333 4.29844 13.3333 4.66663C13.3333 5.03482 13.0348 5.33329 12.6666 5.33329H3.33329C2.9651 5.33329 2.66663 5.03482 2.66663 4.66663ZM2.66663 7.33329C2.66663 6.9651 2.9651 6.66663 3.33329 6.66663H12.6666C13.0348 6.66663 13.3333 6.9651 13.3333 7.33329C13.3333 7.70148 13.0348 8.00095 12.6666 8.00095H3.33329C2.9651 8.00095 2.66663 7.70148 2.66663 7.33329ZM2.66663 10.0001C2.66663 9.63191 2.9651 9.33345 3.33329 9.33345H12.6666C13.0348 9.33345 13.3333 9.63191 13.3333 10.0001C13.3333 10.3683 13.0348 10.6668 12.6666 10.6668H3.33329C2.9651 10.6668 2.66663 10.3683 2.66663 10.0001Z" fill="#B0B7C3"/>
+                                    </svg>
+                                </div>
                                 <div class="directorist_title">
                                     <a  href="<?php echo esc_url( ! empty( $edit_link ) ? $edit_link : '#' ); ?>">
                                         <?php echo esc_html( ! empty( $listing_type->name ) ? $listing_type->name : '-' ); ?>

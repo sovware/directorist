@@ -128,6 +128,7 @@ __webpack_require__.r(__webpack_exports__);
         // replace with your marker icon URL
         scaledSize: new google.maps.Size(40, 40) // set the size of the icon
       };
+
       loc_manual_lat = isNaN(loc_manual_lat) ? loc_default_latitude : loc_manual_lat;
       loc_manual_lng = isNaN(loc_manual_lng) ? loc_default_longitude : loc_manual_lng;
       $manual_lat = $('#manual_lat');
@@ -601,6 +602,7 @@ __webpack_require__.r(__webpack_exports__);
           }
           // ${$marker.data('icon')}
         });
+
         document.querySelectorAll('div').forEach(function (el1, index) {
           if (el1.style.backgroundImage.split('/').pop() === 'm1.png")') {
             el1.addEventListener('click', function () {
@@ -785,6 +787,7 @@ __webpack_require__.r(__webpack_exports__);
           maxWidth: 400 /*Add configuration for max width*/
         });
       }
+
       function initMap() {
         console.log('initMap');
         /* Create new map instance*/
@@ -977,6 +980,7 @@ __webpack_require__.r(__webpack_exports__);
             maxWidth: 400 /*Add configuration for max width*/
           });
         }
+
         function initMap() {
           /* Create new map instance*/
           map = new google.maps.Map(mapElm, {

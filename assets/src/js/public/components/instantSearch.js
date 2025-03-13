@@ -1429,7 +1429,7 @@ import debounce from '../../global/components/debounce';
             return;
         }
         
-        directoristArchiveContents.getAttribute('data-atts');
+        const directoristDataAttributes = directoristArchiveContents.getAttribute('data-atts');
         const { shortcode, location, category } = JSON.parse(directoristDataAttributes);
 
         if (shortcode === 'directorist_category' && category.trim() !== '') {

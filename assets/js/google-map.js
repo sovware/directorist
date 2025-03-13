@@ -596,7 +596,6 @@ __webpack_require__.r(__webpack_exports__);
           }
           // ${$marker.data('icon')}
         });
-
         document.querySelectorAll('div').forEach(function (el1, index) {
           if (el1.style.backgroundImage.split('/').pop() === 'm1.png")') {
             el1.addEventListener('click', function () {

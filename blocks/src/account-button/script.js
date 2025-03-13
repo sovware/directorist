@@ -63,13 +63,6 @@ function login() {
 		closeBtn: document.querySelector(
 			'#directorist-account-block-login-modal .directorist-account-block-close'
 		),
-		signupBtn: document.querySelector( '.directory_login_btn button' ),
-		signupPopup: document.getElementById(
-			'directorist-account-block-register-modal'
-		),
-		signupCloseBtn: document.querySelector(
-			'#directorist-account-block-register-modal .directorist-account-block-close'
-		),
 	};
 
 	// Check if all required elements exist
@@ -107,26 +100,6 @@ function login() {
 	if ( elements.popup ) {
 		elements.popup.addEventListener( 'click', ( event ) => {
 			if ( event.target === elements.popup ) hideModal( elements.popup );
-		} );
-	}
-
-	if ( elements.signupBtn ) {
-		elements.signupBtn.addEventListener( 'click', ( event ) => {
-			event.preventDefault();
-			toggleModals( elements.popup, elements.signupPopup );
-		} );
-	}
-
-	if ( elements.signupCloseBtn ) {
-		elements.signupCloseBtn.addEventListener( 'click', () =>
-			hideModal( elements.signupPopup )
-		);
-	}
-
-	if ( elements.signupPopup ) {
-		elements.signupPopup.addEventListener( 'click', ( event ) => {
-			if ( event.target === elements.signupPopup )
-				hideModal( elements.signupPopup );
 		} );
 	}
 

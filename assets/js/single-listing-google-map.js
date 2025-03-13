@@ -204,6 +204,18 @@
           lat: loc_manual_lat,
           lng: loc_manual_lng
         };
+        var marker = new Marker({
+          position: saved_lat_lng,
+          map: map,
+          icon: {
+            path: MAP_PIN,
+            fillColor: 'transparent',
+            fillOpacity: 1,
+            strokeColor: '',
+            strokeWeight: 0
+          },
+          map_icon_label: "<div class=\"atbd_map_shape\">".concat(cat_icon, "</div>")
+        });
 
         // create an info window for map
         marker.addListener('click', function () {
@@ -240,7 +252,7 @@
             marker.addListener('click', function () {
               info_window.open(map, marker);
             });
-            google.maps.event.addListener(info_window, 'domready', function () {
+            info_window && google.maps.event.addListener(info_window, 'domready', function () {
               var closeBtn = $('.iw-close-btn').get();
               google.maps.event.addDomListener(closeBtn[0], 'click', function () {
                 info_window.close();

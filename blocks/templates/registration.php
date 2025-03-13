@@ -169,7 +169,7 @@ extract( $reg_args );
 				?>
 				<?php if(!$display_password_reg) {?>
 				<div class="directory_regi_btn">
-					<p><?php esc_html_e('Password will be e-mailed to you.','account-block');?></p>
+					<p><?php esc_html_e('Password will be e-mailed to you.','directorist');?></p>
 				</div>
 				<?php } ?>
 				<div class="directorist-account-block-register-btn">
@@ -185,7 +185,7 @@ extract( $reg_args );
 		<div class="directorist-account-block-modal-bottom">
 			<?php if ( ! empty( $display_login ) ) { ?>
 				<div class="directory_regi_btn">
-					<?php echo esc_html( $login_text ); ?> 
+					<?php echo esc_html( $login_text ); ?>
 					<button type="button"><?php echo esc_html( $log_linkingmsg ); ?></button>
 				</div>
 			<?php } ?>

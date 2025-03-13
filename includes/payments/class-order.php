@@ -316,6 +316,15 @@ class ATBDP_Order
 
         global $post;
         $listing_id = get_post_meta($post_id, '_listing_id', true);
+        $author_id  = $listing_id ? get_post_field( 'post_author', $listing_id ) : '';
+        
+        if ( $author_id && ( $post->post_author != $author_id ) ) {
+            wp_update_post( array(
+                'ID' => $post_id,
+                'post_author' => $author_id
+            ) );
+        }
+
         switch ($column) {
             case 'ID' :
                 ?>
@@ -323,7 +332,6 @@ class ATBDP_Order
                 <?php
                 break;
             case 'details' :
-                $listing_id = get_post_meta($post_id, '_listing_id', true);
                 ?>
                 <p>
                     <a href="<?php echo esc_url( get_edit_post_link( $listing_id ) ); ?>"><?php echo esc_html( get_the_title( $listing_id ) ) ; ?></a>

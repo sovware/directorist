@@ -411,7 +411,7 @@ __webpack_require__.r(__webpack_exports__);
       this.div.className = 'map-icon-label';
 
       // Trigger the marker click handler if clicking on the label
-      google.maps.event.addDomListener(this.div, 'click', function (e) {
+      google.maps.event.addListener(this.div, 'click', function (e) {
         e.stopPropagation && e.stopPropagation();
         google.maps.event.trigger(self.marker, 'click');
       });
@@ -562,14 +562,6 @@ __webpack_require__.r(__webpack_exports__);
         map.markers.push(marker);
         // if marker contains HTML, add it to an infoWindow
         if ($marker.html()) {
-          //map info window close button
-          google.maps.event.addListener(infowindow, 'domready', function () {
-            var closeBtn = $('.iw-close-btn').get();
-            google.maps.event.addDomListener(closeBtn[0], 'click', function () {
-              infowindow.close();
-            });
-          });
-
           // show info window when marker is clicked
           google.maps.event.addListener(marker, 'click', function () {
             if (mapData.disable_info_window === 'no') {
@@ -717,7 +709,7 @@ __webpack_require__.r(__webpack_exports__);
         this.div.className = 'map-icon-label';
 
         // Trigger the marker click handler if clicking on the label
-        google.maps.event.addDomListener(this.div, 'click', function (e) {
+        google.maps.event.addListener(this.div, 'click', function (e) {
           e.stopPropagation && e.stopPropagation();
           google.maps.event.trigger(self.marker, 'click');
         });
@@ -783,13 +775,14 @@ __webpack_require__.r(__webpack_exports__);
       };
 
       // create an info window for map
-      if (display_map_info) {
-        info_window = new google.maps.InfoWindow({
-          content: info_content,
-          maxWidth: 400 /*Add configuration for max width*/
-        });
-      }
-
+      marker.addListener('click', function () {
+        if (display_map_info) {
+          display_map_info = false;
+        } else {
+          info_window.close();
+          display_map_info = true;
+        }
+      });
       function initMap() {
         console.log('initMap');
         /* Create new map instance*/
@@ -910,7 +903,7 @@ __webpack_require__.r(__webpack_exports__);
           this.div.className = 'map-icon-label';
 
           // Trigger the marker click handler if clicking on the label
-          google.maps.event.addDomListener(this.div, 'click', function (e) {
+          google.maps.event.addListener(this.div, 'click', function (e) {
             e.stopPropagation && e.stopPropagation();
             google.maps.event.trigger(self.marker, 'click');
           });
@@ -976,13 +969,14 @@ __webpack_require__.r(__webpack_exports__);
         };
 
         // create an info window for map
-        if (display_map_info) {
-          info_window = new google.maps.InfoWindow({
-            content: info_content,
-            maxWidth: 400 /*Add configuration for max width*/
-          });
-        }
-
+        marker.addListener('click', function () {
+          if (display_map_info) {
+            display_map_info = false;
+          } else {
+            info_window.close();
+            display_map_info = true;
+          }
+        });
         function initMap() {
           /* Create new map instance*/
           map = new google.maps.Map(mapElm, {

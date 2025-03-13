@@ -1424,7 +1424,12 @@ import debounce from '../../global/components/debounce';
 
     // Single Location Category Page Search Form Item Disable
     function singleCategoryLocationInit() {
-        const directoristDataAttributes = document.querySelector('.directorist-archive-contents').getAttribute('data-atts');
+        const directoristArchiveContents = document.querySelector('.directorist-archive-contents');
+        if (!directoristArchiveContents) {
+            return;
+        }
+        
+        directoristArchiveContents.getAttribute('data-atts');
         const { shortcode, location, category } = JSON.parse(directoristDataAttributes);
 
         if (shortcode === 'directorist_category' && category.trim() !== '') {

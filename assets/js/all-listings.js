@@ -2711,7 +2711,11 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 
   // Single Location Category Page Search Form Item Disable
   function singleCategoryLocationInit() {
-    var directoristDataAttributes = document.querySelector('.directorist-archive-contents').getAttribute('data-atts');
+    var directoristArchiveContents = document.querySelector('.directorist-archive-contents');
+    if (!directoristArchiveContents) {
+      return;
+    }
+    directoristArchiveContents.getAttribute('data-atts');
     var _JSON$parse = JSON.parse(directoristDataAttributes),
       shortcode = _JSON$parse.shortcode,
       location = _JSON$parse.location,

@@ -2707,7 +2707,11 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 
   // Single Location Category Page Search Form Item Disable
   function singleCategoryLocationInit() {
-    var directoristDataAttributes = document.querySelector('.directorist-archive-contents').getAttribute('data-atts');
+    var directoristArchiveContents = document.querySelector('.directorist-archive-contents');
+    if (!directoristArchiveContents) {
+      return;
+    }
+    var directoristDataAttributes = directoristArchiveContents.getAttribute('data-atts');
     var _JSON$parse = JSON.parse(directoristDataAttributes),
       shortcode = _JSON$parse.shortcode,
       location = _JSON$parse.location,
@@ -2737,7 +2741,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   }, 250));
 
   // sidebar on change searching
-  $('body').on("change", ".directorist-instant-search .listing-with-sidebar input[type='checkbox'],.directorist-instant-search .listing-with-sidebar input[type='radio'], .directorist-custom-range-slider__wrap .directorist-custom-range-slider__range", Object(_global_components_debounce__WEBPACK_IMPORTED_MODULE_1__["default"])(function (e) {
+  $('body').on("change", ".directorist-instant-search .listing-with-sidebar input[type='checkbox'],.directorist-instant-search .listing-with-sidebar input[type='radio'], .directorist-custom-range-slider__wrap .directorist-custom-range-slider__range, .directorist-search-location .location-name", Object(_global_components_debounce__WEBPACK_IMPORTED_MODULE_1__["default"])(function (e) {
     e.preventDefault();
     var searchElm = $(this).closest('.listing-with-sidebar');
     filterListing(searchElm);

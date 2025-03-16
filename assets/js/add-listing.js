@@ -478,6 +478,10 @@ $(function () {
 
   // Create container div after category (in frontend)
   $('.directorist-form-categories-field').after('<div class="directorist-form-group  atbdp_category_custom_fields"></div>');
+  window.addEventListener('load', function () {
+    renderCategoryCustomFields();
+    Object(_global_components_cache_category_custom_fields__WEBPACK_IMPORTED_MODULE_0__["cacheCategoryCustomFields"])();
+  });
   window.addEventListener('directorist-type-change', function () {
     renderCategoryCustomFields();
     Object(_global_components_cache_category_custom_fields__WEBPACK_IMPORTED_MODULE_0__["cacheCategoryCustomFields"])();
@@ -1070,6 +1074,13 @@ function multiStepWizard() {
 function defaultAddListing() {
   var navLinks = document.querySelectorAll(".default-add-listing .multistep-wizard__nav .multistep-wizard__nav__btn");
 
+  // Add 'active' class to the first navigation item on page load
+  window.addEventListener("load", function () {
+    if (navLinks.length > 0) {
+      navLinks[0].classList.add("active");
+    }
+  });
+
   // Function to determine which section is currently in view
   function getCurrentSectionInView() {
     var currentSection = null;
@@ -1106,13 +1117,29 @@ function defaultAddListing() {
 
   // Function to scroll smoothly to the target section
   function smoothScroll(targetSection) {
+    var scrollDuration = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1000;
     var targetElement = document.getElementById(targetSection);
-    if (targetElement) {
-      targetElement.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-      });
+    if (!targetElement) return;
+    var targetPosition = targetElement.getBoundingClientRect().top + window.scrollY;
+    var startPosition = window.scrollY;
+    var scrollDistance = targetPosition - startPosition;
+    var startTime = null;
+    function scrollAnimation(currentTime) {
+      if (startTime === null) startTime = currentTime;
+      var timeElapsed = currentTime - startTime;
+      var run = easeInOutQuad(timeElapsed, startPosition, scrollDistance, scrollDuration);
+      window.scrollTo(0, run);
+      if (timeElapsed < scrollDuration) {
+        requestAnimationFrame(scrollAnimation); // Continue the scrollAnimation
+      }
     }
+    function easeInOutQuad(t, b, c, d) {
+      t /= d / 2;
+      if (t < 1) return c / 2 * t * t + b;
+      t--;
+      return -c / 2 * (t * (t - 2) - 1) + b;
+    }
+    requestAnimationFrame(scrollAnimation); // Start the scrollAnimation
   }
 
   // Initial update and update on scroll
@@ -1126,7 +1153,7 @@ function defaultAddListing() {
     link.addEventListener("click", function (e) {
       e.preventDefault();
       var targetSection = this.getAttribute("href").substring(1);
-      smoothScroll(targetSection);
+      smoothScroll(targetSection, 1250);
     });
   });
 }

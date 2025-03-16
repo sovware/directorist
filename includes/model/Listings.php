@@ -932,7 +932,7 @@ class Directorist_Listings {
 					$field_type = str_replace( 'custom-', '', $key );
 					$field_type = preg_replace( '/([!^0-9])|(-)/', '', $field_type ); //replaces any additional numbering to just keep the field name, for example if previous line gives us "text-2", this line makes it "text"
 					// Check if $values contains a hyphen
-					if ( strpos( $values, '-' ) !== false ) {
+					if ( 'number' === $field_type && strpos( $values, '-' ) !== false ) {
 						// If $values is in the format "40-50", create a range query
 						list( $min_value, $max_value ) = array_map( 'intval', explode( '-', $values ) );
 

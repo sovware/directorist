@@ -25,6 +25,7 @@ class ATBDP_Order
     public function __construct()
     {
         add_action('init', array($this, 'register_custom_post_type'));
+        add_action('save_post_at_biz_dir', array($this, 'sync_order_author_on_listing_update'), 10, 3);
 
         add_action('admin_footer-edit.php', array($this, 'admin_footer_edit'));
         add_action('restrict_manage_posts', array($this, 'restrict_manage_posts'));
@@ -39,6 +40,55 @@ class ATBDP_Order
 
         add_filter('post_row_actions', array($this, 'set_payment_receipt_link'), 10, 2);
 
+    }
+
+    /**
+     * Sync order author with listing author
+     *
+     * @param int $listing_id Post ID.
+     * @param WP_Post $post Post object.
+     * @param bool $update Whether this is an existing post being updated.
+     */
+    public function sync_order_author_on_listing_update( $listing_id, $post, $update ) {
+        if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+            return;
+        }
+
+        if ( ! $update ) {
+            return;
+        }
+
+        global $wpdb;
+
+        // Get all orders associated with this listing using direct SQL query
+        $orders = $wpdb->get_results( $wpdb->prepare(
+            "SELECT ID, post_author
+            FROM {$wpdb->posts} p
+            INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id
+            WHERE p.post_type = 'atbdp_orders'
+            AND pm.meta_key = '_listing_id'
+            AND pm.meta_value = %d",
+            $listing_id
+        ) );
+
+        if ( ! empty( $orders ) ) {
+            $order_ids = array();
+            foreach ( $orders as $order ) {
+                if ( $order->post_author !== $post->post_author ) {
+                    $order_ids[] = $order->ID;
+                }
+            }
+
+            if ( ! empty( $order_ids ) ) {
+                $order_ids_string = implode( ',', array_map( 'absint', $order_ids ) );
+                $wpdb->query( $wpdb->prepare(
+                    "UPDATE {$wpdb->posts}
+                    SET post_author = %d
+                    WHERE ID IN ({$order_ids_string})",
+                    $post->post_author
+                ) );
+            }
+        }
     }
 
     /**
@@ -316,6 +366,7 @@ class ATBDP_Order
 
         global $post;
         $listing_id = get_post_meta($post_id, '_listing_id', true);
+
         switch ($column) {
             case 'ID' :
                 ?>
@@ -323,7 +374,6 @@ class ATBDP_Order
                 <?php
                 break;
             case 'details' :
-                $listing_id = get_post_meta($post_id, '_listing_id', true);
                 ?>
                 <p>
                     <a href="<?php echo esc_url( get_edit_post_link( $listing_id ) ); ?>"><?php echo esc_html( get_the_title( $listing_id ) ) ; ?></a>

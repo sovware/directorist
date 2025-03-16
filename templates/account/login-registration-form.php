@@ -108,7 +108,7 @@ if ( ! empty( $_GET['registration_status'] ) ) {
 							}
 						}
 					} else { ?>
-						<form action="#" id="login" method="POST">
+						<form action="#" id="directorist__authentication__login" method="POST" class="directorist__authentication__signin">
 							<p class="status"></p>
 							<div class="directorist-form-group directorist-mb-15">
 								<label for="directorist__authentication__signin__username"><?php echo esc_html( $log_username ); ?></label>
@@ -265,7 +265,7 @@ if ( ! empty( $_GET['registration_status'] ) ) {
 						<!--Registration failed, so show notification.-->
 						<p style="padding: 20px; display:none;" class="alert-danger directorist-register-error"><?php directorist_icon( 'las la-exclamation-triangle' ); ?></p>
 					</div>
-					<form action="<?php the_permalink(); ?>" method="post" class="directorist__authentication__signup">
+					<form action="#" method="post" class="directorist__authentication__signup">
 						<div class="directorist-form-group directorist-mb-35">
 							<label for="directorist__authentication__signup__username"><?php echo esc_html( $username ); ?> <strong class="directorist-form-required">*</strong></label>
 							<input id="directorist__authentication__signup__username" class="directorist-form-element" type="text" name="username" value="<?php echo isset( $_REQUEST['username'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_REQUEST['username'] ) ) ) : ''; ?>" required>
@@ -357,7 +357,7 @@ if ( ! empty( $_GET['registration_status'] ) ) {
 							<input type="hidden" name='previous_page' value='<?php echo esc_url( wp_get_referer() ); ?>'>
 							<?php } ?>
 							<input type="hidden" value="<?php echo esc_attr( wp_create_nonce( directorist_get_nonce_key() ) ); ?>" name="directorist_nonce">
-							<button type="submit" class="directorist-btn directorist-authentication__form__btn" name="atbdp_user_submit"><?php echo esc_html( $reg_signup ); ?></button>
+							<a class="directorist-btn directorist-authentication__form__btn" href="#"><?php echo esc_html( $reg_signup ); ?></a>
 						</div>
 						<div class="directory_regi_btn directorist-authentication__form__toggle-area">
 							<p><?php echo esc_html( $login_text ); ?> <button class="directorist-authentication__btn directorist-authentication__btn--signin"><?php echo esc_html( $log_linkingmsg ); ?></button></p>

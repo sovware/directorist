@@ -355,7 +355,7 @@ class Scripts {
 		$google_map_api_key = get_directorist_option( 'map_api_key', 'AIzaSyCwxELCisw4mYqSv_cBfgOahfrPFjjQLLo' );
 
 		return esc_url_raw( sprintf(
-			'//maps.googleapis.com/maps/api/js?loading=async&libraries=places&callback=Function.prototype&key=%s',
+			'//maps.googleapis.com/maps/api/js?loading=async&libraries=places,marker&callback=Function.prototype&key=%s',
 			$google_map_api_key
 		) );
 	}

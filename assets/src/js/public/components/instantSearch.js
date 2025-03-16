@@ -1424,7 +1424,12 @@ import debounce from '../../global/components/debounce';
 
     // Single Location Category Page Search Form Item Disable
     function singleCategoryLocationInit() {
-        const directoristDataAttributes = document.querySelector('.directorist-archive-contents').getAttribute('data-atts');
+        const directoristArchiveContents = document.querySelector('.directorist-archive-contents');
+        if (!directoristArchiveContents) {
+            return;
+        }
+        
+        const directoristDataAttributes = directoristArchiveContents.getAttribute('data-atts');
         const { shortcode, location, category } = JSON.parse(directoristDataAttributes);
 
         if (shortcode === 'directorist_category' && category.trim() !== '') {
@@ -1454,7 +1459,7 @@ import debounce from '../../global/components/debounce';
     }, 250));
 
     // sidebar on change searching
-    $('body').on("change", ".directorist-instant-search .listing-with-sidebar input[type='checkbox'],.directorist-instant-search .listing-with-sidebar input[type='radio'], .directorist-custom-range-slider__wrap .directorist-custom-range-slider__range", debounce( function(e) {
+    $('body').on("change", ".directorist-instant-search .listing-with-sidebar input[type='checkbox'],.directorist-instant-search .listing-with-sidebar input[type='radio'], .directorist-custom-range-slider__wrap .directorist-custom-range-slider__range, .directorist-search-location .location-name", debounce( function(e) {
         e.preventDefault();
         var searchElm = $(this).closest('.listing-with-sidebar');
         filterListing(searchElm);

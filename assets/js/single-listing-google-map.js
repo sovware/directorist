@@ -140,7 +140,7 @@
           this.div.className = 'map-icon-label';
 
           // Trigger the marker click handler if clicking on the label
-          google.maps.event.addDomListener(this.div, 'click', function (e) {
+          google.maps.event.addListener(this.div, 'click', function (e) {
             e.stopPropagation && e.stopPropagation();
             google.maps.event.trigger(self.marker, 'click');
           });
@@ -206,13 +206,14 @@
         };
 
         // create an info window for map
-        if (display_map_info) {
-          info_window = new google.maps.InfoWindow({
-            content: info_content,
-            maxWidth: 400 /*Add configuration for max width*/
-          });
-        }
-
+        marker.addListener('click', function () {
+          if (display_map_info) {
+            display_map_info = false;
+          } else {
+            info_window.close();
+            display_map_info = true;
+          }
+        });
         function initMap() {
           /* Create new map instance*/
           map = new google.maps.Map(mapElm, {

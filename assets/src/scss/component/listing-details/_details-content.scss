@@ -379,8 +379,16 @@
       min-height: 38px;
     }
   }
-  .directorist-icon-mask.directorist-added-to-favorite::after {
-    background-color: var(--directorist-color-danger);
+
+  &.directorist-action-bookmark{
+    .directorist-icon-mask{
+      &:after{
+        background-color: var(--directorist-color-dark);
+      }
+      &.directorist-added-to-favorite:after{
+        background-color: var(--directorist-color-danger);
+      }
+    }
   }
 
   .directorist-icon-mask::after {

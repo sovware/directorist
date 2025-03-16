@@ -13027,6 +13027,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
     padding: 0;
     -webkit-box-shadow: unset;
             box-shadow: unset;
+    border: none;
   }
   .directorist-search-form__box .directorist-search-form-action {
     display: none;
@@ -18897,7 +18898,10 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
     min-height: 38px;
   }
 }
-.directorist-single-listing-action .directorist-icon-mask.directorist-added-to-favorite::after {
+.directorist-single-listing-action.directorist-action-bookmark .directorist-icon-mask:after {
+  background-color: var(--directorist-color-dark);
+}
+.directorist-single-listing-action.directorist-action-bookmark .directorist-icon-mask.directorist-added-to-favorite:after {
   background-color: var(--directorist-color-danger);
 }
 .directorist-single-listing-action .directorist-icon-mask::after {

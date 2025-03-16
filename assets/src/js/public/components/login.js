@@ -8,15 +8,27 @@
         return;
     }
 
+    // Trigger reset on form change
+    $('.directorist-authentication__btn').on('click', function() {
+        // Reset all forms with the specified class
+        $('.directorist__authentication__signin').each(function() {
+            this.reset(); // Reset the individual form
+        });
+
+        // Reset error and warning messages
+        $('#directorist__authentication__login p.status').hide().empty();
+    });
+
     window.addEventListener('load', () => {
         // Perform AJAX login on form submit
-        $('form#login').on('submit', function (e) {
+        $('form#directorist__authentication__login').on('submit', function (e) {
             e.preventDefault();
             let $this = $(this);
             const $button = $(this).find('.directorist-authentication__form__btn');
             $button.addClass('directorist-btn-loading'); // Added loading class
 
-            $('p.status').show().html('<div class="directorist-alert directorist-alert-info"><span>' + directorist.loading_message + '</span></div>');
+            $('#directorist__authentication__login p.status').show().html('<div class="directorist-alert directorist-alert-info"><span>' + directorist.loading_message + '</span></div>');
+
             let form_data = {
                 'action': 'ajaxlogin',
                 'username': $this.find('#username').val(),
@@ -52,8 +64,8 @@
             });
             e.preventDefault();
         });
-
-        $('form#login .status').on('click', 'a', function(e) {
+        
+        $('form#directorist__authentication__login .status').on('click', 'a', function(e) {
             e.preventDefault();
             if ( $(this).attr('href') === '#atbdp_recovery_pass' ) {
                 $("#recover-pass-modal").slideDown().show();

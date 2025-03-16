@@ -452,6 +452,7 @@
     padding: 0;
     border-radius: 8px;
     box-shadow: unset;
+    max-height: none !important;
     @media only screen and (max-width: 375px) {
       width: 275px;
       max-width: unset !important;
@@ -459,6 +460,7 @@
 
     .gm-style-iw-d {
       overflow: hidden !important;
+      max-height: 100% !important;
     }
 
     button.gm-ui-hover-effect {

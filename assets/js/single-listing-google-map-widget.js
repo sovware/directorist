@@ -105,7 +105,6 @@ function initSingleMapWidget() {
     return;
   }
   if ($('#gmap-widget').length) {
-    var MAP_PIN = 'M0-48c-9.8 0-17.7 7.8-17.7 17.4 0 15.5 17.7 30.6 17.7 30.6s17.7-15.4 17.7-30.6c0-9.6-7.9-17.4-17.7-17.4z';
     var searchIcon = "<i class=\"directorist-icon-mask\"></i>";
     var markerShape = document.createElement("div");
     markerShape.className = "atbd_map_shape";
@@ -203,8 +202,6 @@ function initSingleMapWidget() {
     var loc_manual_lng = parseFloat(localized_data_widget.manual_lng);
     var loc_map_zoom_level = parseInt(localized_data_widget.map_zoom_level);
     var display_map_info = localized_data_widget.display_map_info;
-    var cat_icon = localized_data_widget.cat_icon;
-    var info_content = localized_data_widget.info_content;
     loc_manual_lat = isNaN(loc_manual_lat) ? loc_default_latitude : loc_manual_lat;
     loc_manual_lng = isNaN(loc_manual_lng) ? loc_default_longitude : loc_manual_lng;
     $manual_lat = $('#manual_lat');
@@ -213,6 +210,15 @@ function initSingleMapWidget() {
       lat: loc_manual_lat,
       lng: loc_manual_lng
     };
+
+    // create an info window for map
+    if (display_map_info) {
+      info_window = new google.maps.InfoWindow({
+        content: info_content,
+        maxWidth: 400 /*Add configuration for max width*/
+      });
+    }
+
     var marker = new google.maps.marker.AdvancedMarkerElement({
       map: map,
       position: saved_lat_lng,

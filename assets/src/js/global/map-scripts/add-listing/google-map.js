@@ -16,16 +16,13 @@ export function initAddListingMap() {
         var localized_data = get_dom_data('map_data');
 
         // initialize all vars here to avoid hoisting related misunderstanding.
-        let placeSearch;
         let map;
         let autocomplete;
         let address_input;
         let markers;
-        let info_window;
         let $manual_lat;
         let $manual_lng;
         let saved_lat_lng;
-        let info_content;
 
         // Localized Data
         const loc_default_latitude = parseFloat(localized_data.default_latitude);
@@ -35,7 +32,6 @@ export function initAddListingMap() {
         const loc_map_zoom_level = parseInt(localized_data.map_zoom_level);
 
         const searchIcon = `<i class="directorist-icon-mask"></i>`
-
         const markerShape = document.createElement("div");
         markerShape.className = "atbd_map_shape";
         markerShape.innerHTML = searchIcon;
@@ -52,12 +48,7 @@ export function initAddListingMap() {
         };
 
         // default is London city
-        (info_content = localized_data.info_content),
         (markers = []), // initialize the array to keep track all the marker
-        // (info_window = new google.maps.InfoWindow({
-        //     content: info_content,
-        //     maxWidth: 400,
-        // }));
 
         address_input = document.getElementById('address');
         if (address_input !== null) {
@@ -135,13 +126,12 @@ export function initAddListingMap() {
 
             // add the marker to the markers array to keep track of it, so that we can show/hide/delete them all later.
             markers.push(marker);
-
             markerDragInit(marker);
         }
 
         initAutocomplete(); // start google map place auto complete API call
 
-        // Map Inittialize
+        // Map Initialize
         function initMap() {
             /* Create new map instance */
             map = new google.maps.Map(document.getElementById('gmap'), {
@@ -232,7 +222,6 @@ export function initAddListingMap() {
             const marker = new google.maps.marker.AdvancedMarkerElement({
                 map,
                 position: location,
-                /* label: labels[labelIndex++ % labels.length], */
                 gmpDraggable: true,
                 content: markerShape, 
                 title: localized_data.marker_title,
@@ -240,7 +229,6 @@ export function initAddListingMap() {
             
             // add the marker to the markers array to keep track of it, so that we can show/hide/delete them all later.
             markers.push(marker);
-
             markerDragInit(marker);
         }
 

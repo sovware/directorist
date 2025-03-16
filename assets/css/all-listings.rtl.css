@@ -17781,8 +17781,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-single-map .gm-style-iw-d {
   max-height: unset !important;
 }
-.directorist-single-map .gm-style-iw-chr,
-.directorist-single-map .gm-style-iw-tc {
+.directorist-single-map .gm-style-iw,
+.directorist-single-map .gm-style-iw-tc,
+.directorist-single-map .gm-style-iw-chr {
   display: none;
 }
 

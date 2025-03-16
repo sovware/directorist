@@ -111,16 +111,13 @@ function initAddListingMap() {
     var localized_data = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_0__["get_dom_data"])('map_data');
 
     // initialize all vars here to avoid hoisting related misunderstanding.
-    var placeSearch;
     var map;
     var autocomplete;
     var address_input;
     var markers;
-    var info_window;
     var $manual_lat;
     var $manual_lng;
     var saved_lat_lng;
-    var info_content;
 
     // Localized Data
     var loc_default_latitude = parseFloat(localized_data.default_latitude);
@@ -142,12 +139,8 @@ function initAddListingMap() {
     };
 
     // default is London city
-    info_content = localized_data.info_content, markers = [],
+    markers = [],
     // initialize the array to keep track all the marker
-    // (info_window = new google.maps.InfoWindow({
-    //     content: info_content,
-    //     maxWidth: 400,
-    // }));
 
     address_input = document.getElementById('address');
     if (address_input !== null) {
@@ -226,7 +219,7 @@ function initAddListingMap() {
     }
     initAutocomplete(); // start google map place auto complete API call
 
-    // Map Inittialize
+    // Map Initialize
     function initMap() {
       /* Create new map instance */
       map = new google.maps.Map(document.getElementById('gmap'), {
@@ -308,7 +301,6 @@ function initAddListingMap() {
       var marker = new google.maps.marker.AdvancedMarkerElement({
         map: map,
         position: location,
-        /* label: labels[labelIndex++ % labels.length], */
         gmpDraggable: true,
         content: markerShape,
         title: localized_data.marker_title

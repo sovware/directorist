@@ -111,16 +111,13 @@ function initAddListingMap() {
     var localized_data = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_0__["get_dom_data"])('map_data');
 
     // initialize all vars here to avoid hoisting related misunderstanding.
-    var placeSearch;
     var map;
     var autocomplete;
     var address_input;
     var markers;
-    var info_window;
     var $manual_lat;
     var $manual_lng;
     var saved_lat_lng;
-    var info_content;
 
     // Localized Data
     var loc_default_latitude = parseFloat(localized_data.default_latitude);
@@ -142,12 +139,8 @@ function initAddListingMap() {
     };
 
     // default is London city
-    info_content = localized_data.info_content, markers = [],
+    markers = [],
     // initialize the array to keep track all the marker
-    // (info_window = new google.maps.InfoWindow({
-    //     content: info_content,
-    //     maxWidth: 400,
-    // }));
 
     address_input = document.getElementById('address');
     if (address_input !== null) {
@@ -226,7 +219,7 @@ function initAddListingMap() {
     }
     initAutocomplete(); // start google map place auto complete API call
 
-    // Map Inittialize
+    // Map Initialize
     function initMap() {
       /* Create new map instance */
       map = new google.maps.Map(document.getElementById('gmap'), {
@@ -308,7 +301,6 @@ function initAddListingMap() {
       var marker = new google.maps.marker.AdvancedMarkerElement({
         map: map,
         position: location,
-        /* label: labels[labelIndex++ % labels.length], */
         gmpDraggable: true,
         content: markerShape,
         title: localized_data.marker_title
@@ -680,7 +672,6 @@ function initSingleMapWidget() {
     return;
   }
   if ($('#gmap-widget').length) {
-    var MAP_PIN = 'M0-48c-9.8 0-17.7 7.8-17.7 17.4 0 15.5 17.7 30.6 17.7 30.6s17.7-15.4 17.7-30.6c0-9.6-7.9-17.4-17.7-17.4z';
     var searchIcon = "<i class=\"directorist-icon-mask\"></i>";
     var markerShape = document.createElement("div");
     markerShape.className = "atbd_map_shape";
@@ -778,8 +769,6 @@ function initSingleMapWidget() {
     var loc_manual_lng = parseFloat(localized_data_widget.manual_lng);
     var loc_map_zoom_level = parseInt(localized_data_widget.map_zoom_level);
     var display_map_info = localized_data_widget.display_map_info;
-    var cat_icon = localized_data_widget.cat_icon;
-    var info_content = localized_data_widget.info_content;
     loc_manual_lat = isNaN(loc_manual_lat) ? loc_default_latitude : loc_manual_lat;
     loc_manual_lng = isNaN(loc_manual_lng) ? loc_default_longitude : loc_manual_lng;
     $manual_lat = $('#manual_lat');
@@ -788,6 +777,15 @@ function initSingleMapWidget() {
       lat: loc_manual_lat,
       lng: loc_manual_lng
     };
+
+    // create an info window for map
+    if (display_map_info) {
+      info_window = new google.maps.InfoWindow({
+        content: info_content,
+        maxWidth: 400 /*Add configuration for max width*/
+      });
+    }
+
     var marker = new google.maps.marker.AdvancedMarkerElement({
       map: map,
       position: saved_lat_lng,
@@ -877,7 +875,6 @@ function initSingleMap() {
   }
   if ($('.directorist-single-map').length) {
     document.querySelectorAll('.directorist-single-map').forEach(function (mapElm) {
-      var MAP_PIN = 'M0-48c-9.8 0-17.7 7.8-17.7 17.4 0 15.5 17.7 30.6 17.7 30.6s17.7-15.4 17.7-30.6c0-9.6-7.9-17.4-17.7-17.4z';
       var searchIcon = "<i class=\"directorist-icon-mask\"></i>";
       var markerShape = document.createElement("div");
       markerShape.className = "atbd_map_shape";
@@ -978,18 +975,21 @@ function initSingleMap() {
       var loc_manual_lng = parseFloat(mapData.manual_lng);
       var loc_map_zoom_level = parseInt(mapData.map_zoom_level);
       var display_map_info = mapData.display_map_info;
-      var cat_icon = mapData.cat_icon;
-      var info_content = mapData.info_content;
       loc_manual_lat = isNaN(loc_manual_lat) ? loc_default_latitude : loc_manual_lat;
       loc_manual_lng = isNaN(loc_manual_lng) ? loc_default_longitude : loc_manual_lng;
-
-      // $manual_lat = $('#manual_lat');
-      // $manual_lng = $('#manual_lng');
-
       saved_lat_lng = {
         lat: loc_manual_lat,
         lng: loc_manual_lng
       };
+
+      // create an info window for map
+      if (display_map_info) {
+        info_window = new google.maps.InfoWindow({
+          content: info_content,
+          maxWidth: 400 /*Add configuration for max width*/
+        });
+      }
+
       var marker = new google.maps.marker.AdvancedMarkerElement({
         map: map,
         position: saved_lat_lng,

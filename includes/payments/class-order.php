@@ -323,6 +323,7 @@ class ATBDP_Order
                 <?php
                 break;
             case 'details' :
+                $listing_id = get_post_meta($post_id, '_listing_id', true);
                 ?>
                 <p>
                     <a href="<?php echo esc_url( get_edit_post_link( $listing_id ) ); ?>"><?php echo esc_html( get_the_title( $listing_id ) ) ; ?></a>

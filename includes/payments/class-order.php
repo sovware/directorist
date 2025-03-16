@@ -25,6 +25,7 @@ class ATBDP_Order
     public function __construct()
     {
         add_action('init', array($this, 'register_custom_post_type'));
+        add_action('save_post_at_biz_dir', array($this, 'sync_order_author_on_listing_update'), 10, 3);
 
         add_action('admin_footer-edit.php', array($this, 'admin_footer_edit'));
         add_action('restrict_manage_posts', array($this, 'restrict_manage_posts'));
@@ -39,6 +40,45 @@ class ATBDP_Order
 
         add_filter('post_row_actions', array($this, 'set_payment_receipt_link'), 10, 2);
 
+    }
+
+    /**
+     * Sync order author with listing author
+     *
+     * @param int $post_id Post ID.
+     * @param WP_Post $post Post object.
+     * @param bool $update Whether this is an existing post being updated.
+     */
+    public function sync_order_author_on_listing_update( $listing_id, $post, $update ) {
+        // Bail early if this is an autosave
+        if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+            return;
+        }
+
+        // Only proceed if this is an update
+        if (!$update) {
+            return;
+        }
+
+        // Get all orders associated with this listing
+        $orders = get_posts(array(
+            'post_type' => 'atbdp_orders',
+            'meta_key' => '_listing_id',
+            'meta_value' => $listing_id,
+            'posts_per_page' => -1,
+        ));
+
+        // Update each order's author
+        foreach ($orders as $order) {
+            if ($order->post_author === $post->post_author) {
+                continue;
+            }
+
+            wp_update_post(array(
+                'ID' => $order->ID,
+                'post_author' => $post->post_author,
+            ));
+        }
     }
 
     /**
@@ -316,14 +356,6 @@ class ATBDP_Order
 
         global $post;
         $listing_id = get_post_meta($post_id, '_listing_id', true);
-        $author_id  = $listing_id ? get_post_field( 'post_author', $listing_id ) : '';
-        
-        if ( $author_id && ( $post->post_author != $author_id ) ) {
-            wp_update_post( array(
-                'ID' => $post_id,
-                'post_author' => $author_id
-            ) );
-        }
 
         switch ($column) {
             case 'ID' :

@@ -416,6 +416,10 @@ use Directorist\Listings_CSV_Importer as Importer;
 
 					if ( $attachment_ids ) {
 						update_post_meta( $post_id, '_listing_img', $attachment_ids );
+						/**
+						 * Add Listing Meta - to track which listings are imported by CSV
+						 */
+						update_post_meta( $post_id, '_directorist_imported_by_csv', 'yes' );
 					}
 				}
 

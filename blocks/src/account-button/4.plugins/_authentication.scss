@@ -415,4 +415,37 @@
         outline: 0;
         background-color: rgba(var(--directorist-color-dark-rgb), 0.40);
     }
+
+    #directorist-account-block-login-modal {
+        .directorist-authentication {
+            width: 100%;
+            margin-left: 0;
+            .directorist-authentication__form {
+                padding: 30px 25px 25px;
+                margin: 0;
+                box-shadow: none;
+                background: transparent;
+                .directorist-form-element {
+                    border: none;
+                    padding: 15px 0;
+                    border-radius: 0;
+                    border-bottom: 1px solid #ececec;
+                    &:focus {
+                        border-color: var(--directorist-color-primary);
+                    }
+                }
+                .directorist-authentication__form__btn {
+                    &:hover {
+                        color: var(--directorist-color-white);
+                        background-color: rgba(var(--directorist-color-primary-rgb), 0.8); 
+                    }
+                }
+            }
+            p.status,
+            .directorist-register-error {
+                margin-top: 0;
+            }
+        }
+    }
 }
+

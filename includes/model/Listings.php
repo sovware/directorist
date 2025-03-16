@@ -1099,6 +1099,12 @@ class Directorist_Listings {
 			);
 		}
 
+		// When directory nav is hidden make sure to remove directory type from query.
+		// This is done to query on all directory types.
+		if ( directorist_is_multi_directory_enabled() && ! empty( $_POST['directory_nav'] ) ) {
+			unset( $meta_queries['directory_type'] );
+		}
+
 		$meta_queries = apply_filters( 'atbdp_search_listings_meta_queries', $meta_queries );
 		if ( count( $meta_queries ) ) {
 			$meta_queries['relation'] = 'AND';
@@ -1153,7 +1159,7 @@ class Directorist_Listings {
 		}
 
 		// Load the template
-		Helper::get_template( $template, 
+		Helper::get_template( $template,
 			array(
 				'listings'   => $this,
 				'searchform' => new Directorist_Listing_Search_Form( $this->type, $this->current_listing_type, $search_field_atts ),
@@ -1170,7 +1176,7 @@ class Directorist_Listings {
 			// Exit early or log an error if the input is invalid
 			return;
 		}
-		
+
 		foreach ( $post_ids as $listing_id ) {
 			?>
 			<div class="directorist-col-12 directorist-all-listing-col">
@@ -1185,7 +1191,7 @@ class Directorist_Listings {
 			// Exit early or log an error if the input is invalid
 			return;
 		}
-		
+
 		foreach ( $post_ids as $listing_id ) {
 			?>
 			<div class="<?php Helper::directorist_column( $this->columns ); ?> directorist-all-listing-col">
@@ -1873,10 +1879,10 @@ class Directorist_Listings {
 		}
 
 		public function pagination_infinite_scroll_class() {
-			return ! empty( $this->show_pagination ) 
-			&& isset( $this->options['pagination_type'] ) 
-			&& $this->options['pagination_type'] === 'infinite_scroll' 
-			? 'directorist-infinite-scroll' 
+			return ! empty( $this->show_pagination )
+			&& isset( $this->options['pagination_type'] )
+			&& $this->options['pagination_type'] === 'infinite_scroll'
+			? 'directorist-infinite-scroll'
 			: '';
 		}
 		public function get_the_location() {

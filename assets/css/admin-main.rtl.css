@@ -4846,11 +4846,7 @@ body.wp-admin {
   background: #3e62f5;
 }
 .directorist_builder__content .directorist_builder__content__right .directorist_table .directorist_table-body .directorist_table-row:hover .directorist-type-actions .directorist_listing-actions > a {
-  background-color: #3e62f5;
-  color: white;
-}
-.directorist_builder__content .directorist_builder__content__right .directorist_table .directorist_table-body .directorist_table-row:hover .directorist-type-actions .directorist_listing-actions > a svg {
-  color: inherit;
+  border-color: #3e63dd;
 }
 .directorist_builder__content .directorist_builder__content__right .directorist_table .directorist_table-body .directorist_table-row > div {
   -webkit-box-flex: 1;
@@ -4866,6 +4862,8 @@ body.wp-admin {
           flex: unset !important;
   padding: 0 12px !important;
   position: relative;
+  cursor: -webkit-grabbing;
+  cursor: grabbing;
 }
 .directorist_builder__content .directorist_builder__content__right .directorist_table .directorist_table-body .directorist_title {
   color: #141921;
@@ -4968,39 +4966,52 @@ body.wp-admin {
   -webkit-justify-content: center;
       -ms-flex-pack: center;
           justify-content: center;
-  gap: 6px;
-  border-radius: 8px;
-  background: #e5e7eb;
-  color: #2c3239;
-  font-size: 13px;
-  font-weight: 500;
-  line-height: 14px;
+  gap: 8px;
+  border-radius: 4px;
+  background: transparent;
+  color: #3e63dd;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
   height: 32px;
+  border: 1px solid rgba(0, 13, 77, 0.2);
   -webkit-transition: 0.3s ease;
   transition: 0.3s ease;
 }
 .directorist_builder__content .directorist_builder__content__right .directorist_table .directorist_table-body .directorist-type-actions .directorist_listing-actions > a svg {
-  width: 14px;
-  height: 14px;
-  color: #747c89;
+  width: 16px;
+  height: 16px;
+  color: #3e63dd;
 }
 .directorist_builder__content .directorist_builder__content__right .directorist_table .directorist_table-body .directorist-type-actions .directorist_listing-actions .directorist_more-dropdown .directorist_more-dropdown-toggle {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   width: 32px;
   height: 32px;
-  border-radius: 8px !important;
+  border: 1px solid rgba(0, 13, 77, 0.2);
+  border-radius: 100% !important;
   -webkit-transition: 0.3s ease;
   transition: 0.3s ease;
 }
 .directorist_builder__content .directorist_builder__content__right .directorist_table .directorist_table-body .directorist-type-actions .directorist_listing-actions .directorist_more-dropdown .directorist_more-dropdown-toggle svg {
-  color: #d2d6db;
+  width: 14px;
+  height: 14px;
+  color: #3e63dd;
   -webkit-transition: 0.3s ease;
   transition: 0.3s ease;
 }
 .directorist_builder__content .directorist_builder__content__right .directorist_table .directorist_table-body .directorist-type-actions .directorist_listing-actions .directorist_more-dropdown .directorist_more-dropdown-toggle:hover, .directorist_builder__content .directorist_builder__content__right .directorist_table .directorist_table-body .directorist-type-actions .directorist_listing-actions .directorist_more-dropdown .directorist_more-dropdown-toggle.active {
-  background-color: #e5e7eb !important;
-}
-.directorist_builder__content .directorist_builder__content__right .directorist_table .directorist_table-body .directorist-type-actions .directorist_listing-actions .directorist_more-dropdown .directorist_more-dropdown-toggle:hover svg, .directorist_builder__content .directorist_builder__content__right .directorist_table .directorist_table-body .directorist-type-actions .directorist_listing-actions .directorist_more-dropdown .directorist_more-dropdown-toggle.active svg {
-  color: #2c3239 !important;
+  border-color: #3e63dd !important;
 }
 .directorist_builder__content .directorist_builder__content__right .directorist_table .directorist_table-body .directorist-type-actions .directorist_listing-actions .directorist_more-dropdown .directorist_more-dropdown-option {
   left: 0;

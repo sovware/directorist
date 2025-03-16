@@ -4737,12 +4737,7 @@ body.wp-admin {
 
             .directorist-type-actions .directorist_listing-actions {
               > a {
-                background-color: #3e62f5;
-                color: white;
-
-                svg {
-                  color: inherit;
-                }
+                border-color: #3e63dd;
               }
             }
           }
@@ -4757,6 +4752,7 @@ body.wp-admin {
           flex: unset !important;
           padding: 0 12px !important;
           position: relative;
+          cursor: grabbing;
         }
 
         .directorist_title {
@@ -4823,32 +4819,39 @@ body.wp-admin {
               align-items: center;
               padding: 0 12px;
               justify-content: center;
-              gap: 6px;
-              border-radius: 8px;
-              background: #e5e7eb;
-              color: #2c3239;
-              font-size: 13px;
-              font-weight: 500;
-              line-height: 14px;
+              gap: 8px;
+              border-radius: 4px;
+              background: transparent;
+              color: #3e63dd;
+              font-size: 12px;
+              font-weight: 600;
+              line-height: 16px;
               height: 32px;
+              border: 1px solid #000d4d33;
               transition: 0.3s ease;
 
               svg {
-                width: 14px;
-                height: 14px;
-                color: #747c89;
+                width: 16px;
+                height: 16px;
+                color: #3e63dd;
               }
             }
 
             .directorist_more-dropdown {
               .directorist_more-dropdown-toggle {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
                 width: 32px;
                 height: 32px;
-                border-radius: 8px !important;
+                border: 1px solid #000d4d33;
+                border-radius: 100% !important;
                 transition: 0.3s ease;
 
                 svg {
-                  color: #d2d6db;
+                  width: 14px;
+                  height: 14px;
+                  color: #3e63dd;
                   transition: 0.3s ease;
                 }
               }
@@ -4856,11 +4859,7 @@ body.wp-admin {
               .directorist_more-dropdown-toggle {
                 &:hover,
                 &.active {
-                  background-color: #e5e7eb !important;
-
-                  svg {
-                    color: #2c3239 !important;
-                  }
+                  border-color: #3e63dd !important;
                 }
               }
 

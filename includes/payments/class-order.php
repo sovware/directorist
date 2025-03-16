@@ -45,39 +45,49 @@ class ATBDP_Order
     /**
      * Sync order author with listing author
      *
-     * @param int $post_id Post ID.
+     * @param int $listing_id Post ID.
      * @param WP_Post $post Post object.
      * @param bool $update Whether this is an existing post being updated.
      */
     public function sync_order_author_on_listing_update( $listing_id, $post, $update ) {
-        // Bail early if this is an autosave
-        if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+        if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
             return;
         }
 
-        // Only proceed if this is an update
-        if (!$update) {
+        if ( ! $update ) {
             return;
         }
 
-        // Get all orders associated with this listing
-        $orders = get_posts(array(
-            'post_type' => 'atbdp_orders',
-            'meta_key' => '_listing_id',
-            'meta_value' => $listing_id,
-            'posts_per_page' => -1,
-        ));
+        global $wpdb;
 
-        // Update each order's author
-        foreach ($orders as $order) {
-            if ($order->post_author === $post->post_author) {
-                continue;
+        // Get all orders associated with this listing using direct SQL query
+        $orders = $wpdb->get_results( $wpdb->prepare(
+            "SELECT ID, post_author
+            FROM {$wpdb->posts} p
+            INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id
+            WHERE p.post_type = 'atbdp_orders'
+            AND pm.meta_key = '_listing_id'
+            AND pm.meta_value = %d",
+            $listing_id
+        ) );
+
+        if ( ! empty( $orders ) ) {
+            $order_ids = array();
+            foreach ( $orders as $order ) {
+                if ( $order->post_author !== $post->post_author ) {
+                    $order_ids[] = $order->ID;
+                }
             }
 
-            wp_update_post(array(
-                'ID' => $order->ID,
-                'post_author' => $post->post_author,
-            ));
+            if ( ! empty( $order_ids ) ) {
+                $order_ids_string = implode( ',', array_map( 'absint', $order_ids ) );
+                $wpdb->query( $wpdb->prepare(
+                    "UPDATE {$wpdb->posts}
+                    SET post_author = %d
+                    WHERE ID IN ({$order_ids_string})",
+                    $post->post_author
+                ) );
+            }
         }
     }
 

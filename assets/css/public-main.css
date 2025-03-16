@@ -3975,13 +3975,6 @@ body.stop-scrolling {
   transition: all 0.3s ease-in-out;
   border: none;
 }
-.directorist-form-map-field .atbd_map_shape .directorist-icon-mask:after {
-  width: 9px;
-  height: 16px;
-  background-color: var(--directorist-color-marker-icon);
-  -webkit-mask: url(../images/ed83bad2b8ea2a7680575ff079fc63af.svg);
-          mask: url(../images/ed83bad2b8ea2a7680575ff079fc63af.svg);
-}
 .directorist-form-map-field .atbd_map_shape:hover:before {
   opacity: 1;
   visibility: visible;
@@ -18048,9 +18041,11 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
           animation: atbd_scale 3s linear alternate infinite;
 }
 .atbd_map_shape .directorist-icon-mask:after {
-  width: 16px;
+  width: 9px;
   height: 16px;
   background-color: var(--directorist-color-marker-icon);
+  -webkit-mask: url(../images/ed83bad2b8ea2a7680575ff079fc63af.svg);
+          mask: url(../images/ed83bad2b8ea2a7680575ff079fc63af.svg);
 }
 .atbd_map_shape:hover:before {
   opacity: 1;

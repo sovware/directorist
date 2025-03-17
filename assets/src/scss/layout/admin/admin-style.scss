@@ -4236,11 +4236,16 @@ body.wp-admin {
   margin-top: 20px;
 
   .directorist_builder__title {
-    font-size: 19px;
-    line-height: 25px;
+    display: flex;
+    gap: 6px;
+    font-size: 26px;
+    line-height: 34px;
     font-weight: 600;
     margin: 0;
-    color: #000;
+    color: #2c3239;
+    .directorist_count {
+      font-weight: 400;
+    }
   }
 }
 
@@ -4548,12 +4553,30 @@ body.wp-admin {
     align-items: center;
     flex-wrap: wrap;
     gap: 10px 20px;
+  }
+
+  .directorist_builder__content__right {
+    width: 100%;
+    @media only screen and (max-width: 1199px) {
+      background: #e3e6ef;
+      border-radius: 8px;
+      padding: 10px 10px;
+      width: calc(100% - 20px);
+    }
+
+    .directorist-total-types {
+      display: flex;
+      gap: 30px;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 32px;
+    }
 
     .directorist_link-block-wrapper {
       display: inline-flex;
       align-items: center;
       flex-wrap: wrap;
-      gap: 6px 8px;
+      gap: 16px;
     }
 
     .directorist_link-block {
@@ -4589,8 +4612,12 @@ body.wp-admin {
       }
 
       &.directorist_link-block-primary-outline {
-        background-color: transparent;
+        background-color: #ffffff;
         color: #3e62f5;
+        &:hover {
+          color: #5a7aff;
+          border-color: #5a7aff;
+        }
       }
 
       .directorist_link-icon {
@@ -4626,30 +4653,6 @@ body.wp-admin {
         border: 0 none;
       }
     }
-  }
-
-  .directorist_builder__content__right {
-    width: 100%;
-    @media only screen and (max-width: 1199px) {
-      background: #e3e6ef;
-      border-radius: 8px;
-      padding: 10px 10px;
-      width: calc(100% - 20px);
-    }
-
-    .directorist-total-types {
-      margin-bottom: 15px;
-      text-decoration: none;
-      font-size: 12px;
-      font-weight: 500;
-      color: #747c89;
-      line-height: 14px;
-      letter-spacing: 0.24px;
-      text-transform: uppercase;
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-    }
 
     .directorist_table {
       width: 100%;
@@ -4670,25 +4673,24 @@ body.wp-admin {
       .directorist_table-header {
         background: #f9fafb;
         border: 1px solid #e5e7eb;
-        border-radius: 8px;
-        margin-bottom: 8px;
+        border-radius: 12px 12px 0 0;
 
         .directorist_table-row {
           display: flex;
           align-items: center;
           font-size: 12px;
           font-style: normal;
-          font-weight: 500;
+          font-weight: 600;
           line-height: 14px;
           letter-spacing: 0.72px;
           text-transform: uppercase;
-          color: #747c89;
-          max-height: 44px;
-          min-height: 44px;
+          color: #141921;
+          max-height: 56px;
+          min-height: 56px;
 
           > div {
             flex: 1;
-            padding: 0 20px;
+            padding: 0 50px;
           }
           .directorist_listing-c-action {
             display: inline-flex;
@@ -4703,6 +4705,11 @@ body.wp-admin {
         display: flex;
         flex-direction: column;
         gap: 16px;
+        padding: 24px;
+        background: #fff;
+        border: 1px solid #dddddd;
+        border-top: none;
+        border-radius: 0 0 12px 12px;
 
         .directorist_table-row {
           position: relative;
@@ -4727,6 +4734,7 @@ body.wp-admin {
             height: 100%;
             background: #e5e7eb;
             border-radius: 12px 0 0 12px;
+            z-index: 1;
           }
 
           &:hover {
@@ -4749,16 +4757,29 @@ body.wp-admin {
         }
 
         .directorist_drag {
+          height: 72px;
+          display: flex;
+          align-items: center;
           flex: unset !important;
-          padding: 0 12px !important;
-          position: relative;
+          padding: 0 6px 0 12px !important;
+          border-radius: 12px 0 0 12px;
           cursor: grabbing;
+          transition: background 0.3s ease;
+          &:before {
+            display: none;
+          }
+          &:after {
+            bottom: -3px;
+          }
+          &:hover {
+            background: #f3f4f6;
+          }
         }
 
         .directorist_title {
           color: #141921;
           font-weight: 600;
-          padding-left: 0 !important;
+          padding-left: 6px !important;
 
           a {
             color: inherit;
@@ -4846,6 +4867,7 @@ body.wp-admin {
                 height: 32px;
                 border: 1px solid #000d4d33;
                 border-radius: 100% !important;
+                box-sizing: border-box;
                 transition: 0.3s ease;
 
                 svg {

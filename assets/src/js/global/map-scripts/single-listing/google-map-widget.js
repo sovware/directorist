@@ -102,7 +102,7 @@ export function initSingleMapWidget() {
         };
 
         // initialize all vars here to avoid hoisting related misunderstanding.
-        var map, info_window, saved_lat_lng, info_content;
+        var map, info_window, saved_lat_lng;
 
         // Localized Data
         var map_container = (localized_data_widget.map_container_id) ? localized_data_widget.map_container_id : 'gmap';
@@ -112,6 +112,7 @@ export function initSingleMapWidget() {
         var loc_manual_lng = parseFloat(localized_data_widget.manual_lng);
         var loc_map_zoom_level = parseInt(localized_data_widget.map_zoom_level);
         var display_map_info = localized_data_widget.display_map_info;
+        var info_content = mapData.info_content;
 
         loc_manual_lat = (isNaN(loc_manual_lat)) ? loc_default_latitude : loc_manual_lat;
         loc_manual_lng = (isNaN(loc_manual_lng)) ? loc_default_longitude : loc_manual_lng;
@@ -164,13 +165,11 @@ export function initSingleMapWidget() {
 
             if (display_map_info) {
                 marker.addListener('click', function () {
-                    info_window.open(map, marker);
-                });
-                google.maps.event.addListener(info_window, 'domready', function () {
-                    var closeBtn = $('.iw-close-btn').get();
-                    google.maps.event.addDomListener(closeBtn[0], 'click', function () {
-                        info_window.close();
-                    });
+                    if (info_window.getMap()) {
+                        info_window.close(); // If already open, close it
+                    } else {
+                        info_window.open(map, marker); // Otherwise, open it
+                    }
                 });
             }
         }

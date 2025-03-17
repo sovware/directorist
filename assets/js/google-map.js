@@ -759,7 +759,7 @@ function initSingleMapWidget() {
     };
 
     // initialize all vars here to avoid hoisting related misunderstanding.
-    var map, info_window, saved_lat_lng, info_content;
+    var map, info_window, saved_lat_lng;
 
     // Localized Data
     var map_container = localized_data_widget.map_container_id ? localized_data_widget.map_container_id : 'gmap';
@@ -769,6 +769,7 @@ function initSingleMapWidget() {
     var loc_manual_lng = parseFloat(localized_data_widget.manual_lng);
     var loc_map_zoom_level = parseInt(localized_data_widget.map_zoom_level);
     var display_map_info = localized_data_widget.display_map_info;
+    var info_content = mapData.info_content;
     loc_manual_lat = isNaN(loc_manual_lat) ? loc_default_latitude : loc_manual_lat;
     loc_manual_lng = isNaN(loc_manual_lng) ? loc_default_longitude : loc_manual_lng;
     $manual_lat = $('#manual_lat');
@@ -815,16 +816,15 @@ function initSingleMapWidget() {
       });
       if (display_map_info) {
         marker.addListener('click', function () {
-          info_window.open(map, marker);
-        });
-        google.maps.event.addListener(info_window, 'domready', function () {
-          var closeBtn = $('.iw-close-btn').get();
-          google.maps.event.addDomListener(closeBtn[0], 'click', function () {
-            info_window.close();
-          });
+          if (info_window.getMap()) {
+            info_window.close(); // If already open, close it
+          } else {
+            info_window.open(map, marker); // Otherwise, open it
+          }
         });
       }
     }
+
     $(document).ready(function () {
       initMap();
       //Convert address tags to google map links -
@@ -870,7 +870,7 @@ var $ = jQuery;
 
 // Single Listing Map Initialize
 function initSingleMap() {
-  if (typeof google === "undefined" || !google.maps || !google.maps.Marker || !google.maps.OverlayView) {
+  if (typeof google === "undefined" || !google.maps || !google.maps.Marker || !google.maps.OverlayView || !google.maps.marker.AdvancedMarkerElement) {
     return;
   }
   if ($('.directorist-single-map').length) {
@@ -965,7 +965,7 @@ function initSingleMap() {
       };
 
       // initialize all vars here to avoid hoisting related misunderstanding.
-      var map, info_window, saved_lat_lng, info_content;
+      var map, info_window, saved_lat_lng;
 
       // Localized Data
       var mapData = JSON.parse(mapElm.getAttribute('data-map'));
@@ -975,6 +975,7 @@ function initSingleMap() {
       var loc_manual_lng = parseFloat(mapData.manual_lng);
       var loc_map_zoom_level = parseInt(mapData.map_zoom_level);
       var display_map_info = mapData.display_map_info;
+      var info_content = mapData.info_content;
       loc_manual_lat = isNaN(loc_manual_lat) ? loc_default_latitude : loc_manual_lat;
       loc_manual_lng = isNaN(loc_manual_lng) ? loc_default_longitude : loc_manual_lng;
       saved_lat_lng = {
@@ -1019,16 +1020,15 @@ function initSingleMap() {
         });
         if (display_map_info) {
           marker.addListener('click', function () {
-            info_window.open(map, marker);
-          });
-          info_window && google.maps.event.addListener(info_window, 'domready', function () {
-            var closeBtn = $('.iw-close-btn').get();
-            google.maps.event.addDomListener(closeBtn[0], 'click', function () {
-              info_window.close();
-            });
+            if (info_window.getMap()) {
+              info_window.close(); // If already open, close it
+            } else {
+              info_window.open(map, marker); // Otherwise, open it
+            }
           });
         }
       }
+
       initMap();
       //Convert address tags to google map links -
       $('address').each(function () {

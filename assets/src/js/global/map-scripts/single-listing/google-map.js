@@ -3,7 +3,7 @@ var $ = jQuery;
 
 // Single Listing Map Initialize
 export function initSingleMap() {
-    if (typeof google === "undefined" || !google.maps || !google.maps.Marker || !google.maps.OverlayView) {
+    if (typeof google === "undefined" || !google.maps || !google.maps.Marker || !google.maps.OverlayView || !google.maps.marker.AdvancedMarkerElement) {
         return;
     }
     
@@ -105,7 +105,7 @@ export function initSingleMap() {
             };
 
             // initialize all vars here to avoid hoisting related misunderstanding.
-            var map, info_window, saved_lat_lng, info_content;
+            var map, info_window, saved_lat_lng;
 
             // Localized Data
             let mapData = JSON.parse(mapElm.getAttribute('data-map'));
@@ -115,6 +115,7 @@ export function initSingleMap() {
             var loc_manual_lng = parseFloat(mapData.manual_lng);
             var loc_map_zoom_level = parseInt(mapData.map_zoom_level);
             var display_map_info = mapData.display_map_info;
+            var info_content = mapData.info_content;
 
             loc_manual_lat = (isNaN(loc_manual_lat)) ? loc_default_latitude : loc_manual_lat;
             loc_manual_lng = (isNaN(loc_manual_lng)) ? loc_default_longitude : loc_manual_lng;
@@ -164,13 +165,11 @@ export function initSingleMap() {
 
                 if (display_map_info) {
                     marker.addListener('click', function () {
-                        info_window.open(map, marker);
-                    });
-                    info_window && google.maps.event.addListener(info_window, 'domready', function () {
-                        var closeBtn = $('.iw-close-btn').get();
-                        google.maps.event.addDomListener(closeBtn[0], 'click', function () {
-                            info_window.close();
-                        });
+                        if (info_window.getMap()) {
+                            info_window.close(); // If already open, close it
+                        } else {
+                            info_window.open(map, marker); // Otherwise, open it
+                        }
                     });
                 }
             }

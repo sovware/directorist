@@ -62,22 +62,33 @@ window.addEventListener('load', () => {
     // Directorist More Dropdown
     $('body').on('click', '.directorist_more-dropdown-toggle', function (e) {
         e.preventDefault();
-        $(this).toggleClass('active');
-        $('.directorist_more-dropdown-option').removeClass('active');
-        $(this)
-            .siblings('.directorist_more-dropdown-option')
-            .removeClass('active');
-        $(this)
-            .next('.directorist_more-dropdown-option')
-            .toggleClass('active');
+        
+        let $dropdown = $(this).next('.directorist_more-dropdown-option');
+        
+        // If the clicked dropdown is already active, just remove the active classes
+        if ($dropdown.hasClass('active')) {
+            $(this).removeClass('active');
+            $dropdown.removeClass('active');
+        } else {
+            // Otherwise, remove active classes from all other dropdowns first
+            $('.directorist_more-dropdown-toggle').removeClass('active');
+            $('.directorist_more-dropdown-option').removeClass('active');
+    
+            // Then activate the clicked one
+            $(this).addClass('active');
+            $dropdown.addClass('active');
+        }
+    
         e.stopPropagation();
     });
+    
+    // Click outside to close
     $(document).on('click', function (e) {
-        if ($(e.target).is('.directorist_more-dropdown-toggle, .active') === false) {
+        if (!$(e.target).closest('.directorist_more-dropdown').length) {
             $('.directorist_more-dropdown-option').removeClass('active');
             $('.directorist_more-dropdown-toggle').removeClass('active');
         }
-    });
+    });    
 
     // Select Dropdown
     $('body').on('click', '.directorist_dropdown .directorist_dropdown-toggle', function (e) {

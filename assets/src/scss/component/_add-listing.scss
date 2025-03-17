@@ -766,6 +766,14 @@
       transition: all 0.3s ease-in-out;
       border: none;
     }
+    .directorist-icon-mask {
+      &:after {
+        width: 9px;
+        height: 16px;
+        background-color: var(--directorist-color-marker-icon);
+        mask: url("../../../icons/font-awesome/svgs/solid/map-pin.svg");
+      }
+    }
     &:hover {
       &:before {
         opacity: 1;

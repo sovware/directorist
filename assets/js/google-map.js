@@ -104,7 +104,7 @@ var $ = jQuery;
 
 // Add Listing Map Initialize
 function initAddListingMap() {
-  if (typeof google === "undefined" || !google.maps) {
+  if (typeof google === "undefined" || !google.maps || !google.maps.Geocoder) {
     return;
   }
   if ($('#gmap').length) {

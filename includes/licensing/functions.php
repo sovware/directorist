@@ -17,6 +17,9 @@ function directorist_licensing_get_extension_list_html() {
 	$html             = '';
 
 	if ( ! empty( $extensions ) ) {
+
+		directorist_refresh_plugin_updates();
+
 		ob_start(); // Start output buffering
 		foreach ( $extensions as $extension ): ?>
 
@@ -124,11 +127,6 @@ function directorist_licensing_get_template_list_html() {
 }
 
 function directorist_get_item_buttons_html( array $item, string $type ): string {
-
-	// add_action( 'admin_enqueue_scripts', function () {
-	// 	wp_enqueue_script( 'updates' );
-	// } );
-
 	$active_slugs    = Licensing_Overview::get( 'active_slug_list' );
 	$backdated_slugs = Licensing_Overview::get( 'backdated_slug_list' );
 	$inactive_slugs  = array_map( function ( $path ) {
@@ -168,7 +166,8 @@ function directorist_get_item_buttons_html( array $item, string $type ): string 
 				<?php endif; ?>
 
 				<?php if ( in_array( $item['slug'], $backdated_slugs ) ): ?>
-					<a data-item-slug="<?php echo esc_attr( $item['slug'] ); ?>" href="#" type="button" class="directorist-extension-btn directorist-extension-btn-primary directorist-extension-btn-update"><?php esc_html_e( 'Update', 'directorist' ); ?></a>
+					<?php // wp_plugin_update_row( 'directorist-buddyboss-integration/directorist-buddyboss-integration.php', ['Name' => 'ABÇ', 'PluginURI' => 'https://dfdf.com/',  ] )?>
+					<a data-item-slug="<?php echo esc_attr( $item['slug'] ); ?>" href="#" type="button" class="directorist-extension-btn directorist-extension-btn-warning directorist-extension-btn-update"><?php esc_html_e( 'Update', 'directorist' ); ?></a>
 				<?php endif; ?>
 
 			<?php endif; ?>
@@ -200,4 +199,11 @@ function directorist_get_item_buttons_html( array $item, string $type ): string 
 	<?php $html = ob_get_clean(); // Get buffered content and clear buffer
 
 	return $html;
+}
+
+function directorist_refresh_plugin_updates() {
+	if ( current_user_can( 'update_plugins' ) ) {
+		delete_site_transient( 'update_plugins' );
+		wp_update_plugins();
+	}
 }

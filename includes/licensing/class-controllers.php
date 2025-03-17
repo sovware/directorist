@@ -154,12 +154,8 @@ class Controllers {
 
 		try {
 			$repo = new Extension_Handler();
-			$repo->update( $slug );
 
-			return rest_ensure_response( [
-				'success' => true,
-				'message' => __( 'Updated successfully', 'directorist' ),
-			] );
+			return $repo->update( $slug );
 
 		} catch ( \Throwable $th ) {
 			return rest_ensure_response( [

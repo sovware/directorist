@@ -79,6 +79,9 @@ class Repository {
 
 			update_option( 'directorist_licensing_account_data', $data );
 
+			$extensions = $data['plan_data']['downloads']['legacy_array'] ?? [];
+			add_user_meta( 1, '_plugins_available_in_subscriptions', $extensions );
+
 			return true;
 
 		} catch ( \Throwable $th ) {
@@ -105,6 +108,9 @@ class Repository {
 			}
 
 			update_option( 'directorist_licensing_account_data', $data );
+
+			$extensions = $data['plan_data']['downloads']['legacy_array'] ?? [];
+			add_user_meta( 1, '_plugins_available_in_subscriptions', $extensions );
 
 			return true;
 

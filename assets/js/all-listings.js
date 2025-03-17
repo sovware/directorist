@@ -2328,6 +2328,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         page_no = pageMatch[1]; // Extracts only the numeric value
       }
     }
+
     var form_data = {
       action: 'directorist_instant_search',
       _nonce: directorist.ajax_nonce,

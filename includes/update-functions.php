@@ -239,3 +239,30 @@ function directorist_7123_update_db_version() {
 function directorist_800_update_db_version() {
     \ATBDP_Installation::update_db_version( '8.0.0' );
 }
+
+function directorist_830_update_db_version() {
+    \ATBDP_Installation::update_db_version( '8.3.0' );
+}
+
+function directorist_830_update_order() {
+	$currentPage = (int) get_option('directorist_830_update_order_current_page', 1);
+
+    $query = new WP_Query([
+        'paged'          => $currentPage,
+        'posts_per_page' => 10,
+        'post_type'      => 'at_biz_dir',
+    ]);
+
+    if ( ! $query->have_posts() ) {
+        return false;
+    }
+
+    foreach ( $query->posts as $post ) {
+        \ATBDP_Order::sync_order_author_on_listing_update((int) $post->ID, $post, true);
+    }
+
+    // Increment page count
+    update_option('directorist_830_update_order_current_page', $currentPage + 1);
+
+    return true;
+}

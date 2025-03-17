@@ -1,10 +1,16 @@
-<?php defined( 'ABSPATH' ) || exit; ?>
+<?php
+defined( 'ABSPATH' ) || exit;
 
+$step = isset( $_GET['step'] ) ? absint( $_GET['step'] ) : 1;
+?>
+
+<?php if ( $step === 1 ) : ?>
 <div class="csv-action-btns">
 	<div class="csv-center csv-export">
-		<input type="button" value="<?php esc_attr_e( 'Download a sample CSV', 'directorist' ); ?>" class="button-secondary" name="atbdp_ie_download_sample" id="atbdp_ie_download_sample" data-sample-csv="<?php echo esc_attr( $args['download_link'] ); ?>">
+		<a class="button-secondary" id="atbdp_ie_download_sample" href="<?php echo esc_attr( $args['download_link'] ); ?>" download="sample-listings.csv"><?php esc_html_e( 'Download a sample CSV', 'directorist' ); ?></a>
 	</div>
 </div>
+<?php endif; ?>
 
 <div class="csv-action-steps">
 	<ul>

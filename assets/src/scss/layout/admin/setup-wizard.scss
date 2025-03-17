@@ -358,8 +358,8 @@
   border-radius: 50%;
   border: 3px solid #ddd;
   position: absolute;
-  right: 0;
-  top: 0;
+  right: 20px;
+  top: 26px;
   background: transparent;
   border-right-color: #4353ff;
   animation: swRotate 2s linear infinite;
@@ -1153,7 +1153,7 @@
             }
           }
         }
-        
+
       }
       @include e("input") {
         width: 100%;

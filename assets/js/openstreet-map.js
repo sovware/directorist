@@ -648,27 +648,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "convertToSelect2", function() { return convertToSelect2; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "get_dom_data", function() { return get_dom_data; });
 var $ = jQuery;
-function get_dom_data(key, parent) {
-  // var elmKey = 'directorist-dom-data-' + key;
-  var elmKey = 'directorist-dom-data-' + key;
-  var dataElm = parent ? parent.getElementsByClassName(elmKey) : document.getElementsByClassName(elmKey);
-  if (!dataElm) {
-    return '';
+function get_dom_data(selector, parent) {
+  selector = '.directorist-dom-data-' + selector;
+  if (!parent) {
+    parent = document;
   }
-  var is_script_debugging = directorist && directorist.script_debugging && directorist.script_debugging == '1' ? true : false;
+  var el = parent.querySelector(selector);
+  if (!el || !el.dataset.value) {
+    return {};
+  }
+  var IS_SCRIPT_DEBUGGING = directorist && directorist.script_debugging && directorist.script_debugging == '1';
   try {
-    var dataValue = atob(dataElm[0].dataset.value);
-    dataValue = JSON.parse(dataValue);
-    return dataValue;
+    var value = atob(el.dataset.value);
+    return JSON.parse(value);
   } catch (error) {
-    if (is_script_debugging) {
-      console.warn({
-        key: key,
-        dataElm: dataElm,
-        error: error
-      });
+    if (IS_SCRIPT_DEBUGGING) {
+      console.log(el, error);
     }
-    return '';
+    return {};
   }
 }
 function convertToSelect2(selector) {

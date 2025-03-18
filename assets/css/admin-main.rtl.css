@@ -4133,6 +4133,7 @@ body.wp-admin {
         -ms-flex-direction: column;
             flex-direction: column;
     padding: 20px 0;
+    margin-right: 0;
   }
 }
 @media only screen and (max-width: 575px) {
@@ -4645,24 +4646,19 @@ body.wp-admin {
 .directorist_builder__content .directorist_builder__content__right {
   width: 100%;
 }
-@media only screen and (max-width: 1199px) {
-  .directorist_builder__content .directorist_builder__content__right {
-    background: #e3e6ef;
-    border-radius: 8px;
-    padding: 10px 10px;
-    width: calc(100% - 20px);
-  }
-}
 .directorist_builder__content .directorist_builder__content__right .directorist-total-types {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  gap: 30px;
+  gap: 16px 30px;
   -webkit-box-align: center;
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
       -ms-flex-pack: justify;
@@ -4783,9 +4779,7 @@ body.wp-admin {
   .directorist_builder__content .directorist_builder__content__right .directorist_table {
     overflow-x: auto;
     display: inline-grid;
-    border-radius: 8px;
     overflow-y: hidden;
-    padding-bottom: 83px;
   }
 }
 .directorist_builder__content .directorist_builder__content__right .directorist_table .directorist_table-header {
@@ -5174,6 +5168,9 @@ body.wp-admin {
   margin-right: 0;
   -webkit-transition: 0.3s ease;
   transition: 0.3s ease;
+}
+.directorist_builder__content .directorist_builder__content__right .directorist_table .directorist_table-body.directorist_builder__list {
+  overflow: auto;
 }
 .directorist_builder__content .directorist_builder__content__right .directorist_table .directorist_table-body.directorist_builder__list .directorist_builder__list__item.dragging.drag-clone {
   border: 1px solid #c0ccfc;

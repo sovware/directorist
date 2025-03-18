@@ -581,7 +581,7 @@ class Directorist_Listing_Dashboard {
 			$dropdown_items['renew'] = array(
 				'class'     => '',
 				'data_attr' => '',
-				'link'      => wp_nonce_url( $renewal_url, 'directorist_listing_renewal', '_nonce' ),
+				'link'      => wp_nonce_url( $renewal_url, 'directorist_listing_renewal', 'token' ),
 				'icon'      => directorist_icon( 'las la-hand-holding-usd', false ),
 				'label'     => __( 'Renew', 'directorist' )
 			);

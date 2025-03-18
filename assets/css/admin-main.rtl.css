@@ -15394,7 +15394,7 @@ input:-webkit-autofill:active {
 .cptm-section.preview_mode {
   position: absolute;
   left: 31px;
-  bottom: 71px;
+  bottom: 67px;
   width: calc(50% + 50px);
   padding: 24px 43px 50px;
   -webkit-box-sizing: border-box;
@@ -20999,7 +20999,7 @@ input[type=radio]:checked::before {
 .cptm-section.preview_mode {
   position: absolute;
   left: 31px;
-  bottom: 71px;
+  bottom: 67px;
   width: calc(50% + 50px);
   padding: 24px 43px 50px;
   -webkit-box-sizing: border-box;
@@ -26892,7 +26892,7 @@ input[type=radio]:checked::before {
 .cptm-section.preview_mode {
   position: absolute;
   left: 31px;
-  bottom: 71px;
+  bottom: 67px;
   width: calc(50% + 50px);
   padding: 24px 43px 50px;
   -webkit-box-sizing: border-box;

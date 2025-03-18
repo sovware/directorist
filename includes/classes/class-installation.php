@@ -48,9 +48,9 @@ class ATBDP_Installation {
 		'8.0.0' => [
 			'directorist_800_update_db_version',
 		],
-		'8.0.13' => [
-			'directorist_8013_migrate_directory_sorting_order',
-			'directorist_8013_update_db_version',
+		'8.3.0' => [
+			'directorist_830_migrate_directory_sorting_order',
+			'directorist_830_update_db_version',
 		],
 	);
 

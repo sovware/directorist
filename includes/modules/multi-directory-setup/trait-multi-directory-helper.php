@@ -83,7 +83,7 @@ trait Multi_Directory_Helper {
         }
 
         // Validate term name
-        if ( ! empty( $directory_name ) && $term = term_exists( $directory_name, ATBDP_DIRECTORY_TYPE ) ) {
+        if ( ! empty( $directory_name ) && $term = term_exists( $directory_name, 'atbdp_listing_types' ) ) {
             $response['status']['status_log']['term_exists'] = [
                 'type'    => 'error',
                 'message' => __( 'The name already exists', 'directorist' ),
@@ -103,7 +103,7 @@ trait Multi_Directory_Helper {
         do_action( 'directorist_before_create_directory_type', $directory_name );
 
         // Create the directory
-        $term = wp_insert_term( $directory_name, ATBDP_DIRECTORY_TYPE);
+        $term = wp_insert_term( $directory_name, 'atbdp_listing_types');
 
         if ( is_wp_error( $term ) ) {
             $response['status']['status_log']['term_exists'] = [
@@ -194,7 +194,7 @@ trait Multi_Directory_Helper {
         }
 
         // Validate term id
-        if ( ! term_exists( $args['term_id'], ATBDP_DIRECTORY_TYPE ) ) {
+        if ( ! term_exists( $args['term_id'], 'atbdp_listing_types' ) ) {
             $has_invalid_term_id = true;
         }
 
@@ -226,15 +226,34 @@ trait Multi_Directory_Helper {
         $directory_name = ( ! empty( $args['directory_name'] ) ) ? $args['directory_name'] : $directory_name;
         $directory_name = esc_attr( $directory_name );
 
-        $response['fields_value'] = $fields;
+        $response['fields_value']   = $fields;
+        $response['directory_name'] = $args['directory_name'];
 
         unset( $fields['name'] );
-        
+
+        $term = get_term( $args['term_id'], ATBDP_DIRECTORY_TYPE );
+        $old_name = $term->name;
+
+        $has_diffrent_name = $old_name !== $directory_name;
+
+        if ( $has_diffrent_name && term_exists( $directory_name, 'atbdp_listing_types' ) ) {
+            $response['status']['status_log']['name_exists'] = [
+                'type'    => 'error',
+                'message' => __( 'The name already exists', 'directorist' ),
+            ];
+
+            $response['status']['error_count']++;
+        }
+
+        // Return status
+        if ( $response['status']['error_count'] ) {
+            $response['status']['success'] = false;
+            return $response;
+        }
+
         // Update name if exist
         if ( ! empty( $directory_name ) ) {
-            $response['directory_name'] = $directory_name;
-
-            wp_update_term( $args['term_id'], ATBDP_DIRECTORY_TYPE, [ 'name' => $directory_name ] );
+            wp_update_term( $args['term_id'], 'atbdp_listing_types', ['name' => $directory_name] );
         }
 
         // Update the value

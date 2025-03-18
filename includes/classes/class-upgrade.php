@@ -89,10 +89,10 @@ class ATBDP_Upgrade
 			}
 		}
 
-		$directory_types = get_terms( apply_filters( 'directorist_directory_index_query',  [
+		$directory_types = get_terms([
 			'taxonomy'   => ATBDP_DIRECTORY_TYPE,
 			'hide_empty' => false,
-		] ) );
+		]);
 
 
 		if ( is_wp_error( $directory_types ) || empty( $directory_types ) ) {

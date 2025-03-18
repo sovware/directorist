@@ -271,7 +271,7 @@ function directorist_get_directories( array $args = array() ) {
 
 	$args['taxonomy'] = ATBDP_DIRECTORY_TYPE;
 
-	return get_terms( apply_filters( 'directorist_directory_index_query', $args ) );
+	return get_terms( $args );
 }
 
 function directorist_get_directories_for_template( array $args = array() ) {

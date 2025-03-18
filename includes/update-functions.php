@@ -239,11 +239,3 @@ function directorist_7123_update_db_version() {
 function directorist_800_update_db_version() {
     \ATBDP_Installation::update_db_version( '8.0.0' );
 }
-
-function directorist_830_update_db_version() {
-    \ATBDP_Installation::update_db_version( '8.3.0' );
-}
-
-function directorist_830_migrate_directory_sorting_order() {
-	Directorist\Multi_Directory\Multi_Directory_Manager::add_directory_type_sorting_order_to_missing_ones( false );
-}

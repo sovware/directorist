@@ -66,7 +66,7 @@ class Multi_Directory_Migration {
             if ( ! empty( $listings_ids ) ) {
                 foreach( $listings_ids as $listings_id ) {
                     // Set Directory Type
-                    wp_set_object_terms( $listings_id, $add_directory['term_id'], ATBDP_DIRECTORY_TYPE );
+                    wp_set_object_terms( $listings_id, $add_directory['term_id'], 'atbdp_listing_types' );
                     update_post_meta( $listings_id, '_directory_type', $add_directory['term_id'] );
                 }
             }

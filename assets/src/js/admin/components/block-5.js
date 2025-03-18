@@ -1,6 +1,5 @@
 window.addEventListener('load', () => {
     const $ = jQuery;
-    const axios = require('axios').default;
 
     // Init Category Icon Picker
     function initCategoryIconPicker() {
@@ -62,33 +61,22 @@ window.addEventListener('load', () => {
     // Directorist More Dropdown
     $('body').on('click', '.directorist_more-dropdown-toggle', function (e) {
         e.preventDefault();
-        
-        let $dropdown = $(this).next('.directorist_more-dropdown-option');
-        
-        // If the clicked dropdown is already active, just remove the active classes
-        if ($dropdown.hasClass('active')) {
-            $(this).removeClass('active');
-            $dropdown.removeClass('active');
-        } else {
-            // Otherwise, remove active classes from all other dropdowns first
-            $('.directorist_more-dropdown-toggle').removeClass('active');
-            $('.directorist_more-dropdown-option').removeClass('active');
-    
-            // Then activate the clicked one
-            $(this).addClass('active');
-            $dropdown.addClass('active');
-        }
-    
+        $(this).toggleClass('active');
+        $('.directorist_more-dropdown-option').removeClass('active');
+        $(this)
+            .siblings('.directorist_more-dropdown-option')
+            .removeClass('active');
+        $(this)
+            .next('.directorist_more-dropdown-option')
+            .toggleClass('active');
         e.stopPropagation();
     });
-    
-    // Click outside to close
     $(document).on('click', function (e) {
-        if (!$(e.target).closest('.directorist_more-dropdown').length) {
+        if ($(e.target).is('.directorist_more-dropdown-toggle, .active') === false) {
             $('.directorist_more-dropdown-option').removeClass('active');
             $('.directorist_more-dropdown-toggle').removeClass('active');
         }
-    });    
+    });
 
     // Select Dropdown
     $('body').on('click', '.directorist_dropdown .directorist_dropdown-toggle', function (e) {
@@ -283,120 +271,5 @@ window.addEventListener('load', () => {
             $(data_target).slideToggle();
         }
     });
-
-    // Builder Directory Types Drag and Drop
-    const builderDragNDropWrapper = document.querySelector(".directorist_builder__list");
-    let initialOrder = [];
-
-    // Dragging Start
-    builderDragNDropWrapper.addEventListener("dragstart", (e) => {
-        const draggingItem = e.target.closest(".directorist_builder__list__item");
-        if (!draggingItem) {
-            e.preventDefault();
-            return;
-        }
-
-        draggingItem.classList.add("dragging");
-
-        // Clone the item for visibility
-        const cloneItem = draggingItem.cloneNode(true);
-        cloneItem.classList.add("drag-clone");
-        Object.assign(cloneItem.style, {
-            width: `${draggingItem.offsetWidth}px`,
-            height: `${draggingItem.offsetHeight}px`,
-            position: "absolute",
-            top: "-100%",
-            opacity: "1",
-        });
-
-        draggingItem.after(cloneItem);
-        e.dataTransfer.setDragImage(cloneItem, 0, 0);
-
-        // Save initial order
-        initialOrder = [...builderDragNDropWrapper.children].map((item, index) => ({
-            id: item.dataset.termId,
-            order: index
-        }));
-    });
-
-    // Drag Over
-    builderDragNDropWrapper.addEventListener("dragover", (e) => {
-        e.preventDefault();
-        
-        const draggingItem = document.querySelector(".dragging");
-        if (!draggingItem) return;
-
-        document.querySelectorAll(".directorist_builder__list__item").forEach(item => 
-            item.classList.remove("drag-over")
-        );
-
-        const afterElement = getDragAfterElement(builderDragNDropWrapper, e.clientY);
-        if (afterElement) afterElement.classList.add("drag-over");
-    });
-
-    // Drag End
-    builderDragNDropWrapper.addEventListener("dragend", async () => {
-        const draggingItem = document.querySelector(".dragging");
-        if (!draggingItem) return;
-
-        const afterElement = getDragAfterElement(builderDragNDropWrapper, event.clientY);
-        afterElement ? afterElement.before(draggingItem) : builderDragNDropWrapper.appendChild(draggingItem);
-
-        document.querySelector(".drag-clone")?.remove();
-        document.querySelectorAll(".dragging, .drag-over").forEach(el => el.classList.remove("dragging", "drag-over"));
-
-        // Update order
-        const newOrder = [...builderDragNDropWrapper.children].map((item, index) => {
-            item.dataset.order = index;
-            return { id: item.dataset.termId, order: index };
-        });
-
-        const swappedItems = newOrder.filter(newItem => initialOrder.find(i => i.id === newItem.id && i.order !== newItem.order));
-
-        if (swappedItems.length) {
-            await updateDirectorySortingOrders(swappedItems);
-            initialOrder = newOrder;
-        }
-    });
-
-    // Get the closest element to the dragged item
-    function getDragAfterElement(container, y) {
-        const draggableElements = [...container.querySelectorAll(".directorist_builder__list__item:not(.dragging)")];
-        if (draggableElements.length === 0) return null;
-
-        return draggableElements.reduce(
-            (closest, child) => {
-                const box = child.getBoundingClientRect();
-                const offset = y - box.top - box.height / 2;
-
-                return offset < 0 && offset > closest.offset ? { offset, element: child } : closest;
-            },
-            { offset: Number.NEGATIVE_INFINITY, element: null }
-        ).element;
-    }
-
-    async function updateDirectorySortingOrders( sortingOrders ) {
-        if ( ! Array.isArray( sortingOrders ) ) {
-            return false;
-        }
     
-        const form_data = new FormData();
-        
-        form_data.append( 'action', 'update_directory_type_sorting_order' );
-        form_data.append( 'directorist_nonce', directorist_admin.directorist_nonce );
-        form_data.append( 'sorting_orders', JSON.stringify( sortingOrders ) );
-
-        try {
-            const response = await axios.post( directorist_admin.ajax_url, form_data );
-    
-            if ( response.data && response.data.status && response.data.status.success ) {
-                return true;
-            }
-    
-            return false;
-        } catch ( error ) {
-            console.error( error );
-            return false;
-        }
-    }
 });

@@ -4997,6 +4997,10 @@ body.wp-admin {
 
         &.directorist_builder__list {
           .directorist_builder__list__item {
+            &.dragging.drag-clone {
+              border: 1px solid #c0ccfc;
+              box-shadow: 0 20px 40px 0 #00000040;
+            }
             &.dragging:not(.drag-clone) {
               background: #e5e7eb;
               border: 1px dashed #a1a9b2;

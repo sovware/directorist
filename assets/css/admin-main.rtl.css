@@ -5175,6 +5175,11 @@ body.wp-admin {
   -webkit-transition: 0.3s ease;
   transition: 0.3s ease;
 }
+.directorist_builder__content .directorist_builder__content__right .directorist_table .directorist_table-body.directorist_builder__list .directorist_builder__list__item.dragging.drag-clone {
+  border: 1px solid #c0ccfc;
+  -webkit-box-shadow: 0 20px 40px 0 rgba(0, 0, 0, 0.2509803922);
+          box-shadow: 0 20px 40px 0 rgba(0, 0, 0, 0.2509803922);
+}
 .directorist_builder__content .directorist_builder__content__right .directorist_table .directorist_table-body.directorist_builder__list .directorist_builder__list__item.dragging:not(.drag-clone) {
   background: #e5e7eb;
   border: 1px dashed #a1a9b2;

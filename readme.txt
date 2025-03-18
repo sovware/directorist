@@ -310,7 +310,6 @@ Directorist is a complete directory solution and in combination with its advance
  - Listing author and order author mismatch resolved by database migration. (#2276)
  - Google Map loading issues resolved. (#2273)
  - Listing queries issue when the directory navigation is hidden. (#2270)
- - Conflict issue resolved. (#2269)
  - Search form responsive border issue corrected. (#2267)
  - Text domain inconsistencies fixed for better translation support. (#2264)
  - "Add Listing" map marker issue on Google Maps corrected. (#2263)

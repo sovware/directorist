@@ -5,7 +5,7 @@ Tags: member directory, listing, classifieds, directory plugin, business directo
 Requires at least: 4.6
 Tested up to: 6.7
 Requires PHP: 7.0
-Stable tag: 8.3
+Stable tag: 8.2.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -297,17 +297,16 @@ Directorist is a complete directory solution and in combination with its advance
 
 == Changelog ==
 
-8.3 - Mar 21, 2025
-
-**New**
- - Remade the listing importer for improved performance and stability. (#2244)
+8.2.1 - Mar 21, 2025
 
 **Changed**
+ - Improved Listings Importer to efficiently handle large datasets.
  - Replaced "Location" with "Address" on the All Listings map view. (#2266)
  - Refactored default expiration date handling with a utility function. (#2253)
  - Improved Google Maps performance and refactored code for better efficiency. (#2251)
 
 **Fixed**
+ - View count reset issue. (Working)
  - Listing author and order author mismatch resolved by database migration. (#2276)
  - Google Map loading issues resolved. (#2273)
  - Listing queries now work correctly when the directory navigation is hidden. (#2270)

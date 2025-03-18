@@ -25,7 +25,7 @@ class ATBDP_Order
     public function __construct()
     {
         add_action('init', array($this, 'register_custom_post_type'));
-        add_action('save_post_at_biz_dir', array(self::class, 'sync_order_author_on_listing_update'), 10, 3);
+        add_action('save_post_at_biz_dir', array($this, 'sync_order_author_on_listing_update'), 10, 3);
 
         add_action('admin_footer-edit.php', array($this, 'admin_footer_edit'));
         add_action('restrict_manage_posts', array($this, 'restrict_manage_posts'));
@@ -49,7 +49,7 @@ class ATBDP_Order
      * @param WP_Post $post Post object.
      * @param bool $update Whether this is an existing post being updated.
      */
-    public static function sync_order_author_on_listing_update( $listing_id, $post, $update ) {
+    public function sync_order_author_on_listing_update( $listing_id, $post, $update ) {
         if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
             return;
         }

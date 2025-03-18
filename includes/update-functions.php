@@ -240,11 +240,11 @@ function directorist_800_update_db_version() {
     \ATBDP_Installation::update_db_version( '8.0.0' );
 }
 
-function directorist_821_update_db_version() {
-    \ATBDP_Installation::update_db_version( '8.2.1' );
+function directorist_830_update_db_version() {
+    \ATBDP_Installation::update_db_version( '8.3.0' );
 }
 
-function directorist_821_sync_listing_author_and_order_author() {
+function directorist_830_sync_listing_author_and_order_author() {
 	global $wpdb;
 
 	$wpdb->query( $wpdb->prepare(

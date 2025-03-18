@@ -77,9 +77,8 @@
             'search_form_fields',
             'single_listing_header',
             'single_listings_contents',
-            'enable_grid_view_layout',
-            'enable_list_view_layout',
-            'enable_map_view_layout',
+            'listings_card_grid_view',
+            'listings_card_list_view',
           ].includes(section.fields[0])
         "
       >

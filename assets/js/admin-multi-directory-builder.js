@@ -20011,18 +20011,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 
 
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 
-
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "card-builder",
   props: {
     fieldId: {
+      required: false,
+      default: ""
+    },
+    fieldKey: {
       required: false,
       default: ""
     },
@@ -20053,7 +20055,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   created: function created() {
     this.init();
   },
-  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapState"])({
+  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapState"])({
     fields: "fields"
   })), {}, {
     theCardBiulderTemplateOptionList: function theCardBiulderTemplateOptionList() {
@@ -20153,7 +20155,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       var old_value = this.value;
 
       // If has no old value
-      if (!(old_value && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(old_value) == 'object')) {
+      if (!(old_value && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(old_value) == "object")) {
         old_value = {};
       }
       if (Array.isArray(old_value)) {
@@ -28896,7 +28898,7 @@ var render = function render() {
         d: "M4.23904 5.49535C3.23485 6.33346 2.53211 7.31833 2.177 7.88061C2.15344 7.91792 2.13696 7.94405 2.12319 7.96673C2.1141 7.9817 2.1081 7.99205 2.10409 7.99927C2.10409 7.99954 2.10409 7.99981 2.10409 8.00008C2.10409 8.00035 2.10409 8.00062 2.10409 8.00089C2.1081 8.00811 2.1141 8.01846 2.12319 8.03343C2.13696 8.05611 2.15344 8.08224 2.177 8.11955C2.53211 8.68183 3.23485 9.6667 4.23904 10.5048C5.24166 11.3416 6.50463 12.0001 8.00019 12.0001C9.49574 12.0001 10.7587 11.3416 11.7613 10.5048C12.7655 9.6667 13.4683 8.68183 13.8234 8.11955C13.8469 8.08224 13.8634 8.05611 13.8772 8.03343C13.8863 8.01846 13.8923 8.0081 13.8963 8.00089C13.8963 8.00062 13.8963 8.00035 13.8963 8.00008C13.8963 7.99981 13.8963 7.99954 13.8963 7.99927C13.8923 7.99206 13.8863 7.9817 13.8772 7.96673C13.8634 7.94405 13.8469 7.91792 13.8234 7.88061C13.4683 7.31833 12.7655 6.33346 11.7613 5.49535C10.7587 4.65855 9.49574 4.00008 8.00019 4.00008C6.50463 4.00008 5.24166 4.65855 4.23904 5.49535ZM3.38469 4.4717C4.53709 3.50989 6.09241 2.66675 8.00019 2.66675C9.90797 2.66675 11.4633 3.50989 12.6157 4.4717C13.7665 5.4322 14.5555 6.54294 14.9507 7.16865C14.9559 7.17691 14.9613 7.18535 14.9668 7.19397C15.0452 7.3174 15.147 7.47765 15.1985 7.70219C15.24 7.88349 15.24 8.11667 15.1985 8.29797C15.147 8.52251 15.0452 8.68277 14.9668 8.80619C14.9613 8.81481 14.9559 8.82325 14.9507 8.83152C14.5555 9.45722 13.7665 10.568 12.6157 11.5285C11.4633 12.4903 9.90797 13.3334 8.00019 13.3334C6.09241 13.3334 4.53709 12.4903 3.38469 11.5285C2.23385 10.568 1.44483 9.45722 1.04967 8.83152C1.04445 8.82325 1.03908 8.81481 1.03361 8.80619C0.955196 8.68277 0.853387 8.52251 0.801919 8.29797C0.760363 8.11667 0.760363 7.88349 0.801919 7.70219C0.853387 7.47765 0.955197 7.3174 1.03361 7.19397C1.03908 7.18535 1.04445 7.17691 1.04967 7.16865C1.44483 6.54294 2.23385 5.4322 3.38469 4.4717ZM8.00019 6.66675C7.26381 6.66675 6.66686 7.2637 6.66686 8.00008C6.66686 8.73646 7.26381 9.33341 8.00019 9.33341C8.73657 9.33341 9.33352 8.73646 9.33352 8.00008C9.33352 7.2637 8.73657 6.66675 8.00019 6.66675ZM5.33352 8.00008C5.33352 6.52732 6.52743 5.33341 8.00019 5.33341C9.47295 5.33341 10.6669 6.52732 10.6669 8.00008C10.6669 9.47284 9.47295 10.6667 8.00019 10.6667C6.52743 10.6667 5.33352 9.47284 5.33352 8.00008Z",
         fill: "#4D5761"
       }
-    })])]) : _vm._e()]) : _vm._e(), _vm._v(" "), !["submission_form_fields", "search_form_fields", "single_listing_header", "single_listings_contents", "enable_grid_view_layout", "enable_list_view_layout", "enable_map_view_layout"].includes(section.fields[0]) ? _c("div", {
+    })])]) : _vm._e()]) : _vm._e(), _vm._v(" "), !["submission_form_fields", "search_form_fields", "single_listing_header", "single_listings_contents", "listings_card_grid_view", "listings_card_list_view"].includes(section.fields[0]) ? _c("div", {
       staticClass: "cptm-title-area",
       class: _vm.sectionTitleAreaClass(section)
     }, [section.title ? _c("h3", {
@@ -31762,7 +31764,7 @@ var render = function render() {
     _c = _vm._self._c;
   return _c("div", {}, [_vm.card_templates ? [_c("div", {
     staticClass: "cptm-card-top-area cptm-text-center cptm-mb-20"
-  }, [_c("tab-field", {
+  }, [_vm.fieldKey === "listings_card_grid_view" || _vm.fieldKey === "listings_card_list_view" ? _c("span", [_vm._v("\n        Layout Type\n      ")]) : _vm._e(), _vm._v(" "), _c("tab-field", {
     attrs: {
       theme: "default",
       options: _vm.theCardBiulderTemplateOptionList

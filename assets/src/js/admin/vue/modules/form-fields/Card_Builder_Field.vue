@@ -2,7 +2,19 @@
   <div class="">
     <template v-if="card_templates">
       <div class="cptm-card-top-area cptm-text-center cptm-mb-20">
-        <tab-field theme="default" :options="theCardBiulderTemplateOptionList" v-model="template_id" />
+        <span
+          v-if="
+            fieldKey === 'listings_card_grid_view' ||
+            fieldKey === 'listings_card_list_view'
+          "
+        >
+          Layout Type
+        </span>
+        <tab-field
+          theme="default"
+          :options="theCardBiulderTemplateOptionList"
+          v-model="template_id"
+        />
       </div>
 
       <component
@@ -31,13 +43,16 @@
 </template>
 
 <script>
-import Vue from "vue";
 import { mapState } from "vuex";
 
 export default {
   name: "card-builder",
   props: {
     fieldId: {
+      required: false,
+      default: "",
+    },
+    fieldKey: {
       required: false,
       default: "",
     },
@@ -191,13 +206,13 @@ export default {
 
     updateValue(value) {
       var old_value = this.value;
-      
+
       // If has no old value
-      if ( ! ( old_value && typeof old_value == 'object' ) ) {
+      if (!(old_value && typeof old_value == "object")) {
         old_value = {};
       }
 
-      if ( Array.isArray( old_value ) ) {
+      if (Array.isArray(old_value)) {
         old_value = {};
       }
 
@@ -205,7 +220,7 @@ export default {
       old_value.active_template = this.template_id;
 
       // Update Template Data
-      if ( ! old_value.template_data ) {
+      if (!old_value.template_data) {
         old_value.template_data = {};
       }
 

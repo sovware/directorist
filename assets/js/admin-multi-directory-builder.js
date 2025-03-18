@@ -28269,10 +28269,12 @@ var render = function render() {
         fill: "currentColor"
       }
     })])]) : _vm._e(), _vm._v(" "), ["submission_form_fields"].includes(section.fields[0]) ? _c("a", {
-      staticClass: "directorist-form-action__view",
+      staticClass: "directorist-row-tooltip directorist-form-action__view",
       attrs: {
         href: "#",
-        target: "_blank"
+        target: "_blank",
+        "data-tooltip": "View the form",
+        "data-flow": "bottom-right"
       },
       on: {
         click: function click($event) {

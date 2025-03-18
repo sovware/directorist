@@ -965,22 +965,17 @@ $light-gray: #f4f5f7;
   }
   @media only screen and (max-width: 782px) {
     .cptm-sub-navigation {
-      padding-right: 0;
-      padding-top: 70px;
+      padding-right: 70px;
+      margin-top: 20px;
     }
     .cptm-tab-content-header__action {
-      top: 20px;
-      right: 50%;
-      transform: translateX(50%);
+      top: 0;
+      transform: unset;
     }
   }
   @media only screen and (max-width: 480px) {
     .cptm-sub-navigation {
-      padding-top: 50px;
-      padding-bottom: 15px;
-    }
-    .cptm-tab-content-header__action {
-      top: 0;
+      margin-top: 0;
     }
   }
 }
@@ -1094,8 +1089,14 @@ $light-gray: #f4f5f7;
     }
 
     .cptm-form-builder {
+      @media only screen and (max-width: 767px) {
+        padding-top: 42px;
+      }
       .cptm-form-builder-active-fields {
         padding-top: 56px;
+        @media only screen and (max-width: 767px) {
+          padding-top: 0;
+        }
       }
     }
   }
@@ -3311,6 +3312,9 @@ input[type="radio"].cptm-radio {
   justify-content: center;
   align-items: center;
   z-index: 9999;
+  @media (max-width: 960px) {
+    width: 100%;
+  }
   .cptm-modal-container {
     display: block;
     height: auto;
@@ -3321,6 +3325,18 @@ input[type="radio"].cptm-radio {
     bottom: unset;
     transform: translate(-50%, -50%);
     overflow: visible;
+    @media (max-width: 767px) {
+      iframe {
+        width: 400px;
+        height: 225px;
+      }
+    }
+    @media (max-width: 575px) {
+      iframe {
+        width: 300px;
+        height: 175px;
+      }
+    }
   }
 }
 
@@ -3860,6 +3876,9 @@ input[type="radio"] {
   @include m("settings-closed") {
     max-width: 700px;
     margin: 0 auto;
+    @media (max-width: 1199px) {
+      max-width: 100%;
+    }
   }
 }
 
@@ -4265,6 +4284,12 @@ input[type="radio"] {
   overflow-y: auto;
   scrollbar-width: 6px;
   scrollbar-color: #d2d6db #f3f4f6;
+  @media (max-width: 1199px) {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+  }
   @include e(toggle) {
     position: absolute;
     right: 0;

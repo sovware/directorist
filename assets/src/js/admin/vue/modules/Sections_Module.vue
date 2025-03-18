@@ -45,7 +45,9 @@
         <a
           href="#"
           target="_blank"
-          class="directorist-form-action__view"
+          class="directorist-row-tooltip directorist-form-action__view"
+          data-tooltip="View the form"
+          data-flow="bottom-right"
           @click="saveData()"
           v-if="['submission_form_fields'].includes(section.fields[0])"
         >

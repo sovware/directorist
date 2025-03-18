@@ -739,7 +739,7 @@ class Directorist_Listing_Form {
 		$args = array();
 
 		if ( self::$directory_type ) {
-			$term_slug = get_term_by( 'slug', self::$directory_type[0], 'atbdp_listing_types' );
+			$term_slug = get_term_by( 'slug', self::$directory_type[0], ATBDP_DIRECTORY_TYPE );
 			if ( $term_slug || current_user_can( 'manage_options' ) || current_user_can( 'edit_pages' ) ) {
 				$args['slug'] = self::$directory_type;
 			}

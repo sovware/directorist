@@ -19,8 +19,11 @@ class Multi_Directory_Manager {
 
     // run
     public function run() {
-        add_action( 'init', [$this, 'register_directory_taxonomy'] );
+        add_action( 'init', [ self::class, 'register_directory_taxonomy'] );
         add_action( 'init', [$this, 'setup_migration'] );
+        
+        // Directory Type Sorting Query
+        add_filter( 'directorist_directory_index_query', [ $this, 'directory_type_sorting_query' ] );
 
         if ( ! is_admin() ) {
             return;
@@ -33,9 +36,30 @@ class Multi_Directory_Manager {
 
         // Ajax
         add_action( 'wp_ajax_save_post_type_data', [ $this, 'save_post_type_data' ] );
+        add_action( 'wp_ajax_update_directory_type_sorting_order', [ $this, 'update_directory_type_sorting_order' ] );
         add_action( 'wp_ajax_save_imported_post_type_data', [ $this, 'save_imported_post_type_data' ] );
         add_action( 'wp_ajax_directorist_force_migrate', [ $this, 'handle_force_migration' ] );
         add_action( 'wp_ajax_directorist_directory_type_library', [ $this, 'directorist_directory_type_library' ] );
+
+        // Add Directory Type Sorting Order
+        add_action( 'directorist_after_create_directory_type', [ $this, 'add_directory_sorting_order_to_new_directory' ] );
+        add_action( 'directorist_after_activation', [ $this, 'add_directory_type_sorting_order_to_missing_ones' ] );
+    }
+
+    public function add_directory_sorting_order_to_new_directory( $term ): void {
+        if ( ! is_array( $term ) ) {
+            return;
+        }
+        
+        update_term_meta( $term['term_id'], 'sort_order', self::get_directory_type_max_sort_order() + 1 );
+    }
+
+    public function directory_type_sorting_query( array $query ): array {
+        $query['meta_key'] = 'sort_order';
+        $query['orderby']  = 'meta_value_num';
+        $query['order']    = 'ASC';
+
+        return $query;
     }
 
     public static function builder_data_backup( $term_id ) {
@@ -389,6 +413,55 @@ class Multi_Directory_Manager {
         }
     }
 
+    public static function add_directory_type_sorting_order_to_missing_ones( bool $register_directory_taxonomy = true ): void {
+        if ( $register_directory_taxonomy ) {
+            self::register_directory_taxonomy();
+        }
+
+        $directories_with_no_sorting = self::get_directories_with_no_sorting_order();
+
+        if ( is_wp_error( $directories_with_no_sorting ) || empty( $directories_with_no_sorting ) ) {
+            return;
+        }
+        
+        $max_order = self::get_directory_type_max_sort_order();
+
+        foreach ( $directories_with_no_sorting as $term ) {
+            $max_order++;
+            update_term_meta( $term->term_id, 'sort_order', $max_order );
+        }
+    }
+
+    public static function get_directories_with_no_sorting_order() {
+        $terms = get_terms( [
+            'taxonomy'   => ATBDP_DIRECTORY_TYPE,
+            'hide_empty' => false,
+            'meta_query' => [
+                [
+                    'key'     => 'sort_order',
+                    'compare' => 'NOT EXISTS',
+                ],
+            ],
+            'orderby' => 'term_id',
+            'order'   => 'ASC',
+        ] );
+
+        return $terms;
+    }
+
+    public static function get_directory_type_max_sort_order(): int {
+        $max_order = get_terms( [
+            'taxonomy'   => ATBDP_DIRECTORY_TYPE,
+            'hide_empty' => false,
+            'meta_key'   => 'sort_order',
+            'orderby'    => 'meta_value_num',
+            'order'      => 'DESC',
+            'number'     => 1,
+        ] );
+
+        return empty( $max_order ) ? -1 : intval( get_term_meta( $max_order[0]->term_id, 'sort_order', true ) );
+    }
+
     // has_multidirectory
     public static function has_multidirectory() {
         $directory_types = directorist_get_directories();
@@ -472,7 +545,7 @@ class Multi_Directory_Manager {
 
     // run_force_migration
     public function run_force_migration() {
-        $general_directory = term_exists( 'General', 'atbdp_listing_types' );
+        $general_directory = term_exists( 'General', ATBDP_DIRECTORY_TYPE );
         $args = [];
 
         if ( $general_directory ) {
@@ -517,7 +590,7 @@ class Multi_Directory_Manager {
                 while ( $listings->have_posts() ) {
                     $listings->the_post();
 
-                    wp_set_object_terms( get_the_id(), $add_directory['term_id'], 'atbdp_listing_types' );
+                    wp_set_object_terms( get_the_id(), $add_directory['term_id'], ATBDP_DIRECTORY_TYPE );
                 }
                 wp_reset_postdata();
             }
@@ -645,6 +718,72 @@ class Multi_Directory_Manager {
         return $new_fields;
     }
 
+    public function update_directory_type_sorting_order() {
+        if ( ! directorist_verify_nonce() ) {
+            wp_send_json(
+                [
+                    'status' => [
+                        'success' => false,
+                        'message' => __( 'Access forbidden', 'directorist' ),
+                    ],
+                ],
+                403 
+            );
+        }
+
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_send_json(
+                [
+                    'status' => [
+                        'success' => false,
+                        'message' => __( 'You are not allowed to access this resource', 'directorist' ),
+                    ],
+                ],
+                403 
+            );
+        }
+
+        if ( ! isset( $_POST['sorting_orders'] ) ) {
+            wp_send_json(
+                [
+                    'status' => [
+                        'success' => false,
+                        'message' => __( 'The sorting_orders is required', 'directorist' ),
+                    ],
+                ],
+                422
+            );
+        }
+
+        $sorting_orders = json_decode( wp_unslash( $_POST['sorting_orders'] ), true );
+
+        if ( ! is_array( $sorting_orders ) ) {
+            wp_send_json(
+                [
+                    'status' => [
+                        'success' => false,
+                        'message' => __( 'The sorting_orders is not valid', 'directorist' ),
+                    ],
+                ],
+                422
+            );
+        }
+
+        foreach ( $sorting_orders as $item ) {
+            update_term_meta( $item['id'], 'sort_order', $item['order'] );
+        }
+
+        wp_send_json(
+            [
+                'status' => [
+                    'success' => true,
+                    'message' => __( 'The sorting order was successfuly updated', 'directorist' ),
+                ],
+            ],
+            200
+        );
+    }
+
     // save_post_type_data
     public function save_post_type_data()
     {
@@ -676,7 +815,9 @@ class Multi_Directory_Manager {
             ], 200);
         }
 
-        if ( empty( $_POST['name'] ) ) {
+        $term_id = ( ! empty( $_POST['listing_type_id'] ) ) ? absint( $_POST['listing_type_id'] ) : 0;
+
+        if ( 0 === $term_id && empty( $_POST['name'] ) ) {
             wp_send_json([
                 'status' => [
                     'success' => false,
@@ -690,8 +831,7 @@ class Multi_Directory_Manager {
             ], 200);
         }
 
-        $term_id        = ( ! empty( $_POST['listing_type_id'] ) ) ? absint( $_POST['listing_type_id'] ) : 0;
-        $directory_name = sanitize_text_field( wp_unslash( $_POST['name'] ) );
+        $directory_name = isset( $_POST['name'] ) ? sanitize_text_field( wp_unslash( $_POST['name'] ) ) : '';
 
         $fields     = [];
         $field_list = ! empty( $_POST['field_list'] ) ? directorist_maybe_json( wp_unslash( $_POST['field_list'] ) ) : [];
@@ -735,10 +875,6 @@ class Multi_Directory_Manager {
 
     // update_validated_term_meta
     public static function update_validated_term_meta( $term_id, $field_key, $value ) {
-        if ( ! isset( self::$fields[$field_key] ) && ! array_key_exists( $field_key, self::$config['fields_group'] ) ) {
-            return;
-        }
-
         if ( ! empty( self::$fields[$field_key]['type'] ) && 'toggle' === self::$fields[$field_key]['type'] ) {
             $value = ('true' === $value || true === $value || '1' === $value || 1 === $value) ? true : 0;
         }
@@ -843,7 +979,7 @@ class Multi_Directory_Manager {
     }
 
     public function update_fields_with_old_data( $listing_type_id = 0 ) {
-        $term = get_term($listing_type_id, 'atbdp_listing_types');
+        $term = get_term($listing_type_id, ATBDP_DIRECTORY_TYPE);
 
         if ( is_wp_error( $term ) || empty( $term ) ) {
             return;
@@ -921,7 +1057,7 @@ class Multi_Directory_Manager {
     // delete_listing_type
     public function delete_listing_type($term_id = 0)
     {
-        if (wp_delete_term($term_id, 'atbdp_listing_types')) {
+        if (wp_delete_term($term_id, ATBDP_DIRECTORY_TYPE)) {
             atbdp_add_flush_alert([
                 'id'      => 'deleting_listing_type_status',
                 'page'    => 'all-listing-type',
@@ -938,8 +1074,7 @@ class Multi_Directory_Manager {
     }
 
     // register_directory_taxonomy
-    public function register_directory_taxonomy()
-    {
+    public static function register_directory_taxonomy() {
         register_taxonomy( ATBDP_DIRECTORY_TYPE, [ ATBDP_POST_TYPE ], [
             'hierarchical' => false,
             'labels'       => [

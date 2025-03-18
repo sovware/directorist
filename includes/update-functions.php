@@ -244,7 +244,11 @@ function directorist_830_update_db_version() {
     \ATBDP_Installation::update_db_version( '8.3.0' );
 }
 
-function directorist_830_update_order() {
+function directorist_830_migrate_directory_sorting_order() {
+	Directorist\Multi_Directory\Multi_Directory_Manager::add_directory_type_sorting_order_to_missing_ones( false );
+}
+
+function directorist_830_sync_listing_author_and_order_author() {
 	global $wpdb;
 
 	$wpdb->query( $wpdb->prepare(
@@ -258,6 +262,4 @@ function directorist_830_update_order() {
 		WHERE p.post_type = 'atbdp_orders'
 		AND p.post_author <> p2.post_author;",
 	) );
-
-    return false;
 }

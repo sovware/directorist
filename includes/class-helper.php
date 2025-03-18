@@ -577,8 +577,8 @@ class Helper {
 		// @cache @kowsar
 		$pages = [];
 
-		$types = get_terms( array(
-			'taxonomy'   => 'atbdp_listing_types',
+		$types = get_terms( apply_filters( 'directorist_directory_index_query', array(
+			'taxonomy'   => ATBDP_DIRECTORY_TYPE,
 			'hide_empty' => false,
 			'meta_query' => array(
 				array(
@@ -586,7 +586,7 @@ class Helper {
 					'compare' => 'EXISTS',
 				),
 			),
-		) );
+		) ) );
 
 		foreach ( $types as $type ) {
 			$page_id   = get_directorist_type_option( $type->term_id, 'single_listing_page' );

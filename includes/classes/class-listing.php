@@ -106,10 +106,10 @@ if (!class_exists('ATBDP_Listing')):
                     <?php
                     $current_v = ! empty( $_GET['directory_type'] ) ? directorist_clean( wp_unslash( $_GET['directory_type'] ) ) : '';
 
-                    $listing_types = get_terms([
-                        'taxonomy'   => 'atbdp_listing_types',
+                    $listing_types = get_terms( apply_filters( 'directorist_directory_index_query', [
+                        'taxonomy'   => ATBDP_DIRECTORY_TYPE,
                         'hide_empty' => false,
-                      ]);
+                        ] ) );
                       foreach ($listing_types as $listing_type) { ?>
                         <option value="<?php echo esc_attr( $listing_type->term_id ); ?>" <?php echo $listing_type->term_id == $current_v ? ' selected="selected"' : ''; ?>><?php echo esc_attr( $listing_type->name ); ?></option>
                         <?php } ?>

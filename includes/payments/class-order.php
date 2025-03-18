@@ -562,7 +562,7 @@ class ATBDP_Order
                     $token_refresh = get_post_meta( $listing_id, '_refresh_renewal_token', true );
                     if( $token_refresh ){
                         update_post_meta( $listing_id, '_refresh_renewal_token', 0 );
-                        update_post_meta( $listing_id, '_renewal_token', 0 );
+                        delete_post_meta( $listing_id, '_renewal_token', 0 );
                     }
                 }
             }

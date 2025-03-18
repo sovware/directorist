@@ -63,73 +63,85 @@
         </div>
         <div class="directorist_builder-body">
             <div class="directorist_builder__content">
-                <div class="directorist_builder__content__left">
-                    <h2 class="directorist_builder__title"><?php esc_html_e( 'All Directory Types', 'directorist' ); ?></h2>
-                    <div class="directorist_link-block-wrapper">
-                        <button class="directorist_link-block directorist_link-block-primary directorist_new-directory cptm-modal-toggle" data-target="cptm-create-directory-modal">
-                            <span class="directorist_link-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M7.99998 1.33337C8.46022 1.33337 8.83331 1.70647 8.83331 2.16671V7.16671H13.8333C14.2936 7.16671 14.6666 7.5398 14.6666 8.00004C14.6666 8.46028 14.2936 8.83337 13.8333 8.83337H8.83331V13.8334C8.83331 14.2936 8.46022 14.6667 7.99998 14.6667C7.53974 14.6667 7.16665 14.2936 7.16665 13.8334V8.83337H2.16665C1.70641 8.83337 1.33331 8.46028 1.33331 8.00004C1.33331 7.5398 1.70641 7.16671 2.16665 7.16671H7.16665V2.16671C7.16665 1.70647 7.53974 1.33337 7.99998 1.33337Z" fill="#ffffff"/>
-                                </svg>
-                            </span>
-                            <span class="directorist_link-text"><?php esc_html_e( 'Create New Directory', 'directorist' ); ?></span>
-                        </button>
-
-                        <button class="directorist_link-block directorist_link-block-primary-outline directorist_btn-import cptm-modal-toggle" data-target="cptm-import-directory-modal">
-                            <span class="directorist_link-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M8.00002 1.99996C4.68631 1.99996 2.00002 4.68625 2.00002 7.99996C2.00002 10.22 3.20536 12.1592 5.0005 13.1977C5.31921 13.382 5.42812 13.7899 5.24376 14.1086C5.0594 14.4273 4.65158 14.5362 4.33287 14.3518C2.14267 13.0849 0.666687 10.7152 0.666687 7.99996C0.666687 3.94987 3.94993 0.666626 8.00002 0.666626C12.0501 0.666626 15.3334 3.94987 15.3334 7.99996C15.3334 10.8292 13.731 13.2831 11.3874 14.5056C11.3776 14.5107 11.3678 14.5159 11.3579 14.521C11.1424 14.6336 10.9031 14.7586 10.6303 14.8297C10.3237 14.9097 10.0142 14.9146 9.642 14.8642C9.30035 14.8179 8.9282 14.6439 8.63816 14.4681C8.34812 14.2923 8.02176 14.0428 7.8227 13.7613C7.33206 13.0674 7.33261 12.4037 7.3333 11.563C7.33333 11.5311 7.33335 11.499 7.33335 11.4666V6.94277L5.80476 8.47136C5.54441 8.73171 5.1223 8.73171 4.86195 8.47136C4.6016 8.21101 4.6016 7.7889 4.86195 7.52855L7.52862 4.86189C7.65364 4.73686 7.82321 4.66663 8.00002 4.66663C8.17683 4.66663 8.3464 4.73686 8.47143 4.86189L11.1381 7.52855C11.3984 7.7889 11.3984 8.21101 11.1381 8.47136C10.8777 8.73171 10.4556 8.73171 10.1953 8.47136L8.66669 6.94277V11.4666C8.66669 12.4341 8.68658 12.6736 8.91136 12.9915C8.95616 13.0548 9.10277 13.1905 9.32937 13.3279C9.55597 13.4653 9.74412 13.5325 9.82101 13.5429C10.0787 13.5778 10.2038 13.563 10.2939 13.5395C10.4053 13.5105 10.5154 13.4567 10.7707 13.3235C12.6913 12.3216 14 10.3131 14 7.99996C14 4.68625 11.3137 1.99996 8.00002 1.99996Z" fill="#3E62F5"/>
-                                </svg>
-                            </span>
-                            <span class="directorist_link-text">
-                                <?php esc_html_e( 'Import Directory', 'directorist' ) ?>
-                            </span>
-                        </button>
-                    </div>
-
-                    <?php if ( $show_migration_button ) : ?>
-                    <button class="directorist_link-block directorist_link-block-success directorist_btn-migrate cptm-modal-toggle" data-target="cptm-directory-mirgation-modal">
-                        <span class="directorist_link-icon">
-                            <i class="la la-download"></i>
-                        </span>
-                        <span class="directorist_link-text">
-                            <?php esc_html_e( 'Migrate', 'directorist' ) ?>
-                        </span>
-                    </button>
-                    <?php endif; ?>
-                </div>
                 <?php
                     $all_items =  wp_count_terms('atbdp_listing_types');
-                    $listing_types = get_terms([
+                    $listing_types = get_terms( apply_filters( 'directorist_directory_index_query', [
                        'taxonomy'   => 'atbdp_listing_types',
                        'hide_empty' => false,
                        'orderby'    => 'date',
                        'order'      => 'DSCE',
-                    ]);
+                    ] ) );
                 ?>
                 <div class="directorist_builder__content__right">
                     <div class="directorist-total-types">
-                        <?php esc_html_e( 'All Directories','directorist' ); ?><span class="directorist_count">(<?php echo esc_attr( ! empty( $all_items ) ? $all_items : 0 ); ?>)</span>
+                        <h2 class="directorist_builder__title">
+                            <?php esc_html_e( 'All Directories','directorist' ); ?><span class="directorist_count">(<?php echo esc_attr( ! empty( $all_items ) ? $all_items : 0 ); ?>)</span>
+                        </h2>
+                        
+                        <div class="directorist_link-block-wrapper">
+                            <button class="directorist_link-block directorist_link-block-primary-outline directorist_btn-import cptm-modal-toggle" data-target="cptm-import-directory-modal">
+                                <span class="directorist_link-icon">
+                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <g clip-path="url(#clip0_8269_9183)">
+                                            <circle cx="10" cy="10.0013" r="8.33333" stroke="#3E62F5" stroke-width="1.5"/>
+                                            <path d="M10 13.3346L10 6.66797M10 13.3346L7.5 10.8345M10 13.3346L12.5 10.8345" stroke="#3E62F5" stroke-width="1.5"/>
+                                        </g>
+                                        <defs>
+                                            <clipPath id="clip0_8269_9183">
+                                                <rect width="20" height="20" fill="white"/>
+                                            </clipPath>
+                                        </defs>
+                                    </svg>
+                                </span>
+                                <span class="directorist_link-text">
+                                    <?php esc_html_e( 'Import Directory', 'directorist' ) ?>
+                                </span>
+                            </button>
+                            <button class="directorist_link-block directorist_link-block-primary directorist_new-directory cptm-modal-toggle" data-target="cptm-create-directory-modal">
+                                <span class="directorist_link-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M7.99998 1.33337C8.46022 1.33337 8.83331 1.70647 8.83331 2.16671V7.16671H13.8333C14.2936 7.16671 14.6666 7.5398 14.6666 8.00004C14.6666 8.46028 14.2936 8.83337 13.8333 8.83337H8.83331V13.8334C8.83331 14.2936 8.46022 14.6667 7.99998 14.6667C7.53974 14.6667 7.16665 14.2936 7.16665 13.8334V8.83337H2.16665C1.70641 8.83337 1.33331 8.46028 1.33331 8.00004C1.33331 7.5398 1.70641 7.16671 2.16665 7.16671H7.16665V2.16671C7.16665 1.70647 7.53974 1.33337 7.99998 1.33337Z" fill="#ffffff"/>
+                                    </svg>
+                                </span>
+                                <span class="directorist_link-text"><?php esc_html_e( 'Create Directory', 'directorist' ); ?></span>
+                            </button>
+                        </div>
+
+                        <?php if ( $show_migration_button ) : ?>
+                            <button class="directorist_link-block directorist_link-block-success directorist_btn-migrate cptm-modal-toggle" data-target="cptm-directory-mirgation-modal">
+                                <span class="directorist_link-icon">
+                                    <i class="la la-download"></i>
+                                </span>
+                                <span class="directorist_link-text">
+                                    <?php esc_html_e( 'Migrate', 'directorist' ) ?>
+                                </span>
+                            </button>
+                        <?php endif; ?>
                     </div>
                     <div class="directorist_table">
                         <div class="directorist_table-header">
                             <div class="directorist_table-row">
-                                <div class="directorist_listing-title"><?php esc_html_e( 'Name', 'directorist' ); ?></div>
+                                <div class="directorist_listing-title"><?php esc_html_e( 'Directory names', 'directorist' ); ?></div>
                                 <div class="directorist_listing-slug"><?php esc_html_e( 'Slug', 'directorist' ); ?></div>
                                 <div class="directorist_listing-count"><span class="directorist_listing-count-title"><?php esc_html_e( 'Listings', 'directorist' ); ?></span></div>
-                                <div class="directorist_listing-c-date"><?php esc_html_e( 'Created Date', 'directorist' ); ?></div>
+                                <div class="directorist_listing-c-date"><?php esc_html_e( 'Created On', 'directorist' ); ?></div>
                                 <div class="directorist_listing-c-action"><?php esc_html_e( 'Action', 'directorist' ); ?></div>
                             </div>
                         </div>
-                        <div class="directorist_table-body">
-                            <?php if( $listing_types ) { foreach( $listing_types as $listing_type) {
+                        <div class="directorist_table-body directorist_builder__list" id="directorist_builder__list">
+                            <?php if( $listing_types ) { foreach( $listing_types as $index => $listing_type) {
                                 $default = get_term_meta( $listing_type->term_id, '_default', true );
                                 $edit_link = admin_url('edit.php?post_type=at_biz_dir&page=atbdp-directory-types&listing_type_id=' . absint( $listing_type->term_id ) . '&action=edit');
                                 $delete_link = admin_url('admin-post.php?listing_type_id=' . absint( $listing_type->term_id ) . '&action=delete_listing_type');
                                 $delete_link = wp_nonce_url( $delete_link, 'delete_listing_type');
                                 $created_time = get_term_meta( $listing_type->term_id, '_created_date', true );
                             ?>
-                            <div class="directorist_table-row directory-type-row" data-term-id="<?php echo esc_attr( $listing_type->term_id ); ?>">
+                            <div class="directorist_table-row directory-type-row directorist_builder__list__item" data-term-id="<?php echo esc_attr( $listing_type->term_id ); ?>" data-order="<?php echo esc_attr($index); ?>">
+                                <div class="directorist_drag directorist-row-tooltip" data-tooltip="Drag and drop to Reorder" data-flow="bottom-left" draggable="true">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M6 6C6 4.89543 6.89543 4 8 4H8.00635C9.11092 4 10.0063 4.89543 10.0063 6C10.0063 7.10457 9.11092 8 8.00635 8H8C6.89543 8 6 7.10457 6 6ZM13.9937 6C13.9937 4.89543 14.8891 4 15.9937 4H16C17.1046 4 18 4.89543 18 6C18 7.10457 17.1046 8 16 8H15.9937C14.8891 8 13.9937 7.10457 13.9937 6ZM6 12C6 10.8954 6.89543 10 8 10H8.00635C9.11092 10 10.0063 10.8954 10.0063 12C10.0063 13.1046 9.11092 14 8.00635 14H8C6.89543 14 6 13.1046 6 12ZM13.9937 12C13.9937 10.8954 14.8891 10 15.9937 10H16C17.1046 10 18 10.8954 18 12C18 13.1046 17.1046 14 16 14H15.9937C14.8891 14 13.9937 13.1046 13.9937 12ZM6 18C6 16.8954 6.89543 16 8 16H8.00635C9.11092 16 10.0063 16.8954 10.0063 18C10.0063 19.1046 9.11092 20 8.00635 20H8C6.89543 20 6 19.1046 6 18ZM13.9937 18C13.9937 16.8954 14.8891 16 15.9937 16H16C17.1046 16 18 16.8954 18 18C18 19.1046 17.1046 20 16 20H15.9937C14.8891 20 13.9937 19.1046 13.9937 18Z" fill="#747C89"/>
+                                    </svg>
+                                </div>
                                 <div class="directorist_title">
                                     <a  href="<?php echo esc_url( ! empty( $edit_link ) ? $edit_link : '#' ); ?>">
                                         <?php echo esc_html( ! empty( $listing_type->name ) ? $listing_type->name : '-' ); ?>
@@ -156,16 +168,18 @@
                                 <div class="directorist-type-actions">
                                     <div class="directorist_listing-actions">
                                         <a href="<?php echo esc_url( ! empty( $edit_link ) ? $edit_link : '#' ); ?>" class="directorist_btn directorist_btn-primary">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
-                                                <g clip-path="url(#clip0_5013_877)">
-                                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M10.0875 0.754228C10.3153 0.526423 10.6847 0.526423 10.9125 0.754228L13.2458 3.08756C13.4736 3.31537 13.4736 3.68471 13.2458 3.91252C13.018 4.14033 12.6487 4.14033 12.4208 3.91252L10.0875 1.57919C9.85971 1.35138 9.85971 0.982034 10.0875 0.754228ZM8.4796 2.49701C8.65534 2.43991 8.84464 2.43991 9.02038 2.49701C9.15609 2.5411 9.25444 2.61434 9.31923 2.66934C9.37514 2.71681 9.43379 2.77551 9.48291 2.82466C9.48613 2.82789 9.48932 2.83107 9.49245 2.83421L11.1754 4.51714C11.2245 4.56625 11.2832 4.6249 11.3307 4.68081C11.3857 4.7456 11.4589 4.84395 11.503 4.97965C11.5601 5.15539 11.5601 5.34469 11.503 5.52043C11.4589 5.65613 11.3857 5.75448 11.3307 5.81928C11.2832 5.8752 11.2245 5.93385 11.1754 5.98297L5.138 12.0203C5.1306 12.0277 5.12327 12.0351 5.11599 12.0423C5.00709 12.1514 4.91099 12.2476 4.79963 12.3287C4.70164 12.4001 4.59649 12.4612 4.48588 12.5108C4.36019 12.5672 4.22896 12.603 4.08027 12.6434C4.07034 12.6461 4.06032 12.6488 4.05023 12.6516L1.32014 13.3962C1.11819 13.4512 0.902202 13.3939 0.754181 13.2459C0.60616 13.0978 0.548802 12.8818 0.603881 12.6799L1.34845 9.94981C1.3512 9.93971 1.35393 9.9297 1.35663 9.91976C1.39709 9.77107 1.43279 9.63984 1.48922 9.51415C1.53888 9.40354 1.5999 9.2984 1.67129 9.20041C1.75243 9.08905 1.84865 8.99294 1.95768 8.88405C1.96496 8.87677 1.97231 8.86944 1.97971 8.86203L8.00753 2.83421C8.01067 2.83108 8.01384 2.82789 8.01707 2.82467C8.06618 2.77552 8.12484 2.71682 8.18076 2.66935C8.24555 2.61434 8.3439 2.5411 8.4796 2.49701ZM8.74999 3.74167L2.80467 9.68699C2.66171 9.82995 2.63489 9.85906 2.61423 9.88741C2.59043 9.92008 2.57009 9.95513 2.55354 9.992C2.53917 10.024 2.5272 10.0617 2.47401 10.2568L1.99804 12.002L3.74326 11.526C3.93831 11.4728 3.97603 11.4609 4.00804 11.4465C4.0449 11.4299 4.07995 11.4096 4.11262 11.3858C4.14098 11.3651 4.17008 11.3383 4.31304 11.1954L10.2584 5.25004L8.74999 3.74167Z" fill="currentColor"/>
-                                                    </g>
-                                                    <defs>
-                                                        <clipPath id="clip0_5013_877">
-                                                        <rect width="14" height="14" fill="white"/>
-                                                        </clipPath>
-                                                    </defs>
-                                                </svg>
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <g clip-path="url(#clip0_8269_7969)">
+                                                    <path d="M5.33337 14.6654V15.4154H5.64403L5.8637 15.1957L5.33337 14.6654ZM14.6667 5.33203L15.197 5.86236C15.3377 5.72171 15.4167 5.53094 15.4167 5.33203C15.4167 5.13312 15.3377 4.94235 15.197 4.8017L14.6667 5.33203ZM1.33398 10.6654L0.803637 10.1351L0.583984 10.3547V10.6654H1.33398ZM10.6667 1.33203L11.197 0.801701C11.0564 0.661046 10.8656 0.582028 10.6667 0.582031C10.4678 0.582035 10.277 0.661059 10.1364 0.801719L10.6667 1.33203ZM1.33398 14.6654H0.583984V15.4154H1.33398V14.6654ZM5.8637 15.1957L15.197 5.86236L14.1364 4.8017L4.80304 14.135L5.8637 15.1957ZM1.86433 11.1957L11.1971 1.86234L10.1364 0.801719L0.803637 10.1351L1.86433 11.1957ZM10.1364 1.86236L14.1364 5.86236L15.197 4.8017L11.197 0.801701L10.1364 1.86236ZM5.33337 13.9154H1.33398V15.4154H5.33337V13.9154ZM2.08398 14.6654V10.6654H0.583984V14.6654H2.08398Z" fill="#3E63DD"/>
+                                                    <path d="M8.00073 4L12.0007 8" stroke="#3E63DD" stroke-width="1.5" stroke-linejoin="round"/>
+                                                    <path d="M8.66675 14.6641L14.6667 14.6641" stroke="#3E63DD" stroke-width="1.5" stroke-linejoin="round"/>
+                                                </g>
+                                                <defs>
+                                                    <clipPath id="clip0_8269_7969">
+                                                        <rect width="16" height="16" fill="white"/>
+                                                    </clipPath>
+                                                </defs>
+                                            </svg>
                                             <?php esc_html_e( 'Edit', 'directorist' ); ?>
                                         </a>
 

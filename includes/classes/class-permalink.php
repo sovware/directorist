@@ -709,44 +709,44 @@ class ATBDP_Permalink {
      * @param    int       $listing_id    Listing ID.
      * @return   string                   It returns Checkout page URL.
      */
-    public static function get_fee_renewal_checkout_page_link($listing_id) {
-        $link = home_url(); // default url
-        $page_id = get_directorist_option('checkout_page');
+    public static function get_fee_renewal_checkout_page_link( $listing_id ) {
+		$page_id = (int) get_directorist_option( 'checkout_page' );
+		$url     = home_url( '/' );
 
-        if ( $page_id ) {
-            $link = get_permalink( $page_id );
+		if ( $page_id && $listing_id ) {
+			$url = get_permalink( $page_id );
 
-            if ( '' != get_option( 'permalink_structure' ) ) {
-                $link = user_trailingslashit( trailingslashit( $link ) . 'submit/' . $listing_id );
-            } else {
-                $link = add_query_arg(
-                    array(
-                        'atbdp_action' => 'submission',
-                        'atbdp_listing_id' => $listing_id
-                    ),
-                    $link
-                );
-            }
-        }
+			if ( get_option( 'permalink_structure' ) !== '' ) {
+				$url = user_trailingslashit( trailingslashit( $url ) . 'submit/' . $listing_id );
+			} else {
+				$url = add_query_arg(
+					array(
+						'atbdp_action'     => 'submission',
+						'atbdp_listing_id' => $listing_id
+					),
+					$url
+				);
+			}
+		}
 
-        return apply_filters( 'atbdp_renewal_checkout_page_url', $link, $page_id, $listing_id );
+        return apply_filters( 'atbdp_renewal_checkout_page_url', $url, $page_id, $listing_id );
     }
 
-    public static function get_renewal_page_link($listing_id)
-    {
-        $link = home_url();
-        $id = get_directorist_option('add_listing_page');
+    public static function get_renewal_page_link( $listing_id ) {
+        $url     = home_url( '/' );
+        $page_id = (int) get_directorist_option( 'add_listing_page' );
 
-        if( $id ) {
-            $link = get_permalink( $id );
-            if( '' != get_option( 'permalink_structure' ) ) {
-                $link = user_trailingslashit( trailingslashit( $link )  . 'renew/' . $listing_id );
+        if ( $page_id && $listing_id) {
+            $url = get_permalink( $page_id );
+
+			if ( get_option( 'permalink_structure' ) !== '' ) {
+                $url = user_trailingslashit( trailingslashit( $url )  . 'renew/' . $listing_id );
             } else {
-                $link = add_query_arg( array( 'atbdp_action' => 'renew', 'atbdp_listing_id ' => $listing_id ), $link );
+                $url = add_query_arg( array( 'atbdp_action' => 'renew', 'atbdp_listing_id ' => $listing_id ), $url );
             }
         }
 
-        return $link;
+        return $url;
     }
 
     /**

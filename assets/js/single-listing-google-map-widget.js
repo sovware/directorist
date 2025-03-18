@@ -211,6 +211,7 @@
           maxWidth: 400 /*Add configuration for max width*/
         });
       }
+
       function initMap() {
         console.log('initMap');
         /* Create new map instance*/

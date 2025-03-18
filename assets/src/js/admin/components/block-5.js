@@ -62,22 +62,33 @@ window.addEventListener('load', () => {
     // Directorist More Dropdown
     $('body').on('click', '.directorist_more-dropdown-toggle', function (e) {
         e.preventDefault();
-        $(this).toggleClass('active');
-        $('.directorist_more-dropdown-option').removeClass('active');
-        $(this)
-            .siblings('.directorist_more-dropdown-option')
-            .removeClass('active');
-        $(this)
-            .next('.directorist_more-dropdown-option')
-            .toggleClass('active');
+        
+        let $dropdown = $(this).next('.directorist_more-dropdown-option');
+        
+        // If the clicked dropdown is already active, just remove the active classes
+        if ($dropdown.hasClass('active')) {
+            $(this).removeClass('active');
+            $dropdown.removeClass('active');
+        } else {
+            // Otherwise, remove active classes from all other dropdowns first
+            $('.directorist_more-dropdown-toggle').removeClass('active');
+            $('.directorist_more-dropdown-option').removeClass('active');
+    
+            // Then activate the clicked one
+            $(this).addClass('active');
+            $dropdown.addClass('active');
+        }
+    
         e.stopPropagation();
     });
+    
+    // Click outside to close
     $(document).on('click', function (e) {
-        if ($(e.target).is('.directorist_more-dropdown-toggle, .active') === false) {
+        if (!$(e.target).closest('.directorist_more-dropdown').length) {
             $('.directorist_more-dropdown-option').removeClass('active');
             $('.directorist_more-dropdown-toggle').removeClass('active');
         }
-    });
+    });    
 
     // Select Dropdown
     $('body').on('click', '.directorist_dropdown .directorist_dropdown-toggle', function (e) {
@@ -275,64 +286,76 @@ window.addEventListener('load', () => {
 
     // Builder Directory Types Drag and Drop
     const builderDragNDropWrapper = document.querySelector(".directorist_builder__list");
+    let initialOrder = [];
 
-    let builderDraggableItem = null;
-    let initialOrder = []; // Store initial order before drag
-
-    // Store initial order when dragging starts
-    builderDragNDropWrapper.addEventListener("dragstart", (event) => {
-        builderDraggableItem = event.target.closest(".directorist_builder__list__item");
-
-        if (!builderDraggableItem || !builderDraggableItem.hasAttribute("draggable")) {
-            event.preventDefault();
+    // Dragging Start
+    builderDragNDropWrapper.addEventListener("dragstart", (e) => {
+        const draggingItem = e.target.closest(".directorist_builder__list__item");
+        if (!draggingItem) {
+            e.preventDefault();
             return;
         }
 
-        builderDraggableItem.classList.add("dragging");
+        draggingItem.classList.add("dragging");
+
+        // Clone the item for visibility
+        const cloneItem = draggingItem.cloneNode(true);
+        cloneItem.classList.add("drag-clone");
+        Object.assign(cloneItem.style, {
+            width: `${draggingItem.offsetWidth}px`,
+            height: `${draggingItem.offsetHeight}px`,
+            position: "absolute",
+            top: "-100%",
+            opacity: "1",
+        });
+
+        draggingItem.after(cloneItem);
+        e.dataTransfer.setDragImage(cloneItem, 0, 0);
 
         // Save initial order
         initialOrder = [...builderDragNDropWrapper.children].map((item, index) => ({
             id: item.dataset.termId,
-            order: index // Assign initial order
+            order: index
         }));
     });
 
     // Drag Over
     builderDragNDropWrapper.addEventListener("dragover", (e) => {
         e.preventDefault();
+        
         const draggingItem = document.querySelector(".dragging");
         if (!draggingItem) return;
 
+        document.querySelectorAll(".directorist_builder__list__item").forEach(item => 
+            item.classList.remove("drag-over")
+        );
+
         const afterElement = getDragAfterElement(builderDragNDropWrapper, e.clientY);
-        
-        if (afterElement && afterElement !== draggingItem.nextSibling) {
-            builderDragNDropWrapper.insertBefore(draggingItem, afterElement);
-        } else if (!afterElement) {
-            builderDragNDropWrapper.appendChild(draggingItem);
-        }
+        if (afterElement) afterElement.classList.add("drag-over");
     });
 
     // Drag End
     builderDragNDropWrapper.addEventListener("dragend", async () => {
-        builderDraggableItem.classList.remove("dragging");
+        const draggingItem = document.querySelector(".dragging");
+        if (!draggingItem) return;
 
+        const afterElement = getDragAfterElement(builderDragNDropWrapper, event.clientY);
+        afterElement ? afterElement.before(draggingItem) : builderDragNDropWrapper.appendChild(draggingItem);
+
+        document.querySelector(".drag-clone")?.remove();
+        document.querySelectorAll(".dragging, .drag-over").forEach(el => el.classList.remove("dragging", "drag-over"));
+
+        // Update order
         const newOrder = [...builderDragNDropWrapper.children].map((item, index) => {
-            item.setAttribute("data-order", index); // Update data-order attribute
-            return {
-                id: item.dataset.termId,
-                order: index // Assign new order
-            };
+            item.dataset.order = index;
+            return { id: item.dataset.termId, order: index };
         });
 
-        // Find only swapped items
-        const swappedItems = newOrder.filter(newItem => {
-            const oldItem = initialOrder.find(i => i.id === newItem.id);
-            return oldItem && oldItem.order != newItem.order;
-        });
+        const swappedItems = newOrder.filter(newItem => initialOrder.find(i => i.id === newItem.id && i.order !== newItem.order));
 
-        if ( swappedItems.length > 0 ) {
-            await updateDirectorySortingOrders( swappedItems );
-            initialOrder = newOrder; // Update initial order
+        if (swappedItems.length) {
+            await updateDirectorySortingOrders(swappedItems);
+            initialOrder = newOrder;
         }
     });
 

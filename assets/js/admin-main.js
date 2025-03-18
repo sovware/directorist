@@ -1360,14 +1360,27 @@ window.addEventListener('load', function () {
   // Directorist More Dropdown
   $('body').on('click', '.directorist_more-dropdown-toggle', function (e) {
     e.preventDefault();
-    $(this).toggleClass('active');
-    $('.directorist_more-dropdown-option').removeClass('active');
-    $(this).siblings('.directorist_more-dropdown-option').removeClass('active');
-    $(this).next('.directorist_more-dropdown-option').toggleClass('active');
+    var $dropdown = $(this).next('.directorist_more-dropdown-option');
+
+    // If the clicked dropdown is already active, just remove the active classes
+    if ($dropdown.hasClass('active')) {
+      $(this).removeClass('active');
+      $dropdown.removeClass('active');
+    } else {
+      // Otherwise, remove active classes from all other dropdowns first
+      $('.directorist_more-dropdown-toggle').removeClass('active');
+      $('.directorist_more-dropdown-option').removeClass('active');
+
+      // Then activate the clicked one
+      $(this).addClass('active');
+      $dropdown.addClass('active');
+    }
     e.stopPropagation();
   });
+
+  // Click outside to close
   $(document).on('click', function (e) {
-    if ($(e.target).is('.directorist_more-dropdown-toggle, .active') === false) {
+    if (!$(e.target).closest('.directorist_more-dropdown').length) {
       $('.directorist_more-dropdown-option').removeClass('active');
       $('.directorist_more-dropdown-toggle').removeClass('active');
     }
@@ -1559,23 +1572,35 @@ window.addEventListener('load', function () {
 
   // Builder Directory Types Drag and Drop
   var builderDragNDropWrapper = document.querySelector(".directorist_builder__list");
-  var builderDraggableItem = null;
-  var initialOrder = []; // Store initial order before drag
+  var initialOrder = [];
 
-  // Store initial order when dragging starts
-  builderDragNDropWrapper.addEventListener("dragstart", function (event) {
-    builderDraggableItem = event.target.closest(".directorist_builder__list__item");
-    if (!builderDraggableItem || !builderDraggableItem.hasAttribute("draggable")) {
-      event.preventDefault();
+  // Dragging Start
+  builderDragNDropWrapper.addEventListener("dragstart", function (e) {
+    var draggingItem = e.target.closest(".directorist_builder__list__item");
+    if (!draggingItem) {
+      e.preventDefault();
       return;
     }
-    builderDraggableItem.classList.add("dragging");
+    draggingItem.classList.add("dragging");
+
+    // Clone the item for visibility
+    var cloneItem = draggingItem.cloneNode(true);
+    cloneItem.classList.add("drag-clone");
+    Object.assign(cloneItem.style, {
+      width: "".concat(draggingItem.offsetWidth, "px"),
+      height: "".concat(draggingItem.offsetHeight, "px"),
+      position: "absolute",
+      top: "-100%",
+      opacity: "1"
+    });
+    draggingItem.after(cloneItem);
+    e.dataTransfer.setDragImage(cloneItem, 0, 0);
 
     // Save initial order
     initialOrder = _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1___default()(builderDragNDropWrapper.children).map(function (item, index) {
       return {
         id: item.dataset.termId,
-        order: index // Assign initial order
+        order: index
       };
     });
   });
@@ -1585,43 +1610,56 @@ window.addEventListener('load', function () {
     e.preventDefault();
     var draggingItem = document.querySelector(".dragging");
     if (!draggingItem) return;
+    document.querySelectorAll(".directorist_builder__list__item").forEach(function (item) {
+      return item.classList.remove("drag-over");
+    });
     var afterElement = getDragAfterElement(builderDragNDropWrapper, e.clientY);
-    if (afterElement && afterElement !== draggingItem.nextSibling) {
-      builderDragNDropWrapper.insertBefore(draggingItem, afterElement);
-    } else if (!afterElement) {
-      builderDragNDropWrapper.appendChild(draggingItem);
-    }
+    if (afterElement) afterElement.classList.add("drag-over");
   });
 
   // Drag End
-  builderDragNDropWrapper.addEventListener("dragend", /*#__PURE__*/_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0___default()(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default.a.mark(function _callee() {
-    var newOrder, swappedItems;
+  builderDragNDropWrapper.addEventListener("dragend", /*#__PURE__*/_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default.a.mark(function _callee() {
+    var _document$querySelect;
+    var draggingItem, afterElement, newOrder, swappedItems;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default.a.wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
-          builderDraggableItem.classList.remove("dragging");
-          newOrder = _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1___default()(builderDragNDropWrapper.children).map(function (item, index) {
-            item.setAttribute("data-order", index); // Update data-order attribute
-            return {
-              id: item.dataset.termId,
-              order: index // Assign new order
-            };
-          }); // Find only swapped items
-          swappedItems = newOrder.filter(function (newItem) {
-            var oldItem = initialOrder.find(function (i) {
-              return i.id === newItem.id;
-            });
-            return oldItem && oldItem.order != newItem.order;
-          });
-          if (!(swappedItems.length > 0)) {
-            _context.next = 7;
+          draggingItem = document.querySelector(".dragging");
+          if (draggingItem) {
+            _context.next = 3;
             break;
           }
-          _context.next = 6;
+          return _context.abrupt("return");
+        case 3:
+          afterElement = getDragAfterElement(builderDragNDropWrapper, event.clientY);
+          afterElement ? afterElement.before(draggingItem) : builderDragNDropWrapper.appendChild(draggingItem);
+          (_document$querySelect = document.querySelector(".drag-clone")) === null || _document$querySelect === void 0 || _document$querySelect.remove();
+          document.querySelectorAll(".dragging, .drag-over").forEach(function (el) {
+            return el.classList.remove("dragging", "drag-over");
+          });
+
+          // Update order
+          newOrder = _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1___default()(builderDragNDropWrapper.children).map(function (item, index) {
+            item.dataset.order = index;
+            return {
+              id: item.dataset.termId,
+              order: index
+            };
+          });
+          swappedItems = newOrder.filter(function (newItem) {
+            return initialOrder.find(function (i) {
+              return i.id === newItem.id && i.order !== newItem.order;
+            });
+          });
+          if (!swappedItems.length) {
+            _context.next = 13;
+            break;
+          }
+          _context.next = 12;
           return updateDirectorySortingOrders(swappedItems);
-        case 6:
-          initialOrder = newOrder; // Update initial order
-        case 7:
+        case 12:
+          initialOrder = newOrder;
+        case 13:
         case "end":
           return _context.stop();
       }
@@ -1648,7 +1686,7 @@ window.addEventListener('load', function () {
     return _updateDirectorySortingOrders.apply(this, arguments);
   }
   function _updateDirectorySortingOrders() {
-    _updateDirectorySortingOrders = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0___default()(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default.a.mark(function _callee2(sortingOrders) {
+    _updateDirectorySortingOrders = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default.a.mark(function _callee2(sortingOrders) {
       var form_data, response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default.a.wrap(function _callee2$(_context2) {
         while (1) switch (_context2.prev = _context2.next) {
@@ -1699,9 +1737,9 @@ window.addEventListener('load', function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t.return || t.return(); } finally { if (u) throw o; } } }; }
-function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
-function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 window.addEventListener('load', function () {
   var $ = jQuery;
 
@@ -1875,7 +1913,7 @@ window.addEventListener('load', function () {
             };
 
             // Download Files
-            var _download_files = function download_files(file_list, counter, callback) {
+            var download_files = function download_files(file_list, counter, callback) {
               if (counter > file_list.length - 1) {
                 if (callback) {
                   callback();
@@ -1891,7 +1929,7 @@ window.addEventListener('load', function () {
               var list_checkbox = $(".atbdp-".concat(file_type, "-checkbox-item-").concat(file.item_id));
               var is_checked = list_checkbox.is(':checked');
               if (!is_checked) {
-                _download_files(file_list, next_index, callback);
+                download_files(file_list, next_index, callback);
                 return;
               }
               var form_data = {
@@ -1932,7 +1970,7 @@ window.addEventListener('load', function () {
                       files_download_states.failed_theme_downloads.push(file);
                     }
                   }
-                  _download_files(file_list, next_index, callback);
+                  download_files(file_list, next_index, callback);
                 },
                 error: function error(_error) {
                   console.log(_error);
@@ -2017,7 +2055,7 @@ window.addEventListener('load', function () {
               $(form_response_page).find('.account-connect__form-btn').append(finish_btn);
             };
             if (downloading_files.length) {
-              _download_files(downloading_files, 0, after_download_callback);
+              download_files(downloading_files, 0, after_download_callback);
             }
           });
         }
@@ -2463,7 +2501,7 @@ window.addEventListener('load', function () {
       install: '.file-install-btn',
       activate: '.plugin-active-btn'
     };
-    var _bulk_task = function bulk_task(plugins, counter, callback) {
+    var bulk_task = function bulk_task(plugins, counter, callback) {
       if (counter > plugins.length - 1) {
         if (callback) {
           callback();
@@ -2496,14 +2534,14 @@ window.addEventListener('load', function () {
           } else {
             action_btn.html('Failed');
           }
-          _bulk_task(plugins, next_index, callback);
+          bulk_task(plugins, next_index, callback);
         },
         error: function error(_error9) {
           // console.log(error);
         }
       });
     };
-    _bulk_task(plugins_items, 0, after_plugins_install);
+    bulk_task(plugins_items, 0, after_plugins_install);
   }
 
   // Ext Actions | Uninstall
@@ -2755,9 +2793,9 @@ function modalToggle() {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t.return || t.return(); } finally { if (u) throw o; } } }; }
-function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
-function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 var $ = jQuery;
 window.addEventListener('load', waitAndInit);
 window.addEventListener('directorist-search-form-nav-tab-reloaded', waitAndInit);
@@ -2993,6 +3031,7 @@ function initSelect2() {
   // Not found in any template
   '.bdas-category-search' // Not found in any template
   ];
+
   selectors.forEach(function (selector) {
     return Object(_lib_helper__WEBPACK_IMPORTED_MODULE_1__["convertToSelect2"])(selector);
   });
@@ -3119,6 +3158,7 @@ function maybeLazyLoadTaxonomyTermsSelect2(args) {
       if (level > 1) {
         $state.addClass('item-level-' + level); // Add class for the level (e.g., level-1, level-2, etc.)
       }
+
       $state.html(combinedText); // Set the combined content (icon + text)
 
       return $state;
@@ -3438,10 +3478,10 @@ function convertToSelect2(selector) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-function _arrayLikeToArray(r, a) {
-  (null == a || a > r.length) && (a = r.length);
-  for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e];
-  return n;
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
+  return arr2;
 }
 module.exports = _arrayLikeToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
@@ -3455,8 +3495,8 @@ module.exports = _arrayLikeToArray, module.exports.__esModule = true, module.exp
 /***/ (function(module, exports, __webpack_require__) {
 
 var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray.js */ "./node_modules/@babel/runtime/helpers/arrayLikeToArray.js");
-function _arrayWithoutHoles(r) {
-  if (Array.isArray(r)) return arrayLikeToArray(r);
+function _arrayWithoutHoles(arr) {
+  if (Array.isArray(arr)) return arrayLikeToArray(arr);
 }
 module.exports = _arrayWithoutHoles, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
@@ -3469,28 +3509,33 @@ module.exports = _arrayWithoutHoles, module.exports.__esModule = true, module.ex
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-function asyncGeneratorStep(n, t, e, r, o, a, c) {
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
   try {
-    var i = n[a](c),
-      u = i.value;
-  } catch (n) {
-    return void e(n);
+    var info = gen[key](arg);
+    var value = info.value;
+  } catch (error) {
+    reject(error);
+    return;
   }
-  i.done ? t(u) : Promise.resolve(u).then(r, o);
+  if (info.done) {
+    resolve(value);
+  } else {
+    Promise.resolve(value).then(_next, _throw);
+  }
 }
-function _asyncToGenerator(n) {
+function _asyncToGenerator(fn) {
   return function () {
-    var t = this,
-      e = arguments;
-    return new Promise(function (r, o) {
-      var a = n.apply(t, e);
-      function _next(n) {
-        asyncGeneratorStep(a, r, o, _next, _throw, "next", n);
+    var self = this,
+      args = arguments;
+    return new Promise(function (resolve, reject) {
+      var gen = fn.apply(self, args);
+      function _next(value) {
+        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);
       }
-      function _throw(n) {
-        asyncGeneratorStep(a, r, o, _next, _throw, "throw", n);
+      function _throw(err) {
+        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);
       }
-      _next(void 0);
+      _next(undefined);
     });
   };
 }
@@ -3506,13 +3551,19 @@ module.exports = _asyncToGenerator, module.exports.__esModule = true, module.exp
 /***/ (function(module, exports, __webpack_require__) {
 
 var toPropertyKey = __webpack_require__(/*! ./toPropertyKey.js */ "./node_modules/@babel/runtime/helpers/toPropertyKey.js");
-function _defineProperty(e, r, t) {
-  return (r = toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
-    value: t,
-    enumerable: !0,
-    configurable: !0,
-    writable: !0
-  }) : e[r] = t, e;
+function _defineProperty(obj, key, value) {
+  key = toPropertyKey(key);
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+  return obj;
 }
 module.exports = _defineProperty, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
@@ -3525,8 +3576,8 @@ module.exports = _defineProperty, module.exports.__esModule = true, module.expor
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-function _iterableToArray(r) {
-  if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r);
+function _iterableToArray(iter) {
+  if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
 }
 module.exports = _iterableToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
@@ -3663,7 +3714,7 @@ function _regeneratorRuntime() {
   function makeInvokeMethod(e, r, n) {
     var o = h;
     return function (i, a) {
-      if (o === f) throw Error("Generator is already running");
+      if (o === f) throw new Error("Generator is already running");
       if (o === s) {
         if ("throw" === i) throw a;
         return {
@@ -3805,7 +3856,7 @@ function _regeneratorRuntime() {
           } else if (c) {
             if (this.prev < i.catchLoc) return handle(i.catchLoc, !0);
           } else {
-            if (!u) throw Error("try statement without catch or finally");
+            if (!u) throw new Error("try statement without catch or finally");
             if (this.prev < i.finallyLoc) return handle(i.finallyLoc);
           }
         }
@@ -3845,7 +3896,7 @@ function _regeneratorRuntime() {
           return o;
         }
       }
-      throw Error("illegal catch attempt");
+      throw new Error("illegal catch attempt");
     },
     delegateYield: function delegateYield(e, r, n) {
       return this.delegate = {
@@ -3871,8 +3922,8 @@ var arrayWithoutHoles = __webpack_require__(/*! ./arrayWithoutHoles.js */ "./nod
 var iterableToArray = __webpack_require__(/*! ./iterableToArray.js */ "./node_modules/@babel/runtime/helpers/iterableToArray.js");
 var unsupportedIterableToArray = __webpack_require__(/*! ./unsupportedIterableToArray.js */ "./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js");
 var nonIterableSpread = __webpack_require__(/*! ./nonIterableSpread.js */ "./node_modules/@babel/runtime/helpers/nonIterableSpread.js");
-function _toConsumableArray(r) {
-  return arrayWithoutHoles(r) || iterableToArray(r) || unsupportedIterableToArray(r) || nonIterableSpread();
+function _toConsumableArray(arr) {
+  return arrayWithoutHoles(arr) || iterableToArray(arr) || unsupportedIterableToArray(arr) || nonIterableSpread();
 }
 module.exports = _toConsumableArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
@@ -3886,17 +3937,17 @@ module.exports = _toConsumableArray, module.exports.__esModule = true, module.ex
 /***/ (function(module, exports, __webpack_require__) {
 
 var _typeof = __webpack_require__(/*! ./typeof.js */ "./node_modules/@babel/runtime/helpers/typeof.js")["default"];
-function toPrimitive(t, r) {
-  if ("object" != _typeof(t) || !t) return t;
-  var e = t[Symbol.toPrimitive];
-  if (void 0 !== e) {
-    var i = e.call(t, r || "default");
-    if ("object" != _typeof(i)) return i;
+function _toPrimitive(input, hint) {
+  if (_typeof(input) !== "object" || input === null) return input;
+  var prim = input[Symbol.toPrimitive];
+  if (prim !== undefined) {
+    var res = prim.call(input, hint || "default");
+    if (_typeof(res) !== "object") return res;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
-  return ("string" === r ? String : Number)(t);
+  return (hint === "string" ? String : Number)(input);
 }
-module.exports = toPrimitive, module.exports.__esModule = true, module.exports["default"] = module.exports;
+module.exports = _toPrimitive, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
 
@@ -3909,11 +3960,11 @@ module.exports = toPrimitive, module.exports.__esModule = true, module.exports["
 
 var _typeof = __webpack_require__(/*! ./typeof.js */ "./node_modules/@babel/runtime/helpers/typeof.js")["default"];
 var toPrimitive = __webpack_require__(/*! ./toPrimitive.js */ "./node_modules/@babel/runtime/helpers/toPrimitive.js");
-function toPropertyKey(t) {
-  var i = toPrimitive(t, "string");
-  return "symbol" == _typeof(i) ? i : i + "";
+function _toPropertyKey(arg) {
+  var key = toPrimitive(arg, "string");
+  return _typeof(key) === "symbol" ? key : String(key);
 }
-module.exports = toPropertyKey, module.exports.__esModule = true, module.exports["default"] = module.exports;
+module.exports = _toPropertyKey, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
 
@@ -3927,11 +3978,11 @@ module.exports = toPropertyKey, module.exports.__esModule = true, module.exports
 function _typeof(o) {
   "@babel/helpers - typeof";
 
-  return module.exports = _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
+  return (module.exports = _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
     return typeof o;
   } : function (o) {
     return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
-  }, module.exports.__esModule = true, module.exports["default"] = module.exports, _typeof(o);
+  }, module.exports.__esModule = true, module.exports["default"] = module.exports), _typeof(o);
 }
 module.exports = _typeof, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
@@ -3945,12 +3996,13 @@ module.exports = _typeof, module.exports.__esModule = true, module.exports["defa
 /***/ (function(module, exports, __webpack_require__) {
 
 var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray.js */ "./node_modules/@babel/runtime/helpers/arrayLikeToArray.js");
-function _unsupportedIterableToArray(r, a) {
-  if (r) {
-    if ("string" == typeof r) return arrayLikeToArray(r, a);
-    var t = {}.toString.call(r).slice(8, -1);
-    return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? arrayLikeToArray(r, a) : void 0;
-  }
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return arrayLikeToArray(o, minLen);
 }
 module.exports = _unsupportedIterableToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
 

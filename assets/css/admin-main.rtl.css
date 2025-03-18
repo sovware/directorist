@@ -18536,6 +18536,11 @@ input[type=radio]:checked::before {
           flex: 1;
   margin-left: 24px;
 }
+@media (max-width: 1199px) {
+  .cptm-preview-placeholder {
+    margin-left: 0;
+  }
+}
 .cptm-preview-placeholder__card {
   display: -webkit-box;
   display: -webkit-flex;
@@ -24135,6 +24140,11 @@ input[type=radio]:checked::before {
       -ms-flex: 1;
           flex: 1;
   margin-left: 24px;
+}
+@media (max-width: 1199px) {
+  .cptm-preview-placeholder {
+    margin-left: 0;
+  }
 }
 .cptm-preview-placeholder__card {
   display: -webkit-box;
@@ -30023,6 +30033,11 @@ input[type=radio]:checked::before {
       -ms-flex: 1;
           flex: 1;
   margin-left: 24px;
+}
+@media (max-width: 1199px) {
+  .cptm-preview-placeholder {
+    margin-left: 0;
+  }
 }
 .cptm-preview-placeholder__card {
   display: -webkit-box;

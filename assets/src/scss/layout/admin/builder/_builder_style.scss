@@ -3735,6 +3735,9 @@ input[type="radio"] {
 .cptm-preview-placeholder {
   flex: 1;
   margin-right: 24px;
+  @media (max-width: 1199px) {
+    margin-right: 0;
+  }
   @include e(card) {
     display: flex;
     flex-direction: column;

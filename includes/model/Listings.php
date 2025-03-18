@@ -1073,13 +1073,15 @@ class Directorist_Listings {
 		}
 
 		if ( 'zip' == $this->radius_search_based_on && ! empty( $_REQUEST['miles'] ) && ! empty( $_REQUEST['zip_cityLat'] ) && ! empty( $_REQUEST['zip_cityLng'] ) ) {
+			$distance =	directorist_get_distance_range( $_REQUEST['miles'] );
 			$args['atbdp_geo_query'] = array(
-				'lat_field' => '_manual_lat',
-				'lng_field' => '_manual_lng',
-				'latitude'  => sanitize_text_field( wp_unslash( $_REQUEST['zip_cityLat'] ) ),
-				'longitude' => sanitize_text_field( wp_unslash( $_REQUEST['zip_cityLng'] ) ),
-				'distance'  => sanitize_text_field( wp_unslash( $_REQUEST['miles'] ) ),
-				'units'     => $this->radius_search_unit
+				'lat_field'    => '_manual_lat',
+				'lng_field'    => '_manual_lng',
+				'latitude'     => sanitize_text_field( wp_unslash( $_REQUEST['zip_cityLat'] ) ),
+				'longitude'    => sanitize_text_field( wp_unslash( $_REQUEST['zip_cityLng'] ) ),
+				'min_distance' => $distance['min'],
+				'max_distance' => $distance['max'],
+				'units'        => $this->radius_search_unit
 			);
 		} elseif ( ! empty( $_REQUEST['zip'] ) ) {
 			$meta_queries['_zip'] = array(

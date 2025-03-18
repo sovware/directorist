@@ -41,17 +41,21 @@ class Localized_Data {
 
 	private static function search_listing_localized_data() {
 		return self::get_search_script_data([
-			'directory_type_id' => get_post_meta( '_directory_type', get_the_ID(), true ),
+			'directory_type_id' => get_post_meta( get_the_ID(), '_directory_type', true ),
 		]);
 	}
 
-	private static function search_form_localized_data() {
-		$directory_type_id = ( isset( $args['directory_type_id'] ) ) ? $args['directory_type_id'] : '';
-		$data = self::get_search_script_data([
-			'directory_type_id' => $directory_type_id,
-			'search_max_radius_distance' => apply_filters( 'directorist_search_max_radius_distance', get_directorist_option( 'search_max_radius_distance', 1000 ) )
-		]);
-		return $data;
+	private static function search_form_localized_data( $args = [] ) {
+		$args = array_merge( [
+			'search_max_radius_distance' => apply_filters(
+				'directorist_search_max_radius_distance',
+				get_directorist_option( 'search_max_radius_distance', 1000 )
+				)
+			],
+			$args
+		);
+
+		return self::get_search_script_data( $args );
 	}
 
 	private static function directorist_options_data() {
@@ -234,7 +238,12 @@ class Localized_Data {
 	}
 
 	public static function get_search_script_data( $args = [] ) {
-		$directory_type = ( is_array( $args ) && isset( $args['directory_type_id'] ) ) ? $args['directory_type_id'] : default_directory_type();
+		if ( ! is_array( $args ) ) {
+			$args = (array) $args;
+		}
+
+		$directory_type = $args['directory_type_id'] ?? directorist_get_default_directory();
+
 		$directory_type_term_data = [
 			'submission_form_fields' => get_term_meta( $directory_type, 'submission_form_fields', true ),
 			'search_form_fields' => get_term_meta( $directory_type, 'search_form_fields', true ),

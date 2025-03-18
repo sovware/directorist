@@ -134,7 +134,7 @@ class Scripts {
 			],
 			'google-map-api' => [
 				'type' => 'js',
-				'ext'  => self::gmap_url(),
+				'ext'  => self::google_map_url(),
 			],
 			'directorist-markerclusterer' => [
 				'type' => 'js',
@@ -351,9 +351,12 @@ class Scripts {
         return apply_filters( 'directorist_scripts', $scripts );
 	}
 
-	private static function gmap_url() {
-		$api = get_directorist_option( 'map_api_key', 'AIzaSyCwxELCisw4mYqSv_cBfgOahfrPFjjQLLo' );
-		$url = '//maps.googleapis.com/maps/api/js?key=' . $api . '&libraries=places&callback=Function.prototype';
-		return $url;
+	private static function google_map_url() {
+		$google_map_api_key = get_directorist_option( 'map_api_key', 'AIzaSyCwxELCisw4mYqSv_cBfgOahfrPFjjQLLo' );
+
+		return esc_url_raw( sprintf(
+			'//maps.googleapis.com/maps/api/js?loading=async&libraries=places,marker&callback=directoristLoadGoogleMap&key=%s',
+			$google_map_api_key
+		) );
 	}
 }

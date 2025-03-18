@@ -5,7 +5,7 @@
       <div class="cptm-tab-content-header__action">
         <a
           href="#"
-          class="directorist-row-tooltip directorist-form-doc__modal-btn"
+          class="directorist-row-tooltip directorist-form-action__modal-btn"
           v-if="activeSubMenu.video"
           :data-tooltip="activeSubMenu?.video?.description"
           data-flow="bottom-right"

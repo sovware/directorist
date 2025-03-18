@@ -590,7 +590,11 @@ class Directorist_Listing_Dashboard {
 	}
 
 	public function get_renewal_link( $listing_id ) {
-		return directorist_is_monetization_enabled() && directorist_is_featured_listing_enabled() ? ATBDP_Permalink::get_fee_renewal_checkout_page_link( $listing_id ) : ATBDP_Permalink::get_renewal_page_link( $listing_id );
+		if ( directorist_is_monetization_enabled() && directorist_is_featured_listing_enabled() ) {
+			return ATBDP_Permalink::get_fee_renewal_checkout_page_link( $listing_id );
+		}
+
+		return ATBDP_Permalink::get_renewal_page_link( $listing_id );
 	}
 
 	public function get_action_dropdown_item() {
@@ -599,12 +603,13 @@ class Directorist_Listing_Dashboard {
 		$post_id = get_the_ID();
 
 		if ( $this->can_renew() ) {
+			$renewal_url = add_query_arg( 'renew_from', 'dashboard', $this->get_renewal_link( $post_id ) );
 			$dropdown_items['renew'] = array(
-				'class'			    => '',
-				'data_attr'			=>	'',
-				'link'				=>	add_query_arg( 'renew_from', 'dashboard', esc_url( $this->get_renewal_link( $post_id ) ) ),
-				'icon'				=>  directorist_icon( 'las la-hand-holding-usd', false ),
-				'label'				=>  __( 'Renew', 'directorist' )
+				'class'     => '',
+				'data_attr' => '',
+				'link'      => wp_nonce_url( $renewal_url, 'directorist_listing_renewal', 'token' ),
+				'icon'      => directorist_icon( 'las la-hand-holding-usd', false ),
+				'label'     => __( 'Renew', 'directorist' )
 			);
 		}
 

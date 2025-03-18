@@ -415,6 +415,11 @@ $(function() {
     // Create container div after category (in frontend)
     $('.directorist-form-categories-field').after('<div class="directorist-form-group  atbdp_category_custom_fields"></div>');
 
+    window.addEventListener( 'load', function() {
+        renderCategoryCustomFields();
+        cacheCategoryCustomFields();
+    } );
+
     window.addEventListener( 'directorist-type-change', function() {
         renderCategoryCustomFields();
         cacheCategoryCustomFields();
@@ -1074,6 +1079,13 @@ function multiStepWizard() {
 function defaultAddListing() {
     const navLinks = document.querySelectorAll(".default-add-listing .multistep-wizard__nav .multistep-wizard__nav__btn");
 
+    // Add 'active' class to the first navigation item on page load
+    window.addEventListener("load", () => {
+        if (navLinks.length > 0) {
+            navLinks[0].classList.add("active");
+        }
+    });
+
     // Function to determine which section is currently in view
     function getCurrentSectionInView() {
         let currentSection = null;
@@ -1111,15 +1123,36 @@ function defaultAddListing() {
     }
 
     // Function to scroll smoothly to the target section
-    function smoothScroll(targetSection) {
+    function smoothScroll(targetSection, scrollDuration = 1000) {
         const targetElement = document.getElementById(targetSection);
-        if (targetElement) {
-            targetElement.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
+        if (!targetElement) return;
+
+        const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY;
+        const startPosition = window.scrollY;
+        const scrollDistance = targetPosition - startPosition;
+        let startTime = null;
+
+        function scrollAnimation(currentTime) {
+            if (startTime === null) startTime = currentTime;
+            const timeElapsed = currentTime - startTime;
+            const run = easeInOutQuad(timeElapsed, startPosition, scrollDistance, scrollDuration);
+            window.scrollTo(0, run);
+
+            if (timeElapsed < scrollDuration) {
+                requestAnimationFrame(scrollAnimation); // Continue the scrollAnimation
+            }
         }
-    }
+
+        function easeInOutQuad(t, b, c, d) {
+            t /= d / 2;
+            if (t < 1) return (c / 2) * t * t + b;
+            t--;
+
+            return (-c / 2) * (t * (t - 2) - 1) + b;
+        }
+
+        requestAnimationFrame(scrollAnimation); // Start the scrollAnimation
+    } 
 
     // Initial update and update on scroll
     if(navLinks.length > 0) {
@@ -1132,7 +1165,7 @@ function defaultAddListing() {
         link.addEventListener("click", function (e) {
             e.preventDefault();
             const targetSection = this.getAttribute("href").substring(1);
-            smoothScroll(targetSection);
+            smoothScroll(targetSection, 1250);
         });
     });
 }

@@ -26,7 +26,7 @@ use \Directorist\Helper;
             ?>
             <div class="directorist-card directorist-checkout-card">
                 <div class="directorist-card__header">
-                    <h3 class="directorist-card__header__title">Order Summary</h3>
+                    <h3 class="directorist-card__header__title"><?php esc_html_e( 'Order Summary', 'directorist' ); ?></h3>
                 </div>
                 <div class="directorist-card__body">
                     <div class="directorist-table-responsive">

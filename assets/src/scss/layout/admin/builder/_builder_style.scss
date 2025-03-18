@@ -214,38 +214,12 @@ $light-gray: #f4f5f7;
 }
 
 /* Body Header */
-.directorist-form-doc {
-  border-radius: 8px;
-  background: #f3f4f6;
-  min-height: 52px;
+.directorist-form-action {
   display: flex;
+  gap: 8px;
   align-items: center;
-  gap: 10px 30px;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  padding: 0 20px;
-  margin-bottom: 24px;
-  @media only screen and (max-width: 575px) {
-    justify-content: center;
-    flex-direction: column;
-    padding: 10px 20px;
-  }
-  .directorist-form-doc-left {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex-wrap: wrap;
-    @media only screen and (max-width: 575px) {
-      justify-content: center;
-    }
-    .directorist-form-doc-title {
-      color: #141921;
-      font-size: 19px;
-      font-style: normal;
-      font-weight: 600;
-      line-height: 25px;
-    }
-  }
+  justify-content: flex-end;
+  margin-bottom: 26px;
   &__modal-btn {
     display: inline-flex;
     width: max-content;
@@ -255,11 +229,10 @@ $light-gray: #f4f5f7;
     width: 30px;
     height: 30px;
     border-radius: 6px;
-    border: 1px solid #bee3ff;
-    background: #eff8ff;
-    color: #217aef;
+    border: 1px solid #e5e7eb;
+    background: transparent;
+    color: #4d5761;
     text-align: center;
-    margin-left: 4px;
     font-size: 12px;
     font-style: normal;
     font-weight: 500;
@@ -272,6 +245,11 @@ $light-gray: #f4f5f7;
       height: 14px;
       color: inherit;
     }
+    &:hover {
+      color: #217aef;
+      background: #eff8ff;
+      border-color: #bee3ff;
+    }
   }
   &__link {
     margin-top: 2px;
@@ -282,26 +260,33 @@ $light-gray: #f4f5f7;
     letter-spacing: 0.12px;
     text-decoration: underline;
   }
-  &__preview {
+  &__view {
     display: inline-flex;
-    padding: 8px 12px;
     justify-content: center;
     align-items: center;
     gap: 6px;
-    border-radius: 8px;
+    width: 30px;
+    height: 30px;
+    border-radius: 6px;
     border: 1px solid #e5e7eb;
-    background: #fff;
-    color: #383f47;
+    background: transparent;
+    color: #4d5761;
     text-align: center;
-    font-size: 14px;
+    font-size: 12px;
     font-style: normal;
     font-weight: 500;
-    line-height: 16.24px;
+    line-height: 14px;
+    letter-spacing: 0.12px;
     text-transform: capitalize;
     svg {
-      width: 16px;
-      height: 16px;
+      width: 14px;
+      height: 14px;
       color: inherit;
+    }
+    &:hover {
+      color: #217aef;
+      background: #eff8ff;
+      border-color: #bee3ff;
     }
     &:focus {
       outline: none;
@@ -980,22 +965,17 @@ $light-gray: #f4f5f7;
   }
   @media only screen and (max-width: 782px) {
     .cptm-sub-navigation {
-      padding-right: 0;
-      padding-top: 70px;
+      padding-right: 70px;
+      margin-top: 20px;
     }
     .cptm-tab-content-header__action {
-      top: 20px;
-      right: 50%;
-      transform: translateX(50%);
+      top: 0;
+      transform: unset;
     }
   }
   @media only screen and (max-width: 480px) {
     .cptm-sub-navigation {
-      padding-top: 50px;
-      padding-bottom: 15px;
-    }
-    .cptm-tab-content-header__action {
-      top: 0;
+      margin-top: 0;
     }
   }
 }
@@ -1103,6 +1083,27 @@ $light-gray: #f4f5f7;
       height: 100%;
       padding-bottom: 162px;
       box-sizing: border-box;
+    }
+  }
+  &.search_form_fields,
+  &.submission_form_fields {
+    .directorist-form-action {
+      position: absolute;
+      right: 0;
+      top: 0;
+      margin: 0;
+    }
+
+    .cptm-form-builder {
+      @media only screen and (max-width: 767px) {
+        padding-top: 42px;
+      }
+      .cptm-form-builder-active-fields {
+        padding-top: 56px;
+        @media only screen and (max-width: 767px) {
+          padding-top: 0;
+        }
+      }
     }
   }
   &.preview_mode {
@@ -3526,6 +3527,9 @@ input[type="radio"].cptm-radio {
   justify-content: center;
   align-items: center;
   z-index: 9999;
+  @media (max-width: 960px) {
+    width: 100%;
+  }
   .cptm-modal-container {
     display: block;
     height: auto;
@@ -3536,6 +3540,18 @@ input[type="radio"].cptm-radio {
     bottom: unset;
     transform: translate(-50%, -50%);
     overflow: visible;
+    @media (max-width: 767px) {
+      iframe {
+        width: 400px;
+        height: 225px;
+      }
+    }
+    @media (max-width: 575px) {
+      iframe {
+        width: 300px;
+        height: 175px;
+      }
+    }
   }
 }
 
@@ -3934,6 +3950,9 @@ input[type="radio"] {
 .cptm-preview-placeholder {
   flex: 1;
   margin-right: 24px;
+  @media (max-width: 1199px) {
+    margin-right: 0;
+  }
   @include e(card) {
     display: flex;
     flex-direction: column;
@@ -4075,6 +4094,9 @@ input[type="radio"] {
   @include m("settings-closed") {
     max-width: 700px;
     margin: 0 auto;
+    @media (max-width: 1199px) {
+      max-width: 100%;
+    }
   }
 }
 
@@ -4480,6 +4502,12 @@ input[type="radio"] {
   overflow-y: auto;
   scrollbar-width: 6px;
   scrollbar-color: #d2d6db #f3f4f6;
+  @media (max-width: 1199px) {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+  }
   @include e(toggle) {
     position: absolute;
     right: 0;

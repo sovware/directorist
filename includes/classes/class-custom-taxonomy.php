@@ -159,12 +159,24 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
 		}
 
 		public function edit_taxonomy_view_link( $actions, $tag ) {
+			// Get the directory_type from the term meta
+			$directory_type         = get_term_meta( $tag->term_id, '_directory_type', true );
+			$enable_multi_directory = get_directorist_option( 'enable_multi_directory' );
+			$directory_type_slug    = is_array( $directory_type ) && ! empty( $directory_type[0] ) ? $this->get_directory_type_slug( absint( $directory_type[0] ) ) : 0;
+
 			// change the view link of ATBDP_Category
 			if ( ATBDP_CATEGORY == $tag->taxonomy ) {
 				if ( $actions['view'] ) {
+
+					$view_url = ATBDP_Permalink::atbdp_get_category_page( $tag );
+					// Add the directory_type to the URL if it exists
+					if ( ! empty( $enable_multi_directory ) && ! empty( $directory_type_slug ) ) {
+						$view_url = add_query_arg( 'directory_type', $directory_type_slug, $view_url );
+					}
+
 					$actions['view'] = sprintf(
 						'<a href="%s" aria-label="%s">%s</a>',
-						ATBDP_Permalink::atbdp_get_category_page( $tag ),
+						esc_url( $view_url ),
 						/* translators: %s: taxonomy term name */
 						esc_attr( sprintf( __( 'View &#8220;%s&#8221; archive', 'directorist' ), $tag->name ) ),
 						__( 'View', 'directorist' )
@@ -172,9 +184,16 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
 				}
 			} elseif ( ATBDP_LOCATION == $tag->taxonomy ) {
 				if ( $actions['view'] ) {
+
+					$view_url = ATBDP_Permalink::atbdp_get_location_page( $tag );
+					// Add the directory_type to the URL if it exists
+					if ( ! empty( $enable_multi_directory ) && ! empty( $directory_type_slug ) ) {
+						$view_url = add_query_arg( 'directory_type', $directory_type_slug, $view_url );
+					}
+
 					$actions['view'] = sprintf(
 						'<a href="%s" aria-label="%s">%s</a>',
-						ATBDP_Permalink::atbdp_get_location_page( $tag ),
+						esc_url( $view_url ),
 						/* translators: %s: taxonomy term name */
 						esc_attr( sprintf( __( 'View &#8220;%s&#8221; archive', 'directorist' ), $tag->name ) ),
 						__( 'View', 'directorist' )
@@ -183,6 +202,19 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
 			}
 
 			return $actions;
+		}
+
+		public function get_directory_type_slug( $id ) {
+
+			if ( is_numeric( $id ) ) {
+				$term                   = get_term_by( 'id', $id, ATBDP_TYPE) ;
+				// Check if the term exists
+				if ( $term && ! is_wp_error( $term ) ) {
+					$current_directory_type = $term->slug; // Get the slug if term exists
+				}
+			}
+
+			return $current_directory_type;
 		}
 
 		public function save_edit_category_form_fields( $category_id ) {
@@ -276,7 +308,7 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
 								</div>
 							<?php endforeach; ?>
 						</div>
-						<p class="description"><?php esc_html_e( 'You can assign any one or more of the above directories to this category.', 'directories' ); ?></p>
+						<p class="description"><?php esc_html_e( 'You can assign any one or more of the above directories to this category.', 'directorist' ); ?></p>
 					</td>
 				</tr>
 			<?php endif; ?>
@@ -335,7 +367,7 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
 								</div>
 							<?php endforeach; ?>
 						</div>
-						<p class="description"><?php esc_html_e( 'You can assign any one or more of the above directories to this location.', 'directories' ); ?></p>
+						<p class="description"><?php esc_html_e( 'You can assign any one or more of the above directories to this location.', 'directorist' ); ?></p>
 					</td>
 				</tr>
 			<?php endif; ?>

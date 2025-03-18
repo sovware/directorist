@@ -128,7 +128,6 @@ __webpack_require__.r(__webpack_exports__);
         // replace with your marker icon URL
         scaledSize: new google.maps.Size(40, 40) // set the size of the icon
       };
-
       loc_manual_lat = isNaN(loc_manual_lat) ? loc_default_latitude : loc_manual_lat;
       loc_manual_lng = isNaN(loc_manual_lng) ? loc_default_longitude : loc_manual_lng;
       $manual_lat = $('#manual_lat');

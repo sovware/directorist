@@ -245,24 +245,19 @@ function directorist_830_update_db_version() {
 }
 
 function directorist_830_update_order() {
-	$currentPage = (int) get_option('directorist_830_update_order_current_page', 1);
+	global $wpdb;
 
-    $query = new WP_Query([
-        'paged'          => $currentPage,
-        'posts_per_page' => 10,
-        'post_type'      => 'at_biz_dir',
-    ]);
+	$wpdb->query( $wpdb->prepare(
+		"UPDATE wp_posts AS p
+		INNER JOIN wp_postmeta AS pm
+			ON p.ID = pm.post_id
+			AND pm.meta_key = '_listing_id'
+		INNER JOIN wp_posts AS p2
+			ON p2.ID = CAST(pm.meta_value AS UNSIGNED)
+		SET p.post_author = p2.post_author
+		WHERE p.post_type = 'atbdp_orders'
+		AND p.post_author <> p2.post_author;",
+	) );
 
-    if ( ! $query->have_posts() ) {
-        return false;
-    }
-
-    foreach ( $query->posts as $post ) {
-        \ATBDP_Order::sync_order_author_on_listing_update((int) $post->ID, $post, true);
-    }
-
-    // Increment page count
-    update_option('directorist_830_update_order_current_page', $currentPage + 1);
-
-    return true;
+    return false;
 }

@@ -1,9 +1,6 @@
-<?php 
+<?php
 
-defined( 'ABSPATH' ) || exit; 
+defined( 'ABSPATH' ) || exit;
 
 $args['controller']->importer_header_template();
 $args['controller']->importer_body_template();
-
-?>
-

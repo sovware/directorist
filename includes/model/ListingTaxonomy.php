@@ -128,7 +128,7 @@ class Directorist_Listing_Taxonomy {
 		$total_terms 	= wp_count_terms( $this->tax, array_merge( $args, ['number' => 0, 'offset' => 0] ) );
 		
 		$this->terms 			= array_slice( $all_terms, $offset, $this->per_page) ;
-		$this->total_pages		= ceil( $total_terms / $this->per_page );
+		$this->total_pages		= ( $this->per_page > 0 ) ? ceil( $total_terms / $this->per_page ) : 1;
 		$this->current_page 	= $current_page; // Store current page for reference
 
 	}

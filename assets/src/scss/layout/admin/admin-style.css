@@ -917,6 +917,7 @@ span.atbdp-tick-cross {
   background: #5a5f7d;
   color: #fff;
   font-weight: 500;
+  min-width: 175px;
 }
 .csv-wrapper form .form-content .directorist-importer-options .csv-upload #upload + label .file-name {
   color: #9299b8;

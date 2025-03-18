@@ -4181,14 +4181,7 @@ body.wp-admin {
 
   @media only screen and (max-width: 575px) {
     flex-direction: column;
-    padding: 20px 0;
-    margin-left: 0;
-  }
-
-  .directorist_builder-header__left {
-    @media only screen and (max-width: 575px) {
-      margin-bottom: 15px;
-    }
+    padding: 24px;
   }
 
   .directorist_logo {
@@ -4603,11 +4596,6 @@ body.wp-admin {
       cursor: pointer;
       box-sizing: border-box;
 
-      @media only screen and (max-width: 575px) {
-        min-width: 100%;
-        margin: 0;
-      }
-
       &.directorist_new-directory {
         box-shadow: 0px 2px 4px 0px rgba(60, 41, 170, 0.12);
       }
@@ -4672,16 +4660,18 @@ body.wp-admin {
       empty-cells: show;
       margin-bottom: 0;
       margin-top: 0;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
       white-space: nowrap;
       @media only screen and (max-width: 1199px) {
-        overflow-x: auto;
         display: inline-grid;
+        overflow-x: auto;
         overflow-y: hidden;
       }
 
       .directorist_table-header {
         background: #f9fafb;
-        border: 1px solid #e5e7eb;
+        border-bottom: 1px solid #e5e7eb;
         border-radius: 12px 12px 0 0;
 
         .directorist_table-row {
@@ -4716,7 +4706,6 @@ body.wp-admin {
         gap: 16px;
         padding: 24px;
         background: #fff;
-        border: 1px solid #dddddd;
         border-top: none;
         border-radius: 0 0 12px 12px;
 
@@ -4989,7 +4978,6 @@ body.wp-admin {
         }
 
         &.directorist_builder__list {
-          overflow: auto;
           .directorist_builder__list__item {
             &.dragging.drag-clone {
               border: 1px solid #c0ccfc;

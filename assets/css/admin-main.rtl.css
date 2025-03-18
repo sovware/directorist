@@ -4132,13 +4132,7 @@ body.wp-admin {
     -webkit-flex-direction: column;
         -ms-flex-direction: column;
             flex-direction: column;
-    padding: 20px 0;
-    margin-right: 0;
-  }
-}
-@media only screen and (max-width: 575px) {
-  .directorist_builder-header .directorist_builder-header__left {
-    margin-bottom: 15px;
+    padding: 24px;
   }
 }
 .directorist_builder-header .directorist_logo {
@@ -4702,12 +4696,6 @@ body.wp-admin {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
-@media only screen and (max-width: 575px) {
-  .directorist_builder__content .directorist_builder__content__right .directorist_link-block {
-    min-width: 100%;
-    margin: 0;
-  }
-}
 .directorist_builder__content .directorist_builder__content__right .directorist_link-block.directorist_new-directory {
   -webkit-box-shadow: 0px 2px 4px 0px rgba(60, 41, 170, 0.12);
           box-shadow: 0px 2px 4px 0px rgba(60, 41, 170, 0.12);
@@ -4773,18 +4761,20 @@ body.wp-admin {
   empty-cells: show;
   margin-bottom: 0;
   margin-top: 0;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
   white-space: nowrap;
 }
 @media only screen and (max-width: 1199px) {
   .directorist_builder__content .directorist_builder__content__right .directorist_table {
-    overflow-x: auto;
     display: inline-grid;
+    overflow-x: auto;
     overflow-y: hidden;
   }
 }
 .directorist_builder__content .directorist_builder__content__right .directorist_table .directorist_table-header {
   background: #f9fafb;
-  border: 1px solid #e5e7eb;
+  border-bottom: 1px solid #e5e7eb;
   border-radius: 12px 12px 0 0;
 }
 .directorist_builder__content .directorist_builder__content__right .directorist_table .directorist_table-header .directorist_table-row {
@@ -4838,7 +4828,6 @@ body.wp-admin {
   gap: 16px;
   padding: 24px;
   background: #fff;
-  border: 1px solid #dddddd;
   border-top: none;
   border-radius: 0 0 12px 12px;
 }
@@ -5168,9 +5157,6 @@ body.wp-admin {
   margin-right: 0;
   -webkit-transition: 0.3s ease;
   transition: 0.3s ease;
-}
-.directorist_builder__content .directorist_builder__content__right .directorist_table .directorist_table-body.directorist_builder__list {
-  overflow: auto;
 }
 .directorist_builder__content .directorist_builder__content__right .directorist_table .directorist_table-body.directorist_builder__list .directorist_builder__list__item.dragging.drag-clone {
   border: 1px solid #c0ccfc;

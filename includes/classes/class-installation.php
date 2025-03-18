@@ -50,7 +50,6 @@ class ATBDP_Installation {
 		],
 		'8.3.0' => [
 			'directorist_830_migrate_directory_sorting_order',
-			'directorist_830_sync_listing_author_and_order_author',
 			'directorist_830_update_db_version',
 		],
 	);

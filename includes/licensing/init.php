@@ -67,8 +67,8 @@ class Init {
 	public function add_menu_page() {
 		add_submenu_page(
 			'edit.php?post_type=at_biz_dir',
-			'Extensions & Templates (new)',
-			'Extensions & Templates (new)',
+			'Extensions & Templates',
+			'Extensions & Templates',
 			'manage_options',
 			'directorist-licensing',
 			[$this, 'directorist_licensing'],

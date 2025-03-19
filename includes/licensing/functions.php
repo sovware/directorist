@@ -166,7 +166,6 @@ function directorist_get_item_buttons_html( array $item, string $type ): string 
 				<?php endif; ?>
 
 				<?php if ( in_array( $item['slug'], $backdated_slugs ) ): ?>
-					<?php // wp_plugin_update_row( 'directorist-buddyboss-integration/directorist-buddyboss-integration.php', ['Name' => 'ABÇ', 'PluginURI' => 'https://dfdf.com/',  ] )?>
 					<a data-item-slug="<?php echo esc_attr( $item['slug'] ); ?>" href="#" type="button" class="directorist-extension-btn directorist-extension-btn-warning directorist-extension-btn-update"><?php esc_html_e( 'Update', 'directorist' ); ?></a>
 				<?php endif; ?>
 
@@ -178,9 +177,15 @@ function directorist_get_item_buttons_html( array $item, string $type ): string 
        <div class="directorist-template-cta">
 
 	   		<?php if ( isset( $item['license'] ) ): ?>
-				<a href="<?php echo esc_attr( $item['item_id'] ); ?>" class="directorist-template-get">
-					<?php esc_attr_e( 'Insert', 'directorist' ); ?>
-				</a>
+				<?php if ( class_exists( 'Templatiq' ) ): ?>
+					<a href="<?php echo esc_attr( $item['item_id'] ); ?>" class="directorist-template-get">
+						<?php esc_attr_e( 'Has Insert', 'directorist' ); ?>
+					</a>
+				<?php else: ?>
+					<a href="<?php echo esc_attr( $item['item_id'] ); ?>" class="directorist-template-get">
+						<?php esc_attr_e( 'Insert', 'directorist' ); ?>
+					</a>
+				<?php endif; ?>
 			<?php else: ?>
 				<a target="__blank" href="<?php echo esc_attr( $item['permalink'] ); ?>" class="directorist-template-get">
 					<?php esc_attr_e( 'Get it now', 'directorist' ); ?>

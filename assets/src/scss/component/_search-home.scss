@@ -42,7 +42,7 @@
       }
     }
   }
-  .directorist-form-group__prefix--start{
+  .directorist-form-group__prefix--start {
     opacity: 0;
     transition: opacity 0.3s ease;
   }
@@ -53,6 +53,8 @@
     cursor: pointer;
     @include m(clear) {
       right: 0;
+      opacity: 0;
+      visibility: hidden;
       i::after {
         width: 16px;
         height: 16px;
@@ -98,16 +100,22 @@
       font-weight: 400;
       color: var(--directorist-color-body);
     }
+    .directorist-search-field__btn--clear,
     .directorist-search-field__btn i::after {
       opacity: 1;
       visibility: visible;
     }
 
-    .directorist-form-group__prefix--start{
+    .directorist-form-group__with-prefix {
+      border-bottom: 2px solid var(--directorist-color-primary);
+    }
+
+    .directorist-form-group__prefix--start {
       opacity: 1;
     }
-    .directorist-form-group__prefix--end{
-      margin-right: 25px;
+    .directorist-form-group__with-prefix {
+      padding-right: 25px;
+      box-sizing: border-box;
     }
 
     .directorist-select,
@@ -162,7 +170,7 @@
 
 // Search Field Style During Loading
 .directorist-preload {
-  .directorist-search-form-top{
+  .directorist-search-form-top {
     .directorist-search-field__label {
       ~ .directorist-search-field__input {
         opacity: 0;
@@ -323,7 +331,7 @@
         pointer-events: none;
       }
     }
-    
+
     .directorist-search-form__single-location {
       cursor: not-allowed;
       .directorist-location-select {
@@ -518,10 +526,10 @@
         &.input-is-focused {
           padding: 0;
           margin: 0 40px;
-          &.input-has-noLabel{
+          &.input-has-noLabel {
             @media screen and (max-width: 575px) {
               margin: 0 20px;
-              .directorist-search-field__btn{
+              .directorist-search-field__btn {
                 right: 0;
               }
             }
@@ -577,10 +585,10 @@
           .select2-container
             .directorist-select2-addons-area
             .directorist-select2-dropdown-toggle {
-              position: absolute;
-              right: -5px;
-              padding: 0;
-              width: auto;
+            position: absolute;
+            right: -5px;
+            padding: 0;
+            width: auto;
           }
         }
         &.input-has-value {
@@ -658,6 +666,7 @@
             }
           }
         }
+        .directorist-search-field__btn--clear,
         .directorist-search-field__btn i::after {
           opacity: 1;
           visibility: visible;
@@ -756,11 +765,19 @@
     }
     .directorist-form-group__with-prefix {
       border: none;
+      .directorist-search-field__input {
+        padding-right: 0 !important;
+        border: none !important;
+        bottom: 0;
+        &:focus {
+          border: none !important;
+        }
+      }
       .directorist-form-element {
         padding-left: 0 !important;
-        &:focus {
-          border-bottom: 2px solid var(--directorist-color-primary) !important;
-        }
+      }
+      ~ .directorist-search-field__btn--clear {
+        bottom: 12px;
       }
     }
   }
@@ -791,13 +808,13 @@
       font-weight: 400;
       background-color: var(--directorist-color-white) !important;
       border-color: var(--directorist-color-white);
-      color:var(--directorist-color-btn-primary-bg);
+      color: var(--directorist-color-btn-primary-bg);
       .directorist-icon-mask::after {
         height: 12px;
         width: 14px;
         background-color: var(--directorist-color-btn-primary-bg);
       }
-      &:hover{
+      &:hover {
         color: rgba(var(--directorist-color-btn-primary-rgb), 0.8);
       }
       @media only screen and (max-width: 767px) {
@@ -907,7 +924,7 @@
   }
 }
 
-.directorist-on-scroll-loading{
+.directorist-on-scroll-loading {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -916,7 +933,7 @@
   font-weight: 500;
   color: var(--directorist-color-primary);
   gap: 8px;
-  .directorist-spinner{
+  .directorist-spinner {
     width: 25px;
     height: 25px;
     margin: 0;
@@ -927,7 +944,6 @@
     animation: 1s rotate360 linear infinite;
   }
 }
-
 
 // Directorist Listing Type Selection
 .directorist-listing-type-selection {

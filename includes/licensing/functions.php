@@ -182,9 +182,9 @@ function directorist_get_item_buttons_html( array $item, string $type ): string 
 						<?php esc_attr_e( 'Has Insert', 'directorist' ); ?>
 					</a>
 				<?php else: ?>
-					<a href="<?php echo esc_attr( $item['item_id'] ); ?>" class="directorist-template-get">
+					<button type="button" class="directorist-template-get">
 						<?php esc_attr_e( 'Insert', 'directorist' ); ?>
-					</a>
+					</button>
 				<?php endif; ?>
 			<?php else: ?>
 				<a target="__blank" href="<?php echo esc_attr( $item['permalink'] ); ?>" class="directorist-template-get">

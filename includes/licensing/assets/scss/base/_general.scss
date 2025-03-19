@@ -41,7 +41,7 @@
     display: block;
     width: 18px;
     height: 18px;
-    background-color: var(--directorist-color-dark);
+    background-color: var(--directorist-color-dark , #2C3239);
     mask-repeat: no-repeat;
     mask-position: center;
     mask-image: var(--directorist-icon);

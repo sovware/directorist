@@ -1,4 +1,31 @@
-<div class="directorist-custom-modal directorist-d-none" id="directorist-custom-modal">
+<div class="directorist-custom-modal directorist-insert-modal directorist-d-block" id="directorist-insert-modal">
+	<div class="directorist-custom-modal-content">
+		<div class="directorist-custom-modal-header">
+			<div class="directorist-custom-modal-header-title">
+				Include the Templatiq library first
+			</div>
+			<button type="button" class="directorist-custom-modal-close">
+			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+			<path fill-rule="evenodd" clip-rule="evenodd" d="M6.29289 6.29289C6.68342 5.90237 7.31658 5.90237 7.70711 6.29289L12 10.5858L16.2929 6.29289C16.6834 5.90237 17.3166 5.90237 17.7071 6.29289C18.0976 6.68342 18.0976 7.31658 17.7071 7.70711L13.4142 12L17.7071 16.2929C18.0976 16.6834 18.0976 17.3166 17.7071 17.7071C17.3166 18.0976 16.6834 18.0976 16.2929 17.7071L12 13.4142L7.70711 17.7071C7.31658 18.0976 6.68342 18.0976 6.29289 17.7071C5.90237 17.3166 5.90237 16.6834 6.29289 16.2929L10.5858 12L6.29289 7.70711C5.90237 7.31658 5.90237 6.68342 6.29289 6.29289Z" fill="currentColor"/>
+			</svg>
+			</button>
+		</div>
+		<div class="directorist-custom-modal-body">
+		<div>Please add the Templatiq library to access the templates.</div>
+			<ul>
+				<li>Click on “Install templatiq” button below.</li>
+				<li>Click on “Install templatiq” button below.</li>
+				<li>Click on “Install templatiq” button below.</li>
+			</ul>
+		</div>
+		<div class="directorist-custom-modal-footer">
+			<button type="button" class="directorist-insert-modal__cancel">cancel</button>
+			<button type="button" class="install-templatiq">install templatiq</button>
+		</div>
+	</div>
+</div>
+
+<div class="directorist-membership-modal directorist-custom-modal directorist-d-none" id="directorist-membership-modal">
 	<div class="directorist-custom-modal-content">
 		<div class="directorist-custom-modal-header">
 			<div class="directorist-custom-modal-header-title">
@@ -35,8 +62,8 @@
 								</div>
 								<div
 									class="directorist-progress-status-message directorist-progress-status-message-updated">
-									<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-										viewBox="0 0 20 20" fill="none">
+									<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+										fill="none">
 										<path fill-rule="evenodd" clip-rule="evenodd"
 											d="M17.2559 4.41058C17.5814 4.73602 17.5814 5.26366 17.2559 5.58909L8.08926 14.7558C7.76382 15.0812 7.23618 15.0812 6.91074 14.7558L2.74408 10.5891C2.41864 10.2637 2.41864 9.73602 2.74408 9.41058C3.06951 9.08514 3.59715 9.08514 3.92259 9.41058L7.5 12.988L16.0774 4.41058C16.4028 4.08514 16.9305 4.08514 17.2559 4.41058Z"
 											fill="#14B570" />
@@ -45,8 +72,7 @@
 								</div>
 							</div>
 							<div class="directorist-progress">
-								<div class="directorist-progress-inner directorist-progress-completed"
-									data-done="100">
+								<div class="directorist-progress-inner directorist-progress-completed" data-done="100">
 								</div>
 							</div>
 						</div>
@@ -64,8 +90,8 @@
 								</div>
 								<div
 									class="directorist-progress-status-message directorist-progress-status-message-updating">
-									<svg xmlns="http://www.w3.org/2000/svg" width="15" height="16"
-										viewBox="0 0 15 16" fill="none">
+									<svg xmlns="http://www.w3.org/2000/svg" width="15" height="16" viewBox="0 0 15 16"
+										fill="none">
 										<path fill-rule="evenodd" clip-rule="evenodd"
 											d="M1.90296 7.79723C1.90296 10.8412 4.10996 12.9152 6.58896 13.3442C6.6564 13.3559 6.72087 13.3808 6.7787 13.4174C6.83652 13.454 6.88658 13.5016 6.92599 13.5576C6.96541 13.6135 6.99342 13.6767 7.00843 13.7434C7.02344 13.8102 7.02515 13.8793 7.01346 13.9467C7.00177 14.0142 6.97692 14.0786 6.94032 14.1365C6.90371 14.1943 6.85608 14.2443 6.80013 14.2838C6.74418 14.3232 6.68102 14.3512 6.61424 14.3662C6.54747 14.3812 6.4784 14.3829 6.41096 14.3712C3.49996 13.8672 0.860962 11.4132 0.860962 7.79723C0.860962 6.26023 1.55996 5.05223 2.37596 4.13423C2.96096 3.47623 3.62996 2.94123 4.16796 2.53223H2.53196C2.39935 2.53223 2.27218 2.47955 2.17841 2.38578C2.08464 2.29201 2.03196 2.16483 2.03196 2.03223C2.03196 1.89962 2.08464 1.77244 2.17841 1.67867C2.27218 1.58491 2.39935 1.53223 2.53196 1.53223H5.53196C5.66457 1.53223 5.79175 1.58491 5.88552 1.67867C5.97928 1.77244 6.03196 1.89962 6.03196 2.03223V5.03223C6.03196 5.16483 5.97928 5.29201 5.88552 5.38578C5.79175 5.47955 5.66457 5.53223 5.53196 5.53223C5.39935 5.53223 5.27218 5.47955 5.17841 5.38578C5.08464 5.29201 5.03196 5.16483 5.03196 5.03223V3.18623L5.03096 3.18823C4.45896 3.61823 3.76096 4.14523 3.15596 4.82623C2.44096 5.63023 1.90296 6.60323 1.90296 7.79723ZM13.011 8.20223C13.011 5.19023 10.851 3.12923 8.40396 2.66923C8.33576 2.65765 8.27055 2.63262 8.21212 2.59557C8.1537 2.55853 8.10324 2.51022 8.06369 2.45347C8.02413 2.39672 7.99628 2.33266 7.98174 2.26503C7.96721 2.19739 7.96629 2.12754 7.97904 2.05955C7.99179 1.99156 8.01795 1.92679 8.056 1.86902C8.09404 1.81124 8.14321 1.76163 8.20064 1.72306C8.25807 1.68449 8.3226 1.65774 8.39047 1.64438C8.45835 1.63102 8.5282 1.63131 8.59596 1.64523C11.47 2.18523 14.053 4.62523 14.053 8.20223C14.053 9.73923 13.354 10.9462 12.538 11.8652C11.953 12.5232 11.284 13.0582 10.746 13.4672H12.382C12.5146 13.4672 12.6417 13.5199 12.7355 13.6137C12.8293 13.7074 12.882 13.8346 12.882 13.9672C12.882 14.0998 12.8293 14.227 12.7355 14.3208C12.6417 14.4145 12.5146 14.4672 12.382 14.4672H9.38196C9.24935 14.4672 9.12218 14.4145 9.02841 14.3208C8.93464 14.227 8.88196 14.0998 8.88196 13.9672V10.9672C8.88196 10.8346 8.93464 10.7074 9.02841 10.6137C9.12218 10.5199 9.24935 10.4672 9.38196 10.4672C9.51457 10.4672 9.64175 10.5199 9.73552 10.6137C9.82928 10.7074 9.88196 10.8346 9.88196 10.9672V12.8122H9.88396C10.455 12.3802 11.154 11.8542 11.758 11.1722C12.473 10.3692 13.011 9.39723 13.011 8.20223Z"
 											fill="#DD8C08" />
@@ -74,8 +100,7 @@
 								</div>
 							</div>
 							<div class="directorist-progress">
-								<div class="directorist-progress-inner directorist-progress-updating"
-									data-done="20">
+								<div class="directorist-progress-inner directorist-progress-updating" data-done="20">
 								</div>
 							</div>
 						</div>
@@ -93,8 +118,8 @@
 								</div>
 								<div
 									class="directorist-progress-status-message directorist-progress-status-message-failed">
-									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-										viewBox="0 0 16 16" fill="none">
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+										fill="none">
 										<g clip-path="url(#clip0_7323_2592)">
 											<path fill-rule="evenodd" clip-rule="evenodd"
 												d="M7.99996 1.99984C4.68625 1.99984 1.99996 4.68613 1.99996 7.99984C1.99996 11.3135 4.68625 13.9998 7.99996 13.9998C11.3137 13.9998 14 11.3135 14 7.99984C14 4.68613 11.3137 1.99984 7.99996 1.99984ZM0.666626 7.99984C0.666626 3.94975 3.94987 0.666504 7.99996 0.666504C12.05 0.666504 15.3333 3.94975 15.3333 7.99984C15.3333 12.0499 12.05 15.3332 7.99996 15.3332C3.94987 15.3332 0.666626 12.0499 0.666626 7.99984ZM7.33329 5.33317C7.33329 4.96498 7.63177 4.6665 7.99996 4.6665H8.00663C8.37482 4.6665 8.67329 4.96498 8.67329 5.33317C8.67329 5.70136 8.37482 5.99984 8.00663 5.99984H7.99996C7.63177 5.99984 7.33329 5.70136 7.33329 5.33317ZM7.99996 7.33317C8.36815 7.33317 8.66663 7.63165 8.66663 7.99984V10.6665C8.66663 11.0347 8.36815 11.3332 7.99996 11.3332C7.63177 11.3332 7.33329 11.0347 7.33329 10.6665V7.99984C7.33329 7.63165 7.63177 7.33317 7.99996 7.33317Z"

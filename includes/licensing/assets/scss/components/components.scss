@@ -4,8 +4,7 @@
     padding: 21px 24px;
     gap: 48px;
     border-radius: 12px;
-    background: var(--White-White, #FFF);
-    /* shadow-lg */
+    background: #FFF;
     box-shadow: 0px 8px 16px 0px rgba(16, 24, 40, 0.10), 0px 6px 8px 2px rgba(16, 24, 40, 0.04);
 
     &.m-15 {
@@ -20,14 +19,14 @@
     gap: 12px;
     align-self: stretch;
     border-radius: 6px;
-    background: var(--Gray-50, #F9FAFB);
+    background:#F9FAFB;
 
     &-author {
         width: 40px;
         height: 40px;
         border-radius: 40px;
         overflow: hidden;
-        border: 1px solid var(--White-White, #FFF);
+        border: 1px solid #FFF;
 
         img {
             width: 100%;
@@ -44,14 +43,14 @@
     }
 
     &-title {
-        color: var(--Gray-900, #141921);
+        color: #141921;
         font-size: 16px;
         font-weight: 600;
         line-height: 22px;
     }
 
     &-alert {
-        color: var(--Gray-500, #747C89);
+        color: #747C89;
         font-size: 12px;
         font-weight: 400;
         line-height: 14px;
@@ -69,13 +68,13 @@
     align-items: flex-start;
     align-self: stretch;
     border-radius: 8px;
-    background: var(--Gray-50, #F9FAFB);
+    background: #F9FAFB;
 
     &-title {
         display: flex;
         align-items: center;
         gap: 8px;
-        color: var(--Gray-500, #747C89);
+        color: #747C89;
         font-size: 14px;
         font-weight: 600;
         line-height: 22px;
@@ -92,14 +91,14 @@
 
     &-price {
         .price-amount {
-            color: var(--Gray-800, #2C3239);
+            color: #2C3239;
             font-size: 32px;
             font-weight: 700;
             line-height: 40px;
         }
 
         .price-duration {
-            color: var(--Gray-500, #747C89);
+            color: #747C89;
             font-size: 14px;
             font-weight: 400;
             line-height: normal;
@@ -109,17 +108,17 @@
     &-discount {
         display: flex;
         flex-wrap: wrap;
-        padding: var(--spacing-xxs, 2px) var(--spacing-md, 8px);
+        padding: 2px 8px;
         align-items: center;
         border-radius: 4px;
-        border: 1px solid var(--Component-colors-Utility-Success-utility-success-200, #ABEFC6);
-        background: var(--Component-colors-Utility-Success-utility-success-50, #ECFDF3);
-        color: var(--Component-colors-Utility-Success-utility-success-700, #067647);
+        border: 1px solid #ABEFC6;
+        background-color: #ECFDF3;
+        color: #067647;
         text-align: center;
-        font-size: var(--Font-size-text-xs, 12px);
+        font-size: 12px;
         font-style: normal;
         font-weight: 500;
-        line-height: var(--Line-height-text-xs, 18px);
+        line-height: 18px;
         margin: 8px 0 0;
 
         strong {
@@ -138,7 +137,7 @@
         margin-bottom: 32px;
 
         .rating-score {
-            color: var(--Gray-700, #383F47);
+            color: #383F47;
             text-align: center;
             font-size: 16px;
             font-style: normal;
@@ -150,7 +149,7 @@
         }
 
         .rating-reviews {
-            color: var(--Gray-600, #4D5761);
+            color: #4D5761;
             font-size: 12px;
             font-style: normal;
             font-weight: 500;
@@ -180,12 +179,12 @@
         padding: 0 20px;
         justify-content: center;
         align-items: center;
-        gap: var(--spacing-md, 8px);
+        gap: 8px;
         align-self: stretch;
         border-radius: 8px;
-        background: var(--Primary-500, #3E62F5);
+        background: #3E62F5;
         box-shadow: 0px 2px 4px 0px rgba(60, 41, 170, 0.12);
-        color: var(--White-White, #FFF);
+        color: #FFF;
         text-align: center;
         font-size: 15px;
         font-weight: 600;
@@ -223,13 +222,13 @@
         padding: 0 20px;
         justify-content: center;
         align-items: center;
-        gap: var(--spacing-md, 8px);
+        gap: 8px;
         align-self: stretch;
         border-radius: 8px;
         background-color: white;
-        border: 1px solid var(--Primary-500, #3E62F5);
+        border: 1px solid #3E62F5;
         box-shadow: 0px 2px 4px 0px rgba(60, 41, 170, 0.12);
-        color: var(--Primary-500, #3E62F5);
+        color:#3E62F5;
         font-size: 15px;
         font-weight: 600;
         line-height: 16px;
@@ -278,7 +277,7 @@
         gap: 8px;
 
         .title {
-            color: var(--Gray-900, #141921);
+            color: #141921;
             font-size: 19px;
             font-style: normal;
             font-weight: 600;
@@ -288,7 +287,7 @@
         }
 
         .title-details {
-            color: var(--Gray-600, #4D5761);
+            color: #4D5761;
             font-size: 16px;
             font-style: normal;
             font-weight: 400;
@@ -301,7 +300,7 @@
 
 .directorist-membership-user {
     border-radius: 12px;
-    background: var(--White-White, #FFF);
+    background: white;
     box-shadow: 0px 8px 16px 0px rgba(16, 24, 40, 0.10), 0px 6px 8px 2px rgba(16, 24, 40, 0.04);
 }
 
@@ -309,15 +308,15 @@
     &-wrapper {
         padding: 24px 32px 16px;
         border-radius: 10px;
-        background: var(--White-White, #FFF);
-        box-shadow: 0px 1px 2px 0px var(--Colors-Effects-Shadows-shadow-xs, rgba(16, 24, 40, 0.05));
+        background: white;
+        box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
         display: flex;
         align-items: flex-start;
         justify-content: space-between;
     }
 
     &-title {
-        color: var(--Gray-900, #141921);
+        color: #141921;
         font-size: 22px;
         font-style: normal;
         font-weight: 600;
@@ -338,10 +337,10 @@
         justify-content: center;
         align-items: center;
         gap: 4px;
-        border-radius: var(--radius-sm, 6px);
-        border: 1px solid var(--Success-300, #79E6B0);
-        background: var(--Success-50, #ECFDF3);
-        color: var(--Success-700, #06764B);
+        border-radius: 6px;
+        border: 1px solid #79E6B0;
+        background: #ECFDF3;
+        color: #06764B;
         font-size: 12px;
         font-style: normal;
         font-weight: 600;
@@ -354,10 +353,10 @@
         justify-content: center;
         align-items: center;
         gap: 4px;
-        border-radius: var(--radius-sm, 6px);
-        border: 1px solid var(--Success-300, #FBE5E5);
-        background: var(--Success-50, #FBE5E5);
-        color: var(--Success-700, #A72E2E);
+        border-radius: 6px;
+        border: 1px solid #FBE5E5;
+        background: #FBE5E5;
+        color:#A72E2E;
         font-size: 12px;
         font-style: normal;
         font-weight: 600;
@@ -368,7 +367,7 @@
         display: inline-flex;
         align-items: center;
         gap: 4px;
-        color: var(--Gray-500, #747C89);
+        color: #747C89;
         font-size: 12px;
         font-style: normal;
         font-weight: 400;
@@ -388,12 +387,12 @@
         padding: 0 24px;
         justify-content: center;
         align-items: center;
-        gap: var(--spacing-md, 8px);
+        gap: 8px;
         align-self: stretch;
         border-radius: 8px;
-        background: var(--Primary-500, #3E62F5);
+        background: #3E62F5;
         box-shadow: 0px 2px 4px 0px rgba(60, 41, 170, 0.12);
-        color: var(--White-White, #FFF);
+        color: white;
         text-align: center;
         font-size: 15px;
         font-weight: 600;
@@ -417,7 +416,7 @@
         width: 40px;
         height: 40px;
         border-radius: 40px;
-        border: 1px solid var(--White-White, #FFF);
+        border: 1px solid white;
         background: lightgray;
         overflow: hidden;
         cursor: pointer;
@@ -439,8 +438,8 @@
         flex-direction: column;
         align-items: flex-start;
         border-radius: 8px;
-        border: 1px solid var(--Gray-200, #E5E7EB);
-        background: var(--White-White, #FFF);
+        border: 1px solid #E5E7EB;
+        background: white;
         box-shadow: 0px 8px 16px 0px rgba(16, 24, 40, 0.10), 0px 6px 8px 2px rgba(16, 24, 40, 0.04);
         z-index: 1;
     }
@@ -451,13 +450,13 @@
     padding: 12px 16px 12px 16px;
     align-items: center;
     gap: 12px;
-    border-bottom: 1px solid var(--Gray-200, #E5E7EB);
+    border-bottom: 1px solid #E5E7EB;
 
     &-img {
         width: 36px;
         height: 36px;
         border-radius: 36px;
-        border: 1px solid var(--White-White, #FFF);
+        border: 1px solid white;
         background: lightgray;
         overflow: hidden;
 
@@ -476,7 +475,7 @@
     }
 
     &-name {
-        color: var(--Gray-900, #141921);
+        color: #141921;
         font-size: 15px;
         font-style: normal;
         font-weight: 500;
@@ -484,7 +483,7 @@
     }
 
     &-email {
-        color: var(--Gray-600, #4D5761);
+        color: #4D5761;
         font-size: 12px;
         font-style: normal;
         font-weight: 400;
@@ -497,7 +496,7 @@
         align-items: center;
         gap: 12px;
         align-self: stretch;
-        border-bottom: 1px solid var(--Gray-200, #E5E7EB);
+        border-bottom: 1px solid #E5E7EB;
     }
 
     &-accessKey-img {
@@ -509,7 +508,7 @@
         align-items: center;
         gap: 6px;
         border-radius: 32px;
-        background: var(--Gray-200, #E5E7EB);
+        background: #E5E7EB;
 
         svg {
             width: 100%;
@@ -517,7 +516,7 @@
     }
 
     &-accessKey {
-        color: var(--Gray-900, #141921);
+        color: #141921;
         font-size: 15px;
         font-style: normal;
         font-weight: 500;
@@ -528,7 +527,7 @@
         display: flex;
         align-items: flex-start;
         flex-direction: column;
-        color: var(--Gray-600, #4D5761);
+        color: #4D5761;
         font-size: 14px;
         font-style: normal;
         font-weight: 500;
@@ -545,7 +544,7 @@
         margin: 0;
         padding: 12px 16px 12px 16px;
         height: 42px;
-        color: var(--Gray-600, #4D5761);
+        color: #4D5761;
         font-size: 14px;
         font-style: normal;
         font-weight: 500;
@@ -567,7 +566,7 @@
         align-items: center;
         gap: 2px;
         width: 100%;
-        color: var(--Gray-600, #4D5761);
+        color: #4D5761;
         text-decoration: none;
         transition: all 0.35s ease;
         cursor: pointer;
@@ -582,7 +581,6 @@
     }
 }
 
-
 .directorist-membership-status {
     display: flex;
     padding: 45px 42px;
@@ -591,8 +589,8 @@
     align-items: center;
     gap: 12px;
     border-radius: 10px;
-    background: var(--Gray-50, #F9FAFB);
-    box-shadow: 0px 1px 2px 0px var(--Colors-Effects-Shadows-shadow-xs, rgba(16, 24, 40, 0.05));
+    background:#F9FAFB;
+    box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
     height: 100%;
 
     &-wrapper {
@@ -600,7 +598,7 @@
     }
 
     &-number {
-        color: var(--Gray-900, #141921);
+        color: #141921;
         font-size: 32px;
         font-style: normal;
         font-weight: 600;
@@ -616,7 +614,7 @@
     }
 
     &-description {
-        color: var(--Gray-700, #383F47);
+        color:#383F47;
         text-align: center;
         font-size: 14px;
         font-style: normal;
@@ -629,7 +627,7 @@
         padding: 8px 16px;
         justify-content: center;
         align-items: center;
-        gap: var(--spacing-md, 8px);
+        gap: 8px;
         border-radius: 4px;
         font-size: 12px;
         font-style: normal;
@@ -639,9 +637,9 @@
         transition: all 0.35s ease;
         position: relative;
         cursor: pointer;
-        border: 1px solid var(--Primary-500, #3E62F5);
+        border: 1px solid #3E62F5;
         box-shadow: 0px 2px 4px 0px rgba(60, 41, 170, 0.12);
-        color: var(--Primary-500, #3E62F5);
+        color: #3E62F5;
         background-color: white;
 
         &:hover {
@@ -661,8 +659,8 @@
     padding: 0 4px;
     gap: 3px;
     border-radius: 8px;
-    border: 1px solid var(--Gray-200, #E5E7EB);
-    background: var(--Gray-200, #E5E7EB);
+    border: 1px solid #E5E7EB;
+    background:#E5E7EB;
     position: relative;
     margin-bottom: 0;
 
@@ -696,7 +694,7 @@
             gap: 4px;
             border-radius: 6px;
             background: transparent;
-            color: var(--Gray-600, #4D5761);
+            color: #4D5761;
             font-size: 12px;
             font-style: normal;
             font-weight: 500;
@@ -789,7 +787,7 @@
     align-items: center;
     gap: 8px;
     border-radius: 8px;
-    background: var(--White-White, #FFF);
+    background: white;
 
     @media screen and (min-width: 1299.99px) {
         width: 468px;
@@ -830,9 +828,9 @@
 .directorist-extension {
     &-item {
         border-radius: 8px;
-        border: 1px solid var(--Gray-100, #F3F4F6);
-        background: var(--White-White, #FFF);
-        box-shadow: 0px 1px 2px 0px var(--Colors-Effects-Shadows-shadow-xs, rgba(16, 24, 40, 0.05));
+        border: 1px solid #F3F4F6;
+        background: white;
+        box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
         overflow: hidden;
         padding: 20px 24px 0;
         position: relative;
@@ -852,28 +850,28 @@
             align-items: center;
             justify-content: center;
             display: flex;
-            padding: var(--spacing-xxs, 2px) 10px;
+            padding: 2px 10px;
             align-items: center;
-            border-radius: var(--radius-full, 9999px);
+            border-radius: 9999px;
             border: 1px solid #E5E7EB;
             background: #E5E7EB;
             color: #747C89;
-            font-size: var(--Font-size-text-sm, 14px);
+            font-size: 14px;
             font-style: normal;
             font-weight: 500;
-            line-height: var(--Line-height-text-sm, 20px);
+            line-height:20px;
             text-transform: capitalize;
 
             &-popular {
-                color: var(--Component-colors-Utility-Warning-utility-warning-700, #B54708);
-                border: 1px solid var(--Component-colors-Utility-Warning-utility-warning-200, #FEDF89);
-                background: var(--Component-colors-Utility-Warning-utility-warning-50, #FFFAEB);
+                color:#B54708;
+                border: 1px solid #FEDF89;
+                background: #FFFAEB;
             }
 
             &-latest {
-                color: var(--Component-colors-Utility-Warning-utility-warning-700, #067647);
-                border: 1px solid var(--Component-colors-Utility-Warning-utility-warning-200, #ABEFC6);
-                background: var(--Component-colors-Utility-Warning-utility-warning-50, #ECFDF3);
+                color: #067647;
+                border: 1px solid #ABEFC6;
+                background: #ECFDF3;
             }
         }
     }
@@ -886,7 +884,7 @@
         align-items: center;
         gap: 8px;
         border-radius: 8px;
-        background: var(--Gray-50, #F9FAFB);
+        background: #F9FAFB;
         overflow: hidden;
         margin: 0;
         padding: 0;
@@ -905,7 +903,7 @@
     &-title {
         padding: 0;
         margin: 0 0 8px;
-        color: var(--Gray-900, #141921);
+        color: #141921;
         font-size: 19px;
         font-style: normal;
         font-weight: 600;
@@ -919,12 +917,12 @@
     &-title-badge-active {
         display: inline-flex;
         height: 24px;
-        padding: 2px var(--spacing-md, 8px);
+        padding: 2px 8px;
         align-items: center;
         border-radius: 6px;
-        border: 1px solid var(--Component-colors-Utility-Success-utility-success-200, #ABEFC6);
-        background: var(--Component-colors-Utility-Success-utility-success-50, #ECFDF3);
-        color: var(--Success-500, #14B570);
+        border: 1px solid #ABEFC6;
+        background: #ECFDF3;
+        color:#14B570;
         text-align: center;
         font-size: 12px;
         font-style: normal;
@@ -935,7 +933,7 @@
     }
 
     &-description {
-        color: var(--Gray-500, #747C89);
+        color: #747C89;
         font-size: 16px;
         font-style: normal;
         font-weight: 400;
@@ -949,7 +947,7 @@
         display: inline-flex;
         align-items: center;
         gap: 6px;
-        color: var(--Warning-500, #DD8C08);
+        color: #DD8C08;
         font-size: 12px;
         font-style: normal;
         font-weight: 500;
@@ -975,7 +973,7 @@
         display: inline-flex;
         align-items: center;
         gap: 6px;
-        color: var(--Warning-500, #DD8C08);
+        color: #DD8C08;
         font-size: 12px;
         font-style: normal;
         font-weight: 500;
@@ -1025,7 +1023,7 @@
     }
 
     &-price {
-        color: var(--Gray-900, #141921);
+        color: #141921;
         font-size: 19px;
         font-style: normal;
         font-weight: 700;
@@ -1033,7 +1031,7 @@
     }
 
     &-year {
-        color: var(--Gray-500, #747C89);
+        color: #747C89;
         font-size: 12px;
         font-style: normal;
         font-weight: 500;
@@ -1053,7 +1051,7 @@
         padding: 8px 16px;
         justify-content: center;
         align-items: center;
-        gap: var(--spacing-md, 8px);
+        gap: 8px;
         border-radius: 4px;
         border: 1px solid #E5E7EB;
         color: #4D5761;
@@ -1075,9 +1073,9 @@
     }
 
     &-btn-primary {
-        border: 1px solid var(--Primary-500, #3E62F5);
+        border: 1px solid #3E62F5;
         box-shadow: 0px 2px 4px 0px rgba(60, 41, 170, 0.12);
-        color: var(--Primary-500, #3E62F5);
+        color: #3E62F5;
         background-color: white;
 
         &:hover {
@@ -1087,7 +1085,7 @@
     }
 
     &-btn-warning {
-        border: 1px solid var(--Primary-500, #F6C879);
+        border: 1px solid #F6C879;
         background-color: #FEF8EC;
         box-shadow: none;
         color: #DD8C08;
@@ -1118,9 +1116,9 @@
 .directorist-template {
     &-item {
         border-radius: 8px;
-        border: 1px solid var(--Gray-100, #F3F4F6);
-        background: var(--White-White, #FFF);
-        box-shadow: 0px 1px 2px 0px var(--Colors-Effects-Shadows-shadow-xs, rgba(16, 24, 40, 0.05));
+        border: 1px solid #F3F4F6;
+        background: white;
+        box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
         overflow: hidden;
         padding: 20px 24px 0;
         position: relative;
@@ -1129,7 +1127,7 @@
 
     &-image {
         border-radius: 4px;
-        background: var(--Gray-100, #F3F4F6);
+        background: #F3F4F6;
         margin: 0 auto;
         height: 220px;
         padding: 12px 14.33px 0px 15px;
@@ -1156,7 +1154,7 @@
     &-title {
         padding: 0;
         margin: 0 0 8px;
-        color: var(--Gray-900, #141921);
+        color: #141921;
         font-size: 19px;
         font-style: normal;
         font-weight: 600;
@@ -1170,12 +1168,12 @@
     &-title-badge-active {
         display: inline-flex;
         height: 24px;
-        padding: 2px var(--spacing-md, 8px);
+        padding: 2px 8px;
         align-items: center;
         border-radius: 6px;
-        border: 1px solid var(--Component-colors-Utility-Success-utility-success-200, #ABEFC6);
-        background: var(--Component-colors-Utility-Success-utility-success-50, #ECFDF3);
-        color: var(--Success-500, #14B570);
+        border: 1px solid #ABEFC6;
+        background: #ECFDF3;
+        color: #14B570;
         text-align: center;
         font-size: 12px;
         font-style: normal;
@@ -1186,7 +1184,7 @@
     }
 
     &-description {
-        color: var(--Gray-500, #747C89);
+        color: #747C89;
         font-size: 16px;
         font-style: normal;
         font-weight: 400;
@@ -1206,7 +1204,7 @@
     }
 
     &-price {
-        color: var(--Gray-900, #141921);
+        color: #141921;
         font-size: 19px;
         font-style: normal;
         font-weight: 700;
@@ -1214,7 +1212,7 @@
     }
 
     &-year {
-        color: var(--Gray-500, #747C89);
+        color: #747C89;
         font-size: 12px;
         font-style: normal;
         font-weight: 500;
@@ -1234,11 +1232,11 @@
         padding: 8px 16px;
         justify-content: center;
         align-items: center;
-        gap: var(--spacing-md, 8px);
+        gap: 8px;
         border-radius: 4px;
         color: white;
         background-color: #3E62F5;
-        border: 1px solid var(--Primary-500, #3E62F5);
+        border: 1px solid #3E62F5;
         box-shadow: 0px 2px 4px 0px rgba(60, 41, 170, 0.12);
         font-size: 12px;
         font-style: normal;
@@ -1247,6 +1245,7 @@
         text-decoration: none;
         transition: all 0.35s ease;
         position: relative;
+        cursor: pointer;
 
         &:focus,
         &:hover {
@@ -1260,11 +1259,11 @@
         padding: 8px 16px;
         justify-content: center;
         align-items: center;
-        gap: var(--spacing-md, 8px);
+        gap: 8px;
         border-radius: 4px;
-        border: 1px solid var(--Primary-500, #3E62F5);
+        border: 1px solid #3E62F5;
         box-shadow: 0px 2px 4px 0px rgba(60, 41, 170, 0.12);
-        color: var(--Primary-500, #3E62F5);
+        color: #3E62F5;
         font-size: 12px;
         font-style: normal;
         font-weight: 600;
@@ -1272,6 +1271,7 @@
         text-decoration: none;
         transition: all 0.35s ease;
         position: relative;
+        cursor: pointer;
 
         &:hover {
             color: white;
@@ -1284,7 +1284,7 @@
         padding: 8px 16px;
         justify-content: center;
         align-items: center;
-        gap: var(--spacing-md, 8px);
+        gap: 8px;
         border-radius: 4px;
         border: 1px solid #E5E7EB;
         color: #4D5761;
@@ -1307,7 +1307,7 @@
 
     &-customize {
         background-color: #3E62F5;
-        border: 1px solid var(--Primary-500, #3E62F5);
+        border: 1px solid #3E62F5;
         box-shadow: 0px 2px 4px 0px rgba(60, 41, 170, 0.12);
         color: white;
 
@@ -1318,9 +1318,9 @@
     }
 
     &-btn-primary {
-        border: 1px solid var(--Primary-500, #3E62F5);
+        border: 1px solid #3E62F5;
         box-shadow: 0px 2px 4px 0px rgba(60, 41, 170, 0.12);
-        color: var(--Primary-500, #3E62F5);
+        color: #3E62F5;
         background-color: white;
 
         &:hover {
@@ -1330,7 +1330,7 @@
     }
 
     &-btn-warning {
-        border: 1px solid var(--Primary-500, #F6C879);
+        border: 1px solid #F6C879;
         background-color: #FEF8EC;
         box-shadow: none;
         color: #DD8C08;
@@ -1366,8 +1366,8 @@
     }
 
     &-btn-failed {
-        border: 1px solid var(--Error-300, #F2AFAF);
-        background: var(--Error-50, #FDF3F3);
+        border: 1px solid #F2AFAF;
+        background:#FDF3F3;
         color: #D94A4A;
 
         &:hover {
@@ -1458,12 +1458,12 @@
         height: 48px;
         padding: 10px 16px 10px 0;
         align-items: center;
-        gap: var(--spacing-md, 8px);
+        gap: 8px;
         align-self: stretch;
-        border-radius: var(--radius-md, 8px);
-        border: 1px solid var(--Gray-300, #D2D6DB);
-        background: var(--White-White, #FFF);
-        box-shadow: 0px 1px 2px 0px var(--Colors-Effects-Shadows-shadow-xs, rgba(16, 24, 40, 0.05));
+        border-radius: 8px;
+        border: 1px solid #D2D6DB;
+        background: white;
+        box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
         position: relative;
 
         .directorist-icon {
@@ -1475,8 +1475,8 @@
             align-items: center;
             gap: 8px;
             border-radius: 7px 0px 0px 7px;
-            border-right: 1px solid var(--Gray-200, #E5E7EB);
-            background: var(--Gray-100, #F3F4F6);
+            border-right: 1px solid #E5E7EB;
+            background: #F3F4F6;
         }
 
         input {
@@ -1495,7 +1495,7 @@
             box-shadow: none !important;
 
             &::placeholder {
-                color: var(--Gray-500, #747C89);
+                color: #747C89;
             }
         }
     }
@@ -1507,13 +1507,13 @@
         padding: 12px 24px;
         justify-content: center;
         align-items: center;
-        gap: var(--spacing-md, 8px);
+        gap: 8px;
         align-self: stretch;
         border-radius: 6px;
-        background: var(--Primary-500, #3E62F5);
-        border: 1px solid var(--Primary-500, #3E62F5);
+        background: #3E62F5;
+        border: 1px solid #3E62F5;
         box-shadow: 0px 2px 4px 0px rgba(60, 41, 170, 0.12);
-        color: var(--White-White, #FFF);
+        color: white;
         text-align: center;
         font-size: 14px;
         font-style: normal;
@@ -1535,7 +1535,7 @@
         &.valid-submit {
             color: #4D5761;
             border-color: #D2D6DB;
-            background: var(--Gray-300, #D2D6DB);
+            background: #D2D6DB;
             box-shadow: 0px 2px 4px 0px rgba(60, 41, 170, 0.12);
 
             svg {
@@ -1555,7 +1555,7 @@
     &-help-link {
         display: block;
         margin-top: 12px;
-        color: var(--Gray-500, #747C89);
+        color: #747C89;
         font-size: 14px;
         font-style: normal;
         font-weight: 600;
@@ -1569,7 +1569,7 @@
         transition: all 0.35s ease;
 
         &:hover {
-            color: var(--Gray-700, #3E62F5);
+            color: #3E62F5;
         }
     }
 }
@@ -1585,12 +1585,12 @@
             height: 48px;
             padding: 10px 16px;
             align-items: center;
-            gap: var(--spacing-md, 8px);
+            gap: 8px;
             align-self: stretch;
-            border-radius: var(--radius-md, 8px);
-            border: 1px solid var(--Gray-300, #D2D6DB);
-            background: var(--White-White, #FFF);
-            box-shadow: 0px 1px 2px 0px var(--Colors-Effects-Shadows-shadow-xs, rgba(16, 24, 40, 0.05));
+            border-radius: 8px;
+            border: 1px solid #D2D6DB;
+            background: white;
+            box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
             overflow: hidden;
             color: #2C3239;
             text-overflow: ellipsis;
@@ -1600,7 +1600,7 @@
             line-height: 18px;
 
             &::placeholder {
-                color: var(--Gray-500, #747C89);
+                color: #747C89;
             }
         }
     }
@@ -1612,13 +1612,13 @@
         padding: 12px 24px;
         justify-content: center;
         align-items: center;
-        gap: var(--spacing-md, 8px);
+        gap: 8px;
         align-self: stretch;
         border-radius: 6px;
-        background: var(--Primary-500, #3E62F5);
-        border: 1px solid var(--Primary-500, #3E62F5);
+        background: #3E62F5;
+        border: 1px solid #3E62F5;
         box-shadow: 0px 2px 4px 0px rgba(60, 41, 170, 0.12);
-        color: var(--White-White, #FFF);
+        color: white;
         text-align: center;
         font-size: 14px;
         font-style: normal;
@@ -1639,7 +1639,7 @@
         &.valid-submit {
             color: #4D5761;
             border-color: #D2D6DB;
-            background: var(--Gray-300, #D2D6DB);
+            background: #D2D6DB;
             box-shadow: 0px 2px 4px 0px rgba(60, 41, 170, 0.12);
 
             svg {
@@ -1670,7 +1670,7 @@
     bottom: 0;
     right: 0;
     background-color: rgba(0, 0, 0, .4);
-
+    &.show,
     &.directorist-d-block {
         visibility: visible;
         opacity: 1;
@@ -1688,7 +1688,7 @@
         gap: 10px;
         border-radius: 100px;
         color: #A1A9B2;
-        background: var(--Gray-100, #F3F4F6);
+        background: #F3F4F6;
         border: 1px solid #F3F4F6;
         box-shadow: none;
         cursor: pointer;
@@ -1698,7 +1698,7 @@
         &:hover {
             color: #D94A4A;
             border-color: #F2AFAF;
-            background: var(--Error-50, #FDF3F3);
+            background: #FDF3F3;
         }
     }
 
@@ -1711,7 +1711,7 @@
         min-height: 200px;
         max-height: 788px;
         border-radius: 12px;
-        background: var(--White-White, #FFF);
+        background: white;
         @media only screen and (max-width: 767px){
             width: 100%;
             margin: 0 10px;
@@ -1721,7 +1721,7 @@
     &-header {
         width: 100%;
         padding: 16px 24px;
-        border-bottom: 1px solid var(--Gray-200, #E5E7EB);
+        border-bottom: 1px solid #E5E7EB;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -1733,7 +1733,7 @@
         align-items: center;
         flex-wrap: wrap;
         gap: 4px;
-        color: var(--Gray-800, #2C3239);
+        color: #2C3239;
         font-size: 19px;
         font-style: normal;
         font-weight: 600;
@@ -1790,7 +1790,7 @@
         display: flex;
         align-items: center;
         border-radius: 8px;
-        background: var(--Gray-100, #F3F4F6);
+        background: #F3F4F6;
         padding: 12px;
         margin: 0;
     }
@@ -1801,7 +1801,7 @@
         width: 100%;
         padding: 8px 12px;
         gap: 4px;
-        color: var(--Gray-800, #2C3239);
+        color: #2C3239;
         font-size: 12px;
         font-style: normal;
         font-weight: 500;
@@ -1819,7 +1819,7 @@
         padding: 12px 24px;
         justify-content: center;
         align-items: center;
-        gap: var(--spacing-md, 8px);
+        gap: 8px;
         align-self: stretch;
         border-radius: 6px;
         text-align: center;
@@ -1829,14 +1829,14 @@
         line-height: 16px;
         border-radius: 6px;
         color: white;
-        background: var(--Primary-500, #3E62F5);
+        background: #3E62F5;
         box-shadow: 0px 2px 4px 0px rgba(60, 41, 170, 0.12);
         border: 1px solid #3E62F5;
     }
 
     &-submit-loading {
-        color: var(--Gray-500, #747C89);
-        background: var(--Gray-300, #D2D6DB);
+        color: #747C89;
+        background: #D2D6DB;
         box-shadow: 0px 2px 4px 0px rgba(60, 41, 170, 0.12);
         border: 1px solid #D2D6DB;
 
@@ -1921,7 +1921,7 @@
     }
 
     &-status-title {
-        color: var(--Gray-900, #141921);
+        color: #141921;
         font-size: 14px;
         font-style: normal;
         font-weight: 600;
@@ -1965,7 +1965,7 @@
     width: 100%;
     padding: 0 24px;
     border-radius: 12px;
-    background: var(--White-White, #FFF);
+    background: white;
     box-shadow: 0px 8px 16px 0px rgba(16, 24, 40, 0.1), 0px 6px 8px 2px rgba(16, 24, 40, 0.04);
     margin-bottom: 24px;
     border-radius: 8px;

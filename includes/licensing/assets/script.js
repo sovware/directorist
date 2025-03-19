@@ -148,7 +148,27 @@ function handleFormValidation(parentClass,targetClass,successText) {
             }
         });
     });
-}
+};
+
+// Select the form based on the provided selector
+function updateSubmitButtonState(formSelector, targetClass, successText) {
+    const form = document.querySelector(formSelector);
+
+    if (form) {
+        const submitButton = form.querySelector("[type='submit']");
+        const span = submitButton ? submitButton.querySelector("span") : null;
+
+        if (submitButton) {
+            submitButton.classList.add(targetClass);
+        }
+        if (span) {
+            span.textContent = successText;
+        }
+    } else {
+        console.error("Form not found.");
+    }
+};
+
 
 function handlePostRequest(formSelector, endpoint, successCallback, errorCallback) {
     endpoint = directorist_licensing.root + endpoint || endpoint;
@@ -195,42 +215,36 @@ function handlePostRequest(formSelector, endpoint, successCallback, errorCallbac
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    
-    handleFormValidation(".directorist-login-with-access-key","valid-submit", "Connecting...");
 
     handlePostRequest(
-        ".directorist-login-with-access-key", // Form selector
-        "directorist/v1/admin/login-with-access-key", // REST API endpoint
+        ".directorist-login-with-access-key",
+        "directorist/v1/admin/login-with-access-key",
         function (data) {
             if ( data.success === true ) {
+               updateSubmitButtonState(".directorist-login-with-access-key","valid-submit", "Connecting...");
                location.reload();
             } else {
-                // Display error message in the UI
                 alert(data.message);
             }
         },
         function (error) {
             console.error("Error:", error);
-            // Handle error (e.g., show an error message)
         }
     );
 
-     handleFormValidation(".directorist-login-with-account","valid-submit", "Login...");
-
     handlePostRequest(
-        ".directorist-login-with-account", // Form selector
-        "directorist/v1/admin/login-with-account", // REST API endpoint
+        ".directorist-login-with-account",
+        "directorist/v1/admin/login-with-account",
         function (data) {
             if ( data.success === true ) {
+                updateSubmitButtonState(".directorist-login-with-account", "valid-submit", "Login...");
                 location.reload();
              } else {
-                 // Display error message in the UI
-                 alert(data.message);
+                alert(data.message); 
              }
         },
         function (error) {
             console.error("Error:", error);
-            // Handle error (e.g., show an error message)
         }
     );
 

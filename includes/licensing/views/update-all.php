@@ -1,4 +1,4 @@
-<div class="directorist-custom-modal directorist-insert-modal directorist-d-block" id="directorist-insert-modal">
+<div class="directorist-custom-modal directorist-insert-modal directorist-d-none" id="directorist-insert-modal">
 	<div class="directorist-custom-modal-content">
 		<div class="directorist-custom-modal-header">
 			<h3 class="directorist-custom-modal-header-title">

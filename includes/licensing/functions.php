@@ -27,45 +27,47 @@ function directorist_licensing_get_extension_list_html() {
 
 				<article class="directorist-extension-item">
 
-					<figure class="directorist-extension-image">
-                        <img src="<?php echo esc_url( $extension['thumbnail'] ); ?>" alt="<?php echo esc_attr( $extension['title'] ); ?>">
-                    </figure>
+					<div class="directorist-extension-item-body">
+						<figure class="directorist-extension-image">
+							<img src="<?php echo esc_url( $extension['thumbnail'] ); ?>" alt="<?php echo esc_attr( $extension['title'] ); ?>">
+						</figure>
 
-					<div class="directorist-extension-overlay">
-						<?php if ( isset( $extension['is_popular'] ) && '1' === $extension['is_popular'] ): ?>
-							<div class="badge badge-popular">
-								Popular
-							</div>
-						<?php endif; ?>
+						<div class="directorist-extension-overlay">
+							<?php if ( isset( $extension['is_popular'] ) && '1' === $extension['is_popular'] ): ?>
+								<div class="badge badge-popular">
+									Popular
+								</div>
+							<?php endif; ?>
 
-						<?php if ( isset( $extension['is_trending'] ) && '1' === $extension['is_trending'] ): ?>
-							<div class="badge badge-trendy">
-								Trendy
-							</div>
-						<?php endif; ?>
+							<?php if ( isset( $extension['is_trending'] ) && '1' === $extension['is_trending'] ): ?>
+								<div class="badge badge-trendy">
+									Trendy
+								</div>
+							<?php endif; ?>
 
-						<?php if ( isset( $extension['is_new'] ) && '1' === $extension['is_new'] ): ?>
-							<div class="badge badge-latest">
-								Latest
-							</div>
-						<?php endif; ?>
+							<?php if ( isset( $extension['is_new'] ) && '1' === $extension['is_new'] ): ?>
+								<div class="badge badge-latest">
+									Latest
+								</div>
+							<?php endif; ?>
+						</div>
+
+						<div class="directorist-extension-content">
+							<header class="directorist-extension-header">
+								<h3 class="directorist-extension-title">
+									<?php echo esc_html( $extension['title'] ); ?>
+									<?php if ( in_array( $extension['slug'], $active_slug_list ) ): ?>
+										<span class="directorist-extension-title-badge-active"><?php esc_html_e( 'Active', 'directorist' ); ?></span>
+									<?php endif; ?>
+								</h3>
+							</header>
+							<?php if ( isset( $extension['excerpt'] ) ): ?>
+								<p class="directorist-extension-description">
+									<?php echo esc_html( $extension['excerpt'] ); ?>
+								</p>
+							<?php endif; ?>
+						</div>
 					</div>
-
-					<div class="directorist-extension-content">
-                        <header class="directorist-extension-header">
-                            <h2 class="directorist-extension-title">
-								<?php echo esc_html( $extension['title'] ); ?>
-								<?php if ( in_array( $extension['slug'], $active_slug_list ) ): ?>
-									<span class="directorist-extension-title-badge-active"><?php esc_html_e( 'Active', 'directorist' ); ?></span>
-								<?php endif; ?>
-							</h2>
-                        </header>
-						<?php if ( isset( $extension['excerpt'] ) ): ?>
-							<p class="directorist-extension-description">
-								<?php echo esc_html( $extension['excerpt'] ); ?>
-							</p>
-						<?php endif; ?>
-                    </div>
 
                     <footer class="directorist-extension-footer">
 
@@ -100,18 +102,20 @@ function directorist_licensing_get_template_list_html() {
 
 			<div class="directorist-col-xxl-3 directorist-col-lg-4 directorist-col-sm-6" data-item-slug="<?php echo esc_attr( $template['slug'] ) ?>">
 				<article class="directorist-template-item">
-					<figure class="directorist-template-image">
-						<img src="<?php echo esc_attr( $template['thumbnail'] ); ?>" alt="<?php echo esc_attr( $template['title'] ); ?>">
-					</figure>
-					<div class="directorist-template-content">
-						<header class="directorist-template-header">
-							<h2 class="directorist-template-title">
-								<?php echo esc_html( $template['title'] ); ?>
-							</h2>
-						</header>
-						<p class="directorist-template-description">
-							<?php echo esc_html( $template['excerpt'] ); ?>
-						</p>
+					<div class="directorist-template-item-body">
+						<figure class="directorist-template-image">
+							<img src="<?php echo esc_attr( $template['thumbnail'] ); ?>" alt="<?php echo esc_attr( $template['title'] ); ?>">
+						</figure>
+						<div class="directorist-template-content">
+							<header class="directorist-template-header">
+								<h3 class="directorist-template-title">
+									<?php echo esc_html( $template['title'] ); ?>
+								</h3>
+							</header>
+							<p class="directorist-template-description">
+								<?php echo esc_html( $template['excerpt'] ); ?>
+							</p>
+						</div>
 					</div>
 					<footer class="directorist-template-footer">
 						<?php echo directorist_get_item_buttons_html( $template, 'template' ); ?>
@@ -166,7 +170,7 @@ function directorist_get_item_buttons_html( array $item, string $type ): string 
 				<?php endif; ?>
 
 				<?php if ( in_array( $item['slug'], $backdated_slugs ) ): ?>
-					<a data-item-slug="<?php echo esc_attr( $item['slug'] ); ?>" href="#" type="button" class="directorist-extension-btn directorist-extension-btn-warning directorist-extension-btn-update"><?php esc_html_e( 'Update', 'directorist' ); ?></a>
+					<a data-item-slug="<?php echo esc_attr( $item['slug'] ); ?>" href="#" type="button" class="directorist-extension-btn directorist-extension-btn-update"><?php esc_html_e( 'Update', 'directorist' ); ?></a>
 				<?php endif; ?>
 
 			<?php endif; ?>

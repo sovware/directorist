@@ -19,7 +19,7 @@
     gap: 12px;
     align-self: stretch;
     border-radius: 6px;
-    background:#F9FAFB;
+    background: #F9FAFB;
 
     &-author {
         width: 40px;
@@ -228,7 +228,7 @@
         background-color: white;
         border: 1px solid #3E62F5;
         box-shadow: 0px 2px 4px 0px rgba(60, 41, 170, 0.12);
-        color:#3E62F5;
+        color: #3E62F5;
         font-size: 15px;
         font-weight: 600;
         line-height: 16px;
@@ -356,7 +356,7 @@
         border-radius: 6px;
         border: 1px solid #FBE5E5;
         background: #FBE5E5;
-        color:#A72E2E;
+        color: #A72E2E;
         font-size: 12px;
         font-style: normal;
         font-weight: 600;
@@ -589,7 +589,7 @@
     align-items: center;
     gap: 12px;
     border-radius: 10px;
-    background:#F9FAFB;
+    background: #F9FAFB;
     box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
     height: 100%;
 
@@ -614,7 +614,7 @@
     }
 
     &-description {
-        color:#383F47;
+        color: #383F47;
         text-align: center;
         font-size: 14px;
         font-style: normal;
@@ -660,7 +660,7 @@
     gap: 3px;
     border-radius: 8px;
     border: 1px solid #E5E7EB;
-    background:#E5E7EB;
+    background: #E5E7EB;
     position: relative;
     margin-bottom: 0;
 
@@ -859,11 +859,11 @@
             font-size: 14px;
             font-style: normal;
             font-weight: 500;
-            line-height:20px;
+            line-height: 20px;
             text-transform: capitalize;
 
             &-popular {
-                color:#B54708;
+                color: #B54708;
                 border: 1px solid #FEDF89;
                 background: #FFFAEB;
             }
@@ -872,6 +872,12 @@
                 color: #067647;
                 border: 1px solid #ABEFC6;
                 background: #ECFDF3;
+            }
+
+            &-trendy {
+                color: #2D3748;
+                border: 1px solid #F7C948;
+                background: linear-gradient(135deg, #F7C948 0%, #FFE082 100%);
             }
         }
     }
@@ -922,7 +928,7 @@
         border-radius: 6px;
         border: 1px solid #ABEFC6;
         background: #ECFDF3;
-        color:#14B570;
+        color: #14B570;
         text-align: center;
         font-size: 12px;
         font-style: normal;
@@ -1367,7 +1373,7 @@
 
     &-btn-failed {
         border: 1px solid #F2AFAF;
-        background:#FDF3F3;
+        background: #FDF3F3;
         color: #D94A4A;
 
         &:hover {
@@ -1627,7 +1633,8 @@
         width: 100%;
         transition: all 0.35s ease;
         cursor: pointer;
-        svg{
+
+        svg {
             display: none;
         }
 
@@ -1670,6 +1677,7 @@
     bottom: 0;
     right: 0;
     background-color: rgba(0, 0, 0, .4);
+
     &.show,
     &.directorist-d-block {
         visibility: visible;
@@ -1712,7 +1720,8 @@
         max-height: 788px;
         border-radius: 12px;
         background: white;
-        @media only screen and (max-width: 767px){
+
+        @media only screen and (max-width: 767px) {
             width: 100%;
             margin: 0 10px;
         }
@@ -1766,7 +1775,8 @@
         list-style: none;
         gap: 10px;
         overflow-y: auto;
-        @media only screen and (max-width: 767px){
+
+        @media only screen and (max-width: 767px) {
             max-height: calc(100vh - 50vh);
         }
 
@@ -1914,7 +1924,8 @@
         justify-content: space-between;
         flex-wrap: wrap;
         gap: 5px;
-        @media only screen and (max-width: 575px){
+
+        @media only screen and (max-width: 575px) {
             flex-direction: column;
             align-items: flex-start;
         }
@@ -1969,72 +1980,167 @@
     box-shadow: 0px 8px 16px 0px rgba(16, 24, 40, 0.1), 0px 6px 8px 2px rgba(16, 24, 40, 0.04);
     margin-bottom: 24px;
     border-radius: 8px;
-  
+
     @media only screen and (max-width: 575px) {
-      flex-direction: column;
-      padding: 20px 0;
+        flex-direction: column;
+        padding: 20px 0;
     }
-  
+
     .directorist_builder-header__left {
-      @media only screen and (max-width: 575px) {
-        margin-bottom: 15px;
-      }
+        @media only screen and (max-width: 575px) {
+            margin-bottom: 15px;
+        }
     }
-  
+
     .directorist_logo {
-      max-width: 108px;
-      max-height: 32px;
-  
-      img {
-        width: 100%;
-        max-height: inherit;
-      }
+        max-width: 108px;
+        max-height: 32px;
+
+        img {
+            width: 100%;
+            max-height: inherit;
+        }
     }
-  
+
     .directorist_builder-links {
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px 18px;
-  
-      li {
-        display: inline-block;
-        margin-bottom: 0;
-      }
-  
-      a {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px 18px;
+
+        li {
+            display: inline-block;
+            margin-bottom: 0;
+        }
+
+        a {
+            display: flex;
+            align-items: center;
+            gap: 2px 5px;
+            padding: 17px 0;
+            text-decoration: none;
+            font-size: 13px;
+            color: #4D5761;
+            font-weight: 500;
+            line-height: 14px;
+
+            .svg-icon {
+                display: inline-flex;
+                align-items: center;
+                color: #747C89;
+            }
+
+            &:hover {
+                color: #3E62F5;
+
+                .svg-icon {
+                    color: inherit;
+                }
+            }
+
+            @media only screen and (max-width: 575px) {
+                padding: 6px 0;
+            }
+
+            i {
+                font-size: 16px;
+            }
+        }
+    }
+}
+
+
+//Directorist Insert Modal
+.directorist-insert-modal {
+    .directorist-custom-modal-header {
+        padding-bottom: 0;
+        border-bottom: none;
+    }
+
+    .directorist-custom-modal-body {
+        padding-top: 0;
+    }
+
+    .directorist-custom-modal-header-title {
+        color: #141921;
+        font-size: 22px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 29px;
+        margin: 0 0 6px;
+        padding: 0;
+    }
+
+    .directorist-custom-modal-close {
+        border: none;
+        background-color: transparent;
+    }
+
+    .directorist-custom-modal-footer {
         display: flex;
         align-items: center;
-        gap: 2px 5px;
-        padding: 17px 0;
-        text-decoration: none;
-        font-size: 13px;
-        color: #4D5761;
-        font-weight: 500;
-        line-height: 14px;
-  
-        .svg-icon {
-          display: inline-flex;
-          align-items: center;
-          color: #747C89;
-        }
-  
-        &:hover {
-          color: #3E62F5;
-  
-          .svg-icon {
-            color: inherit;
-          }
-        }
-  
-        @media only screen and (max-width: 575px) {
-          padding: 6px 0;
-        }
-  
-        i {
-          font-size: 16px;
-        }
-      }
+        justify-content: flex-end;
+        gap: 12px;
     }
-  }
+
+    &__warning {
+        color: #4D5761;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 16px;
+    }
+
+    &__list {
+        margin: 0 0 0 16px;
+        padding: 30px 0 0;
+        list-style: auto;
+    }
+
+    &__item {
+        color: #4D5761;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 16px;
+
+        &:not(:last-child) {
+            margin-bottom: 12px;
+        }
+    }
+
+    &__btn {
+        display: flex;
+        height: 40px;
+        padding: 0 24px;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        border-radius: 8px;
+        border: 1px solid #E5E7EB;
+        box-shadow: 0px 2px 4px 0px rgba(60, 41, 170, 0.12);
+        color: #2C3239;
+        font-size: 15px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 16px;
+        text-transform: capitalize;
+        background-color: white;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+        svg{
+            width: 20px;
+            height: 20px;
+        }
+        &:hover{
+            opacity: 0.85;
+        }
+    }
+    &__install-templatiq{
+        border-color:#3E62F5 ;
+        background:#3E62F5;
+        box-shadow: 0px 2px 4px 0px rgba(60, 41, 170, 0.12);
+        color: #FFF;
+    }
+}

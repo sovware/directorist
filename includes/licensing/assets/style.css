@@ -1589,6 +1589,11 @@
   border: 1px solid #ABEFC6;
   background: #ECFDF3;
 }
+.directorist-extension-overlay .badge-trendy {
+  color: #2D3748;
+  border: 1px solid #F7C948;
+  background: linear-gradient(135deg, #F7C948 0%, #FFE082 100%);
+}
 .directorist-extension-image {
   display: flex;
   width: 56px;
@@ -2602,6 +2607,88 @@
 }
 .directorist_builder-header .directorist_builder-links a i {
   font-size: 16px;
+}
+
+.directorist-insert-modal .directorist-custom-modal-header {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+.directorist-insert-modal .directorist-custom-modal-body {
+  padding-top: 0;
+}
+.directorist-insert-modal .directorist-custom-modal-header-title {
+  color: #141921;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 29px;
+  margin: 0 0 6px;
+  padding: 0;
+}
+.directorist-insert-modal .directorist-custom-modal-close {
+  border: none;
+  background-color: transparent;
+}
+.directorist-insert-modal .directorist-custom-modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+}
+.directorist-insert-modal__warning {
+  color: #4D5761;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 16px;
+}
+.directorist-insert-modal__list {
+  margin: 0 0 0 16px;
+  padding: 30px 0 0;
+  list-style: auto;
+}
+.directorist-insert-modal__item {
+  color: #4D5761;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 16px;
+}
+.directorist-insert-modal__item:not(:last-child) {
+  margin-bottom: 12px;
+}
+.directorist-insert-modal__btn {
+  display: flex;
+  height: 40px;
+  padding: 0 24px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border-radius: 8px;
+  border: 1px solid #E5E7EB;
+  box-shadow: 0px 2px 4px 0px rgba(60, 41, 170, 0.12);
+  color: #2C3239;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+  text-transform: capitalize;
+  background-color: white;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.directorist-insert-modal__btn svg {
+  width: 20px;
+  height: 20px;
+}
+.directorist-insert-modal__btn:hover {
+  opacity: 0.85;
+}
+.directorist-insert-modal__install-templatiq {
+  border-color: #3E62F5;
+  background: #3E62F5;
+  box-shadow: 0px 2px 4px 0px rgba(60, 41, 170, 0.12);
+  color: #FFF;
 }
 
 /*# sourceMappingURL=style.css.map */

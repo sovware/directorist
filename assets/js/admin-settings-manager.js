@@ -19719,8 +19719,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof.js");
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-/* harmony import */ var _mixins_form_fields_card_builder__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../../mixins/form-fields/card-builder */ "./assets/src/js/admin/vue/mixins/form-fields/card-builder.js");
-/* harmony import */ var _mixins_helpers__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../mixins/helpers */ "./assets/src/js/admin/vue/mixins/helpers.js");
+/* harmony import */ var _mixins_helpers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../mixins/helpers */ "./assets/src/js/admin/vue/mixins/helpers.js");
+/* harmony import */ var _mixins_form_fields_card_builder__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../../mixins/form-fields/card-builder */ "./assets/src/js/admin/vue/mixins/form-fields/card-builder.js");
 
 
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
@@ -19733,11 +19733,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "card-builder-grid-view-field",
-  mixins: [_mixins_form_fields_card_builder__WEBPACK_IMPORTED_MODULE_3__["default"], _mixins_helpers__WEBPACK_IMPORTED_MODULE_4__["default"]],
+  mixins: [_mixins_form_fields_card_builder__WEBPACK_IMPORTED_MODULE_4__["default"], _mixins_helpers__WEBPACK_IMPORTED_MODULE_3__["default"]],
   props: {
     fieldId: {
       required: false,
-      default: ''
+      default: ""
     },
     value: {
       required: false,
@@ -19754,17 +19754,17 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   },
   mounted: function mounted() {
     var self = this;
-    document.addEventListener('click', function (e) {
+    document.addEventListener("click", function (e) {
       self.closeInsertWindow();
     });
   },
   created: function created() {
     this.init();
-    this.$emit('update', this.output_data);
+    this.$emit("update", this.output_data);
   },
   watch: {
     output_data: function output_data() {
-      this.$emit('update', this.output_data);
+      this.$emit("update", this.output_data);
     }
   },
   computed: {
@@ -19791,16 +19791,16 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
             }
             var widget_data = {};
             for (var root_option in this.active_widgets[widget_name]) {
-              if ('options' === root_option) {
+              if ("options" === root_option) {
                 continue;
               }
-              if ('icon' === root_option) {
+              if ("icon" === root_option) {
                 continue;
               }
-              if ('show_if' === root_option) {
+              if ("show_if" === root_option) {
                 continue;
               }
-              if ('fields' === root_option) {
+              if ("fields" === root_option) {
                 continue;
               }
               widget_data[root_option] = this.active_widgets[widget_name][root_option];
@@ -19848,12 +19848,12 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                 var matched_field = _step.value;
                 // console.log( {matched_field} );
                 var _main_widget = JSON.parse(JSON.stringify(main_widget));
-                var current_key = widget_keys.includes(widget) ? widget + '_' + (widget_keys.length + 1) : widget;
+                var current_key = widget_keys.includes(widget) ? widget + "_" + (widget_keys.length + 1) : widget;
                 _main_widget.widget_key = current_key;
                 if (matched_field.widget_key) {
                   _main_widget.widget_key = matched_field.widget_key;
                 }
-                if (typeof matched_field.label === 'string' && matched_field.label.length) {
+                if (typeof matched_field.label === "string" && matched_field.label.length) {
                   _main_widget.label = matched_field.label;
                 }
                 available_widgets[current_key] = _main_widget;
@@ -19875,7 +19875,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       if (!this.widgetOptionsWindow.widget.length) {
         return false;
       }
-      if (typeof this.active_widgets[this.widgetOptionsWindow.widget] === 'undedined') {
+      if (typeof this.active_widgets[this.widgetOptionsWindow.widget] === "undedined") {
         return false;
       }
       return true;
@@ -19884,8 +19884,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       return this.currentDraggingWidget;
     },
     getAvatarPlaceholderClass: function getAvatarPlaceholderClass() {
-      var accepted_align_options = ['right', 'center', 'left'];
-      var align_option = '';
+      var accepted_align_options = ["right", "center", "left"];
+      var align_option = "";
       var active_widgets = JSON.parse(JSON.stringify(this.active_widgets));
       var has_option = false;
       if (this.isObject(active_widgets)) {
@@ -19903,39 +19903,39 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       if (has_option && !active_widgets.user_avatar.options.fields.align) {
         has_option = false;
       }
-      if (has_option && !(typeof active_widgets.user_avatar.options.fields.align.value === 'string')) {
+      if (has_option && !(typeof active_widgets.user_avatar.options.fields.align.value === "string")) {
         has_option = false;
       }
       if (has_option) {
         align_option = active_widgets.user_avatar.options.fields.align.value;
       }
       if (!accepted_align_options.includes(align_option)) {
-        align_option = 'center';
+        align_option = "center";
       }
       return {
-        'cptm-listing-card-author-avatar-placeholder cptm-card-dark-light cptm-mb-20': true,
-        'cptm-text-right': 'right' === align_option ? true : false,
-        'cptm-text-center': 'center' === align_option ? true : false,
-        'cptm-text-left': 'left' === align_option ? true : false
+        "cptm-listing-card-author-avatar-placeholder cptm-card-dark-light cptm-mb-20": true,
+        "cptm-text-right": "right" === align_option ? true : false,
+        "cptm-text-center": "center" === align_option ? true : false,
+        "cptm-text-left": "left" === align_option ? true : false
       };
     }
   },
   data: function data() {
     return {
       active_insert_widget_is_open: false,
-      active_insert_widget_key: '',
+      active_insert_widget_key: "",
       // Widget Options Window
       widgetOptionsWindowDefault: {
-        animation: 'cptm-animation-flip',
-        widget: ''
+        animation: "cptm-animation-flip",
+        widget: ""
       },
       widgetOptionsWindow: {
-        animation: 'cptm-animation-flip',
-        widget: ''
+        animation: "cptm-animation-flip",
+        widget: ""
       },
       currentDraggingWidget: {
         origin: {},
-        key: ''
+        key: ""
       },
       // Available Widgets
       available_widgets: {},
@@ -19945,47 +19945,47 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       local_layout: {
         thumbnail: {
           top_right: {
-            label: 'Top Right',
+            label: "Top Right",
             selectedWidgets: []
           },
           top_left: {
-            label: 'Top Left',
+            label: "Top Left",
             selectedWidgets: []
           },
           bottom_right: {
-            label: 'Bottom Right',
+            label: "Bottom Right",
             selectedWidgets: []
           },
           bottom_left: {
-            label: 'Bottom Left',
+            label: "Bottom Left",
             selectedWidgets: []
           },
           avatar: {
-            label: 'Avatar',
+            label: "Avatar",
             selectedWidgets: []
           }
         },
         body: {
           top: {
-            label: 'Body Top',
+            label: "Body Top",
             selectedWidgets: []
           },
           bottom: {
-            label: 'Body Bottom',
+            label: "Body Bottom",
             selectedWidgets: []
           },
           excerpt: {
-            label: 'Excerpt',
+            label: "Excerpt",
             selectedWidgets: []
           }
         },
         footer: {
           right: {
-            label: 'Footer Right',
+            label: "Footer Right",
             selectedWidgets: []
           },
           left: {
-            label: 'Footer Left',
+            label: "Footer Left",
             selectedWidgets: []
           }
         }
@@ -19999,7 +19999,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       this.importOldData();
     },
     isTruthyObject: function isTruthyObject(obj) {
-      if (!obj && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(obj) !== 'object') {
+      if (!obj && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(obj) !== "object") {
         return false;
       }
       return true;
@@ -20022,11 +20022,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       // Get Active Widgets Data
       var active_widgets_data = {};
       for (var section in value) {
-        if (!value[section] && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(value[section]) !== 'object') {
+        if (!value[section] && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(value[section]) !== "object") {
           continue;
         }
         for (var area in value[section]) {
-          if (!value[section][area] && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(value[section][area]) !== 'object') {
+          if (!value[section][area] && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(value[section][area]) !== "object") {
             continue;
           }
           var _iterator2 = _createForOfIteratorHelper(value[section][area]),
@@ -20034,19 +20034,19 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           try {
             for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
               var widget = _step2.value;
-              if (typeof widget.widget_name === 'undefined') {
+              if (typeof widget.widget_name === "undefined") {
                 continue;
               }
-              if (typeof widget.widget_key === 'undefined') {
+              if (typeof widget.widget_key === "undefined") {
                 continue;
               }
-              if (typeof this.available_widgets[widget.widget_name] === 'undefined') {
+              if (typeof this.available_widgets[widget.widget_name] === "undefined") {
                 continue;
               }
-              if (typeof this.local_layout[section] === 'undefined') {
+              if (typeof this.local_layout[section] === "undefined") {
                 continue;
               }
-              if (typeof this.local_layout[section][area] === 'undefined') {
+              if (typeof this.local_layout[section][area] === "undefined") {
                 continue;
               }
               active_widgets_data[widget.widget_key] = widget;
@@ -20072,7 +20072,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         var widgets_template = _objectSpread({}, this.theAvailableWidgets[widget_key]);
         var widget_options = !active_widgets_data[widget_key].options && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(active_widgets_data[widget_key].options) !== "object" ? false : active_widgets_data[widget_key].options;
         for (var root_option in widgets_template) {
-          if ('options' === root_option) {
+          if ("options" === root_option) {
             continue;
           }
           if (active_widgets_data[widget_key][root_option] === "undefined") {
@@ -20129,8 +20129,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       this.currentDraggingWidget.origin = origin;
     },
     onDragEndWidget: function onDragEndWidget() {
-      this.currentDraggingWidget.key = '';
-      this.currentDraggingWidget.origin = '';
+      this.currentDraggingWidget.key = "";
+      this.currentDraggingWidget.origin = "";
     },
     maxWidgetLimitIsReached: function maxWidgetLimitIsReached(path) {
       if (!path.maxWidget) {
@@ -20216,10 +20216,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       // console.log( 'handleDragleaveOnPlaceholder', where );
     },
     editWidget: function editWidget(key) {
-      if (typeof this.active_widgets[key] === 'undefined') {
+      if (typeof this.active_widgets[key] === "undefined") {
         return;
       }
-      if (!this.active_widgets[key].options && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(this.active_widgets[key].options) !== 'object') {
+      if (!this.active_widgets[key].options && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(this.active_widgets[key].options) !== "object") {
         return;
       }
 
@@ -20231,13 +20231,13 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     },
     updateWidgetOptionsData: function updateWidgetOptionsData(data, widget) {
       return;
-      if (typeof this.active_widgets[widget.widget] === 'undefined') {
+      if (typeof this.active_widgets[widget.widget] === "undefined") {
         return;
       }
-      if (typeof this.active_widgets[widget.widget].options === 'undefined') {
+      if (typeof this.active_widgets[widget.widget].options === "undefined") {
         return;
       }
-      vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(this.active_widgets[widget.widget].options, 'fields', data);
+      vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(this.active_widgets[widget.widget].options, "fields", data);
     },
     closeWidgetOptionsWindow: function closeWidgetOptionsWindow() {
       this.widgetOptionsWindow = this.widgetOptionsWindowDefault;
@@ -20248,7 +20248,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       }
       var index = where.selectedWidgets.indexOf(key);
       vue__WEBPACK_IMPORTED_MODULE_2__["default"].delete(where.selectedWidgets, index);
-      if (typeof this.active_widgets[key] === 'undefined') {
+      if (typeof this.active_widgets[key] === "undefined") {
         return;
       }
       vue__WEBPACK_IMPORTED_MODULE_2__["default"].delete(this.active_widgets, key);
@@ -20260,7 +20260,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       var self = this;
       setTimeout(function () {
         if (self.active_insert_widget_key === current_item_key) {
-          self.active_insert_widget_key = '';
+          self.active_insert_widget_key = "";
           return;
         }
         self.active_insert_widget_key = current_item_key;
@@ -20271,11 +20271,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         return;
       }
       vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(this.active_widgets, payload.key, _objectSpread({}, this.theAvailableWidgets[payload.key]));
-      vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(where, 'selectedWidgets', payload.selected_widgets);
+      vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(where, "selectedWidgets", payload.selected_widgets);
       this.editWidget(payload.key);
     },
     closeInsertWindow: function closeInsertWindow(widget_insert_window) {
-      this.active_insert_widget_key = '';
+      this.active_insert_widget_key = "";
     },
     getActiveInsertWindowStatus: function getActiveInsertWindowStatus(current_item_key) {
       if (current_item_key === this.active_insert_widget_key) {
@@ -20965,7 +20965,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   props: {
     fieldId: {
       required: false,
-      default: ''
+      default: ""
     },
     value: {
       required: false,
@@ -20982,11 +20982,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   },
   created: function created() {
     this.init();
-    this.$emit('update', this.output_data);
+    this.$emit("update", this.output_data);
   },
   watch: {
     output_data: function output_data() {
-      this.$emit('update', this.output_data);
+      this.$emit("update", this.output_data);
     }
   },
   computed: {
@@ -21013,16 +21013,16 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
             }
             var widget_data = {};
             for (var root_option in this.active_widgets[widget_name]) {
-              if ('options' === root_option) {
+              if ("options" === root_option) {
                 continue;
               }
-              if ('icon' === root_option) {
+              if ("icon" === root_option) {
                 continue;
               }
-              if ('show_if' === root_option) {
+              if ("show_if" === root_option) {
                 continue;
               }
-              if ('fields' === root_option) {
+              if ("fields" === root_option) {
                 continue;
               }
               widget_data[root_option] = this.active_widgets[widget_name][root_option];
@@ -21070,12 +21070,12 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                 var matched_field = _step.value;
                 // console.log( {matched_field} );
                 var _main_widget = JSON.parse(JSON.stringify(main_widget));
-                var current_key = widget_keys.includes(widget) ? widget + '_' + (widget_keys.length + 1) : widget;
+                var current_key = widget_keys.includes(widget) ? widget + "_" + (widget_keys.length + 1) : widget;
                 _main_widget.widget_key = current_key;
                 if (matched_field.widget_key) {
                   _main_widget.original_widget_key = matched_field.widget_key;
                 }
-                if (typeof matched_field.label === 'string' && matched_field.label.length) {
+                if (typeof matched_field.label === "string" && matched_field.label.length) {
                   _main_widget.label = matched_field.label;
                 }
                 available_widgets[current_key] = _main_widget;
@@ -21097,7 +21097,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       if (!this.widgetOptionsWindow.widget.length) {
         return false;
       }
-      if (typeof this.active_widgets[this.widgetOptionsWindow.widget] === 'undedined') {
+      if (typeof this.active_widgets[this.widgetOptionsWindow.widget] === "undedined") {
         return false;
       }
       return true;
@@ -21106,8 +21106,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       return this.currentDraggingWidget;
     },
     getAvatarPlaceholderClass: function getAvatarPlaceholderClass() {
-      var accepted_align_options = ['right', 'center', 'left'];
-      var align_option = '';
+      var accepted_align_options = ["right", "center", "left"];
+      var align_option = "";
       var active_widgets = JSON.parse(JSON.stringify(this.active_widgets));
       var has_option = false;
       if (this.isObject(active_widgets)) {
@@ -21125,38 +21125,38 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       if (has_option && !active_widgets.user_avatar.options.fields.align) {
         has_option = false;
       }
-      if (has_option && !(typeof active_widgets.user_avatar.options.fields.align.value === 'string')) {
+      if (has_option && !(typeof active_widgets.user_avatar.options.fields.align.value === "string")) {
         has_option = false;
       }
       if (has_option) {
         align_option = active_widgets.user_avatar.options.fields.align.value;
       }
       if (!accepted_align_options.includes(align_option)) {
-        align_option = 'center';
+        align_option = "center";
       }
       return {
-        'cptm-listing-card-author-avatar-placeholder cptm-card-light cptm-mb-20': true,
-        'cptm-text-right': 'right' === align_option ? true : false,
-        'cptm-text-center': 'center' === align_option ? true : false,
-        'cptm-text-left': 'left' === align_option ? true : false
+        "cptm-listing-card-author-avatar-placeholder cptm-card-light cptm-mb-20": true,
+        "cptm-text-right": "right" === align_option ? true : false,
+        "cptm-text-center": "center" === align_option ? true : false,
+        "cptm-text-left": "left" === align_option ? true : false
       };
     }
   },
   data: function data() {
     return {
-      active_insert_widget_key: '',
+      active_insert_widget_key: "",
       // Widget Options Window
       widgetOptionsWindowDefault: {
-        animation: 'cptm-animation-flip',
-        widget: ''
+        animation: "cptm-animation-flip",
+        widget: ""
       },
       widgetOptionsWindow: {
-        animation: 'cptm-animation-flip',
-        widget: ''
+        animation: "cptm-animation-flip",
+        widget: ""
       },
       currentDraggingWidget: {
         origin: {},
-        key: ''
+        key: ""
       },
       // Available Widgets
       available_widgets: {},
@@ -21166,37 +21166,37 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       local_layout: {
         body: {
           avatar: {
-            label: 'Avater',
+            label: "Avater",
             selectedWidgets: []
           },
           title: {
-            label: 'Title',
+            label: "Title",
             selectedWidgets: []
           },
           quick_actions: {
-            label: 'Quick Actions',
+            label: "Quick Actions",
             selectedWidgets: []
           },
           quick_info: {
-            label: 'Quick Info',
+            label: "Quick Info",
             selectedWidgets: []
           },
           bottom: {
-            label: 'Body Bottom',
+            label: "Body Bottom",
             selectedWidgets: []
           },
           excerpt: {
-            label: 'Excerpt',
+            label: "Excerpt",
             selectedWidgets: []
           }
         },
         footer: {
           right: {
-            label: 'Footer Right',
+            label: "Footer Right",
             selectedWidgets: []
           },
           left: {
-            label: 'Footer Left',
+            label: "Footer Left",
             selectedWidgets: []
           }
         }
@@ -21210,7 +21210,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       this.importOldData();
     },
     isTruthyObject: function isTruthyObject(obj) {
-      if (!obj && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(obj) !== 'object') {
+      if (!obj && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(obj) !== "object") {
         return false;
       }
       return true;
@@ -21233,11 +21233,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       // Get Active Widgets Data
       var active_widgets_data = {};
       for (var section in value) {
-        if (!value[section] && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(value[section]) !== 'object') {
+        if (!value[section] && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(value[section]) !== "object") {
           continue;
         }
         for (var area in value[section]) {
-          if (!value[section][area] && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(value[section][area]) !== 'object') {
+          if (!value[section][area] && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(value[section][area]) !== "object") {
             continue;
           }
           var _iterator2 = _createForOfIteratorHelper(value[section][area]),
@@ -21245,19 +21245,19 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           try {
             for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
               var widget = _step2.value;
-              if (typeof widget.widget_name === 'undefined') {
+              if (typeof widget.widget_name === "undefined") {
                 continue;
               }
-              if (typeof widget.widget_key === 'undefined') {
+              if (typeof widget.widget_key === "undefined") {
                 continue;
               }
-              if (typeof this.available_widgets[widget.widget_name] === 'undefined') {
+              if (typeof this.available_widgets[widget.widget_name] === "undefined") {
                 continue;
               }
-              if (typeof this.local_layout[section] === 'undefined') {
+              if (typeof this.local_layout[section] === "undefined") {
                 continue;
               }
-              if (typeof this.local_layout[section][area] === 'undefined') {
+              if (typeof this.local_layout[section][area] === "undefined") {
                 continue;
               }
               active_widgets_data[widget.widget_key] = widget;
@@ -21283,7 +21283,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         var widgets_template = _objectSpread({}, this.theAvailableWidgets[widget_key]);
         var widget_options = !active_widgets_data[widget_key].options && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(active_widgets_data[widget_key].options) !== "object" ? false : active_widgets_data[widget_key].options;
         for (var root_option in widgets_template) {
-          if ('options' === root_option) {
+          if ("options" === root_option) {
             continue;
           }
           if (active_widgets_data[widget_key][root_option] === "undefined") {
@@ -21340,8 +21340,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       this.currentDraggingWidget.origin = origin;
     },
     onDragEndWidget: function onDragEndWidget() {
-      this.currentDraggingWidget.key = '';
-      this.currentDraggingWidget.origin = '';
+      this.currentDraggingWidget.key = "";
+      this.currentDraggingWidget.origin = "";
     },
     maxWidgetLimitIsReached: function maxWidgetLimitIsReached(path) {
       if (!path.maxWidget) {
@@ -21427,10 +21427,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       // console.log( 'handleDragleaveOnPlaceholder', where );
     },
     editWidget: function editWidget(key) {
-      if (typeof this.active_widgets[key] === 'undefined') {
+      if (typeof this.active_widgets[key] === "undefined") {
         return;
       }
-      if (!this.active_widgets[key].options && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(this.active_widgets[key].options) !== 'object') {
+      if (!this.active_widgets[key].options && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(this.active_widgets[key].options) !== "object") {
         return;
       }
 
@@ -21441,13 +21441,13 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     },
     updateWidgetOptionsData: function updateWidgetOptionsData(data, widget) {
       return;
-      if (typeof this.active_widgets[widget.widget] === 'undefined') {
+      if (typeof this.active_widgets[widget.widget] === "undefined") {
         return;
       }
-      if (typeof this.active_widgets[widget.widget].options === 'undefined') {
+      if (typeof this.active_widgets[widget.widget].options === "undefined") {
         return;
       }
-      vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(this.active_widgets[widget.widget].options, 'fields', data);
+      vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(this.active_widgets[widget.widget].options, "fields", data);
     },
     closeWidgetOptionsWindow: function closeWidgetOptionsWindow() {
       this.widgetOptionsWindow = this.widgetOptionsWindowDefault;
@@ -21458,7 +21458,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       }
       var index = where.selectedWidgets.indexOf(key);
       vue__WEBPACK_IMPORTED_MODULE_2__["default"].delete(where.selectedWidgets, index);
-      if (typeof this.active_widgets[key] === 'undefined') {
+      if (typeof this.active_widgets[key] === "undefined") {
         return;
       }
       vue__WEBPACK_IMPORTED_MODULE_2__["default"].delete(this.active_widgets, key);
@@ -21468,7 +21468,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     },
     activeInsertWindow: function activeInsertWindow(current_item_key) {
       if (this.active_insert_widget_key === current_item_key) {
-        this.active_insert_widget_key = '';
+        this.active_insert_widget_key = "";
         return;
       }
       this.active_insert_widget_key = current_item_key;
@@ -21478,10 +21478,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         return;
       }
       vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(this.active_widgets, payload.key, _objectSpread({}, this.theAvailableWidgets[payload.key]));
-      vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(where, 'selectedWidgets', payload.selected_widgets);
+      vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(where, "selectedWidgets", payload.selected_widgets);
     },
     closeInsertWindow: function closeInsertWindow(widget_insert_window) {
-      this.active_insert_widget_key = '';
+      this.active_insert_widget_key = "";
     },
     getActiveInsertWindowStatus: function getActiveInsertWindowStatus(current_item_key) {
       if (current_item_key === this.active_insert_widget_key) {
@@ -31326,8 +31326,12 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {}, [_vm.card_templates ? [_c("div", {
-    staticClass: "cptm-card-top-area cptm-text-center cptm-mb-20"
-  }, [_vm.fieldKey === "listings_card_grid_view" || _vm.fieldKey === "listings_card_list_view" ? _c("span", [_vm._v("\n        Layout Type\n      ")]) : _vm._e(), _vm._v(" "), _c("tab-field", {
+    staticClass: "cptm-card-top-area"
+  }, [_c("div", {
+    staticClass: "cptm-card-top-area-content"
+  }, [_vm.fieldKey === "listings_card_grid_view" || _vm.fieldKey === "listings_card_list_view" ? _c("span", {
+    staticClass: "cptm-card-layout-title"
+  }, [_vm._v("\n          Layout Type\n        ")]) : _vm._e(), _vm._v(" "), _c("tab-field", {
     attrs: {
       theme: "default",
       options: _vm.theCardBiulderTemplateOptionList
@@ -31339,7 +31343,7 @@ var render = function render() {
       },
       expression: "template_id"
     }
-  })], 1), _vm._v(" "), _c(_vm.theCardBiulderTemplate, _vm._b({
+  })], 1)]), _vm._v(" "), _c(_vm.theCardBiulderTemplate, _vm._b({
     tag: "component",
     attrs: {
       "field-id": _vm.fieldId,
@@ -31406,6 +31410,8 @@ var render = function render() {
     staticClass: "cptm-preview-area"
   }, [_c("div", {
     staticClass: "cptm-card-preview-widget"
+  }, [_c("div", {
+    staticClass: "cptm-card-preview-widget-content"
   }, [_c("div", {
     staticClass: "cptm-listing-card-preview-header"
   }, [_c("div", {
@@ -31873,7 +31879,7 @@ var render = function render() {
         return _vm.closeInsertWindow();
       }
     }
-  })], 1)])])]);
+  })], 1)])])])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
@@ -31909,6 +31915,8 @@ var render = function render() {
     staticClass: "cptm-preview-area"
   }, [_c("div", {
     staticClass: "cptm-card-preview-widget grid-view-with-thumbnail"
+  }, [_c("div", {
+    staticClass: "cptm-card-preview-widget-content"
   }, [_c("div", {
     staticClass: "cptm-listing-card-preview-header"
   }, [_c("div", {
@@ -32392,7 +32400,7 @@ var render = function render() {
         return _vm.closeWidgetOptionsWindow();
       }
     }
-  })], 1)])])]);
+  })], 1)])])])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
@@ -32442,6 +32450,8 @@ var render = function render() {
     staticClass: "cptm-preview-area"
   }, [_c("div", {
     staticClass: "cptm-card-preview-widget grid-view-without-thumbnail"
+  }, [_c("div", {
+    staticClass: "cptm-card-preview-widget-content"
   }, [_c("div", {
     staticClass: "cptm-listing-card-preview-body"
   }, [_c("div", {
@@ -32790,7 +32800,7 @@ var render = function render() {
         return _vm.closeInsertWindow();
       }
     }
-  })], 1)])])]);
+  })], 1)])])])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -37836,7 +37846,8 @@ var render = function render() {
   }, _vm._l(_vm.theOptions, function (option, option_key) {
     return _c("li", {
       key: option_key,
-      staticClass: "cptm-form-group-tab-item"
+      staticClass: "cptm-form-group-tab-item",
+      class: option.value
     }, [_c("a", {
       staticClass: "cptm-form-group-tab-link",
       class: {

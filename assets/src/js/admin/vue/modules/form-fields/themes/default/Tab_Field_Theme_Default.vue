@@ -20,6 +20,7 @@
           v-for="(option, option_key) in theOptions"
           :key="option_key"
           class="cptm-form-group-tab-item"
+          :class="option.value"
         >
           <a
             href="#"

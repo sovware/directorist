@@ -1,20 +1,23 @@
 <template>
   <div class="">
     <template v-if="card_templates">
-      <div class="cptm-card-top-area cptm-text-center cptm-mb-20">
-        <span
-          v-if="
-            fieldKey === 'listings_card_grid_view' ||
-            fieldKey === 'listings_card_list_view'
-          "
-        >
-          Layout Type
-        </span>
-        <tab-field
-          theme="default"
-          :options="theCardBiulderTemplateOptionList"
-          v-model="template_id"
-        />
+      <div class="cptm-card-top-area">
+        <div class="cptm-card-top-area-content">
+          <span
+            v-if="
+              fieldKey === 'listings_card_grid_view' ||
+              fieldKey === 'listings_card_list_view'
+            "
+            class="cptm-card-layout-title"
+          >
+            Layout Type
+          </span>
+          <tab-field
+            theme="default"
+            :options="theCardBiulderTemplateOptionList"
+            v-model="template_id"
+          />
+        </div>
       </div>
 
       <component

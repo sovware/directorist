@@ -2605,13 +2605,26 @@ class Builder_Data {
                 'type'           => 'card-builder',
                 'card_templates' => [
                     'grid_view_with_thumbnail'    => [
-                        'label'    => __( 'With Preview Image', 'directorist' ),
+                        // 'label'    => __( 'With Preview Image', 'directorist' ),
+                        'label'     => '<svg width="45" height="52" viewBox="0 0 45 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="1" y="0.5" width="43" height="51" rx="6.5" fill="white" stroke="#D2D6DB"/>
+                            <path d="M3.5 13C3.5 8.28595 3.5 5.92893 4.96447 4.46447C6.42893 3 8.78595 3 13.5 3H31.5C36.214 3 38.5711 3 40.0355 4.46447C41.5 5.92893 41.5 8.28595 41.5 13V28H3.5V13Z" fill="#D2D6DB"/>
+                            <rect x="11.5" y="34" width="22" height="2" rx="1" fill="#D2D6DB"/>
+                            <rect x="16.5" y="40" width="12" height="2" rx="1" fill="#D2D6DB"/>
+                            </svg>',
                         'template' => 'grid-view-with-thumbnail',
                         'widgets'  => $listing_card_widget,
                         'layout'   => $listing_card_grid_view_with_thumbnail_layout,
                     ],
                     'grid_view_without_thumbnail' => [
-                        'label'    => __( 'Without Preview Image', 'directorist' ),
+                        // 'label'    => __( 'Without Preview Image', 'directorist' ),
+                        'label'     => '<svg width="44" height="52" viewBox="0 0 44 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0.5" y="0.5" width="43" height="51" rx="6.5" fill="white"/>
+                            <rect x="0.5" y="0.5" width="43" height="51" rx="6.5" stroke="#D2D6DB"/>
+                            <rect x="11" y="19" width="22" height="2" rx="1" fill="#D2D6DB"/>
+                            <rect x="11" y="25" width="22" height="2" rx="1" fill="#D2D6DB"/>
+                            <rect x="16" y="31" width="12" height="2" rx="1" fill="#D2D6DB"/>
+                            </svg>',
                         'template' => 'grid-view-without-thumbnail',
                         'widgets'  => $listing_card_conditional_widget,
                         'layout'   => $listing_card_grid_view_without_thumbnail_layout,
@@ -2630,13 +2643,26 @@ class Builder_Data {
                 'type'           => 'card-builder',
                 'card_templates' => [
                     'list_view_with_thumbnail'    => [
-                        'label'    => __( 'With Preview Image', 'directorist' ),
+                        // 'label'    => __( 'With Preview Image', 'directorist' ),
+                        'label'     => '<svg width="45" height="52" viewBox="0 0 45 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="1" y="0.5" width="43" height="51" rx="6.5" fill="white" stroke="#D2D6DB"/>
+                            <path d="M3.5 13C3.5 8.28595 3.5 5.92893 4.96447 4.46447C6.42893 3 8.78595 3 13.5 3H31.5C36.214 3 38.5711 3 40.0355 4.46447C41.5 5.92893 41.5 8.28595 41.5 13V28H3.5V13Z" fill="#D2D6DB"/>
+                            <rect x="11.5" y="34" width="22" height="2" rx="1" fill="#D2D6DB"/>
+                            <rect x="16.5" y="40" width="12" height="2" rx="1" fill="#D2D6DB"/>
+                            </svg>',
                         'template' => 'list-view-with-thumbnail',
                         'widgets'  => $listing_card_conditional_widget,
                         'layout'   => $listing_card_list_view_with_thumbnail_layout,
                     ],
                     'list_view_without_thumbnail' => [
-                        'label'    => __( 'Without Preview Image', 'directorist' ),
+                        // 'label'    => __( 'Without Preview Image', 'directorist' ),
+                        'label'     => '<svg width="44" height="52" viewBox="0 0 44 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0.5" y="0.5" width="43" height="51" rx="6.5" fill="white"/>
+                            <rect x="0.5" y="0.5" width="43" height="51" rx="6.5" stroke="#D2D6DB"/>
+                            <rect x="11" y="19" width="22" height="2" rx="1" fill="#D2D6DB"/>
+                            <rect x="11" y="25" width="22" height="2" rx="1" fill="#D2D6DB"/>
+                            <rect x="16" y="31" width="12" height="2" rx="1" fill="#D2D6DB"/>
+                            </svg>',
                         'template' => 'list-view-without-thumbnail',
                         'widgets'  => $listing_card_conditional_widget,
                         'layout'   => $listing_card_list_view_without_thumbnail_layout,

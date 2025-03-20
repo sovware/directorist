@@ -6,9 +6,11 @@
         :availableWidgets="availableWidgets"
         :selectedWidgets="selectedWidgets"
         :active="
-          showWidgetsOptionWindow &&
-          selectedWidgets.length &&
-          !showWidgetsPickerWindow
+          !!(
+            showWidgetsOptionWindow &&
+            selectedWidgets.length &&
+            !showWidgetsPickerWindow
+          )
         "
         :maxWidgetInfoText="maxWidgetInfoText"
         @trash-widget="$emit('trash-widget', $event)"

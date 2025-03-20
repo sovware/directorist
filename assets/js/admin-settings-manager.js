@@ -27863,7 +27863,7 @@ var render = function render() {
       id: _vm.id,
       availableWidgets: _vm.availableWidgets,
       selectedWidgets: _vm.selectedWidgets,
-      active: _vm.showWidgetsOptionWindow && _vm.selectedWidgets.length && !_vm.showWidgetsPickerWindow,
+      active: !!(_vm.showWidgetsOptionWindow && _vm.selectedWidgets.length && !_vm.showWidgetsPickerWindow),
       maxWidgetInfoText: _vm.maxWidgetInfoText
     },
     on: {

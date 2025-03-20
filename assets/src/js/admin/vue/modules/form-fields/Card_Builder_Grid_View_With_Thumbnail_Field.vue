@@ -230,7 +230,9 @@
                   insertWidget($event, local_layout.thumbnail.avatar)
                 "
                 @edit-widget="editWidget($event)"
-                @trash-widget="trashWidget($event, local_layout.thumbnail.avatar)"
+                @trash-widget="
+                  trashWidget($event, local_layout.thumbnail.avatar)
+                "
                 @open-widgets-picker-window="
                   activeInsertWindow('thumbnail_avatar')
                 "

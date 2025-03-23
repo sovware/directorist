@@ -118,9 +118,16 @@ if ( ! class_exists( 'ATBDP_Email' ) ) :
 			$exp_date = get_post_meta( $listing_id, '_expiry_date', true );
 			$never_exp = get_post_meta( $listing_id, '_never_expire', true );
 			if ( $renewal ) {
-				$token = 'cB0XtpVzGb180dgPi3hADW-' . $listing_id;
-				update_post_meta( $listing_id, '_renewal_token', $token );
-				$renewal_link = add_query_arg( 'token', $token, ATBDP_Permalink::get_renewal_page_link( $listing_id ) );
+				$token_hash = directorist_renewal_token_hash( $listing_id,  $user->ID );
+
+				update_post_meta( $listing_id, '_renewal_token', $token_hash );
+
+				$query_args = array(
+					'token'      => $token_hash,
+					'renew_from' => 'email'
+				);
+
+				$renewal_link = add_query_arg(  $query_args, ATBDP_Permalink::get_renewal_page_link( $listing_id ) );
 			} else {
 				$renewal_link = ATBDP_Permalink::get_renewal_page_link( $listing_id );
 			}

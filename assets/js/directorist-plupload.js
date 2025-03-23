@@ -121,6 +121,7 @@ function init() {
     } else {
       post_id = jQuery("#post input[name='post_ID']").val(); // backend
     }
+
     $(".plupload-upload-uic").each(function (ind, el) {
       var $this = $(this);
       var imgId = $this.attr("id").replace("plupload-upload-ui", "");
@@ -431,6 +432,7 @@ function plu_show_thumbs(imgId) {
         });
       }
     });
+
     thumbsC.disableSelection();
   }
 

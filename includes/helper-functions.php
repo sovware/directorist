@@ -3614,7 +3614,7 @@ function directorist_get_listing_views_count_meta_key() {
 function directorist_get_listing_statuses() {
 	return array(
         'draft'   => __( 'Draft', 'directorist' ),
-        'pending' => __( 'Pending Review', 'directorist' ),
+        'pending' => __( 'In Review', 'directorist' ),
         'private' => __( 'Private', 'directorist' ),
         'publish' => __( 'Published', 'directorist' ),
         'expired' => __( 'Expired', 'directorist' ),
@@ -4733,4 +4733,9 @@ function directorist_get_listing_gallery_images( $listing_id = 0 ) {
 	$images = array_filter( $images );
 
 	return $images;
+}
+
+function directorist_renewal_token_hash( $listing_id, $user_id ) {
+	$token_str = 'cB0XtpVzGb180dgPi3hADW-' . $listing_id . '::' . $user_id;
+	return wp_hash( $token_str, 'nonce' );
 }

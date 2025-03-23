@@ -62,6 +62,10 @@ export default {
             type: String,
             default: '',
         },
+        icon: {
+            type: String,
+            default: '',
+        },
         label: {
             type: [String, Number],
             default: '',

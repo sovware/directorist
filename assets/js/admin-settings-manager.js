@@ -1389,6 +1389,10 @@ __webpack_require__.r(__webpack_exports__);
       type: String,
       default: ''
     },
+    icon: {
+      type: String,
+      default: ''
+    },
     label: {
       type: [String, Number],
       default: ''
@@ -25702,7 +25706,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       return options_values.includes(value);
     }
     /* syncValidationWithLocalState( validation_log ) {
-         return validation_log;
+          return validation_log;
     } */
   }
 });
@@ -26125,7 +26129,11 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'select-field-theme-butterfly',
-  mixins: [_mixins_form_fields_select_field__WEBPACK_IMPORTED_MODULE_0__["default"]]
+  mixins: [_mixins_form_fields_select_field__WEBPACK_IMPORTED_MODULE_0__["default"]],
+  mounted: function mounted() {
+    console.log("label", this.label);
+    console.log("icon", this.icon);
+  }
 });
 
 /***/ }),
@@ -33394,7 +33402,7 @@ var render = function render() {
       key: alert_key,
       staticClass: "cptm-form-alert",
       class: 'cptm-' + alert.type
-    }, [_vm._v("\n            " + _vm._s(alert.message) + "\n        ")]);
+    }, [_vm._v("\r\n            " + _vm._s(alert.message) + "\r\n        ")]);
   }), 0) : _vm._e()]);
 };
 var staticRenderFns = [];
@@ -34762,7 +34770,9 @@ var render = function render() {
     staticClass: "atbdp-row"
   }, [_c('div', {
     staticClass: "atbdp-col atbdp-col-4"
-  }, [_vm.label.length ? _c('label', [_c(_vm.labelType, {
+  }, [_vm.label.length ? _c('label', {
+    staticClass: "lol"
+  }, [_vm.icon.length ? _c('div', [_vm._v("yukuy")]) : _vm._e(), _vm._v(" "), _c(_vm.labelType, {
     tag: "component",
     domProps: {
       "innerHTML": _vm._s(_vm.label)

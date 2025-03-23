@@ -2,10 +2,10 @@
     <div class="cptm-form-group" :class="formGroupClass">
         <div class="atbdp-row">
             <div class="atbdp-col atbdp-col-4">
-                <label v-if="( label.length )">
+                <label class="lol" v-if="( label.length )">
+                    <div v-if="icon.length">yukuy</div>
                     <component :is="labelType" v-html="label"></component>
                 </label>
-                
                 <p class="cptm-form-group-info" v-if="description.length" v-html="description"></p>
             </div>
 
@@ -62,5 +62,9 @@ import select_field from '../../../../mixins/form-fields/select-field';
 export default {
     name: 'select-field-theme-butterfly',
     mixins: [ select_field ],
+    mounted() {
+      console.log("label", this.label);
+      console.log("icon", this.icon);
+    },
 }
 </script>

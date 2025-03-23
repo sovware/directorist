@@ -1127,13 +1127,7 @@ class Builder_Data {
                 'type'    => 'tagline',
                 'label'   => __( 'Tagline', 'directorist' ),
                 'icon'    => 'uil uil-text-fields',
-                'hook'    => 'atbdp_listing_excerpt',
-                'show_if' => [
-                    'where'      => 'submission_form_fields.value.fields',
-                    'conditions' => [
-                        ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'tagline'],
-                    ],
-                ],
+                'hook'    => 'atbdp_listing_tagline',
                 'options' => [
                     'title'  => __( 'Tagline Settings', 'directorist' ),
                     'fields' => [
@@ -1870,10 +1864,8 @@ class Builder_Data {
                 ],
                 'badges'     => [
                     'label'           => __( 'Add Element', 'directorist' ),
-                    'maxWidget'       => 0,
-                    'acceptedWidgets' => [
-                        "favorite_badge", "popular_badge", "featured_badge", "new_badge",
-                    ],
+                    'maxWidget'       => 3,
+                    'acceptedWidgets' => ['favorite_badge', 'popular_badge', 'featured_badge', 'new_badge'],
                 ],
                 'bottom'  => [
                     'label'           => __( 'Add Element', 'directorist' ),
@@ -1934,16 +1926,16 @@ class Builder_Data {
                         'text', 'textarea', 'number', 'url', 'date', 'time', 'color', 'select', 'checkbox', 'radio', 'file', 'posted_date',
                     ],
                 ],
-                'excerpt'       => [
-                    'maxWidget'       => 1,
-                    'acceptedWidgets' => ['excerpt'],
-                    'show_if'         => [
-                        'where'      => 'submission_form_fields.value.fields',
-                        'conditions' => [
-                            ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'excerpt'],
-                        ],
-                    ],
-                ],
+                // 'excerpt'       => [
+                //     'maxWidget'       => 1,
+                //     'acceptedWidgets' => ['excerpt'],
+                //     'show_if'         => [
+                //         'where'      => 'submission_form_fields.value.fields',
+                //         'conditions' => [
+                //             ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'excerpt'],
+                //         ],
+                //     ],
+                // ],
             ],
 
             'footer' => [
@@ -1990,16 +1982,16 @@ class Builder_Data {
                         'text', 'textarea', 'number', 'url', 'date', 'time', 'color', 'select', 'checkbox', 'radio', 'file', 'posted_date',
                     ],
                 ],
-                'excerpt' => [
-                    'maxWidget'       => 1,
-                    'acceptedWidgets' => ['excerpt'],
-                    'show_if'         => [
-                        'where'      => 'submission_form_fields.value.fields',
-                        'conditions' => [
-                            ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'excerpt'],
-                        ],
-                    ],
-                ],
+                // 'excerpt' => [
+                //     'maxWidget'       => 1,
+                //     'acceptedWidgets' => ['excerpt'],
+                //     'show_if'         => [
+                //         'where'      => 'submission_form_fields.value.fields',
+                //         'conditions' => [
+                //             ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'excerpt'],
+                //         ],
+                //     ],
+                // ],
             ],
 
             'footer'    => [
@@ -2037,16 +2029,16 @@ class Builder_Data {
                         'text', 'textarea', 'number', 'url', 'date', 'time', 'color', 'select', 'checkbox', 'radio', 'file', 'posted_date',
                     ],
                 ],
-                'excerpt' => [
-                    'maxWidget'       => 1,
-                    'acceptedWidgets' => ['excerpt'],
-                    'show_if'         => [
-                        'where'      => 'submission_form_fields.value.fields',
-                        'conditions' => [
-                            ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'excerpt'],
-                        ],
-                    ],
-                ],
+                // 'excerpt' => [
+                //     'maxWidget'       => 1,
+                //     'acceptedWidgets' => ['excerpt'],
+                //     'show_if'         => [
+                //         'where'      => 'submission_form_fields.value.fields',
+                //         'conditions' => [
+                //             ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'excerpt'],
+                //         ],
+                //     ],
+                // ],
             ],
 
             'footer' => [

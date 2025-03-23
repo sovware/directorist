@@ -869,6 +869,7 @@ class Builder_Data {
                         ],
 
                     ],
+                    
                     'number'       => [
                         'options' => [
                             'label'       => [
@@ -1117,6 +1118,41 @@ class Builder_Data {
                             'type'  => 'toggle',
                             'label' => __( 'Show Tagline', 'directorist' ),
                             'value' => false,
+                        ],
+                    ],
+                ],
+            ],
+
+            'tagline'           => [
+                'type'    => 'tagline',
+                'label'   => __( 'Tagline', 'directorist' ),
+                'icon'    => 'uil uil-text-fields',
+                'hook'    => 'atbdp_listing_excerpt',
+                'show_if' => [
+                    'where'      => 'submission_form_fields.value.fields',
+                    'conditions' => [
+                        ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'tagline'],
+                    ],
+                ],
+                'options' => [
+                    'title'  => __( 'Tagline Settings', 'directorist' ),
+                    'fields' => [
+                        'words_limit'        => [
+                            'type'  => 'range',
+                            'label' => __( 'Words Limit', 'directorist' ),
+                            'min'   => 5,
+                            'max'   => 200,
+                            'value' => 20,
+                        ],
+                        'show_readmore'      => [
+                            'type'  => 'toggle',
+                            'label' => __( 'Show Readmore', 'directorist' ),
+                            'value' => true,
+                        ],
+                        'show_readmore_text' => [
+                            'type'  => 'text',
+                            'label' => __( 'Read More Text', 'directorist' ),
+                            'value' => '...',
                         ],
                     ],
                 ],
@@ -1841,7 +1877,7 @@ class Builder_Data {
                 ],
                 'bottom'  => [
                     'label'           => __( 'Add Element', 'directorist' ),
-                    'maxWidget'       => 0,
+                    'maxWidget'       => 3,
                     'acceptedWidgets' => [
                         'listings_location', 'phone', 'phone2', 'website', 'zip', 'fax', 'address', 'email', 'text', 'textarea', 'number', 'url', 'date', 'time', 'color', 'select', 'checkbox', 'radio', 'file', 'posted_date',
                     ],

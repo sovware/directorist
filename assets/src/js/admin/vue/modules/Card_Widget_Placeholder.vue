@@ -21,7 +21,11 @@
       class="cptm-placeholder-block"
       :class="[
         getContainerClass,
-        { 'cptm-widget-picker-open': showWidgetsPickerWindow },
+        {
+          'cptm-widget-picker-open': showWidgetsPickerWindow,
+          enabled: selectedWidgets.length > 0,
+          disabled: selectedWidgets.length === 0,
+        },
       ]"
       @drop.prevent="placeholderOnDrop()"
       @dragover.prevent="$emit('placeholder-dragover-on')"
@@ -130,6 +134,9 @@
     <span
       class="cptm-widget-card-status"
       :class="this.selectedWidgets.length > 0 ? 'enabled' : 'disabled'"
+      :style="{
+        cursor: acceptedWidgets.length > 0 ? 'pointer' : 'not-allowed',
+      }"
       v-if="enable_widget"
       @click="$emit('toggle-widget-status')"
     >

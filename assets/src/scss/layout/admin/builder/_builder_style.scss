@@ -1865,7 +1865,7 @@ div[draggable="true"].cptm-form-builder-group-title-area {
 
 .cptm-form-builder-field-list-item {
   width: calc(50% - 3px);
-  padding: 10px 16px;
+  padding: 6px 16px;
   margin: 0;
   display: flex;
   align-items: center;
@@ -1950,9 +1950,17 @@ li[class="cptm-form-builder-field-list-item"][draggable="true"] {
 }
 
 .cptm-info-text {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  line-height: 14px;
+  font-weight: 400;
   margin: 0;
-  padding: 10px 0;
-  color: gray;
+  padding: 0 8px;
+  height: 22px;
+  color: #4d5761;
+  border-radius: 4px;
+  background: #daeeff;
 }
 
 .cptm-info-success {
@@ -2694,6 +2702,13 @@ input[type="radio"].cptm-radio {
       color: #747c89;
     }
   }
+  .cptm-placeholder-block {
+    &.disabled {
+      .cptm-placeholder-label {
+        color: #d2d6db;
+      }
+    }
+  }
 }
 
 .cptm-placeholder-block {
@@ -2983,12 +2998,11 @@ input[type="radio"].cptm-radio {
 .cptm-widget-title-card {
   display: flex;
   gap: 8px;
-  margin-bottom: 10px;
-  padding: 10px;
+  padding: 6px 10px;
   text-align: left;
-  color: #bfbfbf;
-  font-weight: bold;
-  font-size: 18px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #4d5761;
 }
 
 .cptm-has-widget-control {
@@ -3041,36 +3055,6 @@ input[type="radio"].cptm-radio {
     padding: 0 6px;
     font-size: 12px;
     color: #fff;
-  }
-}
-
-.cptm-widget-actions-tools-wrap {
-  &:before {
-    position: absolute;
-    content: "";
-    width: 100%;
-    height: 100%;
-    left: -8px;
-    top: -8px;
-    border: 3px solid #2c99ff;
-    padding: 5px;
-    visibility: hidden;
-    opacity: 0;
-    transition: 0.3s ease;
-    z-index: 1;
-  }
-
-  &:hover {
-    .cptm-widget-actions-tools {
-      visibility: visible;
-      opacity: 1;
-      pointer-events: all;
-    }
-
-    &:before {
-      visibility: visible;
-      opacity: 1;
-    }
   }
 }
 

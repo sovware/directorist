@@ -16726,11 +16726,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'widgets-window',
+  name: "widgets-window",
   props: {
     id: {
       type: [String, Number],
-      default: ''
+      default: ""
     },
     active: {
       type: Boolean,
@@ -16738,7 +16738,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     animation: {
       type: String,
-      default: 'cptm-animation-slide-up'
+      default: "cptm-animation-slide-up"
     },
     bottomAchhor: {
       type: Boolean,
@@ -16766,7 +16766,7 @@ __webpack_require__.r(__webpack_exports__);
 
     maxWidgetInfoText: {
       type: String,
-      default: 'Up to __DATA__ item{s} can be added'
+      default: "Up to __DATA__ item{s} can be added"
     }
   },
   created: function created() {
@@ -16780,7 +16780,7 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     widgetsList: function widgetsList() {
       var _this = this;
-      if (!this.availableWidgets && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default()(this.availableWidgets) !== 'object') {
+      if (!this.availableWidgets && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default()(this.availableWidgets) !== "object") {
         return {};
       }
       if (!Object.keys(this.availableWidgets).length) {
@@ -16796,7 +16796,7 @@ __webpack_require__.r(__webpack_exports__);
         }, {});
       }
       var accepted_widgets = this.acceptedWidgets;
-      if (!accepted_widgets && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default()(accepted_widgets) !== 'object') {
+      if (!accepted_widgets && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default()(accepted_widgets) !== "object") {
         return availableWidgets;
       }
       if (!accepted_widgets.length) {
@@ -16817,7 +16817,7 @@ __webpack_require__.r(__webpack_exports__);
       }
       // Filter unselected widgets
       var widgets_list = Object.keys(self.widgetsList).filter(function (key) {
-        return !self.localSelectedWidgets.includes(key) && typeof self.activeWidgets[key] === 'undefined';
+        return !self.localSelectedWidgets.includes(key) && typeof self.activeWidgets[key] === "undefined";
       }).reduce(function (obj, key) {
         obj[key] = self.widgetsList[key];
         return obj;
@@ -16832,7 +16832,7 @@ __webpack_require__.r(__webpack_exports__);
       var info_texts = [];
       if (this.maxWidgetLimitIsReached && Object.keys(this.unSelectedWidgetsList).length) {
         info_texts.push({
-          type: 'info',
+          type: "info",
           text: this.decodeInfoText(this.maxWidget, this.maxWidgetInfoText)
         });
       }
@@ -16851,30 +16851,29 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     init: function init() {
-      if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default()(this.selectedWidgets) !== 'object') {
+      if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default()(this.selectedWidgets) !== "object") {
         return;
       }
       var unique_selecte_widgets = new Set(this.selectedWidgets);
       this.localSelectedWidgets = _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(unique_selecte_widgets);
     },
     close: function close() {
-      console.log('close');
-      this.$emit('close');
+      this.$emit("close");
     },
     decodeInfoText: function decodeInfoText(data, text) {
       var doceded = text.replace(/__DATA__/gi, data);
       var filter_single_pare = function filter_single_pare(str) {
         if (data < 2) {
-          return '';
+          return "";
         }
-        var filtered = str.replace(/{/gi, '');
-        filtered = filtered.replace(/}/gi, '');
+        var filtered = str.replace(/{/gi, "");
+        filtered = filtered.replace(/}/gi, "");
         return filtered;
       };
       var filter_double_pare = function filter_double_pare(str) {
         var pares = str.match(/\w+|w+/gi);
-        if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default()(pares) !== 'object' && pares.length < 2) {
-          return '';
+        if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default()(pares) !== "object" && pares.length < 2) {
+          return "";
         }
         if (data < 2) {
           return pares[0];
@@ -16889,7 +16888,7 @@ __webpack_require__.r(__webpack_exports__);
       if (this.maxWidgetLimitIsReached) {
         return;
       }
-      if (typeof this.activeWidgets[key] !== 'undefined') {
+      if (typeof this.activeWidgets[key] !== "undefined") {
         return;
       }
       var current_index = this.localSelectedWidgets.indexOf(key);
@@ -16898,16 +16897,16 @@ __webpack_require__.r(__webpack_exports__);
         return;
       }
       this.localSelectedWidgets.push(key);
-      this.$emit('widget-selection', {
+      this.$emit("widget-selection", {
         key: key,
         selected_widgets: this.localSelectedWidgets
       });
     },
     widgetListClass: function widgetListClass(widget_key) {
       return {
-        'hide': typeof this.activeWidgets[widget_key] !== 'undefined',
-        'disabled': this.maxWidgetLimitIsReached || typeof this.activeWidgets[widget_key] !== 'undefined',
-        'clickable': !this.maxWidgetLimitIsReached
+        hide: typeof this.activeWidgets[widget_key] !== "undefined",
+        disabled: this.maxWidgetLimitIsReached || typeof this.activeWidgets[widget_key] !== "undefined",
+        clickable: !this.maxWidgetLimitIsReached
       };
     }
   }
@@ -27877,7 +27876,9 @@ var render = function render() {
   })], 1), _vm._v(" "), _c("div", {
     staticClass: "cptm-placeholder-block",
     class: [_vm.getContainerClass, {
-      "cptm-widget-picker-open": _vm.showWidgetsPickerWindow
+      "cptm-widget-picker-open": _vm.showWidgetsPickerWindow,
+      enabled: _vm.selectedWidgets.length > 0,
+      disabled: _vm.selectedWidgets.length === 0
     }],
     on: {
       drop: function drop($event) {
@@ -28008,6 +28009,9 @@ var render = function render() {
   }, "options-window", _vm.widgetOptionsWindow, false))], 1) : _vm._e()]), _vm._v(" "), _vm.enable_widget ? _c("span", {
     staticClass: "cptm-widget-card-status",
     class: this.selectedWidgets.length > 0 ? "enabled" : "disabled",
+    style: {
+      cursor: _vm.acceptedWidgets.length > 0 ? "pointer" : "not-allowed"
+    },
     on: {
       click: function click($event) {
         return _vm.$emit("toggle-widget-status");
@@ -29145,7 +29149,7 @@ var render = function render() {
       key: text_key,
       staticClass: "cptm-info-text",
       class: "cptm-" + info.type
-    }, [_vm._v("\n                " + _vm._s(info.text) + "\n            ")]);
+    }, [_vm._v("\n        " + _vm._s(info.text) + "\n      ")]);
   }), 0) : _vm._e(), _vm._v(" "), Object.keys(_vm.unSelectedWidgetsList).length ? _c("ul", {
     staticClass: "cptm-form-builder-field-list"
   }, _vm._l(_vm.unSelectedWidgetsList, function (widget, widget_key) {
@@ -29164,7 +29168,7 @@ var render = function render() {
       class: widget.icon
     })]), _vm._v(" "), _c("span", {
       staticClass: "cptm-form-builder-field-list-label"
-    }, [_vm._v("\n                        " + _vm._s(widget.label) + "\n                    ")])]);
+    }, [_vm._v("\n          " + _vm._s(widget.label) + "\n        ")])]);
   }), 0) : _c("p", {
     staticClass: "cptm-info-text"
   }, [_vm._v("Nothing available")])]), _vm._v(" "), _vm.bottomAchhor ? _c("span", {
@@ -29192,13 +29196,7 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap",
-    on: {
-      click: function click($event) {
-        $event.preventDefault();
-        _vm.editOnClick ? _vm.$emit("edit") : null;
-      }
-    }
+    staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap"
   }, [_c("div", {
     staticClass: "cptm-widget-card cptm-has-widget-control cptm-widget-actions-tools-wrap"
   }, [_vm._m(0), _vm._v(" "), !_vm.readOnly && !_vm.editOnClick ? _c("widget-action-tools", {
@@ -29272,13 +29270,7 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap",
-    on: {
-      click: function click($event) {
-        $event.preventDefault();
-        _vm.editOnClick ? _vm.$emit("edit") : null;
-      }
-    }
+    staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap"
   }, [_c("div", {
     staticClass: "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
   }, [_vm.icon ? _c("span", {
@@ -29343,13 +29335,7 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap",
-    on: {
-      click: function click($event) {
-        $event.preventDefault();
-        _vm.editOnClick ? _vm.$emit("edit") : null;
-      }
-    }
+    staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap"
   }, [_c("div", {
     staticClass: "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
   }, [_vm.icon ? _c("span", {
@@ -29414,13 +29400,7 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap",
-    on: {
-      click: function click($event) {
-        $event.preventDefault();
-        _vm.editOnClick ? _vm.$emit("edit") : null;
-      }
-    }
+    staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap"
   }, [_c("div", {
     staticClass: "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
   }, [_vm.icon ? _c("span", {
@@ -29485,13 +29465,7 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap",
-    on: {
-      click: function click($event) {
-        $event.preventDefault();
-        _vm.editOnClick ? _vm.$emit("edit") : null;
-      }
-    }
+    staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap"
   }, [_c("div", {
     staticClass: "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
   }, [_vm.icon ? _c("span", {
@@ -29556,13 +29530,7 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap",
-    on: {
-      click: function click($event) {
-        $event.preventDefault();
-        _vm.editOnClick ? _vm.$emit("edit") : null;
-      }
-    }
+    staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap"
   }, [_c("div", {
     staticClass: "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
   }, [_vm.icon ? _c("span", {
@@ -29627,13 +29595,7 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "cptm-widget-card-wrap cptm-widget-card-block-wrap cptm-widget-badge-card-wrap",
-    on: {
-      click: function click($event) {
-        $event.preventDefault();
-        _vm.editOnClick ? _vm.$emit("edit") : null;
-      }
-    }
+    staticClass: "cptm-widget-card-wrap cptm-widget-card-block-wrap cptm-widget-badge-card-wrap"
   }, [_c("div", {
     staticClass: "cptm-widget-card cptm-list-item-card cptm-has-widget-control cptm-widget-actions-tools-wrap"
   }, [_c("div", {
@@ -29704,13 +29666,7 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap",
-    on: {
-      click: function click($event) {
-        $event.preventDefault();
-        _vm.editOnClick ? _vm.$emit("edit") : null;
-      }
-    }
+    staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap"
   }, [_c("div", {
     staticClass: "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
   }, [_vm.icon ? _c("span", {
@@ -29775,13 +29731,7 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap",
-    on: {
-      click: function click($event) {
-        $event.preventDefault();
-        _vm.editOnClick ? _vm.$emit("edit") : null;
-      }
-    }
+    staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap"
   }, [_c("div", {
     staticClass: "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
   }, [_vm.icon ? _c("span", {
@@ -29846,13 +29796,7 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap",
-    on: {
-      click: function click($event) {
-        $event.preventDefault();
-        _vm.editOnClick ? _vm.$emit("edit") : null;
-      }
-    }
+    staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap"
   }, [_c("div", {
     staticClass: "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
   }, [_vm.icon ? _c("span", {
@@ -29917,13 +29861,7 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap",
-    on: {
-      click: function click($event) {
-        $event.preventDefault();
-        _vm.editOnClick ? _vm.$emit("edit") : null;
-      }
-    }
+    staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap"
   }, [_c("div", {
     staticClass: "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
   }, [_vm.icon ? _c("span", {
@@ -29988,13 +29926,7 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "cptm-widget-card-wrap cptm-widget-card-block-wrap cptm-widget-title-card-wrap",
-    on: {
-      click: function click($event) {
-        $event.preventDefault();
-        _vm.editOnClick ? _vm.$emit("edit") : null;
-      }
-    }
+    staticClass: "cptm-widget-card-wrap cptm-widget-card-block-wrap cptm-widget-title-card-wrap"
   }, [_c("div", {
     staticClass: "cptm-widget-card cptm-widget-title-card cptm-has-widget-control cptm-widget-actions-tools-wrap"
   }, [_c("div", {
@@ -30059,13 +29991,7 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap cptm-widget-thumb-card-wrap",
-    on: {
-      click: function click($event) {
-        $event.preventDefault();
-        _vm.editOnClick ? _vm.$emit("edit") : null;
-      }
-    }
+    staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap cptm-widget-thumb-card-wrap"
   }, [_c("div", {
     staticClass: "cptm-widget-card cptm-widget-thumb cptm-has-widget-control cptm-widget-actions-tools-wrap"
   }, [_vm._m(0), _vm._v(" "), _c("div", {
@@ -30140,13 +30066,7 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "cptm-widget-card-wrap cptm-widget-card-block-wrap cptm-widget-title-card-wrap",
-    on: {
-      click: function click($event) {
-        $event.preventDefault();
-        _vm.editOnClick ? _vm.$emit("edit") : null;
-      }
-    }
+    staticClass: "cptm-widget-card-wrap cptm-widget-card-block-wrap cptm-widget-title-card-wrap"
   }, [_c("div", {
     staticClass: "cptm-widget-card cptm-widget-title-card cptm-has-widget-control cptm-widget-actions-tools-wrap"
   }, [_c("div", {
@@ -30213,13 +30133,7 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap",
-    on: {
-      click: function click($event) {
-        $event.preventDefault();
-        _vm.editOnClick ? _vm.$emit("edit") : null;
-      }
-    }
+    staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap"
   }, [_c("div", {
     staticClass: "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
   }, [_vm._m(0), _vm._v(" "), !_vm.readOnly && !_vm.editOnClick ? _c("widget-action-tools", {

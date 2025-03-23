@@ -2419,10 +2419,16 @@ input[type="radio"].cptm-radio {
   top: 0;
   width: 330px;
   transform: translate(-50%, -100%);
+  box-shadow: 0 8px 16px 0 #1018281a;
+  border-radius: 8px;
   pointer-events: none;
   z-index: 100;
   &.active {
     pointer-events: all;
+  }
+
+  .cptm-option-card {
+    margin: 0;
   }
 
   .cptm-option-card-header {
@@ -2910,6 +2916,11 @@ input[type="radio"].cptm-radio {
   position: absolute;
   top: 20px;
   left: 20px;
+  .cptm-widget-option-modal-container {
+    left: unset;
+    transform: unset;
+    right: calc(100% + 57px);
+  }
 }
 
 .cptm-card-preview-top-left-placeholder {
@@ -2922,6 +2933,11 @@ input[type="radio"].cptm-radio {
   right: 20px;
   top: 20px;
   width: calc(50% - 30px);
+  .cptm-widget-option-modal-container {
+    right: unset;
+    transform: unset;
+    left: calc(100% + 57px);
+  }
 }
 
 .cptm-card-preview-top-right-placeholder {
@@ -2933,6 +2949,11 @@ input[type="radio"].cptm-radio {
   width: calc(50% - 30px);
   bottom: 53px;
   left: 20px;
+  .cptm-widget-option-modal-container {
+    left: unset;
+    transform: unset;
+    right: calc(100% + 57px);
+  }
 }
 
 .cptm-card-preview-bottom-left-placeholder {
@@ -2945,6 +2966,11 @@ input[type="radio"].cptm-radio {
   bottom: 53px;
   right: 20px;
   width: calc(50% - 30px);
+  .cptm-widget-option-modal-container {
+    right: unset;
+    transform: unset;
+    left: calc(100% + 57px);
+  }
 }
 
 .cptm-card-preview-bottom-right-placeholder {
@@ -3122,6 +3148,15 @@ input[type="radio"].cptm-radio {
   }
 }
 
+.cptm-card-preview-body,
+.cptm-card-preview-badges {
+  .cptm-widget-option-modal-container {
+    left: unset;
+    transform: unset;
+    right: calc(100% + 57px);
+  }
+}
+
 .cptm-listing-card-preview-body-placeholder {
   display: block;
   padding: 10px;
@@ -3143,6 +3178,24 @@ input[type="radio"].cptm-radio {
   gap: 12px;
   flex-wrap: wrap;
   padding: 0 20px 20px;
+}
+
+.cptm-card-preview-footer-left {
+  flex: 1;
+  .cptm-widget-option-modal-container {
+    left: unset;
+    transform: unset;
+    right: calc(100% + 57px);
+  }
+}
+
+.cptm-card-preview-footer-right {
+  flex: 1;
+  .cptm-widget-option-modal-container {
+    right: unset;
+    transform: unset;
+    left: calc(100% + 57px);
+  }
 }
 
 .cptm-listing-card-preview-footer-left-placeholder {

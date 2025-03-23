@@ -295,72 +295,78 @@
               @close-option-window="closeWidgetOptionsWindow()"
               editOnClick
             />
-            <card-widget-placeholder
-              id="thumbnail_body_badges"
-              containerClass="cptm-listing-card-preview-badges-placeholder cptm-card-light cptm-mb-20 cptm-align-left"
-              :label="local_layout.body.badges.label"
-              :availableWidgets="theAvailableWidgets"
-              :activeWidgets="active_widgets"
-              :acceptedWidgets="local_layout.body.badges.acceptedWidgets"
-              :selectedWidgets="local_layout.body.badges.selectedWidgets"
-              :maxWidget="local_layout.body.badges.maxWidget"
-              :showWidgetsPickerWindow="
-                getActiveInsertWindowStatus('thumbnail_body_badges')
-              "
-              :showWidgetsOptionWindow="
-                getActiveOptionWindowStatus('thumbnail_body_badges')
-              "
-              :widgetOptionsWindow="widgetOptionsWindow"
-              @insert-widget="insertWidget($event, local_layout.body.badges)"
-              @edit-widget="editWidget($event)"
-              @trash-widget="trashWidget($event, local_layout.body.badges)"
-              @open-widgets-picker-window="
-                activeInsertWindow('thumbnail_body_badges')
-              "
-              @open-widgets-option-window="
-                activeOptionWindow('thumbnail_body_badges')
-              "
-              @close-widgets-picker-window="closeInsertWindow()"
-              @close-widgets-option-window="closeOptionWindow()"
-              @update-option-window="
-                updateWidgetOptionsData($event, widgetOptionsWindow)
-              "
-              @close-option-window="closeWidgetOptionsWindow()"
-              editOnClick
-            />
-            <card-widget-placeholder
-              id="thumbnail_body_bottom"
-              containerClass="cptm-listing-card-preview-body-placeholder cptm-card-light"
-              :label="local_layout.body.bottom.label"
-              :availableWidgets="theAvailableWidgets"
-              :activeWidgets="active_widgets"
-              :acceptedWidgets="local_layout.body.bottom.acceptedWidgets"
-              :selectedWidgets="local_layout.body.bottom.selectedWidgets"
-              :maxWidget="local_layout.body.bottom.maxWidget"
-              :showWidgetsPickerWindow="
-                getActiveInsertWindowStatus('thumbnail_body_bottom')
-              "
-              :showWidgetsOptionWindow="
-                getActiveOptionWindowStatus('thumbnail_body_bottom')
-              "
-              :widgetOptionsWindow="widgetOptionsWindow"
-              @insert-widget="insertWidget($event, local_layout.body.bottom)"
-              @edit-widget="editWidget($event)"
-              @trash-widget="trashWidget($event, local_layout.body.bottom)"
-              @open-widgets-picker-window="
-                activeInsertWindow('thumbnail_body_bottom')
-              "
-              @open-widgets-option-window="
-                activeOptionWindow('thumbnail_body_bottom')
-              "
-              @close-widgets-picker-window="closeInsertWindow()"
-              @close-widgets-option-window="closeOptionWindow()"
-              @update-option-window="
-                updateWidgetOptionsData($event, widgetOptionsWindow)
-              "
-              @close-option-window="closeWidgetOptionsWindow()"
-              editOnClick
-            />
+
+            <div class="cptm-card-preview-badges">
+              <card-widget-placeholder
+                id="thumbnail_body_badges"
+                containerClass="cptm-listing-card-preview-badges-placeholder cptm-card-light cptm-mb-20 cptm-align-left"
+                :label="local_layout.body.badges.label"
+                :availableWidgets="theAvailableWidgets"
+                :activeWidgets="active_widgets"
+                :acceptedWidgets="local_layout.body.badges.acceptedWidgets"
+                :selectedWidgets="local_layout.body.badges.selectedWidgets"
+                :maxWidget="local_layout.body.badges.maxWidget"
+                :showWidgetsPickerWindow="
+                  getActiveInsertWindowStatus('thumbnail_body_badges')
+                "
+                :showWidgetsOptionWindow="
+                  getActiveOptionWindowStatus('thumbnail_body_badges')
+                "
+                :widgetOptionsWindow="widgetOptionsWindow"
+                @insert-widget="insertWidget($event, local_layout.body.badges)"
+                @edit-widget="editWidget($event)"
+                @trash-widget="trashWidget($event, local_layout.body.badges)"
+                @open-widgets-picker-window="
+                  activeInsertWindow('thumbnail_body_badges')
+                "
+                @open-widgets-option-window="
+                  activeOptionWindow('thumbnail_body_badges')
+                "
+                @close-widgets-picker-window="closeInsertWindow()"
+                @close-widgets-option-window="closeOptionWindow()"
+                @update-option-window="
+                  updateWidgetOptionsData($event, widgetOptionsWindow)
+                "
+                @close-option-window="closeWidgetOptionsWindow()"
+                editOnClick
+              />
+            </div>
+
+            <div class="cptm-card-preview-body">
+              <card-widget-placeholder
+                id="thumbnail_body_bottom"
+                containerClass="cptm-listing-card-preview-body-placeholder cptm-card-light"
+                :label="local_layout.body.bottom.label"
+                :availableWidgets="theAvailableWidgets"
+                :activeWidgets="active_widgets"
+                :acceptedWidgets="local_layout.body.bottom.acceptedWidgets"
+                :selectedWidgets="local_layout.body.bottom.selectedWidgets"
+                :maxWidget="local_layout.body.bottom.maxWidget"
+                :showWidgetsPickerWindow="
+                  getActiveInsertWindowStatus('thumbnail_body_bottom')
+                "
+                :showWidgetsOptionWindow="
+                  getActiveOptionWindowStatus('thumbnail_body_bottom')
+                "
+                :widgetOptionsWindow="widgetOptionsWindow"
+                @insert-widget="insertWidget($event, local_layout.body.bottom)"
+                @edit-widget="editWidget($event)"
+                @trash-widget="trashWidget($event, local_layout.body.bottom)"
+                @open-widgets-picker-window="
+                  activeInsertWindow('thumbnail_body_bottom')
+                "
+                @open-widgets-option-window="
+                  activeOptionWindow('thumbnail_body_bottom')
+                "
+                @close-widgets-picker-window="closeInsertWindow()"
+                @close-widgets-option-window="closeOptionWindow()"
+                @update-option-window="
+                  updateWidgetOptionsData($event, widgetOptionsWindow)
+                "
+                @close-option-window="closeWidgetOptionsWindow()"
+                editOnClick
+              />
+            </div>
 
             <!-- <card-widget-placeholder
               id="body_excerpt"
@@ -397,74 +403,78 @@
           <!-- cptm-listing-card-preview-footer -->
           <div class="cptm-listing-card-preview-footer">
             <!-- cptm-listing-card-preview-footer-left-placeholder -->
-            <card-widget-placeholder
-              id="thumbnail_footer_left"
-              containerClass="cptm-listing-card-preview-footer-left-placeholder cptm-card-light"
-              :label="local_layout.footer.left.label"
-              :availableWidgets="theAvailableWidgets"
-              :activeWidgets="active_widgets"
-              :acceptedWidgets="local_layout.footer.left.acceptedWidgets"
-              :selectedWidgets="local_layout.footer.left.selectedWidgets"
-              :maxWidget="local_layout.footer.left.maxWidget"
-              :showWidgetsPickerWindow="
-                getActiveInsertWindowStatus('thumbnail_footer_left')
-              "
-              :showWidgetsOptionWindow="
-                getActiveOptionWindowStatus('thumbnail_footer_left')
-              "
-              :widgetOptionsWindow="widgetOptionsWindow"
-              @insert-widget="insertWidget($event, local_layout.footer.left)"
-              @edit-widget="editWidget($event)"
-              @trash-widget="trashWidget($event, local_layout.footer.left)"
-              @open-widgets-picker-window="
-                activeInsertWindow('thumbnail_footer_left')
-              "
-              @open-widgets-option-window="
-                activeOptionWindow('thumbnail_footer_left')
-              "
-              @close-widgets-picker-window="closeInsertWindow()"
-              @close-widgets-option-window="closeOptionWindow()"
-              @update-option-window="
-                updateWidgetOptionsData($event, widgetOptionsWindow)
-              "
-              @close-option-window="closeWidgetOptionsWindow()"
-              editOnClick
-            />
+            <div class="cptm-card-preview-footer-left">
+              <card-widget-placeholder
+                id="thumbnail_footer_left"
+                containerClass="cptm-listing-card-preview-footer-left-placeholder cptm-card-light"
+                :label="local_layout.footer.left.label"
+                :availableWidgets="theAvailableWidgets"
+                :activeWidgets="active_widgets"
+                :acceptedWidgets="local_layout.footer.left.acceptedWidgets"
+                :selectedWidgets="local_layout.footer.left.selectedWidgets"
+                :maxWidget="local_layout.footer.left.maxWidget"
+                :showWidgetsPickerWindow="
+                  getActiveInsertWindowStatus('thumbnail_footer_left')
+                "
+                :showWidgetsOptionWindow="
+                  getActiveOptionWindowStatus('thumbnail_footer_left')
+                "
+                :widgetOptionsWindow="widgetOptionsWindow"
+                @insert-widget="insertWidget($event, local_layout.footer.left)"
+                @edit-widget="editWidget($event)"
+                @trash-widget="trashWidget($event, local_layout.footer.left)"
+                @open-widgets-picker-window="
+                  activeInsertWindow('thumbnail_footer_left')
+                "
+                @open-widgets-option-window="
+                  activeOptionWindow('thumbnail_footer_left')
+                "
+                @close-widgets-picker-window="closeInsertWindow()"
+                @close-widgets-option-window="closeOptionWindow()"
+                @update-option-window="
+                  updateWidgetOptionsData($event, widgetOptionsWindow)
+                "
+                @close-option-window="closeWidgetOptionsWindow()"
+                editOnClick
+              />
+            </div>
 
             <!-- cptm-listing-card-preview-footer-right-placeholder -->
-            <card-widget-placeholder
-              id="thumbnail_footer_right"
-              containerClass="cptm-listing-card-preview-footer-right-placeholder cptm-card-light"
-              :label="local_layout.footer.right.label"
-              :availableWidgets="theAvailableWidgets"
-              :activeWidgets="active_widgets"
-              :acceptedWidgets="local_layout.footer.right.acceptedWidgets"
-              :selectedWidgets="local_layout.footer.right.selectedWidgets"
-              :maxWidget="local_layout.footer.right.maxWidget"
-              :showWidgetsPickerWindow="
-                getActiveInsertWindowStatus('thumbnail_footer_right')
-              "
-              :showWidgetsOptionWindow="
-                getActiveOptionWindowStatus('thumbnail_footer_right')
-              "
-              :widgetOptionsWindow="widgetOptionsWindow"
-              @insert-widget="insertWidget($event, local_layout.footer.right)"
-              @edit-widget="editWidget($event)"
-              @trash-widget="trashWidget($event, local_layout.footer.right)"
-              @open-widgets-picker-window="
-                activeInsertWindow('thumbnail_footer_right')
-              "
-              @open-widgets-option-window="
-                activeOptionWindow('thumbnail_footer_right')
-              "
-              @close-widgets-picker-window="closeInsertWindow()"
-              @close-widgets-option-window="closeOptionWindow()"
-              @update-option-window="
-                updateWidgetOptionsData($event, widgetOptionsWindow)
-              "
-              @close-option-window="closeWidgetOptionsWindow()"
-              editOnClick
-            />
+            <div class="cptm-card-preview-footer-right">
+              <card-widget-placeholder
+                id="thumbnail_footer_right"
+                containerClass="cptm-listing-card-preview-footer-right-placeholder cptm-card-light"
+                :label="local_layout.footer.right.label"
+                :availableWidgets="theAvailableWidgets"
+                :activeWidgets="active_widgets"
+                :acceptedWidgets="local_layout.footer.right.acceptedWidgets"
+                :selectedWidgets="local_layout.footer.right.selectedWidgets"
+                :maxWidget="local_layout.footer.right.maxWidget"
+                :showWidgetsPickerWindow="
+                  getActiveInsertWindowStatus('thumbnail_footer_right')
+                "
+                :showWidgetsOptionWindow="
+                  getActiveOptionWindowStatus('thumbnail_footer_right')
+                "
+                :widgetOptionsWindow="widgetOptionsWindow"
+                @insert-widget="insertWidget($event, local_layout.footer.right)"
+                @edit-widget="editWidget($event)"
+                @trash-widget="trashWidget($event, local_layout.footer.right)"
+                @open-widgets-picker-window="
+                  activeInsertWindow('thumbnail_footer_right')
+                "
+                @open-widgets-option-window="
+                  activeOptionWindow('thumbnail_footer_right')
+                "
+                @close-widgets-picker-window="closeInsertWindow()"
+                @close-widgets-option-window="closeOptionWindow()"
+                @update-option-window="
+                  updateWidgetOptionsData($event, widgetOptionsWindow)
+                "
+                @close-option-window="closeWidgetOptionsWindow()"
+                editOnClick
+              />
+            </div>
           </div>
         </div>
       </div>

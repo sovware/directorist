@@ -31581,7 +31581,9 @@ var render = function render() {
         return _vm.closeInsertWindow();
       }
     }
-  })], 1), _vm._v(" "), _c("card-widget-placeholder", {
+  })], 1), _vm._v(" "), _c("div", {
+    staticClass: "cptm-card-preview-badges"
+  }, [_c("card-widget-placeholder", {
     attrs: {
       id: "thumbnail_body_top",
       containerClass: "cptm-listing-card-preview-title-placeholder cptm-card-light cptm-mb-20 cptm-align-left",
@@ -31623,7 +31625,9 @@ var render = function render() {
         return _vm.closeInsertWindow();
       }
     }
-  }), _vm._v(" "), _c("card-widget-placeholder", {
+  })], 1), _vm._v(" "), _c("div", {
+    staticClass: "cptm-card-preview-body"
+  }, [_c("card-widget-placeholder", {
     attrs: {
       id: "thumbnail_body_bottom",
       containerClass: "cptm-listing-card-preview-body-placeholder cptm-card-light",
@@ -31665,7 +31669,7 @@ var render = function render() {
         return _vm.closeInsertWindow();
       }
     }
-  }), _vm._v(" "), _c("br"), _vm._v(" "), _vm.placeholderIsActive(_vm.local_layout.body.excerpt) ? _c("card-widget-placeholder", {
+  })], 1), _vm._v(" "), _vm.placeholderIsActive(_vm.local_layout.body.excerpt) ? _c("card-widget-placeholder", {
     attrs: {
       id: "body_excerpt",
       containerClass: "cptm-listing-card-preview-body-excerpt-placeholder cptm-card-light",
@@ -31709,6 +31713,8 @@ var render = function render() {
     }
   }) : _vm._e()], 1), _vm._v(" "), _c("div", {
     staticClass: "cptm-listing-card-preview-footer"
+  }, [_c("div", {
+    staticClass: "cptm-card-preview-footer-left"
   }, [_c("card-widget-placeholder", {
     attrs: {
       id: "thumbnail_footer_left",
@@ -31751,7 +31757,9 @@ var render = function render() {
         return _vm.closeInsertWindow();
       }
     }
-  }), _vm._v(" "), _c("card-widget-placeholder", {
+  })], 1), _vm._v(" "), _c("div", {
+    staticClass: "cptm-card-preview-footer-right"
+  }, [_c("card-widget-placeholder", {
     attrs: {
       id: "thumbnail_footer_right",
       containerClass: "cptm-listing-card-preview-footer-right-placeholder cptm-card-light",
@@ -31793,7 +31801,7 @@ var render = function render() {
         return _vm.closeInsertWindow();
       }
     }
-  })], 1)])])])]);
+  })], 1)])])])])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
@@ -32136,7 +32144,9 @@ var render = function render() {
         return _vm.closeWidgetOptionsWindow();
       }
     }
-  }), _vm._v(" "), _c("card-widget-placeholder", {
+  }), _vm._v(" "), _c("div", {
+    staticClass: "cptm-card-preview-badges"
+  }, [_c("card-widget-placeholder", {
     attrs: {
       id: "thumbnail_body_badges",
       containerClass: "cptm-listing-card-preview-badges-placeholder cptm-card-light cptm-mb-20 cptm-align-left",
@@ -32180,7 +32190,9 @@ var render = function render() {
         return _vm.closeWidgetOptionsWindow();
       }
     }
-  }), _vm._v(" "), _c("card-widget-placeholder", {
+  })], 1), _vm._v(" "), _c("div", {
+    staticClass: "cptm-card-preview-body"
+  }, [_c("card-widget-placeholder", {
     attrs: {
       id: "thumbnail_body_bottom",
       containerClass: "cptm-listing-card-preview-body-placeholder cptm-card-light",
@@ -32224,8 +32236,10 @@ var render = function render() {
         return _vm.closeWidgetOptionsWindow();
       }
     }
-  })], 1), _vm._v(" "), _c("div", {
+  })], 1)], 1), _vm._v(" "), _c("div", {
     staticClass: "cptm-listing-card-preview-footer"
+  }, [_c("div", {
+    staticClass: "cptm-card-preview-footer-left"
   }, [_c("card-widget-placeholder", {
     attrs: {
       id: "thumbnail_footer_left",
@@ -32270,7 +32284,9 @@ var render = function render() {
         return _vm.closeWidgetOptionsWindow();
       }
     }
-  }), _vm._v(" "), _c("card-widget-placeholder", {
+  })], 1), _vm._v(" "), _c("div", {
+    staticClass: "cptm-card-preview-footer-right"
+  }, [_c("card-widget-placeholder", {
     attrs: {
       id: "thumbnail_footer_right",
       containerClass: "cptm-listing-card-preview-footer-right-placeholder cptm-card-light",
@@ -32314,7 +32330,7 @@ var render = function render() {
         return _vm.closeWidgetOptionsWindow();
       }
     }
-  })], 1)])])])]);
+  })], 1)])])])])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,

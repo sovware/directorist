@@ -34772,7 +34772,11 @@ var render = function render() {
     staticClass: "atbdp-col atbdp-col-4"
   }, [_vm.label.length ? _c('label', {
     staticClass: "lol"
-  }, [_vm.icon.length ? _c('div', [_vm._v("yukuy")]) : _vm._e(), _vm._v(" "), _c(_vm.labelType, {
+  }, [_vm.icon.length ? _c('div', {
+    domProps: {
+      "innerHTML": _vm._s(_vm.icon)
+    }
+  }) : _vm._e(), _vm._v(" "), _c(_vm.labelType, {
     tag: "component",
     domProps: {
       "innerHTML": _vm._s(_vm.label)

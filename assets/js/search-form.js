@@ -1354,6 +1354,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     // Search Modal Open Trigger
     $('body').on('click', '.directorist-modal-btn', function (e) {
       e.preventDefault();
+      // added overlay class on body
+      document.querySelector('.directorist-content-active').classList.add('directorist-overlay-active');
       var parentElement = this.closest('.directorist-contents-wrap');
       if (this.classList.contains('directorist-modal-btn--basic')) {
         var searchModalElement = parentElement.querySelector('.directorist-search-modal--basic');
@@ -1372,6 +1374,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     // Search Modal Close Trigger
     $('body').on('click', '.directorist-search-modal__contents__btn--close, .directorist-search-modal__overlay', function (e) {
       e.preventDefault();
+      // removed overlay class from body
+      document.querySelector('.directorist-content-active').classList.remove('directorist-overlay-active');
       var searchModalElement = this.closest('.directorist-search-modal');
       searchModalClose(searchModalElement);
     });

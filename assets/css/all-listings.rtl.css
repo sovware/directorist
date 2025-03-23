@@ -8779,7 +8779,7 @@ body.modal-overlay-enabled:before {
     margin-top: 55px;
     margin-bottom: 80px;
     padding: 30px 30px 0;
-    height: calc(100vh - 220px);
+    height: calc(100dvh - 250px);
   }
 }
 .directorist-search-modal__contents__body .directorist-search-field__label {
@@ -9603,6 +9603,9 @@ body.modal-overlay-enabled:before {
   color: var(--directorist-color-dark);
 }
 
+.directorist-content-active.directorist-overlay-active {
+  overflow: hidden;
+}
 .directorist-content-active .directorist-search-modal__input .select2.select2-container .select2-selection {
   border: 0 none !important;
 }
@@ -12828,7 +12831,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-search-contents {
   background-size: cover;
   padding: 100px 0 120px;
-  z-index: 2;
 }
 
 .directorist-search-field__label {

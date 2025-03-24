@@ -239,3 +239,23 @@ function directorist_7123_update_db_version() {
 function directorist_800_update_db_version() {
     \ATBDP_Installation::update_db_version( '8.0.0' );
 }
+
+function directorist_830_update_db_version() {
+    \ATBDP_Installation::update_db_version( '8.3.0' );
+}
+
+function directorist_830_sync_listing_author_and_order_author() {
+	global $wpdb;
+
+	$wpdb->query( $wpdb->prepare(
+		"UPDATE wp_posts AS p
+		INNER JOIN wp_postmeta AS pm
+			ON p.ID = pm.post_id
+			AND pm.meta_key = '_listing_id'
+		INNER JOIN wp_posts AS p2
+			ON p2.ID = CAST(pm.meta_value AS UNSIGNED)
+		SET p.post_author = p2.post_author
+		WHERE p.post_type = 'atbdp_orders'
+		AND p.post_author <> p2.post_author;",
+	) );
+}

@@ -307,5 +307,9 @@ export default {
       this.$emit("save");
     },
   },
+
+  mounted() {
+    console.log('@CHK', this.sections);
+  },
 };
 </script>

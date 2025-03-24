@@ -2,8 +2,8 @@
     <div class="cptm-form-group" :class="formGroupClass">
         <div class="atbdp-row">
             <div class="atbdp-col atbdp-col-4">
-                <label class="lol" v-if="( label.length )">
-                    <div v-if="icon.length" v-html="icon"></div>
+                <label :class="{ 'atbdp-label-icon-wrapper': icon.length }" v-if="( label.length )">
+                    <div class="atbdp-label-icon" v-if="icon.length" v-html="icon"></div>
                     <component :is="labelType" v-html="label"></component>
                 </label>
                 <p class="cptm-form-group-info" v-if="description.length" v-html="description"></p>

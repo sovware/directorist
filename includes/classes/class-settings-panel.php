@@ -2424,8 +2424,48 @@ Please remember that your order may be canceled if you do not make your payment 
                     'label' => __('Enable Schema Markup', 'directorist'),
                     'value' => false,
                 ],
+                'submenu' => [
+                    'listing_header'   => [
+                        'label'     => __( 'Listing Header', 'directorist' ),
+                        'sections'  => [
+                            'listing_header' => [
+                                'title'       => __( 'Listing Header', 'directorist' ),
+                                'title_align' => 'center',
+                                'fields'      => [
+                                    'enable_schema_markup',
+                                ],
+                            ],
+                        ],
+                    ],
+                    'contents'         => [
+                        'label'     => __( 'Contents', 'directorist' ),
+                        'container' => 'full-width',
+                        'sections'  => [
+                            'contents' => [
+                                'title'       => __( 'Contents', 'directorist' ),
+                                'fields'      => [
+                                    'enable_schema_markup',
+                                ],
+                            ],
+                        ],
+                    ],
+                    'similar_listings' => [
+                        'label'    => __( 'Custom Single Listing Page', 'directorist' ),
+                        'container' => 'short-wide',
+                        'sections' => [
+                            'page_settings' => [
+                                'fields' => [
+                                    'enable_single_listing_page',
+                                    'single_listing_page',
+                                    'single_listings_shortcodes',
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
                 'schema_setting' => [
                     'label' => __('Schema Setting', 'directorist'),
+                    'icon' => '<i class="fas fa-database"></i>',
                     'type'  => 'select',
                     'value' => 'searched_value',
                     'options' => [
@@ -2441,7 +2481,7 @@ Please remember that your order may be canceled if you do not make your payment 
                 ],
                 'schema_setting_other' => [
                     'label' => __('Schema other Setting', 'directorist'),
-                    'icon' => '<i class="fas fa-database"></i>',
+                    'icon' => '<i class="fas fa-hotel"></i>',
                     'type'  => 'select',
                     'value' => 'searched_value',
                     'options' => [

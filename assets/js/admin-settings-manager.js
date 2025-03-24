@@ -15903,6 +15903,9 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       // Emit the save event before redirecting
       this.$emit("save");
     }
+  },
+  mounted: function mounted() {
+    console.log('@CHK', this.sections);
   }
 });
 
@@ -34771,8 +34774,11 @@ var render = function render() {
   }, [_c('div', {
     staticClass: "atbdp-col atbdp-col-4"
   }, [_vm.label.length ? _c('label', {
-    staticClass: "lol"
+    class: {
+      'atbdp-label-icon-wrapper': _vm.icon.length
+    }
   }, [_vm.icon.length ? _c('div', {
+    staticClass: "atbdp-label-icon",
     domProps: {
       "innerHTML": _vm._s(_vm.icon)
     }

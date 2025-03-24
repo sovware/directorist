@@ -396,6 +396,8 @@ import './components/directoristSelect';
         // Search Modal Open Trigger
         $('body').on('click', '.directorist-modal-btn', function (e) {
             e.preventDefault();
+            // added overlay class on body
+            document.querySelector('.directorist-content-active').classList.add('directorist-overlay-active');
 
             let parentElement = this.closest('.directorist-contents-wrap');
 
@@ -420,6 +422,8 @@ import './components/directoristSelect';
         // Search Modal Close Trigger
         $('body').on('click', '.directorist-search-modal__contents__btn--close, .directorist-search-modal__overlay', function (e) {
             e.preventDefault();
+            // removed overlay class from body
+            document.querySelector('.directorist-content-active').classList.remove('directorist-overlay-active');
 
             let searchModalElement = this.closest('.directorist-search-modal');
 

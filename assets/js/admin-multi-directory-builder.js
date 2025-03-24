@@ -30587,12 +30587,12 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap"
+    staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-tagline-card-wrap"
   }, [_c("div", {
-    staticClass: "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
-  }, [_vm.icon ? _c("span", {
-    class: _vm.icon
-  }) : _vm._e(), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.label))]), _vm._v(" "), !_vm.readOnly && !_vm.editOnClick ? _c("widget-action-tools", {
+    staticClass: "cptm-widget-card cptm-widget-tagline-card cptm-has-widget-control cptm-widget-actions-tools-wrap"
+  }, [_c("div", {
+    staticClass: "cptm-widget-tagline-block"
+  }, [_vm._v("\n      " + _vm._s(_vm.label) + "\n    ")]), _vm._v(" "), !_vm.readOnly && !_vm.editOnClick ? _c("widget-action-tools", {
     attrs: {
       canEdit: _vm.canEdit,
       canMove: _vm.canMove,
@@ -30839,11 +30839,7 @@ var render = function render() {
 var staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("span", {
-    staticStyle: {
-      "font-size": "16px"
-    }
-  }, [_c("i", {
+  return _c("span", [_c("i", {
     staticClass: "uil uil-eye"
   }), _vm._v("\n      0\n    ")]);
 }];

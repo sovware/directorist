@@ -2567,14 +2567,12 @@ input[type="radio"].cptm-radio {
 
 .cptm-list-item {
   display: flex;
+  gap: 10px;
   padding: 5px;
-  color: gray;
-  font-weight: 600;
-  font-size: 16px;
-
-  .cptm-list-item-icon {
-    width: 25px;
-  }
+  color: #747c89;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 14px;
 
   .cptm-list-item-label {
     flex-grow: 1;
@@ -2692,7 +2690,7 @@ input[type="radio"].cptm-radio {
 
   .cptm-listing-card-preview-top-placeholder {
     .cptm-placeholder-label {
-      left: 20px;
+      left: 12px;
       transform: translate(0, -50%);
       font-size: 14px;
       font-weight: 500;
@@ -2701,7 +2699,7 @@ input[type="radio"].cptm-radio {
   }
   .cptm-listing-card-preview-tagline-placeholder {
     .cptm-placeholder-label {
-      left: 20px;
+      left: 12px;
       transform: translate(0, -50%);
       font-size: 13px;
       font-weight: 400;
@@ -3028,6 +3026,15 @@ input[type="radio"].cptm-radio {
   text-align: left;
   font-size: 14px;
   font-weight: 500;
+  color: #4d5761;
+}
+.cptm-widget-tagline-card {
+  display: flex;
+  gap: 8px;
+  padding: 6px 10px;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 400;
   color: #4d5761;
 }
 

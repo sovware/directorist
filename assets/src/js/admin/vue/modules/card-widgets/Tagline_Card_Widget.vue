@@ -1,12 +1,13 @@
 <template>
   <div
-    class="cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap"
+    class="cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-tagline-card-wrap"
   >
     <div
-      class="cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
+      class="cptm-widget-card cptm-widget-tagline-card cptm-has-widget-control cptm-widget-actions-tools-wrap"
     >
-      <span :class="icon" v-if="icon"></span>
-      <span>{{ label }}</span>
+      <div class="cptm-widget-tagline-block">
+        {{ label }}
+      </div>
 
       <widget-action-tools
         :canEdit="canEdit"

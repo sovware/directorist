@@ -1865,7 +1865,7 @@ class Builder_Data {
                 'badges'     => [
                     'label'           => __( 'Add Element', 'directorist' ),
                     'maxWidget'       => 3,
-                    'acceptedWidgets' => ['favorite_badge', 'popular_badge', 'featured_badge', 'new_badge'],
+                    'acceptedWidgets' => ['pricing', 'rating'],
                 ],
                 'bottom'  => [
                     'label'           => __( 'Add Element', 'directorist' ),

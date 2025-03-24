@@ -5845,8 +5845,8 @@ body.wp-admin {
   transition: all ease-in-out 300ms;
 }
 #atbdp_ie_download_sample:hover {
-  border-color: rgb(37.7561576355, 78.2783251232, 243.7438423645);
-  background: rgb(37.7561576355, 78.2783251232, 243.7438423645);
+  border-color: #264ef4;
+  background: #264ef4;
   color: #fff;
 }
 
@@ -14455,7 +14455,7 @@ input:-webkit-autofill:active {
   margin-top: 2px;
   font-size: 12px;
   font-weight: 500;
-  color: #1B50B2;
+  color: #1b50b2;
   line-height: 20px;
   letter-spacing: 0.12px;
   text-decoration: underline;
@@ -14518,8 +14518,8 @@ input:-webkit-autofill:active {
   font-size: 16px;
   font-weight: 500;
   color: #ffffff;
-  border-color: #383F47;
-  background-color: #383F47;
+  border-color: #383f47;
+  background-color: #383f47;
   border-radius: 8px;
 }
 .directorist-footer-wrap .cptm-btn:before {
@@ -14838,7 +14838,7 @@ input:-webkit-autofill:active {
   background-color: #3e62f5;
 }
 .cptm-btn.cptm-btn-primary:hover {
-  background-color: rgb(52.3024630542, 90.1113300493, 244.4975369458);
+  background-color: #345af4;
 }
 .cptm-btn.cptm-btn-secondery {
   color: #3e62f5;
@@ -15617,7 +15617,7 @@ input:-webkit-autofill:active {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   border-radius: 8px;
-  background-color: #383F47;
+  background-color: #383f47;
   -webkit-box-shadow: 0px 1px 5px rgba(161, 168, 198, 0.1);
           box-shadow: 0px 1px 5px rgba(161, 168, 198, 0.1);
   -webkit-transition: all ease 0.3s;
@@ -15851,7 +15851,7 @@ div[draggable=true].cptm-form-builder-group-title-area {
 .cptm-form-builder-group-options .cptm-form-builder-group-options__advanced-toggle {
   font-size: 13px;
   font-weight: 500;
-  color: #2E94FA;
+  color: #2e94fa;
   background: transparent;
   border: none;
   padding: 0;
@@ -16295,6 +16295,40 @@ li[class=cptm-form-builder-field-list-item][draggable=true] {
   display: -ms-flexbox;
   display: flex;
   margin-right: 20px;
+}
+
+.cptm-tab-area {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+}
+.cptm-tab-area .cptm-tab-item input {
+  display: none;
+}
+.cptm-tab-area .cptm-tab-item input:checked + label {
+  color: #fff;
+  background-color: #3e62f5;
+}
+.cptm-tab-area .cptm-tab-item label {
+  margin: 0;
+  padding: 0 12px;
+  height: 32px;
+  line-height: 32px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #747c89;
+  background: #e5e7eb;
+  cursor: pointer;
+  -webkit-transition: all ease-in-out 300ms;
+  transition: all ease-in-out 300ms;
+}
+.cptm-tab-area .cptm-tab-item label:hover {
+  color: #fff;
+  background-color: #3e62f5;
 }
 
 #listing_settings__listings_page .cptm-checkbox-item:not(:last-child) {
@@ -17337,7 +17371,7 @@ input[type=radio].cptm-radio {
   transition: all ease-in-out 300ms;
 }
 .cptm-widget-control-action:hover {
-  background-color: rgb(13.5123152709, 58.5566502463, 242.4876847291);
+  background-color: #0e3bf2;
 }
 
 .cptm-listing-card-preview-body-placeholder {
@@ -17544,6 +17578,18 @@ input[type=radio].cptm-radio {
   max-width: 100%;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+}
+.cptm-form-group.tab-field .cptm-preview-wrapper {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 0;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 .cptm-form-group.cpt-has-error .cptm-form-control {
   border: 1px solid rgb(192, 51, 51);
@@ -19500,7 +19546,7 @@ input[type=radio]:checked::before {
   margin-top: 2px;
   font-size: 12px;
   font-weight: 500;
-  color: #1B50B2;
+  color: #1b50b2;
   line-height: 20px;
   letter-spacing: 0.12px;
   text-decoration: underline;
@@ -19563,8 +19609,8 @@ input[type=radio]:checked::before {
   font-size: 16px;
   font-weight: 500;
   color: #ffffff;
-  border-color: #383F47;
-  background-color: #383F47;
+  border-color: #383f47;
+  background-color: #383f47;
   border-radius: 8px;
 }
 .directorist-footer-wrap .cptm-btn:before {
@@ -19883,7 +19929,7 @@ input[type=radio]:checked::before {
   background-color: #3e62f5;
 }
 .cptm-btn.cptm-btn-primary:hover {
-  background-color: rgb(52.3024630542, 90.1113300493, 244.4975369458);
+  background-color: #345af4;
 }
 .cptm-btn.cptm-btn-secondery {
   color: #3e62f5;
@@ -20662,7 +20708,7 @@ input[type=radio]:checked::before {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   border-radius: 8px;
-  background-color: #383F47;
+  background-color: #383f47;
   -webkit-box-shadow: 0px 1px 5px rgba(161, 168, 198, 0.1);
           box-shadow: 0px 1px 5px rgba(161, 168, 198, 0.1);
   -webkit-transition: all ease 0.3s;
@@ -20896,7 +20942,7 @@ div[draggable=true].cptm-form-builder-group-title-area {
 .cptm-form-builder-group-options .cptm-form-builder-group-options__advanced-toggle {
   font-size: 13px;
   font-weight: 500;
-  color: #2E94FA;
+  color: #2e94fa;
   background: transparent;
   border: none;
   padding: 0;
@@ -21340,6 +21386,40 @@ li[class=cptm-form-builder-field-list-item][draggable=true] {
   display: -ms-flexbox;
   display: flex;
   margin-right: 20px;
+}
+
+.cptm-tab-area {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+}
+.cptm-tab-area .cptm-tab-item input {
+  display: none;
+}
+.cptm-tab-area .cptm-tab-item input:checked + label {
+  color: #fff;
+  background-color: #3e62f5;
+}
+.cptm-tab-area .cptm-tab-item label {
+  margin: 0;
+  padding: 0 12px;
+  height: 32px;
+  line-height: 32px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #747c89;
+  background: #e5e7eb;
+  cursor: pointer;
+  -webkit-transition: all ease-in-out 300ms;
+  transition: all ease-in-out 300ms;
+}
+.cptm-tab-area .cptm-tab-item label:hover {
+  color: #fff;
+  background-color: #3e62f5;
 }
 
 #listing_settings__listings_page .cptm-checkbox-item:not(:last-child) {
@@ -22382,7 +22462,7 @@ input[type=radio].cptm-radio {
   transition: all ease-in-out 300ms;
 }
 .cptm-widget-control-action:hover {
-  background-color: rgb(13.5123152709, 58.5566502463, 242.4876847291);
+  background-color: #0e3bf2;
 }
 
 .cptm-listing-card-preview-body-placeholder {
@@ -22589,6 +22669,18 @@ input[type=radio].cptm-radio {
   max-width: 100%;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+}
+.cptm-form-group.tab-field .cptm-preview-wrapper {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 0;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 .cptm-form-group.cpt-has-error .cptm-form-control {
   border: 1px solid rgb(192, 51, 51);
@@ -24833,7 +24925,7 @@ input[type=radio]:checked::before {
   margin-top: 2px;
   font-size: 12px;
   font-weight: 500;
-  color: #1B50B2;
+  color: #1b50b2;
   line-height: 20px;
   letter-spacing: 0.12px;
   text-decoration: underline;
@@ -24896,8 +24988,8 @@ input[type=radio]:checked::before {
   font-size: 16px;
   font-weight: 500;
   color: #ffffff;
-  border-color: #383F47;
-  background-color: #383F47;
+  border-color: #383f47;
+  background-color: #383f47;
   border-radius: 8px;
 }
 .directorist-footer-wrap .cptm-btn:before {
@@ -25216,7 +25308,7 @@ input[type=radio]:checked::before {
   background-color: #3e62f5;
 }
 .cptm-btn.cptm-btn-primary:hover {
-  background-color: rgb(52.3024630542, 90.1113300493, 244.4975369458);
+  background-color: #345af4;
 }
 .cptm-btn.cptm-btn-secondery {
   color: #3e62f5;
@@ -25995,7 +26087,7 @@ input[type=radio]:checked::before {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   border-radius: 8px;
-  background-color: #383F47;
+  background-color: #383f47;
   -webkit-box-shadow: 0px 1px 5px rgba(161, 168, 198, 0.1);
           box-shadow: 0px 1px 5px rgba(161, 168, 198, 0.1);
   -webkit-transition: all ease 0.3s;
@@ -26229,7 +26321,7 @@ div[draggable=true].cptm-form-builder-group-title-area {
 .cptm-form-builder-group-options .cptm-form-builder-group-options__advanced-toggle {
   font-size: 13px;
   font-weight: 500;
-  color: #2E94FA;
+  color: #2e94fa;
   background: transparent;
   border: none;
   padding: 0;
@@ -26673,6 +26765,40 @@ li[class=cptm-form-builder-field-list-item][draggable=true] {
   display: -ms-flexbox;
   display: flex;
   margin-right: 20px;
+}
+
+.cptm-tab-area {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+}
+.cptm-tab-area .cptm-tab-item input {
+  display: none;
+}
+.cptm-tab-area .cptm-tab-item input:checked + label {
+  color: #fff;
+  background-color: #3e62f5;
+}
+.cptm-tab-area .cptm-tab-item label {
+  margin: 0;
+  padding: 0 12px;
+  height: 32px;
+  line-height: 32px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #747c89;
+  background: #e5e7eb;
+  cursor: pointer;
+  -webkit-transition: all ease-in-out 300ms;
+  transition: all ease-in-out 300ms;
+}
+.cptm-tab-area .cptm-tab-item label:hover {
+  color: #fff;
+  background-color: #3e62f5;
 }
 
 #listing_settings__listings_page .cptm-checkbox-item:not(:last-child) {
@@ -27715,7 +27841,7 @@ input[type=radio].cptm-radio {
   transition: all ease-in-out 300ms;
 }
 .cptm-widget-control-action:hover {
-  background-color: rgb(13.5123152709, 58.5566502463, 242.4876847291);
+  background-color: #0e3bf2;
 }
 
 .cptm-listing-card-preview-body-placeholder {
@@ -27922,6 +28048,18 @@ input[type=radio].cptm-radio {
   max-width: 100%;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+}
+.cptm-form-group.tab-field .cptm-preview-wrapper {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 0;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 .cptm-form-group.cpt-has-error .cptm-form-control {
   border: 1px solid rgb(192, 51, 51);
@@ -29739,8 +29877,8 @@ input[type=radio]:checked::before {
   outline: none;
 }
 .settings-save-btn:hover {
-  border-color: rgb(37.7561576355, 78.2783251232, 243.7438423645);
-  background: rgb(37.7561576355, 78.2783251232, 243.7438423645);
+  border-color: #264ef4;
+  background: #264ef4;
   color: #fff;
 }
 .settings-save-btn:disabled {

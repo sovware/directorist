@@ -25,3 +25,4 @@ import '../components/instantSearch';
 import '../../global/components/setup-select2';
 import '../../global/components/select2-custom-control';
 import '../components/archive-sidebar';
+import '../components/update-view-count';

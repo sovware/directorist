@@ -21675,8 +21675,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof.js");
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-/* harmony import */ var _mixins_form_fields_card_builder__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../../mixins/form-fields/card-builder */ "./assets/src/js/admin/vue/mixins/form-fields/card-builder.js");
-/* harmony import */ var _mixins_helpers__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../mixins/helpers */ "./assets/src/js/admin/vue/mixins/helpers.js");
+/* harmony import */ var _mixins_helpers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../mixins/helpers */ "./assets/src/js/admin/vue/mixins/helpers.js");
+/* harmony import */ var _mixins_form_fields_card_builder__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../../mixins/form-fields/card-builder */ "./assets/src/js/admin/vue/mixins/form-fields/card-builder.js");
 
 
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
@@ -21689,7 +21689,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "card-builder-list-view-field",
-  mixins: [_mixins_form_fields_card_builder__WEBPACK_IMPORTED_MODULE_3__["default"], _mixins_helpers__WEBPACK_IMPORTED_MODULE_4__["default"]],
+  mixins: [_mixins_form_fields_card_builder__WEBPACK_IMPORTED_MODULE_4__["default"], _mixins_helpers__WEBPACK_IMPORTED_MODULE_3__["default"]],
   props: {
     value: {
       required: false,
@@ -21706,13 +21706,13 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   },
   mounted: function mounted() {
     var self = this;
-    document.addEventListener('click', function (e) {
+    document.addEventListener("click", function (e) {
       self.closeInsertWindow();
     });
   },
   created: function created() {
     this.init();
-    this.$emit('update', this.output_data);
+    this.$emit("update", this.output_data);
   },
   watch: {
     output_data: function output_data() {
@@ -21743,16 +21743,16 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
             }
             var widget_data = {};
             for (var root_option in this.active_widgets[widget_name]) {
-              if ('options' === root_option) {
+              if ("options" === root_option) {
                 continue;
               }
-              if ('icon' === root_option) {
+              if ("icon" === root_option) {
                 continue;
               }
-              if ('show_if' === root_option) {
+              if ("show_if" === root_option) {
                 continue;
               }
-              if ('fields' === root_option) {
+              if ("fields" === root_option) {
                 continue;
               }
               widget_data[root_option] = this.active_widgets[widget_name][root_option];
@@ -21800,12 +21800,12 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                 var matched_field = _step.value;
                 // console.log( {matched_field} );
                 var _main_widget = JSON.parse(JSON.stringify(main_widget));
-                var current_key = widget_keys.includes(widget) ? widget + '_' + (widget_keys.length + 1) : widget;
+                var current_key = widget_keys.includes(widget) ? widget + "_" + (widget_keys.length + 1) : widget;
                 _main_widget.widget_key = current_key;
                 if (matched_field.widget_key) {
                   _main_widget.widget_key = matched_field.widget_key;
                 }
-                if (typeof matched_field.label === 'string' && matched_field.label.length) {
+                if (typeof matched_field.label === "string" && matched_field.label.length) {
                   _main_widget.label = matched_field.label;
                 }
                 available_widgets[current_key] = _main_widget;
@@ -21879,7 +21879,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
             selectedWidgets: []
           },
           excerpt: {
-            label: 'Excerpt',
+            label: "Excerpt",
             selectedWidgets: []
           }
         },
@@ -21926,11 +21926,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       // Get Active Widgets Data
       var active_widgets_data = {};
       for (var section in value) {
-        if (!value[section] && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(value[section]) !== 'object') {
+        if (!value[section] && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(value[section]) !== "object") {
           continue;
         }
         for (var area in value[section]) {
-          if (!value[section][area] && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(value[section][area]) !== 'object') {
+          if (!value[section][area] && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(value[section][area]) !== "object") {
             continue;
           }
           var _iterator2 = _createForOfIteratorHelper(value[section][area]),
@@ -21938,19 +21938,19 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           try {
             for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
               var widget = _step2.value;
-              if (typeof widget.widget_name === 'undefined') {
+              if (typeof widget.widget_name === "undefined") {
                 continue;
               }
-              if (typeof widget.widget_key === 'undefined') {
+              if (typeof widget.widget_key === "undefined") {
                 continue;
               }
-              if (typeof this.available_widgets[widget.widget_name] === 'undefined') {
+              if (typeof this.available_widgets[widget.widget_name] === "undefined") {
                 continue;
               }
-              if (typeof this.local_layout[section] === 'undefined') {
+              if (typeof this.local_layout[section] === "undefined") {
                 continue;
               }
-              if (typeof this.local_layout[section][area] === 'undefined') {
+              if (typeof this.local_layout[section][area] === "undefined") {
                 continue;
               }
               active_widgets_data[widget.widget_key] = widget;
@@ -21976,7 +21976,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         var widgets_template = _objectSpread({}, this.theAvailableWidgets[widget_key]);
         var widget_options = !active_widgets_data[widget_key].options && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(active_widgets_data[widget_key].options) !== "object" ? false : active_widgets_data[widget_key].options;
         for (var root_option in widgets_template) {
-          if ('options' === root_option) {
+          if ("options" === root_option) {
             continue;
           }
           if (active_widgets_data[widget_key][root_option] === "undefined") {
@@ -22127,17 +22127,17 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       }
       this.widgetOptionsWindow = _objectSpread(_objectSpread({}, this.widgetOptionsWindowDefault), this.active_widgets[key].options);
       this.widgetOptionsWindow.widget = key;
-      this.active_insert_widget_key = '';
+      this.active_insert_widget_key = "";
     },
     updateWidgetOptionsData: function updateWidgetOptionsData(data, widget) {
       return;
-      if (typeof this.active_widgets[widget.widget] === 'undefined') {
+      if (typeof this.active_widgets[widget.widget] === "undefined") {
         return;
       }
-      if (typeof this.active_widgets[widget.widget].options === 'undefined') {
+      if (typeof this.active_widgets[widget.widget].options === "undefined") {
         return;
       }
-      vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(this.active_widgets[widget.widget].options, 'fields', data);
+      vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(this.active_widgets[widget.widget].options, "fields", data);
     },
     closeWidgetOptionsWindow: function closeWidgetOptionsWindow() {
       this.widgetOptionsWindow = this.widgetOptionsWindowDefault;
@@ -22160,7 +22160,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       var self = this;
       setTimeout(function () {
         if (self.active_insert_widget_key === current_item_key) {
-          self.active_insert_widget_key = '';
+          self.active_insert_widget_key = "";
           return;
         }
         self.active_insert_widget_key = current_item_key;
@@ -22171,7 +22171,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         return;
       }
       vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(this.active_widgets, payload.key, _objectSpread({}, this.theAvailableWidgets[payload.key]));
-      vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(where, 'selectedWidgets', payload.selected_widgets);
+      vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(where, "selectedWidgets", payload.selected_widgets);
       this.editWidget(payload.key);
     },
     closeInsertWindow: function closeInsertWindow(widget_insert_window) {
@@ -22763,7 +22763,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   },
   created: function created() {
     this.init();
-    this.$emit('update', this.output_data);
+    this.$emit("update", this.output_data);
   },
   watch: {
     output_data: function output_data() {
@@ -22794,16 +22794,16 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
             }
             var widget_data = {};
             for (var root_option in this.active_widgets[widget_name]) {
-              if ('options' === root_option) {
+              if ("options" === root_option) {
                 continue;
               }
-              if ('icon' === root_option) {
+              if ("icon" === root_option) {
                 continue;
               }
-              if ('show_if' === root_option) {
+              if ("show_if" === root_option) {
                 continue;
               }
-              if ('fields' === root_option) {
+              if ("fields" === root_option) {
                 continue;
               }
               widget_data[root_option] = this.active_widgets[widget_name][root_option];
@@ -22851,12 +22851,12 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                 var matched_field = _step.value;
                 // console.log( {matched_field} );
                 var _main_widget = JSON.parse(JSON.stringify(main_widget));
-                var current_key = widget_keys.includes(widget) ? widget + '_' + (widget_keys.length + 1) : widget;
+                var current_key = widget_keys.includes(widget) ? widget + "_" + (widget_keys.length + 1) : widget;
                 _main_widget.widget_key = current_key;
                 if (matched_field.widget_key) {
                   _main_widget.original_widget_key = matched_field.widget_key;
                 }
-                if (typeof matched_field.label === 'string' && matched_field.label.length) {
+                if (typeof matched_field.label === "string" && matched_field.label.length) {
                   _main_widget.label = matched_field.label;
                 }
                 available_widgets[current_key] = _main_widget;
@@ -22924,7 +22924,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
             selectedWidgets: []
           },
           excerpt: {
-            label: 'Excerpt',
+            label: "Excerpt",
             selectedWidgets: []
           }
         },
@@ -22971,11 +22971,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       // Get Active Widgets Data
       var active_widgets_data = {};
       for (var section in value) {
-        if (!value[section] && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(value[section]) !== 'object') {
+        if (!value[section] && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(value[section]) !== "object") {
           continue;
         }
         for (var area in value[section]) {
-          if (!value[section][area] && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(value[section][area]) !== 'object') {
+          if (!value[section][area] && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(value[section][area]) !== "object") {
             continue;
           }
           var _iterator2 = _createForOfIteratorHelper(value[section][area]),
@@ -22983,19 +22983,19 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           try {
             for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
               var widget = _step2.value;
-              if (typeof widget.widget_name === 'undefined') {
+              if (typeof widget.widget_name === "undefined") {
                 continue;
               }
-              if (typeof widget.widget_key === 'undefined') {
+              if (typeof widget.widget_key === "undefined") {
                 continue;
               }
-              if (typeof this.available_widgets[widget.widget_name] === 'undefined') {
+              if (typeof this.available_widgets[widget.widget_name] === "undefined") {
                 continue;
               }
-              if (typeof this.local_layout[section] === 'undefined') {
+              if (typeof this.local_layout[section] === "undefined") {
                 continue;
               }
-              if (typeof this.local_layout[section][area] === 'undefined') {
+              if (typeof this.local_layout[section][area] === "undefined") {
                 continue;
               }
               active_widgets_data[widget.widget_key] = widget;
@@ -23021,7 +23021,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         var widgets_template = _objectSpread({}, this.theAvailableWidgets[widget_key]);
         var widget_options = !active_widgets_data[widget_key].options && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(active_widgets_data[widget_key].options) !== "object" ? false : active_widgets_data[widget_key].options;
         for (var root_option in widgets_template) {
-          if ('options' === root_option) {
+          if ("options" === root_option) {
             continue;
           }
           if (active_widgets_data[widget_key][root_option] === "undefined") {
@@ -23055,7 +23055,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       if (!this.isTruthyObject(this.widgets)) {
         return;
       }
-      console.log('@LISTNOTHUMB init', {
+      console.log("@LISTNOTHUMB init", {
         widgets: this.widgets,
         available: this.available_widgets
       });
@@ -23179,13 +23179,13 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     },
     updateWidgetOptionsData: function updateWidgetOptionsData(data, widget) {
       return;
-      if (typeof this.active_widgets[widget.widget] === 'undefined') {
+      if (typeof this.active_widgets[widget.widget] === "undefined") {
         return;
       }
-      if (typeof this.active_widgets[widget.widget].options === 'undefined') {
+      if (typeof this.active_widgets[widget.widget].options === "undefined") {
         return;
       }
-      vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(this.active_widgets[widget.widget].options, 'fields', data);
+      vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(this.active_widgets[widget.widget].options, "fields", data);
     },
     closeWidgetOptionsWindow: function closeWidgetOptionsWindow() {
       this.widgetOptionsWindow = this.widgetOptionsWindowDefault;
@@ -23206,7 +23206,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     },
     activeInsertWindow: function activeInsertWindow(current_item_key) {
       if (this.active_insert_widget_key === current_item_key) {
-        this.active_insert_widget_key = '';
+        this.active_insert_widget_key = "";
         return;
       }
       this.active_insert_widget_key = current_item_key;
@@ -23216,7 +23216,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         return;
       }
       vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(this.active_widgets, payload.key, _objectSpread({}, this.theAvailableWidgets[payload.key]));
-      vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(where, 'selectedWidgets', payload.selected_widgets);
+      vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(where, "selectedWidgets", payload.selected_widgets);
     },
     closeInsertWindow: function closeInsertWindow(widget_insert_window) {
       this.active_insert_widget_key = "";
@@ -32021,7 +32021,62 @@ var render = function render() {
         return _vm.closeInsertWindow();
       }
     }
-  })], 1)])])])])]);
+  })], 1)])])]), _vm._v(" "), _c("div", {
+    staticClass: "cptm-preview-notice"
+  }, [_c("div", {
+    staticClass: "cptm-preview-notice-content"
+  }, [_c("svg", {
+    attrs: {
+      width: "16",
+      height: "16",
+      viewBox: "0 0 16 16",
+      fill: "none",
+      xmlns: "http://www.w3.org/2000/svg"
+    }
+  }, [_c("g", {
+    attrs: {
+      "clip-path": "url(#clip0_8301_5081)"
+    }
+  }, [_c("path", {
+    attrs: {
+      "fill-rule": "evenodd",
+      "clip-rule": "evenodd",
+      d: "M7.99984 1.99984C4.68613 1.99984 1.99984 4.68613 1.99984 7.99984C1.99984 11.3135 4.68613 13.9998 7.99984 13.9998C11.3135 13.9998 13.9998 11.3135 13.9998 7.99984C13.9998 4.68613 11.3135 1.99984 7.99984 1.99984ZM0.666504 7.99984C0.666504 3.94975 3.94975 0.666504 7.99984 0.666504C12.0499 0.666504 15.3332 3.94975 15.3332 7.99984C15.3332 12.0499 12.0499 15.3332 7.99984 15.3332C3.94975 15.3332 0.666504 12.0499 0.666504 7.99984ZM7.33317 5.33317C7.33317 4.96498 7.63165 4.6665 7.99984 4.6665H8.0065C8.37469 4.6665 8.67317 4.96498 8.67317 5.33317C8.67317 5.70136 8.37469 5.99984 8.0065 5.99984H7.99984C7.63165 5.99984 7.33317 5.70136 7.33317 5.33317ZM7.99984 7.33317C8.36803 7.33317 8.6665 7.63165 8.6665 7.99984V10.6665C8.6665 11.0347 8.36803 11.3332 7.99984 11.3332C7.63165 11.3332 7.33317 11.0347 7.33317 10.6665V7.99984C7.33317 7.63165 7.63165 7.33317 7.99984 7.33317Z",
+      fill: "#3E62F5"
+    }
+  })]), _vm._v(" "), _c("defs", [_c("clipPath", {
+    attrs: {
+      id: "clip0_8301_5081"
+    }
+  }, [_c("rect", {
+    attrs: {
+      width: "16",
+      height: "16",
+      fill: "white"
+    }
+  })])])]), _vm._v(" "), _vm._m(1)]), _vm._v(" "), _c("div", {
+    staticClass: "cptm-preview-notice-action"
+  }, [_c("a", {
+    staticClass: "cptm-preview-notice-btn",
+    attrs: {
+      href: "#"
+    }
+  }, [_vm._v("\n          Go to settings\n          "), _c("svg", {
+    attrs: {
+      width: "14",
+      height: "14",
+      viewBox: "0 0 14 14",
+      fill: "none",
+      xmlns: "http://www.w3.org/2000/svg"
+    }
+  }, [_c("path", {
+    attrs: {
+      "fill-rule": "evenodd",
+      "clip-rule": "evenodd",
+      d: "M6.48424 1.38007C6.769 1.09531 7.23068 1.09531 7.51544 1.38007L12.6196 6.48424C12.9044 6.769 12.9044 7.23068 12.6196 7.51544L7.51544 12.6196C7.23068 12.9044 6.769 12.9044 6.48424 12.6196C6.19948 12.3348 6.19948 11.8732 6.48424 11.5884L10.3436 7.729H1.89567C1.49296 7.729 1.1665 7.40254 1.1665 6.99984C1.1665 6.59713 1.49296 6.27067 1.89567 6.27067H10.3436L6.48424 2.41127C6.19948 2.12651 6.19948 1.66483 6.48424 1.38007Z",
+      fill: "#4D5761"
+    }
+  })])])])])])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
@@ -32031,6 +32086,12 @@ var staticRenderFns = [function () {
   }, [_c("span", {
     staticClass: "uil uil-scenery"
   })]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("p", {
+    staticClass: "cptm-preview-notice-text"
+  }, [_vm._v("\n          Want to enable/disable "), _c("strong", [_vm._v("Grid")]), _vm._v(",\n          "), _c("strong", [_vm._v("List")]), _vm._v(" or "), _c("strong", [_vm._v("Map")]), _vm._v(" views for the All\n          Listings Page?\n        ")]);
 }];
 render._withStripped = true;
 
@@ -32550,7 +32611,62 @@ var render = function render() {
         return _vm.closeWidgetOptionsWindow();
       }
     }
-  })], 1)])])])])]);
+  })], 1)])])]), _vm._v(" "), _c("div", {
+    staticClass: "cptm-preview-notice"
+  }, [_c("div", {
+    staticClass: "cptm-preview-notice-content"
+  }, [_c("svg", {
+    attrs: {
+      width: "16",
+      height: "16",
+      viewBox: "0 0 16 16",
+      fill: "none",
+      xmlns: "http://www.w3.org/2000/svg"
+    }
+  }, [_c("g", {
+    attrs: {
+      "clip-path": "url(#clip0_8301_5081)"
+    }
+  }, [_c("path", {
+    attrs: {
+      "fill-rule": "evenodd",
+      "clip-rule": "evenodd",
+      d: "M7.99984 1.99984C4.68613 1.99984 1.99984 4.68613 1.99984 7.99984C1.99984 11.3135 4.68613 13.9998 7.99984 13.9998C11.3135 13.9998 13.9998 11.3135 13.9998 7.99984C13.9998 4.68613 11.3135 1.99984 7.99984 1.99984ZM0.666504 7.99984C0.666504 3.94975 3.94975 0.666504 7.99984 0.666504C12.0499 0.666504 15.3332 3.94975 15.3332 7.99984C15.3332 12.0499 12.0499 15.3332 7.99984 15.3332C3.94975 15.3332 0.666504 12.0499 0.666504 7.99984ZM7.33317 5.33317C7.33317 4.96498 7.63165 4.6665 7.99984 4.6665H8.0065C8.37469 4.6665 8.67317 4.96498 8.67317 5.33317C8.67317 5.70136 8.37469 5.99984 8.0065 5.99984H7.99984C7.63165 5.99984 7.33317 5.70136 7.33317 5.33317ZM7.99984 7.33317C8.36803 7.33317 8.6665 7.63165 8.6665 7.99984V10.6665C8.6665 11.0347 8.36803 11.3332 7.99984 11.3332C7.63165 11.3332 7.33317 11.0347 7.33317 10.6665V7.99984C7.33317 7.63165 7.63165 7.33317 7.99984 7.33317Z",
+      fill: "#3E62F5"
+    }
+  })]), _vm._v(" "), _c("defs", [_c("clipPath", {
+    attrs: {
+      id: "clip0_8301_5081"
+    }
+  }, [_c("rect", {
+    attrs: {
+      width: "16",
+      height: "16",
+      fill: "white"
+    }
+  })])])]), _vm._v(" "), _vm._m(1)]), _vm._v(" "), _c("div", {
+    staticClass: "cptm-preview-notice-action"
+  }, [_c("a", {
+    staticClass: "cptm-preview-notice-btn",
+    attrs: {
+      href: "#"
+    }
+  }, [_vm._v("\n          Go to settings\n          "), _c("svg", {
+    attrs: {
+      width: "14",
+      height: "14",
+      viewBox: "0 0 14 14",
+      fill: "none",
+      xmlns: "http://www.w3.org/2000/svg"
+    }
+  }, [_c("path", {
+    attrs: {
+      "fill-rule": "evenodd",
+      "clip-rule": "evenodd",
+      d: "M6.48424 1.38007C6.769 1.09531 7.23068 1.09531 7.51544 1.38007L12.6196 6.48424C12.9044 6.769 12.9044 7.23068 12.6196 7.51544L7.51544 12.6196C7.23068 12.9044 6.769 12.9044 6.48424 12.6196C6.19948 12.3348 6.19948 11.8732 6.48424 11.5884L10.3436 7.729H1.89567C1.49296 7.729 1.1665 7.40254 1.1665 6.99984C1.1665 6.59713 1.49296 6.27067 1.89567 6.27067H10.3436L6.48424 2.41127C6.19948 2.12651 6.19948 1.66483 6.48424 1.38007Z",
+      fill: "#4D5761"
+    }
+  })])])])])])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
@@ -32560,6 +32676,12 @@ var staticRenderFns = [function () {
   }, [_c("span", {
     staticClass: "uil uil-scenery"
   })]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("p", {
+    staticClass: "cptm-preview-notice-text"
+  }, [_vm._v("\n          Want to enable/disable "), _c("strong", [_vm._v("Grid")]), _vm._v(",\n          "), _c("strong", [_vm._v("List")]), _vm._v(" or "), _c("strong", [_vm._v("Map")]), _vm._v(" views for the All\n          Listings Page?\n        ")]);
 }];
 render._withStripped = true;
 
@@ -32950,9 +33072,70 @@ var render = function render() {
         return _vm.closeInsertWindow();
       }
     }
-  })], 1)])])])]);
+  })], 1)])]), _vm._v(" "), _c("div", {
+    staticClass: "cptm-preview-notice"
+  }, [_c("div", {
+    staticClass: "cptm-preview-notice-content"
+  }, [_c("svg", {
+    attrs: {
+      width: "16",
+      height: "16",
+      viewBox: "0 0 16 16",
+      fill: "none",
+      xmlns: "http://www.w3.org/2000/svg"
+    }
+  }, [_c("g", {
+    attrs: {
+      "clip-path": "url(#clip0_8301_5081)"
+    }
+  }, [_c("path", {
+    attrs: {
+      "fill-rule": "evenodd",
+      "clip-rule": "evenodd",
+      d: "M7.99984 1.99984C4.68613 1.99984 1.99984 4.68613 1.99984 7.99984C1.99984 11.3135 4.68613 13.9998 7.99984 13.9998C11.3135 13.9998 13.9998 11.3135 13.9998 7.99984C13.9998 4.68613 11.3135 1.99984 7.99984 1.99984ZM0.666504 7.99984C0.666504 3.94975 3.94975 0.666504 7.99984 0.666504C12.0499 0.666504 15.3332 3.94975 15.3332 7.99984C15.3332 12.0499 12.0499 15.3332 7.99984 15.3332C3.94975 15.3332 0.666504 12.0499 0.666504 7.99984ZM7.33317 5.33317C7.33317 4.96498 7.63165 4.6665 7.99984 4.6665H8.0065C8.37469 4.6665 8.67317 4.96498 8.67317 5.33317C8.67317 5.70136 8.37469 5.99984 8.0065 5.99984H7.99984C7.63165 5.99984 7.33317 5.70136 7.33317 5.33317ZM7.99984 7.33317C8.36803 7.33317 8.6665 7.63165 8.6665 7.99984V10.6665C8.6665 11.0347 8.36803 11.3332 7.99984 11.3332C7.63165 11.3332 7.33317 11.0347 7.33317 10.6665V7.99984C7.33317 7.63165 7.63165 7.33317 7.99984 7.33317Z",
+      fill: "#3E62F5"
+    }
+  })]), _vm._v(" "), _c("defs", [_c("clipPath", {
+    attrs: {
+      id: "clip0_8301_5081"
+    }
+  }, [_c("rect", {
+    attrs: {
+      width: "16",
+      height: "16",
+      fill: "white"
+    }
+  })])])]), _vm._v(" "), _vm._m(0)]), _vm._v(" "), _c("div", {
+    staticClass: "cptm-preview-notice-action"
+  }, [_c("a", {
+    staticClass: "cptm-preview-notice-btn",
+    attrs: {
+      href: "#"
+    }
+  }, [_vm._v("\n          Go to settings\n          "), _c("svg", {
+    attrs: {
+      width: "14",
+      height: "14",
+      viewBox: "0 0 14 14",
+      fill: "none",
+      xmlns: "http://www.w3.org/2000/svg"
+    }
+  }, [_c("path", {
+    attrs: {
+      "fill-rule": "evenodd",
+      "clip-rule": "evenodd",
+      d: "M6.48424 1.38007C6.769 1.09531 7.23068 1.09531 7.51544 1.38007L12.6196 6.48424C12.9044 6.769 12.9044 7.23068 12.6196 7.51544L7.51544 12.6196C7.23068 12.9044 6.769 12.9044 6.48424 12.6196C6.19948 12.3348 6.19948 11.8732 6.48424 11.5884L10.3436 7.729H1.89567C1.49296 7.729 1.1665 7.40254 1.1665 6.99984C1.1665 6.59713 1.49296 6.27067 1.89567 6.27067H10.3436L6.48424 2.41127C6.19948 2.12651 6.19948 1.66483 6.48424 1.38007Z",
+      fill: "#4D5761"
+    }
+  })])])])])])]);
 };
-var staticRenderFns = [];
+var staticRenderFns = [function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("p", {
+    staticClass: "cptm-preview-notice-text"
+  }, [_vm._v("\n          Want to enable/disable "), _c("strong", [_vm._v("Grid")]), _vm._v(",\n          "), _c("strong", [_vm._v("List")]), _vm._v(" or "), _c("strong", [_vm._v("Map")]), _vm._v(" views for the All\n          Listings Page?\n        ")]);
+}];
 render._withStripped = true;
 
 
@@ -33305,7 +33488,62 @@ var render = function render() {
         return _vm.closeInsertWindow();
       }
     }
-  })], 1)])])])]);
+  })], 1)])]), _vm._v(" "), _c("div", {
+    staticClass: "cptm-preview-notice cptm-preview-notice--list"
+  }, [_c("div", {
+    staticClass: "cptm-preview-notice-content"
+  }, [_c("svg", {
+    attrs: {
+      width: "16",
+      height: "16",
+      viewBox: "0 0 16 16",
+      fill: "none",
+      xmlns: "http://www.w3.org/2000/svg"
+    }
+  }, [_c("g", {
+    attrs: {
+      "clip-path": "url(#clip0_8301_5081)"
+    }
+  }, [_c("path", {
+    attrs: {
+      "fill-rule": "evenodd",
+      "clip-rule": "evenodd",
+      d: "M7.99984 1.99984C4.68613 1.99984 1.99984 4.68613 1.99984 7.99984C1.99984 11.3135 4.68613 13.9998 7.99984 13.9998C11.3135 13.9998 13.9998 11.3135 13.9998 7.99984C13.9998 4.68613 11.3135 1.99984 7.99984 1.99984ZM0.666504 7.99984C0.666504 3.94975 3.94975 0.666504 7.99984 0.666504C12.0499 0.666504 15.3332 3.94975 15.3332 7.99984C15.3332 12.0499 12.0499 15.3332 7.99984 15.3332C3.94975 15.3332 0.666504 12.0499 0.666504 7.99984ZM7.33317 5.33317C7.33317 4.96498 7.63165 4.6665 7.99984 4.6665H8.0065C8.37469 4.6665 8.67317 4.96498 8.67317 5.33317C8.67317 5.70136 8.37469 5.99984 8.0065 5.99984H7.99984C7.63165 5.99984 7.33317 5.70136 7.33317 5.33317ZM7.99984 7.33317C8.36803 7.33317 8.6665 7.63165 8.6665 7.99984V10.6665C8.6665 11.0347 8.36803 11.3332 7.99984 11.3332C7.63165 11.3332 7.33317 11.0347 7.33317 10.6665V7.99984C7.33317 7.63165 7.63165 7.33317 7.99984 7.33317Z",
+      fill: "#3E62F5"
+    }
+  })]), _vm._v(" "), _c("defs", [_c("clipPath", {
+    attrs: {
+      id: "clip0_8301_5081"
+    }
+  }, [_c("rect", {
+    attrs: {
+      width: "16",
+      height: "16",
+      fill: "white"
+    }
+  })])])]), _vm._v(" "), _vm._m(1)]), _vm._v(" "), _c("div", {
+    staticClass: "cptm-preview-notice-action"
+  }, [_c("a", {
+    staticClass: "cptm-preview-notice-btn",
+    attrs: {
+      href: "#"
+    }
+  }, [_vm._v("\n          Go to settings\n          "), _c("svg", {
+    attrs: {
+      width: "14",
+      height: "14",
+      viewBox: "0 0 14 14",
+      fill: "none",
+      xmlns: "http://www.w3.org/2000/svg"
+    }
+  }, [_c("path", {
+    attrs: {
+      "fill-rule": "evenodd",
+      "clip-rule": "evenodd",
+      d: "M6.48424 1.38007C6.769 1.09531 7.23068 1.09531 7.51544 1.38007L12.6196 6.48424C12.9044 6.769 12.9044 7.23068 12.6196 7.51544L7.51544 12.6196C7.23068 12.9044 6.769 12.9044 6.48424 12.6196C6.19948 12.3348 6.19948 11.8732 6.48424 11.5884L10.3436 7.729H1.89567C1.49296 7.729 1.1665 7.40254 1.1665 6.99984C1.1665 6.59713 1.49296 6.27067 1.89567 6.27067H10.3436L6.48424 2.41127C6.19948 2.12651 6.19948 1.66483 6.48424 1.38007Z",
+      fill: "#4D5761"
+    }
+  })])])])])])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
@@ -33315,6 +33553,12 @@ var staticRenderFns = [function () {
   }, [_c("span", {
     staticClass: "uil uil-scenery"
   })]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("p", {
+    staticClass: "cptm-preview-notice-text"
+  }, [_vm._v("\n          Want to enable/disable "), _c("strong", [_vm._v("Grid")]), _vm._v(",\n          "), _c("strong", [_vm._v("List")]), _vm._v(" or "), _c("strong", [_vm._v("Map")]), _vm._v(" views for the All\n          Listings Page?\n        ")]);
 }];
 render._withStripped = true;
 
@@ -33668,7 +33912,62 @@ var render = function render() {
         return _vm.closeInsertWindow();
       }
     }
-  })], 1)])])])]);
+  })], 1)])]), _vm._v(" "), _c("div", {
+    staticClass: "cptm-preview-notice cptm-preview-notice--list"
+  }, [_c("div", {
+    staticClass: "cptm-preview-notice-content"
+  }, [_c("svg", {
+    attrs: {
+      width: "16",
+      height: "16",
+      viewBox: "0 0 16 16",
+      fill: "none",
+      xmlns: "http://www.w3.org/2000/svg"
+    }
+  }, [_c("g", {
+    attrs: {
+      "clip-path": "url(#clip0_8301_5081)"
+    }
+  }, [_c("path", {
+    attrs: {
+      "fill-rule": "evenodd",
+      "clip-rule": "evenodd",
+      d: "M7.99984 1.99984C4.68613 1.99984 1.99984 4.68613 1.99984 7.99984C1.99984 11.3135 4.68613 13.9998 7.99984 13.9998C11.3135 13.9998 13.9998 11.3135 13.9998 7.99984C13.9998 4.68613 11.3135 1.99984 7.99984 1.99984ZM0.666504 7.99984C0.666504 3.94975 3.94975 0.666504 7.99984 0.666504C12.0499 0.666504 15.3332 3.94975 15.3332 7.99984C15.3332 12.0499 12.0499 15.3332 7.99984 15.3332C3.94975 15.3332 0.666504 12.0499 0.666504 7.99984ZM7.33317 5.33317C7.33317 4.96498 7.63165 4.6665 7.99984 4.6665H8.0065C8.37469 4.6665 8.67317 4.96498 8.67317 5.33317C8.67317 5.70136 8.37469 5.99984 8.0065 5.99984H7.99984C7.63165 5.99984 7.33317 5.70136 7.33317 5.33317ZM7.99984 7.33317C8.36803 7.33317 8.6665 7.63165 8.6665 7.99984V10.6665C8.6665 11.0347 8.36803 11.3332 7.99984 11.3332C7.63165 11.3332 7.33317 11.0347 7.33317 10.6665V7.99984C7.33317 7.63165 7.63165 7.33317 7.99984 7.33317Z",
+      fill: "#3E62F5"
+    }
+  })]), _vm._v(" "), _c("defs", [_c("clipPath", {
+    attrs: {
+      id: "clip0_8301_5081"
+    }
+  }, [_c("rect", {
+    attrs: {
+      width: "16",
+      height: "16",
+      fill: "white"
+    }
+  })])])]), _vm._v(" "), _vm._m(1)]), _vm._v(" "), _c("div", {
+    staticClass: "cptm-preview-notice-action"
+  }, [_c("a", {
+    staticClass: "cptm-preview-notice-btn",
+    attrs: {
+      href: "#"
+    }
+  }, [_vm._v("\n          Go to settings\n          "), _c("svg", {
+    attrs: {
+      width: "14",
+      height: "14",
+      viewBox: "0 0 14 14",
+      fill: "none",
+      xmlns: "http://www.w3.org/2000/svg"
+    }
+  }, [_c("path", {
+    attrs: {
+      "fill-rule": "evenodd",
+      "clip-rule": "evenodd",
+      d: "M6.48424 1.38007C6.769 1.09531 7.23068 1.09531 7.51544 1.38007L12.6196 6.48424C12.9044 6.769 12.9044 7.23068 12.6196 7.51544L7.51544 12.6196C7.23068 12.9044 6.769 12.9044 6.48424 12.6196C6.19948 12.3348 6.19948 11.8732 6.48424 11.5884L10.3436 7.729H1.89567C1.49296 7.729 1.1665 7.40254 1.1665 6.99984C1.1665 6.59713 1.49296 6.27067 1.89567 6.27067H10.3436L6.48424 2.41127C6.19948 2.12651 6.19948 1.66483 6.48424 1.38007Z",
+      fill: "#4D5761"
+    }
+  })])])])])])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
@@ -33678,6 +33977,12 @@ var staticRenderFns = [function () {
   }, [_c("span", {
     staticClass: "uil uil-scenery"
   })]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("p", {
+    staticClass: "cptm-preview-notice-text"
+  }, [_vm._v("\n          Want to enable/disable "), _c("strong", [_vm._v("Grid")]), _vm._v(",\n          "), _c("strong", [_vm._v("List")]), _vm._v(" or "), _c("strong", [_vm._v("Map")]), _vm._v(" views for the All\n          Listings Page?\n        ")]);
 }];
 render._withStripped = true;
 
@@ -33976,9 +34281,70 @@ var render = function render() {
         return _vm.closeInsertWindow();
       }
     }
-  })], 1)])])])]);
+  })], 1)])]), _vm._v(" "), _c("div", {
+    staticClass: "cptm-preview-notice cptm-preview-notice--list"
+  }, [_c("div", {
+    staticClass: "cptm-preview-notice-content"
+  }, [_c("svg", {
+    attrs: {
+      width: "16",
+      height: "16",
+      viewBox: "0 0 16 16",
+      fill: "none",
+      xmlns: "http://www.w3.org/2000/svg"
+    }
+  }, [_c("g", {
+    attrs: {
+      "clip-path": "url(#clip0_8301_5081)"
+    }
+  }, [_c("path", {
+    attrs: {
+      "fill-rule": "evenodd",
+      "clip-rule": "evenodd",
+      d: "M7.99984 1.99984C4.68613 1.99984 1.99984 4.68613 1.99984 7.99984C1.99984 11.3135 4.68613 13.9998 7.99984 13.9998C11.3135 13.9998 13.9998 11.3135 13.9998 7.99984C13.9998 4.68613 11.3135 1.99984 7.99984 1.99984ZM0.666504 7.99984C0.666504 3.94975 3.94975 0.666504 7.99984 0.666504C12.0499 0.666504 15.3332 3.94975 15.3332 7.99984C15.3332 12.0499 12.0499 15.3332 7.99984 15.3332C3.94975 15.3332 0.666504 12.0499 0.666504 7.99984ZM7.33317 5.33317C7.33317 4.96498 7.63165 4.6665 7.99984 4.6665H8.0065C8.37469 4.6665 8.67317 4.96498 8.67317 5.33317C8.67317 5.70136 8.37469 5.99984 8.0065 5.99984H7.99984C7.63165 5.99984 7.33317 5.70136 7.33317 5.33317ZM7.99984 7.33317C8.36803 7.33317 8.6665 7.63165 8.6665 7.99984V10.6665C8.6665 11.0347 8.36803 11.3332 7.99984 11.3332C7.63165 11.3332 7.33317 11.0347 7.33317 10.6665V7.99984C7.33317 7.63165 7.63165 7.33317 7.99984 7.33317Z",
+      fill: "#3E62F5"
+    }
+  })]), _vm._v(" "), _c("defs", [_c("clipPath", {
+    attrs: {
+      id: "clip0_8301_5081"
+    }
+  }, [_c("rect", {
+    attrs: {
+      width: "16",
+      height: "16",
+      fill: "white"
+    }
+  })])])]), _vm._v(" "), _vm._m(0)]), _vm._v(" "), _c("div", {
+    staticClass: "cptm-preview-notice-action"
+  }, [_c("a", {
+    staticClass: "cptm-preview-notice-btn",
+    attrs: {
+      href: "#"
+    }
+  }, [_vm._v("\n          Go to settings\n          "), _c("svg", {
+    attrs: {
+      width: "14",
+      height: "14",
+      viewBox: "0 0 14 14",
+      fill: "none",
+      xmlns: "http://www.w3.org/2000/svg"
+    }
+  }, [_c("path", {
+    attrs: {
+      "fill-rule": "evenodd",
+      "clip-rule": "evenodd",
+      d: "M6.48424 1.38007C6.769 1.09531 7.23068 1.09531 7.51544 1.38007L12.6196 6.48424C12.9044 6.769 12.9044 7.23068 12.6196 7.51544L7.51544 12.6196C7.23068 12.9044 6.769 12.9044 6.48424 12.6196C6.19948 12.3348 6.19948 11.8732 6.48424 11.5884L10.3436 7.729H1.89567C1.49296 7.729 1.1665 7.40254 1.1665 6.99984C1.1665 6.59713 1.49296 6.27067 1.89567 6.27067H10.3436L6.48424 2.41127C6.19948 2.12651 6.19948 1.66483 6.48424 1.38007Z",
+      fill: "#4D5761"
+    }
+  })])])])])])]);
 };
-var staticRenderFns = [];
+var staticRenderFns = [function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("p", {
+    staticClass: "cptm-preview-notice-text"
+  }, [_vm._v("\n          Want to enable/disable "), _c("strong", [_vm._v("Grid")]), _vm._v(",\n          "), _c("strong", [_vm._v("List")]), _vm._v(" or "), _c("strong", [_vm._v("Map")]), _vm._v(" views for the All\n          Listings Page?\n        ")]);
+}];
 render._withStripped = true;
 
 

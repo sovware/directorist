@@ -23,21 +23,49 @@
                   :label="local_layout.thumbnail.top_right.label"
                   :availableWidgets="theAvailableWidgets"
                   :activeWidgets="active_widgets"
-                  :acceptedWidgets="local_layout.thumbnail.top_right.acceptedWidgets"
-                  :selectedWidgets="local_layout.thumbnail.top_right.selectedWidgets"
+                  :acceptedWidgets="
+                    local_layout.thumbnail.top_right.acceptedWidgets
+                  "
+                  :selectedWidgets="
+                    local_layout.thumbnail.top_right.selectedWidgets
+                  "
                   :maxWidget="local_layout.thumbnail.top_right.maxWidget"
-                  :showWidgetsPickerWindow="getActiveInsertWindowStatus('thumbnail_top_right')"
-                  :widgetDropable="widgetIsDropable(local_layout.thumbnail.top_right)"
-                  @insert-widget="insertWidget($event, local_layout.thumbnail.top_right)"
-                  @drag-widget="onDragStartWidget($event, local_layout.thumbnail.top_right)"
-                  @drop-widget="appendWidget($event, local_layout.thumbnail.top_right)"
+                  :showWidgetsPickerWindow="
+                    getActiveInsertWindowStatus('thumbnail_top_right')
+                  "
+                  :widgetDropable="
+                    widgetIsDropable(local_layout.thumbnail.top_right)
+                  "
+                  @insert-widget="
+                    insertWidget($event, local_layout.thumbnail.top_right)
+                  "
+                  @drag-widget="
+                    onDragStartWidget($event, local_layout.thumbnail.top_right)
+                  "
+                  @drop-widget="
+                    appendWidget($event, local_layout.thumbnail.top_right)
+                  "
                   @dragend-widget="onDragEndWidget()"
                   @edit-widget="editWidget($event)"
-                  @trash-widget="trashWidget($event, local_layout.thumbnail.top_right)"
-                  @placeholder-on-drop="handleDropOnPlaceholder(local_layout.thumbnail.top_right)"
-                  @placeholder-on-dragover="handleDragOverOnPlaceholder(local_layout.thumbnail.top_right)"
-                  @placeholder-on-dragenter="handleDragEnterOnPlaceholder(local_layout.thumbnail.top_right)"
-                  @open-widgets-picker-window="activeInsertWindow('thumbnail_top_right')"
+                  @trash-widget="
+                    trashWidget($event, local_layout.thumbnail.top_right)
+                  "
+                  @placeholder-on-drop="
+                    handleDropOnPlaceholder(local_layout.thumbnail.top_right)
+                  "
+                  @placeholder-on-dragover="
+                    handleDragOverOnPlaceholder(
+                      local_layout.thumbnail.top_right
+                    )
+                  "
+                  @placeholder-on-dragenter="
+                    handleDragEnterOnPlaceholder(
+                      local_layout.thumbnail.top_right
+                    )
+                  "
+                  @open-widgets-picker-window="
+                    activeInsertWindow('thumbnail_top_right')
+                  "
                   @close-widgets-picker-window="closeInsertWindow()"
                 />
               </div>
@@ -63,15 +91,21 @@
                   :acceptedWidgets="local_layout.body.top.acceptedWidgets"
                   :selectedWidgets="local_layout.body.top.selectedWidgets"
                   :maxWidget="local_layout.body.top.maxWidget"
-                  :showWidgetsPickerWindow="getActiveInsertWindowStatus('body_top')"
+                  :showWidgetsPickerWindow="
+                    getActiveInsertWindowStatus('body_top')
+                  "
                   :widgetDropable="widgetIsDropable(local_layout.body.top)"
                   @insert-widget="insertWidget($event, local_layout.body.top)"
-                  @drag-widget="onDragStartWidget($event, local_layout.body.top)"
+                  @drag-widget="
+                    onDragStartWidget($event, local_layout.body.top)
+                  "
                   @drop-widget="appendWidget($event, local_layout.body.top)"
                   @dragend-widget="onDragEndWidget()"
                   @edit-widget="editWidget($event)"
                   @trash-widget="trashWidget($event, local_layout.body.top)"
-                  @placeholder-on-drop="handleDropOnPlaceholder(local_layout.body.top)"
+                  @placeholder-on-drop="
+                    handleDropOnPlaceholder(local_layout.body.top)
+                  "
                   @open-widgets-picker-window="activeInsertWindow('body_top')"
                   @close-widgets-picker-window="closeInsertWindow()"
                 />
@@ -86,15 +120,21 @@
                   :acceptedWidgets="local_layout.body.right.acceptedWidgets"
                   :selectedWidgets="local_layout.body.right.selectedWidgets"
                   :maxWidget="local_layout.body.right.maxWidget"
-                  :showWidgetsPickerWindow="getActiveInsertWindowStatus('body_right')"
+                  :showWidgetsPickerWindow="
+                    getActiveInsertWindowStatus('body_right')
+                  "
                   :widgetDropable="widgetIsDropable(local_layout.body.right)"
                   @insert-widget="insertWidget($event, local_layout.body.right)"
-                  @drag-widget="onDragStartWidget($event, local_layout.body.right)"
+                  @drag-widget="
+                    onDragStartWidget($event, local_layout.body.right)
+                  "
                   @drop-widget="appendWidget($event, local_layout.body.right)"
                   @dragend-widget="onDragEndWidget()"
                   @edit-widget="editWidget($event)"
                   @trash-widget="trashWidget($event, local_layout.body.right)"
-                  @placeholder-on-drop="handleDropOnPlaceholder(local_layout.body.right)"
+                  @placeholder-on-drop="
+                    handleDropOnPlaceholder(local_layout.body.right)
+                  "
                   @open-widgets-picker-window="activeInsertWindow('body_right')"
                   @close-widgets-picker-window="closeInsertWindow()"
                 />
@@ -109,7 +149,9 @@
               :acceptedWidgets="local_layout.body.bottom.acceptedWidgets"
               :selectedWidgets="local_layout.body.bottom.selectedWidgets"
               :maxWidget="local_layout.body.bottom.maxWidget"
-              :showWidgetsPickerWindow="getActiveInsertWindowStatus('body_bottom')"
+              :showWidgetsPickerWindow="
+                getActiveInsertWindowStatus('body_bottom')
+              "
               :widgetDropable="widgetIsDropable(local_layout.body.bottom)"
               @insert-widget="insertWidget($event, local_layout.body.bottom)"
               @drag-widget="onDragStartWidget($event, local_layout.body.bottom)"
@@ -117,31 +159,39 @@
               @dragend-widget="onDragEndWidget()"
               @edit-widget="editWidget($event)"
               @trash-widget="trashWidget($event, local_layout.body.bottom)"
-              @placeholder-on-drop="handleDropOnPlaceholder(local_layout.body.bottom)"
+              @placeholder-on-drop="
+                handleDropOnPlaceholder(local_layout.body.bottom)
+              "
               @open-widgets-picker-window="activeInsertWindow('body_bottom')"
               @close-widgets-picker-window="closeInsertWindow()"
             />
-            
-            <br>
+
+            <br />
 
             <card-widget-placeholder
               containerClass="cptm-listing-card-preview-excerpt-placeholder cptm-card-light"
-              v-if="placeholderIsActive( local_layout.body.excerpt )"
+              v-if="placeholderIsActive(local_layout.body.excerpt)"
               :label="local_layout.body.excerpt.label"
               :availableWidgets="theAvailableWidgets"
               :activeWidgets="active_widgets"
               :acceptedWidgets="local_layout.body.excerpt.acceptedWidgets"
               :selectedWidgets="local_layout.body.excerpt.selectedWidgets"
               :maxWidget="local_layout.body.excerpt.maxWidget"
-              :showWidgetsPickerWindow="getActiveInsertWindowStatus('body_excerpt')"
+              :showWidgetsPickerWindow="
+                getActiveInsertWindowStatus('body_excerpt')
+              "
               :widgetDropable="widgetIsDropable(local_layout.body.excerpt)"
               @insert-widget="insertWidget($event, local_layout.body.excerpt)"
-              @drag-widget="onDragStartWidget($event, local_layout.body.excerpt)"
+              @drag-widget="
+                onDragStartWidget($event, local_layout.body.excerpt)
+              "
               @drop-widget="appendWidget($event, local_layout.body.excerpt)"
               @dragend-widget="onDragEndWidget()"
               @edit-widget="editWidget($event)"
               @trash-widget="trashWidget($event, local_layout.body.excerpt)"
-              @placeholder-on-drop="handleDropOnPlaceholder(local_layout.body.excerpt)"
+              @placeholder-on-drop="
+                handleDropOnPlaceholder(local_layout.body.excerpt)
+              "
               @open-widgets-picker-window="activeInsertWindow('body_excerpt')"
               @close-widgets-picker-window="closeInsertWindow()"
             />
@@ -209,18 +259,68 @@
           </div>
         </div>
       </div>
+
+      <div class="cptm-preview-notice cptm-preview-notice--list">
+        <div class="cptm-preview-notice-content">
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g clip-path="url(#clip0_8301_5081)">
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M7.99984 1.99984C4.68613 1.99984 1.99984 4.68613 1.99984 7.99984C1.99984 11.3135 4.68613 13.9998 7.99984 13.9998C11.3135 13.9998 13.9998 11.3135 13.9998 7.99984C13.9998 4.68613 11.3135 1.99984 7.99984 1.99984ZM0.666504 7.99984C0.666504 3.94975 3.94975 0.666504 7.99984 0.666504C12.0499 0.666504 15.3332 3.94975 15.3332 7.99984C15.3332 12.0499 12.0499 15.3332 7.99984 15.3332C3.94975 15.3332 0.666504 12.0499 0.666504 7.99984ZM7.33317 5.33317C7.33317 4.96498 7.63165 4.6665 7.99984 4.6665H8.0065C8.37469 4.6665 8.67317 4.96498 8.67317 5.33317C8.67317 5.70136 8.37469 5.99984 8.0065 5.99984H7.99984C7.63165 5.99984 7.33317 5.70136 7.33317 5.33317ZM7.99984 7.33317C8.36803 7.33317 8.6665 7.63165 8.6665 7.99984V10.6665C8.6665 11.0347 8.36803 11.3332 7.99984 11.3332C7.63165 11.3332 7.33317 11.0347 7.33317 10.6665V7.99984C7.33317 7.63165 7.63165 7.33317 7.99984 7.33317Z"
+                fill="#3E62F5"
+              />
+            </g>
+            <defs>
+              <clipPath id="clip0_8301_5081">
+                <rect width="16" height="16" fill="white" />
+              </clipPath>
+            </defs>
+          </svg>
+          <p class="cptm-preview-notice-text">
+            Want to enable/disable <strong>Grid</strong>,
+            <strong>List</strong> or <strong>Map</strong> views for the All
+            Listings Page?
+          </p>
+        </div>
+        <div class="cptm-preview-notice-action">
+          <a href="#" class="cptm-preview-notice-btn">
+            Go to settings
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 14 14"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M6.48424 1.38007C6.769 1.09531 7.23068 1.09531 7.51544 1.38007L12.6196 6.48424C12.9044 6.769 12.9044 7.23068 12.6196 7.51544L7.51544 12.6196C7.23068 12.9044 6.769 12.9044 6.48424 12.6196C6.19948 12.3348 6.19948 11.8732 6.48424 11.5884L10.3436 7.729H1.89567C1.49296 7.729 1.1665 7.40254 1.1665 6.99984C1.1665 6.59713 1.49296 6.27067 1.89567 6.27067H10.3436L6.48424 2.41127C6.19948 2.12651 6.19948 1.66483 6.48424 1.38007Z"
+                fill="#4D5761"
+              />
+            </svg>
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import Vue from "vue";
-import card_builder from './../../mixins/form-fields/card-builder';
-import helpers from '../../mixins/helpers';
+import helpers from "../../mixins/helpers";
+import card_builder from "./../../mixins/form-fields/card-builder";
 
 export default {
   name: "card-builder-list-view-field",
-  mixins: [ card_builder, helpers ],
+  mixins: [card_builder, helpers],
   props: {
     value: {
       required: false,
@@ -238,14 +338,14 @@ export default {
 
   mounted() {
     const self = this;
-    document.addEventListener('click', function( e ) {
+    document.addEventListener("click", function (e) {
       self.closeInsertWindow();
     });
   },
 
   created() {
     this.init();
-    this.$emit( 'update', this.output_data );
+    this.$emit("update", this.output_data);
   },
 
   watch: {
@@ -259,7 +359,7 @@ export default {
       let output = {};
       let layout = this.local_layout;
 
-      for ( let section in layout ) {
+      for (let section in layout) {
         output[section] = {};
 
         if (typeof layout[section] !== "object") {
@@ -272,42 +372,62 @@ export default {
           if (typeof layout[section][section_area] !== "object") {
             continue;
           }
-          if (typeof layout[section][section_area].selectedWidgets !== "object") {
+          if (
+            typeof layout[section][section_area].selectedWidgets !== "object"
+          ) {
             continue;
           }
 
-          for ( let widget in layout[section][section_area].selectedWidgets ) {
-            const widget_name = layout[section][section_area].selectedWidgets[widget];
+          for (let widget in layout[section][section_area].selectedWidgets) {
+            const widget_name =
+              layout[section][section_area].selectedWidgets[widget];
 
-            if ( ! this.active_widgets[widget_name] && typeof this.active_widgets[widget_name] !== "object") {
+            if (
+              !this.active_widgets[widget_name] &&
+              typeof this.active_widgets[widget_name] !== "object"
+            ) {
               continue;
             }
-            
-            let widget_data = {};
-            for ( let root_option in this.active_widgets[widget_name] ) {
-              if ( 'options' === root_option ) { continue; }
-              if ( 'icon' === root_option ) { continue; }
-              if ( 'show_if' === root_option ) { continue; }
-              if ( 'fields' === root_option ) { continue; }
 
-              widget_data[ root_option ] = this.active_widgets[ widget_name ][ root_option ];
+            let widget_data = {};
+            for (let root_option in this.active_widgets[widget_name]) {
+              if ("options" === root_option) {
+                continue;
+              }
+              if ("icon" === root_option) {
+                continue;
+              }
+              if ("show_if" === root_option) {
+                continue;
+              }
+              if ("fields" === root_option) {
+                continue;
+              }
+
+              widget_data[root_option] = this.active_widgets[widget_name][
+                root_option
+              ];
             }
 
-            if ( typeof this.active_widgets[widget_name].options !== "object" ) {
+            if (typeof this.active_widgets[widget_name].options !== "object") {
               output[section][section_area].push(widget_data);
               continue;
             }
 
-            if ( typeof this.active_widgets[widget_name].options.fields !== "object" ) {
+            if (
+              typeof this.active_widgets[widget_name].options.fields !==
+              "object"
+            ) {
               output[section][section_area].push(widget_data);
               continue;
             }
 
             // widget_data.options = {};
-            let widget_options = this.active_widgets[widget_name].options.fields;
+            let widget_options = this.active_widgets[widget_name].options
+              .fields;
 
-            for ( let option in widget_options ) {
-              widget_data[option] = widget_options[ option ].value;
+            for (let option in widget_options) {
+              widget_data[option] = widget_options[option].value;
             }
 
             output[section][section_area].push(widget_data);
@@ -319,43 +439,51 @@ export default {
     },
 
     theAvailableWidgets() {
-      let available_widgets = JSON.parse( JSON.stringify( this.available_widgets ) );
+      let available_widgets = JSON.parse(
+        JSON.stringify(this.available_widgets)
+      );
 
-      for ( let widget in available_widgets ) {
-        available_widgets[ widget ].widget_name = widget;
-        available_widgets[ widget ].widget_key = widget;
+      for (let widget in available_widgets) {
+        available_widgets[widget].widget_name = widget;
+        available_widgets[widget].widget_key = widget;
 
         // Check show if condition
         let show_if_cond_state = null;
 
-        if ( this.isObject( available_widgets[ widget ].show_if ) ) {
-          show_if_cond_state = this.checkShowIfCondition( { condition: available_widgets[ widget ].show_if } );
-          let main_widget = available_widgets[ widget ];
-          
-          delete available_widgets[ widget ];
+        if (this.isObject(available_widgets[widget].show_if)) {
+          show_if_cond_state = this.checkShowIfCondition({
+            condition: available_widgets[widget].show_if,
+          });
+          let main_widget = available_widgets[widget];
 
-          if ( show_if_cond_state.status ) {
+          delete available_widgets[widget];
+
+          if (show_if_cond_state.status) {
             let widget_keys = [];
-            for ( let matched_field of show_if_cond_state.matched_data ) {
+            for (let matched_field of show_if_cond_state.matched_data) {
               // console.log( {matched_field} );
-              let _main_widget = JSON.parse( JSON.stringify( main_widget ) );
-              let current_key = ( widget_keys.includes( widget ) ) ? widget + '_' + (widget_keys.length + 1) : widget;
+              let _main_widget = JSON.parse(JSON.stringify(main_widget));
+              let current_key = widget_keys.includes(widget)
+                ? widget + "_" + (widget_keys.length + 1)
+                : widget;
               _main_widget.widget_key = current_key;
 
-              if ( matched_field.widget_key ) {
+              if (matched_field.widget_key) {
                 _main_widget.widget_key = matched_field.widget_key;
               }
 
-              if ( typeof matched_field.label === 'string' && matched_field.label.length ) {
+              if (
+                typeof matched_field.label === "string" &&
+                matched_field.label.length
+              ) {
                 _main_widget.label = matched_field.label;
               }
- 
-              available_widgets[ current_key ] = _main_widget;
-              widget_keys.push( current_key );
+
+              available_widgets[current_key] = _main_widget;
+              widget_keys.push(current_key);
             }
           }
         }
-      
       }
 
       // console.log( { available_widgets } );
@@ -428,7 +556,7 @@ export default {
             selectedWidgets: [],
           },
           excerpt: {
-            label: 'Excerpt',
+            label: "Excerpt",
             selectedWidgets: [],
           },
         },
@@ -473,28 +601,53 @@ export default {
     },
 
     importOldData() {
-      let value = JSON.parse( JSON.stringify( this.value ) );
-      
-      if ( ! this.isTruthyObject( value ) ) { return; }
+      let value = JSON.parse(JSON.stringify(this.value));
+
+      if (!this.isTruthyObject(value)) {
+        return;
+      }
       let selectedWidgets = [];
-      
+
       // Get Active Widgets Data
       let active_widgets_data = {};
-      for ( let section in value ) {
-        if ( ! value[ section ] && typeof value[ section ] !== 'object' ) { continue; }
+      for (let section in value) {
+        if (!value[section] && typeof value[section] !== "object") {
+          continue;
+        }
 
-        for ( let area in value[ section ] ) {
-          if ( ! value[ section ][ area ] && typeof value[ section ][ area ] !== 'object' ) { continue; }
+        for (let area in value[section]) {
+          if (
+            !value[section][area] &&
+            typeof value[section][area] !== "object"
+          ) {
+            continue;
+          }
 
-          for ( let widget of value[ section ][ area ] ) {
-            if ( typeof widget.widget_name === 'undefined' ) { continue }
-            if ( typeof widget.widget_key === 'undefined' ) { continue }
-            if ( typeof this.available_widgets[ widget.widget_name ] === 'undefined' ) { continue; }
-            if ( typeof this.local_layout[ section ] === 'undefined' ) { continue; }
-            if ( typeof this.local_layout[ section ][ area ] === 'undefined' ) { continue; }
+          for (let widget of value[section][area]) {
+            if (typeof widget.widget_name === "undefined") {
+              continue;
+            }
+            if (typeof widget.widget_key === "undefined") {
+              continue;
+            }
+            if (
+              typeof this.available_widgets[widget.widget_name] === "undefined"
+            ) {
+              continue;
+            }
+            if (typeof this.local_layout[section] === "undefined") {
+              continue;
+            }
+            if (typeof this.local_layout[section][area] === "undefined") {
+              continue;
+            }
 
-            active_widgets_data[ widget.widget_key ] = widget;
-            selectedWidgets.push( { section: section, area: area, widget: widget.widget_key } );
+            active_widgets_data[widget.widget_key] = widget;
+            selectedWidgets.push({
+              section: section,
+              area: area,
+              widget: widget.widget_key,
+            });
           }
         }
       }
@@ -506,26 +659,38 @@ export default {
         }
 
         let widgets_template = { ...this.theAvailableWidgets[widget_key] };
-        let widget_options = ( ! active_widgets_data[widget_key].options && typeof active_widgets_data[widget_key].options !== "object" ) ? false : active_widgets_data[widget_key].options;
-      
-        for ( let root_option in widgets_template ) {
-          if ( 'options' === root_option ) { continue; }
-          if ( active_widgets_data[widget_key][root_option] === "undefined" ) { continue; }
+        let widget_options =
+          !active_widgets_data[widget_key].options &&
+          typeof active_widgets_data[widget_key].options !== "object"
+            ? false
+            : active_widgets_data[widget_key].options;
 
-          widgets_template[ root_option ] = active_widgets_data[widget_key][root_option];
+        for (let root_option in widgets_template) {
+          if ("options" === root_option) {
+            continue;
+          }
+          if (active_widgets_data[widget_key][root_option] === "undefined") {
+            continue;
+          }
+
+          widgets_template[root_option] =
+            active_widgets_data[widget_key][root_option];
         }
 
         let has_widget_options = false;
-        if ( widgets_template.options && widgets_template.options.fields ) {
+        if (widgets_template.options && widgets_template.options.fields) {
           has_widget_options = true;
         }
 
-        if ( has_widget_options ) {
-          for ( let option_key in widgets_template.options.fields ) {
-            if ( typeof active_widgets_data[widget_key][option_key] === "undefined" ) {
+        if (has_widget_options) {
+          for (let option_key in widgets_template.options.fields) {
+            if (
+              typeof active_widgets_data[widget_key][option_key] === "undefined"
+            ) {
               continue;
             }
-            widgets_template.options.fields[ option_key ].value = active_widgets_data[widget_key][option_key];
+            widgets_template.options.fields[option_key].value =
+              active_widgets_data[widget_key][option_key];
           }
         }
 
@@ -533,9 +698,14 @@ export default {
       }
 
       // Load Selected Widgets Data
-      for ( let item of selectedWidgets ) {
-        let length = this.local_layout[ item.section ][ item.area ].selectedWidgets.length;
-        this.local_layout[ item.section ][ item.area ].selectedWidgets.splice( length, 0, item.widget );
+      for (let item of selectedWidgets) {
+        let length = this.local_layout[item.section][item.area].selectedWidgets
+          .length;
+        this.local_layout[item.section][item.area].selectedWidgets.splice(
+          length,
+          0,
+          item.widget
+        );
       }
     },
 
@@ -590,12 +760,19 @@ export default {
       return false;
     },
 
-    widgetIsAccepted( path,  key ) {
+    widgetIsAccepted(path, key) {
+      if (!path.acceptedWidgets) {
+        return true;
+      }
+      if (!this.isTruthyObject(path.acceptedWidgets)) {
+        return true;
+      }
 
-      if ( ! path.acceptedWidgets  ) { return true; }
-      if ( ! this.isTruthyObject( path.acceptedWidgets )  ) { return true; }
-
-      if ( path.acceptedWidgets.includes( this.theAvailableWidgets[ key ].widget_name ) ) { return true; }
+      if (
+        path.acceptedWidgets.includes(this.theAvailableWidgets[key].widget_name)
+      ) {
+        return true;
+      }
 
       return false;
     },
@@ -700,21 +877,21 @@ export default {
       };
       this.widgetOptionsWindow.widget = key;
 
-      this.active_insert_widget_key = '';
+      this.active_insert_widget_key = "";
     },
 
     updateWidgetOptionsData(data, widget) {
       return;
 
-      if ( typeof this.active_widgets[ widget.widget ] === 'undefined' ) {
+      if (typeof this.active_widgets[widget.widget] === "undefined") {
         return;
       }
 
-      if ( typeof this.active_widgets[ widget.widget ].options === 'undefined' ) {
+      if (typeof this.active_widgets[widget.widget].options === "undefined") {
         return;
       }
 
-      Vue.set( this.active_widgets[ widget.widget ].options, 'fields', data );
+      Vue.set(this.active_widgets[widget.widget].options, "fields", data);
     },
 
     closeWidgetOptionsWindow() {
@@ -739,12 +916,12 @@ export default {
       }
     },
 
-    activeInsertWindow( current_item_key ) {
+    activeInsertWindow(current_item_key) {
       let self = this;
 
-      setTimeout( function() {
-        if ( self.active_insert_widget_key === current_item_key ) {
-          self.active_insert_widget_key = '';
+      setTimeout(function () {
+        if (self.active_insert_widget_key === current_item_key) {
+          self.active_insert_widget_key = "";
           return;
         }
 
@@ -752,16 +929,17 @@ export default {
       }, 0);
     },
 
-    insertWidget( payload, where ) {
-
-      if ( ! this.isTruthyObject( this.theAvailableWidgets[ payload.key ] ) ) {
+    insertWidget(payload, where) {
+      if (!this.isTruthyObject(this.theAvailableWidgets[payload.key])) {
         return;
       }
 
-      Vue.set( this.active_widgets, payload.key, { ...this.theAvailableWidgets[ payload.key ] } );
-      Vue.set( where, 'selectedWidgets', payload.selected_widgets );
+      Vue.set(this.active_widgets, payload.key, {
+        ...this.theAvailableWidgets[payload.key],
+      });
+      Vue.set(where, "selectedWidgets", payload.selected_widgets);
 
-      this.editWidget( payload.key );
+      this.editWidget(payload.key);
     },
 
     closeInsertWindow(widget_insert_window) {
@@ -776,15 +954,16 @@ export default {
       return false;
     },
 
-    placeholderIsActive( layout ) {
-      
-      if ( ! this.isObject( layout.show_if ) ) {
+    placeholderIsActive(layout) {
+      if (!this.isObject(layout.show_if)) {
         return true;
       }
 
-      let check_condition = this.checkShowIfCondition( { condition: layout.show_if } );
+      let check_condition = this.checkShowIfCondition({
+        condition: layout.show_if,
+      });
       return check_condition.status;
-    }
+    },
   },
 };
 </script>

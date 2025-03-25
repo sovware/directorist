@@ -2,10 +2,10 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.8.3
+ * @version 8.3
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
-?>
 
-<div class="directorist-view-count"><?php directorist_icon( $icon ); ?><?php echo ! empty($listings->loop['post_view']) ? esc_html( $listings->loop['post_view'] ) : 0;?></div>
+?>
+<span class="directorist-view-count" data-id="<?php the_ID(); ?>"><?php directorist_icon( $icon ); ?><?php echo esc_html( $listings->loop['post_view'] ?? 0 ); ?></span>

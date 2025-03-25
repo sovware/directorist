@@ -297,16 +297,17 @@ Directorist is a complete directory solution and in combination with its advance
 
 == Changelog ==
 
-8.3 - Mar 21, 2025
+8.3 - Mar 24, 2025
 
 **Changed**
  - Improved Listings Importer to efficiently handle large datasets.
  - Replaced "Location" with "Address" on the All Listings map view. (#2266)
  - Refactored default expiration date handling with a utility function. (#2253)
  - Improved Google Maps performance and refactored code for better efficiency. (#2251)
+ - Improved the search modal for enhanced user experience. (#2289)
 
 **Fixed**
- - View count reset issue. (Working)
+ - view count was not updating due to caching. (#2285)
  - Listing author and order author mismatch resolved by database migration. (#2276)
  - Google Map loading issues resolved. (#2273)
  - Listing queries issue when the directory navigation is hidden. (#2270)
@@ -322,9 +323,11 @@ Directorist is a complete directory solution and in combination with its advance
  - Listing status issue corrected. (#2252)
  - Script localization issues in certain classes resolved. (#2248)
  - Field-specific query issue fixed to improve search accuracy. (#2184)
+ - Spacing issue when the location field is focused. (#2288)
+ - Corrected the "Continue to Publish" button link on listings. (#2287)
 
 
-8.2 - Feb 28, 2025
+8.2 - Feb 25, 2025
 
 **New**
  - Category and location bulk edit actions to assign or reset directory (#2229)

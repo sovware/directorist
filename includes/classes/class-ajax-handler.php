@@ -129,6 +129,8 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			add_action( 'wp_ajax_directorist_taxonomy_pagination', [ $this, 'directorist_taxonomy_pagination' ] );
 			add_action( 'wp_ajax_nopriv_directorist_taxonomy_pagination', [ $this, 'directorist_taxonomy_pagination' ] );
 
+			add_action( 'wp_ajax_directorist_update_view_count', [ static::class, 'update_view_count' ] );
+			add_action( 'wp_ajax_nopriv_directorist_update_view_count', [ static::class, 'update_view_count' ] );
 		}
 
 		public function directorist_taxonomy_pagination() {
@@ -1753,7 +1755,26 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 				'directorist_nonce' => wp_create_nonce( directorist_get_nonce_key() )
 			] );
 		}
-	}
 
+		public static function update_view_count() {
+			if ( ! directorist_verify_nonce( 'nonce' ) ) {
+				wp_send_json_error( ['message' => __( 'Invalid nonce.', 'directorist' ) ], 400 );
+			}
+
+			$ids = isset( $_POST['ids'] ) ? array_map( 'absint', $_POST['ids'] ) : [];
+			if ( count( $ids ) < 1 ) {
+				wp_send_json_error( ['message' => __( 'No listing ID found.', 'directorist' ) ], 400 );
+			}
+
+			$ids        = array_unique( $ids );
+			$view_count = [];
+
+			foreach ( $ids as $id ) {
+				$view_count[ $id ] = directorist_get_listing_views_count( $id );
+			}
+
+			wp_send_json_success( [ 'view_count' => $view_count ] );
+		}
+	}
 
 endif;

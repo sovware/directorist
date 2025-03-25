@@ -1460,6 +1460,10 @@ __webpack_require__.r(__webpack_exports__);
       type: [String, Number],
       default: ''
     },
+    schema: {
+      type: String,
+      default: ''
+    },
     value: {
       default: ''
     },
@@ -26551,10 +26555,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'select-field-theme-butterfly',
   mixins: [_mixins_form_fields_select_field__WEBPACK_IMPORTED_MODULE_0__["default"]],
-  mounted: function mounted() {
-    console.log("label", this.label);
-    console.log("icon", this.icon);
-  }
+  mounted: function mounted() {}
 });
 
 /***/ }),
@@ -26608,7 +26609,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "tab-field-theme-butterfly",
-  mixins: [_mixins_form_fields_tab_field__WEBPACK_IMPORTED_MODULE_0__["default"]]
+  mixins: [_mixins_form_fields_tab_field__WEBPACK_IMPORTED_MODULE_0__["default"]],
+  mounted: function mounted() {}
 });
 
 /***/ }),
@@ -35534,7 +35536,50 @@ var render = function render() {
     _c = _vm._self._c;
   return _c('div', {
     staticClass: "cptm-form-group tab-field"
+  }, [_vm.schema.length ? _c('div', {
+    staticClass: "cptm-schema-tab-area"
   }, [_c('div', {
+    staticClass: "cptm-schema-tab-label"
+  }, [_vm._v("\n        " + _vm._s(_vm.schema) + "\n      ")]), _vm._v(" "), _c('div', {
+    staticClass: "cptm-schema-tab-wrapper"
+  }, _vm._l(_vm.theOptions, function (option, option_index) {
+    return _c('div', {
+      key: option_index,
+      staticClass: "cptm-schema-tab-item",
+      class: {
+        'active': _vm.local_value === option.value
+      }
+    }, [_c('input', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: _vm.local_value,
+        expression: "local_value"
+      }],
+      staticClass: "cptm-schema-radio",
+      attrs: {
+        "type": "radio",
+        "id": _vm.getOptionID(option, option_index, _vm.sectionId),
+        "name": _vm.name
+      },
+      domProps: {
+        "value": typeof option.value !== 'undefined' ? option.value : '',
+        "checked": _vm._q(_vm.local_value, typeof option.value !== 'undefined' ? option.value : '')
+      },
+      on: {
+        "change": function change($event) {
+          _vm.local_value = typeof option.value !== 'undefined' ? option.value : '';
+        }
+      }
+    }), _vm._v(" "), _c('label', {
+      staticClass: "cptm-schema-label-wrapper",
+      attrs: {
+        "for": _vm.getOptionID(option, option_index, _vm.sectionId)
+      }
+    }, [_vm._v("\n              " + _vm._s(option.label) + "\n              "), _c('div', {
+      staticClass: "cptm-schema-label-description"
+    }, [_vm._v("\n                " + _vm._s(option.description) + "\n              ")])])]);
+  }), 0)]) : _c('div', {
     staticClass: "cptm-preview-wrapper"
   }, [_vm.label.length ? _c('label', [_c(_vm.labelType, {
     tag: "component"

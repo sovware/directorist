@@ -62,9 +62,6 @@ import select_field from '../../../../mixins/form-fields/select-field';
 export default {
     name: 'select-field-theme-butterfly',
     mixins: [ select_field ],
-    mounted() {
-      console.log("label", this.label);
-      console.log("icon", this.icon);
-    },
+    mounted() {},
 }
 </script>

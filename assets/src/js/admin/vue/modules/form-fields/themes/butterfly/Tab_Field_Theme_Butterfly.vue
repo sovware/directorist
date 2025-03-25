@@ -1,6 +1,34 @@
 <template>
   <div class="cptm-form-group tab-field">
-    <div class="cptm-preview-wrapper">
+    <div class="cptm-schema-tab-area" v-if="schema.length">
+        <div class="cptm-schema-tab-label">
+          {{ schema }}
+        </div>
+          <div class="cptm-schema-tab-wrapper">
+            <div
+            class="cptm-schema-tab-item"
+            v-for="(option, option_index) in theOptions"
+            :key="option_index"
+            :class="{ 'active': local_value === option.value }"
+          >
+            <input
+              type="radio"
+              class="cptm-schema-radio"
+              :id="getOptionID(option, option_index, sectionId)"
+              :name="name"
+              :value="typeof option.value !== 'undefined' ? option.value : ''"
+              v-model="local_value"
+            />
+            <label class="cptm-schema-label-wrapper" :for="getOptionID(option, option_index, sectionId)">
+                {{ option.label }}
+                <div class="cptm-schema-label-description">
+                  {{ option.description }}
+                </div>
+              </label>
+          </div>
+        </div>
+    </div>
+    <div v-else class="cptm-preview-wrapper">
       <label v-if="label.length">
         <component :is="labelType">{{ label }}</component>
       </label>
@@ -10,8 +38,7 @@
         v-if="description.length"
         v-html="description"
       ></p>
-
-      <div class="cptm-tab-area">
+      <div class="cptm-tab-area" >
         <div
           class="cptm-tab-item"
           v-for="(option, option_index) in theOptions"
@@ -50,5 +77,7 @@ import tab_field from "../../../../mixins/form-fields/tab-field";
 export default {
   name: "tab-field-theme-butterfly",
   mixins: [tab_field],
+  mounted() {
+  },
 };
 </script>

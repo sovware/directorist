@@ -133,6 +133,10 @@ export default {
             type: [String, Number],
             default: '',
         },
+        schema: {
+            type: String,
+            default: '',
+          },
         value: {
             default: '',
         },

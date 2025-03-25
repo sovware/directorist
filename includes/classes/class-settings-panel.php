@@ -2428,18 +2428,21 @@ Please remember that your order may be canceled if you do not make your payment 
                  'enable_schema_markup' => [
                     'type'  => 'toggle',
                     'label' => __('Enable Schema Markup', 'directorist'),
-                    'value' => false,
+                    'value' => true,
                 ],
                 'apply_schema_markup' => [
+                    'schema' => __('Apply Schema To', 'directorist'),
                     'type'    => 'tab',
                     'value'   => 'one',
                     'options' => [
                         [
-                            'label' => __('Option One', 'directorist'),
+                            'label' => __('All Directories', 'directorist'),
+                            'description' => __('Use the same schema for all directories or select this if Multi-Directory is disabled.', 'directorist'),
                             'value' => 'one',
                         ],
                         [
-                            'label' => __('Option Two', 'directorist'),
+                            'label' => __('Per Directory', 'directorist'),
+                            'description' => __('Set different schemas for each directory. Choose this for directory-specific schema types.', 'directorist'),
                             'value' => 'two',
                         ],
                     ],
@@ -2452,7 +2455,7 @@ Please remember that your order may be canceled if you do not make your payment 
                         ],
                     ],
                 ],
-                'schema_setting' => [
+                'all_directories_schema_setting' => [
                     'label' => __('Schema Setting', 'directorist'),
                     'icon' => '<i class="fas fa-database"></i>',
                     'type'  => 'select',
@@ -2482,8 +2485,8 @@ Please remember that your order may be canceled if you do not make your payment 
                         ],
                     ],
                 ],
-                'schema_setting_other' => [
-                    'label' => __('Schema other Setting', 'directorist'),
+                'per_directories_schema_hotels' => [
+                    'label' => __('Hotels', 'directorist'),
                     'icon' => '<i class="fas fa-hotel"></i>',
                     'type'  => 'select',
                     'value' => 'searched_value',
@@ -2512,6 +2515,131 @@ Please remember that your order may be canceled if you do not make your payment 
                         ],
                     ],
                 ],
+
+                'per_directories_schema_service' => [
+                    'label' => __('Service', 'directorist'),
+                    'icon' => '<i class="fas fa-concierge-bell"></i>',
+                    'type'  => 'select',
+                    'value' => 'searched_value',
+                    'options' => [
+                        [
+                            'value' => 'service-one',
+                            'label' => __('Service One', 'directorist'),
+                        ],
+                        [
+                            'value' => 'service-two',
+                            'label' => __('Service Two', 'directorist'),
+                        ],
+                    ],
+                    'show-if' => [
+                        [
+                            'where' => "enable_schema_markup",
+                            'conditions' => [
+                                ['key' => 'value', 'compare' => '=', 'value' => true],
+                            ],
+                        ],
+                        [
+                            'where' => "apply_schema_markup",
+                            'conditions' => [
+                                ['key' => 'value', 'compare' => '=', 'value' => 'two'],
+                            ],
+                        ],
+                    ],
+                ],
+
+                'per_directories_schema_shopping' => [
+                    'label' => __('Shopping', 'directorist'),
+                    'icon' => '<i class="fas fa-shopping-cart"></i>',
+                    'type'  => 'select',
+                    'value' => 'searched_value',
+                    'options' => [
+                        [
+                            'value' => 'shop-one',
+                            'label' => __('Shop One', 'directorist'),
+                        ],
+                        [
+                            'value' => 'shop-two',
+                            'label' => __('Shop Two', 'directorist'),
+                        ],
+                    ],
+                    'show-if' => [
+                        [
+                            'where' => "enable_schema_markup",
+                            'conditions' => [
+                                ['key' => 'value', 'compare' => '=', 'value' => true],
+                            ],
+                        ],
+                        [
+                            'where' => "apply_schema_markup",
+                            'conditions' => [
+                                ['key' => 'value', 'compare' => '=', 'value' => 'two'],
+                            ],
+                        ],
+                    ],
+                ],
+
+                'per_directories_schema_automotive' => [
+                    'label' => __('Automotive', 'directorist'),
+                    'icon' => '<i class="fas fa-car"></i>',
+                    'type'  => 'select',
+                    'value' => 'searched_value',
+                    'options' => [
+                        [
+                            'value' => 'auto-one',
+                            'label' => __('Auto One', 'directorist'),
+                        ],
+                        [
+                            'value' => 'auto-two',
+                            'label' => __('Auto Two', 'directorist'),
+                        ],
+                    ],
+                    'show-if' => [
+                        [
+                            'where' => "enable_schema_markup",
+                            'conditions' => [
+                                ['key' => 'value', 'compare' => '=', 'value' => true],
+                            ],
+                        ],
+                        [
+                            'where' => "apply_schema_markup",
+                            'conditions' => [
+                                ['key' => 'value', 'compare' => '=', 'value' => 'two'],
+                            ],
+                        ],
+                    ],
+                ],
+
+                'per_directories_schema_restaurants' => [
+                    'label' => __('Restaurants', 'directorist'),
+                    'icon' => '<i class="fas fa-utensils"></i>',
+                    'type'  => 'select',
+                    'value' => 'searched_value',
+                    'options' => [
+                        [
+                            'value' => 'restaurant-one',
+                            'label' => __('Restaurant One', 'directorist'),
+                        ],
+                        [
+                            'value' => 'restaurant-two',
+                            'label' => __('Restaurant Two', 'directorist'),
+                        ],
+                    ],
+                    'show-if' => [
+                        [
+                            'where' => "enable_schema_markup",
+                            'conditions' => [
+                                ['key' => 'value', 'compare' => '=', 'value' => true],
+                            ],
+                        ],
+                        [
+                            'where' => "apply_schema_markup",
+                            'conditions' => [
+                                ['key' => 'value', 'compare' => '=', 'value' => 'two'],
+                            ],
+                        ],
+                    ],
+                ],
+
                 // seo settings
                 'atbdp_enable_seo' => [
                     'type'  => 'toggle',
@@ -4484,7 +4612,14 @@ Please remember that your order may be canceled if you do not make your payment 
                             'sections'  => apply_filters('atbdp_schema_controls', [
                                 'schema_type' => [
                                     'fields' => [
-                                         'enable_schema_markup', 'apply_schema_markup', 'schema_setting', 'schema_setting_other'
+                                        'enable_schema_markup',
+                                        'apply_schema_markup',
+                                        'all_directories_schema_setting',
+                                        'per_directories_schema_hotels',
+                                        'per_directories_schema_service',
+                                        'per_directories_schema_shopping',
+                                        'per_directories_schema_automotive',
+                                        'per_directories_schema_restaurants'
                                     ],
                                 ],
                             ] ),

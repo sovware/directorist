@@ -222,9 +222,6 @@
                 :showWidgetsPickerWindow="
                   getActiveInsertWindowStatus('thumbnail_avatar')
                 "
-                :showWidgetsOptionWindow="
-                  getActiveOptionWindowStatus('thumbnail_avatar')
-                "
                 :widgetOptionsWindow="widgetOptionsWindow"
                 @insert-widget="
                   insertWidget($event, local_layout.thumbnail.avatar)
@@ -1160,6 +1157,7 @@ export default {
     },
 
     editWidget(key) {
+      console.log("@editWidget", key);
       if (typeof this.active_widgets[key] === "undefined") {
         return;
       }
@@ -1186,17 +1184,8 @@ export default {
     },
 
     updateWidgetOptionsData(data, widget) {
+      console.log("@updateWidgetOptionsData", { data, widget });
       return;
-
-      if (typeof this.active_widgets[widget.widget] === "undefined") {
-        return;
-      }
-
-      if (typeof this.active_widgets[widget.widget].options === "undefined") {
-        return;
-      }
-
-      Vue.set(this.active_widgets[widget.widget].options, "fields", data);
     },
 
     closeWidgetOptionsWindow() {

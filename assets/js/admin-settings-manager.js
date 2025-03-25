@@ -16130,19 +16130,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'options-window',
+  name: "options-window",
   model: {
-    prop: 'fields',
-    event: 'update'
+    prop: "fields",
+    event: "update"
   },
   props: {
     id: {
       type: [String, Number],
-      default: ''
+      default: ""
     },
     title: {
       type: String,
-      default: 'Edit'
+      default: "Edit"
     },
     fields: {
       type: Object
@@ -16153,7 +16153,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     animation: {
       type: String,
-      default: 'cptm-animation-slide-up'
+      default: "cptm-animation-slide-up"
     },
     bottomAchhor: {
       type: Boolean,
@@ -16167,7 +16167,7 @@ __webpack_require__.r(__webpack_exports__);
     fields: function fields() {
       if (this.fields) {
         this.local_fields = this.fields;
-        this.$emit('update', this.local_fields);
+        this.$emit("update", this.local_fields);
       }
     }
   },
@@ -16190,8 +16190,9 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     updateFieldData: function updateFieldData(value, field_key) {
+      console.log("@updateFieldData", value, field_key);
       this.local_fields[field_key].value = value;
-      this.$emit('update', this.local_fields);
+      this.$emit("update", this.local_fields);
     }
   }
 });
@@ -20980,6 +20981,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       return false;
     },
     editWidget: function editWidget(key) {
+      console.log("@editWidget", key);
       if (typeof this.active_widgets[key] === "undefined") {
         return;
       }
@@ -20995,14 +20997,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       }, 0);
     },
     updateWidgetOptionsData: function updateWidgetOptionsData(data, widget) {
+      console.log("@updateWidgetOptionsData", {
+        data: data,
+        widget: widget
+      });
       return;
-      if (typeof this.active_widgets[widget.widget] === "undefined") {
-        return;
-      }
-      if (typeof this.active_widgets[widget.widget].options === "undefined") {
-        return;
-      }
-      vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(this.active_widgets[widget.widget].options, "fields", data);
     },
     closeWidgetOptionsWindow: function closeWidgetOptionsWindow() {
       this.widgetOptionsWindow = this.widgetOptionsWindowDefault;
@@ -29355,7 +29354,13 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap"
+    staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap",
+    on: {
+      click: function click($event) {
+        $event.preventDefault();
+        return _vm.$emit("edit");
+      }
+    }
   }, [_c("div", {
     staticClass: "cptm-widget-card cptm-has-widget-control cptm-widget-actions-tools-wrap"
   }, [_vm._m(0), _vm._v(" "), !_vm.readOnly && !_vm.editOnClick ? _c("widget-action-tools", {
@@ -29404,7 +29409,7 @@ var staticRenderFns = [function () {
     staticClass: "cptm-placeholder-author-thumb"
   }, [_c("img", {
     attrs: {
-      src: "https://via.placeholder.com/150",
+      src: "https://placehold.co/150",
       alt: ""
     }
   })]);
@@ -32327,7 +32332,6 @@ var render = function render() {
       selectedWidgets: _vm.local_layout.thumbnail.avatar.selectedWidgets,
       maxWidget: _vm.local_layout.thumbnail.avatar.maxWidget,
       showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_avatar"),
-      showWidgetsOptionWindow: _vm.getActiveOptionWindowStatus("thumbnail_avatar"),
       widgetOptionsWindow: _vm.widgetOptionsWindow,
       editOnClick: ""
     },

@@ -2418,7 +2418,7 @@ Please remember that your order may be canceled if you do not make your payment 
                     'showDefaultOption' => true,
                     'options' => $this->get_pages_vl_arrays(),
                 ],
-                //Schema settings
+                //schema settings
                  'enable_schema_markup' => [
                     'type'  => 'toggle',
                     'label' => __('Enable Schema Markup', 'directorist'),
@@ -2437,6 +2437,14 @@ Please remember that your order may be canceled if you do not make your payment 
                             'value' => 'two',
                         ],
                     ],
+                    'show-if' => [
+                        [
+                            'where' => "enable_schema_markup",
+                            'conditions' => [
+                                ['key' => 'value', 'compare' => '=', 'value' => true],
+                            ],
+                        ],
+                    ],
                 ],
                 'schema_setting' => [
                     'label' => __('Schema Setting', 'directorist'),
@@ -2446,7 +2454,7 @@ Please remember that your order may be canceled if you do not make your payment 
                     'options' => [
                         [
                             'value' => 'one',
-                            'label' => __('one', 'directorist'),
+                            'label' => __('One', 'directorist'),
                         ],
                         [
                             'value' => 'two',
@@ -2454,9 +2462,17 @@ Please remember that your order may be canceled if you do not make your payment 
                         ],
                     ],
                     'show-if' => [
-                        'where' => "apply_schema_markup",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'one'],
+                        [
+                            'where' => "enable_schema_markup",
+                            'conditions' => [
+                                ['key' => 'value', 'compare' => '=', 'value' => true],
+                            ],
+                        ],
+                        [
+                            'where' => "apply_schema_markup",
+                            'conditions' => [
+                                ['key' => 'value', 'compare' => '=', 'value' => 'one'],
+                            ],
                         ],
                     ],
                 ],
@@ -2467,18 +2483,26 @@ Please remember that your order may be canceled if you do not make your payment 
                     'value' => 'searched_value',
                     'options' => [
                         [
-                            'value' => 'one other',
-                            'label' => __('one other', 'directorist'),
+                            'value' => 'one-other',
+                            'label' => __('One Other', 'directorist'),
                         ],
                         [
-                            'value' => 'two other',
-                            'label' => __('Two other', 'directorist'),
+                            'value' => 'two-other',
+                            'label' => __('Two Other', 'directorist'),
                         ],
                     ],
                     'show-if' => [
-                        'where' => "apply_schema_markup",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => 'two'],
+                        [
+                            'where' => "enable_schema_markup",
+                            'conditions' => [
+                                ['key' => 'value', 'compare' => '=', 'value' => true],
+                            ],
+                        ],
+                        [
+                            'where' => "apply_schema_markup",
+                            'conditions' => [
+                                ['key' => 'value', 'compare' => '=', 'value' => 'two'],
+                            ],
                         ],
                     ],
                 ],

@@ -149,7 +149,37 @@ export default {
             return isChangeable;
         },
 
-        checkShowIfCondition( payload ) {
+        checkShowIfCondition(payloadArray) {        
+            let result = {
+                status: false, // Final status (true if all conditions pass)
+                failed_conditions: 0,
+                succeed_conditions: 0,
+                matched_data: []
+            };
+        
+            // Normalize condition into an array
+            let conditions = Array.isArray(payloadArray.condition) 
+                ? payloadArray.condition 
+                : [payloadArray.condition];
+        
+            for (let payload of conditions) {        
+                let state = this.checkSingleShowIfCondition({ condition: payload });
+        
+                if (state.status) {
+                    result.succeed_conditions += 1;
+                    result.matched_data.push(payload);
+                } else {
+                    result.failed_conditions += 1;
+                }
+            }
+        
+            // If all conditions pass, set status to true
+            result.status = result.failed_conditions === 0;
+        
+            return result;
+        },        
+        
+        checkSingleShowIfCondition( payload ) {
             let args = { condition: null };
             Object.assign( args, payload );
             
@@ -169,23 +199,20 @@ export default {
             let state = {
                 status: false,
                 failed_conditions: failed_cond_count,
-                successed_conditions: success_cond_count,
+                succeed_conditions: success_cond_count,
                 matched_data: matched_data,
             };
             
             let target_field = this.getTergetFields( { root: root, path: condition.where } );
 
-            
             if ( ! ( condition.conditions && Array.isArray( condition.conditions ) && condition.conditions.length ) ) { return state; }
             if ( ! this.isObject( target_field ) ) { return state; }
-
         
             if ( typeof condition.compare === 'string' && accepted_comparison.indexOf( condition.compare ) ) {
                 compare = condition.compare;
             }
 
             for ( let sub_condition of condition.conditions ) {
-        
                 if ( typeof sub_condition.key !== 'string' ) {
                     continue;
                 }
@@ -280,7 +307,6 @@ export default {
                 if ( ! success_any_cond_count ) { failed_cond_count++; } 
                     else { success_cond_count++; }
                 }
-        
             }
         
             // Get Status
@@ -297,13 +323,9 @@ export default {
             state = {
                 status: status,
                 failed_conditions: failed_cond_count,
-                successed_conditions: success_cond_count,
+                succeed_conditions: success_cond_count,
                 matched_data: matched_data,
             };
-        
-            /* if ( 'enable_similar_listings__logics' === args.condition.id ) {
-                console.log( { state } );
-            } */
         
             return state;
         },

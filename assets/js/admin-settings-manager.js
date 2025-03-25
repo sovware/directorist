@@ -3376,7 +3376,43 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       }
       return isChangeable;
     },
-    checkShowIfCondition: function checkShowIfCondition(payload) {
+    checkShowIfCondition: function checkShowIfCondition(payloadArray) {
+      var result = {
+        status: false,
+        // Final status (true if all conditions pass)
+        failed_conditions: 0,
+        succeed_conditions: 0,
+        matched_data: []
+      };
+
+      // Normalize condition into an array
+      var conditions = Array.isArray(payloadArray.condition) ? payloadArray.condition : [payloadArray.condition];
+      var _iterator4 = _createForOfIteratorHelper(conditions),
+        _step4;
+      try {
+        for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
+          var payload = _step4.value;
+          var state = this.checkSingleShowIfCondition({
+            condition: payload
+          });
+          if (state.status) {
+            result.succeed_conditions += 1;
+            result.matched_data.push(payload);
+          } else {
+            result.failed_conditions += 1;
+          }
+        }
+
+        // If all conditions pass, set status to true
+      } catch (err) {
+        _iterator4.e(err);
+      } finally {
+        _iterator4.f();
+      }
+      result.status = result.failed_conditions === 0;
+      return result;
+    },
+    checkSingleShowIfCondition: function checkSingleShowIfCondition(payload) {
       var args = {
         condition: null
       };
@@ -3394,7 +3430,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       var state = {
         status: false,
         failed_conditions: failed_cond_count,
-        successed_conditions: success_cond_count,
+        succeed_conditions: success_cond_count,
         matched_data: matched_data
       };
       var target_field = this.getTergetFields({
@@ -3410,11 +3446,11 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       if (typeof condition.compare === 'string' && accepted_comparison.indexOf(condition.compare)) {
         compare = condition.compare;
       }
-      var _iterator4 = _createForOfIteratorHelper(condition.conditions),
-        _step4;
+      var _iterator5 = _createForOfIteratorHelper(condition.conditions),
+        _step5;
       try {
-        for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
-          var sub_condition = _step4.value;
+        for (_iterator5.s(); !(_step5 = _iterator5.n()).done;) {
+          var sub_condition = _step5.value;
           if (typeof sub_condition.key !== 'string') {
             continue;
           }
@@ -3509,9 +3545,9 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 
         // Get Status
       } catch (err) {
-        _iterator4.e(err);
+        _iterator5.e(err);
       } finally {
-        _iterator4.f();
+        _iterator5.f();
       }
       var status = false;
       switch (compare) {
@@ -3525,14 +3561,9 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       state = {
         status: status,
         failed_conditions: failed_cond_count,
-        successed_conditions: success_cond_count,
+        succeed_conditions: success_cond_count,
         matched_data: matched_data
       };
-
-      /* if ( 'enable_similar_listings__logics' === args.condition.id ) {
-          console.log( { state } );
-      } */
-
       return state;
     },
     checkComparison: function checkComparison(payload) {
@@ -3613,11 +3644,11 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       var terget_missmatched = false;
       if (terget_fields && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(terget_fields) === 'object') {
         terget_field = this.fields;
-        var _iterator5 = _createForOfIteratorHelper(terget_fields),
-          _step5;
+        var _iterator6 = _createForOfIteratorHelper(terget_fields),
+          _step6;
         try {
-          for (_iterator5.s(); !(_step5 = _iterator5.n()).done;) {
-            var key = _step5.value;
+          for (_iterator6.s(); !(_step6 = _iterator6.n()).done;) {
+            var key = _step6.value;
             if (!key.length) {
               continue;
             }
@@ -3636,9 +3667,9 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
             terget_field = terget_field !== null ? terget_field[key] : args.root[key];
           }
         } catch (err) {
-          _iterator5.e(err);
+          _iterator6.e(err);
         } finally {
-          _iterator5.f();
+          _iterator6.f();
         }
       }
       if (terget_missmatched) {

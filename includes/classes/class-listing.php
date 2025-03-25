@@ -62,8 +62,8 @@ if (!class_exists('ATBDP_Listing')):
 			add_filter( 'the_title', array( $this, 'add_preview_prefix_in_title' ), 10, 2 );
         }
 
-		public function add_preview_prefix_in_title( $title, $listing_id ) {
-			if ( is_admin() || ! directorist_is_listing_post_type( $listing_id ) || ! isset( $_GET['preview'] ) ) {
+		public function add_preview_prefix_in_title( $title = '', $listing_id = 0 ) {
+			if ( is_admin() || ! isset( $_GET['preview'] ) || ! directorist_is_listing_post_type( $listing_id ) ) {
 				return $title;
 			}
 

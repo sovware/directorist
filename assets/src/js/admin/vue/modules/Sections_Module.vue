@@ -309,7 +309,7 @@ export default {
   },
 
   mounted() {
-    console.log('@CHK', this.sections);
+ 
   },
 };
 </script>

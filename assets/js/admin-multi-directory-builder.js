@@ -16784,9 +16784,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       this.$emit("save");
     }
   },
-  mounted: function mounted() {
-    console.log('@CHK', this.sections);
-  }
+  mounted: function mounted() {}
 });
 
 /***/ }),
@@ -19570,9 +19568,6 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 
       // Remove class to parent with class 'atbdp-cpt-manager'
       var parentElement = this.$el.closest('.atbdp-cpt-manager');
-      console.log('@chk group close', {
-        parentElement: parentElement
-      });
       if (parentElement) {
         parentElement.classList.remove('directorist-overlay-visible');
       }
@@ -25955,11 +25950,6 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     }
   },
   created: function created() {
-    console.log('@CHK-1: value', {
-      fieldId: this.fieldId,
-      name: this.name,
-      value: this.value
-    });
     this.setup();
   },
   data: function data() {
@@ -25969,11 +25959,6 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   },
   watch: {
     value: function value() {
-      console.log('@CHK-2: value', {
-        fieldId: this.fieldId,
-        name: this.name,
-        value: this.value
-      });
       this.loadOldData();
     }
   },

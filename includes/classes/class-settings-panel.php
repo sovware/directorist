@@ -2418,47 +2418,30 @@ Please remember that your order may be canceled if you do not make your payment 
                     'showDefaultOption' => true,
                     'options' => $this->get_pages_vl_arrays(),
                 ],
-                //Schema settings
+                //schema settings
                  'enable_schema_markup' => [
                     'type'  => 'toggle',
                     'label' => __('Enable Schema Markup', 'directorist'),
                     'value' => false,
                 ],
-                'submenu' => [
-                    'listing_header'   => [
-                        'label'     => __( 'Listing Header', 'directorist' ),
-                        'sections'  => [
-                            'listing_header' => [
-                                'title'       => __( 'Listing Header', 'directorist' ),
-                                'title_align' => 'center',
-                                'fields'      => [
-                                    'enable_schema_markup',
-                                ],
-                            ],
+                'apply_schema_markup' => [
+                    'type'    => 'tab',
+                    'value'   => 'one',
+                    'options' => [
+                        [
+                            'label' => __('Option One', 'directorist'),
+                            'value' => 'one',
+                        ],
+                        [
+                            'label' => __('Option Two', 'directorist'),
+                            'value' => 'two',
                         ],
                     ],
-                    'contents'         => [
-                        'label'     => __( 'Contents', 'directorist' ),
-                        'container' => 'full-width',
-                        'sections'  => [
-                            'contents' => [
-                                'title'       => __( 'Contents', 'directorist' ),
-                                'fields'      => [
-                                    'enable_schema_markup',
-                                ],
-                            ],
-                        ],
-                    ],
-                    'similar_listings' => [
-                        'label'    => __( 'Custom Single Listing Page', 'directorist' ),
-                        'container' => 'short-wide',
-                        'sections' => [
-                            'page_settings' => [
-                                'fields' => [
-                                    'enable_single_listing_page',
-                                    'single_listing_page',
-                                    'single_listings_shortcodes',
-                                ],
+                    'show-if' => [
+                        [
+                            'where' => "enable_schema_markup",
+                            'conditions' => [
+                                ['key' => 'value', 'compare' => '=', 'value' => true],
                             ],
                         ],
                     ],
@@ -2471,11 +2454,25 @@ Please remember that your order may be canceled if you do not make your payment 
                     'options' => [
                         [
                             'value' => 'one',
-                            'label' => __('one', 'directorist'),
+                            'label' => __('One', 'directorist'),
                         ],
                         [
                             'value' => 'two',
                             'label' => __('Two', 'directorist'),
+                        ],
+                    ],
+                    'show-if' => [
+                        [
+                            'where' => "enable_schema_markup",
+                            'conditions' => [
+                                ['key' => 'value', 'compare' => '=', 'value' => true],
+                            ],
+                        ],
+                        [
+                            'where' => "apply_schema_markup",
+                            'conditions' => [
+                                ['key' => 'value', 'compare' => '=', 'value' => 'one'],
+                            ],
                         ],
                     ],
                 ],
@@ -2486,12 +2483,26 @@ Please remember that your order may be canceled if you do not make your payment 
                     'value' => 'searched_value',
                     'options' => [
                         [
-                            'value' => 'one other',
-                            'label' => __('one other', 'directorist'),
+                            'value' => 'one-other',
+                            'label' => __('One Other', 'directorist'),
                         ],
                         [
-                            'value' => 'two other',
-                            'label' => __('Two other', 'directorist'),
+                            'value' => 'two-other',
+                            'label' => __('Two Other', 'directorist'),
+                        ],
+                    ],
+                    'show-if' => [
+                        [
+                            'where' => "enable_schema_markup",
+                            'conditions' => [
+                                ['key' => 'value', 'compare' => '=', 'value' => true],
+                            ],
+                        ],
+                        [
+                            'where' => "apply_schema_markup",
+                            'conditions' => [
+                                ['key' => 'value', 'compare' => '=', 'value' => 'two'],
+                            ],
                         ],
                     ],
                 ],
@@ -4467,7 +4478,7 @@ Please remember that your order may be canceled if you do not make your payment 
                             'sections'  => apply_filters('atbdp_schema_controls', [
                                 'schema_type' => [
                                     'fields' => [
-                                        'enable_schema_markup', 'schema_setting','schema_setting_other',
+                                         'enable_schema_markup', 'apply_schema_markup', 'schema_setting', 'schema_setting_other'
                                     ],
                                 ],
                             ] ),

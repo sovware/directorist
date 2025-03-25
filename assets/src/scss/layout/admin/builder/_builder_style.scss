@@ -16,7 +16,6 @@ $nav_icon_color: $primary;
 $gray: #eff0f3;
 $light-gray: #f4f5f7;
 
-
 /* Create Directory Type */
 .directorist-directory-type-top {
   display: flex;
@@ -34,7 +33,7 @@ $light-gray: #f4f5f7;
   width: calc(100% - 200px);
   z-index: 9999;
   &:before {
-    content: '';
+    content: "";
     position: absolute;
     top: -10px;
     left: 0;
@@ -48,7 +47,7 @@ $light-gray: #f4f5f7;
   @media only screen and (max-width: 782px) {
     width: calc(100% - 40px);
     top: 46px;
-    right: 0
+    right: 0;
   }
   @media only screen and (max-width: 600px) {
     position: unset;
@@ -62,7 +61,7 @@ $light-gray: #f4f5f7;
     flex-direction: column;
     padding: 10px 20px;
   }
-  
+
   &-left {
     display: flex;
     align-items: center;
@@ -175,7 +174,7 @@ $light-gray: #f4f5f7;
       width: calc(100% - 82px);
       top: 107px;
       right: 12px;
-    } 
+    }
     @media only screen and (max-width: 600px) {
       position: unset;
       width: auto;
@@ -187,7 +186,7 @@ $light-gray: #f4f5f7;
   }
   .atbdp-cptm-body {
     position: relative;
-    margin-top: 60px; 
+    margin-top: 60px;
     @media only screen and (max-width: 600px) {
       margin-top: 0;
     }
@@ -276,9 +275,9 @@ $light-gray: #f4f5f7;
     margin-top: 2px;
     font-size: 12px;
     font-weight: 500;
-    color: #1B50B2;
+    color: #1b50b2;
     line-height: 20px;
-    letter-spacing: .12px;
+    letter-spacing: 0.12px;
     text-decoration: underline;
   }
   &__preview {
@@ -322,8 +321,8 @@ $light-gray: #f4f5f7;
     font-size: 16px;
     font-weight: 500;
     color: #ffffff;
-    border-color: #383F47;
-    background-color: #383F47;
+    border-color: #383f47;
+    background-color: #383f47;
     border-radius: 8px;
     &:before {
       content: attr(data-info);
@@ -344,7 +343,7 @@ $light-gray: #f4f5f7;
       transition: opacity 0.3s ease, visibility 0.3s ease;
     }
     &:after {
-      content: '';
+      content: "";
       position: absolute;
       top: calc(100% + 2px);
       left: 50%;
@@ -986,10 +985,10 @@ $light-gray: #f4f5f7;
       &:hover {
         background-color: #3e62f5;
       }
-    }  
+    }
     @media screen and (max-width: 480px) {
       margin: 0;
-    }     
+    }
   }
   .directorist-form-doc__watch-tutorial {
     position: absolute;
@@ -998,24 +997,24 @@ $light-gray: #f4f5f7;
     transform: translateY(-50%);
   }
   @media only screen and (max-width: 782px) {
-   .cptm-sub-navigation {
-    padding-right: 0;
-    padding-top: 70px;
-   }
-   .directorist-form-doc__watch-tutorial {
-    top: 20px;
-    right: 50%;
-    transform: translateX(50%);
-   }
+    .cptm-sub-navigation {
+      padding-right: 0;
+      padding-top: 70px;
+    }
+    .directorist-form-doc__watch-tutorial {
+      top: 20px;
+      right: 50%;
+      transform: translateX(50%);
+    }
   }
   @media only screen and (max-width: 480px) {
-   .cptm-sub-navigation {
-    padding-top: 50px;
-    padding-bottom: 15px;
-   }
-   .directorist-form-doc__watch-tutorial {
-    top: 0;
-   }
+    .cptm-sub-navigation {
+      padding-top: 50px;
+      padding-bottom: 15px;
+    }
+    .directorist-form-doc__watch-tutorial {
+      top: 0;
+    }
   }
 }
 
@@ -1128,9 +1127,9 @@ $light-gray: #f4f5f7;
     z-index: 10;
     background: #f8f9fa;
     border: none;
-    border-radius:0 0 8px 8px;
+    border-radius: 0 0 8px 8px;
     &:before {
-      content: '';
+      content: "";
       position: absolute;
       top: 0;
       left: 43px;
@@ -1303,7 +1302,7 @@ $light-gray: #f4f5f7;
   padding: 15px 20px;
   box-sizing: border-box;
   border-radius: 8px;
-  background-color: #383F47;
+  background-color: #383f47;
   box-shadow: 0px 1px 5px rgba(#a1a8c6, 0.1);
   transition: all ease 0.3s;
   &.expanded,
@@ -1502,7 +1501,7 @@ div[draggable="true"].cptm-form-builder-group-title-area {
   .cptm-form-builder-group-options__advanced-toggle {
     font-size: 13px;
     font-weight: 500;
-    color: #2E94FA;
+    color: #2e94fa;
     background: transparent;
     border: none;
     padding: 0;
@@ -1881,6 +1880,38 @@ li[class="cptm-form-builder-field-list-item"][draggable="true"] {
 .cptm-radio-item {
   display: flex;
   margin-right: 20px;
+}
+
+.cptm-tab-area {
+  display: flex;
+  flex-wrap: wrap;
+  .cptm-tab-item {
+    input {
+      display: none;
+      &:checked {
+        + label {
+          color: #fff;
+          background-color: #3e62f5;
+        }
+      }
+    }
+    label {
+      margin: 0;
+      padding: 0 12px;
+      height: 32px;
+      line-height: 32px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #747c89;
+      background: #e5e7eb;
+      cursor: pointer;
+      transition: all ease-in-out 300ms;
+      &:hover {
+        color: #fff;
+        background-color: #3e62f5;
+      }
+    }
+  }
 }
 
 #listing_settings__listings_page {
@@ -2992,6 +3023,14 @@ input[type="radio"].cptm-radio {
     box-sizing: border-box;
   }
 
+  &.tab-field {
+    .cptm-preview-wrapper {
+      display: flex;
+      gap: 0;
+      flex-direction: column;
+    }
+  }
+
   &.cpt-has-error .cptm-form-control {
     border: 1px solid rgb(192, 51, 51);
   }
@@ -3139,7 +3178,7 @@ input[type="radio"].cptm-radio {
         display: none;
       }
       i::before {
-        content: '\ea57';
+        content: "\ea57";
       }
     }
     .directorist-row-tooltip[data-tooltip]:after {
@@ -3947,8 +3986,8 @@ input[type="radio"] {
   }
 }
 
-.cptm-form-group{
-  .directorist_dropdown-option{
+.cptm-form-group {
+  .directorist_dropdown-option {
     max-height: 240px;
   }
 }

@@ -22683,8 +22683,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof.js");
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-/* harmony import */ var _mixins_form_fields_card_builder__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../../mixins/form-fields/card-builder */ "./assets/src/js/admin/vue/mixins/form-fields/card-builder.js");
-/* harmony import */ var _mixins_helpers__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../mixins/helpers */ "./assets/src/js/admin/vue/mixins/helpers.js");
+/* harmony import */ var _mixins_helpers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../mixins/helpers */ "./assets/src/js/admin/vue/mixins/helpers.js");
+/* harmony import */ var _mixins_form_fields_card_builder__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../../mixins/form-fields/card-builder */ "./assets/src/js/admin/vue/mixins/form-fields/card-builder.js");
 
 
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
@@ -22697,7 +22697,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "card-builder-list-view-with-thumbnail-field",
-  mixins: [_mixins_form_fields_card_builder__WEBPACK_IMPORTED_MODULE_3__["default"], _mixins_helpers__WEBPACK_IMPORTED_MODULE_4__["default"]],
+  mixins: [_mixins_form_fields_card_builder__WEBPACK_IMPORTED_MODULE_4__["default"], _mixins_helpers__WEBPACK_IMPORTED_MODULE_3__["default"]],
   props: {
     value: {
       required: false,
@@ -22714,7 +22714,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   },
   created: function created() {
     this.init();
-    this.$emit('update', this.output_data);
+    this.$emit("update", this.output_data);
   },
   watch: {
     output_data: function output_data() {
@@ -22745,16 +22745,16 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
             }
             var widget_data = {};
             for (var root_option in this.active_widgets[widget_name]) {
-              if ('options' === root_option) {
+              if ("options" === root_option) {
                 continue;
               }
-              if ('icon' === root_option) {
+              if ("icon" === root_option) {
                 continue;
               }
-              if ('show_if' === root_option) {
+              if ("show_if" === root_option) {
                 continue;
               }
-              if ('fields' === root_option) {
+              if ("fields" === root_option) {
                 continue;
               }
               widget_data[root_option] = this.active_widgets[widget_name][root_option];
@@ -22801,12 +22801,12 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
               for (_iterator.s(); !(_step = _iterator.n()).done;) {
                 var matched_field = _step.value;
                 var _main_widget = JSON.parse(JSON.stringify(main_widget));
-                var current_key = widget_keys.includes(widget) ? widget + '_' + (widget_keys.length + 1) : widget;
+                var current_key = widget_keys.includes(widget) ? widget + "_" + (widget_keys.length + 1) : widget;
                 _main_widget.widget_key = current_key;
                 if (matched_field.widget_key) {
                   _main_widget.original_widget_key = matched_field.widget_key;
                 }
-                if (typeof matched_field.label === 'string' && matched_field.label.length) {
+                if (typeof matched_field.label === "string" && matched_field.label.length) {
                   _main_widget.label = matched_field.label;
                 }
                 available_widgets[current_key] = _main_widget;
@@ -22877,7 +22877,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
             selectedWidgets: []
           },
           excerpt: {
-            label: 'Excerpt',
+            label: "Excerpt",
             selectedWidgets: []
           }
         },
@@ -22924,11 +22924,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       // Get Active Widgets Data
       var active_widgets_data = {};
       for (var section in value) {
-        if (!value[section] && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(value[section]) !== 'object') {
+        if (!value[section] && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(value[section]) !== "object") {
           continue;
         }
         for (var area in value[section]) {
-          if (!value[section][area] && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(value[section][area]) !== 'object') {
+          if (!value[section][area] && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(value[section][area]) !== "object") {
             continue;
           }
           var _iterator2 = _createForOfIteratorHelper(value[section][area]),
@@ -22936,19 +22936,19 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           try {
             for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
               var widget = _step2.value;
-              if (typeof widget.widget_name === 'undefined') {
+              if (typeof widget.widget_name === "undefined") {
                 continue;
               }
-              if (typeof widget.widget_key === 'undefined') {
+              if (typeof widget.widget_key === "undefined") {
                 continue;
               }
-              if (typeof this.available_widgets[widget.widget_name] === 'undefined') {
+              if (typeof this.available_widgets[widget.widget_name] === "undefined") {
                 continue;
               }
-              if (typeof this.local_layout[section] === 'undefined') {
+              if (typeof this.local_layout[section] === "undefined") {
                 continue;
               }
-              if (typeof this.local_layout[section][area] === 'undefined') {
+              if (typeof this.local_layout[section][area] === "undefined") {
                 continue;
               }
               active_widgets_data[widget.widget_key] = widget;
@@ -22974,7 +22974,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         var widgets_template = _objectSpread({}, this.theAvailableWidgets[widget_key]);
         var widget_options = !active_widgets_data[widget_key].options && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(active_widgets_data[widget_key].options) !== "object" ? false : active_widgets_data[widget_key].options;
         for (var root_option in widgets_template) {
-          if ('options' === root_option) {
+          if ("options" === root_option) {
             continue;
           }
           if (active_widgets_data[widget_key][root_option] === "undefined") {
@@ -23128,13 +23128,13 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     },
     updateWidgetOptionsData: function updateWidgetOptionsData(data, widget) {
       return;
-      if (typeof this.active_widgets[widget.widget] === 'undefined') {
+      if (typeof this.active_widgets[widget.widget] === "undefined") {
         return;
       }
-      if (typeof this.active_widgets[widget.widget].options === 'undefined') {
+      if (typeof this.active_widgets[widget.widget].options === "undefined") {
         return;
       }
-      vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(this.active_widgets[widget.widget].options, 'fields', data);
+      vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(this.active_widgets[widget.widget].options, "fields", data);
     },
     closeWidgetOptionsWindow: function closeWidgetOptionsWindow() {
       this.widgetOptionsWindow = this.widgetOptionsWindowDefault;
@@ -23155,7 +23155,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     },
     activeInsertWindow: function activeInsertWindow(current_item_key) {
       if (this.active_insert_widget_key === current_item_key) {
-        this.active_insert_widget_key = '';
+        this.active_insert_widget_key = "";
         return;
       }
       this.active_insert_widget_key = current_item_key;
@@ -23165,7 +23165,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         return;
       }
       vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(this.active_widgets, payload.key, _objectSpread({}, this.theAvailableWidgets[payload.key]));
-      vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(where, 'selectedWidgets', payload.selected_widgets);
+      vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(where, "selectedWidgets", payload.selected_widgets);
     },
     closeInsertWindow: function closeInsertWindow(widget_insert_window) {
       this.active_insert_widget_key = "";
@@ -32496,7 +32496,8 @@ var render = function render() {
   }, [_c("a", {
     staticClass: "cptm-preview-notice-btn",
     attrs: {
-      href: "#"
+      href: "/wp-admin/edit.php?post_type=at_biz_dir&page=atbdp-settings",
+      target: "_blank"
     }
   }, [_vm._v("\n          Go to settings\n          "), _c("svg", {
     attrs: {
@@ -33086,7 +33087,8 @@ var render = function render() {
   }, [_c("a", {
     staticClass: "cptm-preview-notice-btn",
     attrs: {
-      href: "#"
+      href: "/wp-admin/edit.php?post_type=at_biz_dir&page=atbdp-settings",
+      target: "_blank"
     }
   }, [_vm._v("\n          Go to settings\n          "), _c("svg", {
     attrs: {
@@ -33547,7 +33549,8 @@ var render = function render() {
   }, [_c("a", {
     staticClass: "cptm-preview-notice-btn",
     attrs: {
-      href: "#"
+      href: "/wp-admin/edit.php?post_type=at_biz_dir&page=atbdp-settings",
+      target: "_blank"
     }
   }, [_vm._v("\n          Go to settings\n          "), _c("svg", {
     attrs: {
@@ -33963,7 +33966,8 @@ var render = function render() {
   }, [_c("a", {
     staticClass: "cptm-preview-notice-btn",
     attrs: {
-      href: "#"
+      href: "/wp-admin/edit.php?post_type=at_biz_dir&page=atbdp-settings",
+      target: "_blank"
     }
   }, [_vm._v("\n          Go to settings\n          "), _c("svg", {
     attrs: {
@@ -34387,7 +34391,8 @@ var render = function render() {
   }, [_c("a", {
     staticClass: "cptm-preview-notice-btn",
     attrs: {
-      href: "#"
+      href: "/wp-admin/edit.php?post_type=at_biz_dir&page=atbdp-settings",
+      target: "_blank"
     }
   }, [_vm._v("\n          Go to settings\n          "), _c("svg", {
     attrs: {
@@ -34756,7 +34761,8 @@ var render = function render() {
   }, [_c("a", {
     staticClass: "cptm-preview-notice-btn",
     attrs: {
-      href: "#"
+      href: "/wp-admin/edit.php?post_type=at_biz_dir&page=atbdp-settings",
+      target: "_blank"
     }
   }, [_vm._v("\n          Go to settings\n          "), _c("svg", {
     attrs: {

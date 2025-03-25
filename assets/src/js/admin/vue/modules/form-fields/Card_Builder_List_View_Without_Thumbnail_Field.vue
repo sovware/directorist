@@ -227,7 +227,11 @@
           </p>
         </div>
         <div class="cptm-preview-notice-action">
-          <a href="#" class="cptm-preview-notice-btn">
+          <a
+            href="/wp-admin/edit.php?post_type=at_biz_dir&page=atbdp-settings"
+            target="_blank"
+            class="cptm-preview-notice-btn"
+          >
             Go to settings
             <svg
               width="14"

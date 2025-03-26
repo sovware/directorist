@@ -8840,13 +8840,13 @@ body.modal-overlay-enabled:before {
   cursor: pointer;
 }
 .directorist-search-modal__contents__body .directorist-search-field__btn--clear {
+  opacity: 0;
+  visibility: hidden;
   left: 0;
 }
 .directorist-search-modal__contents__body .directorist-search-field__btn--clear i::after {
   width: 16px;
   height: 16px;
-  opacity: 0;
-  visibility: hidden;
   background-color: #bcbcbc;
   -webkit-transition: background-color 0.3s ease;
   transition: background-color 0.3s ease;
@@ -8893,7 +8893,7 @@ body.modal-overlay-enabled:before {
   top: 0;
   font-size: 13px;
 }
-.directorist-search-modal__contents__body .directorist-search-field.input-is-focused .directorist-search-field__btn i::after {
+.directorist-search-modal__contents__body .directorist-search-field.input-is-focused .directorist-search-field__btn {
   opacity: 1;
   visibility: visible;
 }
@@ -9464,7 +9464,7 @@ body.modal-overlay-enabled:before {
   font-weight: 600;
   margin-right: 5px;
 }
-.directorist-search-modal .directorist-search-form-dropdown.input-has-value .directorist-search-field__btn i::after, .directorist-search-modal .directorist-search-form-dropdown.input-is-focused .directorist-search-field__btn i::after {
+.directorist-search-modal .directorist-search-form-dropdown.input-has-value .directorist-search-field__btn, .directorist-search-modal .directorist-search-form-dropdown.input-is-focused .directorist-search-field__btn {
   opacity: 1;
   visibility: visible;
 }
@@ -9579,6 +9579,9 @@ body.modal-overlay-enabled:before {
   overflow-y: auto;
   z-index: 100;
   display: none;
+}
+.directorist-search-modal .directorist-search-basic-dropdown .directorist-search-basic-dropdown-content.dropdown-content-show {
+  display: block;
 }
 .directorist-search-modal .directorist-search-basic-dropdown .directorist-search-basic-dropdown-content .directorist-search-tags {
   gap: 12px;
@@ -12887,12 +12890,12 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .directorist-search-field__btn--clear {
   left: 0;
+  opacity: 0;
+  visibility: hidden;
 }
 .directorist-search-field__btn--clear i::after {
   width: 16px;
   height: 16px;
-  opacity: 0;
-  visibility: hidden;
   background-color: #bcbcbc;
   -webkit-transition: background-color 0.3s ease;
   transition: background-color 0.3s ease;
@@ -12937,7 +12940,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   font-weight: 400;
   color: var(--directorist-color-body);
 }
-.directorist-search-field.input-is-focused .directorist-search-field__btn i::after {
+.directorist-search-field.input-is-focused .directorist-search-field__btn {
   opacity: 1;
   visibility: visible;
 }
@@ -13528,6 +13531,8 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .directorist-search-form__top .directorist-search-form-dropdown .directorist-search-field__btn--clear {
   bottom: 12px;
+  opacity: 0;
+  visibility: hidden;
 }
 .directorist-search-form__top .directorist-search-form-dropdown.input-has-value .directorist-search-field__input, .directorist-search-form__top .directorist-search-form-dropdown.input-is-focused .directorist-search-field__input {
   padding-left: 25px;
@@ -13542,7 +13547,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   font-weight: 600;
   margin-right: 5px;
 }
-.directorist-search-form__top .directorist-search-form-dropdown.input-has-value .directorist-search-field__btn i::after, .directorist-search-form__top .directorist-search-form-dropdown.input-is-focused .directorist-search-field__btn i::after {
+.directorist-search-form__top .directorist-search-form-dropdown.input-has-value .directorist-search-field__btn, .directorist-search-form__top .directorist-search-form-dropdown.input-is-focused .directorist-search-field__btn {
   opacity: 1;
   visibility: visible;
 }
@@ -13662,6 +13667,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   overflow-y: auto;
   z-index: 100;
   display: none;
+}
+.directorist-search-form__top .directorist-search-basic-dropdown .directorist-search-basic-dropdown-content.dropdown-content-show {
+  display: block;
 }
 .directorist-search-form__top .directorist-search-basic-dropdown .directorist-search-basic-dropdown-content .directorist-search-tags,
 .directorist-search-form__top .directorist-search-basic-dropdown .directorist-search-basic-dropdown-content .directorist-radio-wrapper,

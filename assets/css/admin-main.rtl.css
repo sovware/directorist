@@ -5845,8 +5845,8 @@ body.wp-admin {
   transition: all ease-in-out 300ms;
 }
 #atbdp_ie_download_sample:hover {
-  border-color: rgb(37.7561576355, 78.2783251232, 243.7438423645);
-  background: rgb(37.7561576355, 78.2783251232, 243.7438423645);
+  border-color: #264ef4;
+  background: #264ef4;
   color: #fff;
 }
 
@@ -14841,7 +14841,7 @@ input:-webkit-autofill:active {
   background-color: #3e62f5;
 }
 .cptm-btn.cptm-btn-primary:hover {
-  background-color: rgb(52.3024630542, 90.1113300493, 244.4975369458);
+  background-color: #345af4;
 }
 .cptm-btn.cptm-btn-secondery {
   color: #3e62f5;
@@ -17340,7 +17340,7 @@ input[type=radio].cptm-radio {
   transition: all ease-in-out 300ms;
 }
 .cptm-widget-control-action:hover {
-  background-color: rgb(13.5123152709, 58.5566502463, 242.4876847291);
+  background-color: #0e3bf2;
 }
 
 .cptm-listing-card-preview-body-placeholder {
@@ -19886,7 +19886,7 @@ input[type=radio]:checked::before {
   background-color: #3e62f5;
 }
 .cptm-btn.cptm-btn-primary:hover {
-  background-color: rgb(52.3024630542, 90.1113300493, 244.4975369458);
+  background-color: #345af4;
 }
 .cptm-btn.cptm-btn-secondery {
   color: #3e62f5;
@@ -22385,7 +22385,7 @@ input[type=radio].cptm-radio {
   transition: all ease-in-out 300ms;
 }
 .cptm-widget-control-action:hover {
-  background-color: rgb(13.5123152709, 58.5566502463, 242.4876847291);
+  background-color: #0e3bf2;
 }
 
 .cptm-listing-card-preview-body-placeholder {
@@ -25219,7 +25219,7 @@ input[type=radio]:checked::before {
   background-color: #3e62f5;
 }
 .cptm-btn.cptm-btn-primary:hover {
-  background-color: rgb(52.3024630542, 90.1113300493, 244.4975369458);
+  background-color: #345af4;
 }
 .cptm-btn.cptm-btn-secondery {
   color: #3e62f5;
@@ -27718,7 +27718,7 @@ input[type=radio].cptm-radio {
   transition: all ease-in-out 300ms;
 }
 .cptm-widget-control-action:hover {
-  background-color: rgb(13.5123152709, 58.5566502463, 242.4876847291);
+  background-color: #0e3bf2;
 }
 
 .cptm-listing-card-preview-body-placeholder {
@@ -29693,8 +29693,8 @@ input[type=radio]:checked::before {
   outline: none;
 }
 .settings-save-btn:hover {
-  border-color: rgb(37.7561576355, 78.2783251232, 243.7438423645);
-  background: rgb(37.7561576355, 78.2783251232, 243.7438423645);
+  border-color: #264ef4;
+  background: #264ef4;
   color: #fff;
 }
 .settings-save-btn:disabled {

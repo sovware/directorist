@@ -421,6 +421,7 @@ __webpack_require__.r(__webpack_exports__);
       loadJsCss.list(list, {
         delayScripts: 500 // Load scripts after stylesheets, delayed by this duration (in ms).
       });
+
       function toggleFullscreen() {
         var mapContainer = document.getElementById('map');
         var fullScreenEnable = document.querySelector('#gmap_full_screen_button .fullscreen-enable');

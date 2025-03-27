@@ -1100,11 +1100,12 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       var dropDownParent = $(this).closest('.directorist-search-field');
       var dropDownContent = $(this).siblings('.directorist-search-basic-dropdown-content');
       dropDownContent.toggleClass('dropdown-content-show');
-      dropDownContent.slideToggle().show();
       if (dropDownContent.hasClass('dropdown-content-show')) {
         dropDownParent.addClass('input-is-focused');
+        dropDownContent.slideDown();
       } else {
         dropDownParent.removeClass('input-is-focused');
+        dropDownContent.slideUp();
       }
       // Hide all other open contents
       $('.directorist-search-basic-dropdown-content.dropdown-content-show').not(dropDownContent).removeClass('dropdown-content-show').slideUp();
@@ -1504,7 +1505,9 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         });
       }
       if (this.parentElement.classList.contains('input-has-value') || this.parentElement.classList.contains('input-is-focused')) {
+        var _this$parentElement$q;
         this.parentElement.classList.remove('input-has-value', 'input-is-focused');
+        (_this$parentElement$q = this.parentElement.querySelector('.directorist-search-basic-dropdown-content.dropdown-content-show')) === null || _this$parentElement$q === void 0 || _this$parentElement$q.classList.remove('dropdown-content-show');
       }
       handleRadiusVisibility();
 

@@ -106,16 +106,18 @@ import './components/directoristSelect';
         // Basic Search Dropdown Toggle
         $('body').on('click', '.directorist-search-form__top .directorist-search-basic-dropdown-label, .directorist-search-modal .directorist-search-basic-dropdown-label', function (e) {
             e.preventDefault();
+
             let dropDownParent = $(this).closest('.directorist-search-field');
             let dropDownContent = $(this).siblings('.directorist-search-basic-dropdown-content');
 
             dropDownContent.toggleClass('dropdown-content-show');
-            dropDownContent.slideToggle().show();
 
             if (dropDownContent.hasClass('dropdown-content-show')) {
                 dropDownParent.addClass('input-is-focused');
+                dropDownContent.slideDown();
             } else {
                 dropDownParent.removeClass('input-is-focused');
+                dropDownContent.slideUp();
             }
             // Hide all other open contents
             $('.directorist-search-basic-dropdown-content.dropdown-content-show').not(dropDownContent).removeClass('dropdown-content-show').slideUp();
@@ -580,6 +582,7 @@ import './components/directoristSelect';
 
             if (this.parentElement.classList.contains('input-has-value') || this.parentElement.classList.contains('input-is-focused')) {
                 this.parentElement.classList.remove('input-has-value', 'input-is-focused');
+                this.parentElement.querySelector('.directorist-search-basic-dropdown-content.dropdown-content-show')?.classList.remove('dropdown-content-show');
             }
 
             handleRadiusVisibility();

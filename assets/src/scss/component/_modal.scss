@@ -237,12 +237,12 @@
           bottom: 12px;
           cursor: pointer;
           @include m(clear) {
+            opacity: 0;
+            visibility: hidden;
             right: 0;
             i::after {
               width: 16px;
               height: 16px;
-              opacity: 0;
-              visibility: hidden;
               background-color: #bcbcbc;
               transition: background-color 0.3s ease;
             }
@@ -286,7 +286,7 @@
             top: 0;
             font-size: 13px;
           }
-          .directorist-search-field__btn i::after {
+          .directorist-search-field__btn {
             opacity: 1;
             visibility: visible;
           }
@@ -768,7 +768,7 @@
           }
         }
       }
-      .directorist-search-field__btn i::after {
+      .directorist-search-field__btn {
         opacity: 1;
         visibility: visible;
       }
@@ -850,6 +850,9 @@
       overflow-y: auto;
       z-index: 100;
       display: none;
+      &.dropdown-content-show {
+        display: block;
+      }
       .directorist-search-tags {
         gap: 12px;
         flex-direction: column;

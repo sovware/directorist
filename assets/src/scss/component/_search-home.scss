@@ -57,8 +57,6 @@
       i::after {
         width: 16px;
         height: 16px;
-        opacity: 0;
-        visibility: hidden;
         background-color: #bcbcbc;
         transition: background-color 0.3s ease;
       }
@@ -99,7 +97,6 @@
       font-weight: 400;
       color: var(--directorist-color-body);
     }
-    .directorist-search-field__btn--clear,
     .directorist-search-field__btn i::after {
       opacity: 1;
       visibility: visible;
@@ -652,6 +649,8 @@
       }
       .directorist-search-field__btn--clear {
         bottom: 12px;
+        opacity: 0;
+        visibility: hidden;
       }
       &.input-has-value,
       &.input-is-focused {
@@ -668,7 +667,6 @@
             }
           }
         }
-        .directorist-search-field__btn--clear,
         .directorist-search-field__btn i::after {
           opacity: 1;
           visibility: visible;
@@ -755,6 +753,9 @@
         overflow-y: auto;
         z-index: 100;
         display: none;
+        &.dropdown-content-show {
+          display: block;
+        }
         .directorist-search-tags,
         .directorist-radio-wrapper,
         .directorist-checkbox-wrapper {

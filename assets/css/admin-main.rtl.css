@@ -12246,13 +12246,13 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   cursor: pointer;
 }
 .directorist-search-modal__contents__body .directorist-search-field__btn--clear {
+  opacity: 0;
+  visibility: hidden;
   left: 0;
 }
 .directorist-search-modal__contents__body .directorist-search-field__btn--clear i::after {
   width: 16px;
   height: 16px;
-  opacity: 0;
-  visibility: hidden;
   background-color: #bcbcbc;
   -webkit-transition: background-color 0.3s ease;
   transition: background-color 0.3s ease;
@@ -12296,7 +12296,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   top: 0;
   font-size: 13px;
 }
-.directorist-search-modal__contents__body .directorist-search-field.input-is-focused .directorist-search-field__btn i::after {
+.directorist-search-modal__contents__body .directorist-search-field.input-is-focused .directorist-search-field__btn {
   opacity: 1;
   visibility: visible;
 }
@@ -12867,7 +12867,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   font-weight: 600;
   margin-right: 5px;
 }
-.directorist-search-modal .directorist-search-form-dropdown.input-has-value .directorist-search-field__btn i::after, .directorist-search-modal .directorist-search-form-dropdown.input-is-focused .directorist-search-field__btn i::after {
+.directorist-search-modal .directorist-search-form-dropdown.input-has-value .directorist-search-field__btn, .directorist-search-modal .directorist-search-form-dropdown.input-is-focused .directorist-search-field__btn {
   opacity: 1;
   visibility: visible;
 }
@@ -12982,6 +12982,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   overflow-y: auto;
   z-index: 100;
   display: none;
+}
+.directorist-search-modal .directorist-search-basic-dropdown .directorist-search-basic-dropdown-content.dropdown-content-show {
+  display: block;
 }
 .directorist-search-modal .directorist-search-basic-dropdown .directorist-search-basic-dropdown-content .directorist-search-tags {
   gap: 12px;

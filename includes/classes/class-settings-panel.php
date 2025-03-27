@@ -2432,6 +2432,7 @@ Please remember that your order may be canceled if you do not make your payment 
                 ],
                 'apply_schema_markup' => [
                     'schema' => __('Apply Schema To', 'directorist'),
+                    'multi_directory_status' => directorist_is_multi_directory_enabled(),
                     'type'    => 'tab',
                     'value'   => 'one',
                     'options' => [
@@ -2513,6 +2514,12 @@ Please remember that your order may be canceled if you do not make your payment 
                                 ['key' => 'value', 'compare' => '=', 'value' => 'two'],
                             ],
                         ],
+                        [
+                            'where' => "enable_multi_directory",
+                            'conditions' => [
+                                ['key' => 'value', 'compare' => '=', 'value' => true],
+                            ],
+                        ]
                     ],
                 ],
 
@@ -2544,6 +2551,12 @@ Please remember that your order may be canceled if you do not make your payment 
                                 ['key' => 'value', 'compare' => '=', 'value' => 'two'],
                             ],
                         ],
+                        [
+                            'where' => "enable_multi_directory",
+                            'conditions' => [
+                                ['key' => 'value', 'compare' => '=', 'value' => true],
+                            ],
+                        ]
                     ],
                 ],
 
@@ -2575,6 +2588,12 @@ Please remember that your order may be canceled if you do not make your payment 
                                 ['key' => 'value', 'compare' => '=', 'value' => 'two'],
                             ],
                         ],
+                        [
+                            'where' => "enable_multi_directory",
+                            'conditions' => [
+                                ['key' => 'value', 'compare' => '=', 'value' => true],
+                            ],
+                        ]
                     ],
                 ],
 
@@ -2606,6 +2625,12 @@ Please remember that your order may be canceled if you do not make your payment 
                                 ['key' => 'value', 'compare' => '=', 'value' => 'two'],
                             ],
                         ],
+                        [
+                            'where' => "enable_multi_directory",
+                            'conditions' => [
+                                ['key' => 'value', 'compare' => '=', 'value' => true],
+                            ],
+                        ]
                     ],
                 ],
 
@@ -2637,6 +2662,12 @@ Please remember that your order may be canceled if you do not make your payment 
                                 ['key' => 'value', 'compare' => '=', 'value' => 'two'],
                             ],
                         ],
+                        [
+                            'where' => "enable_multi_directory",
+                            'conditions' => [
+                                ['key' => 'value', 'compare' => '=', 'value' => true],
+                            ],
+                        ]
                     ],
                 ],
 

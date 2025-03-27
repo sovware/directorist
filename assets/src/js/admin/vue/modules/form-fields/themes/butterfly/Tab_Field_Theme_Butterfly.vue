@@ -4,7 +4,7 @@
         <div class="cptm-schema-tab-label">
           {{ schema }}
         </div>
-          <div class="cptm-schema-tab-wrapper">
+          <div class="cptm-schema-tab-wrapper" :class="{ 'cptm-schema-multi-directory-disabled': !multi_directory_status }">
             <div
             class="cptm-schema-tab-item"
             v-for="(option, option_index) in theOptions"
@@ -77,7 +77,6 @@ import tab_field from "../../../../mixins/form-fields/tab-field";
 export default {
   name: "tab-field-theme-butterfly",
   mixins: [tab_field],
-  mounted() {
-  },
+  mounted() {},
 };
 </script>

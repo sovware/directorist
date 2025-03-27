@@ -133,10 +133,14 @@ export default {
             type: [String, Number],
             default: '',
         },
+        multi_directory_status: {
+            type: String,
+            default: '',
+        },
         schema: {
             type: String,
             default: '',
-          },
+        },
         value: {
             default: '',
         },
@@ -220,6 +224,6 @@ export default {
         },
         editorID: {
             required: false,
-        },
+        }
     },
 }

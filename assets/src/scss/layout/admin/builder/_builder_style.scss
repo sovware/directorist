@@ -2091,7 +2091,15 @@ li[class="cptm-form-builder-field-list-item"][draggable="true"] {
     }
   }
 
-  &-radio {}
+  &-multi-directory-disabled{
+    .cptm-schema-tab-item{
+      &:last-child{
+        cursor: not-allowed;
+        opacity: 0.5;
+        pointer-events: none;
+      }
+    }
+  }
 
   &-label-wrapper {
     color: rgba(0, 6, 38, 0.90) !important;

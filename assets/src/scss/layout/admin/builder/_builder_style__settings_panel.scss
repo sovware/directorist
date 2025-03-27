@@ -3,6 +3,11 @@ $settings-primary-color: #3e62f5;
 .atbdp-settings-panel {
     .cptm-form-group{
         margin-bottom: 35px;
+        &.cptm-schema-multi-directory-disabled{
+            cursor: not-allowed;
+            opacity: 0.5;
+            pointer-events: none;
+        }
     }
     .cptm-tab-content {
         margin: 0;

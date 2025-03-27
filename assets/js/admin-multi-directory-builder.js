@@ -36015,7 +36015,11 @@ var render = function render() {
       attrs: {
         "for": _vm.getOptionID(option, option_index, _vm.sectionId)
       }
-    }, [_vm._v("\n              " + _vm._s(option.label) + "\n              "), _c('div', {
+    }, [_c('div', {
+      staticClass: "cptm-schema-label"
+    }, [_vm._v("\n              " + _vm._s(option.label) + "\n              "), !_vm.multi_directory_status.length ? _c('span', {
+      staticClass: "cptm-schema-label-badge"
+    }, [_vm._v("Multi Directory Disabled")]) : _vm._e()]), _vm._v(" "), _c('div', {
       staticClass: "cptm-schema-label-description"
     }, [_vm._v("\n                " + _vm._s(option.description) + "\n              ")])])]);
   }), 0)]) : _c('div', {

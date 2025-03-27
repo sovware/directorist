@@ -16400,6 +16400,12 @@ li[class=cptm-form-builder-field-list-item][draggable=true] {
   opacity: 0.5;
   pointer-events: none;
 }
+.cptm-schema-multi-directory-disabled .cptm-schema-tab-item:last-child .cptm-schema-label-badge {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
 .cptm-schema-label-wrapper {
   color: rgba(0, 6, 38, 0.9) !important;
   font-size: 14px !important;
@@ -16410,6 +16416,34 @@ li[class=cptm-form-builder-field-list-item][draggable=true] {
   margin: 0 !important;
   -webkit-transition: all ease-in-out 300ms;
   transition: all ease-in-out 300ms;
+}
+.cptm-schema .cptm-schema-label {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 6px;
+}
+.cptm-schema-label-badge {
+  display: none;
+  height: 20px;
+  padding: 0px 8px;
+  border-radius: 4px;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #e3ecf2;
+  color: rgba(0, 8, 51, 0.65);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+  letter-spacing: 0.12px;
 }
 .cptm-schema-label-description {
   color: rgba(0, 8, 51, 0.65);
@@ -21577,6 +21611,12 @@ li[class=cptm-form-builder-field-list-item][draggable=true] {
   opacity: 0.5;
   pointer-events: none;
 }
+.cptm-schema-multi-directory-disabled .cptm-schema-tab-item:last-child .cptm-schema-label-badge {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
 .cptm-schema-label-wrapper {
   color: rgba(0, 6, 38, 0.9) !important;
   font-size: 14px !important;
@@ -21587,6 +21627,34 @@ li[class=cptm-form-builder-field-list-item][draggable=true] {
   margin: 0 !important;
   -webkit-transition: all ease-in-out 300ms;
   transition: all ease-in-out 300ms;
+}
+.cptm-schema .cptm-schema-label {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 6px;
+}
+.cptm-schema-label-badge {
+  display: none;
+  height: 20px;
+  padding: 0px 8px;
+  border-radius: 4px;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #e3ecf2;
+  color: rgba(0, 8, 51, 0.65);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+  letter-spacing: 0.12px;
 }
 .cptm-schema-label-description {
   color: rgba(0, 8, 51, 0.65);
@@ -27042,6 +27110,12 @@ li[class=cptm-form-builder-field-list-item][draggable=true] {
   opacity: 0.5;
   pointer-events: none;
 }
+.cptm-schema-multi-directory-disabled .cptm-schema-tab-item:last-child .cptm-schema-label-badge {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
 .cptm-schema-label-wrapper {
   color: rgba(0, 6, 38, 0.9) !important;
   font-size: 14px !important;
@@ -27052,6 +27126,34 @@ li[class=cptm-form-builder-field-list-item][draggable=true] {
   margin: 0 !important;
   -webkit-transition: all ease-in-out 300ms;
   transition: all ease-in-out 300ms;
+}
+.cptm-schema .cptm-schema-label {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 6px;
+}
+.cptm-schema-label-badge {
+  display: none;
+  height: 20px;
+  padding: 0px 8px;
+  border-radius: 4px;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #e3ecf2;
+  color: rgba(0, 8, 51, 0.65);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+  letter-spacing: 0.12px;
 }
 .cptm-schema-label-description {
   color: rgba(0, 8, 51, 0.65);

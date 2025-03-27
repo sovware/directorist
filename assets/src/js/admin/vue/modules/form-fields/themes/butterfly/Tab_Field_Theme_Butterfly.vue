@@ -20,7 +20,10 @@
               v-model="local_value"
             />
             <label class="cptm-schema-label-wrapper" :for="getOptionID(option, option_index, sectionId)">
+              <div class="cptm-schema-label">
                 {{ option.label }}
+                <span class="cptm-schema-label-badge" v-if="!multi_directory_status.length">Multi Directory Disabled</span>
+              </div>
                 <div class="cptm-schema-label-description">
                   {{ option.description }}
                 </div>

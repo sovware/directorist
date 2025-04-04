@@ -580,7 +580,7 @@ final class Directorist_Base
 
 	public function custom_widget_body_wrapper( $instance, $widget, $args ) {
 		// Check if this is the specific sidebar
-		if ( $args['id'] === 'right-sidebar-listing' ) {
+		if ( isset( $args['id'] ) && $args['id'] === 'right-sidebar-listing' ) {
 			// Create a wrapper for the widget body
 			$widget_output = '';
 

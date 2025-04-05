@@ -1,14 +1,14 @@
 <template>
   <div class="cptm-builder-section">
     <!-- cptm-options-area -->
-    <!-- <div class="cptm-options-area" v-if="widgetOptionsWindowActiveStatus">
+    <div class="cptm-options-area" v-if="widgetOptionsWindowActiveStatus">
       <options-window
         :active="widgetOptionsWindowActiveStatus"
         v-bind="widgetOptionsWindow"
         @update="updateWidgetOptionsData($event, widgetOptionsWindow)"
         @close="closeWidgetOptionsWindow()"
       />
-    </div> -->
+    </div>
 
     <!-- cptm-preview-area -->
     <div class="cptm-preview-area">
@@ -706,22 +706,22 @@ export default {
       return available_widgets;
     },
 
-    // widgetOptionsWindowActiveStatus() {
-    //   console.log("@widgetOptionsWindowActiveStatus", {
-    //     widgetOptionsWindow: this.widgetOptionsWindow,
-    //   });
-    //   if (!this.widgetOptionsWindow.widget.length) {
-    //     return false;
-    //   }
-    //   if (
-    //     typeof this.active_widgets[this.widgetOptionsWindow.widget] ===
-    //     "undefined"
-    //   ) {
-    //     return false;
-    //   }
+    widgetOptionsWindowActiveStatus() {
+      console.log("@widgetOptionsWindowActiveStatus", {
+        widgetOptionsWindow: this.widgetOptionsWindow,
+      });
+      if (!this.widgetOptionsWindow.widget.length) {
+        return false;
+      }
+      if (
+        typeof this.active_widgets[this.widgetOptionsWindow.widget] ===
+        "undefined"
+      ) {
+        return false;
+      }
 
-    //   return true;
-    // },
+      return true;
+    },
 
     _currentDraggingWidget() {
       return this.currentDraggingWidget;

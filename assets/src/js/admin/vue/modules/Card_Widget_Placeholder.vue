@@ -126,7 +126,7 @@
         <options-window
           :active="optionWidgetKey.length !== 0"
           v-bind="widgetOptionsWindow"
-          @update="$emit('update-option-window')"
+          @update="$emit('update-option-window', $event)"
           @close="$emit('close-option-window')"
         />
       </div>

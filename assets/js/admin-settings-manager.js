@@ -20615,21 +20615,18 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       }
       return available_widgets;
     },
-    // widgetOptionsWindowActiveStatus() {
-    //   console.log("@widgetOptionsWindowActiveStatus", {
-    //     widgetOptionsWindow: this.widgetOptionsWindow,
-    //   });
-    //   if (!this.widgetOptionsWindow.widget.length) {
-    //     return false;
-    //   }
-    //   if (
-    //     typeof this.active_widgets[this.widgetOptionsWindow.widget] ===
-    //     "undefined"
-    //   ) {
-    //     return false;
-    //   }
-    //   return true;
-    // },
+    widgetOptionsWindowActiveStatus: function widgetOptionsWindowActiveStatus() {
+      console.log("@widgetOptionsWindowActiveStatus", {
+        widgetOptionsWindow: this.widgetOptionsWindow
+      });
+      if (!this.widgetOptionsWindow.widget.length) {
+        return false;
+      }
+      if (typeof this.active_widgets[this.widgetOptionsWindow.widget] === "undefined") {
+        return false;
+      }
+      return true;
+    },
     _currentDraggingWidget: function _currentDraggingWidget() {
       return this.currentDraggingWidget;
     },
@@ -28158,7 +28155,7 @@ var render = function render() {
     },
     on: {
       update: function update($event) {
-        return _vm.$emit("update-option-window");
+        return _vm.$emit("update-option-window", $event);
       },
       close: function close($event) {
         return _vm.$emit("close-option-window");
@@ -32120,7 +32117,21 @@ var render = function render() {
     _c = _vm._self._c;
   return _c("div", {
     staticClass: "cptm-builder-section"
-  }, [_c("div", {
+  }, [_vm.widgetOptionsWindowActiveStatus ? _c("div", {
+    staticClass: "cptm-options-area"
+  }, [_c("options-window", _vm._b({
+    attrs: {
+      active: _vm.widgetOptionsWindowActiveStatus
+    },
+    on: {
+      update: function update($event) {
+        return _vm.updateWidgetOptionsData($event, _vm.widgetOptionsWindow);
+      },
+      close: function close($event) {
+        return _vm.closeWidgetOptionsWindow();
+      }
+    }
+  }, "options-window", _vm.widgetOptionsWindow, false))], 1) : _vm._e(), _vm._v(" "), _c("div", {
     staticClass: "cptm-preview-area"
   }, [_c("div", {
     staticClass: "cptm-card-preview-widget grid-view-with-thumbnail"

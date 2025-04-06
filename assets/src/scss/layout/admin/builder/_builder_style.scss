@@ -2713,6 +2713,24 @@ input[type="radio"].cptm-radio {
         left: 100%;
       }
     }
+    &.cptm-text-left {
+      ~ .cptm-options-area {
+        left: unset;
+        right: 100%;
+      }
+    }
+    &.cptm-text-right {
+      ~ .cptm-options-area {
+        right: unset;
+        left: calc(100% - 40px);
+      }
+    }
+    &.cptm-text-center {
+      ~ .cptm-options-area {
+        right: 50%;
+        transform: translateX(-50px);
+      }
+    }
     &:not(.cptm-listing-card-preview-body-placeholder) {
       .cptm-widget-preview-card {
         display: inline-flex;

@@ -7381,14 +7381,15 @@ __webpack_require__.r(__webpack_exports__);
 /*!*****************************************************************************************************!*\
   !*** ./assets/src/js/admin/vue/modules/form-fields/Card_Builder_Grid_View_With_Thumbnail_Field.vue ***!
   \*****************************************************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Card_Builder_Grid_View_With_Thumbnail_Field_vue_vue_type_template_id_c3b10dd2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Card_Builder_Grid_View_With_Thumbnail_Field.vue?vue&type=template&id=c3b10dd2 */ "./assets/src/js/admin/vue/modules/form-fields/Card_Builder_Grid_View_With_Thumbnail_Field.vue?vue&type=template&id=c3b10dd2");
 /* harmony import */ var _Card_Builder_Grid_View_With_Thumbnail_Field_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Card_Builder_Grid_View_With_Thumbnail_Field.vue?vue&type=script&lang=js */ "./assets/src/js/admin/vue/modules/form-fields/Card_Builder_Grid_View_With_Thumbnail_Field.vue?vue&type=script&lang=js");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _Card_Builder_Grid_View_With_Thumbnail_Field_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _Card_Builder_Grid_View_With_Thumbnail_Field_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -7418,7 +7419,7 @@ component.options.__file = "assets/src/js/admin/vue/modules/form-fields/Card_Bui
 /*!*****************************************************************************************************************************!*\
   !*** ./assets/src/js/admin/vue/modules/form-fields/Card_Builder_Grid_View_With_Thumbnail_Field.vue?vue&type=script&lang=js ***!
   \*****************************************************************************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -15808,10 +15809,6 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       type: Boolean,
       default: false
     },
-    widgetOptionsWindowActiveStatus: {
-      type: Boolean,
-      default: false
-    },
     widgetOptionsWindow: {
       type: Object,
       default: function _default() {
@@ -15894,6 +15891,11 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         return;
       }
       this.activeWidgetKey = widgetKey;
+    }
+  },
+  watch: {
+    output_data: function output_data() {
+      this.$emit("update", this.output_data);
     }
   }
 });
@@ -16662,7 +16664,6 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     updateFieldData: function updateFieldData(value, field_key) {
-      console.log("@updateFieldData", value, field_key);
       this.local_fields[field_key].value = value;
       this.$emit("update", this.local_fields);
     }
@@ -21088,9 +21089,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       return available_widgets;
     },
     widgetOptionsWindowActiveStatus: function widgetOptionsWindowActiveStatus() {
-      console.log("@widgetOptionsWindowActiveStatus", {
-        widgetOptionsWindow: this.widgetOptionsWindow
-      });
       if (!this.widgetOptionsWindow.widget.length) {
         return false;
       }
@@ -21438,20 +21436,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     handleDragleaveOnPlaceholder: function handleDragleaveOnPlaceholder(where) {
       // console.log( 'handleDragleaveOnPlaceholder', where );
     },
-    isWidgetOptionsWindowActive: function isWidgetOptionsWindowActive(key) {
-      console.log("@isWidgetOptionsWindowActive", {
-        widgetOptionsWindow: this.widgetOptionsWindow,
-        key: key,
-        active: key === this.widgetOptionsWindow.widget
-      });
-      if (key === this.widgetOptionsWindow.widget) {
-        return true;
-      }
-      return false;
-    },
     editWidget: function editWidget(key) {
-      console.log("@editWidget", key);
-      if (typeof this.active_widgets[key] === "undefined") {
+      if (typeof this.active_widgets[key] === "undefined" || this.widgetOptionsWindowActiveStatus) {
         return;
       }
       if (!this.active_widgets[key].options && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(this.active_widgets[key].options) !== "object") {
@@ -28584,7 +28570,7 @@ var render = function render() {
         }
       }
     })], 1)] : _vm._e()];
-  })], 2) : _vm._e(), _vm._v(" "), _vm.optionWidgetKey === _vm.activeWidgetKey ? _c("div", {
+  })], 2) : _vm._e()]), _vm._v(" "), _vm.optionWidgetKey === _vm.activeWidgetKey ? _c("div", {
     staticClass: "cptm-options-area"
   }, [_c("options-window", _vm._b({
     attrs: {
@@ -28598,7 +28584,7 @@ var render = function render() {
         return _vm.$emit("close-option-window");
       }
     }
-  }, "options-window", _vm.widgetOptionsWindow, false))], 1) : _vm._e()]), _vm._v(" "), _vm.enable_widget ? _c("span", {
+  }, "options-window", _vm.widgetOptionsWindow, false))], 1) : _vm._e(), _vm._v(" "), _vm.enable_widget ? _c("span", {
     staticClass: "cptm-widget-card-status",
     class: this.selectedWidgets.length > 0 ? "enabled" : "disabled",
     style: {
@@ -32554,21 +32540,7 @@ var render = function render() {
     _c = _vm._self._c;
   return _c("div", {
     staticClass: "cptm-builder-section"
-  }, [_vm.widgetOptionsWindowActiveStatus ? _c("div", {
-    staticClass: "cptm-options-area"
-  }, [_c("options-window", _vm._b({
-    attrs: {
-      active: _vm.widgetOptionsWindowActiveStatus
-    },
-    on: {
-      update: function update($event) {
-        return _vm.updateWidgetOptionsData($event, _vm.widgetOptionsWindow);
-      },
-      close: function close($event) {
-        return _vm.closeWidgetOptionsWindow();
-      }
-    }
-  }, "options-window", _vm.widgetOptionsWindow, false))], 1) : _vm._e(), _vm._v(" "), _c("div", {
+  }, [_c("div", {
     staticClass: "cptm-preview-area"
   }, [_c("div", {
     staticClass: "cptm-card-preview-widget grid-view-with-thumbnail"
@@ -32618,12 +32590,6 @@ var render = function render() {
       },
       "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
         return _vm.closeOptionWindow();
-      },
-      "update-option-window": function updateOptionWindow($event) {
-        return _vm.updateWidgetOptionsData($event, _vm.widgetOptionsWindow);
-      },
-      "close-option-window": function closeOptionWindow($event) {
-        return _vm.closeWidgetOptionsWindow();
       }
     }
   })], 1), _vm._v(" "), _c("div", {
@@ -32664,12 +32630,6 @@ var render = function render() {
       },
       "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
         return _vm.closeOptionWindow();
-      },
-      "update-option-window": function updateOptionWindow($event) {
-        return _vm.updateWidgetOptionsData($event, _vm.widgetOptionsWindow);
-      },
-      "close-option-window": function closeOptionWindow($event) {
-        return _vm.closeWidgetOptionsWindow();
       }
     }
   })], 1), _vm._v(" "), _c("div", {
@@ -32710,12 +32670,6 @@ var render = function render() {
       },
       "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
         return _vm.closeOptionWindow();
-      },
-      "update-option-window": function updateOptionWindow($event) {
-        return _vm.updateWidgetOptionsData($event, _vm.widgetOptionsWindow);
-      },
-      "close-option-window": function closeOptionWindow($event) {
-        return _vm.closeWidgetOptionsWindow();
       }
     }
   })], 1), _vm._v(" "), _c("div", {
@@ -32756,12 +32710,6 @@ var render = function render() {
       },
       "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
         return _vm.closeOptionWindow();
-      },
-      "update-option-window": function updateOptionWindow($event) {
-        return _vm.updateWidgetOptionsData($event, _vm.widgetOptionsWindow);
-      },
-      "close-option-window": function closeOptionWindow($event) {
-        return _vm.closeWidgetOptionsWindow();
       }
     }
   })], 1), _vm._v(" "), _vm._m(0)])])]), _vm._v(" "), _c("div", {
@@ -32838,12 +32786,6 @@ var render = function render() {
       },
       "toggle-widget-status": function toggleWidgetStatus($event) {
         return _vm.toggleWidgetStatus(_vm.local_layout.body.top);
-      },
-      "update-option-window": function updateOptionWindow($event) {
-        return _vm.updateWidgetOptionsData($event, _vm.widgetOptionsWindow);
-      },
-      "close-option-window": function closeOptionWindow($event) {
-        return _vm.closeWidgetOptionsWindow();
       }
     }
   }), _vm._v(" "), _c("card-widget-placeholder", {
@@ -32870,12 +32812,6 @@ var render = function render() {
       },
       "toggle-widget-status": function toggleWidgetStatus($event) {
         return _vm.toggleWidgetStatus(_vm.local_layout.body.tagline);
-      },
-      "update-option-window": function updateOptionWindow($event) {
-        return _vm.updateWidgetOptionsData($event, _vm.widgetOptionsWindow);
-      },
-      "close-option-window": function closeOptionWindow($event) {
-        return _vm.closeWidgetOptionsWindow();
       }
     }
   }), _vm._v(" "), _c("div", {
@@ -32916,12 +32852,6 @@ var render = function render() {
       },
       "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
         return _vm.closeOptionWindow();
-      },
-      "update-option-window": function updateOptionWindow($event) {
-        return _vm.updateWidgetOptionsData($event, _vm.widgetOptionsWindow);
-      },
-      "close-option-window": function closeOptionWindow($event) {
-        return _vm.closeWidgetOptionsWindow();
       }
     }
   })], 1), _vm._v(" "), _c("div", {
@@ -32962,12 +32892,6 @@ var render = function render() {
       },
       "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
         return _vm.closeOptionWindow();
-      },
-      "update-option-window": function updateOptionWindow($event) {
-        return _vm.updateWidgetOptionsData($event, _vm.widgetOptionsWindow);
-      },
-      "close-option-window": function closeOptionWindow($event) {
-        return _vm.closeWidgetOptionsWindow();
       }
     }
   })], 1)], 1), _vm._v(" "), _c("div", {
@@ -33010,12 +32934,6 @@ var render = function render() {
       },
       "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
         return _vm.closeOptionWindow();
-      },
-      "update-option-window": function updateOptionWindow($event) {
-        return _vm.updateWidgetOptionsData($event, _vm.widgetOptionsWindow);
-      },
-      "close-option-window": function closeOptionWindow($event) {
-        return _vm.closeWidgetOptionsWindow();
       }
     }
   })], 1), _vm._v(" "), _c("div", {
@@ -33056,12 +32974,6 @@ var render = function render() {
       },
       "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
         return _vm.closeOptionWindow();
-      },
-      "update-option-window": function updateOptionWindow($event) {
-        return _vm.updateWidgetOptionsData($event, _vm.widgetOptionsWindow);
-      },
-      "close-option-window": function closeOptionWindow($event) {
-        return _vm.closeWidgetOptionsWindow();
       }
     }
   })], 1)])])]), _vm._v(" "), _c("div", {

@@ -1,15 +1,5 @@
 <template>
   <div class="cptm-builder-section">
-    <!-- cptm-options-area -->
-    <div class="cptm-options-area" v-if="widgetOptionsWindowActiveStatus">
-      <options-window
-        :active="widgetOptionsWindowActiveStatus"
-        v-bind="widgetOptionsWindow"
-        @update="updateWidgetOptionsData($event, widgetOptionsWindow)"
-        @close="closeWidgetOptionsWindow()"
-      />
-    </div>
-
     <!-- cptm-preview-area -->
     <div class="cptm-preview-area">
       <div class="cptm-card-preview-widget grid-view-with-thumbnail">
@@ -55,10 +45,6 @@
                     "
                     @close-widgets-picker-window="closeInsertWindow()"
                     @close-widgets-option-window="closeOptionWindow()"
-                    @update-option-window="
-                      updateWidgetOptionsData($event, widgetOptionsWindow)
-                    "
-                    @close-option-window="closeWidgetOptionsWindow()"
                     editOnClick
                   />
                 </div>
@@ -100,10 +86,6 @@
                     "
                     @close-widgets-picker-window="closeInsertWindow()"
                     @close-widgets-option-window="closeOptionWindow()"
-                    @update-option-window="
-                      updateWidgetOptionsData($event, widgetOptionsWindow)
-                    "
-                    @close-option-window="closeWidgetOptionsWindow()"
                     editOnClick
                   />
                 </div>
@@ -145,10 +127,6 @@
                     "
                     @close-widgets-picker-window="closeInsertWindow()"
                     @close-widgets-option-window="closeOptionWindow()"
-                    @update-option-window="
-                      updateWidgetOptionsData($event, widgetOptionsWindow)
-                    "
-                    @close-option-window="closeWidgetOptionsWindow()"
                     editOnClick
                   />
                 </div>
@@ -190,10 +168,6 @@
                     "
                     @close-widgets-picker-window="closeInsertWindow()"
                     @close-widgets-option-window="closeOptionWindow()"
-                    @update-option-window="
-                      updateWidgetOptionsData($event, widgetOptionsWindow)
-                    "
-                    @close-option-window="closeWidgetOptionsWindow()"
                     editOnClick
                   />
                 </div>
@@ -263,10 +237,6 @@
               @edit-widget="editWidget($event)"
               @trash-widget="trashWidget($event, local_layout.body.top)"
               @toggle-widget-status="toggleWidgetStatus(local_layout.body.top)"
-              @update-option-window="
-                updateWidgetOptionsData($event, widgetOptionsWindow)
-              "
-              @close-option-window="closeWidgetOptionsWindow()"
               editOnClick
             />
             <card-widget-placeholder
@@ -286,10 +256,6 @@
               @toggle-widget-status="
                 toggleWidgetStatus(local_layout.body.tagline)
               "
-              @update-option-window="
-                updateWidgetOptionsData($event, widgetOptionsWindow)
-              "
-              @close-option-window="closeWidgetOptionsWindow()"
               editOnClick
             />
 
@@ -321,10 +287,6 @@
                 "
                 @close-widgets-picker-window="closeInsertWindow()"
                 @close-widgets-option-window="closeOptionWindow()"
-                @update-option-window="
-                  updateWidgetOptionsData($event, widgetOptionsWindow)
-                "
-                @close-option-window="closeWidgetOptionsWindow()"
                 editOnClick
               />
             </div>
@@ -357,10 +319,6 @@
                 "
                 @close-widgets-picker-window="closeInsertWindow()"
                 @close-widgets-option-window="closeOptionWindow()"
-                @update-option-window="
-                  updateWidgetOptionsData($event, widgetOptionsWindow)
-                "
-                @close-option-window="closeWidgetOptionsWindow()"
                 editOnClick
               />
             </div>
@@ -428,10 +386,6 @@
                 "
                 @close-widgets-picker-window="closeInsertWindow()"
                 @close-widgets-option-window="closeOptionWindow()"
-                @update-option-window="
-                  updateWidgetOptionsData($event, widgetOptionsWindow)
-                "
-                @close-option-window="closeWidgetOptionsWindow()"
                 editOnClick
               />
             </div>
@@ -465,10 +419,6 @@
                 "
                 @close-widgets-picker-window="closeInsertWindow()"
                 @close-widgets-option-window="closeOptionWindow()"
-                @update-option-window="
-                  updateWidgetOptionsData($event, widgetOptionsWindow)
-                "
-                @close-option-window="closeWidgetOptionsWindow()"
                 editOnClick
               />
             </div>
@@ -707,9 +657,6 @@ export default {
     },
 
     widgetOptionsWindowActiveStatus() {
-      console.log("@widgetOptionsWindowActiveStatus", {
-        widgetOptionsWindow: this.widgetOptionsWindow,
-      });
       if (!this.widgetOptionsWindow.widget.length) {
         return false;
       }
@@ -1142,23 +1089,11 @@ export default {
       // console.log( 'handleDragleaveOnPlaceholder', where );
     },
 
-    isWidgetOptionsWindowActive(key) {
-      console.log("@isWidgetOptionsWindowActive", {
-        widgetOptionsWindow: this.widgetOptionsWindow,
-        key,
-        active: key === this.widgetOptionsWindow.widget,
-      });
-
-      if (key === this.widgetOptionsWindow.widget) {
-        return true;
-      }
-
-      return false;
-    },
-
     editWidget(key) {
-      console.log("@editWidget", key);
-      if (typeof this.active_widgets[key] === "undefined") {
+      if (
+        typeof this.active_widgets[key] === "undefined" ||
+        this.widgetOptionsWindowActiveStatus
+      ) {
         return;
       }
 

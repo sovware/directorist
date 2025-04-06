@@ -121,16 +121,17 @@
           </template>
         </template>
       </div>
-
-      <div class="cptm-options-area" v-if="optionWidgetKey === activeWidgetKey">
-        <options-window
-          :active="optionWidgetKey.length !== 0"
-          v-bind="widgetOptionsWindow"
-          @update="$emit('update-option-window', $event)"
-          @close="$emit('close-option-window')"
-        />
-      </div>
     </div>
+
+    <div class="cptm-options-area" v-if="optionWidgetKey === activeWidgetKey">
+      <options-window
+        :active="optionWidgetKey.length !== 0"
+        v-bind="widgetOptionsWindow"
+        @update="$emit('update-option-window', $event)"
+        @close="$emit('close-option-window')"
+      />
+    </div>
+
     <span
       class="cptm-widget-card-status"
       :class="this.selectedWidgets.length > 0 ? 'enabled' : 'disabled'"
@@ -215,10 +216,6 @@ export default {
       default: false,
     },
     editOnClick: {
-      type: Boolean,
-      default: false,
-    },
-    widgetOptionsWindowActiveStatus: {
       type: Boolean,
       default: false,
     },
@@ -326,6 +323,12 @@ export default {
       }
 
       this.activeWidgetKey = widgetKey;
+    },
+  },
+
+  watch: {
+    output_data() {
+      this.$emit("update", this.output_data);
     },
   },
 };

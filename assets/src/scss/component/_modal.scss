@@ -197,7 +197,7 @@
         margin-top: 55px;
         margin-bottom: 80px;
         padding: 30px 30px 0;
-        height: calc(100vh - 220px);
+        height: calc(100dvh - 250px);
       }
 
       .directorist-search-field {
@@ -218,7 +218,7 @@
             }
           }
         }
-        .directorist-form-group__prefix--start{
+        .directorist-form-group__prefix--start {
           opacity: 0;
           transition: opacity 0.3s ease;
         }
@@ -238,12 +238,12 @@
           bottom: 12px;
           cursor: pointer;
           @include m(clear) {
+            opacity: 0;
+            visibility: hidden;
             right: 0;
             i::after {
               width: 16px;
               height: 16px;
-              opacity: 0;
-              visibility: hidden;
               background-color: #bcbcbc;
               transition: background-color 0.3s ease;
             }
@@ -280,17 +280,17 @@
               opacity: 1;
             }
           }
-          .directorist-form-group__prefix--start{
+          .directorist-form-group__prefix--start {
             opacity: 1;
           }
-          .directorist-form-group__prefix--end{
+          .directorist-form-group__prefix--end {
             margin-right: 25px;
           }
           .directorist-search-field__label {
             top: 0;
             font-size: 13px;
           }
-          .directorist-search-field__btn i::after {
+          .directorist-search-field__btn {
             opacity: 1;
             visibility: visible;
           }
@@ -772,7 +772,7 @@
           }
         }
       }
-      .directorist-search-field__btn i::after {
+      .directorist-search-field__btn {
         opacity: 1;
         visibility: visible;
       }
@@ -854,6 +854,9 @@
       overflow-y: auto;
       z-index: 100;
       display: none;
+      &.dropdown-content-show {
+        display: block;
+      }
       .directorist-search-tags {
         gap: 12px;
         flex-direction: column;
@@ -876,8 +879,15 @@
   }
 }
 
-.directorist-content-active .directorist-search-modal__input .select2.select2-container .select2-selection {
-  border: 0 none !important;
+.directorist-content-active {
+  &.directorist-overlay-active {
+    overflow: hidden;
+  }
+  .directorist-search-modal__input
+    .select2.select2-container
+    .select2-selection {
+    border: 0 none !important;
+  }
 }
 
 /* Responsive CSS */

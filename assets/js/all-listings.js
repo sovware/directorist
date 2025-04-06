@@ -1602,12 +1602,12 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     if (fields.address && fields.address.length) {
       fields.cityLat = $(this).find('#cityLat').val();
       fields.cityLng = $(this).find('#cityLng').val();
-      fields.miles = $(this).find('.directorist-custom-range-slider__value input').val();
+      fields.miles = $(this).find('input[name="miles"]').val();
     }
     if (fields.zip && fields.zip.length) {
       fields.zip_cityLat = $(this).find('.zip-cityLat').val();
       fields.zip_cityLng = $(this).find('.zip-cityLng').val();
-      fields.miles = $(this).find('.directorist-custom-range-slider__value input').val();
+      fields.miles = $(this).find('input[name="miles"]').val();
     }
     var form_data = _objectSpread(_objectSpread({}, data), fields);
     var allFieldsAreEmpty = Object.values(fields).every(function (item) {
@@ -1861,6 +1861,16 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       if (fields.zip && fields.zip.length) {
         fields.zip_cityLat = $(this).find('.zip-cityLat').val();
         fields.zip_cityLng = $(this).find('.zip-cityLng').val();
+        fields.miles = $(this).find('input[name="miles"]').val();
+      }
+      if (fields.address && fields.address.length) {
+        fields.cityLat = $(this).find('#cityLat').val();
+        fields.cityLng = $(this).find('#cityLng').val();
+        fields.miles = $(this).find('input[name="miles"]').val();
+      }
+      if (fields.zip && fields.zip.length) {
+        fields.zip_cityLat = $(this).find('.zip-cityLat').val();
+        fields.zip_cityLng = $(this).find('.zip-cityLng').val();
         fields.miles = $(this).find('.directorist-custom-range-slider__value input').val();
       }
       var form_data = _objectSpread(_objectSpread({}, data), fields);
@@ -2076,6 +2086,16 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     if ($('input[name="open_now"]').is(':checked')) {
       form_data.open_now = activeForm.find('input[name="open_now"]').val();
     }
+    if (form_data.address && form_data.address.length) {
+      form_data.cityLat = activeForm.find('#cityLat').val();
+      form_data.cityLng = activeForm.find('#cityLng').val();
+      form_data.miles = activeForm.find('input[name="miles"]').val();
+    }
+    if (form_data.zip && form_data.zip.length) {
+      form_data.zip_cityLat = activeForm.find('.zip-cityLat').val();
+      form_data.zip_cityLng = activeForm.find('.zip-cityLng').val();
+      form_data.miles = activeForm.find('input[name="miles"]').val();
+    }
     if (page_no && page_no.length) {
       form_data.paged = page_no;
     }
@@ -2219,6 +2239,16 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     if ($('input[name="open_now"]').is(':checked')) {
       form_data.open_now = activeForm.find('input[name="open_now"]').val();
     }
+    if (form_data.address && form_data.address.length) {
+      form_data.cityLat = activeForm.find('#cityLat').val();
+      form_data.cityLng = activeForm.find('#cityLng').val();
+      form_data.miles = activeForm.find('input[name="miles"]').val();
+    }
+    if (form_data.zip && form_data.zip.length) {
+      form_data.zip_cityLat = activeForm.find('.zip-cityLat').val();
+      form_data.zip_cityLng = activeForm.find('.zip-cityLng').val();
+      form_data.miles = activeForm.find('input[name="miles"]').val();
+    }
     if (directory_type && directory_type.length) {
       form_data.directory_type = directory_type;
     }
@@ -2330,6 +2360,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       }
     }
 
+    console.log(page_no);
     var form_data = {
       action: 'directorist_instant_search',
       _nonce: directorist.ajax_nonce,
@@ -2359,6 +2390,16 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     //business hours
     if ($('input[name="open_now"]').is(':checked')) {
       form_data.open_now = activeForm.find('input[name="open_now"]').val();
+    }
+    if (form_data.address && form_data.address.length) {
+      form_data.cityLat = activeForm.find('#cityLat').val();
+      form_data.cityLng = activeForm.find('#cityLng').val();
+      form_data.miles = activeForm.find('input[name="miles"]').val();
+    }
+    if (form_data.zip && form_data.zip.length) {
+      form_data.zip_cityLat = activeForm.find('.zip-cityLat').val();
+      form_data.zip_cityLng = activeForm.find('.zip-cityLng').val();
+      form_data.miles = activeForm.find('input[name="miles"]').val();
     }
     if (directory_type && directory_type.length) {
       form_data.directory_type = directory_type;
@@ -3386,6 +3427,94 @@ window.addEventListener('load', function () {
 
 /***/ }),
 
+/***/ "./assets/src/js/public/components/update-view-count.js":
+/*!**************************************************************!*\
+  !*** ./assets/src/js/public/components/update-view-count.js ***!
+  \**************************************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/slicedToArray.js");
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__);
+
+
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+/**
+ * Update listings grid view count.
+ */
+jQuery(function ($) {
+  var _window$directorist, _window$localStorage;
+  var isDynamicViewCountCacheEnabled = Boolean((_window$directorist = window.directorist) === null || _window$directorist === void 0 ? void 0 : _window$directorist.dynamic_view_count_cache);
+  if (!isDynamicViewCountCacheEnabled) {
+    return;
+  }
+  var updateMarkup = function updateMarkup(viewCounts) {
+    for (var _i = 0, _Object$entries = Object.entries(viewCounts); _i < _Object$entries.length; _i++) {
+      var _Object$entries$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1___default()(_Object$entries[_i], 2),
+        id = _Object$entries$_i[0],
+        count = _Object$entries$_i[1];
+      var $el = $(".directorist-view-count[data-id=\"".concat(id, "\"]"));
+      var $elIcon = $el.find('.directorist-icon-mask');
+      if ($elIcon.length) {
+        $elIcon[0].nextSibling.textContent = count;
+      } else {
+        $el.text(count);
+      }
+    }
+  };
+  var ids = [];
+  $('.directorist-view-count[data-id]').each(function (i, item) {
+    ids.push(+item.dataset.id);
+  });
+  if (ids.length === 0) {
+    return;
+  }
+  var CACHE_EXPIRATION = 1000 * 60 * 60 * 5; // 5 hours.
+  var cache = (_window$localStorage = window.localStorage) === null || _window$localStorage === void 0 ? void 0 : _window$localStorage.getItem('directorist_view_count');
+  var hasCache = false;
+  if (cache) {
+    var _cache, _cache2;
+    cache = JSON.parse(cache);
+    var cachedIds = ((_cache = cache) === null || _cache === void 0 ? void 0 : _cache.viewCount) || {};
+    hasCache = Object.keys(cachedIds).length;
+    ids = ids.filter(function (id) {
+      return !(id in cachedIds);
+    });
+    if (hasCache && (_cache2 = cache) !== null && _cache2 !== void 0 && _cache2.lastUpdated && Date.now() - cache.lastUpdated < CACHE_EXPIRATION) {
+      updateMarkup(cache.viewCount);
+    }
+    if (!ids.length) {
+      return;
+    }
+  }
+  $.post(directorist.ajax_url, {
+    action: 'directorist_update_view_count',
+    nonce: directorist.directorist_nonce,
+    ids: ids
+  }, function (response) {
+    var _window$localStorage2;
+    if (!response.success) {
+      console.warn(response.data.message);
+      return;
+    }
+    updateMarkup(response.data.view_count);
+    if (hasCache) {
+      response.data.view_count = _objectSpread(_objectSpread({}, cache.viewCount), response.data.view_count);
+    }
+    (_window$localStorage2 = window.localStorage) === null || _window$localStorage2 === void 0 || _window$localStorage2.setItem('directorist_view_count', JSON.stringify({
+      lastUpdated: Date.now(),
+      viewCount: response.data.view_count
+    }));
+  });
+});
+
+/***/ }),
+
 /***/ "./assets/src/js/public/modules/all-listings.js":
 /*!******************************************************!*\
   !*** ./assets/src/js/public/modules/all-listings.js ***!
@@ -3427,6 +3556,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _global_components_select2_custom_control__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(_global_components_select2_custom_control__WEBPACK_IMPORTED_MODULE_16__);
 /* harmony import */ var _components_archive_sidebar__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../components/archive-sidebar */ "./assets/src/js/public/components/archive-sidebar.js");
 /* harmony import */ var _components_archive_sidebar__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(_components_archive_sidebar__WEBPACK_IMPORTED_MODULE_17__);
+/* harmony import */ var _components_update_view_count__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../components/update-view-count */ "./assets/src/js/public/components/update-view-count.js");
 /*
     File: all-listings.js
     Plugin: Directorist – Business Directory & Classified Listings WordPress Plugin
@@ -3455,6 +3585,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 /***/ }),
 
 /***/ "./assets/src/scss/layout/public/main-style.scss":
@@ -3465,6 +3596,36 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/arrayLikeToArray.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/arrayLikeToArray.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
+  return arr2;
+}
+module.exports = _arrayLikeToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/arrayWithHoles.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/arrayWithHoles.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+module.exports = _arrayWithHoles, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
 
@@ -3539,6 +3700,76 @@ module.exports = _defineProperty, module.exports.__esModule = true, module.expor
 
 /***/ }),
 
+/***/ "./node_modules/@babel/runtime/helpers/iterableToArrayLimit.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/iterableToArrayLimit.js ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _iterableToArrayLimit(r, l) {
+  var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"];
+  if (null != t) {
+    var e,
+      n,
+      i,
+      u,
+      a = [],
+      f = !0,
+      o = !1;
+    try {
+      if (i = (t = t.call(r)).next, 0 === l) {
+        if (Object(t) !== t) return;
+        f = !1;
+      } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0);
+    } catch (r) {
+      o = !0, n = r;
+    } finally {
+      try {
+        if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return;
+      } finally {
+        if (o) throw n;
+      }
+    }
+    return a;
+  }
+}
+module.exports = _iterableToArrayLimit, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/nonIterableRest.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/nonIterableRest.js ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+module.exports = _nonIterableRest, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/slicedToArray.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/slicedToArray.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayWithHoles = __webpack_require__(/*! ./arrayWithHoles.js */ "./node_modules/@babel/runtime/helpers/arrayWithHoles.js");
+var iterableToArrayLimit = __webpack_require__(/*! ./iterableToArrayLimit.js */ "./node_modules/@babel/runtime/helpers/iterableToArrayLimit.js");
+var unsupportedIterableToArray = __webpack_require__(/*! ./unsupportedIterableToArray.js */ "./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js");
+var nonIterableRest = __webpack_require__(/*! ./nonIterableRest.js */ "./node_modules/@babel/runtime/helpers/nonIterableRest.js");
+function _slicedToArray(arr, i) {
+  return arrayWithHoles(arr) || iterableToArrayLimit(arr, i) || unsupportedIterableToArray(arr, i) || nonIterableRest();
+}
+module.exports = _slicedToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
 /***/ "./node_modules/@babel/runtime/helpers/toPrimitive.js":
 /*!************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/toPrimitive.js ***!
@@ -3595,6 +3826,26 @@ function _typeof(o) {
   }, module.exports.__esModule = true, module.exports["default"] = module.exports), _typeof(o);
 }
 module.exports = _typeof, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js ***!
+  \***************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray.js */ "./node_modules/@babel/runtime/helpers/arrayLikeToArray.js");
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return arrayLikeToArray(o, minLen);
+}
+module.exports = _unsupportedIterableToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
 

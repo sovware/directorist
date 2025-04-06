@@ -17,6 +17,7 @@
         @close="$emit('close-widgets-option-window')"
       />
     </div>
+
     <div
       class="cptm-placeholder-block"
       :class="[
@@ -323,6 +324,13 @@ export default {
       }
 
       this.activeWidgetKey = widgetKey;
+      console.log("@setActiveWidget", {
+        widgetKey,
+        activeWidgetKey: this.activeWidgetKey,
+        optionWidgetKey: this.optionWidgetKey,
+        editOnClick: this.editOnClick,
+        chk: this.activeWidgetKey === this.optionWidgetKey,
+      });
     },
   },
 

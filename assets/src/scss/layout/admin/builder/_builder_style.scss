@@ -2810,6 +2810,10 @@ input[type="radio"].cptm-radio {
       visibility: visible;
     }
   }
+
+  &.cptm-widget-picker-open {
+    z-index: 100;
+  }
 }
 
 .cptm-placeholder-label {

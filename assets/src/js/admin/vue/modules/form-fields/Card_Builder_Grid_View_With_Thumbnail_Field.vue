@@ -1090,6 +1090,7 @@ export default {
     },
 
     editWidget(key) {
+      console.log("@editWidget", { key, widget: this.active_widgets[key] });
       if (
         typeof this.active_widgets[key] === "undefined" ||
         this.widgetOptionsWindowActiveStatus

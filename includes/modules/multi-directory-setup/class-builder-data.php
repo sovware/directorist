@@ -1902,11 +1902,10 @@ class Builder_Data {
 
         $listing_card_grid_view_without_thumbnail_layout = [
             'body'   => [
-                'avatar'        => [
-                    'label'             => __( 'Avatar', 'directorist' ),
-                    'maxWidget'         => 1,
+                'avatar'       => [
+                    'maxWidget'       => 1,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
-                    'acceptedWidgets' => [ "user_avatar" ],
+                    'acceptedWidgets' => ['user_avatar'],
                 ],
                 'title'         => [
                     'maxWidget'       => 1,

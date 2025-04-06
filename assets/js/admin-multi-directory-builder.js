@@ -7381,15 +7381,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!*****************************************************************************************************!*\
   !*** ./assets/src/js/admin/vue/modules/form-fields/Card_Builder_Grid_View_With_Thumbnail_Field.vue ***!
   \*****************************************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Card_Builder_Grid_View_With_Thumbnail_Field_vue_vue_type_template_id_c3b10dd2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Card_Builder_Grid_View_With_Thumbnail_Field.vue?vue&type=template&id=c3b10dd2 */ "./assets/src/js/admin/vue/modules/form-fields/Card_Builder_Grid_View_With_Thumbnail_Field.vue?vue&type=template&id=c3b10dd2");
 /* harmony import */ var _Card_Builder_Grid_View_With_Thumbnail_Field_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Card_Builder_Grid_View_With_Thumbnail_Field.vue?vue&type=script&lang=js */ "./assets/src/js/admin/vue/modules/form-fields/Card_Builder_Grid_View_With_Thumbnail_Field.vue?vue&type=script&lang=js");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _Card_Builder_Grid_View_With_Thumbnail_Field_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _Card_Builder_Grid_View_With_Thumbnail_Field_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -7419,7 +7418,7 @@ component.options.__file = "assets/src/js/admin/vue/modules/form-fields/Card_Bui
 /*!*****************************************************************************************************************************!*\
   !*** ./assets/src/js/admin/vue/modules/form-fields/Card_Builder_Grid_View_With_Thumbnail_Field.vue?vue&type=script&lang=js ***!
   \*****************************************************************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -15891,6 +15890,13 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         return;
       }
       this.activeWidgetKey = widgetKey;
+      console.log("@setActiveWidget", {
+        widgetKey: widgetKey,
+        activeWidgetKey: this.activeWidgetKey,
+        optionWidgetKey: this.optionWidgetKey,
+        editOnClick: this.editOnClick,
+        chk: this.activeWidgetKey === this.optionWidgetKey
+      });
     }
   },
   watch: {
@@ -17481,8 +17487,8 @@ __webpack_require__.r(__webpack_exports__);
       default: false
     },
     canMove: {
-      type: Boolean,
-      default: true
+      // type: Boolean,
+      // default: true,
     },
     canEdit: {
       type: Boolean,
@@ -21437,6 +21443,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       // console.log( 'handleDragleaveOnPlaceholder', where );
     },
     editWidget: function editWidget(key) {
+      console.log("@editWidget", {
+        key: key,
+        widget: this.active_widgets[key]
+      });
       if (typeof this.active_widgets[key] === "undefined" || this.widgetOptionsWindowActiveStatus) {
         return;
       }
@@ -21709,7 +21719,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       if (!this.widgetOptionsWindow.widget.length) {
         return false;
       }
-      if (typeof this.active_widgets[this.widgetOptionsWindow.widget] === "undedined") {
+      if (typeof this.active_widgets[this.widgetOptionsWindow.widget] === "undefined") {
         return false;
       }
       return true;
@@ -21757,6 +21767,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   data: function data() {
     return {
       active_insert_widget_key: "",
+      active_option_widget_key: "",
       // Widget Options Window
       widgetOptionsWindowDefault: {
         animation: "cptm-animation-flip",
@@ -21778,7 +21789,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       local_layout: {
         body: {
           avatar: {
-            label: "Avater",
+            label: "Avatar",
             selectedWidgets: []
           },
           title: {
@@ -22039,27 +22050,30 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       // console.log( 'handleDragleaveOnPlaceholder', where );
     },
     editWidget: function editWidget(key) {
-      if (typeof this.active_widgets[key] === "undefined") {
+      console.log("@editWidget", {
+        key: key,
+        widget: this.active_widgets[key]
+      });
+      if (typeof this.active_widgets[key] === "undefined" || this.widgetOptionsWindowActiveStatus) {
         return;
       }
       if (!this.active_widgets[key].options && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(this.active_widgets[key].options) !== "object") {
         return;
       }
-
-      // let opt = JSON.parse( JSON.stringify( this.active_widgets[ key ].options ) );
       var opt = this.active_widgets[key].options;
-      this.widgetOptionsWindow = _objectSpread(_objectSpread({}, this.widgetOptionsWindowDefault), opt);
-      this.widgetOptionsWindow.widget = key;
+      this.widgetOptionsWindow = this.widgetOptionsWindowDefault;
+      var self = this;
+      setTimeout(function () {
+        self.widgetOptionsWindow = _objectSpread(_objectSpread({}, self.widgetOptionsWindowDefault), opt);
+        self.widgetOptionsWindow.widget = key;
+      }, 0);
     },
     updateWidgetOptionsData: function updateWidgetOptionsData(data, widget) {
+      console.log("@updateWidgetOptionsData no Image", {
+        data: data,
+        widget: widget
+      });
       return;
-      if (typeof this.active_widgets[widget.widget] === "undefined") {
-        return;
-      }
-      if (typeof this.active_widgets[widget.widget].options === "undefined") {
-        return;
-      }
-      vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(this.active_widgets[widget.widget].options, "fields", data);
     },
     closeWidgetOptionsWindow: function closeWidgetOptionsWindow() {
       this.widgetOptionsWindow = this.widgetOptionsWindowDefault;
@@ -22078,12 +22092,36 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         this.closeWidgetOptionsWindow();
       }
     },
+    toggleWidgetStatus: function toggleWidgetStatus(layout) {
+      var _this = this;
+      if (layout.selectedWidgets.length > 0) {
+        var _layout$selectedWidge;
+        (_layout$selectedWidge = layout.selectedWidgets) === null || _layout$selectedWidge === void 0 || _layout$selectedWidge.map(function (widget) {
+          _this.trashWidget(widget, layout);
+        });
+      } else {
+        var _layout$acceptedWidge;
+        (_layout$acceptedWidge = layout.acceptedWidgets) === null || _layout$acceptedWidge === void 0 || _layout$acceptedWidge.map(function (widget) {
+          _this.insertWidget({
+            key: widget,
+            selected_widgets: [widget]
+          }, layout);
+        });
+      }
+    },
     activeInsertWindow: function activeInsertWindow(current_item_key) {
       if (this.active_insert_widget_key === current_item_key) {
         this.active_insert_widget_key = "";
         return;
       }
       this.active_insert_widget_key = current_item_key;
+    },
+    activeOptionWindow: function activeOptionWindow(current_item_key) {
+      if (this.active_option_widget_key === current_item_key) {
+        this.active_option_widget_key = "";
+        return;
+      }
+      this.active_option_widget_key = current_item_key;
     },
     insertWidget: function insertWidget(payload, where) {
       if (!this.isTruthyObject(this.theAvailableWidgets[payload.key])) {
@@ -22095,8 +22133,17 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     closeInsertWindow: function closeInsertWindow(widget_insert_window) {
       this.active_insert_widget_key = "";
     },
+    closeOptionWindow: function closeOptionWindow(widget_option_window) {
+      this.active_option_widget_key = "";
+    },
     getActiveInsertWindowStatus: function getActiveInsertWindowStatus(current_item_key) {
       if (current_item_key === this.active_insert_widget_key) {
+        return true;
+      }
+      return false;
+    },
+    getActiveOptionWindowStatus: function getActiveOptionWindowStatus(current_item_key) {
+      if (current_item_key === this.active_option_widget_key) {
         return true;
       }
       return false;
@@ -33070,21 +33117,7 @@ var render = function render() {
     _c = _vm._self._c;
   return _c("div", {
     staticClass: "cptm-builder-section"
-  }, [_vm.widgetOptionsWindowActiveStatus ? _c("div", {
-    staticClass: "cptm-options-area"
-  }, [_c("options-window", _vm._b({
-    attrs: {
-      active: _vm.widgetOptionsWindowActiveStatus
-    },
-    on: {
-      update: function update($event) {
-        return _vm.updateWidgetOptionsData($event, _vm.widgetOptionsWindow);
-      },
-      close: function close($event) {
-        return _vm.closeWidgetOptionsWindow();
-      }
-    }
-  }, "options-window", _vm.widgetOptionsWindow, false))], 1) : _vm._e(), _vm._v(" "), _c("div", {
+  }, [_c("div", {
     staticClass: "cptm-preview-area"
   }, [_c("div", {
     staticClass: "cptm-card-preview-widget grid-view-without-thumbnail"
@@ -33107,20 +33140,13 @@ var render = function render() {
       selectedWidgets: _vm.local_layout.body.avatar.selectedWidgets,
       maxWidget: _vm.local_layout.body.avatar.maxWidget,
       showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("body_avatar"),
-      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.body.avatar)
+      showWidgetsOptionWindow: _vm.getActiveOptionWindowStatus("body_avatar"),
+      widgetOptionsWindow: _vm.widgetOptionsWindow,
+      editOnClick: ""
     },
     on: {
       "insert-widget": function insertWidget($event) {
         return _vm.insertWidget($event, _vm.local_layout.body.avatar);
-      },
-      "drag-widget": function dragWidget($event) {
-        return _vm.onDragStartWidget($event, _vm.local_layout.body.avatar);
-      },
-      "drop-widget": function dropWidget($event) {
-        return _vm.appendWidget($event, _vm.local_layout.body.avatar);
-      },
-      "dragend-widget": function dragendWidget($event) {
-        return _vm.onDragEndWidget();
       },
       "edit-widget": function editWidget($event) {
         return _vm.editWidget($event);
@@ -33128,14 +33154,26 @@ var render = function render() {
       "trash-widget": function trashWidget($event) {
         return _vm.trashWidget($event, _vm.local_layout.body.avatar);
       },
-      "placeholder-on-drop": function placeholderOnDrop($event) {
-        return _vm.handleDropOnPlaceholder(_vm.local_layout.body.avatar);
-      },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
         return _vm.activeInsertWindow("body_avatar");
       },
+      "open-widgets-option-window": function openWidgetsOptionWindow($event) {
+        return _vm.activeOptionWindow("thumbnail_top_left");
+      },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
+      },
+      "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
+        return _vm.closeOptionWindow();
+      },
+      "toggle-widget-status": function toggleWidgetStatus($event) {
+        return _vm.toggleWidgetStatus(_vm.local_layout.thumbnail.avatar);
+      },
+      "update-option-window": function updateOptionWindow($event) {
+        return _vm.updateWidgetOptionsData($event, _vm.widgetOptionsWindow);
+      },
+      "close-option-window": function closeOptionWindow($event) {
+        return _vm.closeWidgetOptionsWindow();
       }
     }
   })], 1), _vm._v(" "), _c("div", {
@@ -33150,30 +33188,17 @@ var render = function render() {
       acceptedWidgets: _vm.local_layout.body.title.acceptedWidgets,
       selectedWidgets: _vm.local_layout.body.title.selectedWidgets,
       maxWidget: _vm.local_layout.body.title.maxWidget,
-      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("body_title"),
-      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.body.title)
+      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("body_title")
     },
     on: {
       "insert-widget": function insertWidget($event) {
         return _vm.insertWidget($event, _vm.local_layout.body.title);
-      },
-      "drag-widget": function dragWidget($event) {
-        return _vm.onDragStartWidget($event, _vm.local_layout.body.title);
-      },
-      "drop-widget": function dropWidget($event) {
-        return _vm.appendWidget($event, _vm.local_layout.body.title);
-      },
-      "dragend-widget": function dragendWidget($event) {
-        return _vm.onDragEndWidget();
       },
       "edit-widget": function editWidget($event) {
         return _vm.editWidget($event);
       },
       "trash-widget": function trashWidget($event) {
         return _vm.trashWidget($event, _vm.local_layout.body.title);
-      },
-      "placeholder-on-drop": function placeholderOnDrop($event) {
-        return _vm.handleDropOnPlaceholder(_vm.local_layout.body.title);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
         return _vm.activeInsertWindow("body_title");
@@ -33194,30 +33219,17 @@ var render = function render() {
       acceptedWidgets: _vm.local_layout.body.quick_actions.acceptedWidgets,
       selectedWidgets: _vm.local_layout.body.quick_actions.selectedWidgets,
       maxWidget: _vm.local_layout.body.quick_actions.maxWidget,
-      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("body_quick_actions"),
-      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.body.quick_actions)
+      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("body_quick_actions")
     },
     on: {
       "insert-widget": function insertWidget($event) {
         return _vm.insertWidget($event, _vm.local_layout.body.quick_actions);
-      },
-      "drag-widget": function dragWidget($event) {
-        return _vm.onDragStartWidget($event, _vm.local_layout.body.quick_actions);
-      },
-      "drop-widget": function dropWidget($event) {
-        return _vm.appendWidget($event, _vm.local_layout.body.quick_actions);
-      },
-      "dragend-widget": function dragendWidget($event) {
-        return _vm.onDragEndWidget();
       },
       "edit-widget": function editWidget($event) {
         return _vm.editWidget($event);
       },
       "trash-widget": function trashWidget($event) {
         return _vm.trashWidget($event, _vm.local_layout.body.quick_actions);
-      },
-      "placeholder-on-drop": function placeholderOnDrop($event) {
-        return _vm.handleDropOnPlaceholder(_vm.local_layout.body.quick_actions);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
         return _vm.activeInsertWindow("body_quick_actions");
@@ -33236,30 +33248,17 @@ var render = function render() {
       acceptedWidgets: _vm.local_layout.body.quick_info.acceptedWidgets,
       selectedWidgets: _vm.local_layout.body.quick_info.selectedWidgets,
       maxWidget: _vm.local_layout.body.quick_info.maxWidget,
-      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_quick_info"),
-      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.body.quick_info)
+      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_quick_info")
     },
     on: {
       "insert-widget": function insertWidget($event) {
         return _vm.insertWidget($event, _vm.local_layout.body.quick_info);
-      },
-      "drag-widget": function dragWidget($event) {
-        return _vm.onDragStartWidget($event, _vm.local_layout.body.quick_info);
-      },
-      "drop-widget": function dropWidget($event) {
-        return _vm.appendWidget($event, _vm.local_layout.body.quick_info);
-      },
-      "dragend-widget": function dragendWidget($event) {
-        return _vm.onDragEndWidget();
       },
       "edit-widget": function editWidget($event) {
         return _vm.editWidget($event);
       },
       "trash-widget": function trashWidget($event) {
         return _vm.trashWidget($event, _vm.local_layout.body.quick_info);
-      },
-      "placeholder-on-drop": function placeholderOnDrop($event) {
-        return _vm.handleDropOnPlaceholder(_vm.local_layout.body.quick_info);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
         return _vm.activeInsertWindow("thumbnail_quick_info");
@@ -33278,30 +33277,17 @@ var render = function render() {
       acceptedWidgets: _vm.local_layout.body.bottom.acceptedWidgets,
       selectedWidgets: _vm.local_layout.body.bottom.selectedWidgets,
       maxWidget: _vm.local_layout.body.bottom.maxWidget,
-      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_body_bottom"),
-      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.body.bottom)
+      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_body_bottom")
     },
     on: {
       "insert-widget": function insertWidget($event) {
         return _vm.insertWidget($event, _vm.local_layout.body.bottom);
-      },
-      "drag-widget": function dragWidget($event) {
-        return _vm.onDragStartWidget($event, _vm.local_layout.body.bottom);
-      },
-      "drop-widget": function dropWidget($event) {
-        return _vm.appendWidget($event, _vm.local_layout.body.bottom);
-      },
-      "dragend-widget": function dragendWidget($event) {
-        return _vm.onDragEndWidget();
       },
       "edit-widget": function editWidget($event) {
         return _vm.editWidget($event);
       },
       "trash-widget": function trashWidget($event) {
         return _vm.trashWidget($event, _vm.local_layout.body.bottom);
-      },
-      "placeholder-on-drop": function placeholderOnDrop($event) {
-        return _vm.handleDropOnPlaceholder(_vm.local_layout.body.bottom);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
         return _vm.activeInsertWindow("thumbnail_body_bottom");
@@ -33320,21 +33306,11 @@ var render = function render() {
       acceptedWidgets: _vm.local_layout.body.excerpt.acceptedWidgets,
       selectedWidgets: _vm.local_layout.body.excerpt.selectedWidgets,
       maxWidget: _vm.local_layout.body.excerpt.maxWidget,
-      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("body_excerpr"),
-      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.body.excerpt)
+      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("body_excerpr")
     },
     on: {
       "insert-widget": function insertWidget($event) {
         return _vm.insertWidget($event, _vm.local_layout.body.excerpt);
-      },
-      "drag-widget": function dragWidget($event) {
-        return _vm.onDragStartWidget($event, _vm.local_layout.body.excerpt);
-      },
-      "drop-widget": function dropWidget($event) {
-        return _vm.appendWidget($event, _vm.local_layout.body.excerpt);
-      },
-      "dragend-widget": function dragendWidget($event) {
-        return _vm.onDragEndWidget();
       },
       "edit-widget": function editWidget($event) {
         return _vm.editWidget($event);
@@ -33342,11 +33318,8 @@ var render = function render() {
       "trash-widget": function trashWidget($event) {
         return _vm.trashWidget($event, _vm.local_layout.body.excerpt);
       },
-      "placeholder-on-drop": function placeholderOnDrop($event) {
-        return _vm.handleDropOnPlaceholder(_vm.local_layout.body.excerpt);
-      },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.activeInsertWindow("body_excerpr");
+        return _vm.activeInsertWindow("body_excerpt");
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
@@ -33364,30 +33337,17 @@ var render = function render() {
       acceptedWidgets: _vm.local_layout.footer.left.acceptedWidgets,
       selectedWidgets: _vm.local_layout.footer.left.selectedWidgets,
       maxWidget: _vm.local_layout.footer.left.maxWidget,
-      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_footer_left"),
-      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.footer.left)
+      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_footer_left")
     },
     on: {
       "insert-widget": function insertWidget($event) {
         return _vm.insertWidget($event, _vm.local_layout.footer.left);
-      },
-      "drag-widget": function dragWidget($event) {
-        return _vm.onDragStartWidget($event, _vm.local_layout.footer.left);
-      },
-      "drop-widget": function dropWidget($event) {
-        return _vm.appendWidget($event, _vm.local_layout.footer.left);
-      },
-      "dragend-widget": function dragendWidget($event) {
-        return _vm.onDragEndWidget();
       },
       "edit-widget": function editWidget($event) {
         return _vm.editWidget($event);
       },
       "trash-widget": function trashWidget($event) {
         return _vm.trashWidget($event, _vm.local_layout.footer.left);
-      },
-      "placeholder-on-drop": function placeholderOnDrop($event) {
-        return _vm.handleDropOnPlaceholder(_vm.local_layout.footer.left);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
         return _vm.activeInsertWindow("thumbnail_footer_left");
@@ -33406,30 +33366,17 @@ var render = function render() {
       acceptedWidgets: _vm.local_layout.footer.right.acceptedWidgets,
       selectedWidgets: _vm.local_layout.footer.right.selectedWidgets,
       maxWidget: _vm.local_layout.footer.right.maxWidget,
-      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_footer_right"),
-      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.footer.right)
+      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_footer_right")
     },
     on: {
       "insert-widget": function insertWidget($event) {
         return _vm.insertWidget($event, _vm.local_layout.footer.right);
-      },
-      "drag-widget": function dragWidget($event) {
-        return _vm.onDragStartWidget($event, _vm.local_layout.footer.right);
-      },
-      "drop-widget": function dropWidget($event) {
-        return _vm.appendWidget($event, _vm.local_layout.footer.right);
-      },
-      "dragend-widget": function dragendWidget($event) {
-        return _vm.onDragEndWidget();
       },
       "edit-widget": function editWidget($event) {
         return _vm.editWidget($event);
       },
       "trash-widget": function trashWidget($event) {
         return _vm.trashWidget($event, _vm.local_layout.footer.right);
-      },
-      "placeholder-on-drop": function placeholderOnDrop($event) {
-        return _vm.handleDropOnPlaceholder(_vm.local_layout.footer.right);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
         return _vm.activeInsertWindow("thumbnail_footer_right");

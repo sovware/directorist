@@ -1,14 +1,14 @@
 <template>
   <div class="cptm-builder-section">
     <!-- cptm-options-area -->
-    <div class="cptm-options-area" v-if="widgetOptionsWindowActiveStatus">
+    <!-- <div class="cptm-options-area" v-if="widgetOptionsWindowActiveStatus">
       <options-window
         :active="widgetOptionsWindowActiveStatus"
         v-bind="widgetOptionsWindow"
         @update="updateWidgetOptionsData($event, widgetOptionsWindow)"
         @close="closeWidgetOptionsWindow()"
       />
-    </div>
+    </div> -->
 
     <!-- cptm-preview-area -->
     <div class="cptm-preview-area">
@@ -33,24 +33,31 @@
                   :showWidgetsPickerWindow="
                     getActiveInsertWindowStatus('body_avatar')
                   "
-                  :widgetDropable="widgetIsDropable(local_layout.body.avatar)"
+                  :showWidgetsOptionWindow="
+                    getActiveOptionWindowStatus('body_avatar')
+                  "
+                  :widgetOptionsWindow="widgetOptionsWindow"
                   @insert-widget="
                     insertWidget($event, local_layout.body.avatar)
                   "
-                  @drag-widget="
-                    onDragStartWidget($event, local_layout.body.avatar)
-                  "
-                  @drop-widget="appendWidget($event, local_layout.body.avatar)"
-                  @dragend-widget="onDragEndWidget()"
                   @edit-widget="editWidget($event)"
                   @trash-widget="trashWidget($event, local_layout.body.avatar)"
-                  @placeholder-on-drop="
-                    handleDropOnPlaceholder(local_layout.body.avatar)
-                  "
                   @open-widgets-picker-window="
                     activeInsertWindow('body_avatar')
                   "
+                  @open-widgets-option-window="
+                    activeOptionWindow('thumbnail_top_left')
+                  "
                   @close-widgets-picker-window="closeInsertWindow()"
+                  @close-widgets-option-window="closeOptionWindow()"
+                  @toggle-widget-status="
+                    toggleWidgetStatus(local_layout.thumbnail.avatar)
+                  "
+                  @update-option-window="
+                    updateWidgetOptionsData($event, widgetOptionsWindow)
+                  "
+                  @close-option-window="closeWidgetOptionsWindow()"
+                  editOnClick
                 />
               </div>
 
@@ -68,18 +75,9 @@
                   :showWidgetsPickerWindow="
                     getActiveInsertWindowStatus('body_title')
                   "
-                  :widgetDropable="widgetIsDropable(local_layout.body.title)"
                   @insert-widget="insertWidget($event, local_layout.body.title)"
-                  @drag-widget="
-                    onDragStartWidget($event, local_layout.body.title)
-                  "
-                  @drop-widget="appendWidget($event, local_layout.body.title)"
-                  @dragend-widget="onDragEndWidget()"
                   @edit-widget="editWidget($event)"
                   @trash-widget="trashWidget($event, local_layout.body.title)"
-                  @placeholder-on-drop="
-                    handleDropOnPlaceholder(local_layout.body.title)
-                  "
                   @open-widgets-picker-window="activeInsertWindow('body_title')"
                   @close-widgets-picker-window="closeInsertWindow()"
                 />
@@ -105,25 +103,12 @@
                   :showWidgetsPickerWindow="
                     getActiveInsertWindowStatus('body_quick_actions')
                   "
-                  :widgetDropable="
-                    widgetIsDropable(local_layout.body.quick_actions)
-                  "
                   @insert-widget="
                     insertWidget($event, local_layout.body.quick_actions)
                   "
-                  @drag-widget="
-                    onDragStartWidget($event, local_layout.body.quick_actions)
-                  "
-                  @drop-widget="
-                    appendWidget($event, local_layout.body.quick_actions)
-                  "
-                  @dragend-widget="onDragEndWidget()"
                   @edit-widget="editWidget($event)"
                   @trash-widget="
                     trashWidget($event, local_layout.body.quick_actions)
-                  "
-                  @placeholder-on-drop="
-                    handleDropOnPlaceholder(local_layout.body.quick_actions)
                   "
                   @open-widgets-picker-window="
                     activeInsertWindow('body_quick_actions')
@@ -145,20 +130,11 @@
               :showWidgetsPickerWindow="
                 getActiveInsertWindowStatus('thumbnail_quick_info')
               "
-              :widgetDropable="widgetIsDropable(local_layout.body.quick_info)"
               @insert-widget="
                 insertWidget($event, local_layout.body.quick_info)
               "
-              @drag-widget="
-                onDragStartWidget($event, local_layout.body.quick_info)
-              "
-              @drop-widget="appendWidget($event, local_layout.body.quick_info)"
-              @dragend-widget="onDragEndWidget()"
               @edit-widget="editWidget($event)"
               @trash-widget="trashWidget($event, local_layout.body.quick_info)"
-              @placeholder-on-drop="
-                handleDropOnPlaceholder(local_layout.body.quick_info)
-              "
               @open-widgets-picker-window="
                 activeInsertWindow('thumbnail_quick_info')
               "
@@ -177,16 +153,9 @@
               :showWidgetsPickerWindow="
                 getActiveInsertWindowStatus('thumbnail_body_bottom')
               "
-              :widgetDropable="widgetIsDropable(local_layout.body.bottom)"
               @insert-widget="insertWidget($event, local_layout.body.bottom)"
-              @drag-widget="onDragStartWidget($event, local_layout.body.bottom)"
-              @drop-widget="appendWidget($event, local_layout.body.bottom)"
-              @dragend-widget="onDragEndWidget()"
               @edit-widget="editWidget($event)"
               @trash-widget="trashWidget($event, local_layout.body.bottom)"
-              @placeholder-on-drop="
-                handleDropOnPlaceholder(local_layout.body.bottom)
-              "
               @open-widgets-picker-window="
                 activeInsertWindow('thumbnail_body_bottom')
               "
@@ -207,19 +176,10 @@
               :showWidgetsPickerWindow="
                 getActiveInsertWindowStatus('body_excerpr')
               "
-              :widgetDropable="widgetIsDropable(local_layout.body.excerpt)"
               @insert-widget="insertWidget($event, local_layout.body.excerpt)"
-              @drag-widget="
-                onDragStartWidget($event, local_layout.body.excerpt)
-              "
-              @drop-widget="appendWidget($event, local_layout.body.excerpt)"
-              @dragend-widget="onDragEndWidget()"
               @edit-widget="editWidget($event)"
               @trash-widget="trashWidget($event, local_layout.body.excerpt)"
-              @placeholder-on-drop="
-                handleDropOnPlaceholder(local_layout.body.excerpt)
-              "
-              @open-widgets-picker-window="activeInsertWindow('body_excerpr')"
+              @open-widgets-picker-window="activeInsertWindow('body_excerpt')"
               @close-widgets-picker-window="closeInsertWindow()"
             />
           </div>
@@ -239,16 +199,9 @@
               :showWidgetsPickerWindow="
                 getActiveInsertWindowStatus('thumbnail_footer_left')
               "
-              :widgetDropable="widgetIsDropable(local_layout.footer.left)"
               @insert-widget="insertWidget($event, local_layout.footer.left)"
-              @drag-widget="onDragStartWidget($event, local_layout.footer.left)"
-              @drop-widget="appendWidget($event, local_layout.footer.left)"
-              @dragend-widget="onDragEndWidget()"
               @edit-widget="editWidget($event)"
               @trash-widget="trashWidget($event, local_layout.footer.left)"
-              @placeholder-on-drop="
-                handleDropOnPlaceholder(local_layout.footer.left)
-              "
               @open-widgets-picker-window="
                 activeInsertWindow('thumbnail_footer_left')
               "
@@ -268,18 +221,9 @@
               :showWidgetsPickerWindow="
                 getActiveInsertWindowStatus('thumbnail_footer_right')
               "
-              :widgetDropable="widgetIsDropable(local_layout.footer.right)"
               @insert-widget="insertWidget($event, local_layout.footer.right)"
-              @drag-widget="
-                onDragStartWidget($event, local_layout.footer.right)
-              "
-              @drop-widget="appendWidget($event, local_layout.footer.right)"
-              @dragend-widget="onDragEndWidget()"
               @edit-widget="editWidget($event)"
               @trash-widget="trashWidget($event, local_layout.footer.right)"
-              @placeholder-on-drop="
-                handleDropOnPlaceholder(local_layout.footer.right)
-              "
               @open-widgets-picker-window="
                 activeInsertWindow('thumbnail_footer_right')
               "
@@ -526,7 +470,7 @@ export default {
       }
       if (
         typeof this.active_widgets[this.widgetOptionsWindow.widget] ===
-        "undedined"
+        "undefined"
       ) {
         return false;
       }
@@ -591,6 +535,7 @@ export default {
   data() {
     return {
       active_insert_widget_key: "",
+      active_option_widget_key: "",
 
       // Widget Options Window
       widgetOptionsWindowDefault: {
@@ -615,7 +560,7 @@ export default {
       local_layout: {
         body: {
           avatar: {
-            label: "Avater",
+            label: "Avatar",
             selectedWidgets: [],
           },
           title: {
@@ -941,7 +886,11 @@ export default {
     },
 
     editWidget(key) {
-      if (typeof this.active_widgets[key] === "undefined") {
+      console.log("@editWidget", { key, widget: this.active_widgets[key] });
+      if (
+        typeof this.active_widgets[key] === "undefined" ||
+        this.widgetOptionsWindowActiveStatus
+      ) {
         return;
       }
 
@@ -952,24 +901,23 @@ export default {
         return;
       }
 
-      // let opt = JSON.parse( JSON.stringify( this.active_widgets[ key ].options ) );
       let opt = this.active_widgets[key].options;
-      this.widgetOptionsWindow = { ...this.widgetOptionsWindowDefault, ...opt };
-      this.widgetOptionsWindow.widget = key;
+      this.widgetOptionsWindow = this.widgetOptionsWindowDefault;
+
+      const self = this;
+
+      setTimeout(() => {
+        self.widgetOptionsWindow = {
+          ...self.widgetOptionsWindowDefault,
+          ...opt,
+        };
+        self.widgetOptionsWindow.widget = key;
+      }, 0);
     },
 
     updateWidgetOptionsData(data, widget) {
+      console.log("@updateWidgetOptionsData no Image", { data, widget });
       return;
-
-      if (typeof this.active_widgets[widget.widget] === "undefined") {
-        return;
-      }
-
-      if (typeof this.active_widgets[widget.widget].options === "undefined") {
-        return;
-      }
-
-      Vue.set(this.active_widgets[widget.widget].options, "fields", data);
     },
 
     closeWidgetOptionsWindow() {
@@ -994,6 +942,21 @@ export default {
       }
     },
 
+    toggleWidgetStatus(layout) {
+      if (layout.selectedWidgets.length > 0) {
+        layout.selectedWidgets?.map((widget) => {
+          this.trashWidget(widget, layout);
+        });
+      } else {
+        layout.acceptedWidgets?.map((widget) => {
+          this.insertWidget(
+            { key: widget, selected_widgets: [widget] },
+            layout
+          );
+        });
+      }
+    },
+
     activeInsertWindow(current_item_key) {
       if (this.active_insert_widget_key === current_item_key) {
         this.active_insert_widget_key = "";
@@ -1001,6 +964,15 @@ export default {
       }
 
       this.active_insert_widget_key = current_item_key;
+    },
+
+    activeOptionWindow(current_item_key) {
+      if (this.active_option_widget_key === current_item_key) {
+        this.active_option_widget_key = "";
+        return;
+      }
+
+      this.active_option_widget_key = current_item_key;
     },
 
     insertWidget(payload, where) {
@@ -1018,8 +990,20 @@ export default {
       this.active_insert_widget_key = "";
     },
 
+    closeOptionWindow(widget_option_window) {
+      this.active_option_widget_key = "";
+    },
+
     getActiveInsertWindowStatus(current_item_key) {
       if (current_item_key === this.active_insert_widget_key) {
+        return true;
+      }
+
+      return false;
+    },
+
+    getActiveOptionWindowStatus(current_item_key) {
+      if (current_item_key === this.active_option_widget_key) {
         return true;
       }
 

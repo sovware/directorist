@@ -1530,7 +1530,7 @@ class Builder_Data {
                 'label'    => __( 'User Avatar', 'directorist' ),
                 'icon'     => 'uil uil-text-fields',
                 'hook'     => 'atbdp_user_avatar',
-                'can_move' => false,
+                'canMove'  => false,
                 'options'  => [
                     'title'  => __( 'User Avatar Settings', 'directorist' ),
                     'fields' => [
@@ -1799,35 +1799,38 @@ class Builder_Data {
 
         $listing_card_conditional_widget = $listing_card_widget;
 
-        if (  ! empty( $listing_card_conditional_widget['user_avatar'] ) ) {
-            $listing_card_conditional_widget['user_avatar']['can_move'] = true;
+        // if (  ! empty( $listing_card_conditional_widget['user_avatar'] ) ) {
+        //     $listing_card_conditional_widget['user_avatar']['canMove'] = true;
 
-            if (  ! empty( $listing_card_conditional_widget['user_avatar']['options'] ) ) {
-                unset( $listing_card_conditional_widget['user_avatar']['options'] );
-            }
+        //     if (  ! empty( $listing_card_conditional_widget['user_avatar']['options'] ) ) {
+        //         unset( $listing_card_conditional_widget['user_avatar']['options'] );
+        //     }
 
-        }
+        // }
 
         // Card Layouts
         $listing_card_grid_view_with_thumbnail_layout = [
             'thumbnail' => [
                 'top_right'    => [
                     'label'             => __( 'Top Right', 'directorist' ),
-                    'maxWidget'         => 3,
+                    'maxWidget'         => 2,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
                     'acceptedWidgets'   => ['favorite_badge', 'popular_badge', 'featured_badge', 'new_badge'],
                 ],
                 'top_left'     => [
-                    'maxWidget'       => 3,
+                    'maxWidget'       => 2,
+                    'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
                     'acceptedWidgets' => ['favorite_badge', 'popular_badge', 'featured_badge', 'new_badge'],
                 ],
                 'bottom_right' => [
-                    'maxWidget'       => 2,
-                    'acceptedWidgets' => ['favorite_badge', 'popular_badge', 'featured_badge', 'new_badge'],
+                    'maxWidget'       => 1,
+                    'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
+                    'acceptedWidgets' => ['view_count', 'rating'],
                 ],
                 'bottom_left'  => [
-                    'maxWidget'       => 3,
-                    'acceptedWidgets' => ['favorite_badge', 'popular_badge', 'featured_badge', 'new_badge'],
+                    'maxWidget'       => 1,
+                    'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
+                    'acceptedWidgets' => ['pricing', 'rating'],
                 ],
                 'avatar'       => [
                     'maxWidget'       => 1,
@@ -1842,7 +1845,7 @@ class Builder_Data {
             'body'      => [
                 'top'     => [
                     'label'           => __( 'Listing Title', 'directorist' ),
-                    'maxWidget'       => 0,
+                    'maxWidget'       => 1,
                     'acceptedWidgets' => [
                         "listing_title",
                     ],
@@ -1853,7 +1856,7 @@ class Builder_Data {
                 ],
                 'tagline'     => [
                     'label'           => __( 'Tagline', 'directorist' ),
-                    'maxWidget'       => 0,
+                    'maxWidget'       => 1,
                     'acceptedWidgets' => [
                         "tagline",
                     ],
@@ -1864,8 +1867,8 @@ class Builder_Data {
                 ],
                 'badges'     => [
                     'label'           => __( 'Add Element', 'directorist' ),
-                    'maxWidget'       => 3,
-                    'acceptedWidgets' => ['pricing', 'rating'],
+                    'maxWidget'       => 2,
+                    'acceptedWidgets' => ['favorite_badge', 'popular_badge', 'featured_badge', 'new_badge'],
                 ],
                 'bottom'  => [
                     'label'           => __( 'Add Element', 'directorist' ),
@@ -1901,50 +1904,72 @@ class Builder_Data {
         ];
 
         $listing_card_grid_view_without_thumbnail_layout = [
-            'body'   => [
-                'avatar'       => [
-                    'maxWidget'       => 1,
-                    'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
-                    'acceptedWidgets' => ['user_avatar'],
-                ],
-                'title'         => [
-                    'maxWidget'       => 1,
-                    'acceptedWidgets' => ['listing_title'],
-                ],
+            'top'   => [
                 'quick_actions' => [
                     'maxWidget'       => 2,
-                    'acceptedWidgets' => ['favorite_badge'],
+                    'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
+                    'acceptedWidgets' => ['favorite_badge', 'popular_badge', 'featured_badge', 'new_badge'],
                 ],
                 'quick_info'    => [
+                    'maxWidget'       => 2,
+                    'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
                     'acceptedWidgets' => ['favorite_badge', 'popular_badge', 'featured_badge', 'new_badge', 'rating', 'pricing'],
                 ],
-                'bottom'        => [
-                    'maxWidget'       => 0,
-                    'acceptedWidgets' => [
-                        'listings_location', 'phone', 'phone2', 'website', 'zip', 'fax', 'address', 'email',
-                        'text', 'textarea', 'number', 'url', 'date', 'time', 'color', 'select', 'checkbox', 'radio', 'file', 'posted_date',
+            ],
+            'body'   => [
+                'avatar'       => [
+                    'maxWidget'         => 1,
+                    'acceptedWidgets'   => ['user_avatar'],
+                    'enable_widget' => [
+                        'type'  => 'toggle',
+                        'value' => false,
                     ],
                 ],
-                // 'excerpt'       => [
-                //     'maxWidget'       => 1,
-                //     'acceptedWidgets' => ['excerpt'],
-                //     'show_if'         => [
-                //         'where'      => 'submission_form_fields.value.fields',
-                //         'conditions' => [
-                //             ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'excerpt'],
-                //         ],
-                //     ],
-                // ],
+                'title'         => [
+                    'maxWidget'         => 1,
+                    'acceptedWidgets'   => ['listing_title'],
+                    'enable_widget' => [
+                        'type'  => 'toggle',
+                        'value' => false,
+                    ],
+                ],
+                'tagline'     => [
+                    'label'           => __( 'Tagline', 'directorist' ),
+                    'maxWidget'       => 1,
+                    'acceptedWidgets' => [
+                        "tagline",
+                    ],
+                    'enable_widget' => [
+                        'type'  => 'toggle',
+                        'value' => false,
+                    ],
+                ],
+                'badges'     => [
+                    'label'           => __( 'Add Element', 'directorist' ),
+                    'maxWidget'       => 2,
+                    'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
+                    'acceptedWidgets' => ['favorite_badge', 'popular_badge', 'featured_badge', 'new_badge'],
+                ],
+                'bottom'  => [
+                    'label'           => __( 'Add Element', 'directorist' ),
+                    'maxWidget'       => 5,
+                    'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
+                    'acceptedWidgets' => [
+                        'listings_location', 'phone', 'phone2', 'website', 'zip', 'fax', 'address', 'email', 'text', 'textarea', 'number', 'url', 'date', 'time', 'color', 'select', 'checkbox', 'radio', 'file', 'posted_date',
+                    ],
+                ],
             ],
 
             'footer' => [
                 'right' => [
                     'maxWidget'       => 2,
+                    'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
                     'acceptedWidgets' => ['category', 'favorite_badge', 'view_count'],
                 ],
 
                 'left'  => [
                     'maxWidget'       => 1,
+                    'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
                     'acceptedWidgets' => ['category', 'favorite_badge', 'view_count'],
                 ],
             ],
@@ -1996,7 +2021,7 @@ class Builder_Data {
             'footer'    => [
                 'right' => [
                     'maxWidget'       => 2,
-                    'acceptedWidgets' => ['user_avatar', 'category', 'favorite_badge', 'view_count'],
+                    'acceptedWidgets' => ['category', 'favorite_badge', 'view_count'],
                 ],
 
                 'left'  => [

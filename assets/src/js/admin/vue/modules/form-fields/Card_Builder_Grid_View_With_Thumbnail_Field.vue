@@ -239,6 +239,7 @@
               @toggle-widget-status="toggleWidgetStatus(local_layout.body.top)"
               editOnClick
             />
+            
             <card-widget-placeholder
               id="thumbnail_body_tagline"
               containerClass="cptm-listing-card-preview-tagline-placeholder cptm-card-light cptm-mb-20 cptm-align-left"

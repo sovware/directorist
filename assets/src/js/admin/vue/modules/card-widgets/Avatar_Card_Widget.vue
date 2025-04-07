@@ -53,8 +53,8 @@ export default {
     },
 
     canMove: {
-      // type: Boolean,
-      // default: true,
+      type: Boolean,
+      default: true,
     },
 
     canEdit: {

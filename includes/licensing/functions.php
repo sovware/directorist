@@ -98,9 +98,13 @@ function directorist_licensing_get_template_list_html() {
 
 	if ( ! empty( $templates ) ) {
 		ob_start(); // Start output buffering
-		foreach ( $templates as $template ): ?>
+		foreach ( $templates as $template ):
+			if ( in_array( $template['item_id'], [13718] ) ) {
+				return;
+			}
+			?>
 
-			<div class="directorist-col-xxl-3 directorist-col-lg-4 directorist-col-sm-6" data-item-slug="<?php echo esc_attr( $template['slug'] ) ?>">
+			<div class="directorist-col-xxl-3 directorist-col-lg-4 directorist-col-sm-6" data-item-slug="<?php echo esc_attr( $template['slug'] ) ?>" data-item-id="<?php echo esc_attr( $template['item_id'] ) ?>">
 				<article class="directorist-template-item">
 					<div class="directorist-template-item-body">
 						<figure class="directorist-template-image">
@@ -123,7 +127,7 @@ function directorist_licensing_get_template_list_html() {
 				</article>
 			</div>
 
-        <?php endforeach;
+		<?php endforeach;
 		$html = ob_get_clean(); // Get buffered content and clear buffer
 	}
 
@@ -182,11 +186,11 @@ function directorist_get_item_buttons_html( array $item, string $type ): string 
 
 	   		<?php if ( isset( $item['license'] ) ): ?>
 				<?php if ( class_exists( 'Templatiq' ) ): ?>
-					<a href="<?php echo esc_attr( $item['item_id'] ); ?>" class="directorist-template-get">
-						<?php esc_attr_e( 'Has Insert', 'directorist' ); ?>
+					<a href="<?php echo esc_attr( admin_url( 'admin.php?page=templatiq&source=directorist#/template/' . directorist_get_template_by_theme( $item['item_id'] ) ) ); ?>" class="directorist-template-get">
+						<?php esc_attr_e( 'Insert Template', 'directorist' ); ?>
 					</a>
 				<?php else: ?>
-					<button type="button" class="directorist-template-get">
+					<button type="button" class="directorist-template-get directorist-install-templatiq">
 						<?php esc_attr_e( 'Insert', 'directorist' ); ?>
 					</button>
 				<?php endif; ?>
@@ -215,4 +219,25 @@ function directorist_refresh_plugin_updates() {
 		delete_site_transient( 'update_plugins' );
 		wp_update_plugins();
 	}
+}
+
+function directorist_get_template_by_theme( int $id ): int {
+	// theme_id => template_id
+	$templates = [
+		80355  => 131655, // Cars
+		97317  => 135930, // Classified
+		69722  => 131665, // Doctors
+		13790  => 139132, // dList
+		102333 => 131646, // Hotels
+		128033 => 131649, // Jobs
+		65274  => 139143, // Lawyers
+		66667  => 134150, // Places
+		74321  => 131652, // RealEstate
+		70698  => 131642, // Restaurant
+		66670  => 131659, // OneListing PRO
+		71979  => 128475, // OneListing
+		15188  => 131687, // Services
+	];
+
+	return $templates[$id] ?? 0;
 }

@@ -473,7 +473,7 @@ document.addEventListener("DOMContentLoaded", function () {
     toggleMembershipVisibility('.directorist-membership-section', '.directorist-membership-card-signin', '.directorist-login-form');
     toggleMembershipVisibility('.directorist-membership-info-author', '.directorist-membership-info-author-img', '.directorist-membership-info-author-dropdown');
     toggleMembershipVisibility('main', '.directorist-membership-status-update-all', '.directorist-membership-modal','.directorist-membership-modal .directorist-custom-modal-close');
-    toggleMembershipVisibility('main', '.directorist-template-get', '.directorist-insert-modal','.directorist-insert-modal .directorist-custom-modal-close, .directorist-insert-modal__cancel');
+    toggleMembershipVisibility('main', '.directorist-install-templatiq', '.directorist-insert-modal','.directorist-insert-modal .directorist-custom-modal-close, .directorist-insert-modal__cancel');
     initializeDirectoristTabs(".directorist-tabs", ".directorist-nav-tab", ".directorist-tabs-item");
     handlePricingTabClick(".directorist-nav-tab-wrapper", "button", ".directorist-nav-tab-wrapper");
     progressbar(".directorist-progress-inner");

@@ -79,6 +79,10 @@ class Repository {
 
 			update_option( 'directorist_licensing_account_data', $data );
 
+			if ( isset( $data['account_data']['templatiq_token'] ) && ! empty( $data['account_data']['templatiq_token'] ) ) {
+				update_option( '_templatiq_token', $data['account_data']['templatiq_token'] );
+			}
+
 			$extensions = $data['plan_data']['downloads']['legacy_array'] ?? [];
 			add_user_meta( 1, '_plugins_available_in_subscriptions', $extensions );
 
@@ -109,6 +113,10 @@ class Repository {
 
 			update_option( 'directorist_licensing_account_data', $data );
 
+			if ( isset( $data['account_data']['templatiq_token'] ) && ! empty( $data['account_data']['templatiq_token'] ) ) {
+				update_option( '_templatiq_token', $data['account_data']['templatiq_token'] );
+			}
+
 			$extensions = $data['plan_data']['downloads']['legacy_array'] ?? [];
 			add_user_meta( 1, '_plugins_available_in_subscriptions', $extensions );
 
@@ -118,5 +126,4 @@ class Repository {
 			throw $th;
 		}
 	}
-
 }

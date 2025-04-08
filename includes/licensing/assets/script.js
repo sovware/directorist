@@ -323,9 +323,14 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    this.textContent = "Installed";
-                    this.classList.remove("directorist-extension-btn-install");
-                    this.classList.add("directorist-extension-btn-installed");
+                    if( 'templatiq' === extensionSlug ){
+                        this.textContent = "Installed & Activated";
+                        location.reload();
+                    } else {
+                        this.textContent = "Installed";
+                        this.classList.remove("directorist-extension-btn-install");
+                        this.classList.add("directorist-extension-btn-installed");
+                    }
                 } else {
                     this.textContent = "Install";
                     alert(data.message || "Installation failed.");

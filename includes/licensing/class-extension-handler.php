@@ -27,6 +27,11 @@ class Extension_Handler {
 			}
 		}
 
+		if ( 'templatiq' === $slug ) {
+			$plugin_data['slug']          = $slug;
+			$plugin_data['download_link'] = 'https://downloads.wordpress.org/plugin/templatiq.zip';
+		}
+
 		if ( ! $plugin_data ) {
 			throw new \Exception(
 				__( 'You do not have access to install this extension.', 'directorist' ),

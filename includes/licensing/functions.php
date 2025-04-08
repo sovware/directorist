@@ -190,7 +190,7 @@ function directorist_get_item_buttons_html( array $item, string $type ): string 
 						<?php esc_attr_e( 'Insert Template', 'directorist' ); ?>
 					</a>
 				<?php else: ?>
-					<button type="button" class="directorist-template-get directorist-install-templatiq">
+					<button type="button" class="directorist-template-get directorist-install-templatiq" data-item-id="<?php echo esc_html( $item['item_id'] ); ?>">
 						<?php esc_attr_e( 'Insert', 'directorist' ); ?>
 					</button>
 				<?php endif; ?>

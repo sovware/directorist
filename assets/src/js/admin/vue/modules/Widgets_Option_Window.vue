@@ -1,6 +1,6 @@
 <template>
   <div
-    class="cptm-option-card cptm-option-card--draggable"
+    class="cptm-option-card cptm-option-card--draggable test"
     :class="mainWrapperClass"
   >
     <div class="cptm-option-card-header">
@@ -30,6 +30,43 @@
           {{ info.text }}
         </p>
       </div>
+
+      <Container
+        @drop="onElementsDrop($event)"
+        group-name="card-widgets"
+        drag-handle-selector=".drag-handle"
+        class="cptm-form-builder-field-list"
+        :get-child-payload="(index) => getSettingsChildPayload(index)"
+        v-if="Object.keys(widgetsList).length"
+      >
+        <Draggable
+          v-for="(widget, widget_key) in widgetsList"
+          :key="widget_key"
+          :data="{ widget }"
+        >
+          <div class="cptm-form-builder-field-list-item-wrapper">
+            <span class="cptm-form-builder-field-list-item-drag drag-handle">
+              <span class="uil uil-draggabledots"></span>
+            </span>
+            <span class="cptm-form-builder-field-list-item">
+              <span class="cptm-form-builder-field-list-item-content">
+                <span class="cptm-form-builder-field-list-item-icon">
+                  <span :class="widget?.icon"></span>
+                </span>
+                <span class="cptm-form-builder-field-list-item-label">
+                  {{ widget?.label }}
+                </span>
+              </span>
+              <span
+                class="cptm-form-builder-field-list-item-action"
+                @click.prevent="trash(widget_key)"
+              >
+                <span class="uil uil-trash-alt"></span>
+              </span>
+            </span>
+          </div>
+        </Draggable>
+      </Container>
 
       <ul
         class="cptm-form-builder-field-list"
@@ -68,8 +105,14 @@
 </template>
 
 <script>
+import { Container, Draggable } from "vue-dndrop";
+
 export default {
   name: "widgets-option-window",
+  components: {
+    Container,
+    Draggable,
+  },
 
   props: {
     id: {
@@ -160,8 +203,8 @@ export default {
         return;
       }
 
-      let unique_selecte_widgets = new Set(this.selectedWidgets);
-      this.localSelectedWidgets = [...unique_selecte_widgets];
+      let unique_selected_widgets = new Set(this.selectedWidgets);
+      this.localSelectedWidgets = [...unique_selected_widgets];
     },
 
     close() {
@@ -208,6 +251,103 @@ export default {
       );
 
       return filtered_double_pare;
+    },
+
+    getSettingsChildPayload(draggedItemIndex) {
+      console.log("@getSettingsChildPayload", {
+        draggedItemIndex,
+      });
+
+      // Return the payload containing both pieces of data
+      return {
+        draggedItemIndex: draggedItemIndex,
+      };
+    },
+
+    onElementsDrop(dropResult) {
+      const { removedIndex, addedIndex, payload } = dropResult;
+      const { draggedItemIndex } = payload;
+
+      console.log("@onElementsDrop", {
+        dropResult,
+        payload,
+      });
+
+      return;
+
+      if (removedIndex !== null || addedIndex !== null) {
+        let destinationItemIndex;
+        let destinationPlaceholderIndex;
+        const sourceItemIndex = draggedItemIndex;
+        const sourcePlaceholderIndex = placeholderIndex;
+
+        if (addedIndex !== null) {
+          destinationItemIndex = addedIndex;
+          destinationPlaceholderIndex = placeholder_index;
+        } else {
+          destinationItemIndex = null;
+          destinationPlaceholderIndex = null;
+        }
+
+        // Get the widget key from the source placeholder
+        const widgetKey = this.allPlaceholderItems[sourcePlaceholderIndex]
+          ?.acceptedWidgets[draggedItemIndex];
+
+        if (widgetKey !== undefined) {
+          if (sourcePlaceholderIndex === destinationPlaceholderIndex) {
+            // Moving within the same placeholder
+            const widgets = this.allPlaceholderItems[sourcePlaceholderIndex]
+              .acceptedWidgets;
+            const selectedWidgets = this.allPlaceholderItems[
+              sourcePlaceholderIndex
+            ].selectedWidgets;
+            const selectedWidgetList = this.allPlaceholderItems[
+              sourcePlaceholderIndex
+            ].selectedWidgetList;
+
+            // Remove the widget from the source position
+            const [movedWidget] = widgets.splice(sourceItemIndex, 1);
+
+            // Insert the widget at the destination position
+            widgets.splice(destinationItemIndex, 0, movedWidget);
+
+            // Update selectedWidgetList position based on acceptedWidgets
+            const selectedWidgetIndex =
+              selectedWidgetList && selectedWidgetList.indexOf(movedWidget);
+            if (selectedWidgetIndex && selectedWidgetIndex !== -1) {
+              // Remove the widget from the selected position
+              selectedWidgetList.splice(selectedWidgetIndex, 1);
+
+              // Insert the widget at the new position
+              const newSelectedIndex = widgets.indexOf(movedWidget);
+              selectedWidgetList.splice(newSelectedIndex, 0, movedWidget);
+            }
+
+            // Reorder `selectedWidgets` based on `selectedWidgetList`
+            selectedWidgets &&
+              selectedWidgets.sort((a, b) => {
+                return (
+                  selectedWidgetList.indexOf(a.widget_key) -
+                  selectedWidgetList.indexOf(b.widget_key)
+                );
+              });
+
+            // Update Placeholders
+            const updatedPlaceholders = this.syncPlaceholdersWithAllPlaceholderItems(
+              this.allPlaceholderItems,
+              this.placeholders || []
+            );
+
+            this.placeholders = updatedPlaceholders;
+          } else if (destinationPlaceholderIndex !== null) {
+            // Moving between different placeholders
+            // this.allPlaceholderItems[destinationPlaceholderIndex].selectedWidgetList.splice(destinationItemIndex, 0, widgetKey);
+            // this.allPlaceholderItems[sourcePlaceholderIndex].selectedWidgetList.splice(sourceItemIndex, 1);
+          }
+        }
+      } else {
+        return;
+      }
     },
   },
 };

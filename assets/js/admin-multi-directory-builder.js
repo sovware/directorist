@@ -17138,17 +17138,26 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/toConsumableArray.js");
-/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof.js");
-/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/slicedToArray.js");
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/toConsumableArray.js");
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof.js");
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var vue_dndrop__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-dndrop */ "./node_modules/vue-dndrop/dist/vue-dndrop.esm.js");
+
+
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "widgets-option-window",
+  components: {
+    Container: vue_dndrop__WEBPACK_IMPORTED_MODULE_4__["Container"],
+    Draggable: vue_dndrop__WEBPACK_IMPORTED_MODULE_4__["Draggable"]
+  },
   props: {
     id: {
       type: [String, Number],
@@ -17204,7 +17213,7 @@ __webpack_require__.r(__webpack_exports__);
       return info_texts;
     },
     mainWrapperClass: function mainWrapperClass() {
-      return _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()({
+      return _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_3___default()({
         active: this.active
       }, this.animation, true);
     }
@@ -17216,11 +17225,11 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     init: function init() {
-      if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(this.selectedWidgets) !== "object") {
+      if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default()(this.selectedWidgets) !== "object") {
         return;
       }
-      var unique_selecte_widgets = new Set(this.selectedWidgets);
-      this.localSelectedWidgets = _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(unique_selecte_widgets);
+      var unique_selected_widgets = new Set(this.selectedWidgets);
+      this.localSelectedWidgets = _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1___default()(unique_selected_widgets);
     },
     close: function close() {
       this.$emit("close");
@@ -17240,7 +17249,7 @@ __webpack_require__.r(__webpack_exports__);
       };
       var filter_double_pare = function filter_double_pare(str) {
         var pares = str.match(/\w+|w+/gi);
-        if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(pares) !== "object" && pares.length < 2) {
+        if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default()(pares) !== "object" && pares.length < 2) {
           return "";
         }
         if (data < 2) {
@@ -17251,6 +17260,86 @@ __webpack_require__.r(__webpack_exports__);
       var filtered_single_pare = doceded.replace(/({\w+})/gi, filter_single_pare);
       var filtered_double_pare = filtered_single_pare.replace(/({\w+\|\w+})/gi, filter_double_pare);
       return filtered_double_pare;
+    },
+    getSettingsChildPayload: function getSettingsChildPayload(draggedItemIndex) {
+      console.log("@getSettingsChildPayload", {
+        draggedItemIndex: draggedItemIndex
+      });
+
+      // Return the payload containing both pieces of data
+      return {
+        draggedItemIndex: draggedItemIndex
+      };
+    },
+    onElementsDrop: function onElementsDrop(dropResult) {
+      var removedIndex = dropResult.removedIndex,
+        addedIndex = dropResult.addedIndex,
+        payload = dropResult.payload;
+      var draggedItemIndex = payload.draggedItemIndex;
+      console.log("@onElementsDrop", {
+        dropResult: dropResult,
+        payload: payload
+      });
+      return;
+      if (removedIndex !== null || addedIndex !== null) {
+        var _this$allPlaceholderI;
+        var destinationItemIndex;
+        var destinationPlaceholderIndex;
+        var sourceItemIndex = draggedItemIndex;
+        var sourcePlaceholderIndex = placeholderIndex;
+        if (addedIndex !== null) {
+          destinationItemIndex = addedIndex;
+          destinationPlaceholderIndex = placeholder_index;
+        } else {
+          destinationItemIndex = null;
+          destinationPlaceholderIndex = null;
+        }
+
+        // Get the widget key from the source placeholder
+        var widgetKey = (_this$allPlaceholderI = this.allPlaceholderItems[sourcePlaceholderIndex]) === null || _this$allPlaceholderI === void 0 ? void 0 : _this$allPlaceholderI.acceptedWidgets[draggedItemIndex];
+        if (widgetKey !== undefined) {
+          if (sourcePlaceholderIndex === destinationPlaceholderIndex) {
+            // Moving within the same placeholder
+            var widgets = this.allPlaceholderItems[sourcePlaceholderIndex].acceptedWidgets;
+            var selectedWidgets = this.allPlaceholderItems[sourcePlaceholderIndex].selectedWidgets;
+            var selectedWidgetList = this.allPlaceholderItems[sourcePlaceholderIndex].selectedWidgetList;
+
+            // Remove the widget from the source position
+            var _widgets$splice = widgets.splice(sourceItemIndex, 1),
+              _widgets$splice2 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_widgets$splice, 1),
+              movedWidget = _widgets$splice2[0];
+
+            // Insert the widget at the destination position
+            widgets.splice(destinationItemIndex, 0, movedWidget);
+
+            // Update selectedWidgetList position based on acceptedWidgets
+            var selectedWidgetIndex = selectedWidgetList && selectedWidgetList.indexOf(movedWidget);
+            if (selectedWidgetIndex && selectedWidgetIndex !== -1) {
+              // Remove the widget from the selected position
+              selectedWidgetList.splice(selectedWidgetIndex, 1);
+
+              // Insert the widget at the new position
+              var newSelectedIndex = widgets.indexOf(movedWidget);
+              selectedWidgetList.splice(newSelectedIndex, 0, movedWidget);
+            }
+
+            // Reorder `selectedWidgets` based on `selectedWidgetList`
+            selectedWidgets && selectedWidgets.sort(function (a, b) {
+              return selectedWidgetList.indexOf(a.widget_key) - selectedWidgetList.indexOf(b.widget_key);
+            });
+
+            // Update Placeholders
+            var updatedPlaceholders = this.syncPlaceholdersWithAllPlaceholderItems(this.allPlaceholderItems, this.placeholders || []);
+            this.placeholders = updatedPlaceholders;
+          } else if (destinationPlaceholderIndex !== null) {
+            // Moving between different placeholders
+            // this.allPlaceholderItems[destinationPlaceholderIndex].selectedWidgetList.splice(destinationItemIndex, 0, widgetKey);
+            // this.allPlaceholderItems[sourcePlaceholderIndex].selectedWidgetList.splice(sourceItemIndex, 1);
+          }
+        }
+      } else {
+        return;
+      }
     }
   }
 });
@@ -29723,7 +29812,7 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "cptm-option-card cptm-option-card--draggable",
+    staticClass: "cptm-option-card cptm-option-card--draggable test",
     class: _vm.mainWrapperClass
   }, [_c("div", {
     staticClass: "cptm-option-card-header"
@@ -29756,7 +29845,56 @@ var render = function render() {
       staticClass: "cptm-info-text",
       class: "cptm-" + info.type
     }, [_vm._v("\n        " + _vm._s(info.text) + "\n      ")]);
-  }), 0) : _vm._e(), _vm._v(" "), Object.keys(_vm.widgetsList).length ? _c("ul", {
+  }), 0) : _vm._e(), _vm._v(" "), Object.keys(_vm.widgetsList).length ? _c("Container", {
+    staticClass: "cptm-form-builder-field-list",
+    attrs: {
+      "group-name": "card-widgets",
+      "drag-handle-selector": ".drag-handle",
+      "get-child-payload": function getChildPayload(index) {
+        return _vm.getSettingsChildPayload(index);
+      }
+    },
+    on: {
+      drop: function drop($event) {
+        return _vm.onElementsDrop($event);
+      }
+    }
+  }, _vm._l(_vm.widgetsList, function (widget, widget_key) {
+    return _c("Draggable", {
+      key: widget_key,
+      attrs: {
+        data: {
+          widget: widget
+        }
+      }
+    }, [_c("div", {
+      staticClass: "cptm-form-builder-field-list-item-wrapper"
+    }, [_c("span", {
+      staticClass: "cptm-form-builder-field-list-item-drag drag-handle"
+    }, [_c("span", {
+      staticClass: "uil uil-draggabledots"
+    })]), _vm._v(" "), _c("span", {
+      staticClass: "cptm-form-builder-field-list-item"
+    }, [_c("span", {
+      staticClass: "cptm-form-builder-field-list-item-content"
+    }, [_c("span", {
+      staticClass: "cptm-form-builder-field-list-item-icon"
+    }, [_c("span", {
+      class: widget === null || widget === void 0 ? void 0 : widget.icon
+    })]), _vm._v(" "), _c("span", {
+      staticClass: "cptm-form-builder-field-list-item-label"
+    }, [_vm._v("\n                " + _vm._s(widget === null || widget === void 0 ? void 0 : widget.label) + "\n              ")])]), _vm._v(" "), _c("span", {
+      staticClass: "cptm-form-builder-field-list-item-action",
+      on: {
+        click: function click($event) {
+          $event.preventDefault();
+          return _vm.trash(widget_key);
+        }
+      }
+    }, [_c("span", {
+      staticClass: "uil uil-trash-alt"
+    })])])])]);
+  }), 1) : _vm._e(), _vm._v(" "), Object.keys(_vm.widgetsList).length ? _c("ul", {
     staticClass: "cptm-form-builder-field-list"
   }, _vm._l(_vm.widgetsList, function (widget, widget_key) {
     return _c("li", {
@@ -29785,7 +29923,7 @@ var render = function render() {
     })])])]);
   }), 0) : _c("p", {
     staticClass: "cptm-info-text"
-  }, [_vm._v("Nothing available")])])]);
+  }, [_vm._v("Nothing available")])], 1)]);
 };
 var staticRenderFns = [function () {
   var _vm = this,

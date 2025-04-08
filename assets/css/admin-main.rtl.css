@@ -17340,7 +17340,8 @@ input[type=radio].cptm-radio {
   font-weight: 500;
   color: #4d5761;
 }
-.cptm-placeholder-block-wrapper .cptm-listing-card-preview-tagline-placeholder .cptm-placeholder-label {
+.cptm-placeholder-block-wrapper .cptm-listing-card-preview-tagline-placeholder .cptm-placeholder-label,
+.cptm-placeholder-block-wrapper .cptm-listing-card-preview-rating-placeholder .cptm-placeholder-label {
   right: 12px;
   -webkit-transform: translate(0, -50%);
           transform: translate(0, -50%);
@@ -17488,13 +17489,32 @@ input[type=radio].cptm-radio {
   height: 100%;
 }
 .cptm-card-preview-widget.cptm-card-list-view .cptm-listing-card-preview-header {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
   min-width: 320px;
+  max-width: 500px;
   min-height: 300px;
 }
 @media (max-width: 400px) {
   .cptm-card-preview-widget.cptm-card-list-view .cptm-listing-card-preview-header {
     min-width: 100%;
+    max-width: unset;
   }
+}
+.cptm-card-preview-widget.cptm-card-list-view .cptm-widget-option-modal-container {
+  right: 0;
+  -webkit-transform: translate(0, -100%);
+          transform: translate(0, -100%);
+}
+.cptm-card-preview-widget.cptm-card-list-view .cptm-card-preview-top-right .cptm-widget-option-modal-container,
+.cptm-card-preview-widget.cptm-card-list-view .cptm-card-preview-footer-right .cptm-widget-option-modal-container,
+.cptm-card-preview-widget.cptm-card-list-view .cptm-card-placeholder-top-right .cptm-widget-option-modal-container {
+  right: unset;
+  left: 0;
+  -webkit-transform: translate(0, -100%);
+          transform: translate(0, -100%);
 }
 .cptm-card-preview-widget.grid-view-with-thumbnail .cptm-widget-card .cptm-widget-card-disabled-badge {
   display: none;
@@ -17512,19 +17532,11 @@ input[type=radio].cptm-radio {
   max-width: 750px;
 }
 
-.cptm-listing-card-preview-header {
-  display: block;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
-}
-
 .cptm-listing-card-content {
   -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
 }
 
 .cptm-card-preview-thumbnail {
@@ -23515,7 +23527,8 @@ input[type=radio].cptm-radio {
   font-weight: 500;
   color: #4d5761;
 }
-.cptm-placeholder-block-wrapper .cptm-listing-card-preview-tagline-placeholder .cptm-placeholder-label {
+.cptm-placeholder-block-wrapper .cptm-listing-card-preview-tagline-placeholder .cptm-placeholder-label,
+.cptm-placeholder-block-wrapper .cptm-listing-card-preview-rating-placeholder .cptm-placeholder-label {
   right: 12px;
   -webkit-transform: translate(0, -50%);
           transform: translate(0, -50%);
@@ -23663,13 +23676,32 @@ input[type=radio].cptm-radio {
   height: 100%;
 }
 .cptm-card-preview-widget.cptm-card-list-view .cptm-listing-card-preview-header {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
   min-width: 320px;
+  max-width: 500px;
   min-height: 300px;
 }
 @media (max-width: 400px) {
   .cptm-card-preview-widget.cptm-card-list-view .cptm-listing-card-preview-header {
     min-width: 100%;
+    max-width: unset;
   }
+}
+.cptm-card-preview-widget.cptm-card-list-view .cptm-widget-option-modal-container {
+  right: 0;
+  -webkit-transform: translate(0, -100%);
+          transform: translate(0, -100%);
+}
+.cptm-card-preview-widget.cptm-card-list-view .cptm-card-preview-top-right .cptm-widget-option-modal-container,
+.cptm-card-preview-widget.cptm-card-list-view .cptm-card-preview-footer-right .cptm-widget-option-modal-container,
+.cptm-card-preview-widget.cptm-card-list-view .cptm-card-placeholder-top-right .cptm-widget-option-modal-container {
+  right: unset;
+  left: 0;
+  -webkit-transform: translate(0, -100%);
+          transform: translate(0, -100%);
 }
 .cptm-card-preview-widget.grid-view-with-thumbnail .cptm-widget-card .cptm-widget-card-disabled-badge {
   display: none;
@@ -23687,19 +23719,11 @@ input[type=radio].cptm-radio {
   max-width: 750px;
 }
 
-.cptm-listing-card-preview-header {
-  display: block;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
-}
-
 .cptm-listing-card-content {
   -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
 }
 
 .cptm-card-preview-thumbnail {
@@ -29978,7 +30002,8 @@ input[type=radio].cptm-radio {
   font-weight: 500;
   color: #4d5761;
 }
-.cptm-placeholder-block-wrapper .cptm-listing-card-preview-tagline-placeholder .cptm-placeholder-label {
+.cptm-placeholder-block-wrapper .cptm-listing-card-preview-tagline-placeholder .cptm-placeholder-label,
+.cptm-placeholder-block-wrapper .cptm-listing-card-preview-rating-placeholder .cptm-placeholder-label {
   right: 12px;
   -webkit-transform: translate(0, -50%);
           transform: translate(0, -50%);
@@ -30126,13 +30151,32 @@ input[type=radio].cptm-radio {
   height: 100%;
 }
 .cptm-card-preview-widget.cptm-card-list-view .cptm-listing-card-preview-header {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
   min-width: 320px;
+  max-width: 500px;
   min-height: 300px;
 }
 @media (max-width: 400px) {
   .cptm-card-preview-widget.cptm-card-list-view .cptm-listing-card-preview-header {
     min-width: 100%;
+    max-width: unset;
   }
+}
+.cptm-card-preview-widget.cptm-card-list-view .cptm-widget-option-modal-container {
+  right: 0;
+  -webkit-transform: translate(0, -100%);
+          transform: translate(0, -100%);
+}
+.cptm-card-preview-widget.cptm-card-list-view .cptm-card-preview-top-right .cptm-widget-option-modal-container,
+.cptm-card-preview-widget.cptm-card-list-view .cptm-card-preview-footer-right .cptm-widget-option-modal-container,
+.cptm-card-preview-widget.cptm-card-list-view .cptm-card-placeholder-top-right .cptm-widget-option-modal-container {
+  right: unset;
+  left: 0;
+  -webkit-transform: translate(0, -100%);
+          transform: translate(0, -100%);
 }
 .cptm-card-preview-widget.grid-view-with-thumbnail .cptm-widget-card .cptm-widget-card-disabled-badge {
   display: none;
@@ -30150,19 +30194,11 @@ input[type=radio].cptm-radio {
   max-width: 750px;
 }
 
-.cptm-listing-card-preview-header {
-  display: block;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
-}
-
 .cptm-listing-card-content {
   -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
 }
 
 .cptm-card-preview-thumbnail {

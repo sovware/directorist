@@ -2927,6 +2927,15 @@ input[type="radio"].cptm-radio {
       }
     }
   }
+  &.list-view-without-thumbnail {
+    .cptm-listing-card-content {
+      max-width: 450px;
+      margin: 0 auto;
+      .cptm-listing-card-preview-body {
+        padding: 20px;
+      }
+    }
+  }
 
   .cptm-options-area {
     position: absolute;

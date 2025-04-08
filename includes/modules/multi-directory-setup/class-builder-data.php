@@ -2059,7 +2059,7 @@ class Builder_Data {
                 'quick_actions' => [
                     'maxWidget'       => 2,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
-                    'acceptedWidgets' => ['pricing', 'popular_badge', 'featured_badge', 'new_badge'],
+                    'acceptedWidgets' => ['pricing', 'category'],
                 ],
                 'quick_info'    => [
                     'maxWidget'       => 2,
@@ -2068,7 +2068,7 @@ class Builder_Data {
                 ],
             ],
 
-            'body'      => [
+            'body'      => [                
                 'title'         => [
                     'maxWidget'         => 1,
                     'acceptedWidgets'   => ['listing_title'],
@@ -2113,13 +2113,13 @@ class Builder_Data {
                 'right' => [
                     'maxWidget'       => 2,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
-                    'acceptedWidgets' => ['category', 'view_count'],
+                    'acceptedWidgets' => ['category', 'user_avatar', 'view_count'],
                 ],
 
                 'left'  => [
-                    'maxWidget'       => 1,
+                    'maxWidget'       => 2,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
-                    'acceptedWidgets' => ['pricing', 'view_count', 'user_avatar'],
+                    'acceptedWidgets' => ['category', 'user_avatar', 'view_count'],
                 ],
             ],
         ];

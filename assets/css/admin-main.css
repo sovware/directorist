@@ -17519,6 +17519,13 @@ input[type=radio].cptm-radio {
 .cptm-card-preview-widget.grid-view-with-thumbnail .cptm-widget-card .cptm-widget-card-disabled-badge {
   display: none;
 }
+.cptm-card-preview-widget.list-view-without-thumbnail .cptm-listing-card-content {
+  max-width: 450px;
+  margin: 0 auto;
+}
+.cptm-card-preview-widget.list-view-without-thumbnail .cptm-listing-card-content .cptm-listing-card-preview-body {
+  padding: 20px;
+}
 .cptm-card-preview-widget .cptm-options-area {
   position: absolute;
   top: 0;
@@ -23705,6 +23712,13 @@ input[type=radio].cptm-radio {
 }
 .cptm-card-preview-widget.grid-view-with-thumbnail .cptm-widget-card .cptm-widget-card-disabled-badge {
   display: none;
+}
+.cptm-card-preview-widget.list-view-without-thumbnail .cptm-listing-card-content {
+  max-width: 450px;
+  margin: 0 auto;
+}
+.cptm-card-preview-widget.list-view-without-thumbnail .cptm-listing-card-content .cptm-listing-card-preview-body {
+  padding: 20px;
 }
 .cptm-card-preview-widget .cptm-options-area {
   position: absolute;
@@ -30180,6 +30194,13 @@ input[type=radio].cptm-radio {
 }
 .cptm-card-preview-widget.grid-view-with-thumbnail .cptm-widget-card .cptm-widget-card-disabled-badge {
   display: none;
+}
+.cptm-card-preview-widget.list-view-without-thumbnail .cptm-listing-card-content {
+  max-width: 450px;
+  margin: 0 auto;
+}
+.cptm-card-preview-widget.list-view-without-thumbnail .cptm-listing-card-content .cptm-listing-card-preview-body {
+  padding: 20px;
 }
 .cptm-card-preview-widget .cptm-options-area {
   position: absolute;

@@ -4738,8 +4738,6 @@ body.stop-scrolling {
   min-width: 270px;
   max-width: 270px;
   overflow-y: auto;
-  padding: 10px;
-  margin: -10px;
 }
 .multistep-wizard__nav.sticky {
   position: fixed;
@@ -4756,7 +4754,7 @@ body.stop-scrolling {
       -ms-flex-align: center;
           align-items: center;
   gap: 12px;
-  width: 290px;
+  width: 270px;
   min-height: 36px;
   padding: 7px 16px;
   border: none;

@@ -910,18 +910,7 @@ export default {
         return;
       }
 
-      let opt = this.active_widgets[key].options;
       this.widgetOptionsWindow = this.widgetOptionsWindowDefault;
-
-      const self = this;
-
-      setTimeout(() => {
-        self.widgetOptionsWindow = {
-          ...self.widgetOptionsWindowDefault,
-          ...opt,
-        };
-        self.widgetOptionsWindow.widget = key;
-      }, 0);
     },
 
     updateWidgetOptionsData(data, widget) {

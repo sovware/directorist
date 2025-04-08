@@ -22697,13 +22697,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       if (!this.active_widgets[key].options && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(this.active_widgets[key].options) !== "object") {
         return;
       }
-      var opt = this.active_widgets[key].options;
       this.widgetOptionsWindow = this.widgetOptionsWindowDefault;
-      var self = this;
-      setTimeout(function () {
-        self.widgetOptionsWindow = _objectSpread(_objectSpread({}, self.widgetOptionsWindowDefault), opt);
-        self.widgetOptionsWindow.widget = key;
-      }, 0);
     },
     updateWidgetOptionsData: function updateWidgetOptionsData(data, widget) {
       return;
@@ -22956,7 +22950,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       if (!this.widgetOptionsWindow.widget.length) {
         return false;
       }
-      if (typeof this.active_widgets[this.widgetOptionsWindow.widget] === "undedined") {
+      if (typeof this.active_widgets[this.widgetOptionsWindow.widget] === "undefined") {
         return false;
       }
       return true;
@@ -23258,13 +23252,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       if (!this.active_widgets[key].options && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(this.active_widgets[key].options) !== "object") {
         return;
       }
-      var opt = this.active_widgets[key].options;
       this.widgetOptionsWindow = this.widgetOptionsWindowDefault;
-      var self = this;
-      setTimeout(function () {
-        self.widgetOptionsWindow = _objectSpread(_objectSpread({}, self.widgetOptionsWindowDefault), opt);
-        self.widgetOptionsWindow.widget = key;
-      }, 0);
     },
     updateWidgetOptionsData: function updateWidgetOptionsData(data, widget) {
       return;
@@ -34050,21 +34038,7 @@ var render = function render() {
     _c = _vm._self._c;
   return _c("div", {
     staticClass: "cptm-builder-section"
-  }, [_vm.widgetOptionsWindowActiveStatus ? _c("div", {
-    staticClass: "cptm-options-area"
-  }, [_c("options-window", _vm._b({
-    attrs: {
-      active: _vm.widgetOptionsWindowActiveStatus
-    },
-    on: {
-      update: function update($event) {
-        return _vm.updateWidgetOptionsData($event, _vm.widgetOptionsWindow);
-      },
-      close: function close($event) {
-        return _vm.closeWidgetOptionsWindow();
-      }
-    }
-  }, "options-window", _vm.widgetOptionsWindow, false))], 1) : _vm._e(), _vm._v(" "), _c("div", {
+  }, [_c("div", {
     staticClass: "cptm-preview-area"
   }, [_c("div", {
     staticClass: "cptm-card-preview-widget cptm-card-list-view list-view-without-thumbnail"

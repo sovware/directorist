@@ -1,14 +1,5 @@
 <template>
   <div class="cptm-builder-section">
-    <div class="cptm-options-area" v-if="widgetOptionsWindowActiveStatus">
-      <options-window
-        :active="widgetOptionsWindowActiveStatus"
-        v-bind="widgetOptionsWindow"
-        @update="updateWidgetOptionsData($event, widgetOptionsWindow)"
-        @close="closeWidgetOptionsWindow()"
-      />
-    </div>
-
     <!-- cptm-preview-area -->
     <div class="cptm-preview-area">
       <div
@@ -480,7 +471,7 @@ export default {
       }
       if (
         typeof this.active_widgets[this.widgetOptionsWindow.widget] ===
-        "undedined"
+        "undefined"
       ) {
         return false;
       }
@@ -862,18 +853,7 @@ export default {
         return;
       }
 
-      let opt = this.active_widgets[key].options;
       this.widgetOptionsWindow = this.widgetOptionsWindowDefault;
-
-      const self = this;
-
-      setTimeout(() => {
-        self.widgetOptionsWindow = {
-          ...self.widgetOptionsWindowDefault,
-          ...opt,
-        };
-        self.widgetOptionsWindow.widget = key;
-      }, 0);
     },
 
     updateWidgetOptionsData(data, widget) {

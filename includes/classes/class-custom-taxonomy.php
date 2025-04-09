@@ -16,7 +16,7 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
 			add_action( 'created_' . ATBDP_CATEGORY, array( $this, 'save_add_category_form_fields' ) );
 			add_action( ATBDP_CATEGORY . '_edit_form_fields', array( $this, 'edit_category_form_fields' ) );
 			add_action( 'edited_' . ATBDP_CATEGORY, array( $this, 'save_edit_category_form_fields' ) );
-			add_filter( ATBDP_CATEGORY . '_row_actions', array( $this, 'edit_taxonomy_view_link' ), 10, 2 );
+			// add_filter( ATBDP_CATEGORY . '_row_actions', array( $this, 'edit_taxonomy_view_link' ), 10, 2 );
 
 			// Location actions.
 			add_filter( 'manage_edit-' . ATBDP_LOCATION . '_columns', array( $this, 'register_location_columns' ) );
@@ -25,7 +25,7 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
 			add_action( 'created_' . ATBDP_LOCATION, array( $this, 'save_add_location_form_fields' ) );
 			add_action( ATBDP_LOCATION . '_edit_form_fields', array( $this, 'edit_location_form_fields' ) );
 			add_action( 'edited_' . ATBDP_LOCATION, array( $this, 'save_edit_location_form_fields' ) );
-			add_filter( ATBDP_LOCATION . '_row_actions', array( $this, 'edit_taxonomy_view_link' ), 10, 2 );
+			// add_filter( ATBDP_LOCATION . '_row_actions', array( $this, 'edit_taxonomy_view_link' ), 10, 2 );
 
 			// Bulk actions
 			add_filter( 'bulk_actions-edit-' . ATBDP_CATEGORY, array( $this, 'register_bulk_actions' ) );
@@ -36,8 +36,8 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
 			// Other actions.
 			add_filter( 'term_updated_messages', array( $this, 'add_term_updated_messages' ) );
 
-			add_filter( 'term_link', array( $this, 'taxonomy_redirect_page' ), 10, 3 );
-			add_action( 'template_redirect', array( $this, 'atbdp_template_redirect' ) );
+			// add_filter( 'term_link', array( $this, 'taxonomy_redirect_page' ), 10, 3 );
+			// add_action( 'template_redirect', array( $this, 'atbdp_template_redirect' ) );
 
 			add_action( 'wp_loaded', array( $this, 'directorist_bulk_term_update' ) );
 
@@ -575,6 +575,10 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
 				'menu_name'         => __( 'Categories', 'directorist' ),
 			);
 
+			$rewrite = array(
+				'slug' => 'single-category',
+			);
+
 			$args = array(
 				'hierarchical'      => true,
 				'labels'            => $labels,
@@ -583,17 +587,11 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
 				'query_var'         => true,
 				'public'            => true,
 				'show_in_nav_menus' => true,
+				'rewrite'           => $rewrite,
 				'capabilities'      => array(
 					'assign_terms' => get_post_type_object( ATBDP_POST_TYPE )->cap->publish_posts,
 				),
 			);
-
-			$slug = ATBDP_CATEGORY;
-			if ( ! empty( $slug ) ) {
-				$args['rewrite'] = array(
-					'slug' => $slug,
-				);
-			}
 
 			register_taxonomy( ATBDP_CATEGORY, ATBDP_POST_TYPE, $args );
 		}

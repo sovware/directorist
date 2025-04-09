@@ -75,7 +75,7 @@ class Controllers {
 
 	public function install_extension( \WP_REST_Request $request ) {
 		$slug     = (string) $request->get_param( 'slug' );
-		$theme_id = (string) $request->get_param( 'theme_id' );
+		$theme_id = (int) $request->get_param( 'theme_id' );
 
 		if ( empty( $slug ) ) {
 			return rest_ensure_response( ['success' => false, 'message' => __( 'Valid extension slug missing', 'directorist' )] );

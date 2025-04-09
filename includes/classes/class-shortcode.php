@@ -210,12 +210,16 @@ class ATBDP_Shortcode {
 		return $listings->render_shortcode( $atts );
 	}
 
-	public function category_archive( $atts ) {
-		$atts             = !empty( $atts ) ? $atts : array();
-		$category_slug    = !empty( $_GET['category'] ) ? directorist_clean( wp_unslash( $_GET['category'] ) ) : urldecode( get_query_var('atbdp_category') );
-		$atts['category'] = sanitize_text_field( $category_slug );
+	public function category_archive( $atts = array() ) {
+		if ( is_tax( ATBDP_CATEGORY ) ) {
+			$category = get_queried_object();
+			$atts['category'] = $category->slug;
+		} else {
+			$category_slug    = !empty( $_GET['category'] ) ? directorist_clean( wp_unslash( $_GET['category'] ) ) : urldecode( get_query_var('atbdp_category') );
+			$atts['category'] = sanitize_text_field( $category_slug );
+		}
 
-		$atts[ 'shortcode' ] = 'directorist_category';
+		$atts['shortcode'] = 'directorist_category';
 
 		return $this->listing_archive( $atts );
 	}

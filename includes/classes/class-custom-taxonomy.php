@@ -1,6 +1,7 @@
 <?php
 defined( 'ABSPATH' ) || die( 'Direct access is not allowed.' );
 
+use Directorist\Helper;
 if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
 	class ATBDP_Custom_Taxonomy {
 
@@ -46,6 +47,8 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
 			// add_filter( 'views_edit-' . ATBDP_LOCATION, array( $this, 'add_directory_filter' ) );
 
 			add_action( 'delete_' . ATBDP_DIRECTORY_TYPE, array( $this, 'delete_directory_to_category_location_relation' ) );
+
+			add_filter( 'template_include', array( $this, 'include_template' ) );
 		}
 
 		public function directorist_bulk_term_update() {
@@ -962,6 +965,22 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
 
 		public function delete_directory_to_category_location_relation( $directory_id ) {
 			delete_metadata( 'term', null, '_directory_type_' . $directory_id, '', true );
+		}
+
+		public function include_template( $template ) {
+			if ( is_tax( ATBDP_CATEGORY ) ) {
+				return Helper::template_path( 'taxonomy-' . ATBDP_CATEGORY );
+			}
+
+			if ( is_tax( ATBDP_LOCATION ) ) {
+				return Helper::template_path( 'taxonomy-' . ATBDP_LOCATION );
+			}
+
+			if ( is_tax( ATBDP_TAGS ) ) {
+				return Helper::template_path( 'taxonomy-' . ATBDP_TAGS );
+			}
+
+			return $template;
 		}
 	}
 endif;

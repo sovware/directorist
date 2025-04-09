@@ -42,6 +42,10 @@ class Extension_Handler {
 		try {
 			$this->installer( $plugin_data );
 
+			if ( 'templatiq' === $slug ) {
+				delete_option( '_templatiq_redirect_to_dashboard' );
+			}
+
 			$this->activate( $slug );
 
 			return [

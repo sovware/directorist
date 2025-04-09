@@ -138,11 +138,6 @@ export default {
         return obj;
       }, {});
 
-      console.log("@widgetsList", {
-        selected_widgets,
-        widgets_list,
-      });
-
       return widgets_list;
     },
 
@@ -244,15 +239,6 @@ export default {
 
       // Add item at new position
       updatedWidgets.splice(addedIndex, 0, movedItem);
-
-      console.log("@onElementsDrop", {
-        dropResult,
-        availableWidgets: this.availableWidgets,
-        selectedWidgets: this.selectedWidgets,
-        localSelectedWidgets: this.localSelectedWidgets,
-        updatedWidgets,
-        widgetsList: this.widgetsList,
-      });
 
       // Emit to parent to update prop
       this.$emit("update", { selectedWidgets: updatedWidgets });

@@ -1,10 +1,21 @@
 "use strict";
 
+// New feature: Updates the modal install button's data-item-id
+function updateModalInstallButton(modal, dataItemId) {
+    const installButton = modal.querySelector('.directorist-insert-modal__install-templatiq');
+    if (installButton && dataItemId) {
+        installButton.setAttribute('data-item-id', dataItemId);
+    }
+}
+
 //Toggles the visibility of specified elements when a button is clicked.
 function toggleMembershipVisibility(closetClass, buttonSelector, modalSelector, closeButtonSelector) {
-    const toggleElements = (parent) => {
+    const toggleElements = (parent, dataItemId) => {
         const modal = parent.querySelector(modalSelector);
         if (modal) {
+            // Call the separate function to update the modal button
+            updateModalInstallButton(modal, dataItemId);
+
             const isHidden = modal.classList.contains('directorist-d-none');
             requestAnimationFrame(() => {
                 modal.classList.toggle('directorist-d-block', isHidden);
@@ -18,7 +29,8 @@ function toggleMembershipVisibility(closetClass, buttonSelector, modalSelector, 
         button.addEventListener('click', event => {
             event.stopPropagation();
             const parent = button.closest(closetClass);
-            if (parent) toggleElements(parent);
+            const dataItemId = button.getAttribute('data-item-id');
+            if (parent) toggleElements(parent, dataItemId);
         });
     });
 

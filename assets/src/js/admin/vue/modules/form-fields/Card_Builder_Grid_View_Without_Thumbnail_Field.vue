@@ -308,7 +308,7 @@
                 @update="
                   handleUpdateSelectedWidgets(
                     $event,
-                    'local_layout.footer.left'
+                    'local_layout.footer.right'
                   )
                 "
                 editOnClick
@@ -414,6 +414,7 @@ export default {
   },
 
   computed: {
+    // Output Data
     output_data() {
       let output = {};
       let layout = this.local_layout;
@@ -497,6 +498,7 @@ export default {
       return output;
     },
 
+    // Available Widgets
     theAvailableWidgets() {
       let available_widgets = JSON.parse(
         JSON.stringify(this.available_widgets)
@@ -520,7 +522,6 @@ export default {
           if (show_if_cond_state.status) {
             let widget_keys = [];
             for (let matched_field of show_if_cond_state.matched_data) {
-              // console.log( {matched_field} );
               let _main_widget = JSON.parse(JSON.stringify(main_widget));
               let current_key = widget_keys.includes(widget)
                 ? widget + "_" + (widget_keys.length + 1)
@@ -545,10 +546,10 @@ export default {
         }
       }
 
-      // console.log( { available_widgets } );
       return available_widgets;
     },
 
+    // Widget Options Window Active Status
     widgetOptionsWindowActiveStatus() {
       if (!this.widgetOptionsWindow.widget.length) {
         return false;
@@ -563,10 +564,7 @@ export default {
       return true;
     },
 
-    _currentDraggingWidget() {
-      return this.currentDraggingWidget;
-    },
-
+    // Get Avatar Placeholder Class
     getAvatarPlaceholderClass() {
       let accepted_align_options = ["right", "center", "left"];
       let align_option = "";
@@ -633,8 +631,6 @@ export default {
         widget: "",
       },
 
-      currentDraggingWidget: { origin: {}, key: "" },
-
       // Available Widgets
       available_widgets: {},
 
@@ -697,6 +693,7 @@ export default {
       this.importOldData();
     },
 
+    // isTruthyObject check
     isTruthyObject(obj) {
       if (!obj && typeof obj !== "object") {
         return false;
@@ -705,16 +702,7 @@ export default {
       return true;
     },
 
-    isJSON(string) {
-      try {
-        JSON.parse(string);
-      } catch (e) {
-        return false;
-      }
-
-      return true;
-    },
-
+    // Import Old Data
     importOldData() {
       let value = JSON.parse(JSON.stringify(this.value));
 
@@ -824,6 +812,7 @@ export default {
       }
     },
 
+    // Import Widgets
     importWidgets() {
       if (!this.isTruthyObject(this.widgets)) {
         return;
@@ -832,6 +821,7 @@ export default {
       this.available_widgets = this.widgets;
     },
 
+    // Import Layout
     importLayout() {
       if (!this.isTruthyObject(this.layout)) {
         return;
@@ -855,129 +845,8 @@ export default {
       }
     },
 
-    onDragStartWidget(key, origin) {
-      this.currentDraggingWidget.key = key;
-      this.currentDraggingWidget.origin = origin;
-    },
-
-    onDragEndWidget() {
-      this.currentDraggingWidget.key = "";
-      this.currentDraggingWidget.origin = "";
-    },
-
-    maxWidgetLimitIsReached(path) {
-      if (!path.maxWidget) {
-        return false;
-      }
-      if (path.selectedWidgets.length >= path.maxWidget) {
-        return true;
-      }
-
-      return false;
-    },
-
-    widgetIsAccepted(path, key) {
-      if (!path.acceptedWidgets) {
-        return true;
-      }
-      if (!this.isTruthyObject(path.acceptedWidgets)) {
-        return true;
-      }
-
-      if (
-        path.acceptedWidgets.includes(this.theAvailableWidgets[key].widget_name)
-      ) {
-        return true;
-      }
-
-      return false;
-    },
-
-    widgetIsDropable(path) {
-      if (!this._currentDraggingWidget.key.length) {
-        return false;
-      }
-
-      if (!this.isTruthyObject(this._currentDraggingWidget.origin)) {
-        return false;
-      }
-
-      if (path.selectedWidgets.includes(this._currentDraggingWidget.key)) {
-        return true;
-      }
-
-      if (this.maxWidgetLimitIsReached(path)) {
-        return false;
-      }
-
-      if (!this.widgetIsAccepted(path, this._currentDraggingWidget.key)) {
-        return false;
-      }
-
-      return true;
-    },
-
-    appendWidget(dest_key, dest_path) {
-      const key = this.currentDraggingWidget.key;
-      const from = this.currentDraggingWidget.origin.selectedWidgets;
-      const orign_index = from.indexOf(key);
-      let dest_index = dest_path.selectedWidgets.indexOf(dest_key) + 1;
-
-      if (dest_path.selectedWidgets.includes(key) && 0 === orign_index) {
-        dest_index--;
-      }
-
-      Vue.delete(from, from.indexOf(key));
-      dest_path.selectedWidgets.splice(
-        dest_index,
-        0,
-        this.currentDraggingWidget.key
-      );
-
-      this.onDragEndWidget();
-    },
-
-    handleDropOnPlaceholder(dest) {
-      // return;
-      const key = this.currentDraggingWidget.key;
-      const from = this.currentDraggingWidget.origin.selectedWidgets;
-      const to = dest.selectedWidgets;
-
-      if (!this.isTruthyObject(from)) {
-        return;
-      }
-      if (!this.isTruthyObject(to)) {
-        return;
-      }
-      if (this.maxWidgetLimitIsReached(dest)) {
-        return;
-      }
-      if (!this.widgetIsAccepted(dest, key)) {
-        return;
-      }
-
-      if (!to.includes(key)) {
-        Vue.delete(from, from.indexOf(key));
-        Vue.set(to, to.length, key);
-      }
-
-      this.onDragEndWidget();
-    },
-
-    handleDragEnterOnPlaceholder(where) {
-      // console.log( 'handleDragEnterOnPlaceholder', where );
-    },
-
-    handleDragOverOnPlaceholder(where) {
-      // console.log( 'handleDragOverOnPlaceholder', where );
-    },
-
-    handleDragleaveOnPlaceholder(where) {
-      // console.log( 'handleDragleaveOnPlaceholder', where );
-    },
-
+    // Edit Widget
     editWidget(key) {
-      console.log("@editWidget", { key, widget: this.active_widgets[key] });
       if (
         typeof this.active_widgets[key] === "undefined" ||
         this.widgetOptionsWindowActiveStatus
@@ -1006,15 +875,17 @@ export default {
       }, 0);
     },
 
+    // Update Widget Options Data
     updateWidgetOptionsData(data, widget) {
-      console.log("@updateWidgetOptionsData no Image", { data, widget });
       return;
     },
 
+    // Close Widget Options Window
     closeWidgetOptionsWindow() {
       this.widgetOptionsWindow = this.widgetOptionsWindowDefault;
     },
 
+    // Trash Widget
     trashWidget(key, where) {
       if (!where.selectedWidgets.includes(key)) {
         return;
@@ -1033,6 +904,7 @@ export default {
       }
     },
 
+    // Toggle Widget Status
     toggleWidgetStatus(layout) {
       if (layout.selectedWidgets.length > 0) {
         layout.selectedWidgets?.map((widget) => {
@@ -1048,6 +920,7 @@ export default {
       }
     },
 
+    // Active Insert Window
     activeInsertWindow(current_item_key) {
       if (this.active_insert_widget_key === current_item_key) {
         this.active_insert_widget_key = "";
@@ -1057,6 +930,7 @@ export default {
       this.active_insert_widget_key = current_item_key;
     },
 
+    // Active Option Window
     activeOptionWindow(current_item_key) {
       if (this.active_option_widget_key === current_item_key) {
         this.active_option_widget_key = "";
@@ -1066,6 +940,7 @@ export default {
       this.active_option_widget_key = current_item_key;
     },
 
+    // Insert Widget
     insertWidget(payload, where) {
       if (!this.isTruthyObject(this.theAvailableWidgets[payload.key])) {
         return;
@@ -1077,14 +952,17 @@ export default {
       Vue.set(where, "selectedWidgets", payload.selected_widgets);
     },
 
+    // Close Insert Window
     closeInsertWindow(widget_insert_window) {
       this.active_insert_widget_key = "";
     },
 
+    // Close Option Window
     closeOptionWindow(widget_option_window) {
       this.active_option_widget_key = "";
     },
 
+    // Get Active Insert Window Status
     getActiveInsertWindowStatus(current_item_key) {
       if (current_item_key === this.active_insert_widget_key) {
         return true;
@@ -1093,6 +971,7 @@ export default {
       return false;
     },
 
+    // Get Active Option Window Status
     getActiveOptionWindowStatus(current_item_key) {
       if (current_item_key === this.active_option_widget_key) {
         return true;
@@ -1101,6 +980,7 @@ export default {
       return false;
     },
 
+    // Is Placeholder Active
     placeholderIsActive(layout) {
       if (!this.isObject(layout.show_if)) {
         return true;
@@ -1112,6 +992,7 @@ export default {
       return check_condition.status;
     },
 
+    // Handle Update Selected Widgets
     handleUpdateSelectedWidgets(updatedWidgets, path) {
       // Split the path into keys
       const pathKeys = path.split(".");
@@ -1124,12 +1005,6 @@ export default {
 
       // Update the selectedWidgets at the correct path
       obj[pathKeys[pathKeys.length - 1]].selectedWidgets = updatedWidgets;
-
-      console.log("@handleUpdateSelectedWidgets", {
-        updatedWidgets,
-        path,
-        selectedWidgets: obj[pathKeys[pathKeys.length - 1]].selectedWidgets,
-      });
     },
   },
 };

@@ -319,6 +319,7 @@ document.addEventListener("DOMContentLoaded", function () {
             event.preventDefault();
             
             const extensionSlug = this.getAttribute("data-item-slug");
+            const theme_id = this.getAttribute("data-item-id");
             if (!extensionSlug) return;
             
             this.textContent = "Installing...";
@@ -330,7 +331,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     "Content-Type": "application/json",
                     "X-WP-Nonce": directorist_licensing.nonce
                 },
-                body: JSON.stringify({ slug: extensionSlug })
+                body: JSON.stringify({ slug: extensionSlug, theme_id: theme_id })
             })
             .then(response => response.json())
             .then(data => {

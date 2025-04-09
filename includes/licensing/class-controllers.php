@@ -74,10 +74,16 @@ class Controllers {
 	}
 
 	public function install_extension( \WP_REST_Request $request ) {
-		$slug = (string) $request->get_param( 'slug' );
+		$slug     = (string) $request->get_param( 'slug' );
+		$theme_id = (string) $request->get_param( 'theme_id' );
 
 		if ( empty( $slug ) ) {
 			return rest_ensure_response( ['success' => false, 'message' => __( 'Valid extension slug missing', 'directorist' )] );
+		}
+
+		if ( $theme_id ) {
+			$template_id = directorist_get_template_by_theme( $theme_id );
+			add_option( '_templatiq_redirect_to_template', $template_id );
 		}
 
 		try {

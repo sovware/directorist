@@ -2907,7 +2907,9 @@ input[type="radio"].cptm-radio {
 
     .cptm-widget-option-modal-container {
       left: 0;
-      transform: translate(0, -100%);
+      top: unset;
+      bottom: 100%;
+      transform: unset;
     }
 
     .cptm-card-preview-top-right,
@@ -2916,7 +2918,9 @@ input[type="radio"].cptm-radio {
       .cptm-widget-option-modal-container {
         left: unset;
         right: 0;
-        transform: translate(0, -100%);
+        top: unset;
+        bottom: 100%;
+        transform: unset;
       }
     }
   }

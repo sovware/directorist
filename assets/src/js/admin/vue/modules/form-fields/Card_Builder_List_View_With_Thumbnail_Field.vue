@@ -46,6 +46,12 @@
                   "
                   @close-widgets-picker-window="closeInsertWindow()"
                   @close-widgets-option-window="closeOptionWindow()"
+                  @update="
+                    handleUpdateSelectedWidgets(
+                      $event,
+                      'local_layout.thumbnail.top_right'
+                    )
+                  "
                   editOnClick
                 />
               </div>
@@ -98,6 +104,12 @@
                   "
                   @close-widgets-picker-window="closeInsertWindow()"
                   @close-widgets-option-window="closeOptionWindow()"
+                  @update="
+                    handleUpdateSelectedWidgets(
+                      $event,
+                      'local_layout.top.quick_actions'
+                    )
+                  "
                   editOnClick
                 />
               </div>
@@ -135,6 +147,12 @@
                   "
                   @close-widgets-picker-window="closeInsertWindow()"
                   @close-widgets-option-window="closeOptionWindow()"
+                  @update="
+                    handleUpdateSelectedWidgets(
+                      $event,
+                      'local_layout.top.quick_info'
+                    )
+                  "
                   editOnClick
                 />
               </div>
@@ -222,6 +240,9 @@
               @open-widgets-option-window="activeOptionWindow('body_bottom')"
               @close-widgets-picker-window="closeInsertWindow()"
               @close-widgets-option-window="closeOptionWindow()"
+              @update="
+                handleUpdateSelectedWidgets($event, 'local_layout.body.bottom')
+              "
               editOnClick
             />
           </div>
@@ -253,6 +274,12 @@
                 @open-widgets-option-window="activeOptionWindow('footer_left')"
                 @close-widgets-picker-window="closeInsertWindow()"
                 @close-widgets-option-window="closeOptionWindow()"
+                @update="
+                  handleUpdateSelectedWidgets(
+                    $event,
+                    'local_layout.footer.left'
+                  )
+                "
                 editOnClick
               />
             </div>
@@ -282,6 +309,12 @@
                 @open-widgets-option-window="activeOptionWindow('footer_right')"
                 @close-widgets-picker-window="closeInsertWindow()"
                 @close-widgets-option-window="closeOptionWindow()"
+                @update="
+                  handleUpdateSelectedWidgets(
+                    $event,
+                    'local_layout.footer.right'
+                  )
+                "
                 editOnClick
               />
             </div>
@@ -1016,6 +1049,26 @@ export default {
         condition: layout.show_if,
       });
       return check_condition.status;
+    },
+
+    handleUpdateSelectedWidgets(updatedWidgets, path) {
+      // Split the path into keys
+      const pathKeys = path.split(".");
+
+      // Navigate through the object dynamically
+      let obj = this;
+      for (let i = 0; i < pathKeys.length - 1; i++) {
+        obj = obj[pathKeys[i]]; // Navigate deeper into the object
+      }
+
+      // Update the selectedWidgets at the correct path
+      obj[pathKeys[pathKeys.length - 1]].selectedWidgets = updatedWidgets;
+
+      console.log("@handleUpdateSelectedWidgets", {
+        updatedWidgets,
+        path,
+        selectedWidgets: obj[pathKeys[pathKeys.length - 1]].selectedWidgets,
+      });
     },
   },
 };

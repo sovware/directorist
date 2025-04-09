@@ -1872,22 +1872,11 @@ class Builder_Data {
                 ],
                 'bottom'  => [
                     'label'           => __( 'Add Element', 'directorist' ),
-                    'maxWidget'       => 3,
+                    'maxWidget'       => 5,
                     'acceptedWidgets' => [
                         'listings_location', 'phone', 'phone2', 'website', 'zip', 'fax', 'address', 'email', 'text', 'textarea', 'number', 'url', 'date', 'time', 'color', 'select', 'checkbox', 'radio', 'file', 'posted_date',
                     ],
                 ],
-                // 'excerpt' => [
-                //     'label'           => __( 'Add Element', 'directorist' ),
-                //     'maxWidget'       => 1,
-                //     'acceptedWidgets' => ['excerpt'],
-                //     'show_if'         => [
-                //         'where'      => 'submission_form_fields.value.fields',
-                //         'conditions' => [
-                //             ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'excerpt'],
-                //         ],
-                //     ],
-                // ],
             ],
 
             'footer'    => [

@@ -21122,6 +21122,24 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         condition: layout.show_if
       });
       return check_condition.status;
+    },
+    handleUpdateSelectedWidgets: function handleUpdateSelectedWidgets(updatedWidgets, path) {
+      // Split the path into keys
+      var pathKeys = path.split(".");
+
+      // Navigate through the object dynamically
+      var obj = this;
+      for (var i = 0; i < pathKeys.length - 1; i++) {
+        obj = obj[pathKeys[i]]; // Navigate deeper into the object
+      }
+
+      // Update the selectedWidgets at the correct path
+      obj[pathKeys[pathKeys.length - 1]].selectedWidgets = updatedWidgets;
+      console.log("@handleUpdateSelectedWidgets", {
+        updatedWidgets: updatedWidgets,
+        path: path,
+        selectedWidgets: obj[pathKeys[pathKeys.length - 1]].selectedWidgets
+      });
     }
   }
 });
@@ -22846,6 +22864,24 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         condition: layout.show_if
       });
       return check_condition.status;
+    },
+    handleUpdateSelectedWidgets: function handleUpdateSelectedWidgets(updatedWidgets, path) {
+      // Split the path into keys
+      var pathKeys = path.split(".");
+
+      // Navigate through the object dynamically
+      var obj = this;
+      for (var i = 0; i < pathKeys.length - 1; i++) {
+        obj = obj[pathKeys[i]]; // Navigate deeper into the object
+      }
+
+      // Update the selectedWidgets at the correct path
+      obj[pathKeys[pathKeys.length - 1]].selectedWidgets = updatedWidgets;
+      console.log("@handleUpdateSelectedWidgets", {
+        updatedWidgets: updatedWidgets,
+        path: path,
+        selectedWidgets: obj[pathKeys[pathKeys.length - 1]].selectedWidgets
+      });
     }
   }
 });
@@ -23401,6 +23437,24 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         condition: layout.show_if
       });
       return check_condition.status;
+    },
+    handleUpdateSelectedWidgets: function handleUpdateSelectedWidgets(updatedWidgets, path) {
+      // Split the path into keys
+      var pathKeys = path.split(".");
+
+      // Navigate through the object dynamically
+      var obj = this;
+      for (var i = 0; i < pathKeys.length - 1; i++) {
+        obj = obj[pathKeys[i]]; // Navigate deeper into the object
+      }
+
+      // Update the selectedWidgets at the correct path
+      obj[pathKeys[pathKeys.length - 1]].selectedWidgets = updatedWidgets;
+      console.log("@handleUpdateSelectedWidgets", {
+        updatedWidgets: updatedWidgets,
+        path: path,
+        selectedWidgets: obj[pathKeys[pathKeys.length - 1]].selectedWidgets
+      });
     }
   }
 });
@@ -32348,8 +32402,8 @@ var render = function render() {
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
       },
-      "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
-        return _vm.closeOptionWindow();
+      update: function update($event) {
+        return _vm.handleUpdateSelectedWidgets($event, "local_layout.thumbnail.top_left");
       }
     }
   })], 1), _vm._v(" "), _c("div", {
@@ -32390,6 +32444,9 @@ var render = function render() {
       },
       "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
         return _vm.closeOptionWindow();
+      },
+      update: function update($event) {
+        return _vm.handleUpdateSelectedWidgets($event, "local_layout.thumbnail.top_right");
       }
     }
   })], 1), _vm._v(" "), _c("div", {
@@ -32430,6 +32487,9 @@ var render = function render() {
       },
       "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
         return _vm.closeOptionWindow();
+      },
+      update: function update($event) {
+        return _vm.handleUpdateSelectedWidgets($event, "local_layout.thumbnail.bottom_left");
       }
     }
   })], 1), _vm._v(" "), _c("div", {
@@ -32470,6 +32530,9 @@ var render = function render() {
       },
       "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
         return _vm.closeOptionWindow();
+      },
+      update: function update($event) {
+        return _vm.handleUpdateSelectedWidgets($event, "local_layout.thumbnail.bottom_right");
       }
     }
   })], 1), _vm._v(" "), _vm._m(0)])])]), _vm._v(" "), _c("div", {
@@ -32612,6 +32675,9 @@ var render = function render() {
       },
       "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
         return _vm.closeOptionWindow();
+      },
+      update: function update($event) {
+        return _vm.handleUpdateSelectedWidgets($event, "local_layout.body.badges");
       }
     }
   })], 1), _vm._v(" "), _c("div", {
@@ -32652,6 +32718,9 @@ var render = function render() {
       },
       "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
         return _vm.closeOptionWindow();
+      },
+      update: function update($event) {
+        return _vm.handleUpdateSelectedWidgets($event, "local_layout.body.bottom");
       }
     }
   })], 1)], 1), _vm._v(" "), _c("div", {
@@ -32694,6 +32763,9 @@ var render = function render() {
       },
       "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
         return _vm.closeOptionWindow();
+      },
+      update: function update($event) {
+        return _vm.handleUpdateSelectedWidgets($event, "local_layout.footer.left");
       }
     }
   })], 1), _vm._v(" "), _c("div", {
@@ -32734,6 +32806,9 @@ var render = function render() {
       },
       "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
         return _vm.closeOptionWindow();
+      },
+      update: function update($event) {
+        return _vm.handleUpdateSelectedWidgets($event, "local_layout.footer.right");
       }
     }
   })], 1)])])]), _vm._v(" "), _c("div", {
@@ -33753,6 +33828,9 @@ var render = function render() {
       },
       "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
         return _vm.closeOptionWindow();
+      },
+      update: function update($event) {
+        return _vm.handleUpdateSelectedWidgets($event, "local_layout.thumbnail.top_right");
       }
     }
   })], 1), _vm._v(" "), _vm._m(0)])])]), _vm._v(" "), _c("div", {
@@ -33799,6 +33877,9 @@ var render = function render() {
       },
       "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
         return _vm.closeOptionWindow();
+      },
+      update: function update($event) {
+        return _vm.handleUpdateSelectedWidgets($event, "local_layout.top.quick_actions");
       }
     }
   })], 1), _vm._v(" "), _c("div", {
@@ -33839,6 +33920,9 @@ var render = function render() {
       },
       "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
         return _vm.closeOptionWindow();
+      },
+      update: function update($event) {
+        return _vm.handleUpdateSelectedWidgets($event, "local_layout.top.quick_info");
       }
     }
   })], 1)]), _vm._v(" "), _c("card-widget-placeholder", {
@@ -33954,6 +34038,9 @@ var render = function render() {
       },
       "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
         return _vm.closeOptionWindow();
+      },
+      update: function update($event) {
+        return _vm.handleUpdateSelectedWidgets($event, "local_layout.body.bottom");
       }
     }
   })], 1), _vm._v(" "), _c("div", {
@@ -33996,6 +34083,9 @@ var render = function render() {
       },
       "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
         return _vm.closeOptionWindow();
+      },
+      update: function update($event) {
+        return _vm.handleUpdateSelectedWidgets($event, "local_layout.footer.left");
       }
     }
   })], 1), _vm._v(" "), _c("div", {
@@ -34036,6 +34126,9 @@ var render = function render() {
       },
       "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
         return _vm.closeOptionWindow();
+      },
+      update: function update($event) {
+        return _vm.handleUpdateSelectedWidgets($event, "local_layout.footer.right");
       }
     }
   })], 1)])])]), _vm._v(" "), _c("div", {
@@ -34180,6 +34273,9 @@ var render = function render() {
       },
       "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
         return _vm.closeOptionWindow();
+      },
+      update: function update($event) {
+        return _vm.handleUpdateSelectedWidgets($event, "local_layout.top.quick_info");
       }
     }
   })], 1), _vm._v(" "), _c("div", {
@@ -34220,6 +34316,9 @@ var render = function render() {
       },
       "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
         return _vm.closeOptionWindow();
+      },
+      update: function update($event) {
+        return _vm.handleUpdateSelectedWidgets($event, "local_layout.top.quick_info");
       }
     }
   })], 1)]), _vm._v(" "), _c("card-widget-placeholder", {
@@ -34335,6 +34434,9 @@ var render = function render() {
       },
       "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
         return _vm.closeOptionWindow();
+      },
+      update: function update($event) {
+        return _vm.handleUpdateSelectedWidgets($event, "local_layout.body.bottom");
       }
     }
   })], 1), _vm._v(" "), _c("div", {
@@ -34377,6 +34479,9 @@ var render = function render() {
       },
       "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
         return _vm.closeOptionWindow();
+      },
+      update: function update($event) {
+        return _vm.handleUpdateSelectedWidgets($event, "local_layout.footer.left");
       }
     }
   })], 1), _vm._v(" "), _c("div", {
@@ -34417,6 +34522,9 @@ var render = function render() {
       },
       "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
         return _vm.closeOptionWindow();
+      },
+      update: function update($event) {
+        return _vm.handleUpdateSelectedWidgets($event, "local_layout.footer.right");
       }
     }
   })], 1)])])]), _vm._v(" "), _c("div", {

@@ -44,7 +44,12 @@
                       activeOptionWindow('thumbnail_top_left')
                     "
                     @close-widgets-picker-window="closeInsertWindow()"
-                    @close-widgets-option-window="closeOptionWindow()"
+                    @update="
+                      handleUpdateSelectedWidgets(
+                        $event,
+                        'local_layout.thumbnail.top_left'
+                      )
+                    "
                     editOnClick
                   />
                 </div>
@@ -86,6 +91,12 @@
                     "
                     @close-widgets-picker-window="closeInsertWindow()"
                     @close-widgets-option-window="closeOptionWindow()"
+                    @update="
+                      handleUpdateSelectedWidgets(
+                        $event,
+                        'local_layout.thumbnail.top_right'
+                      )
+                    "
                     editOnClick
                   />
                 </div>
@@ -127,6 +138,12 @@
                     "
                     @close-widgets-picker-window="closeInsertWindow()"
                     @close-widgets-option-window="closeOptionWindow()"
+                    @update="
+                      handleUpdateSelectedWidgets(
+                        $event,
+                        'local_layout.thumbnail.bottom_left'
+                      )
+                    "
                     editOnClick
                   />
                 </div>
@@ -168,6 +185,12 @@
                     "
                     @close-widgets-picker-window="closeInsertWindow()"
                     @close-widgets-option-window="closeOptionWindow()"
+                    @update="
+                      handleUpdateSelectedWidgets(
+                        $event,
+                        'local_layout.thumbnail.bottom_right'
+                      )
+                    "
                     editOnClick
                   />
                 </div>
@@ -239,7 +262,7 @@
               @toggle-widget-status="toggleWidgetStatus(local_layout.body.top)"
               editOnClick
             />
-            
+
             <card-widget-placeholder
               id="thumbnail_body_tagline"
               containerClass="cptm-listing-card-preview-tagline-placeholder cptm-card-light cptm-mb-20 cptm-align-left"
@@ -288,6 +311,12 @@
                 "
                 @close-widgets-picker-window="closeInsertWindow()"
                 @close-widgets-option-window="closeOptionWindow()"
+                @update="
+                  handleUpdateSelectedWidgets(
+                    $event,
+                    'local_layout.body.badges'
+                  )
+                "
                 editOnClick
               />
             </div>
@@ -320,40 +349,15 @@
                 "
                 @close-widgets-picker-window="closeInsertWindow()"
                 @close-widgets-option-window="closeOptionWindow()"
+                @update="
+                  handleUpdateSelectedWidgets(
+                    $event,
+                    'local_layout.body.bottom'
+                  )
+                "
                 editOnClick
               />
             </div>
-
-            <!-- <card-widget-placeholder
-              id="body_excerpt"
-              containerClass="cptm-listing-card-preview-body-excerpt-placeholder cptm-card-light"
-              v-if="placeholderIsActive(local_layout.body.excerpt)"
-              :label="local_layout.body.excerpt.label"
-              :availableWidgets="theAvailableWidgets"
-              :activeWidgets="active_widgets"
-              :acceptedWidgets="local_layout.body.excerpt.acceptedWidgets"
-              :selectedWidgets="local_layout.body.excerpt.selectedWidgets"
-              :maxWidget="local_layout.body.excerpt.maxWidget"
-              :showWidgetsPickerWindow="
-                getActiveInsertWindowStatus('body_excerpt')
-              "
-              :showWidgetsOptionWindow="
-                getActiveOptionWindowStatus('body_excerpt')
-              "
-              :widgetOptionsWindow="widgetOptionsWindow"
-              @insert-widget="insertWidget($event, local_layout.body.excerpt)"
-              @edit-widget="editWidget($event)"
-              @trash-widget="trashWidget($event, local_layout.body.excerpt)"
-              @open-widgets-picker-window="activeInsertWindow('body_excerpt')"
-              @open-widgets-option-window="activeOptionWindow('body_excerpt')"
-              @close-widgets-picker-window="closeInsertWindow()"
-              @close-widgets-option-window="closeOptionWindow()"
-              @update-option-window="
-                updateWidgetOptionsData($event, widgetOptionsWindow)
-              "
-              @close-option-window="closeWidgetOptionsWindow()"
-              editOnClick
-            /> -->
           </div>
 
           <!-- cptm-listing-card-preview-footer -->
@@ -387,6 +391,12 @@
                 "
                 @close-widgets-picker-window="closeInsertWindow()"
                 @close-widgets-option-window="closeOptionWindow()"
+                @update="
+                  handleUpdateSelectedWidgets(
+                    $event,
+                    'local_layout.footer.left'
+                  )
+                "
                 editOnClick
               />
             </div>
@@ -420,6 +430,12 @@
                 "
                 @close-widgets-picker-window="closeInsertWindow()"
                 @close-widgets-option-window="closeOptionWindow()"
+                @update="
+                  handleUpdateSelectedWidgets(
+                    $event,
+                    'local_layout.footer.right'
+                  )
+                "
                 editOnClick
               />
             </div>
@@ -1224,6 +1240,26 @@ export default {
         condition: layout.show_if,
       });
       return check_condition.status;
+    },
+
+    handleUpdateSelectedWidgets(updatedWidgets, path) {
+      // Split the path into keys
+      const pathKeys = path.split(".");
+
+      // Navigate through the object dynamically
+      let obj = this;
+      for (let i = 0; i < pathKeys.length - 1; i++) {
+        obj = obj[pathKeys[i]]; // Navigate deeper into the object
+      }
+
+      // Update the selectedWidgets at the correct path
+      obj[pathKeys[pathKeys.length - 1]].selectedWidgets = updatedWidgets;
+
+      console.log("@handleUpdateSelectedWidgets", {
+        updatedWidgets,
+        path,
+        selectedWidgets: obj[pathKeys[pathKeys.length - 1]].selectedWidgets,
+      });
     },
   },
 };

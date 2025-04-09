@@ -4,7 +4,8 @@
       <widgets-option-window
         :id="id"
         :availableWidgets="availableWidgets"
-        :selectedWidgets="selectedWidgets"
+        :selected-widgets="selectedWidgets"
+        @update="handleUpdateOptionWindow"
         :active="
           !!(
             showWidgetsOptionWindow &&
@@ -319,18 +320,15 @@ export default {
       return true;
     },
     setActiveWidget(widgetKey) {
-      if (!this.editOnClick) {
+      if (!this.editOnClick || widgetKey !== "user_avatar") {
         return;
       }
 
       this.activeWidgetKey = widgetKey;
-      console.log("@setActiveWidget", {
-        widgetKey,
-        activeWidgetKey: this.activeWidgetKey,
-        optionWidgetKey: this.optionWidgetKey,
-        editOnClick: this.editOnClick,
-        chk: this.activeWidgetKey === this.optionWidgetKey,
-      });
+    },
+    handleUpdateOptionWindow(payload) {
+      // Emit the updated selectedWidgets to the parent component
+      this.$emit("update", payload.selectedWidgets);
     },
   },
 

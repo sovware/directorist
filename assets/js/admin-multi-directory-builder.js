@@ -15886,17 +15886,14 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       return true;
     },
     setActiveWidget: function setActiveWidget(widgetKey) {
-      if (!this.editOnClick) {
+      if (!this.editOnClick || widgetKey !== "user_avatar") {
         return;
       }
       this.activeWidgetKey = widgetKey;
-      console.log("@setActiveWidget", {
-        widgetKey: widgetKey,
-        activeWidgetKey: this.activeWidgetKey,
-        optionWidgetKey: this.optionWidgetKey,
-        editOnClick: this.editOnClick,
-        chk: this.activeWidgetKey === this.optionWidgetKey
-      });
+    },
+    handleUpdateOptionWindow: function handleUpdateOptionWindow(payload) {
+      // Emit the updated selectedWidgets to the parent component
+      this.$emit("update", payload.selectedWidgets);
     }
   },
   watch: {
@@ -17144,10 +17141,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof.js");
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var vue_dndrop__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-dndrop */ "./node_modules/vue-dndrop/dist/vue-dndrop.esm.js");
-
+/* harmony import */ var vue_dndrop__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-dndrop */ "./node_modules/vue-dndrop/dist/vue-dndrop.esm.js");
 
 
 
@@ -17155,8 +17149,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "widgets-option-window",
   components: {
-    Container: vue_dndrop__WEBPACK_IMPORTED_MODULE_4__["Container"],
-    Draggable: vue_dndrop__WEBPACK_IMPORTED_MODULE_4__["Draggable"]
+    Container: vue_dndrop__WEBPACK_IMPORTED_MODULE_3__["Container"],
+    Draggable: vue_dndrop__WEBPACK_IMPORTED_MODULE_3__["Draggable"]
   },
   props: {
     id: {
@@ -17193,13 +17187,25 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     widgetsList: function widgetsList() {
       var availableWidgets = JSON.parse(JSON.stringify(this.availableWidgets));
-      var selected_widgets = this.selectedWidgets;
-      var widgets_list = Object.keys(availableWidgets).filter(function (key) {
-        return selected_widgets.includes(availableWidgets[key].widget_name);
-      }).reduce(function (obj, key) {
-        obj[key] = availableWidgets[key];
+      var selected_widgets = this.localSelectedWidgets;
+
+      // Create a new object that maintains the order of selected_widgets
+      var widgets_list = selected_widgets.reduce(function (obj, widget_name) {
+        // Find the widget by its widget_name in availableWidgets
+        var widget = Object.values(availableWidgets).find(function (w) {
+          return w.widget_name === widget_name;
+        });
+
+        // If the widget is found, add it to the object
+        if (widget) {
+          obj[widget_name] = widget;
+        }
         return obj;
       }, {});
+      console.log("@widgetsList", {
+        selected_widgets: selected_widgets,
+        widgets_list: widgets_list
+      });
       return widgets_list;
     },
     infoTexts: function infoTexts() {
@@ -17213,9 +17219,9 @@ __webpack_require__.r(__webpack_exports__);
       return info_texts;
     },
     mainWrapperClass: function mainWrapperClass() {
-      return _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_3___default()({
+      return {
         active: this.active
-      }, this.animation, true);
+      };
     }
   },
   data: function data() {
@@ -17261,85 +17267,35 @@ __webpack_require__.r(__webpack_exports__);
       var filtered_double_pare = filtered_single_pare.replace(/({\w+\|\w+})/gi, filter_double_pare);
       return filtered_double_pare;
     },
-    getSettingsChildPayload: function getSettingsChildPayload(draggedItemIndex) {
-      console.log("@getSettingsChildPayload", {
-        draggedItemIndex: draggedItemIndex
-      });
-
-      // Return the payload containing both pieces of data
-      return {
-        draggedItemIndex: draggedItemIndex
-      };
-    },
     onElementsDrop: function onElementsDrop(dropResult) {
       var removedIndex = dropResult.removedIndex,
-        addedIndex = dropResult.addedIndex,
-        payload = dropResult.payload;
-      var draggedItemIndex = payload.draggedItemIndex;
+        addedIndex = dropResult.addedIndex;
+      if (removedIndex === null || addedIndex === null) return;
+
+      // Clone the array (no mutation)
+      var updatedWidgets = _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1___default()(this.selectedWidgets);
+
+      // Remove item
+      var _updatedWidgets$splic = updatedWidgets.splice(removedIndex, 1),
+        _updatedWidgets$splic2 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_updatedWidgets$splic, 1),
+        movedItem = _updatedWidgets$splic2[0];
+
+      // Add item at new position
+      updatedWidgets.splice(addedIndex, 0, movedItem);
       console.log("@onElementsDrop", {
         dropResult: dropResult,
-        payload: payload
+        availableWidgets: this.availableWidgets,
+        selectedWidgets: this.selectedWidgets,
+        localSelectedWidgets: this.localSelectedWidgets,
+        updatedWidgets: updatedWidgets,
+        widgetsList: this.widgetsList
+      });
+
+      // Emit to parent to update prop
+      this.$emit("update", {
+        selectedWidgets: updatedWidgets
       });
       return;
-      if (removedIndex !== null || addedIndex !== null) {
-        var _this$allPlaceholderI;
-        var destinationItemIndex;
-        var destinationPlaceholderIndex;
-        var sourceItemIndex = draggedItemIndex;
-        var sourcePlaceholderIndex = placeholderIndex;
-        if (addedIndex !== null) {
-          destinationItemIndex = addedIndex;
-          destinationPlaceholderIndex = placeholder_index;
-        } else {
-          destinationItemIndex = null;
-          destinationPlaceholderIndex = null;
-        }
-
-        // Get the widget key from the source placeholder
-        var widgetKey = (_this$allPlaceholderI = this.allPlaceholderItems[sourcePlaceholderIndex]) === null || _this$allPlaceholderI === void 0 ? void 0 : _this$allPlaceholderI.acceptedWidgets[draggedItemIndex];
-        if (widgetKey !== undefined) {
-          if (sourcePlaceholderIndex === destinationPlaceholderIndex) {
-            // Moving within the same placeholder
-            var widgets = this.allPlaceholderItems[sourcePlaceholderIndex].acceptedWidgets;
-            var selectedWidgets = this.allPlaceholderItems[sourcePlaceholderIndex].selectedWidgets;
-            var selectedWidgetList = this.allPlaceholderItems[sourcePlaceholderIndex].selectedWidgetList;
-
-            // Remove the widget from the source position
-            var _widgets$splice = widgets.splice(sourceItemIndex, 1),
-              _widgets$splice2 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_widgets$splice, 1),
-              movedWidget = _widgets$splice2[0];
-
-            // Insert the widget at the destination position
-            widgets.splice(destinationItemIndex, 0, movedWidget);
-
-            // Update selectedWidgetList position based on acceptedWidgets
-            var selectedWidgetIndex = selectedWidgetList && selectedWidgetList.indexOf(movedWidget);
-            if (selectedWidgetIndex && selectedWidgetIndex !== -1) {
-              // Remove the widget from the selected position
-              selectedWidgetList.splice(selectedWidgetIndex, 1);
-
-              // Insert the widget at the new position
-              var newSelectedIndex = widgets.indexOf(movedWidget);
-              selectedWidgetList.splice(newSelectedIndex, 0, movedWidget);
-            }
-
-            // Reorder `selectedWidgets` based on `selectedWidgetList`
-            selectedWidgets && selectedWidgets.sort(function (a, b) {
-              return selectedWidgetList.indexOf(a.widget_key) - selectedWidgetList.indexOf(b.widget_key);
-            });
-
-            // Update Placeholders
-            var updatedPlaceholders = this.syncPlaceholdersWithAllPlaceholderItems(this.allPlaceholderItems, this.placeholders || []);
-            this.placeholders = updatedPlaceholders;
-          } else if (destinationPlaceholderIndex !== null) {
-            // Moving between different placeholders
-            // this.allPlaceholderItems[destinationPlaceholderIndex].selectedWidgetList.splice(destinationItemIndex, 0, widgetKey);
-            // this.allPlaceholderItems[sourcePlaceholderIndex].selectedWidgetList.splice(sourceItemIndex, 1);
-          }
-        }
-      } else {
-        return;
-      }
     }
   }
 });
@@ -22251,6 +22207,24 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         condition: layout.show_if
       });
       return check_condition.status;
+    },
+    handleUpdateSelectedWidgets: function handleUpdateSelectedWidgets(updatedWidgets, path) {
+      // Split the path into keys
+      var pathKeys = path.split(".");
+
+      // Navigate through the object dynamically
+      var obj = this;
+      for (var i = 0; i < pathKeys.length - 1; i++) {
+        obj = obj[pathKeys[i]]; // Navigate deeper into the object
+      }
+
+      // Update the selectedWidgets at the correct path
+      obj[pathKeys[pathKeys.length - 1]].selectedWidgets = updatedWidgets;
+      console.log("@handleUpdateSelectedWidgets", {
+        updatedWidgets: updatedWidgets,
+        path: path,
+        selectedWidgets: obj[pathKeys[pathKeys.length - 1]].selectedWidgets
+      });
     }
   }
 });
@@ -28649,11 +28623,12 @@ var render = function render() {
     attrs: {
       id: _vm.id,
       availableWidgets: _vm.availableWidgets,
-      selectedWidgets: _vm.selectedWidgets,
+      "selected-widgets": _vm.selectedWidgets,
       active: !!(_vm.showWidgetsOptionWindow && _vm.selectedWidgets.length && !_vm.showWidgetsPickerWindow),
       maxWidgetInfoText: _vm.maxWidgetInfoText
     },
     on: {
+      update: _vm.handleUpdateOptionWindow,
       "trash-widget": function trashWidget($event) {
         return _vm.$emit("trash-widget", $event);
       },
@@ -29812,7 +29787,7 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "cptm-option-card cptm-option-card--draggable test",
+    staticClass: "cptm-option-card cptm-option-card--draggable",
     class: _vm.mainWrapperClass
   }, [_c("div", {
     staticClass: "cptm-option-card-header"
@@ -29848,11 +29823,9 @@ var render = function render() {
   }), 0) : _vm._e(), _vm._v(" "), Object.keys(_vm.widgetsList).length ? _c("Container", {
     staticClass: "cptm-form-builder-field-list",
     attrs: {
+      "lock-axis": "y",
       "group-name": "card-widgets",
-      "drag-handle-selector": ".drag-handle",
-      "get-child-payload": function getChildPayload(index) {
-        return _vm.getSettingsChildPayload(index);
-      }
+      "drag-handle-selector": ".drag-handle"
     },
     on: {
       drop: function drop($event) {
@@ -29894,46 +29867,11 @@ var render = function render() {
     }, [_c("span", {
       staticClass: "uil uil-trash-alt"
     })])])])]);
-  }), 1) : _vm._e(), _vm._v(" "), Object.keys(_vm.widgetsList).length ? _c("ul", {
-    staticClass: "cptm-form-builder-field-list"
-  }, _vm._l(_vm.widgetsList, function (widget, widget_key) {
-    return _c("li", {
-      key: widget_key,
-      staticClass: "cptm-form-builder-field-list-item-wrapper"
-    }, [_vm._m(0, true), _vm._v(" "), _c("span", {
-      staticClass: "cptm-form-builder-field-list-item"
-    }, [_c("span", {
-      staticClass: "cptm-form-builder-field-list-item-content"
-    }, [_c("span", {
-      staticClass: "cptm-form-builder-field-list-item-icon"
-    }, [_c("span", {
-      class: widget.icon
-    })]), _vm._v(" "), _c("span", {
-      staticClass: "cptm-form-builder-field-list-item-label"
-    }, [_vm._v("\n              " + _vm._s(widget.label) + "\n            ")])]), _vm._v(" "), _c("span", {
-      staticClass: "cptm-form-builder-field-list-item-action",
-      on: {
-        click: function click($event) {
-          $event.preventDefault();
-          return _vm.trash(widget_key);
-        }
-      }
-    }, [_c("span", {
-      staticClass: "uil uil-trash-alt"
-    })])])]);
-  }), 0) : _c("p", {
+  }), 1) : _c("p", {
     staticClass: "cptm-info-text"
   }, [_vm._v("Nothing available")])], 1)]);
 };
-var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("span", {
-    staticClass: "cptm-form-builder-field-list-item-drag"
-  }, [_c("span", {
-    staticClass: "uil uil-draggabledots"
-  })]);
-}];
+var staticRenderFns = [];
 render._withStripped = true;
 
 
@@ -33377,6 +33315,9 @@ var render = function render() {
       },
       "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
         return _vm.closeOptionWindow();
+      },
+      update: function update($event) {
+        return _vm.handleUpdateSelectedWidgets($event, "local_layout.top.quick_actions");
       }
     }
   })], 1), _vm._v(" "), _c("div", {
@@ -33417,6 +33358,9 @@ var render = function render() {
       },
       "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
         return _vm.closeOptionWindow();
+      },
+      update: function update($event) {
+        return _vm.handleUpdateSelectedWidgets($event, "local_layout.top.quick_info");
       }
     }
   })], 1)]), _vm._v(" "), _c("card-widget-placeholder", {
@@ -33553,6 +33497,9 @@ var render = function render() {
       },
       "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
         return _vm.closeOptionWindow();
+      },
+      update: function update($event) {
+        return _vm.handleUpdateSelectedWidgets($event, "local_layout.body.badges");
       }
     }
   }), _vm._v(" "), _c("card-widget-placeholder", {
@@ -33591,6 +33538,9 @@ var render = function render() {
       },
       "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
         return _vm.closeOptionWindow();
+      },
+      update: function update($event) {
+        return _vm.handleUpdateSelectedWidgets($event, "local_layout.body.bottom");
       }
     }
   })], 1), _vm._v(" "), _c("div", {
@@ -33633,6 +33583,9 @@ var render = function render() {
       },
       "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
         return _vm.closeOptionWindow();
+      },
+      update: function update($event) {
+        return _vm.handleUpdateSelectedWidgets($event, "local_layout.footer.left");
       }
     }
   })], 1), _vm._v(" "), _c("div", {
@@ -33673,6 +33626,9 @@ var render = function render() {
       },
       "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
         return _vm.closeOptionWindow();
+      },
+      update: function update($event) {
+        return _vm.handleUpdateSelectedWidgets($event, "local_layout.footer.left");
       }
     }
   })], 1)])])]), _vm._v(" "), _c("div", {

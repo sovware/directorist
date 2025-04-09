@@ -1,6 +1,6 @@
 <template>
   <div
-    class="cptm-option-card cptm-option-card--draggable test"
+    class="cptm-option-card cptm-option-card--draggable"
     :class="mainWrapperClass"
   >
     <div class="cptm-option-card-header">
@@ -33,10 +33,10 @@
 
       <Container
         @drop="onElementsDrop($event)"
+        lock-axis="y"
         group-name="card-widgets"
         drag-handle-selector=".drag-handle"
         class="cptm-form-builder-field-list"
-        :get-child-payload="(index) => getSettingsChildPayload(index)"
         v-if="Object.keys(widgetsList).length"
       >
         <Draggable
@@ -67,37 +67,6 @@
           </div>
         </Draggable>
       </Container>
-
-      <ul
-        class="cptm-form-builder-field-list"
-        v-if="Object.keys(widgetsList).length"
-      >
-        <li
-          class="cptm-form-builder-field-list-item-wrapper"
-          v-for="(widget, widget_key) in widgetsList"
-          :key="widget_key"
-        >
-          <span class="cptm-form-builder-field-list-item-drag">
-            <span class="uil uil-draggabledots"></span>
-          </span>
-          <span class="cptm-form-builder-field-list-item">
-            <span class="cptm-form-builder-field-list-item-content">
-              <span class="cptm-form-builder-field-list-item-icon">
-                <span :class="widget.icon"></span>
-              </span>
-              <span class="cptm-form-builder-field-list-item-label">
-                {{ widget.label }}
-              </span>
-            </span>
-            <span
-              class="cptm-form-builder-field-list-item-action"
-              @click.prevent="trash(widget_key)"
-            >
-              <span class="uil uil-trash-alt"></span>
-            </span>
-          </span>
-        </li>
-      </ul>
 
       <p v-else class="cptm-info-text">Nothing available</p>
     </div>
@@ -152,17 +121,27 @@ export default {
   computed: {
     widgetsList() {
       let availableWidgets = JSON.parse(JSON.stringify(this.availableWidgets));
-      let selected_widgets = this.selectedWidgets;
+      let selected_widgets = this.localSelectedWidgets;
 
-      let widgets_list = Object.keys(availableWidgets)
-        .filter((key) =>
-          selected_widgets.includes(availableWidgets[key].widget_name)
-        )
-        .reduce((obj, key) => {
-          obj[key] = availableWidgets[key];
+      // Create a new object that maintains the order of selected_widgets
+      let widgets_list = selected_widgets.reduce((obj, widget_name) => {
+        // Find the widget by its widget_name in availableWidgets
+        const widget = Object.values(availableWidgets).find(
+          (w) => w.widget_name === widget_name
+        );
 
-          return obj;
-        }, {});
+        // If the widget is found, add it to the object
+        if (widget) {
+          obj[widget_name] = widget;
+        }
+
+        return obj;
+      }, {});
+
+      console.log("@widgetsList", {
+        selected_widgets,
+        widgets_list,
+      });
 
       return widgets_list;
     },
@@ -186,7 +165,6 @@ export default {
     mainWrapperClass() {
       return {
         active: this.active,
-        [this.animation]: true,
       };
     },
   },
@@ -253,101 +231,33 @@ export default {
       return filtered_double_pare;
     },
 
-    getSettingsChildPayload(draggedItemIndex) {
-      console.log("@getSettingsChildPayload", {
-        draggedItemIndex,
-      });
-
-      // Return the payload containing both pieces of data
-      return {
-        draggedItemIndex: draggedItemIndex,
-      };
-    },
-
     onElementsDrop(dropResult) {
-      const { removedIndex, addedIndex, payload } = dropResult;
-      const { draggedItemIndex } = payload;
+      const { removedIndex, addedIndex } = dropResult;
+
+      if (removedIndex === null || addedIndex === null) return;
+
+      // Clone the array (no mutation)
+      const updatedWidgets = [...this.selectedWidgets];
+
+      // Remove item
+      const [movedItem] = updatedWidgets.splice(removedIndex, 1);
+
+      // Add item at new position
+      updatedWidgets.splice(addedIndex, 0, movedItem);
 
       console.log("@onElementsDrop", {
         dropResult,
-        payload,
+        availableWidgets: this.availableWidgets,
+        selectedWidgets: this.selectedWidgets,
+        localSelectedWidgets: this.localSelectedWidgets,
+        updatedWidgets,
+        widgetsList: this.widgetsList,
       });
 
+      // Emit to parent to update prop
+      this.$emit("update", { selectedWidgets: updatedWidgets });
+
       return;
-
-      if (removedIndex !== null || addedIndex !== null) {
-        let destinationItemIndex;
-        let destinationPlaceholderIndex;
-        const sourceItemIndex = draggedItemIndex;
-        const sourcePlaceholderIndex = placeholderIndex;
-
-        if (addedIndex !== null) {
-          destinationItemIndex = addedIndex;
-          destinationPlaceholderIndex = placeholder_index;
-        } else {
-          destinationItemIndex = null;
-          destinationPlaceholderIndex = null;
-        }
-
-        // Get the widget key from the source placeholder
-        const widgetKey = this.allPlaceholderItems[sourcePlaceholderIndex]
-          ?.acceptedWidgets[draggedItemIndex];
-
-        if (widgetKey !== undefined) {
-          if (sourcePlaceholderIndex === destinationPlaceholderIndex) {
-            // Moving within the same placeholder
-            const widgets = this.allPlaceholderItems[sourcePlaceholderIndex]
-              .acceptedWidgets;
-            const selectedWidgets = this.allPlaceholderItems[
-              sourcePlaceholderIndex
-            ].selectedWidgets;
-            const selectedWidgetList = this.allPlaceholderItems[
-              sourcePlaceholderIndex
-            ].selectedWidgetList;
-
-            // Remove the widget from the source position
-            const [movedWidget] = widgets.splice(sourceItemIndex, 1);
-
-            // Insert the widget at the destination position
-            widgets.splice(destinationItemIndex, 0, movedWidget);
-
-            // Update selectedWidgetList position based on acceptedWidgets
-            const selectedWidgetIndex =
-              selectedWidgetList && selectedWidgetList.indexOf(movedWidget);
-            if (selectedWidgetIndex && selectedWidgetIndex !== -1) {
-              // Remove the widget from the selected position
-              selectedWidgetList.splice(selectedWidgetIndex, 1);
-
-              // Insert the widget at the new position
-              const newSelectedIndex = widgets.indexOf(movedWidget);
-              selectedWidgetList.splice(newSelectedIndex, 0, movedWidget);
-            }
-
-            // Reorder `selectedWidgets` based on `selectedWidgetList`
-            selectedWidgets &&
-              selectedWidgets.sort((a, b) => {
-                return (
-                  selectedWidgetList.indexOf(a.widget_key) -
-                  selectedWidgetList.indexOf(b.widget_key)
-                );
-              });
-
-            // Update Placeholders
-            const updatedPlaceholders = this.syncPlaceholdersWithAllPlaceholderItems(
-              this.allPlaceholderItems,
-              this.placeholders || []
-            );
-
-            this.placeholders = updatedPlaceholders;
-          } else if (destinationPlaceholderIndex !== null) {
-            // Moving between different placeholders
-            // this.allPlaceholderItems[destinationPlaceholderIndex].selectedWidgetList.splice(destinationItemIndex, 0, widgetKey);
-            // this.allPlaceholderItems[sourcePlaceholderIndex].selectedWidgetList.splice(sourceItemIndex, 1);
-          }
-        }
-      } else {
-        return;
-      }
     },
   },
 };

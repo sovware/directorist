@@ -1111,16 +1111,6 @@ class Builder_Data {
                         ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'title'],
                     ],
                 ],
-                'options' => [
-                    'title'  => __( 'Listing Title Settings', 'directorist' ),
-                    'fields' => [
-                        'show_tagline' => [
-                            'type'  => 'toggle',
-                            'label' => __( 'Show Tagline', 'directorist' ),
-                            'value' => false,
-                        ],
-                    ],
-                ],
             ],
 
             'tagline'           => [
@@ -1462,6 +1452,49 @@ class Builder_Data {
                 'label' => __( 'Featured', 'directorist' ),
                 'icon'  => 'uil uil-text-fields',
                 'hook'  => 'atbdp_featured_badge',
+                'options' => [
+                    'field' => [
+                        'type'    => 'radio',
+                        'name'    => 'atbdp_featured_badge_type',
+                        'label'   => __( 'Badge Style', 'directorist' ),
+                        'value'   => 'text',
+                        'options' => [
+                            ['id' => 'atbdp_featured_badge_text', 'label' => __( 'Text Style', 'directorist' ), 'value' => 'text'],
+                            ['id' => 'atbdp_featured_badge_icon', 'label' => __( 'Icon Style', 'directorist' ), 'value' => 'icon'],
+                        ],
+                    ],
+                ],
+                'fields' => [
+                    'text' => [
+                        'text_color' => [
+                            'type'          => 'text',
+                            'label'         => __( 'Text Color', 'directorist' ),
+                            'value'         => '#ffffff',
+                        ],
+                        'text_background' => [
+                            'type'          => 'text',
+                            'label'         => __( 'Background Color', 'directorist' ),
+                            'value'         => '#ffffff33',
+                        ],
+                    ],
+                    'icon' => [
+                        'icon' => [
+                            'type'  => 'icon',
+                            'label'  => __( 'Change Icon', 'directorist' ),
+                            'value' => 'star-fill',
+                        ],
+                        'icon_color' => [
+                            'type'          => 'text',
+                            'label'         => __( 'Icon Color', 'directorist' ),
+                            'value'         => '#ffffff',
+                        ],
+                        'icon_background' => [
+                            'type'          => 'text',
+                            'label'         => __( 'Background Color', 'directorist' ),
+                            'value'         => '#ffffff33',
+                        ],
+                    ],
+                ]
             ],
 
             'new_badge'         => [
@@ -1818,7 +1851,7 @@ class Builder_Data {
                     'acceptedWidgets'   => ['favorite_badge', 'popular_badge', 'featured_badge', 'new_badge'],
                 ],
                 'top_left'     => [
-                    'maxWidget'       => 2,
+                    'maxWidget'       => 3,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
                     'acceptedWidgets' => ['favorite_badge', 'popular_badge', 'featured_badge', 'new_badge'],
                 ],
@@ -1868,7 +1901,7 @@ class Builder_Data {
                 'badges'     => [
                     'label'           => __( 'Add Element', 'directorist' ),
                     'maxWidget'       => 2,
-                    'acceptedWidgets' => ['favorite_badge', 'popular_badge', 'featured_badge', 'new_badge'],
+                    'acceptedWidgets' => ['rating', 'pricing'],
                 ],
                 'bottom'  => [
                     'label'           => __( 'Add Element', 'directorist' ),
@@ -1895,12 +1928,12 @@ class Builder_Data {
         $listing_card_grid_view_without_thumbnail_layout = [
             'top'   => [
                 'quick_actions' => [
-                    'maxWidget'       => 2,
+                    'maxWidget'       => 3,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
                     'acceptedWidgets' => ['favorite_badge', 'popular_badge', 'featured_badge', 'new_badge'],
                 ],
                 'quick_info'    => [
-                    'maxWidget'       => 2,
+                    'maxWidget'       => 3,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
                     'acceptedWidgets' => ['favorite_badge', 'popular_badge', 'featured_badge', 'new_badge', 'rating', 'pricing'],
                 ],
@@ -1937,7 +1970,7 @@ class Builder_Data {
                     'label'           => __( 'Add Element', 'directorist' ),
                     'maxWidget'       => 2,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
-                    'acceptedWidgets' => ['favorite_badge', 'popular_badge', 'featured_badge', 'new_badge'],
+                    'acceptedWidgets' => ['rating', 'pricing'],
                 ],
                 'bottom'  => [
                     'label'           => __( 'Add Element', 'directorist' ),
@@ -1981,13 +2014,13 @@ class Builder_Data {
                     'acceptedWidgets' => ['pricing', 'category'],
                 ],
                 'quick_info'    => [
-                    'maxWidget'       => 2,
+                    'maxWidget'       => 3,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
                     'acceptedWidgets' => ['favorite_badge', 'pricing'],
                 ],
             ],
 
-            'body'      => [                
+            'body'      => [
                 'title'         => [
                     'maxWidget'         => 1,
                     'acceptedWidgets'   => ['listing_title'],
@@ -2051,7 +2084,7 @@ class Builder_Data {
                     'acceptedWidgets' => ['pricing', 'category'],
                 ],
                 'quick_info'    => [
-                    'maxWidget'       => 2,
+                    'maxWidget'       => 3,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
                     'acceptedWidgets' => ['favorite_badge', 'pricing'],
                 ],

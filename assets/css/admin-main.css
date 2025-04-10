@@ -16366,7 +16366,7 @@ li[class=cptm-form-builder-field-list-item][draggable=true] {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  gap: 8px;
+  gap: 6px;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
       -ms-flex-pack: justify;
@@ -16375,8 +16375,37 @@ li[class=cptm-form-builder-field-list-item][draggable=true] {
   border-color: #e5e7eb;
   background: transparent;
 }
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-form-builder-field-list-item-content {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
 .cptm-option-card--draggable .cptm-form-builder-field-list .cptm-form-builder-field-list-item-drag {
   cursor: move;
+}
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-form-builder-field-list-item-edit {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 24px;
+  height: 24px;
+  color: #747c89;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-form-builder-field-list-item-edit.active {
+  color: #383f47;
+  background: #e5e7eb;
 }
 .cptm-option-card--draggable .cptm-form-builder-field-list .cptm-form-builder-field-list-item-action {
   cursor: pointer;
@@ -17632,7 +17661,6 @@ input[type=radio].cptm-radio {
 }
 .cptm-listing-card-author-avatar .cptm-placeholder-block {
   padding: 0;
-  height: 51px;
   min-height: auto;
   text-align: center;
   border-color: rgba(198, 208, 220, 0.5);
@@ -22564,7 +22592,7 @@ li[class=cptm-form-builder-field-list-item][draggable=true] {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  gap: 8px;
+  gap: 6px;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
       -ms-flex-pack: justify;
@@ -22573,8 +22601,37 @@ li[class=cptm-form-builder-field-list-item][draggable=true] {
   border-color: #e5e7eb;
   background: transparent;
 }
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-form-builder-field-list-item-content {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
 .cptm-option-card--draggable .cptm-form-builder-field-list .cptm-form-builder-field-list-item-drag {
   cursor: move;
+}
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-form-builder-field-list-item-edit {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 24px;
+  height: 24px;
+  color: #747c89;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-form-builder-field-list-item-edit.active {
+  color: #383f47;
+  background: #e5e7eb;
 }
 .cptm-option-card--draggable .cptm-form-builder-field-list .cptm-form-builder-field-list-item-action {
   cursor: pointer;
@@ -23830,7 +23887,6 @@ input[type=radio].cptm-radio {
 }
 .cptm-listing-card-author-avatar .cptm-placeholder-block {
   padding: 0;
-  height: 51px;
   min-height: auto;
   text-align: center;
   border-color: rgba(198, 208, 220, 0.5);
@@ -29050,7 +29106,7 @@ li[class=cptm-form-builder-field-list-item][draggable=true] {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  gap: 8px;
+  gap: 6px;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
       -ms-flex-pack: justify;
@@ -29059,8 +29115,37 @@ li[class=cptm-form-builder-field-list-item][draggable=true] {
   border-color: #e5e7eb;
   background: transparent;
 }
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-form-builder-field-list-item-content {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
 .cptm-option-card--draggable .cptm-form-builder-field-list .cptm-form-builder-field-list-item-drag {
   cursor: move;
+}
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-form-builder-field-list-item-edit {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 24px;
+  height: 24px;
+  color: #747c89;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-form-builder-field-list-item-edit.active {
+  color: #383f47;
+  background: #e5e7eb;
 }
 .cptm-option-card--draggable .cptm-form-builder-field-list .cptm-form-builder-field-list-item-action {
   cursor: pointer;
@@ -30316,7 +30401,6 @@ input[type=radio].cptm-radio {
 }
 .cptm-listing-card-author-avatar .cptm-placeholder-block {
   padding: 0;
-  height: 51px;
   min-height: auto;
   text-align: center;
   border-color: rgba(198, 208, 220, 0.5);

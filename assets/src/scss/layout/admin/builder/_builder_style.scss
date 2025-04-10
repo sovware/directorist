@@ -1919,14 +1919,31 @@ li[class="cptm-form-builder-field-list-item"][draggable="true"] {
     .cptm-form-builder-field-list-item {
       width: 100%;
       display: flex;
-      gap: 8px;
+      gap: 6px;
       justify-content: space-between;
       border-radius: 8px;
       border-color: #e5e7eb;
       background: transparent;
     }
+    .cptm-form-builder-field-list-item-content {
+      flex: 1;
+    }
     .cptm-form-builder-field-list-item-drag {
       cursor: move;
+    }
+    .cptm-form-builder-field-list-item-edit {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      color: #747c89;
+      border-radius: 6px;
+      cursor: pointer;
+      &.active {
+        color: #383f47;
+        background: #e5e7eb;
+      }
     }
     .cptm-form-builder-field-list-item-action {
       cursor: pointer;
@@ -3026,7 +3043,6 @@ input[type="radio"].cptm-radio {
 
   .cptm-placeholder-block {
     padding: 0;
-    height: 51px;
     min-height: auto;
     text-align: center;
     border-color: rgba(#c6d0dc, 0.5);

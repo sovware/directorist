@@ -58,12 +58,57 @@
                 </span>
               </span>
               <span
+                class="cptm-form-builder-field-list-item-edit"
+                :class="activeWidgetKey === widget_key ? 'active' : ''"
+                v-if="widget.options"
+                @click.prevent="edit(widget_key)"
+              >
+                <span class="uil uil-pen"></span>
+              </span>
+              <span
                 class="cptm-form-builder-field-list-item-action"
                 @click.prevent="trash(widget_key)"
               >
                 <span class="uil uil-trash-alt"></span>
               </span>
             </span>
+          </div>
+          <div
+            v-if="activeWidgetKey === widget_key"
+            class="cptm-widget-options-wrap"
+          >
+            <div
+              v-for="(field, field_key) in widgetTypeField(widget_key)"
+              :key="field_key"
+            >
+              <!-- Render the regular fields -->
+              <component
+                v-if="field"
+                :is="getFormFieldName(field.type)"
+                :field-id="`${widget_key}-${field_key}`"
+                :fieldKey="`${widget_key}-${field_key}`"
+                :ref="field"
+                v-bind="field"
+                @update="updateOptionFieldValue(widget_key, $event)"
+              />
+            </div>
+
+            <div
+              v-for="(field, field_key) in widgetTypeOptions(widget_key)"
+              class="cptm-widget-options-wrap"
+              :key="field_key"
+            >
+              <!-- Render option fields -->
+              <component
+                v-if="field"
+                :is="getFormFieldName(field.type)"
+                :field-id="`${widget_key}-${field_key}`"
+                :fieldKey="`${widget_key}-${field_key}`"
+                :ref="field"
+                v-bind="field"
+                @update="updateOptionFieldValue(widget_key, $event)"
+              />
+            </div>
           </div>
         </Draggable>
       </Container>
@@ -75,6 +120,7 @@
 
 <script>
 import { Container, Draggable } from "vue-dndrop";
+import helpers from "../mixins/helpers";
 
 export default {
   name: "widgets-option-window",
@@ -82,6 +128,7 @@ export default {
     Container,
     Draggable,
   },
+  mixins: [helpers],
 
   props: {
     id: {
@@ -167,6 +214,8 @@ export default {
   data() {
     return {
       localSelectedWidgets: [],
+      activeWidgetKey: "",
+      activeWidgetOptionType: "",
     };
   },
 
@@ -182,6 +231,31 @@ export default {
 
     close() {
       this.$emit("close");
+    },
+
+    updateOptionFieldValue(widgetKey, value) {
+      if (this.activeWidgetOptionType === value) {
+        this.activeWidgetOptionType = null; // toggle off
+      } else {
+        this.activeWidgetOptionType = value; // set active
+      }
+      console.log("@updateOptionFieldValue", {
+        activeWidgetOptionType: this.activeWidgetOptionType,
+        widgetKey,
+        value,
+      });
+    },
+
+    edit(widget_key) {
+      if (this.activeWidgetKey === widget_key) {
+        this.activeWidgetKey = null; // toggle off
+      } else {
+        this.activeWidgetKey = widget_key; // set active
+      }
+      console.log("@edit Badge", {
+        activeWidgetKey: this.activeWidgetKey,
+        widget_key,
+      });
     },
 
     trash(widget_key) {
@@ -224,6 +298,39 @@ export default {
       );
 
       return filtered_double_pare;
+    },
+
+    widgetTypeField(widgetKey) {
+      const activeWidgetFields = this.availableWidgets[widgetKey].options;
+
+      console.log("@@widgetTypeField", {
+        activeWidgetFields,
+        field: activeWidgetFields.field,
+      });
+
+      return activeWidgetFields;
+    },
+
+    widgetTypeOptions(widgetKey) {
+      const activeWidgetOptions = this.availableWidgets[widgetKey].fields[
+        this.activeWidgetOptionType
+      ];
+
+      console.log("@@widgetTypeOptions", {
+        activeWidgetOptions,
+      });
+
+      return activeWidgetOptions;
+    },
+
+    updateOptionFieldValue(widgetKey, value) {
+      this.activeWidgetOptionType = value; // set value
+
+      console.log("@updateOptionFieldValue", {
+        activeWidgetOptionType: this.activeWidgetOptionType,
+        widgetKey,
+        value,
+      });
     },
 
     onElementsDrop(dropResult) {

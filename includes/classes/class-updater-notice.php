@@ -22,11 +22,6 @@ class Updater_Notice {
 	 * Hide a notice if the GET variable is set.
 	 */
 	public static function hide_notices() {
-
-		if( is_admin() && isset( $_GET["page"] ) && ( ( $_GET["page"] == 'atbdp-settings' ) || ( $_GET["page"] == 'atbdp-directory-types' ) || ( 'atbdp-layout-builder' === $_GET["page"] ) ) ) {
-			remove_all_actions('admin_notices');
-		}
-
 		if ( isset( $_GET['directorist-hide-notice'] ) && isset( $_GET['_directorist_notice_nonce'] ) ) { // WPCS: input var ok, CSRF ok.
 			if ( ! wp_verify_nonce( sanitize_key( wp_unslash( $_GET['_directorist_notice_nonce'] ) ), 'directorist_hide_notices_nonce' ) ) { // WPCS: input var ok, CSRF ok.
 				wp_die( esc_html__( 'Action failed. Please refresh the page and retry.', 'directorist' ) );

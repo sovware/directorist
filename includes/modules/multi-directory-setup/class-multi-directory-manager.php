@@ -387,8 +387,13 @@ class Multi_Directory_Manager {
 
     // setup_migration
     public function setup_migration() {
+        if ( ! isset( $_GET[ 'page' ] ) || 'atbdp-directory-types' !== $_GET[ 'page' ] ) {
+            return;
+        }
+
+        $nedd_default_derectory = apply_filters( 'atbdp_import_default_directory', ! self::has_directory() );
         
-        if ( apply_filters( 'atbdp_import_default_directory', ! self::has_directory() ) ) {
+        if ( $nedd_default_derectory ) {
             $this->prepare_settings();
             $this->import_default_directory();
         }
@@ -484,7 +489,11 @@ class Multi_Directory_Manager {
     // import_default_directory
     public function import_default_directory( array $args = [] ) {
         $file = DIRECTORIST_ASSETS_DIR . 'sample-data/directory/directory.json';
-        if ( ! file_exists( $file ) ) { return; }
+        
+        if ( ! file_exists( $file ) ) { 
+            return; 
+        }
+        
         $file_contents = file_get_contents( $file );
 
         return self::add_directory([

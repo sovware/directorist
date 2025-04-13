@@ -120,6 +120,7 @@
 
 <script>
 import { Container, Draggable } from "vue-dndrop";
+import { mapState } from "vuex";
 import helpers from "../mixins/helpers";
 
 export default {
@@ -166,6 +167,11 @@ export default {
   },
 
   computed: {
+    ...mapState(["fields"]),
+    ...mapState({
+      fields: (state) => state.fields,
+    }),
+
     widgetsList() {
       let availableWidgets = JSON.parse(JSON.stringify(this.availableWidgets));
       let selected_widgets = this.localSelectedWidgets;
@@ -214,18 +220,9 @@ export default {
   data() {
     return {
       localSelectedWidgets: [],
+      activeWidget: {},
       activeWidgetKey: "",
-      // Local Widget Data
-      local_widget_data: {
-        activeWidgetOptionType: "text",
-        widgetOptionFields: {
-          text_color: "#ffffff",
-          text_background: "#ffffff33",
-          icon: "uil uil-star",
-          icon_color: "#ffffff",
-          icon_background: "#ffffff33",
-        },
-      },
+      activeWidgetOptionType: "",
     };
   },
 
@@ -244,29 +241,47 @@ export default {
     },
 
     updateWidgetOptionValue(value) {
+      this.activeWidgetOptionType = value;
+
+      this.activeWidget.options.type.value = value;
+
       console.log("@updateWidgetOptionValue", {
         value,
+        fields: this.fields,
+        activeWidget: this.activeWidget,
         activeWidgetKey: this.activeWidgetKey,
+        updateActiveWidget: this.activeWidget,
       });
-      this.local_widget_data.activeWidgetOptionType = value;
+
+      // Emit to parent to update prop
+      // this.$emit("update", {
+      //   widget_key: this.activeWidgetKey,
+      //   widget: this.activeWidget,
+      // });
       return;
     },
 
     updateWidgetFieldValue(field_key, value) {
-      this.$set(this.local_widget_data.widgetOptionFields, field_key, value);
+      this.activeWidget.fields[this.activeWidgetOptionType][
+        field_key
+      ].value = value;
 
       console.log("@updateWidgetFieldValue", {
         field_key,
         value,
-        updatedFields: this.local_widget_data.widgetOptionFields,
+        updateActiveWidget: this.activeWidget,
       });
     },
 
     edit(widget_key) {
       if (this.activeWidgetKey === widget_key) {
         this.activeWidgetKey = null; // toggle off
+        this.activeWidget = {};
+        this.activeWidgetOptionType = "";
       } else {
         this.activeWidgetKey = widget_key; // set active
+        this.activeWidget = this.widgetsList[widget_key];
+        this.activeWidgetOptionType = this.activeWidget.options.type.value;
       }
     },
 
@@ -325,12 +340,12 @@ export default {
 
     widgetTypeOptions(widgetKey) {
       const activeWidgetOptions = this.availableWidgets[widgetKey].fields[
-        this.local_widget_data.activeWidgetOptionType
+        this.activeWidgetOptionType
       ];
 
       console.log("@@widgetTypeOptions", {
         activeWidgetOptions,
-        activeWidgetOptionType: this.local_widget_data.activeWidgetOptionType,
+        activeWidgetOptionType: this.activeWidgetOptionType,
       });
 
       return activeWidgetOptions;

@@ -17141,20 +17141,27 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof.js");
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var vue_dndrop__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-dndrop */ "./node_modules/vue-dndrop/dist/vue-dndrop.esm.js");
-/* harmony import */ var _mixins_helpers__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../mixins/helpers */ "./assets/src/js/admin/vue/mixins/helpers.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var vue_dndrop__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-dndrop */ "./node_modules/vue-dndrop/dist/vue-dndrop.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _mixins_helpers__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../mixins/helpers */ "./assets/src/js/admin/vue/mixins/helpers.js");
 
 
+
+
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_3___default()(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "widgets-option-window",
   components: {
-    Container: vue_dndrop__WEBPACK_IMPORTED_MODULE_3__["Container"],
-    Draggable: vue_dndrop__WEBPACK_IMPORTED_MODULE_3__["Draggable"]
+    Container: vue_dndrop__WEBPACK_IMPORTED_MODULE_4__["Container"],
+    Draggable: vue_dndrop__WEBPACK_IMPORTED_MODULE_4__["Draggable"]
   },
-  mixins: [_mixins_helpers__WEBPACK_IMPORTED_MODULE_4__["default"]],
+  mixins: [_mixins_helpers__WEBPACK_IMPORTED_MODULE_6__["default"]],
   props: {
     id: {
       type: [String, Number],
@@ -17187,7 +17194,11 @@ __webpack_require__.r(__webpack_exports__);
       this.localSelectedWidgets = this.selectedWidgets;
     }
   },
-  computed: {
+  computed: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_5__["mapState"])(["fields"])), Object(vuex__WEBPACK_IMPORTED_MODULE_5__["mapState"])({
+    fields: function fields(state) {
+      return state.fields;
+    }
+  })), {}, {
     widgetsList: function widgetsList() {
       var availableWidgets = JSON.parse(JSON.stringify(this.availableWidgets));
       var selected_widgets = this.localSelectedWidgets;
@@ -17222,22 +17233,13 @@ __webpack_require__.r(__webpack_exports__);
         active: this.active
       };
     }
-  },
+  }),
   data: function data() {
     return {
       localSelectedWidgets: [],
+      activeWidget: {},
       activeWidgetKey: "",
-      // Local Widget Data
-      local_widget_data: {
-        activeWidgetOptionType: "text",
-        widgetOptionFields: {
-          text_color: "#ffffff",
-          text_background: "#ffffff33",
-          icon: "uil uil-star",
-          icon_color: "#ffffff",
-          icon_background: "#ffffff33"
-        }
-      }
+      activeWidgetOptionType: ""
     };
   },
   methods: {
@@ -17252,26 +17254,40 @@ __webpack_require__.r(__webpack_exports__);
       this.$emit("close");
     },
     updateWidgetOptionValue: function updateWidgetOptionValue(value) {
+      this.activeWidgetOptionType = value;
+      this.activeWidget.options.type.value = value;
       console.log("@updateWidgetOptionValue", {
         value: value,
-        activeWidgetKey: this.activeWidgetKey
+        fields: this.fields,
+        activeWidget: this.activeWidget,
+        activeWidgetKey: this.activeWidgetKey,
+        updateActiveWidget: this.activeWidget
       });
-      this.local_widget_data.activeWidgetOptionType = value;
+
+      // Emit to parent to update prop
+      // this.$emit("update", {
+      //   widget_key: this.activeWidgetKey,
+      //   widget: this.activeWidget,
+      // });
       return;
     },
     updateWidgetFieldValue: function updateWidgetFieldValue(field_key, value) {
-      this.$set(this.local_widget_data.widgetOptionFields, field_key, value);
+      this.activeWidget.fields[this.activeWidgetOptionType][field_key].value = value;
       console.log("@updateWidgetFieldValue", {
         field_key: field_key,
         value: value,
-        updatedFields: this.local_widget_data.widgetOptionFields
+        updateActiveWidget: this.activeWidget
       });
     },
     edit: function edit(widget_key) {
       if (this.activeWidgetKey === widget_key) {
         this.activeWidgetKey = null; // toggle off
+        this.activeWidget = {};
+        this.activeWidgetOptionType = "";
       } else {
         this.activeWidgetKey = widget_key; // set active
+        this.activeWidget = this.widgetsList[widget_key];
+        this.activeWidgetOptionType = this.activeWidget.options.type.value;
       }
     },
     trash: function trash(widget_key) {
@@ -17310,10 +17326,10 @@ __webpack_require__.r(__webpack_exports__);
       return activeWidgetFields;
     },
     widgetTypeOptions: function widgetTypeOptions(widgetKey) {
-      var activeWidgetOptions = this.availableWidgets[widgetKey].fields[this.local_widget_data.activeWidgetOptionType];
+      var activeWidgetOptions = this.availableWidgets[widgetKey].fields[this.activeWidgetOptionType];
       console.log("@@widgetTypeOptions", {
         activeWidgetOptions: activeWidgetOptions,
-        activeWidgetOptionType: this.local_widget_data.activeWidgetOptionType
+        activeWidgetOptionType: this.activeWidgetOptionType
       });
       return activeWidgetOptions;
     },

@@ -81,8 +81,8 @@ class Multi_Directory_Manager {
 
     // custom field assign to category migration
     public static function migrate_custom_field( $term_id ) {
-
         $submission_form_fields = get_term_meta( $term_id , 'submission_form_fields', true );
+        
         // custom field assign to category migration
         if ( empty( $submission_form_fields['fields'] ) ) {
             return;
@@ -103,7 +103,6 @@ class Multi_Directory_Manager {
 
         update_term_meta( $term_id, 'submission_form_fields', $submission_form_fields );
     }
-
 
     public static function migrate_review_settings( $term_id ) {
         $old_review_settings = get_term_meta( $term_id, 'review_config', true );

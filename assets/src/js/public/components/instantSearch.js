@@ -233,16 +233,16 @@ import debounce from '../../global/components/debounce';
             fields.open_now = $(this).find('input[name="open_now"]').val();
         }
 
-        if (fields.address && fields.address.length) {
+        if ( fields.address && fields.address.length ) {
             fields.cityLat = $(this).find('#cityLat').val();
             fields.cityLng = $(this).find('#cityLng').val();
-            fields.miles = $(this).find('.directorist-custom-range-slider__value input').val();
+            fields.miles   = $(this).find('input[name="miles"]').val();
         }
 
-        if (fields.zip && fields.zip.length) {
+        if ( fields.zip && fields.zip.length ) {
             fields.zip_cityLat = $(this).find('.zip-cityLat').val();
             fields.zip_cityLng = $(this).find('.zip-cityLng').val();
-            fields.miles = $(this).find('.directorist-custom-range-slider__value input').val();
+            fields.miles       = $(this).find('input[name="miles"]').val();
         }
 
         var form_data = {
@@ -512,6 +512,18 @@ import debounce from '../../global/components/debounce';
                 fields.open_now = $(this).find('input[name="open_now"]').val();
             }
 
+            if ( fields.address && fields.address.length ) {
+                fields.cityLat = $(this).find('#cityLat').val();
+                fields.cityLng = $(this).find('#cityLng').val();
+                fields.miles   = $(this).find('input[name="miles"]').val();
+            }
+    
+            if ( fields.zip && fields.zip.length ) {
+                fields.zip_cityLat = $(this).find('.zip-cityLat').val();
+                fields.zip_cityLng = $(this).find('.zip-cityLng').val();
+                fields.miles       = $(this).find('input[name="miles"]').val();
+            }
+
             if (fields.address && fields.address.length) {
                 fields.cityLat = $(this).find('#cityLat').val();
                 fields.cityLng = $(this).find('#cityLng').val();
@@ -756,6 +768,18 @@ import debounce from '../../global/components/debounce';
             form_data.open_now = activeForm.find('input[name="open_now"]').val();
         }
 
+        if ( form_data.address && form_data.address.length ) {
+            form_data.cityLat = activeForm.find('#cityLat').val();
+            form_data.cityLng = activeForm.find('#cityLng').val();
+            form_data.miles   = activeForm.find('input[name="miles"]').val();
+        }
+
+        if ( form_data.zip && form_data.zip.length ) {
+            form_data.zip_cityLat = activeForm.find('.zip-cityLat').val();
+            form_data.zip_cityLng = activeForm.find('.zip-cityLng').val();
+            form_data.miles       = activeForm.find('input[name="miles"]').val();
+        }
+
         if (page_no && page_no.length) {
             form_data.paged = page_no;
         }
@@ -911,6 +935,18 @@ import debounce from '../../global/components/debounce';
             form_data.open_now = activeForm.find('input[name="open_now"]').val();
         }
 
+        if ( form_data.address && form_data.address.length ) {
+            form_data.cityLat = activeForm.find('#cityLat').val();
+            form_data.cityLng = activeForm.find('#cityLng').val();
+            form_data.miles = activeForm.find('input[name="miles"]').val();
+        }
+
+        if ( form_data.zip && form_data.zip.length ) {
+            form_data.zip_cityLat = activeForm.find('.zip-cityLat').val();
+            form_data.zip_cityLng = activeForm.find('.zip-cityLng').val();
+            form_data.miles = activeForm.find('input[name="miles"]').val();
+        }
+
         if (directory_type && directory_type.length) {
             form_data.directory_type = directory_type;
         }
@@ -1022,14 +1058,14 @@ import debounce from '../../global/components/debounce';
 
         var paginate_link = $(this).attr('href');
         var page_no = '';
-
+        
         if (paginate_link) {
             var pageMatch = paginate_link.match(/(?:page\/|paged=)(\d+)/);
             if (pageMatch) {
                 page_no = pageMatch[1]; // Extracts only the numeric value
             }
         }
-
+        console.log( page_no )
         var form_data = {
             action          : 'directorist_instant_search',
             _nonce          : directorist.ajax_nonce,
@@ -1059,6 +1095,18 @@ import debounce from '../../global/components/debounce';
         //business hours
         if ( $('input[name="open_now"]').is(':checked') ) {
             form_data.open_now = activeForm.find('input[name="open_now"]').val();
+        }
+
+        if ( form_data.address && form_data.address.length ) {
+            form_data.cityLat = activeForm.find('#cityLat').val();
+            form_data.cityLng = activeForm.find('#cityLng').val();
+            form_data.miles = activeForm.find('input[name="miles"]').val();
+        }
+
+        if ( form_data.zip && form_data.zip.length ) {
+            form_data.zip_cityLat = activeForm.find('.zip-cityLat').val();
+            form_data.zip_cityLng = activeForm.find('.zip-cityLng').val();
+            form_data.miles = activeForm.find('input[name="miles"]').val();
         }
 
         if (directory_type && directory_type.length) {

@@ -1100,11 +1100,12 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       var dropDownParent = $(this).closest('.directorist-search-field');
       var dropDownContent = $(this).siblings('.directorist-search-basic-dropdown-content');
       dropDownContent.toggleClass('dropdown-content-show');
-      dropDownContent.slideToggle().show();
       if (dropDownContent.hasClass('dropdown-content-show')) {
         dropDownParent.addClass('input-is-focused');
+        dropDownContent.slideDown();
       } else {
         dropDownParent.removeClass('input-is-focused');
+        dropDownContent.slideUp();
       }
       // Hide all other open contents
       $('.directorist-search-basic-dropdown-content.dropdown-content-show').not(dropDownContent).removeClass('dropdown-content-show').slideUp();
@@ -1351,6 +1352,8 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     // Search Modal Open Trigger
     $('body').on('click', '.directorist-modal-btn', function (e) {
       e.preventDefault();
+      // added overlay class on body
+      document.querySelector('.directorist-content-active').classList.add('directorist-overlay-active');
       var parentElement = this.closest('.directorist-contents-wrap');
       if (this.classList.contains('directorist-modal-btn--basic')) {
         var searchModalElement = parentElement.querySelector('.directorist-search-modal--basic');
@@ -1369,6 +1372,8 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     // Search Modal Close Trigger
     $('body').on('click', '.directorist-search-modal__contents__btn--close, .directorist-search-modal__overlay', function (e) {
       e.preventDefault();
+      // removed overlay class from body
+      document.querySelector('.directorist-content-active').classList.remove('directorist-overlay-active');
       var searchModalElement = this.closest('.directorist-search-modal');
       searchModalClose(searchModalElement);
     });
@@ -1500,7 +1505,9 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         });
       }
       if (this.parentElement.classList.contains('input-has-value') || this.parentElement.classList.contains('input-is-focused')) {
+        var _this$parentElement$q;
         this.parentElement.classList.remove('input-has-value', 'input-is-focused');
+        (_this$parentElement$q = this.parentElement.querySelector('.directorist-search-basic-dropdown-content.dropdown-content-show')) === null || _this$parentElement$q === void 0 || _this$parentElement$q.classList.remove('dropdown-content-show');
       }
       handleRadiusVisibility();
 

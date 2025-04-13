@@ -247,3 +247,19 @@ function directorist_830_update_db_version() {
 function directorist_830_migrate_directory_sorting_order() {
 	Directorist\Multi_Directory\Multi_Directory_Manager::add_directory_type_sorting_order_to_missing_ones( false );
 }
+
+function directorist_830_sync_listing_author_and_order_author() {
+	global $wpdb;
+
+	$wpdb->query( $wpdb->prepare(
+		"UPDATE wp_posts AS p
+		INNER JOIN wp_postmeta AS pm
+			ON p.ID = pm.post_id
+			AND pm.meta_key = '_listing_id'
+		INNER JOIN wp_posts AS p2
+			ON p2.ID = CAST(pm.meta_value AS UNSIGNED)
+		SET p.post_author = p2.post_author
+		WHERE p.post_type = 'atbdp_orders'
+		AND p.post_author <> p2.post_author;",
+	) );
+}

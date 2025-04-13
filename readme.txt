@@ -5,7 +5,7 @@ Tags: member directory, listing, classifieds, directory plugin, business directo
 Requires at least: 4.6
 Tested up to: 6.7
 Requires PHP: 7.0
-Stable tag: 8.2
+Stable tag: 8.3.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -297,7 +297,47 @@ Directorist is a complete directory solution and in combination with its advance
 
 == Changelog ==
 
-8.2 - Feb 28, 2025
+8.3.1 - Mar 26, 2025
+
+**Changed**
+ - Checkbox field usability in the search form for better user experience. (#2275)
+
+**Fixed**
+ - Listing preview title filter issue with too few arguments. (#2293)
+ - PHP fatal error caused by the missing ZipArchive extension. (#2292)
+ - Corrected missing location field position to ensure the arrow icon functions properly. (#2294)
+
+8.3 - Mar 24, 2025
+
+**Changed**
+ - Improved Listings Importer to efficiently handle large datasets.
+ - Replaced "Location" with "Address" on the All Listings map view. (#2266)
+ - Refactored default expiration date handling with a utility function. (#2253)
+ - Improved Google Maps performance and refactored code for better efficiency. (#2251)
+ - Improved the search modal for enhanced user experience. (#2289)
+
+**Fixed**
+ - view count was not updating due to caching. (#2285)
+ - Listing author and order author mismatch resolved by database migration. (#2276)
+ - Google Map loading issues resolved. (#2273)
+ - Listing queries issue when the directory navigation is hidden. (#2270)
+ - Search form responsive border issue corrected. (#2267)
+ - Text domain inconsistencies fixed for better translation support. (#2264)
+ - "Add Listing" map marker issue on Google Maps corrected. (#2263)
+ - Warnings on the Themes & Extensions page addressed. (#2260)
+ - File upload input type changed from button to file input. (#2258)
+ - Single listing gallery image now fits properly within the container. (#2257)
+ - Pagination display issues for version 7 users fixed. (#2256)
+ - Radius search pagination issue resolved. (#2255)
+ - "More Filter" button issue in the search form fixed. (#2254)
+ - Listing status issue corrected. (#2252)
+ - Script localization issues in certain classes resolved. (#2248)
+ - Field-specific query issue fixed to improve search accuracy. (#2184)
+ - Spacing issue when the location field is focused. (#2288)
+ - Corrected the "Continue to Publish" button link on listings. (#2287)
+
+
+8.2 - Feb 25, 2025
 
 **New**
  - Category and location bulk edit actions to assign or reset directory (#2229)

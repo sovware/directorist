@@ -114,67 +114,6 @@ window.addEventListener('load', function () {
 
 /***/ }),
 
-/***/ "./assets/src/js/admin/components/directory-migration-modal.js":
-/*!*********************************************************************!*\
-  !*** ./assets/src/js/admin/components/directory-migration-modal.js ***!
-  \*********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-window.addEventListener('load', function () {
-  var $ = jQuery;
-  var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").default;
-
-  // Migration Link
-  $('.atbdp-directory-migration-link').on('click', function (e) {
-    e.preventDefault();
-    var self = this;
-    $('.cptm-directory-migration-form').find('.cptm-comfirmation-text').html('Please wait...');
-    $('.atbdp-directory-migration-cencel-link').remove();
-    $(this).html('<i class="fas fa-circle-notch fa-spin"></i> Migrating');
-    $(this).addClass('atbdp-disabled');
-    var form_data = new FormData();
-    form_data.append('action', 'directorist_force_migrate');
-
-    // Response Success Callback
-    var responseSuccessCallback = function responseSuccessCallback(response) {
-      var _response$data;
-      // console.log( { response } );
-
-      if (response !== null && response !== void 0 && (_response$data = response.data) !== null && _response$data !== void 0 && _response$data.success) {
-        var _response$data$messag, _response$data2;
-        var msg = (_response$data$messag = response === null || response === void 0 || (_response$data2 = response.data) === null || _response$data2 === void 0 ? void 0 : _response$data2.message) !== null && _response$data$messag !== void 0 ? _response$data$messag : 'Migration Successful';
-        var alert_content = "\n                <div class=\"cptm-section-alert-content\">\n                    <div class=\"cptm-section-alert-icon cptm-alert-success\">\n                        <span class=\"fa fa-check\"></span>\n                    </div>\n\n                    <div class=\"cptm-section-alert-message\">".concat(msg, "</div>\n                </div>\n                ");
-        $('.cptm-directory-migration-form').find('.cptm-comfirmation-text').html(alert_content);
-        $(self).remove();
-        location.reload();
-        return;
-      }
-      responseFaildCallback(response);
-    };
-
-    // Response Error Callback
-    var responseFaildCallback = function responseFaildCallback(response) {
-      var _response$data$messag2, _response$data3;
-      // console.log( { response } );
-
-      var msg = (_response$data$messag2 = response === null || response === void 0 || (_response$data3 = response.data) === null || _response$data3 === void 0 ? void 0 : _response$data3.message) !== null && _response$data$messag2 !== void 0 ? _response$data$messag2 : 'Something went wrong please try again';
-      var alert_content = "\n            <div class=\"cptm-section-alert-content\">\n                <div class=\"cptm-section-alert-icon cptm-alert-error\">\n                    <span class=\"fa fa-times\"></span>\n                </div>\n\n                <div class=\"cptm-section-alert-message\">".concat(msg, "</div>\n            </div>\n            ");
-      $('.cptm-directory-migration-form').find('.cptm-comfirmation-text').html(alert_content);
-      $(self).remove();
-    };
-
-    // Send Request
-    axios.post(directorist_admin.ajax_url, form_data).then(function (response) {
-      responseSuccessCallback(response);
-    }).catch(function (response) {
-      responseFaildCallback(response);
-    });
-  });
-});
-
-/***/ }),
-
 /***/ "./assets/src/js/admin/components/import-directory-modal.js":
 /*!******************************************************************!*\
   !*** ./assets/src/js/admin/components/import-directory-modal.js ***!
@@ -281,12 +220,9 @@ window.addEventListener('load', function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_delete_directory_modal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/delete-directory-modal */ "./assets/src/js/admin/components/delete-directory-modal.js");
 /* harmony import */ var _components_delete_directory_modal__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_components_delete_directory_modal__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _components_directory_migration_modal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/directory-migration-modal */ "./assets/src/js/admin/components/directory-migration-modal.js");
-/* harmony import */ var _components_directory_migration_modal__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_components_directory_migration_modal__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _components_import_directory_modal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/import-directory-modal */ "./assets/src/js/admin/components/import-directory-modal.js");
-/* harmony import */ var _components_import_directory_modal__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_components_import_directory_modal__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _components_import_directory_modal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/import-directory-modal */ "./assets/src/js/admin/components/import-directory-modal.js");
+/* harmony import */ var _components_import_directory_modal__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_components_import_directory_modal__WEBPACK_IMPORTED_MODULE_1__);
 // Scrips
-
 
 
 var $ = jQuery;

@@ -1,6 +1,5 @@
 // Scrips
 import './components/delete-directory-modal';
-import './components/directory-migration-modal';
 import './components/import-directory-modal';
 
 var $ = jQuery;

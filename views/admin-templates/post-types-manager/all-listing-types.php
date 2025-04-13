@@ -1,5 +1,3 @@
-<?php $show_migration_button = apply_filters( 'directorist_show_migration_button', false ); ?>
-
 <div class="wrap">
     <?php atbdp_show_flush_alerts( ['page' => 'all-listing-type'] ) ?>
 
@@ -106,17 +104,6 @@
                                 <span class="directorist_link-text"><?php esc_html_e( 'Create Directory', 'directorist' ); ?></span>
                             </button>
                         </div>
-
-                        <?php if ( $show_migration_button ) : ?>
-                            <button class="directorist_link-block directorist_link-block-success directorist_btn-migrate cptm-modal-toggle" data-target="cptm-directory-mirgation-modal">
-                                <span class="directorist_link-icon">
-                                    <i class="la la-download"></i>
-                                </span>
-                                <span class="directorist_link-text">
-                                    <?php esc_html_e( 'Migrate', 'directorist' ) ?>
-                                </span>
-                            </button>
-                        <?php endif; ?>
                     </div>
                     <div class="directorist_table">
                         <div class="directorist_table-header">
@@ -381,43 +368,3 @@
 
 <?php
 ;
-
-if ( $show_migration_button ) : ?>
-<!-- Model : Migration -->
-<div class="cptm-modal-container cptm-directory-mirgation-modal">
-    <div class="cptm-modal-wrap">
-        <div class="cptm-modal">
-            <div class="cptm-modal-content">
-                <div class="cptm-modal-header">
-                    <h3 class="cptm-modal-header-title"><?php esc_html_e( 'Migrate', 'directorist' ); ?></h3>
-                    <div class="cptm-modal-actions">
-                        <a href="#" class="cptm-modal-action-link cptm-modal-toggle" data-target="cptm-directory-mirgation-modal">
-                            <span class="fa fa-times"></span>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="cptm-modal-body cptm-center-content cptm-content-wide">
-                    <form action="#" method="post" class="cptm-directory-migration-form">
-                        <div class="cptm-form-group-feedback cptm-text-center cptm-mb-10"></div>
-
-                        <h2 class="cptm-title-2 cptm-text-center cptm-comfirmation-text">
-                            <?php esc_html_e( 'Are you sure?', 'directorist' ) ?>
-                        </h2>
-
-                        <div class="cptm-file-input-wrap">
-                            <a href="#" class="cptm-btn cptm-btn-secondery cptm-modal-toggle atbdp-directory-migration-cencel-link" data-target="cptm-directory-mirgation-modal">
-                                <?php esc_html_e( 'No', 'directorist' ); ?>
-                            </a>
-
-                            <a href="#" class="cptm-btn cptm-btn-primary atbdp-directory-migration-link">
-                                <?php esc_html_e( 'Yes', 'directorist' ); ?>
-                            </a>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<?php endif; ?>

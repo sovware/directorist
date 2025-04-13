@@ -397,7 +397,7 @@ class Multi_Directory_Manager {
     // setup_migration
     public function setup_migration() {
         $migrated = get_option( 'atbdp_migrated', false );
-        $need_migration = ( empty( $migrated ) && ! self::has_multidirectory() && self::has_old_listings_data() ) ? true : false;
+        $need_migration = ( empty( $migrated ) && ! self::has_directory() && self::has_old_listings_data() ) ? true : false;
 
         if ( $need_migration ) {
             $this->prepare_settings();
@@ -405,9 +405,7 @@ class Multi_Directory_Manager {
             return;
         }
 
-        $need_import_default = ( ! self::has_multidirectory() ) ? true : false;
-
-        if ( apply_filters( 'atbdp_import_default_directory', $need_import_default ) ) {
+        if ( apply_filters( 'atbdp_import_default_directory', ! self::has_directory() ) ) {
             $this->prepare_settings();
             $this->import_default_directory();
         }
@@ -462,8 +460,8 @@ class Multi_Directory_Manager {
         return empty( $max_order ) ? -1 : intval( get_term_meta( $max_order[0]->term_id, 'sort_order', true ) );
     }
 
-    // has_multidirectory
-    public static function has_multidirectory() {
+    // Check if has directory
+    public static function has_directory() {
         $directory_types = directorist_get_directories();
 
         return ( ! is_wp_error( $directory_types ) && ! empty( $directory_types ) ) ? true : false;

@@ -391,11 +391,44 @@ class Multi_Directory_Manager {
             return;
         }
 
-        $nedd_default_derectory = apply_filters( 'atbdp_import_default_directory', ! self::has_directory() );
+        $import_default_derectory = isset( $_GET[ 'import_default_derectory' ] ) && '1' === $_GET[ 'import_default_derectory' ];
+        $directory_name_required  = $import_default_derectory && empty( $_GET['directory_name'] );
         
-        if ( $nedd_default_derectory ) {
+        if ( ( ! $import_default_derectory || $directory_name_required ) && apply_filters( 'atbdp_import_default_directory', ! self::has_directory() ) ) {
+            add_action( 'admin_notices', function() {
+                ?>
+                <div class="notice notice-warning">
+                    <p style="display: flex; align-items: center;">
+                        <span style="flex-grow: 1; margin-right: 10px;">
+                            <?php esc_html_e( 'A default directory type is required to create', 'directorist' ); ?>
+                        </span>
+
+                        <span>
+                            <form action="<?php echo esc_url( admin_url( 'admin.php' ) ); ?>" method="get">
+                                <input type="hidden" name="page" value="atbdp-directory-types">
+                                <input type="hidden" name="import_default_derectory" value="1">
+                                <input type="text" name="directory_name" value="">
+
+                                <button type="submit" class="button button-primary">
+                                    <?php esc_html_e( 'Create Default Directory', 'directorist' ); ?>
+                                </button>
+
+                                <div>
+                                    <p style="margin-top: 5; font-size: 12px; color: red;">
+                                        <?php esc_html_e( 'Please provide a name for the default directory type.', 'directorist' ); ?>
+                                    </p>
+                                </div>
+                            </form>
+                        </span>
+                    </p>
+                </div>
+                <?php
+            } );
+        }
+
+        if ( $import_default_derectory ) {
             $this->prepare_settings();
-            $this->import_default_directory();
+            $this->import_default_directory( [ 'name' => $_GET['directory_name'] ] );
         }
     }
 
@@ -497,7 +530,7 @@ class Multi_Directory_Manager {
         $file_contents = file_get_contents( $file );
 
         return self::add_directory([
-            'directory_name' => 'General',
+            'directory_name' => ! empty( $args['name'] ) ? $args['name'] : 'General',
             'fields_value'   => $file_contents,
             'is_json'        => true
         ]);

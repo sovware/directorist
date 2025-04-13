@@ -89,7 +89,7 @@
                 :fieldKey="`${widget_key}-${field_key}`"
                 :ref="field"
                 v-bind="field"
-                @update="updateOptionFieldValue(widget_key, $event)"
+                @update="updateWidgetOptionValue($event)"
               />
             </div>
 
@@ -106,7 +106,7 @@
                 :fieldKey="`${widget_key}-${field_key}`"
                 :ref="field"
                 v-bind="field"
-                @update="updateOptionFieldValue(widget_key, $event)"
+                @update="updateWidgetFieldValue(field_key, $event)"
               />
             </div>
           </div>
@@ -215,7 +215,17 @@ export default {
     return {
       localSelectedWidgets: [],
       activeWidgetKey: "",
-      activeWidgetOptionType: "",
+      // Local Widget Data
+      local_widget_data: {
+        activeWidgetOptionType: "text",
+        widgetOptionFields: {
+          text_color: "#ffffff",
+          text_background: "#ffffff33",
+          icon: "uil uil-star",
+          icon_color: "#ffffff",
+          icon_background: "#ffffff33",
+        },
+      },
     };
   },
 
@@ -233,16 +243,22 @@ export default {
       this.$emit("close");
     },
 
-    updateOptionFieldValue(widgetKey, value) {
-      if (this.activeWidgetOptionType === value) {
-        this.activeWidgetOptionType = null; // toggle off
-      } else {
-        this.activeWidgetOptionType = value; // set active
-      }
-      console.log("@updateOptionFieldValue", {
-        activeWidgetOptionType: this.activeWidgetOptionType,
-        widgetKey,
+    updateWidgetOptionValue(value) {
+      console.log("@updateWidgetOptionValue", {
         value,
+        activeWidgetKey: this.activeWidgetKey,
+      });
+      this.local_widget_data.activeWidgetOptionType = value;
+      return;
+    },
+
+    updateWidgetFieldValue(field_key, value) {
+      this.$set(this.local_widget_data.widgetOptionFields, field_key, value);
+
+      console.log("@updateWidgetFieldValue", {
+        field_key,
+        value,
+        updatedFields: this.local_widget_data.widgetOptionFields,
       });
     },
 
@@ -252,10 +268,6 @@ export default {
       } else {
         this.activeWidgetKey = widget_key; // set active
       }
-      console.log("@edit Badge", {
-        activeWidgetKey: this.activeWidgetKey,
-        widget_key,
-      });
     },
 
     trash(widget_key) {
@@ -305,7 +317,7 @@ export default {
 
       console.log("@@widgetTypeField", {
         activeWidgetFields,
-        field: activeWidgetFields.field,
+        type: activeWidgetFields.type.value,
       });
 
       return activeWidgetFields;
@@ -313,24 +325,15 @@ export default {
 
     widgetTypeOptions(widgetKey) {
       const activeWidgetOptions = this.availableWidgets[widgetKey].fields[
-        this.activeWidgetOptionType
+        this.local_widget_data.activeWidgetOptionType
       ];
 
       console.log("@@widgetTypeOptions", {
         activeWidgetOptions,
+        activeWidgetOptionType: this.local_widget_data.activeWidgetOptionType,
       });
 
       return activeWidgetOptions;
-    },
-
-    updateOptionFieldValue(widgetKey, value) {
-      this.activeWidgetOptionType = value; // set value
-
-      console.log("@updateOptionFieldValue", {
-        activeWidgetOptionType: this.activeWidgetOptionType,
-        widgetKey,
-        value,
-      });
     },
 
     onElementsDrop(dropResult) {

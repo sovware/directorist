@@ -1453,11 +1453,11 @@ class Builder_Data {
                 'icon'  => 'uil uil-text-fields',
                 'hook'  => 'atbdp_featured_badge',
                 'options' => [
-                    'field' => [
+                    'type' => [
                         'type'    => 'radio',
                         'name'    => 'atbdp_featured_badge_type',
                         'label'   => __( 'Badge Style', 'directorist' ),
-                        'value'   => 'text',
+                        'value'   => 'icon',
                         'options' => [
                             ['id' => 'atbdp_featured_badge_text', 'label' => __( 'Text Style', 'directorist' ), 'value' => 'text'],
                             ['id' => 'atbdp_featured_badge_icon', 'label' => __( 'Icon Style', 'directorist' ), 'value' => 'icon'],
@@ -1481,7 +1481,7 @@ class Builder_Data {
                         'icon' => [
                             'type'  => 'icon',
                             'label'  => __( 'Change Icon', 'directorist' ),
-                            'value' => 'star-fill',
+                            'value' => 'uil uil-star',
                         ],
                         'icon_color' => [
                             'type'          => 'text',

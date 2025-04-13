@@ -17135,17 +17135,14 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/slicedToArray.js");
-/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/toConsumableArray.js");
-/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof.js");
-/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var vue_dndrop__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-dndrop */ "./node_modules/vue-dndrop/dist/vue-dndrop.esm.js");
-/* harmony import */ var _mixins_helpers__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../mixins/helpers */ "./assets/src/js/admin/vue/mixins/helpers.js");
-
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/slicedToArray.js");
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/toConsumableArray.js");
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof.js");
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var vue_dndrop__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-dndrop */ "./node_modules/vue-dndrop/dist/vue-dndrop.esm.js");
+/* harmony import */ var _mixins_helpers__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../mixins/helpers */ "./assets/src/js/admin/vue/mixins/helpers.js");
 
 
 
@@ -17154,10 +17151,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "widgets-option-window",
   components: {
-    Container: vue_dndrop__WEBPACK_IMPORTED_MODULE_4__["Container"],
-    Draggable: vue_dndrop__WEBPACK_IMPORTED_MODULE_4__["Draggable"]
+    Container: vue_dndrop__WEBPACK_IMPORTED_MODULE_3__["Container"],
+    Draggable: vue_dndrop__WEBPACK_IMPORTED_MODULE_3__["Draggable"]
   },
-  mixins: [_mixins_helpers__WEBPACK_IMPORTED_MODULE_5__["default"]],
+  mixins: [_mixins_helpers__WEBPACK_IMPORTED_MODULE_4__["default"]],
   props: {
     id: {
       type: [String, Number],
@@ -17230,31 +17227,44 @@ __webpack_require__.r(__webpack_exports__);
     return {
       localSelectedWidgets: [],
       activeWidgetKey: "",
-      activeWidgetOptionType: ""
+      // Local Widget Data
+      local_widget_data: {
+        activeWidgetOptionType: "text",
+        widgetOptionFields: {
+          text_color: "#ffffff",
+          text_background: "#ffffff33",
+          icon: "uil uil-star",
+          icon_color: "#ffffff",
+          icon_background: "#ffffff33"
+        }
+      }
     };
   },
-  methods: _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({
+  methods: {
     init: function init() {
-      if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3___default()(this.selectedWidgets) !== "object") {
+      if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default()(this.selectedWidgets) !== "object") {
         return;
       }
       var unique_selected_widgets = new Set(this.selectedWidgets);
-      this.localSelectedWidgets = _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_2___default()(unique_selected_widgets);
+      this.localSelectedWidgets = _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1___default()(unique_selected_widgets);
     },
     close: function close() {
       this.$emit("close");
     },
-    updateOptionFieldValue: function updateOptionFieldValue(widgetKey, value) {
-      if (this.activeWidgetOptionType === value) {
-        this.activeWidgetOptionType = null; // toggle off
-      } else {
-        this.activeWidgetOptionType = value; // set active
-      }
-
-      console.log("@updateOptionFieldValue", {
-        activeWidgetOptionType: this.activeWidgetOptionType,
-        widgetKey: widgetKey,
-        value: value
+    updateWidgetOptionValue: function updateWidgetOptionValue(value) {
+      console.log("@updateWidgetOptionValue", {
+        value: value,
+        activeWidgetKey: this.activeWidgetKey
+      });
+      this.local_widget_data.activeWidgetOptionType = value;
+      return;
+    },
+    updateWidgetFieldValue: function updateWidgetFieldValue(field_key, value) {
+      this.$set(this.local_widget_data.widgetOptionFields, field_key, value);
+      console.log("@updateWidgetFieldValue", {
+        field_key: field_key,
+        value: value,
+        updatedFields: this.local_widget_data.widgetOptionFields
       });
     },
     edit: function edit(widget_key) {
@@ -17263,11 +17273,6 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         this.activeWidgetKey = widget_key; // set active
       }
-
-      console.log("@edit Badge", {
-        activeWidgetKey: this.activeWidgetKey,
-        widget_key: widget_key
-      });
     },
     trash: function trash(widget_key) {
       this.$emit("trash-widget", widget_key);
@@ -17284,7 +17289,7 @@ __webpack_require__.r(__webpack_exports__);
       };
       var filter_double_pare = function filter_double_pare(str) {
         var pares = str.match(/\w+|w+/gi);
-        if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3___default()(pares) !== "object" && pares.length < 2) {
+        if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default()(pares) !== "object" && pares.length < 2) {
           return "";
         }
         if (data < 2) {
@@ -17300,47 +17305,41 @@ __webpack_require__.r(__webpack_exports__);
       var activeWidgetFields = this.availableWidgets[widgetKey].options;
       console.log("@@widgetTypeField", {
         activeWidgetFields: activeWidgetFields,
-        field: activeWidgetFields.field
+        type: activeWidgetFields.type.value
       });
       return activeWidgetFields;
     },
     widgetTypeOptions: function widgetTypeOptions(widgetKey) {
-      var activeWidgetOptions = this.availableWidgets[widgetKey].fields[this.activeWidgetOptionType];
+      var activeWidgetOptions = this.availableWidgets[widgetKey].fields[this.local_widget_data.activeWidgetOptionType];
       console.log("@@widgetTypeOptions", {
-        activeWidgetOptions: activeWidgetOptions
+        activeWidgetOptions: activeWidgetOptions,
+        activeWidgetOptionType: this.local_widget_data.activeWidgetOptionType
       });
       return activeWidgetOptions;
+    },
+    onElementsDrop: function onElementsDrop(dropResult) {
+      var removedIndex = dropResult.removedIndex,
+        addedIndex = dropResult.addedIndex;
+      if (removedIndex === null || addedIndex === null) return;
+
+      // Clone the array (no mutation)
+      var updatedWidgets = _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1___default()(this.selectedWidgets);
+
+      // Remove item
+      var _updatedWidgets$splic = updatedWidgets.splice(removedIndex, 1),
+        _updatedWidgets$splic2 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_updatedWidgets$splic, 1),
+        movedItem = _updatedWidgets$splic2[0];
+
+      // Add item at new position
+      updatedWidgets.splice(addedIndex, 0, movedItem);
+
+      // Emit to parent to update prop
+      this.$emit("update", {
+        selectedWidgets: updatedWidgets
+      });
+      return;
     }
-  }, "updateOptionFieldValue", function updateOptionFieldValue(widgetKey, value) {
-    this.activeWidgetOptionType = value; // set value
-
-    console.log("@updateOptionFieldValue", {
-      activeWidgetOptionType: this.activeWidgetOptionType,
-      widgetKey: widgetKey,
-      value: value
-    });
-  }), "onElementsDrop", function onElementsDrop(dropResult) {
-    var removedIndex = dropResult.removedIndex,
-      addedIndex = dropResult.addedIndex;
-    if (removedIndex === null || addedIndex === null) return;
-
-    // Clone the array (no mutation)
-    var updatedWidgets = _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_2___default()(this.selectedWidgets);
-
-    // Remove item
-    var _updatedWidgets$splic = updatedWidgets.splice(removedIndex, 1),
-      _updatedWidgets$splic2 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1___default()(_updatedWidgets$splic, 1),
-      movedItem = _updatedWidgets$splic2[0];
-
-    // Add item at new position
-    updatedWidgets.splice(addedIndex, 0, movedItem);
-
-    // Emit to parent to update prop
-    this.$emit("update", {
-      selectedWidgets: updatedWidgets
-    });
-    return;
-  })
+  }
 });
 
 /***/ }),
@@ -29620,7 +29619,7 @@ var render = function render() {
         },
         on: {
           update: function update($event) {
-            return _vm.updateOptionFieldValue(widget_key, $event);
+            return _vm.updateWidgetOptionValue($event);
           }
         }
       }, "component", field, false)) : _vm._e()], 1);
@@ -29638,7 +29637,7 @@ var render = function render() {
         },
         on: {
           update: function update($event) {
-            return _vm.updateOptionFieldValue(widget_key, $event);
+            return _vm.updateWidgetFieldValue(field_key, $event);
           }
         }
       }, "component", field, false)) : _vm._e()], 1);

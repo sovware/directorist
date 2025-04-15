@@ -13,7 +13,6 @@ class Multi_Directory_Manager {
     // run
     public function run() {
         add_action( 'init', [ self::class, 'register_directory_taxonomy'] );
-        add_action( 'admin_init', [ $this, 'setup_migration' ] );
         
         // Directory Type Sorting Query
         add_filter( 'directorist_directory_index_query', [ $this, 'directory_type_sorting_query' ] );
@@ -385,53 +384,6 @@ class Multi_Directory_Manager {
         update_directorist_option( 'atbdp_default_derectory', $default_directory );
     }
 
-    // setup_migration
-    public function setup_migration() {
-        if ( ! isset( $_GET[ 'page' ] ) || 'atbdp-directory-types' !== $_GET[ 'page' ] ) {
-            return;
-        }
-
-        $import_default_derectory = isset( $_GET[ 'import_default_derectory' ] ) && '1' === $_GET[ 'import_default_derectory' ];
-        $directory_name_required  = $import_default_derectory && empty( $_GET['directory_name'] );
-        
-        if ( ( ! $import_default_derectory || $directory_name_required ) && apply_filters( 'atbdp_import_default_directory', ! self::has_directory() ) ) {
-            add_action( 'admin_notices', function() {
-                ?>
-                <div class="notice notice-warning">
-                    <p style="display: flex; align-items: center;">
-                        <span style="flex-grow: 1; margin-right: 10px;">
-                            <?php esc_html_e( 'A default directory type is required to create', 'directorist' ); ?>
-                        </span>
-
-                        <span>
-                            <form action="<?php echo esc_url( admin_url( 'admin.php' ) ); ?>" method="get">
-                                <input type="hidden" name="page" value="atbdp-directory-types">
-                                <input type="hidden" name="import_default_derectory" value="1">
-                                <input type="text" name="directory_name" value="">
-
-                                <button type="submit" class="button button-primary">
-                                    <?php esc_html_e( 'Create Default Directory', 'directorist' ); ?>
-                                </button>
-
-                                <div>
-                                    <p style="margin-top: 5; font-size: 12px; color: red;">
-                                        <?php esc_html_e( 'Please provide a name for the default directory type.', 'directorist' ); ?>
-                                    </p>
-                                </div>
-                            </form>
-                        </span>
-                    </p>
-                </div>
-                <?php
-            } );
-        }
-
-        if ( $import_default_derectory ) {
-            $this->prepare_settings();
-            $this->import_default_directory( [ 'name' => $_GET['directory_name'] ] );
-        }
-    }
-
     public static function add_directory_type_sorting_order_to_missing_ones( bool $register_directory_taxonomy = true ): void {
         if ( $register_directory_taxonomy ) {
             self::register_directory_taxonomy();
@@ -481,13 +433,6 @@ class Multi_Directory_Manager {
         return empty( $max_order ) ? -1 : intval( get_term_meta( $max_order[0]->term_id, 'sort_order', true ) );
     }
 
-    // Check if has directory
-    public static function has_directory() {
-        $directory_types = directorist_get_directories();
-
-        return ( ! is_wp_error( $directory_types ) && ! empty( $directory_types ) ) ? true : false;
-    }
-
     public function directorist_directory_type_library() {
 
         if ( ! directorist_verify_nonce() ) {
@@ -519,25 +464,7 @@ class Multi_Directory_Manager {
         wp_send_json( $installed );
     }
 
-    // import_default_directory
-    public function import_default_directory( array $args = [] ) {
-        $file = DIRECTORIST_ASSETS_DIR . 'sample-data/directory/directory.json';
-        
-        if ( ! file_exists( $file ) ) { 
-            return; 
-        }
-        
-        $file_contents = file_get_contents( $file );
-
-        return self::add_directory([
-            'directory_name' => ! empty( $args['name'] ) ? $args['name'] : 'General',
-            'fields_value'   => $file_contents,
-            'is_json'        => true
-        ]);
-    }
-
     public function save_imported_post_type_data() {
-
         if ( ! directorist_verify_nonce() ) {
             wp_send_json([
                 'status' => [

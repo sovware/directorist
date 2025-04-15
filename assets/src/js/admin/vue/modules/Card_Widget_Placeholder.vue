@@ -6,6 +6,7 @@
         :availableWidgets="availableWidgets"
         :selected-widgets="selectedWidgets"
         @update="handleUpdateOptionWindow"
+        @update-active-widget="handleActiveWidgetUpdate"
         :active="
           !!(
             showWidgetsOptionWindow &&
@@ -326,9 +327,24 @@ export default {
 
       this.activeWidgetKey = widgetKey;
     },
+
     handleUpdateOptionWindow(payload) {
+      console.log("@handleUpdateOptionWindow", {
+        payload,
+      });
+
       // Emit the updated selectedWidgets to the parent component
       this.$emit("update", payload.selectedWidgets);
+    },
+
+    handleActiveWidgetUpdate({ widgetKey, updatedWidget }) {
+      console.log("@handleActiveWidgetUpdate", {
+        widgetKey,
+        updatedWidget,
+      });
+
+      // Emit the updated widget to the parent component
+      this.$emit("update-active-widget", { widgetKey, updatedWidget });
     },
   },
 

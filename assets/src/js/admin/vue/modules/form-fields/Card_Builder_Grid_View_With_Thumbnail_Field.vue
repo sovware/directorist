@@ -50,6 +50,7 @@
                         'local_layout.thumbnail.top_left'
                       )
                     "
+                    @update-active-widget="handleActiveWidgetUpdate"
                     editOnClick
                   />
                 </div>
@@ -576,18 +577,18 @@ export default {
 
             let widget_data = {};
             for (let root_option in this.active_widgets[widget_name]) {
-              if ("options" === root_option) {
-                continue;
-              }
-              if ("icon" === root_option) {
-                continue;
-              }
+              // if ("options" === root_option) {
+              //   continue;
+              // }
+              // if ("icon" === root_option) {
+              //   continue;
+              // }
               if ("show_if" === root_option) {
                 continue;
               }
-              if ("fields" === root_option) {
-                continue;
-              }
+              // if ("fields" === root_option) {
+              //   continue;
+              // }
 
               widget_data[root_option] = this.active_widgets[widget_name][
                 root_option
@@ -900,9 +901,9 @@ export default {
         // let widget_options = ( ! active_widgets_data[widget_key].options && typeof active_widgets_data[widget_key].options !== "object" ) ? false : active_widgets_data[widget_key].options;
 
         for (let root_option in widgets_template) {
-          if ("options" === root_option) {
-            continue;
-          }
+          // if ("options" === root_option) {
+          //   continue;
+          // }
           if (
             typeof active_widgets_data[widget_key][root_option] === "undefined"
           ) {
@@ -929,8 +930,9 @@ export default {
               active_widgets_data[widget_key][option_key];
           }
         }
-
+        
         Vue.set(this.active_widgets, widget_key, widgets_template);
+        Vue.set(this.available_widgets, widget_key, widgets_template);
       }
 
       // Load Selected Widgets Data
@@ -1138,6 +1140,18 @@ export default {
 
       // Update the selectedWidgets at the correct path
       obj[pathKeys[pathKeys.length - 1]].selectedWidgets = updatedWidgets;
+    },
+
+    // Handle Update Selected Widgets
+    handleActiveWidgetUpdate({ widgetKey, updatedWidget }) {
+      this.$set(this.active_widgets, widgetKey, updatedWidget);
+
+      console.log("@@handleActiveWidgetUpdate", {
+        widgetKey,
+        updatedWidget,
+        active_widgets: this.active_widgets,
+        available_widgets: this.available_widgets,
+      });
     },
   },
 };

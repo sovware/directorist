@@ -17661,7 +17661,6 @@ input[type=radio].cptm-radio {
 }
 .cptm-listing-card-author-avatar .cptm-placeholder-block {
   padding: 0;
-  min-height: auto;
   text-align: center;
   border-color: rgba(198, 208, 220, 0.5);
 }
@@ -23887,7 +23886,6 @@ input[type=radio].cptm-radio {
 }
 .cptm-listing-card-author-avatar .cptm-placeholder-block {
   padding: 0;
-  min-height: auto;
   text-align: center;
   border-color: rgba(198, 208, 220, 0.5);
 }
@@ -30401,7 +30399,6 @@ input[type=radio].cptm-radio {
 }
 .cptm-listing-card-author-avatar .cptm-placeholder-block {
   padding: 0;
-  min-height: auto;
   text-align: center;
   border-color: rgba(198, 208, 220, 0.5);
 }

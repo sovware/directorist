@@ -244,6 +244,7 @@ export default {
       this.activeWidgetOptionType = value;
 
       this.activeWidget.options.type.value = value;
+      this.availableWidgets[this.activeWidgetKey].options.type.value = value;
 
       console.log("@updateWidgetOptionValue", {
         value,
@@ -253,11 +254,12 @@ export default {
         updateActiveWidget: this.activeWidget,
       });
 
-      // Emit to parent to update prop
-      // this.$emit("update", {
-      //   widget_key: this.activeWidgetKey,
-      //   widget: this.activeWidget,
-      // });
+      // Emit updated activeWidget to parent
+      this.$emit("update-active-widget", {
+        widgetKey: this.activeWidgetKey,
+        updatedWidget: this.activeWidget,
+      });
+
       return;
     },
 
@@ -269,7 +271,14 @@ export default {
       console.log("@updateWidgetFieldValue", {
         field_key,
         value,
+        activeWidgetOptionType: this.activeWidgetOptionType,
         updateActiveWidget: this.activeWidget,
+      });
+
+      // Emit updated activeWidget to parent
+      this.$emit("update-active-widget", {
+        widgetKey: this.activeWidgetKey,
+        updatedWidget: this.activeWidget,
       });
     },
 

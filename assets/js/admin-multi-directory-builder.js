@@ -26136,7 +26136,18 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     console.log('Repeater Field created with value:', this.value);
     if (this.value.length) {
-      this.active_fields_groups = this.value.slice(0, this.maxGroups);
+      // Ensure each group has a unique ID
+      this.active_fields_groups = this.value.slice(0, this.maxGroups).map(function (group, index) {
+        return {
+          id: group.id || Date.now() + index,
+          value: group.value || ""
+        };
+      });
+    } else {
+      this.active_fields_groups = [{
+        id: Date.now(),
+        value: ""
+      }];
     }
   },
   watch: {
@@ -34401,6 +34412,7 @@ var render = function render() {
         'form-repeater__input-value-added': group.value
       },
       attrs: {
+        "id": group.id,
         "placeholder": _vm.placeholder
       },
       domProps: {

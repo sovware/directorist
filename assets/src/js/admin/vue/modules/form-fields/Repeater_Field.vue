@@ -24,6 +24,7 @@
 
         <!-- Input field for the group name -->
         <input
+          :id="group.id"
           :value="group.value"
           :class="{'form-repeater__input-value-added': group.value}"
           class="form-repeater__input"
@@ -135,8 +136,14 @@ export default {
   created() {
     console.log('Repeater Field created with value:', this.value);
 
-    if ( this.value.length ) {
-      this.active_fields_groups = this.value.slice( 0, this.maxGroups );
+    if (this.value.length) {
+      // Ensure each group has a unique ID
+      this.active_fields_groups = this.value.slice(0, this.maxGroups).map((group, index) => ({
+        id: group.id || Date.now() + index,
+        value: group.value || "",
+      }));
+    } else {
+      this.active_fields_groups = [{ id: Date.now(), value: "" }];
     }
   },
 

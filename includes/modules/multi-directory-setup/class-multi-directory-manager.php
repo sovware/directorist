@@ -34,7 +34,7 @@ class Multi_Directory_Manager {
 
         // Add Directory Type Sorting Order
         add_action( 'directorist_after_create_directory_type', [ $this, 'add_directory_sorting_order_to_new_directory' ] );
-        add_action( 'directorist_after_activation', [ $this, 'add_directory_type_sorting_order_to_missing_ones' ] );
+        add_action( 'directorist_after_activation', [ self::class, 'add_directory_type_sorting_order_to_missing_ones' ], 10, 0 );
     }
 
     public function add_directory_sorting_order_to_new_directory( $term ): void {
@@ -384,7 +384,7 @@ class Multi_Directory_Manager {
         update_directorist_option( 'atbdp_default_derectory', $default_directory );
     }
 
-    public static function add_directory_type_sorting_order_to_missing_ones( bool $register_directory_taxonomy = true ): void {
+    public static function add_directory_type_sorting_order_to_missing_ones( $register_directory_taxonomy = true ): void {
         if ( $register_directory_taxonomy ) {
             self::register_directory_taxonomy();
         }

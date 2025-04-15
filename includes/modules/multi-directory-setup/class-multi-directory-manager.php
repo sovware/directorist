@@ -12,7 +12,7 @@ class Multi_Directory_Manager {
 
     // run
     public function run() {
-        add_action( 'init', [ self::class, 'register_directory_taxonomy'] );
+        add_action( 'init', [ self::class, 'register_directory_taxonomy' ] );
         
         // Directory Type Sorting Query
         add_filter( 'directorist_directory_index_query', [ $this, 'directory_type_sorting_query' ] );

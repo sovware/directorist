@@ -39,14 +39,25 @@ class Listings_Actions_Controller extends Abstract_Controller {
 					'permission_callback' => array( $this, 'create_item_permissions_check' ),
 					'args'                => array_merge(
 						$this->get_endpoint_args_for_item_schema( WP_REST_Server::CREATABLE ),
-						array(
+						/**
+						 * Filters the default schema arguments for listing actions in Directorist.
+						 *
+						 * This filter allows developers to modify or extend the default set of arguments
+						 * used in the schema for listing actions. Useful when adding custom actions
+						 * or modifying existing ones for listing-related functionalities.
+						 *
+						 * @since 8.4
+						 *
+						 * @param array $args Default schema arguments for listing actions.
+						 */
+						apply_filters( 'directorist_listings_actions_schema_default_args', array(
 							'id' => array(
 								'type'        => 'string',
 								'description' => __( 'Action identifier.', 'directorist' ),
 								'enum'        => array( 'report', 'contact' ),
 								'required'    => true,
 							),
-						)
+						) )
 					),
 				),
 				'schema' => array( $this, 'get_public_item_schema' ),

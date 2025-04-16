@@ -899,5 +899,6 @@ function ATBDP()
 	return Directorist_Base::instance();
 }
 
-ATBDP();
+add_action( 'plugins_loaded', 'ATBDP' );
+
 register_activation_hook(__FILE__, array('Directorist_Base', 'prepare_plugin'));

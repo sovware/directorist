@@ -48,7 +48,7 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
 
 			add_action( 'delete_' . ATBDP_DIRECTORY_TYPE, array( $this, 'delete_directory_to_category_location_relation' ) );
 
-			add_filter( 'template_include', array( $this, 'include_template' ) );
+			// add_filter( 'template_include', array( $this, 'include_template' ) );
 		}
 
 		public function directorist_bulk_term_update() {

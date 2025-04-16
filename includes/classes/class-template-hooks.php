@@ -103,7 +103,7 @@ class Directorist_Template_Hooks {
 		}
 
 		$template_type = get_directorist_option( 'single_listing_template', 'directorist_template' );
-		if ( $template_type === 'directorist_template' && ! self::has_block_template( 'single-listing' ) ) {
+		if ( $template_type === 'directorist_template' && ! self::has_block_template( 'single-at_biz_dir' ) ) {
 			$_template = Helper::template_path( 'single' );
 		} elseif ( $template_type === 'theme_template_page' ) {
 			$_template = get_page_template();

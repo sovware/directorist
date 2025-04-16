@@ -269,7 +269,7 @@ class Block_Templates_Controller {
 	 * Gets the templates saved in the database.
 	 *
 	 * @param array $slugs An array of slugs to retrieve templates for.
-	 * @param array $template_type wp_template or wp_template_part.
+	 * @param string $template_type wp_template or wp_template_part.
 	 *
 	 * @return int[]|\WP_Post[] An array of found templates.
 	 */
@@ -360,7 +360,7 @@ class Block_Templates_Controller {
 	 * Get and build the block template objects from the block template files.
 	 *
 	 * @param array $slugs An array of slugs to retrieve templates for.
-	 * @param array $template_type wp_template or wp_template_part.
+	 * @param string $template_type wp_template or wp_template_part.
 	 *
 	 * @return array
 	 */
@@ -413,8 +413,15 @@ class Block_Templates_Controller {
 		}
 
 		if ( is_singular( ATBDP_POST_TYPE ) &&
-			! Block_Template_Utils::theme_has_template( 'single-listing' ) &&
-			$this->block_template_is_available( 'single-listing' )
+			! Block_Template_Utils::theme_has_template( 'single-at_biz_dir' ) &&
+			$this->block_template_is_available( 'single-at_biz_dir' )
+		) {
+			add_filter( 'directorist_has_block_template', '__return_true', 10, 0 );
+		}
+
+		if ( is_tax( ATBDP_CATEGORY ) &&
+			! Block_Template_Utils::theme_has_template( 'taxonomy-at_biz_dir-category' ) &&
+			$this->block_template_is_available( 'taxonomy-at_biz_dir-category' )
 		) {
 			add_filter( 'directorist_has_block_template', '__return_true', 10, 0 );
 		}

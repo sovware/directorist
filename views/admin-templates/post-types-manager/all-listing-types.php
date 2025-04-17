@@ -63,7 +63,7 @@
             <div class="directorist_builder__content">
                 <?php
                     $all_items     = wp_count_terms( ATBDP_DIRECTORY_TYPE );
-                    $listing_types = directorist_get_directories( [ 'sorted' => true ] );
+                    $listing_types = directorist_get_directories( [ 'custom_order' => true ] );
                 ?>
                 <div class="directorist_builder__content__right">
                     <div class="directorist-total-types">

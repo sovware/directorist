@@ -13,6 +13,7 @@ class Multi_Directory_Manager {
     // run
     public function run() {
         add_action( 'init', [ self::class, 'register_directory_taxonomy' ] );
+        add_filter( 'terms_clauses', [ $this, 'directorist_sort_terms_by_meta' ], 10, 3 );
 
         if ( ! is_admin() ) {
             return;
@@ -32,6 +33,27 @@ class Multi_Directory_Manager {
         // Add Directory Type Sorting Order
         add_action( 'directorist_after_create_directory_type', [ $this, 'add_directory_sorting_order_to_new_directory' ] );
         add_action( 'directorist_after_activation', [ self::class, 'add_directory_type_sorting_order_to_missing_ones' ], 10, 0 );
+    }
+
+    public function directorist_sort_terms_by_meta( $clauses, $taxonomies, $args ) {
+        if ( ! in_array(  ATBDP_DIRECTORY_TYPE,$taxonomies ) ) {
+            return $clauses;
+        }
+    
+        global $wpdb;
+
+        // Join with termmeta table
+        $clauses['join'] .= " LEFT JOIN {$wpdb->termmeta} sort_meta ON t.term_id = sort_meta.term_id AND sort_meta.meta_key = 'sort_order'";
+
+        if ( ! empty( $args['custom_order'] ) ) {
+            $orderby = "COALESCE( CAST( sort_meta.meta_value AS SIGNED ), t.term_id ) ASC";
+
+            $clauses['orderby'] = "ORDER BY " . $orderby;
+
+            unset( $clauses['order'] );
+        }
+    
+        return $clauses;
     }
 
     public function add_directory_sorting_order_to_new_directory( $term ): void {

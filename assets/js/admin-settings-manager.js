@@ -18395,6 +18395,36 @@ __webpack_require__.r(__webpack_exports__);
     expanded: {
       default: false
     }
+  },
+  watch: {
+    info: function info(newVal) {
+      if (newVal.length) {
+        this.setZIndex(1);
+      } else {
+        this.setZIndex(0);
+      }
+    }
+  },
+  mounted: function mounted() {
+    if (this.info.length) {
+      this.setZIndex(1);
+    }
+  },
+  methods: {
+    setZIndex: function setZIndex(zIndexValue) {
+      var parent = this.$el.closest(".cptm-form-builder-group-fields .directorist-draggable-list-item-wrapper");
+      if (parent) {
+        parent.style.zIndex = zIndexValue;
+      }
+
+      // If you want to set z-index to 0 for other sibling elements
+      var allParents = document.querySelectorAll('.cptm-form-builder-group-fields .directorist-draggable-list-item-wrapper');
+      allParents.forEach(function (el) {
+        if (el !== parent) {
+          el.style.zIndex = 0;
+        }
+      });
+    }
   }
 });
 

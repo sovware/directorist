@@ -42,5 +42,35 @@ export default {
       default: false,
     },
   },
+  watch: {
+    info(newVal) {
+      if (newVal.length) {
+        this.setZIndex(1);
+      } else {
+        this.setZIndex(0);
+      }
+    },
+  },
+  mounted() {
+    if (this.info.length) {
+      this.setZIndex(1);
+    }
+  },
+  methods: {
+    setZIndex(zIndexValue) {
+      const parent = this.$el.closest(".cptm-form-builder-group-fields .directorist-draggable-list-item-wrapper");
+      if (parent) {
+        parent.style.zIndex = zIndexValue;
+      }
+
+      // If you want to set z-index to 0 for other sibling elements
+      const allParents = document.querySelectorAll('.cptm-form-builder-group-fields .directorist-draggable-list-item-wrapper');
+      allParents.forEach((el) => {
+        if (el !== parent) {
+          el.style.zIndex = 0;
+        }
+      });
+    },
+  },
 };
 </script>

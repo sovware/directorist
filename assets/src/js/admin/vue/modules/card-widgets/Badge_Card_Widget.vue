@@ -4,9 +4,38 @@
   >
     <div
       class="cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
+      :class="{ 'cptm-widget-badge--icon': isIconType }"
+      :style="{
+        background: isIconType
+          ? fields?.icon?.icon_background?.value
+          : fields?.text?.text_background?.value || '',
+      }"
     >
-      <span :class="icon" v-if="icon"></span>
-      <span>{{ label }}</span>
+      <span
+        class="cptm-widget-badge-icon"
+        :class="icon"
+        :style="{
+          color: fields?.icon?.icon_color?.value,
+        }"
+        v-if="isIconType && icon"
+      ></span>
+      <span class="cptm-widget-badge-wrapper" v-else>
+        <span
+          class="cptm-widget-badge-icon"
+          :class="icon"
+          :style="{
+            color: fields?.text?.text_color?.value || '',
+          }"
+          v-if="icon"
+        ></span>
+        <span
+          class="cptm-widget-badge-label"
+          :style="{
+            color: fields?.text?.text_color?.value || '',
+          }"
+          >{{ label }}</span
+        >
+      </span>
 
       <widget-action-tools
         :canEdit="canEdit"
@@ -49,6 +78,10 @@ export default {
       type: Object,
     },
 
+    fields: {
+      type: Object,
+    },
+
     widgetDropable: {
       type: Boolean,
       default: false,
@@ -87,6 +120,9 @@ export default {
           !this.dragging && (this.drop_append_dropable || this.widgetDropable),
         "drag-enter": this.drop_append_drag_enter,
       };
+    },
+    isIconType() {
+      return this.options?.type?.value === "icon";
     },
   },
 

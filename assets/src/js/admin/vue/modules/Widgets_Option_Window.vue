@@ -246,6 +246,13 @@ export default {
       this.activeWidget.options.type.value = value;
       this.availableWidgets[this.activeWidgetKey].options.type.value = value;
 
+      if (value === "icon") {
+        this.activeWidget.icon = this.activeWidget?.fields?.icon?.field_icon?.value;
+        this.availableWidgets[
+          this.activeWidgetKey
+        ].icon = this.activeWidget?.fields?.icon?.field_icon?.value;
+      }
+
       console.log("@updateWidgetOptionValue", {
         value,
         fields: this.fields,
@@ -267,6 +274,11 @@ export default {
       this.activeWidget.fields[this.activeWidgetOptionType][
         field_key
       ].value = value;
+
+      if (field_key === "field_icon") {
+        this.activeWidget.icon = value;
+        this.availableWidgets[this.activeWidgetKey].icon = value;
+      }
 
       console.log("@updateWidgetFieldValue", {
         field_key,

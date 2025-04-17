@@ -1,6 +1,6 @@
 <template>
   <div
-    class="cptm-form-group cptm-form-group__color-picker"
+    class="cptm-form-group cptm-form-group--color-picker"
     :class="formGroupClass"
   >
     <div class="atbdp-row">

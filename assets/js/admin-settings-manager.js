@@ -16803,6 +16803,11 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       this.activeWidgetOptionType = value;
       this.activeWidget.options.type.value = value;
       this.availableWidgets[this.activeWidgetKey].options.type.value = value;
+      if (value === "icon") {
+        var _this$activeWidget, _this$activeWidget2;
+        this.activeWidget.icon = (_this$activeWidget = this.activeWidget) === null || _this$activeWidget === void 0 || (_this$activeWidget = _this$activeWidget.fields) === null || _this$activeWidget === void 0 || (_this$activeWidget = _this$activeWidget.icon) === null || _this$activeWidget === void 0 || (_this$activeWidget = _this$activeWidget.field_icon) === null || _this$activeWidget === void 0 ? void 0 : _this$activeWidget.value;
+        this.availableWidgets[this.activeWidgetKey].icon = (_this$activeWidget2 = this.activeWidget) === null || _this$activeWidget2 === void 0 || (_this$activeWidget2 = _this$activeWidget2.fields) === null || _this$activeWidget2 === void 0 || (_this$activeWidget2 = _this$activeWidget2.icon) === null || _this$activeWidget2 === void 0 || (_this$activeWidget2 = _this$activeWidget2.field_icon) === null || _this$activeWidget2 === void 0 ? void 0 : _this$activeWidget2.value;
+      }
       console.log("@updateWidgetOptionValue", {
         value: value,
         fields: this.fields,
@@ -16820,6 +16825,10 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     },
     updateWidgetFieldValue: function updateWidgetFieldValue(field_key, value) {
       this.activeWidget.fields[this.activeWidgetOptionType][field_key].value = value;
+      if (field_key === "field_icon") {
+        this.activeWidget.icon = value;
+        this.availableWidgets[this.activeWidgetKey].icon = value;
+      }
       console.log("@updateWidgetFieldValue", {
         field_key: field_key,
         value: value,
@@ -17228,6 +17237,9 @@ __webpack_require__.r(__webpack_exports__);
     options: {
       type: Object
     },
+    fields: {
+      type: Object
+    },
     widgetDropable: {
       type: Boolean,
       default: false
@@ -17259,6 +17271,10 @@ __webpack_require__.r(__webpack_exports__);
         dropable: !this.dragging && (this.drop_append_dropable || this.widgetDropable),
         "drag-enter": this.drop_append_drag_enter
       };
+    },
+    isIconType: function isIconType() {
+      var _this$options;
+      return ((_this$options = this.options) === null || _this$options === void 0 || (_this$options = _this$options.type) === null || _this$options === void 0 ? void 0 : _this$options.value) === "icon";
     }
   },
   data: function data() {
@@ -21137,6 +21153,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       var widgetKey = _ref.widgetKey,
         updatedWidget = _ref.updatedWidget;
       this.$set(this.active_widgets, widgetKey, updatedWidget);
+      this.$set(this.available_widgets, widgetKey, updatedWidget);
       console.log("@@handleActiveWidgetUpdate", {
         widgetKey: widgetKey,
         updatedWidget: updatedWidget,
@@ -28081,6 +28098,7 @@ var render = function render() {
         label: typeof _vm.availableWidgets[widget] !== "undefined" ? _vm.availableWidgets[widget].label : "Not Available",
         icon: typeof _vm.availableWidgets[widget].icon === "string" ? _vm.availableWidgets[widget].icon : "",
         options: _vm.availableWidgets[widget].options,
+        fields: _vm.availableWidgets[widget].fields,
         widgetDropable: _vm.widgetDropable,
         hasDisableButton: _vm.hasDisableButton,
         canMove: _vm.activeWidgets[widget] && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(_vm.activeWidgets[widget].can_move) !== undefined ? _vm.activeWidgets[widget].can_move : true,
@@ -29448,15 +29466,39 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
 var render = function render() {
+  var _vm$fields, _vm$fields2, _vm$fields3, _vm$fields4, _vm$fields5;
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
     staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap"
   }, [_c("div", {
-    staticClass: "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
+    staticClass: "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap",
+    class: {
+      "cptm-widget-badge--icon": _vm.isIconType
+    },
+    style: {
+      background: _vm.isIconType ? (_vm$fields = _vm.fields) === null || _vm$fields === void 0 || (_vm$fields = _vm$fields.icon) === null || _vm$fields === void 0 || (_vm$fields = _vm$fields.icon_background) === null || _vm$fields === void 0 ? void 0 : _vm$fields.value : ((_vm$fields2 = _vm.fields) === null || _vm$fields2 === void 0 || (_vm$fields2 = _vm$fields2.text) === null || _vm$fields2 === void 0 || (_vm$fields2 = _vm$fields2.text_background) === null || _vm$fields2 === void 0 ? void 0 : _vm$fields2.value) || ""
+    }
+  }, [_vm.isIconType && _vm.icon ? _c("span", {
+    staticClass: "cptm-widget-badge-icon",
+    class: _vm.icon,
+    style: {
+      color: (_vm$fields3 = _vm.fields) === null || _vm$fields3 === void 0 || (_vm$fields3 = _vm$fields3.icon) === null || _vm$fields3 === void 0 || (_vm$fields3 = _vm$fields3.icon_color) === null || _vm$fields3 === void 0 ? void 0 : _vm$fields3.value
+    }
+  }) : _c("span", {
+    staticClass: "cptm-widget-badge-wrapper"
   }, [_vm.icon ? _c("span", {
-    class: _vm.icon
-  }) : _vm._e(), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.label))]), _vm._v(" "), !_vm.readOnly && !_vm.editOnClick ? _c("widget-action-tools", {
+    staticClass: "cptm-widget-badge-icon",
+    class: _vm.icon,
+    style: {
+      color: ((_vm$fields4 = _vm.fields) === null || _vm$fields4 === void 0 || (_vm$fields4 = _vm$fields4.text) === null || _vm$fields4 === void 0 || (_vm$fields4 = _vm$fields4.text_color) === null || _vm$fields4 === void 0 ? void 0 : _vm$fields4.value) || ""
+    }
+  }) : _vm._e(), _vm._v(" "), _c("span", {
+    staticClass: "cptm-widget-badge-label",
+    style: {
+      color: ((_vm$fields5 = _vm.fields) === null || _vm$fields5 === void 0 || (_vm$fields5 = _vm$fields5.text) === null || _vm$fields5 === void 0 || (_vm$fields5 = _vm$fields5.text_color) === null || _vm$fields5 === void 0 ? void 0 : _vm$fields5.value) || ""
+    }
+  }, [_vm._v(_vm._s(_vm.label))])]), _vm._v(" "), !_vm.readOnly && !_vm.editOnClick ? _c("widget-action-tools", {
     attrs: {
       canEdit: _vm.canEdit,
       canMove: _vm.canMove,
@@ -37630,7 +37672,7 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "cptm-form-group cptm-form-group__color-picker",
+    staticClass: "cptm-form-group cptm-form-group--color-picker",
     class: _vm.formGroupClass
   }, [_c("div", {
     staticClass: "atbdp-row"

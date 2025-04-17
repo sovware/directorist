@@ -16425,17 +16425,17 @@ li[class=cptm-form-builder-field-list-item][draggable=true] {
 .cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container .cptm-form-group .cptm-radio-area .cptm-radio-item:last-child label {
   margin-bottom: 0;
 }
-.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container .cptm-form-group__color-picker .atbdp-row {
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container .cptm-form-group--color-picker .atbdp-row {
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -webkit-flex-direction: column;
       -ms-flex-direction: column;
           flex-direction: column;
 }
-.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container .cptm-form-group__color-picker .atbdp-row .atbdp-col {
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container .cptm-form-group--color-picker .atbdp-row .atbdp-col {
   width: 100%;
 }
-.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container .cptm-form-group__color-picker .cptm-color-picker-wrap {
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container .cptm-form-group--color-picker .cptm-color-picker-wrap {
   width: 100%;
   padding: 6px;
   border-radius: 8px;
@@ -16443,7 +16443,7 @@ li[class=cptm-form-builder-field-list-item][draggable=true] {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
-.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container .cptm-form-group__color-picker .cptm-color-picker-wrap .cptm-color-picker {
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container .cptm-form-group--color-picker .cptm-color-picker-wrap .cptm-color-picker {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -16463,7 +16463,7 @@ li[class=cptm-form-builder-field-list-item][draggable=true] {
   border: 1px solid #e5e7eb;
   overflow: hidden;
 }
-.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container .cptm-form-group__color-picker .cptm-color-picker-wrap .cptm-color-picker .icp__input {
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container .cptm-form-group--color-picker .cptm-color-picker-wrap .cptm-color-picker .icp__input {
   width: 30px;
   height: 30px;
   margin: 0;
@@ -17208,7 +17208,7 @@ input[type=radio].cptm-radio {
   text-align: center;
   color: #fff;
   border-radius: 5px;
-  font-size: 11px;
+  font-size: 12px;
   padding: 2px 8px;
   margin: 2px;
   font-weight: 700;
@@ -17216,6 +17216,24 @@ input[type=radio].cptm-radio {
   -webkit-transition: 0.3s ease;
   transition: 0.3s ease;
   position: relative;
+}
+.cptm-widget-badge.cptm-widget-badge--icon {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 100%;
 }
 
 .cptm-preview-area {
@@ -22718,17 +22736,17 @@ li[class=cptm-form-builder-field-list-item][draggable=true] {
 .cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container .cptm-form-group .cptm-radio-area .cptm-radio-item:last-child label {
   margin-bottom: 0;
 }
-.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container .cptm-form-group__color-picker .atbdp-row {
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container .cptm-form-group--color-picker .atbdp-row {
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -webkit-flex-direction: column;
       -ms-flex-direction: column;
           flex-direction: column;
 }
-.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container .cptm-form-group__color-picker .atbdp-row .atbdp-col {
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container .cptm-form-group--color-picker .atbdp-row .atbdp-col {
   width: 100%;
 }
-.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container .cptm-form-group__color-picker .cptm-color-picker-wrap {
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container .cptm-form-group--color-picker .cptm-color-picker-wrap {
   width: 100%;
   padding: 6px;
   border-radius: 8px;
@@ -22736,7 +22754,7 @@ li[class=cptm-form-builder-field-list-item][draggable=true] {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
-.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container .cptm-form-group__color-picker .cptm-color-picker-wrap .cptm-color-picker {
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container .cptm-form-group--color-picker .cptm-color-picker-wrap .cptm-color-picker {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -22756,7 +22774,7 @@ li[class=cptm-form-builder-field-list-item][draggable=true] {
   border: 1px solid #e5e7eb;
   overflow: hidden;
 }
-.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container .cptm-form-group__color-picker .cptm-color-picker-wrap .cptm-color-picker .icp__input {
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container .cptm-form-group--color-picker .cptm-color-picker-wrap .cptm-color-picker .icp__input {
   width: 30px;
   height: 30px;
   margin: 0;
@@ -23501,7 +23519,7 @@ input[type=radio].cptm-radio {
   text-align: center;
   color: #fff;
   border-radius: 5px;
-  font-size: 11px;
+  font-size: 12px;
   padding: 2px 8px;
   margin: 2px;
   font-weight: 700;
@@ -23509,6 +23527,24 @@ input[type=radio].cptm-radio {
   -webkit-transition: 0.3s ease;
   transition: 0.3s ease;
   position: relative;
+}
+.cptm-widget-badge.cptm-widget-badge--icon {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 100%;
 }
 
 .cptm-preview-area {
@@ -29299,17 +29335,17 @@ li[class=cptm-form-builder-field-list-item][draggable=true] {
 .cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container .cptm-form-group .cptm-radio-area .cptm-radio-item:last-child label {
   margin-bottom: 0;
 }
-.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container .cptm-form-group__color-picker .atbdp-row {
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container .cptm-form-group--color-picker .atbdp-row {
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -webkit-flex-direction: column;
       -ms-flex-direction: column;
           flex-direction: column;
 }
-.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container .cptm-form-group__color-picker .atbdp-row .atbdp-col {
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container .cptm-form-group--color-picker .atbdp-row .atbdp-col {
   width: 100%;
 }
-.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container .cptm-form-group__color-picker .cptm-color-picker-wrap {
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container .cptm-form-group--color-picker .cptm-color-picker-wrap {
   width: 100%;
   padding: 6px;
   border-radius: 8px;
@@ -29317,7 +29353,7 @@ li[class=cptm-form-builder-field-list-item][draggable=true] {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
-.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container .cptm-form-group__color-picker .cptm-color-picker-wrap .cptm-color-picker {
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container .cptm-form-group--color-picker .cptm-color-picker-wrap .cptm-color-picker {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -29337,7 +29373,7 @@ li[class=cptm-form-builder-field-list-item][draggable=true] {
   border: 1px solid #e5e7eb;
   overflow: hidden;
 }
-.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container .cptm-form-group__color-picker .cptm-color-picker-wrap .cptm-color-picker .icp__input {
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container .cptm-form-group--color-picker .cptm-color-picker-wrap .cptm-color-picker .icp__input {
   width: 30px;
   height: 30px;
   margin: 0;
@@ -30082,7 +30118,7 @@ input[type=radio].cptm-radio {
   text-align: center;
   color: #fff;
   border-radius: 5px;
-  font-size: 11px;
+  font-size: 12px;
   padding: 2px 8px;
   margin: 2px;
   font-weight: 700;
@@ -30090,6 +30126,24 @@ input[type=radio].cptm-radio {
   -webkit-transition: 0.3s ease;
   transition: 0.3s ease;
   position: relative;
+}
+.cptm-widget-badge.cptm-widget-badge--icon {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 100%;
 }
 
 .cptm-preview-area {

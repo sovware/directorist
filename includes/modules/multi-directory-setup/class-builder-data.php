@@ -1478,7 +1478,7 @@ class Builder_Data {
                         ],
                     ],
                     'icon' => [
-                        'icon' => [
+                        'field_icon' => [
                             'type'  => 'icon',
                             'label'  => __( 'Change Icon', 'directorist' ),
                             'value' => 'uil uil-star',

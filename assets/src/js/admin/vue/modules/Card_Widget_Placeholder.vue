@@ -98,6 +98,7 @@
                     : ''
                 "
                 :options="availableWidgets[widget].options"
+                :fields="availableWidgets[widget].fields"
                 :widgetDropable="widgetDropable"
                 :hasDisableButton="hasDisableButton"
                 :canMove="

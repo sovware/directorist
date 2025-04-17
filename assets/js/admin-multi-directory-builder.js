@@ -27847,8 +27847,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_form_fields_color_field__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../../../mixins/form-fields/color-field */ "./assets/src/js/admin/vue/mixins/form-fields/color-field.js");
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'color-field-theme-default',
-  mixins: [_mixins_form_fields_color_field__WEBPACK_IMPORTED_MODULE_0__["default"]]
+  name: "color-field-theme-default",
+  mixins: [_mixins_form_fields_color_field__WEBPACK_IMPORTED_MODULE_0__["default"]],
+  data: function data() {
+    return {
+      validationMessages: null
+    };
+  }
 });
 
 /***/ }),
@@ -29662,7 +29667,7 @@ var render = function render() {
     }, [_c("span", {
       staticClass: "uil uil-trash-alt"
     })])])]), _vm._v(" "), _vm.activeWidgetKey === widget_key ? _c("div", {
-      staticClass: "cptm-widget-options-wrap"
+      staticClass: "cptm-widget-options-container"
     }, [_vm._l(_vm.widgetTypeField(widget_key), function (field, field_key) {
       return _c("div", {
         key: field_key
@@ -32616,6 +32621,9 @@ var render = function render() {
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
+      },
+      "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
+        return _vm.closeOptionWindow();
       },
       update: function update($event) {
         return _vm.handleUpdateSelectedWidgets($event, "local_layout.thumbnail.top_left");
@@ -38059,7 +38067,7 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "cptm-form-group",
+    staticClass: "cptm-form-group cptm-form-group__color-picker",
     class: _vm.formGroupClass
   }, [_c("div", {
     staticClass: "atbdp-row"
@@ -38097,7 +38105,7 @@ var render = function render() {
   }, [_c("div", {
     staticClass: "cptm-form-alert",
     class: "cptm-" + _vm.validationMessages.type
-  }, [_vm._v("\n                    " + _vm._s(_vm.validationMessages.message) + "\n                ")])]) : _vm._e()])]), _vm._v(" "), _c("form-field-validatior", {
+  }, [_vm._v("\n          " + _vm._s(_vm.validationMessages.message) + "\n        ")])]) : _vm._e()])]), _vm._v(" "), _c("form-field-validatior", {
     attrs: {
       "section-id": _vm.sectionId,
       "field-id": _vm.fieldId,

@@ -75,7 +75,7 @@
           </div>
           <div
             v-if="activeWidgetKey === widget_key"
-            class="cptm-widget-options-wrap"
+            class="cptm-widget-options-container"
           >
             <div
               v-for="(field, field_key) in widgetTypeField(widget_key)"

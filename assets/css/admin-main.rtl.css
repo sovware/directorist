@@ -16410,6 +16410,64 @@ li[class=cptm-form-builder-field-list-item][draggable=true] {
 .cptm-option-card--draggable .cptm-form-builder-field-list .cptm-form-builder-field-list-item-action {
   cursor: pointer;
 }
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container {
+  padding: 15px 25px 22px 0;
+}
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container .cptm-preview-wrapper {
+  margin-bottom: 20px;
+}
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container .cptm-widget-options-wrap:not(:last-child) {
+  margin-bottom: 17px;
+}
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container .cptm-form-group .cptm-preview-radio-area label {
+  margin-bottom: 12px;
+}
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container .cptm-form-group .cptm-radio-area .cptm-radio-item:last-child label {
+  margin-bottom: 0;
+}
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container .cptm-form-group__color-picker .atbdp-row {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container .cptm-form-group__color-picker .atbdp-row .atbdp-col {
+  width: 100%;
+}
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container .cptm-form-group__color-picker .cptm-color-picker-wrap {
+  width: 100%;
+  padding: 6px;
+  border-radius: 8px;
+  border: 1px solid #d2d6db;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container .cptm-form-group__color-picker .cptm-color-picker-wrap .cptm-color-picker {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: 20px;
+  width: 20px;
+  padding: 0;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+  overflow: hidden;
+}
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container .cptm-form-group__color-picker .cptm-color-picker-wrap .cptm-color-picker .icp__input {
+  width: 30px;
+  height: 30px;
+  margin: 0;
+}
 
 .cptm-info-text-area {
   margin-bottom: 10px;
@@ -16996,10 +17054,20 @@ input[type=radio].cptm-radio {
 }
 
 .cptm-widget-insert-link {
-  display: inline-block;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   width: 26px;
   height: 26px;
-  line-height: 25px;
   border-radius: 50%;
   font-size: 14px;
   text-align: center;
@@ -18188,7 +18256,7 @@ input[type=radio].cptm-radio {
   font-size: 14px;
   font-weight: 500;
   color: #2c3239;
-  margin-bottom: 9px;
+  margin-bottom: 8px;
 }
 .cptm-form-group .cptm-form-control {
   max-width: 100%;
@@ -22635,6 +22703,64 @@ li[class=cptm-form-builder-field-list-item][draggable=true] {
 .cptm-option-card--draggable .cptm-form-builder-field-list .cptm-form-builder-field-list-item-action {
   cursor: pointer;
 }
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container {
+  padding: 15px 25px 22px 0;
+}
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container .cptm-preview-wrapper {
+  margin-bottom: 20px;
+}
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container .cptm-widget-options-wrap:not(:last-child) {
+  margin-bottom: 17px;
+}
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container .cptm-form-group .cptm-preview-radio-area label {
+  margin-bottom: 12px;
+}
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container .cptm-form-group .cptm-radio-area .cptm-radio-item:last-child label {
+  margin-bottom: 0;
+}
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container .cptm-form-group__color-picker .atbdp-row {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container .cptm-form-group__color-picker .atbdp-row .atbdp-col {
+  width: 100%;
+}
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container .cptm-form-group__color-picker .cptm-color-picker-wrap {
+  width: 100%;
+  padding: 6px;
+  border-radius: 8px;
+  border: 1px solid #d2d6db;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container .cptm-form-group__color-picker .cptm-color-picker-wrap .cptm-color-picker {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: 20px;
+  width: 20px;
+  padding: 0;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+  overflow: hidden;
+}
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container .cptm-form-group__color-picker .cptm-color-picker-wrap .cptm-color-picker .icp__input {
+  width: 30px;
+  height: 30px;
+  margin: 0;
+}
 
 .cptm-info-text-area {
   margin-bottom: 10px;
@@ -23221,10 +23347,20 @@ input[type=radio].cptm-radio {
 }
 
 .cptm-widget-insert-link {
-  display: inline-block;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   width: 26px;
   height: 26px;
-  line-height: 25px;
   border-radius: 50%;
   font-size: 14px;
   text-align: center;
@@ -24413,7 +24549,7 @@ input[type=radio].cptm-radio {
   font-size: 14px;
   font-weight: 500;
   color: #2c3239;
-  margin-bottom: 9px;
+  margin-bottom: 8px;
 }
 .cptm-form-group .cptm-form-control {
   max-width: 100%;
@@ -29148,6 +29284,64 @@ li[class=cptm-form-builder-field-list-item][draggable=true] {
 .cptm-option-card--draggable .cptm-form-builder-field-list .cptm-form-builder-field-list-item-action {
   cursor: pointer;
 }
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container {
+  padding: 15px 25px 22px 0;
+}
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container .cptm-preview-wrapper {
+  margin-bottom: 20px;
+}
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container .cptm-widget-options-wrap:not(:last-child) {
+  margin-bottom: 17px;
+}
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container .cptm-form-group .cptm-preview-radio-area label {
+  margin-bottom: 12px;
+}
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container .cptm-form-group .cptm-radio-area .cptm-radio-item:last-child label {
+  margin-bottom: 0;
+}
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container .cptm-form-group__color-picker .atbdp-row {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container .cptm-form-group__color-picker .atbdp-row .atbdp-col {
+  width: 100%;
+}
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container .cptm-form-group__color-picker .cptm-color-picker-wrap {
+  width: 100%;
+  padding: 6px;
+  border-radius: 8px;
+  border: 1px solid #d2d6db;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container .cptm-form-group__color-picker .cptm-color-picker-wrap .cptm-color-picker {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: 20px;
+  width: 20px;
+  padding: 0;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+  overflow: hidden;
+}
+.cptm-option-card--draggable .cptm-form-builder-field-list .cptm-widget-options-container .cptm-form-group__color-picker .cptm-color-picker-wrap .cptm-color-picker .icp__input {
+  width: 30px;
+  height: 30px;
+  margin: 0;
+}
 
 .cptm-info-text-area {
   margin-bottom: 10px;
@@ -29734,10 +29928,20 @@ input[type=radio].cptm-radio {
 }
 
 .cptm-widget-insert-link {
-  display: inline-block;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   width: 26px;
   height: 26px;
-  line-height: 25px;
   border-radius: 50%;
   font-size: 14px;
   text-align: center;
@@ -30926,7 +31130,7 @@ input[type=radio].cptm-radio {
   font-size: 14px;
   font-weight: 500;
   color: #2c3239;
-  margin-bottom: 9px;
+  margin-bottom: 8px;
 }
 .cptm-form-group .cptm-form-control {
   max-width: 100%;

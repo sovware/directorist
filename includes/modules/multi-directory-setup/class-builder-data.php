@@ -1467,12 +1467,12 @@ class Builder_Data {
                 'fields' => [
                     'text' => [
                         'text_color' => [
-                            'type'          => 'text',
+                            'type'          => 'color',
                             'label'         => __( 'Text Color', 'directorist' ),
                             'value'         => '#ffffff',
                         ],
                         'text_background' => [
-                            'type'          => 'text',
+                            'type'          => 'color',
                             'label'         => __( 'Background Color', 'directorist' ),
                             'value'         => '#ffffff33',
                         ],
@@ -1484,12 +1484,12 @@ class Builder_Data {
                             'value' => 'uil uil-star',
                         ],
                         'icon_color' => [
-                            'type'          => 'text',
+                            'type'          => 'color',
                             'label'         => __( 'Icon Color', 'directorist' ),
                             'value'         => '#ffffff',
                         ],
                         'icon_background' => [
-                            'type'          => 'text',
+                            'type'          => 'color',
                             'label'         => __( 'Background Color', 'directorist' ),
                             'value'         => '#ffffff33',
                         ],

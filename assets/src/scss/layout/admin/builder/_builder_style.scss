@@ -1948,6 +1948,67 @@ li[class="cptm-form-builder-field-list-item"][draggable="true"] {
     .cptm-form-builder-field-list-item-action {
       cursor: pointer;
     }
+
+    .cptm-widget-options-container {
+      padding: 15px 0 22px 25px;
+      .cptm-preview-wrapper {
+        margin-bottom: 20px;
+      }
+      .cptm-widget-options-wrap {
+        &:not(:last-child) {
+          margin-bottom: 17px;
+        }
+      }
+
+      .cptm-form-group {
+        .cptm-preview-radio-area {
+          label {
+            margin-bottom: 12px;
+          }
+        }
+        .cptm-radio-area {
+          .cptm-radio-item {
+            &:last-child {
+              label {
+                margin-bottom: 0;
+              }
+            }
+          }
+        }
+      }
+
+      .cptm-form-group__color-picker {
+        .atbdp-row {
+          flex-direction: column;
+          .atbdp-col {
+            width: 100%;
+          }
+        }
+        .cptm-color-picker-wrap {
+          width: 100%;
+          padding: 6px;
+          border-radius: 8px;
+          border: 1px solid #d2d6db;
+          box-sizing: border-box;
+          .cptm-color-picker {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 20px;
+            width: 20px;
+            padding: 0;
+            border-radius: 6px;
+            border: 1px solid #e5e7eb;
+            overflow: hidden;
+            .icp__input {
+              width: 30px;
+              height: 30px;
+              margin: 0;
+            }
+          }
+        }
+      }
+    }
   }
 }
 
@@ -2462,10 +2523,11 @@ input[type="radio"].cptm-radio {
 }
 
 .cptm-widget-insert-link {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: 26px;
   height: 26px;
-  line-height: 25px;
   border-radius: 50%;
   font-size: 14px;
   text-align: center;
@@ -3510,7 +3572,7 @@ input[type="radio"].cptm-radio {
     font-size: 14px;
     font-weight: 500;
     color: #2c3239;
-    margin-bottom: 9px;
+    margin-bottom: 8px;
   }
 
   .cptm-form-control {

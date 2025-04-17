@@ -44,6 +44,7 @@
                       activeOptionWindow('thumbnail_top_left')
                     "
                     @close-widgets-picker-window="closeInsertWindow()"
+                    @close-widgets-option-window="closeOptionWindow()"
                     @update="
                       handleUpdateSelectedWidgets(
                         $event,
@@ -930,7 +931,7 @@ export default {
               active_widgets_data[widget_key][option_key];
           }
         }
-        
+
         Vue.set(this.active_widgets, widget_key, widgets_template);
         Vue.set(this.available_widgets, widget_key, widgets_template);
       }

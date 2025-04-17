@@ -269,12 +269,22 @@ function directorist_get_directories( array $args = array() ) {
 		unset( $args['default_only'] );
 	}
 
+	if ( ! empty( $args['sorted'] ) ) {
+		$args['meta_key'] = 'sort_order';
+        $args['orderby']  = 'meta_value_num';
+        $args['order']    = 'ASC';
+
+		unset( $args['sorted'] );
+	}
+
 	$args['taxonomy'] = ATBDP_DIRECTORY_TYPE;
 
-	return get_terms( apply_filters( 'directorist_directory_index_query', $args ) );
+	return get_terms( $args );
 }
 
 function directorist_get_directories_for_template( array $args = array() ) {
+	$args['sorted' ] = isset( $args['sorted'] ) ? $args['sorted'] : true;
+
 	$directories = directorist_get_directories( $args );
 
 	if ( is_wp_error( $directories ) ) {

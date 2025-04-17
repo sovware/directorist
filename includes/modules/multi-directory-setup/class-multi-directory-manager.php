@@ -13,9 +13,6 @@ class Multi_Directory_Manager {
     // run
     public function run() {
         add_action( 'init', [ self::class, 'register_directory_taxonomy' ] );
-        
-        // Directory Type Sorting Query
-        add_filter( 'directorist_directory_index_query', [ $this, 'directory_type_sorting_query' ] );
 
         if ( ! is_admin() ) {
             return;
@@ -43,14 +40,6 @@ class Multi_Directory_Manager {
         }
         
         update_term_meta( $term['term_id'], 'sort_order', self::get_directory_type_max_sort_order() + 1 );
-    }
-
-    public function directory_type_sorting_query( array $query ): array {
-        $query['meta_key'] = 'sort_order';
-        $query['orderby']  = 'meta_value_num';
-        $query['order']    = 'ASC';
-
-        return $query;
     }
 
     public static function builder_data_backup( $term_id ) {

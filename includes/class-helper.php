@@ -577,16 +577,17 @@ class Helper {
 		// @cache @kowsar
 		$pages = [];
 
-		$types = get_terms( apply_filters( 'directorist_directory_index_query', array(
-			'taxonomy'   => ATBDP_DIRECTORY_TYPE,
-			'hide_empty' => false,
-			'meta_query' => array(
-				array(
-					'key'     => 'single_listing_page',
-					'compare' => 'EXISTS',
-				),
-			),
-		) ) );
+		$types = directorist_get_directories(
+			[
+				'sorted' => true,
+				'meta_query' => [
+					[
+						'key'     => 'single_listing_page',
+						'compare' => 'EXISTS',
+					],
+				],
+			]
+		);
 
 		foreach ( $types as $type ) {
 			$page_id   = get_directorist_type_option( $type->term_id, 'single_listing_page' );

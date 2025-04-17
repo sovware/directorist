@@ -62,13 +62,8 @@
         <div class="directorist_builder-body">
             <div class="directorist_builder__content">
                 <?php
-                    $all_items =  wp_count_terms('atbdp_listing_types');
-                    $listing_types = get_terms( apply_filters( 'directorist_directory_index_query', [
-                       'taxonomy'   => 'atbdp_listing_types',
-                       'hide_empty' => false,
-                       'orderby'    => 'date',
-                       'order'      => 'DSCE',
-                    ] ) );
+                    $all_items     = wp_count_terms( ATBDP_DIRECTORY_TYPE );
+                    $listing_types = directorist_get_directories( [ 'sorted' => true ] );
                 ?>
                 <div class="directorist_builder__content__right">
                     <div class="directorist-total-types">

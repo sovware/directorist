@@ -13,7 +13,7 @@
               <div class="cptm-card-preview-top-right">
                 <card-widget-placeholder
                   id="thumbnail_top_right"
-                  containerClass="cptm-listing-card-quick-info-placeholder cptm-card-light cptm-text-right"
+                  containerClass="cptm-listing-card-quick-info-placeholder cptm-card-dark cptm-text-right"
                   :label="local_layout.thumbnail.top_right.label"
                   :availableWidgets="theAvailableWidgets"
                   :activeWidgets="active_widgets"

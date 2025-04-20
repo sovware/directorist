@@ -33589,7 +33589,7 @@ var render = function render() {
   }, [_c("card-widget-placeholder", {
     attrs: {
       id: "thumbnail_top_right",
-      containerClass: "cptm-listing-card-quick-info-placeholder cptm-card-light cptm-text-right",
+      containerClass: "cptm-listing-card-quick-info-placeholder cptm-card-dark cptm-text-right",
       label: _vm.local_layout.thumbnail.top_right.label,
       availableWidgets: _vm.theAvailableWidgets,
       activeWidgets: _vm.active_widgets,

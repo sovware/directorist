@@ -579,7 +579,7 @@ class Helper {
 
 		$types = directorist_get_directories(
 			[
-				'sorted' => true,
+				'custom_order' => true,
 				'meta_query' => [
 					[
 						'key'     => 'single_listing_page',

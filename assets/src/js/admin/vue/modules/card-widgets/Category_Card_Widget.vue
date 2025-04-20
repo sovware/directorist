@@ -19,16 +19,6 @@
         v-if="!readOnly && !editOnClick"
       />
     </div>
-
-    <span
-      class="cptm-widget-card-drop-append"
-      :class="dropAppendClass"
-      @dragover.prevent=""
-      @dragenter="handleDragEnter()"
-      @dragleave="handleDragLeave()"
-      @drop="handleDrop()"
-    >
-    </span>
   </div>
 </template>
 
@@ -107,23 +97,6 @@ export default {
       this.$emit("dragend");
     },
 
-    handleDragEnter() {
-      this.$emit("dragenter");
-      this.drop_append_drag_enter = true;
-    },
-
-    handleDragLeave() {
-      this.$emit("dragleave");
-      this.drop_append_drag_enter = false;
-    },
-
-    handleDrop() {
-      this.$emit("drop");
-
-      this.dragging = false;
-      this.drop_append_dropable = false;
-      this.drop_append_drag_enter = false;
-    },
   },
 };
 </script>

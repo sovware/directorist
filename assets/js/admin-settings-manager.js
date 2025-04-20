@@ -17178,20 +17178,6 @@ __webpack_require__.r(__webpack_exports__);
     dragEnd: function dragEnd() {
       this.dragging = false;
       this.$emit("dragend");
-    },
-    handleDragEnter: function handleDragEnter() {
-      this.$emit("dragenter");
-      this.drop_append_drag_enter = true;
-    },
-    handleDragLeave: function handleDragLeave() {
-      this.$emit("dragleave");
-      this.drop_append_drag_enter = false;
-    },
-    handleDrop: function handleDrop() {
-      this.$emit("drop");
-      this.dragging = false;
-      this.drop_append_dropable = false;
-      this.drop_append_drag_enter = false;
     }
   }
 });
@@ -17274,20 +17260,6 @@ __webpack_require__.r(__webpack_exports__);
     dragEnd: function dragEnd() {
       this.dragging = false;
       this.$emit("dragend");
-    },
-    handleDragEnter: function handleDragEnter() {
-      this.$emit("dragenter");
-      this.drop_append_drag_enter = true;
-    },
-    handleDragLeave: function handleDragLeave() {
-      this.$emit("dragleave");
-      this.drop_append_drag_enter = false;
-    },
-    handleDrop: function handleDrop() {
-      this.$emit("drop");
-      this.dragging = false;
-      this.drop_append_dropable = false;
-      this.drop_append_drag_enter = false;
     }
   }
 });
@@ -17363,20 +17335,6 @@ __webpack_require__.r(__webpack_exports__);
     dragEnd: function dragEnd() {
       this.dragging = false;
       this.$emit("dragend");
-    },
-    handleDragEnter: function handleDragEnter() {
-      this.$emit("dragenter");
-      this.drop_append_drag_enter = true;
-    },
-    handleDragLeave: function handleDragLeave() {
-      this.$emit("dragleave");
-      this.drop_append_drag_enter = false;
-    },
-    handleDrop: function handleDrop() {
-      this.$emit("drop");
-      this.dragging = false;
-      this.drop_append_dropable = false;
-      this.drop_append_drag_enter = false;
     }
   }
 });
@@ -17452,20 +17410,6 @@ __webpack_require__.r(__webpack_exports__);
     dragEnd: function dragEnd() {
       this.dragging = false;
       this.$emit("dragend");
-    },
-    handleDragEnter: function handleDragEnter() {
-      this.$emit("dragenter");
-      this.drop_append_drag_enter = true;
-    },
-    handleDragLeave: function handleDragLeave() {
-      this.$emit("dragleave");
-      this.drop_append_drag_enter = false;
-    },
-    handleDrop: function handleDrop() {
-      this.$emit("drop");
-      this.dragging = false;
-      this.drop_append_dropable = false;
-      this.drop_append_drag_enter = false;
     }
   }
 });
@@ -17541,20 +17485,6 @@ __webpack_require__.r(__webpack_exports__);
     dragEnd: function dragEnd() {
       this.dragging = false;
       this.$emit("dragend");
-    },
-    handleDragEnter: function handleDragEnter() {
-      this.$emit("dragenter");
-      this.drop_append_drag_enter = true;
-    },
-    handleDragLeave: function handleDragLeave() {
-      this.$emit("dragleave");
-      this.drop_append_drag_enter = false;
-    },
-    handleDrop: function handleDrop() {
-      this.$emit("drop");
-      this.dragging = false;
-      this.drop_append_dropable = false;
-      this.drop_append_drag_enter = false;
     }
   }
 });
@@ -17630,20 +17560,6 @@ __webpack_require__.r(__webpack_exports__);
     dragEnd: function dragEnd() {
       this.dragging = false;
       this.$emit("dragend");
-    },
-    handleDragEnter: function handleDragEnter() {
-      this.$emit("dragenter");
-      this.drop_append_drag_enter = true;
-    },
-    handleDragLeave: function handleDragLeave() {
-      this.$emit("dragleave");
-      this.drop_append_drag_enter = false;
-    },
-    handleDrop: function handleDrop() {
-      this.$emit("drop");
-      this.dragging = false;
-      this.drop_append_dropable = false;
-      this.drop_append_drag_enter = false;
     }
   }
 });
@@ -17742,20 +17658,6 @@ __webpack_require__.r(__webpack_exports__);
     dragEnd: function dragEnd() {
       this.dragging = false;
       this.$emit("dragend");
-    },
-    handleDragEnter: function handleDragEnter() {
-      this.$emit("dragenter");
-      this.drop_append_drag_enter = true;
-    },
-    handleDragLeave: function handleDragLeave() {
-      this.$emit("dragleave");
-      this.drop_append_drag_enter = false;
-    },
-    handleDrop: function handleDrop() {
-      this.$emit("drop");
-      this.dragging = false;
-      this.drop_append_dropable = false;
-      this.drop_append_drag_enter = false;
     }
   }
 });
@@ -17831,20 +17733,6 @@ __webpack_require__.r(__webpack_exports__);
     dragEnd: function dragEnd() {
       this.dragging = false;
       this.$emit("dragend");
-    },
-    handleDragEnter: function handleDragEnter() {
-      this.$emit("dragenter");
-      this.drop_append_drag_enter = true;
-    },
-    handleDragLeave: function handleDragLeave() {
-      this.$emit("dragleave");
-      this.drop_append_drag_enter = false;
-    },
-    handleDrop: function handleDrop() {
-      this.$emit("drop");
-      this.dragging = false;
-      this.drop_append_dropable = false;
-      this.drop_append_drag_enter = false;
     }
   }
 });
@@ -17920,20 +17808,6 @@ __webpack_require__.r(__webpack_exports__);
     dragEnd: function dragEnd() {
       this.dragging = false;
       this.$emit("dragend");
-    },
-    handleDragEnter: function handleDragEnter() {
-      this.$emit("dragenter");
-      this.drop_append_drag_enter = true;
-    },
-    handleDragLeave: function handleDragLeave() {
-      this.$emit("dragleave");
-      this.drop_append_drag_enter = false;
-    },
-    handleDrop: function handleDrop() {
-      this.$emit("drop");
-      this.dragging = false;
-      this.drop_append_dropable = false;
-      this.drop_append_drag_enter = false;
     }
   }
 });
@@ -18009,20 +17883,6 @@ __webpack_require__.r(__webpack_exports__);
     dragEnd: function dragEnd() {
       this.dragging = false;
       this.$emit("dragend");
-    },
-    handleDragEnter: function handleDragEnter() {
-      this.$emit("dragenter");
-      this.drop_append_drag_enter = true;
-    },
-    handleDragLeave: function handleDragLeave() {
-      this.$emit("dragleave");
-      this.drop_append_drag_enter = false;
-    },
-    handleDrop: function handleDrop() {
-      this.$emit("drop");
-      this.dragging = false;
-      this.drop_append_dropable = false;
-      this.drop_append_drag_enter = false;
     }
   }
 });
@@ -18098,20 +17958,6 @@ __webpack_require__.r(__webpack_exports__);
     dragEnd: function dragEnd() {
       this.dragging = false;
       this.$emit("dragend");
-    },
-    handleDragEnter: function handleDragEnter() {
-      this.$emit("dragenter");
-      this.drop_append_drag_enter = true;
-    },
-    handleDragLeave: function handleDragLeave() {
-      this.$emit("dragleave");
-      this.drop_append_drag_enter = false;
-    },
-    handleDrop: function handleDrop() {
-      this.$emit("drop");
-      this.dragging = false;
-      this.drop_append_dropable = false;
-      this.drop_append_drag_enter = false;
     }
   }
 });
@@ -18184,20 +18030,6 @@ __webpack_require__.r(__webpack_exports__);
     dragEnd: function dragEnd() {
       this.dragging = false;
       this.$emit("dragend");
-    },
-    handleDragEnter: function handleDragEnter() {
-      this.$emit("dragenter");
-      this.drop_append_drag_enter = true;
-    },
-    handleDragLeave: function handleDragLeave() {
-      this.$emit("dragleave");
-      this.drop_append_drag_enter = false;
-    },
-    handleDrop: function handleDrop() {
-      this.$emit("drop");
-      this.dragging = false;
-      this.drop_append_dropable = false;
-      this.drop_append_drag_enter = false;
     }
   }
 });
@@ -18273,20 +18105,6 @@ __webpack_require__.r(__webpack_exports__);
     dragEnd: function dragEnd() {
       this.dragging = false;
       this.$emit("dragend");
-    },
-    handleDragEnter: function handleDragEnter() {
-      this.$emit("dragenter");
-      this.drop_append_drag_enter = true;
-    },
-    handleDragLeave: function handleDragLeave() {
-      this.$emit("dragleave");
-      this.drop_append_drag_enter = false;
-    },
-    handleDrop: function handleDrop() {
-      this.$emit("drop");
-      this.dragging = false;
-      this.drop_append_dropable = false;
-      this.drop_append_drag_enter = false;
     }
   }
 });
@@ -18363,20 +18181,6 @@ __webpack_require__.r(__webpack_exports__);
     dragEnd: function dragEnd() {
       this.dragging = false;
       this.$emit("dragend");
-    },
-    handleDragEnter: function handleDragEnter() {
-      this.$emit("dragenter");
-      this.drop_append_drag_enter = true;
-    },
-    handleDragLeave: function handleDragLeave() {
-      this.$emit("dragleave");
-      this.drop_append_drag_enter = false;
-    },
-    handleDrop: function handleDrop() {
-      this.$emit("drop");
-      this.dragging = false;
-      this.drop_append_dropable = false;
-      this.drop_append_drag_enter = false;
     }
   }
 });
@@ -18453,20 +18257,6 @@ __webpack_require__.r(__webpack_exports__);
     dragEnd: function dragEnd() {
       this.dragging = false;
       this.$emit("dragend");
-    },
-    handleDragEnter: function handleDragEnter() {
-      this.$emit("dragenter");
-      this.drop_append_drag_enter = true;
-    },
-    handleDragLeave: function handleDragLeave() {
-      this.$emit("dragleave");
-      this.drop_append_drag_enter = false;
-    },
-    handleDrop: function handleDrop() {
-      this.$emit("drop");
-      this.dragging = false;
-      this.drop_append_dropable = false;
-      this.drop_append_drag_enter = false;
     }
   }
 });
@@ -18539,20 +18329,6 @@ __webpack_require__.r(__webpack_exports__);
     dragEnd: function dragEnd() {
       this.dragging = false;
       this.$emit("dragend");
-    },
-    handleDragEnter: function handleDragEnter() {
-      this.$emit("dragenter");
-      this.drop_append_drag_enter = true;
-    },
-    handleDragLeave: function handleDragLeave() {
-      this.$emit("dragleave");
-      this.drop_append_drag_enter = false;
-    },
-    handleDrop: function handleDrop() {
-      this.$emit("drop");
-      this.dragging = false;
-      this.drop_append_dropable = false;
-      this.drop_append_drag_enter = false;
     }
   }
 });
@@ -29155,6 +28931,7 @@ var render = function render() {
       }
     }
   }, _vm._l(_vm.widgetsList, function (widget, widget_key) {
+    var _widget$options;
     return _c("Draggable", {
       key: widget_key,
       attrs: {
@@ -29178,7 +28955,7 @@ var render = function render() {
       class: widget === null || widget === void 0 ? void 0 : widget.icon
     })]), _vm._v(" "), _c("span", {
       staticClass: "cptm-form-builder-field-list-item-label"
-    }, [_vm._v("\n                " + _vm._s(widget === null || widget === void 0 ? void 0 : widget.label) + "\n              ")])]), _vm._v(" "), widget.options ? _c("span", {
+    }, [_vm._v("\n                " + _vm._s(widget === null || widget === void 0 ? void 0 : widget.label) + "\n              ")])]), _vm._v(" "), widget !== null && widget !== void 0 && (_widget$options = widget.options) !== null && _widget$options !== void 0 && _widget$options.type ? _c("span", {
       staticClass: "cptm-form-builder-field-list-item-edit",
       class: _vm.activeWidgetKey === widget_key ? "active" : "",
       on: {
@@ -29370,24 +29147,7 @@ var render = function render() {
         return _vm.$emit("trash");
       }
     }
-  }) : _vm._e()], 1), _vm._v(" "), !_vm.readOnly ? _c("span", {
-    staticClass: "cptm-widget-card-drop-append",
-    class: _vm.dropAppendClass,
-    on: {
-      dragover: function dragover($event) {
-        $event.preventDefault();
-      },
-      dragenter: function dragenter($event) {
-        return _vm.handleDragEnter();
-      },
-      dragleave: function dragleave($event) {
-        return _vm.handleDragLeave();
-      },
-      drop: function drop($event) {
-        return _vm.handleDrop();
-      }
-    }
-  }) : _vm._e()]);
+  }) : _vm._e()], 1)]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
@@ -29470,24 +29230,7 @@ var render = function render() {
         return _vm.$emit("trash");
       }
     }
-  }) : _vm._e()], 1), _vm._v(" "), !_vm.readOnly ? _c("span", {
-    staticClass: "cptm-widget-card-drop-append",
-    class: _vm.dropAppendClass,
-    on: {
-      dragover: function dragover($event) {
-        $event.preventDefault();
-      },
-      dragenter: function dragenter($event) {
-        return _vm.handleDragEnter();
-      },
-      dragleave: function dragleave($event) {
-        return _vm.handleDragLeave();
-      },
-      drop: function drop($event) {
-        return _vm.handleDrop();
-      }
-    }
-  }) : _vm._e()]);
+  }) : _vm._e()], 1)]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -29535,24 +29278,7 @@ var render = function render() {
         return _vm.$emit("trash");
       }
     }
-  }) : _vm._e()], 1), _vm._v(" "), !_vm.readOnly ? _c("span", {
-    staticClass: "cptm-widget-card-drop-append",
-    class: _vm.dropAppendClass,
-    on: {
-      dragover: function dragover($event) {
-        $event.preventDefault();
-      },
-      dragenter: function dragenter($event) {
-        return _vm.handleDragEnter();
-      },
-      dragleave: function dragleave($event) {
-        return _vm.handleDragLeave();
-      },
-      drop: function drop($event) {
-        return _vm.handleDrop();
-      }
-    }
-  }) : _vm._e()]);
+  }) : _vm._e()], 1)]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -29600,24 +29326,7 @@ var render = function render() {
         return _vm.$emit("trash");
       }
     }
-  }) : _vm._e()], 1), _vm._v(" "), _c("span", {
-    staticClass: "cptm-widget-card-drop-append",
-    class: _vm.dropAppendClass,
-    on: {
-      dragover: function dragover($event) {
-        $event.preventDefault();
-      },
-      dragenter: function dragenter($event) {
-        return _vm.handleDragEnter();
-      },
-      dragleave: function dragleave($event) {
-        return _vm.handleDragLeave();
-      },
-      drop: function drop($event) {
-        return _vm.handleDrop();
-      }
-    }
-  })]);
+  }) : _vm._e()], 1)]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -29665,24 +29374,7 @@ var render = function render() {
         return _vm.$emit("trash");
       }
     }
-  }) : _vm._e()], 1), _vm._v(" "), !_vm.readOnly ? _c("span", {
-    staticClass: "cptm-widget-card-drop-append",
-    class: _vm.dropAppendClass,
-    on: {
-      dragover: function dragover($event) {
-        $event.preventDefault();
-      },
-      dragenter: function dragenter($event) {
-        return _vm.handleDragEnter();
-      },
-      dragleave: function dragleave($event) {
-        return _vm.handleDragLeave();
-      },
-      drop: function drop($event) {
-        return _vm.handleDrop();
-      }
-    }
-  }) : _vm._e()]);
+  }) : _vm._e()], 1)]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -29730,24 +29422,7 @@ var render = function render() {
         return _vm.$emit("trash");
       }
     }
-  }) : _vm._e()], 1), _vm._v(" "), !_vm.readOnly ? _c("span", {
-    staticClass: "cptm-widget-card-drop-append",
-    class: _vm.dropAppendClass,
-    on: {
-      dragover: function dragover($event) {
-        $event.preventDefault();
-      },
-      dragenter: function dragenter($event) {
-        return _vm.handleDragEnter();
-      },
-      dragleave: function dragleave($event) {
-        return _vm.handleDragLeave();
-      },
-      drop: function drop($event) {
-        return _vm.handleDrop();
-      }
-    }
-  }) : _vm._e()]);
+  }) : _vm._e()], 1)]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -29801,24 +29476,7 @@ var render = function render() {
         return _vm.$emit("trash");
       }
     }
-  }) : _vm._e()], 1), _vm._v(" "), !_vm.readOnly ? _c("span", {
-    staticClass: "cptm-widget-card-drop-append",
-    class: _vm.dropAppendClass,
-    on: {
-      dragover: function dragover($event) {
-        $event.preventDefault();
-      },
-      dragenter: function dragenter($event) {
-        return _vm.handleDragEnter();
-      },
-      dragleave: function dragleave($event) {
-        return _vm.handleDragLeave();
-      },
-      drop: function drop($event) {
-        return _vm.handleDrop();
-      }
-    }
-  }) : _vm._e()]);
+  }) : _vm._e()], 1)]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -29866,24 +29524,7 @@ var render = function render() {
         return _vm.$emit("trash");
       }
     }
-  }) : _vm._e()], 1), _vm._v(" "), !_vm.readOnly ? _c("span", {
-    staticClass: "cptm-widget-card-drop-append",
-    class: _vm.dropAppendClass,
-    on: {
-      dragover: function dragover($event) {
-        $event.preventDefault();
-      },
-      dragenter: function dragenter($event) {
-        return _vm.handleDragEnter();
-      },
-      dragleave: function dragleave($event) {
-        return _vm.handleDragLeave();
-      },
-      drop: function drop($event) {
-        return _vm.handleDrop();
-      }
-    }
-  }) : _vm._e()]);
+  }) : _vm._e()], 1)]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -29931,24 +29572,7 @@ var render = function render() {
         return _vm.$emit("trash");
       }
     }
-  }) : _vm._e()], 1), _vm._v(" "), !_vm.readOnly ? _c("span", {
-    staticClass: "cptm-widget-card-drop-append",
-    class: _vm.dropAppendClass,
-    on: {
-      dragover: function dragover($event) {
-        $event.preventDefault();
-      },
-      dragenter: function dragenter($event) {
-        return _vm.handleDragEnter();
-      },
-      dragleave: function dragleave($event) {
-        return _vm.handleDragLeave();
-      },
-      drop: function drop($event) {
-        return _vm.handleDrop();
-      }
-    }
-  }) : _vm._e()]);
+  }) : _vm._e()], 1)]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -29996,24 +29620,7 @@ var render = function render() {
         return _vm.$emit("trash");
       }
     }
-  }) : _vm._e()], 1), _vm._v(" "), !_vm.readOnly ? _c("span", {
-    staticClass: "cptm-widget-card-drop-append",
-    class: _vm.dropAppendClass,
-    on: {
-      dragover: function dragover($event) {
-        $event.preventDefault();
-      },
-      dragenter: function dragenter($event) {
-        return _vm.handleDragEnter();
-      },
-      dragleave: function dragleave($event) {
-        return _vm.handleDragLeave();
-      },
-      drop: function drop($event) {
-        return _vm.handleDrop();
-      }
-    }
-  }) : _vm._e()]);
+  }) : _vm._e()], 1)]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -30061,24 +29668,7 @@ var render = function render() {
         return _vm.$emit("trash");
       }
     }
-  }) : _vm._e()], 1), _vm._v(" "), !_vm.readOnly ? _c("span", {
-    staticClass: "cptm-widget-card-drop-append",
-    class: _vm.dropAppendClass,
-    on: {
-      dragover: function dragover($event) {
-        $event.preventDefault();
-      },
-      dragenter: function dragenter($event) {
-        return _vm.handleDragEnter();
-      },
-      dragleave: function dragleave($event) {
-        return _vm.handleDragLeave();
-      },
-      drop: function drop($event) {
-        return _vm.handleDrop();
-      }
-    }
-  }) : _vm._e()]);
+  }) : _vm._e()], 1)]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -30126,24 +29716,7 @@ var render = function render() {
         return _vm.$emit("trash");
       }
     }
-  }) : _vm._e()], 1), _vm._v(" "), !_vm.readOnly ? _c("span", {
-    staticClass: "cptm-widget-card-drop-append",
-    class: _vm.dropAppendClass,
-    on: {
-      dragover: function dragover($event) {
-        $event.preventDefault();
-      },
-      dragenter: function dragenter($event) {
-        return _vm.handleDragEnter();
-      },
-      dragleave: function dragleave($event) {
-        return _vm.handleDragLeave();
-      },
-      drop: function drop($event) {
-        return _vm.handleDrop();
-      }
-    }
-  }) : _vm._e()]);
+  }) : _vm._e()], 1)]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -30191,24 +29764,7 @@ var render = function render() {
         return _vm.$emit("trash");
       }
     }
-  }) : _vm._e()], 1), _vm._v(" "), !_vm.readOnly ? _c("span", {
-    staticClass: "cptm-widget-card-drop-append",
-    class: _vm.dropAppendClass,
-    on: {
-      dragover: function dragover($event) {
-        $event.preventDefault();
-      },
-      dragenter: function dragenter($event) {
-        return _vm.handleDragEnter();
-      },
-      dragleave: function dragleave($event) {
-        return _vm.handleDragLeave();
-      },
-      drop: function drop($event) {
-        return _vm.handleDrop();
-      }
-    }
-  }) : _vm._e()]);
+  }) : _vm._e()], 1)]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -30258,24 +29814,7 @@ var render = function render() {
         return _vm.$emit("trash");
       }
     }
-  }) : _vm._e()], 1), _vm._v(" "), !_vm.readOnly ? _c("span", {
-    staticClass: "cptm-widget-card-drop-append",
-    class: _vm.dropAppendClass,
-    on: {
-      dragover: function dragover($event) {
-        $event.preventDefault();
-      },
-      dragenter: function dragenter($event) {
-        return _vm.handleDragEnter();
-      },
-      dragleave: function dragleave($event) {
-        return _vm.handleDragLeave();
-      },
-      drop: function drop($event) {
-        return _vm.handleDrop();
-      }
-    }
-  }) : _vm._e()]);
+  }) : _vm._e()], 1)]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
@@ -30333,24 +29872,7 @@ var render = function render() {
         return _vm.$emit("trash");
       }
     }
-  }) : _vm._e()], 1), _vm._v(" "), !_vm.readOnly ? _c("span", {
-    staticClass: "cptm-widget-card-drop-append",
-    class: _vm.dropAppendClass,
-    on: {
-      dragover: function dragover($event) {
-        $event.preventDefault();
-      },
-      dragenter: function dragenter($event) {
-        return _vm.handleDragEnter();
-      },
-      dragleave: function dragleave($event) {
-        return _vm.handleDragLeave();
-      },
-      drop: function drop($event) {
-        return _vm.handleDrop();
-      }
-    }
-  }) : _vm._e()]);
+  }) : _vm._e()], 1)]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -30396,24 +29918,7 @@ var render = function render() {
         return _vm.$emit("trash");
       }
     }
-  }) : _vm._e()], 1), _vm._v(" "), !_vm.readOnly ? _c("span", {
-    staticClass: "cptm-widget-card-drop-append",
-    class: _vm.dropAppendClass,
-    on: {
-      dragover: function dragover($event) {
-        $event.preventDefault();
-      },
-      dragenter: function dragenter($event) {
-        return _vm.handleDragEnter();
-      },
-      dragleave: function dragleave($event) {
-        return _vm.handleDragLeave();
-      },
-      drop: function drop($event) {
-        return _vm.handleDrop();
-      }
-    }
-  }) : _vm._e()]);
+  }) : _vm._e()], 1)]);
 };
 var staticRenderFns = [function () {
   var _vm = this,

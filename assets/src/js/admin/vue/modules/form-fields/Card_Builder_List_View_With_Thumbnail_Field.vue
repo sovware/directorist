@@ -13,7 +13,7 @@
               <div class="cptm-card-preview-top-right">
                 <card-widget-placeholder
                   id="thumbnail_top_right"
-                  containerClass="cptm-listing-card-quick-info-placeholder cptm-card-light cptm-mb-20 cptm-text-right"
+                  containerClass="cptm-listing-card-quick-info-placeholder cptm-card-light cptm-text-right"
                   :label="local_layout.thumbnail.top_right.label"
                   :availableWidgets="theAvailableWidgets"
                   :activeWidgets="active_widgets"
@@ -952,13 +952,6 @@ export default {
     handleActiveWidgetUpdate({ widgetKey, updatedWidget }) {
       this.$set(this.active_widgets, widgetKey, updatedWidget);
       this.$set(this.available_widgets, widgetKey, updatedWidget);
-
-      console.log("@@handleActiveWidgetUpdate", {
-        widgetKey,
-        updatedWidget,
-        active_widgets: this.active_widgets,
-        available_widgets: this.available_widgets,
-      });
     },
   },
 };

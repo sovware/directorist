@@ -321,6 +321,8 @@ export default {
       }
       return true;
     },
+
+    // Set the active widget key when the widget is clicked
     setActiveWidget(widgetKey) {
       if (!this.editOnClick || widgetKey !== "user_avatar") {
         return;
@@ -329,21 +331,14 @@ export default {
       this.activeWidgetKey = widgetKey;
     },
 
+    // Emit the updated selectedWidgets to the parent component
     handleUpdateOptionWindow(payload) {
-      console.log("@handleUpdateOptionWindow", {
-        payload,
-      });
-
       // Emit the updated selectedWidgets to the parent component
       this.$emit("update", payload.selectedWidgets);
     },
 
+    // Emit the updated active widget to the parent component
     handleActiveWidgetUpdate({ widgetKey, updatedWidget }) {
-      console.log("@handleActiveWidgetUpdate", {
-        widgetKey,
-        updatedWidget,
-      });
-
       // Emit the updated widget to the parent component
       this.$emit("update-active-widget", { widgetKey, updatedWidget });
     },

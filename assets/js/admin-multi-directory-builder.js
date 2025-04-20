@@ -15885,28 +15885,22 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       }
       return true;
     },
+    // Set the active widget key when the widget is clicked
     setActiveWidget: function setActiveWidget(widgetKey) {
       if (!this.editOnClick || widgetKey !== "user_avatar") {
         return;
       }
       this.activeWidgetKey = widgetKey;
     },
+    // Emit the updated selectedWidgets to the parent component
     handleUpdateOptionWindow: function handleUpdateOptionWindow(payload) {
-      console.log("@handleUpdateOptionWindow", {
-        payload: payload
-      });
-
       // Emit the updated selectedWidgets to the parent component
       this.$emit("update", payload.selectedWidgets);
     },
+    // Emit the updated active widget to the parent component
     handleActiveWidgetUpdate: function handleActiveWidgetUpdate(_ref) {
       var widgetKey = _ref.widgetKey,
         updatedWidget = _ref.updatedWidget;
-      console.log("@handleActiveWidgetUpdate", {
-        widgetKey: widgetKey,
-        updatedWidget: updatedWidget
-      });
-
       // Emit the updated widget to the parent component
       this.$emit("update-active-widget", {
         widgetKey: widgetKey,
@@ -17217,6 +17211,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       return state.fields;
     }
   })), {}, {
+    // Widget List from selected_widgets
     widgetsList: function widgetsList() {
       var availableWidgets = JSON.parse(JSON.stringify(this.availableWidgets));
       var selected_widgets = this.localSelectedWidgets;
@@ -17236,6 +17231,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       }, {});
       return widgets_list;
     },
+    // Widget Info Text
     infoTexts: function infoTexts() {
       var info_texts = [];
       if (this.maxWidgetLimitIsReached && Object.keys(this.unSelectedWidgetsList).length) {
@@ -17271,6 +17267,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     close: function close() {
       this.$emit("close");
     },
+    // Update widget option value
     updateWidgetOptionValue: function updateWidgetOptionValue(value) {
       this.activeWidgetOptionType = value;
       this.activeWidget.options.type.value = value;
@@ -17280,13 +17277,6 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         this.activeWidget.icon = (_this$activeWidget = this.activeWidget) === null || _this$activeWidget === void 0 || (_this$activeWidget = _this$activeWidget.fields) === null || _this$activeWidget === void 0 || (_this$activeWidget = _this$activeWidget.icon) === null || _this$activeWidget === void 0 || (_this$activeWidget = _this$activeWidget.field_icon) === null || _this$activeWidget === void 0 ? void 0 : _this$activeWidget.value;
         this.availableWidgets[this.activeWidgetKey].icon = (_this$activeWidget2 = this.activeWidget) === null || _this$activeWidget2 === void 0 || (_this$activeWidget2 = _this$activeWidget2.fields) === null || _this$activeWidget2 === void 0 || (_this$activeWidget2 = _this$activeWidget2.icon) === null || _this$activeWidget2 === void 0 || (_this$activeWidget2 = _this$activeWidget2.field_icon) === null || _this$activeWidget2 === void 0 ? void 0 : _this$activeWidget2.value;
       }
-      console.log("@updateWidgetOptionValue", {
-        value: value,
-        fields: this.fields,
-        activeWidget: this.activeWidget,
-        activeWidgetKey: this.activeWidgetKey,
-        updateActiveWidget: this.activeWidget
-      });
 
       // Emit updated activeWidget to parent
       this.$emit("update-active-widget", {
@@ -17295,18 +17285,13 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       });
       return;
     },
+    // Update widget field value
     updateWidgetFieldValue: function updateWidgetFieldValue(field_key, value) {
       this.activeWidget.fields[this.activeWidgetOptionType][field_key].value = value;
       if (field_key === "field_icon") {
         this.activeWidget.icon = value;
         this.availableWidgets[this.activeWidgetKey].icon = value;
       }
-      console.log("@updateWidgetFieldValue", {
-        field_key: field_key,
-        value: value,
-        activeWidgetOptionType: this.activeWidgetOptionType,
-        updateActiveWidget: this.activeWidget
-      });
 
       // Emit updated activeWidget to parent
       this.$emit("update-active-widget", {
@@ -17314,6 +17299,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         updatedWidget: this.activeWidget
       });
     },
+    // Edit Widget
     edit: function edit(widget_key) {
       if (this.activeWidgetKey === widget_key) {
         this.activeWidgetKey = null; // toggle off
@@ -17325,6 +17311,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         this.activeWidgetOptionType = this.activeWidget.options.type.value;
       }
     },
+    // Trash Widget
     trash: function trash(widget_key) {
       this.$emit("trash-widget", widget_key);
     },
@@ -17352,22 +17339,17 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       var filtered_double_pare = filtered_single_pare.replace(/({\w+\|\w+})/gi, filter_double_pare);
       return filtered_double_pare;
     },
+    // Get Widget Type Field
     widgetTypeField: function widgetTypeField(widgetKey) {
       var activeWidgetFields = this.availableWidgets[widgetKey].options;
-      console.log("@@widgetTypeField", {
-        activeWidgetFields: activeWidgetFields,
-        type: activeWidgetFields.type.value
-      });
       return activeWidgetFields;
     },
+    // Get Widget Type Options
     widgetTypeOptions: function widgetTypeOptions(widgetKey) {
       var activeWidgetOptions = this.availableWidgets[widgetKey].fields[this.activeWidgetOptionType];
-      console.log("@@widgetTypeOptions", {
-        activeWidgetOptions: activeWidgetOptions,
-        activeWidgetOptionType: this.activeWidgetOptionType
-      });
       return activeWidgetOptions;
     },
+    // Widget on Drop
     onElementsDrop: function onElementsDrop(dropResult) {
       var removedIndex = dropResult.removedIndex,
         addedIndex = dropResult.addedIndex;
@@ -21614,12 +21596,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         updatedWidget = _ref.updatedWidget;
       this.$set(this.active_widgets, widgetKey, updatedWidget);
       this.$set(this.available_widgets, widgetKey, updatedWidget);
-      console.log("@@handleActiveWidgetUpdate", {
-        widgetKey: widgetKey,
-        updatedWidget: updatedWidget,
-        active_widgets: this.active_widgets,
-        available_widgets: this.available_widgets
-      });
     }
   }
 });
@@ -22147,12 +22123,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         updatedWidget = _ref.updatedWidget;
       this.$set(this.active_widgets, widgetKey, updatedWidget);
       this.$set(this.available_widgets, widgetKey, updatedWidget);
-      console.log("@@handleActiveWidgetUpdate", {
-        widgetKey: widgetKey,
-        updatedWidget: updatedWidget,
-        active_widgets: this.active_widgets,
-        available_widgets: this.available_widgets
-      });
     }
   }
 });
@@ -23175,12 +23145,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         updatedWidget = _ref.updatedWidget;
       this.$set(this.active_widgets, widgetKey, updatedWidget);
       this.$set(this.available_widgets, widgetKey, updatedWidget);
-      console.log("@@handleActiveWidgetUpdate", {
-        widgetKey: widgetKey,
-        updatedWidget: updatedWidget,
-        active_widgets: this.active_widgets,
-        available_widgets: this.available_widgets
-      });
     }
   }
 });
@@ -23661,12 +23625,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         updatedWidget = _ref.updatedWidget;
       this.$set(this.active_widgets, widgetKey, updatedWidget);
       this.$set(this.available_widgets, widgetKey, updatedWidget);
-      console.log("@@handleActiveWidgetUpdate", {
-        widgetKey: widgetKey,
-        updatedWidget: updatedWidget,
-        active_widgets: this.active_widgets,
-        available_widgets: this.available_widgets
-      });
     }
   }
 });
@@ -34068,7 +34026,7 @@ var render = function render() {
   }, [_c("card-widget-placeholder", {
     attrs: {
       id: "thumbnail_top_right",
-      containerClass: "cptm-listing-card-quick-info-placeholder cptm-card-light cptm-mb-20 cptm-text-right",
+      containerClass: "cptm-listing-card-quick-info-placeholder cptm-card-light cptm-text-right",
       label: _vm.local_layout.thumbnail.top_right.label,
       availableWidgets: _vm.theAvailableWidgets,
       activeWidgets: _vm.active_widgets,

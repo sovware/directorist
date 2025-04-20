@@ -1144,13 +1144,6 @@ export default {
     handleActiveWidgetUpdate({ widgetKey, updatedWidget }) {
       this.$set(this.active_widgets, widgetKey, updatedWidget);
       this.$set(this.available_widgets, widgetKey, updatedWidget);
-
-      console.log("@@handleActiveWidgetUpdate", {
-        widgetKey,
-        updatedWidget,
-        active_widgets: this.active_widgets,
-        available_widgets: this.available_widgets,
-      });
     },
   },
 };

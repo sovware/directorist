@@ -172,6 +172,7 @@ export default {
       fields: (state) => state.fields,
     }),
 
+    // Widget List from selected_widgets
     widgetsList() {
       let availableWidgets = JSON.parse(JSON.stringify(this.availableWidgets));
       let selected_widgets = this.localSelectedWidgets;
@@ -194,6 +195,7 @@ export default {
       return widgets_list;
     },
 
+    // Widget Info Text
     infoTexts() {
       let info_texts = [];
 
@@ -240,6 +242,7 @@ export default {
       this.$emit("close");
     },
 
+    // Update widget option value
     updateWidgetOptionValue(value) {
       this.activeWidgetOptionType = value;
 
@@ -253,14 +256,6 @@ export default {
         ].icon = this.activeWidget?.fields?.icon?.field_icon?.value;
       }
 
-      console.log("@updateWidgetOptionValue", {
-        value,
-        fields: this.fields,
-        activeWidget: this.activeWidget,
-        activeWidgetKey: this.activeWidgetKey,
-        updateActiveWidget: this.activeWidget,
-      });
-
       // Emit updated activeWidget to parent
       this.$emit("update-active-widget", {
         widgetKey: this.activeWidgetKey,
@@ -270,6 +265,7 @@ export default {
       return;
     },
 
+    // Update widget field value
     updateWidgetFieldValue(field_key, value) {
       this.activeWidget.fields[this.activeWidgetOptionType][
         field_key
@@ -280,13 +276,6 @@ export default {
         this.availableWidgets[this.activeWidgetKey].icon = value;
       }
 
-      console.log("@updateWidgetFieldValue", {
-        field_key,
-        value,
-        activeWidgetOptionType: this.activeWidgetOptionType,
-        updateActiveWidget: this.activeWidget,
-      });
-
       // Emit updated activeWidget to parent
       this.$emit("update-active-widget", {
         widgetKey: this.activeWidgetKey,
@@ -294,6 +283,7 @@ export default {
       });
     },
 
+    // Edit Widget
     edit(widget_key) {
       if (this.activeWidgetKey === widget_key) {
         this.activeWidgetKey = null; // toggle off
@@ -306,6 +296,7 @@ export default {
       }
     },
 
+    // Trash Widget
     trash(widget_key) {
       this.$emit("trash-widget", widget_key);
     },
@@ -348,30 +339,23 @@ export default {
       return filtered_double_pare;
     },
 
+    // Get Widget Type Field
     widgetTypeField(widgetKey) {
       const activeWidgetFields = this.availableWidgets[widgetKey].options;
-
-      console.log("@@widgetTypeField", {
-        activeWidgetFields,
-        type: activeWidgetFields.type.value,
-      });
 
       return activeWidgetFields;
     },
 
+    // Get Widget Type Options
     widgetTypeOptions(widgetKey) {
       const activeWidgetOptions = this.availableWidgets[widgetKey].fields[
         this.activeWidgetOptionType
       ];
 
-      console.log("@@widgetTypeOptions", {
-        activeWidgetOptions,
-        activeWidgetOptionType: this.activeWidgetOptionType,
-      });
-
       return activeWidgetOptions;
     },
 
+    // Widget on Drop
     onElementsDrop(dropResult) {
       const { removedIndex, addedIndex } = dropResult;
 

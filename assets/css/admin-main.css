@@ -17625,7 +17625,14 @@ input[type=radio].cptm-radio {
   -webkit-transform: unset;
           transform: unset;
 }
-.cptm-card-preview-widget.cptm-card-list-view .cptm-card-preview-top-right .cptm-widget-option-modal-container,
+.cptm-card-preview-widget.cptm-card-list-view .cptm-card-preview-top-right .cptm-widget-option-modal-container {
+  left: unset;
+  right: 0;
+  bottom: unset;
+  top: 100%;
+  -webkit-transform: unset;
+          transform: unset;
+}
 .cptm-card-preview-widget.cptm-card-list-view .cptm-card-preview-footer-right .cptm-widget-option-modal-container,
 .cptm-card-preview-widget.cptm-card-list-view .cptm-card-placeholder-top-right .cptm-widget-option-modal-container {
   left: unset;
@@ -23946,7 +23953,14 @@ input[type=radio].cptm-radio {
   -webkit-transform: unset;
           transform: unset;
 }
-.cptm-card-preview-widget.cptm-card-list-view .cptm-card-preview-top-right .cptm-widget-option-modal-container,
+.cptm-card-preview-widget.cptm-card-list-view .cptm-card-preview-top-right .cptm-widget-option-modal-container {
+  left: unset;
+  right: 0;
+  bottom: unset;
+  top: 100%;
+  -webkit-transform: unset;
+          transform: unset;
+}
 .cptm-card-preview-widget.cptm-card-list-view .cptm-card-preview-footer-right .cptm-widget-option-modal-container,
 .cptm-card-preview-widget.cptm-card-list-view .cptm-card-placeholder-top-right .cptm-widget-option-modal-container {
   left: unset;
@@ -30555,7 +30569,14 @@ input[type=radio].cptm-radio {
   -webkit-transform: unset;
           transform: unset;
 }
-.cptm-card-preview-widget.cptm-card-list-view .cptm-card-preview-top-right .cptm-widget-option-modal-container,
+.cptm-card-preview-widget.cptm-card-list-view .cptm-card-preview-top-right .cptm-widget-option-modal-container {
+  left: unset;
+  right: 0;
+  bottom: unset;
+  top: 100%;
+  -webkit-transform: unset;
+          transform: unset;
+}
 .cptm-card-preview-widget.cptm-card-list-view .cptm-card-preview-footer-right .cptm-widget-option-modal-container,
 .cptm-card-preview-widget.cptm-card-list-view .cptm-card-placeholder-top-right .cptm-widget-option-modal-container {
   left: unset;

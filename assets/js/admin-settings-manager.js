@@ -15332,10 +15332,6 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       type: Boolean,
       default: false
     },
-    editOnClick: {
-      type: Boolean,
-      default: false
-    },
     widgetOptionsWindow: {
       type: Object,
       default: function _default() {
@@ -15415,7 +15411,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     },
     // Set the active widget key when the widget is clicked
     setActiveWidget: function setActiveWidget(widgetKey) {
-      if (!this.editOnClick || widgetKey !== "user_avatar") {
+      if (widgetKey !== "user_avatar") {
         return;
       }
       this.activeWidgetKey = widgetKey;
@@ -17133,10 +17129,6 @@ __webpack_require__.r(__webpack_exports__);
     readOnly: {
       type: Boolean,
       default: false
-    },
-    editOnClick: {
-      type: Boolean,
-      default: false
     }
   }
 });
@@ -17168,10 +17160,6 @@ __webpack_require__.r(__webpack_exports__);
       type: Object
     },
     readOnly: {
-      type: Boolean,
-      default: false
-    },
-    editOnClick: {
       type: Boolean,
       default: false
     }
@@ -17210,10 +17198,6 @@ __webpack_require__.r(__webpack_exports__);
     readOnly: {
       type: Boolean,
       default: false
-    },
-    editOnClick: {
-      type: Boolean,
-      default: false
     }
   }
 });
@@ -17242,10 +17226,6 @@ __webpack_require__.r(__webpack_exports__);
       type: Object
     },
     readOnly: {
-      type: Boolean,
-      default: false
-    },
-    editOnClick: {
       type: Boolean,
       default: false
     }
@@ -17278,10 +17258,6 @@ __webpack_require__.r(__webpack_exports__);
     readOnly: {
       type: Boolean,
       default: false
-    },
-    editOnClick: {
-      type: Boolean,
-      default: false
     }
   }
 });
@@ -17310,10 +17286,6 @@ __webpack_require__.r(__webpack_exports__);
       type: Object
     },
     readOnly: {
-      type: Boolean,
-      default: false
-    },
-    editOnClick: {
       type: Boolean,
       default: false
     }
@@ -17348,10 +17320,6 @@ __webpack_require__.r(__webpack_exports__);
       type: Object
     },
     readOnly: {
-      type: Boolean,
-      default: false
-    },
-    editOnClick: {
       type: Boolean,
       default: false
     }
@@ -17405,10 +17373,6 @@ __webpack_require__.r(__webpack_exports__);
     readOnly: {
       type: Boolean,
       default: false
-    },
-    editOnClick: {
-      type: Boolean,
-      default: false
     }
   }
 });
@@ -17437,10 +17401,6 @@ __webpack_require__.r(__webpack_exports__);
       type: Object
     },
     readOnly: {
-      type: Boolean,
-      default: false
-    },
-    editOnClick: {
       type: Boolean,
       default: false
     }
@@ -17473,10 +17433,6 @@ __webpack_require__.r(__webpack_exports__);
     readOnly: {
       type: Boolean,
       default: false
-    },
-    editOnClick: {
-      type: Boolean,
-      default: false
     }
   }
 });
@@ -17507,10 +17463,6 @@ __webpack_require__.r(__webpack_exports__);
     readOnly: {
       type: Boolean,
       default: false
-    },
-    editOnClick: {
-      type: Boolean,
-      default: false
     }
   }
 });
@@ -17536,10 +17488,6 @@ __webpack_require__.r(__webpack_exports__);
       type: Object
     },
     readOnly: {
-      type: Boolean,
-      default: false
-    },
-    editOnClick: {
       type: Boolean,
       default: false
     }
@@ -17570,10 +17518,6 @@ __webpack_require__.r(__webpack_exports__);
       type: Object
     },
     readOnly: {
-      type: Boolean,
-      default: false
-    },
-    editOnClick: {
       type: Boolean,
       default: false
     }
@@ -17607,10 +17551,6 @@ __webpack_require__.r(__webpack_exports__);
     readOnly: {
       type: Boolean,
       default: false
-    },
-    editOnClick: {
-      type: Boolean,
-      default: false
     }
   }
 });
@@ -17642,10 +17582,6 @@ __webpack_require__.r(__webpack_exports__);
     readOnly: {
       type: Boolean,
       default: false
-    },
-    editOnClick: {
-      type: Boolean,
-      default: false
     }
   }
 });
@@ -17671,10 +17607,6 @@ __webpack_require__.r(__webpack_exports__);
       type: Object
     },
     readOnly: {
-      type: Boolean,
-      default: false
-    },
-    editOnClick: {
       type: Boolean,
       default: false
     }
@@ -27180,8 +27112,7 @@ var render = function render() {
         canMove: _vm.activeWidgets[widget] && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(_vm.activeWidgets[widget].can_move) !== undefined ? _vm.activeWidgets[widget].can_move : true,
         canEdit: _vm.activeWidgets[widget] && _vm.widgetHasOptions(_vm.activeWidgets[widget]),
         disabled: _vm.readOnly && !_vm.selectedWidgets.includes(widget),
-        readOnly: _vm.readOnly,
-        editOnClick: _vm.editOnClick
+        readOnly: _vm.readOnly
       },
       on: {
         drag: function drag($event) {
@@ -30690,8 +30621,7 @@ var render = function render() {
       maxWidget: _vm.local_layout.thumbnail.top_left.maxWidget,
       showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_top_left"),
       showWidgetsOptionWindow: _vm.getActiveOptionWindowStatus("thumbnail_top_left"),
-      widgetOptionsWindow: _vm.widgetOptionsWindow,
-      editOnClick: ""
+      widgetOptionsWindow: _vm.widgetOptionsWindow
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -30734,8 +30664,7 @@ var render = function render() {
       maxWidget: _vm.local_layout.thumbnail.top_right.maxWidget,
       showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_top_right"),
       showWidgetsOptionWindow: _vm.getActiveOptionWindowStatus("thumbnail_top_right"),
-      widgetOptionsWindow: _vm.widgetOptionsWindow,
-      editOnClick: ""
+      widgetOptionsWindow: _vm.widgetOptionsWindow
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -30778,8 +30707,7 @@ var render = function render() {
       maxWidget: _vm.local_layout.thumbnail.bottom_left.maxWidget,
       showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_bottom_left"),
       showWidgetsOptionWindow: _vm.getActiveOptionWindowStatus("thumbnail_bottom_left"),
-      widgetOptionsWindow: _vm.widgetOptionsWindow,
-      editOnClick: ""
+      widgetOptionsWindow: _vm.widgetOptionsWindow
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -30822,8 +30750,7 @@ var render = function render() {
       maxWidget: _vm.local_layout.thumbnail.bottom_right.maxWidget,
       showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_bottom_right"),
       showWidgetsOptionWindow: _vm.getActiveOptionWindowStatus("thumbnail_bottom_right"),
-      widgetOptionsWindow: _vm.widgetOptionsWindow,
-      editOnClick: ""
+      widgetOptionsWindow: _vm.widgetOptionsWindow
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -30868,8 +30795,7 @@ var render = function render() {
       selectedWidgets: _vm.local_layout.thumbnail.avatar.selectedWidgets,
       maxWidget: _vm.local_layout.thumbnail.avatar.maxWidget,
       showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_avatar"),
-      widgetOptionsWindow: _vm.widgetOptionsWindow,
-      editOnClick: ""
+      widgetOptionsWindow: _vm.widgetOptionsWindow
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -30914,8 +30840,7 @@ var render = function render() {
       acceptedWidgets: _vm.local_layout.body.top.acceptedWidgets,
       selectedWidgets: _vm.local_layout.body.top.selectedWidgets,
       maxWidget: _vm.local_layout.body.top.maxWidget,
-      widgetOptionsWindow: _vm.widgetOptionsWindow,
-      editOnClick: ""
+      widgetOptionsWindow: _vm.widgetOptionsWindow
     },
     on: {
       "edit-widget": function editWidget($event) {
@@ -30940,8 +30865,7 @@ var render = function render() {
       selectedWidgets: _vm.local_layout.body.tagline.selectedWidgets,
       maxWidget: _vm.local_layout.body.tagline.maxWidget,
       widgetOptionsWindow: _vm.widgetOptionsWindow,
-      hasDisableButton: true,
-      editOnClick: ""
+      hasDisableButton: true
     },
     on: {
       "edit-widget": function editWidget($event) {
@@ -30968,8 +30892,7 @@ var render = function render() {
       maxWidget: _vm.local_layout.body.badges.maxWidget,
       showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_body_badges"),
       showWidgetsOptionWindow: _vm.getActiveOptionWindowStatus("thumbnail_body_badges"),
-      widgetOptionsWindow: _vm.widgetOptionsWindow,
-      editOnClick: ""
+      widgetOptionsWindow: _vm.widgetOptionsWindow
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -31012,8 +30935,7 @@ var render = function render() {
       maxWidget: _vm.local_layout.body.bottom.maxWidget,
       showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_body_bottom"),
       showWidgetsOptionWindow: _vm.getActiveOptionWindowStatus("thumbnail_body_bottom"),
-      widgetOptionsWindow: _vm.widgetOptionsWindow,
-      editOnClick: ""
+      widgetOptionsWindow: _vm.widgetOptionsWindow
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -31058,8 +30980,7 @@ var render = function render() {
       maxWidget: _vm.local_layout.footer.left.maxWidget,
       showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_footer_left"),
       showWidgetsOptionWindow: _vm.getActiveOptionWindowStatus("thumbnail_footer_left"),
-      widgetOptionsWindow: _vm.widgetOptionsWindow,
-      editOnClick: ""
+      widgetOptionsWindow: _vm.widgetOptionsWindow
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -31102,8 +31023,7 @@ var render = function render() {
       maxWidget: _vm.local_layout.footer.right.maxWidget,
       showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_footer_right"),
       showWidgetsOptionWindow: _vm.getActiveOptionWindowStatus("thumbnail_footer_right"),
-      widgetOptionsWindow: _vm.widgetOptionsWindow,
-      editOnClick: ""
+      widgetOptionsWindow: _vm.widgetOptionsWindow
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -31250,8 +31170,7 @@ var render = function render() {
       maxWidget: _vm.local_layout.top.quick_actions.maxWidget,
       showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("top_quick_actions"),
       showWidgetsOptionWindow: _vm.getActiveOptionWindowStatus("top_quick_actions"),
-      widgetOptionsWindow: _vm.widgetOptionsWindow,
-      editOnClick: ""
+      widgetOptionsWindow: _vm.widgetOptionsWindow
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -31294,8 +31213,7 @@ var render = function render() {
       maxWidget: _vm.local_layout.top.quick_info.maxWidget,
       showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("top_quick_info"),
       showWidgetsOptionWindow: _vm.getActiveOptionWindowStatus("top_quick_info"),
-      widgetOptionsWindow: _vm.widgetOptionsWindow,
-      editOnClick: ""
+      widgetOptionsWindow: _vm.widgetOptionsWindow
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -31336,8 +31254,7 @@ var render = function render() {
       selectedWidgets: _vm.local_layout.body.avatar.selectedWidgets,
       maxWidget: _vm.local_layout.body.avatar.maxWidget,
       showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("body_avatar"),
-      widgetOptionsWindow: _vm.widgetOptionsWindow,
-      editOnClick: ""
+      widgetOptionsWindow: _vm.widgetOptionsWindow
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -31382,8 +31299,7 @@ var render = function render() {
       acceptedWidgets: _vm.local_layout.body.title.acceptedWidgets,
       selectedWidgets: _vm.local_layout.body.title.selectedWidgets,
       maxWidget: _vm.local_layout.body.title.maxWidget,
-      widgetOptionsWindow: _vm.widgetOptionsWindow,
-      editOnClick: ""
+      widgetOptionsWindow: _vm.widgetOptionsWindow
     },
     on: {
       "edit-widget": function editWidget($event) {
@@ -31408,8 +31324,7 @@ var render = function render() {
       selectedWidgets: _vm.local_layout.body.tagline.selectedWidgets,
       maxWidget: _vm.local_layout.body.tagline.maxWidget,
       widgetOptionsWindow: _vm.widgetOptionsWindow,
-      hasDisableButton: true,
-      editOnClick: ""
+      hasDisableButton: true
     },
     on: {
       "edit-widget": function editWidget($event) {
@@ -31434,8 +31349,7 @@ var render = function render() {
       maxWidget: _vm.local_layout.body.badges.maxWidget,
       showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_body_badge"),
       showWidgetsOptionWindow: _vm.getActiveOptionWindowStatus("thumbnail_body_badge"),
-      widgetOptionsWindow: _vm.widgetOptionsWindow,
-      editOnClick: ""
+      widgetOptionsWindow: _vm.widgetOptionsWindow
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -31476,8 +31390,7 @@ var render = function render() {
       maxWidget: _vm.local_layout.body.bottom.maxWidget,
       showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_body_bottom"),
       showWidgetsOptionWindow: _vm.getActiveOptionWindowStatus("thumbnail_body_bottom"),
-      widgetOptionsWindow: _vm.widgetOptionsWindow,
-      editOnClick: ""
+      widgetOptionsWindow: _vm.widgetOptionsWindow
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -31522,8 +31435,7 @@ var render = function render() {
       maxWidget: _vm.local_layout.footer.left.maxWidget,
       showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_footer_left"),
       showWidgetsOptionWindow: _vm.getActiveOptionWindowStatus("thumbnail_footer_left"),
-      widgetOptionsWindow: _vm.widgetOptionsWindow,
-      editOnClick: ""
+      widgetOptionsWindow: _vm.widgetOptionsWindow
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -31566,8 +31478,7 @@ var render = function render() {
       maxWidget: _vm.local_layout.footer.right.maxWidget,
       showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_footer_right"),
       showWidgetsOptionWindow: _vm.getActiveOptionWindowStatus("thumbnail_footer_right"),
-      widgetOptionsWindow: _vm.widgetOptionsWindow,
-      editOnClick: ""
+      widgetOptionsWindow: _vm.widgetOptionsWindow
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -32131,8 +32042,7 @@ var render = function render() {
       maxWidget: _vm.local_layout.thumbnail.top_right.maxWidget,
       showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("top_top_right"),
       showWidgetsOptionWindow: _vm.getActiveOptionWindowStatus("top_top_right"),
-      widgetOptionsWindow: _vm.widgetOptionsWindow,
-      editOnClick: ""
+      widgetOptionsWindow: _vm.widgetOptionsWindow
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -32181,8 +32091,7 @@ var render = function render() {
       maxWidget: _vm.local_layout.top.quick_actions.maxWidget,
       showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("top_quick_actions"),
       showWidgetsOptionWindow: _vm.getActiveOptionWindowStatus("top_quick_actions"),
-      widgetOptionsWindow: _vm.widgetOptionsWindow,
-      editOnClick: ""
+      widgetOptionsWindow: _vm.widgetOptionsWindow
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -32225,8 +32134,7 @@ var render = function render() {
       maxWidget: _vm.local_layout.top.quick_info.maxWidget,
       showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("top_quick_info"),
       showWidgetsOptionWindow: _vm.getActiveOptionWindowStatus("top_quick_info"),
-      widgetOptionsWindow: _vm.widgetOptionsWindow,
-      editOnClick: ""
+      widgetOptionsWindow: _vm.widgetOptionsWindow
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -32266,8 +32174,7 @@ var render = function render() {
       acceptedWidgets: _vm.local_layout.body.title.acceptedWidgets,
       selectedWidgets: _vm.local_layout.body.title.selectedWidgets,
       maxWidget: _vm.local_layout.body.title.maxWidget,
-      widgetOptionsWindow: _vm.widgetOptionsWindow,
-      editOnClick: ""
+      widgetOptionsWindow: _vm.widgetOptionsWindow
     },
     on: {
       "edit-widget": function editWidget($event) {
@@ -32292,8 +32199,7 @@ var render = function render() {
       selectedWidgets: _vm.local_layout.body.tagline.selectedWidgets,
       maxWidget: _vm.local_layout.body.tagline.maxWidget,
       widgetOptionsWindow: _vm.widgetOptionsWindow,
-      hasDisableButton: true,
-      editOnClick: ""
+      hasDisableButton: true
     },
     on: {
       "edit-widget": function editWidget($event) {
@@ -32318,8 +32224,7 @@ var render = function render() {
       selectedWidgets: _vm.local_layout.body.rating.selectedWidgets,
       maxWidget: _vm.local_layout.body.rating.maxWidget,
       widgetOptionsWindow: _vm.widgetOptionsWindow,
-      hasDisableButton: true,
-      editOnClick: ""
+      hasDisableButton: true
     },
     on: {
       "edit-widget": function editWidget($event) {
@@ -32344,8 +32249,7 @@ var render = function render() {
       maxWidget: _vm.local_layout.body.bottom.maxWidget,
       showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("body_bottom"),
       showWidgetsOptionWindow: _vm.getActiveOptionWindowStatus("body_bottom"),
-      widgetOptionsWindow: _vm.widgetOptionsWindow,
-      editOnClick: ""
+      widgetOptionsWindow: _vm.widgetOptionsWindow
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -32390,8 +32294,7 @@ var render = function render() {
       maxWidget: _vm.local_layout.footer.left.maxWidget,
       showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("footer_left"),
       showWidgetsOptionWindow: _vm.getActiveOptionWindowStatus("footer_left"),
-      widgetOptionsWindow: _vm.widgetOptionsWindow,
-      editOnClick: ""
+      widgetOptionsWindow: _vm.widgetOptionsWindow
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -32434,8 +32337,7 @@ var render = function render() {
       maxWidget: _vm.local_layout.footer.right.maxWidget,
       showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("footer_right"),
       showWidgetsOptionWindow: _vm.getActiveOptionWindowStatus("footer_right"),
-      widgetOptionsWindow: _vm.widgetOptionsWindow,
-      editOnClick: ""
+      widgetOptionsWindow: _vm.widgetOptionsWindow
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -32582,8 +32484,7 @@ var render = function render() {
       maxWidget: _vm.local_layout.top.quick_actions.maxWidget,
       showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("top_quick_actions"),
       showWidgetsOptionWindow: _vm.getActiveOptionWindowStatus("top_quick_actions"),
-      widgetOptionsWindow: _vm.widgetOptionsWindow,
-      editOnClick: ""
+      widgetOptionsWindow: _vm.widgetOptionsWindow
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -32626,8 +32527,7 @@ var render = function render() {
       maxWidget: _vm.local_layout.top.quick_info.maxWidget,
       showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("top_quick_info"),
       showWidgetsOptionWindow: _vm.getActiveOptionWindowStatus("top_quick_info"),
-      widgetOptionsWindow: _vm.widgetOptionsWindow,
-      editOnClick: ""
+      widgetOptionsWindow: _vm.widgetOptionsWindow
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -32667,8 +32567,7 @@ var render = function render() {
       acceptedWidgets: _vm.local_layout.body.title.acceptedWidgets,
       selectedWidgets: _vm.local_layout.body.title.selectedWidgets,
       maxWidget: _vm.local_layout.body.title.maxWidget,
-      widgetOptionsWindow: _vm.widgetOptionsWindow,
-      editOnClick: ""
+      widgetOptionsWindow: _vm.widgetOptionsWindow
     },
     on: {
       "edit-widget": function editWidget($event) {
@@ -32693,8 +32592,7 @@ var render = function render() {
       selectedWidgets: _vm.local_layout.body.tagline.selectedWidgets,
       maxWidget: _vm.local_layout.body.tagline.maxWidget,
       widgetOptionsWindow: _vm.widgetOptionsWindow,
-      hasDisableButton: true,
-      editOnClick: ""
+      hasDisableButton: true
     },
     on: {
       "edit-widget": function editWidget($event) {
@@ -32719,8 +32617,7 @@ var render = function render() {
       selectedWidgets: _vm.local_layout.body.rating.selectedWidgets,
       maxWidget: _vm.local_layout.body.rating.maxWidget,
       widgetOptionsWindow: _vm.widgetOptionsWindow,
-      hasDisableButton: true,
-      editOnClick: ""
+      hasDisableButton: true
     },
     on: {
       "edit-widget": function editWidget($event) {
@@ -32745,8 +32642,7 @@ var render = function render() {
       maxWidget: _vm.local_layout.body.bottom.maxWidget,
       showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("body_bottom"),
       showWidgetsOptionWindow: _vm.getActiveOptionWindowStatus("body_bottom"),
-      widgetOptionsWindow: _vm.widgetOptionsWindow,
-      editOnClick: ""
+      widgetOptionsWindow: _vm.widgetOptionsWindow
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -32791,8 +32687,7 @@ var render = function render() {
       maxWidget: _vm.local_layout.footer.left.maxWidget,
       showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("footer_left"),
       showWidgetsOptionWindow: _vm.getActiveOptionWindowStatus("footer_left"),
-      widgetOptionsWindow: _vm.widgetOptionsWindow,
-      editOnClick: ""
+      widgetOptionsWindow: _vm.widgetOptionsWindow
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -32835,8 +32730,7 @@ var render = function render() {
       maxWidget: _vm.local_layout.footer.right.maxWidget,
       showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("footer_right"),
       showWidgetsOptionWindow: _vm.getActiveOptionWindowStatus("footer_right"),
-      widgetOptionsWindow: _vm.widgetOptionsWindow,
-      editOnClick: ""
+      widgetOptionsWindow: _vm.widgetOptionsWindow
     },
     on: {
       "insert-widget": function insertWidget($event) {

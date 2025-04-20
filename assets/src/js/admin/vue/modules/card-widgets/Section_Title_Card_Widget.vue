@@ -28,11 +28,6 @@ export default {
       type: Boolean,
       default: false,
     },
-
-    editOnClick: {
-      type: Boolean,
-      default: false,
-    },
   },
 };
 </script>

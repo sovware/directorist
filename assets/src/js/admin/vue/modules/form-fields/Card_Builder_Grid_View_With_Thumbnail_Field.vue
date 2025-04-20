@@ -52,7 +52,6 @@
                       )
                     "
                     @update-active-widget="handleActiveWidgetUpdate"
-                    editOnClick
                   />
                 </div>
 
@@ -100,7 +99,6 @@
                       )
                     "
                     @update-active-widget="handleActiveWidgetUpdate"
-                    editOnClick
                   />
                 </div>
 
@@ -148,7 +146,6 @@
                       )
                     "
                     @update-active-widget="handleActiveWidgetUpdate"
-                    editOnClick
                   />
                 </div>
 
@@ -196,7 +193,6 @@
                       )
                     "
                     @update-active-widget="handleActiveWidgetUpdate"
-                    editOnClick
                   />
                 </div>
 
@@ -247,7 +243,6 @@
                   updateWidgetOptionsData($event, widgetOptionsWindow)
                 "
                 @close-option-window="closeWidgetOptionsWindow()"
-                editOnClick
               />
             </div>
 
@@ -265,7 +260,6 @@
               @edit-widget="editWidget($event)"
               @trash-widget="trashWidget($event, local_layout.body.top)"
               @toggle-widget-status="toggleWidgetStatus(local_layout.body.top)"
-              editOnClick
             />
 
             <card-widget-placeholder
@@ -285,7 +279,6 @@
               @toggle-widget-status="
                 toggleWidgetStatus(local_layout.body.tagline)
               "
-              editOnClick
             />
 
             <div class="cptm-card-preview-badges">
@@ -323,7 +316,6 @@
                   )
                 "
                 @update-active-widget="handleActiveWidgetUpdate"
-                editOnClick
               />
             </div>
 
@@ -362,7 +354,6 @@
                   )
                 "
                 @update-active-widget="handleActiveWidgetUpdate"
-                editOnClick
               />
             </div>
           </div>
@@ -405,7 +396,6 @@
                   )
                 "
                 @update-active-widget="handleActiveWidgetUpdate"
-                editOnClick
               />
             </div>
 
@@ -445,7 +435,6 @@
                   )
                 "
                 @update-active-widget="handleActiveWidgetUpdate"
-                editOnClick
               />
             </div>
           </div>

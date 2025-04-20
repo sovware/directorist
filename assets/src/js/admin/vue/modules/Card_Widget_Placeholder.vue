@@ -118,7 +118,6 @@
                 @trash="$emit('trash-widget', widget)"
                 :disabled="readOnly && !selectedWidgets.includes(widget)"
                 :readOnly="readOnly"
-                :editOnClick="editOnClick"
               >
               </component>
             </div>
@@ -216,10 +215,6 @@ export default {
       default: "Up to __DATA__ item{s} can be added",
     },
     readOnly: {
-      type: Boolean,
-      default: false,
-    },
-    editOnClick: {
       type: Boolean,
       default: false,
     },
@@ -324,7 +319,7 @@ export default {
 
     // Set the active widget key when the widget is clicked
     setActiveWidget(widgetKey) {
-      if (!this.editOnClick || widgetKey !== "user_avatar") {
+      if (widgetKey !== "user_avatar") {
         return;
       }
 

@@ -51,7 +51,6 @@
                     )
                   "
                   @update-active-widget="handleActiveWidgetUpdate"
-                  editOnClick
                 />
               </div>
 
@@ -95,7 +94,6 @@
                     )
                   "
                   @update-active-widget="handleActiveWidgetUpdate"
-                  editOnClick
                 />
               </div>
             </div>
@@ -128,7 +126,6 @@
                 updateWidgetOptionsData($event, widgetOptionsWindow)
               "
               @close-option-window="closeWidgetOptionsWindow()"
-              editOnClick
             />
 
             <card-widget-placeholder
@@ -147,7 +144,6 @@
               @toggle-widget-status="
                 toggleWidgetStatus(local_layout.body.title)
               "
-              editOnClick
             />
 
             <card-widget-placeholder
@@ -167,7 +163,6 @@
               @toggle-widget-status="
                 toggleWidgetStatus(local_layout.body.tagline)
               "
-              editOnClick
             />
 
             <card-widget-placeholder
@@ -201,7 +196,6 @@
                 handleUpdateSelectedWidgets($event, 'local_layout.body.badges')
               "
               @update-active-widget="handleActiveWidgetUpdate"
-              editOnClick
             />
 
             <card-widget-placeholder
@@ -235,7 +229,6 @@
                 handleUpdateSelectedWidgets($event, 'local_layout.body.bottom')
               "
               @update-active-widget="handleActiveWidgetUpdate"
-              editOnClick
             />
           </div>
 
@@ -277,7 +270,6 @@
                   )
                 "
                 @update-active-widget="handleActiveWidgetUpdate"
-                editOnClick
               />
             </div>
 
@@ -317,7 +309,6 @@
                   )
                 "
                 @update-active-widget="handleActiveWidgetUpdate"
-                editOnClick
               />
             </div>
           </div>

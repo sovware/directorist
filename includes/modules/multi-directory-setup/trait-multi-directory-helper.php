@@ -103,7 +103,7 @@ trait Multi_Directory_Helper {
         do_action( 'directorist_before_create_directory_type', $directory_name );
 
         // Create the directory
-        $term = wp_insert_term( $directory_name, ATBDP_DIRECTORY_TYPE);
+        $term = wp_insert_term( $directory_name, ATBDP_DIRECTORY_TYPE );
 
         if ( is_wp_error( $term ) ) {
             $response['status']['status_log']['term_exists'] = [
@@ -128,7 +128,9 @@ trait Multi_Directory_Helper {
             'type'    => 'success',
             'message' => __( 'The directory has been created successfully', 'directorist' ),
         ];
+        
         update_term_meta( $response['term_id'], '_created_date', time() );
+        
         return $response;
     }
 

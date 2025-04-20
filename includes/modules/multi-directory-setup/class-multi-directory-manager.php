@@ -10,10 +10,15 @@ class Multi_Directory_Manager {
     public static $config  = [];
     public static $options = [];
 
-    // run
+    // Run
     public function run() {
-        add_action( 'init', [ self::class, 'register_directory_taxonomy' ] );
-        add_filter( 'terms_clauses', [ $this, 'directorist_sort_terms_by_meta' ], 10, 3 );
+        add_action( 'init', [ $this, 'register_directory_taxonomy' ] );
+
+        // Sort directories by custom order
+        add_filter( 'terms_clauses', [ $this, 'directorist_sort_directories_by_custom_order' ], 10, 3 );
+
+        // After create directory type
+        add_action( 'directorist_after_create_directory_type', [ $this, 'after_create_directory_type' ] );
 
         if ( ! is_admin() ) {
             return;
@@ -29,13 +34,12 @@ class Multi_Directory_Manager {
         add_action( 'wp_ajax_update_directory_type_sorting_order', [ $this, 'update_directory_type_sorting_order' ] );
         add_action( 'wp_ajax_save_imported_post_type_data', [ $this, 'save_imported_post_type_data' ] );
         add_action( 'wp_ajax_directorist_directory_type_library', [ $this, 'directorist_directory_type_library' ] );
-
-        // Add Directory Type Sorting Order
-        add_action( 'directorist_after_create_directory_type', [ $this, 'add_directory_sorting_order_to_new_directory' ] );
-        add_action( 'directorist_after_activation', [ self::class, 'add_directory_type_sorting_order_to_missing_ones' ], 10, 0 );
+        
+        // After Activation
+        add_action( 'directorist_after_activation', [ $this, 'after_actication' ], 10, 0 );
     }
 
-    public function directorist_sort_terms_by_meta( $clauses, $taxonomies, $args ) {
+    public function directorist_sort_directories_by_custom_order( $clauses, $taxonomies, $args ) {
         if ( ! in_array(  ATBDP_DIRECTORY_TYPE,$taxonomies ) ) {
             return $clauses;
         }
@@ -56,11 +60,19 @@ class Multi_Directory_Manager {
         return $clauses;
     }
 
-    public function add_directory_sorting_order_to_new_directory( $term ): void {
+    public function after_create_directory_type( $term ) {
         if ( ! is_array( $term ) ) {
             return;
         }
-        
+
+        // Assign default directory if applicable
+        $directories = directorist_get_directories( [ 'default_only' => true ] );
+
+        if ( ! is_wp_error( $directories ) && empty( $directories ) ) {
+            update_term_meta( $term['term_id'], '_default', true );
+        }
+
+        // Add sorting order
         update_term_meta( $term['term_id'], 'sort_order', self::get_directory_type_max_sort_order() + 1 );
     }
 
@@ -395,11 +407,36 @@ class Multi_Directory_Manager {
         update_directorist_option( 'atbdp_default_derectory', $default_directory );
     }
 
-    public static function add_directory_type_sorting_order_to_missing_ones( $register_directory_taxonomy = true ): void {
-        if ( $register_directory_taxonomy ) {
-            self::register_directory_taxonomy();
+    public function after_actication() {
+        $this->register_directory_taxonomy();
+
+        $directories = directorist_get_directories();
+
+        if ( ! is_wp_error( $directories ) && empty( $directories ) ) {
+            $this->import_default_directory();
         }
 
+        $this->add_directory_type_sorting_order_to_missing_ones();
+    }
+
+    // Import default directory
+    public function import_default_directory( array $args = [] ): ?array {
+        $file = DIRECTORIST_ASSETS_DIR . 'sample-data/directory/directory.json';
+        
+        if ( ! file_exists( $file ) ) { 
+            return null;
+        }
+
+        $file_contents = file_get_contents( $file );
+
+        return self::create_directory( [
+            'directory_name' => 'General',
+            'fields_value'   => $file_contents,
+            'is_json'        => true
+        ] );
+    }
+
+    public static function add_directory_type_sorting_order_to_missing_ones(): void {
         $directories_with_no_sorting = self::get_directories_with_no_sorting_order();
 
         if ( is_wp_error( $directories_with_no_sorting ) || empty( $directories_with_no_sorting ) ) {
@@ -944,7 +981,7 @@ class Multi_Directory_Manager {
     }
 
     // register_directory_taxonomy
-    public static function register_directory_taxonomy() {
+    public function register_directory_taxonomy() {
         register_taxonomy( ATBDP_DIRECTORY_TYPE, [ ATBDP_POST_TYPE ], [
             'hierarchical' => false,
             'labels'       => [

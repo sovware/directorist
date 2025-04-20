@@ -264,5 +264,5 @@ function directorist_830_sync_listing_author_and_order_author() {
 }
 
 function directorist_850_migrate_directory_sorting_order() {
-	Directorist\Multi_Directory\Multi_Directory_Manager::add_directory_type_sorting_order_to_missing_ones( false );
+	Directorist\Multi_Directory\Multi_Directory_Manager::add_directory_type_sorting_order_to_missing_ones();
 }

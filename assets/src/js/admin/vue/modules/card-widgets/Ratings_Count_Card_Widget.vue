@@ -7,17 +7,6 @@
     >
       <span :class="icon" v-if="icon"></span>
       <span>{{ label }}</span>
-
-      <widget-action-tools
-        :canEdit="canEdit"
-        :canMove="canMove"
-        :canTrash="canTrash"
-        @drag="dragStart()"
-        @dragend="dragEnd()"
-        @edit="$emit('edit')"
-        @trash="$emit('trash')"
-        v-if="!readOnly && !editOnClick"
-      />
     </div>
   </div>
 </template>

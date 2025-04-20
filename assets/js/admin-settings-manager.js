@@ -28768,27 +28768,7 @@ var render = function render() {
     staticClass: "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
   }, [_vm.icon ? _c("span", {
     class: _vm.icon
-  }) : _vm._e(), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.label))]), _vm._v(" "), !_vm.readOnly && !_vm.editOnClick ? _c("widget-action-tools", {
-    attrs: {
-      canEdit: _vm.canEdit,
-      canMove: _vm.canMove,
-      canTrash: _vm.canTrash
-    },
-    on: {
-      drag: function drag($event) {
-        return _vm.dragStart();
-      },
-      dragend: function dragend($event) {
-        return _vm.dragEnd();
-      },
-      edit: function edit($event) {
-        return _vm.$emit("edit");
-      },
-      trash: function trash($event) {
-        return _vm.$emit("trash");
-      }
-    }
-  }) : _vm._e()], 1)]);
+  }) : _vm._e(), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.label))])])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;

@@ -18895,6 +18895,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   }
   .directorist-single-listing-action.directorist-btn.directorist-btn-light {
     background-color: var(--directorist-color-white);
+    border: 1px solid var(--directorist-color-light) !important;
   }
   .directorist-single-listing-action.directorist-single-listing-top__btn-edit .directorist-single-listing-action__text {
     display: none;

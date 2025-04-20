@@ -3381,6 +3381,10 @@ input[type="radio"].cptm-radio {
   gap: 12px;
   flex-wrap: wrap;
   padding: 0 20px 20px;
+  .cptm-widget-preview-area {
+    display: flex;
+    align-items: center;
+  }
 }
 
 .cptm-card-preview-footer-left {

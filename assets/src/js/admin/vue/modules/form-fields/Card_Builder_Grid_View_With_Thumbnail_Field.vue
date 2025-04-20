@@ -99,6 +99,7 @@
                         'local_layout.thumbnail.top_right'
                       )
                     "
+                    @update-active-widget="handleActiveWidgetUpdate"
                     editOnClick
                   />
                 </div>
@@ -146,6 +147,7 @@
                         'local_layout.thumbnail.bottom_left'
                       )
                     "
+                    @update-active-widget="handleActiveWidgetUpdate"
                     editOnClick
                   />
                 </div>
@@ -193,6 +195,7 @@
                         'local_layout.thumbnail.bottom_right'
                       )
                     "
+                    @update-active-widget="handleActiveWidgetUpdate"
                     editOnClick
                   />
                 </div>
@@ -319,6 +322,7 @@
                     'local_layout.body.badges'
                   )
                 "
+                @update-active-widget="handleActiveWidgetUpdate"
                 editOnClick
               />
             </div>
@@ -357,6 +361,7 @@
                     'local_layout.body.bottom'
                   )
                 "
+                @update-active-widget="handleActiveWidgetUpdate"
                 editOnClick
               />
             </div>
@@ -399,6 +404,7 @@
                     'local_layout.footer.left'
                   )
                 "
+                @update-active-widget="handleActiveWidgetUpdate"
                 editOnClick
               />
             </div>
@@ -438,6 +444,7 @@
                     'local_layout.footer.right'
                   )
                 "
+                @update-active-widget="handleActiveWidgetUpdate"
                 editOnClick
               />
             </div>
@@ -578,18 +585,9 @@ export default {
 
             let widget_data = {};
             for (let root_option in this.active_widgets[widget_name]) {
-              // if ("options" === root_option) {
-              //   continue;
-              // }
-              // if ("icon" === root_option) {
-              //   continue;
-              // }
               if ("show_if" === root_option) {
                 continue;
               }
-              // if ("fields" === root_option) {
-              //   continue;
-              // }
 
               widget_data[root_option] = this.active_widgets[widget_name][
                 root_option
@@ -609,7 +607,6 @@ export default {
               continue;
             }
 
-            // widget_data.options = {};
             let widget_options = this.active_widgets[widget_name].options
               .fields;
 

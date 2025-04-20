@@ -1450,7 +1450,7 @@ class Builder_Data {
             'featured_badge'    => [
                 'type'  => 'badge',
                 'label' => __( 'Featured', 'directorist' ),
-                'icon'  => 'uil uil-text-fields',
+                'icon'  => 'uil uil-star',
                 'hook'  => 'atbdp_featured_badge',
                 'options' => [
                     'type' => [
@@ -1491,7 +1491,7 @@ class Builder_Data {
                         'icon_background' => [
                             'type'          => 'color',
                             'label'         => __( 'Background Color', 'directorist' ),
-                            'value'         => '#ffffff33',
+                            'value'         => '#F28100',
                         ],
                     ],
                 ]
@@ -1500,15 +1500,101 @@ class Builder_Data {
             'new_badge'         => [
                 'type'  => 'badge',
                 'label' => __( 'New', 'directorist' ),
-                'icon'  => 'uil uil-text-fields',
+                'icon'  => 'uil uil-bolt',
                 'hook'  => 'atbdp_new_badge',
+                'options' => [
+                    'type' => [
+                        'type'    => 'radio',
+                        'name'    => 'atbdp_featured_badge_type',
+                        'label'   => __( 'Badge Style', 'directorist' ),
+                        'value'   => 'icon',
+                        'options' => [
+                            ['id' => 'atbdp_featured_badge_text', 'label' => __( 'Text Style', 'directorist' ), 'value' => 'text'],
+                            ['id' => 'atbdp_featured_badge_icon', 'label' => __( 'Icon Style', 'directorist' ), 'value' => 'icon'],
+                        ],
+                    ],
+                ],
+                'fields' => [
+                    'text' => [
+                        'text_color' => [
+                            'type'          => 'color',
+                            'label'         => __( 'Text Color', 'directorist' ),
+                            'value'         => '#ffffff',
+                        ],
+                        'text_background' => [
+                            'type'          => 'color',
+                            'label'         => __( 'Background Color', 'directorist' ),
+                            'value'         => '#ffffff33',
+                        ],
+                    ],
+                    'icon' => [
+                        'field_icon' => [
+                            'type'  => 'icon',
+                            'label'  => __( 'Change Icon', 'directorist' ),
+                            'value' => 'uil uil-bolt',
+                        ],
+                        'icon_color' => [
+                            'type'          => 'color',
+                            'label'         => __( 'Icon Color', 'directorist' ),
+                            'value'         => '#ffffff',
+                        ],
+                        'icon_background' => [
+                            'type'          => 'color',
+                            'label'         => __( 'Background Color', 'directorist' ),
+                            'value'         => '#2C99FF',
+                        ],
+                    ],
+                ]
             ],
 
             'popular_badge'     => [
                 'type'  => 'badge',
                 'label' => __( 'Popular', 'directorist' ),
-                'icon'  => 'uil uil-text-fields',
+                'icon'  => 'uil uil-fire',
                 'hook'  => 'atbdp_popular_badge',
+                'options' => [
+                    'type' => [
+                        'type'    => 'radio',
+                        'name'    => 'atbdp_featured_badge_type',
+                        'label'   => __( 'Badge Style', 'directorist' ),
+                        'value'   => 'icon',
+                        'options' => [
+                            ['id' => 'atbdp_featured_badge_text', 'label' => __( 'Text Style', 'directorist' ), 'value' => 'text'],
+                            ['id' => 'atbdp_featured_badge_icon', 'label' => __( 'Icon Style', 'directorist' ), 'value' => 'icon'],
+                        ],
+                    ],
+                ],
+                'fields' => [
+                    'text' => [
+                        'text_color' => [
+                            'type'          => 'color',
+                            'label'         => __( 'Text Color', 'directorist' ),
+                            'value'         => '#ffffff',
+                        ],
+                        'text_background' => [
+                            'type'          => 'color',
+                            'label'         => __( 'Background Color', 'directorist' ),
+                            'value'         => '#ffffff33',
+                        ],
+                    ],
+                    'icon' => [
+                        'field_icon' => [
+                            'type'  => 'icon',
+                            'label'  => __( 'Change Icon', 'directorist' ),
+                            'value' => 'uil uil-fire',
+                        ],
+                        'icon_color' => [
+                            'type'          => 'color',
+                            'label'         => __( 'Icon Color', 'directorist' ),
+                            'value'         => '#ffffff',
+                        ],
+                        'icon_background' => [
+                            'type'          => 'color',
+                            'label'         => __( 'Background Color', 'directorist' ),
+                            'value'         => '#F80718',
+                        ],
+                    ],
+                ]
             ],
 
             'favorite_badge'    => [
@@ -2009,9 +2095,9 @@ class Builder_Data {
 
             'top'   => [
                 'quick_actions' => [
-                    'maxWidget'       => 2,
+                    'maxWidget'       => 3,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
-                    'acceptedWidgets' => ['pricing', 'category'],
+                    'acceptedWidgets'   => ['popular_badge', 'featured_badge', 'new_badge'],
                 ],
                 'quick_info'    => [
                     'maxWidget'       => 3,
@@ -2065,7 +2151,7 @@ class Builder_Data {
                 'right' => [
                     'maxWidget'       => 2,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
-                    'acceptedWidgets' => ['category', 'user_avatar', 'view_count'],
+                    'acceptedWidgets' => ['category', 'pricing', 'user_avatar'],
                 ],
 
                 'left'  => [
@@ -2079,12 +2165,12 @@ class Builder_Data {
         $listing_card_list_view_without_thumbnail_layout = [
             'top'   => [
                 'quick_actions' => [
-                    'maxWidget'       => 2,
+                    'maxWidget'       => 3,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
-                    'acceptedWidgets' => ['pricing', 'category'],
+                    'acceptedWidgets'   => ['popular_badge', 'featured_badge', 'new_badge'],
                 ],
                 'quick_info'    => [
-                    'maxWidget'       => 3,
+                    'maxWidget'       => 2,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
                     'acceptedWidgets' => ['favorite_badge', 'pricing'],
                 ],
@@ -2135,7 +2221,7 @@ class Builder_Data {
                 'right' => [
                     'maxWidget'       => 2,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
-                    'acceptedWidgets' => ['category', 'user_avatar', 'view_count'],
+                    'acceptedWidgets' => ['pricing', 'category', 'user_avatar'],
                 ],
 
                 'left'  => [

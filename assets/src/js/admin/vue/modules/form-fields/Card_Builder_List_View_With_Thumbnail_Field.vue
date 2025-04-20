@@ -52,6 +52,7 @@
                       'local_layout.thumbnail.top_right'
                     )
                   "
+                  @update-active-widget="handleActiveWidgetUpdate"
                   editOnClick
                 />
               </div>
@@ -110,6 +111,7 @@
                       'local_layout.top.quick_actions'
                     )
                   "
+                  @update-active-widget="handleActiveWidgetUpdate"
                   editOnClick
                 />
               </div>
@@ -153,6 +155,7 @@
                       'local_layout.top.quick_info'
                     )
                   "
+                  @update-active-widget="handleActiveWidgetUpdate"
                   editOnClick
                 />
               </div>
@@ -243,6 +246,7 @@
               @update="
                 handleUpdateSelectedWidgets($event, 'local_layout.body.bottom')
               "
+              @update-active-widget="handleActiveWidgetUpdate"
               editOnClick
             />
           </div>
@@ -280,6 +284,7 @@
                     'local_layout.footer.left'
                   )
                 "
+                @update-active-widget="handleActiveWidgetUpdate"
                 editOnClick
               />
             </div>
@@ -315,6 +320,7 @@
                     'local_layout.footer.right'
                   )
                 "
+                @update-active-widget="handleActiveWidgetUpdate"
                 editOnClick
               />
             </div>
@@ -451,16 +457,7 @@ export default {
 
             let widget_data = {};
             for (let root_option in this.active_widgets[widget_name]) {
-              if ("options" === root_option) {
-                continue;
-              }
-              if ("icon" === root_option) {
-                continue;
-              }
               if ("show_if" === root_option) {
-                continue;
-              }
-              if ("fields" === root_option) {
                 continue;
               }
 
@@ -482,7 +479,6 @@ export default {
               continue;
             }
 
-            // widget_data.options = {};
             let widget_options = this.active_widgets[widget_name].options
               .fields;
 
@@ -950,6 +946,19 @@ export default {
 
       // Update the selectedWidgets at the correct path
       obj[pathKeys[pathKeys.length - 1]].selectedWidgets = updatedWidgets;
+    },
+
+    // Handle Update Selected Widgets
+    handleActiveWidgetUpdate({ widgetKey, updatedWidget }) {
+      this.$set(this.active_widgets, widgetKey, updatedWidget);
+      this.$set(this.available_widgets, widgetKey, updatedWidget);
+
+      console.log("@@handleActiveWidgetUpdate", {
+        widgetKey,
+        updatedWidget,
+        active_widgets: this.active_widgets,
+        available_widgets: this.available_widgets,
+      });
     },
   },
 };

@@ -21161,19 +21161,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
             }
             var widget_data = {};
             for (var root_option in this.active_widgets[widget_name]) {
-              // if ("options" === root_option) {
-              //   continue;
-              // }
-              // if ("icon" === root_option) {
-              //   continue;
-              // }
               if ("show_if" === root_option) {
                 continue;
               }
-              // if ("fields" === root_option) {
-              //   continue;
-              // }
-
               widget_data[root_option] = this.active_widgets[widget_name][root_option];
             }
             if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(this.active_widgets[widget_name].options) !== "object") {
@@ -21184,8 +21174,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
               output[section][section_area].push(widget_data);
               continue;
             }
-
-            // widget_data.options = {};
             var widget_options = this.active_widgets[widget_name].options.fields;
             for (var option in widget_options) {
               widget_data[option] = widget_options[option].value;
@@ -21719,16 +21707,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
             }
             var widget_data = {};
             for (var root_option in this.active_widgets[widget_name]) {
-              if ("options" === root_option) {
-                continue;
-              }
-              if ("icon" === root_option) {
-                continue;
-              }
               if ("show_if" === root_option) {
-                continue;
-              }
-              if ("fields" === root_option) {
                 continue;
               }
               widget_data[root_option] = this.active_widgets[widget_name][root_option];
@@ -21741,8 +21720,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
               output[section][section_area].push(widget_data);
               continue;
             }
-
-            // widget_data.options = {};
             var widget_options = this.active_widgets[widget_name].options.fields;
             for (var option in widget_options) {
               widget_data[option] = widget_options[option].value;
@@ -22163,6 +22140,19 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
       // Update the selectedWidgets at the correct path
       obj[pathKeys[pathKeys.length - 1]].selectedWidgets = updatedWidgets;
+    },
+    // Handle Update Selected Widgets
+    handleActiveWidgetUpdate: function handleActiveWidgetUpdate(_ref) {
+      var widgetKey = _ref.widgetKey,
+        updatedWidget = _ref.updatedWidget;
+      this.$set(this.active_widgets, widgetKey, updatedWidget);
+      this.$set(this.available_widgets, widgetKey, updatedWidget);
+      console.log("@@handleActiveWidgetUpdate", {
+        widgetKey: widgetKey,
+        updatedWidget: updatedWidget,
+        active_widgets: this.active_widgets,
+        available_widgets: this.available_widgets
+      });
     }
   }
 });
@@ -22782,16 +22772,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
             }
             var widget_data = {};
             for (var root_option in this.active_widgets[widget_name]) {
-              if ("options" === root_option) {
-                continue;
-              }
-              if ("icon" === root_option) {
-                continue;
-              }
               if ("show_if" === root_option) {
-                continue;
-              }
-              if ("fields" === root_option) {
                 continue;
               }
               widget_data[root_option] = this.active_widgets[widget_name][root_option];
@@ -22804,8 +22785,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
               output[section][section_area].push(widget_data);
               continue;
             }
-
-            // widget_data.options = {};
             var widget_options = this.active_widgets[widget_name].options.fields;
             for (var option in widget_options) {
               widget_data[option] = widget_options[option].value;
@@ -23189,6 +23168,19 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
       // Update the selectedWidgets at the correct path
       obj[pathKeys[pathKeys.length - 1]].selectedWidgets = updatedWidgets;
+    },
+    // Handle Update Selected Widgets
+    handleActiveWidgetUpdate: function handleActiveWidgetUpdate(_ref) {
+      var widgetKey = _ref.widgetKey,
+        updatedWidget = _ref.updatedWidget;
+      this.$set(this.active_widgets, widgetKey, updatedWidget);
+      this.$set(this.available_widgets, widgetKey, updatedWidget);
+      console.log("@@handleActiveWidgetUpdate", {
+        widgetKey: widgetKey,
+        updatedWidget: updatedWidget,
+        active_widgets: this.active_widgets,
+        available_widgets: this.available_widgets
+      });
     }
   }
 });
@@ -23272,16 +23264,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
             }
             var widget_data = {};
             for (var root_option in this.active_widgets[widget_name]) {
-              if ("options" === root_option) {
-                continue;
-              }
-              if ("icon" === root_option) {
-                continue;
-              }
               if ("show_if" === root_option) {
-                continue;
-              }
-              if ("fields" === root_option) {
                 continue;
               }
               widget_data[root_option] = this.active_widgets[widget_name][root_option];
@@ -23294,8 +23277,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
               output[section][section_area].push(widget_data);
               continue;
             }
-
-            // widget_data.options = {};
             var widget_options = this.active_widgets[widget_name].options.fields;
             for (var option in widget_options) {
               widget_data[option] = widget_options[option].value;
@@ -23673,6 +23654,19 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
       // Update the selectedWidgets at the correct path
       obj[pathKeys[pathKeys.length - 1]].selectedWidgets = updatedWidgets;
+    },
+    // Handle Update Selected Widgets
+    handleActiveWidgetUpdate: function handleActiveWidgetUpdate(_ref) {
+      var widgetKey = _ref.widgetKey,
+        updatedWidget = _ref.updatedWidget;
+      this.$set(this.active_widgets, widgetKey, updatedWidget);
+      this.$set(this.available_widgets, widgetKey, updatedWidget);
+      console.log("@@handleActiveWidgetUpdate", {
+        widgetKey: widgetKey,
+        updatedWidget: updatedWidget,
+        active_widgets: this.active_widgets,
+        available_widgets: this.available_widgets
+      });
     }
   }
 });
@@ -29911,10 +29905,10 @@ var render = function render() {
   }, [_c("div", {
     staticClass: "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap",
     class: {
-      "cptm-widget-badge--icon": _vm.isIconType
+      "cptm-widget-badge--icon": _vm.isIconType && _vm.icon
     },
     style: {
-      background: _vm.isIconType ? (_vm$fields = _vm.fields) === null || _vm$fields === void 0 || (_vm$fields = _vm$fields.icon) === null || _vm$fields === void 0 || (_vm$fields = _vm$fields.icon_background) === null || _vm$fields === void 0 ? void 0 : _vm$fields.value : ((_vm$fields2 = _vm.fields) === null || _vm$fields2 === void 0 || (_vm$fields2 = _vm$fields2.text) === null || _vm$fields2 === void 0 || (_vm$fields2 = _vm$fields2.text_background) === null || _vm$fields2 === void 0 ? void 0 : _vm$fields2.value) || ""
+      background: _vm.isIconType && _vm.icon ? (_vm$fields = _vm.fields) === null || _vm$fields === void 0 || (_vm$fields = _vm$fields.icon) === null || _vm$fields === void 0 || (_vm$fields = _vm$fields.icon_background) === null || _vm$fields === void 0 ? void 0 : _vm$fields.value : ((_vm$fields2 = _vm.fields) === null || _vm$fields2 === void 0 || (_vm$fields2 = _vm$fields2.text) === null || _vm$fields2 === void 0 || (_vm$fields2 = _vm$fields2.text_background) === null || _vm$fields2 === void 0 ? void 0 : _vm$fields2.value) || ""
     }
   }, [_vm.isIconType && _vm.icon ? _c("span", {
     staticClass: "cptm-widget-badge-icon",
@@ -32713,7 +32707,8 @@ var render = function render() {
       },
       update: function update($event) {
         return _vm.handleUpdateSelectedWidgets($event, "local_layout.thumbnail.top_right");
-      }
+      },
+      "update-active-widget": _vm.handleActiveWidgetUpdate
     }
   })], 1), _vm._v(" "), _c("div", {
     staticClass: "cptm-card-preview-bottom-left"
@@ -32756,7 +32751,8 @@ var render = function render() {
       },
       update: function update($event) {
         return _vm.handleUpdateSelectedWidgets($event, "local_layout.thumbnail.bottom_left");
-      }
+      },
+      "update-active-widget": _vm.handleActiveWidgetUpdate
     }
   })], 1), _vm._v(" "), _c("div", {
     staticClass: "cptm-card-preview-bottom-right"
@@ -32799,7 +32795,8 @@ var render = function render() {
       },
       update: function update($event) {
         return _vm.handleUpdateSelectedWidgets($event, "local_layout.thumbnail.bottom_right");
-      }
+      },
+      "update-active-widget": _vm.handleActiveWidgetUpdate
     }
   })], 1), _vm._v(" "), _vm._m(0)])])]), _vm._v(" "), _c("div", {
     staticClass: "cptm-listing-card-preview-body"
@@ -32944,7 +32941,8 @@ var render = function render() {
       },
       update: function update($event) {
         return _vm.handleUpdateSelectedWidgets($event, "local_layout.body.badges");
-      }
+      },
+      "update-active-widget": _vm.handleActiveWidgetUpdate
     }
   })], 1), _vm._v(" "), _c("div", {
     staticClass: "cptm-card-preview-body"
@@ -32987,7 +32985,8 @@ var render = function render() {
       },
       update: function update($event) {
         return _vm.handleUpdateSelectedWidgets($event, "local_layout.body.bottom");
-      }
+      },
+      "update-active-widget": _vm.handleActiveWidgetUpdate
     }
   })], 1)], 1), _vm._v(" "), _c("div", {
     staticClass: "cptm-listing-card-preview-footer"
@@ -33032,7 +33031,8 @@ var render = function render() {
       },
       update: function update($event) {
         return _vm.handleUpdateSelectedWidgets($event, "local_layout.footer.left");
-      }
+      },
+      "update-active-widget": _vm.handleActiveWidgetUpdate
     }
   })], 1), _vm._v(" "), _c("div", {
     staticClass: "cptm-card-preview-footer-right"
@@ -33075,7 +33075,8 @@ var render = function render() {
       },
       update: function update($event) {
         return _vm.handleUpdateSelectedWidgets($event, "local_layout.footer.right");
-      }
+      },
+      "update-active-widget": _vm.handleActiveWidgetUpdate
     }
   })], 1)])])]), _vm._v(" "), _c("div", {
     staticClass: "cptm-preview-notice"
@@ -33222,7 +33223,8 @@ var render = function render() {
       },
       update: function update($event) {
         return _vm.handleUpdateSelectedWidgets($event, "local_layout.top.quick_actions");
-      }
+      },
+      "update-active-widget": _vm.handleActiveWidgetUpdate
     }
   })], 1), _vm._v(" "), _c("div", {
     staticClass: "cptm-card-placeholder-top-right"
@@ -33265,7 +33267,8 @@ var render = function render() {
       },
       update: function update($event) {
         return _vm.handleUpdateSelectedWidgets($event, "local_layout.top.quick_info");
-      }
+      },
+      "update-active-widget": _vm.handleActiveWidgetUpdate
     }
   })], 1)]), _vm._v(" "), _c("card-widget-placeholder", {
     attrs: {
@@ -33404,7 +33407,8 @@ var render = function render() {
       },
       update: function update($event) {
         return _vm.handleUpdateSelectedWidgets($event, "local_layout.body.badges");
-      }
+      },
+      "update-active-widget": _vm.handleActiveWidgetUpdate
     }
   }), _vm._v(" "), _c("card-widget-placeholder", {
     attrs: {
@@ -33445,7 +33449,8 @@ var render = function render() {
       },
       update: function update($event) {
         return _vm.handleUpdateSelectedWidgets($event, "local_layout.body.bottom");
-      }
+      },
+      "update-active-widget": _vm.handleActiveWidgetUpdate
     }
   })], 1), _vm._v(" "), _c("div", {
     staticClass: "cptm-listing-card-preview-footer"
@@ -33490,7 +33495,8 @@ var render = function render() {
       },
       update: function update($event) {
         return _vm.handleUpdateSelectedWidgets($event, "local_layout.footer.left");
-      }
+      },
+      "update-active-widget": _vm.handleActiveWidgetUpdate
     }
   })], 1), _vm._v(" "), _c("div", {
     staticClass: "cptm-card-preview-footer-right"
@@ -33533,7 +33539,8 @@ var render = function render() {
       },
       update: function update($event) {
         return _vm.handleUpdateSelectedWidgets($event, "local_layout.footer.right");
-      }
+      },
+      "update-active-widget": _vm.handleActiveWidgetUpdate
     }
   })], 1)])])]), _vm._v(" "), _c("div", {
     staticClass: "cptm-preview-notice"
@@ -34097,7 +34104,8 @@ var render = function render() {
       },
       update: function update($event) {
         return _vm.handleUpdateSelectedWidgets($event, "local_layout.thumbnail.top_right");
-      }
+      },
+      "update-active-widget": _vm.handleActiveWidgetUpdate
     }
   })], 1), _vm._v(" "), _vm._m(0)])])]), _vm._v(" "), _c("div", {
     staticClass: "cptm-listing-card-content"
@@ -34146,7 +34154,8 @@ var render = function render() {
       },
       update: function update($event) {
         return _vm.handleUpdateSelectedWidgets($event, "local_layout.top.quick_actions");
-      }
+      },
+      "update-active-widget": _vm.handleActiveWidgetUpdate
     }
   })], 1), _vm._v(" "), _c("div", {
     staticClass: "cptm-card-placeholder-top-right"
@@ -34189,7 +34198,8 @@ var render = function render() {
       },
       update: function update($event) {
         return _vm.handleUpdateSelectedWidgets($event, "local_layout.top.quick_info");
-      }
+      },
+      "update-active-widget": _vm.handleActiveWidgetUpdate
     }
   })], 1)]), _vm._v(" "), _c("card-widget-placeholder", {
     attrs: {
@@ -34307,7 +34317,8 @@ var render = function render() {
       },
       update: function update($event) {
         return _vm.handleUpdateSelectedWidgets($event, "local_layout.body.bottom");
-      }
+      },
+      "update-active-widget": _vm.handleActiveWidgetUpdate
     }
   })], 1), _vm._v(" "), _c("div", {
     staticClass: "cptm-listing-card-preview-footer"
@@ -34352,7 +34363,8 @@ var render = function render() {
       },
       update: function update($event) {
         return _vm.handleUpdateSelectedWidgets($event, "local_layout.footer.left");
-      }
+      },
+      "update-active-widget": _vm.handleActiveWidgetUpdate
     }
   })], 1), _vm._v(" "), _c("div", {
     staticClass: "cptm-card-preview-footer-right"
@@ -34395,7 +34407,8 @@ var render = function render() {
       },
       update: function update($event) {
         return _vm.handleUpdateSelectedWidgets($event, "local_layout.footer.right");
-      }
+      },
+      "update-active-widget": _vm.handleActiveWidgetUpdate
     }
   })], 1)])])]), _vm._v(" "), _c("div", {
     staticClass: "cptm-preview-notice cptm-preview-notice--list"
@@ -34542,7 +34555,8 @@ var render = function render() {
       },
       update: function update($event) {
         return _vm.handleUpdateSelectedWidgets($event, "local_layout.top.quick_info");
-      }
+      },
+      "update-active-widget": _vm.handleActiveWidgetUpdate
     }
   })], 1), _vm._v(" "), _c("div", {
     staticClass: "cptm-card-placeholder-top-right"
@@ -34585,7 +34599,8 @@ var render = function render() {
       },
       update: function update($event) {
         return _vm.handleUpdateSelectedWidgets($event, "local_layout.top.quick_info");
-      }
+      },
+      "update-active-widget": _vm.handleActiveWidgetUpdate
     }
   })], 1)]), _vm._v(" "), _c("card-widget-placeholder", {
     attrs: {
@@ -34703,7 +34718,8 @@ var render = function render() {
       },
       update: function update($event) {
         return _vm.handleUpdateSelectedWidgets($event, "local_layout.body.bottom");
-      }
+      },
+      "update-active-widget": _vm.handleActiveWidgetUpdate
     }
   })], 1), _vm._v(" "), _c("div", {
     staticClass: "cptm-listing-card-preview-footer"
@@ -34748,7 +34764,8 @@ var render = function render() {
       },
       update: function update($event) {
         return _vm.handleUpdateSelectedWidgets($event, "local_layout.footer.left");
-      }
+      },
+      "update-active-widget": _vm.handleActiveWidgetUpdate
     }
   })], 1), _vm._v(" "), _c("div", {
     staticClass: "cptm-card-preview-footer-right"
@@ -34791,7 +34808,8 @@ var render = function render() {
       },
       update: function update($event) {
         return _vm.handleUpdateSelectedWidgets($event, "local_layout.footer.right");
-      }
+      },
+      "update-active-widget": _vm.handleActiveWidgetUpdate
     }
   })], 1)])])]), _vm._v(" "), _c("div", {
     staticClass: "cptm-preview-notice cptm-preview-notice--list"

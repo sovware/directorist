@@ -4,11 +4,12 @@
   >
     <div
       class="cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
-      :class="{ 'cptm-widget-badge--icon': isIconType }"
+      :class="{ 'cptm-widget-badge--icon': isIconType && icon }"
       :style="{
-        background: isIconType
-          ? fields?.icon?.icon_background?.value
-          : fields?.text?.text_background?.value || '',
+        background:
+          isIconType && icon
+            ? fields?.icon?.icon_background?.value
+            : fields?.text?.text_background?.value || '',
       }"
     >
       <span

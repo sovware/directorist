@@ -66,6 +66,7 @@ jQuery(document).ready(function ($) {
 
         const configFields = $( '.directorist-listings-importer-config-field' );
         let position = 0;
+        let offset   = 0;
 
         var run_import = function () {
             const form_data = new FormData();
@@ -73,6 +74,7 @@ jQuery(document).ready(function ($) {
             // ajax action
             form_data.append( 'action', 'directorist_import_listings' );
             form_data.append( 'position', position );
+            form_data.append( 'offset', offset );
 
             form_data.append('directorist_nonce', directorist_admin.directorist_nonce);
 
@@ -143,18 +145,17 @@ jQuery(document).ready(function ($) {
                 url: directorist_admin.ajaxurl,
                 data: form_data,
                 success( response ) {
-                    console.log(response)
-
                     if ( response.error ) {
                         console.log({ response });
                         return;
                     }
 
                     $('.importer-details').html(`${response.position}/${response.total}`);
-                    $('.directorist-importer-progress').val( response.percentage );
+                    $('.directorist-importer-progress').val( ( response.position * 100 ) / response.total );
 
                     if ( ! response.done ) {
                         position = response.position;
+                        offset   = response.offset;
 
                         run_import();
                     } else {

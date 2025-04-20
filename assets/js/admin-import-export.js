@@ -154,12 +154,14 @@ jQuery(document).ready(function ($) {
     $('.directorist-importer-progress').val(10);
     var configFields = $('.directorist-listings-importer-config-field');
     var position = 0;
+    var offset = 0;
     var _run_import = function run_import() {
       var form_data = new FormData();
 
       // ajax action
       form_data.append('action', 'directorist_import_listings');
       form_data.append('position', position);
+      form_data.append('offset', offset);
       form_data.append('directorist_nonce', directorist_admin.directorist_nonce);
 
       // Get Config Fields Value
@@ -208,7 +210,6 @@ jQuery(document).ready(function ($) {
         url: directorist_admin.ajaxurl,
         data: form_data,
         success: function success(response) {
-          console.log(response);
           if (response.error) {
             console.log({
               response: response
@@ -216,9 +217,10 @@ jQuery(document).ready(function ($) {
             return;
           }
           $('.importer-details').html("".concat(response.position, "/").concat(response.total));
-          $('.directorist-importer-progress').val(response.percentage);
+          $('.directorist-importer-progress').val(response.position * 100 / response.total);
           if (!response.done) {
             position = response.position;
+            offset = response.offset;
             _run_import();
           } else {
             window.location = "".concat(response.redirect_url, "&listing-imported=").concat(response.imported_items.length, "&listing-failed=").concat(response.failed_items.length);

@@ -11,17 +11,6 @@
         </span>
         <span class="cptm-list-item-label">{{ label }}</span>
       </div>
-
-      <widget-action-tools
-        :canEdit="canEdit"
-        :canMove="canMove"
-        :canTrash="canTrash"
-        @drag="dragStart()"
-        @dragend="dragEnd()"
-        @edit="$emit('edit')"
-        @trash="$emit('trash')"
-        v-if="!readOnly && !editOnClick"
-      />
     </div>
   </div>
 </template>
@@ -43,26 +32,6 @@ export default {
       type: Object,
     },
 
-    widgetDropable: {
-      type: Boolean,
-      default: false,
-    },
-
-    canMove: {
-      type: Boolean,
-      default: true,
-    },
-
-    canEdit: {
-      type: Boolean,
-      default: true,
-    },
-
-    canTrash: {
-      type: Boolean,
-      default: true,
-    },
-
     readOnly: {
       type: Boolean,
       default: false,
@@ -75,14 +44,6 @@ export default {
   },
 
   computed: {
-    dropAppendClass() {
-      return {
-        dropable:
-          !this.dragging && (this.drop_append_dropable || this.widgetDropable),
-        "drag-enter": this.drop_append_drag_enter,
-      };
-    },
-
     listIcon() {
       if (!this.options && typeof this.options !== "object") {
         // console.log( 'no options' );
@@ -111,26 +72,6 @@ export default {
       }
 
       return this.options.fields.icon.value;
-    },
-  },
-
-  data() {
-    return {
-      drop_append_dropable: false,
-      drop_append_drag_enter: false,
-      dragging: false,
-    };
-  },
-
-  methods: {
-    dragStart() {
-      this.dragging = true;
-      this.$emit("drag");
-    },
-
-    dragEnd() {
-      this.dragging = false;
-      this.$emit("dragend");
     },
   },
 };

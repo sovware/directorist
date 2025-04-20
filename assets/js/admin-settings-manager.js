@@ -17130,22 +17130,6 @@ __webpack_require__.r(__webpack_exports__);
     options: {
       type: Object
     },
-    widgetDropable: {
-      type: Boolean,
-      default: false
-    },
-    canMove: {
-      type: Boolean,
-      default: true
-    },
-    canEdit: {
-      type: Boolean,
-      default: true
-    },
-    canTrash: {
-      type: Boolean,
-      default: true
-    },
     readOnly: {
       type: Boolean,
       default: false
@@ -17153,31 +17137,6 @@ __webpack_require__.r(__webpack_exports__);
     editOnClick: {
       type: Boolean,
       default: false
-    }
-  },
-  computed: {
-    dropAppendClass: function dropAppendClass() {
-      return {
-        dropable: !this.dragging && (this.drop_append_dropable || this.widgetDropable),
-        "drag-enter": this.drop_append_drag_enter
-      };
-    }
-  },
-  data: function data() {
-    return {
-      drop_append_dropable: false,
-      drop_append_drag_enter: false,
-      dragging: false
-    };
-  },
-  methods: {
-    dragStart: function dragStart() {
-      this.dragging = true;
-      this.$emit("drag");
-    },
-    dragEnd: function dragEnd() {
-      this.dragging = false;
-      this.$emit("dragend");
     }
   }
 });
@@ -17208,22 +17167,6 @@ __webpack_require__.r(__webpack_exports__);
     fields: {
       type: Object
     },
-    widgetDropable: {
-      type: Boolean,
-      default: false
-    },
-    canMove: {
-      type: Boolean,
-      default: true
-    },
-    canEdit: {
-      type: Boolean,
-      default: true
-    },
-    canTrash: {
-      type: Boolean,
-      default: true
-    },
     readOnly: {
       type: Boolean,
       default: false
@@ -17234,32 +17177,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   computed: {
-    dropAppendClass: function dropAppendClass() {
-      return {
-        dropable: !this.dragging && (this.drop_append_dropable || this.widgetDropable),
-        "drag-enter": this.drop_append_drag_enter
-      };
-    },
     isIconType: function isIconType() {
       var _this$options;
       return ((_this$options = this.options) === null || _this$options === void 0 || (_this$options = _this$options.type) === null || _this$options === void 0 ? void 0 : _this$options.value) === "icon";
-    }
-  },
-  data: function data() {
-    return {
-      drop_append_dropable: false,
-      drop_append_drag_enter: false,
-      dragging: false
-    };
-  },
-  methods: {
-    dragStart: function dragStart() {
-      this.dragging = true;
-      this.$emit("drag");
-    },
-    dragEnd: function dragEnd() {
-      this.dragging = false;
-      this.$emit("dragend");
     }
   }
 });
@@ -17287,22 +17207,6 @@ __webpack_require__.r(__webpack_exports__);
     options: {
       type: Object
     },
-    widgetDropable: {
-      type: Boolean,
-      default: false
-    },
-    canMove: {
-      type: Boolean,
-      default: true
-    },
-    canEdit: {
-      type: Boolean,
-      default: true
-    },
-    canTrash: {
-      type: Boolean,
-      default: true
-    },
     readOnly: {
       type: Boolean,
       default: false
@@ -17310,31 +17214,6 @@ __webpack_require__.r(__webpack_exports__);
     editOnClick: {
       type: Boolean,
       default: false
-    }
-  },
-  computed: {
-    dropAppendClass: function dropAppendClass() {
-      return {
-        dropable: !this.dragging && (this.drop_append_dropable || this.widgetDropable),
-        "drag-enter": this.drop_append_drag_enter
-      };
-    }
-  },
-  data: function data() {
-    return {
-      drop_append_dropable: false,
-      drop_append_drag_enter: false,
-      dragging: false
-    };
-  },
-  methods: {
-    dragStart: function dragStart() {
-      this.dragging = true;
-      this.$emit("drag");
-    },
-    dragEnd: function dragEnd() {
-      this.dragging = false;
-      this.$emit("dragend");
     }
   }
 });
@@ -17362,22 +17241,6 @@ __webpack_require__.r(__webpack_exports__);
     options: {
       type: Object
     },
-    widgetDropable: {
-      type: Boolean,
-      default: false
-    },
-    canMove: {
-      type: Boolean,
-      default: true
-    },
-    canEdit: {
-      type: Boolean,
-      default: true
-    },
-    canTrash: {
-      type: Boolean,
-      default: true
-    },
     readOnly: {
       type: Boolean,
       default: false
@@ -17385,31 +17248,6 @@ __webpack_require__.r(__webpack_exports__);
     editOnClick: {
       type: Boolean,
       default: false
-    }
-  },
-  computed: {
-    dropAppendClass: function dropAppendClass() {
-      return {
-        dropable: !this.dragging && (this.drop_append_dropable || this.widgetDropable),
-        "drag-enter": this.drop_append_drag_enter
-      };
-    }
-  },
-  data: function data() {
-    return {
-      drop_append_dropable: false,
-      drop_append_drag_enter: false,
-      dragging: false
-    };
-  },
-  methods: {
-    dragStart: function dragStart() {
-      this.dragging = true;
-      this.$emit("drag");
-    },
-    dragEnd: function dragEnd() {
-      this.dragging = false;
-      this.$emit("dragend");
     }
   }
 });
@@ -17437,22 +17275,6 @@ __webpack_require__.r(__webpack_exports__);
     options: {
       type: Object
     },
-    widgetDropable: {
-      type: Boolean,
-      default: false
-    },
-    canMove: {
-      type: Boolean,
-      default: true
-    },
-    canEdit: {
-      type: Boolean,
-      default: true
-    },
-    canTrash: {
-      type: Boolean,
-      default: true
-    },
     readOnly: {
       type: Boolean,
       default: false
@@ -17460,31 +17282,6 @@ __webpack_require__.r(__webpack_exports__);
     editOnClick: {
       type: Boolean,
       default: false
-    }
-  },
-  computed: {
-    dropAppendClass: function dropAppendClass() {
-      return {
-        dropable: !this.dragging && (this.drop_append_dropable || this.widgetDropable),
-        "drag-enter": this.drop_append_drag_enter
-      };
-    }
-  },
-  data: function data() {
-    return {
-      drop_append_dropable: false,
-      drop_append_drag_enter: false,
-      dragging: false
-    };
-  },
-  methods: {
-    dragStart: function dragStart() {
-      this.dragging = true;
-      this.$emit("drag");
-    },
-    dragEnd: function dragEnd() {
-      this.dragging = false;
-      this.$emit("dragend");
     }
   }
 });
@@ -17512,22 +17309,6 @@ __webpack_require__.r(__webpack_exports__);
     options: {
       type: Object
     },
-    widgetDropable: {
-      type: Boolean,
-      default: false
-    },
-    canMove: {
-      type: Boolean,
-      default: true
-    },
-    canEdit: {
-      type: Boolean,
-      default: true
-    },
-    canTrash: {
-      type: Boolean,
-      default: true
-    },
     readOnly: {
       type: Boolean,
       default: false
@@ -17535,31 +17316,6 @@ __webpack_require__.r(__webpack_exports__);
     editOnClick: {
       type: Boolean,
       default: false
-    }
-  },
-  computed: {
-    dropAppendClass: function dropAppendClass() {
-      return {
-        dropable: !this.dragging && (this.drop_append_dropable || this.widgetDropable),
-        "drag-enter": this.drop_append_drag_enter
-      };
-    }
-  },
-  data: function data() {
-    return {
-      drop_append_dropable: false,
-      drop_append_drag_enter: false,
-      dragging: false
-    };
-  },
-  methods: {
-    dragStart: function dragStart() {
-      this.dragging = true;
-      this.$emit("drag");
-    },
-    dragEnd: function dragEnd() {
-      this.dragging = false;
-      this.$emit("dragend");
     }
   }
 });
@@ -17591,22 +17347,6 @@ __webpack_require__.r(__webpack_exports__);
     options: {
       type: Object
     },
-    widgetDropable: {
-      type: Boolean,
-      default: false
-    },
-    canMove: {
-      type: Boolean,
-      default: true
-    },
-    canEdit: {
-      type: Boolean,
-      default: true
-    },
-    canTrash: {
-      type: Boolean,
-      default: true
-    },
     readOnly: {
       type: Boolean,
       default: false
@@ -17617,12 +17357,6 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   computed: {
-    dropAppendClass: function dropAppendClass() {
-      return {
-        dropable: !this.dragging && (this.drop_append_dropable || this.widgetDropable),
-        "drag-enter": this.drop_append_drag_enter
-      };
-    },
     listIcon: function listIcon() {
       if (!this.options && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(this.options) !== "object") {
         // console.log( 'no options' );
@@ -17641,23 +17375,6 @@ __webpack_require__.r(__webpack_exports__);
         return this.icon;
       }
       return this.options.fields.icon.value;
-    }
-  },
-  data: function data() {
-    return {
-      drop_append_dropable: false,
-      drop_append_drag_enter: false,
-      dragging: false
-    };
-  },
-  methods: {
-    dragStart: function dragStart() {
-      this.dragging = true;
-      this.$emit("drag");
-    },
-    dragEnd: function dragEnd() {
-      this.dragging = false;
-      this.$emit("dragend");
     }
   }
 });
@@ -17685,22 +17402,6 @@ __webpack_require__.r(__webpack_exports__);
     options: {
       type: Object
     },
-    widgetDropable: {
-      type: Boolean,
-      default: false
-    },
-    canMove: {
-      type: Boolean,
-      default: true
-    },
-    canEdit: {
-      type: Boolean,
-      default: true
-    },
-    canTrash: {
-      type: Boolean,
-      default: true
-    },
     readOnly: {
       type: Boolean,
       default: false
@@ -17708,31 +17409,6 @@ __webpack_require__.r(__webpack_exports__);
     editOnClick: {
       type: Boolean,
       default: false
-    }
-  },
-  computed: {
-    dropAppendClass: function dropAppendClass() {
-      return {
-        dropable: !this.dragging && (this.drop_append_dropable || this.widgetDropable),
-        "drag-enter": this.drop_append_drag_enter
-      };
-    }
-  },
-  data: function data() {
-    return {
-      drop_append_dropable: false,
-      drop_append_drag_enter: false,
-      dragging: false
-    };
-  },
-  methods: {
-    dragStart: function dragStart() {
-      this.dragging = true;
-      this.$emit("drag");
-    },
-    dragEnd: function dragEnd() {
-      this.dragging = false;
-      this.$emit("dragend");
     }
   }
 });
@@ -17760,22 +17436,6 @@ __webpack_require__.r(__webpack_exports__);
     options: {
       type: Object
     },
-    widgetDropable: {
-      type: Boolean,
-      default: false
-    },
-    canMove: {
-      type: Boolean,
-      default: true
-    },
-    canEdit: {
-      type: Boolean,
-      default: true
-    },
-    canTrash: {
-      type: Boolean,
-      default: true
-    },
     readOnly: {
       type: Boolean,
       default: false
@@ -17783,31 +17443,6 @@ __webpack_require__.r(__webpack_exports__);
     editOnClick: {
       type: Boolean,
       default: false
-    }
-  },
-  computed: {
-    dropAppendClass: function dropAppendClass() {
-      return {
-        dropable: !this.dragging && (this.drop_append_dropable || this.widgetDropable),
-        "drag-enter": this.drop_append_drag_enter
-      };
-    }
-  },
-  data: function data() {
-    return {
-      drop_append_dropable: false,
-      drop_append_drag_enter: false,
-      dragging: false
-    };
-  },
-  methods: {
-    dragStart: function dragStart() {
-      this.dragging = true;
-      this.$emit("drag");
-    },
-    dragEnd: function dragEnd() {
-      this.dragging = false;
-      this.$emit("dragend");
     }
   }
 });
@@ -17835,22 +17470,6 @@ __webpack_require__.r(__webpack_exports__);
     options: {
       type: Object
     },
-    widgetDropable: {
-      type: Boolean,
-      default: false
-    },
-    canMove: {
-      type: Boolean,
-      default: true
-    },
-    canEdit: {
-      type: Boolean,
-      default: true
-    },
-    canTrash: {
-      type: Boolean,
-      default: true
-    },
     readOnly: {
       type: Boolean,
       default: false
@@ -17858,31 +17477,6 @@ __webpack_require__.r(__webpack_exports__);
     editOnClick: {
       type: Boolean,
       default: false
-    }
-  },
-  computed: {
-    dropAppendClass: function dropAppendClass() {
-      return {
-        dropable: !this.dragging && (this.drop_append_dropable || this.widgetDropable),
-        "drag-enter": this.drop_append_drag_enter
-      };
-    }
-  },
-  data: function data() {
-    return {
-      drop_append_dropable: false,
-      drop_append_drag_enter: false,
-      dragging: false
-    };
-  },
-  methods: {
-    dragStart: function dragStart() {
-      this.dragging = true;
-      this.$emit("drag");
-    },
-    dragEnd: function dragEnd() {
-      this.dragging = false;
-      this.$emit("dragend");
     }
   }
 });
@@ -17910,22 +17504,6 @@ __webpack_require__.r(__webpack_exports__);
     options: {
       type: Object
     },
-    widgetDropable: {
-      type: Boolean,
-      default: false
-    },
-    canMove: {
-      type: Boolean,
-      default: true
-    },
-    canEdit: {
-      type: Boolean,
-      default: true
-    },
-    canTrash: {
-      type: Boolean,
-      default: true
-    },
     readOnly: {
       type: Boolean,
       default: false
@@ -17933,31 +17511,6 @@ __webpack_require__.r(__webpack_exports__);
     editOnClick: {
       type: Boolean,
       default: false
-    }
-  },
-  computed: {
-    dropAppendClass: function dropAppendClass() {
-      return {
-        dropable: !this.dragging && (this.drop_append_dropable || this.widgetDropable),
-        "drag-enter": this.drop_append_drag_enter
-      };
-    }
-  },
-  data: function data() {
-    return {
-      drop_append_dropable: false,
-      drop_append_drag_enter: false,
-      dragging: false
-    };
-  },
-  methods: {
-    dragStart: function dragStart() {
-      this.dragging = true;
-      this.$emit("drag");
-    },
-    dragEnd: function dragEnd() {
-      this.dragging = false;
-      this.$emit("dragend");
     }
   }
 });
@@ -17982,22 +17535,6 @@ __webpack_require__.r(__webpack_exports__);
     options: {
       type: Object
     },
-    widgetDropable: {
-      type: Boolean,
-      default: false
-    },
-    canMove: {
-      type: Boolean,
-      default: true
-    },
-    canEdit: {
-      type: Boolean,
-      default: true
-    },
-    canTrash: {
-      type: Boolean,
-      default: true
-    },
     readOnly: {
       type: Boolean,
       default: false
@@ -18005,31 +17542,6 @@ __webpack_require__.r(__webpack_exports__);
     editOnClick: {
       type: Boolean,
       default: false
-    }
-  },
-  computed: {
-    dropAppendClass: function dropAppendClass() {
-      return {
-        dropable: !this.dragging && (this.drop_append_dropable || this.widgetDropable),
-        "drag-enter": this.drop_append_drag_enter
-      };
-    }
-  },
-  data: function data() {
-    return {
-      drop_append_dropable: false,
-      drop_append_drag_enter: false,
-      dragging: false
-    };
-  },
-  methods: {
-    dragStart: function dragStart() {
-      this.dragging = true;
-      this.$emit("drag");
-    },
-    dragEnd: function dragEnd() {
-      this.dragging = false;
-      this.$emit("dragend");
     }
   }
 });
@@ -18057,22 +17569,6 @@ __webpack_require__.r(__webpack_exports__);
     options: {
       type: Object
     },
-    widgetDropable: {
-      type: Boolean,
-      default: false
-    },
-    canMove: {
-      type: Boolean,
-      default: true
-    },
-    canEdit: {
-      type: Boolean,
-      default: true
-    },
-    canTrash: {
-      type: Boolean,
-      default: true
-    },
     readOnly: {
       type: Boolean,
       default: false
@@ -18080,31 +17576,6 @@ __webpack_require__.r(__webpack_exports__);
     editOnClick: {
       type: Boolean,
       default: false
-    }
-  },
-  computed: {
-    dropAppendClass: function dropAppendClass() {
-      return {
-        dropable: !this.dragging && (this.drop_append_dropable || this.widgetDropable),
-        "drag-enter": this.drop_append_drag_enter
-      };
-    }
-  },
-  data: function data() {
-    return {
-      drop_append_dropable: false,
-      drop_append_drag_enter: false,
-      dragging: false
-    };
-  },
-  methods: {
-    dragStart: function dragStart() {
-      this.dragging = true;
-      this.$emit("drag");
-    },
-    dragEnd: function dragEnd() {
-      this.dragging = false;
-      this.$emit("dragend");
     }
   }
 });
@@ -18129,22 +17600,6 @@ __webpack_require__.r(__webpack_exports__);
     options: {
       type: Object
     },
-    widgetDropable: {
-      type: Boolean,
-      default: false
-    },
-    canMove: {
-      type: Boolean,
-      default: true
-    },
-    canEdit: {
-      type: Boolean,
-      default: true
-    },
-    canTrash: {
-      type: Boolean,
-      default: true
-    },
     disabled: {
       type: Boolean,
       default: false
@@ -18156,31 +17611,6 @@ __webpack_require__.r(__webpack_exports__);
     editOnClick: {
       type: Boolean,
       default: false
-    }
-  },
-  computed: {
-    dropAppendClass: function dropAppendClass() {
-      return {
-        dropable: !this.dragging && (this.drop_append_dropable || this.widgetDropable),
-        "drag-enter": this.drop_append_drag_enter
-      };
-    }
-  },
-  data: function data() {
-    return {
-      drop_append_dropable: false,
-      drop_append_drag_enter: false,
-      dragging: false
-    };
-  },
-  methods: {
-    dragStart: function dragStart() {
-      this.dragging = true;
-      this.$emit("drag");
-    },
-    dragEnd: function dragEnd() {
-      this.dragging = false;
-      this.$emit("dragend");
     }
   }
 });
@@ -18205,22 +17635,6 @@ __webpack_require__.r(__webpack_exports__);
     options: {
       type: Object
     },
-    widgetDropable: {
-      type: Boolean,
-      default: false
-    },
-    canMove: {
-      type: Boolean,
-      default: true
-    },
-    canEdit: {
-      type: Boolean,
-      default: true
-    },
-    canTrash: {
-      type: Boolean,
-      default: true
-    },
     disabled: {
       type: Boolean,
       default: false
@@ -18232,31 +17646,6 @@ __webpack_require__.r(__webpack_exports__);
     editOnClick: {
       type: Boolean,
       default: false
-    }
-  },
-  computed: {
-    dropAppendClass: function dropAppendClass() {
-      return {
-        dropable: !this.dragging && (this.drop_append_dropable || this.widgetDropable),
-        "drag-enter": this.drop_append_drag_enter
-      };
-    }
-  },
-  data: function data() {
-    return {
-      drop_append_dropable: false,
-      drop_append_drag_enter: false,
-      dragging: false
-    };
-  },
-  methods: {
-    dragStart: function dragStart() {
-      this.dragging = true;
-      this.$emit("drag");
-    },
-    dragEnd: function dragEnd() {
-      this.dragging = false;
-      this.$emit("dragend");
     }
   }
 });
@@ -18281,22 +17670,6 @@ __webpack_require__.r(__webpack_exports__);
     options: {
       type: Object
     },
-    widgetDropable: {
-      type: Boolean,
-      default: false
-    },
-    canMove: {
-      type: Boolean,
-      default: true
-    },
-    canEdit: {
-      type: Boolean,
-      default: true
-    },
-    canTrash: {
-      type: Boolean,
-      default: true
-    },
     readOnly: {
       type: Boolean,
       default: false
@@ -18304,31 +17677,6 @@ __webpack_require__.r(__webpack_exports__);
     editOnClick: {
       type: Boolean,
       default: false
-    }
-  },
-  computed: {
-    dropAppendClass: function dropAppendClass() {
-      return {
-        dropable: !this.dragging && (this.drop_append_dropable || this.widgetDropable),
-        "drag-enter": this.drop_append_drag_enter
-      };
-    }
-  },
-  data: function data() {
-    return {
-      drop_append_dropable: false,
-      drop_append_drag_enter: false,
-      dragging: false
-    };
-  },
-  methods: {
-    dragStart: function dragStart() {
-      this.dragging = true;
-      this.$emit("drag");
-    },
-    dragEnd: function dragEnd() {
-      this.dragging = false;
-      this.$emit("dragend");
     }
   }
 });
@@ -29125,41 +28473,21 @@ var render = function render() {
         return _vm.$emit("edit");
       }
     }
-  }, [_c("div", {
-    staticClass: "cptm-widget-card cptm-has-widget-control cptm-widget-actions-tools-wrap"
-  }, [_vm._m(0), _vm._v(" "), !_vm.readOnly && !_vm.editOnClick ? _c("widget-action-tools", {
-    attrs: {
-      canEdit: _vm.canEdit,
-      canMove: _vm.canMove,
-      canTrash: _vm.canTrash
-    },
-    on: {
-      drag: function drag($event) {
-        return _vm.dragStart();
-      },
-      dragend: function dragend($event) {
-        return _vm.dragEnd();
-      },
-      edit: function edit($event) {
-        return _vm.$emit("edit");
-      },
-      trash: function trash($event) {
-        return _vm.$emit("trash");
-      }
-    }
-  }) : _vm._e()], 1)]);
+  }, [_vm._m(0)]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("p", {
+  return _c("div", {
+    staticClass: "cptm-widget-card cptm-has-widget-control cptm-widget-actions-tools-wrap"
+  }, [_c("p", {
     staticClass: "cptm-placeholder-author-thumb"
   }, [_c("img", {
     attrs: {
       src: "https://placehold.co/150",
       alt: ""
     }
-  })]);
+  })])]);
 }];
 render._withStripped = true;
 
@@ -29210,27 +28538,7 @@ var render = function render() {
     style: {
       color: ((_vm$fields5 = _vm.fields) === null || _vm$fields5 === void 0 || (_vm$fields5 = _vm$fields5.text) === null || _vm$fields5 === void 0 || (_vm$fields5 = _vm$fields5.text_color) === null || _vm$fields5 === void 0 ? void 0 : _vm$fields5.value) || ""
     }
-  }, [_vm._v(_vm._s(_vm.label))])]), _vm._v(" "), !_vm.readOnly && !_vm.editOnClick ? _c("widget-action-tools", {
-    attrs: {
-      canEdit: _vm.canEdit,
-      canMove: _vm.canMove,
-      canTrash: _vm.canTrash
-    },
-    on: {
-      drag: function drag($event) {
-        return _vm.dragStart();
-      },
-      dragend: function dragend($event) {
-        return _vm.dragEnd();
-      },
-      edit: function edit($event) {
-        return _vm.$emit("edit");
-      },
-      trash: function trash($event) {
-        return _vm.$emit("trash");
-      }
-    }
-  }) : _vm._e()], 1)]);
+  }, [_vm._v(_vm._s(_vm.label))])])])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -29258,27 +28566,7 @@ var render = function render() {
     staticClass: "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
   }, [_vm.icon ? _c("span", {
     class: _vm.icon
-  }) : _vm._e(), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.label))]), _vm._v(" "), !_vm.readOnly && !_vm.editOnClick ? _c("widget-action-tools", {
-    attrs: {
-      canEdit: _vm.canEdit,
-      canMove: _vm.canMove,
-      canTrash: _vm.canTrash
-    },
-    on: {
-      drag: function drag($event) {
-        return _vm.dragStart();
-      },
-      dragend: function dragend($event) {
-        return _vm.dragEnd();
-      },
-      edit: function edit($event) {
-        return _vm.$emit("edit");
-      },
-      trash: function trash($event) {
-        return _vm.$emit("trash");
-      }
-    }
-  }) : _vm._e()], 1)]);
+  }) : _vm._e(), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.label))])])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -29306,27 +28594,7 @@ var render = function render() {
     staticClass: "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
   }, [_vm.icon ? _c("span", {
     class: _vm.icon
-  }) : _vm._e(), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.label))]), _vm._v(" "), !_vm.readOnly && !_vm.editOnClick ? _c("widget-action-tools", {
-    attrs: {
-      canEdit: _vm.canEdit,
-      canMove: _vm.canMove,
-      canTrash: _vm.canTrash
-    },
-    on: {
-      drag: function drag($event) {
-        return _vm.dragStart();
-      },
-      dragend: function dragend($event) {
-        return _vm.dragEnd();
-      },
-      edit: function edit($event) {
-        return _vm.$emit("edit");
-      },
-      trash: function trash($event) {
-        return _vm.$emit("trash");
-      }
-    }
-  }) : _vm._e()], 1)]);
+  }) : _vm._e(), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.label))])])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -29354,27 +28622,7 @@ var render = function render() {
     staticClass: "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
   }, [_vm.icon ? _c("span", {
     class: _vm.icon
-  }) : _vm._e(), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.label))]), _vm._v(" "), !_vm.readOnly && !_vm.editOnClick ? _c("widget-action-tools", {
-    attrs: {
-      canEdit: _vm.canEdit,
-      canMove: _vm.canMove,
-      canTrash: _vm.canTrash
-    },
-    on: {
-      drag: function drag($event) {
-        return _vm.dragStart();
-      },
-      dragend: function dragend($event) {
-        return _vm.dragEnd();
-      },
-      edit: function edit($event) {
-        return _vm.$emit("edit");
-      },
-      trash: function trash($event) {
-        return _vm.$emit("trash");
-      }
-    }
-  }) : _vm._e()], 1)]);
+  }) : _vm._e(), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.label))])])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -29402,27 +28650,7 @@ var render = function render() {
     staticClass: "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
   }, [_vm.icon ? _c("span", {
     class: _vm.icon
-  }) : _vm._e(), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.label))]), _vm._v(" "), !_vm.readOnly && !_vm.editOnClick ? _c("widget-action-tools", {
-    attrs: {
-      canEdit: _vm.canEdit,
-      canMove: _vm.canMove,
-      canTrash: _vm.canTrash
-    },
-    on: {
-      drag: function drag($event) {
-        return _vm.dragStart();
-      },
-      dragend: function dragend($event) {
-        return _vm.dragEnd();
-      },
-      edit: function edit($event) {
-        return _vm.$emit("edit");
-      },
-      trash: function trash($event) {
-        return _vm.$emit("trash");
-      }
-    }
-  }) : _vm._e()], 1)]);
+  }) : _vm._e(), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.label))])])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -29456,27 +28684,7 @@ var render = function render() {
     class: _vm.listIcon
   })]), _vm._v(" "), _c("span", {
     staticClass: "cptm-list-item-label"
-  }, [_vm._v(_vm._s(_vm.label))])]), _vm._v(" "), !_vm.readOnly && !_vm.editOnClick ? _c("widget-action-tools", {
-    attrs: {
-      canEdit: _vm.canEdit,
-      canMove: _vm.canMove,
-      canTrash: _vm.canTrash
-    },
-    on: {
-      drag: function drag($event) {
-        return _vm.dragStart();
-      },
-      dragend: function dragend($event) {
-        return _vm.dragEnd();
-      },
-      edit: function edit($event) {
-        return _vm.$emit("edit");
-      },
-      trash: function trash($event) {
-        return _vm.$emit("trash");
-      }
-    }
-  }) : _vm._e()], 1)]);
+  }, [_vm._v(_vm._s(_vm.label))])])])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -29504,27 +28712,7 @@ var render = function render() {
     staticClass: "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
   }, [_vm.icon ? _c("span", {
     class: _vm.icon
-  }) : _vm._e(), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.label))]), _vm._v(" "), !_vm.readOnly && !_vm.editOnClick ? _c("widget-action-tools", {
-    attrs: {
-      canEdit: _vm.canEdit,
-      canMove: _vm.canMove,
-      canTrash: _vm.canTrash
-    },
-    on: {
-      drag: function drag($event) {
-        return _vm.dragStart();
-      },
-      dragend: function dragend($event) {
-        return _vm.dragEnd();
-      },
-      edit: function edit($event) {
-        return _vm.$emit("edit");
-      },
-      trash: function trash($event) {
-        return _vm.$emit("trash");
-      }
-    }
-  }) : _vm._e()], 1)]);
+  }) : _vm._e(), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.label))])])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -29552,27 +28740,7 @@ var render = function render() {
     staticClass: "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
   }, [_vm.icon ? _c("span", {
     class: _vm.icon
-  }) : _vm._e(), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.label))]), _vm._v(" "), !_vm.readOnly && !_vm.editOnClick ? _c("widget-action-tools", {
-    attrs: {
-      canEdit: _vm.canEdit,
-      canMove: _vm.canMove,
-      canTrash: _vm.canTrash
-    },
-    on: {
-      drag: function drag($event) {
-        return _vm.dragStart();
-      },
-      dragend: function dragend($event) {
-        return _vm.dragEnd();
-      },
-      edit: function edit($event) {
-        return _vm.$emit("edit");
-      },
-      trash: function trash($event) {
-        return _vm.$emit("trash");
-      }
-    }
-  }) : _vm._e()], 1)]);
+  }) : _vm._e(), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.label))])])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -29648,27 +28816,7 @@ var render = function render() {
     staticClass: "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
   }, [_vm.icon ? _c("span", {
     class: _vm.icon
-  }) : _vm._e(), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.label))]), _vm._v(" "), !_vm.readOnly && !_vm.editOnClick ? _c("widget-action-tools", {
-    attrs: {
-      canEdit: _vm.canEdit,
-      canMove: _vm.canMove,
-      canTrash: _vm.canTrash
-    },
-    on: {
-      drag: function drag($event) {
-        return _vm.dragStart();
-      },
-      dragend: function dragend($event) {
-        return _vm.dragEnd();
-      },
-      edit: function edit($event) {
-        return _vm.$emit("edit");
-      },
-      trash: function trash($event) {
-        return _vm.$emit("trash");
-      }
-    }
-  }) : _vm._e()], 1)]);
+  }) : _vm._e(), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.label))])])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -29696,27 +28844,7 @@ var render = function render() {
     staticClass: "cptm-widget-card cptm-widget-title-card cptm-has-widget-control cptm-widget-actions-tools-wrap"
   }, [_c("div", {
     staticClass: "cptm-widget-title-block"
-  }, [_vm._v("\n      " + _vm._s(_vm.label) + "\n    ")]), _vm._v(" "), !_vm.readOnly && !_vm.editOnClick ? _c("widget-action-tools", {
-    attrs: {
-      canEdit: _vm.canEdit,
-      canMove: _vm.canMove,
-      canTrash: _vm.canTrash
-    },
-    on: {
-      drag: function drag($event) {
-        return _vm.dragStart();
-      },
-      dragend: function dragend($event) {
-        return _vm.dragEnd();
-      },
-      edit: function edit($event) {
-        return _vm.$emit("edit");
-      },
-      trash: function trash($event) {
-        return _vm.$emit("trash");
-      }
-    }
-  }) : _vm._e()], 1)]);
+  }, [_vm._v("\n      " + _vm._s(_vm.label) + "\n    ")])])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -29744,27 +28872,7 @@ var render = function render() {
     staticClass: "cptm-widget-card cptm-widget-tagline-card cptm-has-widget-control cptm-widget-actions-tools-wrap"
   }, [_c("div", {
     staticClass: "cptm-widget-tagline-block"
-  }, [_vm._v("\n      " + _vm._s(_vm.label) + "\n    ")]), _vm._v(" "), !_vm.readOnly && !_vm.editOnClick ? _c("widget-action-tools", {
-    attrs: {
-      canEdit: _vm.canEdit,
-      canMove: _vm.canMove,
-      canTrash: _vm.canTrash
-    },
-    on: {
-      drag: function drag($event) {
-        return _vm.dragStart();
-      },
-      dragend: function dragend($event) {
-        return _vm.dragEnd();
-      },
-      edit: function edit($event) {
-        return _vm.$emit("edit");
-      },
-      trash: function trash($event) {
-        return _vm.$emit("trash");
-      }
-    }
-  }) : _vm._e()], 1)]);
+  }, [_vm._v("\n      " + _vm._s(_vm.label) + "\n    ")])])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -29794,27 +28902,7 @@ var render = function render() {
     staticClass: "cptm-widget-label"
   }, [_vm._v("\n      " + _vm._s(_vm.label) + "\n    ")]), _vm._v(" "), _vm.disabled ? _c("span", {
     staticClass: "cptm-widget-card-disabled-badge"
-  }, [_vm._v("\n      Disable\n    ")]) : _vm._e(), _vm._v(" "), !_vm.readOnly && !_vm.editOnClick ? _c("widget-action-tools", {
-    attrs: {
-      canEdit: _vm.canEdit,
-      canMove: _vm.canMove,
-      canTrash: _vm.canTrash
-    },
-    on: {
-      drag: function drag($event) {
-        return _vm.dragStart();
-      },
-      dragend: function dragend($event) {
-        return _vm.dragEnd();
-      },
-      edit: function edit($event) {
-        return _vm.$emit("edit");
-      },
-      trash: function trash($event) {
-        return _vm.$emit("trash");
-      }
-    }
-  }) : _vm._e()], 1)]);
+  }, [_vm._v("\n      Disable\n    ")]) : _vm._e()])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
@@ -29852,27 +28940,7 @@ var render = function render() {
     staticClass: "cptm-widget-title-block"
   }, [_vm._v("\n      " + _vm._s(_vm.label) + "\n    ")]), _vm._v(" "), _vm.disabled ? _c("span", {
     staticClass: "cptm-widget-card-disabled-badge"
-  }, [_vm._v("\n      Disable\n    ")]) : _vm._e(), _vm._v(" "), !_vm.readOnly && !_vm.editOnClick ? _c("widget-action-tools", {
-    attrs: {
-      canEdit: _vm.canEdit,
-      canMove: _vm.canMove,
-      canTrash: _vm.canTrash
-    },
-    on: {
-      drag: function drag($event) {
-        return _vm.dragStart();
-      },
-      dragend: function dragend($event) {
-        return _vm.dragEnd();
-      },
-      edit: function edit($event) {
-        return _vm.$emit("edit");
-      },
-      trash: function trash($event) {
-        return _vm.$emit("trash");
-      }
-    }
-  }) : _vm._e()], 1)]);
+  }, [_vm._v("\n      Disable\n    ")]) : _vm._e()])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -29894,38 +28962,18 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap"
-  }, [_c("div", {
-    staticClass: "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
-  }, [_vm._m(0), _vm._v(" "), !_vm.readOnly && !_vm.editOnClick ? _c("widget-action-tools", {
-    attrs: {
-      canEdit: _vm.canEdit,
-      canMove: _vm.canMove,
-      canTrash: _vm.canTrash
-    },
-    on: {
-      drag: function drag($event) {
-        return _vm.dragStart();
-      },
-      dragend: function dragend($event) {
-        return _vm.dragEnd();
-      },
-      edit: function edit($event) {
-        return _vm.$emit("edit");
-      },
-      trash: function trash($event) {
-        return _vm.$emit("trash");
-      }
-    }
-  }) : _vm._e()], 1)]);
+  return _vm._m(0);
 };
 var staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("span", [_c("i", {
+  return _c("div", {
+    staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap"
+  }, [_c("div", {
+    staticClass: "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
+  }, [_c("span", [_c("i", {
     staticClass: "uil uil-eye"
-  }), _vm._v("\n      0\n    ")]);
+  }), _vm._v("\n      0\n    ")])])]);
 }];
 render._withStripped = true;
 

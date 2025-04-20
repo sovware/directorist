@@ -9,17 +9,6 @@
       <p class="cptm-placeholder-author-thumb">
         <img src="https://placehold.co/150" alt="" />
       </p>
-
-      <widget-action-tools
-        :canEdit="canEdit"
-        :canMove="canMove"
-        :canTrash="canTrash"
-        @drag="dragStart()"
-        @dragend="dragEnd()"
-        @edit="$emit('edit')"
-        @trash="$emit('trash')"
-        v-if="!readOnly && !editOnClick"
-      />
     </div>
   </div>
 </template>
@@ -36,26 +25,6 @@ export default {
       type: Object,
     },
 
-    widgetDropable: {
-      type: Boolean,
-      default: false,
-    },
-
-    canMove: {
-      type: Boolean,
-      default: true,
-    },
-
-    canEdit: {
-      type: Boolean,
-      default: true,
-    },
-
-    canTrash: {
-      type: Boolean,
-      default: true,
-    },
-
     readOnly: {
       type: Boolean,
       default: false,
@@ -67,34 +36,5 @@ export default {
     },
   },
 
-  computed: {
-    dropAppendClass() {
-      return {
-        dropable:
-          !this.dragging && (this.drop_append_dropable || this.widgetDropable),
-        "drag-enter": this.drop_append_drag_enter,
-      };
-    },
-  },
-
-  data() {
-    return {
-      drop_append_dropable: false,
-      drop_append_drag_enter: false,
-      dragging: false,
-    };
-  },
-
-  methods: {
-    dragStart() {
-      this.dragging = true;
-      this.$emit("drag");
-    },
-
-    dragEnd() {
-      this.dragging = false;
-      this.$emit("dragend");
-    },
-  },
 };
 </script>

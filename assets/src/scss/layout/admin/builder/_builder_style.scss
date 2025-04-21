@@ -2889,6 +2889,10 @@ input[type="radio"].cptm-radio {
     }
   }
 
+  &.cptm-listing-card-author-avatar-placeholder {
+    padding: 2px;
+  }
+
   &.cptm-widget-picker-open {
     z-index: 100;
   }

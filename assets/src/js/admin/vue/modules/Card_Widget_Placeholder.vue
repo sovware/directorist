@@ -254,36 +254,11 @@ export default {
 
   data() {
     return {
-      placeholderDragEnter: false,
       activeWidgetKey: "",
     };
   },
 
   methods: {
-    widgetHasOptions(active_widget) {
-      if (!active_widget.options && typeof active_widget.options !== "object") {
-        return false;
-      }
-      if (
-        !active_widget.options.fields &&
-        typeof active_widget.options.fields !== "object"
-      ) {
-        return false;
-      }
-      return true;
-    },
-    placeholderOnDrop() {
-      this.placeholderDragEnter = false;
-      this.$emit("placeholder-on-drop");
-    },
-    placeholderOnDragEnter() {
-      this.placeholderDragEnter = true;
-      this.$emit("placeholder-on-dragenter");
-    },
-    placeholderOnDragLeave() {
-      this.placeholderDragEnter = false;
-      this.$emit("placeholder-on-dragleave");
-    },
     hasValidWidget(widget_key) {
       if (
         !this.availableWidgets[widget_key] &&

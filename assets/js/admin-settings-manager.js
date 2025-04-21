@@ -15374,32 +15374,10 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   },
   data: function data() {
     return {
-      placeholderDragEnter: false,
       activeWidgetKey: ""
     };
   },
   methods: {
-    widgetHasOptions: function widgetHasOptions(active_widget) {
-      if (!active_widget.options && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(active_widget.options) !== "object") {
-        return false;
-      }
-      if (!active_widget.options.fields && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(active_widget.options.fields) !== "object") {
-        return false;
-      }
-      return true;
-    },
-    placeholderOnDrop: function placeholderOnDrop() {
-      this.placeholderDragEnter = false;
-      this.$emit("placeholder-on-drop");
-    },
-    placeholderOnDragEnter: function placeholderOnDragEnter() {
-      this.placeholderDragEnter = true;
-      this.$emit("placeholder-on-dragenter");
-    },
-    placeholderOnDragLeave: function placeholderOnDragLeave() {
-      this.placeholderDragEnter = false;
-      this.$emit("placeholder-on-dragleave");
-    },
     hasValidWidget: function hasValidWidget(widget_key) {
       if (!this.availableWidgets[widget_key] && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(this.availableWidgets[widget_key]) !== "object") {
         return false;
@@ -20108,6 +20086,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     activeInsertWindow: function activeInsertWindow(current_item_key) {
       if (this.active_insert_widget_key === current_item_key) {
         this.active_insert_widget_key = "";
+        this.active_option_widget_key = "";
         return;
       }
       this.active_insert_widget_key = current_item_key;
@@ -20635,6 +20614,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     activeInsertWindow: function activeInsertWindow(current_item_key) {
       if (this.active_insert_widget_key === current_item_key) {
         this.active_insert_widget_key = "";
+        this.active_option_widget_key = "";
         return;
       }
       this.active_insert_widget_key = current_item_key;
@@ -21657,6 +21637,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     activeInsertWindow: function activeInsertWindow(current_item_key) {
       if (this.active_insert_widget_key === current_item_key) {
         this.active_insert_widget_key = "";
+        this.active_option_widget_key = "";
         return;
       }
       this.active_insert_widget_key = current_item_key;
@@ -22137,6 +22118,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     activeInsertWindow: function activeInsertWindow(current_item_key) {
       if (this.active_insert_widget_key === current_item_key) {
         this.active_insert_widget_key = "";
+        this.active_option_widget_key = "";
         return;
       }
       this.active_insert_widget_key = current_item_key;

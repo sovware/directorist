@@ -3012,22 +3012,25 @@ input[type="radio"].cptm-radio {
 
     .cptm-card-preview-top-right {
       .cptm-widget-option-modal-container {
-        left: unset;
-        right: 0;
         bottom: unset;
         top: 100%;
-        transform: unset;
       }
     }
 
+    .cptm-card-placeholder-top-left,
+    .cptm-card-placeholder-top-right {
+      .cptm-widget-option-modal-container {
+        bottom: unset;
+        top: calc(100% - 20px);
+      }
+    }
+
+    .cptm-card-preview-top-right,
     .cptm-card-preview-footer-right,
     .cptm-card-placeholder-top-right {
       .cptm-widget-option-modal-container {
         left: unset;
         right: 0;
-        top: unset;
-        bottom: 100%;
-        transform: unset;
       }
     }
 
@@ -3395,6 +3398,7 @@ input[type="radio"].cptm-radio {
 .cptm-card-placeholder-top-right {
   flex: 1;
 }
+
 .cptm-card-placeholder-top-right {
   .cptm-widget-option-modal-container {
     right: unset;

@@ -17635,21 +17635,19 @@ input[type=radio].cptm-radio {
           transform: unset;
 }
 .cptm-card-preview-widget.cptm-card-list-view .cptm-card-preview-top-right .cptm-widget-option-modal-container {
-  right: unset;
-  left: 0;
   bottom: unset;
   top: 100%;
-  -webkit-transform: unset;
-          transform: unset;
 }
+.cptm-card-preview-widget.cptm-card-list-view .cptm-card-placeholder-top-left .cptm-widget-option-modal-container,
+.cptm-card-preview-widget.cptm-card-list-view .cptm-card-placeholder-top-right .cptm-widget-option-modal-container {
+  bottom: unset;
+  top: calc(100% - 20px);
+}
+.cptm-card-preview-widget.cptm-card-list-view .cptm-card-preview-top-right .cptm-widget-option-modal-container,
 .cptm-card-preview-widget.cptm-card-list-view .cptm-card-preview-footer-right .cptm-widget-option-modal-container,
 .cptm-card-preview-widget.cptm-card-list-view .cptm-card-placeholder-top-right .cptm-widget-option-modal-container {
   right: unset;
   left: 0;
-  top: unset;
-  bottom: 100%;
-  -webkit-transform: unset;
-          transform: unset;
 }
 .cptm-card-preview-widget.cptm-card-list-view .cptm-placeholder-author-thumb img {
   width: 22px;
@@ -23977,21 +23975,19 @@ input[type=radio].cptm-radio {
           transform: unset;
 }
 .cptm-card-preview-widget.cptm-card-list-view .cptm-card-preview-top-right .cptm-widget-option-modal-container {
-  right: unset;
-  left: 0;
   bottom: unset;
   top: 100%;
-  -webkit-transform: unset;
-          transform: unset;
 }
+.cptm-card-preview-widget.cptm-card-list-view .cptm-card-placeholder-top-left .cptm-widget-option-modal-container,
+.cptm-card-preview-widget.cptm-card-list-view .cptm-card-placeholder-top-right .cptm-widget-option-modal-container {
+  bottom: unset;
+  top: calc(100% - 20px);
+}
+.cptm-card-preview-widget.cptm-card-list-view .cptm-card-preview-top-right .cptm-widget-option-modal-container,
 .cptm-card-preview-widget.cptm-card-list-view .cptm-card-preview-footer-right .cptm-widget-option-modal-container,
 .cptm-card-preview-widget.cptm-card-list-view .cptm-card-placeholder-top-right .cptm-widget-option-modal-container {
   right: unset;
   left: 0;
-  top: unset;
-  bottom: 100%;
-  -webkit-transform: unset;
-          transform: unset;
 }
 .cptm-card-preview-widget.cptm-card-list-view .cptm-placeholder-author-thumb img {
   width: 22px;
@@ -30607,21 +30603,19 @@ input[type=radio].cptm-radio {
           transform: unset;
 }
 .cptm-card-preview-widget.cptm-card-list-view .cptm-card-preview-top-right .cptm-widget-option-modal-container {
-  right: unset;
-  left: 0;
   bottom: unset;
   top: 100%;
-  -webkit-transform: unset;
-          transform: unset;
 }
+.cptm-card-preview-widget.cptm-card-list-view .cptm-card-placeholder-top-left .cptm-widget-option-modal-container,
+.cptm-card-preview-widget.cptm-card-list-view .cptm-card-placeholder-top-right .cptm-widget-option-modal-container {
+  bottom: unset;
+  top: calc(100% - 20px);
+}
+.cptm-card-preview-widget.cptm-card-list-view .cptm-card-preview-top-right .cptm-widget-option-modal-container,
 .cptm-card-preview-widget.cptm-card-list-view .cptm-card-preview-footer-right .cptm-widget-option-modal-container,
 .cptm-card-preview-widget.cptm-card-list-view .cptm-card-placeholder-top-right .cptm-widget-option-modal-container {
   right: unset;
   left: 0;
-  top: unset;
-  bottom: 100%;
-  -webkit-transform: unset;
-          transform: unset;
 }
 .cptm-card-preview-widget.cptm-card-list-view .cptm-placeholder-author-thumb img {
   width: 22px;

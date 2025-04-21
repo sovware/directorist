@@ -62,7 +62,7 @@ if ( ! defined( 'ATBDP_DIRECTORY_TYPE' ) ) { define( 'ATBDP_DIRECTORY_TYPE', 'at
 if ( ! defined('ATBDP_TYPE') ) { define('ATBDP_TYPE', ATBDP_DIRECTORY_TYPE); }
 
 // Plugin Alert Message
-if ( !defined('ATBDP_ALERT_MSG') ) { define('ATBDP_ALERT_MSG', __('You do not have the right to access this file directly', 'directorist')); }
+// if ( !defined('ATBDP_ALERT_MSG') ) { define('ATBDP_ALERT_MSG', __('You do not have the right to access this file directly', 'directorist')); }
 
 
 // Plugin Veiw Path

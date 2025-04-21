@@ -225,10 +225,9 @@
         .directorist-search-field__input {
           &.directorist-form-element {
             padding-right: 20px;
-            &[type="date"] {
-              padding-right: 0;
-            }
-            &[type="time"] {
+            &[type="date"],
+            &[type="time"],
+            &[type="number"] {
               padding-right: 0;
             }
           }
@@ -282,9 +281,6 @@
           }
           .directorist-form-group__prefix--start {
             opacity: 1;
-          }
-          .directorist-form-group__prefix--end {
-            margin-right: 25px;
           }
           .directorist-search-field__label {
             top: 0;

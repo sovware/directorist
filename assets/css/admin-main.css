@@ -11344,7 +11344,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
 }
 
 .directorist-advanced-filter__advanced__element .directorist-search-field.input-is-focused .directorist-form-group__with-prefix .directorist-search-field__input {
-  padding-right: 0;
+  padding-right: 0 !important;
 }
 
 .directorist-form-group label {
@@ -12237,10 +12237,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-search-modal__contents__body .directorist-search-field .directorist-search-field__input.directorist-form-element {
   padding-right: 20px;
 }
-.directorist-search-modal__contents__body .directorist-search-field .directorist-search-field__input.directorist-form-element[type=date] {
-  padding-right: 0;
-}
-.directorist-search-modal__contents__body .directorist-search-field .directorist-search-field__input.directorist-form-element[type=time] {
+.directorist-search-modal__contents__body .directorist-search-field .directorist-search-field__input.directorist-form-element[type=date], .directorist-search-modal__contents__body .directorist-search-field .directorist-search-field__input.directorist-form-element[type=time], .directorist-search-modal__contents__body .directorist-search-field .directorist-search-field__input.directorist-form-element[type=number] {
   padding-right: 0;
 }
 .directorist-search-modal__contents__body .directorist-search-field__btn {
@@ -12294,9 +12291,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .directorist-search-modal__contents__body .directorist-search-field.input-is-focused .directorist-form-group__prefix--start {
   opacity: 1;
-}
-.directorist-search-modal__contents__body .directorist-search-field.input-is-focused .directorist-form-group__prefix--end {
-  margin-right: 25px;
 }
 .directorist-search-modal__contents__body .directorist-search-field.input-is-focused .directorist-search-field__label {
   top: 0;

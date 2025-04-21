@@ -21,19 +21,15 @@ if ( !defined( 'ABSPATH' ) ) exit;
 
 class ATBDP_Gateway{
     private $extension_url = '';
-    public function __construct()
-    {
+    public function __construct() {
         // add monetization menu
-
         add_filter('atbdp_settings_menus', array($this, 'add_monetization_menu'));
 
         // add gateway submenu
         add_filter('atbdp_monetization_settings_submenus', array($this, 'gateway_settings_submenu'), 10, 1);
-        //fields widgets
+        
+        // fields widgets
         add_filter('atbdp_form_preset_widgets', array($this, 'atbdp_form_builder_widgets'));
-
-        $this->extension_url = sprintf("<a target='_blank' href='%s'>%s</a>", esc_url(admin_url('edit.php?post_type=at_biz_dir&page=atbdp-extension')), __('Checkout Other Payment Gateways & Extensions', 'directorist'));
-
     }
 
     public function atbdp_form_builder_widgets($widgets) {
@@ -232,6 +228,7 @@ class ATBDP_Gateway{
      * @return array It returns an array of gateway settings fields
      */
     public function get_gateway_settings_fields(){
+        $this->extension_url = sprintf( "<a target='_blank' href='%s'>%s</a>", esc_url( admin_url('edit.php?post_type=at_biz_dir&page=atbdp-extension') ), __( 'Checkout Other Payment Gateways & Extensions', 'directorist' ) );
 
         return apply_filters('atbdp_gateway_settings_fields', array(
                'gateway_promotion' => array(

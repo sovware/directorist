@@ -2614,7 +2614,12 @@ class Builder_Data {
                                 </svg>',
                 'container' => 'short-wide',
                 'sections' => [
-
+                    'labels'          => [
+                        'title'  => __( 'Directory icon', 'directorist' ),
+                        'description' => __( 'Select a directory type icon to display in all listings, add listing, and search pages.', 'directorist' ),
+                        'fields' => ['icon'],
+                    ],
+                    
                     'listing_status'  => [
                         'title'  => __( 'Default listing status', 'directorist' ),
                         'fields' => [

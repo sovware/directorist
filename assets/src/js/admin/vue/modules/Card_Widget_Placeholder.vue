@@ -30,10 +30,6 @@
           disabled: selectedWidgets.length === 0,
         },
       ]"
-      @drop.prevent="placeholderOnDrop()"
-      @dragover.prevent="$emit('placeholder-dragover-on')"
-      @dragenter="placeholderOnDragEnter()"
-      @dragleave="placeholderOnDragLeave()"
       @click.prevent="$emit('open-widgets-option-window')"
     >
       <p
@@ -43,7 +39,7 @@
         {{ label }}
       </p>
 
-      <div class="cptm-widget-insert-area" v-if="!readOnly">
+      <div class="cptm-widget-insert-area" v-if="!readOnly" @click.stop>
         <div class="cptm-widget-insert-wrap">
           <div class="cptm-widget-insert-modal-container">
             <widgets-window
@@ -99,23 +95,6 @@
                 "
                 :options="availableWidgets[widget].options"
                 :fields="availableWidgets[widget].fields"
-                :widgetDropable="widgetDropable"
-                :hasDisableButton="hasDisableButton"
-                :canMove="
-                  activeWidgets[widget] &&
-                  typeof activeWidgets[widget].can_move !== undefined
-                    ? activeWidgets[widget].can_move
-                    : true
-                "
-                :canEdit="
-                  activeWidgets[widget] &&
-                  widgetHasOptions(activeWidgets[widget])
-                "
-                @drag="$emit('drag-widget', widget)"
-                @drop="$emit('drop-widget', widget)"
-                @dragend="$emit('dragend-widget', widget)"
-                @edit="$emit('edit-widget', widget)"
-                @trash="$emit('trash-widget', widget)"
                 :disabled="readOnly && !selectedWidgets.includes(widget)"
                 :readOnly="readOnly"
               >

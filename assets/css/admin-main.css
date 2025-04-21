@@ -17469,7 +17469,7 @@ input[type=radio].cptm-radio {
 }
 
 .cptm-placeholder-block {
-  padding: 2px;
+  padding: 6px;
   min-height: 40px;
   position: relative;
   border: 1px dashed rgba(255, 255, 255, 0.15);
@@ -23797,7 +23797,7 @@ input[type=radio].cptm-radio {
 }
 
 .cptm-placeholder-block {
-  padding: 2px;
+  padding: 6px;
   min-height: 40px;
   position: relative;
   border: 1px dashed rgba(255, 255, 255, 0.15);
@@ -30413,7 +30413,7 @@ input[type=radio].cptm-radio {
 }
 
 .cptm-placeholder-block {
-  padding: 2px;
+  padding: 6px;
   min-height: 40px;
   position: relative;
   border: 1px dashed rgba(255, 255, 255, 0.15);

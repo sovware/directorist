@@ -26985,9 +26985,6 @@ render._withStripped = true;
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof.js");
-/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__);
-
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
@@ -27021,20 +27018,6 @@ var render = function render() {
       disabled: _vm.selectedWidgets.length === 0
     }],
     on: {
-      drop: function drop($event) {
-        $event.preventDefault();
-        return _vm.placeholderOnDrop();
-      },
-      dragover: function dragover($event) {
-        $event.preventDefault();
-        return _vm.$emit("placeholder-dragover-on");
-      },
-      dragenter: function dragenter($event) {
-        return _vm.placeholderOnDragEnter();
-      },
-      dragleave: function dragleave($event) {
-        return _vm.placeholderOnDragLeave();
-      },
       click: function click($event) {
         $event.preventDefault();
         return _vm.$emit("open-widgets-option-window");
@@ -27046,7 +27029,12 @@ var render = function render() {
       hide: _vm.displayedWidgets && _vm.displayedWidgets.length
     }
   }, [_vm._v("\n      " + _vm._s(_vm.label) + "\n    ")]), _vm._v(" "), !_vm.readOnly ? _c("div", {
-    staticClass: "cptm-widget-insert-area"
+    staticClass: "cptm-widget-insert-area",
+    on: {
+      click: function click($event) {
+        $event.stopPropagation();
+      }
+    }
   }, [_c("div", {
     staticClass: "cptm-widget-insert-wrap"
   }, [_c("div", {
@@ -27107,29 +27095,8 @@ var render = function render() {
         icon: typeof _vm.availableWidgets[widget].icon === "string" ? _vm.availableWidgets[widget].icon : "",
         options: _vm.availableWidgets[widget].options,
         fields: _vm.availableWidgets[widget].fields,
-        widgetDropable: _vm.widgetDropable,
-        hasDisableButton: _vm.hasDisableButton,
-        canMove: _vm.activeWidgets[widget] && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(_vm.activeWidgets[widget].can_move) !== undefined ? _vm.activeWidgets[widget].can_move : true,
-        canEdit: _vm.activeWidgets[widget] && _vm.widgetHasOptions(_vm.activeWidgets[widget]),
         disabled: _vm.readOnly && !_vm.selectedWidgets.includes(widget),
         readOnly: _vm.readOnly
-      },
-      on: {
-        drag: function drag($event) {
-          return _vm.$emit("drag-widget", widget);
-        },
-        drop: function drop($event) {
-          return _vm.$emit("drop-widget", widget);
-        },
-        dragend: function dragend($event) {
-          return _vm.$emit("dragend-widget", widget);
-        },
-        edit: function edit($event) {
-          return _vm.$emit("edit-widget", widget);
-        },
-        trash: function trash($event) {
-          return _vm.$emit("trash-widget", widget);
-        }
       }
     })], 1)] : _vm._e()];
   })], 2) : _vm._e()]), _vm._v(" "), _vm.optionWidgetKey === _vm.activeWidgetKey ? _c("div", {

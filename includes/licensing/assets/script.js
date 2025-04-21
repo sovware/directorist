@@ -140,54 +140,39 @@ function progressbar(target) {
     });
 };
 
-//Submit form button loading
-function handleFormValidation(parentClass,targetClass,successText) {
-    document.querySelectorAll(parentClass).forEach(form => {
-        form.addEventListener("submit", function (event) {
-            event.preventDefault();
-
-            if (form.checkValidity()) {
-                const submitButton = form.querySelector("[type='submit']");
-                const span = submitButton.querySelector("span"); // Target only the text wrapper
-                if (submitButton) {
-                    submitButton.classList.add(targetClass); // Add the class
-                }
-                if (span) {
-                    span.textContent = successText;
-                }
-            } else {
-                form.reportValidity();
-            }
-        });
-    });
-};
-
 // Select the form based on the provided selector
-function updateSubmitButtonState(formSelector, targetClass, successText) {
-    const form = document.querySelector(formSelector);
+function updateSubmitButtonState(button, validClass, loadingText, errorClass, defaultText, isLoading = false) {
+    if (!button || !(button instanceof HTMLElement)) return;
 
-    if (form) {
-        const submitButton = form.querySelector("[type='submit']");
-        const span = submitButton ? submitButton.querySelector("span") : null;
+    // Remove both states first
+    button.classList.remove(validClass, errorClass);
 
-        if (submitButton) {
-            submitButton.classList.add(targetClass);
-        }
-        if (span) {
-            span.textContent = successText;
-        }
+    // Update text and class based on state
+    if (isLoading) {
+        button.textContent = loadingText;
+        button.classList.add(validClass);
+        button.disabled = true;
     } else {
-        console.error("Form not found.");
+        button.textContent = defaultText;
+        button.classList.add(errorClass);
+        button.disabled = false;
     }
-};
+}
 
-
-function handlePostRequest(formSelector, endpoint, successCallback, errorCallback) {
+function handlePostRequest(formSelector, endpoint, successCallback, errorCallback, buttonStateConfig) {
     endpoint = directorist_licensing.root + endpoint || endpoint;
     document.querySelectorAll(formSelector).forEach(form => {
         form.addEventListener("submit", function (event) {
             event.preventDefault();
-
+            const submitButton = form.querySelector("button[type='submit']");
+            updateSubmitButtonState(
+                submitButton,
+                buttonStateConfig.validClass,
+                buttonStateConfig.loadingText,
+                buttonStateConfig.errorClass,
+                buttonStateConfig.defaultText,
+                true // always true on start
+            );
             if (form.checkValidity()) {
                 const formData = new FormData(form);
                 const formDataObject = {};
@@ -211,12 +196,12 @@ function handlePostRequest(formSelector, endpoint, successCallback, errorCallbac
                 })
                 .then(data => {
                     if (successCallback) {
-                        successCallback(data);
+                        successCallback(data, submitButton, buttonStateConfig);
                     }
                 })
                 .catch(error => {
                     if (errorCallback) {
-                        errorCallback(error);
+                        errorCallback(error, submitButton, buttonStateConfig);
                     }
                 });
             } else {
@@ -231,32 +216,58 @@ document.addEventListener("DOMContentLoaded", function () {
     handlePostRequest(
         ".directorist-login-with-access-key",
         "directorist/v1/admin/login-with-access-key",
-        function (data) {
+        function (data, button, config) {
             if ( data.success === true ) {
-               updateSubmitButtonState(".directorist-login-with-access-key","valid-submit", "Connecting...");
                location.reload();
             } else {
                 alert(data.message);
+                updateSubmitButtonState(
+                    button,
+                    config.validClass,
+                    config.loadingText,
+                    config.errorClass,
+                    config.defaultText,
+                    false
+                );
             }
         },
         function (error) {
             console.error("Error:", error);
+        },
+        {
+            validClass: "valid-submit",
+            loadingText: "Connecting...",
+            errorClass: "failed-submit",
+            defaultText: "Connect Now"
         }
     );
 
     handlePostRequest(
         ".directorist-login-with-account",
         "directorist/v1/admin/login-with-account",
-        function (data) {
+        function (data, button, config) {
             if ( data.success === true ) {
-                updateSubmitButtonState(".directorist-login-with-account", "valid-submit", "Login...");
                 location.reload();
              } else {
-                alert(data.message); 
+                alert(data.message);
+                updateSubmitButtonState(
+                    button,
+                    config.validClass,
+                    config.loadingText,
+                    config.errorClass,
+                    config.defaultText,
+                    false
+                );
              }
         },
         function (error) {
             console.error("Error:", error);
+        },
+        {
+            validClass: "valid-submit",
+            loadingText: "Login...",
+            errorClass: "failed-submit",
+            defaultText: "Log In with Directorist Account"
         }
     );
 
@@ -338,11 +349,16 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (data.success) {
                     if( 'templatiq' === extensionSlug ){
                         this.textContent = "Installed & Activated";
-                        location.reload();
+                        setTimeout(() => {
+                            location.reload();
+                        }, 1000);
                     } else {
                         this.textContent = "Installed";
                         this.classList.remove("directorist-extension-btn-install");
                         this.classList.add("directorist-extension-btn-installed");
+                        setTimeout(() => {
+                            location.reload();
+                        }, 1000);
                     }
                 } else {
                     this.textContent = "Install";

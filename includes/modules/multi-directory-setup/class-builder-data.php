@@ -2666,7 +2666,7 @@ class Builder_Data {
                         'options' => [
                             'title' => __( "Share Settings", "directorist" ),
                             'fields' => [
-                                'share_icon' => [
+                                'icon' => [
                                     'type' => "icon",
                                     'label' => __( "Icon", "directorist" ),
                                     'value' => 'las la-share',
@@ -2681,7 +2681,7 @@ class Builder_Data {
                         'options' => [
                             'title' => __( "Report Settings", "directorist" ),
                             'fields' => [
-                                'report_icon' => [
+                                'icon' => [
                                     'type' => "icon",
                                     'label' => __( "Icon", "directorist" ),
                                     'value' => 'las la-flag',
@@ -2756,7 +2756,6 @@ class Builder_Data {
                                 'maxWidget'         => 1,
                                 'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
                                 'acceptedWidgets'   => ['back'],
-                                // 'selectedWidgets'   => ['back'],
                             ],
                             [
                                 'type'              => 'placeholder_item',
@@ -2765,7 +2764,6 @@ class Builder_Data {
                                 'maxWidget'         => 0,
                                 'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
                                 'acceptedWidgets'   => [ 'bookmark', 'share', 'report' ],
-                                // 'selectedWidgets'   => [ 'bookmark', 'share' ],
                             ],
                         ],
                     ],
@@ -2776,7 +2774,6 @@ class Builder_Data {
                         'maxWidget'         => 1,
                         'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
                         'acceptedWidgets'   => ['title'],
-                        // 'selectedWidgets'   => ['title'],
                     ],
                     [
                         'type'              => 'placeholder_item',
@@ -2785,30 +2782,16 @@ class Builder_Data {
                         'maxWidget'         => 0,
                         'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
                         'acceptedWidgets'   => [ 'location', 'category', 'ratings_count', 'badges', 'price' ],
-                        // 'selectedWidgets'   => [ 'location', 'category', 'badges' ],
                     ],
                     [
                         'type'            => 'placeholder_item',
                         'label'           => 'Image/Slider',
                         'placeholderKey'  => 'slider-placeholder',
-                        // 'selectedWidgets' => ['slider'],
                         'acceptedWidgets' => ['slider'],
                         'maxWidget'       => 1,
-                        // 'canDelete'       => true,
-                        // 'insertByButton'  => true,
-                        // 'insertButton'    => [
-                        //     'label' => 'Add Image/Slider'
-                        // ],
                     ],
                 ],
             ] ),
-
-            // 'enable_grid_view_layout' => [
-            //     'type'  => 'toggle',
-            //     'label' => __( 'Enable Grid View Layout', 'directorist' ),
-            //     'labelType' => 'h5',
-            //     'value' => true,
-            // ],
 
             'listings_card_grid_view'                     => apply_filters( 'directorist_listing_card_layouts', [
                 'type'           => 'card-builder',
@@ -2841,13 +2824,6 @@ class Builder_Data {
                 ],
             ] ),
 
-            // 'enable_list_view_layout' => [
-            //     'type'  => 'toggle',
-            //     'label' => __( 'Enable List View Layout', 'directorist' ),
-            //     'labelType' => 'h5',
-            //     'value' => true,
-            // ],
-
             'listings_card_list_view'                     => apply_filters( 'directorist_listing_list_layouts', [
                 'type'           => 'card-builder',
                 'card_templates' => [
@@ -2878,31 +2854,6 @@ class Builder_Data {
                     ],
                 ],
             ] ),
-
-            // 'enable_map_view_layout' => [
-            //     'type'  => 'toggle',
-            //     'label' => __( 'Enable Map View Layout', 'directorist' ),
-            //     'labelType' => 'h5',
-            //     'value' => true,
-            // ],
-
-            // 'listings_card_map_view'                     => apply_filters( 'directorist_listing_map_layouts', [
-            //     'type'           => 'card-builder',
-            //     'card_templates' => [
-            //         'list_view_with_thumbnail'    => [
-            //             'label'    => __( 'With Preview Image', 'directorist' ),
-            //             'template' => 'list-view-with-thumbnail',
-            //             'widgets'  => $listing_card_conditional_widget,
-            //             'layout'   => $listing_card_list_view_with_thumbnail_layout,
-            //         ],
-            //         'list_view_without_thumbnail' => [
-            //             'label'    => __( 'Without Preview Image', 'directorist' ),
-            //             'template' => 'list-view-without-thumbnail',
-            //             'widgets'  => $listing_card_conditional_widget,
-            //             'layout'   => $listing_card_list_view_without_thumbnail_layout,
-            //         ],
-            //     ],
-            // ] ),
 
         ] );
 

@@ -23000,7 +23000,11 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
               var widget_options = _this.active_widgets[widget_name].options.fields;
               for (var option in widget_options) {
                 var _widget_data$option;
-                if ((_widget_data$option = widget_data[option]) !== null && _widget_data$option !== void 0 && _widget_data$option.options.fields) {
+                if (option === "icon" && widget_data.icon) {
+                  var _widget_options$optio;
+                  _this.available_widgets[widget_name].icon = (_widget_options$optio = widget_options[option]) === null || _widget_options$optio === void 0 ? void 0 : _widget_options$optio.value;
+                }
+                if ((_widget_data$option = widget_data[option]) !== null && _widget_data$option !== void 0 && (_widget_data$option = _widget_data$option.options) !== null && _widget_data$option !== void 0 && _widget_data$option.fields) {
                   widget_data[option].options.fields = widget_options[option];
                 }
               }

@@ -388,7 +388,12 @@ export default {
               .fields;
 
             for (let option in widget_options) {
-              if (widget_data[option]?.options.fields) {
+              if (option === "icon" && widget_data.icon) {
+                this.available_widgets[widget_name].icon =
+                  widget_options[option]?.value;
+              }
+
+              if (widget_data[option]?.options?.fields) {
                 widget_data[option].options.fields = widget_options[option];
               }
             }

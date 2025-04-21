@@ -97,6 +97,7 @@
                 :fields="availableWidgets[widget].fields"
                 :disabled="readOnly && !selectedWidgets.includes(widget)"
                 :readOnly="readOnly"
+                @edit="$emit('edit-widget', widget)"
               >
               </component>
             </div>

@@ -27538,6 +27538,11 @@ var render = function render() {
         fields: _vm.availableWidgets[widget].fields,
         disabled: _vm.readOnly && !_vm.selectedWidgets.includes(widget),
         readOnly: _vm.readOnly
+      },
+      on: {
+        edit: function edit($event) {
+          return _vm.$emit("edit-widget", widget);
+        }
       }
     })], 1)] : _vm._e()];
   })], 2) : _vm._e()]), _vm._v(" "), _vm.optionWidgetKey === _vm.activeWidgetKey ? _c("div", {

@@ -167,9 +167,9 @@ window.IconPicker = function (args) {
                 elm.addEventListener('click', function (event) {
                     event.preventDefault();
 
-                    const iconGroupKey = event.target.getAttribute('data-group-key');
-                    const iconKey = event.target.getAttribute('data-icon-key');
-                    const iconType = event.target.getAttribute('data-icon-type').split(',');
+                    const iconGroupKey = event.currentTarget.getAttribute('data-group-key');
+                    const iconKey = event.currentTarget.getAttribute('data-icon-key');
+                    const iconType = event.currentTarget.getAttribute('data-icon-type').split(',');
                     icon = self.getFullIcon(iconKey, iconGroupKey, iconType[0]);
 
                     removeActiveStatus();

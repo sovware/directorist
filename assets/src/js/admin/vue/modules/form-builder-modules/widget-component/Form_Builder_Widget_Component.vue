@@ -201,7 +201,6 @@ export default {
     },
 
     widgetInfo() {
-      console.log("Print:" + this.activeWidgets[this.widgetKey]);
       let info = "";
 
       if (this.activeWidgets[this.widgetKey] && this.activeWidgets[this.widgetKey].info) {

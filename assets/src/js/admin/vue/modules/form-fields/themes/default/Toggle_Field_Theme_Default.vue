@@ -67,9 +67,5 @@ import toggle_feild from "./../../../../mixins/form-fields/toggle-field";
 export default {
   name: "toggle-field-theme-default",
   mixins: [toggle_feild],
-
-  mounted() {
-    // console.log("@CHK1 toggle", { label, subLabel });
-  },
 };
 </script>

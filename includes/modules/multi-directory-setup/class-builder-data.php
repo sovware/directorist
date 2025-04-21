@@ -1452,6 +1452,7 @@ class Builder_Data {
                 'label' => __( 'Featured', 'directorist' ),
                 'icon'  => 'uil uil-star',
                 'hook'  => 'atbdp_featured_badge',
+                'has_editable_options' => true,
                 'options' => [
                     'type' => [
                         'type'    => 'radio',
@@ -1469,12 +1470,12 @@ class Builder_Data {
                         'text_color' => [
                             'type'          => 'color',
                             'label'         => __( 'Text Color', 'directorist' ),
-                            'value'         => '#ffffff',
+                            'value'         => '#747c89',
                         ],
                         'text_background' => [
                             'type'          => 'color',
                             'label'         => __( 'Background Color', 'directorist' ),
-                            'value'         => '#ffffff33',
+                            'value'         => '#f3f4f6',
                         ],
                     ],
                     'icon' => [
@@ -1502,6 +1503,7 @@ class Builder_Data {
                 'label' => __( 'New', 'directorist' ),
                 'icon'  => 'uil uil-bolt',
                 'hook'  => 'atbdp_new_badge',
+                'has_editable_options' => true,
                 'options' => [
                     'type' => [
                         'type'    => 'radio',
@@ -1519,12 +1521,12 @@ class Builder_Data {
                         'text_color' => [
                             'type'          => 'color',
                             'label'         => __( 'Text Color', 'directorist' ),
-                            'value'         => '#ffffff',
+                            'value'         => '#747c89',
                         ],
                         'text_background' => [
                             'type'          => 'color',
                             'label'         => __( 'Background Color', 'directorist' ),
-                            'value'         => '#ffffff33',
+                            'value'         => '#f3f4f6',
                         ],
                     ],
                     'icon' => [
@@ -1552,6 +1554,7 @@ class Builder_Data {
                 'label' => __( 'Popular', 'directorist' ),
                 'icon'  => 'uil uil-fire',
                 'hook'  => 'atbdp_popular_badge',
+                'has_editable_options' => true,
                 'options' => [
                     'type' => [
                         'type'    => 'radio',
@@ -1569,12 +1572,12 @@ class Builder_Data {
                         'text_color' => [
                             'type'          => 'color',
                             'label'         => __( 'Text Color', 'directorist' ),
-                            'value'         => '#ffffff',
+                            'value'         => '#747c89',
                         ],
                         'text_background' => [
                             'type'          => 'color',
                             'label'         => __( 'Background Color', 'directorist' ),
-                            'value'         => '#ffffff33',
+                            'value'         => '#f3f4f6',
                         ],
                     ],
                     'icon' => [

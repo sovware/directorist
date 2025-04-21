@@ -1898,7 +1898,13 @@ li[class="cptm-form-builder-field-list-item"][draggable="true"] {
   color: #747c89;
 }
 
-.cptm-form-builder-field-list-label {
+.cptm-form-builder-field-list-item-icon {
+  font-size: 14px;
+  margin-right: 1px;
+}
+
+.cptm-form-builder-field-list-label,
+.cptm-form-builder-field-list-item-label {
   display: inline-block;
   font-size: 13px;
   font-weight: 400;
@@ -2639,7 +2645,7 @@ input[type="radio"].cptm-radio {
   padding: 5px;
   color: #747c89;
   font-weight: 400;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 14px;
 
   .cptm-list-item-label {

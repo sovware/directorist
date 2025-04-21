@@ -60,7 +60,7 @@
               <span
                 class="cptm-form-builder-field-list-item-edit"
                 :class="activeWidgetKey === widget_key ? 'active' : ''"
-                v-if="widget?.options?.type"
+                v-if="widget?.has_editable_options"
                 @click.prevent="edit(widget_key)"
               >
                 <span class="uil uil-pen"></span>

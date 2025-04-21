@@ -28177,7 +28177,6 @@ var render = function render() {
       }
     }
   }, _vm._l(_vm.widgetsList, function (widget, widget_key) {
-    var _widget$options;
     return _c("Draggable", {
       key: widget_key,
       attrs: {
@@ -28201,7 +28200,7 @@ var render = function render() {
       class: widget === null || widget === void 0 ? void 0 : widget.icon
     })]), _vm._v(" "), _c("span", {
       staticClass: "cptm-form-builder-field-list-item-label"
-    }, [_vm._v("\n                " + _vm._s(widget === null || widget === void 0 ? void 0 : widget.label) + "\n              ")])]), _vm._v(" "), widget !== null && widget !== void 0 && (_widget$options = widget.options) !== null && _widget$options !== void 0 && _widget$options.type ? _c("span", {
+    }, [_vm._v("\n                " + _vm._s(widget === null || widget === void 0 ? void 0 : widget.label) + "\n              ")])]), _vm._v(" "), widget !== null && widget !== void 0 && widget.has_editable_options ? _c("span", {
       staticClass: "cptm-form-builder-field-list-item-edit",
       class: _vm.activeWidgetKey === widget_key ? "active" : "",
       on: {

@@ -174,7 +174,7 @@
         }
         &:hover {
           background-color: var(--directorist-color-bg-gray) !important;
-          color:rgba(var(--directorist-color-btn-primary-rgb), 0.8);
+          color: rgba(var(--directorist-color-btn-primary-rgb), 0.8);
         }
       }
     }
@@ -376,7 +376,7 @@
     flex: 1;
     height: 100%;
     max-width: 350px;
-    form{
+    form {
       width: 100%;
     }
     .directorist-advanced-filter__close {
@@ -437,14 +437,16 @@
         height: 100svh;
         box-shadow: none;
         border: none;
-        .directorist-advanced-filter__advanced{
+        .directorist-advanced-filter__advanced {
           display: block;
         }
       }
     }
     .directorist-search-field__input {
       &.directorist-form-element {
-        padding-right: 20px;
+        &:not([type="number"]) {
+          padding-right: 20px;
+        }
       }
     }
     .directorist-advanced-filter__top {
@@ -641,10 +643,10 @@
         margin: 0 20px 0 0;
         &.input-is-focused {
           margin: 0 25px;
-          &.input-has-noLabel{
+          &.input-has-noLabel {
             margin: 0;
-            .directorist-filter-location-icon{
-              right:0;
+            .directorist-filter-location-icon {
+              right: 0;
             }
           }
         }

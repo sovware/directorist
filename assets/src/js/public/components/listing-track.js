@@ -2,12 +2,12 @@
     window.addEventListener('load', () => {
 
         if ($('.directorist-single-contents-area').length > 0) {
-            var listing_id  = $('.directorist-single-contents-area').data('id');  // listing id
+            var listing_id  = directorist.current_page_id;  // listing id
             var storage_key = 'directorist_listing_views';                        // Key for session storage
-        
+
             // Check if the user has already viewed this listing during the session.
             var viewed_listings = JSON.parse( sessionStorage.getItem( storage_key ) ) || {};
-        
+
             if ( !viewed_listings[listing_id] ) {
                 // Send an AJAX request to track the view for this specific listing.
                 $.ajax({

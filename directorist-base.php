@@ -580,7 +580,7 @@ final class Directorist_Base
 
 	public function custom_widget_body_wrapper( $instance, $widget, $args ) {
 		// Check if this is the specific sidebar
-		if ( $args['id'] === 'right-sidebar-listing' ) {
+		if ( isset( $args['id'] ) && $args['id'] === 'right-sidebar-listing' ) {
 			// Create a wrapper for the widget body
 			$widget_output = '';
 
@@ -899,5 +899,6 @@ function ATBDP()
 	return Directorist_Base::instance();
 }
 
-ATBDP();
+add_action( 'plugins_loaded', 'ATBDP' );
+
 register_activation_hook(__FILE__, array('Directorist_Base', 'prepare_plugin'));

@@ -3030,6 +3030,14 @@ input[type="radio"].cptm-radio {
         transform: unset;
       }
     }
+
+    .cptm-placeholder-author-thumb {
+      img {
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+      }
+    }
   }
   &.grid-view-with-thumbnail {
     .cptm-widget-card {

@@ -17651,6 +17651,11 @@ input[type=radio].cptm-radio {
   -webkit-transform: unset;
           transform: unset;
 }
+.cptm-card-preview-widget.cptm-card-list-view .cptm-placeholder-author-thumb img {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+}
 .cptm-card-preview-widget.grid-view-with-thumbnail .cptm-widget-card .cptm-widget-card-disabled-badge {
   display: none;
 }
@@ -23987,6 +23992,11 @@ input[type=radio].cptm-radio {
   bottom: 100%;
   -webkit-transform: unset;
           transform: unset;
+}
+.cptm-card-preview-widget.cptm-card-list-view .cptm-placeholder-author-thumb img {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
 }
 .cptm-card-preview-widget.grid-view-with-thumbnail .cptm-widget-card .cptm-widget-card-disabled-badge {
   display: none;
@@ -30612,6 +30622,11 @@ input[type=radio].cptm-radio {
   bottom: 100%;
   -webkit-transform: unset;
           transform: unset;
+}
+.cptm-card-preview-widget.cptm-card-list-view .cptm-placeholder-author-thumb img {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
 }
 .cptm-card-preview-widget.grid-view-with-thumbnail .cptm-widget-card .cptm-widget-card-disabled-badge {
   display: none;

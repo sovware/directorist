@@ -2627,31 +2627,11 @@ class Builder_Data {
                         'type' => "title",
                         'label' => __( "Listing Title", "directorist" ),
                         'icon' => 'las la-heading',
-                        'options' => [
-                            'title' => __( "Listing Title Settings", "directorist" ),
-                            'fields' => [
-                                'enable_tagline' => [
-                                    'type' => "toggle",
-                                    'label' => __( "Show Tagline", "directorist" ),
-                                    'value' => true,
-                                ],
-                            ],
-                        ],
                     ],
                     'slider' => [
                         'type' => "thumbnail",
                         'label' => __( "Listing Image/Slider", "directorist" ),
                         'icon' => 'las la-image',
-                        'options' => [
-                            'title' => __( "Image/Slider Settings", "directorist" ),
-                            'fields' => [
-                                'footer_thumbnail' => [
-                                    'type' => "toggle",
-                                    'label' => __( "Show Thumbnail", "directorist" ),
-                                    'value' => true,
-                                ],
-                            ],
-                        ],
                     ],
 
                     'bookmark' => [

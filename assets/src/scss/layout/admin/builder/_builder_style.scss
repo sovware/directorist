@@ -614,7 +614,7 @@ $light-gray: #f4f5f7;
     background-color: $primary;
 
     &:hover {
-      background-color: darken($primary, $amount: 2);
+      background-color: #345af4;
     }
   }
 
@@ -2792,7 +2792,7 @@ input[type="radio"].cptm-radio {
   transition: all ease-in-out 300ms;
 
   &:hover {
-    background-color: darken($primary, 10);
+    background-color: #0e3bf2;
   }
 }
 

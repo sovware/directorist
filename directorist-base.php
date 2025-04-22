@@ -167,7 +167,6 @@ final class Directorist_Base
 	public $multi_directory_manager;
 	public $settings_panel;
 	public $hooks;
-	public $announcement;
 	public $review;
 	public $beta;
 
@@ -237,7 +236,6 @@ final class Directorist_Base
 			// self::$instance->validator = new ATBDP_Validator;
 			// self::$instance->ATBDP_Single_Templates = new ATBDP_Single_Templates;
 			self::$instance->tools = new ATBDP_Tools();
-			self::$instance->announcement = new ATBDP_Announcement();
 
 			self::$instance->background_image_process = new \Directorist\Background_Image_Process();
 
@@ -580,7 +578,7 @@ final class Directorist_Base
 
 	public function custom_widget_body_wrapper( $instance, $widget, $args ) {
 		// Check if this is the specific sidebar
-		if ( $args['id'] === 'right-sidebar-listing' ) {
+		if ( isset( $args['id'] ) && $args['id'] === 'right-sidebar-listing' ) {
 			// Create a wrapper for the widget body
 			$widget_output = '';
 
@@ -899,5 +897,6 @@ function ATBDP()
 	return Directorist_Base::instance();
 }
 
-ATBDP();
+add_action( 'plugins_loaded', 'ATBDP' );
+
 register_activation_hook(__FILE__, array('Directorist_Base', 'prepare_plugin'));

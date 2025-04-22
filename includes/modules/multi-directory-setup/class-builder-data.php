@@ -1937,22 +1937,22 @@ class Builder_Data {
                     'label'             => __( 'Top Right', 'directorist' ),
                     'maxWidget'         => 2,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
-                    'acceptedWidgets'   => ['favorite_badge', 'popular_badge', 'featured_badge', 'new_badge'],
+                    'acceptedWidgets'   => ['popular_badge', 'featured_badge', 'new_badge'],
                 ],
                 'top_left'     => [
                     'maxWidget'       => 3,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
-                    'acceptedWidgets' => ['favorite_badge', 'popular_badge', 'featured_badge', 'new_badge'],
+                    'acceptedWidgets' => ['favorite_badge', 'pricing', 'rating', 'view_count'],
                 ],
                 'bottom_right' => [
-                    'maxWidget'       => 1,
+                    'maxWidget'       => 2,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
-                    'acceptedWidgets' => ['view_count', 'rating'],
+                    'acceptedWidgets' => ['view_count', 'rating', 'pricing'],
                 ],
                 'bottom_left'  => [
-                    'maxWidget'       => 1,
+                    'maxWidget'       => 2,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
-                    'acceptedWidgets' => ['pricing', 'rating'],
+                    'acceptedWidgets' => ['pricing', 'rating', 'view_count'],
                 ],
                 'avatar'       => [
                     'maxWidget'       => 1,
@@ -1989,8 +1989,8 @@ class Builder_Data {
                 ],
                 'badges'     => [
                     'label'           => __( 'Add Element', 'directorist' ),
-                    'maxWidget'       => 2,
-                    'acceptedWidgets' => ['rating', 'pricing'],
+                    'maxWidget'       => 3,
+                    'acceptedWidgets' => ['popular_badge', 'featured_badge', 'new_badge'],
                 ],
                 'bottom'  => [
                     'label'           => __( 'Add Element', 'directorist' ),
@@ -2004,12 +2004,14 @@ class Builder_Data {
             'footer'    => [
                 'right' => [
                     'maxWidget'       => 2,
-                    'acceptedWidgets' => ['category', 'view_count'],
+                    'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
+                    'acceptedWidgets' => ['pricing', 'category', 'favorite_badge', 'rating'],
                 ],
 
                 'left'  => [
-                    'maxWidget'       => 1,
-                    'acceptedWidgets' => ['category', 'view_count'],
+                    'maxWidget'       => 2,
+                    'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
+                    'acceptedWidgets' => ['pricing', 'category', 'favorite_badge', 'view_count'],
                 ],
             ],
         ];
@@ -2024,7 +2026,7 @@ class Builder_Data {
                 'quick_info'    => [
                     'maxWidget'       => 3,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
-                    'acceptedWidgets' => ['favorite_badge', 'popular_badge', 'featured_badge', 'new_badge', 'rating', 'pricing'],
+                    'acceptedWidgets' => ['favorite_badge', 'rating', 'pricing'],
                 ],
             ],
             'body'   => [
@@ -2057,9 +2059,9 @@ class Builder_Data {
                 ],
                 'badges'     => [
                     'label'           => __( 'Add Element', 'directorist' ),
-                    'maxWidget'       => 2,
+                    'maxWidget'       => 3,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
-                    'acceptedWidgets' => ['rating', 'pricing'],
+                    'acceptedWidgets' => ['popular_badge', 'featured_badge', 'new_badge'],
                 ],
                 'bottom'  => [
                     'label'           => __( 'Add Element', 'directorist' ),
@@ -2075,13 +2077,13 @@ class Builder_Data {
                 'right' => [
                     'maxWidget'       => 2,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
-                    'acceptedWidgets' => ['category', 'favorite_badge', 'view_count'],
+                    'acceptedWidgets' => ['pricing', 'category', 'favorite_badge', 'rating'],
                 ],
 
                 'left'  => [
-                    'maxWidget'       => 1,
+                    'maxWidget'       => 2,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
-                    'acceptedWidgets' => ['category', 'favorite_badge', 'view_count'],
+                    'acceptedWidgets' => ['pricing', 'category', 'favorite_badge', 'view_count'],
                 ],
             ],
         ];
@@ -2105,7 +2107,7 @@ class Builder_Data {
                 'quick_info'    => [
                     'maxWidget'       => 3,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
-                    'acceptedWidgets' => ['favorite_badge', 'pricing'],
+                    'acceptedWidgets' => ['favorite_badge', 'pricing', 'rating'],
                 ],
             ],
 
@@ -2154,13 +2156,13 @@ class Builder_Data {
                 'right' => [
                     'maxWidget'       => 2,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
-                    'acceptedWidgets' => ['category', 'pricing', 'user_avatar'],
+                    'acceptedWidgets' => ['category', 'pricing', 'user_avatar', 'view_count'],
                 ],
 
                 'left'  => [
                     'maxWidget'       => 2,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
-                    'acceptedWidgets' => ['category', 'user_avatar', 'view_count'],
+                    'acceptedWidgets' => ['category', 'user_avatar', 'view_count', 'pricing'],
                 ],
             ],
         ];
@@ -2175,7 +2177,7 @@ class Builder_Data {
                 'quick_info'    => [
                     'maxWidget'       => 2,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
-                    'acceptedWidgets' => ['favorite_badge', 'pricing'],
+                    'acceptedWidgets' => ['favorite_badge', 'pricing', 'rating'],
                 ],
             ],
 
@@ -2224,13 +2226,13 @@ class Builder_Data {
                 'right' => [
                     'maxWidget'       => 2,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
-                    'acceptedWidgets' => ['pricing', 'category', 'user_avatar'],
+                    'acceptedWidgets' => ['pricing', 'category', 'user_avatar', 'view_count'],
                 ],
 
                 'left'  => [
                     'maxWidget'       => 2,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
-                    'acceptedWidgets' => ['category', 'user_avatar', 'view_count'],
+                    'acceptedWidgets' => ['pricing', 'category', 'user_avatar', 'view_count'],
                 ],
             ],
         ];

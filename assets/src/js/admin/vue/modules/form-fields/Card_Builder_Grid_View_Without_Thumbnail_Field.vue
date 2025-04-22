@@ -37,10 +37,10 @@
                     trashWidget($event, local_layout.top.quick_actions)
                   "
                   @open-widgets-picker-window="
-                    activeInsertWindow('top_quick_actions')
+                    toggleInsertWindow('top_quick_actions')
                   "
                   @open-widgets-option-window="
-                    activeOptionWindow('top_quick_actions')
+                    toggleOptionWindow('top_quick_actions')
                   "
                   @close-widgets-picker-window="closeInsertWindow()"
                   @close-widgets-option-window="closeOptionWindow()"
@@ -80,10 +80,10 @@
                     trashWidget($event, local_layout.top.quick_info)
                   "
                   @open-widgets-picker-window="
-                    activeInsertWindow('top_quick_info')
+                    toggleInsertWindow('top_quick_info')
                   "
                   @open-widgets-option-window="
-                    activeOptionWindow('top_quick_info')
+                    toggleOptionWindow('top_quick_info')
                   "
                   @close-widgets-picker-window="closeInsertWindow()"
                   @close-widgets-option-window="closeOptionWindow()"
@@ -115,8 +115,8 @@
               @insert-widget="insertWidget($event, local_layout.body.avatar)"
               @edit-widget="editWidget($event)"
               @trash-widget="trashWidget($event, local_layout.body.avatar)"
-              @open-widgets-picker-window="activeInsertWindow('body_avatar')"
-              @open-widgets-option-window="activeOptionWindow('body_avatar')"
+              @open-widgets-picker-window="toggleInsertWindow('body_avatar')"
+              @open-widgets-option-window="toggleOptionWindow('body_avatar')"
               @close-widgets-picker-window="closeInsertWindow()"
               @close-widgets-option-window="closeOptionWindow()"
               @toggle-widget-status="
@@ -185,10 +185,10 @@
               @edit-widget="editWidget($event)"
               @trash-widget="trashWidget($event, local_layout.body.badges)"
               @open-widgets-picker-window="
-                activeInsertWindow('thumbnail_body_badge')
+                toggleInsertWindow('thumbnail_body_badge')
               "
               @open-widgets-option-window="
-                activeOptionWindow('thumbnail_body_badge')
+                toggleOptionWindow('thumbnail_body_badge')
               "
               @close-widgets-picker-window="closeInsertWindow()"
               @close-widgets-option-window="closeOptionWindow()"
@@ -218,10 +218,10 @@
               @edit-widget="editWidget($event)"
               @trash-widget="trashWidget($event, local_layout.body.bottom)"
               @open-widgets-picker-window="
-                activeInsertWindow('thumbnail_body_bottom')
+                toggleInsertWindow('thumbnail_body_bottom')
               "
               @open-widgets-option-window="
-                activeOptionWindow('thumbnail_body_bottom')
+                toggleOptionWindow('thumbnail_body_bottom')
               "
               @close-widgets-picker-window="closeInsertWindow()"
               @close-widgets-option-window="closeOptionWindow()"
@@ -256,10 +256,10 @@
                 @edit-widget="editWidget($event)"
                 @trash-widget="trashWidget($event, local_layout.footer.left)"
                 @open-widgets-picker-window="
-                  activeInsertWindow('thumbnail_footer_left')
+                  toggleInsertWindow('thumbnail_footer_left')
                 "
                 @open-widgets-option-window="
-                  activeOptionWindow('thumbnail_footer_left')
+                  toggleOptionWindow('thumbnail_footer_left')
                 "
                 @close-widgets-picker-window="closeInsertWindow()"
                 @close-widgets-option-window="closeOptionWindow()"
@@ -295,10 +295,10 @@
                 @edit-widget="editWidget($event)"
                 @trash-widget="trashWidget($event, local_layout.footer.right)"
                 @open-widgets-picker-window="
-                  activeInsertWindow('thumbnail_footer_right')
+                  toggleInsertWindow('thumbnail_footer_right')
                 "
                 @open-widgets-option-window="
-                  activeOptionWindow('thumbnail_footer_right')
+                  toggleOptionWindow('thumbnail_footer_right')
                 "
                 @close-widgets-picker-window="closeInsertWindow()"
                 @close-widgets-option-window="closeOptionWindow()"
@@ -907,8 +907,8 @@ export default {
       }
     },
 
-    // Active Insert Window
-    activeInsertWindow(current_item_key) {
+    // Toggle Insert Window
+    toggleInsertWindow(current_item_key) {
       if (this.active_insert_widget_key === current_item_key) {
         this.active_insert_widget_key = "";
         this.active_option_widget_key = "";
@@ -918,8 +918,8 @@ export default {
       this.active_insert_widget_key = current_item_key;
     },
 
-    // Active Option Window
-    activeOptionWindow(current_item_key) {
+    // Toggle Option Window
+    toggleOptionWindow(current_item_key) {
       if (this.active_option_widget_key === current_item_key) {
         this.active_option_widget_key = "";
         return;

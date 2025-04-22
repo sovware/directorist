@@ -64,19 +64,7 @@
                   :showWidgetsPickerWindow="
                     getActiveInsertWindowStatus('listings_header_' + index)
                   "
-                  :widgetDropable="widgetIsDropable(placeholderItem)"
-                  @drag-widget="onDragStartWidget($event, placeholderItem)"
-                  @drop-widget="appendWidget($event, placeholderItem)"
-                  @dragend-widget="onDragEndWidget()"
                   @edit-widget="editWidget($event)"
-                  @trash-widget="trashWidget($event, placeholderItem, index)"
-                  @placeholder-on-drop="
-                    handleDropOnPlaceholder(placeholderItem)
-                  "
-                  @open-widgets-picker-window="
-                    activeInsertWindow('listings_header_' + index)
-                  "
-                  @close-widgets-picker-window="closeInsertWindow()"
                   :readOnly="true"
                 />
               </div>
@@ -304,13 +292,6 @@ export default {
     },
   },
 
-  mounted() {
-    const self = this;
-    document.addEventListener("click", function (e) {
-      self.closeInsertWindow();
-    });
-  },
-
   created() {
     this.init();
     this.$emit("update", this.output_data);
@@ -318,13 +299,12 @@ export default {
 
   watch: {
     output_data() {
-      console.log("@CHK: output_data", { output_data: this.output_data });
-
       this.$emit("update", this.output_data);
     },
   },
 
   computed: {
+    // output_data
     output_data() {
       let output = [];
       let placeholders = this.placeholders;
@@ -389,12 +369,19 @@ export default {
 
             for (let option in widget_options) {
               if (option === "icon" && widget_data.icon) {
+                // update widget data
+                widget_data.icon = widget_options[option]?.value;
+                // update icon on available widgets
                 this.available_widgets[widget_name].icon =
                   widget_options[option]?.value;
               }
 
-              if (widget_data[option]?.options?.fields) {
-                widget_data[option].options.fields = widget_options[option];
+              if (widget_data?.options?.fields) {
+                // update widget data fields
+                widget_data.options.fields[option] = widget_options[option];
+                // update fields on available widgets
+                this.available_widgets[widget_name].options.fields[option] =
+                  widget_options[option];
               }
             }
           }
@@ -450,11 +437,10 @@ export default {
 
       this.placeholders = output;
 
-      // this.$store.commit("updateSingleListingLayout", output);
-
       return output;
     },
 
+    // available_widgets
     theAvailableWidgets() {
       let available_widgets = JSON.parse(
         JSON.stringify(this.available_widgets)
@@ -478,7 +464,6 @@ export default {
           if (show_if_cond_state.status) {
             let widget_keys = [];
             for (let matched_field of show_if_cond_state.matched_data) {
-              // console.log( {matched_field} );
               let _main_widget = JSON.parse(JSON.stringify(main_widget));
               let current_key = widget_keys.includes(widget)
                 ? widget + "_" + (widget_keys.length + 1)
@@ -506,6 +491,7 @@ export default {
       return available_widgets;
     },
 
+    // widget options window active status
     widgetOptionsWindowActiveStatus() {
       return (widgetKey) => {
         if (
@@ -520,16 +506,13 @@ export default {
       };
     },
 
+    // widget card options window active status
     widgetCardOptionsWindowActiveStatus() {
       if (!this.isObject(this.widgetCardOptionsWindow.widget)) {
         return false;
       }
 
       return true;
-    },
-
-    _currentDraggingWidget() {
-      return this.currentDraggingWidget;
     },
   },
 
@@ -583,10 +566,12 @@ export default {
       this.importOldData();
     },
 
+    // getChildPayload
     getChildPayload(index) {
       return this.placeholders[index];
     },
 
+    // Handle the drop event
     onDrop(dropResult) {
       const draggablePlaceholders = this.placeholders.filter(
         (placeholder) => placeholder.type === "placeholder_item"
@@ -637,6 +622,7 @@ export default {
       this.allPlaceholderItems = newAllPlaceholderItems;
     },
 
+    // Get the payload for the settings child
     getSettingsChildPayload(draggedItemIndex, placeholderIndex) {
       // Return the payload containing both pieces of data
       return {
@@ -645,6 +631,7 @@ export default {
       };
     },
 
+    // Handle the drop event on elements
     onElementsDrop(dropResult, placeholder_index) {
       const { removedIndex, addedIndex, payload } = dropResult;
       const { draggedItemIndex, placeholderIndex } = payload;
@@ -724,10 +711,7 @@ export default {
       }
     },
 
-    getGhostParent() {
-      return document.body;
-    },
-
+    // Check if an object is truthy
     isTruthyObject(obj) {
       if (!obj && typeof obj !== "object" && !Array.isArray(obj)) {
         return false;
@@ -736,6 +720,7 @@ export default {
       return true;
     },
 
+    // Check if a string is a valid JSON
     isJSON(string) {
       try {
         JSON.parse(string);
@@ -828,10 +813,6 @@ export default {
           );
         }
 
-        // if ( placeholder.selectedWidgetList ) {
-        //   newPlaceholder.selectedWidgetList = placeholder.selectedWidgetList;
-        // }
-
         newPlaceholder.maxWidget =
           typeof newPlaceholder.maxWidget !== "undefined"
             ? parseInt(newPlaceholder.maxWidget)
@@ -896,6 +877,7 @@ export default {
       this.allPlaceholderItems = newAllPlaceholders;
     },
 
+    // Import Widgets
     importWidgets() {
       if (!this.isTruthyObject(this.widgets)) {
         return;
@@ -904,6 +886,7 @@ export default {
       this.available_widgets = this.widgets;
     },
 
+    // Import Card Options
     importCardOptions() {
       if (!this.isTruthyObject(this.cardOptions)) {
         return;
@@ -1214,149 +1197,7 @@ export default {
       return placeholders;
     },
 
-    onDragStartWidget(key, origin) {
-      this.currentDraggingWidget.key = key;
-      this.currentDraggingWidget.origin = origin;
-    },
-
-    onDragEndWidget() {
-      this.currentDraggingWidget.key = "";
-      this.currentDraggingWidget.origin = "";
-    },
-
-    maxWidgetLimitIsReached(path) {
-      if (!path.maxWidget) {
-        return false;
-      }
-      if (path.selectedWidgets.length >= path.maxWidget) {
-        return true;
-      }
-
-      return false;
-    },
-
-    widgetIsAccepted(path, key) {
-      if (!path.acceptedWidgets) {
-        return true;
-      }
-      if (!this.isTruthyObject(path.acceptedWidgets)) {
-        return true;
-      }
-
-      if (
-        path.acceptedWidgets.includes(this.theAvailableWidgets[key].widget_name)
-      ) {
-        return true;
-      }
-
-      return false;
-    },
-
-    widgetIsNotAccepted(path, key) {
-      if (!path.rejectedWidgets) {
-        return false;
-      }
-
-      if (!this.isTruthyObject(path.rejectedWidgets)) {
-        return false;
-      }
-
-      if (
-        path.rejectedWidgets.includes(this.theAvailableWidgets[key].widget_name)
-      ) {
-        return true;
-      }
-
-      return false;
-    },
-
-    widgetIsDropable(path) {
-      if (!this._currentDraggingWidget.key.length) {
-        return false;
-      }
-
-      if (!this.isTruthyObject(this._currentDraggingWidget.origin)) {
-        return false;
-      }
-
-      if (path.selectedWidgets.includes(this._currentDraggingWidget.key)) {
-        return true;
-      }
-
-      if (this.maxWidgetLimitIsReached(path)) {
-        return false;
-      }
-
-      if (this.widgetIsNotAccepted(path, this._currentDraggingWidget.key)) {
-        return false;
-      }
-
-      if (!this.widgetIsAccepted(path, this._currentDraggingWidget.key)) {
-        return false;
-      }
-
-      return true;
-    },
-
-    appendWidget(dest_key, dest_path) {
-      const key = this.currentDraggingWidget.key;
-      const from = this.currentDraggingWidget.origin.selectedWidgets;
-      const origin_index = from.indexOf(key);
-      let dest_index = dest_path.selectedWidgets.indexOf(dest_key) + 1;
-
-      if (dest_path.selectedWidgets.includes(key) && 0 === origin_index) {
-        dest_index--;
-      }
-
-      Vue.delete(from, from.indexOf(key));
-      dest_path.selectedWidgets.splice(
-        dest_index,
-        0,
-        this.currentDraggingWidget.key
-      );
-
-      this.onDragEndWidget();
-    },
-
-    handleDropOnPlaceholder(dest) {
-      // return;
-      const key = this.currentDraggingWidget.key;
-      const from = this.currentDraggingWidget.origin.selectedWidgets;
-      const to = dest.selectedWidgets;
-
-      if (!this.isTruthyObject(from)) {
-        return;
-      }
-      if (!this.isTruthyObject(to)) {
-        return;
-      }
-      if (this.maxWidgetLimitIsReached(dest)) {
-        return;
-      }
-      if (!this.widgetIsAccepted(dest, key)) {
-        return;
-      }
-
-      if (!to.includes(key)) {
-        Vue.delete(from, from.indexOf(key));
-        Vue.set(to, to.length, key);
-      }
-
-      this.onDragEndWidget();
-    },
-
-    handleDragEnterOnPlaceholder(where) {
-      // console.log( 'handleDragEnterOnPlaceholder', where );
-    },
-
-    handleDragOverOnPlaceholder(where) {
-      // console.log( 'handleDragOverOnPlaceholder', where );
-    },
-
-    handleDragleaveOnPlaceholder(where) {
-      // console.log( 'handleDragleaveOnPlaceholder', where );
-    },
-
+    // Edit Widget
     editWidget(key) {
       if (key === this.widgetOptionsWindow.widget) {
         this.closeWidgetOptionsWindow();
@@ -1382,135 +1223,17 @@ export default {
       this.active_insert_widget_key = "";
     },
 
-    editOption(widget_path, widget_key) {
-      if (!this.isObject(widget_path[widget_key].options)) {
-        return;
-      }
-
-      let widget_options = widget_path[widget_key].options;
-      // let window_default = JSON.parse( JSON.stringify( this.widgetOptionsWindowDefault ) );
-      let window_default = this.widgetOptionsWindowDefault;
-
-      this.widgetCardOptionsWindow = { ...window_default, ...widget_options };
-      this.widgetCardOptionsWindow.widget = { path: widget_path, widget_key };
-    },
-
-    updateCardWidgetOptionsData(data, options_window) {
-      return;
-
-      if (
-        typeof this.card_option_widgets[options_window.widget] === "undefined"
-      ) {
-        return;
-      }
-
-      if (
-        typeof this.card_option_widgets[options_window.widget].options ===
-        "undefined"
-      ) {
-        return;
-      }
-
-      Vue.set(
-        this.card_option_widgets[options_window.widget].options,
-        "fields",
-        data
-      );
-    },
-
+    // Update Widget Options
     updateWidgetOptionsData(data, options_window) {
       return;
-      if (typeof this.active_widgets[options_window.widget] === "undefined") {
-        return;
-      }
-
-      if (
-        typeof this.active_widgets[options_window.widget].options ===
-        "undefined"
-      ) {
-        return;
-      }
     },
 
-    closeCardWidgetOptionsWindow() {
-      this.widgetCardOptionsWindow = this.widgetOptionsWindowDefault;
-    },
-
+    // Close Widget Options Window
     closeWidgetOptionsWindow() {
       this.widgetOptionsWindow = this.widgetOptionsWindowDefault;
     },
 
-    trashWidget(key, where, placeholderIndex) {
-      if (!where.selectedWidgets.includes(key)) {
-        return;
-      }
-
-      let widgetIndex = where.selectedWidgets.indexOf(key);
-      Vue.delete(where.selectedWidgets, widgetIndex);
-
-      if (typeof this.active_widgets[key] === "undefined") {
-        return;
-      }
-
-      Vue.delete(this.active_widgets, key);
-
-      if (key === this.widgetOptionsWindow.widget) {
-        this.closeWidgetOptionsWindow();
-      }
-
-      if (!where.canDelete) {
-        return;
-      }
-
-      if (where.selectedWidgets.length) {
-        return;
-      }
-
-      if (typeof this.placeholders[placeholderIndex] === "undefined") {
-        return;
-      }
-
-      Vue.delete(this.placeholders, placeholderIndex);
-    },
-
-    activeInsertWindow(current_item_key) {
-      let self = this;
-
-      setTimeout(function () {
-        if (self.active_insert_widget_key === current_item_key) {
-          self.active_insert_widget_key = "";
-          return;
-        }
-
-        self.active_insert_widget_key = current_item_key;
-      }, 0);
-    },
-
-    closeInsertWindow(widget_insert_window) {
-      this.active_insert_widget_key = "";
-    },
-
-    getWidgetLabel(widget) {
-      let label = "";
-
-      if (typeof widget.label === "string") {
-        label = widget.label;
-      }
-
-      if (
-        this.isObject(widget.options) &&
-        widget.options.fields &&
-        widget.options.fields.label &&
-        widget.options.fields.type === "text" &&
-        widget.options.fields.label.value &&
-        widget.options.fields.label.value.length
-      ) {
-        label = widget.options.fields.label.value;
-      }
-
-      return label;
-    },
-
+    // Get Active Insert Window Status
     getActiveInsertWindowStatus(current_item_key) {
       if (current_item_key === this.active_insert_widget_key) {
         return true;
@@ -1519,9 +1242,12 @@ export default {
       return false;
     },
 
+    // Close Elements Settings
     closeElementsSettings() {
       this.elementsSettingsOpened = false;
     },
+
+    // Toggle Elements Settings
     toggleElementsSettings() {
       this.elementsSettingsOpened = !this.elementsSettingsOpened;
     },

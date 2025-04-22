@@ -39,10 +39,10 @@
                     trashWidget($event, local_layout.top.quick_actions)
                   "
                   @open-widgets-picker-window="
-                    activeInsertWindow('top_quick_actions')
+                    toggleInsertWindow('top_quick_actions')
                   "
                   @open-widgets-option-window="
-                    activeOptionWindow('top_quick_actions')
+                    toggleOptionWindow('top_quick_actions')
                   "
                   @close-widgets-picker-window="closeInsertWindow()"
                   @close-widgets-option-window="closeOptionWindow()"
@@ -82,10 +82,10 @@
                     trashWidget($event, local_layout.top.quick_info)
                   "
                   @open-widgets-picker-window="
-                    activeInsertWindow('top_quick_info')
+                    toggleInsertWindow('top_quick_info')
                   "
                   @open-widgets-option-window="
-                    activeOptionWindow('top_quick_info')
+                    toggleOptionWindow('top_quick_info')
                   "
                   @close-widgets-picker-window="closeInsertWindow()"
                   @close-widgets-option-window="closeOptionWindow()"
@@ -175,8 +175,8 @@
               @insert-widget="insertWidget($event, local_layout.body.bottom)"
               @edit-widget="editWidget($event)"
               @trash-widget="trashWidget($event, local_layout.body.bottom)"
-              @open-widgets-picker-window="activeInsertWindow('body_bottom')"
-              @open-widgets-option-window="activeOptionWindow('body_bottom')"
+              @open-widgets-picker-window="toggleInsertWindow('body_bottom')"
+              @open-widgets-option-window="toggleOptionWindow('body_bottom')"
               @close-widgets-picker-window="closeInsertWindow()"
               @close-widgets-option-window="closeOptionWindow()"
               @update="
@@ -209,8 +209,8 @@
                 @insert-widget="insertWidget($event, local_layout.footer.left)"
                 @edit-widget="editWidget($event)"
                 @trash-widget="trashWidget($event, local_layout.footer.left)"
-                @open-widgets-picker-window="activeInsertWindow('footer_left')"
-                @open-widgets-option-window="activeOptionWindow('footer_left')"
+                @open-widgets-picker-window="toggleInsertWindow('footer_left')"
+                @open-widgets-option-window="toggleOptionWindow('footer_left')"
                 @close-widgets-picker-window="closeInsertWindow()"
                 @close-widgets-option-window="closeOptionWindow()"
                 @update="
@@ -244,8 +244,8 @@
                 @insert-widget="insertWidget($event, local_layout.footer.right)"
                 @edit-widget="editWidget($event)"
                 @trash-widget="trashWidget($event, local_layout.footer.right)"
-                @open-widgets-picker-window="activeInsertWindow('footer_right')"
-                @open-widgets-option-window="activeOptionWindow('footer_right')"
+                @open-widgets-picker-window="toggleInsertWindow('footer_right')"
+                @open-widgets-option-window="toggleOptionWindow('footer_right')"
                 @close-widgets-picker-window="closeInsertWindow()"
                 @close-widgets-option-window="closeOptionWindow()"
                 @update="
@@ -787,8 +787,8 @@ export default {
       }
     },
 
-    // Active Insert Window
-    activeInsertWindow(current_item_key) {
+    // Toggle Insert Window
+    toggleInsertWindow(current_item_key) {
       if (this.active_insert_widget_key === current_item_key) {
         this.active_insert_widget_key = "";
         this.active_option_widget_key = "";
@@ -798,8 +798,8 @@ export default {
       this.active_insert_widget_key = current_item_key;
     },
 
-    // Active Option Window
-    activeOptionWindow(current_item_key) {
+    // Toggle Option Window
+    toggleOptionWindow(current_item_key) {
       if (this.active_option_widget_key === current_item_key) {
         this.active_option_widget_key = "";
         return;

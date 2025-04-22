@@ -38,10 +38,10 @@
                       trashWidget($event, local_layout.thumbnail.top_left)
                     "
                     @open-widgets-picker-window="
-                      activeInsertWindow('thumbnail_top_left')
+                      toggleInsertWindow('thumbnail_top_left')
                     "
                     @open-widgets-option-window="
-                      activeOptionWindow('thumbnail_top_left')
+                      toggleOptionWindow('thumbnail_top_left')
                     "
                     @close-widgets-picker-window="closeInsertWindow()"
                     @close-widgets-option-window="closeOptionWindow()"
@@ -85,10 +85,10 @@
                       trashWidget($event, local_layout.thumbnail.top_right)
                     "
                     @open-widgets-picker-window="
-                      activeInsertWindow('thumbnail_top_right')
+                      toggleInsertWindow('thumbnail_top_right')
                     "
                     @open-widgets-option-window="
-                      activeOptionWindow('thumbnail_top_right')
+                      toggleOptionWindow('thumbnail_top_right')
                     "
                     @close-widgets-picker-window="closeInsertWindow()"
                     @close-widgets-option-window="closeOptionWindow()"
@@ -132,10 +132,10 @@
                       trashWidget($event, local_layout.thumbnail.bottom_left)
                     "
                     @open-widgets-picker-window="
-                      activeInsertWindow('thumbnail_bottom_left')
+                      toggleInsertWindow('thumbnail_bottom_left')
                     "
                     @open-widgets-option-window="
-                      activeOptionWindow('thumbnail_bottom_left')
+                      toggleOptionWindow('thumbnail_bottom_left')
                     "
                     @close-widgets-picker-window="closeInsertWindow()"
                     @close-widgets-option-window="closeOptionWindow()"
@@ -179,10 +179,10 @@
                       trashWidget($event, local_layout.thumbnail.bottom_right)
                     "
                     @open-widgets-picker-window="
-                      activeInsertWindow('thumbnail_bottom_right')
+                      toggleInsertWindow('thumbnail_bottom_right')
                     "
                     @open-widgets-option-window="
-                      activeOptionWindow('thumbnail_bottom_right')
+                      toggleOptionWindow('thumbnail_bottom_right')
                     "
                     @close-widgets-picker-window="closeInsertWindow()"
                     @close-widgets-option-window="closeOptionWindow()"
@@ -229,10 +229,10 @@
                   trashWidget($event, local_layout.thumbnail.avatar)
                 "
                 @open-widgets-picker-window="
-                  activeInsertWindow('thumbnail_avatar')
+                  toggleInsertWindow('thumbnail_avatar')
                 "
                 @open-widgets-option-window="
-                  activeOptionWindow('thumbnail_avatar')
+                  toggleOptionWindow('thumbnail_avatar')
                 "
                 @close-widgets-picker-window="closeInsertWindow()"
                 @close-widgets-option-window="closeOptionWindow()"
@@ -302,10 +302,10 @@
                 @edit-widget="editWidget($event)"
                 @trash-widget="trashWidget($event, local_layout.body.badges)"
                 @open-widgets-picker-window="
-                  activeInsertWindow('thumbnail_body_badges')
+                  toggleInsertWindow('thumbnail_body_badges')
                 "
                 @open-widgets-option-window="
-                  activeOptionWindow('thumbnail_body_badges')
+                  toggleOptionWindow('thumbnail_body_badges')
                 "
                 @close-widgets-picker-window="closeInsertWindow()"
                 @close-widgets-option-window="closeOptionWindow()"
@@ -340,10 +340,10 @@
                 @edit-widget="editWidget($event)"
                 @trash-widget="trashWidget($event, local_layout.body.bottom)"
                 @open-widgets-picker-window="
-                  activeInsertWindow('thumbnail_body_bottom')
+                  toggleInsertWindow('thumbnail_body_bottom')
                 "
                 @open-widgets-option-window="
-                  activeOptionWindow('thumbnail_body_bottom')
+                  toggleOptionWindow('thumbnail_body_bottom')
                 "
                 @close-widgets-picker-window="closeInsertWindow()"
                 @close-widgets-option-window="closeOptionWindow()"
@@ -382,10 +382,10 @@
                 @edit-widget="editWidget($event)"
                 @trash-widget="trashWidget($event, local_layout.footer.left)"
                 @open-widgets-picker-window="
-                  activeInsertWindow('thumbnail_footer_left')
+                  toggleInsertWindow('thumbnail_footer_left')
                 "
                 @open-widgets-option-window="
-                  activeOptionWindow('thumbnail_footer_left')
+                  toggleOptionWindow('thumbnail_footer_left')
                 "
                 @close-widgets-picker-window="closeInsertWindow()"
                 @close-widgets-option-window="closeOptionWindow()"
@@ -421,10 +421,10 @@
                 @edit-widget="editWidget($event)"
                 @trash-widget="trashWidget($event, local_layout.footer.right)"
                 @open-widgets-picker-window="
-                  activeInsertWindow('thumbnail_footer_right')
+                  toggleInsertWindow('thumbnail_footer_right')
                 "
                 @open-widgets-option-window="
-                  activeOptionWindow('thumbnail_footer_right')
+                  toggleOptionWindow('thumbnail_footer_right')
                 "
                 @close-widgets-picker-window="closeInsertWindow()"
                 @close-widgets-option-window="closeOptionWindow()"
@@ -1042,8 +1042,8 @@ export default {
       }
     },
 
-    // Active Insert Window
-    activeInsertWindow(current_item_key) {
+    // Toggle Insert Window
+    toggleInsertWindow(current_item_key) {
       if (this.active_insert_widget_key === current_item_key) {
         this.active_insert_widget_key = "";
         this.active_option_widget_key = "";
@@ -1053,8 +1053,8 @@ export default {
       this.active_insert_widget_key = current_item_key;
     },
 
-    // Active Option Window
-    activeOptionWindow(current_item_key) {
+    // Toggle Option Window
+    toggleOptionWindow(current_item_key) {
       if (this.active_option_widget_key === current_item_key) {
         this.active_option_widget_key = "";
         return;

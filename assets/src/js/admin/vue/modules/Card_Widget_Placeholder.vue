@@ -216,6 +216,7 @@ export default {
 
       return this.selectedWidgets.length < this.maxWidget;
     },
+
     getContainerClass() {
       let classNames = {
         "drag-enter": this.placeholderDragEnter,

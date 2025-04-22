@@ -249,7 +249,6 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 				$response = array(
 					'redirect_url' => esc_url_raw( ATBDP_Permalink::get_signin_signup_page_link( array( 'registration_status' => true ) ) ),
 					'message' => esc_html__( 'Registration completed. Please check your email for confirmation. You will be redirected...', 'directorist' ),
-					'test' => $redirection_link,
 				);
 
 				wp_send_json_success( $response );

@@ -232,13 +232,14 @@ use Directorist\Listings_CSV_Importer as Importer;
 
 			$supported_post_status = array_keys( get_post_statuses() );
 			$listing_create_status = directorist_get_listing_create_status( $directory_id );
+			$offset                = ! empty( $_POST['offset'] ) ? absint( $_POST['offset'] ) : 0;
 			$position              = ! empty( $_POST['position'] ) ? absint( $_POST['position'] ) : 0;
-            $preview_image         = ! empty( $_POST['listing_img'] ) ? directorist_clean( wp_unslash( $_POST['listing_img'] ) ) : '';
-            $title                 = ! empty( $_POST['listing_title'] ) ? directorist_clean( wp_unslash( $_POST['listing_title'] ) ) : '';
-            $listing_status        = ! empty( $_POST['listing_status'] ) ? directorist_clean( wp_unslash( $_POST['listing_status'] ) ) : '';
-            $description           = ! empty( $_POST['listing_content'] ) ? directorist_clean( wp_unslash( $_POST['listing_content'] ) ) : '';
-            $metas                 = ! empty( $_POST['meta'] ) ? directorist_clean( wp_unslash( $_POST['meta'] ) ) : array();
-            $tax_inputs            = ! empty( $_POST['tax_input'] ) ? directorist_clean( wp_unslash( $_POST['tax_input'] ) ) : array();
+			$preview_image         = ! empty( $_POST['listing_img'] ) ? directorist_clean( wp_unslash( $_POST['listing_img'] ) ) : '';
+			$title                 = ! empty( $_POST['listing_title'] ) ? directorist_clean( wp_unslash( $_POST['listing_title'] ) ) : '';
+			$listing_status        = ! empty( $_POST['listing_status'] ) ? directorist_clean( wp_unslash( $_POST['listing_status'] ) ) : '';
+			$description           = ! empty( $_POST['listing_content'] ) ? directorist_clean( wp_unslash( $_POST['listing_content'] ) ) : '';
+			$metas                 = ! empty( $_POST['meta'] ) ? directorist_clean( wp_unslash( $_POST['meta'] ) ) : array();
+			$tax_inputs            = ! empty( $_POST['tax_input'] ) ? directorist_clean( wp_unslash( $_POST['tax_input'] ) ) : array();
 			$publish_date          = ! empty( $metas['publish_date'] ) ? directorist_clean( $metas['publish_date'] ) : '';
 
 			$total_items = $importer->get_total_items();
@@ -249,13 +250,6 @@ use Directorist\Listings_CSV_Importer as Importer;
 				) );
             }
 
-			// Make sure header isn't included in the import.
-			if ( $position < 1 ) {
-				$position = 1;
-			} else {
-				$position += 1;
-			}
-
 			$this->start_time  = time();
 			$counter           = 1;
 			$batch_size        = apply_filters( 'atbdp_listing_import_limit_per_cycle', 50 );
@@ -264,13 +258,34 @@ use Directorist\Listings_CSV_Importer as Importer;
 			$terms_cache       = [];
 			$attachments_cache = [];
 
-			$header      = array_keys( $importer->get_header() );
-			$file_object = $importer->get_file_object();
-			$file_object->seek( $position );
+			$header        = array_keys( $importer->get_header() );
+			$columns_count = count( $header );
+			$file_object   = $importer->get_file_object();
+
+			// Ignore header
+			if ( $offset === 0 ) {
+				$file_object->fgetcsv();
+				$offset = $file_object->ftell();
+			}
+
+			$file_object->fseek( $offset, SEEK_SET );
 
 			while ( ! $file_object->eof() ) {
+				$position++;
 
-				$post = array_combine( $header, $file_object->fgetcsv() );
+				$row = $file_object->fgetcsv();
+
+				if ( empty( $row ) ) {
+					$failed_items[] = sprintf( 'Row %d: Empty row', $position );
+					continue;
+				}
+
+				if ( $columns_count !== count( $row ) ) {
+					$failed_items[] = sprintf( 'Row %d: Column count mismatch', $position );
+					continue;
+				}
+
+				$post = array_combine( $header, $row );
 
 				// /**
 				//  * Filters whether the listing import process should start.
@@ -295,8 +310,8 @@ use Directorist\Listings_CSV_Importer as Importer;
 				}
 
 				$args = array(
-					'post_title'   => isset( $post[ $title ] ) ? self::unescape_data( html_entity_decode( $post[ $title ] ) ) : '',
-					'post_content' => isset( $post[ $description ] ) ? self::unescape_data( html_entity_decode( $post[ $description ] ) ) : '',
+					'post_title'   => static::sanitize_text( $post[ $title ] ?? '' ),
+					'post_content' => static::sanitize_textarea( $post[ $description ] ?? '' ),
 					'post_type'    => ATBDP_POST_TYPE,
 					'post_status'  => $listing_status
 				);
@@ -310,13 +325,18 @@ use Directorist\Listings_CSV_Importer as Importer;
 				}
 
 				// Create listing
-				$post_id = wp_insert_post( $args );
+				$post_id = wp_insert_post( $args, true );
 				if ( is_wp_error( $post_id ) ) {
-					$failed_items[] = $args['post_title'];
+					$failed_items[] = sprintf(
+						'Row %d - Title %s: %s',
+						$file_object->key(),
+						$args['post_title'],
+						$post_id->get_error_message()
+					);
 					continue;
 				}
 
-				$imported_items[] = $args['post_title'];
+				$imported_items[] = sprintf( 'Row %d - ID %d: %s', $file_object->key(), $post_id, $args['post_title'] );
 
 				// Save listing directory type.
 				update_post_meta( $post_id, '_directory_type', $directory_id );
@@ -329,7 +349,8 @@ use Directorist\Listings_CSV_Importer as Importer;
 							continue;
 						}
 
-						$terms = ! empty( $post[ $value ] ) ? explode( ',', $post[ $value ] ) : array();
+						$terms = static::sanitize_text( $post[ $value ] ?? '' );
+						$terms = empty( $terms ) ? array() : explode( ',', $post[ $value ] );
 						if ( ! $terms ) {
 							continue;
 						}
@@ -449,12 +470,10 @@ use Directorist\Listings_CSV_Importer as Importer;
 			// 	directorist_background_image_process( $deferred_resizable_images );
 			// }
 
-			$position = (int) $file_object->key();
-
-			$data['position']       = $position;
+			$data['offset']         = $file_object->ftell();
 			$data['redirect_url']   = esc_url( admin_url( 'edit.php?post_type=at_biz_dir&page=tools&step=3' ) );
 			$data['total']          = $total_items;
-			$data['percentage']     = ceil( ( $position / $total_items ) * 100 );
+			$data['position']       = $position;
 			$data['imported_items'] = $imported_items;
 			$data['failed_items']   = $failed_items;
 			$data['done']           = ( $position === $total_items );
@@ -876,6 +895,13 @@ use Directorist\Listings_CSV_Importer as Importer;
 
 			return $return;
 		}
-    }
 
+		protected static function sanitize_text( $value ) {
+			return static::unescape_data( sanitize_text_field( $value ) );
+		}
+
+		protected static function sanitize_textarea( $value ) {
+			return static::unescape_data( sanitize_textarea_field( $value ) );
+		}
+    }
 endif;

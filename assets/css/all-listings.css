@@ -7908,9 +7908,11 @@ body.modal-overlay-enabled:before {
   margin: 10px auto 0;
   border-radius: 12px;
   overflow: auto;
+  height: auto;
 }
 .directorist-single-listing-slider-thumb .swiper-wrapper {
   gap: 10px;
+  height: auto;
 }
 .directorist-single-listing-slider-thumb .directorist-swiper__navigation {
   display: none;
@@ -7961,6 +7963,7 @@ body.modal-overlay-enabled:before {
 .directorist-swiper-related-listing.directorist-swiper {
   padding: 15px;
   margin: -15px;
+  height: auto;
 }
 .directorist-swiper-related-listing.directorist-swiper > .directorist-swiper__navigation .directorist-swiper__nav i {
   height: 40px;
@@ -7969,6 +7972,9 @@ body.modal-overlay-enabled:before {
 .directorist-swiper-related-listing.directorist-swiper > .directorist-swiper__navigation .directorist-swiper__nav i:after {
   width: 14px;
   height: 14px;
+}
+.directorist-swiper-related-listing.directorist-swiper .swiper-wrapper {
+  height: auto;
 }
 .directorist-swiper-related-listing.slider-has-one-item > .directorist-swiper__navigation, .directorist-swiper-related-listing.slider-has-less-items > .directorist-swiper__navigation {
   display: none;

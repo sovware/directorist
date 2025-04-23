@@ -56,8 +56,8 @@ if (!class_exists('ATBDP_Listing')):
             add_action('restrict_manage_posts', array($this, 'atbdp_listings_filter'));
             add_filter('parse_query', array($this, 'listing_type_search_query'));
 
-            add_action('wp_ajax_directorist_track_listing_views', array( $this, 'directorist_track_listing_views' ) );
-            add_action('wp_ajax_nopriv_directorist_track_listing_views', array( $this, 'directorist_track_listing_views' ) );
+            add_action('wp_ajax_directorist_track_listing_views', array( $this, 'track_listing_view_count' ) );
+            add_action('wp_ajax_nopriv_directorist_track_listing_views', array( $this, 'track_listing_view_count' ) );
 
 			add_filter( 'the_title', array( $this, 'add_preview_prefix_in_title' ), 10, 2 );
         }
@@ -368,28 +368,37 @@ if (!class_exists('ATBDP_Listing')):
             directorist_set_listing_views_count( $postID );
         }
 
-        public function directorist_track_listing_views() {
+        public function track_listing_view_count() {
             if ( ! directorist_verify_nonce() ) {
 				wp_send_json_error(
 					array(
-						'error'=> __( 'Session expired, please reload the window and try again.', 'directorist' ),
+						'error'=> __( 'Invalid request.', 'directorist' ),
+                        'data' => $_REQUEST,
 					),
+                    400
 				);
 			}
 
-            $count_loggedin = get_directorist_option( 'count_loggedin_user' );
-            if ( is_user_logged_in() && empty( $count_loggedin ) ) {
+            $listing_id = absint( $_POST['listing_id'] ?? 0 );
+            if ( ! directorist_is_listing_post_type( $listing_id ) ) {
+                wp_send_json_error(
+					array(
+						'error'=> __( 'Invalid or empty listing id.', 'directorist' ),
+					),
+                    400
+				);
+            }
+
+            $should_track_logged_in = (bool) get_directorist_option( 'count_loggedin_user' );
+            if ( is_user_logged_in() && ! $should_track_logged_in ) {
                 return;
             }
 
-            if ( isset( $_POST['listing_id'] ) ) {
-                $listing_id         = absint( $_POST['listing_id'] );
-                $this->set_post_views( $listing_id );
-                // Return 'success' to the AJAX request to indicate that the view has been counted.
-                wp_send_json_success();
-            }
+            $this->set_post_views( $listing_id );
 
-            die();
+            wp_send_json_success( array(
+                'views' => directorist_get_listing_views_count( $listing_id ),
+            ) );
         }
     }
 

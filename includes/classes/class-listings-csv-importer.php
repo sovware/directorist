@@ -17,6 +17,8 @@ class Listings_CSV_Importer {
 	 */
 	protected $file = '';
 
+	protected $total_items = 0;
+
 	/**
 	 * SplFileObject instance.
 	 *
@@ -65,23 +67,45 @@ class Listings_CSV_Importer {
 			return 0;
 		}
 
-		// Total items excluding header.
-		$this->get_file_object()->seek(PHP_INT_MAX); // Move to last line
-		return $this->get_file_object()->key();
+		if ( $this->total_items ) {
+			return $this->total_items;
+		}
+
+		$file = $this->get_file_object();
+		$file->rewind();
+
+		// Skip header row
+		$file->fgetcsv();
+
+		$count = 0;
+		while ( ! $file->eof() ) {
+			$file->fgetcsv();
+			++$count;
+		}
+
+		// Reset file pointer
+		$file->rewind();
+
+		$this->total_items = $count;
+
+		return $this->total_items;
 	}
 
 	public function get_header() {
-		if (! $this->has_file() ) {
+		if ( ! $this->has_file() ) {
 			return [];
 		}
 
-		$this->get_file_object()->rewind();
-		$header_row = $this->get_file_object()->fgetcsv();
+		$file = $this->get_file_object();
+		$file->rewind();
 
-		$this->get_file_object()->next();
-		$first_row = $this->get_file_object()->fgetcsv();
+		$header_record = $file->fgetcsv();
+		$first_record  = $file->fgetcsv();
+		$header        = array_combine( $header_record, $first_record );
 
-		return array_combine( $header_row, $first_row );
+		$file->rewind();
+
+		return $header;
 	}
 
 	public function has_file() {

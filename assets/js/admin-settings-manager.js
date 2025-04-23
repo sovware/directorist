@@ -29559,7 +29559,10 @@ var render = function render() {
       "label": _vm.widgetTitle,
       "sublabel": _vm.widgetSubtitle,
       "icon": _vm.widgetIcon,
+<<<<<<< HEAD
       "info": _vm.widgetInfo,
+=======
+>>>>>>> 0316dfe3f4aac0d1c10a13742ea1b0e8019c61da
       "expanded": _vm.expandState
     },
     on: {
@@ -29677,6 +29680,7 @@ var render = function render() {
     domProps: {
       "innerHTML": _vm._s(_vm.sublabel)
     }
+<<<<<<< HEAD
   }) : _vm._e(), _vm._v(" "), _vm.info.length ? _c('span', {
     staticClass: "cptm-title-info",
     attrs: {
@@ -29690,6 +29694,14 @@ var render = function render() {
     staticClass: "cptm-form-builder-header-action-link",
     class: _vm.expanded ? 'action-collapse-down' : 'action-collapse-up',
     attrs: {
+=======
+  }) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "cptm-form-builder-group-field-item-header-actions"
+  }, [_c('a', {
+    staticClass: "cptm-form-builder-header-action-link",
+    class: _vm.expanded ? 'action-collapse-down' : 'action-collapse-up',
+    attrs: {
+>>>>>>> 0316dfe3f4aac0d1c10a13742ea1b0e8019c61da
       "href": "#"
     },
     on: {
@@ -29737,11 +29749,19 @@ var render = function render() {
         $event.stopPropagation();
       }
     }
+<<<<<<< HEAD
   }, [_c('h2', [_vm._v("Are you sure you want to proceed?")]), _vm._v(" "), _c('p', [_vm._v("\n      Deleting \""), _c('strong', [_vm._v(_vm._s(_vm.widgetName))]), _vm._v("\" " + _vm._s(_vm.reviewDeleteTitle) + "\n    ")]), _vm._v(" "), _c('button', {
     on: {
       "click": _vm.confirmDelete
     }
   }, [_vm._v(_vm._s(_vm.reviewDeleteMsg))]), _vm._v(" "), _c('button', {
+=======
+  }, [_c('h2', [_vm._v("Are you sure you want to proceed?")]), _vm._v(" "), _c('p', [_vm._v("\n      Removing \""), _c('strong', [_vm._v(_vm._s(_vm.widgetName))]), _vm._v("\" field will also remove it from the single and search pages.\n    ")]), _vm._v(" "), _c('button', {
+    on: {
+      "click": _vm.confirmDelete
+    }
+  }, [_vm._v("Yes, delete")]), _vm._v(" "), _c('button', {
+>>>>>>> 0316dfe3f4aac0d1c10a13742ea1b0e8019c61da
     staticClass: "cptm-widget-trash-confirmation-modal-action-btn__cancel",
     on: {
       "click": _vm.cancelDelete
@@ -33716,7 +33736,11 @@ var render = function render() {
       key: alert_key,
       staticClass: "cptm-form-alert",
       class: 'cptm-' + alert.type
+<<<<<<< HEAD
     }, [_vm._v("\r\n            " + _vm._s(alert.message) + "\r\n        ")]);
+=======
+    }, [_vm._v("\n            " + _vm._s(alert.message) + "\n        ")]);
+>>>>>>> 0316dfe3f4aac0d1c10a13742ea1b0e8019c61da
   }), 0) : _vm._e()]);
 };
 var staticRenderFns = [];
@@ -33946,6 +33970,7 @@ var render = function render() {
       }
     }
   }, 'component', _vm.$props, false)) : _vm._e();
+<<<<<<< HEAD
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -34050,6 +34075,8 @@ var render = function render() {
       "cancel": _vm.closeConfirmationModal
     }
   })], 1);
+=======
+>>>>>>> 0316dfe3f4aac0d1c10a13742ea1b0e8019c61da
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -36918,9 +36945,13 @@ var render = function render() {
     staticClass: "cptm-input-toggle-wrap"
   }, [_vm.label.length ? _c('label', [_c(_vm.labelType, {
     tag: "component"
+<<<<<<< HEAD
   }, [_vm._v(_vm._s(_vm.label))]), _vm._v(" "), _vm.subLabel.length ? _c('small', {
     staticClass: "cptm-sub-label"
   }, [_vm._v(_vm._s(_vm.subLabel))]) : _vm._e()], 1) : _vm._e(), _vm._v(" "), _c('div', {
+=======
+  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _c('div', {
+>>>>>>> 0316dfe3f4aac0d1c10a13742ea1b0e8019c61da
     staticClass: "directorist_vertical-align-m"
   }, [_c('div', {
     staticClass: "directorist_item"

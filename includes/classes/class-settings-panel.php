@@ -122,23 +122,6 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                 'data'                       => [],
             ];
 
-			$users = get_users(
-				array(
-					'role__not_in' => 'Administrator',   // Administrator | Subscriber
-					'number'       => apply_filters( 'directorist_announcement_user_query_num', 1000 ),
-				)
-			);
-            $recipient = [];
-
-            if ( ! empty( $users ) ) {
-                foreach ( $users as $user ) {
-                    $recipient[] = [
-                        'value' => $user->user_email,
-                        'label' => ( ! empty( $user->display_name ) ) ? $user->display_name : $user->user_nicename,
-                    ];
-                }
-            }
-
             $fields['listing_import_button'] = [
                 'type'            => 'button',
                 'url'             => admin_url( 'edit.php?post_type=at_biz_dir&page=tools' ),
@@ -604,34 +587,6 @@ Please remember that your order may be canceled if you do not make your payment 
                     'type'          => 'note',
                     'title'         => __('Need more Features?', 'directorist'),
                     'description'   => sprintf(__('You can add new features and expand the functionality of the plugin even more by using extensions. %s', 'directorist'), $this->extension_url),
-                ],
-
-                'announcement_to' => [
-                    'label'     => __('To', 'directorist'),
-                    'type'      => 'select',
-                    'value'     => 'all_user',
-                    'options'   => [
-                        [
-                            'value' => 'all_user',
-                            'label' => __( 'All User', 'directorist' )
-                        ],
-                        [
-                            'value' => 'selected_user',
-                            'label' => __( 'Selected User', 'directorist' )
-                        ]
-                    ]
-                ],
-
-                'announcement_subject' => [
-                    'label' => __('Subject', 'directorist'),
-                    'type'  => 'text',
-                    'value' => false
-                ],
-
-                'announcement_send_to_email' => [
-                    'label'   => __('Send a copy to email', 'directorist'),
-                    'type'    => 'toggle',
-                    'value' => true,
                 ],
 
                 // Button Type

@@ -10,7 +10,7 @@
 (function () {
   this.EzMediaUploader = function (args) {
     var defaults = {
-      containerClass: "directorist-image-upload--core",
+      containerClass: "directorist-image-upload",
       oldFiels: null,
       oldFielsUrl: null,
       maxFileSize: 0,

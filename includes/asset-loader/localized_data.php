@@ -173,7 +173,7 @@ class Localized_Data {
 			'is_admin'		    => is_admin(),
 			'media_uploader'  => apply_filters( 'atbdp_media_uploader', [
 				[
-					'element_id'        => 'directorist-image-upload--core',
+					'element_id'        => 'directorist-image-upload',
 					'meta_name'         => 'listing_img',
 					'files_meta_name'   => 'files_meta',
 					'error_msg'         => __('Listing gallery has invalid files', 'directorist'),

@@ -19446,11 +19446,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(where, "selectedWidgets", payload.selected_widgets);
     },
     // Close Insert Window
-    closeInsertWindow: function closeInsertWindow(widget_insert_window) {
+    closeInsertWindow: function closeInsertWindow() {
       this.active_insert_widget_key = "";
     },
     // Close Option Window
-    closeOptionWindow: function closeOptionWindow(widget_option_window) {
+    closeOptionWindow: function closeOptionWindow() {
       this.active_option_widget_key = "";
     },
     // Get Active Insert Window Status
@@ -19987,11 +19987,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(where, "selectedWidgets", payload.selected_widgets);
     },
     // Close Insert Window
-    closeInsertWindow: function closeInsertWindow(widget_insert_window) {
+    closeInsertWindow: function closeInsertWindow() {
       this.active_insert_widget_key = "";
     },
     // Close Option Window
-    closeOptionWindow: function closeOptionWindow(widget_option_window) {
+    closeOptionWindow: function closeOptionWindow() {
       this.active_option_widget_key = "";
     },
     // Get Active Insert Window Status
@@ -20515,11 +20515,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(where, "selectedWidgets", payload.selected_widgets);
     },
     // Close Insert Window
-    closeInsertWindow: function closeInsertWindow(widget_insert_window) {
+    closeInsertWindow: function closeInsertWindow() {
       this.active_insert_widget_key = "";
     },
     // Close Option Window
-    closeOptionWindow: function closeOptionWindow(widget_option_window) {
+    closeOptionWindow: function closeOptionWindow() {
       this.active_option_widget_key = "";
     },
     // Get Active Insert Window Status
@@ -21002,11 +21002,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(where, "selectedWidgets", payload.selected_widgets);
     },
     // Close Insert Window
-    closeInsertWindow: function closeInsertWindow(widget_insert_window) {
+    closeInsertWindow: function closeInsertWindow() {
       this.active_insert_widget_key = "";
     },
     // Close Option Window
-    closeOptionWindow: function closeOptionWindow(widget_option_window) {
+    closeOptionWindow: function closeOptionWindow() {
       this.active_option_widget_key = "";
     },
     // Get Active Insert Window Status
@@ -21489,11 +21489,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(where, "selectedWidgets", payload.selected_widgets);
     },
     // Close Insert Window
-    closeInsertWindow: function closeInsertWindow(widget_insert_window) {
+    closeInsertWindow: function closeInsertWindow() {
       this.active_insert_widget_key = "";
     },
     // Close Option Window
-    closeOptionWindow: function closeOptionWindow(widget_option_window) {
+    closeOptionWindow: function closeOptionWindow() {
       this.active_option_widget_key = "";
     },
     // Get Active Insert Window Status
@@ -21970,11 +21970,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(where, "selectedWidgets", payload.selected_widgets);
     },
     // Close Insert Window
-    closeInsertWindow: function closeInsertWindow(widget_insert_window) {
+    closeInsertWindow: function closeInsertWindow() {
       this.active_insert_widget_key = "";
     },
     // Close Option Window
-    closeOptionWindow: function closeOptionWindow(widget_option_window) {
+    closeOptionWindow: function closeOptionWindow() {
       this.active_option_widget_key = "";
     },
     // Get Active Insert Window Status

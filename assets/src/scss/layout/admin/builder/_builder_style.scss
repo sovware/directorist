@@ -1116,6 +1116,7 @@ $light-gray: #f4f5f7;
     z-index: 10;
     background: #f8f9fa;
     border: none;
+    border-bottom: 1px solid #e3e6e9;
     border-radius: 0 0 8px 8px;
     &:before {
       content: "";
@@ -1140,16 +1141,16 @@ $light-gray: #f4f5f7;
     }
     @media screen and (max-width: 991px) {
       right: 27px;
-      bottom: 71px;
+      bottom: 70px;
     }
     @media screen and (max-width: 767px) {
       width: calc(100% - 52px);
       right: 26px;
-      bottom: 101px;
+      bottom: 100px;
     }
     @media screen and (max-width: 480px) {
       right: 1px;
-      bottom: 96px;
+      bottom: 95px;
       width: calc(100% - 2px);
     }
   }

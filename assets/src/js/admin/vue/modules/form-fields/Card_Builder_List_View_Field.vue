@@ -886,12 +886,12 @@ export default {
     },
 
     // Close Insert Window
-    closeInsertWindow(widget_insert_window) {
+    closeInsertWindow() {
       this.active_insert_widget_key = "";
     },
 
     // Close Option Window
-    closeOptionWindow(widget_option_window) {
+    closeOptionWindow() {
       this.active_option_widget_key = "";
     },
 

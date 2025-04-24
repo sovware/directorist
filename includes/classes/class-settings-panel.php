@@ -2378,6 +2378,7 @@ Please remember that your order may be canceled if you do not make your payment 
                     'showDefaultOption' => true,
                     'options' => $this->get_pages_vl_arrays(),
                 ],
+
                 // seo settings
                 'atbdp_enable_seo' => [
                     'type'  => 'toggle',
@@ -4344,7 +4345,6 @@ Please remember that your order may be canceled if you do not make your payment 
                                 ],
                             ] ),
                         ],
-
                         'miscellaneous' => [
                             'label'     => __('Miscellaneous', 'directorist'),
                             'icon' => '<i class="fas fa-thumbtack"></i>',

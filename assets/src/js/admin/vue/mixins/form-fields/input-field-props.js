@@ -62,6 +62,10 @@ export default {
             type: String,
             default: '',
         },
+        icon: {
+            type: String,
+            default: '',
+        },
         label: {
             type: [String, Number],
             default: '',
@@ -131,6 +135,14 @@ export default {
         },
         name: {
             type: [String, Number],
+            default: '',
+        },
+        multi_directory_status: {
+            type: String,
+            default: '',
+        },
+        schema: {
+            type: String,
             default: '',
         },
         value: {
@@ -216,6 +228,6 @@ export default {
         },
         editorID: {
             required: false,
-        },
+        }
     },
 }

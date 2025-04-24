@@ -1663,13 +1663,22 @@
 
   // Add Margin on Image Upload
   function previewContainerMargin() {
-    var uploadContainer = document.querySelector('.ez-media-uploader');
-    var previewImg = document.querySelector('.ezmu__preview-section');
-    if(previewImg.clientHeight > 0) {
-      uploadContainer.style.marginBottom = previewImg.clientHeight + 65 + 'px';
-    } else {
-      uploadContainer.style.marginBottom = 0;
+    var previewContainers = document.querySelectorAll('.directorist-form-image-upload-field');
+
+    if (!previewContainers.length) {
+      return;
     }
+
+    previewContainers.forEach(function (container) {
+      var uploadContainer = container.querySelector('.ez-media-uploader');
+      var previewImg = container.querySelector('.ezmu__preview-section');
+
+      if (previewImg.clientHeight > 0) {
+        uploadContainer.style.marginBottom = previewImg.clientHeight + 65 + 'px';
+      } else {
+        uploadContainer.style.marginBottom = 0;
+      }
+    });
     
   }
 

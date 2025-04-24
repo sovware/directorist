@@ -363,6 +363,7 @@
     border: none;
     &.directorist-btn.directorist-btn-light {
       background-color: var(--directorist-color-white);
+      border: 1px solid var(--directorist-color-light) !important;
     }
     &.directorist-single-listing-top__btn-edit {
       .directorist-single-listing-action__text {

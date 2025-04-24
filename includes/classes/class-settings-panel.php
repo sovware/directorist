@@ -27,8 +27,6 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
 			add_action( 'wp_ajax_save_settings_data', [ $this, 'handle_save_settings_data_request' ] );
 			add_action( 'wp_ajax_save_settings_data', [ $this, 'handle_save_settings_data_request' ] );
             add_filter( 'atbdp_listing_type_settings_field_list', [ $this, 'register_setting_fields' ] );
-
-            $this->extension_url = sprintf("<a target='_blank' href='%s'>%s</a>", esc_url(admin_url('edit.php?post_type=at_biz_dir&page=atbdp-extension')), __('Checkout Awesome Extensions', 'directorist'));
 		}
 
 		public function update_init_options() {
@@ -123,23 +121,6 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                 'button-label-on-processing' => '<i class="fas fa-circle-notch fa-spin"></i> Processing',
                 'data'                       => [],
             ];
-
-			$users = get_users(
-				array(
-					'role__not_in' => 'Administrator',   // Administrator | Subscriber
-					'number'       => apply_filters( 'directorist_announcement_user_query_num', 1000 ),
-				)
-			);
-            $recipient = [];
-
-            if ( ! empty( $users ) ) {
-                foreach ( $users as $user ) {
-                    $recipient[] = [
-                        'value' => $user->user_email,
-                        'label' => ( ! empty( $user->display_name ) ) ? $user->display_name : $user->user_nicename,
-                    ];
-                }
-            }
 
             $fields['listing_import_button'] = [
                 'type'            => 'button',
@@ -410,6 +391,7 @@ SWBD;
 		// prepare_settings
 		public function prepare_settings()
 		{
+			$this->extension_url  = sprintf( "<a target='_blank' href='%s'>%s</a>", esc_url( admin_url( 'edit.php?post_type=at_biz_dir&page=atbdp-extension' ) ), 'Checkout Awesome Extensions' );
 			$business_hours_label = sprintf(__('Open Now %s', 'directorist'), !class_exists('BD_Business_Hour') ? '(Requires Business Hours extension)' : '');
 
 			$bank_transfer_instruction = "
@@ -605,34 +587,6 @@ Please remember that your order may be canceled if you do not make your payment 
                     'type'          => 'note',
                     'title'         => __('Need more Features?', 'directorist'),
                     'description'   => sprintf(__('You can add new features and expand the functionality of the plugin even more by using extensions. %s', 'directorist'), $this->extension_url),
-                ],
-
-                'announcement_to' => [
-                    'label'     => __('To', 'directorist'),
-                    'type'      => 'select',
-                    'value'     => 'all_user',
-                    'options'   => [
-                        [
-                            'value' => 'all_user',
-                            'label' => __( 'All User', 'directorist' )
-                        ],
-                        [
-                            'value' => 'selected_user',
-                            'label' => __( 'Selected User', 'directorist' )
-                        ]
-                    ]
-                ],
-
-                'announcement_subject' => [
-                    'label' => __('Subject', 'directorist'),
-                    'type'  => 'text',
-                    'value' => false
-                ],
-
-                'announcement_send_to_email' => [
-                    'label'   => __('Send a copy to email', 'directorist'),
-                    'type'    => 'toggle',
-                    'value' => true,
                 ],
 
                 // Button Type
@@ -2424,6 +2378,7 @@ Please remember that your order may be canceled if you do not make your payment 
                     'showDefaultOption' => true,
                     'options' => $this->get_pages_vl_arrays(),
                 ],
+
                 // seo settings
                 'atbdp_enable_seo' => [
                     'type'  => 'toggle',
@@ -4390,7 +4345,6 @@ Please remember that your order may be canceled if you do not make your payment 
                                 ],
                             ] ),
                         ],
-
                         'miscellaneous' => [
                             'label'     => __('Miscellaneous', 'directorist'),
                             'icon' => '<i class="fas fa-thumbtack"></i>',

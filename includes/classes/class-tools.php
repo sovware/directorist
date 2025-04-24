@@ -823,11 +823,11 @@ use Directorist\Listings_CSV_Importer as Importer;
 			}
 
 			$mime_type = mime_content_type( $file );
-			if ( ! in_array( $mime_type, array( 'text/csv','text/plain' ), true ) ) {
+			if ( ! in_array( $mime_type, array( 'text/csv','text/plain', 'application/csv' ), true ) ) {
 				return new WP_Error(
 					'invalid_csv_file',
 					sprintf(
-						'Invalid file type. Only text/csv and text/plain are supported, given "%s".',
+						'Invalid file type. Only text/plain, text/csv, and application/csv are supported, given "%s".',
 						$mime_type
 					)
 				);

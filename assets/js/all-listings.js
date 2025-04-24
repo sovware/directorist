@@ -1484,10 +1484,13 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     searchModalElement.forEach(function (modal) {
       var modalOverlay = modal.querySelector('.directorist-search-modal__overlay');
       var modalContent = modal.querySelector('.directorist-search-modal__contents');
+      var modalBodyOverlay = document.querySelector('.directorist-content-active');
 
       // Overlay Style
       if (modalOverlay) {
         modalOverlay.style.cssText = "opacity: 0; visibility: hidden; transition: 0.5s ease";
+        // remove overlay class on body
+        modalBodyOverlay.classList.remove('directorist-overlay-active');
       }
 
       // Modal Content Style

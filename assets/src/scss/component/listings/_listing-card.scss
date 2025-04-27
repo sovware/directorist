@@ -83,7 +83,7 @@
         }
 
         li,
-        >div {
+        > div {
           display: flex;
           gap: 10px;
           margin: 0;
@@ -287,7 +287,7 @@
         }
       }
 
-      .directorist-badge+.directorist-badge {
+      .directorist-badge + .directorist-badge {
         margin-left: 3px;
       }
 
@@ -391,7 +391,7 @@
         }
 
         /* Legacy Icon */
-        >span {
+        > span {
           display: inline-block;
           margin-right: 5px;
         }
@@ -418,7 +418,7 @@
       }
 
       .directorist-listing-category {
-        &>a {
+        & > a {
           .directorist-icon-mask {
             height: 34px;
             width: 34px;
@@ -437,7 +437,7 @@
           }
 
           /* Legacy Icon */
-          >span {
+          > span {
             width: 36px;
             height: 36px;
             border-radius: 50%;
@@ -564,7 +564,6 @@
         gap: 6px;
 
         .directorist-compare-btn {
-
           i,
           span.la,
           span.las,
@@ -584,6 +583,30 @@
           position: unset !important;
           transform: unset !important;
         }
+      }
+    }
+
+    @include e(top) {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 22px 0 22px;
+      @include e(left) {
+        display: flex;
+        flex: 1;
+        gap: 8px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      @include e(right) {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        align-items: center;
+        flex-wrap: wrap;
+        flex: auto;
+        justify-content: flex-end;
       }
     }
 
@@ -770,9 +793,8 @@
         }
 
         .directorist-listing-single__info__list {
-
-          >li,
-          >div {
+          > li,
+          > div {
             font-size: 12px;
             line-height: 1.2;
             gap: 8px;
@@ -790,7 +812,7 @@
         }
 
         .directorist-thumb-listing-author a,
-        .directorist-listing-category>a .directorist-icon-mask {
+        .directorist-listing-category > a .directorist-icon-mask {
           width: 30px;
           height: 30px;
         }
@@ -1133,7 +1155,6 @@
   }
 
   &.directorist-info-item-rating {
-
     i,
     span.la,
     span.fa {
@@ -1224,7 +1245,8 @@
 }
 
 /* listing card without thumbnail */
-.directorist-listing-single.directorist-listing-no-thumb .directorist-listing-single {
+.directorist-listing-single.directorist-listing-no-thumb
+  .directorist-listing-single {
   @include e("header") {
     display: flex;
     gap: 15px;
@@ -1359,7 +1381,7 @@
           margin: 0 0 10px;
         }
 
-        >div {
+        > div {
           margin-bottom: 2px;
           font-size: 14px;
           display: flex;

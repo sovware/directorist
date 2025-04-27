@@ -149,52 +149,52 @@ export default {
             return isChangeable;
         },
 
-        checkShowIfCondition(payloadArray) {        
-            let result = {
-                status: false, // Final status (true if all conditions pass)
-                failed_conditions: 0,
-                succeed_conditions: 0,
-                matched_data: []
-            };
-        
-            // Normalize condition into an array
-            let conditions = Array.isArray(payloadArray.condition) 
-                ? payloadArray.condition 
-                : [payloadArray.condition];
-        
-            for (let payload of conditions) {        
-                let state = this.checkSingleShowIfCondition({ condition: payload });
-        
-                if (state.status) {
-                    result.succeed_conditions += 1;
-                    result.matched_data.push(payload);
-                } else {
-                    result.failed_conditions += 1;
+        checkShowIfCondition(payload) {
+            // Handle both single and multiple conditions
+            if (payload.condition && Array.isArray(payload.condition)) {
+                // This is a multiple condition case
+                let result = {
+                    status: false,
+                    failed_conditions: 0,
+                    succeed_conditions: 0,
+                    matched_data: []
+                };
+                
+                for (let condition of payload.condition) {
+                    let state = this.checkSingleCondition({ condition: condition });
+                    
+                    if (state.status) {
+                        result.succeed_conditions += 1;
+                        result.matched_data.push(condition);
+                    } else {
+                        result.failed_conditions += 1;
+                    }
                 }
+                
+                result.status = result.failed_conditions === 0;
+                return result;
+            } else {
+                // This is a single condition case
+                return this.checkSingleCondition(payload);
             }
+        },
         
-            // If all conditions pass, set status to true
-            result.status = result.failed_conditions === 0;
-        
-            return result;
-        },        
-        
-        checkSingleShowIfCondition( payload ) {
+        checkSingleCondition(payload) {
             let args = { condition: null };
-            Object.assign( args, payload );
+            Object.assign(args, payload);
             
             let condition = args.condition;
 
             let root = this.fields;
-            if ( this.isObject( args.root ) ) {
+            if (this.isObject(args.root)) {
                 root = args.root;
             }
             
-            let failed_cond_count   = 0;
-            let success_cond_count  = 0;
-            let accepted_comparison = [ 'and', 'or', ];
-            let compare             = 'and';
-            let matched_data        = [];
+            let failed_cond_count = 0;
+            let success_cond_count = 0;
+            let accepted_comparison = ['and', 'or'];
+            let compare = 'and';
+            let matched_data = [];
 
             let state = {
                 status: false,
@@ -203,121 +203,116 @@ export default {
                 matched_data: matched_data,
             };
             
-            let target_field = this.getTergetFields( { root: root, path: condition.where } );
+            let target_field = this.getTergetFields({ root: root, path: condition.where });
 
-            if ( ! ( condition.conditions && Array.isArray( condition.conditions ) && condition.conditions.length ) ) { return state; }
-            if ( ! this.isObject( target_field ) ) { return state; }
+            if (!(condition.conditions && Array.isArray(condition.conditions) && condition.conditions.length)) { return state; }
+            if (!this.isObject(target_field)) { return state; }
         
-            if ( typeof condition.compare === 'string' && accepted_comparison.indexOf( condition.compare ) ) {
+            if (typeof condition.compare === 'string' && accepted_comparison.indexOf(condition.compare)) {
                 compare = condition.compare;
             }
 
-            for ( let sub_condition of condition.conditions ) {
-                if ( typeof sub_condition.key !== 'string' ) {
+            for (let sub_condition of condition.conditions) {
+                if (typeof sub_condition.key !== 'string') {
                     continue;
                 }
         
                 let sub_condition_field_path = sub_condition.key.split('.');
                 let sub_condition_field = null;
                 let sub_condition_error = 0;
-                let sub_compare = ( typeof sub_condition.compare === 'string' ) ? sub_condition.compare : '=';
+                let sub_compare = (typeof sub_condition.compare === 'string') ? sub_condition.compare : '=';
                 
-                if ( ! sub_condition_field_path.length ) {
+                if (!sub_condition_field_path.length) {
                     continue;
                 }
 
                 // ---
-                if ( sub_condition_field_path[0] !== '_any' ) {
-                    sub_condition_field = target_field[ sub_condition_field_path[0] ];
-                    let is_hidden = ( typeof target_field.hidden !== 'undefined' ) ? target_field.hidden : false;
+                if (sub_condition_field_path[0] !== '_any') {
+                    sub_condition_field = target_field[sub_condition_field_path[0]];
+                    let is_hidden = (typeof target_field.hidden !== 'undefined') ? target_field.hidden : false;
 
-                    if ( sub_condition_field_path.length > 1 && ! this.isObject( sub_condition_field ) ) {
+                    if (sub_condition_field_path.length > 1 && !this.isObject(sub_condition_field)) {
                         sub_condition_error++;
                     }
 
-                    if ( sub_condition_field_path.length > 1 && ! sub_condition_error ) {
-                        sub_condition_field = target_field[ sub_condition_field_path[0] ][ sub_condition_field_path[1] ];
-                        is_hidden = ( typeof target_field[ sub_condition_field_path[0] ].hidden !== 'undefined' ) ? target_field[ sub_condition_field_path[0] ].hidden : false ;
+                    if (sub_condition_field_path.length > 1 && !sub_condition_error) {
+                        sub_condition_field = target_field[sub_condition_field_path[0]][sub_condition_field_path[1]];
+                        is_hidden = (typeof target_field[sub_condition_field_path[0]].hidden !== 'undefined') ? target_field[sub_condition_field_path[0]].hidden : false;
                     }
             
-                    if ( is_hidden ) {
+                    if (is_hidden) {
                         sub_condition_error++;
                     }
 
-                    if ( typeof sub_condition_field === 'undefined' ) {
+                    if (typeof sub_condition_field === 'undefined') {
                         sub_condition_error++;
                     }
 
-                    if ( sub_condition_error ) {
+                    if (sub_condition_error) {
                         failed_cond_count++;
                         continue;
                     }
 
-                    if ( ! this.checkComparison( { data_a: sub_condition_field, data_b: sub_condition.value, compare: sub_compare } ) ) {
-                        failed_cond_count++;
-                        continue;
-                    }
-
-                    if ( ! this.checkComparison( { data_a: sub_condition_field, data_b: sub_condition.value, compare: sub_compare } ) ) {
+                    if (!this.checkComparison({ data_a: sub_condition_field, data_b: sub_condition.value, compare: sub_compare })) {
                         failed_cond_count++;
                         continue;
                     }
             
-                    matched_data.push( target_field[ sub_condition_field_path[0] ] );
+                    matched_data.push(target_field[sub_condition_field_path[0]]);
                     success_cond_count++;
                     continue;
                 }
         
                 // Check if has _any condition
-                if ( sub_condition_field_path[0] === '_any' ) {
-                let failed_any_cond_count = 0;
-                let success_any_cond_count = 0;
+                if (sub_condition_field_path[0] === '_any') {
+                    let failed_any_cond_count = 0;
+                    let success_any_cond_count = 0;
         
-                for ( let field in target_field ) {
-                    let any_cond_error = 0;
-                    
-                    sub_condition_field = target_field[ field ];
+                    for (let field in target_field) {
+                        let any_cond_error = 0;
+                        
+                        sub_condition_field = target_field[field];
         
-                    if ( sub_condition_field_path.length > 1 && ! this.isObject( sub_condition_field ) ) {
-                        any_cond_error++;
-                    }
+                        if (sub_condition_field_path.length > 1 && !this.isObject(sub_condition_field)) {
+                            any_cond_error++;
+                        }
         
-                    if ( sub_condition_field_path.length > 1 && ! any_cond_error ) {
-                        sub_condition_field = sub_condition_field[ sub_condition_field_path[1] ];
-                    } 
+                        if (sub_condition_field_path.length > 1 && !any_cond_error) {
+                            sub_condition_field = sub_condition_field[sub_condition_field_path[1]];
+                        } 
         
-                    if ( typeof sub_condition_field === 'undefined' ) {
-                        any_cond_error++;
-                    }
+                        if (typeof sub_condition_field === 'undefined') {
+                            any_cond_error++;
+                        }
         
-                    if ( any_cond_error ) {
-                        failed_any_cond_count++;
-                        continue;
-                    }
+                        if (any_cond_error) {
+                            failed_any_cond_count++;
+                            continue;
+                        }
     
-                    if ( ! this.checkComparison( { data_a: sub_condition_field, data_b: sub_condition.value, compare: sub_compare } ) ) {
-                        failed_any_cond_count++;
-                        continue;
+                        if (!this.checkComparison({ data_a: sub_condition_field, data_b: sub_condition.value, compare: sub_compare })) {
+                            failed_any_cond_count++;
+                            continue;
+                        }
+                        
+                        matched_data.push(target_field[field]);
+                        success_any_cond_count++;
                     }
-                    
-                    matched_data.push( target_field[ field ] );
-                    success_any_cond_count++;
-                }
         
-                if ( ! success_any_cond_count ) { failed_cond_count++; } 
+                    if (!success_any_cond_count) { failed_cond_count++; } 
                     else { success_cond_count++; }
                 }
             }
         
             // Get Status
             let status = false;
-            switch ( compare ) {
+            switch (compare) {
                 case 'and':
-                status = ( failed_cond_count ) ? false : true;
-                break;
+                    status = (failed_cond_count) ? false : true;
+                    break;
                 case 'or':
-                status = ( success_cond_count ) ? true : false;
-                break;
+                    status = (success_cond_count) ? true : false;
+                    break;
             }
         
             state = {

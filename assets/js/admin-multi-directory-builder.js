@@ -3438,43 +3438,44 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       }
       return isChangeable;
     },
-    checkShowIfCondition: function checkShowIfCondition(payloadArray) {
-      var result = {
-        status: false,
-        // Final status (true if all conditions pass)
-        failed_conditions: 0,
-        succeed_conditions: 0,
-        matched_data: []
-      };
-
-      // Normalize condition into an array
-      var conditions = Array.isArray(payloadArray.condition) ? payloadArray.condition : [payloadArray.condition];
-      var _iterator4 = _createForOfIteratorHelper(conditions),
-        _step4;
-      try {
-        for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
-          var payload = _step4.value;
-          var state = this.checkSingleShowIfCondition({
-            condition: payload
-          });
-          if (state.status) {
-            result.succeed_conditions += 1;
-            result.matched_data.push(payload);
-          } else {
-            result.failed_conditions += 1;
+    checkShowIfCondition: function checkShowIfCondition(payload) {
+      // Handle both single and multiple conditions
+      if (payload.condition && Array.isArray(payload.condition)) {
+        // This is a multiple condition case
+        var result = {
+          status: false,
+          failed_conditions: 0,
+          succeed_conditions: 0,
+          matched_data: []
+        };
+        var _iterator4 = _createForOfIteratorHelper(payload.condition),
+          _step4;
+        try {
+          for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
+            var condition = _step4.value;
+            var state = this.checkSingleCondition({
+              condition: condition
+            });
+            if (state.status) {
+              result.succeed_conditions += 1;
+              result.matched_data.push(condition);
+            } else {
+              result.failed_conditions += 1;
+            }
           }
+        } catch (err) {
+          _iterator4.e(err);
+        } finally {
+          _iterator4.f();
         }
-
-        // If all conditions pass, set status to true
-      } catch (err) {
-        _iterator4.e(err);
-      } finally {
-        _iterator4.f();
+        result.status = result.failed_conditions === 0;
+        return result;
+      } else {
+        // This is a single condition case
+        return this.checkSingleCondition(payload);
       }
-      result.status = result.failed_conditions === 0;
-      return result;
     },
-    checkSingleShowIfCondition: function checkSingleShowIfCondition(payload) {
+    checkSingleCondition: function checkSingleCondition(payload) {
       var args = {
         condition: null
       };
@@ -3542,14 +3543,6 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
               sub_condition_error++;
             }
             if (sub_condition_error) {
-              failed_cond_count++;
-              continue;
-            }
-            if (!this.checkComparison({
-              data_a: sub_condition_field,
-              data_b: sub_condition.value,
-              compare: sub_compare
-            })) {
               failed_cond_count++;
               continue;
             }

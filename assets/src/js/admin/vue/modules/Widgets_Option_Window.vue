@@ -60,7 +60,7 @@
               <span
                 class="cptm-form-builder-field-list-item-edit"
                 :class="activeWidgetKey === widget_key ? 'active' : ''"
-                v-if="widget?.has_editable_options"
+                v-if="widget?.options"
                 @click.prevent="edit(widget_key)"
               >
                 <span class="uil uil-pen"></span>
@@ -361,6 +361,7 @@ export default {
     // Get Widget Type Options
     widgetFields(widgetKey) {
       const hasRadioField = this.availableWidgets[widgetKey].options?.type;
+
       const activeWidgetOptions = hasRadioField
         ? this.availableWidgets[widgetKey].fields[this.activeWidgetOptionType]
         : this.availableWidgets[widgetKey].options?.fields;

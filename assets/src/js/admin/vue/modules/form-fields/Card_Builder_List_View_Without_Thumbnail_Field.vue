@@ -676,6 +676,7 @@ export default {
         }
 
         Vue.set(this.active_widgets, widget_key, widgets_template);
+        Vue.set(this.available_widgets, widget_key, widgets_template);
       }
 
       // Load Selected Widgets Data

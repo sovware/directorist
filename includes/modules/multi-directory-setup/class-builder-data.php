@@ -1452,7 +1452,6 @@ class Builder_Data {
                 'label' => __( 'Featured', 'directorist' ),
                 'icon'  => 'uil uil-star',
                 'hook'  => 'atbdp_featured_badge',
-                'has_editable_options' => true,
                 'options' => [
                     'type' => [
                         'type'    => 'radio',
@@ -1503,7 +1502,6 @@ class Builder_Data {
                 'label' => __( 'New', 'directorist' ),
                 'icon'  => 'uil uil-bolt',
                 'hook'  => 'atbdp_new_badge',
-                'has_editable_options' => true,
                 'options' => [
                     'type' => [
                         'type'    => 'radio',
@@ -1554,7 +1552,6 @@ class Builder_Data {
                 'label' => __( 'Popular', 'directorist' ),
                 'icon'  => 'uil uil-fire',
                 'hook'  => 'atbdp_popular_badge',
-                'has_editable_options' => true,
                 'options' => [
                     'type' => [
                         'type'    => 'radio',
@@ -1608,11 +1605,10 @@ class Builder_Data {
             ],
 
             'view_count'        => [
-                'type'    => 'badge',
+                'type'    => 'view-count',
                 'label'   => __( 'View Count', 'directorist' ),
-                'icon'    => 'uil uil-text-fields',
+                'icon'    => 'las la-heart',
                 'hook'    => 'atbdp_view_count',
-                'has_editable_options' => true,
                 'options' => [
                     'title'  => __( 'View Count Settings', 'directorist' ),
                     'fields' => [

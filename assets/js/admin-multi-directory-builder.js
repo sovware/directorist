@@ -18275,6 +18275,9 @@ __webpack_require__.r(__webpack_exports__);
     label: {
       type: String
     },
+    icon: {
+      type: String
+    },
     options: {
       type: Object
     },
@@ -21160,6 +21163,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           }
         }
         vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(this.active_widgets, widget_key, widgets_template);
+        vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(this.available_widgets, widget_key, widgets_template);
       }
 
       // Load Selected Widgets Data
@@ -21653,6 +21657,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           }
         }
         vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(this.active_widgets, widget_key, widgets_template);
+        vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(this.available_widgets, widget_key, widgets_template);
       }
 
       // Load Selected Widgets Data
@@ -22140,6 +22145,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           }
         }
         vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(this.active_widgets, widget_key, widgets_template);
+        vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(this.available_widgets, widget_key, widgets_template);
       }
 
       // Load Selected Widgets Data
@@ -22621,6 +22627,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           }
         }
         vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(this.active_widgets, widget_key, widgets_template);
+        vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(this.available_widgets, widget_key, widgets_template);
       }
 
       // Load Selected Widgets Data
@@ -27927,7 +27934,7 @@ var render = function render() {
       class: widget === null || widget === void 0 ? void 0 : widget.icon
     })]), _vm._v(" "), _c("span", {
       staticClass: "cptm-form-builder-field-list-item-label"
-    }, [_vm._v("\n                " + _vm._s(widget === null || widget === void 0 ? void 0 : widget.label) + "\n              ")])]), _vm._v(" "), widget !== null && widget !== void 0 && widget.has_editable_options ? _c("span", {
+    }, [_vm._v("\n                " + _vm._s(widget === null || widget === void 0 ? void 0 : widget.label) + "\n              ")])]), _vm._v(" "), widget !== null && widget !== void 0 && widget.options ? _c("span", {
       staticClass: "cptm-form-builder-field-list-item-edit",
       class: _vm.activeWidgetKey === widget_key ? "active" : "",
       on: {
@@ -28566,19 +28573,15 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _vm._m(0);
-};
-var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
   return _c("div", {
     staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap"
   }, [_c("div", {
     staticClass: "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
   }, [_c("span", [_c("i", {
-    staticClass: "uil uil-eye"
+    class: _vm.icon ? _vm.icon : "uil uil-eye"
   }), _vm._v("\n      0\n    ")])])]);
-}];
+};
+var staticRenderFns = [];
 render._withStripped = true;
 
 

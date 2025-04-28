@@ -6,7 +6,7 @@
       class="cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
     >
       <span>
-        <i class="uil uil-eye"></i>
+        <i :class="icon ? icon : 'uil uil-eye'"></i>
         0
       </span>
     </div>
@@ -18,6 +18,10 @@ export default {
   name: "view-count-card-widget",
   props: {
     label: {
+      type: String,
+    },
+
+    icon: {
       type: String,
     },
 

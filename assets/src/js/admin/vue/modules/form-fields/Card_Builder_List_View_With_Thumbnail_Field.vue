@@ -580,7 +580,7 @@ export default {
       local_layout: {
         thumbnail: {
           top_right: {
-            label: "Bottom Left",
+            label: "Top Right",
             selectedWidgets: [],
           },
         },

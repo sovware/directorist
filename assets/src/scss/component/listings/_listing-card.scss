@@ -39,7 +39,23 @@
         flex-wrap: wrap;
         flex: 1;
         gap: 6px;
-
+        width: 100%;
+        justify-content: space-between;
+        @include e(left) {
+          display: flex;
+          flex: 1;
+          gap: 10px;
+          align-items: center;
+          flex-wrap: wrap;
+        }
+        @include e(right) {
+          display: flex;
+          flex: auto;
+          gap: 10px;
+          align-items: center;
+          flex-wrap: wrap;
+          justify-content: flex-end;
+        }
         .directorist-badge.directorist-badge-close {
           background-color: transparent;
           color: var(--directorist-color-danger);
@@ -1476,9 +1492,6 @@
 
   &.directorist-listing-no-thumb {
     .directorist-info-item.directorist-badge {
-      padding: 0;
-      margin: 0;
-
       &:after {
         display: none;
       }

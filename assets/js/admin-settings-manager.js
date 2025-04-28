@@ -21515,7 +21515,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       local_layout: {
         thumbnail: {
           top_right: {
-            label: "Bottom Left",
+            label: "Top Right",
             selectedWidgets: []
           }
         },

@@ -17470,8 +17470,13 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     },
     // Update widget field value
     updateWidgetFieldValue: function updateWidgetFieldValue(field_key, value) {
-      this.activeWidget.fields[this.activeWidgetOptionType][field_key].value = value;
-      if (field_key === "field_icon") {
+      var activeWidgetFields = this.activeWidget.fields || this.activeWidget.options.fields;
+      if (this.activeWidgetOptionType) {
+        activeWidgetFields[this.activeWidgetOptionType][field_key].value = value;
+      } else {
+        activeWidgetFields[field_key].value = value;
+      }
+      if (field_key === "field_icon" || field_key === "icon") {
         this.activeWidget.icon = value;
         this.availableWidgets[this.activeWidgetKey].icon = value;
       }
@@ -17489,9 +17494,10 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         this.activeWidget = {};
         this.activeWidgetOptionType = "";
       } else {
+        var _this$activeWidget$op;
         this.activeWidgetKey = widget_key; // set active
         this.activeWidget = this.widgetsList[widget_key];
-        this.activeWidgetOptionType = this.activeWidget.options.type.value;
+        this.activeWidgetOptionType = (_this$activeWidget$op = this.activeWidget.options) === null || _this$activeWidget$op === void 0 || (_this$activeWidget$op = _this$activeWidget$op.type) === null || _this$activeWidget$op === void 0 ? void 0 : _this$activeWidget$op.value;
       }
     },
     // Trash Widget
@@ -17524,12 +17530,19 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     },
     // Get Widget Type Field
     widgetTypeField: function widgetTypeField(widgetKey) {
+      var _this$availableWidget;
+      var hasRadioField = (_this$availableWidget = this.availableWidgets[widgetKey].options) === null || _this$availableWidget === void 0 ? void 0 : _this$availableWidget.type;
+      if (!hasRadioField) {
+        return;
+      }
       var activeWidgetFields = this.availableWidgets[widgetKey].options;
       return activeWidgetFields;
     },
     // Get Widget Type Options
-    widgetTypeOptions: function widgetTypeOptions(widgetKey) {
-      var activeWidgetOptions = this.availableWidgets[widgetKey].fields[this.activeWidgetOptionType];
+    widgetFields: function widgetFields(widgetKey) {
+      var _this$availableWidget2, _this$availableWidget3;
+      var hasRadioField = (_this$availableWidget2 = this.availableWidgets[widgetKey].options) === null || _this$availableWidget2 === void 0 ? void 0 : _this$availableWidget2.type;
+      var activeWidgetOptions = hasRadioField ? this.availableWidgets[widgetKey].fields[this.activeWidgetOptionType] : (_this$availableWidget3 = this.availableWidgets[widgetKey].options) === null || _this$availableWidget3 === void 0 ? void 0 : _this$availableWidget3.fields;
       return activeWidgetOptions;
     },
     // Widget on Drop
@@ -27954,7 +27967,7 @@ var render = function render() {
           }
         }
       }, "component", field, false)) : _vm._e()], 1);
-    }), _vm._v(" "), _vm._l(_vm.widgetTypeOptions(widget_key), function (field, field_key) {
+    }), _vm._v(" "), _vm._l(_vm.widgetFields(widget_key), function (field, field_key) {
       return _c("div", {
         key: field_key,
         staticClass: "cptm-widget-options-wrap"

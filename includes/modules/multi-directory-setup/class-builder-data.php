@@ -1608,10 +1608,11 @@ class Builder_Data {
             ],
 
             'view_count'        => [
-                'type'    => 'view-count',
+                'type'    => 'badge',
                 'label'   => __( 'View Count', 'directorist' ),
                 'icon'    => 'uil uil-text-fields',
                 'hook'    => 'atbdp_view_count',
+                'has_editable_options' => true,
                 'options' => [
                     'title'  => __( 'View Count Settings', 'directorist' ),
                     'fields' => [

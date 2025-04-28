@@ -94,7 +94,7 @@
             </div>
 
             <div
-              v-for="(field, field_key) in widgetTypeOptions(widget_key)"
+              v-for="(field, field_key) in widgetFields(widget_key)"
               class="cptm-widget-options-wrap"
               :key="field_key"
             >
@@ -267,11 +267,18 @@ export default {
 
     // Update widget field value
     updateWidgetFieldValue(field_key, value) {
-      this.activeWidget.fields[this.activeWidgetOptionType][
-        field_key
-      ].value = value;
+      const activeWidgetFields =
+        this.activeWidget.fields || this.activeWidget.options.fields;
 
-      if (field_key === "field_icon") {
+      if (this.activeWidgetOptionType) {
+        activeWidgetFields[this.activeWidgetOptionType][
+          field_key
+        ].value = value;
+      } else {
+        activeWidgetFields[field_key].value = value;
+      }
+
+      if (field_key === "field_icon" || field_key === "icon") {
         this.activeWidget.icon = value;
         this.availableWidgets[this.activeWidgetKey].icon = value;
       }
@@ -292,7 +299,7 @@ export default {
       } else {
         this.activeWidgetKey = widget_key; // set active
         this.activeWidget = this.widgetsList[widget_key];
-        this.activeWidgetOptionType = this.activeWidget.options.type.value;
+        this.activeWidgetOptionType = this.activeWidget.options?.type?.value;
       }
     },
 
@@ -341,16 +348,22 @@ export default {
 
     // Get Widget Type Field
     widgetTypeField(widgetKey) {
+      const hasRadioField = this.availableWidgets[widgetKey].options?.type;
+      if (!hasRadioField) {
+        return;
+      }
+
       const activeWidgetFields = this.availableWidgets[widgetKey].options;
 
       return activeWidgetFields;
     },
 
     // Get Widget Type Options
-    widgetTypeOptions(widgetKey) {
-      const activeWidgetOptions = this.availableWidgets[widgetKey].fields[
-        this.activeWidgetOptionType
-      ];
+    widgetFields(widgetKey) {
+      const hasRadioField = this.availableWidgets[widgetKey].options?.type;
+      const activeWidgetOptions = hasRadioField
+        ? this.availableWidgets[widgetKey].fields[this.activeWidgetOptionType]
+        : this.availableWidgets[widgetKey].options?.fields;
 
       return activeWidgetOptions;
     },

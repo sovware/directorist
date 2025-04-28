@@ -15,12 +15,17 @@
     // Single Listing Content
     @include e(content) {
       border-radius: 4px;
+      @include e(badges) {
+        display: flex;
+        gap: 10px;
+      }
     }
 
     @include e(info) {
       display: flex;
-      flex-wrap: wrap;
       gap: 8px;
+      flex-wrap: wrap;
+      flex-direction: column;
       position: relative;
       padding: 33px 20px 24px;
 
@@ -68,6 +73,11 @@
             display: none;
           }
         }
+      }
+
+      @include e(badges) {
+        display: flex;
+        gap: 10px;
       }
 
       @include e(list) {
@@ -658,6 +668,11 @@
 
     .directorist_open_status_badge {
       display: flex;
+    }
+
+    .directorist-rating-meta {
+      display: inline-flex;
+      align-items: center;
     }
 
     .directorist-mark-as-favorite__btn .directorist-favorite-tooltip span {

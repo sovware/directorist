@@ -32,6 +32,16 @@ $loop_fields = $listings->loop['card_fields']['template_data']['grid_view_with_t
 				<?php $listings->render_loop_fields( $loop_fields['body']['top'], 'div', 'div' ); ?>
 			</header>
 
+			<?php if ( ! empty( $loop_fields['body']['tagline'] ) ) : ?>
+				<?php $listings->render_loop_fields( $loop_fields['body']['tagline'] ) ?>
+			<?php endif; ?>
+
+			<?php if ( ! empty( $loop_fields['body']['badges'] ) ) : ?>
+				<div class="directorist-listing-single__info__badges">
+					<?php $listings->render_loop_fields( $loop_fields['body']['badges'], 'li', 'li' ); ?>
+				</div>
+			<?php endif; ?>
+
 			<ul class="directorist-listing-single__info__list">
 				<?php $listings->render_loop_fields( $loop_fields['body']['bottom'], 'li', 'li' ); ?>
 			</ul>

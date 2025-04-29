@@ -1647,7 +1647,7 @@ class Builder_Data {
             'user_avatar'       => [
                 'type'     => 'avatar',
                 'label'    => __( 'User Avatar', 'directorist' ),
-                'icon'     => 'uil uil-text-fields',
+                'icon'     => 'las la-user-circle',
                 'hook'     => 'atbdp_user_avatar',
                 'canMove'  => false,
                 'options'  => [

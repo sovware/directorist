@@ -17450,6 +17450,14 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     close: function close() {
       this.$emit("close");
     },
+    // Check if the widget is editable
+    isEditable: function isEditable(widget) {
+      if (!widget || _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default()(widget) !== "object" || widget.type === "avatar") return false;
+      if (!widget.options || _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2___default()(widget.options) !== "object") return false;
+
+      // Add more custom checks if needed
+      return true;
+    },
     // Update widget option value
     updateWidgetOptionValue: function updateWidgetOptionValue(value) {
       this.activeWidgetOptionType = value;
@@ -27934,7 +27942,7 @@ var render = function render() {
       class: widget === null || widget === void 0 ? void 0 : widget.icon
     })]), _vm._v(" "), _c("span", {
       staticClass: "cptm-form-builder-field-list-item-label"
-    }, [_vm._v("\n                " + _vm._s(widget === null || widget === void 0 ? void 0 : widget.label) + "\n              ")])]), _vm._v(" "), widget !== null && widget !== void 0 && widget.options ? _c("span", {
+    }, [_vm._v("\n                " + _vm._s(widget === null || widget === void 0 ? void 0 : widget.label) + "\n              ")])]), _vm._v(" "), _vm.isEditable(widget) ? _c("span", {
       staticClass: "cptm-form-builder-field-list-item-edit",
       class: _vm.activeWidgetKey === widget_key ? "active" : "",
       on: {

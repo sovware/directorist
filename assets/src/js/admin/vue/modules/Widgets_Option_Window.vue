@@ -60,7 +60,7 @@
               <span
                 class="cptm-form-builder-field-list-item-edit"
                 :class="activeWidgetKey === widget_key ? 'active' : ''"
-                v-if="widget?.options"
+                v-if="isEditable(widget)"
                 @click.prevent="edit(widget_key)"
               >
                 <span class="uil uil-pen"></span>
@@ -240,6 +240,16 @@ export default {
 
     close() {
       this.$emit("close");
+    },
+
+    // Check if the widget is editable
+    isEditable(widget) {
+      if (!widget || typeof widget !== "object" || widget.type === "avatar")
+        return false;
+      if (!widget.options || typeof widget.options !== "object") return false;
+
+      // Add more custom checks if needed
+      return true;
     },
 
     // Update widget option value

@@ -289,7 +289,6 @@ export default {
       
       // Remove class from parent with class 'atbdp-cpt-manager'
       const parentElement = this.$el.closest('.atbdp-cpt-manager');
-      console.log('@chk close', {parentElement});
       if (parentElement) {
         parentElement.classList.remove('directorist-overlay-visible');
       }

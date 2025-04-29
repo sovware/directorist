@@ -26,7 +26,7 @@ $light-gray: #f4f5f7;
   padding: 0 20px;
   background: white;
   min-height: 60px;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 20px solid #f3f4f6;
   position: fixed;
   right: 0;
   top: 32px;
@@ -171,19 +171,21 @@ $light-gray: #f4f5f7;
 .directorist-directory-type-bottom {
   background: white;
   margin-top: 80px;
+  border-radius: 10px;
+  box-shadow: 0 1px 2px 0 rgba(16, 24, 40, 0.05);
   overflow: hidden;
 
   .cptm-header-navigation {
     position: fixed;
     right: 20px;
-    top: 92px;
+    top: 112px;
     width: calc(100% - 262px);
     background: #ffffff;
-    border-top: 20px solid #f3f4f6;
     border-bottom: 1px solid #e5e7eb;
     gap: 0 32px;
     padding: 0 30px;
     flex-wrap: nowrap;
+    border-radius: 10px 10px 0 0;
     overflow-x: auto;
     z-index: 100;
 
@@ -1003,7 +1005,8 @@ $light-gray: #f4f5f7;
 .cptm-tab-content-header {
   position: relative;
   background: transparent;
-  margin-top: 80px;
+  max-width: 1345px;
+  margin: 76px auto 0;
   @media only screen and (max-width: 600px) {
     margin-top: 0;
   }
@@ -1012,10 +1015,16 @@ $light-gray: #f4f5f7;
     gap: 10px;
     align-items: center;
     position: absolute;
-    right: 30px;
+    right: 32px;
     top: 50%;
     transform: translateY(-50%);
     z-index: 11;
+  }
+
+  @media only screen and (max-width: 991px) {
+    .cptm-tab-content-header__action {
+      right: 25px;
+    }
   }
 
   @media only screen and (max-width: 782px) {
@@ -1033,6 +1042,9 @@ $light-gray: #f4f5f7;
     .cptm-sub-navigation {
       margin-top: 0;
     }
+    .cptm-tab-content-header__action {
+      right: 0;
+    }
   }
 }
 
@@ -1043,7 +1055,7 @@ $light-gray: #f4f5f7;
 .cptm-tab-content {
   position: relative;
   margin: 0 auto;
-  padding: 20px 30px 64px;
+  padding: 16px 32px 64px;
   min-height: 500px;
   box-sizing: border-box;
 
@@ -2880,6 +2892,7 @@ input[type="radio"].cptm-radio {
       .cptm-widget-label,
       .cptm-widget-thumb-icon {
         opacity: 0.3;
+        color: #4d5761;
       }
       .cptm-widget-card-disabled-badge {
         margin-top: 10px;
@@ -3057,7 +3070,7 @@ input[type="radio"].cptm-radio {
   .cptm-widget-label {
     font-size: 14px;
     font-weight: 400;
-    color: #4d5761;
+    color: #383f47;
   }
 }
 
@@ -3066,6 +3079,9 @@ input[type="radio"].cptm-radio {
   gap: 8px;
   flex: 1;
   position: relative;
+  &:last-child {
+    justify-content: flex-end;
+  }
   .cptm-placeholder-block {
     flex: 1;
     &.cptm-text-left,
@@ -3462,8 +3478,9 @@ input[type="radio"].cptm-radio {
   gap: 8px;
   padding: 6px 10px;
   text-align: left;
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 600;
   color: #4d5761;
 }
 .cptm-widget-tagline-card {
@@ -4698,9 +4715,9 @@ input[type="radio"] {
 
     @include e(item) {
       flex: 1;
-      padding: 30px;
+      padding: 20px;
       border-radius: 10px;
-      box-shadow: 0 0 10px rgba(134, 142, 174, 0.2);
+      box-shadow: 0 2px 8px 0 rgba(16, 24, 40, 0.08);
       @include m(top) {
         display: flex;
         gap: 30px;
@@ -4745,7 +4762,7 @@ input[type="radio"] {
           margin: 0;
           height: 30px;
           padding: 0 12px;
-          border-radius: 8px;
+          border-radius: 6px;
           font-size: 13px;
           line-height: 14px;
           font-weight: 500;
@@ -4784,8 +4801,12 @@ input[type="radio"] {
     }
 
     .slider-placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       padding: 50px;
       text-align: center;
+      height: 270px;
 
       .cptm-widget-preview-area {
         .cptm-widget-label {
@@ -4810,14 +4831,15 @@ input[type="radio"] {
       gap: 20px;
       align-items: center;
       flex-direction: row;
+      margin-right: 8px;
 
       .cptm-drag-element {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 28px;
-        height: 28px;
-        font-size: 15px;
+        width: 12px;
+        height: 12px;
+        font-size: 12px;
         color: #868eae;
         background: transparent;
         border-radius: 6px;
@@ -5342,8 +5364,8 @@ input[type="radio"] {
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 15px;
-        color: #868eae;
+        font-size: 12px;
+        color: #a1a9b2;
         background: transparent;
         border-radius: 6px;
         transition: all ease 0.3s;
@@ -5389,6 +5411,11 @@ input[type="radio"] {
         &--disabled {
           opacity: 0.4;
           pointer-events: none;
+          border: 1px solid #d2d6db;
+          background-color: #fff;
+          .cptm-elements-settings__group__single__edit__icon {
+            color: #4d5761;
+          }
         }
       }
 

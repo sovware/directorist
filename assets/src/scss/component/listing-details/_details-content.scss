@@ -236,6 +236,9 @@
   padding: 0;
 }
 .directorist-single-wrapper {
+  .directorist-listing-single__info {
+    flex-direction: row;
+  }
   .directorist-single-listing-slider-wrap {
     padding: 0;
     margin: 15px 0;
@@ -381,12 +384,12 @@
     }
   }
 
-  &.directorist-action-bookmark{
-    .directorist-icon-mask{
-      &:after{
+  &.directorist-action-bookmark {
+    .directorist-icon-mask {
+      &:after {
         background-color: var(--directorist-color-dark);
       }
-      &.directorist-added-to-favorite:after{
+      &.directorist-added-to-favorite:after {
         background-color: var(--directorist-color-danger);
       }
     }

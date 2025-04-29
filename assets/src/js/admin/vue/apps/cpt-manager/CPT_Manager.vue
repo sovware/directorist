@@ -235,8 +235,6 @@ export default {
         let value = this.maybeJSON(fields[data_key]);
         form_data.append(data_key, value);
       }
-
-      console.log({ submission_url, submission_with });
     },
 
     async handleSaveData(callback) {

@@ -15714,10 +15714,6 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
         var value = this.maybeJSON(fields[data_key]);
         form_data.append(data_key, value);
       }
-      console.log({
-        submission_url: submission_url,
-        submission_with: submission_with
-      });
     },
     handleSaveData: function handleSaveData(callback) {
       var _this2 = this;
@@ -18900,9 +18896,6 @@ __webpack_require__.r(__webpack_exports__);
 
       // Remove class from parent with class 'atbdp-cpt-manager'
       var parentElement = this.$el.closest('.atbdp-cpt-manager');
-      console.log('@chk close', {
-        parentElement: parentElement
-      });
       if (parentElement) {
         parentElement.classList.remove('directorist-overlay-visible');
       }
@@ -32699,7 +32692,7 @@ var render = function render() {
         staticClass: "drag-handle drag-icon uil uil-draggabledots"
       }) : _vm._e(), _vm._v(" "), _c("span", {
         staticClass: "cptm-elements-settings__group__single__label"
-      }, [_vm.available_widgets[widget_key].icon ? _c("span", {
+      }, [_vm.available_widgets[widget_key].icon && placeholder.acceptedWidgets.length > 1 ? _c("span", {
         class: _vm.available_widgets[widget_key].icon
       }) : _vm._e(), _vm._v(" "), _vm.available_widgets[widget_key] ? _c("span", [_vm._v(_vm._s(_vm.available_widgets[widget_key].label))]) : _c("span", [_vm._v("Unknown Widget")])]), _vm._v(" "), _c("div", {
         staticClass: "cptm-elements-settings__group__single__action"

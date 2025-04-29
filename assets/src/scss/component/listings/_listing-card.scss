@@ -654,7 +654,7 @@
       margin: 3px;
 
       &.directorist-badge-popular {
-        background-color: #f51957;
+        background-color: var(--directorist-color-popular-badge);
       }
 
       &.directorist-badge-open {
@@ -670,7 +670,7 @@
       }
 
       &.directorist-badge-featured {
-        background-color: #fa8b0c;
+        background-color: var(--directorist-color-featured-badge);
       }
 
       &.directorist-badge-negotiation {

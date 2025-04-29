@@ -2636,7 +2636,7 @@ class Builder_Data {
                     'bookmark' => [
                         'type' => "button",
                         'label' => __( "Bookmark", "directorist" ),
-                        'icon' => 'las la-bookmark',
+                        'icon' => 'las la-heart',
                     ],
                     'share' => [
                         'type' => "badge",
@@ -3049,27 +3049,6 @@ class Builder_Data {
                             ],
                         ],
                     ],
-                    // 'map_view' => [
-                    //     'label'     => __( 'Map View', 'directorist' ),
-                    //     'container' => 'full-width',
-                    //     'video' => [
-                    //         'type' => 'video',
-                    //         'url' => 'https://www.youtube.com/embed/T9VovVonLV0',
-                    //         'button_text' => __( 'Watch Tutorial', 'directorist' ),
-                    //         'title' => __( 'All Listing List Tutorial', 'directorist' ),
-                    //         'description' => __( 'Watch the video to learn how to create all listing map.', 'directorist' ),
-                    //     ],
-                    //     'sections'  => [
-                    //         'listings_card' => [
-                    //             'title'       => __( 'All Listing Map Layout', 'directorist' ),
-                    //             'title_align' => 'center',
-                    //             'description' => '<a target="_blank" href="https://directorist.com/documentation/directorist/form-and-layout-builder/multiple-directories/"> ' . __( 'Need help?', 'directorist' ) . ' </a>' . __( 'Read the documentation or open a ticket in our helpdesk.', 'directorist' ),
-                    //             'fields'      => [
-                    //                 'listings_card_map_view',
-                    //             ],
-                    //         ],
-                    //     ],
-                    // ],
                 ],
 
             ],

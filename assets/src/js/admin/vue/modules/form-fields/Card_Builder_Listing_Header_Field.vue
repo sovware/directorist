@@ -181,7 +181,10 @@
                   <span class="cptm-elements-settings__group__single__label">
                     <!-- Display icon only if it exists -->
                     <span
-                      v-if="available_widgets[widget_key].icon"
+                      v-if="
+                        available_widgets[widget_key].icon &&
+                        placeholder.acceptedWidgets.length > 1
+                      "
                       :class="available_widgets[widget_key].icon"
                     ></span>
                     <span v-if="available_widgets[widget_key]">{{

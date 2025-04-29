@@ -1430,7 +1430,7 @@ class Builder_Data {
             'pricing'           => [
                 'type'    => 'price',
                 'label'   => __( 'Pricing', 'directorist' ),
-                'icon'    => 'uil uil-text-fields',
+                'icon'    => 'las la-dollar-sign',
                 'hook'    => 'atbdp_single_listings_price',
                 'show_if' => [
                     'where'      => 'submission_form_fields.value.fields',
@@ -1444,7 +1444,7 @@ class Builder_Data {
                 'type'  => 'rating',
                 'label' => __( 'Rating', 'directorist' ),
                 'hook'  => 'atbdp_listings_rating',
-                'icon'  => 'uil uil-text-fields',
+                'icon'  => 'las la-star',
             ],
 
             'featured_badge'    => [
@@ -1600,14 +1600,14 @@ class Builder_Data {
             'favorite_badge'    => [
                 'type'  => 'icon',
                 'label' => __( 'Favorite', 'directorist' ),
-                'icon'  => 'uil uil-text-fields',
+                'icon'  => 'las la-heart',
                 'hook'  => 'atbdp_favorite_badge',
             ],
 
             'view_count'        => [
                 'type'    => 'view-count',
                 'label'   => __( 'View Count', 'directorist' ),
-                'icon'    => 'las la-heart',
+                'icon'    => 'las la-eye',
                 'hook'    => 'atbdp_view_count',
                 'options' => [
                     'title'  => __( 'View Count Settings', 'directorist' ),
@@ -1615,7 +1615,7 @@ class Builder_Data {
                         'icon' => [
                             'type'  => 'icon',
                             'label' => __( 'Icon', 'directorist' ),
-                            'value' => 'las la-heart',
+                            'value' => 'las la-eye',
                         ],
                     ],
                 ],
@@ -2672,10 +2672,12 @@ class Builder_Data {
                     'price' => [
                         'type' => "badge",
                         'label' => __( "Pricing", "directorist" ),
+                        'icon' => 'las la-dollar-sign',
                     ],
                     'badges' => [
                         'type' => "badge",
                         'label' => __( "Badges", "directorist" ),
+                        'icon' => 'uil uil-text-fields',
                         'options' => [
                             'title' => __( "Badge Settings", "directorist" ),
                             'fields' => [
@@ -2700,26 +2702,29 @@ class Builder_Data {
                     'ratings_count' => [
                         'type' => "ratings-count",
                         'label' => __( "Rating", "directorist" ),
+                        'icon' => 'las la-star',
                     ],
                     'category' => [
                         'type' => "badge",
                         'label' => __( "Listings Category", "directorist" ),
-                        // 'show_if' => [
-                        //     'where' => "submission_form_fields.value.fields",
-                        //     'conditions' => [
-                        //         ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'category'],
-                        //     ],
-                        // ],
+                        'icon' => 'las la-folder',
+                        'show_if' => [
+                            'where' => "submission_form_fields.value.fields",
+                            'conditions' => [
+                                ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'category'],
+                            ],
+                        ],
                     ],
                     'location' => [
                         'type' => "badge",
                         'label' => __( "Listings Location", "directorist" ),
-                        // 'show_if' => [
-                        //     'where' => "submission_form_fields.value.fields",
-                        //     'conditions' => [
-                        //         ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'location'],
-                        //     ],
-                        // ],
+                        'icon' => 'las la-map-marker',
+                        'show_if' => [
+                            'where' => "submission_form_fields.value.fields",
+                            'conditions' => [
+                                ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'location'],
+                            ],
+                        ],
                     ],
                 ],
 

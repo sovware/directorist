@@ -2,7 +2,7 @@
 	<div class="directorist-custom-modal-content">
 		<div class="directorist-custom-modal-header">
 			<h3 class="directorist-custom-modal-header-title">
-				Include the Templatiq library first
+				<?php esc_html_e( 'Install the Templatiq to Get Started', 'directorist' ); ?>
 			</h3>
 			<button type="button" class="directorist-custom-modal-close">
 				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -13,15 +13,15 @@
 			</button>
 		</div>
 		<div class="directorist-custom-modal-body">
-			<div class="directorist-insert-modal__warning">Please add the Templatiq library to access the templates.
+			<div class="directorist-insert-modal__warning">
+				<?php esc_attr_e( "To insert the templates, you'll need to install the Templatiq first. ", 'directorist' ); ?>
 			</div>
+			
 			<ul class="directorist-insert-modal__list">
-				<li class="directorist-insert-modal__item">Click on <strong>“Install templatiq”</strong> button below.
-				</li>
-				<li class="directorist-insert-modal__item">It will take few seconds to <strong>Install &
-						Activate.</strong></li>
-				<li class="directorist-insert-modal__item">After activate it will redirected you to templatiq library.
-				</li>
+				<p><?php esc_attr_e( "Here’s how:", 'directorist' ); ?></p>
+				<li class="directorist-insert-modal__item"> Click the Install Templatiq button below.</li>
+				<li class="directorist-insert-modal__item"> The plugin will be automatically installed and activated.</li>
+				<li class="directorist-insert-modal__item"> Once activated, you'll be redirected to the Templatiq library.</li>
 			</ul>
 		</div>
 		<div class="directorist-custom-modal-footer">

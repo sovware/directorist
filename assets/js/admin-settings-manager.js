@@ -31752,7 +31752,7 @@ var render = function render() {
         return _vm.closeOptionWindow();
       },
       update: function update($event) {
-        return _vm.handleUpdateSelectedWidgets($event, "local_layout.top.quick_info");
+        return _vm.handleUpdateSelectedWidgets($event, "local_layout.top.quick_actions");
       },
       "update-active-widget": _vm.handleActiveWidgetUpdate
     }

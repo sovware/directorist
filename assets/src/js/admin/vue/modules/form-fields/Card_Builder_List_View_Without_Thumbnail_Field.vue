@@ -49,7 +49,7 @@
                   @update="
                     handleUpdateSelectedWidgets(
                       $event,
-                      'local_layout.top.quick_info'
+                      'local_layout.top.quick_actions'
                     )
                   "
                   @update-active-widget="handleActiveWidgetUpdate"

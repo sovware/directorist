@@ -26,10 +26,10 @@
 						<?php esc_html_e( 'Directorist Membership', 'directorist' ); ?>
 					</h3>
 					<div class="directorist-membership-card-price">
-						<span class="price-amount">$$$</span>
-						<span class="price-duration">/ yyyy</span>
+						<span class="price-amount">$134</span>
+						<span class="price-duration">/ year</span>
 					</div>
-					<p class="directorist-membership-card-discount">Save <strong>$$$%</strong> with
+					<p class="directorist-membership-card-discount">Save <strong>25%</strong> with
 						annual billing
 					</p>
 
@@ -81,7 +81,7 @@
 			</div>
 			<div class="directorist-col-xxl-9 directorist-col-lg-6">
 				<div class="directorist-row directorist-gap-y-55">
-					<div class="directorist-col-xxl-4 directorist-col-lg-6 directorist-col-sm-6">
+					<div class="directorist-col-xxl-6 directorist-col-lg-6 directorist-col-sm-6">
 						<div class="directorist-membership-benefits">
 							<div class="directorist-membership-benefits-img">
 								<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"
@@ -97,7 +97,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="directorist-col-xxl-4 directorist-col-lg-6 directorist-col-sm-6">
+					<div class="directorist-col-xxl-6 directorist-col-lg-6 directorist-col-sm-6">
 						<div class="directorist-membership-benefits">
 							<div class="directorist-membership-benefits-img">
 								<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26"
@@ -120,7 +120,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="directorist-col-xxl-4 directorist-col-lg-6 directorist-col-sm-6">
+					<div class="directorist-col-xxl-6 directorist-col-lg-6 directorist-col-sm-6">
 						<div class="directorist-membership-benefits">
 							<div class="directorist-membership-benefits-img">
 								<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"
@@ -137,41 +137,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="directorist-col-xxl-4 directorist-col-lg-6 directorist-col-sm-6">
-
-						<div class="directorist-membership-benefits">
-							<div class="directorist-membership-benefits-img">
-								<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"
-									fill="none">
-									<path
-										d="M12.1428 7.26408C12.9401 4.93075 16.1641 4.86008 17.1095 7.05208L17.1895 7.26542L18.2655 10.4121C18.5121 11.1337 18.9105 11.7941 19.434 12.3486C19.9575 12.9032 20.5939 13.339 21.3001 13.6267L21.5895 13.7347L24.7361 14.8094C27.0695 15.6067 27.1401 18.8307 24.9495 19.7761L24.7361 19.8561L21.5895 20.9321C20.8676 21.1785 20.207 21.5769 19.6522 22.1004C19.0974 22.6239 18.6613 23.2604 18.3735 23.9667L18.2655 24.2547L17.1908 27.4027C16.3935 29.7361 13.1695 29.8067 12.2255 27.6161L12.1428 27.4027L11.0681 24.2561C10.8217 23.5342 10.4233 22.8736 9.89979 22.3188C9.37629 21.764 8.73986 21.3279 8.03347 21.0401L7.74547 20.9321L4.59881 19.8574C2.26414 19.0601 2.19347 15.8361 4.38547 14.8921L4.59881 14.8094L7.74547 13.7347C8.46712 13.4882 9.12749 13.0897 9.68204 12.5662C10.2366 12.0427 10.6724 11.4063 10.9601 10.7001L11.0681 10.4121L12.1428 7.26408ZM25.3335 2.66675C25.5829 2.66675 25.8274 2.73672 26.039 2.86871C26.2507 3.0007 26.4211 3.18942 26.5308 3.41341L26.5948 3.56942L27.0615 4.93742L28.4308 5.40408C28.6808 5.48901 28.8999 5.64624 29.0604 5.85584C29.221 6.06544 29.3157 6.31797 29.3325 6.58144C29.3494 6.84491 29.2876 7.10746 29.1551 7.3358C29.0226 7.56414 28.8253 7.748 28.5881 7.86408L28.4308 7.92808L27.0628 8.39475L26.5961 9.76408C26.5111 10.014 26.3537 10.233 26.144 10.3934C25.9344 10.5538 25.6818 10.6483 25.4183 10.665C25.1549 10.6818 24.8924 10.6199 24.6641 10.4873C24.4359 10.3546 24.2521 10.1572 24.1361 9.92008L24.0721 9.76408L23.6055 8.39608L22.2361 7.92942C21.9862 7.84449 21.767 7.68726 21.6065 7.47766C21.446 7.26806 21.3513 7.01552 21.3344 6.75205C21.3176 6.48858 21.3793 6.22604 21.5118 5.9977C21.6444 5.76936 21.8417 5.5855 22.0788 5.46942L22.2361 5.40542L23.6041 4.93875L24.0708 3.56942C24.1607 3.30598 24.3308 3.07729 24.5573 2.91541C24.7837 2.75353 25.0551 2.66658 25.3335 2.66675Z"
-										fill="#9658F9" />
-								</svg>
-							</div>
-							<div class="directorist-membership-benefits-content">
-								<h3 class="title">Premium Features</h3>
-								<p class="title-details">Access to exclusive premium features and tools.</p>
-							</div>
-						</div>
-					</div>
-					<div class="directorist-col-xxl-4 directorist-col-lg-6 directorist-col-sm-6 d-lg-block d-none">
-						<div class="directorist-membership-benefits">
-							<div class="directorist-membership-benefits-img">
-								<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"
-									fill="none">
-									<path
-										d="M9.11961 14.4001C9.75961 11.2001 12.6396 8.80005 15.9996 8.80005C18.3996 8.80005 20.3196 9.92005 21.5996 11.6801L24.3196 8.48005C22.3996 6.24005 19.3596 4.80005 15.9996 4.80005C10.3996 4.80005 5.75961 8.96005 4.95961 14.4001H1.59961L7.19961 20.8001L12.7996 14.4001H9.11961ZM24.7996 11.2001L19.1996 17.6001H22.8796C22.0796 20.8001 19.3596 23.2001 15.9996 23.2001C13.5996 23.2001 11.6796 22.0801 10.3996 20.3201L7.67961 23.3601C9.59961 25.7601 12.6396 27.2001 15.9996 27.2001C21.5996 27.2001 26.2396 23.0401 27.0396 17.6001H30.3996L24.7996 11.2001Z"
-										fill="#DD8C08" />
-								</svg>
-							</div>
-							<div class="directorist-membership-benefits-content">
-								<h3 class="title">Regular Updates</h3>
-								<p class="title-details">Stay up-to-date with the latest features & security updates.
-								</p>
-							</div>
-						</div>
-					</div>
-					<div class="directorist-col-xxl-4 directorist-col-lg-6 directorist-col-sm-6 d-lg-block d-none">
+					<div class="directorist-col-xxl-6 directorist-col-lg-6 directorist-col-sm-6">
 
 						<div class="directorist-membership-benefits">
 							<div class="directorist-membership-benefits-img">

@@ -141,6 +141,8 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 
 				$posted_data = wp_unslash( $_POST );
 
+				do_action( 'directorist_before_processing_ajax_request', [ 'action' => 'add_listing_action', 'params' => $posted_data ] );
+
 				/**
 				 * It fires before processing a submitted listing from the front end
 				 *
@@ -461,6 +463,10 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 				}
 
 				$data['redirect_url'] = urlencode( $data['redirect_url'] );
+
+				$data = apply_filters( 'directorist_submitted_listing_ajax_request_response', $data );
+
+				do_action( 'directorist_after_processing_ajax_request', [ 'action' => 'add_listing_action', 'params' => $posted_data,  'response' => $data ] );
 
 				wp_send_json( apply_filters( 'atbdp_listing_form_submission_info', $data ) );
 

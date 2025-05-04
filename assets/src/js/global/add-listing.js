@@ -599,6 +599,12 @@ $(function() {
             form_data.append('action', 'add_listing_action');
             form_data.append('directorist_nonce', directorist.directorist_nonce);
 
+            if ( window.directorist && window.directorist.request_meta ) {
+                for ( let key in window.directorist.request_meta ) {
+                    form_data.append( key, window.directorist.request_meta[ key ] );
+                }
+            }
+
             disableSubmitButton();
 
             const fieldValuePairs = $form.serializeArray();

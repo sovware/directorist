@@ -38,9 +38,9 @@ function get_assign_to_field( array $args = [] ) {
 
 function get_category_select_field( array $args = [] ) {
 	$default = [
-		'type'    => 'select',
+		'type'    => 'select2',
 		'label'   => __('Select Category', 'directorist'),
-		'value'   => '',
+		'value'   => [],
 		'options' => get_cetagory_options(),
 	];
 

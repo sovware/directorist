@@ -66,99 +66,109 @@
         let swiperCarouselRelated = document.querySelectorAll('.directorist-swiper-related-listing');
 
         swiperCarouselRelated.forEach(function (el, i) {
+            // Assign unique classes
             let navBtnPrev = document.querySelectorAll('.directorist-swiper-related-listing .directorist-swiper__nav--prev-related');
             let navBtnNext = document.querySelectorAll('.directorist-swiper-related-listing .directorist-swiper__nav--next-related');
             let swiperPagination = document.querySelectorAll('.directorist-swiper-related-listing .directorist-swiper__pagination--related');
 
-            navBtnPrev.forEach((el, i) => {
-                el.classList.add(`directorist-swiper__nav--prev-related-${i}`);
-            });
-            navBtnNext.forEach((el, i) => {
-                el.classList.add(`directorist-swiper__nav--next-related-${i}`);
-            });
-            swiperPagination.forEach((el, i) => {
-                el.classList.add(`directorist-swiper__pagination--related-${i}`);
-            });
-
+            navBtnPrev.forEach((el, i) => el.classList.add(`directorist-swiper__nav--prev-related-${i}`));
+            navBtnNext.forEach((el, i) => el.classList.add(`directorist-swiper__nav--next-related-${i}`));
+            swiperPagination.forEach((el, i) => el.classList.add(`directorist-swiper__pagination--related-${i}`));
             el.classList.add(`directorist-swiper-related-listing-${i}`);
-            
-            let swiperRelatedConfig = {
-                slidesPerView: checkData(parseInt(el.dataset.swItems), 4),
-                spaceBetween: checkData(parseInt(el.dataset.swMargin), 30),
-                loop: checkData(el.dataset.swLoop, false),
-                slidesPerGroup: checkData(parseInt(el.dataset.swPerslide), 1),
-                navigation: {
-                    nextEl: `.directorist-swiper__nav--next-related-${i}`,
-                    prevEl: `.directorist-swiper__nav--prev-related-${i}`,
-                },
-                pagination: {
-                    el: `.directorist-swiper__pagination--related-${i}`,
-                    type: 'bullets',
-                    clickable: true,
-                },
-                breakpoints: checkData(el.dataset.swResponsive ? JSON.parse(el.dataset.swResponsive) : undefined, {})
-            };
 
-            const enableRelatedAutoplay = checkData(el.dataset.swAutoplay, 'false');
-            
-            // Conditionally add autoplay property
-            if (enableRelatedAutoplay === "true") {
-                swiperRelatedConfig.autoplay = {
-                    delay: checkData(parseInt(el.dataset.swSpeed), 500),
-                    disableOnInteraction: false,
-                    pauseOnMouseEnter: true,
-                };
-            } 
-            
-            let swiper = new Swiper(`.directorist-swiper-related-listing-${i}`, swiperRelatedConfig);            
+            // Get Data Attribute
+            let totalSlides = el.querySelectorAll('.swiper-slide').length;
+            let baseSlidesPerView = checkData(parseInt(el.dataset.swItems), 4);
+            let responsiveBreakPoints = checkData(el.dataset.swResponsive ? JSON.parse(el.dataset.swResponsive) : undefined, {});
 
+            let swiper = null; // Store swiper instance here
+            let currentLoop = null; // Track last loop value
 
-            // Destroy Swiper Slider When Slider Image Are Less Than Minimum Required Image
-            function destroySwiperSlider() {
-                var windowScreen = screen.width;                  
-
-                var breakpoints = JSON.parse(el.dataset.swResponsive);
-
-                var breakpointKeys = Object.keys(breakpoints);
-                
-                var legalBreakpointKeys = breakpointKeys.filter(breakpointKey => breakpointKey <= windowScreen);
-                
-                var currentBreakpointKey = legalBreakpointKeys.reduce((prev, acc) => {
-                    return Math.abs(acc - windowScreen) < Math.abs(prev - windowScreen) ? acc : prev;
-                });
-                
-                var breakpointValues = Object.entries(breakpoints); 
-                var currentBreakpoint = breakpointValues.filter(([key]) => key == currentBreakpointKey); 
-
-                var sliderItemsCount = document.querySelectorAll(`.directorist-swiper-related-listing-${i} .directorist-swiper__pagination--related-${i} .swiper-pagination-bullet`);
-
-                if(sliderItemsCount.length == '1') {
-                    swiper.loopDestroy();
-                    swiper.update();
-                    var relatedListingSlider = document.querySelector('.directorist-swiper-related-listing');
-                    relatedListingSlider.classList.add('slider-has-one-item');
+            // Init or Reinit Swiper
+            function initSwiper(loopValue) {
+                // Destroy previous if exists
+                if (swiper) {
+                    swiper.destroy(true, true);
                 }
 
-                currentBreakpoint[0].forEach((elm, ind) => {  
-                    var relatedListingSlider = document.querySelector('.directorist-swiper-related-listing');               
-                    if (swiper.loopedSlides < elm.slidesPerView) {
-                        swiper.loopDestroy();
-                        swiper.update();
-                        relatedListingSlider.classList.add('slider-has-less-items');
-                    } else {
-                        if(relatedListingSlider && relatedListingSlider.classList.contains('slider-has-less-items')) {
-                            relatedListingSlider.classList.remove('slider-has-less-items');
-                        }
-                    } 
-                });
+                // Store loopValue to detect future changes
+                currentLoop = loopValue;
 
+                let config = {
+                    slidesPerView: baseSlidesPerView,
+                    spaceBetween: checkData(parseInt(el.dataset.swMargin), 30),
+                    loop: loopValue,
+                    slidesPerGroup: checkData(parseInt(el.dataset.swPerslide), 1),
+                    navigation: {
+                        nextEl: `.directorist-swiper__nav--next-related-${i}`,
+                        prevEl: `.directorist-swiper__nav--prev-related-${i}`,
+                    },
+                    pagination: {
+                        el: `.directorist-swiper__pagination--related-${i}`,
+                        type: 'bullets',
+                        clickable: true,
+                    },
+                    breakpoints: responsiveBreakPoints,
+                };
+
+                // Add autoplay if enabled
+                if (checkData(el.dataset.swAutoplay, 'false') === "true") {
+                    config.autoplay = {
+                        delay: checkData(parseInt(el.dataset.swSpeed), 500),
+                        disableOnInteraction: false,
+                        pauseOnMouseEnter: true,
+                    };
+                }
+
+                swiper = new Swiper(`.directorist-swiper-related-listing-${i}`, config);
             }
 
-            window.addEventListener('resize', function () {
-                destroySwiperSlider();
+            function getCurrentSlidesPerView() {
+                let windowWidth = window.innerWidth;
+                let slides = baseSlidesPerView;
+
+                if (responsiveBreakPoints) {
+                    let breakPoints = Object.keys(responsiveBreakPoints).map(k => parseInt(k)).sort((a, b) => a - b);
+                    for (let point of breakPoints) {
+                        if (windowWidth >= point && responsiveBreakPoints[point].slidesPerView) {
+                            slides = responsiveBreakPoints[point].slidesPerView;
+                        }
+                    }
+                }
+
+                return slides;
+            }
+
+            function checkAndUpdateSwiper() {
+                let currentSlidesPerView = getCurrentSlidesPerView();
+                let loopShouldBeEnabled = checkData(el.dataset.swLoop, false) === "true" && totalSlides > currentSlidesPerView;
+
+                if (loopShouldBeEnabled !== currentLoop) {
+                    initSwiper(loopShouldBeEnabled);
+                }
+
+                // Add class if only 1 bullet exists
+                if (totalSlides === 1) {
+                    el.classList.add('slider-has-one-item');
+                } else {
+                    el.classList.remove('slider-has-one-item');
+                }
+
+                // Add or remove "less items" class
+                if (totalSlides <= currentSlidesPerView) {
+                    el.classList.add('slider-has-less-items');
+                } else {
+                    el.classList.remove('slider-has-less-items');
+                }
+            }
+
+            // Initial setup
+            checkAndUpdateSwiper();
+
+            // Recheck on window resize
+            window.addEventListener('resize', () => {
+                checkAndUpdateSwiper();
             });
-            
-            destroySwiperSlider();
         });
 
 
@@ -217,12 +227,15 @@
                     }
                 }
             });
+
+            let singleSliderTotalSlides = swiperCarouselSingleListing.querySelectorAll('.swiper-slide:not(.swiper-slide-duplicate)');
+            let singleSliderLoopEnable = singleSliderTotalSlides.length > 1;
             
             // Single Listing Slider Config
             let swiperSingleListingConfig =  {
                 slidesPerView: 1,
                 spaceBetween: 0,
-                loop: true,
+                loop: singleSliderLoopEnable,
                 slidesPerGroup: 1,
                 observer: true,
                 observeParents: true,
@@ -285,7 +298,7 @@
             let sliderItemsCount = swiperCarouselSingleListing.querySelectorAll('.directorist-swiper__pagination .swiper-pagination-bullet');
             let swiperListingThumb = swiperCarouselSingleListing.parentElement.querySelector('.directorist-single-listing-slider-thumb');
 
-            if(sliderItemsCount.length <= '1') {
+            if(sliderItemsCount.length <= 1) {
                 swiperSingleListing.loopDestroy();
                 swiperCarouselSingleListing.classList.add('slider-has-one-item');
                 if (swiperListingThumb) {

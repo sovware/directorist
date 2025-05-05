@@ -7,7 +7,6 @@ if ( ! class_exists( 'Directorist_Multilingual' ) ) :
 class Directorist_Multilingual {
     public function __construct() {
         add_action( 'plugins_loaded', [ $this, 'init' ] );
-        // $this->init();
     }
 
     public function init() {

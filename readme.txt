@@ -321,7 +321,7 @@ Directorist is a complete directory solution and in combination with its advance
  - Selector conflict between Gallery Extension and core plugin. (#2316)
  - Responsive style issue for the single listing header button. (#2313)
  - Translation notice issue in the admin panel. (#2309)
- - Password recovery issue with WordPress 6.8.
+ - Password recovery issue with WordPress 6.8. (#2322)
 
  **Removed**
  - Removed announcement-related code from the core plugin. (#2283)

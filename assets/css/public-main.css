@@ -348,6 +348,16 @@
   line-height: 1.2;
 }
 .directorist-content-module__contents {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 40px 0;
   padding: 30px 40px 40px;
   border-top: 1px solid var(--directorist-color-border);
 }
@@ -3290,10 +3300,6 @@ body.stop-scrolling {
 #directiost-listing-fields_wrapper .directorist-content-module__title i:after {
   width: 16px;
   height: 16px;
-}
-.directorist-add-listing-form .directorist-content-module .directorist-form-group:not(:last-child),
-#directiost-listing-fields_wrapper .directorist-content-module .directorist-form-group:not(:last-child) {
-  margin-bottom: 40px;
 }
 .directorist-add-listing-form .directorist-content-module .directorist-form-address-field.atbdp-form-fade,
 #directiost-listing-fields_wrapper .directorist-content-module .directorist-form-address-field.atbdp-form-fade {
@@ -15482,6 +15488,10 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-authentication__form__recover-pass-modal .directorist-form-group {
   margin: 0;
   padding: 25px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  border-radius: 8px;
+  border: 1px solid #e9e9e9;
 }
 .directorist-authentication__form__recover-pass-modal p {
   font-size: 14px;

@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 					?>
 				</div>
 
-				<?php if( ! $listings->hide_top_search_bar_on_sidebar_layout() ) : ?>
+				<?php if( ! $listings->hide_top_search_bar_on_sidebar_layout() && $listings->basic_search_form_template() ) : ?>
 
 					<div class="listing-with-sidebar__searchform">
 						<?php
@@ -39,7 +39,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 				<?php endif; ?>
 
 				<div class="listing-with-sidebar__contents">
-					<?php if( isset( $searchform->form_data[1]['fields'] ) && ! empty( $searchform->form_data[1]['fields'] ) ) : ?>
+					<?php if( $listings->advance_search_form_template() ) : ?>
 						<aside class="listing-with-sidebar__sidebar <?php echo esc_attr( $listings->sidebar_class() ); ?>">
 							<?php
 								$listings->advance_search_form_template();

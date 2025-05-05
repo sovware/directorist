@@ -2262,10 +2262,17 @@ class Directorist_Listings {
 				return substr( $key, 0, 7 ) == 'filter_';
 			}, ARRAY_FILTER_USE_KEY );
 
+			$search_form = new Directorist_Listing_Search_Form( $this->type, $this->current_listing_type, $search_field_atts );
+
+			if ( ! isset( $searchform->form_data[1]['fields'] ) || empty( $searchform->form_data[0]['fields'] ) ) {
+				return;
+			}
+
 			$args = array(
 				'listings'   => $this,
-				'searchform' => new Directorist_Listing_Search_Form( 'search_result', $this->current_listing_type, $search_field_atts ),
+				'searchform' => $search_form,
 			);
+
 			Helper::get_template( 'archive/basic-search-form', $args );
 		}
 
@@ -2275,10 +2282,17 @@ class Directorist_Listings {
 				return substr( $key, 0, 7 ) == 'filter_';
 			}, ARRAY_FILTER_USE_KEY );
 
+			$search_form = new Directorist_Listing_Search_Form( $this->type, $this->current_listing_type, $search_field_atts );
+
+			if ( ! isset( $searchform->form_data[1]['fields'] ) || empty( $searchform->form_data[1]['fields'] ) ) {
+				return;
+			}
+
 			$args = array(
 				'listings'   => $this,
-				'searchform' => new Directorist_Listing_Search_Form( 'search_result', $this->current_listing_type, $search_field_atts ),
+				'searchform' => $search_form,
 			);
+			
 			Helper::get_template( 'archive/advance-search-form', $args );
 		}
 

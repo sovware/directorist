@@ -106,28 +106,42 @@ export default {
         hasInvalidValue() {
             let match_found = false;
 
-            if ( this.default_option && typeof this.default_option.value !== 'undefined' && 
-                this.local_value === this.default_option.value ) {
-                    return false;
-            }
+            if (
+                this.default_option &&
+                typeof this.default_option.value !== 'undefined' &&
+                (
+                  this.local_value === this.default_option.value || 
+                  (Array.isArray(this.local_value) &&
+                   this.local_value.some(value => value === this.default_option.value) || this.local_value.length === 0)
+                )
+              ) {
+                return false;
+              }
 
             if ( ! this.theOptions || typeof this.theOptions !== 'object' ) {
                 return false;
             }
 
-            for ( let option of this.theOptions ) {
-                if ( typeof option.options !== 'undefined' ) {
-                    for ( let sub_option of option.options ) {
-                        if ( sub_option.value === this.local_value ) {
+            for (let option of this.theOptions) {
+                if (typeof option.options !== 'undefined') {
+                    for (let sub_option of option.options) {
+                        if (
+                            (Array.isArray(this.local_value) && this.local_value.some(value => value === sub_option.value)) ||
+                            (!Array.isArray(this.local_value) && sub_option.value === this.local_value) || this.local_value.length === 0
+                        ) {
                             match_found = true;
                         }
                     }
                 } else {
-                    if ( option.value === this.local_value ) {
+                    if (
+                        (Array.isArray(this.local_value) && this.local_value.some(value => value === option.value)) ||
+                        (!Array.isArray(this.local_value) && option.value === this.local_value) || this.local_value.length === 0
+                    ) {
                         match_found = true;
                     }
                 }
             }
+              
 
             return ! match_found;
         },

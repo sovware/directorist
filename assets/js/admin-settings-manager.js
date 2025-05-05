@@ -3817,8 +3817,11 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       return validation_log;
     },
     hasInvalidValue: function hasInvalidValue() {
+      var _this = this;
       var match_found = false;
-      if (this.default_option && typeof this.default_option.value !== 'undefined' && this.local_value === this.default_option.value) {
+      if (this.default_option && typeof this.default_option.value !== 'undefined' && (this.local_value === this.default_option.value || Array.isArray(this.local_value) && this.local_value.some(function (value) {
+        return value === _this.default_option.value;
+      }) || this.local_value.length === 0)) {
         return false;
       }
       if (!this.theOptions || _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default()(this.theOptions) !== 'object') {
@@ -3827,17 +3830,22 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       var _iterator2 = _createForOfIteratorHelper(this.theOptions),
         _step2;
       try {
-        for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+        var _loop = function _loop() {
           var option = _step2.value;
           if (typeof option.options !== 'undefined') {
             var _iterator3 = _createForOfIteratorHelper(option.options),
               _step3;
             try {
-              for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+              var _loop2 = function _loop2() {
                 var sub_option = _step3.value;
-                if (sub_option.value === this.local_value) {
+                if (Array.isArray(_this.local_value) && _this.local_value.some(function (value) {
+                  return value === sub_option.value;
+                }) || !Array.isArray(_this.local_value) && sub_option.value === _this.local_value || _this.local_value.length === 0) {
                   match_found = true;
                 }
+              };
+              for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+                _loop2();
               }
             } catch (err) {
               _iterator3.e(err);
@@ -3845,10 +3853,15 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
               _iterator3.f();
             }
           } else {
-            if (option.value === this.local_value) {
+            if (Array.isArray(_this.local_value) && _this.local_value.some(function (value) {
+              return value === option.value;
+            }) || !Array.isArray(_this.local_value) && option.value === _this.local_value || _this.local_value.length === 0) {
               match_found = true;
             }
           }
+        };
+        for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+          _loop();
         }
       } catch (err) {
         _iterator2.e(err);
@@ -34201,7 +34214,7 @@ var render = function render() {
       "preserve-search": true,
       "track-by": "value",
       label: "label",
-      placeholder: "Select options"
+      placeholder: _vm.label
     },
     scopedSlots: _vm._u([{
       key: "tag",

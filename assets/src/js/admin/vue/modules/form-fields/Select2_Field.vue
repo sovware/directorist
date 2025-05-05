@@ -11,7 +11,7 @@
       :preserve-search="true"
       :track-by="'value'"
       :label="'label'"
-      placeholder="Select options"
+      :placeholder="label"
       class="cptm-multiselect"
     >
       <!-- Custom Tag Slot -->

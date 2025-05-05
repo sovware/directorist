@@ -10,11 +10,14 @@ class Directorist_Multilingual_Polylang {
 			return;
 		}
 
+        // Prevent importing default directory
+        add_filter( 'atbdp_import_default_directory', '__return_false' );
+
         // Make custom post type translatable
-        add_filter( 'pll_get_post_types', [ $this, 'enable_translation_to_custom_post_types' ], 10, 1 );
+        add_filter( 'pll_get_post_types', [ $this, 'enable_translation_to_custom_post_types' ], 10, 2 );
             
         // Make custom taxonomy translatable
-        add_filter( 'pll_get_taxonomies', [ $this, 'enable_translation_to_custom_post_types' ], 10, 1 );
+        add_filter( 'pll_get_taxonomies', [ $this, 'enable_translation_to_custom_taxonomies' ], 10, 2 );
 
 		add_filter( 'directorist_register_directory_taxonomy_args', [ $this, 'polylang_directory_taxonomy_args' ], 10, 1  );
 		add_filter( 'directorist_localized_data', [ $this, 'polylang_localized_data' ], 20, 1 );
@@ -24,16 +27,17 @@ class Directorist_Multilingual_Polylang {
 		$this->language_link_update();
     }
 
-    public function enable_translation_to_custom_post_types( array $post_types ): array {
-        $post_types[ ATBDP_POST_TYPE ] = true;
+    public function enable_translation_to_custom_post_types( array $post_types, bool $is_settings ): array {
+        $post_types[ ATBDP_POST_TYPE ] = ATBDP_POST_TYPE;
+
         return $post_types;
     }
 
-    public function enable_translation_to_custom_taxonomies( array $taxonomies ): array {
-        $taxonomies[ ATBDP_DIRECTORY_TYPE ] = true;
-        $taxonomies[ ATBDP_CATEGORY ]       = true;
-        $taxonomies[ ATBDP_LOCATION ]       = true;
-        $taxonomies[ ATBDP_TAGS ]           = true;
+    public function enable_translation_to_custom_taxonomies( array $taxonomies, bool $is_settings ): array {
+        $taxonomies[ ATBDP_DIRECTORY_TYPE ] = ATBDP_DIRECTORY_TYPE;
+        $taxonomies[ ATBDP_CATEGORY ]       = ATBDP_CATEGORY;
+        $taxonomies[ ATBDP_LOCATION ]       = ATBDP_LOCATION;
+        $taxonomies[ ATBDP_TAGS ]           = ATBDP_TAGS;
         
         return $taxonomies;
     }

@@ -147,8 +147,7 @@ class Directorist_Multilingual_Polylang {
 		// Get language slug of the default page
 		$page_lang = pll_get_post_language( $args[ 'term_default_page_id' ] );
 
-		// If current lang slug != default page
-		// modyfy the url
+		// If current lang slug != default page then modyfy the url
 		if ( $args[ 'current_lang' ] !== $page_lang ) {
 			return $args['url'] ."?". $args['term_type'] ."=". $args['term_query_var'];
 		}

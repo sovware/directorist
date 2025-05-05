@@ -19,12 +19,20 @@ class Directorist_Multilingual_Polylang {
         // Make custom taxonomy translatable
         add_filter( 'pll_get_taxonomies', [ $this, 'enable_translation_to_custom_taxonomies' ], 10, 1 );
 
+        // Show UI for directory type taxonomy
 		add_filter( 'directorist_register_directory_taxonomy_args', [ $this, 'polylang_directory_taxonomy_args' ], 10, 1  );
-		add_filter( 'directorist_localized_data', [ $this, 'polylang_localized_data' ], 20, 1 );
-		add_action( 'directorist_before_processing_ajax_request', [ $this, 'polylang_switch_language_in_ajax' ], 20 );
-		add_filter( 'post_type_link', [ $this, 'polylang_switch_language_in_permalink' ], 50, 2 );
-
-		$this->language_link_update();
+		
+        // Add language to request headers
+        add_filter( 'directorist_localized_data', [ $this, 'polylang_localized_data' ], 20, 1 );
+		
+        // Switch language in ajax
+        add_action( 'directorist_before_processing_ajax_request', [ $this, 'polylang_switch_language_in_ajax' ], 20 );
+		
+        // Switch language in permalink
+        add_filter( 'post_type_link', [ $this, 'polylang_switch_language_in_permalink' ], 50, 2 );
+		
+        // Update term's language link
+        add_filter( 'pll_the_language_link', [ $this, 'term_language_link_update' ], 20, 2 );
     }
 
     public function enable_translation_to_custom_post_types( array $post_types ): array {
@@ -85,41 +93,43 @@ class Directorist_Multilingual_Polylang {
 		return PLL()->links_model->switch_language_in_link( $permalink, PLL()->model->get_language( $_SERVER['HTTP_DIRECTORIST_LANG'] ) );
 	}
 
-	// Language link update
-	public function language_link_update() {
-		add_filter('pll_the_language_link', function( $url, $current_lang ) {
-			// Adjust the category link
-			$category_url = $this->update_term_language_link( [
-				'term_type'            => 'category',
-				'term_default_page_id' => get_directorist_option('single_category_page'),
-				'term_query_var'       => ( ! empty( $_GET['category'] ) ) ? sanitize_text_field( wp_unslash( $_GET['category'] ) ) : get_query_var('atbdp_category'),
-				'current_lang'         => $current_lang,
-				'url'                  => $url,
-			] );
+	// Term's Language link update
+	public function term_language_link_update( $url, $current_lang ) {
+        if ( ! function_exists( 'pll_get_post_language' ) ) {
+			return;
+		}
 
-			if ( ! empty( $category_url ) ) { return $category_url; }
+		// Adjust the category link
+        $category_url = $this->update_term_language_link( [
+            'term_type'            => 'category',
+            'term_default_page_id' => get_directorist_option('single_category_page'),
+            'term_query_var'       => ( ! empty( $_GET['category'] ) ) ? sanitize_text_field( wp_unslash( $_GET['category'] ) ) : get_query_var('atbdp_category'),
+            'current_lang'         => $current_lang,
+            'url'                  => $url,
+        ] );
 
-			// Adjust the location link
-			$location_url = $this->update_term_language_link( [
-				'term_type'            => 'location',
-				'term_default_page_id' => get_directorist_option('single_location_page'),
-				'term_query_var'       => ( ! empty( $_GET['location'] ) ) ? sanitize_text_field( wp_unslash( $_GET['location'] ) ) : get_query_var('atbdp_location'),
-				'current_lang'         => $current_lang,
-				'url'                  => $url,
-			] );
+        if ( ! empty( $category_url ) ) {
+            return $category_url; 
+        }
 
-			if ( ! empty( $location_url ) ) { return $location_url; }
+        // Adjust the location link
+        $location_url = $this->update_term_language_link( [
+            'term_type'            => 'location',
+            'term_default_page_id' => get_directorist_option('single_location_page'),
+            'term_query_var'       => ( ! empty( $_GET['location'] ) ) ? sanitize_text_field( wp_unslash( $_GET['location'] ) ) : get_query_var('atbdp_location'),
+            'current_lang'         => $current_lang,
+            'url'                  => $url,
+        ] );
 
-			return $url;
-		}, 10, 2);
+        if ( ! empty( $location_url ) ) {
+            return $location_url; 
+        }
+
+        return $url;
 	}
 
 	// Update Term Language Link
 	public function update_term_language_link( $args ) {
-		if ( ! function_exists( 'pll_get_post_language' ) ) {
-			return;
-		}
-
 		$default = [
 			'term_type'            => '',
 			'term_query_var'       => '',
@@ -130,7 +140,9 @@ class Directorist_Multilingual_Polylang {
 
 		$args = array_merge( $default, $args );
 
-		if ( empty( $args[ 'term_query_var' ] ) ) { return false; }
+		if ( empty( $args[ 'term_query_var' ] ) ) {
+            return false; 
+        }
 
 		// Get language slug of the default page
 		$page_lang = pll_get_post_language( $args[ 'term_default_page_id' ] );

@@ -2,6 +2,7 @@
 // import { cacheCategoryCustomFields, getCategoryCustomFieldsCache } from '../global/components/cache-category-custom-fields';
 // import loadCategoryCustomFields from '../global/components/load-category-custom-fields';
 import '../global/components/setup-select2';
+import { directoristRequestHeaders } from '../helper';
 import '../public/components/colorPicker';
 import '../public/components/directoristDropdown';
 import '../public/components/directoristSelect';
@@ -599,12 +600,6 @@ $(function() {
             form_data.append('action', 'add_listing_action');
             form_data.append('directorist_nonce', directorist.directorist_nonce);
 
-            if ( window.directorist && window.directorist.request_meta ) {
-                for ( let key in window.directorist.request_meta ) {
-                    form_data.append( key, window.directorist.request_meta[ key ] );
-                }
-            }
-
             disableSubmitButton();
 
             const fieldValuePairs = $form.serializeArray();
@@ -696,6 +691,7 @@ $(function() {
                 contentType: false,
                 url: localized_data.ajaxurl,
                 data: form_data,
+                headers: directoristRequestHeaders(),
                 beforeSend() {
                     disableSubmitButton();
 

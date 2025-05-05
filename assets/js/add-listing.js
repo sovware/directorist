@@ -100,13 +100,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof.js");
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _global_components_setup_select2__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../global/components/setup-select2 */ "./assets/src/js/global/components/setup-select2.js");
-/* harmony import */ var _public_components_colorPicker__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../public/components/colorPicker */ "./assets/src/js/public/components/colorPicker.js");
-/* harmony import */ var _public_components_colorPicker__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_public_components_colorPicker__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _public_components_directoristDropdown__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../public/components/directoristDropdown */ "./assets/src/js/public/components/directoristDropdown.js");
-/* harmony import */ var _public_components_directoristDropdown__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_public_components_directoristDropdown__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _public_components_directoristSelect__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../public/components/directoristSelect */ "./assets/src/js/public/components/directoristSelect.js");
-/* harmony import */ var _public_components_directoristSelect__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_public_components_directoristSelect__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _components_debounce__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/debounce */ "./assets/src/js/global/components/debounce.js");
+/* harmony import */ var _helper__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../helper */ "./assets/src/js/helper.js");
+/* harmony import */ var _public_components_colorPicker__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../public/components/colorPicker */ "./assets/src/js/public/components/colorPicker.js");
+/* harmony import */ var _public_components_colorPicker__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_public_components_colorPicker__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _public_components_directoristDropdown__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../public/components/directoristDropdown */ "./assets/src/js/public/components/directoristDropdown.js");
+/* harmony import */ var _public_components_directoristDropdown__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_public_components_directoristDropdown__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _public_components_directoristSelect__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../public/components/directoristSelect */ "./assets/src/js/public/components/directoristSelect.js");
+/* harmony import */ var _public_components_directoristSelect__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_public_components_directoristSelect__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _components_debounce__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/debounce */ "./assets/src/js/global/components/debounce.js");
 
 
 function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t.return || t.return(); } finally { if (u) throw o; } } }; }
@@ -115,6 +116,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
 // General Components
 // import { cacheCategoryCustomFields, getCategoryCustomFieldsCache } from '../global/components/cache-category-custom-fields';
 // import loadCategoryCustomFields from '../global/components/load-category-custom-fields';
+
 
 
 
@@ -675,11 +677,6 @@ $(function () {
       var form_data = new FormData();
       form_data.append('action', 'add_listing_action');
       form_data.append('directorist_nonce', directorist.directorist_nonce);
-      if (window.directorist && window.directorist.request_meta) {
-        for (var key in window.directorist.request_meta) {
-          form_data.append(key, window.directorist.request_meta[key]);
-        }
-      }
       disableSubmitButton();
       var fieldValuePairs = $form.serializeArray();
 
@@ -735,8 +732,8 @@ $(function () {
       // categories
       var categories = $form.find('#at_biz_dir-categories').val();
       if (Array.isArray(categories) && categories.length) {
-        for (var _key in categories) {
-          form_data.append('tax_input[at_biz_dir-category][]', categories[_key]);
+        for (var key in categories) {
+          form_data.append('tax_input[at_biz_dir-category][]', categories[key]);
         }
       }
       if (typeof categories === 'string') {
@@ -770,6 +767,7 @@ $(function () {
         contentType: false,
         url: localized_data.ajaxurl,
         data: form_data,
+        headers: Object(_helper__WEBPACK_IMPORTED_MODULE_3__["directoristRequestHeaders"])(),
         beforeSend: function beforeSend() {
           disableSubmitButton();
           $notification.show().html("<span class=\"atbdp_success\">".concat(localized_data.i18n_text.submission_wait_msg, "</span>"));
@@ -929,7 +927,7 @@ $(function () {
     });
   });
   function addSticky() {
-    $(window).scroll(Object(_components_debounce__WEBPACK_IMPORTED_MODULE_6__["default"])(function () {
+    $(window).scroll(Object(_components_debounce__WEBPACK_IMPORTED_MODULE_7__["default"])(function () {
       var windowWidth = $(window).width();
       var sidebarWidth = $(".multistep-wizard__nav").width();
       var sidebarHeight = $(".multistep-wizard__nav").height();
@@ -1715,6 +1713,69 @@ function maybeLazyLoadTaxonomyTermsSelect2(args) {
     }
     setupSelectedItems($el, $el.data('selected-id'), $el.data('selected-label'));
   }
+}
+
+/***/ }),
+
+/***/ "./assets/src/js/helper.js":
+/*!*********************************!*\
+  !*** ./assets/src/js/helper.js ***!
+  \*********************************/
+/*! exports provided: isObject, findObjectItem, directoristRequestHeaders */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isObject", function() { return isObject; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "findObjectItem", function() { return findObjectItem; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "directoristRequestHeaders", function() { return directoristRequestHeaders; });
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof.js");
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__);
+
+function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t.return || t.return(); } finally { if (u) throw o; } } }; }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+var isObject = function isObject(value) {
+  return value && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(value) === 'object' && !Array.isArray(value);
+};
+function findObjectItem(path, data, defaultValue) {
+  if (typeof path !== 'string') {
+    return defaultValue;
+  }
+  if (!isObject(data)) {
+    return defaultValue;
+  }
+  var pathItems = path.split('.');
+  var targetItem = data;
+  var _iterator = _createForOfIteratorHelper(pathItems),
+    _step;
+  try {
+    for (_iterator.s(); !(_step = _iterator.n()).done;) {
+      var key = _step.value;
+      if (!isObject(targetItem)) {
+        return defaultValue;
+      }
+      if (!targetItem.hasOwnProperty(key)) {
+        return defaultValue;
+      }
+      targetItem = targetItem[key];
+    }
+  } catch (err) {
+    _iterator.e(err);
+  } finally {
+    _iterator.f();
+  }
+  return targetItem;
+}
+function directoristRequestHeaders() {
+  if (window.directorist && window.directorist.request_headers && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(window.directorist.request_headers) === 'object' && !Array.isArray(window.directorist.request_headers)) {
+    var headers = {};
+    for (var key in window.directorist.request_headers) {
+      headers["Directorist-".concat(key)] = window.directorist.request_headers[key];
+    }
+    return headers;
+  }
+  return {};
 }
 
 /***/ }),

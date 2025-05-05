@@ -49,28 +49,28 @@ class Directorist_Multilingual_Polylang {
 	}
 
 	public function polylang_localized_data( $data ) {
-		if ( ! isset( $data['request_meta'] ) ) {
-			$data['request_meta'] = [];
+		if ( ! isset( $data['request_headers'] ) ) {
+			$data['request_headers'] = [];
 		}
 
-		$data['request_meta']['lang'] = pll_current_language();
+		$data['request_headers']['Lang'] = pll_current_language();
 
 		return $data;
 	}
 
 	public function polylang_switch_language_in_ajax( array $args ) {
-		if ( empty( $args['params'][ 'lang' ] ) ) {
+		if ( empty( $_SERVER['HTTP_DIRECTORIST_LANG'] ) ) {
 			return;
 		}
 
-		if ( $args['params'][ 'lang' ] === pll_current_language() ) {
+		if ( $_SERVER['HTTP_DIRECTORIST_LANG'] === pll_current_language() ) {
 			return;
 		}
 		
 		$languages = PLL()->model->get_languages_list();
 
 		foreach ( $languages as $language ) {
-			if ( $language->slug === $args['params'][ 'lang' ] ) {
+			if ( $language->slug === $_SERVER['HTTP_DIRECTORIST_LANG'] ) {
 				PLL()->curlang = $language;
 				break;
 			}
@@ -78,11 +78,11 @@ class Directorist_Multilingual_Polylang {
 	}
 
 	public function polylang_switch_language_in_permalink( string $permalink ) {
-		if ( empty( $_REQUEST[ 'lang' ] ) ) {
+		if ( empty( $_SERVER['HTTP_DIRECTORIST_LANG'] ) ) {
 			return $permalink;
 		}
 
-		return PLL()->links_model->switch_language_in_link( $permalink, PLL()->model->get_language( $_REQUEST[ 'lang' ] ) );
+		return PLL()->links_model->switch_language_in_link( $permalink, PLL()->model->get_language( $_SERVER['HTTP_DIRECTORIST_LANG'] ) );
 	}
 
 	// Language link update

@@ -33,8 +33,8 @@ class Localized_Data {
 
 	private static function general_public_data() {
 		$data = [
-			'request_meta' => [
-				'referer_page_id' => get_the_ID(),
+			'request_headers' => [
+				'Referer-Page-ID' => get_the_ID(),
 			]
 		];
 		

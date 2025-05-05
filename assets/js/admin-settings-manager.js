@@ -25936,85 +25936,229 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/toConsumableArray.js");
-/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-multiselect */ "./node_modules/vue-multiselect/dist/vue-multiselect.min.js");
-/* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_multiselect__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _mixins_helpers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../mixins/helpers */ "./assets/src/js/admin/vue/mixins/helpers.js");
-/* harmony import */ var _mixins_validation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../../mixins/validation */ "./assets/src/js/admin/vue/mixins/validation.js");
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof.js");
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-multiselect */ "./node_modules/vue-multiselect/dist/vue-multiselect.min.js");
+/* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_multiselect__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _mixins_helpers__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../../mixins/helpers */ "./assets/src/js/admin/vue/mixins/helpers.js");
+/* harmony import */ var _mixins_validation__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../../mixins/validation */ "./assets/src/js/admin/vue/mixins/validation.js");
+
+
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1___default()(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "select2-field",
-  mixins: [_mixins_helpers__WEBPACK_IMPORTED_MODULE_2__["default"], _mixins_validation__WEBPACK_IMPORTED_MODULE_3__["default"]],
+  mixins: [_mixins_helpers__WEBPACK_IMPORTED_MODULE_4__["default"], _mixins_validation__WEBPACK_IMPORTED_MODULE_5__["default"]],
   components: {
-    Multiselect: vue_multiselect__WEBPACK_IMPORTED_MODULE_1___default.a
+    Multiselect: vue_multiselect__WEBPACK_IMPORTED_MODULE_2___default.a
+  },
+  model: {
+    event: "input"
   },
   props: {
     label: {
       type: String,
+      required: false,
       default: ""
     },
     value: {
-      type: [Array, String],
+      type: Array,
+      required: false,
       default: function _default() {
         return [];
       }
     },
     options: {
       type: Array,
-      default: function _default() {
-        return [];
-      }
+      required: false
     },
-    defaultOption: Object,
-    optionsSource: Object,
+    defaultOption: {
+      type: Object,
+      required: false
+    },
+    optionsSource: {
+      type: Object,
+      required: false
+    },
     name: {
       type: [String, Number],
+      required: false,
       default: ""
     },
     placeholder: {
       type: [String, Number],
+      required: false,
       default: ""
     },
-    validation: Array
-  },
-  data: function data() {
-    return {
-      localValue: [],
-      localOptions: []
-    };
-  },
-  watch: {
-    value: {
-      immediate: true,
-      handler: function handler(newVal) {
-        this.localValue = Array.isArray(newVal) ? _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(newVal) : [];
-      }
-    },
-    options: {
-      immediate: true,
-      handler: function handler(newOptions) {
-        this.localOptions = Array.isArray(newOptions) ? _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(newOptions) : [];
-      }
-    },
-    localValue: function localValue(newVal) {
-      this.$emit("input", newVal); // Emit update to parent
+    validation: {
+      type: Array,
+      required: false
     }
   },
+  mounted: function mounted() {
+    this.setup();
+  },
+  watch: {
+    local_value: function local_value() {
+      this.$emit("update", this.local_value);
+    },
+    theOptions: function theOptions() {
+      if (!this.valueIsValid(this.local_value)) {
+        this.local_value = [];
+      }
+    },
+    selected: {
+      handler: function handler(newValue) {
+        if (Array.isArray(newValue)) {
+          var onlyValues = newValue.map(function (item) {
+            return item.value;
+          });
+          this.local_value = onlyValues;
+          this.$emit("input", onlyValues); // emit the array of values
+        }
+      },
 
-  methods: {
-    addTag: function addTag(newTag) {
-      var tag = {
-        id: Date.now(),
-        // Simple unique ID
-        label: newTag,
-        value: newTag
+      deep: true
+    }
+  },
+  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapState"])({
+    fields: "fields"
+  })), {}, {
+    theOptions: function theOptions() {
+      var decodeHtml = function decodeHtml(html) {
+        var txt = document.createElement("textarea");
+        txt.innerHTML = html;
+        return txt.value;
       };
-      this.localOptions.push(tag);
-      this.localValue.push(tag);
+      var rawOptions = [];
+      if (this.hasOptionsSource) {
+        rawOptions = this.hasOptionsSource;
+      } else if (!this.options || _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(this.options) !== "object") {
+        rawOptions = this.defaultOption ? [this.defaultOption] : [];
+      } else {
+        rawOptions = this.options;
+      }
+
+      // Handle grouped and flat options
+      var decodeLabels = function decodeLabels(opts) {
+        return opts.map(function (opt) {
+          if (opt.options && Array.isArray(opt.options)) {
+            // group with nested options
+            return _objectSpread(_objectSpread({}, opt), {}, {
+              options: decodeLabels(opt.options)
+            });
+          }
+          return _objectSpread(_objectSpread({}, opt), {}, {
+            label: decodeHtml(opt.label)
+          });
+        });
+      };
+      return decodeLabels(rawOptions);
+    },
+    hasOptionsSource: function hasOptionsSource() {
+      if (!this.optionsSource || _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(this.optionsSource) !== "object") {
+        return false;
+      }
+      if (typeof this.optionsSource.where !== "string") {
+        return false;
+      }
+      var target_fields = this.getTergetFields({
+        path: this.optionsSource.where
+      });
+      if (!target_fields || _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(target_fields) !== "object") {
+        return false;
+      }
+      var filter_by = null;
+      if (typeof this.optionsSource.filter_by === "string" && this.optionsSource.filter_by.length) {
+        filter_by = this.optionsSource.filter_by;
+      }
+      if (filter_by) {
+        filter_by = this.getTergetFields({
+          path: this.optionsSource.filter_by
+        });
+      }
+      var has_sourcemap = false;
+      if (this.optionsSource.source_map && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(this.optionsSource.source_map) === "object") {
+        has_sourcemap = true;
+      }
+      if (!has_sourcemap && !filter_by) {
+        return target_fields;
+      }
+      if (has_sourcemap) {
+        target_fields = this.mapDataByMap(target_fields, this.optionsSource.source_map);
+      }
+      if (filter_by) {
+        target_fields = this.filterDataByValue(target_fields, filter_by);
+      }
+      if (!target_fields && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(target_fields) !== "object") {
+        return false;
+      }
+      return target_fields;
+    }
+  }),
+  data: function data() {
+    return {
+      local_value: [],
+      selected: []
+    };
+  },
+  methods: {
+    setup: function setup() {
+      if (this.defaultOption || _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(this.defaultOption) === "object") {
+        this.default_option = this.defaultOption;
+      }
+      if (this.valueIsValid(this.value)) {
+        this.local_value = this.value;
+
+        // Set the initial selected options from local_value
+        this.selected = this.getSelectedOptions(this.local_value);
+      }
+    },
+    valueIsValid: function valueIsValid(value) {
+      // Ensure we always work with an array
+      var valuesToCheck = Array.isArray(value) ? value : [value];
+      var optionsValues = this.theOptions.map(function (option) {
+        return typeof option.value !== "undefined" ? !isNaN(Number(option.value)) ? Number(option.value) : option.value : null;
+      }).filter(function (v) {
+        return v !== null;
+      }); // filter out any nulls just in case
+
+      var allValuesValid = valuesToCheck.every(function (val) {
+        return optionsValues.includes(!isNaN(Number(val)) ? Number(val) : val);
+      });
+      return allValuesValid;
+    },
+    // Helper method to get the selected option objects based on the values
+    getSelectedOptions: function getSelectedOptions(values) {
+      // Ensure the values are numbers
+      var numericValues = values.map(function (value) {
+        return Number(value);
+      });
+
+      // Flatten the options if necessary
+      var flatOptions = Array.isArray(this.theOptions[0]) ? this.theOptions.flat() : this.flattenOptions(this.theOptions);
+
+      // Filter the options by comparing numeric values
+      return flatOptions.filter(function (opt) {
+        return numericValues.includes(Number(opt.value));
+      });
+    },
+    // Helper method to flatten grouped options
+    flattenOptions: function flattenOptions(options) {
+      return options.reduce(function (acc, opt) {
+        if (opt.options && Array.isArray(opt.options)) {
+          return acc.concat(opt.options);
+        }
+        acc.push(opt);
+        return acc;
+      }, []);
     }
   }
 });
@@ -34045,31 +34189,69 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "cptm-form-group test-select2"
-  }, [_c("label", {
-    staticClass: "typo__label"
-  }, [_vm._v("Tagging")]), _vm._v(" "), _c("multiselect", {
+    staticClass: "cptm-form-group",
+    class: _vm.formGroupClass
+  }, [_vm.label.length ? _c("label", [_vm._v(_vm._s(_vm.label))]) : _vm._e(), _vm._v(" "), _c("multiselect", {
+    staticClass: "cptm-multiselect",
     attrs: {
-      id: "tagging",
-      "tag-placeholder": "Add this as new tag",
-      placeholder: "Search or add a tag",
-      label: "label",
-      "track-by": "id",
-      options: _vm.localOptions,
+      options: _vm.theOptions,
       multiple: true,
-      taggable: true
+      "close-on-select": false,
+      "clear-on-select": true,
+      "preserve-search": true,
+      "track-by": "value",
+      label: "label",
+      placeholder: "Select options"
     },
-    on: {
-      tag: _vm.addTag
-    },
+    scopedSlots: _vm._u([{
+      key: "tag",
+      fn: function fn(_ref) {
+        var option = _ref.option,
+          remove = _ref.remove;
+        return [_c("span", {
+          staticClass: "multiselect__tag"
+        }, [_vm._v("\n        " + _vm._s(option.label) + "\n        "), _c("span", {
+          staticClass: "multiselect__tag__remove",
+          on: {
+            mousedown: function mousedown($event) {
+              $event.preventDefault();
+            },
+            click: function click($event) {
+              $event.stopPropagation();
+              return remove(option);
+            }
+          }
+        }, [_vm._v("×")])])];
+      }
+    }, {
+      key: "option",
+      fn: function fn(_ref2) {
+        var option = _ref2.option,
+          index = _ref2.index,
+          search = _ref2.search,
+          isSelected = _ref2.isSelected;
+        return [_c("div", {
+          staticClass: "multiselect__option",
+          class: {
+            "is-selected": isSelected,
+            "multiselect__option--selected": isSelected // custom class
+          }
+        }, [_vm._v("\n        " + _vm._s(option.label) + "\n      ")])];
+      }
+    }]),
     model: {
-      value: _vm.localValue,
+      value: _vm.selected,
       callback: function callback($$v) {
-        _vm.localValue = $$v;
+        _vm.selected = $$v;
       },
-      expression: "localValue"
+      expression: "selected"
     }
-  })], 1);
+  }), _vm._v(" "), _vm.validationMessages ? _c("div", {
+    staticClass: "cptm-form-group-feedback"
+  }, [_c("div", {
+    staticClass: "cptm-form-alert",
+    class: "cptm-" + _vm.validationMessages.type
+  }, [_vm._v("\n      " + _vm._s(_vm.validationMessages.message) + "\n    ")])]) : _vm._e()], 1);
 };
 var staticRenderFns = [];
 render._withStripped = true;

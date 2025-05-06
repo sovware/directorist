@@ -436,24 +436,21 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
   // Slider Call on Page Load
   window.addEventListener('load', function () {
-    allListingSlider();
-    $('body').on('click', '.directorist-viewas__item, .directorist-type-nav__link, .directorist-pagination .page-numbers, .directorist-instant-search .directorist-search-field__btn--clear, .directorist-instant-search .directorist-btn-reset-js', function (e) {
-      setTimeout(function () {
-        if ($('.directorist-archive-items .directorist-swiper-listing')) {
-          allListingSlider();
-        }
-      }, 1000);
-    });
+    if ($('.directorist-archive-items .directorist-swiper-listing')) {
+      allListingSlider();
+    }
     $('body').on('input keyup change', '.directorist-archive-contents form', function (e) {
       if (e.target.classList.contains('directorist-location-js')) {
         sliderObserver();
       }
-      setTimeout(function () {
-        if ($('.directorist-archive-items .directorist-swiper-listing')) {
-          allListingSlider();
-        }
-      }, 1000);
     });
+  });
+
+  // Slider Call on Page instant search
+  window.addEventListener('directorist-instant-search-reloaded', function () {
+    if ($('.directorist-archive-items .directorist-swiper-listing')) {
+      allListingSlider();
+    }
   });
 
   // Mutation Observer on Range Slider

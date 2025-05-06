@@ -19,7 +19,7 @@ if (!empty($value) && strpos($value, '-') !== false) {
 
 <div class="directorist-search-field directorist-search-field-text_range">
     <?php if ( !empty($data['label']) ): ?>
-        <label><?php echo esc_html( $data['label'] ); ?></label>
+        <label class="directorist-search-field__label"><?php echo esc_html( $data['label'] ); ?></label>
     <?php endif; ?>
     <div class="directorist-custom-range-slider">
         <div class="directorist-custom-range-slider__slide" step="<?php echo esc_attr( ! empty( $data['options']['step'] ) ? absint( $data['options']['step'] ) : 1 ); ?>" aria-label="Range" min-value="<?php echo esc_attr($default_min_value); ?>" max-value="<?php echo esc_attr($default_max_value); ?>"></div>

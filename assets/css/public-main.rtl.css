@@ -6490,7 +6490,7 @@ button[type=submit].directorist-btn {
 }
 .directorist-content-active .select2.select2-container.select2-container--focus .select2-selection {
   border: none;
-  border-bottom: 1px solid var(--directorist-color-primary) !important;
+  border-bottom: 2px solid var(--directorist-color-primary) !important;
 }
 
 .directorist-content-active .select2-container.select2-container--open {
@@ -9305,7 +9305,11 @@ body.modal-overlay-enabled:before {
 }
 .directorist-search-modal--basic .directorist-search-field-pricing > label,
 .directorist-search-modal--basic .directorist-search-field-text_range > label,
+.directorist-search-modal--basic .directorist-search-field-price_range > label,
 .directorist-search-modal--basic .directorist-search-field-radius_search > label {
+  position: unset;
+  -webkit-transform: unset;
+          transform: unset;
   display: block;
   font-size: 14px;
   font-weight: 500;
@@ -11575,7 +11579,11 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .listing-with-sidebar__searchform .directorist-search-field-pricing > label,
 .listing-with-sidebar__searchform .directorist-search-field-text_range > label,
+.listing-with-sidebar__searchform .directorist-search-field-price_range > label,
 .listing-with-sidebar__searchform .directorist-search-field-radius_search > label {
+  position: unset;
+  -webkit-transform: unset;
+          transform: unset;
   display: block;
   font-size: 14px;
   font-weight: 500;
@@ -11764,7 +11772,11 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   margin: 0;
 }
 .listing-with-sidebar__sidebar .directorist-advanced-filter__advanced__element .directorist-search-field.directorist-search-field-radius_search > label, .listing-with-sidebar__sidebar .directorist-advanced-filter__advanced__element .directorist-search-field.directorist-search-field-price_range > label, .listing-with-sidebar__sidebar .directorist-advanced-filter__advanced__element .directorist-search-field.directorist-search-field-text_range > label {
+  position: unset;
   margin-bottom: 15px;
+}
+.listing-with-sidebar__sidebar .directorist-advanced-filter__advanced__element .directorist-search-field.directorist-search-field__number > label {
+  position: unset;
 }
 .listing-with-sidebar__sidebar .directorist-advanced-filter__advanced__element .directorist-search-field .directorist-search-tags,
 .listing-with-sidebar__sidebar .directorist-advanced-filter__advanced__element .directorist-search-field .directorist-search-review,
@@ -12268,6 +12280,11 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .directorist-advanced-filter__advanced__element .directorist-search-field.input-is-focused .directorist-search-field__input[type=time] {
   padding-left: 20px;
+}
+.directorist-advanced-filter__advanced__element .directorist-search-field.directorist-search-field-radius_search > label, .directorist-advanced-filter__advanced__element .directorist-search-field.directorist-search-field-price_range > label, .directorist-advanced-filter__advanced__element .directorist-search-field.directorist-search-field-text_range > label, .directorist-advanced-filter__advanced__element .directorist-search-field.directorist-search-field__number > label {
+  position: unset;
+  -webkit-transform: unset;
+          transform: unset;
 }
 .directorist-advanced-filter__advanced__element .directorist-checkbox-wrapper,
 .directorist-advanced-filter__advanced__element .directorist-radio-wrapper,
@@ -13518,6 +13535,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
           align-items: center;
   padding: 5px 0;
   border: 0 none !important;
+  width: calc(100% - 15px);
 }
 .directorist-search-form__top .select2-container .directorist-select2-dropdown-close {
   display: none;

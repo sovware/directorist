@@ -12708,7 +12708,11 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .directorist-search-modal--basic .directorist-search-field-pricing > label,
 .directorist-search-modal--basic .directorist-search-field-text_range > label,
+.directorist-search-modal--basic .directorist-search-field-price_range > label,
 .directorist-search-modal--basic .directorist-search-field-radius_search > label {
+  position: unset;
+  -webkit-transform: unset;
+          transform: unset;
   display: block;
   font-size: 14px;
   font-weight: 500;

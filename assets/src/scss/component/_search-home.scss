@@ -623,6 +623,7 @@
         align-items: center;
         padding: 5px 0;
         border: 0 none !important;
+        width: calc(100% - 15px);
       }
       .directorist-select2-dropdown-close {
         display: none;

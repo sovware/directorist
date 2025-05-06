@@ -7,7 +7,18 @@
     "dev": "webpack --config webpack.dev.js",
     "dev-vue": "webpack --config webpack.dev.vue.js",
     "prod": "node pot.js && webpack --config webpack.prod.js",
-    "blocks:build": "wp-scripts build ./includes/gutenberg/index.js --output-path=includes/gutenberg/assets"
+    "blocks:build": "wp-scripts build ./includes/gutenberg/index.js --output-path=includes/gutenberg/assets",
+    "format": "wp-scripts format ./assets/src",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "*.{css,scss,js}": [
+      "yarn format",
+      "git add"
+    ],
+    "*.php": [
+      "composer format"
+    ]
   },
   "repository": {
     "type": "git",
@@ -20,8 +31,11 @@
     "@wordpress/icons": "^4.0.1",
     "axios": "^0.21.1",
     "dom-scroll-into-view": "^2.0.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.1",
     "lodash": "^4.17.20",
     "node-sass": "^7.0.1",
+    "prettier": "^3.5.3",
     "vue": "^2.6.11",
     "vue-dndrop": "^1.3.0",
     "vue-multiselect": "^2.1.6",

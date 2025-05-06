@@ -12569,7 +12569,15 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
     width: 100%;
     padding-left: 0;
   }
+  .directorist-search-modal--basic .directorist-search-modal__input .directorist-search-field .directorist-custom-range-slider__value {
+    border-bottom: none;
+  }
+  .directorist-search-modal--basic .directorist-search-modal__input .directorist-search-field .directorist-custom-range-slider__value:focus-within {
+    outline: none;
+    border-bottom: 2px solid var(--directorist-color-primary);
+  }
   .directorist-search-modal--basic .directorist-search-modal__input .directorist-search-field.directorist-search-field-radius_search {
+    width: auto;
     padding-left: 0;
   }
   .directorist-search-modal--basic .directorist-search-modal__input .directorist-search-field.directorist-search-field-radius_search .directorist-custom-range-slider__range__wrap {

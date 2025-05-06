@@ -522,7 +522,16 @@
             padding-right: 0;
           }
 
+          .directorist-custom-range-slider__value {
+            border-bottom: none;
+            &:focus-within {
+              outline: none;
+              border-bottom: 2px solid var(--directorist-color-primary);
+            }
+          }
+
           &.directorist-search-field-radius_search {
+            width: auto;
             padding-right: 0;
             .directorist-custom-range-slider__range__wrap {
               right: 0;

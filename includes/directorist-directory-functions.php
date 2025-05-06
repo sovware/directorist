@@ -314,7 +314,7 @@ function directorist_get_category_custom_field_relations( $directory_id ) {
 			continue;
 		}
 
-		$relations[ $field['field_key'] ] = (int) $field['category'];
+		$relations[ $field['field_key'] ] =  $field['category'];
 	}
 
 	return $relations;

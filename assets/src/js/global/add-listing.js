@@ -349,12 +349,14 @@ $(function() {
 
         let $watchableSections = { hide: new Set(), show: new Set() };
             categoryIds        = new Set( categoryIds );
-
+            const stringCategoryIds = new Set([...categoryIds].map(id => String(id)));
+            
         for ( const [ fieldKey, categoryId ] of Object.entries( fieldsMap[ directoryId ] ) ) {
             const $input   = $( fieldKey.includes( 'checkbox' ) ? `[name="${fieldKey}[]"]` : `[name="${fieldKey}"]` );
             const $wrapper = $input.closest( '.directorist-form-group' );
-
-            if ( categoryIds.has( categoryId ) ) {
+            const shouldShow = categoryId.some(id => stringCategoryIds.has(id));
+            
+            if ( shouldShow ) {
                 $input.removeAttr( 'disabled' );
                 $wrapper.show();
                 $watchableSections.show.add( $wrapper.closest( '.directorist-form-section' ).get(0) );

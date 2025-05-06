@@ -14,8 +14,12 @@ function hideAllCustomFieldsExceptSelected(relations, category, $container) {
         if (!$field.length) {
             $field = $container.find(`[name="custom_field\[${field}][]"\]`);
         }
+        const shouldShow = Array.isArray(fieldCategory)
+    ? fieldCategory.includes(String(category)) // Convert for type-safe match
+    : String(fieldCategory) === String(category);
 
-        if (category === fieldCategory) {
+        console.log( fieldCategory )
+        if ( shouldShow ) {
             $field.prop('disabled', false);
 
             wrappers.forEach(wrapper => {

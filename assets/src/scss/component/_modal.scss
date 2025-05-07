@@ -254,13 +254,6 @@
           }
         }
 
-        &.directorist-date,
-        &.directorist-time {
-          .directorist-search-field__btn--clear {
-            bottom: 8px;
-          }
-        }
-
         &.input-is-focused {
           .directorist-search-field__input {
             &[type="number"] {
@@ -333,6 +326,20 @@
           }
           .directorist-icon-mask:after {
             background-color: #808080;
+          }
+        }
+        .select2-container {
+          .directorist-select2-addons-area {
+            .directorist-icon-mask {
+              display: flex;
+              flex: 1;
+              justify-content: flex-end;
+              &:after {
+                width: 12px;
+                height: 12px;
+                background-color: #808080;
+              }
+            }
           }
         }
       }

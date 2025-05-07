@@ -12264,9 +12264,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-search-modal__contents__body .directorist-search-field__btn--clear:hover i::after {
   background-color: var(--directorist-color-primary);
 }
-.directorist-search-modal__contents__body .directorist-search-field.directorist-date .directorist-search-field__btn--clear, .directorist-search-modal__contents__body .directorist-search-field.directorist-time .directorist-search-field__btn--clear {
-  bottom: 8px;
-}
 .directorist-search-modal__contents__body .directorist-search-field.input-is-focused .directorist-search-field__input[type=number] {
   appearance: none !important;
   -webkit-appearance: none !important;
@@ -12334,6 +12331,25 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   bottom: 12px;
 }
 .directorist-search-modal__contents__body .directorist-search-field .directorist-filter-location-icon .directorist-icon-mask:after {
+  background-color: #808080;
+}
+.directorist-search-modal__contents__body .directorist-search-field .select2-container .directorist-select2-addons-area .directorist-icon-mask {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+.directorist-search-modal__contents__body .directorist-search-field .select2-container .directorist-select2-addons-area .directorist-icon-mask:after {
+  width: 12px;
+  height: 12px;
   background-color: #808080;
 }
 .directorist-search-modal__contents__body .directorist-search-form-dropdown {

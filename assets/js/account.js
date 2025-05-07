@@ -309,7 +309,6 @@ jQuery(function ($) {
       $this.removeClass('directorist-btn-loading'); // Removed loading class
       return; // Stop submission if validation fails
     }
-
     var formData = new FormData(form);
     formData.append('action', 'directorist_register_form');
     formData.append('params', JSON.stringify(directorist_signin_signup_params));

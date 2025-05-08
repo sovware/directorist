@@ -13,6 +13,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 class Directorist_Listings {
 	protected $thumbnails_cached = false;
 
+	protected $search_form = null;
+
 	public $query_args = [];
 	public $query_results = [];
 	public $options = [];
@@ -2257,40 +2259,26 @@ class Directorist_Listings {
 		}
 
 		public function basic_search_form_template() {
-			// only catch atts with the prefix 'filter_'
-			$search_field_atts = array_filter( $this->atts, function( $key ) {
-				return substr( $key, 0, 7 ) == 'filter_';
-			}, ARRAY_FILTER_USE_KEY );
-
-			$search_form = new Directorist_Listing_Search_Form( $this->type, $this->current_listing_type, $search_field_atts );
-
-			if ( ! $search_form->have_basic_fields() ) {
+			if ( ! $this->get_search_form()->have_basic_fields() ) {
 				return;
 			}
 
 			$args = array(
 				'listings'   => $this,
-				'searchform' => $search_form,
+				'searchform' => $this->get_search_form(),
 			);
 
 			Helper::get_template( 'archive/basic-search-form', $args );
 		}
 
 		public function advance_search_form_template() {
-			// only catch atts with the prefix 'filter_'
-			$search_field_atts = array_filter( $this->atts, function( $key ) {
-				return substr( $key, 0, 7 ) == 'filter_';
-			}, ARRAY_FILTER_USE_KEY );
-
-			$search_form = new Directorist_Listing_Search_Form( $this->type, $this->current_listing_type, $search_field_atts );
-
-			if ( ! $search_form->have_advance_fields() ) {
+			if ( ! $this->get_search_form()->have_advance_fields() ) {
 				return;
 			}
 
 			$args = array(
 				'listings'   => $this,
-				'searchform' => $search_form,
+				'searchform' => $this->get_search_form(),
 			);
 
 			Helper::get_template( 'archive/advance-search-form', $args );
@@ -2484,4 +2472,33 @@ class Directorist_Listings {
 		_deprecated_function( __METHOD__, '7.3.1' );
     }
 
+	public function should_display_basic_search_form() {
+		return ( ! $this->hide_top_search_bar_on_sidebar_layout() && $this->get_search_form()->have_basic_fields() );
+	}
+
+	public function should_display_advance_search_form() {
+		return $this->get_search_form()->have_advance_fields();
+	}
+
+	protected function get_filter_attributes() {
+		return array_filter(
+			$this->atts,
+			function( $key ) {
+				return substr( $key, 0, 7 ) == 'filter_';
+			},
+			ARRAY_FILTER_USE_KEY
+		);
+	}
+
+	public function get_search_form() {
+		if ( is_null( $this->search_form ) ) {
+			$this->search_form = new Directorist_Listing_Search_Form(
+				$this->type,
+				$this->current_listing_type,
+				$this->get_filter_attributes()
+			);
+		}
+
+		return $this->search_form;
+	}
 }

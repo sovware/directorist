@@ -9,9 +9,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+if ( ! $searchform->have_advance_fields() ) {
+	return;
+}
+
 $title              = $listings->options['sidebar_filter_text'] ?? __( 'Filters', 'directorist' );
 $reset_button_label = $searchform->options['reset_sidebar_filters_text'] ?? esc_html__( 'Clear All', 'directorist' );
-
 ?>
 <form action="<?php atbdp_search_result_page_link(); ?>" class="directorist-search-form directorist-advanced-search">
 	<div class="directorist-search-form__box">

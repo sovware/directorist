@@ -2264,7 +2264,7 @@ class Directorist_Listings {
 
 			$search_form = new Directorist_Listing_Search_Form( $this->type, $this->current_listing_type, $search_field_atts );
 
-			if ( ! isset( $searchform->form_data[1]['fields'] ) || empty( $searchform->form_data[0]['fields'] ) ) {
+			if ( ! $search_form->have_basic_fields() ) {
 				return;
 			}
 
@@ -2284,7 +2284,7 @@ class Directorist_Listings {
 
 			$search_form = new Directorist_Listing_Search_Form( $this->type, $this->current_listing_type, $search_field_atts );
 
-			if ( ! isset( $searchform->form_data[1]['fields'] ) || empty( $searchform->form_data[1]['fields'] ) ) {
+			if ( ! $search_form->have_advance_fields() ) {
 				return;
 			}
 
@@ -2292,7 +2292,7 @@ class Directorist_Listings {
 				'listings'   => $this,
 				'searchform' => $search_form,
 			);
-			
+
 			Helper::get_template( 'archive/advance-search-form', $args );
 		}
 

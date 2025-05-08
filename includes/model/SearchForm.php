@@ -754,6 +754,14 @@ class Directorist_Listing_Search_Form {
 		_deprecated_function( __METHOD__, '7.3' );
 	}
 
+	public function have_basic_fields() {
+		return ! empty( $this->get_basic_fields() );
+	}
+
+	public function have_advance_fields() {
+		return ! empty( $this->get_advance_fields() );
+	}
+
 	public function render_basic_search_fields() {
 		foreach ( $this->get_basic_fields() as $field ) {
 			$this->field_template( $field );

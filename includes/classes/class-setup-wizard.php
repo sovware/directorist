@@ -987,12 +987,26 @@ class Directorist_Setup_Wizard {
             <meta name="viewport" content="width=device-width" />
             <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
             <title><?php esc_html_e('Directorist &rsaquo; Setup Wizard', 'directorist'); ?></title>
-            <?php wp_print_scripts('directorist-admin-setup-wizard-script'); ?>
-            <?php wp_print_scripts('directorist-test'); ?>
-            <?php wp_print_scripts('directorist-select2'); ?>
-            <?php do_action('admin_print_styles'); ?>
-            <?php do_action('admin_head'); ?>
-            <?php do_action('directorist_setup_wizard_styles'); ?>
+            <?php
+                // Enqueue emoji and admin bar styles explicitly to avoid deprecation
+                wp_enqueue_emoji_styles();
+                wp_enqueue_admin_bar_header_styles();
+
+                // Remove deprecated functions from hooks
+                remove_action( 'admin_print_styles', 'print_emoji_styles' );
+                remove_action( 'wp_print_styles', 'print_emoji_styles' );
+
+                // Print necessary scripts
+                wp_print_scripts( 'directorist-admin-setup-wizard-script' );
+                wp_print_scripts( 'directorist-test' );
+                wp_print_scripts( 'directorist-select2' );
+
+                // Print enqueued styles
+                wp_print_styles();
+
+                // Trigger any additional styles or head elements
+                do_action( 'directorist_setup_wizard_styles' );
+            ?>
         </head>
 
         <body class="atbdp-setup directorist-setup-wizard wp-core-ui<?php echo get_transient('directorist_setup_wizard_no_wc') ? esc_attr( ' directorist-setup-wizard-activated-wc' ) : '';  ?> <?php echo esc_attr( $hide ); ?>">

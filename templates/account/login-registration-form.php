@@ -122,7 +122,8 @@ if ( ! empty( $_GET['registration_status'] ) ) {
 
 							<div class="directorist-authentication__form__actions">
 
-								<?php if ( ! empty( $display_rememberme ) && 'yes' == $display_rememberme ) :?>
+								<?php 
+								if ( ! empty( $display_rememberme ) && 'yes' == $display_rememberme ) :?>
 									<div class="keep_signed directorist-checkbox">
 										<input type="checkbox" id="directorist_login_keep_signed_in" value="1" name="keep_signed_in" checked />
 										<label for="directorist_login_keep_signed_in" class="directorist-checkbox__label not_empty">

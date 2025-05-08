@@ -35,11 +35,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<?php endif; ?>
 
 				<div class="listing-with-sidebar__contents">
-					<?php if ( $listings->advance_search_form_template() ) : ?>
-						<aside class="listing-with-sidebar__sidebar <?php echo esc_attr( $listings->sidebar_class() ); ?>">
-							<?php $listings->advance_search_form_template(); ?>
-						</aside>
-					<?php endif; ?>
+					<aside class="listing-with-sidebar__sidebar <?php echo esc_attr( $listings->sidebar_class() ); ?>">
+						<?php $listings->advance_search_form_template(); ?>
+					</aside>
 
 					<section class="listing-with-sidebar__listing">
 						<?php $listings->archive_view_template(); ?>

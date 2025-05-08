@@ -6,8 +6,7 @@
   "scripts": {
     "dev": "webpack --config webpack.dev.js",
     "dev-vue": "webpack --config webpack.dev.vue.js",
-    "prod": "node pot.js && webpack --config webpack.prod.js",
-    "blocks:build": "wp-scripts build ./includes/gutenberg/index.js --output-path=includes/gutenberg/assets"
+    "prod": "node pot.js && webpack --config webpack.prod.js"
   },
   "repository": {
     "type": "git",

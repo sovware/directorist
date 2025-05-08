@@ -753,4 +753,18 @@ class Directorist_Listing_Search_Form {
 	public function load_map_scripts() {
 		_deprecated_function( __METHOD__, '7.3' );
 	}
+
+	public function render_basic_search_fields() {
+		foreach ( $this->get_basic_fields() as $field ) {
+			$this->field_template( $field );
+		}
+	}
+
+	public function render_advance_search_fields() {
+		foreach ( $this->get_advance_fields() as $field ) : ?>
+			<div class="directorist-advanced-filter__advanced__element directorist-search-field-<?php echo esc_attr( $field['widget_name'] ) ?>">
+			<?php $this->field_template( $field ); ?>
+			</div>
+		<?php endforeach;
+	}
 }

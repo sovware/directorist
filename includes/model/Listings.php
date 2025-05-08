@@ -2135,34 +2135,29 @@ class Directorist_Listings {
 			switch ( $field['widget_key'] ) {
 
 				case 'popular_badge':
+					$field['class']         = 'popular';
+					$field['icon']          = 'fas fa-fire';
+					$field['tooltip_class'] = 'directorist-badge-tooltip__popular';
+					$field['label']         = Helper::popular_badge_text();
 
-				$field['class']         = 'popular';
-				$field['icon']          = 'fas fa-fire';
-				$field['tooltip_class'] = 'directorist-badge-tooltip__popular';
-				$field['label']         = Helper::popular_badge_text();
-
-				if ( Helper::is_popular( $id ) ) {
-					Helper::get_template( 'archive/fields/badge', $field );
-				}
-
-				break;
+					if ( Helper::is_popular( $id ) ) {
+						Helper::get_template( 'archive/fields/badge', $field );
+					}
+					break;
 
 				case 'featured_badge':
+					$field['class']               = 'featured';
+					$field['icon']                = 'fas fa-star';
+					$field['tooltip_class']       = 'directorist-badge-tooltip__featured';
+					$field['label']               = Helper::featured_badge_text();
+					$field['featured_badge_type'] = get_directorist_option( 'feature_badge_type', 'icon_badge');
 
-				$field['class']               = 'featured';
-				$field['icon']                = 'fas fa-star';
-				$field['tooltip_class']       = 'directorist-badge-tooltip__featured';
-				$field['label']               = Helper::featured_badge_text();
-				$field['featured_badge_type'] = get_directorist_option( 'feature_badge_type', 'icon_badge');
+					if ( Helper::is_featured( $id ) ) {
+						Helper::get_template( 'archive/fields/badge', apply_filters( 'directorist_featured_badge_field_data', $field ) );
+					}
+					break;
 
-				if ( Helper::is_featured( $id ) ) {
-					Helper::get_template( 'archive/fields/badge', apply_filters( 'directorist_featured_badge_field_data', $field ) );
-				}
-
-				break;
-
-				case 'new_badge':
-
+			case 'new_badge':
 				$field['class']           = 'new';
 				$field['icon']            = 'fas fa-bolt';
 				$field['tooltip_class']   = 'directorist-badge-tooltip__new';
@@ -2173,11 +2168,8 @@ class Directorist_Listings {
 				if ( Helper::is_new( $id ) ) {
 					Helper::get_template( 'archive/fields/badge', $field );
 				}
-
 				break;
-
 			}
-
 		}
 
 		public function listing_wrapper_class() {
@@ -2192,17 +2184,17 @@ class Directorist_Listings {
 		public function sidebar_class() {
 			$class = 'no-sidebar-contents';
 
-			if ( $this->sidebar ) {
+			if ( ! $this->sidebar ) {
+				return $class;
+			}
 
-				switch ( $this->sidebar ) {
-					case 'left_sidebar':
-						$class = 'left-sidebar-contents';
-						break;
-					case 'right_sidebar':
-						$class = 'right-sidebar-contents';
-						break;
-				}
-
+			switch ( $this->sidebar ) {
+				case 'left_sidebar':
+					$class = 'left-sidebar-contents';
+					break;
+				case 'right_sidebar':
+					$class = 'right-sidebar-contents';
+					break;
 			}
 
 			return $class;
@@ -2460,7 +2452,7 @@ class Directorist_Listings {
 		return array_filter(
 			$this->atts,
 			function( $key ) {
-				return substr( $key, 0, 7 ) == 'filter_';
+				return substr( $key, 0, 7 ) === 'filter_';
 			},
 			ARRAY_FILTER_USE_KEY
 		);

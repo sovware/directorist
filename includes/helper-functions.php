@@ -4305,6 +4305,12 @@ function directorist_get_json_from_url( $url ) {
         return false;
     }
 
+	global $wp_filesystem;
+
+	require_once ( ABSPATH . '/wp-admin/includes/file.php' );
+
+	WP_Filesystem();
+
     // Unzip the file
     $unzip_result = unzip_file( $temp_file, $temp_dir );
     @unlink( $temp_file );

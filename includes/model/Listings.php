@@ -2477,4 +2477,9 @@ class Directorist_Listings {
 
 		return $this->search_form;
 	}
+
+	public function wrapper_html_attributes() {
+		$this->wrapper_class();
+		$this->data_atts();
+	}
 }

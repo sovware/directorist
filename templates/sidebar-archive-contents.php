@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 ?>
-<div <?php $listings->wrapper_class(); $listings->data_atts(); ?>>
+<div <?php $listings->wrapper_html_attributes(); ?>>
 	<div class="listing-with-sidebar">
 		<div class="directorist-container">
 			<div class="listing-with-sidebar__wrapper">

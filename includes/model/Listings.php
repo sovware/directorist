@@ -1139,15 +1139,6 @@ class Directorist_Listings {
 			Helper::add_shortcode_comment( $atts['shortcode'] );
 		}
 
-		$search_field_atts = array_filter( $this->atts, function( $key ) {
-			return substr( $key, 0, 7 ) == 'filter_';
-		}, ARRAY_FILTER_USE_KEY );
-
-		$args = array(
-			'listings'   => $this,
-			'searchform' => new Directorist_Listing_Search_Form( $this->type, $this->current_listing_type, $search_field_atts ),
-		);
-
 		switch ( $this->sidebar ) {
 			case 'left_sidebar':
 				$template = 'sidebar-archive-contents';
@@ -1166,9 +1157,9 @@ class Directorist_Listings {
 		Helper::get_template( $template,
 			array(
 				'listings'   => $this,
-				'searchform' => new Directorist_Listing_Search_Form( $this->type, $this->current_listing_type, $search_field_atts ),
+				'searchform' => $this->get_search_form(),
 			),
-			 'listings_archive',
+			'listings_archive'
 		);
 
 		return ob_get_clean();
@@ -2246,14 +2237,9 @@ class Directorist_Listings {
 		}
 
 		public function search_form_template() {
-			// only catch atts with the prefix 'filter_'
-			$search_field_atts = array_filter( $this->atts, function( $key ) {
-				return substr( $key, 0, 7 ) == 'filter_';
-			}, ARRAY_FILTER_USE_KEY );
-
 			$args = array(
 				'listings'   => $this,
-				'searchform' => new Directorist_Listing_Search_Form( $this->type, $this->current_listing_type, $search_field_atts ),
+				'searchform' => $this->get_search_form(),
 			);
 			Helper::get_template( 'archive/search-form', $args );
 		}
@@ -2294,14 +2280,9 @@ class Directorist_Listings {
 		}
 
 		public function mobile_view_filter_template() {
-			// only catch atts with the prefix 'filter_'
-			$search_field_atts = array_filter( $this->atts, function( $key ) {
-				return substr( $key, 0, 7 ) == 'filter_';
-			}, ARRAY_FILTER_USE_KEY );
-
 			$args = array(
 				'listings'   => $this,
-				'searchform' => new Directorist_Listing_Search_Form( $this->type, $this->current_listing_type, $search_field_atts ),
+				'searchform' => $this->get_search_form(),
 			);
 			Helper::get_template( 'archive/mobile-search-form', $args );
 		}
@@ -2328,14 +2309,9 @@ class Directorist_Listings {
 		}
 
 		public function full_search_form_template() {
-			// only catch atts with the prefix 'filter_'
-			$search_field_atts = array_filter( $this->atts, function( $key ) {
-				return substr( $key, 0, 7 ) == 'filter_';
-			}, ARRAY_FILTER_USE_KEY );
-
 			$args = array(
 				'listings'   => $this,
-				'searchform' => new Directorist_Listing_Search_Form( $this->type, $this->current_listing_type, $search_field_atts ),
+				'searchform' => $this->get_search_form(),
 			);
 
 			Helper::get_template( 'archive/search-form', $args );

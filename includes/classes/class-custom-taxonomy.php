@@ -106,7 +106,7 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
 			if ( ! is_feed() ) {
 
 				// If Categories Page
-				if ( is_tax( ATBDP_CATEGORY ) ) {
+				if ( is_tax( ATBDP_CATEGORY ) && apply_filters( 'directorist_category_page_redirection_enabled', true ) ) {
 
 					$term         = get_queried_object();
 					$redirect_url = ATBDP_Permalink::atbdp_get_category_page( $term );

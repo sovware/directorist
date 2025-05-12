@@ -9328,7 +9328,6 @@ body.modal-overlay-enabled:before {
   display: flex;
 }
 .directorist-search-modal--basic .directorist-search-field-pricing > label,
-.directorist-search-modal--basic .directorist-search-field-text_range > label,
 .directorist-search-modal--basic .directorist-search-field-price_range > label,
 .directorist-search-modal--basic .directorist-search-field-radius_search > label {
   position: unset;
@@ -9338,6 +9337,9 @@ body.modal-overlay-enabled:before {
   font-size: 14px;
   font-weight: 500;
   margin-bottom: 15px;
+}
+.directorist-search-modal--basic .directorist-search-field-text_range > label {
+  display: none;
 }
 .directorist-search-modal--advanced .directorist-search-modal__contents__body .directorist-search-field__btn {
   bottom: 12px;

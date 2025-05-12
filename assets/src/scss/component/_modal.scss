@@ -649,7 +649,6 @@
       display: flex;
     }
     .directorist-search-field-pricing,
-    .directorist-search-field-text_range,
     .directorist-search-field-price_range,
     .directorist-search-field-radius_search {
       > label {
@@ -659,6 +658,11 @@
         font-size: 14px;
         font-weight: 500;
         margin-bottom: 15px;
+      }
+    }
+    .directorist-search-field-text_range {
+      > label {
+        display: none;
       }
     }
   }

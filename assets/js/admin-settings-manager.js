@@ -12644,13 +12644,14 @@ vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_1_
 /*!*********************************!*\
   !*** ./assets/src/js/helper.js ***!
   \*********************************/
-/*! exports provided: isObject, findObjectItem */
+/*! exports provided: isObject, findObjectItem, directoristRequestHeaders */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isObject", function() { return isObject; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "findObjectItem", function() { return findObjectItem; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "directoristRequestHeaders", function() { return directoristRequestHeaders; });
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof.js");
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__);
 
@@ -12688,6 +12689,16 @@ function findObjectItem(path, data, defaultValue) {
     _iterator.f();
   }
   return targetItem;
+}
+function directoristRequestHeaders() {
+  if (window.directorist && window.directorist.request_headers && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(window.directorist.request_headers) === 'object' && !Array.isArray(window.directorist.request_headers)) {
+    var headers = {};
+    for (var key in window.directorist.request_headers) {
+      headers["Directorist-".concat(key)] = window.directorist.request_headers[key];
+    }
+    return headers;
+  }
+  return {};
 }
 
 /***/ }),
@@ -26108,7 +26119,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       return options_values.includes(value);
     }
     /* syncValidationWithLocalState( validation_log ) {
-          return validation_log;
+         return validation_log;
     } */
   }
 });
@@ -33858,7 +33869,7 @@ var render = function render() {
       key: alert_key,
       staticClass: "cptm-form-alert",
       class: 'cptm-' + alert.type
-    }, [_vm._v("\r\n            " + _vm._s(alert.message) + "\r\n        ")]);
+    }, [_vm._v("\n            " + _vm._s(alert.message) + "\n        ")]);
   }), 0) : _vm._e()]);
 };
 var staticRenderFns = [];

@@ -1309,6 +1309,10 @@ $light-gray: #f4f5f7;
 
   .directorist-draggable-list-item-wrapper {
     height: auto;
+    z-index:auto;
+    &:hover{
+      z-index: 1; // Fix info tooltip z-index issue
+    }
   }
 
   .cptm-description-text {
@@ -1813,7 +1817,7 @@ div[draggable="true"].cptm-form-builder-group-title-area {
   background-color: #fff;
   border: 1px solid #e5e7eb;
   transition: all ease 0.3s;
-  z-index: 8;
+  z-index: 0;
 
   .cptm-title-3 {
     display: flex;
@@ -3723,7 +3727,7 @@ input[type="radio"].cptm-radio {
       color: var(--Gray-500, #747C89);
       font-size: 14px;
       font-style: normal;
-      font-weight: 500;
+      font-weight: 400;
       line-height: 16.24px ;
     }
   }

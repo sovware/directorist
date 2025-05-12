@@ -12941,49 +12941,79 @@ module.exports = _nonIterableSpread, module.exports.__esModule = true, module.ex
 
 var _typeof = __webpack_require__(/*! ./typeof.js */ "./node_modules/@babel/runtime/helpers/typeof.js")["default"];
 function _regeneratorRuntime() {
-  "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */
+  "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */
   module.exports = _regeneratorRuntime = function _regeneratorRuntime() {
-    return e;
+    return r;
   }, module.exports.__esModule = true, module.exports["default"] = module.exports;
   var t,
-    e = {},
-    r = Object.prototype,
-    n = r.hasOwnProperty,
-    o = Object.defineProperty || function (t, e, r) {
-      t[e] = r.value;
-    },
-    i = "function" == typeof Symbol ? Symbol : {},
-    a = i.iterator || "@@iterator",
-    c = i.asyncIterator || "@@asyncIterator",
-    u = i.toStringTag || "@@toStringTag";
-  function define(t, e, r) {
-    return Object.defineProperty(t, e, {
-      value: r,
-      enumerable: !0,
-      configurable: !0,
-      writable: !0
-    }), t[e];
+    r = {},
+    e = Object.prototype,
+    n = e.hasOwnProperty,
+    o = "function" == typeof Symbol ? Symbol : {},
+    i = o.iterator || "@@iterator",
+    a = o.asyncIterator || "@@asyncIterator",
+    u = o.toStringTag || "@@toStringTag";
+  function c(t, r, e, n) {
+    return Object.defineProperty(t, r, {
+      value: e,
+      enumerable: !n,
+      configurable: !n,
+      writable: !n
+    });
   }
   try {
-    define({}, "");
+    c({}, "");
   } catch (t) {
-    define = function define(t, e, r) {
-      return t[e] = r;
+    c = function c(t, r, e) {
+      return t[r] = e;
     };
   }
-  function wrap(t, e, r, n) {
+  function h(r, e, n, o) {
     var i = e && e.prototype instanceof Generator ? e : Generator,
-      a = Object.create(i.prototype),
-      c = new Context(n || []);
-    return o(a, "_invoke", {
-      value: makeInvokeMethod(t, r, c)
-    }), a;
+      a = Object.create(i.prototype);
+    return c(a, "_invoke", function (r, e, n) {
+      var o = 1;
+      return function (i, a) {
+        if (3 === o) throw Error("Generator is already running");
+        if (4 === o) {
+          if ("throw" === i) throw a;
+          return {
+            value: t,
+            done: !0
+          };
+        }
+        for (n.method = i, n.arg = a;;) {
+          var u = n.delegate;
+          if (u) {
+            var c = d(u, n);
+            if (c) {
+              if (c === f) continue;
+              return c;
+            }
+          }
+          if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) {
+            if (1 === o) throw o = 4, n.arg;
+            n.dispatchException(n.arg);
+          } else "return" === n.method && n.abrupt("return", n.arg);
+          o = 3;
+          var h = s(r, e, n);
+          if ("normal" === h.type) {
+            if (o = n.done ? 4 : 2, h.arg === f) continue;
+            return {
+              value: h.arg,
+              done: n.done
+            };
+          }
+          "throw" === h.type && (o = 4, n.method = "throw", n.arg = h.arg);
+        }
+      };
+    }(r, n, new Context(o || [])), !0), a;
   }
-  function tryCatch(t, e, r) {
+  function s(t, r, e) {
     try {
       return {
         type: "normal",
-        arg: t.call(e, r)
+        arg: t.call(r, e)
       };
     } catch (t) {
       return {
@@ -12992,255 +13022,193 @@ function _regeneratorRuntime() {
       };
     }
   }
-  e.wrap = wrap;
-  var h = "suspendedStart",
-    l = "suspendedYield",
-    f = "executing",
-    s = "completed",
-    y = {};
+  r.wrap = h;
+  var f = {};
   function Generator() {}
   function GeneratorFunction() {}
   function GeneratorFunctionPrototype() {}
-  var p = {};
-  define(p, a, function () {
+  var l = {};
+  c(l, i, function () {
     return this;
   });
-  var d = Object.getPrototypeOf,
-    v = d && d(d(values([])));
-  v && v !== r && n.call(v, a) && (p = v);
-  var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p);
-  function defineIteratorMethods(t) {
-    ["next", "throw", "return"].forEach(function (e) {
-      define(t, e, function (t) {
-        return this._invoke(e, t);
+  var p = Object.getPrototypeOf,
+    y = p && p(p(x([])));
+  y && y !== e && n.call(y, i) && (l = y);
+  var v = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(l);
+  function g(t) {
+    ["next", "throw", "return"].forEach(function (r) {
+      c(t, r, function (t) {
+        return this._invoke(r, t);
       });
     });
   }
-  function AsyncIterator(t, e) {
-    function invoke(r, o, i, a) {
-      var c = tryCatch(t[r], t, o);
+  function AsyncIterator(t, r) {
+    function e(o, i, a, u) {
+      var c = s(t[o], t, i);
       if ("throw" !== c.type) {
-        var u = c.arg,
-          h = u.value;
-        return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) {
-          invoke("next", t, i, a);
+        var h = c.arg,
+          f = h.value;
+        return f && "object" == _typeof(f) && n.call(f, "__await") ? r.resolve(f.__await).then(function (t) {
+          e("next", t, a, u);
         }, function (t) {
-          invoke("throw", t, i, a);
-        }) : e.resolve(h).then(function (t) {
-          u.value = t, i(u);
+          e("throw", t, a, u);
+        }) : r.resolve(f).then(function (t) {
+          h.value = t, a(h);
         }, function (t) {
-          return invoke("throw", t, i, a);
+          return e("throw", t, a, u);
         });
       }
-      a(c.arg);
+      u(c.arg);
     }
-    var r;
-    o(this, "_invoke", {
-      value: function value(t, n) {
-        function callInvokeWithMethodAndArg() {
-          return new e(function (e, r) {
-            invoke(t, n, e, r);
-          });
-        }
-        return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg();
+    var o;
+    c(this, "_invoke", function (t, n) {
+      function i() {
+        return new r(function (r, o) {
+          e(t, n, r, o);
+        });
       }
-    });
+      return o = o ? o.then(i, i) : i();
+    }, !0);
   }
-  function makeInvokeMethod(e, r, n) {
-    var o = h;
-    return function (i, a) {
-      if (o === f) throw Error("Generator is already running");
-      if (o === s) {
-        if ("throw" === i) throw a;
-        return {
-          value: t,
-          done: !0
-        };
-      }
-      for (n.method = i, n.arg = a;;) {
-        var c = n.delegate;
-        if (c) {
-          var u = maybeInvokeDelegate(c, n);
-          if (u) {
-            if (u === y) continue;
-            return u;
-          }
-        }
-        if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) {
-          if (o === h) throw o = s, n.arg;
-          n.dispatchException(n.arg);
-        } else "return" === n.method && n.abrupt("return", n.arg);
-        o = f;
-        var p = tryCatch(e, r, n);
-        if ("normal" === p.type) {
-          if (o = n.done ? s : l, p.arg === y) continue;
-          return {
-            value: p.arg,
-            done: n.done
-          };
-        }
-        "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg);
-      }
-    };
-  }
-  function maybeInvokeDelegate(e, r) {
-    var n = r.method,
-      o = e.iterator[n];
-    if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y;
-    var i = tryCatch(o, e.iterator, r.arg);
-    if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y;
+  function d(r, e) {
+    var n = e.method,
+      o = r.i[n];
+    if (o === t) return e.delegate = null, "throw" === n && r.i["return"] && (e.method = "return", e.arg = t, d(r, e), "throw" === e.method) || "return" !== n && (e.method = "throw", e.arg = new TypeError("The iterator does not provide a '" + n + "' method")), f;
+    var i = s(o, r.i, e.arg);
+    if ("throw" === i.type) return e.method = "throw", e.arg = i.arg, e.delegate = null, f;
     var a = i.arg;
-    return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y);
+    return a ? a.done ? (e[r.r] = a.value, e.next = r.n, "return" !== e.method && (e.method = "next", e.arg = t), e.delegate = null, f) : a : (e.method = "throw", e.arg = new TypeError("iterator result is not an object"), e.delegate = null, f);
   }
-  function pushTryEntry(t) {
-    var e = {
-      tryLoc: t[0]
-    };
-    1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e);
+  function w(t) {
+    this.tryEntries.push(t);
   }
-  function resetTryEntry(t) {
-    var e = t.completion || {};
-    e.type = "normal", delete e.arg, t.completion = e;
+  function m(r) {
+    var e = r[4] || {};
+    e.type = "normal", e.arg = t, r[4] = e;
   }
   function Context(t) {
-    this.tryEntries = [{
-      tryLoc: "root"
-    }], t.forEach(pushTryEntry, this), this.reset(!0);
+    this.tryEntries = [[-1]], t.forEach(w, this), this.reset(!0);
   }
-  function values(e) {
-    if (e || "" === e) {
-      var r = e[a];
-      if (r) return r.call(e);
-      if ("function" == typeof e.next) return e;
-      if (!isNaN(e.length)) {
+  function x(r) {
+    if (null != r) {
+      var e = r[i];
+      if (e) return e.call(r);
+      if ("function" == typeof r.next) return r;
+      if (!isNaN(r.length)) {
         var o = -1,
-          i = function next() {
-            for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next;
-            return next.value = t, next.done = !0, next;
+          a = function e() {
+            for (; ++o < r.length;) if (n.call(r, o)) return e.value = r[o], e.done = !1, e;
+            return e.value = t, e.done = !0, e;
           };
-        return i.next = i;
+        return a.next = a;
       }
     }
-    throw new TypeError(_typeof(e) + " is not iterable");
+    throw new TypeError(_typeof(r) + " is not iterable");
   }
-  return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", {
-    value: GeneratorFunctionPrototype,
-    configurable: !0
-  }), o(GeneratorFunctionPrototype, "constructor", {
-    value: GeneratorFunction,
-    configurable: !0
-  }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) {
-    var e = "function" == typeof t && t.constructor;
-    return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name));
-  }, e.mark = function (t) {
-    return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t;
-  }, e.awrap = function (t) {
+  return GeneratorFunction.prototype = GeneratorFunctionPrototype, c(v, "constructor", GeneratorFunctionPrototype), c(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = c(GeneratorFunctionPrototype, u, "GeneratorFunction"), r.isGeneratorFunction = function (t) {
+    var r = "function" == typeof t && t.constructor;
+    return !!r && (r === GeneratorFunction || "GeneratorFunction" === (r.displayName || r.name));
+  }, r.mark = function (t) {
+    return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, c(t, u, "GeneratorFunction")), t.prototype = Object.create(v), t;
+  }, r.awrap = function (t) {
     return {
       __await: t
     };
-  }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () {
+  }, g(AsyncIterator.prototype), c(AsyncIterator.prototype, a, function () {
     return this;
-  }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) {
+  }), r.AsyncIterator = AsyncIterator, r.async = function (t, e, n, o, i) {
     void 0 === i && (i = Promise);
-    var a = new AsyncIterator(wrap(t, r, n, o), i);
-    return e.isGeneratorFunction(r) ? a : a.next().then(function (t) {
+    var a = new AsyncIterator(h(t, e, n, o), i);
+    return r.isGeneratorFunction(e) ? a : a.next().then(function (t) {
       return t.done ? t.value : a.next();
     });
-  }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () {
+  }, g(v), c(v, u, "Generator"), c(v, i, function () {
     return this;
-  }), define(g, "toString", function () {
+  }), c(v, "toString", function () {
     return "[object Generator]";
-  }), e.keys = function (t) {
-    var e = Object(t),
-      r = [];
-    for (var n in e) r.push(n);
-    return r.reverse(), function next() {
-      for (; r.length;) {
-        var t = r.pop();
-        if (t in e) return next.value = t, next.done = !1, next;
-      }
-      return next.done = !0, next;
+  }), r.keys = function (t) {
+    var r = Object(t),
+      e = [];
+    for (var n in r) e.unshift(n);
+    return function t() {
+      for (; e.length;) if ((n = e.pop()) in r) return t.value = n, t.done = !1, t;
+      return t.done = !0, t;
     };
-  }, e.values = values, Context.prototype = {
+  }, r.values = x, Context.prototype = {
     constructor: Context,
-    reset: function reset(e) {
-      if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t);
+    reset: function reset(r) {
+      if (this.prev = this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(m), !r) for (var e in this) "t" === e.charAt(0) && n.call(this, e) && !isNaN(+e.slice(1)) && (this[e] = t);
     },
     stop: function stop() {
       this.done = !0;
-      var t = this.tryEntries[0].completion;
+      var t = this.tryEntries[0][4];
       if ("throw" === t.type) throw t.arg;
       return this.rval;
     },
-    dispatchException: function dispatchException(e) {
-      if (this.done) throw e;
-      var r = this;
-      function handle(n, o) {
-        return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o;
+    dispatchException: function dispatchException(r) {
+      if (this.done) throw r;
+      var e = this;
+      function n(t) {
+        a.type = "throw", a.arg = r, e.next = t;
       }
-      for (var o = this.tryEntries.length - 1; o >= 0; --o) {
+      for (var o = e.tryEntries.length - 1; o >= 0; --o) {
         var i = this.tryEntries[o],
-          a = i.completion;
-        if ("root" === i.tryLoc) return handle("end");
-        if (i.tryLoc <= this.prev) {
-          var c = n.call(i, "catchLoc"),
-            u = n.call(i, "finallyLoc");
-          if (c && u) {
-            if (this.prev < i.catchLoc) return handle(i.catchLoc, !0);
-            if (this.prev < i.finallyLoc) return handle(i.finallyLoc);
-          } else if (c) {
-            if (this.prev < i.catchLoc) return handle(i.catchLoc, !0);
-          } else {
-            if (!u) throw Error("try statement without catch or finally");
-            if (this.prev < i.finallyLoc) return handle(i.finallyLoc);
-          }
+          a = i[4],
+          u = this.prev,
+          c = i[1],
+          h = i[2];
+        if (-1 === i[0]) return n("end"), !1;
+        if (!c && !h) throw Error("try statement without catch or finally");
+        if (null != i[0] && i[0] <= u) {
+          if (u < c) return this.method = "next", this.arg = t, n(c), !0;
+          if (u < h) return n(h), !1;
         }
       }
     },
-    abrupt: function abrupt(t, e) {
-      for (var r = this.tryEntries.length - 1; r >= 0; --r) {
-        var o = this.tryEntries[r];
-        if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) {
-          var i = o;
+    abrupt: function abrupt(t, r) {
+      for (var e = this.tryEntries.length - 1; e >= 0; --e) {
+        var n = this.tryEntries[e];
+        if (n[0] > -1 && n[0] <= this.prev && this.prev < n[2]) {
+          var o = n;
           break;
         }
       }
-      i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null);
-      var a = i ? i.completion : {};
-      return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a);
+      o && ("break" === t || "continue" === t) && o[0] <= r && r <= o[2] && (o = null);
+      var i = o ? o[4] : {};
+      return i.type = t, i.arg = r, o ? (this.method = "next", this.next = o[2], f) : this.complete(i);
     },
-    complete: function complete(t, e) {
+    complete: function complete(t, r) {
       if ("throw" === t.type) throw t.arg;
-      return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y;
+      return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && r && (this.next = r), f;
     },
     finish: function finish(t) {
-      for (var e = this.tryEntries.length - 1; e >= 0; --e) {
-        var r = this.tryEntries[e];
-        if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y;
+      for (var r = this.tryEntries.length - 1; r >= 0; --r) {
+        var e = this.tryEntries[r];
+        if (e[2] === t) return this.complete(e[4], e[3]), m(e), f;
       }
     },
     "catch": function _catch(t) {
-      for (var e = this.tryEntries.length - 1; e >= 0; --e) {
-        var r = this.tryEntries[e];
-        if (r.tryLoc === t) {
-          var n = r.completion;
+      for (var r = this.tryEntries.length - 1; r >= 0; --r) {
+        var e = this.tryEntries[r];
+        if (e[0] === t) {
+          var n = e[4];
           if ("throw" === n.type) {
             var o = n.arg;
-            resetTryEntry(r);
+            m(e);
           }
           return o;
         }
       }
       throw Error("illegal catch attempt");
     },
-    delegateYield: function delegateYield(e, r, n) {
+    delegateYield: function delegateYield(r, e, n) {
       return this.delegate = {
-        iterator: values(e),
-        resultName: r,
-        nextLoc: n
-      }, "next" === this.method && (this.arg = t), y;
+        i: x(r),
+        r: e,
+        n: n
+      }, "next" === this.method && (this.arg = t), f;
     }
-  }, e;
+  }, r;
 }
 module.exports = _regeneratorRuntime, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
@@ -19279,36 +19247,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     expanded: {
       default: false
-    }
-  },
-  watch: {
-    info: function info(newVal) {
-      if (newVal.length) {
-        this.setZIndex(1);
-      } else {
-        this.setZIndex(0);
-      }
-    }
-  },
-  mounted: function mounted() {
-    if (this.info.length) {
-      this.setZIndex(1);
-    }
-  },
-  methods: {
-    setZIndex: function setZIndex(zIndexValue) {
-      var parent = this.$el.closest(".cptm-form-builder-group-fields .directorist-draggable-list-item-wrapper");
-      if (parent) {
-        parent.style.zIndex = zIndexValue;
-      }
-
-      // If you want to set z-index to 0 for other sibling elements
-      var allParents = document.querySelectorAll('.cptm-form-builder-group-fields .directorist-draggable-list-item-wrapper');
-      allParents.forEach(function (el) {
-        if (el !== parent) {
-          el.style.zIndex = 0;
-        }
-      });
     }
   }
 });
@@ -27881,78 +27819,78 @@ var render = function render() {
   var _vm$status_messages;
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "directorist-directory-type atbdp-cpt-manager"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "directorist-directory-type-top"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "directorist-directory-type-top-left"
-  }, [this.enabled_multi_directory ? _c('a', {
+  }, [this.enabled_multi_directory ? _c("a", {
     staticClass: "directorist-back-directory",
     attrs: {
-      "href": "edit.php?post_type=at_biz_dir&page=atbdp-directory-types"
+      href: "edit.php?post_type=at_biz_dir&page=atbdp-directory-types"
     }
-  }, [_c('svg', {
+  }, [_c("svg", {
     attrs: {
-      "xmlns": "http://www.w3.org/2000/svg",
-      "width": "14",
-      "height": "14",
-      "viewBox": "0 0 14 14",
-      "fill": "none"
+      xmlns: "http://www.w3.org/2000/svg",
+      width: "14",
+      height: "14",
+      viewBox: "0 0 14 14",
+      fill: "none"
     }
-  }, [_c('path', {
+  }, [_c("path", {
     attrs: {
       "fill-rule": "evenodd",
       "clip-rule": "evenodd",
-      "d": "M7.51556 1.38019C7.80032 1.66495 7.80032 2.12663 7.51556 2.41139L3.65616 6.27079H12.1041C12.5068 6.27079 12.8333 6.59725 12.8333 6.99996C12.8333 7.40267 12.5068 7.72913 12.1041 7.72913H3.65616L7.51556 11.5885C7.80032 11.8733 7.80032 12.335 7.51556 12.6197C7.2308 12.9045 6.76912 12.9045 6.48436 12.6197L1.38019 7.51556C1.09544 7.2308 1.09544 6.76912 1.38019 6.48436L6.48436 1.38019C6.76912 1.09544 7.2308 1.09544 7.51556 1.38019Z",
-      "fill": "currentColor"
+      d: "M7.51556 1.38019C7.80032 1.66495 7.80032 2.12663 7.51556 2.41139L3.65616 6.27079H12.1041C12.5068 6.27079 12.8333 6.59725 12.8333 6.99996C12.8333 7.40267 12.5068 7.72913 12.1041 7.72913H3.65616L7.51556 11.5885C7.80032 11.8733 7.80032 12.335 7.51556 12.6197C7.2308 12.9045 6.76912 12.9045 6.48436 12.6197L1.38019 7.51556C1.09544 7.2308 1.09544 6.76912 1.38019 6.48436L6.48436 1.38019C6.76912 1.09544 7.2308 1.09544 7.51556 1.38019Z",
+      fill: "currentColor"
     }
-  })]), _vm._v("\n        All Directories\n      ")]) : _vm._e(), _vm._v(" "), _c('div', {
+  })]), _vm._v("\n        All Directories\n      ")]) : _vm._e(), _vm._v(" "), _c("div", {
     staticClass: "directorist-row-tooltip",
     attrs: {
       "data-tooltip": "Click here to rename the directory.",
       "data-flow": "bottom"
     }
-  }, [_vm.options.name && _vm.options.name.type ? _c(_vm.options.name.type + '-field', _vm._b({
+  }, [_vm.options.name && _vm.options.name.type ? _c(_vm.options.name.type + "-field", _vm._b({
     tag: "component",
     on: {
-      "update": function update($event) {
+      update: function update($event) {
         return _vm.updateOptionsField({
-          field: 'name',
+          field: "name",
           value: $event
         });
       }
     }
-  }, 'component', _vm.options.name, false)) : _vm._e()], 1)]), _vm._v(" "), _c('div', {
+  }, "component", _vm.options.name, false)) : _vm._e()], 1)]), _vm._v(" "), _c("div", {
     staticClass: "directorist-directory-type-top-right"
-  }, [_c('button', {
+  }, [_c("button", {
     staticClass: "cptm-btn cptm-btn-primary",
     attrs: {
-      "type": "button",
-      "disabled": _vm.footer_actions.save.isDisabled
+      type: "button",
+      disabled: _vm.footer_actions.save.isDisabled
     },
     on: {
-      "click": function click($event) {
+      click: function click($event) {
         return _vm.saveData();
       }
     }
-  }, [_vm.footer_actions.save.showLoading ? _c('span', {
+  }, [_vm.footer_actions.save.showLoading ? _c("span", {
     staticClass: "fa fa-spinner fa-spin"
-  }) : _vm._e(), _vm._v("\n        " + _vm._s(_vm.footer_actions.save.label) + "\n      ")])])]), _vm._v(" "), (_vm$status_messages = _vm.status_messages) !== null && _vm$status_messages !== void 0 && _vm$status_messages.length ? _c('div', {
+  }) : _vm._e(), _vm._v("\n        " + _vm._s(_vm.footer_actions.save.label) + "\n      ")])])]), _vm._v(" "), (_vm$status_messages = _vm.status_messages) !== null && _vm$status_messages !== void 0 && _vm$status_messages.length ? _c("div", {
     staticClass: "atbdp-cptm-status-feedback"
   }, _vm._l(this.status_messages, function (status, index) {
-    return _c('div', {
+    return _c("div", {
       key: index,
       staticClass: "cptm-alert",
-      class: 'cptm-alert-' + status.type
+      class: "cptm-alert-" + status.type
     }, [_vm._v("\n      " + _vm._s(status.message) + "\n    ")]);
-  }), 0) : _vm._e(), _vm._v(" "), _c('div', {
+  }), 0) : _vm._e(), _vm._v(" "), _c("div", {
     staticClass: "directorist-directory-type-bottom"
-  }, [_c('headerNavigation'), _vm._v(" "), _c('div', {
+  }, [_c("headerNavigation"), _vm._v(" "), _c("div", {
     staticClass: "atbdp-cptm-body"
-  }, [_c('tabContents', {
+  }, [_c("tabContents", {
     on: {
-      "save": function save($event) {
+      save: function save($event) {
         return _vm.handleSaveData($event);
       }
     }
@@ -27978,34 +27916,34 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('ul', {
+  return _c("ul", {
     staticClass: "cptm-header-navigation"
   }, _vm._l(_vm.headerNavigation, function (nav, index) {
-    return _c('li', {
+    return _c("li", {
       key: index,
       staticClass: "cptm-header-nav__list-item",
       class: nav.key
-    }, [_c('a', {
+    }, [_c("a", {
       staticClass: "cptm-header-nav__list-item-link",
       class: _vm.getActiveClass(index, _vm.active_nav_index),
       attrs: {
-        "href": "#"
+        href: "#"
       },
       on: {
-        "click": function click($event) {
+        click: function click($event) {
           $event.preventDefault();
           return _vm.swichNav(index);
         }
       }
-    }, [nav.icon ? _c('span', {
+    }, [nav.icon ? _c("span", {
       staticClass: "cptm-header-nav__icon",
       domProps: {
-        "innerHTML": _vm._s(nav.icon)
+        innerHTML: _vm._s(nav.icon)
       }
-    }) : _vm._e(), _vm._v(" "), _c('span', {
+    }) : _vm._e(), _vm._v(" "), _c("span", {
       staticClass: "cptm-header-nav__label",
       domProps: {
-        "innerHTML": _vm._s(nav.label)
+        innerHTML: _vm._s(nav.label)
       }
     })])]);
   }), 0);
@@ -28030,21 +27968,21 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "atbdp-cptm-tab-contents"
   }, [_vm._l(_vm.tabContents, function (tab, tab_index) {
-    return [tab_index === _vm.active_nav_index ? _c('div', {
+    return [tab_index === _vm.active_nav_index ? _c("div", {
       key: tab_index,
       staticClass: "atbdp-cptm-tab-item",
       class: _vm.getActiveClass(tab_index, _vm.active_nav_index)
     }, [_c(tab.type, _vm._b({
       tag: "component",
       on: {
-        "save": function save($event) {
-          return _vm.$emit('save', $event);
+        save: function save($event) {
+          return _vm.$emit("save", $event);
         }
       }
-    }, 'component', tab, false))], 1) : _vm._e()];
+    }, "component", tab, false))], 1) : _vm._e()];
   })], 2);
 };
 var staticRenderFns = [];
@@ -28070,99 +28008,99 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-placeholder-blcok",
     class: _vm.getContainerClass,
     on: {
-      "drop": function drop($event) {
+      drop: function drop($event) {
         $event.preventDefault();
         return _vm.placeholderOnDrop();
       },
-      "dragover": function dragover($event) {
+      dragover: function dragover($event) {
         $event.preventDefault();
-        return _vm.$emit('placeholder-dragover-on');
+        return _vm.$emit("placeholder-dragover-on");
       },
-      "dragenter": function dragenter($event) {
+      dragenter: function dragenter($event) {
         return _vm.placeholderOnDragEnter();
       },
-      "dragleave": function dragleave($event) {
+      dragleave: function dragleave($event) {
         return _vm.placeholderOnDragLeave();
       }
     }
-  }, [_c('p', {
+  }, [_c("p", {
     staticClass: "cptm-placeholder-label",
     class: {
       hide: _vm.selectedWidgets && _vm.selectedWidgets.length
     }
-  }, [_vm._v("\n    " + _vm._s(_vm.label) + "\n  ")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n    " + _vm._s(_vm.label) + "\n  ")]), _vm._v(" "), _c("div", {
     staticClass: "cptm-widget-insert-area"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-widget-insert-wrap"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-widget-insert-modal-container"
-  }, [_c('widgets-window', {
+  }, [_c("widgets-window", {
     attrs: {
-      "id": _vm.id,
-      "availableWidgets": _vm.availableWidgets,
-      "acceptedWidgets": _vm.acceptedWidgets,
-      "rejectedWidgets": _vm.rejectedWidgets,
-      "activeWidgets": _vm.activeWidgets,
-      "selectedWidgets": _vm.selectedWidgets,
-      "active": _vm.showWidgetsPickerWindow,
-      "maxWidget": _vm.maxWidget,
-      "maxWidgetInfoText": _vm.maxWidgetInfoText,
-      "bottomAchhor": true
+      id: _vm.id,
+      availableWidgets: _vm.availableWidgets,
+      acceptedWidgets: _vm.acceptedWidgets,
+      rejectedWidgets: _vm.rejectedWidgets,
+      activeWidgets: _vm.activeWidgets,
+      selectedWidgets: _vm.selectedWidgets,
+      active: _vm.showWidgetsPickerWindow,
+      maxWidget: _vm.maxWidget,
+      maxWidgetInfoText: _vm.maxWidgetInfoText,
+      bottomAchhor: true
     },
     on: {
       "widget-selection": function widgetSelection($event) {
-        return _vm.$emit('insert-widget', $event);
+        return _vm.$emit("insert-widget", $event);
       },
-      "close": function close($event) {
-        return _vm.$emit('close-widgets-picker-window');
+      close: function close($event) {
+        return _vm.$emit("close-widgets-picker-window");
       }
     }
-  })], 1), _vm._v(" "), _vm.canAddMore ? _c('a', {
+  })], 1), _vm._v(" "), _vm.canAddMore ? _c("a", {
     staticClass: "cptm-widget-insert-link",
     attrs: {
-      "href": "#"
+      href: "#"
     },
     on: {
-      "click": function click($event) {
+      click: function click($event) {
         $event.preventDefault();
-        return _vm.$emit('open-widgets-picker-window');
+        return _vm.$emit("open-widgets-picker-window");
       }
     }
-  }, [_c('span', {
+  }, [_c("span", {
     staticClass: "fa fa-plus"
-  })]) : _vm._e()])]), _vm._v(" "), _vm.selectedWidgets && _vm.selectedWidgets.length ? _c('div', {
+  })]) : _vm._e()])]), _vm._v(" "), _vm.selectedWidgets && _vm.selectedWidgets.length ? _c("div", {
     staticClass: "cptm-widget-preview-area"
   }, [_vm._l(_vm.selectedWidgets, function (widget, widget_index) {
-    return [_vm.hasValidWidget(widget) ? [_c(_vm.activeWidgets[widget].type + '-card-widget', {
+    return [_vm.hasValidWidget(widget) ? [_c(_vm.activeWidgets[widget].type + "-card-widget", {
       key: widget_index,
       tag: "component",
       attrs: {
-        "label": typeof _vm.availableWidgets[widget] !== 'undefined' ? _vm.availableWidgets[widget].label : 'Not Available',
-        "icon": typeof _vm.activeWidgets[widget].icon === 'string' ? _vm.activeWidgets[widget].icon : '',
-        "options": _vm.activeWidgets[widget].options,
-        "widgetDropable": _vm.widgetDropable,
-        "canMove": _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(_vm.activeWidgets[widget].can_move) !== undefined ? _vm.activeWidgets[widget].can_move : true,
-        "canEdit": _vm.widgetHasOptions(_vm.activeWidgets[widget])
+        label: typeof _vm.availableWidgets[widget] !== "undefined" ? _vm.availableWidgets[widget].label : "Not Available",
+        icon: typeof _vm.activeWidgets[widget].icon === "string" ? _vm.activeWidgets[widget].icon : "",
+        options: _vm.activeWidgets[widget].options,
+        widgetDropable: _vm.widgetDropable,
+        canMove: _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(_vm.activeWidgets[widget].can_move) !== undefined ? _vm.activeWidgets[widget].can_move : true,
+        canEdit: _vm.widgetHasOptions(_vm.activeWidgets[widget])
       },
       on: {
-        "drag": function drag($event) {
-          return _vm.$emit('drag-widget', widget);
+        drag: function drag($event) {
+          return _vm.$emit("drag-widget", widget);
         },
-        "drop": function drop($event) {
-          return _vm.$emit('drop-widget', widget);
+        drop: function drop($event) {
+          return _vm.$emit("drop-widget", widget);
         },
-        "dragend": function dragend($event) {
-          return _vm.$emit('dragend-widget', widget);
+        dragend: function dragend($event) {
+          return _vm.$emit("dragend-widget", widget);
         },
-        "edit": function edit($event) {
-          return _vm.$emit('edit-widget', widget);
+        edit: function edit($event) {
+          return _vm.$emit("edit-widget", widget);
         },
-        "trash": function trash($event) {
-          return _vm.$emit('trash-widget', widget);
+        trash: function trash($event) {
+          return _vm.$emit("trash-widget", widget);
         }
       }
     })] : _vm._e()];
@@ -28188,78 +28126,78 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _vm.show ? _c('div', {
+  return _vm.show ? _c("div", {
     staticClass: "cptm-modal-container cptm-toggle-modal active"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-modal-wrap"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-modal"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-modal-content"
-  }, [_vm.showModelHeader ? _c('div', {
+  }, [_vm.showModelHeader ? _c("div", {
     staticClass: "cptm-modal-header"
-  }, [_c('h3', {
+  }, [_c("h3", {
     staticClass: "cptm-modal-header-title",
     domProps: {
-      "innerHTML": _vm._s(_vm.modelHeaderText)
+      innerHTML: _vm._s(_vm.modelHeaderText)
     }
-  }), _vm._v(" "), _c('div', {
+  }), _vm._v(" "), _c("div", {
     staticClass: "cptm-modal-actions"
-  }, [_c('a', {
+  }, [_c("a", {
     staticClass: "cptm-modal-action-link",
     attrs: {
-      "href": "#"
+      href: "#"
     },
     on: {
-      "click": function click($event) {
+      click: function click($event) {
         $event.preventDefault();
         return _vm.cancel();
       }
     }
-  }, [_c('span', {
+  }, [_c("span", {
     staticClass: "fa fa-times"
-  })])])]) : _vm._e(), _vm._v(" "), _c('div', {
+  })])])]) : _vm._e(), _vm._v(" "), _c("div", {
     staticClass: "cptm-modal-body cptm-center-content cptm-content-wide"
-  }, [_c('form', {
+  }, [_c("form", {
     staticClass: "cptm-import-directory-form",
     attrs: {
-      "action": "#",
-      "method": "post"
+      action: "#",
+      method: "post"
     }
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-form-group-feedback cptm-text-center cptm-mb-10"
-  }), _vm._v(" "), _c('h2', {
+  }), _vm._v(" "), _c("h2", {
     staticClass: "cptm-modal-confirmation-title",
     domProps: {
-      "innerHTML": _vm._s(_vm.confirmationText)
+      innerHTML: _vm._s(_vm.confirmationText)
     }
-  }), _vm._v(" "), _c('div', {
+  }), _vm._v(" "), _c("div", {
     staticClass: "cptm-file-input-wrap"
-  }, [_c('button', {
+  }, [_c("button", {
     staticClass: "cptm-btn cptm-btn-rounded",
     class: _vm.cancelButtonClass,
     attrs: {
-      "type": "button"
+      type: "button"
     },
     domProps: {
-      "innerHTML": _vm._s(_vm.cancelButtonLabel)
+      innerHTML: _vm._s(_vm.cancelButtonLabel)
     },
     on: {
-      "click": function click($event) {
+      click: function click($event) {
         return _vm.cancel();
       }
     }
-  }), _vm._v(" "), _c('button', {
+  }), _vm._v(" "), _c("button", {
     staticClass: "cptm-btn cptm-btn-rounded",
     class: _vm.confirmButtonClass,
     attrs: {
-      "type": "button"
+      type: "button"
     },
     domProps: {
-      "innerHTML": _vm._s(_vm.confirmButtonLabel)
+      innerHTML: _vm._s(_vm.confirmButtonLabel)
     },
     on: {
-      "click": function click($event) {
+      click: function click($event) {
         return _vm.confirm();
       }
     }
@@ -28285,95 +28223,95 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     ref: "dropable_element",
     staticClass: "cptm-dropable-element",
     class: _vm.parentClass
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-dropable-placeholder cptm-dropable-placeholder-before",
     class: _vm.dropablePlaceholderBeforeClass
-  }), _vm._v(" "), _c('div', {}, [_vm._t("default")], 2), _vm._v(" "), _c('div', {
+  }), _vm._v(" "), _c("div", {}, [_vm._t("default")], 2), _vm._v(" "), _c("div", {
     staticClass: "cptm-dropable-placeholder cptm-dropable-placeholder-after",
     class: _vm.dropablePlaceholderAfterClass
-  }), _vm._v(" "), _vm.dropable ? _c('div', {
+  }), _vm._v(" "), _vm.dropable ? _c("div", {
     staticClass: "cptm-dropable-area"
-  }, [_vm.dropInside ? _c('span', {
+  }, [_vm.dropInside ? _c("span", {
     staticClass: "cptm-dropable-area-inside",
     on: {
-      "dragover": function dragover($event) {
+      dragover: function dragover($event) {
         $event.preventDefault();
       },
-      "dragenter": function dragenter($event) {
+      dragenter: function dragenter($event) {
         _vm.drag_enter_dropable_area_inside = true;
       },
-      "dragleave": function dragleave($event) {
+      dragleave: function dragleave($event) {
         _vm.drag_enter_dropable_area_inside = false;
       },
-      "drop": function drop($event) {
+      drop: function drop($event) {
         return _vm.handleDroppedInside();
       }
     }
-  }) : _vm._e(), _vm._v(" "), !_vm.dropInside && _vm.dropDirection === 'horizontal' ? _c('span', {
+  }) : _vm._e(), _vm._v(" "), !_vm.dropInside && _vm.dropDirection === "horizontal" ? _c("span", {
     staticClass: "cptm-dropable-area-left",
     on: {
-      "dragover": function dragover($event) {
+      dragover: function dragover($event) {
         $event.preventDefault();
       },
-      "dragenter": function dragenter($event) {
+      dragenter: function dragenter($event) {
         _vm.drag_enter_dropable_area_left = true;
       },
-      "dragleave": function dragleave($event) {
+      dragleave: function dragleave($event) {
         _vm.drag_enter_dropable_area_left = false;
       },
-      "drop": function drop($event) {
+      drop: function drop($event) {
         return _vm.handleDroppedBefore();
       }
     }
-  }) : _vm._e(), _vm._v(" "), !_vm.dropInside && _vm.dropDirection === 'horizontal' ? _c('span', {
+  }) : _vm._e(), _vm._v(" "), !_vm.dropInside && _vm.dropDirection === "horizontal" ? _c("span", {
     staticClass: "cptm-dropable-area-right",
     on: {
-      "dragover": function dragover($event) {
+      dragover: function dragover($event) {
         $event.preventDefault();
       },
-      "dragenter": function dragenter($event) {
+      dragenter: function dragenter($event) {
         _vm.drag_enter_dropable_area_right = true;
       },
-      "dragleave": function dragleave($event) {
+      dragleave: function dragleave($event) {
         _vm.drag_enter_dropable_area_right = false;
       },
-      "drop": function drop($event) {
+      drop: function drop($event) {
         return _vm.handleDroppedAfter();
       }
     }
-  }) : _vm._e(), _vm._v(" "), !_vm.dropInside && _vm.dropDirection === 'vertical' ? _c('span', {
+  }) : _vm._e(), _vm._v(" "), !_vm.dropInside && _vm.dropDirection === "vertical" ? _c("span", {
     staticClass: "cptm-dropable-area-top",
     on: {
-      "dragover": function dragover($event) {
+      dragover: function dragover($event) {
         $event.preventDefault();
       },
-      "dragenter": function dragenter($event) {
+      dragenter: function dragenter($event) {
         _vm.drag_enter_dropable_area_top = true;
       },
-      "dragleave": function dragleave($event) {
+      dragleave: function dragleave($event) {
         _vm.drag_enter_dropable_area_top = false;
       },
-      "drop": function drop($event) {
+      drop: function drop($event) {
         return _vm.handleDroppedBefore();
       }
     }
-  }) : _vm._e(), _vm._v(" "), !_vm.dropInside && _vm.dropDirection === 'vertical' ? _c('span', {
+  }) : _vm._e(), _vm._v(" "), !_vm.dropInside && _vm.dropDirection === "vertical" ? _c("span", {
     staticClass: "cptm-dropable-area-bottom",
     on: {
-      "dragover": function dragover($event) {
+      dragover: function dragover($event) {
         $event.preventDefault();
       },
-      "dragenter": function dragenter($event) {
+      dragenter: function dragenter($event) {
         _vm.drag_enter_dropable_area_bottom = true;
       },
-      "dragleave": function dragleave($event) {
+      dragleave: function dragleave($event) {
         _vm.drag_enter_dropable_area_bottom = false;
       },
-      "drop": function drop($event) {
+      drop: function drop($event) {
         return _vm.handleDroppedAfter();
       }
     }
@@ -28402,30 +28340,30 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _vm.field_list && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(_vm.field_list) === 'object' ? _c('div', {
+  return _vm.field_list && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(_vm.field_list) === "object" ? _c("div", {
     staticClass: "directorist-form-fields-area"
   }, [_vm._l(_vm.visibleFields, function (field, field_key) {
-    return field.type ? _c(field.type + '-field', _vm._b({
+    return field.type ? _c(field.type + "-field", _vm._b({
       key: field_key,
       tag: "component",
       attrs: {
         "section-id": _vm.sectionId,
         "field-id": "".concat(_vm.sectionId, "_").concat(field_key),
-        "root": _vm.field_list
+        root: _vm.field_list
       },
       on: {
-        "update": function update($event) {
+        update: function update($event) {
           return _vm.update({
             key: field_key,
             value: $event
           });
         }
       }
-    }, 'component', _vm.excludeShowIfCondition(field), false)) : _vm._e();
-  }), _vm._v(" "), _vm.hasAdvancedFields ? _c('button', {
+    }, "component", _vm.excludeShowIfCondition(field), false)) : _vm._e();
+  }), _vm._v(" "), _vm.hasAdvancedFields ? _c("button", {
     staticClass: "cptm-form-builder-group-options__advanced-toggle",
     on: {
-      "click": _vm.toggleAdvanced
+      click: _vm.toggleAdvanced
     }
   }, [_vm._v("\n    " + _vm._s(_vm.showAdvanced ? "Basic" : "Advanced") + "\n  ")]) : _vm._e()], 2) : _vm._e();
 };
@@ -28449,15 +28387,15 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _vm.validationMessages ? _c('div', {
+  return _vm.validationMessages ? _c("div", {
     staticClass: "cptm-form-group-feedback"
   }, _vm._l(Object.values(_vm.validationMessages), function (alert, alert_key) {
-    return _c('div', {
+    return _c("div", {
       key: alert_key,
       staticClass: "cptm-form-alert",
-      class: 'cptm-' + (alert.type ? alert.type : ''),
+      class: "cptm-" + (alert.type ? alert.type : ""),
       domProps: {
-        "innerHTML": _vm._s(alert.message ? alert.message : '')
+        innerHTML: _vm._s(alert.message ? alert.message : "")
       }
     });
   }), 0) : _vm._e();
@@ -28482,43 +28420,43 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-option-card",
     class: _vm.mainWrapperClass
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-option-card-header"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-option-card-header-title-section"
-  }, [_c('h3', {
+  }, [_c("h3", {
     staticClass: "cptm-option-card-header-title"
-  }, [_vm._v(_vm._s(_vm.title))]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.title))]), _vm._v(" "), _c("div", {
     staticClass: "cptm-header-action-area"
-  }, [_c('a', {
+  }, [_c("a", {
     staticClass: "cptm-header-action-link cptm-header-action-close",
     attrs: {
-      "href": "#"
+      href: "#"
     },
     on: {
-      "click": function click($event) {
+      click: function click($event) {
         $event.preventDefault();
-        return _vm.$emit('close');
+        return _vm.$emit("close");
       }
     }
-  }, [_c('span', {
+  }, [_c("span", {
     staticClass: "fa fa-times"
-  })])])])]), _vm._v(" "), _c('div', {
+  })])])])]), _vm._v(" "), _c("div", {
     staticClass: "cptm-option-card-body"
   }, [_vm.local_fields ? _vm._l(_vm.local_fields, function (field, field_key) {
-    return _c(field.type + '-field', _vm._b({
+    return _c(field.type + "-field", _vm._b({
       key: field_key,
       tag: "component",
       on: {
-        "update": function update($event) {
+        update: function update($event) {
           return _vm.updateFieldData($event, field_key);
         }
       }
-    }, 'component', field, false));
-  }) : _vm._e()], 2), _vm._v(" "), _vm.bottomAchhor ? _c('span', {
+    }, "component", field, false));
+  }) : _vm._e()], 2), _vm._v(" "), _vm.bottomAchhor ? _c("span", {
     staticClass: "cptm-anchor-down"
   }) : _vm._e()]);
 };
@@ -28545,144 +28483,144 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-tab-content",
     class: _vm.containerClass
   }, [_vm._l(_vm.sections, function (section, section_key) {
-    return _c('div', {
+    return _c("div", {
       key: section_key,
       staticClass: "cptm-section",
       class: _vm.sectionClass(section)
-    }, [['submission_form_fields', 'search_form_fields', 'single_listing_header', 'single_listings_contents', 'listings_card_grid_view', 'listings_card_list_view'].includes(section.fields[0]) ? _c('div', {
+    }, [["submission_form_fields", "search_form_fields", "single_listing_header", "single_listings_contents", "listings_card_grid_view", "listings_card_list_view"].includes(section.fields[0]) ? _c("div", {
       staticClass: "directorist-form-doc"
-    }, [_c('div', {
+    }, [_c("div", {
       staticClass: "directorist-form-doc-left"
-    }, [_c('div', {
+    }, [_c("div", {
       staticClass: "directorist-form-doc-title",
       domProps: {
-        "innerHTML": _vm._s(section.title)
+        innerHTML: _vm._s(section.title)
       }
-    }), _vm._v(" "), _vm.video && ['submission_form_fields', 'search_form_fields'].includes(section.fields[0]) ? _c('a', {
+    }), _vm._v(" "), _vm.video && ["submission_form_fields", "search_form_fields"].includes(section.fields[0]) ? _c("a", {
       staticClass: "directorist-form-doc__watch-tutorial",
       attrs: {
-        "href": "#"
+        href: "#"
       },
       on: {
-        "click": function click($event) {
+        click: function click($event) {
           $event.preventDefault();
           return _vm.openVideoPopup.apply(null, arguments);
         }
       }
-    }, [_c('svg', {
+    }, [_c("svg", {
       attrs: {
-        "xmlns": "http://www.w3.org/2000/svg",
-        "width": "14",
-        "height": "14",
-        "viewBox": "0 0 14 14",
-        "fill": "none"
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "14",
+        height: "14",
+        viewBox: "0 0 14 14",
+        fill: "none"
       }
-    }, [_c('path', {
+    }, [_c("path", {
       attrs: {
         "fill-rule": "evenodd",
         "clip-rule": "evenodd",
-        "d": "M3.94256 2.33333H7.14074C7.6103 2.33332 7.99785 2.33331 8.31355 2.35911C8.64143 2.3859 8.94285 2.44339 9.22596 2.58765C9.665 2.81135 10.022 3.16831 10.2457 3.60735C10.3899 3.89046 10.4474 4.19187 10.4742 4.51976C10.4981 4.81257 10.4999 5.16718 10.5 5.59171L11.6396 4.45212C11.7511 4.34058 11.8607 4.23096 11.9567 4.15052C12.0424 4.07876 12.223 3.93485 12.473 3.91517C12.7522 3.8932 13.0251 4.00622 13.207 4.21921C13.3699 4.40993 13.3958 4.63932 13.4056 4.75068C13.4167 4.87549 13.4167 5.03051 13.4166 5.18822V8.81177C13.4167 8.96948 13.4167 9.1245 13.4056 9.24931C13.3958 9.36067 13.3699 9.59006 13.207 9.78078C13.0251 9.99377 12.7522 10.1068 12.473 10.0848C12.223 10.0651 12.0424 9.92123 11.9567 9.84947C11.8607 9.76904 11.7511 9.65941 11.6396 9.54787L10.5 8.40828C10.4999 8.83281 10.4981 9.18742 10.4742 9.48023C10.4474 9.80812 10.3899 10.1095 10.2457 10.3926C10.022 10.8317 9.665 11.1886 9.22596 11.4123C8.94285 11.5566 8.64144 11.6141 8.31355 11.6409C7.99784 11.6667 7.6103 11.6667 7.14072 11.6667H3.94257C3.473 11.6667 3.08545 11.6667 2.76975 11.6409C2.44186 11.6141 2.14045 11.5566 1.85734 11.4123C1.41829 11.1886 1.06134 10.8317 0.837632 10.3926C0.693379 10.1095 0.635883 9.80812 0.609093 9.48023C0.5833 9.16453 0.583306 8.77699 0.583313 8.30742V5.69257C0.583306 5.22301 0.5833 4.83546 0.609093 4.51976C0.635883 4.19187 0.693379 3.89046 0.837632 3.60735C1.06134 3.16831 1.41829 2.81135 1.85734 2.58765C2.14045 2.44339 2.44186 2.3859 2.76975 2.35911C3.08545 2.33331 3.47299 2.33332 3.94256 2.33333ZM9.33331 5.71666C9.33331 5.21699 9.33286 4.87732 9.31141 4.61477C9.29051 4.35903 9.25264 4.22824 9.20615 4.13701C9.0943 3.91748 8.91582 3.73901 8.6963 3.62715C8.60507 3.58067 8.47428 3.5428 8.21854 3.5219C7.95599 3.50045 7.61632 3.5 7.11665 3.5H3.96665C3.46698 3.5 3.1273 3.50045 2.86475 3.5219C2.60901 3.5428 2.47822 3.58067 2.38699 3.62715C2.16747 3.73901 1.98899 3.91748 1.87714 4.13701C1.83065 4.22824 1.79278 4.35903 1.77189 4.61477C1.75043 4.87732 1.74998 5.21699 1.74998 5.71666V8.28333C1.74998 8.783 1.75043 9.12267 1.77189 9.38522C1.79278 9.64097 1.83065 9.77175 1.87714 9.86298C1.98899 10.0825 2.16747 10.261 2.38699 10.3728C2.47822 10.4193 2.60901 10.4572 2.86475 10.4781C3.1273 10.4995 3.46698 10.5 3.96665 10.5H7.11665C7.61632 10.5 7.95599 10.4995 8.21854 10.4781C8.47428 10.4572 8.60507 10.4193 8.6963 10.3728C8.91582 10.261 9.0943 10.0825 9.20615 9.86298C9.25264 9.77175 9.29051 9.64097 9.31141 9.38522C9.33286 9.12267 9.33331 8.783 9.33331 8.28333V5.71666ZM10.7416 7L12.25 8.50837V5.49162L10.7416 7Z",
-        "fill": "currentColor"
+        d: "M3.94256 2.33333H7.14074C7.6103 2.33332 7.99785 2.33331 8.31355 2.35911C8.64143 2.3859 8.94285 2.44339 9.22596 2.58765C9.665 2.81135 10.022 3.16831 10.2457 3.60735C10.3899 3.89046 10.4474 4.19187 10.4742 4.51976C10.4981 4.81257 10.4999 5.16718 10.5 5.59171L11.6396 4.45212C11.7511 4.34058 11.8607 4.23096 11.9567 4.15052C12.0424 4.07876 12.223 3.93485 12.473 3.91517C12.7522 3.8932 13.0251 4.00622 13.207 4.21921C13.3699 4.40993 13.3958 4.63932 13.4056 4.75068C13.4167 4.87549 13.4167 5.03051 13.4166 5.18822V8.81177C13.4167 8.96948 13.4167 9.1245 13.4056 9.24931C13.3958 9.36067 13.3699 9.59006 13.207 9.78078C13.0251 9.99377 12.7522 10.1068 12.473 10.0848C12.223 10.0651 12.0424 9.92123 11.9567 9.84947C11.8607 9.76904 11.7511 9.65941 11.6396 9.54787L10.5 8.40828C10.4999 8.83281 10.4981 9.18742 10.4742 9.48023C10.4474 9.80812 10.3899 10.1095 10.2457 10.3926C10.022 10.8317 9.665 11.1886 9.22596 11.4123C8.94285 11.5566 8.64144 11.6141 8.31355 11.6409C7.99784 11.6667 7.6103 11.6667 7.14072 11.6667H3.94257C3.473 11.6667 3.08545 11.6667 2.76975 11.6409C2.44186 11.6141 2.14045 11.5566 1.85734 11.4123C1.41829 11.1886 1.06134 10.8317 0.837632 10.3926C0.693379 10.1095 0.635883 9.80812 0.609093 9.48023C0.5833 9.16453 0.583306 8.77699 0.583313 8.30742V5.69257C0.583306 5.22301 0.5833 4.83546 0.609093 4.51976C0.635883 4.19187 0.693379 3.89046 0.837632 3.60735C1.06134 3.16831 1.41829 2.81135 1.85734 2.58765C2.14045 2.44339 2.44186 2.3859 2.76975 2.35911C3.08545 2.33331 3.47299 2.33332 3.94256 2.33333ZM9.33331 5.71666C9.33331 5.21699 9.33286 4.87732 9.31141 4.61477C9.29051 4.35903 9.25264 4.22824 9.20615 4.13701C9.0943 3.91748 8.91582 3.73901 8.6963 3.62715C8.60507 3.58067 8.47428 3.5428 8.21854 3.5219C7.95599 3.50045 7.61632 3.5 7.11665 3.5H3.96665C3.46698 3.5 3.1273 3.50045 2.86475 3.5219C2.60901 3.5428 2.47822 3.58067 2.38699 3.62715C2.16747 3.73901 1.98899 3.91748 1.87714 4.13701C1.83065 4.22824 1.79278 4.35903 1.77189 4.61477C1.75043 4.87732 1.74998 5.21699 1.74998 5.71666V8.28333C1.74998 8.783 1.75043 9.12267 1.77189 9.38522C1.79278 9.64097 1.83065 9.77175 1.87714 9.86298C1.98899 10.0825 2.16747 10.261 2.38699 10.3728C2.47822 10.4193 2.60901 10.4572 2.86475 10.4781C3.1273 10.4995 3.46698 10.5 3.96665 10.5H7.11665C7.61632 10.5 7.95599 10.4995 8.21854 10.4781C8.47428 10.4572 8.60507 10.4193 8.6963 10.3728C8.91582 10.261 9.0943 10.0825 9.20615 9.86298C9.25264 9.77175 9.29051 9.64097 9.31141 9.38522C9.33286 9.12267 9.33331 8.783 9.33331 8.28333V5.71666ZM10.7416 7L12.25 8.50837V5.49162L10.7416 7Z",
+        fill: "currentColor"
       }
-    })]), _vm._v("\n          " + _vm._s(_vm.video.button_text) + "\n        ")]) : _vm._e(), _vm._v(" "), _vm.learn_more ? _c('a', {
+    })]), _vm._v("\n          " + _vm._s(_vm.video.button_text) + "\n        ")]) : _vm._e(), _vm._v(" "), _vm.learn_more ? _c("a", {
       staticClass: "directorist-form-doc__link",
       attrs: {
-        "href": _vm.learn_more.url,
-        "target": "_blank"
+        href: _vm.learn_more.url,
+        target: "_blank"
       },
       domProps: {
-        "innerHTML": _vm._s(_vm.learn_more.title)
+        innerHTML: _vm._s(_vm.learn_more.title)
       }
-    }) : _vm._e()]), _vm._v(" "), section.fields[0] === 'submission_form_fields' ? _c('div', {
+    }) : _vm._e()]), _vm._v(" "), section.fields[0] === "submission_form_fields" ? _c("div", {
       staticClass: "directorist-form-doc-right"
-    }, [_c('a', {
+    }, [_c("a", {
       staticClass: "directorist-form-doc__preview",
       attrs: {
-        "href": "#",
-        "target": "_blank"
+        href: "#",
+        target: "_blank"
       },
       on: {
-        "click": function click($event) {
+        click: function click($event) {
           return _vm.saveData();
         }
       }
-    }, [_c('svg', {
+    }, [_c("svg", {
       attrs: {
-        "xmlns": "http://www.w3.org/2000/svg",
-        "width": "16",
-        "height": "16",
-        "viewBox": "0 0 16 16",
-        "fill": "none"
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "16",
+        height: "16",
+        viewBox: "0 0 16 16",
+        fill: "none"
       }
-    }, [_c('path', {
+    }, [_c("path", {
       attrs: {
         "fill-rule": "evenodd",
         "clip-rule": "evenodd",
-        "d": "M5.33749 1.86822C5.34546 1.87353 5.35345 1.87886 5.36147 1.88421L12.394 6.57255C12.5975 6.70817 12.7861 6.83392 12.931 6.95077C13.0822 7.07273 13.2605 7.24185 13.3631 7.48925C13.4987 7.81625 13.4987 8.18376 13.3631 8.51077C13.2605 8.75817 13.0822 8.92729 12.931 9.04924C12.7861 9.1661 12.5975 9.29184 12.394 9.42746L5.33751 14.1318C5.08879 14.2976 4.86513 14.4468 4.67535 14.5496C4.48544 14.6525 4.22477 14.7701 3.92052 14.752C3.53135 14.7287 3.17185 14.5363 2.93665 14.2254C2.75276 13.9823 2.70602 13.7002 2.68631 13.4851C2.66662 13.2701 2.66664 13.0014 2.66666 12.7024L2.66666 3.32643C2.66666 3.31679 2.66666 3.30718 2.66666 3.2976C2.66664 2.99867 2.66662 2.72987 2.68631 2.51492C2.70602 2.29982 2.75276 2.01769 2.93665 1.77461C3.17185 1.46369 3.53135 1.27129 3.92052 1.24806C4.22477 1.22989 4.48545 1.3475 4.67536 1.45042C4.86513 1.55326 5.08878 1.70238 5.33749 1.86822ZM4.01674 2.61031C4.01584 2.61839 4.01495 2.62713 4.01409 2.63658C4.00066 2.78307 3.99999 2.98946 3.99999 3.32643V12.6736C3.99999 13.0106 4.00066 13.2169 4.01409 13.3634C4.01495 13.3729 4.01584 13.3816 4.01674 13.3897C4.02396 13.386 4.03173 13.3819 4.04007 13.3773C4.1694 13.3073 4.3415 13.1933 4.62187 13.0064L11.6322 8.33283C11.8655 8.17735 12.0022 8.08542 12.094 8.01137C12.099 8.00736 12.1036 8.00357 12.1079 8.00001C12.1036 7.99644 12.099 7.99265 12.094 7.98864C12.0022 7.9146 11.8655 7.82267 11.6322 7.66719L4.62187 2.99361C4.3415 2.80669 4.1694 2.69277 4.04007 2.62267C4.03173 2.61815 4.02396 2.61405 4.01674 2.61031Z",
-        "fill": "currentColor"
+        d: "M5.33749 1.86822C5.34546 1.87353 5.35345 1.87886 5.36147 1.88421L12.394 6.57255C12.5975 6.70817 12.7861 6.83392 12.931 6.95077C13.0822 7.07273 13.2605 7.24185 13.3631 7.48925C13.4987 7.81625 13.4987 8.18376 13.3631 8.51077C13.2605 8.75817 13.0822 8.92729 12.931 9.04924C12.7861 9.1661 12.5975 9.29184 12.394 9.42746L5.33751 14.1318C5.08879 14.2976 4.86513 14.4468 4.67535 14.5496C4.48544 14.6525 4.22477 14.7701 3.92052 14.752C3.53135 14.7287 3.17185 14.5363 2.93665 14.2254C2.75276 13.9823 2.70602 13.7002 2.68631 13.4851C2.66662 13.2701 2.66664 13.0014 2.66666 12.7024L2.66666 3.32643C2.66666 3.31679 2.66666 3.30718 2.66666 3.2976C2.66664 2.99867 2.66662 2.72987 2.68631 2.51492C2.70602 2.29982 2.75276 2.01769 2.93665 1.77461C3.17185 1.46369 3.53135 1.27129 3.92052 1.24806C4.22477 1.22989 4.48545 1.3475 4.67536 1.45042C4.86513 1.55326 5.08878 1.70238 5.33749 1.86822ZM4.01674 2.61031C4.01584 2.61839 4.01495 2.62713 4.01409 2.63658C4.00066 2.78307 3.99999 2.98946 3.99999 3.32643V12.6736C3.99999 13.0106 4.00066 13.2169 4.01409 13.3634C4.01495 13.3729 4.01584 13.3816 4.01674 13.3897C4.02396 13.386 4.03173 13.3819 4.04007 13.3773C4.1694 13.3073 4.3415 13.1933 4.62187 13.0064L11.6322 8.33283C11.8655 8.17735 12.0022 8.08542 12.094 8.01137C12.099 8.00736 12.1036 8.00357 12.1079 8.00001C12.1036 7.99644 12.099 7.99265 12.094 7.98864C12.0022 7.9146 11.8655 7.82267 11.6322 7.66719L4.62187 2.99361C4.3415 2.80669 4.1694 2.69277 4.04007 2.62267C4.03173 2.61815 4.02396 2.61405 4.01674 2.61031Z",
+        fill: "currentColor"
       }
-    })]), _vm._v("\n          preview\n        ")])]) : _vm._e()]) : _vm._e(), _vm._v(" "), section.fields[0] !== 'submission_form_fields' && section.fields[0] !== 'search_form_fields' && section.fields[0] !== 'single_listing_header' && section.fields[0] !== 'single_listing_header' && section.fields[0] !== 'single_listings_contents' && section.fields[0] !== 'listings_card_grid_view' && section.fields[0] !== 'listings_card_list_view' ? _c('div', {
+    })]), _vm._v("\n          preview\n        ")])]) : _vm._e()]) : _vm._e(), _vm._v(" "), section.fields[0] !== "submission_form_fields" && section.fields[0] !== "search_form_fields" && section.fields[0] !== "single_listing_header" && section.fields[0] !== "single_listing_header" && section.fields[0] !== "single_listings_contents" && section.fields[0] !== "listings_card_grid_view" && section.fields[0] !== "listings_card_list_view" ? _c("div", {
       staticClass: "cptm-title-area",
       class: _vm.sectionTitleAreaClass(section)
-    }, [section.title ? _c('h3', {
+    }, [section.title ? _c("h3", {
       staticClass: "cptm-title",
       domProps: {
-        "innerHTML": _vm._s(section.title)
+        innerHTML: _vm._s(section.title)
       }
-    }) : _vm._e(), _vm._v(" "), section.description ? _c('div', {
+    }) : _vm._e(), _vm._v(" "), section.description ? _c("div", {
       staticClass: "cptm-des",
       domProps: {
-        "innerHTML": _vm._s(section.description)
+        innerHTML: _vm._s(section.description)
       }
-    }) : _vm._e()]) : _vm._e(), _vm._v(" "), _vm.sectionFields(section) ? _c('div', {
+    }) : _vm._e()]) : _vm._e(), _vm._v(" "), _vm.sectionFields(section) ? _c("div", {
       staticClass: "cptm-form-fields"
     }, _vm._l(_vm.sectionFields(section), function (field, field_key) {
-      return _vm.fields[field].group !== 'container' ? _c('div', {
+      return _vm.fields[field].group !== "container" ? _c("div", {
         key: field_key
       }, [_vm.fields[field] ? _c(_vm.getFormFieldName(_vm.fields[field].type), _vm._b({
         ref: field,
         refInFor: true,
         tag: "component",
-        class: _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({}, 'highlight-field', _vm.getHighlightState(field)),
+        class: _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({}, "highlight-field", _vm.getHighlightState(field)),
         attrs: {
           "field-id": field_key,
-          "fieldKey": field,
-          "id": _vm.menuKey + '__' + section_key + '__' + field,
+          fieldKey: field,
+          id: _vm.menuKey + "__" + section_key + "__" + field,
           "cached-data": _vm.cached_fields[field],
-          "listing_type_id": _vm.listing_type_id
+          listing_type_id: _vm.listing_type_id
         },
         on: {
-          "update": function update($event) {
+          update: function update($event) {
             return _vm.updateFieldValue(field, $event);
           },
-          "save": function save($event) {
-            return _vm.$emit('save', $event);
+          save: function save($event) {
+            return _vm.$emit("save", $event);
           },
-          "validate": function validate($event) {
+          validate: function validate($event) {
             return _vm.updateFieldValidationState(field, $event);
           },
           "is-visible": function isVisible($event) {
-            return _vm.updateFieldData(field, 'isVisible', $event);
+            return _vm.updateFieldData(field, "isVisible", $event);
           },
           "do-action": function doAction($event) {
-            return _vm.doAction($event, 'sections-module');
+            return _vm.doAction($event, "sections-module");
           }
         }
-      }, 'component', _vm.fields[field], false)) : _vm._e(), _vm._v(" "), field === 'way_to_show_preview' && _vm.groupedContainerFields.length > 0 ? _c('div', {
+      }, "component", _vm.fields[field], false)) : _vm._e(), _vm._v(" "), field === "way_to_show_preview" && _vm.groupedContainerFields.length > 0 ? _c("div", {
         staticClass: "cptm-field-group-container"
-      }, [_c('div', {
+      }, [_c("div", {
         staticClass: "atbdp-row"
-      }, [_c('div', {
+      }, [_c("div", {
         staticClass: "atbdp-col atbdp-col-4"
-      }, [_c('label', {
+      }, [_c("label", {
         staticClass: "cptm-field-group-container__label"
-      }, [_c('span', [_vm._v(_vm._s(_vm.containerGroupLabel))])])]), _vm._v(" "), _c('div', {
+      }, [_c("span", [_vm._v(_vm._s(_vm.containerGroupLabel))])])]), _vm._v(" "), _c("div", {
         staticClass: "atbdp-col atbdp-col-8"
-      }, [_c('div', {
+      }, [_c("div", {
         staticClass: "cptm-container-group-fields"
       }, _vm._l(_vm.groupedContainerFields, function (groupedField, groupedFieldKey) {
         return _c(_vm.getFormFieldName(_vm.fields[groupedField].type), _vm._b({
@@ -28690,36 +28628,36 @@ var render = function render() {
           ref: groupedField,
           refInFor: true,
           tag: "component",
-          class: _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({}, 'highlight-field', _vm.getHighlightState(groupedField)),
+          class: _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({}, "highlight-field", _vm.getHighlightState(groupedField)),
           attrs: {
             "field-id": groupedFieldKey,
-            "id": _vm.menuKey + '__' + section_key + '__' + groupedField,
+            id: _vm.menuKey + "__" + section_key + "__" + groupedField,
             "cached-data": _vm.cached_fields[groupedField]
           },
           on: {
-            "update": function update($event) {
+            update: function update($event) {
               return _vm.updateFieldValue(groupedField, $event);
             },
-            "save": function save($event) {
-              return _vm.$emit('save', $event);
+            save: function save($event) {
+              return _vm.$emit("save", $event);
             },
-            "validate": function validate($event) {
+            validate: function validate($event) {
               return _vm.updateFieldValidationState(groupedField, $event);
             },
             "is-visible": function isVisible($event) {
-              return _vm.updateFieldData(groupedField, 'isVisible', $event);
+              return _vm.updateFieldData(groupedField, "isVisible", $event);
             },
             "do-action": function doAction($event) {
-              return _vm.doAction($event, 'sections-module');
+              return _vm.doAction($event, "sections-module");
             }
           }
-        }, 'component', _vm.fields[groupedField], false));
+        }, "component", _vm.fields[groupedField], false));
       }), 1)])])]) : _vm._e()], 1) : _vm._e();
     }), 0) : _vm._e()]);
-  }), _vm._v(" "), _vm.video ? _c('form-builder-widget-video-component', {
+  }), _vm._v(" "), _vm.video ? _c("form-builder-widget-video-component", {
     attrs: {
-      "videoOpened": _vm.showVideo,
-      "video": _vm.video
+      videoOpened: _vm.showVideo,
+      video: _vm.video
     },
     on: {
       "close-video": _vm.closeVideoPopup
@@ -28749,50 +28687,50 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "setting-left-sibebar"
-  }, [_c('ul', {
+  }, [_c("ul", {
     staticClass: "settings-nav"
   }, _vm._l(_vm.menu, function (meue_item, menu_key) {
-    return _c('li', {
+    return _c("li", {
       key: menu_key,
       staticClass: "settings-nav__item",
       class: {
         active: meue_item.active
       }
-    }, [_c('a', {
+    }, [_c("a", {
       staticClass: "settings-nav__item__link",
-      class: _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({}, 'nav-has-dropdwon', meue_item.submenu),
+      class: _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({}, "nav-has-dropdwon", meue_item.submenu),
       attrs: {
-        "href": "#"
+        href: "#"
       },
       on: {
-        "click": function click($event) {
+        click: function click($event) {
           $event.preventDefault();
           return _vm.swichToNav({
             menu_key: menu_key
           }, $event);
         }
       }
-    }, [meue_item.icon ? _c('span', {
+    }, [meue_item.icon ? _c("span", {
       staticClass: "settings-nav__item__icon",
       domProps: {
-        "innerHTML": _vm._s(meue_item.icon)
+        innerHTML: _vm._s(meue_item.icon)
       }
-    }) : _vm._e(), _vm._v(" \n        " + _vm._s(meue_item.label) + " "), meue_item.submenu ? _c('span', {
+    }) : _vm._e(), _vm._v(" \n        " + _vm._s(meue_item.label) + " "), meue_item.submenu ? _c("span", {
       staticClass: "drop-toggle-caret"
-    }) : _vm._e()]), _vm._v(" "), meue_item.submenu ? _c('ul', _vm._l(meue_item.submenu, function (submeue_item, submenu_key) {
-      return _c('li', {
+    }) : _vm._e()]), _vm._v(" "), meue_item.submenu ? _c("ul", _vm._l(meue_item.submenu, function (submeue_item, submenu_key) {
+      return _c("li", {
         key: submenu_key
-      }, [_c('a', {
+      }, [_c("a", {
         class: {
           active: submeue_item.active
         },
         attrs: {
-          "href": "#"
+          href: "#"
         },
         on: {
-          "click": function click($event) {
+          click: function click($event) {
             $event.preventDefault();
             return _vm.swichToNav({
               menu_key: menu_key,
@@ -28800,10 +28738,10 @@ var render = function render() {
             }, $event);
           }
         }
-      }, [submeue_item.icon ? _c('span', {
+      }, [submeue_item.icon ? _c("span", {
         staticClass: "settings-nav__item__icon",
         domProps: {
-          "innerHTML": _vm._s(submeue_item.icon)
+          innerHTML: _vm._s(submeue_item.icon)
         }
       }) : _vm._e(), _vm._v(" \n              " + _vm._s(submeue_item.label) + "\n            ")])]);
     }), 0) : _vm._e()]);
@@ -28829,36 +28767,36 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _vm.option_fields ? _c('div', {
+  return _vm.option_fields ? _c("div", {
     staticClass: "cptm-fields"
   }, _vm._l(Object.keys(_vm.option_fields), function (field_key, field_index) {
-    return _c('div', {
+    return _c("div", {
       key: field_index,
       class: _vm.fieldWrapperClass(field_key, _vm.option_fields[field_key])
-    }, [_c(_vm.option_fields[field_key].type + '-field', _vm._b({
+    }, [_c(_vm.option_fields[field_key].type + "-field", _vm._b({
       key: field_index,
       ref: field_key,
       refInFor: true,
       tag: "component",
       attrs: {
-        "root": _vm.option_fields,
+        root: _vm.option_fields,
         "field-id": field_key
       },
       on: {
-        "update": function update($event) {
+        update: function update($event) {
           return _vm.updateOptionFieldValue(field_key, $event);
         },
-        "validate": function validate($event) {
+        validate: function validate($event) {
           return _vm.updateOptionFieldValidationState(field_key, $event);
         },
         "is-visible": function isVisible($event) {
-          return _vm.updateOptionFieldData(field_key, 'isVisible', $event);
+          return _vm.updateOptionFieldData(field_key, "isVisible", $event);
         },
         "do-action": function doAction($event) {
-          return _vm.doAction($event, 'sub-fields');
+          return _vm.doAction($event, "sub-fields");
         }
       }
-    }, 'component', _vm.option_fields[field_key], false))], 1);
+    }, "component", _vm.option_fields[field_key], false))], 1);
   }), 0) : _vm._e();
 };
 var staticRenderFns = [];
@@ -28881,20 +28819,20 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('ul', {
+  return _c("ul", {
     staticClass: "cptm-sub-navigation"
   }, _vm._l(_vm.navLists, function (nav, index) {
-    return _c('li', {
+    return _c("li", {
       key: index,
       staticClass: "cptm-sub-nav__item"
-    }, [_c('a', {
+    }, [_c("a", {
       staticClass: "cptm-sub-nav__item-link",
       class: _vm.getActiveClass(index, _vm.active_nav),
       attrs: {
-        "href": "#"
+        href: "#"
       },
       on: {
-        "click": function click($event) {
+        click: function click($event) {
           $event.preventDefault();
           return _vm.swichNav(index);
         }
@@ -28922,11 +28860,11 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', [_c('div', {
+  return _c("div", [_c("div", {
     staticClass: "cptm-tab-content-header"
-  }, [_c('sub-navigation', {
+  }, [_c("sub-navigation", {
     attrs: {
-      "navLists": _vm.navList
+      navLists: _vm.navList
     },
     model: {
       value: _vm.active_sub_nav,
@@ -28935,46 +28873,46 @@ var render = function render() {
       },
       expression: "active_sub_nav"
     }
-  }), _vm._v(" "), _vm.currentVideo ? _c('a', {
+  }), _vm._v(" "), _vm.currentVideo ? _c("a", {
     staticClass: "directorist-form-doc__watch-tutorial",
     attrs: {
-      "href": "#"
+      href: "#"
     },
     on: {
-      "click": function click($event) {
+      click: function click($event) {
         $event.preventDefault();
         return _vm.openVideoPopup.apply(null, arguments);
       }
     }
-  }, [_c('svg', {
+  }, [_c("svg", {
     attrs: {
-      "xmlns": "http://www.w3.org/2000/svg",
-      "width": "14",
-      "height": "14",
-      "viewBox": "0 0 14 14",
-      "fill": "none"
+      xmlns: "http://www.w3.org/2000/svg",
+      width: "14",
+      height: "14",
+      viewBox: "0 0 14 14",
+      fill: "none"
     }
-  }, [_c('path', {
+  }, [_c("path", {
     attrs: {
       "fill-rule": "evenodd",
       "clip-rule": "evenodd",
-      "d": "M3.94256 2.33333H7.14074C7.6103 2.33332 7.99785 2.33331 8.31355 2.35911C8.64143 2.3859 8.94285 2.44339 9.22596 2.58765C9.665 2.81135 10.022 3.16831 10.2457 3.60735C10.3899 3.89046 10.4474 4.19187 10.4742 4.51976C10.4981 4.81257 10.4999 5.16718 10.5 5.59171L11.6396 4.45212C11.7511 4.34058 11.8607 4.23096 11.9567 4.15052C12.0424 4.07876 12.223 3.93485 12.473 3.91517C12.7522 3.8932 13.0251 4.00622 13.207 4.21921C13.3699 4.40993 13.3958 4.63932 13.4056 4.75068C13.4167 4.87549 13.4167 5.03051 13.4166 5.18822V8.81177C13.4167 8.96948 13.4167 9.1245 13.4056 9.24931C13.3958 9.36067 13.3699 9.59006 13.207 9.78078C13.0251 9.99377 12.7522 10.1068 12.473 10.0848C12.223 10.0651 12.0424 9.92123 11.9567 9.84947C11.8607 9.76904 11.7511 9.65941 11.6396 9.54787L10.5 8.40828C10.4999 8.83281 10.4981 9.18742 10.4742 9.48023C10.4474 9.80812 10.3899 10.1095 10.2457 10.3926C10.022 10.8317 9.665 11.1886 9.22596 11.4123C8.94285 11.5566 8.64144 11.6141 8.31355 11.6409C7.99784 11.6667 7.6103 11.6667 7.14072 11.6667H3.94257C3.473 11.6667 3.08545 11.6667 2.76975 11.6409C2.44186 11.6141 2.14045 11.5566 1.85734 11.4123C1.41829 11.1886 1.06134 10.8317 0.837632 10.3926C0.693379 10.1095 0.635883 9.80812 0.609093 9.48023C0.5833 9.16453 0.583306 8.77699 0.583313 8.30742V5.69257C0.583306 5.22301 0.5833 4.83546 0.609093 4.51976C0.635883 4.19187 0.693379 3.89046 0.837632 3.60735C1.06134 3.16831 1.41829 2.81135 1.85734 2.58765C2.14045 2.44339 2.44186 2.3859 2.76975 2.35911C3.08545 2.33331 3.47299 2.33332 3.94256 2.33333ZM9.33331 5.71666C9.33331 5.21699 9.33286 4.87732 9.31141 4.61477C9.29051 4.35903 9.25264 4.22824 9.20615 4.13701C9.0943 3.91748 8.91582 3.73901 8.6963 3.62715C8.60507 3.58067 8.47428 3.5428 8.21854 3.5219C7.95599 3.50045 7.61632 3.5 7.11665 3.5H3.96665C3.46698 3.5 3.1273 3.50045 2.86475 3.5219C2.60901 3.5428 2.47822 3.58067 2.38699 3.62715C2.16747 3.73901 1.98899 3.91748 1.87714 4.13701C1.83065 4.22824 1.79278 4.35903 1.77189 4.61477C1.75043 4.87732 1.74998 5.21699 1.74998 5.71666V8.28333C1.74998 8.783 1.75043 9.12267 1.77189 9.38522C1.79278 9.64097 1.83065 9.77175 1.87714 9.86298C1.98899 10.0825 2.16747 10.261 2.38699 10.3728C2.47822 10.4193 2.60901 10.4572 2.86475 10.4781C3.1273 10.4995 3.46698 10.5 3.96665 10.5H7.11665C7.61632 10.5 7.95599 10.4995 8.21854 10.4781C8.47428 10.4572 8.60507 10.4193 8.6963 10.3728C8.91582 10.261 9.0943 10.0825 9.20615 9.86298C9.25264 9.77175 9.29051 9.64097 9.31141 9.38522C9.33286 9.12267 9.33331 8.783 9.33331 8.28333V5.71666ZM10.7416 7L12.25 8.50837V5.49162L10.7416 7Z",
-      "fill": "currentColor"
+      d: "M3.94256 2.33333H7.14074C7.6103 2.33332 7.99785 2.33331 8.31355 2.35911C8.64143 2.3859 8.94285 2.44339 9.22596 2.58765C9.665 2.81135 10.022 3.16831 10.2457 3.60735C10.3899 3.89046 10.4474 4.19187 10.4742 4.51976C10.4981 4.81257 10.4999 5.16718 10.5 5.59171L11.6396 4.45212C11.7511 4.34058 11.8607 4.23096 11.9567 4.15052C12.0424 4.07876 12.223 3.93485 12.473 3.91517C12.7522 3.8932 13.0251 4.00622 13.207 4.21921C13.3699 4.40993 13.3958 4.63932 13.4056 4.75068C13.4167 4.87549 13.4167 5.03051 13.4166 5.18822V8.81177C13.4167 8.96948 13.4167 9.1245 13.4056 9.24931C13.3958 9.36067 13.3699 9.59006 13.207 9.78078C13.0251 9.99377 12.7522 10.1068 12.473 10.0848C12.223 10.0651 12.0424 9.92123 11.9567 9.84947C11.8607 9.76904 11.7511 9.65941 11.6396 9.54787L10.5 8.40828C10.4999 8.83281 10.4981 9.18742 10.4742 9.48023C10.4474 9.80812 10.3899 10.1095 10.2457 10.3926C10.022 10.8317 9.665 11.1886 9.22596 11.4123C8.94285 11.5566 8.64144 11.6141 8.31355 11.6409C7.99784 11.6667 7.6103 11.6667 7.14072 11.6667H3.94257C3.473 11.6667 3.08545 11.6667 2.76975 11.6409C2.44186 11.6141 2.14045 11.5566 1.85734 11.4123C1.41829 11.1886 1.06134 10.8317 0.837632 10.3926C0.693379 10.1095 0.635883 9.80812 0.609093 9.48023C0.5833 9.16453 0.583306 8.77699 0.583313 8.30742V5.69257C0.583306 5.22301 0.5833 4.83546 0.609093 4.51976C0.635883 4.19187 0.693379 3.89046 0.837632 3.60735C1.06134 3.16831 1.41829 2.81135 1.85734 2.58765C2.14045 2.44339 2.44186 2.3859 2.76975 2.35911C3.08545 2.33331 3.47299 2.33332 3.94256 2.33333ZM9.33331 5.71666C9.33331 5.21699 9.33286 4.87732 9.31141 4.61477C9.29051 4.35903 9.25264 4.22824 9.20615 4.13701C9.0943 3.91748 8.91582 3.73901 8.6963 3.62715C8.60507 3.58067 8.47428 3.5428 8.21854 3.5219C7.95599 3.50045 7.61632 3.5 7.11665 3.5H3.96665C3.46698 3.5 3.1273 3.50045 2.86475 3.5219C2.60901 3.5428 2.47822 3.58067 2.38699 3.62715C2.16747 3.73901 1.98899 3.91748 1.87714 4.13701C1.83065 4.22824 1.79278 4.35903 1.77189 4.61477C1.75043 4.87732 1.74998 5.21699 1.74998 5.71666V8.28333C1.74998 8.783 1.75043 9.12267 1.77189 9.38522C1.79278 9.64097 1.83065 9.77175 1.87714 9.86298C1.98899 10.0825 2.16747 10.261 2.38699 10.3728C2.47822 10.4193 2.60901 10.4572 2.86475 10.4781C3.1273 10.4995 3.46698 10.5 3.96665 10.5H7.11665C7.61632 10.5 7.95599 10.4995 8.21854 10.4781C8.47428 10.4572 8.60507 10.4193 8.6963 10.3728C8.91582 10.261 9.0943 10.0825 9.20615 9.86298C9.25264 9.77175 9.29051 9.64097 9.31141 9.38522C9.33286 9.12267 9.33331 8.783 9.33331 8.28333V5.71666ZM10.7416 7L12.25 8.50837V5.49162L10.7416 7Z",
+      fill: "currentColor"
     }
-  })]), _vm._v("\n            " + _vm._s(_vm.currentVideo.button_text) + "\n        ")]) : _vm._e()], 1), _vm._v(" "), _c('div', {
+  })]), _vm._v("\n            " + _vm._s(_vm.currentVideo.button_text) + "\n        ")]) : _vm._e()], 1), _vm._v(" "), _c("div", {
     staticClass: "cptm-tab-content-body"
   }, [_vm._l(_vm.subNavigation, function (sub_tab, sub_tab_index) {
-    return [(_vm.active_sub_nav === sub_tab_index ? true : false) ? _c('div', {
+    return [(_vm.active_sub_nav === sub_tab_index ? true : false) ? _c("div", {
       key: sub_tab_index,
       staticClass: "cptm-tab-sub-content-item",
       class: {
         active: _vm.active_sub_nav === sub_tab_index ? true : false
       }
-    }, [_c('sections-module', _vm._b({}, 'sections-module', sub_tab, false))], 1) : _vm._e()];
-  })], 2), _vm._v(" "), _vm.currentVideo ? _c('form-builder-widget-video-component', {
+    }, [_c("sections-module", _vm._b({}, "sections-module", sub_tab, false))], 1) : _vm._e()];
+  })], 2), _vm._v(" "), _vm.currentVideo ? _c("form-builder-widget-video-component", {
     attrs: {
-      "video": _vm.currentVideo,
-      "videoOpened": _vm.showVideo
+      video: _vm.currentVideo,
+      videoOpened: _vm.showVideo
     },
     on: {
       "close-video": _vm.closeVideoPopup
@@ -29001,49 +28939,49 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-widget-actions-tools"
-  }, [_vm.canMove ? _c('a', {
+  }, [_vm.canMove ? _c("a", {
     attrs: {
-      "href": "#",
-      "draggable": "true"
+      href: "#",
+      draggable: "true"
     },
     on: {
-      "click": function click($event) {
+      click: function click($event) {
         $event.preventDefault();
       },
-      "drag": function drag($event) {
-        return _vm.$emit('drag');
+      drag: function drag($event) {
+        return _vm.$emit("drag");
       },
-      "dragend": function dragend($event) {
-        return _vm.$emit('dragend');
+      dragend: function dragend($event) {
+        return _vm.$emit("dragend");
       }
     }
-  }, [_c('span', {
+  }, [_c("span", {
     staticClass: "uil uil-expand-arrows"
-  })]) : _vm._e(), _vm._v(" "), _vm.canEdit ? _c('a', {
+  })]) : _vm._e(), _vm._v(" "), _vm.canEdit ? _c("a", {
     attrs: {
-      "href": "#"
+      href: "#"
     },
     on: {
-      "click": function click($event) {
+      click: function click($event) {
         $event.preventDefault();
-        return _vm.$emit('edit');
+        return _vm.$emit("edit");
       }
     }
-  }, [_c('span', {
+  }, [_c("span", {
     staticClass: "uil uil-cog"
-  })]) : _vm._e(), _vm._v(" "), _vm.canTrash ? _c('a', {
+  })]) : _vm._e(), _vm._v(" "), _vm.canTrash ? _c("a", {
     attrs: {
-      "href": "#"
+      href: "#"
     },
     on: {
-      "click": function click($event) {
+      click: function click($event) {
         $event.preventDefault();
-        return _vm.$emit('trash');
+        return _vm.$emit("trash");
       }
     }
-  }, [_c('span', {
+  }, [_c("span", {
     staticClass: "uil uil-trash-alt"
   })]) : _vm._e()]);
 };
@@ -29067,39 +29005,39 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-widget-control-wrap"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-widget-control"
-  }, [_c('span', {
+  }, [_c("span", {
     staticClass: "cptm-widget-control-action cptm-widget-control-action-move",
     attrs: {
-      "draggable": "true"
+      draggable: "true"
     },
     on: {
-      "drag": function drag($event) {
-        return _vm.$emit('drag');
+      drag: function drag($event) {
+        return _vm.$emit("drag");
       }
     }
-  }, [_c('span', {
+  }, [_c("span", {
     staticClass: "uil uil-expand-arrows"
-  })]), _vm._v(" "), _c('span', {
+  })]), _vm._v(" "), _c("span", {
     staticClass: "cptm-widget-control-action cptm-widget-control-action-edit",
     on: {
-      "click": function click($event) {
-        return _vm.$emit('edit');
+      click: function click($event) {
+        return _vm.$emit("edit");
       }
     }
-  }, [_c('span', {
+  }, [_c("span", {
     staticClass: "uil uil-cog"
-  })]), _vm._v(" "), _c('span', {
+  })]), _vm._v(" "), _c("span", {
     staticClass: "cptm-widget-control-action cptm-widget-control-action-trash",
     on: {
-      "click": function click($event) {
-        return _vm.$emit('trash');
+      click: function click($event) {
+        return _vm.$emit("trash");
       }
     }
-  }, [_c('span', {
+  }, [_c("span", {
     staticClass: "uil uil-trash-alt"
   })])])]);
 };
@@ -29123,62 +29061,62 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-option-card",
     class: _vm.mainWrapperClass
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-option-card-header"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-option-card-header-title-section"
-  }, [_c('h3', {
+  }, [_c("h3", {
     staticClass: "cptm-option-card-header-title"
-  }, [_vm._v("Insert Element")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("Insert Element")]), _vm._v(" "), _c("div", {
     staticClass: "cptm-header-action-area"
-  }, [_c('a', {
+  }, [_c("a", {
     staticClass: "cptm-header-action-link cptm-header-action-close",
     attrs: {
-      "href": "#"
+      href: "#"
     },
     on: {
-      "click": function click($event) {
+      click: function click($event) {
         $event.preventDefault();
-        return _vm.$emit('close');
+        return _vm.$emit("close");
       }
     }
-  }, [_c('span', {
+  }, [_c("span", {
     staticClass: "fa fa-times"
-  })])])])]), _vm._v(" "), _c('div', {
+  })])])])]), _vm._v(" "), _c("div", {
     staticClass: "cptm-option-card-body"
-  }, [_vm.infoTexts.length ? _c('div', {
+  }, [_vm.infoTexts.length ? _c("div", {
     staticClass: "cptm-info-text-area"
   }, _vm._l(_vm.infoTexts, function (info, text_key) {
-    return _c('p', {
+    return _c("p", {
       key: text_key,
       staticClass: "cptm-info-text",
-      class: 'cptm-' + info.type
+      class: "cptm-" + info.type
     }, [_vm._v("\n                " + _vm._s(info.text) + "\n            ")]);
-  }), 0) : _vm._e(), _vm._v(" "), Object.keys(_vm.unSelectedWidgetsList).length ? _c('ul', {
+  }), 0) : _vm._e(), _vm._v(" "), Object.keys(_vm.unSelectedWidgetsList).length ? _c("ul", {
     staticClass: "cptm-form-builder-field-list"
   }, _vm._l(_vm.unSelectedWidgetsList, function (widget, widget_key) {
-    return _c('li', {
+    return _c("li", {
       key: widget_key,
       staticClass: "cptm-form-builder-field-list-item",
       class: _vm.widgetListClass(widget_key),
       on: {
-        "click": function click($event) {
+        click: function click($event) {
           return _vm.selectWidget(widget_key);
         }
       }
-    }, [_c('pre', [_vm._v(_vm._s(widget.in_used))]), _vm._v(" "), _c('span', {
+    }, [_c("pre", [_vm._v(_vm._s(widget.in_used))]), _vm._v(" "), _c("span", {
       staticClass: "cptm-form-builder-field-list-icon"
-    }, [_c('span', {
+    }, [_c("span", {
       class: widget.icon
-    })]), _vm._v(" "), _c('span', {
+    })]), _vm._v(" "), _c("span", {
       staticClass: "cptm-form-builder-field-list-label"
     }, [_vm._v("\n                        " + _vm._s(widget.label) + "\n                    ")])]);
-  }), 0) : _c('p', {
+  }), 0) : _c("p", {
     staticClass: "cptm-info-text"
-  }, [_vm._v("Nothing available")])]), _vm._v(" "), _vm.bottomAchhor ? _c('span', {
+  }, [_vm._v("Nothing available")])]), _vm._v(" "), _vm.bottomAchhor ? _c("span", {
     staticClass: "cptm-anchor-down"
   }) : _vm._e()]);
 };
@@ -29202,44 +29140,44 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-widget-card cptm-has-widget-control cptm-widget-actions-tools-wrap"
-  }, [_vm._m(0), _vm._v(" "), _c('widget-action-tools', {
+  }, [_vm._m(0), _vm._v(" "), _c("widget-action-tools", {
     attrs: {
-      "canEdit": _vm.canEdit,
-      "canMove": _vm.canMove,
-      "canTrash": _vm.canTrash
+      canEdit: _vm.canEdit,
+      canMove: _vm.canMove,
+      canTrash: _vm.canTrash
     },
     on: {
-      "drag": function drag($event) {
+      drag: function drag($event) {
         return _vm.dragStart();
       },
-      "dragend": function dragend($event) {
+      dragend: function dragend($event) {
         return _vm.dragEnd();
       },
-      "edit": function edit($event) {
-        return _vm.$emit('edit');
+      edit: function edit($event) {
+        return _vm.$emit("edit");
       },
-      "trash": function trash($event) {
-        return _vm.$emit('trash');
+      trash: function trash($event) {
+        return _vm.$emit("trash");
       }
     }
-  })], 1), _vm._v(" "), _c('span', {
+  })], 1), _vm._v(" "), _c("span", {
     staticClass: "cptm-widget-card-drop-append",
     class: _vm.dropAppendClass,
     on: {
-      "dragover": function dragover($event) {
+      dragover: function dragover($event) {
         $event.preventDefault();
       },
-      "dragenter": function dragenter($event) {
+      dragenter: function dragenter($event) {
         return _vm.handleDragEnter();
       },
-      "dragleave": function dragleave($event) {
+      dragleave: function dragleave($event) {
         return _vm.handleDragLeave();
       },
-      "drop": function drop($event) {
+      drop: function drop($event) {
         return _vm.handleDrop();
       }
     }
@@ -29248,12 +29186,12 @@ var render = function render() {
 var staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('p', {
+  return _c("p", {
     staticClass: "cptm-placeholder-author-thumb"
-  }, [_c('img', {
+  }, [_c("img", {
     attrs: {
-      "src": "https://via.placeholder.com/150",
-      "alt": ""
+      src: "https://via.placeholder.com/150",
+      alt: ""
     }
   })]);
 }];
@@ -29276,44 +29214,44 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
-  }, [_vm._v("\n        " + _vm._s(_vm.label) + "\n        \n        "), _c('widget-action-tools', {
+  }, [_vm._v("\n        " + _vm._s(_vm.label) + "\n        \n        "), _c("widget-action-tools", {
     attrs: {
-      "canEdit": _vm.canEdit,
-      "canMove": _vm.canMove,
-      "canTrash": _vm.canTrash
+      canEdit: _vm.canEdit,
+      canMove: _vm.canMove,
+      canTrash: _vm.canTrash
     },
     on: {
-      "drag": function drag($event) {
+      drag: function drag($event) {
         return _vm.dragStart();
       },
-      "dragend": function dragend($event) {
+      dragend: function dragend($event) {
         return _vm.dragEnd();
       },
-      "edit": function edit($event) {
-        return _vm.$emit('edit');
+      edit: function edit($event) {
+        return _vm.$emit("edit");
       },
-      "trash": function trash($event) {
-        return _vm.$emit('trash');
+      trash: function trash($event) {
+        return _vm.$emit("trash");
       }
     }
-  })], 1), _vm._v(" "), _c('span', {
+  })], 1), _vm._v(" "), _c("span", {
     staticClass: "cptm-widget-card-drop-append",
     class: _vm.dropAppendClass,
     on: {
-      "dragover": function dragover($event) {
+      dragover: function dragover($event) {
         $event.preventDefault();
       },
-      "dragenter": function dragenter($event) {
+      dragenter: function dragenter($event) {
         return _vm.handleDragEnter();
       },
-      "dragleave": function dragleave($event) {
+      dragleave: function dragleave($event) {
         return _vm.handleDragLeave();
       },
-      "drop": function drop($event) {
+      drop: function drop($event) {
         return _vm.handleDrop();
       }
     }
@@ -29339,44 +29277,44 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
-  }, [_vm._v("\n        " + _vm._s(_vm.label) + "\n        \n        "), _c('widget-action-tools', {
+  }, [_vm._v("\n        " + _vm._s(_vm.label) + "\n        \n        "), _c("widget-action-tools", {
     attrs: {
-      "canEdit": _vm.canEdit,
-      "canMove": _vm.canMove,
-      "canTrash": _vm.canTrash
+      canEdit: _vm.canEdit,
+      canMove: _vm.canMove,
+      canTrash: _vm.canTrash
     },
     on: {
-      "drag": function drag($event) {
+      drag: function drag($event) {
         return _vm.dragStart();
       },
-      "dragend": function dragend($event) {
+      dragend: function dragend($event) {
         return _vm.dragEnd();
       },
-      "edit": function edit($event) {
-        return _vm.$emit('edit');
+      edit: function edit($event) {
+        return _vm.$emit("edit");
       },
-      "trash": function trash($event) {
-        return _vm.$emit('trash');
+      trash: function trash($event) {
+        return _vm.$emit("trash");
       }
     }
-  })], 1), _vm._v(" "), _c('span', {
+  })], 1), _vm._v(" "), _c("span", {
     staticClass: "cptm-widget-card-drop-append",
     class: _vm.dropAppendClass,
     on: {
-      "dragover": function dragover($event) {
+      dragover: function dragover($event) {
         $event.preventDefault();
       },
-      "dragenter": function dragenter($event) {
+      dragenter: function dragenter($event) {
         return _vm.handleDragEnter();
       },
-      "dragleave": function dragleave($event) {
+      dragleave: function dragleave($event) {
         return _vm.handleDragLeave();
       },
-      "drop": function drop($event) {
+      drop: function drop($event) {
         return _vm.handleDrop();
       }
     }
@@ -29402,44 +29340,44 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
-  }, [_vm._v("\n        " + _vm._s(_vm.label) + "\n        \n        "), _c('widget-action-tools', {
+  }, [_vm._v("\n        " + _vm._s(_vm.label) + "\n        \n        "), _c("widget-action-tools", {
     attrs: {
-      "canEdit": _vm.canEdit,
-      "canMove": _vm.canMove,
-      "canTrash": _vm.canTrash
+      canEdit: _vm.canEdit,
+      canMove: _vm.canMove,
+      canTrash: _vm.canTrash
     },
     on: {
-      "drag": function drag($event) {
+      drag: function drag($event) {
         return _vm.dragStart();
       },
-      "dragend": function dragend($event) {
+      dragend: function dragend($event) {
         return _vm.dragEnd();
       },
-      "edit": function edit($event) {
-        return _vm.$emit('edit');
+      edit: function edit($event) {
+        return _vm.$emit("edit");
       },
-      "trash": function trash($event) {
-        return _vm.$emit('trash');
+      trash: function trash($event) {
+        return _vm.$emit("trash");
       }
     }
-  })], 1), _vm._v(" "), _c('span', {
+  })], 1), _vm._v(" "), _c("span", {
     staticClass: "cptm-widget-card-drop-append",
     class: _vm.dropAppendClass,
     on: {
-      "dragover": function dragover($event) {
+      dragover: function dragover($event) {
         $event.preventDefault();
       },
-      "dragenter": function dragenter($event) {
+      dragenter: function dragenter($event) {
         return _vm.handleDragEnter();
       },
-      "dragleave": function dragleave($event) {
+      dragleave: function dragleave($event) {
         return _vm.handleDragLeave();
       },
-      "drop": function drop($event) {
+      drop: function drop($event) {
         return _vm.handleDrop();
       }
     }
@@ -29465,44 +29403,44 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
-  }, [_vm._v("\n        " + _vm._s(_vm.label) + "\n        \n        "), _c('widget-action-tools', {
+  }, [_vm._v("\n        " + _vm._s(_vm.label) + "\n        \n        "), _c("widget-action-tools", {
     attrs: {
-      "canEdit": _vm.canEdit,
-      "canMove": _vm.canMove,
-      "canTrash": _vm.canTrash
+      canEdit: _vm.canEdit,
+      canMove: _vm.canMove,
+      canTrash: _vm.canTrash
     },
     on: {
-      "drag": function drag($event) {
+      drag: function drag($event) {
         return _vm.dragStart();
       },
-      "dragend": function dragend($event) {
+      dragend: function dragend($event) {
         return _vm.dragEnd();
       },
-      "edit": function edit($event) {
-        return _vm.$emit('edit');
+      edit: function edit($event) {
+        return _vm.$emit("edit");
       },
-      "trash": function trash($event) {
-        return _vm.$emit('trash');
+      trash: function trash($event) {
+        return _vm.$emit("trash");
       }
     }
-  })], 1), _vm._v(" "), _c('span', {
+  })], 1), _vm._v(" "), _c("span", {
     staticClass: "cptm-widget-card-drop-append",
     class: _vm.dropAppendClass,
     on: {
-      "dragover": function dragover($event) {
+      dragover: function dragover($event) {
         $event.preventDefault();
       },
-      "dragenter": function dragenter($event) {
+      dragenter: function dragenter($event) {
         return _vm.handleDragEnter();
       },
-      "dragleave": function dragleave($event) {
+      dragleave: function dragleave($event) {
         return _vm.handleDragLeave();
       },
-      "drop": function drop($event) {
+      drop: function drop($event) {
         return _vm.handleDrop();
       }
     }
@@ -29528,44 +29466,44 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
-  }, [_vm._v("\n        " + _vm._s(_vm.label) + "\n        \n        "), _c('widget-action-tools', {
+  }, [_vm._v("\n        " + _vm._s(_vm.label) + "\n        \n        "), _c("widget-action-tools", {
     attrs: {
-      "canEdit": _vm.canEdit,
-      "canMove": _vm.canMove,
-      "canTrash": _vm.canTrash
+      canEdit: _vm.canEdit,
+      canMove: _vm.canMove,
+      canTrash: _vm.canTrash
     },
     on: {
-      "drag": function drag($event) {
+      drag: function drag($event) {
         return _vm.dragStart();
       },
-      "dragend": function dragend($event) {
+      dragend: function dragend($event) {
         return _vm.dragEnd();
       },
-      "edit": function edit($event) {
-        return _vm.$emit('edit');
+      edit: function edit($event) {
+        return _vm.$emit("edit");
       },
-      "trash": function trash($event) {
-        return _vm.$emit('trash');
+      trash: function trash($event) {
+        return _vm.$emit("trash");
       }
     }
-  })], 1), _vm._v(" "), _c('span', {
+  })], 1), _vm._v(" "), _c("span", {
     staticClass: "cptm-widget-card-drop-append",
     class: _vm.dropAppendClass,
     on: {
-      "dragover": function dragover($event) {
+      dragover: function dragover($event) {
         $event.preventDefault();
       },
-      "dragenter": function dragenter($event) {
+      dragenter: function dragenter($event) {
         return _vm.handleDragEnter();
       },
-      "dragleave": function dragleave($event) {
+      dragleave: function dragleave($event) {
         return _vm.handleDragLeave();
       },
-      "drop": function drop($event) {
+      drop: function drop($event) {
         return _vm.handleDrop();
       }
     }
@@ -29591,52 +29529,52 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-widget-card-wrap cptm-widget-card-block-wrap cptm-widget-badge-card-wrap"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-widget-card cptm-list-item-card cptm-has-widget-control cptm-widget-actions-tools-wrap"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-list-item"
-  }, [_c('span', {
+  }, [_c("span", {
     staticClass: "cptm-list-item-icon"
-  }, [_c('span', {
+  }, [_c("span", {
     class: _vm.listIcon
-  })]), _vm._v(" "), _c('span', {
+  })]), _vm._v(" "), _c("span", {
     staticClass: "cptm-list-item-label"
-  }, [_vm._v(_vm._s(_vm.label))])]), _vm._v(" "), _c('widget-action-tools', {
+  }, [_vm._v(_vm._s(_vm.label))])]), _vm._v(" "), _c("widget-action-tools", {
     attrs: {
-      "canEdit": _vm.canEdit,
-      "canMove": _vm.canMove,
-      "canTrash": _vm.canTrash
+      canEdit: _vm.canEdit,
+      canMove: _vm.canMove,
+      canTrash: _vm.canTrash
     },
     on: {
-      "drag": function drag($event) {
+      drag: function drag($event) {
         return _vm.dragStart();
       },
-      "dragend": function dragend($event) {
+      dragend: function dragend($event) {
         return _vm.dragEnd();
       },
-      "edit": function edit($event) {
-        return _vm.$emit('edit');
+      edit: function edit($event) {
+        return _vm.$emit("edit");
       },
-      "trash": function trash($event) {
-        return _vm.$emit('trash');
+      trash: function trash($event) {
+        return _vm.$emit("trash");
       }
     }
-  })], 1), _vm._v(" "), _c('span', {
+  })], 1), _vm._v(" "), _c("span", {
     staticClass: "cptm-widget-card-drop-append",
     class: _vm.dropAppendClass,
     on: {
-      "dragover": function dragover($event) {
+      dragover: function dragover($event) {
         $event.preventDefault();
       },
-      "dragenter": function dragenter($event) {
+      dragenter: function dragenter($event) {
         return _vm.handleDragEnter();
       },
-      "dragleave": function dragleave($event) {
+      dragleave: function dragleave($event) {
         return _vm.handleDragLeave();
       },
-      "drop": function drop($event) {
+      drop: function drop($event) {
         return _vm.handleDrop();
       }
     }
@@ -29662,44 +29600,44 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
-  }, [_vm._v("\n        " + _vm._s(_vm.label) + "\n        \n        "), _c('widget-action-tools', {
+  }, [_vm._v("\n        " + _vm._s(_vm.label) + "\n        \n        "), _c("widget-action-tools", {
     attrs: {
-      "canEdit": _vm.canEdit,
-      "canMove": _vm.canMove,
-      "canTrash": _vm.canTrash
+      canEdit: _vm.canEdit,
+      canMove: _vm.canMove,
+      canTrash: _vm.canTrash
     },
     on: {
-      "drag": function drag($event) {
+      drag: function drag($event) {
         return _vm.dragStart();
       },
-      "dragend": function dragend($event) {
+      dragend: function dragend($event) {
         return _vm.dragEnd();
       },
-      "edit": function edit($event) {
-        return _vm.$emit('edit');
+      edit: function edit($event) {
+        return _vm.$emit("edit");
       },
-      "trash": function trash($event) {
-        return _vm.$emit('trash');
+      trash: function trash($event) {
+        return _vm.$emit("trash");
       }
     }
-  })], 1), _vm._v(" "), _c('span', {
+  })], 1), _vm._v(" "), _c("span", {
     staticClass: "cptm-widget-card-drop-append",
     class: _vm.dropAppendClass,
     on: {
-      "dragover": function dragover($event) {
+      dragover: function dragover($event) {
         $event.preventDefault();
       },
-      "dragenter": function dragenter($event) {
+      dragenter: function dragenter($event) {
         return _vm.handleDragEnter();
       },
-      "dragleave": function dragleave($event) {
+      dragleave: function dragleave($event) {
         return _vm.handleDragLeave();
       },
-      "drop": function drop($event) {
+      drop: function drop($event) {
         return _vm.handleDrop();
       }
     }
@@ -29725,44 +29663,44 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
-  }, [_vm._v("\n        " + _vm._s(_vm.label) + "\n        \n        "), _c('widget-action-tools', {
+  }, [_vm._v("\n        " + _vm._s(_vm.label) + "\n        \n        "), _c("widget-action-tools", {
     attrs: {
-      "canEdit": _vm.canEdit,
-      "canMove": _vm.canMove,
-      "canTrash": _vm.canTrash
+      canEdit: _vm.canEdit,
+      canMove: _vm.canMove,
+      canTrash: _vm.canTrash
     },
     on: {
-      "drag": function drag($event) {
+      drag: function drag($event) {
         return _vm.dragStart();
       },
-      "dragend": function dragend($event) {
+      dragend: function dragend($event) {
         return _vm.dragEnd();
       },
-      "edit": function edit($event) {
-        return _vm.$emit('edit');
+      edit: function edit($event) {
+        return _vm.$emit("edit");
       },
-      "trash": function trash($event) {
-        return _vm.$emit('trash');
+      trash: function trash($event) {
+        return _vm.$emit("trash");
       }
     }
-  })], 1), _vm._v(" "), _c('span', {
+  })], 1), _vm._v(" "), _c("span", {
     staticClass: "cptm-widget-card-drop-append",
     class: _vm.dropAppendClass,
     on: {
-      "dragover": function dragover($event) {
+      dragover: function dragover($event) {
         $event.preventDefault();
       },
-      "dragenter": function dragenter($event) {
+      dragenter: function dragenter($event) {
         return _vm.handleDragEnter();
       },
-      "dragleave": function dragleave($event) {
+      dragleave: function dragleave($event) {
         return _vm.handleDragLeave();
       },
-      "drop": function drop($event) {
+      drop: function drop($event) {
         return _vm.handleDrop();
       }
     }
@@ -29788,44 +29726,44 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
-  }, [_vm._v("\n        " + _vm._s(_vm.label) + "\n        \n        "), _c('widget-action-tools', {
+  }, [_vm._v("\n        " + _vm._s(_vm.label) + "\n        \n        "), _c("widget-action-tools", {
     attrs: {
-      "canEdit": _vm.canEdit,
-      "canMove": _vm.canMove,
-      "canTrash": _vm.canTrash
+      canEdit: _vm.canEdit,
+      canMove: _vm.canMove,
+      canTrash: _vm.canTrash
     },
     on: {
-      "drag": function drag($event) {
+      drag: function drag($event) {
         return _vm.dragStart();
       },
-      "dragend": function dragend($event) {
+      dragend: function dragend($event) {
         return _vm.dragEnd();
       },
-      "edit": function edit($event) {
-        return _vm.$emit('edit');
+      edit: function edit($event) {
+        return _vm.$emit("edit");
       },
-      "trash": function trash($event) {
-        return _vm.$emit('trash');
+      trash: function trash($event) {
+        return _vm.$emit("trash");
       }
     }
-  })], 1), _vm._v(" "), _c('span', {
+  })], 1), _vm._v(" "), _c("span", {
     staticClass: "cptm-widget-card-drop-append",
     class: _vm.dropAppendClass,
     on: {
-      "dragover": function dragover($event) {
+      dragover: function dragover($event) {
         $event.preventDefault();
       },
-      "dragenter": function dragenter($event) {
+      dragenter: function dragenter($event) {
         return _vm.handleDragEnter();
       },
-      "dragleave": function dragleave($event) {
+      dragleave: function dragleave($event) {
         return _vm.handleDragLeave();
       },
-      "drop": function drop($event) {
+      drop: function drop($event) {
         return _vm.handleDrop();
       }
     }
@@ -29851,44 +29789,44 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
-  }, [_vm._v("\n        " + _vm._s(_vm.label) + "\n        \n        "), _c('widget-action-tools', {
+  }, [_vm._v("\n        " + _vm._s(_vm.label) + "\n        \n        "), _c("widget-action-tools", {
     attrs: {
-      "canEdit": _vm.canEdit,
-      "canMove": _vm.canMove,
-      "canTrash": _vm.canTrash
+      canEdit: _vm.canEdit,
+      canMove: _vm.canMove,
+      canTrash: _vm.canTrash
     },
     on: {
-      "drag": function drag($event) {
+      drag: function drag($event) {
         return _vm.dragStart();
       },
-      "dragend": function dragend($event) {
+      dragend: function dragend($event) {
         return _vm.dragEnd();
       },
-      "edit": function edit($event) {
-        return _vm.$emit('edit');
+      edit: function edit($event) {
+        return _vm.$emit("edit");
       },
-      "trash": function trash($event) {
-        return _vm.$emit('trash');
+      trash: function trash($event) {
+        return _vm.$emit("trash");
       }
     }
-  })], 1), _vm._v(" "), _c('span', {
+  })], 1), _vm._v(" "), _c("span", {
     staticClass: "cptm-widget-card-drop-append",
     class: _vm.dropAppendClass,
     on: {
-      "dragover": function dragover($event) {
+      dragover: function dragover($event) {
         $event.preventDefault();
       },
-      "dragenter": function dragenter($event) {
+      dragenter: function dragenter($event) {
         return _vm.handleDragEnter();
       },
-      "dragleave": function dragleave($event) {
+      dragleave: function dragleave($event) {
         return _vm.handleDragLeave();
       },
-      "drop": function drop($event) {
+      drop: function drop($event) {
         return _vm.handleDrop();
       }
     }
@@ -29914,46 +29852,46 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-widget-card-wrap cptm-widget-card-block-wrap cptm-widget-title-card-wrap"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-widget-card cptm-widget-title-card cptm-has-widget-control cptm-widget-actions-tools-wrap"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-widget-title-block"
-  }, [_vm._v("\n            " + _vm._s(_vm.label) + "\n        ")]), _vm._v(" "), _c('widget-action-tools', {
+  }, [_vm._v("\n            " + _vm._s(_vm.label) + "\n        ")]), _vm._v(" "), _c("widget-action-tools", {
     attrs: {
-      "canEdit": _vm.canEdit,
-      "canMove": _vm.canMove,
-      "canTrash": _vm.canTrash
+      canEdit: _vm.canEdit,
+      canMove: _vm.canMove,
+      canTrash: _vm.canTrash
     },
     on: {
-      "drag": function drag($event) {
+      drag: function drag($event) {
         return _vm.dragStart();
       },
-      "dragend": function dragend($event) {
+      dragend: function dragend($event) {
         return _vm.dragEnd();
       },
-      "edit": function edit($event) {
-        return _vm.$emit('edit');
+      edit: function edit($event) {
+        return _vm.$emit("edit");
       },
-      "trash": function trash($event) {
-        return _vm.$emit('trash');
+      trash: function trash($event) {
+        return _vm.$emit("trash");
       }
     }
-  })], 1), _vm._v(" "), _c('span', {
+  })], 1), _vm._v(" "), _c("span", {
     staticClass: "cptm-widget-card-drop-append",
     class: _vm.dropAppendClass,
     on: {
-      "dragover": function dragover($event) {
+      dragover: function dragover($event) {
         $event.preventDefault();
       },
-      "dragenter": function dragenter($event) {
+      dragenter: function dragenter($event) {
         return _vm.handleDragEnter();
       },
-      "dragleave": function dragleave($event) {
+      dragleave: function dragleave($event) {
         return _vm.handleDragLeave();
       },
-      "drop": function drop($event) {
+      drop: function drop($event) {
         return _vm.handleDrop();
       }
     }
@@ -29979,46 +29917,46 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-widget-card cptm-widget-thumb cptm-has-widget-control cptm-widget-actions-tools-wrap"
-  }, [_vm._m(0), _vm._v(" "), _c('div', {
+  }, [_vm._m(0), _vm._v(" "), _c("div", {
     staticClass: "cptm-widget-label"
-  }, [_vm._v("\n            " + _vm._s(_vm.label) + "\n        ")]), _vm._v(" "), _c('widget-action-tools', {
+  }, [_vm._v("\n            " + _vm._s(_vm.label) + "\n        ")]), _vm._v(" "), _c("widget-action-tools", {
     attrs: {
-      "canEdit": _vm.canEdit,
-      "canMove": _vm.canMove,
-      "canTrash": _vm.canTrash
+      canEdit: _vm.canEdit,
+      canMove: _vm.canMove,
+      canTrash: _vm.canTrash
     },
     on: {
-      "drag": function drag($event) {
+      drag: function drag($event) {
         return _vm.dragStart();
       },
-      "dragend": function dragend($event) {
+      dragend: function dragend($event) {
         return _vm.dragEnd();
       },
-      "edit": function edit($event) {
-        return _vm.$emit('edit');
+      edit: function edit($event) {
+        return _vm.$emit("edit");
       },
-      "trash": function trash($event) {
-        return _vm.$emit('trash');
+      trash: function trash($event) {
+        return _vm.$emit("trash");
       }
     }
-  })], 1), _vm._v(" "), _c('span', {
+  })], 1), _vm._v(" "), _c("span", {
     staticClass: "cptm-widget-card-drop-append",
     class: _vm.dropAppendClass,
     on: {
-      "dragover": function dragover($event) {
+      dragover: function dragover($event) {
         $event.preventDefault();
       },
-      "dragenter": function dragenter($event) {
+      dragenter: function dragenter($event) {
         return _vm.handleDragEnter();
       },
-      "dragleave": function dragleave($event) {
+      dragleave: function dragleave($event) {
         return _vm.handleDragLeave();
       },
-      "drop": function drop($event) {
+      drop: function drop($event) {
         return _vm.handleDrop();
       }
     }
@@ -30027,9 +29965,9 @@ var render = function render() {
 var staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-widget-thumb-icon"
-  }, [_c('i', {
+  }, [_c("i", {
     staticClass: "uil uil-image-v"
   })]);
 }];
@@ -30052,46 +29990,46 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-widget-card-wrap cptm-widget-card-block-wrap cptm-widget-title-card-wrap"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-widget-card cptm-widget-title-card cptm-has-widget-control cptm-widget-actions-tools-wrap"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-widget-title-block"
-  }, [_vm._v("\n            " + _vm._s(_vm.label) + "\n        ")]), _vm._v(" "), _c('widget-action-tools', {
+  }, [_vm._v("\n            " + _vm._s(_vm.label) + "\n        ")]), _vm._v(" "), _c("widget-action-tools", {
     attrs: {
-      "canEdit": _vm.canEdit,
-      "canMove": _vm.canMove,
-      "canTrash": _vm.canTrash
+      canEdit: _vm.canEdit,
+      canMove: _vm.canMove,
+      canTrash: _vm.canTrash
     },
     on: {
-      "drag": function drag($event) {
+      drag: function drag($event) {
         return _vm.dragStart();
       },
-      "dragend": function dragend($event) {
+      dragend: function dragend($event) {
         return _vm.dragEnd();
       },
-      "edit": function edit($event) {
-        return _vm.$emit('edit');
+      edit: function edit($event) {
+        return _vm.$emit("edit");
       },
-      "trash": function trash($event) {
-        return _vm.$emit('trash');
+      trash: function trash($event) {
+        return _vm.$emit("trash");
       }
     }
-  })], 1), _vm._v(" "), _c('span', {
+  })], 1), _vm._v(" "), _c("span", {
     staticClass: "cptm-widget-card-drop-append",
     class: _vm.dropAppendClass,
     on: {
-      "dragover": function dragover($event) {
+      dragover: function dragover($event) {
         $event.preventDefault();
       },
-      "dragenter": function dragenter($event) {
+      dragenter: function dragenter($event) {
         return _vm.handleDragEnter();
       },
-      "dragleave": function dragleave($event) {
+      dragleave: function dragleave($event) {
         return _vm.handleDragLeave();
       },
-      "drop": function drop($event) {
+      drop: function drop($event) {
         return _vm.handleDrop();
       }
     }
@@ -30117,44 +30055,44 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
-  }, [_vm._m(0), _vm._v(" "), _c('widget-action-tools', {
+  }, [_vm._m(0), _vm._v(" "), _c("widget-action-tools", {
     attrs: {
-      "canEdit": _vm.canEdit,
-      "canMove": _vm.canMove,
-      "canTrash": _vm.canTrash
+      canEdit: _vm.canEdit,
+      canMove: _vm.canMove,
+      canTrash: _vm.canTrash
     },
     on: {
-      "drag": function drag($event) {
+      drag: function drag($event) {
         return _vm.dragStart();
       },
-      "dragend": function dragend($event) {
+      dragend: function dragend($event) {
         return _vm.dragEnd();
       },
-      "edit": function edit($event) {
-        return _vm.$emit('edit');
+      edit: function edit($event) {
+        return _vm.$emit("edit");
       },
-      "trash": function trash($event) {
-        return _vm.$emit('trash');
+      trash: function trash($event) {
+        return _vm.$emit("trash");
       }
     }
-  })], 1), _vm._v(" "), _c('span', {
+  })], 1), _vm._v(" "), _c("span", {
     staticClass: "cptm-widget-card-drop-append",
     class: _vm.dropAppendClass,
     on: {
-      "dragover": function dragover($event) {
+      dragover: function dragover($event) {
         $event.preventDefault();
       },
-      "dragenter": function dragenter($event) {
+      dragenter: function dragenter($event) {
         return _vm.handleDragEnter();
       },
-      "dragleave": function dragleave($event) {
+      dragleave: function dragleave($event) {
         return _vm.handleDragLeave();
       },
-      "drop": function drop($event) {
+      drop: function drop($event) {
         return _vm.handleDrop();
       }
     }
@@ -30163,11 +30101,11 @@ var render = function render() {
 var staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('span', {
+  return _c("span", {
     staticStyle: {
       "font-size": "16px"
     }
-  }, [_c('i', {
+  }, [_c("i", {
     staticClass: "uil uil-eye"
   }), _vm._v("\n            0\n        ")]);
 }];
@@ -30190,32 +30128,32 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _vm.listType === 'div' ? _c('div', {
+  return _vm.listType === "div" ? _c("div", {
     staticClass: "directorist-draggable-list-item",
     class: _vm.itemClassName,
     style: _vm.listItemStyle,
     attrs: {
-      "draggable": _vm.canDrag
+      draggable: _vm.canDrag
     },
     on: {
-      "dragstart": _vm.dragStart,
-      "dragend": _vm.dragEnd
+      dragstart: _vm.dragStart,
+      dragend: _vm.dragEnd
     }
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "directorist-draggable-list-item-slot",
     style: _vm.slotStyle
-  }, [_vm._t("default")], 2)]) : _c('li', {
+  }, [_vm._t("default")], 2)]) : _c("li", {
     staticClass: "directorist-draggable-list-item",
     class: _vm.itemClassName,
     style: _vm.listItemStyle,
     attrs: {
-      "draggable": "canDrag"
+      draggable: "canDrag"
     },
     on: {
-      "dragstart": _vm.dragStart,
-      "dragend": _vm.dragEnd
+      dragstart: _vm.dragStart,
+      dragend: _vm.dragEnd
     }
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "directorist-draggable-list-item-slot",
     style: _vm.slotStyle
   }, [_vm._t("default")], 2)]);
@@ -30240,53 +30178,53 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "directorist-draggable-list-item-wrapper",
     style: _vm.wrapperStyle,
     attrs: {
       "data-list-id": _vm.listId
     }
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "directorist-droppable-area-wrap",
     class: _vm.className,
     style: {
-      display: _vm.droppable ? 'flex' : 'none'
+      display: _vm.droppable ? "flex" : "none"
     }
-  }, [_vm.droppableBefore ? _c('span', {
+  }, [_vm.droppableBefore ? _c("span", {
     staticClass: "directorist-droppable-area directorist-droppable-area-top",
     on: {
-      "dragover": function dragover($event) {
+      dragover: function dragover($event) {
         $event.preventDefault();
       },
-      "dragenter": function dragenter($event) {
+      dragenter: function dragenter($event) {
         _vm.dragenterBeforeItem = true;
       },
-      "dragleave": function dragleave($event) {
+      dragleave: function dragleave($event) {
         _vm.dragenterBeforeItem = false;
       },
-      "drop": function drop($event) {
+      drop: function drop($event) {
         return _vm.handleDroppedBefore();
       }
     }
-  }) : _vm._e(), _vm._v(" "), _vm.droppableAfter ? _c('span', {
+  }) : _vm._e(), _vm._v(" "), _vm.droppableAfter ? _c("span", {
     staticClass: "directorist-droppable-area directorist-droppable-area-bottom",
     on: {
-      "dragover": function dragover($event) {
+      dragover: function dragover($event) {
         $event.preventDefault();
       },
-      "dragenter": function dragenter($event) {
+      dragenter: function dragenter($event) {
         _vm.dragenterAfterItem = true;
       },
-      "dragleave": function dragleave($event) {
+      dragleave: function dragleave($event) {
         _vm.dragenterAfterItem = false;
       },
-      "drop": function drop($event) {
+      drop: function drop($event) {
         return _vm.handleDroppedAfter();
       }
     }
-  }) : _vm._e()]), _vm._v(" "), _vm.dragenterBeforeItem ? _c('div', {
+  }) : _vm._e()]), _vm._v(" "), _vm.dragenterBeforeItem ? _c("div", {
     staticClass: "directorist-droppable-item-preview directorist-droppable-item-preview-before"
-  }) : _vm._e(), _vm._v(" "), _vm._t("default"), _vm._v(" "), _vm.dragenterAfterItem ? _c('div', {
+  }) : _vm._e(), _vm._v(" "), _vm._t("default"), _vm._v(" "), _vm.dragenterAfterItem ? _c("div", {
     staticClass: "directorist-droppable-item-preview directorist-droppable-item-preview-after"
   }) : _vm._e()], 2);
 };
@@ -30310,18 +30248,18 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-form-builder-group-field-drop-area",
     class: _vm.className,
     on: {
-      "dragover": function dragover($event) {
+      dragover: function dragover($event) {
         $event.preventDefault();
       },
-      "dragenter": _vm.handleDragenter,
-      "dragleave": _vm.handleDragleave,
-      "drop": _vm.handleDrop
+      dragenter: _vm.handleDragenter,
+      dragleave: _vm.handleDragleave,
+      drop: _vm.handleDrop
     }
-  }, [_c('p', {
+  }, [_c("p", {
     staticClass: "cptm-form-builder-group-field-drop-area-label"
   }, [_vm._v("\n    Add field by dragging it into this area\n  ")])]);
 };
@@ -30345,65 +30283,65 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-form-builder-preset-fields"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-form-builder-preset-fields-header"
-  }, [_c('a', {
+  }, [_c("a", {
     staticClass: "cptm-form-builder-preset-fields-header-action-link",
     attrs: {
-      "href": "#"
+      href: "#"
     },
     on: {
-      "click": function click($event) {
+      click: function click($event) {
         $event.preventDefault();
         return _vm.togglePresetExpanded.apply(null, arguments);
       }
     }
-  }, [_c('span', {
+  }, [_c("span", {
     staticClass: "cptm-form-builder-preset-fields-header-action-text"
-  }, [_vm._v("\n        " + _vm._s(_vm.title))]), _vm._v(" "), _c('span', {
+  }, [_vm._v("\n        " + _vm._s(_vm.title))]), _vm._v(" "), _c("span", {
     staticClass: "cptm-form-builder-preset-fields-header-action-icon",
-    class: _vm.isPresetExpanded ? 'action-collapse-up' : 'action-collapse-down'
-  }, [_c('span', {
+    class: _vm.isPresetExpanded ? "action-collapse-up" : "action-collapse-down"
+  }, [_c("span", {
     staticClass: "uil uil-angle-down",
     attrs: {
       "aria-hidden": "true"
     }
-  })])])]), _vm._v(" "), _c('slide-up-down', {
+  })])])]), _vm._v(" "), _c("slide-up-down", {
     attrs: {
-      "active": _vm.isPresetExpanded,
-      "duration": 500
+      active: _vm.isPresetExpanded,
+      duration: 500
     }
-  }, [_vm.filtered_widget_list ? _c('ul', {
+  }, [_vm.filtered_widget_list ? _c("ul", {
     staticClass: "cptm-form-builder-field-list"
   }, _vm._l(_vm.filtered_widget_list, function (widget, widget_key) {
-    return _c('draggable-list-item', {
+    return _c("draggable-list-item", {
       key: widget_key,
       attrs: {
         "list-type": "li",
         "item-class-name": "cptm-form-builder-field-list-item",
-        "drag-type": _vm.allowMultiple || widget.allowMultiple ? 'clone' : 'move'
+        "drag-type": _vm.allowMultiple || widget.allowMultiple ? "clone" : "move"
       },
       on: {
         "drag-start": function dragStart($event) {
-          return _vm.$emit('drag-start', {
+          return _vm.$emit("drag-start", {
             widget_key: widget_key,
             widget: widget
           });
         },
         "drag-end": function dragEnd($event) {
-          return _vm.$emit('drag-end', {
+          return _vm.$emit("drag-end", {
             widget_key: widget_key,
             widget: widget
           });
         }
       }
-    }, [_c('span', {
+    }, [_c("span", {
       staticClass: "cptm-form-builder-field-list-icon"
-    }, [widget.icon && widget.icon.length ? _c('span', {
+    }, [widget.icon && widget.icon.length ? _c("span", {
       class: widget.icon
-    }) : _vm._e()]), _vm._v(" "), _c('span', {
+    }) : _vm._e()]), _vm._v(" "), _c("span", {
       staticClass: "cptm-form-builder-field-list-label"
     }, [_vm._v(_vm._s(widget.label))])]);
   }), 1) : _vm._e()])], 1);
@@ -30431,109 +30369,109 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _vm.widget_fields && Object.keys(_vm.widget_fields).length > 0 ? _c('div', {
+  return _vm.widget_fields && Object.keys(_vm.widget_fields).length > 0 ? _c("div", {
     staticClass: "cptm-form-builder-group-field-item",
-    class: _vm.expandState ? 'expanded' : ''
-  }, [_vm.canMoveWidget ? _c('draggable-list-item', {
+    class: _vm.expandState ? "expanded" : ""
+  }, [_vm.canMoveWidget ? _c("draggable-list-item", {
     on: {
       "drag-start": function dragStart($event) {
-        return _vm.$emit('drag-start');
+        return _vm.$emit("drag-start");
       },
       "drag-end": function dragEnd($event) {
-        return _vm.$emit('drag-end');
+        return _vm.$emit("drag-end");
       }
     }
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-form-builder-group-field-item-drag"
-  }, [_c('span', {
+  }, [_c("span", {
     staticClass: "uil uil-draggabledots",
     attrs: {
       "aria-hidden": "true"
     }
-  })])]) : _vm._e(), _vm._v(" "), _c('form-builder-widget-titlebar-component', {
+  })])]) : _vm._e(), _vm._v(" "), _c("form-builder-widget-titlebar-component", {
     attrs: {
-      "label": _vm.widgetTitle,
-      "sublabel": _vm.widgetSubtitle,
-      "icon": _vm.widgetIcon,
-      "info": _vm.widgetInfo,
-      "expanded": _vm.expandState
+      label: _vm.widgetTitle,
+      sublabel: _vm.widgetSubtitle,
+      icon: _vm.widgetIcon,
+      info: _vm.widgetInfo,
+      expanded: _vm.expandState
     },
     on: {
       "toggle-expand": _vm.toggleExpand
     }
-  }), _vm._v(" "), _c('slide-up-down', {
+  }), _vm._v(" "), _c("slide-up-down", {
     attrs: {
-      "active": _vm.expandState,
-      "duration": 500
+      active: _vm.expandState,
+      duration: 500
     }
-  }, [_vm.widget_fields && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(_vm.widget_fields) === 'object' ? _c('div', {
+  }, [_vm.widget_fields && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(_vm.widget_fields) === "object" ? _c("div", {
     staticClass: "cptm-form-builder-group-field-item-body"
-  }, [_c('field-list-component', {
+  }, [_c("field-list-component", {
     attrs: {
-      "root": _vm.activeWidgets,
+      root: _vm.activeWidgets,
       "section-id": _vm.widgetKey,
       "field-list": _vm.widget_fields,
-      "value": _vm.activeWidgets[_vm.widgetKey] ? _vm.activeWidgets[_vm.widgetKey] : ''
+      value: _vm.activeWidgets[_vm.widgetKey] ? _vm.activeWidgets[_vm.widgetKey] : ""
     },
     on: {
-      "update": function update($event) {
-        return _vm.$emit('update-widget-field', {
+      update: function update($event) {
+        return _vm.$emit("update-widget-field", {
           widget_key: _vm.widgetKey,
           payload: $event
         });
       }
     }
-  })], 1) : _vm._e()]), _vm._v(" "), _c('div', {
+  })], 1) : _vm._e()]), _vm._v(" "), _c("div", {
     ref: "dropdownContent",
     staticClass: "cptm-form-builder-group-actions-dropdown cptm-form-builder-group-actions-dropdown--field"
-  }, [_vm.canTrashWidget ? _c('a', {
+  }, [_vm.canTrashWidget ? _c("a", {
     staticClass: "cptm-form-builder-group-actions-dropdown-btn",
     attrs: {
-      "href": "#"
+      href: "#"
     },
     on: {
-      "click": function click($event) {
+      click: function click($event) {
         $event.preventDefault();
         return _vm.toggleExpandedDropdown.apply(null, arguments);
       }
     }
-  }, [_c('span', {
+  }, [_c("span", {
     staticClass: "uil uil-ellipsis-h",
     attrs: {
       "aria-hidden": "true"
     }
-  })]) : _vm._e(), _vm._v(" "), _c('slide-up-down', {
+  })]) : _vm._e(), _vm._v(" "), _c("slide-up-down", {
     attrs: {
-      "active": _vm.expandedDropdown,
-      "duration": 500
+      active: _vm.expandedDropdown,
+      duration: 500
     }
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-form-builder-group-actions-dropdown-content",
-    class: _vm.expandedDropdown ? 'expanded' : ''
-  }, [_c('a', {
+    class: _vm.expandedDropdown ? "expanded" : ""
+  }, [_c("a", {
     staticClass: "cptm-form-builder-field-item-action-link",
     attrs: {
-      "href": "#"
+      href: "#"
     },
     on: {
-      "click": function click($event) {
+      click: function click($event) {
         $event.preventDefault();
         return _vm.handleTrashClick.apply(null, arguments);
       }
     }
-  }, [_c('span', {
+  }, [_c("span", {
     staticClass: "uil uil-trash-alt",
     attrs: {
       "aria-hidden": "true"
     }
-  }), _vm._v("\n          Remove Field\n        ")])])])], 1), _vm._v(" "), _c('confirmation-modal', {
+  }), _vm._v("\n          Remove Field\n        ")])])])], 1), _vm._v(" "), _c("confirmation-modal", {
     attrs: {
-      "visible": _vm.showConfirmationModal,
-      "widgetName": _vm.widgetName
+      visible: _vm.showConfirmationModal,
+      widgetName: _vm.widgetName
     },
     on: {
-      "confirm": _vm.trashWidget,
-      "cancel": _vm.closeConfirmationModal
+      confirm: _vm.trashWidget,
+      cancel: _vm.closeConfirmationModal
     }
   })], 1) : _vm._e();
 };
@@ -30557,44 +30495,44 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-form-builder-group-field-item-header"
-  }, [_c('h4', {
+  }, [_c("h4", {
     staticClass: "cptm-title-3"
-  }, [_c('span', {
+  }, [_c("span", {
     staticClass: "cptm-title-icon",
     class: _vm.icon
-  }), _vm._v(" "), _c('span', {
+  }), _vm._v(" "), _c("span", {
     domProps: {
-      "innerHTML": _vm._s(_vm.label)
+      innerHTML: _vm._s(_vm.label)
     }
-  }), _vm._v(" "), _vm.sublabel.length ? _c('span', {
+  }), _vm._v(" "), _vm.sublabel.length ? _c("span", {
     staticClass: "cptm-text-gray cptm-px-5",
     domProps: {
-      "innerHTML": _vm._s(_vm.sublabel)
+      innerHTML: _vm._s(_vm.sublabel)
     }
-  }) : _vm._e(), _vm._v(" "), _vm.info.length ? _c('span', {
+  }) : _vm._e(), _vm._v(" "), _vm.info.length ? _c("span", {
     staticClass: "cptm-title-info",
     attrs: {
       "data-info": _vm.info
     }
-  }, [_c('i', {
+  }, [_c("i", {
     staticClass: "uil uil-question-circle"
-  })]) : _vm._e()]), _vm._v(" "), _c('div', {
+  })]) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "cptm-form-builder-group-field-item-header-actions"
-  }, [_c('a', {
+  }, [_c("a", {
     staticClass: "cptm-form-builder-header-action-link",
-    class: _vm.expanded ? 'action-collapse-down' : 'action-collapse-up',
+    class: _vm.expanded ? "action-collapse-down" : "action-collapse-up",
     attrs: {
-      "href": "#"
+      href: "#"
     },
     on: {
-      "click": function click($event) {
+      click: function click($event) {
         $event.preventDefault();
-        return _vm.$emit('toggle-expand');
+        return _vm.$emit("toggle-expand");
       }
     }
-  }, [_c('span', {
+  }, [_c("span", {
     staticClass: "uil uil-angle-down",
     attrs: {
       "aria-hidden": "true"
@@ -30621,26 +30559,26 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _vm.visible ? _c('div', {
+  return _vm.visible ? _c("div", {
     staticClass: "cptm-widget-trash-confirmation-modal-overlay",
     on: {
-      "click": _vm.handleOverlayClick
+      click: _vm.handleOverlayClick
     }
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-widget-trash-confirmation-modal",
     on: {
-      "click": function click($event) {
+      click: function click($event) {
         $event.stopPropagation();
       }
     }
-  }, [_c('h2', [_vm._v("Are you sure you want to proceed?")]), _vm._v(" "), _c('p', [_vm._v("\n      Deleting \""), _c('strong', [_vm._v(_vm._s(_vm.widgetName))]), _vm._v("\" " + _vm._s(_vm.reviewDeleteTitle) + "\n    ")]), _vm._v(" "), _c('button', {
+  }, [_c("h2", [_vm._v("Are you sure you want to proceed?")]), _vm._v(" "), _c("p", [_vm._v('\n      Deleting "'), _c("strong", [_vm._v(_vm._s(_vm.widgetName))]), _vm._v('" ' + _vm._s(_vm.reviewDeleteTitle) + "\n    ")]), _vm._v(" "), _c("button", {
     on: {
-      "click": _vm.confirmDelete
+      click: _vm.confirmDelete
     }
-  }, [_vm._v(_vm._s(_vm.reviewDeleteMsg))]), _vm._v(" "), _c('button', {
+  }, [_vm._v(_vm._s(_vm.reviewDeleteMsg))]), _vm._v(" "), _c("button", {
     staticClass: "cptm-widget-trash-confirmation-modal-action-btn__cancel",
     on: {
-      "click": _vm.cancelDelete
+      click: _vm.cancelDelete
     }
   }, [_vm._v("\n    " + _vm._s(_vm.reviewCancelBtnText) + "\n    ")])])]) : _vm._e();
 };
@@ -30664,42 +30602,42 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _vm.videoOpened ? _c('div', {
+  return _vm.videoOpened ? _c("div", {
     staticClass: "video-popup-overlay",
     on: {
-      "click": function click($event) {
+      click: function click($event) {
         $event.preventDefault();
-        return _vm.$emit('close-video');
+        return _vm.$emit("close-video");
       }
     }
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "video-popup-content",
     on: {
-      "click": function click($event) {
+      click: function click($event) {
         $event.stopPropagation();
       }
     }
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "video-container"
-  }, [_c('iframe', {
+  }, [_c("iframe", {
     attrs: {
-      "width": "560",
-      "height": "315",
-      "src": _vm.video.url,
-      "frameborder": "0",
-      "allow": "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture",
-      "allowfullscreen": "",
-      "title": _vm.video.title
+      width: "560",
+      height: "315",
+      src: _vm.video.url,
+      frameborder: "0",
+      allow: "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture",
+      allowfullscreen: "",
+      title: _vm.video.title
     }
-  })])]), _vm._v(" "), _c('button', {
+  })])]), _vm._v(" "), _c("button", {
     staticClass: "close-btn",
     on: {
-      "click": function click($event) {
+      click: function click($event) {
         $event.preventDefault();
-        return _vm.$emit('close-video');
+        return _vm.$emit("close-video");
       }
     }
-  }, [_c('span', {
+  }, [_c("span", {
     staticClass: "la la-close"
   })])]) : _vm._e();
 };
@@ -30723,9 +30661,9 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-form-builder-active-fields-group"
-  }, [_c('form-builder-widget-group-header-component', _vm._b({
+  }, [_c("form-builder-widget-group-header-component", _vm._b({
     attrs: {
       "widgets-expanded": _vm.widgetsExpandState,
       "can-trash": _vm.canTrashGroup,
@@ -30733,46 +30671,46 @@ var render = function render() {
     },
     on: {
       "update-group-field": function updateGroupField($event) {
-        return _vm.$emit('update-group-field', $event);
+        return _vm.$emit("update-group-field", $event);
       },
       "toggle-expand-widgets": _vm.toggleExpandWidgets,
       "trash-group": function trashGroup($event) {
-        return _vm.$emit('trash-group');
+        return _vm.$emit("trash-group");
       },
       "drag-start": function dragStart($event) {
-        return _vm.$emit('group-drag-start');
+        return _vm.$emit("group-drag-start");
       },
       "drag-end": function dragEnd($event) {
-        return _vm.$emit('group-drag-end');
+        return _vm.$emit("group-drag-end");
       }
     }
-  }, 'form-builder-widget-group-header-component', _vm.$props, false)), _vm._v(" "), _c('slide-up-down', {
+  }, "form-builder-widget-group-header-component", _vm.$props, false)), _vm._v(" "), _c("slide-up-down", {
     attrs: {
-      "active": _vm.widgetsExpandState,
-      "duration": 800
+      active: _vm.widgetsExpandState,
+      duration: 800
     }
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-form-builder-group-fields"
   }, _vm._l(_vm.groupData.fields, function (widget_key, widget_index) {
-    return _c('draggable-list-item-wrapper', {
+    return _c("draggable-list-item-wrapper", {
       key: widget_index,
       attrs: {
         "list-id": "widget-item",
-        "is-dragging-self": _vm.currentDraggingWidget && 'active_widgets' === _vm.currentDraggingWidget.from && widget_key === _vm.currentDraggingWidget.widget_key,
+        "is-dragging-self": _vm.currentDraggingWidget && "active_widgets" === _vm.currentDraggingWidget.from && widget_key === _vm.currentDraggingWidget.widget_key,
         "class-name": "directorist-draggable-form-list-wrap",
-        "droppables": true,
-        "droppable": _vm.isDroppable(widget_index)
+        droppables: true,
+        droppable: _vm.isDroppable(widget_index)
       },
       on: {
-        "drop": function drop($event) {
-          return _vm.$emit('drop-widget', {
+        drop: function drop($event) {
+          return _vm.$emit("drop-widget", {
             widget_key: widget_key,
             widget_index: widget_index,
             drop_direction: $event.drop_direction
           });
         }
       }
-    }, [_c('form-builder-widget-component', {
+    }, [_c("form-builder-widget-component", {
       attrs: {
         "widget-key": widget_key,
         "active-widgets": _vm.activeWidgets,
@@ -30786,31 +30724,31 @@ var render = function render() {
           return _vm.updateDetectedUntrashableWidgets(widget_key);
         },
         "update-widget-field": function updateWidgetField($event) {
-          return _vm.$emit('update-widget-field', $event);
+          return _vm.$emit("update-widget-field", $event);
         },
         "trash-widget": function trashWidget($event) {
-          return _vm.$emit('trash-widget', {
+          return _vm.$emit("trash-widget", {
             widget_key: widget_key
           });
         },
         "drag-start": function dragStart($event) {
-          return _vm.$emit('widget-drag-start', {
+          return _vm.$emit("widget-drag-start", {
             widget_index: widget_index,
             widget_key: widget_key
           });
         },
         "drag-end": function dragEnd($event) {
-          return _vm.$emit('widget-drag-end', {
+          return _vm.$emit("widget-drag-end", {
             widget_index: widget_index,
             widget_key: widget_key
           });
         }
       }
     })], 1);
-  }), 1), _vm._v(" "), _vm.canShowWidgetDropPlaceholder ? _c('form-builder-droppable-placeholder', {
+  }), 1), _vm._v(" "), _vm.canShowWidgetDropPlaceholder ? _c("form-builder-droppable-placeholder", {
     on: {
-      "drop": function drop($event) {
-        return _vm.$emit('append-widget');
+      drop: function drop($event) {
+        return _vm.$emit("append-widget");
       }
     }
   }) : _vm._e()], 1)], 1);
@@ -30835,108 +30773,108 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-form-builder-group-header-section",
-    class: _vm.groupFieldsExpandState ? 'expanded' : ''
-  }, [_c('div', {
+    class: _vm.groupFieldsExpandState ? "expanded" : ""
+  }, [_c("div", {
     staticClass: "cptm-form-builder-group-header"
-  }, [_c('draggable-list-item', {
+  }, [_c("draggable-list-item", {
     attrs: {
       "can-drag": _vm.isEnabledGroupDragging
     },
     on: {
       "drag-start": function dragStart($event) {
-        return _vm.$emit('drag-start');
+        return _vm.$emit("drag-start");
       },
       "drag-end": function dragEnd($event) {
-        return _vm.$emit('drag-end');
+        return _vm.$emit("drag-end");
       }
     }
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-form-builder-group-field-item-drag"
-  }, [_c('span', {
+  }, [_c("span", {
     staticClass: "uil uil-draggabledots",
     attrs: {
       "aria-hidden": "true"
     }
-  })])]), _vm._v(" "), _c('form-builder-widget-group-titlebar-component', _vm._b({
+  })])]), _vm._v(" "), _c("form-builder-widget-group-titlebar-component", _vm._b({
     attrs: {
       "widgets-expanded": _vm.widgetsExpanded
     },
     on: {
       "toggle-expand-group": _vm.toggleGroupFieldsExpand,
       "toggle-expand-widgets": function toggleExpandWidgets($event) {
-        return _vm.$emit('toggle-expand-widgets');
+        return _vm.$emit("toggle-expand-widgets");
       }
     }
-  }, 'form-builder-widget-group-titlebar-component', _vm.$props, false)), _vm._v(" "), _c('div', {
+  }, "form-builder-widget-group-titlebar-component", _vm.$props, false)), _vm._v(" "), _c("div", {
     ref: "dropdownContent",
     staticClass: "cptm-form-builder-group-actions-dropdown cptm-form-builder-group-actions-dropdown--group"
-  }, [_vm.canTrash ? _c('a', {
+  }, [_vm.canTrash ? _c("a", {
     staticClass: "cptm-form-builder-group-actions-dropdown-btn",
     attrs: {
-      "href": "#"
+      href: "#"
     },
     on: {
-      "click": function click($event) {
+      click: function click($event) {
         $event.preventDefault();
         return _vm.toggleGroupExpandedDropdown.apply(null, arguments);
       }
     }
-  }, [_c('span', {
+  }, [_c("span", {
     staticClass: "uil uil-ellipsis-h",
     attrs: {
       "aria-hidden": "true"
     }
-  })]) : _vm._e(), _vm._v(" "), _c('slide-up-down', {
+  })]) : _vm._e(), _vm._v(" "), _c("slide-up-down", {
     attrs: {
-      "active": _vm.groupExpandedDropdown,
-      "duration": 500
+      active: _vm.groupExpandedDropdown,
+      duration: 500
     }
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-form-builder-group-actions-dropdown-content",
-    class: _vm.groupExpandedDropdown ? 'expanded' : ''
-  }, [_c('a', {
+    class: _vm.groupExpandedDropdown ? "expanded" : ""
+  }, [_c("a", {
     staticClass: "cptm-form-builder-field-item-action-link",
     attrs: {
-      "href": "#"
+      href: "#"
     },
     on: {
-      "click": function click($event) {
+      click: function click($event) {
         $event.preventDefault();
         return _vm.handleGroupDelete.apply(null, arguments);
       }
     }
-  }, [_c('span', {
+  }, [_c("span", {
     staticClass: "uil uil-trash-alt",
     attrs: {
       "aria-hidden": "true"
     }
-  }), _vm._v("\n            Remove Section\n          ")])])])], 1)], 1), _vm._v(" "), _c('slide-up-down', {
+  }), _vm._v("\n            Remove Section\n          ")])])])], 1)], 1), _vm._v(" "), _c("slide-up-down", {
     attrs: {
-      "active": _vm.groupFieldsExpandState,
-      "duration": 500
+      active: _vm.groupFieldsExpandState,
+      duration: 500
     }
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-form-builder-group-options"
-  }, [_c('field-list-component', {
+  }, [_c("field-list-component", {
     attrs: {
       "field-list": _vm.finalGroupFields,
-      "value": _vm.groupData
+      value: _vm.groupData
     },
     on: {
-      "update": function update($event) {
-        return _vm.$emit('update-group-field', $event);
+      update: function update($event) {
+        return _vm.$emit("update-group-field", $event);
       }
     }
-  })], 1)]), _vm._v(" "), _c('confirmation-modal', {
+  })], 1)]), _vm._v(" "), _c("confirmation-modal", {
     attrs: {
-      "visible": _vm.showConfirmationModal,
-      "groupName": _vm.groupName
+      visible: _vm.showConfirmationModal,
+      groupName: _vm.groupName
     },
     on: {
-      "confirm": _vm.trashGroup,
-      "cancel": _vm.closeConfirmationModal
+      confirm: _vm.trashGroup,
+      cancel: _vm.closeConfirmationModal
     }
   })], 1);
 };
@@ -30963,46 +30901,46 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-form-builder-group-title-area",
-    class: _vm.widgetsExpanded ? 'expanded' : ''
-  }, [_c('h3', {
+    class: _vm.widgetsExpanded ? "expanded" : ""
+  }, [_c("h3", {
     staticClass: "cptm-form-builder-group-title"
-  }, [_c('span', {
+  }, [_c("span", {
     domProps: {
-      "innerHTML": _vm._s(_vm.label)
+      innerHTML: _vm._s(_vm.label)
     }
-  }), _vm._v(" "), _vm.groupFields && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(_vm.groupFields) === 'object' ? _c('a', {
+  }), _vm._v(" "), _vm.groupFields && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(_vm.groupFields) === "object" ? _c("a", {
     staticClass: "cptm-form-builder-header-action-link cptm-ml-5 cptm-link-light",
     attrs: {
-      "href": "#"
+      href: "#"
     },
     on: {
-      "click": function click($event) {
+      click: function click($event) {
         $event.preventDefault();
-        return _vm.$emit('toggle-expand-group');
+        return _vm.$emit("toggle-expand-group");
       }
     }
-  }, [_c('span', {
+  }, [_c("span", {
     staticClass: "fa fa-cog",
     attrs: {
       "aria-hidden": "true"
     }
-  }), _vm._v(" Options\n    ")]) : _vm._e()]), _vm._v(" "), _vm.groupData && _vm.groupData.fields && _vm.groupData.fields.length ? _c('div', {
+  }), _vm._v(" Options\n    ")]) : _vm._e()]), _vm._v(" "), _vm.groupData && _vm.groupData.fields && _vm.groupData.fields.length ? _c("div", {
     staticClass: "cptm-form-builder-group-title-actions"
-  }, [_c('a', {
+  }, [_c("a", {
     staticClass: "cptm-form-builder-header-action-link",
-    class: _vm.widgetsExpanded ? 'action-collapse-down' : 'action-collapse-up',
+    class: _vm.widgetsExpanded ? "action-collapse-down" : "action-collapse-up",
     attrs: {
-      "href": "#"
+      href: "#"
     },
     on: {
-      "click": function click($event) {
+      click: function click($event) {
         $event.preventDefault();
-        return _vm.$emit('toggle-expand-widgets');
+        return _vm.$emit("toggle-expand-widgets");
       }
     }
-  }, [_c('span', {
+  }, [_c("span", {
     staticClass: "uil uil-angle-down",
     attrs: {
       "aria-hidden": "true"
@@ -31029,26 +30967,26 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _vm.visible ? _c('div', {
+  return _vm.visible ? _c("div", {
     staticClass: "cptm-widget-trash-confirmation-modal-overlay",
     on: {
-      "click": _vm.handleOverlayClick
+      click: _vm.handleOverlayClick
     }
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-widget-trash-confirmation-modal",
     on: {
-      "click": function click($event) {
+      click: function click($event) {
         $event.stopPropagation();
       }
     }
-  }, [_c('h2', [_vm._v("Are you sure you want to proceed?")]), _vm._v(" "), _c('p', [_vm._v("\n      Removing \""), _c('strong', [_vm._v(_vm._s(_vm.groupName))]), _vm._v("\" group will also remove it's all fields.\n    ")]), _vm._v(" "), _c('button', {
+  }, [_c("h2", [_vm._v("Are you sure you want to proceed?")]), _vm._v(" "), _c("p", [_vm._v('\n      Removing "'), _c("strong", [_vm._v(_vm._s(_vm.groupName))]), _vm._v("\" group will also remove it's all fields.\n    ")]), _vm._v(" "), _c("button", {
     on: {
-      "click": _vm.confirmDelete
+      click: _vm.confirmDelete
     }
-  }, [_vm._v("Yes, delete")]), _vm._v(" "), _c('button', {
+  }, [_vm._v("Yes, delete")]), _vm._v(" "), _c("button", {
     staticClass: "cptm-widget-trash-confirmation-modal-action-btn__cancel",
     on: {
-      "click": _vm.cancelDelete
+      click: _vm.cancelDelete
     }
   }, [_vm._v("\n      Cancel\n    ")])])]) : _vm._e();
 };
@@ -31072,20 +31010,20 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _vm.canShow ? _c(_vm.getTheTheme('ajax-action-field'), _vm._b({
+  return _vm.canShow ? _c(_vm.getTheTheme("ajax-action-field"), _vm._b({
     tag: "component",
     on: {
-      "update": function update($event) {
-        return _vm.$emit('update', $event);
+      update: function update($event) {
+        return _vm.$emit("update", $event);
       },
       "do-action": function doAction($event) {
-        return _vm.$emit('do-action', $event);
+        return _vm.$emit("do-action", $event);
       },
-      "validate": function validate($event) {
-        return _vm.$emit('validate', $event);
+      validate: function validate($event) {
+        return _vm.$emit("validate", $event);
       }
     }
-  }, 'component', _vm.$props, false)) : _vm._e();
+  }, "component", _vm.$props, false)) : _vm._e();
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -31107,17 +31045,17 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _vm.canShow ? _c(_vm.getTheTheme('button-example-field'), _vm._b({
+  return _vm.canShow ? _c(_vm.getTheTheme("button-example-field"), _vm._b({
     tag: "component",
     on: {
       "do-action": function doAction($event) {
-        return _vm.$emit('do-action', $event);
+        return _vm.$emit("do-action", $event);
       },
-      "update": function update($event) {
-        return _vm.$emit('update', $event);
+      update: function update($event) {
+        return _vm.$emit("update", $event);
       }
     }
-  }, 'component', _vm.$props, false)) : _vm._e();
+  }, "component", _vm.$props, false)) : _vm._e();
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -31139,14 +31077,14 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _vm.canShow ? _c(_vm.getTheTheme('button-field'), _vm._b({
+  return _vm.canShow ? _c(_vm.getTheTheme("button-field"), _vm._b({
     tag: "component",
     on: {
       "do-action": function doAction($event) {
-        return _vm.$emit('do-action', $event);
+        return _vm.$emit("do-action", $event);
       }
     }
-  }, 'component', _vm.$props, false)) : _vm._e();
+  }, "component", _vm.$props, false)) : _vm._e();
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -31168,12 +31106,12 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {}, [_vm.card_templates ? [_c('div', {
+  return _c("div", {}, [_vm.card_templates ? [_c("div", {
     staticClass: "cptm-card-top-area cptm-text-center cptm-mb-20"
-  }, [_c('select-field', {
+  }, [_c("select-field", {
     attrs: {
-      "theme": "default",
-      "options": _vm.theCardBiulderTemplateOptionList
+      theme: "default",
+      options: _vm.theCardBiulderTemplateOptionList
     },
     model: {
       value: _vm.template_id,
@@ -31186,25 +31124,25 @@ var render = function render() {
     tag: "component",
     attrs: {
       "field-id": _vm.fieldId,
-      "value": _vm.theCardBiulderValue
+      value: _vm.theCardBiulderValue
     },
     on: {
-      "update": function update($event) {
+      update: function update($event) {
         return _vm.updateValue($event);
       }
     }
-  }, 'component', _vm.theCurrentTemplateModel, false))] : [_c(_vm.cardBiulderTemplate, {
+  }, "component", _vm.theCurrentTemplateModel, false))] : [_c(_vm.cardBiulderTemplate, {
     tag: "component",
     attrs: {
       "field-id": _vm.fieldId,
-      "value": _vm.value,
-      "widgets": _vm.widgets,
-      "layout": _vm.layout,
+      value: _vm.value,
+      widgets: _vm.widgets,
+      layout: _vm.layout,
       "card-options": _vm.cardOptions
     },
     on: {
-      "update": function update($event) {
-        return _vm.$emit('update', $event);
+      update: function update($event) {
+        return _vm.$emit("update", $event);
       }
     }
   })]], 2);
@@ -31229,46 +31167,46 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-builder-section"
-  }, [_vm.widgetOptionsWindowActiveStatus ? _c('div', {
+  }, [_vm.widgetOptionsWindowActiveStatus ? _c("div", {
     staticClass: "cptm-options-area"
-  }, [_c('options-window', _vm._b({
+  }, [_c("options-window", _vm._b({
     attrs: {
-      "active": _vm.widgetOptionsWindowActiveStatus
+      active: _vm.widgetOptionsWindowActiveStatus
     },
     on: {
-      "update": function update($event) {
+      update: function update($event) {
         return _vm.updateWidgetOptionsData($event, _vm.widgetOptionsWindow);
       },
-      "close": function close($event) {
+      close: function close($event) {
         return _vm.closeWidgetOptionsWindow();
       }
     }
-  }, 'options-window', _vm.widgetOptionsWindow, false))], 1) : _vm._e(), _vm._v(" "), _c('div', {
+  }, "options-window", _vm.widgetOptionsWindow, false))], 1) : _vm._e(), _vm._v(" "), _c("div", {
     staticClass: "cptm-preview-area"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-card-preview-widget"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-listing-card-preview-header"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-card-preview-thumbnail"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-card-preview-thumbnail-overlay"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-card-preview-top-left"
-  }, [_c('card-widget-placeholder', {
+  }, [_c("card-widget-placeholder", {
     attrs: {
-      "id": "thumbnail_top_left",
-      "containerClass": "cptm-card-preview-top-left-placeholder cptm-card-dark",
-      "label": _vm.local_layout.thumbnail.top_left.label,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.thumbnail.top_left.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.thumbnail.top_left.selectedWidgets,
-      "maxWidget": _vm.local_layout.thumbnail.top_left.maxWidget,
-      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_top_left'),
-      "widgetDropable": _vm.widgetIsDropable(_vm.local_layout.thumbnail.top_left)
+      id: "thumbnail_top_left",
+      containerClass: "cptm-card-preview-top-left-placeholder cptm-card-dark",
+      label: _vm.local_layout.thumbnail.top_left.label,
+      availableWidgets: _vm.theAvailableWidgets,
+      activeWidgets: _vm.active_widgets,
+      acceptedWidgets: _vm.local_layout.thumbnail.top_left.acceptedWidgets,
+      selectedWidgets: _vm.local_layout.thumbnail.top_left.selectedWidgets,
+      maxWidget: _vm.local_layout.thumbnail.top_left.maxWidget,
+      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_top_left"),
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.thumbnail.top_left)
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -31302,26 +31240,26 @@ var render = function render() {
         return _vm.handleDragleaveOnPlaceholder(_vm.local_layout.thumbnail.top_left);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.activeInsertWindow('thumbnail_top_left');
+        return _vm.activeInsertWindow("thumbnail_top_left");
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
       }
     }
-  })], 1), _vm._v(" "), _c('div', {
+  })], 1), _vm._v(" "), _c("div", {
     staticClass: "cptm-card-preview-top-right"
-  }, [_c('card-widget-placeholder', {
+  }, [_c("card-widget-placeholder", {
     attrs: {
-      "id": "thumbnail_top_right",
-      "containerClass": "cptm-card-preview-top-right-placeholder cptm-card-dark",
-      "label": _vm.local_layout.thumbnail.top_right.label,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.thumbnail.top_right.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.thumbnail.top_right.selectedWidgets,
-      "maxWidget": _vm.local_layout.thumbnail.top_right.maxWidget,
-      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_top_right'),
-      "widgetDropable": _vm.widgetIsDropable(_vm.local_layout.thumbnail.top_right)
+      id: "thumbnail_top_right",
+      containerClass: "cptm-card-preview-top-right-placeholder cptm-card-dark",
+      label: _vm.local_layout.thumbnail.top_right.label,
+      availableWidgets: _vm.theAvailableWidgets,
+      activeWidgets: _vm.active_widgets,
+      acceptedWidgets: _vm.local_layout.thumbnail.top_right.acceptedWidgets,
+      selectedWidgets: _vm.local_layout.thumbnail.top_right.selectedWidgets,
+      maxWidget: _vm.local_layout.thumbnail.top_right.maxWidget,
+      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_top_right"),
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.thumbnail.top_right)
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -31352,26 +31290,26 @@ var render = function render() {
         return _vm.handleDragEnterOnPlaceholder(_vm.local_layout.thumbnail.top_right);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.activeInsertWindow('thumbnail_top_right');
+        return _vm.activeInsertWindow("thumbnail_top_right");
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
       }
     }
-  })], 1), _vm._v(" "), _c('div', {
+  })], 1), _vm._v(" "), _c("div", {
     staticClass: "cptm-card-preview-bottom-left"
-  }, [_c('card-widget-placeholder', {
+  }, [_c("card-widget-placeholder", {
     attrs: {
-      "id": "thumbnail_bottom_left",
-      "containerClass": "cptm-card-preview-bottom-left-placeholder cptm-card-dark",
-      "label": _vm.local_layout.thumbnail.bottom_left.label,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.thumbnail.bottom_left.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.thumbnail.bottom_left.selectedWidgets,
-      "maxWidget": _vm.local_layout.thumbnail.bottom_left.maxWidget,
-      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_bottom_left'),
-      "widgetDropable": _vm.widgetIsDropable(_vm.local_layout.thumbnail.bottom_left)
+      id: "thumbnail_bottom_left",
+      containerClass: "cptm-card-preview-bottom-left-placeholder cptm-card-dark",
+      label: _vm.local_layout.thumbnail.bottom_left.label,
+      availableWidgets: _vm.theAvailableWidgets,
+      activeWidgets: _vm.active_widgets,
+      acceptedWidgets: _vm.local_layout.thumbnail.bottom_left.acceptedWidgets,
+      selectedWidgets: _vm.local_layout.thumbnail.bottom_left.selectedWidgets,
+      maxWidget: _vm.local_layout.thumbnail.bottom_left.maxWidget,
+      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_bottom_left"),
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.thumbnail.bottom_left)
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -31402,26 +31340,26 @@ var render = function render() {
         return _vm.handleDragEnterOnPlaceholder(_vm.local_layout.thumbnail.bottom_left);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.activeInsertWindow('thumbnail_bottom_left');
+        return _vm.activeInsertWindow("thumbnail_bottom_left");
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
       }
     }
-  })], 1), _vm._v(" "), _c('div', {
+  })], 1), _vm._v(" "), _c("div", {
     staticClass: "cptm-card-preview-bottom-right"
-  }, [_c('card-widget-placeholder', {
+  }, [_c("card-widget-placeholder", {
     attrs: {
-      "id": "thumbnail_bottom_right",
-      "containerClass": "cptm-card-preview-bottom-right-placeholder cptm-card-dark",
-      "label": _vm.local_layout.thumbnail.bottom_right.label,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.thumbnail.bottom_right.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.thumbnail.bottom_right.selectedWidgets,
-      "maxWidget": _vm.local_layout.thumbnail.bottom_right.maxWidget,
-      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_bottom_right'),
-      "widgetDropable": _vm.widgetIsDropable(_vm.local_layout.thumbnail.bottom_right)
+      id: "thumbnail_bottom_right",
+      containerClass: "cptm-card-preview-bottom-right-placeholder cptm-card-dark",
+      label: _vm.local_layout.thumbnail.bottom_right.label,
+      availableWidgets: _vm.theAvailableWidgets,
+      activeWidgets: _vm.active_widgets,
+      acceptedWidgets: _vm.local_layout.thumbnail.bottom_right.acceptedWidgets,
+      selectedWidgets: _vm.local_layout.thumbnail.bottom_right.selectedWidgets,
+      maxWidget: _vm.local_layout.thumbnail.bottom_right.maxWidget,
+      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_bottom_right"),
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.thumbnail.bottom_right)
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -31452,28 +31390,28 @@ var render = function render() {
         return _vm.handleDragEnterOnPlaceholder(_vm.local_layout.thumbnail.bottom_right);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.activeInsertWindow('thumbnail_bottom_right');
+        return _vm.activeInsertWindow("thumbnail_bottom_right");
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
       }
     }
-  })], 1), _vm._v(" "), _vm._m(0)])])]), _vm._v(" "), _c('div', {
+  })], 1), _vm._v(" "), _vm._m(0)])])]), _vm._v(" "), _c("div", {
     staticClass: "cptm-listing-card-preview-body"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-listing-card-author-avatar"
-  }, [_c('card-widget-placeholder', {
+  }, [_c("card-widget-placeholder", {
     attrs: {
-      "id": "thumbnail_avatar",
-      "containerClass": _vm.getAvatarPlaceholderClass,
-      "label": _vm.local_layout.thumbnail.avatar.label,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.thumbnail.avatar.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.thumbnail.avatar.selectedWidgets,
-      "maxWidget": _vm.local_layout.thumbnail.avatar.maxWidget,
-      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_avatar'),
-      "widgetDropable": _vm.widgetIsDropable(_vm.local_layout.thumbnail.avatar)
+      id: "thumbnail_avatar",
+      containerClass: _vm.getAvatarPlaceholderClass,
+      label: _vm.local_layout.thumbnail.avatar.label,
+      availableWidgets: _vm.theAvailableWidgets,
+      activeWidgets: _vm.active_widgets,
+      acceptedWidgets: _vm.local_layout.thumbnail.avatar.acceptedWidgets,
+      selectedWidgets: _vm.local_layout.thumbnail.avatar.selectedWidgets,
+      maxWidget: _vm.local_layout.thumbnail.avatar.maxWidget,
+      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_avatar"),
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.thumbnail.avatar)
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -31498,24 +31436,24 @@ var render = function render() {
         return _vm.handleDropOnPlaceholder(_vm.local_layout.thumbnail.avatar);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.activeInsertWindow('thumbnail_avatar');
+        return _vm.activeInsertWindow("thumbnail_avatar");
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
       }
     }
-  })], 1), _vm._v(" "), _c('card-widget-placeholder', {
+  })], 1), _vm._v(" "), _c("card-widget-placeholder", {
     attrs: {
-      "id": "thumbnail_body_top",
-      "containerClass": "cptm-listing-card-preview-title-placeholder cptm-card-light cptm-mb-20 cptm-align-left",
-      "label": _vm.local_layout.body.top.label,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.body.top.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.body.top.selectedWidgets,
-      "maxWidget": _vm.local_layout.body.top.maxWidget,
-      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_body_top'),
-      "widgetDropable": _vm.widgetIsDropable(_vm.local_layout.body.top)
+      id: "thumbnail_body_top",
+      containerClass: "cptm-listing-card-preview-title-placeholder cptm-card-light cptm-mb-20 cptm-align-left",
+      label: _vm.local_layout.body.top.label,
+      availableWidgets: _vm.theAvailableWidgets,
+      activeWidgets: _vm.active_widgets,
+      acceptedWidgets: _vm.local_layout.body.top.acceptedWidgets,
+      selectedWidgets: _vm.local_layout.body.top.selectedWidgets,
+      maxWidget: _vm.local_layout.body.top.maxWidget,
+      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_body_top"),
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.body.top)
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -31540,24 +31478,24 @@ var render = function render() {
         return _vm.handleDropOnPlaceholder(_vm.local_layout.body.top);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.activeInsertWindow('thumbnail_body_top');
+        return _vm.activeInsertWindow("thumbnail_body_top");
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
       }
     }
-  }), _vm._v(" "), _c('card-widget-placeholder', {
+  }), _vm._v(" "), _c("card-widget-placeholder", {
     attrs: {
-      "id": "thumbnail_body_bottom",
-      "containerClass": "cptm-listing-card-preview-body-placeholder cptm-card-light",
-      "label": _vm.local_layout.body.bottom.label,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.body.bottom.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.body.bottom.selectedWidgets,
-      "maxWidget": _vm.local_layout.body.bottom.maxWidget,
-      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_body_bottom'),
-      "widgetDropable": _vm.widgetIsDropable(_vm.local_layout.body.bottom)
+      id: "thumbnail_body_bottom",
+      containerClass: "cptm-listing-card-preview-body-placeholder cptm-card-light",
+      label: _vm.local_layout.body.bottom.label,
+      availableWidgets: _vm.theAvailableWidgets,
+      activeWidgets: _vm.active_widgets,
+      acceptedWidgets: _vm.local_layout.body.bottom.acceptedWidgets,
+      selectedWidgets: _vm.local_layout.body.bottom.selectedWidgets,
+      maxWidget: _vm.local_layout.body.bottom.maxWidget,
+      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_body_bottom"),
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.body.bottom)
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -31582,24 +31520,24 @@ var render = function render() {
         return _vm.handleDropOnPlaceholder(_vm.local_layout.body.bottom);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.activeInsertWindow('thumbnail_body_bottom');
+        return _vm.activeInsertWindow("thumbnail_body_bottom");
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
       }
     }
-  }), _vm._v(" "), _c('br'), _vm._v(" "), _vm.placeholderIsActive(_vm.local_layout.body.excerpt) ? _c('card-widget-placeholder', {
+  }), _vm._v(" "), _c("br"), _vm._v(" "), _vm.placeholderIsActive(_vm.local_layout.body.excerpt) ? _c("card-widget-placeholder", {
     attrs: {
-      "id": "body_excerpt",
-      "containerClass": "cptm-listing-card-preview-body-excerpt-placeholder cptm-card-light",
-      "label": _vm.local_layout.body.excerpt.label,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.body.excerpt.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.body.excerpt.selectedWidgets,
-      "maxWidget": _vm.local_layout.body.excerpt.maxWidget,
-      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('body_excerpr'),
-      "widgetDropable": _vm.widgetIsDropable(_vm.local_layout.body.excerpt)
+      id: "body_excerpt",
+      containerClass: "cptm-listing-card-preview-body-excerpt-placeholder cptm-card-light",
+      label: _vm.local_layout.body.excerpt.label,
+      availableWidgets: _vm.theAvailableWidgets,
+      activeWidgets: _vm.active_widgets,
+      acceptedWidgets: _vm.local_layout.body.excerpt.acceptedWidgets,
+      selectedWidgets: _vm.local_layout.body.excerpt.selectedWidgets,
+      maxWidget: _vm.local_layout.body.excerpt.maxWidget,
+      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("body_excerpr"),
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.body.excerpt)
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -31624,26 +31562,26 @@ var render = function render() {
         return _vm.handleDropOnPlaceholder(_vm.local_layout.body.excerpt);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.activeInsertWindow('body_excerpr');
+        return _vm.activeInsertWindow("body_excerpr");
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
       }
     }
-  }) : _vm._e()], 1), _vm._v(" "), _c('div', {
+  }) : _vm._e()], 1), _vm._v(" "), _c("div", {
     staticClass: "cptm-listing-card-preview-footer"
-  }, [_c('card-widget-placeholder', {
+  }, [_c("card-widget-placeholder", {
     attrs: {
-      "id": "thumbnail_footer_left",
-      "containerClass": "cptm-listing-card-preview-footer-left-placeholder cptm-card-light",
-      "label": _vm.local_layout.footer.left.label,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.footer.left.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.footer.left.selectedWidgets,
-      "maxWidget": _vm.local_layout.footer.left.maxWidget,
-      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_footer_left'),
-      "widgetDropable": _vm.widgetIsDropable(_vm.local_layout.footer.left)
+      id: "thumbnail_footer_left",
+      containerClass: "cptm-listing-card-preview-footer-left-placeholder cptm-card-light",
+      label: _vm.local_layout.footer.left.label,
+      availableWidgets: _vm.theAvailableWidgets,
+      activeWidgets: _vm.active_widgets,
+      acceptedWidgets: _vm.local_layout.footer.left.acceptedWidgets,
+      selectedWidgets: _vm.local_layout.footer.left.selectedWidgets,
+      maxWidget: _vm.local_layout.footer.left.maxWidget,
+      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_footer_left"),
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.footer.left)
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -31668,24 +31606,24 @@ var render = function render() {
         return _vm.handleDropOnPlaceholder(_vm.local_layout.footer.left);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.activeInsertWindow('thumbnail_footer_left');
+        return _vm.activeInsertWindow("thumbnail_footer_left");
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
       }
     }
-  }), _vm._v(" "), _c('card-widget-placeholder', {
+  }), _vm._v(" "), _c("card-widget-placeholder", {
     attrs: {
-      "id": "thumbnail_footer_right",
-      "containerClass": "cptm-listing-card-preview-footer-right-placeholder cptm-card-light",
-      "label": _vm.local_layout.footer.right.label,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.footer.right.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.footer.right.selectedWidgets,
-      "maxWidget": _vm.local_layout.footer.right.maxWidget,
-      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_footer_right'),
-      "widgetDropable": _vm.widgetIsDropable(_vm.local_layout.footer.right)
+      id: "thumbnail_footer_right",
+      containerClass: "cptm-listing-card-preview-footer-right-placeholder cptm-card-light",
+      label: _vm.local_layout.footer.right.label,
+      availableWidgets: _vm.theAvailableWidgets,
+      activeWidgets: _vm.active_widgets,
+      acceptedWidgets: _vm.local_layout.footer.right.acceptedWidgets,
+      selectedWidgets: _vm.local_layout.footer.right.selectedWidgets,
+      maxWidget: _vm.local_layout.footer.right.maxWidget,
+      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_footer_right"),
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.footer.right)
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -31710,7 +31648,7 @@ var render = function render() {
         return _vm.handleDropOnPlaceholder(_vm.local_layout.footer.right);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.activeInsertWindow('thumbnail_footer_right');
+        return _vm.activeInsertWindow("thumbnail_footer_right");
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
@@ -31721,9 +31659,9 @@ var render = function render() {
 var staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-card-preview-thumbnail-bg"
-  }, [_c('span', {
+  }, [_c("span", {
     staticClass: "uil uil-scenery"
   })]);
 }];
@@ -31746,46 +31684,46 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-builder-section"
-  }, [_vm.widgetOptionsWindowActiveStatus ? _c('div', {
+  }, [_vm.widgetOptionsWindowActiveStatus ? _c("div", {
     staticClass: "cptm-options-area"
-  }, [_c('options-window', _vm._b({
+  }, [_c("options-window", _vm._b({
     attrs: {
-      "active": _vm.widgetOptionsWindowActiveStatus
+      active: _vm.widgetOptionsWindowActiveStatus
     },
     on: {
-      "update": function update($event) {
+      update: function update($event) {
         return _vm.updateWidgetOptionsData($event, _vm.widgetOptionsWindow);
       },
-      "close": function close($event) {
+      close: function close($event) {
         return _vm.closeWidgetOptionsWindow();
       }
     }
-  }, 'options-window', _vm.widgetOptionsWindow, false))], 1) : _vm._e(), _vm._v(" "), _c('div', {
+  }, "options-window", _vm.widgetOptionsWindow, false))], 1) : _vm._e(), _vm._v(" "), _c("div", {
     staticClass: "cptm-preview-area"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-card-preview-widget grid-view-with-thumbnail"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-listing-card-preview-header"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-card-preview-thumbnail"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-card-preview-thumbnail-overlay"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-card-preview-top-left"
-  }, [_c('card-widget-placeholder', {
+  }, [_c("card-widget-placeholder", {
     attrs: {
-      "id": "thumbnail_top_left",
-      "containerClass": "cptm-card-preview-top-left-placeholder cptm-card-dark",
-      "label": _vm.local_layout.thumbnail.top_left.label,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.thumbnail.top_left.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.thumbnail.top_left.selectedWidgets,
-      "maxWidget": _vm.local_layout.thumbnail.top_left.maxWidget,
-      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_top_left'),
-      "widgetDropable": _vm.widgetIsDropable(_vm.local_layout.thumbnail.top_left)
+      id: "thumbnail_top_left",
+      containerClass: "cptm-card-preview-top-left-placeholder cptm-card-dark",
+      label: _vm.local_layout.thumbnail.top_left.label,
+      availableWidgets: _vm.theAvailableWidgets,
+      activeWidgets: _vm.active_widgets,
+      acceptedWidgets: _vm.local_layout.thumbnail.top_left.acceptedWidgets,
+      selectedWidgets: _vm.local_layout.thumbnail.top_left.selectedWidgets,
+      maxWidget: _vm.local_layout.thumbnail.top_left.maxWidget,
+      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_top_left"),
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.thumbnail.top_left)
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -31819,26 +31757,26 @@ var render = function render() {
         return _vm.handleDragleaveOnPlaceholder(_vm.local_layout.thumbnail.top_left);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.activeInsertWindow('thumbnail_top_left');
+        return _vm.activeInsertWindow("thumbnail_top_left");
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
       }
     }
-  })], 1), _vm._v(" "), _c('div', {
+  })], 1), _vm._v(" "), _c("div", {
     staticClass: "cptm-card-preview-top-right"
-  }, [_c('card-widget-placeholder', {
+  }, [_c("card-widget-placeholder", {
     attrs: {
-      "id": "thumbnail_top_right",
-      "containerClass": "cptm-card-preview-top-right-placeholder cptm-card-dark",
-      "label": _vm.local_layout.thumbnail.top_right.label,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.thumbnail.top_right.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.thumbnail.top_right.selectedWidgets,
-      "maxWidget": _vm.local_layout.thumbnail.top_right.maxWidget,
-      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_top_right'),
-      "widgetDropable": _vm.widgetIsDropable(_vm.local_layout.thumbnail.top_right)
+      id: "thumbnail_top_right",
+      containerClass: "cptm-card-preview-top-right-placeholder cptm-card-dark",
+      label: _vm.local_layout.thumbnail.top_right.label,
+      availableWidgets: _vm.theAvailableWidgets,
+      activeWidgets: _vm.active_widgets,
+      acceptedWidgets: _vm.local_layout.thumbnail.top_right.acceptedWidgets,
+      selectedWidgets: _vm.local_layout.thumbnail.top_right.selectedWidgets,
+      maxWidget: _vm.local_layout.thumbnail.top_right.maxWidget,
+      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_top_right"),
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.thumbnail.top_right)
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -31869,26 +31807,26 @@ var render = function render() {
         return _vm.handleDragEnterOnPlaceholder(_vm.local_layout.thumbnail.top_right);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.activeInsertWindow('thumbnail_top_right');
+        return _vm.activeInsertWindow("thumbnail_top_right");
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
       }
     }
-  })], 1), _vm._v(" "), _c('div', {
+  })], 1), _vm._v(" "), _c("div", {
     staticClass: "cptm-card-preview-bottom-left"
-  }, [_c('card-widget-placeholder', {
+  }, [_c("card-widget-placeholder", {
     attrs: {
-      "id": "thumbnail_bottom_left",
-      "containerClass": "cptm-card-preview-bottom-left-placeholder cptm-card-dark",
-      "label": _vm.local_layout.thumbnail.bottom_left.label,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.thumbnail.bottom_left.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.thumbnail.bottom_left.selectedWidgets,
-      "maxWidget": _vm.local_layout.thumbnail.bottom_left.maxWidget,
-      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_bottom_left'),
-      "widgetDropable": _vm.widgetIsDropable(_vm.local_layout.thumbnail.bottom_left)
+      id: "thumbnail_bottom_left",
+      containerClass: "cptm-card-preview-bottom-left-placeholder cptm-card-dark",
+      label: _vm.local_layout.thumbnail.bottom_left.label,
+      availableWidgets: _vm.theAvailableWidgets,
+      activeWidgets: _vm.active_widgets,
+      acceptedWidgets: _vm.local_layout.thumbnail.bottom_left.acceptedWidgets,
+      selectedWidgets: _vm.local_layout.thumbnail.bottom_left.selectedWidgets,
+      maxWidget: _vm.local_layout.thumbnail.bottom_left.maxWidget,
+      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_bottom_left"),
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.thumbnail.bottom_left)
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -31919,26 +31857,26 @@ var render = function render() {
         return _vm.handleDragEnterOnPlaceholder(_vm.local_layout.thumbnail.bottom_left);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.activeInsertWindow('thumbnail_bottom_left');
+        return _vm.activeInsertWindow("thumbnail_bottom_left");
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
       }
     }
-  })], 1), _vm._v(" "), _c('div', {
+  })], 1), _vm._v(" "), _c("div", {
     staticClass: "cptm-card-preview-bottom-right"
-  }, [_c('card-widget-placeholder', {
+  }, [_c("card-widget-placeholder", {
     attrs: {
-      "id": "thumbnail_bottom_right",
-      "containerClass": "cptm-card-preview-bottom-right-placeholder cptm-card-dark",
-      "label": _vm.local_layout.thumbnail.bottom_right.label,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.thumbnail.bottom_right.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.thumbnail.bottom_right.selectedWidgets,
-      "maxWidget": _vm.local_layout.thumbnail.bottom_right.maxWidget,
-      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_bottom_right'),
-      "widgetDropable": _vm.widgetIsDropable(_vm.local_layout.thumbnail.bottom_right)
+      id: "thumbnail_bottom_right",
+      containerClass: "cptm-card-preview-bottom-right-placeholder cptm-card-dark",
+      label: _vm.local_layout.thumbnail.bottom_right.label,
+      availableWidgets: _vm.theAvailableWidgets,
+      activeWidgets: _vm.active_widgets,
+      acceptedWidgets: _vm.local_layout.thumbnail.bottom_right.acceptedWidgets,
+      selectedWidgets: _vm.local_layout.thumbnail.bottom_right.selectedWidgets,
+      maxWidget: _vm.local_layout.thumbnail.bottom_right.maxWidget,
+      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_bottom_right"),
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.thumbnail.bottom_right)
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -31969,28 +31907,28 @@ var render = function render() {
         return _vm.handleDragEnterOnPlaceholder(_vm.local_layout.thumbnail.bottom_right);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.activeInsertWindow('thumbnail_bottom_right');
+        return _vm.activeInsertWindow("thumbnail_bottom_right");
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
       }
     }
-  })], 1), _vm._v(" "), _vm._m(0)])])]), _vm._v(" "), _c('div', {
+  })], 1), _vm._v(" "), _vm._m(0)])])]), _vm._v(" "), _c("div", {
     staticClass: "cptm-listing-card-preview-body"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-listing-card-author-avatar"
-  }, [_c('card-widget-placeholder', {
+  }, [_c("card-widget-placeholder", {
     attrs: {
-      "id": "thumbnail_avatar",
-      "containerClass": _vm.getAvatarPlaceholderClass,
-      "label": _vm.local_layout.thumbnail.avatar.label,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.thumbnail.avatar.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.thumbnail.avatar.selectedWidgets,
-      "maxWidget": _vm.local_layout.thumbnail.avatar.maxWidget,
-      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_avatar'),
-      "widgetDropable": _vm.widgetIsDropable(_vm.local_layout.thumbnail.avatar)
+      id: "thumbnail_avatar",
+      containerClass: _vm.getAvatarPlaceholderClass,
+      label: _vm.local_layout.thumbnail.avatar.label,
+      availableWidgets: _vm.theAvailableWidgets,
+      activeWidgets: _vm.active_widgets,
+      acceptedWidgets: _vm.local_layout.thumbnail.avatar.acceptedWidgets,
+      selectedWidgets: _vm.local_layout.thumbnail.avatar.selectedWidgets,
+      maxWidget: _vm.local_layout.thumbnail.avatar.maxWidget,
+      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_avatar"),
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.thumbnail.avatar)
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -32015,24 +31953,24 @@ var render = function render() {
         return _vm.handleDropOnPlaceholder(_vm.local_layout.thumbnail.avatar);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.activeInsertWindow('thumbnail_avatar');
+        return _vm.activeInsertWindow("thumbnail_avatar");
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
       }
     }
-  })], 1), _vm._v(" "), _c('card-widget-placeholder', {
+  })], 1), _vm._v(" "), _c("card-widget-placeholder", {
     attrs: {
-      "id": "thumbnail_body_top",
-      "containerClass": "cptm-listing-card-preview-title-placeholder cptm-card-light cptm-mb-20 cptm-align-left",
-      "label": _vm.local_layout.body.top.label,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.body.top.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.body.top.selectedWidgets,
-      "maxWidget": _vm.local_layout.body.top.maxWidget,
-      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_body_top'),
-      "widgetDropable": _vm.widgetIsDropable(_vm.local_layout.body.top)
+      id: "thumbnail_body_top",
+      containerClass: "cptm-listing-card-preview-title-placeholder cptm-card-light cptm-mb-20 cptm-align-left",
+      label: _vm.local_layout.body.top.label,
+      availableWidgets: _vm.theAvailableWidgets,
+      activeWidgets: _vm.active_widgets,
+      acceptedWidgets: _vm.local_layout.body.top.acceptedWidgets,
+      selectedWidgets: _vm.local_layout.body.top.selectedWidgets,
+      maxWidget: _vm.local_layout.body.top.maxWidget,
+      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_body_top"),
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.body.top)
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -32057,24 +31995,24 @@ var render = function render() {
         return _vm.handleDropOnPlaceholder(_vm.local_layout.body.top);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.activeInsertWindow('thumbnail_body_top');
+        return _vm.activeInsertWindow("thumbnail_body_top");
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
       }
     }
-  }), _vm._v(" "), _c('card-widget-placeholder', {
+  }), _vm._v(" "), _c("card-widget-placeholder", {
     attrs: {
-      "id": "thumbnail_body_bottom",
-      "containerClass": "cptm-listing-card-preview-body-placeholder cptm-card-light",
-      "label": _vm.local_layout.body.bottom.label,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.body.bottom.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.body.bottom.selectedWidgets,
-      "maxWidget": _vm.local_layout.body.bottom.maxWidget,
-      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_body_bottom'),
-      "widgetDropable": _vm.widgetIsDropable(_vm.local_layout.body.bottom)
+      id: "thumbnail_body_bottom",
+      containerClass: "cptm-listing-card-preview-body-placeholder cptm-card-light",
+      label: _vm.local_layout.body.bottom.label,
+      availableWidgets: _vm.theAvailableWidgets,
+      activeWidgets: _vm.active_widgets,
+      acceptedWidgets: _vm.local_layout.body.bottom.acceptedWidgets,
+      selectedWidgets: _vm.local_layout.body.bottom.selectedWidgets,
+      maxWidget: _vm.local_layout.body.bottom.maxWidget,
+      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_body_bottom"),
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.body.bottom)
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -32099,24 +32037,24 @@ var render = function render() {
         return _vm.handleDropOnPlaceholder(_vm.local_layout.body.bottom);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.activeInsertWindow('thumbnail_body_bottom');
+        return _vm.activeInsertWindow("thumbnail_body_bottom");
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
       }
     }
-  }), _vm._v(" "), _c('br'), _vm._v(" "), _vm.placeholderIsActive(_vm.local_layout.body.excerpt) ? _c('card-widget-placeholder', {
+  }), _vm._v(" "), _c("br"), _vm._v(" "), _vm.placeholderIsActive(_vm.local_layout.body.excerpt) ? _c("card-widget-placeholder", {
     attrs: {
-      "id": "body_excerpt",
-      "containerClass": "cptm-listing-card-preview-body-excerpt-placeholder cptm-card-light",
-      "label": _vm.local_layout.body.excerpt.label,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.body.excerpt.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.body.excerpt.selectedWidgets,
-      "maxWidget": _vm.local_layout.body.excerpt.maxWidget,
-      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('body_excerpr'),
-      "widgetDropable": _vm.widgetIsDropable(_vm.local_layout.body.excerpt)
+      id: "body_excerpt",
+      containerClass: "cptm-listing-card-preview-body-excerpt-placeholder cptm-card-light",
+      label: _vm.local_layout.body.excerpt.label,
+      availableWidgets: _vm.theAvailableWidgets,
+      activeWidgets: _vm.active_widgets,
+      acceptedWidgets: _vm.local_layout.body.excerpt.acceptedWidgets,
+      selectedWidgets: _vm.local_layout.body.excerpt.selectedWidgets,
+      maxWidget: _vm.local_layout.body.excerpt.maxWidget,
+      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("body_excerpr"),
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.body.excerpt)
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -32141,26 +32079,26 @@ var render = function render() {
         return _vm.handleDropOnPlaceholder(_vm.local_layout.body.excerpt);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.activeInsertWindow('body_excerpr');
+        return _vm.activeInsertWindow("body_excerpr");
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
       }
     }
-  }) : _vm._e()], 1), _vm._v(" "), _c('div', {
+  }) : _vm._e()], 1), _vm._v(" "), _c("div", {
     staticClass: "cptm-listing-card-preview-footer"
-  }, [_c('card-widget-placeholder', {
+  }, [_c("card-widget-placeholder", {
     attrs: {
-      "id": "thumbnail_footer_left",
-      "containerClass": "cptm-listing-card-preview-footer-left-placeholder cptm-card-light",
-      "label": _vm.local_layout.footer.left.label,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.footer.left.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.footer.left.selectedWidgets,
-      "maxWidget": _vm.local_layout.footer.left.maxWidget,
-      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_footer_left'),
-      "widgetDropable": _vm.widgetIsDropable(_vm.local_layout.footer.left)
+      id: "thumbnail_footer_left",
+      containerClass: "cptm-listing-card-preview-footer-left-placeholder cptm-card-light",
+      label: _vm.local_layout.footer.left.label,
+      availableWidgets: _vm.theAvailableWidgets,
+      activeWidgets: _vm.active_widgets,
+      acceptedWidgets: _vm.local_layout.footer.left.acceptedWidgets,
+      selectedWidgets: _vm.local_layout.footer.left.selectedWidgets,
+      maxWidget: _vm.local_layout.footer.left.maxWidget,
+      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_footer_left"),
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.footer.left)
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -32185,24 +32123,24 @@ var render = function render() {
         return _vm.handleDropOnPlaceholder(_vm.local_layout.footer.left);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.activeInsertWindow('thumbnail_footer_left');
+        return _vm.activeInsertWindow("thumbnail_footer_left");
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
       }
     }
-  }), _vm._v(" "), _c('card-widget-placeholder', {
+  }), _vm._v(" "), _c("card-widget-placeholder", {
     attrs: {
-      "id": "thumbnail_footer_right",
-      "containerClass": "cptm-listing-card-preview-footer-right-placeholder cptm-card-light",
-      "label": _vm.local_layout.footer.right.label,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.footer.right.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.footer.right.selectedWidgets,
-      "maxWidget": _vm.local_layout.footer.right.maxWidget,
-      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_footer_right'),
-      "widgetDropable": _vm.widgetIsDropable(_vm.local_layout.footer.right)
+      id: "thumbnail_footer_right",
+      containerClass: "cptm-listing-card-preview-footer-right-placeholder cptm-card-light",
+      label: _vm.local_layout.footer.right.label,
+      availableWidgets: _vm.theAvailableWidgets,
+      activeWidgets: _vm.active_widgets,
+      acceptedWidgets: _vm.local_layout.footer.right.acceptedWidgets,
+      selectedWidgets: _vm.local_layout.footer.right.selectedWidgets,
+      maxWidget: _vm.local_layout.footer.right.maxWidget,
+      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_footer_right"),
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.footer.right)
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -32227,7 +32165,7 @@ var render = function render() {
         return _vm.handleDropOnPlaceholder(_vm.local_layout.footer.right);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.activeInsertWindow('thumbnail_footer_right');
+        return _vm.activeInsertWindow("thumbnail_footer_right");
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
@@ -32238,9 +32176,9 @@ var render = function render() {
 var staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-card-preview-thumbnail-bg"
-  }, [_c('span', {
+  }, [_c("span", {
     staticClass: "uil uil-scenery"
   })]);
 }];
@@ -32263,44 +32201,44 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-builder-section"
-  }, [_vm.widgetOptionsWindowActiveStatus ? _c('div', {
+  }, [_vm.widgetOptionsWindowActiveStatus ? _c("div", {
     staticClass: "cptm-options-area"
-  }, [_c('options-window', _vm._b({
+  }, [_c("options-window", _vm._b({
     attrs: {
-      "active": _vm.widgetOptionsWindowActiveStatus
+      active: _vm.widgetOptionsWindowActiveStatus
     },
     on: {
-      "update": function update($event) {
+      update: function update($event) {
         return _vm.updateWidgetOptionsData($event, _vm.widgetOptionsWindow);
       },
-      "close": function close($event) {
+      close: function close($event) {
         return _vm.closeWidgetOptionsWindow();
       }
     }
-  }, 'options-window', _vm.widgetOptionsWindow, false))], 1) : _vm._e(), _vm._v(" "), _c('div', {
+  }, "options-window", _vm.widgetOptionsWindow, false))], 1) : _vm._e(), _vm._v(" "), _c("div", {
     staticClass: "cptm-preview-area"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-card-preview-widget grid-view-without-thumbnail"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-listing-card-preview-body"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-card-placeholder-row cptm-no-wrap"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-card-placeholder-col cptm-placeholder-top-right-col cptm-card-light"
-  }, [_c('card-widget-placeholder', {
+  }, [_c("card-widget-placeholder", {
     attrs: {
-      "id": "body_avatar",
-      "containerClass": "cptm-listing-card-author-avatar-placeholder cptm-card-light cptm-mb-20 cptm-text-center",
-      "label": _vm.local_layout.body.avatar.label,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.body.avatar.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.body.avatar.selectedWidgets,
-      "maxWidget": _vm.local_layout.body.avatar.maxWidget,
-      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('body_avatar'),
-      "widgetDropable": _vm.widgetIsDropable(_vm.local_layout.body.avatar)
+      id: "body_avatar",
+      containerClass: "cptm-listing-card-author-avatar-placeholder cptm-card-light cptm-mb-20 cptm-text-center",
+      label: _vm.local_layout.body.avatar.label,
+      availableWidgets: _vm.theAvailableWidgets,
+      activeWidgets: _vm.active_widgets,
+      acceptedWidgets: _vm.local_layout.body.avatar.acceptedWidgets,
+      selectedWidgets: _vm.local_layout.body.avatar.selectedWidgets,
+      maxWidget: _vm.local_layout.body.avatar.maxWidget,
+      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("body_avatar"),
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.body.avatar)
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -32325,26 +32263,26 @@ var render = function render() {
         return _vm.handleDropOnPlaceholder(_vm.local_layout.body.avatar);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.activeInsertWindow('body_avatar');
+        return _vm.activeInsertWindow("body_avatar");
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
       }
     }
-  })], 1), _vm._v(" "), _c('div', {
+  })], 1), _vm._v(" "), _c("div", {
     staticClass: "cptm-card-placeholder-col cptm-placeholder-title-col"
-  }, [_c('card-widget-placeholder', {
+  }, [_c("card-widget-placeholder", {
     attrs: {
-      "id": "body_title",
-      "containerClass": "cptm-listing-card-preview-title-placeholder cptm-card-light cptm-mb-20",
-      "label": _vm.local_layout.body.title.label,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.body.title.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.body.title.selectedWidgets,
-      "maxWidget": _vm.local_layout.body.title.maxWidget,
-      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('body_title'),
-      "widgetDropable": _vm.widgetIsDropable(_vm.local_layout.body.title)
+      id: "body_title",
+      containerClass: "cptm-listing-card-preview-title-placeholder cptm-card-light cptm-mb-20",
+      label: _vm.local_layout.body.title.label,
+      availableWidgets: _vm.theAvailableWidgets,
+      activeWidgets: _vm.active_widgets,
+      acceptedWidgets: _vm.local_layout.body.title.acceptedWidgets,
+      selectedWidgets: _vm.local_layout.body.title.selectedWidgets,
+      maxWidget: _vm.local_layout.body.title.maxWidget,
+      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("body_title"),
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.body.title)
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -32369,26 +32307,26 @@ var render = function render() {
         return _vm.handleDropOnPlaceholder(_vm.local_layout.body.title);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.activeInsertWindow('body_title');
+        return _vm.activeInsertWindow("body_title");
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
       }
     }
-  })], 1), _vm._v(" "), _c('div', {
+  })], 1), _vm._v(" "), _c("div", {
     staticClass: "cptm-card-placeholder-col cptm-placeholder-action-col"
-  }, [_c('card-widget-placeholder', {
+  }, [_c("card-widget-placeholder", {
     attrs: {
-      "id": "body_quick_actions",
-      "containerClass": "cptm-listing-card-preview-title-placeholder cptm-card-light cptm-mb-20 cptm-text-right",
-      "label": _vm.local_layout.body.quick_actions.label,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.body.quick_actions.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.body.quick_actions.selectedWidgets,
-      "maxWidget": _vm.local_layout.body.quick_actions.maxWidget,
-      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('body_quick_actions'),
-      "widgetDropable": _vm.widgetIsDropable(_vm.local_layout.body.quick_actions)
+      id: "body_quick_actions",
+      containerClass: "cptm-listing-card-preview-title-placeholder cptm-card-light cptm-mb-20 cptm-text-right",
+      label: _vm.local_layout.body.quick_actions.label,
+      availableWidgets: _vm.theAvailableWidgets,
+      activeWidgets: _vm.active_widgets,
+      acceptedWidgets: _vm.local_layout.body.quick_actions.acceptedWidgets,
+      selectedWidgets: _vm.local_layout.body.quick_actions.selectedWidgets,
+      maxWidget: _vm.local_layout.body.quick_actions.maxWidget,
+      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("body_quick_actions"),
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.body.quick_actions)
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -32413,24 +32351,24 @@ var render = function render() {
         return _vm.handleDropOnPlaceholder(_vm.local_layout.body.quick_actions);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.activeInsertWindow('body_quick_actions');
+        return _vm.activeInsertWindow("body_quick_actions");
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
       }
     }
-  })], 1)]), _vm._v(" "), _c('card-widget-placeholder', {
+  })], 1)]), _vm._v(" "), _c("card-widget-placeholder", {
     attrs: {
-      "id": "thumbnail_quick_info",
-      "containerClass": "cptm-listing-card-preview-title-placeholder cptm-card-light cptm-mb-20",
-      "label": _vm.local_layout.body.quick_info.label,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.body.quick_info.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.body.quick_info.selectedWidgets,
-      "maxWidget": _vm.local_layout.body.quick_info.maxWidget,
-      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_quick_info'),
-      "widgetDropable": _vm.widgetIsDropable(_vm.local_layout.body.quick_info)
+      id: "thumbnail_quick_info",
+      containerClass: "cptm-listing-card-preview-title-placeholder cptm-card-light cptm-mb-20",
+      label: _vm.local_layout.body.quick_info.label,
+      availableWidgets: _vm.theAvailableWidgets,
+      activeWidgets: _vm.active_widgets,
+      acceptedWidgets: _vm.local_layout.body.quick_info.acceptedWidgets,
+      selectedWidgets: _vm.local_layout.body.quick_info.selectedWidgets,
+      maxWidget: _vm.local_layout.body.quick_info.maxWidget,
+      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_quick_info"),
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.body.quick_info)
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -32455,24 +32393,24 @@ var render = function render() {
         return _vm.handleDropOnPlaceholder(_vm.local_layout.body.quick_info);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.activeInsertWindow('thumbnail_quick_info');
+        return _vm.activeInsertWindow("thumbnail_quick_info");
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
       }
     }
-  }), _vm._v(" "), _c('card-widget-placeholder', {
+  }), _vm._v(" "), _c("card-widget-placeholder", {
     attrs: {
-      "id": "thumbnail_body_bottom",
-      "containerClass": "cptm-listing-card-preview-body-placeholder cptm-card-light",
-      "label": _vm.local_layout.body.bottom.label,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.body.bottom.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.body.bottom.selectedWidgets,
-      "maxWidget": _vm.local_layout.body.bottom.maxWidget,
-      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_body_bottom'),
-      "widgetDropable": _vm.widgetIsDropable(_vm.local_layout.body.bottom)
+      id: "thumbnail_body_bottom",
+      containerClass: "cptm-listing-card-preview-body-placeholder cptm-card-light",
+      label: _vm.local_layout.body.bottom.label,
+      availableWidgets: _vm.theAvailableWidgets,
+      activeWidgets: _vm.active_widgets,
+      acceptedWidgets: _vm.local_layout.body.bottom.acceptedWidgets,
+      selectedWidgets: _vm.local_layout.body.bottom.selectedWidgets,
+      maxWidget: _vm.local_layout.body.bottom.maxWidget,
+      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_body_bottom"),
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.body.bottom)
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -32497,24 +32435,24 @@ var render = function render() {
         return _vm.handleDropOnPlaceholder(_vm.local_layout.body.bottom);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.activeInsertWindow('thumbnail_body_bottom');
+        return _vm.activeInsertWindow("thumbnail_body_bottom");
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
       }
     }
-  }), _vm._v(" "), _c('br'), _vm._v(" "), _vm.placeholderIsActive(_vm.local_layout.body.excerpt) ? _c('card-widget-placeholder', {
+  }), _vm._v(" "), _c("br"), _vm._v(" "), _vm.placeholderIsActive(_vm.local_layout.body.excerpt) ? _c("card-widget-placeholder", {
     attrs: {
-      "id": "body_excerpt",
-      "containerClass": "cptm-listing-card-preview-body-excerpt-placeholder cptm-card-light",
-      "label": _vm.local_layout.body.excerpt.label,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.body.excerpt.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.body.excerpt.selectedWidgets,
-      "maxWidget": _vm.local_layout.body.excerpt.maxWidget,
-      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('body_excerpr'),
-      "widgetDropable": _vm.widgetIsDropable(_vm.local_layout.body.excerpt)
+      id: "body_excerpt",
+      containerClass: "cptm-listing-card-preview-body-excerpt-placeholder cptm-card-light",
+      label: _vm.local_layout.body.excerpt.label,
+      availableWidgets: _vm.theAvailableWidgets,
+      activeWidgets: _vm.active_widgets,
+      acceptedWidgets: _vm.local_layout.body.excerpt.acceptedWidgets,
+      selectedWidgets: _vm.local_layout.body.excerpt.selectedWidgets,
+      maxWidget: _vm.local_layout.body.excerpt.maxWidget,
+      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("body_excerpr"),
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.body.excerpt)
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -32539,26 +32477,26 @@ var render = function render() {
         return _vm.handleDropOnPlaceholder(_vm.local_layout.body.excerpt);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.activeInsertWindow('body_excerpr');
+        return _vm.activeInsertWindow("body_excerpr");
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
       }
     }
-  }) : _vm._e()], 1), _vm._v(" "), _c('div', {
+  }) : _vm._e()], 1), _vm._v(" "), _c("div", {
     staticClass: "cptm-listing-card-preview-footer"
-  }, [_c('card-widget-placeholder', {
+  }, [_c("card-widget-placeholder", {
     attrs: {
-      "id": "thumbnail_footer_left",
-      "containerClass": "cptm-listing-card-preview-footer-left-placeholder cptm-card-light",
-      "label": _vm.local_layout.footer.left.label,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.footer.left.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.footer.left.selectedWidgets,
-      "maxWidget": _vm.local_layout.footer.left.maxWidget,
-      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_footer_left'),
-      "widgetDropable": _vm.widgetIsDropable(_vm.local_layout.footer.left)
+      id: "thumbnail_footer_left",
+      containerClass: "cptm-listing-card-preview-footer-left-placeholder cptm-card-light",
+      label: _vm.local_layout.footer.left.label,
+      availableWidgets: _vm.theAvailableWidgets,
+      activeWidgets: _vm.active_widgets,
+      acceptedWidgets: _vm.local_layout.footer.left.acceptedWidgets,
+      selectedWidgets: _vm.local_layout.footer.left.selectedWidgets,
+      maxWidget: _vm.local_layout.footer.left.maxWidget,
+      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_footer_left"),
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.footer.left)
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -32583,24 +32521,24 @@ var render = function render() {
         return _vm.handleDropOnPlaceholder(_vm.local_layout.footer.left);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.activeInsertWindow('thumbnail_footer_left');
+        return _vm.activeInsertWindow("thumbnail_footer_left");
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
       }
     }
-  }), _vm._v(" "), _c('card-widget-placeholder', {
+  }), _vm._v(" "), _c("card-widget-placeholder", {
     attrs: {
-      "id": "thumbnail_footer_right",
-      "containerClass": "cptm-listing-card-preview-footer-right-placeholder cptm-card-light",
-      "label": _vm.local_layout.footer.right.label,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.footer.right.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.footer.right.selectedWidgets,
-      "maxWidget": _vm.local_layout.footer.right.maxWidget,
-      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_footer_right'),
-      "widgetDropable": _vm.widgetIsDropable(_vm.local_layout.footer.right)
+      id: "thumbnail_footer_right",
+      containerClass: "cptm-listing-card-preview-footer-right-placeholder cptm-card-light",
+      label: _vm.local_layout.footer.right.label,
+      availableWidgets: _vm.theAvailableWidgets,
+      activeWidgets: _vm.active_widgets,
+      acceptedWidgets: _vm.local_layout.footer.right.acceptedWidgets,
+      selectedWidgets: _vm.local_layout.footer.right.selectedWidgets,
+      maxWidget: _vm.local_layout.footer.right.maxWidget,
+      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_footer_right"),
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.footer.right)
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -32625,7 +32563,7 @@ var render = function render() {
         return _vm.handleDropOnPlaceholder(_vm.local_layout.footer.right);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.activeInsertWindow('thumbnail_footer_right');
+        return _vm.activeInsertWindow("thumbnail_footer_right");
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
@@ -32653,45 +32591,45 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-builder-section"
-  }, [_vm.widgetOptionsWindowActiveStatus ? _c('div', {
+  }, [_vm.widgetOptionsWindowActiveStatus ? _c("div", {
     staticClass: "cptm-options-area"
-  }, [_c('options-window', _vm._b({
+  }, [_c("options-window", _vm._b({
     attrs: {
-      "active": _vm.widgetOptionsWindowActiveStatus
+      active: _vm.widgetOptionsWindowActiveStatus
     },
     on: {
-      "update": function update($event) {
+      update: function update($event) {
         return _vm.updateWidgetOptionsData($event, _vm.widgetOptionsWindow);
       },
-      "close": function close($event) {
+      close: function close($event) {
         return _vm.closeWidgetOptionsWindow();
       }
     }
-  }, 'options-window', _vm.widgetOptionsWindow, false))], 1) : _vm._e(), _vm._v(" "), _c('div', {
+  }, "options-window", _vm.widgetOptionsWindow, false))], 1) : _vm._e(), _vm._v(" "), _c("div", {
     staticClass: "cptm-preview-area"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-card-preview-widget cptm-card-list-view"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-listing-card-preview-header"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-card-preview-thumbnail"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-card-preview-thumbnail-overlay"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-card-preview-top-right"
-  }, [_c('card-widget-placeholder', {
+  }, [_c("card-widget-placeholder", {
     attrs: {
-      "containerClass": "cptm-card-preview-bottom-left-placeholder cptm-card-dark",
-      "label": _vm.local_layout.thumbnail.top_right.label,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.thumbnail.top_right.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.thumbnail.top_right.selectedWidgets,
-      "maxWidget": _vm.local_layout.thumbnail.top_right.maxWidget,
-      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_top_right'),
-      "widgetDropable": _vm.widgetIsDropable(_vm.local_layout.thumbnail.top_right)
+      containerClass: "cptm-card-preview-bottom-left-placeholder cptm-card-dark",
+      label: _vm.local_layout.thumbnail.top_right.label,
+      availableWidgets: _vm.theAvailableWidgets,
+      activeWidgets: _vm.active_widgets,
+      acceptedWidgets: _vm.local_layout.thumbnail.top_right.acceptedWidgets,
+      selectedWidgets: _vm.local_layout.thumbnail.top_right.selectedWidgets,
+      maxWidget: _vm.local_layout.thumbnail.top_right.maxWidget,
+      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_top_right"),
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.thumbnail.top_right)
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -32722,31 +32660,31 @@ var render = function render() {
         return _vm.handleDragEnterOnPlaceholder(_vm.local_layout.thumbnail.top_right);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.activeInsertWindow('thumbnail_top_right');
+        return _vm.activeInsertWindow("thumbnail_top_right");
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
       }
     }
-  })], 1), _vm._v(" "), _vm._m(0)])])]), _vm._v(" "), _c('div', {
+  })], 1), _vm._v(" "), _vm._m(0)])])]), _vm._v(" "), _c("div", {
     staticClass: "cptm-listing-card-content"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-listing-card-preview-body"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-listing-card-body-header"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-listing-card-body-header-left"
-  }, [_c('card-widget-placeholder', {
+  }, [_c("card-widget-placeholder", {
     attrs: {
-      "containerClass": "cptm-listing-card-body-header-title-placeholder cptm-mb-10 cptm-card-light",
-      "label": _vm.local_layout.body.top.label,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.body.top.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.body.top.selectedWidgets,
-      "maxWidget": _vm.local_layout.body.top.maxWidget,
-      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('body_top'),
-      "widgetDropable": _vm.widgetIsDropable(_vm.local_layout.body.top)
+      containerClass: "cptm-listing-card-body-header-title-placeholder cptm-mb-10 cptm-card-light",
+      label: _vm.local_layout.body.top.label,
+      availableWidgets: _vm.theAvailableWidgets,
+      activeWidgets: _vm.active_widgets,
+      acceptedWidgets: _vm.local_layout.body.top.acceptedWidgets,
+      selectedWidgets: _vm.local_layout.body.top.selectedWidgets,
+      maxWidget: _vm.local_layout.body.top.maxWidget,
+      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("body_top"),
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.body.top)
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -32771,25 +32709,25 @@ var render = function render() {
         return _vm.handleDropOnPlaceholder(_vm.local_layout.body.top);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.activeInsertWindow('body_top');
+        return _vm.activeInsertWindow("body_top");
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
       }
     }
-  })], 1), _vm._v(" "), _c('div', {
+  })], 1), _vm._v(" "), _c("div", {
     staticClass: "cptm-listing-card-body-header-right"
-  }, [_c('card-widget-placeholder', {
+  }, [_c("card-widget-placeholder", {
     attrs: {
-      "containerClass": "cptm-listing-card-body-header-actions-placeholder cptm-card-light",
-      "label": _vm.local_layout.body.right.label,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.body.right.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.body.right.selectedWidgets,
-      "maxWidget": _vm.local_layout.body.right.maxWidget,
-      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('body_right'),
-      "widgetDropable": _vm.widgetIsDropable(_vm.local_layout.body.right)
+      containerClass: "cptm-listing-card-body-header-actions-placeholder cptm-card-light",
+      label: _vm.local_layout.body.right.label,
+      availableWidgets: _vm.theAvailableWidgets,
+      activeWidgets: _vm.active_widgets,
+      acceptedWidgets: _vm.local_layout.body.right.acceptedWidgets,
+      selectedWidgets: _vm.local_layout.body.right.selectedWidgets,
+      maxWidget: _vm.local_layout.body.right.maxWidget,
+      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("body_right"),
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.body.right)
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -32814,23 +32752,23 @@ var render = function render() {
         return _vm.handleDropOnPlaceholder(_vm.local_layout.body.right);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.activeInsertWindow('body_right');
+        return _vm.activeInsertWindow("body_right");
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
       }
     }
-  })], 1)]), _vm._v(" "), _c('card-widget-placeholder', {
+  })], 1)]), _vm._v(" "), _c("card-widget-placeholder", {
     attrs: {
-      "containerClass": "cptm-listing-card-preview-body-placeholder cptm-card-light",
-      "label": _vm.local_layout.body.bottom.label,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.body.bottom.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.body.bottom.selectedWidgets,
-      "maxWidget": _vm.local_layout.body.bottom.maxWidget,
-      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('body_bottom'),
-      "widgetDropable": _vm.widgetIsDropable(_vm.local_layout.body.bottom)
+      containerClass: "cptm-listing-card-preview-body-placeholder cptm-card-light",
+      label: _vm.local_layout.body.bottom.label,
+      availableWidgets: _vm.theAvailableWidgets,
+      activeWidgets: _vm.active_widgets,
+      acceptedWidgets: _vm.local_layout.body.bottom.acceptedWidgets,
+      selectedWidgets: _vm.local_layout.body.bottom.selectedWidgets,
+      maxWidget: _vm.local_layout.body.bottom.maxWidget,
+      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("body_bottom"),
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.body.bottom)
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -32855,23 +32793,23 @@ var render = function render() {
         return _vm.handleDropOnPlaceholder(_vm.local_layout.body.bottom);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.activeInsertWindow('body_bottom');
+        return _vm.activeInsertWindow("body_bottom");
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
       }
     }
-  }), _vm._v(" "), _c('br'), _vm._v(" "), _vm.placeholderIsActive(_vm.local_layout.body.excerpt) ? _c('card-widget-placeholder', {
+  }), _vm._v(" "), _c("br"), _vm._v(" "), _vm.placeholderIsActive(_vm.local_layout.body.excerpt) ? _c("card-widget-placeholder", {
     attrs: {
-      "containerClass": "cptm-listing-card-preview-excerpt-placeholder cptm-card-light",
-      "label": _vm.local_layout.body.excerpt.label,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.body.excerpt.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.body.excerpt.selectedWidgets,
-      "maxWidget": _vm.local_layout.body.excerpt.maxWidget,
-      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('body_excerpt'),
-      "widgetDropable": _vm.widgetIsDropable(_vm.local_layout.body.excerpt)
+      containerClass: "cptm-listing-card-preview-excerpt-placeholder cptm-card-light",
+      label: _vm.local_layout.body.excerpt.label,
+      availableWidgets: _vm.theAvailableWidgets,
+      activeWidgets: _vm.active_widgets,
+      acceptedWidgets: _vm.local_layout.body.excerpt.acceptedWidgets,
+      selectedWidgets: _vm.local_layout.body.excerpt.selectedWidgets,
+      maxWidget: _vm.local_layout.body.excerpt.maxWidget,
+      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("body_excerpt"),
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.body.excerpt)
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -32896,25 +32834,25 @@ var render = function render() {
         return _vm.handleDropOnPlaceholder(_vm.local_layout.body.excerpt);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.activeInsertWindow('body_excerpt');
+        return _vm.activeInsertWindow("body_excerpt");
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
       }
     }
-  }) : _vm._e()], 1), _vm._v(" "), _c('div', {
+  }) : _vm._e()], 1), _vm._v(" "), _c("div", {
     staticClass: "cptm-listing-card-preview-footer"
-  }, [_c('card-widget-placeholder', {
+  }, [_c("card-widget-placeholder", {
     attrs: {
-      "containerClass": "cptm-listing-card-preview-footer-left-placeholder cptm-card-light",
-      "label": _vm.local_layout.footer.left.label,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.footer.left.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.footer.left.selectedWidgets,
-      "maxWidget": _vm.local_layout.footer.left.maxWidget,
-      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_footer_left'),
-      "widgetDropable": _vm.widgetIsDropable(_vm.local_layout.footer.left)
+      containerClass: "cptm-listing-card-preview-footer-left-placeholder cptm-card-light",
+      label: _vm.local_layout.footer.left.label,
+      availableWidgets: _vm.theAvailableWidgets,
+      activeWidgets: _vm.active_widgets,
+      acceptedWidgets: _vm.local_layout.footer.left.acceptedWidgets,
+      selectedWidgets: _vm.local_layout.footer.left.selectedWidgets,
+      maxWidget: _vm.local_layout.footer.left.maxWidget,
+      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_footer_left"),
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.footer.left)
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -32939,23 +32877,23 @@ var render = function render() {
         return _vm.handleDropOnPlaceholder(_vm.local_layout.footer.left);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.activeInsertWindow('thumbnail_footer_left');
+        return _vm.activeInsertWindow("thumbnail_footer_left");
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
       }
     }
-  }), _vm._v(" "), _c('card-widget-placeholder', {
+  }), _vm._v(" "), _c("card-widget-placeholder", {
     attrs: {
-      "containerClass": "cptm-listing-card-preview-footer-right-placeholder cptm-card-light",
-      "label": _vm.local_layout.footer.right.label,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.footer.right.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.footer.right.selectedWidgets,
-      "maxWidget": _vm.local_layout.footer.right.maxWidget,
-      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_footer_right'),
-      "widgetDropable": _vm.widgetIsDropable(_vm.local_layout.footer.right)
+      containerClass: "cptm-listing-card-preview-footer-right-placeholder cptm-card-light",
+      label: _vm.local_layout.footer.right.label,
+      availableWidgets: _vm.theAvailableWidgets,
+      activeWidgets: _vm.active_widgets,
+      acceptedWidgets: _vm.local_layout.footer.right.acceptedWidgets,
+      selectedWidgets: _vm.local_layout.footer.right.selectedWidgets,
+      maxWidget: _vm.local_layout.footer.right.maxWidget,
+      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_footer_right"),
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.footer.right)
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -32980,7 +32918,7 @@ var render = function render() {
         return _vm.handleDropOnPlaceholder(_vm.local_layout.footer.right);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.activeInsertWindow('thumbnail_footer_right');
+        return _vm.activeInsertWindow("thumbnail_footer_right");
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
@@ -32991,9 +32929,9 @@ var render = function render() {
 var staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-card-preview-thumbnail-bg"
-  }, [_c('span', {
+  }, [_c("span", {
     staticClass: "uil uil-scenery"
   })]);
 }];
@@ -33016,45 +32954,45 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-builder-section"
-  }, [_vm.widgetOptionsWindowActiveStatus ? _c('div', {
+  }, [_vm.widgetOptionsWindowActiveStatus ? _c("div", {
     staticClass: "cptm-options-area"
-  }, [_c('options-window', _vm._b({
+  }, [_c("options-window", _vm._b({
     attrs: {
-      "active": _vm.widgetOptionsWindowActiveStatus
+      active: _vm.widgetOptionsWindowActiveStatus
     },
     on: {
-      "update": function update($event) {
+      update: function update($event) {
         return _vm.updateWidgetOptionsData($event, _vm.widgetOptionsWindow);
       },
-      "close": function close($event) {
+      close: function close($event) {
         return _vm.closeWidgetOptionsWindow();
       }
     }
-  }, 'options-window', _vm.widgetOptionsWindow, false))], 1) : _vm._e(), _vm._v(" "), _c('div', {
+  }, "options-window", _vm.widgetOptionsWindow, false))], 1) : _vm._e(), _vm._v(" "), _c("div", {
     staticClass: "cptm-preview-area"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-card-preview-widget cptm-card-list-view list-view-with-thumbnail"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-listing-card-preview-header"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-card-preview-thumbnail"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-card-preview-thumbnail-overlay"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-card-preview-top-right"
-  }, [_c('card-widget-placeholder', {
+  }, [_c("card-widget-placeholder", {
     attrs: {
-      "containerClass": "cptm-card-preview-bottom-left-placeholder cptm-card-dark",
-      "label": _vm.local_layout.thumbnail.top_right.label,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.thumbnail.top_right.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.thumbnail.top_right.selectedWidgets,
-      "maxWidget": _vm.local_layout.thumbnail.top_right.maxWidget,
-      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_top_right'),
-      "widgetDropable": _vm.widgetIsDropable(_vm.local_layout.thumbnail.top_right)
+      containerClass: "cptm-card-preview-bottom-left-placeholder cptm-card-dark",
+      label: _vm.local_layout.thumbnail.top_right.label,
+      availableWidgets: _vm.theAvailableWidgets,
+      activeWidgets: _vm.active_widgets,
+      acceptedWidgets: _vm.local_layout.thumbnail.top_right.acceptedWidgets,
+      selectedWidgets: _vm.local_layout.thumbnail.top_right.selectedWidgets,
+      maxWidget: _vm.local_layout.thumbnail.top_right.maxWidget,
+      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_top_right"),
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.thumbnail.top_right)
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -33085,31 +33023,31 @@ var render = function render() {
         return _vm.handleDragEnterOnPlaceholder(_vm.local_layout.thumbnail.top_right);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.activeInsertWindow('thumbnail_top_right');
+        return _vm.activeInsertWindow("thumbnail_top_right");
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
       }
     }
-  })], 1), _vm._v(" "), _vm._m(0)])])]), _vm._v(" "), _c('div', {
+  })], 1), _vm._v(" "), _vm._m(0)])])]), _vm._v(" "), _c("div", {
     staticClass: "cptm-listing-card-content"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-listing-card-preview-body"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-listing-card-body-header"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-listing-card-body-header-left"
-  }, [_c('card-widget-placeholder', {
+  }, [_c("card-widget-placeholder", {
     attrs: {
-      "containerClass": "cptm-listing-card-body-header-title-placeholder cptm-mb-10 cptm-card-light",
-      "label": _vm.local_layout.body.top.label,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.body.top.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.body.top.selectedWidgets,
-      "maxWidget": _vm.local_layout.body.top.maxWidget,
-      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('body_top'),
-      "widgetDropable": _vm.widgetIsDropable(_vm.local_layout.body.top)
+      containerClass: "cptm-listing-card-body-header-title-placeholder cptm-mb-10 cptm-card-light",
+      label: _vm.local_layout.body.top.label,
+      availableWidgets: _vm.theAvailableWidgets,
+      activeWidgets: _vm.active_widgets,
+      acceptedWidgets: _vm.local_layout.body.top.acceptedWidgets,
+      selectedWidgets: _vm.local_layout.body.top.selectedWidgets,
+      maxWidget: _vm.local_layout.body.top.maxWidget,
+      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("body_top"),
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.body.top)
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -33134,25 +33072,25 @@ var render = function render() {
         return _vm.handleDropOnPlaceholder(_vm.local_layout.body.top);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.activeInsertWindow('body_top');
+        return _vm.activeInsertWindow("body_top");
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
       }
     }
-  })], 1), _vm._v(" "), _c('div', {
+  })], 1), _vm._v(" "), _c("div", {
     staticClass: "cptm-listing-card-body-header-right"
-  }, [_c('card-widget-placeholder', {
+  }, [_c("card-widget-placeholder", {
     attrs: {
-      "containerClass": "cptm-listing-card-body-header-actions-placeholder cptm-card-light",
-      "label": _vm.local_layout.body.right.label,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.body.right.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.body.right.selectedWidgets,
-      "maxWidget": _vm.local_layout.body.right.maxWidget,
-      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('body_right'),
-      "widgetDropable": _vm.widgetIsDropable(_vm.local_layout.body.right)
+      containerClass: "cptm-listing-card-body-header-actions-placeholder cptm-card-light",
+      label: _vm.local_layout.body.right.label,
+      availableWidgets: _vm.theAvailableWidgets,
+      activeWidgets: _vm.active_widgets,
+      acceptedWidgets: _vm.local_layout.body.right.acceptedWidgets,
+      selectedWidgets: _vm.local_layout.body.right.selectedWidgets,
+      maxWidget: _vm.local_layout.body.right.maxWidget,
+      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("body_right"),
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.body.right)
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -33177,23 +33115,23 @@ var render = function render() {
         return _vm.handleDropOnPlaceholder(_vm.local_layout.body.right);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.activeInsertWindow('body_right');
+        return _vm.activeInsertWindow("body_right");
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
       }
     }
-  })], 1)]), _vm._v(" "), _c('card-widget-placeholder', {
+  })], 1)]), _vm._v(" "), _c("card-widget-placeholder", {
     attrs: {
-      "containerClass": "cptm-listing-card-preview-body-placeholder cptm-card-light",
-      "label": _vm.local_layout.body.bottom.label,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.body.bottom.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.body.bottom.selectedWidgets,
-      "maxWidget": _vm.local_layout.body.bottom.maxWidget,
-      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('body_bottom'),
-      "widgetDropable": _vm.widgetIsDropable(_vm.local_layout.body.bottom)
+      containerClass: "cptm-listing-card-preview-body-placeholder cptm-card-light",
+      label: _vm.local_layout.body.bottom.label,
+      availableWidgets: _vm.theAvailableWidgets,
+      activeWidgets: _vm.active_widgets,
+      acceptedWidgets: _vm.local_layout.body.bottom.acceptedWidgets,
+      selectedWidgets: _vm.local_layout.body.bottom.selectedWidgets,
+      maxWidget: _vm.local_layout.body.bottom.maxWidget,
+      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("body_bottom"),
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.body.bottom)
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -33218,23 +33156,23 @@ var render = function render() {
         return _vm.handleDropOnPlaceholder(_vm.local_layout.body.bottom);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.activeInsertWindow('body_bottom');
+        return _vm.activeInsertWindow("body_bottom");
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
       }
     }
-  }), _vm._v(" "), _c('br'), _vm._v(" "), _vm.placeholderIsActive(_vm.local_layout.body.excerpt) ? _c('card-widget-placeholder', {
+  }), _vm._v(" "), _c("br"), _vm._v(" "), _vm.placeholderIsActive(_vm.local_layout.body.excerpt) ? _c("card-widget-placeholder", {
     attrs: {
-      "containerClass": "cptm-listing-card-preview-excerpt-placeholder cptm-card-light",
-      "label": _vm.local_layout.body.excerpt.label,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.body.excerpt.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.body.excerpt.selectedWidgets,
-      "maxWidget": _vm.local_layout.body.excerpt.maxWidget,
-      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('body_excerpt'),
-      "widgetDropable": _vm.widgetIsDropable(_vm.local_layout.body.excerpt)
+      containerClass: "cptm-listing-card-preview-excerpt-placeholder cptm-card-light",
+      label: _vm.local_layout.body.excerpt.label,
+      availableWidgets: _vm.theAvailableWidgets,
+      activeWidgets: _vm.active_widgets,
+      acceptedWidgets: _vm.local_layout.body.excerpt.acceptedWidgets,
+      selectedWidgets: _vm.local_layout.body.excerpt.selectedWidgets,
+      maxWidget: _vm.local_layout.body.excerpt.maxWidget,
+      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("body_excerpt"),
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.body.excerpt)
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -33259,25 +33197,25 @@ var render = function render() {
         return _vm.handleDropOnPlaceholder(_vm.local_layout.body.excerpt);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.activeInsertWindow('body_excerpt');
+        return _vm.activeInsertWindow("body_excerpt");
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
       }
     }
-  }) : _vm._e()], 1), _vm._v(" "), _c('div', {
+  }) : _vm._e()], 1), _vm._v(" "), _c("div", {
     staticClass: "cptm-listing-card-preview-footer"
-  }, [_c('card-widget-placeholder', {
+  }, [_c("card-widget-placeholder", {
     attrs: {
-      "containerClass": "cptm-listing-card-preview-footer-left-placeholder cptm-card-light",
-      "label": _vm.local_layout.footer.left.label,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.footer.left.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.footer.left.selectedWidgets,
-      "maxWidget": _vm.local_layout.footer.left.maxWidget,
-      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_footer_left'),
-      "widgetDropable": _vm.widgetIsDropable(_vm.local_layout.footer.left)
+      containerClass: "cptm-listing-card-preview-footer-left-placeholder cptm-card-light",
+      label: _vm.local_layout.footer.left.label,
+      availableWidgets: _vm.theAvailableWidgets,
+      activeWidgets: _vm.active_widgets,
+      acceptedWidgets: _vm.local_layout.footer.left.acceptedWidgets,
+      selectedWidgets: _vm.local_layout.footer.left.selectedWidgets,
+      maxWidget: _vm.local_layout.footer.left.maxWidget,
+      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_footer_left"),
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.footer.left)
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -33302,23 +33240,23 @@ var render = function render() {
         return _vm.handleDropOnPlaceholder(_vm.local_layout.footer.left);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.activeInsertWindow('thumbnail_footer_left');
+        return _vm.activeInsertWindow("thumbnail_footer_left");
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
       }
     }
-  }), _vm._v(" "), _c('card-widget-placeholder', {
+  }), _vm._v(" "), _c("card-widget-placeholder", {
     attrs: {
-      "containerClass": "cptm-listing-card-preview-footer-right-placeholder cptm-card-light",
-      "label": _vm.local_layout.footer.right.label,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.footer.right.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.footer.right.selectedWidgets,
-      "maxWidget": _vm.local_layout.footer.right.maxWidget,
-      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_footer_right'),
-      "widgetDropable": _vm.widgetIsDropable(_vm.local_layout.footer.right)
+      containerClass: "cptm-listing-card-preview-footer-right-placeholder cptm-card-light",
+      label: _vm.local_layout.footer.right.label,
+      availableWidgets: _vm.theAvailableWidgets,
+      activeWidgets: _vm.active_widgets,
+      acceptedWidgets: _vm.local_layout.footer.right.acceptedWidgets,
+      selectedWidgets: _vm.local_layout.footer.right.selectedWidgets,
+      maxWidget: _vm.local_layout.footer.right.maxWidget,
+      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_footer_right"),
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.footer.right)
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -33343,7 +33281,7 @@ var render = function render() {
         return _vm.handleDropOnPlaceholder(_vm.local_layout.footer.right);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.activeInsertWindow('thumbnail_footer_right');
+        return _vm.activeInsertWindow("thumbnail_footer_right");
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
@@ -33354,9 +33292,9 @@ var render = function render() {
 var staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-card-preview-thumbnail-bg"
-  }, [_c('span', {
+  }, [_c("span", {
     staticClass: "uil uil-scenery"
   })]);
 }];
@@ -33379,45 +33317,45 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-builder-section"
-  }, [_vm.widgetOptionsWindowActiveStatus ? _c('div', {
+  }, [_vm.widgetOptionsWindowActiveStatus ? _c("div", {
     staticClass: "cptm-options-area"
-  }, [_c('options-window', _vm._b({
+  }, [_c("options-window", _vm._b({
     attrs: {
-      "active": _vm.widgetOptionsWindowActiveStatus
+      active: _vm.widgetOptionsWindowActiveStatus
     },
     on: {
-      "update": function update($event) {
+      update: function update($event) {
         return _vm.updateWidgetOptionsData($event, _vm.widgetOptionsWindow);
       },
-      "close": function close($event) {
+      close: function close($event) {
         return _vm.closeWidgetOptionsWindow();
       }
     }
-  }, 'options-window', _vm.widgetOptionsWindow, false))], 1) : _vm._e(), _vm._v(" "), _c('div', {
+  }, "options-window", _vm.widgetOptionsWindow, false))], 1) : _vm._e(), _vm._v(" "), _c("div", {
     staticClass: "cptm-preview-area"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-card-preview-widget cptm-card-list-view list-view-without-thumbnail"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-listing-card-content"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-listing-card-preview-body"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-listing-card-body-header"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-listing-card-body-header-left"
-  }, [_c('card-widget-placeholder', {
+  }, [_c("card-widget-placeholder", {
     attrs: {
-      "containerClass": "cptm-listing-card-body-header-title-placeholder cptm-mb-10 cptm-card-light",
-      "label": _vm.local_layout.body.top.label,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.body.top.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.body.top.selectedWidgets,
-      "maxWidget": _vm.local_layout.body.top.maxWidget,
-      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('body_top'),
-      "widgetDropable": _vm.widgetIsDropable(_vm.local_layout.body.top)
+      containerClass: "cptm-listing-card-body-header-title-placeholder cptm-mb-10 cptm-card-light",
+      label: _vm.local_layout.body.top.label,
+      availableWidgets: _vm.theAvailableWidgets,
+      activeWidgets: _vm.active_widgets,
+      acceptedWidgets: _vm.local_layout.body.top.acceptedWidgets,
+      selectedWidgets: _vm.local_layout.body.top.selectedWidgets,
+      maxWidget: _vm.local_layout.body.top.maxWidget,
+      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("body_top"),
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.body.top)
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -33442,25 +33380,25 @@ var render = function render() {
         return _vm.handleDropOnPlaceholder(_vm.local_layout.body.top);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.activeInsertWindow('body_top');
+        return _vm.activeInsertWindow("body_top");
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
       }
     }
-  })], 1), _vm._v(" "), _c('div', {
+  })], 1), _vm._v(" "), _c("div", {
     staticClass: "cptm-listing-card-body-header-right"
-  }, [_c('card-widget-placeholder', {
+  }, [_c("card-widget-placeholder", {
     attrs: {
-      "containerClass": "cptm-listing-card-body-header-actions-placeholder cptm-card-light",
-      "label": _vm.local_layout.body.right.label,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.body.right.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.body.right.selectedWidgets,
-      "maxWidget": _vm.local_layout.body.right.maxWidget,
-      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('body_right'),
-      "widgetDropable": _vm.widgetIsDropable(_vm.local_layout.body.right)
+      containerClass: "cptm-listing-card-body-header-actions-placeholder cptm-card-light",
+      label: _vm.local_layout.body.right.label,
+      availableWidgets: _vm.theAvailableWidgets,
+      activeWidgets: _vm.active_widgets,
+      acceptedWidgets: _vm.local_layout.body.right.acceptedWidgets,
+      selectedWidgets: _vm.local_layout.body.right.selectedWidgets,
+      maxWidget: _vm.local_layout.body.right.maxWidget,
+      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("body_right"),
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.body.right)
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -33485,23 +33423,23 @@ var render = function render() {
         return _vm.handleDropOnPlaceholder(_vm.local_layout.body.right);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.activeInsertWindow('body_right');
+        return _vm.activeInsertWindow("body_right");
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
       }
     }
-  })], 1)]), _vm._v(" "), _c('card-widget-placeholder', {
+  })], 1)]), _vm._v(" "), _c("card-widget-placeholder", {
     attrs: {
-      "containerClass": "cptm-listing-card-preview-body-placeholder cptm-card-light",
-      "label": _vm.local_layout.body.bottom.label,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.body.bottom.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.body.bottom.selectedWidgets,
-      "maxWidget": _vm.local_layout.body.bottom.maxWidget,
-      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('body_bottom'),
-      "widgetDropable": _vm.widgetIsDropable(_vm.local_layout.body.bottom)
+      containerClass: "cptm-listing-card-preview-body-placeholder cptm-card-light",
+      label: _vm.local_layout.body.bottom.label,
+      availableWidgets: _vm.theAvailableWidgets,
+      activeWidgets: _vm.active_widgets,
+      acceptedWidgets: _vm.local_layout.body.bottom.acceptedWidgets,
+      selectedWidgets: _vm.local_layout.body.bottom.selectedWidgets,
+      maxWidget: _vm.local_layout.body.bottom.maxWidget,
+      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("body_bottom"),
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.body.bottom)
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -33526,23 +33464,23 @@ var render = function render() {
         return _vm.handleDropOnPlaceholder(_vm.local_layout.body.bottom);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.activeInsertWindow('body_bottom');
+        return _vm.activeInsertWindow("body_bottom");
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
       }
     }
-  }), _vm._v(" "), _c('br'), _vm._v(" "), _vm.placeholderIsActive(_vm.local_layout.body.excerpt) ? _c('card-widget-placeholder', {
+  }), _vm._v(" "), _c("br"), _vm._v(" "), _vm.placeholderIsActive(_vm.local_layout.body.excerpt) ? _c("card-widget-placeholder", {
     attrs: {
-      "containerClass": "cptm-listing-card-preview-excerpt-placeholder cptm-card-light",
-      "label": _vm.local_layout.body.excerpt.label,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.body.excerpt.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.body.excerpt.selectedWidgets,
-      "maxWidget": _vm.local_layout.body.excerpt.maxWidget,
-      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('body_excerpt'),
-      "widgetDropable": _vm.widgetIsDropable(_vm.local_layout.body.excerpt)
+      containerClass: "cptm-listing-card-preview-excerpt-placeholder cptm-card-light",
+      label: _vm.local_layout.body.excerpt.label,
+      availableWidgets: _vm.theAvailableWidgets,
+      activeWidgets: _vm.active_widgets,
+      acceptedWidgets: _vm.local_layout.body.excerpt.acceptedWidgets,
+      selectedWidgets: _vm.local_layout.body.excerpt.selectedWidgets,
+      maxWidget: _vm.local_layout.body.excerpt.maxWidget,
+      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("body_excerpt"),
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.body.excerpt)
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -33567,25 +33505,25 @@ var render = function render() {
         return _vm.handleDropOnPlaceholder(_vm.local_layout.body.excerpt);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.activeInsertWindow('body_excerpt');
+        return _vm.activeInsertWindow("body_excerpt");
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
       }
     }
-  }) : _vm._e()], 1), _vm._v(" "), _c('div', {
+  }) : _vm._e()], 1), _vm._v(" "), _c("div", {
     staticClass: "cptm-listing-card-preview-footer"
-  }, [_c('card-widget-placeholder', {
+  }, [_c("card-widget-placeholder", {
     attrs: {
-      "containerClass": "cptm-listing-card-preview-footer-left-placeholder cptm-card-light",
-      "label": _vm.local_layout.footer.left.label,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.footer.left.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.footer.left.selectedWidgets,
-      "maxWidget": _vm.local_layout.footer.left.maxWidget,
-      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_footer_left'),
-      "widgetDropable": _vm.widgetIsDropable(_vm.local_layout.footer.left)
+      containerClass: "cptm-listing-card-preview-footer-left-placeholder cptm-card-light",
+      label: _vm.local_layout.footer.left.label,
+      availableWidgets: _vm.theAvailableWidgets,
+      activeWidgets: _vm.active_widgets,
+      acceptedWidgets: _vm.local_layout.footer.left.acceptedWidgets,
+      selectedWidgets: _vm.local_layout.footer.left.selectedWidgets,
+      maxWidget: _vm.local_layout.footer.left.maxWidget,
+      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_footer_left"),
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.footer.left)
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -33610,23 +33548,23 @@ var render = function render() {
         return _vm.handleDropOnPlaceholder(_vm.local_layout.footer.left);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.activeInsertWindow('thumbnail_footer_left');
+        return _vm.activeInsertWindow("thumbnail_footer_left");
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
       }
     }
-  }), _vm._v(" "), _c('card-widget-placeholder', {
+  }), _vm._v(" "), _c("card-widget-placeholder", {
     attrs: {
-      "containerClass": "cptm-listing-card-preview-footer-right-placeholder cptm-card-light",
-      "label": _vm.local_layout.footer.right.label,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.footer.right.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.footer.right.selectedWidgets,
-      "maxWidget": _vm.local_layout.footer.right.maxWidget,
-      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_footer_right'),
-      "widgetDropable": _vm.widgetIsDropable(_vm.local_layout.footer.right)
+      containerClass: "cptm-listing-card-preview-footer-right-placeholder cptm-card-light",
+      label: _vm.local_layout.footer.right.label,
+      availableWidgets: _vm.theAvailableWidgets,
+      activeWidgets: _vm.active_widgets,
+      acceptedWidgets: _vm.local_layout.footer.right.acceptedWidgets,
+      selectedWidgets: _vm.local_layout.footer.right.selectedWidgets,
+      maxWidget: _vm.local_layout.footer.right.maxWidget,
+      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("thumbnail_footer_right"),
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.footer.right)
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -33651,7 +33589,7 @@ var render = function render() {
         return _vm.handleDropOnPlaceholder(_vm.local_layout.footer.right);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.activeInsertWindow('thumbnail_footer_right');
+        return _vm.activeInsertWindow("thumbnail_footer_right");
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
@@ -33679,74 +33617,74 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-builder-section"
-  }, [_vm.widgetCardOptionsWindowActiveStatus || _vm.widgetOptionsWindowActiveStatus ? _c('div', {
+  }, [_vm.widgetCardOptionsWindowActiveStatus || _vm.widgetOptionsWindowActiveStatus ? _c("div", {
     staticClass: "cptm-options-area"
-  }, [_c('options-window', _vm._b({
+  }, [_c("options-window", _vm._b({
     attrs: {
-      "active": _vm.widgetCardOptionsWindowActiveStatus
+      active: _vm.widgetCardOptionsWindowActiveStatus
     },
     on: {
-      "close": function close($event) {
+      close: function close($event) {
         return _vm.closeCardWidgetOptionsWindow();
       }
     }
-  }, 'options-window', _vm.widgetCardOptionsWindow, false)), _vm._v(" "), _c('options-window', _vm._b({
+  }, "options-window", _vm.widgetCardOptionsWindow, false)), _vm._v(" "), _c("options-window", _vm._b({
     attrs: {
-      "active": _vm.widgetOptionsWindowActiveStatus
+      active: _vm.widgetOptionsWindowActiveStatus
     },
     on: {
-      "update": function update($event) {
+      update: function update($event) {
         return _vm.updateWidgetOptionsData($event, _vm.widgetOptionsWindow);
       },
-      "close": function close($event) {
+      close: function close($event) {
         return _vm.closeWidgetOptionsWindow();
       }
     }
-  }, 'options-window', _vm.widgetOptionsWindow, false))], 1) : _vm._e(), _vm._v(" "), _c('div', {
+  }, "options-window", _vm.widgetOptionsWindow, false))], 1) : _vm._e(), _vm._v(" "), _c("div", {
     staticClass: "cptm-preview-area"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-card-preview-area-wrap"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-card-preview-widget"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-title-bar"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-title-bar-headings cptm-card-light"
-  }, [Object.keys(_vm.card_options.general).length ? _c('div', {
+  }, [Object.keys(_vm.card_options.general).length ? _c("div", {
     staticClass: "cptm-card-options-widgets-area"
   }, [_vm._l(_vm.card_options.general, function (widget, widget_key) {
-    return [_c(widget.type + '-card-widget', {
+    return [_c(widget.type + "-card-widget", {
       key: widget_key,
       tag: "component",
       attrs: {
-        "label": _vm.getWidgetLabel(widget),
-        "canMove": false,
-        "canTrash": false
+        label: _vm.getWidgetLabel(widget),
+        canMove: false,
+        canTrash: false
       },
       on: {
-        "edit": function edit($event) {
+        edit: function edit($event) {
           return _vm.editOption(_vm.card_options.general, widget_key);
         }
       }
     })];
-  })], 2) : _vm._e()]), _vm._v(" "), _c('div', {
+  })], 2) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "cptm-title-bar-actions"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-card-preview-quick-action"
-  }, [_c('card-widget-placeholder', {
+  }, [_c("card-widget-placeholder", {
     attrs: {
-      "id": "listings_header_quick_actions",
-      "containerClass": "cptm-card-preview-quick-action-placeholder cptm-card-light",
-      "label": _vm.local_layout.listings_header.quick_actions.label,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.listings_header.quick_actions.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.listings_header.quick_actions.selectedWidgets,
-      "maxWidget": _vm.local_layout.listings_header.quick_actions.maxWidget,
-      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('listings_header_quick_actions'),
-      "widgetDropable": _vm.widgetIsDropable(_vm.local_layout.listings_header.quick_actions)
+      id: "listings_header_quick_actions",
+      containerClass: "cptm-card-preview-quick-action-placeholder cptm-card-light",
+      label: _vm.local_layout.listings_header.quick_actions.label,
+      availableWidgets: _vm.theAvailableWidgets,
+      activeWidgets: _vm.active_widgets,
+      acceptedWidgets: _vm.local_layout.listings_header.quick_actions.acceptedWidgets,
+      selectedWidgets: _vm.local_layout.listings_header.quick_actions.selectedWidgets,
+      maxWidget: _vm.local_layout.listings_header.quick_actions.maxWidget,
+      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("listings_header_quick_actions"),
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.listings_header.quick_actions)
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -33780,32 +33718,32 @@ var render = function render() {
         return _vm.handleDragleaveOnPlaceholder(_vm.local_layout.listings_header.quick_actions);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.activeInsertWindow('listings_header_quick_actions');
+        return _vm.activeInsertWindow("listings_header_quick_actions");
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
       }
     }
-  })], 1)])]), _vm._v(" "), _c('div', {
+  })], 1)])]), _vm._v(" "), _c("div", {
     staticClass: "cptm-listing-card-preview-header"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-card-preview-thumbnail"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-card-preview-thumbnail-overlay"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-card-preview-thumbnail-placeholer"
-  }, [_c('card-widget-placeholder', {
+  }, [_c("card-widget-placeholder", {
     attrs: {
-      "id": "listings_header_thumbnail",
-      "containerClass": "cptm-card-preview-thumbnail-placeholder cptm-card-dark",
-      "label": _vm.local_layout.listings_header.thumbnail.label,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.listings_header.thumbnail.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.listings_header.thumbnail.selectedWidgets,
-      "maxWidget": _vm.local_layout.listings_header.thumbnail.maxWidget,
-      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('listings_header_thumbnail'),
-      "widgetDropable": _vm.widgetIsDropable(_vm.local_layout.listings_header.thumbnail)
+      id: "listings_header_thumbnail",
+      containerClass: "cptm-card-preview-thumbnail-placeholder cptm-card-dark",
+      label: _vm.local_layout.listings_header.thumbnail.label,
+      availableWidgets: _vm.theAvailableWidgets,
+      activeWidgets: _vm.active_widgets,
+      acceptedWidgets: _vm.local_layout.listings_header.thumbnail.acceptedWidgets,
+      selectedWidgets: _vm.local_layout.listings_header.thumbnail.selectedWidgets,
+      maxWidget: _vm.local_layout.listings_header.thumbnail.maxWidget,
+      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("listings_header_thumbnail"),
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.listings_header.thumbnail)
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -33836,26 +33774,26 @@ var render = function render() {
         return _vm.handleDragEnterOnPlaceholder(_vm.local_layout.listings_header.thumbnail);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.activeInsertWindow('listings_header_thumbnail');
+        return _vm.activeInsertWindow("listings_header_thumbnail");
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
       }
     }
-  })], 1), _vm._v(" "), _vm._m(0)])])]), _vm._v(" "), _c('div', {
+  })], 1), _vm._v(" "), _vm._m(0)])])]), _vm._v(" "), _c("div", {
     staticClass: "cptm-listing-card-preview-footer"
-  }, [_c('card-widget-placeholder', {
+  }, [_c("card-widget-placeholder", {
     attrs: {
-      "id": "listings_header_quick_info",
-      "containerClass": "cptm-listing-card-preview-quick-info-placeholder cptm-card-light",
-      "label": _vm.local_layout.listings_header.quick_info.label,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.listings_header.quick_info.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.listings_header.quick_info.selectedWidgets,
-      "maxWidget": _vm.local_layout.listings_header.quick_info.maxWidget,
-      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('listings_header_quick_info'),
-      "widgetDropable": _vm.widgetIsDropable(_vm.local_layout.listings_header.quick_info)
+      id: "listings_header_quick_info",
+      containerClass: "cptm-listing-card-preview-quick-info-placeholder cptm-card-light",
+      label: _vm.local_layout.listings_header.quick_info.label,
+      availableWidgets: _vm.theAvailableWidgets,
+      activeWidgets: _vm.active_widgets,
+      acceptedWidgets: _vm.local_layout.listings_header.quick_info.acceptedWidgets,
+      selectedWidgets: _vm.local_layout.listings_header.quick_info.selectedWidgets,
+      maxWidget: _vm.local_layout.listings_header.quick_info.maxWidget,
+      showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("listings_header_quick_info"),
+      widgetDropable: _vm.widgetIsDropable(_vm.local_layout.listings_header.quick_info)
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -33880,25 +33818,25 @@ var render = function render() {
         return _vm.handleDropOnPlaceholder(_vm.local_layout.listings_header.quick_info);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.activeInsertWindow('listings_header_quick_info');
+        return _vm.activeInsertWindow("listings_header_quick_info");
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
       }
     }
-  })], 1), _vm._v(" "), Object.keys(_vm.card_options.content_settings).length ? _c('div', {
+  })], 1), _vm._v(" "), Object.keys(_vm.card_options.content_settings).length ? _c("div", {
     staticClass: "cptm-card-options-widgets-area"
   }, [_vm._l(_vm.card_options.content_settings, function (widget, widget_key) {
-    return [_c(widget.type + '-card-widget', {
+    return [_c(widget.type + "-card-widget", {
       key: widget_key,
       tag: "component",
       attrs: {
-        "label": _vm.getWidgetLabel(widget),
-        "canMove": false,
-        "canTrash": false
+        label: _vm.getWidgetLabel(widget),
+        canMove: false,
+        canTrash: false
       },
       on: {
-        "edit": function edit($event) {
+        edit: function edit($event) {
           return _vm.editOption(_vm.card_options.content_settings, widget_key);
         }
       }
@@ -33908,9 +33846,9 @@ var render = function render() {
 var staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-card-preview-thumbnail-bg"
-  }, [_c('span', {
+  }, [_c("span", {
     staticClass: "uil uil-scenery"
   })]);
 }];
@@ -33933,65 +33871,65 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-builder-section"
-  }, [_vm.widgetCardOptionsWindowActiveStatus || _vm.widgetOptionsWindowActiveStatus ? _c('div', {
+  }, [_vm.widgetCardOptionsWindowActiveStatus || _vm.widgetOptionsWindowActiveStatus ? _c("div", {
     staticClass: "cptm-options-area"
-  }, [_c('options-window', _vm._b({
+  }, [_c("options-window", _vm._b({
     attrs: {
-      "active": _vm.widgetCardOptionsWindowActiveStatus
+      active: _vm.widgetCardOptionsWindowActiveStatus
     },
     on: {
-      "close": function close($event) {
+      close: function close($event) {
         return _vm.closeCardWidgetOptionsWindow();
       }
     }
-  }, 'options-window', _vm.widgetCardOptionsWindow, false)), _vm._v(" "), _c('options-window', _vm._b({
+  }, "options-window", _vm.widgetCardOptionsWindow, false)), _vm._v(" "), _c("options-window", _vm._b({
     attrs: {
-      "active": _vm.widgetOptionsWindowActiveStatus
+      active: _vm.widgetOptionsWindowActiveStatus
     },
     on: {
-      "update": function update($event) {
+      update: function update($event) {
         return _vm.updateWidgetOptionsData($event, _vm.widgetOptionsWindow);
       },
-      "close": function close($event) {
+      close: function close($event) {
         return _vm.closeWidgetOptionsWindow();
       }
     }
-  }, 'options-window', _vm.widgetOptionsWindow, false))], 1) : _vm._e(), _vm._v(" "), _c('div', {
+  }, "options-window", _vm.widgetOptionsWindow, false))], 1) : _vm._e(), _vm._v(" "), _c("div", {
     staticClass: "cptm-preview-placeholder"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-preview-placeholder__card"
-  }, [_c('Container', {
+  }, [_c("Container", {
     attrs: {
       "drag-handle-selector": ".cptm-drag-element"
     },
     on: {
-      "drop": _vm.onDrop
+      drop: _vm.onDrop
     }
   }, _vm._l(_vm.placeholders, function (placeholderItem, index) {
-    return _c('Draggable', {
+    return _c("Draggable", {
       key: index
-    }, [placeholderItem.type == 'placeholder_group' ? _c('div', {
+    }, [placeholderItem.type == "placeholder_group" ? _c("div", {
       staticClass: "draggable-item"
-    }, [_c('div', {
+    }, [_c("div", {
       staticClass: "cptm-preview-placeholder__card__item cptm-preview-placeholder__card__item--top"
     }, _vm._l(placeholderItem.placeholders, function (placeholderSubItem, subIndex) {
-      return _c('card-widget-placeholder', {
+      return _c("card-widget-placeholder", {
         key: "".concat(index, "_").concat(subIndex),
         attrs: {
-          "placeholderKey": placeholderSubItem.placeholderKey,
-          "id": "listings_header_".concat(index, "_").concat(subIndex),
-          "containerClass": "cptm-preview-placeholder__card__box cptm-card-light",
-          "label": placeholderSubItem.label,
-          "availableWidgets": _vm.theAvailableWidgets,
-          "activeWidgets": _vm.active_widgets,
-          "acceptedWidgets": placeholderSubItem.acceptedWidgets,
-          "rejectedWidgets": placeholderSubItem.rejectedWidgets,
-          "selectedWidgets": placeholderSubItem.selectedWidgets,
-          "maxWidget": placeholderSubItem.maxWidget,
-          "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus("listings_header_".concat(index, "_").concat(subIndex)),
-          "widgetDropable": _vm.widgetIsDropable(placeholderSubItem)
+          placeholderKey: placeholderSubItem.placeholderKey,
+          id: "listings_header_".concat(index, "_").concat(subIndex),
+          containerClass: "cptm-preview-placeholder__card__box cptm-card-light",
+          label: placeholderSubItem.label,
+          availableWidgets: _vm.theAvailableWidgets,
+          activeWidgets: _vm.active_widgets,
+          acceptedWidgets: placeholderSubItem.acceptedWidgets,
+          rejectedWidgets: placeholderSubItem.rejectedWidgets,
+          selectedWidgets: placeholderSubItem.selectedWidgets,
+          maxWidget: placeholderSubItem.maxWidget,
+          showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("listings_header_".concat(index, "_").concat(subIndex)),
+          widgetDropable: _vm.widgetIsDropable(placeholderSubItem)
         },
         on: {
           "insert-widget": function insertWidget($event) {
@@ -34023,26 +33961,26 @@ var render = function render() {
           }
         }
       });
-    }), 1), _vm._v(" "), _c('div', {
+    }), 1), _vm._v(" "), _c("div", {
       staticClass: "cptm-drag-element las la-arrows-alt"
-    })]) : _vm._e(), _vm._v(" "), placeholderItem.type == 'placeholder_item' ? _c('div', {
+    })]) : _vm._e(), _vm._v(" "), placeholderItem.type == "placeholder_item" ? _c("div", {
       staticClass: "draggable-item"
-    }, [_c('div', {
+    }, [_c("div", {
       staticClass: "cptm-preview-placeholder__card__item cptm-preview-placeholder__card__item--bottom"
-    }, [_c('card-widget-placeholder', {
+    }, [_c("card-widget-placeholder", {
       attrs: {
-        "placeholderKey": placeholderItem.placeholderKey,
-        "id": 'listings_header_' + index,
-        "containerClass": "cptm-preview-placeholder__card__box cptm-card-light",
-        "label": placeholderItem.label,
-        "availableWidgets": _vm.theAvailableWidgets,
-        "activeWidgets": _vm.active_widgets,
-        "acceptedWidgets": placeholderItem.acceptedWidgets,
-        "rejectedWidgets": placeholderItem.rejectedWidgets,
-        "selectedWidgets": placeholderItem.selectedWidgets,
-        "maxWidget": placeholderItem.maxWidget,
-        "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('listings_header_' + index),
-        "widgetDropable": _vm.widgetIsDropable(placeholderItem)
+        placeholderKey: placeholderItem.placeholderKey,
+        id: "listings_header_" + index,
+        containerClass: "cptm-preview-placeholder__card__box cptm-card-light",
+        label: placeholderItem.label,
+        availableWidgets: _vm.theAvailableWidgets,
+        activeWidgets: _vm.active_widgets,
+        acceptedWidgets: placeholderItem.acceptedWidgets,
+        rejectedWidgets: placeholderItem.rejectedWidgets,
+        selectedWidgets: placeholderItem.selectedWidgets,
+        maxWidget: placeholderItem.maxWidget,
+        showWidgetsPickerWindow: _vm.getActiveInsertWindowStatus("listings_header_" + index),
+        widgetDropable: _vm.widgetIsDropable(placeholderItem)
       },
       on: {
         "insert-widget": function insertWidget($event) {
@@ -34067,32 +34005,32 @@ var render = function render() {
           return _vm.handleDropOnPlaceholder(placeholderItem);
         },
         "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-          return _vm.activeInsertWindow('listings_header_' + index);
+          return _vm.activeInsertWindow("listings_header_" + index);
         },
         "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
           return _vm.closeInsertWindow();
         }
       }
-    })], 1), _vm._v(" "), _c('div', {
+    })], 1), _vm._v(" "), _c("div", {
       staticClass: "cptm-drag-element las la-arrows-alt"
     })]) : _vm._e()]);
-  }), 1), _vm._v(" "), _c('div', {
+  }), 1), _vm._v(" "), _c("div", {
     staticClass: "cptm-placeholder-buttons"
   }, [_vm._l(Object.keys(_vm.placeholdersMap), function (placeholderKey) {
-    return [_vm.canShowAddPlaceholderButton(placeholderKey) ? _c('div', {
+    return [_vm.canShowAddPlaceholderButton(placeholderKey) ? _c("div", {
       key: placeholderKey,
       staticClass: "cptm-preview-placeholder__card__action"
-    }, [_c('button', {
+    }, [_c("button", {
       staticClass: "cptm-preview-placeholder__card__btn",
       attrs: {
-        "type": "button"
+        type: "button"
       },
       on: {
-        "click": function click($event) {
+        click: function click($event) {
           return _vm.addPlaceholder(placeholderKey);
         }
       }
-    }, [_c('span', {
+    }, [_c("span", {
       staticClass: "icon fa fa-plus"
     }), _vm._v("\n              " + _vm._s(_vm.getAddPlaceholderButtonLabel(placeholderKey)) + "\n            ")])]) : _vm._e()];
   })], 2)], 1)])]);
@@ -34117,17 +34055,17 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _vm.canShow ? _c(_vm.getTheTheme('checkbox-field'), _vm._b({
+  return _vm.canShow ? _c(_vm.getTheTheme("checkbox-field"), _vm._b({
     tag: "component",
     on: {
       "do-action": function doAction($event) {
-        return _vm.$emit('do-action', $event);
+        return _vm.$emit("do-action", $event);
       },
-      "update": function update($event) {
-        return _vm.$emit('update', $event);
+      update: function update($event) {
+        return _vm.$emit("update", $event);
       }
     }
-  }, 'component', _vm.$props, false)) : _vm._e();
+  }, "component", _vm.$props, false)) : _vm._e();
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -34149,20 +34087,20 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _vm.canShow ? _c(_vm.getTheTheme('color-field'), _vm._b({
+  return _vm.canShow ? _c(_vm.getTheTheme("color-field"), _vm._b({
     tag: "component",
     attrs: {
-      "canChange": _vm.canChange
+      canChange: _vm.canChange
     },
     on: {
       "do-action": function doAction($event) {
-        return _vm.$emit('do-action', $event);
+        return _vm.$emit("do-action", $event);
       },
-      "update": function update($event) {
-        return _vm.$emit('update', $event);
+      update: function update($event) {
+        return _vm.$emit("update", $event);
       }
     }
-  }, 'component', _vm.$props, false)) : _vm._e();
+  }, "component", _vm.$props, false)) : _vm._e();
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -34184,45 +34122,45 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "directorist-input-wrap directorist-footer-wrap"
-  }, [!_vm.isButtonEditable ? _c('div', {
+  }, [!_vm.isButtonEditable ? _c("div", {
     staticClass: "directorist-input"
-  }, [_c('button', {
+  }, [_c("button", {
     staticClass: "cptm-btn",
     attrs: {
-      "type": "button",
+      type: "button",
       "data-info": "Click to edit button text"
     },
     on: {
-      "click": _vm.showEditableButton
+      click: _vm.showEditableButton
     }
-  }, [_c('span', {
+  }, [_c("span", {
     staticClass: "cptm-save-text",
     domProps: {
-      "innerHTML": _vm._s(_vm.value)
+      innerHTML: _vm._s(_vm.value)
     }
-  }), _vm._v(" "), _c('span', {
+  }), _vm._v(" "), _c("span", {
     staticClass: "cptm-save-icon la la-pen"
-  })])]) : _vm._e(), _vm._v(" "), _vm.isButtonEditable ? _c('div', {
+  })])]) : _vm._e(), _vm._v(" "), _vm.isButtonEditable ? _c("div", {
     staticClass: "directorist-input"
   }, [_c("text-field", {
     ref: "formGroup",
     tag: "component",
     attrs: {
-      "value": _vm.value
+      value: _vm.value
     },
     on: {
-      "enter": _vm.hideEditableButton,
-      "blur": _vm.hideEditableButton,
-      "update": function update($event) {
-        return _vm.$emit('update', $event);
+      enter: _vm.hideEditableButton,
+      blur: _vm.hideEditableButton,
+      update: function update($event) {
+        return _vm.$emit("update", $event);
       },
       "do-action": function doAction($event) {
-        return _vm.$emit('do-action', $event);
+        return _vm.$emit("do-action", $event);
       },
-      "validate": function validate($event) {
-        return _vm.$emit('validate', $event);
+      validate: function validate($event) {
+        return _vm.$emit("validate", $event);
       }
     }
   })], 1) : _vm._e()]);
@@ -34247,14 +34185,14 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _vm.canShow ? _c(_vm.getTheTheme('export-data-field'), _vm._b({
+  return _vm.canShow ? _c(_vm.getTheTheme("export-data-field"), _vm._b({
     tag: "component",
     on: {
       "do-action": function doAction($event) {
-        return _vm.$emit('do-action', $event);
+        return _vm.$emit("do-action", $event);
       }
     }
-  }, 'component', _vm.$props, false)) : _vm._e();
+  }, "component", _vm.$props, false)) : _vm._e();
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -34276,14 +34214,14 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _vm.canShow ? _c(_vm.getTheTheme('export-field'), _vm._b({
+  return _vm.canShow ? _c(_vm.getTheTheme("export-field"), _vm._b({
     tag: "component",
     on: {
       "do-action": function doAction($event) {
-        return _vm.$emit('do-action', $event);
+        return _vm.$emit("do-action", $event);
       }
     }
-  }, 'component', _vm.$props, false)) : _vm._e();
+  }, "component", _vm.$props, false)) : _vm._e();
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -34305,20 +34243,20 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-multi-option-group"
-  }, [_vm.label.length ? _c('h3', {
+  }, [_vm.label.length ? _c("h3", {
     staticClass: "cptm-multi-option-label"
   }, [_vm._v(_vm._s(_vm.label))]) : _vm._e(), _vm._v(" "), _vm._l(_vm.local_fields, function (field, field_key) {
-    return [_c(field.type + '-field', _vm._b({
+    return [_c(field.type + "-field", _vm._b({
       key: field_key,
       tag: "component",
       on: {
-        "update": function update($event) {
+        update: function update($event) {
           return _vm.updateValue(field_key, $event);
         }
       }
-    }, 'component', field, false))];
+    }, "component", field, false))];
   })], 2);
 };
 var staticRenderFns = [];
@@ -34341,12 +34279,12 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-form-builder cptm-row"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-col-5 cptm-col-sticky"
   }, [_vm._l(_vm.widgets, function (widget_group, widget_group_key) {
-    return [_c('form-builder-widget-list-section-component', _vm._b({
+    return [_c("form-builder-widget-list-section-component", _vm._b({
       attrs: {
         "field-id": _vm.fieldId,
         "widget-group": widget_group_key,
@@ -34362,27 +34300,27 @@ var render = function render() {
           return _vm.handleWidgetListItemDragEnd(widget_group_key, $event);
         }
       }
-    }, 'form-builder-widget-list-section-component', widget_group, false))];
-  })], 2), _vm._v(" "), _c('div', {
+    }, "form-builder-widget-list-section-component", widget_group, false))];
+  })], 2), _vm._v(" "), _c("div", {
     staticClass: "cptm-col-7"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-form-builder-active-fields"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-form-builder-active-fields-container cptm-col-sticky"
   }, [_vm._l(_vm.active_widget_groups, function (widget_group, widget_group_key) {
-    return _c('draggable-list-item-wrapper', {
+    return _c("draggable-list-item-wrapper", {
       key: widget_group_key,
       attrs: {
         "list-id": "widget-group",
         "is-dragging-self": _vm.currentDraggingGroup && widget_group_key === _vm.currentDraggingGroup.widget_group_key,
-        "droppable": _vm.currentDraggingGroup
+        droppable: _vm.currentDraggingGroup
       },
       on: {
-        "drop": function drop($event) {
+        drop: function drop($event) {
           return _vm.handleGroupDrop(widget_group_key, $event);
         }
       }
-    }, [_c('form-builder-widget-group-component', {
+    }, [_c("form-builder-widget-group-component", {
       attrs: {
         "group-key": widget_group_key,
         "field-id": _vm.fieldId,
@@ -34427,18 +34365,18 @@ var render = function render() {
         }
       }
     })], 1);
-  }), _vm._v(" "), _vm.showAddNewGroupButton ? _c('div', {
+  }), _vm._v(" "), _vm.showAddNewGroupButton ? _c("div", {
     staticClass: "cptm-form-builder-active-fields-footer"
-  }, [_c('button', {
+  }, [_c("button", {
     staticClass: "cptm-btn cptm-btn-secondery",
     attrs: {
-      "type": "button"
+      type: "button"
     },
     domProps: {
-      "innerHTML": _vm._s(_vm.addNewGroupButtonLabel)
+      innerHTML: _vm._s(_vm.addNewGroupButtonLabel)
     },
     on: {
-      "click": function click($event) {
+      click: function click($event) {
         return _vm.addNewGroup();
       }
     }
@@ -34464,16 +34402,16 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('text-field', _vm._b({
+  return _c("text-field", _vm._b({
     on: {
-      "update": function update($event) {
-        return _vm.$emit('update', $event);
+      update: function update($event) {
+        return _vm.$emit("update", $event);
       },
       "do-action": function doAction($event) {
-        return _vm.$emit('do-action', $event);
+        return _vm.$emit("do-action", $event);
       }
     }
-  }, 'text-field', _vm.$props, false));
+  }, "text-field", _vm.$props, false));
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -34495,9 +34433,9 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-form-group directorist-type-icon-select"
-  }, [_c('div', {
+  }, [_c("div", {
     ref: "iconPickerElm",
     staticClass: "icon-picker-wrap"
   })]);
@@ -34522,15 +34460,15 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-form-group"
-  }, [_c('label', [_vm._v(_vm._s(_vm.label))]), _vm._v(" "), _c('input', {
+  }, [_c("label", [_vm._v(_vm._s(_vm.label))]), _vm._v(" "), _c("input", {
     attrs: {
-      "type": "file"
+      type: "file"
     },
     on: {
-      "change": function change($event) {
-        return _vm.$emit('update', $event.target.files);
+      change: function change($event) {
+        return _vm.$emit("update", $event.target.files);
       }
     }
   })]);
@@ -34555,14 +34493,14 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _vm.canShow ? _c(_vm.getTheTheme('import-field'), _vm._b({
+  return _vm.canShow ? _c(_vm.getTheTheme("import-field"), _vm._b({
     tag: "component",
     on: {
       "do-action": function doAction($event) {
-        return _vm.$emit('do-action', $event);
+        return _vm.$emit("do-action", $event);
       }
     }
-  }, 'component', _vm.$props, false)) : _vm._e();
+  }, "component", _vm.$props, false)) : _vm._e();
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -34584,34 +34522,34 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-form-group",
     class: _vm.formGroupClass
-  }, [!_vm.hidden && _vm.label.length ? _c('label', {
+  }, [!_vm.hidden && _vm.label.length ? _c("label", {
     attrs: {
-      "for": _vm.name
+      for: _vm.name
     }
-  }, [_vm._v(_vm._s(_vm.label))]) : _vm._e(), _vm._v(" "), _c('input', {
+  }, [_vm._v(_vm._s(_vm.label))]) : _vm._e(), _vm._v(" "), _c("input", {
     staticClass: "cptm-form-control",
     attrs: {
-      "type": !_vm.hidden ? 'text' : 'hidden',
-      "placeholder": _vm.placeholder
+      type: !_vm.hidden ? "text" : "hidden",
+      placeholder: _vm.placeholder
     },
     domProps: {
-      "value": _vm.theValue
+      value: _vm.theValue
     },
     on: {
-      "input": function input($event) {
+      input: function input($event) {
         return _vm.updateValue($event.target.value);
       }
     }
-  }), _vm._v(" "), !_vm.hidden && _vm.hasError ? _c('div', {
+  }), _vm._v(" "), !_vm.hidden && _vm.hasError ? _c("div", {
     staticClass: "cptm-form-group-feedback"
   }, _vm._l(_vm.validationMessages, function (alert, alert_key) {
-    return _c('div', {
+    return _c("div", {
       key: alert_key,
       staticClass: "cptm-form-alert",
-      class: 'cptm-' + alert.type
+      class: "cptm-" + alert.type
     }, [_vm._v("\r\n            " + _vm._s(alert.message) + "\r\n        ")]);
   }), 0) : _vm._e()]);
 };
@@ -34635,51 +34573,51 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-multi-option-group"
-  }, [_c('h3', {
+  }, [_c("h3", {
     staticClass: "cptm-multi-option-label"
   }, [_vm._v(_vm._s(_vm.label))]), _vm._v(" "), _vm._l(_vm.theActiveGroups, function (option_group, option_group_key) {
-    return [_c('div', {
+    return [_c("div", {
       key: option_group_key,
       staticClass: "cptm-multi-option-group-section"
-    }, [_c('h3', [_vm._v("# " + _vm._s(option_group_key + 1))]), _vm._v(" "), _vm._l(option_group, function (option, option_key) {
-      return [_c(option.type + '-field', _vm._b({
+    }, [_c("h3", [_vm._v("# " + _vm._s(option_group_key + 1))]), _vm._v(" "), _vm._l(option_group, function (option, option_key) {
+      return [_c(option.type + "-field", _vm._b({
         key: "".concat(_vm.fieldId, "_").concat(option_key),
         tag: "component",
         attrs: {
-          "root": option_group,
-          "validation": _vm.getValidation(option_key, option_group_key, option),
-          "value": option.value
+          root: option_group,
+          validation: _vm.getValidation(option_key, option_group_key, option),
+          value: option.value
         },
         on: {
-          "update": function update($event) {
+          update: function update($event) {
             return _vm.updateValue(option_group_key, option_key, $event);
           }
         }
-      }, 'component', _vm.getSanitizedOption(option), false))];
-    }), _vm._v(" "), _c('p', {
+      }, "component", _vm.getSanitizedOption(option), false))];
+    }), _vm._v(" "), _c("p", {
       staticStyle: {
         "text-align": "right"
       }
-    }, [_c('button', {
+    }, [_c("button", {
       staticClass: "cptm-btn cptm-btn-secondery",
       attrs: {
-        "type": "button"
+        type: "button"
       },
       on: {
-        "click": function click($event) {
+        click: function click($event) {
           return _vm.removeOptionGroup(option_group_key);
         }
       }
     }, [_vm._v("\n                    " + _vm._s(_vm.removeButtonLabel) + "\n                ")])])], 2)];
-  }), _vm._v(" "), _c('button', {
+  }), _vm._v(" "), _c("button", {
     staticClass: "cptm-btn cptm-btn-primary",
     attrs: {
-      "type": "button"
+      type: "button"
     },
     on: {
-      "click": function click($event) {
+      click: function click($event) {
         return _vm.addNewOptionGroup();
       }
     }
@@ -34705,17 +34643,17 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _vm.canShow ? _c(_vm.getTheTheme('note-field'), _vm._b({
+  return _vm.canShow ? _c(_vm.getTheTheme("note-field"), _vm._b({
     tag: "component",
     on: {
       "do-action": function doAction($event) {
-        return _vm.$emit('do-action', $event);
+        return _vm.$emit("do-action", $event);
       },
-      "update": function update($event) {
-        return _vm.$emit('update', $event);
+      update: function update($event) {
+        return _vm.$emit("update", $event);
       }
     }
-  }, 'component', _vm.$props, false)) : _vm._e();
+  }, "component", _vm.$props, false)) : _vm._e();
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -34737,19 +34675,19 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('text-field', _vm._b({
+  return _c("text-field", _vm._b({
     on: {
-      "update": function update($event) {
-        return _vm.$emit('update', $event);
+      update: function update($event) {
+        return _vm.$emit("update", $event);
       },
       "do-action": function doAction($event) {
-        return _vm.$emit('do-action', $event);
+        return _vm.$emit("do-action", $event);
       },
-      "validate": function validate($event) {
-        return _vm.$emit('validate', $event);
+      validate: function validate($event) {
+        return _vm.$emit("validate", $event);
       }
     }
-  }, 'text-field', _vm.$props, false));
+  }, "text-field", _vm.$props, false));
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -34771,16 +34709,16 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('text-field', _vm._b({
+  return _c("text-field", _vm._b({
     on: {
-      "update": function update($event) {
-        return _vm.$emit('update', $event);
+      update: function update($event) {
+        return _vm.$emit("update", $event);
       },
       "do-action": function doAction($event) {
-        return _vm.$emit('do-action', $event);
+        return _vm.$emit("do-action", $event);
       }
     }
-  }, 'text-field', _vm.$props, false));
+  }, "text-field", _vm.$props, false));
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -34802,14 +34740,14 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _vm.canShow ? _c(_vm.getTheTheme('radio-field'), _vm._b({
+  return _vm.canShow ? _c(_vm.getTheTheme("radio-field"), _vm._b({
     tag: "component",
     on: {
-      "update": function update($event) {
-        return _vm.$emit('update', $event);
+      update: function update($event) {
+        return _vm.$emit("update", $event);
       }
     }
-  }, 'component', _vm.$props, false)) : _vm._e();
+  }, "component", _vm.$props, false)) : _vm._e();
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -34831,17 +34769,17 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _vm.canShow ? _c(_vm.getTheTheme('range-field'), _vm._b({
+  return _vm.canShow ? _c(_vm.getTheTheme("range-field"), _vm._b({
     tag: "component",
     on: {
       "do-action": function doAction($event) {
-        return _vm.$emit('do-action', $event);
+        return _vm.$emit("do-action", $event);
       },
-      "update": function update($event) {
-        return _vm.$emit('update', $event);
+      update: function update($event) {
+        return _vm.$emit("update", $event);
       }
     }
-  }, 'component', _vm.$props, false)) : _vm._e();
+  }, "component", _vm.$props, false)) : _vm._e();
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -34863,14 +34801,14 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', [_c('draggable', {
+  return _c("div", [_c("draggable", {
     staticClass: "form-repeater__container",
     attrs: {
-      "handle": ".form-repeater__drag-handle"
+      handle: ".form-repeater__drag-handle"
     },
     on: {
-      "start": _vm.onDragStart,
-      "end": _vm.onDragEnd
+      start: _vm.onDragStart,
+      end: _vm.onDragEnd
     },
     model: {
       value: _vm.active_fields_groups,
@@ -34880,70 +34818,70 @@ var render = function render() {
       expression: "active_fields_groups"
     }
   }, _vm._l(_vm.active_fields_groups, function (group, index) {
-    return _c('div', {
+    return _c("div", {
       key: group.id,
       staticClass: "form-repeater__group",
       attrs: {
-        "id": 'form-repeater__group-' + (index + 1)
+        id: "form-repeater__group-" + (index + 1)
       }
-    }, [_c('button', {
+    }, [_c("button", {
       staticClass: "form-repeater__drag-handle form-repeater__drag-btn",
       attrs: {
-        "disabled": _vm.active_fields_groups.length <= 1
+        disabled: _vm.active_fields_groups.length <= 1
       }
-    }, [_c('i', {
+    }, [_c("i", {
       staticClass: "uil uil-draggabledots"
-    })]), _vm._v(" "), _c('input', {
+    })]), _vm._v(" "), _c("input", {
       staticClass: "form-repeater__input",
       class: {
-        'form-repeater__input-value-added': group.value
+        "form-repeater__input-value-added": group.value
       },
       attrs: {
-        "id": group.id,
-        "placeholder": _vm.placeholder
+        id: group.id,
+        placeholder: _vm.placeholder
       },
       domProps: {
-        "value": group.value
+        value: group.value
       },
       on: {
-        "input": function input($event) {
+        input: function input($event) {
           return _vm.updateGroupField(index, $event.target.value);
         }
       }
-    }), _vm._v(" "), _c('button', {
+    }), _vm._v(" "), _c("button", {
       staticClass: "form-repeater__remove-btn",
       attrs: {
-        "disabled": _vm.active_fields_groups.length <= 1
+        disabled: _vm.active_fields_groups.length <= 1
       },
       on: {
-        "click": function click($event) {
+        click: function click($event) {
           return _vm.handleTrashClick(index);
         }
       }
-    }, [_c('i', {
+    }, [_c("i", {
       staticClass: "uil uil-trash-alt"
     })])]);
-  }), 0), _vm._v(" "), _c('button', {
+  }), 0), _vm._v(" "), _c("button", {
     staticClass: "form-repeater__add-group-btn",
     attrs: {
-      "disabled": _vm.active_fields_groups.length >= _vm.maxGroups
+      disabled: _vm.active_fields_groups.length >= _vm.maxGroups
     },
     on: {
-      "click": _vm.addNewOptionGroup
+      click: _vm.addNewOptionGroup
     }
-  }, [_c('i', {
+  }, [_c("i", {
     staticClass: "uil uil-plus"
-  }), _vm._v(_vm._s(_vm.addNewButtonLabel) + "\n  ")]), _vm._v(" "), _c('confirmation-modal', {
+  }), _vm._v(_vm._s(_vm.addNewButtonLabel) + "\n  ")]), _vm._v(" "), _c("confirmation-modal", {
     attrs: {
-      "visible": _vm.showConfirmationModal,
-      "widgetName": _vm.widgetName,
-      "reviewDeleteTitle": _vm.reviewDeleteTitle,
-      "reviewDeleteMsg": _vm.reviewDeleteMsg,
-      "reviewCancelBtnText": _vm.reviewCancelBtnText
+      visible: _vm.showConfirmationModal,
+      widgetName: _vm.widgetName,
+      reviewDeleteTitle: _vm.reviewDeleteTitle,
+      reviewDeleteMsg: _vm.reviewDeleteMsg,
+      reviewCancelBtnText: _vm.reviewCancelBtnText
     },
     on: {
-      "confirm": _vm.trashWidget,
-      "cancel": _vm.closeConfirmationModal
+      confirm: _vm.trashWidget,
+      cancel: _vm.closeConfirmationModal
     }
   })], 1);
 };
@@ -34967,14 +34905,14 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _vm.canShow ? _c(_vm.getTheTheme('restore-field'), _vm._b({
+  return _vm.canShow ? _c(_vm.getTheTheme("restore-field"), _vm._b({
     tag: "component",
     on: {
       "do-action": function doAction($event) {
-        return _vm.$emit('do-action', $event);
+        return _vm.$emit("do-action", $event);
       }
     }
-  }, 'component', _vm.$props, false)) : _vm._e();
+  }, "component", _vm.$props, false)) : _vm._e();
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -34996,12 +34934,12 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-form-group",
     class: _vm.formGroupClass
-  }, [_vm.label.length ? _c('label', [_vm._v(_vm._s(_vm.label))]) : _vm._e(), _vm._v(" "), _c('pre', [_vm._v(_vm._s(_vm.selected))]), _vm._v(" "), _c('multiselect', {
+  }, [_vm.label.length ? _c("label", [_vm._v(_vm._s(_vm.label))]) : _vm._e(), _vm._v(" "), _c("pre", [_vm._v(_vm._s(_vm.selected))]), _vm._v(" "), _c("multiselect", {
     attrs: {
-      "options": _vm.options_1
+      options: _vm.options_1
     },
     model: {
       value: _vm.selected,
@@ -35010,11 +34948,11 @@ var render = function render() {
       },
       expression: "selected"
     }
-  }), _vm._v(" "), _vm.validationMessages ? _c('div', {
+  }), _vm._v(" "), _vm.validationMessages ? _c("div", {
     staticClass: "cptm-form-group-feedback"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-form-alert",
-    class: 'cptm-' + _vm.validationMessages.type
+    class: "cptm-" + _vm.validationMessages.type
   }, [_vm._v("\n            " + _vm._s(_vm.validationMessages.message) + "\n        ")])]) : _vm._e()], 1);
 };
 var staticRenderFns = [];
@@ -35037,17 +34975,17 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _vm.canShow ? _c(_vm.getTheTheme('select-field'), _vm._b({
+  return _vm.canShow ? _c(_vm.getTheTheme("select-field"), _vm._b({
     tag: "component",
     on: {
       "do-action": function doAction($event) {
-        return _vm.$emit('do-action', $event);
+        return _vm.$emit("do-action", $event);
       },
-      "update": function update($event) {
-        return _vm.$emit('update', $event);
+      update: function update($event) {
+        return _vm.$emit("update", $event);
       }
     }
-  }, 'component', _vm.$props, false)) : _vm._e();
+  }, "component", _vm.$props, false)) : _vm._e();
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -35069,20 +35007,20 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _vm.canShow ? _c(_vm.getTheTheme('shortcode-field'), _vm._b({
+  return _vm.canShow ? _c(_vm.getTheTheme("shortcode-field"), _vm._b({
     tag: "component",
     on: {
-      "update": function update($event) {
-        return _vm.$emit('update', $event);
+      update: function update($event) {
+        return _vm.$emit("update", $event);
       },
       "do-action": function doAction($event) {
-        return _vm.$emit('do-action', $event);
+        return _vm.$emit("do-action", $event);
       },
-      "validate": function validate($event) {
-        return _vm.$emit('validate', $event);
+      validate: function validate($event) {
+        return _vm.$emit("validate", $event);
       }
     }
-  }, 'component', _vm.$props, false)) : _vm._e();
+  }, "component", _vm.$props, false)) : _vm._e();
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -35104,20 +35042,20 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _vm.canShow ? _c(_vm.getTheTheme('shortcode-list-field'), _vm._b({
+  return _vm.canShow ? _c(_vm.getTheTheme("shortcode-list-field"), _vm._b({
     tag: "component",
     on: {
-      "update": function update($event) {
-        return _vm.$emit('update', $event);
+      update: function update($event) {
+        return _vm.$emit("update", $event);
       },
       "do-action": function doAction($event) {
-        return _vm.$emit('do-action', $event);
+        return _vm.$emit("do-action", $event);
       },
-      "validate": function validate($event) {
-        return _vm.$emit('validate', $event);
+      validate: function validate($event) {
+        return _vm.$emit("validate", $event);
       }
     }
-  }, 'component', _vm.$props, false)) : _vm._e();
+  }, "component", _vm.$props, false)) : _vm._e();
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -35139,14 +35077,14 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _vm.canShow ? _c(_vm.getTheTheme('tab-field'), _vm._b({
+  return _vm.canShow ? _c(_vm.getTheTheme("tab-field"), _vm._b({
     tag: "component",
     on: {
-      "update": function update($event) {
-        return _vm.$emit('update', $event);
+      update: function update($event) {
+        return _vm.$emit("update", $event);
       }
     }
-  }, 'component', _vm.$props, false)) : _vm._e();
+  }, "component", _vm.$props, false)) : _vm._e();
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -35168,29 +35106,29 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _vm.canShow ? _c(_vm.getTheTheme('text-field'), _vm._b({
+  return _vm.canShow ? _c(_vm.getTheTheme("text-field"), _vm._b({
     tag: "component",
     attrs: {
-      "canChange": _vm.canChange
+      canChange: _vm.canChange
     },
     on: {
-      "enter": function enter($event) {
-        return _vm.$emit('enter', $event);
+      enter: function enter($event) {
+        return _vm.$emit("enter", $event);
       },
-      "blur": function blur($event) {
-        return _vm.$emit('blur', $event);
+      blur: function blur($event) {
+        return _vm.$emit("blur", $event);
       },
-      "update": function update($event) {
-        return _vm.$emit('update', $event);
+      update: function update($event) {
+        return _vm.$emit("update", $event);
       },
       "do-action": function doAction($event) {
-        return _vm.$emit('do-action', $event);
+        return _vm.$emit("do-action", $event);
       },
-      "validate": function validate($event) {
-        return _vm.$emit('validate', $event);
+      validate: function validate($event) {
+        return _vm.$emit("validate", $event);
       }
     }
-  }, 'component', _vm.$props, false)) : _vm._e();
+  }, "component", _vm.$props, false)) : _vm._e();
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -35212,17 +35150,17 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _vm.canShow ? _c(_vm.getTheTheme('textarea-field'), _vm._b({
+  return _vm.canShow ? _c(_vm.getTheTheme("textarea-field"), _vm._b({
     tag: "component",
     on: {
       "do-action": function doAction($event) {
-        return _vm.$emit('do-action', $event);
+        return _vm.$emit("do-action", $event);
       },
-      "update": function update($event) {
-        return _vm.$emit('update', $event);
+      update: function update($event) {
+        return _vm.$emit("update", $event);
       }
     }
-  }, 'component', _vm.$props, false)) : _vm._e();
+  }, "component", _vm.$props, false)) : _vm._e();
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -35244,17 +35182,17 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _vm.canShow ? _c(_vm.getTheTheme('toggle-field'), _vm._b({
+  return _vm.canShow ? _c(_vm.getTheTheme("toggle-field"), _vm._b({
     tag: "component",
     on: {
       "do-action": function doAction($event) {
-        return _vm.$emit('do-action', $event);
+        return _vm.$emit("do-action", $event);
       },
-      "update": function update($event) {
-        return _vm.$emit('update', $event);
+      update: function update($event) {
+        return _vm.$emit("update", $event);
       }
     }
-  }, 'component', _vm.$props, false)) : _vm._e();
+  }, "component", _vm.$props, false)) : _vm._e();
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -35276,17 +35214,17 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _vm.canShow ? _c(_vm.getTheTheme('wp-media-picker-field'), _vm._b({
+  return _vm.canShow ? _c(_vm.getTheTheme("wp-media-picker-field"), _vm._b({
     tag: "component",
     on: {
       "do-action": function doAction($event) {
-        return _vm.$emit('do-action', $event);
+        return _vm.$emit("do-action", $event);
       },
-      "update": function update($event) {
-        return _vm.$emit('update', $event);
+      update: function update($event) {
+        return _vm.$emit("update", $event);
       }
     }
-  }, 'component', _vm.$props, false)) : _vm._e();
+  }, "component", _vm.$props, false)) : _vm._e();
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -35308,50 +35246,50 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-form-group"
-  }, [_c('sub-fields-module', {
+  }, [_c("sub-fields-module", {
     attrs: {
       "option-fields": _vm.optionFields,
-      "value": _vm.value
+      value: _vm.value
     },
     on: {
-      "update": function update($event) {
+      update: function update($event) {
         return _vm.updateOptionData($event);
       }
     }
-  }), _vm._v(" "), _c('div', {
+  }), _vm._v(" "), _c("div", {
     staticClass: "atbdp-row"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "atbdp-col atbdp-col-4"
-  }, [_vm.label.length ? _c('label', [_c(_vm.labelType, {
+  }, [_vm.label.length ? _c("label", [_c(_vm.labelType, {
     tag: "component"
-  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c('p', {
+  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c("p", {
     staticClass: "cptm-form-group-info",
     domProps: {
-      "innerHTML": _vm._s(_vm.description)
+      innerHTML: _vm._s(_vm.description)
     }
-  }) : _vm._e()]), _vm._v(" "), _c('div', {
+  }) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "atbdp-col atbdp-col-8"
-  }, [_c('button', {
+  }, [_c("button", {
     staticClass: "settings-save-btn",
     attrs: {
-      "type": "button",
-      "disabled": _vm.button.is_disabled
+      type: "button",
+      disabled: _vm.button.is_disabled
     },
     domProps: {
-      "innerHTML": _vm._s(_vm.button.label)
+      innerHTML: _vm._s(_vm.button.label)
     },
     on: {
-      "click": function click($event) {
+      click: function click($event) {
         return _vm.submitAjaxRequest();
       }
     }
-  }), _vm._v(" "), _vm.validation_message ? _c('div', {
+  }), _vm._v(" "), _vm.validation_message ? _c("div", {
     staticClass: "cptm-form-group-feedback cptm-my-10"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-form-alert",
-    class: 'cptm-' + _vm.validation_message.type
+    class: "cptm-" + _vm.validation_message.type
   }, [_vm._v("\n                    " + _vm._s(_vm.validation_message.message) + "\n                ")])]) : _vm._e()])])], 1);
 };
 var staticRenderFns = [];
@@ -35374,23 +35312,23 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-form-group cptm-form-group-button-example",
     class: _vm.formGroupClass
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "atbdp-row"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "atbdp-col atbdp-col-4"
-  }, [_vm.label.length ? _c('label', [_c(_vm.labelType, {
+  }, [_vm.label.length ? _c("label", [_c(_vm.labelType, {
     tag: "component"
-  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c('p', {
+  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c("p", {
     staticClass: "cptm-form-group-info",
     domProps: {
-      "innerHTML": _vm._s(_vm.description)
+      innerHTML: _vm._s(_vm.description)
     }
-  }) : _vm._e()]), _vm._v(" "), _c('div', {
+  }) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "atbdp-col atbdp-col-8"
-  }, [_c('button', {
+  }, [_c("button", {
     staticClass: "directorist-btn-example directorist-btn",
     class: _vm.buttonClass,
     style: _vm.buttonStyles
@@ -35416,29 +35354,29 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-form-group"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "atbdp-row"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "atbdp-col atbdp-col-4"
-  }, [_vm.label.length ? _c('label', [_c(_vm.labelType, {
+  }, [_vm.label.length ? _c("label", [_c(_vm.labelType, {
     tag: "component"
-  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c('p', {
+  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c("p", {
     staticClass: "cptm-form-group-info",
     domProps: {
-      "innerHTML": _vm._s(_vm.description)
+      innerHTML: _vm._s(_vm.description)
     }
-  }) : _vm._e()]), _vm._v(" "), _c('div', {
+  }) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "atbdp-col atbdp-col-8"
-  }, [_c('a', {
+  }, [_c("a", {
     staticClass: "settings-save-btn",
     attrs: {
-      "href": _vm.formattedUrl,
-      "target": _vm.openInNewTab ? '_blank' : '_self'
+      href: _vm.formattedUrl,
+      target: _vm.openInNewTab ? "_blank" : "_self"
     },
     domProps: {
-      "innerHTML": _vm._s(_vm.buttonLabel)
+      innerHTML: _vm._s(_vm.buttonLabel)
     }
   })])])]);
 };
@@ -35462,28 +35400,28 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-form-group cptm-theme-butterfly"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "atbdp-row"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "atbdp-col atbdp-col-4"
-  }, [_vm.label.length ? _c('label', [_c(_vm.labelType, {
+  }, [_vm.label.length ? _c("label", [_c(_vm.labelType, {
     tag: "component"
-  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c('p', {
+  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c("p", {
     staticClass: "cptm-form-group-info",
     domProps: {
-      "innerHTML": _vm._s(_vm.description)
+      innerHTML: _vm._s(_vm.description)
     }
-  }) : _vm._e()]), _vm._v(" "), _c('div', {
+  }) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "atbdp-col atbdp-col-8"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-checkbox-area"
   }, _vm._l(_vm.theOptions, function (option, option_index) {
-    return _c('div', {
+    return _c("div", {
       key: option_index,
       staticClass: "cptm-checkbox-item"
-    }, [_c('input', {
+    }, [_c("input", {
       directives: [{
         name: "model",
         rawName: "v-model",
@@ -35492,20 +35430,20 @@ var render = function render() {
       }],
       staticClass: "cptm-checkbox",
       attrs: {
-        "type": "checkbox",
-        "id": _vm.getOptionID(option, option_index, _vm.sectionId)
+        type: "checkbox",
+        id: _vm.getOptionID(option, option_index, _vm.sectionId)
       },
       domProps: {
-        "value": typeof option.value !== 'undefined' ? option.value : '',
-        "checked": Array.isArray(_vm.local_value) ? _vm._i(_vm.local_value, typeof option.value !== 'undefined' ? option.value : '') > -1 : _vm.local_value
+        value: typeof option.value !== "undefined" ? option.value : "",
+        checked: Array.isArray(_vm.local_value) ? _vm._i(_vm.local_value, typeof option.value !== "undefined" ? option.value : "") > -1 : _vm.local_value
       },
       on: {
-        "change": function change($event) {
+        change: function change($event) {
           var $$a = _vm.local_value,
             $$el = $event.target,
             $$c = $$el.checked ? true : false;
           if (Array.isArray($$a)) {
-            var $$v = typeof option.value !== 'undefined' ? option.value : '',
+            var $$v = typeof option.value !== "undefined" ? option.value : "",
               $$i = _vm._i($$a, $$v);
             if ($$el.checked) {
               $$i < 0 && (_vm.local_value = $$a.concat([$$v]));
@@ -35517,32 +35455,32 @@ var render = function render() {
           }
         }
       }
-    }), _vm._v(" "), _c('label', {
+    }), _vm._v(" "), _c("label", {
       staticClass: "cptm-checkbox-ui",
       attrs: {
-        "for": _vm.getOptionID(option, option_index, _vm.sectionId)
+        for: _vm.getOptionID(option, option_index, _vm.sectionId)
       }
-    }), _vm._v(" "), _c('label', {
+    }), _vm._v(" "), _c("label", {
       attrs: {
-        "for": _vm.getOptionID(option, option_index, _vm.sectionId)
+        for: _vm.getOptionID(option, option_index, _vm.sectionId)
       },
       domProps: {
-        "innerHTML": _vm._s(option.label)
+        innerHTML: _vm._s(option.label)
       }
     })]);
-  }), 0), _vm._v(" "), !_vm.theOptions.length ? _c('p', {
+  }), 0), _vm._v(" "), !_vm.theOptions.length ? _c("p", {
     staticClass: "cptm-info-text"
-  }, [_vm._v(_vm._s(_vm.infoTextForNoOption))]) : _vm._e(), _vm._v(" "), _c('form-field-validatior', {
+  }, [_vm._v(_vm._s(_vm.infoTextForNoOption))]) : _vm._e(), _vm._v(" "), _c("form-field-validatior", {
     attrs: {
       "section-id": _vm.sectionId,
       "field-id": _vm.fieldId,
-      "root": _vm.root,
-      "value": _vm.value,
-      "rules": _vm.rules
+      root: _vm.root,
+      value: _vm.value,
+      rules: _vm.rules
     },
     on: {
-      "validate": function validate($event) {
-        return _vm.$emit('validate', $event);
+      validate: function validate($event) {
+        return _vm.$emit("validate", $event);
       }
     },
     model: {
@@ -35574,30 +35512,30 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-form-group",
     class: _vm.formGroupClass
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "atbdp-row"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "atbdp-col atbdp-col-4"
-  }, [_vm.label.length ? _c('label', [_c(_vm.labelType, {
+  }, [_vm.label.length ? _c("label", [_c(_vm.labelType, {
     tag: "component"
-  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c('p', {
+  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c("p", {
     staticClass: "cptm-form-group-info",
     domProps: {
-      "innerHTML": _vm._s(_vm.description)
+      innerHTML: _vm._s(_vm.description)
     }
-  }) : _vm._e()]), _vm._v(" "), _c('div', {
+  }) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "atbdp-col atbdp-col-8"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-color-picker-wrap"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-color-picker"
-  }, [_c('v-input-colorpicker', {
+  }, [_c("v-input-colorpicker", {
     attrs: {
-      "value": _vm.local_value,
-      "picker": "sketch"
+      value: _vm.local_value,
+      picker: "sketch"
     },
     model: {
       value: _vm.local_value,
@@ -35606,19 +35544,19 @@ var render = function render() {
       },
       expression: "local_value"
     }
-  })], 1), _vm._v(" "), _c('div', {
+  })], 1), _vm._v(" "), _c("div", {
     staticClass: "cptm-color-picker-label"
-  }, [_vm._v(_vm._s(_vm.local_value))])]), _vm._v(" "), _c('form-field-validatior', {
+  }, [_vm._v(_vm._s(_vm.local_value))])]), _vm._v(" "), _c("form-field-validatior", {
     attrs: {
       "section-id": _vm.sectionId,
       "field-id": _vm.fieldId,
-      "root": _vm.root,
-      "value": _vm.value,
-      "rules": _vm.rules
+      root: _vm.root,
+      value: _vm.value,
+      rules: _vm.rules
     },
     on: {
-      "validate": function validate($event) {
-        return _vm.$emit('validate', $event);
+      validate: function validate($event) {
+        return _vm.$emit("validate", $event);
       }
     },
     model: {
@@ -35650,32 +35588,32 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-form-group"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "atbdp-row"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "atbdp-col atbdp-col-4"
-  }, [_vm.label.length ? _c('label', [_c(_vm.labelType, {
+  }, [_vm.label.length ? _c("label", [_c(_vm.labelType, {
     tag: "component"
-  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c('p', {
+  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c("p", {
     staticClass: "cptm-form-group-info",
     domProps: {
-      "innerHTML": _vm._s(_vm.description)
+      innerHTML: _vm._s(_vm.description)
     }
-  }) : _vm._e()]), _vm._v(" "), _c('div', {
+  }) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "atbdp-col atbdp-col-8"
-  }, [_c('a', {
+  }, [_c("a", {
     staticClass: "settings-save-btn",
     attrs: {
-      "href": "#",
-      "target": "_blank"
+      href: "#",
+      target: "_blank"
     },
     domProps: {
-      "innerHTML": _vm._s(_vm.button_label)
+      innerHTML: _vm._s(_vm.button_label)
     },
     on: {
-      "click": function click($event) {
+      click: function click($event) {
         $event.preventDefault();
         return _vm.exportData.apply(null, arguments);
       }
@@ -35702,38 +35640,38 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-form-group"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "atbdp-row"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "atbdp-col atbdp-col-4"
-  }, [_vm.label.length ? _c('label', [_c(_vm.labelType, {
+  }, [_vm.label.length ? _c("label", [_c(_vm.labelType, {
     tag: "component"
-  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c('p', {
+  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c("p", {
     staticClass: "cptm-form-group-info",
     domProps: {
-      "innerHTML": _vm._s(_vm.description)
+      innerHTML: _vm._s(_vm.description)
     }
-  }) : _vm._e()]), _vm._v(" "), _c('div', {
+  }) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "atbdp-col atbdp-col-8"
-  }, [_c('button', {
+  }, [_c("button", {
     staticClass: "cptm-btn cptm-btn-secondery",
     attrs: {
-      "type": "button"
+      type: "button"
     },
     on: {
-      "click": function click($event) {
+      click: function click($event) {
         return _vm.exportJSON();
       }
     }
-  }, [_c('span', {
+  }, [_c("span", {
     staticClass: "fas fa-download"
-  }), _vm._v("\n                " + _vm._s(_vm.buttonLabel) + "\n            ")])]), _vm._v(" "), _vm.validation_message ? _c('div', {
+  }), _vm._v("\n                " + _vm._s(_vm.buttonLabel) + "\n            ")])]), _vm._v(" "), _vm.validation_message ? _c("div", {
     staticClass: "cptm-form-group-feedback"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-form-alert",
-    class: 'cptm-' + _vm.validation_message.type
+    class: "cptm-" + _vm.validation_message.type
   }, [_vm._v("\n                " + _vm._s(_vm.validation_message.message) + "\n            ")])]) : _vm._e()])]);
 };
 var staticRenderFns = [];
@@ -35756,43 +35694,43 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-form-group"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "atbdp-row"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "atbdp-col atbdp-col-4"
-  }, [_vm.label.length ? _c('label', [_c(_vm.labelType, {
+  }, [_vm.label.length ? _c("label", [_c(_vm.labelType, {
     tag: "component"
-  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c('p', {
+  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c("p", {
     staticClass: "cptm-form-group-info",
     domProps: {
-      "innerHTML": _vm._s(_vm.description)
+      innerHTML: _vm._s(_vm.description)
     }
-  }) : _vm._e()]), _vm._v(" "), _c('div', {
+  }) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "atbdp-col atbdp-col-8"
-  }, [_c('input', {
+  }, [_c("input", {
     staticClass: "cptm-d-none",
     attrs: {
-      "type": "file",
-      "accept": ".json",
-      "id": _vm.fieldId
+      type: "file",
+      accept: ".json",
+      id: _vm.fieldId
     },
     on: {
-      "input": _vm.importJSON
+      input: _vm.importJSON
     }
-  }), _vm._v(" "), _c('label', {
+  }), _vm._v(" "), _c("label", {
     staticClass: "cptm-btn cptm-label-btn cptm-btn-secondery",
     attrs: {
-      "for": _vm.fieldId
+      for: _vm.fieldId
     }
-  }, [_c('span', {
+  }, [_c("span", {
     staticClass: "fas fa-upload"
-  }), _vm._v("\n                " + _vm._s(_vm.buttonLabel) + "\n            ")]), _vm._v(" "), _vm.validation_message ? _c('div', {
+  }), _vm._v("\n                " + _vm._s(_vm.buttonLabel) + "\n            ")]), _vm._v(" "), _vm.validation_message ? _c("div", {
     staticClass: "cptm-form-group-feedback"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-form-alert",
-    class: 'cptm-' + _vm.validation_message.type
+    class: "cptm-" + _vm.validation_message.type
   }, [_vm._v("\n                    " + _vm._s(_vm.validation_message.message) + "\n                ")])]) : _vm._e()])])]);
 };
 var staticRenderFns = [];
@@ -35815,19 +35753,19 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-form-note"
-  }, [_c('i', {
+  }, [_c("i", {
     staticClass: "fa fa-info-circle"
-  }), _vm._v(" "), _c('div', [_c('h2', {
+  }), _vm._v(" "), _c("div", [_c("h2", {
     staticClass: "cptm-form-note-title",
     domProps: {
-      "innerHTML": _vm._s(_vm.title)
+      innerHTML: _vm._s(_vm.title)
     }
-  }), _vm._v(" "), _vm.description.length ? _c('div', {
+  }), _vm._v(" "), _vm.description.length ? _c("div", {
     staticClass: "cptm-form-note-content",
     domProps: {
-      "innerHTML": _vm._s(_vm.description)
+      innerHTML: _vm._s(_vm.description)
     }
   }) : _vm._e()])]);
 };
@@ -35851,30 +35789,30 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-form-group"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "atbdp-row"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "atbdp-col atbdp-col-4"
-  }, [_vm.label.length ? _c('label', [_c(_vm.labelType, {
+  }, [_vm.label.length ? _c("label", [_c(_vm.labelType, {
     tag: "component"
-  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c('p', {
+  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c("p", {
     staticClass: "cptm-form-group-info",
     domProps: {
-      "innerHTML": _vm._s(_vm.description)
+      innerHTML: _vm._s(_vm.description)
     }
-  }) : _vm._e()]), _vm._v(" "), _c('div', {
+  }) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "atbdp-col atbdp-col-8"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-preview-wrapper"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-radio-area"
   }, _vm._l(_vm.theOptions, function (option, option_index) {
-    return _c('div', {
+    return _c("div", {
       key: option_index,
       staticClass: "cptm-radio-item"
-    }, [_c('input', {
+    }, [_c("input", {
       directives: [{
         name: "model",
         rawName: "v-model",
@@ -35883,37 +35821,37 @@ var render = function render() {
       }],
       staticClass: "cptm-radio",
       attrs: {
-        "type": "radio",
-        "id": _vm.getOptionID(option, option_index, _vm.sectionId),
-        "name": _vm.name
+        type: "radio",
+        id: _vm.getOptionID(option, option_index, _vm.sectionId),
+        name: _vm.name
       },
       domProps: {
-        "value": typeof option.value !== 'undefined' ? option.value : '',
-        "checked": _vm._q(_vm.local_value, typeof option.value !== 'undefined' ? option.value : '')
+        value: typeof option.value !== "undefined" ? option.value : "",
+        checked: _vm._q(_vm.local_value, typeof option.value !== "undefined" ? option.value : "")
       },
       on: {
-        "change": function change($event) {
-          _vm.local_value = typeof option.value !== 'undefined' ? option.value : '';
+        change: function change($event) {
+          _vm.local_value = typeof option.value !== "undefined" ? option.value : "";
         }
       }
-    }), _vm._v(" "), _c('label', {
+    }), _vm._v(" "), _c("label", {
       attrs: {
-        "for": _vm.getOptionID(option, option_index, _vm.sectionId)
+        for: _vm.getOptionID(option, option_index, _vm.sectionId)
       }
     }, [_vm._v("\n                " + _vm._s(option.label) + "\n              ")])]);
-  }), 0), _vm._v(" "), !_vm.theOptions.length ? _c('p', {
+  }), 0), _vm._v(" "), !_vm.theOptions.length ? _c("p", {
     staticClass: "cptm-info-text"
-  }, [_vm._v("\n            " + _vm._s(_vm.infoTextForNoOption) + "\n          ")]) : _vm._e(), _vm._v(" "), _c('form-field-validatior', {
+  }, [_vm._v("\n            " + _vm._s(_vm.infoTextForNoOption) + "\n          ")]) : _vm._e(), _vm._v(" "), _c("form-field-validatior", {
     attrs: {
       "section-id": _vm.sectionId,
       "field-id": _vm.fieldId,
-      "root": _vm.root,
-      "value": _vm.value,
-      "rules": _vm.rules
+      root: _vm.root,
+      value: _vm.value,
+      rules: _vm.rules
     },
     on: {
-      "validate": function validate($event) {
-        return _vm.$emit('validate', $event);
+      validate: function validate($event) {
+        return _vm.$emit("validate", $event);
       }
     },
     model: {
@@ -35923,12 +35861,12 @@ var render = function render() {
       },
       expression: "validationLog"
     }
-  }), _vm._v(" "), _vm.preview ? _c('div', {
+  }), _vm._v(" "), _vm.preview ? _c("div", {
     staticClass: "cptm-preview-area-archive"
   }, _vm._l(Object.keys(_vm.preview), function (previewKey) {
-    return _vm.local_value === previewKey ? _c('img', {
+    return _vm.local_value === previewKey ? _c("img", {
       attrs: {
-        "src": _vm.preview[previewKey]
+        src: _vm.preview[previewKey]
       }
     }) : _vm._e();
   }), 0) : _vm._e()], 1)])])]);
@@ -35953,33 +35891,33 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-form-group"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "atbdp-row"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "atbdp-col atbdp-col-4"
-  }, [_vm.label.length ? _c('label', [_c(_vm.labelType, {
+  }, [_vm.label.length ? _c("label", [_c(_vm.labelType, {
     tag: "component"
-  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c('p', {
+  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c("p", {
     staticClass: "cptm-form-group-info",
     domProps: {
-      "innerHTML": _vm._s(_vm.description)
+      innerHTML: _vm._s(_vm.description)
     }
-  }) : _vm._e()]), _vm._v(" "), _c('div', {
+  }) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "atbdp-col atbdp-col-8"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-form-range-wrap"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-form-range-bar"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "directorist_slider-range"
-  }, [_c('span', {
+  }, [_c("span", {
     staticClass: "directorist_range-bar"
-  }, [_c('span', {
+  }, [_c("span", {
     staticClass: "directorist_range-fill",
     style: _vm.rangeFillStyle
-  })]), _vm._v(" "), _c('input', {
+  })]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -35988,36 +35926,36 @@ var render = function render() {
     }],
     staticClass: "directorist_slider-input",
     attrs: {
-      "type": "range",
-      "id": _vm.fieldId,
-      "step": _vm.theStep,
-      "min": _vm.theMin,
-      "max": _vm.theMax,
-      "name": _vm.name
+      type: "range",
+      id: _vm.fieldId,
+      step: _vm.theStep,
+      min: _vm.theMin,
+      max: _vm.theMax,
+      name: _vm.name
     },
     domProps: {
-      "value": _vm.range_value
+      value: _vm.range_value
     },
     on: {
-      "__r": function __r($event) {
+      __r: function __r($event) {
         _vm.range_value = $event.target.value;
       }
     }
-  })])]), _vm._v(" "), _c('div', {
+  })])]), _vm._v(" "), _c("div", {
     staticClass: "cptm-form-range-output"
-  }, [_c('span', {
+  }, [_c("span", {
     staticClass: "cptm-form-range-output-text"
-  }, [_vm._v(_vm._s(_vm.range_value))])])]), _vm._v(" "), _c('form-field-validatior', {
+  }, [_vm._v(_vm._s(_vm.range_value))])])]), _vm._v(" "), _c("form-field-validatior", {
     attrs: {
       "section-id": _vm.sectionId,
       "field-id": _vm.fieldId,
-      "root": _vm.root,
-      "value": _vm.value,
-      "rules": _vm.rules
+      root: _vm.root,
+      value: _vm.value,
+      rules: _vm.rules
     },
     on: {
-      "validate": function validate($event) {
-        return _vm.$emit('validate', $event);
+      validate: function validate($event) {
+        return _vm.$emit("validate", $event);
       }
     },
     model: {
@@ -36049,38 +35987,38 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-form-group"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "atbdp-row"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "atbdp-col atbdp-col-4"
-  }, [_vm.label.length ? _c('label', [_c(_vm.labelType, {
+  }, [_vm.label.length ? _c("label", [_c(_vm.labelType, {
     tag: "component"
-  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c('p', {
+  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c("p", {
     staticClass: "cptm-form-group-info",
     domProps: {
-      "innerHTML": _vm._s(_vm.description)
+      innerHTML: _vm._s(_vm.description)
     }
-  }) : _vm._e()]), _vm._v(" "), _c('div', {
+  }) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "atbdp-col atbdp-col-8"
-  }, [_c('button', {
+  }, [_c("button", {
     staticClass: "cptm-btn cptm-btn-secondery",
     attrs: {
-      "type": "button"
+      type: "button"
     },
     on: {
-      "click": function click($event) {
+      click: function click($event) {
         return _vm.restore();
       }
     }
-  }, [_c('span', {
+  }, [_c("span", {
     staticClass: "fas fa-sync-alt"
-  }), _vm._v("\n                " + _vm._s(_vm.buttonLabel) + "\n            ")]), _vm._v(" "), _vm.validation_message ? _c('div', {
+  }), _vm._v("\n                " + _vm._s(_vm.buttonLabel) + "\n            ")]), _vm._v(" "), _vm.validation_message ? _c("div", {
     staticClass: "cptm-form-group-feedback"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-form-alert",
-    class: 'cptm-' + _vm.validation_message.type
+    class: "cptm-" + _vm.validation_message.type
   }, [_vm._v("\n                    " + _vm._s(_vm.validation_message.message) + "\n                ")])]) : _vm._e()])])]);
 };
 var staticRenderFns = [];
@@ -36106,118 +36044,118 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-form-group",
     class: _vm.formGroupClass
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "atbdp-row"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "atbdp-col atbdp-col-4"
-  }, [_vm.label.length ? _c('label', {
+  }, [_vm.label.length ? _c("label", {
     class: {
-      'atbdp-label-icon-wrapper': _vm.icon.length
+      "atbdp-label-icon-wrapper": _vm.icon.length
     }
-  }, [_vm.icon.length ? _c('div', {
+  }, [_vm.icon.length ? _c("div", {
     staticClass: "atbdp-label-icon",
     domProps: {
-      "innerHTML": _vm._s(_vm.icon)
+      innerHTML: _vm._s(_vm.icon)
     }
   }) : _vm._e(), _vm._v(" "), _c(_vm.labelType, {
     tag: "component",
     domProps: {
-      "innerHTML": _vm._s(_vm.label)
+      innerHTML: _vm._s(_vm.label)
     }
-  })], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c('p', {
+  })], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c("p", {
     staticClass: "cptm-form-group-info",
     domProps: {
-      "innerHTML": _vm._s(_vm.description)
+      innerHTML: _vm._s(_vm.description)
     }
-  }) : _vm._e()]), _vm._v(" "), _c('div', {
+  }) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "atbdp-col atbdp-col-8"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "directorist_dropdown",
-    class: _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({}, '--open', _vm.show_option_modal)
-  }, [_c('a', {
+    class: _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({}, "--open", _vm.show_option_modal)
+  }, [_c("a", {
     staticClass: "directorist_dropdown-toggle",
     attrs: {
-      "href": "#"
+      href: "#"
     },
     on: {
-      "click": function click($event) {
+      click: function click($event) {
         $event.preventDefault();
         return _vm.toggleTheOptionModal();
       }
     }
-  }, [_c('span', {
+  }, [_c("span", {
     staticClass: "directorist_dropdown-toggle__text"
-  }, [_vm._v(_vm._s(_vm.theCurrentOptionLabel))])]), _vm._v(" "), _vm.theOptions ? _c('div', {
+  }, [_vm._v(_vm._s(_vm.theCurrentOptionLabel))])]), _vm._v(" "), _vm.theOptions ? _c("div", {
     staticClass: "directorist_dropdown-option",
-    class: _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({}, '--show', _vm.show_option_modal)
-  }, [_c('ul', [_vm.showDefaultOption && _vm.theDefaultOption ? _c('li', [_c('a', {
+    class: _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({}, "--show", _vm.show_option_modal)
+  }, [_c("ul", [_vm.showDefaultOption && _vm.theDefaultOption ? _c("li", [_c("a", {
     attrs: {
-      "href": "#"
+      href: "#"
     },
     domProps: {
-      "innerHTML": _vm._s(_vm.theDefaultOption.label ? _vm.theDefaultOption.label : '')
+      innerHTML: _vm._s(_vm.theDefaultOption.label ? _vm.theDefaultOption.label : "")
     },
     on: {
-      "click": function click($event) {
+      click: function click($event) {
         $event.preventDefault();
         return _vm.updateOption(_vm.theDefaultOption.value);
       }
     }
   })]) : _vm._e(), _vm._v(" "), _vm._l(_vm.theOptions, function (option, option_key) {
-    return _c('li', {
+    return _c("li", {
       key: option_key
-    }, [_c('a', {
+    }, [_c("a", {
       class: {
         active: option.value == _vm.value ? true : false
       },
       attrs: {
-        "href": "#"
+        href: "#"
       },
       domProps: {
-        "innerHTML": _vm._s(option.label ? option.label : '')
+        innerHTML: _vm._s(option.label ? option.label : "")
       },
       on: {
-        "click": function click($event) {
+        click: function click($event) {
           $event.preventDefault();
           return _vm.updateOption(option.value);
         }
       }
     })]);
-  })], 2)]) : _vm._e()]), _vm._v(" "), _c('select', {
+  })], 2)]) : _vm._e()]), _vm._v(" "), _c("select", {
     staticClass: "cptm-d-none",
     domProps: {
-      "value": _vm.local_value
+      value: _vm.local_value
     },
     on: {
-      "change": function change($event) {
+      change: function change($event) {
         return _vm.update_value($event.target.value);
       }
     }
-  }, [_vm.showDefaultOption && _vm.theDefaultOption ? _c('option', {
+  }, [_vm.showDefaultOption && _vm.theDefaultOption ? _c("option", {
     domProps: {
-      "value": _vm.theDefaultOption.value
+      value: _vm.theDefaultOption.value
     }
   }, [_vm._v(_vm._s(_vm.theDefaultOption.label))]) : _vm._e(), _vm._v(" "), _vm._l(_vm.theOptions, function (option, option_key) {
-    return _c('option', {
+    return _c("option", {
       key: option_key,
       domProps: {
-        "value": option.value
+        value: option.value
       }
     }, [_vm._v("\n                    " + _vm._s(option.label) + "\n                ")]);
-  })], 2), _vm._v(" "), _c('form-field-validatior', {
+  })], 2), _vm._v(" "), _c("form-field-validatior", {
     attrs: {
       "section-id": _vm.sectionId,
       "field-id": _vm.fieldId,
-      "root": _vm.root,
-      "value": _vm.value,
-      "rules": _vm.rules
+      root: _vm.root,
+      value: _vm.value,
+      rules: _vm.rules
     },
     on: {
-      "validate": function validate($event) {
-        return _vm.$emit('validate', $event);
+      validate: function validate($event) {
+        return _vm.$emit("validate", $event);
       }
     },
     model: {
@@ -36249,38 +36187,38 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-form-group",
     class: _vm.formGroupClass
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "atbdp-row"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "atbdp-col atbdp-col-4"
-  }, [_vm.label.length ? _c('label', [_c(_vm.labelType, {
+  }, [_vm.label.length ? _c("label", [_c(_vm.labelType, {
     tag: "component"
-  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c('p', {
+  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c("p", {
     staticClass: "cptm-form-group-info",
     domProps: {
-      "innerHTML": _vm._s(_vm.description)
+      innerHTML: _vm._s(_vm.description)
     }
-  }) : _vm._e()]), _vm._v(" "), _c('div', {
+  }) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "atbdp-col atbdp-col-8"
-  }, [!_vm.generateShortcode ? _c('input', {
+  }, [!_vm.generateShortcode ? _c("input", {
     staticClass: "cptm-btn cptm-generate-shortcode-button",
     attrs: {
-      "type": "button",
-      "value": "Generate Shortcode"
+      type: "button",
+      value: "Generate Shortcode"
     },
     on: {
-      "click": _vm.generate
+      click: _vm.generate
     }
-  }) : _vm._e(), _vm._v(" "), _vm.generateShortcode ? _c('div', {
+  }) : _vm._e(), _vm._v(" "), _vm.generateShortcode ? _c("div", {
     ref: "shortcode",
     staticClass: "cptm-shortcode",
     on: {
-      "click": _vm.copyToClip
+      click: _vm.copyToClip
     }
-  }, [_vm._v(_vm._s(_vm.shortcode))]) : _vm._e(), _vm._v(" "), _vm.successMsg.length ? _c('div', {
+  }, [_vm._v(_vm._s(_vm.shortcode))]) : _vm._e(), _vm._v(" "), _vm.successMsg.length ? _c("div", {
     staticClass: "cptm-info-text cptm-info-success"
   }, [_vm._v(_vm._s(_vm.successMsg))]) : _vm._e()])])]);
 };
@@ -36304,68 +36242,68 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-form-group",
     class: _vm.formGroupClass
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "atbdp-row"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "atbdp-col atbdp-col-4"
-  }, [_vm.label.length ? _c('label', [_c(_vm.labelType, {
+  }, [_vm.label.length ? _c("label", [_c(_vm.labelType, {
     tag: "component"
-  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c('p', {
+  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c("p", {
     staticClass: "cptm-form-group-info",
     domProps: {
-      "innerHTML": _vm._s(_vm.description)
+      innerHTML: _vm._s(_vm.description)
     }
-  }) : _vm._e()]), _vm._v(" "), _c('div', {
+  }) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "atbdp-col atbdp-col-8"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "directorist-mb-n20"
-  }, [_vm.successMsg.length ? _c('span', {
+  }, [_vm.successMsg.length ? _c("span", {
     staticClass: "cptm-info-text cptm-info-success directorist-center-content-inline",
     domProps: {
-      "innerHTML": _vm._s(_vm.successMsg)
+      innerHTML: _vm._s(_vm.successMsg)
     }
-  }) : _vm._e(), _vm._v(" "), _vm.shortcodes_list.length ? _c('button', {
+  }) : _vm._e(), _vm._v(" "), _vm.shortcodes_list.length ? _c("button", {
     staticClass: "cptm-btn cptm-generate-shortcode-button",
     attrs: {
-      "type": "button"
+      type: "button"
     },
     on: {
-      "click": function click($event) {
-        return _vm.copyToClip('all-shortcodes');
+      click: function click($event) {
+        return _vm.copyToClip("all-shortcodes");
       }
     }
-  }, [_c('span', {
+  }, [_c("span", {
     domProps: {
-      "innerHTML": _vm._s(_vm.copyButtonLabel)
+      innerHTML: _vm._s(_vm.copyButtonLabel)
     }
-  })]) : _vm._e(), _vm._v(" "), _c('button', {
+  })]) : _vm._e(), _vm._v(" "), _c("button", {
     staticClass: "cptm-btn cptm-generate-shortcode-button",
     attrs: {
-      "type": "button"
+      type: "button"
     },
     on: {
-      "click": _vm.generateShortcode
+      click: _vm.generateShortcode
     }
-  }, [_c('span', {
+  }, [_c("span", {
     domProps: {
-      "innerHTML": _vm._s(_vm.generateButtonLabel)
+      innerHTML: _vm._s(_vm.generateButtonLabel)
     }
-  })])]), _vm._v(" "), _vm.dirty ? _c('div', [_vm.shortcodes_list.length ? _c('div', {
+  })])]), _vm._v(" "), _vm.dirty ? _c("div", [_vm.shortcodes_list.length ? _c("div", {
     staticClass: "cptm-shortcodes"
   }, _vm._l(_vm.shortcodes_list, function (shortcode, i) {
-    return _c('p', {
+    return _c("p", {
       key: i,
       ref: "shortcodes",
       refInFor: true,
       staticClass: "directorist-alert",
       domProps: {
-        "innerHTML": _vm._s(shortcode)
+        innerHTML: _vm._s(shortcode)
       }
     });
-  }), 0) : _c('div', [_c('p', {
+  }), 0) : _c("div", [_c("p", {
     staticClass: "directorist-alert"
   }, [_vm._v("Nothing to generate")])])]) : _vm._e()])])]);
 };
@@ -36389,25 +36327,25 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-form-group tab-field"
-  }, [_vm.schema.length ? _c('div', {
+  }, [_vm.schema.length ? _c("div", {
     staticClass: "cptm-schema-tab-area"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-schema-tab-label"
-  }, [_vm._v("\n        " + _vm._s(_vm.schema) + "\n      ")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n        " + _vm._s(_vm.schema) + "\n      ")]), _vm._v(" "), _c("div", {
     staticClass: "cptm-schema-tab-wrapper",
     class: {
-      'cptm-schema-multi-directory-disabled': !_vm.multi_directory_status
+      "cptm-schema-multi-directory-disabled": !_vm.multi_directory_status
     }
   }, _vm._l(_vm.theOptions, function (option, option_index) {
-    return _c('div', {
+    return _c("div", {
       key: option_index,
       staticClass: "cptm-schema-tab-item",
       class: {
-        'active': _vm.local_value === option.value
+        active: _vm.local_value === option.value
       }
-    }, [_c('input', {
+    }, [_c("input", {
       directives: [{
         name: "model",
         rawName: "v-model",
@@ -36416,47 +36354,47 @@ var render = function render() {
       }],
       staticClass: "cptm-schema-radio",
       attrs: {
-        "type": "radio",
-        "id": _vm.getOptionID(option, option_index, _vm.sectionId),
-        "name": _vm.name
+        type: "radio",
+        id: _vm.getOptionID(option, option_index, _vm.sectionId),
+        name: _vm.name
       },
       domProps: {
-        "value": typeof option.value !== 'undefined' ? option.value : '',
-        "checked": _vm._q(_vm.local_value, typeof option.value !== 'undefined' ? option.value : '')
+        value: typeof option.value !== "undefined" ? option.value : "",
+        checked: _vm._q(_vm.local_value, typeof option.value !== "undefined" ? option.value : "")
       },
       on: {
-        "change": function change($event) {
-          _vm.local_value = typeof option.value !== 'undefined' ? option.value : '';
+        change: function change($event) {
+          _vm.local_value = typeof option.value !== "undefined" ? option.value : "";
         }
       }
-    }), _vm._v(" "), _c('label', {
+    }), _vm._v(" "), _c("label", {
       staticClass: "cptm-schema-label-wrapper",
       attrs: {
-        "for": _vm.getOptionID(option, option_index, _vm.sectionId)
+        for: _vm.getOptionID(option, option_index, _vm.sectionId)
       }
-    }, [_c('div', {
+    }, [_c("div", {
       staticClass: "cptm-schema-label"
-    }, [_vm._v("\n              " + _vm._s(option.label) + "\n              "), !_vm.multi_directory_status.length ? _c('span', {
+    }, [_vm._v("\n              " + _vm._s(option.label) + "\n              "), !_vm.multi_directory_status.length ? _c("span", {
       staticClass: "cptm-schema-label-badge"
-    }, [_vm._v("Multi Directory Disabled")]) : _vm._e()]), _vm._v(" "), _c('div', {
+    }, [_vm._v("Multi Directory Disabled")]) : _vm._e()]), _vm._v(" "), _c("div", {
       staticClass: "cptm-schema-label-description"
     }, [_vm._v("\n                " + _vm._s(option.description) + "\n              ")])])]);
-  }), 0)]) : _c('div', {
+  }), 0)]) : _c("div", {
     staticClass: "cptm-preview-wrapper"
-  }, [_vm.label.length ? _c('label', [_c(_vm.labelType, {
+  }, [_vm.label.length ? _c("label", [_c(_vm.labelType, {
     tag: "component"
-  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c('p', {
+  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c("p", {
     staticClass: "cptm-form-group-info",
     domProps: {
-      "innerHTML": _vm._s(_vm.description)
+      innerHTML: _vm._s(_vm.description)
     }
-  }) : _vm._e(), _vm._v(" "), _c('div', {
+  }) : _vm._e(), _vm._v(" "), _c("div", {
     staticClass: "cptm-tab-area"
   }, _vm._l(_vm.theOptions, function (option, option_index) {
-    return _c('div', {
+    return _c("div", {
       key: option_index,
       staticClass: "cptm-tab-item"
-    }, [_c('input', {
+    }, [_c("input", {
       directives: [{
         name: "model",
         rawName: "v-model",
@@ -36465,35 +36403,35 @@ var render = function render() {
       }],
       staticClass: "cptm-radio",
       attrs: {
-        "type": "radio",
-        "id": _vm.getOptionID(option, option_index, _vm.sectionId),
-        "name": _vm.name
+        type: "radio",
+        id: _vm.getOptionID(option, option_index, _vm.sectionId),
+        name: _vm.name
       },
       domProps: {
-        "value": typeof option.value !== 'undefined' ? option.value : '',
-        "checked": _vm._q(_vm.local_value, typeof option.value !== 'undefined' ? option.value : '')
+        value: typeof option.value !== "undefined" ? option.value : "",
+        checked: _vm._q(_vm.local_value, typeof option.value !== "undefined" ? option.value : "")
       },
       on: {
-        "change": function change($event) {
-          _vm.local_value = typeof option.value !== 'undefined' ? option.value : '';
+        change: function change($event) {
+          _vm.local_value = typeof option.value !== "undefined" ? option.value : "";
         }
       }
-    }), _vm._v(" "), _c('label', {
+    }), _vm._v(" "), _c("label", {
       attrs: {
-        "for": _vm.getOptionID(option, option_index, _vm.sectionId)
+        for: _vm.getOptionID(option, option_index, _vm.sectionId)
       }
     }, [_vm._v("\n          " + _vm._s(option.label) + "\n        ")])]);
-  }), 0), _vm._v(" "), _c('form-field-validatior', {
+  }), 0), _vm._v(" "), _c("form-field-validatior", {
     attrs: {
       "section-id": _vm.sectionId,
       "field-id": _vm.fieldId,
-      "root": _vm.root,
-      "value": _vm.value,
-      "rules": _vm.rules
+      root: _vm.root,
+      value: _vm.value,
+      rules: _vm.rules
     },
     on: {
-      "validate": function validate($event) {
-        return _vm.$emit('validate', $event);
+      validate: function validate($event) {
+        return _vm.$emit("validate", $event);
       }
     },
     model: {
@@ -36528,60 +36466,60 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-form-group",
     class: _vm.formGroupClass
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "atbdp-row"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "atbdp-col atbdp-col-4"
-  }, ['hidden' !== _vm.input_type && _vm.label.length ? _c('label', [_c(_vm.labelType, {
+  }, ["hidden" !== _vm.input_type && _vm.label.length ? _c("label", [_c(_vm.labelType, {
     tag: "component"
-  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c('p', {
+  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c("p", {
     staticClass: "cptm-form-group-info",
     domProps: {
-      "innerHTML": _vm._s(_vm.description)
+      innerHTML: _vm._s(_vm.description)
     }
-  }) : _vm._e()]), _vm._v(" "), _c('div', {
+  }) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "atbdp-col atbdp-col-8"
-  }, [(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(_vm.filteredValue) !== 'object' ? true : false) ? _c('input', {
+  }, [(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(_vm.filteredValue) !== "object" ? true : false) ? _c("input", {
     staticClass: "cptm-form-control",
     class: _vm.formControlClass,
     attrs: {
-      "id": _vm.fieldId,
-      "type": _vm.input_type,
-      "min": _vm.min,
-      "max": _vm.max,
-      "step": _vm.step,
-      "placeholder": _vm.placeholder,
-      "disabled": _vm.disable
+      id: _vm.fieldId,
+      type: _vm.input_type,
+      min: _vm.min,
+      max: _vm.max,
+      step: _vm.step,
+      placeholder: _vm.placeholder,
+      disabled: _vm.disable
     },
     domProps: {
-      "value": _vm.filteredValue === false ? '' : _vm.filteredValue
+      value: _vm.filteredValue === false ? "" : _vm.filteredValue
     },
     on: {
-      "input": function input($event) {
-        return _vm.$emit('update', $event.target.value);
+      input: function input($event) {
+        return _vm.$emit("update", $event.target.value);
       }
     }
-  }) : _vm._e(), _vm._v(" "), (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(_vm.filteredValue) === 'object' ? true : false) ? _c('input', {
+  }) : _vm._e(), _vm._v(" "), (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(_vm.filteredValue) === "object" ? true : false) ? _c("input", {
     attrs: {
-      "type": "hidden"
+      type: "hidden"
     },
     domProps: {
-      "value": JSON.stringify(_vm.filteredValue)
+      value: JSON.stringify(_vm.filteredValue)
     }
-  }) : _vm._e(), _vm._v(" "), _c('form-field-validatior', {
+  }) : _vm._e(), _vm._v(" "), _c("form-field-validatior", {
     attrs: {
       "section-id": _vm.sectionId,
       "field-id": _vm.fieldId,
-      "root": _vm.root,
-      "value": _vm.filteredValue,
-      "rules": _vm.rules
+      root: _vm.root,
+      value: _vm.filteredValue,
+      rules: _vm.rules
     },
     on: {
-      "validate": function validate($event) {
-        return _vm.$emit('validate', $event);
+      validate: function validate($event) {
+        return _vm.$emit("validate", $event);
       }
     },
     model: {
@@ -36613,23 +36551,23 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-form-group",
     class: _vm.formGroupClass
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "atbdp-row"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "atbdp-col atbdp-col-4"
-  }, [_vm.label.length ? _c('label', [_c(_vm.labelType, {
+  }, [_vm.label.length ? _c("label", [_c(_vm.labelType, {
     tag: "component"
-  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c('p', {
+  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c("p", {
     staticClass: "cptm-form-group-info",
     domProps: {
-      "innerHTML": _vm._s(_vm.description)
+      innerHTML: _vm._s(_vm.description)
     }
-  }) : _vm._e()]), _vm._v(" "), _c('div', {
+  }) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "atbdp-col atbdp-col-8"
-  }, [_c('textarea', {
+  }, [_c("textarea", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -36638,32 +36576,32 @@ var render = function render() {
     }],
     staticClass: "cptm-form-control",
     attrs: {
-      "name": "",
-      "id": "",
-      "cols": _vm.cols,
-      "rows": _vm.rows,
-      "placeholder": _vm.placeholder
+      name: "",
+      id: "",
+      cols: _vm.cols,
+      rows: _vm.rows,
+      placeholder: _vm.placeholder
     },
     domProps: {
-      "value": _vm.local_value
+      value: _vm.local_value
     },
     on: {
-      "input": function input($event) {
+      input: function input($event) {
         if ($event.target.composing) return;
         _vm.local_value = $event.target.value;
       }
     }
-  }), _vm._v(" "), _c('form-field-validatior', {
+  }), _vm._v(" "), _c("form-field-validatior", {
     attrs: {
       "section-id": _vm.sectionId,
       "field-id": _vm.fieldId,
-      "root": _vm.root,
-      "value": _vm.local_value,
-      "rules": _vm.rules
+      root: _vm.root,
+      value: _vm.local_value,
+      rules: _vm.rules
     },
     on: {
-      "validate": function validate($event) {
-        return _vm.$emit('validate', $event);
+      validate: function validate($event) {
+        return _vm.$emit("validate", $event);
       }
     },
     model: {
@@ -36695,34 +36633,34 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-form-group"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "atbdp-row"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "atbdp-col atbdp-col-4"
-  }, [_vm.label.length ? _c('label', [_c(_vm.labelType, {
+  }, [_vm.label.length ? _c("label", [_c(_vm.labelType, {
     tag: "component"
-  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c('p', {
+  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c("p", {
     staticClass: "cptm-form-group-info",
     domProps: {
-      "innerHTML": _vm._s(_vm.description)
+      innerHTML: _vm._s(_vm.description)
     }
-  }) : _vm._e()]), _vm._v(" "), _c('div', {
+  }) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "atbdp-col atbdp-col-8"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "directorist_vertical-align-m"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "directorist_item"
-  }, [_c('span', {
+  }, [_c("span", {
     staticClass: "cptm-input-toggle",
     class: _vm.toggleClass,
     on: {
-      "click": function click($event) {
+      click: function click($event) {
         return _vm.toggleValue();
       }
     }
-  }), _vm._v(" "), _c('input', {
+  }), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -36730,18 +36668,18 @@ var render = function render() {
       expression: "local_value"
     }],
     staticStyle: {
-      "display": "none"
+      display: "none"
     },
     attrs: {
-      "type": "checkbox",
-      "id": _vm.name,
-      "name": _vm.name
+      type: "checkbox",
+      id: _vm.name,
+      name: _vm.name
     },
     domProps: {
-      "checked": Array.isArray(_vm.local_value) ? _vm._i(_vm.local_value, null) > -1 : _vm.local_value
+      checked: Array.isArray(_vm.local_value) ? _vm._i(_vm.local_value, null) > -1 : _vm.local_value
     },
     on: {
-      "change": function change($event) {
+      change: function change($event) {
         var $$a = _vm.local_value,
           $$el = $event.target,
           $$c = $$el.checked ? true : false;
@@ -36758,26 +36696,26 @@ var render = function render() {
         }
       }
     }
-  })]), _vm._v(" "), _c('div', {
+  })]), _vm._v(" "), _c("div", {
     staticClass: "directorist_item"
-  }, [_vm.compLinkIsEnable ? _c('a', {
+  }, [_vm.compLinkIsEnable ? _c("a", {
     staticClass: "cptm-btn cptm-btn-outline directorist_btn-start",
     class: _vm.compLinkClass,
     attrs: {
-      "href": _vm.link,
-      "target": _vm.comp.link.target
+      href: _vm.link,
+      target: _vm.comp.link.target
     }
-  }, [_vm._v("\n                        " + _vm._s(_vm.comp.link.label) + "\n                    ")]) : _vm._e()])]), _vm._v(" "), _c('form-field-validatior', {
+  }, [_vm._v("\n                        " + _vm._s(_vm.comp.link.label) + "\n                    ")]) : _vm._e()])]), _vm._v(" "), _c("form-field-validatior", {
     attrs: {
       "section-id": _vm.sectionId,
       "field-id": _vm.fieldId,
-      "root": _vm.root,
-      "value": _vm.value,
-      "rules": _vm.rules
+      root: _vm.root,
+      value: _vm.value,
+      rules: _vm.rules
     },
     on: {
-      "validate": function validate($event) {
-        return _vm.$emit('validate', $event);
+      validate: function validate($event) {
+        return _vm.$emit("validate", $event);
       }
     },
     model: {
@@ -36787,13 +36725,13 @@ var render = function render() {
       },
       expression: "validationLog"
     }
-  })], 1)]), _vm._v(" "), _c('confirmation-modal', _vm._b({
+  })], 1)]), _vm._v(" "), _c("confirmation-modal", _vm._b({
     on: {
-      "cancel": function cancel($event) {
+      cancel: function cancel($event) {
         return _vm.confirmationOnCancel();
       }
     }
-  }, 'confirmation-modal', _vm.confirmation, false))], 1);
+  }, "confirmation-modal", _vm.confirmation, false))], 1);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -36815,66 +36753,66 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-form-group"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "atbdp-row"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "atbdp-col atbdp-col-4"
-  }, [_vm.label.length ? _c('label', [_c(_vm.labelType, {
+  }, [_vm.label.length ? _c("label", [_c(_vm.labelType, {
     tag: "component"
-  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c('p', {
+  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c("p", {
     staticClass: "cptm-form-group-info",
     domProps: {
-      "innerHTML": _vm._s(_vm.description)
+      innerHTML: _vm._s(_vm.description)
     }
-  }) : _vm._e()]), _vm._v(" "), _c('div', {
+  }) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "atbdp-col atbdp-col-8"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-thumbnail"
-  }, [_vm.thumbnailSrc.length ? _c('div', {
+  }, [_vm.thumbnailSrc.length ? _c("div", {
     staticClass: "cptm-thumbnail-img-wrap"
-  }, [_c('img', {
+  }, [_c("img", {
     staticClass: "cptm-thumbnail-img",
     attrs: {
-      "src": _vm.thumbnailSrc,
-      "width": "100%",
-      "height": "auto"
+      src: _vm.thumbnailSrc,
+      width: "100%",
+      height: "auto"
     }
-  }), _vm._v(" "), _vm.hasThumbnail ? _c('span', {
+  }), _vm._v(" "), _vm.hasThumbnail ? _c("span", {
     staticClass: "cptm-thumbnail-action action-trash",
     on: {
-      "click": function click($event) {
+      click: function click($event) {
         return _vm.deleteThumbnail();
       }
     }
-  }, [_c('i', {
+  }, [_c("i", {
     staticClass: "uil uil-trash-alt"
-  })]) : _vm._e()]) : _vm._e(), _vm._v(" "), !_vm.thumbnailSrc.length ? _c('span', {
+  })]) : _vm._e()]) : _vm._e(), _vm._v(" "), !_vm.thumbnailSrc.length ? _c("span", {
     staticClass: "cptm-thumbnail-placeholder"
-  }, [_vm._m(0)]) : _vm._e()]), _vm._v(" "), _c('input', {
+  }, [_vm._m(0)]) : _vm._e()]), _vm._v(" "), _c("input", {
     staticClass: "cptm-btn cptm-btn-primary",
     attrs: {
-      "type": "button",
-      "value": _vm.theButtonLabel
+      type: "button",
+      value: _vm.theButtonLabel
     },
     on: {
-      "click": function click($event) {
+      click: function click($event) {
         $event.preventDefault();
         return _vm.openMediaPicker.apply(null, arguments);
       }
     }
-  }), _vm._v(" "), _c('form-field-validatior', {
+  }), _vm._v(" "), _c("form-field-validatior", {
     attrs: {
       "section-id": _vm.sectionId,
       "field-id": _vm.fieldId,
-      "root": _vm.root,
-      "value": _vm.value,
-      "rules": _vm.rules
+      root: _vm.root,
+      value: _vm.value,
+      rules: _vm.rules
     },
     on: {
-      "validate": function validate($event) {
-        return _vm.$emit('validate', $event);
+      validate: function validate($event) {
+        return _vm.$emit("validate", $event);
       }
     },
     model: {
@@ -36889,9 +36827,9 @@ var render = function render() {
 var staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('span', {
+  return _c("span", {
     staticClass: "cptm-thumbnail-placeholder-icon"
-  }, [_c('i', {
+  }, [_c("i", {
     staticClass: "uil uil-image"
   })]);
 }];
@@ -36914,35 +36852,35 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-form-group",
     class: _vm.formGroupClass
-  }, [_vm.label.length ? _c('label', [_c(_vm.labelType, {
+  }, [_vm.label.length ? _c("label", [_c(_vm.labelType, {
     tag: "component"
-  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c('p', {
+  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c("p", {
     staticClass: "cptm-form-group-info",
     domProps: {
-      "innerHTML": _vm._s(_vm.description)
+      innerHTML: _vm._s(_vm.description)
     }
-  }) : _vm._e(), _vm._v(" "), _c('button', {
+  }) : _vm._e(), _vm._v(" "), _c("button", {
     staticClass: "settings-save-btn",
     attrs: {
-      "type": "button",
-      "disabled": _vm.button.is_disabled
+      type: "button",
+      disabled: _vm.button.is_disabled
     },
     domProps: {
-      "innerHTML": _vm._s(_vm.button.label)
+      innerHTML: _vm._s(_vm.button.label)
     },
     on: {
-      "click": function click($event) {
+      click: function click($event) {
         return _vm.submitAjaxRequest();
       }
     }
-  }), _vm._v(" "), _vm.validation_message ? _c('div', {
+  }), _vm._v(" "), _vm.validation_message ? _c("div", {
     staticClass: "cptm-form-group-feedback cptm-my-10"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-form-alert",
-    class: 'cptm-' + _vm.validation_message.type
+    class: "cptm-" + _vm.validation_message.type
   }, [_vm._v("\n            " + _vm._s(_vm.validation_message.message) + "\n        ")])]) : _vm._e()]);
 };
 var staticRenderFns = [];
@@ -36965,22 +36903,22 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-form-group"
-  }, [_vm.label.length ? _c('label', [_c(_vm.labelType, {
+  }, [_vm.label.length ? _c("label", [_c(_vm.labelType, {
     tag: "component"
-  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c('p', {
+  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c("p", {
     staticClass: "cptm-form-group-info",
     domProps: {
-      "innerHTML": _vm._s(_vm.description)
+      innerHTML: _vm._s(_vm.description)
     }
-  }) : _vm._e(), _vm._v(" "), _c('div', {
+  }) : _vm._e(), _vm._v(" "), _c("div", {
     staticClass: "cptm-checkbox-area"
   }, _vm._l(_vm.theOptions, function (option, option_index) {
-    return _c('div', {
+    return _c("div", {
       key: option_index,
       staticClass: "cptm-checkbox-item"
-    }, [_c('input', {
+    }, [_c("input", {
       directives: [{
         name: "model",
         rawName: "v-model",
@@ -36989,20 +36927,20 @@ var render = function render() {
       }],
       staticClass: "cptm-checkbox",
       attrs: {
-        "type": "checkbox",
-        "id": _vm.getOptionID(option, option_index, _vm.sectionId)
+        type: "checkbox",
+        id: _vm.getOptionID(option, option_index, _vm.sectionId)
       },
       domProps: {
-        "value": typeof option.value !== 'undefined' ? option.value : '',
-        "checked": Array.isArray(_vm.local_value) ? _vm._i(_vm.local_value, typeof option.value !== 'undefined' ? option.value : '') > -1 : _vm.local_value
+        value: typeof option.value !== "undefined" ? option.value : "",
+        checked: Array.isArray(_vm.local_value) ? _vm._i(_vm.local_value, typeof option.value !== "undefined" ? option.value : "") > -1 : _vm.local_value
       },
       on: {
-        "change": function change($event) {
+        change: function change($event) {
           var $$a = _vm.local_value,
             $$el = $event.target,
             $$c = $$el.checked ? true : false;
           if (Array.isArray($$a)) {
-            var $$v = typeof option.value !== 'undefined' ? option.value : '',
+            var $$v = typeof option.value !== "undefined" ? option.value : "",
               $$i = _vm._i($$a, $$v);
             if ($$el.checked) {
               $$i < 0 && (_vm.local_value = $$a.concat([$$v]));
@@ -37014,32 +36952,32 @@ var render = function render() {
           }
         }
       }
-    }), _vm._v(" "), _c('label', {
+    }), _vm._v(" "), _c("label", {
       staticClass: "cptm-checkbox-ui",
       attrs: {
-        "for": _vm.getOptionID(option, option_index, _vm.sectionId)
+        for: _vm.getOptionID(option, option_index, _vm.sectionId)
       }
-    }), _vm._v(" "), _c('label', {
+    }), _vm._v(" "), _c("label", {
       attrs: {
-        "for": _vm.getOptionID(option, option_index, _vm.sectionId)
+        for: _vm.getOptionID(option, option_index, _vm.sectionId)
       },
       domProps: {
-        "innerHTML": _vm._s(option.label + ' ' + option_index)
+        innerHTML: _vm._s(option.label + " " + option_index)
       }
     })]);
-  }), 0), _vm._v(" "), !_vm.theOptions.length ? _c('p', {
+  }), 0), _vm._v(" "), !_vm.theOptions.length ? _c("p", {
     staticClass: "cptm-info-text"
-  }, [_vm._v(_vm._s(_vm.infoTextForNoOption))]) : _vm._e(), _vm._v(" "), _c('form-field-validatior', {
+  }, [_vm._v(_vm._s(_vm.infoTextForNoOption))]) : _vm._e(), _vm._v(" "), _c("form-field-validatior", {
     attrs: {
       "section-id": _vm.sectionId,
       "field-id": _vm.fieldId,
-      "root": _vm.root,
-      "value": _vm.value,
-      "rules": _vm.rules
+      root: _vm.root,
+      value: _vm.value,
+      rules: _vm.rules
     },
     on: {
-      "validate": function validate($event) {
-        return _vm.$emit('validate', $event);
+      validate: function validate($event) {
+        return _vm.$emit("validate", $event);
       }
     },
     model: {
@@ -37071,30 +37009,30 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-form-group",
     class: _vm.formGroupClass
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "atbdp-row"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "atbdp-col atbdp-col-4"
-  }, [_vm.label.length ? _c('label', [_c(_vm.labelType, {
+  }, [_vm.label.length ? _c("label", [_c(_vm.labelType, {
     tag: "component"
-  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c('p', {
+  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c("p", {
     staticClass: "cptm-form-group-info",
     domProps: {
-      "innerHTML": _vm._s(_vm.description)
+      innerHTML: _vm._s(_vm.description)
     }
-  }) : _vm._e()]), _vm._v(" "), _c('div', {
+  }) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "atbdp-col atbdp-col-8"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-color-picker-wrap"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-color-picker"
-  }, [_c('v-input-colorpicker', {
+  }, [_c("v-input-colorpicker", {
     attrs: {
-      "value": _vm.local_value,
-      "picker": "sketch"
+      value: _vm.local_value,
+      picker: "sketch"
     },
     model: {
       value: _vm.local_value,
@@ -37103,24 +37041,24 @@ var render = function render() {
       },
       expression: "local_value"
     }
-  })], 1), _vm._v(" "), _c('div', {
+  })], 1), _vm._v(" "), _c("div", {
     staticClass: "cptm-color-picker-label"
-  }, [_vm._v(_vm._s(_vm.local_value))])]), _vm._v(" "), _vm.validationMessages ? _c('div', {
+  }, [_vm._v(_vm._s(_vm.local_value))])]), _vm._v(" "), _vm.validationMessages ? _c("div", {
     staticClass: "cptm-form-group-feedback"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-form-alert",
-    class: 'cptm-' + _vm.validationMessages.type
-  }, [_vm._v("\n                    " + _vm._s(_vm.validationMessages.message) + "\n                ")])]) : _vm._e()])]), _vm._v(" "), _c('form-field-validatior', {
+    class: "cptm-" + _vm.validationMessages.type
+  }, [_vm._v("\n                    " + _vm._s(_vm.validationMessages.message) + "\n                ")])]) : _vm._e()])]), _vm._v(" "), _c("form-field-validatior", {
     attrs: {
       "section-id": _vm.sectionId,
       "field-id": _vm.fieldId,
-      "root": _vm.root,
-      "value": _vm.value,
-      "rules": _vm.rules
+      root: _vm.root,
+      value: _vm.value,
+      rules: _vm.rules
     },
     on: {
-      "validate": function validate($event) {
-        return _vm.$emit('validate', $event);
+      validate: function validate($event) {
+        return _vm.$emit("validate", $event);
       }
     },
     model: {
@@ -37152,26 +37090,26 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-form-group"
-  }, [_vm.label.length ? _c('label', [_c(_vm.labelType, {
+  }, [_vm.label.length ? _c("label", [_c(_vm.labelType, {
     tag: "component"
-  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c('p', {
+  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c("p", {
     staticClass: "cptm-form-group-info",
     domProps: {
-      "innerHTML": _vm._s(_vm.description)
+      innerHTML: _vm._s(_vm.description)
     }
-  }) : _vm._e(), _vm._v(" "), _c('a', {
+  }) : _vm._e(), _vm._v(" "), _c("a", {
     staticClass: "settings-save-btn",
     attrs: {
-      "href": "#",
-      "target": "_blank"
+      href: "#",
+      target: "_blank"
     },
     domProps: {
-      "innerHTML": _vm._s(_vm.button_label)
+      innerHTML: _vm._s(_vm.button_label)
     },
     on: {
-      "click": function click($event) {
+      click: function click($event) {
         $event.preventDefault();
         return _vm.exportData.apply(null, arguments);
       }
@@ -37198,32 +37136,32 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-form-group"
-  }, [_vm.label.length ? _c('label', [_c(_vm.labelType, {
+  }, [_vm.label.length ? _c("label", [_c(_vm.labelType, {
     tag: "component"
-  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c('p', {
+  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c("p", {
     staticClass: "cptm-form-group-info",
     domProps: {
-      "innerHTML": _vm._s(_vm.description)
+      innerHTML: _vm._s(_vm.description)
     }
-  }) : _vm._e(), _vm._v(" "), _c('button', {
+  }) : _vm._e(), _vm._v(" "), _c("button", {
     staticClass: "cptm-btn cptm-btn-secondery",
     attrs: {
-      "type": "button"
+      type: "button"
     },
     on: {
-      "click": function click($event) {
+      click: function click($event) {
         return _vm.exportJSON();
       }
     }
-  }, [_c('span', {
+  }, [_c("span", {
     staticClass: "fas fa-download"
-  }), _vm._v("\n        " + _vm._s(_vm.buttonLabel) + "\n    ")]), _vm._v(" "), _vm.validation_message ? _c('div', {
+  }), _vm._v("\n        " + _vm._s(_vm.buttonLabel) + "\n    ")]), _vm._v(" "), _vm.validation_message ? _c("div", {
     staticClass: "cptm-form-group-feedback"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-form-alert",
-    class: 'cptm-' + _vm.validation_message.type
+    class: "cptm-" + _vm.validation_message.type
   }, [_vm._v("\n            " + _vm._s(_vm.validation_message.message) + "\n        ")])]) : _vm._e()]);
 };
 var staticRenderFns = [];
@@ -37246,37 +37184,37 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-form-group"
-  }, [_vm.label.length ? _c('label', [_c(_vm.labelType, {
+  }, [_vm.label.length ? _c("label", [_c(_vm.labelType, {
     tag: "component"
-  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c('p', {
+  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c("p", {
     staticClass: "cptm-form-group-info",
     domProps: {
-      "innerHTML": _vm._s(_vm.description)
+      innerHTML: _vm._s(_vm.description)
     }
-  }) : _vm._e(), _vm._v(" "), _c('input', {
+  }) : _vm._e(), _vm._v(" "), _c("input", {
     staticClass: "cptm-d-none",
     attrs: {
-      "type": "file",
-      "accept": ".json",
-      "id": _vm.fieldId
+      type: "file",
+      accept: ".json",
+      id: _vm.fieldId
     },
     on: {
-      "input": _vm.importJSON
+      input: _vm.importJSON
     }
-  }), _vm._v(" "), _c('label', {
+  }), _vm._v(" "), _c("label", {
     staticClass: "cptm-btn cptm-label-btn cptm-btn-secondery",
     attrs: {
-      "for": _vm.fieldId
+      for: _vm.fieldId
     }
-  }, [_c('span', {
+  }, [_c("span", {
     staticClass: "fas fa-upload"
-  }), _vm._v("\n        " + _vm._s(_vm.buttonLabel) + "\n    ")]), _vm._v(" "), _vm.validation_message ? _c('div', {
+  }), _vm._v("\n        " + _vm._s(_vm.buttonLabel) + "\n    ")]), _vm._v(" "), _vm.validation_message ? _c("div", {
     staticClass: "cptm-form-group-feedback"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-form-alert",
-    class: 'cptm-' + _vm.validation_message.type
+    class: "cptm-" + _vm.validation_message.type
   }, [_vm._v("\n            " + _vm._s(_vm.validation_message.message) + "\n        ")])]) : _vm._e()]);
 };
 var staticRenderFns = [];
@@ -37299,19 +37237,19 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-form-note"
-  }, [_c('i', {
+  }, [_c("i", {
     staticClass: "fa fa-info-circle"
-  }), _vm._v(" "), _c('div', [_c('h2', {
+  }), _vm._v(" "), _c("div", [_c("h2", {
     staticClass: "cptm-form-note-title",
     domProps: {
-      "innerHTML": _vm._s(_vm.title)
+      innerHTML: _vm._s(_vm.title)
     }
-  }), _vm._v(" "), _vm.description.length ? _c('div', {
+  }), _vm._v(" "), _vm.description.length ? _c("div", {
     staticClass: "cptm-form-note-content",
     domProps: {
-      "innerHTML": _vm._s(_vm.description)
+      innerHTML: _vm._s(_vm.description)
     }
   }) : _vm._e()])]);
 };
@@ -37335,24 +37273,24 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-form-group cptm-preview-wrapper"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-preview-radio-area"
-  }, [_vm.label.length ? _c('label', [_c(_vm.labelType, {
+  }, [_vm.label.length ? _c("label", [_c(_vm.labelType, {
     tag: "component"
-  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c('p', {
+  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c("p", {
     staticClass: "cptm-info-text",
     domProps: {
-      "innerHTML": _vm._s(_vm.description)
+      innerHTML: _vm._s(_vm.description)
     }
-  }) : _vm._e(), _vm._v(" "), _c('div', {
+  }) : _vm._e(), _vm._v(" "), _c("div", {
     staticClass: "cptm-radio-area"
   }, _vm._l(_vm.theOptions, function (option, option_index) {
-    return _c('div', {
+    return _c("div", {
       key: option_index,
       staticClass: "cptm-radio-item"
-    }, [_c('input', {
+    }, [_c("input", {
       directives: [{
         name: "model",
         rawName: "v-model",
@@ -37361,37 +37299,37 @@ var render = function render() {
       }],
       staticClass: "cptm-radio",
       attrs: {
-        "type": "radio",
-        "id": _vm.getOptionID(option, option_index, _vm.sectionId),
-        "name": _vm.name
+        type: "radio",
+        id: _vm.getOptionID(option, option_index, _vm.sectionId),
+        name: _vm.name
       },
       domProps: {
-        "value": typeof option.value !== 'undefined' ? option.value : '',
-        "checked": _vm._q(_vm.local_value, typeof option.value !== 'undefined' ? option.value : '')
+        value: typeof option.value !== "undefined" ? option.value : "",
+        checked: _vm._q(_vm.local_value, typeof option.value !== "undefined" ? option.value : "")
       },
       on: {
-        "change": function change($event) {
-          _vm.local_value = typeof option.value !== 'undefined' ? option.value : '';
+        change: function change($event) {
+          _vm.local_value = typeof option.value !== "undefined" ? option.value : "";
         }
       }
-    }), _vm._v(" "), _c('label', {
+    }), _vm._v(" "), _c("label", {
       attrs: {
-        "for": _vm.getOptionID(option, option_index, _vm.sectionId)
+        for: _vm.getOptionID(option, option_index, _vm.sectionId)
       }
     }, [_vm._v("\n                    " + _vm._s(option.label) + "\n                ")])]);
-  }), 0), _vm._v(" "), !_vm.theOptions.length ? _c('p', {
+  }), 0), _vm._v(" "), !_vm.theOptions.length ? _c("p", {
     staticClass: "cptm-info-text"
-  }, [_vm._v(_vm._s(_vm.infoTextForNoOption))]) : _vm._e(), _vm._v(" "), _c('form-field-validatior', {
+  }, [_vm._v(_vm._s(_vm.infoTextForNoOption))]) : _vm._e(), _vm._v(" "), _c("form-field-validatior", {
     attrs: {
       "section-id": _vm.sectionId,
       "field-id": _vm.fieldId,
-      "root": _vm.root,
-      "value": _vm.value,
-      "rules": _vm.rules
+      root: _vm.root,
+      value: _vm.value,
+      rules: _vm.rules
     },
     on: {
-      "validate": function validate($event) {
-        return _vm.$emit('validate', $event);
+      validate: function validate($event) {
+        return _vm.$emit("validate", $event);
       }
     },
     model: {
@@ -37401,12 +37339,12 @@ var render = function render() {
       },
       expression: "validationLog"
     }
-  })], 1), _vm._v(" "), _vm.preview ? _c('div', {
+  })], 1), _vm._v(" "), _vm.preview ? _c("div", {
     staticClass: "cptm-preview-area-archive"
   }, _vm._l(Object.keys(_vm.preview), function (previewKey) {
-    return _vm.local_value === previewKey ? _c('img', {
+    return _vm.local_value === previewKey ? _c("img", {
       attrs: {
-        "src": _vm.preview[previewKey]
+        src: _vm.preview[previewKey]
       }
     }) : _vm._e();
   }), 0) : _vm._e()]);
@@ -37431,27 +37369,27 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-form-group"
-  }, [_vm.label.length ? _c('label', [_c(_vm.labelType, {
+  }, [_vm.label.length ? _c("label", [_c(_vm.labelType, {
     tag: "component"
-  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c('p', {
+  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c("p", {
     staticClass: "cptm-form-group-info",
     domProps: {
-      "innerHTML": _vm._s(_vm.description)
+      innerHTML: _vm._s(_vm.description)
     }
-  }) : _vm._e(), _vm._v(" "), _c('div', {
+  }) : _vm._e(), _vm._v(" "), _c("div", {
     staticClass: "cptm-form-range-wrap"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-form-range-bar"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "directorist_slider-range"
-  }, [_c('span', {
+  }, [_c("span", {
     staticClass: "directorist_range-bar"
-  }, [_c('span', {
+  }, [_c("span", {
     staticClass: "directorist_range-fill",
     style: _vm.rangeFillStyle
-  })]), _vm._v(" "), _c('input', {
+  })]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -37460,36 +37398,36 @@ var render = function render() {
     }],
     staticClass: "directorist_slider-input",
     attrs: {
-      "type": "range",
-      "id": _vm.fieldId,
-      "step": _vm.theStep,
-      "min": _vm.theMin,
-      "max": _vm.theMax,
-      "name": _vm.name
+      type: "range",
+      id: _vm.fieldId,
+      step: _vm.theStep,
+      min: _vm.theMin,
+      max: _vm.theMax,
+      name: _vm.name
     },
     domProps: {
-      "value": _vm.range_value
+      value: _vm.range_value
     },
     on: {
-      "__r": function __r($event) {
+      __r: function __r($event) {
         _vm.range_value = $event.target.value;
       }
     }
-  })])]), _vm._v(" "), _c('div', {
+  })])]), _vm._v(" "), _c("div", {
     staticClass: "cptm-form-range-output"
-  }, [_c('span', {
+  }, [_c("span", {
     staticClass: "cptm-form-range-output-text"
-  }, [_vm._v(_vm._s(_vm.range_value))])])]), _vm._v(" "), _c('form-field-validatior', {
+  }, [_vm._v(_vm._s(_vm.range_value))])])]), _vm._v(" "), _c("form-field-validatior", {
     attrs: {
       "section-id": _vm.sectionId,
       "field-id": _vm.fieldId,
-      "root": _vm.root,
-      "value": _vm.value,
-      "rules": _vm.rules
+      root: _vm.root,
+      value: _vm.value,
+      rules: _vm.rules
     },
     on: {
-      "validate": function validate($event) {
-        return _vm.$emit('validate', $event);
+      validate: function validate($event) {
+        return _vm.$emit("validate", $event);
       }
     },
     model: {
@@ -37521,32 +37459,32 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-form-group"
-  }, [_vm.label.length ? _c('label', [_c(_vm.labelType, {
+  }, [_vm.label.length ? _c("label", [_c(_vm.labelType, {
     tag: "component"
-  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c('p', {
+  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c("p", {
     staticClass: "cptm-form-group-info",
     domProps: {
-      "innerHTML": _vm._s(_vm.description)
+      innerHTML: _vm._s(_vm.description)
     }
-  }) : _vm._e(), _vm._v(" "), _c('button', {
+  }) : _vm._e(), _vm._v(" "), _c("button", {
     staticClass: "cptm-btn cptm-btn-secondery",
     attrs: {
-      "type": "button"
+      type: "button"
     },
     on: {
-      "click": function click($event) {
+      click: function click($event) {
         return _vm.restore();
       }
     }
-  }, [_c('span', {
+  }, [_c("span", {
     staticClass: "fas fa-sync-alt"
-  }), _vm._v("\n        " + _vm._s(_vm.buttonLabel) + "\n    ")]), _vm._v(" "), _vm.validation_message ? _c('div', {
+  }), _vm._v("\n        " + _vm._s(_vm.buttonLabel) + "\n    ")]), _vm._v(" "), _vm.validation_message ? _c("div", {
     staticClass: "cptm-form-group-feedback"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-form-alert",
-    class: 'cptm-' + _vm.validation_message.type
+    class: "cptm-" + _vm.validation_message.type
   }, [_vm._v("\n            " + _vm._s(_vm.validation_message.message) + "\n        ")])]) : _vm._e()]);
 };
 var staticRenderFns = [];
@@ -37572,87 +37510,87 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-form-group",
     class: _vm.formGroupClass
-  }, [_vm.label.length ? _c('label', [_c(_vm.labelType, {
+  }, [_vm.label.length ? _c("label", [_c(_vm.labelType, {
     tag: "component"
-  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c('p', {
+  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c("p", {
     staticClass: "cptm-form-group-info",
     domProps: {
-      "innerHTML": _vm._s(_vm.description)
+      innerHTML: _vm._s(_vm.description)
     }
-  }) : _vm._e(), _vm._v(" "), _c('div', {
+  }) : _vm._e(), _vm._v(" "), _c("div", {
     staticClass: "directorist_dropdown",
-    class: _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({}, '--open', _vm.show_option_modal)
-  }, [_c('a', {
+    class: _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({}, "--open", _vm.show_option_modal)
+  }, [_c("a", {
     staticClass: "directorist_dropdown-toggle",
     attrs: {
-      "href": "#"
+      href: "#"
     },
     on: {
-      "click": function click($event) {
+      click: function click($event) {
         $event.preventDefault();
         return _vm.toggleTheOptionModal();
       }
     }
-  }, [_c('span', {
+  }, [_c("span", {
     staticClass: "directorist_dropdown-toggle__text"
-  }, [_vm._v(_vm._s(_vm.theCurrentOptionLabel))])]), _vm._v(" "), _vm.theOptions ? _c('div', {
+  }, [_vm._v(_vm._s(_vm.theCurrentOptionLabel))])]), _vm._v(" "), _vm.theOptions ? _c("div", {
     staticClass: "directorist_dropdown-option",
-    class: _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({}, '--show', _vm.show_option_modal)
-  }, [_c('ul', _vm._l(_vm.theOptions, function (option, option_key) {
-    return _c('li', {
+    class: _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({}, "--show", _vm.show_option_modal)
+  }, [_c("ul", _vm._l(_vm.theOptions, function (option, option_key) {
+    return _c("li", {
       key: option_key
-    }, [_c('a', {
+    }, [_c("a", {
       class: {
         active: option.value == _vm.value ? true : false
       },
       attrs: {
-        "href": "#"
+        href: "#"
       },
       domProps: {
-        "innerHTML": _vm._s(option.label ? option.label : '')
+        innerHTML: _vm._s(option.label ? option.label : "")
       },
       on: {
-        "click": function click($event) {
+        click: function click($event) {
           $event.preventDefault();
           return _vm.updateOption(option.value);
         }
       }
     })]);
-  }), 0)]) : _vm._e()]), _vm._v(" "), _c('select', {
+  }), 0)]) : _vm._e()]), _vm._v(" "), _c("select", {
     staticClass: "cptm-d-none",
     domProps: {
-      "value": _vm.local_value
+      value: _vm.local_value
     },
     on: {
-      "change": function change($event) {
+      change: function change($event) {
         return _vm.update_value($event.target.value);
       }
     }
-  }, [_vm.showDefaultOption && _vm.default_option ? _c('option', {
+  }, [_vm.showDefaultOption && _vm.default_option ? _c("option", {
     domProps: {
-      "value": _vm.default_option.value
+      value: _vm.default_option.value
     }
   }, [_vm._v(_vm._s(_vm.default_option.label))]) : _vm._e(), _vm._v(" "), _vm._l(_vm.theOptions, function (option, option_key) {
-    return [_c('option', {
+    return [_c("option", {
       key: option_key,
       domProps: {
-        "value": option.value
+        value: option.value
       }
     }, [_vm._v(_vm._s(option.label))])];
-  })], 2), _vm._v(" "), _c('form-field-validatior', {
+  })], 2), _vm._v(" "), _c("form-field-validatior", {
     attrs: {
       "section-id": _vm.sectionId,
       "field-id": _vm.fieldId,
-      "root": _vm.root,
-      "value": _vm.value,
-      "rules": _vm.rules
+      root: _vm.root,
+      value: _vm.value,
+      rules: _vm.rules
     },
     on: {
-      "validate": function validate($event) {
-        return _vm.$emit('validate', $event);
+      validate: function validate($event) {
+        return _vm.$emit("validate", $event);
       }
     },
     model: {
@@ -37684,32 +37622,32 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-form-group",
     class: _vm.formGroupClass
-  }, [_vm.label.length ? _c('label', [_c(_vm.labelType, {
+  }, [_vm.label.length ? _c("label", [_c(_vm.labelType, {
     tag: "component"
-  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c('p', {
+  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c("p", {
     staticClass: "cptm-form-group-info",
     domProps: {
-      "innerHTML": _vm._s(_vm.description)
+      innerHTML: _vm._s(_vm.description)
     }
-  }) : _vm._e(), _vm._v(" "), !_vm.generateShortcode ? _c('input', {
+  }) : _vm._e(), _vm._v(" "), !_vm.generateShortcode ? _c("input", {
     staticClass: "cptm-btn cptm-generate-shortcode-button",
     attrs: {
-      "type": "button",
-      "value": "Generate Shortcode"
+      type: "button",
+      value: "Generate Shortcode"
     },
     on: {
-      "click": _vm.generate
+      click: _vm.generate
     }
-  }) : _vm._e(), _vm._v(" "), _vm.generateShortcode ? _c('div', {
+  }) : _vm._e(), _vm._v(" "), _vm.generateShortcode ? _c("div", {
     ref: "shortcode",
     staticClass: "cptm-shortcode",
     on: {
-      "click": _vm.copyToClip
+      click: _vm.copyToClip
     }
-  }, [_vm._v(_vm._s(_vm.shortcode))]) : _vm._e(), _vm._v(" "), _vm.successMsg.length ? _c('div', {
+  }, [_vm._v(_vm._s(_vm.shortcode))]) : _vm._e(), _vm._v(" "), _vm.successMsg.length ? _c("div", {
     staticClass: "cptm-info-text cptm-info-success"
   }, [_vm._v(_vm._s(_vm.successMsg))]) : _vm._e()]);
 };
@@ -37733,67 +37671,67 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-form-group",
     class: _vm.formGroupClass
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "atbdp-row"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "atbdp-col atbdp-col-6"
-  }, [_vm.label.length ? _c('label', [_c(_vm.labelType, {
+  }, [_vm.label.length ? _c("label", [_c(_vm.labelType, {
     tag: "component"
-  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c('p', {
+  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c("p", {
     staticClass: "cptm-form-group-info",
     domProps: {
-      "innerHTML": _vm._s(_vm.description)
+      innerHTML: _vm._s(_vm.description)
     }
-  }) : _vm._e()]), _vm._v(" "), _c('div', {
+  }) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "atbdp-col atbdp-col-6 directorist-text-right directorist-mb-n20"
-  }, [_vm.successMsg.length ? _c('span', {
+  }, [_vm.successMsg.length ? _c("span", {
     staticClass: "cptm-info-text cptm-info-success directorist-center-content-inline",
     domProps: {
-      "innerHTML": _vm._s(_vm.successMsg)
+      innerHTML: _vm._s(_vm.successMsg)
     }
-  }) : _vm._e(), _vm._v(" "), _vm.shortcodes_list.length ? _c('button', {
+  }) : _vm._e(), _vm._v(" "), _vm.shortcodes_list.length ? _c("button", {
     staticClass: "cptm-btn cptm-generate-shortcode-button",
     attrs: {
-      "type": "button"
+      type: "button"
     },
     on: {
-      "click": function click($event) {
-        return _vm.copyToClip('all-shortcodes');
+      click: function click($event) {
+        return _vm.copyToClip("all-shortcodes");
       }
     }
-  }, [_c('span', {
+  }, [_c("span", {
     domProps: {
-      "innerHTML": _vm._s(_vm.copyButtonLabel)
+      innerHTML: _vm._s(_vm.copyButtonLabel)
     }
-  })]) : _vm._e(), _vm._v(" "), _c('button', {
+  })]) : _vm._e(), _vm._v(" "), _c("button", {
     staticClass: "cptm-btn cptm-generate-shortcode-button",
     attrs: {
-      "type": "button"
+      type: "button"
     },
     on: {
-      "click": _vm.generateShortcode
+      click: _vm.generateShortcode
     }
-  }, [_c('span', {
+  }, [_c("span", {
     domProps: {
-      "innerHTML": _vm._s(_vm.generateButtonLabel)
+      innerHTML: _vm._s(_vm.generateButtonLabel)
     }
-  })])])]), _vm._v(" "), _vm.dirty ? _c('div', [_vm.shortcodes_list.length ? _c('div', {
+  })])])]), _vm._v(" "), _vm.dirty ? _c("div", [_vm.shortcodes_list.length ? _c("div", {
     ref: "all-shortcodes",
     staticClass: "cptm-shortcodes"
   }, _vm._l(_vm.shortcodes_list, function (shortcode, i) {
-    return _c('p', {
+    return _c("p", {
       key: i,
       ref: "shortcodes",
       refInFor: true,
       staticClass: "directorist-alert",
       domProps: {
-        "innerHTML": _vm._s(shortcode)
+        innerHTML: _vm._s(shortcode)
       }
     });
-  }), 0) : _c('div', [_c('p', {
+  }), 0) : _c("div", [_c("p", {
     staticClass: "directorist-alert"
   }, [_vm._v("Nothing to generate")])])]) : _vm._e()]);
 };
@@ -37817,24 +37755,24 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-form-group cptm-preview-wrapper tab-field"
-  }, [_vm.label.length ? _c('label', [_c(_vm.labelType, {
+  }, [_vm.label.length ? _c("label", [_c(_vm.labelType, {
     tag: "component"
-  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c('p', {
+  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c("p", {
     staticClass: "cptm-form-group-info",
     domProps: {
-      "innerHTML": _vm._s(_vm.description)
+      innerHTML: _vm._s(_vm.description)
     }
-  }) : _vm._e(), _vm._v(" "), _c('div', {
+  }) : _vm._e(), _vm._v(" "), _c("div", {
     staticClass: "cptm-preview-tab-area"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-tab-area"
   }, _vm._l(_vm.theOptions, function (option, option_index) {
-    return _c('div', {
+    return _c("div", {
       key: option_index,
       staticClass: "cptm-tab-item"
-    }, [_c('input', {
+    }, [_c("input", {
       directives: [{
         name: "model",
         rawName: "v-model",
@@ -37843,35 +37781,35 @@ var render = function render() {
       }],
       staticClass: "cptm-radio",
       attrs: {
-        "type": "radio",
-        "id": _vm.getOptionID(option, option_index, _vm.sectionId),
-        "name": _vm.name
+        type: "radio",
+        id: _vm.getOptionID(option, option_index, _vm.sectionId),
+        name: _vm.name
       },
       domProps: {
-        "value": typeof option.value !== 'undefined' ? option.value : '',
-        "checked": _vm._q(_vm.local_value, typeof option.value !== 'undefined' ? option.value : '')
+        value: typeof option.value !== "undefined" ? option.value : "",
+        checked: _vm._q(_vm.local_value, typeof option.value !== "undefined" ? option.value : "")
       },
       on: {
-        "change": function change($event) {
-          _vm.local_value = typeof option.value !== 'undefined' ? option.value : '';
+        change: function change($event) {
+          _vm.local_value = typeof option.value !== "undefined" ? option.value : "";
         }
       }
-    }), _vm._v(" "), _c('label', {
+    }), _vm._v(" "), _c("label", {
       attrs: {
-        "for": _vm.getOptionID(option, option_index, _vm.sectionId)
+        for: _vm.getOptionID(option, option_index, _vm.sectionId)
       }
     }, [_vm._v("\n          " + _vm._s(option.label) + "\n        ")])]);
-  }), 0), _vm._v(" "), _c('form-field-validatior', {
+  }), 0), _vm._v(" "), _c("form-field-validatior", {
     attrs: {
       "section-id": _vm.sectionId,
       "field-id": _vm.fieldId,
-      "root": _vm.root,
-      "value": _vm.value,
-      "rules": _vm.rules
+      root: _vm.root,
+      value: _vm.value,
+      rules: _vm.rules
     },
     on: {
-      "validate": function validate($event) {
-        return _vm.$emit('validate', $event);
+      validate: function validate($event) {
+        return _vm.$emit("validate", $event);
       }
     },
     model: {
@@ -37906,57 +37844,57 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-form-group",
     class: _vm.formGroupClass
-  }, ['hidden' !== _vm.input_type && _vm.label.length ? _c('label', [_c(_vm.labelType, {
+  }, ["hidden" !== _vm.input_type && _vm.label.length ? _c("label", [_c(_vm.labelType, {
     tag: "component"
-  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c('p', {
+  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c("p", {
     staticClass: "cptm-form-group-info",
     domProps: {
-      "innerHTML": _vm._s(_vm.description)
+      innerHTML: _vm._s(_vm.description)
     }
-  }) : _vm._e(), _vm._v(" "), (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(_vm.filteredValue) !== 'object' ? true : false) ? _c('input', {
+  }) : _vm._e(), _vm._v(" "), (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(_vm.filteredValue) !== "object" ? true : false) ? _c("input", {
     staticClass: "cptm-form-control",
     class: _vm.formControlClass,
     attrs: {
-      "type": _vm.input_type,
-      "placeholder": _vm.placeholder,
-      "disabled": _vm.disable
+      type: _vm.input_type,
+      placeholder: _vm.placeholder,
+      disabled: _vm.disable
     },
     domProps: {
-      "value": _vm.filteredValue
+      value: _vm.filteredValue
     },
     on: {
-      "keyup": function keyup($event) {
-        if (!$event.type.indexOf('key') && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")) return null;
-        return _vm.$emit('enter', $event.target.value);
+      keyup: function keyup($event) {
+        if (!$event.type.indexOf("key") && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")) return null;
+        return _vm.$emit("enter", $event.target.value);
       },
-      "blur": function blur($event) {
-        return _vm.$emit('blur', $event.target.value);
+      blur: function blur($event) {
+        return _vm.$emit("blur", $event.target.value);
       },
-      "input": function input($event) {
-        return _vm.$emit('update', $event.target.value);
+      input: function input($event) {
+        return _vm.$emit("update", $event.target.value);
       }
     }
-  }) : _vm._e(), _vm._v(" "), (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(_vm.filteredValue) === 'object' ? true : false) ? _c('input', {
+  }) : _vm._e(), _vm._v(" "), (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(_vm.filteredValue) === "object" ? true : false) ? _c("input", {
     attrs: {
-      "type": "hidden"
+      type: "hidden"
     },
     domProps: {
-      "value": JSON.stringify(_vm.filteredValue)
+      value: JSON.stringify(_vm.filteredValue)
     }
-  }) : _vm._e(), _vm._v(" "), _c('form-field-validatior', {
+  }) : _vm._e(), _vm._v(" "), _c("form-field-validatior", {
     attrs: {
       "section-id": _vm.sectionId,
       "field-id": _vm.fieldId,
-      "root": _vm.root,
-      "value": _vm.filteredValue,
-      "rules": _vm.rules
+      root: _vm.root,
+      value: _vm.filteredValue,
+      rules: _vm.rules
     },
     on: {
-      "validate": function validate($event) {
-        return _vm.$emit('validate', $event);
+      validate: function validate($event) {
+        return _vm.$emit("validate", $event);
       }
     },
     model: {
@@ -37988,22 +37926,22 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-form-group",
     class: _vm.formGroupClass
-  }, [_vm.label.length ? _c('label', [_c(_vm.labelType, {
+  }, [_vm.label.length ? _c("label", [_c(_vm.labelType, {
     tag: "component"
-  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c('p', {
+  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c("p", {
     staticClass: "cptm-form-group-info",
     domProps: {
-      "innerHTML": _vm._s(_vm.description)
+      innerHTML: _vm._s(_vm.description)
     }
-  }) : _vm._e(), _vm._v(" "), _vm.editor ? _c('div', {
+  }) : _vm._e(), _vm._v(" "), _vm.editor ? _c("div", {
     staticClass: "cptm-form-control",
     attrs: {
-      "id": _vm.editorID
+      id: _vm.editorID
     }
-  }) : _c('textarea', {
+  }) : _c("textarea", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -38012,31 +37950,31 @@ var render = function render() {
     }],
     staticClass: "cptm-form-control",
     attrs: {
-      "name": "",
-      "cols": _vm.cols,
-      "rows": _vm.rows,
-      "placeholder": _vm.placeholder
+      name: "",
+      cols: _vm.cols,
+      rows: _vm.rows,
+      placeholder: _vm.placeholder
     },
     domProps: {
-      "value": _vm.local_value
+      value: _vm.local_value
     },
     on: {
-      "input": function input($event) {
+      input: function input($event) {
         if ($event.target.composing) return;
         _vm.local_value = $event.target.value;
       }
     }
-  }), _vm._v(" "), _c('form-field-validatior', {
+  }), _vm._v(" "), _c("form-field-validatior", {
     attrs: {
       "section-id": _vm.sectionId,
       "field-id": _vm.fieldId,
-      "root": _vm.root,
-      "value": _vm.local_value,
-      "rules": _vm.rules
+      root: _vm.root,
+      value: _vm.local_value,
+      rules: _vm.rules
     },
     on: {
-      "validate": function validate($event) {
-        return _vm.$emit('validate', $event);
+      validate: function validate($event) {
+        return _vm.$emit("validate", $event);
       }
     },
     model: {
@@ -38068,27 +38006,27 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-form-group"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "cptm-input-toggle-wrap"
-  }, [_vm.label.length ? _c('label', [_c(_vm.labelType, {
+  }, [_vm.label.length ? _c("label", [_c(_vm.labelType, {
     tag: "component"
-  }, [_vm._v(_vm._s(_vm.label))]), _vm._v(" "), _vm.subLabel.length ? _c('small', {
+  }, [_vm._v(_vm._s(_vm.label))]), _vm._v(" "), _vm.subLabel.length ? _c("small", {
     staticClass: "cptm-sub-label"
-  }, [_vm._v(_vm._s(_vm.subLabel))]) : _vm._e()], 1) : _vm._e(), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.subLabel))]) : _vm._e()], 1) : _vm._e(), _vm._v(" "), _c("div", {
     staticClass: "directorist_vertical-align-m"
-  }, [_c('div', {
+  }, [_c("div", {
     staticClass: "directorist_item"
-  }, [_c('span', {
+  }, [_c("span", {
     staticClass: "cptm-input-toggle",
     class: _vm.toggleClass,
     on: {
-      "click": function click($event) {
+      click: function click($event) {
         return _vm.toggleValue();
       }
     }
-  }), _vm._v(" "), _c('input', {
+  }), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -38096,18 +38034,18 @@ var render = function render() {
       expression: "local_value"
     }],
     staticStyle: {
-      "display": "none"
+      display: "none"
     },
     attrs: {
-      "type": "checkbox",
-      "id": _vm.name,
-      "name": _vm.name
+      type: "checkbox",
+      id: _vm.name,
+      name: _vm.name
     },
     domProps: {
-      "checked": Array.isArray(_vm.local_value) ? _vm._i(_vm.local_value, null) > -1 : _vm.local_value
+      checked: Array.isArray(_vm.local_value) ? _vm._i(_vm.local_value, null) > -1 : _vm.local_value
     },
     on: {
-      "change": function change($event) {
+      change: function change($event) {
         var $$a = _vm.local_value,
           $$el = $event.target,
           $$c = $$el.checked ? true : false;
@@ -38124,40 +38062,40 @@ var render = function render() {
         }
       }
     }
-  })]), _vm._v(" "), _c('div', {
+  })]), _vm._v(" "), _c("div", {
     staticClass: "directorist_item"
-  }, [_vm.compLinkIsEnable ? _c('a', {
+  }, [_vm.compLinkIsEnable ? _c("a", {
     staticClass: "cptm-btn cptm-btn-outline directorist_btn-start",
     class: _vm.compLinkClass,
     attrs: {
-      "href": _vm.comp.link.url,
-      "target": _vm.comp.link.target
+      href: _vm.comp.link.url,
+      target: _vm.comp.link.target
     },
     domProps: {
-      "innerHTML": _vm._s(_vm.comp.link.label)
+      innerHTML: _vm._s(_vm.comp.link.label)
     }
-  }) : _vm._e()])]), _vm._v(" "), _vm.description.length ? _c('p', {
+  }) : _vm._e()])]), _vm._v(" "), _vm.description.length ? _c("p", {
     staticClass: "cptm-form-group-info",
     domProps: {
-      "innerHTML": _vm._s(_vm.description)
+      innerHTML: _vm._s(_vm.description)
     }
-  }) : _vm._e()]), _vm._v(" "), _c('confirmation-modal', _vm._b({
+  }) : _vm._e()]), _vm._v(" "), _c("confirmation-modal", _vm._b({
     on: {
-      "cancel": function cancel($event) {
+      cancel: function cancel($event) {
         return _vm.confirmationOnCancel();
       }
     }
-  }, 'confirmation-modal', _vm.confirmation, false)), _vm._v(" "), _c('form-field-validatior', {
+  }, "confirmation-modal", _vm.confirmation, false)), _vm._v(" "), _c("form-field-validatior", {
     attrs: {
       "section-id": _vm.sectionId,
       "field-id": _vm.fieldId,
-      "root": _vm.root,
-      "value": _vm.value,
-      "rules": _vm.rules
+      root: _vm.root,
+      value: _vm.value,
+      rules: _vm.rules
     },
     on: {
-      "validate": function validate($event) {
-        return _vm.$emit('validate', $event);
+      validate: function validate($event) {
+        return _vm.$emit("validate", $event);
       }
     },
     model: {
@@ -38189,104 +38127,104 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
+  return _c("div", {
     staticClass: "cptm-form-group cptm-preview-image-upload",
-    class: _vm.thumbnailSrc.length ? 'cptm-preview-image-upload--show' : ''
-  }, [_vm.label.length ? _c('label', [_c(_vm.labelType, {
+    class: _vm.thumbnailSrc.length ? "cptm-preview-image-upload--show" : ""
+  }, [_vm.label.length ? _c("label", [_c(_vm.labelType, {
     tag: "component"
-  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c('p', {
+  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c("p", {
     staticClass: "cptm-form-group-info",
     domProps: {
-      "innerHTML": _vm._s(_vm.description)
+      innerHTML: _vm._s(_vm.description)
     }
-  }) : _vm._e(), _vm._v(" "), _c('div', {
+  }) : _vm._e(), _vm._v(" "), _c("div", {
     staticClass: "cptm-thumbnail"
-  }, [_vm.hasThumbnail ? _c('span', {
+  }, [_vm.hasThumbnail ? _c("span", {
     staticClass: "cptm-thumbnail-action action-trash",
     on: {
-      "click": function click($event) {
+      click: function click($event) {
         return _vm.deleteThumbnail();
       }
     }
-  }, [_c('i', {
+  }, [_c("i", {
     staticClass: "uil uil-trash-alt"
-  })]) : _vm._e(), _vm._v(" "), _vm.thumbnailSrc.length ? _c('div', {
+  })]) : _vm._e(), _vm._v(" "), _vm.thumbnailSrc.length ? _c("div", {
     staticClass: "cptm-thumbnail-img-wrap"
-  }, [_c('img', {
+  }, [_c("img", {
     staticClass: "cptm-thumbnail-img",
     attrs: {
-      "src": _vm.thumbnailSrc,
-      "width": "100%",
-      "height": "auto"
+      src: _vm.thumbnailSrc,
+      width: "100%",
+      height: "auto"
     }
-  })]) : _vm._e(), _vm._v(" "), !_vm.thumbnailSrc.length ? _c('span', {
+  })]) : _vm._e(), _vm._v(" "), !_vm.thumbnailSrc.length ? _c("span", {
     staticClass: "cptm-thumbnail-placeholder"
-  }, [_c('span', {
+  }, [_c("span", {
     staticClass: "cptm-thumbnail-placeholder-icon"
-  }, [_c('svg', {
+  }, [_c("svg", {
     attrs: {
-      "xmlns": "http://www.w3.org/2000/svg",
-      "width": "40",
-      "height": "40",
-      "viewBox": "0 0 40 40",
-      "fill": "none"
+      xmlns: "http://www.w3.org/2000/svg",
+      width: "40",
+      height: "40",
+      viewBox: "0 0 40 40",
+      fill: "none"
     }
-  }, [_c('g', {
+  }, [_c("g", {
     attrs: {
       "clip-path": "url(#clip0_5019_6906)"
     }
-  }, [_c('path', {
+  }, [_c("path", {
     attrs: {
-      "d": "M33.6766 39.7132H6.31999C4.71995 39.7107 3.18616 39.0739 2.05497 37.9423C0.923782 36.8107 0.287519 35.2766 0.285706 33.6766V6.32231C0.28752 4.72248 0.923857 3.18869 2.05511 2.05743C3.18637 0.926176 4.72016 0.28984 6.31999 0.288025H33.6766C35.2764 0.28984 36.8102 0.926176 37.9414 2.05743C39.0727 3.18869 39.709 4.72248 39.7108 6.32231V33.6766C39.709 35.2766 39.0728 36.8107 37.9416 37.9423C36.8104 39.0739 35.2766 39.7107 33.6766 39.7132ZM6.31999 3.14517C5.47764 3.14608 4.67005 3.4811 4.07441 4.07673C3.47878 4.67237 3.14376 5.47996 3.14285 6.32231V33.6766C3.14345 34.5192 3.47831 35.3273 4.07394 35.9233C4.66957 36.5194 5.47734 36.8548 6.31999 36.856H33.6766C34.5192 36.8548 35.327 36.5194 35.9226 35.9233C36.5182 35.3273 36.8531 34.5192 36.8537 33.6766V6.32231C36.8528 5.47996 36.5178 4.67237 35.9221 4.07673C35.3265 3.4811 34.5189 3.14608 33.6766 3.14517H6.31999Z",
-      "fill": "#D2D6DB"
+      d: "M33.6766 39.7132H6.31999C4.71995 39.7107 3.18616 39.0739 2.05497 37.9423C0.923782 36.8107 0.287519 35.2766 0.285706 33.6766V6.32231C0.28752 4.72248 0.923857 3.18869 2.05511 2.05743C3.18637 0.926176 4.72016 0.28984 6.31999 0.288025H33.6766C35.2764 0.28984 36.8102 0.926176 37.9414 2.05743C39.0727 3.18869 39.709 4.72248 39.7108 6.32231V33.6766C39.709 35.2766 39.0728 36.8107 37.9416 37.9423C36.8104 39.0739 35.2766 39.7107 33.6766 39.7132ZM6.31999 3.14517C5.47764 3.14608 4.67005 3.4811 4.07441 4.07673C3.47878 4.67237 3.14376 5.47996 3.14285 6.32231V33.6766C3.14345 34.5192 3.47831 35.3273 4.07394 35.9233C4.66957 36.5194 5.47734 36.8548 6.31999 36.856H33.6766C34.5192 36.8548 35.327 36.5194 35.9226 35.9233C36.5182 35.3273 36.8531 34.5192 36.8537 33.6766V6.32231C36.8528 5.47996 36.5178 4.67237 35.9221 4.07673C35.3265 3.4811 34.5189 3.14608 33.6766 3.14517H6.31999Z",
+      fill: "#D2D6DB"
     }
-  }), _vm._v(" "), _c('path', {
+  }), _vm._v(" "), _c("path", {
     attrs: {
-      "d": "M13.5543 19.6869C12.5444 19.6869 11.5571 19.3874 10.7174 18.8263C9.87766 18.2652 9.22317 17.4677 8.83669 16.5347C8.45021 15.6016 8.34909 14.5749 8.54611 13.5844C8.74314 12.5939 9.22947 11.684 9.94359 10.9699C10.6577 10.2558 11.5676 9.76945 12.5581 9.57242C13.5486 9.3754 14.5753 9.47652 15.5084 9.863C16.4414 10.2495 17.2389 10.904 17.8 11.7437C18.3611 12.5834 18.6606 13.5707 18.6606 14.5806C18.6591 15.9344 18.1206 17.2323 17.1633 18.1896C16.206 19.1469 14.9081 19.6854 13.5543 19.6869ZM13.5543 12.3326C13.1094 12.3326 12.6745 12.4645 12.3046 12.7117C11.9347 12.9589 11.6464 13.3102 11.4762 13.7213C11.306 14.1323 11.2616 14.5846 11.3484 15.0209C11.4353 15.4573 11.6496 15.858 11.9643 16.1725C12.279 16.487 12.6798 16.7011 13.1162 16.7878C13.5526 16.8745 14.0048 16.8298 14.4158 16.6593C14.8267 16.4889 15.1779 16.2005 15.4249 15.8305C15.6719 15.4604 15.8037 15.0255 15.8034 14.5806C15.8025 13.9845 15.5652 13.413 15.1436 12.9916C14.722 12.5702 14.1504 12.3332 13.5543 12.3326ZM3.04457 36.48C2.76869 36.4798 2.4988 36.3996 2.26748 36.2493C2.03616 36.099 1.85332 35.8849 1.74104 35.6329C1.62876 35.3809 1.59185 35.1018 1.63476 34.8292C1.67767 34.5567 1.79857 34.3025 1.98286 34.0972L8.69828 26.6149C9.3463 25.8887 10.2508 25.4423 11.2213 25.3696C12.1919 25.2969 13.1528 25.6036 13.9017 26.2252L16.7874 28.6069C16.8811 28.6869 16.9906 28.7464 17.1087 28.7814C17.2268 28.8164 17.351 28.8263 17.4731 28.8103C17.5943 28.7977 17.7117 28.7609 17.8183 28.702C17.9249 28.6431 18.0186 28.5633 18.0937 28.4674L25.6869 18.6572C26.0369 18.202 26.487 17.8335 27.0022 17.58C27.5175 17.3266 28.0841 17.195 28.6583 17.1954H28.672C29.2409 17.1947 29.8025 17.3233 30.3143 17.5716C30.8261 17.8199 31.2748 18.1813 31.6263 18.6286L38.9086 27.8937C39.1427 28.1917 39.2489 28.5704 39.2038 28.9467C39.1587 29.323 38.966 29.6659 38.668 29.9C38.37 30.1342 37.9913 30.2404 37.615 30.1952C37.2388 30.1501 36.8959 29.9574 36.6617 29.6594L29.3794 20.3943C29.2943 20.286 29.1854 20.1987 29.0612 20.1392C28.9369 20.0798 28.8006 20.0497 28.6629 20.0514C28.5246 20.0565 28.389 20.0906 28.2648 20.1514C28.1405 20.2122 28.0305 20.2985 27.9417 20.4046L20.3429 30.2103C20.0336 30.6093 19.6475 30.9421 19.2072 31.1891C18.767 31.436 18.2817 31.5921 17.78 31.6481C17.2784 31.704 16.7706 31.6587 16.2868 31.5148C15.803 31.3709 15.353 31.1313 14.9634 30.8103L12.0777 28.4286C11.8967 28.2784 11.6645 28.2044 11.43 28.2221C11.1955 28.2398 10.977 28.3478 10.8206 28.5234L4.11428 36C3.98032 36.1514 3.81562 36.2726 3.63117 36.3553C3.44671 36.4381 3.24674 36.4806 3.04457 36.48Z",
-      "fill": "#D2D6DB"
+      d: "M13.5543 19.6869C12.5444 19.6869 11.5571 19.3874 10.7174 18.8263C9.87766 18.2652 9.22317 17.4677 8.83669 16.5347C8.45021 15.6016 8.34909 14.5749 8.54611 13.5844C8.74314 12.5939 9.22947 11.684 9.94359 10.9699C10.6577 10.2558 11.5676 9.76945 12.5581 9.57242C13.5486 9.3754 14.5753 9.47652 15.5084 9.863C16.4414 10.2495 17.2389 10.904 17.8 11.7437C18.3611 12.5834 18.6606 13.5707 18.6606 14.5806C18.6591 15.9344 18.1206 17.2323 17.1633 18.1896C16.206 19.1469 14.9081 19.6854 13.5543 19.6869ZM13.5543 12.3326C13.1094 12.3326 12.6745 12.4645 12.3046 12.7117C11.9347 12.9589 11.6464 13.3102 11.4762 13.7213C11.306 14.1323 11.2616 14.5846 11.3484 15.0209C11.4353 15.4573 11.6496 15.858 11.9643 16.1725C12.279 16.487 12.6798 16.7011 13.1162 16.7878C13.5526 16.8745 14.0048 16.8298 14.4158 16.6593C14.8267 16.4889 15.1779 16.2005 15.4249 15.8305C15.6719 15.4604 15.8037 15.0255 15.8034 14.5806C15.8025 13.9845 15.5652 13.413 15.1436 12.9916C14.722 12.5702 14.1504 12.3332 13.5543 12.3326ZM3.04457 36.48C2.76869 36.4798 2.4988 36.3996 2.26748 36.2493C2.03616 36.099 1.85332 35.8849 1.74104 35.6329C1.62876 35.3809 1.59185 35.1018 1.63476 34.8292C1.67767 34.5567 1.79857 34.3025 1.98286 34.0972L8.69828 26.6149C9.3463 25.8887 10.2508 25.4423 11.2213 25.3696C12.1919 25.2969 13.1528 25.6036 13.9017 26.2252L16.7874 28.6069C16.8811 28.6869 16.9906 28.7464 17.1087 28.7814C17.2268 28.8164 17.351 28.8263 17.4731 28.8103C17.5943 28.7977 17.7117 28.7609 17.8183 28.702C17.9249 28.6431 18.0186 28.5633 18.0937 28.4674L25.6869 18.6572C26.0369 18.202 26.487 17.8335 27.0022 17.58C27.5175 17.3266 28.0841 17.195 28.6583 17.1954H28.672C29.2409 17.1947 29.8025 17.3233 30.3143 17.5716C30.8261 17.8199 31.2748 18.1813 31.6263 18.6286L38.9086 27.8937C39.1427 28.1917 39.2489 28.5704 39.2038 28.9467C39.1587 29.323 38.966 29.6659 38.668 29.9C38.37 30.1342 37.9913 30.2404 37.615 30.1952C37.2388 30.1501 36.8959 29.9574 36.6617 29.6594L29.3794 20.3943C29.2943 20.286 29.1854 20.1987 29.0612 20.1392C28.9369 20.0798 28.8006 20.0497 28.6629 20.0514C28.5246 20.0565 28.389 20.0906 28.2648 20.1514C28.1405 20.2122 28.0305 20.2985 27.9417 20.4046L20.3429 30.2103C20.0336 30.6093 19.6475 30.9421 19.2072 31.1891C18.767 31.436 18.2817 31.5921 17.78 31.6481C17.2784 31.704 16.7706 31.6587 16.2868 31.5148C15.803 31.3709 15.353 31.1313 14.9634 30.8103L12.0777 28.4286C11.8967 28.2784 11.6645 28.2044 11.43 28.2221C11.1955 28.2398 10.977 28.3478 10.8206 28.5234L4.11428 36C3.98032 36.1514 3.81562 36.2726 3.63117 36.3553C3.44671 36.4381 3.24674 36.4806 3.04457 36.48Z",
+      fill: "#D2D6DB"
     }
-  })]), _vm._v(" "), _c('defs', [_c('clipPath', {
+  })]), _vm._v(" "), _c("defs", [_c("clipPath", {
     attrs: {
-      "id": "clip0_5019_6906"
+      id: "clip0_5019_6906"
     }
-  }, [_c('rect', {
+  }, [_c("rect", {
     attrs: {
-      "width": "40",
-      "height": "40",
-      "fill": "white"
+      width: "40",
+      height: "40",
+      fill: "white"
     }
-  })])])])])]) : _vm._e(), _vm._v(" "), _c('label', {
+  })])])])])]) : _vm._e(), _vm._v(" "), _c("label", {
     staticClass: "cptm-upload-btn cptm-btn cptm-btn-dark directorist-row-tooltip",
     attrs: {
       "data-tooltip": "Change image",
       "data-flow": "bottom"
     }
-  }, [_c('i', {
+  }, [_c("i", {
     staticClass: "uil uil-top-arrow-to-top"
-  }), _vm._v(" "), _c('input', {
+  }), _vm._v(" "), _c("input", {
     attrs: {
-      "type": "button",
-      "value": _vm.theButtonLabel
+      type: "button",
+      value: _vm.theButtonLabel
     },
     on: {
-      "click": function click($event) {
+      click: function click($event) {
         $event.preventDefault();
         return _vm.openMediaPicker.apply(null, arguments);
       }
     }
-  })]), _vm._v(" "), _c('div', {
+  })]), _vm._v(" "), _c("div", {
     staticClass: "cptm-thumbnail-drag-text"
-  }, [_vm._v("upload image here")])]), _vm._v(" "), _c('form-field-validatior', {
+  }, [_vm._v("upload image here")])]), _vm._v(" "), _c("form-field-validatior", {
     attrs: {
       "section-id": _vm.sectionId,
       "field-id": _vm.fieldId,
-      "root": _vm.root,
-      "value": _vm.value,
-      "rules": _vm.rules
+      root: _vm.root,
+      value: _vm.value,
+      rules: _vm.rules
     },
     on: {
-      "validate": function validate($event) {
-        return _vm.$emit('validate', $event);
+      validate: function validate($event) {
+        return _vm.$emit("validate", $event);
       }
     },
     model: {

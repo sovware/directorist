@@ -4428,6 +4428,10 @@ function directorist_delete_temporary_upload_dirs() {
 	$upload_dir = wp_get_upload_dir();
 	$temp_dir   = trailingslashit( $upload_dir['basedir'] ) . 'directorist_temp_uploads/';
 
+	if ( ! file_exists( $temp_dir ) ) {
+		return;
+	}
+
 	$dirs = scandir( $temp_dir );
 	$date = date( 'nj' );
 

@@ -909,8 +909,4 @@ class Directorist_Listing_Form {
 			return apply_filters( 'atbdp_add_listing_page_template', $template, $args );
 		}
 	}
-
-	public function get_category_custom_field_relations() {
-		return directorist_get_category_custom_field_relations( $this->get_current_listing_type() );
-	}
 }

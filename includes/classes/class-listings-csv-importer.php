@@ -79,7 +79,11 @@ class Listings_CSV_Importer {
 
 		$count = 0;
 		while ( ! $file->eof() ) {
-			$file->fgetcsv();
+			$data = $file->fgetcsv();
+			$data = array_filter( $data );
+			if ( empty( $data ) ) {
+				continue;
+			}
 			++$count;
 		}
 

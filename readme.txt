@@ -3,9 +3,9 @@ Contributors: wpwax
 Donate link: https://directorist.com/extensions/
 Tags: member directory, listing, classifieds, directory plugin, business directory
 Requires at least: 4.6
-Tested up to: 6.7
+Tested up to: 6.8
 Requires PHP: 7.0
-Stable tag: 8.3.1
+Stable tag: 8.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -296,6 +296,35 @@ Directorist is a complete directory solution and in combination with its advance
  * and many more
 
 == Changelog ==
+
+8.4 - Apr 29, 2025
+
+**New**
+- Schema support for better search engine indexing. (#2298)
+- New filter hook to modify the default schema arguments. (#2310)
+
+**Changed**
+ - Replaced outdated Darken color with updated version for improved compatibility. (#2296)
+ - Improved styling for custom number field (prefix arrow, border, gap). (#2286)
+ - Listing default image. (#2314)
+ - Updated Swiper Slider JS and CSS to the latest version. (#2311)
+
+**Fixed**
+ - Add Listing sidebar layout cut-off issue and added scrollbar when necessary. (#2305)
+ - Registration redirection issue post-signup. (#2303)
+ - Listing view count logic fixed and refactored for better accuracy. (#2302)
+ - Fatal error when importing CSV with empty lines resolved. (#2301)
+ - Undefined variable issue in widget resolved. (#2300)
+ - Removed directorist-overlay-active class after filtering to prevent overlay lock. (#2299)
+ - Category custom field not appearing in add listing form resolved. (#2317)
+ - CSV importer application/csv MIME type issue. (#2318)
+ - Selector conflict between Gallery Extension and core plugin. (#2316)
+ - Responsive style issue for the single listing header button. (#2313)
+ - Translation notice issue in the admin panel. (#2309)
+ - Password recovery issue with WordPress 6.8. (#2322)
+
+ **Removed**
+ - Removed announcement-related code from the core plugin. (#2283)
 
 8.3.1 - Mar 26, 2025
 

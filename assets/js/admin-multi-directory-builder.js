@@ -3434,43 +3434,44 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       }
       return isChangeable;
     },
-    checkShowIfCondition: function checkShowIfCondition(payloadArray) {
-      var result = {
-        status: false,
-        // Final status (true if all conditions pass)
-        failed_conditions: 0,
-        succeed_conditions: 0,
-        matched_data: []
-      };
-
-      // Normalize condition into an array
-      var conditions = Array.isArray(payloadArray.condition) ? payloadArray.condition : [payloadArray.condition];
-      var _iterator4 = _createForOfIteratorHelper(conditions),
-        _step4;
-      try {
-        for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
-          var payload = _step4.value;
-          var state = this.checkSingleShowIfCondition({
-            condition: payload
-          });
-          if (state.status) {
-            result.succeed_conditions += 1;
-            result.matched_data.push(payload);
-          } else {
-            result.failed_conditions += 1;
+    checkShowIfCondition: function checkShowIfCondition(payload) {
+      // Handle both single and multiple conditions
+      if (payload.condition && Array.isArray(payload.condition)) {
+        // This is a multiple condition case
+        var result = {
+          status: false,
+          failed_conditions: 0,
+          succeed_conditions: 0,
+          matched_data: []
+        };
+        var _iterator4 = _createForOfIteratorHelper(payload.condition),
+          _step4;
+        try {
+          for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
+            var condition = _step4.value;
+            var state = this.checkSingleCondition({
+              condition: condition
+            });
+            if (state.status) {
+              result.succeed_conditions += 1;
+              result.matched_data.push(condition);
+            } else {
+              result.failed_conditions += 1;
+            }
           }
+        } catch (err) {
+          _iterator4.e(err);
+        } finally {
+          _iterator4.f();
         }
-
-        // If all conditions pass, set status to true
-      } catch (err) {
-        _iterator4.e(err);
-      } finally {
-        _iterator4.f();
+        result.status = result.failed_conditions === 0;
+        return result;
+      } else {
+        // This is a single condition case
+        return this.checkSingleCondition(payload);
       }
-      result.status = result.failed_conditions === 0;
-      return result;
     },
-    checkSingleShowIfCondition: function checkSingleShowIfCondition(payload) {
+    checkSingleCondition: function checkSingleCondition(payload) {
       var args = {
         condition: null
       };
@@ -3538,14 +3539,6 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
               sub_condition_error++;
             }
             if (sub_condition_error) {
-              failed_cond_count++;
-              continue;
-            }
-            if (!this.checkComparison({
-              data_a: sub_condition_field,
-              data_b: sub_condition.value,
-              compare: sub_compare
-            })) {
               failed_cond_count++;
               continue;
             }
@@ -34297,11 +34290,7 @@ var render = function render() {
       key: alert_key,
       staticClass: "cptm-form-alert",
       class: 'cptm-' + alert.type
-<<<<<<< HEAD
     }, [_vm._v("\r\n            " + _vm._s(alert.message) + "\r\n        ")]);
-=======
-    }, [_vm._v("\n            " + _vm._s(alert.message) + "\n        ")]);
->>>>>>> development
   }), 0) : _vm._e()]);
 };
 var staticRenderFns = [];
@@ -34703,7 +34692,6 @@ var render = function render() {
       }
     }
   }, 'component', _vm.$props, false)) : _vm._e();
-<<<<<<< HEAD
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -34733,8 +34721,6 @@ var render = function render() {
       }
     }
   }, 'component', _vm.$props, false)) : _vm._e();
-=======
->>>>>>> development
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -35701,7 +35687,6 @@ var render = function render() {
     staticClass: "atbdp-row"
   }, [_c('div', {
     staticClass: "atbdp-col atbdp-col-4"
-<<<<<<< HEAD
   }, [_vm.label.length ? _c('label', {
     class: {
       'atbdp-label-icon-wrapper': _vm.icon.length
@@ -35712,9 +35697,6 @@ var render = function render() {
       "innerHTML": _vm._s(_vm.icon)
     }
   }) : _vm._e(), _vm._v(" "), _c(_vm.labelType, {
-=======
-  }, [_vm.label.length ? _c('label', [_c(_vm.labelType, {
->>>>>>> development
     tag: "component",
     domProps: {
       "innerHTML": _vm._s(_vm.label)
@@ -44300,7 +44282,6 @@ if (true) {
     };
 }
 
-<<<<<<< HEAD
 /******************************************************************************
 Copyright (c) Microsoft Corporation.
 
@@ -44330,37 +44311,6 @@ var __assign = function() {
 typeof SuppressedError === "function" ? SuppressedError : function (error, suppressed, message) {
     var e = new Error(message);
     return e.name = "SuppressedError", e.error = error, e.suppressed = suppressed, e;
-=======
-/******************************************************************************
-Copyright (c) Microsoft Corporation.
-
-Permission to use, copy, modify, and/or distribute this software for any
-purpose with or without fee is hereby granted.
-
-THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
-REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
-AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
-INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
-LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
-OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
-PERFORMANCE OF THIS SOFTWARE.
-***************************************************************************** */
-
-var __assign = function() {
-    __assign = Object.assign || function __assign(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-
-typeof SuppressedError === "function" ? SuppressedError : function (error, suppressed, message) {
-    var e = new Error(message);
-    return e.name = "SuppressedError", e.error = error, e.suppressed = suppressed, e;
->>>>>>> development
 };
 
 var uid$2 = 0;

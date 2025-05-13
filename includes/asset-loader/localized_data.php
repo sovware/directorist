@@ -167,28 +167,25 @@ class Localized_Data {
 
 		//get listing is if the screen in edit listing
 		$data = array(
-			'nonce'           => wp_create_nonce( 'atbdp_nonce_action_js' ),
-			'ajaxurl'         => admin_url( 'admin-ajax.php' ),
-			'nonceName'       => 'atbdp_nonce_js',
-			'is_admin'		    => is_admin(),
-			'media_uploader'  => apply_filters( 'atbdp_media_uploader', [
+			'nonce'          => wp_create_nonce( 'atbdp_nonce_action_js' ),
+			'ajaxurl'        => admin_url( 'admin-ajax.php' ),
+			'nonceName'      => 'atbdp_nonce_js',
+			'is_admin'       => is_admin(),
+			'media_uploader' => apply_filters( 'atbdp_media_uploader', [
 				[
-					'element_id'        => 'directorist-image-upload',
-					'meta_name'         => 'listing_img',
-					'files_meta_name'   => 'files_meta',
-					'error_msg'         => __('Listing gallery has invalid files', 'directorist'),
+					'element_id'      => 'directorist-image-upload',
+					'meta_name'       => 'listing_img',
+					'files_meta_name' => 'files_meta',
+					'error_msg'       => __('Listing gallery has invalid files', 'directorist'),
 				]
 			]),
-			'i18n_text'       => $i18n_text,
-			'create_new_tag'  => $new_tag,
-			'create_new_loc'  => $new_loc,
-			'create_new_cat'  => $new_cat,
-			'image_notice'    => __( 'Sorry! You have crossed the maximum image limit', 'directorist' ),
+			'i18n_text'                       => $i18n_text,
+			'create_new_tag'                  => $new_tag,
+			'create_new_loc'                  => $new_loc,
+			'create_new_cat'                  => $new_cat,
+			'image_notice'                    => __( 'Sorry! You have crossed the maximum image limit', 'directorist' ),
+			'category_custom_field_relations' => static::get_fields_category_relation(),
 		);
-
-		if ( is_page( get_directorist_option( 'add_listing_page' ) ) ) {
-			$data['category_custom_field_relations'] = \Directorist\Directorist_Listing_Form::instance()->get_category_custom_field_relations();
-		}
 
 		return $data;
 	}
@@ -320,4 +317,14 @@ class Localized_Data {
 		return $data;
 	}
 
+	public static function get_fields_category_relation() {
+		$directories = directorist_get_directories();
+		$relation    = array();
+
+		foreach ( $directories as $directory ) {
+			$relation[ $directory->term_id ] = directorist_get_category_custom_field_relations( $directory->term_id );
+		}
+
+		return $relation;
+	}
 }

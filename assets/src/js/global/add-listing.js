@@ -327,119 +327,76 @@ $(function() {
         }
 
         let   categoryIds           = [];
+        let   directoryId           = 0;
+        const fieldsMap             = localized_data.category_custom_field_relations;
         const categoryInputSelector = directorist.is_admin ?
             '#at_biz_dir-categorychecklist input:checked':
             '#at_biz_dir-categories option:selected';
+
+        directoryId = $( 'select[name="directory_type"]', getWrapper() ).val();
+        if ( ! directoryId ) {
+            directoryId = $( 'input[name="directory_type"]', getWrapper() ).val();
+        }
+
+        if ( typeof fieldsMap[ directoryId ] === 'undefined' || fieldsMap[ directoryId ].length === 0 ) {
+            return;
+        }
 
         const $selectedCategories = $( categoryInputSelector );
         if ( $selectedCategories.length ) {
             categoryIds = $selectedCategories.toArray().map( el => Number( el.value ) );
         }
 
-        let $watchableSections = { hide: null, show: null };
-            categoryIds     = new Set( categoryIds );
+        let $watchableSections = { hide: new Set(), show: new Set() };
+            categoryIds        = new Set( categoryIds );
 
-        for ( const [ fieldKey, categoryId ] of Object.entries( localized_data.category_custom_field_relations ) ) {
+        for ( const [ fieldKey, categoryId ] of Object.entries( fieldsMap[ directoryId ] ) ) {
             const $input   = $( fieldKey.includes( 'checkbox' ) ? `[name="${fieldKey}[]"]` : `[name="${fieldKey}"]` );
             const $wrapper = $input.closest( '.directorist-form-group' );
 
             if ( categoryIds.has( categoryId ) ) {
                 $input.removeAttr( 'disabled' );
                 $wrapper.show();
-                $watchableSections.show = $wrapper.closest( '.directorist-form-section' );
+                $watchableSections.show.add( $wrapper.closest( '.directorist-form-section' ).get(0) );
             } else {
                 $input.attr( 'disabled', true );
                 $wrapper.hide();
-                $watchableSections.hide = $wrapper.closest( '.directorist-form-section' );
+                $watchableSections.hide.add( $wrapper.closest( '.directorist-form-section' ).get(0) );
             }
         }
 
-        if ( $watchableSections.show ) {
-            $watchableSections.show.removeAttr('style')
-            $watchableSections.show.find('.directorist-content-module__title').show();
-            $watchableSections.show.find('.directorist-content-module__contents').show()
+        if ( $watchableSections.show.size ) {
+            for ( const visible of $watchableSections.show ) {
+                const $visible = $( visible );
 
-            $(`a[href="#${$watchableSections.show.attr('id')}"]`).show();
+                $visible.removeAttr('style')
+                $visible.find('.directorist-content-module__title').show();
+                $visible.find('.directorist-content-module__contents').show()
+
+                $(`a[href="#${$visible.attr('id')}"]`).show();
+            }
         }
 
-        if ( $watchableSections.hide && $watchableSections.hide.find('.directorist-form-group:visible' ).length ) {
-            $watchableSections.hide.removeAttr('style')
-            $watchableSections.hide.find('.directorist-content-module__title').show();
-            $watchableSections.hide.find('.directorist-content-module__contents').show();
+        if ( $watchableSections.hide.size ) {
+            for ( const hidable of $watchableSections.hide ) {
+                const $hidable = $( hidable );
 
-            $(`a[href="#${$watchableSections.hide.attr('id')}"]`).show();
-        } else if ( $watchableSections.hide ) {
-            $watchableSections.hide.css({display: 'none', height: 0, padding: 0, margin: 0, border: 0, overflow: 'hidden'});
-            $watchableSections.hide.find('.directorist-content-module__title').hide();
-            $watchableSections.hide.find('.directorist-content-module__contents').hide();
+                if ( $hidable.find('.directorist-form-group:visible' ).length ) {
+                    $hidable.removeAttr('style')
+                    $hidable.find('.directorist-content-module__title').show();
+                    $hidable.find('.directorist-content-module__contents').show();
 
-            $(`a[href="#${$watchableSections.hide.attr('id')}"]`).hide();
+                    $(`a[href="#${$hidable.attr('id')}"]`).show();
+                } else {
+                    $hidable.css({display: 'none', height: 0, padding: 0, margin: 0, border: 0, overflow: 'hidden'});
+                    $hidable.find('.directorist-content-module__title').hide();
+                    $hidable.find('.directorist-content-module__contents').hide();
+
+                    $(`a[href="#${$hidable.attr('id')}"]`).hide();
+                }
+            }
         }
-
-        // loadCategoryCustomFields( {
-        //     categoryIds,
-        //     listingId,
-        //     directoryId,
-        //     onBeforeSend: function() {
-        //         console.log('before send!');
-        //     },
-        //     onSuccess: function( response ) {
-        //         if ( ! response.success ) {
-        //             $('.atbdp_category_custom_fields', getWrapper() ).empty();
-        //             $('.atbdp_category_custom_fields-wrapper', getWrapper() ).hide();
-        //             return;
-        //         }
-
-        //         $('.atbdp_category_custom_fields', getWrapper() ).empty();
-
-        //         $.each( response.data, function( fieldId, fieldMarkup ) {
-        //             let $newMarkup  = $( fieldMarkup );
-
-        //             if ( $newMarkup.find( '.directorist-form-element' )[0] !== undefined ) {
-        //                 $newMarkup.find( '.directorist-form-element' )[0].setAttribute( 'data-id', `${fieldId}` );
-        //             }
-
-        //             if($($newMarkup[0]).find('.directorist-radio input, .directorist-checkbox input').length){
-        //                 $($newMarkup[0]).find('.directorist-radio input, .directorist-checkbox input').each((i, item)=>{
-        //                     $(item).attr('id', `directorist-cf-${fieldId}-${i}`);
-        //                     $(item).attr('data-id', `directorist-cf-${fieldId}-${i}`);
-        //                     $(item).addClass('directorist-form-checks');
-        //                 })
-        //                 $($newMarkup[0]).find('.directorist-radio label, .directorist-checkbox label').each((i, item)=>{
-        //                     $(item).attr('for', `directorist-cf-${fieldId}-${i}`);
-        //                 })
-        //             }
-
-        //             $( '.atbdp_category_custom_fields', getWrapper() ).append( $newMarkup );
-        //         } );
-
-        //         $( '.atbdp_category_custom_fields-wrapper', getWrapper() ).show();
-
-        //         customFieldSeeMore();
-
-        //         const fieldsCache = getCategoryCustomFieldsCache();
-
-        //         Object.keys( fieldsCache ).forEach( key => {
-        //             const el = document.querySelector( `[data-id="${key}"]` );
-
-        //             if ( el === null ) {
-        //                 return;
-        //             }
-
-        //             if ( el.classList.contains( 'directorist-form-element' ) ) {
-        //                 el.value = fieldsCache[ key ];
-        //             } else {
-        //                 el.checked = fieldsCache[ key ];
-        //             }
-        //         } );
-
-        //         initColorField();
-        //     }
-        // } );
     }
-
-    // Create container div after category (in frontend)
-    // $('.directorist-form-categories-field').after('<div class="directorist-form-group  atbdp_category_custom_fields"></div>');
 
     window.addEventListener( 'load', function() {
         renderCategoryCustomFields();

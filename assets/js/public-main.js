@@ -98,8 +98,6 @@ $(document).ready(function () {
   modalToggle();
 });
 function modalToggle() {
-  // Recovery Password Modal
-  $("#recover-pass-modal").hide();
   $(".atbdp_recovery_pass").on("click", function (e) {
     e.preventDefault();
     $("#recover-pass-modal").slideToggle().show();

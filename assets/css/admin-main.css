@@ -11824,6 +11824,10 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   -webkit-animation: spin-centered 3s linear infinite;
           animation: spin-centered 3s linear infinite;
 }
+.directorist-btn.directorist-btn-disabled {
+  pointer-events: none;
+  opacity: 0.75;
+}
 
 .directorist-btn.directorist-btn-outline {
   background: transparent;

@@ -68,7 +68,11 @@ if ( ! class_exists( 'ATBDP_Email' ) ) :
 		   * @since 5.8
 		   */
 		public function atbdp_wp_mail_from_name() {
-			$site_name = get_option( 'blogname' );
+			$force = apply_filters( 'directorist_force_email_from_name', true );
+			if ( $force ) {
+				$site_name = get_option( 'blogname' );
+			}
+			
 			return $site_name;
 		}
 

@@ -67,13 +67,13 @@ if ( ! class_exists( 'ATBDP_Email' ) ) :
 		  /**
 		   * @since 5.8
 		   */
-		public function atbdp_wp_mail_from_name() {
+		public function atbdp_wp_mail_from_name( $from_name ) {
 			$force = apply_filters( 'directorist_force_email_from_name', true );
 			if ( $force ) {
-				$site_name = get_option( 'blogname' );
+				$from_name = get_option( 'blogname' );
 			}
 			
-			return $site_name;
+			return $from_name;
 		}
 
 		/**

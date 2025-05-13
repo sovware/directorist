@@ -3243,34 +3243,36 @@ if ( ! function_exists( 'directorist_is_plugin_active_for_network' ) ) {
  *
  * @since 7.0.6.2
  *
- * @param string $get_error_code
+ * @param string $error_code
  *
  * @return string Error message.
  */
 function directorist_get_registration_error_message( $error_code ) {
-	$message = [
+	$messages = [
 		'0' => __( 'Something went wrong!', 'directorist' ),
-		'1' => __( 'Registration failed. Please make sure you filed up all the necessary fields marked with <span style="color: red">*</span>', 'directorist' ),
+		'1' => __( 'Registration failed. Please make sure you filled out all the necessary fields marked with <span style="color: red">*</span>.', 'directorist' ),
 		'2' => sprintf(
 			/** translators: %1$s - link opening, %2$s - link closing */
 			__( 'This email is already registered. Please %1$sclick here to login%2$s.', 'directorist' ),
 			'<a class="directorist-authentication__toggle" href="' . ATBDP_Permalink::get_dashboard_page_link() . '">',
 			'</a>'
 		),
-		'3' => __( 'Username too short. At least 4 characters is required', 'directorist' ),
+		'3' => __( 'Username too short. At least 4 characters are required.', 'directorist' ),
 		'4' => sprintf(
 			/** translators: %1$s - link opening, %2$s - link closing */
 			__( 'This username is already registered. Please %1$sclick here to login%2$s.', 'directorist' ),
 			'<a class="directorist-authentication__toggle" href="' . ATBDP_Permalink::get_dashboard_page_link() . '">',
 			'</a>'
 		),
-		'5' => __( 'Password length must be greater than 5', 'directorist' ),
-		'6' => __( 'Email is not valid', 'directorist' ),
-		'7' => __( 'Space is not allowed in username', 'directorist' ),
-		'8' => __( 'Please make sure you filed up the user type', 'directorist' ),
+		'5' => __( 'Password length must be greater than 5 characters.', 'directorist' ),
+		'6' => __( 'Email is not valid.', 'directorist' ),
+		'7' => __( 'Spaces are not allowed in usernames.', 'directorist' ),
+		'8' => __( 'Please make sure you selected the user type.', 'directorist' ),
 	];
 
-	return isset( $message[ $error_code ] ) ? $message[ $error_code ] : '';
+	$messages = apply_filters( 'directorist_registration_error_messages', $messages, $error_code );
+
+	return isset( $messages[ $error_code ] ) ? $messages[ $error_code ] : '';
 }
 
 /**

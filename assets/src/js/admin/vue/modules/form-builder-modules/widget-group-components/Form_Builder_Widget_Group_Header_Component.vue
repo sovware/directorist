@@ -104,7 +104,7 @@ export default {
       default: "",
     },
     draggable: {
-      default: false,
+      default: true,
     },
     canTrash: {
       default: false,

@@ -19011,7 +19011,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       default: ""
     },
     draggable: {
-      default: false
+      default: true
     },
     canTrash: {
       default: false

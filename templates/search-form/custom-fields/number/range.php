@@ -7,10 +7,12 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-$min_value = $data['options']['min_value'] ?? 1;
-$max_value = $data['options']['max_value'] ?? 100;
-$default_min_value = $data['options']['min_value'] ?? 1;
-$default_max_value = $data['options']['max_value'] ?? 100;
+$min_value = !empty($data['options']['min_value']) ? $data['options']['min_value'] : 1;
+$max_value = !empty($data['options']['max_value']) ? $data['options']['max_value'] : 100;
+
+$default_min_value = $min_value;
+$default_max_value = $max_value;
+
 
 if (!empty($value) && strpos($value, '-') !== false) {
     list($min_value, $max_value) = explode('-', $value);
@@ -19,7 +21,7 @@ if (!empty($value) && strpos($value, '-') !== false) {
 
 <div class="directorist-search-field directorist-search-field-text_range">
     <?php if ( !empty($data['label']) ): ?>
-        <label><?php echo esc_html( $data['label'] ); ?></label>
+        <label class="directorist-search-field__label"><?php echo esc_html( $data['label'] ); ?></label>
     <?php endif; ?>
     <div class="directorist-custom-range-slider">
         <div class="directorist-custom-range-slider__slide" step="<?php echo esc_attr( ! empty( $data['options']['step'] ) ? absint( $data['options']['step'] ) : 1 ); ?>" aria-label="Range" min-value="<?php echo esc_attr($default_min_value); ?>" max-value="<?php echo esc_attr($default_max_value); ?>"></div>

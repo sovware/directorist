@@ -168,6 +168,10 @@
       animation: spin-centered 3s linear infinite;
     }
   }
+  &.directorist-btn-disabled {
+    pointer-events: none;
+    opacity: 0.75;
+  }
 }
 
 // Button Outline

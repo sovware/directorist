@@ -153,16 +153,14 @@ jQuery(document).ready(function ($) {
     $('.directorist-importer-length').css('width', '10%');
     $('.directorist-importer-progress').val(10);
     var configFields = $('.directorist-listings-importer-config-field');
-    var position = 0;
-    var offset = 0;
-    var run_import = function run_import() {
+    var runImporter = function runImporter() {
+      var position = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+      var offset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
       var form_data = new FormData();
-
-      // ajax action
-      form_data.append('action', 'directorist_import_listings');
-      form_data.append('position', position);
-      form_data.append('offset', offset);
-      form_data.append('directorist_nonce', directorist_admin.directorist_nonce);
+      form_data.set('action', 'directorist_import_listings');
+      form_data.set('_position', position);
+      form_data.set('_offset', offset);
+      form_data.set('directorist_nonce', directorist_admin.directorist_nonce);
 
       // Get Config Fields Value
       if (configFields.length) {
@@ -216,23 +214,23 @@ jQuery(document).ready(function ($) {
             });
             return;
           }
-          $('.importer-details').html("".concat(response.position, "/").concat(response.total));
-          $('.directorist-importer-progress').val(response.position * 100 / response.total);
+          var percentage = response.position / response.total * 100;
+          $('.importer-details').html("".concat(Math.min(response.position, response.total), "/").concat(response.total));
+          $('.directorist-importer-length').css('width', percentage + '%');
+          $('.directorist-importer-progress').val(percentage);
+          console.log(response.logs.join('\n'));
           if (!response.done) {
-            position = response.position;
-            offset = response.offset;
-            run_import();
+            runImporter(response.position, response.offset);
           } else {
-            window.location = "".concat(response.redirect_url, "&listing-imported=").concat(response.imported_items.length, "&listing-failed=").concat(response.failed_items.length);
+            window.location = response.redirect_url;
           }
-          $('.directorist-importer-length').css('width', response.percentage + '%');
         },
         error: function error(response) {
           window.console.log(response);
         }
       });
     };
-    run_import();
+    runImporter();
   });
 
   /* csv upload */

@@ -26,7 +26,7 @@ class Directorist_Multilingual_Polylang {
         add_filter( 'directorist_localized_data', [ $this, 'polylang_localized_data' ], 20, 1 );
 		
         // Switch current language in Ajax
-        add_action( 'directorist_before_processing_ajax_request', [ $this, 'polylang_switch_current_language_in_ajax' ], 20 );
+        add_action( 'directorist_ajax_before_request_handling', [ $this, 'polylang_switch_current_language_in_ajax' ], 20 );
 		
         // Switch permalink's language in Ajax
         add_filter( 'post_type_link', [ $this, 'polylang_switch_permalinks_language_in_ajax' ], 50, 2 );

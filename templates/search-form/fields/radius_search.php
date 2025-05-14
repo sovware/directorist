@@ -23,7 +23,7 @@ if ( ! empty( $_REQUEST['miles'] ) ) {
 
 <div class="directorist-search-field directorist-search-field-radius_search <?php echo esc_attr( $empty_label ); ?>">
 	<?php if (!empty($data['label'])) : ?>
-		<label><?php echo esc_html($data['label']); ?></label>
+		<label class="directorist-search-field__label"><?php echo esc_html($data['label']); ?></label>
 	<?php endif; ?>
 	<div class="directorist-custom-range-slider">
 		<div class="directorist-custom-range-slider__range__wrap">

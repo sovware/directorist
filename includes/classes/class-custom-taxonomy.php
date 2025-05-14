@@ -101,26 +101,22 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
 
 
 		public function atbdp_template_redirect() {
+			if ( is_feed() || ! is_tax( ATBDP_CATEGORY ) ) {
+				return;
+			}
+
 			$redirect_url = '';
-
-			if ( ! is_feed() ) {
-
-				// If Categories Page
-				if ( is_tax( ATBDP_CATEGORY ) ) {
-
-					$term         = get_queried_object();
-					$redirect_url = ATBDP_Permalink::atbdp_get_category_page( $term );
-
-				}
+			if ( apply_filters( 'directorist_category_page_redirection_enabled', true ) ) {
+				$category     = get_queried_object();
+				$redirect_url = ATBDP_Permalink::atbdp_get_category_page( $category );
 			}
 
-			// Redirect
-			if ( ! empty( $redirect_url ) ) {
-
-				wp_safe_redirect( esc_url_raw( $redirect_url ) );
-				exit();
-
+			if ( empty( $redirect_url ) ) {
+				return;
 			}
+
+			wp_safe_redirect( esc_url_raw( $redirect_url ) );
+			exit();
 		}
 
 		public function taxonomy_redirect_page( $url, $term, $taxonomy ) {

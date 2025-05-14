@@ -213,7 +213,7 @@ final class Directorist_Base
 			self::$instance->includes();
 
 			// Beta plugin lookup
-			$plugin_data = get_plugin_data( plugin_dir_path( __FILE__ ) . 'directorist-base.php' );
+			$plugin_data = get_plugin_data( __FILE__ );
 
 			if ( ! empty( $plugin_data['Version'] ) ) {
 				self::$instance->beta = strpos( $plugin_data['Version'], 'Beta' ) ? true : false;
@@ -250,7 +250,7 @@ final class Directorist_Base
 			// self::$instance->validator = new ATBDP_Validator;
 			// self::$instance->ATBDP_Single_Templates = new ATBDP_Single_Templates;
 			self::$instance->tools = new ATBDP_Tools();
-			self::$instance->multilingual = new Directorist_Multilingual();
+			new Directorist_Multilingual();
 
 			self::$instance->background_image_process = new \Directorist\Background_Image_Process();
 

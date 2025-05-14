@@ -6,10 +6,10 @@ if ( ! class_exists( 'Directorist_Multilingual' ) ) :
 
 class Directorist_Multilingual {
     public function __construct() {
-        add_action( 'plugins_loaded', [ $this, 'init' ], 20 );
+        add_action( 'plugins_loaded', [ self::class, 'init' ], 20 );
     }
 
-    public function init() {
+    public static function init() {
         new Directorist_Multilingual_Polylang();
     }
 }

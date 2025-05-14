@@ -309,29 +309,56 @@ export default {
         active_widget_groups = [];
       }
 
-      let group_index = 0;
-      for (let widget_group of active_widget_groups) {
+      let existingGroupIds = [];
+
+      for (
+        let group_index = 0;
+        group_index < active_widget_groups.length;
+        group_index++
+      ) {
+        let widget_group = active_widget_groups[group_index];
+
+        // Ensure label exists
         if (typeof widget_group.label === "undefined") {
-          active_widget_groups[group_index].label = "";
+          widget_group.label = "";
         }
 
+        // Ensure fields is an array
         if (
           typeof widget_group.fields === "undefined" ||
           !Array.isArray(widget_group.fields)
         ) {
-          active_widget_groups[group_index].fields = [];
+          widget_group.fields = [];
         }
 
-        let field_index = 0;
+        // Filter valid fields
+        let valid_fields = [];
         for (let field of widget_group.fields) {
-          if (typeof this.active_widget_fields[field] === "undefined") {
-            delete active_widget_groups[group_index].fields[field_index];
+          if (typeof this.active_widget_fields[field] !== "undefined") {
+            valid_fields.push(field);
+          }
+        }
+        widget_group.fields = valid_fields;
+
+        // Generate ID if missing
+        if (!widget_group.id && widget_group.label) {
+          let baseId = widget_group.label
+            .toLowerCase()
+            .trim()
+            .replace(/\s+/g, "-");
+          let uniqueId = baseId;
+          let suffix = 1;
+
+          while (existingGroupIds.includes(uniqueId)) {
+            uniqueId = `${baseId}-${suffix}`;
+            suffix++;
           }
 
-          field_index++;
+          widget_group.id = uniqueId;
         }
 
-        group_index++;
+        // Track all IDs for uniqueness
+        existingGroupIds.push(widget_group.id);
       }
 
       return active_widget_groups;
@@ -385,7 +412,7 @@ export default {
           updatedValue = directorist_admin.search_form_default_label;
         }
       }
-        
+
       Vue.set(
         this.active_widget_fields[props.widget_key],
         props.payload.key,

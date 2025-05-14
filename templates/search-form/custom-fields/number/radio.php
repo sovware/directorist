@@ -10,10 +10,10 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 $options = directorist_calculate_number_options( $data );
 ?>
 
-<div class="directorist-search-field">
+<div class="directorist-search-field directorist-search-field__number">
 
 	<?php if ( !empty($data['label']) ): ?>
-		<label><?php echo esc_html( $data['label'] ); ?></label>
+		<label class="directorist-search-field__label"><?php echo esc_html( $data['label'] ); ?></label>
 	<?php endif; ?>
 
 	<div class="directorist-flex directorist-flex-wrap directorist-radio-wrapper">

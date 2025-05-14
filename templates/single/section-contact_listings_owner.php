@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.7
- * @version 8.0
+ * @version 8.4.1
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -54,7 +54,7 @@ $fields = $listing->contact_owner_fields( $section_data['fields'] );
 
 				<p class="directorist-contact-message-display"></p>
 
-				<button type="submit" class="directorist-btn directorist-btn-light directorist-btn-md directorist-btn-submit"><?php esc_html_e( 'Submit now', 'directorist' ); ?></button>
+				<button type="submit" class="directorist-btn directorist-btn-light directorist-btn-md directorist-btn-submit <?php echo esc_attr( ! empty( $_GET['preview'] ) ? 'directorist-btn-disabled' : '' ) ?>"><?php esc_html_e( 'Submit now', 'directorist' ); ?></button>
 
 			</div>
 

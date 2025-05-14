@@ -6490,7 +6490,7 @@ button[type=submit].directorist-btn {
 }
 .directorist-content-active .select2.select2-container.select2-container--focus .select2-selection {
   border: none;
-  border-bottom: 1px solid var(--directorist-color-primary) !important;
+  border-bottom: 2px solid var(--directorist-color-primary) !important;
 }
 
 .directorist-content-active .select2-container.select2-container--open {
@@ -7217,6 +7217,10 @@ body.modal-overlay-enabled:before {
           transform: translateX(50%);
   -webkit-animation: spin-centered 3s linear infinite;
           animation: spin-centered 3s linear infinite;
+}
+.directorist-btn.directorist-btn-disabled {
+  pointer-events: none;
+  opacity: 0.75;
 }
 
 .directorist-btn.directorist-btn-outline {
@@ -8861,9 +8865,6 @@ body.modal-overlay-enabled:before {
 .directorist-search-modal__contents__body .directorist-search-field__btn--clear:hover i::after {
   background-color: var(--directorist-color-primary);
 }
-.directorist-search-modal__contents__body .directorist-search-field.directorist-date .directorist-search-field__btn--clear, .directorist-search-modal__contents__body .directorist-search-field.directorist-time .directorist-search-field__btn--clear {
-  bottom: 8px;
-}
 .directorist-search-modal__contents__body .directorist-search-field.input-is-focused .directorist-search-field__input[type=number] {
   appearance: none !important;
   -webkit-appearance: none !important;
@@ -8931,6 +8932,25 @@ body.modal-overlay-enabled:before {
   bottom: 12px;
 }
 .directorist-search-modal__contents__body .directorist-search-field .directorist-filter-location-icon .directorist-icon-mask:after {
+  background-color: #808080;
+}
+.directorist-search-modal__contents__body .directorist-search-field .select2-container .directorist-select2-addons-area .directorist-icon-mask {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+.directorist-search-modal__contents__body .directorist-search-field .select2-container .directorist-select2-addons-area .directorist-icon-mask:after {
+  width: 12px;
+  height: 12px;
   background-color: #808080;
 }
 .directorist-search-modal__contents__body .directorist-search-form-dropdown {
@@ -9166,7 +9186,15 @@ body.modal-overlay-enabled:before {
     width: 100%;
     padding-left: 0;
   }
+  .directorist-search-modal--basic .directorist-search-modal__input .directorist-search-field .directorist-custom-range-slider__value {
+    border-bottom: none;
+  }
+  .directorist-search-modal--basic .directorist-search-modal__input .directorist-search-field .directorist-custom-range-slider__value:focus-within {
+    outline: none;
+    border-bottom: 2px solid var(--directorist-color-primary);
+  }
   .directorist-search-modal--basic .directorist-search-modal__input .directorist-search-field.directorist-search-field-radius_search {
+    width: auto;
     padding-left: 0;
   }
   .directorist-search-modal--basic .directorist-search-modal__input .directorist-search-field.directorist-search-field-radius_search .directorist-custom-range-slider__range__wrap {
@@ -9304,12 +9332,18 @@ body.modal-overlay-enabled:before {
   display: flex;
 }
 .directorist-search-modal--basic .directorist-search-field-pricing > label,
-.directorist-search-modal--basic .directorist-search-field-text_range > label,
+.directorist-search-modal--basic .directorist-search-field-price_range > label,
 .directorist-search-modal--basic .directorist-search-field-radius_search > label {
+  position: unset;
+  -webkit-transform: unset;
+          transform: unset;
   display: block;
   font-size: 14px;
   font-weight: 500;
   margin-bottom: 15px;
+}
+.directorist-search-modal--basic .directorist-search-field-text_range > label {
+  display: none;
 }
 .directorist-search-modal--advanced .directorist-search-modal__contents__body .directorist-search-field__btn {
   bottom: 12px;
@@ -11575,7 +11609,11 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .listing-with-sidebar__searchform .directorist-search-field-pricing > label,
 .listing-with-sidebar__searchform .directorist-search-field-text_range > label,
+.listing-with-sidebar__searchform .directorist-search-field-price_range > label,
 .listing-with-sidebar__searchform .directorist-search-field-radius_search > label {
+  position: unset;
+  -webkit-transform: unset;
+          transform: unset;
   display: block;
   font-size: 14px;
   font-weight: 500;
@@ -11764,7 +11802,11 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   margin: 0;
 }
 .listing-with-sidebar__sidebar .directorist-advanced-filter__advanced__element .directorist-search-field.directorist-search-field-radius_search > label, .listing-with-sidebar__sidebar .directorist-advanced-filter__advanced__element .directorist-search-field.directorist-search-field-price_range > label, .listing-with-sidebar__sidebar .directorist-advanced-filter__advanced__element .directorist-search-field.directorist-search-field-text_range > label {
+  position: unset;
   margin-bottom: 15px;
+}
+.listing-with-sidebar__sidebar .directorist-advanced-filter__advanced__element .directorist-search-field.directorist-search-field__number > label {
+  position: unset;
 }
 .listing-with-sidebar__sidebar .directorist-advanced-filter__advanced__element .directorist-search-field .directorist-search-tags,
 .listing-with-sidebar__sidebar .directorist-advanced-filter__advanced__element .directorist-search-field .directorist-search-review,
@@ -12268,6 +12310,11 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .directorist-advanced-filter__advanced__element .directorist-search-field.input-is-focused .directorist-search-field__input[type=time] {
   padding-left: 20px;
+}
+.directorist-advanced-filter__advanced__element .directorist-search-field.directorist-search-field-radius_search > label, .directorist-advanced-filter__advanced__element .directorist-search-field.directorist-search-field-price_range > label, .directorist-advanced-filter__advanced__element .directorist-search-field.directorist-search-field-text_range > label, .directorist-advanced-filter__advanced__element .directorist-search-field.directorist-search-field__number > label {
+  position: unset;
+  -webkit-transform: unset;
+          transform: unset;
 }
 .directorist-advanced-filter__advanced__element .directorist-checkbox-wrapper,
 .directorist-advanced-filter__advanced__element .directorist-radio-wrapper,
@@ -13070,7 +13117,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
     width: 100%;
   }
 }
-@media screen and (min-width: 575px) {
+@media screen and (min-width: 576px) {
   .directorist-search-form__top {
     margin-top: 5px;
   }
@@ -13518,6 +13565,29 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
           align-items: center;
   padding: 5px 0;
   border: 0 none !important;
+  width: calc(100% - 15px);
+}
+.directorist-search-form__top .select2-container.select2-container--default .select2-selection--single .select2-selection__rendered .select2-selection__placeholder {
+  color: var(--directorist-color-body);
+}
+.directorist-search-form__top .select2-container.select2-container--default .directorist-select2-addons-area .directorist-icon-mask {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+.directorist-search-form__top .select2-container.select2-container--default .directorist-select2-addons-area .directorist-icon-mask:after {
+  width: 12px;
+  height: 12px;
+  background-color: #808080;
 }
 .directorist-search-form__top .select2-container .directorist-select2-dropdown-close {
   display: none;

@@ -40,7 +40,6 @@ if ( ! class_exists( 'ATBDP_Email' ) ) :
 			/*Fire up email for deleted/trashed listings*/
 			add_action( 'atbdp_deleted_expired_listings', array( $this, 'notify_owner_listing_deleted' ) );
 			add_action( 'atbdp_deleted_expired_listings', array( $this, 'notify_admin_listing_deleted' ) );
-			add_filter( 'wp_mail_from_name', array( $this, 'atbdp_wp_mail_from_name' ) );
 			/*Fire up emails when a general user apply for become author user*/
 			add_action( 'atbdp_become_author', array( $this, 'notify_admin_become_author' ) );
 			// add_action('atbdp_become_author', array($this, 'notify_owner_become_author'));
@@ -436,10 +435,15 @@ This email is sent automatically for information purpose only. Please do not res
 		 * @return bool         It returns true if mail is sent successfully. False otherwise.
 		 */
 		public function send_mail( $to, $subject, $message, $headers ) {
-			add_filter( 'wp_mail_content_type', array( $this, 'html_content_type' ) ); // set content type to html
+			add_filter( 'wp_mail_from_name', array( $this, 'atbdp_wp_mail_from_name' ) );
+			add_filter( 'wp_mail_content_type', array( $this, 'html_content_type' ) );
+
 			$sent = wp_mail( $to, html_entity_decode( $subject ), $message, $headers );
 			/*@todo; check if we really need to remove the filter, as the above filter change the content type only when we call this function.*/
-			remove_filter( 'wp_mail_content_type', array( $this, 'html_content_type' ) ); // remove content type from html
+			
+			remove_filter( 'wp_mail_content_type', array( $this, 'html_content_type' ) );
+			remove_filter( 'wp_mail_from_name', array( $this, 'atbdp_wp_mail_from_name' ) );
+
 			return $sent;
 		}
 

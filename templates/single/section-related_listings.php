@@ -22,7 +22,7 @@ if ( !$related->have_posts() ) {
 
 	</div>
 
-	<div class='directorist-swiper directorist-swiper-related-listing' data-sw-items='3' data-sw-margin='30' data-sw-loop='false' data-sw-perslide='1' data-sw-speed='1000' data-sw-autoplay='true' data-sw-responsive='{
+	<div class='directorist-swiper directorist-swiper-related-listing' data-sw-items='3' data-sw-margin='30' data-sw-loop='true' data-sw-perslide='1' data-sw-speed='1000' data-sw-autoplay='true' data-sw-responsive='{
 		"0": {"slidesPerView": "1"},
 		"768": {"slidesPerView": "2"},
 		"1200": {"slidesPerView": "<?php echo esc_attr( $section_data['similar_listings_number_of_columns'] ?? 3 ); ?>"}

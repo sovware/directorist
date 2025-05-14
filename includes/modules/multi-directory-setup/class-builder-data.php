@@ -2289,12 +2289,14 @@ class Builder_Data {
                     'groups' => [
                         [
                             'label'     => __( 'Search Bar', 'directorist' ),
+                            'id'        => 'basic',
                             'lock'      => true,
                             'draggable' => false,
                             'fields'    => [],
                         ],
                         [
                             'label'     => __( 'Search Filter', 'directorist' ),
+                            'id'        => 'advanced',
                             'lock'      => true,
                             'draggable' => false,
                             'fields'    => [],

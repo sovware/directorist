@@ -66,8 +66,8 @@
     @include e(element) {
       overflow: hidden;
       &.directorist-search-field-location,
-      &.directorist-search-field-category{
-        .directorist-search-field.input-is-focused{
+      &.directorist-search-field-category {
+        .directorist-search-field.input-is-focused {
           margin-top: 0;
         }
       }
@@ -100,7 +100,7 @@
             }
           }
         }
-        .directorist-form-group__prefix--start{
+        .directorist-form-group__prefix--start {
           opacity: 0;
           transition: opacity 0.3s ease;
         }
@@ -112,7 +112,7 @@
             padding-right: 0;
           }
         }
-        
+
         &.input-is-focused {
           width: 100%;
           display: inline-flex;
@@ -124,7 +124,7 @@
             font-weight: 500;
             margin: 0;
           }
-          .directorist-form-group__prefix--start{
+          .directorist-form-group__prefix--start {
             opacity: 1;
           }
           .directorist-search-field__input {
@@ -140,6 +140,16 @@
             &[type="time"] {
               padding-right: 20px;
             }
+          }
+        }
+
+        &.directorist-search-field-radius_search,
+        &.directorist-search-field-price_range,
+        &.directorist-search-field-text_range,
+        &.directorist-search-field__number {
+          > label {
+            position: unset;
+            transform: unset;
           }
         }
       }
@@ -166,11 +176,11 @@
       .directorist-search-tags {
         .directorist-checkbox {
           display: none;
-      
-          &:nth-child(-n+4) {
+
+          &:nth-child(-n + 4) {
             display: block;
           }
-        }      
+        }
       }
       .directorist-form-group {
         .directorist-filter-location-icon {

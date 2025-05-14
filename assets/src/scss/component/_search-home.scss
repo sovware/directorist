@@ -216,7 +216,7 @@
     @media screen and (max-width: 767px) {
       width: 100%;
     }
-    @media screen and (min-width: 575px) {
+    @media screen and (min-width: 576px) {
       margin-top: 5px;
       .directorist-search-modal__minimizer {
         display: none;
@@ -618,11 +618,31 @@
     .select2-container {
       width: 100%;
 
-      &.select2-container--default .select2-selection--single {
-        display: flex;
-        align-items: center;
-        padding: 5px 0;
-        border: 0 none !important;
+      &.select2-container--default {
+        .select2-selection--single {
+          display: flex;
+          align-items: center;
+          padding: 5px 0;
+          border: 0 none !important;
+          width: calc(100% - 15px);
+          .select2-selection__rendered {
+            .select2-selection__placeholder {
+              color: var(--directorist-color-body);
+            }
+          }
+        }
+        .directorist-select2-addons-area {
+          .directorist-icon-mask {
+            display: flex;
+            flex: 1;
+            justify-content: flex-end;
+            &:after {
+              width: 12px;
+              height: 12px;
+              background-color: #808080;
+            }
+          }
+        }
       }
       .directorist-select2-dropdown-close {
         display: none;

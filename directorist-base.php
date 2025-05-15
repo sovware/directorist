@@ -141,6 +141,14 @@ final class Directorist_Base
 	public $seo;
 
 	/**
+	 * Directorist_Multilingual Object.
+	 *
+	 * @var Directorist_Multilingual
+	 * @since 8.4
+	 */
+	public $multilingual;
+
+	/**
 	 * ATBDP_Tools Object.
 	 *
 	 * @var ATBDP_Tools
@@ -195,7 +203,6 @@ final class Directorist_Base
 
 			add_action( 'plugins_loaded', array( self::$instance, 'redirect_to_setup_wizard' ) );
 			add_action('init', array(self::$instance, 'load_textdomain'));
-			add_action('init', array(self::$instance, 'add_polylang_swicher_support') );
 			add_action('widgets_init', array(self::$instance, 'register_widgets'));
 			add_filter('widget_display_callback', array(self::$instance, 'custom_widget_body_wrapper'), 10, 3);
 			add_action('after_setup_theme', array(self::$instance, 'add_image_sizes'));
@@ -204,6 +211,13 @@ final class Directorist_Base
 			add_action( 'atbdp_show_flush_messages', [ self::$instance, 'show_flush_messages' ] );
 
 			self::$instance->includes();
+
+			// Beta plugin lookup
+			$plugin_data = get_plugin_data( __FILE__, false, false );
+
+			if ( ! empty( $plugin_data['Version'] ) ) {
+				self::$instance->beta = strpos( $plugin_data['Version'], 'Beta' ) ? true : false;
+			}
 
 			self::$instance->custom_post = new ATBDP_Custom_Post(); // create custom post
 			self::$instance->taxonomy = new ATBDP_Custom_Taxonomy();
@@ -236,6 +250,7 @@ final class Directorist_Base
 			// self::$instance->validator = new ATBDP_Validator;
 			// self::$instance->ATBDP_Single_Templates = new ATBDP_Single_Templates;
 			self::$instance->tools = new ATBDP_Tools();
+			new Directorist_Multilingual();
 
 			self::$instance->background_image_process = new \Directorist\Background_Image_Process();
 
@@ -352,77 +367,6 @@ final class Directorist_Base
 		}
 
 		atbdp_auth_guard();
-	}
-
-	// add_polylang_swicher_support
-	public function add_polylang_swicher_support() {
-		// beta plugin lookup
-		$plugin_data = get_plugin_data( plugin_dir_path( __FILE__ ) . 'directorist-base.php' );
-
-		if( ! empty( $plugin_data['Version'] ) ) {
-			self::$instance->beta = strpos( $plugin_data['Version'], 'Beta' ) ? true : false;
-		}
-
-
-		add_filter('pll_the_language_link', function($url, $current_lang) {
-			// Adjust the category link
-			$category_url = $this->get_polylang_swicher_link_for_term([
-				'term_type'            => 'category',
-				'term_default_page_id' => get_directorist_option('single_category_page'),
-				'term_query_var'       => ( ! empty( $_GET['category'] ) ) ? sanitize_text_field( wp_unslash( $_GET['category'] ) ) : get_query_var('atbdp_category'),
-				'current_lang'         => $current_lang,
-				'url'                  => $url,
-			]);
-
-			if ( ! empty( $category_url ) ) { return $category_url; }
-
-			// Adjust the location link
-			$location_url = $this->get_polylang_swicher_link_for_term([
-				'term_type'            => 'location',
-				'term_default_page_id' => get_directorist_option('single_location_page'),
-				'term_query_var'       => ( ! empty( $_GET['location'] ) ) ? sanitize_text_field( wp_unslash( $_GET['location'] ) ) : get_query_var('atbdp_location'),
-				'current_lang'         => $current_lang,
-				'url'                  => $url,
-			]);
-
-			if ( ! empty( $location_url ) ) { return $location_url; }
-
-			return $url;
-		}, 10, 2);
-	}
-
-	// get_polylang_swicher_link_for_term
-	public function get_polylang_swicher_link_for_term( $args ) {
-		if ( ! function_exists( 'pll_get_post_language' ) ) {
-			return;
-		}
-
-		$default = [
-			'term_type'            => '',
-			'term_query_var'       => '',
-			'term_default_page_id' => '',
-			'current_lang'         => '',
-			'url'                  => '',
-		];
-
-		$args = array_merge( $default, $args );
-
-		if ( empty( $args[ 'term_query_var' ] ) ) { return false; }
-
-		// Get language slug of the default page
-		$page_lang = pll_get_post_language( $args[ 'term_default_page_id' ] );
-
-		// If current lang slug != default page
-		// modyfy the url
-		if ( $args[ 'current_lang' ] !== $page_lang ) {
-			return $args['url'] ."?". $args['term_type'] ."=". $args['term_query_var'];
-		}
-
-		if ( $args[ 'current_lang' ] === $page_lang  ) {
-			return $args['url'] . $args['term_query_var'];
-		}
-
-		return false;
 	}
 
 	/**

@@ -940,7 +940,7 @@ class Multi_Directory_Manager {
     // register_directory_taxonomy
     public function register_directory_taxonomy()
     {
-        register_taxonomy( ATBDP_DIRECTORY_TYPE, [ ATBDP_POST_TYPE ], [
+        register_taxonomy( ATBDP_DIRECTORY_TYPE, [ ATBDP_POST_TYPE ], apply_filters( 'directorist_register_directory_taxonomy_args',  [
             'hierarchical' => false,
             'labels'       => [
                 'name'          => _x( 'Listing Directory', 'taxonomy general name', 'directorist' ),
@@ -949,7 +949,7 @@ class Multi_Directory_Manager {
                 'menu_name'     => __( 'Listing Directory', 'directorist' ),
             ],
 			'show_ui'      => false,
-        ] );
+        ] ) );
     }
 
     /**

@@ -213,7 +213,7 @@ final class Directorist_Base
 			self::$instance->includes();
 
 			// Beta plugin lookup
-			$plugin_data = get_plugin_data( __FILE__ );
+			$plugin_data = get_plugin_data( __FILE__, false, false );
 
 			if ( ! empty( $plugin_data['Version'] ) ) {
 				self::$instance->beta = strpos( $plugin_data['Version'], 'Beta' ) ? true : false;

@@ -13,14 +13,20 @@ class Init {
 		require_once trailingslashit( __DIR__ ) . 'class-routes.php';
 
 		add_action( 'admin_menu', [$this, 'add_menu_page'] );
-		add_action( 'wp_enqueue_scripts', [$this, 'enqueue_assets'] );
+		add_action( 'admin_enqueue_scripts', [$this, 'enqueue_assets'] );
 
 		new Routes();
 	}
 
 	public function enqueue_assets() {
-		wp_enqueue_style( 'licensing-css', DIRECTORIST site_url( 'assets/style.css' ), [], '1.0' );
-		wp_enqueue_script( 'licensing-js', 'assets/script.js', [], '1.0' );
+
+		$url = ATBDP_URL . 'includes/licensing/assets/';
+
+		wp_register_style( 'directorist-licensing-css', $url . 'style.css', [], '1.0' );
+		wp_register_script( 'directorist-licensing-js', $url . 'script.js', [], '1.0' );
+
+		wp_enqueue_style( 'directorist-licensing-css' );
+		wp_enqueue_script( 'directorist-licensing-js' );
 	}
 
 	public function add_menu_page() {

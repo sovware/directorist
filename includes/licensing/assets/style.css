@@ -2697,4 +2697,34 @@
   color: #FFF;
 }
 
+.directorist-licensing-modal {
+  position: fixed;
+  top: 70px;
+  left: calc(50% + 150px);
+  transform: translateX(-50%);
+  min-width: 300px;
+  z-index: 9999;
+}
+
+.directorist-licensing-alert {
+  position: relative;
+  padding: 14px 24px 14px 52px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 22px;
+  color: #053e29;
+  border-radius: 8px;
+  box-shadow: 0 8px 16px rgba(16, 24, 40, 0.1);
+}
+.directorist-licensing-alert-success {
+  background-color: #ecfdf3;
+  border: 1px solid #14b570;
+  color: #14b570;
+}
+.directorist-licensing-alert-error {
+  background-color: #f3d6d6;
+  border: 1px solid #c51616;
+  color: #c51616;
+}
+
 /*# sourceMappingURL=style.css.map */

@@ -241,10 +241,22 @@ document.addEventListener("DOMContentLoaded", function () {
         ".directorist-login-with-access-key",
         "directorist/v1/admin/login-with-access-key",
         function (data, button, config) {
-            if ( data.success === true ) {
-               location.reload();
+            const modal = document.querySelector('.directorist-licensing-modal');
+            if (data.success === true) {
+                modal.style.display = 'block';
+                modal.querySelector('.directorist-licensing-alert-success').style.display = 'block';
+                modal.querySelector('.directorist-licensing-alert-error').style.display = 'none';
+                setTimeout(() => {
+                    location.reload();
+                }, 3);
             } else {
-                alert(data.message);
+                modal.style.display = 'block';
+                modal.querySelector('.directorist-licensing-alert-success').style.display = 'none';
+                modal.querySelector('.directorist-licensing-alert-error').style.display = 'block';
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                }, 3000);
+                console.log(data);
                 updateSubmitButtonState(
                     button,
                     config.validClass,
@@ -256,6 +268,13 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         },
         function (error) {
+            const modal = document.querySelector('.directorist-licensing-modal');
+            modal.style.display = 'block';
+            modal.querySelector('.directorist-licensing-alert-success').style.display = 'none';
+            modal.querySelector('.directorist-licensing-alert-error').style.display = 'block';
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 3000);
             console.error("Error:", error);
         },
         {
@@ -270,10 +289,21 @@ document.addEventListener("DOMContentLoaded", function () {
         ".directorist-login-with-account",
         "directorist/v1/admin/login-with-account",
         function (data, button, config) {
-            if ( data.success === true ) {
-                location.reload();
-             } else {
-                alert(data.message);
+            const modal = document.querySelector('.directorist-licensing-modal');
+            if (data.success === true) {
+                modal.style.display = 'block';
+                modal.querySelector('.directorist-licensing-alert-success').style.display = 'block';
+                modal.querySelector('.directorist-licensing-alert-error').style.display = 'none';
+                setTimeout(() => {
+                    location.reload();
+                }, 3);
+            } else {
+                modal.style.display = 'block';
+                modal.querySelector('.directorist-licensing-alert-success').style.display = 'none';
+                modal.querySelector('.directorist-licensing-alert-error').style.display = 'block';
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                }, 3000);
                 updateSubmitButtonState(
                     button,
                     config.validClass,
@@ -282,9 +312,16 @@ document.addEventListener("DOMContentLoaded", function () {
                     config.defaultText,
                     false
                 );
-             }
+            }
         },
         function (error) {
+            const modal = document.querySelector('.directorist-licensing-modal');
+            modal.style.display = 'block';
+            modal.querySelector('.directorist-licensing-alert-success').style.display = 'none';
+            modal.querySelector('.directorist-licensing-alert-error').style.display = 'block';
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 3000);
             console.error("Error:", error);
         },
         {
@@ -535,6 +572,7 @@ document.addEventListener("DOMContentLoaded", function () {
     initializeDirectoristTabs(".directorist-tabs", ".directorist-nav-tab", ".directorist-tabs-item");
     handlePricingTabClick(".directorist-nav-tab-wrapper", "button", ".directorist-nav-tab-wrapper");
     progressbar(".directorist-progress-inner");
+<<<<<<< HEAD
     handleSearch({
         inputSelector: '.directorist-product-search-input',
         searchGroups: [
@@ -553,4 +591,6 @@ document.addEventListener("DOMContentLoaded", function () {
         ]
     });
     
+=======
+>>>>>>> 2004e116f (update file)
 });

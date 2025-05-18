@@ -2705,10 +2705,18 @@
   min-width: 300px;
   z-index: 9999;
 }
+.directorist-licensing-modal-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.directorist-licensing-modal-content .directorist-icon-mask:after {
+  background-color: currentColor;
+}
 
 .directorist-licensing-alert {
   position: relative;
-  padding: 14px 24px 14px 52px;
+  padding: 14px 20px;
   font-size: 16px;
   font-weight: 500;
   line-height: 22px;

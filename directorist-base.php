@@ -429,6 +429,7 @@ final class Directorist_Base
 			ATBDP_INC_DIR . 'review/init',
 			ATBDP_INC_DIR . 'rest-api/init',
 			ATBDP_INC_DIR . 'fields/init',
+			ATBDP_INC_DIR . 'licensing/init',
 			ATBDP_INC_DIR . 'modules/multi-directory-setup/class-builder-data',
 			ATBDP_INC_DIR . 'modules/multi-directory-setup/trait-multi-directory-helper',
 			ATBDP_INC_DIR . 'modules/multi-directory-setup/class-multi-directory-migration',

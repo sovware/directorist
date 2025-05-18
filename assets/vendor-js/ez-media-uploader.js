@@ -1673,7 +1673,11 @@
       var uploadContainer = container.querySelector('.ez-media-uploader');
       var previewImg = container.querySelector('.ezmu__preview-section');
 
+<<<<<<< HEAD
       if (previewImg?.clientHeight > 0) {
+=======
+      if (previewImg.clientHeight > 0) {
+>>>>>>> dfda0415b (Development (#2325))
         uploadContainer.style.marginBottom = previewImg.clientHeight + 65 + 'px';
       } else {
         uploadContainer.style.marginBottom = 0;

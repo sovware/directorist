@@ -153,6 +153,7 @@ jQuery(document).ready(function ($) {
     $('.directorist-importer-length').css('width', '10%');
     $('.directorist-importer-progress').val(10);
     var configFields = $('.directorist-listings-importer-config-field');
+<<<<<<< HEAD
     var runImporter = function runImporter() {
       var position = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
       var offset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
@@ -161,6 +162,18 @@ jQuery(document).ready(function ($) {
       form_data.set('_position', position);
       form_data.set('_offset', offset);
       form_data.set('directorist_nonce', directorist_admin.directorist_nonce);
+=======
+    var position = 0;
+    var offset = 0;
+    var run_import = function run_import() {
+      var form_data = new FormData();
+
+      // ajax action
+      form_data.append('action', 'directorist_import_listings');
+      form_data.append('position', position);
+      form_data.append('offset', offset);
+      form_data.append('directorist_nonce', directorist_admin.directorist_nonce);
+>>>>>>> dfda0415b (Development (#2325))
 
       // Get Config Fields Value
       if (configFields.length) {
@@ -214,6 +227,7 @@ jQuery(document).ready(function ($) {
             });
             return;
           }
+<<<<<<< HEAD
           var percentage = response.position / response.total * 100;
           $('.importer-details').html("".concat(Math.min(response.position, response.total), "/").concat(response.total));
           $('.directorist-importer-length').css('width', percentage + '%');
@@ -221,6 +235,14 @@ jQuery(document).ready(function ($) {
           console.log(response.logs.join('\n'));
           if (!response.done) {
             runImporter(response.position, response.offset);
+=======
+          $('.importer-details').html("".concat(response.position, "/").concat(response.total));
+          $('.directorist-importer-progress').val(response.position * 100 / response.total);
+          if (!response.done) {
+            position = response.position;
+            offset = response.offset;
+            run_import();
+>>>>>>> dfda0415b (Development (#2325))
           } else {
             window.location = response.redirect_url;
           }

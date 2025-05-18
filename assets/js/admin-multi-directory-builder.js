@@ -19586,7 +19586,11 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       this.showConfirmationModal = false;
 
       // Remove class to parent with class 'atbdp-cpt-manager'
+<<<<<<< HEAD
       var parentElement = this.$el.closest(".atbdp-cpt-manager");
+=======
+      var parentElement = this.$el.closest('.atbdp-cpt-manager');
+>>>>>>> dfda0415b (Development (#2325))
       if (parentElement) {
         parentElement.classList.remove("directorist-overlay-visible");
       }
@@ -26605,7 +26609,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       return options_values.includes(value);
     }
     /* syncValidationWithLocalState( validation_log ) {
-         return validation_log;
+          return validation_log;
     } */
   }
 });
@@ -30549,7 +30553,11 @@ var render = function render() {
     class: _vm.groupFieldsExpandState ? 'expanded' : ''
   }, [_c('div', {
     staticClass: "cptm-form-builder-group-header"
+<<<<<<< HEAD
   }, [_vm.draggable ? _c('draggable-list-item', {
+=======
+  }, [_c('draggable-list-item', {
+>>>>>>> dfda0415b (Development (#2325))
     attrs: {
       "can-drag": _vm.isEnabledGroupDragging
     },
@@ -30568,7 +30576,11 @@ var render = function render() {
     attrs: {
       "aria-hidden": "true"
     }
+<<<<<<< HEAD
   })])]) : _vm._e(), _vm._v(" "), _c('form-builder-widget-group-titlebar-component', _vm._b({
+=======
+  })])]), _vm._v(" "), _c('form-builder-widget-group-titlebar-component', _vm._b({
+>>>>>>> dfda0415b (Development (#2325))
     attrs: {
       "widgets-expanded": _vm.widgetsExpanded
     },
@@ -34321,7 +34333,11 @@ var render = function render() {
       key: alert_key,
       staticClass: "cptm-form-alert",
       class: 'cptm-' + alert.type
+<<<<<<< HEAD
     }, [_vm._v("\n            " + _vm._s(alert.message) + "\n        ")]);
+=======
+    }, [_vm._v("\r\n            " + _vm._s(alert.message) + "\r\n        ")]);
+>>>>>>> dfda0415b (Development (#2325))
   }), 0) : _vm._e()]);
 };
 var staticRenderFns = [];

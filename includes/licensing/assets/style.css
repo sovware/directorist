@@ -1522,7 +1522,7 @@
   width: 20px;
   height: 20px;
 }
-.directorist-product-search-input[type=search] {
+.directorist-product-search-input[type=text] {
   font-size: 12px;
   font-style: normal;
   font-weight: 400;
@@ -1540,7 +1540,7 @@
   white-space: nowrap;
   color: #141921;
 }
-.directorist-product-search-input[type=search]::placeholder {
+.directorist-product-search-input[type=text]::placeholder {
   color: #747C89;
 }
 
@@ -1829,13 +1829,13 @@
   overflow: hidden;
 }
 .directorist-template-image img {
-  -webkit-transition: transform 3s;
-  -moz-transition: transform 3s;
-  transition: transform 3s;
+  -webkit-transition: transform 2s;
+  -moz-transition: transform 2s;
+  transition: transform 2s;
   width: 100%;
 }
 .directorist-template-image:hover img {
-  transform: translateY(-71%);
+  transform: translateY(-45%);
 }
 .directorist-template-content {
   margin-top: 28px;

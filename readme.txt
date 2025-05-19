@@ -315,6 +315,7 @@ Directorist is a complete directory solution and in combination with its advance
  - Listing description visibility issue below the map fixed. (#2334)
  - Builders and listings not imported from setup widget. (#2333)
  - Swiper Slider loop issue fixed. (#2327)
+ - Schema php error when schema type empty. (#2352)
 
 8.4 - Apr 29, 2025
 

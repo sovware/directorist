@@ -13,7 +13,7 @@ An Excellent WP Directory Plugin to Create Business Directories, Job Listings, C
 
 == Description ==
 
-[Try Admin Demo](https://userdemo.wpwax.com/directorist/) | [Demos](https://directorist.com/demos/) | [Docs](https://directorist.com/documentation/directorist/) | [Themes](https://directorist.com/themes/) | [Extensions](https://directorist.com/extensions/) | [Roadmap](https://directorist.com/roadmap/)
+[Try Demo](https://directorist.com/demos/) | [Docs](https://directorist.com/documentation/directorist/) | [Theme](https://directorist.com/themes/) | [Extensions](https://directorist.com/extensions/) | [Roadmap](https://directorist.com/roadmap/)
 
 Struggling to create a niche directory or classified ad website that stands out?
 

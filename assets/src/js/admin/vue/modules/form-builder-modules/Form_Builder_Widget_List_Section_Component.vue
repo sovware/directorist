@@ -209,23 +209,25 @@ export default {
         let _widget_group = template_fields[widget_key].widget_group;
         let _widget_name = template_fields[widget_key].widget_name;
         let _widget_label = "Not Available";
+        // Safely check if the group exists
+        let _field_widget_group = this.fields[this.template]?.widgets?.[
+          _widget_group
+        ];
+
+        // If group doesn't exist, skip this iteration
+        if (!_field_widget_group) {
+          continue;
+        }
 
         try {
-          _widget_label = this.fields[this.template]["widgets"][_widget_group][
-            "widgets"
-          ][_widget_name]["label"]
-            ? this.fields[this.template]["widgets"][_widget_group]["widgets"][
-                _widget_name
-              ]["label"]
-            : "";
+          _widget_label =
+            _field_widget_group.widgets?.[_widget_name]?.label ?? "";
         } catch (error) {
           console.log({
             template: this.template,
             widget_group: _widget_group,
             widget_name: _widget_name,
-            template_widgets: this.fields[this.template]["widgets"][
-              _widget_group
-            ]["widgets"],
+            template_widgets: _field_widget_group?.widgets,
             error,
           });
         }
@@ -235,7 +237,8 @@ export default {
         }
 
         let template_root_options =
-          template_field.widgets[_widget_group].widgets[_widget_name];
+          template_field.widgets?.[_widget_group]?.widgets?.[_widget_name];
+
         if (!template_root_options) {
           continue;
         }

@@ -9332,6 +9332,7 @@ body.modal-overlay-enabled:before {
   display: flex;
 }
 .directorist-search-modal--basic .directorist-search-field-pricing > label,
+.directorist-search-modal--basic .directorist-search-field__number > label,
 .directorist-search-modal--basic .directorist-search-field-price_range > label,
 .directorist-search-modal--basic .directorist-search-field-radius_search > label {
   position: unset;
@@ -11608,6 +11609,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   bottom: 0;
 }
 .listing-with-sidebar__searchform .directorist-search-field-pricing > label,
+.listing-with-sidebar__searchform .directorist-search-field__number > label,
 .listing-with-sidebar__searchform .directorist-search-field-text_range > label,
 .listing-with-sidebar__searchform .directorist-search-field-price_range > label,
 .listing-with-sidebar__searchform .directorist-search-field-radius_search > label {

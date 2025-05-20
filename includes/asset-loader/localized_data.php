@@ -20,14 +20,24 @@ class Localized_Data {
 	}
 
 	public static function public_data() {
-		$data = self::get_listings_data() + self::directorist_options_data() + self::login_data() + self::search_form_localized_data() + self::search_listing_localized_data() + self::search_listing_data();
+		$data = self::general_public_data() + self::get_listings_data() + self::directorist_options_data() + self::login_data() + self::search_form_localized_data() + self::search_listing_localized_data() + self::search_listing_data();
 
-		return $data;
+		return apply_filters( 'directorist_localized_data', $data );
 	}
 
 	public static function admin_data() {
 		$data = self::get_admin_script_data() + self::directorist_options_data() + self::get_listings_data() + self::admin_ajax_localized_data();
 
+		return $data;
+	}
+
+	private static function general_public_data() {
+		$data = [
+			'request_headers' => [
+				'Referer-Page-ID' => get_the_ID(),
+			]
+		];
+		
 		return $data;
 	}
 

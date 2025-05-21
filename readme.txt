@@ -5,7 +5,7 @@ Tags: member directory, listing, classifieds, directory plugin, business directo
 Requires at least: 4.6
 Tested up to: 6.8
 Requires PHP: 7.0
-Stable tag: 8.4
+Stable tag: 8.4.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -13,7 +13,7 @@ An Excellent WP Directory Plugin to Create Business Directories, Job Listings, C
 
 == Description ==
 
-[Try Admin Demo](https://userdemo.wpwax.com/directorist/) | [Demos](https://directorist.com/demos/) | [Docs](https://directorist.com/documentation/directorist/) | [Themes](https://directorist.com/themes/) | [Extensions](https://directorist.com/extensions/) | [Roadmap](https://directorist.com/roadmap/)
+[Try Demo](https://directorist.com/demos/) | [Docs](https://directorist.com/documentation/directorist/) | [Theme](https://directorist.com/themes/) | [Extensions](https://directorist.com/extensions/) | [Roadmap](https://directorist.com/roadmap/)
 
 Struggling to create a niche directory or classified ad website that stands out?
 
@@ -296,6 +296,29 @@ Directorist is a complete directory solution and in combination with its advance
  * and many more
 
 == Changelog ==
+
+8.4.2 - May 20, 2025
+ - Tweak JS and CSS
+
+8.4.1 - May 20, 2025
+
+**Changed**
+ - Hook to customize the email “From Name” and prevent forced values. (#2344)
+ - Filter hook to manipulate category term template redirection. (#2340)
+ - Polylang integration improved for better multilingual support. (#2328)
+ - Search form improved for enhanced usability. (#2335)
+ - Builder widget group drag-and-drop option updated. (#2342)
+
+**Fixed**
+ - Submit button in the "Contact Listing Owner" form disabled in preview mode. (#2343)
+ - console.error on listing edit with gallery extension fixed. (#2341)
+ - Deprecated warning from print_emoji_styles() removed in setup wizard. (#2338)
+ - "Remember me" display issue on the login form. (#2337)
+ - Listings importer issue. (#2336)
+ - Listing description visibility issue below the map fixed. (#2334)
+ - Builders and listings not imported from setup widget. (#2333)
+ - Swiper Slider loop issue fixed. (#2327)
+ - Schema php error when schema type empty. (#2352)
 
 8.4 - Apr 29, 2025
 

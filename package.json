@@ -1,6 +1,6 @@
 {
   "name": "directorist-business-directory-plugin",
-  "version": "7.0.4",
+  "version": "8.4.2",
   "description": "A comprehensive solution to create professional looking directory site of any kind. Like Yelp, Foursquare, etc.",
   "main": "index.js",
   "scripts": {

@@ -516,16 +516,16 @@ class Schema {
 	}
 
 	public static function get_schema_type( $post_id ) {
-		if ( get_directorist_option( 'apply_schema_markup' ) === 'all-directory' ) {
-			$schema_type = get_directorist_option( 'directory_schema_type_global' );
-		} else if ( get_directorist_option( 'apply_schema_markup' ) === 'per-directory' && directorist_is_multi_directory_enabled() ) {
+		$schema_applied_to = get_directorist_option( 'apply_schema_markup', 'all-directory' );
+
+		if ( $schema_applied_to === 'per-directory' && directorist_is_multi_directory_enabled() ) {
 			$directory_id = directorist_get_listings_directory_type( $post_id );
-			$schema_type  = get_directorist_option( 'directory_schema_type_'. $directory_id );
+			$schema_type  = get_directorist_option( 'directory_schema_type_'. $directory_id, 'LocalBusiness' );
 		} else {
-			$schema_type = get_directorist_option( 'directory_schema_type_global' );
+			$schema_type = get_directorist_option( 'directory_schema_type_global', 'LocalBusiness' );
 		}
 
-		if ( ! $schema_type ) {
+		if ( empty( $schema_type ) || ! is_string( $schema_type ) ) {
 			return 'LocalBusiness';
 		}
 

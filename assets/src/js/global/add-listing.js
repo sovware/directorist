@@ -2,6 +2,7 @@
 // import { cacheCategoryCustomFields, getCategoryCustomFieldsCache } from '../global/components/cache-category-custom-fields';
 // import loadCategoryCustomFields from '../global/components/load-category-custom-fields';
 import '../global/components/setup-select2';
+import { directoristRequestHeaders } from '../helper';
 import '../public/components/colorPicker';
 import '../public/components/directoristDropdown';
 import '../public/components/directoristSelect';
@@ -690,6 +691,7 @@ $(function() {
                 contentType: false,
                 url: localized_data.ajaxurl,
                 data: form_data,
+                headers: directoristRequestHeaders(),
                 beforeSend() {
                     disableSubmitButton();
 

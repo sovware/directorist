@@ -12735,6 +12735,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   display: flex;
 }
 .directorist-search-modal--basic .directorist-search-field-pricing > label,
+.directorist-search-modal--basic .directorist-search-field__number > label,
 .directorist-search-modal--basic .directorist-search-field-price_range > label,
 .directorist-search-modal--basic .directorist-search-field-radius_search > label {
   position: unset;

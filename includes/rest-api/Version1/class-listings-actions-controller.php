@@ -43,7 +43,17 @@ class Listings_Actions_Controller extends Abstract_Controller {
 							'id' => array(
 								'type'        => 'string',
 								'description' => __( 'Action identifier.', 'directorist' ),
-								'enum'        => array( 'report', 'contact' ),
+								/**
+								 * Filters the allowed enum values for the REST API 'id' parameter.
+								 *
+								 * This allows developers to add or modify the list of allowed actions
+								 * for the REST endpoint.
+								 *
+								 * @since 8.4
+								 *
+								 * @param array $actions List of allowed actions.
+								 */
+								'enum'        => apply_filters( 'directorist_rest_listing_actions', array( 'report', 'contact' ) ),
 								'required'    => true,
 							),
 						)

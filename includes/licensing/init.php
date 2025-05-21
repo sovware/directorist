@@ -15,6 +15,8 @@ class Init {
 		add_action( 'admin_menu', [$this, 'add_menu_page'] );
 		add_action( 'admin_enqueue_scripts', [$this, 'enqueue_assets'] );
 
+		add_action( 'init', [$this, 'templatiq_access_key_sync'] );
+
 		// Initialize Routes
 		new Routes();
 	}
@@ -79,6 +81,14 @@ class Init {
 	public function directorist_licensing() {
 		include 'views/main.php';
 		// include 'legacy-views.php';
+	}
+
+	public function templatiq_access_key_sync() {
+		$access_key = Licensing_Account::get_access_key();
+		$run_needed = get_option( 'templatiq_user_account_sync_needed', false );
+		if ( ! empty( $access_key ) && $run_needed ) {
+			Repository::sync_templatiq();
+		}
 	}
 }
 

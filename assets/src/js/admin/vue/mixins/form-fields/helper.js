@@ -9,8 +9,25 @@ export default {
             config: 'config',
         }),
 
+        canChange() {
+            let is_changeable = false;
+
+            if ( this.changeIf ) {
+                let change_if_condition = this.changeIf;
+                let change_if_cond = this.checkChangeIfCondition({
+                    condition: change_if_condition,
+                    fieldKey: this.fieldKey,
+                });
+                
+                is_changeable = change_if_cond.status;
+            }
+            
+            this.$emit( 'is-changeable', is_changeable );
+            return is_changeable;
+        },
+
         canShow() {
-            let is_visible = true;
+            let is_changeable = true;
 
             if ( this.showIf || this.show_if ) {
                 let show_if_condition = ( this.showIf ) ? this.showIf : this.show_if;
@@ -19,12 +36,12 @@ export default {
                     root: this.root,
                 });
                 
-                is_visible = show_if_cond.status;
+                is_changeable = show_if_cond.status;
             }
             
 
-            this.$emit( 'is-visible', is_visible );
-            return is_visible;
+            this.$emit( 'is-changeable', is_changeable );
+            return is_changeable;
         }
     },
 

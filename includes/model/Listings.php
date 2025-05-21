@@ -184,6 +184,7 @@ class Directorist_Listings {
 		$this->options['sort_listing_by']                 = get_directorist_option( 'sort_listing_by', 'asc' );
 		$this->options['listings_per_page']               = get_directorist_option( 'all_listing_page_items', 6 );
 		$this->options['paginate_listings']               = ! empty( get_directorist_option( 'paginate_all_listings', 1 ) ) ? 'yes' : '';
+		$this->options['pagination_type']                 = get_directorist_option( 'pagination_type', 'numbered' );
 		$this->options['display_listings_header']         = ! empty( get_directorist_option( 'display_listings_header', 1 ) ) ? 'yes' : '';
 		$this->options['listing_header_title']            = get_directorist_option( 'all_listing_title', __( 'Items Found', 'directorist' ) );
 		$this->options['listing_columns']                 = get_directorist_option( 'all_listing_columns', 2 );
@@ -293,7 +294,8 @@ class Directorist_Listings {
 			'orderby'                  => $this->options['order_listing_by'],
 			'order'                    => $this->options['sort_listing_by'],
 			'listings_per_page'        => $this->options['listings_per_page'],
-			'show_pagination'          => $this->options['paginate_listings'],
+			'show_pagination'          => 'yes',
+			'pagination_type'          => $this->options['pagination_type'],
 			'header'                   => $this->options['display_listings_header'],
 			'header_title'             => $this->options['listing_header_title'],
 			'category'                 => '',
@@ -1071,13 +1073,15 @@ class Directorist_Listings {
 		}
 
 		if ( 'zip' == $this->radius_search_based_on && ! empty( $_REQUEST['miles'] ) && ! empty( $_REQUEST['zip_cityLat'] ) && ! empty( $_REQUEST['zip_cityLng'] ) ) {
+			$distance =	directorist_get_distance_range( $_REQUEST['miles'] );
 			$args['atbdp_geo_query'] = array(
-				'lat_field' => '_manual_lat',
-				'lng_field' => '_manual_lng',
-				'latitude'  => sanitize_text_field( wp_unslash( $_REQUEST['zip_cityLat'] ) ),
-				'longitude' => sanitize_text_field( wp_unslash( $_REQUEST['zip_cityLng'] ) ),
-				'distance'  => sanitize_text_field( wp_unslash( $_REQUEST['miles'] ) ),
-				'units'     => $this->radius_search_unit
+				'lat_field'    => '_manual_lat',
+				'lng_field'    => '_manual_lng',
+				'latitude'     => sanitize_text_field( wp_unslash( $_REQUEST['zip_cityLat'] ) ),
+				'longitude'    => sanitize_text_field( wp_unslash( $_REQUEST['zip_cityLng'] ) ),
+				'min_distance' => $distance['min'],
+				'max_distance' => $distance['max'],
+				'units'        => $this->radius_search_unit
 			);
 		} elseif ( ! empty( $_REQUEST['zip'] ) ) {
 			$meta_queries['_zip'] = array(
@@ -1095,6 +1099,12 @@ class Directorist_Listings {
 				'type'    => 'NUMERIC',
 				'compare' => 'IN'
 			);
+		}
+
+		// When directory nav is hidden make sure to remove directory type from query.
+		// This is done to query on all directory types.
+		if ( directorist_is_multi_directory_enabled() && ! empty( $_POST['directory_nav'] ) ) {
+			unset( $meta_queries['directory_type'] );
 		}
 
 		$meta_queries = apply_filters( 'atbdp_search_listings_meta_queries', $meta_queries );
@@ -1127,6 +1137,15 @@ class Directorist_Listings {
 			Helper::add_shortcode_comment( $atts['shortcode'] );
 		}
 
+		$search_field_atts = array_filter( $this->atts, function( $key ) {
+			return substr( $key, 0, 7 ) == 'filter_';
+		}, ARRAY_FILTER_USE_KEY );
+
+		$args = array(
+			'listings'   => $this,
+			'searchform' => new Directorist_Listing_Search_Form( $this->type, $this->current_listing_type, $search_field_atts ),
+		);
+
 		switch ( $this->sidebar ) {
 			case 'left_sidebar':
 				$template = 'sidebar-archive-contents';
@@ -1142,9 +1161,46 @@ class Directorist_Listings {
 		}
 
 		// Load the template
-		Helper::get_template( $template, array( 'listings' => $this ), 'listings_archive' );
+		Helper::get_template( $template,
+			array(
+				'listings'   => $this,
+				'searchform' => new Directorist_Listing_Search_Form( $this->type, $this->current_listing_type, $search_field_atts ),
+			),
+			 'listings_archive',
+		);
 
 		return ob_get_clean();
+	}
+
+	public function render_list_view( $post_ids ) {
+
+		if ( ! is_array( $post_ids ) || empty( $post_ids ) ) {
+			// Exit early or log an error if the input is invalid
+			return;
+		}
+
+		foreach ( $post_ids as $listing_id ) {
+			?>
+			<div class="directorist-col-12 directorist-all-listing-col">
+			<?php $this->loop_template( 'list', $listing_id ); ?>
+			</div>
+			<?php
+        }
+	}
+
+	public function render_grid_view( $post_ids ) {
+		if ( ! is_array( $post_ids ) || empty( $post_ids ) ) {
+			// Exit early or log an error if the input is invalid
+			return;
+		}
+
+		foreach ( $post_ids as $listing_id ) {
+			?>
+			<div class="<?php Helper::directorist_column( $this->columns ); ?> directorist-all-listing-col">
+				<?php $this->loop_template( 'grid', $listing_id ); ?>
+			</div>
+			<?php
+        }
 	}
 
 	public function have_posts() {
@@ -1824,6 +1880,13 @@ class Directorist_Listings {
 			return $this->view_as == 'masonry_grid' ? 'directorist-grid-masonary' : 'directorist-grid-normal';
 		}
 
+		public function pagination_infinite_scroll_class() {
+			return ! empty( $this->show_pagination )
+			&& isset( $this->options['pagination_type'] )
+			&& $this->options['pagination_type'] === 'infinite_scroll'
+			? 'directorist-infinite-scroll'
+			: '';
+		}
 		public function get_the_location() {
 			return get_the_term_list( get_the_ID(), ATBDP_LOCATION, '', ', ', '' );
 		}
@@ -2073,30 +2136,53 @@ class Directorist_Listings {
 			// for development purpose
 			do_action( 'atbdp_all_listings_badge_template', $field );
 
-			switch ($field['widget_key']) {
+			$field['badge_display_type'] = get_directorist_option( 'badge_display_type', 'text_badge');
+			$field['badge_text_class']   = ( 'text_badge' === $field['badge_display_type'] ) ? 'directorist-badge--only-text' : '';
+
+			switch ( $field['widget_key'] ) {
+
 				case 'popular_badge':
-				$field['class'] = 'popular';
-				$field['label'] = Helper::popular_badge_text();
+
+				$field['class']         = 'popular';
+				$field['icon']          = 'fas fa-fire';
+				$field['tooltip_class'] = 'directorist-badge-tooltip__popular';
+				$field['label']         = Helper::popular_badge_text();
+
 				if ( Helper::is_popular( $id ) ) {
 					Helper::get_template( 'archive/fields/badge', $field );
 				}
+
 				break;
 
 				case 'featured_badge':
-				$field['class'] = 'featured';
-				$field['label'] = Helper::featured_badge_text();
+
+				$field['class']               = 'featured';
+				$field['icon']                = 'fas fa-star';
+				$field['tooltip_class']       = 'directorist-badge-tooltip__featured';
+				$field['label']               = Helper::featured_badge_text();
+				$field['featured_badge_type'] = get_directorist_option( 'feature_badge_type', 'icon_badge');
+
 				if ( Helper::is_featured( $id ) ) {
 					Helper::get_template( 'archive/fields/badge', apply_filters( 'directorist_featured_badge_field_data', $field ) );
 				}
+
 				break;
 
 				case 'new_badge':
-				$field['class'] = 'new';
-				$field['label'] = Helper::new_badge_text();
+
+				$field['class']           = 'new';
+				$field['icon']            = 'fas fa-bolt';
+				$field['tooltip_class']   = 'directorist-badge-tooltip__new';
+				$field['new_badge_type']  = get_directorist_option( 'new_badge_type', 'icon_badge');
+				$field['new_badge_class'] = ( 'text_badge' === $field['new_badge_type'] ) ? 'directorist-badge--only-text' : '';
+				$field['label']           = Helper::new_badge_text();
+
 				if ( Helper::is_new( $id ) ) {
 					Helper::get_template( 'archive/fields/badge', $field );
 				}
+
 				break;
+
 			}
 
 		}

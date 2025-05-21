@@ -163,15 +163,13 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
 				return;
 			}
 
-			?>
-
-			<?php if ( 'directory_type' === $column_name ) : ?>
+			if ( 'directory_type' === $column_name ) : ?>
 				<fieldset class="inline-edit-col-right" style="margin-top: 0;">
 					<div class="inline-edit-group wp-clearfix">
 						<?php wp_nonce_field( directorist_get_nonce_key(), 'directorist_nonce' ); ?>
 						<label class="inline-edit-directory-type alignleft">
 							<span class="title"><?php esc_html_e( 'Directory', 'directorist' ); ?></span>
-							<select name="directory_type">
+							<select name="directorist_directory_type">
 								<option value="">— <?php esc_html_e( 'Select type', 'directorist' ); ?> —</option>
 								<?php
 								$listing_types = directorist_get_directories();

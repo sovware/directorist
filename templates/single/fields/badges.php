@@ -21,7 +21,10 @@ if ( !$listing->has_badge( $data ) ) {
 	<?php endif; ?>
 
 	<?php if ( $listing->display_featured_badge( $data ) ): ?>
-		<span class="directorist-badge directorist-badge-featured"><?php echo esc_html( Helper::featured_badge_text() ); ?></span>
+		<span class="directorist-badge directorist-badge-featured ">
+			<?php echo esc_html( Helper::featured_badge_text() ); ?>
+		</span>
+		
 	<?php endif; ?>
 
 	<?php if ( $listing->display_popular_badge( $data ) ): ?>

@@ -10,10 +10,16 @@ import debounce from '../../global/components/debounce';
             var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname;
 
             if (form_data.paged && form_data.paged.length) {
-                var query = '?paged=' + form_data.paged + '';
+                var query = (query && query.length) ? query + '&paged=' + form_data.paged : '?paged=' + form_data.paged;
+            }
+            if (form_data.directory_type && form_data.directory_type.length) {
+                var query = (query && query.length) ? query + '&directory_type=' + form_data.directory_type : '?directory_type=' + form_data.directory_type;
+            }
+            if (form_data.view && form_data.view.length) {
+                var query = (query && query.length) ? query + '&view=' + form_data.view : '?view=' + form_data.view;
             }
             if (form_data.q && form_data.q.length) {
-                var query = '?q=' + form_data.q;
+                var query = (query && query.length) ? query + '&q=' + form_data.q : '?q=' + form_data.q;
             }
             if (form_data.in_cat && form_data.in_cat.length) {
                 var query = (query && query.length) ? query + '&in_cat=' + form_data.in_cat : '?in_cat=' + form_data.in_cat;
@@ -42,7 +48,7 @@ import debounce from '../../global/components/debounce';
             if (form_data.cityLng && form_data.cityLng.length && form_data.address && form_data.address.length) {
                 var query = (query && query.length) ? query + '&cityLng=' + form_data.cityLng : '?cityLng=' + form_data.cityLng;
             }
-            if (form_data.miles && form_data.miles > 0) {
+            if (form_data.miles && form_data.miles.length) {
                 var query = (query && query.length) ? query + '&miles=' + form_data.miles : '?miles=' + form_data.miles;
             }
             if (form_data.address && form_data.address.length) {
@@ -63,8 +69,10 @@ import debounce from '../../global/components/debounce';
             if (form_data.phone && form_data.phone.length) {
                 var query = (query && query.length) ? query + '&phone=' + form_data.phone : '?phone=' + form_data.phone;
             }
-            if (form_data.custom_field && form_data.custom_field.length) {
-                var query = (query && query.length) ? query + '&custom_field=' + form_data.custom_field : '?custom_field=' + form_data.custom_field;
+            if (form_data.custom_field && Object.keys(form_data.custom_field).length) {
+                Object.keys(form_data.custom_field).forEach((key) => {
+                    query = (query.length) ? query + `&${key}=${form_data.custom_field[key]}` : `?${key}=${form_data.custom_field[key]}`;
+                });
             }
             if (form_data.open_now && form_data.open_now.length) {
                 var query = (query && query.length) ? query + '&open_now=' + form_data.open_now : '?open_now=' + form_data.open_now;
@@ -85,6 +93,7 @@ import debounce from '../../global/components/debounce';
         if ( ! results || ! results[2] ) {
             return '';
         }
+
         return decodeURIComponent( results[2] );
     }
 
@@ -95,10 +104,13 @@ import debounce from '../../global/components/debounce';
         searchModalElement.forEach((modal)=>{
             var modalOverlay = modal.querySelector('.directorist-search-modal__overlay');
             var modalContent = modal.querySelector('.directorist-search-modal__contents');
+            var modalBodyOverlay = document.querySelector('.directorist-content-active');
 
             // Overlay Style
             if(modalOverlay) {
                 modalOverlay.style.cssText = "opacity: 0; visibility: hidden; transition: 0.5s ease";
+                // remove overlay class on body
+                modalBodyOverlay.classList.remove('directorist-overlay-active');
             }
 
             // Modal Content Style
@@ -108,9 +120,43 @@ import debounce from '../../global/components/debounce';
         })
     }
 
+    // Scrolling Pagination
+    let page = 1;
+    let infinitePaginationIsLoading   = false;
+    let infinitePaginationCompleted   = false;
+
+    function handleScroll() {
+        const container = $('.directorist-infinite-scroll .directorist-container-fluid .directorist-row');
+        if (!container.length || infinitePaginationIsLoading) return;
+
+        const containerBottom = container.offset().top + container.outerHeight();
+        const scrollBottom = window.scrollY + window.innerHeight;
+
+        if (scrollBottom >= containerBottom) {
+            infinitePaginationIsLoading = true;
+            page++;
+
+            const instantSearchElement = $('.directorist-instant-search');
+            const activeForm = getActiveForm(instantSearchElement);
+            const formData = buildFormData(activeForm, instantSearchElement);
+
+            loadMoreListings(formData);
+        }
+    };
+
+    window.addEventListener('scroll', function() {
+        if (infinitePaginationCompleted) return;
+        handleScroll();
+    });
+
     /* Directorist instant search */
     $('body').on("submit", ".directorist-instant-search form", function (e) {
         e.preventDefault();
+        // infinite pagination loading reset
+        page = 1;
+        infinitePaginationIsLoading = false;
+        infinitePaginationCompleted = false;
+
         let instant_search_element = $(this).closest('.directorist-instant-search');
         let tag                    = [];
         let search_by_rating       = [];
@@ -190,16 +236,16 @@ import debounce from '../../global/components/debounce';
             fields.open_now = $(this).find('input[name="open_now"]').val();
         }
 
-        if (fields.address && fields.address.length) {
+        if ( fields.address && fields.address.length ) {
             fields.cityLat = $(this).find('#cityLat').val();
             fields.cityLng = $(this).find('#cityLng').val();
-            fields.miles = $(this).find('.directorist-custom-range-slider__value input').val();
+            fields.miles   = $(this).find('input[name="miles"]').val();
         }
 
-        if (fields.zip && fields.zip.length) {
+        if ( fields.zip && fields.zip.length ) {
             fields.zip_cityLat = $(this).find('.zip-cityLat').val();
             fields.zip_cityLng = $(this).find('.zip-cityLng').val();
-            fields.miles = $(this).find('.directorist-custom-range-slider__value input').val();
+            fields.miles       = $(this).find('input[name="miles"]').val();
         }
 
         var form_data = {
@@ -469,6 +515,18 @@ import debounce from '../../global/components/debounce';
                 fields.open_now = $(this).find('input[name="open_now"]').val();
             }
 
+            if ( fields.address && fields.address.length ) {
+                fields.cityLat = $(this).find('#cityLat').val();
+                fields.cityLng = $(this).find('#cityLng').val();
+                fields.miles   = $(this).find('input[name="miles"]').val();
+            }
+    
+            if ( fields.zip && fields.zip.length ) {
+                fields.zip_cityLat = $(this).find('.zip-cityLat').val();
+                fields.zip_cityLng = $(this).find('.zip-cityLng').val();
+                fields.miles       = $(this).find('input[name="miles"]').val();
+            }
+
             if (fields.address && fields.address.length) {
                 fields.cityLat = $(this).find('#cityLat').val();
                 fields.cityLng = $(this).find('#cityLng').val();
@@ -532,6 +590,11 @@ import debounce from '../../global/components/debounce';
     // Directorist type changes
     $('body').on("click", ".directorist-instant-search .directorist-type-nav__link", function (e) {
         e.preventDefault();
+        // infinite pagination loading reset
+        page = 1;
+        infinitePaginationIsLoading = false;
+        infinitePaginationCompleted = false;
+
         let _this     = $(this);
         let type_href = $(this).attr('href');
         let type      = type_href.match(/directory_type=.+/);
@@ -561,6 +624,9 @@ import debounce from '../../global/components/debounce';
                     $(_this).closest('.directorist-instant-search').find( '.atbdp-form-fade' ).removeClass('atbdp-form-fade');
                     window.dispatchEvent(new CustomEvent('directorist-instant-search-reloaded'));
                     window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
+
+                    // SearchForm Item in Single Category Location Page Init
+                    singleCategoryLocationInit();
                 }
                 let events = [
                     new CustomEvent('directorist-instant-search-reloaded'),
@@ -584,6 +650,11 @@ import debounce from '../../global/components/debounce';
     // Directorist view as changes
     $('body').on("click", ".directorist-instant-search .directorist-viewas .directorist-viewas__item", function (e) {
         e.preventDefault();
+        // infinite pagination loading reset
+        page = 1;
+        infinitePaginationIsLoading = false;
+        infinitePaginationCompleted = false;
+
         let instant_search_element = $(this).closest('.directorist-instant-search');
         let tag          = [];
         let price        = [];
@@ -616,9 +687,9 @@ import debounce from '../../global/components/debounce';
         });
 
         activeForm.find('[name^="custom_field"]').each(function (index, el) {
-            var test    = $(el).attr('name');
+            var name    = $(el).attr('name');
             var type    = $(el).attr('type');
-            var post_id = test.replace(/(custom_field\[)/, '').replace(/\]/, '');
+            var post_id = name.replace(/(custom_field\[)/, '').replace(/\]/, '');
 
             if ('radio' === type) {
                 $.each($("input[name='custom_field[" + post_id + "]']:checked"), function () {
@@ -655,6 +726,18 @@ import debounce from '../../global/components/debounce';
         let website          = activeForm.find('input[name="website"]').val();
         let phone            = activeForm.find('input[name="phone"]').val();
 
+        // Required fields Check
+        let isQueryRequired = activeForm.find('input[name="q"]').prop("required");
+        let isCategoryRequired = activeForm.find('.directorist-category-select').prop("required");
+        let isLocationRequired = activeForm.find('.directorist-location-select').prop("required");
+
+        // Validate: If a field is required but empty, return false
+        let requiredFieldsAreValid = true;
+
+        if (isQueryRequired && !q) requiredFieldsAreValid = false;
+        if (isCategoryRequired && (!in_cat || in_cat.length === 0)) requiredFieldsAreValid = false;
+        if (isLocationRequired && (!in_loc || in_loc.length === 0)) requiredFieldsAreValid = false;
+
         $(".directorist-viewas .directorist-viewas__item").removeClass('active');
         $(this).addClass("active");
 
@@ -663,22 +746,22 @@ import debounce from '../../global/components/debounce';
             _nonce          : directorist.ajax_nonce,
             current_page_id : directorist.current_page_id,
             view            : ( view && view.length ) ? view[0].replace(/view=/, '') : '',
-            q               : q || getURLParameter( full_url, 'q' ),
-            in_cat          : in_cat || getURLParameter( full_url, 'in_cat' ),
-            in_loc          : in_loc || getURLParameter( full_url, 'in_loc' ),
-            in_tag          : tag || getURLParameter( full_url, 'in_tag' ),
-            price           : price || getURLParameter( full_url, 'price' ),
-            price_range     : price_range || getURLParameter( full_url, 'price_range' ),
-            search_by_rating: search_by_rating || getURLParameter( full_url, 'search_by_rating' ),
-            cityLat         : cityLat || getURLParameter( full_url, 'cityLat' ),
-            cityLng         : cityLng || getURLParameter( full_url, 'cityLng' ),
-            miles           : miles || getURLParameter( full_url, 'miles' ),
-            address         : address || getURLParameter( full_url, 'address' ),
-            zip             : zip || getURLParameter( full_url, 'zip' ),
-            fax             : fax || getURLParameter( full_url, 'fax' ),
-            email           : email || getURLParameter( full_url, 'email' ),
-            website         : website || getURLParameter( full_url, 'website' ),
-            phone           : phone || getURLParameter( full_url, 'phone' ),
+            q               : requiredFieldsAreValid && q || getURLParameter( full_url, 'q' ),
+            in_cat          : requiredFieldsAreValid && in_cat || getURLParameter( full_url, 'in_cat' ),
+            in_loc          : requiredFieldsAreValid && in_loc || getURLParameter( full_url, 'in_loc' ),
+            in_tag          : requiredFieldsAreValid && tag || getURLParameter( full_url, 'in_tag' ),
+            price           : requiredFieldsAreValid && price || getURLParameter( full_url, 'price' ),
+            price_range     : requiredFieldsAreValid && price_range || getURLParameter( full_url, 'price_range' ),
+            search_by_rating: requiredFieldsAreValid && search_by_rating || getURLParameter( full_url, 'search_by_rating' ),
+            cityLat         : requiredFieldsAreValid && cityLat || getURLParameter( full_url, 'cityLat' ),
+            cityLng         : requiredFieldsAreValid && cityLng || getURLParameter( full_url, 'cityLng' ),
+            miles           : requiredFieldsAreValid && miles || getURLParameter( full_url, 'miles' ),
+            address         : requiredFieldsAreValid && address || getURLParameter( full_url, 'address' ),
+            zip             : requiredFieldsAreValid && zip || getURLParameter( full_url, 'zip' ),
+            fax             : requiredFieldsAreValid && fax || getURLParameter( full_url, 'fax' ),
+            email           : requiredFieldsAreValid && email || getURLParameter( full_url, 'email' ),
+            website         : requiredFieldsAreValid && website || getURLParameter( full_url, 'website' ),
+            phone           : requiredFieldsAreValid && phone || getURLParameter( full_url, 'phone' ),
             custom_field    : custom_field || getURLParameter( full_url, 'custom_field' ),
             data_atts       : JSON.parse(data_atts)
         };
@@ -686,6 +769,18 @@ import debounce from '../../global/components/debounce';
         //business hours
         if ( $('input[name="open_now"]').is(':checked') ) {
             form_data.open_now = activeForm.find('input[name="open_now"]').val();
+        }
+
+        if ( form_data.address && form_data.address.length ) {
+            form_data.cityLat = activeForm.find('#cityLat').val();
+            form_data.cityLng = activeForm.find('#cityLng').val();
+            form_data.miles   = activeForm.find('input[name="miles"]').val();
+        }
+
+        if ( form_data.zip && form_data.zip.length ) {
+            form_data.zip_cityLat = activeForm.find('.zip-cityLat').val();
+            form_data.zip_cityLng = activeForm.find('.zip-cityLng').val();
+            form_data.miles       = activeForm.find('input[name="miles"]').val();
         }
 
         if (page_no && page_no.length) {
@@ -735,6 +830,11 @@ import debounce from '../../global/components/debounce';
     // Directorist sort by changes
     $('body').on("click", ".directorist-instant-search .directorist-sortby-dropdown .directorist-dropdown__links__single-js", function (e) {
         e.preventDefault();
+        // infinite pagination loading reset
+        page = 1;
+        infinitePaginationIsLoading = false;
+        infinitePaginationCompleted = false;
+
         let instant_search_element = $(this).closest('.directorist-instant-search');
         let tag                    = [];
         let price                  = [];
@@ -769,9 +869,9 @@ import debounce from '../../global/components/debounce';
         });
 
         activeForm.find('[name^="custom_field"]').each(function (index, el) {
-            var test    = $(el).attr('name');
+            var name    = $(el).attr('name');
             var type    = $(el).attr('type');
-            var post_id = test.replace(/(custom_field\[)/, '').replace(/\]/, '');
+            var post_id = name.replace(/(custom_field\[)/, '').replace(/\]/, '');
             if ('radio' === type) {
                 $.each($("input[name='custom_field[" + post_id + "]']:checked"), function () {
                     value = $(this).val();
@@ -838,6 +938,18 @@ import debounce from '../../global/components/debounce';
             form_data.open_now = activeForm.find('input[name="open_now"]').val();
         }
 
+        if ( form_data.address && form_data.address.length ) {
+            form_data.cityLat = activeForm.find('#cityLat').val();
+            form_data.cityLng = activeForm.find('#cityLng').val();
+            form_data.miles = activeForm.find('input[name="miles"]').val();
+        }
+
+        if ( form_data.zip && form_data.zip.length ) {
+            form_data.zip_cityLat = activeForm.find('.zip-cityLat').val();
+            form_data.zip_cityLng = activeForm.find('.zip-cityLng').val();
+            form_data.miles = activeForm.find('input[name="miles"]').val();
+        }
+
         if (directory_type && directory_type.length) {
             form_data.directory_type = directory_type;
         }
@@ -873,27 +985,28 @@ import debounce from '../../global/components/debounce';
     // Directorist pagination
     $('body').on("click", ".directorist-instant-search .directorist-pagination .page-numbers", function (e) {
         e.preventDefault();
-        let tag                    = [];
-        let price                  = [];
-        let custom_field           = {};
-        let instant_search_element = $(this).closest('.directorist-instant-search');
+        let tag          = [];
+        let price        = [];
+        let custom_field = {};
+        const $container   = $(this).closest('.directorist-instant-search');
+        const $directory_nav = $container.find('.directorist-type-nav__list');
 
-        let sort_href      = instant_search_element.find(".directorist-sortby-dropdown .directorist-dropdown__links__single.active").attr('data-link');
+        let sort_href      = $container.find(".directorist-sortby-dropdown .directorist-dropdown__links__single.active").attr('data-link');
         let sort_by        = (sort_href && sort_href.length) ? sort_href.match(/sort=.+/) : '';
         let sort           = (sort_by && sort_by.length) ? sort_by[0].replace(/sort=/, '') : '';
-        let view_href      = instant_search_element.find(".directorist-viewas .directorist-viewas__item.active").attr('href');
+        let view_href      = $container.find(".directorist-viewas .directorist-viewas__item.active").attr('href');
         let view_as        = (view_href && view_href.length) ? view_href.match(/view=.+/) : '';
         let view           = (view_as && view_as.length) ? view_as[0].replace(/view=/, '') : '';
-        let type_href      = instant_search_element.find('.directorist-type-nav__list .directorist-type-nav__list__current a').attr('href');
+        let type_href      = $directory_nav.find('.directorist-type-nav__list__current a').attr('href');
         let type           = (type_href && type_href.length) ? type_href.match(/directory_type=.+/) : '';
         let directory_type = getURLParameter(type_href, 'directory_type');
-        let data_atts      = instant_search_element.attr('data-atts');
+        let data_atts      = $container.attr('data-atts');
 
         // Select Active Form Based on Screen Size
-        const advancedForm = instant_search_element.find('.directorist-advanced-filter__form');
-        const searchForm  = instant_search_element.find('.directorist-search-form');
-        const sidebarListing = instant_search_element.find('.listing-with-sidebar');
-        const activeForm = sidebarListing.length ? instant_search_element : screen.width > 575 ? advancedForm : searchForm;
+        const advancedForm = $container.find('.directorist-advanced-filter__form');
+        const searchForm  = $container.find('.directorist-search-form');
+        const sidebarListing = $container.find('.listing-with-sidebar');
+        const activeForm = sidebarListing.length ? $container : screen.width > 575 ? advancedForm : searchForm;
 
         // Get Values from Active Form
         activeForm.find('input[name^="in_tag["]:checked').each(function (index, el) {
@@ -905,9 +1018,9 @@ import debounce from '../../global/components/debounce';
         });
 
         activeForm.find('[name^="custom_field"]').each(function (index, el) {
-            var test    = $(el).attr('name');
+            var name    = $(el).attr('name');
             var type    = $(el).attr('type');
-            var post_id = test.replace(/(custom_field\[)/, '').replace(/\]/, '');
+            var post_id = name.replace(/(custom_field\[)/, '').replace(/\]/, '');
             if ('radio' === type) {
                 $.each($("input[name='custom_field[" + post_id + "]']:checked"), function () {
                     value                 = $(this).val();
@@ -935,48 +1048,48 @@ import debounce from '../../global/components/debounce';
         let search_by_rating = activeForm.find('select[name=search_by_rating]').val();
         let cityLat          = activeForm.find('#cityLat').val();
         let cityLng          = activeForm.find('#cityLng').val();
-        let miles            = activeForm.find('input[name="miles"]').val();
         let address          = activeForm.find('input[name="address"]').val();
         let zip              = activeForm.find('input[name="zip"]').val();
+        let miles            = (address || zip) && activeForm.find('input[name="miles"]').val();
         let fax              = activeForm.find('input[name="fax"]').val();
         let email            = activeForm.find('input[name="email"]').val();
         let website          = activeForm.find('input[name="website"]').val();
         let phone            = activeForm.find('input[name="phone"]').val();
 
-        instant_search_element.find(".directorist-pagination .page-numbers").removeClass('current');
+        $container.find(".directorist-pagination .page-numbers").removeClass('current');
         $(this).addClass("current");
 
         var paginate_link = $(this).attr('href');
-        var page          = ( paginate_link && paginate_link.length ) ? paginate_link.match(/page\/.+/) : '';
-        var page_value    = (page && page.length) ? page[0].replace(/page\//, '') : '';
-        var page_no       = (page_value && page_value.length) ? page_value.replace(/\//, '') : '';
-        if (!page_no) {
-            var page    = ( paginate_link && paginate_link.length ) ? paginate_link.match(/paged=.+/) : '';
-            var page_no = (page && page.length) ? page[0].replace(/paged=/, '') : '';
+        var page_no = '';
+        
+        if (paginate_link) {
+            var pageMatch = paginate_link.match(/(?:page\/|paged=)(\d+)/);
+            if (pageMatch) {
+                page_no = pageMatch[1]; // Extracts only the numeric value
+            }
         }
-
+        console.log( page_no )
         var form_data = {
             action          : 'directorist_instant_search',
             _nonce          : directorist.ajax_nonce,
             current_page_id : directorist.current_page_id,
-            view            : (view && view.length) ? view[0].replace(/view=/, '') : '',
-            q               : q || getURLParameter( full_url, 'q' ),
-            in_cat          : in_cat || getURLParameter( full_url, 'in_cat' ),
-            in_loc          : in_loc || getURLParameter( full_url, 'in_loc' ),
-            in_tag          : tag || getURLParameter( full_url, 'in_tag' ),
-            price           : price || getURLParameter( full_url, 'price' ),
-            price_range     : price_range || getURLParameter( full_url, 'price_range' ),
-            search_by_rating: search_by_rating || getURLParameter( full_url, 'search_by_rating' ),
-            cityLat         : cityLat || getURLParameter( full_url, 'cityLat' ),
-            cityLng         : cityLng || getURLParameter( full_url, 'cityLng' ),
-            miles           : miles || getURLParameter( full_url, 'miles' ),
-            address         : address || getURLParameter( full_url, 'address' ),
-            zip             : zip || getURLParameter( full_url, 'zip' ),
-            fax             : fax || getURLParameter( full_url, 'fax' ),
-            email           : email || getURLParameter( full_url, 'email' ),
-            website         : website || getURLParameter( full_url, 'website' ),
-            phone           : phone || getURLParameter( full_url, 'phone' ),
-            custom_field    : custom_field || getURLParameter( full_url, 'custom_field' ),
+            q               : q,
+            in_cat          : in_cat,
+            in_loc          : in_loc,
+            in_tag          : tag,
+            price           : price,
+            price_range     : price_range,
+            search_by_rating: search_by_rating,
+            cityLat         : cityLat,
+            cityLng         : cityLng,
+            address         : address,
+            zip             : zip,
+            fax             : fax,
+            email           : email,
+            website         : website,
+            phone           : phone,
+            custom_field    : custom_field,
+            miles           : miles,
             view            : view,
             paged           : page_no,
             data_atts       : JSON.parse(data_atts)
@@ -987,7 +1100,17 @@ import debounce from '../../global/components/debounce';
             form_data.open_now = activeForm.find('input[name="open_now"]').val();
         }
 
-        update_instant_search_url(form_data);
+        if ( form_data.address && form_data.address.length ) {
+            form_data.cityLat = activeForm.find('#cityLat').val();
+            form_data.cityLng = activeForm.find('#cityLng').val();
+            form_data.miles = activeForm.find('input[name="miles"]').val();
+        }
+
+        if ( form_data.zip && form_data.zip.length ) {
+            form_data.zip_cityLat = activeForm.find('.zip-cityLat').val();
+            form_data.zip_cityLng = activeForm.find('.zip-cityLng').val();
+            form_data.miles = activeForm.find('input[name="miles"]').val();
+        }
 
         if (directory_type && directory_type.length) {
             form_data.directory_type = directory_type;
@@ -997,19 +1120,25 @@ import debounce from '../../global/components/debounce';
             form_data.sort = sort
         }
 
+        if ($directory_nav.is(':hidden')) {
+            form_data.directory_nav = false;
+        }
+
+        update_instant_search_url(form_data);
+
         $.ajax({
             url: directorist.ajaxurl,
             type: "POST",
             data: form_data,
             beforeSend: function () {
-                instant_search_element.find('.directorist-archive-items').addClass('atbdp-form-fade');
+                $container.find('.directorist-archive-items').addClass('atbdp-form-fade');
             },
             success: function (html) {
                 if (html.view_as) {
-                    instant_search_element.find('.directorist-header-found-title span').text(html.count);
-                    instant_search_element.find('.directorist-archive-items').replaceWith(html.view_as);
-                    instant_search_element.find('.directorist-archive-items').removeClass('atbdp-form-fade');
-                    $(document).scrollTop( instant_search_element.offset().top );
+                    $container.find('.directorist-header-found-title span').text(html.count);
+                    $container.find('.directorist-archive-items').replaceWith(html.view_as);
+                    $container.find('.directorist-archive-items').removeClass('atbdp-form-fade');
+                    $(document).scrollTop( $container.offset().top );
                 }
                 window.dispatchEvent(new CustomEvent('directorist-instant-search-reloaded'));
                 window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
@@ -1017,11 +1146,135 @@ import debounce from '../../global/components/debounce';
         });
     });
 
+    // Helper function to determine the active form
+    function getActiveForm(instantSearchElement) {
+        const sidebarListing = instantSearchElement.find('.listing-with-sidebar');
+        const advancedForm   = instantSearchElement.find('.directorist-advanced-filter__form');
+        const searchForm     = instantSearchElement.find('.directorist-search-form');
+        return sidebarListing.length ? instantSearchElement : screen.width > 575 ? advancedForm : searchForm;
+    }
+
+    // Helper function to build form data
+    function buildFormData(activeForm, instantSearchElement) {
+        const tag          = [];
+        const price        = [];
+        const customField  = {};
+        const dataAtts     = JSON.parse(instantSearchElement.attr('data-atts'));
+
+        activeForm.find('input[name^="in_tag["]:checked').each((_, el) => tag.push($(el).val()));
+        activeForm.find('input[name^="price["]').each((_, el) => price.push($(el).val()));
+
+        activeForm.find('[name^="custom_field"]').each((_, el) => {
+            const name   = $(el).attr('name');
+            const type   = $(el).attr('type');
+            const postId = name.replace(/(custom_field\[)/, '').replace(/\]/, '').split('[]')[0];
+
+            if (type === 'radio') {
+                customField[postId] = activeForm.find(`input[name='custom_field[${postId}]']:checked`).val();
+            } else if (type === 'checkbox') {
+                customField[postId] = activeForm.find(`input[name='custom_field[${postId}][]']:checked`).map((_, e) => $(e).val()).get();
+            } else {
+                customField[postId] = $(el).val();
+            }
+        });
+
+        let view_href      = $(".directorist-viewas .directorist-viewas__item.active").attr('href');
+        let view_as        = (view_href && view_href.length) ? view_href.match(/view=.+/) : '';
+        let view           = (view_as && view_as.length) ? view_as[0].replace(/view=/, '') : '';
+
+        const getValue = (selector, fallback) => activeForm.find(selector).val() || fallback;
+        return {
+            action          : 'directorist_instant_search',
+            _nonce          : directorist.ajax_nonce,
+            current_page_id : directorist.current_page_id,
+            q               : getValue('input[name="q"]', getURLParameter(full_url, 'q')),
+            in_cat          : getValue('.directorist-category-select', getURLParameter(full_url, 'in_cat')),
+            in_loc          : getValue('.directorist-location-select', getURLParameter(full_url, 'in_loc')),
+            in_tag          : tag || getURLParameter(full_url, 'in_tag'),
+            price           : price || getURLParameter(full_url, 'price'),
+            price_range     : getValue("input[name='price_range']:checked", getURLParameter(full_url, 'price_range')),
+            search_by_rating: getValue('select[name=search_by_rating]', getURLParameter(full_url, 'search_by_rating')),
+            cityLat         : getValue('#cityLat', getURLParameter(full_url, 'cityLat')),
+            cityLng         : getValue('#cityLng', getURLParameter(full_url, 'cityLng')),
+            miles           : getValue('input[name="miles"]', getURLParameter(full_url, 'miles')),
+            address         : getValue('input[name="address"]', getURLParameter(full_url, 'address')),
+            zip             : getValue('input[name="zip"]', getURLParameter(full_url, 'zip')),
+            fax             : getValue('input[name="fax"]', getURLParameter(full_url, 'fax')),
+            email           : getValue('input[name="email"]', getURLParameter(full_url, 'email')),
+            website         : getValue('input[name="website"]', getURLParameter(full_url, 'website')),
+            phone           : getValue('input[name="phone"]', getURLParameter(full_url, 'phone')),
+            custom_field    : customField,
+            view            : view,
+            paged           : page,
+            data_atts       : dataAtts,
+            sort            : getSortValue(instantSearchElement),
+            directory_type  : getDirectoryType(instantSearchElement),
+            open_now        : activeForm.find('input[name="open_now"]:checked').val(),
+        };
+    }
+
+    // Helper function to get sort value
+    function getSortValue(instantSearchElement) {
+        const sortHref = instantSearchElement.find('.directorist-sortby-dropdown .directorist-dropdown__links__single.active').data('link');
+        return sortHref ? sortHref.split('sort=')[1] : '';
+    }
+
+    // Helper function to get directory type
+    function getDirectoryType(instantSearchElement) {
+        const typeHref = instantSearchElement.find('.directorist-type-nav__list .directorist-type-nav__list__current a').attr('href');
+        return typeHref ? getURLParameter(typeHref, 'directory_type') : '';
+    }
+
+    // AJAX call to load more listings
+    function loadMoreListings(formData) {
+        let loadingDiv;
+        const container = $('.directorist-infinite-scroll .directorist-container-fluid .directorist-row');
+
+        $.ajax({
+            url : directorist.ajaxurl,
+            type: 'POST',
+            data: formData,
+            beforeSend: function() {
+                loadingDiv = $('<div>', { class: 'directorist-on-scroll-loading' }).append(
+                    $('<div>', { class: 'directorist-spinner' }),
+                    $('<span>').text('Loading more...')
+                );
+                container.append(loadingDiv);
+            },
+            success:function(html){
+                if (loadingDiv) loadingDiv.remove();
+
+                if (html.count>0) {
+                    container.append(html.render_listings);
+                } else {
+                    infinitePaginationCompleted = true;
+                }
+
+                triggerCustomEvents();
+            },
+            complete: function() {
+                infinitePaginationIsLoading = false;
+                if (loadingDiv) loadingDiv.remove();
+            }
+        });
+    }
+
+    // Helper function to trigger custom events
+    function triggerCustomEvents() {
+        window.dispatchEvent(new Event('directorist-instant-search-reloaded'));
+        window.dispatchEvent(new Event('directorist-reload-listings-map-archive'));
+    }
+
     // Filter on AJAX Search
     function filterListing(searchElm) {
         if (!searchElm) {
             return;
         }
+
+        // infinite pagination loading reset
+        page = 1;
+        infinitePaginationIsLoading = false;
+        infinitePaginationCompleted = false;
 
         let _this            = searchElm;
         let tag              = [];
@@ -1225,11 +1478,36 @@ import debounce from '../../global/components/debounce';
         })
     }
 
+    // Single Location Category Page Search Form Item Disable
+    function singleCategoryLocationInit() {
+        const directoristArchiveContents = document.querySelector('.directorist-archive-contents');
+        if (!directoristArchiveContents) {
+            return;
+        }
+        
+        const directoristDataAttributes = directoristArchiveContents.getAttribute('data-atts');
+        const { shortcode, location, category } = JSON.parse(directoristDataAttributes);
+
+        if (shortcode === 'directorist_category' && category.trim() !== '') {
+            const categorySelect = document.querySelector('.directorist-search-form .directorist-category-select');
+            if (categorySelect) {
+                categorySelect.closest('.directorist-search-category').classList.add('directorist-search-form__single-category');
+            }
+        }
+
+        if (shortcode === 'directorist_location' && location.trim() !== '') {
+            const locationSelect = document.querySelector('.directorist-search-form .directorist-location-select');
+            if (locationSelect) {
+                locationSelect.closest('.directorist-search-location').classList.add('directorist-search-form__single-location');
+            }
+        }
+    }
+
     // sidebar on keyup searching
     $('body').on("keyup", ".directorist-instant-search .listing-with-sidebar form", debounce( function(e) {
         if ($(e.target).closest('.directorist-custom-range-slider__value').length > 0) {
             return; // Skip calling `filterListing` for this element
-        } 
+        }
 
         e.preventDefault();
         var searchElm = $(this).closest('.listing-with-sidebar');
@@ -1242,6 +1520,24 @@ import debounce from '../../global/components/debounce';
         var searchElm = $(this).closest('.listing-with-sidebar');
         filterListing(searchElm);
     }, 250));
+
+    // sidebar on change location, zipcode changing
+    $('body').on("change", ".directorist-instant-search .listing-with-sidebar .directorist-search-location, .directorist-instant-search .listing-with-sidebar .directorist-zipcode-search", debounce(function (e) {
+        e.preventDefault();
+
+        const searchElm = $(this).closest('.listing-with-sidebar');
+
+        // If it's a location field, ensure it has a value before triggering the filter
+        if ($(this).hasClass('directorist-search-location')) {
+            const locationField = $(this).find('input[name="address"]');
+            if (!locationField.val()) {
+                return;
+            }
+        }
+
+        filterListing(searchElm);
+    }, 250));
+
 
     // select on change with value - searching
     $('body').on("change", ".directorist-instant-search .listing-with-sidebar select", debounce( function(e) {
@@ -1286,5 +1582,7 @@ import debounce from '../../global/components/debounce';
 
     window.addEventListener('load', function() {
         debounce(initObserver(), 250);
+
+        singleCategoryLocationInit();
     });
 })(jQuery);

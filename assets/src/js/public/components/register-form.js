@@ -1,6 +1,6 @@
 jQuery(($) => {
-
-    // Trigger reset on form change
+    
+	// Trigger reset on form change
     $('.directorist-authentication__btn').on('click', function() {
         // Reset the form values
         $('.directorist__authentication__signup').each(function() {
@@ -39,7 +39,7 @@ jQuery(($) => {
         } ).done( function ( {data, success} ) {
             // Removed loading class
             setTimeout( () => $this.removeClass('directorist-btn-loading'), 1000 );
-
+            
             if ( ! success ) {
                 $('.directorist-register-error').empty().show().append( data.error );
 
@@ -59,5 +59,5 @@ jQuery(($) => {
                 setTimeout( () => window.location.href = data.redirect_url, 500 );
             }
         } );
-    } );
+	} );
 } );

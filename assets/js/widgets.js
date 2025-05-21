@@ -94,6 +94,8 @@
 /***/ (function(module, exports) {
 
 window.addEventListener('load', function () {
+  var $ = jQuery;
+
   /* Make sure the codes in this file runs only once, even if enqueued twice */
   if (typeof window.directorist_catloc_executed === 'undefined') {
     window.directorist_catloc_executed = true;
@@ -125,6 +127,61 @@ window.addEventListener('load', function () {
   }
   categoryDropdown('.directorist-taxonomy-list-one .directorist-taxonomy-list__toggle', '.directorist-taxonomy-list-one .directorist-taxonomy-list');
   categoryDropdown('.directorist-taxonomy-list-one .directorist-taxonomy-list__sub-item-toggle', '.directorist-taxonomy-list-one .directorist-taxonomy-list');
+
+  // Taxonomy Ajax
+  $(document).on('click', '.directorist-categories .directorist-pagination a', function (e) {
+    taxonomyPagination(e, $(this), '.directorist-categories');
+  });
+  $(document).on('click', '.directorist-location .directorist-pagination a', function (e) {
+    taxonomyPagination(e, $(this), '.directorist-location');
+  });
+  function taxonomyPagination(event, clickedElement, containerSelector) {
+    event.preventDefault();
+    var pageNumber = (clickedElement === null || clickedElement === void 0 ? void 0 : clickedElement.attr('data-page')) || 1;
+    var container = clickedElement.closest(containerSelector);
+    var containerAttributes = container ? $(container).data('attrs') : {};
+    $.ajax({
+      url: directorist.ajax_url,
+      type: 'POST',
+      dataType: 'json',
+      data: {
+        action: 'directorist_taxonomy_pagination',
+        nonce: directorist.directorist_nonce,
+        page: parseInt(pageNumber),
+        attrs: containerAttributes
+      },
+      beforeSend: function beforeSend() {
+        $(containerSelector).addClass('atbdp-form-fade');
+      },
+      success: function success(response) {
+        var _tempContainer$queryS, _tempContainer$queryS2;
+        if (!(response !== null && response !== void 0 && response.success)) {
+          console.error('Failed to load taxonomy content');
+          return;
+        }
+        var tempContainer = document.createElement('div');
+        tempContainer.innerHTML = response.data.content;
+        // Handle both category and location wrappers
+        var taxonomyWrapper = document.querySelector('.taxonomy-category-wrapper');
+        var locationWrapper = document.querySelector('.taxonomy-location-wrapper');
+        var updatedCategoryContent = (_tempContainer$queryS = tempContainer.querySelector('.taxonomy-category-wrapper')) === null || _tempContainer$queryS === void 0 ? void 0 : _tempContainer$queryS.innerHTML;
+        var updatedLocationContent = (_tempContainer$queryS2 = tempContainer.querySelector('.taxonomy-location-wrapper')) === null || _tempContainer$queryS2 === void 0 ? void 0 : _tempContainer$queryS2.innerHTML;
+        if (taxonomyWrapper && updatedCategoryContent) {
+          taxonomyWrapper.innerHTML = updatedCategoryContent;
+        }
+        if (locationWrapper && updatedLocationContent) {
+          locationWrapper.innerHTML = updatedLocationContent;
+        }
+        if (!taxonomyWrapper && !locationWrapper) {
+          console.error('Required elements not found in response');
+          return;
+        }
+      },
+      complete: function complete() {
+        $(containerSelector).removeClass('atbdp-form-fade');
+      }
+    });
+  }
 });
 
 /***/ }),

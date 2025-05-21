@@ -90,7 +90,7 @@
 							<div class='directorist-info-item map-listing-card-single__content__address'>
 								<?php directorist_icon( 'fas fa-map-marker-alt' ); ?>
 								<div class="map-listing-card-single__content__location">
-									<?php echo $ls_data['listings']->get_the_location() ?>
+									<?php echo esc_html( $ls_data['address'] ); ?>
 								</div>
 							</div>
 							<?php

@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 8.0.11
+ * @version 8.1.1
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -10,22 +10,14 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 <div <?php $listings->wrapper_class(); $listings->data_atts(); ?>>
 	<div class="directorist-archive-contents__top">
+		<?php if ( $listings->has_filters_button ) : ?>
+            <?php $listings->mobile_view_filter_template(); ?>
+        <?php endif; ?>
+
 		<?php
-			// Display mobile view filter button if enabled
-			if ( ! empty( $listings->options['listing_filters_button'] ) ) {
-				$listings->mobile_view_filter_template();
-			}
-
-			// Render directory type navigation template
 			$listings->directory_type_nav_template();
-
-			// Render header bar template
 			$listings->header_bar_template();
-
-			// Display full search form if filters button is enabled
-			if ( ! empty( $listings->options['listing_filters_button'] ) ) {
-				$listings->full_search_form_template();
-			}
+			$listings->full_search_form_template();
 		?>
 	</div>
 	<div class="directorist-archive-contents__listings">

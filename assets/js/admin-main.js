@@ -840,43 +840,32 @@ window.addEventListener('load', function () {
    * @since    1.0.0
    */
   function atbdp_render_media_uploader(page) {
-    var file_frame;
-    var image_data;
-    var json;
-
-    // If an instance of file_frame already exists, then we can open it rather than creating a new instance
-    if (undefined !== file_frame) {
-      file_frame.open();
+    var frame;
+    if (frame) {
+      frame.open();
       return;
     }
-    // Here, use the wp.media library to define the settings of the media uploader
-    file_frame = wp.media.frames.file_frame = wp.media({
-      frame: 'post',
-      state: 'insert',
-      multiple: false
-    });
-
-    // Setup an event handler for what to do when an image has been selected
-    file_frame.on('insert', function () {
-      // Read the JSON data returned from the media uploader
-      json = file_frame.state().get('selection').first().toJSON();
-
-      // First, make sure that we have the URL of an image to display
-      if ($.trim(json.url.length) < 0) {
-        return;
+    frame = wp.media({
+      title: directorist_admin.i18n_text.image_uploader_title,
+      multiple: false,
+      library: {
+        type: 'image'
+      },
+      button: {
+        text: directorist_admin.i18n_text.choose_image
       }
-      // After that, set the properties of the image and display it
-      if (page == 'listings') {
-        var html = "".concat('<tr class="atbdp-image-row">' + '<td class="atbdp-handle"><span class="dashicons dashicons-screenoptions"></span></td>' + '<td class="atbdp-image">' + '<img src="').concat(json.url, "\" />") + "<input type=\"hidden\" name=\"images[]\" value=\"".concat(json.id, "\" />") + "</td>" + "<td>".concat(json.url, "<br />") + "<a href=\"post.php?post=".concat(json.id, "&action=edit\" target=\"_blank\">").concat(atbdp.edit, "</a> | ") + "<a href=\"javascript:;\" class=\"atbdp-delete-image\" data-attachment_id=\"".concat(json.id, "\">").concat(atbdp.delete_permanently, "</a>") + "</td>" + "</tr>";
+    });
+    frame.on('select', function () {
+      var image = frame.state().get('selection').first().toJSON();
+      if (page === 'listings') {
+        var html = "".concat('<tr class="atbdp-image-row">' + '<td class="atbdp-handle"><span class="dashicons dashicons-screenoptions"></span></td>' + '<td class="atbdp-image">' + '<img src="').concat(image.url, "\" />") + "<input type=\"hidden\" name=\"images[]\" value=\"".concat(image.id, "\" />") + "</td>" + "<td>".concat(image.url, "<br />") + "<a href=\"post.php?post=".concat(image.id, "&action=edit\" target=\"_blank\">").concat(atbdp.edit, "</a> | ") + "<a href=\"javascript:;\" class=\"atbdp-delete-image\" data-attachment_id=\"".concat(json.id, "\">").concat(atbdp.delete_permanently, "</a>") + "</td>" + "</tr>";
         $('#atbdp-images').append(html);
       } else {
-        $('#atbdp-categories-image-id').val(json.id);
-        $('#atbdp-categories-image-wrapper').html("<img src=\"".concat(json.url, "\" /><a href=\"\" class=\"remove_cat_img\"><span class=\"fa fa-times\" title=\"Remove it\"></span></a>"));
+        $('#atbdp-categories-image-id').val(image.id);
+        $('#atbdp-categories-image-wrapper').html("<img src=\"".concat(image.url, "\" /><a href=\"\" class=\"remove_cat_img\"><span class=\"fa fa-times\" title=\"Remove it\"></span></a>"));
       }
     });
-
-    // Now display the actual file_frame
-    file_frame.open();
+    frame.open();
   }
 
   // Display the media uploader when "Upload Image" button clicked in the custom taxonomy "atbdp_categories"
@@ -1567,9 +1556,9 @@ window.addEventListener('load', function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t.return || t.return(); } finally { if (u) throw o; } } }; }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 window.addEventListener('load', function () {
   var $ = jQuery;
 
@@ -1743,7 +1732,7 @@ window.addEventListener('load', function () {
             };
 
             // Download Files
-            var download_files = function download_files(file_list, counter, callback) {
+            var _download_files = function download_files(file_list, counter, callback) {
               if (counter > file_list.length - 1) {
                 if (callback) {
                   callback();
@@ -1759,7 +1748,7 @@ window.addEventListener('load', function () {
               var list_checkbox = $(".atbdp-".concat(file_type, "-checkbox-item-").concat(file.item_id));
               var is_checked = list_checkbox.is(':checked');
               if (!is_checked) {
-                download_files(file_list, next_index, callback);
+                _download_files(file_list, next_index, callback);
                 return;
               }
               var form_data = {
@@ -1800,7 +1789,7 @@ window.addEventListener('load', function () {
                       files_download_states.failed_theme_downloads.push(file);
                     }
                   }
-                  download_files(file_list, next_index, callback);
+                  _download_files(file_list, next_index, callback);
                 },
                 error: function error(_error) {
                   console.log(_error);
@@ -1885,7 +1874,7 @@ window.addEventListener('load', function () {
               $(form_response_page).find('.account-connect__form-btn').append(finish_btn);
             };
             if (downloading_files.length) {
-              download_files(downloading_files, 0, after_download_callback);
+              _download_files(downloading_files, 0, after_download_callback);
             }
           });
         }
@@ -2331,7 +2320,7 @@ window.addEventListener('load', function () {
       install: '.file-install-btn',
       activate: '.plugin-active-btn'
     };
-    var bulk_task = function bulk_task(plugins, counter, callback) {
+    var _bulk_task = function bulk_task(plugins, counter, callback) {
       if (counter > plugins.length - 1) {
         if (callback) {
           callback();
@@ -2364,14 +2353,14 @@ window.addEventListener('load', function () {
           } else {
             action_btn.html('Failed');
           }
-          bulk_task(plugins, next_index, callback);
+          _bulk_task(plugins, next_index, callback);
         },
         error: function error(_error9) {
           // console.log(error);
         }
       });
     };
-    bulk_task(plugins_items, 0, after_plugins_install);
+    _bulk_task(plugins_items, 0, after_plugins_install);
   }
 
   // Ext Actions | Uninstall
@@ -2582,8 +2571,6 @@ $(document).ready(function () {
   modalToggle();
 });
 function modalToggle() {
-  // Recovery Password Modal
-  $("#recover-pass-modal").hide();
   $(".atbdp_recovery_pass").on("click", function (e) {
     e.preventDefault();
     $("#recover-pass-modal").slideToggle().show();
@@ -2623,9 +2610,9 @@ function modalToggle() {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t.return || t.return(); } finally { if (u) throw o; } } }; }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 var $ = jQuery;
 window.addEventListener('load', waitAndInit);
 window.addEventListener('directorist-search-form-nav-tab-reloaded', waitAndInit);
@@ -2861,7 +2848,6 @@ function initSelect2() {
   // Not found in any template
   '.bdas-category-search' // Not found in any template
   ];
-
   selectors.forEach(function (selector) {
     return Object(_lib_helper__WEBPACK_IMPORTED_MODULE_1__["convertToSelect2"])(selector);
   });
@@ -2955,6 +2941,42 @@ function maybeLazyLoadTaxonomyTermsSelect2(args) {
     width: '100%',
     escapeMarkup: function escapeMarkup(text) {
       return text;
+    },
+    templateResult: function templateResult(data) {
+      if (!data.id) {
+        return data.text;
+      }
+
+      // Fetch the data-icon attribute
+      var iconURI = $(data.element).attr('data-icon');
+
+      // Get the original text
+      var originalText = data.text;
+
+      // Match and count leading spaces
+      var leadingSpaces = originalText.match(/^\s+/);
+      var spaceCount = leadingSpaces ? leadingSpaces[0].length : 0;
+
+      // Trim leading spaces from the original text
+      originalText = originalText.trim();
+
+      // Construct the icon element
+      var iconElm = iconURI ? "<i class=\"directorist-icon-mask\" aria-hidden=\"true\" style=\"--directorist-icon: url('".concat(iconURI, "')\"></i>") : '';
+
+      // Prepare the combined text (icon + text)
+      var combinedText = iconElm + originalText;
+
+      // Create the state container
+      var $state = $('<div class="directorist-select2-contents"></div>');
+
+      // Determine the level based on space count
+      var level = Math.floor(spaceCount / 8) + 1; // 8 spaces = level 2, 16 spaces = level 3, etc.
+      if (level > 1) {
+        $state.addClass('item-level-' + level); // Add class for the level (e.g., level-1, level-2, etc.)
+      }
+      $state.html(combinedText); // Set the combined content (icon + text)
+
+      return $state;
     }
   };
   if (directorist.lazy_load_taxonomy_fields) {
@@ -3206,27 +3228,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "convertToSelect2", function() { return convertToSelect2; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "get_dom_data", function() { return get_dom_data; });
 var $ = jQuery;
-function get_dom_data(key, parent) {
-  // var elmKey = 'directorist-dom-data-' + key;
-  var elmKey = 'directorist-dom-data-' + key;
-  var dataElm = parent ? parent.getElementsByClassName(elmKey) : document.getElementsByClassName(elmKey);
-  if (!dataElm) {
-    return '';
+function get_dom_data(selector, parent) {
+  selector = '.directorist-dom-data-' + selector;
+  if (!parent) {
+    parent = document;
   }
-  var is_script_debugging = directorist && directorist.script_debugging && directorist.script_debugging == '1' ? true : false;
+  var el = parent.querySelector(selector);
+  if (!el || !el.dataset.value) {
+    return {};
+  }
+  var IS_SCRIPT_DEBUGGING = directorist && directorist.script_debugging && directorist.script_debugging == '1';
   try {
-    var dataValue = atob(dataElm[0].dataset.value);
-    dataValue = JSON.parse(dataValue);
-    return dataValue;
+    var value = atob(el.dataset.value);
+    return JSON.parse(value);
   } catch (error) {
-    if (is_script_debugging) {
-      console.warn({
-        key: key,
-        dataElm: dataElm,
-        error: error
-      });
+    if (IS_SCRIPT_DEBUGGING) {
+      console.log(el, error);
     }
-    return '';
+    return {};
   }
 }
 function convertToSelect2(selector) {
@@ -3274,10 +3293,10 @@ function convertToSelect2(selector) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-function _arrayLikeToArray(arr, len) {
-  if (len == null || len > arr.length) len = arr.length;
-  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
-  return arr2;
+function _arrayLikeToArray(r, a) {
+  (null == a || a > r.length) && (a = r.length);
+  for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e];
+  return n;
 }
 module.exports = _arrayLikeToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
@@ -3291,8 +3310,8 @@ module.exports = _arrayLikeToArray, module.exports.__esModule = true, module.exp
 /***/ (function(module, exports, __webpack_require__) {
 
 var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray.js */ "./node_modules/@babel/runtime/helpers/arrayLikeToArray.js");
-function _arrayWithoutHoles(arr) {
-  if (Array.isArray(arr)) return arrayLikeToArray(arr);
+function _arrayWithoutHoles(r) {
+  if (Array.isArray(r)) return arrayLikeToArray(r);
 }
 module.exports = _arrayWithoutHoles, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
@@ -3306,19 +3325,13 @@ module.exports = _arrayWithoutHoles, module.exports.__esModule = true, module.ex
 /***/ (function(module, exports, __webpack_require__) {
 
 var toPropertyKey = __webpack_require__(/*! ./toPropertyKey.js */ "./node_modules/@babel/runtime/helpers/toPropertyKey.js");
-function _defineProperty(obj, key, value) {
-  key = toPropertyKey(key);
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-  return obj;
+function _defineProperty(e, r, t) {
+  return (r = toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
+    value: t,
+    enumerable: !0,
+    configurable: !0,
+    writable: !0
+  }) : e[r] = t, e;
 }
 module.exports = _defineProperty, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
@@ -3331,8 +3344,8 @@ module.exports = _defineProperty, module.exports.__esModule = true, module.expor
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-function _iterableToArray(iter) {
-  if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
+function _iterableToArray(r) {
+  if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r);
 }
 module.exports = _iterableToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
@@ -3363,8 +3376,8 @@ var arrayWithoutHoles = __webpack_require__(/*! ./arrayWithoutHoles.js */ "./nod
 var iterableToArray = __webpack_require__(/*! ./iterableToArray.js */ "./node_modules/@babel/runtime/helpers/iterableToArray.js");
 var unsupportedIterableToArray = __webpack_require__(/*! ./unsupportedIterableToArray.js */ "./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js");
 var nonIterableSpread = __webpack_require__(/*! ./nonIterableSpread.js */ "./node_modules/@babel/runtime/helpers/nonIterableSpread.js");
-function _toConsumableArray(arr) {
-  return arrayWithoutHoles(arr) || iterableToArray(arr) || unsupportedIterableToArray(arr) || nonIterableSpread();
+function _toConsumableArray(r) {
+  return arrayWithoutHoles(r) || iterableToArray(r) || unsupportedIterableToArray(r) || nonIterableSpread();
 }
 module.exports = _toConsumableArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
@@ -3378,17 +3391,17 @@ module.exports = _toConsumableArray, module.exports.__esModule = true, module.ex
 /***/ (function(module, exports, __webpack_require__) {
 
 var _typeof = __webpack_require__(/*! ./typeof.js */ "./node_modules/@babel/runtime/helpers/typeof.js")["default"];
-function _toPrimitive(input, hint) {
-  if (_typeof(input) !== "object" || input === null) return input;
-  var prim = input[Symbol.toPrimitive];
-  if (prim !== undefined) {
-    var res = prim.call(input, hint || "default");
-    if (_typeof(res) !== "object") return res;
+function toPrimitive(t, r) {
+  if ("object" != _typeof(t) || !t) return t;
+  var e = t[Symbol.toPrimitive];
+  if (void 0 !== e) {
+    var i = e.call(t, r || "default");
+    if ("object" != _typeof(i)) return i;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
-  return (hint === "string" ? String : Number)(input);
+  return ("string" === r ? String : Number)(t);
 }
-module.exports = _toPrimitive, module.exports.__esModule = true, module.exports["default"] = module.exports;
+module.exports = toPrimitive, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
 
@@ -3401,11 +3414,11 @@ module.exports = _toPrimitive, module.exports.__esModule = true, module.exports[
 
 var _typeof = __webpack_require__(/*! ./typeof.js */ "./node_modules/@babel/runtime/helpers/typeof.js")["default"];
 var toPrimitive = __webpack_require__(/*! ./toPrimitive.js */ "./node_modules/@babel/runtime/helpers/toPrimitive.js");
-function _toPropertyKey(arg) {
-  var key = toPrimitive(arg, "string");
-  return _typeof(key) === "symbol" ? key : String(key);
+function toPropertyKey(t) {
+  var i = toPrimitive(t, "string");
+  return "symbol" == _typeof(i) ? i : i + "";
 }
-module.exports = _toPropertyKey, module.exports.__esModule = true, module.exports["default"] = module.exports;
+module.exports = toPropertyKey, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
 
@@ -3419,11 +3432,11 @@ module.exports = _toPropertyKey, module.exports.__esModule = true, module.export
 function _typeof(o) {
   "@babel/helpers - typeof";
 
-  return (module.exports = _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
+  return module.exports = _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
     return typeof o;
   } : function (o) {
     return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
-  }, module.exports.__esModule = true, module.exports["default"] = module.exports), _typeof(o);
+  }, module.exports.__esModule = true, module.exports["default"] = module.exports, _typeof(o);
 }
 module.exports = _typeof, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
@@ -3437,13 +3450,12 @@ module.exports = _typeof, module.exports.__esModule = true, module.exports["defa
 /***/ (function(module, exports, __webpack_require__) {
 
 var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray.js */ "./node_modules/@babel/runtime/helpers/arrayLikeToArray.js");
-function _unsupportedIterableToArray(o, minLen) {
-  if (!o) return;
-  if (typeof o === "string") return arrayLikeToArray(o, minLen);
-  var n = Object.prototype.toString.call(o).slice(8, -1);
-  if (n === "Object" && o.constructor) n = o.constructor.name;
-  if (n === "Map" || n === "Set") return Array.from(o);
-  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return arrayLikeToArray(o, minLen);
+function _unsupportedIterableToArray(r, a) {
+  if (r) {
+    if ("string" == typeof r) return arrayLikeToArray(r, a);
+    var t = {}.toString.call(r).slice(8, -1);
+    return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? arrayLikeToArray(r, a) : void 0;
+  }
 }
 module.exports = _unsupportedIterableToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
 

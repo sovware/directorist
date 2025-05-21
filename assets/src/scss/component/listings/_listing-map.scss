@@ -181,8 +181,8 @@
   .gm-style-iw-d {
     max-height: unset !important;
   }
-  .gm-style-iw-chr,
-  .gm-style-iw-tc {
+  .gm-style-iw-tc,
+  .gm-style-iw-chr {
     display: none;
   }
 }
@@ -195,7 +195,7 @@
   box-shadow: 0px 5px 20px rgba(var(--directorist-color-dark-rgb), 0.33);
   background-color: var(--directorist-color-white);
 
-  figure{
+  figure {
     margin: 0;
   }
 
@@ -237,7 +237,7 @@
     }
   }
   @include e(author) {
-    + .map-listing-card-single__content{
+    + .map-listing-card-single__content {
       padding-top: 0;
     }
     a {
@@ -404,9 +404,10 @@
   }
   .directorist-icon-mask {
     &:after {
-      width: 16px;
+      width: 9px;
       height: 16px;
       background-color: var(--directorist-color-marker-icon);
+      mask: url("../../../../icons/font-awesome/svgs/solid/map-pin.svg");
     }
   }
   &:hover {

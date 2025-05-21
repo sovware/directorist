@@ -1,6 +1,9 @@
 import {
     get_dom_data
 } from './../../lib/helper';
+import { initAddListingMap } from './add-listing/google-map';
+import { initSingleMap } from './single-listing/google-map';
+import { initSingleMapWidget } from './single-listing/google-map-widget';
 
 (function () {
 
@@ -313,14 +316,15 @@ import {
         }
     });
 
-})(); 
+})();
 
+window.directoristLoadGoogleMap = function () {
+    if (typeof google === "undefined" || !google.maps || !google.maps.Map) {
+      return;
+    } else {
+      initSingleMap();
+      initAddListingMap();
+      initSingleMapWidget();
+    }
+};
 
-/* Add listing google map */
-import './add-listing/google-map';
-
-/* Single listing google map */
-import './single-listing/google-map';
-
-/* Widget google map */
-import './single-listing/google-map-widget';

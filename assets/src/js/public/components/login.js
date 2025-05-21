@@ -28,6 +28,7 @@
             $button.addClass('directorist-btn-loading'); // Added loading class
 
             $('#directorist__authentication__login p.status').show().html('<div class="directorist-alert directorist-alert-info"><span>' + directorist.loading_message + '</span></div>');
+
             let form_data = {
                 'action': 'ajaxlogin',
                 'username': $this.find('#username').val(),
@@ -63,7 +64,7 @@
             });
             e.preventDefault();
         });
-
+        
         $('form#directorist__authentication__login .status').on('click', 'a', function(e) {
             e.preventDefault();
             if ( $(this).attr('href') === '#atbdp_recovery_pass' ) {

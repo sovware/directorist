@@ -80,6 +80,11 @@ class Background_Image_Process extends Background_Process {
 			header( 'X-WP-Upload-Attachment-ID: ' . $image_id );
 		}
 
+		// Ensure the required file is included before calling the function
+		if ( ! function_exists( 'wp_generate_attachment_metadata' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/image.php';
+		}
+		
 		\wp_update_attachment_metadata( $image_id, \wp_generate_attachment_metadata( $image_id, $image[ $image_id ] ) );
 	}
 

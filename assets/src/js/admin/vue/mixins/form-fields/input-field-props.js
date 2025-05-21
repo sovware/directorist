@@ -8,6 +8,10 @@ export default {
             type: [String, Number],
             default: '',
         },
+        fieldKey: {
+            type: [String, Number],
+            default: '',
+        },
         root: {
             required: false,
         },
@@ -45,6 +49,9 @@ export default {
         saveOptionData: {
             default: false,
         },
+        changeIf: {
+            required: false,
+        },
         showIf: {
             required: false,
         },
@@ -52,6 +59,10 @@ export default {
             required: false,
         },
         type: {
+            type: String,
+            default: '',
+        },
+        icon: {
             type: String,
             default: '',
         },
@@ -120,6 +131,14 @@ export default {
         },
         name: {
             type: [String, Number],
+            default: '',
+        },
+        multi_directory_status: {
+            type: String,
+            default: '',
+        },
+        schema: {
+            type: String,
             default: '',
         },
         value: {
@@ -205,6 +224,6 @@ export default {
         },
         editorID: {
             required: false,
-        },
+        }
     },
 }

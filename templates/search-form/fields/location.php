@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 8.0.9
+ * @version 8.3.1
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -13,7 +13,7 @@ if ( $location_source == 'listing' ) {
 	$selected_item = $searchform::get_selected_location_option_data();
 	?>
 
-	<div class="directorist-search-field <?php echo esc_attr( $empty_label ); ?>">
+	<div class="directorist-search-field directorist-form-group <?php echo esc_attr( $empty_label ); ?>">
 		<div class="directorist-select directorist-search-location directorist-search-field__input">
 
 			<?php if ( ! empty( $data['label'] ) ) : ?>

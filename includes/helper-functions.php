@@ -972,19 +972,22 @@ if (!function_exists('calc_listing_expiry_date')) {
      * @since    3.1.0
      *
      */
-    function calc_listing_expiry_date($start_date = NULL, $expire = NULL, $directory_type = '' )
-    {
-        $type = $directory_type ? $directory_type : default_directory_type();
-        $exp_days = get_term_meta( $type, 'default_expiration', true );
-        $exp_days = !empty( $exp_days ) ? $exp_days : 0;
-        $expired_date = !empty($expire) ? $expire : $exp_days;
-        // Current time
-        $start_date = !empty($start_date) ? $start_date : current_time('mysql');
-        // Calculate new date
-        $date = new DateTime($start_date);
-        $date->add(new DateInterval("P{$expired_date}D")); // set the interval in days
-        return $date->format('Y-m-d H:i:s');
+    function calc_listing_expiry_date( $start_date = null, $expire_date = null, $directory_id = 0 ) {
+		if ( empty( $expire_date ) ) {
+			if ( ! $directory_id ) {
+				$directory_id = directorist_get_default_directory();
+			}
 
+			$expire_date = directorist_get_default_expiration( $directory_id );
+		}
+
+		$start_date  = ! empty( $start_date ) ? $start_date : current_time( 'mysql' );
+
+        // Calculate new date
+        $date = new \DateTime($start_date);
+        $date->add( new DateInterval( "P{$expire_date}D" ) ); // set the interval in days
+
+        return $date->format( 'Y-m-d H:i:s' );
     }
 }
 
@@ -1492,9 +1495,9 @@ function atbdp_get_listings_current_order($default_order = '')
 
     $order = $default_order;
 
-    if (isset($_REQUEST['sort'])) {
+    if ( isset( $_REQUEST['sort'] ) && ! empty( $_REQUEST['sort'] ) ) {
         $order = directorist_clean( wp_unslash( $_REQUEST['sort'] ) );
-    } else if (isset($_REQUEST['order'])) {
+    } else if ( isset( $_REQUEST['order'] ) && ! empty( $_REQUEST['order'] ) ) {
         $order = directorist_clean( wp_unslash( $_REQUEST['order'] ) );
     }
 
@@ -1960,7 +1963,7 @@ if ( ! function_exists('atbdp_is_page') ) {
             $option    = $page_map[ $page_type ]['option'];
             $page_id   = get_directorist_option( $option );
 
-            if ( is_page( $page_id ) ) {
+            if ( $page_id && is_page( $page_id ) ) {
                 return true;
             }
 
@@ -2872,9 +2875,9 @@ if(!function_exists('csv_get_data')){
             $post = array();
 
             // Get first row in CSV, which is of course the headers
-            $header = fgetcsv( $_file, 0, $delimiter );
+            $header = fgetcsv( $_file, 0, $delimiter, '"', '\\' );
 
-            while ( $row = fgetcsv( $_file, 0, $delimiter ) ) {
+            while ( $row = fgetcsv( $_file, 0, $delimiter, '"', '\\' ) ) {
 
                 foreach ( $header as $i => $key ) {
                     $post[ $key ] = $row[ $i ];
@@ -3240,34 +3243,36 @@ if ( ! function_exists( 'directorist_is_plugin_active_for_network' ) ) {
  *
  * @since 7.0.6.2
  *
- * @param string $get_error_code
+ * @param string $error_code
  *
  * @return string Error message.
  */
 function directorist_get_registration_error_message( $error_code ) {
-	$message = [
+	$messages = [
 		'0' => __( 'Something went wrong!', 'directorist' ),
-		'1' => __( 'Registration failed. Please make sure you filed up all the necessary fields marked with <span style="color: red">*</span>', 'directorist' ),
+		'1' => __( 'Registration failed. Please make sure you filled out all the necessary fields marked with <span style="color: red">*</span>.', 'directorist' ),
 		'2' => sprintf(
 			/** translators: %1$s - link opening, %2$s - link closing */
 			__( 'This email is already registered. Please %1$sclick here to login%2$s.', 'directorist' ),
 			'<a class="directorist-authentication__toggle" href="' . ATBDP_Permalink::get_dashboard_page_link() . '">',
 			'</a>'
 		),
-		'3' => __( 'Username too short. At least 4 characters is required', 'directorist' ),
+		'3' => __( 'Username too short. At least 4 characters are required.', 'directorist' ),
 		'4' => sprintf(
 			/** translators: %1$s - link opening, %2$s - link closing */
 			__( 'This username is already registered. Please %1$sclick here to login%2$s.', 'directorist' ),
 			'<a class="directorist-authentication__toggle" href="' . ATBDP_Permalink::get_dashboard_page_link() . '">',
 			'</a>'
 		),
-		'5' => __( 'Password length must be greater than 5', 'directorist' ),
-		'6' => __( 'Email is not valid', 'directorist' ),
-		'7' => __( 'Space is not allowed in username', 'directorist' ),
-		'8' => __( 'Please make sure you filed up the user type', 'directorist' ),
+		'5' => __( 'Password length must be greater than 5 characters.', 'directorist' ),
+		'6' => __( 'Email is not valid.', 'directorist' ),
+		'7' => __( 'Spaces are not allowed in usernames.', 'directorist' ),
+		'8' => __( 'Please make sure you selected the user type.', 'directorist' ),
 	];
 
-	return isset( $message[ $error_code ] ) ? $message[ $error_code ] : '';
+	$messages = apply_filters( 'directorist_registration_error_messages', $messages, $error_code );
+
+	return isset( $messages[ $error_code ] ) ? $messages[ $error_code ] : '';
 }
 
 /**
@@ -3599,6 +3604,23 @@ function directorist_owner_notifiable_for( $event_name = '' ) {
  */
 function directorist_get_listing_views_count_meta_key() {
 	return '_atbdp_post_views_count';
+}
+
+/**
+ * This function returns the types of listing statuses.
+ *
+ * @since 8.1.1
+ *
+ * @return array
+ */
+function directorist_get_listing_statuses() {
+	return array(
+        'draft'   => __( 'Draft', 'directorist' ),
+        'pending' => __( 'In Review', 'directorist' ),
+        'private' => __( 'Private', 'directorist' ),
+        'publish' => __( 'Published', 'directorist' ),
+        'expired' => __( 'Expired', 'directorist' ),
+    );
 }
 
 /**
@@ -4131,7 +4153,15 @@ function directorist_generate_password_reset_pin_code( $user ) {
 	$tail_code          = substr( $password_reset_key, 4 );
 
 	directorist_set_password_reset_code_transient( $user, $tail_code );
-	update_user_meta( $user->ID, 'directorist_pasword_reset_key', wp_hash_password( $password_reset_key ) );
+	// update_user_meta( $user->ID, 'directorist_pasword_reset_key', wp_hash_password( $password_reset_key ) );
+	update_user_meta(
+		$user->ID,
+		'directorist_pasword_reset_key',
+		[
+			'reset_attempt' => 5,
+			'reset_hash'    => wp_hash_password( $password_reset_key ),
+		]
+	);
 
 	return $pin_code;
 }
@@ -4142,15 +4172,25 @@ function directorist_check_password_reset_pin_code( $user, $pin_code ) {
 	$tail_code = directorist_get_password_reset_code_transient( $user );
 
 	if ( empty( $tail_code ) ) {
-		return false;
+		return new WP_Error(
+			'directorist_rest_password_reset_pin_invalid',
+			__( 'Pin code expired. Please regenerate new pin code.', 'directorist' ),
+			array( 'status' => 400 )
+		);
 	}
 
-	$reset_key      = $pin_code . $tail_code;
-	$reset_key_hash = get_user_meta( $user->ID, 'directorist_pasword_reset_key', true );
+	$reset_key  = $pin_code . $tail_code;
+	$reset_data = get_user_meta( $user->ID, 'directorist_pasword_reset_key', true );
 
-	if ( empty( $reset_key_hash ) ) {
-		return false;
+	if ( empty( $reset_data ) || ! is_array( $reset_data ) ) {
+		return new WP_Error(
+			'directorist_rest_password_reset_pin_invalid',
+			__( 'Invalid pin code. Please regenerate new pin code.', 'directorist' ),
+			array( 'status' => 400 )
+		);
 	}
+
+	$reset_key_hash = $reset_data['reset_hash'];
 
 	/*
 	 * If the stored hash is longer than an MD5,
@@ -4162,8 +4202,45 @@ function directorist_check_password_reset_pin_code( $user, $pin_code ) {
 		$wp_hasher = new PasswordHash( 8, true );
 	}
 
-	return $wp_hasher->CheckPassword( $reset_key, $reset_key_hash );
+	if ( ! $wp_hasher->CheckPassword( $reset_key, $reset_key_hash ) ) {
+		$reset_attempt = absint( $reset_data['reset_attempt'] ) - 1;
+
+		if ( $reset_attempt < 0 ) {
+			directorist_delete_password_reset_code_transient( $user );
+			delete_user_meta( $user->ID, 'directorist_pasword_reset_key' );
+
+			return new WP_Error(
+				'directorist_rest_password_reset_pin_invalid',
+				__( 'Too many false attempts. Please regenerate the pin code and try again.', 'directorist' ),
+				array('status' => 400 )
+			);
+		}
+
+		$reset_data = array_merge( $reset_data, array(
+			'reset_attempt' => $reset_attempt,
+		) );
+
+		update_user_meta( $user->ID, 'directorist_pasword_reset_key', $reset_data );
+
+		return new WP_Error(
+			'directorist_rest_password_reset_pin_invalid',
+			sprintf(
+				_nx(
+					'Invalid pin code. You have %s attempt left.',
+					'Invalid pin code. You have %s attempts left.',
+					$reset_attempt,
+					'Pin code validation attempt left',
+					'directorist'
+				),
+				$reset_attempt
+			),
+			array('status' => 400 )
+		);
+	}
+
+	return true;
 }
+
 function directorist_validate_youtube_vimeo_url( $url ) {
     if ( preg_match( '/^(https?:\/\/)?(www\.)?vimeo\.com\/(\d+)/i', $url ) ) {
         return true;
@@ -4210,39 +4287,58 @@ function directorist_background_image_process( $images ) {
 }
 
 function directorist_get_json_from_url( $url ) {
-    $zip_content = file_get_contents( $url );
+    if ( ! function_exists( 'download_url' ) ) {
+        require_once ABSPATH . 'wp-admin/includes/file.php';
+    }
 
-    if ( $zip_content === false ) {
+    // Download file to temp dir
+    $temp_file = download_url( $url );
+
+    if ( is_wp_error( $temp_file ) ) {
         return false;
     }
 
-    $temp_zip_path = tempnam( sys_get_temp_dir(), 'unzip_temp' );
+    // Create a temp directory
+    $upload_dir = wp_upload_dir();
+    $temp_dir   = $upload_dir['basedir'] . '/directorist-temp-' . time();
 
-    if ( ! $temp_zip_path ) {
+    if ( ! wp_mkdir_p( $temp_dir ) ) {
+        @unlink( $temp_file );
         return false;
     }
 
-    if ( file_put_contents($temp_zip_path, $zip_content) === false ) {
+	global $wp_filesystem;
+
+	require_once ( ABSPATH . '/wp-admin/includes/file.php' );
+
+	WP_Filesystem();
+
+    // Unzip the file
+    $unzip_result = unzip_file( $temp_file, $temp_dir );
+    @unlink( $temp_file );
+
+    if ( is_wp_error( $unzip_result ) ) {
+        directorist_delete_dir( $temp_dir );
         return false;
     }
 
-    $zip = new ZipArchive;
-
-    if ( $zip->open( $temp_zip_path ) === true ) {
-
-        $json_content = $zip->getFromIndex( 0 );
-        $decoded_data = json_decode( $json_content, true );
-
-        if ( $decoded_data === null ) {
-            return false;
-        }
-
-        $zip->close();
-
-        unlink($temp_zip_path);
-
-        return $decoded_data;
+    // Get the first JSON file from the directory
+    $files = glob( $temp_dir . '/*.json' );
+    if ( empty( $files ) ) {
+        directorist_delete_dir( $temp_dir );
+        return false;
     }
+
+    $json_content = file_get_contents( $files[0] );
+    directorist_delete_dir( $temp_dir );
+
+    if ( ! $json_content ) {
+        return false;
+    }
+
+    $decoded_data = json_decode( $json_content, true );
+
+    return ( $decoded_data === null ) ? false : $decoded_data;
 }
 
 /**
@@ -4333,6 +4429,10 @@ function directorist_delete_dir( $dir ) {
 function directorist_delete_temporary_upload_dirs() {
 	$upload_dir = wp_get_upload_dir();
 	$temp_dir   = trailingslashit( $upload_dir['basedir'] ) . 'directorist_temp_uploads/';
+
+	if ( ! file_exists( $temp_dir ) ) {
+		return;
+	}
 
 	$dirs = scandir( $temp_dir );
 	$date = date( 'nj' );
@@ -4658,4 +4758,9 @@ function directorist_get_listing_gallery_images( $listing_id = 0 ) {
 	$images = array_filter( $images );
 
 	return $images;
+}
+
+function directorist_renewal_token_hash( $listing_id, $user_id ) {
+	$token_str = 'cB0XtpVzGb180dgPi3hADW-' . $listing_id . '::' . $user_id;
+	return wp_hash( $token_str, 'nonce' );
 }

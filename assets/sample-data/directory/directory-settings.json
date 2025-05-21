@@ -116,7 +116,6 @@
     "disable_single_listing": 0,
     "single_listing_template": "directorist_template",
     "atbdp_listing_slug": "directory",
-    "edit_listing_redirect": "view_listing",
     "listing_details_text": "Listing Details",
     "tags_section_lable": "Tags",
     "custom_section_lable": "Features",

@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   7.8.3
- * @version 8.0.11
+ * @version 8.0.6
  */
 
 use \Directorist\Helper;
@@ -121,12 +121,15 @@ if ( ! empty( $_GET['registration_status'] ) ) {
 							</div>
 
 							<div class="directorist-authentication__form__actions">
-								<div class="keep_signed directorist-checkbox">
-									<input type="checkbox" id="directorist_login_keep_signed_in" value="1" name="keep_signed_in" checked />
-									<label for="directorist_login_keep_signed_in" class="directorist-checkbox__label not_empty">
-										<?php esc_html_e( 'Remember Me', 'directorist' ); ?>
-									</label>
-								</div>
+
+								<?php if ( ! empty( $display_rememberme ) && 'yes' == $display_rememberme ) :?>
+									<div class="keep_signed directorist-checkbox">
+										<input type="checkbox" id="directorist_login_keep_signed_in" value="1" name="keep_signed_in" checked />
+										<label for="directorist_login_keep_signed_in" class="directorist-checkbox__label not_empty">
+											<?php echo esc_html( $rememberme_label ); ?>
+										</label>
+									</div>
+								<?php endif; ?>
 
 								<?php if ( ! empty( $display_recpass ) && 'yes' == $display_recpass ) :
 									$output = sprintf( "<a href='' class='atbdp_recovery_pass'> " . $recpass_text . '</a>' );
@@ -157,6 +160,7 @@ if ( ! empty( $_GET['registration_status'] ) ) {
 						$success = '';
 						// check if we're in reset form
 						if ( isset( $_POST['action'] ) && 'reset' === $_POST['action'] && directorist_verify_nonce() ) :
+							echo '<style>#recover-pass-modal { display: block; }</style>';
 
 							$email = isset( $_POST['user_login'] ) ? sanitize_email( wp_unslash( $_POST['user_login'] ) ) : '';
 
@@ -199,6 +203,8 @@ if ( ! empty( $_GET['registration_status'] ) ) {
 								$mail      = wp_mail( $email, $subject, $message, $headers );
 								if ( $mail ) {
 									$success = __( 'A password reset email has been sent to the email address on file for your account, but may take several minutes to show up in your inbox.', 'directorist' );
+									
+									echo '<style>#recover-pass-modal { display: none; }</style>';
 								} else {
 									$error = __( 'Something went wrong, unable to send the password reset email. If the issue persists please contact with the site administrator.', 'directorist' );
 								}
@@ -216,7 +222,7 @@ if ( ! empty( $_GET['registration_status'] ) ) {
 						endif; ?>
 
 						<div id="recover-pass-modal" class="directorist-mt-15 directorist-authentication__form__recover-pass-modal">
-							<form method="post">
+							<form action="#" method="post">
 								<fieldset class="directorist-form-group">
 									<p><?php echo esc_html( $recpass_desc ); ?></p>
 									<label for="reset_user_login"><?php echo esc_html( $recpass_username ); ?></label>
@@ -354,7 +360,6 @@ if ( ! empty( $_GET['registration_status'] ) ) {
 							<input type="hidden" name='previous_page' value='<?php echo esc_url( wp_get_referer() ); ?>'>
 							<?php } ?>
 							<input type="hidden" value="<?php echo esc_attr( wp_create_nonce( directorist_get_nonce_key() ) ); ?>" name="directorist_nonce">
-
 							<a class="directorist-btn directorist-authentication__form__btn" href="#"><?php echo esc_html( $reg_signup ); ?></a>
 						</div>
 						<div class="directory_regi_btn directorist-authentication__form__toggle-area">

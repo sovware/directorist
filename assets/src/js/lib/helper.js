@@ -1,29 +1,27 @@
 const $ = jQuery;
 
-function get_dom_data(key, parent) {
-    // var elmKey = 'directorist-dom-data-' + key;
-    var elmKey = 'directorist-dom-data-' + key;
-    var dataElm = (parent) ? parent.getElementsByClassName(elmKey) : document.getElementsByClassName(elmKey);
-
-    if (!dataElm) {
-        return '';
+function get_dom_data(selector, parent) {
+    selector = '.directorist-dom-data-' + selector;
+    if ( ! parent ) {
+        parent = document;
     }
 
-    var is_script_debugging = (directorist && directorist.script_debugging && directorist.script_debugging == '1') ? true : false;
+    const el = parent.querySelector(selector);
+    if ( ! el || ! el.dataset.value ) {
+        return {};
+    }
+
+    const IS_SCRIPT_DEBUGGING = (directorist && directorist.script_debugging && directorist.script_debugging == '1' );
 
     try {
-        let dataValue = atob(dataElm[0].dataset.value);
-        dataValue = JSON.parse(dataValue);
-        return dataValue;
+        let value = atob( el.dataset.value );
+        return JSON.parse( value );
     } catch (error) {
-        if (is_script_debugging) {
-            console.warn({
-                key,
-                dataElm,
-                error
-            });
+        if (IS_SCRIPT_DEBUGGING) {
+            console.log( el, error );
         }
-        return '';
+
+        return {};
     }
 }
 

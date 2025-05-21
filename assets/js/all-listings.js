@@ -122,9 +122,9 @@ function debounce(func, wait, immediate) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t.return || t.return(); } finally { if (u) throw o; } } }; }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 var $ = jQuery;
 window.addEventListener('load', waitAndInit);
 window.addEventListener('directorist-search-form-nav-tab-reloaded', waitAndInit);
@@ -360,7 +360,6 @@ function initSelect2() {
   // Not found in any template
   '.bdas-category-search' // Not found in any template
   ];
-
   selectors.forEach(function (selector) {
     return Object(_lib_helper__WEBPACK_IMPORTED_MODULE_1__["convertToSelect2"])(selector);
   });
@@ -454,6 +453,42 @@ function maybeLazyLoadTaxonomyTermsSelect2(args) {
     width: '100%',
     escapeMarkup: function escapeMarkup(text) {
       return text;
+    },
+    templateResult: function templateResult(data) {
+      if (!data.id) {
+        return data.text;
+      }
+
+      // Fetch the data-icon attribute
+      var iconURI = $(data.element).attr('data-icon');
+
+      // Get the original text
+      var originalText = data.text;
+
+      // Match and count leading spaces
+      var leadingSpaces = originalText.match(/^\s+/);
+      var spaceCount = leadingSpaces ? leadingSpaces[0].length : 0;
+
+      // Trim leading spaces from the original text
+      originalText = originalText.trim();
+
+      // Construct the icon element
+      var iconElm = iconURI ? "<i class=\"directorist-icon-mask\" aria-hidden=\"true\" style=\"--directorist-icon: url('".concat(iconURI, "')\"></i>") : '';
+
+      // Prepare the combined text (icon + text)
+      var combinedText = iconElm + originalText;
+
+      // Create the state container
+      var $state = $('<div class="directorist-select2-contents"></div>');
+
+      // Determine the level based on space count
+      var level = Math.floor(spaceCount / 8) + 1; // 8 spaces = level 2, 16 spaces = level 3, etc.
+      if (level > 1) {
+        $state.addClass('item-level-' + level); // Add class for the level (e.g., level-1, level-2, etc.)
+      }
+      $state.html(combinedText); // Set the combined content (icon + text)
+
+      return $state;
     }
   };
   if (directorist.lazy_load_taxonomy_fields) {
@@ -557,27 +592,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "convertToSelect2", function() { return convertToSelect2; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "get_dom_data", function() { return get_dom_data; });
 var $ = jQuery;
-function get_dom_data(key, parent) {
-  // var elmKey = 'directorist-dom-data-' + key;
-  var elmKey = 'directorist-dom-data-' + key;
-  var dataElm = parent ? parent.getElementsByClassName(elmKey) : document.getElementsByClassName(elmKey);
-  if (!dataElm) {
-    return '';
+function get_dom_data(selector, parent) {
+  selector = '.directorist-dom-data-' + selector;
+  if (!parent) {
+    parent = document;
   }
-  var is_script_debugging = directorist && directorist.script_debugging && directorist.script_debugging == '1' ? true : false;
+  var el = parent.querySelector(selector);
+  if (!el || !el.dataset.value) {
+    return {};
+  }
+  var IS_SCRIPT_DEBUGGING = directorist && directorist.script_debugging && directorist.script_debugging == '1';
   try {
-    var dataValue = atob(dataElm[0].dataset.value);
-    dataValue = JSON.parse(dataValue);
-    return dataValue;
+    var value = atob(el.dataset.value);
+    return JSON.parse(value);
   } catch (error) {
-    if (is_script_debugging) {
-      console.warn({
-        key: key,
-        dataElm: dataElm,
-        error: error
-      });
+    if (IS_SCRIPT_DEBUGGING) {
+      console.log(el, error);
     }
-    return '';
+    return {};
   }
 }
 function convertToSelect2(selector) {
@@ -663,6 +695,8 @@ window.addEventListener('load', function () {
 /***/ (function(module, exports) {
 
 window.addEventListener('load', function () {
+  var $ = jQuery;
+
   /* Make sure the codes in this file runs only once, even if enqueued twice */
   if (typeof window.directorist_catloc_executed === 'undefined') {
     window.directorist_catloc_executed = true;
@@ -694,6 +728,61 @@ window.addEventListener('load', function () {
   }
   categoryDropdown('.directorist-taxonomy-list-one .directorist-taxonomy-list__toggle', '.directorist-taxonomy-list-one .directorist-taxonomy-list');
   categoryDropdown('.directorist-taxonomy-list-one .directorist-taxonomy-list__sub-item-toggle', '.directorist-taxonomy-list-one .directorist-taxonomy-list');
+
+  // Taxonomy Ajax
+  $(document).on('click', '.directorist-categories .directorist-pagination a', function (e) {
+    taxonomyPagination(e, $(this), '.directorist-categories');
+  });
+  $(document).on('click', '.directorist-location .directorist-pagination a', function (e) {
+    taxonomyPagination(e, $(this), '.directorist-location');
+  });
+  function taxonomyPagination(event, clickedElement, containerSelector) {
+    event.preventDefault();
+    var pageNumber = (clickedElement === null || clickedElement === void 0 ? void 0 : clickedElement.attr('data-page')) || 1;
+    var container = clickedElement.closest(containerSelector);
+    var containerAttributes = container ? $(container).data('attrs') : {};
+    $.ajax({
+      url: directorist.ajax_url,
+      type: 'POST',
+      dataType: 'json',
+      data: {
+        action: 'directorist_taxonomy_pagination',
+        nonce: directorist.directorist_nonce,
+        page: parseInt(pageNumber),
+        attrs: containerAttributes
+      },
+      beforeSend: function beforeSend() {
+        $(containerSelector).addClass('atbdp-form-fade');
+      },
+      success: function success(response) {
+        var _tempContainer$queryS, _tempContainer$queryS2;
+        if (!(response !== null && response !== void 0 && response.success)) {
+          console.error('Failed to load taxonomy content');
+          return;
+        }
+        var tempContainer = document.createElement('div');
+        tempContainer.innerHTML = response.data.content;
+        // Handle both category and location wrappers
+        var taxonomyWrapper = document.querySelector('.taxonomy-category-wrapper');
+        var locationWrapper = document.querySelector('.taxonomy-location-wrapper');
+        var updatedCategoryContent = (_tempContainer$queryS = tempContainer.querySelector('.taxonomy-category-wrapper')) === null || _tempContainer$queryS === void 0 ? void 0 : _tempContainer$queryS.innerHTML;
+        var updatedLocationContent = (_tempContainer$queryS2 = tempContainer.querySelector('.taxonomy-location-wrapper')) === null || _tempContainer$queryS2 === void 0 ? void 0 : _tempContainer$queryS2.innerHTML;
+        if (taxonomyWrapper && updatedCategoryContent) {
+          taxonomyWrapper.innerHTML = updatedCategoryContent;
+        }
+        if (locationWrapper && updatedLocationContent) {
+          locationWrapper.innerHTML = updatedLocationContent;
+        }
+        if (!taxonomyWrapper && !locationWrapper) {
+          console.error('Required elements not found in response');
+          return;
+        }
+      },
+      complete: function complete() {
+        $(containerSelector).removeClass('atbdp-form-fade');
+      }
+    });
+  }
 });
 
 /***/ }),
@@ -1288,9 +1377,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _global_components_debounce__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../global/components/debounce */ "./assets/src/js/global/components/debounce.js");
 
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t.return || t.return(); } finally { if (u) throw o; } } }; }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 
@@ -1303,10 +1392,16 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     if (history.pushState) {
       var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname;
       if (form_data.paged && form_data.paged.length) {
-        var query = '?paged=' + form_data.paged + '';
+        var query = query && query.length ? query + '&paged=' + form_data.paged : '?paged=' + form_data.paged;
+      }
+      if (form_data.directory_type && form_data.directory_type.length) {
+        var query = query && query.length ? query + '&directory_type=' + form_data.directory_type : '?directory_type=' + form_data.directory_type;
+      }
+      if (form_data.view && form_data.view.length) {
+        var query = query && query.length ? query + '&view=' + form_data.view : '?view=' + form_data.view;
       }
       if (form_data.q && form_data.q.length) {
-        var query = '?q=' + form_data.q;
+        var query = query && query.length ? query + '&q=' + form_data.q : '?q=' + form_data.q;
       }
       if (form_data.in_cat && form_data.in_cat.length) {
         var query = query && query.length ? query + '&in_cat=' + form_data.in_cat : '?in_cat=' + form_data.in_cat;
@@ -1335,7 +1430,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       if (form_data.cityLng && form_data.cityLng.length && form_data.address && form_data.address.length) {
         var query = query && query.length ? query + '&cityLng=' + form_data.cityLng : '?cityLng=' + form_data.cityLng;
       }
-      if (form_data.miles && form_data.miles > 0) {
+      if (form_data.miles && form_data.miles.length) {
         var query = query && query.length ? query + '&miles=' + form_data.miles : '?miles=' + form_data.miles;
       }
       if (form_data.address && form_data.address.length) {
@@ -1356,8 +1451,10 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       if (form_data.phone && form_data.phone.length) {
         var query = query && query.length ? query + '&phone=' + form_data.phone : '?phone=' + form_data.phone;
       }
-      if (form_data.custom_field && form_data.custom_field.length) {
-        var query = query && query.length ? query + '&custom_field=' + form_data.custom_field : '?custom_field=' + form_data.custom_field;
+      if (form_data.custom_field && Object.keys(form_data.custom_field).length) {
+        Object.keys(form_data.custom_field).forEach(function (key) {
+          query = query.length ? query + "&".concat(key, "=").concat(form_data.custom_field[key]) : "?".concat(key, "=").concat(form_data.custom_field[key]);
+        });
       }
       if (form_data.open_now && form_data.open_now.length) {
         var query = query && query.length ? query + '&open_now=' + form_data.open_now : '?open_now=' + form_data.open_now;
@@ -1385,10 +1482,13 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     searchModalElement.forEach(function (modal) {
       var modalOverlay = modal.querySelector('.directorist-search-modal__overlay');
       var modalContent = modal.querySelector('.directorist-search-modal__contents');
+      var modalBodyOverlay = document.querySelector('.directorist-content-active');
 
       // Overlay Style
       if (modalOverlay) {
         modalOverlay.style.cssText = "opacity: 0; visibility: hidden; transition: 0.5s ease";
+        // remove overlay class on body
+        modalBodyOverlay.classList.remove('directorist-overlay-active');
       }
 
       // Modal Content Style
@@ -1398,9 +1498,37 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     });
   }
 
+  // Scrolling Pagination
+  var page = 1;
+  var infinitePaginationIsLoading = false;
+  var infinitePaginationCompleted = false;
+  function handleScroll() {
+    var container = $('.directorist-infinite-scroll .directorist-container-fluid .directorist-row');
+    if (!container.length || infinitePaginationIsLoading) return;
+    var containerBottom = container.offset().top + container.outerHeight();
+    var scrollBottom = window.scrollY + window.innerHeight;
+    if (scrollBottom >= containerBottom) {
+      infinitePaginationIsLoading = true;
+      page++;
+      var instantSearchElement = $('.directorist-instant-search');
+      var activeForm = getActiveForm(instantSearchElement);
+      var formData = buildFormData(activeForm, instantSearchElement);
+      loadMoreListings(formData);
+    }
+  }
+  ;
+  window.addEventListener('scroll', function () {
+    if (infinitePaginationCompleted) return;
+    handleScroll();
+  });
+
   /* Directorist instant search */
   $('body').on("submit", ".directorist-instant-search form", function (e) {
     e.preventDefault();
+    // infinite pagination loading reset
+    page = 1;
+    infinitePaginationIsLoading = false;
+    infinitePaginationCompleted = false;
     var instant_search_element = $(this).closest('.directorist-instant-search');
     var tag = [];
     var search_by_rating = [];
@@ -1475,12 +1603,12 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     if (fields.address && fields.address.length) {
       fields.cityLat = $(this).find('#cityLat').val();
       fields.cityLng = $(this).find('#cityLng').val();
-      fields.miles = $(this).find('.directorist-custom-range-slider__value input').val();
+      fields.miles = $(this).find('input[name="miles"]').val();
     }
     if (fields.zip && fields.zip.length) {
       fields.zip_cityLat = $(this).find('.zip-cityLat').val();
       fields.zip_cityLng = $(this).find('.zip-cityLng').val();
-      fields.miles = $(this).find('.directorist-custom-range-slider__value input').val();
+      fields.miles = $(this).find('input[name="miles"]').val();
     }
     var form_data = _objectSpread(_objectSpread({}, data), fields);
     var allFieldsAreEmpty = Object.values(fields).every(function (item) {
@@ -1734,6 +1862,16 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       if (fields.zip && fields.zip.length) {
         fields.zip_cityLat = $(this).find('.zip-cityLat').val();
         fields.zip_cityLng = $(this).find('.zip-cityLng').val();
+        fields.miles = $(this).find('input[name="miles"]').val();
+      }
+      if (fields.address && fields.address.length) {
+        fields.cityLat = $(this).find('#cityLat').val();
+        fields.cityLng = $(this).find('#cityLng').val();
+        fields.miles = $(this).find('input[name="miles"]').val();
+      }
+      if (fields.zip && fields.zip.length) {
+        fields.zip_cityLat = $(this).find('.zip-cityLat').val();
+        fields.zip_cityLng = $(this).find('.zip-cityLng').val();
         fields.miles = $(this).find('.directorist-custom-range-slider__value input').val();
       }
       var form_data = _objectSpread(_objectSpread({}, data), fields);
@@ -1788,6 +1926,10 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   // Directorist type changes
   $('body').on("click", ".directorist-instant-search .directorist-type-nav__link", function (e) {
     e.preventDefault();
+    // infinite pagination loading reset
+    page = 1;
+    infinitePaginationIsLoading = false;
+    infinitePaginationCompleted = false;
     var _this = $(this);
     var type_href = $(this).attr('href');
     var type = type_href.match(/directory_type=.+/);
@@ -1815,6 +1957,9 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
           $(_this).closest('.directorist-instant-search').find('.atbdp-form-fade').removeClass('atbdp-form-fade');
           window.dispatchEvent(new CustomEvent('directorist-instant-search-reloaded'));
           window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
+
+          // SearchForm Item in Single Category Location Page Init
+          singleCategoryLocationInit();
         }
         var events = [new CustomEvent('directorist-instant-search-reloaded'), new CustomEvent('directorist-search-form-nav-tab-reloaded'), new CustomEvent('directorist-reload-select2-fields'), new CustomEvent('directorist-reload-map-api-field')];
         events.forEach(function (event) {
@@ -1831,6 +1976,10 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   // Directorist view as changes
   $('body').on("click", ".directorist-instant-search .directorist-viewas .directorist-viewas__item", function (e) {
     e.preventDefault();
+    // infinite pagination loading reset
+    page = 1;
+    infinitePaginationIsLoading = false;
+    infinitePaginationCompleted = false;
     var instant_search_element = $(this).closest('.directorist-instant-search');
     var tag = [];
     var price = [];
@@ -1860,9 +2009,9 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       price.push($(el).val());
     });
     activeForm.find('[name^="custom_field"]').each(function (index, el) {
-      var test = $(el).attr('name');
+      var name = $(el).attr('name');
       var type = $(el).attr('type');
-      var post_id = test.replace(/(custom_field\[)/, '').replace(/\]/, '');
+      var post_id = name.replace(/(custom_field\[)/, '').replace(/\]/, '');
       if ('radio' === type) {
         $.each($("input[name='custom_field[" + post_id + "]']:checked"), function () {
           value = $(this).val();
@@ -1896,6 +2045,17 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     var email = activeForm.find('input[name="email"]').val();
     var website = activeForm.find('input[name="website"]').val();
     var phone = activeForm.find('input[name="phone"]').val();
+
+    // Required fields Check
+    var isQueryRequired = activeForm.find('input[name="q"]').prop("required");
+    var isCategoryRequired = activeForm.find('.directorist-category-select').prop("required");
+    var isLocationRequired = activeForm.find('.directorist-location-select').prop("required");
+
+    // Validate: If a field is required but empty, return false
+    var requiredFieldsAreValid = true;
+    if (isQueryRequired && !q) requiredFieldsAreValid = false;
+    if (isCategoryRequired && (!in_cat || in_cat.length === 0)) requiredFieldsAreValid = false;
+    if (isLocationRequired && (!in_loc || in_loc.length === 0)) requiredFieldsAreValid = false;
     $(".directorist-viewas .directorist-viewas__item").removeClass('active');
     $(this).addClass("active");
     var form_data = {
@@ -1903,22 +2063,22 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       _nonce: directorist.ajax_nonce,
       current_page_id: directorist.current_page_id,
       view: view && view.length ? view[0].replace(/view=/, '') : '',
-      q: q || getURLParameter(full_url, 'q'),
-      in_cat: in_cat || getURLParameter(full_url, 'in_cat'),
-      in_loc: in_loc || getURLParameter(full_url, 'in_loc'),
-      in_tag: tag || getURLParameter(full_url, 'in_tag'),
-      price: price || getURLParameter(full_url, 'price'),
-      price_range: price_range || getURLParameter(full_url, 'price_range'),
-      search_by_rating: search_by_rating || getURLParameter(full_url, 'search_by_rating'),
-      cityLat: cityLat || getURLParameter(full_url, 'cityLat'),
-      cityLng: cityLng || getURLParameter(full_url, 'cityLng'),
-      miles: miles || getURLParameter(full_url, 'miles'),
-      address: address || getURLParameter(full_url, 'address'),
-      zip: zip || getURLParameter(full_url, 'zip'),
-      fax: fax || getURLParameter(full_url, 'fax'),
-      email: email || getURLParameter(full_url, 'email'),
-      website: website || getURLParameter(full_url, 'website'),
-      phone: phone || getURLParameter(full_url, 'phone'),
+      q: requiredFieldsAreValid && q || getURLParameter(full_url, 'q'),
+      in_cat: requiredFieldsAreValid && in_cat || getURLParameter(full_url, 'in_cat'),
+      in_loc: requiredFieldsAreValid && in_loc || getURLParameter(full_url, 'in_loc'),
+      in_tag: requiredFieldsAreValid && tag || getURLParameter(full_url, 'in_tag'),
+      price: requiredFieldsAreValid && price || getURLParameter(full_url, 'price'),
+      price_range: requiredFieldsAreValid && price_range || getURLParameter(full_url, 'price_range'),
+      search_by_rating: requiredFieldsAreValid && search_by_rating || getURLParameter(full_url, 'search_by_rating'),
+      cityLat: requiredFieldsAreValid && cityLat || getURLParameter(full_url, 'cityLat'),
+      cityLng: requiredFieldsAreValid && cityLng || getURLParameter(full_url, 'cityLng'),
+      miles: requiredFieldsAreValid && miles || getURLParameter(full_url, 'miles'),
+      address: requiredFieldsAreValid && address || getURLParameter(full_url, 'address'),
+      zip: requiredFieldsAreValid && zip || getURLParameter(full_url, 'zip'),
+      fax: requiredFieldsAreValid && fax || getURLParameter(full_url, 'fax'),
+      email: requiredFieldsAreValid && email || getURLParameter(full_url, 'email'),
+      website: requiredFieldsAreValid && website || getURLParameter(full_url, 'website'),
+      phone: requiredFieldsAreValid && phone || getURLParameter(full_url, 'phone'),
       custom_field: custom_field || getURLParameter(full_url, 'custom_field'),
       data_atts: JSON.parse(data_atts)
     };
@@ -1926,6 +2086,16 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     //business hours
     if ($('input[name="open_now"]').is(':checked')) {
       form_data.open_now = activeForm.find('input[name="open_now"]').val();
+    }
+    if (form_data.address && form_data.address.length) {
+      form_data.cityLat = activeForm.find('#cityLat').val();
+      form_data.cityLng = activeForm.find('#cityLng').val();
+      form_data.miles = activeForm.find('input[name="miles"]').val();
+    }
+    if (form_data.zip && form_data.zip.length) {
+      form_data.zip_cityLat = activeForm.find('.zip-cityLat').val();
+      form_data.zip_cityLng = activeForm.find('.zip-cityLng').val();
+      form_data.miles = activeForm.find('input[name="miles"]').val();
     }
     if (page_no && page_no.length) {
       form_data.paged = page_no;
@@ -1950,7 +2120,6 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         instant_search_element.find('.directorist-header-bar .directorist-advanced-filter').css('visibility', 'hidden');
         //$(document).scrollTop( $(this).closest(".directorist-instant-search").offset().top );
       },
-
       success: function success(html) {
         if (html.view_as) {
           instant_search_element.find('.directorist-header-found-title span').text(html.count);
@@ -1970,6 +2139,10 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   // Directorist sort by changes
   $('body').on("click", ".directorist-instant-search .directorist-sortby-dropdown .directorist-dropdown__links__single-js", function (e) {
     e.preventDefault();
+    // infinite pagination loading reset
+    page = 1;
+    infinitePaginationIsLoading = false;
+    infinitePaginationCompleted = false;
     var instant_search_element = $(this).closest('.directorist-instant-search');
     var tag = [];
     var price = [];
@@ -2000,9 +2173,9 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       price.push($(el).val());
     });
     activeForm.find('[name^="custom_field"]').each(function (index, el) {
-      var test = $(el).attr('name');
+      var name = $(el).attr('name');
       var type = $(el).attr('type');
-      var post_id = test.replace(/(custom_field\[)/, '').replace(/\]/, '');
+      var post_id = name.replace(/(custom_field\[)/, '').replace(/\]/, '');
       if ('radio' === type) {
         $.each($("input[name='custom_field[" + post_id + "]']:checked"), function () {
           value = $(this).val();
@@ -2066,6 +2239,16 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     if ($('input[name="open_now"]').is(':checked')) {
       form_data.open_now = activeForm.find('input[name="open_now"]').val();
     }
+    if (form_data.address && form_data.address.length) {
+      form_data.cityLat = activeForm.find('#cityLat').val();
+      form_data.cityLng = activeForm.find('#cityLng').val();
+      form_data.miles = activeForm.find('input[name="miles"]').val();
+    }
+    if (form_data.zip && form_data.zip.length) {
+      form_data.zip_cityLat = activeForm.find('.zip-cityLat').val();
+      form_data.zip_cityLng = activeForm.find('.zip-cityLng').val();
+      form_data.miles = activeForm.find('input[name="miles"]').val();
+    }
     if (directory_type && directory_type.length) {
       form_data.directory_type = directory_type;
     }
@@ -2103,23 +2286,24 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     var tag = [];
     var price = [];
     var custom_field = {};
-    var instant_search_element = $(this).closest('.directorist-instant-search');
-    var sort_href = instant_search_element.find(".directorist-sortby-dropdown .directorist-dropdown__links__single.active").attr('data-link');
+    var $container = $(this).closest('.directorist-instant-search');
+    var $directory_nav = $container.find('.directorist-type-nav__list');
+    var sort_href = $container.find(".directorist-sortby-dropdown .directorist-dropdown__links__single.active").attr('data-link');
     var sort_by = sort_href && sort_href.length ? sort_href.match(/sort=.+/) : '';
     var sort = sort_by && sort_by.length ? sort_by[0].replace(/sort=/, '') : '';
-    var view_href = instant_search_element.find(".directorist-viewas .directorist-viewas__item.active").attr('href');
+    var view_href = $container.find(".directorist-viewas .directorist-viewas__item.active").attr('href');
     var view_as = view_href && view_href.length ? view_href.match(/view=.+/) : '';
     var view = view_as && view_as.length ? view_as[0].replace(/view=/, '') : '';
-    var type_href = instant_search_element.find('.directorist-type-nav__list .directorist-type-nav__list__current a').attr('href');
+    var type_href = $directory_nav.find('.directorist-type-nav__list__current a').attr('href');
     var type = type_href && type_href.length ? type_href.match(/directory_type=.+/) : '';
     var directory_type = getURLParameter(type_href, 'directory_type');
-    var data_atts = instant_search_element.attr('data-atts');
+    var data_atts = $container.attr('data-atts');
 
     // Select Active Form Based on Screen Size
-    var advancedForm = instant_search_element.find('.directorist-advanced-filter__form');
-    var searchForm = instant_search_element.find('.directorist-search-form');
-    var sidebarListing = instant_search_element.find('.listing-with-sidebar');
-    var activeForm = sidebarListing.length ? instant_search_element : screen.width > 575 ? advancedForm : searchForm;
+    var advancedForm = $container.find('.directorist-advanced-filter__form');
+    var searchForm = $container.find('.directorist-search-form');
+    var sidebarListing = $container.find('.listing-with-sidebar');
+    var activeForm = sidebarListing.length ? $container : screen.width > 575 ? advancedForm : searchForm;
 
     // Get Values from Active Form
     activeForm.find('input[name^="in_tag["]:checked').each(function (index, el) {
@@ -2129,9 +2313,9 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       price.push($(el).val());
     });
     activeForm.find('[name^="custom_field"]').each(function (index, el) {
-      var test = $(el).attr('name');
+      var name = $(el).attr('name');
       var type = $(el).attr('type');
-      var post_id = test.replace(/(custom_field\[)/, '').replace(/\]/, '');
+      var post_id = name.replace(/(custom_field\[)/, '').replace(/\]/, '');
       if ('radio' === type) {
         $.each($("input[name='custom_field[" + post_id + "]']:checked"), function () {
           value = $(this).val();
@@ -2158,71 +2342,87 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     var search_by_rating = activeForm.find('select[name=search_by_rating]').val();
     var cityLat = activeForm.find('#cityLat').val();
     var cityLng = activeForm.find('#cityLng').val();
-    var miles = activeForm.find('input[name="miles"]').val();
     var address = activeForm.find('input[name="address"]').val();
     var zip = activeForm.find('input[name="zip"]').val();
+    var miles = (address || zip) && activeForm.find('input[name="miles"]').val();
     var fax = activeForm.find('input[name="fax"]').val();
     var email = activeForm.find('input[name="email"]').val();
     var website = activeForm.find('input[name="website"]').val();
     var phone = activeForm.find('input[name="phone"]').val();
-    instant_search_element.find(".directorist-pagination .page-numbers").removeClass('current');
+    $container.find(".directorist-pagination .page-numbers").removeClass('current');
     $(this).addClass("current");
     var paginate_link = $(this).attr('href');
-    var page = paginate_link && paginate_link.length ? paginate_link.match(/page\/.+/) : '';
-    var page_value = page && page.length ? page[0].replace(/page\//, '') : '';
-    var page_no = page_value && page_value.length ? page_value.replace(/\//, '') : '';
-    if (!page_no) {
-      var page = paginate_link && paginate_link.length ? paginate_link.match(/paged=.+/) : '';
-      var page_no = page && page.length ? page[0].replace(/paged=/, '') : '';
+    var page_no = '';
+    if (paginate_link) {
+      var pageMatch = paginate_link.match(/(?:page\/|paged=)(\d+)/);
+      if (pageMatch) {
+        page_no = pageMatch[1]; // Extracts only the numeric value
+      }
     }
-    var form_data = _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({
+    console.log(page_no);
+    var form_data = {
       action: 'directorist_instant_search',
       _nonce: directorist.ajax_nonce,
       current_page_id: directorist.current_page_id,
-      view: view && view.length ? view[0].replace(/view=/, '') : '',
-      q: q || getURLParameter(full_url, 'q'),
-      in_cat: in_cat || getURLParameter(full_url, 'in_cat'),
-      in_loc: in_loc || getURLParameter(full_url, 'in_loc'),
-      in_tag: tag || getURLParameter(full_url, 'in_tag'),
-      price: price || getURLParameter(full_url, 'price'),
-      price_range: price_range || getURLParameter(full_url, 'price_range'),
-      search_by_rating: search_by_rating || getURLParameter(full_url, 'search_by_rating'),
-      cityLat: cityLat || getURLParameter(full_url, 'cityLat'),
-      cityLng: cityLng || getURLParameter(full_url, 'cityLng'),
-      miles: miles || getURLParameter(full_url, 'miles'),
-      address: address || getURLParameter(full_url, 'address'),
-      zip: zip || getURLParameter(full_url, 'zip'),
-      fax: fax || getURLParameter(full_url, 'fax'),
-      email: email || getURLParameter(full_url, 'email'),
-      website: website || getURLParameter(full_url, 'website'),
-      phone: phone || getURLParameter(full_url, 'phone'),
-      custom_field: custom_field || getURLParameter(full_url, 'custom_field')
-    }, "view", view), "paged", page_no), "data_atts", JSON.parse(data_atts));
+      q: q,
+      in_cat: in_cat,
+      in_loc: in_loc,
+      in_tag: tag,
+      price: price,
+      price_range: price_range,
+      search_by_rating: search_by_rating,
+      cityLat: cityLat,
+      cityLng: cityLng,
+      address: address,
+      zip: zip,
+      fax: fax,
+      email: email,
+      website: website,
+      phone: phone,
+      custom_field: custom_field,
+      miles: miles,
+      view: view,
+      paged: page_no,
+      data_atts: JSON.parse(data_atts)
+    };
 
     //business hours
     if ($('input[name="open_now"]').is(':checked')) {
       form_data.open_now = activeForm.find('input[name="open_now"]').val();
     }
-    update_instant_search_url(form_data);
+    if (form_data.address && form_data.address.length) {
+      form_data.cityLat = activeForm.find('#cityLat').val();
+      form_data.cityLng = activeForm.find('#cityLng').val();
+      form_data.miles = activeForm.find('input[name="miles"]').val();
+    }
+    if (form_data.zip && form_data.zip.length) {
+      form_data.zip_cityLat = activeForm.find('.zip-cityLat').val();
+      form_data.zip_cityLng = activeForm.find('.zip-cityLng').val();
+      form_data.miles = activeForm.find('input[name="miles"]').val();
+    }
     if (directory_type && directory_type.length) {
       form_data.directory_type = directory_type;
     }
     if (sort && sort.length) {
       form_data.sort = sort;
     }
+    if ($directory_nav.is(':hidden')) {
+      form_data.directory_nav = false;
+    }
+    update_instant_search_url(form_data);
     $.ajax({
       url: directorist.ajaxurl,
       type: "POST",
       data: form_data,
       beforeSend: function beforeSend() {
-        instant_search_element.find('.directorist-archive-items').addClass('atbdp-form-fade');
+        $container.find('.directorist-archive-items').addClass('atbdp-form-fade');
       },
       success: function success(html) {
         if (html.view_as) {
-          instant_search_element.find('.directorist-header-found-title span').text(html.count);
-          instant_search_element.find('.directorist-archive-items').replaceWith(html.view_as);
-          instant_search_element.find('.directorist-archive-items').removeClass('atbdp-form-fade');
-          $(document).scrollTop(instant_search_element.offset().top);
+          $container.find('.directorist-header-found-title span').text(html.count);
+          $container.find('.directorist-archive-items').replaceWith(html.view_as);
+          $container.find('.directorist-archive-items').removeClass('atbdp-form-fade');
+          $(document).scrollTop($container.offset().top);
         }
         window.dispatchEvent(new CustomEvent('directorist-instant-search-reloaded'));
         window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
@@ -2230,11 +2430,136 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     });
   });
 
+  // Helper function to determine the active form
+  function getActiveForm(instantSearchElement) {
+    var sidebarListing = instantSearchElement.find('.listing-with-sidebar');
+    var advancedForm = instantSearchElement.find('.directorist-advanced-filter__form');
+    var searchForm = instantSearchElement.find('.directorist-search-form');
+    return sidebarListing.length ? instantSearchElement : screen.width > 575 ? advancedForm : searchForm;
+  }
+
+  // Helper function to build form data
+  function buildFormData(activeForm, instantSearchElement) {
+    var tag = [];
+    var price = [];
+    var customField = {};
+    var dataAtts = JSON.parse(instantSearchElement.attr('data-atts'));
+    activeForm.find('input[name^="in_tag["]:checked').each(function (_, el) {
+      return tag.push($(el).val());
+    });
+    activeForm.find('input[name^="price["]').each(function (_, el) {
+      return price.push($(el).val());
+    });
+    activeForm.find('[name^="custom_field"]').each(function (_, el) {
+      var name = $(el).attr('name');
+      var type = $(el).attr('type');
+      var postId = name.replace(/(custom_field\[)/, '').replace(/\]/, '').split('[]')[0];
+      if (type === 'radio') {
+        customField[postId] = activeForm.find("input[name='custom_field[".concat(postId, "]']:checked")).val();
+      } else if (type === 'checkbox') {
+        customField[postId] = activeForm.find("input[name='custom_field[".concat(postId, "][]']:checked")).map(function (_, e) {
+          return $(e).val();
+        }).get();
+      } else {
+        customField[postId] = $(el).val();
+      }
+    });
+    var view_href = $(".directorist-viewas .directorist-viewas__item.active").attr('href');
+    var view_as = view_href && view_href.length ? view_href.match(/view=.+/) : '';
+    var view = view_as && view_as.length ? view_as[0].replace(/view=/, '') : '';
+    var getValue = function getValue(selector, fallback) {
+      return activeForm.find(selector).val() || fallback;
+    };
+    return {
+      action: 'directorist_instant_search',
+      _nonce: directorist.ajax_nonce,
+      current_page_id: directorist.current_page_id,
+      q: getValue('input[name="q"]', getURLParameter(full_url, 'q')),
+      in_cat: getValue('.directorist-category-select', getURLParameter(full_url, 'in_cat')),
+      in_loc: getValue('.directorist-location-select', getURLParameter(full_url, 'in_loc')),
+      in_tag: tag || getURLParameter(full_url, 'in_tag'),
+      price: price || getURLParameter(full_url, 'price'),
+      price_range: getValue("input[name='price_range']:checked", getURLParameter(full_url, 'price_range')),
+      search_by_rating: getValue('select[name=search_by_rating]', getURLParameter(full_url, 'search_by_rating')),
+      cityLat: getValue('#cityLat', getURLParameter(full_url, 'cityLat')),
+      cityLng: getValue('#cityLng', getURLParameter(full_url, 'cityLng')),
+      miles: getValue('input[name="miles"]', getURLParameter(full_url, 'miles')),
+      address: getValue('input[name="address"]', getURLParameter(full_url, 'address')),
+      zip: getValue('input[name="zip"]', getURLParameter(full_url, 'zip')),
+      fax: getValue('input[name="fax"]', getURLParameter(full_url, 'fax')),
+      email: getValue('input[name="email"]', getURLParameter(full_url, 'email')),
+      website: getValue('input[name="website"]', getURLParameter(full_url, 'website')),
+      phone: getValue('input[name="phone"]', getURLParameter(full_url, 'phone')),
+      custom_field: customField,
+      view: view,
+      paged: page,
+      data_atts: dataAtts,
+      sort: getSortValue(instantSearchElement),
+      directory_type: getDirectoryType(instantSearchElement),
+      open_now: activeForm.find('input[name="open_now"]:checked').val()
+    };
+  }
+
+  // Helper function to get sort value
+  function getSortValue(instantSearchElement) {
+    var sortHref = instantSearchElement.find('.directorist-sortby-dropdown .directorist-dropdown__links__single.active').data('link');
+    return sortHref ? sortHref.split('sort=')[1] : '';
+  }
+
+  // Helper function to get directory type
+  function getDirectoryType(instantSearchElement) {
+    var typeHref = instantSearchElement.find('.directorist-type-nav__list .directorist-type-nav__list__current a').attr('href');
+    return typeHref ? getURLParameter(typeHref, 'directory_type') : '';
+  }
+
+  // AJAX call to load more listings
+  function loadMoreListings(formData) {
+    var loadingDiv;
+    var container = $('.directorist-infinite-scroll .directorist-container-fluid .directorist-row');
+    $.ajax({
+      url: directorist.ajaxurl,
+      type: 'POST',
+      data: formData,
+      beforeSend: function beforeSend() {
+        loadingDiv = $('<div>', {
+          class: 'directorist-on-scroll-loading'
+        }).append($('<div>', {
+          class: 'directorist-spinner'
+        }), $('<span>').text('Loading more...'));
+        container.append(loadingDiv);
+      },
+      success: function success(html) {
+        if (loadingDiv) loadingDiv.remove();
+        if (html.count > 0) {
+          container.append(html.render_listings);
+        } else {
+          infinitePaginationCompleted = true;
+        }
+        triggerCustomEvents();
+      },
+      complete: function complete() {
+        infinitePaginationIsLoading = false;
+        if (loadingDiv) loadingDiv.remove();
+      }
+    });
+  }
+
+  // Helper function to trigger custom events
+  function triggerCustomEvents() {
+    window.dispatchEvent(new Event('directorist-instant-search-reloaded'));
+    window.dispatchEvent(new Event('directorist-reload-listings-map-archive'));
+  }
+
   // Filter on AJAX Search
   function filterListing(searchElm) {
     if (!searchElm) {
       return;
     }
+
+    // infinite pagination loading reset
+    page = 1;
+    infinitePaginationIsLoading = false;
+    infinitePaginationCompleted = false;
     var _this = searchElm;
     var tag = [];
     var price = [];
@@ -2428,12 +2753,36 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     });
   }
 
+  // Single Location Category Page Search Form Item Disable
+  function singleCategoryLocationInit() {
+    var directoristArchiveContents = document.querySelector('.directorist-archive-contents');
+    if (!directoristArchiveContents) {
+      return;
+    }
+    var directoristDataAttributes = directoristArchiveContents.getAttribute('data-atts');
+    var _JSON$parse = JSON.parse(directoristDataAttributes),
+      shortcode = _JSON$parse.shortcode,
+      location = _JSON$parse.location,
+      category = _JSON$parse.category;
+    if (shortcode === 'directorist_category' && category.trim() !== '') {
+      var categorySelect = document.querySelector('.directorist-search-form .directorist-category-select');
+      if (categorySelect) {
+        categorySelect.closest('.directorist-search-category').classList.add('directorist-search-form__single-category');
+      }
+    }
+    if (shortcode === 'directorist_location' && location.trim() !== '') {
+      var locationSelect = document.querySelector('.directorist-search-form .directorist-location-select');
+      if (locationSelect) {
+        locationSelect.closest('.directorist-search-location').classList.add('directorist-search-form__single-location');
+      }
+    }
+  }
+
   // sidebar on keyup searching
   $('body').on("keyup", ".directorist-instant-search .listing-with-sidebar form", Object(_global_components_debounce__WEBPACK_IMPORTED_MODULE_1__["default"])(function (e) {
     if ($(e.target).closest('.directorist-custom-range-slider__value').length > 0) {
       return; // Skip calling `filterListing` for this element
     }
-
     e.preventDefault();
     var searchElm = $(this).closest('.listing-with-sidebar');
     filterListing(searchElm);
@@ -2443,6 +2792,21 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   $('body').on("change", ".directorist-instant-search .listing-with-sidebar input[type='checkbox'],.directorist-instant-search .listing-with-sidebar input[type='radio'], .directorist-custom-range-slider__wrap .directorist-custom-range-slider__range, .directorist-search-location .location-name", Object(_global_components_debounce__WEBPACK_IMPORTED_MODULE_1__["default"])(function (e) {
     e.preventDefault();
     var searchElm = $(this).closest('.listing-with-sidebar');
+    filterListing(searchElm);
+  }, 250));
+
+  // sidebar on change location, zipcode changing
+  $('body').on("change", ".directorist-instant-search .listing-with-sidebar .directorist-search-location, .directorist-instant-search .listing-with-sidebar .directorist-zipcode-search", Object(_global_components_debounce__WEBPACK_IMPORTED_MODULE_1__["default"])(function (e) {
+    e.preventDefault();
+    var searchElm = $(this).closest('.listing-with-sidebar');
+
+    // If it's a location field, ensure it has a value before triggering the filter
+    if ($(this).hasClass('directorist-search-location')) {
+      var locationField = $(this).find('input[name="address"]');
+      if (!locationField.val()) {
+        return;
+      }
+    }
     filterListing(searchElm);
   }, 250));
 
@@ -2482,6 +2846,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   }
   window.addEventListener('load', function () {
     Object(_global_components_debounce__WEBPACK_IMPORTED_MODULE_1__["default"])(initObserver(), 250);
+    singleCategoryLocationInit();
   });
 })(jQuery);
 
@@ -2609,9 +2974,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__);
 
 
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t.return || t.return(); } finally { if (u) throw o; } } }; }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 window.addEventListener('load', function () {
   ;
   (function ($) {
@@ -2626,7 +2991,7 @@ window.addEventListener('load', function () {
           return _this.init();
         });
       }
-      _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(ReplyFormObserver, [{
+      return _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(ReplyFormObserver, [{
         key: "init",
         value: function init() {
           var node = document.querySelector('.commentlist');
@@ -2729,14 +3094,13 @@ window.addEventListener('load', function () {
           }
         }
       }]);
-      return ReplyFormObserver;
     }();
     var CommentEditHandler = /*#__PURE__*/function () {
       function CommentEditHandler() {
         _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, CommentEditHandler);
         this.init();
       }
-      _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(CommentEditHandler, [{
+      return _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(CommentEditHandler, [{
         key: "init",
         value: function init() {
           $(document).on('submit', '#directorist-form-comment-edit', this.onSubmit);
@@ -2805,14 +3169,13 @@ window.addEventListener('load', function () {
           $form.prepend(msg);
         }
       }]);
-      return CommentEditHandler;
     }();
     var CommentAddReplyHandler = /*#__PURE__*/function () {
       function CommentAddReplyHandler() {
         _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, CommentAddReplyHandler);
         this.init();
       }
-      _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(CommentAddReplyHandler, [{
+      return _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(CommentAddReplyHandler, [{
         key: "init",
         value: function init() {
           var t = setTimeout(function () {
@@ -2929,7 +3292,6 @@ window.addEventListener('load', function () {
           form.prepend($error);
         }
       }]);
-      return CommentAddReplyHandler;
     }();
     var CommentsManager = /*#__PURE__*/function () {
       function CommentsManager() {
@@ -2938,7 +3300,7 @@ window.addEventListener('load', function () {
         this.setupComponents();
         this.addEventListeners();
       }
-      _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(CommentsManager, [{
+      return _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(CommentsManager, [{
         key: "initStarRating",
         value: function initStarRating() {
           $('.directorist-review-criteria-select').barrating({
@@ -3031,7 +3393,6 @@ window.addEventListener('load', function () {
           new CommentEditHandler();
         }
       }]);
-      return CommentsManager;
     }();
     var commentsManager = new CommentsManager();
   })(jQuery);
@@ -3056,6 +3417,94 @@ window.addEventListener('load', function () {
       });
     }
   })(jQuery);
+});
+
+/***/ }),
+
+/***/ "./assets/src/js/public/components/update-view-count.js":
+/*!**************************************************************!*\
+  !*** ./assets/src/js/public/components/update-view-count.js ***!
+  \**************************************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/slicedToArray.js");
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__);
+
+
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+/**
+ * Update listings grid view count.
+ */
+jQuery(function ($) {
+  var _window$directorist, _window$localStorage;
+  var isDynamicViewCountCacheEnabled = Boolean((_window$directorist = window.directorist) === null || _window$directorist === void 0 ? void 0 : _window$directorist.dynamic_view_count_cache);
+  if (!isDynamicViewCountCacheEnabled) {
+    return;
+  }
+  var updateMarkup = function updateMarkup(viewCounts) {
+    for (var _i = 0, _Object$entries = Object.entries(viewCounts); _i < _Object$entries.length; _i++) {
+      var _Object$entries$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1___default()(_Object$entries[_i], 2),
+        id = _Object$entries$_i[0],
+        count = _Object$entries$_i[1];
+      var $el = $(".directorist-view-count[data-id=\"".concat(id, "\"]"));
+      var $elIcon = $el.find('.directorist-icon-mask');
+      if ($elIcon.length) {
+        $elIcon[0].nextSibling.textContent = count;
+      } else {
+        $el.text(count);
+      }
+    }
+  };
+  var ids = [];
+  $('.directorist-view-count[data-id]').each(function (i, item) {
+    ids.push(+item.dataset.id);
+  });
+  if (ids.length === 0) {
+    return;
+  }
+  var CACHE_EXPIRATION = 1000 * 60 * 60 * 5; // 5 hours.
+  var cache = (_window$localStorage = window.localStorage) === null || _window$localStorage === void 0 ? void 0 : _window$localStorage.getItem('directorist_view_count');
+  var hasCache = false;
+  if (cache) {
+    var _cache, _cache2;
+    cache = JSON.parse(cache);
+    var cachedIds = ((_cache = cache) === null || _cache === void 0 ? void 0 : _cache.viewCount) || {};
+    hasCache = Object.keys(cachedIds).length;
+    ids = ids.filter(function (id) {
+      return !(id in cachedIds);
+    });
+    if (hasCache && (_cache2 = cache) !== null && _cache2 !== void 0 && _cache2.lastUpdated && Date.now() - cache.lastUpdated < CACHE_EXPIRATION) {
+      updateMarkup(cache.viewCount);
+    }
+    if (!ids.length) {
+      return;
+    }
+  }
+  $.post(directorist.ajax_url, {
+    action: 'directorist_update_view_count',
+    nonce: directorist.directorist_nonce,
+    ids: ids
+  }, function (response) {
+    var _window$localStorage2;
+    if (!response.success) {
+      console.warn(response.data.message);
+      return;
+    }
+    updateMarkup(response.data.view_count);
+    if (hasCache) {
+      response.data.view_count = _objectSpread(_objectSpread({}, cache.viewCount), response.data.view_count);
+    }
+    (_window$localStorage2 = window.localStorage) === null || _window$localStorage2 === void 0 || _window$localStorage2.setItem('directorist_view_count', JSON.stringify({
+      lastUpdated: Date.now(),
+      viewCount: response.data.view_count
+    }));
+  });
 });
 
 /***/ }),
@@ -3101,6 +3550,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _global_components_select2_custom_control__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(_global_components_select2_custom_control__WEBPACK_IMPORTED_MODULE_16__);
 /* harmony import */ var _components_archive_sidebar__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../components/archive-sidebar */ "./assets/src/js/public/components/archive-sidebar.js");
 /* harmony import */ var _components_archive_sidebar__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(_components_archive_sidebar__WEBPACK_IMPORTED_MODULE_17__);
+/* harmony import */ var _components_update_view_count__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../components/update-view-count */ "./assets/src/js/public/components/update-view-count.js");
 /*
     File: all-listings.js
     Plugin: Directorist – Business Directory & Classified Listings WordPress Plugin
@@ -3111,6 +3561,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 // General Components
+
 
 
 
@@ -3142,6 +3593,36 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/@babel/runtime/helpers/arrayLikeToArray.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/arrayLikeToArray.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _arrayLikeToArray(r, a) {
+  (null == a || a > r.length) && (a = r.length);
+  for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e];
+  return n;
+}
+module.exports = _arrayLikeToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/arrayWithHoles.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/arrayWithHoles.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _arrayWithHoles(r) {
+  if (Array.isArray(r)) return r;
+}
+module.exports = _arrayWithHoles, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
 /***/ "./node_modules/@babel/runtime/helpers/classCallCheck.js":
 /*!***************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/classCallCheck.js ***!
@@ -3149,10 +3630,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
+function _classCallCheck(a, n) {
+  if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function");
 }
 module.exports = _classCallCheck, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
@@ -3166,22 +3645,16 @@ module.exports = _classCallCheck, module.exports.__esModule = true, module.expor
 /***/ (function(module, exports, __webpack_require__) {
 
 var toPropertyKey = __webpack_require__(/*! ./toPropertyKey.js */ "./node_modules/@babel/runtime/helpers/toPropertyKey.js");
-function _defineProperties(target, props) {
-  for (var i = 0; i < props.length; i++) {
-    var descriptor = props[i];
-    descriptor.enumerable = descriptor.enumerable || false;
-    descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
-    Object.defineProperty(target, toPropertyKey(descriptor.key), descriptor);
+function _defineProperties(e, r) {
+  for (var t = 0; t < r.length; t++) {
+    var o = r[t];
+    o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, toPropertyKey(o.key), o);
   }
 }
-function _createClass(Constructor, protoProps, staticProps) {
-  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-  if (staticProps) _defineProperties(Constructor, staticProps);
-  Object.defineProperty(Constructor, "prototype", {
-    writable: false
-  });
-  return Constructor;
+function _createClass(e, r, t) {
+  return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", {
+    writable: !1
+  }), e;
 }
 module.exports = _createClass, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
@@ -3195,21 +3668,85 @@ module.exports = _createClass, module.exports.__esModule = true, module.exports[
 /***/ (function(module, exports, __webpack_require__) {
 
 var toPropertyKey = __webpack_require__(/*! ./toPropertyKey.js */ "./node_modules/@babel/runtime/helpers/toPropertyKey.js");
-function _defineProperty(obj, key, value) {
-  key = toPropertyKey(key);
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-  return obj;
+function _defineProperty(e, r, t) {
+  return (r = toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
+    value: t,
+    enumerable: !0,
+    configurable: !0,
+    writable: !0
+  }) : e[r] = t, e;
 }
 module.exports = _defineProperty, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/iterableToArrayLimit.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/iterableToArrayLimit.js ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _iterableToArrayLimit(r, l) {
+  var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"];
+  if (null != t) {
+    var e,
+      n,
+      i,
+      u,
+      a = [],
+      f = !0,
+      o = !1;
+    try {
+      if (i = (t = t.call(r)).next, 0 === l) {
+        if (Object(t) !== t) return;
+        f = !1;
+      } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0);
+    } catch (r) {
+      o = !0, n = r;
+    } finally {
+      try {
+        if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return;
+      } finally {
+        if (o) throw n;
+      }
+    }
+    return a;
+  }
+}
+module.exports = _iterableToArrayLimit, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/nonIterableRest.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/nonIterableRest.js ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+module.exports = _nonIterableRest, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/slicedToArray.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/slicedToArray.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayWithHoles = __webpack_require__(/*! ./arrayWithHoles.js */ "./node_modules/@babel/runtime/helpers/arrayWithHoles.js");
+var iterableToArrayLimit = __webpack_require__(/*! ./iterableToArrayLimit.js */ "./node_modules/@babel/runtime/helpers/iterableToArrayLimit.js");
+var unsupportedIterableToArray = __webpack_require__(/*! ./unsupportedIterableToArray.js */ "./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js");
+var nonIterableRest = __webpack_require__(/*! ./nonIterableRest.js */ "./node_modules/@babel/runtime/helpers/nonIterableRest.js");
+function _slicedToArray(r, e) {
+  return arrayWithHoles(r) || iterableToArrayLimit(r, e) || unsupportedIterableToArray(r, e) || nonIterableRest();
+}
+module.exports = _slicedToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
 
@@ -3221,17 +3758,17 @@ module.exports = _defineProperty, module.exports.__esModule = true, module.expor
 /***/ (function(module, exports, __webpack_require__) {
 
 var _typeof = __webpack_require__(/*! ./typeof.js */ "./node_modules/@babel/runtime/helpers/typeof.js")["default"];
-function _toPrimitive(input, hint) {
-  if (_typeof(input) !== "object" || input === null) return input;
-  var prim = input[Symbol.toPrimitive];
-  if (prim !== undefined) {
-    var res = prim.call(input, hint || "default");
-    if (_typeof(res) !== "object") return res;
+function toPrimitive(t, r) {
+  if ("object" != _typeof(t) || !t) return t;
+  var e = t[Symbol.toPrimitive];
+  if (void 0 !== e) {
+    var i = e.call(t, r || "default");
+    if ("object" != _typeof(i)) return i;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
-  return (hint === "string" ? String : Number)(input);
+  return ("string" === r ? String : Number)(t);
 }
-module.exports = _toPrimitive, module.exports.__esModule = true, module.exports["default"] = module.exports;
+module.exports = toPrimitive, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
 
@@ -3244,11 +3781,11 @@ module.exports = _toPrimitive, module.exports.__esModule = true, module.exports[
 
 var _typeof = __webpack_require__(/*! ./typeof.js */ "./node_modules/@babel/runtime/helpers/typeof.js")["default"];
 var toPrimitive = __webpack_require__(/*! ./toPrimitive.js */ "./node_modules/@babel/runtime/helpers/toPrimitive.js");
-function _toPropertyKey(arg) {
-  var key = toPrimitive(arg, "string");
-  return _typeof(key) === "symbol" ? key : String(key);
+function toPropertyKey(t) {
+  var i = toPrimitive(t, "string");
+  return "symbol" == _typeof(i) ? i : i + "";
 }
-module.exports = _toPropertyKey, module.exports.__esModule = true, module.exports["default"] = module.exports;
+module.exports = toPropertyKey, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
 
@@ -3262,13 +3799,32 @@ module.exports = _toPropertyKey, module.exports.__esModule = true, module.export
 function _typeof(o) {
   "@babel/helpers - typeof";
 
-  return (module.exports = _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
+  return module.exports = _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
     return typeof o;
   } : function (o) {
     return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
-  }, module.exports.__esModule = true, module.exports["default"] = module.exports), _typeof(o);
+  }, module.exports.__esModule = true, module.exports["default"] = module.exports, _typeof(o);
 }
 module.exports = _typeof, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js ***!
+  \***************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray.js */ "./node_modules/@babel/runtime/helpers/arrayLikeToArray.js");
+function _unsupportedIterableToArray(r, a) {
+  if (r) {
+    if ("string" == typeof r) return arrayLikeToArray(r, a);
+    var t = {}.toString.call(r).slice(8, -1);
+    return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? arrayLikeToArray(r, a) : void 0;
+  }
+}
+module.exports = _unsupportedIterableToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
 

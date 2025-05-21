@@ -230,7 +230,8 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 			ATBDP()->email->custom_wp_new_user_notification_email( $user_id );
 
 			$auto_login            = ! empty( $params['auto_login_after_registration'] ) && 'yes' === $params['auto_login_after_registration']  ? 1 : 0;
-			$redirection_link      = ! empty( $params['redirection_after_registration'] ) ? $params['redirection_after_registration'] : '';
+			$redirect_after_reg	   = ATBDP_Permalink::get_reg_redirection_page_link( $previous_page );
+			$redirection_link      = ! empty( $params['redirection_after_registration'] ) ? $params['redirection_after_registration'] : $redirect_after_reg;
 
 			if ( ! empty( $auto_login ) ) {
 				wp_set_current_user( $user_id, $email );
@@ -1056,6 +1057,15 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 				}
 			}
 			if (!is_wp_error($uid)){
+				/**
+				 * Fires after user profile updated successfully
+				 *
+				 * @since 8.2
+				 *
+				 * @param int $ID The user ID
+				 * @param array $data The user data
+				 */
+				do_action( 'directorist_user_profile_updated', $ID, $data );
 				$congz_txt = esc_html__('Congratulations! Your profile updated successfully', 'directorist');
 				wp_send_json_success( $congz_txt, 'directorist');
 				return true;

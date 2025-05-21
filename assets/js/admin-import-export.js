@@ -118,7 +118,7 @@ jQuery(document).ready(function ($) {
       type: 'post',
       url: directorist_admin.ajaxurl,
       data: {
-        action: 'directorist_listing_type_form_fields',
+        action: 'directorist_update_csv_columns_to_listing_fields_table',
         directory_type: directory_type,
         delimiter: delimiter,
         directorist_nonce: directorist_admin.directorist_nonce,
@@ -142,33 +142,25 @@ jQuery(document).ready(function ($) {
       }
     });
   }
-  $('#atbdp_ie_download_sample').on('click', function (e) {
-    var ie_file = $(this).attr('data-sample-csv');
-    if (ie_file) {
-      window.location.href = ie_file;
-      return false;
-    }
-  });
-  var stepTwo = $('#atbdp_csv_step_two');
-  $(stepTwo).on('submit', function (e) {
+  $('#atbdp_csv_step_two').on('submit', function (e) {
     e.preventDefault();
     $('.atbdp-importer-mapping-table-wrapper').fadeOut(300);
     $('.directorist-importer__importing').fadeIn(300);
     $(this).parent('.csv-fields').fadeOut(300);
     $('.atbdp-mapping-step').removeClass('active').addClass('done');
     $('.atbdp-progress-step').addClass('active');
-    var position = 0;
-    var failed = 0;
-    var imported = 0;
+    $('.importer-details').html("1/".concat($(this).data('total')));
+    $('.directorist-importer-length').css('width', '10%');
+    $('.directorist-importer-progress').val(10);
     var configFields = $('.directorist-listings-importer-config-field');
-    var counter = 0;
-    var run_import = function run_import() {
+    var _runImporter = function runImporter() {
+      var position = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+      var offset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
       var form_data = new FormData();
-
-      // ajax action
-      form_data.append('action', 'atbdp_import_listing');
-      form_data.append('position', position);
-      form_data.append('directorist_nonce', directorist_admin.directorist_nonce);
+      form_data.set('action', 'directorist_import_listings');
+      form_data.set('_position', position);
+      form_data.set('_offset', offset);
+      form_data.set('directorist_nonce', directorist_admin.directorist_nonce);
 
       // Get Config Fields Value
       if (configFields.length) {
@@ -222,26 +214,25 @@ jQuery(document).ready(function ($) {
             });
             return;
           }
-          imported += response.imported;
-          failed += response.failed;
-          $('.importer-details').html("Imported ".concat(response.next_position, " out of ").concat(response.total));
-          $('.directorist-importer-progress').val(response.percentage);
-          if (response.percentage != '100') {
-            position = response.next_position;
-            run_import();
-            counter++;
+          var percentage = response.position / response.total * 100;
+          $('.importer-details').html("".concat(Math.min(response.position, response.total), "/").concat(response.total));
+          $('.directorist-importer-length').css('width', percentage + '%');
+          $('.directorist-importer-progress').val(percentage);
+          console.log(response.logs.join('\n'));
+          if (!response.done) {
+            _runImporter(response.position, response.offset);
           } else {
-            window.location = "".concat(response.url, "&listing-imported=").concat(imported, "&listing-failed=").concat(failed);
+            window.location = response.redirect_url;
           }
-          $('.directorist-importer-length').css('width', response.percentage + '%');
         },
         error: function error(response) {
           window.console.log(response);
         }
       });
     };
-    run_import();
+    _runImporter();
   });
+
   /* csv upload */
   $('#upload').change(function (e) {
     var filename = e.target.files[0].name;
@@ -259,19 +250,13 @@ jQuery(document).ready(function ($) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var toPropertyKey = __webpack_require__(/*! ./toPropertyKey.js */ "./node_modules/@babel/runtime/helpers/toPropertyKey.js");
-function _defineProperty(obj, key, value) {
-  key = toPropertyKey(key);
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-  return obj;
+function _defineProperty(e, r, t) {
+  return (r = toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
+    value: t,
+    enumerable: !0,
+    configurable: !0,
+    writable: !0
+  }) : e[r] = t, e;
 }
 module.exports = _defineProperty, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
@@ -285,17 +270,17 @@ module.exports = _defineProperty, module.exports.__esModule = true, module.expor
 /***/ (function(module, exports, __webpack_require__) {
 
 var _typeof = __webpack_require__(/*! ./typeof.js */ "./node_modules/@babel/runtime/helpers/typeof.js")["default"];
-function _toPrimitive(input, hint) {
-  if (_typeof(input) !== "object" || input === null) return input;
-  var prim = input[Symbol.toPrimitive];
-  if (prim !== undefined) {
-    var res = prim.call(input, hint || "default");
-    if (_typeof(res) !== "object") return res;
+function toPrimitive(t, r) {
+  if ("object" != _typeof(t) || !t) return t;
+  var e = t[Symbol.toPrimitive];
+  if (void 0 !== e) {
+    var i = e.call(t, r || "default");
+    if ("object" != _typeof(i)) return i;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
-  return (hint === "string" ? String : Number)(input);
+  return ("string" === r ? String : Number)(t);
 }
-module.exports = _toPrimitive, module.exports.__esModule = true, module.exports["default"] = module.exports;
+module.exports = toPrimitive, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
 
@@ -308,11 +293,11 @@ module.exports = _toPrimitive, module.exports.__esModule = true, module.exports[
 
 var _typeof = __webpack_require__(/*! ./typeof.js */ "./node_modules/@babel/runtime/helpers/typeof.js")["default"];
 var toPrimitive = __webpack_require__(/*! ./toPrimitive.js */ "./node_modules/@babel/runtime/helpers/toPrimitive.js");
-function _toPropertyKey(arg) {
-  var key = toPrimitive(arg, "string");
-  return _typeof(key) === "symbol" ? key : String(key);
+function toPropertyKey(t) {
+  var i = toPrimitive(t, "string");
+  return "symbol" == _typeof(i) ? i : i + "";
 }
-module.exports = _toPropertyKey, module.exports.__esModule = true, module.exports["default"] = module.exports;
+module.exports = toPropertyKey, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
 
@@ -326,11 +311,11 @@ module.exports = _toPropertyKey, module.exports.__esModule = true, module.export
 function _typeof(o) {
   "@babel/helpers - typeof";
 
-  return (module.exports = _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
+  return module.exports = _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
     return typeof o;
   } : function (o) {
     return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
-  }, module.exports.__esModule = true, module.exports["default"] = module.exports), _typeof(o);
+  }, module.exports.__esModule = true, module.exports["default"] = module.exports, _typeof(o);
 }
 module.exports = _typeof, module.exports.__esModule = true, module.exports["default"] = module.exports;
 

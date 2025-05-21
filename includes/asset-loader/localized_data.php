@@ -20,14 +20,24 @@ class Localized_Data {
 	}
 
 	public static function public_data() {
-		$data = self::get_listings_data() + self::directorist_options_data() + self::login_data() + self::search_form_localized_data() + self::search_listing_localized_data() + self::search_listing_data();
+		$data = self::general_public_data() + self::get_listings_data() + self::directorist_options_data() + self::login_data() + self::search_form_localized_data() + self::search_listing_localized_data() + self::search_listing_data();
 
-		return $data;
+		return apply_filters( 'directorist_localized_data', $data );
 	}
 
 	public static function admin_data() {
 		$data = self::get_admin_script_data() + self::directorist_options_data() + self::get_listings_data() + self::admin_ajax_localized_data();
 
+		return $data;
+	}
+
+	private static function general_public_data() {
+		$data = [
+			'request_headers' => [
+				'Referer-Page-ID' => get_the_ID(),
+			]
+		];
+		
 		return $data;
 	}
 
@@ -41,17 +51,21 @@ class Localized_Data {
 
 	private static function search_listing_localized_data() {
 		return self::get_search_script_data([
-			'directory_type_id' => get_post_meta( '_directory_type', get_the_ID(), true ),
+			'directory_type_id' => get_post_meta( get_the_ID(), '_directory_type', true ),
 		]);
 	}
 
-	private static function search_form_localized_data() {
-		$directory_type_id = ( isset( $args['directory_type_id'] ) ) ? $args['directory_type_id'] : '';
-		$data = self::get_search_script_data([
-			'directory_type_id' => $directory_type_id,
-			'search_max_radius_distance' => apply_filters( 'directorist_search_max_radius_distance', get_directorist_option( 'search_max_radius_distance', 1000 ) )
-		]);
-		return $data;
+	private static function search_form_localized_data( $args = [] ) {
+		$args = array_merge( [
+			'search_max_radius_distance' => apply_filters(
+				'directorist_search_max_radius_distance',
+				get_directorist_option( 'search_max_radius_distance', 1000 )
+				)
+			],
+			$args
+		);
+
+		return self::get_search_script_data( $args );
 	}
 
 	private static function directorist_options_data() {
@@ -68,55 +82,56 @@ class Localized_Data {
 		$enable_reviewer_content = get_directorist_option( 'enable_reviewer_content', 1 );
 
 		$data = array(
-			'nonce'                       		=> wp_create_nonce( 'atbdp_nonce_action_js' ),
-			'directorist_nonce'           		=> wp_create_nonce( directorist_get_nonce_key() ),
-			'ajax_nonce'                  		=> wp_create_nonce( 'bdas_ajax_nonce' ),
-			'is_admin'		              		=> is_admin(),
-			'ajaxurl'                     		=> admin_url( 'admin-ajax.php' ),
-			'assets_url'                  		=> DIRECTORIST_ASSETS,
-			'home_url'                    		=> home_url(),
-			'rest_url'                    		=> rest_url(),
-			'nonceName'                   		=> 'atbdp_nonce_js',
-			'login_alert_message'         		=> __( 'Sorry, you need to login first.', 'directorist' ),
-			'rtl'                         		=> is_rtl() ? 'true' : 'false',
-			'warning'                     		=> __( 'WARNING!', 'directorist' ),
-			'success'                     		=> __( 'SUCCESS!', 'directorist' ),
-			'not_add_more_than_one'       		=> __( 'You can not add more than one review. Refresh the page to edit or delete your review!,', 'directorist' ),
-			'duplicate_review_error'      		=> __( 'Sorry! your review already in process.', 'directorist' ),
-			'review_success'              		=> __( 'Reviews Saved Successfully!', 'directorist' ),
-			'review_approval_text'        		=> $review_approval,
-			'review_error'                		=> __( 'Something went wrong. Check the form and try again!!!', 'directorist' ),
-			'review_loaded'               		=> __( 'Reviews Loaded!', 'directorist' ),
-			'review_not_available'        		=> __( 'NO MORE REVIEWS AVAILABLE!,', 'directorist' ),
-			'review_have_not_for_delete'  		=> __( 'You do not have any review to delete. Refresh the page to submit new review!!!,', 'directorist' ),
-			'review_sure_msg'             		=> __( 'Are you sure?', 'directorist' ),
-			'review_want_to_remove'       		=> __( 'Do you really want to remove this review!', 'directorist' ),
-			'review_delete_msg'           		=> __( 'Yes, Delete it!', 'directorist' ),
-			'review_cancel_btn_text'      		=> __( 'Cancel', 'directorist' ),
-			'review_wrong_msg'            		=> __( 'Something went wrong!, Try again', 'directorist' ),
-			'listing_remove_title'        		=> __( 'Are you sure?', 'directorist' ),
-			'listing_remove_text'         		=> __( 'Do you really want to delete this item?!', 'directorist' ),
-			'listing_remove_confirm_text' 		=> __( 'Yes, Delete it!', 'directorist' ),
-			'listing_delete'              		=> __( 'Deleted!!', 'directorist' ),
-			'listing_error_title'         		=> __( 'ERROR!!', 'directorist' ),
-			'listing_error_text'          		=> __( 'Something went wrong!!!, Try again', 'directorist' ),
-			'upload_pro_pic_title'        		=> __( 'Select or Upload a profile picture', 'directorist' ),
-			'upload_pro_pic_text'         		=> __( 'Use this Image', 'directorist' ),
-			'payNow'                      		=> __( 'Pay Now', 'directorist' ),
-			'completeSubmission'          		=> __( 'Complete Submission', 'directorist' ),
-			'waiting_msg'                 		=> __( 'Sending the message, please wait...', 'directorist' ),
-			'plugin_url'                  		=> ATBDP_URL,
-			'currentDate'                 		=> get_the_date(),
-			'enable_reviewer_content'     		=> $enable_reviewer_content,
-			'add_listing_data'            		=> self::get_add_listings_data(),
-			'lazy_load_taxonomy_fields'   		=> get_directorist_option( 'lazy_load_taxonomy_fields', false, true ),
-			'current_page_id'             		=> get_the_ID(),
-			'icon_markup'                 		=> '<i class="directorist-icon-mask ##CLASS##" aria-hidden="true" style="--directorist-icon: url(##URL##)"></i>',
-			'search_form_default_label'   		=> __( 'Label', 'directorist' ),
-			'search_form_default_placeholder'  	=> __( 'Placeholder', 'directorist' ),
-			'add_listing_url'             		=> \ATBDP_Permalink::get_add_listing_page_link(),
-			'enabled_multi_directory'     		=> directorist_is_multi_directory_enabled(),
-			'site_name'					  		=> get_bloginfo( 'name' ),
+			'nonce'                           => wp_create_nonce( 'atbdp_nonce_action_js' ),
+			'directorist_nonce'               => wp_create_nonce( directorist_get_nonce_key() ),
+			'ajax_nonce'                      => wp_create_nonce( 'bdas_ajax_nonce' ),
+			'is_admin'                        => is_admin(),
+			'ajaxurl'                         => admin_url( 'admin-ajax.php' ),
+			'assets_url'                      => DIRECTORIST_ASSETS,
+			'home_url'                        => home_url(),
+			'rest_url'                        => rest_url(),
+			'nonceName'                       => 'atbdp_nonce_js',
+			'login_alert_message'             => __( 'Sorry, you need to login first.', 'directorist' ),
+			'rtl'                             => is_rtl() ? 'true' : 'false',
+			'warning'                         => __( 'WARNING!', 'directorist' ),
+			'success'                         => __( 'SUCCESS!', 'directorist' ),
+			'not_add_more_than_one'           => __( 'You can not add more than one review. Refresh the page to edit or delete your review!,', 'directorist' ),
+			'duplicate_review_error'          => __( 'Sorry! your review already in process.', 'directorist' ),
+			'review_success'                  => __( 'Reviews Saved Successfully!', 'directorist' ),
+			'review_approval_text'            => $review_approval,
+			'review_error'                    => __( 'Something went wrong. Check the form and try again!!!', 'directorist' ),
+			'review_loaded'                   => __( 'Reviews Loaded!', 'directorist' ),
+			'review_not_available'            => __( 'NO MORE REVIEWS AVAILABLE!,', 'directorist' ),
+			'review_have_not_for_delete'      => __( 'You do not have any review to delete. Refresh the page to submit new review!!!,', 'directorist' ),
+			'review_sure_msg'                 => __( 'Are you sure?', 'directorist' ),
+			'review_want_to_remove'           => __( 'Do you really want to remove this review!', 'directorist' ),
+			'review_delete_msg'               => __( 'Yes, Delete it!', 'directorist' ),
+			'review_cancel_btn_text'          => __( 'Cancel', 'directorist' ),
+			'review_wrong_msg'                => __( 'Something went wrong!, Try again', 'directorist' ),
+			'listing_remove_title'            => __( 'Are you sure?', 'directorist' ),
+			'listing_remove_text'             => __( 'Do you really want to delete this item?!', 'directorist' ),
+			'listing_remove_confirm_text'     => __( 'Yes, Delete it!', 'directorist' ),
+			'listing_delete'                  => __( 'Deleted!!', 'directorist' ),
+			'listing_error_title'             => __( 'ERROR!!', 'directorist' ),
+			'listing_error_text'              => __( 'Something went wrong!!!, Try again', 'directorist' ),
+			'upload_pro_pic_title'            => __( 'Select or Upload a profile picture', 'directorist' ),
+			'upload_pro_pic_text'             => __( 'Use this Image', 'directorist' ),
+			'payNow'                          => __( 'Pay Now', 'directorist' ),
+			'completeSubmission'              => __( 'Complete Submission', 'directorist' ),
+			'waiting_msg'                     => __( 'Sending the message, please wait...', 'directorist' ),
+			'plugin_url'                      => ATBDP_URL,
+			'currentDate'                     => get_the_date(),
+			'enable_reviewer_content'         => $enable_reviewer_content,
+			'add_listing_data'                => self::get_add_listings_data(),
+			'lazy_load_taxonomy_fields'       => get_directorist_option( 'lazy_load_taxonomy_fields', false, true ),
+			'current_page_id'                 => get_the_ID(),
+			'icon_markup'                     => '<i class="directorist-icon-mask ##CLASS##" aria-hidden="true" style="--directorist-icon: url(##URL##)"></i>',
+			'search_form_default_label'       => __( 'Label', 'directorist' ),
+			'search_form_default_placeholder' => __( 'Placeholder', 'directorist' ),
+			'add_listing_url'                 => \ATBDP_Permalink::get_add_listing_page_link(),
+			'enabled_multi_directory'         => directorist_is_multi_directory_enabled(),
+			'site_name'                       => get_bloginfo( 'name' ),
+			'dynamic_view_count_cache'        => (bool) get_directorist_option( 'dynamic_view_count_cache', false ),
 		);
 
 		return $data;
@@ -162,25 +177,25 @@ class Localized_Data {
 
 		//get listing is if the screen in edit listing
 		$data = array(
-			'nonce'           => wp_create_nonce( 'atbdp_nonce_action_js' ),
-			'ajaxurl'         => admin_url( 'admin-ajax.php' ),
-			'nonceName'       => 'atbdp_nonce_js',
-			'is_admin'		    => is_admin(),
-			'media_uploader'  => apply_filters( 'atbdp_media_uploader', [
+			'nonce'          => wp_create_nonce( 'atbdp_nonce_action_js' ),
+			'ajaxurl'        => admin_url( 'admin-ajax.php' ),
+			'nonceName'      => 'atbdp_nonce_js',
+			'is_admin'       => is_admin(),
+			'media_uploader' => apply_filters( 'atbdp_media_uploader', [
 				[
-					'element_id'        => 'directorist-image-upload',
-					'meta_name'         => 'listing_img',
-					'files_meta_name'   => 'files_meta',
-					'error_msg'         => __('Listing gallery has invalid files', 'directorist'),
+					'element_id'      => 'directorist-image-upload',
+					'meta_name'       => 'listing_img',
+					'files_meta_name' => 'files_meta',
+					'error_msg'       => __('Listing gallery has invalid files', 'directorist'),
 				]
 			]),
-			'i18n_text'       => $i18n_text,
-			'create_new_tag'  => $new_tag,
-			'create_new_loc'  => $new_loc,
-			'create_new_cat'  => $new_cat,
-			'image_notice'    => __( 'Sorry! You have crossed the maximum image limit', 'directorist' ),
+			'i18n_text'                       => $i18n_text,
+			'create_new_tag'                  => $new_tag,
+			'create_new_loc'                  => $new_loc,
+			'create_new_cat'                  => $new_cat,
+			'image_notice'                    => __( 'Sorry! You have crossed the maximum image limit', 'directorist' ),
+			'category_custom_field_relations' => static::get_fields_category_relation(),
 		);
-
 
 		return $data;
 	}
@@ -198,6 +213,7 @@ class Localized_Data {
 			'select_prv_img'          => __( 'Select Preview Image', 'directorist' ),
 			'insert_prv_img'          => __( 'Insert Preview Image', 'directorist' ),
 			'add_listing_url'         => \ATBDP_Permalink::get_add_listing_page_link(),
+			'image_uploader_title'    => esc_html__( 'Select or upload image', 'directorist' ),
 		);
 
 		$icon_picker_labels = [
@@ -233,7 +249,12 @@ class Localized_Data {
 	}
 
 	public static function get_search_script_data( $args = [] ) {
-		$directory_type = ( is_array( $args ) && isset( $args['directory_type_id'] ) ) ? $args['directory_type_id'] : default_directory_type();
+		if ( ! is_array( $args ) ) {
+			$args = (array) $args;
+		}
+
+		$directory_type = $args['directory_type_id'] ?? directorist_get_default_directory();
+
 		$directory_type_term_data = [
 			'submission_form_fields' => get_term_meta( $directory_type, 'submission_form_fields', true ),
 			'search_form_fields' => get_term_meta( $directory_type, 'search_form_fields', true ),
@@ -287,13 +308,33 @@ class Localized_Data {
 
 	public static function login_data() {
 		$redirection = \ATBDP_Permalink::get_login_redirection_page_link();
+		$redirection_url = $redirection ? $redirection : \ATBDP_Permalink::get_dashboard_page_link();
+		$current_time = time();
+		$redirection_url = strpos( $redirection_url, '?' ) !== false ? $redirection . '&rand=' . $current_time : $redirection . '?rand=' . $current_time;
+
+		if( strpos( $redirection_url, '?' ) !== false ) {
+			$redirection_url = $redirection_url . '&rand=' . $current_time;
+		} else {
+			$redirection_url = $redirection_url . '?rand=' . $current_time;
+		}
+
 		$data = [
 			'ajax_url'            => admin_url( 'admin-ajax.php' ),
-			'redirect_url'        => $redirection ? $redirection : \ATBDP_Permalink::get_dashboard_page_link(),
+			'redirect_url'        => $redirection_url,
 			'loading_message'     => esc_html__( 'Sending user info, please wait...', 'directorist' ),
 			'login_error_message' => esc_html__( 'Wrong username or password.', 'directorist' ),
 		];
 		return $data;
 	}
 
+	public static function get_fields_category_relation() {
+		$directories = directorist_get_directories();
+		$relation    = array();
+
+		foreach ( $directories as $directory ) {
+			$relation[ $directory->term_id ] = directorist_get_category_custom_field_relations( $directory->term_id );
+		}
+
+		return $relation;
+	}
 }

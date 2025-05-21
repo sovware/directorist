@@ -3,9 +3,9 @@ Contributors: wpwax
 Donate link: https://directorist.com/extensions/
 Tags: member directory, listing, classifieds, directory plugin, business directory
 Requires at least: 4.6
-Tested up to: 6.7
+Tested up to: 6.8
 Requires PHP: 7.0
-Stable tag: 8.0.12
+Stable tag: 8.4.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -13,7 +13,7 @@ An Excellent WP Directory Plugin to Create Business Directories, Job Listings, C
 
 == Description ==
 
-[Try Admin Demo](https://userdemo.wpwax.com/directorist/) | [Demos](https://directorist.com/demos/) | [Docs](https://directorist.com/documentation/directorist/) | [Themes](https://directorist.com/themes/) | [Extensions](https://directorist.com/extensions/) | [Roadmap](https://directorist.com/roadmap/)
+[Try Demo](https://directorist.com/demos/) | [Docs](https://directorist.com/documentation/directorist/) | [Theme](https://directorist.com/themes/) | [Extensions](https://directorist.com/extensions/) | [Roadmap](https://directorist.com/roadmap/)
 
 Struggling to create a niche directory or classified ad website that stands out?
 
@@ -117,7 +117,7 @@ Let’s take a look at some of the core features that set this AI Directory Buil
 * Brand-new sidebar filter layout
 * Modern and improved form for Add listings
 
-== Advanced Review System (Arriving December 2024) ==
+== Advanced Review System (Coming Soon) ==
 
 Introducing a new review system that supports multi-criteria and media. Now users can provide more detailed feedback, increasing trust and engagement.
 
@@ -296,6 +296,156 @@ Directorist is a complete directory solution and in combination with its advance
  * and many more
 
 == Changelog ==
+
+8.4.2 - May 20, 2025
+ - Tweak JS and CSS
+
+8.4.1 - May 20, 2025
+
+**Changed**
+ - Hook to customize the email “From Name” and prevent forced values. (#2344)
+ - Filter hook to manipulate category term template redirection. (#2340)
+ - Polylang integration improved for better multilingual support. (#2328)
+ - Search form improved for enhanced usability. (#2335)
+ - Builder widget group drag-and-drop option updated. (#2342)
+
+**Fixed**
+ - Submit button in the "Contact Listing Owner" form disabled in preview mode. (#2343)
+ - console.error on listing edit with gallery extension fixed. (#2341)
+ - Deprecated warning from print_emoji_styles() removed in setup wizard. (#2338)
+ - "Remember me" display issue on the login form. (#2337)
+ - Listings importer issue. (#2336)
+ - Listing description visibility issue below the map fixed. (#2334)
+ - Builders and listings not imported from setup widget. (#2333)
+ - Swiper Slider loop issue fixed. (#2327)
+ - Schema php error when schema type empty. (#2352)
+
+8.4 - Apr 29, 2025
+
+**New**
+- Schema support for better search engine indexing. (#2298)
+- New filter hook to modify the default schema arguments. (#2310)
+
+**Changed**
+ - Replaced outdated Darken color with updated version for improved compatibility. (#2296)
+ - Improved styling for custom number field (prefix arrow, border, gap). (#2286)
+ - Listing default image. (#2314)
+ - Updated Swiper Slider JS and CSS to the latest version. (#2311)
+
+**Fixed**
+ - Add Listing sidebar layout cut-off issue and added scrollbar when necessary. (#2305)
+ - Registration redirection issue post-signup. (#2303)
+ - Listing view count logic fixed and refactored for better accuracy. (#2302)
+ - Fatal error when importing CSV with empty lines resolved. (#2301)
+ - Undefined variable issue in widget resolved. (#2300)
+ - Removed directorist-overlay-active class after filtering to prevent overlay lock. (#2299)
+ - Category custom field not appearing in add listing form resolved. (#2317)
+ - CSV importer application/csv MIME type issue. (#2318)
+ - Selector conflict between Gallery Extension and core plugin. (#2316)
+ - Responsive style issue for the single listing header button. (#2313)
+ - Translation notice issue in the admin panel. (#2309)
+ - Password recovery issue with WordPress 6.8. (#2322)
+
+ **Removed**
+ - Removed announcement-related code from the core plugin. (#2283)
+
+8.3.1 - Mar 26, 2025
+
+**Changed**
+ - Checkbox field usability in the search form for better user experience. (#2275)
+
+**Fixed**
+ - Listing preview title filter issue with too few arguments. (#2293)
+ - PHP fatal error caused by the missing ZipArchive extension. (#2292)
+ - Corrected missing location field position to ensure the arrow icon functions properly. (#2294)
+
+8.3 - Mar 24, 2025
+
+**Changed**
+ - Improved Listings Importer to efficiently handle large datasets.
+ - Replaced "Location" with "Address" on the All Listings map view. (#2266)
+ - Refactored default expiration date handling with a utility function. (#2253)
+ - Improved Google Maps performance and refactored code for better efficiency. (#2251)
+ - Improved the search modal for enhanced user experience. (#2289)
+
+**Fixed**
+ - view count was not updating due to caching. (#2285)
+ - Listing author and order author mismatch resolved by database migration. (#2276)
+ - Google Map loading issues resolved. (#2273)
+ - Listing queries issue when the directory navigation is hidden. (#2270)
+ - Search form responsive border issue corrected. (#2267)
+ - Text domain inconsistencies fixed for better translation support. (#2264)
+ - "Add Listing" map marker issue on Google Maps corrected. (#2263)
+ - Warnings on the Themes & Extensions page addressed. (#2260)
+ - File upload input type changed from button to file input. (#2258)
+ - Single listing gallery image now fits properly within the container. (#2257)
+ - Pagination display issues for version 7 users fixed. (#2256)
+ - Radius search pagination issue resolved. (#2255)
+ - "More Filter" button issue in the search form fixed. (#2254)
+ - Listing status issue corrected. (#2252)
+ - Script localization issues in certain classes resolved. (#2248)
+ - Field-specific query issue fixed to improve search accuracy. (#2184)
+ - Spacing issue when the location field is focused. (#2288)
+ - Corrected the "Continue to Publish" button link on listings. (#2287)
+
+
+8.2 - Feb 25, 2025
+
+**New**
+ - Category and location bulk edit actions to assign or reset directory (#2229)
+ - New filter hook directorist_user_profile_updated to modify user profile data when updated (#2235)
+ - Added pin code verification request limit (#2245)
+
+**Changed**
+ - Refactored and improved the category and location management screen (#2234)
+ - Improved button styling by adding a button[type="submit"] dependency with directorist-btn for better styling and consistency (#2227)
+
+**Fixed**
+ - Dashboard Status translation issue (#2215)
+ - Number custom field label issue in the search form (#2216)
+ - Filter disable issue on mobile view (#2219)
+ - Depth limitation issue in the taxonomy list view (#2220)
+ - Warning appearing on the Add Listing page (#2225)
+ - Responsive issues with the All Listings sidebar (#2209)
+ - Label alignment issue in the search form, which appeared for 0.5 – 2 seconds on slow networks (#2200)
+ - "Remember Me" field issue on the login form (#2223)
+ - Pagination style issue on mobile devices (#2226)
+ - Required field issue in the search form when changing the "View As" option (#2228)
+ - Description conflict issue with the single listing map (#2231)
+ - Zipcode Radius search issue (#2239)
+ - Advanced filter issue in the All Listings layout (#2240)
+ - Privacy Policy & Terms page issue (#2236)
+ - Removed Extra Ending Tag in Category Grid Template (#2242)
+ - Error with wp_generate_attachment_metadata() in background tasks by loading the required file (#2232)
+ - Clarified text for the price range to avoid confusion (#2230)
+ - Login and Registration Redirection Issue (#2218)
+ - Number custom field step issue (#2173)
+
+8.1 - Jan 29, 2025
+
+**Added**
+ - Infinite Scroll Pagination for listings archive pages, including all listings, search results, single category, and single location pages (#2210)
+ - AJAX Pagination for all taxonomy pages, including categories and locations (#2199)
+ - User Query Limit restricted to published listings owners for users accessing the `users` REST API endpoint (#2198)
+
+**Changed**
+ - Disabled the category dropdown search field on the single category page (#2203)
+ - Disabled the location dropdown search field on the single location page (#2203)
+
+**Fixed**
+ - Number custom field range issue (#2173)
+ - Title markup inconsistency issue (#2195)
+ - Pagination issue on single taxonomy pages (#2188)
+ - Category conflict with the number custom field (#2197)
+ - Badge display issue on the all listings page (#2189)
+ - Category custom field issue in the search form (#2190)
+ - Incorrect Twitter text in the social info section (#2191)
+ - Listing expired status handling issue (#2194)
+ - View count reset issue (#2207)
+ - Translation issue (#2192)
+ - Listing directory update on quick and bulk edit screens (#2201)
+ - Zipcode radius search issue with OpenStreetMap (#2208)
+ - Checkout Amount Format (#2214)
 
 8.0.12 - Jan 10, 2025
 

@@ -106,16 +106,18 @@ import './components/directoristSelect';
         // Basic Search Dropdown Toggle
         $('body').on('click', '.directorist-search-form__top .directorist-search-basic-dropdown-label, .directorist-search-modal .directorist-search-basic-dropdown-label', function (e) {
             e.preventDefault();
+
             let dropDownParent = $(this).closest('.directorist-search-field');
             let dropDownContent = $(this).siblings('.directorist-search-basic-dropdown-content');
 
             dropDownContent.toggleClass('dropdown-content-show');
-            dropDownContent.slideToggle().show();
 
             if (dropDownContent.hasClass('dropdown-content-show')) {
                 dropDownParent.addClass('input-is-focused');
+                dropDownContent.slideDown();
             } else {
                 dropDownParent.removeClass('input-is-focused');
+                dropDownContent.slideUp();
             }
             // Hide all other open contents
             $('.directorist-search-basic-dropdown-content.dropdown-content-show').not(dropDownContent).removeClass('dropdown-content-show').slideUp();
@@ -241,7 +243,7 @@ import './components/directoristSelect';
         $('body').on('change', '.directorist-contents-wrap form select', function (e) {
             let searchForm = this.closest('form');
 
-            if(this.value !== undefined) {
+            if(this.value !== undefined && this.value !== '') {
                 enableResetButton(searchForm);
             } else {
                 setTimeout(function(){
@@ -318,8 +320,6 @@ import './components/directoristSelect';
                     dropDownParent.classList.remove('input-has-value', 'input-is-focused');
                 }
             })
-
-
 
             let irisPicker = searchForm.querySelector("input.wp-picker-clear");
             if (irisPicker !== null) {
@@ -398,6 +398,8 @@ import './components/directoristSelect';
         // Search Modal Open Trigger
         $('body').on('click', '.directorist-modal-btn', function (e) {
             e.preventDefault();
+            // added overlay class on body
+            document.querySelector('.directorist-content-active').classList.add('directorist-overlay-active');
 
             let parentElement = this.closest('.directorist-contents-wrap');
 
@@ -422,6 +424,8 @@ import './components/directoristSelect';
         // Search Modal Close Trigger
         $('body').on('click', '.directorist-search-modal__contents__btn--close, .directorist-search-modal__overlay', function (e) {
             e.preventDefault();
+            // removed overlay class from body
+            document.querySelector('.directorist-content-active').classList.remove('directorist-overlay-active');
 
             let searchModalElement = this.closest('.directorist-search-modal');
 
@@ -438,7 +442,7 @@ import './components/directoristSelect';
         });
 
         // Search Field Input Value Check
-        function inputValueCheck(e, searchField) {
+        function inputValueCheck(searchField) {
             searchField = searchField[0];
 
             let inputBox = searchField.querySelector('.directorist-search-field__input:not(.directorist-search-basic-dropdown)');
@@ -453,6 +457,9 @@ import './components/directoristSelect';
                 inputFieldValue = ''
                 if(searchField.classList.contains('input-has-value')) {
                     searchField.classList.remove('input-has-value');
+                }
+                if(searchField.classList.contains('input-is-focused')) {
+                    searchField.classList.remove('input-is-focused');
                 }
             }
         }
@@ -506,11 +513,24 @@ import './components/directoristSelect';
             });
         }
 
+        // Search Form Select Field Init
+        function initSelectFields() {
+            let selectFields = document.querySelectorAll('.directorist-select.directorist-search-field__input:not(.directorist-search-basic-dropdown');
+
+            selectFields.forEach((selectField) => {
+                let searchField = $(selectField).closest('.directorist-search-field');
+
+                inputValueCheck( searchField );
+            })
+        }
+
+        initSelectFields();
+
         // Search Form Input Field Check Trigger
         $('body').on('input keyup change', '.directorist-search-field__input:not(.directorist-search-basic-dropdown)', function(e) {
             let searchField = $(this).closest('.directorist-search-field');
 
-            inputValueCheck(e, searchField);
+            inputValueCheck(searchField);
 
         });
 
@@ -562,6 +582,7 @@ import './components/directoristSelect';
 
             if (this.parentElement.classList.contains('input-has-value') || this.parentElement.classList.contains('input-is-focused')) {
                 this.parentElement.classList.remove('input-has-value', 'input-is-focused');
+                this.parentElement.querySelector('.directorist-search-basic-dropdown-content.dropdown-content-show')?.classList.remove('dropdown-content-show');
             }
 
             handleRadiusVisibility();
@@ -890,6 +911,11 @@ import './components/directoristSelect';
                                             $('.directorist-location-js, .atbdp-search-address').attr("data-value", data.display_name);
                                             $('#cityLat').val(lat);
                                             $('#cityLng').val(lng);
+
+                                            const locationSearch = $(".directorist-search-location");
+                                            if (locationSearch.length) {
+                                                locationSearch.trigger("change");
+                                            }
                                           }
                                         });
                                     }
@@ -908,7 +934,9 @@ import './components/directoristSelect';
 
                                     locationAddressField.removeClass('atbdp-form-fade');
 
-                                    $('body').on("click", '.address_result .current-location', function (e) {
+                                    $('body').off("click", '.address_result .current-location').on("click", '.address_result .current-location', function (e) {
+                                        e.preventDefault();
+                                        
                                         navigator.geolocation.getCurrentPosition(function (position) {
                                             return displayLocation(position, e);
                                         });
@@ -927,7 +955,17 @@ import './components/directoristSelect';
 
                 // hide address result when click outside the input field
                 $(document).on('click', function (e) {
-                    if (!$(e.target).closest('.directorist-location-js, #q_addressss, .atbdp-search-address').length) {
+                    if (!$(e.target).closest('.directorist-location-js, #q_addressss, .atbdp-search-address, .current-location').length) {
+                        const locationSearch = $(e.target).closest(".directorist-search-location");
+                        const zipCodeSearch = $(e.target).closest(".directorist-zipcode-search");
+                        
+                        if (locationSearch.length) {
+                            locationSearch.trigger("change");
+                        }
+                        if (zipCodeSearch.length) {
+                            zipCodeSearch.trigger("change");
+                        }
+                        
                         $('.address_result').hide();
                     }
                 });
@@ -991,8 +1029,9 @@ import './components/directoristSelect';
                 if (!slider || slider.directoristCustomRangeSlider) return;
 
                 let sliderStep = parseInt(slider.getAttribute('step')) || 1;
-                let sliderDefaultValue = parseInt(slider.getAttribute('value') || 0);
-                let sliderMaxValue = parseInt(slider.getAttribute('max-value') || 100);
+                let sliderMinValue = parseInt(slider.getAttribute('min-value'));
+                let sliderMaxValue = parseInt(slider.getAttribute('max-value'));
+                let sliderDefaultValue = parseInt(slider.getAttribute('default-value'));
                 let minInput = sliderItem.querySelector('.directorist-custom-range-slider__value__min');
                 let maxInput = sliderItem.querySelector('.directorist-custom-range-slider__value__max');
                 let sliderRange = sliderItem.querySelector('.directorist-custom-range-slider__range');
@@ -1004,15 +1043,16 @@ import './components/directoristSelect';
                 let rangeInitLoad = true;
                 // Parse the URL parameters
                 const milesParams = new URLSearchParams(window.location.search).has('miles');
+                const customParams = new URLSearchParams(window.location.search).has('miles');
 
                 directoristCustomRangeSlider?.create(slider, {
-                    start: [minInput.value, sliderDefaultValue && !milesParams ? sliderDefaultValue : maxInput.value],
+                    start: [minInput.value, milesParams || customParams ? maxInput.value : sliderDefaultValue || sliderMaxValue],
                     connect: true,
                     direction: isRTL ? 'rtl' : 'ltr',
                     step: sliderStep ? sliderStep : 1,
                     range: {
-                        'min': Number(0),
-                        'max': Number(sliderMaxValue)
+                        'min': Number(sliderMinValue || 0),
+                        'max': Number(sliderMaxValue || 100)
                     }
                 });
 
@@ -1130,7 +1170,7 @@ import './components/directoristSelect';
             };
             $.ajax({
                 url: url,
-                method: 'POST',
+                method: 'GET',
                 data : directorist.i18n_text.select_listing_map === 'google' ? google_data : "",
                 success: function( data ) {
                     if( data.data && data.data.error_message ) {

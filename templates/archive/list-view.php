@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 6.7
+ * @version 8.1
  */
 
 use \Directorist\Helper;
@@ -10,21 +10,20 @@ use \Directorist\Helper;
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div class="directorist-archive-items directorist-archive-list-view">
+<div class="directorist-archive-items directorist-archive-list-view <?php echo esc_attr( $listings->pagination_infinite_scroll_class() ) ?>">
 	<div class="<?php Helper::directorist_container_fluid(); ?>">
 
 		<?php do_action( 'directorist_before_list_listings_loop' ); ?>
 
 			<?php if ( $listings->have_posts() ): ?>
 
-				<?php foreach ( $listings->post_ids() as $listing_id ): ?>
-
-					<?php $listings->loop_template( 'list', $listing_id ); ?>
-
-				<?php endforeach; ?>
-
+				<div class="<?php Helper::directorist_row(); ?>">
+					<?php $listings->render_list_view( $listings->post_ids() ) ?>
+					</div>
+				<div/>
+				
 				<?php
-				if ( $listings->show_pagination ) {
+				if ( $listings->show_pagination && 'numbered' === $listings->options['pagination_type'] ) {
 
 					do_action( 'directorist_before_listings_pagination' );
 

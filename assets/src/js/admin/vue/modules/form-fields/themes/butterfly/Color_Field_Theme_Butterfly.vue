@@ -43,5 +43,11 @@ import color_feild from './../../../../mixins/form-fields/color-field';
 export default {
     name: 'color-field-theme-butterfly',
     mixins: [ color_feild ],
+    mounted() {
+        // If have condition to check if this.canChange is a function.
+        if (this.canChange) {
+            this.canChange(); 
+        }
+    },
 }
 </script>

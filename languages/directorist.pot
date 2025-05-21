@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-05-15 04:51+0000\n"
+"POT-Creation-Date: 2025-05-20 13:21+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -470,7 +470,7 @@ msgstr ""
 msgid "Enter your extension license keys here to receive updates for purchased extensions. Click %s to know more about licensing."
 msgstr ""
 
-#: ../includes/directorist-directory-functions.php:166, ../includes/review/class-comment-form-processor.php:45, ../includes/review/class-comment-form-renderer.php:54, ../includes/review/class-comment-form-renderer.php:63, ../includes/rest-api/Version1/class-listings-actions-controller.php:103
+#: ../includes/directorist-directory-functions.php:166, ../includes/review/class-comment-form-processor.php:45, ../includes/review/class-comment-form-renderer.php:54, ../includes/review/class-comment-form-renderer.php:63, ../includes/rest-api/Version1/class-listings-actions-controller.php:113
 msgid "Invalid listing id."
 msgstr ""
 
@@ -1232,11 +1232,11 @@ msgstr ""
 msgid "Dear Administrator,<br /><br />A new review at {listing_url}.<br /><br />Name: {sender_name}<br />Email: {sender_email}"
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1366, ../includes/rest-api/Version1/class-listings-actions-controller.php:241
+#: ../includes/classes/class-ajax-handler.php:1366, ../includes/rest-api/Version1/class-listings-actions-controller.php:251
 msgid "{site_name} Report Abuse via \"{listing_title}\""
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:1369, ../includes/rest-api/Version1/class-listings-actions-controller.php:244
+#: ../includes/classes/class-ajax-handler.php:1369, ../includes/rest-api/Version1/class-listings-actions-controller.php:254
 msgid "Dear Administrator,<br /><br />This is an email abuse report for a listing at {listing_url}.<br /><br />Name: {sender_name}<br />Email: {sender_email}<br />Message: {message}"
 msgstr ""
 
@@ -8103,35 +8103,35 @@ msgstr ""
 msgid "Action identifier."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-listings-actions-controller.php:70
+#: ../includes/rest-api/Version1/class-listings-actions-controller.php:80
 msgid "Sorry, you are not allowed to execute action."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-listings-actions-controller.php:85
+#: ../includes/rest-api/Version1/class-listings-actions-controller.php:95
 msgid "Not authorized to execute this action."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-listings-actions-controller.php:110
+#: ../includes/rest-api/Version1/class-listings-actions-controller.php:120
 msgid "Message is required to report."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-listings-actions-controller.php:118
+#: ../includes/rest-api/Version1/class-listings-actions-controller.php:128
 msgid "name, email and message are required."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-listings-actions-controller.php:188
+#: ../includes/rest-api/Version1/class-listings-actions-controller.php:198
 msgid "Action name."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-listings-actions-controller.php:193
+#: ../includes/rest-api/Version1/class-listings-actions-controller.php:203
 msgid "Action initiator name."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-listings-actions-controller.php:198
+#: ../includes/rest-api/Version1/class-listings-actions-controller.php:208
 msgid "Action email."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-listings-actions-controller.php:204
+#: ../includes/rest-api/Version1/class-listings-actions-controller.php:214
 msgid "Action message."
 msgstr ""
 

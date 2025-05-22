@@ -3,15 +3,11 @@ import { useBlockProps } from '@wordpress/block-editor';
 import { Fragment } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
-import {
-	getWithSharedAttributes,
-	getPreview
-} from './../functions'
+import { getWithSharedAttributes, getPreview } from './../functions';
 import metadata from './block.json';
 import getLogo from './../logo';
 
 registerBlockType( metadata.name, {
-
 	icon: getLogo(),
 
 	transforms: {
@@ -19,22 +15,22 @@ registerBlockType( metadata.name, {
 			{
 				type: 'shortcode',
 				tag: 'directorist_user_login',
-				attributes: {}
+				attributes: {},
 			},
-		]
+		],
 	},
 
 	example: {
 		attributes: {
-			isPreview: true
-		}
+			isPreview: true,
+		},
 	},
 
 	edit( { attributes } ) {
 		return (
 			<div { ...useBlockProps() }>
-				{ getPreview( 'signin', attributes.isPreview) }
+				{ getPreview( 'signin', attributes.isPreview ) }
 			</div>
 		);
-	}
+	},
 } );

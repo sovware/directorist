@@ -368,7 +368,6 @@ class Directorist_Listing_Dashboard {
 		$my_listing_tab     = get_directorist_option( 'my_listing_tab', 1 );
 		$my_profile_tab     = get_directorist_option( 'my_profile_tab', 1 );
 		$fav_listings_tab   = get_directorist_option( 'fav_listings_tab', 1 );
-		$announcement_tab 	= get_directorist_option( 'announcement_tab', 1 );
 
 		if ( $my_listing_tab && ( 'general' != $this->user_type && 'become_author' != $this->user_type ) ) {
 			$my_listing_tab_text = get_directorist_option( 'my_listing_tab_text', __( 'My Listing', 'directorist' ) );
@@ -406,31 +405,6 @@ class Directorist_Listing_Dashboard {
 		);
 
 		return apply_filters( 'directorist_dashboard_tabs', $dashboard_tabs );
-	}
-
-	public function get_announcements() {
-		$announcements       = [];
-		$announcements_query = \ATBDP()->announcement::get_announcement_query_data();
-		$current_user_email  = get_the_author_meta( 'user_email', get_current_user_id() );
-
-		foreach ( $announcements_query->posts as $announcement ) {
-			$id = $announcement->ID;
-			$recepents = get_post_meta( $id, '_recepents', true );
-			$recepents = ! empty( $recepents ) ? explode( ',', $recepents ) : [];
-
-			if ( ! empty( $recepents ) && is_array( $recepents )  ) {
-				if ( ! in_array( $current_user_email, $recepents ) ) {
-					continue;
-				}
-			}
-
-			$announcements[$id] = [
-				'title'   => get_the_title( $id ),
-				'content' => $announcement->post_content,
-			];
-		}
-
-		return $announcements;
 	}
 
 	public function restrict_access_template() {
@@ -590,7 +564,11 @@ class Directorist_Listing_Dashboard {
 	}
 
 	public function get_renewal_link( $listing_id ) {
-		return directorist_is_monetization_enabled() && directorist_is_featured_listing_enabled() ? ATBDP_Permalink::get_fee_renewal_checkout_page_link( $listing_id ) : ATBDP_Permalink::get_renewal_page_link( $listing_id );
+		if ( directorist_is_monetization_enabled() && directorist_is_featured_listing_enabled() ) {
+			return ATBDP_Permalink::get_fee_renewal_checkout_page_link( $listing_id );
+		}
+
+		return ATBDP_Permalink::get_renewal_page_link( $listing_id );
 	}
 
 	public function get_action_dropdown_item() {
@@ -599,12 +577,13 @@ class Directorist_Listing_Dashboard {
 		$post_id = get_the_ID();
 
 		if ( $this->can_renew() ) {
+			$renewal_url = add_query_arg( 'renew_from', 'dashboard', $this->get_renewal_link( $post_id ) );
 			$dropdown_items['renew'] = array(
-				'class'			    => '',
-				'data_attr'			=>	'',
-				'link'				=>	add_query_arg( 'renew_from', 'dashboard', esc_url( $this->get_renewal_link( $post_id ) ) ),
-				'icon'				=>  directorist_icon( 'las la-hand-holding-usd', false ),
-				'label'				=>  __( 'Renew', 'directorist' )
+				'class'     => '',
+				'data_attr' => '',
+				'link'      => wp_nonce_url( $renewal_url, 'directorist_listing_renewal', 'token' ),
+				'icon'      => directorist_icon( 'las la-hand-holding-usd', false ),
+				'label'     => __( 'Renew', 'directorist' )
 			);
 		}
 

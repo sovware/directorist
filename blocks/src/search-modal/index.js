@@ -9,7 +9,6 @@ import getLogo from './../logo';
 import './style.scss';
 
 registerBlockType( metadata.name, {
-
 	icon: getLogo(),
 	/**
 	 * @see ./edit.js

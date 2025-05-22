@@ -972,19 +972,22 @@ if (!function_exists('calc_listing_expiry_date')) {
      * @since    3.1.0
      *
      */
-    function calc_listing_expiry_date($start_date = NULL, $expire = NULL, $directory_type = '' )
-    {
-        $type = $directory_type ? $directory_type : default_directory_type();
-        $exp_days = get_term_meta( $type, 'default_expiration', true );
-        $exp_days = !empty( $exp_days ) ? $exp_days : 0;
-        $expired_date = !empty($expire) ? $expire : $exp_days;
-        // Current time
-        $start_date = !empty($start_date) ? $start_date : current_time('mysql');
-        // Calculate new date
-        $date = new DateTime($start_date);
-        $date->add(new DateInterval("P{$expired_date}D")); // set the interval in days
-        return $date->format('Y-m-d H:i:s');
+    function calc_listing_expiry_date( $start_date = null, $expire_date = null, $directory_id = 0 ) {
+		if ( empty( $expire_date ) ) {
+			if ( ! $directory_id ) {
+				$directory_id = directorist_get_default_directory();
+			}
 
+			$expire_date = directorist_get_default_expiration( $directory_id );
+		}
+
+		$start_date  = ! empty( $start_date ) ? $start_date : current_time( 'mysql' );
+
+        // Calculate new date
+        $date = new \DateTime($start_date);
+        $date->add( new DateInterval( "P{$expire_date}D" ) ); // set the interval in days
+
+        return $date->format( 'Y-m-d H:i:s' );
     }
 }
 
@@ -1960,7 +1963,7 @@ if ( ! function_exists('atbdp_is_page') ) {
             $option    = $page_map[ $page_type ]['option'];
             $page_id   = get_directorist_option( $option );
 
-            if ( is_page( $page_id ) ) {
+            if ( $page_id && is_page( $page_id ) ) {
                 return true;
             }
 
@@ -2873,9 +2876,9 @@ if(!function_exists('csv_get_data')){
             $post = array();
 
             // Get first row in CSV, which is of course the headers
-            $header = fgetcsv( $_file, 0, $delimiter );
+            $header = fgetcsv( $_file, 0, $delimiter, '"', '\\' );
 
-            while ( $row = fgetcsv( $_file, 0, $delimiter ) ) {
+            while ( $row = fgetcsv( $_file, 0, $delimiter, '"', '\\' ) ) {
 
                 foreach ( $header as $i => $key ) {
                     $post[ $key ] = $row[ $i ];
@@ -3241,34 +3244,36 @@ if ( ! function_exists( 'directorist_is_plugin_active_for_network' ) ) {
  *
  * @since 7.0.6.2
  *
- * @param string $get_error_code
+ * @param string $error_code
  *
  * @return string Error message.
  */
 function directorist_get_registration_error_message( $error_code ) {
-	$message = [
+	$messages = [
 		'0' => __( 'Something went wrong!', 'directorist' ),
-		'1' => __( 'Registration failed. Please make sure you filed up all the necessary fields marked with <span style="color: red">*</span>', 'directorist' ),
+		'1' => __( 'Registration failed. Please make sure you filled out all the necessary fields marked with <span style="color: red">*</span>.', 'directorist' ),
 		'2' => sprintf(
 			/** translators: %1$s - link opening, %2$s - link closing */
 			__( 'This email is already registered. Please %1$sclick here to login%2$s.', 'directorist' ),
 			'<a class="directorist-authentication__toggle" href="' . ATBDP_Permalink::get_dashboard_page_link() . '">',
 			'</a>'
 		),
-		'3' => __( 'Username too short. At least 4 characters is required', 'directorist' ),
+		'3' => __( 'Username too short. At least 4 characters are required.', 'directorist' ),
 		'4' => sprintf(
 			/** translators: %1$s - link opening, %2$s - link closing */
 			__( 'This username is already registered. Please %1$sclick here to login%2$s.', 'directorist' ),
 			'<a class="directorist-authentication__toggle" href="' . ATBDP_Permalink::get_dashboard_page_link() . '">',
 			'</a>'
 		),
-		'5' => __( 'Password length must be greater than 5', 'directorist' ),
-		'6' => __( 'Email is not valid', 'directorist' ),
-		'7' => __( 'Space is not allowed in username', 'directorist' ),
-		'8' => __( 'Please make sure you filed up the user type', 'directorist' ),
+		'5' => __( 'Password length must be greater than 5 characters.', 'directorist' ),
+		'6' => __( 'Email is not valid.', 'directorist' ),
+		'7' => __( 'Spaces are not allowed in usernames.', 'directorist' ),
+		'8' => __( 'Please make sure you selected the user type.', 'directorist' ),
 	];
 
-	return isset( $message[ $error_code ] ) ? $message[ $error_code ] : '';
+	$messages = apply_filters( 'directorist_registration_error_messages', $messages, $error_code );
+
+	return isset( $messages[ $error_code ] ) ? $messages[ $error_code ] : '';
 }
 
 /**
@@ -3612,9 +3617,10 @@ function directorist_get_listing_views_count_meta_key() {
 function directorist_get_listing_statuses() {
 	return array(
         'draft'   => __( 'Draft', 'directorist' ),
-        'pending' => __( 'Pending Review', 'directorist' ),
+        'pending' => __( 'In Review', 'directorist' ),
         'private' => __( 'Private', 'directorist' ),
         'publish' => __( 'Published', 'directorist' ),
+        'expired' => __( 'Expired', 'directorist' ),
     );
 }
 
@@ -4282,39 +4288,58 @@ function directorist_background_image_process( $images ) {
 }
 
 function directorist_get_json_from_url( $url ) {
-    $zip_content = file_get_contents( $url );
+    if ( ! function_exists( 'download_url' ) ) {
+        require_once ABSPATH . 'wp-admin/includes/file.php';
+    }
 
-    if ( $zip_content === false ) {
+    // Download file to temp dir
+    $temp_file = download_url( $url );
+
+    if ( is_wp_error( $temp_file ) ) {
         return false;
     }
 
-    $temp_zip_path = tempnam( sys_get_temp_dir(), 'unzip_temp' );
+    // Create a temp directory
+    $upload_dir = wp_upload_dir();
+    $temp_dir   = $upload_dir['basedir'] . '/directorist-temp-' . time();
 
-    if ( ! $temp_zip_path ) {
+    if ( ! wp_mkdir_p( $temp_dir ) ) {
+        @unlink( $temp_file );
         return false;
     }
 
-    if ( file_put_contents($temp_zip_path, $zip_content) === false ) {
+	global $wp_filesystem;
+
+	require_once ( ABSPATH . '/wp-admin/includes/file.php' );
+
+	WP_Filesystem();
+
+    // Unzip the file
+    $unzip_result = unzip_file( $temp_file, $temp_dir );
+    @unlink( $temp_file );
+
+    if ( is_wp_error( $unzip_result ) ) {
+        directorist_delete_dir( $temp_dir );
         return false;
     }
 
-    $zip = new ZipArchive;
-
-    if ( $zip->open( $temp_zip_path ) === true ) {
-
-        $json_content = $zip->getFromIndex( 0 );
-        $decoded_data = json_decode( $json_content, true );
-
-        if ( $decoded_data === null ) {
-            return false;
-        }
-
-        $zip->close();
-
-        unlink($temp_zip_path);
-
-        return $decoded_data;
+    // Get the first JSON file from the directory
+    $files = glob( $temp_dir . '/*.json' );
+    if ( empty( $files ) ) {
+        directorist_delete_dir( $temp_dir );
+        return false;
     }
+
+    $json_content = file_get_contents( $files[0] );
+    directorist_delete_dir( $temp_dir );
+
+    if ( ! $json_content ) {
+        return false;
+    }
+
+    $decoded_data = json_decode( $json_content, true );
+
+    return ( $decoded_data === null ) ? false : $decoded_data;
 }
 
 /**
@@ -4405,6 +4430,10 @@ function directorist_delete_dir( $dir ) {
 function directorist_delete_temporary_upload_dirs() {
 	$upload_dir = wp_get_upload_dir();
 	$temp_dir   = trailingslashit( $upload_dir['basedir'] ) . trailingslashit( directorist_get_temp_upload_dir() );
+
+	if ( ! file_exists( $temp_dir ) ) {
+		return;
+	}
 
 	$dirs = scandir( $temp_dir );
 	$date = date( 'nj' );
@@ -4742,3 +4771,7 @@ function directorist_is_guest_user( $user_id = 0 ) {
 	return ( 'guest' === $user_type );
 }
 
+function directorist_renewal_token_hash( $listing_id, $user_id ) {
+	$token_str = 'cB0XtpVzGb180dgPi3hADW-' . $listing_id . '::' . $user_id;
+	return wp_hash( $token_str, 'nonce' );
+}

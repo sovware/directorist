@@ -63,7 +63,7 @@ registerBlockType( metadata.name, {
 			order,
 			logged_in_user_only,
 			map_zoom_level,
-			sidebar
+			sidebar,
 		} = attributes;
 
 		return (
@@ -181,7 +181,7 @@ registerBlockType( metadata.name, {
 							] }
 							onChange={ ( newState ) =>
 								setAttributes( {
-									sidebar: newState
+									sidebar: newState,
 								} )
 							}
 							className="directorist-gb-fixed-control"

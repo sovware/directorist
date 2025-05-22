@@ -117,7 +117,7 @@ registerBlockType( metadata.name, {
 
 									if ( types.length === 1 ) {
 										setAttributes( {
-											default_directory_type: types[0],
+											default_directory_type: types[ 0 ],
 										} );
 									}
 

@@ -45,7 +45,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 		public function __construct() {
 			// show the attachment of the current users only.
 			add_filter( 'ajax_query_attachments_args', array( $this, 'show_current_user_attachments' ) );
-			add_action( 'parse_query', array( $this, 'parse_query' ) ); // do stuff likes adding, editing, renewing, favorite etc in this hook.
+			add_action( 'template_redirect', array( $this, 'handle_listing_renewal' ) );
 			add_action( 'wp_ajax_add_listing_action', array( $this, 'atbdp_submit_listing' ) );
 			add_action( 'wp_ajax_nopriv_add_listing_action', array( $this, 'atbdp_submit_listing' ) );
 
@@ -140,6 +140,8 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 				}
 
 				$posted_data = wp_unslash( $_POST );
+
+				do_action( 'directorist_ajax_before_request_handling', [ 'params' => $posted_data ] );
 
 				/**
 				 * It fires before processing a submitted listing from the front end
@@ -461,6 +463,10 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 				}
 
 				$data['redirect_url'] = urlencode( $data['redirect_url'] );
+
+				$data = apply_filters( 'directorist_ajax_listing_submission_response', $data );
+
+				do_action( 'directorist_ajax_after_request_handling', [ 'params' => $posted_data,  'response' => $data ] );
 
 				wp_send_json( apply_filters( 'atbdp_listing_form_submission_info', $data ) );
 
@@ -909,27 +915,50 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 		 * @param WP_Query $query
 		 * @since 3.1.0
 		 */
-		public function parse_query( $query ) {
-			$temp_token = ! empty( $_GET['token'] ) ? sanitize_text_field( wp_unslash( $_GET['token'] ) ) : '';
+		public function handle_listing_renewal() {
+			$token      = ! empty( $_GET['token'] ) ? sanitize_text_field( wp_unslash( $_GET['token'] ) ) : '';
 			$renew_from = ! empty( $_GET['renew_from'] ) ? sanitize_text_field( wp_unslash( $_GET['renew_from'] ) ) : '';
+			$action     = get_query_var( 'atbdp_action' );
 
-			if ( empty( $temp_token ) && empty( $renew_from ) ) {
+			if ( empty( $action ) || 'renew' !== $action ) {
 				return;
 			}
 
-			$action = $query->get( 'atbdp_action' );
-			$id     = $query->get( 'atbdp_listing_id' );
-			$token  = get_post_meta( $id, '_renewal_token', true );
-
-			if ( ! empty( $action ) && ! empty( $id ) && 'renew' == $action ) {
-				if ( $temp_token === $token || $renew_from ) {
-					$this->renew_listing( $id );
-				} else {
-					$redirect_url = esc_url_raw( add_query_arg( 'renew', 'token_expired', ATBDP_Permalink::get_dashboard_page_link() ) );
-					wp_safe_redirect( $redirect_url );
-					exit;
-				}
+			if ( ! in_array( $renew_from, array( 'email', 'dashboard' ), true ) ) {
+				return;
 			}
+
+			if ( $renew_from === 'dashboard' && ! wp_verify_nonce( $token, 'directorist_listing_renewal' ) ) {
+				return;
+			}
+
+			$listing_id = get_query_var( 'atbdp_listing_id' );
+			if ( $renew_from === 'email' && directorist_renewal_token_hash( $listing_id, get_current_user_id() ) !== $token ) {
+				return;
+			}
+
+			if ( ! directorist_is_listing_post_type( $listing_id ) ) {
+				return;
+			}
+
+			if ( ! current_user_can( get_post_type_object( ATBDP_POST_TYPE )->cap->edit_post, $listing_id ) ) {
+				return;
+			}
+
+			$saved_token = get_post_meta( $listing_id, '_renewal_token', true );
+			if ( ( ! empty( $saved_token ) && $saved_token === $token && $renew_from === 'email' ) || $renew_from === 'dashboard' ) {
+				$this->renew_listing( $listing_id );
+			}
+
+			$redirect_url = esc_url_raw( add_query_arg(
+				'renew',
+				'token_expired',
+				ATBDP_Permalink::get_dashboard_page_link()
+				)
+			);
+
+			wp_safe_redirect( $redirect_url );
+			exit;
 		}
 
 		/**
@@ -990,7 +1019,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 
 			do_action( 'atbdp_after_renewal', $listing_id );
 			$r_url = add_query_arg( 'renew', 'success', ATBDP_Permalink::get_dashboard_page_link() );
-			update_post_meta( $listing_id, '_renewal_token', 0 );
+			delete_post_meta( $listing_id, '_renewal_token', 0 );
 			// hook for dev
 			do_action( 'atbdp_before_redirect_after_renewal', $listing_id );
 			wp_safe_redirect( $r_url );

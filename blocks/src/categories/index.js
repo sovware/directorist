@@ -117,7 +117,7 @@ registerBlockType( metadata.name, {
 
 									if ( types.length === 1 ) {
 										setAttributes( {
-											default_directory_type: types[0],
+											default_directory_type: types[ 0 ],
 										} );
 									}
 
@@ -183,7 +183,10 @@ registerBlockType( metadata.name, {
 							''
 						) }
 						<TextControl
-							label={ __( 'Number Of Categories', 'directorist' ) }
+							label={ __(
+								'Number Of Categories',
+								'directorist'
+							) }
 							type="number"
 							value={ cat_per_page }
 							onChange={ ( perPage ) =>

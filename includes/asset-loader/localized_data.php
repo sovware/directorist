@@ -20,13 +20,23 @@ class Localized_Data {
 	}
 
 	public static function public_data() {
-		$data = self::get_listings_data() + self::directorist_options_data() + self::login_data() + self::search_form_localized_data() + self::search_listing_localized_data() + self::search_listing_data();
+		$data = self::general_public_data() + self::get_listings_data() + self::directorist_options_data() + self::login_data() + self::search_form_localized_data() + self::search_listing_localized_data() + self::search_listing_data();
 
-		return $data;
+		return apply_filters( 'directorist_localized_data', $data );
 	}
 
 	public static function admin_data() {
 		$data = self::get_admin_script_data() + self::directorist_options_data() + self::get_listings_data() + self::admin_ajax_localized_data();
+
+		return $data;
+	}
+
+	private static function general_public_data() {
+		$data = [
+			'request_headers' => [
+				'Referer-Page-ID' => get_the_ID(),
+			]
+		];
 
 		return $data;
 	}
@@ -41,17 +51,21 @@ class Localized_Data {
 
 	private static function search_listing_localized_data() {
 		return self::get_search_script_data([
-			'directory_type_id' => get_post_meta( '_directory_type', get_the_ID(), true ),
+			'directory_type_id' => get_post_meta( get_the_ID(), '_directory_type', true ),
 		]);
 	}
 
-	private static function search_form_localized_data() {
-		$directory_type_id = ( isset( $args['directory_type_id'] ) ) ? $args['directory_type_id'] : '';
-		$data = self::get_search_script_data([
-			'directory_type_id' => $directory_type_id,
-			'search_max_radius_distance' => apply_filters( 'directorist_search_max_radius_distance', get_directorist_option( 'search_max_radius_distance', 1000 ) )
-		]);
-		return $data;
+	private static function search_form_localized_data( $args = [] ) {
+		$args = array_merge( [
+			'search_max_radius_distance' => apply_filters(
+				'directorist_search_max_radius_distance',
+				get_directorist_option( 'search_max_radius_distance', 1000 )
+				)
+			],
+			$args
+		);
+
+		return self::get_search_script_data( $args );
 	}
 
 	private static function directorist_options_data() {
@@ -118,6 +132,7 @@ class Localized_Data {
 			'add_listing_url'                 => \ATBDP_Permalink::get_add_listing_page_link(),
 			'enabled_multi_directory'         => directorist_is_multi_directory_enabled(),
 			'site_name'                       => get_bloginfo( 'name' ),
+			'dynamic_view_count_cache'        => (bool) get_directorist_option( 'dynamic_view_count_cache', false ),
 		);
 
 		return $data;
@@ -169,19 +184,19 @@ class Localized_Data {
 			'is_admin'       => is_admin(),
 			'media_uploader' => apply_filters( 'atbdp_media_uploader', [
 				[
-					'element_id'        => 'directorist-image-upload',
-					'meta_name'         => 'listing_img',
-					'files_meta_name'   => 'files_meta',
-					'error_msg'         => __('Listing gallery has invalid files', 'directorist'),
+					'element_id'      => 'directorist-image-upload',
+					'meta_name'       => 'listing_img',
+					'files_meta_name' => 'files_meta',
+					'error_msg'       => __('Listing gallery has invalid files', 'directorist'),
 				]
 			]),
-			'i18n_text'       => $i18n_text,
-			'create_new_tag'  => $new_tag,
-			'create_new_loc'  => $new_loc,
-			'create_new_cat'  => $new_cat,
-			'image_notice'    => __( 'Sorry! You have crossed the maximum image limit', 'directorist' ),
+			'i18n_text'                       => $i18n_text,
+			'create_new_tag'                  => $new_tag,
+			'create_new_loc'                  => $new_loc,
+			'create_new_cat'                  => $new_cat,
+			'image_notice'                    => __( 'Sorry! You have crossed the maximum image limit', 'directorist' ),
+			'category_custom_field_relations' => static::get_fields_category_relation(),
 		);
-
 
 		return $data;
 	}
@@ -235,7 +250,12 @@ class Localized_Data {
 	}
 
 	public static function get_search_script_data( $args = [] ) {
-		$directory_type = ( is_array( $args ) && isset( $args['directory_type_id'] ) ) ? $args['directory_type_id'] : default_directory_type();
+		if ( ! is_array( $args ) ) {
+			$args = (array) $args;
+		}
+
+		$directory_type = $args['directory_type_id'] ?? directorist_get_default_directory();
+
 		$directory_type_term_data = [
 			'submission_form_fields' => get_term_meta( $directory_type, 'submission_form_fields', true ),
 			'search_form_fields' => get_term_meta( $directory_type, 'search_form_fields', true ),
@@ -308,4 +328,14 @@ class Localized_Data {
 		return $data;
 	}
 
+	public static function get_fields_category_relation() {
+		$directories = directorist_get_directories();
+		$relation    = array();
+
+		foreach ( $directories as $directory ) {
+			$relation[ $directory->term_id ] = directorist_get_category_custom_field_relations( $directory->term_id );
+		}
+
+		return $relation;
+	}
 }

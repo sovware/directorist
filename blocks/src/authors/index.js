@@ -10,7 +10,6 @@ import getLogo from '../logo';
 const Placeholder = () => getPlaceholder( 'author-profile' );
 
 registerBlockType( metadata.name, {
-
 	icon: getLogo(),
 
 	edit( { attributes } ) {

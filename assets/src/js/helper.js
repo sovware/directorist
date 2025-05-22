@@ -27,3 +27,17 @@ export function findObjectItem( path, data, defaultValue ) {
 
     return targetItem;
 }
+
+export function directoristRequestHeaders() {
+    if ( window.directorist && window.directorist.request_headers && typeof window.directorist.request_headers ==='object' && ! Array.isArray( window.directorist.request_headers ) ) {
+        const headers = {};
+
+        for ( const key in window.directorist.request_headers ) {
+            headers[ `Directorist-${key}` ] = window.directorist.request_headers[ key ];
+        }
+        
+        return headers;
+    }
+
+    return {};
+}

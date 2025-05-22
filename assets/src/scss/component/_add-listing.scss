@@ -640,12 +640,10 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  margin: 15px -15px 0;
+  gap:15px;
 
   .directorist-form-group {
     flex: 1;
-    padding-left: 15px;
-    padding-right: 15px;
     max-width: 290px;
   }
 

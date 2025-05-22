@@ -2391,7 +2391,7 @@ window.addEventListener('load', function () {
         $(self).closest('.ext-action').find('.ext-action-drop').removeClass('active');
         location.reload();
       },
-      error: function error(_error10) {
+      error: function error(_error0) {
         // console.log(error);
         uninstalling = false;
       }
@@ -2472,7 +2472,7 @@ window.addEventListener('load', function () {
           location.reload();
         }
       },
-      error: function error(_error11) {
+      error: function error(_error1) {
         // console.log({ error });
         theme_is_activating = false;
         $(self).find('.atbdp-icon').remove();
@@ -2518,7 +2518,7 @@ window.addEventListener('load', function () {
           alert(response.status.message);
         }
       },
-      error: function error(_error12) {
+      error: function error(_error10) {
         // console.log({ error });
         $(self).removeClass('in-progress');
         $(self).html(button_default_html);

@@ -173,6 +173,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 				}
 
 				// Guest submission handle.
+				$nonce_expired = false;
 				if ( directorist_is_guest_submission_enabled() && isset( $posted_data['guest_user_email'] ) && ! self::current_user_can_create() ) {
 					$guest_email = sanitize_email( $posted_data['guest_user_email'] );
 
@@ -181,6 +182,8 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 					}
 
 					atbdp_guest_submission( $guest_email );
+
+					$nonce_expired = true;
 				}
 
 				// When invalid directory is selected fallback to default directory.
@@ -298,8 +301,9 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 
 				if ( $error->has_errors() ) {
 					return wp_send_json( apply_filters( 'atbdp_listing_form_submission_info', array(
-						'error'     => true,
-						'error_msg' => implode( '<br>', $error->get_error_messages() ),
+						'nonce_expired' => $nonce_expired,
+						'error'         => true,
+						'error_msg'     => implode( '<br>', $error->get_error_messages() ),
 					) ) );
 				}
 

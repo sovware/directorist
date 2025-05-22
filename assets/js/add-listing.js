@@ -775,6 +775,9 @@ $(function () {
         success: function success(response) {
           var redirect_url = response && response.redirect_url ? response.redirect_url : '';
           redirect_url = redirect_url && typeof redirect_url === 'string' ? response.redirect_url.replace(/:\/\//g, '%3A%2F%2F') : '';
+          if ((response === null || response === void 0 ? void 0 : response.nonce_expired) === true) {
+            updateLocalNonce();
+          }
           if (response.error === true) {
             enableSubmitButton();
             $notification.show().html("<span>".concat(response.error_msg, "</span>"));
@@ -910,7 +913,7 @@ $(function () {
           if (quickLoginModalSuccessCallback) {
             quickLoginModalSuccessCallback($form, $submit_button);
           }
-          regenerate_and_update_nonce();
+          updateLocalNonce();
         } else {
           var msg = '<div class="directorist-alert directorist-alert-danger directorist-text-center directorist-mb-20">' + response.message + '</div>';
           $feedback.html(msg);
@@ -1206,7 +1209,7 @@ $('body').on('click', function (e) {
     multiStepWizard();
   }
 });
-function regenerate_and_update_nonce() {
+function updateLocalNonce() {
   $.ajax({
     type: 'POST',
     url: localized_data.ajaxurl,

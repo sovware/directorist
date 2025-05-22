@@ -833,15 +833,15 @@ function handleAIFormResponse(response) {
       var _response$data8;
       handlePromptStep(response === null || response === void 0 || (_response$data8 = response.data) === null || _response$data8 === void 0 || (_response$data8 = _response$data8.data) === null || _response$data8 === void 0 ? void 0 : _response$data8.html);
     } else if (currentStep == 3) {
-      var _response$data10;
+      var _response$data0;
       setTimeout(function () {
         var _response$data9;
         handleGenerateFields(response === null || response === void 0 || (_response$data9 = response.data) === null || _response$data9 === void 0 || (_response$data9 = _response$data9.data) === null || _response$data9 === void 0 ? void 0 : _response$data9.html);
       }, 1000);
-      directoryFields = JSON.stringify(response === null || response === void 0 || (_response$data10 = response.data) === null || _response$data10 === void 0 || (_response$data10 = _response$data10.data) === null || _response$data10 === void 0 ? void 0 : _response$data10.fields);
+      directoryFields = JSON.stringify(response === null || response === void 0 || (_response$data0 = response.data) === null || _response$data0 === void 0 || (_response$data0 = _response$data0.data) === null || _response$data0 === void 0 ? void 0 : _response$data0.fields);
     } else if (currentStep == 4) {
-      var _response$data11;
-      handleCreateDirectory(response === null || response === void 0 || (_response$data11 = response.data) === null || _response$data11 === void 0 || (_response$data11 = _response$data11.data) === null || _response$data11 === void 0 ? void 0 : _response$data11.url);
+      var _response$data1;
+      handleCreateDirectory(response === null || response === void 0 || (_response$data1 = response.data) === null || _response$data1 === void 0 || (_response$data1 = _response$data1.data) === null || _response$data1 === void 0 ? void 0 : _response$data1.url);
     }
   } else {
     console.error(response === null || response === void 0 ? void 0 : response.data);
@@ -916,9 +916,9 @@ $('body').on('click', '.directorist_regenerate_fields', function (e) {
 
   // Handle Axios Request
   axios.post(directorist_admin.ajax_url, form_data).then(function (response) {
-    var _response$data12;
+    var _response$data10;
     $(_this).removeClass('loading');
-    handleGenerateFields(response === null || response === void 0 || (_response$data12 = response.data) === null || _response$data12 === void 0 || (_response$data12 = _response$data12.data) === null || _response$data12 === void 0 ? void 0 : _response$data12.html);
+    handleGenerateFields(response === null || response === void 0 || (_response$data10 = response.data) === null || _response$data10 === void 0 || (_response$data10 = _response$data10.data) === null || _response$data10 === void 0 ? void 0 : _response$data10.html);
     $('.directorist_regenerate_fields').hide();
     directoryFields = JSON.stringify(response.data.data.fields);
   }).catch(function (error) {

@@ -12,8 +12,7 @@ const devConfig = {
     entry: vueEntries,
     plugins: [
       new MiniCssExtractPlugin({
-        filename: "../css/[name].css",
-        minify: false,
+        filename: "../css/[name].css"
       }),
       new WebpackRTLPlugin({
         minify: false,

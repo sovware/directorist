@@ -18,13 +18,10 @@ defined('ABSPATH') || die('No direct script access allowed!');
  *
  * @since 1.0
  */
-final class Directorist_Base
-{
-	/** Singleton *************************************************************/
-
+final class Directorist_Base {
 	/**
-	 * @var Directorist_Base The one true Directorist_Base
-	 * @since 1.0
+	 * Singleton instance.
+	 * @var Directorist_Base
 	 */
 	private static $instance;
 
@@ -212,12 +209,8 @@ final class Directorist_Base
 
 			self::$instance->includes();
 
-			// Beta plugin lookup
-			$plugin_data = get_plugin_data( __FILE__, false, false );
-
-			if ( ! empty( $plugin_data['Version'] ) ) {
-				self::$instance->beta = strpos( $plugin_data['Version'], 'Beta' ) ? true : false;
-			}
+			// Check if this is a beta version by looking for 'Beta' in version string
+			self::$instance->beta = false !== stripos( ATBDP_VERSION, 'Beta' );
 
 			self::$instance->custom_post = new ATBDP_Custom_Post(); // create custom post
 			self::$instance->taxonomy = new ATBDP_Custom_Taxonomy();
@@ -257,13 +250,10 @@ final class Directorist_Base
 			// Load widgets
 			Directorist\Widgets\Init::instance();
 
-			// Load widgets
-			Directorist\Widgets\Init::instance();
-
 			/*Extensions Link*/
 			/*initiate extensions link*/
 
-			if( is_admin() ){
+			if ( is_admin() ){
 				new ATBDP_Extensions();
 			}
 

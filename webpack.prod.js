@@ -16,12 +16,10 @@ const prodConfig = {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: "../css/[name].min.css",
-      minify: true,
+      filename: "../css/[name].min.css"
     }),
     new WebpackRTLPlugin({
-      minify: true,
-      filename: "../css/[name].rtl.min.css",
+      filename: "../css/[name].rtl.min.css"
     }),
     new CleanWebpackPlugin({
       dry: false,
@@ -75,11 +73,10 @@ const devConfig = {
   entry: vueEntries,
   plugins: [
     new MiniCssExtractPlugin({
-      filename: "../css/[name].css",
-      minify: false,
+      filename: "../css/[name].css"
     }),
     new WebpackRTLPlugin({
-      minify: false,
+      filename: "../css/[name].rtl.css"
     }),
   ],
   output: {

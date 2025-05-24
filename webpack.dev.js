@@ -10,8 +10,7 @@ const devConfig = {
     watch: true,
     plugins: [
       new MiniCssExtractPlugin({
-        filename: "../css/[name].css",
-        minify: false,
+        filename: "../css/[name].css"
       }),
       new WebpackRTLPlugin({
         minify: false,

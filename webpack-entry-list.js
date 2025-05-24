@@ -15,7 +15,6 @@ module.exports = {
         ['all-location-category']: ["./assets/src/js/public/modules/all-location-category.js"],
         ['directorist-dashboard']: ["./assets/src/js/public/modules/dashboard.js"],
         ['author-profile']: ["./assets/src/js/public/modules/author-profile.js"],
-        //['search-home']: ["./assets/src/js/public/modules/search-home.js"],
         ['public-add-listing']: ["./assets/src/js/public/modules/add-listing.js"],
         ['account']: ["./assets/src/js/public/modules/account.js"],
         ['single-listing']: ["./assets/src/js/public/modules/single-listing.js"],

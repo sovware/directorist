@@ -349,27 +349,6 @@ class Multi_Directory_Manager {
 
     }
 
-    // update_default_directory_type_option
-    public function update_default_directory_type_option() {
-        $args = array(
-            'meta_query' => array(
-                array(
-                    'key'   => '_default',
-                    'value' => true,
-                )
-            ),
-        );
-
-        $default_directory = get_directorist_option( 'atbdp_default_derectory', '' );
-        $terms = directorist_get_directories( $args );
-
-        if ( ! is_wp_error( $terms ) && ! empty( $terms ) ) {
-            $default_directory = $terms[0]->term_id;
-        }
-
-        update_directorist_option( 'atbdp_default_derectory', $default_directory );
-    }
-
     // setup_migration
     public function setup_migration() {
         $migrated = get_option( 'atbdp_migrated', false );

@@ -557,7 +557,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			}
 
 			$default_directory_id = ! empty( $_POST['type_id'] ) ? absint( $_POST['type_id'] ) : 0;
-			if ( ! term_exists( $default_directory_id, ATBDP_DIRECTORY_TYPE ) ) {
+			if ( ! directorist_is_directory( $default_directory_id ) ) {
 				wp_send_json( 'Invalid directory.' );
 			}
 
@@ -568,7 +568,10 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			/**
 			 * Leverage the wp default system and store default directory in option table.
 			 */
-			update_option( 'default_' . ATBDP_DIRECTORY_TYPE, $default_directory_id );
+			$updated = directorist_set_default_directory( $default_directory_id );
+			if ( ! $updated ) {
+				wp_send_json( 'Could not update, please try again.' );
+			}
 
 			// $directory_types = directorist_get_directories( array(
 			// 	'fields'  => 'ids',

@@ -330,3 +330,7 @@ function directorist_get_category_custom_field_relations( $directory_id ) {
 function directorist_is_preview_enabled( $directory_id ) {
 	return (bool) directorist_get_directory_meta( $directory_id, 'preview_mode' );
 }
+
+function directorist_set_default_directory( $directory_id ) {
+	return update_option( 'default_' . ATBDP_DIRECTORY_TYPE, $directory_id );
+}

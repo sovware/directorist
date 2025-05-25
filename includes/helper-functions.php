@@ -2974,22 +2974,17 @@ if ( ! function_exists( 'directorist_get_default_directory' ) ) {
 	 * @return int|string Default directory id or slug depending on return type.
 	 */
 	function directorist_get_default_directory( $return = 'id' ) {
-		if ( $return === 'slug' ) {
-			$fields = 'slugs';
-		} else {
-			$fields = 'ids';
-		}
+		$directory_id = get_option( 'default_' . ATBDP_DIRECTORY_TYPE );
 
-		$directories = directorist_get_directories( array(
-			'default_only' => true,
-			'fields'       => $fields,
-		) );
-
-		if ( empty( $directories ) || is_wp_error( $directories ) || ! isset( $directories[0] ) ) {
+		if ( empty( $directory_id ) ) {
 			return 0;
 		}
 
-		return $directories[0];
+		if ( $return === 'slug' ) {
+			$directory_id = get_term_field( 'slug', $directory_id, ATBDP_DIRECTORY_TYPE );
+		}
+
+		return $directory_id;
 	}
 }
 

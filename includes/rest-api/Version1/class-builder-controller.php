@@ -89,7 +89,7 @@ class Builder_Controller extends Abstract_Controller {
 	/**
 	 * Prepare a single listing category output for response.
 	 *
-	 * @param WP_Term         $item    Term object.
+	 * @param \WP_Term         $item    Term object.
 	 * @param WP_REST_Request $request Request instance.
 	 * @return WP_REST_Response
 	 */
@@ -99,7 +99,7 @@ class Builder_Controller extends Abstract_Controller {
 		$expiration   = directorist_get_default_expiration( $item->term_id );
 		$new_status   = get_term_meta( $item->term_id, 'new_listing_status', true );
 		$edit_status  = directorist_get_listing_edit_status( $item->term_id );
-		$is_default   = get_term_meta( $item->term_id, '_default', true );
+		$is_default   = directorist_get_default_directory() === $item->term_id;
 		$config       = directorist_get_directory_general_settings( $item->term_id );
 		$data         = array(
 			'id'              => (int) $item->term_id,

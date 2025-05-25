@@ -573,21 +573,6 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 				wp_send_json( 'Could not update, please try again.' );
 			}
 
-			// $directory_types = directorist_get_directories( array(
-			// 	'fields'  => 'ids',
-			// 	'exclude' => $default_directory_id,
-			// ) );
-
-			// if ( ! empty( $directory_types ) || ! is_wp_error( $directory_types ) ) {
-			// 	foreach ( $directory_types as $directory_type ) {
-			// 		update_term_meta( $directory_type, '_default', false );
-
-			// 		do_action( 'directorist_after_unset_default_directory_type', $directory_type, $directory_types );
-			// 	}
-			// }
-
-			// update_term_meta( $default_directory_id, '_default', true );
-
 			do_action( 'directorist_after_set_default_directory_type', $default_directory_id );
 
 			wp_send_json( 'Updated default directory.' );

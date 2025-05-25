@@ -122,22 +122,26 @@
                             </div>
                         </div>
                         <div class="directorist_table-body">
-                            <?php if( $listing_types ) { foreach( $listing_types as $listing_type) {
-                                $default = get_term_meta( $listing_type->term_id, '_default', true );
-                                $edit_link = admin_url('edit.php?post_type=at_biz_dir&page=atbdp-directory-types&listing_type_id=' . absint( $listing_type->term_id ) . '&action=edit');
-                                $delete_link = admin_url('admin-post.php?listing_type_id=' . absint( $listing_type->term_id ) . '&action=delete_listing_type');
-                                $delete_link = wp_nonce_url( $delete_link, 'delete_listing_type');
-                                $created_time = get_term_meta( $listing_type->term_id, '_created_date', true );
-                            ?>
+						<?php if ( $listing_types ) {
+							$edit_link            = admin_url( 'edit.php?post_type=at_biz_dir&page=atbdp-directory-types&listing_type_id=%d&action=edit' );
+							$delete_link          = wp_nonce_url( admin_url( 'admin-post.php?listing_type_id=%d&action=delete_listing_type' ), 'delete_listing_type' );
+							$default_directory_id = directorist_get_default_directory();
+
+							foreach ( $listing_types as $listing_type) {
+								$default      = $default_directory_id === $listing_type->term_id;
+								$edit_link    = sprintf( $edit_link, $listing_type->term_id );
+								$delete_link  = sprintf( $delete_link, $listing_type->term_id );
+								$created_time = get_term_meta( $listing_type->term_id, '_created_date', true );
+                           		?>
                             <div class="directorist_table-row directory-type-row" data-term-id="<?php echo esc_attr( $listing_type->term_id ); ?>">
                                 <div class="directorist_title">
-                                    <a  href="<?php echo esc_url( ! empty( $edit_link ) ? $edit_link : '#' ); ?>">
-                                        <?php echo esc_html( ! empty( $listing_type->name ) ? $listing_type->name : '-' ); ?>
-                                        <?php if( $default ) { ?>
-                                        <span class="directorist_badge"><?php esc_html_e( 'Default', 'directorist' ); ?></span>
+                                    <a href="<?php echo esc_url( $edit_link ); ?>">
+                                        <?php echo esc_html( $listing_type->name ); ?>
+                                        <?php if ( $default ) { ?>
+                                        	<span class="directorist_badge"><?php esc_html_e( 'Default', 'directorist' ); ?></span>
                                         <?php } ?>
                                     </a>
-                                    <div class="directorist_listing-id">ID: #<?php echo esc_attr( ! empty( $listing_type->term_id ) ? $listing_type->term_id : '' ); ?></div>
+                                    <div class="directorist_listing-id">ID: #<?php echo esc_html( $listing_type->term_id ); ?></div>
                                 </div>
                                 <div class="directorist-type-slug">
                                     <div class="directorist-type-slug-content directorist-row-tooltip" data-tooltip="Click here to rename the slug." data-flow="bottom">

@@ -483,7 +483,6 @@ class Multi_Directory_Manager {
 
         if ( $add_directory['status']['success'] ) {
             update_option( 'atbdp_has_multidirectory', true );
-            // update_term_meta( $add_directory['term_id'], '_default', true );
 			directorist_set_default_directory( $add_directory['term_id'] );
 
             // Add directory type to all listings

@@ -98,13 +98,7 @@ class Directorist_Listing_Author {
 		else if (  get_query_var( 'directory-type' ) ) {
 			$current = get_query_var( 'directory-type' );
 		} else {
-			foreach ( $listing_types as $id => $type ) {
-				$is_default = get_term_meta( $id, '_default', true );
-				if ( $is_default ) {
-					$current = $id;
-					break;
-				}
-			}
+			$current = directorist_get_default_directory();
 		}
 
 		if( ! is_numeric( $current ) ) {
@@ -229,7 +223,7 @@ class Directorist_Listing_Author {
 		$u_pro_pic    = get_user_meta( $author_id, 'pro_pic', true );
 		$author_data  = get_userdata( $author_id );
 		$display_name = ! empty( $author_data->display_name ) ? $author_data->display_name : '';
-		
+
 		if ( ! empty( $u_pro_pic ) ) {
 			$html = wp_get_attachment_image( $u_pro_pic );
 		}

@@ -2974,7 +2974,7 @@ if ( ! function_exists( 'directorist_get_default_directory' ) ) {
 	 * @return int|string Default directory id or slug depending on return type.
 	 */
 	function directorist_get_default_directory( $return = 'id' ) {
-		$directory_id = get_option( 'default_' . ATBDP_DIRECTORY_TYPE );
+		$directory_id = (int) get_option( 'default_' . ATBDP_DIRECTORY_TYPE );
 
 		if ( empty( $directory_id ) ) {
 			return 0;

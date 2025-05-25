@@ -126,7 +126,7 @@ class Directorist_Listing_Taxonomy {
 
 		$all_terms 		= get_terms( $this->tax, $args );
 		$total_terms 	= wp_count_terms( $this->tax, array_merge( $args, ['number' => 0, 'offset' => 0] ) );
-		
+
 		$this->terms 			= array_slice( $all_terms, $offset, $this->per_page) ;
 		$this->total_pages		= ( $this->per_page > 0 ) ? ceil( $total_terms / $this->per_page ) : 1;
 		$this->current_page 	= $current_page; // Store current page for reference
@@ -250,7 +250,7 @@ class Directorist_Listing_Taxonomy {
 			} else {
 				$page_number = 1; // Default to page 1 if no number is found
 			}
-	
+
 			// Add the `data-page` attribute
 			$link = str_replace( '<a ', '<a data-page="' . esc_attr( $page_number ) . '" ', $link );
 			return $link;
@@ -270,7 +270,7 @@ class Directorist_Listing_Taxonomy {
     	$result = array();
 
     	foreach ( $this->terms as $term ) {
-			
+
 			$current_listing_type   = $this->current_listing_type;
 			$count 					= 0;
 			if ( $this->hide_empty || $this->show_count ) {
@@ -293,7 +293,7 @@ class Directorist_Listing_Taxonomy {
 			}
 
 			$child_terms 	= get_term_children($term->term_id, $this->tax);
-			
+
 			$directory_type = '';
 			if ( isset( $this->directory_type ) && is_array( $this->directory_type ) && count( $this->directory_type ) === 1  ) {
 				$directory_type = sanitize_text_field( wp_unslash( $this->directory_type[0] ) );
@@ -301,7 +301,7 @@ class Directorist_Listing_Taxonomy {
 
 			if( ! empty( $_GET['directory_type'] ) ) {
 				$directory_type = sanitize_text_field( wp_unslash( $_GET['directory_type'] ) );
-			} 
+			}
 
 			if( ! empty( $_GET['directory_type'] ) && 'all' == $_GET['directory_type'] ) {
 				$term_directory_types = get_term_meta( $term->term_id, '_directory_type', true );
@@ -317,7 +317,7 @@ class Directorist_Listing_Taxonomy {
 			}
 
 			$permalink = ( $this->type == 'category' ) ? ATBDP_Permalink::atbdp_get_category_page( $term, $directory_type ) : ATBDP_Permalink::atbdp_get_location_page( $term, $directory_type );
-			
+
 			$data = array(
 				'term'      => $term,
 				'has_child' => !empty($child_terms) ? true : false,
@@ -411,14 +411,7 @@ class Directorist_Listing_Taxonomy {
 			$current = $this->default_directory_type;
 		}
 		else {
-
-			foreach ( $listing_types as $id => $type ) {
-				$is_default = get_term_meta( $id, '_default', true );
-				if ( $is_default ) {
-					$current = $id;
-					break;
-				}
-			}
+			$current = directorist_get_default_directory();
 		}
 
 		if( ! is_numeric( $current ) && 'all' != $current ) {

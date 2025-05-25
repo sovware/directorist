@@ -262,9 +262,8 @@ function directorist_get_directories( array $args = array() ) {
 	$args = wp_parse_args( $args, $defaults );
 
 	if ( $args['default_only'] ) {
-		$args['number']     = 1;
-		$args['meta_value'] = '1';
-		$args['meta_key']   = '_default';
+		$args['number']  = 1;
+		$args['include'] = directorist_get_default_directory();
 
 		unset( $args['default_only'] );
 	}

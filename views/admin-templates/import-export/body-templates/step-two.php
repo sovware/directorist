@@ -39,11 +39,11 @@ if ( ! is_wp_error($csv_file ) ) {
 								<select class="directorist_directory_type_in_import" id="directory_type">
 									<option value="">--Select--</option>
 									<?php
+									$default_directory_id = directorist_get_default_directory();
 									foreach ( $directories as $directory_term ) {
-										$default = get_term_meta( $directory_term->term_id, '_default', true );
 										printf(
 											'<option %s value="%s">%s</option>',
-											empty( $default ) ? '' : 'selected',
+											$default_directory_id === $directory_term->term_id ? 'selected' : '',
 											esc_attr( $directory_term->term_id ),
 											esc_html( $directory_term->name )
 										);

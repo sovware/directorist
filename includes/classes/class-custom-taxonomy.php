@@ -813,19 +813,7 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
 				return sanitize_text_field( wp_unslash( $_GET['directory_type'] ) );
 			}
 
-			$directory_types = $this->get_listing_types();
-			if ( empty( $directory_types ) ) {
-				return '';
-			}
-
-			foreach ( $directory_types as $id => $type ) {
-				$is_default = get_term_meta( $id, '_default', true );
-				if ( $is_default ) {
-					return $id;
-				}
-			}
-
-			return array_key_first( $directory_types );
+			return directorist_get_default_directory();
 		}
 
 		public function default_listing_type() {

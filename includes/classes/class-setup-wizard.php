@@ -111,7 +111,6 @@ class Directorist_Setup_Wizard {
             }
 
             if ( $counter === 0 ) {
-				// update_term_meta( $directory_term_id, '_default', true );
 				directorist_set_default_directory( $directory_term_id );
             }
 

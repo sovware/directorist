@@ -47,7 +47,7 @@ class Directorist_Setup_Wizard {
             ) );
         }
 
-        $counter = $_POST['counter'];
+        $counter = absint( $_POST['counter'] );
 
         $listing_demos = wp_remote_get( 'https://app.directorist.com/wp-json/directorist/v1/get-directory-types?nocache' );
         if ( is_wp_error( $listing_demos ) ) {

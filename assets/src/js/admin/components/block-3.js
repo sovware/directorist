@@ -641,7 +641,7 @@ $( fields_elm[ field ].elm ).val( fields_elm[ field ].default );
             type: 'post',
             url: directorist_admin.ajaxurl,
             data: {
-                action: 'atbdp_listing_default_type',
+                action: 'directorist_set_default_directory',
                 type_id: $(this).data('type-id'),
                 nonce: directorist_admin.nonce
             },

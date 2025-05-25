@@ -68,7 +68,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			// regenerate pages
 			add_action( 'wp_ajax_atbdp_upgrade_old_pages', array( $this, 'upgrade_old_pages' ) );
 			// default listing type
-			add_action( 'wp_ajax_atbdp_listing_default_type', array( $this, 'atbdp_listing_default_type' ) );
+			add_action( 'wp_ajax_directorist_set_default_directory', array( $this, 'set_default_directory' ) );
 			// listing type slug edit
 			add_action( 'wp_ajax_directorist_type_slug_change', array( $this, 'directorist_type_slug_change' ) );
 
@@ -551,7 +551,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 			) );
 		}
 
-		public function atbdp_listing_default_type() {
+		public function set_default_directory() {
 			if ( ! directorist_verify_nonce( 'nonce', 'atbdp_nonce_action_js' ) ) {
 				wp_send_json( 'Invalid request.' );
 			}
@@ -565,24 +565,29 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 
 			do_action( 'directorist_before_set_default_directory_type', $default_directory_id, $current_language );
 
-			$directory_types = directorist_get_directories( array(
-				'fields'  => 'ids',
-				'exclude' => $default_directory_id,
-			) );
+			/**
+			 * Leverage the wp default system and store default directory in option table.
+			 */
+			update_option( 'default_' . ATBDP_DIRECTORY_TYPE, $default_directory_id );
 
-			if ( ! empty( $directory_types ) || ! is_wp_error( $directory_types ) ) {
-				foreach ( $directory_types as $directory_type ) {
-					update_term_meta( $directory_type, '_default', false );
+			// $directory_types = directorist_get_directories( array(
+			// 	'fields'  => 'ids',
+			// 	'exclude' => $default_directory_id,
+			// ) );
 
-					do_action( 'directorist_after_unset_default_directory_type', $directory_type, $directory_types );
-				}
-			}
+			// if ( ! empty( $directory_types ) || ! is_wp_error( $directory_types ) ) {
+			// 	foreach ( $directory_types as $directory_type ) {
+			// 		update_term_meta( $directory_type, '_default', false );
 
-			update_term_meta( $default_directory_id, '_default', true );
+			// 		do_action( 'directorist_after_unset_default_directory_type', $directory_type, $directory_types );
+			// 	}
+			// }
+
+			// update_term_meta( $default_directory_id, '_default', true );
 
 			do_action( 'directorist_after_set_default_directory_type', $default_directory_id );
 
-			wp_send_json( 'Updated Successfully!' );
+			wp_send_json( 'Updated default directory.' );
 		}
 
 		public function directorist_type_slug_change() {

@@ -98,24 +98,25 @@ class Directorist_Setup_Wizard {
 		$builder_content  = directorist_get_json_from_url( $builder_file_url );
         if ( $builder_content ) {
             $multi_directory_manager->prepare_settings();
-            $term = $multi_directory_manager->add_directory([
+            $directory_term = $multi_directory_manager->add_directory([
                 'directory_name' => $current_demo['name'],
                 'fields_value'   => $builder_content,
                 'is_json'        => false
             ]);
 
-            if ( ! $term['status']['success'] ) {
-                $term_id = $term['status']['term_id'];
+            if ( ! $directory_term['status']['success'] ) {
+                $directory_term_id = $directory_term['status']['term_id'];
             } else {
-                $term_id = $term['term_id'];
+                $directory_term_id = $directory_term['term_id'];
             }
 
-            if ( $counter == 0 ) {
-                update_term_meta( $term_id, '_default', true );
+            if ( $counter === 0 ) {
+				// update_term_meta( $directory_term_id, '_default', true );
+				directorist_set_default_directory( $directory_term_id );
             }
 
             if ( ! empty( $dummy_data ) && isset( $_POST['import_listings'] ) ) {
-                $data['import_log'] = self::atbdp_dummy_data_import( $dummy_data, $term_id );
+                $data['import_log'] = self::atbdp_dummy_data_import( $dummy_data, $directory_term_id );
             }
         }
 

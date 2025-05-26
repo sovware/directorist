@@ -1522,7 +1522,7 @@
   width: 20px;
   height: 20px;
 }
-.directorist-product-search-input[type=text] {
+.directorist-product-search-input[type=search] {
   font-size: 12px;
   font-style: normal;
   font-weight: 400;
@@ -1540,7 +1540,7 @@
   white-space: nowrap;
   color: #141921;
 }
-.directorist-product-search-input[type=text]::placeholder {
+.directorist-product-search-input[type=search]::placeholder {
   color: #747C89;
 }
 
@@ -1829,13 +1829,13 @@
   overflow: hidden;
 }
 .directorist-template-image img {
-  -webkit-transition: transform 2s;
-  -moz-transition: transform 2s;
-  transition: transform 2s;
+  -webkit-transition: transform 3s;
+  -moz-transition: transform 3s;
+  transition: transform 3s;
   width: 100%;
 }
 .directorist-template-image:hover img {
-  transform: translateY(-45%);
+  transform: translateY(-71%);
 }
 .directorist-template-content {
   margin-top: 28px;
@@ -2697,7 +2697,6 @@
   color: #FFF;
 }
 
-<<<<<<< HEAD
 .directorist-licensing-modal {
   position: fixed;
   top: 70px;
@@ -2736,6 +2735,4 @@
   color: #c51616;
 }
 
-=======
->>>>>>> parent of dc97cbb8f (unwanted changes)
 /*# sourceMappingURL=style.css.map */

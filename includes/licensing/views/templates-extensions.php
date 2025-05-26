@@ -48,7 +48,7 @@
 					</svg>
 				</span>
 
-				<input type="text" placeholder="<?php esc_html_e( 'Search...', 'directorist' ); ?>" class="directorist-product-search-input">
+				<input type="search" placeholder="<?php esc_html_e( 'Search...', 'directorist' ); ?>" class="directorist-product-search-input">
 			</div>
 		</div>
 

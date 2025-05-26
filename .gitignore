@@ -1,4 +1,3 @@
-
 __*/
 /node_modules
 .DS_Store
@@ -13,3 +12,6 @@ languages/directorist-en_GB.po
 languages/directorist-en_GB-backup-202002181356150.po~
 *.map
 /vendor
+/package-lock.json
+/_build
+/yarn.lock

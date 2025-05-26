@@ -5,6 +5,7 @@
       v-bind="$props"
       :widgets-expanded="widgetsExpandState"
       :can-trash="canTrashGroup"
+      :draggable="canDrag"
       :current-dragging-group="currentDraggingGroup"
       @update-group-field="$emit('update-group-field', $event)"
       @toggle-expand-widgets="toggleExpandWidgets"
@@ -56,7 +57,10 @@
         </draggable-list-item-wrapper>
       </div>
 
-      <form-builder-droppable-placeholder v-if="canShowWidgetDropPlaceholder" @drop="$emit('append-widget')" />
+      <form-builder-droppable-placeholder
+        v-if="canShowWidgetDropPlaceholder"
+        @drop="$emit('append-widget')"
+      />
     </slide-up-down>
   </div>
 </template>
@@ -125,10 +129,20 @@ export default {
       return canTrash;
     },
 
+    canDrag() {
+      let draggable =
+        this.groupSettings &&
+        typeof this.groupSettings.draggable !== "undefined"
+          ? this.groupSettings.draggable
+          : true;
+
+      return draggable;
+    },
+
     canShowWidgetDropPlaceholder() {
       let show = true;
 
-      // Others Fields Group 
+      // Others Fields Group
       // if (this.groupData.fields && this.groupData.fields.length) {
       //   show = false;
       // }

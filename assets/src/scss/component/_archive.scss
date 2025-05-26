@@ -317,9 +317,13 @@
       }
     }
     .directorist-search-field-pricing,
+    .directorist-search-field__number,
     .directorist-search-field-text_range,
+    .directorist-search-field-price_range,
     .directorist-search-field-radius_search {
       > label {
+        position: unset;
+        transform: unset;
         display: block;
         font-size: 14px;
         font-weight: 500;
@@ -479,7 +483,13 @@
       &.directorist-search-field-price_range,
       &.directorist-search-field-text_range {
         > label {
+          position: unset;
           margin-bottom: 15px;
+        }
+      }
+      &.directorist-search-field__number {
+        > label {
+          position: unset;
         }
       }
       .directorist-search-tags,

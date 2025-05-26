@@ -2,6 +2,7 @@
 // import { cacheCategoryCustomFields, getCategoryCustomFieldsCache } from '../global/components/cache-category-custom-fields';
 // import loadCategoryCustomFields from '../global/components/load-category-custom-fields';
 import '../global/components/setup-select2';
+import { directoristRequestHeaders } from '../helper';
 import '../public/components/colorPicker';
 import '../public/components/directoristDropdown';
 import '../public/components/directoristSelect';
@@ -690,6 +691,7 @@ $(function() {
                 contentType: false,
                 url: localized_data.ajaxurl,
                 data: form_data,
+                headers: directoristRequestHeaders(),
                 beforeSend() {
                     disableSubmitButton();
 
@@ -700,6 +702,10 @@ $(function() {
                 success(response) {
                     var redirect_url = ( response && response.redirect_url ) ? response.redirect_url : '';
                     redirect_url = ( redirect_url && typeof redirect_url === 'string' ) ? response.redirect_url.replace( /:\/\//g, '%3A%2F%2F' ) : '';
+
+                    if ( response?.nonce_expired === true ) {
+                        updateLocalNonce();
+                    }
 
                     if (response.error === true) {
                         enableSubmitButton();
@@ -866,7 +872,7 @@ $(function() {
                         quickLoginModalSuccessCallback($form, $submit_button);
                     }
 
-                    regenerate_and_update_nonce();
+                    updateLocalNonce();
                 } else {
                     var msg = '<div class="directorist-alert directorist-alert-danger directorist-text-center directorist-mb-20">' + response.message + '</div>';
 
@@ -1187,7 +1193,7 @@ $('body').on('click', function (e) {
     }
 });
 
-function regenerate_and_update_nonce() {
+function updateLocalNonce() {
     $.ajax({
         type: 'POST',
         url: localized_data.ajaxurl,

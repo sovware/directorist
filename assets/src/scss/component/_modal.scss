@@ -254,13 +254,6 @@
           }
         }
 
-        &.directorist-date,
-        &.directorist-time {
-          .directorist-search-field__btn--clear {
-            bottom: 8px;
-          }
-        }
-
         &.input-is-focused {
           .directorist-search-field__input {
             &[type="number"] {
@@ -333,6 +326,20 @@
           }
           .directorist-icon-mask:after {
             background-color: #808080;
+          }
+        }
+        .select2-container {
+          .directorist-select2-addons-area {
+            .directorist-icon-mask {
+              display: flex;
+              flex: 1;
+              justify-content: flex-end;
+              &:after {
+                width: 12px;
+                height: 12px;
+                background-color: #808080;
+              }
+            }
           }
         }
       }
@@ -522,7 +529,16 @@
             padding-right: 0;
           }
 
+          .directorist-custom-range-slider__value {
+            border-bottom: none;
+            &:focus-within {
+              outline: none;
+              border-bottom: 2px solid var(--directorist-color-primary);
+            }
+          }
+
           &.directorist-search-field-radius_search {
+            width: auto;
             padding-right: 0;
             .directorist-custom-range-slider__range__wrap {
               right: 0;
@@ -633,13 +649,21 @@
       display: flex;
     }
     .directorist-search-field-pricing,
-    .directorist-search-field-text_range,
+    .directorist-search-field__number,
+    .directorist-search-field-price_range,
     .directorist-search-field-radius_search {
       > label {
+        position: unset;
+        transform: unset;
         display: block;
         font-size: 14px;
         font-weight: 500;
         margin-bottom: 15px;
+      }
+    }
+    .directorist-search-field-text_range {
+      > label {
+        display: none;
       }
     }
   }

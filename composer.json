@@ -42,11 +42,7 @@
 		"sniffer:php8.1": "./vendor/bin/phpcs -p . --standard=PHPCompatibilityWP --severity=1 --runtime-set testVersion 8.1- --extensions=php"
 	},
 	"require": {
-		"wpmvc/database": "^1.1",
-		"wpmvc/routing": "^1.1",
-		"wpmvc/request-validator": "1.1.0",
-		"wpmvc/helpers": "0.0.2",
-		"php-di/php-di": "6.4.0"
+		"wpmvc/framework": "1.1.2"
 	},
 	"extra": {
 		"bamarni-bin": {

@@ -15,6 +15,8 @@ defined('ABSPATH') || die('No direct script access allowed!');
 
 require_once __DIR__ . '/vendor/vendor-src/autoload.php'; // Load Composer autoloader
 
+use Directorist\WpMVC\App;
+
 /**
  * Main Directorist_Base Class.
  *
@@ -200,7 +202,15 @@ final class Directorist_Base {
 			self::$instance = new Directorist_Base();
 			self::$instance->setup_constants();
 
-			add_action( 'plugin_loaded', [ self::$instance, 'action_plugin_loaded' ] );
+			$application = App::instance();
+
+			$application->boot( __FILE__, __DIR__ );
+
+			add_action(
+				'plugins_loaded', function () use ( $application ): void {
+					$application->load();
+				}
+			);
 
 			add_action( 'plugins_loaded', array( self::$instance, 'redirect_to_setup_wizard' ) );
 			add_action('init', array(self::$instance, 'load_textdomain'));
@@ -318,13 +328,6 @@ final class Directorist_Base {
 		}
 
 		return self::$instance;
-	}
-
-	/**
-	 * Fires once a single activated plugin has loaded.
-	 */
-	public static function action_plugin_loaded() : void {
-		(new \Directorist\App\Providers\RouteServiceProvider)->boot();
 	}
 
 	// on_install_update_actions

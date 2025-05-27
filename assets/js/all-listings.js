@@ -2491,6 +2491,10 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         });
       } else {
         var value = $(el).val();
+        // Skip if key starts with "custom-number" and value is "0-0"
+        if (post_id.startsWith("custom-number") && value === "0-0") {
+          return;
+        }
         custom_field[post_id] = value;
       }
     });

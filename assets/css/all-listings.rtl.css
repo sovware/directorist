@@ -14584,6 +14584,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
           flex: 1;
   text-align: center;
   padding: 50px 30px;
+  max-height: 220px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 .directorist-categories__single__content .directorist-icon-mask {
   display: inline-block;

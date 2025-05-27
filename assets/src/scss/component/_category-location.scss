@@ -38,6 +38,8 @@
       flex: 1;
       text-align: center;
       padding: 50px 30px;
+      max-height: 220px;
+      box-sizing: border-box;
       .directorist-icon-mask {
         display: inline-block;
       }
@@ -186,8 +188,8 @@
       width: 100%;
     }
   }
-  
-  .directorist-type-nav{
+
+  .directorist-type-nav {
     margin-bottom: 15px;
   }
 }
@@ -629,7 +631,7 @@
       width: 100%;
     }
   }
-  .directorist-type-nav{
+  .directorist-type-nav {
     margin-bottom: 15px;
   }
 }

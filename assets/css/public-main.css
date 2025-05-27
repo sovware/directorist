@@ -16222,7 +16222,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   text-decoration: none;
   -webkit-box-shadow: none;
           box-shadow: none;
-  color: var(--directorist-color-body);
+  color: var(--directorist-color-dark);
   -webkit-transition: color 0.3s ease;
   transition: color 0.3s ease;
 }
@@ -16410,6 +16410,17 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
   gap: 20px;
+}
+.directorist-content-active .directorist-listing-single__meta a {
+  text-decoration: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  color: var(--directorist-color-dark);
+  -webkit-transition: color 0.3s ease;
+  transition: color 0.3s ease;
+}
+.directorist-content-active .directorist-listing-single__meta a:hover {
+  color: var(--directorist-color-primary);
 }
 .directorist-content-active .directorist-listing-single__meta .directorist-listing-category a {
   text-decoration: none;

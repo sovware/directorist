@@ -13,6 +13,8 @@
 // prevent direct access to the file
 defined('ABSPATH') || die('No direct script access allowed!');
 
+require_once __DIR__ . '/vendor/vendor-src/autoload.php'; // Load Composer autoloader
+
 /**
  * Main Directorist_Base Class.
  *

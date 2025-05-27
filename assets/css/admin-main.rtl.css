@@ -13136,6 +13136,7 @@ input:-webkit-autofill:active {
   margin-left: 5px;
 }
 .directorist-alert > a {
+  color: #0a0b1e;
   padding-right: 5px;
 }
 .directorist-alert__content {
@@ -13204,28 +13205,28 @@ input:-webkit-autofill:active {
   color: var(--directorist-color-primary);
 }
 .directorist-alert.directorist-alert-info {
-  background-color: #DCEBFE;
-  color: #157CF6;
+  background-color: #dcebfe;
+  color: #157cf6;
 }
 .directorist-alert.directorist-alert-info .directorist-alert__close {
-  color: #157CF6;
+  color: #157cf6;
 }
 .directorist-alert.directorist-alert-warning {
-  background-color: #FEE9D9;
-  color: #F56E00;
+  background-color: #fee9d9;
+  color: #f56e00;
 }
 .directorist-alert.directorist-alert-warning .directorist-alert__close {
-  color: #F56E00;
+  color: #f56e00;
 }
 .directorist-alert.directorist-alert-danger {
-  background-color: #FCD9D9;
-  color: #E80000;
+  background-color: #fcd9d9;
+  color: #e80000;
 }
 .directorist-alert.directorist-alert-danger .directorist-alert__close {
-  color: #E80000;
+  color: #e80000;
 }
 .directorist-alert.directorist-alert-success {
-  background-color: #D9EFDC;
+  background-color: #d9efdc;
   color: #009114;
 }
 .directorist-alert.directorist-alert-success .directorist-alert__close {
@@ -13239,12 +13240,12 @@ input:-webkit-autofill:active {
   background: rgba(232, 0, 0, 0.3);
 }
 .alert-danger.directorist-register-error {
-  background: #FCD9D9;
-  color: #E80000;
+  background: #fcd9d9;
+  color: #e80000;
   border-radius: 3px;
 }
 .alert-danger.directorist-register-error .directorist-alert__close {
-  color: #E80000;
+  color: #e80000;
 }
 
 /* Add listing notice alert */

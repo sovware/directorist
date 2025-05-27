@@ -1,4 +1,4 @@
-<?php $outdated_plugins_key = array_keys($args['outdated_plugin_list']); ?>
+<?php $outdated_plugins_key = array_keys( $args['outdated_plugin_list'] ); ?>
 
 <div id="atbdp-extensions-tab" class="ext-wrapper et-contents__tab-item atbdp-tab__content active">
     <div class="ext-installed">
@@ -31,7 +31,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($args['installed_extension_list'] as $extension_base => $extension) : ?>
+                                <?php foreach ( $args['installed_extension_list'] as $extension_base => $extension ) : ?>
                                     <tr>
                                         <td>
                                             <div class="extension-name">
@@ -44,11 +44,11 @@
                                                             $ext_key_alias = $args['ATBDP_Extensions']->get_extension_alias_key( $ext_key );;
                                                             $img           = 'https://via.placeholder.com/44' ;
 
-                                                            if ( ! empty( $args[ 'extension_list' ][ $ext_key ] ) ) {
-                                                                $img = $args['extension_list'][$ext_key]['thumbnail'];
-                                                            } else if ( ! empty( $args[ 'extension_list' ][ $ext_key_alias ] ) ) {
-                                                                $img = $args['extension_list'][$ext_key_alias]['thumbnail'];
-                                                            }
+                                                        if ( ! empty( $args[ 'extension_list' ][ $ext_key ] ) ) {
+                                                            $img = $args['extension_list'][$ext_key]['thumbnail'];
+                                                        } else if ( ! empty( $args[ 'extension_list' ][ $ext_key_alias ] ) ) {
+                                                            $img = $args['extension_list'][$ext_key_alias]['thumbnail'];
+                                                        }
                                                         ?>
                                                         <img src="<?php echo esc_url( $img ); ?>" alt="" width="44" height="44">
                                                         <span class="ext-text">
@@ -61,13 +61,13 @@
                                         </td>
 
                                         <td class="directorist_status-badge">
-                                            <?php if (is_plugin_active($extension_base)) : ?>
+                                            <?php if ( is_plugin_active( $extension_base ) ) : ?>
                                                 <span class="active-badge">Active</span>
                                             <?php endif; ?>
                                         </td>
 
                                         <td class="directorist_ext-update">
-                                            <?php if (in_array($extension_base, $outdated_plugins_key)) : ?>
+                                            <?php if ( in_array( $extension_base, $outdated_plugins_key ) ) : ?>
                                                 <p class="ext-update-info">Update available <!-- <span>What's new?</span></p> -->
                                             <?php else : ?>
                                                 <p class="atbdp-text-muted atbdp-mb-0">Up to date</p>
@@ -76,7 +76,7 @@
 
                                         <td>
                                             <div class="ext-action">
-                                                <?php if (in_array($extension_base, $outdated_plugins_key)) : ?>
+                                                <?php if ( in_array( $extension_base, $outdated_plugins_key ) ) : ?>
                                                     <a href="#" class="ext-update-btn ext-action-btn" data-key="<?php echo esc_attr( $extension_base ); ?>"><?php echo $args['is_beta'] ? 'Update Beta' : 'Update'; ?></a>
                                                 <?php endif; ?>
                                                 <a href="<?php echo esc_url( $args['settings_url'] ); ?>" class="ext-action-btn"><i class="la la-settings"></i> Settings</a>
@@ -95,14 +95,14 @@
                     </form>
                 </div>
             <?php else : ?>
-                <p class="atbdp-text-center"><?php esc_html_e('No extension found') ?></p>
+                <p class="atbdp-text-center"><?php esc_html_e( 'No extension found' ) ?></p>
             <?php endif; ?>
         </div>
     </div><!-- ends: .ext-installed -->
 
-    <?php if (!empty($args['extensions_available_in_subscriptions'])) : ?>
+    <?php if ( ! empty( $args['extensions_available_in_subscriptions'] ) ) : ?>
         <div class="ext-available">
-            <h4><?php esc_html_e('Available in your subscription (' . count( array_keys( $args['extensions_available_in_subscriptions'] ) ) .')', 'directorist')  ?></h4>
+            <h4><?php esc_html_e( 'Available in your subscription (' . count( array_keys( $args['extensions_available_in_subscriptions'] ) ) . ')', 'directorist' )  ?></h4>
             <div class="ext-available-table">
                 <div class="ext-table-responsive">
                     <form id="atbdp-my-subscribed-extensions-form" class="atbdp-my-subscribed-extensions-form" method="post">
@@ -129,7 +129,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($args['extensions_available_in_subscriptions'] as $extension_base => $extension) : ?>
+                                <?php foreach ( $args['extensions_available_in_subscriptions'] as $extension_base => $extension ) : ?>
                                     <?php $extension_base_alias = $args['ATBDP_Extensions']->get_extension_alias_key( $extension_base ); ?>
                                     <tr>
                                         <td>
@@ -149,10 +149,10 @@
                                         <td>
                                             <span class="ext-info">
                                                 <?php
-                                                if (!empty($args['extension_list'][$extension_base])) {
-                                                    esc_html_e($args['extension_list'][$extension_base]['description'], 'directorust');
-                                                } else if (!empty($args['extension_list'][$extension_base_alias])) {
-                                                    esc_html_e($args['extension_list'][$extension_base_alias]['description'], 'directorust');
+                                                if ( ! empty( $args['extension_list'][$extension_base] ) ) {
+                                                    esc_html_e( $args['extension_list'][$extension_base]['description'], 'directorust' );
+                                                } else if ( ! empty( $args['extension_list'][$extension_base_alias] ) ) {
+                                                    esc_html_e( $args['extension_list'][$extension_base_alias]['description'], 'directorust' );
                                                 }
                                                 ?>
                                             </span>
@@ -174,9 +174,9 @@
         </div><!-- ends: .ext-available -->
     <?php endif; ?>
 
-    <?php if (!empty($args['required_extensions_list'])) : ?>
+    <?php if ( ! empty( $args['required_extensions_list'] ) ) : ?>
         <div class="ext-available">
-            <h4 class="req-ext-title"><?php esc_html_e('Required Extensions (' . count( array_keys( $args['required_extensions_list'] ) ) .')', 'directorist')  ?></h4>
+            <h4 class="req-ext-title"><?php esc_html_e( 'Required Extensions (' . count( array_keys( $args['required_extensions_list'] ) ) . ')', 'directorist' )  ?></h4>
             <div class="ext-available-table">
                 <div class="ext-table-responsive">
                     <form id="atbdp-required-extensions-form" class="atbdp-my-required-extensions-form" method="post">
@@ -204,8 +204,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ( $args['required_extensions_list'] as $extension_base => $extension) : ?>
-                                <?php $extension_base_alias = $args['ATBDP_Extensions']->get_extension_alias_key( $extension_base ); ?>
+                                <?php foreach ( $args['required_extensions_list'] as $extension_base => $extension ) : ?>
+                                    <?php $extension_base_alias = $args['ATBDP_Extensions']->get_extension_alias_key( $extension_base ); ?>
                                     <tr>
                                         <td>
                                             <div class="extension-name">
@@ -221,18 +221,18 @@
                                                             
                                                             $ext_name = ( isset( $args['extension_list'][$extension_base] ) ) ? $args['extension_list'][$extension_base]['name'] : '';
                                                             
-                                                            if ( empty( $ext_name ) ) {
-                                                                $ext_name = ( isset( $args['extension_list'][$extension_base_alias] ) ) ? $args['extension_list'][$extension_base_alias]['name'] : '';
-                                                            }
+                                                        if ( empty( $ext_name ) ) {
+                                                            $ext_name = ( isset( $args['extension_list'][$extension_base_alias] ) ) ? $args['extension_list'][$extension_base_alias]['name'] : '';
+                                                        }
                                                             
                                                             $img = 'https://via.placeholder.com/44';
-                                                            if ( ! empty( $args['extension_list'][$extension_base] ) ) {
-                                                                $img = $args['extension_list'][$extension_base]['thumbnail'];
-                                                            } else if ( ! empty( $args['extension_list'][$extension_base_alias] ) ) {
-                                                                $img = $args['extension_list'][$extension_base_alias]['thumbnail'];
-                                                            }
+                                                        if ( ! empty( $args['extension_list'][$extension_base] ) ) {
+                                                            $img = $args['extension_list'][$extension_base]['thumbnail'];
+                                                        } else if ( ! empty( $args['extension_list'][$extension_base_alias] ) ) {
+                                                            $img = $args['extension_list'][$extension_base_alias]['thumbnail'];
+                                                        }
 
-                                                            echo "<img src='". esc_url( $img ) . "' width='44' height='44' alt=''>";
+                                                            echo "<img src='" . esc_url( $img ) . "' width='44' height='44' alt=''>";
                                                             echo esc_html( $ext_name );
                                                         ?>
                                                     </label>
@@ -243,12 +243,11 @@
                                         <td>
                                             <span class="ext-info">
                                                 <?php
-                                                    if ( ! empty($args['extension_list'][$extension_base])) {
-                                                        esc_html_e($args['extension_list'][$extension_base]['description'], 'directorust');
-                                                    }
-                                                    else if ( ! empty($args['extension_list'][$extension_base_alias])) {
-                                                        esc_html_e($args['extension_list'][$extension_base_alias]['description'], 'directorust');
-                                                    }
+                                                if ( ! empty( $args['extension_list'][$extension_base] ) ) {
+                                                    esc_html_e( $args['extension_list'][$extension_base]['description'], 'directorust' );
+                                                } else if ( ! empty( $args['extension_list'][$extension_base_alias] ) ) {
+                                                    esc_html_e( $args['extension_list'][$extension_base_alias]['description'], 'directorust' );
+                                                }
                                                 ?>
                                             </span>
                                         </td>
@@ -256,21 +255,21 @@
                                             <div class="ext-action ext-action-<?php echo esc_attr( $extension_base ); ?>">
                                                 <?php if ( $extension[ 'installed' ] ) : ?>
                                                 <a href="#" class="plugin-active-btn ext-action-btn" data-type="plugin" data-key="<?php echo esc_attr( $extension[ 'base' ] ); ?>">
-                                                    <?php esc_html_e('Activate', 'directorist') ?>
+                                                    <?php esc_html_e( 'Activate', 'directorist' ) ?>
                                                 </a>
                                                 <?php elseif ( $extension[ 'purchased' ] ) : ?>
                                                 <a href="#" class="file-install-btn ext-action-btn" data-type="plugin" data-key="<?php echo esc_attr( $extension_base ); ?>">
-                                                <?php echo $args['is_beta'] ? 'Install Beta' : 'Install'; ?>
+                                                    <?php echo $args['is_beta'] ? 'Install Beta' : 'Install'; ?>
                                                 </a>
-                                                <?php else: 
+                                                <?php else : 
                                                     $download_link = ( ! empty( $args['extension_list'][$extension_base] ) ) ? $args['extension_list'][$extension_base]['link'] : '';
                                                 
                                                     if ( empty( $download_link ) ) {
                                                         $download_link = ( ! empty( $args['extension_list'][$extension_base_alias] ) ) ? $args['extension_list'][$extension_base_alias]['link'] : ''; 
                                                     }
-                                                ?>
+                                                    ?>
                                                 <a href="<?php echo esc_url( $download_link ); ?>" class="ext-action-btn" target="_blank">
-                                                    <i class="la la-download"></i> <?php esc_html_e('Get Now', 'directorist') ?>
+                                                    <i class="la la-download"></i> <?php esc_html_e( 'Get Now', 'directorist' ) ?>
                                                 </a>
                                                 <?php endif; ?>
                                             </div>

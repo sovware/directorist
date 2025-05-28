@@ -193,7 +193,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
                      *
                      * @return bool  True to allow guest account creation, false to prevent it.
                      */
-                    if ( apply_filters( 'enable_guest_user_account_creation', true, $guest_email, $posted_data ) ) {
+                    if ( apply_filters( 'directorist_guest_user_account_creation', true, $guest_email, $posted_data ) ) {
                         atbdp_guest_submission( $guest_email );
                         $nonce_expired = true;
                     }
@@ -401,7 +401,9 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
                      *
                      * @return array Modified post data array to be inserted as a listing.
                      */
-                    $listing_id = wp_insert_post( apply_filters( 'directorist_insert_listing_postdata', $listing_data, $posted_data, $form_fields ) );
+                    $listing_data = apply_filters( 'directorist_insert_listing_postdata', $listing_data, $posted_data, $form_fields );
+                    
+                    $listing_id = wp_insert_post( $listing_data );
 
                     if ( is_wp_error( $listing_id ) ) {
                         throw new Exception( $listing_id->get_error_message() );

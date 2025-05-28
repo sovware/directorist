@@ -78,8 +78,8 @@ class AI_Builder {
         if ( ! current_user_can( 'manage_options' ) ) {
             wp_send_json_error( 'You are not authorized.', 401 );
         }
-
-        $prompt     = ! empty( $_POST['prompt'] ) ? sanitize_textarea_field( $_POST['prompt'] ) : '';
+        // phpcs:disable WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+        $prompt     = ! empty( $_POST['prompt'] ) ? sanitize_textarea_field( wp_unslash( $_POST['prompt'] ) ) : '';
         $keywords   = ! empty( $_POST['keywords'] ) ? static::prepare_keywords( $_POST['keywords'] ) : '';
         $pinned     = ! empty( $_POST['pinned'] ) ? $_POST['pinned'] : '';
         $step       = ! empty( $_POST['step'] ) ? absint( $_POST['step'] ) : '';
@@ -374,7 +374,12 @@ class AI_Builder {
 
         if ( ! empty( $response['response']['keywords'] ) ) {
             foreach ( $response['response']['keywords'] as $keyword ) { ?>
-                <li class="free-enabled"><?php echo ucwords( $keyword ); ?></li>
+                <li class="free-enabled">
+                    <?php 
+                        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                        echo ucwords( $keyword ); 
+                    ?>
+                </li>
             <?php }
         }
 

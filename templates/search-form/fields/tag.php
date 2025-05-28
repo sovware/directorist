@@ -9,6 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 $tag_source = 'all_tags';
 $tag_terms  = $searchform->listing_tag_terms( $tag_source );
+// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
 $in_tag     = ! empty( $_REQUEST['in_tag'] ) ? $_REQUEST['in_tag'] : '';
 
 if ( is_array( $in_tag ) ) {

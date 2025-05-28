@@ -26,6 +26,6 @@ if ( is_user_logged_in() ) : ?>
 <?php else : ?>
 
     <?php include_once DIRECTORIST_BLOCK_TEMPLATE_PATH . '/account.php'; ?>
-    <div class="directorist-account-block-logout-mode"><?php echo $content; ?></div>
+    <div class="directorist-account-block-logout-mode"><?php echo esc_html( $content ); ?></div>
 
 <?php endif;

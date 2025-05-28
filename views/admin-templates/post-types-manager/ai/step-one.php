@@ -379,8 +379,8 @@
             <!-- Generating Directory -->
             <div id="directorist-create-directory__generating" class="directorist-create-directory__generate">
                 <div class="directory-img">
-                    <img id="directory-img__generating" src="<?php echo DIRECTORIST_ASSETS . '/images/directorist-ai-directory-transparent.gif'; ?>" alt="Directory AI is generating fields..." />
-                    <img id="directory-img__building" src="<?php echo DIRECTORIST_ASSETS . '/images/directorist-ai-directory-building.gif'; ?>" alt="Directory AI is building directory..." />
+                    <img id="directory-img__generating" src="<?php echo esc_url( DIRECTORIST_ASSETS . '/images/directorist-ai-directory-transparent.gif' ); ?>" alt="Directory AI is generating fields..." />
+                    <img id="directory-img__building" src="<?php echo esc_url( DIRECTORIST_ASSETS . '/images/directorist-ai-directory-building.gif' ); ?>" alt="Directory AI is building directory..." />
                 </div>
                 <h4 class="directory-title">Directory AI is generating fields... </h4>
                 <p class="directory-description"><strong>Almost there!</strong> We're using your infomation to finalize your directory fields.</p>

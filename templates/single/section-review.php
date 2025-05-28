@@ -6,11 +6,11 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+    exit;
 }
 
 if ( ! directorist_is_review_enabled() ) {
-	return;
+    return;
 }
 
 comments_template();

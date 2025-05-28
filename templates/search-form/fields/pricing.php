@@ -30,14 +30,14 @@ $label           = ! empty( $data['label'] ) ? $data['label'] : __( 'Pricing', '
                     <?php if ( ! empty( $min_placeholder ) ) : ?>
                         <label class="directorist-price-ranges__label" for="pricing-slider-range__input-values__min"><?php echo esc_attr( $min_placeholder ); ?></label>
                     <?php endif; ?>
-                    <span class="directorist-price-ranges__currency"><?php echo $searchform->c_symbol ?? '$'; ?></span>
+                    <span class="directorist-price-ranges__currency"><?php echo esc_html( $searchform->c_symbol ?? '$' ); ?></span>
                     <input type="number" name="price[0]" class="directorist-form-element pricing-slider-range__input-values__min" id="pricing-slider-range__input-values__min" placeholder="" value="<?php echo esc_attr( $searchform->price_value( 'min' ) ); ?>" min="0">
                 </div>
                 <div class="directorist-price-ranges__item directorist-form-group">
                     <?php if ( ! empty( $max_placeholder ) ) : ?>
                         <label class="directorist-price-ranges__label" for="pricing-slider-range__input-values__max"><?php echo esc_attr( $max_placeholder ); ?></label>
                     <?php endif; ?>
-                    <span class="directorist-price-ranges__currency"><?php echo $searchform->c_symbol ?? '$'; ?></span>
+                    <span class="directorist-price-ranges__currency"><?php echo esc_html( $searchform->c_symbol ?? '$' ); ?></span>
                     <input type="number" name="price[1]" class="directorist-form-element pricing-slider-range__input-values__max" id="pricing-slider-range__input-values__max" placeholder="" value="<?php echo esc_attr( $searchform->price_value( 'max' ) ); ?>" min="0">
                 </div>
 

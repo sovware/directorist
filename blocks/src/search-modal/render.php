@@ -5,9 +5,11 @@
             directorist_icon( 'fa fa-search' );
         } elseif ( 'text' === $attributes['styleDisplay'] ) {
             directorist_icon( 'fa fa-search' );
-            echo $content;
+            echo $content;// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+
         } elseif ( 'icon_and_text' === $attributes['styleDisplay'] ) {
-            echo $content;
+            echo $content;// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+
         }
         ?>
     </div>

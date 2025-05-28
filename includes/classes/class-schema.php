@@ -139,7 +139,7 @@ class Schema {
         }
 
         $schema = wp_json_encode( $schema );
-        echo '<script type="application/ld+json">' . $schema . '</script>';
+        echo '<script type="application/ld+json">' . esc_html( $schema ) . '</script>';
     }
 
     /**

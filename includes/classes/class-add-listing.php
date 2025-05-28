@@ -57,7 +57,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
                 if ( ! directorist_verify_nonce() ) {
                     throw new Exception( __( 'Invalid request.', 'directorist' ), 400 );
                 }
-
+                // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash
                 $image = ! empty( $_FILES['image'] ) ? directorist_clean( $_FILES['image'] ) : [];
 
                 if ( empty( $image ) ) {

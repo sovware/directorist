@@ -226,17 +226,11 @@ class ATBDP_Roles {
                         if ( $user_id == $post->post_author )
                             $caps[] = $post_type->cap->{'edit_' . $cp . 's'};
                         else $caps[] = $post_type->cap->{'edit_others_' . $cp . 's'};
-                    }
-
-                    // If deleting a listing, assign the required capability.
-                    else if ( "delete_{$cp}" == $cap ) {
+                    } else if ( "delete_{$cp}" == $cap ) {
                         if ( $user_id == $post->post_author )
                             $caps[] = $post_type->cap->{'delete_' . $cp . 's'};
                         else $caps[] = $post_type->cap->{'delete_others_' . $cp . 's'};
-                    }
-
-                    // If reading a private listing, assign the required capability.
-                    else if ( "read_{$cp}" == $cap ) {
+                    } else if ( "read_{$cp}" == $cap ) {
                         if ( 'private' != $post->post_status )
                             $caps[] = 'read';
                         elseif ( $user_id == $post->post_author )

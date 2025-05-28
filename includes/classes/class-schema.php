@@ -149,14 +149,14 @@ class Schema {
      * @return array|void Schema data array or void if conditions not met
      */
     public static function get_schema() {
-        if ( ! is_singular( ATBDP_POST_TYPE ) ) {
+        if (! is_singular( ATBDP_POST_TYPE ) ) {
             return;
         }
 
-        $post_id      = get_the_ID();
+        $post_id = get_the_ID();
         $directory_id = static::get_listing_directory_id();
-
-        if ( ! directorist_is_directory( $directory_id ) ) {
+        echo $post_id;
+        if ( ! directorist_is_directory( $directory_id) ) {
             return [];
         }
 

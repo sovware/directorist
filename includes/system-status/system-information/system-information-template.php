@@ -119,12 +119,12 @@ $atbdp_option       = get_option( 'atbdp_option' );
                                                 </span>
                                             </td>
                                             <td><?php
-                                                if ( $environment['wp_memory_limit'] < 67108864 ) {
-                                                    echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . sprintf( esc_html__( '%1$s - We recommend setting memory to at least 64MB. See: %2$s', 'directorist' ), esc_html( size_format( $environment['wp_memory_limit'] ) ), '<a href="https://codex.wordpress.org/Editing_wp-config.php#Increasing_memory_allocated_to_PHP" target="_blank">' . esc_html__( 'Increasing memory allocated to PHP', 'directorist' ) . '</a>' ) . '</mark>';
-                                                } else {
-                                                    echo '<span class="atbds_color-success">' . esc_html( size_format( $environment['wp_memory_limit'] ) ) . '</span>';
-                                                }
-                                                ?></td>
+                                            if ( $environment['wp_memory_limit'] < 67108864 ) {
+                                                echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . sprintf( esc_html__( '%1$s - We recommend setting memory to at least 64MB. See: %2$s', 'directorist' ), esc_html( size_format( $environment['wp_memory_limit'] ) ), '<a href="https://codex.wordpress.org/Editing_wp-config.php#Increasing_memory_allocated_to_PHP" target="_blank">' . esc_html__( 'Increasing memory allocated to PHP', 'directorist' ) . '</a>' ) . '</mark>';
+                                            } else {
+                                                echo '<span class="atbds_color-success">' . esc_html( size_format( $environment['wp_memory_limit'] ) ) . '</span>';
+                                            }
+                                            ?></td>
                                         </tr>
                                         <tr>
                                             <td class="atbds_table-title"><?php esc_html_e( 'WP debug mode', 'directorist' ); ?>:</td>
@@ -227,7 +227,7 @@ $atbdp_option       = get_option( 'atbdp_option' );
                                                             esc_html__( '%1$s - We recommend a minimum MySQL version of 5.6. See: %2$s', 'directorist' ),
                                                             esc_html( $environment['mysql_version'] ),
                                                             '<a href="https://wordpress.org/about/requirements/" target="_blank">' . esc_html__( 'WordPress requirements', 'directorist' ) . '</a>'
-                                                            ) . '</mark>';
+                                                        ) . '</mark>';
                                                     } else {
                                                         echo '<span>' . esc_html( $environment['mysql_version'] ) . '</span>';
                                                     }
@@ -271,11 +271,11 @@ $atbdp_option       = get_option( 'atbdp_option' );
                                                 </span>
                                             </td>
                                             <td><?php
-                                                if ( $environment['fsockopen_or_curl_enabled'] ) {
-                                                    echo '<span class="atbds_color-success"><i class="fa fa-check"></i></span>';
-                                                } else {
-                                                    echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . esc_html__( 'Your server does not have fsockopen or cURL enabled - PayPal IPN and other scripts which communicate with other servers will not work. Contact your hosting provider.', 'directorist' ) . '</mark>';
-                                                } ?>
+                                            if ( $environment['fsockopen_or_curl_enabled'] ) {
+                                                echo '<span class="atbds_color-success"><i class="fa fa-check"></i></span>';
+                                            } else {
+                                                echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . esc_html__( 'Your server does not have fsockopen or cURL enabled - PayPal IPN and other scripts which communicate with other servers will not work. Contact your hosting provider.', 'directorist' ) . '</mark>';
+                                            } ?>
                                             </td>
                                         </tr>
                                         <tr>
@@ -287,11 +287,11 @@ $atbdp_option       = get_option( 'atbdp_option' );
                                                 </span>
                                             </td>
                                             <td><?php
-                                                if ( $environment['soapclient_enabled'] ) {
-                                                    echo '<span class="atbds_color-success"><i class="fa fa-check"></i></span>';
-                                                } else {
-                                                    echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . sprintf( esc_html__( 'Your server does not have the %s class enabled - some gateway plugins which use SOAP may not work as expected.', 'directorist' ), '<a href="https://php.net/manual/en/class.soapclient.php">SoapClient</a>' ) . '</mark>';
-                                                } ?></td>
+                                            if ( $environment['soapclient_enabled'] ) {
+                                                echo '<span class="atbds_color-success"><i class="fa fa-check"></i></span>';
+                                            } else {
+                                                echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . sprintf( esc_html__( 'Your server does not have the %s class enabled - some gateway plugins which use SOAP may not work as expected.', 'directorist' ), '<a href="https://php.net/manual/en/class.soapclient.php">SoapClient</a>' ) . '</mark>';
+                                            } ?></td>
                                         </tr>
                                         <tr>
                                             <td class="atbds_table-title"><?php esc_html_e( 'DOMDocument', 'directorist' ); ?>:</td>
@@ -319,11 +319,11 @@ $atbdp_option       = get_option( 'atbdp_option' );
                                                 </span>
                                             </td>
                                             <td><?php
-                                                if ( $environment['gzip_enabled'] ) {
-                                                    echo '<span class="atbds_color-success"><i class="fa fa-check"></i></span>';
-                                                } else {
-                                                    echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . sprintf( esc_html__( 'Your server does not support the %s function - this is required to use the GeoIP database from MaxMind.', 'directorist' ), '<a href="https://php.net/manual/en/zlib.installation.php">gzopen</a>' ) . '</mark>';
-                                                } ?>
+                                            if ( $environment['gzip_enabled'] ) {
+                                                echo '<span class="atbds_color-success"><i class="fa fa-check"></i></span>';
+                                            } else {
+                                                echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . sprintf( esc_html__( 'Your server does not support the %s function - this is required to use the GeoIP database from MaxMind.', 'directorist' ), '<a href="https://php.net/manual/en/zlib.installation.php">gzopen</a>' ) . '</mark>';
+                                            } ?>
                                             </td>
                                         </tr>
                                         <tr>
@@ -434,7 +434,7 @@ $atbdp_option       = get_option( 'atbdp_option' );
                                         <?php
                                         if ( ! empty( $atbdp_option ) ) :
                                             foreach ( $atbdp_option as $name => $value ) {
-                                        ?>
+                                                ?>
                                                 <tr>
                                                     <td class="atbds_table-title"><?php echo esc_html( ! empty( $name ) ? $name : '' ); ?>:</td>
                                                     <td class="atbds_table-pointer">
@@ -444,7 +444,7 @@ $atbdp_option       = get_option( 'atbdp_option' );
                                                     </td>
                                                     <td><?php print_r( $value ); ?></td>
                                                 </tr>
-                                        <?php
+                                                <?php
                                             }
                                         endif;
                                         ?>
@@ -464,12 +464,12 @@ $atbdp_option       = get_option( 'atbdp_option' );
                                                 </span>
                                             </td>
                                             <td><?php
-                                                if ( strlen( $database['database_prefix'] ) > 20 ) {
-                                                    echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . sprintf( esc_html__( '%1$s - We recommend using a prefix with less than 20 characters.', 'directorist' ), esc_html( $database['database_prefix'] ) ) . '</mark>';
-                                                } else {
-                                                    echo '<span class="atbds_color-success">' . esc_html( $database['database_prefix'] ) . '</span>';
-                                                }
-                                                ?></td>
+                                            if ( strlen( $database['database_prefix'] ) > 20 ) {
+                                                echo '<mark class="error"><span class="dashicons dashicons-warning"></span> ' . sprintf( esc_html__( '%1$s - We recommend using a prefix with less than 20 characters.', 'directorist' ), esc_html( $database['database_prefix'] ) ) . '</mark>';
+                                            } else {
+                                                echo '<span class="atbds_color-success">' . esc_html( $database['database_prefix'] ) . '</span>';
+                                            }
+                                            ?></td>
                                         </tr>
                                         <tr>
                                             <td class="atbds_table-title"><?php esc_html_e( 'Total Database Size', 'directorist' ); ?>:</td>
@@ -492,7 +492,7 @@ $atbdp_option       = get_option( 'atbdp_option' );
                                             <td><span><?php printf( '%.2fMB', esc_attr( $database['database_size']['data'] ) ); ?></span></td>
                                         </tr>
                                         <tr>
-                                            <td class="atbds_table-title"><?php esc_html_e('Database Index Size', 'directorist'); ?>:</td>
+                                            <td class="atbds_table-title"><?php esc_html_e( 'Database Index Size', 'directorist' ); ?>:</td>
                                             <td class="atbds_table-pointer">
                                                 <span class="atbd_tooltip">
                                                     <span class="atbd_tooltip__text"></span>
@@ -525,7 +525,7 @@ $atbdp_option       = get_option( 'atbdp_option' );
                                                         <span class="atbd_tooltip__text"></span>
                                                     </span>
                                                 </td>
-                                                <td><?php printf( esc_html__( 'Data: %.2fMB + Index: %.2fMB', 'directorist' ), wp_kses_post( $this->directorist_help_tip( $table_data['data'], 2 ) ), wp_kses_post( $this->directorist_help_tip( $table_data['index'], 2 ) )  ); ?></td>
+                                                <td><?php printf( esc_html__( 'Data: %.2fMB + Index: %.2fMB', 'directorist' ), wp_kses_post( $this->directorist_help_tip( $table_data['data'], 2 ) ), wp_kses_post( $this->directorist_help_tip( $table_data['index'], 2 ) ) ); ?></td>
                                             </tr>
                                         <?php } ?>
                                     </tbody>
@@ -538,7 +538,7 @@ $atbdp_option       = get_option( 'atbdp_option' );
                                     <tbody>
                                         <?php
                                         foreach ( $post_type_counts as $post_type ) {
-                                        ?>
+                                            ?>
                                             <tr>
                                                 <td class="atbds_table-title"><?php echo esc_html( $post_type->type ); ?>:</td>
                                                 <td class="atbds_table-pointer">
@@ -548,7 +548,7 @@ $atbdp_option       = get_option( 'atbdp_option' );
                                                 </td>
                                                 <td><?php echo esc_html( absint( $post_type->count ) ); ?></td>
                                             </tr>
-                                        <?php
+                                            <?php
                                         }
                                         ?>
                                     </tbody>
@@ -560,7 +560,7 @@ $atbdp_option       = get_option( 'atbdp_option' );
                                 <table class="atbds_system-table table-responsive">
                                     <tbody>
                                         <tr>
-                                            <td class="atbds_table-title"><?php esc_html_e('Secure connection (HTTPS)', 'directorist'); ?>:</td>
+                                            <td class="atbds_table-title"><?php esc_html_e( 'Secure connection (HTTPS)', 'directorist' ); ?>:</td>
                                             <td class="atbds_table-pointer">
                                                 <span class="atbd_tooltip" aria-label="<?php esc_attr_e( 'Is the connection to your site secure?', 'directorist' ); ?>">
                                                     <i class="fa fa-question-circle"></i>
@@ -620,7 +620,7 @@ $atbdp_option       = get_option( 'atbdp_option' );
                                                 if ( false != $plugin['network_activated'] ) {
                                                     $network_string = ' &ndash; <strong style="color:black;">' . esc_html_e( 'Network enabled', 'directorist' ) . '</strong>';
                                                 }
-                                        ?>
+                                                ?>
                                                 <tr>
                                                     <td class="atbds_table-title"><?php echo wp_kses_post( $plugin_name ); ?>:</td>
                                                     <td class="atbds_table-pointer">
@@ -631,12 +631,12 @@ $atbdp_option       = get_option( 'atbdp_option' );
                                                     <td>
                                                         <?php
                                                         /* translators: %s: plugin author */
-                                                        printf( esc_html__('by %s', 'directorist'), wp_kses_post( $plugin['author_name'] ) );
+                                                        printf( esc_html__( 'by %s', 'directorist' ), wp_kses_post( $plugin['author_name'] ) );
                                                         echo ' &ndash; ' . wp_kses_post( $plugin['version'] ) . wp_kses_post( $version_string ) . wp_kses_post( $network_string );
                                                         ?>
                                                     </td>
                                                 </tr>
-                                        <?php
+                                                <?php
                                             }
                                         }
                                         ?>
@@ -671,15 +671,15 @@ $atbdp_option       = get_option( 'atbdp_option' );
                                                 echo esc_html( $theme['version'] );
                                                 if ( version_compare( $theme['version'], $theme['version_latest'], '<' ) ) {
                                                     /* translators: %s: theme latest version */
-                                                    echo ' &ndash; <strong style="color:red;">' . sprintf( esc_html__('%s is available', 'directorist'), esc_html( $theme['version_latest'] ) ) . '</strong>';
+                                                    echo ' &ndash; <strong style="color:red;">' . sprintf( esc_html__( '%s is available', 'directorist' ), esc_html( $theme['version_latest'] ) ) . '</strong>';
                                                 }
                                                 ?>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td class="atbds_table-title"><?php esc_html_e('Author URL', 'directorist'); ?>:</td>
+                                            <td class="atbds_table-title"><?php esc_html_e( 'Author URL', 'directorist' ); ?>:</td>
                                             <td class="atbds_table-pointer">
-                                                <span class="atbd_tooltip" aria-label="<?php esc_attr_e('The theme developers URL.', 'directorist'); ?>">
+                                                <span class="atbd_tooltip" aria-label="<?php esc_attr_e( 'The theme developers URL.', 'directorist' ); ?>">
                                                     <i class="fa fa-question-circle"></i>
                                                     <span class="atbd_tooltip__text"></span>
                                                 </span>
@@ -703,8 +703,8 @@ $atbdp_option       = get_option( 'atbdp_option' );
                                             </td>
                                         </tr>
                                         <?php
-                                        if ($theme['is_child_theme']) :
-                                        ?>
+                                        if ( $theme['is_child_theme'] ) :
+                                            ?>
                                             <tr>
                                                 <td class="atbds_table-title"><?php esc_html_e( 'Parent theme name', 'directorist' ); ?>:</td>
                                                 <td class="atbds_table-pointer">
@@ -754,12 +754,12 @@ $atbdp_option       = get_option( 'atbdp_option' );
                             <div class="atbds_system-table-wrap">
                                 <table class="atbds_system-table table-responsive">
                                     <tbody>
-                                        <?php 		
-                                            if ( ! empty( $theme['overrides'] ) ) { ?>
+                                        <?php       
+                                        if ( ! empty( $theme['overrides'] ) ) { ?>
                                                     <tr>
                                                         <td class="atbds_table-title"><?php esc_html_e( 'Overrides', 'directorist' ); ?></td>
                                                         <td class="atbds_table-pointer">
-                                                            <span class="atbd_tooltip" aria-label="<?php esc_attr_e('This section shows any files that are overriding the default Directorist template pages.', 'directorist'); ?>">
+                                                            <span class="atbd_tooltip" aria-label="<?php esc_attr_e( 'This section shows any files that are overriding the default Directorist template pages.', 'directorist' ); ?>">
                                                                 <i class="fa fa-question-circle"></i>
                                                                 <span class="atbd_tooltip__text"></span>
                                                             </span>
@@ -772,36 +772,36 @@ $atbdp_option       = get_option( 'atbdp_option' );
                                                                 <p>
                                                                 <?php
                                                                     $override = $theme['overrides'][ $i ];
-                                                                    if ( $override['core_version'] && ( empty( $override['version'] ) || version_compare( $override['version'], $override['core_version'], '<' ) ) ) {
-                                                                        $current_version = $override['version'] ? $override['version'] : '-';
-                                                                        $_core_version = sprintf(
-                                                                            __( '%1$s version %2$s is out of date. The core version is %3$s', 'directorist' ),
-                                                                            '<code>' . esc_html( $override['file'] ) . '</code>',
-                                                                            '<strong style="color:red">' . esc_html( $current_version ) . '</strong>',
-                                                                            esc_attr( $override['core_version'] )
-                                                                        );
-                                                                        echo wp_kses_post( $_core_version );
-                                                                    } else {
-                                                                        echo esc_html( $override['file'] );
-                                                                    }
-                                                                    if ( ( count( $theme['overrides'] ) - 1 ) !== $i ) {
-                                                                        echo ', ';
-                                                                    }
+                                                                if ( $override['core_version'] && ( empty( $override['version'] ) || version_compare( $override['version'], $override['core_version'], '<' ) ) ) {
+                                                                    $current_version = $override['version'] ? $override['version'] : '-';
+                                                                    $_core_version = sprintf(
+                                                                        __( '%1$s version %2$s is out of date. The core version is %3$s', 'directorist' ),
+                                                                        '<code>' . esc_html( $override['file'] ) . '</code>',
+                                                                        '<strong style="color:red">' . esc_html( $current_version ) . '</strong>',
+                                                                        esc_attr( $override['core_version'] )
+                                                                    );
+                                                                    echo wp_kses_post( $_core_version );
+                                                                } else {
+                                                                    echo esc_html( $override['file'] );
+                                                                }
+                                                                if ( ( count( $theme['overrides'] ) - 1 ) !== $i ) {
+                                                                    echo ', ';
+                                                                }
                                                             }
-                                                                ?>
+                                                            ?>
                                                                 </p>
                                                         </td>
                                                     </tr>
                                                     <?php
-                                            } else {
-                                                ?>
+                                        } else {
+                                            ?>
                                                 <tr>
                                                     <td data-export-label="Overrides"><?php esc_html_e( 'Overrides', 'directorist' ); ?>:</td>
                                                     <td class="help">&nbsp;</td>
                                                     <td>&ndash;</td>
                                                 </tr>
                                                 <?php
-                                            }
+                                        }
                                         ?>
                                     </tbody>
                                 </table>

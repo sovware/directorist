@@ -14,49 +14,49 @@ $u_pro_pic    = $u_pro_pic_id ? wp_get_attachment_image_src( $u_pro_pic_id, 'dir
 
 <div class="directorist-image-profile-wrap">
 
-	<div class="ez-media-uploader directorist-profile-uploader">
+    <div class="ez-media-uploader directorist-profile-uploader">
 
-		<div class="ezmu__loading-section ezmu--show">
+        <div class="ezmu__loading-section ezmu--show">
 
-			<span class="ezmu__loading-icon">
+            <span class="ezmu__loading-icon">
 
-				<span class="ezmu__loading-icon-img-bg"></span>
+                <span class="ezmu__loading-icon-img-bg"></span>
 
-			</span>
+            </span>
 
-		</div>
+        </div>
 
-		<div class="ezmu__old-files">
+        <div class="ezmu__old-files">
 
-			<?php if ($u_pro_pic) { ?>
-				<span class="ezmu__old-files-meta" data-attachment-id="<?php echo esc_attr($u_pro_pic_id); ?>" data-url="<?php echo esc_url($u_pro_pic[0]); ?>" data-type="image"></span>
-			<?php } ?>
+            <?php if ( $u_pro_pic ) { ?>
+                <span class="ezmu__old-files-meta" data-attachment-id="<?php echo esc_attr( $u_pro_pic_id ); ?>" data-url="<?php echo esc_url( $u_pro_pic[0] ); ?>" data-type="image"></span>
+            <?php } ?>
 
-		</div>
+        </div>
 
 
-		<div class="ezmu-dictionary">
+        <div class="ezmu-dictionary">
 
-			<span class="ezmu-dictionary-label-select-files"><?php esc_html_e('Select', 'directorist'); ?></span>
+            <span class="ezmu-dictionary-label-select-files"><?php esc_html_e( 'Select', 'directorist' ); ?></span>
 
-			<span class="ezmu-dictionary-label-add-more"><?php esc_html_e('Select', 'directorist'); ?></span>
+            <span class="ezmu-dictionary-label-add-more"><?php esc_html_e( 'Select', 'directorist' ); ?></span>
 
-			<span class="ezmu-dictionary-label-change"><?php esc_html_e('Change', 'directorist'); ?></span>
+            <span class="ezmu-dictionary-label-change"><?php esc_html_e( 'Change', 'directorist' ); ?></span>
 
-			<span class="ezmu-dictionary-alert-max-total-file-size"><?php esc_html_e('Max limit for total file size is __DT__', 'directorist'); ?></span>
+            <span class="ezmu-dictionary-alert-max-total-file-size"><?php esc_html_e( 'Max limit for total file size is __DT__', 'directorist' ); ?></span>
 
-			<span class="ezmu-dictionary-alert-min-file-items"><?php esc_html_e('Min __DT__ file is required', 'directorist'); ?></span>
+            <span class="ezmu-dictionary-alert-min-file-items"><?php esc_html_e( 'Min __DT__ file is required', 'directorist' ); ?></span>
 
-			<span class="ezmu-dictionary-alert-max-file-items"><?php esc_html_e('Max limit for total file is __DT__', 'directorist'); ?></span>
+            <span class="ezmu-dictionary-alert-max-file-items"><?php esc_html_e( 'Max limit for total file is __DT__', 'directorist' ); ?></span>
 
-			<span class="ezmu-dictionary-info-max-total-file-size"><?php esc_html_e('Maximum allowed file size is __DT__', 'directorist'); ?></span>
+            <span class="ezmu-dictionary-info-max-total-file-size"><?php esc_html_e( 'Maximum allowed file size is __DT__', 'directorist' ); ?></span>
 
-			<span class="ezmu-dictionary-info-type" data-show='0'></span>
+            <span class="ezmu-dictionary-info-type" data-show='0'></span>
 
-			<span class="ezmu-dictionary-info-min-file-items"><?php esc_html_e('Minimum __DT__ file is required', 'directorist'); ?></span>
+            <span class="ezmu-dictionary-info-min-file-items"><?php esc_html_e( 'Minimum __DT__ file is required', 'directorist' ); ?></span>
 
-		</div>
+        </div>
 
-	</div>
+    </div>
 
 </div>

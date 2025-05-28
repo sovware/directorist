@@ -8,7 +8,6 @@ namespace Directorist\Appsero;
  * This class will check, active and deactive license
  */
 class License {
-
     /**
      * Directorist\Appsero\Client
      *
@@ -309,7 +308,7 @@ class License {
     /**
      * License form submit
      */
-    public function license_form_submit( $form_data = array() ) {
+    public function license_form_submit( $form_data = [] ) {
         if ( ! isset( $form_data['_nonce'] ) ) {
             return;
         }
@@ -580,7 +579,7 @@ class License {
             <div class="notice notice-error is-dismissible appsero-license-section">
                 <p><?php echo $this->error; ?></p>
             </div>
-			<?php
+            <?php
         }
 
         if ( ! empty( $this->success ) ) {
@@ -588,7 +587,7 @@ class License {
             <div class="notice notice-success is-dismissible appsero-license-section">
                 <p><?php echo $this->success; ?></p>
             </div>
-			<?php
+            <?php
         }
         echo '<br />';
     }

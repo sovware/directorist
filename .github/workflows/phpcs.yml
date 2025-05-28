@@ -37,6 +37,6 @@ jobs:
       - name: Install Composer dependencies
         run: composer install
 
-        # Step 4: Run the PHPCS check using the "composer report" command to detect coding standard violations.
+        # Step 4: Run the PHPCS check using the "composer phpcs" command to detect coding standard violations.
       - name: Run PHPCS checks
-        run: composer report
+        run: composer phpcs

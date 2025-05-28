@@ -18,8 +18,8 @@
         }
     },
     "scripts": {
-		"report": "@php ./vendor/bin/phpcs",
-		"format": "@php ./vendor/bin/phpcbf",
-		"sniffer:php8.1": "./vendor/bin/phpcs -p . --standard=PHPCompatibilityWP --severity=1 --runtime-set testVersion 8.1- --extensions=php"
+		"phpcs": "vendor/bin/phpcs",
+		"format": "vendor/bin/phpcbf",
+		"sniffer:php8.1": "vendor/bin/phpcs -p . --standard=PHPCompatibilityWP --severity=1 --runtime-set testVersion 8.1- --extensions=php"
 	}
 }

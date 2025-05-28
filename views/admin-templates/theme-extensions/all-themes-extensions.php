@@ -6,7 +6,7 @@
     <div class="et-column">
         <h3><?php esc_html_e( 'Extensions', 'directorist' ) ?></h3>
 
-        <?php foreach( $args['ATBDP_Extensions']->extensions as $extension_key => $extension ) :
+        <?php foreach ( $args['ATBDP_Extensions']->extensions as $extension_key => $extension ) :
             $link = ATBDP_Upgrade::promo_link( $extension['link'] );
             ?>
         <div class="et-card">
@@ -30,7 +30,7 @@
     <div class="et-column">
         <h3><?php esc_html_e( 'Themes', 'directorist' ) ?></h3>
 
-        <?php foreach( $args['ATBDP_Extensions']->themes as $theme_key => $theme ) : 
+        <?php foreach ( $args['ATBDP_Extensions']->themes as $theme_key => $theme ) : 
             $link = ATBDP_Upgrade::promo_link( $theme['link'] );
             ?>
         <div class="et-card">

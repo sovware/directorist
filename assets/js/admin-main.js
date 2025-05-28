@@ -1,140 +1,11 @@
-/******/ (function(modules) { // webpackBootstrap
-/******/ 	// The module cache
-/******/ 	var installedModules = {};
-/******/
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId]) {
-/******/ 			return installedModules[moduleId].exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			i: moduleId,
-/******/ 			l: false,
-/******/ 			exports: {}
-/******/ 		};
-/******/
-/******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
-/******/ 		// Flag the module as loaded
-/******/ 		module.l = true;
-/******/
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/
-/******/
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
-/******/
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
-/******/
-/******/ 	// define getter function for harmony exports
-/******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
-/******/ 		}
-/******/ 	};
-/******/
-/******/ 	// define __esModule on exports
-/******/ 	__webpack_require__.r = function(exports) {
-/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 		}
-/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 	};
-/******/
-/******/ 	// create a fake namespace object
-/******/ 	// mode & 1: value is a module id, require it
-/******/ 	// mode & 2: merge all properties of value into the ns
-/******/ 	// mode & 4: return value when already ns object
-/******/ 	// mode & 8|1: behave like require
-/******/ 	__webpack_require__.t = function(value, mode) {
-/******/ 		if(mode & 1) value = __webpack_require__(value);
-/******/ 		if(mode & 8) return value;
-/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
-/******/ 		var ns = Object.create(null);
-/******/ 		__webpack_require__.r(ns);
-/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
-/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
-/******/ 		return ns;
-/******/ 	};
-/******/
-/******/ 	// getDefaultExport function for compatibility with non-harmony modules
-/******/ 	__webpack_require__.n = function(module) {
-/******/ 		var getter = module && module.__esModule ?
-/******/ 			function getDefault() { return module['default']; } :
-/******/ 			function getModuleExports() { return module; };
-/******/ 		__webpack_require__.d(getter, 'a', getter);
-/******/ 		return getter;
-/******/ 	};
-/******/
-/******/ 	// Object.prototype.hasOwnProperty.call
-/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-/******/
-/******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
-/******/
-/******/
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./assets/src/js/admin/admin.js");
-/******/ })
-/************************************************************************/
-/******/ ({
-
-/***/ "./assets/src/js/admin/admin.js":
-/*!**************************************!*\
-  !*** ./assets/src/js/admin/admin.js ***!
-  \**************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _scss_layout_admin_admin_style_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../scss/layout/admin/admin-style.scss */ "./assets/src/scss/layout/admin/admin-style.scss");
-/* harmony import */ var _scss_layout_admin_admin_style_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_scss_layout_admin_admin_style_scss__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _global_global__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../global/global */ "./assets/src/js/global/global.js");
-/* harmony import */ var _components_block_1__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/block-1 */ "./assets/src/js/admin/components/block-1.js");
-/* harmony import */ var _components_block_1__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_components_block_1__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _components_block_2__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/block-2 */ "./assets/src/js/admin/components/block-2.js");
-/* harmony import */ var _components_block_2__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_components_block_2__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _components_block_3__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/block-3 */ "./assets/src/js/admin/components/block-3.js");
-/* harmony import */ var _components_block_4__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/block-4 */ "./assets/src/js/admin/components/block-4.js");
-/* harmony import */ var _components_block_4__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_components_block_4__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _components_block_5__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/block-5 */ "./assets/src/js/admin/components/block-5.js");
-/* harmony import */ var _components_block_5__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_components_block_5__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _components_admin_user__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/admin-user */ "./assets/src/js/admin/components/admin-user.js");
-/* harmony import */ var _components_admin_user__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_components_admin_user__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _components_subscriptionManagement__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/subscriptionManagement */ "./assets/src/js/admin/components/subscriptionManagement.js");
-/* harmony import */ var _components_subscriptionManagement__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_components_subscriptionManagement__WEBPACK_IMPORTED_MODULE_8__);
-
-
-// Global
-
-
-// Blocks
-
-
-
-
-
-
-
-// subscriptionManagement
-
-
-/***/ }),
+/******/ (function() { // webpackBootstrap
+/******/ 	var __webpack_modules__ = ({
 
 /***/ "./assets/src/js/admin/components/admin-user.js":
 /*!******************************************************!*\
   !*** ./assets/src/js/admin/components/admin-user.js ***!
   \******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function() {
 
 // user type change on user dashboard
 (function ($) {
@@ -192,8 +63,7 @@ __webpack_require__.r(__webpack_exports__);
 /*!***************************************************!*\
   !*** ./assets/src/js/admin/components/block-1.js ***!
   \***************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function() {
 
 window.addEventListener('load', function () {
   var $ = jQuery;
@@ -361,8 +231,7 @@ window.addEventListener('load', function () {
 /*!***************************************************!*\
   !*** ./assets/src/js/admin/components/block-2.js ***!
   \***************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function() {
 
 window.addEventListener('load', function () {
   var $ = jQuery;
@@ -636,8 +505,7 @@ window.addEventListener('load', function () {
 /*!***************************************************!*\
   !*** ./assets/src/js/admin/components/block-3.js ***!
   \***************************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -1025,7 +893,7 @@ window.addEventListener('load', function () {
     admin_listing_form(directory_type);
   }
   var localized_data = directorist_admin.add_listing_data;
-  $('body').on('change', 'select[name="directory_type"]', Object(_global_components_debounce__WEBPACK_IMPORTED_MODULE_0__["default"])(function () {
+  $('body').on('change', 'select[name="directory_type"]', (0,_global_components_debounce__WEBPACK_IMPORTED_MODULE_0__["default"])(function () {
     $(this).parent('.inside').append('<span class="directorist_loader"></span>');
     admin_listing_form($(this).val());
     $(this).closest('#poststuff').find('#publishing-action').addClass('directorist_disable');
@@ -1247,8 +1115,7 @@ window.addEventListener('load', function () {
 /*!***************************************************!*\
   !*** ./assets/src/js/admin/components/block-4.js ***!
   \***************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function() {
 
 /*
     Plugin: PureScriptTab
@@ -1291,8 +1158,7 @@ pureScriptTab('.directorist_builder--tab');
 /*!***************************************************!*\
   !*** ./assets/src/js/admin/components/block-5.js ***!
   \***************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function() {
 
 window.addEventListener('load', function () {
   var $ = jQuery;
@@ -1553,8 +1419,7 @@ window.addEventListener('load', function () {
 /*!******************************************************************!*\
   !*** ./assets/src/js/admin/components/subscriptionManagement.js ***!
   \******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function() {
 
 function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t.return || t.return(); } finally { if (u) throw o; } } }; }
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
@@ -1612,271 +1477,53 @@ window.addEventListener('load', function () {
         if (response !== null && response !== void 0 && (_response$status2 = response.status) !== null && _response$status2 !== void 0 && _response$status2.success) {
           location.reload();
           return;
-          form.attr('id', 'atbdp-product-download-form');
-          form.find('.atbdp-form-page').remove();
-          var form_response_page = form.find('.atbdp-form-response-page');
-          form_response_page.removeClass('atbdp-d-none');
+          // removed by dead control flow
+{}
+          // removed by dead control flow
+{}
+          // removed by dead control flow
+{ var form_response_page; }
+          // removed by dead control flow
+{}
 
           // Append Response
-          form_response_page.append('<div class="atbdp-form-feedback"></div>');
-          var themes = response.license_data && response.license_data.themes ? response.license_data.themes : [];
-          var plugins = response.license_data && response.license_data.plugins ? response.license_data.plugins : [];
-          var total_theme = themes.length;
-          var total_plugin = plugins.length;
+          // removed by dead control flow
+{}
+          // removed by dead control flow
+{ var themes; }
+          // removed by dead control flow
+{ var plugins; }
+          // removed by dead control flow
+{ var total_theme; }
+          // removed by dead control flow
+{ var total_plugin; }
 
           // console.log( { plugins, themes } );
 
-          if (!plugins.length && !themes.length) {
-            var title = '<h3 class="h3 form-header-title">There is no product in your purchase, redirecting...</h3>';
-            form_response_page.find('.atbdp-form-feedback').append(title);
-            location.reload();
-            return;
-          }
-          var title = '<h3 class="h3 form-header-title">Activate your products</h3>';
-          form_response_page.find('.atbdp-form-feedback').append(title);
+          // removed by dead control flow
+{ var title; }
+          // removed by dead control flow
+{ var title; }
+          // removed by dead control flow
+{}
 
           // Show Log - Themes
-          if (total_theme) {
-            var theme_section = '<div class="atbdp-checklist-section atbdp-themes-list-section"></div>';
-            form_response_page.find('.atbdp-form-feedback').append(theme_section);
-            var theme_title = "<h4 class=\"atbdp-theme-title\">Themes <span class=\"atbdp-count\">(".concat(themes.length, ")</span></h4>");
-            var theme_check_lists = '<ul class="atbdp-check-lists atbdp-themes-list"></ul>';
-            form_response_page.find('.atbdp-themes-list-section').append(theme_title);
-            form_response_page.find('.atbdp-themes-list-section').append(theme_check_lists);
-            var counter = 0;
-            var _iterator = _createForOfIteratorHelper(themes),
-              _step;
-            try {
-              for (_iterator.s(); !(_step = _iterator.n()).done;) {
-                var theme = _step.value;
-                // console.log( theme );
-                var checkbox = "<input type=\"checkbox\" class=\"atbdp-checkbox atbdp-theme-checkbox-item-".concat(theme.item_id, "\" value=\"").concat(theme.item_id, "\" id=\"").concat(theme.item_id, "\">");
-                var label = "<label for=\"".concat(theme.item_id, "\">").concat(theme.title, "</label>");
-                var list_action = "<span class=\"atbdp-list-action\">".concat(checkbox, "</span> ");
-                var li = "<li class=\"atbdp-check-list-item atbdp-theme-checklist-item check-list-item-".concat(theme.item_id, "\">").concat(list_action).concat(label, "</li>");
-                form_response_page.find('.atbdp-themes-list').append(li);
-                counter++;
-              }
-            } catch (err) {
-              _iterator.e(err);
-            } finally {
-              _iterator.f();
-            }
-          }
+          // removed by dead control flow
+{ var li, list_action, label, checkbox, theme, _iterator, _step, counter, theme_check_lists, theme_title, theme_section; }
 
           // Show Log - Extensions
-          if (total_plugin) {
-            var plugin_section = '<div class="atbdp-checklist-section atbdp-extensions-list-section"></div>';
-            form_response_page.find('.atbdp-form-feedback').append(plugin_section);
-            var plugin_title = "<h4 class=\"atbdp-extension-title\">Extensions <span class=\"atbdp-count\">(".concat(plugins.length, ")</span></h4>");
-            var plugin_check_lists = '<ul class="atbdp-check-lists atbdp-extensions-list"></ul>';
-            form_response_page.find('.atbdp-extensions-list-section').append(plugin_title);
-            form_response_page.find('.atbdp-extensions-list-section').append(plugin_check_lists);
-            var counter = 0;
-            var _iterator2 = _createForOfIteratorHelper(plugins),
-              _step2;
-            try {
-              for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
-                var extension = _step2.value;
-                // console.log( extension );
-                var checkbox = "<input type=\"checkbox\" class=\"atbdp-checkbox atbdp-plugin-checkbox-item-".concat(extension.item_id, "\" value=\"").concat(extension.item_id, "\" id=\"").concat(extension.item_id, "\">");
-                var list_action = "<span class=\"atbdp-list-action\">".concat(checkbox, "</span> ");
-                var label = "<label for=\"".concat(extension.item_id, "\">").concat(extension.title, "</label>");
-                var li = "<li class=\"atbdp-check-list-item atbdp-plugin-checklist-item check-list-item-".concat(extension.item_id, "\">").concat(list_action).concat(label, "</li>");
-                form_response_page.find('.atbdp-extensions-list').append(li);
-                counter++;
-              }
-            } catch (err) {
-              _iterator2.e(err);
-            } finally {
-              _iterator2.f();
-            }
-          }
-          var continue_button = '<div class="account-connect__form-btn"><button type="button" class="account-connect__btn atbdp-download-products-btn">Continue <span class="la la-arrow-right"></span></button></div>';
-          var skip_button = '<a href="#" class="atbdp-link atbdp-link-secondery reload">Skip</a>';
-          form_response_page.append(continue_button);
-          form_response_page.append(skip_button);
-          $('.atbdp-download-products-btn').on('click', function (e) {
-            $(this).prop('disabled', true);
-            var skiped_themes = 0;
-            $('.atbdp-theme-checklist-item .atbdp-list-action .atbdp-checkbox').each(function (i, e) {
-              var is_checked = $(e).is(':checked');
-              if (!is_checked) {
-                var id = $(e).attr('id');
-                var list_item = $(".check-list-item-".concat(id));
-                list_item.remove();
-                skiped_themes++;
-              }
-            });
-            var skiped_plugins = 0;
-            $('.atbdp-plugin-checklist-item .atbdp-list-action .atbdp-checkbox').each(function (i, e) {
-              var is_checked = $(e).is(':checked');
-              if (!is_checked) {
-                var id = $(e).attr('id');
-                var list_item = $(".check-list-item-".concat(id));
-                list_item.remove();
-                skiped_plugins++;
-              }
-            });
-            var new_theme_count = total_theme - skiped_themes;
-            var new_plugin_count = total_plugin - skiped_plugins;
-            $('.atbdp-theme-title').find('.atbdp-count').html("(".concat(new_theme_count, ")"));
-            $('.atbdp-extension-title').find('.atbdp-count').html("(".concat(new_plugin_count, ")"));
-            $('.atbdp-check-list-item .atbdp-list-action .atbdp-checkbox').css('display', 'none');
-            $('.atbdp-check-list-item .atbdp-list-action').prepend('<span class="atbdp-icon atbdp-text-danger"><span class="fas fa-times"></span></span> ');
-            var files_download_states = {
-              succeeded_plugin_downloads: [],
-              failed_plugin_downloads: [],
-              succeeded_theme_downloads: [],
-              failed_theme_downloads: []
-            };
-
-            // Download Files
-            var _download_files = function download_files(file_list, counter, callback) {
-              if (counter > file_list.length - 1) {
-                if (callback) {
-                  callback();
-                }
-                return;
-              }
-              var next_index = counter + 1;
-              var file_item = file_list[counter];
-              var file = file_item.file;
-              var file_type = file_item.type;
-              var list_item = $(".check-list-item-".concat(file.item_id));
-              var icon_elm = list_item.find('.atbdp-list-action .atbdp-icon');
-              var list_checkbox = $(".atbdp-".concat(file_type, "-checkbox-item-").concat(file.item_id));
-              var is_checked = list_checkbox.is(':checked');
-              if (!is_checked) {
-                _download_files(file_list, next_index, callback);
-                return;
-              }
-              var form_data = {
-                action: 'atbdp_download_file',
-                download_item: file,
-                type: file_type,
-                nonce: directorist_admin.nonce
-              };
-              jQuery.ajax({
-                type: 'post',
-                url: directorist_admin.ajaxurl,
-                data: form_data,
-                beforeSend: function beforeSend() {
-                  icon_elm.removeClass('atbdp-text-danger');
-                  icon_elm.html('<span class="fas fa-circle-notch fa-spin"></span>');
-                },
-                success: function success(response) {
-                  // console.log('success', counter, response);
-
-                  if (response.status.success) {
-                    icon_elm.addClass('atbdp-text-success');
-                    icon_elm.html('<span class="fas fa-check"></span>');
-                    if (file_type == 'plugin') {
-                      files_download_states.succeeded_plugin_downloads.push(file);
-                    }
-                    if (file_type == 'theme') {
-                      files_download_states.succeeded_theme_downloads.push(file);
-                    }
-                  } else {
-                    var msg = "<span class=\"atbdp-list-feedback atbdp-text-danger\">".concat(response.status.message, "</span>");
-                    list_item.append(msg);
-                    icon_elm.addClass('atbdp-text-danger');
-                    icon_elm.html('<span class="fas fa-times"></span>');
-                    if (file_type == 'plugin') {
-                      files_download_states.failed_plugin_downloads.push(file);
-                    }
-                    if (file_type == 'theme') {
-                      files_download_states.failed_theme_downloads.push(file);
-                    }
-                  }
-                  _download_files(file_list, next_index, callback);
-                },
-                error: function error(_error) {
-                  console.log(_error);
-                  icon_elm.addClass('atbdp-text-danger');
-                  icon_elm.html('<span class="fas fa-times"></span>');
-                }
-              });
-            };
-
-            // Remove Unnecessary Sections
-            if (!new_theme_count) {
-              $('.atbdp-themes-list-section').remove();
-            }
-            if (!new_plugin_count) {
-              $('.atbdp-extensions-list-section').remove();
-            }
-            if (new_theme_count || new_plugin_count) {
-              var form_header_title = 'Activating your products';
-              form_response_page.find('.atbdp-form-feedback .form-header-title').html(form_header_title);
-            }
-            var downloading_files = [];
-
-            // Download Themes
-            if (new_theme_count) {
-              var _iterator3 = _createForOfIteratorHelper(themes),
-                _step3;
-              try {
-                for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
-                  var _theme = _step3.value;
-                  downloading_files.push({
-                    file: _theme,
-                    type: 'theme'
-                  });
-                }
-              } catch (err) {
-                _iterator3.e(err);
-              } finally {
-                _iterator3.f();
-              }
-            }
-
-            // Download Plugins
-            if (new_plugin_count) {
-              var _iterator4 = _createForOfIteratorHelper(plugins),
-                _step4;
-              try {
-                for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
-                  var plugin = _step4.value;
-                  downloading_files.push({
-                    file: plugin,
-                    type: 'plugin'
-                  });
-                }
-              } catch (err) {
-                _iterator4.e(err);
-              } finally {
-                _iterator4.f();
-              }
-            }
-            var self = this;
-            var after_download_callback = function after_download_callback() {
-              // Check invalid themes
-              var all_thmes_are_invalid = false;
-              var failed_download_themes_count = files_download_states.failed_theme_downloads.length;
-              if (new_theme_count && failed_download_themes_count === new_theme_count) {
-                all_thmes_are_invalid = true;
-              }
-
-              // Check invalid plugin
-              var all_plugins_are_invalid = false;
-              var failed_download_plugins_count = files_download_states.failed_plugin_downloads.length;
-              if (new_plugin_count && failed_download_plugins_count === new_plugin_count) {
-                all_plugins_are_invalid = true;
-              }
-              var all_products_are_invalid = false;
-              if (all_thmes_are_invalid && all_plugins_are_invalid) {
-                all_products_are_invalid = true;
-              }
-              $(form_response_page).find('.account-connect__form-btn .account-connect__btn').remove();
-              var finish_btn_label = all_products_are_invalid ? 'Close' : 'Finish';
-              var finish_btn = "<button type=\"button\" class=\"account-connect__btn reload\">".concat(finish_btn_label, "</button>");
-              $(form_response_page).find('.account-connect__form-btn').append(finish_btn);
-            };
-            if (downloading_files.length) {
-              _download_files(downloading_files, 0, after_download_callback);
-            }
-          });
+          // removed by dead control flow
+{ var li, label, list_action, checkbox, extension, _iterator2, _step2, counter, plugin_check_lists, plugin_title, plugin_section; }
+          // removed by dead control flow
+{ var continue_button; }
+          // removed by dead control flow
+{ var skip_button; }
+          // removed by dead control flow
+{}
+          // removed by dead control flow
+{}
+          // removed by dead control flow
+{}
         }
       },
       error: function error(_error2) {
@@ -2391,7 +2038,7 @@ window.addEventListener('load', function () {
         $(self).closest('.ext-action').find('.ext-action-drop').removeClass('active');
         location.reload();
       },
-      error: function error(_error10) {
+      error: function error(_error0) {
         // console.log(error);
         uninstalling = false;
       }
@@ -2472,7 +2119,7 @@ window.addEventListener('load', function () {
           location.reload();
         }
       },
-      error: function error(_error11) {
+      error: function error(_error1) {
         // console.log({ error });
         theme_is_activating = false;
         $(self).find('.atbdp-icon').remove();
@@ -2518,7 +2165,7 @@ window.addEventListener('load', function () {
           alert(response.status.message);
         }
       },
-      error: function error(_error12) {
+      error: function error(_error10) {
         // console.log({ error });
         $(self).removeClass('in-progress');
         $(self).html(button_default_html);
@@ -2534,12 +2181,13 @@ window.addEventListener('load', function () {
 /*!*****************************************************!*\
   !*** ./assets/src/js/global/components/debounce.js ***!
   \*****************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return debounce; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ debounce; }
+/* harmony export */ });
 function debounce(func, wait, immediate) {
   var timeout;
   return function () {
@@ -2563,8 +2211,7 @@ function debounce(func, wait, immediate) {
 /*!**************************************************!*\
   !*** ./assets/src/js/global/components/modal.js ***!
   \**************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function() {
 
 var $ = jQuery;
 $(document).ready(function () {
@@ -2607,8 +2254,7 @@ function modalToggle() {
 /*!*******************************************************************!*\
   !*** ./assets/src/js/global/components/select2-custom-control.js ***!
   \*******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function() {
 
 function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t.return || t.return(); } finally { if (u) throw o; } } }; }
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
@@ -2807,19 +2453,17 @@ function selec2_adjust_space_for_addons() {
 /*!**********************************************************!*\
   !*** ./assets/src/js/global/components/setup-select2.js ***!
   \**********************************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
 /* harmony import */ var _lib_helper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../lib/helper */ "./assets/src/js/lib/helper.js");
 /* harmony import */ var _select2_custom_control__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./select2-custom-control */ "./assets/src/js/global/components/select2-custom-control.js");
 /* harmony import */ var _select2_custom_control__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_select2_custom_control__WEBPACK_IMPORTED_MODULE_2__);
 
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 
 
 var $ = jQuery;
@@ -2849,7 +2493,7 @@ function initSelect2() {
   '.bdas-category-search' // Not found in any template
   ];
   selectors.forEach(function (selector) {
-    return Object(_lib_helper__WEBPACK_IMPORTED_MODULE_1__["convertToSelect2"])(selector);
+    return (0,_lib_helper__WEBPACK_IMPORTED_MODULE_1__.convertToSelect2)(selector);
   });
   initMaybeLazyLoadedTaxonomySelect2();
 }
@@ -3072,13 +2716,11 @@ function maybeLazyLoadTaxonomyTermsSelect2(args) {
 /*!*************************************************!*\
   !*** ./assets/src/js/global/components/tabs.js ***!
   \*************************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/toConsumableArray.js");
-/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js");
 
 document.addEventListener('load', init, false);
 function Tasks() {
@@ -3092,7 +2734,7 @@ function Tasks() {
         return;
       }
       var self = this;
-      _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(links).forEach(function (item) {
+      (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(links).forEach(function (item) {
         item.addEventListener('click', function (event) {
           self.handleToggleTabLinksEvent(item, event);
         });
@@ -3124,14 +2766,14 @@ function Tasks() {
       // Toggle Nav
       var activeNavItems = navContainer.querySelectorAll('.--is-active');
       if (activeNavItems) {
-        _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(activeNavItems).forEach(removeActiveClass);
+        (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(activeNavItems).forEach(removeActiveClass);
       }
       item.classList.add('--is-active');
 
       // Toggle Tab
       var activeTabItems = tabContainer.querySelectorAll('.--is-active');
       if (activeTabItems) {
-        _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(activeTabItems).forEach(removeActiveClass);
+        (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(activeTabItems).forEach(removeActiveClass);
       }
       tab.classList.add('--is-active');
 
@@ -3161,8 +2803,7 @@ function init() {
 /*!****************************************************!*\
   !*** ./assets/src/js/global/components/utility.js ***!
   \****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function() {
 
 window.addEventListener('load', function () {
   var $ = jQuery;
@@ -3195,8 +2836,7 @@ window.addEventListener('load', function () {
 /*!****************************************!*\
   !*** ./assets/src/js/global/global.js ***!
   \****************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -3220,13 +2860,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!*************************************!*\
   !*** ./assets/src/js/lib/helper.js ***!
   \*************************************/
-/*! exports provided: convertToSelect2, get_dom_data */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "convertToSelect2", function() { return convertToSelect2; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "get_dom_data", function() { return get_dom_data; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   convertToSelect2: function() { return /* binding */ convertToSelect2; },
+/* harmony export */   get_dom_data: function() { return /* binding */ get_dom_data; }
+/* harmony export */ });
 var $ = jQuery;
 function get_dom_data(selector, parent) {
   selector = '.directorist-dom-data-' + selector;
@@ -3279,187 +2920,347 @@ function convertToSelect2(selector) {
 /*!*******************************************************!*\
   !*** ./assets/src/scss/layout/admin/admin-style.scss ***!
   \*******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
 // extracted by mini-css-extract-plugin
+
 
 /***/ }),
 
-/***/ "./node_modules/@babel/runtime/helpers/arrayLikeToArray.js":
-/*!*****************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/arrayLikeToArray.js ***!
-  \*****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ "./node_modules/@babel/runtime/helpers/esm/arrayLikeToArray.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/esm/arrayLikeToArray.js ***!
+  \*********************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ _arrayLikeToArray; }
+/* harmony export */ });
 function _arrayLikeToArray(r, a) {
   (null == a || a > r.length) && (a = r.length);
   for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e];
   return n;
 }
-module.exports = _arrayLikeToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
 
 /***/ }),
 
-/***/ "./node_modules/@babel/runtime/helpers/arrayWithoutHoles.js":
-/*!******************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/arrayWithoutHoles.js ***!
-  \******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./node_modules/@babel/runtime/helpers/esm/arrayWithoutHoles.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/esm/arrayWithoutHoles.js ***!
+  \**********************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
-var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray.js */ "./node_modules/@babel/runtime/helpers/arrayLikeToArray.js");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ _arrayWithoutHoles; }
+/* harmony export */ });
+/* harmony import */ var _arrayLikeToArray_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./arrayLikeToArray.js */ "./node_modules/@babel/runtime/helpers/esm/arrayLikeToArray.js");
+
 function _arrayWithoutHoles(r) {
-  if (Array.isArray(r)) return arrayLikeToArray(r);
+  if (Array.isArray(r)) return (0,_arrayLikeToArray_js__WEBPACK_IMPORTED_MODULE_0__["default"])(r);
 }
-module.exports = _arrayWithoutHoles, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
 
 /***/ }),
 
-/***/ "./node_modules/@babel/runtime/helpers/defineProperty.js":
-/*!***************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/defineProperty.js ***!
-  \***************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/esm/defineProperty.js ***!
+  \*******************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
-var toPropertyKey = __webpack_require__(/*! ./toPropertyKey.js */ "./node_modules/@babel/runtime/helpers/toPropertyKey.js");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ _defineProperty; }
+/* harmony export */ });
+/* harmony import */ var _toPropertyKey_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./toPropertyKey.js */ "./node_modules/@babel/runtime/helpers/esm/toPropertyKey.js");
+
 function _defineProperty(e, r, t) {
-  return (r = toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
+  return (r = (0,_toPropertyKey_js__WEBPACK_IMPORTED_MODULE_0__["default"])(r)) in e ? Object.defineProperty(e, r, {
     value: t,
     enumerable: !0,
     configurable: !0,
     writable: !0
   }) : e[r] = t, e;
 }
-module.exports = _defineProperty, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
 
 /***/ }),
 
-/***/ "./node_modules/@babel/runtime/helpers/iterableToArray.js":
-/*!****************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/iterableToArray.js ***!
-  \****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ "./node_modules/@babel/runtime/helpers/esm/iterableToArray.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/esm/iterableToArray.js ***!
+  \********************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ _iterableToArray; }
+/* harmony export */ });
 function _iterableToArray(r) {
   if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r);
 }
-module.exports = _iterableToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
 
 /***/ }),
 
-/***/ "./node_modules/@babel/runtime/helpers/nonIterableSpread.js":
-/*!******************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/nonIterableSpread.js ***!
-  \******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ "./node_modules/@babel/runtime/helpers/esm/nonIterableSpread.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/esm/nonIterableSpread.js ***!
+  \**********************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ _nonIterableSpread; }
+/* harmony export */ });
 function _nonIterableSpread() {
   throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
-module.exports = _nonIterableSpread, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
 
 /***/ }),
 
-/***/ "./node_modules/@babel/runtime/helpers/toConsumableArray.js":
-/*!******************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/toConsumableArray.js ***!
-  \******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js ***!
+  \**********************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
-var arrayWithoutHoles = __webpack_require__(/*! ./arrayWithoutHoles.js */ "./node_modules/@babel/runtime/helpers/arrayWithoutHoles.js");
-var iterableToArray = __webpack_require__(/*! ./iterableToArray.js */ "./node_modules/@babel/runtime/helpers/iterableToArray.js");
-var unsupportedIterableToArray = __webpack_require__(/*! ./unsupportedIterableToArray.js */ "./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js");
-var nonIterableSpread = __webpack_require__(/*! ./nonIterableSpread.js */ "./node_modules/@babel/runtime/helpers/nonIterableSpread.js");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ _toConsumableArray; }
+/* harmony export */ });
+/* harmony import */ var _arrayWithoutHoles_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./arrayWithoutHoles.js */ "./node_modules/@babel/runtime/helpers/esm/arrayWithoutHoles.js");
+/* harmony import */ var _iterableToArray_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./iterableToArray.js */ "./node_modules/@babel/runtime/helpers/esm/iterableToArray.js");
+/* harmony import */ var _unsupportedIterableToArray_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./unsupportedIterableToArray.js */ "./node_modules/@babel/runtime/helpers/esm/unsupportedIterableToArray.js");
+/* harmony import */ var _nonIterableSpread_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./nonIterableSpread.js */ "./node_modules/@babel/runtime/helpers/esm/nonIterableSpread.js");
+
+
+
+
 function _toConsumableArray(r) {
-  return arrayWithoutHoles(r) || iterableToArray(r) || unsupportedIterableToArray(r) || nonIterableSpread();
+  return (0,_arrayWithoutHoles_js__WEBPACK_IMPORTED_MODULE_0__["default"])(r) || (0,_iterableToArray_js__WEBPACK_IMPORTED_MODULE_1__["default"])(r) || (0,_unsupportedIterableToArray_js__WEBPACK_IMPORTED_MODULE_2__["default"])(r) || (0,_nonIterableSpread_js__WEBPACK_IMPORTED_MODULE_3__["default"])();
 }
-module.exports = _toConsumableArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
 
 /***/ }),
 
-/***/ "./node_modules/@babel/runtime/helpers/toPrimitive.js":
-/*!************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/toPrimitive.js ***!
-  \************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./node_modules/@babel/runtime/helpers/esm/toPrimitive.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/esm/toPrimitive.js ***!
+  \****************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
-var _typeof = __webpack_require__(/*! ./typeof.js */ "./node_modules/@babel/runtime/helpers/typeof.js")["default"];
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ toPrimitive; }
+/* harmony export */ });
+/* harmony import */ var _typeof_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./typeof.js */ "./node_modules/@babel/runtime/helpers/esm/typeof.js");
+
 function toPrimitive(t, r) {
-  if ("object" != _typeof(t) || !t) return t;
+  if ("object" != (0,_typeof_js__WEBPACK_IMPORTED_MODULE_0__["default"])(t) || !t) return t;
   var e = t[Symbol.toPrimitive];
   if (void 0 !== e) {
     var i = e.call(t, r || "default");
-    if ("object" != _typeof(i)) return i;
+    if ("object" != (0,_typeof_js__WEBPACK_IMPORTED_MODULE_0__["default"])(i)) return i;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
   return ("string" === r ? String : Number)(t);
 }
-module.exports = toPrimitive, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
 
 /***/ }),
 
-/***/ "./node_modules/@babel/runtime/helpers/toPropertyKey.js":
-/*!**************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/toPropertyKey.js ***!
-  \**************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./node_modules/@babel/runtime/helpers/esm/toPropertyKey.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/esm/toPropertyKey.js ***!
+  \******************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
-var _typeof = __webpack_require__(/*! ./typeof.js */ "./node_modules/@babel/runtime/helpers/typeof.js")["default"];
-var toPrimitive = __webpack_require__(/*! ./toPrimitive.js */ "./node_modules/@babel/runtime/helpers/toPrimitive.js");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ toPropertyKey; }
+/* harmony export */ });
+/* harmony import */ var _typeof_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./typeof.js */ "./node_modules/@babel/runtime/helpers/esm/typeof.js");
+/* harmony import */ var _toPrimitive_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./toPrimitive.js */ "./node_modules/@babel/runtime/helpers/esm/toPrimitive.js");
+
+
 function toPropertyKey(t) {
-  var i = toPrimitive(t, "string");
-  return "symbol" == _typeof(i) ? i : i + "";
+  var i = (0,_toPrimitive_js__WEBPACK_IMPORTED_MODULE_1__["default"])(t, "string");
+  return "symbol" == (0,_typeof_js__WEBPACK_IMPORTED_MODULE_0__["default"])(i) ? i : i + "";
 }
-module.exports = toPropertyKey, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
 
 /***/ }),
 
-/***/ "./node_modules/@babel/runtime/helpers/typeof.js":
-/*!*******************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/typeof.js ***!
-  \*******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ "./node_modules/@babel/runtime/helpers/esm/typeof.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/esm/typeof.js ***!
+  \***********************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ _typeof; }
+/* harmony export */ });
 function _typeof(o) {
   "@babel/helpers - typeof";
 
-  return module.exports = _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
+  return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
     return typeof o;
   } : function (o) {
     return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
-  }, module.exports.__esModule = true, module.exports["default"] = module.exports, _typeof(o);
+  }, _typeof(o);
 }
-module.exports = _typeof, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
 
 /***/ }),
 
-/***/ "./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js":
-/*!***************************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js ***!
-  \***************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./node_modules/@babel/runtime/helpers/esm/unsupportedIterableToArray.js":
+/*!*******************************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/esm/unsupportedIterableToArray.js ***!
+  \*******************************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
 
-var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray.js */ "./node_modules/@babel/runtime/helpers/arrayLikeToArray.js");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ _unsupportedIterableToArray; }
+/* harmony export */ });
+/* harmony import */ var _arrayLikeToArray_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./arrayLikeToArray.js */ "./node_modules/@babel/runtime/helpers/esm/arrayLikeToArray.js");
+
 function _unsupportedIterableToArray(r, a) {
   if (r) {
-    if ("string" == typeof r) return arrayLikeToArray(r, a);
+    if ("string" == typeof r) return (0,_arrayLikeToArray_js__WEBPACK_IMPORTED_MODULE_0__["default"])(r, a);
     var t = {}.toString.call(r).slice(8, -1);
-    return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? arrayLikeToArray(r, a) : void 0;
+    return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? (0,_arrayLikeToArray_js__WEBPACK_IMPORTED_MODULE_0__["default"])(r, a) : void 0;
   }
 }
-module.exports = _unsupportedIterableToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
 
 /***/ })
 
-/******/ });
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	!function() {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = function(module) {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				function() { return module['default']; } :
+/******/ 				function() { return module; };
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	!function() {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = function(exports, definition) {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	!function() {
+/******/ 		__webpack_require__.o = function(obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); }
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	!function() {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = function(exports) {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// This entry needs to be wrapped in an IIFE because it needs to be in strict mode.
+!function() {
+"use strict";
+/*!**************************************!*\
+  !*** ./assets/src/js/admin/admin.js ***!
+  \**************************************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _scss_layout_admin_admin_style_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../scss/layout/admin/admin-style.scss */ "./assets/src/scss/layout/admin/admin-style.scss");
+/* harmony import */ var _global_global__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../global/global */ "./assets/src/js/global/global.js");
+/* harmony import */ var _components_block_1__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/block-1 */ "./assets/src/js/admin/components/block-1.js");
+/* harmony import */ var _components_block_1__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_components_block_1__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _components_block_2__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/block-2 */ "./assets/src/js/admin/components/block-2.js");
+/* harmony import */ var _components_block_2__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_components_block_2__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _components_block_3__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/block-3 */ "./assets/src/js/admin/components/block-3.js");
+/* harmony import */ var _components_block_4__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/block-4 */ "./assets/src/js/admin/components/block-4.js");
+/* harmony import */ var _components_block_4__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_components_block_4__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _components_block_5__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/block-5 */ "./assets/src/js/admin/components/block-5.js");
+/* harmony import */ var _components_block_5__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_components_block_5__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _components_admin_user__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/admin-user */ "./assets/src/js/admin/components/admin-user.js");
+/* harmony import */ var _components_admin_user__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_components_admin_user__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _components_subscriptionManagement__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/subscriptionManagement */ "./assets/src/js/admin/components/subscriptionManagement.js");
+/* harmony import */ var _components_subscriptionManagement__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_components_subscriptionManagement__WEBPACK_IMPORTED_MODULE_8__);
+
+
+// Global
+
+
+// Blocks
+
+
+
+
+
+
+
+// subscriptionManagement
+
+}();
+/******/ })()
+;
 //# sourceMappingURL=admin-main.js.map

@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
         <div class="directorist-search-form-top directorist-flex directorist-align-center directorist-search-form-inline directorist-search-form__top">
 
             <?php
-            foreach ( $searchform->form_data[0]['fields'] as $field ){
+            foreach ( $searchform->form_data[0]['fields'] as $field ) {
                 $searchform->field_template( $field );
             }
             ?>
@@ -27,7 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
                 <div class="directorist-search-form-action__submit">
                     <button type="submit" class="directorist-btn directorist-btn-lg directorist-btn-primary directorist-btn-search">
 
-                        <?php if ( $searchform->has_search_button_icon() ): ?>
+                        <?php if ( $searchform->has_search_button_icon() ) : ?>
                             <?php directorist_icon( 'las la-search' ); ?>
                         <?php endif;?>
 

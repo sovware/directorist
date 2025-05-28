@@ -9,7 +9,7 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+    exit;
 }
 
 function directorist_get_directory_meta( $directory_id, string $meta_key ) {
@@ -17,84 +17,84 @@ function directorist_get_directory_meta( $directory_id, string $meta_key ) {
 }
 
 function directorist_get_listing_form_fields( $directory_id ) {
-	$form_data = directorist_get_directory_meta( $directory_id, 'submission_form_fields' );
-	$_fields   = directorist_get_var( $form_data['fields'], array() );
-	$_groups   = directorist_get_var( $form_data['groups'], array() );
+    $form_data = directorist_get_directory_meta( $directory_id, 'submission_form_fields' );
+    $_fields   = directorist_get_var( $form_data['fields'], [] );
+    $_groups   = directorist_get_var( $form_data['groups'], [] );
 
-	$fields_keys = array();
-	$fields      = array();
+    $fields_keys = [];
+    $fields      = [];
 
-	foreach ( $_groups as $group ) {
-		$fields_keys = array_merge( $fields_keys, $group['fields'] );
-	}
+    foreach ( $_groups as $group ) {
+        $fields_keys = array_merge( $fields_keys, $group['fields'] );
+    }
 
-	foreach ( $fields_keys as $field_key ) {
-		$fields[ $field_key ] = $_fields[ $field_key ] ?? [];
-	}
+    foreach ( $fields_keys as $field_key ) {
+        $fields[ $field_key ] = $_fields[ $field_key ] ?? [];
+    }
 
-	if( isset( $fields['view_count'] ) ) {
-		unset( $fields['view_count'] );
-	}
+    if ( isset( $fields['view_count'] ) ) {
+        unset( $fields['view_count'] );
+    }
 
-	return $fields;
+    return $fields;
 }
 
 function directorist_get_listing_form_groups( $directory_id ) {
-	$form_data = directorist_get_directory_meta( $directory_id, 'submission_form_fields' );
-	$_groups   = directorist_get_var( $form_data['groups'], array() );
-	$groups    = array();
+    $form_data = directorist_get_directory_meta( $directory_id, 'submission_form_fields' );
+    $_groups   = directorist_get_var( $form_data['groups'], [] );
+    $groups    = [];
 
     foreach ( $_groups as $group ) {
-		$groups[] = array(
-			'label' => $group['label'],
-			'fields' => $group['fields'],
-		);
-	}
+        $groups[] = [
+            'label' => $group['label'],
+            'fields' => $group['fields'],
+        ];
+    }
 
-	return $groups;
+    return $groups;
 }
 
 function directorist_get_listing_form_field( $directory_id, $field_key = '' ) {
-	if ( empty( $field_key ) ) {
-		return array();
-	}
+    if ( empty( $field_key ) ) {
+        return [];
+    }
 
-	$form_fields = directorist_get_listing_form_fields( $directory_id );
+    $form_fields = directorist_get_listing_form_fields( $directory_id );
 
-	return empty( $form_fields[ $field_key ] ) ? array() : $form_fields[ $field_key ];
+    return empty( $form_fields[ $field_key ] ) ? [] : $form_fields[ $field_key ];
 }
 
 function directorist_get_listing_form_category_field( $directory_id ) {
-	return directorist_get_listing_form_field( $directory_id, 'category' );
+    return directorist_get_listing_form_field( $directory_id, 'category' );
 }
 
 function directorist_listing_form_has_category_field( $directory_id ) {
-	$category_field = directorist_get_listing_form_category_field( $directory_id );
-	return ! empty( $category_field );
+    $category_field = directorist_get_listing_form_category_field( $directory_id );
+    return ! empty( $category_field );
 }
 
 function directorist_is_terms_and_condition_enabled( $directory_id ) {
-	return (bool) directorist_get_directory_meta( $directory_id, 'listing_terms_condition' );
+    return (bool) directorist_get_directory_meta( $directory_id, 'listing_terms_condition' );
 }
 
 function directorist_is_terms_and_condition_required( $directory_id ) {
-	return (bool) directorist_get_directory_meta( $directory_id, 'require_terms_conditions' );
+    return (bool) directorist_get_directory_meta( $directory_id, 'require_terms_conditions' );
 }
 
 function directorist_should_check_terms_and_condition( $directory_id ) {
-	return ( directorist_is_terms_and_condition_enabled( $directory_id ) && directorist_is_terms_and_condition_required( $directory_id ) );
+    return ( directorist_is_terms_and_condition_enabled( $directory_id ) && directorist_is_terms_and_condition_required( $directory_id ) );
 }
 
 function directorist_is_privacy_policy_enabled( $directory_id ) {
-	return (bool) directorist_get_directory_meta( $directory_id, 'listing_privacy' );
+    return (bool) directorist_get_directory_meta( $directory_id, 'listing_privacy' );
 }
 
 function directorist_is_privacy_policy_required( $directory_id ) {
-	return (bool) directorist_get_directory_meta( $directory_id, 'require_privacy' );
+    return (bool) directorist_get_directory_meta( $directory_id, 'require_privacy' );
 }
 
 function directorist_should_check_privacy_policy( $directory_id ) {
-	return ( directorist_is_privacy_policy_enabled( $directory_id ) && directorist_is_privacy_policy_required( $directory_id ) );
+    return ( directorist_is_privacy_policy_enabled( $directory_id ) && directorist_is_privacy_policy_required( $directory_id ) );
 }
 
 /**
@@ -105,9 +105,9 @@ function directorist_should_check_privacy_policy( $directory_id ) {
  * @return string Default create status.
  */
 function directorist_get_listing_create_status( $directory_id ) {
-	$status = directorist_get_directory_meta( $directory_id, 'new_listing_status' );
+    $status = directorist_get_directory_meta( $directory_id, 'new_listing_status' );
 
-	return apply_filters( 'directorist_listing_create_status', $status, $directory_id );
+    return apply_filters( 'directorist_listing_create_status', $status, $directory_id );
 }
 
 /**
@@ -120,119 +120,119 @@ function directorist_get_listing_create_status( $directory_id ) {
  * @return string Default edit status.
  */
 function directorist_get_listing_edit_status( $directory_id, $listing_id = 0 ) {
-	$builder_status = directorist_get_directory_meta( $directory_id, 'edit_listing_status' );
-	$status         = 'pending';
-	/**
-	 * Builder Edit Status, Listing Edit Status.
-	 * BES - Publish
-	 * LES - Publish
-	 * Result - Publish
-	 *
-	 * BES - Pending
-	 * LES - Pending
-	 * Result - Pending
-	 *
-	 * BES - Publish
-	 * LES - Pending
-	 * Result - Pending
-	 *
-	 * BES - Pending
-	 * LES - Publish
-	 * Result - Pending
-	 */
-	if ( $listing_id && ( $listing_status = get_post_status( $listing_id ) ) !== false ) {
-		if ( $builder_status === 'publish' && $listing_status === 'publish' ) {
-			$status = 'publish';
-		} else if ( $builder_status === 'pending' || $listing_status === 'pending' ) {
-			$status = 'pending';
-		}
-	}
+    $builder_status = directorist_get_directory_meta( $directory_id, 'edit_listing_status' );
+    $status         = 'pending';
+    /**
+     * Builder Edit Status, Listing Edit Status.
+     * BES - Publish
+     * LES - Publish
+     * Result - Publish
+     *
+     * BES - Pending
+     * LES - Pending
+     * Result - Pending
+     *
+     * BES - Publish
+     * LES - Pending
+     * Result - Pending
+     *
+     * BES - Pending
+     * LES - Publish
+     * Result - Pending
+     */
+    if ( $listing_id && ( $listing_status = get_post_status( $listing_id ) ) !== false ) {
+        if ( $builder_status === 'publish' && $listing_status === 'publish' ) {
+            $status = 'publish';
+        } else if ( $builder_status === 'pending' || $listing_status === 'pending' ) {
+            $status = 'pending';
+        }
+    }
 
-	return apply_filters( 'directorist_listing_edit_status', $status, $directory_id );
+    return apply_filters( 'directorist_listing_edit_status', $status, $directory_id );
 }
 
 function directorist_get_default_expiration( $directory_id ) {
-	return (int) directorist_get_directory_meta( $directory_id, 'default_expiration' );
+    return (int) directorist_get_directory_meta( $directory_id, 'default_expiration' );
 }
 
 function directorist_is_directory( $directory_id ) {
-	$directory = term_exists( absint( $directory_id ), ATBDP_DIRECTORY_TYPE );
+    $directory = term_exists( absint( $directory_id ), ATBDP_DIRECTORY_TYPE );
 
-	return ( ! empty( $directory ) );
+    return ( ! empty( $directory ) );
 }
 
 function directorist_set_listing_directory( $listing_id, $directory_id ) {
-	if ( ! directorist_is_listing_post_type( $listing_id ) ) {
-		return new WP_Error( 'invalid_listing', __( 'Invalid listing id.', 'directorist' ) );
-	}
+    if ( ! directorist_is_listing_post_type( $listing_id ) ) {
+        return new WP_Error( 'invalid_listing', __( 'Invalid listing id.', 'directorist' ) );
+    }
 
-	if ( ! directorist_is_directory( $directory_id ) ) {
-		return new WP_Error( 'invalid_directory', __( 'Invalid directory id.', 'directorist' ) );
-	}
+    if ( ! directorist_is_directory( $directory_id ) ) {
+        return new WP_Error( 'invalid_directory', __( 'Invalid directory id.', 'directorist' ) );
+    }
 
-	update_post_meta( $listing_id, '_directory_type', $directory_id );
-	wp_set_object_terms( $listing_id, $directory_id, ATBDP_DIRECTORY_TYPE );
+    update_post_meta( $listing_id, '_directory_type', $directory_id );
+    wp_set_object_terms( $listing_id, $directory_id, ATBDP_DIRECTORY_TYPE );
 
-	return true;
+    return true;
 }
 
 function directorist_get_field( $properties ) {
-	return Directorist\Fields\Fields::create( $properties );
+    return Directorist\Fields\Fields::create( $properties );
 }
 
-function directorist_update_term_directory( $term_id, array $directory_ids = array(), $append = false ) {
-	if ( empty( $directory_ids ) ) {
-		return;
-	}
+function directorist_update_term_directory( $term_id, array $directory_ids = [], $append = false ) {
+    if ( empty( $directory_ids ) ) {
+        return;
+    }
 
-	$directory_ids = wp_parse_id_list( $directory_ids );
+    $directory_ids = wp_parse_id_list( $directory_ids );
 
-	if ( $append ) {
-		$old_directory_ids = directorist_get_term_directory( $term_id );
-		$directory_ids     = array_unique( array_merge( $old_directory_ids, $directory_ids ) );
-	}
+    if ( $append ) {
+        $old_directory_ids = directorist_get_term_directory( $term_id );
+        $directory_ids     = array_unique( array_merge( $old_directory_ids, $directory_ids ) );
+    }
 
-	update_term_meta( $term_id, '_directory_type', $directory_ids );
+    update_term_meta( $term_id, '_directory_type', $directory_ids );
 
-	foreach ( $directory_ids as $directory_id ) {
-		update_term_meta( $term_id, '_directory_type_' . $directory_id, true );
-	}
+    foreach ( $directory_ids as $directory_id ) {
+        update_term_meta( $term_id, '_directory_type_' . $directory_id, true );
+    }
 }
 
-function directorist_update_location_directory( $location_id, array $directory_ids = array(), $append = false) {
-	directorist_update_term_directory( $location_id, $directory_ids, $append );
+function directorist_update_location_directory( $location_id, array $directory_ids = [], $append = false ) {
+    directorist_update_term_directory( $location_id, $directory_ids, $append );
 }
 
-function directorist_update_category_directory( $location_id, array $directory_ids = array(), $append = false) {
-	directorist_update_term_directory( $location_id, $directory_ids, $append );
+function directorist_update_category_directory( $location_id, array $directory_ids = [], $append = false ) {
+    directorist_update_term_directory( $location_id, $directory_ids, $append );
 }
 
 function directorist_delete_term_directory( $term_id ) {
-	$directory_ids = directorist_get_term_directory( $term_id );
+    $directory_ids = directorist_get_term_directory( $term_id );
 
-	delete_term_meta( $term_id, '_directory_type' );
+    delete_term_meta( $term_id, '_directory_type' );
 
-	foreach ( $directory_ids as $directory_id ) {
-		delete_term_meta( $term_id, '_directory_type_' . $directory_id );
-	}
+    foreach ( $directory_ids as $directory_id ) {
+        delete_term_meta( $term_id, '_directory_type_' . $directory_id );
+    }
 }
 
 function directorist_get_term_directory( $term_id ) {
-	$directories = (array) get_term_meta( $term_id, '_directory_type', true );
+    $directories = (array) get_term_meta( $term_id, '_directory_type', true );
 
-	if ( empty( $directories ) ) {
-		return array();
-	}
+    if ( empty( $directories ) ) {
+        return [];
+    }
 
-	return wp_parse_id_list( $directories );
+    return wp_parse_id_list( $directories );
 }
 
 function directorist_get_location_directory( $location_id ) {
-	return directorist_get_term_directory( $location_id );
+    return directorist_get_term_directory( $location_id );
 }
 
 function directorist_get_category_directory( $category_id ) {
-	return directorist_get_term_directory( $category_id );
+    return directorist_get_term_directory( $category_id );
 }
 
 /**
@@ -244,52 +244,54 @@ function directorist_get_category_directory( $category_id ) {
  * @return array
  */
 function directorist_get_directory_general_settings( $directory_id ) {
-	$settings = (array) directorist_get_directory_meta( $directory_id, 'general_config' );
-	$defaults = array(
-		'icon'          => '',
-		'preview_image' => '',
-	);
+    $settings = (array) directorist_get_directory_meta( $directory_id, 'general_config' );
+    $defaults = [
+        'icon'          => '',
+        'preview_image' => '',
+    ];
 
-	return array_merge( $defaults, $settings );
+    return array_merge( $defaults, $settings );
 }
 
-function directorist_get_directories( array $args = array() ) {
-	$defaults = array(
-		'hide_empty' => false,
-		'default_only' => false,
-	);
+function directorist_get_directories( array $args = [] ) {
+    $defaults = [
+        'hide_empty' => false,
+        'default_only' => false,
+    ];
 
-	$args = wp_parse_args( $args, $defaults );
+    $args = wp_parse_args( $args, $defaults );
 
-	if ( $args['default_only'] ) {
-		$args['number']     = 1;
-		$args['meta_value'] = '1';
-		$args['meta_key']   = '_default';
+    if ( $args['default_only'] ) {
+        $args['number']     = 1;
+        $args['meta_value'] = '1';
+        $args['meta_key']   = '_default';
 
-		unset( $args['default_only'] );
-	}
+        unset( $args['default_only'] );
+    }
 
-	$args['taxonomy'] = ATBDP_DIRECTORY_TYPE;
+    $args['taxonomy'] = ATBDP_DIRECTORY_TYPE;
 
-	return get_terms( $args );
+    return get_terms( $args );
 }
 
-function directorist_get_directories_for_template( array $args = array() ) {
-	$directories = directorist_get_directories( $args );
+function directorist_get_directories_for_template( array $args = [] ) {
+    $directories = directorist_get_directories( $args );
 
-	if ( is_wp_error( $directories ) ) {
-		return array();
-	}
+    if ( is_wp_error( $directories ) ) {
+        return [];
+    }
 
-	return array_reduce( $directories, static function( $carry, $directory ) {
-		$carry[ $directory->term_id ] = array(
-			'term' => $directory,
-			'name' => $directory->name,
-			'data' => directorist_get_directory_general_settings( $directory->term_id ),
-		);
+    return array_reduce(
+        $directories, static function( $carry, $directory ) {
+            $carry[ $directory->term_id ] = [
+                'term' => $directory,
+                'name' => $directory->name,
+                'data' => directorist_get_directory_general_settings( $directory->term_id ),
+            ];
 
-		return $carry;
-	}, array() );
+            return $carry;
+        }, [] 
+    );
 }
 
 /**
@@ -301,23 +303,23 @@ function directorist_get_directories_for_template( array $args = array() ) {
  * @return array
  */
 function directorist_get_category_custom_field_relations( $directory_id ) {
-	$submission_form_fields = get_term_meta( $directory_id, 'submission_form_fields', true );
+    $submission_form_fields = get_term_meta( $directory_id, 'submission_form_fields', true );
 
-	if ( empty( $submission_form_fields['fields'] ) ) {
-		return array();
-	}
+    if ( empty( $submission_form_fields['fields'] ) ) {
+        return [];
+    }
 
-	$relations = array();
+    $relations = [];
 
-	foreach( $submission_form_fields['fields'] as $field ) {
-		if ( empty( $field['assign_to'] ) || empty( $field['category'] ) ) {
-			continue;
-		}
+    foreach ( $submission_form_fields['fields'] as $field ) {
+        if ( empty( $field['assign_to'] ) || empty( $field['category'] ) ) {
+            continue;
+        }
 
-		$relations[ $field['field_key'] ] = (int) $field['category'];
-	}
+        $relations[ $field['field_key'] ] = (int) $field['category'];
+    }
 
-	return $relations;
+    return $relations;
 }
 
 /**
@@ -328,5 +330,5 @@ function directorist_get_category_custom_field_relations( $directory_id ) {
  * @return bool
  */
 function directorist_is_preview_enabled( $directory_id ) {
-	return (bool) directorist_get_directory_meta( $directory_id, 'preview_mode' );
+    return (bool) directorist_get_directory_meta( $directory_id, 'preview_mode' );
 }

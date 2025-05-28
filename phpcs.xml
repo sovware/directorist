@@ -24,9 +24,12 @@
 
 	<!-- Configs -->
 	<config name="minimum_supported_wp_version" value="4.6" />
-	<config name="testVersion" value="7.0-" />
-	<arg name="extensions" value="php"/>
-	<arg name="tab-width" value="4"/>
+	<config name="testVersion" value="7.4-" />
+	<arg name="extensions" value="php" />
+	<arg name="tab-width" value="4" />
+	<arg value="sp" />
+	<arg name="extensions" value="php" />
+	<arg name="standard" value="WordPress" />
 
 	<!-- Exclude paths -->
 	<exclude-pattern>/__*/</exclude-pattern>

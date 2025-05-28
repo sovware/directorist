@@ -1,23 +1,23 @@
 <?php
-if (!empty($args['data']) ) extract($args['data']) ;
+if ( ! empty( $args['data'] ) ) extract( $args['data'] );
 // show the expiration date if never expiration is not set
 // display never expiration checkbox
 // Display featured checkbox
 // var_dump($never_expire);
- if( empty($never_expire) && isset( $expiry_date ) ) : ?>
+if ( empty( $never_expire ) && isset( $expiry_date ) ) : ?>
     <div class="misc-pub-section misc-pub-atbdp-expiration-time">
-		<span id="atbdp-timestamp">
-			<strong><?php esc_html_e( "Expiration", 'directorist' ); ?></strong>
+        <span id="atbdp-timestamp">
+            <strong><?php esc_html_e( "Expiration", 'directorist' ); ?></strong>
             <?php esc_html_e( "Date & Time", 'directorist' ); ?>
-    	</span>
+        </span>
         <div id="atbdp-timestamp-wrap" class="atbdp-timestamp-wrap">
             <label>
                 <select id="atbdp-mm" name="exp_date[mm]">
                     <?php
                     $months = atbdp_get_months();// get an array of translatable month names
-                    foreach( $months as $key => $month_name ) {
+                    foreach ( $months as $key => $month_name ) {
                         $key += 1;
-                        printf( '<option value="%1$d" %2$s>%1$d-%3$s</option>', esc_attr( $key ), selected( $key, (int) $expiry_date['month']), esc_attr( $month_name ) );
+                        printf( '<option value="%1$d" %2$s>%1$d-%3$s</option>', esc_attr( $key ), selected( $key, (int) $expiry_date['month'] ), esc_attr( $month_name ) );
                     }
                     ?>
                 </select>
@@ -37,29 +37,29 @@ if (!empty($args['data']) ) extract($args['data']) ;
         </div>
     </div>
 <?php endif;
-if (!is_fee_manager_active() || !empty($never_expire)):
+if ( ! is_fee_manager_active() || ! empty( $never_expire ) ) :
     ?>
 <div class="misc-pub-section misc-pub-atbdp-never-expires">
     <label>
-        <input type="checkbox" name="never_expire" value="1" <?php checked(1, $never_expire, true); ?>>
+        <input type="checkbox" name="never_expire" value="1" <?php checked( 1, $never_expire, true ); ?>>
         <strong><?php esc_html_e( "Never Expires", 'directorist' ); ?></strong>
     </label>
 </div>
-<?php
+    <?php
 endif;
 ?>
 <!--Show featured option if it is enabled by the user-->
-<?php if( $f_active || is_fee_manager_active()) { ?>
+<?php if ( $f_active || is_fee_manager_active() ) { ?>
     <div class="misc-pub-section misc-pub-atbdp-featured">
         <label>
-            <input type="checkbox" name="featured" value="1" <?php checked(1, $featured, true); ?>>
+            <input type="checkbox" name="featured" value="1" <?php checked( 1, $featured, true ); ?>>
             <?php esc_html_e( "Mark as", 'directorist' ); ?>
             <strong><?php esc_html_e( "Featured", 'directorist' ); ?></strong>
         </label>
     </div>
 <?php }
 
-$listing_types = array();
+$listing_types = [];
 $all_types     = directorist_get_directories();
 ?>
 <input type="hidden" name="listing_status" value="<?php echo esc_attr( ! empty( $listing_status ) ? $listing_status : 'post_status' ); ?>" />

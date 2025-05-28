@@ -12,22 +12,22 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 <div class="directorist-form-group directorist-form-social-info-field">
 
-	<?php $listing_form->field_label_template( $data );?>
+    <?php $listing_form->field_label_template( $data );?>
 
-	<div id="social_info_sortable_container">
+    <div id="social_info_sortable_container">
 
-		<input type="hidden" id="is_social_checked">
+        <input type="hidden" id="is_social_checked">
 
-		<?php
-		if ( !empty( $data['value'] ) ){
-			foreach ( $data['value'] as $index => $social_info ) {
-				$listing_form->social_item_template( $index, $social_info );
-			}
-		}
-		?>
+        <?php
+        if ( ! empty( $data['value'] ) ) {
+            foreach ( $data['value'] as $index => $social_info ) {
+                $listing_form->social_item_template( $index, $social_info );
+            }
+        }
+        ?>
 
-	</div>
+    </div>
 
-	<button type="button" class="directorist-btn directorist-btn-light" id="addNewSocial"><?php directorist_icon( 'las la-plus' ); ?><?php esc_html_e('Add Social', 'directorist'); ?></button>
+    <button type="button" class="directorist-btn directorist-btn-light" id="addNewSocial"><?php directorist_icon( 'las la-plus' ); ?><?php esc_html_e( 'Add Social', 'directorist' ); ?></button>
 
 </div>

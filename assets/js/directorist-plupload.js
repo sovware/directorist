@@ -1,107 +1,136 @@
-/******/ (function(modules) { // webpackBootstrap
+/******/ (function() { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	var __webpack_modules__ = ({
+
+/***/ "./assets/src/js/lib/helper.js":
+/*!*************************************!*\
+  !*** ./assets/src/js/lib/helper.js ***!
+  \*************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   convertToSelect2: function() { return /* binding */ convertToSelect2; },
+/* harmony export */   get_dom_data: function() { return /* binding */ get_dom_data; }
+/* harmony export */ });
+var $ = jQuery;
+function get_dom_data(selector, parent) {
+  selector = '.directorist-dom-data-' + selector;
+  if (!parent) {
+    parent = document;
+  }
+  var el = parent.querySelector(selector);
+  if (!el || !el.dataset.value) {
+    return {};
+  }
+  var IS_SCRIPT_DEBUGGING = directorist && directorist.script_debugging && directorist.script_debugging == '1';
+  try {
+    var value = atob(el.dataset.value);
+    return JSON.parse(value);
+  } catch (error) {
+    if (IS_SCRIPT_DEBUGGING) {
+      console.log(el, error);
+    }
+    return {};
+  }
+}
+function convertToSelect2(selector) {
+  var $selector = $(selector);
+  var args = {
+    allowClear: true,
+    width: '100%',
+    templateResult: function templateResult(data) {
+      if (!data.id) {
+        return data.text;
+      }
+      var iconURI = $(data.element).data('icon');
+      var iconElm = "<i class=\"directorist-icon-mask\" aria-hidden=\"true\" style=\"--directorist-icon: url(".concat(iconURI, ")\"></i>");
+      var originalText = data.text;
+      var modifiedText = originalText.replace(/^(\s*)/, "$1" + iconElm);
+      var $state = $("<div class=\"directorist-select2-contents\">".concat(typeof iconURI !== 'undefined' && iconURI !== '' ? modifiedText : originalText, "</div>"));
+      return $state;
+    }
+  };
+  var options = $selector.find('option');
+  if (options.length && options[0].textContent.length) {
+    args.placeholder = options[0].textContent;
+  }
+  $selector.length && $selector.select2(args);
+}
+
+
+/***/ })
+
+/******/ 	});
+/************************************************************************/
 /******/ 	// The module cache
-/******/ 	var installedModules = {};
-/******/
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
-/******/
 /******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId]) {
-/******/ 			return installedModules[moduleId].exports;
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
 /******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			i: moduleId,
-/******/ 			l: false,
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
 /******/ 			exports: {}
 /******/ 		};
-/******/
+/******/ 	
 /******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
-/******/ 		// Flag the module as loaded
-/******/ 		module.l = true;
-/******/
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-/******/
-/******/
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
-/******/
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
-/******/
-/******/ 	// define getter function for harmony exports
-/******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
-/******/ 		}
-/******/ 	};
-/******/
-/******/ 	// define __esModule on exports
-/******/ 	__webpack_require__.r = function(exports) {
-/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 		}
-/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 	};
-/******/
-/******/ 	// create a fake namespace object
-/******/ 	// mode & 1: value is a module id, require it
-/******/ 	// mode & 2: merge all properties of value into the ns
-/******/ 	// mode & 4: return value when already ns object
-/******/ 	// mode & 8|1: behave like require
-/******/ 	__webpack_require__.t = function(value, mode) {
-/******/ 		if(mode & 1) value = __webpack_require__(value);
-/******/ 		if(mode & 8) return value;
-/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
-/******/ 		var ns = Object.create(null);
-/******/ 		__webpack_require__.r(ns);
-/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
-/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
-/******/ 		return ns;
-/******/ 	};
-/******/
-/******/ 	// getDefaultExport function for compatibility with non-harmony modules
-/******/ 	__webpack_require__.n = function(module) {
-/******/ 		var getter = module && module.__esModule ?
-/******/ 			function getDefault() { return module['default']; } :
-/******/ 			function getModuleExports() { return module; };
-/******/ 		__webpack_require__.d(getter, 'a', getter);
-/******/ 		return getter;
-/******/ 	};
-/******/
-/******/ 	// Object.prototype.hasOwnProperty.call
-/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-/******/
-/******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
-/******/
-/******/
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./assets/src/js/global/directorist-plupload.js");
-/******/ })
+/******/ 	
 /************************************************************************/
-/******/ ({
-
-/***/ "./assets/src/js/global/directorist-plupload.js":
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	!function() {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = function(exports, definition) {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	!function() {
+/******/ 		__webpack_require__.o = function(obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); }
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	!function() {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = function(exports) {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// This entry needs to be wrapped in an IIFE because it needs to be isolated against other modules in the chunk.
+!function() {
 /*!******************************************************!*\
   !*** ./assets/src/js/global/directorist-plupload.js ***!
   \******************************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_helper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../lib/helper */ "./assets/src/js/lib/helper.js");
 
 jQuery.fn.exists = function () {
   return jQuery(this).length > 0;
 };
-var atbdp_plupload_params = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_0__["get_dom_data"])('atbdp_plupload_params');
-var atbdp_params = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_0__["get_dom_data"])('atbdp_params');
+var atbdp_plupload_params = (0,_lib_helper__WEBPACK_IMPORTED_MODULE_0__.get_dom_data)('atbdp_plupload_params');
+var atbdp_params = (0,_lib_helper__WEBPACK_IMPORTED_MODULE_0__.get_dom_data)('atbdp_params');
 var $ = jQuery;
 
 // Init
@@ -110,8 +139,8 @@ if (atbdp_plupload_params) {
   window.addEventListener('directorist-reload-plupload', init);
 }
 function init() {
-  atbdp_plupload_params = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_0__["get_dom_data"])('atbdp_plupload_params');
-  atbdp_params = Object(_lib_helper__WEBPACK_IMPORTED_MODULE_0__["get_dom_data"])('atbdp_params');
+  atbdp_plupload_params = (0,_lib_helper__WEBPACK_IMPORTED_MODULE_0__.get_dom_data)('atbdp_plupload_params');
+  atbdp_params = (0,_lib_helper__WEBPACK_IMPORTED_MODULE_0__.get_dom_data)('atbdp_params');
   if ($(".plupload-upload-uic").exists()) {
     var pluploadConfig, msgErr, post_id;
 
@@ -471,67 +500,7 @@ function gd_set_image_meta(input_id, order_id) {
   plu_show_thumbs(input_id);
   jQuery('[data-lity-close]', window.parent.document).trigger('click');
 }
-
-/***/ }),
-
-/***/ "./assets/src/js/lib/helper.js":
-/*!*************************************!*\
-  !*** ./assets/src/js/lib/helper.js ***!
-  \*************************************/
-/*! exports provided: convertToSelect2, get_dom_data */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "convertToSelect2", function() { return convertToSelect2; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "get_dom_data", function() { return get_dom_data; });
-var $ = jQuery;
-function get_dom_data(selector, parent) {
-  selector = '.directorist-dom-data-' + selector;
-  if (!parent) {
-    parent = document;
-  }
-  var el = parent.querySelector(selector);
-  if (!el || !el.dataset.value) {
-    return {};
-  }
-  var IS_SCRIPT_DEBUGGING = directorist && directorist.script_debugging && directorist.script_debugging == '1';
-  try {
-    var value = atob(el.dataset.value);
-    return JSON.parse(value);
-  } catch (error) {
-    if (IS_SCRIPT_DEBUGGING) {
-      console.log(el, error);
-    }
-    return {};
-  }
-}
-function convertToSelect2(selector) {
-  var $selector = $(selector);
-  var args = {
-    allowClear: true,
-    width: '100%',
-    templateResult: function templateResult(data) {
-      if (!data.id) {
-        return data.text;
-      }
-      var iconURI = $(data.element).data('icon');
-      var iconElm = "<i class=\"directorist-icon-mask\" aria-hidden=\"true\" style=\"--directorist-icon: url(".concat(iconURI, ")\"></i>");
-      var originalText = data.text;
-      var modifiedText = originalText.replace(/^(\s*)/, "$1" + iconElm);
-      var $state = $("<div class=\"directorist-select2-contents\">".concat(typeof iconURI !== 'undefined' && iconURI !== '' ? modifiedText : originalText, "</div>"));
-      return $state;
-    }
-  };
-  var options = $selector.find('option');
-  if (options.length && options[0].textContent.length) {
-    args.placeholder = options[0].textContent;
-  }
-  $selector.length && $selector.select2(args);
-}
-
-
-/***/ })
-
-/******/ });
+}();
+/******/ })()
+;
 //# sourceMappingURL=directorist-plupload.js.map

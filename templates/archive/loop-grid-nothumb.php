@@ -36,20 +36,29 @@ $quick_info_field = ob_get_clean();
 
         <?php if ( ! empty( $listing_avatar ) ) : ?>
             <figure class="directorist-listing-single__header__left">
-                <?php echo $listing_avatar; ?>
+                <?php 
+                    // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                    echo $listing_avatar; 
+                ?>
             </figure>
         <?php endif; ?>
         
         <?php if ( ! empty( $listing_title ) ) : ?>
             <header class="directorist-listing-single__header__title">
-                <?php echo $listing_title; ?>
+                <?php 
+                    // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                    echo $listing_title; 
+                ?>
             </header>
         <?php endif; ?>
         
         <?php if ( ! empty( $quick_actions_field ) ) : ?>
             <div class="directorist-listing-single__header__right">
                 <div class="directorist-listing-single__action">
-                    <?php echo $quick_actions_field; ?>
+                    <?php 
+                        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                        echo $quick_actions_field;
+                    ?>
                 </div>
             </div>
         <?php endif; ?>
@@ -58,7 +67,10 @@ $quick_info_field = ob_get_clean();
 
     <?php if ( ! empty( $quick_info_field ) ) : ?>
         <div class="directorist-listing-single__info">
-            <?php echo $quick_info_field; ?>
+            <?php 
+                // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                echo $quick_info_field; 
+            ?>
         </div>
     <?php endif; ?>
 

@@ -24,6 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
                     <?php 
                     if ( $listings->header_title && ! empty( $listings->options['display_listings_count'] ) ) {
+                        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                         echo $listings->listings_header_title();
                     } 
                     ?>

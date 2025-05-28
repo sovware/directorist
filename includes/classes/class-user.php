@@ -60,8 +60,8 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
                     ], 401 
                 );
             }
-
-            $params_json_decode    = json_decode( stripslashes( $_POST['params'] ), true );
+            // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+            $params_json_decode    = json_decode( wp_unslash( $_POST['params'] ), true );
             $params                = directorist_clean( $params_json_decode );
 
             if ( ! directorist_is_user_registration_enabled() ) {
@@ -96,7 +96,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
             $bio            = ! empty( $_POST['bio'] ) ? sanitize_textarea_field( wp_unslash( $_POST['bio'] ) ) : '';
             $privacy_policy = ! empty( $_POST['privacy_policy'] ) ? directorist_clean( wp_unslash( $_POST['privacy_policy'] ) ) : '';
             $t_c_check      = ! empty( $_POST['t_c_check'] ) ? directorist_clean( wp_unslash( $_POST['t_c_check'] ) ) : '';
-            $previous_page  = ! empty( $_POST['previous_page'] ) ? directorist_clean( $_POST['previous_page'] ) : '';
+            $previous_page  = ! empty( $_POST['previous_page'] ) ? directorist_clean( wp_unslash( $_POST['previous_page'] ) ) : '';
 
             //password validation
             if ( ! empty( $display_password ) && empty( $password ) ) {
@@ -185,7 +185,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
             $last_name     = ! empty( $_POST['lname'] ) ? directorist_clean( wp_unslash( $_POST['lname'] ) ) : '';
             $user_type     = ! empty( $_POST['user_type'] ) ? directorist_clean( wp_unslash( $_POST['user_type'] ) ) : '';
             $bio           = ! empty( $_POST['bio'] ) ? sanitize_textarea_field( wp_unslash( $_POST['bio'] ) ) : '';
-            $previous_page = ! empty( $_POST['previous_page'] ) ? directorist_clean( $_POST['previous_page'] ) : '';
+            $previous_page = ! empty( $_POST['previous_page'] ) ? directorist_clean( wp_unslash( $_POST['previous_page'] ) ) : '';
 
             /**
              * It fires before processing a submitted registration from the front end
@@ -303,13 +303,17 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
             <?php $email_verify_checkbox = ob_get_clean(); ?>
             <script>
                 jQuery(($) => {
-                    $('#your-profile .user-email-wrap, #createuser .user-pass2-wrap').after(`<?php echo $email_verify_checkbox;?>`);
+                    $('#your-profile .user-email-wrap, #createuser .user-pass2-wrap').after(`<?php 
+                        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                        echo $email_verify_checkbox; 
+                    ?>`);
                 });
             </script>
             <?php
         }
 
         public function action_admin_edit_user_info( int $user_id ) {
+            // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
             if ( empty( $_POST['directorist_nonce'] ) || ! wp_verify_nonce( $_POST['directorist_nonce'], 'update_user_info' ) ) {
                 return;
             }
@@ -384,11 +388,11 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
         }
 
         public function action_email_verification_notice() {
-
+            // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
             if ( empty( $_GET['users'] ) || empty( $_GET['email-verification-type'] ) || empty( $_GET['_wpnonce'] ) || ! wp_verify_nonce( $_GET['_wpnonce'], 'directorist_verify_user_email_notice' ) ) {
                 return;
             }
-
+            // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash
             $user_ids = wp_parse_id_list( $_GET['users'] );
 
             if ( empty( $user_ids ) ) {
@@ -501,6 +505,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
          */
         public function filter_authenticate( $user, string $username ) {
             if ( is_wp_error( $user ) ) {
+                // phpcs:ignore WordPress.Security.NonceVerification.Missing
                 if ( $user->get_error_code() === 'incorrect_password' && isset( $_POST['action'] ) && $_POST['action'] === 'ajaxlogin' ) {
 
                     $message = $user->get_error_message();

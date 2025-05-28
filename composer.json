@@ -37,9 +37,9 @@
 			"composer dump-autoload -d vendor"
 		],
 		"humbug/php-scoper": "composer bin php-scoper require --dev humbug/php-scoper:0.17.5",
-		"report": "@php ./vendor/vendor-src/bin/phpcs",
-		"format": "@php ./vendor/vendor-src/bin/phpcbf",
-		"sniffer:php8.1": "./vendor/bin/phpcs -p . --standard=PHPCompatibilityWP --severity=1 --runtime-set testVersion 8.1- --extensions=php"
+		"phpcs": "vendor/bin/phpcs --standard=phpcs.xml",
+		"format": "vendor/bin/phpcbf --standard=phpcs.xml",
+		"sniffer:php8.1": "vendor/bin/phpcs -p . --standard=PHPCompatibilityWP --severity=1 --runtime-set testVersion 8.1- --extensions=php"
 	},
 	"require": {
 		"wpmvc/framework": "1.1.2"

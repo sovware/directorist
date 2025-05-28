@@ -14,7 +14,8 @@ if ( '5' == $taxonomy->columns ) {
 }
 
 $taxonomy->atts['type'] = 'category';
-$taxonomy->atts['directory_type'] = isset( $_GET['directory_type'] ) && ! empty( $_GET['directory_type'] ) ? $_GET['directory_type'] : '';
+$taxonomy->atts['directory_type'] = isset( $_GET['directory_type'] ) && ! empty( $_GET['directory_type'] ) ? sanitize_text_field( wp_unslash( $_GET['directory_type'] ) ) : '';
+
 ?>
 <div id="directorist" class="atbd_wrapper directorist-w-100">
     <div class="<?php Helper::directorist_container_fluid(); ?>">
@@ -26,7 +27,7 @@ $taxonomy->atts['directory_type'] = isset( $_GET['directory_type'] ) && ! empty(
                 do_action( 'atbdp_before_all_categories_loop', $taxonomy );
             ?>
             <?php if ( $categories ) : ?>
-                    <div class="<?php echo apply_filters( 'directorist_taxonomy_category_wrapper', Helper::directorist_row() . ' taxonomy-category-wrapper' ); ?>">
+                    <div class="<?php echo esc_attr( apply_filters( 'directorist_taxonomy_category_wrapper', Helper::directorist_row() . ' taxonomy-category-wrapper' ) ); ?>">
                         <?php
                         foreach ( $categories as $category ) {
                             $toggle_class = $category['has_child'] ? 'directorist-taxonomy-list__toggle' : '';

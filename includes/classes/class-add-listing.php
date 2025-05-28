@@ -185,7 +185,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
                      * This filter allows developers to enable or disable the automatic creation of guest user accounts
                      * based on the guest email and submitted post data.
                      *
-                     * @since 8.4.4
+                     * @since 8.4.3
                      *
                      * @param bool   $allow_creation Whether to allow guest user account creation. Default true.
                      * @param string $guest_email    The sanitized email address submitted by the guest.

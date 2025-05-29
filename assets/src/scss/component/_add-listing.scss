@@ -119,9 +119,9 @@
         }
       }
     }
-    .directorist-form-group:not(:last-child) {
-      margin-bottom: 40px;
-    }
+    // .directorist-form-group:not(:last-child) {
+    //   margin-bottom: 40px;
+    // }
 
     .directorist-form-address-field.atbdp-form-fade {
       padding: 0;
@@ -1428,8 +1428,6 @@
     min-width: 270px;
     max-width: 270px;
     overflow-y: auto;
-    padding: 10px;
-    margin: -10px;
     &.sticky {
       position: fixed;
       top: 0;
@@ -1439,7 +1437,7 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      width: 290px;
+      width: 270px;
       min-height: 36px;
       padding: 7px 16px;
       border: none;

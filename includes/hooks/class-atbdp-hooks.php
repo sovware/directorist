@@ -32,7 +32,8 @@ if ( ! class_exists( 'ATBDP_Hooks' ) ) :
          * @return void
          */
         private function register_hooks( array $hooks ) {
-            if ( ! count( $hooks ) ) { return; }
+            if ( ! count( $hooks ) ) {
+                return; }
 
             foreach ( $hooks as $hook ) {
                 self::add_hook( $hook );

@@ -6,19 +6,19 @@
  */
 
 if ( is_numeric( $searchform->listing_type ) ) {
-	$term         = get_term_by( 'id', $searchform->listing_type, ATBDP_TYPE );
-	$listing_type = $term->slug;
+    $term         = get_term_by( 'id', $searchform->listing_type, ATBDP_TYPE );
+    $listing_type = $term->slug;
 }
 ?>
 
 <div class="directorist-all-listing-btn">
     <div class="directorist-all-listing-btn__back">
-		<a href="#" class="directorist-btn__back"><?php directorist_icon( 'las la-arrow-left' ); ?></a>
-	</div>
+        <a href="#" class="directorist-btn__back"><?php directorist_icon( 'las la-arrow-left' ); ?></a>
+    </div>
 
     <div class="directorist-all-listing-btn__basic">
-		<a href="#" class="directorist-btn directorist-btn-light directorist-modal-btn directorist-modal-btn--basic"><?php directorist_icon( 'las la-search' ); ?> <?php esc_html_e( 'Search', 'directorist' ); ?></a>
-	</div>
+        <a href="#" class="directorist-btn directorist-btn-light directorist-modal-btn directorist-modal-btn--basic"><?php directorist_icon( 'las la-search' ); ?> <?php esc_html_e( 'Search', 'directorist' ); ?></a>
+    </div>
 
     <div class="directorist-all-listing-btn__advanced">
         <a href="#" class="directorist-modal-btn directorist-modal-btn--advanced"><?php directorist_icon( 'fas fa-sliders-h' ); ?></a>
@@ -35,11 +35,11 @@ if ( is_numeric( $searchform->listing_type ) ) {
                     <span class="directorist-search-modal__minimizer"></span>
                 </div>
                 <div class="directorist-search-modal__contents__body">
-                    <?php foreach ( $searchform->form_data[1]['fields'] as $field ): ?>
-						<div class="directorist-advanced-filter__advanced__element directorist-search-field-<?php echo esc_attr( $field['widget_name'] )?>">
-							<?php $searchform->field_template( $field ); ?>
-						</div>
-					<?php endforeach; ?>
+                    <?php foreach ( $searchform->form_data[1]['fields'] as $field ) : ?>
+                        <div class="directorist-advanced-filter__advanced__element directorist-search-field-<?php echo esc_attr( $field['widget_name'] )?>">
+                            <?php $searchform->field_template( $field ); ?>
+                        </div>
+                    <?php endforeach; ?>
                 </div>
                 <div class="directorist-search-modal__contents__footer">
                     <?php $searchform->buttons_template(); ?>

@@ -5,7 +5,7 @@
  * @version 6.7
  */
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+    exit;
 }
 
 use \Directorist\ATBDP_Shortcode;
@@ -13,6 +13,6 @@ use \Directorist\ATBDP_Shortcode;
 
 <?php get_header(); ?>
 
-<?php echo (new ATBDP_Shortcode())->category_archive(); ?>
+<?php echo ( new ATBDP_Shortcode() )->category_archive(); ?>
 
 <?php get_footer( 'directorist' ); ?>

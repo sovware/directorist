@@ -3,9 +3,9 @@ Contributors: wpwax
 Donate link: https://directorist.com/extensions/
 Tags: member directory, listing, classifieds, directory plugin, business directory
 Requires at least: 4.6
-Tested up to: 6.7
+Tested up to: 6.8
 Requires PHP: 7.0
-Stable tag: 8.3.1
+Stable tag: 8.4.3
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -13,7 +13,7 @@ An Excellent WP Directory Plugin to Create Business Directories, Job Listings, C
 
 == Description ==
 
-[Try Admin Demo](https://userdemo.wpwax.com/directorist/) | [Demos](https://directorist.com/demos/) | [Docs](https://directorist.com/documentation/directorist/) | [Themes](https://directorist.com/themes/) | [Extensions](https://directorist.com/extensions/) | [Roadmap](https://directorist.com/roadmap/)
+[Try Demo](https://directorist.com/demos/) | [Docs](https://directorist.com/documentation/directorist/) | [Theme](https://directorist.com/themes/) | [Extensions](https://directorist.com/extensions/) | [Roadmap](https://directorist.com/roadmap/)
 
 Struggling to create a niche directory or classified ad website that stands out?
 
@@ -296,6 +296,67 @@ Directorist is a complete directory solution and in combination with its advance
  * and many more
 
 == Changelog ==
+
+8.4.3 - May 22, 2025
+
+**Changed**
+ - Refactored beta version detection logic to avoid dependency on `get_plugin_data()` and improve performance. (#2367)
+
+**Fixed**
+ - Nonce validation issue in guest listing submission fixed to improve security and form handling. (#2354)
+ - `preg_replace()` deprecation notice on the dashboard fixed for PHP 8.1+ compatibility. (#2351)
+
+8.4.2 - May 20, 2025
+ - Tweak JS and CSS
+
+8.4.1 - May 20, 2025
+
+**Changed**
+ - Hook to customize the email “From Name” and prevent forced values. (#2344)
+ - Filter hook to manipulate category term template redirection. (#2340)
+ - Polylang integration improved for better multilingual support. (#2328)
+ - Search form improved for enhanced usability. (#2335)
+ - Builder widget group drag-and-drop option updated. (#2342)
+
+**Fixed**
+ - Submit button in the "Contact Listing Owner" form disabled in preview mode. (#2343)
+ - console.error on listing edit with gallery extension fixed. (#2341)
+ - Deprecated warning from print_emoji_styles() removed in setup wizard. (#2338)
+ - "Remember me" display issue on the login form. (#2337)
+ - Listings importer issue. (#2336)
+ - Listing description visibility issue below the map fixed. (#2334)
+ - Builders and listings not imported from setup widget. (#2333)
+ - Swiper Slider loop issue fixed. (#2327)
+ - Schema php error when schema type empty. (#2352)
+
+8.4 - Apr 29, 2025
+
+**New**
+- Schema support for better search engine indexing. (#2298)
+- New filter hook to modify the default schema arguments. (#2310)
+
+**Changed**
+ - Replaced outdated Darken color with updated version for improved compatibility. (#2296)
+ - Improved styling for custom number field (prefix arrow, border, gap). (#2286)
+ - Listing default image. (#2314)
+ - Updated Swiper Slider JS and CSS to the latest version. (#2311)
+
+**Fixed**
+ - Add Listing sidebar layout cut-off issue and added scrollbar when necessary. (#2305)
+ - Registration redirection issue post-signup. (#2303)
+ - Listing view count logic fixed and refactored for better accuracy. (#2302)
+ - Fatal error when importing CSV with empty lines resolved. (#2301)
+ - Undefined variable issue in widget resolved. (#2300)
+ - Removed directorist-overlay-active class after filtering to prevent overlay lock. (#2299)
+ - Category custom field not appearing in add listing form resolved. (#2317)
+ - CSV importer application/csv MIME type issue. (#2318)
+ - Selector conflict between Gallery Extension and core plugin. (#2316)
+ - Responsive style issue for the single listing header button. (#2313)
+ - Translation notice issue in the admin panel. (#2309)
+ - Password recovery issue with WordPress 6.8. (#2322)
+
+ **Removed**
+ - Removed announcement-related code from the core plugin. (#2283)
 
 8.3.1 - Mar 26, 2025
 

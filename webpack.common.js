@@ -60,10 +60,7 @@ const commonConfig = {
         use: [
           {
             loader: MiniCssExtractPlugin.loader,
-            options: {
-              hmr: process.env.NODE_ENV === "development",
-              reloadAll: true,
-            },
+            options: {}
           },
           {
             loader: 'css-loader',
@@ -85,6 +82,16 @@ const commonConfig = {
             loader: "sass-loader",
             options: {
               sourceMap: true,
+              implementation: require("sass"),
+              sassOptions: {
+                silenceDeprecations: [
+                  "mixed-decls",
+                  "import",
+                  "color-functions",
+                  "global-builtin",
+                  "legacy-js-api",
+                ],
+              },
             },
           },
         ],

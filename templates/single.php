@@ -13,7 +13,7 @@ get_header( 'directorist' );
 ?>
 
 <div class="directorist-single <?php Helper::directorist_container(); ?>">
-	<?php Helper::get_template( 'single-contents' ); ?>
+    <?php Helper::get_template( 'single-contents' ); ?>
 </div>
 
 <?php

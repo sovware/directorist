@@ -1,4 +1,3 @@
-;
 (function () {
-    new DashTab( '.directorist-tab' );
+	new DashTab('.directorist-tab');
 })();

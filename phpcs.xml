@@ -1,0 +1,149 @@
+<?xml version="1.0"?>
+<ruleset name="WordPress Coding Standards">
+    <description>Apply WordPress Coding Standards to all Core files</description>
+
+	<!-- Set the memory limit to 256M.
+		 For most standard PHP configurations, this means the memory limit will temporarily be raised.
+		 Ref: https://github.com/squizlabs/PHP_CodeSniffer/wiki/Advanced-Usage#specifying-phpini-settings
+	-->
+	<ini name="memory_limit" value="256M"/>
+
+	<!-- Strip the filepaths in reports down to the relevant bit. -->
+	<arg name="basepath" value="./" />
+
+	<!-- Check up to 8 files simultaneously. -->
+	<arg name="parallel" value="8" />
+
+	<!-- Show progress, show the error codes for each message (source). -->
+	<arg value="ps" />
+
+	<!-- Exclude Warnings. -->
+	<arg value="n" />
+
+	<file>.</file>
+
+	<!-- Configs -->
+	<config name="minimum_supported_wp_version" value="4.6" />
+	<config name="testVersion" value="7.4-" />
+	<arg name="extensions" value="php" />
+	<arg name="tab-width" value="4" />
+	<arg value="sp" />
+	<arg name="extensions" value="php" />
+	<arg name="standard" value="WordPress" />
+
+	<!-- Exclude paths -->
+	<exclude-pattern>/__*/</exclude-pattern>
+	<exclude-pattern>/.github</exclude-pattern>
+	<exclude-pattern>/admin/*</exclude-pattern>
+	<exclude-pattern>/assets/*</exclude-pattern>
+	<exclude-pattern>/blocks/build/*</exclude-pattern>
+	<exclude-pattern>/languages/*</exclude-pattern>
+	<exclude-pattern>/node_modules/*</exclude-pattern>
+	<exclude-pattern>/vendor/*</exclude-pattern>
+	<exclude-pattern>/vendor-src/*</exclude-pattern>
+
+	<!-- Rules -->
+	<rule ref="WordPress.Security"/>
+
+	<rule ref="WordPress.Security.NonceVerification">
+        <properties>
+            <property name="customNonceVerificationFunctions" type="array">
+                <element value="directorist_verify_nonce"/>
+            </property>
+        </properties>
+    </rule>
+
+    <rule ref="WordPress.Security.ValidatedSanitizedInput">
+        <properties>
+            <property name="customSanitizingFunctions" type="array">
+                <element value="directorist_clean"/>
+                <element value="directorist_clean_post"/>
+                <element value="atbdp_sanitize_array"/>
+                <element value="directorist_update_profile"/>
+                <element value="directorist_maybe_json"/>
+            </property>
+        </properties>
+    </rule>
+    <rule ref="WordPress.Security.EscapeOutput">
+        <properties>
+            <property name="customEscapingFunctions" type="array">
+                <element value="directorist_kses"/>
+                <element value="directorist_esc_json"/>
+            </property>
+        </properties>
+    </rule>
+
+	<rule ref="WordPress.Arrays.MultipleStatementAlignment">
+		<properties>
+			<property name="ignoreNewlines" value="false" />
+		</properties>
+	</rule>
+	<!-- Allow short array syntax -->
+	<rule ref="Generic.Arrays.DisallowShortArraySyntax.Found">
+		<severity>0</severity>
+	</rule>
+	<rule ref="Generic.WhiteSpace.DisallowTabIndent" />
+	<rule ref="Generic.WhiteSpace.ScopeIndent" />
+	<rule ref="Generic.Arrays.ArrayIndent" />
+	<rule ref="Generic.Formatting.MultipleStatementAlignment" />
+	<rule ref="Generic.Formatting.SpaceAfterCast" />
+	<rule ref="Generic.Formatting.SpaceAfterNot" />
+	<rule ref="Generic.WhiteSpace.ArbitraryParenthesesSpacing">
+		<properties>
+			<property name="spacing" value="1" />
+		</properties>
+	</rule>
+	<rule ref="PEAR.Functions.FunctionCallSignature">
+		<properties>
+			<property name="requiredSpacesAfterOpen" value="1" />
+			<property name="requiredSpacesBeforeClose" value="1" />
+		</properties>
+	</rule>
+	<!-- <rule ref="PEAR.Functions.FunctionDeclaration"/> -->
+	<rule ref="PSR2.ControlStructures.ControlStructureSpacing">
+		<properties>
+			<property name="requiredSpacesAfterOpen" value="1" />
+			<property name="requiredSpacesBeforeClose" value="1" />
+		</properties>
+	</rule>
+	<rule ref="Squiz.ControlStructures.ForEachLoopDeclaration">
+		<properties>
+			<property name="requiredSpacesAfterOpen" value="1" />
+			<property name="requiredSpacesBeforeClose" value="1" />
+		</properties>
+	</rule>
+	<rule ref="Squiz.ControlStructures.ForLoopDeclaration">
+		<properties>
+			<property name="requiredSpacesAfterOpen" value="1" />
+			<property name="requiredSpacesBeforeClose" value="1" />
+		</properties>
+	</rule>
+	<rule ref="Squiz.Functions.FunctionDeclarationArgumentSpacing">
+		<properties>
+			<property name="equalsSpacing" value="1" />
+			<property name="requiredSpacesAfterOpen" value="1" />
+			<property name="requiredSpacesBeforeClose" value="1" />
+		</properties>
+	</rule>
+	<rule ref="Squiz.Strings.ConcatenationSpacing">
+		<properties>
+			<property name="spacing" value="1" />
+		</properties>
+	</rule>
+	<rule ref="PSR12.Operators.OperatorSpacing"></rule>
+	<rule ref="Generic.Functions.OpeningFunctionBraceKernighanRitchie" />
+	<rule ref="Squiz.ControlStructures.ControlSignature"></rule>
+	<rule ref="Squiz.WhiteSpace.FunctionSpacing">
+		<properties>
+			<property name="spacing" value="1" />
+			<property name="spacingBeforeFirst" value="0" />
+			<property name="spacingAfterLast" value="0" />
+		</properties>
+	</rule>
+	<rule ref="Squiz.WhiteSpace.MemberVarSpacing">
+		<properties>
+			<property name="spacing" value="1" />
+			<property name="spacingBeforeFirst" value="0" />
+		</properties>
+	</rule>
+</ruleset>

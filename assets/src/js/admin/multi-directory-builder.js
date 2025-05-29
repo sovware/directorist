@@ -10,34 +10,50 @@ import './vue/global-component';
 import store from './vue/store/CPT_Manager_Store';
 
 window.addEventListener('load', () => {
-    const cpt_manager_el = document.getElementById( 'atbdp-cpt-manager' );
+	const cpt_manager_el = document.getElementById('atbdp-cpt-manager');
 
-    if ( cpt_manager_el ) {
-        const encodedBuilderData = cpt_manager_el.getAttribute( 'data-builder-data' );
-        let builderData = atob( encodedBuilderData );
+	if (cpt_manager_el) {
+		const encodedBuilderData =
+			cpt_manager_el.getAttribute('data-builder-data');
+		let builderData = atob(encodedBuilderData);
 
-        try {
-            builderData = JSON.parse( builderData );
-        } catch ( error ) {
-            builderData = [];
-        }
+		try {
+			builderData = JSON.parse(builderData);
+		} catch (error) {
+			builderData = [];
+		}
 
-        new Vue({
-            el:'#atbdp-cpt-manager',
-            store,
-            components: {
-                'cpt-manager': cpt_manager_component
-            },
+		new Vue({
+			el: '#atbdp-cpt-manager',
+			store,
+			components: {
+				'cpt-manager': cpt_manager_component,
+			},
 
-            data() {
-                return {
-                    id: ( typeof builderData.id !== 'undefined' ) ? builderData.id : 0,
-                    fields: ( typeof builderData.fields !== 'undefined' ) ? builderData.fields : [],
-                    layouts: ( typeof builderData.layouts !== 'undefined' ) ? builderData.layouts : [],
-                    options: ( typeof builderData.options !== 'undefined' ) ? builderData.options : { test: 'asas' },
-                    config: ( typeof builderData.config !== 'undefined' ) ? builderData.config : {},
-                }
-            }
-        });
-    }
+			data() {
+				return {
+					id:
+						typeof builderData.id !== 'undefined'
+							? builderData.id
+							: 0,
+					fields:
+						typeof builderData.fields !== 'undefined'
+							? builderData.fields
+							: [],
+					layouts:
+						typeof builderData.layouts !== 'undefined'
+							? builderData.layouts
+							: [],
+					options:
+						typeof builderData.options !== 'undefined'
+							? builderData.options
+							: { test: 'asas' },
+					config:
+						typeof builderData.config !== 'undefined'
+							? builderData.config
+							: {},
+				};
+			},
+		});
+	}
 });

@@ -13,9 +13,10 @@ class Licensing_Overview {
 			return 0;
 		}
 
-		$official_extensions = array_column( $extensions, 'slug' );
-		$installed_plugins   = get_plugins();
-		$updates_available   = self::get_outdated_plugins();
+		$official_extensions  = array_column( $extensions, 'slug' );
+		$installed_plugins    = get_plugins();
+		$updates_available    = self::get_outdated_plugins();
+		$available_extensions = Licensing_Plan::get_unlocked_products( 'extensions' );
 
 		$installed_extensions = self::get_installed_extensions( $installed_plugins, $official_extensions );
 		$active_slugs         = self::get_active_plugins( $installed_extensions );
@@ -27,7 +28,7 @@ class Licensing_Overview {
 				return count( $active_slugs );
 
 			case 'available_count':
-				return count( $installed_extensions );
+				return count( $available_extensions );
 
 			case 'officials_count':
 				return count( $official_extensions );

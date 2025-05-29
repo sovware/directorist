@@ -2270,7 +2270,6 @@ class Directorist_Listings {
                 break;
 
         }
-
     }
 
     public function listing_wrapper_class() {

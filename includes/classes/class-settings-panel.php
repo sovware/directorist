@@ -4506,8 +4506,6 @@ Please remember that your order may be canceled if you do not make your payment 
                     ],
                 ],
             ];
-
-
         }
 
         // add_menu_pages

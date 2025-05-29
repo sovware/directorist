@@ -249,7 +249,6 @@ class All_Categories extends \WP_Widget {
         }
 
         return $html;
-
     }
 
     public function sub_categories_list( $settings ) {

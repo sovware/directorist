@@ -63,7 +63,6 @@ class EDD_SL_Plugin_Updater {
 
         // Set up hooks.
         $this->init();
-
     }
 
     /**
@@ -80,7 +79,6 @@ class EDD_SL_Plugin_Updater {
         remove_action( 'after_plugin_row_' . $this->name, 'wp_plugin_update_row', 10 );
         add_action( 'after_plugin_row_' . $this->name, [ $this, 'show_update_notification' ], 10, 2 );
         add_action( 'admin_init', [ $this, 'show_changelog' ] );
-
     }
 
     /**
@@ -370,7 +368,6 @@ class EDD_SL_Plugin_Updater {
             $args['sslverify'] = $verify_ssl;
         }
         return $args;
-
     }
 
     /**
@@ -553,7 +550,6 @@ class EDD_SL_Plugin_Updater {
         }
 
         return $cache['value'];
-
     }
 
     public function set_version_info_cache( $value = '', $cache_key = '' ) {
@@ -568,7 +564,6 @@ class EDD_SL_Plugin_Updater {
         ];
 
         update_option( $cache_key, $data, 'no' );
-
     }
 
     /**

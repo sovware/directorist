@@ -354,7 +354,6 @@ if ( ! function_exists( 'load_dependencies' ) ) :
         }
 
         return false;
-
     }
 
 endif;
@@ -404,7 +403,6 @@ if ( ! function_exists( 'load_some_file' ) ) :
                 }
             }
         }
-
     }
 
 endif;
@@ -872,7 +870,6 @@ if ( ! function_exists( 'atbdp_get_paged_num' ) ) {
         }
 
         return absint( $paged );
-
     }
 }
 
@@ -1034,7 +1031,6 @@ if ( ! function_exists( 'get_date_in_mysql_format' ) ) {
         $sec = max( 0, min( 59, $sec ) );
 
         return sprintf( '%04d-%02d-%02d %02d:%02d:%02d', $year, $month, $day, $hour, $min, $sec );
-
     }
 }
 
@@ -1059,7 +1055,6 @@ if ( ! function_exists( 'atbdp_parse_mysql_date' ) ) {
             'min' => $date[4],
             'sec' => $date[5]
         ];
-
     }
 }
 
@@ -1113,7 +1108,6 @@ function atbdp_display_price( $price = '', $disable_price = false, $currency = '
     } else {
         return $p;
     }
-
 }
 
 /**
@@ -1147,7 +1141,6 @@ function atbdp_display_price_range( $price_range ) {
 
     }
     return $output;
-
 }
 
 /**
@@ -1487,7 +1480,6 @@ function atbdp_get_listings_current_order( $default_order = '' ) {
     }
 
     return apply_filters( 'atbdp_get_listings_current_order', $order );
-
 }
 
 /**
@@ -1588,7 +1580,6 @@ function atbdp_get_listings_current_view_name( $view ) {
 
 
     return $view;
-
 }
 
 function atbdp_calculate_column( $number ) {
@@ -1665,7 +1656,6 @@ function atbdp_get_listings_view_options( $view_as_items ) {
     }
 
     return $views;
-
 }
 
 /**
@@ -1681,8 +1671,6 @@ function atbdp_get_view_as( $view ) {
 
     }
     return $ways;
-
-
 }
 
 /*
@@ -1762,7 +1750,6 @@ function atbdp_get_remove_favourites_page_link( $listing_id ) {
     $link = add_query_arg( ['atbdp_action' => 'remove-favourites', 'atbdp_listing' => $listing_id] );
 
     return $link;
-
 }
 
 if ( ! function_exists( 'new_badge' ) ) {
@@ -1816,7 +1803,6 @@ if ( ! function_exists( 'is_fee_manager_active' ) ) {
         } else {
             return false;
         }
-
     }
 }
 
@@ -2043,7 +2029,6 @@ function atbdp_get_custom_field_ids( $category = 0, $all = false ) {
     }
 
     return $field_ids;
-
 }
 
 function get_advance_search_result_page_link() {
@@ -2091,7 +2076,6 @@ function atbdp_get_current_url() {
     $current_url .= ! empty( $_SERVER["REQUEST_URI"] ) ? directorist_clean( wp_unslash( $_SERVER["REQUEST_URI"] ) ) : '';
 
     return $current_url;
-
 }
 
 /**
@@ -2114,7 +2098,6 @@ function atbdp_can_use_yoast() {
     }
 
     return $can_use_yoast;
-
 }
 
 // atbdp_yoast_is_active
@@ -2136,7 +2119,6 @@ function atbdp_can_overwrite_yoast() {
     }
 
     return $overwrite;
-
 }
 
 function atbdp_disable_overwrite_yoast() {
@@ -2301,7 +2283,6 @@ function search_category_location_filter( $settings, $taxonomy_id, $prefix = '' 
     }
 
     return $html;
-
 }
 
 function add_listing_category_location_filter( $lisitng_type, $settings, $taxonomy_id, $term_id, $prefix = '', $plan_cat = [] ) {
@@ -2354,7 +2335,6 @@ function add_listing_category_location_filter( $lisitng_type, $settings, $taxono
     }
 
     return $html;
-
 }
 
 /*

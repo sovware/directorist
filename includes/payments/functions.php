@@ -27,7 +27,6 @@ function atbdp_get_payment_status( $status = '' ) {
  * @param $status
  */
 function atbdp_update_payment_status( $payment_id, $status ) {
-
 }
 
 function atbdp_purchase_form_required_fields() {
@@ -53,7 +52,6 @@ function atbdp_get_payment_statuses() {
     ];
 
     return apply_filters( 'atbdp_payment_statuses', $statuses );
-
 }
 
 /**
@@ -75,7 +73,6 @@ function atbdp_get_payment_bulk_actions() {
     ];
 
     return apply_filters( 'atbdp_order_bulk_actions', $actions );
-
 }
 
 /**
@@ -96,7 +93,6 @@ function atbdp_get_payment_bulk_actions() {
 function atbdp_format_amount( $amount, $decimals = true, $currency_settings = [] ) {
 
     return apply_filters( 'atbdp_format_amount', number_format_i18n( ( float ) $amount, 2 ), $amount, $decimals, $currency_settings );
-
 }
 
 /**
@@ -112,7 +108,6 @@ function atbdp_format_amount( $amount, $decimals = true, $currency_settings = []
 function atbdp_format_payment_amount( $amount, $decimals = true ) {
     $decimals = get_directorist_option( 'allow_decimal', 1 );
     return atbdp_format_amount( $amount, $decimals, atbdp_get_payment_currency_settings() );
-
 }
 
 /**
@@ -133,7 +128,6 @@ function atbdp_get_payment_currency_settings() {
     ];
 
     return apply_filters( 'atbdp_payment_currency_settings', $currency_settings ); // return the currency settings array
-
 }
 
 /**
@@ -159,7 +153,6 @@ function atbdp_currency_decimal_count( $decimals = 2, $currency = 'USD' ) {
     }
 
     return apply_filters( 'atbdp_currency_decimal_count', $decimals, $currency );
-
 }
 
 /**
@@ -173,7 +166,6 @@ function atbdp_currency_decimal_count( $decimals = 2, $currency = 'USD' ) {
 function atbdp_payment_currency_filter( $price = '' ) {
 
     return atbdp_currency_filter( $price, atbdp_get_payment_currency_settings() );
-
 }
 
 /**
@@ -252,7 +244,6 @@ function atbdp_currency_filter( $price = '', $currency_settings = [] ) {
     }
 
     return $formatted;
-
 }
 
 /**
@@ -689,7 +680,6 @@ function atbdp_currency_symbol( $currency = '' ) {
     }
 
     return apply_filters( 'atbdp_currency_symbol', $symbol, $currency );
-
 }
 
 /**
@@ -704,7 +694,6 @@ function atbdp_get_payment_status_i18n( $status ) {
 
     $statuses = atbdp_get_payment_statuses();
     return array_key_exists( $status, $statuses ) ? $statuses[$status] : esc_html__( 'Invalid', 'directorist' );
-
 }
 
 /**

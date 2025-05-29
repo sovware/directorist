@@ -281,6 +281,22 @@ function directorist_get_directories_for_template( array $args = [] ) {
         return [];
     }
 
+    /**
+     * Filters the list of directory types used in a template, allowing customization
+     * such as reordering or excluding specific directory types.
+     *
+     * This hook is useful when you want to control which directory types appear
+     * in a specific template and in what order.
+     * 
+     * @since 8.4.4
+     *
+     * @param array $directories An array of WP_Term objects returned from directorist_get_directories().
+     * @param array $args        The arguments passed to directorist_get_directories().
+     *
+     * @return array Filtered and optionally reordered array of directory types.
+     */
+    $directories = apply_filters( 'directorist_directories_for_template', $directories, $args );
+
     return array_reduce(
         $directories, static function( $carry, $directory ) {
             $carry[ $directory->term_id ] = [

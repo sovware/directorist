@@ -477,7 +477,6 @@ if ( ! class_exists( 'ATBDP_Permalink' ) ) :
             }
 
             return apply_filters( 'atbdp_single_category', $link, $page_id, $term, $directory_type );
-
         }
 
         /**
@@ -527,7 +526,6 @@ if ( ! class_exists( 'ATBDP_Permalink' ) ) :
             }
 
             return apply_filters( 'atbdp_single_location', $link, $page_id, $term, $directory_type );
-
         }
 
         /**
@@ -575,7 +573,6 @@ if ( ! class_exists( 'ATBDP_Permalink' ) ) :
             }
 
             return apply_filters( 'atbdp_single_tag', $link, $page_id, $term, $directory_type );
-
         }
 
         /**
@@ -593,7 +590,6 @@ if ( ! class_exists( 'ATBDP_Permalink' ) ) :
                 self::get_search_result_page_link()
             );
             return apply_filters( 'atbdp_location_archive_url', $link, $loc, $field );
-
         }
 
         /**

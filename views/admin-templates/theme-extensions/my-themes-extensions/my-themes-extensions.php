@@ -31,13 +31,13 @@
                 <div class="atbdp-action-group">
                     <div class="atbdp-btn-wrapper purchase-refresh-btn-wrapper">
                         <a href="#" class="ext-action-btn purchase-refresh-btn atbdp-show">
-                            <i class="la la-refresh"></i> <?php esc_html_e('Refresh Purchase', 'directorist') ?>
+                            <i class="la la-refresh"></i> <?php esc_html_e( 'Refresh Purchase', 'directorist' ) ?>
                         </a>
                     </div>
 
                     <div class="atbdp-btn-wrapper">
                         <a href="#" class="ext-action-btn subscriptions-logout-btn" data-hard-logout="<?php echo esc_attr( $args['hard_logout'] ); ?>">
-                            <i class="fas fa-sign-out-alt"></i> <?php esc_html_e('Logout', 'directorist') ?>
+                            <i class="fas fa-sign-out-alt"></i> <?php esc_html_e( 'Logout', 'directorist' ) ?>
                         </a>
                     </div>
                 </div>
@@ -66,8 +66,8 @@
         </ul>
 
         <div id="atbdp-themes-extensions-contents" class="et-contents__tab-contents atbdp-tab__contents">
-            <?php ATBDP()->load_template('admin-templates/theme-extensions/my-themes-extensions/extensions-tab', $args); ?>
-            <?php ATBDP()->load_template('admin-templates/theme-extensions/my-themes-extensions/themes-tab', $args); ?>
+            <?php ATBDP()->load_template( 'admin-templates/theme-extensions/my-themes-extensions/extensions-tab', $args ); ?>
+            <?php ATBDP()->load_template( 'admin-templates/theme-extensions/my-themes-extensions/themes-tab', $args ); ?>
         </div>
     </div><!-- ends: .et-contents -->
 </div><!-- ends: .et-wrapper -->

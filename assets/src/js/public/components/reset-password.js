@@ -1,13 +1,15 @@
-jQuery(($) => {
-	$('.directorist-ResetPassword').on('submit', function() {
-		let form = $(this);
+jQuery( ( $ ) => {
+	$( '.directorist-ResetPassword' ).on( 'submit', function () {
+		let form = $( this );
 
-		if(form.find('#password_1').val() != form.find('#password_2').val()) {
-			form.find('.password-not-match').show();
+		if (
+			form.find( '#password_1' ).val() != form.find( '#password_2' ).val()
+		) {
+			form.find( '.password-not-match' ).show();
 			return false;
 		}
 
-		form.find('.password-not-match').hide();
+		form.find( '.password-not-match' ).hide();
 		return true;
-	});
-});
+	} );
+} );

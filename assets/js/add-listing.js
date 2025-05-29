@@ -175,7 +175,7 @@ $(window).on('load', function () {
   initColorField();
 });
 $(function () {
-  $('body').on("click", "#manual_coordinate", function (e) {
+  $('body').on('click', '#manual_coordinate', function (e) {
     if ($('input#manual_coordinate').is(':checked')) {
       $('.directorist-map-coordinates').show();
       $('#hide_if_no_manual_cor').show();
@@ -873,9 +873,9 @@ $(function () {
   // ------------------------------
   // Quick Login
   // ------------------------------
-  $('#directorist-quick-login .directorist-toggle-modal').on("click", function (e) {
+  $('#directorist-quick-login .directorist-toggle-modal').on('click', function (e) {
     e.preventDefault();
-    $("#directorist-quick-login").removeClass("show");
+    $('#directorist-quick-login').removeClass('show');
   });
   $('#quick-login-from-submit-btn').on('click', function (e) {
     e.preventDefault();
@@ -932,32 +932,32 @@ $(function () {
   function addSticky() {
     $(window).scroll(Object(_components_debounce__WEBPACK_IMPORTED_MODULE_7__["default"])(function () {
       var windowWidth = $(window).width();
-      var sidebarWidth = $(".multistep-wizard__nav").width();
-      var sidebarHeight = $(".multistep-wizard__nav").height();
-      var multiStepWizardOffset = $(".multistep-wizard").offset() && $(".multistep-wizard").offset().top;
-      var multiStepWizardHeight = $(".multistep-wizard").outerHeight();
+      var sidebarWidth = $('.multistep-wizard__nav').width();
+      var sidebarHeight = $('.multistep-wizard__nav').height();
+      var multiStepWizardOffset = $('.multistep-wizard').offset() && $('.multistep-wizard').offset().top;
+      var multiStepWizardHeight = $('.multistep-wizard').outerHeight();
       if (windowWidth > 991) {
         var scrollPos = $(window).scrollTop();
 
         // Check if the user has scrolled down to the container position
         if (scrollPos >= multiStepWizardOffset) {
-          $(".multistep-wizard__nav").addClass("sticky");
-          $(".multistep-wizard__content").css("padding-inline-start", sidebarWidth + 30 + 'px');
+          $('.multistep-wizard__nav').addClass('sticky');
+          $('.multistep-wizard__content').css('padding-inline-start', sidebarWidth + 30 + 'px');
           // Check if the user has fully scrolled the container
           if (scrollPos >= multiStepWizardOffset + multiStepWizardHeight - sidebarHeight) {
-            $(".multistep-wizard__nav").removeClass("sticky");
-            $(".multistep-wizard__content").css("padding-inline-start", '0px');
+            $('.multistep-wizard__nav').removeClass('sticky');
+            $('.multistep-wizard__content').css('padding-inline-start', '0px');
           } else {
-            $(".multistep-wizard__nav").addClass("sticky");
-            $(".multistep-wizard__content").css("padding-inline-start", sidebarWidth + 30 + 'px');
+            $('.multistep-wizard__nav').addClass('sticky');
+            $('.multistep-wizard__content').css('padding-inline-start', sidebarWidth + 30 + 'px');
           }
         } else {
-          $(".multistep-wizard__nav").removeClass("sticky");
-          $(".multistep-wizard__content").css("padding-inline-start", '0px');
+          $('.multistep-wizard__nav').removeClass('sticky');
+          $('.multistep-wizard__content').css('padding-inline-start', '0px');
         }
       } else {
-        $(".multistep-wizard__nav").removeClass("sticky");
-        $(".multistep-wizard__content").css("padding-inline-start", '0px');
+        $('.multistep-wizard__nav').removeClass('sticky');
+        $('.multistep-wizard__content').css('padding-inline-start', '0px');
       }
     }, 100));
   }
@@ -1078,43 +1078,43 @@ function multiStepWizard() {
       var previewBtn = document.querySelector('.multistep-wizard__btn--save-preview');
       var submitBtn = document.querySelector('.multistep-wizard__btn--skip-preview');
       if (value === totalWizard.length) {
-        nextBtn.style.cssText = "display:none; width: 0; height: 0; opacity: 0; visibility: hidden;";
-        previewBtn.style.cssText = "height: 54px; flex: unset; opacity: 1; visibility: visible;";
-        submitBtn.style.cssText = "height: 54px; opacity: 1; visibility: visible;";
+        nextBtn.style.cssText = 'display:none; width: 0; height: 0; opacity: 0; visibility: hidden;';
+        previewBtn.style.cssText = 'height: 54px; flex: unset; opacity: 1; visibility: visible;';
+        submitBtn.style.cssText = 'height: 54px; opacity: 1; visibility: visible;';
       } else {
-        nextBtn.style.cssText = "display:inline-flex; width: 200px; height: 54px; opacity: 1; visibility: visible;";
-        previewBtn.style.cssText = "height: 0; flex: 0 0 100%; opacity: 0; visibility: hidden;";
-        submitBtn.style.cssText = "height: 0; opacity: 0; visibility: hidden;";
+        nextBtn.style.cssText = 'display:inline-flex; width: 200px; height: 54px; opacity: 1; visibility: visible;';
+        previewBtn.style.cssText = 'height: 0; flex: 0 0 100%; opacity: 0; visibility: hidden;';
+        submitBtn.style.cssText = 'height: 0; opacity: 0; visibility: hidden;';
       }
 
       // Update Wizard Count & Progressbar
       currentWizardCount.innerHTML = value;
       progressWidth.style.width = progressPerStep * value + '%';
-      progressWidth.style.transition = "0.5s ease";
+      progressWidth.style.transition = '0.5s ease';
     }
   }
 }
 
 // Default Add Listing
 function defaultAddListing() {
-  var navLinks = document.querySelectorAll(".default-add-listing .multistep-wizard__nav .multistep-wizard__nav__btn");
+  var navLinks = document.querySelectorAll('.default-add-listing .multistep-wizard__nav .multistep-wizard__nav__btn');
 
   // Add 'active' class to the first navigation item on page load
-  window.addEventListener("load", function () {
+  window.addEventListener('load', function () {
     if (navLinks.length > 0) {
-      navLinks[0].classList.add("active");
+      navLinks[0].classList.add('active');
     }
   });
 
   // Function to determine which section is currently in view
   function getCurrentSectionInView() {
     var currentSection = null;
-    var sections = document.querySelectorAll(".default-add-listing .multistep-wizard__content .multistep-wizard__single");
+    var sections = document.querySelectorAll('.default-add-listing .multistep-wizard__content .multistep-wizard__single');
     if (sections) {
       sections.forEach(function (section) {
         var rect = section.getBoundingClientRect();
         if (rect.top <= 50 && rect.bottom >= 50) {
-          currentSection = section.getAttribute("id");
+          currentSection = section.getAttribute('id');
         }
       });
     }
@@ -1125,16 +1125,16 @@ function defaultAddListing() {
   function updateActiveNav() {
     var currentSection = getCurrentSectionInView();
     if (currentSection == null) {
-      navLinks[0].classList.add("active");
+      navLinks[0].classList.add('active');
     } else {
-      if (navLinks[0].classList.contains("active")) {
-        navLinks[0].classList.remove("active");
+      if (navLinks[0].classList.contains('active')) {
+        navLinks[0].classList.remove('active');
       }
       navLinks.forEach(function (link) {
-        if (link.getAttribute("href") === "#".concat(currentSection)) {
-          link.classList.add("active");
+        if (link.getAttribute('href') === "#".concat(currentSection)) {
+          link.classList.add('active');
         } else {
-          link.classList.remove("active");
+          link.classList.remove('active');
         }
       });
     }
@@ -1170,14 +1170,14 @@ function defaultAddListing() {
   // Initial update and update on scroll
   if (navLinks.length > 0) {
     updateActiveNav();
-    window.addEventListener("scroll", updateActiveNav);
+    window.addEventListener('scroll', updateActiveNav);
   }
 
   // Add smooth scroll to navigation links
   navLinks.forEach(function (link) {
-    link.addEventListener("click", function (e) {
+    link.addEventListener('click', function (e) {
       e.preventDefault();
-      var targetSection = this.getAttribute("href").substring(1);
+      var targetSection = this.getAttribute('href').substring(1);
       smoothScroll(targetSection, 1250);
     });
   });
@@ -1251,7 +1251,6 @@ function debounce(func, wait, immediate) {
     if (callNow) func.apply(context, args);
   };
 }
-;
 
 /***/ }),
 
@@ -1284,7 +1283,7 @@ function init() {
 
   // Add custom close button if field contains value on change
   $('.select2-hidden-accessible').on('change', function (e) {
-    var value = $(this).children("option:selected").val();
+    var value = $(this).children('option:selected').val();
     if (!value) {
       return;
     }
@@ -1313,7 +1312,7 @@ function init() {
 function selec2_add_custom_dropdown_toggle_button() {
   // Remove Default
   $('.select2-selection__arrow').css({
-    'display': 'none'
+    display: 'none'
   });
   var addon_container = selec2_get_addon_container('.select2-hidden-accessible');
   if (!addon_container) {
@@ -1351,7 +1350,7 @@ function selec2_add_custom_dropdown_toggle_button() {
   // Toggle Dropdown
   selec2_custom_dropdown.on('click', function (e) {
     var isOpen = $(this).hasClass('--is-open');
-    var field = $(this).closest(".select2-container").siblings('select:enabled');
+    var field = $(this).closest('.select2-container').siblings('select:enabled');
     if (isOpen) {
       field.select2('close');
     } else {
@@ -1387,7 +1386,7 @@ function selec2_add_custom_close_button_if_needed() {
 function selec2_add_custom_close_button(field) {
   // Remove Default
   $('.select2-selection__clear').css({
-    'display': 'none'
+    display: 'none'
   });
   var addon_container = selec2_get_addon_container(field);
   if (!(addon_container && addon_container.length)) {
@@ -1827,7 +1826,7 @@ function convertToSelect2(selector) {
       var iconURI = $(data.element).data('icon');
       var iconElm = "<i class=\"directorist-icon-mask\" aria-hidden=\"true\" style=\"--directorist-icon: url(".concat(iconURI, ")\"></i>");
       var originalText = data.text;
-      var modifiedText = originalText.replace(/^(\s*)/, "$1" + iconElm);
+      var modifiedText = originalText.replace(/^(\s*)/, '$1' + iconElm);
       var $state = $("<div class=\"directorist-select2-contents\">".concat(typeof iconURI !== 'undefined' && iconURI !== '' ? modifiedText : originalText, "</div>"));
       return $state;
     }
@@ -1883,7 +1882,6 @@ function convertToSelect2(selector) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-;
 (function ($) {
   // Make sure the codes in this file runs only once, even if enqueued twice
   if (typeof window.directorist_dropdown_executed === 'undefined') {
@@ -1965,17 +1963,17 @@ function convertToSelect2(selector) {
     });
 
     //atbd_dropdown
-    $(document).on("click", '.atbd_dropdown', function (e) {
-      if ($(this).attr("class") === "atbd_dropdown") {
+    $(document).on('click', '.atbd_dropdown', function (e) {
+      if ($(this).attr('class') === 'atbd_dropdown') {
         e.preventDefault();
-        $(this).siblings(".atbd_dropdown").removeClass("atbd_drop--active");
-        $(this).toggleClass("atbd_drop--active");
+        $(this).siblings('.atbd_dropdown').removeClass('atbd_drop--active');
+        $(this).toggleClass('atbd_drop--active');
         e.stopPropagation();
       }
     });
-    $(document).on("click", function (e) {
-      if ($(e.target).is(".atbd_dropdown, .atbd_drop--active") === false) {
-        $(".atbd_dropdown").removeClass("atbd_drop--active");
+    $(document).on('click', function (e) {
+      if ($(e.target).is('.atbd_dropdown, .atbd_drop--active') === false) {
+        $('.atbd_dropdown').removeClass('atbd_drop--active');
       }
     });
     $('body').on('click', '.atbd_dropdown-toggle', function (e) {

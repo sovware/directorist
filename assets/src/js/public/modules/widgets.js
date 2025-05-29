@@ -5,5 +5,4 @@
     })(jQuery);
 }); */
 
-
 import '../components/categoryLocation';

@@ -1,97 +1,99 @@
-document.addEventListener( 'load', init, false );
+document.addEventListener('load', init, false);
 
 function Tasks() {
-    return {
-        init: function() {
-            this.initToggleTabLinks();
-        },
-    
-        initToggleTabLinks: function() {
-            const links = document.querySelectorAll( '.directorist-toggle-tab' );
+	return {
+		init: function () {
+			this.initToggleTabLinks();
+		},
 
-            if ( ! links ) {
-                return;
-            }
+		initToggleTabLinks: function () {
+			const links = document.querySelectorAll('.directorist-toggle-tab');
 
-            const self = this;
+			if (!links) {
+				return;
+			}
 
-            [ ...links ].forEach( item => {
-                item.addEventListener( 'click', function( event ) {
-                    self.handleToggleTabLinksEvent( item, event )
-                });
-            });
+			const self = this;
 
-        },
+			[...links].forEach((item) => {
+				item.addEventListener('click', function (event) {
+					self.handleToggleTabLinksEvent(item, event);
+				});
+			});
+		},
 
-        handleToggleTabLinksEvent: function( item, event ) {
-            event.preventDefault();
+		handleToggleTabLinksEvent: function (item, event) {
+			event.preventDefault();
 
-            const navContainerClass = item.getAttribute( 'data-nav-container' );
-            const tabContainerClass = item.getAttribute( 'data-tab-container' );
-            const tabClass          = item.getAttribute( 'data-tab' );
+			const navContainerClass = item.getAttribute('data-nav-container');
+			const tabContainerClass = item.getAttribute('data-tab-container');
+			const tabClass = item.getAttribute('data-tab');
 
-            if ( ! navContainerClass || ! tabContainerClass || ! tabClass ) {
-                return;
-            }
+			if (!navContainerClass || !tabContainerClass || !tabClass) {
+				return;
+			}
 
-            const navContainer = item.closest( '.' + navContainerClass );
-            const tabContainer = document.querySelector( '.' + tabContainerClass );
-           
-            if ( ! navContainer || ! tabContainer ) {
-                return;
-            }
+			const navContainer = item.closest('.' + navContainerClass);
+			const tabContainer = document.querySelector(
+				'.' + tabContainerClass
+			);
 
-            const tab = tabContainer.querySelector( '.' + tabClass );
+			if (!navContainer || !tabContainer) {
+				return;
+			}
 
-            if ( ! tab ) {
-                return;
-            }
+			const tab = tabContainer.querySelector('.' + tabClass);
 
-            // Remove Active Class
-            const removeActiveClass = item => {
-                item.classList.remove( '--is-active' );
-            };
+			if (!tab) {
+				return;
+			}
 
-            // Toggle Nav
-            const activeNavItems = navContainer.querySelectorAll( '.--is-active' );
+			// Remove Active Class
+			const removeActiveClass = (item) => {
+				item.classList.remove('--is-active');
+			};
 
-            if ( activeNavItems ) {
-                [ ...activeNavItems ].forEach( removeActiveClass );
-            }
+			// Toggle Nav
+			const activeNavItems =
+				navContainer.querySelectorAll('.--is-active');
 
-            item.classList.add( '--is-active' );
+			if (activeNavItems) {
+				[...activeNavItems].forEach(removeActiveClass);
+			}
 
-            // Toggle Tab
-            const activeTabItems = tabContainer.querySelectorAll( '.--is-active' );
+			item.classList.add('--is-active');
 
-            if ( activeTabItems ) {
-                [ ...activeTabItems ].forEach( removeActiveClass );
-            }
+			// Toggle Tab
+			const activeTabItems =
+				tabContainer.querySelectorAll('.--is-active');
 
-            tab.classList.add( '--is-active' );
+			if (activeTabItems) {
+				[...activeTabItems].forEach(removeActiveClass);
+			}
 
-            // Update Query Var
-            const queryVarKey   = item.getAttribute( 'data-query-var-key' );
-            const queryVarValue = item.getAttribute( 'data-query-var-value' );
+			tab.classList.add('--is-active');
 
-            if ( ! queryVarKey || ! queryVarValue ) {
-                return;
-            }
+			// Update Query Var
+			const queryVarKey = item.getAttribute('data-query-var-key');
+			const queryVarValue = item.getAttribute('data-query-var-value');
 
-            this.addQueryParam( queryVarKey, queryVarValue );
-        },
+			if (!queryVarKey || !queryVarValue) {
+				return;
+			}
 
-        addQueryParam: ( key, value ) => {
-            const url = new URL( window.location.href );
+			this.addQueryParam(queryVarKey, queryVarValue);
+		},
 
-            url.searchParams.set( key, value );
-            window.history.pushState( {}, '', url.toString() );
-        }
-    };
+		addQueryParam: (key, value) => {
+			const url = new URL(window.location.href);
+
+			url.searchParams.set(key, value);
+			window.history.pushState({}, '', url.toString());
+		},
+	};
 }
 
-
 function init() {
-    const tasks = new Tasks();
-    tasks.init();
+	const tasks = new Tasks();
+	tasks.init();
 }

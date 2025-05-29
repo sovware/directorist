@@ -8,7 +8,7 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 if ( empty( $data['description'] ) ) {
-	return;
+    return;
 }
 ?>
 

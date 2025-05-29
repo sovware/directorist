@@ -10,6 +10,7 @@
         :can-drag="isEnabledGroupDragging"
         @drag-start="$emit('drag-start')"
         @drag-end="$emit('drag-end')"
+        v-if="draggable"
       >
         <div class="cptm-form-builder-group-field-item-drag">
           <span aria-hidden="true" class="uil uil-draggabledots"></span>
@@ -101,6 +102,9 @@ export default {
     },
     widgetsExpanded: {
       default: "",
+    },
+    draggable: {
+      default: true,
     },
     canTrash: {
       default: false,
@@ -213,8 +217,11 @@ export default {
     },
 
     handleClickOutside(event) {
-      if (this.groupExpandedDropdown && !this.$refs.dropdownContent.contains(event.target)) {
-        this.groupExpandedDropdown = false; 
+      if (
+        this.groupExpandedDropdown &&
+        !this.$refs.dropdownContent.contains(event.target)
+      ) {
+        this.groupExpandedDropdown = false;
       }
     },
 
@@ -228,9 +235,9 @@ export default {
       this.showConfirmationModal = true;
 
       // Add class to parent with class 'atbdp-cpt-manager'
-      const parentElement = this.$el.closest('.atbdp-cpt-manager');
+      const parentElement = this.$el.closest(".atbdp-cpt-manager");
       if (parentElement) {
-        parentElement.classList.add('directorist-overlay-visible');
+        parentElement.classList.add("directorist-overlay-visible");
       }
     },
 
@@ -238,9 +245,9 @@ export default {
       this.showConfirmationModal = false;
 
       // Remove class to parent with class 'atbdp-cpt-manager'
-      const parentElement = this.$el.closest('.atbdp-cpt-manager');
+      const parentElement = this.$el.closest(".atbdp-cpt-manager");
       if (parentElement) {
-        parentElement.classList.remove('directorist-overlay-visible');
+        parentElement.classList.remove("directorist-overlay-visible");
       }
     },
 

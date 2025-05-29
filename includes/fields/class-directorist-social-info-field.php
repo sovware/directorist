@@ -6,54 +6,55 @@
 namespace Directorist\Fields;
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+    exit;
 }
 
 class Social_Info_Field extends Base_Field {
+    public $type = 'social_info';
 
-	public $type = 'social_info';
+    public function get_value( $posted_data ) {
+        if ( ! isset( $posted_data['social'] ) || ! is_array( $posted_data['social'] ) ) {
+            return [];
+        }
 
-	public function get_value( $posted_data ) {
-		if ( ! isset( $posted_data['social'] ) || ! is_array( $posted_data['social'] ) ) {
-			return array();
-		}
+        return $posted_data['social'];
+    }
 
-		return $posted_data['social'];
-	}
+    public function validate( $posted_data ) {
+        $items = $this->get_value( $posted_data );
 
-	public function validate( $posted_data ) {
-		$items = $this->get_value( $posted_data );
+        $items = array_filter(
+            $items, static function( $item ) {
+                return ! ( empty( $item['id'] ) || empty( $item['url'] ) );
+            } 
+        );
 
-		$items = array_filter( $items, static function( $item ) {
-			return ! ( empty( $item['id'] ) || empty( $item['url'] ) );
-		} );
+        if ( ! count( $items ) ) {
+            $this->add_error( __( 'Invalid social info.', 'directorist' ) );
+            return false;
+        }
 
-		if ( ! count( $items ) ) {
-			$this->add_error( __( 'Invalid social info.', 'directorist' ) );
-			return false;
-		}
+        return true;
+    }
 
-		return true;
-	}
+    public function sanitize( $posted_data ) {
+        $_items = $this->get_value( $posted_data );
 
-	public function sanitize( $posted_data ) {
-		$_items = $this->get_value( $posted_data );
+        $items = [];
 
-		$items = array();
+        foreach ( $_items as $item ) {
+            if ( empty( $item['id'] ) || empty( $item['url'] ) ) {
+                continue;
+            }
 
-		foreach ( $_items as $item ) {
-			if ( empty( $item['id'] ) || empty( $item['url'] ) ) {
-				continue;
-			}
+            $items[] = [
+                'id'  => $item['id'],
+                'url' => sanitize_url( $item['url'] )
+            ];
+        }
 
-			$items[] = array(
-				'id'  => $item['id'],
-				'url' => sanitize_url( $item['url'] )
-			);
-		}
-
-		return $items;
-	}
+        return $items;
+    }
 }
 
 Fields::register( new Social_Info_Field() );

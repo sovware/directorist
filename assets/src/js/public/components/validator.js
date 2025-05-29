@@ -1,21 +1,24 @@
 jQuery(document).ready(function ($) {
-    function to_top(top) {
-        $([document.documentElement, document.body]).animate({
-            scrollTop: $(top).offset().top
-        }, 1000);
-    }
+	function to_top(top) {
+		$([document.documentElement, document.body]).animate(
+			{
+				scrollTop: $(top).offset().top,
+			},
+			1000
+		);
+	}
 
-    need_post = false;
-    if ($("input[name='need_post']").length > 0) {
-        $("input[name='need_post']").on('change', function () {
-            if ('yes' === this.value) {
-                need_post = true;
-            }
-        });
-    }
+	need_post = false;
+	if ($("input[name='need_post']").length > 0) {
+		$("input[name='need_post']").on('change', function () {
+			if ('yes' === this.value) {
+				need_post = true;
+			}
+		});
+	}
 
-    // @kowsar @todo rebuild validation
-    /*
+	// @kowsar @todo rebuild validation
+	/*
     $('.directorist-form-submit__btn').on('click', function (e) {
         $('.atbdp_required').css({display: "none"});
         var w_icon = '<span class="fa fa-exclamation-triangle"></span> ';
@@ -232,5 +235,4 @@ jQuery(document).ready(function ($) {
         }
     });
     */
-
 });

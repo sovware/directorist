@@ -4,7 +4,7 @@
         <div class="theme-card">
             <figure>
                 <?php 
-                if ( ! empty( $args['current_active_theme_info']['thumbnail'] ) ): ?>
+                if ( ! empty( $args['current_active_theme_info']['thumbnail'] ) ) : ?>
                 <img src="<?php echo esc_url( $args['current_active_theme_info']['thumbnail'] ); ?>" alt="">
                 <?php endif;?>
 
@@ -19,7 +19,7 @@
                 </figcaption>
             </figure>
 
-            <?php if ( $args['current_active_theme_info']['has_update'] ): ?>
+            <?php if ( $args['current_active_theme_info']['has_update'] ) : ?>
             <div class="theme-card__footer">
                 <p class="theme-update theme-update--available"><?php esc_html_e( 'Update available', 'directorist' )?> <!-- <a hre="#" class="whats-new" data-target="whats-new-modal">What's new?</a> --></p>
                 <a href="#" class="theme-update-btn" data-target="<?php echo esc_attr( $args['current_active_theme_info']['stylesheet'] ); ?>"><?php echo $args['is_beta'] ? 'Update Beta' : 'Update'; ?></a>
@@ -83,35 +83,35 @@
         </div>
     </div>
 
-    <?php if ( ! empty( $args['themes_available_in_subscriptions'] ) ): ?>
+    <?php if ( ! empty( $args['themes_available_in_subscriptions'] ) ) : ?>
     <div class="available-themes-wrapper">
         <h4><?php esc_html_e( 'Available in your subscription', 'directorist' )?></h4>
         <div class="available-themes">
-            <?php foreach ( $args['themes_available_in_subscriptions'] as $_theme_base => $_theme_args ): ?>
+            <?php foreach ( $args['themes_available_in_subscriptions'] as $_theme_base => $_theme_args ) : ?>
             <div class="available-theme-card">
                 <figure>
-                    <?php if ( ! empty( $_theme_args['thumbnail'] ) ): ?>
+                    <?php if ( ! empty( $_theme_args['thumbnail'] ) ) : ?>
                     <img src="<?php echo esc_url( $_theme_args['thumbnail'] ); ?>" alt="">
                     <?php endif;?>
 
                     <figcaption>
                         <h5><?php echo esc_html( $_theme_args['name'] ); ?></h5>
                         <div class="theme-action">
-                            <?php if ( $_theme_args['is_installed'] ): ?>
-<?php if ( ! empty( $_theme_args['stylesheet'] ) ): ?>
+                            <?php if ( $_theme_args['is_installed'] ) : ?>
+                                <?php if ( ! empty( $_theme_args['stylesheet'] ) ) : ?>
                                     <a href="#" data-target="<?php echo esc_attr( $_theme_args['stylesheet'] ); ?>" class="theme-action-btn theme-activate-btn"><?php esc_html_e( 'Activate', 'directorist' )?></a>
-                                <?php endif;?>
+                                                                <?php endif;?>
 
-                                <?php if ( ! empty( $_theme_args['customizer_link'] ) ): ?>
+                                <?php if ( ! empty( $_theme_args['customizer_link'] ) ) : ?>
                                     <a href="<?php echo esc_url( $_theme_args['customizer_link'] ); ?>" target="_blank" class="theme-action-btn theme-preview-btn"><?php esc_html_e( 'Live Preview', 'directorist' )?></a>
                                 <?php endif;?>
 
-                            <?php else: ?>
+                            <?php else : ?>
                                 <a href="#" data-type="theme" data-key="<?php echo esc_attr( $_theme_base ) ?>" class="theme-action-btn file-install-btn">
                                     <i class="la la-download"></i>                                                                   <?php echo $args['is_beta'] ? 'Install Beta' : 'Install'; ?>
                                 </a>
 
-                                <?php if ( ! empty( $_theme_args['demo_link'] ) ): ?>
+                                <?php if ( ! empty( $_theme_args['demo_link'] ) ) : ?>
                                     <a href="<?php echo esc_url( $_theme_args['demo_link'] ); ?>" target="_blank" class="theme-action-btn theme-preview-btn"><?php esc_html_e( 'Demo', 'directorist' )?></a>
                                 <?php endif;?>
 <?php endif;?>

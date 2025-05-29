@@ -24,12 +24,12 @@ class Listings_Exporter {
         file_put_contents( $file, $file_contents );
 
         $wp_filetype = wp_check_filetype( $file_name, null );
-        $attachment = array(
+        $attachment = [
             'post_mime_type' => $wp_filetype['type'],
             'post_title'     => sanitize_file_name( $filename ),
             'post_content'   => '',
             'post_status'    => 'inherit'
-        );
+        ];
 
         $attach_id = wp_insert_attachment( $attachment, $file );
         $attach_url = wp_get_attachment_url( $attach_id );
@@ -60,7 +60,7 @@ class Listings_Exporter {
 
                 $row_content__ = '';
 
-				// $accepted_types = [ 'string', 'integer', 'double', 'boolean' ];
+                // $accepted_types = [ 'string', 'integer', 'double', 'boolean' ];
                 if ( is_bool( $row_value ) || is_int( $row_value ) || is_double( $row_value ) || is_string( $row_value ) ) {
                     $row_content__ = $row_value;
                 }
@@ -73,7 +73,7 @@ class Listings_Exporter {
                 $row_content__ = '"' . $row_content__ . '",';
                 $row_content .= $row_content__;
             }
-            $contents .= rtrim( $row_content, ',' )  . "\n";
+            $contents .= rtrim( $row_content, ',' ) . "\n";
         }
 
 
@@ -84,11 +84,15 @@ class Listings_Exporter {
     public static function get_listings_data() {
         $listings_data = [];
 
-        $listings = new \WP_Query( apply_filters( 'directorist_listings_export_query' , [
-            'post_type'      => ATBDP_POST_TYPE,
-            'posts_per_page' => -1,
-            'post_status'    => 'publish',
-        ]));
+        $listings = new \WP_Query(
+            apply_filters(
+                'directorist_listings_export_query' , [
+                    'post_type'      => ATBDP_POST_TYPE,
+                    'posts_per_page' => -1,
+                    'post_status'    => 'publish',
+                ]
+            )
+        );
 
         $field_map = [
             'native_field' => [
@@ -160,11 +164,13 @@ class Listings_Exporter {
 
     // justifyDataRow
     public static function justifyDataTableRow( $data_table = [], $tr_lengths = [] ) {
-        if ( empty( $data_table ) ) { return $data_table; }
-        if ( ! is_array( $data_table ) ) { return $data_table; }
+        if ( empty( $data_table ) ) {
+            return $data_table; }
+        if ( ! is_array( $data_table ) ) {
+            return $data_table; }
 
-        $max_tr_val   = max($tr_lengths);
-        $max_tr_index = array_search($max_tr_val, $tr_lengths);
+        $max_tr_val   = max( $tr_lengths );
+        $max_tr_index = array_search( $max_tr_val, $tr_lengths );
         $modal_tr     = $data_table[ $max_tr_index ];
 
         $justify_table = [];
@@ -181,19 +187,24 @@ class Listings_Exporter {
         return $justify_table;
     }
 
-
     // ================[ Submission Form Fields Helper ]================
     // verifyNativeField
     public static function verifyNativeField( $args = [] ) {
-        if ( ! is_array( $args ) ) { return false; }
-        if ( empty( $args['widget_group'] ) ) { return false; }
-        if ( empty( $args['widget_name'] ) ) { return false; }
-        if ( empty( $args['field_key'] ) ) { return false; }
-        if ( 'preset' !== $args['widget_group'] ) { return false; }
+        if ( ! is_array( $args ) ) {
+            return false; }
+        if ( empty( $args['widget_group'] ) ) {
+            return false; }
+        if ( empty( $args['widget_name'] ) ) {
+            return false; }
+        if ( empty( $args['field_key'] ) ) {
+            return false; }
+        if ( 'preset' !== $args['widget_group'] ) {
+            return false; }
 
         $native_fields = [ 'listing_title', 'listing_content' ];
 
-        if ( ! in_array( $args['field_key'], $native_fields ) ) { return false; }
+        if ( ! in_array( $args['field_key'], $native_fields ) ) {
+            return false; }
 
         return true;
     }
@@ -206,7 +217,7 @@ class Listings_Exporter {
         ];
 
         $field_key = $field_args['field_key'];
-        $content = call_user_func( $field_data_map[ $field_key ] ) ;
+        $content = call_user_func( $field_data_map[ $field_key ] );
         // $content = str_replace( '"', '""', $content );
 
         $row[ $field_key ] = self::escape_data( $content );
@@ -216,15 +227,21 @@ class Listings_Exporter {
 
     // verifyTaxonomyField
     public static function verifyTaxonomyField( $args = [] ) {
-        if ( ! is_array( $args ) ) { return false; }
-        if ( empty( $args['widget_group'] ) ) { return false; }
-        if ( empty( $args['widget_name'] ) ) { return false; }
-        if ( empty( $args['field_key'] ) ) { return false; }
-        if ( 'preset' !== $args['widget_group'] ) { return false; }
+        if ( ! is_array( $args ) ) {
+            return false; }
+        if ( empty( $args['widget_group'] ) ) {
+            return false; }
+        if ( empty( $args['widget_name'] ) ) {
+            return false; }
+        if ( empty( $args['field_key'] ) ) {
+            return false; }
+        if ( 'preset' !== $args['widget_group'] ) {
+            return false; }
 
         $taxonomy = [ 'category', 'location', 'tag' ];
 
-        if ( ! in_array( $args['widget_name'], $taxonomy ) ) { return false; }
+        if ( ! in_array( $args['widget_name'], $taxonomy ) ) {
+            return false; }
 
         return true;
     }
@@ -244,12 +261,18 @@ class Listings_Exporter {
 
     // verifyListingImageModuleField
     public static function verifyListingImageModuleField( $args = [] ) {
-        if ( ! is_array( $args ) ) { return false; }
-        if ( empty( $args['widget_group'] ) ) { return false; }
-        if ( empty( $args['widget_name'] ) ) { return false; }
-        if ( empty( $args['field_key'] ) ) { return false; }
-        if ( 'preset' !== $args['widget_group'] ) { return false; }
-        if ( 'listing_img' !== $args['field_key'] ) { return false; }
+        if ( ! is_array( $args ) ) {
+            return false; }
+        if ( empty( $args['widget_group'] ) ) {
+            return false; }
+        if ( empty( $args['widget_name'] ) ) {
+            return false; }
+        if ( empty( $args['field_key'] ) ) {
+            return false; }
+        if ( 'preset' !== $args['widget_group'] ) {
+            return false; }
+        if ( 'listing_img' !== $args['field_key'] ) {
+            return false; }
 
         return true;
     }
@@ -263,23 +286,23 @@ class Listings_Exporter {
             return $row;
         }
 
-		$image_urls = [];
-		$image_url  = wp_get_attachment_image_url( $preview_image, 'full' );
+        $image_urls = [];
+        $image_url  = wp_get_attachment_image_url( $preview_image, 'full' );
 
-		if ( $image_url ) {
-			$image_urls[] = $image_url;
-		}
+        if ( $image_url ) {
+            $image_urls[] = $image_url;
+        }
 
         foreach ( $gallery_images as $image ) {
-			if ( $image === $preview_image ) {
-				continue;
-			}
-			
-			$image_url = wp_get_attachment_image_url( $image, 'full' );
-			if ( $image_url ) {
-				$image_urls[] = $image_url;
-			}
-		}
+            if ( $image === $preview_image ) {
+                continue;
+            }
+            
+            $image_url = wp_get_attachment_image_url( $image, 'full' );
+            if ( $image_url ) {
+                $image_urls[] = $image_url;
+            }
+        }
 
         $row[ $field_args['field_key'] ] = implode( ',', $image_urls );
 
@@ -288,10 +311,14 @@ class Listings_Exporter {
 
     // verifyMetaKeyField
     public static function verifyMetaKeyField( $args = [] ) {
-        if ( ! is_array( $args ) ) { return false; }
-        if ( empty( $args['widget_group'] ) ) { return false; }
-        if ( empty( $args['widget_name'] ) ) { return false; }
-        if ( empty( $args['field_key'] ) ) { return false; }
+        if ( ! is_array( $args ) ) {
+            return false; }
+        if ( empty( $args['widget_group'] ) ) {
+            return false; }
+        if ( empty( $args['widget_name'] ) ) {
+            return false; }
+        if ( empty( $args['field_key'] ) ) {
+            return false; }
 
         return true;
     }
@@ -307,10 +334,14 @@ class Listings_Exporter {
 
     // verifyPriceModuleField
     public static function verifyPriceModuleField( $args = [] ) {
-        if ( ! is_array( $args ) ) { return false; }
-        if ( empty( $args['widget_group'] ) ) { return false; }
-        if ( empty( $args['widget_name'] ) ) { return false; }
-        if ( 'pricing' !== $args['widget_name'] ) { return false; }
+        if ( ! is_array( $args ) ) {
+            return false; }
+        if ( empty( $args['widget_group'] ) ) {
+            return false; }
+        if ( empty( $args['widget_name'] ) ) {
+            return false; }
+        if ( 'pricing' !== $args['widget_name'] ) {
+            return false; }
 
         return true;
     }
@@ -324,13 +355,16 @@ class Listings_Exporter {
         return $row;
     }
 
-
     // verifyMapModuleField
     public static function verifyMapModuleField( $args = [] ) {
-        if ( ! is_array( $args ) ) { return false; }
-        if ( empty( $args['widget_group'] ) ) { return false; }
-        if ( empty( $args['widget_name'] ) ) { return false; }
-        if ( 'map' !== $args['widget_name'] ) { return false; }
+        if ( ! is_array( $args ) ) {
+            return false; }
+        if ( empty( $args['widget_group'] ) ) {
+            return false; }
+        if ( empty( $args['widget_name'] ) ) {
+            return false; }
+        if ( 'map' !== $args['widget_name'] ) {
+            return false; }
 
         return true;
     }
@@ -366,34 +400,34 @@ class Listings_Exporter {
         return join( ',', wp_list_pluck( $terms, 'name' ) );
     }
 
-	/**
-	 * Escape a string to be used in a CSV context
-	 *
-	 * Malicious input can inject formulas into CSV files, opening up the possibility
-	 * for phishing attacks and disclosure of sensitive information.
-	 *
-	 * Additionally, Excel exposes the ability to launch arbitrary commands through
-	 * the DDE protocol.
-	 *
-	 * @see http://www.contextis.com/resources/blog/comma-separated-vulnerabilities/
-	 * @see https://hackerone.com/reports/72785
-	 *
-	 * @since 7.7.1
-	 * @param string $data CSV field to escape.
-	 * @return string
-	 */
-	public static function escape_data( $data ) {
+    /**
+     * Escape a string to be used in a CSV context
+     *
+     * Malicious input can inject formulas into CSV files, opening up the possibility
+     * for phishing attacks and disclosure of sensitive information.
+     *
+     * Additionally, Excel exposes the ability to launch arbitrary commands through
+     * the DDE protocol.
+     *
+     * @see http://www.contextis.com/resources/blog/comma-separated-vulnerabilities/
+     * @see https://hackerone.com/reports/72785
+     *
+     * @since 7.7.1
+     * @param string $data CSV field to escape.
+     * @return string
+     */
+    public static function escape_data( $data ) {
 
-        if( ! is_string( $data ) ) {
+        if ( ! is_string( $data ) ) {
             return $data;
         }
 
-		$active_content_triggers = array( '=', '+', '-', '@' );
+        $active_content_triggers = [ '=', '+', '-', '@' ];
 
-		if ( in_array( mb_substr( $data, 0, 1 ), $active_content_triggers, true ) ) {
-			$data = "'" . $data;
-		}
+        if ( in_array( mb_substr( $data, 0, 1 ), $active_content_triggers, true ) ) {
+            $data = "'" . $data;
+        }
 
-		return $data;
-	}
+        return $data;
+    }
 }

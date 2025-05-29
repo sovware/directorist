@@ -3,201 +3,231 @@ import helpers from './../helpers';
 import props from './input-field-props.js';
 
 export default {
-    mixins: [ props, helpers ],
-    model: {
-        prop: 'value',
-        event: 'update'
-    },
+	mixins: [props, helpers],
+	model: {
+		prop: 'value',
+		event: 'update',
+	},
 
-    created() {
-        this.setup();
-    },
+	created() {
+		this.setup();
+	},
 
-    watch: {
-        local_value() {
-            this.$emit( 'update', this.local_value );
-        },
+	watch: {
+		local_value() {
+			this.$emit('update', this.local_value);
+		},
 
-        theOptions() {
-            if ( ! this.valueIsValid( this.local_value ) ) {
-                this.local_value = '';
-            }
-        },
-    },
+		theOptions() {
+			if (!this.valueIsValid(this.local_value)) {
+				this.local_value = '';
+			}
+		},
+	},
 
-    computed: {
-        ...mapState({
-            fields: 'fields',
-        }),
+	computed: {
+		...mapState({
+			fields: 'fields',
+		}),
 
-        theDefaultOption() {
-            if ( this.defaultOption && typeof this.defaultOption === 'object' ) {
-                return this.defaultOption;
-            }
+		theDefaultOption() {
+			if (this.defaultOption && typeof this.defaultOption === 'object') {
+				return this.defaultOption;
+			}
 
-            return { value: '', label: 'Select...' };
-        },
+			return { value: '', label: 'Select...' };
+		},
 
-        theCurrentOptionLabel() {
-            if ( ! this.optionsInObject ) { return ''; }
-            if ( typeof this.optionsInObject[ this.value ] === 'undefined' ) { 
-                return ( this.theDefaultOption.value == this.local_value && this.theDefaultOption.label ) ? this.theDefaultOption.label : '';
-            }
+		theCurrentOptionLabel() {
+			if (!this.optionsInObject) {
+				return '';
+			}
+			if (typeof this.optionsInObject[this.value] === 'undefined') {
+				return this.theDefaultOption.value == this.local_value &&
+					this.theDefaultOption.label
+					? this.theDefaultOption.label
+					: '';
+			}
 
-            return this.optionsInObject[ this.value ];
-        },
+			return this.optionsInObject[this.value];
+		},
 
-        theOptions() {
-            if ( this.hasOptionsSource ) {
-                return this.hasOptionsSource;
-            }
+		theOptions() {
+			if (this.hasOptionsSource) {
+				return this.hasOptionsSource;
+			}
 
-            if ( ! this.options || typeof this.options !== 'object' ) {
-                return ( this.defaultOption ) ? [ this.defaultOption ] : [];
-            }
+			if (!this.options || typeof this.options !== 'object') {
+				return this.defaultOption ? [this.defaultOption] : [];
+			}
 
-            return this.options;
-        },
+			return this.options;
+		},
 
-        hasOptionsSource() {
-            if ( ! this.optionsSource || typeof this.optionsSource !== 'object' ) {
-                return false;
-            }
+		hasOptionsSource() {
+			if (!this.optionsSource || typeof this.optionsSource !== 'object') {
+				return false;
+			}
 
-            if ( typeof this.optionsSource.where !== 'string' ) {
-                return false;
-            }
+			if (typeof this.optionsSource.where !== 'string') {
+				return false;
+			}
 
-            let terget_fields = this.getTergetFields( { path: this.optionsSource.where } );
-            
-            if ( ! terget_fields || typeof terget_fields !== 'object' ) {
-                return false;
-            }
+			let terget_fields = this.getTergetFields({
+				path: this.optionsSource.where,
+			});
 
-            let filter_by = null;
-            if ( typeof this.optionsSource.filter_by === 'string' && this.optionsSource.filter_by.length ) {
-                filter_by = this.optionsSource.filter_by;
-            }
+			if (!terget_fields || typeof terget_fields !== 'object') {
+				return false;
+			}
 
-            if ( filter_by ) {
-                filter_by = this.getTergetFields( { path: this.optionsSource.filter_by } );
-            }
-            
-            let has_sourcemap = false;
+			let filter_by = null;
+			if (
+				typeof this.optionsSource.filter_by === 'string' &&
+				this.optionsSource.filter_by.length
+			) {
+				filter_by = this.optionsSource.filter_by;
+			}
 
-            if ( this.optionsSource.source_map && typeof this.optionsSource.source_map === 'object'  ) {
-                has_sourcemap = true;
-            }
+			if (filter_by) {
+				filter_by = this.getTergetFields({
+					path: this.optionsSource.filter_by,
+				});
+			}
 
-            if ( ! has_sourcemap && ! filter_by ) {
-                return terget_fields;
-            }
+			let has_sourcemap = false;
 
-            if ( has_sourcemap ) {
-                terget_fields = this.mapDataByMap( terget_fields, this.optionsSource.source_map );
-            }
+			if (
+				this.optionsSource.source_map &&
+				typeof this.optionsSource.source_map === 'object'
+			) {
+				has_sourcemap = true;
+			}
 
-            if ( filter_by ) {
-                terget_fields = this.filterDataByValue( terget_fields, filter_by );
-            }
+			if (!has_sourcemap && !filter_by) {
+				return terget_fields;
+			}
 
-            if ( ! terget_fields && typeof terget_fields !== 'object' ) {
-                return false;
-            }
+			if (has_sourcemap) {
+				terget_fields = this.mapDataByMap(
+					terget_fields,
+					this.optionsSource.source_map
+				);
+			}
 
-            return terget_fields;
-        },
+			if (filter_by) {
+				terget_fields = this.filterDataByValue(
+					terget_fields,
+					filter_by
+				);
+			}
 
-        formGroupClass() {
-            var validation_classes = ( this.validationLog.inputErrorClasses ) ? this.validationLog.inputErrorClasses : {};
+			if (!terget_fields && typeof terget_fields !== 'object') {
+				return false;
+			}
 
-            return {
-                ...validation_classes,
-            }
-        },
-    },
+			return terget_fields;
+		},
 
-    data() {
-        return {
-            local_value: '',
-            local_value_ms: [],
-            optionsInObject: {},
-            show_option_modal: false,
-            clickEvent: null,
-            validationLog: {}
-        }
-    },
+		formGroupClass() {
+			var validation_classes = this.validationLog.inputErrorClasses
+				? this.validationLog.inputErrorClasses
+				: {};
 
-    methods: {
-        setup() {
-            if ( this.defaultOption || typeof this.defaultOption === 'object' ) {
-                this.default_option = this.defaultOption;
-            }
+			return {
+				...validation_classes,
+			};
+		},
+	},
 
-            this.optionsInObject = this.convertOptionsToObject();
+	data() {
+		return {
+			local_value: '',
+			local_value_ms: [],
+			optionsInObject: {},
+			show_option_modal: false,
+			clickEvent: null,
+			validationLog: {},
+		};
+	},
 
-            if ( false != this.value && this.valueIsValid( this.value ) ) {
-                this.local_value = this.value;
-            } else {
-                this.local_value = '';
-            }
+	methods: {
+		setup() {
+			if (this.defaultOption || typeof this.defaultOption === 'object') {
+				this.default_option = this.defaultOption;
+			}
 
-            const self = this;
-            document.addEventListener( 'click', function() {
-                self.show_option_modal = false;
-            });
-            
-        },
+			this.optionsInObject = this.convertOptionsToObject();
 
-        update_value( value ) {
-            this.local_value = ( ! isNaN( Number( value ) ) ) ? Number( value ) : value;
-        },
+			if (false != this.value && this.valueIsValid(this.value)) {
+				this.local_value = this.value;
+			} else {
+				this.local_value = '';
+			}
 
-        updateOption( value ) {
-            this.update_value( value );
-            this.show_option_modal = false;
-        },
+			const self = this;
+			document.addEventListener('click', function () {
+				self.show_option_modal = false;
+			});
+		},
 
-        toggleTheOptionModal() {
-            let self = this;
-            
-            if ( this.show_option_modal ) {
-                this.show_option_modal = false;
-            } else {
-                this.show_option_modal = true;
+		update_value(value) {
+			this.local_value = !isNaN(Number(value)) ? Number(value) : value;
+		},
 
-                setTimeout( function() {
-                    self.show_option_modal = true;
-                }, 0);
-            }
-        },
+		updateOption(value) {
+			this.update_value(value);
+			this.show_option_modal = false;
+		},
 
-        valueIsValid( value ) {
-            let options_values = this.theOptions.map( option => {
-                if ( typeof option.value !== 'undefined' ) {
-                    return ( ! isNaN( Number( option.value ) ) ) ? Number( option.value ) : option.value
-                }
-            });
+		toggleTheOptionModal() {
+			let self = this;
 
-            return options_values.includes( value );
-        },
+			if (this.show_option_modal) {
+				this.show_option_modal = false;
+			} else {
+				this.show_option_modal = true;
 
-        convertOptionsToObject() {
-            if ( ! ( this.theOptions && Array.isArray( this.theOptions ) ) ) { return null; }
+				setTimeout(function () {
+					self.show_option_modal = true;
+				}, 0);
+			}
+		},
 
-            let option_object = {};
-            for ( let option in this.theOptions ) {
-                if ( typeof this.theOptions[ option ].value === 'undefined' ) { continue; }
+		valueIsValid(value) {
+			let options_values = this.theOptions.map((option) => {
+				if (typeof option.value !== 'undefined') {
+					return !isNaN(Number(option.value))
+						? Number(option.value)
+						: option.value;
+				}
+			});
 
-                let label = ( this.theOptions[ option ].label ) ? this.theOptions[ option ].label : '';
-                option_object[ this.theOptions[ option ].value ] = label;
-            }
+			return options_values.includes(value);
+		},
 
-            return option_object;
-        }
+		convertOptionsToObject() {
+			if (!(this.theOptions && Array.isArray(this.theOptions))) {
+				return null;
+			}
 
-        /* syncValidationWithLocalState( validation_log ) {
+			let option_object = {};
+			for (let option in this.theOptions) {
+				if (typeof this.theOptions[option].value === 'undefined') {
+					continue;
+				}
+
+				let label = this.theOptions[option].label
+					? this.theOptions[option].label
+					: '';
+				option_object[this.theOptions[option].value] = label;
+			}
+
+			return option_object;
+		},
+
+		/* syncValidationWithLocalState( validation_log ) {
             return validation_log;
         } */
-    },
-}
+	},
+};

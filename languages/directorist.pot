@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-05-20 13:21+0000\n"
+"POT-Creation-Date: 2025-05-22 10:38+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -170,7 +170,7 @@ msgstr ""
 msgid "Sorry! user not found"
 msgstr ""
 
-#: ../blocks/templates/navigation.php:52, ../includes/helper-functions.php:2587
+#: ../blocks/templates/navigation.php:52, ../includes/helper-functions.php:2589
 msgid "Add Listing"
 msgstr ""
 
@@ -262,7 +262,7 @@ msgstr ""
 msgid "Already have an account? Please Sign in"
 msgstr ""
 
-#: ../blocks/templates/signin-signup.php:38, ../includes/helper-functions.php:2623, ../includes/model/Account.php:69
+#: ../blocks/templates/signin-signup.php:38, ../includes/helper-functions.php:2625, ../includes/model/Account.php:69
 msgid "Sign In"
 msgstr ""
 
@@ -270,99 +270,99 @@ msgstr ""
 msgid "Forgot Password?"
 msgstr ""
 
-#: ../directorist-base.php:485, ../directorist-base.php:498
+#: ../directorist-base.php:475, ../directorist-base.php:488
 msgid "Cheatin&#8217; huh?"
 msgstr ""
 
-#: ../directorist-base.php:512
+#: ../directorist-base.php:502
 msgid "Directorist - Listing Right Sidebar"
 msgstr ""
 
-#: ../directorist-base.php:514
+#: ../directorist-base.php:504
 msgid "Add widgets for the right sidebar on single listing page"
 msgstr ""
 
-#: ../directorist-base.php:642
+#: ../directorist-base.php:632
 msgid "Directorist Add Listing"
 msgstr ""
 
-#: ../directorist-base.php:645
+#: ../directorist-base.php:635
 msgid "Directorist All Listings"
 msgstr ""
 
-#: ../directorist-base.php:648
+#: ../directorist-base.php:638
 msgid "Directorist Dashboard"
 msgstr ""
 
-#: ../directorist-base.php:651
+#: ../directorist-base.php:641
 msgid "Directorist Author Profile"
 msgstr ""
 
-#: ../directorist-base.php:654
+#: ../directorist-base.php:644
 msgid "Directorist All Categories"
 msgstr ""
 
-#: ../directorist-base.php:657
+#: ../directorist-base.php:647
 msgid "Directorist Single Category"
 msgstr ""
 
-#: ../directorist-base.php:660
+#: ../directorist-base.php:650
 msgid "Directorist All Locations"
 msgstr ""
 
-#: ../directorist-base.php:663
+#: ../directorist-base.php:653
 msgid "Directorist Single Location"
 msgstr ""
 
-#: ../directorist-base.php:666
+#: ../directorist-base.php:656
 msgid "Directorist Single Tag"
 msgstr ""
 
-#: ../directorist-base.php:669
+#: ../directorist-base.php:659
 msgid "Directorist Listing Search Form"
 msgstr ""
 
-#: ../directorist-base.php:672
+#: ../directorist-base.php:662
 msgid "Directorist Search Result"
 msgstr ""
 
-#: ../directorist-base.php:675
+#: ../directorist-base.php:665
 msgid "Directorist Checkout"
 msgstr ""
 
-#: ../directorist-base.php:678
+#: ../directorist-base.php:668
 msgid "Directorist Payment Receipt"
 msgstr ""
 
-#: ../directorist-base.php:681
+#: ../directorist-base.php:671
 msgid "Directorist Payment Failure"
 msgstr ""
 
-#: ../directorist-base.php:684
+#: ../directorist-base.php:674
 msgid "Directorist Privacy Policy"
 msgstr ""
 
-#: ../directorist-base.php:687
+#: ../directorist-base.php:677
 msgid "Directorist Terms & Conditions"
 msgstr ""
 
-#: ../directorist-base.php:690
+#: ../directorist-base.php:680
 msgid "Directorist Pricing Plan"
 msgstr ""
 
-#: ../directorist-base.php:693
+#: ../directorist-base.php:683
 msgid "Directorist Sign In"
 msgstr ""
 
-#: ../directorist-base.php:701, ../includes/classes/class-settings-panel.php:4365
+#: ../directorist-base.php:691, ../includes/classes/class-settings-panel.php:4365
 msgid "Uninstall"
 msgstr ""
 
-#: ../directorist-base.php:707
+#: ../directorist-base.php:697
 msgid "Uninstall Settings"
 msgstr ""
 
-#: ../directorist-base.php:713, ../directorist-base.php:719
+#: ../directorist-base.php:703, ../directorist-base.php:709
 msgid "Listings Import"
 msgstr ""
 
@@ -582,208 +582,208 @@ msgstr ""
 msgid "Map"
 msgstr ""
 
-#: ../includes/helper-functions.php:2411
-msgid "Email already registered. Please login first"
+#: ../includes/helper-functions.php:2399
+msgid "An account already exists with this email. Please log in with your password to continue."
 msgstr ""
 
-#: ../includes/helper-functions.php:2466, ../includes/classes/class-settings-panel.php:3564
+#: ../includes/helper-functions.php:2468, ../includes/classes/class-settings-panel.php:3564
 msgid "Remove Data on Uninstall?"
 msgstr ""
 
-#: ../includes/helper-functions.php:2467, ../includes/classes/class-settings-panel.php:3565
+#: ../includes/helper-functions.php:2469, ../includes/classes/class-settings-panel.php:3565
 msgid "Checked it if you would like Directorist to completely remove all of its data when the plugin is deleted."
 msgstr ""
 
-#: ../includes/helper-functions.php:2478
+#: ../includes/helper-functions.php:2480
 msgid "CSV"
 msgstr ""
 
-#: ../includes/helper-functions.php:2579
+#: ../includes/helper-functions.php:2581
 msgid "Search Home"
 msgstr ""
 
-#: ../includes/helper-functions.php:2583, ../includes/classes/class-settings-panel.php:3828, ../includes/elementor/search-result.php:15
+#: ../includes/helper-functions.php:2585, ../includes/classes/class-settings-panel.php:3828, ../includes/elementor/search-result.php:15
 msgid "Search Result"
 msgstr ""
 
-#: ../includes/helper-functions.php:2591, ../includes/classes/class-custom-post.php:288, ../includes/classes/class-settings-panel.php:3615, ../includes/elementor/all-listing.php:16, ../templates/dashboard/tab-my-listings.php:28
+#: ../includes/helper-functions.php:2593, ../includes/classes/class-custom-post.php:288, ../includes/classes/class-settings-panel.php:3615, ../includes/elementor/all-listing.php:16, ../templates/dashboard/tab-my-listings.php:22
 msgid "All Listings"
 msgstr ""
 
-#: ../includes/helper-functions.php:2599, ../includes/elementor/category.php:15
+#: ../includes/helper-functions.php:2601, ../includes/elementor/category.php:15
 msgid "Single Category"
 msgstr ""
 
-#: ../includes/helper-functions.php:2607, ../includes/elementor/location.php:15
+#: ../includes/helper-functions.php:2609, ../includes/elementor/location.php:15
 msgid "Single Location"
 msgstr ""
 
-#: ../includes/helper-functions.php:2611, ../includes/elementor/tag.php:15
+#: ../includes/helper-functions.php:2613, ../includes/elementor/tag.php:15
 msgid "Single Tag"
 msgstr ""
 
-#: ../includes/helper-functions.php:2615
+#: ../includes/helper-functions.php:2617
 msgid "Author Profile"
 msgstr ""
 
-#: ../includes/helper-functions.php:2619, ../includes/classes/class-settings-panel.php:4024, ../includes/elementor/user-dashboard.php:15
+#: ../includes/helper-functions.php:2621, ../includes/classes/class-settings-panel.php:4024, ../includes/elementor/user-dashboard.php:15
 msgid "Dashboard"
 msgstr ""
 
-#: ../includes/helper-functions.php:2896
+#: ../includes/helper-functions.php:2898
 msgid "File '%s' could not be opened. Check the file's permissions to make sure it's readable by your server."
 msgstr ""
 
-#: ../includes/helper-functions.php:3068
+#: ../includes/helper-functions.php:3070
 msgid "Add listing page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:3069, ../includes/helper-functions.php:3077, ../includes/helper-functions.php:3085, ../includes/helper-functions.php:3093, ../includes/helper-functions.php:3101, ../includes/helper-functions.php:3109, ../includes/helper-functions.php:3117, ../includes/helper-functions.php:3125, ../includes/helper-functions.php:3133, ../includes/helper-functions.php:3141, ../includes/helper-functions.php:3149, ../includes/helper-functions.php:3157
+#: ../includes/helper-functions.php:3071, ../includes/helper-functions.php:3079, ../includes/helper-functions.php:3087, ../includes/helper-functions.php:3095, ../includes/helper-functions.php:3103, ../includes/helper-functions.php:3111, ../includes/helper-functions.php:3119, ../includes/helper-functions.php:3127, ../includes/helper-functions.php:3135, ../includes/helper-functions.php:3143, ../includes/helper-functions.php:3151, ../includes/helper-functions.php:3159
 msgid "Contains a collection of relevant data that will help you debug your website accurately and more efficiently."
 msgstr ""
 
-#: ../includes/helper-functions.php:3071, ../includes/helper-functions.php:3079, ../includes/helper-functions.php:3087, ../includes/helper-functions.php:3095, ../includes/helper-functions.php:3103, ../includes/helper-functions.php:3111, ../includes/helper-functions.php:3119, ../includes/helper-functions.php:3127, ../includes/helper-functions.php:3135, ../includes/helper-functions.php:3143, ../includes/helper-functions.php:3151
+#: ../includes/helper-functions.php:3073, ../includes/helper-functions.php:3081, ../includes/helper-functions.php:3089, ../includes/helper-functions.php:3097, ../includes/helper-functions.php:3105, ../includes/helper-functions.php:3113, ../includes/helper-functions.php:3121, ../includes/helper-functions.php:3129, ../includes/helper-functions.php:3137, ../includes/helper-functions.php:3145, ../includes/helper-functions.php:3153
 msgid "Select Page"
 msgstr ""
 
-#: ../includes/helper-functions.php:3076
+#: ../includes/helper-functions.php:3078
 msgid "Dashboard page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:3084
+#: ../includes/helper-functions.php:3086
 msgid "User Profile page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:3092
+#: ../includes/helper-functions.php:3094
 msgid "Single Category page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:3100, ../includes/helper-functions.php:3108
+#: ../includes/helper-functions.php:3102, ../includes/helper-functions.php:3110
 msgid "Single Location page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:3116
+#: ../includes/helper-functions.php:3118
 msgid "Sign In & Signup page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:3124
+#: ../includes/helper-functions.php:3126
 msgid "Search Result page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:3132
+#: ../includes/helper-functions.php:3134
 msgid "Checkout page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:3140
+#: ../includes/helper-functions.php:3142
 msgid "Payment Receipt page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:3148
+#: ../includes/helper-functions.php:3150
 msgid "Transaction Failure page not selected"
 msgstr ""
 
-#: ../includes/helper-functions.php:3156
+#: ../includes/helper-functions.php:3158
 msgid "Map Api Key is missing"
 msgstr ""
 
-#: ../includes/helper-functions.php:3159
+#: ../includes/helper-functions.php:3161
 msgid "Give the Api"
 msgstr ""
 
-#: ../includes/helper-functions.php:3164
+#: ../includes/helper-functions.php:3166
 msgid "SMTP not configured"
 msgstr ""
 
-#: ../includes/helper-functions.php:3165
+#: ../includes/helper-functions.php:3167
 msgid "SMTP is a TCP/IP protocol responsible for email deliveries. You must configure SMTP to send or receive emails."
 msgstr ""
 
-#: ../includes/helper-functions.php:3252
+#: ../includes/helper-functions.php:3254
 msgid "Something went wrong!"
 msgstr ""
 
-#: ../includes/helper-functions.php:3253
+#: ../includes/helper-functions.php:3255
 msgid "Registration failed. Please make sure you filled out all the necessary fields marked with <span style=\"color: red\">*</span>."
 msgstr ""
 
 #. translators: %1$s - link opening, %2$s - link closing
-#: ../includes/helper-functions.php:3256
+#: ../includes/helper-functions.php:3258
 msgid "This email is already registered. Please %1$sclick here to login%2$s."
 msgstr ""
 
-#: ../includes/helper-functions.php:3260
+#: ../includes/helper-functions.php:3262
 msgid "Username too short. At least 4 characters are required."
 msgstr ""
 
 #. translators: %1$s - link opening, %2$s - link closing
-#: ../includes/helper-functions.php:3263
+#: ../includes/helper-functions.php:3265
 msgid "This username is already registered. Please %1$sclick here to login%2$s."
 msgstr ""
 
-#: ../includes/helper-functions.php:3267
+#: ../includes/helper-functions.php:3269
 msgid "Password length must be greater than 5 characters."
 msgstr ""
 
-#: ../includes/helper-functions.php:3268
+#: ../includes/helper-functions.php:3270
 msgid "Email is not valid."
 msgstr ""
 
-#: ../includes/helper-functions.php:3269
+#: ../includes/helper-functions.php:3271
 msgid "Spaces are not allowed in usernames."
 msgstr ""
 
-#: ../includes/helper-functions.php:3270
+#: ../includes/helper-functions.php:3272
 msgid "Please make sure you selected the user type."
 msgstr ""
 
-#: ../includes/helper-functions.php:3618
+#: ../includes/helper-functions.php:3620
 msgid "Draft"
 msgstr ""
 
-#: ../includes/helper-functions.php:3619
+#: ../includes/helper-functions.php:3621
 msgid "In Review"
 msgstr ""
 
-#: ../includes/helper-functions.php:3620
+#: ../includes/helper-functions.php:3622
 msgid "Private"
 msgstr ""
 
-#: ../includes/helper-functions.php:3621, ../templates/dashboard/tab-my-listings.php:32
+#: ../includes/helper-functions.php:3623, ../templates/dashboard/tab-my-listings.php:25
 msgid "Published"
 msgstr ""
 
-#: ../includes/helper-functions.php:3622, ../templates/dashboard/tab-my-listings.php:40
+#: ../includes/helper-functions.php:3624, ../templates/dashboard/tab-my-listings.php:31
 msgid "Expired"
 msgstr ""
 
-#: ../includes/helper-functions.php:4177
+#: ../includes/helper-functions.php:4179
 msgid "Pin code expired. Please regenerate new pin code."
 msgstr ""
 
-#: ../includes/helper-functions.php:4188
+#: ../includes/helper-functions.php:4190
 msgid "Invalid pin code. Please regenerate new pin code."
 msgstr ""
 
-#: ../includes/helper-functions.php:4214
+#: ../includes/helper-functions.php:4216
 msgid "Too many false attempts. Please regenerate the pin code and try again."
 msgstr ""
 
-#: ../includes/helper-functions.php:4228
+#: ../includes/helper-functions.php:4230
 msgctxt "Pin code validation attempt left"
 msgid "Invalid pin code. You have %s attempt left."
 msgid_plural "Invalid pin code. You have %s attempts left."
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../includes/helper-functions.php:4536, ../includes/classes/class-extension.php:1611, ../includes/classes/class-extension.php:1720
+#: ../includes/helper-functions.php:4538, ../includes/classes/class-extension.php:1611, ../includes/classes/class-extension.php:1720
 msgid "Invalid download link"
 msgstr ""
 
-#: ../includes/helper-functions.php:4576, ../includes/classes/class-extension.php:1651, ../includes/classes/class-extension.php:1760
+#: ../includes/helper-functions.php:4578, ../includes/classes/class-extension.php:1651, ../includes/classes/class-extension.php:1760
 msgid "Could not create temp directory"
 msgstr ""
 
-#: ../includes/helper-functions.php:4628, ../includes/classes/class-extension.php:1703
+#: ../includes/helper-functions.php:4630, ../includes/classes/class-extension.php:1703
 msgid "The plugin has been downloaded successfully"
 msgstr ""
 
@@ -1088,23 +1088,23 @@ msgstr ""
 msgid "Not allowed to create listing."
 msgstr ""
 
-#: ../includes/classes/class-add-listing.php:180
+#: ../includes/classes/class-add-listing.php:181
 msgid "Invalid guest email."
 msgstr ""
 
-#: ../includes/classes/class-add-listing.php:232
+#: ../includes/classes/class-add-listing.php:235
 msgid "Terms & Privacy is required"
 msgstr ""
 
-#: ../includes/classes/class-add-listing.php:440
+#: ../includes/classes/class-add-listing.php:444
 msgid "Your listing submission is completed! Redirecting..."
 msgstr ""
 
-#: ../includes/classes/class-add-listing.php:444
+#: ../includes/classes/class-add-listing.php:448
 msgid "Payment required! Redirecting to checkout..."
 msgstr ""
 
-#: ../includes/classes/class-add-listing.php:875, ../includes/fields/class-directorist-image-upload-field.php:35
+#: ../includes/classes/class-add-listing.php:879, ../includes/fields/class-directorist-image-upload-field.php:35
 msgid "This field is required."
 msgstr ""
 
@@ -1465,7 +1465,7 @@ msgstr ""
 msgid "Categories"
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:370, ../templates/dashboard/tab-my-listings.php:78
+#: ../includes/classes/class-custom-post.php:370, ../templates/dashboard/tab-my-listings.php:60
 msgid "Status"
 msgstr ""
 
@@ -4210,7 +4210,7 @@ msgid ""
 "                    <p align=\"center\">If you did not sign up for this account you can ignore this email.</p>"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:3572, ../includes/classes/class-settings-panel.php:4319, ../templates/dashboard/tab-my-listings.php:67, ../views/admin-templates/post-types-manager/all-listing-types.php:119
+#: ../includes/classes/class-settings-panel.php:3572, ../includes/classes/class-settings-panel.php:4319, ../templates/dashboard/tab-my-listings.php:50, ../views/admin-templates/post-types-manager/all-listing-types.php:119
 msgid "Listings"
 msgstr ""
 
@@ -4856,7 +4856,7 @@ msgstr ""
 msgid "Resend confirmation email"
 msgstr ""
 
-#: ../includes/classes/class-user.php:570, ../includes/payments/functions.php:52, ../includes/modules/multi-directory-setup/class-builder-data.php:2039, ../includes/modules/multi-directory-setup/class-builder-data.php:2055, ../templates/dashboard/tab-my-listings.php:36
+#: ../includes/classes/class-user.php:570, ../includes/payments/functions.php:52, ../includes/modules/multi-directory-setup/class-builder-data.php:2039, ../includes/modules/multi-directory-setup/class-builder-data.php:2055, ../templates/dashboard/tab-my-listings.php:28
 msgid "Pending"
 msgstr ""
 
@@ -6921,7 +6921,7 @@ msgstr ""
 msgid "Set maximum file size to upload"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/builder-preset-fields.php:52, ../templates/dashboard/tab-my-listings.php:72
+#: ../includes/modules/multi-directory-setup/builder-preset-fields.php:52, ../templates/dashboard/tab-my-listings.php:55
 msgid "Type"
 msgstr ""
 
@@ -8846,11 +8846,11 @@ msgstr ""
 msgid "Remove"
 msgstr ""
 
-#: ../templates/dashboard/tab-my-listings.php:52
+#: ../templates/dashboard/tab-my-listings.php:38
 msgid "Search listings"
 msgstr ""
 
-#: ../templates/dashboard/tab-my-listings.php:76
+#: ../templates/dashboard/tab-my-listings.php:58
 msgid "Expiration Date"
 msgstr ""
 

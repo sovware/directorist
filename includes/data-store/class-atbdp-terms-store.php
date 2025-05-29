@@ -35,7 +35,7 @@ if ( ! class_exists( 'ATBDP_Terms_Data_Store' ) ) :
         public static function get_locations_term( array $args = [] ) {
             return get_terms( ATBDP_LOCATION, $args );
 
-          /*   return ATBDP_Cache_Helper::get_the_transient([
+            /*   return ATBDP_Cache_Helper::get_the_transient([
                 'group' => 'atbdp_location_terms',
                 'name'  => 'atbdp_locations',
                 'args'  => $args,

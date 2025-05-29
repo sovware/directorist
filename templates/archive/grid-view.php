@@ -11,35 +11,35 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
 <div class="directorist-archive-items directorist-archive-grid-view <?php echo esc_attr( $listings->pagination_infinite_scroll_class() ) ?>">
-	<div class="<?php Helper::directorist_container_fluid(); ?>">
+    <div class="<?php Helper::directorist_container_fluid(); ?>">
 
-		<?php do_action( 'directorist_before_grid_listings_loop' ); ?>
+        <?php do_action( 'directorist_before_grid_listings_loop' ); ?>
 
-		<?php if ( $listings->have_posts() ): ?>
+        <?php if ( $listings->have_posts() ) : ?>
 
-			<div class="<?php echo $listings->has_masonry() ? 'directorist-masonry' : ''; ?> <?php Helper::directorist_row(); ?>">
+            <div class="<?php echo $listings->has_masonry() ? 'directorist-masonry' : ''; ?> <?php Helper::directorist_row(); ?>">
 
-			<?php $listings->render_grid_view( $listings->post_ids() ) ?>
+            <?php $listings->render_grid_view( $listings->post_ids() ) ?>
 
-			</div>
+            </div>
 
-			<?php
-			if ( $listings->show_pagination && 'numbered' === $listings->options['pagination_type'] ) {
+            <?php
+            if ( $listings->show_pagination && 'numbered' === $listings->options['pagination_type'] ) {
 
-				do_action( 'directorist_before_listings_pagination' );
+                do_action( 'directorist_before_listings_pagination' );
 
-				$listings->pagination();
+                $listings->pagination();
 
-				do_action( 'directorist_after_listings_pagination' );
-			}
-			?>
+                do_action( 'directorist_after_listings_pagination' );
+            }
+            ?>
 
-			<?php do_action('directorist_after_grid_listings_loop'); ?>
+            <?php do_action( 'directorist_after_grid_listings_loop' ); ?>
 
-		<?php else: ?>
+        <?php else : ?>
 
-			<div class="directorist-archive-notfound"><?php esc_html_e( 'No listings found.', 'directorist' ); ?></div>
+            <div class="directorist-archive-notfound"><?php esc_html_e( 'No listings found.', 'directorist' ); ?></div>
 
-		<?php endif; ?>
-	</div>
+        <?php endif; ?>
+    </div>
 </div>

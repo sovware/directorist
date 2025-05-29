@@ -6,20 +6,19 @@
 namespace Directorist\Fields;
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+    exit;
 }
 
 class Locations_Field extends Taxonomy_Field {
+    public $type = 'locations';
 
-	public $type = 'locations';
+    function get_taxonomy() : string {
+        return ATBDP_LOCATION;
+    }
 
-	function get_taxonomy() : string {
-		return ATBDP_LOCATION;
-	}
-
-	public function user_can_create() : bool {
-		return (bool) $this->create_new_loc;
-	}
+    public function user_can_create() : bool {
+        return (bool) $this->create_new_loc;
+    }
 }
 
 Fields::register( new Locations_Field() );

@@ -1,756 +1,784 @@
-import debounce from "../../global/components/debounce";
+import debounce from '../../global/components/debounce';
 
 window.addEventListener('load', () => {
-    const $ = jQuery;
+	const $ = jQuery;
 
-    // Custom Image uploader for listing image
+	// Custom Image uploader for listing image
 
-    // Set all variables to be used in scope
-    let frame;
-    let selection;
-    let prv_image;
-    let prv_url;
-    let prv_img_url;
-    const multiple_image = true;
+	// Set all variables to be used in scope
+	let frame;
+	let selection;
+	let prv_image;
+	let prv_url;
+	let prv_img_url;
+	const multiple_image = true;
 
-    // toggle_section
-    function toggle_section(show_if_value, subject_elm, terget_elm) {
-        if (show_if_value === subject_elm.val()) {
-            terget_elm.show();
-        } else {
-            terget_elm.hide();
-        }
-    }
+	// toggle_section
+	function toggle_section(show_if_value, subject_elm, terget_elm) {
+		if (show_if_value === subject_elm.val()) {
+			terget_elm.show();
+		} else {
+			terget_elm.hide();
+		}
+	}
 
-    // ADD IMAGE LINK
-    $('body').on('click', '#listing_image_btn', function (event) {
-        event.preventDefault();
+	// ADD IMAGE LINK
+	$('body').on('click', '#listing_image_btn', function (event) {
+		event.preventDefault();
 
-        // If the media frame already exists, reopen it.
-        if (frame) {
-            frame.open();
-            return;
-        }
+		// If the media frame already exists, reopen it.
+		if (frame) {
+			frame.open();
+			return;
+		}
 
-        // Create a new media frame
-        frame = wp.media({
-            title: directorist_admin.i18n_text.upload_image,
-            button: {
-                text: directorist_admin.i18n_text.choose_image,
-            },
-            library: {
-                type: 'image'
-            }, // only allow image upload only
-            multiple: multiple_image, // Set to true to allow multiple files to be selected. it will be set based on the availability of Multiple Image extension
-        });
+		// Create a new media frame
+		frame = wp.media({
+			title: directorist_admin.i18n_text.upload_image,
+			button: {
+				text: directorist_admin.i18n_text.choose_image,
+			},
+			library: {
+				type: 'image',
+			}, // only allow image upload only
+			multiple: multiple_image, // Set to true to allow multiple files to be selected. it will be set based on the availability of Multiple Image extension
+		});
 
-        // When an image is selected in the media frame...
-        frame.on('select', function () {
-            /* get the image collection array if the MI extension is active */
-            /* One little hints: a constant can not be defined inside the if block */
-            if (multiple_image) {
-                selection = frame
-                    .state()
-                    .get('selection')
-                    .toJSON();
-            } else {
-                selection = frame
-                    .state()
-                    .get('selection')
-                    .first()
-                    .toJSON();
-            }
-            let data = ''; // create a placeholder to save all our image from the selection of media uploader
+		// When an image is selected in the media frame...
+		frame.on('select', function () {
+			/* get the image collection array if the MI extension is active */
+			/* One little hints: a constant can not be defined inside the if block */
+			if (multiple_image) {
+				selection = frame.state().get('selection').toJSON();
+			} else {
+				selection = frame.state().get('selection').first().toJSON();
+			}
+			let data = ''; // create a placeholder to save all our image from the selection of media uploader
 
-            // if no image exist then remove the place holder image before appending new image
-            if ($('.single_attachment').length === 0) {
-                $('.listing-img-container').html('');
-            }
+			// if no image exist then remove the place holder image before appending new image
+			if ($('.single_attachment').length === 0) {
+				$('.listing-img-container').html('');
+			}
 
-            // handle multiple image uploading.......
-            if (multiple_image) {
-                $(selection).each(function () {
-                    // here el === this
-                    // append the selected element if it is an image
-                    if (this.type === 'image') {
-                        // we have got an image attachment so lets proceed.
-                        // target the input field and then assign the current id of the attachment to an array.
-                        data += '<div class="single_attachment">';
-                        data += `<input class="listing_image_attachment" name="listing_img[]" type="hidden" value="${this.id
-                        }">`;
-                        data += `<img style="width: 100%; height: 100%;" src="${this.url
-                        }" alt="Listing Image" /> <span class="remove_image fa fa-times" title="Remove it"></span></div>`;
-                    }
-                });
-            } else {
-                // Handle single image uploading
+			// handle multiple image uploading.......
+			if (multiple_image) {
+				$(selection).each(function () {
+					// here el === this
+					// append the selected element if it is an image
+					if (this.type === 'image') {
+						// we have got an image attachment so lets proceed.
+						// target the input field and then assign the current id of the attachment to an array.
+						data += '<div class="single_attachment">';
+						data += `<input class="listing_image_attachment" name="listing_img[]" type="hidden" value="${
+							this.id
+						}">`;
+						data += `<img style="width: 100%; height: 100%;" src="${
+							this.url
+						}" alt="Listing Image" /> <span class="remove_image fa fa-times" title="Remove it"></span></div>`;
+					}
+				});
+			} else {
+				// Handle single image uploading
 
-                // add the id to the input field of the image uploader and then save the ids in the database as a post meta
-                // so check if the attachment is really an image and reject other types
-                if (selection.type === 'image') {
-                    // we have got an image attachment so lets proceed.
-                    // target the input field and then assign the current id of the attachment to an array.
-                    data += '<div class="single_attachment">';
-                    data += `<input class="listing_image_attachment" name="listing_img[]" type="hidden" value="${selection.id
-                    }">`;
-                    data += `<img style="width: 100%; height: 100%;" src="${selection.url
-                    }" alt="Listing Image" /> <span class="remove_image  fa fa-times" title="Remove it"></span></div>`;
-                }
-            }
+				// add the id to the input field of the image uploader and then save the ids in the database as a post meta
+				// so check if the attachment is really an image and reject other types
+				if (selection.type === 'image') {
+					// we have got an image attachment so lets proceed.
+					// target the input field and then assign the current id of the attachment to an array.
+					data += '<div class="single_attachment">';
+					data += `<input class="listing_image_attachment" name="listing_img[]" type="hidden" value="${
+						selection.id
+					}">`;
+					data += `<img style="width: 100%; height: 100%;" src="${
+						selection.url
+					}" alt="Listing Image" /> <span class="remove_image  fa fa-times" title="Remove it"></span></div>`;
+				}
+			}
 
-            // If MI extension is active then append images to the listing, else only add one image replacing previous upload
-            if (multiple_image) {
-                $('.listing-img-container').append(data);
-            } else {
-                $('.listing-img-container').html(data);
-            }
+			// If MI extension is active then append images to the listing, else only add one image replacing previous upload
+			if (multiple_image) {
+				$('.listing-img-container').append(data);
+			} else {
+				$('.listing-img-container').html(data);
+			}
 
-            // Un-hide the remove image link
-            $('#delete-custom-img').removeClass('hidden');
-        });
-        // Finally, open the modal on click
-        frame.open();
-    });
+			// Un-hide the remove image link
+			$('#delete-custom-img').removeClass('hidden');
+		});
+		// Finally, open the modal on click
+		frame.open();
+	});
 
-    // DELETE ALL IMAGES LINK
-    $('body').on('click', '#delete-custom-img', function (event) {
-        event.preventDefault();
-        // Clear out the preview image and set no image as placeholder
-        $('.listing-img-container').html(
-            `<img src="${directorist_admin.assets_path}images/no-image.png" alt="Listing Image" />`
-        );
-        // Hide the delete image link
-        $(this).addClass('hidden');
-    });
+	// DELETE ALL IMAGES LINK
+	$('body').on('click', '#delete-custom-img', function (event) {
+		event.preventDefault();
+		// Clear out the preview image and set no image as placeholder
+		$('.listing-img-container').html(
+			`<img src="${directorist_admin.assets_path}images/no-image.png" alt="Listing Image" />`
+		);
+		// Hide the delete image link
+		$(this).addClass('hidden');
+	});
 
-    /* REMOVE SINGLE IMAGE */
-    $(document).on('click', '.remove_image', function (e) {
-        e.preventDefault();
-        $(this)
-            .parent()
-            .remove();
-        // if no image exist then add placeholder and hide remove image button
-        if ($('.single_attachment').length === 0) {
-            $('.listing-img-container').html(
-                `<img src="${directorist_admin.assets_path
-            }images/no-image.png" alt="Listing Image" /><p>No images</p> ` +
-                `<small>(allowed formats jpeg. png. gif)</small>`
-            );
-            $('#delete-custom-img').addClass('hidden');
-        }
-    });
+	/* REMOVE SINGLE IMAGE */
+	$(document).on('click', '.remove_image', function (e) {
+		e.preventDefault();
+		$(this).parent().remove();
+		// if no image exist then add placeholder and hide remove image button
+		if ($('.single_attachment').length === 0) {
+			$('.listing-img-container').html(
+				`<img src="${
+					directorist_admin.assets_path
+				}images/no-image.png" alt="Listing Image" /><p>No images</p> ` +
+					`<small>(allowed formats jpeg. png. gif)</small>`
+			);
+			$('#delete-custom-img').addClass('hidden');
+		}
+	});
 
-    const has_tagline = $('#has_tagline').val();
-    const has_excerpt = $('#has_excerpt').val();
-    if (has_excerpt && has_tagline) {
-        $('.atbd_tagline_moto_field').fadeIn();
-    } else {
-        $('.atbd_tagline_moto_field').fadeOut();
-    }
+	const has_tagline = $('#has_tagline').val();
+	const has_excerpt = $('#has_excerpt').val();
+	if (has_excerpt && has_tagline) {
+		$('.atbd_tagline_moto_field').fadeIn();
+	} else {
+		$('.atbd_tagline_moto_field').fadeOut();
+	}
 
-    $('#atbd_optional_field_check').on('change', function () {
-        $(this).is(':checked') ?
-            $('.atbd_tagline_moto_field').fadeIn() :
-            $('.atbd_tagline_moto_field').fadeOut();
-    });
+	$('#atbd_optional_field_check').on('change', function () {
+		$(this).is(':checked')
+			? $('.atbd_tagline_moto_field').fadeIn()
+			: $('.atbd_tagline_moto_field').fadeOut();
+	});
 
-    let imageUpload;
-    if (imageUpload) {
-        imageUpload.open();
-    }
+	let imageUpload;
+	if (imageUpload) {
+		imageUpload.open();
+	}
 
-    $('.upload-header').on('click', function (element) {
-        element.preventDefault();
+	$('.upload-header').on('click', function (element) {
+		element.preventDefault();
 
-        imageUpload = wp.media.frames.file_frame = wp.media({
-            title: directorist_admin.i18n_text.select_prv_img,
-            button: {
-                text: directorist_admin.i18n_text.insert_prv_img,
-            },
-        });
-        imageUpload.open();
+		imageUpload = wp.media.frames.file_frame = wp.media({
+			title: directorist_admin.i18n_text.select_prv_img,
+			button: {
+				text: directorist_admin.i18n_text.insert_prv_img,
+			},
+		});
+		imageUpload.open();
 
-        imageUpload.on('select', function () {
-            prv_image = imageUpload
-                .state()
-                .get('selection')
-                .first()
-                .toJSON();
-            prv_url = prv_image.id;
-            prv_img_url = prv_image.url;
+		imageUpload.on('select', function () {
+			prv_image = imageUpload.state().get('selection').first().toJSON();
+			prv_url = prv_image.id;
+			prv_img_url = prv_image.url;
 
-            $('.listing_prv_img').val(prv_url);
-            $('.change_listing_prv_img').attr('src', prv_img_url);
-            $('.upload-header').html('Change Preview Image');
-            $('.remove_prev_img').show();
-        });
+			$('.listing_prv_img').val(prv_url);
+			$('.change_listing_prv_img').attr('src', prv_img_url);
+			$('.upload-header').html('Change Preview Image');
+			$('.remove_prev_img').show();
+		});
 
-        imageUpload.open();
-    });
+		imageUpload.open();
+	});
 
-    $('.remove_prev_img').on('click', function (e) {
-        $(this).hide();
-        $('.listing_prv_img').attr('value', '');
-        $('.change_listing_prv_img').attr('src', '');
-        e.preventDefault();
-    });
-    if ($('.change_listing_prv_img').attr('src') === '') {
-        $('.remove_prev_img').hide();
-    } else if ($('.change_listing_prv_img').attr('src') !== '') {
-        $('.remove_prev_img').show();
-    }
+	$('.remove_prev_img').on('click', function (e) {
+		$(this).hide();
+		$('.listing_prv_img').attr('value', '');
+		$('.change_listing_prv_img').attr('src', '');
+		e.preventDefault();
+	});
+	if ($('.change_listing_prv_img').attr('src') === '') {
+		$('.remove_prev_img').hide();
+	} else if ($('.change_listing_prv_img').attr('src') !== '') {
+		$('.remove_prev_img').show();
+	}
 
-    const avg_review = $('#average_review_for_popular').hide();
-    const logged_count = $('#views_for_popular').hide();
-    if ($('#listing_popular_by select[name="listing_popular_by"]').val() === 'average_rating') {
-        avg_review.show();
-        logged_count.hide();
-    } else if ($('#listing_popular_by select[name="listing_popular_by"]').val() === 'view_count') {
-        logged_count.show();
-        avg_review.hide();
-    } else if ($('#listing_popular_by select[name="listing_popular_by"]').val() === 'both_view_rating') {
-        avg_review.show();
-        logged_count.show();
-    }
-    $('#listing_popular_by select[name="listing_popular_by"]').on('change', function () {
-        if ($(this).val() === 'average_rating') {
-            avg_review.show();
-            logged_count.hide();
-        } else if ($(this).val() === 'view_count') {
-            logged_count.show();
-            avg_review.hide();
-        } else if ($(this).val() === 'both_view_rating') {
-            avg_review.show();
-            logged_count.show();
-        }
-    });
+	const avg_review = $('#average_review_for_popular').hide();
+	const logged_count = $('#views_for_popular').hide();
+	if (
+		$('#listing_popular_by select[name="listing_popular_by"]').val() ===
+		'average_rating'
+	) {
+		avg_review.show();
+		logged_count.hide();
+	} else if (
+		$('#listing_popular_by select[name="listing_popular_by"]').val() ===
+		'view_count'
+	) {
+		logged_count.show();
+		avg_review.hide();
+	} else if (
+		$('#listing_popular_by select[name="listing_popular_by"]').val() ===
+		'both_view_rating'
+	) {
+		avg_review.show();
+		logged_count.show();
+	}
+	$('#listing_popular_by select[name="listing_popular_by"]').on(
+		'change',
+		function () {
+			if ($(this).val() === 'average_rating') {
+				avg_review.show();
+				logged_count.hide();
+			} else if ($(this).val() === 'view_count') {
+				logged_count.show();
+				avg_review.hide();
+			} else if ($(this).val() === 'both_view_rating') {
+				avg_review.show();
+				logged_count.show();
+			}
+		}
+	);
 
-    /**
-     * Display the media uploader for selecting an image.
-     *
-     * @since    1.0.0
-     */
-    function atbdp_render_media_uploader(page) {
-        let frame;
+	/**
+	 * Display the media uploader for selecting an image.
+	 *
+	 * @since    1.0.0
+	 */
+	function atbdp_render_media_uploader(page) {
+		let frame;
 
-        if ( frame ) {
-            frame.open();
-            return;
-        }
+		if (frame) {
+			frame.open();
+			return;
+		}
 
-        frame = wp.media({
-            title: directorist_admin.i18n_text.image_uploader_title,
-            multiple: false,
-            library: {
-                type: 'image'
-            },
-            button: {
-                text: directorist_admin.i18n_text.choose_image
-            }
-        });
+		frame = wp.media({
+			title: directorist_admin.i18n_text.image_uploader_title,
+			multiple: false,
+			library: {
+				type: 'image',
+			},
+			button: {
+				text: directorist_admin.i18n_text.choose_image,
+			},
+		});
 
-        frame.on( 'select', function() {
-            const image = frame.state().get('selection').first().toJSON();
+		frame.on('select', function () {
+			const image = frame.state().get('selection').first().toJSON();
 
-            if (page === 'listings') {
-                const html =
-                    `${'<tr class="atbdp-image-row">' +
-                '<td class="atbdp-handle"><span class="dashicons dashicons-screenoptions"></span></td>' +
-                '<td class="atbdp-image">' +
-                '<img src="'}${image.url}" />` +
-                    `<input type="hidden" name="images[]" value="${image.id}" />` +
-                    `</td>` +
-                    `<td>${image.url}<br />` +
-                    `<a href="post.php?post=${image.id}&action=edit" target="_blank">${atbdp.edit
-                }</a> | ` +
-                    `<a href="javascript:;" class="atbdp-delete-image" data-attachment_id="${json.id
-                }">${atbdp.delete_permanently}</a>` +
-                    `</td>` +
-                    `</tr>`;
+			if (page === 'listings') {
+				const html =
+					`${
+						'<tr class="atbdp-image-row">' +
+						'<td class="atbdp-handle"><span class="dashicons dashicons-screenoptions"></span></td>' +
+						'<td class="atbdp-image">' +
+						'<img src="'
+					}${image.url}" />` +
+					`<input type="hidden" name="images[]" value="${image.id}" />` +
+					`</td>` +
+					`<td>${image.url}<br />` +
+					`<a href="post.php?post=${image.id}&action=edit" target="_blank">${
+						atbdp.edit
+					}</a> | ` +
+					`<a href="javascript:;" class="atbdp-delete-image" data-attachment_id="${
+						json.id
+					}">${atbdp.delete_permanently}</a>` +
+					`</td>` +
+					`</tr>`;
 
-                $('#atbdp-images').append(html);
-            } else {
-                $('#atbdp-categories-image-id').val(image.id);
-                $('#atbdp-categories-image-wrapper').html(
-                    `<img src="${image.url}" /><a href="" class="remove_cat_img"><span class="fa fa-times" title="Remove it"></span></a>`
-                );
-            }
-        });
+				$('#atbdp-images').append(html);
+			} else {
+				$('#atbdp-categories-image-id').val(image.id);
+				$('#atbdp-categories-image-wrapper').html(
+					`<img src="${image.url}" /><a href="" class="remove_cat_img"><span class="fa fa-times" title="Remove it"></span></a>`
+				);
+			}
+		});
 
-        frame.open();
-    }
+		frame.open();
+	}
 
-    // Display the media uploader when "Upload Image" button clicked in the custom taxonomy "atbdp_categories"
-    $('#atbdp-categories-upload-image').on('click', function (e) {
-        e.preventDefault();
+	// Display the media uploader when "Upload Image" button clicked in the custom taxonomy "atbdp_categories"
+	$('#atbdp-categories-upload-image').on('click', function (e) {
+		e.preventDefault();
 
-        atbdp_render_media_uploader('categories');
-    });
+		atbdp_render_media_uploader('categories');
+	});
 
-    $('#submit').on('click', function () {
-        $('#atbdp-categories-image-wrapper img').attr('src', '');
-        $('.remove_cat_img').remove();
-    });
+	$('#submit').on('click', function () {
+		$('#atbdp-categories-image-wrapper img').attr('src', '');
+		$('.remove_cat_img').remove();
+	});
 
-    $(document).on('click', '.remove_cat_img', function (e) {
-        e.preventDefault();
-        $(this).hide();
-        $(this)
-            .prev('img')
-            .remove();
-        $('#atbdp-categories-image-id').attr('value', '');
-    });
+	$(document).on('click', '.remove_cat_img', function (e) {
+		e.preventDefault();
+		$(this).hide();
+		$(this).prev('img').remove();
+		$('#atbdp-categories-image-id').attr('value', '');
+	});
 
-    // Announcement
-    // ----------------------------------------------------------------------------------
-    // Display Announcement Recepents
-    const announcement_to = $('select[name="announcement_to"]');
-    const announcement_recepents_section = $('#announcement_recepents');
-    toggle_section('selected_user', announcement_to, announcement_recepents_section);
-    announcement_to.on('change', function () {
-        toggle_section('selected_user', $(this), announcement_recepents_section);
-    });
+	// Announcement
+	// ----------------------------------------------------------------------------------
+	// Display Announcement Recepents
+	const announcement_to = $('select[name="announcement_to"]');
+	const announcement_recepents_section = $('#announcement_recepents');
+	toggle_section(
+		'selected_user',
+		announcement_to,
+		announcement_recepents_section
+	);
+	announcement_to.on('change', function () {
+		toggle_section(
+			'selected_user',
+			$(this),
+			announcement_recepents_section
+		);
+	});
 
-    const submit_button = $('#announcement_submit .vp-input ~ span');
-    const form_feedback = $('#announcement_submit .field');
-    form_feedback.prepend('<div class="announcement-feedback"></div>');
+	const submit_button = $('#announcement_submit .vp-input ~ span');
+	const form_feedback = $('#announcement_submit .field');
+	form_feedback.prepend('<div class="announcement-feedback"></div>');
 
-    let announcement_is_sending = false;
+	let announcement_is_sending = false;
 
-    // Send Announcement
-    submit_button.on('click', function () {
-        if (announcement_is_sending) {
-            console.log('Please wait...');
-            return;
-        }
+	// Send Announcement
+	submit_button.on('click', function () {
+		if (announcement_is_sending) {
+			console.log('Please wait...');
+			return;
+		}
 
-        const to = $('select[name="announcement_to"]');
-        const recepents = $('select[name="announcement_recepents"]');
-        const subject = $('input[name="announcement_subject"]');
-        const message = $('textarea[name="announcement_message"]');
-        const expiration = $('input[name="announcement_expiration"]');
-        const send_to_email = $('input[name="announcement_send_to_email"]');
+		const to = $('select[name="announcement_to"]');
+		const recepents = $('select[name="announcement_recepents"]');
+		const subject = $('input[name="announcement_subject"]');
+		const message = $('textarea[name="announcement_message"]');
+		const expiration = $('input[name="announcement_expiration"]');
+		const send_to_email = $('input[name="announcement_send_to_email"]');
 
-        const fields_elm = {
-            to: {
-                elm: to,
-                value: to.val(),
-                default: 'all_user'
-            },
-            recepents: {
-                elm: recepents,
-                value: recepents.val(),
-                default: null
-            },
-            subject: {
-                elm: subject,
-                value: subject.val(),
-                default: ''
-            },
-            message: {
-                elm: message,
-                value: message.val(),
-                default: ''
-            },
-            expiration: {
-                elm: expiration,
-                value: expiration.val(),
-                default: 3
-            },
-            send_to_email: {
-                elm: send_to_email.val(),
-                value: send_to_email.val(),
-                default: 1
-            },
-        };
+		const fields_elm = {
+			to: {
+				elm: to,
+				value: to.val(),
+				default: 'all_user',
+			},
+			recepents: {
+				elm: recepents,
+				value: recepents.val(),
+				default: null,
+			},
+			subject: {
+				elm: subject,
+				value: subject.val(),
+				default: '',
+			},
+			message: {
+				elm: message,
+				value: message.val(),
+				default: '',
+			},
+			expiration: {
+				elm: expiration,
+				value: expiration.val(),
+				default: 3,
+			},
+			send_to_email: {
+				elm: send_to_email.val(),
+				value: send_to_email.val(),
+				default: 1,
+			},
+		};
 
-        // Send the form
-        const form_data = new FormData();
+		// Send the form
+		const form_data = new FormData();
 
-        // Fillup the form
-        form_data.append('action', 'atbdp_send_announcement');
-        for (field in fields_elm) {
-            form_data.append(field, fields_elm[field].value);
-        }
+		// Fillup the form
+		form_data.append('action', 'atbdp_send_announcement');
+		for (field in fields_elm) {
+			form_data.append(field, fields_elm[field].value);
+		}
 
-        announcement_is_sending = true;
-        jQuery.ajax({
-            type: 'post',
-            url: directorist_admin.ajaxurl,
-            data: form_data,
-            processData: false,
-            contentType: false,
-            beforeSend() {
-                // console.log( 'Sending...' );
-                form_feedback
-                    .find('.announcement-feedback')
-                    .html('<div class="form-alert">Sending the announcement, please wait..</div>');
-            },
-            success(response) {
-                // console.log( {response} );
-                announcement_is_sending = false;
+		announcement_is_sending = true;
+		jQuery.ajax({
+			type: 'post',
+			url: directorist_admin.ajaxurl,
+			data: form_data,
+			processData: false,
+			contentType: false,
+			beforeSend() {
+				// console.log( 'Sending...' );
+				form_feedback
+					.find('.announcement-feedback')
+					.html(
+						'<div class="form-alert">Sending the announcement, please wait..</div>'
+					);
+			},
+			success(response) {
+				// console.log( {response} );
+				announcement_is_sending = false;
 
-                if (response.message) {
-                    form_feedback
-                        .find('.announcement-feedback')
-                        .html(`<div class="form-alert">${response.message}</div>`);
-                }
-            },
-            error(error) {
-                console.log({
-                    error
-                });
-                announcement_is_sending = false;
-            },
-        });
+				if (response.message) {
+					form_feedback
+						.find('.announcement-feedback')
+						.html(
+							`<div class="form-alert">${response.message}</div>`
+						);
+				}
+			},
+			error(error) {
+				console.log({
+					error,
+				});
+				announcement_is_sending = false;
+			},
+		});
 
-        // Reset Form
-        /* for ( var field in fields_elm  ) {
+		// Reset Form
+		/* for ( var field in fields_elm  ) {
 $( fields_elm[ field ].elm ).val( fields_elm[ field ].default );
 } */
-    });
+	});
 
-    // ----------------------------------------------------------------------------------
+	// ----------------------------------------------------------------------------------
 
-    // Custom Tab Support Status
-    $('.atbds_wrapper a.nav-link').on('click', function (e) {
-        e.preventDefault();
+	// Custom Tab Support Status
+	$('.atbds_wrapper a.nav-link').on('click', function (e) {
+		e.preventDefault();
 
-        //console.log($(this).data('tabarea'));
-        const atbds_tabParent = $(this)
-            .parent()
-            .parent()
-            .find('a.nav-link');
-        const $href = $(this).attr('href');
-        $(atbds_tabParent).removeClass('active');
-        $(this).addClass('active');
-        //console.log($(".tab-content[data-tabarea='atbds_system-info-tab']"));
+		//console.log($(this).data('tabarea'));
+		const atbds_tabParent = $(this).parent().parent().find('a.nav-link');
+		const $href = $(this).attr('href');
+		$(atbds_tabParent).removeClass('active');
+		$(this).addClass('active');
+		//console.log($(".tab-content[data-tabarea='atbds_system-info-tab']"));
 
-        switch ($(this).data('tabarea')) {
-            case 'atbds_system-status-tab':
-                $(".tab-content[data-tabarea='atbds_system-status-tab'] >.tab-pane").removeClass(
-                    'active show'
-                );
-                $(`.tab-content[data-tabarea='atbds_system-status-tab'] ${$href}`).addClass(
-                    'active show'
-                );
-                break;
-            case 'atbds_system-info-tab':
-                $(".tab-content[data-tabarea='atbds_system-info-tab'] >.tab-pane").removeClass(
-                    'active show'
-                );
-                $(`.tab-content[data-tabarea='atbds_system-info-tab'] ${$href}`).addClass(
-                    'active show'
-                );
-                break;
-            default:
-                break;
-        }
-    });
+		switch ($(this).data('tabarea')) {
+			case 'atbds_system-status-tab':
+				$(
+					".tab-content[data-tabarea='atbds_system-status-tab'] >.tab-pane"
+				).removeClass('active show');
+				$(
+					`.tab-content[data-tabarea='atbds_system-status-tab'] ${$href}`
+				).addClass('active show');
+				break;
+			case 'atbds_system-info-tab':
+				$(
+					".tab-content[data-tabarea='atbds_system-info-tab'] >.tab-pane"
+				).removeClass('active show');
+				$(
+					`.tab-content[data-tabarea='atbds_system-info-tab'] ${$href}`
+				).addClass('active show');
+				break;
+			default:
+				break;
+		}
+	});
 
-    // Custom Tooltip Support Added
-    $('.atbds_tooltip').on('hover', function () {
-        const toolTipLabel = $(this).data('label');
-        //console.log(toolTipLabel);
-        $(this)
-            .find('.atbds_tooltip__text')
-            .text(toolTipLabel);
-        $(this)
-            .find('.atbds_tooltip__text')
-            .addClass('show');
-    });
+	// Custom Tooltip Support Added
+	$('.atbds_tooltip').on('hover', function () {
+		const toolTipLabel = $(this).data('label');
+		//console.log(toolTipLabel);
+		$(this).find('.atbds_tooltip__text').text(toolTipLabel);
+		$(this).find('.atbds_tooltip__text').addClass('show');
+	});
 
-    $('.atbds_tooltip').on('mouseleave', function () {
-        $('.atbds_tooltip__text').removeClass('show');
-    });
+	$('.atbds_tooltip').on('mouseleave', function () {
+		$('.atbds_tooltip__text').removeClass('show');
+	});
 
+	const directory_type = $('select[name="directory_type"]').val();
+	if (directory_type) {
+		admin_listing_form(directory_type);
+	}
 
-    const directory_type = $('select[name="directory_type"]').val();
-    if (directory_type) {
-        admin_listing_form(directory_type);
-    }
+	const localized_data = directorist_admin.add_listing_data;
+	$('body').on(
+		'change',
+		'select[name="directory_type"]',
+		debounce(function () {
+			$(this)
+				.parent('.inside')
+				.append('<span class="directorist_loader"></span>');
 
-    const localized_data = directorist_admin.add_listing_data;
-    $('body').on('change', 'select[name="directory_type"]', debounce( function() {
-        $(this)
-            .parent('.inside')
-            .append('<span class="directorist_loader"></span>');
+			admin_listing_form($(this).val());
 
-        admin_listing_form($(this).val());
+			$(this)
+				.closest('#poststuff')
+				.find('#publishing-action')
+				.addClass('directorist_disable');
 
-        $(this)
-            .closest('#poststuff')
-            .find('#publishing-action')
-            .addClass('directorist_disable');
+			if (!localized_data.is_admin) {
+				if ($('#directorist-select-st-s-js').length) {
+					pureScriptSelect('#directorist-select-st-s-js');
+				}
+				if ($('#directorist-select-st-e-js').length) {
+					pureScriptSelect('#directorist-select-st-e-js');
+				}
 
-        if (!localized_data.is_admin) {
-            if ($('#directorist-select-st-s-js').length) {
-                pureScriptSelect('#directorist-select-st-s-js');
-            }
-            if ($('#directorist-select-st-e-js').length) {
-                pureScriptSelect('#directorist-select-st-e-js');
-            }
+				if ($('#directorist-select-sn-s-js').length) {
+					pureScriptSelect('#directorist-select-sn-s-js');
+				}
+				if ($('#directorist-select-mn-e-js').length) {
+					pureScriptSelect('#directorist-select-sn-e-js');
+				}
 
-            if ($('#directorist-select-sn-s-js').length) {
-                pureScriptSelect('#directorist-select-sn-s-js');
-            }
-            if ($('#directorist-select-mn-e-js').length) {
-                pureScriptSelect('#directorist-select-sn-e-js');
-            }
+				if ($('#directorist-select-mn-s-js').length) {
+					pureScriptSelect('#directorist-select-mn-s-js');
+				}
+				if ($('#directorist-select-mn-e-js').length) {
+					pureScriptSelect('#directorist-select-mn-e-js');
+				}
 
-            if ($('#directorist-select-mn-s-js').length) {
-                pureScriptSelect('#directorist-select-mn-s-js');
-            }
-            if ($('#directorist-select-mn-e-js').length) {
-                pureScriptSelect('#directorist-select-mn-e-js');
-            }
+				if ($('#directorist-select-tu-s-js').length) {
+					pureScriptSelect('#directorist-select-tu-s-js');
+				}
+				if ($('#directorist-select-tu-e-js').length) {
+					pureScriptSelect('#directorist-select-tu-e-js');
+				}
 
-            if ($('#directorist-select-tu-s-js').length) {
-                pureScriptSelect('#directorist-select-tu-s-js');
-            }
-            if ($('#directorist-select-tu-e-js').length) {
-                pureScriptSelect('#directorist-select-tu-e-js');
-            }
+				if ($('#directorist-select-wd-s-js').length) {
+					pureScriptSelect('#directorist-select-wd-s-js');
+				}
+				if ($('#directorist-select-wd-e-js').length) {
+					pureScriptSelect('#directorist-select-wd-e-js');
+				}
 
-            if ($('#directorist-select-wd-s-js').length) {
-                pureScriptSelect('#directorist-select-wd-s-js');
-            }
-            if ($('#directorist-select-wd-e-js').length) {
-                pureScriptSelect('#directorist-select-wd-e-js');
-            }
+				if ($('#directorist-select-th-s-js').length) {
+					pureScriptSelect('#directorist-select-th-s-js');
+				}
+				if ($('#directorist-select-th-e-js').length) {
+					pureScriptSelect('#directorist-select-th-e-js');
+				}
 
-            if ($('#directorist-select-th-s-js').length) {
-                pureScriptSelect('#directorist-select-th-s-js');
-            }
-            if ($('#directorist-select-th-e-js').length) {
-                pureScriptSelect('#directorist-select-th-e-js');
-            }
+				if ($('#directorist-select-fr-s-js').length) {
+					pureScriptSelect('#directorist-select-fr-s-js');
+				}
+				if ($('#directorist-select-fr-e-js').length) {
+					pureScriptSelect('#directorist-select-fr-e-js');
+				}
+			}
+		}, 270)
+	);
 
-            if ($('#directorist-select-fr-s-js').length) {
-                pureScriptSelect('#directorist-select-fr-s-js');
-            }
-            if ($('#directorist-select-fr-e-js').length) {
-                pureScriptSelect('#directorist-select-fr-e-js');
-            }
-        }
+	// Custom Field Checkbox Button More
+	function customFieldSeeMore() {
+		if ($('.directorist-custom-field-btn-more').length) {
+			$('.directorist-custom-field-btn-more').each((index, element) => {
+				let fieldWrapper = $(element).closest(
+					'.directorist-custom-field-checkbox, .directorist-custom-field-radio'
+				);
+				let customField = $(fieldWrapper).find(
+					'.directorist-checkbox, .directorist-radio'
+				);
+				$(customField).slice(20, customField.length).slideUp();
 
-    }, 270 ) );
+				if (customField.length <= 20) {
+					$(element).slideUp();
+				}
+			});
+		}
+	}
 
-    // Custom Field Checkbox Button More
-    function customFieldSeeMore() {
-        if ($('.directorist-custom-field-btn-more').length) {
-            $('.directorist-custom-field-btn-more').each((index, element) => {
-                let fieldWrapper = $(element).closest('.directorist-custom-field-checkbox, .directorist-custom-field-radio');
-                let customField = $(fieldWrapper).find('.directorist-checkbox, .directorist-radio');
-                $(customField).slice(20, customField.length).slideUp();
+	function admin_listing_form(directory_type) {
+		$.ajax({
+			type: 'post',
+			url: directorist_admin.ajaxurl,
+			data: {
+				action: 'atbdp_dynamic_admin_listing_form',
+				directory_type: directory_type,
+				listing_id: $('#directiost-listing-fields_wrapper').data('id'),
+				directorist_nonce: directorist_admin.directorist_nonce,
+			},
+			success(response) {
+				if (response.error) {
+					console.log({ response });
+					return;
+				}
 
-                if (customField.length <= 20) {
-                    $(element).slideUp();
-                }
-            });
-        }
-    }
+				$(
+					'#directiost-listing-fields_wrapper .directorist-listing-fields'
+				)
+					.empty()
+					.append(response.data['listing_meta_fields']);
+				assetsNeedToWorkInVirtualDom();
+				$('#at_biz_dir-locationchecklist')
+					.empty()
+					.html(response.data['listing_locations']);
+				$('#at_biz_dir-categorychecklist')
+					.empty()
+					.html(response.data['listing_categories']);
+				$('#at_biz_dir-categorychecklist-pop')
+					.empty()
+					.html(response.data['listing_pop_categories']);
+				$('#at_biz_dir-locationchecklist-pop')
+					.empty()
+					.html(response.data['listing_pop_locations']);
+				$('.misc-pub-atbdp-expiration-time')
+					.empty()
+					.html(response.data['listing_expiration']);
+				$('#listing_form_info').find('.directorist_loader').remove();
+				$('select[name="directory_type"]')
+					.closest('#poststuff')
+					.find('#publishing-action')
+					.removeClass('directorist_disable');
+				if ($('.directorist-color-field-js').length) {
+					$('.directorist-color-field-js').wpColorPicker().empty();
+				}
 
-    function admin_listing_form(directory_type) {
-        $.ajax({
-            type: 'post',
-            url: directorist_admin.ajaxurl,
-            data: {
-                action: 'atbdp_dynamic_admin_listing_form',
-                directory_type: directory_type,
-                listing_id: $('#directiost-listing-fields_wrapper').data('id'),
-                directorist_nonce: directorist_admin.directorist_nonce,
-            },
-            success(response) {
+				window.dispatchEvent(
+					new CustomEvent('directorist-reload-plupload')
+				);
+				window.dispatchEvent(
+					new CustomEvent('directorist-type-change')
+				);
 
-                if ( response.error ) {
-                    console.log({ response });
-                    return;
-                }
+				if (response.data['required_js_scripts']) {
+					const scripts = response.data['required_js_scripts'];
+					for (let script_id in scripts) {
+						var old_script = document.getElementById(script_id);
+						if (old_script) {
+							old_script.remove();
+						}
 
-                $('#directiost-listing-fields_wrapper .directorist-listing-fields')
-                    .empty()
-                    .append(response.data['listing_meta_fields']);
-                assetsNeedToWorkInVirtualDom();
-                $('#at_biz_dir-locationchecklist')
-                    .empty()
-                    .html(response.data['listing_locations']);
-                $('#at_biz_dir-categorychecklist')
-                    .empty()
-                    .html(response.data['listing_categories']);
-                $('#at_biz_dir-categorychecklist-pop')
-                    .empty()
-                    .html(response.data['listing_pop_categories']);
-                $('#at_biz_dir-locationchecklist-pop')
-                    .empty()
-                    .html(response.data['listing_pop_locations']);
-                $('.misc-pub-atbdp-expiration-time')
-                    .empty()
-                    .html(response.data['listing_expiration']);
-                $('#listing_form_info')
-                    .find('.directorist_loader')
-                    .remove();
-                $('select[name="directory_type"]')
-                    .closest('#poststuff')
-                    .find('#publishing-action')
-                    .removeClass('directorist_disable');
-                if($('.directorist-color-field-js').length){
-                    $('.directorist-color-field-js').wpColorPicker().empty();
-                }
+						var script = document.createElement('script');
+						script.id = script_id;
+						script.src = scripts[script_id];
 
-                window.dispatchEvent(new CustomEvent('directorist-reload-plupload'));
-                window.dispatchEvent(new CustomEvent('directorist-type-change'));
+						document.body.appendChild(script);
+					}
+				}
+				customFieldSeeMore();
+			},
+			error(error) {
+				console.log({
+					error,
+				});
+			},
+		});
+	}
 
-                if (response.data['required_js_scripts']) {
-                    const scripts = response.data['required_js_scripts'];
-                    for (let script_id in scripts) {
+	// default directory type
+	$('body').on('click', '.submitdefault', function (e) {
+		e.preventDefault();
+		$(this).children('.submitDefaultCheckbox').prop('checked', true);
+		const defaultSubmitDom = $(this);
+		defaultSubmitDom
+			.closest('.directorist_listing-actions')
+			.append(`<span class="directorist_loader"></span>`);
+		$.ajax({
+			type: 'post',
+			url: directorist_admin.ajaxurl,
+			data: {
+				action: 'atbdp_listing_default_type',
+				type_id: $(this).data('type-id'),
+				nonce: directorist_admin.nonce,
+			},
+			success(response) {
+				defaultSubmitDom
+					.closest('.directorist_listing-actions')
+					.siblings('.directorist_notifier')
+					.append(
+						`<span class="atbd-listing-type-active-status">${response}</span>`
+					);
+				defaultSubmitDom
+					.closest('.directorist_listing-actions')
+					.children('.directorist_loader')
+					.remove();
+				setTimeout(function () {
+					location.reload();
+				}, 500);
+			},
+		});
+	});
 
-                        var old_script = document.getElementById(script_id);
-                        if (old_script) {
-                            old_script.remove();
-                        }
+	function assetsNeedToWorkInVirtualDom() {
+		function getPriceTypeInput(typeId) {
+			return $(`#${$(`[for="${typeId}"]`).data('option')}`);
+		}
 
-                        var script = document.createElement('script');
-                        script.id = script_id;
-                        script.src = scripts[script_id];
+		$('.directorist-form-pricing-field__options').on(
+			'change',
+			'input',
+			function () {
+				const $otherOptions = $(this)
+					.parent()
+					.siblings('.directorist-checkbox')
+					.find('input');
 
-                        document.body.appendChild(script);
-                    }
-                }
-                customFieldSeeMore();
-            },
-            error(error) {
-                console.log({
-                    error
-                });
-            },
-        });
-    }
+				$otherOptions.prop('checked', false);
+				getPriceTypeInput($otherOptions.attr('id')).hide();
 
-    // default directory type
-    $('body').on('click', '.submitdefault', function (e) {
-        e.preventDefault();
-        $(this)
-            .children('.submitDefaultCheckbox')
-            .prop('checked', true);
-        const defaultSubmitDom = $(this);
-        defaultSubmitDom
-            .closest('.directorist_listing-actions')
-            .append(`<span class="directorist_loader"></span>`);
-        $.ajax({
-            type: 'post',
-            url: directorist_admin.ajaxurl,
-            data: {
-                action: 'atbdp_listing_default_type',
-                type_id: $(this).data('type-id'),
-                nonce: directorist_admin.nonce
-            },
-            success(response) {
-                defaultSubmitDom
-                    .closest('.directorist_listing-actions')
-                    .siblings('.directorist_notifier')
-                    .append(`<span class="atbd-listing-type-active-status">${response}</span>`);
-                defaultSubmitDom
-                    .closest('.directorist_listing-actions')
-                    .children('.directorist_loader')
-                    .remove();
-                setTimeout(function () {
-                    location.reload();
-                }, 500);
-            },
-        });
-    });
+				if (this.checked) {
+					getPriceTypeInput(this.id).show();
+				} else {
+					getPriceTypeInput(this.id).hide();
+				}
+			}
+		);
 
-    function assetsNeedToWorkInVirtualDom() {
-        function getPriceTypeInput(typeId) {
-            return $(`#${$(`[for="${typeId}"]`).data('option')}`);
-        }
+		// Must be placed after the event listener.
+		if ($('.directorist-form-pricing-field').hasClass('price-type-both')) {
+			$('#price_range, #price').hide();
 
-        $( '.directorist-form-pricing-field__options' ).on( 'change', 'input', function() {
-            const $otherOptions = $(this).parent().siblings('.directorist-checkbox').find( 'input' );
+			const $selectedPriceType = $(
+				'.directorist-form-pricing-field__options input:checked'
+			);
 
-            $otherOptions.prop( 'checked', false );
-            getPriceTypeInput( $otherOptions.attr('id') ).hide();
+			if ($selectedPriceType.length) {
+				getPriceTypeInput($selectedPriceType.attr('id')).show();
+			} else {
+				$($('.directorist-form-pricing-field__options input').get(0))
+					.prop('checked', true)
+					.trigger('change');
+			}
+		}
 
-            if ( this.checked ) {
-                getPriceTypeInput( this.id ).show();
-            } else {
-                getPriceTypeInput( this.id ).hide();
-            }
-        } );
+		let imageUpload;
+		if (imageUpload) {
+			imageUpload.open();
+			return;
+		}
 
-        // Must be placed after the event listener.
-        if ( $( '.directorist-form-pricing-field' ).hasClass( 'price-type-both' ) ) {
-            $( '#price_range, #price' ).hide();
+		$('.upload-header').on('click', function (element) {
+			element.preventDefault();
 
-            const $selectedPriceType = $( '.directorist-form-pricing-field__options input:checked' );
+			imageUpload = wp.media.frames.file_frame = wp.media({
+				title: directorist_admin.i18n_text.select_prv_img,
+				button: {
+					text: directorist_admin.i18n_text.insert_prv_img,
+				},
+			});
+			imageUpload.open();
 
-            if ( $selectedPriceType.length ) {
-                getPriceTypeInput( $selectedPriceType.attr( 'id' ) ).show();
-            } else {
-                $( $( '.directorist-form-pricing-field__options input' ).get(0) )
-                    .prop( 'checked', true )
-                    .trigger( 'change' );
-            }
-        }
+			imageUpload.on('select', function () {
+				prv_image = imageUpload
+					.state()
+					.get('selection')
+					.first()
+					.toJSON();
+				prv_url = prv_image.id;
+				prv_img_url = prv_image.url;
 
-        let imageUpload;
-        if (imageUpload) {
-            imageUpload.open();
-            return;
-        }
+				$('.listing_prv_img').val(prv_url);
+				$('.change_listing_prv_img').attr('src', prv_img_url);
+				$('.upload-header').html('Change Preview Image');
+				$('.remove_prev_img').show();
+			});
 
-        $('.upload-header').on('click', function (element) {
-            element.preventDefault();
+			imageUpload.open();
+		});
 
-            imageUpload = wp.media.frames.file_frame = wp.media({
-                title: directorist_admin.i18n_text.select_prv_img,
-                button: {
-                    text: directorist_admin.i18n_text.insert_prv_img,
-                },
-            });
-            imageUpload.open();
+		$('.remove_prev_img').on('click', function (e) {
+			$(this).hide();
+			$('.listing_prv_img').attr('value', '');
+			$('.change_listing_prv_img').attr('src', '');
+			e.preventDefault();
+		});
+		if ($('.change_listing_prv_img').attr('src') === '') {
+			$('.remove_prev_img').hide();
+		} else if ($('.change_listing_prv_img').attr('src') !== '') {
+			$('.remove_prev_img').show();
+		}
 
-            imageUpload.on('select', function () {
-                prv_image = imageUpload
-                    .state()
-                    .get('selection')
-                    .first()
-                    .toJSON();
-                prv_url = prv_image.id;
-                prv_img_url = prv_image.url;
-
-                $('.listing_prv_img').val(prv_url);
-                $('.change_listing_prv_img').attr('src', prv_img_url);
-                $('.upload-header').html('Change Preview Image');
-                $('.remove_prev_img').show();
-            });
-
-            imageUpload.open();
-        });
-
-        $('.remove_prev_img').on('click', function (e) {
-            $(this).hide();
-            $('.listing_prv_img').attr('value', '');
-            $('.change_listing_prv_img').attr('src', '');
-            e.preventDefault();
-        });
-        if ($('.change_listing_prv_img').attr('src') === '') {
-            $('.remove_prev_img').hide();
-        } else if ($('.change_listing_prv_img').attr('src') !== '') {
-            $('.remove_prev_img').show();
-        }
-
-        /* Show and hide manual coordinate input field */
-        if (!$('input#manual_coordinate').is(':checked')) {
-            $('.directorist-map-coordinates').hide();
-        }
-        $('#manual_coordinate').on('click', function (e) {
-            if ($('input#manual_coordinate').is(':checked')) {
-                $('.directorist-map-coordinates').show();
-            } else {
-                $('.directorist-map-coordinates').hide();
-            }
-        });
-    }
+		/* Show and hide manual coordinate input field */
+		if (!$('input#manual_coordinate').is(':checked')) {
+			$('.directorist-map-coordinates').hide();
+		}
+		$('#manual_coordinate').on('click', function (e) {
+			if ($('input#manual_coordinate').is(':checked')) {
+				$('.directorist-map-coordinates').show();
+			} else {
+				$('.directorist-map-coordinates').hide();
+			}
+		});
+	}
 });

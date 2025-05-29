@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
 <?php
-foreach ( $actions as $action ):
-	$listing->field_template( $action );
+foreach ( $actions as $action ) :
+    $listing->field_template( $action );
 endforeach;
 ?>

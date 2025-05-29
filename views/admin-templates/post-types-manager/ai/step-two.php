@@ -2,8 +2,8 @@
 <select name="keywords" id="directorist-ai-keywords">
 <option value="">Select Keywords</option>
 <?php 
-if( ! empty( $list ) ) {
-    foreach( $list as $keyword ) { ?>
+if ( ! empty( $list ) ) {
+    foreach ( $list as $keyword ) { ?>
             <option value="<?php echo esc_attr( $keyword ); ?>"><?php echo esc_html( $keyword ); ?></option>
     <?php }
 }

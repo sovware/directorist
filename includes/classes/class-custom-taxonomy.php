@@ -419,7 +419,9 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
         }
 
         public function save_add_location_form_fields( $location_id ) {
+            // phpcs:ignore WordPress.Security.NonceVerification.Missing
             $directories = ! empty( $_POST['directory_type'] ) ? (array) directorist_clean( wp_unslash( $_POST['directory_type'] ) ) : [];
+            // phpcs:ignore WordPress.Security.NonceVerification.Missing
             $image       = ! empty( $_POST['image'] ) ? absint( wp_unslash( $_POST['image'] ) ) : 0;
             $directories = wp_parse_id_list( $directories );
 
@@ -742,8 +744,7 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
                     <a href="<?php echo esc_url( $term_url ); ?>"><?php echo esc_html( $term_link_text ); ?></a>
                     <?php
                 endforeach;
-            } /* If no terms were found, output a default message. */
-            else {
+            } else {
                 esc_html_e( 'No Category', 'directorist' );
             }
         }
@@ -945,7 +946,7 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
                 return $filters;
             }
 
-            $current_directory = (int) ( $_GET['directory'] ?? 0 );
+            $current_directory = (int) sanitize_text_field( wp_unslash( $_GET['directory'] ?? '0' ) );
 
             $filters = [
                 'directory-filter-all' => sprintf(

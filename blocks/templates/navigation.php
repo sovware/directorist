@@ -27,7 +27,7 @@ $dashboard_url = get_permalink( get_directorist_option( 'user_dashboard' ) );
 
             <li>
 
-                <a href="<?php echo esc_url( $dashboard_url ) . '#' . $key; ?>">
+                <a href="<?php echo esc_url( $dashboard_url ) . '#' . esc_attr( $key ); ?>">
 
                     <span class="directorist_menuItem-icon">
                         <?php directorist_icon( $value['icon'] );?>

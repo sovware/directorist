@@ -160,7 +160,7 @@ if ( ! class_exists( 'ATBDP_Listing' ) ) :
                 return false;
             }
 
-            $nonce = wp_unslash( $_GET['_token'] );
+            $nonce = sanitize_text_field( wp_unslash( $_GET['_token'] ) );
 
             if ( ! wp_verify_nonce( $nonce, 'directorist_listing_form_redirect_url_' . $listing_id ) ) {
                 return false;
@@ -206,7 +206,7 @@ if ( ! class_exists( 'ATBDP_Listing' ) ) :
         protected function prepare_post_update_args( $listing_id, $directory_id ) {
             $create_status = directorist_get_listing_create_status( $directory_id );
             $edit_status   = directorist_get_listing_edit_status( $directory_id, $listing_id );
-            $edited        = isset( $_GET['edited'] ) ? sanitize_text_field( $_GET['edited'] ) : 'no';
+            $edited        = isset( $_GET['edited'] ) ? sanitize_text_field( wp_unslash( $_GET['edited'] ) ) : 'no';
 
             $args = [
                 'id'            => $listing_id,

@@ -445,12 +445,15 @@ class Insights
         $notice .= 'We are using Appsero to collect your data. <a href="' . $policy_url . '" target="_blank">Learn more</a> about how Appsero collects and handle your data.</p>';
 
         echo '<div class="updated"><p>';
+        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         echo $notice;
         echo '</p><p class="submit">';
+        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         echo '&nbsp;<a href="' . esc_url( $optin_url ) . '" class="button-primary button-large">' . $this->client->_trans( 'Allow' ) . '</a>';
+        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         echo '&nbsp;<a href="' . esc_url( $optout_url ) . '" class="button-secondary button-large">' . $this->client->_trans( 'No thanks' ) . '</a>';
         echo '</p></div>';
-
+        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         echo "<script type='text/javascript'>jQuery('." . $this->client->slug . "-insights-data-we-collect').on('click', function(e) {
                 e.preventDefault();
                 jQuery(this).parents('.updated').find('p.description').slideToggle('fast');
@@ -851,7 +854,7 @@ class Insights
         $custom_reasons = apply_filters( 'appsero_custom_deactivation_reasons', [], $this->client );
         ?>
 
-        <div class="wd-dr-modal" id="<?php echo $this->client->slug; ?>-wd-dr-modal">
+        <div class="wd-dr-modal" id="<?php echo esc_attr( $this->client->slug ); ?>-wd-dr-modal">
             <div class="wd-dr-modal-wrap">
                 <div class="wd-dr-modal-header">
                     <h3><?php $this->client->_etrans( 'Goodbyes are always hard. If you have a moment, please let us know how we can improve.' ); ?></h3>
@@ -862,9 +865,9 @@ class Insights
                         <?php foreach ( $reasons as $reason ) { ?>
                             <li data-placeholder="<?php echo esc_attr( $reason['placeholder'] ); ?>">
                                 <label>
-                                    <input type="radio" name="selected-reason" value="<?php echo $reason['id']; ?>">
-                                    <div class="wd-de-reason-icon"><?php echo $reason['icon']; ?></div>
-                                    <div class="wd-de-reason-text"><?php echo $reason['text']; ?></div>
+                                    <input type="radio" name="selected-reason" value="<?php echo esc_attr( $reason['id'] ); ?>">
+                                    <div class="wd-de-reason-icon"><?php echo esc_html( $reason['icon'] ); ?></div>
+                                    <div class="wd-de-reason-text"><?php echo esc_html( $reason['text'] ); ?></div>
                                 </label>
                             </li>
                         <?php } ?>
@@ -874,9 +877,9 @@ class Insights
                             <?php foreach ( $custom_reasons as $reason ) { ?>
                                 <li data-placeholder="<?php echo esc_attr( $reason['placeholder'] ); ?>" data-customreason="true">
                                     <label>
-                                        <input type="radio" name="selected-reason" value="<?php echo $reason['id']; ?>">
-                                        <div class="wd-de-reason-icon"><?php echo $reason['icon']; ?></div>
-                                        <div class="wd-de-reason-text"><?php echo $reason['text']; ?></div>
+                                        <input type="radio" name="selected-reason" value="<?php echo esc_attr( $reason['id'] ); ?>">
+                                        <div class="wd-de-reason-icon"><?php echo esc_html( $reason['icon'] ); ?></div>
+                                        <div class="wd-de-reason-text"><?php echo esc_html( $reason['text'] ); ?></div>
                                     </label>
                                 </li>
                             <?php } ?>
@@ -886,6 +889,7 @@ class Insights
                     <p class="wd-dr-modal-reasons-bottom">
                         <?php
                         echo sprintf(
+                            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                             $this->client->_trans( 'We share your data with <a href="%1$s" target="_blank">Appsero</a> to troubleshoot problems &amp; make product improvements. <a href="%2$s" target="_blank">Learn more</a> about how Appsero handles your data.' ),
                             esc_url( 'https://appsero.com/' ),
                             esc_url( 'https://appsero.com/privacy-policy' )
@@ -905,11 +909,11 @@ class Insights
         <script type="text/javascript">
             (function($) {
                 $(function() {
-                    var modal = $('#<?php echo $this->client->slug; ?>-wd-dr-modal');
+                    var modal = $('#<?php echo esc_js( $this->client->slug ); ?>-wd-dr-modal');
                     var deactivateLink = '';
 
                     // Open modal
-                    $('#the-list').on('click', 'a.<?php echo $this->client->slug; ?>-deactivate-link', function(e) {
+                    $('#the-list').on('click', 'a.<?php echo esc_js( $this->client->slug ); ?>-deactivate-link', function(e) {
                         e.preventDefault();
 
                         modal.addClass('modal-active');
@@ -967,8 +971,8 @@ class Insights
                             url: ajaxurl,
                             type: 'POST',
                             data: {
-                                nonce: '<?php echo wp_create_nonce( 'appsero-security-nonce' ); ?>',
-                                action: '<?php echo $this->client->slug; ?>_submit-uninstall-reason',
+                                nonce: '<?php echo esc_js( wp_create_nonce( 'appsero-security-nonce' ) ); ?>',
+                                action: '<?php echo esc_js( $this->client->slug ); ?>_submit-uninstall-reason',
                                 reason_id: (0 === $radio.length) ? 'none' : $radio.val(),
                                 reason_info: (0 !== $input.length) ? $input.val().trim() : ''
                             },

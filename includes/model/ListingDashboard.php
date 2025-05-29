@@ -49,7 +49,7 @@ class Directorist_Listing_Dashboard {
 
         $tab        = isset( $_POST['tab'] ) ? sanitize_key( $_POST['tab'] ) : 'all';
         $paged      = isset( $_POST['paged'] ) ? absint( $_POST['paged'] ) : 1;
-        $search     = isset( $_POST['search'] ) ? sanitize_text_field( $_POST['search'] ) : '';
+        $search     = isset( $_POST['search'] ) ? sanitize_text_field( wp_unslash( $_POST['search'] ) ) : '';
         $action     = isset( $_POST['task'] ) ? sanitize_key( $_POST['task'] ) : '';
         $listing_id = isset( $_POST['taskdata'] ) ? absint( $_POST['taskdata'] ) : 0;
 

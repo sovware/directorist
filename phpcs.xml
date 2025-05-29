@@ -2,9 +2,6 @@
 <ruleset name="WordPress Coding Standards">
     <description>Apply WordPress Coding Standards to all Core files</description>
 
-	<!-- Whenever possible, cache the scan results and re-use those for unchanged files on the next scan. -->
-	<arg name="cache" value=".cache/phpcompat.json"/>
-
 	<!-- Set the memory limit to 256M.
 		 For most standard PHP configurations, this means the memory limit will temporarily be raised.
 		 Ref: https://github.com/squizlabs/PHP_CodeSniffer/wiki/Advanced-Usage#specifying-phpini-settings
@@ -27,9 +24,12 @@
 
 	<!-- Configs -->
 	<config name="minimum_supported_wp_version" value="4.6" />
-	<config name="testVersion" value="7.0-" />
-	<arg name="extensions" value="php"/>
-	<arg name="tab-width" value="4"/>
+	<config name="testVersion" value="7.4-" />
+	<arg name="extensions" value="php" />
+	<arg name="tab-width" value="4" />
+	<arg value="sp" />
+	<arg name="extensions" value="php" />
+	<arg name="standard" value="WordPress" />
 
 	<!-- Exclude paths -->
 	<exclude-pattern>/__*/</exclude-pattern>

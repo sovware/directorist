@@ -14,7 +14,7 @@ if ( '5' == $taxonomy->columns ) {
 }
 
 $taxonomy->atts['type'] = 'location';
-$taxonomy->atts['directory_type'] = isset( $_GET['directory_type'] ) && ! empty( $_GET['directory_type'] ) ? $_GET['directory_type'] : '';
+$taxonomy->atts['directory_type'] = isset( $_GET['directory_type'] ) && ! empty( $_GET['directory_type'] ) ? sanitize_text_field( wp_unslash( $_GET['directory_type'] ) ) : '';
 ?>
 <div id="directorist" class="atbd_wrapper directorist-w-100">
     <div class="<?php Helper::directorist_container_fluid(); ?>">
@@ -26,7 +26,7 @@ $taxonomy->atts['directory_type'] = isset( $_GET['directory_type'] ) && ! empty(
                 do_action( 'atbdp_before_all_locations_loop', $taxonomy );
             ?>
             <?php if ( $locations ) : ?>
-                    <div class="<?php echo apply_filters( 'directorist_taxonomy_location_wrapper', Helper::directorist_row() . ' taxonomy-location-wrapper' ); ?>">
+                    <div class="<?php echo esc_attr( apply_filters( 'directorist_taxonomy_location_wrapper', Helper::directorist_row() . ' taxonomy-location-wrapper' ) ); ?>">
                         <?php
                         foreach ( $locations as $location ) {
                             $loc_class = $location['img'] ? ' directorist-location__single--img' : '';

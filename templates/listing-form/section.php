@@ -11,7 +11,7 @@ $id    = str_replace( ' ', '-', strtolower( $label ) );
 ?>
 <section class="directorist-form-section directorist-content-module multistep-wizard__single" id="add-listing-content-<?php echo esc_attr( $id ?? '' ); ?>">
     <header class="directorist-content-module__title">
-        <?php echo ! empty( $section_data['icon'] ) ?  directorist_icon( $section_data['icon'] ) : ''; ?>
+        <?php echo esc_html( ! empty( $section_data['icon'] ) ?  directorist_icon( $section_data['icon'] ) : '' ); ?>
         <h2><?php echo esc_html( $section_data['label'] );?></h2>
     </header>
 

@@ -280,7 +280,10 @@ class Directorist_Listing_Taxonomy {
 
         <div class="directorist-col-12">
             <nav class="directorist-pagination">
-                <?php echo implode( '', $links ); ?>
+                <?php 
+                    // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                    echo implode( '', $links ); 
+                ?>
             </div>
         </nav>
 

@@ -51,6 +51,10 @@ if ( ! class_exists( 'ATBDP_Installation' ) ) :
                 'directorist_830_sync_listing_author_and_order_author',
                 'directorist_830_update_db_version',
             ],
+            '8.5.0' => [
+                'directorist_850_migrate_default_directory_from_term_meta_to_option',
+                'directorist_850_update_db_version',
+            ],
         ];
 
         /**

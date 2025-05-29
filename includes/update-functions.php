@@ -43,7 +43,7 @@ function directorist_710_migrate_reviews_table_to_comments_table() {
                     'comment_meta'         => [
                         'rating' => $review->rating
                     ]
-                ] 
+                ]
             );
         }
     }
@@ -95,7 +95,7 @@ function directorist_710_migrate_posts_table_to_comments_table() {
                     'comment_meta'         => [
                         'rating' => $review->rating
                     ]
-                ] 
+                ]
             );
         }
 
@@ -168,7 +168,7 @@ function directorist_7100_migrate_expired_meta_to_expired_status( $updater ) {
             'nopaging'       => true,
             'meta_key'       => '_listing_status',
             'meta_value'     => 'expired',
-        ] 
+        ]
     );
 
     while ( $listings->have_posts() ) {
@@ -178,7 +178,7 @@ function directorist_7100_migrate_expired_meta_to_expired_status( $updater ) {
             [
                 'ID'          => get_the_ID(),
                 'post_status' => 'expired',
-            ] 
+            ]
         );
     }
     wp_reset_postdata();
@@ -266,6 +266,36 @@ function directorist_830_sync_listing_author_and_order_author() {
 		SET p.post_author = p2.post_author
 		WHERE p.post_type = 'atbdp_orders'
 		AND p.post_author <> p2.post_author;",
-        ) 
+        )
     );
+}
+
+/**
+ * Migrate from term meta to option and delete term meta.
+ */
+function directorist_850_migrate_default_directory_from_term_meta_to_option() {
+    $directories = get_terms(
+        [
+            'taxonomy' => ATBDP_DIRECTORY_TYPE,
+            'hide_empty' => false,
+        ] 
+    );
+
+    if ( is_wp_error( $directories ) || empty( $directories ) ) {
+        return;
+    }
+
+    foreach ( $directories as $directory ) {
+        $default_directory = get_term_meta( $directory->term_id, '_default', true );
+
+        if ( ! empty( $default_directory ) ) {
+            directorist_set_default_directory( $directory->term_id );
+        }
+
+        delete_term_meta( $directory->term_id, '_default' );
+    }
+}
+
+function directorist_850_update_db_version() {
+    \ATBDP_Installation::update_db_version( '8.5.0' );
 }

@@ -69,7 +69,7 @@ export default {
       default: "",
     },
     value: {
-      type: Array,
+      type: [Array, String],
       required: false,
       default: () => [],
     },
@@ -216,7 +216,7 @@ export default {
       if (has_sourcemap) {
         target_fields = this.mapDataByMap(
           target_fields,
-          this.optionsSource.source_map
+          this.optionsSource.source_map,
         );
       }
 
@@ -268,7 +268,7 @@ export default {
         .filter((v) => v !== null); // filter out any nulls just in case
 
       const allValuesValid = valuesToCheck.every((val) =>
-        optionsValues.includes(!isNaN(Number(val)) ? Number(val) : val)
+        optionsValues.includes(!isNaN(Number(val)) ? Number(val) : val),
       );
 
       return allValuesValid;
@@ -286,7 +286,7 @@ export default {
 
       // Filter the options by comparing numeric values
       return flatOptions.filter((opt) =>
-        numericValues.includes(Number(opt.value))
+        numericValues.includes(Number(opt.value)),
       );
     },
 

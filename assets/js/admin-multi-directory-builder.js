@@ -43086,7 +43086,7 @@
 							default: '',
 						},
 						value: {
-							type: Array,
+							type: [Array, String],
 							required: false,
 							default: function _default() {
 								return [];

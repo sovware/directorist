@@ -3,182 +3,213 @@ import helpers from './../helpers';
 import props from './input-field-props.js';
 
 export default {
-    mixins: [ props, helpers ],
-    model: {
-        prop: 'value',
-        event: 'input'
-    },
-    
-    created() {
-        this.local_value = this.filtereValue( this.value );
-        this.$emit( 'update', this.local_value );
-    },
+	mixins: [props, helpers],
+	model: {
+		prop: 'value',
+		event: 'input',
+	},
 
-    watch: {
-        local_value() {
-            this.$emit( 'update', this.local_value );
-        },
+	created() {
+		this.local_value = this.filtereValue(this.value);
+		this.$emit('update', this.local_value);
+	},
 
-        hasOptionsSource() {
-            let has_deprecated_value = this.hasDeprecatedValue( this.local_value );
+	watch: {
+		local_value() {
+			this.$emit('update', this.local_value);
+		},
 
-            if ( has_deprecated_value ) {
-                this.local_value = this.removeDeprecatedValue( this.local_value, has_deprecated_value );
-            }
-        }
-    },
+		hasOptionsSource() {
+			let has_deprecated_value = this.hasDeprecatedValue(
+				this.local_value
+			);
 
-    computed: {
-        ...mapState({
-            fields: 'fields',
-        }),
+			if (has_deprecated_value) {
+				this.local_value = this.removeDeprecatedValue(
+					this.local_value,
+					has_deprecated_value
+				);
+			}
+		},
+	},
 
-        theOptions() {
-            if ( this.hasOptionsSource ) {
-                return this.hasOptionsSource;
-            }
+	computed: {
+		...mapState({
+			fields: 'fields',
+		}),
 
-            if ( ! this.options || typeof this.options !== 'object' ) {
-                return ( this.defaultOption ) ? [ this.defaultOption ] : [];
-            }
+		theOptions() {
+			if (this.hasOptionsSource) {
+				return this.hasOptionsSource;
+			}
 
-            return this.options;
-        },
+			if (!this.options || typeof this.options !== 'object') {
+				return this.defaultOption ? [this.defaultOption] : [];
+			}
 
-        hasOptionsSource() {
-            if ( ! this.optionsSource || typeof this.optionsSource !== 'object' ) {
-                return false;
-            }
+			return this.options;
+		},
 
-            if ( typeof this.optionsSource.where !== 'string' ) {
-                return false;
-            }
+		hasOptionsSource() {
+			if (!this.optionsSource || typeof this.optionsSource !== 'object') {
+				return false;
+			}
 
-            let terget_fields = this.getTergetFields( { path: this.optionsSource.where }  );
-            const id_prefix = ( typeof this.optionsSource.id_prefix === 'string' ) ? this.optionsSource.id_prefix + '-' : this.name + '-';
-            
-            if ( ! terget_fields || typeof terget_fields !== 'object' ) {
-                return false;
-            }
+			if (typeof this.optionsSource.where !== 'string') {
+				return false;
+			}
 
-            let filter_by = null;
-            if ( typeof this.optionsSource.filter_by === 'string' && this.optionsSource.filter_by.length ) {
-                filter_by = this.optionsSource.filter_by;
-            }
+			let terget_fields = this.getTergetFields({
+				path: this.optionsSource.where,
+			});
+			const id_prefix =
+				typeof this.optionsSource.id_prefix === 'string'
+					? this.optionsSource.id_prefix + '-'
+					: this.name + '-';
 
-            if ( filter_by ) {
-                filter_by = this.getTergetFields( { path: this.optionsSource.filter_by } );
-            }
+			if (!terget_fields || typeof terget_fields !== 'object') {
+				return false;
+			}
 
-            let has_sourcemap = false;
+			let filter_by = null;
+			if (
+				typeof this.optionsSource.filter_by === 'string' &&
+				this.optionsSource.filter_by.length
+			) {
+				filter_by = this.optionsSource.filter_by;
+			}
 
-            if ( this.optionsSource.source_map && typeof this.optionsSource.source_map === 'object'  ) {
-                has_sourcemap = true;
-            }
+			if (filter_by) {
+				filter_by = this.getTergetFields({
+					path: this.optionsSource.filter_by,
+				});
+			}
 
-            if ( ! has_sourcemap && ! filter_by ) {
-                return terget_fields;
-            }
+			let has_sourcemap = false;
 
-            if ( has_sourcemap ) {
-                terget_fields = this.mapDataByMap( terget_fields, this.optionsSource.source_map );
-            }
+			if (
+				this.optionsSource.source_map &&
+				typeof this.optionsSource.source_map === 'object'
+			) {
+				has_sourcemap = true;
+			}
 
-            if ( filter_by ) {
-                terget_fields = this.filterDataByValue( terget_fields, filter_by );
-            }
+			if (!has_sourcemap && !filter_by) {
+				return terget_fields;
+			}
 
-            if ( ! terget_fields && typeof terget_fields !== 'object' ) {
-                return false;
-            }
-            
-            let i = 0;
-            for ( let option of terget_fields ) {
-                let id = ( typeof option.id !== 'undefined' ) ? option.id : '';
-                
-                terget_fields[ i ].id = id_prefix + id;
-                i++;
-            }
+			if (has_sourcemap) {
+				terget_fields = this.mapDataByMap(
+					terget_fields,
+					this.optionsSource.source_map
+				);
+			}
 
-            // console.log( {terget_fields} );
+			if (filter_by) {
+				terget_fields = this.filterDataByValue(
+					terget_fields,
+					filter_by
+				);
+			}
 
-            return terget_fields;
-        },
+			if (!terget_fields && typeof terget_fields !== 'object') {
+				return false;
+			}
 
-        formGroupClass() {
-            var validation_classes = ( this.validationLog.inputErrorClasses ) ? this.validationLog.inputErrorClasses : {};
+			let i = 0;
+			for (let option of terget_fields) {
+				let id = typeof option.id !== 'undefined' ? option.id : '';
 
-            return {
-                ...validation_classes,
-            }
-        },
-    },
+				terget_fields[i].id = id_prefix + id;
+				i++;
+			}
 
-    data() {
-        return {
-            local_value: [],
-            validationLog: {}
-        }
-    },
+			// console.log( {terget_fields} );
 
-    methods: {
-        getCheckedStatus( option ) {
-            // console.log( { name: this.name, local_value: this.local_value, value: this.getValue( option ) } );
-            return this.local_value.includes( this.getValue( option ) );
-        },
+			return terget_fields;
+		},
 
-        getValue( option ) {
-            return ( typeof option.value !== 'undefined' ) ? option.value : '';
-        },
+		formGroupClass() {
+			var validation_classes = this.validationLog.inputErrorClasses
+				? this.validationLog.inputErrorClasses
+				: {};
 
-        getTheOptions() {
-            return JSON.parse( JSON.stringify( this.theOptions ) );
-        },
+			return {
+				...validation_classes,
+			};
+		},
+	},
 
-        filtereValue( value ) {
-            if ( ! ( value && Array.isArray( value ) ) ) { return []; }
+	data() {
+		return {
+			local_value: [],
+			validationLog: {},
+		};
+	},
 
-            let options_values = this.theOptions.map( option => {
-                if ( typeof option.value !== 'undefined' ) { return option.value; }
-            });
+	methods: {
+		getCheckedStatus(option) {
+			// console.log( { name: this.name, local_value: this.local_value, value: this.getValue( option ) } );
+			return this.local_value.includes(this.getValue(option));
+		},
 
-            return value.filter( value_elm => {
-                return options_values.includes( value_elm );
-            });
-        },
+		getValue(option) {
+			return typeof option.value !== 'undefined' ? option.value : '';
+		},
 
-        hasDeprecatedValue( values ) {
-            if ( ! values && typeof values !== 'object' ) {
-                return [];
-            }
+		getTheOptions() {
+			return JSON.parse(JSON.stringify(this.theOptions));
+		},
 
-            let flatten_values = JSON.parse( JSON.stringify( values ) );
-            let options_values = this.theOptions.map( option => {
-                if ( typeof option.value !== 'undefined' ) { return option.value; }
-            });
+		filtereValue(value) {
+			if (!(value && Array.isArray(value))) {
+				return [];
+			}
 
-            let deprecated_value = flatten_values.filter( value_elm => {
-                return ! options_values.includes( value_elm );
-            });
+			let options_values = this.theOptions.map((option) => {
+				if (typeof option.value !== 'undefined') {
+					return option.value;
+				}
+			});
 
-            if ( ! deprecated_value && typeof deprecated_value !== 'object' ) {
-                return false;
-            }
+			return value.filter((value_elm) => {
+				return options_values.includes(value_elm);
+			});
+		},
 
-            if ( ! deprecated_value.length ) {
-                return false;
-            }
+		hasDeprecatedValue(values) {
+			if (!values && typeof values !== 'object') {
+				return [];
+			}
 
-            return deprecated_value;
-        },
+			let flatten_values = JSON.parse(JSON.stringify(values));
+			let options_values = this.theOptions.map((option) => {
+				if (typeof option.value !== 'undefined') {
+					return option.value;
+				}
+			});
 
-        removeDeprecatedValue( _original_value, _deprecated_value ) {
-            let original_value = JSON.parse( JSON.stringify( _original_value ) );
+			let deprecated_value = flatten_values.filter((value_elm) => {
+				return !options_values.includes(value_elm);
+			});
 
-            return original_value.filter( value_elm => {
-                return ! _deprecated_value.includes( value_elm );
-            });
-        }
+			if (!deprecated_value && typeof deprecated_value !== 'object') {
+				return false;
+			}
 
-    },
-}
+			if (!deprecated_value.length) {
+				return false;
+			}
+
+			return deprecated_value;
+		},
+
+		removeDeprecatedValue(_original_value, _deprecated_value) {
+			let original_value = JSON.parse(JSON.stringify(_original_value));
+
+			return original_value.filter((value_elm) => {
+				return !_deprecated_value.includes(value_elm);
+			});
+		},
+	},
+};

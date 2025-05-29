@@ -206,7 +206,6 @@ if ( ! class_exists( 'ATBDP_Rewrite' ) ) :
                 }
 
             }
-
         }
     } // ends ATBDP_Rewrite
 

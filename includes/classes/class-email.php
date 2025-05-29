@@ -164,7 +164,6 @@ if ( ! class_exists( 'ATBDP_Email' ) ) :
             $c = nl2br( strtr( $content, $find_replace ) );
             // we do not want to use br for line break in the order details markup. so we removed that from bulk replacement.
             return str_replace( '==ORDER_DETAILS==', ATBDP_Order::get_order_details( $order_id ), $c );
-
         }
 
         /**
@@ -661,7 +660,6 @@ This email is sent automatically for information purpose only. Please do not res
             do_action( 'directorist_email_on_notify_admin_listing_published', $action_args );
 
             return $is_sent;
-
         }
 
         /**
@@ -952,7 +950,6 @@ This email is sent automatically for information purpose only. Please do not res
             $body = $this->replace_in_content( $this->get_listing_deleted_admin_tmpl(), null, $listing_id );
             $body = atbdp_email_html( $sub, $body );
             return $this->send_mail( $this->get_admin_email_list(), $sub, $body, $this->get_email_headers() );
-
         }
 
         public function notify_admin_become_author( $user_id ) {
@@ -1121,7 +1118,6 @@ This email is sent automatically for information purpose only. Please do not res
             do_action( 'directorist_email_on_notify_admin_listing_submitted', $action_args );
 
             return $is_sent;
-
         }
 
         /**

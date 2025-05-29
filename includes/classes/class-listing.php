@@ -309,7 +309,6 @@ if ( ! class_exists( 'ATBDP_Listing' ) ) :
                 }
 
             }
-
         }
 
         /**
@@ -351,7 +350,6 @@ if ( ! class_exists( 'ATBDP_Listing' ) ) :
             } else {
                 return $query;
             }
-
         }
 
         public function include_files() {

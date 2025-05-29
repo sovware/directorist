@@ -78,7 +78,6 @@ class Multi_Directory_Migration {
         }
 
         return [ 'success' => false ];
-
     }
 
     // get_fields_data

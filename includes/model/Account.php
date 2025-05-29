@@ -13,7 +13,6 @@ class Directorist_Account {
     protected static $instance = null;
 
     private function __construct() {
-
     }
 
     public static function instance() {

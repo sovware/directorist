@@ -107,7 +107,6 @@ class Directorist_Listing_Taxonomy {
         $this->listing_types              = $this->get_listing_types();
         $this->current_listing_type       = $this->get_current_listing_type();
         $this->set_terms();
-
     }
 
     public function set_terms( ?int $current_page = null ) {
@@ -149,7 +148,6 @@ class Directorist_Listing_Taxonomy {
         $this->terms            = array_slice( $all_terms, $offset, $this->per_page );
         $this->total_pages      = ( $this->per_page > 0 ) ? ceil( $total_terms / $this->per_page ) : 1;
         $this->current_page     = $current_page; // Store current page for reference
-
     }
 
     public function grid_count_html( $term, $total ) {

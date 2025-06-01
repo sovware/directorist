@@ -139,21 +139,25 @@ if ( ! class_exists( 'ATBDP_Rewrite' ) ) :
             }
 
             // Single Location page
-            $page_id = $this->get_page_id( 'single_location_page' );
-            if ( $page_id ) {
-                $link = $this->get_page_slug( $page_id, 'directory-single-location' );
+            if ( ! directorist_is_location_archive_enabled() ) {
+				$page_id = $this->get_page_id( 'single_location_page' );
+				if ( $page_id ) {
+					$link = $this->get_page_slug( $page_id, 'directory-single-location' );
 
-                add_rewrite_rule( "$link/([^/]+)/page/?([0-9]{1,})/?$", 'index.php?page_id=' . $page_id . '&atbdp_location=$matches[1]&paged=$matches[2]', 'top' );
-                add_rewrite_rule( "$link/([^/]+)/?$", 'index.php?page_id=' . $page_id . '&atbdp_location=$matches[1]', 'top' );
-            }
+					add_rewrite_rule( "$link/([^/]+)/page/?([0-9]{1,})/?$", 'index.php?page_id=' . $page_id . '&atbdp_location=$matches[1]&paged=$matches[2]', 'top' );
+					add_rewrite_rule( "$link/([^/]+)/?$", 'index.php?page_id=' . $page_id . '&atbdp_location=$matches[1]', 'top' );
+				}
+			}
 
             // Single Tag page
-            $page_id = $this->get_page_id( 'single_tag_page' );
-            if ( $page_id ) {
-                $link = $this->get_page_slug( $page_id, 'directory-single-tag' );
+            if ( ! directorist_is_tag_archive_enabled() ) {
+                $page_id = $this->get_page_id( 'single_tag_page' );
+				if ( $page_id ) {
+					$link = $this->get_page_slug( $page_id, 'directory-single-tag' );
 
-                add_rewrite_rule( "$link/([^/]+)/page/?([0-9]{1,})/?$", 'index.php?page_id=' . $page_id . '&atbdp_tag=$matches[1]&paged=$matches[2]', 'top' );
-                add_rewrite_rule( "$link/([^/]+)/?$", 'index.php?page_id=' . $page_id . '&atbdp_tag=$matches[1]', 'top' );
+					add_rewrite_rule( "$link/([^/]+)/page/?([0-9]{1,})/?$", 'index.php?page_id=' . $page_id . '&atbdp_tag=$matches[1]&paged=$matches[2]', 'top' );
+					add_rewrite_rule( "$link/([^/]+)/?$", 'index.php?page_id=' . $page_id . '&atbdp_tag=$matches[1]', 'top' );
+				}
             }
 
             unset( $cached_pages );

@@ -2321,7 +2321,7 @@ Please remember that your order may be canceled if you do not make your payment 
                         'value' => atbdp_get_option( 'single_location_page', 'atbdp_general' ),
                         'showDefaultOption' => true,
                         'options' => $this->get_pages_vl_arrays(),
-						'show-if' => [
+                        'show-if' => [
                             'where' => 'enable_location_archive',
                             'conditions' => [
                                 ['key' => 'value', 'compare' => '=', 'value' => false],
@@ -2335,7 +2335,7 @@ Please remember that your order may be canceled if you do not make your payment 
                         'value' => atbdp_get_option( 'single_tag_page', 'atbdp_general' ),
                         'showDefaultOption' => true,
                         'options' => $this->get_pages_vl_arrays(),
-						'show-if' => [
+                        'show-if' => [
                             'where' => 'enable_tag_archive',
                             'conditions' => [
                                 ['key' => 'value', 'compare' => '=', 'value' => false],
@@ -3649,7 +3649,7 @@ Please remember that your order may be canceled if you do not make your payment 
                         ],
                     ],
 
-					'enable_location_archive'    => [
+                    'enable_location_archive'    => [
                         'type'          => 'toggle',
                         'label'         => __( 'Enable Default Archive', 'directorist' ),
                         'description' => __( 'When default archive is enabled the old page based system will be automatically disabled.','directorist' ),
@@ -3668,7 +3668,7 @@ Please remember that your order may be canceled if you do not make your payment 
                         ],
                     ],
 
-					'enable_tag_archive'    => [
+                    'enable_tag_archive'    => [
                         'type'          => 'toggle',
                         'label'         => __( 'Enable Default Archive', 'directorist' ),
                         'description' => __( 'When default archive is enabled the old page based system will be automatically disabled.','directorist' ),
@@ -3918,14 +3918,14 @@ Please remember that your order may be canceled if you do not make your payment 
                                                     'category_base',
                                                 ],
                                             ],
-											'location_archive' => [
+                                            'location_archive' => [
                                                 'title'       => __( 'Location Archive', 'directorist' ),
                                                 'fields'      => [
                                                     'enable_location_archive',
                                                     'location_base',
                                                 ],
                                             ],
-											'tag_archive' => [
+                                            'tag_archive' => [
                                                 'title'       => __( 'Tag Archive', 'directorist' ),
                                                 'fields'      => [
                                                     'enable_tag_archive',

@@ -141,7 +141,7 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
 
             add_filter( 'term_link', [ $this, 'taxonomy_redirect_page' ], 10, 3 );
 
-			$directory_id   = directorist_get_listing_directory( get_the_ID() );
+            $directory_id   = directorist_get_listing_directory( get_the_ID() );
             $directory_slug = '';
 
             if ( ! empty( $directory_id ) ) {
@@ -634,7 +634,7 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
                 ],
             ];
 
-			$tag_base = directorist_get_tag_base();
+            $tag_base = directorist_get_tag_base();
             if ( directorist_is_tag_archive_enabled() && $tag_base ) {
                 $args['rewrite'] = [
                     'slug' => $tag_base,

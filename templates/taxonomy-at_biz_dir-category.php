@@ -1,8 +1,8 @@
 <?php
 /**
  * @author  wpWax
- * @since   6.6
- * @version 6.7
+ * @since 8.5
+ * @version 1.0
  */
 if ( ! defined( 'ABSPATH' ) ) {
     exit;

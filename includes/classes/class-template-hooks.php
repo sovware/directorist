@@ -49,7 +49,7 @@ class Directorist_Template_Hooks {
 
         // Single Listing
         // Set high priority to override page builders.
-        add_filter( 'template_include', [ $this, 'single_template_path' ], 999 );
+        add_filter( 'template_include', [ $this, 'template_loader' ], 999 );
         add_filter( 'the_content',      [ $this, 'single_content' ], 20 );
     }
 
@@ -96,21 +96,29 @@ class Directorist_Template_Hooks {
      *
      * @return string
      */
-    public function single_template_path( $template ) {
-        if ( ! is_singular( ATBDP_POST_TYPE ) ) {
+    public function template_loader( $template ) {
+        // Handle taxonomy templates
+        if ( is_tax( ATBDP_LOCATION ) && ! self::has_block_template( 'taxonomy-' . ATBDP_LOCATION ) ) {
+			$_template = Helper::template_path( 'taxonomy-' . ATBDP_LOCATION );
+        } elseif ( is_tax( ATBDP_CATEGORY ) && ! self::has_block_template( 'taxonomy-' . ATBDP_CATEGORY ) ) {
+			$_template = Helper::template_path( 'taxonomy-' . ATBDP_CATEGORY );
+        } elseif ( is_tax( ATBDP_TAGS ) && ! self::has_block_template( 'taxonomy-' . ATBDP_TAGS ) ) {
+			$_template = Helper::template_path( 'taxonomy-' . ATBDP_TAGS );
+        } elseif ( is_singular( ATBDP_POST_TYPE ) ) {
+            // Handle single listing template
+            $template_type = get_directorist_option( 'single_listing_template', 'directorist_template' );
+            if ( $template_type === 'directorist_template' && ! self::has_block_template( 'single-listing' ) ) {
+                $_template = Helper::template_path( 'single' );
+            } elseif ( $template_type === 'theme_template_page' ) {
+                $_template = get_page_template();
+            } elseif ( $template_type === 'current_theme_template' ) {
+                $_template = get_single_template();
+            }
+        } else {
             return $template;
         }
 
-        $template_type = get_directorist_option( 'single_listing_template', 'directorist_template' );
-        if ( $template_type === 'directorist_template' && ! self::has_block_template( 'single-listing' ) ) {
-            $_template = Helper::template_path( 'single' );
-        } elseif ( $template_type === 'theme_template_page' ) {
-            $_template = get_page_template();
-        } elseif ( $template_type === 'current_theme_template' ) {
-            $_template = get_single_template();
-        }
-
-        // assign custom template if found.
+        // Assign custom template if found
         if ( ! empty( $_template ) ) {
             $template = $_template;
         }

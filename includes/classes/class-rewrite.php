@@ -69,7 +69,7 @@ if ( ! class_exists( 'ATBDP_Rewrite' ) ) :
             $cached_pages = get_pages(
                 [
                     'include' => $this->get_page_ids()
-                ] 
+                ]
             );
 
             $page_id = $this->get_page_id( 'all_listing_page' );
@@ -129,11 +129,13 @@ if ( ! class_exists( 'ATBDP_Rewrite' ) ) :
             }
 
             // Single Category page
-            $page_id = $this->get_page_id( 'single_category_page' );
-            if ( $page_id ) {
-                $link = $this->get_page_slug( $page_id, 'directory-single-category' );
-                add_rewrite_rule( "$link/([^/]+)/page/?([0-9]{1,})/?$", 'index.php?page_id=' . $page_id . '&atbdp_category=$matches[1]&paged=$matches[2]', 'top' );
-                add_rewrite_rule( "$link/([^/]+)/?$", 'index.php?page_id=' . $page_id . '&atbdp_category=$matches[1]', 'top' );
+            if ( ! directorist_is_category_archive_enabled() ) {
+                $page_id = $this->get_page_id( 'single_category_page' );
+                if ( $page_id ) {
+                    $link = $this->get_page_slug( $page_id, 'directory-single-category' );
+                    add_rewrite_rule( "$link/([^/]+)/page/?([0-9]{1,})/?$", 'index.php?page_id=' . $page_id . '&atbdp_category=$matches[1]&paged=$matches[2]', 'top' );
+                    add_rewrite_rule( "$link/([^/]+)/?$", 'index.php?page_id=' . $page_id . '&atbdp_category=$matches[1]', 'top' );
+                }
             }
 
             // Single Location page

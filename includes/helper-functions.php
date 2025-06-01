@@ -2348,7 +2348,7 @@ function atbdp_guest_submission( $guest_email ) {
                 'quick_login_required' => true,
                 'error'                => true,
                 'error_msg'            => esc_html__( 'An account already exists with this email. Please log in with your password to continue.', 'directorist' ),
-            ] 
+            ]
         );
 
         die();
@@ -2373,7 +2373,7 @@ function atbdp_guest_submission( $guest_email ) {
             [
                 'error'     => true,
                 'error_msg' => $user_id->get_error_message(),
-            ] 
+            ]
         );
 
         die();
@@ -2921,7 +2921,7 @@ if ( ! function_exists( 'directory_types' ) ) {
             [
                 'orderby'    => 'date',
                 'order'      => 'DESC',
-            ] 
+            ]
         );
     }
 }
@@ -2945,7 +2945,7 @@ if ( ! function_exists( 'directorist_get_default_directory' ) ) {
             [
                 'default_only' => true,
                 'fields'       => $fields,
-            ] 
+            ]
         );
 
         if ( empty( $directories ) || is_wp_error( $directories ) || ! isset( $directories[0] ) ) {
@@ -3316,7 +3316,7 @@ function directorist_get_supported_file_types() {
     return array_reduce(
         $groups, function( $carry, $group ) {
             return array_merge( $carry, $group );
-        }, [] 
+        }, []
     );
 }
 
@@ -3476,7 +3476,7 @@ function directorist_delete_user_favorites( $user_id = 0, $listing_id = 0 ) {
     $new_favorites = array_filter(
         $old_favorites, static function( $favorite ) use ( $listing_id ) {
             return ( $favorite !== $listing_id );
-        } 
+        }
     );
 
     if ( count( $old_favorites ) > count( $new_favorites ) ) {
@@ -3708,7 +3708,7 @@ function directorist_translate_to_listing_field_key( $header_key = '' ) {
             'Tagline'                  => 'tagline',
             'address'                  => 'address',
             'Address'                  => 'address',
-        ] 
+        ]
     );
 
     return isset( $fields_map[ $header_key ] ) ? $fields_map[ $header_key ] : '';
@@ -3799,7 +3799,7 @@ function directorist_get_allowed_form_input_tags() {
             'select'   => $allowed_attributes,
             'option'   => $allowed_attributes,
             'textarea' => $allowed_attributes,
-        ] 
+        ]
     );
 }
 
@@ -3816,7 +3816,7 @@ function directorist_get_allowed_svg_tags() {
             'svg'  => $allowed_attributes,
             'g'    => $allowed_attributes,
             'path' => $allowed_attributes,
-        ] 
+        ]
     );
 }
 
@@ -4034,7 +4034,7 @@ function directorist_get_mime_types( $filterby = '', $return_type = '' ) {
         $allowed_mime_types = array_filter(
             $allowed_mime_types, static function( $mime_type, $extensions ) use ( $filterby ) {
                 return stripos( $mime_type, $filterby ) !== false;
-            }, ARRAY_FILTER_USE_BOTH 
+            }, ARRAY_FILTER_USE_BOTH
         );
     }
 
@@ -4042,14 +4042,14 @@ function directorist_get_mime_types( $filterby = '', $return_type = '' ) {
         $allowed_mime_types = array_reduce(
             array_keys( $allowed_mime_types ), static function( $carry, $extension ) {
                 return array_merge( $carry, explode( '|',  $extension ) );
-            }, [] 
+            }, []
         );
 
         if ( $return_type === '.extension' ) {
             $allowed_mime_types = array_map(
                 static function( $extension ) {
                     return '.' . $extension;
-                }, $allowed_mime_types 
+                }, $allowed_mime_types
             );
         }
     }
@@ -4201,7 +4201,7 @@ function directorist_check_password_reset_pin_code( $user, $pin_code ) {
         $reset_data = array_merge(
             $reset_data, [
                 'reset_attempt' => $reset_attempt,
-            ] 
+            ]
         );
 
         update_user_meta( $user->ID, 'directorist_pasword_reset_key', $reset_data );
@@ -4495,7 +4495,7 @@ function directorist_filter_listing_empty_metadata( $meta_data ) {
             }
 
             return true;
-        }, ARRAY_FILTER_USE_BOTH 
+        }, ARRAY_FILTER_USE_BOTH
     );
 }
 
@@ -4749,4 +4749,12 @@ function directorist_get_listing_gallery_images( $listing_id = 0 ) {
 function directorist_renewal_token_hash( $listing_id, $user_id ) {
     $token_str = 'cB0XtpVzGb180dgPi3hADW-' . $listing_id . '::' . $user_id;
     return wp_hash( $token_str, 'nonce' );
+}
+
+function directorist_is_category_archive_enabled() {
+    return (bool) get_directorist_option( 'enable_category_archive', false );
+}
+
+function directorist_get_category_base() {
+    return get_directorist_option( 'category_base', '' );
 }

@@ -2299,7 +2299,7 @@ Please remember that your order may be canceled if you do not make your payment 
                         'value' => atbdp_get_option( 'single_category_page', 'atbdp_general' ),
                         'showDefaultOption' => true,
                         'options' => $this->get_pages_vl_arrays(),
-						'show-if' => [
+                        'show-if' => [
                             'where' => 'enable_category_archive',
                             'conditions' => [
                                 ['key' => 'value', 'compare' => '=', 'value' => false],

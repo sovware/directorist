@@ -409,22 +409,29 @@ class Block_Templates_Controller {
         }
 
         if ( is_singular( ATBDP_POST_TYPE ) &&
-            ! Block_Template_Utils::theme_has_template( 'single-at_biz_dir' ) &&
-            $this->block_template_is_available( 'single-at_biz_dir' )
+            ! Block_Template_Utils::theme_has_template( 'single-' . ATBDP_POST_TYPE ) &&
+            $this->block_template_is_available( 'single-' . ATBDP_POST_TYPE )
         ) {
             add_filter( 'directorist_has_block_template', '__return_true', 10, 0 );
         }
 
         if ( is_tax( ATBDP_CATEGORY ) &&
-            ! Block_Template_Utils::theme_has_template( 'taxonomy-at_biz_dir-category' ) &&
-            $this->block_template_is_available( 'taxonomy-at_biz_dir-category' )
+            ! Block_Template_Utils::theme_has_template( 'taxonomy-' . ATBDP_CATEGORY ) &&
+            $this->block_template_is_available( 'taxonomy-' . ATBDP_CATEGORY )
         ) {
             add_filter( 'directorist_has_block_template', '__return_true', 10, 0 );
         }
 
-        if ( is_singular( ATBDP_POST_TYPE ) &&
-            ! Block_Template_Utils::theme_has_template( 'single-listing' ) &&
-            $this->block_template_is_available( 'single-listing' )
+		if ( is_tax( ATBDP_LOCATION ) &&
+            ! Block_Template_Utils::theme_has_template( 'taxonomy-' . ATBDP_LOCATION ) &&
+            $this->block_template_is_available( 'taxonomy-' . ATBDP_LOCATION )
+        ) {
+            add_filter( 'directorist_has_block_template', '__return_true', 10, 0 );
+        }
+
+		if ( is_tax( ATBDP_TAGS ) &&
+            ! Block_Template_Utils::theme_has_template( 'taxonomy-' . ATBDP_TAGS ) &&
+            $this->block_template_is_available( 'taxonomy-' . ATBDP_TAGS )
         ) {
             add_filter( 'directorist_has_block_template', '__return_true', 10, 0 );
         }

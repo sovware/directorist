@@ -97,12 +97,16 @@ class Directorist_Template_Hooks {
      * @return string
      */
     public function template_loader( $template ) {
+		if ( is_embed() ) {
+			return $template;
+		}
+
         // Handle taxonomy templates
-        if ( is_tax( ATBDP_LOCATION ) && ! self::has_block_template( 'taxonomy-' . ATBDP_LOCATION ) ) {
+        if ( is_tax( ATBDP_LOCATION ) && directorist_is_location_archive_enabled() && ! self::has_block_template( 'taxonomy-' . ATBDP_LOCATION ) ) {
 			$_template = Helper::template_path( 'taxonomy-' . ATBDP_LOCATION );
-        } elseif ( is_tax( ATBDP_CATEGORY ) && ! self::has_block_template( 'taxonomy-' . ATBDP_CATEGORY ) ) {
+        } elseif ( is_tax( ATBDP_CATEGORY ) && directorist_is_category_archive_enabled() && ! self::has_block_template( 'taxonomy-' . ATBDP_CATEGORY ) ) {
 			$_template = Helper::template_path( 'taxonomy-' . ATBDP_CATEGORY );
-        } elseif ( is_tax( ATBDP_TAGS ) && ! self::has_block_template( 'taxonomy-' . ATBDP_TAGS ) ) {
+        } elseif ( is_tax( ATBDP_TAGS ) && directorist_is_tag_archive_enabled() && ! self::has_block_template( 'taxonomy-' . ATBDP_TAGS ) ) {
 			$_template = Helper::template_path( 'taxonomy-' . ATBDP_TAGS );
         } elseif ( is_singular( ATBDP_POST_TYPE ) ) {
             // Handle single listing template
@@ -141,14 +145,9 @@ class Directorist_Template_Hooks {
             return false;
         }
 
-        $has_template            = false;
-        $template_filename       = $template_name . '.html';
-        // Since Gutenberg 12.1.0, the conventions for block templates directories have changed,
-        // we should check both these possible directories for backwards-compatibility.
-        $possible_templates_dirs = [ 'templates', 'block-templates' ];
+        $has_template      = false;
+        $template_filename = $template_name . '.html';
 
-        // Combine the possible root directory names with either the template directory
-        // or the stylesheet directory for child themes, getting all possible block templates
         // locations combinations.
         $filepath        = DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . $template_filename;
         $legacy_filepath = DIRECTORY_SEPARATOR . 'block-templates' . DIRECTORY_SEPARATOR . $template_filename;

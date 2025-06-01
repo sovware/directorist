@@ -4751,10 +4751,62 @@ function directorist_renewal_token_hash( $listing_id, $user_id ) {
     return wp_hash( $token_str, 'nonce' );
 }
 
+/**
+ * Check if category archive is enabled
+ *
+ * @since 8.5
+ * @return bool True if category archive is enabled, false otherwise
+ */
 function directorist_is_category_archive_enabled() {
     return (bool) get_directorist_option( 'enable_category_archive', false );
 }
 
+/**
+ * Get category base slug
+ *
+ * @since 8.5
+ * @return string Category base slug
+ */
 function directorist_get_category_base() {
     return get_directorist_option( 'category_base', '' );
+}
+
+/**
+ * Check if location archive is enabled
+ *
+ * @since 8.5
+ * @return bool True if location archive is enabled, false otherwise
+ */
+function directorist_is_location_archive_enabled() {
+    return (bool) get_directorist_option( 'enable_location_archive', false );
+}
+
+/**
+ * Get location base slug
+ *
+ * @since 8.5
+ * @return string Location base slug
+ */
+function directorist_get_location_base() {
+    return get_directorist_option( 'location_base', '' );
+}
+
+/**
+ * Check if tag archive is enabled
+ *
+ * @since 8.5
+ * @return bool True if tag archive is enabled, false otherwise
+ */
+function directorist_is_tag_archive_enabled() {
+    return (bool) get_directorist_option( 'enable_tag_archive', false );
+}
+
+/**
+ * Get tag base slug
+ *
+ * @since 8.5
+ * @return string Tag base slug
+ */
+function directorist_get_tag_base() {
+    return get_directorist_option( 'tag_base', '' );
 }

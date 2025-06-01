@@ -266,7 +266,7 @@ class Block_Templates_Controller {
      * Gets the templates saved in the database.
      *
      * @param array $slugs An array of slugs to retrieve templates for.
-     * @param array $template_type wp_template or wp_template_part.
+     * @param string $template_type wp_template or wp_template_part.
      *
      * @return int[]|\WP_Post[] An array of found templates.
      */
@@ -356,7 +356,7 @@ class Block_Templates_Controller {
      * Get and build the block template objects from the block template files.
      *
      * @param array $slugs An array of slugs to retrieve templates for.
-     * @param array $template_type wp_template or wp_template_part.
+     * @param string $template_type wp_template or wp_template_part.
      *
      * @return array
      */
@@ -370,7 +370,7 @@ class Block_Templates_Controller {
     /**
      * Gets the directory where templates of a specific template type can be found.
      *
-     * @param array $template_type wp_template or wp_template_part.
+     * @param string $template_type wp_template or wp_template_part.
      *
      * @return string
      */
@@ -422,14 +422,14 @@ class Block_Templates_Controller {
             add_filter( 'directorist_has_block_template', '__return_true', 10, 0 );
         }
 
-		if ( is_tax( ATBDP_LOCATION ) &&
+        if ( is_tax( ATBDP_LOCATION ) &&
             ! Block_Template_Utils::theme_has_template( 'taxonomy-' . ATBDP_LOCATION ) &&
             $this->block_template_is_available( 'taxonomy-' . ATBDP_LOCATION )
         ) {
             add_filter( 'directorist_has_block_template', '__return_true', 10, 0 );
         }
 
-		if ( is_tax( ATBDP_TAGS ) &&
+        if ( is_tax( ATBDP_TAGS ) &&
             ! Block_Template_Utils::theme_has_template( 'taxonomy-' . ATBDP_TAGS ) &&
             $this->block_template_is_available( 'taxonomy-' . ATBDP_TAGS )
         ) {

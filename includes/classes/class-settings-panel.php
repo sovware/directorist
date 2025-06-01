@@ -2321,6 +2321,12 @@ Please remember that your order may be canceled if you do not make your payment 
                         'value' => atbdp_get_option( 'single_location_page', 'atbdp_general' ),
                         'showDefaultOption' => true,
                         'options' => $this->get_pages_vl_arrays(),
+						'show-if' => [
+                            'where' => 'enable_location_archive',
+                            'conditions' => [
+                                ['key' => 'value', 'compare' => '=', 'value' => false],
+                            ],
+                        ],
                     ],
                     'single_tag_page' => [
                         'label' => __( 'Single Tag Page', 'directorist' ),
@@ -2329,6 +2335,12 @@ Please remember that your order may be canceled if you do not make your payment 
                         'value' => atbdp_get_option( 'single_tag_page', 'atbdp_general' ),
                         'showDefaultOption' => true,
                         'options' => $this->get_pages_vl_arrays(),
+						'show-if' => [
+                            'where' => 'enable_tag_archive',
+                            'conditions' => [
+                                ['key' => 'value', 'compare' => '=', 'value' => false],
+                            ],
+                        ],
                     ],
                     'custom_registration' => [
                         'label' => __( 'Registration Page', 'directorist' ),
@@ -3636,6 +3648,44 @@ Please remember that your order may be canceled if you do not make your payment 
                             ],
                         ],
                     ],
+
+					'enable_location_archive'    => [
+                        'type'          => 'toggle',
+                        'label'         => __( 'Enable Default Archive', 'directorist' ),
+                        'description' => __( 'When default archive is enabled the old page based system will be automatically disabled.','directorist' ),
+                        'value'         => false
+                    ],
+                    'location_base'    => [
+                        'type'          => 'text',
+                        'label'         => __( 'Location Base', 'directorist' ),
+                        'description' => __( 'Location base is the slug used in the URL.','directorist' ),
+                        'value'         => 'single-location',
+                        'show-if' => [
+                            'where' => 'enable_location_archive',
+                            'conditions' => [
+                                ['key' => 'value', 'compare' => '=', 'value' => true],
+                            ],
+                        ],
+                    ],
+
+					'enable_tag_archive'    => [
+                        'type'          => 'toggle',
+                        'label'         => __( 'Enable Default Archive', 'directorist' ),
+                        'description' => __( 'When default archive is enabled the old page based system will be automatically disabled.','directorist' ),
+                        'value'         => false
+                    ],
+                    'tag_base'    => [
+                        'type'          => 'text',
+                        'label'         => __( 'Tag Base', 'directorist' ),
+                        'description' => __( 'Tag base is the slug used in the URL.','directorist' ),
+                        'value'         => 'single-tag',
+                        'show-if' => [
+                            'where' => 'enable_tag_archive',
+                            'conditions' => [
+                                ['key' => 'value', 'compare' => '=', 'value' => true],
+                            ],
+                        ],
+                    ],
                 ]
             );
 
@@ -3856,16 +3906,30 @@ Please remember that your order may be canceled if you do not make your payment 
                                         ]
                                     ),
                                 ],
-                                'permalinks' => [
-                                    'label' => __( 'Permalinks', 'directorist' ),
-                                    'icon'  => '<i class="fa fa-link"></i>',
+                                'archive' => [
+                                    'label' => __( 'Archive', 'directorist' ),
+                                    'icon'  => '<i class="fa fa-box"></i>',
                                     'sections' => apply_filters(
-                                        'directorist_listings_setting_permalinks', [
-                                            'badge_management' => [
+                                        'directorist_listings_setting_archive', [
+                                            'category_archive' => [
                                                 'title'       => __( 'Category Archive', 'directorist' ),
                                                 'fields'      => [
                                                     'enable_category_archive',
                                                     'category_base',
+                                                ],
+                                            ],
+											'location_archive' => [
+                                                'title'       => __( 'Location Archive', 'directorist' ),
+                                                'fields'      => [
+                                                    'enable_location_archive',
+                                                    'location_base',
+                                                ],
+                                            ],
+											'tag_archive' => [
+                                                'title'       => __( 'Tag Archive', 'directorist' ),
+                                                'fields'      => [
+                                                    'enable_tag_archive',
+                                                    'tag_base',
                                                 ],
                                             ],
                                         ]

@@ -558,10 +558,10 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
                 ],
             ];
 
-            $slug = ATBDP_LOCATION;
-            if ( ! empty( $slug ) ) {
+            $location_base = directorist_get_location_base();
+            if ( directorist_is_location_archive_enabled() && $location_base ) {
                 $args['rewrite'] = [
-                    'slug' => $slug,
+                    'slug' => $location_base,
                 ];
             }
 
@@ -634,11 +634,10 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
                 ],
             ];
 
-            // get the rewrite slug from the user settings, if exist use it.
-            $slug = ATBDP_TAGS;
-            if ( ! empty( $slug ) ) {
-                $args2['rewrite'] = [
-                    'slug' => $slug,
+			$tag_base = directorist_get_tag_base();
+            if ( directorist_is_tag_archive_enabled() && $tag_base ) {
+                $args['rewrite'] = [
+                    'slug' => $tag_base,
                 ];
             }
 

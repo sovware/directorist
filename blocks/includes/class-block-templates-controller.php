@@ -415,23 +415,10 @@ class Block_Templates_Controller {
             add_filter( 'directorist_has_block_template', '__return_true', 10, 0 );
         }
 
-        if ( is_tax( ATBDP_CATEGORY ) &&
-            ! Block_Template_Utils::theme_has_template( 'taxonomy-' . ATBDP_CATEGORY ) &&
-            $this->block_template_is_available( 'taxonomy-' . ATBDP_CATEGORY )
-        ) {
-            add_filter( 'directorist_has_block_template', '__return_true', 10, 0 );
-        }
-
-        if ( is_tax( ATBDP_LOCATION ) &&
-            ! Block_Template_Utils::theme_has_template( 'taxonomy-' . ATBDP_LOCATION ) &&
-            $this->block_template_is_available( 'taxonomy-' . ATBDP_LOCATION )
-        ) {
-            add_filter( 'directorist_has_block_template', '__return_true', 10, 0 );
-        }
-
-        if ( is_tax( ATBDP_TAGS ) &&
-            ! Block_Template_Utils::theme_has_template( 'taxonomy-' . ATBDP_TAGS ) &&
-            $this->block_template_is_available( 'taxonomy-' . ATBDP_TAGS )
+        if ( directorist_is_archive_template_enabled() &&
+            is_tax( [ ATBDP_LOCATION, ATBDP_CATEGORY, ATBDP_TAGS ] ) &&
+            ! Block_Template_Utils::theme_has_template( 'taxonomy-' . get_queried_object()->taxonomy ) &&
+            $this->block_template_is_available( 'taxonomy-' . get_queried_object()->taxonomy )
         ) {
             add_filter( 'directorist_has_block_template', '__return_true', 10, 0 );
         }

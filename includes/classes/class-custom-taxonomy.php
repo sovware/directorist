@@ -35,7 +35,7 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
             // Other actions.
             add_filter( 'term_updated_messages', [ $this, 'add_term_updated_messages' ] );
 
-            // add_filter( 'term_link', [ $this, 'taxonomy_redirect_page' ], 10, 3 );
+            add_filter( 'term_link', [ $this, 'taxonomy_redirect_page' ], 10, 3 );
             // add_action( 'template_redirect', [ $this, 'atbdp_template_redirect' ] );
 
             add_action( 'wp_loaded', [ $this, 'directorist_bulk_term_update' ] );

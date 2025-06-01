@@ -559,7 +559,7 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
             ];
 
             $location_base = directorist_get_location_base();
-            if ( directorist_is_location_archive_enabled() && $location_base ) {
+            if ( directorist_is_archive_template_enabled() && $location_base ) {
                 $args['rewrite'] = [
                     'slug' => $location_base,
                 ];
@@ -597,7 +597,7 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
             ];
 
             $category_base = directorist_get_category_base();
-            if ( directorist_is_category_archive_enabled() && $category_base ) {
+            if ( directorist_is_archive_template_enabled() && $category_base ) {
                 $args['rewrite'] = [
                     'slug' => $category_base,
                 ];
@@ -635,7 +635,7 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
             ];
 
             $tag_base = directorist_get_tag_base();
-            if ( directorist_is_tag_archive_enabled() && $tag_base ) {
+            if ( directorist_is_archive_template_enabled() && $tag_base ) {
                 $args['rewrite'] = [
                     'slug' => $tag_base,
                 ];

@@ -102,12 +102,10 @@ class Directorist_Template_Hooks {
         }
 
         // Handle taxonomy templates
-        if ( is_tax( ATBDP_LOCATION ) && directorist_is_location_archive_enabled() && ! self::has_block_template( 'taxonomy-' . ATBDP_LOCATION ) ) {
-            $_template = Helper::template_path( 'taxonomy-' . ATBDP_LOCATION );
-        } elseif ( is_tax( ATBDP_CATEGORY ) && directorist_is_category_archive_enabled() && ! self::has_block_template( 'taxonomy-' . ATBDP_CATEGORY ) ) {
-            $_template = Helper::template_path( 'taxonomy-' . ATBDP_CATEGORY );
-        } elseif ( is_tax( ATBDP_TAGS ) && directorist_is_tag_archive_enabled() && ! self::has_block_template( 'taxonomy-' . ATBDP_TAGS ) ) {
-            $_template = Helper::template_path( 'taxonomy-' . ATBDP_TAGS );
+        if ( directorist_is_archive_template_enabled() &&
+            is_tax( [ ATBDP_LOCATION, ATBDP_CATEGORY, ATBDP_TAGS ] ) &&
+            ! self::has_block_template( 'taxonomy-' . get_queried_object()->taxonomy ) ) {
+            $_template = Helper::template_path( 'taxonomy-' . get_queried_object()->taxonomy );
         } elseif ( is_singular( ATBDP_POST_TYPE ) ) {
             // Handle single listing template
             $template_type = get_directorist_option( 'single_listing_template', 'directorist_template' );

@@ -2300,7 +2300,7 @@ Please remember that your order may be canceled if you do not make your payment 
                         'showDefaultOption' => true,
                         'options' => $this->get_pages_vl_arrays(),
                         'show-if' => [
-                            'where' => 'enable_category_archive',
+                            'where' => 'enable_archive_template',
                             'conditions' => [
                                 ['key' => 'value', 'compare' => '=', 'value' => false],
                             ],
@@ -2322,7 +2322,7 @@ Please remember that your order may be canceled if you do not make your payment 
                         'showDefaultOption' => true,
                         'options' => $this->get_pages_vl_arrays(),
                         'show-if' => [
-                            'where' => 'enable_location_archive',
+                            'where' => 'enable_archive_template',
                             'conditions' => [
                                 ['key' => 'value', 'compare' => '=', 'value' => false],
                             ],
@@ -2336,7 +2336,7 @@ Please remember that your order may be canceled if you do not make your payment 
                         'showDefaultOption' => true,
                         'options' => $this->get_pages_vl_arrays(),
                         'show-if' => [
-                            'where' => 'enable_tag_archive',
+                            'where' => 'enable_archive_template',
                             'conditions' => [
                                 ['key' => 'value', 'compare' => '=', 'value' => false],
                             ],
@@ -3630,10 +3630,10 @@ Please remember that your order may be canceled if you do not make your payment 
                         'value'          => false,
                     ],
 
-                    'enable_category_archive'    => [
+                    'enable_archive_template'    => [
                         'type'          => 'toggle',
-                        'label'         => __( 'Enable Default Archive', 'directorist' ),
-                        'description' => __( 'When default archive is enabled the old page based system will be automatically disabled.','directorist' ),
+                        'label'         => __( 'Enable Archive Template', 'directorist' ),
+                        'description' => __( 'Enable WordPress default archive template for category, location and tag. And this will disable the page based archive.','directorist' ),
                         'value'         => false
                     ],
                     'category_base'    => [
@@ -3642,18 +3642,11 @@ Please remember that your order may be canceled if you do not make your payment 
                         'description' => __( 'Category base is the slug used in the URL.','directorist' ),
                         'value'         => 'single-category',
                         'show-if' => [
-                            'where' => 'enable_category_archive',
+                            'where' => 'enable_archive_template',
                             'conditions' => [
                                 ['key' => 'value', 'compare' => '=', 'value' => true],
                             ],
                         ],
-                    ],
-
-                    'enable_location_archive'    => [
-                        'type'          => 'toggle',
-                        'label'         => __( 'Enable Default Archive', 'directorist' ),
-                        'description' => __( 'When default archive is enabled the old page based system will be automatically disabled.','directorist' ),
-                        'value'         => false
                     ],
                     'location_base'    => [
                         'type'          => 'text',
@@ -3661,18 +3654,11 @@ Please remember that your order may be canceled if you do not make your payment 
                         'description' => __( 'Location base is the slug used in the URL.','directorist' ),
                         'value'         => 'single-location',
                         'show-if' => [
-                            'where' => 'enable_location_archive',
+                            'where' => 'enable_archive_template',
                             'conditions' => [
                                 ['key' => 'value', 'compare' => '=', 'value' => true],
                             ],
                         ],
-                    ],
-
-                    'enable_tag_archive'    => [
-                        'type'          => 'toggle',
-                        'label'         => __( 'Enable Default Archive', 'directorist' ),
-                        'description' => __( 'When default archive is enabled the old page based system will be automatically disabled.','directorist' ),
-                        'value'         => false
                     ],
                     'tag_base'    => [
                         'type'          => 'text',
@@ -3680,7 +3666,7 @@ Please remember that your order may be canceled if you do not make your payment 
                         'description' => __( 'Tag base is the slug used in the URL.','directorist' ),
                         'value'         => 'single-tag',
                         'show-if' => [
-                            'where' => 'enable_tag_archive',
+                            'where' => 'enable_archive_template',
                             'conditions' => [
                                 ['key' => 'value', 'compare' => '=', 'value' => true],
                             ],
@@ -3732,6 +3718,15 @@ Please remember that your order may be canceled if you do not make your payment 
                                                 'title'       => __( 'Expired Listings Management', 'directorist' ),
                                                 'fields'      => [
                                                     'delete_expired_listing_permanently', 'delete_expired_listings_after',
+                                                ],
+                                            ],
+                                            'listings_archive' => [
+                                                'title'       => __( 'Listings Archive', 'directorist' ),
+                                                'fields'      => [
+                                                    'enable_archive_template',
+                                                    'category_base',
+                                                    'location_base',
+                                                    'tag_base',
                                                 ],
                                             ],
                                         ]
@@ -3901,35 +3896,6 @@ Please remember that your order may be canceled if you do not make your payment 
                                                 'description' => '',
                                                 'fields'      => [
                                                     'feature_badge_text', 'featured_back_color',
-                                                ],
-                                            ],
-                                        ]
-                                    ),
-                                ],
-                                'archive' => [
-                                    'label' => __( 'Archive', 'directorist' ),
-                                    'icon'  => '<i class="fa fa-box"></i>',
-                                    'sections' => apply_filters(
-                                        'directorist_listings_setting_archive', [
-                                            'category_archive' => [
-                                                'title'       => __( 'Category Archive', 'directorist' ),
-                                                'fields'      => [
-                                                    'enable_category_archive',
-                                                    'category_base',
-                                                ],
-                                            ],
-                                            'location_archive' => [
-                                                'title'       => __( 'Location Archive', 'directorist' ),
-                                                'fields'      => [
-                                                    'enable_location_archive',
-                                                    'location_base',
-                                                ],
-                                            ],
-                                            'tag_archive' => [
-                                                'title'       => __( 'Tag Archive', 'directorist' ),
-                                                'fields'      => [
-                                                    'enable_tag_archive',
-                                                    'tag_base',
                                                 ],
                                             ],
                                         ]

@@ -4752,13 +4752,13 @@ function directorist_renewal_token_hash( $listing_id, $user_id ) {
 }
 
 /**
- * Check if category archive is enabled
+ * Check if archive template is enabled
  *
  * @since 8.5
- * @return bool True if category archive is enabled, false otherwise
+ * @return bool True if archive template is enabled, false otherwise
  */
-function directorist_is_category_archive_enabled() {
-    return (bool) get_directorist_option( 'enable_category_archive', false );
+function directorist_is_archive_template_enabled() {
+    return (bool) get_directorist_option( 'enable_archive_template', false );
 }
 
 /**
@@ -4772,16 +4772,6 @@ function directorist_get_category_base() {
 }
 
 /**
- * Check if location archive is enabled
- *
- * @since 8.5
- * @return bool True if location archive is enabled, false otherwise
- */
-function directorist_is_location_archive_enabled() {
-    return (bool) get_directorist_option( 'enable_location_archive', false );
-}
-
-/**
  * Get location base slug
  *
  * @since 8.5
@@ -4789,16 +4779,6 @@ function directorist_is_location_archive_enabled() {
  */
 function directorist_get_location_base() {
     return get_directorist_option( 'location_base', '' );
-}
-
-/**
- * Check if tag archive is enabled
- *
- * @since 8.5
- * @return bool True if tag archive is enabled, false otherwise
- */
-function directorist_is_tag_archive_enabled() {
-    return (bool) get_directorist_option( 'enable_tag_archive', false );
 }
 
 /**

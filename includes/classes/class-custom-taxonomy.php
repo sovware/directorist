@@ -99,7 +99,7 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
         }
 
         public function atbdp_template_redirect() {
-            if ( is_feed() || ! is_tax( ATBDP_CATEGORY ) ) {
+            if ( is_feed() || directorist_is_archive_template_enabled() || ! is_tax( ATBDP_CATEGORY ) ) {
                 return;
             }
 

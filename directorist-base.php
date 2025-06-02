@@ -15,6 +15,7 @@ defined( 'ABSPATH' ) || die( 'No direct script access allowed!' );
 
 require_once __DIR__ . '/vendor/vendor-src/autoload.php'; // Load Composer autoloader
 
+use Directorist\App\Setup\Activation;
 use Directorist\WpMVC\App;
 
 /**
@@ -472,6 +473,7 @@ final class Directorist_Base {
     public static function prepare_plugin() {
         include ATBDP_INC_DIR . 'classes/class-installation.php';
         ATBDP_Installation::install();
+        Activation::run();
     }
 
     /**

@@ -8,7 +8,7 @@ return [
     'version'                 => ATBDP_VERSION,
 
     'rest_api'                => [
-        'namespace'=> 'directorist',
+        'namespace' => 'directorist',
         'versions'  => []
     ],
 

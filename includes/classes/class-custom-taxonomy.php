@@ -35,7 +35,7 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
             // Other actions.
             add_filter( 'term_updated_messages', [ $this, 'add_term_updated_messages' ] );
 
-            add_filter( 'term_link', [ $this, 'taxonomy_redirect_page' ], 10, 3 );
+            add_filter( 'term_link', [ $this, 'update_term_link' ], 10, 3 );
             // add_action( 'template_redirect', [ $this, 'atbdp_template_redirect' ] );
 
             add_action( 'wp_loaded', [ $this, 'directorist_bulk_term_update' ] );
@@ -117,12 +117,12 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
             exit();
         }
 
-        public function taxonomy_redirect_page( $url, $term, $taxonomy ) {
+        public function update_term_link( $url, $term, $taxonomy ) {
             if ( ! in_array( $taxonomy, [ ATBDP_CATEGORY, ATBDP_LOCATION, ATBDP_TAGS ], true ) ) {
                 return $url;
             }
 
-            remove_filter( 'term_link', [ $this, 'taxonomy_redirect_page' ], 10 );
+            remove_filter( 'term_link', [ $this, 'update_term_link' ], 10 );
 
             // Categories
             if ( ATBDP_CATEGORY === $taxonomy ) {
@@ -139,7 +139,7 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
                 $url = ATBDP_Permalink::atbdp_get_tag_page( $term );
             }
 
-            add_filter( 'term_link', [ $this, 'taxonomy_redirect_page' ], 10, 3 );
+            add_filter( 'term_link', [ $this, 'update_term_link' ], 10, 3 );
 
             $directory_id   = directorist_get_listing_directory( get_the_ID() );
             $directory_slug = '';

@@ -49,7 +49,7 @@ class Directorist_Template_Hooks {
 
         // Single Listing
         // Set high priority to override page builders.
-        add_filter( 'template_include', [ $this, 'template_loader' ], 999 );
+        add_filter( 'template_include', [ $this, 'single_template_path' ], 999 );
         add_filter( 'the_content',      [ $this, 'single_content' ], 20 );
     }
 
@@ -96,7 +96,7 @@ class Directorist_Template_Hooks {
      *
      * @return string
      */
-    public function template_loader( $template ) {
+    public function single_template_path( $template ) {
         if ( is_embed() ) {
             return $template;
         }

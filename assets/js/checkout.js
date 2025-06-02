@@ -62,7 +62,7 @@
 
     // number_with_commas
     function number_with_commas(number) {
-      return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     }
   });
 })(jQuery);

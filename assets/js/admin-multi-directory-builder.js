@@ -293,7 +293,6 @@ function applyDrag(arr, dragResult) {
   }
   return result;
 }
-;
 
 /***/ }),
 
@@ -775,7 +774,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 /* harmony default export */ __webpack_exports__["default"] = ({
   mixins: [_input_field_props_js__WEBPACK_IMPORTED_MODULE_2__["default"]],
   components: {
-    "v-input-colorpicker": (vue_native_color_picker__WEBPACK_IMPORTED_MODULE_1___default())
+    'v-input-colorpicker': (vue_native_color_picker__WEBPACK_IMPORTED_MODULE_1___default())
   },
   model: {
     prop: 'value',
@@ -901,7 +900,7 @@ var axios = (__webpack_require__(/*! axios */ "./node_modules/axios/index.js")["
       });
     },
     downloadURI: function downloadURI(name, uri) {
-      var link = document.createElement("a");
+      var link = document.createElement('a');
       link.download = name;
       link.href = uri;
       document.body.appendChild(link);
@@ -912,7 +911,7 @@ var axios = (__webpack_require__(/*! axios */ "./node_modules/axios/index.js")["
       if (!Array.isArray(this.data)) {
         return;
       }
-      var dataStr = "data:text/csv;charset=utf-8,";
+      var dataStr = 'data:text/csv;charset=utf-8,';
       var tr_count = 0;
       var delimeter = ',';
       var table = this.justifyTable(this.data);
@@ -932,7 +931,7 @@ var axios = (__webpack_require__(/*! axios */ "./node_modules/axios/index.js")["
               header_row_array.push("\"".concat(td, "\""));
             }
             var header_row = header_row_array.join(delimeter);
-            dataStr += header_row + "\r\n";
+            dataStr += header_row + '\r\n';
           }
 
           // Body Row
@@ -942,7 +941,7 @@ var axios = (__webpack_require__(/*! axios */ "./node_modules/axios/index.js")["
             body_row_array.push("\"".concat(data, "\""));
           }
           var body_row = body_row_array.join(delimeter);
-          dataStr += body_row + "\r\n";
+          dataStr += body_row + '\r\n';
           tr_count++;
         }
       } catch (err) {
@@ -1275,10 +1274,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     label: {
       type: [String, Number],
-      default: ''
-    },
-    subLabel: {
-      type: [String],
       default: ''
     },
     labelType: {
@@ -1965,8 +1960,8 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       return option_object;
     }
     /* syncValidationWithLocalState( validation_log ) {
-        return validation_log;
-    } */
+              return validation_log;
+          } */
   }
 });
 
@@ -2051,7 +2046,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         pattern_find = args.find;
       }
       if (args.find_regex) {
-        pattern_find = new RegExp(args.find_regex, "g");
+        pattern_find = new RegExp(args.find_regex, 'g');
       }
       if (args.replace && typeof args.replace === 'string') {
         replace_text = args.replace;
@@ -2074,7 +2069,6 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       } else {
         value = value.replace(pattern_find, replace_text);
       }
-      ;
       return value;
     },
     lowercase: function lowercase(value, args) {
@@ -2084,7 +2078,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         pattern_find = args.find;
       }
       if (args.find_regex) {
-        pattern_find = new RegExp(args.find_regex, "g");
+        pattern_find = new RegExp(args.find_regex, 'g');
       }
       var subject = pattern_find.exec(value);
       if (!subject) return value;
@@ -2101,7 +2095,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         var range = document.body.createTextRange();
         range.moveToElementText(this.$refs.shortcode);
         range.select().createTextRange();
-        document.execCommand("copy");
+        document.execCommand('copy');
         this.successMsg = 'Copied to clipboard';
         setTimeout(this.clearSuccessMessage, 2000);
       } else if (window.getSelection) {
@@ -2109,7 +2103,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         range.selectNode(this.$refs.shortcode);
         window.getSelection().removeAllRanges();
         window.getSelection().addRange(range);
-        document.execCommand("copy");
+        document.execCommand('copy');
         this.successMsg = 'Copied to clipboard';
         setTimeout(this.clearSuccessMessage, 2000);
       }
@@ -2383,7 +2377,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         pattern_find = args.find;
       }
       if (args.find_regex) {
-        pattern_find = new RegExp(args.find_regex, "g");
+        pattern_find = new RegExp(args.find_regex, 'g');
       }
       if (args.replace && typeof args.replace === 'string') {
         replace_text = args.replace;
@@ -2406,7 +2400,6 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       } else {
         value = value.replace(pattern_find, replace_text);
       }
-      ;
       return value;
     },
     lowercase: function lowercase(value, args) {
@@ -2418,7 +2411,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         pattern_find = args.find;
       }
       if (args.find_regex) {
-        pattern_find = new RegExp(args.find_regex, "g");
+        pattern_find = new RegExp(args.find_regex, 'g');
       }
       if (!pattern_find) {
         return value.toLowerCase();
@@ -2443,7 +2436,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         var range = document.body.createTextRange();
         range.moveToElementText(ref_elm);
         range.select().createTextRange();
-        document.execCommand("copy");
+        document.execCommand('copy');
         this.successMsg = 'Copied';
         setTimeout(this.clearSuccessMessage, 2000);
       } else if (window.getSelection) {
@@ -2451,7 +2444,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         range.selectNode(ref_elm);
         window.getSelection().removeAllRanges();
         window.getSelection().addRange(range);
-        document.execCommand("copy");
+        document.execCommand('copy');
         this.successMsg = 'Copied';
         setTimeout(this.clearSuccessMessage, 2000);
       }
@@ -2667,11 +2660,11 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         'password-field': 'password',
         'date-field': 'date',
         'hidden-field': 'hidden',
-        'text': 'text',
-        'number': 'number',
-        'password': 'password',
-        'date': 'date',
-        'hidden': 'hidden'
+        text: 'text',
+        number: 'number',
+        password: 'password',
+        date: 'date',
+        hidden: 'hidden'
       };
       if (typeof supported_types[this.type] !== 'undefined') {
         return supported_types[this.type];
@@ -2700,7 +2693,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   },
   methods: {
     decodeEntity: function decodeEntity(inputStr) {
-      var textarea = document.createElement("textarea");
+      var textarea = document.createElement('textarea');
       textarea.innerHTML = inputStr;
       return textarea.value;
     }
@@ -2798,7 +2791,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   computed: {
     toggleClass: function toggleClass() {
       return {
-        'active': this.local_value
+        active: this.local_value
       };
     },
     link: function link() {
@@ -3088,7 +3081,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         this.$emit('do-action', payload);
         return;
       }
-      if (typeof this[payload.action] !== "function") {
+      if (typeof this[payload.action] !== 'function') {
         return;
       }
       this[payload.action](payload.args);
@@ -3163,7 +3156,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
           return item;
         }
         if (!value_is_text && !value_is_array) {
-          // console.log( 'no filter', item.value, value );   
+          // console.log( 'no filter', item.value, value );
           return item;
         }
       });
@@ -3172,7 +3165,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       var root = this.fields;
       var isChangeable = false;
 
-      // Extract from payload   
+      // Extract from payload
       var condition = payload.condition,
         fieldKey = payload.fieldKey;
       var currentField = root[fieldKey];
@@ -3184,7 +3177,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       try {
         for (_iterator.s(); !(_step = _iterator.n()).done;) {
           var item = _step.value;
-          if (item.key === "value" && item.compare === "=") {
+          if (item.key === 'value' && item.compare === '=') {
             // Compare the value
             if (conditionField && conditionField.value === item.value) {
               isChangeable = true;

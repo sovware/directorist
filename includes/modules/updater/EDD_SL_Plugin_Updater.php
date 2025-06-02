@@ -63,7 +63,6 @@ class EDD_SL_Plugin_Updater {
 
         // Set up hooks.
         $this->init();
-
     }
 
     /**
@@ -80,7 +79,6 @@ class EDD_SL_Plugin_Updater {
         remove_action( 'after_plugin_row_' . $this->name, 'wp_plugin_update_row', 10 );
         add_action( 'after_plugin_row_' . $this->name, [ $this, 'show_update_notification' ], 10, 2 );
         add_action( 'admin_init', [ $this, 'show_changelog' ] );
-
     }
 
     /**
@@ -223,6 +221,7 @@ class EDD_SL_Plugin_Updater {
             // build a plugin list row, with update notification
             $wp_list_table = _get_list_table( 'WP_Plugins_List_Table' );
             # <tr class="plugin-update-tr"><td colspan="' . $wp_list_table->get_column_count() . '" class="plugin-update colspanchange">
+            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
             echo '<tr class="plugin-update-tr" id="' . $this->slug . '-update" data-slug="' . $this->slug . '" data-plugin="' . $this->slug . '/' . $file . '">';
             echo '<td colspan="3" class="plugin-update colspanchange">';
             echo '<div class="update-message notice inline notice-warning notice-alt">';
@@ -231,6 +230,7 @@ class EDD_SL_Plugin_Updater {
 
             if ( empty( $version_info->download_link ) ) {
                 printf(
+                    // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                     __( 'There is a new version of %1$s available. %2$sView version %3$s details%4$s.', 'directorist' ),
                     esc_html( $version_info->name ),
                     '<a target="_blank" class="thickbox" href="' . esc_url( $changelog_link ) . '">',
@@ -239,6 +239,7 @@ class EDD_SL_Plugin_Updater {
                 );
             } else {
                 printf(
+                    // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                     __( 'There is a new version of %1$s available. %2$sView version %3$s details%4$s or %5$supdate now%6$s.', 'directorist' ),
                     esc_html( $version_info->name ),
                     '<a target="_blank" class="thickbox" href="' . esc_url( $changelog_link ) . '">',
@@ -367,7 +368,6 @@ class EDD_SL_Plugin_Updater {
             $args['sslverify'] = $verify_ssl;
         }
         return $args;
-
     }
 
     /**
@@ -477,9 +477,10 @@ class EDD_SL_Plugin_Updater {
         }
 
         if ( ! current_user_can( 'update_plugins' ) ) {
+            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
             wp_die( __( 'You do not have permission to install plugin updates', 'directorist' ), __( 'Error', 'directorist' ), [ 'response' => 403 ] );
         }
-
+        // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
         $data         = $edd_plugin_data[ $_REQUEST['slug'] ];
         $beta         = ! empty( $data['beta'] ) ? true : false;
         $cache_key    = md5( 'edd_plugin_' . sanitize_key( $_REQUEST['plugin'] ) . '_' . $beta . '_version_info' );
@@ -491,6 +492,7 @@ class EDD_SL_Plugin_Updater {
                 'edd_action' => 'get_version',
                 'item_name'  => isset( $data['item_name'] ) ? $data['item_name'] : false,
                 'item_id'    => isset( $data['item_id'] ) ? $data['item_id'] : false,
+                // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
                 'slug'       => $_REQUEST['slug'],
                 'author'     => $data['author'],
                 'url'        => home_url(),
@@ -522,6 +524,7 @@ class EDD_SL_Plugin_Updater {
         }
 
         if ( ! empty( $version_info ) && isset( $version_info->sections['changelog'] ) ) {
+            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
             echo '<div style="background:#fff;padding:10px;">' . $version_info->sections['changelog'] . '</div>';
         }
 
@@ -547,7 +550,6 @@ class EDD_SL_Plugin_Updater {
         }
 
         return $cache['value'];
-
     }
 
     public function set_version_info_cache( $value = '', $cache_key = '' ) {
@@ -562,7 +564,6 @@ class EDD_SL_Plugin_Updater {
         ];
 
         update_option( $cache_key, $data, 'no' );
-
     }
 
     /**

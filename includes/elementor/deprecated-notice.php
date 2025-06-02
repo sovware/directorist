@@ -77,7 +77,7 @@ class DeprecatedNotice {
         ?>
         <div class="notice notice-error" style="display: flex; flex-wrap:wrap; justify-content:space-between">
             <p style="display: flex; align-items: center;">
-                The current version of your &nbsp; <strong><?php echo $this->parent_label; ?> is not compatible with <?php echo $this->core_plugin; ?></strong>. To ensure compatibility and access new features,&nbsp;<strong>update <?php echo $this->parent_label; ?> to version <?php echo $this->min_addon_version ?> or later</strong>.
+                The current version of your &nbsp; <strong><?php echo esc_html( $this->parent_label ); ?> is not compatible with <?php echo esc_html( $this->core_plugin ); ?></strong>. To ensure compatibility and access new features,&nbsp;<strong>update <?php echo esc_html( $this->parent_label ); ?> to version <?php echo esc_html( $this->min_addon_version ) ?> or later</strong>.
             </p>
         </div>
     <?php }
@@ -101,7 +101,7 @@ class DeprecatedNotice {
             </p>
             <?php if ( $can_activate_plugin ) : ?>
                 <p>
-                    <a class="button button-primary" href="<?php echo esc_url( $this->get_plugin_activation_url( $this->addon_slug ) ); ?>">Activate <?php echo $this->parent_label; ?></a>
+                    <a class="button button-primary" href="<?php echo esc_url( $this->get_plugin_activation_url( $this->addon_slug ) ); ?>">Activate <?php echo esc_html( $this->parent_label ); ?></a>
                 </p>
             <?php endif;?>
         </div>
@@ -127,7 +127,7 @@ class DeprecatedNotice {
             </p>
             <?php if ( $can_install_plugin ) : ?>
                 <p>
-                    <a class="button button-primary" href="<?php echo esc_url( $this->get_plugin_installation_url( $this->addon_slug ) ); ?>">Install <?php echo $this->parent_label; ?></a>
+                    <a class="button button-primary" href="<?php echo esc_url( $this->get_plugin_installation_url( $this->addon_slug ) ); ?>">Install <?php echo esc_html( $this->parent_label ); ?></a>
                 </p>
             <?php endif;?>
         </div>

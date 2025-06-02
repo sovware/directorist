@@ -74,7 +74,7 @@ $default_icon = 'las la-tags';
                                 <?php Markup::show_rating_stars( $review_rating );?>
                             </span>
                             <span class="directorist-widget-listing__rating-point"><?php echo esc_html( $review_rating ); ?></span>
-                            <span class="directorist-widget-listing__reviews">(<?php echo $review_text ?>)</span>
+                            <span class="directorist-widget-listing__reviews">(<?php echo esc_html( $review_text ) ?>)</span>
                         </div>
                         <span class="directorist-widget-listing__price">
                             <?php if ( ! empty( $price ) && ( 'price' === $listing_pricing ) ) { ?>

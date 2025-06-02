@@ -56,7 +56,7 @@ jQuery(document).ready(function ($) {
           } else {
             window.location = response.url;
           }
-          $('input[name="save_step"]').addClass("btn-hide");
+          $('input[name="save_step"]').addClass('btn-hide');
           $('.directorist-importer-length').css('width', response.percentage + '%');
         },
         error: function error(response) {
@@ -153,26 +153,26 @@ jQuery(document).ready(function ($) {
   }
   $('.atbdp-sw-featured-listing').hide();
   $('#enable_monetization').on('change', function () {
-    if ($(this).prop("checked") === true) {
+    if ($(this).prop('checked') === true) {
       $('.atbdp-sw-featured-listing').show();
     } else {
       $('.atbdp-sw-featured-listing').hide();
     }
   });
-  if ($('#enable_monetization').prop("checked") === true) {
+  if ($('#enable_monetization').prop('checked') === true) {
     $('.atbdp-sw-featured-listing').show();
   } else {
     $('.atbdp-sw-featured-listing').hide();
   }
   $('.atbdp-sw-listing-price').hide();
   $('#enable_featured_listing').on('change', function () {
-    if ($(this).prop("checked") === true) {
+    if ($(this).prop('checked') === true) {
       $('.atbdp-sw-listing-price').show();
     } else {
       $('.atbdp-sw-listing-price').hide();
     }
   });
-  if ($('#enable_monetization').prop("checked") === true) {
+  if ($('#enable_monetization').prop('checked') === true) {
     $('.atbdp-sw-listing-price').show();
   } else {
     $('.atbdp-sw-listing-price').hide();

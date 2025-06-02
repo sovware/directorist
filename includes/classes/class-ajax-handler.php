@@ -142,7 +142,9 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
             }
 
             $page = isset( $_REQUEST['page'] ) ? absint( $_REQUEST['page'] ) : '';
-            $atts = ! empty( $_REQUEST['attrs'] ) && is_array( $_REQUEST['attrs'] ) ? $_REQUEST['attrs'] : [];
+            $atts = ! empty( $_REQUEST['attrs'] ) && is_array( $_REQUEST['attrs'] ) ? directorist_clean( wp_unslash( $_REQUEST['attrs'] ) ) : [];
+
+
             $type = is_array( $atts ) && isset( $atts['type'] ) ? $atts['type'] : '';
 
             $taxonomy = new Directorist\Directorist_Listing_Taxonomy( $atts, $type );
@@ -207,7 +209,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
                 );
             }
             $google_api = get_directorist_option( 'map_api_key' );
-            $zipcode = ! empty( $_POST['zipcode'] ) ? sanitize_text_field( $_POST['zipcode'] ) : '';
+            $zipcode = ! empty( $_POST['zipcode'] ) ? sanitize_text_field( wp_unslash( $_POST['zipcode'] ) ) : '';
             $url      = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=postcode+' . $zipcode . '&key=' . $google_api;
             $data     = wp_remote_get( $url );
             $response = wp_remote_retrieve_body( $data );
@@ -1071,7 +1073,6 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
             }
 
             wp_send_json_error( [ 'message' => __( 'Ops! something went wrong. Try again.', 'directorist' ) ] );
-
         }
 
         public function update_user_preferences() {
@@ -1087,9 +1088,9 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
                 wp_send_json_error( [ 'message' => __( 'Ops! something went wrong. Try again.', 'directorist' ) ] );
             }
 
-            $hide_contact_form      = isset( $_POST['directorist_hide_contact_form'] ) ? sanitize_text_field( $_POST['directorist_hide_contact_form'] ) : 'no';
-            $display_author_email   = isset( $_POST['directorist_display_author_email'] ) ? sanitize_text_field( $_POST['directorist_display_author_email'] ) : '';
-            $contact_owner_recipient    = isset( $_POST['directorist_contact_owner_recipient'] ) ? sanitize_text_field( $_POST['directorist_contact_owner_recipient'] ) : '';
+            $hide_contact_form      = isset( $_POST['directorist_hide_contact_form'] ) ? sanitize_text_field( wp_unslash( $_POST['directorist_hide_contact_form'] ) ) : 'no';
+            $display_author_email   = isset( $_POST['directorist_display_author_email'] ) ? sanitize_text_field( wp_unslash( $_POST['directorist_display_author_email'] ) ) : '';
+            $contact_owner_recipient    = isset( $_POST['directorist_contact_owner_recipient'] ) ? sanitize_text_field( wp_unslash( $_POST['directorist_contact_owner_recipient'] ) ) : '';
 
             // Save the sanitized value to user meta
             if ( ! empty( $hide_contact_form ) ) {
@@ -1106,7 +1107,6 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 
             // Return a success message
             wp_send_json_success( [ 'message' => __( 'Preferences updated successfully.', 'directorist' ) ] );
-
         }
 
         private function insert_attachment( $file_handler, $post_id, $setthumb = 'false' ) {

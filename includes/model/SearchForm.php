@@ -672,7 +672,7 @@ class Directorist_Listing_Search_Form {
     }
 
     public function rating_field_data() {
-        $search_by_rating = ! empty( $_REQUEST['search_by_rating'] ) ? $_REQUEST['search_by_rating'] : [];
+        $search_by_rating = ! empty( $_REQUEST['search_by_rating'] ) ? directorist_clean( wp_unslash( $_REQUEST['search_by_rating'] ) ) : [];
 
         $rating_options = [
             [

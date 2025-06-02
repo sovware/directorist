@@ -14,7 +14,7 @@ jQuery(document).ready(function ($) {
   var moreLink = $('.directorist-extensions').find('.ext-more-link');
   $(moreLink).hide();
   $(tbody).append($('#the-list tr[data-slug^="directorist-"], #the-list tr[data-slug^="addonskit-for-elementor"]'));
-  $("body").on('click', '.select_all', function (e) {
+  $('body').on('click', '.select_all', function (e) {
     var table = $(e.target).closest('table');
     $('td input:checkbox', table).prop('checked', this.checked);
   });

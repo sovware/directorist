@@ -2,159 +2,163 @@ import props from './input-field-props.js';
 import helpers from './../helpers';
 
 export default {
-    mixins: [ props, helpers ],
-    model: {
-        prop: 'value',
-        event: 'update'
-    },
+	mixins: [props, helpers],
+	model: {
+		prop: 'value',
+		event: 'update',
+	},
 
-    computed: {
-        shortcode() {
-            let shortcode = this.applyFilters( this.value, this.filters );
+	computed: {
+		shortcode() {
+			let shortcode = this.applyFilters(this.value, this.filters);
 
-            return shortcode;
-        },
+			return shortcode;
+		},
 
-        formGroupClass() {
-            var validation_classes = ( this.validationLog?.inputErrorClasses ) ? this.validationLog.inputErrorClasses : {};
+		formGroupClass() {
+			var validation_classes = this.validationLog?.inputErrorClasses
+				? this.validationLog.inputErrorClasses
+				: {};
 
-            return {
-                ...validation_classes,
-                'cptm-mb-0': ( 'hidden' === this.input_type ) ? true : false,
-            }
-        },
+			return {
+				...validation_classes,
+				'cptm-mb-0': 'hidden' === this.input_type ? true : false,
+			};
+		},
 
-        formControlClass() {
-            let class_names = {};
+		formControlClass() {
+			let class_names = {};
 
-            if ( this.input_style && this.input_style.class_names  ) {
-                class_names[ this.input_style.class_names ] = true;
-            }
-            
-            return class_names;
-        }
-    },
+			if (this.input_style && this.input_style.class_names) {
+				class_names[this.input_style.class_names] = true;
+			}
 
-    data() {
-        return {
-            successMsg: '',
-            generateShortcode: false,
-        }
-    },
+			return class_names;
+		},
+	},
 
-    methods: {
-        applyFilters( value, filters ) {
-            if ( ! filters ) return value;
+	data() {
+		return {
+			successMsg: '',
+			generateShortcode: false,
+		};
+	},
 
-            let filterd_value = value;
+	methods: {
+		applyFilters(value, filters) {
+			if (!filters) return value;
 
-            for ( let filter of filters ) {
-                if ( typeof this[ filter.type ] !== 'function' ) continue;
-                filterd_value = this[ filter.type ]( filterd_value, filter );
-            }
+			let filterd_value = value;
 
-            return filterd_value;
-        },
+			for (let filter of filters) {
+				if (typeof this[filter.type] !== 'function') continue;
+				filterd_value = this[filter.type](filterd_value, filter);
+			}
 
-        replace( value, args ) {
-            if ( ! args.find && ! args.find_regex ) return value;
-            if ( ! args.replace && ! args.replace_from ) return value;
-            
-            let replace_text = '';
-            let pattern_find = '';
+			return filterd_value;
+		},
 
-            if ( args.find ) {
-                pattern_find = args.find;
-            }
+		replace(value, args) {
+			if (!args.find && !args.find_regex) return value;
+			if (!args.replace && !args.replace_from) return value;
 
-            if ( args.find_regex ) {
-                pattern_find = new RegExp( args.find_regex, "g" );
-            }
+			let replace_text = '';
+			let pattern_find = '';
 
-            if ( args.replace && typeof args.replace === 'string' ) {
-                replace_text = args.replace;
-            }
+			if (args.find) {
+				pattern_find = args.find;
+			}
 
-            if ( args.replace_from && typeof args.replace_from === 'string' ) {
-                replace_text = this.getTergetFields( { root: this.root, path: args.replace_from } );
-            }
+			if (args.find_regex) {
+				pattern_find = new RegExp(args.find_regex, 'g');
+			}
 
-            if ( args.look_for ) {
-                let pattern_look_for = new RegExp( args.look_for, 'g' );
-                let subject = pattern_look_for.exec( value );
+			if (args.replace && typeof args.replace === 'string') {
+				replace_text = args.replace;
+			}
 
-                if ( ! subject ) return value;
+			if (args.replace_from && typeof args.replace_from === 'string') {
+				replace_text = this.getTergetFields({
+					root: this.root,
+					path: args.replace_from,
+				});
+			}
 
-                if ( Array.isArray( subject ) ) {
-                    subject = subject[0];
-                }
+			if (args.look_for) {
+				let pattern_look_for = new RegExp(args.look_for, 'g');
+				let subject = pattern_look_for.exec(value);
 
-                subject = subject.replace( pattern_find, replace_text );
-                
-                value = value.replace( pattern_look_for, subject );
-            } else {
-                value = value.replace( pattern_find, replace_text );
-            };
+				if (!subject) return value;
 
-            return value;
-        },
+				if (Array.isArray(subject)) {
+					subject = subject[0];
+				}
 
-        lowercase( value, args ) {
-            if ( ! args.find && ! args.find_regex ) return value;
-            
-            let pattern_find = '';
+				subject = subject.replace(pattern_find, replace_text);
 
-            if ( args.find ) {
-                pattern_find = args.find;
-            }
+				value = value.replace(pattern_look_for, subject);
+			} else {
+				value = value.replace(pattern_find, replace_text);
+			}
 
-            if ( args.find_regex ) {
-                pattern_find = new RegExp( args.find_regex, "g" );
-            }
+			return value;
+		},
 
-            let subject = pattern_find.exec( value );
+		lowercase(value, args) {
+			if (!args.find && !args.find_regex) return value;
 
-            if ( ! subject ) return value;
+			let pattern_find = '';
 
-            if ( Array.isArray( subject ) ) {
-                subject = subject[0];
-            }
+			if (args.find) {
+				pattern_find = args.find;
+			}
 
-            subject = subject.toLowerCase();
-            value = value.replace( pattern_find, subject );
+			if (args.find_regex) {
+				pattern_find = new RegExp(args.find_regex, 'g');
+			}
 
-            return value;
-        },
+			let subject = pattern_find.exec(value);
 
-        copyToClip() {
-            if (document.selection) {
-                document.getSelection().removeAllRanges();  
-                var range = document.body.createTextRange();
-                range.moveToElementText( this.$refs.shortcode );
-                range.select().createTextRange();
-                document.execCommand("copy");
+			if (!subject) return value;
 
-                this.successMsg = 'Copied to clipboard';
-                setTimeout( this.clearSuccessMessage, 2000 );
+			if (Array.isArray(subject)) {
+				subject = subject[0];
+			}
 
-              } else if (window.getSelection) {
-                var range = document.createRange();
-                range.selectNode( this.$refs.shortcode );
-                window.getSelection().removeAllRanges();  
-                window.getSelection().addRange(range);
-                document.execCommand("copy");
+			subject = subject.toLowerCase();
+			value = value.replace(pattern_find, subject);
 
-                this.successMsg = 'Copied to clipboard';
-                setTimeout( this.clearSuccessMessage, 2000 );
-              }
-        },
+			return value;
+		},
 
-        clearSuccessMessage() {
-            this.successMsg = '';
-        },
+		copyToClip() {
+			if (document.selection) {
+				document.getSelection().removeAllRanges();
+				var range = document.body.createTextRange();
+				range.moveToElementText(this.$refs.shortcode);
+				range.select().createTextRange();
+				document.execCommand('copy');
 
-        generate(){
-            this.generateShortcode = true;
-        }
-    },
-}
+				this.successMsg = 'Copied to clipboard';
+				setTimeout(this.clearSuccessMessage, 2000);
+			} else if (window.getSelection) {
+				var range = document.createRange();
+				range.selectNode(this.$refs.shortcode);
+				window.getSelection().removeAllRanges();
+				window.getSelection().addRange(range);
+				document.execCommand('copy');
+
+				this.successMsg = 'Copied to clipboard';
+				setTimeout(this.clearSuccessMessage, 2000);
+			}
+		},
+
+		clearSuccessMessage() {
+			this.successMsg = '';
+		},
+
+		generate() {
+			this.generateShortcode = true;
+		},
+	},
+};

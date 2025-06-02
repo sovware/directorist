@@ -49,8 +49,9 @@ class Directorist_Setup_Wizard {
                 ] 
             );
         }
+        
+        $counter = isset( $_POST['counter'] ) ? sanitize_text_field( wp_unslash( $_POST['counter'] ) ) : '';
 
-        $counter = $_POST['counter'];
 
         $listing_demos = wp_remote_get( 'https://app.directorist.com/wp-json/directorist/v1/get-directory-types?nocache' );
         if ( is_wp_error( $listing_demos ) ) {
@@ -958,7 +959,7 @@ class Directorist_Setup_Wizard {
         $ouput_steps = $this->steps;
         array_shift( $ouput_steps );
         $hide = ! isset( $_GET['step'] ) ? 'atbdp-none' : '';
-        $step = ! empty( $_GET['step'] ) ? $_GET['step'] : '';
+        $step = ! empty( $_GET['step'] ) ? sanitize_text_field( wp_unslash( $_GET['step'] ) ) : '';
         $introduction_step = empty( $step ) || 'step-one' == $step || 'step-two' == $step || 'step-three' == $step ? 'active' : '';
         $step_one = ( ! empty( $step ) && ( 'step-one' == $step || 'step-two' == $step || 'step-three' == $step ) ) ? 'active' : '' ;
         $step_two = ( ! empty( $step ) && ( 'step-two' == $step || 'step-three' == $step ) ) ? 'active' : '' ;

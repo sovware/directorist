@@ -295,9 +295,9 @@ function directorist_account_block_avatar_image( $size = 40 ) {
     } else {
         echo sprintf(
             '<img width="%1$s" src="%2$s" alt="%2$s" class="avatar rounded-circle"/>',
-            $size,
+            esc_attr( $size ),
             esc_url( $image_url ),
-            get_the_author_meta( 'display_name', get_current_user_id() )
+            esc_attr( get_the_author_meta( 'display_name', get_current_user_id() ) )
         );
     }
 }

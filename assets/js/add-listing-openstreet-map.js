@@ -27,7 +27,6 @@ function debounce(func, wait, immediate) {
     if (callNow) func.apply(context, args);
   };
 }
-;
 
 /***/ }),
 
@@ -75,7 +74,7 @@ function convertToSelect2(selector) {
       var iconURI = $(data.element).data('icon');
       var iconElm = "<i class=\"directorist-icon-mask\" aria-hidden=\"true\" style=\"--directorist-icon: url(".concat(iconURI, ")\"></i>");
       var originalText = data.text;
-      var modifiedText = originalText.replace(/^(\s*)/, "$1" + iconElm);
+      var modifiedText = originalText.replace(/^(\s*)/, '$1' + iconElm);
       var $state = $("<div class=\"directorist-select2-contents\">".concat(typeof iconURI !== 'undefined' && iconURI !== '' ? modifiedText : originalText, "</div>"));
       return $state;
     }
@@ -186,7 +185,7 @@ __webpack_require__.r(__webpack_exports__);
     loc_manual_lng = isNaN(loc_manual_lng) ? loc_default_longitude : loc_manual_lng;
     function mapLeaflet(lat, lon) {
       // @todo @kowsar / remove later. fix js error
-      if ($("#gmap").length == 0) {
+      if ($('#gmap').length == 0) {
         return;
       }
       var fontAwesomeIcon = L.divIcon({
@@ -203,7 +202,7 @@ __webpack_require__.r(__webpack_exports__);
       }).addTo(mymap);
 
       // Trigger AJAX request when marker is dropped
-      marker.on("dragend", function (e) {
+      marker.on('dragend', function (e) {
         var position = marker.getLatLng();
         $('#manual_lat').val(position.lat);
         $('#manual_lng').val(position.lng);
@@ -233,16 +232,16 @@ __webpack_require__.r(__webpack_exports__);
         if (!document.fullscreenElement && !document.webkitFullscreenElement) {
           if (mapContainer.requestFullscreen) {
             mapContainer.requestFullscreen();
-            fullScreenEnable.style.display = "none";
-            fullScreenDisable.style.display = "block";
+            fullScreenEnable.style.display = 'none';
+            fullScreenDisable.style.display = 'block';
           } else if (mapContainer.webkitRequestFullscreen) {
             mapContainer.webkitRequestFullscreen();
           }
         } else {
           if (document.exitFullscreen) {
             document.exitFullscreen();
-            fullScreenDisable.style.display = "none";
-            fullScreenEnable.style.display = "block";
+            fullScreenDisable.style.display = 'none';
+            fullScreenEnable.style.display = 'block';
           } else if (document.webkitExitFullscreen) {
             document.webkitExitFullscreen();
           }
@@ -267,12 +266,12 @@ __webpack_require__.r(__webpack_exports__);
         var search = $(elm).val();
         if (search.length < 3) {
           result_container.css({
-            'display': 'none'
+            display: 'none'
           });
         } else {
           locationAddressField.addClass('atbdp-form-fade');
           result_container.css({
-            'display': 'block'
+            display: 'block'
           });
           $.ajax({
             url: "https://nominatim.openstreetmap.org/?q=%27+".concat(search, "+%27&format=json"),
@@ -318,7 +317,7 @@ __webpack_require__.r(__webpack_exports__);
       $('#manual_lng').val(lon);
       $(this).closest('.address_result').siblings('.directorist-location-js').val(text);
       $('.address_result').css({
-        'display': 'none'
+        display: 'none'
       });
       mapLeaflet(lat, lon);
     });
@@ -327,7 +326,7 @@ __webpack_require__.r(__webpack_exports__);
       var text = $(this).text();
       $(this).closest('.address_result').siblings('.directorist-location-js').val(text);
       $('.address_result').css({
-        'display': 'none'
+        display: 'none'
       });
     });
     $('body').on('click', '#generate_admin_map', function (event) {
@@ -351,7 +350,6 @@ __webpack_require__.r(__webpack_exports__);
         if (index < 0) {
           index = length;
         }
-        ;
       }
       if ($('#directorist.atbd_wrapper .address_result ul li a').length > 0) {
         $('#directorist.atbd_wrapper .address_result ul li a').removeClass('active');
@@ -363,14 +361,13 @@ __webpack_require__.r(__webpack_exports__);
           return false;
         }
       }
-      ;
     });
   }
   $(document).ready(function () {
     initAddListingMap();
   });
 
-  // Add Listing Map on Elementor EditMode 
+  // Add Listing Map on Elementor EditMode
   $(window).on('elementor/frontend/init', function () {
     setTimeout(function () {
       if ($('body').hasClass('elementor-editor-active')) {

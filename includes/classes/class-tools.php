@@ -624,7 +624,6 @@ if ( ! class_exists( 'ATBDP_Tools' ) ) :
             $image_id = directorist_rest_set_uploaded_image_as_attachment( $upload, $post_id );
 
             return $image_id;
-
         }
 
         public static function atbdp_insert_attachment_from_url( $image_url, $post_id ) {

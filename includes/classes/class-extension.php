@@ -1863,7 +1863,6 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                 unzip_file( $zip, $temp_dest );
                 // @unlink( $zip );
             }
-
         }
 
         // get_customers_purchased

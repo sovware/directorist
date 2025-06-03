@@ -6,7 +6,13 @@
   "scripts": {
     "dev": "webpack --config webpack.dev.js",
     "dev-vue": "webpack --config webpack.dev.vue.js",
-    "prod": "node pot.js && webpack --config webpack.prod.js"
+    "prod": "node pot.js && webpack --config webpack.prod.js",
+    "format": "wp-scripts format ./assets/src",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "*.{css,scss,js}": [],
+    "*.php": []
   },
   "repository": {
     "type": "git",

@@ -93,7 +93,6 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-;
 (function ($) {
   // Make sure the codes in this file runs only once, even if enqueued twice
   if (typeof window.directorist_alert_executed === 'undefined') {
@@ -126,7 +125,6 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-;
 (function ($) {
   // Make sure the codes in this file runs only once, even if enqueued twice
   if (typeof window.directorist_dropdown_executed === 'undefined') {
@@ -208,17 +206,17 @@
     });
 
     //atbd_dropdown
-    $(document).on("click", '.atbd_dropdown', function (e) {
-      if ($(this).attr("class") === "atbd_dropdown") {
+    $(document).on('click', '.atbd_dropdown', function (e) {
+      if ($(this).attr('class') === 'atbd_dropdown') {
         e.preventDefault();
-        $(this).siblings(".atbd_dropdown").removeClass("atbd_drop--active");
-        $(this).toggleClass("atbd_drop--active");
+        $(this).siblings('.atbd_dropdown').removeClass('atbd_drop--active');
+        $(this).toggleClass('atbd_drop--active');
         e.stopPropagation();
       }
     });
-    $(document).on("click", function (e) {
-      if ($(e.target).is(".atbd_dropdown, .atbd_drop--active") === false) {
-        $(".atbd_dropdown").removeClass("atbd_drop--active");
+    $(document).on('click', function (e) {
+      if ($(e.target).is('.atbd_dropdown, .atbd_drop--active') === false) {
+        $('.atbd_dropdown').removeClass('atbd_drop--active');
       }
     });
     $('body').on('click', '.atbd_dropdown-toggle', function (e) {
@@ -250,7 +248,6 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-;
 (function ($) {
   // Make sure the codes in this file runs only once, even if enqueued twice
   if (typeof window.directorist_favorite_executed === 'undefined') {
@@ -263,9 +260,9 @@
     $('.directorist-action-bookmark').on('click', function (e) {
       e.preventDefault();
       var data = {
-        'action': 'atbdp_public_add_remove_favorites',
-        'directorist_nonce': directorist.directorist_nonce,
-        'post_id': $(this).data('listing_id')
+        action: 'atbdp_public_add_remove_favorites',
+        directorist_nonce: directorist.directorist_nonce,
+        post_id: $(this).data('listing_id')
       };
       $.post(directorist.ajaxurl, data, function (response) {
         if (response) {
@@ -277,11 +274,11 @@
       $(this).on('click', function (event) {
         event.preventDefault();
         var data = {
-          'action': 'atbdp-favourites-all-listing',
-          'directorist_nonce': directorist.directorist_nonce,
-          'post_id': $(this).data('listing_id')
+          action: 'atbdp-favourites-all-listing',
+          directorist_nonce: directorist.directorist_nonce,
+          post_id: $(this).data('listing_id')
         };
-        $(".directorist-favorite-tooltip").hide();
+        $('.directorist-favorite-tooltip').hide();
         $.post(directorist.ajaxurl, data, function (response) {
           var post_id = data['post_id'].toString();
           var staElement = $('.directorist_favourite_' + post_id);
@@ -291,36 +288,36 @@
         });
       });
     });
-    $('body').on("click", '.directorist-mark-as-favorite__btn', function (event) {
+    $('body').on('click', '.directorist-mark-as-favorite__btn', function (event) {
       event.preventDefault();
       var data = {
-        'action': 'atbdp-favourites-all-listing',
-        'directorist_nonce': directorist.directorist_nonce,
-        'post_id': $(this).data('listing_id')
+        action: 'atbdp-favourites-all-listing',
+        directorist_nonce: directorist.directorist_nonce,
+        post_id: $(this).data('listing_id')
       };
       var fav_tooltip_success = '<span>' + directorist.i18n_text.added_favourite + '</span>';
       var fav_tooltip_warning = '<span>' + directorist.i18n_text.please_login + '</span>';
-      $(".directorist-favorite-tooltip").hide();
+      $('.directorist-favorite-tooltip').hide();
       $.post(directorist.ajax_url, data, function (response) {
         var post_id = data['post_id'].toString();
         var staElement = $('.directorist-fav_' + post_id);
         var data_id = staElement.attr('data-listing_id');
-        if (response === "login_required") {
-          staElement.children(".directorist-favorite-tooltip").append(fav_tooltip_warning);
-          staElement.children(".directorist-favorite-tooltip").fadeIn();
+        if (response === 'login_required') {
+          staElement.children('.directorist-favorite-tooltip').append(fav_tooltip_warning);
+          staElement.children('.directorist-favorite-tooltip').fadeIn();
           setTimeout(function () {
-            staElement.children(".directorist-favorite-tooltip").children("span").remove();
+            staElement.children('.directorist-favorite-tooltip').children('span').remove();
           }, 3000);
         } else if ('false' === response) {
           staElement.removeClass('directorist-added-to-favorite');
-          $(".directorist-favorite-tooltip span").remove();
+          $('.directorist-favorite-tooltip span').remove();
         } else {
           if (data_id === post_id) {
             staElement.addClass('directorist-added-to-favorite');
-            staElement.children(".directorist-favorite-tooltip").append(fav_tooltip_success);
-            staElement.children(".directorist-favorite-tooltip").fadeIn();
+            staElement.children('.directorist-favorite-tooltip').append(fav_tooltip_success);
+            staElement.children('.directorist-favorite-tooltip').fadeIn();
             setTimeout(function () {
-              staElement.children(".directorist-favorite-tooltip").children("span").remove();
+              staElement.children('.directorist-favorite-tooltip').children('span').remove();
             }, 3000);
           }
         }
@@ -338,7 +335,6 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-;
 (function ($) {
   // Make sure the codes in this file runs only once, even if enqueued twice
   if (typeof window.directorist_sorting_executed === 'undefined') {
@@ -405,7 +401,6 @@
 /***/ (function(module, exports) {
 
 window.addEventListener('load', function () {
-  ;
   (function ($) {
     //Star rating
     if ($('.directorist-review-criteria-select').length) {

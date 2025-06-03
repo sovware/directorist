@@ -6,33 +6,33 @@
 namespace Directorist\Fields;
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+    exit;
 }
 
 class Url_Field extends Base_Field {
+    public $type = 'url';
 
-	public $type = 'url';
+    public function validate( $posted_data ) {
+        $value = $this->sanitize( $posted_data );
 
-	public function validate( $posted_data ) {
-		$value = $this->sanitize( $posted_data );
+        if ( ! wp_http_validate_url( $value ) ) {
+            $this->add_error( __( 'Invalid URL.', 'directorist' ) );
 
-		if ( ! wp_http_validate_url( $value ) ) {
-			$this->add_error( __( 'Invalid URL.', 'directorist' ) );
+            return false;
+        }
 
-			return false;
-		}
+        return true;
+    }
 
-		return true;
-	}
+    public function sanitize( $posted_data ) {
+        $value = $this->get_value( $posted_data );
 
-	public function sanitize( $posted_data ) {
-		$value = $this->get_value( $posted_data );
-		if ( empty( $value ) ) {
-			return $value;
-		}
+        if ( empty( $value ) ) {
+            return $value;
+        }
 
-		return esc_url_raw( $value );
-	}
+        return esc_url_raw( $value );
+    }
 }
 
 Fields::register( new Url_Field() );

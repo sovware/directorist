@@ -161,21 +161,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _atmodal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../atmodal */ "./assets/src/js/public/atmodal.js");
 /* harmony import */ var _atmodal__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_atmodal__WEBPACK_IMPORTED_MODULE_0__);
 
-;
 (function ($) {
   window.addEventListener('load', function () {
     // User Dashboard Table More Button
-    $('.directorist-dashboard-listings-tbody').on("click", '.directorist-btn-more', function (e) {
+    $('.directorist-dashboard-listings-tbody').on('click', '.directorist-btn-more', function (e) {
       e.preventDefault();
       $(this).toggleClass('active');
-      $(".directorist-dropdown-menu").removeClass("active");
-      $(this).next(".directorist-dropdown-menu").toggleClass("active");
+      $('.directorist-dropdown-menu').removeClass('active');
+      $(this).next('.directorist-dropdown-menu').toggleClass('active');
       e.stopPropagation();
     });
-    $(document).bind("click", function (e) {
+    $(document).bind('click', function (e) {
       if (!$(e.target).parents().hasClass('directorist-dropdown-menu__list')) {
-        $(".directorist-dropdown-menu").removeClass("active");
-        $(".directorist-btn-more").removeClass("active");
+        $('.directorist-dropdown-menu').removeClass('active');
+        $('.directorist-btn-more').removeClass('active');
       }
     });
   });
@@ -190,7 +189,6 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-;
 (function ($) {
   window.addEventListener('load', function () {
     // Clear seen Announcements
@@ -202,7 +200,7 @@ __webpack_require__.r(__webpack_exports__);
       var target = $(this).attr('target');
       if ('dashboard_announcement' === target) {
         $.ajax({
-          type: "post",
+          type: 'post',
           url: directorist.ajaxurl,
           data: {
             action: 'atbdp_clear_seen_announcements'
@@ -240,7 +238,7 @@ __webpack_require__.r(__webpack_exports__);
       closing_announcement = true;
       var self = this;
       $.ajax({
-        type: "post",
+        type: 'post',
         url: directorist.ajaxurl,
         data: form_data,
         beforeSend: function beforeSend() {
@@ -285,17 +283,16 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-;
 (function ($) {
   window.addEventListener('load', function () {
     // Dashboard become an author
     $('.directorist-become-author').on('click', function (e) {
       e.preventDefault();
-      $(".directorist-become-author-modal").addClass("directorist-become-author-modal__show");
+      $('.directorist-become-author-modal').addClass('directorist-become-author-modal__show');
     });
     $('.directorist-become-author-modal__cancel').on('click', function (e) {
       e.preventDefault();
-      $(".directorist-become-author-modal").removeClass("directorist-become-author-modal__show");
+      $('.directorist-become-author-modal').removeClass('directorist-become-author-modal__show');
     });
     $('.directorist-become-author-modal__approve').on('click', function (e) {
       e.preventDefault();
@@ -304,7 +301,7 @@ __webpack_require__.r(__webpack_exports__);
       var data = {
         userId: userId,
         nonce: nonce,
-        action: "atbdp_become_author"
+        action: 'atbdp_become_author'
       };
 
       // Send the data
@@ -312,7 +309,7 @@ __webpack_require__.r(__webpack_exports__);
         $('.directorist-become-author__loader').addClass('active');
         $('#directorist-become-author-success').html(response);
         $('.directorist-become-author').hide();
-        $(".directorist-become-author-modal").removeClass("directorist-become-author-modal__show");
+        $('.directorist-become-author-modal').removeClass('directorist-become-author-modal__show');
       });
     });
   });
@@ -327,7 +324,6 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-;
 (function ($) {
   window.addEventListener('load', function () {
     // Dashboard Listing Ajax
@@ -342,13 +338,13 @@ __webpack_require__.r(__webpack_exports__);
         type: 'POST',
         dataType: 'json',
         data: {
-          'action': 'directorist_dashboard_listing_tab',
-          '_ajax_nonce': directorist.directorist_nonce,
-          'tab': tab,
-          'paged': paged,
-          'search': search,
-          'task': task,
-          'taskdata': taskdata
+          action: 'directorist_dashboard_listing_tab',
+          _ajax_nonce: directorist.directorist_nonce,
+          tab: tab,
+          paged: paged,
+          search: search,
+          task: task,
+          taskdata: taskdata
         },
         beforeSend: function beforeSend() {
           $('#directorist-dashboard-preloader').show();
@@ -389,10 +385,10 @@ __webpack_require__.r(__webpack_exports__);
         swal({
           title: directorist.listing_remove_title,
           text: directorist.listing_remove_text,
-          type: "warning",
+          type: 'warning',
           cancelButtonText: directorist.review_cancel_btn_text,
           showCancelButton: true,
-          confirmButtonColor: "#DD6B55",
+          confirmButtonColor: '#DD6B55',
           confirmButtonText: directorist.listing_remove_confirm_text,
           showLoaderOnConfirm: true,
           closeOnConfirm: false
@@ -401,7 +397,7 @@ __webpack_require__.r(__webpack_exports__);
             directorist_dashboard_listing_ajax($activeTab, paged, search, task, postid);
             swal({
               title: directorist.listing_delete,
-              type: "success",
+              type: 'success',
               timer: 200,
               showConfirmButton: false
             });
@@ -420,10 +416,10 @@ __webpack_require__.r(__webpack_exports__);
       swal({
         title: directorist.listing_remove_title,
         text: directorist.listing_remove_text,
-        type: "warning",
+        type: 'warning',
         cancelButtonText: directorist.review_cancel_btn_text,
         showCancelButton: true,
-        confirmButtonColor: "#DD6B55",
+        confirmButtonColor: '#DD6B55',
         confirmButtonText: directorist.listing_remove_confirm_text,
         showLoaderOnConfirm: true,
         closeOnConfirm: false
@@ -436,18 +432,18 @@ __webpack_require__.r(__webpack_exports__);
               // show success message
               swal({
                 title: directorist.listing_delete,
-                type: "success",
+                type: 'success',
                 timer: 200,
                 showConfirmButton: false
               });
-              $("#listing_id_" + id).remove();
+              $('#listing_id_' + id).remove();
               $this.remove();
             } else {
               // show error message
               swal({
                 title: directorist.listing_error_title,
                 text: directorist.listing_error_text,
-                type: "error",
+                type: 'error',
                 timer: 2000,
                 showConfirmButton: false
               });
@@ -493,23 +489,22 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-;
 (function ($) {
   window.addEventListener('load', function () {
     //dashboard content responsive fix
-    var tabContentWidth = $(".directorist-user-dashboard .directorist-user-dashboard__contents").innerWidth();
+    var tabContentWidth = $('.directorist-user-dashboard .directorist-user-dashboard__contents').innerWidth();
     if (tabContentWidth < 1399) {
-      $(".directorist-user-dashboard .directorist-user-dashboard__contents").addClass("directorist-tab-content-grid-fix");
+      $('.directorist-user-dashboard .directorist-user-dashboard__contents').addClass('directorist-tab-content-grid-fix');
     }
-    $(window).bind("resize", function () {
+    $(window).bind('resize', function () {
       if ($(this).width() <= 1199) {
-        $(".directorist-user-dashboard__nav").addClass("directorist-dashboard-nav-collapsed");
-        $(".directorist-shade").removeClass("directorist-active");
+        $('.directorist-user-dashboard__nav').addClass('directorist-dashboard-nav-collapsed');
+        $('.directorist-shade').removeClass('directorist-active');
       }
-    }).trigger("resize");
+    }).trigger('resize');
     $('.directorist-dashboard__nav__close, .directorist-shade').on('click', function () {
-      $(".directorist-user-dashboard__nav").addClass('directorist-dashboard-nav-collapsed');
-      $(".directorist-shade").removeClass("directorist-active");
+      $('.directorist-user-dashboard__nav').addClass('directorist-dashboard-nav-collapsed');
+      $('.directorist-shade').removeClass('directorist-active');
     });
 
     // Profile Responsive
@@ -530,39 +525,38 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-;
 (function ($) {
   window.addEventListener('load', function () {
     //dashboard sidebar nav toggler
-    $(".directorist-user-dashboard__toggle__link").on("click", function (e) {
+    $('.directorist-user-dashboard__toggle__link').on('click', function (e) {
       e.preventDefault();
-      $(".directorist-user-dashboard__nav").toggleClass("directorist-dashboard-nav-collapsed");
+      $('.directorist-user-dashboard__nav').toggleClass('directorist-dashboard-nav-collapsed');
       // $(".directorist-shade").toggleClass("directorist-active");
     });
     if ($(window).innerWidth() < 767) {
-      $(".directorist-user-dashboard__nav").addClass("directorist-dashboard-nav-collapsed");
-      $(".directorist-user-dashboard__nav").addClass("directorist-dashboard-nav-collapsed--fixed");
+      $('.directorist-user-dashboard__nav').addClass('directorist-dashboard-nav-collapsed');
+      $('.directorist-user-dashboard__nav').addClass('directorist-dashboard-nav-collapsed--fixed');
     }
 
     //dashboard nav dropdown
-    $(".directorist-tab__nav__link").on("click", function (e) {
+    $('.directorist-tab__nav__link').on('click', function (e) {
       e.preventDefault();
-      if ($(this).hasClass("atbd-dash-nav-dropdown")) {
+      if ($(this).hasClass('atbd-dash-nav-dropdown')) {
         // Slide toggle the sibling ul element
-        $(this).siblings("ul").slideToggle();
-      } else if (!$(this).parents(".atbdp_tab_nav--has-child").length > 0) {
+        $(this).siblings('ul').slideToggle();
+      } else if (!$(this).parents('.atbdp_tab_nav--has-child').length > 0) {
         // Slide up all the dropdown contents while clicked item is not inside dropdown
-        $(".atbd-dash-nav-dropdown").siblings("ul").slideUp();
+        $('.atbd-dash-nav-dropdown').siblings('ul').slideUp();
       }
     });
     if ($(window).innerWidth() < 1199) {
-      $(".directorist-tab__nav__link:not(.atbd-dash-nav-dropdown)").on("click", function () {
-        $(".directorist-user-dashboard__nav").addClass('directorist-dashboard-nav-collapsed');
-        $(".directorist-shade").removeClass("directorist-active");
+      $('.directorist-tab__nav__link:not(.atbd-dash-nav-dropdown)').on('click', function () {
+        $('.directorist-user-dashboard__nav').addClass('directorist-dashboard-nav-collapsed');
+        $('.directorist-shade').removeClass('directorist-active');
       });
-      $(".directorist-user-dashboard__toggle__link").on("click", function (e) {
+      $('.directorist-user-dashboard__toggle__link').on('click', function (e) {
         e.preventDefault();
-        $(".directorist-shade").toggleClass("directorist-active");
+        $('.directorist-shade').toggleClass('directorist-active');
       });
     }
   });
@@ -577,7 +571,6 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-;
 (function () {
   new DashTab('.directorist-tab');
 })();
@@ -591,7 +584,6 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-;
 (function ($) {
   // Make sure the codes in this file runs only once, even if enqueued twice
   if (typeof window.directorist_alert_executed === 'undefined') {
@@ -624,7 +616,6 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-;
 (function ($) {
   // Make sure the codes in this file runs only once, even if enqueued twice
   if (typeof window.directorist_dropdown_executed === 'undefined') {
@@ -706,17 +697,17 @@ __webpack_require__.r(__webpack_exports__);
     });
 
     //atbd_dropdown
-    $(document).on("click", '.atbd_dropdown', function (e) {
-      if ($(this).attr("class") === "atbd_dropdown") {
+    $(document).on('click', '.atbd_dropdown', function (e) {
+      if ($(this).attr('class') === 'atbd_dropdown') {
         e.preventDefault();
-        $(this).siblings(".atbd_dropdown").removeClass("atbd_drop--active");
-        $(this).toggleClass("atbd_drop--active");
+        $(this).siblings('.atbd_dropdown').removeClass('atbd_drop--active');
+        $(this).toggleClass('atbd_drop--active');
         e.stopPropagation();
       }
     });
-    $(document).on("click", function (e) {
-      if ($(e.target).is(".atbd_dropdown, .atbd_drop--active") === false) {
-        $(".atbd_dropdown").removeClass("atbd_drop--active");
+    $(document).on('click', function (e) {
+      if ($(e.target).is('.atbd_dropdown, .atbd_drop--active') === false) {
+        $('.atbd_dropdown').removeClass('atbd_drop--active');
       }
     });
     $('body').on('click', '.atbd_dropdown-toggle', function (e) {
@@ -748,7 +739,6 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-;
 (function ($) {
   // Make sure the codes in this file runs only once, even if enqueued twice
   if (typeof window.directorist_favorite_executed === 'undefined') {
@@ -761,9 +751,9 @@ __webpack_require__.r(__webpack_exports__);
     $('.directorist-action-bookmark').on('click', function (e) {
       e.preventDefault();
       var data = {
-        'action': 'atbdp_public_add_remove_favorites',
-        'directorist_nonce': directorist.directorist_nonce,
-        'post_id': $(this).data('listing_id')
+        action: 'atbdp_public_add_remove_favorites',
+        directorist_nonce: directorist.directorist_nonce,
+        post_id: $(this).data('listing_id')
       };
       $.post(directorist.ajaxurl, data, function (response) {
         if (response) {
@@ -775,11 +765,11 @@ __webpack_require__.r(__webpack_exports__);
       $(this).on('click', function (event) {
         event.preventDefault();
         var data = {
-          'action': 'atbdp-favourites-all-listing',
-          'directorist_nonce': directorist.directorist_nonce,
-          'post_id': $(this).data('listing_id')
+          action: 'atbdp-favourites-all-listing',
+          directorist_nonce: directorist.directorist_nonce,
+          post_id: $(this).data('listing_id')
         };
-        $(".directorist-favorite-tooltip").hide();
+        $('.directorist-favorite-tooltip').hide();
         $.post(directorist.ajaxurl, data, function (response) {
           var post_id = data['post_id'].toString();
           var staElement = $('.directorist_favourite_' + post_id);
@@ -789,36 +779,36 @@ __webpack_require__.r(__webpack_exports__);
         });
       });
     });
-    $('body').on("click", '.directorist-mark-as-favorite__btn', function (event) {
+    $('body').on('click', '.directorist-mark-as-favorite__btn', function (event) {
       event.preventDefault();
       var data = {
-        'action': 'atbdp-favourites-all-listing',
-        'directorist_nonce': directorist.directorist_nonce,
-        'post_id': $(this).data('listing_id')
+        action: 'atbdp-favourites-all-listing',
+        directorist_nonce: directorist.directorist_nonce,
+        post_id: $(this).data('listing_id')
       };
       var fav_tooltip_success = '<span>' + directorist.i18n_text.added_favourite + '</span>';
       var fav_tooltip_warning = '<span>' + directorist.i18n_text.please_login + '</span>';
-      $(".directorist-favorite-tooltip").hide();
+      $('.directorist-favorite-tooltip').hide();
       $.post(directorist.ajax_url, data, function (response) {
         var post_id = data['post_id'].toString();
         var staElement = $('.directorist-fav_' + post_id);
         var data_id = staElement.attr('data-listing_id');
-        if (response === "login_required") {
-          staElement.children(".directorist-favorite-tooltip").append(fav_tooltip_warning);
-          staElement.children(".directorist-favorite-tooltip").fadeIn();
+        if (response === 'login_required') {
+          staElement.children('.directorist-favorite-tooltip').append(fav_tooltip_warning);
+          staElement.children('.directorist-favorite-tooltip').fadeIn();
           setTimeout(function () {
-            staElement.children(".directorist-favorite-tooltip").children("span").remove();
+            staElement.children('.directorist-favorite-tooltip').children('span').remove();
           }, 3000);
         } else if ('false' === response) {
           staElement.removeClass('directorist-added-to-favorite');
-          $(".directorist-favorite-tooltip span").remove();
+          $('.directorist-favorite-tooltip span').remove();
         } else {
           if (data_id === post_id) {
             staElement.addClass('directorist-added-to-favorite');
-            staElement.children(".directorist-favorite-tooltip").append(fav_tooltip_success);
-            staElement.children(".directorist-favorite-tooltip").fadeIn();
+            staElement.children('.directorist-favorite-tooltip').append(fav_tooltip_success);
+            staElement.children('.directorist-favorite-tooltip').fadeIn();
             setTimeout(function () {
-              staElement.children(".directorist-favorite-tooltip").children("span").remove();
+              staElement.children('.directorist-favorite-tooltip').children('span').remove();
             }, 3000);
           }
         }
@@ -927,7 +917,6 @@ window.addEventListener('load', function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-;
 (function ($) {
   if ($('#display_author_email').length) {
     $('#display_author_email').select2();
@@ -939,7 +928,7 @@ window.addEventListener('load', function () {
       e.preventDefault();
       var submit_button = $('#update_user_preferences');
       submit_button.attr('disabled', true);
-      submit_button.addClass("directorist-loader");
+      submit_button.addClass('directorist-loader');
       if (is_processing) {
         submit_button.removeAttr('disabled');
         return;
@@ -965,7 +954,7 @@ window.addEventListener('load', function () {
         data: form_data,
         success: function success(response) {
           submit_button.removeAttr('disabled');
-          submit_button.removeClass("directorist-loader");
+          submit_button.removeClass('directorist-loader');
           if (response.success) {
             $('#directorist-preference-notice').html('<span class="directorist-alert directorist-alert-success">' + response.data.message + '</span>');
           } else {
@@ -979,7 +968,7 @@ window.addEventListener('load', function () {
       });
       // remove notice after five second
       setTimeout(function () {
-        $("#directorist-preference-notice .directorist-alert").remove();
+        $('#directorist-preference-notice .directorist-alert').remove();
       }, 5000);
 
       // prevent the from submitting
@@ -997,13 +986,12 @@ window.addEventListener('load', function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-;
 (function ($) {
   window.addEventListener('load', function () {
     var profileMediaUploader = null;
-    if ($(".directorist-profile-uploader").length) {
+    if ($('.directorist-profile-uploader').length) {
       profileMediaUploader = new EzMediaUploader({
-        containerClass: "directorist-profile-uploader"
+        containerClass: 'directorist-profile-uploader'
       });
       profileMediaUploader.init();
     }
@@ -1013,7 +1001,7 @@ window.addEventListener('load', function () {
       e.preventDefault();
       var submit_button = $('#update_user_profile');
       submit_button.attr('disabled', true);
-      submit_button.addClass("directorist-loader");
+      submit_button.addClass('directorist-loader');
       if (is_processing) {
         submit_button.removeAttr('disabled');
         return;
@@ -1045,7 +1033,7 @@ window.addEventListener('load', function () {
             }
           }
         } else {
-          $(".directorist-form-submit__btn").removeClass("atbd_loading");
+          $('.directorist-form-submit__btn').removeClass('atbd_loading');
           err_log.user_profile_avater = {
             msg: 'Listing gallery has invalid files'
           };
@@ -1067,7 +1055,7 @@ window.addEventListener('load', function () {
         data: form_data,
         success: function success(response) {
           submit_button.removeAttr('disabled');
-          submit_button.removeClass("directorist-loader");
+          submit_button.removeClass('directorist-loader');
 
           // console.log(response);
 
@@ -1091,7 +1079,7 @@ window.addEventListener('load', function () {
       });
       // remove notice after five second
       setTimeout(function () {
-        $("#directorist-profile-notice .directorist-alert").remove();
+        $('#directorist-profile-notice .directorist-alert').remove();
       }, 5000);
 
       // prevent the from submitting
@@ -1177,7 +1165,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       }
       if (queryStrings) {
         // Reconstruct the URL with the updated search parameters
-        var newUrl = window.location.pathname + window.location.hash + "?" + queryStrings;
+        var newUrl = window.location.pathname + window.location.hash + '?' + queryStrings;
         window.history.replaceState(null, null, newUrl);
       }
     };
@@ -1230,7 +1218,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
               hashID = matchLink ? matchLink[1] : hashID;
             }
             var hasMatch = window.location.hash.match(new RegExp("^".concat(link, "$")));
-            window.location.hash = hasMatch ? hasMatch[0] : "#" + hashID;
+            window.location.hash = hasMatch ? hasMatch[0] : '#' + hashID;
             var newHash = window.location.hash;
             var newUrl = window.location.pathname + newHash;
             window.history.replaceState(null, null, newUrl);

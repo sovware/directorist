@@ -13,8 +13,8 @@ $tag = tag_escape( $before ? $before : 'div' );
 $closing_tag = tag_escape( $after ? $after : 'div' );
 
 ?>
-<<?php echo $tag; ?> class="directorist-listing-card-checkbox">
+<<?php echo $tag;// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> class="directorist-listing-card-checkbox">
     <?php directorist_icon( $icon ); ?>
     <?php $listings->print_label( $label ); ?>
     <?php echo esc_html( $value ); ?>
-</<?php echo $closing_tag; ?>>
+</<?php echo $closing_tag;// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>

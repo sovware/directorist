@@ -104,7 +104,7 @@ var $ = jQuery;
 
 // Add Listing Map Initialize
 function initAddListingMap() {
-  if (typeof google === "undefined" || !google.maps || !google.maps.Geocoder) {
+  if (typeof google === 'undefined' || !google.maps || !google.maps.Geocoder) {
     return;
   }
   if ($('#gmap').length) {
@@ -126,8 +126,8 @@ function initAddListingMap() {
     var loc_manual_lng = parseFloat(localized_data.manual_lng);
     var loc_map_zoom_level = parseInt(localized_data.map_zoom_level);
     var searchIcon = "<i class=\"directorist-icon-mask\"></i>";
-    var markerShape = document.createElement("div");
-    markerShape.className = "atbd_map_shape";
+    var markerShape = document.createElement('div');
+    markerShape.className = 'atbd_map_shape';
     markerShape.innerHTML = searchIcon;
     loc_manual_lat = isNaN(loc_manual_lat) ? loc_default_latitude : loc_manual_lat;
     loc_manual_lng = isNaN(loc_manual_lng) ? loc_default_longitude : loc_manual_lng;
@@ -141,7 +141,6 @@ function initAddListingMap() {
     // default is London city
     markers = [],
     // initialize the array to keep track all the marker
-
     address_input = document.getElementById('address');
     if (address_input !== null) {
       address_input.addEventListener('focus', geolocate);
@@ -225,7 +224,7 @@ function initAddListingMap() {
       map = new google.maps.Map(document.getElementById('gmap'), {
         zoom: loc_map_zoom_level,
         center: saved_lat_lng,
-        mapId: "add_listing_map"
+        mapId: 'add_listing_map'
       });
       var marker = new google.maps.marker.AdvancedMarkerElement({
         map: map,
@@ -254,8 +253,8 @@ function initAddListingMap() {
     }
 
     /*
-        * Geocode and address using google map javascript api and then populate the input fields for storing lat and long
-        * */
+     * Geocode and address using google map javascript api and then populate the input fields for storing lat and long
+     * */
 
     function geocodeAddress(geocoder, resultsMap) {
       var lat = parseFloat(document.getElementById('manual_lat').value);
@@ -291,7 +290,7 @@ function initAddListingMap() {
 
     // adding features of creating marker manually on the map on add listing page.
     /* var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    var labelIndex = 0; */
+          var labelIndex = 0; */
 
     // Adds a marker to the map.
     function addMarker(location, map) {
@@ -328,7 +327,7 @@ $(document).ready(function () {
   initAddListingMap();
 });
 
-// Add Listing Map on Elementor EditMode 
+// Add Listing Map on Elementor EditMode
 $(window).on('elementor/frontend/init', function () {
   setTimeout(function () {
     if ($('body').hasClass('elementor-editor-active')) {
@@ -388,7 +387,7 @@ function convertToSelect2(selector) {
       var iconURI = $(data.element).data('icon');
       var iconElm = "<i class=\"directorist-icon-mask\" aria-hidden=\"true\" style=\"--directorist-icon: url(".concat(iconURI, ")\"></i>");
       var originalText = data.text;
-      var modifiedText = originalText.replace(/^(\s*)/, "$1" + iconElm);
+      var modifiedText = originalText.replace(/^(\s*)/, '$1' + iconElm);
       var $state = $("<div class=\"directorist-select2-contents\">".concat(typeof iconURI !== 'undefined' && iconURI !== '' ? modifiedText : originalText, "</div>"));
       return $state;
     }

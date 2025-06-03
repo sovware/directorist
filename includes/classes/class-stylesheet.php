@@ -1,6 +1,6 @@
 <?php
 
-if ( ! class_exists( 'ATBDP_Stylesheet' ) ):
+if ( ! class_exists( 'ATBDP_Stylesheet' ) ) :
     class ATBDP_Stylesheet {
 
         // add_listing_css
@@ -48,8 +48,7 @@ if ( ! class_exists( 'ATBDP_Stylesheet' ) ):
         }
 
         // osm_css
-        public static function osm_css()
-        {
+        public static function osm_css() {
             ob_start(); ?>
             .myDivIcon {
                 text-align: center !important;
@@ -74,8 +73,7 @@ if ( ! class_exists( 'ATBDP_Stylesheet' ) ):
         }
 
         // business_hour_css
-        public static function business_hour_css()
-        {
+        public static function business_hour_css() {
             ob_start(); ?>
             .atbd_badge_close,
             .atbd_badge_open {
@@ -90,10 +88,10 @@ if ( ! class_exists( 'ATBDP_Stylesheet' ) ):
         // style_settings_css
         public static function style_settings_css() {
             do_action( 'include_style_settings' );
-            $button_primary_color             = get_directorist_option('button_primary_color', '#ffffff');
-            $button_primary_bg_color          = get_directorist_option('button_primary_bg_color', '#444752');
-            $button_secondary_color           = get_directorist_option('button_secondary_color', '#ffffff');
-            $button_secondary_bg_color        = get_directorist_option('button_secondary_bg_color', '#222222');
+            $button_primary_color             = get_directorist_option( 'button_primary_color', '#ffffff' );
+            $button_primary_bg_color          = get_directorist_option( 'button_primary_bg_color', '#444752' );
+            $button_secondary_color           = get_directorist_option( 'button_secondary_color', '#ffffff' );
+            $button_secondary_bg_color        = get_directorist_option( 'button_secondary_bg_color', '#222222' );
             $open_back_color                = get_directorist_option( 'open_back_color', '#32cc6f' );
             $closed_back_color              = get_directorist_option( 'closed_back_color', '#e23636' );
             $featured_back_color            = get_directorist_option( 'featured_back_color', '#fa8b0c' );
@@ -106,7 +104,7 @@ if ( ! class_exists( 'ATBDP_Stylesheet' ) ):
 
             ob_start();
             ?>
-	            /* Settings Panel Structure
+                /* Settings Panel Structure
 
                 Button: Color Name
                 -----------------------

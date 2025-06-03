@@ -98,9 +98,9 @@ $(document).ready(function () {
   modalToggle();
 });
 function modalToggle() {
-  $(".atbdp_recovery_pass").on("click", function (e) {
+  $('.atbdp_recovery_pass').on('click', function (e) {
     e.preventDefault();
-    $("#recover-pass-modal").slideToggle().show();
+    $('#recover-pass-modal').slideToggle().show();
   });
 
   // Contact form [on modal closed]
@@ -114,7 +114,7 @@ function modalToggle() {
   var directoristModal = document.querySelector('.directorist-modal-js');
   $('body').on('click', '.directorist-btn-modal-js', function (e) {
     e.preventDefault();
-    var data_target = $(this).attr("data-directorist_target");
+    var data_target = $(this).attr('data-directorist_target');
     document.querySelector(".".concat(data_target)).classList.add('directorist-show');
   });
   $('body').on('click', '.directorist-modal-close-js', function (e) {
@@ -137,7 +137,6 @@ function modalToggle() {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-;
 (function ($) {
   // Make sure the codes in this file runs only once, even if enqueued twice
   if (typeof window.directorist_alert_executed === 'undefined') {
@@ -170,7 +169,6 @@ function modalToggle() {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-;
 (function ($) {
   // Make sure the codes in this file runs only once, even if enqueued twice
   if (typeof window.directorist_dropdown_executed === 'undefined') {
@@ -252,17 +250,17 @@ function modalToggle() {
     });
 
     //atbd_dropdown
-    $(document).on("click", '.atbd_dropdown', function (e) {
-      if ($(this).attr("class") === "atbd_dropdown") {
+    $(document).on('click', '.atbd_dropdown', function (e) {
+      if ($(this).attr('class') === 'atbd_dropdown') {
         e.preventDefault();
-        $(this).siblings(".atbd_dropdown").removeClass("atbd_drop--active");
-        $(this).toggleClass("atbd_drop--active");
+        $(this).siblings('.atbd_dropdown').removeClass('atbd_drop--active');
+        $(this).toggleClass('atbd_drop--active');
         e.stopPropagation();
       }
     });
-    $(document).on("click", function (e) {
-      if ($(e.target).is(".atbd_dropdown, .atbd_drop--active") === false) {
-        $(".atbd_dropdown").removeClass("atbd_drop--active");
+    $(document).on('click', function (e) {
+      if ($(e.target).is('.atbd_dropdown, .atbd_drop--active') === false) {
+        $('.atbd_dropdown').removeClass('atbd_drop--active');
       }
     });
     $('body').on('click', '.atbd_dropdown-toggle', function (e) {
@@ -294,7 +292,6 @@ function modalToggle() {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-;
 (function ($) {
   // Make sure the codes in this file runs only once, even if enqueued twice
   if (typeof window.directorist_favorite_executed === 'undefined') {
@@ -307,9 +304,9 @@ function modalToggle() {
     $('.directorist-action-bookmark').on('click', function (e) {
       e.preventDefault();
       var data = {
-        'action': 'atbdp_public_add_remove_favorites',
-        'directorist_nonce': directorist.directorist_nonce,
-        'post_id': $(this).data('listing_id')
+        action: 'atbdp_public_add_remove_favorites',
+        directorist_nonce: directorist.directorist_nonce,
+        post_id: $(this).data('listing_id')
       };
       $.post(directorist.ajaxurl, data, function (response) {
         if (response) {
@@ -321,11 +318,11 @@ function modalToggle() {
       $(this).on('click', function (event) {
         event.preventDefault();
         var data = {
-          'action': 'atbdp-favourites-all-listing',
-          'directorist_nonce': directorist.directorist_nonce,
-          'post_id': $(this).data('listing_id')
+          action: 'atbdp-favourites-all-listing',
+          directorist_nonce: directorist.directorist_nonce,
+          post_id: $(this).data('listing_id')
         };
-        $(".directorist-favorite-tooltip").hide();
+        $('.directorist-favorite-tooltip').hide();
         $.post(directorist.ajaxurl, data, function (response) {
           var post_id = data['post_id'].toString();
           var staElement = $('.directorist_favourite_' + post_id);
@@ -335,36 +332,36 @@ function modalToggle() {
         });
       });
     });
-    $('body').on("click", '.directorist-mark-as-favorite__btn', function (event) {
+    $('body').on('click', '.directorist-mark-as-favorite__btn', function (event) {
       event.preventDefault();
       var data = {
-        'action': 'atbdp-favourites-all-listing',
-        'directorist_nonce': directorist.directorist_nonce,
-        'post_id': $(this).data('listing_id')
+        action: 'atbdp-favourites-all-listing',
+        directorist_nonce: directorist.directorist_nonce,
+        post_id: $(this).data('listing_id')
       };
       var fav_tooltip_success = '<span>' + directorist.i18n_text.added_favourite + '</span>';
       var fav_tooltip_warning = '<span>' + directorist.i18n_text.please_login + '</span>';
-      $(".directorist-favorite-tooltip").hide();
+      $('.directorist-favorite-tooltip').hide();
       $.post(directorist.ajax_url, data, function (response) {
         var post_id = data['post_id'].toString();
         var staElement = $('.directorist-fav_' + post_id);
         var data_id = staElement.attr('data-listing_id');
-        if (response === "login_required") {
-          staElement.children(".directorist-favorite-tooltip").append(fav_tooltip_warning);
-          staElement.children(".directorist-favorite-tooltip").fadeIn();
+        if (response === 'login_required') {
+          staElement.children('.directorist-favorite-tooltip').append(fav_tooltip_warning);
+          staElement.children('.directorist-favorite-tooltip').fadeIn();
           setTimeout(function () {
-            staElement.children(".directorist-favorite-tooltip").children("span").remove();
+            staElement.children('.directorist-favorite-tooltip').children('span').remove();
           }, 3000);
         } else if ('false' === response) {
           staElement.removeClass('directorist-added-to-favorite');
-          $(".directorist-favorite-tooltip span").remove();
+          $('.directorist-favorite-tooltip span').remove();
         } else {
           if (data_id === post_id) {
             staElement.addClass('directorist-added-to-favorite');
-            staElement.children(".directorist-favorite-tooltip").append(fav_tooltip_success);
-            staElement.children(".directorist-favorite-tooltip").fadeIn();
+            staElement.children('.directorist-favorite-tooltip').append(fav_tooltip_success);
+            staElement.children('.directorist-favorite-tooltip').fadeIn();
             setTimeout(function () {
-              staElement.children(".directorist-favorite-tooltip").children("span").remove();
+              staElement.children('.directorist-favorite-tooltip').children('span').remove();
             }, 3000);
           }
         }
@@ -428,7 +425,6 @@ window.addEventListener('load', function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-;
 (function ($) {
   window.addEventListener('load', function () {
     $('#directorist-report-abuse-form').on('submit', function (e) {
@@ -438,10 +434,10 @@ window.addEventListener('load', function () {
         e.preventDefault();
         // Post via AJAX
         var data = {
-          'action': 'atbdp_public_report_abuse',
-          'directorist_nonce': directorist.directorist_nonce,
-          'post_id': $('#atbdp-post-id').val(),
-          'message': $('#directorist-report-message').val()
+          action: 'atbdp_public_report_abuse',
+          directorist_nonce: directorist.directorist_nonce,
+          post_id: $('#atbdp-post-id').val(),
+          message: $('#directorist-report-message').val()
         };
         $.post(directorist.ajaxurl, data, function (response) {
           if (1 == response.error) {
@@ -470,8 +466,8 @@ window.addEventListener('load', function () {
       // Serialize form data
       var form_data = form.serializeArray();
       var data = {
-        'action': 'atbdp_public_send_contact_email',
-        'directorist_nonce': directorist.directorist_nonce
+        action: 'atbdp_public_send_contact_email',
+        directorist_nonce: directorist.directorist_nonce
       };
 
       // Convert serialized data array into an object
@@ -586,7 +582,6 @@ window.addEventListener('load', function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-;
 (function ($) {
   // Make sure the codes in this file runs only once, even if enqueued twice
   if (typeof window.directorist_loginjs_executed === 'undefined') {
@@ -615,11 +610,11 @@ window.addEventListener('load', function () {
 
       $('#directorist__authentication__login p.status').show().html('<div class="directorist-alert directorist-alert-info"><span>' + directorist.loading_message + '</span></div>');
       var form_data = {
-        'action': 'ajaxlogin',
-        'username': $this.find('#username').val(),
-        'password': $this.find('#password').val(),
-        'rememberme': $this.find('#keep_signed_in').is(':checked') ? 1 : 0,
-        'security': $this.find('#security').val()
+        action: 'ajaxlogin',
+        username: $this.find('#username').val(),
+        password: $this.find('#password').val(),
+        rememberme: $this.find('#keep_signed_in').is(':checked') ? 1 : 0,
+        security: $this.find('#security').val()
       };
       $.ajax({
         type: 'POST',
@@ -653,9 +648,9 @@ window.addEventListener('load', function () {
     $('form#directorist__authentication__login .status').on('click', 'a', function (e) {
       e.preventDefault();
       if ($(this).attr('href') === '#atbdp_recovery_pass') {
-        $("#recover-pass-modal").slideDown().show();
+        $('#recover-pass-modal').slideDown().show();
         window.scrollTo({
-          top: $("#recover-pass-modal").offset().top - 100,
+          top: $('#recover-pass-modal').offset().top - 100,
           behavior: 'smooth'
         });
       } else {
@@ -735,7 +730,6 @@ function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
 function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 window.addEventListener('load', function () {
-  ;
   (function ($) {
     'use strict';
 
@@ -898,14 +892,14 @@ window.addEventListener('load', function () {
             var comments = body.find(comment_section);
             $(comment_section).replaceWith(comments);
             $(document).trigger('directorist_review_updated', data);
-            var commentTop = $("#comment-" + commentID).offset().top;
+            var commentTop = $('#comment-' + commentID).offset().top;
             if ($('body').hasClass('admin-bar')) {
               commentTop = commentTop - $('#wpadminbar').height();
             }
 
             // scroll to comment
             if (commentID) {
-              $("body, html").animate({
+              $('body, html').animate({
                 scrollTop: commentTop
               }, 600);
             }
@@ -995,7 +989,7 @@ window.addEventListener('load', function () {
 
             // console.log(newComment, newCommentId)
 
-            var commentTop = $("#" + newCommentId).offset().top;
+            var commentTop = $('#' + newCommentId).offset().top;
             if ($('body').hasClass('admin-bar')) {
               commentTop = commentTop - $('#wpadminbar').height();
             }
@@ -1165,7 +1159,6 @@ window.addEventListener('load', function () {
 /***/ (function(module, exports) {
 
 window.addEventListener('load', function () {
-  ;
   (function ($) {
     //Star rating
     if ($('.directorist-review-criteria-select').length) {

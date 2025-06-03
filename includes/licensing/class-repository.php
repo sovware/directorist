@@ -13,144 +13,144 @@ use Directorist\Licensing\Utils\Http;
 defined( 'ABSPATH' ) || exit;
 
 class Repository {
+    private static function get_endpoint( string $endpoint ) {
+        return 'https://directorist.com/wp-json/directorist-license-manager/' . $endpoint;
+    }
 
-	private static function get_endpoint( string $endpoint ) {
-		return 'https://directorist.com/wp-json/directorist-license-manager/' . $endpoint;
-	}
+    private static function remote_request( $endpoint = '' ) {
+        $args = [
+            'timeout'     => 30,
+            'redirection' => 5,
+            'headers'     => [
+                'user-agent' => 'Directorist/' . ATBDP_VERSION,
+                'Accept'     => 'application/json',
+            ],
+            'cookies'     => [],
+            'version'     => ATBDP_VERSION,
+        ];
 
-	private static function remote_request( $endpoint = '' ) {
-		$args = [
-			'timeout'     => 30,
-			'redirection' => 5,
-			'headers'     => [
-				'user-agent' => 'Directorist/' . ATBDP_VERSION,
-				'Accept'     => 'application/json',
-			],
-			'cookies'     => [],
-			'version'     => ATBDP_VERSION,
-		];
+        $url = self::get_endpoint( $endpoint );
 
-		$url = self::get_endpoint( $endpoint );
+        $response = wp_remote_post( $url, $args );
 
-		$response = wp_remote_post( $url, $args );
+        return wp_remote_retrieve_body( $response );
+    }
 
-		return wp_remote_retrieve_body( $response );
-	}
+    public static function get_promotional_content() {
+        $content = get_transient( 'directorist_promotional_content' );
 
-	public static function get_promotional_content() {
-		$content = get_transient( 'directorist_promotional_content' );
+        if ( ! empty( $content ) ) {
+            return $content;
+        }
 
-		if ( ! empty( $content ) ) {
-			return $content;
-		}
+        $content = self::remote_request( 'promotional-content' );
 
-		$content = self::remote_request( 'promotional-content' );
+        if ( empty( $content ) ) {
+            return [
+                'templates'  => [],
+                'extensions' => [],
+            ];
+        }
 
-		if ( empty( $content ) ) {
-			return [
-				'templates'  => [],
-				'extensions' => [],
-			];
-		}
+        $content = json_decode( $content, true );
 
-		$content = json_decode( $content, true );
+        set_transient( 'directorist_promotional_content', $content, 30 * DAY_IN_SECONDS );
 
-		set_transient( 'directorist_promotional_content', $content, 30 * DAY_IN_SECONDS );
+        return $content;
+    }
 
-		return $content;
-	}
+    public function login_with_access_key( string $access_key ) {
+        try {
+            $http = new Http(
+                self::get_endpoint( 'user-connect' ),
+                [
+                    'access_key' => $access_key,
+                ]
+            );
 
-	public function login_with_access_key( string $access_key ) {
-		try {
-			$http = new Http(
-				self::get_endpoint( 'user-connect' ),
-				[
-					'access_key' => $access_key,
-				]
-			);
+            $response = $http->post()->response();
+            $raw_body = wp_remote_retrieve_body( $response );
+            $data     = json_decode( $raw_body, true );
 
-			$response = $http->post()->response();
-			$raw_body = wp_remote_retrieve_body( $response );
-			$data     = json_decode( $raw_body, true );
+            if ( ! isset( $data['account_data']['user_id'] ) ) {
+                throw new \Exception( __( 'Invalid Access Key', 'directorist' ) );
+            }
 
-			if ( ! isset( $data['account_data']['user_id'] ) ) {
-				throw new \Exception( __( 'Invalid Access Key', 'directorist' ) );
-			}
+            update_option( 'directorist_licensing_account_data', $data );
+            update_option( 'templatiq_user_account_sync_needed', true );
 
-			update_option( 'directorist_licensing_account_data', $data );
-			update_option( 'templatiq_user_account_sync_needed', true );
+            $extensions = $data['plan_data']['downloads']['legacy_array'] ?? [];
+            add_user_meta( 1, '_plugins_available_in_subscriptions', $extensions );
 
-			$extensions = $data['plan_data']['downloads']['legacy_array'] ?? [];
-			add_user_meta( 1, '_plugins_available_in_subscriptions', $extensions );
+            return true;
 
-			return true;
+        } catch ( \Throwable $th ) {
+            throw $th;
+        }
+    }
 
-		} catch ( \Throwable $th ) {
-			throw $th;
-		}
-	}
+    public function login_with_account( string $email, string $pass ) {
+        try {
+            $http = new Http(
+                self::get_endpoint( 'user-login' ),
+                [
+                    'email' => $email,
+                    'pass'  => $pass,
+                ]
+            );
 
-	public function login_with_account( string $email, string $pass ) {
-		try {
-			$http = new Http(
-				self::get_endpoint( 'user-login' ),
-				[
-					'email' => $email,
-					'pass'  => $pass,
-				]
-			);
+            $response = $http->post()->response();
+            $raw_body = wp_remote_retrieve_body( $response );
+            $data     = json_decode( $raw_body, true );
 
-			$response = $http->post()->response();
-			$raw_body = wp_remote_retrieve_body( $response );
-			$data     = json_decode( $raw_body, true );
+            if ( ! isset( $data['account_data']['user_id'] ) ) {
+                throw new \Exception( __( 'Invalid Email or Password', 'directorist' ) );
+            }
 
-			if ( ! isset( $data['account_data']['user_id'] ) ) {
-				throw new \Exception( __( 'Invalid Email or Password', 'directorist' ) );
-			}
+            update_option( 'directorist_licensing_account_data', $data );
 
-			update_option( 'directorist_licensing_account_data', $data );
+            if ( isset( $data['account_data']['templatiq_token'] ) && ! empty( $data['account_data']['templatiq_token'] ) ) {
+                update_option( '_templatiq_token', $data['account_data']['templatiq_token'] );
+            }
 
-			if ( isset( $data['account_data']['templatiq_token'] ) && ! empty( $data['account_data']['templatiq_token'] ) ) {
-				update_option( '_templatiq_token', $data['account_data']['templatiq_token'] );
-			}
+            $extensions = $data['plan_data']['downloads']['legacy_array'] ?? [];
+            add_user_meta( 1, '_plugins_available_in_subscriptions', $extensions );
 
-			$extensions = $data['plan_data']['downloads']['legacy_array'] ?? [];
-			add_user_meta( 1, '_plugins_available_in_subscriptions', $extensions );
+            update_option( 'templatiq_user_account_sync_needed', true );
 
-			update_option( 'templatiq_user_account_sync_needed', true );
+            return true;
 
-			return true;
+        } catch ( \Throwable $th ) {
+            throw $th;
+        }
+    }
 
-		} catch ( \Throwable $th ) {
-			throw $th;
-		}
-	}
+    public static function sync_templatiq() {
+        try {
+            $access_key = Licensing_Account::get_access_key();
 
-	public static function sync_templatiq() {
-		try {
-			$access_key = Licensing_Account::get_access_key();
+            if ( empty( $access_key ) ) {
+                return;
+            }
 
-			if ( empty( $access_key ) ) {
-				return;
-			}
+            $http = new Http(
+                self::get_endpoint( 'templatiq-token' ),
+                [
+                    'access_key' => $access_key,
+                ]
+            );
 
-			$http = new Http(
-				self::get_endpoint( 'templatiq-token' ),
-				[
-					'access_key' => $access_key,
-				]
-			);
+            $response = $http->post()->response();
+            $raw_body = wp_remote_retrieve_body( $response );
+            $data     = json_decode( $raw_body, true );
 
-			$response = $http->post()->response();
-			$raw_body = wp_remote_retrieve_body( $response );
-			$data     = json_decode( $raw_body, true );
+            if ( isset( $data['templatiq_token'] ) && ! empty( $data['templatiq_token'] ) ) {
+                update_option( '_templatiq_token', $data['templatiq_token'] );
+                delete_option( 'templatiq_user_account_sync_needed' );
+            }
 
-			if ( isset( $data['templatiq_token'] ) && ! empty( $data['templatiq_token'] ) ) {
-				update_option( '_templatiq_token', $data['templatiq_token'] );
-				delete_option( 'templatiq_user_account_sync_needed' );
-			}
-
-		} catch ( \Throwable $th ) {;
-			error_log( 'Templatiq Sync Error : ' . print_r( $th->getMessage(), true ) );}
-	}
+        } catch ( \Throwable $th ) {
+            ;
+            error_log( 'Templatiq Sync Error : ' . print_r( $th->getMessage(), true ) );}
+    }
 }

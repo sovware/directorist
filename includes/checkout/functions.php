@@ -10,7 +10,7 @@
  */
 
 // Exit if accessed directly
-if (!defined('ABSPATH')) die('You do not have permission to access this page directly.');
+if ( ! defined( 'ABSPATH' ) ) die( 'You do not have permission to access this page directly.' );
 
 /**
  * Determines if we're currently on the Checkout page
@@ -18,28 +18,27 @@ if (!defined('ABSPATH')) die('You do not have permission to access this page dir
  * @return bool True if on the Checkout page, false otherwise
  * @since 3.0.0
  */
-function atbdp_is_checkout()
-{
+function atbdp_is_checkout() {
 
     global $wp_query;
 
-    $is_object_set = isset($wp_query->queried_object);
-    $is_object_id_set = isset($wp_query->queried_object_id);
-    $is_checkout = is_page(get_directorist_option('purchase_page'));
+    $is_object_set = isset( $wp_query->queried_object );
+    $is_object_id_set = isset( $wp_query->queried_object_id );
+    $is_checkout = is_page( get_directorist_option( 'purchase_page' ) );
 
-    if (!$is_object_set) {
+    if ( ! $is_object_set ) {
 
-        unset($wp_query->queried_object);
-
-    }
-
-    if (!$is_object_id_set) {
-
-        unset($wp_query->queried_object_id);
+        unset( $wp_query->queried_object );
 
     }
 
-    return apply_filters('atbdp_is_checkout', $is_checkout);
+    if ( ! $is_object_id_set ) {
+
+        unset( $wp_query->queried_object_id );
+
+    }
+
+    return apply_filters( 'atbdp_is_checkout', $is_checkout );
 }
 
 /**
@@ -48,11 +47,10 @@ function atbdp_is_checkout()
  * @return bool Can user checkout?
  * @since 3.0.0
  */
-function atbdp_can_checkout()
-{
+function atbdp_can_checkout() {
     $can_checkout = true; // Always true for now
 
-    return (bool)apply_filters('atbdp_can_checkout', $can_checkout);
+    return (bool) apply_filters( 'atbdp_can_checkout', $can_checkout );
 }
 
 /**
@@ -63,18 +61,17 @@ function atbdp_can_checkout()
  * @return      string
  * @since       3.0.0
  */
-function atbdp_get_success_page_uri($query_string = null)
-{
-    $page_id = get_directorist_option('success_page', 0);
-    $page_id = absint($page_id);
+function atbdp_get_success_page_uri( $query_string = null ) {
+    $page_id = get_directorist_option( 'success_page', 0 );
+    $page_id = absint( $page_id );
 
-    $success_page = get_permalink($page_id);
+    $success_page = get_permalink( $page_id );
 
-    if ($query_string) {
+    if ( $query_string ) {
         $success_page .= $query_string;
     }
 
-    return apply_filters('atbdp_get_success_page_uri', $success_page);
+    return apply_filters( 'atbdp_get_success_page_uri', $success_page );
 }
 
 /**
@@ -83,12 +80,11 @@ function atbdp_get_success_page_uri($query_string = null)
  * @return bool True if on the Success page, false otherwise.
  * @since 3.0.0
  */
-function atbdp_is_success_page()
-{
-    $is_success_page = get_directorist_option('success_page');
-    $is_success_page = isset($is_success_page) ? is_page($is_success_page) : false;
+function atbdp_is_success_page() {
+    $is_success_page = get_directorist_option( 'success_page' );
+    $is_success_page = isset( $is_success_page ) ? is_page( $is_success_page ) : false;
 
-    return apply_filters('atbdp_is_success_page', $is_success_page);
+    return apply_filters( 'atbdp_is_success_page', $is_success_page );
 }
 
 /**
@@ -101,16 +97,15 @@ function atbdp_is_success_page()
  * @return      void
  * @since      3.0.0
  */
-function atbdp_send_to_success_page($query_string = null)
-{
+function atbdp_send_to_success_page( $query_string = null ) {
     $redirect = atbdp_get_success_page_uri();
 
-    if ($query_string)
+    if ( $query_string )
         $redirect .= $query_string;
 
-    $gateway = isset($_REQUEST['atbdp-gateway']) ? sanitize_text_field( wp_unslash( $_REQUEST['atbdp-gateway'] ) ) : '';
+    $gateway = isset( $_REQUEST['atbdp-gateway'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['atbdp-gateway'] ) ) : '';
 
-    wp_redirect(apply_filters('atbdp_success_page_redirect', $redirect, $gateway, $query_string));
+    wp_redirect( apply_filters( 'atbdp_success_page_redirect', $redirect, $gateway, $query_string ) );
     wp_die();
 }
 
@@ -121,29 +116,28 @@ function atbdp_send_to_success_page($query_string = null)
  * @return mixed Full URL to the checkout page, if present | null if it doesn't exist
  * @since 3.0.0
  */
-function atbdp_get_checkout_uri($args = array())
-{
-    $uri = get_directorist_option('purchase_page');
+function atbdp_get_checkout_uri( $args = [] ) {
+    $uri = get_directorist_option( 'purchase_page' );
     $uri = isset( $uri ) ? trailingslashit( get_permalink( $uri ) ) : null;
 
-    if (!empty($args)) {
+    if ( ! empty( $args ) ) {
         // Check for backward compatibility
-        if (is_string($args))
-            $args = str_replace('?', '', $args);
+        if ( is_string( $args ) )
+            $args = str_replace( '?', '', $args );
 
-        $args = wp_parse_args($args);
+        $args = wp_parse_args( $args );
 
-        $uri = add_query_arg($args, $uri);
+        $uri = add_query_arg( $args, $uri );
     }
 
-    $scheme = defined('FORCE_SSL_ADMIN') && FORCE_SSL_ADMIN ? 'https' : 'admin';
+    $scheme = defined( 'FORCE_SSL_ADMIN' ) && FORCE_SSL_ADMIN ? 'https' : 'admin';
 
-    $ajax_url = admin_url('admin-ajax.php', $scheme);
+    $ajax_url = admin_url( 'admin-ajax.php', $scheme );
 
     /*@todo; work on this to complete*/
 
 
-    return apply_filters('atbdp_get_checkout_uri', $uri);
+    return apply_filters( 'atbdp_get_checkout_uri', $uri );
 }
 
 /**
@@ -157,20 +151,19 @@ function atbdp_get_checkout_uri($args = array())
  * @return Void
  * @since  3.0.0
  */
-function atbdp_send_back_to_checkout($args = array())
-{
+function atbdp_send_back_to_checkout( $args = [] ) {
     $redirect = atbdp_get_checkout_uri();
 
-    if (!empty($args)) {
+    if ( ! empty( $args ) ) {
         // Check for backward compatibility
-        if (is_string($args))
-            $args = str_replace('?', '', $args);
+        if ( is_string( $args ) )
+            $args = str_replace( '?', '', $args );
 
-        $args = wp_parse_args($args);
+        $args = wp_parse_args( $args );
 
-        $redirect = add_query_arg($args, $redirect);
+        $redirect = add_query_arg( $args, $redirect );
     }
-    wp_redirect(apply_filters('atbdp_send_back_to_checkout', $redirect, $args));
+    wp_redirect( apply_filters( 'atbdp_send_back_to_checkout', $redirect, $args ) );
     wp_die();
 }
 
@@ -181,15 +174,14 @@ function atbdp_send_back_to_checkout($args = array())
  * @return mixed Full URL to the Transaction Failed page, if present, home page if it doesn't exist
  * @since 3.0.0
  */
-function atbdp_get_failed_transaction_uri($extras = false)
-{
-    $uri = get_directorist_option('failure_page', '');
-    $uri = !empty($uri) ? trailingslashit(get_permalink($uri)) : home_url();
+function atbdp_get_failed_transaction_uri( $extras = false ) {
+    $uri = get_directorist_option( 'failure_page', '' );
+    $uri = ! empty( $uri ) ? trailingslashit( get_permalink( $uri ) ) : home_url();
 
-    if ($extras)
+    if ( $extras )
         $uri .= $extras;
 
-    return apply_filters('atbdp_get_failed_transaction_uri', $uri);
+    return apply_filters( 'atbdp_get_failed_transaction_uri', $uri );
 }
 
 /**
@@ -198,12 +190,11 @@ function atbdp_get_failed_transaction_uri($extras = false)
  * @return bool True if on the Failed Transaction page, false otherwise.
  * @since 2.1
  */
-function atbdp_is_failed_transaction_page()
-{
-    $ret = get_directorist_option('failure_page', false);
-    $ret = isset($ret) ? is_page($ret) : false;
+function atbdp_is_failed_transaction_page() {
+    $ret = get_directorist_option( 'failure_page', false );
+    $ret = isset( $ret ) ? is_page( $ret ) : false;
 
-    return apply_filters('atbdp_is_failure_page', $ret);
+    return apply_filters( 'atbdp_is_failure_page', $ret );
 }
 
 /**
@@ -213,29 +204,26 @@ function atbdp_is_failed_transaction_page()
  * @return      void
  * @since       3.0.0
  */
-function atbdp_listen_for_failed_payments()
-{
+function atbdp_listen_for_failed_payments() {
 
-    $failed_page = get_directorist_option('failure_page', 0);
+    $failed_page = get_directorist_option( 'failure_page', 0 );
 
-    if (!empty($failed_page) && is_page($failed_page) && !empty($_GET['payment-id'])) {
+    if ( ! empty( $failed_page ) && is_page( $failed_page ) && ! empty( $_GET['payment-id'] ) ) {
 
         $payment_id = absint( wp_unslash( $_GET['payment-id'] ) );
-        $payment = get_post($payment_id);
-        $status = atbdp_get_payment_status($payment);
+        $payment = get_post( $payment_id );
+        $status = atbdp_get_payment_status( $payment );
 
-        if ($status && 'pending' === strtolower($status)) {
+        if ( $status && 'pending' === strtolower( $status ) ) {
 
-            atbdp_update_payment_status($payment_id, 'failed');
+            atbdp_update_payment_status( $payment_id, 'failed' );
 
         }
 
     }
-
 }
 
-add_action('template_redirect', 'atbdp_listen_for_failed_payments');
-
+add_action( 'template_redirect', 'atbdp_listen_for_failed_payments' );
 
 /**
  * Check if a field is required
@@ -245,10 +233,9 @@ add_action('template_redirect', 'atbdp_listen_for_failed_payments');
  * @return      bool
  * @since      3.0.0*
  */
-function atbdp_field_is_required($field = '')
-{
+function atbdp_field_is_required( $field = '' ) {
     $required_fields = atbdp_purchase_form_required_fields();
-    return array_key_exists($field, $required_fields);
+    return array_key_exists( $field, $required_fields );
 }
 
 /**
@@ -257,11 +244,10 @@ function atbdp_field_is_required($field = '')
  * @return      array
  * @since      3.0.0
  */
-function atbdp_get_banned_emails()
-{
-    $emails = array_map('trim', get_directorist_option('banned_emails', array()));
+function atbdp_get_banned_emails() {
+    $emails = array_map( 'trim', get_directorist_option( 'banned_emails', [] ) );
 
-    return apply_filters('atbdp_get_banned_emails', $emails);
+    return apply_filters( 'atbdp_get_banned_emails', $emails );
 }
 
 /**
@@ -271,49 +257,48 @@ function atbdp_get_banned_emails()
  * @return bool
  * @since      3.0.0
  */
-function atbdp_is_email_banned($email = '')
-{
+function atbdp_is_email_banned( $email = '' ) {
 
-    $email = trim($email);
-    if (empty($email)) {
+    $email = trim( $email );
+    if ( empty( $email ) ) {
         return false;
     }
 
-    $email = strtolower($email);
+    $email = strtolower( $email );
     $banned_emails = atbdp_get_banned_emails();
 
-    if (!is_array($banned_emails) || empty($banned_emails)) {
+    if ( ! is_array( $banned_emails ) || empty( $banned_emails ) ) {
         return false;
     }
 
     $return = false;
-    foreach ($banned_emails as $banned_email) {
+    foreach ( $banned_emails as $banned_email ) {
 
-        $banned_email = strtolower($banned_email);
+        $banned_email = strtolower( $banned_email );
 
-        if (is_email($banned_email)) {
+        if ( is_email( $banned_email ) ) {
 
             // Complete email address
-            $return = ($banned_email == $email ? true : false);
+            $return = ( $banned_email == $email ? true : false );
 
-        } elseif (strpos($banned_email, '.') === 0) {
+        } elseif ( strpos( $banned_email, '.' ) === 0 ) {
 
             // TLD block
-            $return = (substr($email, (strlen($banned_email) * -1)) == $banned_email) ? true : false;
+            $return = ( substr( $email, ( strlen( $banned_email ) * -1 ) ) == $banned_email ) ? true : false;
 
         } else {
 
             // Domain block
-            $return = (stristr($email, $banned_email) ? true : false);
+            $return = ( stristr( $email, $banned_email ) ? true : false );
 
         }
 
-        if (true === $return) {
+        if ( true === $return ) {
             break;
         }
     }
 
-    return apply_filters('atbdp_is_email_banned', $return, $email);
+    return apply_filters( 'atbdp_is_email_banned', $return, $email );
 }
 
 /**
@@ -323,44 +308,43 @@ function atbdp_is_email_banned($email = '')
  * @return bool            If the card number provided matches a specific format of a valid card
  * @since  3.0.0
  */
-function atbdp_validate_card_number_format($number = 0)
-{
+function atbdp_validate_card_number_format( $number = 0 ) {
 
-    $number = trim($number);
-    if (empty($number)) {
+    $number = trim( $number );
+    if ( empty( $number ) ) {
         return false;
     }
 
-    if (!is_numeric($number)) {
+    if ( ! is_numeric( $number ) ) {
         return false;
     }
 
     $is_valid_format = false;
 
     // First check if it passes with the passed method, Luhn by default
-    $is_valid_format = atbdp_validate_card_number_format_luhn($number);
+    $is_valid_format = atbdp_validate_card_number_format_luhn( $number );
 
     // Run additional checks before we start the regexing and looping by type
-    $is_valid_format = apply_filters('atbdp_valiate_card_format_pre_type', $is_valid_format, $number);
+    $is_valid_format = apply_filters( 'atbdp_valiate_card_format_pre_type', $is_valid_format, $number );
 
-    if (true === $is_valid_format) {
+    if ( true === $is_valid_format ) {
         // We've passed our method check, onto card specific checks
-        $card_type = atbdp_detect_cc_type($number);
-        $is_valid_format = !empty($card_type) ? true : false;
+        $card_type = atbdp_detect_cc_type( $number );
+        $is_valid_format = ! empty( $card_type ) ? true : false;
     }
 
-    return apply_filters('atbdp_cc_is_valid_format', $is_valid_format, $number);
+    return apply_filters( 'atbdp_cc_is_valid_format', $is_valid_format, $number );
 }
 
-function directorist_payment_guard(){
-    $listing_id = get_query_var('atbdp_listing_id');
+function directorist_payment_guard() {
+    $listing_id = get_query_var( 'atbdp_listing_id' );
 
-	if ( empty( $listing_id ) && isset( $_GET['submit'] ) ) {
-		$listing_id = sanitize_text_field( wp_unslash( $_GET['submit'] ) );
-	}
+    if ( empty( $listing_id ) && isset( $_GET['submit'] ) ) {
+        $listing_id = sanitize_text_field( wp_unslash( $_GET['submit'] ) );
+    }
 
     // vail if the id is empty or post type is not our post type.
-    $guard = empty($listing_id) || (!empty($listing_id) && ATBDP_POST_TYPE != get_post_type($listing_id));
+    $guard = empty( $listing_id ) || ( ! empty( $listing_id ) && ATBDP_POST_TYPE != get_post_type( $listing_id ) );
     return apply_filters( 'directorist_checkout_guard', $guard );
 }
 
@@ -371,27 +355,26 @@ function directorist_payment_guard(){
  * @return bool
  * @since  3.0.0
  */
-function atbdp_validate_card_number_format_luhn($number)
-{
+function atbdp_validate_card_number_format_luhn( $number ) {
 
     // Strip any non-digits (useful for credit card numbers with spaces and hyphens)
-    $number = preg_replace('/\D/', '', $number);
+    $number = preg_replace( '/\D/', '', $number );
 
     // Set the string length and parity
-    $length = strlen($number);
+    $length = strlen( $number );
     $parity = $length % 2;
 
     // Loop through each digit and do the math
     $total = 0;
-    for ($i = 0; $i < $length; $i++) {
+    for ( $i = 0; $i < $length; $i++ ) {
         $digit = $number[$i];
 
         // Multiply alternate digits by two
-        if ($i % 2 == $parity) {
+        if ( $i % 2 == $parity ) {
             $digit *= 2;
 
             // If the sum is two digits, add them together (in effect)
-            if ($digit > 9) {
+            if ( $digit > 9 ) {
                 $digit -= 9;
             }
         }
@@ -401,8 +384,7 @@ function atbdp_validate_card_number_format_luhn($number)
     }
 
     // If the total mod 10 equals 0, the number is valid
-    return ($total % 10 == 0) ? true : false;
-
+    return ( $total % 10 == 0 ) ? true : false;
 }
 
 /**
@@ -413,76 +395,75 @@ function atbdp_validate_card_number_format_luhn($number)
  * @return string|bool
  * @since  3.0.0
  */
-function atbdp_detect_cc_type($number)
-{
+function atbdp_detect_cc_type( $number ) {
 
     $return = false;
 
-    $card_types = array(
-        array(
+    $card_types = [
+        [
             'name' => 'amex',
             'pattern' => '/^3[4|7]/',
-            'valid_length' => array(15),
-        ),
-        array(
+            'valid_length' => [15],
+        ],
+        [
             'name' => 'diners_club_carte_blanche',
             'pattern' => '/^30[0-5]/',
-            'valid_length' => array(14),
-        ),
-        array(
+            'valid_length' => [14],
+        ],
+        [
             'name' => 'diners_club_international',
             'pattern' => '/^36/',
-            'valid_length' => array(14),
-        ),
-        array(
+            'valid_length' => [14],
+        ],
+        [
             'name' => 'jcb',
             'pattern' => '/^35(2[89]|[3-8][0-9])/',
-            'valid_length' => array(16),
-        ),
-        array(
+            'valid_length' => [16],
+        ],
+        [
             'name' => 'laser',
             'pattern' => '/^(6304|670[69]|6771)/',
-            'valid_length' => array(16, 17, 18, 19),
-        ),
-        array(
+            'valid_length' => [16, 17, 18, 19],
+        ],
+        [
             'name' => 'visa_electron',
             'pattern' => '/^(4026|417500|4508|4844|491(3|7))/',
-            'valid_length' => array(16),
-        ),
-        array(
+            'valid_length' => [16],
+        ],
+        [
             'name' => 'visa',
             'pattern' => '/^4/',
-            'valid_length' => array(16),
-        ),
-        array(
+            'valid_length' => [16],
+        ],
+        [
             'name' => 'mastercard',
             'pattern' => '/^5[1-5]/',
-            'valid_length' => array(16),
-        ),
-        array(
+            'valid_length' => [16],
+        ],
+        [
             'name' => 'maestro',
             'pattern' => '/^(5018|5020|5038|6304|6759|676[1-3])/',
-            'valid_length' => array(12, 13, 14, 15, 16, 17, 18, 19),
-        ),
-        array(
+            'valid_length' => [12, 13, 14, 15, 16, 17, 18, 19],
+        ],
+        [
             'name' => 'discover',
             'pattern' => '/^(6011|622(12[6-9]|1[3-9][0-9]|[2-8][0-9]{2}|9[0-1][0-9]|92[0-5]|64[4-9])|65)/',
-            'valid_length' => array(16),
-        ),
-    );
+            'valid_length' => [16],
+        ],
+    ];
 
-    $card_types = apply_filters('atbdp_cc_card_types', $card_types);
+    $card_types = apply_filters( 'atbdp_cc_card_types', $card_types );
 
-    if (!is_array($card_types)) {
+    if ( ! is_array( $card_types ) ) {
         return false;
     }
 
-    foreach ($card_types as $card_type) {
+    foreach ( $card_types as $card_type ) {
 
-        if (preg_match($card_type['pattern'], $number)) {
+        if ( preg_match( $card_type['pattern'], $number ) ) {
 
-            $number_length = strlen($number);
-            if (in_array($number_length, $card_type['valid_length'])) {
+            $number_length = strlen( $number );
+            if ( in_array( $number_length, $card_type['valid_length'] ) ) {
                 $return = $card_type['name'];
                 break;
             }
@@ -491,7 +472,7 @@ function atbdp_detect_cc_type($number)
 
     }
 
-    return apply_filters('atbdp_cc_found_card_type', $return, $number, $card_types);
+    return apply_filters( 'atbdp_cc_found_card_type', $return, $number, $card_types );
 }
 
 /**
@@ -502,12 +483,10 @@ function atbdp_detect_cc_type($number)
  * @return bool
  * @since  3.0.0
  */
-function atbdp_purchase_form_validate_cc_exp_date($exp_month, $exp_year)
-{
+function atbdp_purchase_form_validate_cc_exp_date( $exp_month, $exp_year ) {
 
-    $month_name = date('M', mktime(0, 0, 0, $exp_month, 10));
-    $expiration = strtotime(date('t', strtotime($month_name . ' ' . $exp_year)) . ' ' . $month_name . ' ' . $exp_year . ' 11:59:59PM');
+    $month_name = date( 'M', mktime( 0, 0, 0, $exp_month, 10 ) );
+    $expiration = strtotime( date( 't', strtotime( $month_name . ' ' . $exp_year ) ) . ' ' . $month_name . ' ' . $exp_year . ' 11:59:59PM' );
 
     return $expiration >= time();
-
 }

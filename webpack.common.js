@@ -82,6 +82,16 @@ const commonConfig = {
             loader: "sass-loader",
             options: {
               sourceMap: true,
+              implementation: require("sass"),
+              sassOptions: {
+                silenceDeprecations: [
+                  "mixed-decls",
+                  "import",
+                  "color-functions",
+                  "global-builtin",
+                  "legacy-js-api",
+                ],
+              },
             },
           },
         ],

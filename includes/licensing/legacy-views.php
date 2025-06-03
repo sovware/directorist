@@ -483,9 +483,9 @@
 									<div class="directorist-membership-status-description">
 										Update Available
 									</div>
-									<button type="button" class="directorist-membership-status-update-all">
+									<!-- <button type="button" class="directorist-membership-status-update-all">
 										Update All
-									</button>
+									</button> -->
 								</div>
 							</div>
 						</div>

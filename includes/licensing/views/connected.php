@@ -207,13 +207,6 @@
                     <div class="directorist-membership-status-description">
                         <?php esc_html_e( 'Update Available', 'directorist' )?>
                     </div>
-
-                    <?php if ( Licensing_Overview::get( 'backdated_count' ) ) : ?>
-                        <button type="button" class="directorist-membership-status-update-all">
-                            <?php esc_html_e( 'Update All', 'directorist' )?>
-                        </button>
-                    <?php endif; ?>
-
                 </div>
             </div>
         </div>

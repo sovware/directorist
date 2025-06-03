@@ -18,9 +18,8 @@
             </div>
             
             <ul class="directorist-insert-modal__list">
-                <p><?php esc_attr_e( "Here’s how:", 'directorist' ); ?></p>
-                <li class="directorist-insert-modal__item"> Click the Install Templatiq button below.</li>
-                <li class="directorist-insert-modal__item"> The plugin will be automatically installed and activated.</li>
+                <li class="directorist-insert-modal__item"> Click the <strong>Install Templatiq</strong> button below.</li>
+                <li class="directorist-insert-modal__item"> The plugin will be automatically <strong>installed and activated.</strong></li>
                 <li class="directorist-insert-modal__item"> Once activated, you'll be redirected to the Templatiq library.</li>
             </ul>
         </div>

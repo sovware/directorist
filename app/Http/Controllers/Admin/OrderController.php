@@ -47,11 +47,11 @@ class OrderController {
             ->set_user_id( $request->get_param( "user_id" ) )
             ->set_listing_id( $request->get_param( "listing_id" ) )
             // ->set_plan_id( $request->get_param( "plan_id" ) ) // Uncomment if plan_id is needed.
-            ->set_order_type( $request->get_param( "order_type" ) )
+            ->set_type( $request->get_param( "type" ) )
             ->set_amount( $request->get_param( "amount" ) )
             ->set_currency( $request->get_param( "currency" ) )
             // ->set_coupon_discount( $request->get_param( "coupon_discount" ) ) // Uncomment if coupon discount is needed.
-            ->set_order_status( $request->get_param( "order_status" ) )
+            ->set_status( $request->get_param( "status" ) )
             // ->set_expires_at( $request->get_param( "expires_at" ) ) // Uncomment if expires_at is needed.
             ;
         $id = $this->repository->create( $dto );
@@ -121,6 +121,21 @@ class OrderController {
         );
     }
 
+    public function update_status(Validator $validator, WP_REST_Request $request) {
+        $validator->validate([
+            'id' => 'numeric',
+            'status' => "required|accepted:pending,paid,failed,cancelled,expired",
+        ]);
+
+        $dto = new DTO;
+        $dto->set_id( $request->get_param( "id" ) )->set_status($request->get_param("status"));
+
+        $this->repository->update( $dto );
+
+        return Response::send([
+            'message' => esc_html__("Status updated successfully")
+        ]);
+    }
     /**
      * Remove the specified resource from storage.
      *
@@ -149,11 +164,11 @@ class OrderController {
             "user_id"      => "required|numeric",
             "listing_id"   => "numeric",
                 // "plan_id"      => "nullable|numeric", // Uncomment if plan_id is needed.
-            "order_type"   => "required|accepted:one_time,recurring",
+            "type"   => "required|accepted:one_time,recurring",
             "amount"       => "required|numeric|min:0",
             "currency"     => "required|string|max:10",
                 // "coupon_discount" => "nullable|numeric|min:0", // Uncomment if coupon discount is needed.
-            "order_status" => "required|accepted:pending,paid,failed,cancelled,expired",
+            "status" => "required|accepted:pending,paid,failed,cancelled,expired",
                 // "expires_at"   => "nullable|date", // Uncomment if expires_at is needed.
         ];
     }

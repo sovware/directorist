@@ -8,7 +8,16 @@ use Directorist\WpMVC\Routing\Route;
 
 Route::group(
     'admin', function() {
-        Route::resource( 'orders', OrderController::class );
+        Route::group(
+            'orders', function() {
+                Route::group(
+                    '{id}', function() {
+                        Route::post( 'status', [OrderController::class, 'update_status'] );
+                    }
+                );
+                Route::resource( '/', OrderController::class );
+            }
+        );
         Route::resource( 'payments', PaymentController::class );
     }, ['admin']
 );

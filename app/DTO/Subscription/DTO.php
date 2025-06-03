@@ -4,18 +4,22 @@ namespace Directorist\App\DTO\Subscription;
 
 defined( "ABSPATH" ) || exit;
 
+use Directorist\App\Helpers\DateTime;
+
 class DTO extends \Directorist\WpMVC\DTO\DTO {
     private int $id;
 
-    private int $order_id;
+    private int $plan_id;
 
-    private string $status; // 'active', 'cancelled', 'past_due', 'expired'
+    private int $user_id;
+
+    private string $status;
 
     private string $started_at;
 
     private string $current_period_end;
 
-    private string $cancelled_at;
+    private DateTime $cancelled_at;
 
     /**
      * Get the value of id
@@ -40,23 +44,45 @@ class DTO extends \Directorist\WpMVC\DTO\DTO {
     }
 
     /**
-     * Get the value of order_id
+     * Get the value of plan_id
      *
      * @return int
      */
-    public function get_order_id(): int {
-        return $this->order_id;
+    public function get_plan_id(): int {
+        return $this->plan_id;
     }
 
     /**
-     * Set the value of order_id
+     * Set the value of plan_id
      *
-     * @param int $order_id 
+     * @param int $plan_id 
      *
      * @return self
      */
-    public function set_order_id( int $order_id ): self {
-        $this->order_id = $order_id;
+    public function set_plan_id( int $plan_id ): self {
+        $this->plan_id = $plan_id;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of user_id
+     *
+     * @return int
+     */
+    public function get_user_id(): int {
+        return $this->user_id;
+    }
+
+    /**
+     * Set the value of user_id
+     *
+     * @param int $user_id 
+     *
+     * @return self
+     */
+    public function set_user_id( int $user_id ): self {
+        $this->user_id = $user_id;
 
         return $this;
     }
@@ -130,20 +156,20 @@ class DTO extends \Directorist\WpMVC\DTO\DTO {
     /**
      * Get the value of cancelled_at
      *
-     * @return string
+     * @return DateTime
      */
-    public function get_cancelled_at(): string {
+    public function get_cancelled_at(): DateTime {
         return $this->cancelled_at;
     }
 
     /**
      * Set the value of cancelled_at
      *
-     * @param string $cancelled_at 
+     * @param DateTime $cancelled_at 
      *
      * @return self
      */
-    public function set_cancelled_at( string $cancelled_at ): self {
+    public function set_cancelled_at( DateTime $cancelled_at ): self {
         $this->cancelled_at = $cancelled_at;
 
         return $this;

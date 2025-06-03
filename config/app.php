@@ -2,6 +2,9 @@
 
 defined( 'ABSPATH' ) || exit;
 
+use Directorist\App\Providers\ShortcodeServiceProvider;
+use Directorist\App\Providers\PaymentServiceProvider;
+use Directorist\App\Providers\OrderServiceProvider;
 use Directorist\App\Http\Middleware\EnsureIsUserAdmin;
 
 return [
@@ -17,7 +20,11 @@ return [
         'versions'  => []
     ],
 
-    'providers'               => [ ],
+    'providers'               => [
+        OrderServiceProvider::class,
+        PaymentServiceProvider::class,
+        ShortcodeServiceProvider::class
+    ],
 
     'admin_providers'         => [],
 

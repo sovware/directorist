@@ -152,12 +152,11 @@ class SubscriptionController {
      protected function get_validation_rules() {
         return [
                 "order_id"         => "required|numeric",
-                // "payment_date"     => "required|date",
                 // "amount"           => "required|numeric",
                 // "currency"         => "required|string|max:10",
-                "payment_status"   => "required|string|accepted:pending,paid,failed",
+                "status"   => "required|string|accepted:pending,paid,failed",
                 "transaction_id"   => "required|string|max:100",
-                "payment_method"   => "required|string|max:30"
+                "method"   => "required|string|max:30"
         ];
     }
 }

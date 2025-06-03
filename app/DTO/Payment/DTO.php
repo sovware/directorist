@@ -9,17 +9,15 @@ class DTO extends \Directorist\WpMVC\DTO\DTO {
 
     private int $order_id;
 
-    private string $payment_date;
-
     private float $amount;
 
     private string $currency;
 
-    private string $payment_status;
+    private string $status;
 
     private string $transaction_id;
 
-    private string $payment_method;
+    private string $method;
 
     /**
      * Get the value of id
@@ -61,28 +59,6 @@ class DTO extends \Directorist\WpMVC\DTO\DTO {
      */
     public function set_order_id( int $order_id ): self {
         $this->order_id = $order_id;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of payment_date
-     *
-     * @return string
-     */
-    public function get_payment_date(): string {
-        return $this->payment_date;
-    }
-
-    /**
-     * Set the value of payment_date
-     *
-     * @param string $payment_date 
-     *
-     * @return self
-     */
-    public function set_payment_date( string $payment_date ): self {
-        $this->payment_date = $payment_date;
 
         return $this;
     }
@@ -132,23 +108,23 @@ class DTO extends \Directorist\WpMVC\DTO\DTO {
     }
 
     /**
-     * Get the value of payment_status
+     * Get the value of status
      *
      * @return string
      */
-    public function get_payment_status(): string {
-        return $this->payment_status;
+    public function get_status(): string {
+        return $this->status;
     }
 
     /**
-     * Set the value of payment_status
+     * Set the value of status
      *
-     * @param string $payment_status 
+     * @param string $status 
      *
      * @return self
      */
-    public function set_payment_status( string $payment_status ): self {
-        $this->payment_status = $payment_status;
+    public function set_status( string $status ): self {
+        $this->status = $status;
 
         return $this;
     }
@@ -176,23 +152,23 @@ class DTO extends \Directorist\WpMVC\DTO\DTO {
     }
 
     /**
-     * Get the value of payment_method
+     * Get the value of method
      *
      * @return string
      */
-    public function get_payment_method(): string {
-        return $this->payment_method;
+    public function get_method(): string {
+        return $this->method;
     }
 
     /**
-     * Set the value of payment_method
+     * Set the value of method
      *
-     * @param string $payment_method 
+     * @param string $method 
      *
      * @return self
      */
-    public function set_payment_method( string $payment_method ): self {
-        $this->payment_method = $payment_method;
+    public function set_method( string $method ): self {
+        $this->method = $method;
 
         return $this;
     }

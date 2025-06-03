@@ -14,6 +14,7 @@
 defined( 'ABSPATH' ) || die( 'No direct script access allowed!' );
 
 require_once __DIR__ . '/vendor/vendor-src/autoload.php'; // Load Composer autoloader
+require_once __DIR__ . '/app/Helpers/helpers.php';
 
 use Directorist\App\Setup\Activation;
 use Directorist\WpMVC\App;

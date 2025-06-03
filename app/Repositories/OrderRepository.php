@@ -11,7 +11,7 @@ use Directorist\App\Models\Order;
 
 class OrderRepository extends Repository {
     public function get_query_builder(): Builder {
-        return Order::query( 'order' );
+        return Order::query( 'd_order' ); // in alias using d_order instead of order. because order keyword is reserved by sql.
     }
 
     public function get(): array {
@@ -34,8 +34,14 @@ class OrderRepository extends Repository {
         $dto->set_final_amount( $dto->get_amount() );
 
         do_action( 'directorist_before_order_create', $dto );
+        
+        $order_id = parent::create( $dto );
 
-        return parent::create( $dto );
+        $dto->set_id( $order_id );
+        
+        do_action( 'directorist_after_order_create', $dto );
+
+        return $order_id;
     }
 
     /**
@@ -46,10 +52,16 @@ class OrderRepository extends Repository {
      * @throws Exception If the update operation fails.
      */
     public function update( \Directorist\WpMVC\DTO\DTO $dto ) {
-        $dto->set_final_amount( $dto->get_amount() );
+        if ( $dto->is_initialized( "amount" ) ) {
+            $dto->set_final_amount( $dto->get_amount() );
+        }
 
         do_action( 'directorist_before_order_update', $dto );
 
-        return parent::update( $dto );
+        $update = parent::update( $dto );
+
+        do_action( 'directorist_after_order_update', $dto );
+
+        return $update;
     }
 }

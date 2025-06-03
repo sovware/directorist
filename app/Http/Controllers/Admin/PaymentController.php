@@ -48,12 +48,11 @@ class PaymentController {
 
         $dto = (new DTO)
             ->set_order_id( $request->get_param( "order_id" ) )
-            // ->set_payment_date( $request->get_param( "payment_date" ) )
             // ->set_amount( $request->get_param( "amount" ) )
             // ->set_currency( $request->get_param( "currency" ) )
-            ->set_payment_status( $request->get_param( "payment_status" ) )
+            ->set_status( $request->get_param( "status" ) )
             ->set_transaction_id( $request->get_param( "transaction_id" ) )
-            ->set_payment_method( $request->get_param( "payment_method" ) );
+            ->set_method( $request->get_param( "method" ) );
         $id  = $this->repository->create( $dto );
 
         return Response::send(
@@ -149,12 +148,11 @@ class PaymentController {
     protected function get_validation_rules() {
         return [
                 "order_id"         => "required|numeric",
-                // "payment_date"     => "required|date",
                 // "amount"           => "required|numeric",
                 // "currency"         => "required|string|max:10",
-                "payment_status"   => "required|string|accepted:pending,paid,failed",
+                "status"   => "required|string|accepted:pending,paid,failed",
                 "transaction_id"   => "required|string|max:100",
-                "payment_method"   => "required|string|max:30"
+                "method"   => "required|string|max:30"
         ];
     }
 }

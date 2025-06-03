@@ -20,44 +20,51 @@ class Activation {
             require_once ABSPATH . 'wp-admin/includes/upgrade.php';
         }
 
-        $sql = "CREATE TABLE {$db_prefix}orders (
-			id INT AUTO_INCREMENT PRIMARY KEY,
-			user_id INT,
-			listing_id INT NULL DEFAULT NULL,
-			-- plan_id INT,
-			order_type ENUM('one_time','recurring') DEFAULT 'one_time',
-			amount DECIMAL(10,2),
-			currency VARCHAR(10),
-			-- coupon_discount DECIMAL(10,2) DEFAULT 0.00,
-			final_amount DECIMAL(10,2) DEFAULT 0.00,
-			order_status ENUM('pending','paid','failed','cancelled','expired') DEFAULT 'pending',
-			expires_at TIMESTAMP NULL DEFAULT NULL,
-			created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-			updated_at TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP
-		);
-
-		CREATE TABLE {$db_prefix}payments (
-			id INT AUTO_INCREMENT PRIMARY KEY,
-			order_id INT,
-			payment_date TIMESTAMP NULL DEFAULT NULL,
-			amount DECIMAL(10,2),
-			currency VARCHAR(10),
-			payment_status ENUM('pending','paid','failed'),
-			transaction_id VARCHAR(100),
-			payment_method VARCHAR(30),
-			created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-			updated_at TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP
-		);
-
-		CREATE TABLE {$db_prefix}subscriptions (
-			id INT AUTO_INCREMENT PRIMARY KEY,
-			order_id INT,
-			`status` ENUM('active','cancelled','past_due','expired'),
-			started_at TIMESTAMP NULL DEFAULT NULL,
+        $sql = "CREATE TABLE {$db_prefix}subscriptions (
+			id INT NOT NULL AUTO_INCREMENT,
+			plan_id INT NULL,
+			user_id INT NOT NULL,
+			`status` ENUM('pending','active','trialing','cancelled','paused','past_due','expired') NOT NULL DEFAULT 'pending',
+			started_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 			current_period_end TIMESTAMP NULL DEFAULT NULL,
 			cancelled_at TIMESTAMP NULL DEFAULT NULL,
 			created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-			updated_at TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP
+			updated_at TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP,
+			PRIMARY KEY (id)
+		);
+
+		-- ORDERS
+		CREATE TABLE {$db_prefix}orders (
+			id INT NOT NULL AUTO_INCREMENT,
+			subscription_id INT NULL,
+			user_id INT NOT NULL,
+			listing_id INT NULL,
+			plan_id INT NULL,
+			is_featured_listing TINYINT DEFAULT 0,
+			`type` ENUM('one_time','recurring') NOT NULL,
+			amount DECIMAL(10,2) NOT NULL,
+			currency VARCHAR(10) NOT NULL,
+			coupon_discount DECIMAL(10,2) DEFAULT 0.00,
+			final_amount DECIMAL(10,2) DEFAULT 0.00,
+			`status` ENUM('pending','paid','failed','cancelled','expired','refunded','unpaid') NOT NULL DEFAULT 'pending',
+			expires_at TIMESTAMP NULL DEFAULT NULL,
+			created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+			updated_at TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP,
+			PRIMARY KEY (id)
+		);
+
+		-- PAYMENTS
+		CREATE TABLE {$db_prefix}payments (
+			id INT NOT NULL AUTO_INCREMENT,
+			order_id INT NOT NULL,
+			amount DECIMAL(10,2) NOT NULL,
+			currency VARCHAR(10) NOT NULL,
+			`status` ENUM('pending','paid','failed','cancelled','refunded','unpaid','expired') NOT NULL DEFAULT 'pending',
+			transaction_id VARCHAR(100) NULL,
+			method VARCHAR(30),
+			created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+			updated_at TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP,
+			PRIMARY KEY (id)
 		);";
 
         dbDelta( $sql );

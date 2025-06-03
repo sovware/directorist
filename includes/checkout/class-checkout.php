@@ -74,6 +74,9 @@ class ATBDP_Checkout
         // if the checkout form is submitted, then process placing order
         if ( isset( $_SERVER['REQUEST_METHOD'] ) && ( 'POST' == $_SERVER['REQUEST_METHOD'] ) && ATBDP()->helper->verify_nonce($this->nonce, $this->nonce_action)) { // @codingStandardsIgnoreLine.
             // Process the order
+
+            do_action( 'directorist_create_order', $listing_id );
+
             $this->create_order($listing_id, $_POST); // @codingStandardsIgnoreLine.
         } else {
             // Checkout form is not submitted, so show the content of the checkout items here

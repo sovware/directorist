@@ -14,8 +14,8 @@ class PaymentRepository extends Repository {
         return Payment::query( 'payment' );
     }
 
-    public function get() {
+    public function get( $order_id ) {
         $query = $this->get_query_builder();
-        return $query->order_by_desc( 'id' )->get();
+        return $query->where( 'order_id', $order_id )->order_by_desc( 'id' )->get();
     }
 }

@@ -2,16 +2,24 @@
 
 namespace Directorist\App\DTO\Order;
 
+use Directorist\App\Helpers\DateTime;
+
 defined( "ABSPATH" ) || exit;
 
 class DTO extends \Directorist\WpMVC\DTO\DTO {
     private int $id;
 
+    private int $subscription_id;
+
     private int $user_id;
 
-    private ?int $listing_id = null;
+    private int $listing_id;
 
-    private string $order_type;
+    private int $plan_id;
+
+    private int $is_featured_listing;
+
+    private string $type;
 
     private float $amount;
 
@@ -19,9 +27,9 @@ class DTO extends \Directorist\WpMVC\DTO\DTO {
 
     private float $final_amount;
 
-    private string $order_status;
+    private string $status;
 
-    private string $expires_at;
+    private DateTime $expires_at;
 
     /**
      * Get the value of id
@@ -41,6 +49,28 @@ class DTO extends \Directorist\WpMVC\DTO\DTO {
      */
     public function set_id( int $id ): self {
         $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of subscription_id
+     *
+     * @return int
+     */
+    public function get_subscription_id(): int {
+        return $this->subscription_id;
+    }
+
+    /**
+     * Set the value of subscription_id
+     *
+     * @param int $subscription_id 
+     *
+     * @return self
+     */
+    public function set_subscription_id( int $subscription_id ): self {
+        $this->subscription_id = $subscription_id;
 
         return $this;
     }
@@ -70,43 +100,87 @@ class DTO extends \Directorist\WpMVC\DTO\DTO {
     /**
      * Get the value of listing_id
      *
-     * @return ?int
+     * @return int
      */
-    public function get_listing_id(): ?int {
+    public function get_listing_id(): int {
         return $this->listing_id;
     }
 
     /**
      * Set the value of listing_id
      *
-     * @param ?int $listing_id 
+     * @param int $listing_id 
      *
      * @return self
      */
-    public function set_listing_id( ?int $listing_id ): self {
+    public function set_listing_id( int $listing_id ): self {
         $this->listing_id = $listing_id;
 
         return $this;
     }
 
     /**
-     * Get the value of order_type
+     * Get the value of plan_id
      *
-     * @return string
+     * @return int
      */
-    public function get_order_type(): string {
-        return $this->order_type;
+    public function get_plan_id(): int {
+        return $this->plan_id;
     }
 
     /**
-     * Set the value of order_type
+     * Set the value of plan_id
      *
-     * @param string $order_type 
+     * @param int $plan_id 
      *
      * @return self
      */
-    public function set_order_type( string $order_type ): self {
-        $this->order_type = $order_type;
+    public function set_plan_id( int $plan_id ): self {
+        $this->plan_id = $plan_id;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of is_featured_listing
+     *
+     * @return int
+     */
+    public function get_is_featured_listing(): int {
+        return $this->is_featured_listing;
+    }
+
+    /**
+     * Set the value of is_featured_listing
+     *
+     * @param int $is_featured_listing 
+     *
+     * @return self
+     */
+    public function set_is_featured_listing( int $is_featured_listing ): self {
+        $this->is_featured_listing = $is_featured_listing;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of type
+     *
+     * @return string
+     */
+    public function get_type(): string {
+        return $this->type;
+    }
+
+    /**
+     * Set the value of type
+     *
+     * @param string $type 
+     *
+     * @return self
+     */
+    public function set_type( string $type ): self {
+        $this->type = $type;
 
         return $this;
     }
@@ -178,23 +252,23 @@ class DTO extends \Directorist\WpMVC\DTO\DTO {
     }
 
     /**
-     * Get the value of order_status
+     * Get the value of status
      *
      * @return string
      */
-    public function get_order_status(): string {
-        return $this->order_status;
+    public function get_status(): string {
+        return $this->status;
     }
 
     /**
-     * Set the value of order_status
+     * Set the value of status
      *
-     * @param string $order_status 
+     * @param string $status 
      *
      * @return self
      */
-    public function set_order_status( string $order_status ): self {
-        $this->order_status = $order_status;
+    public function set_status( string $status ): self {
+        $this->status = $status;
 
         return $this;
     }
@@ -202,20 +276,20 @@ class DTO extends \Directorist\WpMVC\DTO\DTO {
     /**
      * Get the value of expires_at
      *
-     * @return string
+     * @return DateTime
      */
-    public function get_expires_at(): string {
+    public function get_expires_at(): DateTime {
         return $this->expires_at;
     }
 
     /**
      * Set the value of expires_at
      *
-     * @param string $expires_at 
+     * @param DateTime $expires_at 
      *
      * @return self
      */
-    public function set_expires_at( string $expires_at ): self {
+    public function set_expires_at( DateTime $expires_at ): self {
         $this->expires_at = $expires_at;
 
         return $this;

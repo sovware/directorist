@@ -15,7 +15,11 @@ class OrderRepository extends Repository {
     }
 
     public function get(): array {
-        $query = $this->get_query_builder();
+        $query = $this->get_query_builder()->with(
+            'payments', function( $query ) {
+                $query->order_by_desc( 'id' );
+            }
+        );
 
         // Add any additional query conditions here if needed.
         // For example, filtering by user ID, status, etc.
@@ -56,6 +60,15 @@ class OrderRepository extends Repository {
             $dto->set_final_amount( $dto->get_amount() );
         }
 
+        if ( $dto->is_initialized( 'status' ) && 'paid' === $dto->get_status() ) {
+            $order = $this->get_by_id( $dto->get_id() );
+
+            if ( $order->is_featured_listing && ! $order->expires_at ) {
+                $featured_days = get_directorist_option( 'featured_listing_time', 30 );
+                $dto->set_expires_at( directorist_now()->add_days( $featured_days ) );
+            }
+        }
+
         do_action( 'directorist_before_order_update', $dto );
 
         $update = parent::update( $dto );
@@ -63,5 +76,13 @@ class OrderRepository extends Repository {
         do_action( 'directorist_after_order_update', $dto );
 
         return $update;
+    }
+
+    public function single( $id ) {
+        return $this->get_query_builder()->with(
+            'payments', function( $query ) {
+                $query->order_by_desc( 'id' );
+            }
+        )->where( 'id', $id )->get();
     }
 }

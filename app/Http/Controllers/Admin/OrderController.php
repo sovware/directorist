@@ -46,14 +46,10 @@ class OrderController {
         $dto = ( new DTO )
             ->set_user_id( $request->get_param( "user_id" ) )
             ->set_listing_id( $request->get_param( "listing_id" ) )
-            // ->set_plan_id( $request->get_param( "plan_id" ) ) // Uncomment if plan_id is needed.
             ->set_type( $request->get_param( "type" ) )
             ->set_amount( $request->get_param( "amount" ) )
             ->set_currency( $request->get_param( "currency" ) )
-            // ->set_coupon_discount( $request->get_param( "coupon_discount" ) ) // Uncomment if coupon discount is needed.
-            ->set_status( $request->get_param( "status" ) )
-            // ->set_expires_at( $request->get_param( "expires_at" ) ) // Uncomment if expires_at is needed.
-            ;
+            ->set_status( $request->get_param( "status" ) )            ;
         $id = $this->repository->create( $dto );
 
         return Response::send(
@@ -81,7 +77,7 @@ class OrderController {
             ]
         );
 
-        $order = $this->repository->get_by_id( $request->get_param( "id" ) );
+        $order = $this->repository->single( $request->get_param( "id" ) );
 
         if ( ! $order ) {
             throw new Exception( esc_html__( "Order not found" ) );
@@ -89,7 +85,7 @@ class OrderController {
 
         return Response::send(
             [
-                "data" => $order
+                "order" => $order
             ]
         );
     }
@@ -109,8 +105,10 @@ class OrderController {
             )
         );
 
-        $dto = new DTO;
-        $dto->set_id( $request->get_param( "id" ) );
+        $dto = (new DTO)->set_id( $request->get_param( "id" ) )
+        ->set_user_id( $request->get_param('user_id') )
+        ->set_listing_id($request->get_param('listing_id') )
+        ->set_status($request->get_param('status'));
 
         $this->repository->update( $dto );
 
@@ -163,13 +161,7 @@ class OrderController {
         return [
             "user_id"      => "required|numeric",
             "listing_id"   => "numeric",
-                // "plan_id"      => "nullable|numeric", // Uncomment if plan_id is needed.
-            "type"   => "required|accepted:one_time,recurring",
-            "amount"       => "required|numeric|min:0",
-            "currency"     => "required|string|max:10",
-                // "coupon_discount" => "nullable|numeric|min:0", // Uncomment if coupon discount is needed.
-            "status" => "required|accepted:pending,paid,failed,cancelled,expired",
-                // "expires_at"   => "nullable|date", // Uncomment if expires_at is needed.
+            "status" => "required|accepted:pending,paid,failed,cancelled,expired"
         ];
     }
 }

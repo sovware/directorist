@@ -1229,7 +1229,9 @@ function updateLocalNonce() {
     },
     success: function success(response) {
       if (response.success) {
-        window.directorist.directorist_nonce = response.data.directorist_nonce;
+        for (var key in response.data) {
+          window.directorist[key] = response.data[key];
+        }
       }
     }
   });

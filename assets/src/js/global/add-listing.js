@@ -565,16 +565,16 @@ $( function () {
 			return;
 		}
 
-		const $form            = $(e.target);
-        const err_log          = {};
-        const $submitButton    = $form.find('.directorist-form-submit__btn');
-        let   error_count      = 0;
-        let   uploadableImages = [];
-        let   counter          = 0;
+		const $form = $( e.target );
+		const err_log = {};
+		const $submitButton = $form.find( '.directorist-form-submit__btn' );
+		let error_count = 0;
+		let uploadableImages = [];
+		let counter = 0;
 
-        const $directory   = $form.find( "input[name='directory_type']" );
-        let   directory_id = $directory !== undefined ? $directory.val() : 0;
-              directory_id = qs.directory_type ? qs.directory_type : directory_id;
+		const $directory = $form.find( "input[name='directory_type']" );
+		let directory_id = $directory !== undefined ? $directory.val() : 0;
+		directory_id = qs.directory_type ? qs.directory_type : directory_id;
 
 		function disableSubmitButton() {
 			FORM_ON_PROCESSING = true;
@@ -619,25 +619,28 @@ $( function () {
 						}
 
 						uploadableImages.push( {
-							field       : uploader.uploaders_data.meta_name,
-							file        : file,
-							uploadedFile: ''
+							field: uploader.uploaders_data.meta_name,
+							file: file,
+							uploadedFile: '',
 						} );
 					} );
 			}
 		}
 
 		if ( uploadableImages.length ) {
-
 			function uploadImage() {
-				if ( UPLOADED_IMAGES_CACHE.has( uploadableImages[ counter ].file ) ) {
-                    return;
-                }
+				if (
+					UPLOADED_IMAGES_CACHE.has(
+						uploadableImages[ counter ].file
+					)
+				) {
+					return;
+				}
 
 				const formData = new FormData();
 				formData.append( 'file', uploadableImages[ counter ].file );
-                formData.append( 'field', uploadableImages[ counter ].field );
-                formData.append( 'directory', directory_id );
+				formData.append( 'field', uploadableImages[ counter ].field );
+				formData.append( 'directory', directory_id );
 
 				// formData.append( 'action', 'directorist_upload_listing_image' );
 				// formData.append(
@@ -653,11 +656,16 @@ $( function () {
 					processData: false,
 					contentType: false,
 					mimeType: 'multipart/form-data',
-                    async: true,
-                    url: directorist.rest_url + 'directorist/v1/temp-media-upload',
-                    data: formData,
-                    beforeSend( xhr ) {
-                        xhr.setRequestHeader( 'X-WP-Nonce', directorist.rest_nonce );
+					async: true,
+					url:
+						directorist.rest_url +
+						'directorist/v1/temp-media-upload',
+					data: formData,
+					beforeSend( xhr ) {
+						xhr.setRequestHeader(
+							'X-WP-Nonce',
+							directorist.rest_nonce
+						);
 
 						disableSubmitButton();
 
@@ -686,31 +694,36 @@ $( function () {
 
 						uploadableImages[ counter ].uploadedFile = data.file;
 
-                        UPLOADED_IMAGES_CACHE.set( uploadableImages[ counter ].file, true );
+						UPLOADED_IMAGES_CACHE.set(
+							uploadableImages[ counter ].file,
+							true
+						);
 
 						++counter;
 
-                        if ( counter < uploadableImages.length ) {
-                            uploadImage();
-                        } else {
-                            submitForm( $form, uploadableImages );
-                        }
+						if ( counter < uploadableImages.length ) {
+							uploadImage();
+						} else {
+							submitForm( $form, uploadableImages );
+						}
 					},
 					error( xhr ) {
-                        const data = JSON.parse( xhr.responseText );
+						const data = JSON.parse( xhr.responseText );
 
-                        enableSubmitButton();
+						enableSubmitButton();
 
-                        $notification.html(`<span class="atbdp_error">${data.message}</span>`);
-                    }
+						$notification.html(
+							`<span class="atbdp_error">${ data.message }</span>`
+						);
+					},
 				} );
 			}
 
 			if ( counter < uploadableImages.length ) {
-                uploadImage();
-            } else {
-                submitForm( $form, uploadableImages );
-            }
+				uploadImage();
+			} else {
+				submitForm( $form, uploadableImages );
+			}
 		} else {
 			submitForm( $form );
 		}
@@ -779,7 +792,10 @@ $( function () {
 			// Upload new image
 			if ( uploadedImages.length ) {
 				uploadedImages.forEach( function ( image ) {
-					form_data.append(`${image.field}[]`, image.uploadedFile);
+					form_data.append(
+						`${ image.field }[]`,
+						image.uploadedFile
+					);
 				} );
 			}
 
@@ -1503,8 +1519,9 @@ function updateLocalNonce() {
 		},
 		success: function ( response ) {
 			if ( response.success ) {
-				window.directorist.directorist_nonce =
-					response.data.directorist_nonce;
+				for ( let key in response.data ) {
+					window.directorist[ key ] = response.data[ key ];
+				}
 			}
 		},
 	} );

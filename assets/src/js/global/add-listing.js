@@ -125,165 +125,41 @@ $( function () {
 		addFirstSocialItem();
 	} );
 
+	function reOrderSocialItems() {
+		$( '.directorist-form-social-fields' ).each( function( index, element ) {
+			const $element = $( element );
+			$element.attr( 'id', `socialID-${ index }` );
+			$element.find( 'select' ).attr( 'name', `social[${ index }][id]` );
+			$element.find( '.atbdp_social_input' ).attr( 'name', `social[${ index }][url]` );
+			$element.find( '.directorist-form-social-fields__remove' ).attr( 'data-id', index );
+		});
+	}
+
+	// remove the social field and then reset the ids while maintaining position
+	$( 'body' ).on( 'click', '.directorist-form-social-fields__remove', function(e) {
+		const $removable = $( `div#socialID-${ $( this ).data( 'id' ) }` );
+
+		swal( {
+			title: localized_data.i18n_text.confirmation_text,
+			text: localized_data.i18n_text.ask_conf_sl_lnk_del_txt,
+			type: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#DD6B55',
+			confirmButtonText: localized_data.i18n_text.confirm_delete,
+		}, function ( isConfirm ) {
+			if ( isConfirm ) {
+				$removable.css('background-color', '#ff9eac').fadeOut(400, function() {
+					$(this).remove();
+				});
+
+				reOrderSocialItems();
+			}
+		} );
+	} );
+
 	document.addEventListener( 'directorist-reload-plupload', function () {
 		initColorField();
 	} );
-
-	// remove the social field and then reset the ids while maintaining position
-	$( 'body' ).on(
-		'click',
-		'.directorist-form-social-fields__remove',
-		function ( e ) {
-			const id = $( this ).data( 'id' );
-			const elementToRemove = $( `div#socialID-${ id }` );
-			/* Act on the event */
-			swal(
-				{
-					title: localized_data.i18n_text.confirmation_text,
-					text: localized_data.i18n_text.ask_conf_sl_lnk_del_txt,
-					type: 'warning',
-					showCancelButton: true,
-					confirmButtonColor: '#DD6B55',
-					confirmButtonText: localized_data.i18n_text.confirm_delete,
-					closeOnConfirm: false,
-				},
-				function ( isConfirm ) {
-					if ( isConfirm ) {
-						// user has confirmed, no remove the item and reset the ids
-						elementToRemove.slideUp( 'fast', function () {
-							elementToRemove.remove();
-							// reorder the index
-							$( '.directorist-form-social-fields' ).each(
-								function ( index, element ) {
-									const e = $( element );
-									e.attr( 'id', `socialID-${ index }` );
-									e.find( 'select' ).attr(
-										'name',
-										`social[${ index }][id]`
-									);
-									e.find( '.atbdp_social_input' ).attr(
-										'name',
-										`social[${ index }][url]`
-									);
-									e.find(
-										'.directorist-form-social-fields__remove'
-									).attr( 'data-id', index );
-								}
-							);
-						} );
-
-						// show success message
-						swal( {
-							title: localized_data.i18n_text.deleted,
-							// text: "Item has been deleted.",
-							type: 'success',
-							timer: 200,
-							showConfirmButton: false,
-						} );
-					}
-				}
-			);
-		}
-	);
-
-	/* This function handles all ajax request */
-	function atbdp_do_ajax(
-		ElementToShowLoadingIconAfter,
-		ActionName,
-		arg,
-		CallBackHandler
-	) {
-		let data;
-		if ( ActionName ) data = `action=${ ActionName }`;
-		if ( arg ) data = `${ arg }&action=${ ActionName }`;
-		if ( arg && ! ActionName ) data = arg;
-		// data = data ;
-
-		const n = data.search( localized_data.nonceName );
-
-		if ( n < 0 ) {
-			const nonce =
-				typeof directorist !== 'undefined'
-					? directorist.directorist_nonce
-					: directorist_admin.directorist_nonce;
-			data = `${ data }&${ 'directorist_nonce' }=${ nonce }`;
-		}
-
-		jQuery.ajax( {
-			type: 'post',
-			url: localized_data.ajaxurl,
-			data,
-			beforeSend() {
-				jQuery(
-					"<span class='atbdp_ajax_loading'></span>"
-				).insertAfter( ElementToShowLoadingIconAfter );
-			},
-			success( data ) {
-				jQuery( '.atbdp_ajax_loading' ).remove();
-				CallBackHandler( data );
-			},
-		} );
-	}
-
-	// Select2 js code
-	// if (!localized_data.is_admin) {
-	// Location
-	// const createLoc = $('#at_biz_dir-location').attr("data-allow_new");
-	// let maxLocationLength = $('#at_biz_dir-location').attr("data-max");
-	// if (createLoc) {
-	//     $("#at_biz_dir-location").select2({
-	//         tags: true,
-	//         maximumSelectionLength: maxLocationLength,
-	//         language: {
-	//             maximumSelected: function () {
-	//                 return localized_data.i18n_text.max_location_msg;
-	//             }
-	//         },
-	//         tokenSeparators: [","],
-	//     });
-	// } else {
-	//     $("#at_biz_dir-location").select2({
-	//         allowClear: true,
-	//         tags: false,
-	//         maximumSelectionLength: maxLocationLength,
-	//         tokenSeparators: [","],
-	//     });
-	// }
-
-	// // Tags
-	// const createTag = $('#at_biz_dir-tags').attr("data-allow_new");
-	// let maxTagLength = $('#at_biz_dir-tags').attr("data-max");
-	// if (createTag) {
-	//     $('#at_biz_dir-tags').select2({
-	//         tags: true,
-	//         maximumSelectionLength: maxTagLength,
-	//         tokenSeparators: [','],
-	//     });
-	// } else {
-	//     $('#at_biz_dir-tags').select2({
-	//         allowClear: true,
-	//         maximumSelectionLength: maxTagLength,
-	//         tokenSeparators: [','],
-	//     });
-	// }
-
-	// //Category
-	// const createCat = $('#at_biz_dir-categories').attr("data-allow_new");
-	// let maxCatLength = $('#at_biz_dir-categories').attr("data-max");
-	// if (createCat) {
-	//     $('#at_biz_dir-categories').select2({
-	//         allowClear: true,
-	//         tags: true,
-	//         maximumSelectionLength: maxCatLength,
-	//         tokenSeparators: [','],
-	//     });
-	// } else {
-	//     $('#at_biz_dir-categories').select2({
-	//         maximumSelectionLength: maxCatLength,
-	//         allowClear: true,
-	//     });
-	// }
-	// }
 
 	/**
 	 * Price field.

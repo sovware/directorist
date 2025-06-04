@@ -222,136 +222,38 @@ $(function () {
   window.addEventListener('directorist-type-change', function () {
     addFirstSocialItem();
   });
-  document.addEventListener('directorist-reload-plupload', function () {
-    initColorField();
-  });
+  function reOrderSocialItems() {
+    $('.directorist-form-social-fields').each(function (index, element) {
+      var $element = $(element);
+      $element.attr('id', "socialID-".concat(index));
+      $element.find('select').attr('name', "social[".concat(index, "][id]"));
+      $element.find('.atbdp_social_input').attr('name', "social[".concat(index, "][url]"));
+      $element.find('.directorist-form-social-fields__remove').attr('data-id', index);
+    });
+  }
 
   // remove the social field and then reset the ids while maintaining position
   $('body').on('click', '.directorist-form-social-fields__remove', function (e) {
-    var id = $(this).data('id');
-    var elementToRemove = $("div#socialID-".concat(id));
-    /* Act on the event */
+    var $removable = $("div#socialID-".concat($(this).data('id')));
     swal({
       title: localized_data.i18n_text.confirmation_text,
       text: localized_data.i18n_text.ask_conf_sl_lnk_del_txt,
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#DD6B55',
-      confirmButtonText: localized_data.i18n_text.confirm_delete,
-      closeOnConfirm: false
+      confirmButtonText: localized_data.i18n_text.confirm_delete
     }, function (isConfirm) {
       if (isConfirm) {
-        // user has confirmed, no remove the item and reset the ids
-        elementToRemove.slideUp('fast', function () {
-          elementToRemove.remove();
-          // reorder the index
-          $('.directorist-form-social-fields').each(function (index, element) {
-            var e = $(element);
-            e.attr('id', "socialID-".concat(index));
-            e.find('select').attr('name', "social[".concat(index, "][id]"));
-            e.find('.atbdp_social_input').attr('name', "social[".concat(index, "][url]"));
-            e.find('.directorist-form-social-fields__remove').attr('data-id', index);
-          });
+        $removable.css('background-color', '#ff9eac').fadeOut(400, function () {
+          $(this).remove();
         });
-
-        // show success message
-        swal({
-          title: localized_data.i18n_text.deleted,
-          // text: "Item has been deleted.",
-          type: 'success',
-          timer: 200,
-          showConfirmButton: false
-        });
+        reOrderSocialItems();
       }
     });
   });
-
-  /* This function handles all ajax request */
-  function atbdp_do_ajax(ElementToShowLoadingIconAfter, ActionName, arg, CallBackHandler) {
-    var data;
-    if (ActionName) data = "action=".concat(ActionName);
-    if (arg) data = "".concat(arg, "&action=").concat(ActionName);
-    if (arg && !ActionName) data = arg;
-    // data = data ;
-
-    var n = data.search(localized_data.nonceName);
-    if (n < 0) {
-      var nonce = typeof directorist !== 'undefined' ? directorist.directorist_nonce : directorist_admin.directorist_nonce;
-      data = "".concat(data, "&", 'directorist_nonce', "=").concat(nonce);
-    }
-    jQuery.ajax({
-      type: 'post',
-      url: localized_data.ajaxurl,
-      data: data,
-      beforeSend: function beforeSend() {
-        jQuery("<span class='atbdp_ajax_loading'></span>").insertAfter(ElementToShowLoadingIconAfter);
-      },
-      success: function success(data) {
-        jQuery('.atbdp_ajax_loading').remove();
-        CallBackHandler(data);
-      }
-    });
-  }
-
-  // Select2 js code
-  // if (!localized_data.is_admin) {
-  // Location
-  // const createLoc = $('#at_biz_dir-location').attr("data-allow_new");
-  // let maxLocationLength = $('#at_biz_dir-location').attr("data-max");
-  // if (createLoc) {
-  //     $("#at_biz_dir-location").select2({
-  //         tags: true,
-  //         maximumSelectionLength: maxLocationLength,
-  //         language: {
-  //             maximumSelected: function () {
-  //                 return localized_data.i18n_text.max_location_msg;
-  //             }
-  //         },
-  //         tokenSeparators: [","],
-  //     });
-  // } else {
-  //     $("#at_biz_dir-location").select2({
-  //         allowClear: true,
-  //         tags: false,
-  //         maximumSelectionLength: maxLocationLength,
-  //         tokenSeparators: [","],
-  //     });
-  // }
-
-  // // Tags
-  // const createTag = $('#at_biz_dir-tags').attr("data-allow_new");
-  // let maxTagLength = $('#at_biz_dir-tags').attr("data-max");
-  // if (createTag) {
-  //     $('#at_biz_dir-tags').select2({
-  //         tags: true,
-  //         maximumSelectionLength: maxTagLength,
-  //         tokenSeparators: [','],
-  //     });
-  // } else {
-  //     $('#at_biz_dir-tags').select2({
-  //         allowClear: true,
-  //         maximumSelectionLength: maxTagLength,
-  //         tokenSeparators: [','],
-  //     });
-  // }
-
-  // //Category
-  // const createCat = $('#at_biz_dir-categories').attr("data-allow_new");
-  // let maxCatLength = $('#at_biz_dir-categories').attr("data-max");
-  // if (createCat) {
-  //     $('#at_biz_dir-categories').select2({
-  //         allowClear: true,
-  //         tags: true,
-  //         maximumSelectionLength: maxCatLength,
-  //         tokenSeparators: [','],
-  //     });
-  // } else {
-  //     $('#at_biz_dir-categories').select2({
-  //         maximumSelectionLength: maxCatLength,
-  //         allowClear: true,
-  //     });
-  // }
-  // }
+  document.addEventListener('directorist-reload-plupload', function () {
+    initColorField();
+  });
 
   /**
    * Price field.

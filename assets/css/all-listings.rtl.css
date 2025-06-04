@@ -7741,6 +7741,9 @@ body.modal-overlay-enabled:before {
 	> label {
 	font-size: 16px;
 	font-weight: 500;
+	position: unset;
+	-webkit-transform: unset;
+	transform: unset;
 }
 .directorist-widget-advanced-search
 	.directorist-search-form
@@ -16900,7 +16903,7 @@ input.directorist-toggle-input:checked
 	font-size: 14px;
 	font-weight: 500;
 	color: var(--directorist-color-primary);
-	border: none;
+	border: none !important;
 	outline: none;
 	-webkit-box-shadow: none;
 	box-shadow: none;

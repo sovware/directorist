@@ -52,7 +52,7 @@
 			}
 		}
 	}
-	.directorist-card__header__title{
+	.directorist-card__header__title {
 		justify-content: space-between;
 	}
 }
@@ -67,10 +67,10 @@
 			padding: 8px 16px;
 			border-radius: 8px;
 			border: 1px solid var(--directorist-color-border);
-			&:focus{
+			&:focus {
 				border: 1px solid var(--directorist-color-dark);
 			}
-			@include e('prefix') {
+			@include e("prefix") {
 				height: 46px;
 				line-height: 46px;
 			}
@@ -94,7 +94,7 @@
 
 // Directorist author info
 .directorist-widget__author-info {
-	figure{
+	figure {
 		margin: 0;
 	}
 	.diretorist-view-profile-btn {
@@ -108,7 +108,7 @@
 	&.directorist-widget__map.leaflet-container {
 		margin-bottom: 0;
 		border-radius: 12px;
-  	}
+	}
 }
 
 // Directorist widget Listing
@@ -124,12 +124,12 @@
 .directorist-widget-listing__image {
 	width: 70px;
 	height: 70px;
-	a{
-		&:focus{
-		outline: none;
+	a {
+		&:focus {
+			outline: none;
 		}
 	}
-	img{
+	img {
 		width: 100%;
 		height: 100%;
 		border-radius: 10px;
@@ -155,7 +155,7 @@
 		text-overflow: ellipsis;
 		overflow: hidden;
 		color: var(--directorist-color-dark);
-		&:focus{
+		&:focus {
 			outline: none;
 		}
 	}
@@ -175,7 +175,7 @@
 	}
 	.directorist-icon-mask {
 		line-height: 1;
-		&:after{
+		&:after {
 			width: 12px;
 			height: 12px;
 			background-color: var(--directorist-color-warning);
@@ -218,7 +218,7 @@
 
 		span.la,
 		span.fa {
-		cursor: pointer;
+			cursor: pointer;
 			margin: 0 5px 0 0;
 		}
 	}
@@ -244,12 +244,12 @@
 				position: relative;
 
 				&:before {
-				position: absolute;
-				content: '-';
-				left: -12px;
-				top: 50%;
-				font-size: 20px;
-				transform: translateY(-50%);
+					position: absolute;
+					content: "-";
+					left: -12px;
+					top: 50%;
+					font-size: 20px;
+					transform: translateY(-50%);
 				}
 			}
 		}
@@ -261,7 +261,7 @@
 	.directorist-taxonomy-list-one {
 		margin-block-end: 10px;
 		.directorist-taxonomy-list {
-			@include e('card') {
+			@include e("card") {
 				background: none;
 				padding: 0;
 				min-height: auto;
@@ -272,13 +272,13 @@
 					}
 				}
 			}
-			@include e('icon') {
+			@include e("icon") {
 				.directorist-icon-mask {
 					background-color: var(--directorist-color-light);
 				}
 			}
 		}
-		@include e('icon-default') {
+		@include e("icon-default") {
 			width: 40px;
 			height: 40px;
 			border-radius: 50%;
@@ -287,7 +287,7 @@
 			align-items: center;
 			justify-content: center;
 			&::after {
-				content: '';
+				content: "";
 				width: 8px;
 				height: 8px;
 				border-radius: 50%;
@@ -295,21 +295,26 @@
 				display: block;
 			}
 		}
-		.directorist-taxonomy-list__toggle--open + .directorist-taxonomy-list__sub-item {
+		.directorist-taxonomy-list__toggle--open
+			+ .directorist-taxonomy-list__sub-item {
 			background: none;
 			padding-bottom: 0;
 			padding-inline-start: 52px;
 		}
-		.directorist-taxonomy-list__toggle--open:not(.directorist-taxonomy-list__card--icon) + .directorist-taxonomy-list__sub-item{
+		.directorist-taxonomy-list__toggle--open:not(
+				.directorist-taxonomy-list__card--icon
+			)
+			+ .directorist-taxonomy-list__sub-item {
 			padding-inline-start: 25px;
 		}
 	}
 }
 .directorist-widget-location .directorist-taxonomy-list-one {
-	&:last-child{
+	&:last-child {
 		margin-bottom: 0;
 	}
-	.directorist-taxonomy-list__toggle--open + .directorist-taxonomy-list__sub-item {
+	.directorist-taxonomy-list__toggle--open
+		+ .directorist-taxonomy-list__sub-item {
 		padding-inline-start: 25px;
 	}
 }
@@ -352,7 +357,6 @@
 		.directorist-search-form-action {
 			margin-top: 25px;
 		}
-	
 	}
 
 	.directorist-search-form-top {
@@ -388,7 +392,7 @@
 			flex-direction: column;
 		}
 	}
-	
+
 	.directorist-search-form {
 		.directorist-search-field {
 			> label {
@@ -405,6 +409,8 @@
 				> label {
 					font-size: 16px;
 					font-weight: 500;
+					position: unset;
+					transform: unset;
 				}
 			}
 			&.input-is-focused .directorist-search-field__label,
@@ -420,10 +426,13 @@
 		padding: 0;
 	}
 
-	.directorist-search-field-review .directorist-checkbox input[type=checkbox] + label:not(:last-child) {
+	.directorist-search-field-review
+		.directorist-checkbox
+		input[type="checkbox"]
+		+ label:not(:last-child) {
 		margin-bottom: 15px;
 	}
-	
+
 	.directorist-btn-ml {
 		display: block;
 		font-size: 13px;
@@ -434,7 +443,7 @@
 			color: var(--directorist-color-primary);
 		}
 	}
-	
+
 	.directorist-advanced-filter__action {
 		padding: 0 0;
 		flex-wrap: wrap;
@@ -479,7 +488,7 @@
 		input:not(input[type="checkbox"]) {
 			display: block;
 		}
-		label{
+		label {
 			padding-bottom: 10px;
 		}
 		input:not(input[type="checkbox"]) {

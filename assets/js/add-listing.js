@@ -135,12 +135,6 @@ function initColorField() {
     $colorField.wpColorPicker();
   }
 }
-function scrollToEl(selector) {
-  document.querySelector(selector).scrollIntoView({
-    block: 'start',
-    behavior: 'smooth'
-  });
-}
 
 /**
  * Join Query String
@@ -196,22 +190,6 @@ $(function () {
       var html = template.html().replace(/_ID_/g, socialFieldsCount);
       $container.append(html);
     }
-
-    // const currentItems = $('.directorist-form-social-fields').length;
-    // const ID = `id=${currentItems}`; // eg. 'id=3'
-    // const iconBindingElement = jQuery('#addNewSocial');
-
-    // arrange names ID in order before adding new elements
-    // $('.directorist-form-social-fields').each(function (index, element) {
-    // 	const e = $(element);
-    // 	e.attr('id', `socialID-${index}`);
-    // 	e.find('select').attr('name', `social[${index}][id]`);
-    // 	e.find('.atbdp_social_input').attr('name', `social[${index}][url]`);
-    // 	e.find('.directorist-form-social-fields__remove').attr(
-    // 		'data-id',
-    // 		index
-    // 	);
-    // });
   });
   function addFirstSocialItem() {
     if (!$('#social_info_sortable_container').find('.directorist-form-social-fields').length) {

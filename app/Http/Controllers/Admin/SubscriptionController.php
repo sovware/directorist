@@ -2,10 +2,9 @@
 
 namespace Directorist\App\Http\Controllers\Admin;
 
-use Directorist\App\DTO\Subscription\DTO;
-
 defined( "ABSPATH" ) || exit;
 
+use Directorist\App\DTO\Subscription\DTO;
 use Directorist\App\Repositories\SubscriptionRepository;
 use Directorist\App\Http\Controllers\Controller;
 use Directorist\WpMVC\Exceptions\Exception;

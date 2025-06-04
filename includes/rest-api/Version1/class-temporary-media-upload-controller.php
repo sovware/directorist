@@ -66,7 +66,13 @@ class Temporary_Media_Upload_Controller extends Abstract_Controller {
     }
 
     public function create_item( $request ) {
-        $directory = get_term_by( 'slug', $request['directory'], ATBDP_DIRECTORY_TYPE );
+        $field = 'slug';
+        if ( is_numeric( $request['directory'] ) ) {
+            $field = 'id';
+        }
+
+        $directory = get_term_by( $field, $request['directory'], ATBDP_DIRECTORY_TYPE );
+
         if ( ! $directory ) {
             return new WP_Error( 'invalid_directory', __( 'Invalid directory.', 'directorist' ), array( 'status' => 400 ) );
         }
@@ -267,7 +273,7 @@ class Temporary_Media_Upload_Controller extends Abstract_Controller {
                 ),
                 'directory' => array(
                     'description' => __( 'Directory slug.', 'directorist' ),
-                    'type'        => 'string',
+                    'type'        => array( 'string', 'integer' ),
                     'context'     => array( 'view', 'edit' ),
                     'required'    => true,
                 ),

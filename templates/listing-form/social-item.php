@@ -4,13 +4,14 @@
  * @since   6.6
  * @version 7.3.1
  */
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
 
-if ( ! defined( 'ABSPATH' ) ) exit;
-
-$id = ( array_key_exists( 'id', $args ) ) ? $args['id'] : $index; ?>
+$id = $args['id'] ?? $index; ?>
 
 <div class="directorist-form-social-fields" id="socialID-<?php echo esc_attr( $id ); ?>">
-    <div class="directorist-form-social-fields__input"> 
+    <div class="directorist-form-social-fields__input">
         <div class="directorist-form-group">
             <select name="social[<?php echo esc_attr( $id ); ?>][id]" class="directorist-form-element placeholder-item">
                 <option value=""><?php esc_html_e( 'Select Network', 'directorist' ); ?></option>

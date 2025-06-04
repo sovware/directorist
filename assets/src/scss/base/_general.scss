@@ -170,9 +170,8 @@
     }
     .directorist-form-social-info-field {
       .directorist-btn {
-        width: 100%;
+        float: right;
         gap: 10px;
-        padding-left: 40px;
         i::after {
           width: 16px;
           height: 16px;

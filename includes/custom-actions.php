@@ -543,7 +543,7 @@ function directorist_updated_post_meta_action( $meta_id, $object_id, $meta_key, 
             [
                 'ID'          => $object_id,
                 'post_status' => $meta_value
-            ], false 
+            ], false
         );
     }
 }
@@ -579,3 +579,25 @@ function directorist_delete_never_expire_meta_on_update( $check, $object_id, $me
 
 add_filter( 'add_post_metadata', 'directorist_delete_never_expire_meta_on_update', 10, 4 );
 add_filter( 'update_post_metadata', 'directorist_delete_never_expire_meta_on_update', 10, 4 );
+
+function directorist_add_listing_form_social_item_template() {
+    ?>
+    <template id="tmpl-directorist-listing-form-social-item">
+        <?php
+        Directorist\Helper::get_template(
+            'listing-form/social-item',
+            array(
+                'id' => '_ID_',
+                'social_info' => [
+                    'id'  => '',
+                    'url' => '',
+                ]
+            )
+        );
+        ?>
+    </template>
+    <?php
+}
+
+add_action( 'wp_footer', 'directorist_add_listing_form_social_item_template' );
+add_action( 'admin_footer', 'directorist_add_listing_form_social_item_template' );

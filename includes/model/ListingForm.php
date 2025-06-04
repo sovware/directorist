@@ -899,4 +899,14 @@ class Directorist_Listing_Form {
             return apply_filters( 'atbdp_add_listing_page_template', $template, $args );
         }
     }
+
+    public function render_social_items( array $data = array() ) {
+        if ( empty( $data ) || empty( $data['value'] ) ) {
+            return;
+        }
+
+        foreach ( $data['value'] as $item_index => $item ) {
+            $this->social_item_template( $item_index, $item );
+        }
+    }
 }

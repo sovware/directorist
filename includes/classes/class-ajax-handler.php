@@ -193,7 +193,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
             $args = ATBDP_Permalink::get_signin_signup_page_link(
                 [
                     'send_verification_email' => true
-                ] 
+                ]
             );
 
             wp_safe_redirect( $args );
@@ -222,7 +222,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
                     [
                         'error_message' => sprintf(
                             __( '<div class="error_message">%s <p>%s</p></div>', 'directorist' ),
-                            directorist_icon( 'fas fa-info-circle', false ), __( 'Please enter a valid zip code.', 'directorist' ) 
+                            directorist_icon( 'fas fa-info-circle', false ), __( 'Please enter a valid zip code.', 'directorist' )
                         )
                     ]
                 );
@@ -331,7 +331,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
                     'user_login'    => $username,
                     'user_password' => $password,
                     'remember'      => $rememberme,
-                ] 
+                ]
             );
 
             if ( is_wp_error( $user ) ) {
@@ -538,7 +538,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
                 $atts = array_filter(
                     $atts, static function( $key ) {
                         return substr( $key, 0, 7 ) == 'filter_';
-                    }, ARRAY_FILTER_USE_KEY 
+                    }, ARRAY_FILTER_USE_KEY
                 );
             }
 
@@ -562,7 +562,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
                     [
                         'search_form' => $markup,
                         'container'   => $selector,
-                    ] 
+                    ]
                 );
         }
 
@@ -584,7 +584,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
                 [
                     'fields'  => 'ids',
                     'exclude' => $default_directory_id,
-                ] 
+                ]
             );
 
             if ( ! empty( $directory_types ) || ! is_wp_error( $directory_types ) ) {
@@ -1320,6 +1320,9 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 
         /**
          *  Add new Social Item in the member page in response to Ajax request
+         * @deprecated Used frontend templates instead
+         *
+         * @todo remove
          */
         public function atbdp_social_info_handler() {
 
@@ -1611,7 +1614,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
                     [
                         'error' => 1,
                         'message' => __( 'Something is wrong! Please refresh and retry.', 'directorist' )
-                    ], 200 
+                    ], 200
                 );
             }
 
@@ -1672,7 +1675,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
                 [
                     'error' => 1,
                     'message' => __( 'Your message sent successfully.', 'directorist' )
-                ] 
+                ]
             );
             die();
         }
@@ -1772,7 +1775,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
             wp_send_json_success(
                 [
                     'directorist_nonce' => wp_create_nonce( directorist_get_nonce_key() )
-                ] 
+                ]
             );
         }
 

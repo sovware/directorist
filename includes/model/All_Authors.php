@@ -9,7 +9,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 class Directorist_All_Authors {
     public function __construct() {
-
     }
 
     public function render_shortcode_all_authors() {

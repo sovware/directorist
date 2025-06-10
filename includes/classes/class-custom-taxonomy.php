@@ -774,7 +774,6 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
                 }
             }
             return false;
-
         }
 
         /**
@@ -810,7 +809,6 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
                 }
             }
             return false;
-
         }
 
         public function get_listing_types() {

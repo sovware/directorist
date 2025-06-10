@@ -83,7 +83,6 @@ class ATBDP_Metabox {
                 'listing_expiration'        => $listing_expiration
             ] 
         );
-
     }
 
     public function render_listing_taxonomies( $listing_id, $term_id, $taxonomy_id, $parent_id = 0 ) {
@@ -220,7 +219,6 @@ class ATBDP_Metabox {
                     </label>
                 </div>
         <?php endif;
-
     }
 
     public function listing_form_info_meta( $post ) {

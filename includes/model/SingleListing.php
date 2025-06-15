@@ -1001,7 +1001,6 @@ class Directorist_Single_Listing {
             }
 
         }
-
     }
 
     public function header_template() {

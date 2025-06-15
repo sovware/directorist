@@ -93,7 +93,6 @@ if ( ! class_exists( 'ATBDP_Database' ) ) :
         public function get_all( $limit = -1 ) {
             global $wpdb;
             return $wpdb->get_results( $wpdb->prepare( "SELECT * FROM $this->table_name WHERE 1=1 LIMIT %d;", $limit ) );
-
         }
 
         /**

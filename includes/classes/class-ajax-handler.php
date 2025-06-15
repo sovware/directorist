@@ -1073,7 +1073,6 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
             }
 
             wp_send_json_error( [ 'message' => __( 'Ops! something went wrong. Try again.', 'directorist' ) ] );
-
         }
 
         public function update_user_preferences() {
@@ -1108,7 +1107,6 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 
             // Return a success message
             wp_send_json_success( [ 'message' => __( 'Preferences updated successfully.', 'directorist' ) ] );
-
         }
 
         private function insert_attachment( $file_handler, $post_id, $setthumb = 'false' ) {

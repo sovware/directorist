@@ -30,8 +30,8 @@ $maxlength = $data['max'] ?? '';
                     'quicktags'     => true,
                     'editor_height' => 200,
                     'tinymce'       => array(
-						'plugins'    => 'lists,link,wordpress,paste,textcolor,fullscreen,hr',
-					),
+                        'plugins'    => 'lists,link,wordpress,paste,textcolor,fullscreen,hr',
+                    ),
                 ]
             )
         );

@@ -24,15 +24,8 @@ class Directorist_Account {
 		return self::$instance;
 	}
 
-	public function render( $atts = [] ) {
-		if ( is_user_logged_in() ) {
-			$error_message = sprintf( __( 'The account page is only accessible to logged-out users.<a href="%s">Go to Dashboard</a>', 'directorist' ), esc_url( ATBDP_Permalink::get_dashboard_page_link() ) );
-			ob_start();
-			ATBDP()->helper->show_login_message( apply_filters( 'atbdp_registration_page_registered_msg', $error_message ) );
-			return ob_get_clean();
-		}
-
-		$atts = shortcode_atts( array(
+	public static function shortcode_atts() {
+		$default_atts = [
 			'active_form'          => 'signin',
 			'user_role'            => get_directorist_option( 'display_user_type', false ) ? 'yes' : 'no',
 			'author_role_label'    => __( 'I am an author', 'directorist' ),
@@ -77,7 +70,20 @@ class Directorist_Account {
 			'recovery_password_email_placeholder' => get_directorist_option( 'recpass_placeholder', __( 'eg. mail@example.com', 'directorist' ) ),
 			'recovery_password_button_label'      => get_directorist_option( 'recpass_button', __( 'Get New Password', 'directorist' ) ),
 			'user_type'                           => ''
-		), $atts );
+		];
+
+		return apply_filters( 'directorist_account_shortcode_atts', $default_atts );;
+	}
+
+	public function render( $atts = [] ) {
+		if ( is_user_logged_in() ) {
+			$error_message = sprintf( __( 'The account page is only accessible to logged-out users.<a href="%s">Go to Dashboard</a>', 'directorist' ), esc_url( ATBDP_Permalink::get_dashboard_page_link() ) );
+			ob_start();
+			ATBDP()->helper->show_login_message( apply_filters( 'atbdp_registration_page_registered_msg', $error_message ) );
+			return ob_get_clean();
+		}
+
+		$atts = shortcode_atts( self::shortcode_atts(), $atts );
 
 		$user_type = ! empty( $_REQUEST['user_type'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['user_type'] ) ) : $atts['user_type'];
 		$active_form = ( isset( $_GET['signup'] ) && directorist_is_user_registration_enabled() ) ? 'signup' : $atts['active_form'];

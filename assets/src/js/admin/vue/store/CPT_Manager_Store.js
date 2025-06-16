@@ -1,233 +1,269 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export default new Vuex.Store({
-  // state
-  state: {
-    active_nav_index: 0,
-    is_saving: false,
-    fields: {},
-    layouts: {},
-    options: {},
-    cachedOptions: {},
-    config: {},
-    highlighted_field_key: '',
-    metaKeys: {},
-    deprecatedMetaKeys: [],
-    sidebarNavigation: {},
-    cached_fields: {},
-  },
-  
-  // mutations
-  mutations: {
-    prepareNav: ( state ) => {
-      let menu_count = 0;
+	// state
+	state: {
+		active_nav_index: 0,
+		is_saving: false,
+		fields: {},
+		layouts: {},
+		options: {},
+		cachedOptions: {},
+		config: {},
+		highlighted_field_key: '',
+		metaKeys: {},
+		deprecatedMetaKeys: [],
+		sidebarNavigation: {},
+		cached_fields: {},
+	},
 
-      let prepare_section_fields = function( args ) {
-        let sections    = args.sections;
-        let menu_key    = args.menu_key;
-        let submenu_key = ( args.submenu_key ) ? args.submenu_key : '';
+	// mutations
+	mutations: {
+		prepareNav: (state) => {
+			let menu_count = 0;
 
+			let prepare_section_fields = function (args) {
+				let sections = args.sections;
+				let menu_key = args.menu_key;
+				let submenu_key = args.submenu_key ? args.submenu_key : '';
 
-        for ( let section_key in sections ) {
-          if ( sections[ section_key ].fields ) {
-            for ( let field_key of sections[ section_key ].fields ) {
-              if ( ! state.cached_fields[ field_key ]  ) { continue; }
-              let hash = menu_key;
+				for (let section_key in sections) {
+					if (sections[section_key].fields) {
+						for (let field_key of sections[section_key].fields) {
+							if (!state.cached_fields[field_key]) {
+								continue;
+							}
+							let hash = menu_key;
 
-              if ( submenu_key ) {
-                hash = hash + '__' + submenu_key;
-              }
+							if (submenu_key) {
+								hash = hash + '__' + submenu_key;
+							}
 
-              hash = hash + '__' + section_key + '__' + field_key;
+							hash = hash + '__' + section_key + '__' + field_key;
 
-              state.cached_fields[ field_key ].layout_path = {
-                menu_key: menu_key,
-                submenu_key: submenu_key,
-                section_key: section_key,
-                field_key: field_key,
-                hash: hash
-              };
-            }
-          }
-        }
-      };
+							state.cached_fields[field_key].layout_path = {
+								menu_key: menu_key,
+								submenu_key: submenu_key,
+								section_key: section_key,
+								field_key: field_key,
+								hash: hash,
+							};
+						}
+					}
+				}
+			};
 
-      
-      for ( let menu_key in state.layouts ) {
-        let status = ( 0 === menu_count ) ? true : false;
-        Vue.set( state.layouts[ menu_key ], 'active', status );
+			for (let menu_key in state.layouts) {
+				let status = 0 === menu_count ? true : false;
+				Vue.set(state.layouts[menu_key], 'active', status);
 
-        if ( state.layouts[ menu_key ].sections ) {
-          prepare_section_fields({ 
-            menu_key: menu_key, 
-            sections: state.layouts[ menu_key ].sections,
-          });
-        }
-    
-        if ( state.layouts[ menu_key ].submenu ) {
-            let submenu_count = 0;
-            for ( let submenu_key in state.layouts[ menu_key ].submenu ) {
+				if (state.layouts[menu_key].sections) {
+					prepare_section_fields({
+						menu_key: menu_key,
+						sections: state.layouts[menu_key].sections,
+					});
+				}
 
-              let status = ( 0 === menu_count && 0 === submenu_count ) ? true : false;
-              Vue.set( state.layouts[ menu_key ].submenu[ submenu_key ], 'active', status );
-              submenu_count++;
+				if (state.layouts[menu_key].submenu) {
+					let submenu_count = 0;
+					for (let submenu_key in state.layouts[menu_key].submenu) {
+						let status =
+							0 === menu_count && 0 === submenu_count
+								? true
+								: false;
+						Vue.set(
+							state.layouts[menu_key].submenu[submenu_key],
+							'active',
+							status
+						);
+						submenu_count++;
 
-              if ( state.layouts[ menu_key ].submenu[ submenu_key ].sections ) {
-                prepare_section_fields({ 
-                  menu_key: menu_key, 
-                  submenu_key: submenu_key,
-                  sections: state.layouts[ menu_key ].submenu[ submenu_key ].sections
-                });
-              }
-            }
-        }
+						if (
+							state.layouts[menu_key].submenu[submenu_key]
+								.sections
+						) {
+							prepare_section_fields({
+								menu_key: menu_key,
+								submenu_key: submenu_key,
+								sections:
+									state.layouts[menu_key].submenu[submenu_key]
+										.sections,
+							});
+						}
+					}
+				}
 
-        menu_count++;
-      }
-    },
+				menu_count++;
+			}
+		},
 
-    cacheFieldsData: ( state ) => {
-      state.cached_fields = JSON.parse( JSON.stringify( state.fields ) );
-    },
+		cacheFieldsData: (state) => {
+			state.cached_fields = JSON.parse(JSON.stringify(state.fields));
+		},
 
-    resetHighlightedFieldKey: ( state ) => {
-      state.highlighted_field_key = '';
-    },
+		resetHighlightedFieldKey: (state) => {
+			state.highlighted_field_key = '';
+		},
 
-    updateCachedFieldData: ( state, payload ) => {
-      state.cached_fields[ payload.key ].value = payload.value;
-    },
+		updateCachedFieldData: (state, payload) => {
+			state.cached_fields[payload.key].value = payload.value;
+		},
 
-    swichToNav( state, payload ) {
-      let menu_key    = payload.menu_key;
-      let submenu_key = payload.submenu_key;
+		swichToNav(state, payload) {
+			let menu_key = payload.menu_key;
+			let submenu_key = payload.submenu_key;
 
-      state.highlighted_field_key = '';
+			state.highlighted_field_key = '';
 
-      const highlight_active_field = function( hash ) {
+			const highlight_active_field = function (hash) {
+				let hash_paths = hash.split('__');
+				let index = hash_paths.length - 1;
+				let field_key = hash_paths[index];
 
-        let hash_paths = hash.split( '__' );
-        let index      = hash_paths.length - 1;
-        let field_key  = hash_paths[ index ];
+				if (!state.cached_fields[field_key]) {
+					return;
+				}
 
-        if ( ! state.cached_fields[ field_key ] ) { return; }
+				state.highlighted_field_key = field_key;
+			};
 
-        state.highlighted_field_key = field_key;
-      };
+			if (!state.layouts[menu_key]) {
+				return;
+			}
 
-      if ( ! state.layouts[ menu_key ] ) { return; }
+			// Active Top Menu
+			for (let menu in state.layouts) {
+				Vue.set(state.layouts[menu], 'active', false);
+			}
 
-      // Active Top Menu
-      for ( let menu in state.layouts ) {
-        Vue.set( state.layouts[ menu ], 'active', false );
-      }
+			Vue.set(state.layouts[menu_key], 'active', true);
 
-      Vue.set( state.layouts[ menu_key ], 'active', true );
+			// Active Sub Menu
+			if (!submenu_key && state.layouts[menu_key].submenu) {
+				let submenu_keys = Object.keys(state.layouts[menu_key].submenu);
+				submenu_key = Array.isArray(submenu_keys)
+					? submenu_keys[0]
+					: null;
+			}
 
-      // Active Sub Menu
-      if ( ! submenu_key && state.layouts[ menu_key ].submenu ) {
-        let submenu_keys = Object.keys( state.layouts[ menu_key ].submenu );
-        submenu_key = ( Array.isArray( submenu_keys ) ) ? submenu_keys[0] : null;
-      }
+			let hash = payload.hash ? '#' + payload.hash : '#' + menu_key;
 
-      let hash = ( payload.hash ) ? '#' + payload.hash : '#' + menu_key;
+			if (!submenu_key) {
+				window.location.hash = hash;
+				highlight_active_field(hash, submenu_key);
+				return;
+			}
 
-      if ( ! submenu_key ) {
-        window.location.hash = hash;
-        highlight_active_field( hash, submenu_key ); 
-        return;
-      }
+			for (let submenu in state.layouts[menu_key].submenu) {
+				Vue.set(
+					state.layouts[menu_key].submenu[submenu],
+					'active',
+					false
+				);
+			}
 
+			Vue.set(
+				state.layouts[menu_key].submenu[submenu_key],
+				'active',
+				true
+			);
+			hash = payload.hash
+				? '#' + payload.hash
+				: '#' + menu_key + '__' + submenu_key;
 
-      for ( let submenu in state.layouts[ menu_key ].submenu ) {
-        Vue.set( state.layouts[ menu_key ].submenu[ submenu ], 'active', false );
-      }
+			highlight_active_field(hash);
 
-      Vue.set( state.layouts[ menu_key ].submenu[ submenu_key ], 'active', true );
-      hash = ( payload.hash ) ? '#' + payload.hash : '#' + menu_key + '__' + submenu_key;
+			window.location.hash = hash;
+		},
 
-      highlight_active_field( hash );
+		swichNav: (state, index) => {
+			state.active_nav_index = index;
+		},
 
-      window.location.hash = hash;
-    },
+		setMetaKey: (state, payload) => {
+			Vue.set(state.metaKeys, payload.key, payload.value);
+		},
 
-    swichNav: ( state, index ) => {
-      state.active_nav_index = index;
-    },
+		removeMetaKey: (state, payload) => {
+			Vue.delete(state.metaKeys, payload.key);
+		},
 
-    setMetaKey: ( state, payload ) => {
-      Vue.set( state.metaKeys, payload.key, payload.value );
-    },
+		updateOptionsField: (state, payload) => {
+			state.options[payload.field].value = payload.value;
+		},
 
-    removeMetaKey: ( state, payload ) => {
-      Vue.delete( state.metaKeys, payload.key );
-    },
+		updateFields: (state, value) => {
+			state.fields = value;
+		},
 
-    updateOptionsField: ( state, payload ) => {
-      state.options[ payload.field ].value = payload.value;
-    },
+		updatelayouts: (state, value) => {
+			state.layouts = value;
+		},
 
-    updateFields: ( state, value ) => {
-      state.fields = value;
-    },
+		updateIsSaving: (state, value) => {
+			state.is_saving = value;
+		},
 
-    updatelayouts: ( state, value ) => {
-      state.layouts = value;
-    },
-    
-    updateIsSaving: ( state, value ) => {
-      state.is_saving = value;
-    },
+		updateCachedFields: (state) => {
+			state.cached_fields = JSON.parse(JSON.stringify(state.fields));
+		},
 
-    updateCachedFields: ( state ) => {
-      state.cached_fields = JSON.parse( JSON.stringify( state.fields ) );
-    },
+		updateOptions: (state, value) => {
+			state.options = value;
+		},
 
-    updateOptions: ( state, value ) => {
-      state.options = value;
-    },
+		updateConfig: (state, value) => {
+			state.config = value;
+		},
 
-    updateConfig: ( state, value ) => {
-      state.config = value;
-    },
+		updateFormFields: (state, value) => {
+			state.form_fields = value;
+		},
 
-    updateFormFields: ( state, value ) => {
-      state.form_fields = value;
-    },
+		updateFieldValue: (state, payload) => {
+			Vue.set(state.fields[payload.field_key], 'value', payload.value);
+		},
 
-    updateFieldValue: ( state, payload ) => {
-      Vue.set( state.fields[ payload.field_key ], 'value' , payload.value );
-    },
+		updateFieldData: (state, payload) => {
+			Vue.set(
+				state.fields[payload.field_key],
+				payload.option_key,
+				payload.value
+			);
+		},
 
-    updateFieldData: ( state, payload ) => {
-      Vue.set( state.fields[ payload.field_key ], payload.option_key , payload.value );
-    },
+		updateGeneralSectionData: (state, payload) => {
+			state.layouts.general.submenu.general.sections[
+				payload.section_key
+			].fields[payload.field_key].value = payload.value;
+		},
 
-    updateGeneralSectionData: ( state, payload ) => {
-      state.layouts.general.submenu.general.sections[ payload.section_key ].fields[ payload.field_key ].value = payload.value;
-    },
+		importFields: (state, importing_fields) => {
+			for (let field_key in importing_fields) {
+				if (typeof importing_fields[field_key] === 'undefined') {
+					continue;
+				}
 
-    importFields: ( state, importing_fields ) => {
-      for ( let field_key in importing_fields ) {
-        if ( typeof importing_fields[ field_key ] === 'undefined' ) { continue; }
+				Vue.set(
+					state.fields[field_key],
+					'value',
+					importing_fields[field_key]
+				);
+			}
+		},
+	},
 
-        Vue.set( state.fields[ field_key ], 'value' , importing_fields[ field_key ] );
-      }
-    },
-  },
+	getters: {
+		getFieldsValue: (state) => {
+			let form_data = {};
+			for (let field in state.fields) {
+				form_data[field] = state.fields[field].value;
+			}
 
-  getters: {
-    getFieldsValue: state => {
-      let form_data = {};
-      for ( let field in state.fields ) {
-          form_data[ field ] = state.fields[ field ].value
-      }
-
-      return form_data;
-    }
-  }
-
+			return form_data;
+		},
+	},
 });

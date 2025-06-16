@@ -866,8 +866,6 @@ class Helper {
     }
 
     public static function is_plugin_installed( $slug ): bool {
-        $plugin_file = "{$slug}/{$slug}.php";
-
-        return file_exists( WP_PLUGIN_DIR . '/' . $plugin_file );
+        return file_exists( WP_PLUGIN_DIR . "/{$slug}/{$slug}.php" );
     }
 }

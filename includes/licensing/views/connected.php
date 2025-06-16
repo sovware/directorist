@@ -52,7 +52,7 @@
                                 </defs>
                             </svg>
 
-                            <?php echo Licensing_Plan::get_plan_name(); ?>
+                            <?php echo esc_html( Licensing_Plan::get_plan_name() ); ?>
 
                         </div>
 
@@ -65,7 +65,7 @@
                                         d="M5.53223 0.583252C5.85439 0.583252 6.11556 0.844419 6.11556 1.16659V1.74992H9.61556V1.16659C9.61556 0.844419 9.87673 0.583252 10.1989 0.583252C10.5211 0.583252 10.7822 0.844419 10.7822 1.16659V1.75087C11.0596 1.75277 11.302 1.7585 11.5125 1.7757C11.8403 1.80249 12.1418 1.85998 12.4249 2.00424C12.8639 2.22794 13.2209 2.5849 13.4446 3.02394C13.5888 3.30705 13.6463 3.60846 13.6731 3.93635C13.6989 4.25205 13.6989 4.63959 13.6989 5.10915V10.0574C13.6989 10.5269 13.6989 10.9145 13.6731 11.2302C13.6463 11.558 13.5888 11.8595 13.4446 12.1426C13.2209 12.5816 12.8639 12.9386 12.4249 13.1623C12.1418 13.3065 11.8403 13.364 11.5125 13.3908C11.1968 13.4166 10.8092 13.4166 10.3397 13.4166H5.39145C4.92189 13.4166 4.53436 13.4166 4.21866 13.3908C3.89077 13.364 3.58936 13.3065 3.30625 13.1623C2.8672 12.9386 2.51025 12.5816 2.28655 12.1426C2.14229 11.8595 2.0848 11.558 2.05801 11.2302C2.03221 10.9145 2.03222 10.5269 2.03223 10.0573V5.10916C2.03222 4.63959 2.03221 4.25205 2.05801 3.93635C2.0848 3.60846 2.14229 3.30705 2.28655 3.02394C2.51025 2.5849 2.8672 2.22794 3.30625 2.00424C3.58936 1.85998 3.89077 1.80249 4.21866 1.7757C4.42913 1.7585 4.67154 1.75277 4.94889 1.75087V1.16659C4.94889 0.844419 5.21006 0.583252 5.53223 0.583252ZM4.94889 2.91761C4.689 2.91944 4.48493 2.9245 4.31367 2.93849C4.05792 2.95939 3.92714 2.99726 3.8359 3.04374C3.61638 3.1556 3.4379 3.33407 3.32605 3.5536C3.27957 3.64483 3.24169 3.77562 3.2208 4.03136C3.19935 4.29391 3.19889 4.63358 3.19889 5.13325V5.24992H12.5322V5.13325C12.5322 4.63358 12.5318 4.29391 12.5103 4.03136C12.4894 3.77562 12.4516 3.64483 12.4051 3.5536C12.2932 3.33407 12.1147 3.1556 11.8952 3.04374C11.804 2.99726 11.6732 2.95939 11.4175 2.93849C11.2462 2.9245 11.0421 2.91944 10.7822 2.91761V3.49992C10.7822 3.82208 10.5211 4.08325 10.1989 4.08325C9.87673 4.08325 9.61556 3.82208 9.61556 3.49992V2.91659H6.11556V3.49992C6.11556 3.82208 5.85439 4.08325 5.53223 4.08325C5.21006 4.08325 4.94889 3.82208 4.94889 3.49992V2.91761ZM12.5322 6.41659H3.19889V10.0333C3.19889 10.5329 3.19935 10.8726 3.2208 11.1351C3.24169 11.3909 3.27957 11.5217 3.32605 11.6129C3.43791 11.8324 3.61638 12.0109 3.8359 12.1228C3.92714 12.1692 4.05792 12.2071 4.31367 12.228C4.57622 12.2495 4.91589 12.2499 5.41556 12.2499H10.3156C10.8152 12.2499 11.1549 12.2495 11.4175 12.228C11.6732 12.2071 11.804 12.1692 11.8952 12.1228C12.1147 12.0109 12.2932 11.8324 12.4051 11.6129C12.4516 11.5217 12.4894 11.3909 12.5103 11.1351C12.5318 10.8726 12.5322 10.5329 12.5322 10.0333V6.41659Z"
                                         fill="#747C89" />
                                 </svg>
-                                <?php esc_html_e( 'Next payment:', 'directorist' ); ?> <strong><?php echo Licensing_Plan::get_next_payment_date() ?></strong>
+                                <?php esc_html_e( 'Next payment:', 'directorist' ); ?> <strong><?php echo esc_html( Licensing_Plan::get_next_payment_date() ); ?></strong>
                             </div>
                         <?php endif; ?>
 
@@ -76,7 +76,7 @@
             </div>
 
             <?php if ( Licensing_Plan::get_upgrade_url() ) : ?>
-                <a target="__blank" href="<?php echo Licensing_Plan::get_upgrade_url(); ?>" class="directorist-membership-info-upgrade-lifetime">
+                <a target="__blank" href="<?php echo esc_url( Licensing_Plan::get_upgrade_url() ); ?>" class="directorist-membership-info-upgrade-lifetime">
                     <svg xmlns="http://www.w3.org/2000/svg" width="13" height="16" viewBox="0 0 13 16"
                         fill="none">
                         <path
@@ -109,17 +109,17 @@
                             </svg>
                         </div>
                         <div class="directorist-membership-author-accessKey">
-                            <?php echo Licensing_Access::get_key_obfuscated(); ?>
+                            <?php echo esc_html( Licensing_Access::get_key_obfuscated() ); ?>
                         </div>
                     </div>
                 <?php else : ?>
                     <div class="directorist-membership-author">
                         <div class="directorist-membership-author-img">
-                            <?php echo get_avatar( $user->ID, 100 ); ?>
+                            <?php echo esc_html( get_avatar( $user->ID, 100 ) ); ?>
                         </div>
                         <div class="directorist-membership-author-heading">
-                            <div class="directorist-membership-author-name"><?php echo Licensing_Account::get_name(); ?></div>
-                            <div class="directorist-membership-author-email"><?php echo Licensing_Account::get_email(); ?></div>
+                            <div class="directorist-membership-author-name"><?php echo esc_html( Licensing_Account::get_name() ); ?></div>
+                            <div class="directorist-membership-author-email"><?php echo esc_html( Licensing_Account::get_email() ); ?></div>
                         </div>
                     </div>
                 <?php endif; ?>
@@ -156,8 +156,8 @@
                                 d="M6 9C6 8.58579 6.33579 8.25 6.75 8.25H15.75C16.1642 8.25 16.5 8.58579 16.5 9C16.5 9.41421 16.1642 9.75 15.75 9.75H6.75C6.33579 9.75 6 9.41421 6 9Z"
                                 fill="#747C89" />
                         </svg>
-                        <a href="<?php echo Licensing::get_disconnect_url(); ?>" type="button" class="directorist-membership-author-list-link" id="directorist-licensing-logout">
-                            <?php esc_attr_e( 'Logout', 'directorist' ); ?>
+                        <a href="<?php echo esc_url( Licensing::get_disconnect_url() ); ?>" type="button" class="directorist-membership-author-list-link" id="directorist-licensing-logout">
+                            <?php esc_html_e( 'Logout', 'directorist' ); ?>
                         </a>
                     </li>
 
@@ -170,7 +170,7 @@
             <div class="directorist-col-xxl-3 directorist-col-lg-4 directorist-col-sm-6">
                 <div class="directorist-membership-status">
                     <div class="directorist-membership-status-number directorist-membership-status-active-extension">
-                        <?php echo Licensing_Overview::get( 'active_count' ); ?>
+                        <?php echo esc_html( Licensing_Overview::get( 'active_count' ) ); ?>
                     </div>
                     <div class="directorist-membership-status-description">
                         <?php esc_html_e( 'Active Extensions', 'directorist' )?>
@@ -180,7 +180,7 @@
             <div class="directorist-col-xxl-3 directorist-col-lg-4 directorist-col-sm-6">
                 <div class="directorist-membership-status">
                     <div class="directorist-membership-status-number">
-                        <?php echo Licensing_Overview::get( 'available_count' ); ?>
+                        <?php echo esc_html( Licensing_Overview::get( 'available_count' ) ); ?>
                     </div>
                     <div class="directorist-membership-status-description">
                         <?php esc_html_e( 'Available Extensions', 'directorist' )?>
@@ -190,7 +190,7 @@
             <div class="directorist-col-xxl-3 directorist-col-lg-4 directorist-col-sm-6">
                 <div class="directorist-membership-status">
                     <div class="directorist-membership-status-number">
-                        <?php echo Licensing_Overview::get( 'templates_count' ); ?>
+                        <?php echo esc_html( Licensing_Overview::get( 'templates_count' ) ); ?>
                     </div>
                     <div class="directorist-membership-status-description">
                         <?php esc_html_e( 'Available Templates', 'directorist' )?>
@@ -201,7 +201,7 @@
                 <div class="directorist-membership-status">
 
                     <div class="directorist-membership-status-number directorist-membership-status-update-available">
-                        <?php echo Licensing_Overview::get( 'backdated_count' ); ?>
+                        <?php echo esc_html( Licensing_Overview::get( 'backdated_count' ) ); ?>
                     </div>
 
                     <div class="directorist-membership-status-description">

@@ -73,11 +73,11 @@ function directorist_licensing_get_extension_list_html() {
 
                         <?php if ( ! Licensing_Plan::has_active_plan() ) : ?>
                             <div class="directorist-extension-price-wrap">
-                                <?php echo Formatter::get_formatted_price( $extension['price'] ); ?>
+                                <?php echo esc_html( Formatter::get_formatted_price( $extension['price'] ) ); ?>
                             </div>
                         <?php endif; ?>
 
-                        <?php echo directorist_get_item_buttons_html( $extension, 'extension' ); ?>
+                        <?php echo esc_html( directorist_get_item_buttons_html( $extension, 'extension' ) ); ?>
 
                     </footer>
 
@@ -122,7 +122,7 @@ function directorist_licensing_get_template_list_html() {
                         </div>
                     </div>
                     <footer class="directorist-template-footer">
-                        <?php echo directorist_get_item_buttons_html( $template, 'template' ); ?>
+                        <?php echo esc_html( directorist_get_item_buttons_html( $template, 'template' ) ); ?>
                     </footer>
                 </article>
             </div>

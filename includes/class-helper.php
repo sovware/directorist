@@ -862,7 +862,11 @@ class Helper {
     }
 
     public static function is_the_plugin_active( string $slug ): bool {
-        return is_plugin_active( "{$slug}/{$slug}.php" );
+        if ( ! function_exists( '\is_plugin_active' ) ) {
+            return false;
+        }
+
+        return \is_plugin_active( "{$slug}/{$slug}.php" );
     }
 
     public static function is_plugin_installed( $slug ): bool {

@@ -72,11 +72,11 @@ class Directorist_Account {
 			'user_type'                           => ''
 		];
 
-		return apply_filters( 'directorist_account_shortcode_atts', $default_atts );;
+		return apply_filters( 'directorist_account_shortcode_atts', $default_atts );
 	}
 
 	public function render( $atts = [] ) {
-		if ( is_user_logged_in() ) {
+		if ( is_user_logged_in() && apply_filters( 'directorist_account_page_accessible', true ) ) {
 			$error_message = sprintf( __( 'The account page is only accessible to logged-out users.<a href="%s">Go to Dashboard</a>', 'directorist' ), esc_url( ATBDP_Permalink::get_dashboard_page_link() ) );
 			ob_start();
 			ATBDP()->helper->show_login_message( apply_filters( 'atbdp_registration_page_registered_msg', $error_message ) );

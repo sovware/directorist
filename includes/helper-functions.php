@@ -4515,7 +4515,7 @@ function directorist_download_plugin( array $args = [] ) {
     ];
     $args    = array_merge( $default, $args );
 
-    $allowed_host = [ 'directorist.com', 'wordpress.org', 'downloads.wordpress.org' ];
+    $allowed_host = [ 'app.directorist.com', 'directorist.com', 'wordpress.org', 'downloads.wordpress.org' ];
 
     if ( empty( $args['url'] ) || ! in_array( parse_url( $args['url'], PHP_URL_HOST ), $allowed_host, true ) ) {
         $status['success'] = false;

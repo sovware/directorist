@@ -17,10 +17,9 @@
 	<!-- Show progress, show the error codes for each message (source). -->
 	<arg value="ps" />
 
-	<!-- Exclude Warnings. -->
-	<arg value="n" />
-
-	<file>.</file>
+	<file>app</file>
+	<file>routes</file>
+	<file>config</file>
 
 	<!-- Configs -->
 	<config name="minimum_supported_wp_version" value="4.6" />

@@ -4,6 +4,7 @@ namespace Directorist\App\Repositories;
 
 defined( "ABSPATH" ) || exit;
 
+use Directorist\App\Enums\Order\Status;
 use Directorist\WpMVC\Repositories\Repository;
 use Directorist\WpMVC\Database\Query\Builder;
 use Directorist\WpMVC\Exceptions\Exception;
@@ -60,7 +61,7 @@ class OrderRepository extends Repository {
             $dto->set_final_amount( $dto->get_amount() );
         }
 
-        if ( $dto->is_initialized( 'status' ) && 'paid' === $dto->get_status() ) {
+        if ( $dto->is_initialized( 'status' ) && $dto->get_status() === Status::PAID ) {
             $order = $this->get_by_id( $dto->get_id() );
 
             if ( $order->is_featured_listing && ! $order->expires_at ) {

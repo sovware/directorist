@@ -518,39 +518,26 @@ class Directorist_Single_Listing {
     }
 
     public function get_slider_data( $data = null ) {
-
-        $show_slider = get_directorist_option( 'dsiplay_slider_single_page', true );
-
-        if ( ! $show_slider ) {
-            return;
-        }
-
-        $listing_id    = $this->id;
-        $listing_title = get_the_title( $listing_id );
-
-        $type          = directorist_get_listing_directory( $this->id );
-        $default_image = Helper::default_preview_image_src( $type );
-
         $image_size = apply_filters( 'directorist_single_listing_slider_image_size', 'large' );
 
+        $directory_id  = directorist_get_listing_directory( $this->id );
+        $default_image = Helper::default_preview_image_src( $directory_id );
+
         // Get the preview images
-        $preview_img_id   = directorist_get_listing_preview_image( $listing_id );
-        $preview_img_link = ! empty( $preview_img_id ) ? atbdp_get_image_source( $preview_img_id, $image_size ) : '';
-        $preview_img_alt  = get_post_meta( $preview_img_id, '_wp_attachment_image_alt', true );
-        $preview_img_alt  = ( ! empty( $preview_img_alt ) ) ? $preview_img_alt : get_the_title( $preview_img_id );
+        $preview_image     = directorist_get_listing_preview_image( $this->id );
+        $preview_image_url = wp_get_attachment_image_url( $preview_image, $image_size );
 
         // Get the gallery images
-        $listing_img  = directorist_get_listing_gallery_images( $listing_id );
-        $listing_imgs = ! empty( $listing_img ) ? ( ! is_array( $listing_img ) ? [ $listing_img ] : $listing_img ) : [];
-        $image_links  = []; // define a link placeholder variable
+        $gallery_images     = directorist_get_listing_gallery_images( $this->id );
+        $gallery_image_urls = [];                                                   // define a link placeholder variable
 
-        foreach ( $listing_imgs as $img_id ) {
-            $alt = get_post_meta( $img_id, '_wp_attachment_image_alt', true );
-            $alt = ( ! empty( $alt ) ) ? $alt : get_the_title( $img_id );
+        foreach ( $gallery_images as $gallery_image ) {
+            $gallery_image_alt = get_post_meta( $gallery_image, '_wp_attachment_image_alt', true );
+            $gallery_image_alt = empty( $gallery_image_alt ) ? get_the_title( $gallery_image ) : $gallery_image_alt;
 
-            $image_links[] = [
-                'alt' => ( ! empty( $alt ) ) ? $alt : $listing_title,
-                'src' => atbdp_get_image_source( $img_id, $image_size ),
+            $gallery_image_urls[] = [
+                'alt' => $gallery_image_alt,
+                'src' => wp_get_attachment_image_url( $gallery_image, $image_size )
             ];
         }
 
@@ -562,7 +549,7 @@ class Directorist_Single_Listing {
         // Set the options
         $data = [
             'images'             => [],
-            'alt'                => $listing_title,
+            'alt'                => get_the_title( $this->id ),
             'background-size'    => get_directorist_option( 'single_slider_image_size', 'cover' ),
             'blur-background'    => ( 'blur' === $background_type ) ? '1' : '0',
             'width'              => empty( $width ) ? 740 : $width,
@@ -574,22 +561,23 @@ class Directorist_Single_Listing {
             'rtl'                => is_rtl() ? '1' : '0',
         ];
 
-        if ( ! empty( $image_links ) ) {
-            $data['images'] = $image_links;
+        if ( $preview_image_url ) {
+            $preview_image_alt = get_post_meta( $preview_image, '_wp_attachment_image_alt', true );
+            $preview_image_alt = empty( $preview_image_alt ) ? get_the_title( $preview_image ) : $preview_image_alt;
+
+            $data['images'][] = [
+                'alt' => $preview_image_alt,
+                'src' => $preview_image_url,
+            ];
         }
 
-        if ( ! empty( $preview_img_link ) ) {
-            $preview_img = [
-                'alt' => $preview_img_alt,
-                'src' => $preview_img_link,
-            ];
-
-            array_unshift( $data['images'], $preview_img );
+        if ( ! empty( $gallery_image_urls ) ) {
+            $data['images'] = array_merge( $data['images'], $gallery_image_urls );
         }
 
         if ( count( $data['images'] ) < 1 ) {
             $data['images'][] = [
-                'alt' => $listing_title,
+                'alt' => $data['alt'],
                 'src' => $default_image,
             ];
         }
@@ -611,6 +599,10 @@ class Directorist_Single_Listing {
     }
 
     public function slider_field_template( $slider = null ) {
+        $slider_enabled = (bool) get_directorist_option( 'dsiplay_slider_single_page', true );
+        if ( ! $slider_enabled ) {
+            return;
+        }
 
         $args = [
             'listing'    => $this,

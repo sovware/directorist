@@ -532,12 +532,17 @@ class Directorist_Single_Listing {
         $gallery_image_urls = [];                                                   // define a link placeholder variable
 
         foreach ( $gallery_images as $gallery_image ) {
-            $gallery_image_alt = get_post_meta( $gallery_image, '_wp_attachment_image_alt', true );
-            $gallery_image_alt = empty( $gallery_image_alt ) ? get_the_title( $gallery_image ) : $gallery_image_alt;
+            $image_url = wp_get_attachment_image_url( $gallery_image, $image_size );
+            if ( ! $image_url ) {
+                continue;
+            }
+
+            $image_alt = get_post_meta( $gallery_image, '_wp_attachment_image_alt', true );
+            $image_alt = empty( $image_alt ) ? get_the_title( $gallery_image ) : $image_alt;
 
             $gallery_image_urls[] = [
-                'alt' => $gallery_image_alt,
-                'src' => wp_get_attachment_image_url( $gallery_image, $image_size )
+                'alt' => $image_alt,
+                'src' => $image_url
             ];
         }
 

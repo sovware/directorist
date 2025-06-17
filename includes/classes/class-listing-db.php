@@ -28,6 +28,10 @@ if ( ! class_exists( 'ATBDP_Listing_DB' ) ) :
          *
          */
         public function atbdp_delete_attachment( $listing_id = 0 ) {
+            if ( ! directorist_is_delete_images_with_listing_enabled() ) {
+                return;
+            }
+
             if ( ! directorist_is_listing_post_type( $listing_id ) ) {
                 return;
             }

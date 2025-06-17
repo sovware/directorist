@@ -27,22 +27,18 @@ if ( ! class_exists( 'ATBDP_Listing_DB' ) ) :
          * @since 6.4.1
          *
          */
-        public function atbdp_delete_attachment( $id ) {
+        public function atbdp_delete_attachment( $listing_id = 0 ) {
+            if ( ! directorist_is_listing_post_type( $listing_id ) ) {
+                return;
+            }
 
-            if ( 'at_biz_dir' === get_post_type( $id ) ) {
-                $listing_img = directorist_get_listing_gallery_images( $id );
-                $listing_img = ! empty( $listing_img ) ? $listing_img : [];
-                $listing_prv_img = directorist_get_listing_preview_image( $id );
+            $image_ids = atbdp_get_listing_attachment_ids( $listing_id );
+            if ( empty( $image_ids ) ) {
+                return;
+            }
 
-                if ( is_array( $listing_img ) ) {
-                    array_unshift( $listing_img, $listing_prv_img );
-                }
-
-                if ( ! empty( $listing_img ) ) {
-                    foreach ( $listing_img as $image ) {
-                        wp_delete_attachment( $image, true );
-                    }
-                }
+            foreach ( $image_ids as $image_id ) {
+                wp_delete_attachment( $image_id, true );
             }
         }
 

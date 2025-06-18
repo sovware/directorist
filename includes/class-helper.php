@@ -839,13 +839,14 @@ class Helper {
     }
 
     public static function is_the_plugin_active( string $slug ): bool {
-        return is_plugin_active( "{$slug}/{$slug}.php" );
+		if ( ! function_exists( '\is_plugin_active' ) ) {
+            return false;
+        }
+
+        return \is_plugin_active( "{$slug}/{$slug}.php" );
     }
 
     public static function is_plugin_installed( $slug ): bool {
-        $plugin_file = "{$slug}/{$slug}.php";
-
-        return file_exists( WP_PLUGIN_DIR . '/' . $plugin_file );
+        return file_exists( WP_PLUGIN_DIR . "/{$slug}/{$slug}.php" );
     }
-
 }

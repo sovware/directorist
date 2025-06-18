@@ -492,7 +492,7 @@ This email is sent automatically for information purpose only. Please do not res
                 return false;
             }
 
-            if ( ! in_array( 'order_created', get_directorist_option( 'notify_user', [ 'order_created' ], true ) ) ) {
+            if ( ! in_array( 'order_created', get_directorist_option( 'notify_user', [], true ) ) ) {
                 return false;
             }
 
@@ -555,7 +555,7 @@ This email is sent automatically for information purpose only. Please do not res
                 return false;
             }
 
-            if ( ! in_array( 'order_completed', get_directorist_option( 'notify_user', [ 'order_completed' ], true ) ) ) {
+            if ( ! in_array( 'order_completed', get_directorist_option( 'notify_user', [], true ) ) ) {
                 return false;
             }
             $user = $this->get_owner( $listing_id ? $listing_id : $order_id );
@@ -593,7 +593,7 @@ This email is sent automatically for information purpose only. Please do not res
 
             $notify = apply_filters( 'directorist_notify_owner_listing_submitted', true, $listing_id );
 
-            if ( ! $notify || $this->disable_notification() || ! in_array( 'listing_submitted', get_directorist_option( 'notify_user', [ 'listing_submitted' ], true ) ) ) {
+            if ( ! $notify || $this->disable_notification() || ! in_array( 'listing_submitted', get_directorist_option( 'notify_user', [], true ) ) ) {
                 return false;
             }
 
@@ -673,7 +673,7 @@ This email is sent automatically for information purpose only. Please do not res
 
             $notify = apply_filters( 'directorist_notify_owner_listing_published', true, $listing_id );
 
-            if ( ! $notify || $this->disable_notification() || ! in_array( 'listing_published', get_directorist_option( 'notify_user', [ 'listing_published' ], true ) ) ) {
+            if ( ! $notify || $this->disable_notification() || ! in_array( 'listing_published', get_directorist_option( 'notify_user', [], true ) ) ) {
                 return false;
             }
 
@@ -714,7 +714,7 @@ This email is sent automatically for information purpose only. Please do not res
                 return false;
             }
 
-            if ( ! in_array( 'listing_edited', get_directorist_option( 'notify_user', [ 'listing_edited' ], true ) ) ) {
+            if ( ! in_array( 'listing_edited', get_directorist_option( 'notify_user', [], true ) ) ) {
                 return false;
             }
 
@@ -757,7 +757,7 @@ This email is sent automatically for information purpose only. Please do not res
 
             $notify = apply_filters( 'directorist_notify_owner_listing_to_expire', true, $listing_id );
 
-            if ( ! $listing_id || ! $notify || $this->disable_notification() || ! in_array( 'listing_to_expire', get_directorist_option( 'notify_user', [ 'listing_to_expire' ], true ) ) ) {
+            if ( ! $listing_id || ! $notify || $this->disable_notification() || ! in_array( 'listing_to_expire', get_directorist_option( 'notify_user', [], true ) ) ) {
                 return false;
             }
 
@@ -796,7 +796,7 @@ This email is sent automatically for information purpose only. Please do not res
 
             $notify = apply_filters( 'directorist_notify_owner_listing_expired', true, $listing_id );
 
-            if ( ! $listing_id || ! $notify || $this->disable_notification() || ! in_array( 'listing_expired',  get_directorist_option( 'notify_user', [ 'listing_expired' ], true ) ) ) {
+            if ( ! $listing_id || ! $notify || $this->disable_notification() || ! in_array( 'listing_expired',  get_directorist_option( 'notify_user', [], true ) ) ) {
                 return false;
             }
 
@@ -835,7 +835,7 @@ This email is sent automatically for information purpose only. Please do not res
 
             $notify = apply_filters( 'directorist_notify_owner_to_renew', true, $listing_id );
 
-            if ( ! $listing_id || ! $notify || $this->disable_notification() || ! in_array( 'remind_to_renew', get_directorist_option( 'notify_user', [ 'remind_to_renew' ], true ) ) ) {
+            if ( ! $listing_id || ! $notify || $this->disable_notification() || ! in_array( 'remind_to_renew', get_directorist_option( 'notify_user', [], true ) ) ) {
                 return false;
             }
 
@@ -875,7 +875,7 @@ This email is sent automatically for information purpose only. Please do not res
                 return false;
             }
 
-            if ( ! in_array( 'listing_renewed', get_directorist_option( 'notify_user', [ 'listing_renewed' ], true ) ) ) {
+            if ( ! in_array( 'listing_renewed', get_directorist_option( 'notify_user', [], true ) ) ) {
                 return false;
             }
 
@@ -899,7 +899,7 @@ This email is sent automatically for information purpose only. Please do not res
                 return false;
             }
 
-            if ( ! in_array( 'listing_deleted', get_directorist_option( 'notify_user', [ 'listing_deleted' ], true ) ) ) {
+            if ( ! in_array( 'listing_deleted', get_directorist_option( 'notify_user', [], true ) ) ) {
                 return false;
             }
 

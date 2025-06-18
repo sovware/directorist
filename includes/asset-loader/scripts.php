@@ -324,7 +324,7 @@ class Scripts {
 			'directorist-multi-directory-builder' => [
 				'type' => 'js',
 				'path' => DIRECTORIST_JS . 'admin-multi-directory-builder',
-				'dep'  => [ 'lodash' ]
+				'dep'  => [ 'lodash', 'wp-api-fetch' ]
 			],
 			'directorist-settings-manager' => [
 				'type' => 'js',

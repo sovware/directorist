@@ -224,6 +224,9 @@ export default {
         },
         editorID: {
             required: false,
-        }
+        },
+        createFormButton: {
+			required: false,
+		},
     },
 }

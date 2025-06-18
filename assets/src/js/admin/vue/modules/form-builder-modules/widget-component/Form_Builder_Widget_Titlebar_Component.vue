@@ -1,6 +1,9 @@
 <template>
   <div class="cptm-form-builder-group-field-item-header">
     <h4 class="cptm-title-3">
+      <span v-if="alert" class="directorist-tooltip" :class="`directorist-tooltip--${alert.type}`" :data-label="alert.message">
+        <span class="cptm-title-icon las la-exclamation-triangle"></span>
+      </span>
       <span class="cptm-title-icon" :class="icon"></span>
       <span v-html="label"></span>
       <span v-if="sublabel.length" class="cptm-text-gray cptm-px-5" v-html="sublabel"></span>
@@ -31,6 +34,9 @@ export default {
     },
     icon: {
       default: "",
+    },
+    alert: {
+      default: null,
     },
     expanded: {
       default: false,

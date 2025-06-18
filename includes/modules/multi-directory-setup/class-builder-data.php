@@ -556,6 +556,23 @@ class Builder_Data {
                             ],
                         ]
                     ],
+                    'formgent_form'         => [
+                        'type'          => 'widget',
+                        'label'         => __( 'FormGent', 'directorist' ),
+                        'icon'          => 'las la-file-alt',
+                        'allowMultiple' => true,
+                        'options'       => [
+                            'value' => [
+                                'type'             => 'formgent-form',
+                                'label'            => __( 'Select a form', 'directorist' ),
+                                'value'            => '--',
+                                'createFormButton' => [
+                                    'label' => __( 'Create a new Form', 'directorist' ),
+                                    'href'  => admin_url( 'admin.php?page=formgent' ),
+                                ],
+                            ],
+                        ],
+                    ],
                     'related_listings'       => [
                         'type'    => 'section',
                         'label'   => __( 'Related Listings', 'directorist' ),

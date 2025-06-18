@@ -215,7 +215,6 @@
     "connectors_title": "Or",
     "popular_cat_title": "Browse by popular categories",
     "popular_cat_num": "10",
-    "search_home_bg": "",
     "search_result_filter_button_text": "Filters",
     "search_result_filters_fields": "[\"search_text\",\"search_category\",\"search_location\",\"search_price\",\"search_price_range\",\"search_rating\",\"search_tag\",\"search_custom_fields\",\"radius_search\"]",
     "sresult_location_address": "map_api",

@@ -371,6 +371,11 @@ class Builder_Data {
                                     'widget_name'       => 'review',
                                     'widget_child_name' => 'review_website',
                                 ],
+                                [
+                                    'widget_group'      => 'other_widgets',
+                                    'widget_name'       => 'review',
+                                    'widget_child_name' => 'review_consent',
+                                ],
                             ],
                             'widgets' => [
                                 'review_comment' => [
@@ -438,6 +443,34 @@ class Builder_Data {
                                             'label'   => __( 'Placeholder', 'directorist' ),
                                             'type'    => 'text',
                                             'value'   => '',
+                                        ],
+                                    ]
+                                ],
+                                'review_consent' => [
+                                    'label'    => __( 'Consent', 'directorist' ),
+                                    'canTrash' => false,
+                                    'canMove'  => false,
+                                    'options'  => [
+                                        'enable_cookie_consent' => [
+                                            'label'   => __( 'Show Cookies Consent', 'directorist' ),
+                                            'type'    => 'toggle',
+                                            'value'   => false,
+                                        ],
+                                        'enable_gdpr_consent' => [
+                                            'label'   => __( 'Enable GDPR Consent', 'directorist' ),
+                                            'type'    => 'toggle',
+                                            'value'   => false,
+                                        ],
+                                        'consent_label' => [
+                                            'label'       => __( 'Consent Label', 'directorist' ),
+                                            'type'        => 'textarea',
+                                            'editor'      => 'wp_editor',
+                                            'editorID'    => 'wp_editor_terms_privacy_consent_label',
+                                            'value'       => sprintf(
+                                                __( 'I have read and agree to the <a href="%s" target="_blank">Privacy Policy</a> and <a href="%s" target="_blank">Terms of Service</a>', 'directorist' ),
+                                                ATBDP_Permalink::get_privacy_policy_page_url(),
+                                                ATBDP_Permalink::get_terms_and_conditions_page_url(),
+                                            ),
                                         ],
                                     ]
                                 ],

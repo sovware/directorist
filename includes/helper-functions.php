@@ -976,8 +976,14 @@ if ( ! function_exists( 'calc_listing_expiry_date' ) ) {
         $start_date  = ! empty( $start_date ) ? $start_date : current_time( 'mysql' );
 
         // Calculate new date
-        $date = new \DateTime( $start_date );
-        $date->add( new DateInterval( "P{$expire_date}D" ) ); // set the interval in days
+        $start_date  = ! empty( $start_date ) ? $start_date : current_time( 'mysql' );
+        $expire_date = intval( $expire_date ); // sanitize
+        if ( $expire_date > 0 ) {
+            $date = new \DateTime($start_date);
+            $date->add( new DateInterval( "P{$expire_date}D" ) );
+        } else {
+            $date = new \DateTime( $start_date );
+        }
 
         return $date->format( 'Y-m-d H:i:s' );
     }

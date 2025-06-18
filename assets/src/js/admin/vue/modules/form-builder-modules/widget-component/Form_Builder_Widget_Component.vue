@@ -20,6 +20,7 @@
       :sublabel="widgetSubtitle"
       :icon="widgetIcon"
       :expanded="expandState"
+      :alert="alert"
       @toggle-expand="toggleExpand"
     />
 
@@ -34,6 +35,7 @@
           :section-id="widgetKey"
           :field-list="widget_fields"
           :value="activeWidgets[widgetKey] ? activeWidgets[widgetKey] : ''"
+          @alert="updateAlert"
           @update="
             $emit('update-widget-field', {
               widget_key: widgetKey,
@@ -87,6 +89,7 @@
 </template>
 
 <script>
+import Vue from 'vue';
 import { findObjectItem } from "../../../../../helper";
 import ConfirmationModal from "./Form_Builder_Widget_Trash_Confirmation.vue";
 
@@ -228,6 +231,30 @@ export default {
         ? "cptm-empty-slide-up-down"
         : "";
     },
+
+    alert() {
+      const widgetKeys = Object.keys( this.alerts );
+
+      if ( widgetKeys.length < 1 ) {
+        return null;
+      }
+
+      const widgetKey = widgetKeys[0];
+
+      if ( ! this.alerts[ widgetKey ] ) {
+        return null;
+      }
+
+      const alertKeys = Object.keys( this.alerts[ widgetKey ] );
+
+      if ( alertKeys.length < 1 ) {
+        return null;
+      }
+
+      const alertKey = alertKeys[0];
+
+      return this.alerts[ widgetKey ][ alertKey ];
+    }
   },
 
   data() {
@@ -241,6 +268,7 @@ export default {
       showConfirmationModal: false,
       widgetName: "",
       expandedDropdown: false,
+      alerts: {},
     };
   },
 
@@ -253,6 +281,30 @@ export default {
   },
 
   methods: {
+    updateAlert( payload ) {
+      if ( ! payload.data ) {
+        this.removeAlert( payload.key );
+        return;
+      }
+
+      this.addAlert( payload.key, payload.data );
+    },
+
+    addAlert( key, data ) {
+      this.alerts = {
+        ...this.alerts,
+        [ key ]: data,
+      };
+    },
+
+    removeAlert( key ) {
+      if ( ! this.alerts.hasOwnProperty( key ) ) {
+        return;
+      }
+
+      Vue.delete( this.alerts, key );
+    },
+
     toggleExpandedDropdown() {
       this.expandedDropdown = !this.expandedDropdown;
     },

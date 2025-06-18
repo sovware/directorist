@@ -245,8 +245,12 @@ class Directorist_Single_Listing {
             return '';
         }
 
+        if ( isset( $data['value'] ) ) {
+            return apply_filters( 'directorist_single_listing_widget_value', $data['value'], $data );
+        }
+
         if ( isset( $data['widget_name'] ) && $data['widget_name'] == 'custom_content' ) {
-            return $data['content'];
+            return apply_filters( 'directorist_single_listing_widget_value', $data['content'], $data );
         }
 
         if ( ! empty( $data['field_key'] ) ) {

@@ -41773,7 +41773,7 @@
 							forms: [],
 							isFormGentInstalled: false,
 							isFormGentActive: false,
-							isUserAdmin: false,
+							canInstallPlugins: false,
 							createFormButtonData: {
 								href: '#',
 								label: 'Create a new Form',
@@ -41811,8 +41811,11 @@
 							if (typeof directorist_admin === 'undefined') {
 								return;
 							}
-							if (directorist_admin.is_admin === '1') {
-								this.isUserAdmin = true;
+							if (
+								directorist_admin.capabilities &&
+								directorist_admin.capabilities.install_plugins
+							) {
+								this.canInstallPlugins = true;
 							}
 							if (
 								typeof directorist_admin.formgent !==
@@ -62836,7 +62839,7 @@
 															],
 												]
 											: [
-													_vm.isUserAdmin
+													_vm.canInstallPlugins
 														? _c('div', {}, [
 																_c('h3', [
 																	_vm._v(
@@ -62882,7 +62885,7 @@
 												],
 									]
 								: [
-										_vm.isUserAdmin
+										_vm.canInstallPlugins
 											? _c('div', [
 													_c('h3', [
 														_vm._v(

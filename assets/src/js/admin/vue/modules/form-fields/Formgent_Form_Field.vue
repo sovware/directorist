@@ -26,7 +26,7 @@
             </template>
 
             <template v-else>
-                <div class='' v-if="isUserAdmin">
+                <div class='' v-if="canInstallPlugins">
                     <h3>You need the FormGent plugin to use this feature.</h3>
                     <a class='' href="#" @click.prevent="installPlugin()">
                         {{ isInstallingPlugin ? 'Activating' : 'Activate' }}
@@ -40,7 +40,7 @@
         </template>
 
         <template v-else>
-            <div v-if="isUserAdmin">
+            <div v-if="canInstallPlugins">
                 <h3>You need the FormGent plugin to use this feature.</h3>
                 <a class='' href="#" @click="installPlugin()">
                     {{ isInstallingPlugin ? 'Installing' : 'Install & Activate' }}
@@ -85,7 +85,7 @@ export default {
             forms: [],
             isFormGentInstalled: false,
             isFormGentActive: false,
-            isUserAdmin: false,
+            canInstallPlugins: false,
             createFormButtonData: {
                 href: '#',
                 label: 'Create a new Form',
@@ -119,8 +119,8 @@ export default {
                 return
             }
 
-            if ( directorist_admin.is_admin === '1' ) {
-                this.isUserAdmin = true;
+            if ( directorist_admin.capabilities && directorist_admin.capabilities.install_plugins ) {
+                this.canInstallPlugins = true;
             }
 
             if ( typeof directorist_admin.formgent !== 'undefined' ) {

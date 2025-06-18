@@ -40,7 +40,7 @@ class Admin_Controller extends Abstract_Controller {
                 [
                     'methods'             => WP_REST_Server::CREATABLE,
                     'callback'            => [ $this, 'install_plugin' ],
-                    'permission_callback' => [ $this, 'admin_permissions_check' ],
+                    'permission_callback' => [ $this, 'install_plugins_permissions_check' ],
                     'args'                => [
                         'slug'     => [
                             'description'       => __( 'The slug of the plugin to be installed.' ),
@@ -130,7 +130,7 @@ class Admin_Controller extends Abstract_Controller {
         return true;
     }
 
-    public function admin_permissions_check(): bool {
-        return current_user_can( 'manage_options' );
+    public function install_plugins_permissions_check(): bool {
+        return current_user_can( capability: 'install_plugins' );
     }
 }

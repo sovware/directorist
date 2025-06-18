@@ -866,7 +866,8 @@ class Insights
                             <li data-placeholder="<?php echo esc_attr( $reason['placeholder'] ); ?>">
                                 <label>
                                     <input type="radio" name="selected-reason" value="<?php echo esc_attr( $reason['id'] ); ?>">
-                                    <div class="wd-de-reason-icon"><?php echo esc_html( $reason['icon'] ); ?></div>
+                                    <?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+                                    <div class="wd-de-reason-icon"><?php echo $reason['icon']; ?></div>
                                     <div class="wd-de-reason-text"><?php echo esc_html( $reason['text'] ); ?></div>
                                 </label>
                             </li>

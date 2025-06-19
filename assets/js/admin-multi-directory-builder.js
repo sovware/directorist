@@ -1806,40 +1806,37 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 /* harmony default export */ __webpack_exports__["default"] = ({
   mixins: [_input_field_props_js__WEBPACK_IMPORTED_MODULE_3__["default"], _helpers__WEBPACK_IMPORTED_MODULE_2__["default"]],
   model: {
-    prop: 'value',
-    event: 'update'
+    prop: "value",
+    event: "update"
   },
   created: function created() {
     this.setup();
   },
   watch: {
-    local_value: function local_value() {
-      this.$emit('update', this.local_value);
-    },
     theOptions: function theOptions() {
-      if (!this.valueIsValid(this.local_value)) {
-        this.local_value = '';
+      if (!this.valueIsValid(this.value)) {
+        this.$emit("update", "");
       }
     }
   },
   computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapState)({
-    fields: 'fields'
+    fields: "fields"
   })), {}, {
     theDefaultOption: function theDefaultOption() {
-      if (this.defaultOption && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.defaultOption) === 'object') {
+      if (this.defaultOption && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.defaultOption) === "object") {
         return this.defaultOption;
       }
       return {
-        value: '',
-        label: 'Select...'
+        value: "",
+        label: "Select..."
       };
     },
     theCurrentOptionLabel: function theCurrentOptionLabel() {
       if (!this.optionsInObject) {
-        return '';
+        return "";
       }
-      if (typeof this.optionsInObject[this.value] === 'undefined') {
-        return this.theDefaultOption.value == this.local_value && this.theDefaultOption.label ? this.theDefaultOption.label : '';
+      if (typeof this.optionsInObject[this.value] === "undefined") {
+        return this.theDefaultOption.value == this.value && this.theDefaultOption.label ? this.theDefaultOption.label : "";
       }
       return this.optionsInObject[this.value];
     },
@@ -1847,26 +1844,26 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       if (this.hasOptionsSource) {
         return this.hasOptionsSource;
       }
-      if (!this.options || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.options) !== 'object') {
+      if (!this.options || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.options) !== "object") {
         return this.defaultOption ? [this.defaultOption] : [];
       }
       return this.options;
     },
     hasOptionsSource: function hasOptionsSource() {
-      if (!this.optionsSource || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.optionsSource) !== 'object') {
+      if (!this.optionsSource || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.optionsSource) !== "object") {
         return false;
       }
-      if (typeof this.optionsSource.where !== 'string') {
+      if (typeof this.optionsSource.where !== "string") {
         return false;
       }
       var terget_fields = this.getTergetFields({
         path: this.optionsSource.where
       });
-      if (!terget_fields || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(terget_fields) !== 'object') {
+      if (!terget_fields || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(terget_fields) !== "object") {
         return false;
       }
       var filter_by = null;
-      if (typeof this.optionsSource.filter_by === 'string' && this.optionsSource.filter_by.length) {
+      if (typeof this.optionsSource.filter_by === "string" && this.optionsSource.filter_by.length) {
         filter_by = this.optionsSource.filter_by;
       }
       if (filter_by) {
@@ -1875,7 +1872,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         });
       }
       var has_sourcemap = false;
-      if (this.optionsSource.source_map && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.optionsSource.source_map) === 'object') {
+      if (this.optionsSource.source_map && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.optionsSource.source_map) === "object") {
         has_sourcemap = true;
       }
       if (!has_sourcemap && !filter_by) {
@@ -1887,7 +1884,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       if (filter_by) {
         terget_fields = this.filterDataByValue(terget_fields, filter_by);
       }
-      if (!terget_fields && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(terget_fields) !== 'object') {
+      if (!terget_fields && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(terget_fields) !== "object") {
         return false;
       }
       return terget_fields;
@@ -1899,7 +1896,6 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   }),
   data: function data() {
     return {
-      local_value: '',
       local_value_ms: [],
       optionsInObject: {},
       show_option_modal: false,
@@ -1909,22 +1905,20 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   },
   methods: {
     setup: function setup() {
-      if (this.defaultOption || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.defaultOption) === 'object') {
+      if (this.defaultOption || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.defaultOption) === "object") {
         this.default_option = this.defaultOption;
       }
       this.optionsInObject = this.convertOptionsToObject();
-      if (false != this.value && this.valueIsValid(this.value)) {
-        this.local_value = this.value;
-      } else {
-        this.local_value = '';
+      if (!(false != this.value && this.valueIsValid(this.value))) {
+        this.$emit("update", "");
       }
       var self = this;
-      document.addEventListener('click', function () {
+      document.addEventListener("click", function () {
         self.show_option_modal = false;
       });
     },
     update_value: function update_value(value) {
-      this.local_value = !isNaN(Number(value)) ? Number(value) : value;
+      this.$emit("update", !isNaN(Number(value)) ? Number(value) : value);
     },
     updateOption: function updateOption(value) {
       this.update_value(value);
@@ -1943,7 +1937,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     },
     valueIsValid: function valueIsValid(value) {
       var options_values = this.theOptions.map(function (option) {
-        if (typeof option.value !== 'undefined') {
+        if (typeof option.value !== "undefined") {
           return !isNaN(Number(option.value)) ? Number(option.value) : option.value;
         }
       });
@@ -1955,17 +1949,17 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       }
       var option_object = {};
       for (var option in this.theOptions) {
-        if (typeof this.theOptions[option].value === 'undefined') {
+        if (typeof this.theOptions[option].value === "undefined") {
           continue;
         }
-        var label = this.theOptions[option].label ? this.theOptions[option].label : '';
+        var label = this.theOptions[option].label ? this.theOptions[option].label : "";
         option_object[this.theOptions[option].value] = label;
       }
       return option_object;
     }
     /* syncValidationWithLocalState( validation_log ) {
-        return validation_log;
-    } */
+            return validation_log;
+        } */
   }
 });
 
@@ -25182,6 +25176,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       this.$emit("alert", Object.keys(this.alerts).length ? _objectSpread({}, this.alerts) : null);
     },
     value: function value() {
+      console.log("Value updated:", this.value);
       this.updateNoFormSelectedAlert();
     }
   },
@@ -25197,11 +25192,13 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       createFormButtonData: {
         href: "#",
         label: "Create a new Form"
-      },
-      formgent_selected_form: ""
+      }
     };
   },
   methods: {
+    updateValue: function updateValue(value) {
+      this.$emit("update", value);
+    },
     init: function init() {
       this.loadPropsData();
       this.loadLocalizeData();
@@ -25253,7 +25250,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
               console.log(_context.t0);
             case 13:
               _this2.isLoadingForms = false;
-              _this2.formgent_selected_form = _this2.parseValue(_this2.value);
+              _this2.validateValue();
             case 15:
             case "end":
               return _context.stop();
@@ -26812,7 +26809,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_form_fields_select_field__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../mixins/form-fields/select-field */ "./assets/src/js/admin/vue/mixins/form-fields/select-field.js");
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'select-field-theme-butterfly',
+  name: "select-field-theme-butterfly",
   mixins: [_mixins_form_fields_select_field__WEBPACK_IMPORTED_MODULE_0__["default"]],
   mounted: function mounted() {}
 });
@@ -27126,7 +27123,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_form_fields_select_field__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../mixins/form-fields/select-field */ "./assets/src/js/admin/vue/mixins/form-fields/select-field.js");
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'select-field-theme-default',
+  name: "select-field-theme-default",
   mixins: [_mixins_form_fields_select_field__WEBPACK_IMPORTED_MODULE_0__["default"]]
 });
 
@@ -34045,14 +34042,11 @@ var render = function render() {
   }, [_vm._v(_vm._s(_vm.label))]), _vm._v(" "), _c('select-field', {
     attrs: {
       "theme": "default",
-      "options": _vm.formgentFormList
+      "options": _vm.formgentFormList,
+      "value": _vm.value
     },
-    model: {
-      value: _vm.formgent_selected_form,
-      callback: function callback($$v) {
-        _vm.formgent_selected_form = $$v;
-      },
-      expression: "formgent_selected_form"
+    on: {
+      "update": _vm.updateValue
     }
   })], 1) : _c('div', {
     staticClass: "cptm-form-content-wrapper"
@@ -35906,7 +35900,7 @@ var render = function render() {
   })], 2)]) : _vm._e()]), _vm._v(" "), _c('select', {
     staticClass: "cptm-d-none",
     domProps: {
-      "value": _vm.local_value
+      "value": _vm.value
     },
     on: {
       "change": function change($event) {
@@ -35917,13 +35911,13 @@ var render = function render() {
     domProps: {
       "value": _vm.theDefaultOption.value
     }
-  }, [_vm._v(_vm._s(_vm.theDefaultOption.label))]) : _vm._e(), _vm._v(" "), _vm._l(_vm.theOptions, function (option, option_key) {
+  }, [_vm._v("\n          " + _vm._s(_vm.theDefaultOption.label) + "\n        ")]) : _vm._e(), _vm._v(" "), _vm._l(_vm.theOptions, function (option, option_key) {
     return _c('option', {
       key: option_key,
       domProps: {
         "value": option.value
       }
-    }, [_vm._v("\n                    " + _vm._s(option.label) + "\n                ")]);
+    }, [_vm._v("\n          " + _vm._s(option.label) + "\n        ")]);
   })], 2), _vm._v(" "), _c('form-field-validatior', {
     attrs: {
       "section-id": _vm.sectionId,
@@ -37357,7 +37351,7 @@ var render = function render() {
   }), 0)]) : _vm._e()]), _vm._v(" "), _c('select', {
     staticClass: "cptm-d-none",
     domProps: {
-      "value": _vm.local_value
+      "value": _vm.value
     },
     on: {
       "change": function change($event) {
@@ -37368,13 +37362,13 @@ var render = function render() {
     domProps: {
       "value": _vm.default_option.value
     }
-  }, [_vm._v(_vm._s(_vm.default_option.label))]) : _vm._e(), _vm._v(" "), _vm._l(_vm.theOptions, function (option, option_key) {
+  }, [_vm._v("\n      " + _vm._s(_vm.default_option.label) + "\n    ")]) : _vm._e(), _vm._v(" "), _vm._l(_vm.theOptions, function (option, option_key) {
     return [_c('option', {
       key: option_key,
       domProps: {
         "value": option.value
       }
-    }, [_vm._v(_vm._s(option.label))])];
+    }, [_vm._v("\n        " + _vm._s(option.label) + "\n      ")])];
   })], 2), _vm._v(" "), _c('form-field-validatior', {
     attrs: {
       "section-id": _vm.sectionId,

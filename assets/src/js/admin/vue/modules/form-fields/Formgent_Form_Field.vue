@@ -43,7 +43,8 @@
             <select-field
               theme="default"
               :options="formgentFormList"
-              v-model="formgent_selected_form"
+              :value="value"
+              @update="updateValue"
             />
           </div>
 
@@ -237,6 +238,7 @@ export default {
     },
 
     value() {
+      console.log("Value updated:", this.value);
       this.updateNoFormSelectedAlert();
     },
   },
@@ -254,11 +256,14 @@ export default {
         href: "#",
         label: "Create a new Form",
       },
-      formgent_selected_form: "",
     };
   },
 
   methods: {
+    updateValue(value) {
+      this.$emit("update", value);
+    },
+
     init() {
       this.loadPropsData();
       this.loadLocalizeData();
@@ -316,7 +321,7 @@ export default {
       }
 
       this.isLoadingForms = false;
-      this.formgent_selected_form = this.parseValue(this.value);
+      this.validateValue();
     },
 
     validateValue() {

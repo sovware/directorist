@@ -17969,19 +17969,8 @@ input[type=radio].cptm-radio {
   -webkit-justify-content: center;
       -ms-flex-pack: center;
           justify-content: center;
-  width: 40px;
-  height: 38px;
-  color: #ffffff;
-  background-color: #2c3239;
-  border: 1px solid #2c3239;
-  font-size: 24px;
-  margin: 0 0 12px;
-}
-.cptm-form-group.cptm-form-content .cptm-form-content-icon.cptm-form-content-icon-only {
   font-size: 40px;
-  color: #747c89;
-  background: transparent;
-  border: none;
+  margin: 0 0 12px;
 }
 .cptm-form-group.cptm-form-content .cptm-form-content-btn {
   position: relative;
@@ -18015,7 +18004,7 @@ input[type=radio].cptm-radio {
   width: 0;
   height: 1px;
   left: 0;
-  bottom: 0;
+  bottom: 8px;
   background-color: #3e62f5;
   -webkit-transition: width ease-in-out 300ms;
   transition: width ease-in-out 300ms;
@@ -23480,19 +23469,8 @@ input[type=radio].cptm-radio {
   -webkit-justify-content: center;
       -ms-flex-pack: center;
           justify-content: center;
-  width: 40px;
-  height: 38px;
-  color: #ffffff;
-  background-color: #2c3239;
-  border: 1px solid #2c3239;
-  font-size: 24px;
-  margin: 0 0 12px;
-}
-.cptm-form-group.cptm-form-content .cptm-form-content-icon.cptm-form-content-icon-only {
   font-size: 40px;
-  color: #747c89;
-  background: transparent;
-  border: none;
+  margin: 0 0 12px;
 }
 .cptm-form-group.cptm-form-content .cptm-form-content-btn {
   position: relative;
@@ -23526,7 +23504,7 @@ input[type=radio].cptm-radio {
   width: 0;
   height: 1px;
   left: 0;
-  bottom: 0;
+  bottom: 8px;
   background-color: #3e62f5;
   -webkit-transition: width ease-in-out 300ms;
   transition: width ease-in-out 300ms;
@@ -29279,19 +29257,8 @@ input[type=radio].cptm-radio {
   -webkit-justify-content: center;
       -ms-flex-pack: center;
           justify-content: center;
-  width: 40px;
-  height: 38px;
-  color: #ffffff;
-  background-color: #2c3239;
-  border: 1px solid #2c3239;
-  font-size: 24px;
-  margin: 0 0 12px;
-}
-.cptm-form-group.cptm-form-content .cptm-form-content-icon.cptm-form-content-icon-only {
   font-size: 40px;
-  color: #747c89;
-  background: transparent;
-  border: none;
+  margin: 0 0 12px;
 }
 .cptm-form-group.cptm-form-content .cptm-form-content-btn {
   position: relative;
@@ -29325,7 +29292,7 @@ input[type=radio].cptm-radio {
   width: 0;
   height: 1px;
   left: 0;
-  bottom: 0;
+  bottom: 8px;
   background-color: #3e62f5;
   -webkit-transition: width ease-in-out 300ms;
   transition: width ease-in-out 300ms;

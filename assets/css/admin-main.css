@@ -16267,6 +16267,27 @@ div[draggable=true].cptm-form-builder-group-title-area {
   font-size: 16px;
   color: #747c89;
 }
+.cptm-form-builder-group-field-item-header .cptm-title-3 .cptm-title-icon-svg {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.cptm-form-builder-group-field-item-header .cptm-title-3 .cptm-title-icon-svg svg {
+  width: 16px;
+  height: 16px;
+}
+.cptm-form-builder-group-field-item-header .cptm-title-3 .cptm-title-icon-svg svg path {
+  fill: #747c89;
+}
 .cptm-form-builder-group-field-item-header .cptm-title-3 > span {
   display: -webkit-box;
   display: -webkit-flex;
@@ -16405,6 +16426,27 @@ li[class=cptm-form-builder-field-list-item][draggable=true] {
   width: 16px;
   font-size: 16px;
   color: #747c89;
+}
+.cptm-form-builder-field-list-icon .cptm-form-builder-field-list-icon-svg {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.cptm-form-builder-field-list-icon .cptm-form-builder-field-list-icon-svg svg {
+  width: 16px;
+  height: 16px;
+}
+.cptm-form-builder-field-list-icon .cptm-form-builder-field-list-icon-svg svg path {
+  fill: #747c89;
 }
 
 .cptm-form-builder-field-list-label {
@@ -21767,6 +21809,27 @@ div[draggable=true].cptm-form-builder-group-title-area {
   font-size: 16px;
   color: #747c89;
 }
+.cptm-form-builder-group-field-item-header .cptm-title-3 .cptm-title-icon-svg {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.cptm-form-builder-group-field-item-header .cptm-title-3 .cptm-title-icon-svg svg {
+  width: 16px;
+  height: 16px;
+}
+.cptm-form-builder-group-field-item-header .cptm-title-3 .cptm-title-icon-svg svg path {
+  fill: #747c89;
+}
 .cptm-form-builder-group-field-item-header .cptm-title-3 > span {
   display: -webkit-box;
   display: -webkit-flex;
@@ -21905,6 +21968,27 @@ li[class=cptm-form-builder-field-list-item][draggable=true] {
   width: 16px;
   font-size: 16px;
   color: #747c89;
+}
+.cptm-form-builder-field-list-icon .cptm-form-builder-field-list-icon-svg {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.cptm-form-builder-field-list-icon .cptm-form-builder-field-list-icon-svg svg {
+  width: 16px;
+  height: 16px;
+}
+.cptm-form-builder-field-list-icon .cptm-form-builder-field-list-icon-svg svg path {
+  fill: #747c89;
 }
 
 .cptm-form-builder-field-list-label {
@@ -27555,6 +27639,27 @@ div[draggable=true].cptm-form-builder-group-title-area {
   font-size: 16px;
   color: #747c89;
 }
+.cptm-form-builder-group-field-item-header .cptm-title-3 .cptm-title-icon-svg {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.cptm-form-builder-group-field-item-header .cptm-title-3 .cptm-title-icon-svg svg {
+  width: 16px;
+  height: 16px;
+}
+.cptm-form-builder-group-field-item-header .cptm-title-3 .cptm-title-icon-svg svg path {
+  fill: #747c89;
+}
 .cptm-form-builder-group-field-item-header .cptm-title-3 > span {
   display: -webkit-box;
   display: -webkit-flex;
@@ -27693,6 +27798,27 @@ li[class=cptm-form-builder-field-list-item][draggable=true] {
   width: 16px;
   font-size: 16px;
   color: #747c89;
+}
+.cptm-form-builder-field-list-icon .cptm-form-builder-field-list-icon-svg {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.cptm-form-builder-field-list-icon .cptm-form-builder-field-list-icon-svg svg {
+  width: 16px;
+  height: 16px;
+}
+.cptm-form-builder-field-list-icon .cptm-form-builder-field-list-icon-svg svg path {
+  fill: #747c89;
 }
 
 .cptm-form-builder-field-list-label {

@@ -18497,6 +18497,13 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       }
       return icon;
     },
+    widgetIconType: function widgetIconType() {
+      var iconType = "";
+      if (this.current_widget && this.current_widget.iconType) {
+        iconType = this.current_widget.iconType;
+      }
+      return iconType;
+    },
     expandState: function expandState() {
       var state = this.expanded;
       if (!this.isEnabledGroupDragging) {
@@ -18593,18 +18600,18 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       this.showConfirmationModal = true;
 
       // Add class to parent with class 'atbdp-cpt-manager'
-      var parentElement = this.$el.closest('.atbdp-cpt-manager');
+      var parentElement = this.$el.closest(".atbdp-cpt-manager");
       if (parentElement) {
-        parentElement.classList.add('directorist-overlay-visible');
+        parentElement.classList.add("directorist-overlay-visible");
       }
     },
     closeConfirmationModal: function closeConfirmationModal() {
       this.showConfirmationModal = false;
 
       // Remove class from parent with class 'atbdp-cpt-manager'
-      var parentElement = this.$el.closest('.atbdp-cpt-manager');
+      var parentElement = this.$el.closest(".atbdp-cpt-manager");
       if (parentElement) {
-        parentElement.classList.remove('directorist-overlay-visible');
+        parentElement.classList.remove("directorist-overlay-visible");
       }
     },
     trashWidget: function trashWidget() {
@@ -18699,6 +18706,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     icon: {
       default: ""
+    },
+    iconType: {
+      default: null
     },
     alert: {
       default: null
@@ -29815,9 +29825,14 @@ var render = function render() {
         }
       }
     }, [_c('span', {
-      staticClass: "cptm-form-builder-field-list-icon test"
-    }, [widget.icon && widget.icon.length ? _c('span', {
+      staticClass: "cptm-form-builder-field-list-icon"
+    }, [widget.icon && widget.icon.length && widget.iconType !== 'svg' ? _c('span', {
       class: widget.icon
+    }) : widget.icon && widget.icon.length && widget.iconType === 'svg' ? _c('span', {
+      staticClass: "cptm-form-builder-field-list-icon-svg",
+      domProps: {
+        "innerHTML": _vm._s(widget.icon)
+      }
     }) : _vm._e()]), _vm._v(" "), _c('span', {
       staticClass: "cptm-form-builder-field-list-label"
     }, [_vm._v(_vm._s(widget.label))])]);
@@ -29870,6 +29885,7 @@ var render = function render() {
       "label": _vm.widgetTitle,
       "sublabel": _vm.widgetSubtitle,
       "icon": _vm.widgetIcon,
+      "iconType": _vm.widgetIconType,
       "expanded": _vm.expandState,
       "alert": _vm.alert
     },
@@ -29978,10 +29994,15 @@ var render = function render() {
     staticClass: "cptm-form-builder-group-field-item-header"
   }, [_c('h4', {
     staticClass: "cptm-title-3"
-  }, [_c('span', {
+  }, [_vm.iconType !== 'svg' ? _c('span', {
     staticClass: "cptm-title-icon",
     class: _vm.icon
-  }), _vm._v(" "), _c('span', [_vm._v("\n      " + _vm._s(_vm.label) + "\n      "), _vm.alert ? _c('span', {
+  }) : _vm.iconType === 'svg' ? _c('span', {
+    staticClass: "cptm-title-icon-svg",
+    domProps: {
+      "innerHTML": _vm._s(_vm.icon)
+    }
+  }) : _vm._e(), _vm._v(" "), _c('span', [_vm._v("\n      " + _vm._s(_vm.label) + "\n      "), _vm.alert ? _c('span', {
     staticClass: "cptm-title-info",
     attrs: {
       "data-label": _vm.alert.message

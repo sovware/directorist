@@ -1834,6 +1834,18 @@ div[draggable="true"].cptm-form-builder-group-title-area {
       font-size: 16px;
       color: #747c89;
     }
+    .cptm-title-icon-svg {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      svg {
+        width: 16px;
+        height: 16px;
+        path {
+          fill: #747c89;
+        }
+      }
+    }
     > span {
       display: flex;
       gap: 12px;
@@ -1946,6 +1958,18 @@ li[class="cptm-form-builder-field-list-item"][draggable="true"] {
   width: 16px;
   font-size: 16px;
   color: #747c89;
+  .cptm-form-builder-field-list-icon-svg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    svg {
+      width: 16px;
+      height: 16px;
+      path {
+        fill: #747c89;
+      }
+    }
+  }
 }
 
 .cptm-form-builder-field-list-label {

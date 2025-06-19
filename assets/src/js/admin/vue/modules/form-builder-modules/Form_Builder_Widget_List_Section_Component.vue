@@ -31,10 +31,19 @@
           @drag-start="$emit('drag-start', { widget_key, widget })"
           @drag-end="$emit('drag-end', { widget_key, widget })"
         >
-          <span class="cptm-form-builder-field-list-icon test">
+          <span class="cptm-form-builder-field-list-icon">
             <span
-              v-if="widget.icon && widget.icon.length"
+              v-if="
+                widget.icon && widget.icon.length && widget.iconType !== 'svg'
+              "
               :class="widget.icon"
+            ></span>
+            <span
+              v-else-if="
+                widget.icon && widget.icon.length && widget.iconType === 'svg'
+              "
+              v-html="widget.icon"
+              class="cptm-form-builder-field-list-icon-svg"
             ></span>
           </span>
           <span class="cptm-form-builder-field-list-label">{{

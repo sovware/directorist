@@ -50,7 +50,7 @@ class Init {
 
     public function enqueue_assets() {
 
-        if( ! isset( $_GET['page'] ) || 'directorist-licensing' !== $_GET['page'] ) {
+        if ( ! isset( $_GET['page'] ) || 'directorist-licensing' !== $_GET['page'] ) {
             return;
         }
 

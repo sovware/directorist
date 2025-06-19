@@ -31,7 +31,7 @@
           @drag-start="$emit('drag-start', { widget_key, widget })"
           @drag-end="$emit('drag-end', { widget_key, widget })"
         >
-          <span class="cptm-form-builder-field-list-icon">
+          <span class="cptm-form-builder-field-list-icon test">
             <span
               v-if="widget.icon && widget.icon.length"
               :class="widget.icon"
@@ -157,7 +157,7 @@ export default {
       // Filtered Widgets By Selected Widgets
       if (!this.allowMultiple) {
         this.filtered_widget_list = this.getFilteredWidgeBySelectedWidgets(
-          this.base_widget_list
+          this.base_widget_list,
         );
       } else {
         this.filtered_widget_list = this.base_widget_list;
@@ -223,9 +223,8 @@ export default {
             template: this.template,
             widget_group: _widget_group,
             widget_name: _widget_name,
-            template_widgets: this.fields[this.template]["widgets"][
-              _widget_group
-            ]["widgets"],
+            template_widgets:
+              this.fields[this.template]["widgets"][_widget_group]["widgets"],
             error,
           });
         }

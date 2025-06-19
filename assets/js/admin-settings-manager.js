@@ -29815,7 +29815,7 @@ var render = function render() {
         }
       }
     }, [_c('span', {
-      staticClass: "cptm-form-builder-field-list-icon"
+      staticClass: "cptm-form-builder-field-list-icon test"
     }, [widget.icon && widget.icon.length ? _c('span', {
       class: widget.icon
     }) : _vm._e()]), _vm._v(" "), _c('span', {

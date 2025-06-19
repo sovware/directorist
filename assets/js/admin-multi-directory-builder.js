@@ -25151,14 +25151,25 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'formgent-form-field',
+  name: "formgent-form-field",
   mixins: [_mixins_form_fields_input_field_props__WEBPACK_IMPORTED_MODULE_5__["default"], _mixins_form_fields_helper__WEBPACK_IMPORTED_MODULE_4__["default"]],
   created: function created() {
     this.init();
   },
+  computed: {
+    formgentFormList: function formgentFormList() {
+      var _this = this;
+      return this.forms.map(function (form) {
+        return {
+          label: form.label,
+          value: _this.getShortcode(form.value)
+        };
+      });
+    }
+  },
   watch: {
     alerts: function alerts() {
-      this.$emit('alert', Object.keys(this.alerts).length ? _objectSpread({}, this.alerts) : null);
+      this.$emit("alert", Object.keys(this.alerts).length ? _objectSpread({}, this.alerts) : null);
     },
     value: function value() {
       this.updateNoFormSelectedAlert();
@@ -25174,9 +25185,10 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       isFormGentActive: false,
       canInstallPlugins: false,
       createFormButtonData: {
-        href: '#',
-        label: 'Create a new Form'
-      }
+        href: "#",
+        label: "Create a new Form"
+      },
+      formgent_selected_form: ""
     };
   },
   methods: {
@@ -25189,40 +25201,40 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       }
     },
     loadPropsData: function loadPropsData() {
-      if (this.createFormButton && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(this.createFormButton) === 'object' && !Array.isArray(this.createFormButton)) {
+      if (this.createFormButton && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(this.createFormButton) === "object" && !Array.isArray(this.createFormButton)) {
         this.createFormButtonData = _objectSpread(_objectSpread({}, this.createFormButtonData), this.createFormButton);
       }
     },
     loadLocalizeData: function loadLocalizeData() {
-      if (typeof directorist_admin === 'undefined') {
+      if (typeof directorist_admin === "undefined") {
         return;
       }
       if (directorist_admin.capabilities && directorist_admin.capabilities.install_plugins) {
         this.canInstallPlugins = true;
       }
-      if (typeof directorist_admin.formgent !== 'undefined') {
+      if (typeof directorist_admin.formgent !== "undefined") {
         this.isFormGentInstalled = directorist_admin.formgent.is_installed;
         this.isFormGentActive = directorist_admin.formgent.is_active;
       }
     },
     loadForms: function loadForms() {
-      var _this = this;
+      var _this2 = this;
       return (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee() {
         var response;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
-              _this.isLoadingForms = true;
+              _this2.isLoadingForms = true;
               _context.prev = 1;
               _context.next = 4;
               return wp.apiFetch({
-                path: '/formgent/admin/forms/select'
+                path: "/formgent/admin/forms/select"
               });
             case 4:
               response = _context.sent;
-              _this.forms = response.forms;
-              _this.validateValue();
-              _this.updateNoFormSelectedAlert();
+              _this2.forms = response.forms;
+              _this2.validateValue();
+              _this2.updateNoFormSelectedAlert();
               _context.next = 13;
               break;
             case 10:
@@ -25230,8 +25242,9 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
               _context.t0 = _context["catch"](1);
               console.log(_context.t0);
             case 13:
-              _this.isLoadingForms = false;
-            case 14:
+              _this2.isLoadingForms = false;
+              _this2.formgent_selected_form = _this2.parseValue(_this2.value);
+            case 15:
             case "end":
               return _context.stop();
           }
@@ -25241,60 +25254,60 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     validateValue: function validateValue() {
       var parsedValue = this.parseValue(this.value);
       if (parsedValue !== this.value) {
-        this.$emit('update', parsedValue);
+        this.$emit("update", parsedValue);
       }
     },
     parseValue: function parseValue(value) {
-      if (value === '') {
-        return '';
+      if (value === "") {
+        return "";
       }
       var match = value.match(/\[formgent id="(\d+)"\]/);
       if (!match) {
-        return '';
+        return "";
       }
       if (this.forms.map(function (item) {
         return "".concat(item.value);
       }).includes("".concat(match[1]))) {
         return value;
       }
-      return '';
+      return "";
     },
     installPlugin: function installPlugin() {
-      var _this2 = this;
+      var _this3 = this;
       return (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee2() {
         var response;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
-              if (!_this2.isInstallingPlugin) {
+              if (!_this3.isInstallingPlugin) {
                 _context2.next = 2;
                 break;
               }
               return _context2.abrupt("return");
             case 2:
-              _this2.isInstallingPlugin = true;
+              _this3.isInstallingPlugin = true;
               _context2.prev = 3;
               _context2.next = 6;
               return wp.apiFetch({
-                path: '/directorist/v1/admin/install-plugin',
-                method: 'POST',
+                path: "/directorist/v1/admin/install-plugin",
+                method: "POST",
                 data: {
-                  slug: 'formgent',
-                  activate: '1'
+                  slug: "formgent",
+                  activate: "1"
                 }
               });
             case 6:
               response = _context2.sent;
-              _this2.isFormGentInstalled = true;
-              _this2.isFormGentActive = true;
-              _this2.updateMissingDependencyAlert();
-              _this2.updateLocalizeData({
+              _this3.isFormGentInstalled = true;
+              _this3.isFormGentActive = true;
+              _this3.updateMissingDependencyAlert();
+              _this3.updateLocalizeData({
                 formgent: {
                   is_installed: true,
                   is_active: true
                 }
               });
-              _this2.loadForms();
+              _this3.loadForms();
               _context2.next = 17;
               break;
             case 14:
@@ -25302,7 +25315,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
               _context2.t0 = _context2["catch"](3);
               console.log(_context2.t0);
             case 17:
-              _this2.isInstallingPlugin = false;
+              _this3.isInstallingPlugin = false;
             case 18:
             case "end":
               return _context2.stop();
@@ -25311,40 +25324,40 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       }))();
     },
     updateLocalizeData: function updateLocalizeData(data) {
-      if (typeof window.directorist_admin === 'undefined') {
+      if (typeof window.directorist_admin === "undefined") {
         window.directorist_admin = {};
       }
       window.directorist_admin = _objectSpread(_objectSpread({}, window.directorist_admin), data);
     },
     updateNoFormSelectedAlert: function updateNoFormSelectedAlert() {
-      if (this.value === '') {
+      if (this.value === "") {
         this.alerts = _objectSpread(_objectSpread({}, this.alerts), {}, {
           noFormSelected: {
-            type: 'warning',
-            message: 'Please select a form.'
+            type: "warning",
+            message: "Please select a form."
           }
         });
       } else {
-        this.removeAlert('noFormSelected');
+        this.removeAlert("noFormSelected");
       }
     },
     updateMissingDependencyAlert: function updateMissingDependencyAlert() {
       if (!this.isFormGentInstalled) {
         this.alerts = _objectSpread(_objectSpread({}, this.alerts), {}, {
           missingDependency: {
-            type: 'warning',
-            message: 'Please install and activate the FormGent plugin.'
+            type: "warning",
+            message: "Please install and activate the FormGent plugin."
           }
         });
       } else if (!this.isFormGentActive) {
         this.alerts = _objectSpread(_objectSpread({}, this.alerts), {}, {
           missingDependency: {
-            type: 'warning',
-            message: 'Please activate the FormGent plugin.'
+            type: "warning",
+            message: "Please activate the FormGent plugin."
           }
         });
       } else {
-        this.removeAlert('missingDependency');
+        this.removeAlert("missingDependency");
       }
     },
     removeAlert: function removeAlert(key) {
@@ -33965,33 +33978,49 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
-    staticClass: "cptm-form-group"
-  }, [_vm.isFormGentInstalled ? [_vm.isFormGentActive ? [_vm.isLoadingForms ? [_c('h3', [_vm._v("Loading...")])] : [_vm.forms.length > 0 ? _c('div', {}, [_c('label', [_vm._v(_vm._s(_vm.label))]), _vm._v(" "), _c('select', {
-    domProps: {
-      "value": _vm.forms.length > 0 ? _vm.value : 'tst'
-    },
-    on: {
-      "change": function change($event) {
-        return _vm.$emit('update', $event.target.value);
-      }
-    }
-  }, [_c('option', {
+    staticClass: "cptm-form-group cptm-form-content"
+  }, [_vm.isFormGentInstalled ? [_vm.isFormGentActive ? [_vm.isLoadingForms ? [_vm._m(0)] : [_vm.forms.length > 0 ? _c('div', {
+    staticClass: "cptm-form-content-wrapper cptm-form-content-select"
+  }, [_c('label', {
+    staticClass: "cptm-form-content-label"
+  }, [_vm._v(_vm._s(_vm.label))]), _vm._v(" "), _c('select-field', {
     attrs: {
-      "value": ""
+      "theme": "default",
+      "options": _vm.formgentFormList
+    },
+    model: {
+      value: _vm.formgent_selected_form,
+      callback: function callback($$v) {
+        _vm.formgent_selected_form = $$v;
+      },
+      expression: "formgent_selected_form"
     }
-  }, [_vm._v("Select...")]), _vm._v(" "), _vm._l(_vm.forms, function (form) {
-    return _c('option', {
-      key: form.value,
-      domProps: {
-        "value": _vm.getShortcode(form.value)
-      }
-    }, [_vm._v(_vm._s(form.label))]);
-  })], 2)]) : _c('div', {}, [_c('h3', [_vm._v("No forms available.")]), _vm._v(" "), _c('p', [_vm._v("You haven't created any FormGent form yet.")]), _vm._v(" "), _c('a', {
-    staticClass: "cptm-btn cptm-btn-primary",
+  })], 1) : _c('div', {
+    staticClass: "cptm-form-content-wrapper"
+  }, [_c('span', {
+    staticClass: "cptm-form-content-icon cptm-form-content-icon-only la la-file-text-o"
+  }), _vm._v(" "), _c('h3', {
+    staticClass: "cptm-form-content-title"
+  }, [_vm._v("No forms available.")]), _vm._v(" "), _c('p', {
+    staticClass: "cptm-form-content-desc"
+  }, [_vm._v("\n            You haven't created any FormGent form yet.\n          ")]), _vm._v(" "), _c('a', {
+    staticClass: "cptm-form-content-btn",
     attrs: {
       "href": _vm.createFormButtonData.href
     }
-  }, [_vm._v("\n                        " + _vm._s(_vm.createFormButtonData.label) + "\n                    ")])])]] : [_vm.canInstallPlugins ? _c('div', {}, [_c('h3', [_vm._v("You need the FormGent plugin to use this feature.")]), _vm._v(" "), _c('a', {
+  }, [_c('span', {
+    staticClass: "cptm-form-content-btn-icon las la-plus"
+  }), _vm._v("\n            " + _vm._s(_vm.createFormButtonData.label) + "\n          ")])])]] : [_vm.canInstallPlugins ? _c('div', {
+    staticClass: "cptm-form-content-wrapper"
+  }, [_c('span', {
+    staticClass: "cptm-form-content-icon las la-info-circle"
+  }), _vm._v(" "), _c('h3', {
+    staticClass: "cptm-form-content-title"
+  }, [_vm._v("Activate FormGent Plugin")]), _vm._v(" "), _c('p', {
+    staticClass: "cptm-form-content-desc"
+  }, [_vm._v("\n          You need the FormGent plugin to use this feature.\n        ")]), _vm._v(" "), _c('a', {
+    staticClass: "cptm-form-content-btn",
+    class: _vm.isInstallingPlugin ? 'cptm-btn-disabled' : '',
     attrs: {
       "href": "#"
     },
@@ -34001,7 +34030,25 @@ var render = function render() {
         return _vm.installPlugin();
       }
     }
-  }, [_vm._v("\n                    " + _vm._s(_vm.isInstallingPlugin ? 'Activating' : 'Activate') + "\n                ")])]) : _c('div', {}, [_c('h3', [_vm._v("You need the FormGent plugin to use this feature, ask the site admin to activate it.")])])]] : [_vm.canInstallPlugins ? _c('div', [_c('h3', [_vm._v("You need the FormGent plugin to use this feature.")]), _vm._v(" "), _c('a', {
+  }, [_vm.isInstallingPlugin ? _c('span', {
+    staticClass: "cptm-form-content-btn-loader"
+  }, [_vm._v("\n            Activating\n            "), _c('i', {
+    staticClass: "las la-sync la-spin"
+  })]) : _c('span', [_vm._v(" Activate")])])]) : _c('div', {
+    staticClass: "cptm-form-content-wrapper"
+  }, [_c('h3', {
+    staticClass: "cptm-form-content-title"
+  }, [_vm._v("\n          You need the FormGent plugin to use this feature, ask the site admin\n          to activate it.\n        ")])])]] : [_vm.canInstallPlugins ? _c('div', {
+    staticClass: "cptm-form-content-wrapper"
+  }, [_c('span', {
+    staticClass: "cptm-form-content-icon las la-info-circle"
+  }), _vm._v(" "), _c('h3', {
+    staticClass: "cptm-form-content-title"
+  }, [_vm._v("\n        Install & Activate FormGent Plugin\n      ")]), _vm._v(" "), _c('p', {
+    staticClass: "cptm-form-content-desc"
+  }, [_vm._v("\n        You need the FormGent plugin to use this feature.\n      ")]), _vm._v(" "), _c('a', {
+    staticClass: "cptm-form-content-btn",
+    class: _vm.isInstallingPlugin ? 'cptm-btn-disabled' : '',
     attrs: {
       "href": "#"
     },
@@ -34011,9 +34058,25 @@ var render = function render() {
         return _vm.installPlugin();
       }
     }
-  }, [_vm._v("\n                " + _vm._s(_vm.isInstallingPlugin ? 'Installing' : 'Install & Activate') + "\n            ")])]) : _c('div', {}, [_vm._v("\n            You need the FormGent plugin to use this feature. Ask the site admin to install and activate it.\n        ")])]], 2);
+  }, [_vm.isInstallingPlugin ? _c('span', {
+    staticClass: "cptm-form-content-btn-loader"
+  }, [_vm._v("\n          Installing\n          "), _c('i', {
+    staticClass: "las la-sync la-spin"
+  })]) : _c('span', [_vm._v(" Install & Activate")])])]) : _c('div', {}, [_vm._v("\n      You need the FormGent plugin to use this feature. Ask the site admin to\n      install and activate it.\n    ")])]], 2);
 };
-var staticRenderFns = [];
+var staticRenderFns = [function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', {
+    staticClass: "cptm-form-content-wrapper"
+  }, [_c('span', {
+    staticClass: "cptm-form-content-icon cptm-form-content-icon-only la la-spinner la-spin"
+  }), _vm._v(" "), _c('h3', {
+    staticClass: "cptm-form-content-title"
+  }, [_vm._v("Loading forms...")]), _vm._v(" "), _c('p', {
+    staticClass: "cptm-form-content-desc"
+  }, [_vm._v("FormGent forms are appearing")])]);
+}];
 render._withStripped = true;
 
 

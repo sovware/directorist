@@ -3317,6 +3317,99 @@ input[type="radio"].cptm-radio {
     box-sizing: border-box;
   }
 
+  // Form Content (FormGent)
+  &.cptm-form-content {
+    text-align: center;
+    margin-bottom: 0;
+    .cptm-form-content-select {
+      text-align: left;
+    }
+    .cptm-form-content-title {
+      font-size: 16px;
+      line-height: 22px;
+      font-weight: 600;
+      color: #191b23;
+      margin: 0 0 8px;
+    }
+    .cptm-form-content-desc {
+      font-size: 12px;
+      line-height: 18px;
+      font-weight: 400;
+      color: #747c89;
+      margin: 0;
+    }
+
+    .cptm-form-content-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 38px;
+      color: #ffffff;
+      background-color: #2c3239;
+      border: 1px solid #2c3239;
+      font-size: 24px;
+      margin: 0 0 12px;
+      &.cptm-form-content-icon-only {
+        font-size: 40px;
+        color: #747c89;
+        background: transparent;
+        border: none;
+      }
+    }
+
+    .cptm-form-content-btn {
+      position: relative;
+      display: inline-flex;
+      gap: 6px;
+      align-items: center;
+      justify-content: center;
+      height: 30px;
+      font-size: 12px;
+      line-height: 14px;
+      font-weight: 500;
+      margin: 8px 0 0;
+      color: #3e62f5;
+      border: none;
+      outline: none;
+      box-shadow: none;
+      &:before {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 1px;
+        left: 0;
+        bottom: 0;
+        background-color: #3e62f5;
+        transition: width ease-in-out 300ms;
+      }
+      &:hover,
+      &:focus {
+        &:before {
+          width: 100%;
+        }
+      }
+      &.cptm-btn-disabled {
+        pointer-events: none;
+        &:before {
+          display: none;
+        }
+      }
+      .cptm-form-content-btn-icon {
+        font-size: 14px;
+      }
+      .cptm-form-content-btn-loader {
+        display: inline-flex;
+        gap: 6px;
+        align-items: center;
+        justify-content: center;
+        i {
+          font-size: 15px;
+        }
+      }
+    }
+  }
+
   &.tab-field {
     .cptm-preview-wrapper {
       display: flex;

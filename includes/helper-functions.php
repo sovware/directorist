@@ -976,8 +976,14 @@ if ( ! function_exists( 'calc_listing_expiry_date' ) ) {
         $start_date  = ! empty( $start_date ) ? $start_date : current_time( 'mysql' );
 
         // Calculate new date
-        $date = new \DateTime( $start_date );
-        $date->add( new DateInterval( "P{$expire_date}D" ) ); // set the interval in days
+        $start_date  = ! empty( $start_date ) ? $start_date : current_time( 'mysql' );
+        $expire_date = intval( $expire_date ); // sanitize
+        if ( $expire_date > 0 ) {
+            $date = new \DateTime( $start_date );
+            $date->add( new DateInterval( "P{$expire_date}D" ) );
+        } else {
+            $date = new \DateTime( $start_date );
+        }
 
         return $date->format( 'Y-m-d H:i:s' );
     }
@@ -4515,7 +4521,7 @@ function directorist_download_plugin( array $args = [] ) {
     ];
     $args    = array_merge( $default, $args );
 
-    $allowed_host = [ 'directorist.com', 'wordpress.org', 'downloads.wordpress.org' ];
+    $allowed_host = [ 'app.directorist.com', 'directorist.com', 'wordpress.org', 'downloads.wordpress.org' ];
 
     if ( empty( $args['url'] ) || ! in_array( parse_url( $args['url'], PHP_URL_HOST ), $allowed_host, true ) ) {
         $status['success'] = false;

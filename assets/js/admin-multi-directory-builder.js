@@ -30034,22 +30034,22 @@ var render = function render() {
     staticClass: "cptm-form-builder-group-field-item-header"
   }, [_c('h4', {
     staticClass: "cptm-title-3"
-  }, [_vm.alert ? _c('span', {
-    staticClass: "directorist-tooltip",
-    class: "directorist-tooltip--".concat(_vm.alert.type),
+  }, [_c('span', {
+    staticClass: "cptm-title-icon",
+    class: _vm.icon
+  }), _vm._v(" "), _c('span', [_vm._v("\n      " + _vm._s(_vm.label) + "\n      "), _vm.alert ? _c('span', {
+    staticClass: "cptm-title-info",
     attrs: {
       "data-label": _vm.alert.message
     }
   }, [_c('span', {
-    staticClass: "cptm-title-icon las la-exclamation-triangle"
-  })]) : _vm._e(), _vm._v(" "), _c('span', {
-    staticClass: "cptm-title-icon",
-    class: _vm.icon
+    staticClass: "cptm-title-info-icon las la-info-circle"
   }), _vm._v(" "), _c('span', {
+    staticClass: "cptm-title-info-text",
     domProps: {
-      "innerHTML": _vm._s(_vm.label)
+      "innerHTML": _vm._s(_vm.alert.message)
     }
-  }), _vm._v(" "), _vm.sublabel.length ? _c('span', {
+  })]) : _vm._e()]), _vm._v(" "), _vm.sublabel.length ? _c('span', {
     staticClass: "cptm-text-gray cptm-px-5",
     domProps: {
       "innerHTML": _vm._s(_vm.sublabel)

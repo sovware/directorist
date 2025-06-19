@@ -115,7 +115,7 @@
                 <?php else : ?>
                     <div class="directorist-membership-author">
                         <div class="directorist-membership-author-img">
-                            <?php echo esc_html( get_avatar( $user->ID, 100 ) ); ?>
+                            <?php echo wp_kses_post( get_avatar( $user->ID, 100 ) ); ?>
                         </div>
                         <div class="directorist-membership-author-heading">
                             <div class="directorist-membership-author-name"><?php echo esc_html( Licensing_Account::get_name() ); ?></div>

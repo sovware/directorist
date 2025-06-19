@@ -50,6 +50,10 @@ class Init {
 
     public function enqueue_assets() {
 
+        if( ! isset( $_GET['page'] ) || 'directorist-licensing' !== $_GET['page'] ) {
+            return;
+        }
+
         $url = ATBDP_URL . 'includes/licensing/assets/';
 
         wp_register_style( 'directorist-licensing-css', $url . 'style.css', [], '1.0' );

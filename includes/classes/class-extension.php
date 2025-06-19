@@ -37,7 +37,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
         public $required_extensions = [];
 
         public function __construct() {
-            add_action( 'admin_menu', [ $this, 'admin_menu' ], 100 );
+            // add_action( 'admin_menu', [ $this, 'admin_menu' ], 100 );
             add_action( 'admin_init', [ $this, 'setup_ajax_actions' ] );
 
             if ( ! empty( $_GET['page'] ) && ( 'atbdp-extension' === $_GET['page'] ) ) {

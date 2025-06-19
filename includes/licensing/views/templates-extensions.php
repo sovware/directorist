@@ -58,13 +58,13 @@
 
         <div id="directorist-extensions" class="directorist-tabs-item active">
             <div class="directorist-row">
-                <?php echo esc_html( directorist_licensing_get_extension_list_html() ); ?>
+                <?php echo wp_kses_post( directorist_licensing_get_extension_list_html() ); ?>
             </div>
         </div>
 
         <div id="directorist-templates" class="directorist-tabs-item">
             <div class="directorist-row">
-                <?php echo esc_html( directorist_licensing_get_template_list_html() ); ?>
+                <?php echo wp_kses_post( directorist_licensing_get_template_list_html() ); ?>
             </div>
         </div>
 

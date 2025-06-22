@@ -29,7 +29,7 @@ class Email {
     }
 
     public static function notify_owner( $comment_id ) {
-        if ( ! directorist_owner_notifiable_for( 'listing_review' ) ) {
+        if ( ! directorist_is_owner_notifiable_event( 'listing_review' ) ) {
             return false;
         }
 
@@ -86,7 +86,7 @@ class Email {
     }
 
     public static function notify_admin( $comment_id ) {
-        if ( ! directorist_admin_notifiable_for( 'listing_review' ) ) {
+        if ( ! directorist_is_admin_notifiable_event( 'listing_review' ) ) {
             return false;
         }
 

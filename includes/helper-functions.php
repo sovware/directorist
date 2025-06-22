@@ -976,8 +976,14 @@ if ( ! function_exists( 'calc_listing_expiry_date' ) ) {
         $start_date  = ! empty( $start_date ) ? $start_date : current_time( 'mysql' );
 
         // Calculate new date
-        $date = new \DateTime( $start_date );
-        $date->add( new DateInterval( "P{$expire_date}D" ) ); // set the interval in days
+        $start_date  = ! empty( $start_date ) ? $start_date : current_time( 'mysql' );
+        $expire_date = intval( $expire_date ); // sanitize
+        if ( $expire_date > 0 ) {
+            $date = new \DateTime( $start_date );
+            $date->add( new DateInterval( "P{$expire_date}D" ) );
+        } else {
+            $date = new \DateTime( $start_date );
+        }
 
         return $date->format( 'Y-m-d H:i:s' );
     }
@@ -3519,6 +3525,7 @@ function directorist_prepare_user_favorites( $favorites = [] ) {
  * Check if email notification is enabled and user can get notification for a specific event.
  *
  * @since 7.2.0
+ * @deprecated Use directorist_is_owner_notifiable_event() or directorist_is_admin_notifiable_event() instead.
  * @param string $event_name The name of the event.
  * @param string $user_type user or admin
  *
@@ -3546,6 +3553,7 @@ function directorist_user_notifiable_for( $event_name = '', $user_type = '' ) {
  * Check if admin can get email notification for a specific event.
  *
  * @since 7.2.0
+ * @deprecated Use directorist_is_admin_notifiable_event() instead.
  * @param string $event_name The name of the event.
  *
  * @return An array of user IDs.
@@ -3558,6 +3566,7 @@ function directorist_admin_notifiable_for( $event_name = '' ) {
  * Check if listing owner can get email notification for a specific event.
  *
  * @since 7.2.0
+ * @deprecated Use directorist_is_owner_notifiable_event() instead.
  * @param string $event_name The name of the event.
  *
  * @return bool

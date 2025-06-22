@@ -29,7 +29,7 @@ class Email {
     }
 
     public static function notify_owner( $comment_id ) {
-        if ( ! directorist_is_user_notifiable_event( 'listing_review' ) ) {
+        if ( ! directorist_is_owner_notifiable_event( 'listing_review' ) ) {
             return false;
         }
 

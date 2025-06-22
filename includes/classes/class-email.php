@@ -492,7 +492,7 @@ This email is sent automatically for information purpose only. Please do not res
                 return false;
             }
 
-            if ( ! directorist_is_user_notifiable_event( 'order_created' ) ) {
+            if ( ! directorist_is_owner_notifiable_event( 'order_created' ) ) {
                 return false;
             }
 
@@ -555,7 +555,7 @@ This email is sent automatically for information purpose only. Please do not res
                 return false;
             }
 
-            if ( ! directorist_is_user_notifiable_event( 'order_completed' ) ) {
+            if ( ! directorist_is_owner_notifiable_event( 'order_completed' ) ) {
                 return false;
             }
 
@@ -594,7 +594,7 @@ This email is sent automatically for information purpose only. Please do not res
 
             $notify = apply_filters( 'directorist_notify_owner_listing_submitted', true, $listing_id );
 
-            if ( ! $notify || $this->disable_notification() || ! directorist_is_user_notifiable_event( 'listing_submitted' ) ) {
+            if ( ! $notify || $this->disable_notification() || ! directorist_is_owner_notifiable_event( 'listing_submitted' ) ) {
                 return false;
             }
 
@@ -674,7 +674,7 @@ This email is sent automatically for information purpose only. Please do not res
 
             $notify = apply_filters( 'directorist_notify_owner_listing_published', true, $listing_id );
 
-            if ( ! $notify || $this->disable_notification() || ! directorist_is_user_notifiable_event( 'listing_published' ) ) {
+            if ( ! $notify || $this->disable_notification() || ! directorist_is_owner_notifiable_event( 'listing_published' ) ) {
                 return false;
             }
 
@@ -715,7 +715,7 @@ This email is sent automatically for information purpose only. Please do not res
                 return false;
             }
 
-            if ( ! directorist_is_user_notifiable_event( 'listing_edited' ) ) {
+            if ( ! directorist_is_owner_notifiable_event( 'listing_edited' ) ) {
                 return false;
             }
 
@@ -758,7 +758,7 @@ This email is sent automatically for information purpose only. Please do not res
 
             $notify = apply_filters( 'directorist_notify_owner_listing_to_expire', true, $listing_id );
 
-            if ( ! $listing_id || ! $notify || $this->disable_notification() || ! directorist_is_user_notifiable_event( 'listing_to_expire' ) ) {
+            if ( ! $listing_id || ! $notify || $this->disable_notification() || ! directorist_is_owner_notifiable_event( 'listing_to_expire' ) ) {
                 return false;
             }
 
@@ -797,7 +797,7 @@ This email is sent automatically for information purpose only. Please do not res
 
             $notify = apply_filters( 'directorist_notify_owner_listing_expired', true, $listing_id );
 
-            if ( ! $listing_id || ! $notify || $this->disable_notification() || ! directorist_is_user_notifiable_event( 'listing_expired' ) ) {
+            if ( ! $listing_id || ! $notify || $this->disable_notification() || ! directorist_is_owner_notifiable_event( 'listing_expired' ) ) {
                 return false;
             }
 
@@ -836,7 +836,7 @@ This email is sent automatically for information purpose only. Please do not res
 
             $notify = apply_filters( 'directorist_notify_owner_to_renew', true, $listing_id );
 
-            if ( ! $listing_id || ! $notify || $this->disable_notification() || ! directorist_is_user_notifiable_event( 'remind_to_renew' ) ) {
+            if ( ! $listing_id || ! $notify || $this->disable_notification() || ! directorist_is_owner_notifiable_event( 'remind_to_renew' ) ) {
                 return false;
             }
 
@@ -876,7 +876,7 @@ This email is sent automatically for information purpose only. Please do not res
                 return false;
             }
 
-            if ( ! directorist_is_user_notifiable_event( 'listing_renewed' ) ) {
+            if ( ! directorist_is_owner_notifiable_event( 'listing_renewed' ) ) {
                 return false;
             }
 
@@ -900,7 +900,7 @@ This email is sent automatically for information purpose only. Please do not res
                 return false;
             }
 
-            if ( ! directorist_is_user_notifiable_event( 'listing_deleted' ) ) {
+            if ( ! directorist_is_owner_notifiable_event( 'listing_deleted' ) ) {
                 return false;
             }
 

@@ -3524,7 +3524,7 @@ function directorist_prepare_user_favorites( $favorites = [] ) {
  * Check if email notification is enabled and user can get notification for a specific event.
  *
  * @since 7.2.0
- * @deprecated Use directorist_is_user_notifiable_event() or directorist_is_admin_notifiable_event() instead.
+ * @deprecated Use directorist_is_owner_notifiable_event() or directorist_is_admin_notifiable_event() instead.
  * @param string $event_name The name of the event.
  * @param string $user_type user or admin
  *
@@ -3565,7 +3565,7 @@ function directorist_admin_notifiable_for( $event_name = '' ) {
  * Check if listing owner can get email notification for a specific event.
  *
  * @since 7.2.0
- * @deprecated Use directorist_is_user_notifiable_event() instead.
+ * @deprecated Use directorist_is_owner_notifiable_event() instead.
  * @param string $event_name The name of the event.
  *
  * @return bool

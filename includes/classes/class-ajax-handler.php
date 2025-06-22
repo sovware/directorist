@@ -1167,7 +1167,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
                 return;
             }
 
-            if ( ! directorist_is_user_notifiable_event( 'listing_review' ) ) {
+            if ( ! directorist_is_owner_notifiable_event( 'listing_review' ) ) {
                 return false;
             }
 
@@ -1636,7 +1636,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
                 die();
             }
 
-            $send_owner = directorist_is_user_notifiable_event( 'listing_contact_form' );
+            $send_owner = directorist_is_owner_notifiable_event( 'listing_contact_form' );
             $send_admin = directorist_is_admin_notifiable_event( 'listing_contact_form' );
 
             // is admin disabled both notification

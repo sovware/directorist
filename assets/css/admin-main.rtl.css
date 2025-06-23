@@ -18033,12 +18033,14 @@ input[type=radio].cptm-radio {
   font-size: 12px;
   line-height: 14px;
   font-weight: 500;
-  margin: 8px 0 0;
+  margin: 8px auto 0;
   color: #3e62f5;
+  background: transparent;
   border: none;
   outline: none;
   -webkit-box-shadow: none;
           box-shadow: none;
+  cursor: pointer;
 }
 .cptm-form-group.cptm-form-content .cptm-form-content-btn:before {
   content: "";
@@ -18059,6 +18061,20 @@ input[type=radio].cptm-radio {
 }
 .cptm-form-group.cptm-form-content .cptm-form-content-btn.cptm-btn-disabled:before {
   display: none;
+}
+.cptm-form-group.cptm-form-content .cptm-form-content-btn.cptm-form-loader {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  color: #747c89;
+  height: auto;
+}
+.cptm-form-group.cptm-form-content .cptm-form-content-btn.cptm-form-loader:before {
+  display: none;
+}
+.cptm-form-group.cptm-form-content .cptm-form-content-btn.cptm-form-loader:hover, .cptm-form-group.cptm-form-content .cptm-form-content-btn.cptm-form-loader:focus {
+  color: #3e62f5;
 }
 .cptm-form-group.cptm-form-content .cptm-form-content-btn .cptm-form-content-btn-icon {
   font-size: 14px;
@@ -23575,12 +23591,14 @@ input[type=radio].cptm-radio {
   font-size: 12px;
   line-height: 14px;
   font-weight: 500;
-  margin: 8px 0 0;
+  margin: 8px auto 0;
   color: #3e62f5;
+  background: transparent;
   border: none;
   outline: none;
   -webkit-box-shadow: none;
           box-shadow: none;
+  cursor: pointer;
 }
 .cptm-form-group.cptm-form-content .cptm-form-content-btn:before {
   content: "";
@@ -23601,6 +23619,20 @@ input[type=radio].cptm-radio {
 }
 .cptm-form-group.cptm-form-content .cptm-form-content-btn.cptm-btn-disabled:before {
   display: none;
+}
+.cptm-form-group.cptm-form-content .cptm-form-content-btn.cptm-form-loader {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  color: #747c89;
+  height: auto;
+}
+.cptm-form-group.cptm-form-content .cptm-form-content-btn.cptm-form-loader:before {
+  display: none;
+}
+.cptm-form-group.cptm-form-content .cptm-form-content-btn.cptm-form-loader:hover, .cptm-form-group.cptm-form-content .cptm-form-content-btn.cptm-form-loader:focus {
+  color: #3e62f5;
 }
 .cptm-form-group.cptm-form-content .cptm-form-content-btn .cptm-form-content-btn-icon {
   font-size: 14px;
@@ -29405,12 +29437,14 @@ input[type=radio].cptm-radio {
   font-size: 12px;
   line-height: 14px;
   font-weight: 500;
-  margin: 8px 0 0;
+  margin: 8px auto 0;
   color: #3e62f5;
+  background: transparent;
   border: none;
   outline: none;
   -webkit-box-shadow: none;
           box-shadow: none;
+  cursor: pointer;
 }
 .cptm-form-group.cptm-form-content .cptm-form-content-btn:before {
   content: "";
@@ -29431,6 +29465,20 @@ input[type=radio].cptm-radio {
 }
 .cptm-form-group.cptm-form-content .cptm-form-content-btn.cptm-btn-disabled:before {
   display: none;
+}
+.cptm-form-group.cptm-form-content .cptm-form-content-btn.cptm-form-loader {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  color: #747c89;
+  height: auto;
+}
+.cptm-form-group.cptm-form-content .cptm-form-content-btn.cptm-form-loader:before {
+  display: none;
+}
+.cptm-form-group.cptm-form-content .cptm-form-content-btn.cptm-form-loader:hover, .cptm-form-group.cptm-form-content .cptm-form-content-btn.cptm-form-loader:focus {
+  color: #3e62f5;
 }
 .cptm-form-group.cptm-form-content .cptm-form-content-btn .cptm-form-content-btn-icon {
   font-size: 14px;

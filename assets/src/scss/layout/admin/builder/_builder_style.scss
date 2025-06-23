@@ -3381,11 +3381,13 @@ input[type="radio"].cptm-radio {
       font-size: 12px;
       line-height: 14px;
       font-weight: 500;
-      margin: 8px 0 0;
+      margin: 8px auto 0;
       color: #3e62f5;
+      background: transparent;
       border: none;
       outline: none;
       box-shadow: none;
+      cursor: pointer;
       &:before {
         content: "";
         position: absolute;
@@ -3406,6 +3408,18 @@ input[type="radio"].cptm-radio {
         pointer-events: none;
         &:before {
           display: none;
+        }
+      }
+      &.cptm-form-loader {
+        display: flex;
+        color: #747c89;
+        height: auto;
+        &:before {
+          display: none;
+        }
+        &:hover,
+        &:focus {
+          color: #3e62f5;
         }
       }
       .cptm-form-content-btn-icon {

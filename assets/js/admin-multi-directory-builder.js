@@ -34067,16 +34067,20 @@ var render = function render() {
     }
   })])]), _vm._v(" "), _c('h3', {
     staticClass: "cptm-form-content-title"
-  }, [_vm._v("No forms available.")]), _vm._v(" "), _c('p', {
-    staticClass: "cptm-form-content-desc"
-  }, [_vm._v("\n            You haven't created any FormGent form yet.\n          ")]), _vm._v(" "), _c('a', {
-    staticClass: "cptm-form-content-btn",
+  }, [_vm._v("\n            Get started with your first form\n          ")]), _vm._v(" "), _c('a', {
+    staticClass: "cptm-btn cptm-btn-secondery",
     attrs: {
+      "target": "_blank",
       "href": _vm.createFormButtonData.href
     }
+  }, [_vm._v("\n            " + _vm._s(_vm.createFormButtonData.label) + "\n          ")]), _vm._v(" "), _c('button', {
+    staticClass: "cptm-form-content-btn cptm-form-loader",
+    on: {
+      "click": _vm.loadForms
+    }
   }, [_c('span', {
-    staticClass: "cptm-form-content-btn-icon las la-plus"
-  }), _vm._v("\n            " + _vm._s(_vm.createFormButtonData.label) + "\n          ")])])]] : [_vm.canInstallPlugins ? _c('div', {
+    staticClass: "cptm-form-content-btn-icon las la-redo-alt"
+  }), _vm._v("\n            Check for new forms\n          ")])])]] : [_vm.canInstallPlugins ? _c('div', {
     staticClass: "cptm-form-content-wrapper"
   }, [_c('span', {
     staticClass: "cptm-form-content-icon"

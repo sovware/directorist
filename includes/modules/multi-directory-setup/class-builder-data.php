@@ -568,7 +568,7 @@ class Builder_Data {
                                 'label'            => __( 'Select a form', 'directorist' ),
                                 'value'            => '--',
                                 'createFormButton' => [
-                                    'label' => __( 'Create a new Form', 'directorist' ),
+                                    'label' => __( 'Create a form', 'directorist' ),
                                     'href'  => admin_url( 'admin.php?page=formgent' ),
                                 ],
                             ],

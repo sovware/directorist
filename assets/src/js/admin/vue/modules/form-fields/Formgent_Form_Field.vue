@@ -63,14 +63,23 @@
                 />
               </svg>
             </span>
-            <h3 class="cptm-form-content-title">No forms available.</h3>
-            <p class="cptm-form-content-desc">
-              You haven't created any FormGent form yet.
-            </p>
-            <a class="cptm-form-content-btn" :href="createFormButtonData.href">
-              <span class="cptm-form-content-btn-icon las la-plus"></span>
+            <h3 class="cptm-form-content-title">
+              Get started with your first form
+            </h3>
+            <a
+              class="cptm-btn cptm-btn-secondery"
+              target="_blank"
+              :href="createFormButtonData.href"
+            >
               {{ createFormButtonData.label }}
             </a>
+            <button
+              class="cptm-form-content-btn cptm-form-loader"
+              @click="loadForms"
+            >
+              <span class="cptm-form-content-btn-icon las la-redo-alt"></span>
+              Check for new forms
+            </button>
           </div>
         </template>
       </template>

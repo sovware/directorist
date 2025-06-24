@@ -248,6 +248,7 @@ class Helper {
 			'behance'        => __('Behance', 'directorist'),
 			'soundcloud'     => __('SoundCloud', 'directorist'),
 			'stack-overflow' => __('StackOverFLow', 'directorist'),
+			'tiktok'         => __( 'Tiktok', 'directorist' ),
 		];
 
 		asort( $socials );

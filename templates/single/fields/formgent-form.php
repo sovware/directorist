@@ -10,6 +10,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 <div class="directorist-single-info directorist-single-formgent-form">
 
-    <?php echo do_shortcode( $value ); ?>
+    <?php echo do_shortcode( "[formgent id='{$value}']" ); ?>
 
 </div>

@@ -233,7 +233,7 @@ export default {
     formgentFormList() {
       return this.forms.map((form) => ({
         label: form.label,
-        value: this.getShortcode(form.value),
+        value: form.value,
       }));
     },
   },
@@ -323,40 +323,12 @@ export default {
         });
 
         this.forms = response.forms;
-        this.validateValue();
         this.updateNoFormSelectedAlert();
       } catch (error) {
         console.log(error);
       }
 
       this.isLoadingForms = false;
-      this.validateValue();
-    },
-
-    validateValue() {
-      const parsedValue = this.parseValue(this.value);
-
-      if (parsedValue !== this.value) {
-        this.$emit("update", parsedValue);
-      }
-    },
-
-    parseValue(value) {
-      if (value === "") {
-        return "";
-      }
-
-      const match = value.match(/\[formgent id="(\d+)"\]/);
-
-      if (!match) {
-        return "";
-      }
-
-      if (this.forms.map((item) => `${item.value}`).includes(`${match[1]}`)) {
-        return value;
-      }
-
-      return "";
     },
 
     async installPlugin() {
@@ -445,10 +417,6 @@ export default {
 
     removeAlert(key) {
       Vue.delete(this.alerts, key);
-    },
-
-    getShortcode(id) {
-      return '[formgent id="' + id + '"]';
     },
   },
 };

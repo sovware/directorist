@@ -25059,11 +25059,10 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   },
   computed: {
     formgentFormList: function formgentFormList() {
-      var _this = this;
       return this.forms.map(function (form) {
         return {
           label: form.label,
-          value: _this.getShortcode(form.value)
+          value: form.value
         };
       });
     }
@@ -25122,13 +25121,13 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       }
     },
     loadForms: function loadForms() {
-      var _this2 = this;
+      var _this = this;
       return (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee() {
         var response;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
-              _this2.isLoadingForms = true;
+              _this.isLoadingForms = true;
               _context.prev = 1;
               _context.next = 4;
               return wp.apiFetch({
@@ -25136,60 +25135,37 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
               });
             case 4:
               response = _context.sent;
-              _this2.forms = response.forms;
-              _this2.validateValue();
-              _this2.updateNoFormSelectedAlert();
-              _context.next = 13;
+              _this.forms = response.forms;
+              _this.updateNoFormSelectedAlert();
+              _context.next = 12;
               break;
-            case 10:
-              _context.prev = 10;
+            case 9:
+              _context.prev = 9;
               _context.t0 = _context["catch"](1);
               console.log(_context.t0);
+            case 12:
+              _this.isLoadingForms = false;
             case 13:
-              _this2.isLoadingForms = false;
-              _this2.validateValue();
-            case 15:
             case "end":
               return _context.stop();
           }
-        }, _callee, null, [[1, 10]]);
+        }, _callee, null, [[1, 9]]);
       }))();
     },
-    validateValue: function validateValue() {
-      var parsedValue = this.parseValue(this.value);
-      if (parsedValue !== this.value) {
-        this.$emit("update", parsedValue);
-      }
-    },
-    parseValue: function parseValue(value) {
-      if (value === "") {
-        return "";
-      }
-      var match = value.match(/\[formgent id="(\d+)"\]/);
-      if (!match) {
-        return "";
-      }
-      if (this.forms.map(function (item) {
-        return "".concat(item.value);
-      }).includes("".concat(match[1]))) {
-        return value;
-      }
-      return "";
-    },
     installPlugin: function installPlugin() {
-      var _this3 = this;
+      var _this2 = this;
       return (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee2() {
         var response;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
-              if (!_this3.isInstallingPlugin) {
+              if (!_this2.isInstallingPlugin) {
                 _context2.next = 2;
                 break;
               }
               return _context2.abrupt("return");
             case 2:
-              _this3.isInstallingPlugin = true;
+              _this2.isInstallingPlugin = true;
               _context2.prev = 3;
               _context2.next = 6;
               return wp.apiFetch({
@@ -25202,16 +25178,16 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
               });
             case 6:
               response = _context2.sent;
-              _this3.isFormGentInstalled = true;
-              _this3.isFormGentActive = true;
-              _this3.updateMissingDependencyAlert();
-              _this3.updateLocalizeData({
+              _this2.isFormGentInstalled = true;
+              _this2.isFormGentActive = true;
+              _this2.updateMissingDependencyAlert();
+              _this2.updateLocalizeData({
                 formgent: {
                   is_installed: true,
                   is_active: true
                 }
               });
-              _this3.loadForms();
+              _this2.loadForms();
               _context2.next = 17;
               break;
             case 14:
@@ -25219,7 +25195,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
               _context2.t0 = _context2["catch"](3);
               console.log(_context2.t0);
             case 17:
-              _this3.isInstallingPlugin = false;
+              _this2.isInstallingPlugin = false;
             case 18:
             case "end":
               return _context2.stop();
@@ -25266,9 +25242,6 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     },
     removeAlert: function removeAlert(key) {
       vue__WEBPACK_IMPORTED_MODULE_6__["default"].delete(this.alerts, key);
-    },
-    getShortcode: function getShortcode(id) {
-      return '[formgent id="' + id + '"]';
     }
   }
 });

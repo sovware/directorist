@@ -290,12 +290,12 @@ class Directorist_Single_Listing {
 			$value = $this->get_field_value( $data );
 		}
 
-		$load_template = true;
-
 		$group = !empty( $data['widget_group'] ) ? $data['widget_group'] : '';
 
-		if( ( ( $group === 'custom' ) || ( $group === 'preset' ) ) && !$value ) {
-			$load_template = false;
+		$value_dependant_widgets = apply_filters( 'directorist_single_listing_value_dependant_widgets', [ 'formgent-form' ] );
+
+		if ( ( ( $group === 'custom' ) || ( $group === 'preset' ) || in_array( $data['widget_name'], $value_dependant_widgets ) ) && ! $value ) {
+			return;
 		}
 
 		$data['value']      = $value;
@@ -322,9 +322,7 @@ class Directorist_Single_Listing {
 
 		$template = apply_filters( 'directorist_single_item_template', $template, $data );
 
-		if( $load_template ) {
-			Helper::get_template( $template, $args );
-		}
+		Helper::get_template( $template, $args );
 	}
 
 	public function is_custom_field( $data ) {

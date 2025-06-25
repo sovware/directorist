@@ -11,6 +11,10 @@ if ( empty( $value ) ) {
     return;
 }
 
+if ( ! directorist_is_plugin_active( 'formgent/formgent.php' ) ) {
+    return;
+}
+
 ?>
 
 <div class="directorist-single-info directorist-single-formgent-form">

@@ -6,6 +6,11 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
+
+if ( empty( $value ) ) {
+    return;
+}
+
 ?>
 
 <div class="directorist-single-info directorist-single-formgent-form">

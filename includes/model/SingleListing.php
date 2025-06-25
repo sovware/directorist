@@ -292,9 +292,7 @@ class Directorist_Single_Listing {
 
 		$group = !empty( $data['widget_group'] ) ? $data['widget_group'] : '';
 
-		$value_dependant_widgets = apply_filters( 'directorist_single_listing_value_dependant_widgets', [ 'formgent-form' ] );
-
-		if ( ( ( $group === 'custom' ) || ( $group === 'preset' ) || in_array( $data['widget_name'], $value_dependant_widgets ) ) && ! $value ) {
+		if ( ( ( $group === 'custom' ) || ( $group === 'preset' ) ) && ! $value ) {
 			return;
 		}
 

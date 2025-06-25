@@ -308,7 +308,7 @@ class Directorist_Listing_Author {
 			'email'          => get_the_author_meta('user_email', $author_id),
 			'website'        => get_the_author_meta('user_url', $author_id),
 			'facebook'       => get_user_meta($author_id, 'atbdp_facebook', true),
-			// 'twitter'        => get_user_meta($author_id, 'atbdp_twitter', true),
+			'twitter'        => get_user_meta($author_id, 'atbdp_twitter', true),
 			'instagram'        => get_user_meta($author_id, 'atbdp_instagram', true),
 			'linkedin'       => get_user_meta($author_id, 'atbdp_linkedin', true),
 			'youtube'        => get_user_meta($author_id, 'atbdp_youtube', true),

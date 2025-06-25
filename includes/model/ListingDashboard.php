@@ -329,9 +329,10 @@ class Directorist_Listing_Dashboard {
 			$result = get_user_meta( $id, 'atbdp_facebook', true );
 			break;
 
-			// case 'twitter':
-			// $result = get_user_meta( $id, 'atbdp_twitter', true );
-			// break;
+			case 'twitter':
+			$result = get_user_meta( $id, 'atbdp_twitter', true );
+			break;
+			
 			case 'instagram':
 			$result = get_user_meta( $id, 'atbdp_instagram', true );
 			break;

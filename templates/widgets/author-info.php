@@ -46,6 +46,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
             $website = get_the_author_meta('user_url', $author_id);;
             $facebook = get_user_meta($author_id, 'atbdp_facebook', true);
             $instagram = get_user_meta($author_id, 'atbdp_instagram', true);
+            $twitter = get_user_meta($author_id, 'atbdp_twitter', true);
             $linkedIn = get_user_meta($author_id, 'atbdp_linkedin', true);
             $youtube = get_user_meta($author_id, 'atbdp_youtube', true);
             if (!empty($address)) { ?>
@@ -99,7 +100,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
         </ul>
     </div>
 
-    <?php if (!empty($facebook || $instagram || $linkedIn || $youtube )): ?>
+    <?php if (!empty($facebook || $instagram || $twitter || $linkedIn || $youtube )): ?>
 
         <ul class="directorist-author-social">
 
@@ -109,6 +110,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 			<?php if ( $instagram ): ?>
 				<li class="directorist-author-social__item"><a target="_blank" href="<?php echo esc_url( $instagram ); ?>"><?php directorist_icon( 'lab la-instagram' ); ?></a></li>
+			<?php endif; ?>
+            <?php if ( $twitter ): ?>
+				<li class="directorist-author-social__item"><a target="_blank" href="<?php echo esc_url( $twitter ); ?>"><?php directorist_icon( 'lab la-twitter' ); ?></a></li>
 			<?php endif; ?>
 
 			<?php if ( $linkedIn ): ?>

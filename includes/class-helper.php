@@ -405,6 +405,9 @@ class Helper {
 			case 'instagram':
 			$result = get_user_meta($user_id, 'atbdp_instagram', true);
 			break;
+			case 'twitter':
+			$result = get_user_meta($user_id, 'atbdp_twitter', true);
+			break;
 
 			case 'linkedin':
 			$result = get_user_meta($user_id, 'atbdp_linkedin', true);

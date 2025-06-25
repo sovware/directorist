@@ -169,6 +169,16 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 								<div class="directorist-form-group">
 
+									<label for="twitter"><span class="directorist-social-icon"><?php directorist_icon( 'lab la-twitter' ); ?></span><?php esc_html_e( 'Twitter', 'directorist' ); ?></label>
+
+									<input id="twitter" class="directorist-form-element" type="url" name="user[twitter]" value="<?php echo esc_attr( $dashboard->user_info( 'twitter' ) ); ?>" placeholder="<?php esc_attr_e( 'Enter your Twitter url', 'directorist' ); ?>">
+
+									<span class="directorist-input-extra-info"><?php esc_html_e( 'Leave it empty to hide', 'directorist' ) ?></span>
+
+								</div>
+
+								<div class="directorist-form-group">
+
 									<label for="linkedIn"><span class="directorist-social-icon"><?php directorist_icon( 'lab la-linkedin-in' ); ?></span><?php esc_html_e( 'LinkedIn', 'directorist' ); ?></label>
 
 									<input id="linkedIn" class="directorist-form-element" type="url" name="user[linkedIn]" value="<?php echo esc_attr( $dashboard->user_info( 'linkedin' ) ); ?>" placeholder="<?php esc_attr_e( 'Enter linkedIn url', 'directorist' ); ?>">

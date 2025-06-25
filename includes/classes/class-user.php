@@ -1016,7 +1016,8 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 			$last_name = !empty($data['last_name']) ? sanitize_text_field(trim($data['last_name'] )): '';
 			$address = !empty($data['address']) ? sanitize_text_field(trim($data['address'] )): '';
 			$facebook = !empty($data['facebook']) ? sanitize_url(trim($data['facebook'] )): '';
-			$twitter = !empty($data['twitter']) ? sanitize_url(trim($data['twitter'] )): '';
+			// $twitter = !empty($data['twitter']) ? sanitize_url(trim($data['twitter'] )): '';
+			$instagram = !empty($data['instagram']) ? sanitize_url(trim($data['instagram'] )): '';
 			$linkedIn = !empty($data['linkedIn']) ? sanitize_url(trim($data['linkedIn'] )): '';
 			$youtube = !empty($data['youtube']) ? sanitize_url(trim($data['youtube'] )): '';
 			$bio = !empty($data['bio']) ? sanitize_textarea_field(trim($data['bio'] )): '';
@@ -1027,7 +1028,8 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 			$uid = wp_update_user($userdata);
 			update_user_meta( $ID, 'address', $address );
 			update_user_meta( $ID, 'atbdp_facebook', $facebook );
-			update_user_meta( $ID, 'atbdp_twitter', $twitter );
+			// update_user_meta( $ID, 'atbdp_twitter', $twitter );
+			update_user_meta( $ID, 'atbdp_instagram', $instagram );
 			update_user_meta( $ID, 'atbdp_linkedin', $linkedIn );
 			update_user_meta( $ID, 'atbdp_youtube', $youtube );
 			update_user_meta( $ID, 'description', $bio );

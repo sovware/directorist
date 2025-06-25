@@ -103,9 +103,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 													</li>
 												<?php endif; ?>
 
-												<?php if( $twitter = Helper::user_info( $author, 'twitter' ) ): ?>
+												<?php if( $instagram = Helper::user_info( $author, 'instagram' ) ): ?>
 													<li class="directorist-author-social-item">
-														<a target="_blank" href="<?php echo esc_url( $twitter ); ?>"><?php directorist_icon( 'lab la-twitter' ); ?></a>
+														<a target="_blank" href="<?php echo esc_url( $instagram ); ?>"><?php directorist_icon( 'lab la-instagram' ); ?></a>
 													</li>
 												<?php endif; ?>
 

@@ -15,8 +15,8 @@ export default {
 
   watch: {
     theOptions() {
-      if (!this.valueIsValid(this.value)) {
-        this.$emit("update", "");
+      if ( ! this.valueIsValid( this.value ) ) {
+        this.$emit( "update", "" );
       }
     },
   },
@@ -50,14 +50,14 @@ export default {
 
     theOptions() {
       if (this.hasOptionsSource) {
-        return this.hasOptionsSource;
+        return this.parseOptions( this.hasOptionsSource );
       }
 
       if (!this.options || typeof this.options !== "object") {
         return this.defaultOption ? [this.defaultOption] : [];
       }
 
-      return this.options;
+      return this.parseOptions( this.options );
     },
 
     hasOptionsSource() {
@@ -151,8 +151,8 @@ export default {
 
       this.optionsInObject = this.convertOptionsToObject();
 
-      if (!(false != this.value && this.valueIsValid(this.value))) {
-        this.$emit("update", "");
+      if ( ! this.valueIsValid( this.value ) ) {
+        this.$emit( "update", "" );
       }
 
       const self = this;
@@ -161,8 +161,8 @@ export default {
       });
     },
 
-    update_value(value) {
-      this.$emit("update", !isNaN(Number(value)) ? Number(value) : value);
+    update_value( value ) {
+      this.$emit( "update", value );
     },
 
     updateOption(value) {
@@ -184,16 +184,15 @@ export default {
       }
     },
 
-    valueIsValid(value) {
-      let options_values = this.theOptions.map((option) => {
-        if (typeof option.value !== "undefined") {
-          return !isNaN(Number(option.value))
-            ? Number(option.value)
-            : option.value;
-        }
-      });
+    valueIsValid( value ) {
+      return this.theOptions.map( item => item.value ).includes( `${value}` );
+    },
 
-      return options_values.includes(value);
+    parseOptions( options ) {
+      return options.map( item => ( {
+        ...item,
+        value: typeof item.value !== 'undefined' ? `${item.value}` : '',
+      } ) );
     },
 
     convertOptionsToObject() {

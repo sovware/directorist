@@ -1842,12 +1842,12 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     },
     theOptions: function theOptions() {
       if (this.hasOptionsSource) {
-        return this.hasOptionsSource;
+        return this.parseOptions(this.hasOptionsSource);
       }
       if (!this.options || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.options) !== "object") {
         return this.defaultOption ? [this.defaultOption] : [];
       }
-      return this.options;
+      return this.parseOptions(this.options);
     },
     hasOptionsSource: function hasOptionsSource() {
       if (!this.optionsSource || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.optionsSource) !== "object") {
@@ -1909,7 +1909,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         this.default_option = this.defaultOption;
       }
       this.optionsInObject = this.convertOptionsToObject();
-      if (!(false != this.value && this.valueIsValid(this.value))) {
+      if (!this.valueIsValid(this.value)) {
         this.$emit("update", "");
       }
       var self = this;
@@ -1918,7 +1918,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       });
     },
     update_value: function update_value(value) {
-      this.$emit("update", !isNaN(Number(value)) ? Number(value) : value);
+      this.$emit("update", value);
     },
     updateOption: function updateOption(value) {
       this.update_value(value);
@@ -1936,12 +1936,16 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       }
     },
     valueIsValid: function valueIsValid(value) {
-      var options_values = this.theOptions.map(function (option) {
-        if (typeof option.value !== "undefined") {
-          return !isNaN(Number(option.value)) ? Number(option.value) : option.value;
-        }
+      return this.theOptions.map(function (item) {
+        return item.value;
+      }).includes("".concat(value));
+    },
+    parseOptions: function parseOptions(options) {
+      return options.map(function (item) {
+        return _objectSpread(_objectSpread({}, item), {}, {
+          value: typeof item.value !== 'undefined' ? "".concat(item.value) : ''
+        });
       });
-      return options_values.includes(value);
     },
     convertOptionsToObject: function convertOptionsToObject() {
       if (!(this.theOptions && Array.isArray(this.theOptions))) {

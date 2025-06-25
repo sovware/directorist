@@ -25179,7 +25179,6 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       this.$emit("alert", Object.keys(this.alerts).length ? _objectSpread({}, this.alerts) : null);
     },
     value: function value() {
-      console.log("Value updated:", this.value);
       this.updateNoFormSelectedAlert();
     }
   },

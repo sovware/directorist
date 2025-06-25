@@ -247,7 +247,6 @@ export default {
     },
 
     value() {
-      console.log("Value updated:", this.value);
       this.updateNoFormSelectedAlert();
     },
   },

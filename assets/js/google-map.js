@@ -88,10 +88,10 @@
 						};
 
 						// default is London city
-						(markers = []),
+						((markers = []),
 							// initialize the array to keep track all the marker
 							(address_input =
-								document.getElementById('address'));
+								document.getElementById('address')));
 						if (address_input !== null) {
 							address_input.addEventListener('focus', geolocate);
 						}

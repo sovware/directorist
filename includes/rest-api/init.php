@@ -16,6 +16,10 @@ function register_controllers() {
 	// Base controller.
 	require_once $dir . 'Version1/class-abstract-controller.php';
 
+	 // Admin Controller
+    require_once "{$dir}Version1/class-admin-controller.php";
+    ( new \Directorist\Rest_Api\Controllers\Version1\Admin_Controller() )->register_routes();
+
 	// Listings
 	require_once $dir . 'Version1/class-abstract-posts-controller.php';
 	require_once $dir . 'Version1/class-listings-controller.php';

@@ -556,6 +556,24 @@ class Builder_Data {
                             ],
                         ]
                     ],
+                    'formgent-form'         => [
+                        'type'          => 'widget',
+                        'label'         => __( 'FormGent Form', 'directorist' ),
+                        'icon'          => '<svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.7399 1.5H4.87331C4.11485 1.5 3.5 2.11485 3.5 2.87331V5.61994C3.5 6.3784 4.11485 6.99325 4.87331 6.99325H11.7399C12.4983 6.99325 13.1132 6.3784 13.1132 5.61994V2.87331C13.1132 2.11485 12.4983 1.5 11.7399 1.5Z" fill="#747c89"/><path d="M4.87331 21.4131C4.11799 21.4131 3.5 20.7951 3.5 20.0398V11.7999C3.5 11.0446 4.11799 10.4266 4.87331 10.4266H17.9198C18.6751 10.4266 19.2931 11.0446 19.2931 11.7999V14.5465C19.2931 15.3018 18.6751 15.9198 17.9198 15.9198H8.99325V20.0398C8.99325 20.7951 8.37526 21.4131 7.61994 21.4131H4.87331Z" fill="#747c89"/><path d="M16.203 2.87329L16.718 4.41827L18.263 4.93326L16.718 5.44825L16.203 6.99323L15.688 5.44825L14.1431 4.93326L15.688 4.41827L16.203 2.87329Z" fill="#747c89"/><path d="M18.4347 1.5L18.6476 2.14546L19.2931 2.35832L18.6476 2.57118L18.4347 3.21664L18.2219 2.57118L17.5764 2.35832L18.2219 2.14546L18.4347 1.5Z" fill="#747c89"/> </svg>',
+                        'iconType'      => 'svg',
+                        'allowMultiple' => true,
+                        'options'       => [
+                            'value' => [
+                                'type'             => 'formgent-form',
+                                'label'            => __( 'Select a form', 'directorist' ),
+                                'value'            => '--',
+                                'createFormButton' => [
+                                    'label' => __( 'Create a form', 'directorist' ),
+                                    'href'  => admin_url( 'admin.php?page=formgent' ),
+                                ],
+                            ],
+                        ],
+                    ],
                     'related_listings'       => [
                         'type'    => 'section',
                         'label'   => __( 'Related Listings', 'directorist' ),

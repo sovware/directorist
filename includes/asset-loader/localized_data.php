@@ -7,6 +7,8 @@ namespace Directorist\Asset_Loader;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
+use Directorist\Helper;
+
 class Localized_Data {
 
 	public static function load_localized_data() {
@@ -241,6 +243,14 @@ class Localized_Data {
 			'i18n_text'            => $i18n_text,
 			'icon_type'            => 'la',
 			'icon_picker_labels'   => $icon_picker_labels,
+            'capabilities'         => [
+                'manage_options'  => current_user_can( 'manage_options' ),
+                'install_plugins' => current_user_can( 'install_plugins' ),
+            ],
+            'formgent'             => [
+                'is_installed' => Helper::is_plugin_installed( 'formgent' ),
+                'is_active'    => Helper::is_the_plugin_active( 'formgent' ),
+            ],
 		);
 
 

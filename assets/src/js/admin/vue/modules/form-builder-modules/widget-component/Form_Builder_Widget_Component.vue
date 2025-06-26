@@ -252,7 +252,7 @@ export default {
 
       const widgetKey = widgetKeys[0];
 
-      if (!this.alerts[widgetKey]) {
+      if (!this.alerts[widgetKey] || this.alerts.widgetKey !== this.widgetKey) {
         return null;
       }
 
@@ -305,15 +305,20 @@ export default {
       this.alerts = {
         ...this.alerts,
         [key]: data,
+        widgetKey: this.widgetKey,
       };
     },
 
     removeAlert(key) {
-      if (!this.alerts.hasOwnProperty(key)) {
-        return;
+      if (this.alerts.hasOwnProperty(key)) {
+        Vue.delete(this.alerts, key);
       }
 
-      Vue.delete(this.alerts, key);
+      // If only one key remains and it's "widgetKey", remove that too
+      const remainingKeys = Object.keys(this.alerts);
+      if (remainingKeys.length === 1 && remainingKeys[0] === "widgetKey") {
+        Vue.delete(this.alerts, "widgetKey");
+      }
     },
 
     toggleExpandedDropdown() {

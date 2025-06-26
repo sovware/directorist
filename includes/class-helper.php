@@ -860,7 +860,7 @@ class Helper {
     }
 
     public static function is_the_plugin_active( string $slug ): bool {
-		if ( ! function_exists( '\is_plugin_active' ) ) {
+        if ( ! function_exists( '\is_plugin_active' ) ) {
             return false;
         }
 

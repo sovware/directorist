@@ -1364,6 +1364,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     editorID: {
       required: false
+    },
+    createFormButton: {
+      required: false
     }
   }
 });
@@ -1736,67 +1739,64 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 /* harmony default export */ __webpack_exports__["default"] = ({
   mixins: [_input_field_props_js__WEBPACK_IMPORTED_MODULE_3__["default"], _helpers__WEBPACK_IMPORTED_MODULE_2__["default"]],
   model: {
-    prop: 'value',
-    event: 'update'
+    prop: "value",
+    event: "update"
   },
   created: function created() {
     this.setup();
   },
   watch: {
-    local_value: function local_value() {
-      this.$emit('update', this.local_value);
-    },
     theOptions: function theOptions() {
-      if (!this.valueIsValid(this.local_value)) {
-        this.local_value = '';
+      if (!this.valueIsValid(this.value)) {
+        this.$emit("update", "");
       }
     }
   },
   computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapState)({
-    fields: 'fields'
+    fields: "fields"
   })), {}, {
     theDefaultOption: function theDefaultOption() {
-      if (this.defaultOption && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.defaultOption) === 'object') {
+      if (this.defaultOption && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.defaultOption) === "object") {
         return this.defaultOption;
       }
       return {
-        value: '',
-        label: 'Select...'
+        value: "",
+        label: "Select..."
       };
     },
     theCurrentOptionLabel: function theCurrentOptionLabel() {
       if (!this.optionsInObject) {
-        return '';
+        return "";
       }
-      if (typeof this.optionsInObject[this.value] === 'undefined') {
-        return this.theDefaultOption.value == this.local_value && this.theDefaultOption.label ? this.theDefaultOption.label : '';
+      if (typeof this.optionsInObject[this.value] === "undefined") {
+        return this.theDefaultOption.value == this.value && this.theDefaultOption.label ? this.theDefaultOption.label : "";
       }
       return this.optionsInObject[this.value];
     },
     theOptions: function theOptions() {
       if (this.hasOptionsSource) {
-        return this.hasOptionsSource;
+        return this.parseOptions(this.hasOptionsSource);
       }
-      if (!this.options || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.options) !== 'object') {
+      if (!this.options || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.options) !== "object") {
         return this.defaultOption ? [this.defaultOption] : [];
       }
-      return this.options;
+      return this.parseOptions(this.options);
     },
     hasOptionsSource: function hasOptionsSource() {
-      if (!this.optionsSource || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.optionsSource) !== 'object') {
+      if (!this.optionsSource || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.optionsSource) !== "object") {
         return false;
       }
-      if (typeof this.optionsSource.where !== 'string') {
+      if (typeof this.optionsSource.where !== "string") {
         return false;
       }
       var terget_fields = this.getTergetFields({
         path: this.optionsSource.where
       });
-      if (!terget_fields || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(terget_fields) !== 'object') {
+      if (!terget_fields || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(terget_fields) !== "object") {
         return false;
       }
       var filter_by = null;
-      if (typeof this.optionsSource.filter_by === 'string' && this.optionsSource.filter_by.length) {
+      if (typeof this.optionsSource.filter_by === "string" && this.optionsSource.filter_by.length) {
         filter_by = this.optionsSource.filter_by;
       }
       if (filter_by) {
@@ -1805,7 +1805,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         });
       }
       var has_sourcemap = false;
-      if (this.optionsSource.source_map && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.optionsSource.source_map) === 'object') {
+      if (this.optionsSource.source_map && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.optionsSource.source_map) === "object") {
         has_sourcemap = true;
       }
       if (!has_sourcemap && !filter_by) {
@@ -1817,7 +1817,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       if (filter_by) {
         terget_fields = this.filterDataByValue(terget_fields, filter_by);
       }
-      if (!terget_fields && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(terget_fields) !== 'object') {
+      if (!terget_fields && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(terget_fields) !== "object") {
         return false;
       }
       return terget_fields;
@@ -1829,7 +1829,6 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   }),
   data: function data() {
     return {
-      local_value: '',
       local_value_ms: [],
       optionsInObject: {},
       show_option_modal: false,
@@ -1839,22 +1838,20 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   },
   methods: {
     setup: function setup() {
-      if (this.defaultOption || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.defaultOption) === 'object') {
+      if (this.defaultOption || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.defaultOption) === "object") {
         this.default_option = this.defaultOption;
       }
       this.optionsInObject = this.convertOptionsToObject();
-      if (false != this.value && this.valueIsValid(this.value)) {
-        this.local_value = this.value;
-      } else {
-        this.local_value = '';
+      if (!this.valueIsValid(this.value)) {
+        this.$emit("update", "");
       }
       var self = this;
-      document.addEventListener('click', function () {
+      document.addEventListener("click", function () {
         self.show_option_modal = false;
       });
     },
     update_value: function update_value(value) {
-      this.local_value = !isNaN(Number(value)) ? Number(value) : value;
+      this.$emit("update", value);
     },
     updateOption: function updateOption(value) {
       this.update_value(value);
@@ -1872,12 +1869,16 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       }
     },
     valueIsValid: function valueIsValid(value) {
-      var options_values = this.theOptions.map(function (option) {
-        if (typeof option.value !== 'undefined') {
-          return !isNaN(Number(option.value)) ? Number(option.value) : option.value;
-        }
+      return this.theOptions.map(function (item) {
+        return item.value;
+      }).includes("".concat(value));
+    },
+    parseOptions: function parseOptions(options) {
+      return options.map(function (item) {
+        return _objectSpread(_objectSpread({}, item), {}, {
+          value: typeof item.value !== 'undefined' ? "".concat(item.value) : ''
+        });
       });
-      return options_values.includes(value);
     },
     convertOptionsToObject: function convertOptionsToObject() {
       if (!(this.theOptions && Array.isArray(this.theOptions))) {
@@ -1885,17 +1886,17 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       }
       var option_object = {};
       for (var option in this.theOptions) {
-        if (typeof this.theOptions[option].value === 'undefined') {
+        if (typeof this.theOptions[option].value === "undefined") {
           continue;
         }
-        var label = this.theOptions[option].label ? this.theOptions[option].label : '';
+        var label = this.theOptions[option].label ? this.theOptions[option].label : "";
         option_object[this.theOptions[option].value] = label;
       }
       return option_object;
     }
     /* syncValidationWithLocalState( validation_log ) {
-        return validation_log;
-    } */
+            return validation_log;
+        } */
   }
 });
 
@@ -3902,6 +3903,7 @@ var map = {
 	"./form-fields/Export_Field.vue": "./assets/src/js/admin/vue/modules/form-fields/Export_Field.vue",
 	"./form-fields/Fields_Group_Field.vue": "./assets/src/js/admin/vue/modules/form-fields/Fields_Group_Field.vue",
 	"./form-fields/Form_Builder_Field.vue": "./assets/src/js/admin/vue/modules/form-fields/Form_Builder_Field.vue",
+	"./form-fields/Formgent_Form_Field.vue": "./assets/src/js/admin/vue/modules/form-fields/Formgent_Form_Field.vue",
 	"./form-fields/Hidden_Field.vue": "./assets/src/js/admin/vue/modules/form-fields/Hidden_Field.vue",
 	"./form-fields/Icon_Field.vue": "./assets/src/js/admin/vue/modules/form-fields/Icon_Field.vue",
 	"./form-fields/Image_Field.vue": "./assets/src/js/admin/vue/modules/form-fields/Image_Field.vue",
@@ -8001,6 +8003,73 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   staticRenderFns: function() { return /* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_3_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_Builder_Field_vue_vue_type_template_id_6bd3b9d4__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns; }
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_3_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_Builder_Field_vue_vue_type_template_id_6bd3b9d4__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Form_Builder_Field.vue?vue&type=template&id=6bd3b9d4 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/Form_Builder_Field.vue?vue&type=template&id=6bd3b9d4");
+
+
+/***/ }),
+
+/***/ "./assets/src/js/admin/vue/modules/form-fields/Formgent_Form_Field.vue":
+/*!*****************************************************************************!*\
+  !*** ./assets/src/js/admin/vue/modules/form-fields/Formgent_Form_Field.vue ***!
+  \*****************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Formgent_Form_Field_vue_vue_type_template_id_f8ccad6a__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Formgent_Form_Field.vue?vue&type=template&id=f8ccad6a */ "./assets/src/js/admin/vue/modules/form-fields/Formgent_Form_Field.vue?vue&type=template&id=f8ccad6a");
+/* harmony import */ var _Formgent_Form_Field_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Formgent_Form_Field.vue?vue&type=script&lang=js */ "./assets/src/js/admin/vue/modules/form-fields/Formgent_Form_Field.vue?vue&type=script&lang=js");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Formgent_Form_Field_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Formgent_Form_Field_vue_vue_type_template_id_f8ccad6a__WEBPACK_IMPORTED_MODULE_0__.render,
+  _Formgent_Form_Field_vue_vue_type_template_id_f8ccad6a__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) // removed by dead control flow
+{ var api; }
+component.options.__file = "assets/src/js/admin/vue/modules/form-fields/Formgent_Form_Field.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./assets/src/js/admin/vue/modules/form-fields/Formgent_Form_Field.vue?vue&type=script&lang=js":
+/*!*****************************************************************************************************!*\
+  !*** ./assets/src/js/admin/vue/modules/form-fields/Formgent_Form_Field.vue?vue&type=script&lang=js ***!
+  \*****************************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_3_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Formgent_Form_Field_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!../../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Formgent_Form_Field.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/Formgent_Form_Field.vue?vue&type=script&lang=js");
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_3_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Formgent_Form_Field_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./assets/src/js/admin/vue/modules/form-fields/Formgent_Form_Field.vue?vue&type=template&id=f8ccad6a":
+/*!***********************************************************************************************************!*\
+  !*** ./assets/src/js/admin/vue/modules/form-fields/Formgent_Form_Field.vue?vue&type=template&id=f8ccad6a ***!
+  \***********************************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: function() { return /* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_3_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Formgent_Form_Field_vue_vue_type_template_id_f8ccad6a__WEBPACK_IMPORTED_MODULE_0__.render; },
+/* harmony export */   staticRenderFns: function() { return /* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_3_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Formgent_Form_Field_vue_vue_type_template_id_f8ccad6a__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns; }
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_3_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Formgent_Form_Field_vue_vue_type_template_id_f8ccad6a__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Formgent_Form_Field.vue?vue&type=template&id=f8ccad6a */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/Formgent_Form_Field.vue?vue&type=template&id=f8ccad6a");
 
 
 /***/ }),
@@ -12274,6 +12343,46 @@ function _arrayWithoutHoles(r) {
 
 /***/ }),
 
+/***/ "./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js ***!
+  \*********************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ _asyncToGenerator; }
+/* harmony export */ });
+function asyncGeneratorStep(n, t, e, r, o, a, c) {
+  try {
+    var i = n[a](c),
+      u = i.value;
+  } catch (n) {
+    return void e(n);
+  }
+  i.done ? t(u) : Promise.resolve(u).then(r, o);
+}
+function _asyncToGenerator(n) {
+  return function () {
+    var t = this,
+      e = arguments;
+    return new Promise(function (r, o) {
+      var a = n.apply(t, e);
+      function _next(n) {
+        asyncGeneratorStep(a, r, o, _next, _throw, "next", n);
+      }
+      function _throw(n) {
+        asyncGeneratorStep(a, r, o, _next, _throw, "throw", n);
+      }
+      _next(void 0);
+    });
+  };
+}
+
+
+/***/ }),
+
 /***/ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js":
 /*!*******************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/esm/defineProperty.js ***!
@@ -12453,6 +12562,331 @@ function _unsupportedIterableToArray(r, a) {
     if ("string" == typeof r) return (0,_arrayLikeToArray_js__WEBPACK_IMPORTED_MODULE_0__["default"])(r, a);
     var t = {}.toString.call(r).slice(8, -1);
     return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? (0,_arrayLikeToArray_js__WEBPACK_IMPORTED_MODULE_0__["default"])(r, a) : void 0;
+  }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/regeneratorRuntime.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/regeneratorRuntime.js ***!
+  \*******************************************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var _typeof = (__webpack_require__(/*! ./typeof.js */ "./node_modules/@babel/runtime/helpers/typeof.js")["default"]);
+function _regeneratorRuntime() {
+  "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */
+  module.exports = _regeneratorRuntime = function _regeneratorRuntime() {
+    return r;
+  }, module.exports.__esModule = true, module.exports["default"] = module.exports;
+  var t,
+    r = {},
+    e = Object.prototype,
+    n = e.hasOwnProperty,
+    o = "function" == typeof Symbol ? Symbol : {},
+    i = o.iterator || "@@iterator",
+    a = o.asyncIterator || "@@asyncIterator",
+    u = o.toStringTag || "@@toStringTag";
+  function c(t, r, e, n) {
+    return Object.defineProperty(t, r, {
+      value: e,
+      enumerable: !n,
+      configurable: !n,
+      writable: !n
+    });
+  }
+  try {
+    c({}, "");
+  } catch (t) {
+    c = function c(t, r, e) {
+      return t[r] = e;
+    };
+  }
+  function h(r, e, n, o) {
+    var i = e && e.prototype instanceof Generator ? e : Generator,
+      a = Object.create(i.prototype);
+    return c(a, "_invoke", function (r, e, n) {
+      var o = 1;
+      return function (i, a) {
+        if (3 === o) throw Error("Generator is already running");
+        if (4 === o) {
+          if ("throw" === i) throw a;
+          return {
+            value: t,
+            done: !0
+          };
+        }
+        for (n.method = i, n.arg = a;;) {
+          var u = n.delegate;
+          if (u) {
+            var c = d(u, n);
+            if (c) {
+              if (c === f) continue;
+              return c;
+            }
+          }
+          if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) {
+            if (1 === o) throw o = 4, n.arg;
+            n.dispatchException(n.arg);
+          } else "return" === n.method && n.abrupt("return", n.arg);
+          o = 3;
+          var h = s(r, e, n);
+          if ("normal" === h.type) {
+            if (o = n.done ? 4 : 2, h.arg === f) continue;
+            return {
+              value: h.arg,
+              done: n.done
+            };
+          }
+          "throw" === h.type && (o = 4, n.method = "throw", n.arg = h.arg);
+        }
+      };
+    }(r, n, new Context(o || [])), !0), a;
+  }
+  function s(t, r, e) {
+    try {
+      return {
+        type: "normal",
+        arg: t.call(r, e)
+      };
+    } catch (t) {
+      return {
+        type: "throw",
+        arg: t
+      };
+    }
+  }
+  r.wrap = h;
+  var f = {};
+  function Generator() {}
+  function GeneratorFunction() {}
+  function GeneratorFunctionPrototype() {}
+  var l = {};
+  c(l, i, function () {
+    return this;
+  });
+  var p = Object.getPrototypeOf,
+    y = p && p(p(x([])));
+  y && y !== e && n.call(y, i) && (l = y);
+  var v = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(l);
+  function g(t) {
+    ["next", "throw", "return"].forEach(function (r) {
+      c(t, r, function (t) {
+        return this._invoke(r, t);
+      });
+    });
+  }
+  function AsyncIterator(t, r) {
+    function e(o, i, a, u) {
+      var c = s(t[o], t, i);
+      if ("throw" !== c.type) {
+        var h = c.arg,
+          f = h.value;
+        return f && "object" == _typeof(f) && n.call(f, "__await") ? r.resolve(f.__await).then(function (t) {
+          e("next", t, a, u);
+        }, function (t) {
+          e("throw", t, a, u);
+        }) : r.resolve(f).then(function (t) {
+          h.value = t, a(h);
+        }, function (t) {
+          return e("throw", t, a, u);
+        });
+      }
+      u(c.arg);
+    }
+    var o;
+    c(this, "_invoke", function (t, n) {
+      function i() {
+        return new r(function (r, o) {
+          e(t, n, r, o);
+        });
+      }
+      return o = o ? o.then(i, i) : i();
+    }, !0);
+  }
+  function d(r, e) {
+    var n = e.method,
+      o = r.i[n];
+    if (o === t) return e.delegate = null, "throw" === n && r.i["return"] && (e.method = "return", e.arg = t, d(r, e), "throw" === e.method) || "return" !== n && (e.method = "throw", e.arg = new TypeError("The iterator does not provide a '" + n + "' method")), f;
+    var i = s(o, r.i, e.arg);
+    if ("throw" === i.type) return e.method = "throw", e.arg = i.arg, e.delegate = null, f;
+    var a = i.arg;
+    return a ? a.done ? (e[r.r] = a.value, e.next = r.n, "return" !== e.method && (e.method = "next", e.arg = t), e.delegate = null, f) : a : (e.method = "throw", e.arg = new TypeError("iterator result is not an object"), e.delegate = null, f);
+  }
+  function w(t) {
+    this.tryEntries.push(t);
+  }
+  function m(r) {
+    var e = r[4] || {};
+    e.type = "normal", e.arg = t, r[4] = e;
+  }
+  function Context(t) {
+    this.tryEntries = [[-1]], t.forEach(w, this), this.reset(!0);
+  }
+  function x(r) {
+    if (null != r) {
+      var e = r[i];
+      if (e) return e.call(r);
+      if ("function" == typeof r.next) return r;
+      if (!isNaN(r.length)) {
+        var o = -1,
+          a = function e() {
+            for (; ++o < r.length;) if (n.call(r, o)) return e.value = r[o], e.done = !1, e;
+            return e.value = t, e.done = !0, e;
+          };
+        return a.next = a;
+      }
+    }
+    throw new TypeError(_typeof(r) + " is not iterable");
+  }
+  return GeneratorFunction.prototype = GeneratorFunctionPrototype, c(v, "constructor", GeneratorFunctionPrototype), c(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = c(GeneratorFunctionPrototype, u, "GeneratorFunction"), r.isGeneratorFunction = function (t) {
+    var r = "function" == typeof t && t.constructor;
+    return !!r && (r === GeneratorFunction || "GeneratorFunction" === (r.displayName || r.name));
+  }, r.mark = function (t) {
+    return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, c(t, u, "GeneratorFunction")), t.prototype = Object.create(v), t;
+  }, r.awrap = function (t) {
+    return {
+      __await: t
+    };
+  }, g(AsyncIterator.prototype), c(AsyncIterator.prototype, a, function () {
+    return this;
+  }), r.AsyncIterator = AsyncIterator, r.async = function (t, e, n, o, i) {
+    void 0 === i && (i = Promise);
+    var a = new AsyncIterator(h(t, e, n, o), i);
+    return r.isGeneratorFunction(e) ? a : a.next().then(function (t) {
+      return t.done ? t.value : a.next();
+    });
+  }, g(v), c(v, u, "Generator"), c(v, i, function () {
+    return this;
+  }), c(v, "toString", function () {
+    return "[object Generator]";
+  }), r.keys = function (t) {
+    var r = Object(t),
+      e = [];
+    for (var n in r) e.unshift(n);
+    return function t() {
+      for (; e.length;) if ((n = e.pop()) in r) return t.value = n, t.done = !1, t;
+      return t.done = !0, t;
+    };
+  }, r.values = x, Context.prototype = {
+    constructor: Context,
+    reset: function reset(r) {
+      if (this.prev = this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(m), !r) for (var e in this) "t" === e.charAt(0) && n.call(this, e) && !isNaN(+e.slice(1)) && (this[e] = t);
+    },
+    stop: function stop() {
+      this.done = !0;
+      var t = this.tryEntries[0][4];
+      if ("throw" === t.type) throw t.arg;
+      return this.rval;
+    },
+    dispatchException: function dispatchException(r) {
+      if (this.done) throw r;
+      var e = this;
+      function n(t) {
+        a.type = "throw", a.arg = r, e.next = t;
+      }
+      for (var o = e.tryEntries.length - 1; o >= 0; --o) {
+        var i = this.tryEntries[o],
+          a = i[4],
+          u = this.prev,
+          c = i[1],
+          h = i[2];
+        if (-1 === i[0]) return n("end"), !1;
+        if (!c && !h) throw Error("try statement without catch or finally");
+        if (null != i[0] && i[0] <= u) {
+          if (u < c) return this.method = "next", this.arg = t, n(c), !0;
+          if (u < h) return n(h), !1;
+        }
+      }
+    },
+    abrupt: function abrupt(t, r) {
+      for (var e = this.tryEntries.length - 1; e >= 0; --e) {
+        var n = this.tryEntries[e];
+        if (n[0] > -1 && n[0] <= this.prev && this.prev < n[2]) {
+          var o = n;
+          break;
+        }
+      }
+      o && ("break" === t || "continue" === t) && o[0] <= r && r <= o[2] && (o = null);
+      var i = o ? o[4] : {};
+      return i.type = t, i.arg = r, o ? (this.method = "next", this.next = o[2], f) : this.complete(i);
+    },
+    complete: function complete(t, r) {
+      if ("throw" === t.type) throw t.arg;
+      return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && r && (this.next = r), f;
+    },
+    finish: function finish(t) {
+      for (var r = this.tryEntries.length - 1; r >= 0; --r) {
+        var e = this.tryEntries[r];
+        if (e[2] === t) return this.complete(e[4], e[3]), m(e), f;
+      }
+    },
+    "catch": function _catch(t) {
+      for (var r = this.tryEntries.length - 1; r >= 0; --r) {
+        var e = this.tryEntries[r];
+        if (e[0] === t) {
+          var n = e[4];
+          if ("throw" === n.type) {
+            var o = n.arg;
+            m(e);
+          }
+          return o;
+        }
+      }
+      throw Error("illegal catch attempt");
+    },
+    delegateYield: function delegateYield(r, e, n) {
+      return this.delegate = {
+        i: x(r),
+        r: e,
+        n: n
+      }, "next" === this.method && (this.arg = t), f;
+    }
+  }, r;
+}
+module.exports = _regeneratorRuntime, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/typeof.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/typeof.js ***!
+  \*******************************************************/
+/***/ (function(module) {
+
+function _typeof(o) {
+  "@babel/helpers - typeof";
+
+  return module.exports = _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
+    return typeof o;
+  } : function (o) {
+    return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+  }, module.exports.__esModule = true, module.exports["default"] = module.exports, _typeof(o);
+}
+module.exports = _typeof, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/regenerator/index.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/@babel/runtime/regenerator/index.js ***!
+  \**********************************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+// TODO(Babel 8): Remove this file.
+
+var runtime = __webpack_require__(/*! ../helpers/regeneratorRuntime */ "./node_modules/@babel/runtime/helpers/regeneratorRuntime.js")();
+module.exports = runtime;
+
+// Copied from https://github.com/facebook/regenerator/blob/main/packages/runtime/runtime.js#L736=
+try {
+  regeneratorRuntime = runtime;
+} catch (accidentalStrictMode) {
+  if (typeof globalThis === "object") {
+    globalThis.regeneratorRuntime = runtime;
+  } else {
+    Function("r", "regeneratorRuntime = r")(runtime);
   }
 }
 
@@ -17968,15 +18402,21 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/esm/typeof.js");
-/* harmony import */ var _helper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../../helper */ "./assets/src/js/helper.js");
-/* harmony import */ var _Form_Builder_Widget_Trash_Confirmation_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Form_Builder_Widget_Trash_Confirmation.vue */ "./assets/src/js/admin/vue/modules/form-builder-modules/widget-component/Form_Builder_Widget_Trash_Confirmation.vue");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var _helper__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../helper */ "./assets/src/js/helper.js");
+/* harmony import */ var _Form_Builder_Widget_Trash_Confirmation_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Form_Builder_Widget_Trash_Confirmation.vue */ "./assets/src/js/admin/vue/modules/form-builder-modules/widget-component/Form_Builder_Widget_Trash_Confirmation.vue");
+
+
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__["default"])(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "form-builder-widget-component",
   components: {
-    ConfirmationModal: _Form_Builder_Widget_Trash_Confirmation_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+    ConfirmationModal: _Form_Builder_Widget_Trash_Confirmation_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   props: {
     widgetKey: {
@@ -18055,6 +18495,13 @@ __webpack_require__.r(__webpack_exports__);
       }
       return icon;
     },
+    widgetIconType: function widgetIconType() {
+      var iconType = "";
+      if (this.current_widget && this.current_widget.iconType) {
+        iconType = this.current_widget.iconType;
+      }
+      return iconType;
+    },
     expandState: function expandState() {
       var state = this.expanded;
       if (!this.isEnabledGroupDragging) {
@@ -18076,6 +18523,22 @@ __webpack_require__.r(__webpack_exports__);
     },
     emptySlideUpDownClass: function emptySlideUpDownClass() {
       return !this.widget_fields || Object.keys(this.widget_fields).length === 0 ? "cptm-empty-slide-up-down" : "";
+    },
+    alert: function alert() {
+      var widgetKeys = Object.keys(this.alerts);
+      if (widgetKeys.length < 1) {
+        return null;
+      }
+      var widgetKey = widgetKeys[0];
+      if (!this.alerts[widgetKey]) {
+        return null;
+      }
+      var alertKeys = Object.keys(this.alerts[widgetKey]);
+      if (alertKeys.length < 1) {
+        return null;
+      }
+      var alertKey = alertKeys[0];
+      return this.alerts[widgetKey][alertKey];
     }
   },
   data: function data() {
@@ -18087,7 +18550,8 @@ __webpack_require__.r(__webpack_exports__);
       activeWidgetsIsUpdating: false,
       showConfirmationModal: false,
       widgetName: "",
-      expandedDropdown: false
+      expandedDropdown: false,
+      alerts: {}
     };
   },
   mounted: function mounted() {
@@ -18097,6 +18561,22 @@ __webpack_require__.r(__webpack_exports__);
     document.removeEventListener("mousedown", this.handleClickOutside);
   },
   methods: {
+    updateAlert: function updateAlert(payload) {
+      if (!payload.data) {
+        this.removeAlert(payload.key);
+        return;
+      }
+      this.addAlert(payload.key, payload.data);
+    },
+    addAlert: function addAlert(key, data) {
+      this.alerts = _objectSpread(_objectSpread({}, this.alerts), {}, (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__["default"])({}, key, data));
+    },
+    removeAlert: function removeAlert(key) {
+      if (!this.alerts.hasOwnProperty(key)) {
+        return;
+      }
+      vue__WEBPACK_IMPORTED_MODULE_4__["default"].delete(this.alerts, key);
+    },
     toggleExpandedDropdown: function toggleExpandedDropdown() {
       this.expandedDropdown = !this.expandedDropdown;
     },
@@ -18118,18 +18598,18 @@ __webpack_require__.r(__webpack_exports__);
       this.showConfirmationModal = true;
 
       // Add class to parent with class 'atbdp-cpt-manager'
-      var parentElement = this.$el.closest('.atbdp-cpt-manager');
+      var parentElement = this.$el.closest(".atbdp-cpt-manager");
       if (parentElement) {
-        parentElement.classList.add('directorist-overlay-visible');
+        parentElement.classList.add("directorist-overlay-visible");
       }
     },
     closeConfirmationModal: function closeConfirmationModal() {
       this.showConfirmationModal = false;
 
       // Remove class from parent with class 'atbdp-cpt-manager'
-      var parentElement = this.$el.closest('.atbdp-cpt-manager');
+      var parentElement = this.$el.closest(".atbdp-cpt-manager");
       if (parentElement) {
-        parentElement.classList.remove('directorist-overlay-visible');
+        parentElement.classList.remove("directorist-overlay-visible");
       }
     },
     trashWidget: function trashWidget() {
@@ -18137,7 +18617,7 @@ __webpack_require__.r(__webpack_exports__);
       this.closeConfirmationModal();
     },
     syncCurrentWidget: function syncCurrentWidget() {
-      var current_widget = (0,_helper__WEBPACK_IMPORTED_MODULE_1__.findObjectItem)("".concat(this.widgetKey), this.activeWidgets);
+      var current_widget = (0,_helper__WEBPACK_IMPORTED_MODULE_2__.findObjectItem)("".concat(this.widgetKey), this.activeWidgets);
       if (!current_widget) {
         return;
       }
@@ -18224,6 +18704,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     icon: {
       default: ""
+    },
+    iconType: {
+      default: null
+    },
+    alert: {
+      default: null
     },
     expanded: {
       default: false
@@ -24544,6 +25030,227 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/Formgent_Form_Field.vue?vue&type=script&lang=js":
+/*!*********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/Formgent_Form_Field.vue?vue&type=script&lang=js ***!
+  \*********************************************************************************************************************************************************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ "./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js");
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/esm/typeof.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var _mixins_form_fields_helper__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../../mixins/form-fields/helper */ "./assets/src/js/admin/vue/mixins/form-fields/helper.js");
+/* harmony import */ var _mixins_form_fields_input_field_props__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../../mixins/form-fields/input-field-props */ "./assets/src/js/admin/vue/mixins/form-fields/input-field-props.js");
+
+
+
+
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "formgent-form-field",
+  mixins: [_mixins_form_fields_input_field_props__WEBPACK_IMPORTED_MODULE_5__["default"], _mixins_form_fields_helper__WEBPACK_IMPORTED_MODULE_4__["default"]],
+  created: function created() {
+    this.init();
+  },
+  computed: {
+    formgentFormList: function formgentFormList() {
+      return this.forms.map(function (form) {
+        return {
+          label: form.label,
+          value: form.value
+        };
+      });
+    }
+  },
+  watch: {
+    alerts: function alerts() {
+      this.$emit("alert", Object.keys(this.alerts).length ? _objectSpread({}, this.alerts) : null);
+    },
+    value: function value() {
+      this.updateNoFormSelectedAlert();
+    }
+  },
+  data: function data() {
+    return {
+      alerts: {},
+      isLoadingForms: false,
+      isInstallingPlugin: false,
+      forms: [],
+      isFormGentInstalled: false,
+      isFormGentActive: false,
+      canInstallPlugins: false,
+      createFormButtonData: {
+        href: "#",
+        label: "Create a new Form"
+      }
+    };
+  },
+  methods: {
+    updateValue: function updateValue(value) {
+      this.$emit("update", value);
+    },
+    init: function init() {
+      this.loadPropsData();
+      this.loadLocalizeData();
+      this.updateMissingDependencyAlert();
+      if (this.isFormGentActive) {
+        this.loadForms();
+      }
+    },
+    loadPropsData: function loadPropsData() {
+      if (this.createFormButton && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(this.createFormButton) === "object" && !Array.isArray(this.createFormButton)) {
+        this.createFormButtonData = _objectSpread(_objectSpread({}, this.createFormButtonData), this.createFormButton);
+      }
+    },
+    loadLocalizeData: function loadLocalizeData() {
+      if (typeof directorist_admin === "undefined") {
+        return;
+      }
+      if (directorist_admin.capabilities && directorist_admin.capabilities.install_plugins) {
+        this.canInstallPlugins = true;
+      }
+      if (typeof directorist_admin.formgent !== "undefined") {
+        this.isFormGentInstalled = directorist_admin.formgent.is_installed;
+        this.isFormGentActive = directorist_admin.formgent.is_active;
+      }
+    },
+    loadForms: function loadForms() {
+      var _this = this;
+      return (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+              _this.isLoadingForms = true;
+              _context.prev = 1;
+              _context.next = 4;
+              return wp.apiFetch({
+                path: "/formgent/admin/forms/select"
+              });
+            case 4:
+              response = _context.sent;
+              _this.forms = response.forms;
+              _this.updateNoFormSelectedAlert();
+              _context.next = 12;
+              break;
+            case 9:
+              _context.prev = 9;
+              _context.t0 = _context["catch"](1);
+              console.log(_context.t0);
+            case 12:
+              _this.isLoadingForms = false;
+            case 13:
+            case "end":
+              return _context.stop();
+          }
+        }, _callee, null, [[1, 9]]);
+      }))();
+    },
+    installPlugin: function installPlugin() {
+      var _this2 = this;
+      return (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee2() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function _callee2$(_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
+            case 0:
+              if (!_this2.isInstallingPlugin) {
+                _context2.next = 2;
+                break;
+              }
+              return _context2.abrupt("return");
+            case 2:
+              _this2.isInstallingPlugin = true;
+              _context2.prev = 3;
+              _context2.next = 6;
+              return wp.apiFetch({
+                path: "/directorist/v1/admin/install-plugin",
+                method: "POST",
+                data: {
+                  slug: "formgent",
+                  activate: "1"
+                }
+              });
+            case 6:
+              response = _context2.sent;
+              _this2.isFormGentInstalled = true;
+              _this2.isFormGentActive = true;
+              _this2.updateMissingDependencyAlert();
+              _this2.updateLocalizeData({
+                formgent: {
+                  is_installed: true,
+                  is_active: true
+                }
+              });
+              _this2.loadForms();
+              _context2.next = 17;
+              break;
+            case 14:
+              _context2.prev = 14;
+              _context2.t0 = _context2["catch"](3);
+              console.log(_context2.t0);
+            case 17:
+              _this2.isInstallingPlugin = false;
+            case 18:
+            case "end":
+              return _context2.stop();
+          }
+        }, _callee2, null, [[3, 14]]);
+      }))();
+    },
+    updateLocalizeData: function updateLocalizeData(data) {
+      if (typeof window.directorist_admin === "undefined") {
+        window.directorist_admin = {};
+      }
+      window.directorist_admin = _objectSpread(_objectSpread({}, window.directorist_admin), data);
+    },
+    updateNoFormSelectedAlert: function updateNoFormSelectedAlert() {
+      if (this.value === "") {
+        this.alerts = _objectSpread(_objectSpread({}, this.alerts), {}, {
+          noFormSelected: {
+            type: "warning",
+            message: "Please select a form."
+          }
+        });
+      } else {
+        this.removeAlert("noFormSelected");
+      }
+    },
+    updateMissingDependencyAlert: function updateMissingDependencyAlert() {
+      if (!this.isFormGentInstalled) {
+        this.alerts = _objectSpread(_objectSpread({}, this.alerts), {}, {
+          missingDependency: {
+            type: "warning",
+            message: "Please install and activate the FormGent plugin."
+          }
+        });
+      } else if (!this.isFormGentActive) {
+        this.alerts = _objectSpread(_objectSpread({}, this.alerts), {}, {
+          missingDependency: {
+            type: "warning",
+            message: "Please activate the FormGent plugin."
+          }
+        });
+      } else {
+        this.removeAlert("missingDependency");
+      }
+    },
+    removeAlert: function removeAlert(key) {
+      vue__WEBPACK_IMPORTED_MODULE_6__["default"].delete(this.alerts, key);
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/Hidden_Field.vue?vue&type=script&lang=js":
 /*!**************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/Hidden_Field.vue?vue&type=script&lang=js ***!
@@ -25975,7 +26682,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_form_fields_select_field__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../mixins/form-fields/select-field */ "./assets/src/js/admin/vue/mixins/form-fields/select-field.js");
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'select-field-theme-butterfly',
+  name: "select-field-theme-butterfly",
   mixins: [_mixins_form_fields_select_field__WEBPACK_IMPORTED_MODULE_0__["default"]],
   mounted: function mounted() {}
 });
@@ -26289,7 +26996,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_form_fields_select_field__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../mixins/form-fields/select-field */ "./assets/src/js/admin/vue/mixins/form-fields/select-field.js");
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'select-field-theme-default',
+  name: "select-field-theme-default",
   mixins: [_mixins_form_fields_select_field__WEBPACK_IMPORTED_MODULE_0__["default"]]
 });
 
@@ -27076,6 +27783,12 @@ var render = function render() {
           return _vm.update({
             key: field_key,
             value: $event
+          });
+        },
+        "alert": function alert($event) {
+          return _vm.$emit('alert', {
+            key: "".concat(field.type, "_").concat(field_key),
+            data: $event
           });
         }
       }
@@ -29086,8 +29799,13 @@ var render = function render() {
       }
     }, [_c('span', {
       staticClass: "cptm-form-builder-field-list-icon"
-    }, [widget.icon && widget.icon.length ? _c('span', {
+    }, [widget.icon && widget.icon.length && widget.iconType !== 'svg' ? _c('span', {
       class: widget.icon
+    }) : widget.icon && widget.icon.length && widget.iconType === 'svg' ? _c('span', {
+      staticClass: "cptm-form-builder-field-list-icon-svg",
+      domProps: {
+        "innerHTML": _vm._s(widget.icon)
+      }
     }) : _vm._e()]), _vm._v(" "), _c('span', {
       staticClass: "cptm-form-builder-field-list-label"
     }, [_vm._v(_vm._s(widget.label))])]);
@@ -29140,7 +29858,9 @@ var render = function render() {
       "label": _vm.widgetTitle,
       "sublabel": _vm.widgetSubtitle,
       "icon": _vm.widgetIcon,
-      "expanded": _vm.expandState
+      "iconType": _vm.widgetIconType,
+      "expanded": _vm.expandState,
+      "alert": _vm.alert
     },
     on: {
       "toggle-expand": _vm.toggleExpand
@@ -29160,6 +29880,7 @@ var render = function render() {
       "value": _vm.activeWidgets[_vm.widgetKey] ? _vm.activeWidgets[_vm.widgetKey] : ''
     },
     on: {
+      "alert": _vm.updateAlert,
       "update": function update($event) {
         return _vm.$emit('update-widget-field', {
           widget_key: _vm.widgetKey,
@@ -29246,14 +29967,27 @@ var render = function render() {
     staticClass: "cptm-form-builder-group-field-item-header"
   }, [_c('h4', {
     staticClass: "cptm-title-3"
-  }, [_c('span', {
+  }, [_vm.iconType !== 'svg' ? _c('span', {
     staticClass: "cptm-title-icon",
     class: _vm.icon
-  }), _vm._v(" "), _c('span', {
+  }) : _vm.iconType === 'svg' ? _c('span', {
+    staticClass: "cptm-title-icon-svg",
     domProps: {
-      "innerHTML": _vm._s(_vm.label)
+      "innerHTML": _vm._s(_vm.icon)
     }
-  }), _vm._v(" "), _vm.sublabel.length ? _c('span', {
+  }) : _vm._e(), _vm._v(" "), _c('span', [_vm._v("\n      " + _vm._s(_vm.label) + "\n      "), _vm.alert ? _c('span', {
+    staticClass: "cptm-title-info",
+    attrs: {
+      "data-label": _vm.alert.message
+    }
+  }, [_c('span', {
+    staticClass: "cptm-title-info-icon las la-info-circle"
+  }), _vm._v(" "), _c('span', {
+    staticClass: "cptm-title-info-text",
+    domProps: {
+      "innerHTML": _vm._s(_vm.alert.message)
+    }
+  })]) : _vm._e()]), _vm._v(" "), _vm.sublabel.length ? _c('span', {
     staticClass: "cptm-text-gray cptm-px-5",
     domProps: {
       "innerHTML": _vm._s(_vm.sublabel)
@@ -33153,6 +33887,262 @@ render._withStripped = true;
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/Formgent_Form_Field.vue?vue&type=template&id=f8ccad6a":
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/Formgent_Form_Field.vue?vue&type=template&id=f8ccad6a ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: function() { return /* binding */ render; },
+/* harmony export */   staticRenderFns: function() { return /* binding */ staticRenderFns; }
+/* harmony export */ });
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', {
+    staticClass: "cptm-form-group cptm-form-content"
+  }, [_vm.isFormGentInstalled ? [_vm.isFormGentActive ? [_vm.isLoadingForms ? [_c('div', {
+    staticClass: "cptm-form-content-wrapper"
+  }, [_c('span', {
+    staticClass: "cptm-form-content-icon la-spin"
+  }, [_c('svg', {
+    attrs: {
+      "width": "32",
+      "height": "32",
+      "viewBox": "0 0 32 32",
+      "fill": "none",
+      "xmlns": "http://www.w3.org/2000/svg"
+    }
+  }, [_c('g', {
+    attrs: {
+      "clip-path": "url(#clip0_10032_121490)"
+    }
+  }, [_c('path', {
+    attrs: {
+      "d": "M16.0001 2.66797V8.0013M16.0001 24.0013V29.3346M6.57341 6.57464L10.3467 10.348M21.6534 21.6546L25.4267 25.428M2.66675 16.0013H8.00008M24.0001 16.0013H29.3334M6.57341 25.428L10.3467 21.6546M21.6534 10.348L25.4267 6.57464",
+      "stroke": "#1E1E1E",
+      "stroke-width": "4",
+      "stroke-linecap": "round",
+      "stroke-linejoin": "round"
+    }
+  })]), _vm._v(" "), _c('defs', [_c('clipPath', {
+    attrs: {
+      "id": "clip0_10032_121490"
+    }
+  }, [_c('rect', {
+    attrs: {
+      "width": "32",
+      "height": "32",
+      "fill": "white"
+    }
+  })])])])]), _vm._v(" "), _c('h3', {
+    staticClass: "cptm-form-content-title"
+  }, [_vm._v("Loading forms...")]), _vm._v(" "), _c('p', {
+    staticClass: "cptm-form-content-desc"
+  }, [_vm._v("FormGent forms are appearing")])])] : [_vm.forms.length > 0 ? _c('div', {
+    staticClass: "cptm-form-content-wrapper cptm-form-content-select"
+  }, [_c('label', {
+    staticClass: "cptm-form-content-label"
+  }, [_vm._v(_vm._s(_vm.label))]), _vm._v(" "), _c('select-field', {
+    attrs: {
+      "theme": "default",
+      "options": _vm.formgentFormList,
+      "value": _vm.value
+    },
+    on: {
+      "update": _vm.updateValue
+    }
+  })], 1) : _c('div', {
+    staticClass: "cptm-form-content-wrapper"
+  }, [_c('span', {
+    staticClass: "cptm-form-content-icon"
+  }, [_c('svg', {
+    attrs: {
+      "width": "40",
+      "height": "40",
+      "viewBox": "0 0 40 40",
+      "fill": "none",
+      "xmlns": "http://www.w3.org/2000/svg"
+    }
+  }, [_c('path', {
+    attrs: {
+      "d": "M7.5 3.75V36.25H32.5V11.9995L32.124 11.626L24.624 4.12598L24.2505 3.75H7.5ZM10 6.25H22.5V13.75H30V33.75H10V6.25ZM25 8.00049L28.2495 11.25H25V8.00049ZM12.5 16.25V18.75H27.5V16.25H12.5ZM12.5 22.5V25H21.25V22.5H12.5ZM23.75 22.5V25H27.5V22.5H23.75ZM12.5 27.5V30H21.25V27.5H12.5ZM23.75 27.5V30H27.5V27.5H23.75Z",
+      "fill": "#747C89"
+    }
+  })])]), _vm._v(" "), _c('h3', {
+    staticClass: "cptm-form-content-title"
+  }, [_vm._v("\n            Get started with your first form\n          ")]), _vm._v(" "), _c('a', {
+    staticClass: "cptm-btn cptm-btn-secondery",
+    attrs: {
+      "target": "_blank",
+      "href": _vm.createFormButtonData.href
+    }
+  }, [_vm._v("\n            " + _vm._s(_vm.createFormButtonData.label) + "\n          ")]), _vm._v(" "), _c('button', {
+    staticClass: "cptm-form-content-btn cptm-form-loader",
+    on: {
+      "click": _vm.loadForms
+    }
+  }, [_c('span', {
+    staticClass: "cptm-form-content-btn-icon las la-redo-alt"
+  }), _vm._v("\n            Check for new forms\n          ")])])]] : [_vm.canInstallPlugins ? _c('div', {
+    staticClass: "cptm-form-content-wrapper"
+  }, [_c('span', {
+    staticClass: "cptm-form-content-icon"
+  }, [_c('svg', {
+    attrs: {
+      "width": "40",
+      "height": "38",
+      "viewBox": "0 0 40 38",
+      "fill": "none",
+      "xmlns": "http://www.w3.org/2000/svg"
+    }
+  }, [_c('mask', {
+    attrs: {
+      "id": "path-1-inside-1_10032_119817",
+      "fill": "white"
+    }
+  }, [_c('path', {
+    attrs: {
+      "d": "M0 0H40V37.5H0V0Z"
+    }
+  })]), _vm._v(" "), _c('path', {
+    attrs: {
+      "d": "M0 0H40V37.5H0V0Z",
+      "fill": "#141921"
+    }
+  }), _vm._v(" "), _c('path', {
+    attrs: {
+      "d": "M40 37.5V36.875H0V37.5V38.125H40V37.5Z",
+      "fill": "#2C3239",
+      "mask": "url(#path-1-inside-1_10032_119817)"
+    }
+  }), _vm._v(" "), _c('path', {
+    attrs: {
+      "d": "M20.217 9.66406H13.7814C13.0737 9.66406 12.5 10.2594 12.5 10.9939V13.683C12.5 14.4174 13.0737 15.0128 13.7814 15.0128H20.217C20.9247 15.0128 21.4985 14.4174 21.4985 13.683V10.9939C21.4985 10.2594 20.9247 9.66406 20.217 9.66406Z",
+      "fill": "white"
+    }
+  }), _vm._v(" "), _c('path', {
+    attrs: {
+      "d": "M13.7814 28.9921C13.0695 28.9921 12.5 28.4011 12.5 27.6623V19.654C12.5 18.9152 13.0695 18.3242 13.7814 18.3242H25.9977C26.7096 18.3242 27.2791 18.9152 27.2791 19.654V22.3136C27.2791 23.0524 26.7096 23.6434 25.9977 23.6434H17.6542V27.6328C17.6542 28.3715 17.0847 28.9626 16.3728 28.9626H13.7814V28.9921Z",
+      "fill": "white"
+    }
+  }), _vm._v(" "), _c('path', {
+    attrs: {
+      "d": "M24.4022 10.9922L24.8863 12.4993L26.3386 13.0017L24.8863 13.504L24.4022 15.0111L23.9181 13.504L22.4658 13.0017L23.9181 12.4993L24.4022 10.9922Z",
+      "fill": "white"
+    }
+  }), _vm._v(" "), _c('path', {
+    attrs: {
+      "d": "M26.4809 9.66406L26.6803 10.2846L27.2783 10.4915L26.6803 10.6983L26.4809 11.3189L26.2816 10.6983L25.6836 10.4915L26.2816 10.2846L26.4809 9.66406Z",
+      "fill": "white"
+    }
+  })])]), _vm._v(" "), _c('h3', {
+    staticClass: "cptm-form-content-title"
+  }, [_vm._v("Activate FormGent Plugin")]), _vm._v(" "), _c('p', {
+    staticClass: "cptm-form-content-desc"
+  }, [_vm._v("\n          You need the FormGent plugin to use this feature.\n        ")]), _vm._v(" "), _c('a', {
+    staticClass: "cptm-form-content-btn",
+    class: _vm.isInstallingPlugin ? 'cptm-btn-disabled' : '',
+    attrs: {
+      "href": "#"
+    },
+    on: {
+      "click": function click($event) {
+        $event.preventDefault();
+        return _vm.installPlugin();
+      }
+    }
+  }, [_vm.isInstallingPlugin ? _c('span', {
+    staticClass: "cptm-form-content-btn-loader"
+  }, [_vm._v("\n            Activating\n            "), _c('i', {
+    staticClass: "las la-sync la-spin"
+  })]) : _c('span', [_vm._v(" Activate")])])]) : _c('div', {
+    staticClass: "cptm-form-content-wrapper"
+  }, [_c('h3', {
+    staticClass: "cptm-form-content-title"
+  }, [_vm._v("\n          You need the FormGent plugin to use this feature, ask the site admin\n          to activate it.\n        ")])])]] : [_vm.canInstallPlugins ? _c('div', {
+    staticClass: "cptm-form-content-wrapper"
+  }, [_c('span', {
+    staticClass: "cptm-form-content-icon"
+  }, [_c('svg', {
+    attrs: {
+      "width": "40",
+      "height": "38",
+      "viewBox": "0 0 40 38",
+      "fill": "none",
+      "xmlns": "http://www.w3.org/2000/svg"
+    }
+  }, [_c('mask', {
+    attrs: {
+      "id": "path-1-inside-1_10032_119817",
+      "fill": "white"
+    }
+  }, [_c('path', {
+    attrs: {
+      "d": "M0 0H40V37.5H0V0Z"
+    }
+  })]), _vm._v(" "), _c('path', {
+    attrs: {
+      "d": "M0 0H40V37.5H0V0Z",
+      "fill": "#141921"
+    }
+  }), _vm._v(" "), _c('path', {
+    attrs: {
+      "d": "M40 37.5V36.875H0V37.5V38.125H40V37.5Z",
+      "fill": "#2C3239",
+      "mask": "url(#path-1-inside-1_10032_119817)"
+    }
+  }), _vm._v(" "), _c('path', {
+    attrs: {
+      "d": "M20.217 9.66406H13.7814C13.0737 9.66406 12.5 10.2594 12.5 10.9939V13.683C12.5 14.4174 13.0737 15.0128 13.7814 15.0128H20.217C20.9247 15.0128 21.4985 14.4174 21.4985 13.683V10.9939C21.4985 10.2594 20.9247 9.66406 20.217 9.66406Z",
+      "fill": "white"
+    }
+  }), _vm._v(" "), _c('path', {
+    attrs: {
+      "d": "M13.7814 28.9921C13.0695 28.9921 12.5 28.4011 12.5 27.6623V19.654C12.5 18.9152 13.0695 18.3242 13.7814 18.3242H25.9977C26.7096 18.3242 27.2791 18.9152 27.2791 19.654V22.3136C27.2791 23.0524 26.7096 23.6434 25.9977 23.6434H17.6542V27.6328C17.6542 28.3715 17.0847 28.9626 16.3728 28.9626H13.7814V28.9921Z",
+      "fill": "white"
+    }
+  }), _vm._v(" "), _c('path', {
+    attrs: {
+      "d": "M24.4022 10.9922L24.8863 12.4993L26.3386 13.0017L24.8863 13.504L24.4022 15.0111L23.9181 13.504L22.4658 13.0017L23.9181 12.4993L24.4022 10.9922Z",
+      "fill": "white"
+    }
+  }), _vm._v(" "), _c('path', {
+    attrs: {
+      "d": "M26.4809 9.66406L26.6803 10.2846L27.2783 10.4915L26.6803 10.6983L26.4809 11.3189L26.2816 10.6983L25.6836 10.4915L26.2816 10.2846L26.4809 9.66406Z",
+      "fill": "white"
+    }
+  })])]), _vm._v(" "), _c('h3', {
+    staticClass: "cptm-form-content-title"
+  }, [_vm._v("\n        Install & Activate FormGent Plugin\n      ")]), _vm._v(" "), _c('p', {
+    staticClass: "cptm-form-content-desc"
+  }, [_vm._v("\n        You need the FormGent plugin to use this feature.\n      ")]), _vm._v(" "), _c('a', {
+    staticClass: "cptm-form-content-btn",
+    class: _vm.isInstallingPlugin ? 'cptm-btn-disabled' : '',
+    attrs: {
+      "href": "#"
+    },
+    on: {
+      "click": function click($event) {
+        $event.preventDefault();
+        return _vm.installPlugin();
+      }
+    }
+  }, [_vm.isInstallingPlugin ? _c('span', {
+    staticClass: "cptm-form-content-btn-loader"
+  }, [_vm._v("\n          Installing\n          "), _c('i', {
+    staticClass: "las la-sync la-spin"
+  })]) : _c('span', [_vm._v(" Install & Activate")])])]) : _c('div', {}, [_vm._v("\n      You need the FormGent plugin to use this feature. Ask the site admin to\n      install and activate it.\n    ")])]], 2);
+};
+var staticRenderFns = [];
+render._withStripped = true;
+
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/Hidden_Field.vue?vue&type=template&id=464ad900":
 /*!*************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-fields/Hidden_Field.vue?vue&type=template&id=464ad900 ***!
@@ -34821,7 +35811,7 @@ var render = function render() {
   })], 2)]) : _vm._e()]), _vm._v(" "), _c('select', {
     staticClass: "cptm-d-none",
     domProps: {
-      "value": _vm.local_value
+      "value": _vm.value
     },
     on: {
       "change": function change($event) {
@@ -34832,13 +35822,13 @@ var render = function render() {
     domProps: {
       "value": _vm.theDefaultOption.value
     }
-  }, [_vm._v(_vm._s(_vm.theDefaultOption.label))]) : _vm._e(), _vm._v(" "), _vm._l(_vm.theOptions, function (option, option_key) {
+  }, [_vm._v("\n          " + _vm._s(_vm.theDefaultOption.label) + "\n        ")]) : _vm._e(), _vm._v(" "), _vm._l(_vm.theOptions, function (option, option_key) {
     return _c('option', {
       key: option_key,
       domProps: {
         "value": option.value
       }
-    }, [_vm._v("\n                    " + _vm._s(option.label) + "\n                ")]);
+    }, [_vm._v("\n          " + _vm._s(option.label) + "\n        ")]);
   })], 2), _vm._v(" "), _c('form-field-validatior', {
     attrs: {
       "section-id": _vm.sectionId,
@@ -36272,7 +37262,7 @@ var render = function render() {
   }), 0)]) : _vm._e()]), _vm._v(" "), _c('select', {
     staticClass: "cptm-d-none",
     domProps: {
-      "value": _vm.local_value
+      "value": _vm.value
     },
     on: {
       "change": function change($event) {
@@ -36283,13 +37273,13 @@ var render = function render() {
     domProps: {
       "value": _vm.default_option.value
     }
-  }, [_vm._v(_vm._s(_vm.default_option.label))]) : _vm._e(), _vm._v(" "), _vm._l(_vm.theOptions, function (option, option_key) {
+  }, [_vm._v("\n      " + _vm._s(_vm.default_option.label) + "\n    ")]) : _vm._e(), _vm._v(" "), _vm._l(_vm.theOptions, function (option, option_key) {
     return [_c('option', {
       key: option_key,
       domProps: {
         "value": option.value
       }
-    }, [_vm._v(_vm._s(option.label))])];
+    }, [_vm._v("\n        " + _vm._s(option.label) + "\n      ")])];
   })], 2), _vm._v(" "), _c('form-field-validatior', {
     attrs: {
       "section-id": _vm.sectionId,

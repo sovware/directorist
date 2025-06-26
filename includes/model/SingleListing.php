@@ -241,8 +241,12 @@ class Directorist_Single_Listing {
 			return '';
 		}
 
+		if ( isset( $data['value'] ) ) {
+            return apply_filters( 'directorist_single_listing_widget_value', $data['value'], $data );
+        }
+
 		if ( isset( $data['widget_name'] ) && $data['widget_name'] == 'custom_content' ) {
-			return $data['content'];
+			return apply_filters( 'directorist_single_listing_widget_value', $data['content'], $data );
 		}
 
 		if ( !empty( $data['field_key'] ) ) {
@@ -286,12 +290,10 @@ class Directorist_Single_Listing {
 			$value = $this->get_field_value( $data );
 		}
 
-		$load_template = true;
-
 		$group = !empty( $data['widget_group'] ) ? $data['widget_group'] : '';
 
-		if( ( ( $group === 'custom' ) || ( $group === 'preset' ) ) && !$value ) {
-			$load_template = false;
+		if ( ( ( $group === 'custom' ) || ( $group === 'preset' ) ) && ! $value ) {
+			return;
 		}
 
 		$data['value']      = $value;
@@ -318,9 +320,7 @@ class Directorist_Single_Listing {
 
 		$template = apply_filters( 'directorist_single_item_template', $template, $data );
 
-		if( $load_template ) {
-			Helper::get_template( $template, $args );
-		}
+		Helper::get_template( $template, $args );
 	}
 
 	public function is_custom_field( $data ) {

@@ -51,7 +51,7 @@ function directorist_is_immediate_review_approve_enabled() {
  * @return bool
  */
 function directorist_is_multiple_review_enabled() {
-	return (bool) apply_filters( 'directorist_is_multiple_review_enabled', false );
+    return (bool) apply_filters( 'directorist_is_multiple_review_enabled', false );
 }
 
 /**

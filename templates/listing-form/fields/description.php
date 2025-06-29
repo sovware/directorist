@@ -29,6 +29,9 @@ $maxlength = $data['max'] ?? '';
                     'media_buttons' => false,
                     'quicktags'     => true,
                     'editor_height' => 200,
+                    'tinymce'       => array(
+                        'plugins'    => 'lists,link,wordpress,paste,textcolor,fullscreen,hr',
+                    ),
                 ]
             )
         );

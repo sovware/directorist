@@ -193,7 +193,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
             $args = ATBDP_Permalink::get_signin_signup_page_link(
                 [
                     'send_verification_email' => true
-                ] 
+                ]
             );
 
             wp_safe_redirect( $args );
@@ -222,7 +222,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
                     [
                         'error_message' => sprintf(
                             __( '<div class="error_message">%s <p>%s</p></div>', 'directorist' ),
-                            directorist_icon( 'fas fa-info-circle', false ), __( 'Please enter a valid zip code.', 'directorist' ) 
+                            directorist_icon( 'fas fa-info-circle', false ), __( 'Please enter a valid zip code.', 'directorist' )
                         )
                     ]
                 );
@@ -331,7 +331,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
                     'user_login'    => $username,
                     'user_password' => $password,
                     'remember'      => $rememberme,
-                ] 
+                ]
             );
 
             if ( is_wp_error( $user ) ) {
@@ -538,7 +538,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
                 $atts = array_filter(
                     $atts, static function( $key ) {
                         return substr( $key, 0, 7 ) == 'filter_';
-                    }, ARRAY_FILTER_USE_KEY 
+                    }, ARRAY_FILTER_USE_KEY
                 );
             }
 
@@ -562,7 +562,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
                     [
                         'search_form' => $markup,
                         'container'   => $selector,
-                    ] 
+                    ]
                 );
         }
 
@@ -584,7 +584,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
                 [
                     'fields'  => 'ids',
                     'exclude' => $default_directory_id,
-                ] 
+                ]
             );
 
             if ( ! empty( $directory_types ) || ! is_wp_error( $directory_types ) ) {
@@ -1167,9 +1167,10 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
                 return;
             }
 
-            if ( ! in_array( 'listing_review', get_directorist_option( 'notify_user', [] ) ) ) {
+            if ( ! directorist_is_owner_notifiable_event( 'listing_review' ) ) {
                 return false;
             }
+
             // sanitize form values
             $post_id = ( ! empty( $_POST['post_id'] ) ) ? absint( wp_unslash( $_POST['post_id'] ) ) : 0;
             $message = ( ! empty( $_POST['content'] ) ) ? sanitize_textarea_field( wp_unslash( $_POST['content'] ) ) : '';
@@ -1240,7 +1241,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
                 return false; // vail if email notification is off
             }
 
-            if ( ! in_array( 'listing_review', get_directorist_option( 'notify_admin', [] ) ) ) {
+            if ( ! directorist_is_admin_notifiable_event( 'listing_review' ) ) {
                 return false; // vail if order created notification to admin off
             }
             // sanitize form values
@@ -1611,7 +1612,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
                     [
                         'error' => 1,
                         'message' => __( 'Something is wrong! Please refresh and retry.', 'directorist' )
-                    ], 200 
+                    ], 200
                 );
             }
 
@@ -1635,17 +1636,17 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
                 die();
             }
 
-            $sendOwner = in_array( 'listing_contact_form', get_directorist_option( 'notify_user' ), true );
-            $sendAdmin = in_array( 'listing_contact_form', get_directorist_option( 'notify_admin' ), true );
+            $send_owner = directorist_is_owner_notifiable_event( 'listing_contact_form' );
+            $send_admin = directorist_is_admin_notifiable_event( 'listing_contact_form' );
 
             // is admin disabled both notification
-            if ( ! $sendOwner && ! $sendAdmin ) {
+            if ( ! $send_owner && ! $send_admin ) {
                 echo wp_json_encode( $error_response );
                 die();
             }
 
             // let's check is admin decides to send email to it's owner
-            if ( $sendOwner ) {
+            if ( $send_owner ) {
                 $send_to_owner = $this->atbdp_email_listing_owner_listing_contact();
                 if ( ! $send_to_owner ) {
                     echo wp_json_encode( $error_response );
@@ -1653,7 +1654,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
                 }
             }
             // let's check is admin decides to send email to him/her
-            if ( $sendAdmin ) {
+            if ( $send_admin ) {
                 $send_to_admin = $this->atbdp_email_admin_listing_contact();
                 if ( ! $send_to_admin ) {
                     echo wp_json_encode( $error_response );
@@ -1672,7 +1673,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
                 [
                     'error' => 1,
                     'message' => __( 'Your message sent successfully.', 'directorist' )
-                ] 
+                ]
             );
             die();
         }
@@ -1772,7 +1773,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
             wp_send_json_success(
                 [
                     'directorist_nonce' => wp_create_nonce( directorist_get_nonce_key() )
-                ] 
+                ]
             );
         }
 

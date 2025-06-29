@@ -179,9 +179,24 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
                         throw new Exception( __( 'Invalid guest email.', 'directorist' ), 200 );
                     }
 
-                    atbdp_guest_submission( $guest_email );
-
-                    $nonce_expired = true;
+                    /**
+                     * Filters whether to allow guest user account creation during submission.
+                     *
+                     * This filter allows developers to enable or disable the automatic creation of guest user accounts
+                     * based on the guest email and submitted post data.
+                     *
+                     * @since 8.4.4
+                     *
+                     * @param bool   $allow_creation Whether to allow guest user account creation. Default true.
+                     * @param string $guest_email    The sanitized email address submitted by the guest.
+                     * @param array  $posted_data    The entire array of submitted post data.
+                     *
+                     * @return bool  True to allow guest account creation, false to prevent it.
+                     */
+                    if ( apply_filters( 'directorist_should_create_guest_user_account', true, $guest_email, $posted_data ) ) {
+                        atbdp_guest_submission( $guest_email );
+                        $nonce_expired = true;
+                    }
                 }
 
                 // When invalid directory is selected fallback to default directory.
@@ -304,8 +319,8 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
                                 'nonce_expired' => $nonce_expired,
                                 'error'         => true,
                                 'error_msg'     => implode( '<br>', $error->get_error_messages() ),
-                            ] 
-                        ) 
+                            ]
+                        )
                     );
                 }
 
@@ -347,6 +362,22 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
                     //  $listing_data['post_status'] = directorist_get_listing_edit_status( $directory_id, $listing_id );
                     // }
 
+                    /**
+                     * Filters the post data before updating an existing listing.
+                     *
+                     * This filter allows developers to modify the post data (such as post title, content, status, etc.)
+                     * before it is passed to wp_update_post() during the listing submission process.
+                     *
+                     * @since 8.4.4
+                     *
+                     * @param array $listing_data The array of post data to be updated, compatible with wp_update_post().
+                     * @param array $posted_data  The raw submitted form data from the listing submission form.
+                     * @param array $form_fields  The list of form fields used in the submission form.
+                     *
+                     * @return array Modified post data array to be updated as a listing.
+                     */
+                    $listing_data = apply_filters( 'directorist_update_listing_data', $listing_data, $posted_data, $form_fields );
+
                     $listing_id = wp_update_post( $listing_data );
 
                     if ( is_wp_error( $listing_id ) ) {
@@ -371,6 +402,22 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
                     } else {
                         $listing_data['post_status'] = $listing_create_status;
                     }
+
+                    /**
+                     * Filters the post data before inserting a new listing.
+                     *
+                     * This filter allows developers to modify the post data (such as post title, content, status, etc.)
+                     * before it is passed to wp_insert_post() during the listing submission process.
+                     *
+                     * @since 8.4.4
+                     *
+                     * @param array $listing_data The array of post data to be inserted, compatible with wp_insert_post().
+                     * @param array $posted_data  The raw submitted form data from the listing submission form.
+                     * @param array $form_fields  The list of form fields used in the submission form.
+                     *
+                     * @return array Modified post data array to be inserted as a listing.
+                     */
+                    $listing_data = apply_filters( 'directorist_insert_listing_data', $listing_data, $posted_data, $form_fields );
 
                     $listing_id = wp_insert_post( $listing_data );
 
@@ -439,7 +486,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
                             [
                                 'ID'          => $listing_id,
                                 'post_status' => 'pending',
-                            ] 
+                            ]
                         );
                     }
                 }
@@ -483,7 +530,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
                     [
                         'error'     => true,
                         'error_msg' => $e->getMessage(),
-                    ], $e->getCode() 
+                    ], $e->getCode()
                 );
             }
         }
@@ -526,7 +573,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
                     }
 
                     return true;
-                }, ARRAY_FILTER_USE_BOTH 
+                }, ARRAY_FILTER_USE_BOTH
             );
         }
 

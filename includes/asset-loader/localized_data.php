@@ -235,18 +235,18 @@ class Localized_Data {
             ],
         ];
 
-		// is MI extension enabled and active?
-		$data = array(
-			'nonce'                => wp_create_nonce( 'atbdp_nonce_action_js' ),
-			'ajaxurl'              => admin_url( 'admin-ajax.php' ),
-			'import_page_link'     => admin_url( 'edit.php?post_type=at_biz_dir&page=tools' ),
-			'nonceName'            => 'atbdp_nonce_js',
-			'countryRestriction'   => get_directorist_option( 'country_restriction' ),
-			'restricted_countries' => get_directorist_option( 'restricted_countries' ),
-			'assets_path'          => DIRECTORIST_ASSETS,
-			'i18n_text'            => $i18n_text,
-			'icon_type'            => 'la',
-			'icon_picker_labels'   => $icon_picker_labels,
+        // is MI extension enabled and active?
+        $data = array(
+            'nonce'                => wp_create_nonce( 'atbdp_nonce_action_js' ),
+            'ajaxurl'              => admin_url( 'admin-ajax.php' ),
+            'import_page_link'     => admin_url( 'edit.php?post_type=at_biz_dir&page=tools' ),
+            'nonceName'            => 'atbdp_nonce_js',
+            'countryRestriction'   => get_directorist_option( 'country_restriction' ),
+            'restricted_countries' => get_directorist_option( 'restricted_countries' ),
+            'assets_path'          => DIRECTORIST_ASSETS,
+            'i18n_text'            => $i18n_text,
+            'icon_type'            => 'la',
+            'icon_picker_labels'   => $icon_picker_labels,
             'capabilities'         => [
                 'manage_options'  => current_user_can( 'manage_options' ),
                 'install_plugins' => current_user_can( 'install_plugins' ),
@@ -255,7 +255,7 @@ class Localized_Data {
                 'is_installed' => Helper::is_plugin_installed( 'formgent' ),
                 'is_active'    => Helper::is_the_plugin_active( 'formgent' ),
             ],
-		);
+        );
 
 
 

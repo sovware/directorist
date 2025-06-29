@@ -19,7 +19,9 @@
       :label="widgetTitle"
       :sublabel="widgetSubtitle"
       :icon="widgetIcon"
+      :iconType="widgetIconType"
       :expanded="expandState"
+      :alert="alert"
       @toggle-expand="toggleExpand"
     />
 
@@ -34,6 +36,7 @@
           :section-id="widgetKey"
           :field-list="widget_fields"
           :value="activeWidgets[widgetKey] ? activeWidgets[widgetKey] : ''"
+          @alert="updateAlert"
           @update="
             $emit('update-widget-field', {
               widget_key: widgetKey,
@@ -87,6 +90,7 @@
 </template>
 
 <script>
+import Vue from "vue";
 import { findObjectItem } from "../../../../../helper";
 import ConfirmationModal from "./Form_Builder_Widget_Trash_Confirmation.vue";
 
@@ -199,6 +203,16 @@ export default {
       return icon;
     },
 
+    widgetIconType() {
+      let iconType = "";
+
+      if (this.current_widget && this.current_widget.iconType) {
+        iconType = this.current_widget.iconType;
+      }
+
+      return iconType;
+    },
+
     expandState() {
       let state = this.expanded;
 
@@ -228,6 +242,30 @@ export default {
         ? "cptm-empty-slide-up-down"
         : "";
     },
+
+    alert() {
+      const widgetKeys = Object.keys(this.alerts);
+
+      if (widgetKeys.length < 1) {
+        return null;
+      }
+
+      const widgetKey = widgetKeys[0];
+
+      if (!this.alerts[widgetKey] || this.alerts.widgetKey !== this.widgetKey) {
+        return null;
+      }
+
+      const alertKeys = Object.keys(this.alerts[widgetKey]);
+
+      if (alertKeys.length < 1) {
+        return null;
+      }
+
+      const alertKey = alertKeys[0];
+
+      return this.alerts[widgetKey][alertKey];
+    },
   },
 
   data() {
@@ -241,6 +279,7 @@ export default {
       showConfirmationModal: false,
       widgetName: "",
       expandedDropdown: false,
+      alerts: {},
     };
   },
 
@@ -253,13 +292,45 @@ export default {
   },
 
   methods: {
+    updateAlert(payload) {
+      if (!payload.data) {
+        this.removeAlert(payload.key);
+        return;
+      }
+
+      this.addAlert(payload.key, payload.data);
+    },
+
+    addAlert(key, data) {
+      this.alerts = {
+        ...this.alerts,
+        [key]: data,
+        widgetKey: this.widgetKey,
+      };
+    },
+
+    removeAlert(key) {
+      if (this.alerts.hasOwnProperty(key)) {
+        Vue.delete(this.alerts, key);
+      }
+
+      // If only one key remains and it's "widgetKey", remove that too
+      const remainingKeys = Object.keys(this.alerts);
+      if (remainingKeys.length === 1 && remainingKeys[0] === "widgetKey") {
+        Vue.delete(this.alerts, "widgetKey");
+      }
+    },
+
     toggleExpandedDropdown() {
       this.expandedDropdown = !this.expandedDropdown;
     },
 
     handleClickOutside(event) {
-      if (this.expandedDropdown && !this.$refs.dropdownContent.contains(event.target)) {
-        this.expandedDropdown = false; 
+      if (
+        this.expandedDropdown &&
+        !this.$refs.dropdownContent.contains(event.target)
+      ) {
+        this.expandedDropdown = false;
       }
     },
 
@@ -278,19 +349,19 @@ export default {
       this.showConfirmationModal = true;
 
       // Add class to parent with class 'atbdp-cpt-manager'
-      const parentElement = this.$el.closest('.atbdp-cpt-manager');
+      const parentElement = this.$el.closest(".atbdp-cpt-manager");
       if (parentElement) {
-        parentElement.classList.add('directorist-overlay-visible');
+        parentElement.classList.add("directorist-overlay-visible");
       }
     },
 
     closeConfirmationModal() {
       this.showConfirmationModal = false;
-      
+
       // Remove class from parent with class 'atbdp-cpt-manager'
-      const parentElement = this.$el.closest('.atbdp-cpt-manager');
+      const parentElement = this.$el.closest(".atbdp-cpt-manager");
       if (parentElement) {
-        parentElement.classList.remove('directorist-overlay-visible');
+        parentElement.classList.remove("directorist-overlay-visible");
       }
     },
 
@@ -302,7 +373,7 @@ export default {
     syncCurrentWidget() {
       const current_widget = findObjectItem(
         `${this.widgetKey}`,
-        this.activeWidgets
+        this.activeWidgets,
       );
 
       if (!current_widget) {
@@ -315,7 +386,9 @@ export default {
 
       const widget_name = current_widget.original_widget_key
         ? current_widget.original_widget_key
-        : current_widget.widget_name ? current_widget.widget_name : "";
+        : current_widget.widget_name
+          ? current_widget.widget_name
+          : "";
 
       const widget_child_name = current_widget.widget_child_name
         ? current_widget.widget_child_name
@@ -350,7 +423,7 @@ export default {
       this.checkIfHasUntrashableWidget(
         widget_group,
         current_widget_name,
-        current_widget_child_name
+        current_widget_child_name,
       );
 
       this.current_widget = the_current_widget;

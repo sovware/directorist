@@ -47,7 +47,7 @@ $upload_dir = wp_upload_dir();
                                             /* translators: %s: maximum upload size */
                                             esc_html__( 'Maximum upload file size: %s', 'directorist' ),
                                             esc_html( $size )
-                                           );
+                                        );
                                             ?></small>
                                 </div>
                                 <input type="hidden" name="action" value="save" />

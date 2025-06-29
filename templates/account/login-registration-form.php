@@ -86,7 +86,7 @@ if ( ! empty( $_GET['registration_status'] ) ) {
                                                 __( 'Password changed successfully. Please <a href="%s">click here to login</a>.', 'directorist' ),
                                                 esc_url( ATBDP_Permalink::get_signin_signup_page_link() )
                                             ), array( 'a' => array( 'href' => array() ) ) 
-                                                                                                                  ); ?></p>
+                                        ); ?></p>
                                     <?php endif;
                                 endif;
 

@@ -90,7 +90,7 @@ extract( $login_args );
                                     __( 'Password changed successfully. Please <a href="%s">click here to login</a>.', 'directorist' ),
                                     esc_url( ATBDP_Permalink::get_login_page_url() )
                                 ), array( 'a' => array( 'href' => array() ) ) 
-                                                                                                      ); ?></p>
+                            ); ?></p>
                         <?php endif;
                     endif;
 

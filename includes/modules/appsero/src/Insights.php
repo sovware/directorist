@@ -856,53 +856,71 @@ class Insights
 
         <div class="wd-dr-modal" id="<?php echo esc_attr( $this->client->slug ); ?>-wd-dr-modal">
             <div class="wd-dr-modal-wrap">
-                <div class="wd-dr-modal-header">
-                    <h3><?php $this->client->_etrans( 'Goodbyes are always hard. If you have a moment, please let us know how we can improve.' ); ?></h3>
-                </div>
-
-                <div class="wd-dr-modal-body">
-                    <ul class="wd-de-reasons">
-                        <?php foreach ( $reasons as $reason ) { ?>
-                            <li data-placeholder="<?php echo esc_attr( $reason['placeholder'] ); ?>">
-                                <label>
-                                    <input type="radio" name="selected-reason" value="<?php echo esc_attr( $reason['id'] ); ?>">
-                                    <?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-                                    <div class="wd-de-reason-icon"><?php echo $reason['icon']; ?></div>
-                                    <div class="wd-de-reason-text"><?php echo esc_html( $reason['text'] ); ?></div>
-                                </label>
-                            </li>
-                        <?php } ?>
-                    </ul>
-                    <?php if ( $custom_reasons && is_array( $custom_reasons ) ) { ?>
-                        <ul class="wd-de-reasons wd-de-others-reasons">
-                            <?php foreach ( $custom_reasons as $reason ) { ?>
-                                <li data-placeholder="<?php echo esc_attr( $reason['placeholder'] ); ?>" data-customreason="true">
+                <div class="wd-dr-modal-wrap-content">
+                    <div class="wd-dr-modal-header">
+            <span class="wd-dr-modal-close" title="Close">&times;</span>
+                        <h3><?php $this->client->_etrans( 'Was it something we did? - Help us improve!' ); ?></h3>
+                        <p><?php $this->client->_etrans( 'A quick note from you could really help us grow.' ); ?></p>
+                    </div>
+                    <div class="wd-dr-modal-body">
+                        <ul class="wd-de-reasons">
+                            <?php foreach ( $reasons as $reason ) { ?>
+                                <li data-placeholder="<?php echo esc_attr( $reason['placeholder'] ); ?>">
                                     <label>
-                                        <input type="radio" name="selected-reason" value="<?php echo esc_attr( $reason['id'] ); ?>">
-                                        <div class="wd-de-reason-icon"><?php echo esc_html( $reason['icon'] ); ?></div>
+                                        <input type="checkbox" name="selected-reason" value="<?php echo esc_attr( $reason['id'] ); ?>">
+                                        <?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+                                        <!-- <div class="wd-de-reason-icon"><?php echo $reason['icon']; ?></div> -->
                                         <div class="wd-de-reason-text"><?php echo esc_html( $reason['text'] ); ?></div>
                                     </label>
                                 </li>
                             <?php } ?>
                         </ul>
-                    <?php } ?>
-                    <div class="wd-dr-modal-reason-input"><textarea></textarea></div>
-                    <p class="wd-dr-modal-reasons-bottom">
-                        <?php
-                        echo sprintf(
-                            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-                            $this->client->_trans( 'We share your data with <a href="%1$s" target="_blank">Appsero</a> to troubleshoot problems &amp; make product improvements. <a href="%2$s" target="_blank">Learn more</a> about how Appsero handles your data.' ),
-                            esc_url( 'https://appsero.com/' ),
-                            esc_url( 'https://appsero.com/privacy-policy' )
-                        );
-                        ?>
-                    </p>
-                </div>
-
-                <div class="wd-dr-modal-footer">
-                    <a href="#" class="dont-bother-me wd-dr-button-secondary"><?php $this->client->_etrans( 'Skip & Deactivate' ); ?></a>
-                    <button class="wd-dr-button-secondary wd-dr-cancel-modal"><?php $this->client->_etrans( 'Cancel' ); ?></button>
-                    <button class="wd-dr-submit-modal"><?php $this->client->_etrans( 'Submit & Deactivate' ); ?></button>
+                        <?php if ( $custom_reasons && is_array( $custom_reasons ) ) { ?>
+                            <ul class="wd-de-reasons wd-de-others-reasons">
+                                <?php foreach ( $custom_reasons as $reason ) { ?>
+                                    <li data-placeholder="<?php echo esc_attr( $reason['placeholder'] ); ?>" data-customreason="true">
+                                        <label>
+                                            <input type="radio" name="selected-reason" value="<?php echo esc_attr( $reason['id'] ); ?>">
+                                            <div class="wd-de-reason-icon"><?php echo esc_html( $reason['icon'] ); ?></div>
+                                            <div class="wd-de-reason-text"><?php echo esc_html( $reason['text'] ); ?></div>
+                                        </label>
+                                    </li>
+                                <?php } ?>
+                            </ul>
+                        <?php } ?>
+                        <div class="wd-dr-modal-reason-input">
+                            <label for="wd-dr-modal-reason-textarea">Got a moment? Let us know if anything was missing, buggy, or frustrating.</label>
+                            <textarea id="wd-dr-modal-reason-textarea" placeholder="Type here reasons"></textarea>
+                        </div>
+                        <div>
+                            <p class="wd-dr-modal-reasons-bottom">
+                                As a parting gift, enjoy 💝 <strong>3 months of free access</strong> to our premium 
+                                plugins <strong>🎁 <a href="https://formgent.com" target="_blank">Formgent</a> or <a href="https://helpgent.com" target="_blank">Helpgent</a> or any product from <a href="https://wpwax.com" target="_blank">Wpwax</a></strong> to enhance your workflow. <br>
+                            </p>
+                            <div class="wd-dr-modal-reason-product-group">
+                                <select name="wd-dr-modal-reason-select" id="wd-dr-modal-reason-select">
+                                    <option value="none" selected disabled>Select a product</option>
+                                    <option value="formgent">Formgent</option>
+                                    <option value="helpgent">Helpgent</option>
+                                    <option value="wpwax">Any product from wpwax</option>
+                                </select>
+                                <input type="email" name="wd-dr-modal-reason-email" id="wd-dr-modal-reason-email" placeholder="Your Email">
+                                <label for="wd-dr-modal-reason-agree">
+                                    <input type="checkbox" name="wd-dr-modal-reason-agree" id="wd-dr-modal-reason-agree">
+                                    I agree to receive occasional updates and freebies from Wpwax.
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wd-dr-modal-footer">
+                        <div class="wd-dr-modal-footer-left">
+                            <button class="wd-dr-button-secondary wd-dr-cancel-modal"><?php $this->client->_etrans( 'Cancel' ); ?></button>
+                        </div>
+                        <div class="wd-dr-modal-footer-right">
+                            <a href="#" class="dont-bother-me wd-dr-button-secondary"><?php $this->client->_etrans( 'Skip & Deactivate' ); ?></a>
+                            <button class="wd-dr-submit-modal"><?php $this->client->_etrans( 'Submit & Deactivate' ); ?></button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -919,41 +937,41 @@ class Insights
 
                         modal.addClass('modal-active');
                         deactivateLink = $(this).attr('href');
-                        modal.find('a.dont-bother-me').attr('href', deactivateLink).css('float', 'left');
+                        modal.find('a.dont-bother-me').attr('href', deactivateLink);
                     });
 
                     // Close modal; Cancel
-                    modal.on('click', 'button.wd-dr-cancel-modal', function(e) {
+                    modal.on('click', 'button.wd-dr-cancel-modal, .wd-dr-modal-close', function(e) {
                         e.preventDefault();
                         modal.removeClass('modal-active');
                     });
 
                     // Reason change
-                    modal.on('click', 'input[type="radio"]', function() {
-                        var parent = $(this).parents('li');
-                        var isCustomReason = parent.data('customreason');
-                        var inputValue = $(this).val();
+                    // modal.on('click', 'input[type="radio"]', function() {
+                    //     var parent = $(this).parents('li');
+                    //     var isCustomReason = parent.data('customreason');
+                    //     var inputValue = $(this).val();
 
-                        if (isCustomReason) {
-                            $('ul.wd-de-reasons.wd-de-others-reasons li').removeClass('wd-de-reason-selected');
-                        } else {
-                            $('ul.wd-de-reasons li').removeClass('wd-de-reason-selected');
+                    //     if (isCustomReason) {
+                    //         $('ul.wd-de-reasons.wd-de-others-reasons li').removeClass('wd-de-reason-selected');
+                    //     } else {
+                    //         $('ul.wd-de-reasons li').removeClass('wd-de-reason-selected');
 
-                            if ("other" != inputValue) {
-                                $('ul.wd-de-reasons.wd-de-others-reasons').css('display', 'none');
-                            }
-                        }
+                    //         if ("other" != inputValue) {
+                    //             $('ul.wd-de-reasons.wd-de-others-reasons').css('display', 'none');
+                    //         }
+                    //     }
 
-                        // Show if has custom reasons
-                        if ("other" == inputValue) {
-                            $('ul.wd-de-reasons.wd-de-others-reasons').css('display', 'flex');
-                        }
+                    //     // Show if has custom reasons
+                    //     if ("other" == inputValue) {
+                    //         $('ul.wd-de-reasons.wd-de-others-reasons').css('display', 'flex');
+                    //     }
 
-                        parent.addClass('wd-de-reason-selected');
-                        $('.wd-dr-modal-reason-input').show();
+                    //     parent.addClass('wd-de-reason-selected');
+                    //     // $('.wd-dr-modal-reason-input').show();
 
-                        $('.wd-dr-modal-reason-input textarea').attr('placeholder', parent.data('placeholder')).focus();
-                    });
+                    //     // $('.wd-dr-modal-reason-input textarea').attr('placeholder', parent.data('placeholder')).focus();
+                    // });
 
                     // Submit response
                     modal.on('click', 'button.wd-dr-submit-modal', function(e) {
@@ -966,7 +984,7 @@ class Insights
                         }
 
                         var $radio = $('input[type="radio"]:checked', modal);
-                        var $input = $('.wd-dr-modal-reason-input textarea');
+                        // var $input = $('.wd-dr-modal-reason-input textarea');
 
                         $.ajax({
                             url: ajaxurl,
@@ -1094,163 +1112,226 @@ class Insights
             }
 
             .wd-dr-modal-wrap {
-                max-width: 870px;
+                max-width: 953px;
                 width: 100%;
                 position: relative;
                 margin: 10% auto;
+            }
+            .wd-dr-modal-wrap-content{
+                display: inline-flex;
+                padding: 40px;
+                flex-direction: column;
+                align-items: flex-start;
                 background: #fff;
+                border-radius: 20px;
             }
-
-            .wd-dr-modal-header {
-                border-bottom: 1px solid #E8E8E8;
-                padding: 20px 20px 18px 20px;
-            }
-
-            .wd-dr-modal-header h3 {
-                line-height: 1.8;
-                margin: 0;
-                color: #4A5568;
-            }
-
-            .wd-dr-modal-body {
-                padding: 5px 20px 20px 20px;
-            }
-
-            .wd-dr-modal-body .reason-input {
-                margin-top: 5px;
-                margin-left: 20px;
-            }
-
-            .wd-dr-modal-footer {
-                border-top: 1px solid #E8E8E8;
-                padding: 20px;
-                text-align: right;
-            }
-
-            .wd-dr-modal-reasons-bottom {
-                margin: 0;
-            }
-
-            ul.wd-de-reasons {
+            .wd-dr-modal-wrap-content .wd-dr-modal-body{
                 display: flex;
-                margin: 0 -5px 0 -5px;
-                padding: 15px 0 20px 0;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 40px;
+                align-self: stretch;
             }
-
-            ul.wd-de-reasons.wd-de-others-reasons {
-                padding-top: 0;
-                display: none;
+            .wd-dr-modal-wrap-content .wd-de-reasons {
+                display: flex;
+                align-items: center;
+                flex-wrap: wrap;
+                margin:20px 0 0;
+                padding:0;
+                gap:8px 0;
             }
-
-            ul.wd-de-reasons li {
-                padding: 0 5px;
-                margin: 0;
-                width: 14.26%;
+            .wd-dr-modal-wrap-content .wd-de-reasons li{
+                flex:50%;
             }
-
-            ul.wd-de-reasons label {
-                position: relative;
-                border: 1px solid #E8E8E8;
-                border-radius: 4px;
+            .wd-dr-modal-wrap-content .wd-de-reasons li label{
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            .wd-dr-modal-wrap-content .wd-de-reasons li label .wd-de-reason-text{
+                color: #414141;
+                font-size: 20px;
+                font-weight: 400;
+                line-height: 38px;
+            }
+            .wd-dr-modal-wrap-content .wd-de-reasons li label input[type="checkbox"]{
+                margin:0;
+            }
+            .wd-dr-modal-wrap-content .wd-dr-modal-header h3{
+                color: #000;
+                font-size: 32px;
+                font-weight: 700;
+                line-height: 38px;
+                margin:0;
+            }
+            .wd-dr-modal-wrap-content .wd-dr-modal-header p{
+                color: rgba(0, 0, 0, 0.60);
+                font-size: 22px;
+                font-weight: 400;
+                line-height: 38px;
+                margin:0;
+            }
+            .wd-dr-modal-reason-input{
+                width: 100%;
+            }
+            .wd-dr-modal-reason-input label{
                 display: block;
-                text-align: center;
-                height: 100%;
-                padding: 15px 3px 8px 3px;
+                color: #252627;
+                font-size: 20px;
+                font-weight: 600;
+                line-height: 28px;
+                margin-bottom:20px;
             }
-
-            ul.wd-de-reasons label:after {
-                width: 0;
-                height: 0;
-                border-left: 8px solid transparent;
-                border-right: 8px solid transparent;
-                border-top: 10px solid #3B86FF;
-                position: absolute;
-                left: 50%;
-                top: 100%;
-                margin-left: -8px;
-            }
-
-            ul.wd-de-reasons label input[type="radio"] {
-                position: absolute;
-                left: 0;
-                right: 0;
-                visibility: hidden;
-            }
-
-            .wd-de-reason-text {
-                color: #4A5568;
-                font-size: 13px;
-            }
-
-            .wd-de-reason-icon {
-                margin-bottom: 7px;
-            }
-
-            ul.wd-de-reasons li.wd-de-reason-selected label {
-                background-color: #3B86FF;
-                border-color: #3B86FF;
-            }
-
-            li.wd-de-reason-selected .wd-de-reason-icon svg,
-            li.wd-de-reason-selected .wd-de-reason-icon svg g {
-                fill: #fff;
-            }
-
-            li.wd-de-reason-selected .wd-de-reason-text {
-                color: #fff;
-            }
-
-            ul.wd-de-reasons li.wd-de-reason-selected label:after {
-                content: "";
-            }
-
-            .wd-dr-modal-reason-input {
-                margin-bottom: 15px;
-                display: none;
-            }
-
-            .wd-dr-modal-reason-input textarea {
-                background: #FAFAFA;
-                border: 1px solid #287EB8;
-                border-radius: 4px;
+            .wd-dr-modal-reason-input textarea{
+                border-radius: 8px;
+                border: 1px solid #B9BACC;
+                background: #FFF;
+                padding: 10px;
                 width: 100%;
                 height: 100px;
-                color: #524242;
-                font-size: 13px;
-                line-height: 1.4;
-                padding: 11px 15px;
                 resize: none;
+                font-size:20px;
+                color: #414141;
             }
-
-            .wd-dr-modal-reason-input textarea:focus {
-                outline: 0 none;
-                box-shadow: 0 0 0;
+            .wd-dr-modal-reasons-bottom{
+                color: #000;
+                font-size: 20px;
+                font-weight: 500;
+                line-height: 32px;
+                margin:0 0 20px;
             }
-
-            .wd-dr-button-secondary,
-            .wd-dr-button-secondary:hover {
-                border: 1px solid #EBEBEB;
-                border-radius: 3px;
-                font-size: 13px;
-                line-height: 1.5;
-                color: #718096;
-                padding: 5px 12px;
+            .wd-dr-modal-reasons-bottom a{
+                color: #000;
+            }
+            .wd-dr-modal-reasons-bottom a:hover{
+                text-decoration: underline;
+                color:#343DE6;
+            }
+            .wd-dr-modal-reasons-bottom strong{
+                font-weight: 700;
+            }
+            .wd-dr-modal-reason-product-group{
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+                width: 100%;
+            }
+            .wd-dr-modal-reason-product-group select{
+                width: 100%;
+                max-width: 100%;
+                display: flex;
+                padding: 12px 20px;
+                align-items: center;
+                gap: 8px;
+                align-self: stretch;
+                border-radius: 8px;
+                border: 1px solid #B9BACC;
+                background: #FFF;
+                color: #414141;
+                font-size: 20px;
+                font-weight: 400;
+                line-height: 38px;
+            }
+            .wd-dr-modal-reason-product-group input[type="email"]{
+                width: 100%;
+                display: flex;
+                padding: 12px 20px;
+                align-items: center;
+                gap: 8px;
+                align-self: stretch;
+                border-radius: 8px;
+                border: 1px solid #B9BACC;
+                background: #FFF;
+                color: #414141;
+                font-size: 20px;
+                font-weight: 400;
+                line-height: 38px;
+                margin:0;
+            }
+            .wd-dr-modal-reason-product-group label{
+                color: #414141;
+                font-size: 20px;
+                font-weight: 400;
+                line-height: 38px;
+                margin-bottom:0;
+            }
+            .wd-dr-modal-footer {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                width: 100%;
+                margin-top:40px;
+            }
+            .wd-dr-modal-footer .wd-dr-modal-footer-right{
+                display:flex;
+                align-items:center;
+                flex-wrap:wrap;
+                gap:22px;
+            }
+            .wd-dr-cancel-modal{
+                display: flex;
+                padding: 8px 18px;
+                justify-content: center;
+                align-items: center;
+                gap: 8px;
+                border-radius: 8px;
+                background: var(--100, #EEEFFF);
+                color: var(--400, #6A80F7) !important;
+                font-size: 18px;
+                font-weight: 700;
+                line-height: 32px;
+                border:none;
+                cursor:pointer;
+            }
+            .dont-bother-me{
+                display: flex;
+                padding: 8px 18px;
+                justify-content: center;
+                align-items: center;
+                gap: 8px;
+                border-radius: 8px;
+                border: 1px solid var(--400, #6A80F7);
+                color: var(--400, #6A80F7) !important;
+                font-size: 18px;
+                font-weight: 700;
+                line-height: 32px;
+            }
+            .wd-dr-submit-modal{
+                display: flex;
+                padding: 8px 18px;
+                justify-content: center;
+                align-items: center;
+                gap: 8px;
+                border-radius: 8px;
+                background: var(--600, #343DE6);
+                border:1px solid #343DE6;
+                color: #FFF !important;
+                font-size: 18px;
+                font-weight: 700;
+                line-height: 32px;
+                cursor:pointer;
+            }
+            .wd-dr-modal-close {
+                position: absolute;
+                right: -15px;
+                top: -15px;
+                font-size: 26px;
                 cursor: pointer;
-                background-color: transparent;
-                text-decoration: none;
+                font-weight: bold;
+                transition: color 0.2s;
+                display: flex;
+                width: 40px;
+                height: 40px;
+                padding: 8.182px;
+                justify-content: center;
+                align-items: center;
+                border-radius: 24px;
+                background: #000;
+                color:white !important;
             }
-
-            .wd-dr-submit-modal,
-            .wd-dr-submit-modal:hover {
-                border: 1px solid #3B86FF;
-                background-color: #3B86FF;
-                border-radius: 3px;
-                font-size: 13px;
-                line-height: 1.5;
-                color: #fff;
-                padding: 5px 12px;
-                cursor: pointer;
-                margin-left: 4px;
+            .wd-dr-modal-close:hover {
+                color: #3B86FF;
             }
         </style>
         <?php

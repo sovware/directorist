@@ -4,7 +4,7 @@
 Node.js 22.x is currently in development and not yet released for production use. It is recommended to use Node.js 20.x (LTS) for production environments. This update should only be used for development/testing purposes.
 
 ## Current Status
-- Target Node.js version: 22.16.0 (Development Version)
+- Target Node.js version: 22.17.0 (Development Version)
 
 ## Package Compatibility Notes
 
@@ -88,6 +88,16 @@ For production environments, it is strongly recommended to use Node.js 20.x (LTS
 ## Update History
 
 Each time you update Node.js or npm, record the changes here for tracking:
+
+### [2025-06-29] Node.js 22.16.0 → 22.17.0, npm 10.2.4 → 10.9.2
+
+- Packages updated:
+  - xxx
+
+- Notes: (any issues, breaking changes, or manual steps)
+  - xxx
+
+---
 
 ### [2025-05-22] Node.js 22.15.0 → 22.16.0
 

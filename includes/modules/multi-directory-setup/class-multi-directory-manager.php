@@ -347,7 +347,6 @@ class Multi_Directory_Manager {
                 update_term_meta( $directory_type->term_id, 'single_listings_contents', $single_listings_contents );
             }
         }
-
     }
 
     // update_default_directory_type_option

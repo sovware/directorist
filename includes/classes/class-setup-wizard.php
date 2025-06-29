@@ -49,8 +49,9 @@ class Directorist_Setup_Wizard {
                 ] 
             );
         }
+        
+        $counter = isset( $_POST['counter'] ) ? sanitize_text_field( wp_unslash( $_POST['counter'] ) ) : '';
 
-        $counter = $_POST['counter'];
 
         $listing_demos = wp_remote_get( 'https://app.directorist.com/wp-json/directorist/v1/get-directory-types?nocache' );
         if ( is_wp_error( $listing_demos ) ) {
@@ -71,7 +72,7 @@ class Directorist_Setup_Wizard {
         if ( $is_completed ) {
             $has_general = get_term_by( 'slug', 'general', ATBDP_TYPE );
 
-            if ( ! is_wp_error( $has_general ) ) {
+            if ( $has_general && ! is_wp_error( $has_general ) ) {
                 wp_delete_term( $has_general->term_id, ATBDP_TYPE );
             }
 
@@ -649,9 +650,12 @@ class Directorist_Setup_Wizard {
 
 
         if ( ! empty( $_post_data['active_gateways'] ) && in_array( 'paypal_gateway',$_post_data['active_gateways'] ) ) {
-            directorist_download_plugin( [ 'url' => 'https://directorist.com/wp-content/uploads/2024/11/directorist-paypal.zip' ] );
 
-            $path = WP_PLUGIN_DIR . '/directorist-paypal/directorist-paypal.php';
+            include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+            
+            directorist_download_plugin( [ 'url' => 'https://app.directorist.com/wp-content/uploads/2025/05/directorist-paypal.zip' ] );
+
+            $path = 'directorist-paypal/directorist-paypal.php';
 
             if ( ! is_plugin_active( $path ) ) {
                 activate_plugin( $path );
@@ -958,7 +962,7 @@ class Directorist_Setup_Wizard {
         $ouput_steps = $this->steps;
         array_shift( $ouput_steps );
         $hide = ! isset( $_GET['step'] ) ? 'atbdp-none' : '';
-        $step = ! empty( $_GET['step'] ) ? $_GET['step'] : '';
+        $step = ! empty( $_GET['step'] ) ? sanitize_text_field( wp_unslash( $_GET['step'] ) ) : '';
         $introduction_step = empty( $step ) || 'step-one' == $step || 'step-two' == $step || 'step-three' == $step ? 'active' : '';
         $step_one = ( ! empty( $step ) && ( 'step-one' == $step || 'step-two' == $step || 'step-three' == $step ) ) ? 'active' : '' ;
         $step_two = ( ! empty( $step ) && ( 'step-two' == $step || 'step-three' == $step ) ) ? 'active' : '' ;

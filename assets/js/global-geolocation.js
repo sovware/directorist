@@ -30,8 +30,8 @@ window.addEventListener('load', function () {
         (function () {
           eventDelegation('click', '.directorist-filter-location-icon > i, .directorist-filter-location-icon > span', function (e) {
             var locationInput = e.target.closest('.directorist-search-field').querySelector('.location-name');
-            var get_lat = e.target.closest('.directorist-search-field').querySelector("#cityLat");
-            var get_lng = e.target.closest('.directorist-search-field').querySelector("#cityLng");
+            var get_lat = e.target.closest('.directorist-search-field').querySelector('#cityLat');
+            var get_lng = e.target.closest('.directorist-search-field').querySelector('#cityLng');
             function getLocation() {
               if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(showPosition, showError);
@@ -106,7 +106,7 @@ window.addEventListener('load', function () {
                     state = value[count - 2];
                     city = value[count - 3];
                     locationInput.value = value;
-                    $('.directorist-location-js, .atbdp-search-address').attr("data-value", city);
+                    $('.directorist-location-js, .atbdp-search-address').attr('data-value', city);
                   } else {
                     locationInput.value = 'address not found';
                   }
@@ -132,7 +132,7 @@ window.addEventListener('load', function () {
             data: {},
             success: function success(data) {
               $('.directorist-location-js, .atbdp-search-address').val(data.display_name);
-              $('.directorist-location-js, .atbdp-search-address').attr("data-value", data.display_name);
+              $('.directorist-location-js, .atbdp-search-address').attr('data-value', data.display_name);
               $('#cityLat').val(lat);
               $('#cityLng').val(lng);
               addFocusClass($('.directorist-location-js'));
@@ -143,7 +143,7 @@ window.addEventListener('load', function () {
             }
           });
         }
-        $('body').on("click", ".directorist-filter-location-icon", function (e) {
+        $('body').on('click', '.directorist-filter-location-icon', function (e) {
           navigator.geolocation.getCurrentPosition(function (position) {
             return displayLocation(position, e);
           });

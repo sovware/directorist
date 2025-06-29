@@ -354,7 +354,6 @@ if ( ! function_exists( 'load_dependencies' ) ) :
         }
 
         return false;
-
     }
 
 endif;
@@ -404,7 +403,6 @@ if ( ! function_exists( 'load_some_file' ) ) :
                 }
             }
         }
-
     }
 
 endif;
@@ -872,7 +870,6 @@ if ( ! function_exists( 'atbdp_get_paged_num' ) ) {
         }
 
         return absint( $paged );
-
     }
 }
 
@@ -979,8 +976,14 @@ if ( ! function_exists( 'calc_listing_expiry_date' ) ) {
         $start_date  = ! empty( $start_date ) ? $start_date : current_time( 'mysql' );
 
         // Calculate new date
-        $date = new \DateTime( $start_date );
-        $date->add( new DateInterval( "P{$expire_date}D" ) ); // set the interval in days
+        $start_date  = ! empty( $start_date ) ? $start_date : current_time( 'mysql' );
+        $expire_date = intval( $expire_date ); // sanitize
+        if ( $expire_date > 0 ) {
+            $date = new \DateTime( $start_date );
+            $date->add( new DateInterval( "P{$expire_date}D" ) );
+        } else {
+            $date = new \DateTime( $start_date );
+        }
 
         return $date->format( 'Y-m-d H:i:s' );
     }
@@ -1034,7 +1037,6 @@ if ( ! function_exists( 'get_date_in_mysql_format' ) ) {
         $sec = max( 0, min( 59, $sec ) );
 
         return sprintf( '%04d-%02d-%02d %02d:%02d:%02d', $year, $month, $day, $hour, $min, $sec );
-
     }
 }
 
@@ -1059,7 +1061,6 @@ if ( ! function_exists( 'atbdp_parse_mysql_date' ) ) {
             'min' => $date[4],
             'sec' => $date[5]
         ];
-
     }
 }
 
@@ -1113,7 +1114,6 @@ function atbdp_display_price( $price = '', $disable_price = false, $currency = '
     } else {
         return $p;
     }
-
 }
 
 /**
@@ -1147,7 +1147,6 @@ function atbdp_display_price_range( $price_range ) {
 
     }
     return $output;
-
 }
 
 /**
@@ -1487,7 +1486,6 @@ function atbdp_get_listings_current_order( $default_order = '' ) {
     }
 
     return apply_filters( 'atbdp_get_listings_current_order', $order );
-
 }
 
 /**
@@ -1588,7 +1586,6 @@ function atbdp_get_listings_current_view_name( $view ) {
 
 
     return $view;
-
 }
 
 function atbdp_calculate_column( $number ) {
@@ -1665,7 +1662,6 @@ function atbdp_get_listings_view_options( $view_as_items ) {
     }
 
     return $views;
-
 }
 
 /**
@@ -1681,8 +1677,6 @@ function atbdp_get_view_as( $view ) {
 
     }
     return $ways;
-
-
 }
 
 /*
@@ -1762,7 +1756,6 @@ function atbdp_get_remove_favourites_page_link( $listing_id ) {
     $link = add_query_arg( ['atbdp_action' => 'remove-favourites', 'atbdp_listing' => $listing_id] );
 
     return $link;
-
 }
 
 if ( ! function_exists( 'new_badge' ) ) {
@@ -1816,7 +1809,6 @@ if ( ! function_exists( 'is_fee_manager_active' ) ) {
         } else {
             return false;
         }
-
     }
 }
 
@@ -2043,7 +2035,6 @@ function atbdp_get_custom_field_ids( $category = 0, $all = false ) {
     }
 
     return $field_ids;
-
 }
 
 function get_advance_search_result_page_link() {
@@ -2091,7 +2082,6 @@ function atbdp_get_current_url() {
     $current_url .= ! empty( $_SERVER["REQUEST_URI"] ) ? directorist_clean( wp_unslash( $_SERVER["REQUEST_URI"] ) ) : '';
 
     return $current_url;
-
 }
 
 /**
@@ -2114,7 +2104,6 @@ function atbdp_can_use_yoast() {
     }
 
     return $can_use_yoast;
-
 }
 
 // atbdp_yoast_is_active
@@ -2136,7 +2125,6 @@ function atbdp_can_overwrite_yoast() {
     }
 
     return $overwrite;
-
 }
 
 function atbdp_disable_overwrite_yoast() {
@@ -2301,7 +2289,6 @@ function search_category_location_filter( $settings, $taxonomy_id, $prefix = '' 
     }
 
     return $html;
-
 }
 
 function add_listing_category_location_filter( $lisitng_type, $settings, $taxonomy_id, $term_id, $prefix = '', $plan_cat = [] ) {
@@ -2346,7 +2333,7 @@ function add_listing_category_location_filter( $lisitng_type, $settings, $taxono
                 if ( ! empty( $settings['show_count'] ) ) {
                     $html .= ' (' . $count . ')';
                 }
-                $html .= add_listing_category_location_filter( $lisitng_type, $settings, $taxonomy_id, $term_id, $prefix . '&nbsp;&nbsp;&nbsp;' );
+                $html .= add_listing_category_location_filter( $lisitng_type, $settings, $taxonomy_id, $term_id, $prefix . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' );
                 $html .= '</option>';
             }
         }
@@ -2354,7 +2341,6 @@ function add_listing_category_location_filter( $lisitng_type, $settings, $taxono
     }
 
     return $html;
-
 }
 
 /*
@@ -2368,7 +2354,7 @@ function atbdp_guest_submission( $guest_email ) {
                 'quick_login_required' => true,
                 'error'                => true,
                 'error_msg'            => esc_html__( 'An account already exists with this email. Please log in with your password to continue.', 'directorist' ),
-            ] 
+            ]
         );
 
         die();
@@ -2393,7 +2379,7 @@ function atbdp_guest_submission( $guest_email ) {
             [
                 'error'     => true,
                 'error_msg' => $user_id->get_error_message(),
-            ] 
+            ]
         );
 
         die();
@@ -2429,6 +2415,7 @@ function atbdp_get_listing_attachment_ids( $listing_id ) {
     }
 
     $attachment_ids = array_merge( $attachment_ids, $gallery_images );
+    $attachment_ids = array_unique( $attachment_ids, SORT_NUMERIC );
 
     return $attachment_ids;
 }
@@ -2941,7 +2928,7 @@ if ( ! function_exists( 'directory_types' ) ) {
             [
                 'orderby'    => 'date',
                 'order'      => 'DESC',
-            ] 
+            ]
         );
     }
 }
@@ -2965,7 +2952,7 @@ if ( ! function_exists( 'directorist_get_default_directory' ) ) {
             [
                 'default_only' => true,
                 'fields'       => $fields,
-            ] 
+            ]
         );
 
         if ( empty( $directories ) || is_wp_error( $directories ) || ! isset( $directories[0] ) ) {
@@ -3336,7 +3323,7 @@ function directorist_get_supported_file_types() {
     return array_reduce(
         $groups, function( $carry, $group ) {
             return array_merge( $carry, $group );
-        }, [] 
+        }, []
     );
 }
 
@@ -3496,7 +3483,7 @@ function directorist_delete_user_favorites( $user_id = 0, $listing_id = 0 ) {
     $new_favorites = array_filter(
         $old_favorites, static function( $favorite ) use ( $listing_id ) {
             return ( $favorite !== $listing_id );
-        } 
+        }
     );
 
     if ( count( $old_favorites ) > count( $new_favorites ) ) {
@@ -3538,6 +3525,7 @@ function directorist_prepare_user_favorites( $favorites = [] ) {
  * Check if email notification is enabled and user can get notification for a specific event.
  *
  * @since 7.2.0
+ * @deprecated Use directorist_is_owner_notifiable_event() or directorist_is_admin_notifiable_event() instead.
  * @param string $event_name The name of the event.
  * @param string $user_type user or admin
  *
@@ -3565,6 +3553,7 @@ function directorist_user_notifiable_for( $event_name = '', $user_type = '' ) {
  * Check if admin can get email notification for a specific event.
  *
  * @since 7.2.0
+ * @deprecated Use directorist_is_admin_notifiable_event() instead.
  * @param string $event_name The name of the event.
  *
  * @return An array of user IDs.
@@ -3577,6 +3566,7 @@ function directorist_admin_notifiable_for( $event_name = '' ) {
  * Check if listing owner can get email notification for a specific event.
  *
  * @since 7.2.0
+ * @deprecated Use directorist_is_owner_notifiable_event() instead.
  * @param string $event_name The name of the event.
  *
  * @return bool
@@ -3728,7 +3718,7 @@ function directorist_translate_to_listing_field_key( $header_key = '' ) {
             'Tagline'                  => 'tagline',
             'address'                  => 'address',
             'Address'                  => 'address',
-        ] 
+        ]
     );
 
     return isset( $fields_map[ $header_key ] ) ? $fields_map[ $header_key ] : '';
@@ -3819,7 +3809,7 @@ function directorist_get_allowed_form_input_tags() {
             'select'   => $allowed_attributes,
             'option'   => $allowed_attributes,
             'textarea' => $allowed_attributes,
-        ] 
+        ]
     );
 }
 
@@ -3836,7 +3826,7 @@ function directorist_get_allowed_svg_tags() {
             'svg'  => $allowed_attributes,
             'g'    => $allowed_attributes,
             'path' => $allowed_attributes,
-        ] 
+        ]
     );
 }
 
@@ -4054,7 +4044,7 @@ function directorist_get_mime_types( $filterby = '', $return_type = '' ) {
         $allowed_mime_types = array_filter(
             $allowed_mime_types, static function( $mime_type, $extensions ) use ( $filterby ) {
                 return stripos( $mime_type, $filterby ) !== false;
-            }, ARRAY_FILTER_USE_BOTH 
+            }, ARRAY_FILTER_USE_BOTH
         );
     }
 
@@ -4062,14 +4052,14 @@ function directorist_get_mime_types( $filterby = '', $return_type = '' ) {
         $allowed_mime_types = array_reduce(
             array_keys( $allowed_mime_types ), static function( $carry, $extension ) {
                 return array_merge( $carry, explode( '|',  $extension ) );
-            }, [] 
+            }, []
         );
 
         if ( $return_type === '.extension' ) {
             $allowed_mime_types = array_map(
                 static function( $extension ) {
                     return '.' . $extension;
-                }, $allowed_mime_types 
+                }, $allowed_mime_types
             );
         }
     }
@@ -4221,7 +4211,7 @@ function directorist_check_password_reset_pin_code( $user, $pin_code ) {
         $reset_data = array_merge(
             $reset_data, [
                 'reset_attempt' => $reset_attempt,
-            ] 
+            ]
         );
 
         update_user_meta( $user->ID, 'directorist_pasword_reset_key', $reset_data );
@@ -4515,7 +4505,7 @@ function directorist_filter_listing_empty_metadata( $meta_data ) {
             }
 
             return true;
-        }, ARRAY_FILTER_USE_BOTH 
+        }, ARRAY_FILTER_USE_BOTH
     );
 }
 
@@ -4535,7 +4525,7 @@ function directorist_download_plugin( array $args = [] ) {
     ];
     $args    = array_merge( $default, $args );
 
-    $allowed_host = [ 'directorist.com', 'wordpress.org', 'downloads.wordpress.org' ];
+    $allowed_host = [ 'app.directorist.com', 'directorist.com', 'wordpress.org', 'downloads.wordpress.org' ];
 
     if ( empty( $args['url'] ) || ! in_array( parse_url( $args['url'], PHP_URL_HOST ), $allowed_host, true ) ) {
         $status['success'] = false;
@@ -4769,4 +4759,14 @@ function directorist_get_listing_gallery_images( $listing_id = 0 ) {
 function directorist_renewal_token_hash( $listing_id, $user_id ) {
     $token_str = 'cB0XtpVzGb180dgPi3hADW-' . $listing_id . '::' . $user_id;
     return wp_hash( $token_str, 'nonce' );
+}
+
+/**
+ * Check delete_images_with_listing setting is enabled or not.
+ *
+ * @since 8.4.4
+ * @return bool
+ */
+function directorist_is_delete_images_with_listing_enabled() {
+    return (bool) get_directorist_option( 'delete_images_with_listing', true );
 }

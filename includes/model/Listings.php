@@ -1144,8 +1144,10 @@ class Directorist_Listings {
         }
 
         if ( 'address' == $this->radius_search_based_on && ! empty( $_REQUEST['miles'] ) && ! empty( $_REQUEST['address'] ) && ! empty( $_REQUEST['cityLat'] ) && ! empty( $_REQUEST['cityLng'] ) ) {
-            $distance = directorist_get_distance_range( $_REQUEST['miles'] );
-            ;           $args['atbdp_geo_query'] = [
+            // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+            $distance = directorist_get_distance_range( wp_unslash( $_REQUEST['miles'] ?? '' ) );
+
+            $args['atbdp_geo_query'] = [
                 'lat_field' => '_manual_lat',
                 'lng_field' => '_manual_lng',
                 'latitude'  => sanitize_text_field( wp_unslash( $_REQUEST['cityLat'] ) ),
@@ -1163,7 +1165,8 @@ class Directorist_Listings {
         }
 
         if ( 'zip' == $this->radius_search_based_on && ! empty( $_REQUEST['miles'] ) && ! empty( $_REQUEST['zip_cityLat'] ) && ! empty( $_REQUEST['zip_cityLng'] ) ) {
-            $distance = directorist_get_distance_range( $_REQUEST['miles'] );
+            // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+            $distance = directorist_get_distance_range( wp_unslash( $_REQUEST['miles'] ) );
             $args['atbdp_geo_query'] = [
                 'lat_field'    => '_manual_lat',
                 'lng_field'    => '_manual_lng',
@@ -1193,6 +1196,7 @@ class Directorist_Listings {
 
         // When directory nav is hidden make sure to remove directory type from query.
         // This is done to query on all directory types.
+        // phpcs:ignore WordPress.Security.NonceVerification.Missing
         if ( directorist_is_multi_directory_enabled() && ! empty( $_POST['directory_nav'] ) ) {
             unset( $meta_queries['directory_type'] );
         }
@@ -1230,7 +1234,7 @@ class Directorist_Listings {
         $search_field_atts = array_filter(
             $this->atts, function( $key ) {
                 return substr( $key, 0, 7 ) == 'filter_';
-            }, ARRAY_FILTER_USE_KEY 
+            }, ARRAY_FILTER_USE_KEY
         );
 
         $args = [
@@ -1700,7 +1704,7 @@ class Directorist_Listings {
         Helper::add_hidden_data_to_dom( 'atbdp_map', $data );
         $map_height = ! empty( $this->listings_map_height ) ? $this->listings_map_height : '';
         ?>
-        <div class="atbdp-body atbdp-map embed-responsive embed-responsive-16by9 atbdp-margin-bottom" data-type="<?php echo $this->options['marker_clustering']; ?>" style="height: <?php echo esc_attr( $map_height );?>px;">
+        <div class="atbdp-body atbdp-map embed-responsive embed-responsive-16by9 atbdp-margin-bottom" data-type="<?php echo esc_attr( $this->options['marker_clustering'] ); ?>" style="height: <?php echo esc_attr( $map_height );?>px;">
             <?php
             $listings = $this->query_results;
 
@@ -1796,6 +1800,8 @@ class Directorist_Listings {
     }
 
     function loop_get_the_thumbnail( $class = '' ) {
+        $this->cache_thumbnails();
+
         $default_image_src = Helper::default_preview_image_src( $this->current_listing_type );
 
         $id = get_the_ID();
@@ -2266,7 +2272,6 @@ class Directorist_Listings {
                 break;
 
         }
-
     }
 
     public function listing_wrapper_class() {
@@ -2330,7 +2335,7 @@ class Directorist_Listings {
         $search_field_atts = array_filter(
             $this->atts, function( $key ) {
                 return substr( $key, 0, 7 ) == 'filter_';
-            }, ARRAY_FILTER_USE_KEY 
+            }, ARRAY_FILTER_USE_KEY
         );
 
         $args = [
@@ -2345,7 +2350,7 @@ class Directorist_Listings {
         $search_field_atts = array_filter(
             $this->atts, function( $key ) {
                 return substr( $key, 0, 7 ) == 'filter_';
-            }, ARRAY_FILTER_USE_KEY 
+            }, ARRAY_FILTER_USE_KEY
         );
 
         $args = [
@@ -2360,7 +2365,7 @@ class Directorist_Listings {
         $search_field_atts = array_filter(
             $this->atts, function( $key ) {
                 return substr( $key, 0, 7 ) == 'filter_';
-            }, ARRAY_FILTER_USE_KEY 
+            }, ARRAY_FILTER_USE_KEY
         );
 
         $args = [
@@ -2383,7 +2388,7 @@ class Directorist_Listings {
         $search_field_atts = array_filter(
             $this->atts, function( $key ) {
                 return substr( $key, 0, 7 ) == 'filter_';
-            }, ARRAY_FILTER_USE_KEY 
+            }, ARRAY_FILTER_USE_KEY
         );
 
         $args = [
@@ -2419,7 +2424,7 @@ class Directorist_Listings {
         $search_field_atts = array_filter(
             $this->atts, function( $key ) {
                 return substr( $key, 0, 7 ) == 'filter_';
-            }, ARRAY_FILTER_USE_KEY 
+            }, ARRAY_FILTER_USE_KEY
         );
 
         $args = [

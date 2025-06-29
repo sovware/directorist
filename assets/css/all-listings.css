@@ -18769,6 +18769,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   line-height: unset;
   color: var(--directorist-color-body);
 }
+.directorist-single-contents-area .directorist-single-wrapper .directorist-single-formgent-form .formgent-form {
+  width: 100%;
+}
 .directorist-single-contents-area .directorist-card {
   margin-bottom: 25px;
 }

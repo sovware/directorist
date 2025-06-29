@@ -81,6 +81,7 @@ class Comment {
             $section_data  = $listing->get_review_section_data();
             $builder       = Builder::get( $section_data['section_data'] );
 
+            // phpcs:ignore WordPress.Security.NonceVerification.Missing
             if ( $builder->is_gdpr_consent() && ! isset( $_POST['directorist-gdpr-consent'] ) ) {
                 throw new Exception(
                     sprintf(
@@ -220,7 +221,7 @@ class Comment {
 		if ( is_admin() || ! isset( $_POST['comment_post_ID'] ) || ATBDP_POST_TYPE !== get_post_type( absint( $_POST['comment_post_ID'] ) ) ) { // @codingStandardsIgnoreLine.
             return $comment_data;
         }
-
+        // phpcs:ignore WordPress.Security.NonceVerification.Missing
         $listing       = Directorist_Single_Listing::instance( absint( $_POST['comment_post_ID'] ) );
         $section_data  = $listing->get_review_section_data();
         $builder       = Builder::get( $section_data['section_data'] );

@@ -464,7 +464,7 @@ if ( ! class_exists( 'ATBDP_Custom_Post' ) ) :
                     break;
 
                 case 'directorist_listing_view_count':
-                    printf( '<span>%s</span>', directorist_get_listing_views_count( $post_id ) );
+                    printf( '<span>%s</span>', directorist_get_listing_views_count( $post_id ) );// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                     break;
 
                 case 'atbdp_date':

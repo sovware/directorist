@@ -46,13 +46,13 @@ var $ = jQuery;
 
 // Single Listing Map Initialize
 function initSingleMapWidget() {
-  if (typeof google === "undefined" || !google.maps || !google.maps.Marker || !google.maps.OverlayView) {
+  if (typeof google === 'undefined' || !google.maps || !google.maps.Marker || !google.maps.OverlayView) {
     return;
   }
   if ($('#gmap-widget').length) {
     var searchIcon = "<i class=\"directorist-icon-mask\"></i>";
-    var markerShape = document.createElement("div");
-    markerShape.className = "atbd_map_shape";
+    var markerShape = document.createElement('div');
+    markerShape.className = 'atbd_map_shape';
     markerShape.innerHTML = searchIcon;
     var inherits = function inherits(childCtor, parentCtor) {
       /** @constructor */
@@ -184,7 +184,7 @@ function initSingleMapWidget() {
       map = new google.maps.Map(document.getElementById(map_container), {
         zoom: loc_map_zoom_level,
         center: saved_lat_lng,
-        mapId: "single_listing_map_widget"
+        mapId: 'single_listing_map_widget'
       });
       var marker = new google.maps.marker.AdvancedMarkerElement({
         map: map,
@@ -205,7 +205,7 @@ function initSingleMapWidget() {
       initMap();
       //Convert address tags to google map links -
       $('address').each(function () {
-        var link = "<a href='http://maps.google.com/maps?q=" + encodeURIComponent($(this).text()) + "' target='_blank'>" + $(this).text() + "</a>";
+        var link = "<a href='http://maps.google.com/maps?q=" + encodeURIComponent($(this).text()) + "' target='_blank'>" + $(this).text() + '</a>';
         $(this).html(link);
       });
     });

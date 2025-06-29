@@ -27,7 +27,8 @@
             $('#user-type-' + userId).html(response.user_type);
           }
         },
-        error: function error(response) {// $('#atbdp-remote-response').val(response.data.error);
+        error: function error(response) {
+          // $('#atbdp-remote-response').val(response.data.error);
         }
       });
       return false;
@@ -49,7 +50,8 @@
             $('#user-type-' + userId).html(response.user_type);
           }
         },
-        error: function error(response) {// $('#atbdp-remote-response').val(response.data.error);
+        error: function error(response) {
+          // $('#atbdp-remote-response').val(response.data.error);
         }
       });
       return false;
@@ -103,23 +105,23 @@ window.addEventListener('load', function () {
   // SOCIAL SECTION
   // Rearrange the IDS and Add new social field
   /* $('body').on('click', '#addNewSocial', function () {
-      const social_wrap = $('#social_info_sortable_container'); // cache it
-      const currentItems = $('.directorist-form-social-fields').length;
-      const ID = `id=${currentItems}`; // eg. 'id=3'
-      const iconBindingElement = jQuery('#addNewSocial');
-      // arrange names ID in order before adding new elements
-      $('.directorist-form-social-fields').each(function (index, element) {
-          const e = $(element);
-          e.attr('id', `socialID-${index}`);
-          e.find('select').attr('name', `social[${index}][id]`);
-          e.find('.atbdp_social_input').attr('name', `social[${index}][url]`);
-          e.find('.directorist-form-social-fields__remove').attr('data-id', index);
-      });
-      // now add the new elements. we could do it here without using ajax but it would require more markup here.
-      atbdp_do_ajax(iconBindingElement, 'atbdp_social_info_handler', ID, function (data) {
-          //social_wrap.append(data);
-      });
-  }); */
+         const social_wrap = $('#social_info_sortable_container'); // cache it
+         const currentItems = $('.directorist-form-social-fields').length;
+         const ID = `id=${currentItems}`; // eg. 'id=3'
+         const iconBindingElement = jQuery('#addNewSocial');
+         // arrange names ID in order before adding new elements
+         $('.directorist-form-social-fields').each(function (index, element) {
+             const e = $(element);
+             e.attr('id', `socialID-${index}`);
+             e.find('select').attr('name', `social[${index}][id]`);
+             e.find('.atbdp_social_input').attr('name', `social[${index}][url]`);
+             e.find('.directorist-form-social-fields__remove').attr('data-id', index);
+         });
+         // now add the new elements. we could do it here without using ajax but it would require more markup here.
+         atbdp_do_ajax(iconBindingElement, 'atbdp_social_info_handler', ID, function (data) {
+             //social_wrap.append(data);
+         });
+     }); */
 
   // remove the social field and then reset the ids while maintaining position
   $(document).on('click', '.directorist-form-social-fields__remove', function (e) {
@@ -1336,7 +1338,7 @@ window.addEventListener('load', function () {
                 slugWrapper.text(response.old_slug);
               }
               setTimeout(function () {
-                slugId.empty().html("");
+                slugId.empty().html('');
               }, 3000);
             } else {
               // Handle success case
@@ -1345,9 +1347,9 @@ window.addEventListener('load', function () {
               slugId.addClass('directorist-slug-notice-success');
               setTimeout(function () {
                 slugWrapper.closest('.directorist-listing-slug__form').css({
-                  "display": "none"
+                  display: 'none'
                 });
-                slugId.html(""); // Clear the success message
+                slugId.html(''); // Clear the success message
               }, 1500);
 
               // Update old slug value
@@ -2203,7 +2205,6 @@ function debounce(func, wait, immediate) {
     if (callNow) func.apply(context, args);
   };
 }
-;
 
 /***/ }),
 
@@ -2218,9 +2219,9 @@ $(document).ready(function () {
   modalToggle();
 });
 function modalToggle() {
-  $(".atbdp_recovery_pass").on("click", function (e) {
+  $('.atbdp_recovery_pass').on('click', function (e) {
     e.preventDefault();
-    $("#recover-pass-modal").slideToggle().show();
+    $('#recover-pass-modal').slideToggle().show();
   });
 
   // Contact form [on modal closed]
@@ -2234,7 +2235,7 @@ function modalToggle() {
   var directoristModal = document.querySelector('.directorist-modal-js');
   $('body').on('click', '.directorist-btn-modal-js', function (e) {
     e.preventDefault();
-    var data_target = $(this).attr("data-directorist_target");
+    var data_target = $(this).attr('data-directorist_target');
     document.querySelector(".".concat(data_target)).classList.add('directorist-show');
   });
   $('body').on('click', '.directorist-modal-close-js', function (e) {
@@ -2278,7 +2279,7 @@ function init() {
 
   // Add custom close button if field contains value on change
   $('.select2-hidden-accessible').on('change', function (e) {
-    var value = $(this).children("option:selected").val();
+    var value = $(this).children('option:selected').val();
     if (!value) {
       return;
     }
@@ -2307,7 +2308,7 @@ function init() {
 function selec2_add_custom_dropdown_toggle_button() {
   // Remove Default
   $('.select2-selection__arrow').css({
-    'display': 'none'
+    display: 'none'
   });
   var addon_container = selec2_get_addon_container('.select2-hidden-accessible');
   if (!addon_container) {
@@ -2345,7 +2346,7 @@ function selec2_add_custom_dropdown_toggle_button() {
   // Toggle Dropdown
   selec2_custom_dropdown.on('click', function (e) {
     var isOpen = $(this).hasClass('--is-open');
-    var field = $(this).closest(".select2-container").siblings('select:enabled');
+    var field = $(this).closest('.select2-container').siblings('select:enabled');
     if (isOpen) {
       field.select2('close');
     } else {
@@ -2381,7 +2382,7 @@ function selec2_add_custom_close_button_if_needed() {
 function selec2_add_custom_close_button(field) {
   // Remove Default
   $('.select2-selection__clear').css({
-    'display': 'none'
+    display: 'none'
   });
   var addon_container = selec2_get_addon_container(field);
   if (!(addon_container && addon_container.length)) {
@@ -2901,7 +2902,7 @@ function convertToSelect2(selector) {
       var iconURI = $(data.element).data('icon');
       var iconElm = "<i class=\"directorist-icon-mask\" aria-hidden=\"true\" style=\"--directorist-icon: url(".concat(iconURI, ")\"></i>");
       var originalText = data.text;
-      var modifiedText = originalText.replace(/^(\s*)/, "$1" + iconElm);
+      var modifiedText = originalText.replace(/^(\s*)/, '$1' + iconElm);
       var $state = $("<div class=\"directorist-select2-contents\">".concat(typeof iconURI !== 'undefined' && iconURI !== '' ? modifiedText : originalText, "</div>"));
       return $state;
     }

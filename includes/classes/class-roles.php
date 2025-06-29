@@ -21,8 +21,6 @@ class ATBDP_Roles {
 
         add_action( 'init', [$this, 'disable_admin_bar_for_subscribers'], 9 );
         add_filter( 'wp_dropdown_users_args', [$this, 'add_subscribers_to_dropdown'], 10, 2 );
-
-
     }
     
     public function directorist_add_caps() {
@@ -39,7 +37,6 @@ class ATBDP_Roles {
 
         $query_args['who'] = '';
         return $query_args;
-
     }
 
     /**
@@ -189,7 +186,6 @@ class ATBDP_Roles {
         }
 
         return $caps;
-
     }
 
     /**
@@ -226,17 +222,11 @@ class ATBDP_Roles {
                         if ( $user_id == $post->post_author )
                             $caps[] = $post_type->cap->{'edit_' . $cp . 's'};
                         else $caps[] = $post_type->cap->{'edit_others_' . $cp . 's'};
-                    }
-
-                    // If deleting a listing, assign the required capability.
-                    else if ( "delete_{$cp}" == $cap ) {
+                    } else if ( "delete_{$cp}" == $cap ) {
                         if ( $user_id == $post->post_author )
                             $caps[] = $post_type->cap->{'delete_' . $cp . 's'};
                         else $caps[] = $post_type->cap->{'delete_others_' . $cp . 's'};
-                    }
-
-                    // If reading a private listing, assign the required capability.
-                    else if ( "read_{$cp}" == $cap ) {
+                    } else if ( "read_{$cp}" == $cap ) {
                         if ( 'private' != $post->post_status )
                             $caps[] = 'read';
                         elseif ( $user_id == $post->post_author )
@@ -253,7 +243,6 @@ class ATBDP_Roles {
 
         // Return the capabilities required by the user.
         return $caps;
-
     }
 
     /**

@@ -56,7 +56,7 @@
     initSingleMap();
   });
 
-  // Single Listing Map on Elementor EditMode 
+  // Single Listing Map on Elementor EditMode
   $(window).on('elementor/frontend/init', function () {
     setTimeout(function () {
       if ($('body').hasClass('elementor-editor-active')) {

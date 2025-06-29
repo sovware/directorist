@@ -229,7 +229,6 @@ class All_Locations extends \WP_Widget {
         }
 
         return $html;
-
     }
 
     public function sub_locations_list( $settings ) {
@@ -356,6 +355,5 @@ class All_Locations extends \WP_Widget {
         }
 
         return $html;
-
     }
 }

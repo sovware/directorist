@@ -68,7 +68,7 @@ extract( $login_args );
 
                 if ( is_wp_error( $is_valid_password_reset_key ) ) {
                     ?><p class="directorist-alert directorist-alert-danger">
-                        <?php echo $is_valid_password_reset_key->get_error_message(); ?>
+                        <?php echo $is_valid_password_reset_key->get_error_message();// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
                     </p><?php
                 } else {
                     if ( ! empty( $_POST['directorist_reset_password'] ) && directorist_verify_nonce( 'directorist-reset-password-nonce', 'reset_password' ) ) :

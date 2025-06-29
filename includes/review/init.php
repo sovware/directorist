@@ -56,10 +56,11 @@ class Bootstrap {
      * @return string/bool
      */
     public static function reset_option_comment_registration( $status ) {
+        // phpcs:ignore WordPress.Security.NonceVerification.Missing
         if ( ! isset( $_POST['comment_post_ID'] ) ) {
             return $status;
         }
-
+        // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash,WordPress.Security.ValidatedSanitizedInput.InputNotSanitized,WordPress.Security.NonceVerification.Missing
         if ( ! directorist_is_listing_post_type( $_POST['comment_post_ID'] ) ) {
             return $status;
         }
@@ -107,7 +108,7 @@ class Bootstrap {
     public static function update_error_message( $code, $message, $data, $wp_error ) {
         if ( $code === 'require_valid_comment' || $code === 'not_logged_in' ) {
             remove_action( 'wp_error_added', [ __CLASS__, 'update_error_message' ] );
-
+            // phpcs:ignore WordPress.Security.NonceVerification.Missing
             $comment_post_id = ! empty( $_POST['comment_post_ID'] ) ? absint( $_POST['comment_post_ID'] ) : 0;
 
             if ( $code === 'require_valid_comment' && directorist_is_listing_post_type( $comment_post_id ) ) {

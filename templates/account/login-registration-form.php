@@ -6,7 +6,7 @@
  */
 
 use \Directorist\Helper;
-
+// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 $user_email           = isset( $_GET['user'] ) ? sanitize_email( wp_unslash( base64_decode( $_GET['user'] ) ) ) : '';
 $key                  = isset( $_GET['key'] ) ? sanitize_text_field( wp_unslash( $_GET['key'] ) ) : '';
 $registration_success = false;
@@ -64,7 +64,7 @@ if ( ! empty( $_GET['registration_status'] ) ) {
 
                             if ( is_wp_error( $is_valid_password_reset_key ) ) {
                                 ?><p class="directorist-alert directorist-alert-danger">
-                                    <?php echo $is_valid_password_reset_key->get_error_message(); ?>
+                                    <?php echo $is_valid_password_reset_key->get_error_message(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
                                 </p><?php
                             } else {
                                 if ( ! empty( $_POST['directorist_reset_password'] ) && directorist_verify_nonce( 'directorist-reset-password-nonce', 'reset_password' ) ) :

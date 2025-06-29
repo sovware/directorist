@@ -27,7 +27,6 @@ function debounce(func, wait, immediate) {
     if (callNow) func.apply(context, args);
   };
 }
-;
 
 /***/ }),
 
@@ -59,7 +58,7 @@ function init() {
 
   // Add custom close button if field contains value on change
   $('.select2-hidden-accessible').on('change', function (e) {
-    var value = $(this).children("option:selected").val();
+    var value = $(this).children('option:selected').val();
     if (!value) {
       return;
     }
@@ -88,7 +87,7 @@ function init() {
 function selec2_add_custom_dropdown_toggle_button() {
   // Remove Default
   $('.select2-selection__arrow').css({
-    'display': 'none'
+    display: 'none'
   });
   var addon_container = selec2_get_addon_container('.select2-hidden-accessible');
   if (!addon_container) {
@@ -126,7 +125,7 @@ function selec2_add_custom_dropdown_toggle_button() {
   // Toggle Dropdown
   selec2_custom_dropdown.on('click', function (e) {
     var isOpen = $(this).hasClass('--is-open');
-    var field = $(this).closest(".select2-container").siblings('select:enabled');
+    var field = $(this).closest('.select2-container').siblings('select:enabled');
     if (isOpen) {
       field.select2('close');
     } else {
@@ -162,7 +161,7 @@ function selec2_add_custom_close_button_if_needed() {
 function selec2_add_custom_close_button(field) {
   // Remove Default
   $('.select2-selection__clear').css({
-    'display': 'none'
+    display: 'none'
   });
   var addon_container = selec2_get_addon_container(field);
   if (!(addon_container && addon_container.length)) {
@@ -538,7 +537,7 @@ function convertToSelect2(selector) {
       var iconURI = $(data.element).data('icon');
       var iconElm = "<i class=\"directorist-icon-mask\" aria-hidden=\"true\" style=\"--directorist-icon: url(".concat(iconURI, ")\"></i>");
       var originalText = data.text;
-      var modifiedText = originalText.replace(/^(\s*)/, "$1" + iconElm);
+      var modifiedText = originalText.replace(/^(\s*)/, '$1' + iconElm);
       var $state = $("<div class=\"directorist-select2-contents\">".concat(typeof iconURI !== 'undefined' && iconURI !== '' ? modifiedText : originalText, "</div>"));
       return $state;
     }
@@ -725,7 +724,6 @@ function initSearchCategoryCustomFields($) {
   \****************************************************************/
 /***/ (function() {
 
-;
 (function ($) {
   // Make sure the codes in this file runs only once, even if enqueued twice
   if (typeof window.directorist_dropdown_executed === 'undefined') {
@@ -807,17 +805,17 @@ function initSearchCategoryCustomFields($) {
     });
 
     //atbd_dropdown
-    $(document).on("click", '.atbd_dropdown', function (e) {
-      if ($(this).attr("class") === "atbd_dropdown") {
+    $(document).on('click', '.atbd_dropdown', function (e) {
+      if ($(this).attr('class') === 'atbd_dropdown') {
         e.preventDefault();
-        $(this).siblings(".atbd_dropdown").removeClass("atbd_drop--active");
-        $(this).toggleClass("atbd_drop--active");
+        $(this).siblings('.atbd_dropdown').removeClass('atbd_drop--active');
+        $(this).toggleClass('atbd_drop--active');
         e.stopPropagation();
       }
     });
-    $(document).on("click", function (e) {
-      if ($(e.target).is(".atbd_dropdown, .atbd_drop--active") === false) {
-        $(".atbd_dropdown").removeClass("atbd_drop--active");
+    $(document).on('click', function (e) {
+      if ($(e.target).is('.atbd_dropdown, .atbd_drop--active') === false) {
+        $('.atbd_dropdown').removeClass('atbd_drop--active');
       }
     });
     $('body').on('click', '.atbd_dropdown-toggle', function (e) {
@@ -1086,12 +1084,12 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
 (function ($) {
   window.addEventListener('load', function () {
     //Remove Preload after Window Load
-    $('body').removeClass("directorist-preload");
+    $('body').removeClass('directorist-preload');
     $('.button.wp-color-result').attr('style', ' ');
 
     /* ----------------
-    Search Form
-    ------------------ */
+          Search Form
+          ------------------ */
 
     // Default Tags Slice
     function defaultTags() {
@@ -1228,7 +1226,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     function initForm(searchForm) {
       var value = false;
       searchForm.querySelectorAll("input:not([type='checkbox']):not([type='radio']):not([type='hidden'])").forEach(function (el) {
-        if (el.value !== "") {
+        if (el.value !== '') {
           value = true;
         }
       });
@@ -1237,12 +1235,12 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
           value = true;
         }
       });
-      searchForm.querySelectorAll("select").forEach(function (el) {
+      searchForm.querySelectorAll('select').forEach(function (el) {
         if (el.value || el.selectedIndex !== 0) {
           value = true;
         }
       });
-      searchForm.querySelectorAll(".directorist-custom-range-slider__value input").forEach(function (el) {
+      searchForm.querySelectorAll('.directorist-custom-range-slider__value input').forEach(function (el) {
         if (el.value > 0) {
           value = true;
         }
@@ -1302,32 +1300,32 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     // Searchform Reset
     function adsFormReset(searchForm) {
       searchForm.querySelectorAll("input[type='text']").forEach(function (el) {
-        el.value = "";
+        el.value = '';
         if (el.parentElement.classList.contains('input-has-value') || el.parentElement.classList.contains('input-is-focused')) {
           el.parentElement.classList.remove('input-has-value', 'input-is-focused');
         }
       });
       searchForm.querySelectorAll("input[type='date']").forEach(function (el) {
-        el.value = "";
+        el.value = '';
       });
       searchForm.querySelectorAll("input[type='time']").forEach(function (el) {
-        el.value = "";
+        el.value = '';
       });
       searchForm.querySelectorAll("input[type='url']").forEach(function (el) {
-        el.value = "";
+        el.value = '';
         if (el.parentElement.classList.contains('input-has-value') || el.parentElement.classList.contains('input-is-focused')) {
           el.parentElement.classList.remove('input-has-value', 'input-is-focused');
         }
       });
       searchForm.querySelectorAll("input[type='number']").forEach(function (el) {
-        el.value = "";
+        el.value = '';
         if (el.parentElement.classList.contains('input-has-value') || el.parentElement.classList.contains('input-is-focused')) {
           el.parentElement.classList.remove('input-has-value', 'input-is-focused');
         }
       });
       searchForm.querySelectorAll("input[type='hidden']:not(.listing_type)").forEach(function (el) {
-        if (el.getAttribute('name') === "directory_type") return;
-        el.value = "";
+        if (el.getAttribute('name') === 'directory_type') return;
+        el.value = '';
       });
       searchForm.querySelectorAll("input[type='radio']").forEach(function (el) {
         el.checked = false;
@@ -1335,7 +1333,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       searchForm.querySelectorAll("input[type='checkbox']").forEach(function (el) {
         el.checked = false;
       });
-      searchForm.querySelectorAll("select").forEach(function (el) {
+      searchForm.querySelectorAll('select').forEach(function (el) {
         el.selectedIndex = 0;
         $('.directorist-select2-dropdown-close').click();
         var parentElem = el.closest('.directorist-search-field');
@@ -1349,7 +1347,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       customRangeSliders.forEach(function (sliderItem) {
         resetCustomRangeSlider(sliderItem);
       });
-      searchForm.querySelectorAll(".directorist-search-basic-dropdown-content").forEach(function (dropdown) {
+      searchForm.querySelectorAll('.directorist-search-basic-dropdown-content').forEach(function (dropdown) {
         var dropDownParent = dropdown.closest('.directorist-search-field');
         $(dropdown).siblings('.directorist-search-basic-dropdown-label').find('.directorist-search-basic-dropdown-selected-count').text('');
         $(dropdown).siblings('.directorist-search-basic-dropdown-label').find('.directorist-search-basic-dropdown-selected-prefix').text('');
@@ -1357,7 +1355,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
           dropDownParent.classList.remove('input-has-value', 'input-is-focused');
         }
       });
-      var irisPicker = searchForm.querySelector("input.wp-picker-clear");
+      var irisPicker = searchForm.querySelector('input.wp-picker-clear');
       if (irisPicker !== null) {
         irisPicker.click();
       }
@@ -1392,10 +1390,10 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       var modalContent = searchModalParent.querySelector('.directorist-search-modal__contents');
 
       // Overlay Style
-      modalOverlay.style.cssText = "opacity: 1; visibility: visible; transition: 0.3s ease;";
+      modalOverlay.style.cssText = 'opacity: 1; visibility: visible; transition: 0.3s ease;';
 
       // Modal Content Style
-      modalContent.style.cssText = "opacity: 1; visibility: visible; bottom:0;";
+      modalContent.style.cssText = 'opacity: 1; visibility: visible; bottom:0;';
     }
 
     // Search Modal Close
@@ -1405,12 +1403,12 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
 
       // Overlay Style
       if (modalOverlay) {
-        modalOverlay.style.cssText = "opacity: 0; visibility: hidden; transition: 0.5s ease";
+        modalOverlay.style.cssText = 'opacity: 0; visibility: hidden; transition: 0.5s ease';
       }
 
       // Modal Content Style
       if (modalContent) {
-        modalContent.style.cssText = "opacity: 0; visibility: hidden; bottom: -200px;";
+        modalContent.style.cssText = 'opacity: 0; visibility: hidden; bottom: -200px;';
       }
     }
 
@@ -1693,11 +1691,11 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       $('.directorist-location-js').each(function (index, locationDOM) {
         if ($(locationDOM).val() === '') {
           $(locationDOM).closest('.directorist-contents-wrap').find('.directorist-search-field-radius_search, .directorist-radius-search').css({
-            display: "none"
+            display: 'none'
           });
         } else {
           $(locationDOM).closest('.directorist-contents-wrap').find('.directorist-search-field-radius_search, .directorist-radius-search').css({
-            display: "block"
+            display: 'block'
           });
         }
       });
@@ -1831,48 +1829,48 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
                 display: 'block'
               });
               $.ajax({
-                url: "https://nominatim.openstreetmap.org/?q=%27+".concat(search, "+%27&format=json"),
+                url: 'https://nominatim.openstreetmap.org/?q=%27+'.concat(search, '+%27&format=json'),
                 type: 'GET',
                 data: {},
                 success: function success(data) {
                   var res = '';
                   var currentIconURL = directorist.assets_url + 'icons/font-awesome/svgs/solid/paper-plane.svg';
                   var currentIconHTML = directorist.icon_markup.replace('##URL##', currentIconURL).replace('##CLASS##', '');
-                  var currentLocationIconHTML = "<span class='location-icon'>" + currentIconHTML + "</span>";
+                  var currentLocationIconHTML = "<span class='location-icon'>" + currentIconHTML + '</span>';
                   var currentLocationAddressHTML = "<span class='location-address'></span>";
                   var iconURL = directorist.assets_url + 'icons/font-awesome/svgs/solid/map-marker-alt.svg';
                   var iconHTML = directorist.icon_markup.replace('##URL##', iconURL).replace('##CLASS##', '');
-                  var locationIconHTML = "<span class='location-icon'>" + iconHTML + "</span>";
+                  var locationIconHTML = "<span class='location-icon'>" + iconHTML + '</span>';
                   for (var i = 0, len = data.length > 5 ? 5 : data.length; i < len; i++) {
-                    res += "<li><a href=\"#\" data-lat=" + data[i].lat + " data-lon=" + data[i].lon + ">" + locationIconHTML + "<span class='location-address'>" + data[i].display_name, +"</span></a></li>";
+                    res += '<li><a href="#" data-lat=' + data[i].lat + ' data-lon=' + data[i].lon + '>' + locationIconHTML + "<span class='location-address'>" + data[i].display_name, +'</span></a></li>';
                   }
                   function displayLocation(position, event) {
                     var lat = position.coords.latitude;
                     var lng = position.coords.longitude;
                     $.ajax({
-                      url: "https://nominatim.openstreetmap.org/reverse?format=json&lon=" + lng + "&lat=" + lat,
+                      url: 'https://nominatim.openstreetmap.org/reverse?format=json&lon=' + lng + '&lat=' + lat,
                       type: 'GET',
                       data: {},
                       success: function success(data) {
                         $('.directorist-location-js, .atbdp-search-address').val(data.display_name);
-                        $('.directorist-location-js, .atbdp-search-address').attr("data-value", data.display_name);
+                        $('.directorist-location-js, .atbdp-search-address').attr('data-value', data.display_name);
                         $('#cityLat').val(lat);
                         $('#cityLng').val(lng);
-                        var locationSearch = $(".directorist-search-location");
+                        var locationSearch = $('.directorist-search-location');
                         if (locationSearch.length) {
-                          locationSearch.trigger("change");
+                          locationSearch.trigger('change');
                         }
                       }
                     });
                   }
-                  result_container.html("<ul>" + "<li><a href='#' class='current-location'>" + currentLocationIconHTML + currentLocationAddressHTML + "</a></li>" + res + "</ul>");
+                  result_container.html('<ul>' + "<li><a href='#' class='current-location'>" + currentLocationIconHTML + currentLocationAddressHTML + '</a></li>' + res + '</ul>');
                   if (res.length) {
                     result_container.show();
                   } else {
                     result_container.hide();
                   }
                   locationAddressField.removeClass('atbdp-form-fade');
-                  $('body').off("click", '.address_result .current-location').on("click", '.address_result .current-location', function (e) {
+                  $('body').off('click', '.address_result .current-location').on('click', '.address_result .current-location', function (e) {
                     e.preventDefault();
                     navigator.geolocation.getCurrentPosition(function (position) {
                       return displayLocation(position, e);
@@ -1893,13 +1891,13 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         // hide address result when click outside the input field
         $(document).on('click', function (e) {
           if (!$(e.target).closest('.directorist-location-js, #q_addressss, .atbdp-search-address, .current-location').length) {
-            var locationSearch = $(e.target).closest(".directorist-search-location");
-            var zipCodeSearch = $(e.target).closest(".directorist-zipcode-search");
+            var locationSearch = $(e.target).closest('.directorist-search-location');
+            var zipCodeSearch = $(e.target).closest('.directorist-zipcode-search');
             if (locationSearch.length) {
-              locationSearch.trigger("change");
+              locationSearch.trigger('change');
             }
             if (zipCodeSearch.length) {
-              zipCodeSearch.trigger("change");
+              zipCodeSearch.trigger('change');
             }
             $('.address_result').hide();
           }
@@ -1933,10 +1931,10 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         });
       }
     }
-    $(".directorist-search-contents").each(function () {
+    $('.directorist-search-contents').each(function () {
       if ($(this).next().length === 0) {
-        $(this).find(".directorist-search-country").css("max-height", "175px");
-        $(this).find(".directorist-search-field .address_result").css("max-height", "175px");
+        $(this).find('.directorist-search-country').css('max-height', '175px');
+        $(this).find('.directorist-search-field .address_result').css('max-height', '175px');
       }
     });
 
@@ -1971,8 +1969,8 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
           direction: isRTL ? 'rtl' : 'ltr',
           step: sliderStep ? sliderStep : 1,
           range: {
-            'min': Number(sliderMinValue || 0),
-            'max': Number(sliderMaxValue || 100)
+            min: Number(sliderMinValue || 0),
+            max: Number(sliderMaxValue || 100)
           }
         });
         (_slider$directoristCu = slider.directoristCustomRangeSlider) === null || _slider$directoristCu === void 0 || _slider$directoristCu.on('update', function (values, handle) {
@@ -2044,7 +2042,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     }
     locationObserver();
     handleRadiusVisibility();
-    $('body').on("keyup", '.zip-radius-search', directorist_debounce(function () {
+    $('body').on('keyup', '.zip-radius-search', directorist_debounce(function () {
       var zipcode = $(this).val();
       var zipcode_search = $(this).closest('.directorist-zipcode-search');
       var country_suggest = zipcode_search.find('.directorist-country');
@@ -2067,14 +2065,14 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       }
       var res = '';
       var google_data = {
-        'nonce': directorist.directorist_nonce,
-        'action': 'directorist_zipcode_search',
-        'zipcode': zipcode
+        nonce: directorist.directorist_nonce,
+        action: 'directorist_zipcode_search',
+        zipcode: zipcode
       };
       $.ajax({
         url: url,
         method: 'GET',
-        data: directorist.i18n_text.select_listing_map === 'google' ? google_data : "",
+        data: directorist.i18n_text.select_listing_map === 'google' ? google_data : '',
         success: function success(data) {
           if (data.data && data.data.error_message) {
             zipcode_search.find('.error_message').remove();
@@ -2128,7 +2126,6 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         if (callNow) func.apply(context, args);
       };
     }
-    ;
 
     // Custom Range Slider Value Check on Change
     function sliderValueCheck(targetNode, value) {

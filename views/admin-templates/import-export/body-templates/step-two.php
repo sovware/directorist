@@ -32,7 +32,7 @@ if ( ! is_wp_error( $csv_file ) ) {
             <div class="form-content">
                 <section class="atbdp-importer-mapping-table-wrapper">
                     <?php if ( $is_valid_file ) : ?>
-                        <h3><?php printf( esc_html__( 'Found %s listings.', 'directorist' ), $total ); ?></h3>
+                        <h3><?php printf( esc_html__( 'Found %s listings.', 'directorist' ), esc_html( $total ) ); ?></h3>
                         <div class="directory_type_wrapper">
                             <?php if ( count( $directories ) > 1 ) : ?>
                                 <label for="directory_type"><?php esc_html_e( 'Select Directory', 'directorist' ); ?></label>
@@ -59,6 +59,7 @@ if ( ! is_wp_error( $csv_file ) ) {
                     } else {
                         printf(
                             '<p style="font-style:italic; color: #d63638">%s</p>',
+                            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                             $csv_file->get_error_message(),
                         );
                     }

@@ -19616,7 +19616,7 @@ input.directorist-toggle-input:checked
 .directorist-content-active
 	.directorist-listing-single
 	.directorist-badge.directorist-badge-popular {
-	background-color: #f51957;
+	background-color: var(--directorist-color-popular-badge);
 }
 .directorist-content-active
 	.directorist-listing-single
@@ -19636,7 +19636,7 @@ input.directorist-toggle-input:checked
 .directorist-content-active
 	.directorist-listing-single
 	.directorist-badge.directorist-badge-featured {
-	background-color: #fa8b0c;
+	background-color: var(--directorist-color-featured-badge);
 }
 .directorist-content-active
 	.directorist-listing-single

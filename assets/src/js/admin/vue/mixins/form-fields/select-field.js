@@ -14,13 +14,9 @@ export default {
 	},
 
 	watch: {
-		local_value() {
-			this.$emit('update', this.local_value);
-		},
-
 		theOptions() {
-			if (!this.valueIsValid(this.local_value)) {
-				this.local_value = '';
+			if (!this.valueIsValid(this.value)) {
+				this.$emit('update', '');
 			}
 		},
 	},
@@ -43,7 +39,7 @@ export default {
 				return '';
 			}
 			if (typeof this.optionsInObject[this.value] === 'undefined') {
-				return this.theDefaultOption.value == this.local_value &&
+				return this.theDefaultOption.value == this.value &&
 					this.theDefaultOption.label
 					? this.theDefaultOption.label
 					: '';
@@ -54,14 +50,14 @@ export default {
 
 		theOptions() {
 			if (this.hasOptionsSource) {
-				return this.hasOptionsSource;
+				return this.parseOptions(this.hasOptionsSource);
 			}
 
 			if (!this.options || typeof this.options !== 'object') {
 				return this.defaultOption ? [this.defaultOption] : [];
 			}
 
-			return this.options;
+			return this.parseOptions(this.options);
 		},
 
 		hasOptionsSource() {
@@ -142,7 +138,6 @@ export default {
 
 	data() {
 		return {
-			local_value: '',
 			local_value_ms: [],
 			optionsInObject: {},
 			show_option_modal: false,
@@ -159,10 +154,8 @@ export default {
 
 			this.optionsInObject = this.convertOptionsToObject();
 
-			if (false != this.value && this.valueIsValid(this.value)) {
-				this.local_value = this.value;
-			} else {
-				this.local_value = '';
+			if (!this.valueIsValid(this.value)) {
+				this.$emit('update', '');
 			}
 
 			const self = this;
@@ -172,7 +165,7 @@ export default {
 		},
 
 		update_value(value) {
-			this.local_value = !isNaN(Number(value)) ? Number(value) : value;
+			this.$emit('update', value);
 		},
 
 		updateOption(value) {
@@ -195,15 +188,16 @@ export default {
 		},
 
 		valueIsValid(value) {
-			let options_values = this.theOptions.map((option) => {
-				if (typeof option.value !== 'undefined') {
-					return !isNaN(Number(option.value))
-						? Number(option.value)
-						: option.value;
-				}
-			});
+			return this.theOptions
+				.map((item) => item.value)
+				.includes(`${value}`);
+		},
 
-			return options_values.includes(value);
+		parseOptions(options) {
+			return options.map((item) => ({
+				...item,
+				value: typeof item.value !== 'undefined' ? `${item.value}` : '',
+			}));
 		},
 
 		convertOptionsToObject() {

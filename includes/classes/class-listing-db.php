@@ -13,105 +13,110 @@
 use Directorist\database\DB;
 
 // Exit if accessed directly
-if ( ! defined( 'ABSPATH' ) ) {
-    die( 'Sorry, it is not your place to have fun..' ); }
+if ( ! defined('ABSPATH') ) { die( 'Sorry, it is not your place to have fun..' ); }
 
-if ( ! class_exists( 'ATBDP_Listing_DB' ) ) :
-    class ATBDP_Listing_DB {
-        public function __construct () {
-            add_action( 'before_delete_post', [ $this, 'atbdp_delete_attachment' ] );
-        }
+if (!class_exists('ATBDP_Listing_DB')):
+class ATBDP_Listing_DB {
 
-        /**
-         * @param init $id  Current post id
-         * @since 6.4.1
-         *
-         */
-        public function atbdp_delete_attachment( $listing_id = 0 ) {
-            if ( ! directorist_is_delete_images_with_listing_enabled() ) {
-                return;
-            }
+    public function __construct ()
+    {
+        add_action( 'before_delete_post', array( $this, 'atbdp_delete_attachment' ) );
+    }
 
-            if ( ! directorist_is_listing_post_type( $listing_id ) ) {
-                return;
-            }
-
-            $image_ids = atbdp_get_listing_attachment_ids( $listing_id );
-            if ( empty( $image_ids ) ) {
-                return;
-            }
-
-            foreach ( $image_ids as $image_id ) {
-                wp_delete_attachment( $image_id, true );
-            }
-        }
-
-        /**
-         * Unused method
+    /**
+     * @param init $id  Current post id
+     * @since 6.4.1
      *
-         * @return bool
-         */
-        public function all_listing() {
-            _deprecated_function( __METHOD__, '7.4.3' );
-            return false;
-        }
+     */
+    public function atbdp_delete_attachment($id){
 
-        public function get_listing_order_by_featured() {
-            $args = [
-                'post_type' => ATBDP_POST_TYPE,
-                'post_per_page' => -1
-            ];
-        }
+        if( 'at_biz_dir' === get_post_type( $id ) ){
+            $listing_img = directorist_get_listing_gallery_images( $id );
+            $listing_img = !empty($listing_img) ? $listing_img : array();
+            $listing_prv_img = directorist_get_listing_preview_image( $id );
 
-        /**
-         * It returns all the listing of the given user or the current user if no user id is passed.
-         * @param int $user_id [optional] The id of the user. Default is current user id.
-         * @return WP_Query   it returns an object of the WP_Query class with the items/listings on success and false on failure.
-         */
-        public function get_listing_by_user( $user_id = 0 ) {
-            $pagination = get_directorist_option( 'user_listings_pagination',1 );
-            $listingS_per_page = get_directorist_option( 'user_listings_per_page',9 );
-
-            //for pagination
-            $paged = atbdp_get_paged_num();
-            $args  = [
-                'author'         => ! empty( $user_id ) ? absint( $user_id ) : get_current_user_id(),
-                'post_type'      => ATBDP_POST_TYPE,
-                'posts_per_page' => (int) $listingS_per_page,
-                'order'          => 'DESC',
-                'orderby'        => 'date',
-                'post_status'    => [ 'publish', 'pending', 'private', 'draft' ],
-            ];
-            if ( ! empty( $pagination ) ) {
-                $args['paged'] = $paged;
-            } else {
-                $args['no_found_rows'] = false;
+            if ( is_array( $listing_img ) ) {
+                array_unshift($listing_img, $listing_prv_img);
             }
-            $args = apply_filters( 'atbdp_user_dashboard_query_arguments', $args );
-            return new WP_Query( apply_filters( 'atbdp_user_dashboard_query_arguments',$args ) );
-        }
 
-        /**
-         * It deletes a specific listing along with its meta and reviews by listing id
-         * @param int $id The ID of the listing that should be deleted
-         * @return bool It returns true on success and false on failure
-         */
-        public function delete_listing_by_id( $id ) {
-
-            $deleted = wp_delete_post( absint( $id ), true ); // i
-            if ( false !== $deleted ) {
-                do_action( 'directorist_listing_deleted', $id );
-                return true;
+            if ( ! empty( $listing_img ) ) {
+                foreach ( $listing_img as $image ) {
+                    wp_delete_attachment( $image, true );
+                }
             }
-            return false;
         }
+    }
 
-        //@TODO; methods to add: delete all listing by user
+    /**
+     * Unused method
+	 *
+     * @return bool
+     */
+    public function all_listing() {
+		_deprecated_function( __METHOD__, '7.4.3' );
+        return false;
+    }
 
-        public function get_favourites( $user_id = 0 ) {
-            _deprecated_function( __METHOD__, '7.4.3', 'DB::favorite_listings_query' );
-            return DB::favorite_listings_query();
+    public function get_listing_order_by_featured()
+    {
+        $args = array(
+            'post_type' => ATBDP_POST_TYPE,
+            'post_per_page'=>-1
+        );
+    }
+
+    /**
+     * It returns all the listing of the given user or the current user if no user id is passed.
+     * @param int $user_id [optional] The id of the user. Default is current user id.
+     * @return WP_Query   it returns an object of the WP_Query class with the items/listings on success and false on failure.
+     */
+    public function get_listing_by_user( $user_id = 0 )
+    {
+       $pagination = get_directorist_option('user_listings_pagination',1);
+       $listingS_per_page = get_directorist_option('user_listings_per_page',9);
+
+        //for pagination
+        $paged = atbdp_get_paged_num();
+        $args  = array(
+            'author'         => ! empty( $user_id ) ? absint( $user_id ) : get_current_user_id(),
+            'post_type'      => ATBDP_POST_TYPE,
+            'posts_per_page' => (int) $listingS_per_page,
+            'order'          => 'DESC',
+            'orderby'        => 'date',
+            'post_status'    => array( 'publish', 'pending', 'private', 'draft' ),
+        );
+        if( ! empty( $pagination) ) {
+            $args['paged'] = $paged;
+        }else{
+            $args['no_found_rows'] = false;
         }
-    } // ends class ATBDP_Listing_DB
+        $args = apply_filters('atbdp_user_dashboard_query_arguments', $args);
+        return new WP_Query(apply_filters('atbdp_user_dashboard_query_arguments',$args));
+    }
+
+    /**
+     * It deletes a specific listing along with its meta and reviews by listing id
+     * @param int $id The ID of the listing that should be deleted
+     * @return bool It returns true on success and false on failure
+     */
+    public function delete_listing_by_id($id)
+    {
+
+        $deleted = wp_delete_post(absint($id), true); // i
+        if ( false !== $deleted ) {
+            do_action( 'directorist_listing_deleted', $id );
+            return true;
+        }
+        return false;
+
+    }
+    //@TODO; methods to add: delete all listing by user
+
+    public function get_favourites( $user_id = 0 ) {
+		_deprecated_function( __METHOD__, '7.4.3', 'DB::favorite_listings_query' );
+		return DB::favorite_listings_query();
+    }
+
+} // ends class ATBDP_Listing_DB
 
 endif;

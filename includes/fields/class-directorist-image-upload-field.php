@@ -5,134 +5,127 @@
 namespace Directorist\Fields;
 
 if ( ! defined( 'ABSPATH' ) ) {
-    exit;
+	exit;
 }
 
 class Image_Upload_Field extends Base_Field {
-    public $type = 'image_upload';
 
-    public function get_value( $posted_data ) {
-        if ( empty( $posted_data[ $this->get_key() ] ) && empty( $posted_data[ $this->get_key() . '_old' ] ) ) {
-            return null;
-        }
+	public $type = 'image_upload';
 
-        $new_images = (array) directorist_get_var( $posted_data[ $this->get_key() ], [] );
-        $old_images = (array) directorist_get_var( $posted_data[ $this->get_key() . '_old' ], [] );
+	public function get_value( $posted_data ) {
+		if ( empty( $posted_data[ $this->get_key() ] ) && empty( $posted_data[ $this->get_key() . '_old' ] ) ) {
+			return null;
+		}
 
-        return [
-            'new' => array_filter( $new_images ),
-            'old' => array_filter( wp_parse_id_list( $old_images ) ),
-        ];
-    }
+		$new_images = (array) directorist_get_var( $posted_data[ $this->get_key() ], array() );
+		$old_images = (array) directorist_get_var( $posted_data[ $this->get_key() . '_old' ], array() );
 
-    public function validate( $posted_data ) {
-        $files      = $this->get_value( $posted_data );
-        $old_images = $files['old'];
-        $new_images = $files['new'];
+		return array(
+			'new' => array_filter( $new_images ),
+			'old' => array_filter( wp_parse_id_list( $old_images ) ),
+		);
+	}
 
-        if ( $this->is_required() && empty( $old_images ) && empty( $new_images ) ) {
-            $this->add_error( __( 'This field is required.', 'directorist' ) );
+	public function validate( $posted_data ) {
+		$files      = $this->get_value( $posted_data );
+		$old_images = $files['old'];
+		$new_images = $files['new'];
 
-            return false;
-        }
+		if ( $this->is_required() && empty( $old_images ) && empty( $new_images ) ) {
+			$this->add_error( __( 'This field is required.', 'directorist' ) );
 
-        if ( $this->get_total_upload_limit() !== 0 && ( ( count( $old_images ) + count( $new_images ) ) > $this->get_total_upload_limit() ) ) {
-            $this->add_error(
-                sprintf(
-                    _n( '%s image allowed only.', '%s images allowed only.', $this->get_total_upload_limit(), 'directorist' ),
-                    $this->get_total_upload_limit()
-                ) 
-            );
+			return false;
+		}
 
-            return false;
-        }
+		if ( $this->get_total_upload_limit() !== 0 && ( ( count( $old_images ) + count( $new_images ) ) > $this->get_total_upload_limit() ) ) {
+			$this->add_error( sprintf(
+				_n( '%s image allowed only.', '%s images allowed only.', $this->get_total_upload_limit(), 'directorist' ),
+				$this->get_total_upload_limit()
+			) );
 
-        // TODO: use get_attached_file to calculate the old images file size.
+			return false;
+		}
 
-        $upload_dir = wp_get_upload_dir();
-        $temp_dir   = $upload_dir['basedir'] . '/directorist_temp_uploads/';
-        $total_size = 0;
+		// TODO: use get_attached_file to calculate the old images file size.
 
-        foreach ( $new_images as $file ) {
-            $filepath  = realpath( $temp_dir . $file );
+		$upload_dir = wp_get_upload_dir();
+		$temp_dir   = $upload_dir['basedir'] . '/directorist_temp_uploads/';
+		$total_size = 0;
 
-            if ( empty( $file ) || ! $filepath ) {
-                continue;
-            }
+		foreach ( $new_images as $file ) {
+			$filepath  = realpath( $temp_dir . $file );
 
-            $filesize  = filesize( $filepath );
-            $real_mime = wp_get_image_mime( $filepath );
+			if ( empty( $file ) || ! $filepath ) {
+				continue;
+			}
 
-            if ( ! $real_mime || strpos( $real_mime, 'image' ) === false ) {
+			$filesize  = filesize( $filepath );
+			$real_mime = wp_get_image_mime( $filepath );
 
-                $this->add_error(
-                    sprintf(
-                        __( '[%1$s] invalid file type, only image allowed.', 'directorist' ),
-                        $file
-                    ) 
-                );
+			if ( ! $real_mime || strpos( $real_mime, 'image' ) === false ) {
 
-                continue;
-            }
+				$this->add_error( sprintf(
+					__( '[%1$s] invalid file type, only image allowed.', 'directorist' ),
+					$file
+				) );
 
-            if ( $filesize > $this->get_per_image_upload_size() ) {
-                $this->add_error(
-                    sprintf(
-                        __( '[%1$s] size exceeded, %2$s is allowed only.', 'directorist' ),
-                        $file,
-                        size_format( $this->get_per_image_upload_size() )
-                    ) 
-                );
-            }
+				continue;
+			}
 
-            $total_size += $filesize;
+			if ( $filesize > $this->get_per_image_upload_size() ) {
+				$this->add_error( sprintf(
+					__( '[%1$s] size exceeded, %2$s is allowed only.', 'directorist' ),
+					$file,
+					size_format( $this->get_per_image_upload_size() )
+				) );
+			}
 
-            if ( $total_size > $this->get_total_upload_size() ) {
-                $this->add_error(
-                    sprintf(
-                        __( 'Total upload size (%s) exceeded.', 'directorist' ),
-                        size_format( $this->get_total_upload_size() )
-                    ) 
-                );
+			$total_size += $filesize;
 
-                break;
-            }
-        }
+			if ( $total_size > $this->get_total_upload_size() ) {
+				$this->add_error( sprintf(
+					__( 'Total upload size (%s) exceeded.', 'directorist' ),
+					size_format( $this->get_total_upload_size() )
+				) );
 
-        if ( $this->has_error() ) {
-            return false;
-        }
+				break;
+			}
+		}
 
-        return true;
-    }
+		if ( $this->has_error() ) {
+			return false;
+		}
 
-    public function get_total_upload_limit() {
-        return absint( $this->max_image_limit );
-    }
+		return true;
+	}
 
-    public function get_total_upload_size() {
-        $size_in_mb = round( (float) $this->max_total_image_limit, 2 );
-        $unit       = 'MB';
+	public function get_total_upload_limit() {
+		return absint( $this->max_image_limit );
+	}
 
-        if ( $size_in_mb < 1 ) {
-            $unit = 'KB';
-            $size_in_mb = KB_IN_BYTES * $size_in_mb;
-        }
+	public function get_total_upload_size() {
+		$size_in_mb = round( (float) $this->max_total_image_limit, 2 );
+		$unit       = 'MB';
 
-        return ( $size_in_mb > 0 ? wp_convert_hr_to_bytes( $size_in_mb . $unit ) : wp_max_upload_size() );
-    }
+		if ( $size_in_mb < 1 ) {
+			$unit = 'KB';
+			$size_in_mb = KB_IN_BYTES * $size_in_mb;
+		}
 
-    public function get_per_image_upload_size() {
-        $size_in_mb = round( (float) $this->max_per_image_limit, 2 );
-        $unit       = 'MB';
+		return ( $size_in_mb > 0 ? wp_convert_hr_to_bytes( $size_in_mb . $unit ) : wp_max_upload_size() );
+	}
 
-        if ( $size_in_mb < 1 ) {
-            $unit = 'KB';
-            $size_in_mb = KB_IN_BYTES * $size_in_mb;
-        }
+	public function get_per_image_upload_size() {
+		$size_in_mb = round( (float) $this->max_per_image_limit, 2 );
+		$unit       = 'MB';
 
-        return ( $size_in_mb > 0 ? wp_convert_hr_to_bytes( $size_in_mb . $unit ) : wp_max_upload_size() );
-    }
+		if ( $size_in_mb < 1 ) {
+			$unit = 'KB';
+			$size_in_mb = KB_IN_BYTES * $size_in_mb;
+		}
+
+		return ( $size_in_mb > 0 ? wp_convert_hr_to_bytes( $size_in_mb . $unit ) : wp_max_upload_size() );
+	}
 }
 
 Fields::register( new Image_Upload_Field() );

@@ -6,33 +6,34 @@
 namespace Directorist\Fields;
 
 if ( ! defined( 'ABSPATH' ) ) {
-    exit;
+	exit;
 }
 
 class Video_Field extends Base_Field {
-    public $type = 'video';
 
-    public function validate( $posted_data ) {
-        $value = $this->get_value( $posted_data );
+	public $type = 'video';
 
-        if ( ! wp_http_validate_url( $value ) ) {
-            $this->add_error( __( 'Invalid video URL.', 'directorist' ) );
-        }
+	public function validate( $posted_data ) {
+		$value = $this->get_value( $posted_data );
 
-        if ( ! directorist_validate_youtube_vimeo_url( $value ) ) {
-            $this->add_error( __( 'Vimeo and Youtube video allowed only.', 'directorist' ) );
-        }
+		if ( ! wp_http_validate_url( $value ) ) {
+			$this->add_error( __( 'Invalid video URL.', 'directorist' ) );
+		}
 
-        if ( $this->has_error() ) {
-            return false;
-        }
+		if ( ! directorist_validate_youtube_vimeo_url( $value ) ) {
+			$this->add_error( __( 'Vimeo and Youtube video allowed only.', 'directorist' ) );
+		}
 
-        return true;
-    }
+		if ( $this->has_error() ) {
+			return false;
+		}
 
-    public function sanitize( $posted_data ) {
-        return sanitize_url( $this->get_value( $posted_data ) );
-    }
+		return true;
+	}
+
+	public function sanitize( $posted_data ) {
+		return sanitize_url( $this->get_value( $posted_data ) );
+	}
 }
 
 Fields::register( new Video_Field() );

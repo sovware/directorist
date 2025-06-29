@@ -10,39 +10,40 @@ use Elementor\Controls_Manager;
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 class Directorist_Author_Profile extends Custom_Widget_Base {
-    public function __construct( $data = [], $args = null ) {
-        $this->az_name = __( 'User Profile', 'directorist' );
-        $this->az_base = 'directorist_author_profile';
-        parent::__construct( $data, $args );
-    }
 
-    public function az_fields() {
-        $fields = [
-            [
-                'mode'    => 'section_start',
-                'id'      => 'sec_general',
-                'label'   => __( 'General', 'directorist' ),
-            ],
-            [
-                'type'      => Controls_Manager::SWITCHER,
-                'id'        => 'user',
-                'label'     => __( 'Only For Logged In User?', 'directorist' ),
-                'default'   => 'no',
-            ],
-            [
-                'mode' => 'section_end',
-            ],
-        ];
-        return $fields;
-    }
+	public function __construct( $data = [], $args = null ) {
+		$this->az_name = __( 'User Profile', 'directorist' );
+		$this->az_base = 'directorist_author_profile';
+		parent::__construct( $data, $args );
+	}
 
-    protected function render() {
-        $settings = $this->get_settings_for_display();
+	public function az_fields(){
+		$fields = array(
+			array(
+				'mode'    => 'section_start',
+				'id'      => 'sec_general',
+				'label'   => __( 'General', 'directorist' ),
+			),
+			array(
+				'type'      => Controls_Manager::SWITCHER,
+				'id'        => 'user',
+				'label'     => __( 'Only For Logged In User?', 'directorist' ),
+				'default'   => 'no',
+			),
+			array(
+				'mode' => 'section_end',
+			),
+		);
+		return $fields;
+	}
 
-        $user = $settings['user'] ? $settings['user'] : 'no';
+	protected function render() {
+		$settings = $this->get_settings_for_display();
 
-        $shortcode = sprintf( '[directorist_author_profile logged_in_user_only="%1$s" ]', esc_attr( $user ) );
+		$user = $settings['user'] ? $settings['user'] : 'no';
 
-        echo do_shortcode( $shortcode );
-    }
+		$shortcode = sprintf( '[directorist_author_profile logged_in_user_only="%1$s" ]', esc_attr( $user ) );
+
+		echo do_shortcode( $shortcode );
+	}
 }

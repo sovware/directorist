@@ -10,6 +10,7 @@ use stdClass;
  * This class will show new updates project
  */
 class Updater {
+
     /**
      * Directorist\Appsero\Client
      *

@@ -99,16 +99,14 @@
                     <?php endif; ?>
                 </div>
                 <?php
-                    $all_items =  wp_count_terms( 'atbdp_listing_types' );
-                    $listing_types = get_terms(
-                        [
-                            'taxonomy'   => 'atbdp_listing_types',
-                            'hide_empty' => false,
-                            'orderby'    => 'date',
-                            'order'      => 'DSCE',
-                        ]
-                    );
-                    ?>
+                    $all_items =  wp_count_terms('atbdp_listing_types');
+                    $listing_types = get_terms([
+                       'taxonomy'   => 'atbdp_listing_types',
+                       'hide_empty' => false,
+                       'orderby'    => 'date',
+                       'order'      => 'DSCE',
+                    ]);
+                ?>
                 <div class="directorist_builder__content__right">
                     <div class="directorist-total-types">
                         <?php esc_html_e( 'All Directories','directorist' ); ?><span class="directorist_count">(<?php echo esc_attr( ! empty( $all_items ) ? $all_items : 0 ); ?>)</span>
@@ -124,19 +122,18 @@
                             </div>
                         </div>
                         <div class="directorist_table-body">
-                            <?php if ( $listing_types ) {
-                                foreach ( $listing_types as $listing_type ) {
-                                    $default = get_term_meta( $listing_type->term_id, '_default', true );
-                                    $edit_link = admin_url( 'edit.php?post_type=at_biz_dir&page=atbdp-directory-types&listing_type_id=' . absint( $listing_type->term_id ) . '&action=edit' );
-                                    $delete_link = admin_url( 'admin-post.php?listing_type_id=' . absint( $listing_type->term_id ) . '&action=delete_listing_type' );
-                                    $delete_link = wp_nonce_url( $delete_link, 'delete_listing_type' );
-                                    $created_time = get_term_meta( $listing_type->term_id, '_created_date', true );
-                                    ?>
+                            <?php if( $listing_types ) { foreach( $listing_types as $listing_type) {
+                                $default = get_term_meta( $listing_type->term_id, '_default', true );
+                                $edit_link = admin_url('edit.php?post_type=at_biz_dir&page=atbdp-directory-types&listing_type_id=' . absint( $listing_type->term_id ) . '&action=edit');
+                                $delete_link = admin_url('admin-post.php?listing_type_id=' . absint( $listing_type->term_id ) . '&action=delete_listing_type');
+                                $delete_link = wp_nonce_url( $delete_link, 'delete_listing_type');
+                                $created_time = get_term_meta( $listing_type->term_id, '_created_date', true );
+                            ?>
                             <div class="directorist_table-row directory-type-row" data-term-id="<?php echo esc_attr( $listing_type->term_id ); ?>">
                                 <div class="directorist_title">
                                     <a  href="<?php echo esc_url( ! empty( $edit_link ) ? $edit_link : '#' ); ?>">
                                         <?php echo esc_html( ! empty( $listing_type->name ) ? $listing_type->name : '-' ); ?>
-                                        <?php if ( $default ) { ?>
+                                        <?php if( $default ) { ?>
                                         <span class="directorist_badge"><?php esc_html_e( 'Default', 'directorist' ); ?></span>
                                         <?php } ?>
                                     </a>
@@ -154,8 +151,7 @@
                                     <span class="directorist_listing-count"><?php echo esc_html( $listing_type->count ); ?></span>
                                 </div>
                                 <div class="directorist-type-date">
-                                    <?php if ( $created_time ) {
-                                        echo esc_attr( date( 'F j, Y', $created_time ) ); } ?>
+                                    <?php if( $created_time ) { echo esc_attr( date( 'F j, Y', $created_time ) ); } ?>
                                 </div>
                                 <div class="directorist-type-actions">
                                     <div class="directorist_listing-actions">
@@ -170,7 +166,7 @@
                                                         </clipPath>
                                                     </defs>
                                                 </svg>
-                                                                            <?php esc_html_e( 'Edit', 'directorist' ); ?>
+                                            <?php esc_html_e( 'Edit', 'directorist' ); ?>
                                         </a>
 
                                         <div class="directorist_more-dropdown <?php echo ( $default ) ? 'default' : ''; ?>">
@@ -203,7 +199,7 @@
                                     <div class="directorist_notifier"></div>
                                 </div>
                             </div>
-                                                            <?php } } ?>
+                            <?php } } ?>
                         </div>
                     </div>
                 </div>
@@ -231,7 +227,7 @@
 
                 <div class="cptm-modal-body cptm-center-content cptm-content-wide cptm-create-directory-modal__body">
                     <div class="cptm-create-directory-modal__action">
-                        <a href="<?php echo esc_url( admin_url( 'admin.php?page=templatiq' ) ) ?>" class="cptm-create-directory-modal__action__single <?php echo ! is_plugin_active( 'templatiq/templatiq.php' ) ? 'directorist_directory_template_library' : ''; ?>">
+                        <a href="<?php echo admin_url( 'admin.php?page=templatiq' ) ?>" class="cptm-create-directory-modal__action__single <?php echo ! is_plugin_active( 'templatiq/templatiq.php' ) ? 'directorist_directory_template_library' : ''; ?>">
                             <span class="modal-btn-icon create-template">
                                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <g clip-path="url(#clip0_5814_6155)">

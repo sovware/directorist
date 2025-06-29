@@ -6,37 +6,36 @@
 namespace Directorist\Fields;
 
 if ( ! defined( 'ABSPATH' ) ) {
-    exit;
+	exit;
 }
 
 class Radio_Field extends Base_Field {
-    public $type = 'radio';
 
-    public function get_options() {
-        $options = $this->options;
+	public $type = 'radio';
 
-        if ( ! is_array( $options ) ) {
-            return [];
-        }
+	public function get_options() {
+		$options = $this->options;
 
-        return array_map(
-            static function( $option ) {
-                return str_replace( '&lt;', '<', $option['option_value'] );
-            }, $options 
-        );
-    }
+		if ( ! is_array( $options ) ) {
+			return array();
+		}
 
-    public function validate( $posted_data ) {
-        $value = $this->get_value( $posted_data );
+		return array_map( static function( $option ) {
+			return str_replace( '&lt;', '<', $option['option_value'] );
+		}, $options );
+	}
 
-        if ( ! in_array( $value, $this->get_options(), true ) ) {
-            $this->add_error( sprintf( __( '[%s] Invalid value.', 'directorist' ), $value ) );
+	public function validate( $posted_data ) {
+		$value = $this->get_value( $posted_data );
 
-            return false;
-        }
+		if ( ! in_array( $value, $this->get_options(), true ) ) {
+			$this->add_error( sprintf( __( '[%s] Invalid value.', 'directorist' ), $value ) );
 
-        return true;
-    }
+			return false;
+		}
+
+		return true;
+	}
 }
 
 Fields::register( new Radio_Field() );

@@ -6,27 +6,28 @@
 namespace Directorist\Fields;
 
 if ( ! defined( 'ABSPATH' ) ) {
-    exit;
+	exit;
 }
 
 class Date_Field extends Base_Field {
-    public $type = 'date';
 
-    public function validate( $posted_data ) {
-        $value = $this->get_value( $posted_data );
+	public $type = 'date';
 
-        if ( strtotime( $value ) === false ) {
-            $this->add_error( sprintf( __( '[%s] Invalid date.', 'directorist' ), $value ) );
+	public function validate( $posted_data ) {
+		$value = $this->get_value( $posted_data );
 
-            return false;
-        }
+		if ( strtotime( $value ) === false ) {
+			$this->add_error( sprintf( __( '[%s] Invalid date.', 'directorist' ), $value ) );
 
-        return true;
-    }
+			return false;
+		}
 
-    public function sanitize( $posted_data ) {
-        return sanitize_text_field( $this->get_value( $posted_data ) );
-    }
+		return true;
+	}
+
+	public function sanitize( $posted_data ) {
+		return sanitize_text_field( $this->get_value( $posted_data ) );
+	}
 }
 
 Fields::register( new Date_Field() );

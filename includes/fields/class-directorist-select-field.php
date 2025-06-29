@@ -6,41 +6,40 @@
 namespace Directorist\Fields;
 
 if ( ! defined( 'ABSPATH' ) ) {
-    exit;
+	exit;
 }
 
 class Select_Field extends Base_Field {
-    public $type = 'select';
 
-    public function get_options() {
-        $options = $this->options;
+	public $type = 'select';
 
-        if ( ! is_array( $options ) ) {
-            return [];
-        }
+	public function get_options() {
+		$options = $this->options;
 
-        return array_map(
-            static function( $option ) {
-                return str_replace( '&lt;', '<', $option['option_value'] );
-            }, $options 
-        );
-    }
+		if ( ! is_array( $options ) ) {
+			return array();
+		}
 
-    public function validate( $posted_data ) {
-        $value = $this->get_value( $posted_data );
+		return array_map( static function( $option ) {
+			return str_replace( '&lt;', '<', $option['option_value'] );
+		}, $options );
+	}
 
-        if ( ! in_array( $value, $this->get_options(), true ) ) {
-            $this->add_error( sprintf( __( '[%s] Invalid value.', 'directorist' ), $value ) );
+	public function validate( $posted_data ) {
+		$value = $this->get_value( $posted_data );
 
-            return false;
-        }
+		if ( ! in_array( $value, $this->get_options(), true ) ) {
+			$this->add_error( sprintf( __( '[%s] Invalid value.', 'directorist' ), $value ) );
 
-        return true;
-    }
+			return false;
+		}
 
-    public function sanitize( $posted_data ) {
-        return sanitize_text_field( $this->get_value( $posted_data ) );
-    }
+		return true;
+	}
+
+	public function sanitize( $posted_data ) {
+		return sanitize_text_field( $this->get_value( $posted_data ) );
+	}
 }
 
 Fields::register( new Select_Field() );

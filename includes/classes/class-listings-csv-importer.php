@@ -2,116 +2,117 @@
 namespace Directorist;
 
 if ( ! defined( 'ABSPATH' ) ) {
-    exit;
+	exit;
 }
 
 use Exception;
 use SplFileObject;
 
 class Listings_CSV_Importer {
-    /**
-     * CSV file.
-     *
-     * @var string
-     */
-    protected $file = '';
 
-    protected $total_items = 0;
+	/**
+	 * CSV file.
+	 *
+	 * @var string
+	 */
+	protected $file = '';
 
-    /**
-     * SplFileObject instance.
-     *
-     * @var \SplFileObject|null
-     */
-    protected $file_object = null;
+	protected $total_items = 0;
 
-    protected $separator = ',';
+	/**
+	 * SplFileObject instance.
+	 *
+	 * @var \SplFileObject|null
+	 */
+	protected $file_object = null;
 
-    /**
-     * Constructor.
-     *
-     * @param string $file CSV file path.
-     * @param string $separator CSV delimiter or separator.
-     */
-    public function __construct( $file, $separator = ',' ) {
-        $this->set_file( $file );
-        $this->set_separator( $separator );
-    }
+	protected $separator = ',';
 
-    public function set_file( $file ) {
-        $this->file = $file;
-    }
+	/**
+	 * Constructor.
+	 *
+	 * @param string $file CSV file path.
+	 * @param string $separator CSV delimiter or separator.
+	 */
+	public function __construct( $file, $separator = ',' ) {
+		$this->set_file( $file );
+		$this->set_separator( $separator );
+	}
 
-    public function set_separator( $separator = '' ) {
-        if ( ! empty( $separator ) ) {
-            $this->separator = $separator;
-        }
-    }
+	public function set_file( $file ) {
+		$this->file = $file;
+	}
 
-    public function get_file_object() {
-        if ( ! $this->has_file() ) {
-            return null;
-        }
+	public function set_separator( $separator = '' ) {
+		if ( ! empty( $separator ) ) {
+			$this->separator = $separator;
+		}
+	}
 
-        if ( ! $this->file_object ) {
-            $this->file_object = new SplFileObject( $this->file );
-            $this->file_object->setCsvControl( $this->separator, '"', '\\' );
-        }
+	public function get_file_object() {
+		if ( ! $this->has_file() ) {
+			return null;
+		}
 
-        return $this->file_object;
-    }
+		if ( ! $this->file_object ) {
+			$this->file_object = new SplFileObject( $this->file );
+			$this->file_object->setCsvControl( $this->separator, '"', '\\' );
+		}
 
-    public function get_total_items() {
-        if ( ! $this->has_file() ) {
-            return 0;
-        }
+		return $this->file_object;
+	}
 
-        if ( $this->total_items ) {
-            return $this->total_items;
-        }
+	public function get_total_items() {
+		if ( ! $this->has_file() ) {
+			return 0;
+		}
 
-        $file = $this->get_file_object();
-        $file->rewind();
+		if ( $this->total_items ) {
+			return $this->total_items;
+		}
 
-        // Skip header row
-        $file->fgetcsv();
+		$file = $this->get_file_object();
+		$file->rewind();
 
-        $count = 0;
-        while ( ! $file->eof() ) {
-            $data = $file->fgetcsv();
-            $data = array_filter( $data );
-            if ( empty( $data ) ) {
-                continue;
-            }
-            ++$count;
-        }
+		// Skip header row
+		$file->fgetcsv();
 
-        // Reset file pointer
-        $file->rewind();
+		$count = 0;
+		while ( ! $file->eof() ) {
+			$data = $file->fgetcsv();
+			$data = array_filter( $data );
+			if ( empty( $data ) ) {
+				continue;
+			}
+			++$count;
+		}
 
-        $this->total_items = $count;
+		// Reset file pointer
+		$file->rewind();
 
-        return $this->total_items;
-    }
+		$this->total_items = $count;
 
-    public function get_header() {
-        if ( ! $this->has_file() ) {
-            return [];
-        }
+		return $this->total_items;
+	}
 
-        $file = $this->get_file_object();
-        $file->rewind();
+	public function get_header() {
+		if ( ! $this->has_file() ) {
+			return [];
+		}
 
-        $header_record = $file->fgetcsv();
-        $first_record  = $file->fgetcsv();
-        $header        = array_combine( $header_record, $first_record );
+		$file = $this->get_file_object();
+		$file->rewind();
 
-        $file->rewind();
+		$header_record = $file->fgetcsv();
+		$first_record  = $file->fgetcsv();
+		$header        = array_combine( $header_record, $first_record );
 
-        return $header;
-    }
+		$file->rewind();
 
-    public function has_file() {
-        return (bool) $this->file;
-    }
+		return $header;
+	}
+
+	public function has_file() {
+		return (bool) $this->file;
+	}
 }

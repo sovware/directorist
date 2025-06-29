@@ -6,37 +6,38 @@
 namespace Directorist\Fields;
 
 if ( ! defined( 'ABSPATH' ) ) {
-    exit;
+	exit;
 }
 
 abstract class Taxonomy_Field extends Base_Field {
-    public $type = 'taxonomy';
 
-    abstract protected function get_taxonomy() : string;
+	public $type = 'taxonomy';
 
-    abstract public function user_can_create() : bool;
+	abstract protected function get_taxonomy() : string;
 
-    public function user_can_select_multiple() : bool {
-        return (bool) ( $this->__get( 'type' ) === 'multiple' );
-    }
+	abstract public function user_can_create() : bool;
 
-    public function get_value( $posted_data ) {
-        if ( ! isset( $posted_data['tax_input'] ) ) {
-            return null;
-        }
+	public function user_can_select_multiple() : bool {
+		return (bool) ( $this->__get( 'type' ) === 'multiple' );
+	}
 
-        if ( ! in_array( $this->get_taxonomy(), [ ATBDP_TAGS, ATBDP_LOCATION, ATBDP_CATEGORY ], true ) ) {
-            return null;
-        }
-        
-        if ( ! isset( $posted_data['tax_input'][ $this->get_taxonomy() ] ) ) {
-            return null;
-        }
+	public function get_value( $posted_data ) {
+		if ( ! isset( $posted_data['tax_input'] ) ) {
+			return null;
+		}
 
-        $terms = (array) directorist_get_var( $posted_data['tax_input'][ $this->get_taxonomy() ], [] );
-        $terms = array_map( 'directorist_sanitize_term_item', $terms );
-        $terms = array_filter( $terms );
+		if ( ! in_array( $this->get_taxonomy(), array( ATBDP_TAGS, ATBDP_LOCATION, ATBDP_CATEGORY ), true ) ) {
+			return null;
+		}
+		
+		if ( ! isset( $posted_data['tax_input'][ $this->get_taxonomy() ] ) ) {
+			return null;
+		}
 
-        return $terms;
-    }
+		$terms = (array) directorist_get_var( $posted_data['tax_input'][ $this->get_taxonomy() ], array() );
+		$terms = array_map( 'directorist_sanitize_term_item', $terms );
+		$terms = array_filter( $terms );
+
+		return $terms;
+	}
 }

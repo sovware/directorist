@@ -8,6 +8,7 @@ namespace Directorist\Appsero;
  * This class is necessary to set project data
  */
 class Client {
+
     /**
      * The client version
      *

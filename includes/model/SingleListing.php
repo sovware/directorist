@@ -10,8 +10,7 @@ use \ATBDP_Permalink;
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 class Directorist_Single_Listing {
-
-	protected static $instance = null;
+    protected static $instance = null;
 
     // Basic
     public $id;
@@ -1457,20 +1456,20 @@ class Directorist_Single_Listing {
             'columns'   => get_directorist_type_option( $this->type, 'similar_listings_number_of_columns', 3 ),
             'prevArrow' => sprintf( '<a class="directorist-slc__nav directorist-slc__nav--left">%s</a>', directorist_icon( 'las la-angle-left', false ) ),
             'nextArrow' => sprintf( '<a class="directorist-slc__nav directorist-slc__nav--right">%s</a>', directorist_icon( 'las la-angle-right', false ) ),
-		);
-		return json_encode( $atts );
-	}
+        );
+        return json_encode( $atts );
+    }
 
-	public function get_related_columns() {
-		$columns = get_directorist_type_option( $this->type, 'similar_listings_number_of_columns', 3 );
-		return 12/$columns;
-	}
+    public function get_related_columns() {
+        $columns = get_directorist_type_option( $this->type, 'similar_listings_number_of_columns', 3 );
+        return 12 / $columns;
+    }
 
-	public function load_map_resources() {
-		_deprecated_function( __METHOD__, '7.3' );
-	}
+    public function load_map_resources() {
+        _deprecated_function( __METHOD__, '7.3' );
+    }
 
-	public function load_related_listings_script() {
-		_deprecated_function( __METHOD__, '7.3' );
-	}
+    public function load_related_listings_script() {
+        _deprecated_function( __METHOD__, '7.3' );
+    }
 }

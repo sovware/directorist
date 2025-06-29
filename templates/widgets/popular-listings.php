@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 use Directorist\Review\Markup;
 
-if ( !$query->have_posts() ) {
+if ( ! $query->have_posts() ) {
     return;
 }
 $default_icon = 'las la-tags';
@@ -17,7 +17,7 @@ $default_icon = 'las la-tags';
 
 <div class="directorist-card__body">
     <div class="directorist-widget-listing">
-        <?php while ( $query->have_posts() ): ?>
+        <?php while ( $query->have_posts() ) : ?>
 
             <?php
                 $query->the_post();
@@ -34,7 +34,7 @@ $default_icon = 'las la-tags';
                 $price                  = get_post_meta( $id, '_price', true );
                 $price_range            = get_post_meta( $id, '_price_range', true );
                 $listing_pricing        = get_post_meta( $id, '_atbd_listing_pricing', true );
-                ?>
+            ?>
 
                 <div class="directorist-widget-listing__single">
                     <div class="directorist-widget-listing__image">
@@ -80,13 +80,13 @@ $default_icon = 'las la-tags';
 
                                 <span><?php atbdp_display_price( $price ); ?></span>
 
-                            <?php
-                                } else {
+                                <?php
+                            } else {
 
-                                    $output = atbdp_display_price_range( $price_range );
-                                    echo wp_kses_post( $output );
+                                $output = atbdp_display_price_range( $price_range );
+                                echo wp_kses_post( $output );
 
-                                }
+                            }
                             ?>
                         </div>
                     </div>
@@ -95,6 +95,6 @@ $default_icon = 'las la-tags';
 
             <?php endwhile; ?>
 
-		<?php wp_reset_postdata(); ?>
+        <?php wp_reset_postdata(); ?>
     </div>
 </div>

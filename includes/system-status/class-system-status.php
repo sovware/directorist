@@ -4,7 +4,6 @@
  */
 class ATBDP_Status
 {
-
     public $custom_url;
 
     public function __construct() {
@@ -38,7 +37,7 @@ class ATBDP_Status
         <?php
         esc_html_e( 'Help & Support', 'directorist' );
         new ATBDP_System_Info();
-       ?>
+        ?>
         </div>
 
         <div class='postbox'>
@@ -54,7 +53,6 @@ class ATBDP_Status
         </div>
         <?php
     }
-
 }
 
 new ATBDP_Status();

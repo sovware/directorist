@@ -4,7 +4,7 @@
  *
  */
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+    exit;
 }
 
 require_once __DIR__ . '/class-directorist-fields.php';

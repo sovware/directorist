@@ -2333,7 +2333,7 @@ function add_listing_category_location_filter( $lisitng_type, $settings, $taxono
                 if ( ! empty( $settings['show_count'] ) ) {
                     $html .= ' (' . $count . ')';
                 }
-                $html .= add_listing_category_location_filter( $lisitng_type, $settings, $taxonomy_id, $term_id, $prefix . '&nbsp;&nbsp;&nbsp;' );
+                $html .= add_listing_category_location_filter( $lisitng_type, $settings, $taxonomy_id, $term_id, $prefix . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' );
                 $html .= '</option>';
             }
         }

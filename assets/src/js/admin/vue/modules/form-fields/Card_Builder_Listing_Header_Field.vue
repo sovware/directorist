@@ -53,7 +53,7 @@
                   :maxWidget="placeholderSubItem.maxWidget"
                   :showWidgetsPickerWindow="
                     getActiveInsertWindowStatus(
-                      `listings_header_${index}_${subIndex}`
+                      `listings_header_${index}_${subIndex}`,
                     )
                   "
                   :widgetDropable="widgetIsDropable(placeholderSubItem)"
@@ -239,9 +239,8 @@ export default {
               continue;
             }
 
-            widget_data[root_option] = this.active_widgets[widget_name][
-              root_option
-            ];
+            widget_data[root_option] =
+              this.active_widgets[widget_name][root_option];
           }
 
           if (typeof this.active_widgets[widget_name].options !== "object") {
@@ -317,7 +316,7 @@ export default {
 
     theAvailableWidgets() {
       let available_widgets = JSON.parse(
-        JSON.stringify(this.available_widgets)
+        JSON.stringify(this.available_widgets),
       );
 
       for (let widget in available_widgets) {
@@ -457,6 +456,8 @@ export default {
           selectedWidgets: [],
         },
       ],
+
+      syncedValue: [],
     };
   },
 
@@ -498,7 +499,7 @@ export default {
           if ("placeholder_group" === placeholder.type) {
             const targetPlaceholder = findPlaceholder(
               placeholderKey,
-              placeholder.placeholders
+              placeholder.placeholders,
             );
 
             if (targetPlaceholder) {
@@ -514,21 +515,22 @@ export default {
 
       const targetPlaceholder = findPlaceholder(
         placeholderKey,
-        this.placeholders
+        this.placeholders,
       );
       return targetPlaceholder ? false : true;
     },
 
     addPlaceholder(placeholderKey) {
-      let placeholder = JSON.parse( JSON.stringify( this.placeholdersMap[placeholderKey] ) );
+      let placeholder = JSON.parse(
+        JSON.stringify(this.placeholdersMap[placeholderKey]),
+      );
 
-      if ( ! Array.isArray( placeholder.selectedWidgets ) ) {
+      if (!Array.isArray(placeholder.selectedWidgets)) {
         placeholder.selectedWidgets = [];
       }
 
       if (placeholder.selectedWidgets.length) {
         for (const widgetKey of placeholder.selectedWidgets) {
-
           if (!this.isTruthyObject(this.theAvailableWidgets[widgetKey])) {
             continue;
           }
@@ -576,9 +578,9 @@ export default {
     },
 
     importOldData() {
-      let value = JSON.parse(JSON.stringify(this.value));
+      this.syncedValue = JSON.parse(JSON.stringify(this.value));
 
-      if (!Array.isArray(value)) {
+      if (!Array.isArray(this.syncedValue)) {
         return;
       }
 
@@ -629,7 +631,7 @@ export default {
         }
 
         let newPlaceholder = JSON.parse(
-          JSON.stringify(this.placeholdersMap[placeholder.placeholderKey])
+          JSON.stringify(this.placeholdersMap[placeholder.placeholderKey]),
         );
 
         newPlaceholder.selectedWidgets = [];
@@ -663,13 +665,33 @@ export default {
           destination[targetPlaceholderIndex].selectedWidgets.splice(
             widgetIndex,
             0,
-            widget.widget_key
+            widget.widget_key,
           );
           widgetIndex++;
         }
       };
 
-      value.forEach((placeholder, index) => {
+      // new synced array based on placeholders order
+      const syncedValue = [];
+
+      // Sync values to contain all placeholders
+      this.placeholders.forEach((placeholder) => {
+        // check if there is a value for this placeholder
+        const existing = this.value.find(
+          (item) => item.placeholderKey === placeholder.placeholderKey,
+        );
+
+        if (existing) {
+          syncedValue.push(existing);
+        } else {
+          syncedValue.push(placeholder);
+        }
+      });
+
+      // assign it to your local syncedValue (no prop mutation)
+      this.syncedValue = syncedValue;
+
+      this.syncedValue.forEach((placeholder, index) => {
         if (!this.isTruthyObject(placeholder)) {
           return;
         }
@@ -691,7 +713,7 @@ export default {
           }
 
           let newPlaceholder = JSON.parse(
-            JSON.stringify(this.placeholdersMap[placeholder.placeholderKey])
+            JSON.stringify(this.placeholdersMap[placeholder.placeholderKey]),
           );
           newPlaceholder.placeholders = [];
           let targetPlaceholderIndex = this.placeholders.length;
@@ -731,7 +753,7 @@ export default {
         Vue.set(
           this.card_options,
           section,
-          JSON.parse(JSON.stringify(this.cardOptions[section]))
+          JSON.parse(JSON.stringify(this.cardOptions[section])),
         );
       }
     },
@@ -789,7 +811,7 @@ export default {
         Vue.set(
           this.placeholdersMap,
           placeholderItem.placeholderKey,
-          placeholderItem
+          placeholderItem,
         );
 
         if (placeholderItem.type === "placeholder_item") {
@@ -818,7 +840,7 @@ export default {
             (placeholderSubItem, subPlaceholderIndex) => {
               if (
                 this.placeholdersMap.hasOwnProperty(
-                  placeholderSubItem.placeholderKey
+                  placeholderSubItem.placeholderKey,
                 )
               ) {
                 placeholderItem.placeholders.splice(subPlaceholderIndex, 1);
@@ -828,21 +850,20 @@ export default {
               Vue.set(
                 this.placeholdersMap,
                 placeholderSubItem.placeholderKey,
-                placeholderSubItem
+                placeholderSubItem,
               );
 
-              const placeholderItemData = sanitizePlaceholderData(
-                placeholderSubItem
-              );
+              const placeholderItemData =
+                sanitizePlaceholderData(placeholderSubItem);
 
               if (placeholderItemData) {
                 placeholderItem.placeholders.splice(
                   subPlaceholderIndex,
                   1,
-                  placeholderItemData
+                  placeholderItemData,
                 );
               }
-            }
+            },
           );
 
           if (placeholderItem.placeholders.length) {
@@ -952,7 +973,7 @@ export default {
       dest_path.selectedWidgets.splice(
         dest_index,
         0,
-        this.currentDraggingWidget.key
+        this.currentDraggingWidget.key,
       );
 
       this.onDragEndWidget();
@@ -1050,7 +1071,7 @@ export default {
       Vue.set(
         this.card_option_widgets[options_window.widget].options,
         "fields",
-        data
+        data,
       );
     },
 

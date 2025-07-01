@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 // Return early when review is disabled.
 if ( ! directorist_is_review_enabled() ) {
-	return;
+    return;
 }
 
 $count       = $listing->get_review_count();
@@ -18,8 +18,8 @@ $review_text = sprintf( _nx( '(%s Review)', '(%s Reviews)', $count, 'Review coun
 
 <span class="directorist-info-item directorist-rating-meta directorist-info-item-rating">
 
-	<?php directorist_icon( 'las la-star' ); ?><?php echo esc_html( $listing->get_rating_count() );?>
-	
-	<span class="directorist-review"><?php echo esc_html( $review_text ); ?></span>
+    <?php directorist_icon( 'las la-star' ); ?><?php echo esc_html( $listing->get_rating_count() );?>
+    
+    <span class="directorist-review"><?php echo esc_html( $review_text ); ?></span>
 
 </span>

@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 // Return early when review is disabled.
 if ( ! directorist_is_review_enabled() ) {
-	return;
+    return;
 }
 
 $count       = $listing->get_review_count();

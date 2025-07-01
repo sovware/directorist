@@ -20,7 +20,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
-          ref: ${{ github.event.pull_request.base.ref }}
+          # checkout the PR branch, not the base
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0        # ensures full history
 
         # Step 2: Set up PHP 7.4 with necessary configurations. Also, install the "cs2pr" tool for converting PHPCS output into annotations.
       - name: Setup PHP
@@ -35,6 +37,6 @@ jobs:
       - name: Install Composer dependencies
         run: composer install
 
-        # Step 4: Run the PHPCS check using the "composer report" command to detect coding standard violations.
+        # Step 4: Run the PHPCS check using the "composer phpcs" command to detect coding standard violations.
       - name: Run PHPCS checks
-        run: composer report
+        run: composer phpcs

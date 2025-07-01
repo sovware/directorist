@@ -5,10 +5,10 @@
 window.addEventListener('load', function () {
   (function ($) {
     $('table.posts #the-list, table.pages #the-list').sortable({
-      'items': 'tr',
-      'axis': 'y',
-      'helper': fixHelper,
-      'update': function update() {
+      items: 'tr',
+      axis: 'y',
+      helper: fixHelper,
+      update: function update() {
         $.post(ajaxurl, {
           action: 'update-menu-order',
           order: $('#the-list').sortable('serialize')
@@ -16,10 +16,10 @@ window.addEventListener('load', function () {
       }
     });
     $('table.tags #the-list').sortable({
-      'items': 'tr',
-      'axis': 'y',
-      'helper': fixHelper,
-      'update': function update() {
+      items: 'tr',
+      axis: 'y',
+      helper: fixHelper,
+      update: function update() {
         $.post(ajaxurl, {
           action: 'update-menu-order-tags',
           order: $('#the-list').sortable('serialize')

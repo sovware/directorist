@@ -226,7 +226,6 @@ function applyDrag(arr, dragResult) {
   }
   return result;
 }
-;
 
 /***/ }),
 
@@ -708,7 +707,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 /* harmony default export */ __webpack_exports__["default"] = ({
   mixins: [_input_field_props_js__WEBPACK_IMPORTED_MODULE_2__["default"]],
   components: {
-    "v-input-colorpicker": (vue_native_color_picker__WEBPACK_IMPORTED_MODULE_1___default())
+    'v-input-colorpicker': (vue_native_color_picker__WEBPACK_IMPORTED_MODULE_1___default())
   },
   model: {
     prop: 'value',
@@ -834,7 +833,7 @@ var axios = (__webpack_require__(/*! axios */ "./node_modules/axios/index.js")["
       });
     },
     downloadURI: function downloadURI(name, uri) {
-      var link = document.createElement("a");
+      var link = document.createElement('a');
       link.download = name;
       link.href = uri;
       document.body.appendChild(link);
@@ -845,7 +844,7 @@ var axios = (__webpack_require__(/*! axios */ "./node_modules/axios/index.js")["
       if (!Array.isArray(this.data)) {
         return;
       }
-      var dataStr = "data:text/csv;charset=utf-8,";
+      var dataStr = 'data:text/csv;charset=utf-8,';
       var tr_count = 0;
       var delimeter = ',';
       var table = this.justifyTable(this.data);
@@ -865,7 +864,7 @@ var axios = (__webpack_require__(/*! axios */ "./node_modules/axios/index.js")["
               header_row_array.push("\"".concat(td, "\""));
             }
             var header_row = header_row_array.join(delimeter);
-            dataStr += header_row + "\r\n";
+            dataStr += header_row + '\r\n';
           }
 
           // Body Row
@@ -875,7 +874,7 @@ var axios = (__webpack_require__(/*! axios */ "./node_modules/axios/index.js")["
             body_row_array.push("\"".concat(data, "\""));
           }
           var body_row = body_row_array.join(delimeter);
-          dataStr += body_row + "\r\n";
+          dataStr += body_row + '\r\n';
           tr_count++;
         }
       } catch (err) {
@@ -1739,8 +1738,8 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 /* harmony default export */ __webpack_exports__["default"] = ({
   mixins: [_input_field_props_js__WEBPACK_IMPORTED_MODULE_3__["default"], _helpers__WEBPACK_IMPORTED_MODULE_2__["default"]],
   model: {
-    prop: "value",
-    event: "update"
+    prop: 'value',
+    event: 'update'
   },
   created: function created() {
     this.setup();
@@ -1748,28 +1747,28 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   watch: {
     theOptions: function theOptions() {
       if (!this.valueIsValid(this.value)) {
-        this.$emit("update", "");
+        this.$emit('update', '');
       }
     }
   },
   computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapState)({
-    fields: "fields"
+    fields: 'fields'
   })), {}, {
     theDefaultOption: function theDefaultOption() {
-      if (this.defaultOption && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.defaultOption) === "object") {
+      if (this.defaultOption && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.defaultOption) === 'object') {
         return this.defaultOption;
       }
       return {
-        value: "",
-        label: "Select..."
+        value: '',
+        label: 'Select...'
       };
     },
     theCurrentOptionLabel: function theCurrentOptionLabel() {
       if (!this.optionsInObject) {
-        return "";
+        return '';
       }
-      if (typeof this.optionsInObject[this.value] === "undefined") {
-        return this.theDefaultOption.value == this.value && this.theDefaultOption.label ? this.theDefaultOption.label : "";
+      if (typeof this.optionsInObject[this.value] === 'undefined') {
+        return this.theDefaultOption.value == this.value && this.theDefaultOption.label ? this.theDefaultOption.label : '';
       }
       return this.optionsInObject[this.value];
     },
@@ -1777,26 +1776,26 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       if (this.hasOptionsSource) {
         return this.parseOptions(this.hasOptionsSource);
       }
-      if (!this.options || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.options) !== "object") {
+      if (!this.options || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.options) !== 'object') {
         return this.defaultOption ? [this.defaultOption] : [];
       }
       return this.parseOptions(this.options);
     },
     hasOptionsSource: function hasOptionsSource() {
-      if (!this.optionsSource || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.optionsSource) !== "object") {
+      if (!this.optionsSource || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.optionsSource) !== 'object') {
         return false;
       }
-      if (typeof this.optionsSource.where !== "string") {
+      if (typeof this.optionsSource.where !== 'string') {
         return false;
       }
       var terget_fields = this.getTergetFields({
         path: this.optionsSource.where
       });
-      if (!terget_fields || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(terget_fields) !== "object") {
+      if (!terget_fields || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(terget_fields) !== 'object') {
         return false;
       }
       var filter_by = null;
-      if (typeof this.optionsSource.filter_by === "string" && this.optionsSource.filter_by.length) {
+      if (typeof this.optionsSource.filter_by === 'string' && this.optionsSource.filter_by.length) {
         filter_by = this.optionsSource.filter_by;
       }
       if (filter_by) {
@@ -1805,7 +1804,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         });
       }
       var has_sourcemap = false;
-      if (this.optionsSource.source_map && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.optionsSource.source_map) === "object") {
+      if (this.optionsSource.source_map && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.optionsSource.source_map) === 'object') {
         has_sourcemap = true;
       }
       if (!has_sourcemap && !filter_by) {
@@ -1817,7 +1816,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       if (filter_by) {
         terget_fields = this.filterDataByValue(terget_fields, filter_by);
       }
-      if (!terget_fields && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(terget_fields) !== "object") {
+      if (!terget_fields && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(terget_fields) !== 'object') {
         return false;
       }
       return terget_fields;
@@ -1838,20 +1837,20 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   },
   methods: {
     setup: function setup() {
-      if (this.defaultOption || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.defaultOption) === "object") {
+      if (this.defaultOption || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.defaultOption) === 'object') {
         this.default_option = this.defaultOption;
       }
       this.optionsInObject = this.convertOptionsToObject();
       if (!this.valueIsValid(this.value)) {
-        this.$emit("update", "");
+        this.$emit('update', '');
       }
       var self = this;
-      document.addEventListener("click", function () {
+      document.addEventListener('click', function () {
         self.show_option_modal = false;
       });
     },
     update_value: function update_value(value) {
-      this.$emit("update", value);
+      this.$emit('update', value);
     },
     updateOption: function updateOption(value) {
       this.update_value(value);
@@ -1886,17 +1885,17 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       }
       var option_object = {};
       for (var option in this.theOptions) {
-        if (typeof this.theOptions[option].value === "undefined") {
+        if (typeof this.theOptions[option].value === 'undefined') {
           continue;
         }
-        var label = this.theOptions[option].label ? this.theOptions[option].label : "";
+        var label = this.theOptions[option].label ? this.theOptions[option].label : '';
         option_object[this.theOptions[option].value] = label;
       }
       return option_object;
     }
     /* syncValidationWithLocalState( validation_log ) {
-            return validation_log;
-        } */
+              return validation_log;
+          } */
   }
 });
 
@@ -1981,7 +1980,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         pattern_find = args.find;
       }
       if (args.find_regex) {
-        pattern_find = new RegExp(args.find_regex, "g");
+        pattern_find = new RegExp(args.find_regex, 'g');
       }
       if (args.replace && typeof args.replace === 'string') {
         replace_text = args.replace;
@@ -2004,7 +2003,6 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       } else {
         value = value.replace(pattern_find, replace_text);
       }
-      ;
       return value;
     },
     lowercase: function lowercase(value, args) {
@@ -2014,7 +2012,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         pattern_find = args.find;
       }
       if (args.find_regex) {
-        pattern_find = new RegExp(args.find_regex, "g");
+        pattern_find = new RegExp(args.find_regex, 'g');
       }
       var subject = pattern_find.exec(value);
       if (!subject) return value;
@@ -2031,7 +2029,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         var range = document.body.createTextRange();
         range.moveToElementText(this.$refs.shortcode);
         range.select().createTextRange();
-        document.execCommand("copy");
+        document.execCommand('copy');
         this.successMsg = 'Copied to clipboard';
         setTimeout(this.clearSuccessMessage, 2000);
       } else if (window.getSelection) {
@@ -2039,7 +2037,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         range.selectNode(this.$refs.shortcode);
         window.getSelection().removeAllRanges();
         window.getSelection().addRange(range);
-        document.execCommand("copy");
+        document.execCommand('copy');
         this.successMsg = 'Copied to clipboard';
         setTimeout(this.clearSuccessMessage, 2000);
       }
@@ -2313,7 +2311,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         pattern_find = args.find;
       }
       if (args.find_regex) {
-        pattern_find = new RegExp(args.find_regex, "g");
+        pattern_find = new RegExp(args.find_regex, 'g');
       }
       if (args.replace && typeof args.replace === 'string') {
         replace_text = args.replace;
@@ -2336,7 +2334,6 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       } else {
         value = value.replace(pattern_find, replace_text);
       }
-      ;
       return value;
     },
     lowercase: function lowercase(value, args) {
@@ -2348,7 +2345,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         pattern_find = args.find;
       }
       if (args.find_regex) {
-        pattern_find = new RegExp(args.find_regex, "g");
+        pattern_find = new RegExp(args.find_regex, 'g');
       }
       if (!pattern_find) {
         return value.toLowerCase();
@@ -2373,7 +2370,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         var range = document.body.createTextRange();
         range.moveToElementText(ref_elm);
         range.select().createTextRange();
-        document.execCommand("copy");
+        document.execCommand('copy');
         this.successMsg = 'Copied';
         setTimeout(this.clearSuccessMessage, 2000);
       } else if (window.getSelection) {
@@ -2381,7 +2378,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         range.selectNode(ref_elm);
         window.getSelection().removeAllRanges();
         window.getSelection().addRange(range);
-        document.execCommand("copy");
+        document.execCommand('copy');
         this.successMsg = 'Copied';
         setTimeout(this.clearSuccessMessage, 2000);
       }
@@ -2597,11 +2594,11 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         'password-field': 'password',
         'date-field': 'date',
         'hidden-field': 'hidden',
-        'text': 'text',
-        'number': 'number',
-        'password': 'password',
-        'date': 'date',
-        'hidden': 'hidden'
+        text: 'text',
+        number: 'number',
+        password: 'password',
+        date: 'date',
+        hidden: 'hidden'
       };
       if (typeof supported_types[this.type] !== 'undefined') {
         return supported_types[this.type];
@@ -2630,7 +2627,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   },
   methods: {
     decodeEntity: function decodeEntity(inputStr) {
-      var textarea = document.createElement("textarea");
+      var textarea = document.createElement('textarea');
       textarea.innerHTML = inputStr;
       return textarea.value;
     }
@@ -2728,7 +2725,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   computed: {
     toggleClass: function toggleClass() {
       return {
-        'active': this.local_value
+        active: this.local_value
       };
     },
     link: function link() {
@@ -3018,7 +3015,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         this.$emit('do-action', payload);
         return;
       }
-      if (typeof this[payload.action] !== "function") {
+      if (typeof this[payload.action] !== 'function') {
         return;
       }
       this[payload.action](payload.args);
@@ -3093,7 +3090,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
           return item;
         }
         if (!value_is_text && !value_is_array) {
-          // console.log( 'no filter', item.value, value );   
+          // console.log( 'no filter', item.value, value );
           return item;
         }
       });
@@ -3102,7 +3099,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       var root = this.fields;
       var isChangeable = false;
 
-      // Extract from payload   
+      // Extract from payload
       var condition = payload.condition,
         fieldKey = payload.fieldKey;
       var currentField = root[fieldKey];
@@ -3114,7 +3111,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       try {
         for (_iterator.s(); !(_step = _iterator.n()).done;) {
           var item = _step.value;
-          if (item.key === "value" && item.compare === "=") {
+          if (item.key === 'value' && item.compare === '=') {
             // Compare the value
             if (conditionField && conditionField.value === item.value) {
               isChangeable = true;
@@ -12220,10 +12217,17 @@ vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_1_
     },
     importFields: function importFields(state, importing_fields) {
       for (var field_key in importing_fields) {
-        if (typeof importing_fields[field_key] === 'undefined') {
+        var importValue = importing_fields[field_key];
+        if (typeof importValue === 'undefined') {
           continue;
         }
-        vue__WEBPACK_IMPORTED_MODULE_0__["default"].set(state.fields[field_key], 'value', importing_fields[field_key]);
+
+        // Skip if the field is not in the state
+        if (state.fields[field_key]) {
+          vue__WEBPACK_IMPORTED_MODULE_0__["default"].set(state.fields[field_key], 'value', importValue);
+        } else {
+          continue;
+        }
       }
     }
   },

@@ -36,15 +36,15 @@
     $('body').on('click', '.directorist-alphabet', function (e) {
       e.preventDefault();
       var _this = $(this);
-      var alphabet = $(this).attr("data-alphabet");
+      var alphabet = $(this).attr('data-alphabet');
       $('body').addClass('atbdp-form-fade');
       $.ajax({
         method: 'POST',
         url: directorist.ajaxurl,
         data: {
           action: 'directorist_author_alpha_sorting',
-          _nonce: $(this).attr("data-nonce"),
-          alphabet: $(this).attr("data-alphabet")
+          _nonce: $(this).attr('data-nonce'),
+          alphabet: $(this).attr('data-alphabet')
         },
         success: function success(response) {
           $('#directorist-all-authors').empty().append(response);
@@ -87,7 +87,6 @@
           } else if ($('.directorist-authors__nav').length) {
             $('.directorist-authors__nav ul li:first-child').addClass('active');
           }
-          ;
         },
         error: function error(_error2) {
           //console.log(error);

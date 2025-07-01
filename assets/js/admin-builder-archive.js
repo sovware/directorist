@@ -168,7 +168,7 @@ window.addEventListener('load', function () {
 
         modal_content.addClass('cptm-d-none');
         modal_alert.removeClass('cptm-d-none');
-        $(self).trigger("reset");
+        $(self).trigger('reset');
         location.reload();
       }
     }).catch(function (error) {
@@ -2447,12 +2447,12 @@ function initializeKeyword() {
   var tagList = []; // Internal list for selected keywords
   var maxFreeTags = 5; // Max item limit for all users
 
-  var tagListElem = document.getElementById("directorist-box__tagList");
-  var newTagElem = document.getElementById("directorist-box__newTag");
-  var recommendedTagsElem = document.getElementById("directorist-recommendedTags");
-  var recommendedTags = Array.from(recommendedTagsElem.getElementsByTagName("li"));
-  var tagLimitMsgElem = document.getElementById("directorist-tagLimitMsg");
-  var tagCountElem = document.getElementById("directorist-tagCount");
+  var tagListElem = document.getElementById('directorist-box__tagList');
+  var newTagElem = document.getElementById('directorist-box__newTag');
+  var recommendedTagsElem = document.getElementById('directorist-recommendedTags');
+  var recommendedTags = Array.from(recommendedTagsElem.getElementsByTagName('li'));
+  var tagLimitMsgElem = document.getElementById('directorist-tagLimitMsg');
+  var tagCountElem = document.getElementById('directorist-tagCount');
   var canAddMoreTags = function canAddMoreTags() {
     return tagList.length < maxFreeTags;
   };
@@ -2465,7 +2465,7 @@ function initializeKeyword() {
   // Update the tag count and recommended tags state
   var updateTagCount = function updateTagCount() {
     tagCountElem.textContent = "".concat(tagList.length, "/").concat(maxFreeTags);
-    tagLimitMsgElem.style.display = "flex";
+    tagLimitMsgElem.style.display = 'flex';
     recommendedTagsElem.classList.toggle('recommend-disable', !canAddMoreTags());
   };
 
@@ -2505,8 +2505,8 @@ function initializeKeyword() {
   };
 
   // Event listener for adding tags via input
-  newTagElem.addEventListener("keyup", function (e) {
-    if (e.key === "Enter") {
+  newTagElem.addEventListener('keyup', function (e) {
+    if (e.key === 'Enter') {
       var newTag = newTagElem.value.trim();
       addTag(newTag);
       newTagElem.value = '';
@@ -2514,16 +2514,16 @@ function initializeKeyword() {
   });
 
   // Event delegation for removing tags
-  tagListElem.addEventListener("click", function (e) {
-    if (e.target.classList.contains("directorist-rmTag")) {
+  tagListElem.addEventListener('click', function (e) {
+    if (e.target.classList.contains('directorist-rmTag')) {
       var index = Array.from(tagListElem.children).indexOf(e.target.parentElement);
       removeTag(index);
     }
   });
 
   // Event listener for adding recommended tags
-  recommendedTagsElem.addEventListener("click", function (e) {
-    if (e.target.tagName === "LI" && !e.target.classList.contains("disabled")) {
+  recommendedTagsElem.addEventListener('click', function (e) {
+    if (e.target.tagName === 'LI' && !e.target.classList.contains('disabled')) {
       addTag(e.target.textContent.trim());
     }
   });
@@ -2542,11 +2542,11 @@ function initializeProgressBar(finalProgress) {
     $('#directorist-create-directory__generating .directory-img #directory-img__generating').show();
     $('#directorist-create-directory__generating .directory-img #directory-img__building').hide();
   }
-  var generateBtnWrapper = document.querySelector(".directory-generate-btn__wrapper");
-  var btnPercentage = document.querySelector(".directory-generate-btn__percentage");
-  var progressBar = document.querySelector(".directory-generate-btn--bg");
+  var generateBtnWrapper = document.querySelector('.directory-generate-btn__wrapper');
+  var btnPercentage = document.querySelector('.directory-generate-btn__percentage');
+  var progressBar = document.querySelector('.directory-generate-btn--bg');
   if (generateBtnWrapper) {
-    var finalWidth = generateBtnWrapper.getAttribute("data-width");
+    var finalWidth = generateBtnWrapper.getAttribute('data-width');
     var currentWidth = 0;
     var intervalDuration = 20; // Interval time in milliseconds
     var increment = finalWidth / (2000 / intervalDuration);
@@ -2580,7 +2580,7 @@ function initializeProgressBar(finalProgress) {
     };
     var progressInterval = setInterval(updateProgress, intervalDuration);
   }
-  var steps = document.querySelectorAll(".directory-generate-progress-list li");
+  var steps = document.querySelectorAll('.directory-generate-progress-list li');
 
   // Update the progress list based on the current progress
   var updateProgressList = function updateProgressList(progress) {
@@ -2589,20 +2589,20 @@ function initializeProgressBar(finalProgress) {
         var stepNumber = index + 1;
         var stepThreshold = stepNumber * (100 / steps.length);
         if (progress >= stepThreshold) {
-          step.setAttribute("data-type", "completed");
-          step.querySelector(".completed-icon").style.display = "block";
-          step.querySelector(".progress-icon").style.display = "none";
-          step.querySelector(".default-icon").style.display = "none";
+          step.setAttribute('data-type', 'completed');
+          step.querySelector('.completed-icon').style.display = 'block';
+          step.querySelector('.progress-icon').style.display = 'none';
+          step.querySelector('.default-icon').style.display = 'none';
         } else if (progress < stepThreshold && progress >= stepThreshold - 100 / steps.length) {
-          step.setAttribute("data-type", "progress");
-          step.querySelector(".completed-icon").style.display = "none";
-          step.querySelector(".progress-icon").style.display = "block";
-          step.querySelector(".default-icon").style.display = "none";
+          step.setAttribute('data-type', 'progress');
+          step.querySelector('.completed-icon').style.display = 'none';
+          step.querySelector('.progress-icon').style.display = 'block';
+          step.querySelector('.default-icon').style.display = 'none';
         } else {
-          step.setAttribute("data-type", "default");
-          step.querySelector(".completed-icon").style.display = "none";
-          step.querySelector(".progress-icon").style.display = "none";
-          step.querySelector(".default-icon").style.display = "block";
+          step.setAttribute('data-type', 'default');
+          step.querySelector('.completed-icon').style.display = 'none';
+          step.querySelector('.progress-icon').style.display = 'none';
+          step.querySelector('.default-icon').style.display = 'block';
         }
       });
     }
@@ -2611,7 +2611,7 @@ function initializeProgressBar(finalProgress) {
 
 //Function to initialize Dropdown
 function initializeDropdownField() {
-  var dropdowns = document.querySelectorAll(".directorist-ai-generate-dropdown");
+  var dropdowns = document.querySelectorAll('.directorist-ai-generate-dropdown');
   var accordion = true;
   $('#directorist-create-directory__ai-fields .fields-count').html(dropdowns.length);
   var pinnedIconSVG = "\n        <svg width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n            <path d=\"M10.9189 3.03837C11.1788 2.43195 11.3088 2.12874 11.5188 1.99101C11.7024 1.87057 11.9262 1.82748 12.1414 1.87111C12.3875 1.921 12.6208 2.15426 13.0873 2.62078L17.3732 6.90673C17.8398 7.37325 18.073 7.60651 18.1229 7.85263C18.1665 8.06786 18.1234 8.29161 18.003 8.47524C17.8653 8.68523 17.5621 8.81517 16.9556 9.07507L14.877 9.96591C14.7888 10.0037 14.7447 10.0226 14.7034 10.0462C14.6667 10.0672 14.6316 10.0909 14.5985 10.1173C14.5612 10.1469 14.5273 10.1808 14.4594 10.2486L13.1587 11.5494C13.0526 11.6555 12.9995 11.7085 12.9574 11.769C12.92 11.8226 12.889 11.8805 12.8651 11.9414C12.8382 12.01 12.8235 12.0835 12.7941 12.2307L12.1833 15.2844C12.0246 16.078 11.9452 16.4748 11.736 16.6604C11.5538 16.8221 11.3099 16.896 11.0685 16.8625C10.7915 16.8241 10.5053 16.538 9.93307 15.9657L4.02829 10.0609C3.45602 9.48868 3.16989 9.20255 3.13148 8.9255C3.09802 8.68415 3.17187 8.44024 3.33359 8.25798C3.51923 8.04877 3.91602 7.96941 4.70961 7.8107L7.76333 7.19995C7.91047 7.17052 7.98403 7.15581 8.05264 7.1289C8.11353 7.10502 8.1714 7.07405 8.22505 7.03663C8.28549 6.99447 8.33854 6.94142 8.44465 6.83532L9.74539 5.53458C9.81322 5.46674 9.84714 5.43282 9.87676 5.39554C9.90307 5.36242 9.92681 5.32734 9.9478 5.29061C9.97142 5.24927 9.99031 5.20518 10.0281 5.117L10.9189 3.03837Z\" fill=\"#141921\"/>\n            <path d=\"M6.98065 13.0133L2.2666 17.7274M9.74539 5.53458L8.44465 6.83532C8.33854 6.94142 8.28549 6.99447 8.22505 7.03663C8.1714 7.07405 8.11353 7.10502 8.05264 7.1289C7.98403 7.15581 7.91047 7.17052 7.76333 7.19995L4.70961 7.8107C3.91602 7.96941 3.51923 8.04877 3.33359 8.25798C3.17187 8.44024 3.09802 8.68415 3.13148 8.9255C3.16989 9.20255 3.45602 9.48868 4.02829 10.0609L9.93307 15.9657C10.5053 16.538 10.7915 16.8241 11.0685 16.8625C11.3099 16.896 11.5538 16.8221 11.736 16.6604C11.9452 16.4748 12.0246 16.078 12.1833 15.2844L12.7941 12.2307C12.8235 12.0835 12.8382 12.01 12.8651 11.9414C12.889 11.8805 12.92 11.8226 12.9574 11.769C12.9995 11.7085 13.0526 11.6555 13.1587 11.5494L14.4594 10.2486C14.5273 10.1808 14.5612 10.1469 14.5985 10.1173C14.6316 10.0909 14.6667 10.0672 14.7034 10.0462C14.7447 10.0226 14.7888 10.0037 14.877 9.96591L16.9556 9.07507C17.5621 8.81517 17.8653 8.68523 18.003 8.47524C18.1234 8.29161 18.1665 8.06786 18.1229 7.85263C18.073 7.60651 17.8398 7.37325 17.3732 6.90673L13.0873 2.62078C12.6208 2.15426 12.3875 1.921 12.1414 1.87111C11.9262 1.82748 11.7024 1.87057 11.5188 1.99101C11.3088 2.12874 11.1788 2.43195 10.9189 3.03837L10.0281 5.117C9.99031 5.20518 9.97142 5.24927 9.9478 5.29061C9.92681 5.32734 9.90307 5.36242 9.87676 5.39554C9.84714 5.43282 9.81322 5.46674 9.74539 5.53458Z\" stroke=\"#141921\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n        </svg>\n    ";
@@ -2619,24 +2619,24 @@ function initializeDropdownField() {
 
   // Initialize each dropdown
   dropdowns.forEach(function (dropdown) {
-    var header = dropdown.querySelector(".directorist-ai-generate-dropdown__header.has-options");
-    var content = dropdown.querySelector(".directorist-ai-generate-dropdown__content");
-    var icon = dropdown.querySelector(".directorist-ai-generate-dropdown__header-icon");
-    var pinIcon = dropdown.querySelector(".directorist-ai-generate-dropdown__pin-icon");
+    var header = dropdown.querySelector('.directorist-ai-generate-dropdown__header.has-options');
+    var content = dropdown.querySelector('.directorist-ai-generate-dropdown__content');
+    var icon = dropdown.querySelector('.directorist-ai-generate-dropdown__header-icon');
+    var pinIcon = dropdown.querySelector('.directorist-ai-generate-dropdown__pin-icon');
     var dropdownItem = dropdown.closest('.directorist-ai-generate-box__item');
 
     // Pin Field
-    pinIcon.addEventListener("click", function (event) {
+    pinIcon.addEventListener('click', function (event) {
       event.stopPropagation();
-      if (dropdownItem.classList.contains("pinned")) {
-        dropdownItem.classList.remove("pinned");
-        dropdownItem.classList.add("unpinned");
+      if (dropdownItem.classList.contains('pinned')) {
+        dropdownItem.classList.remove('pinned');
+        dropdownItem.classList.add('unpinned');
 
         // Change to pinned SVG
         pinIcon.innerHTML = unpinnedIconSVG;
       } else {
-        dropdownItem.classList.remove("unpinned");
-        dropdownItem.classList.add("pinned");
+        dropdownItem.classList.remove('unpinned');
+        dropdownItem.classList.add('pinned');
 
         // Change to pinned SVG
         pinIcon.innerHTML = pinnedIconSVG;
@@ -2647,26 +2647,26 @@ function initializeDropdownField() {
     });
 
     // Toggle the dropdown content
-    header && header.addEventListener("click", function (event) {
+    header && header.addEventListener('click', function (event) {
       if (event.target === pinIcon || pinIcon.contains(event.target)) {
         return;
       }
-      var isExpanded = content && content.classList.toggle("directorist-ai-generate-dropdown__content--expanded");
-      dropdown.setAttribute("aria-expanded", isExpanded);
-      content.setAttribute("aria-expanded", isExpanded);
-      icon.classList.toggle("rotate", isExpanded);
+      var isExpanded = content && content.classList.toggle('directorist-ai-generate-dropdown__content--expanded');
+      dropdown.setAttribute('aria-expanded', isExpanded);
+      content.setAttribute('aria-expanded', isExpanded);
+      icon.classList.toggle('rotate', isExpanded);
       if (accordion) {
         dropdowns.forEach(function (otherDropdown) {
           if (otherDropdown !== dropdown) {
-            var otherContent = otherDropdown.querySelector(".directorist-ai-generate-dropdown__content");
-            var otherIcon = otherDropdown.querySelector(".directorist-ai-generate-dropdown__header-icon");
-            otherDropdown.setAttribute("aria-expanded", false);
+            var otherContent = otherDropdown.querySelector('.directorist-ai-generate-dropdown__content');
+            var otherIcon = otherDropdown.querySelector('.directorist-ai-generate-dropdown__header-icon');
+            otherDropdown.setAttribute('aria-expanded', false);
             if (otherContent) {
-              otherContent.classList.remove("directorist-ai-generate-dropdown__content--expanded");
-              otherContent.setAttribute("aria-expanded", false);
+              otherContent.classList.remove('directorist-ai-generate-dropdown__content--expanded');
+              otherContent.setAttribute('aria-expanded', false);
             }
             if (otherIcon) {
-              otherIcon.classList.remove("rotate");
+              otherIcon.classList.remove('rotate');
             }
           }
         });
@@ -2889,7 +2889,6 @@ function handleAIFormResponse(response) {
     console.error(response === null || response === void 0 ? void 0 : response.data);
   }
 }
-;
 
 // Generate AI Directory Form Submission Handler
 $('body').on('click', '.directorist_generate_ai_directory', function (e) {
@@ -2917,7 +2916,7 @@ $('body').on('click', '.directorist_generate_ai_directory', function (e) {
     $('.directorist-create-directory__content').addClass('full-width');
     $('#directorist-create-directory__preview-btn').addClass('disabled');
     $('#directorist-create-directory__generating .directory-title').html('Directory AI is Building your directory... ');
-    $('#directorist-create-directory__generating .directory-description').html('We\'re using your infomation to finalize your directory fields.');
+    $('#directorist-create-directory__generating .directory-description').html("We're using your infomation to finalize your directory fields.");
     initializeProgressBar('finalProgress');
   }
   handleCreateButtonDisable();
@@ -2936,7 +2935,7 @@ $('body').on('click', '.directorist_generate_ai_directory', function (e) {
   }).catch(function (error) {
     var _error$response$data, _error$response$data2;
     if (((_error$response$data = error.response.data) === null || _error$response$data === void 0 ? void 0 : _error$response$data.success) === false && ((_error$response$data2 = error.response.data) === null || _error$response$data2 === void 0 || (_error$response$data2 = _error$response$data2.data) === null || _error$response$data2 === void 0 ? void 0 : _error$response$data2.code) === 'limit_exceeded') {
-      alert('🙌 You\'ve exceeded the request/site beta limit.');
+      alert("🙌 You've exceeded the request/site beta limit.");
     }
     handleCreateButtonEnable();
     console.error(error.response.data);
@@ -2966,7 +2965,7 @@ $('body').on('click', '.directorist_regenerate_fields', function (e) {
   }).catch(function (error) {
     var _error$response$data3, _error$response$data4;
     if (((_error$response$data3 = error.response.data) === null || _error$response$data3 === void 0 ? void 0 : _error$response$data3.success) === false && ((_error$response$data4 = error.response.data) === null || _error$response$data4 === void 0 || (_error$response$data4 = _error$response$data4.data) === null || _error$response$data4 === void 0 ? void 0 : _error$response$data4.code) === 'limit_exceeded') {
-      alert('🙌 You\'ve exceeded the request/site beta limit.');
+      alert("🙌 You've exceeded the request/site beta limit.");
     }
     $(_this).removeClass('loading');
     console.error(error.response.data);

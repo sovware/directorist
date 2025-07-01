@@ -13,15 +13,15 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
   function allListingSlider() {
     /* Check Slider Data */
     var checkData = function checkData(data, value) {
-      return typeof data === "undefined" ? value : data;
+      return typeof data === 'undefined' ? value : data;
     };
 
     /* Swiper Slider Listing */
-    var swiperCarouselListing = document.querySelectorAll(".directorist-swiper-listing");
+    var swiperCarouselListing = document.querySelectorAll('.directorist-swiper-listing');
     swiperCarouselListing.forEach(function (el, i) {
-      var navBtnPrev = document.querySelectorAll(".directorist-swiper-listing .directorist-swiper__nav--prev-listing");
-      var navBtnNext = document.querySelectorAll(".directorist-swiper-listing .directorist-swiper__nav--next-listing");
-      var swiperPagination = document.querySelectorAll(".directorist-swiper-listing .directorist-swiper__pagination--listing");
+      var navBtnPrev = document.querySelectorAll('.directorist-swiper-listing .directorist-swiper__nav--prev-listing');
+      var navBtnNext = document.querySelectorAll('.directorist-swiper-listing .directorist-swiper__nav--next-listing');
+      var swiperPagination = document.querySelectorAll('.directorist-swiper-listing .directorist-swiper__pagination--listing');
       navBtnPrev.forEach(function (el, i) {
         el.classList.add("directorist-swiper__nav--prev-listing-".concat(i));
       });
@@ -44,17 +44,17 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         },
         pagination: {
           el: ".directorist-swiper__pagination--listing-".concat(i),
-          type: "bullets",
+          type: 'bullets',
           clickable: true
         },
         breakpoints: checkData(el.dataset.swResponsive ? JSON.parse(el.dataset.swResponsive) : undefined, {})
       };
 
       // Conditionally add autoplay property
-      var enableAutoplay = checkData(el.dataset.swAutoplay, "false");
+      var enableAutoplay = checkData(el.dataset.swAutoplay, 'false');
 
       // Conditionally add autoplay property
-      if (enableAutoplay === "true") {
+      if (enableAutoplay === 'true') {
         swiperConfig.autoplay = {
           delay: checkData(parseInt(el.dataset.swSpeed), 500),
           disableOnInteraction: false
@@ -64,12 +64,12 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     });
 
     /* Swiper Slider Related Listing */
-    var swiperCarouselRelated = document.querySelectorAll(".directorist-swiper-related-listing");
+    var swiperCarouselRelated = document.querySelectorAll('.directorist-swiper-related-listing');
     swiperCarouselRelated.forEach(function (el, i) {
       // Assign unique classes
-      var navBtnPrev = document.querySelectorAll(".directorist-swiper-related-listing .directorist-swiper__nav--prev-related");
-      var navBtnNext = document.querySelectorAll(".directorist-swiper-related-listing .directorist-swiper__nav--next-related");
-      var swiperPagination = document.querySelectorAll(".directorist-swiper-related-listing .directorist-swiper__pagination--related");
+      var navBtnPrev = document.querySelectorAll('.directorist-swiper-related-listing .directorist-swiper__nav--prev-related');
+      var navBtnNext = document.querySelectorAll('.directorist-swiper-related-listing .directorist-swiper__nav--next-related');
+      var swiperPagination = document.querySelectorAll('.directorist-swiper-related-listing .directorist-swiper__pagination--related');
       navBtnPrev.forEach(function (el, i) {
         return el.classList.add("directorist-swiper__nav--prev-related-".concat(i));
       });
@@ -82,7 +82,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       el.classList.add("directorist-swiper-related-listing-".concat(i));
 
       // Count slides directly from the DOM
-      var relatedWrapper = el.querySelector(".swiper-wrapper");
+      var relatedWrapper = el.querySelector('.swiper-wrapper');
       var totalSlides = relatedWrapper ? relatedWrapper.children.length : 0;
 
       // Get Data Attribute
@@ -111,14 +111,14 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
           },
           pagination: {
             el: ".directorist-swiper__pagination--related-".concat(i),
-            type: "bullets",
+            type: 'bullets',
             clickable: true
           },
           breakpoints: responsiveBreakPoints
         };
 
         // Add autoplay if enabled
-        if (checkData(el.dataset.swAutoplay, "false") === "true") {
+        if (checkData(el.dataset.swAutoplay, 'false') === 'true') {
           config.autoplay = {
             delay: checkData(parseInt(el.dataset.swSpeed), 500),
             disableOnInteraction: false,
@@ -155,23 +155,23 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       }
       function checkAndUpdateSwiper() {
         var currentSlidesPerView = getCurrentSlidesPerView();
-        var loopShouldBeEnabled = checkData(el.dataset.swLoop, false) === "true" && totalSlides > currentSlidesPerView;
+        var loopShouldBeEnabled = checkData(el.dataset.swLoop, false) === 'true' && totalSlides > currentSlidesPerView;
         if (loopShouldBeEnabled !== currentLoop) {
           initSwiper(loopShouldBeEnabled);
         }
 
         // Add class if only 1 bullet exists
         if (totalSlides === 1) {
-          el.classList.add("slider-has-one-item");
+          el.classList.add('slider-has-one-item');
         } else {
-          el.classList.remove("slider-has-one-item");
+          el.classList.remove('slider-has-one-item');
         }
 
         // Add or remove "less items" class
         if (totalSlides <= currentSlidesPerView) {
-          el.classList.add("slider-has-less-items");
+          el.classList.add('slider-has-less-items');
         } else {
-          el.classList.remove("slider-has-less-items");
+          el.classList.remove('slider-has-less-items');
         }
       }
 
@@ -179,27 +179,27 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       checkAndUpdateSwiper();
 
       // Recheck on window resize
-      window.addEventListener("resize", function () {
+      window.addEventListener('resize', function () {
         checkAndUpdateSwiper();
       });
     });
 
     /* Swiper Slider Single Listing */
-    var singleListingSlider = document.querySelectorAll(".directorist-single-listing-slider-wrap");
+    var singleListingSlider = document.querySelectorAll('.directorist-single-listing-slider-wrap');
     singleListingSlider.forEach(function (el, i) {
       // Get Data Attribute
-      var dataWidth = el.getAttribute("data-width");
-      var dataHeight = el.getAttribute("data-height");
-      var dataRTL = el.getAttribute("data-rtl");
-      var dataBackgroundColor = el.getAttribute("data-background-color");
-      var dataBackgroundSize = el.getAttribute("data-background-size");
-      var dataBackgroundBlur = el.getAttribute("data-blur-background");
-      var dataShowThumbnails = el.getAttribute("data-show-thumbnails");
-      var dataThumbnailsBackground = el.getAttribute("data-thumbnail-background-color");
+      var dataWidth = el.getAttribute('data-width');
+      var dataHeight = el.getAttribute('data-height');
+      var dataRTL = el.getAttribute('data-rtl');
+      var dataBackgroundColor = el.getAttribute('data-background-color');
+      var dataBackgroundSize = el.getAttribute('data-background-size');
+      var dataBackgroundBlur = el.getAttribute('data-blur-background');
+      var dataShowThumbnails = el.getAttribute('data-show-thumbnails');
+      var dataThumbnailsBackground = el.getAttribute('data-thumbnail-background-color');
 
       // Find Sliders
-      var swiperCarouselSingleListingThumb = el.querySelector(".directorist-single-listing-slider-thumb");
-      var swiperCarouselSingleListing = el.querySelector(".directorist-single-listing-slider");
+      var swiperCarouselSingleListingThumb = el.querySelector('.directorist-single-listing-slider-thumb');
+      var swiperCarouselSingleListing = el.querySelector('.directorist-single-listing-slider');
 
       // Single Listing Thumb Init
       var swiperSingleListingThumb = new Swiper(swiperCarouselSingleListingThumb, {
@@ -213,7 +213,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         },
         pagination: {
           el: ".directorist-swiper__pagination--single-listing-thumb",
-          type: "bullets",
+          type: 'bullets',
           clickable: true
         },
         breakpoints: {
@@ -238,7 +238,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
           }
         }
       });
-      var singleSliderTotalSlides = swiperCarouselSingleListing.querySelectorAll(".swiper-slide:not(.swiper-slide-duplicate)");
+      var singleSliderTotalSlides = swiperCarouselSingleListing.querySelectorAll('.swiper-slide:not(.swiper-slide-duplicate)');
       var singleSliderLoopEnable = singleSliderTotalSlides.length > 1;
 
       // Single Listing Slider Config
@@ -255,7 +255,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         },
         pagination: {
           el: ".directorist-swiper__pagination--single-listing",
-          type: "bullets",
+          type: 'bullets',
           clickable: true
         }
       };
@@ -273,65 +273,65 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       // Function to update blurred background
       var updateBlurredBackground = function updateBlurredBackground() {
         // Check if the blurred background element exists
-        var blurredBackground = swiperCarouselSingleListing.querySelector(".blurred-background");
+        var blurredBackground = swiperCarouselSingleListing.querySelector('.blurred-background');
 
         // If it doesn't exist, create it
         if (!blurredBackground) {
-          blurredBackground = document.createElement("div"); // Create a new div
-          blurredBackground.classList.add("blurred-background"); // Add the class
+          blurredBackground = document.createElement('div'); // Create a new div
+          blurredBackground.classList.add('blurred-background'); // Add the class
           swiperCarouselSingleListing.appendChild(blurredBackground); // Append it to the section
         }
 
         // Get the active slide image
-        var activeSlide = swiperCarouselSingleListing.querySelector(".swiper-slide-active img");
+        var activeSlide = swiperCarouselSingleListing.querySelector('.swiper-slide-active img');
         if (activeSlide) {
           var activeImageSrc = activeSlide.src; // Get the source of the active image
-          swiperCarouselSingleListing.style.backgroundColor = "transparent"; // Remove background color
+          swiperCarouselSingleListing.style.backgroundColor = 'transparent'; // Remove background color
           blurredBackground.style.backgroundImage = "url(".concat(activeImageSrc, ")"); // Set as background image
-          blurredBackground.style.backgroundSize = "cover"; // Ensure it covers the div
-          blurredBackground.style.filter = "blur(10px)"; // Apply blur
-          blurredBackground.style.position = "absolute"; // Position it behind other content
-          blurredBackground.style.top = "0";
-          blurredBackground.style.left = "0";
-          blurredBackground.style.right = "0";
-          blurredBackground.style.bottom = "0";
-          blurredBackground.style.transform = "scale(1.5)";
+          blurredBackground.style.backgroundSize = 'cover'; // Ensure it covers the div
+          blurredBackground.style.filter = 'blur(10px)'; // Apply blur
+          blurredBackground.style.position = 'absolute'; // Position it behind other content
+          blurredBackground.style.top = '0';
+          blurredBackground.style.left = '0';
+          blurredBackground.style.right = '0';
+          blurredBackground.style.bottom = '0';
+          blurredBackground.style.transform = 'scale(1.5)';
         }
       };
 
       // Attach the slideChangeTransitionEnd event listener
-      if (dataBackgroundBlur === "1") {
-        swiperSingleListing.on("slideChangeTransitionEnd", updateBlurredBackground); // Use slideChangeTransitionEnd here
+      if (dataBackgroundBlur === '1') {
+        swiperSingleListing.on('slideChangeTransitionEnd', updateBlurredBackground); // Use slideChangeTransitionEnd here
       }
 
       // Loop Destroy on Single Slider Item
-      var sliderItemsCount = swiperCarouselSingleListing.querySelectorAll(".directorist-swiper__pagination .swiper-pagination-bullet");
-      var swiperListingThumb = swiperCarouselSingleListing.parentElement.querySelector(".directorist-single-listing-slider-thumb");
+      var sliderItemsCount = swiperCarouselSingleListing.querySelectorAll('.directorist-swiper__pagination .swiper-pagination-bullet');
+      var swiperListingThumb = swiperCarouselSingleListing.parentElement.querySelector('.directorist-single-listing-slider-thumb');
       if (sliderItemsCount.length <= 1) {
         swiperSingleListing.loopDestroy();
-        swiperCarouselSingleListing.classList.add("slider-has-one-item");
+        swiperCarouselSingleListing.classList.add('slider-has-one-item');
         if (swiperListingThumb) {
-          swiperListingThumb.style.display = "none";
+          swiperListingThumb.style.display = 'none';
         }
       }
 
       // Add Styles
       if (swiperCarouselSingleListing) {
-        swiperCarouselSingleListing.dir = dataRTL !== "0" ? "rtl" : "ltr";
-        swiperCarouselSingleListing.style.width = dataWidth ? dataWidth + "px" : "100%";
-        swiperCarouselSingleListing.style.height = dataHeight ? dataHeight + "px" : "auto";
-        swiperCarouselSingleListing.style.backgroundSize = dataBackgroundSize ? dataBackgroundSize : "";
+        swiperCarouselSingleListing.dir = dataRTL !== '0' ? 'rtl' : 'ltr';
+        swiperCarouselSingleListing.style.width = dataWidth ? dataWidth + 'px' : '100%';
+        swiperCarouselSingleListing.style.height = dataHeight ? dataHeight + 'px' : 'auto';
+        swiperCarouselSingleListing.style.backgroundSize = dataBackgroundSize ? dataBackgroundSize : '';
 
         // Initial setup
-        if (dataBackgroundSize === "contain") {
-          swiperCarouselSingleListing.style.backgroundColor = dataBackgroundColor ? dataBackgroundColor : "transparent";
+        if (dataBackgroundSize === 'contain') {
+          swiperCarouselSingleListing.style.backgroundColor = dataBackgroundColor ? dataBackgroundColor : 'transparent';
 
           // Call the update function for initial setup if blur is active
-          if (dataBackgroundBlur === "1") {
+          if (dataBackgroundBlur === '1') {
             updateBlurredBackground(); // Set initial blurred background
           } else {
             // If blur is not active, remove the blurred background if it exists
-            var blurredBackground = swiperCarouselSingleListing.querySelector(".blurred-background");
+            var blurredBackground = swiperCarouselSingleListing.querySelector('.blurred-background');
             if (blurredBackground) {
               swiperCarouselSingleListing.removeChild(blurredBackground);
             }
@@ -340,34 +340,34 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       }
       if (swiperCarouselSingleListingThumb) {
         // swiperCarouselSingleListingThumb.style.display = dataShowThumbnails == '0' ? 'none' : '';
-        swiperCarouselSingleListingThumb.style.width = dataWidth ? dataWidth + "px" : "100%";
-        swiperCarouselSingleListingThumb.style.backgroundColor = dataThumbnailsBackground ? dataThumbnailsBackground : "transparent";
+        swiperCarouselSingleListingThumb.style.width = dataWidth ? dataWidth + 'px' : '100%';
+        swiperCarouselSingleListingThumb.style.backgroundColor = dataThumbnailsBackground ? dataThumbnailsBackground : 'transparent';
       }
     });
   }
 
   // Slider Call on Page Load
-  window.addEventListener("load", function () {
-    if ($(".directorist-archive-items .directorist-swiper-listing")) {
+  window.addEventListener('load', function () {
+    if ($('.directorist-archive-items .directorist-swiper-listing')) {
       allListingSlider();
     }
-    $("body").on("input keyup change", ".directorist-archive-contents form", function (e) {
-      if (e.target.classList.contains("directorist-location-js")) {
+    $('body').on('input keyup change', '.directorist-archive-contents form', function (e) {
+      if (e.target.classList.contains('directorist-location-js')) {
         sliderObserver();
       }
     });
   });
 
   // Slider Call on Page instant search
-  window.addEventListener("directorist-instant-search-reloaded", function () {
-    if ($(".directorist-archive-items .directorist-swiper-listing")) {
+  window.addEventListener('directorist-instant-search-reloaded', function () {
+    if ($('.directorist-archive-items .directorist-swiper-listing')) {
       allListingSlider();
     }
   });
 
   // Mutation Observer on Range Slider
   function sliderObserver() {
-    var rangeSliders = document.querySelectorAll(".directorist-custom-range-slider__value input");
+    var rangeSliders = document.querySelectorAll('.directorist-custom-range-slider__value input');
     rangeSliders.forEach(function (rangeSlider) {
       if (rangeSlider) {
         var timeout;
@@ -377,7 +377,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
           try {
             for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
               var mutation = _step2.value;
-              if (mutation.attributeName == "value") {
+              if (mutation.attributeName == 'value') {
                 clearTimeout(timeout);
                 timeout = setTimeout(function () {
                   allListingSlider();
@@ -401,18 +401,18 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
   }
 
   /* Slider Call on Elementor EditMode */
-  $(window).on("elementor/frontend/init", function () {
+  $(window).on('elementor/frontend/init', function () {
     setTimeout(function () {
-      if ($("body").hasClass("elementor-editor-active")) {
+      if ($('body').hasClass('elementor-editor-active')) {
         allListingSlider();
       }
-      if ($("body").hasClass("elementor-editor-active")) {
+      if ($('body').hasClass('elementor-editor-active')) {
         allListingSlider();
       }
     }, 3000);
   });
-  $("body").on("click", function (e) {
-    if ($("body").hasClass("elementor-editor-active") && e.target.nodeName !== "A" && e.target.nodeName !== "BUTTON") {
+  $('body').on('click', function (e) {
+    if ($('body').hasClass('elementor-editor-active') && e.target.nodeName !== 'A' && e.target.nodeName !== 'BUTTON') {
       allListingSlider();
     }
   });

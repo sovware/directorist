@@ -20,7 +20,7 @@ var $ = jQuery;
 
 // Add Listing Map Initialize
 function initAddListingMap() {
-  if (typeof google === "undefined" || !google.maps || !google.maps.Geocoder) {
+  if (typeof google === 'undefined' || !google.maps || !google.maps.Geocoder) {
     return;
   }
   if ($('#gmap').length) {
@@ -42,8 +42,8 @@ function initAddListingMap() {
     var loc_manual_lng = parseFloat(localized_data.manual_lng);
     var loc_map_zoom_level = parseInt(localized_data.map_zoom_level);
     var searchIcon = "<i class=\"directorist-icon-mask\"></i>";
-    var markerShape = document.createElement("div");
-    markerShape.className = "atbd_map_shape";
+    var markerShape = document.createElement('div');
+    markerShape.className = 'atbd_map_shape';
     markerShape.innerHTML = searchIcon;
     loc_manual_lat = isNaN(loc_manual_lat) ? loc_default_latitude : loc_manual_lat;
     loc_manual_lng = isNaN(loc_manual_lng) ? loc_default_longitude : loc_manual_lng;
@@ -57,7 +57,6 @@ function initAddListingMap() {
     // default is London city
     markers = [],
     // initialize the array to keep track all the marker
-
     address_input = document.getElementById('address');
     if (address_input !== null) {
       address_input.addEventListener('focus', geolocate);
@@ -141,7 +140,7 @@ function initAddListingMap() {
       map = new google.maps.Map(document.getElementById('gmap'), {
         zoom: loc_map_zoom_level,
         center: saved_lat_lng,
-        mapId: "add_listing_map"
+        mapId: 'add_listing_map'
       });
       var marker = new google.maps.marker.AdvancedMarkerElement({
         map: map,
@@ -170,8 +169,8 @@ function initAddListingMap() {
     }
 
     /*
-        * Geocode and address using google map javascript api and then populate the input fields for storing lat and long
-        * */
+     * Geocode and address using google map javascript api and then populate the input fields for storing lat and long
+     * */
 
     function geocodeAddress(geocoder, resultsMap) {
       var lat = parseFloat(document.getElementById('manual_lat').value);
@@ -207,7 +206,7 @@ function initAddListingMap() {
 
     // adding features of creating marker manually on the map on add listing page.
     /* var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    var labelIndex = 0; */
+          var labelIndex = 0; */
 
     // Adds a marker to the map.
     function addMarker(location, map) {
@@ -244,7 +243,7 @@ $(document).ready(function () {
   initAddListingMap();
 });
 
-// Add Listing Map on Elementor EditMode 
+// Add Listing Map on Elementor EditMode
 $(window).on('elementor/frontend/init', function () {
   setTimeout(function () {
     if ($('body').hasClass('elementor-editor-active')) {
@@ -275,13 +274,13 @@ var $ = jQuery;
 
 // Single Listing Map Initialize
 function initSingleMapWidget() {
-  if (typeof google === "undefined" || !google.maps || !google.maps.Marker || !google.maps.OverlayView) {
+  if (typeof google === 'undefined' || !google.maps || !google.maps.Marker || !google.maps.OverlayView) {
     return;
   }
   if ($('#gmap-widget').length) {
     var searchIcon = "<i class=\"directorist-icon-mask\"></i>";
-    var markerShape = document.createElement("div");
-    markerShape.className = "atbd_map_shape";
+    var markerShape = document.createElement('div');
+    markerShape.className = 'atbd_map_shape';
     markerShape.innerHTML = searchIcon;
     var inherits = function inherits(childCtor, parentCtor) {
       /** @constructor */
@@ -413,7 +412,7 @@ function initSingleMapWidget() {
       map = new google.maps.Map(document.getElementById(map_container), {
         zoom: loc_map_zoom_level,
         center: saved_lat_lng,
-        mapId: "single_listing_map_widget"
+        mapId: 'single_listing_map_widget'
       });
       var marker = new google.maps.marker.AdvancedMarkerElement({
         map: map,
@@ -434,7 +433,7 @@ function initSingleMapWidget() {
       initMap();
       //Convert address tags to google map links -
       $('address').each(function () {
-        var link = "<a href='http://maps.google.com/maps?q=" + encodeURIComponent($(this).text()) + "' target='_blank'>" + $(this).text() + "</a>";
+        var link = "<a href='http://maps.google.com/maps?q=" + encodeURIComponent($(this).text()) + "' target='_blank'>" + $(this).text() + '</a>';
         $(this).html(link);
       });
     });
@@ -475,14 +474,14 @@ var $ = jQuery;
 
 // Single Listing Map Initialize
 function initSingleMap() {
-  if (typeof google === "undefined" || !google.maps || !google.maps.Marker || !google.maps.OverlayView || !google.maps.marker.AdvancedMarkerElement) {
+  if (typeof google === 'undefined' || !google.maps || !google.maps.Marker || !google.maps.OverlayView || !google.maps.marker.AdvancedMarkerElement) {
     return;
   }
   if ($('.directorist-single-map').length) {
     document.querySelectorAll('.directorist-single-map').forEach(function (mapElm) {
       var searchIcon = "<i class=\"directorist-icon-mask\"></i>";
-      var markerShape = document.createElement("div");
-      markerShape.className = "atbd_map_shape";
+      var markerShape = document.createElement('div');
+      markerShape.className = 'atbd_map_shape';
       markerShape.innerHTML = searchIcon;
       function Marker(options) {
         google.maps.Marker.apply(this, arguments); // Properly call parent constructor
@@ -561,8 +560,8 @@ function initSingleMap() {
         var position = projection.fromLatLngToDivPixel(this.get('position'));
         if (!position) return;
         var div = this.div;
-        div.innerHTML = this.get('text') || "";
-        div.style.zIndex = this.get('zIndex') || "0";
+        div.innerHTML = this.get('text') || '';
+        div.style.zIndex = this.get('zIndex') || '0';
         div.style.position = 'absolute';
         div.style.display = 'block';
         div.style.left = position.x - div.offsetWidth / 2 + 'px';
@@ -615,7 +614,7 @@ function initSingleMap() {
         map = new google.maps.Map(mapElm, {
           zoom: loc_map_zoom_level,
           center: saved_lat_lng,
-          mapId: "single_listing_map"
+          mapId: 'single_listing_map'
         });
         var marker = new google.maps.marker.AdvancedMarkerElement({
           map: map,
@@ -635,7 +634,7 @@ function initSingleMap() {
       initMap();
       //Convert address tags to google map links -
       $('address').each(function () {
-        var link = "<a href='http://maps.google.com/maps?q=" + encodeURIComponent($(this).text()) + "' target='_blank'>" + $(this).text() + "</a>";
+        var link = "<a href='http://maps.google.com/maps?q=" + encodeURIComponent($(this).text()) + "' target='_blank'>" + $(this).text() + '</a>';
         $(this).html(link);
       });
     });
@@ -705,7 +704,7 @@ function convertToSelect2(selector) {
       var iconURI = $(data.element).data('icon');
       var iconElm = "<i class=\"directorist-icon-mask\" aria-hidden=\"true\" style=\"--directorist-icon: url(".concat(iconURI, ")\"></i>");
       var originalText = data.text;
-      var modifiedText = originalText.replace(/^(\s*)/, "$1" + iconElm);
+      var modifiedText = originalText.replace(/^(\s*)/, '$1' + iconElm);
       var $state = $("<div class=\"directorist-select2-contents\">".concat(typeof iconURI !== 'undefined' && iconURI !== '' ? modifiedText : originalText, "</div>"));
       return $state;
     }
@@ -1071,7 +1070,7 @@ __webpack_require__.r(__webpack_exports__);
   });
 })();
 window.directoristLoadGoogleMap = function () {
-  if (typeof google === "undefined" || !google.maps || !google.maps.Map) {
+  if (typeof google === 'undefined' || !google.maps || !google.maps.Map) {
     return;
   } else {
     (0,_single_listing_google_map__WEBPACK_IMPORTED_MODULE_2__.initSingleMap)();

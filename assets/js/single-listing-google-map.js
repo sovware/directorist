@@ -46,14 +46,14 @@ var $ = jQuery;
 
 // Single Listing Map Initialize
 function initSingleMap() {
-  if (typeof google === "undefined" || !google.maps || !google.maps.Marker || !google.maps.OverlayView || !google.maps.marker.AdvancedMarkerElement) {
+  if (typeof google === 'undefined' || !google.maps || !google.maps.Marker || !google.maps.OverlayView || !google.maps.marker.AdvancedMarkerElement) {
     return;
   }
   if ($('.directorist-single-map').length) {
     document.querySelectorAll('.directorist-single-map').forEach(function (mapElm) {
       var searchIcon = "<i class=\"directorist-icon-mask\"></i>";
-      var markerShape = document.createElement("div");
-      markerShape.className = "atbd_map_shape";
+      var markerShape = document.createElement('div');
+      markerShape.className = 'atbd_map_shape';
       markerShape.innerHTML = searchIcon;
       function Marker(options) {
         google.maps.Marker.apply(this, arguments); // Properly call parent constructor
@@ -132,8 +132,8 @@ function initSingleMap() {
         var position = projection.fromLatLngToDivPixel(this.get('position'));
         if (!position) return;
         var div = this.div;
-        div.innerHTML = this.get('text') || "";
-        div.style.zIndex = this.get('zIndex') || "0";
+        div.innerHTML = this.get('text') || '';
+        div.style.zIndex = this.get('zIndex') || '0';
         div.style.position = 'absolute';
         div.style.display = 'block';
         div.style.left = position.x - div.offsetWidth / 2 + 'px';
@@ -186,7 +186,7 @@ function initSingleMap() {
         map = new google.maps.Map(mapElm, {
           zoom: loc_map_zoom_level,
           center: saved_lat_lng,
-          mapId: "single_listing_map"
+          mapId: 'single_listing_map'
         });
         var marker = new google.maps.marker.AdvancedMarkerElement({
           map: map,
@@ -206,7 +206,7 @@ function initSingleMap() {
       initMap();
       //Convert address tags to google map links -
       $('address').each(function () {
-        var link = "<a href='http://maps.google.com/maps?q=" + encodeURIComponent($(this).text()) + "' target='_blank'>" + $(this).text() + "</a>";
+        var link = "<a href='http://maps.google.com/maps?q=" + encodeURIComponent($(this).text()) + "' target='_blank'>" + $(this).text() + '</a>';
         $(this).html(link);
       });
     });

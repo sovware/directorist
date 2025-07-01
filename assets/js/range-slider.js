@@ -135,7 +135,7 @@ __webpack_require__.r(__webpack_exports__);
   }
   function isValidPartialFormatter(entry) {
     // partial formatters only need a to function and not a from function
-    return (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(entry) === "object" && typeof entry.to === "function";
+    return (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(entry) === 'object' && typeof entry.to === 'function';
   }
   function removeElement(el) {
     el.parentElement.removeChild(el);
@@ -173,7 +173,7 @@ __webpack_require__.r(__webpack_exports__);
   }
   // Checks whether a value is numerical.
   function isNumeric(a) {
-    return typeof a === "number" && !isNaN(a) && isFinite(a);
+    return typeof a === 'number' && !isNaN(a) && isFinite(a);
   }
   // Sets a class and removes it after [duration] ms.
   function addClassFor(element, className, duration) {
@@ -196,7 +196,7 @@ __webpack_require__.r(__webpack_exports__);
   // Counts decimals
   function countDecimals(numStr) {
     numStr = String(numStr);
-    var pieces = numStr.split(".");
+    var pieces = numStr.split('.');
     return pieces.length > 1 ? pieces[1].length : 0;
   }
   // add_class
@@ -204,7 +204,7 @@ __webpack_require__.r(__webpack_exports__);
     if (el.classList && !/\s/.test(className)) {
       el.classList.add(className);
     } else {
-      el.className += " " + className;
+      el.className += ' ' + className;
     }
   }
   // remove_class
@@ -212,17 +212,17 @@ __webpack_require__.r(__webpack_exports__);
     if (el.classList && !/\s/.test(className)) {
       el.classList.remove(className);
     } else {
-      el.className = el.className.replace(new RegExp("(^|\\b)" + className.split(" ").join("|") + "(\\b|$)", "gi"), " ");
+      el.className = el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
     }
   }
   // https://plainjs.com/javascript/attributes/adding-removing-and-testing-for-classes-9/
   function hasClass(el, className) {
-    return el.classList ? el.classList.contains(className) : new RegExp("\\b" + className + "\\b").test(el.className);
+    return el.classList ? el.classList.contains(className) : new RegExp('\\b' + className + '\\b').test(el.className);
   }
   // https://developer.mozilla.org/en-US/docs/Web/API/Window/scrollY#Notes
   function getPageOffset(doc) {
     var supportPageOffset = window.scrollX !== undefined;
-    var isCSS1Compat = (doc.compatMode || "") === "CSS1Compat";
+    var isCSS1Compat = (doc.compatMode || '') === 'CSS1Compat';
     var x = supportPageOffset ? window.scrollX : isCSS1Compat ? doc.documentElement.scrollLeft : doc.body.scrollLeft;
     var y = supportPageOffset ? window.scrollY : isCSS1Compat ? doc.documentElement.scrollTop : doc.body.scrollTop;
     return {
@@ -237,17 +237,17 @@ __webpack_require__.r(__webpack_exports__);
     // Determine the events to bind. IE11 implements pointerEvents without
     // a prefix, which breaks compatibility with the IE10 implementation.
     return window.navigator.pointerEnabled ? {
-      start: "pointerdown",
-      move: "pointermove",
-      end: "pointerup"
+      start: 'pointerdown',
+      move: 'pointermove',
+      end: 'pointerup'
     } : window.navigator.msPointerEnabled ? {
-      start: "MSPointerDown",
-      move: "MSPointerMove",
-      end: "MSPointerUp"
+      start: 'MSPointerDown',
+      move: 'MSPointerMove',
+      end: 'MSPointerUp'
     } : {
-      start: "mousedown touchstart",
-      move: "mousemove touchmove",
-      end: "mouseup touchend"
+      start: 'mousedown touchstart',
+      move: 'mousemove touchmove',
+      end: 'mouseup touchend'
     };
   }
   // https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md
@@ -256,19 +256,19 @@ __webpack_require__.r(__webpack_exports__);
     var supportsPassive = false;
     /* eslint-disable */
     try {
-      var opts = Object.defineProperty({}, "passive", {
+      var opts = Object.defineProperty({}, 'passive', {
         get: function get() {
           supportsPassive = true;
         }
       });
       // @ts-ignore
-      window.addEventListener("test", null, opts);
+      window.addEventListener('test', null, opts);
     } catch (e) {}
     /* eslint-enable */
     return supportsPassive;
   }
   function getSupportsTouchActionNone() {
-    return window.CSS && CSS.supports && CSS.supports("touch-action", "none");
+    return window.CSS && CSS.supports && CSS.supports('touch-action', 'none');
   }
   //endregion
   //region Range Calculation
@@ -503,9 +503,9 @@ __webpack_require__.r(__webpack_exports__);
     Spectrum.prototype.handleEntryPoint = function (index, value) {
       var percentage;
       // Covert min/max syntax to 0 and 100.
-      if (index === "min") {
+      if (index === 'min') {
         percentage = 0;
-      } else if (index === "max") {
+      } else if (index === 'max') {
         percentage = 100;
       } else {
         percentage = parseFloat(index);
@@ -552,65 +552,65 @@ __webpack_require__.r(__webpack_exports__);
   //endregion
   //region Options
   /*	Every input option is tested and parsed. This will prevent
-      endless validation in internal methods. These tests are
-      structured with an item for every option available. An
-      option can be marked as required by setting the 'r' flag.
-      The testing function is provided with three arguments:
-          - The provided value for the option;
-          - A reference to the options object;
-          - The name for the option;
-       The testing function returns false when an error is detected,
-      or true when everything is OK. It can also modify the option
-      object, to make sure all values can be correctly looped elsewhere. */
+         endless validation in internal methods. These tests are
+         structured with an item for every option available. An
+         option can be marked as required by setting the 'r' flag.
+         The testing function is provided with three arguments:
+             - The provided value for the option;
+             - A reference to the options object;
+             - The name for the option;
+          The testing function returns false when an error is detected,
+         or true when everything is OK. It can also modify the option
+         object, to make sure all values can be correctly looped elsewhere. */
   //region Defaults
   var defaultFormatter = {
     to: function to(value) {
-      return value === undefined ? "" : value.toFixed(2);
+      return value === undefined ? '' : value.toFixed(2);
     },
     from: Number
   };
   var cssClasses = {
-    target: "target",
-    base: "base",
-    origin: "origin",
-    handle: "handle",
-    handleLower: "handle-lower",
-    handleUpper: "handle-upper",
-    touchArea: "touch-area",
-    horizontal: "horizontal",
-    vertical: "vertical",
-    background: "background",
-    connect: "connect",
-    connects: "connects",
-    ltr: "ltr",
-    rtl: "rtl",
-    textDirectionLtr: "txt-dir-ltr",
-    textDirectionRtl: "txt-dir-rtl",
-    draggable: "draggable",
-    drag: "state-drag",
-    tap: "state-tap",
-    active: "active",
-    tooltip: "tooltip",
-    pips: "pips",
-    pipsHorizontal: "pips-horizontal",
-    pipsVertical: "pips-vertical",
-    marker: "marker",
-    markerHorizontal: "marker-horizontal",
-    markerVertical: "marker-vertical",
-    markerNormal: "marker-normal",
-    markerLarge: "marker-large",
-    markerSub: "marker-sub",
-    value: "value",
-    valueHorizontal: "value-horizontal",
-    valueVertical: "value-vertical",
-    valueNormal: "value-normal",
-    valueLarge: "value-large",
-    valueSub: "value-sub"
+    target: 'target',
+    base: 'base',
+    origin: 'origin',
+    handle: 'handle',
+    handleLower: 'handle-lower',
+    handleUpper: 'handle-upper',
+    touchArea: 'touch-area',
+    horizontal: 'horizontal',
+    vertical: 'vertical',
+    background: 'background',
+    connect: 'connect',
+    connects: 'connects',
+    ltr: 'ltr',
+    rtl: 'rtl',
+    textDirectionLtr: 'txt-dir-ltr',
+    textDirectionRtl: 'txt-dir-rtl',
+    draggable: 'draggable',
+    drag: 'state-drag',
+    tap: 'state-tap',
+    active: 'active',
+    tooltip: 'tooltip',
+    pips: 'pips',
+    pipsHorizontal: 'pips-horizontal',
+    pipsVertical: 'pips-vertical',
+    marker: 'marker',
+    markerHorizontal: 'marker-horizontal',
+    markerVertical: 'marker-vertical',
+    markerNormal: 'marker-normal',
+    markerLarge: 'marker-large',
+    markerSub: 'marker-sub',
+    value: 'value',
+    valueHorizontal: 'value-horizontal',
+    valueVertical: 'value-vertical',
+    valueNormal: 'value-normal',
+    valueLarge: 'value-large',
+    valueSub: 'value-sub'
   };
   // Namespaces of internal event listeners
   var INTERNAL_EVENT_NS = {
-    tooltips: ".__tooltips",
-    aria: ".__aria"
+    tooltips: '.__tooltips',
+    aria: '.__aria'
   };
   //endregion
   function customRangeStep(parsed, entry) {
@@ -641,7 +641,7 @@ __webpack_require__.r(__webpack_exports__);
   }
   function customRangeRange(parsed, entry) {
     // Filter incorrect input.
-    if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(entry) !== "object" || Array.isArray(entry)) {
+    if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(entry) !== 'object' || Array.isArray(entry)) {
       throw new Error("directoristCustomRangeSlider: 'range' is not an object.");
     }
     // Catch missing start or end.
@@ -664,21 +664,21 @@ __webpack_require__.r(__webpack_exports__);
     parsed.start = entry;
   }
   function customRangeSnap(parsed, entry) {
-    if (typeof entry !== "boolean") {
+    if (typeof entry !== 'boolean') {
       throw new Error("directoristCustomRangeSlider: 'snap' option must be a boolean.");
     }
     // Enforce 100% stepping within subranges.
     parsed.snap = entry;
   }
   function customRangeAnimate(parsed, entry) {
-    if (typeof entry !== "boolean") {
+    if (typeof entry !== 'boolean') {
       throw new Error("directoristCustomRangeSlider: 'animate' option must be a boolean.");
     }
     // Enforce 100% stepping within subranges.
     parsed.animate = entry;
   }
   function customRangeAnimationDuration(parsed, entry) {
-    if (typeof entry !== "number") {
+    if (typeof entry !== 'number') {
       throw new Error("directoristCustomRangeSlider: 'animationDuration' option must be a number.");
     }
     parsed.animationDuration = entry;
@@ -687,9 +687,9 @@ __webpack_require__.r(__webpack_exports__);
     var connect = [false];
     var i;
     // Map legacy options
-    if (entry === "lower") {
+    if (entry === 'lower') {
       entry = [true, false];
-    } else if (entry === "upper") {
+    } else if (entry === 'upper') {
       entry = [false, true];
     }
     // Handle boolean options
@@ -711,10 +711,10 @@ __webpack_require__.r(__webpack_exports__);
     // Set orientation to an a numerical value for easy
     // array selection.
     switch (entry) {
-      case "horizontal":
+      case 'horizontal':
         parsed.ort = 0;
         break;
-      case "vertical":
+      case 'vertical':
         parsed.ort = 1;
         break;
       default:
@@ -774,10 +774,10 @@ __webpack_require__.r(__webpack_exports__);
     // Invert connection for RTL sliders, so that the proper
     // handles get the connect/background classes.
     switch (entry) {
-      case "ltr":
+      case 'ltr':
         parsed.dir = 0;
         break;
-      case "rtl":
+      case 'rtl':
         parsed.dir = 1;
         break;
       default:
@@ -786,19 +786,19 @@ __webpack_require__.r(__webpack_exports__);
   }
   function customRangeBehaviour(parsed, entry) {
     // Make sure the input is a string.
-    if (typeof entry !== "string") {
+    if (typeof entry !== 'string') {
       throw new Error("directoristCustomRangeSlider: 'behaviour' must be a string containing options.");
     }
     // Check if the string contains any keywords.
     // None are required.
-    var tap = entry.indexOf("tap") >= 0;
-    var drag = entry.indexOf("drag") >= 0;
-    var fixed = entry.indexOf("fixed") >= 0;
-    var snap = entry.indexOf("snap") >= 0;
-    var hover = entry.indexOf("hover") >= 0;
-    var unconstrained = entry.indexOf("unconstrained") >= 0;
-    var dragAll = entry.indexOf("drag-all") >= 0;
-    var smoothSteps = entry.indexOf("smooth-steps") >= 0;
+    var tap = entry.indexOf('tap') >= 0;
+    var drag = entry.indexOf('drag') >= 0;
+    var fixed = entry.indexOf('fixed') >= 0;
+    var snap = entry.indexOf('snap') >= 0;
+    var hover = entry.indexOf('hover') >= 0;
+    var unconstrained = entry.indexOf('unconstrained') >= 0;
+    var dragAll = entry.indexOf('drag-all') >= 0;
+    var smoothSteps = entry.indexOf('smooth-steps') >= 0;
     if (fixed) {
       if (parsed.handles !== 2) {
         throw new Error("directoristCustomRangeSlider: 'fixed' behaviour must be used with 2 handles");
@@ -832,10 +832,10 @@ __webpack_require__.r(__webpack_exports__);
     } else {
       entry = asArray(entry);
       if (entry.length !== parsed.handles) {
-        throw new Error("directoristCustomRangeSlider: must pass a formatter for all handles.");
+        throw new Error('directoristCustomRangeSlider: must pass a formatter for all handles.');
       }
       entry.forEach(function (formatter) {
-        if (typeof formatter !== "boolean" && !isValidPartialFormatter(formatter)) {
+        if (typeof formatter !== 'boolean' && !isValidPartialFormatter(formatter)) {
           throw new Error("directoristCustomRangeSlider: 'tooltips' must be passed a formatter or 'false'.");
         }
       });
@@ -844,7 +844,7 @@ __webpack_require__.r(__webpack_exports__);
   }
   function customRangeHandleAttributes(parsed, entry) {
     if (entry.length !== parsed.handles) {
-      throw new Error("directoristCustomRangeSlider: must pass a attributes for all handles.");
+      throw new Error('directoristCustomRangeSlider: must pass a attributes for all handles.');
     }
     parsed.handleAttributes = entry;
   }
@@ -861,7 +861,7 @@ __webpack_require__.r(__webpack_exports__);
     parsed.format = entry;
   }
   function customRangeKeyboardSupport(parsed, entry) {
-    if (typeof entry !== "boolean") {
+    if (typeof entry !== 'boolean') {
       throw new Error("directoristCustomRangeSlider: 'keyboardSupport' option must be a boolean.");
     }
     parsed.keyboardSupport = entry;
@@ -871,16 +871,16 @@ __webpack_require__.r(__webpack_exports__);
     parsed.documentElement = entry;
   }
   function customRangeCssPrefix(parsed, entry) {
-    if (typeof entry !== "string" && entry !== false) {
+    if (typeof entry !== 'string' && entry !== false) {
       throw new Error("directoristCustomRangeSlider: 'cssPrefix' must be a string or `false`.");
     }
     parsed.cssPrefix = entry;
   }
   function customRangeCssClasses(parsed, entry) {
-    if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(entry) !== "object") {
+    if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(entry) !== 'object') {
       throw new Error("directoristCustomRangeSlider: 'cssClasses' must be an object.");
     }
-    if (typeof parsed.cssPrefix === "string") {
+    if (typeof parsed.cssPrefix === 'string') {
       parsed.cssClasses = {};
       Object.keys(entry).forEach(function (key) {
         parsed.cssClasses[key] = parsed.cssPrefix + entry[key];
@@ -1004,11 +1004,11 @@ __webpack_require__.r(__webpack_exports__);
     };
     var defaults = {
       connect: false,
-      direction: "ltr",
-      behaviour: "tap",
-      orientation: "horizontal",
+      direction: 'ltr',
+      behaviour: 'tap',
+      orientation: 'horizontal',
       keyboardSupport: true,
-      cssPrefix: "directorist-custom-range-slider-",
+      cssPrefix: 'directorist-custom-range-slider-',
       cssClasses: cssClasses,
       keyboardPageMultiplier: 5,
       keyboardMultiplier: 1,
@@ -1037,12 +1037,12 @@ __webpack_require__.r(__webpack_exports__);
     // We need -ms- for IE9 and -webkit- for older Android;
     // Assume use of -webkit- if unprefixed and -ms- are not supported.
     // https://caniuse.com/#feat=transforms2d
-    var d = document.createElement("div");
+    var d = document.createElement('div');
     var msPrefix = d.style.msTransform !== undefined;
     var noPrefix = d.style.transform !== undefined;
-    parsed.transformRule = noPrefix ? "transform" : msPrefix ? "msTransform" : "webkitTransform";
+    parsed.transformRule = noPrefix ? 'transform' : msPrefix ? 'msTransform' : 'webkitTransform';
     // Pips don't move, so we can place them using left/top.
-    var styles = [["left", "top"], ["right", "bottom"]];
+    var styles = [['left', 'top'], ['right', 'bottom']];
     parsed.style = styles[parsed.dir][parsed.ort];
     return parsed;
   }
@@ -1072,10 +1072,10 @@ __webpack_require__.r(__webpack_exports__);
     var scope_Body = scope_Document.body;
     // For horizontal sliders in standard ltr documents,
     // make .directorist-custom-range-slider-origin overflow to the left so the document doesn't scroll.
-    var scope_DirOffset = scope_Document.dir === "rtl" || options.ort === 1 ? 0 : 100;
+    var scope_DirOffset = scope_Document.dir === 'rtl' || options.ort === 1 ? 0 : 100;
     // Creates a node, adds it to target, returns the new node.
     function addNodeTo(addTarget, className) {
-      var div = scope_Document.createElement("div");
+      var div = scope_Document.createElement('div');
       if (className) {
         addClass(div, className);
       }
@@ -1087,12 +1087,12 @@ __webpack_require__.r(__webpack_exports__);
       var origin = addNodeTo(base, options.cssClasses.origin);
       var handle = addNodeTo(origin, options.cssClasses.handle);
       addNodeTo(handle, options.cssClasses.touchArea);
-      handle.setAttribute("data-handle", String(handleNumber));
+      handle.setAttribute('data-handle', String(handleNumber));
       if (options.keyboardSupport) {
         // https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex
         // 0 = focusable and reachable
-        handle.setAttribute("tabindex", "0");
-        handle.addEventListener("keydown", function (event) {
+        handle.setAttribute('tabindex', '0');
+        handle.addEventListener('keydown', function (event) {
           return eventKeydown(event, handleNumber);
         });
       }
@@ -1102,8 +1102,8 @@ __webpack_require__.r(__webpack_exports__);
           handle.setAttribute(attribute, attributes_1[attribute]);
         });
       }
-      handle.setAttribute("role", "slider");
-      handle.setAttribute("aria-orientation", options.ort ? "vertical" : "horizontal");
+      handle.setAttribute('role', 'slider');
+      handle.setAttribute('aria-orientation', options.ort ? 'vertical' : 'horizontal');
       if (handleNumber === 0) {
         addClass(handle, options.cssClasses.handleLower);
       } else if (handleNumber === options.handles - 1) {
@@ -1149,7 +1149,7 @@ __webpack_require__.r(__webpack_exports__);
         addClass(addTarget, options.cssClasses.vertical);
       }
       var textDirection = getComputedStyle(addTarget).direction;
-      if (textDirection === "rtl") {
+      if (textDirection === 'rtl') {
         addClass(addTarget, options.cssClasses.textDirectionRtl);
       } else {
         addClass(addTarget, options.cssClasses.textDirectionLtr);
@@ -1163,39 +1163,39 @@ __webpack_require__.r(__webpack_exports__);
       return addNodeTo(handle.firstChild, options.cssClasses.tooltip);
     }
     function isSliderDisabled() {
-      return scope_Target.hasAttribute("disabled");
+      return scope_Target.hasAttribute('disabled');
     }
     // Disable the slider dragging if any handle is disabled
     function isHandleDisabled(handleNumber) {
       var handleOrigin = scope_Handles[handleNumber];
-      return handleOrigin.hasAttribute("disabled");
+      return handleOrigin.hasAttribute('disabled');
     }
     function disable(handleNumber) {
       if (handleNumber !== null && handleNumber !== undefined) {
-        scope_Handles[handleNumber].setAttribute("disabled", "");
-        scope_Handles[handleNumber].handle.removeAttribute("tabindex");
+        scope_Handles[handleNumber].setAttribute('disabled', '');
+        scope_Handles[handleNumber].handle.removeAttribute('tabindex');
       } else {
-        scope_Target.setAttribute("disabled", "");
+        scope_Target.setAttribute('disabled', '');
         scope_Handles.forEach(function (handle) {
-          handle.handle.removeAttribute("tabindex");
+          handle.handle.removeAttribute('tabindex');
         });
       }
     }
     function enable(handleNumber) {
       if (handleNumber !== null && handleNumber !== undefined) {
-        scope_Handles[handleNumber].removeAttribute("disabled");
-        scope_Handles[handleNumber].handle.setAttribute("tabindex", "0");
+        scope_Handles[handleNumber].removeAttribute('disabled');
+        scope_Handles[handleNumber].handle.setAttribute('tabindex', '0');
       } else {
-        scope_Target.removeAttribute("disabled");
+        scope_Target.removeAttribute('disabled');
         scope_Handles.forEach(function (handle) {
-          handle.removeAttribute("disabled");
-          handle.handle.setAttribute("tabindex", "0");
+          handle.removeAttribute('disabled');
+          handle.handle.setAttribute('tabindex', '0');
         });
       }
     }
     function removeTooltips() {
       if (scope_Tooltips) {
-        removeEvent("update" + INTERNAL_EVENT_NS.tooltips);
+        removeEvent('update' + INTERNAL_EVENT_NS.tooltips);
         scope_Tooltips.forEach(function (tooltip) {
           if (tooltip) {
             removeElement(tooltip);
@@ -1209,7 +1209,7 @@ __webpack_require__.r(__webpack_exports__);
       removeTooltips();
       // Tooltips are added with options.tooltips in original order.
       scope_Tooltips = scope_Handles.map(addTooltip);
-      bindEvent("update" + INTERNAL_EVENT_NS.tooltips, function (values, handleNumber, unencoded) {
+      bindEvent('update' + INTERNAL_EVENT_NS.tooltips, function (values, handleNumber, unencoded) {
         if (!scope_Tooltips || !options.tooltips) {
           return;
         }
@@ -1224,8 +1224,8 @@ __webpack_require__.r(__webpack_exports__);
       });
     }
     function aria() {
-      removeEvent("update" + INTERNAL_EVENT_NS.aria);
-      bindEvent("update" + INTERNAL_EVENT_NS.aria, function (values, handleNumber, unencoded, tap, positions) {
+      removeEvent('update' + INTERNAL_EVENT_NS.aria);
+      bindEvent('update' + INTERNAL_EVENT_NS.aria, function (values, handleNumber, unencoded, tap, positions) {
         // Update Aria Values for all handles, as a change in one changes min and max values for the next.
         scope_HandleNumbers.forEach(function (index) {
           var handle = scope_Handles[index];
@@ -1238,10 +1238,10 @@ __webpack_require__.r(__webpack_exports__);
           min = scope_Spectrum.fromStepping(min).toFixed(1);
           max = scope_Spectrum.fromStepping(max).toFixed(1);
           now = scope_Spectrum.fromStepping(now).toFixed(1);
-          handle.children[0].setAttribute("aria-valuemin", min);
-          handle.children[0].setAttribute("aria-valuemax", max);
-          handle.children[0].setAttribute("aria-valuenow", now);
-          handle.children[0].setAttribute("aria-valuetext", text);
+          handle.children[0].setAttribute('aria-valuemin', min);
+          handle.children[0].setAttribute('aria-valuemax', max);
+          handle.children[0].setAttribute('aria-valuenow', now);
+          handle.children[0].setAttribute('aria-valuetext', text);
         });
       });
     }
@@ -1384,9 +1384,9 @@ __webpack_require__.r(__webpack_exports__);
     }
     function addMarking(spread, filterFunc, formatter) {
       var _a, _b;
-      var element = scope_Document.createElement("div");
-      var valueSizeClasses = (_a = {}, _a[exports.PipsType.None] = "", _a[exports.PipsType.NoValue] = options.cssClasses.valueNormal, _a[exports.PipsType.LargeValue] = options.cssClasses.valueLarge, _a[exports.PipsType.SmallValue] = options.cssClasses.valueSub, _a);
-      var markerSizeClasses = (_b = {}, _b[exports.PipsType.None] = "", _b[exports.PipsType.NoValue] = options.cssClasses.markerNormal, _b[exports.PipsType.LargeValue] = options.cssClasses.markerLarge, _b[exports.PipsType.SmallValue] = options.cssClasses.markerSub, _b);
+      var element = scope_Document.createElement('div');
+      var valueSizeClasses = (_a = {}, _a[exports.PipsType.None] = '', _a[exports.PipsType.NoValue] = options.cssClasses.valueNormal, _a[exports.PipsType.LargeValue] = options.cssClasses.valueLarge, _a[exports.PipsType.SmallValue] = options.cssClasses.valueSub, _a);
+      var markerSizeClasses = (_b = {}, _b[exports.PipsType.None] = '', _b[exports.PipsType.NoValue] = options.cssClasses.markerNormal, _b[exports.PipsType.LargeValue] = options.cssClasses.markerLarge, _b[exports.PipsType.SmallValue] = options.cssClasses.markerSub, _b);
       var valueOrientationClasses = [options.cssClasses.valueHorizontal, options.cssClasses.valueVertical];
       var markerOrientationClasses = [options.cssClasses.markerHorizontal, options.cssClasses.markerVertical];
       addClass(element, options.cssClasses.pips);
@@ -1395,7 +1395,7 @@ __webpack_require__.r(__webpack_exports__);
         var a = source === options.cssClasses.value;
         var orientationClasses = a ? valueOrientationClasses : markerOrientationClasses;
         var sizeClasses = a ? valueSizeClasses : markerSizeClasses;
-        return source + " " + orientationClasses[options.ort] + " " + sizeClasses[type];
+        return source + ' ' + orientationClasses[options.ort] + ' ' + sizeClasses[type];
       }
       function addSpread(offset, value, type) {
         // Apply the filter function, if it is set.
@@ -1406,13 +1406,13 @@ __webpack_require__.r(__webpack_exports__);
         // Add a marker for every point
         var node = addNodeTo(element, false);
         node.className = getClasses(type, options.cssClasses.marker);
-        node.style[options.style] = offset + "%";
+        node.style[options.style] = offset + '%';
         // Values are only appended for points marked '1' or '2'.
         if (type > exports.PipsType.NoValue) {
           node = addNodeTo(element, false);
           node.className = getClasses(type, options.cssClasses.value);
-          node.setAttribute("data-value", String(value));
-          node.style[options.style] = offset + "%";
+          node.setAttribute('data-value', String(value));
+          node.style[options.style] = offset + '%';
           node.innerHTML = String(formatter.to(value));
         }
       }
@@ -1444,7 +1444,7 @@ __webpack_require__.r(__webpack_exports__);
     // Shorthand for base dimensions.
     function baseSize() {
       var rect = scope_Base.getBoundingClientRect();
-      var alt = "offset" + ["Width", "Height"][options.ort];
+      var alt = 'offset' + ['Width', 'Height'][options.ort];
       return options.ort === 0 ? rect.width || scope_Base[alt] : rect.height || scope_Base[alt];
     }
     // Handler for attaching events trough a proxy.
@@ -1490,7 +1490,7 @@ __webpack_require__.r(__webpack_exports__);
       };
       var methods = [];
       // Bind a closure on the target for every event type.
-      events.split(" ").forEach(function (eventName) {
+      events.split(' ').forEach(function (eventName) {
         element.addEventListener(eventName, method, supportsPassive ? {
           passive: true
         } : false);
@@ -1503,19 +1503,19 @@ __webpack_require__.r(__webpack_exports__);
       // Filter the event to register the type, which can be
       // touch, mouse or pointer. Offset changes need to be
       // made on an event specific basis.
-      var touch = e.type.indexOf("touch") === 0;
-      var mouse = e.type.indexOf("mouse") === 0;
-      var pointer = e.type.indexOf("pointer") === 0;
+      var touch = e.type.indexOf('touch') === 0;
+      var mouse = e.type.indexOf('mouse') === 0;
+      var pointer = e.type.indexOf('pointer') === 0;
       var x = 0;
       var y = 0;
       // IE10 implemented pointer events with a prefix;
-      if (e.type.indexOf("MSPointer") === 0) {
+      if (e.type.indexOf('MSPointer') === 0) {
         pointer = true;
       }
       // Erroneous events seem to be passed in occasionally on iOS/iPadOS after user finishes interacting with
       // the slider. They appear to be of type MouseEvent, yet they don't have usual properties set. Ignore
       // events that have no touches or buttons associated with them. (#1057, #1079, #1095)
-      if (e.type === "mousedown" && !e.buttons && !e.touches) {
+      if (e.type === 'mousedown' && !e.buttons && !e.touches) {
         return false;
       }
       // The only thing one handle should be concerned about is the touches that originated on top of it.
@@ -1527,7 +1527,7 @@ __webpack_require__.r(__webpack_exports__);
         };
         // In the case of touchstart events, we need to make sure there is still no more than one
         // touch on the target so we look amongst all touches.
-        if (e.type === "touchstart") {
+        if (e.type === 'touchstart') {
           var targetTouches = Array.prototype.filter.call(e.touches, isTouchOnTarget);
           // Do not support more than one touch per handle.
           if (targetTouches.length > 1) {
@@ -1591,7 +1591,7 @@ __webpack_require__.r(__webpack_exports__);
     }
     // Fire 'end' when a mouse or pen leaves the document.
     function documentLeave(event, data) {
-      if (event.type === "mouseout" && event.target.nodeName === "HTML" && event.relatedTarget === null) {
+      if (event.type === 'mouseout' && event.target.nodeName === 'HTML' && event.relatedTarget === null) {
         eventEnd(event, data);
       }
     }
@@ -1602,7 +1602,7 @@ __webpack_require__.r(__webpack_exports__);
       // https://connect.microsoft.com/IE/feedback/details/927005/mobile-ie10-windows-phone-buttons-property-of-pointermove-event-always-zero
       // IE9 has .buttons and .which zero on mousemove.
       // Firefox breaks the spec MDN defines.
-      if (navigator.appVersion.indexOf("MSIE 9") === -1 && event.buttons === 0 && data.buttonsProperty !== 0) {
+      if (navigator.appVersion.indexOf('MSIE 9') === -1 && event.buttons === 0 && data.buttonsProperty !== 0) {
         return eventEnd(event, data);
       }
       // Check if we are moving up or down
@@ -1628,8 +1628,8 @@ __webpack_require__.r(__webpack_exports__);
         setZindex();
         // Remove cursor styles and text-selection events bound to the body.
         if (event.cursor) {
-          scope_Body.style.cursor = "";
-          scope_Body.removeEventListener("selectstart", preventDefault);
+          scope_Body.style.cursor = '';
+          scope_Body.removeEventListener('selectstart', preventDefault);
         }
       }
       if (options.events.smoothSteps) {
@@ -1637,13 +1637,13 @@ __webpack_require__.r(__webpack_exports__);
           setHandle(handleNumber, scope_Locations[handleNumber], true, true, false, false);
         });
         data.handleNumbers.forEach(function (handleNumber) {
-          fireEvent("update", handleNumber);
+          fireEvent('update', handleNumber);
         });
       }
       data.handleNumbers.forEach(function (handleNumber) {
-        fireEvent("change", handleNumber);
-        fireEvent("set", handleNumber);
-        fireEvent("end", handleNumber);
+        fireEvent('change', handleNumber);
+        fireEvent('set', handleNumber);
+        fireEvent('end', handleNumber);
       });
     }
     // Bind move events on document.
@@ -1686,7 +1686,7 @@ __webpack_require__.r(__webpack_exports__);
         doNotReject: true,
         handleNumbers: data.handleNumbers
       });
-      var outEvent = attachEvent("mouseout", scope_DocumentElement, documentLeave, {
+      var outEvent = attachEvent('mouseout', scope_DocumentElement, documentLeave, {
         target: event.target,
         handle: handle,
         listeners: listeners,
@@ -1711,10 +1711,10 @@ __webpack_require__.r(__webpack_exports__);
         // meaning the only holdout is iOS Safari. This doesn't matter: text selection isn't triggered there.
         // The 'cursor' flag is false.
         // See: http://caniuse.com/#search=selectstart
-        scope_Body.addEventListener("selectstart", preventDefault, false);
+        scope_Body.addEventListener('selectstart', preventDefault, false);
       }
       data.handleNumbers.forEach(function (handleNumber) {
-        fireEvent("start", handleNumber);
+        fireEvent('start', handleNumber);
       });
     }
     // Move closest handle to tapped location.
@@ -1734,11 +1734,11 @@ __webpack_require__.r(__webpack_exports__);
       }
       setHandle(handleNumber, proposal, true, true);
       setZindex();
-      fireEvent("slide", handleNumber, true);
-      fireEvent("update", handleNumber, true);
+      fireEvent('slide', handleNumber, true);
+      fireEvent('update', handleNumber, true);
       if (!options.events.snap) {
-        fireEvent("change", handleNumber, true);
-        fireEvent("set", handleNumber, true);
+        fireEvent('change', handleNumber, true);
+        fireEvent('set', handleNumber, true);
       } else {
         eventStart(event, {
           handleNumbers: [handleNumber]
@@ -1751,7 +1751,7 @@ __webpack_require__.r(__webpack_exports__);
       var to = scope_Spectrum.getStep(proposal);
       var value = scope_Spectrum.fromStepping(to);
       Object.keys(scope_Events).forEach(function (targetEvent) {
-        if ("hover" === targetEvent.split(".")[0]) {
+        if ('hover' === targetEvent.split('.')[0]) {
           scope_Events[targetEvent].forEach(function (callback) {
             callback.call(scope_Self, value);
           });
@@ -1764,10 +1764,10 @@ __webpack_require__.r(__webpack_exports__);
       if (isSliderDisabled() || isHandleDisabled(handleNumber)) {
         return false;
       }
-      var horizontalKeys = ["Left", "Right"];
-      var verticalKeys = ["Down", "Up"];
-      var largeStepKeys = ["PageDown", "PageUp"];
-      var edgeKeys = ["Home", "End"];
+      var horizontalKeys = ['Left', 'Right'];
+      var verticalKeys = ['Down', 'Up'];
+      var largeStepKeys = ['PageDown', 'PageUp'];
+      var edgeKeys = ['Home', 'End'];
       if (options.dir && !options.ort) {
         // On an right-to-left slider, the left and right keys act inverted
         horizontalKeys.reverse();
@@ -1777,7 +1777,7 @@ __webpack_require__.r(__webpack_exports__);
         largeStepKeys.reverse();
       }
       // Strip "Arrow" for IE compatibility. https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key
-      var key = event.key.replace("Arrow", "");
+      var key = event.key.replace('Arrow', '');
       var isLargeDown = key === largeStepKeys[0];
       var isLargeUp = key === largeStepKeys[1];
       var isDown = key === verticalKeys[0] || key === horizontalKeys[0] || isLargeDown;
@@ -1819,10 +1819,10 @@ __webpack_require__.r(__webpack_exports__);
         to = options.spectrum.xVal[0];
       }
       setHandle(handleNumber, scope_Spectrum.toStepping(to), true, true);
-      fireEvent("slide", handleNumber);
-      fireEvent("update", handleNumber);
-      fireEvent("change", handleNumber);
-      fireEvent("set", handleNumber);
+      fireEvent('slide', handleNumber);
+      fireEvent('update', handleNumber);
+      fireEvent('change', handleNumber);
+      fireEvent('set', handleNumber);
       return false;
     }
     // Attach events to several slider parts.
@@ -1886,9 +1886,9 @@ __webpack_require__.r(__webpack_exports__);
       scope_Events[namespacedEvent] = scope_Events[namespacedEvent] || [];
       scope_Events[namespacedEvent].push(callback);
       // If the event bound is 'update,' fire it immediately for all handles.
-      if (namespacedEvent.split(".")[0] === "update") {
+      if (namespacedEvent.split('.')[0] === 'update') {
         scope_Handles.forEach(function (a, index) {
-          fireEvent("update", index);
+          fireEvent('update', index);
         });
       }
     }
@@ -1897,10 +1897,10 @@ __webpack_require__.r(__webpack_exports__);
     }
     // Undo attachment of event
     function removeEvent(namespacedEvent) {
-      var event = namespacedEvent && namespacedEvent.split(".")[0];
+      var event = namespacedEvent && namespacedEvent.split('.')[0];
       var namespace = event ? namespacedEvent.substring(event.length) : namespacedEvent;
       Object.keys(scope_Events).forEach(function (bind) {
-        var tEvent = bind.split(".")[0];
+        var tEvent = bind.split('.')[0];
         var tNamespace = bind.substring(tEvent.length);
         if ((!event || event === tEvent) && (!namespace || namespace === tNamespace)) {
           // only delete protected internal event if intentional
@@ -1913,7 +1913,7 @@ __webpack_require__.r(__webpack_exports__);
     // External event handling
     function fireEvent(eventName, handleNumber, tap) {
       Object.keys(scope_Events).forEach(function (targetEvent) {
-        var eventType = targetEvent.split(".")[0];
+        var eventType = targetEvent.split('.')[0];
         if (eventName === eventType) {
           scope_Events[targetEvent].forEach(function (callback) {
             callback.call(
@@ -1989,7 +1989,7 @@ __webpack_require__.r(__webpack_exports__);
     // Uses slider orientation to create CSS rules. a = base value;
     function inRuleOrder(v, a) {
       var o = options.ort;
-      return (o ? a : v) + ", " + (o ? v : a);
+      return (o ? a : v) + ', ' + (o ? v : a);
     }
     // Moves handle(s) by a percentage
     // (bool, % to move, [% where handle started, ...], [index in scope_Handles, ...])
@@ -2032,12 +2032,12 @@ __webpack_require__.r(__webpack_exports__);
       // Step 3: If a handle moved, fire events
       if (state) {
         handleNumbers.forEach(function (handleNumber) {
-          fireEvent("update", handleNumber);
-          fireEvent("slide", handleNumber);
+          fireEvent('update', handleNumber);
+          fireEvent('slide', handleNumber);
         });
         // If target is a connect, then fire drag event
         if (connect != undefined) {
-          fireEvent("drag", firstHandle);
+          fireEvent('drag', firstHandle);
         }
       }
     }
@@ -2055,7 +2055,7 @@ __webpack_require__.r(__webpack_exports__);
       // Convert the value to the slider stepping/range.
       scope_Values[handleNumber] = scope_Spectrum.fromStepping(to);
       var translation = transformDirection(to, 0) - scope_DirOffset;
-      var translateRule = "translate(" + inRuleOrder(translation + "%", "0") + ")";
+      var translateRule = 'translate(' + inRuleOrder(translation + '%', '0') + ')';
       scope_Handles[handleNumber].style[options.transformRule] = translateRule;
       updateConnect(handleNumber);
       updateConnect(handleNumber + 1);
@@ -2101,10 +2101,10 @@ __webpack_require__.r(__webpack_exports__);
       // 'scale' to change the width of the element;
       // As the element has a width of 100%, a translation of 100% is equal to 100% of the parent (.directorist-custom-range-slider-base)
       var connectWidth = h - l;
-      var translateRule = options.dir ? "translate(" + inRuleOrder(-l + "%", "0") + ")" // RTL
-      : "translate(" + inRuleOrder(l + "%", "0") + ")"; // LTR
-      var scaleRule = "scale(" + inRuleOrder(connectWidth / 100, "1") + ")";
-      scope_Connects[index].style[options.transformRule] = translateRule + " " + scaleRule;
+      var translateRule = options.dir ? 'translate(' + inRuleOrder(-l + '%', '0') + ')' // RTL
+      : 'translate(' + inRuleOrder(l + '%', '0') + ')'; // LTR
+      var scaleRule = 'scale(' + inRuleOrder(connectWidth / 100, '1') + ')';
+      scope_Connects[index].style[options.transformRule] = translateRule + ' ' + scaleRule;
     }
     // Parses value passed to .set method. Returns current value if not parse-able.
     function resolveToValue(to, handleNumber) {
@@ -2114,7 +2114,7 @@ __webpack_require__.r(__webpack_exports__);
         return scope_Locations[handleNumber];
       }
       // If a formatted number was passed, attempt to decode it.
-      if (typeof to === "number") {
+      if (typeof to === 'number') {
         to = String(to);
       }
       to = options.format.from(to);
@@ -2163,10 +2163,10 @@ __webpack_require__.r(__webpack_exports__);
       }
       setZindex();
       scope_HandleNumbers.forEach(function (handleNumber) {
-        fireEvent("update", handleNumber);
+        fireEvent('update', handleNumber);
         // Fire the event only for handles that received a new value, as per #579
         if (values[handleNumber] !== null && fireSetEvent) {
-          fireEvent("set", handleNumber);
+          fireEvent('set', handleNumber);
         }
       });
     }
@@ -2179,14 +2179,14 @@ __webpack_require__.r(__webpack_exports__);
       // Ensure numeric input
       handleNumber = Number(handleNumber);
       if (!(handleNumber >= 0 && handleNumber < scope_HandleNumbers.length)) {
-        throw new Error("directoristCustomRangeSlider: invalid handle number, got: " + handleNumber);
+        throw new Error('directoristCustomRangeSlider: invalid handle number, got: ' + handleNumber);
       }
       // Look both backward and forward, since we don't want this handle to "push" other handles (#960);
       // The exactInput argument can be used to ignore slider stepping (#436)
       setHandle(handleNumber, resolveToValue(value, handleNumber), true, true, exactInput);
-      fireEvent("update", handleNumber);
+      fireEvent('update', handleNumber);
       if (fireSetEvent) {
-        fireEvent("set", handleNumber);
+        fireEvent('set', handleNumber);
       }
     }
     // Get the slider value.
@@ -2272,7 +2272,7 @@ __webpack_require__.r(__webpack_exports__);
       // 'snap' and 'step' can be updated.
       // If 'snap' and 'step' are not passed, they should remain unchanged.
       var v = valueGet();
-      var updateAble = ["margin", "limit", "padding", "range", "animate", "snap", "step", "format", "pips", "tooltips"];
+      var updateAble = ['margin', 'limit', 'padding', 'range', 'animate', 'snap', 'step', 'format', 'pips', 'tooltips'];
       // Only change options that we're actually passed to update.
       updateAble.forEach(function (name) {
         // Check for undefined. null removes the value.

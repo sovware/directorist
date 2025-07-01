@@ -235,31 +235,6 @@ class Helper {
         return true;
     }
 
-    public static function install_plugin( $slug ): bool {
-        if ( self::is_plugin_installed( $slug ) ) {
-            return true;
-        }
-
-        include_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
-        include_once ABSPATH . 'wp-admin/includes/plugin-install.php';
-        require_once ABSPATH . 'wp-admin/includes/file.php';
-        
-        WP_Filesystem();
-    
-        $api = plugins_api( 'plugin_information', [ 'slug' => $slug, 'fields' => [ 'sections' => false ] ] );
-        
-        if ( is_wp_error( $api ) ) {
-            throw new Exception( $api->get_error_message(), $api->get_error_code() );
-        }
-    
-        $upgrader = new Plugin_Upgrader( new Automatic_Upgrader_Skin() );
-        $result   = $upgrader->install( $api->download_link );
-    
-        if ( is_wp_error( $result ) ) {
-            throw new Exception( $result->get_error_message(), $result->get_error_code() );
-        }
-    }
-
     public static function listing_price( $id = '' ) {
         if ( ! $id ) {
             $id = get_the_ID();
@@ -845,7 +820,34 @@ class Helper {
 
         return $query_strings;
     }
+
+    public static function install_plugin( $slug ): bool {
+        if ( self::is_plugin_installed( $slug ) ) {
+            return true;
+        }
+
+        include_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
+        include_once ABSPATH . 'wp-admin/includes/plugin-install.php';
+        require_once ABSPATH . 'wp-admin/includes/file.php';
+        
+        WP_Filesystem();
     
+        $api = plugins_api( 'plugin_information', [ 'slug' => $slug, 'fields' => [ 'sections' => false ] ] );
+        
+        if ( is_wp_error( $api ) ) {
+            throw new Exception( $api->get_error_message(), $api->get_error_code() );
+        }
+    
+        $upgrader = new Plugin_Upgrader( new Automatic_Upgrader_Skin() );
+        $result   = $upgrader->install( $api->download_link );
+    
+        if ( is_wp_error( $result ) ) {
+            throw new Exception( $result->get_error_message(), $result->get_error_code() );
+        }
+
+        return true;
+    }
+
     public static function activate_plugin( string $slug ): bool {
         if ( ! self::is_plugin_installed( $slug ) ) {
             throw new Exception( esc_html__( 'The plugin is not installed.', 'directorist' ), 404 );

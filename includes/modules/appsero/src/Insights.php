@@ -907,7 +907,7 @@ class Insights
                                 <input type="email" name="wd-dr-modal-reason-email" id="wd-dr-modal-reason-email" placeholder="Your Email">
                                 <label for="wd-dr-modal-reason-agree">
                                     <input type="checkbox" name="wd-dr-modal-reason-agree" id="wd-dr-modal-reason-agree">
-                                    I agree to receive occasional updates and freebies from Wpwax.
+                                    I agree to receive occasional updates and freebies from <a href="https://wpwax.com" target="_blank">Wpwax</a>.
                                 </label>
                             </div>
                         </div>
@@ -1090,6 +1090,7 @@ class Insights
     private function deactivation_modal_styles() {
         ?>
         <style type="text/css">
+
             .wd-dr-modal {
                 position: fixed;
                 z-index: 99999;
@@ -1112,14 +1113,14 @@ class Insights
             }
 
             .wd-dr-modal-wrap {
-                max-width: 953px;
+                max-width: 760px;
                 width: 100%;
                 position: relative;
                 margin: 10% auto;
             }
             .wd-dr-modal-wrap-content{
                 display: inline-flex;
-                padding: 40px;
+                padding: 32px;
                 flex-direction: column;
                 align-items: flex-start;
                 background: #fff;
@@ -1129,7 +1130,7 @@ class Insights
                 display: flex;
                 flex-direction: column;
                 align-items: flex-start;
-                gap: 40px;
+                gap:18px;
                 align-self: stretch;
             }
             .wd-dr-modal-wrap-content .wd-de-reasons {
@@ -1138,10 +1139,11 @@ class Insights
                 flex-wrap: wrap;
                 margin:20px 0 0;
                 padding:0;
-                gap:8px 0;
+                gap:8px;
             }
             .wd-dr-modal-wrap-content .wd-de-reasons li{
-                flex:50%;
+                flex:43%;
+                margin-bottom: 0;
             }
             .wd-dr-modal-wrap-content .wd-de-reasons li label{
                 display: flex;
@@ -1150,25 +1152,25 @@ class Insights
             }
             .wd-dr-modal-wrap-content .wd-de-reasons li label .wd-de-reason-text{
                 color: #414141;
-                font-size: 20px;
+                font-size: 16px;
                 font-weight: 400;
-                line-height: 38px;
+                line-height: 26px;
             }
             .wd-dr-modal-wrap-content .wd-de-reasons li label input[type="checkbox"]{
                 margin:0;
             }
             .wd-dr-modal-wrap-content .wd-dr-modal-header h3{
                 color: #000;
-                font-size: 32px;
+                font-size: 26px;
                 font-weight: 700;
-                line-height: 38px;
+                line-height: 32px;
                 margin:0;
             }
             .wd-dr-modal-wrap-content .wd-dr-modal-header p{
                 color: rgba(0, 0, 0, 0.60);
-                font-size: 22px;
+                font-size: 18px;
                 font-weight: 400;
-                line-height: 38px;
+                line-height: 28px;
                 margin:0;
             }
             .wd-dr-modal-reason-input{
@@ -1177,10 +1179,10 @@ class Insights
             .wd-dr-modal-reason-input label{
                 display: block;
                 color: #252627;
-                font-size: 20px;
+                font-size: 18px;
                 font-weight: 600;
                 line-height: 28px;
-                margin-bottom:20px;
+                margin-bottom:10px;
             }
             .wd-dr-modal-reason-input textarea{
                 border-radius: 8px;
@@ -1190,15 +1192,15 @@ class Insights
                 width: 100%;
                 height: 100px;
                 resize: none;
-                font-size:20px;
+                font-size:16px;
                 color: #414141;
             }
             .wd-dr-modal-reasons-bottom{
                 color: #000;
-                font-size: 20px;
+                font-size: 18px;
                 font-weight: 500;
-                line-height: 32px;
-                margin:0 0 20px;
+                line-height: 28px;
+                margin:0 0 10px;
             }
             .wd-dr-modal-reasons-bottom a{
                 color: #000;
@@ -1221,7 +1223,7 @@ class Insights
                 width: 100%;
                 max-width: 100%;
                 display: flex;
-                padding: 12px 20px;
+                padding: 8px 15px;
                 align-items: center;
                 gap: 8px;
                 align-self: stretch;
@@ -1229,14 +1231,14 @@ class Insights
                 border: 1px solid #B9BACC;
                 background: #FFF;
                 color: #414141;
-                font-size: 20px;
+                font-size: 16px;
                 font-weight: 400;
-                line-height: 38px;
+                line-height: 26px;
             }
             .wd-dr-modal-reason-product-group input[type="email"]{
                 width: 100%;
                 display: flex;
-                padding: 12px 20px;
+                padding: 8px 15px;
                 align-items: center;
                 gap: 8px;
                 align-self: stretch;
@@ -1244,24 +1246,30 @@ class Insights
                 border: 1px solid #B9BACC;
                 background: #FFF;
                 color: #414141;
-                font-size: 20px;
+                font-size: 16px;
                 font-weight: 400;
-                line-height: 38px;
+                line-height: 26px;
                 margin:0;
             }
             .wd-dr-modal-reason-product-group label{
                 color: #414141;
-                font-size: 20px;
+                font-size: 16px;
                 font-weight: 400;
-                line-height: 38px;
+                line-height: 26px;
                 margin-bottom:0;
+            }
+            .wd-dr-modal-reason-product-group label a{
+                color: #343DE6;
+                text-decoration: none;
             }
             .wd-dr-modal-footer {
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
                 width: 100%;
-                margin-top:40px;
+                margin-top:30px;
+                flex-wrap: wrap;
+                gap:10px;
             }
             .wd-dr-modal-footer .wd-dr-modal-footer-right{
                 display:flex;
@@ -1271,58 +1279,58 @@ class Insights
             }
             .wd-dr-cancel-modal{
                 display: flex;
-                padding: 8px 18px;
+                padding: 6px 15px;
                 justify-content: center;
                 align-items: center;
                 gap: 8px;
-                border-radius: 8px;
-                background: var(--100, #EEEFFF);
-                color: var(--400, #6A80F7) !important;
-                font-size: 18px;
-                font-weight: 700;
-                line-height: 32px;
+                border-radius: 6px;
+                background:#EEEFFF;
+                color: #6A80F7 !important;
+                font-size: 16px;
+                font-weight: 600;
+                line-height: 26px;
                 border:none;
                 cursor:pointer;
             }
             .dont-bother-me{
                 display: flex;
-                padding: 8px 18px;
+                padding: 6px 15px;
                 justify-content: center;
                 align-items: center;
                 gap: 8px;
-                border-radius: 8px;
-                border: 1px solid var(--400, #6A80F7);
-                color: var(--400, #6A80F7) !important;
-                font-size: 18px;
-                font-weight: 700;
-                line-height: 32px;
+                border-radius: 6px;
+                border: 1px solid #6A80F7;
+                color:#6A80F7 !important;
+                font-size: 16px;
+                font-weight: 600;
+                line-height: 26px;
             }
             .wd-dr-submit-modal{
                 display: flex;
-                padding: 8px 18px;
+                padding: 6px 15px;
                 justify-content: center;
                 align-items: center;
                 gap: 8px;
-                border-radius: 8px;
+                border-radius: 6px;
                 background: var(--600, #343DE6);
                 border:1px solid #343DE6;
                 color: #FFF !important;
-                font-size: 18px;
-                font-weight: 700;
-                line-height: 32px;
+                font-size: 16px;
+                font-weight: 600;
+                line-height: 26px;
                 cursor:pointer;
             }
             .wd-dr-modal-close {
                 position: absolute;
                 right: -15px;
                 top: -15px;
-                font-size: 26px;
+                font-size: 22px;
                 cursor: pointer;
                 font-weight: bold;
                 transition: color 0.2s;
                 display: flex;
-                width: 40px;
-                height: 40px;
+                width: 35px;
+                height: 35px;
                 padding: 8.182px;
                 justify-content: center;
                 align-items: center;
@@ -1332,6 +1340,38 @@ class Insights
             }
             .wd-dr-modal-close:hover {
                 color: #3B86FF;
+            }
+
+            @media screen and (max-width: 767px) {
+                .wd-dr-modal-wrap-content{
+                    margin:10px;
+                }
+                .wd-dr-modal-close{
+                    right:0;
+                    top:0;
+                }
+                .wd-dr-modal-wrap-content .wd-dr-modal-header h3{
+                    font-size: 22px;
+                }
+                .wd-dr-modal-reason-input label,
+                .wd-dr-modal-reasons-bottom,
+                .wd-dr-modal-wrap-content .wd-dr-modal-header p{
+                    font-size: 16px;
+                }
+                .wd-dr-submit-modal,
+                .dont-bother-me,
+                .wd-dr-cancel-modal,
+                .wd-dr-modal-reason-product-group input[type="email"],
+                .wd-dr-modal-reason-product-group select,
+                .wd-dr-modal-reason-input textarea,
+                .wd-dr-modal-wrap-content .wd-de-reasons li label .wd-de-reason-text{
+                    font-size: 14px;
+                }
+                .wd-dr-modal-body input[type=checkbox]:checked:before {
+                    width: 13px;
+                    height: 13px;
+                    margin: 0px 0px;
+                }
             }
         </style>
         <?php

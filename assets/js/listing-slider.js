@@ -42,10 +42,10 @@
 			},
 			n: function n() {
 				var r = t.next();
-				return ((a = r.done), r);
+				return (a = r.done), r;
 			},
 			e: function e(r) {
-				((u = !0), (o = r));
+				(u = !0), (o = r);
 			},
 			f: function f() {
 				try {

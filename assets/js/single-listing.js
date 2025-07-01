@@ -1065,10 +1065,10 @@
 						},
 						n: function n() {
 							var r = t.next();
-							return ((a = r.done), r);
+							return (a = r.done), r;
 						},
 						e: function e(r) {
-							((u = !0), (o = r));
+							(u = !0), (o = r);
 						},
 						f: function f() {
 							try {
@@ -2091,7 +2091,7 @@
 				function _defineProperties(e, r) {
 					for (var t = 0; t < r.length; t++) {
 						var o = r[t];
-						((o.enumerable = o.enumerable || !1),
+						(o.enumerable = o.enumerable || !1),
 							(o.configurable = !0),
 							'value' in o && (o.writable = !0),
 							Object.defineProperty(
@@ -2101,7 +2101,7 @@
 									'default'
 								])(o.key),
 								o
-							));
+							);
 					}
 				}
 				function _createClass(e, r, t) {

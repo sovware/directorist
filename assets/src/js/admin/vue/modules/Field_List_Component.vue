@@ -13,6 +13,7 @@
       :root="field_list"
       v-bind="excludeShowIfCondition(field)"
       @update="update({ key: field_key, value: $event })"
+      @alert="$emit( 'alert', { key: `${field.type}_${field_key}`, data: $event } )"
     />
     <button 
       class="cptm-form-builder-group-options__advanced-toggle"

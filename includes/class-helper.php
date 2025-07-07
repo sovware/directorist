@@ -6,6 +6,8 @@
 namespace Directorist;
 
 use Exception;
+use Plugin_Upgrader;
+use Automatic_Upgrader_Skin;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -817,5 +819,57 @@ class Helper {
         $query_strings = ( ! empty( $matches ) ) ? $matches[0] : '';
 
         return $query_strings;
+    }
+
+    public static function install_plugin( $slug ): bool {
+        if ( self::is_plugin_installed( $slug ) ) {
+            return true;
+        }
+
+        include_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
+        include_once ABSPATH . 'wp-admin/includes/plugin-install.php';
+        require_once ABSPATH . 'wp-admin/includes/file.php';
+        
+        WP_Filesystem();
+    
+        $api = plugins_api( 'plugin_information', [ 'slug' => $slug, 'fields' => [ 'sections' => false ] ] );
+        
+        if ( is_wp_error( $api ) ) {
+            throw new Exception( $api->get_error_message(), $api->get_error_code() );
+        }
+    
+        $upgrader = new Plugin_Upgrader( new Automatic_Upgrader_Skin() );
+        $result   = $upgrader->install( $api->download_link );
+    
+        if ( is_wp_error( $result ) ) {
+            throw new Exception( $result->get_error_message(), $result->get_error_code() );
+        }
+
+        return true;
+    }
+
+    public static function activate_plugin( string $slug ): bool {
+        if ( ! self::is_plugin_installed( $slug ) ) {
+            throw new Exception( esc_html__( 'The plugin is not installed.', 'directorist' ), 404 );
+        }
+        
+        if ( self::is_the_plugin_active( $slug ) ) {
+            return true;
+        }
+        
+        activate_plugin( "{$slug}/{$slug}.php" );
+        return true;
+    }
+
+    public static function is_the_plugin_active( string $slug ): bool {
+        if ( ! function_exists( '\is_plugin_active' ) ) {
+            return false;
+        }
+
+        return \is_plugin_active( "{$slug}/{$slug}.php" );
+    }
+
+    public static function is_plugin_installed( $slug ): bool {
+        return file_exists( WP_PLUGIN_DIR . "/{$slug}/{$slug}.php" );
     }
 }

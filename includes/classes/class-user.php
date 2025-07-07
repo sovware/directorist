@@ -830,7 +830,6 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 
             }
             return 'passed';
-
         }
 
         public function handle_user_registration() {
@@ -1109,7 +1108,6 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 
 
             return false; // failed to save data, so return false
-
         }
 
         /**

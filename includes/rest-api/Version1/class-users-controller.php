@@ -58,11 +58,11 @@ class Users_Controller extends Abstract_Controller {
                                 'description' => __( 'New user password.', 'directorist' ),
                                 'type'     => 'string',
                             ],
-                        ] 
+                        ]
                     ),
                 ],
                 'schema' => [ $this, 'get_public_item_schema' ],
-            ] 
+            ]
         );
 
         register_rest_route(
@@ -105,7 +105,7 @@ class Users_Controller extends Abstract_Controller {
                     ],
                 ],
                 'schema' => [ $this, 'get_public_item_schema' ],
-            ] 
+            ]
         );
     }
 
@@ -697,7 +697,7 @@ class Users_Controller extends Abstract_Controller {
             if ( $image_id && wp_attachment_is_image( $image_id ) ) {
                 update_user_meta( $id, 'pro_pic', $image_id );
             } else {
-                delete_term_meta( $id, 'pro_pic' );
+                delete_user_meta( $id, 'pro_pic' );
             }
         }
     }

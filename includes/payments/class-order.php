@@ -36,7 +36,6 @@ class ATBDP_Order
         add_filter( 'manage_edit-atbdp_orders_sortable_columns', [$this, 'get_sortable_columns'] );
 
         add_filter( 'post_row_actions', [$this, 'set_payment_receipt_link'], 10, 2 );
-
     }
 
     /**
@@ -216,7 +215,6 @@ class ATBDP_Order
         ];
 
         register_post_type( 'atbdp_orders', $args );
-
     }
 
     /**
@@ -295,7 +293,6 @@ class ATBDP_Order
 
 
         }
-
     }
 
     /**
@@ -317,7 +314,6 @@ class ATBDP_Order
             }
 
         }
-
     }
 
     /**
@@ -344,7 +340,6 @@ class ATBDP_Order
         ];
 
         return $columns = apply_filters( 'atbdp_add_new_order_column', $columns );
-
     }
 
     /**
@@ -440,7 +435,6 @@ class ATBDP_Order
          *
          */
         do_action( 'atbdp_custom_order_column_content', $column, $post_id, $listing_id );
-
     }
 
     /**
@@ -461,7 +455,6 @@ class ATBDP_Order
             'status' => 'status',
         ];
         return $columns = apply_filters( 'atbdp_order_table_shortable_colums', $columns );
-
     }
 
     /**
@@ -515,7 +508,6 @@ class ATBDP_Order
 
         // Add filter to sort columns
         add_filter( 'request', [$this, 'sort_columns'] );
-
     }
 
     /**
@@ -598,7 +590,6 @@ class ATBDP_Order
                 </div>
             <?php }
         }
-
     }
 
     /**

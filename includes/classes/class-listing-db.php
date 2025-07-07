@@ -104,7 +104,6 @@ if ( ! class_exists( 'ATBDP_Listing_DB' ) ) :
                 return true;
             }
             return false;
-
         }
 
         //@TODO; methods to add: delete all listing by user

@@ -21,8 +21,6 @@ class ATBDP_Roles {
 
         add_action( 'init', [$this, 'disable_admin_bar_for_subscribers'], 9 );
         add_filter( 'wp_dropdown_users_args', [$this, 'add_subscribers_to_dropdown'], 10, 2 );
-
-
     }
     
     public function directorist_add_caps() {
@@ -39,7 +37,6 @@ class ATBDP_Roles {
 
         $query_args['who'] = '';
         return $query_args;
-
     }
 
     /**
@@ -189,7 +186,6 @@ class ATBDP_Roles {
         }
 
         return $caps;
-
     }
 
     /**
@@ -247,7 +243,6 @@ class ATBDP_Roles {
 
         // Return the capabilities required by the user.
         return $caps;
-
     }
 
     /**

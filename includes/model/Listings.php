@@ -1234,7 +1234,7 @@ class Directorist_Listings {
         $search_field_atts = array_filter(
             $this->atts, function( $key ) {
                 return substr( $key, 0, 7 ) == 'filter_';
-            }, ARRAY_FILTER_USE_KEY 
+            }, ARRAY_FILTER_USE_KEY
         );
 
         $args = [
@@ -1800,6 +1800,8 @@ class Directorist_Listings {
     }
 
     function loop_get_the_thumbnail( $class = '' ) {
+        $this->cache_thumbnails();
+
         $default_image_src = Helper::default_preview_image_src( $this->current_listing_type );
 
         $id = get_the_ID();
@@ -2270,7 +2272,6 @@ class Directorist_Listings {
                 break;
 
         }
-
     }
 
     public function listing_wrapper_class() {
@@ -2334,7 +2335,7 @@ class Directorist_Listings {
         $search_field_atts = array_filter(
             $this->atts, function( $key ) {
                 return substr( $key, 0, 7 ) == 'filter_';
-            }, ARRAY_FILTER_USE_KEY 
+            }, ARRAY_FILTER_USE_KEY
         );
 
         $args = [
@@ -2349,7 +2350,7 @@ class Directorist_Listings {
         $search_field_atts = array_filter(
             $this->atts, function( $key ) {
                 return substr( $key, 0, 7 ) == 'filter_';
-            }, ARRAY_FILTER_USE_KEY 
+            }, ARRAY_FILTER_USE_KEY
         );
 
         $args = [
@@ -2364,7 +2365,7 @@ class Directorist_Listings {
         $search_field_atts = array_filter(
             $this->atts, function( $key ) {
                 return substr( $key, 0, 7 ) == 'filter_';
-            }, ARRAY_FILTER_USE_KEY 
+            }, ARRAY_FILTER_USE_KEY
         );
 
         $args = [
@@ -2387,7 +2388,7 @@ class Directorist_Listings {
         $search_field_atts = array_filter(
             $this->atts, function( $key ) {
                 return substr( $key, 0, 7 ) == 'filter_';
-            }, ARRAY_FILTER_USE_KEY 
+            }, ARRAY_FILTER_USE_KEY
         );
 
         $args = [
@@ -2423,7 +2424,7 @@ class Directorist_Listings {
         $search_field_atts = array_filter(
             $this->atts, function( $key ) {
                 return substr( $key, 0, 7 ) == 'filter_';
-            }, ARRAY_FILTER_USE_KEY 
+            }, ARRAY_FILTER_USE_KEY
         );
 
         $args = [

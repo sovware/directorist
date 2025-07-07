@@ -91,7 +91,6 @@ if ( ! class_exists( 'Directorist_Multilingual_Polylang' ) ) :
             }
 
             return PLL()->links_model->switch_language_in_link( $permalink, PLL()->model->get_language( $_SERVER['HTTP_DIRECTORIST_LANG'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash,WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-
         }
 
         // Term's Language link update

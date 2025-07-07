@@ -5656,6 +5656,25 @@ body.wp-admin {
   border-radius: 4px;
   color: #5a5f7d;
 }
+.directorist_dropdown .directorist_dropdown-option ul:empty {
+  position: relative;
+  height: 50px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.directorist_dropdown .directorist_dropdown-option ul:empty:before {
+  content: "No Items Found";
+}
 
 .directorist_select .select2-container .select2-selection--single {
   padding: 0 20px;

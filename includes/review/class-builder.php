@@ -35,10 +35,10 @@ class Builder {
 
     private function __construct( $data ) {
         $this->load_data( $data );
-        $this->cookies_consent      = ! empty( $data['review_cookies_consent'] ) ? true : false;
-        $this->gdpr_consent         = ! empty( $data['review_enable_gdpr_consent'] ) ? true : false;
+        $this->cookies_consent      = ! empty( $data['fields']['review_consent']['enable_cookie_consent'] ) ? true : false;
+        $this->gdpr_consent         = ! empty( $data['fields']['review_consent']['enable_gdpr_consent'] ) ? true : false;
         $this->rating_type          = ! empty( $data['rating_type'] ) ? $data['rating_type'] : 'single';
-        $this->gdpr_consent_label   = ! empty( $data['review_gdpr_consent_label'] ) ? $data['review_gdpr_consent_label'] : sprintf(
+        $this->gdpr_consent_label   = ! empty( $data['fields']['review_consent']['consent_label'] ) ? $data['fields']['review_consent']['consent_label'] : sprintf(
             __( 'I have read and agree to the <a href="%s" target="_blank">Privacy Policy</a> and <a href="%s" target="_blank">Terms of Service</a>', 'directorist' ),
             esc_url( ATBDP_Permalink::get_privacy_policy_page_url() ),
             esc_url( ATBDP_Permalink::get_terms_and_conditions_page_url() )

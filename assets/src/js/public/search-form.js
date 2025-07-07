@@ -1297,7 +1297,7 @@ import './components/directoristSelect';
 											i < len;
 											i++
 										) {
-											(res +=
+											((res +=
 												'<li><a href="#" data-lat=' +
 												data[i].lat +
 												' data-lon=' +
@@ -1306,7 +1306,7 @@ import './components/directoristSelect';
 												locationIconHTML +
 												"<span class='location-address'>" +
 												data[i].display_name),
-												+'</span></a></li>';
+												+'</span></a></li>');
 										}
 
 										function displayLocation(

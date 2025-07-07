@@ -32,7 +32,6 @@ class ATBDP_Upgrade
         add_action( 'admin_notices', [ $this, 'bfcm_notice'] );
 
         add_action( 'admin_init', [ $this, 'v8_force_migration' ] );
-
     }
 
     public function v8_force_migration() {

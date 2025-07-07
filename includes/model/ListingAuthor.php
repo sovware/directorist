@@ -85,7 +85,6 @@ class Directorist_Listing_Author {
 
         $this->all_listings = $this->get_all_posts();
         $this->get_rating();
-
     }
 
     public function get_listing_types() {

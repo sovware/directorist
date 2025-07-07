@@ -1,5 +1,6 @@
 @import "./../../../base/utility";
 @import "./droppable-list";
+@import "./../../../component/tooltip";
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 
 $dark: #23282d;
@@ -380,7 +381,9 @@ $light-gray: #f4f5f7;
       background-color: #141921;
       opacity: 0;
       visibility: hidden;
-      transition: opacity 0.3s ease, visibility 0.3s ease;
+      transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
     }
 
     &:after {
@@ -394,7 +397,9 @@ $light-gray: #f4f5f7;
       border-right: 6px solid transparent;
       opacity: 0;
       visibility: hidden;
-      transition: opacity 0.3s ease, visibility 0.3s ease;
+      transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
     }
 
     .cptm-save-icon {
@@ -1541,7 +1546,10 @@ div[draggable="true"].cptm-form-builder-group-title-area {
       box-sizing: border-box;
       border: 1px solid #e5e7eb;
       box-shadow: 0 12px 16px rgba(16, 24, 40, 0.08);
-      transition: background ease 0.3s, color ease 0.3s, border-color ease 0.3s;
+      transition:
+        background ease 0.3s,
+        color ease 0.3s,
+        border-color ease 0.3s;
 
       span {
         font-size: 20px;
@@ -1826,6 +1834,38 @@ div[draggable="true"].cptm-form-builder-group-title-area {
       font-size: 16px;
       color: #747c89;
     }
+    .cptm-title-icon-svg {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      svg {
+        width: 16px;
+        height: 16px;
+        path {
+          fill: #747c89;
+        }
+      }
+    }
+    > span {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+    .cptm-title-info {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      font-size: 12px;
+      line-height: 14px;
+      font-weight: 400;
+      padding: 4px 8px;
+      color: #ca6f04;
+      background-color: #fdefce;
+      border-radius: 4px;
+      .cptm-title-info-icon {
+        font-size: 16px;
+      }
+    }
   }
 }
 
@@ -1918,6 +1958,18 @@ li[class="cptm-form-builder-field-list-item"][draggable="true"] {
   width: 16px;
   font-size: 16px;
   color: #747c89;
+  .cptm-form-builder-field-list-icon-svg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    svg {
+      width: 16px;
+      height: 16px;
+      path {
+        fill: #747c89;
+      }
+    }
+  }
 }
 
 .cptm-form-builder-field-list-label {
@@ -3387,6 +3439,102 @@ input[type="radio"].cptm-radio {
     }
   }
 
+  // Form Content (FormGent)
+  &.cptm-form-content {
+    text-align: center;
+    margin-bottom: 0;
+    .cptm-form-content-select {
+      text-align: left;
+    }
+    .cptm-form-content-title {
+      font-size: 16px;
+      line-height: 22px;
+      font-weight: 600;
+      color: #191b23;
+      margin: 0 0 8px;
+    }
+    .cptm-form-content-desc {
+      font-size: 12px;
+      line-height: 18px;
+      font-weight: 400;
+      color: #747c89;
+      margin: 0;
+    }
+
+    .cptm-form-content-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      margin: 0 0 12px;
+    }
+
+    .cptm-form-content-btn {
+      position: relative;
+      display: inline-flex;
+      gap: 6px;
+      align-items: center;
+      justify-content: center;
+      height: 30px;
+      font-size: 12px;
+      line-height: 14px;
+      font-weight: 500;
+      margin: 8px auto 0;
+      color: #3e62f5;
+      background: transparent;
+      border: none;
+      outline: none;
+      box-shadow: none;
+      cursor: pointer;
+      &:before {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 1px;
+        left: 0;
+        bottom: 8px;
+        background-color: #3e62f5;
+        transition: width ease-in-out 300ms;
+      }
+      &:hover,
+      &:focus {
+        &:before {
+          width: 100%;
+        }
+      }
+      &.cptm-btn-disabled {
+        pointer-events: none;
+        &:before {
+          display: none;
+        }
+      }
+      &.cptm-form-loader {
+        display: flex;
+        color: #747c89;
+        height: auto;
+        &:before {
+          display: none;
+        }
+        &:hover,
+        &:focus {
+          color: #3e62f5;
+        }
+      }
+      .cptm-form-content-btn-icon {
+        font-size: 14px;
+      }
+      .cptm-form-content-btn-loader {
+        display: inline-flex;
+        gap: 6px;
+        align-items: center;
+        justify-content: center;
+        i {
+          font-size: 15px;
+        }
+      }
+    }
+  }
+
   &.tab-field {
     .cptm-preview-wrapper {
       display: flex;
@@ -4342,7 +4490,8 @@ input[type="radio"] {
     top: 39px;
     padding: 12px 8px;
     background-color: #fff;
-    box-shadow: 0 12px 16px -4px rgba(16, 24, 40, 0.08),
+    box-shadow:
+      0 12px 16px -4px rgba(16, 24, 40, 0.08),
       0px 4px 6px -2px rgba(16, 24, 40, 0.03);
     border: 1px solid #e5e7eb;
     border-radius: 8px;

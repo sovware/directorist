@@ -221,7 +221,6 @@ function atbdp_listen_for_failed_payments() {
         }
 
     }
-
 }
 
 add_action( 'template_redirect', 'atbdp_listen_for_failed_payments' );
@@ -386,7 +385,6 @@ function atbdp_validate_card_number_format_luhn( $number ) {
 
     // If the total mod 10 equals 0, the number is valid
     return ( $total % 10 == 0 ) ? true : false;
-
 }
 
 /**
@@ -491,5 +489,4 @@ function atbdp_purchase_form_validate_cc_exp_date( $exp_month, $exp_year ) {
     $expiration = strtotime( date( 't', strtotime( $month_name . ' ' . $exp_year ) ) . ' ' . $month_name . ' ' . $exp_year . ' 11:59:59PM' );
 
     return $expiration >= time();
-
 }

@@ -164,7 +164,6 @@ if ( ! class_exists( 'ATBDP_Email' ) ) :
             $c = nl2br( strtr( $content, $find_replace ) );
             // we do not want to use br for line break in the order details markup. so we removed that from bulk replacement.
             return str_replace( '==ORDER_DETAILS==', ATBDP_Order::get_order_details( $order_id ), $c );
-
         }
 
         /**
@@ -440,7 +439,7 @@ This email is sent automatically for information purpose only. Please do not res
 
             $sent = wp_mail( $to, html_entity_decode( $subject ), $message, $headers );
             /*@todo; check if we really need to remove the filter, as the above filter change the content type only when we call this function.*/
-            
+
             remove_filter( 'wp_mail_content_type', [ $this, 'html_content_type' ] );
             remove_filter( 'wp_mail_from_name', [ $this, 'atbdp_wp_mail_from_name' ] );
 
@@ -493,7 +492,7 @@ This email is sent automatically for information purpose only. Please do not res
                 return false;
             }
 
-            if ( ! in_array( 'order_created', get_directorist_option( 'notify_user', [ 'order_created' ], true ) ) ) {
+            if ( ! directorist_is_owner_notifiable_event( 'order_created' ) ) {
                 return false;
             }
 
@@ -556,9 +555,10 @@ This email is sent automatically for information purpose only. Please do not res
                 return false;
             }
 
-            if ( ! in_array( 'order_completed', get_directorist_option( 'notify_user', [ 'order_completed' ], true ) ) ) {
+            if ( ! directorist_is_owner_notifiable_event( 'order_completed' ) ) {
                 return false;
             }
+
             $user = $this->get_owner( $listing_id ? $listing_id : $order_id );
             $subject = $this->replace_in_content( get_directorist_option( 'email_sub_completed_order' ), $order_id, $listing_id, $user );
             $body = $this->replace_in_content( get_directorist_option( 'email_tmpl_completed_order' ), $order_id, $listing_id, $user );
@@ -594,7 +594,7 @@ This email is sent automatically for information purpose only. Please do not res
 
             $notify = apply_filters( 'directorist_notify_owner_listing_submitted', true, $listing_id );
 
-            if ( ! $notify || $this->disable_notification() || ! in_array( 'listing_submitted', get_directorist_option( 'notify_user', [ 'listing_submitted' ], true ) ) ) {
+            if ( ! $notify || $this->disable_notification() || ! directorist_is_owner_notifiable_event( 'listing_submitted' ) ) {
                 return false;
             }
 
@@ -633,7 +633,7 @@ This email is sent automatically for information purpose only. Please do not res
 
             $notify = apply_filters( 'directorist_notify_admin_listing_published', true, $listing_id );
 
-            if ( ! $notify || $this->disable_notification() || ! in_array( 'listing_published', get_directorist_option( 'notify_admin', [ 'listing_published' ], true ) ) ) {
+            if ( ! $notify || $this->disable_notification() || ! directorist_is_admin_notifiable_event( 'listing_published' ) ) {
                 return false;
             }
 
@@ -661,7 +661,6 @@ This email is sent automatically for information purpose only. Please do not res
             do_action( 'directorist_email_on_notify_admin_listing_published', $action_args );
 
             return $is_sent;
-
         }
 
         /**
@@ -675,7 +674,7 @@ This email is sent automatically for information purpose only. Please do not res
 
             $notify = apply_filters( 'directorist_notify_owner_listing_published', true, $listing_id );
 
-            if ( ! $notify || $this->disable_notification() || ! in_array( 'listing_published', get_directorist_option( 'notify_user', [ 'listing_published' ], true ) ) ) {
+            if ( ! $notify || $this->disable_notification() || ! directorist_is_owner_notifiable_event( 'listing_published' ) ) {
                 return false;
             }
 
@@ -716,7 +715,7 @@ This email is sent automatically for information purpose only. Please do not res
                 return false;
             }
 
-            if ( ! in_array( 'listing_edited', get_directorist_option( 'notify_user', [ 'listing_edited' ], true ) ) ) {
+            if ( ! directorist_is_owner_notifiable_event( 'listing_edited' ) ) {
                 return false;
             }
 
@@ -759,7 +758,7 @@ This email is sent automatically for information purpose only. Please do not res
 
             $notify = apply_filters( 'directorist_notify_owner_listing_to_expire', true, $listing_id );
 
-            if ( ! $listing_id || ! $notify || $this->disable_notification() || ! in_array( 'listing_to_expire', get_directorist_option( 'notify_user', [ 'listing_to_expire' ], true ) ) ) {
+            if ( ! $listing_id || ! $notify || $this->disable_notification() || ! directorist_is_owner_notifiable_event( 'listing_to_expire' ) ) {
                 return false;
             }
 
@@ -798,7 +797,7 @@ This email is sent automatically for information purpose only. Please do not res
 
             $notify = apply_filters( 'directorist_notify_owner_listing_expired', true, $listing_id );
 
-            if ( ! $listing_id || ! $notify || $this->disable_notification() || ! in_array( 'listing_expired',  get_directorist_option( 'notify_user', [ 'listing_expired' ], true ) ) ) {
+            if ( ! $listing_id || ! $notify || $this->disable_notification() || ! directorist_is_owner_notifiable_event( 'listing_expired' ) ) {
                 return false;
             }
 
@@ -837,7 +836,7 @@ This email is sent automatically for information purpose only. Please do not res
 
             $notify = apply_filters( 'directorist_notify_owner_to_renew', true, $listing_id );
 
-            if ( ! $listing_id || ! $notify || $this->disable_notification() || ! in_array( 'remind_to_renew', get_directorist_option( 'notify_user', [ 'remind_to_renew' ], true ) ) ) {
+            if ( ! $listing_id || ! $notify || $this->disable_notification() || ! directorist_is_owner_notifiable_event( 'remind_to_renew' ) ) {
                 return false;
             }
 
@@ -877,7 +876,7 @@ This email is sent automatically for information purpose only. Please do not res
                 return false;
             }
 
-            if ( ! in_array( 'listing_renewed', get_directorist_option( 'notify_user', [ 'listing_renewed' ], true ) ) ) {
+            if ( ! directorist_is_owner_notifiable_event( 'listing_renewed' ) ) {
                 return false;
             }
 
@@ -901,7 +900,7 @@ This email is sent automatically for information purpose only. Please do not res
                 return false;
             }
 
-            if ( ! in_array( 'listing_deleted', get_directorist_option( 'notify_user', [ 'listing_deleted' ], true ) ) ) {
+            if ( ! directorist_is_owner_notifiable_event( 'listing_deleted' ) ) {
                 return false;
             }
 
@@ -943,7 +942,7 @@ This email is sent automatically for information purpose only. Please do not res
                 return false; // vail if email notification is off
             }
 
-            if ( ! in_array( 'listing_deleted', get_directorist_option( 'notify_admin', [], true ) ) ) {
+            if ( ! directorist_is_admin_notifiable_event( 'listing_deleted' ) ) {
                 return false; // vail if order created notification to admin off
             }
 
@@ -952,7 +951,6 @@ This email is sent automatically for information purpose only. Please do not res
             $body = $this->replace_in_content( $this->get_listing_deleted_admin_tmpl(), null, $listing_id );
             $body = atbdp_email_html( $sub, $body );
             return $this->send_mail( $this->get_admin_email_list(), $sub, $body, $this->get_email_headers() );
-
         }
 
         public function notify_admin_become_author( $user_id ) {
@@ -1006,7 +1004,7 @@ This email is sent automatically for information purpose only. Please do not res
                 return false; // vail if email notification is off
             }
 
-            if ( ! in_array( 'order_created', get_directorist_option( 'notify_admin', [ 'order_created' ], true ) ) ) {
+            if ( ! directorist_is_admin_notifiable_event( 'order_created' ) ) {
                 return false; // vail if order created notification to admin off
             }
 
@@ -1051,7 +1049,7 @@ This email is sent automatically for information purpose only. Please do not res
                 return false;
             }
 
-            if ( ! in_array( 'order_completed', get_directorist_option( 'notify_admin', [ 'order_completed' ], true ) ) ) {
+            if ( ! directorist_is_admin_notifiable_event( 'order_completed' ) ) {
                 return false;
             }
 
@@ -1093,7 +1091,7 @@ This email is sent automatically for information purpose only. Please do not res
 
             $notify = apply_filters( 'directorist_notify_admin_listing_submitted', true, $listing_id );
 
-            if ( ! $notify || $this->disable_notification() || ! in_array( 'listing_submitted', get_directorist_option( 'notify_admin', [ 'listing_submitted' ], true ) ) ) {
+            if ( ! $notify || $this->disable_notification() || ! directorist_is_admin_notifiable_event( 'listing_submitted' ) ) {
                 return false;
             }
 
@@ -1121,7 +1119,6 @@ This email is sent automatically for information purpose only. Please do not res
             do_action( 'directorist_email_on_notify_admin_listing_submitted', $action_args );
 
             return $is_sent;
-
         }
 
         /**
@@ -1159,7 +1156,7 @@ This email is sent automatically for information purpose only. Please do not res
                 return false;
             }
 
-            if ( ! in_array( 'listing_edited', get_directorist_option( 'notify_admin', [], true ) ) ) {
+            if ( ! directorist_is_admin_notifiable_event( 'listing_edited' ) ) {
                 return false;
             }
 

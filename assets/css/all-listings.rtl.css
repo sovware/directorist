@@ -9041,6 +9041,11 @@ body.modal-overlay-enabled:before {
     height: auto;
     background: transparent;
   }
+  .directorist-search-modal__contents__btn ~ .directorist-search-modal__minimizer {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
   .directorist-search-modal__contents__btn i::after {
     width: 12px;
     height: 12px;
@@ -9056,10 +9061,7 @@ body.modal-overlay-enabled:before {
 }
 .directorist-search-modal__minimizer {
   position: relative;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
+  display: none;
   height: 25px;
   width: 100%;
   opacity: 0;
@@ -9081,6 +9083,10 @@ body.modal-overlay-enabled:before {
   .directorist-search-modal__minimizer {
     opacity: 1;
     visibility: visible;
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
   }
 }
 .directorist-search-modal--basic .directorist-search-modal__contents__body {

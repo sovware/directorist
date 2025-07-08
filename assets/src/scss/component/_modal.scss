@@ -419,6 +419,11 @@
 				width: auto;
 				height: auto;
 				background: transparent;
+				~ .directorist-search-modal__minimizer {
+					position: absolute;
+					left: 0;
+					top: 0;
+				}
 				i::after {
 					width: 12px;
 					height: 12px;
@@ -439,7 +444,7 @@
 
 	@include e(minimizer) {
 		position: relative;
-		display: inline-flex;
+		display: none;
 		height: 25px;
 		width: 100%;
 		opacity: 0;
@@ -458,6 +463,7 @@
 		@media only screen and (max-width: 575px) {
 			opacity: 1;
 			visibility: visible;
+			display: inline-flex;
 		}
 	}
 

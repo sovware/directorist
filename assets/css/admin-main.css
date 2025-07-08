@@ -12456,6 +12456,11 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
     height: auto;
     background: transparent;
   }
+  .directorist-search-modal__contents__btn ~ .directorist-search-modal__minimizer {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
   .directorist-search-modal__contents__btn i::after {
     width: 12px;
     height: 12px;
@@ -12471,10 +12476,7 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 }
 .directorist-search-modal__minimizer {
   position: relative;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
+  display: none;
   height: 25px;
   width: 100%;
   opacity: 0;
@@ -12496,6 +12498,10 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   .directorist-search-modal__minimizer {
     opacity: 1;
     visibility: visible;
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
   }
 }
 .directorist-search-modal--basic .directorist-search-modal__contents__body {

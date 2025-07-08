@@ -9041,7 +9041,10 @@ body.modal-overlay-enabled:before {
     height: auto;
     background: transparent;
   }
-  .directorist-search-modal__contents__btn ~ .directorist-search-modal__minimizer {
+  .directorist-search-modal__contents__btn.directorist-search-modal__contents__btn--close {
+    z-index: 1;
+  }
+  .directorist-search-modal__contents__btn.directorist-search-modal__contents__btn--close ~ .directorist-search-modal__minimizer {
     position: absolute;
     right: 0;
     top: 0;

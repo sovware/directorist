@@ -419,10 +419,13 @@
 				width: auto;
 				height: auto;
 				background: transparent;
-				~ .directorist-search-modal__minimizer {
-					position: absolute;
-					left: 0;
-					top: 0;
+				&.directorist-search-modal__contents__btn--close {
+					z-index: 1;
+					~ .directorist-search-modal__minimizer {
+						position: absolute;
+						left: 0;
+						top: 0;
+					}
 				}
 				i::after {
 					width: 12px;

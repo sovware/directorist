@@ -12456,7 +12456,10 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
     height: auto;
     background: transparent;
   }
-  .directorist-search-modal__contents__btn ~ .directorist-search-modal__minimizer {
+  .directorist-search-modal__contents__btn.directorist-search-modal__contents__btn--close {
+    z-index: 1;
+  }
+  .directorist-search-modal__contents__btn.directorist-search-modal__contents__btn--close ~ .directorist-search-modal__minimizer {
     position: absolute;
     left: 0;
     top: 0;

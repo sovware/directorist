@@ -15,3 +15,4 @@ languages/directorist-en_GB-backup-202002181356150.po~
 /package-lock.json
 /_build
 /yarn.lock
+/pnpm-lock.yaml

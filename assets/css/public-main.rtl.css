@@ -15613,6 +15613,29 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   visibility: visible;
 }
 
+/* Password toggle */
+.directorist-password-group {
+  position: relative;
+}
+.directorist-password-group-input {
+  padding-left: 40px !important;
+}
+.directorist-password-group-toggle {
+  position: absolute;
+  top: calc(50% + 16px);
+  left: 15px;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  cursor: pointer;
+}
+.directorist-password-group-toggle svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: #888;
+  stroke-width: 2;
+}
+
 /* Directorist all authors card */
 .directorist-authors-section {
   position: relative;

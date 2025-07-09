@@ -89,13 +89,13 @@ For production environments, it is strongly recommended to use Node.js 20.x (LTS
 
 Each time you update Node.js or npm, record the changes here for tracking:
 
-### [2025-06-29] Node.js 22.16.0 → 22.17.0, npm 10.2.4 → 10.9.2
+### [2025-07-02] Node.js 22.16.0 → 22.17.0, npm 10.2.4 → 10.9.2
 
 - Packages updated:
-  - xxx
+  -
 
 - Notes: (any issues, breaking changes, or manual steps)
-  - xxx
+  -
 
 ---
 

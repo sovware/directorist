@@ -1430,6 +1430,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     editorID: {
       required: false
+    },
+    createFormButton: {
+      required: false
     }
   }
 });
@@ -1807,13 +1810,6 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   },
   created: function created() {
     this.setup();
-  },
-  watch: {
-    theOptions: function theOptions() {
-      if (!this.valueIsValid(this.value)) {
-        this.$emit('update', '');
-      }
-    }
   },
   computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapState)({
     fields: 'fields'

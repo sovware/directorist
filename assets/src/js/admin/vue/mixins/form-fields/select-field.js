@@ -13,14 +13,6 @@ export default {
 		this.setup();
 	},
 
-	watch: {
-		theOptions() {
-			if (!this.valueIsValid(this.value)) {
-				this.$emit('update', '');
-			}
-		},
-	},
-
 	computed: {
 		...mapState({
 			fields: 'fields',

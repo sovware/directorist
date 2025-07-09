@@ -2415,6 +2415,7 @@ function atbdp_get_listing_attachment_ids( $listing_id ) {
     }
 
     $attachment_ids = array_merge( $attachment_ids, $gallery_images );
+    $attachment_ids = array_unique( $attachment_ids, SORT_NUMERIC );
 
     return $attachment_ids;
 }
@@ -4758,4 +4759,14 @@ function directorist_get_listing_gallery_images( $listing_id = 0 ) {
 function directorist_renewal_token_hash( $listing_id, $user_id ) {
     $token_str = 'cB0XtpVzGb180dgPi3hADW-' . $listing_id . '::' . $user_id;
     return wp_hash( $token_str, 'nonce' );
+}
+
+/**
+ * Check delete_images_with_listing setting is enabled or not.
+ *
+ * @since 8.4.4
+ * @return bool
+ */
+function directorist_is_delete_images_with_listing_enabled() {
+    return (bool) get_directorist_option( 'delete_images_with_listing', true );
 }

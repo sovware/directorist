@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-07-01 09:17+0000\n"
+"POT-Creation-Date: 2025-07-14 03:59+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -108,11 +108,11 @@ msgid "Thank you for requesting a new verification email. Please check your inbo
 msgstr ""
 
 #. translators: %s: site name
-#: ../blocks/templates/login.php:220, ../templates/account/login-registration-form.php:186
+#: ../blocks/templates/login.php:220, ../templates/account/login-registration-form.php:191
 msgid "[%s] Reset Your Password"
 msgstr ""
 
-#: ../blocks/templates/login.php:221, ../templates/account/login-registration-form.php:187
+#: ../blocks/templates/login.php:221, ../templates/account/login-registration-form.php:192
 msgid "Password Reset Request"
 msgstr ""
 
@@ -126,27 +126,27 @@ msgid ""
 "						If this was a mistake, just ignore this email and nothing will happen."
 msgstr ""
 
-#: ../blocks/templates/login.php:255, ../templates/account/login-registration-form.php:223
+#: ../blocks/templates/login.php:255, ../templates/account/login-registration-form.php:228
 msgid "Something went wrong, unable to send the password reset email. If the issue persists please contact with the site administrator."
 msgstr ""
 
-#: ../blocks/templates/login.php:253, ../templates/account/login-registration-form.php:219
+#: ../blocks/templates/login.php:253, ../templates/account/login-registration-form.php:224
 msgid "A password reset email has been sent to the email address on file for your account, but may take several minutes to show up in your inbox."
 msgstr ""
 
-#: ../blocks/templates/login.php:216, ../templates/account/login-registration-form.php:182
+#: ../blocks/templates/login.php:216, ../templates/account/login-registration-form.php:187
 msgid "There is no user registered with that email address."
 msgstr ""
 
-#: ../blocks/templates/login.php:214, ../templates/account/login-registration-form.php:180
+#: ../blocks/templates/login.php:214, ../templates/account/login-registration-form.php:185
 msgid "Invalid e-mail address."
 msgstr ""
 
-#: ../blocks/templates/login.php:212, ../templates/account/login-registration-form.php:178
+#: ../blocks/templates/login.php:212, ../templates/account/login-registration-form.php:183
 msgid "Email address cannot be empty."
 msgstr ""
 
-#: ../blocks/templates/login.php:261, ../templates/account/login-registration-form.php:229
+#: ../blocks/templates/login.php:261, ../templates/account/login-registration-form.php:234
 msgid "<strong>ERROR: </strong> %s"
 msgstr ""
 
@@ -206,7 +206,7 @@ msgstr ""
 msgid "Already have an account? Please login"
 msgstr ""
 
-#: ../blocks/templates/registration.php:37, ../blocks/templates/registration.php:67, ../blocks/templates/registration.php:59, ../blocks/templates/signin-signup.php:34, ../includes/helper-functions.php:914, ../includes/classes/class-helper.php:539, ../includes/model/Account.php:55, ../templates/account/login-registration-form.php:274, ../templates/account/login-registration-form.php:266
+#: ../blocks/templates/registration.php:37, ../blocks/templates/registration.php:67, ../blocks/templates/registration.php:59, ../blocks/templates/signin-signup.php:34, ../includes/helper-functions.php:914, ../includes/classes/class-helper.php:539, ../includes/model/Account.php:55, ../templates/account/login-registration-form.php:279, ../templates/account/login-registration-form.php:271
 msgid "Here"
 msgstr ""
 
@@ -230,7 +230,7 @@ msgstr ""
 msgid " Registration completed. Please check your email for confirmation."
 msgstr ""
 
-#: ../blocks/templates/registration.php:67, ../templates/account/login-registration-form.php:274
+#: ../blocks/templates/registration.php:67, ../templates/account/login-registration-form.php:279
 msgid "Or click %s to login."
 msgstr ""
 
@@ -238,7 +238,7 @@ msgstr ""
 msgid " Go to your inbox or spam/junk and get your password."
 msgstr ""
 
-#: ../blocks/templates/registration.php:59, ../templates/account/login-registration-form.php:266
+#: ../blocks/templates/registration.php:59, ../templates/account/login-registration-form.php:271
 msgid "Click %s to login."
 msgstr ""
 
@@ -8754,11 +8754,11 @@ msgstr ""
 msgid "Registration completed. Please check your email for confirmation. Or login here."
 msgstr ""
 
-#: ../templates/account/login-registration-form.php:272
+#: ../templates/account/login-registration-form.php:277
 msgid "Registration completed. Please check your email for confirmation."
 msgstr ""
 
-#: ../templates/account/login-registration-form.php:264
+#: ../templates/account/login-registration-form.php:269
 msgid "Go to your inbox or spam/junk and get your password."
 msgstr ""
 

@@ -7,8 +7,8 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-$min_value = ! empty( $data['options']['min_value'] ) ? $data['options']['min_value'] : 1;
-$max_value = ! empty( $data['options']['max_value'] ) ? $data['options']['max_value'] : 100;
+$min_value = ! empty( $data['options']['min_value'] ) ? $data['options']['min_value'] : 0;
+$max_value = ! empty( $data['options']['max_value'] ) ? $data['options']['max_value'] : 0;
 
 $default_min_value = $min_value;
 $default_max_value = $max_value;
@@ -17,6 +17,9 @@ $default_max_value = $max_value;
 if ( ! empty( $value ) && strpos( $value, '-' ) !== false ) {
     list($min_value, $max_value) = explode( '-', $value );
 } 
+
+$range_value = ( is_numeric( $min_value ) && is_numeric( $max_value ) ) ? "{$min_value}-{$max_value}" : '';
+
 ?>
 
 <div class="directorist-search-field directorist-search-field-text_range">
@@ -34,7 +37,7 @@ if ( ! empty( $value ) && strpos( $value, '-' ) !== false ) {
                 <label for="directorist-custom-range-slider__value__max__number" class="directorist-custom-range-slider__label"><?php esc_html_e( 'Max', 'directorist' ); ?></label>
                 <input type="number" placeholder="Max" value="<?php echo esc_attr( $max_value ) ?>" name="directorist-custom-range-slider__value__max" id="directorist-custom-range-slider__text directorist-custom-range-slider__value__max__number" class="directorist-custom-range-slider__value__max">
             </div>
-            <input type="hidden" name="custom_field[<?php echo esc_attr( $data['field_key'] ); ?>]" class="directorist-custom-range-slider__range" value="<?php echo esc_attr( $min_value ) ?>-<?php echo esc_attr( $max_value ) ?>">
+            <input type="hidden" name="custom_field[<?php echo esc_attr( $data['field_key'] ); ?>]" class="directorist-custom-range-slider__range" value="<?php echo esc_attr( $range_value ); ?>">
         </div>
     </div>
 

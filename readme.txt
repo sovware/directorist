@@ -5,7 +5,7 @@ Tags: member directory, listing, classifieds, directory plugin, business directo
 Requires at least: 4.6
 Tested up to: 6.8
 Requires PHP: 7.0
-Stable tag: 8.4.4
+Stable tag: 8.4.5
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -296,6 +296,29 @@ Directorist is a complete directory solution and in combination with its advance
  * and many more
 
 == Changelog ==
+
+8.4.5 - July 22, 2025
+
+**Changed**
+ - Introduced show/hide password toggle on the login form. (#2415)
+ - Added new filter hooks in the listing form to support better customization. (#2378)
+ - Prevented the login modal from showing on login, registration, dashboard, and add listing pages to fix password reset issues. (#2421)
+ - Refactored account-related code for better performance and stability. (#2391)
+ - Optimized instant search to improve speed and reduce load. (#2353)
+
+**Fixed**
+ - Email notifications were not being sent to listing owners and admins. (#2398)
+ - Listing expiry date was calculated incorrectly. (#2396)
+ - Issue where shared media was being deleted unintentionally. (#2392)
+ - PayPal download issue in the setup wizard. (#2389)
+ - Resolved problem with user meta data not being deleted correctly. (#2375)
+ - Reduced unnecessary queries by fixing thumbnail caching. (#2373)
+ - Settings data restore issue. (#2358)
+ - Formatting and link options issue in TinyMCE editor. (#2346)
+ - Prevented infinite loop in the builder's assign-to-category field. (#2418)
+
+**Security**
+ - Applied WordPress coding standards using PHPCS across the entire codebase. Addressed numerous potential vulnerabilities by improving input validation, data sanitization, and output escaping to enhance overall plugin security and code quality. (#2379)
 
 8.4.4 - Jun 26, 2025
 

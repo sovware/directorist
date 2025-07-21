@@ -11,7 +11,7 @@ import {
 	identity,
 	some,
 } from 'lodash';
-import classnames from 'classnames';
+import clsx from 'clsx';
 
 /**
  * WordPress dependencies
@@ -628,7 +628,7 @@ class TokenMultiSelectControl extends Component {
 			className,
 		} = this.props;
 		const { isExpanded } = this.state;
-		const classes = classnames(
+		const classes = clsx(
 			className,
 			'components-form-token-field__input-container',
 			{

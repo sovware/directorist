@@ -1025,13 +1025,15 @@ class Directorist_Listings {
                     if ( 'number' === $field_type && strpos( $values, '-' ) !== false ) {
                         // If $values is in the format "40-50", create a range query
                         list( $min_value, $max_value ) = array_map( 'intval', explode( '-', $values ) );
-
-                        $meta_query = [
-                            'key'     => '_' . $key,
-                            'value'   => [ $min_value, $max_value ],
-                            'type'    => 'NUMERIC',
-                            'compare' => 'BETWEEN',
-                        ];
+                        
+                        if ( ! empty( $max_value ) && 0 < $max_value ) {
+                            $meta_query = [
+                                'key'     => '_' . $key,
+                                'value'   => [ $min_value, $max_value ],
+                                'type'    => 'NUMERIC',
+                                'compare' => 'BETWEEN',
+                            ];
+                        }
                     } else {
                         $operator   = in_array( $field_type, [ 'text', 'textarea', 'url' ], true ) ? 'LIKE' : '=';
                         $meta_query = [
@@ -1234,7 +1236,7 @@ class Directorist_Listings {
         $search_field_atts = array_filter(
             $this->atts, function( $key ) {
                 return substr( $key, 0, 7 ) == 'filter_';
-            }, ARRAY_FILTER_USE_KEY 
+            }, ARRAY_FILTER_USE_KEY
         );
 
         $args = [
@@ -1800,6 +1802,8 @@ class Directorist_Listings {
     }
 
     function loop_get_the_thumbnail( $class = '' ) {
+        $this->cache_thumbnails();
+
         $default_image_src = Helper::default_preview_image_src( $this->current_listing_type );
 
         $id = get_the_ID();
@@ -2333,7 +2337,7 @@ class Directorist_Listings {
         $search_field_atts = array_filter(
             $this->atts, function( $key ) {
                 return substr( $key, 0, 7 ) == 'filter_';
-            }, ARRAY_FILTER_USE_KEY 
+            }, ARRAY_FILTER_USE_KEY
         );
 
         $args = [
@@ -2348,7 +2352,7 @@ class Directorist_Listings {
         $search_field_atts = array_filter(
             $this->atts, function( $key ) {
                 return substr( $key, 0, 7 ) == 'filter_';
-            }, ARRAY_FILTER_USE_KEY 
+            }, ARRAY_FILTER_USE_KEY
         );
 
         $args = [
@@ -2363,7 +2367,7 @@ class Directorist_Listings {
         $search_field_atts = array_filter(
             $this->atts, function( $key ) {
                 return substr( $key, 0, 7 ) == 'filter_';
-            }, ARRAY_FILTER_USE_KEY 
+            }, ARRAY_FILTER_USE_KEY
         );
 
         $args = [
@@ -2386,7 +2390,7 @@ class Directorist_Listings {
         $search_field_atts = array_filter(
             $this->atts, function( $key ) {
                 return substr( $key, 0, 7 ) == 'filter_';
-            }, ARRAY_FILTER_USE_KEY 
+            }, ARRAY_FILTER_USE_KEY
         );
 
         $args = [
@@ -2422,7 +2426,7 @@ class Directorist_Listings {
         $search_field_atts = array_filter(
             $this->atts, function( $key ) {
                 return substr( $key, 0, 7 ) == 'filter_';
-            }, ARRAY_FILTER_USE_KEY 
+            }, ARRAY_FILTER_USE_KEY
         );
 
         $args = [

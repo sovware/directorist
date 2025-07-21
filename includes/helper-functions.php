@@ -4771,13 +4771,43 @@ function directorist_is_archive_template_enabled() {
 }
 
 /**
+ * Get default category base slug
+ *
+ * @since 8.5
+ * @return string Category base slug
+ */
+function directorist_get_default_category_base() {
+    return apply_filters( 'directorist_default_category_base', 'single-category' );
+}
+
+/**
+ * Get default location base slug
+ *
+ * @since 8.5
+ * @return string Location base slug
+ */
+function directorist_get_default_location_base() {
+    return apply_filters( 'directorist_default_location_base', 'single-location' );
+}
+
+/**
+ * Get default tag base slug
+ *
+ * @since 8.5
+ * @return string Tag base slug
+ */
+function directorist_get_default_tag_base() {
+    return apply_filters( 'directorist_default_tag_base', 'single-tag' );
+}
+
+/**
  * Get category base slug
  *
  * @since 8.5
  * @return string Category base slug
  */
 function directorist_get_category_base() {
-    return get_directorist_option( 'category_base', '' );
+    return get_directorist_option( 'category_base', directorist_get_default_category_base() );
 }
 
 /**
@@ -4787,7 +4817,7 @@ function directorist_get_category_base() {
  * @return string Location base slug
  */
 function directorist_get_location_base() {
-    return get_directorist_option( 'location_base', '' );
+    return get_directorist_option( 'location_base', directorist_get_default_location_base() );
 }
 
 /**
@@ -4797,5 +4827,5 @@ function directorist_get_location_base() {
  * @return string Tag base slug
  */
 function directorist_get_tag_base() {
-    return get_directorist_option( 'tag_base', '' );
+    return get_directorist_option( 'tag_base', directorist_get_default_tag_base() );
 }

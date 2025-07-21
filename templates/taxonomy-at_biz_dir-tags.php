@@ -20,7 +20,7 @@ use \Directorist\ATBDP_Shortcode;
         </div><!-- .archive-header-inner -->
     </header><!-- .archive-header -->
 
-    <?php echo ( new ATBDP_Shortcode() )->tag_archive(); ?>
+    <?php echo ( new ATBDP_Shortcode() )->tag_archive(); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 </main>
 
 <?php get_footer( 'directorist' ); ?>

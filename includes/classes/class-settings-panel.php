@@ -3634,7 +3634,7 @@ Please remember that your order may be canceled if you do not make your payment 
                         'type'          => 'text',
                         'label'         => __( 'Category Base', 'directorist' ),
                         'description' => __( 'Category base is the slug used in the URL.','directorist' ),
-                        'value'         => 'single-category',
+                        'value'         => directorist_get_default_category_base(),
                         'show-if' => [
                             'where' => 'enable_archive_template',
                             'conditions' => [
@@ -3646,7 +3646,7 @@ Please remember that your order may be canceled if you do not make your payment 
                         'type'          => 'text',
                         'label'         => __( 'Location Base', 'directorist' ),
                         'description' => __( 'Location base is the slug used in the URL.','directorist' ),
-                        'value'         => 'single-location',
+                        'value'         => directorist_get_default_location_base(),
                         'show-if' => [
                             'where' => 'enable_archive_template',
                             'conditions' => [
@@ -3658,7 +3658,7 @@ Please remember that your order may be canceled if you do not make your payment 
                         'type'          => 'text',
                         'label'         => __( 'Tag Base', 'directorist' ),
                         'description' => __( 'Tag base is the slug used in the URL.','directorist' ),
-                        'value'         => 'single-tag',
+                        'value'         => directorist_get_default_tag_base(),
                         'show-if' => [
                             'where' => 'enable_archive_template',
                             'conditions' => [

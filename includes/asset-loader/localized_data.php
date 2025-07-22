@@ -7,6 +7,8 @@ namespace Directorist\Asset_Loader;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
+use Directorist\Helper;
+
 class Localized_Data {
     public static function load_localized_data() {
         // Load in frontend and backend
@@ -235,7 +237,7 @@ class Localized_Data {
         ];
 
         // is MI extension enabled and active?
-        $data = [
+        $data = array(
             'nonce'                => wp_create_nonce( 'atbdp_nonce_action_js' ),
             'ajaxurl'              => admin_url( 'admin-ajax.php' ),
             'import_page_link'     => admin_url( 'edit.php?post_type=at_biz_dir&page=tools' ),
@@ -246,7 +248,15 @@ class Localized_Data {
             'i18n_text'            => $i18n_text,
             'icon_type'            => 'la',
             'icon_picker_labels'   => $icon_picker_labels,
-        ];
+            'capabilities'         => [
+                'manage_options'  => current_user_can( 'manage_options' ),
+                'install_plugins' => current_user_can( 'install_plugins' ),
+            ],
+            'formgent'             => [
+                'is_installed' => Helper::is_plugin_installed( 'formgent' ),
+                'is_active'    => Helper::is_the_plugin_active( 'formgent' ),
+            ],
+        );
 
 
 
@@ -268,7 +278,7 @@ class Localized_Data {
         /*Internationalization*/
         $category_placeholder    = ( isset( $directory_type_term_data['submission_form_fields']['fields']['category']['placeholder'] ) ) ? $directory_type_term_data['submission_form_fields']['fields']['category']['placeholder'] : __( 'Select a category', 'directorist' );
         $location_placeholder    = ( isset( $directory_type_term_data['submission_form_fields']['fields']['location']['placeholder'] ) ) ? $directory_type_term_data['submission_form_fields']['fields']['location']['placeholder'] : __( 'Select a location', 'directorist' );
-        $select_listing_map      = get_directorist_option( 'select_listing_map', 'google' );
+        $select_listing_map      = get_directorist_option( 'select_listing_map', 'openstreet' );
         $radius_search_unit      = get_directorist_option( 'radius_search_unit', 'miles' );
         $default_radius_distance = get_directorist_option( 'search_default_radius_distance', 0 );
 

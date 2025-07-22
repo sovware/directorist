@@ -13,6 +13,7 @@ export default {
 		this.setup();
 	},
 
+<<<<<<< HEAD
 	watch: {
 		local_value() {
 			this.$emit( 'update', this.local_value );
@@ -25,6 +26,8 @@ export default {
 		},
 	},
 
+=======
+>>>>>>> development
 	computed: {
 		...mapState( {
 			fields: 'fields',
@@ -45,8 +48,13 @@ export default {
 			if ( ! this.optionsInObject ) {
 				return '';
 			}
+<<<<<<< HEAD
 			if ( typeof this.optionsInObject[ this.value ] === 'undefined' ) {
 				return this.theDefaultOption.value == this.local_value &&
+=======
+			if (typeof this.optionsInObject[this.value] === 'undefined') {
+				return this.theDefaultOption.value == this.value &&
+>>>>>>> development
 					this.theDefaultOption.label
 					? this.theDefaultOption.label
 					: '';
@@ -56,15 +64,20 @@ export default {
 		},
 
 		theOptions() {
+<<<<<<< HEAD
 			if ( this.hasOptionsSource ) {
 				return this.hasOptionsSource;
+=======
+			if (this.hasOptionsSource) {
+				return this.parseOptions(this.hasOptionsSource);
+>>>>>>> development
 			}
 
 			if ( ! this.options || typeof this.options !== 'object' ) {
 				return this.defaultOption ? [ this.defaultOption ] : [];
 			}
 
-			return this.options;
+			return this.parseOptions(this.options);
 		},
 
 		hasOptionsSource() {
@@ -148,7 +161,6 @@ export default {
 
 	data() {
 		return {
-			local_value: '',
 			local_value_ms: [],
 			optionsInObject: {},
 			show_option_modal: false,
@@ -168,10 +180,15 @@ export default {
 
 			this.optionsInObject = this.convertOptionsToObject();
 
+<<<<<<< HEAD
 			if ( false != this.value && this.valueIsValid( this.value ) ) {
 				this.local_value = this.value;
 			} else {
 				this.local_value = '';
+=======
+			if (!this.valueIsValid(this.value)) {
+				this.$emit('update', '');
+>>>>>>> development
 			}
 
 			const self = this;
@@ -180,10 +197,15 @@ export default {
 			} );
 		},
 
+<<<<<<< HEAD
 		update_value( value ) {
 			this.local_value = ! isNaN( Number( value ) )
 				? Number( value )
 				: value;
+=======
+		update_value(value) {
+			this.$emit('update', value);
+>>>>>>> development
 		},
 
 		updateOption( value ) {
@@ -205,6 +227,7 @@ export default {
 			}
 		},
 
+<<<<<<< HEAD
 		valueIsValid( value ) {
 			let options_values = this.theOptions.map( ( option ) => {
 				if ( typeof option.value !== 'undefined' ) {
@@ -215,6 +238,19 @@ export default {
 			} );
 
 			return options_values.includes( value );
+=======
+		valueIsValid(value) {
+			return this.theOptions
+				.map((item) => item.value)
+				.includes(`${value}`);
+		},
+
+		parseOptions(options) {
+			return options.map((item) => ({
+				...item,
+				value: typeof item.value !== 'undefined' ? `${item.value}` : '',
+			}));
+>>>>>>> development
 		},
 
 		convertOptionsToObject() {

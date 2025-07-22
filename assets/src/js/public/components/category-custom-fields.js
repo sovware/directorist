@@ -59,6 +59,7 @@ export default function initSearchCategoryCustomFields( $ ) {
 		$pageContainer.on(
 			'change',
 			'.directorist-category-select, .directorist-search-category select',
+<<<<<<< HEAD
 			function ( event ) {
 				const $this = $( this );
 				const $form = $this.parents( 'form' );
@@ -77,6 +78,13 @@ export default function initSearchCategoryCustomFields( $ ) {
 				// formData.append('nonce', directorist.directorist_nonce);
 				// formData.append('directory', directory);
 				// formData.append('cat_id', category);
+=======
+			function (event) {
+				const $this = $(this);
+				const $form = $this.parents('form');
+				const category = Number($this.val());
+				let attributes = $form.data('atts');
+>>>>>>> development
 
 				if ( ! attributes ) {
 					attributes = $pageContainer.data( 'atts' );
@@ -91,50 +99,6 @@ export default function initSearchCategoryCustomFields( $ ) {
 					category,
 					$( document.body )
 				);
-
-				// console.log(, category);
-
-				// formData.append('atts', JSON.stringify(atts));
-				// $form.addClass('atbdp-form-fade');
-				// $advancedForm.addClass('atbdp-form-fade');
-
-				// $.ajax({
-				//     method     : 'POST',
-				//     processData: false,
-				//     contentType: false,
-				//     url        : directorist.ajax_url,
-				//     data       : formData,
-				//     success: function success(response) {
-				//         if (response) {
-				//             $fieldsContainer = $pageContainer.find(response['container']);
-
-				//             $fieldsContainer.html(response['search_form']);
-
-				//             // $form.find('.directorist-category-select option').data('custom-field', 1);
-				//             // $this.find('option').data('custom-field', 1);
-				//             $this.val(category);
-
-				//             [
-				//                 'directorist-search-form-nav-tab-reloaded',
-				//                 'directorist-reload-select2-fields',
-				//                 'directorist-reload-map-api-field',
-				//                 'triggerSlice'
-				//             ].forEach(function(event) {
-				//                 event = new CustomEvent(event);
-				//                 document.body.dispatchEvent(event);
-				//                 window.dispatchEvent(event);
-				//             });
-				//         }
-
-				//         onSuccessCallback();
-
-				//         $form.removeClass('atbdp-form-fade');
-				//         $advancedForm.removeClass('atbdp-form-fade');
-				//     },
-				//     error: function error(_error) {
-				//         //console.log(_error);
-				//     }
-				// });
 			}
 		);
 

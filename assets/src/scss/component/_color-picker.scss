@@ -11,6 +11,9 @@
         label{
             input{
                 width: auto !important;
+                &.directorist-color-picker {
+                    width: 100% !important;
+                }
             }
         }
     }

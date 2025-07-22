@@ -47,3 +47,19 @@ function directorist_get_user_types() {
 
     return apply_filters( 'directorist_get_user_types', $user_types );
 }
+
+function directorist_get_owner_notifiable_events() {
+    return (array) get_directorist_option( 'notify_user', [] );
+}
+
+function directorist_get_admin_notifiable_events() {
+    return (array) get_directorist_option( 'notify_admin', [] );
+}
+
+function directorist_is_owner_notifiable_event( $event ) {
+    return in_array( $event, directorist_get_owner_notifiable_events(), true );
+}
+
+function directorist_is_admin_notifiable_event( $event ) {
+    return in_array( $event, directorist_get_admin_notifiable_events(), true );
+}

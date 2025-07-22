@@ -250,6 +250,7 @@ export default new Vuex.Store( {
 			].fields[ payload.field_key ].value = payload.value;
 		},
 
+<<<<<<< HEAD
 		importFields: ( state, importing_fields ) => {
 			for ( let field_key in importing_fields ) {
 				if ( typeof importing_fields[ field_key ] === 'undefined' ) {
@@ -261,6 +262,22 @@ export default new Vuex.Store( {
 					'value',
 					importing_fields[ field_key ]
 				);
+=======
+		importFields: (state, importing_fields) => {
+			for (let field_key in importing_fields) {
+				const importValue = importing_fields[field_key];
+
+				if (typeof importValue === 'undefined') {
+					continue;
+				}
+
+				// Skip if the field is not in the state
+				if (state.fields[field_key]) {
+					Vue.set(state.fields[field_key], 'value', importValue);
+				} else {
+					continue;
+				}
+>>>>>>> development
 			}
 		},
 	},

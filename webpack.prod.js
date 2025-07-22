@@ -1,11 +1,11 @@
-const common    = require("./webpack.common");
+const common = require('./webpack.common');
 const { merge } = require('webpack-merge');
 
-const MiniCssExtractPlugin   = require("mini-css-extract-plugin");
-const WebpackRTLPlugin       = require("webpack-rtl-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const WebpackRTLPlugin = require('webpack-rtl-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const FileManagerPlugin      = require('filemanager-webpack-plugin');
-const { vueEntries }         = require('./webpack-entry-list.js');
+const FileManagerPlugin = require('filemanager-webpack-plugin');
+const { vueEntries } = require('./webpack-entry-list.js');
 
 const prodConfig = {
   mode: "production", // production | development
@@ -59,41 +59,36 @@ const prodConfig = {
         ],
       },
     }),
-
   ],
-
-  output: {
-    filename: "../js/[name].min.js",
-  },
 };
 
 const devConfig = {
-  mode: "development", // production | development
-  watch: true,
-  entry: vueEntries,
-  plugins: [
-    new MiniCssExtractPlugin({
-      filename: "../css/[name].css"
-    }),
-    new WebpackRTLPlugin({
-      filename: "../css/[name].rtl.css"
-    }),
-  ],
-  output: {
-    filename: "../js/[name].js",
-  },
+	mode: 'development', // production | development
+	watch: true,
+	entry: vueEntries,
+	plugins: [
+		new MiniCssExtractPlugin({
+			filename: '../css/[name].css',
+		}),
+		new WebpackRTLPlugin({
+			filename: '../css/[name].rtl.css',
+		}),
+	],
+	output: {
+		filename: '../js/[name].js',
+	},
 
-  devtool: 'source-map'
+	devtool: 'source-map',
 };
 
 let configs = [];
-common.forEach(element => {
-  const _devConfig = merge( element, devConfig );
-  _devConfig.watch = false;
-  configs.push( _devConfig );
+common.forEach((element) => {
+	const _devConfig = merge(element, devConfig);
+	_devConfig.watch = false;
+	configs.push(_devConfig);
 
-  const _prodConfig = merge( element, prodConfig );
-  configs.push( _prodConfig );
+	const _prodConfig = merge(element, prodConfig);
+	configs.push(_prodConfig);
 });
 
 module.exports = configs;

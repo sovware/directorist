@@ -2008,12 +2008,6 @@ Please remember that your order may be canceled if you do not make your payment 
                             ],
                         ],
                     ],
-                    'search_home_bg' => [
-                        'label'       => __( 'Search Section Background', 'directorist' ),
-                        'type'        => 'wp-media-picker',
-                        'default-img' => '',
-                        'value'       => '',
-                    ],
                     // search result settings
                     'search_result_layout' => [
                         'label' => __( 'All Listings Layout', 'directorist' ),
@@ -3874,7 +3868,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                             'search_bar' => [
                                                 'title'       => __( 'Search Bar', 'directorist' ),
                                                 'fields'      => [
-                                                    'search_title', 'search_subtitle', 'search_home_bg', 'search_listing_text',
+                                                    'search_title', 'search_subtitle', 'search_listing_text',
                                                 ],
                                             ],
                                             'search_filters' => [

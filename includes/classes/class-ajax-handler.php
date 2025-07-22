@@ -1167,9 +1167,10 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
                 return;
             }
 
-            if ( ! in_array( 'listing_review', get_directorist_option( 'notify_user', [] ) ) ) {
+            if ( ! directorist_is_owner_notifiable_event( 'listing_review' ) ) {
                 return false;
             }
+
             // sanitize form values
             $post_id = ( ! empty( $_POST['post_id'] ) ) ? absint( wp_unslash( $_POST['post_id'] ) ) : 0;
             $message = ( ! empty( $_POST['content'] ) ) ? sanitize_textarea_field( wp_unslash( $_POST['content'] ) ) : '';
@@ -1240,7 +1241,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
                 return false; // vail if email notification is off
             }
 
-            if ( ! in_array( 'listing_review', get_directorist_option( 'notify_admin', [] ) ) ) {
+            if ( ! directorist_is_admin_notifiable_event( 'listing_review' ) ) {
                 return false; // vail if order created notification to admin off
             }
             // sanitize form values
@@ -1635,17 +1636,17 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
                 die();
             }
 
-            $sendOwner = in_array( 'listing_contact_form', get_directorist_option( 'notify_user' ), true );
-            $sendAdmin = in_array( 'listing_contact_form', get_directorist_option( 'notify_admin' ), true );
+            $send_owner = directorist_is_owner_notifiable_event( 'listing_contact_form' );
+            $send_admin = directorist_is_admin_notifiable_event( 'listing_contact_form' );
 
             // is admin disabled both notification
-            if ( ! $sendOwner && ! $sendAdmin ) {
+            if ( ! $send_owner && ! $send_admin ) {
                 echo wp_json_encode( $error_response );
                 die();
             }
 
             // let's check is admin decides to send email to it's owner
-            if ( $sendOwner ) {
+            if ( $send_owner ) {
                 $send_to_owner = $this->atbdp_email_listing_owner_listing_contact();
                 if ( ! $send_to_owner ) {
                     echo wp_json_encode( $error_response );
@@ -1653,7 +1654,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
                 }
             }
             // let's check is admin decides to send email to him/her
-            if ( $sendAdmin ) {
+            if ( $send_admin ) {
                 $send_to_admin = $this->atbdp_email_admin_listing_contact();
                 if ( ! $send_to_admin ) {
                     echo wp_json_encode( $error_response );

@@ -1,4 +1,4 @@
-﻿=== Directorist: AI-Powered Business Directory Plugin with Classified Ads Listings ===
+=== Directorist: AI-Powered Business Directory Plugin with Classified Ads Listings ===
 Contributors: wpwax
 Donate link: https://directorist.com/extensions/
 Tags: member directory, listing, classifieds, directory plugin, business directory

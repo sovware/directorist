@@ -2,144 +2,147 @@ import { mapState } from 'vuex';
 
 export default {
 	computed: {
-		...mapState({
+		...mapState( {
 			fields: 'fields',
 			cached_fields: 'cached_fields',
 			highlighted_field_key: 'highlighted_field_key',
-		}),
+		} ),
 	},
 
 	methods: {
-		doAction(payload, component_key) {
-			if (!payload.action) {
+		doAction( payload, component_key ) {
+			if ( ! payload.action ) {
 				return;
 			}
-			if (this[payload.component] !== component_key) {
-				this.$emit('do-action', payload);
-				return;
-			}
-
-			if (typeof this[payload.action] !== 'function') {
+			if ( this[ payload.component ] !== component_key ) {
+				this.$emit( 'do-action', payload );
 				return;
 			}
 
-			this[payload.action](payload.args);
+			if ( typeof this[ payload.action ] !== 'function' ) {
+				return;
+			}
+
+			this[ payload.action ]( payload.args );
 		},
 
-		maybeJSON(data) {
+		maybeJSON( data ) {
 			try {
-				JSON.parse(data);
-			} catch (e) {
+				JSON.parse( data );
+			} catch ( e ) {
 				return data;
 			}
 
-			return JSON.parse(data);
+			return JSON.parse( data );
 		},
 
-		isObject(the_var) {
-			if (typeof the_var === 'undefined') {
+		isObject( the_var ) {
+			if ( typeof the_var === 'undefined' ) {
 				return false;
 			}
-			if (the_var === null) {
+			if ( the_var === null ) {
 				return false;
 			}
-			if (typeof the_var !== 'object') {
+			if ( typeof the_var !== 'object' ) {
 				return false;
 			}
-			if (Array.isArray(the_var)) {
+			if ( Array.isArray( the_var ) ) {
 				return false;
 			}
 
 			return the_var;
 		},
 
-		getHighlightState(field_key) {
+		getHighlightState( field_key ) {
 			return this.highlighted_field_key === field_key;
 		},
 
-		getOptionID(option, field_index, section_index) {
+		getOptionID( option, field_index, section_index ) {
 			let option_id = '';
 
-			if (section_index) {
+			if ( section_index ) {
 				option_id = section_index;
 			}
 
-			if (this.fieldId) {
+			if ( this.fieldId ) {
 				option_id = option_id + '_' + this.fieldId;
 			}
 
-			if (typeof option.id !== 'undefined') {
+			if ( typeof option.id !== 'undefined' ) {
 				option_id = option_id + '_' + option.id;
 			}
 
-			if (typeof field_index !== 'undefined') {
+			if ( typeof field_index !== 'undefined' ) {
 				option_id = option_id + '_' + field_index;
 			}
 
 			return option_id;
 		},
 
-		mapDataByMap(data, map) {
-			const flatten_data = JSON.parse(JSON.stringify(data));
-			const flatten_map = JSON.parse(JSON.stringify(map));
+		mapDataByMap( data, map ) {
+			const flatten_data = JSON.parse( JSON.stringify( data ) );
+			const flatten_map = JSON.parse( JSON.stringify( map ) );
 
-			let mapped_data = flatten_data.map((element) => {
+			let mapped_data = flatten_data.map( ( element ) => {
 				let item = {};
 
-				for (let key in flatten_map) {
-					if (typeof element[key] !== 'undefined') {
-						item[key] = element[flatten_map[key]];
+				for ( let key in flatten_map ) {
+					if ( typeof element[ key ] !== 'undefined' ) {
+						item[ key ] = element[ flatten_map[ key ] ];
 					}
 				}
 
 				return item;
-			});
+			} );
 
 			return mapped_data;
 		},
 
-		filterDataByValue(data, value) {
+		filterDataByValue( data, value ) {
 			let value_is_array =
 				value && typeof value === 'object' ? true : false;
 			let value_is_text =
 				typeof value === 'string' || typeof value === 'number'
 					? true
 					: false;
-			let flatten_data = JSON.parse(JSON.stringify(data));
+			let flatten_data = JSON.parse( JSON.stringify( data ) );
 
-			return flatten_data.filter((item) => {
-				if (value_is_text && value === item.value) {
+			return flatten_data.filter( ( item ) => {
+				if ( value_is_text && value === item.value ) {
 					// console.log( 'value_is_text', item.value, value );
 					return item;
 				}
 
-				if (value_is_array && value.includes(item.value)) {
+				if ( value_is_array && value.includes( item.value ) ) {
 					// console.log( 'value_is_array', item.value, value );
 					return item;
 				}
 
-				if (!value_is_text && !value_is_array) {
+				if ( ! value_is_text && ! value_is_array ) {
 					// console.log( 'no filter', item.value, value );
 					return item;
 				}
-			});
+			} );
 		},
 
-		checkChangeIfCondition(payload) {
+		checkChangeIfCondition( payload ) {
 			let root = this.fields;
 			let isChangeable = false;
 
 			// Extract from payload
 			const { condition, fieldKey } = payload;
 
-			let currentField = root[fieldKey];
-			let conditionField = root[condition.where];
+			let currentField = root[ fieldKey ];
+			let conditionField = root[ condition.where ];
 
 			// Loop through the conditions to check if they match
-			for (let item of condition.conditions) {
-				if (item.key === 'value' && item.compare === '=') {
+			for ( let item of condition.conditions ) {
+				if ( item.key === 'value' && item.compare === '=' ) {
 					// Compare the value
-					if (conditionField && conditionField.value === item.value) {
+					if (
+						conditionField &&
+						conditionField.value === item.value
+					) {
 						isChangeable = true;
 						break;
 					}
@@ -147,15 +150,15 @@ export default {
 			}
 
 			// If the isChangeable is true, apply all effects
-			if (isChangeable) {
-				for (let effect of condition.effects) {
-					currentField[effect.key] = effect.value; // Apply the effect value
+			if ( isChangeable ) {
+				for ( let effect of condition.effects ) {
+					currentField[ effect.key ] = effect.value; // Apply the effect value
 				}
 			} else {
 				// Reset to default values for all effects if not changeable
-				for (let effect of condition.effects) {
-					if (effect.default_value !== undefined) {
-						currentField[effect.key] = effect.default_value;
+				for ( let effect of condition.effects ) {
+					if ( effect.default_value !== undefined ) {
+						currentField[ effect.key ] = effect.default_value;
 					}
 				}
 			}
@@ -163,9 +166,9 @@ export default {
 			return isChangeable;
 		},
 
-		checkShowIfCondition(payload) {
+		checkShowIfCondition( payload ) {
 			// Handle both single and multiple conditions
-			if (payload.condition && Array.isArray(payload.condition)) {
+			if ( payload.condition && Array.isArray( payload.condition ) ) {
 				// This is a multiple condition case
 				let result = {
 					status: false,
@@ -174,14 +177,14 @@ export default {
 					matched_data: [],
 				};
 
-				for (let condition of payload.condition) {
-					let state = this.checkSingleCondition({
+				for ( let condition of payload.condition ) {
+					let state = this.checkSingleCondition( {
 						condition: condition,
-					});
+					} );
 
-					if (state.status) {
+					if ( state.status ) {
 						result.succeed_conditions += 1;
-						result.matched_data.push(condition);
+						result.matched_data.push( condition );
 					} else {
 						result.failed_conditions += 1;
 					}
@@ -191,24 +194,24 @@ export default {
 				return result;
 			} else {
 				// This is a single condition case
-				return this.checkSingleCondition(payload);
+				return this.checkSingleCondition( payload );
 			}
 		},
 
-		checkSingleCondition(payload) {
+		checkSingleCondition( payload ) {
 			let args = { condition: null };
-			Object.assign(args, payload);
+			Object.assign( args, payload );
 
 			let condition = args.condition;
 
 			let root = this.fields;
-			if (this.isObject(args.root)) {
+			if ( this.isObject( args.root ) ) {
 				root = args.root;
 			}
 
 			let failed_cond_count = 0;
 			let success_cond_count = 0;
-			let accepted_comparison = ['and', 'or'];
+			let accepted_comparison = [ 'and', 'or' ];
 			let compare = 'and';
 			let matched_data = [];
 
@@ -219,37 +222,37 @@ export default {
 				matched_data: matched_data,
 			};
 
-			let target_field = this.getTergetFields({
+			let target_field = this.getTergetFields( {
 				root: root,
 				path: condition.where,
-			});
+			} );
 
 			if (
-				!(
+				! (
 					condition.conditions &&
-					Array.isArray(condition.conditions) &&
+					Array.isArray( condition.conditions ) &&
 					condition.conditions.length
 				)
 			) {
 				return state;
 			}
-			if (!this.isObject(target_field)) {
+			if ( ! this.isObject( target_field ) ) {
 				return state;
 			}
 
 			if (
 				typeof condition.compare === 'string' &&
-				accepted_comparison.indexOf(condition.compare)
+				accepted_comparison.indexOf( condition.compare )
 			) {
 				compare = condition.compare;
 			}
 
-			for (let sub_condition of condition.conditions) {
-				if (typeof sub_condition.key !== 'string') {
+			for ( let sub_condition of condition.conditions ) {
+				if ( typeof sub_condition.key !== 'string' ) {
 					continue;
 				}
 
-				let sub_condition_field_path = sub_condition.key.split('.');
+				let sub_condition_field_path = sub_condition.key.split( '.' );
 				let sub_condition_field = null;
 				let sub_condition_error = 0;
 				let sub_compare =
@@ -257,14 +260,14 @@ export default {
 						? sub_condition.compare
 						: '=';
 
-				if (!sub_condition_field_path.length) {
+				if ( ! sub_condition_field_path.length ) {
 					continue;
 				}
 
 				// ---
-				if (sub_condition_field_path[0] !== '_any') {
+				if ( sub_condition_field_path[ 0 ] !== '_any' ) {
 					sub_condition_field =
-						target_field[sub_condition_field_path[0]];
+						target_field[ sub_condition_field_path[ 0 ] ];
 					let is_hidden =
 						typeof target_field.hidden !== 'undefined'
 							? target_field.hidden
@@ -272,110 +275,110 @@ export default {
 
 					if (
 						sub_condition_field_path.length > 1 &&
-						!this.isObject(sub_condition_field)
+						! this.isObject( sub_condition_field )
 					) {
 						sub_condition_error++;
 					}
 
 					if (
 						sub_condition_field_path.length > 1 &&
-						!sub_condition_error
+						! sub_condition_error
 					) {
 						sub_condition_field =
-							target_field[sub_condition_field_path[0]][
-								sub_condition_field_path[1]
+							target_field[ sub_condition_field_path[ 0 ] ][
+								sub_condition_field_path[ 1 ]
 							];
 						is_hidden =
-							typeof target_field[sub_condition_field_path[0]]
+							typeof target_field[ sub_condition_field_path[ 0 ] ]
 								.hidden !== 'undefined'
-								? target_field[sub_condition_field_path[0]]
+								? target_field[ sub_condition_field_path[ 0 ] ]
 										.hidden
 								: false;
 					}
 
-					if (is_hidden) {
+					if ( is_hidden ) {
 						sub_condition_error++;
 					}
 
-					if (typeof sub_condition_field === 'undefined') {
+					if ( typeof sub_condition_field === 'undefined' ) {
 						sub_condition_error++;
 					}
 
-					if (sub_condition_error) {
+					if ( sub_condition_error ) {
 						failed_cond_count++;
 						continue;
 					}
 
 					if (
-						!this.checkComparison({
+						! this.checkComparison( {
 							data_a: sub_condition_field,
 							data_b: sub_condition.value,
 							compare: sub_compare,
-						})
+						} )
 					) {
 						failed_cond_count++;
 						continue;
 					}
 
 					matched_data.push(
-						target_field[sub_condition_field_path[0]]
+						target_field[ sub_condition_field_path[ 0 ] ]
 					);
 					success_cond_count++;
 					continue;
 				}
 
 				// Check if has _any condition
-				if (sub_condition_field_path[0] === '_any') {
+				if ( sub_condition_field_path[ 0 ] === '_any' ) {
 					let failed_any_cond_count = 0;
 					let success_any_cond_count = 0;
 
-					for (let field in target_field) {
+					for ( let field in target_field ) {
 						let any_cond_error = 0;
 
-						sub_condition_field = target_field[field];
+						sub_condition_field = target_field[ field ];
 
 						if (
 							sub_condition_field_path.length > 1 &&
-							!this.isObject(sub_condition_field)
+							! this.isObject( sub_condition_field )
 						) {
 							any_cond_error++;
 						}
 
 						if (
 							sub_condition_field_path.length > 1 &&
-							!any_cond_error
+							! any_cond_error
 						) {
 							sub_condition_field =
 								sub_condition_field[
-									sub_condition_field_path[1]
+									sub_condition_field_path[ 1 ]
 								];
 						}
 
-						if (typeof sub_condition_field === 'undefined') {
+						if ( typeof sub_condition_field === 'undefined' ) {
 							any_cond_error++;
 						}
 
-						if (any_cond_error) {
+						if ( any_cond_error ) {
 							failed_any_cond_count++;
 							continue;
 						}
 
 						if (
-							!this.checkComparison({
+							! this.checkComparison( {
 								data_a: sub_condition_field,
 								data_b: sub_condition.value,
 								compare: sub_compare,
-							})
+							} )
 						) {
 							failed_any_cond_count++;
 							continue;
 						}
 
-						matched_data.push(target_field[field]);
+						matched_data.push( target_field[ field ] );
 						success_any_cond_count++;
 					}
 
-					if (!success_any_cond_count) {
+					if ( ! success_any_cond_count ) {
 						failed_cond_count++;
 					} else {
 						success_cond_count++;
@@ -385,7 +388,7 @@ export default {
 
 			// Get Status
 			let status = false;
-			switch (compare) {
+			switch ( compare ) {
 				case 'and':
 					status = failed_cond_count ? false : true;
 					break;
@@ -404,13 +407,13 @@ export default {
 			return state;
 		},
 
-		checkComparison(payload) {
+		checkComparison( payload ) {
 			let args = { data_a: '', data_b: '', compare: '=' };
-			Object.assign(args, payload);
+			Object.assign( args, payload );
 
 			let status = false;
 
-			switch (args.compare) {
+			switch ( args.compare ) {
 				case '=':
 					status = args.data_a == args.data_b ? true : false;
 					break;
@@ -440,70 +443,70 @@ export default {
 			return status;
 		},
 
-		getFormFieldName(field_type) {
+		getFormFieldName( field_type ) {
 			return field_type + '-field';
 		},
 
-		updateFieldValue(field_key, value) {
-			this.$store.commit('updateFieldValue', { field_key, value });
+		updateFieldValue( field_key, value ) {
+			this.$store.commit( 'updateFieldValue', { field_key, value } );
 		},
 
-		updateFieldValidationState(field_key, value) {
-			this.$store.commit('updateFieldData', {
+		updateFieldValidationState( field_key, value ) {
+			this.$store.commit( 'updateFieldData', {
 				field_key,
 				option_key: 'validationState',
 				value,
-			});
+			} );
 		},
 
-		updateFieldData(field_key, option_key, value) {
-			this.$store.commit('updateFieldData', {
+		updateFieldData( field_key, option_key, value ) {
+			this.$store.commit( 'updateFieldData', {
 				field_key,
 				option_key,
 				value,
-			});
+			} );
 		},
 
-		getActiveClass(item_index, active_index) {
+		getActiveClass( item_index, active_index ) {
 			return item_index === active_index ? 'active' : '';
 		},
 
-		getTergetFields(payload) {
+		getTergetFields( payload ) {
 			let args = { root: this.fields, path: '' };
 
-			if (this.isObject(payload)) {
-				Object.assign(args, payload);
+			if ( this.isObject( payload ) ) {
+				Object.assign( args, payload );
 			}
 
-			if (typeof args.path !== 'string') {
+			if ( typeof args.path !== 'string' ) {
 				return null;
 			}
 			let terget_field = null;
 
-			let terget_fields = args.path.split('.');
+			let terget_fields = args.path.split( '.' );
 			let terget_missmatched = false;
 
-			if (terget_fields && typeof terget_fields === 'object') {
+			if ( terget_fields && typeof terget_fields === 'object' ) {
 				terget_field = this.fields;
 
-				for (let key of terget_fields) {
-					if (!key.length) {
+				for ( let key of terget_fields ) {
+					if ( ! key.length ) {
 						continue;
 					}
 
-					if ('self' === key) {
+					if ( 'self' === key ) {
 						terget_field = args.root;
 						continue;
 					}
 
-					if (typeof terget_field[key] === 'undefined') {
+					if ( typeof terget_field[ key ] === 'undefined' ) {
 						terget_missmatched = true;
 						break;
 					}
 
 					if (
-						typeof terget_field[key].isVisible !== 'undefined' &&
-						!terget_field[key].isVisible
+						typeof terget_field[ key ].isVisible !== 'undefined' &&
+						! terget_field[ key ].isVisible
 					) {
 						terget_missmatched = true;
 						break;
@@ -511,21 +514,21 @@ export default {
 
 					terget_field =
 						terget_field !== null
-							? terget_field[key]
-							: args.root[key];
+							? terget_field[ key ]
+							: args.root[ key ];
 				}
 			}
 
-			if (terget_missmatched) {
+			if ( terget_missmatched ) {
 				return false;
 			}
 
-			return JSON.parse(JSON.stringify(terget_field));
+			return JSON.parse( JSON.stringify( terget_field ) );
 		},
 
-		getSanitizedProps(props) {
-			if (props && typeof props === 'object') {
-				let _props = JSON.parse(JSON.stringify(props));
+		getSanitizedProps( props ) {
+			if ( props && typeof props === 'object' ) {
+				let _props = JSON.parse( JSON.stringify( props ) );
 				delete _props.value;
 
 				return _props;

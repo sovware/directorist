@@ -1772,7 +1772,8 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 
             wp_send_json_success(
                 [
-                    'directorist_nonce' => wp_create_nonce( directorist_get_nonce_key() )
+                    'directorist_nonce' => wp_create_nonce( directorist_get_nonce_key() ),
+                    'rest_nonce'        => wp_create_nonce( 'wp_rest' ),
                 ]
             );
         }

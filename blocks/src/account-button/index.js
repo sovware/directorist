@@ -9,7 +9,6 @@ import './style.scss';
 import getLogo from './../logo';
 
 registerBlockType( metadata.name, {
-
 	icon: getLogo(),
 
 	/**

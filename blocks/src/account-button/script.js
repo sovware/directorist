@@ -5,8 +5,8 @@ function authorDropdownActive() {
 		'.directorist-account-block-logged-mode .avatar'
 	);
 
-	const requiredElements = Object.values(authorTriggers);
-	if (requiredElements.some(element => !element)) {
+	const requiredElements = Object.values( authorTriggers );
+	if ( requiredElements.some( ( element ) => ! element ) ) {
 		return;
 	}
 
@@ -66,21 +66,21 @@ function login() {
 	};
 
 	// Check if all required elements exist
-	const requiredElements = Object.values(elements);
-	if (requiredElements.some(element => !element)) {
+	const requiredElements = Object.values( elements );
+	if ( requiredElements.some( ( element ) => ! element ) ) {
 		return;
 	}
-	
-	const showModal = (modal) => {
-        if (modal) {
-            modal.style.display = 'block';
-        }
-    };
-    const hideModal = (modal) => {
-        if (modal) {
-            modal.style.display = 'none';
-        }
-    };
+
+	const showModal = ( modal ) => {
+		if ( modal ) {
+			modal.style.display = 'block';
+		}
+	};
+	const hideModal = ( modal ) => {
+		if ( modal ) {
+			modal.style.display = 'none';
+		}
+	};
 
 	const toggleModals = ( hide, show ) => {
 		hideModal( hide );

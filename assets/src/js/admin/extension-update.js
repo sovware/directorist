@@ -1,15 +1,15 @@
-window.addEventListener('load', () => {
-	jQuery(function ($) {
+window.addEventListener( 'load', () => {
+	jQuery( function ( $ ) {
 		// update extension
-		$('body').on('click', '.atbdp-update-extension', function (e) {
+		$( 'body' ).on( 'click', '.atbdp-update-extension', function ( e ) {
 			e.preventDefault();
-			var data = $(this).attr('data-update-info');
+			var data = $( this ).attr( 'data-update-info' );
 			$.get(
 				'https://directorist.com/wp-json/directorist/extension/' + data,
-				function (data, status, request) {
+				function ( data, status, request ) {
 					window.location.href = data;
 				}
 			);
-		});
-	});
-});
+		} );
+	} );
+} );

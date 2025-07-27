@@ -1,40 +1,97 @@
-/******/ (function() { // webpackBootstrap
-/******/ 	var __webpack_modules__ = ({
-
-/***/ "./assets/src/js/global/components/debounce.js":
-/*!*****************************************************!*\
-  !*** ./assets/src/js/global/components/debounce.js ***!
-  \*****************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* binding */ debounce; }
-/* harmony export */ });
-function debounce(func, wait, immediate) {
-  var timeout;
-  return function () {
-    var context = this,
-      args = arguments;
-    var later = function later() {
-      timeout = null;
-      if (!immediate) func.apply(context, args);
-    };
-    var callNow = immediate && !timeout;
-    clearTimeout(timeout);
-    timeout = setTimeout(later, wait);
-    if (callNow) func.apply(context, args);
-  };
-}
-
-/***/ }),
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 5);
+/******/ })
+/************************************************************************/
+/******/ ({
 
 /***/ "./assets/src/js/global/components/select2-custom-control.js":
 /*!*******************************************************************!*\
   !*** ./assets/src/js/global/components/select2-custom-control.js ***!
   \*******************************************************************/
-/***/ (function() {
+/*! no static exports found */
+/***/ (function(module, exports) {
 
 function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t.return || t.return(); } finally { if (u) throw o; } } }; }
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
@@ -233,17 +290,19 @@ function selec2_adjust_space_for_addons() {
 /*!**********************************************************!*\
   !*** ./assets/src/js/global/components/setup-select2.js ***!
   \**********************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _lib_helper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../lib/helper */ "./assets/src/js/lib/helper.js");
 /* harmony import */ var _select2_custom_control__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./select2-custom-control */ "./assets/src/js/global/components/select2-custom-control.js");
 /* harmony import */ var _select2_custom_control__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_select2_custom_control__WEBPACK_IMPORTED_MODULE_2__);
 
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 
 
 var $ = jQuery;
@@ -274,7 +333,7 @@ function initSelect2() {
   '.bdas-category-search' // Not found in any template
   ];
   selectors.forEach(function (selector) {
-    return (0,_lib_helper__WEBPACK_IMPORTED_MODULE_1__.convertToSelect2)(selector);
+    return Object(_lib_helper__WEBPACK_IMPORTED_MODULE_1__["convertToSelect2"])(selector);
   });
   initMaybeLazyLoadedTaxonomySelect2();
 }
@@ -497,14 +556,13 @@ function maybeLazyLoadTaxonomyTermsSelect2(args) {
 /*!*************************************!*\
   !*** ./assets/src/js/lib/helper.js ***!
   \*************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/*! exports provided: convertToSelect2, get_dom_data */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   convertToSelect2: function() { return /* binding */ convertToSelect2; },
-/* harmony export */   get_dom_data: function() { return /* binding */ get_dom_data; }
-/* harmony export */ });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "convertToSelect2", function() { return convertToSelect2; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "get_dom_data", function() { return get_dom_data; });
 var $ = jQuery;
 function get_dom_data(selector, parent) {
   selector = '.directorist-dom-data-' + selector;
@@ -557,7 +615,8 @@ function convertToSelect2(selector) {
 /*!************************************************************!*\
   !*** ./assets/src/js/public/components/archive-sidebar.js ***!
   \************************************************************/
-/***/ (function() {
+/*! no static exports found */
+/***/ (function(module, exports) {
 
 // Archive Sidebar
 window.addEventListener('load', function () {
@@ -603,86 +662,12 @@ window.addEventListener('load', function () {
 
 /***/ }),
 
-/***/ "./assets/src/js/public/components/category-custom-fields.js":
-/*!*******************************************************************!*\
-  !*** ./assets/src/js/public/components/category-custom-fields.js ***!
-  \*******************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* binding */ initSearchCategoryCustomFields; }
-/* harmony export */ });
-// Search Category Change
-function hideAllCustomFieldsExceptSelected(relations, category, $container) {
-  var fields = Object.keys(relations);
-  var wrappers = ['.directorist-advanced-filter__advanced__element', '.directorist-search-modal__input', '.directorist-search-field'];
-  if (!fields.length) {
-    return;
-  }
-  fields.forEach(function (field) {
-    var fieldCategory = relations[field];
-    var $field = $container.find("[name=\"custom_field[".concat(field, "]\"]"));
-    if (!$field.length) {
-      $field = $container.find("[name=\"custom_field[".concat(field, "][]\"]"));
-    }
-    if (category === fieldCategory) {
-      $field.prop('disabled', false);
-      wrappers.forEach(function (wrapper) {
-        var $wrapper = $field.closest(wrapper);
-        if ($wrapper.length) {
-          $wrapper.show();
-        }
-      });
-    } else {
-      $field.prop('disabled', true);
-      wrappers.forEach(function (wrapper) {
-        var $wrapper = $field.closest(wrapper);
-        if ($wrapper.length) {
-          $wrapper.hide();
-        }
-      });
-    }
-  });
-}
-function initSearchCategoryCustomFields($) {
-  var _$pageContainer;
-  var $searchPageContainer = $('.directorist-search-contents');
-  var $archivePageContainer = $('.directorist-archive-contents');
-  var $pageContainer;
-  if ($searchPageContainer.length) {
-    $pageContainer = $searchPageContainer;
-  } else if ($archivePageContainer.length) {
-    $pageContainer = $archivePageContainer;
-  }
-  if ((_$pageContainer = $pageContainer) !== null && _$pageContainer !== void 0 && _$pageContainer.length) {
-    // let $fieldsContainer = null;
-
-    $pageContainer.on('change', '.directorist-category-select, .directorist-search-category select', function (event) {
-      var $this = $(this);
-      var $form = $this.parents('form');
-      var category = Number($this.val());
-      var attributes = $form.data('atts');
-      if (!attributes) {
-        attributes = $pageContainer.data('atts');
-      }
-      if (!attributes.category_custom_fields_relations) {
-        return;
-      }
-      hideAllCustomFieldsExceptSelected(attributes.category_custom_fields_relations, category, $(document.body));
-    });
-    $pageContainer.find('.directorist-category-select, .directorist-search-category select').trigger('change');
-  }
-}
-
-/***/ }),
-
 /***/ "./assets/src/js/public/components/categoryLocation.js":
 /*!*************************************************************!*\
   !*** ./assets/src/js/public/components/categoryLocation.js ***!
   \*************************************************************/
-/***/ (function() {
+/*! no static exports found */
+/***/ (function(module, exports) {
 
 window.addEventListener('load', function () {
   var $ = jQuery;
@@ -781,51 +766,10 @@ window.addEventListener('load', function () {
 /*!********************************************************!*\
   !*** ./assets/src/js/public/components/colorPicker.js ***!
   \********************************************************/
-/***/ (function() {
+/*! no static exports found */
+/***/ (function(module, exports) {
 
-/* Initialize wpColorPicker */
-(function ($) {
-  // Make sure the codes in this file runs only once, even if enqueued twice
-  if (typeof window.directorist_colorPicker_executed === 'undefined') {
-    window.directorist_colorPicker_executed = true;
-  } else {
-    return;
-  }
-  window.addEventListener('load', function () {
-    /* Initialize wp color picker */
-    function colorPickerInit() {
-      var wpColorPickers = document.querySelectorAll('.directorist-color-picker-wrap');
-      wpColorPickers.forEach(function (wrap) {
-        var $pickerInput = $(wrap).find('.directorist-color-picker');
-        if ($pickerInput) {
-          if ($.fn.wpColorPicker) {
-            $pickerInput.wpColorPicker({
-              change: function change(event, ui) {
-                var color = ui.color.toString();
-
-                // Dispatch custom event
-                var colorChangeEvent = new CustomEvent('directorist-color-changed', {
-                  detail: {
-                    color: color,
-                    input: event.target,
-                    form: event.target.closest('form')
-                  }
-                });
-                window.dispatchEvent(colorChangeEvent);
-              }
-            });
-          } else {
-            console.warn('wpColorPicker is NOT available!');
-          }
-        }
-      });
-    }
-    colorPickerInit();
-
-    /* Initialize on Directory type change */
-    window.addEventListener('directorist-instant-search-reloaded', colorPickerInit);
-  });
-})(jQuery);
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: /Users/obidullah/Sites/directorist/wp-content/plugins/directorist/assets/src/js/public/components/colorPicker.js: Unexpected token (9:0)\n\n\u001b[0m \u001b[90m  7 |\u001b[39m \t\t\u001b[36mreturn\u001b[39m\u001b[33m;\u001b[39m\n \u001b[90m  8 |\u001b[39m \t}\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  9 |\u001b[39m \u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<\u001b[39m \u001b[33mHEAD\u001b[39m\n \u001b[90m    |\u001b[39m \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 10 |\u001b[39m \t$( document )\u001b[33m.\u001b[39mready( \u001b[36mfunction\u001b[39m () {\n \u001b[90m 11 |\u001b[39m \t\t\u001b[90m/* Initialize wp color picker */\u001b[39m\n \u001b[90m 12 |\u001b[39m \t\t\u001b[36mfunction\u001b[39m colorPickerInit() {\u001b[0m\n    at constructor (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:360:19)\n    at JSXParserMixin.raise (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:6613:19)\n    at JSXParserMixin.unexpected (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:6633:16)\n    at JSXParserMixin.parseExprAtom (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:11358:16)\n    at JSXParserMixin.parseExprAtom (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:4770:20)\n    at JSXParserMixin.parseExprSubscripts (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10992:23)\n    at JSXParserMixin.parseUpdate (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10977:21)\n    at JSXParserMixin.parseMaybeUnary (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10957:23)\n    at JSXParserMixin.parseMaybeUnaryOrPrivate (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10810:61)\n    at JSXParserMixin.parseExprOps (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10815:23)\n    at JSXParserMixin.parseMaybeConditional (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10792:23)\n    at JSXParserMixin.parseMaybeAssign (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10745:21)\n    at JSXParserMixin.parseExpressionBase (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10698:23)\n    at /Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10694:39\n    at JSXParserMixin.allowInAnd (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:12329:16)\n    at JSXParserMixin.parseExpression (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10694:17)\n    at JSXParserMixin.parseStatementContent (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:12771:23)\n    at JSXParserMixin.parseStatementLike (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:12644:17)\n    at JSXParserMixin.parseStatementListItem (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:12624:17)\n    at JSXParserMixin.parseBlockOrModuleBlockBody (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:13192:61)\n    at JSXParserMixin.parseBlockBody (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:13185:10)\n    at JSXParserMixin.parseBlock (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:13173:10)\n    at JSXParserMixin.parseFunctionBody (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:12018:24)\n    at JSXParserMixin.parseFunctionBodyAndFinish (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:12004:10)\n    at /Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:13317:12\n    at JSXParserMixin.withSmartMixTopicForbiddingContext (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:12311:14)\n    at JSXParserMixin.parseFunction (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:13316:10)\n    at JSXParserMixin.parseFunctionOrFunctionSent (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:11480:17)\n    at JSXParserMixin.parseExprAtom (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:11253:21)\n    at JSXParserMixin.parseExprAtom (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:4770:20)\n    at JSXParserMixin.parseExprSubscripts (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10992:23)\n    at JSXParserMixin.parseUpdate (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10977:21)\n    at JSXParserMixin.parseMaybeUnary (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10957:23)\n    at JSXParserMixin.parseMaybeUnaryOrPrivate (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10810:61)\n    at JSXParserMixin.parseExprOps (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10815:23)\n    at JSXParserMixin.parseMaybeConditional (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10792:23)\n    at JSXParserMixin.parseMaybeAssign (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10745:21)\n    at /Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10714:39\n    at JSXParserMixin.allowInAnd (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:12334:12)\n    at JSXParserMixin.parseMaybeAssignAllowIn (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10714:17)\n    at JSXParserMixin.parseParenAndDistinguishExpression (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:11591:28)\n    at JSXParserMixin.parseExprAtom (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:11242:23)\n    at JSXParserMixin.parseExprAtom (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:4770:20)\n    at JSXParserMixin.parseExprSubscripts (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10992:23)\n    at JSXParserMixin.parseUpdate (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10977:21)\n    at JSXParserMixin.parseMaybeUnary (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10957:23)\n    at JSXParserMixin.parseMaybeUnaryOrPrivate (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10810:61)\n    at JSXParserMixin.parseExprOps (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10815:23)\n    at JSXParserMixin.parseMaybeConditional (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10792:23)\n    at JSXParserMixin.parseMaybeAssign (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10745:21)");
 
 /***/ }),
 
@@ -833,7 +777,8 @@ window.addEventListener('load', function () {
 /*!*************************************************************!*\
   !*** ./assets/src/js/public/components/directoristAlert.js ***!
   \*************************************************************/
-/***/ (function() {
+/*! no static exports found */
+/***/ (function(module, exports) {
 
 (function ($) {
   // Make sure the codes in this file runs only once, even if enqueued twice
@@ -864,7 +809,8 @@ window.addEventListener('load', function () {
 /*!****************************************************************!*\
   !*** ./assets/src/js/public/components/directoristDropdown.js ***!
   \****************************************************************/
-/***/ (function() {
+/*! no static exports found */
+/***/ (function(module, exports) {
 
 (function ($) {
   // Make sure the codes in this file runs only once, even if enqueued twice
@@ -986,7 +932,8 @@ window.addEventListener('load', function () {
 /*!****************************************************************!*\
   !*** ./assets/src/js/public/components/directoristFavorite.js ***!
   \****************************************************************/
-/***/ (function() {
+/*! no static exports found */
+/***/ (function(module, exports) {
 
 (function ($) {
   // Make sure the codes in this file runs only once, even if enqueued twice
@@ -1072,7 +1019,8 @@ window.addEventListener('load', function () {
 /*!**************************************************************!*\
   !*** ./assets/src/js/public/components/directoristSelect.js ***!
   \**************************************************************/
-/***/ (function() {
+/*! no static exports found */
+/***/ (function(module, exports) {
 
 window.addEventListener('load', function () {
   // Make sure the codes in this file runs only once, even if enqueued twice
@@ -1117,7 +1065,8 @@ window.addEventListener('load', function () {
 /*!***************************************************************!*\
   !*** ./assets/src/js/public/components/directoristSorting.js ***!
   \***************************************************************/
-/***/ (function() {
+/*! no static exports found */
+/***/ (function(module, exports) {
 
 (function ($) {
   // Make sure the codes in this file runs only once, even if enqueued twice
@@ -1150,7 +1099,8 @@ window.addEventListener('load', function () {
 /*!****************************************************!*\
   !*** ./assets/src/js/public/components/general.js ***!
   \****************************************************/
-/***/ (function() {
+/*! no static exports found */
+/***/ (function(module, exports) {
 
 // Fix listing with no thumb if card width is less than 220px
 (function ($) {
@@ -1180,7 +1130,8 @@ window.addEventListener('load', function () {
 /*!***********************************************************!*\
   !*** ./assets/src/js/public/components/gridResponsive.js ***!
   \***********************************************************/
-/***/ (function() {
+/*! no static exports found */
+/***/ (function(module, exports) {
 
 (function ($) {
   /* Responsive grid control */
@@ -1211,7 +1162,8 @@ window.addEventListener('load', function () {
 /*!****************************************************!*\
   !*** ./assets/src/js/public/components/helpers.js ***!
   \****************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -1238,7 +1190,8 @@ __webpack_require__.r(__webpack_exports__);
 /*!****************************************************************!*\
   !*** ./assets/src/js/public/components/helpers/createMysql.js ***!
   \****************************************************************/
-/***/ (function() {
+/*! no static exports found */
+/***/ (function(module, exports) {
 
 (function ($) {
   // Helper function to convert the mysql date
@@ -1261,7 +1214,8 @@ __webpack_require__.r(__webpack_exports__);
 /*!**********************************************************************!*\
   !*** ./assets/src/js/public/components/helpers/handleAjaxRequest.js ***!
   \**********************************************************************/
-/***/ (function() {
+/*! no static exports found */
+/***/ (function(module, exports) {
 
 (function ($) {
   /*This function handles all ajax request*/
@@ -1298,7 +1252,8 @@ __webpack_require__.r(__webpack_exports__);
 /*!**********************************************************************!*\
   !*** ./assets/src/js/public/components/helpers/noImageController.js ***!
   \**********************************************************************/
-/***/ (function() {
+/*! no static exports found */
+/***/ (function(module, exports) {
 
 (function ($) {
   /* Listing No Image Controller */
@@ -1315,7 +1270,8 @@ __webpack_require__.r(__webpack_exports__);
 /*!**************************************************************!*\
   !*** ./assets/src/js/public/components/helpers/postDraft.js ***!
   \**************************************************************/
-/***/ (function() {
+/*! no static exports found */
+/***/ (function(module, exports) {
 
 (function ($) {
   //adding temporary css class to post draft page
@@ -1330,7 +1286,8 @@ __webpack_require__.r(__webpack_exports__);
 /*!****************************************************************!*\
   !*** ./assets/src/js/public/components/helpers/printRating.js ***!
   \****************************************************************/
-/***/ (function() {
+/*! no static exports found */
+/***/ (function(module, exports) {
 
 (function ($) {
   /* Helper Function for priting static rating */
@@ -1353,916 +1310,10 @@ __webpack_require__.r(__webpack_exports__);
 /*!**********************************************************!*\
   !*** ./assets/src/js/public/components/instantSearch.js ***!
   \**********************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/*! no static exports found */
+/***/ (function(module, exports) {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/esm/typeof.js");
-/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
-/* harmony import */ var _global_components_debounce__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../global/components/debounce */ "./assets/src/js/global/components/debounce.js");
-/* harmony import */ var _category_custom_fields__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./category-custom-fields */ "./assets/src/js/public/components/category-custom-fields.js");
-
-
-
-function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t.return || t.return(); } finally { if (u) throw o; } } }; }
-function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
-function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
-function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-
-
-(function ($) {
-  /** 
-  	Global Variables 
-  */
-
-  // Globally accessible form_data
-  var form_data = {};
-
-  // Scrolling Pagination
-  var scrollingPage = 1;
-  var infinitePaginationIsLoading = false;
-  var infinitePaginationCompleted = false;
-
-  /** 
-  	Main Functions 
-  */
-
-  // Perform Instant Search
-  function performInstantSearch(searchElement) {
-    // get parent element
-    var searchElm = searchElement.closest('.directorist-instant-search');
-
-    // Instant Search Data
-    var instant_search_data = prepareInstantSearchData(searchElm);
-    $.ajax({
-      url: directorist.ajaxurl,
-      type: 'POST',
-      data: instant_search_data,
-      beforeSend: function beforeSend() {
-        var _searchElm$offset;
-        searchElm.find('.directorist-advanced-filter__form .directorist-btn-sm').attr('disabled', true);
-        searchElm.find('.directorist-archive-items').addClass('atbdp-form-fade');
-        searchElm.find('.directorist-header-bar .directorist-advanced-filter').removeClass('directorist-advanced-filter--show').hide();
-        if (((_searchElm$offset = searchElm.offset()) === null || _searchElm$offset === void 0 ? void 0 : _searchElm$offset.top) > 0) {
-          $(document).scrollTop(searchElm.offset().top);
-        }
-        closeAllSearchModal();
-      },
-      success: function success(html) {
-        if (html.search_result) {
-          searchElm.find('.directorist-header-found-title, .dsa-save-search-container').remove();
-          if (html.header_title) {
-            searchElm.find('.directorist-listings-header__left').append(html.header_title);
-            searchElm.find('.directorist-header-found-title span').text(html.count);
-          }
-          searchElm.find('.directorist-archive-items').replaceWith(html.search_result).removeClass('atbdp-form-fade');
-          searchElm.find('.directorist-advanced-filter__form .directorist-btn-sm').attr('disabled', false);
-          window.dispatchEvent(new CustomEvent('directorist-instant-search-reloaded'));
-          window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
-
-          // Optional: Update meta title
-          var new_meta_title = '';
-          if (html.category_name) new_meta_title += html.category_name;
-          if (html.location_name) new_meta_title += (new_meta_title ? ' within ' : '') + html.location_name;
-          if (form_data.address) new_meta_title += (form_data.in_cat || form_data.in_loc ? ' near ' : '') + form_data.address;
-          document.title = new_meta_title ? "".concat(new_meta_title, " | ").concat(directorist.site_name) : directorist.site_name;
-        }
-
-        // Initialize scrolling status
-        scrollingPage = 1;
-        infinitePaginationCompleted = false;
-      }
-    });
-  }
-
-  // Perform Instant Search for directory type change
-  function onDirectoryChange(searchElement) {
-    // get parent element
-    var searchElm = searchElement.closest('.directorist-instant-search');
-
-    // Instant Search Data
-    var instant_search_data = prepareInstantSearchData(searchElm);
-    $.ajax({
-      url: directorist.ajaxurl,
-      type: 'POST',
-      data: instant_search_data,
-      beforeSend: function beforeSend() {
-        searchElm.addClass('atbdp-form-fade');
-      },
-      success: function success(html) {
-        if (html.directory_type) {
-          searchElm.replaceWith(html.directory_type);
-          searchElm.find('.atbdp-form-fade').removeClass('atbdp-form-fade');
-          window.dispatchEvent(new CustomEvent('directorist-instant-search-reloaded'));
-          window.dispatchEvent(new CustomEvent('directorist-reload-listings-map-archive'));
-
-          // SearchForm Item in Single Category Location Page Init
-          singleCategoryLocationInit();
-
-          // Category Custom Field Assigned Init
-          (0,_category_custom_fields__WEBPACK_IMPORTED_MODULE_4__["default"])($);
-        }
-
-        // Initialize scrolling status
-        scrollingPage = 1;
-        infinitePaginationCompleted = false;
-      }
-    });
-  }
-
-  // AJAX call to load more listings
-  function loadMoreListings(searchElement) {
-    var loadingDiv;
-    var container = $('.directorist-infinite-scroll .directorist-container-fluid .directorist-row');
-
-    // get parent element
-    var searchElm = searchElement.closest('.directorist-instant-search');
-
-    // Instant Search Data
-    var preparedData = prepareInstantSearchData(searchElm);
-
-    // make ajax data
-    var instant_search_data = _objectSpread(_objectSpread({}, preparedData), {}, {
-      paged: scrollingPage
-    });
-    $.ajax({
-      url: directorist.ajaxurl,
-      type: 'POST',
-      data: instant_search_data,
-      beforeSend: function beforeSend() {
-        loadingDiv = $('<div>', {
-          class: 'directorist-on-scroll-loading'
-        }).append($('<div>', {
-          class: 'directorist-spinner'
-        }), $('<span>').text('Loading more...'));
-        container.append(loadingDiv);
-      },
-      success: function success(html) {
-        if (loadingDiv) loadingDiv.remove();
-        if (html.count > 0) {
-          container.append(html.render_listings);
-        } else {
-          infinitePaginationCompleted = true;
-        }
-        triggerCustomEvents();
-      },
-      complete: function complete() {
-        infinitePaginationIsLoading = false;
-        if (loadingDiv) loadingDiv.remove();
-      }
-    });
-  }
-
-  /**
-     	Helper Functions  
-   	**/
-
-  // Prepare Instant Search Data
-  function prepareInstantSearchData(searchElm) {
-    // Get data-atts
-    var instant_search_atts = searchElm.data('atts');
-
-    // make ajax data
-    var instant_search_data = _objectSpread(_objectSpread({}, form_data), {}, {
-      action: 'directorist_instant_search',
-      _nonce: directorist.ajax_nonce,
-      current_page_id: directorist.current_page_id,
-      data_atts: instant_search_atts
-    });
-    return instant_search_data;
-  }
-
-  // Update or retain existing keys in form_data
-  function updateFormData(newData) {
-    Object.entries(newData).forEach(function (_ref) {
-      var _ref2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_ref, 2),
-        key = _ref2[0],
-        value = _ref2[1];
-      if (value === undefined || value === null || value === '' || Array.isArray(value) && value.length === 0 || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(value) === 'object' && !Array.isArray(value) && Object.keys(value).length === 0) {
-        delete form_data[key];
-      } else {
-        form_data[key] = value;
-      }
-    });
-  }
-
-  // Reset form_data
-  function resetFormData() {
-    Object.entries(form_data).forEach(function (_ref3) {
-      var _ref4 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_ref3, 2),
-        key = _ref4[0],
-        value = _ref4[1];
-      delete form_data[key];
-    });
-  }
-
-  // Update search URL with form data
-  function update_instant_search_url(form_data) {
-    if (!history.pushState) return;
-    var newurl = window.location.protocol + '//' + window.location.host + window.location.pathname;
-    var query = '';
-    var appendQuery = function appendQuery(key, value) {
-      if (value !== undefined && value !== null && value !== '' && (!Array.isArray(value) || value.length)) {
-        if (Array.isArray(value) && value.length) {
-          query += (query.length ? '&' : '?') + "".concat(key, "=").concat(value);
-        } else {
-          query += (query.length ? '&' : '?') + "".concat(key, "=").concat(encodeURIComponent(value));
-        }
-      }
-    };
-
-    // These keys will be ignored
-    // and will not be appended to the URL
-    // when updating the URL
-    var ignoreKeys = ['data_atts', 'custom_field', 'current_page_id', 'action', '_nonce'];
-
-    // Handle all form_data keys dynamically
-    Object.entries(form_data).forEach(function (_ref5) {
-      var _ref6 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_ref5, 2),
-        key = _ref6[0],
-        value = _ref6[1];
-      if (ignoreKeys.includes(key)) return;
-
-      // Handle default page
-      if (key === 'paged' && Number(value) === 1) {
-        return; // ❌ Skip default page 1
-      }
-
-      // Handle price & address fields specifically
-      if (key === 'price' && Array.isArray(value)) {
-        appendQuery('price[0]', value[0] > 0 ? value[0] : '');
-        appendQuery('price[1]', value[1] > 0 ? value[1] : '');
-      } else if ((key === 'cityLat' || key === 'cityLng') && !form_data.address) {
-        return; // ❌ Skip lat/lng if no address
-      } else {
-        appendQuery(key, value);
-      }
-    });
-
-    // Handle custom_field
-    if (form_data.custom_field && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(form_data.custom_field) === 'object') {
-      Object.entries(form_data.custom_field).forEach(function (_ref7) {
-        var _ref8 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_ref7, 2),
-          key = _ref8[0],
-          val = _ref8[1];
-        // Skip if key starts with "custom-number" and value is "0-0"
-        if (key.startsWith('custom-number') && val === '0-0') {
-          return;
-        }
-        appendQuery(key, val);
-      });
-    }
-    var finalUrl = query ? newurl + query : newurl;
-    window.history.pushState({
-      path: finalUrl
-    }, '', finalUrl);
-  }
-
-  // Check required fields are valid or not
-  function checkRequiredFields(searchElm) {
-    // Select all required inputs and selects inside searchElm
-    var requiredInputs = searchElm.find('input[required], select[required], textarea[required]');
-    var requiredFieldsAreValid = true;
-    requiredInputs.each(function () {
-      var $el = $(this);
-      var tagName = $el.prop('tagName').toLowerCase();
-      var type = $el.attr('type');
-      if (tagName === 'input') {
-        if (type === 'checkbox' || type === 'radio') {
-          // For checkboxes/radios, at least one with this name must be checked
-          var name = $el.attr('name');
-          var checked = searchElm.find("input[name=\"".concat(name, "\"]:checked")).length > 0;
-          if (!checked) {
-            requiredFieldsAreValid = false;
-            return false; // break .each loop early
-          }
-        } else {
-          // For other input types, value must not be empty
-          if (!$el.val()) {
-            requiredFieldsAreValid = false;
-            return false;
-          }
-        }
-      } else if (tagName === 'select' || tagName === 'textarea') {
-        // Select or textarea must have a value
-        if (!$el.val()) {
-          requiredFieldsAreValid = false;
-          return false;
-        }
-      }
-    });
-    return requiredFieldsAreValid;
-  }
-
-  //  Build form_data from searchElm inputs.
-  function buildFormData(searchElm) {
-    var tag = [];
-    var price = [];
-    var custom_field = {};
-    var search_by_rating = [];
-
-    // Collect selected tags
-    searchElm.find('input[name^="in_tag["]:checked').each(function (_, el) {
-      tag.push($(el).val());
-    });
-
-    // Collect selected ratings
-    searchElm.find('input[name^="search_by_rating["]:checked').each(function (_, el) {
-      search_by_rating.push($(el).val());
-    });
-
-    // Collect price values
-    searchElm.find('input[name^="price["]').each(function (_, el) {
-      price.push($(el).val());
-    });
-
-    // Check if **any** price is greater than 0
-    var hasValidPrice = price.some(function (val) {
-      return val > 0;
-    });
-    if (!hasValidPrice) {
-      price = []; // Reset price if no valid price found
-    }
-
-    // Collect custom field values
-    searchElm.find('[name^="custom_field"]').each(function (_, el) {
-      var $el = $(el);
-      var name = $el.attr('name');
-      var type = $el.attr('type');
-      var match = name.match(/^custom_field\[(.+?)\]/);
-      var post_id = match ? match[1] : '';
-      if (!post_id) return;
-      if (type === 'radio') {
-        var checked = searchElm.find("input[name=\"custom_field[".concat(post_id, "]\"]:checked")).val();
-        if (checked) custom_field[post_id] = checked;
-      } else if (type === 'checkbox') {
-        var values = [];
-        searchElm.find("input[name=\"custom_field[".concat(post_id, "][]\"]:checked")).each(function () {
-          var val = $(this).val();
-          if (val) values.push(val);
-        });
-        if (values.length) custom_field[post_id] = values;
-      } else {
-        var value = $el.val();
-        if (value && value !== '0-0') custom_field[post_id] = value;
-      }
-    });
-
-    // Collect basic form values
-    var q = searchElm.find('input[name="q"]').val();
-    var in_cat = searchElm.find('.directorist-category-select').val();
-    var in_loc = searchElm.find('.directorist-location-select').val();
-    var price_range = searchElm.find("input[name='price_range']:checked").val();
-    var address = searchElm.find('input[name="address"]').val();
-    var zip = searchElm.find('input[name="zip"]').val();
-    var fax = searchElm.find('input[name="fax"]').val();
-    var email = searchElm.find('input[name="email"]').val();
-    var website = searchElm.find('input[name="website"]').val();
-    var phone = searchElm.find('input[name="phone"]').val();
-    var phone2 = searchElm.find('input[name="phone2"]').val();
-    var view = form_data.view;
-    var paged = form_data.paged;
-
-    // Update form_data
-    updateFormData({
-      q: q,
-      in_cat: in_cat,
-      in_loc: in_loc,
-      in_tag: tag,
-      price: price,
-      price_range: price_range,
-      search_by_rating: search_by_rating,
-      address: address,
-      zip: zip,
-      fax: fax,
-      email: email,
-      website: website,
-      phone: phone,
-      phone2: phone2,
-      custom_field: custom_field,
-      view: view,
-      paged: paged
-    });
-
-    // open_now checkbox
-    var open_now_val = searchElm.find('input[name="open_now"]').is(':checked') ? searchElm.find('input[name="open_now"]').val() : undefined;
-    updateFormData({
-      open_now: open_now_val
-    });
-    var radius_search_based_on = searchElm.find('.directorist-radius_search_based_on').val();
-
-    // Check if the address or zip code is present to update miles, lat, and lng
-    if (radius_search_based_on === 'address' && address) {
-      updateFormData({
-        cityLat: searchElm.find('#cityLat').val(),
-        cityLng: searchElm.find('#cityLng').val(),
-        miles: searchElm.find('input[name="miles"]').val()
-      });
-    } else if (radius_search_based_on === 'zip' && zip) {
-      updateFormData({
-        zip_cityLat: searchElm.find('.zip-cityLat').val(),
-        zip_cityLng: searchElm.find('.zip-cityLng').val(),
-        miles: searchElm.find('input[name="miles"]').val()
-      });
-    } else {
-      updateFormData({
-        cityLat: undefined,
-        cityLng: undefined,
-        zip_cityLat: undefined,
-        zip_cityLng: undefined,
-        miles: undefined
-      });
-    }
-
-    // Paging: get current page number, default 1 if not found
-    var page = parseInt(form_data.paged, 10) || 1;
-    updateFormData({
-      paged: page > 1 ? page : undefined
-    });
-
-    // Update URL with form data
-    update_instant_search_url(form_data);
-  }
-
-  // Build form data without required value
-  function buildFormDataWithoutRequired() {
-    var notRequiredFields = ['view', 'sort', 'paged'];
-    Object.entries(form_data).forEach(function (_ref9) {
-      var _ref0 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_ref9, 2),
-        key = _ref0[0],
-        value = _ref0[1];
-      if (!notRequiredFields.includes(key)) {
-        delete form_data[key];
-      }
-    });
-
-    // Update URL with form data
-    update_instant_search_url(form_data);
-  }
-
-  // Perform Instant Search with required value
-  function performInstantSearchWithRequiredValue(searchElm) {
-    // Build form data
-    buildFormData(searchElm);
-
-    // Check required fields
-    var allRequiredFieldsAreValid = checkRequiredFields(searchElm);
-
-    // If required fields are valid, proceed with filtering
-    if (allRequiredFieldsAreValid) {
-      performInstantSearch(searchElm);
-    }
-  }
-
-  // Perform Instant Search without required value
-  function performInstantSearchWithoutRequiredValue(searchElm) {
-    // Check required fields
-    var allRequiredFieldsAreValid = checkRequiredFields(searchElm);
-
-    // If required fields are valid, proceed with filtering
-    if (allRequiredFieldsAreValid) {
-      // Build form data
-      buildFormData(searchElm);
-      performInstantSearch(searchElm);
-    } else {
-      // Build form data without required value
-      buildFormDataWithoutRequired();
-
-      // Filter Listing
-      performInstantSearch(searchElm);
-    }
-  }
-
-  // Handle Infinite Scroll
-  function handleScroll() {
-    var container = $('.directorist-infinite-scroll .directorist-container-fluid .directorist-row');
-    if (!container.length || infinitePaginationIsLoading) {
-      return;
-    }
-    var containerBottom = container.offset().top + container.outerHeight();
-    var scrollBottom = window.scrollY + window.innerHeight;
-    if (scrollBottom >= containerBottom) {
-      infinitePaginationIsLoading = true;
-      scrollingPage++;
-
-      // get parent element
-      var instantSearchElement = $('.directorist-instant-search');
-      // get active form
-      var activeForm = getActiveForm(instantSearchElement);
-
-      // build form_data
-      buildFormData(activeForm);
-
-      // Load more listings
-      loadMoreListings(activeForm);
-    }
-  }
-
-  // Close all search modal
-  function closeAllSearchModal() {
-    var searchModalElement = document.querySelectorAll('.directorist-search-modal');
-    searchModalElement.forEach(function (modal) {
-      var modalOverlay = modal.querySelector('.directorist-search-modal__overlay');
-      var modalContent = modal.querySelector('.directorist-search-modal__contents');
-      var modalBodyOverlay = document.querySelector('.directorist-content-active');
-
-      // Overlay Style
-      if (modalOverlay) {
-        modalOverlay.style.cssText = 'opacity: 0; visibility: hidden; transition: 0.5s ease';
-        // remove overlay class on body
-        modalBodyOverlay.classList.remove('directorist-overlay-active');
-      }
-
-      // Modal Content Style
-      if (modalContent) {
-        modalContent.style.cssText = 'opacity: 0; visibility: hidden; bottom: -200px;';
-      }
-    });
-  }
-
-  // Determine the active form
-  function getActiveForm(instantSearchElement) {
-    var sidebarListing = instantSearchElement.find('.listing-with-sidebar');
-    var advancedForm = instantSearchElement.find('.directorist-advanced-filter__form');
-    var searchForm = instantSearchElement.find('.directorist-search-form');
-    return sidebarListing.length ? instantSearchElement : screen.width > 575 ? advancedForm : searchForm;
-  }
-
-  // Get directory type
-  function getDirectoryType(directoryTypeLink) {
-    var _directoryTypeLink$at;
-    var typeMatch = (_directoryTypeLink$at = directoryTypeLink.attr('href')) === null || _directoryTypeLink$at === void 0 ? void 0 : _directoryTypeLink$at.match(/type=([^&]+)/);
-    return typeMatch ? typeMatch[1] : '';
-  }
-
-  // Get view as
-  function getViewAs(viewAsLink) {
-    var _viewAsLink$attr;
-    var viewMatch = (_viewAsLink$attr = viewAsLink.attr('href')) === null || _viewAsLink$attr === void 0 ? void 0 : _viewAsLink$attr.match(/view=([^&]+)/);
-    return viewMatch ? viewMatch[1] : '';
-  }
-
-  // Get sort value
-  function getSortValue(sortByLink) {
-    var sort_href = sortByLink.attr('data-link');
-    var sort_by = sort_href && sort_href.length ? sort_href.match(/sort=.+/) : '';
-    return sort_by && sort_by.length ? sort_by[0].replace(/sort=/, '') : '';
-  }
-
-  // Trigger custom events
-  function triggerCustomEvents() {
-    window.dispatchEvent(new Event('directorist-instant-search-reloaded'));
-    window.dispatchEvent(new Event('directorist-reload-listings-map-archive'));
-  }
-
-  // Range Slider searching observer
-  function initObserver() {
-    var targetNodes = document.querySelectorAll('.directorist-instant-search .directorist-custom-range-slider__value input');
-    targetNodes.forEach(function (targetNode) {
-      var searchElm = $(targetNode.closest('form'));
-      if (targetNode) {
-        var timeout;
-        var observerCallback = function observerCallback(mutationList, observer) {
-          var _iterator = _createForOfIteratorHelper(mutationList),
-            _step;
-          try {
-            for (_iterator.s(); !(_step = _iterator.n()).done;) {
-              var mutation = _step.value;
-              if (mutation.attributeName == 'value') {
-                clearTimeout(timeout);
-                timeout = setTimeout(function () {
-                  // Instant search with required value
-                  performInstantSearchWithRequiredValue(searchElm);
-                }, 250);
-              }
-            }
-          } catch (err) {
-            _iterator.e(err);
-          } finally {
-            _iterator.f();
-          }
-        };
-        var observer = new MutationObserver(observerCallback);
-        observer.observe(targetNode, {
-          attributes: true,
-          childList: true,
-          subtree: true
-        });
-      }
-    });
-  }
-
-  // Single Location Category Page Search Form Item Disable
-  function singleCategoryLocationInit() {
-    var directoristArchiveContents = document.querySelector('.directorist-archive-contents');
-    if (!directoristArchiveContents) {
-      return;
-    }
-    var directoristDataAttributes = directoristArchiveContents.getAttribute('data-atts');
-    var _JSON$parse = JSON.parse(directoristDataAttributes),
-      shortcode = _JSON$parse.shortcode,
-      location = _JSON$parse.location,
-      category = _JSON$parse.category;
-    if (shortcode === 'directorist_category' && category.trim() !== '') {
-      var categorySelect = document.querySelector('.directorist-search-form .directorist-category-select');
-      if (categorySelect) {
-        categorySelect.closest('.directorist-search-category').classList.add('directorist-search-form__single-category');
-      }
-    }
-    if (shortcode === 'directorist_location' && location.trim() !== '') {
-      var locationSelect = document.querySelector('.directorist-search-form .directorist-location-select');
-      if (locationSelect) {
-        locationSelect.closest('.directorist-search-location').classList.add('directorist-search-form__single-location');
-      }
-    }
-  }
-
-  /** 
-  	Event Listeners 
-  */
-
-  // sidebar on keyup searching
-  $('body').on('keyup', '.directorist-instant-search .listing-with-sidebar form', (0,_global_components_debounce__WEBPACK_IMPORTED_MODULE_3__["default"])(function (e) {
-    if ($(e.target).closest('.directorist-custom-range-slider__value').length > 0) {
-      return; // Skip search for this element
-    }
-    e.preventDefault();
-    var searchElm = $(this).closest('.listing-with-sidebar');
-
-    // Instant search with required value
-    performInstantSearchWithRequiredValue(searchElm);
-  }, 250));
-
-  // sidebar on change searching - radio/checkbox/location/range
-  $('body').on('change', ".directorist-instant-search .listing-with-sidebar input[type='checkbox'],.directorist-instant-search .listing-with-sidebar input[type='radio'], .directorist-instant-search .listing-with-sidebar input[type='time'], .directorist-instant-search .listing-with-sidebar input[type='date'], .directorist-instant-search .listing-with-sidebar .directorist-custom-range-slider__wrap .directorist-custom-range-slider__range, .directorist-instant-search .listing-with-sidebar .directorist-search-location .location-name", (0,_global_components_debounce__WEBPACK_IMPORTED_MODULE_3__["default"])(function (e) {
-    e.preventDefault();
-    var searchElm = $(this).closest('.listing-with-sidebar');
-
-    // Instant search with required value
-    performInstantSearchWithRequiredValue(searchElm);
-  }, 250));
-
-  // sidebar on change searching - zipcode/location
-  $('body').on('change', '.directorist-instant-search .listing-with-sidebar .directorist-search-location, .directorist-instant-search .listing-with-sidebar .directorist-zipcode-search', (0,_global_components_debounce__WEBPACK_IMPORTED_MODULE_3__["default"])(function (e) {
-    e.preventDefault();
-    var searchElm = $(this).closest('.listing-with-sidebar');
-
-    // If it's a location field, ensure it has a value before triggering the filter
-    if ($(this).hasClass('directorist-search-location')) {
-      var locationField = $(this).find('input[name="address"]');
-      if (!locationField.val()) {
-        return;
-      }
-    }
-
-    // Instant search with required value
-    performInstantSearchWithRequiredValue(searchElm);
-  }, 250));
-
-  // sidebar on change searching - select
-  $('body').on('change', '.directorist-instant-search .listing-with-sidebar select', (0,_global_components_debounce__WEBPACK_IMPORTED_MODULE_3__["default"])(function (e) {
-    e.preventDefault();
-    if (!$(this).val()) {
-      return; // Skip search if the value is empty
-    }
-    e.preventDefault();
-    var searchElm = $(this).val() && $(this).closest('.listing-with-sidebar');
-
-    // Instant search with required value
-    performInstantSearchWithRequiredValue(searchElm);
-  }, 250));
-
-  // sidebar on change searching - color
-  window.addEventListener('directorist-color-changed', (0,_global_components_debounce__WEBPACK_IMPORTED_MODULE_3__["default"])(function (e) {
-    var input = e.detail.input;
-    var searchElm = $(input).closest('.listing-with-sidebar');
-    if (!searchElm.length) return;
-
-    // Instant search with required value
-    performInstantSearchWithRequiredValue(searchElm);
-  }, 250));
-
-  // sidebar on click searching - location icon
-  $('body').on('click', '.directorist-instant-search .listing-with-sidebar .directorist-filter-location-icon', (0,_global_components_debounce__WEBPACK_IMPORTED_MODULE_3__["default"])(function (e) {
-    e.preventDefault();
-    var searchElm = $(this).closest('.listing-with-sidebar');
-
-    // Instant search with required value
-    performInstantSearchWithRequiredValue(searchElm);
-  }, 1000));
-
-  // Clear Input Value
-  $('body').on('click', '.directorist-instant-search .listing-with-sidebar .directorist-search-field__btn--clear', function (e) {
-    // Clear Color Field Value
-    var irisPicker = $(this).closest('.directorist-search-field.directorist-color').find('input.wp-picker-clear');
-    if (irisPicker !== null) {
-      irisPicker.click();
-    }
-    var $searchField = $(this).closest('.directorist-search-field');
-    var $form = $(document.querySelector('.directorist-instant-search .listing-with-sidebar form'));
-
-    // Clear text, email, number, select fields etc
-    $searchField.find('input:not([type="checkbox"]):not([type="radio"]):not(.wp-picker-clear), select').val('');
-
-    // Clear checkboxes
-    $searchField.find('input[type="checkbox"]').prop('checked', false);
-
-    // Clear radio buttons
-    $searchField.find('input[type="radio"]').prop('checked', false);
-
-    // Proceed if form exists
-    if ($form.length) {
-      performInstantSearchWithRequiredValue($form);
-    }
-  });
-
-  // Directorist instant search reset 
-  $('body').on('click', '.directorist-instant-search .listing-with-sidebar  .directorist-btn-reset-js', function (e) {
-    e.preventDefault();
-    var searchElm = $(this).closest('.directorist-instant-search');
-    // Get active form
-    var activeForm = getActiveForm(searchElm);
-
-    // ✅ only update `page`, preserve others
-    updateFormData({
-      paged: 1
-    });
-
-    // Build form data
-    buildFormData(activeForm);
-
-    // Filter Listing
-    (0,_global_components_debounce__WEBPACK_IMPORTED_MODULE_3__["default"])(function (e) {
-      performInstantSearch(activeForm);
-    }, 250);
-  });
-
-  // Directorist instant search submit 
-  $('body').on('submit', '.directorist-instant-search form', function (e) {
-    e.preventDefault();
-    var _this = $(this);
-
-    // Instant search with required value
-    performInstantSearchWithRequiredValue(_this);
-  });
-
-  // Directorist instant search submit - for advanced filter
-  $('body').on('submit', '.widget .default-ad-search:not(.directorist_single) .directorist-advanced-filter__form', function (e) {
-    if ($('.directorist-instant-search').length) {
-      e.preventDefault();
-      var _this = $(this);
-
-      // Instant search with required value
-      performInstantSearchWithRequiredValue(_this);
-    }
-  });
-
-  // Directorist type changes
-  $('body').on('click', '.directorist-instant-search .directorist-type-nav__link', function (e) {
-    e.preventDefault();
-
-    // Check if the clicked item is already active
-    if ($(this).closest('.directorist-type-nav__list li').hasClass('directorist-type-nav__list__current')) {
-      return; // Skip if already active
-    }
-
-    // get parent element
-    var searchElm = $(this).closest('.directorist-instant-search');
-
-    // reset form data
-    resetFormData();
-
-    // get directory_type
-    var directory_type = getDirectoryType($(this));
-    // ✅ only update `directory_type`, preserve others
-    updateFormData({
-      directory_type: directory_type
-    });
-
-    // Update URL with form data
-    update_instant_search_url(form_data);
-
-    // Get active form
-    var activeForm = getActiveForm(searchElm);
-
-    // Instant search for directory type change
-    onDirectoryChange(activeForm);
-  });
-
-  // Directorist view as changes
-  $('body').on('click', '.directorist-instant-search .directorist-viewas .directorist-viewas__item', function (e) {
-    e.preventDefault();
-
-    // Check if the clicked item is already active
-    if ($(this).hasClass('active')) {
-      return; // Skip if already active
-    }
-
-    // get parent element
-    var searchElm = $(this).closest('.directorist-instant-search');
-
-    // get view as value
-    var view = getViewAs($(this));
-    // ✅ only update `view`, preserve others
-    updateFormData({
-      view: view
-    });
-
-    // Get active form
-    var activeForm = getActiveForm(searchElm);
-
-    // Instant search without required value
-    performInstantSearchWithoutRequiredValue(activeForm);
-  });
-
-  // Directorist sort by changes
-  $('body').on('click', '.directorist-instant-search .directorist-sortby-dropdown .directorist-dropdown__links__single-js', function (e) {
-    e.preventDefault();
-
-    // toggle active class
-    $(this).addClass('active').siblings('.directorist-dropdown__links__single-js').removeClass('active');
-
-    // get parent element
-    var searchElm = $(this).closest('.directorist-instant-search');
-
-    // get sort value
-    var sort = getSortValue($(this));
-    // ✅ only update `sort`, preserve others
-    updateFormData({
-      sort: sort
-    });
-
-    // get active form
-    var activeForm = getActiveForm(searchElm);
-
-    // Instant search without required value
-    performInstantSearchWithoutRequiredValue(activeForm);
-  });
-
-  // Directorist pagination changes
-  $('body').on('click', '.directorist-instant-search .directorist-pagination .page-numbers', function (e) {
-    e.preventDefault();
-    var page = form_data.paged || 1;
-    var currentPage = $(this).text();
-    if (currentPage) {
-      page = parseInt(currentPage);
-    } else if ($(this).hasClass('next')) {
-      page = parseInt(page) + 1;
-    } else if ($(this).hasClass('prev')) {
-      page = parseInt(page) - 1;
-    }
-    // ✅ only update `sort`, preserve others
-    updateFormData({
-      paged: page
-    });
-
-    // get parent element
-    var searchElm = $(this).closest('.directorist-instant-search');
-
-    // get active form
-    var activeForm = getActiveForm(searchElm);
-
-    // Instant search without required value
-    performInstantSearchWithoutRequiredValue(activeForm);
-  });
-
-  // Submit on sidebar form
-  if ($('.directorist-instant-search').length === 0) {
-    $('body').on('submit', '.listing-with-sidebar .directorist-basic-search, .listing-with-sidebar .directorist-advanced-search', function (e) {
-      e.preventDefault();
-      var basic_data = $('.listing-with-sidebar .directorist-basic-search').serialize();
-      var advanced_data = $('.listing-with-sidebar .directorist-advanced-search').serialize();
-      var action_value = $('.directorist-advanced-search').attr('action');
-      var url = action_value + '?' + basic_data + '&' + advanced_data;
-      window.location.href = url;
-    });
-  }
-
-  // Prevent disabled links from being clicked
-  $('body').on('click', '.disabled-link', function (e) {
-    e.preventDefault();
-  });
-
-  // Prevent default action for dropdown links
-  $('.directorist-instant-search .directorist-dropdown__links__single-js').off('click');
-
-  // Initialize Infinite Scroll
-  window.addEventListener('scroll', function () {
-    if (infinitePaginationCompleted) {
-      scrollingPage = 1;
-      return;
-    }
-    handleScroll();
-  });
-
-  // Initialize the observer for single category location
-  window.addEventListener('load', function () {
-    (0,_global_components_debounce__WEBPACK_IMPORTED_MODULE_3__["default"])(initObserver(), 250);
-    singleCategoryLocationInit();
-  });
-})(jQuery);
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: /Users/obidullah/Sites/directorist/wp-content/plugins/directorist/assets/src/js/public/components/instantSearch.js: Unexpected token (2:1)\n\n\u001b[0m \u001b[90m 1 |\u001b[39m \u001b[36mimport\u001b[39m debounce \u001b[36mfrom\u001b[39m \u001b[32m'../../global/components/debounce'\u001b[39m\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 2 |\u001b[39m \u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<\u001b[39m \u001b[33mHEAD\u001b[39m\n \u001b[90m   |\u001b[39m  \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 3 |\u001b[39m ( \u001b[36mfunction\u001b[39m ( $ ) {\n \u001b[90m 4 |\u001b[39m \t\u001b[36mlet\u001b[39m full_url \u001b[33m=\u001b[39m window\u001b[33m.\u001b[39mlocation\u001b[33m.\u001b[39mhref\u001b[33m;\u001b[39m\n \u001b[90m 5 |\u001b[39m\u001b[0m\n    at constructor (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:360:19)\n    at JSXParserMixin.raise (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:6613:19)\n    at JSXParserMixin.unexpected (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:6633:16)\n    at JSXParserMixin.jsxParseIdentifier (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:4575:12)\n    at JSXParserMixin.jsxParseNamespacedName (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:4582:23)\n    at JSXParserMixin.jsxParseElementName (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:4591:21)\n    at JSXParserMixin.jsxParseOpeningElementAt (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:4667:22)\n    at JSXParserMixin.jsxParseElementAt (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:4692:33)\n    at JSXParserMixin.jsxParseElement (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:4755:17)\n    at JSXParserMixin.parseExprAtom (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:4765:19)\n    at JSXParserMixin.parseExprSubscripts (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10992:23)\n    at JSXParserMixin.parseUpdate (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10977:21)\n    at JSXParserMixin.parseMaybeUnary (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10957:23)\n    at JSXParserMixin.parseMaybeUnaryOrPrivate (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10810:61)\n    at JSXParserMixin.parseExprOps (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10815:23)\n    at JSXParserMixin.parseMaybeConditional (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10792:23)\n    at JSXParserMixin.parseMaybeAssign (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10745:21)\n    at JSXParserMixin.parseExpressionBase (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10698:23)\n    at /Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10694:39\n    at JSXParserMixin.allowInAnd (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:12329:16)\n    at JSXParserMixin.parseExpression (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:10694:17)\n    at JSXParserMixin.parseStatementContent (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:12771:23)\n    at JSXParserMixin.parseStatementLike (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:12644:17)\n    at JSXParserMixin.parseModuleItem (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:12621:17)\n    at JSXParserMixin.parseBlockOrModuleBlockBody (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:13192:36)\n    at JSXParserMixin.parseBlockBody (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:13185:10)\n    at JSXParserMixin.parseProgram (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:12514:10)\n    at JSXParserMixin.parseTopLevel (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:12504:25)\n    at JSXParserMixin.parse (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:14364:10)\n    at parse (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/parser/lib/index.js:14398:38)\n    at parser (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/core/lib/parser/index.js:41:34)\n    at parser.next (<anonymous>)\n    at normalizeFile (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/core/lib/transformation/normalize-file.js:64:37)\n    at normalizeFile.next (<anonymous>)\n    at run (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/core/lib/transformation/index.js:22:50)\n    at run.next (<anonymous>)\n    at transform (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/@babel/core/lib/transform.js:22:33)\n    at transform.next (<anonymous>)\n    at step (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/gensync/index.js:261:32)\n    at /Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/gensync/index.js:273:13\n    at async.call.result.err.err (/Users/obidullah/Sites/directorist/wp-content/plugins/directorist/node_modules/gensync/index.js:223:11)");
 
 /***/ }),
 
@@ -2270,7 +1321,8 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 /*!***********************************************************!*\
   !*** ./assets/src/js/public/components/legacy-support.js ***!
   \***********************************************************/
-/***/ (function() {
+/*! no static exports found */
+/***/ (function(module, exports) {
 
 window.addEventListener('load', function () {
   /* custom dropdown */
@@ -2314,7 +1366,8 @@ window.addEventListener('load', function () {
 /*!****************************************************!*\
   !*** ./assets/src/js/public/components/masonry.js ***!
   \****************************************************/
-/***/ (function() {
+/*! no static exports found */
+/***/ (function(module, exports) {
 
 // DOM Mutation observer
 function initObserver() {
@@ -2353,7 +1406,8 @@ window.addEventListener('load', initMasonry);
 /*!***************************************************!*\
   !*** ./assets/src/js/public/components/review.js ***!
   \***************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -2374,12 +1428,15 @@ __webpack_require__.r(__webpack_exports__);
 /*!*******************************************************************!*\
   !*** ./assets/src/js/public/components/review/advanced-review.js ***!
   \*******************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ "./node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
-/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/createClass */ "./node_modules/@babel/runtime/helpers/esm/createClass.js");
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ "./node_modules/@babel/runtime/helpers/classCallCheck.js");
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/createClass */ "./node_modules/@babel/runtime/helpers/createClass.js");
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__);
 
 
 function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t.return || t.return(); } finally { if (u) throw o; } } }; }
@@ -2392,13 +1449,13 @@ window.addEventListener('load', function () {
     var ReplyFormObserver = /*#__PURE__*/function () {
       function ReplyFormObserver() {
         var _this = this;
-        (0,_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__["default"])(this, ReplyFormObserver);
+        _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, ReplyFormObserver);
         this.init();
         $(document).on('directorist_review_updated', function () {
           return _this.init();
         });
       }
-      return (0,_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__["default"])(ReplyFormObserver, [{
+      return _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(ReplyFormObserver, [{
         key: "init",
         value: function init() {
           var node = document.querySelector('.commentlist');
@@ -2504,10 +1561,10 @@ window.addEventListener('load', function () {
     }();
     var CommentEditHandler = /*#__PURE__*/function () {
       function CommentEditHandler() {
-        (0,_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__["default"])(this, CommentEditHandler);
+        _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, CommentEditHandler);
         this.init();
       }
-      return (0,_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__["default"])(CommentEditHandler, [{
+      return _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(CommentEditHandler, [{
         key: "init",
         value: function init() {
           $(document).on('submit', '#directorist-form-comment-edit', this.onSubmit);
@@ -2579,10 +1636,10 @@ window.addEventListener('load', function () {
     }();
     var CommentAddReplyHandler = /*#__PURE__*/function () {
       function CommentAddReplyHandler() {
-        (0,_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__["default"])(this, CommentAddReplyHandler);
+        _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, CommentAddReplyHandler);
         this.init();
       }
-      return (0,_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__["default"])(CommentAddReplyHandler, [{
+      return _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(CommentAddReplyHandler, [{
         key: "init",
         value: function init() {
           var t = setTimeout(function () {
@@ -2702,12 +1759,12 @@ window.addEventListener('load', function () {
     }();
     var CommentsManager = /*#__PURE__*/function () {
       function CommentsManager() {
-        (0,_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__["default"])(this, CommentsManager);
+        _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, CommentsManager);
         this.$doc = $(document);
         this.setupComponents();
         this.addEventListeners();
       }
-      return (0,_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__["default"])(CommentsManager, [{
+      return _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(CommentsManager, [{
         key: "initStarRating",
         value: function initStarRating() {
           $('.directorist-review-criteria-select').barrating({
@@ -2811,7 +1868,8 @@ window.addEventListener('load', function () {
 /*!**************************************************************!*\
   !*** ./assets/src/js/public/components/review/starRating.js ***!
   \**************************************************************/
-/***/ (function() {
+/*! no static exports found */
+/***/ (function(module, exports) {
 
 window.addEventListener('load', function () {
   (function ($) {
@@ -2830,16 +1888,19 @@ window.addEventListener('load', function () {
 /*!**************************************************************!*\
   !*** ./assets/src/js/public/components/update-view-count.js ***!
   \**************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
-/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/slicedToArray.js");
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__);
 
 
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 /**
  * Update listings grid view count.
  */
@@ -2851,7 +1912,7 @@ jQuery(function ($) {
   }
   var updateMarkup = function updateMarkup(viewCounts) {
     for (var _i = 0, _Object$entries = Object.entries(viewCounts); _i < _Object$entries.length; _i++) {
-      var _Object$entries$_i = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_Object$entries[_i], 2),
+      var _Object$entries$_i = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1___default()(_Object$entries[_i], 2),
         id = _Object$entries$_i[0],
         count = _Object$entries$_i[1];
       var $el = $(".directorist-view-count[data-id=\"".concat(id, "\"]"));
@@ -2911,389 +1972,17 @@ jQuery(function ($) {
 
 /***/ }),
 
-/***/ "./assets/src/scss/layout/public/main-style.scss":
-/*!*******************************************************!*\
-  !*** ./assets/src/scss/layout/public/main-style.scss ***!
-  \*******************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-// extracted by mini-css-extract-plugin
-
-
-/***/ }),
-
-/***/ "./node_modules/@babel/runtime/helpers/esm/arrayLikeToArray.js":
-/*!*********************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/esm/arrayLikeToArray.js ***!
-  \*********************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* binding */ _arrayLikeToArray; }
-/* harmony export */ });
-function _arrayLikeToArray(r, a) {
-  (null == a || a > r.length) && (a = r.length);
-  for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e];
-  return n;
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/@babel/runtime/helpers/esm/arrayWithHoles.js":
-/*!*******************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/esm/arrayWithHoles.js ***!
-  \*******************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* binding */ _arrayWithHoles; }
-/* harmony export */ });
-function _arrayWithHoles(r) {
-  if (Array.isArray(r)) return r;
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/@babel/runtime/helpers/esm/classCallCheck.js":
-/*!*******************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/esm/classCallCheck.js ***!
-  \*******************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* binding */ _classCallCheck; }
-/* harmony export */ });
-function _classCallCheck(a, n) {
-  if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function");
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/@babel/runtime/helpers/esm/createClass.js":
-/*!****************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/esm/createClass.js ***!
-  \****************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* binding */ _createClass; }
-/* harmony export */ });
-/* harmony import */ var _toPropertyKey_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./toPropertyKey.js */ "./node_modules/@babel/runtime/helpers/esm/toPropertyKey.js");
-
-function _defineProperties(e, r) {
-  for (var t = 0; t < r.length; t++) {
-    var o = r[t];
-    o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, (0,_toPropertyKey_js__WEBPACK_IMPORTED_MODULE_0__["default"])(o.key), o);
-  }
-}
-function _createClass(e, r, t) {
-  return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", {
-    writable: !1
-  }), e;
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js":
-/*!*******************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/esm/defineProperty.js ***!
-  \*******************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* binding */ _defineProperty; }
-/* harmony export */ });
-/* harmony import */ var _toPropertyKey_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./toPropertyKey.js */ "./node_modules/@babel/runtime/helpers/esm/toPropertyKey.js");
-
-function _defineProperty(e, r, t) {
-  return (r = (0,_toPropertyKey_js__WEBPACK_IMPORTED_MODULE_0__["default"])(r)) in e ? Object.defineProperty(e, r, {
-    value: t,
-    enumerable: !0,
-    configurable: !0,
-    writable: !0
-  }) : e[r] = t, e;
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/@babel/runtime/helpers/esm/iterableToArrayLimit.js":
-/*!*************************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/esm/iterableToArrayLimit.js ***!
-  \*************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* binding */ _iterableToArrayLimit; }
-/* harmony export */ });
-function _iterableToArrayLimit(r, l) {
-  var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"];
-  if (null != t) {
-    var e,
-      n,
-      i,
-      u,
-      a = [],
-      f = !0,
-      o = !1;
-    try {
-      if (i = (t = t.call(r)).next, 0 === l) {
-        if (Object(t) !== t) return;
-        f = !1;
-      } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0);
-    } catch (r) {
-      o = !0, n = r;
-    } finally {
-      try {
-        if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return;
-      } finally {
-        if (o) throw n;
-      }
-    }
-    return a;
-  }
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/@babel/runtime/helpers/esm/nonIterableRest.js":
-/*!********************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/esm/nonIterableRest.js ***!
-  \********************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* binding */ _nonIterableRest; }
-/* harmony export */ });
-function _nonIterableRest() {
-  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js":
-/*!******************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/esm/slicedToArray.js ***!
-  \******************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* binding */ _slicedToArray; }
-/* harmony export */ });
-/* harmony import */ var _arrayWithHoles_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./arrayWithHoles.js */ "./node_modules/@babel/runtime/helpers/esm/arrayWithHoles.js");
-/* harmony import */ var _iterableToArrayLimit_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./iterableToArrayLimit.js */ "./node_modules/@babel/runtime/helpers/esm/iterableToArrayLimit.js");
-/* harmony import */ var _unsupportedIterableToArray_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./unsupportedIterableToArray.js */ "./node_modules/@babel/runtime/helpers/esm/unsupportedIterableToArray.js");
-/* harmony import */ var _nonIterableRest_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./nonIterableRest.js */ "./node_modules/@babel/runtime/helpers/esm/nonIterableRest.js");
-
-
-
-
-function _slicedToArray(r, e) {
-  return (0,_arrayWithHoles_js__WEBPACK_IMPORTED_MODULE_0__["default"])(r) || (0,_iterableToArrayLimit_js__WEBPACK_IMPORTED_MODULE_1__["default"])(r, e) || (0,_unsupportedIterableToArray_js__WEBPACK_IMPORTED_MODULE_2__["default"])(r, e) || (0,_nonIterableRest_js__WEBPACK_IMPORTED_MODULE_3__["default"])();
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/@babel/runtime/helpers/esm/toPrimitive.js":
-/*!****************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/esm/toPrimitive.js ***!
-  \****************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* binding */ toPrimitive; }
-/* harmony export */ });
-/* harmony import */ var _typeof_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./typeof.js */ "./node_modules/@babel/runtime/helpers/esm/typeof.js");
-
-function toPrimitive(t, r) {
-  if ("object" != (0,_typeof_js__WEBPACK_IMPORTED_MODULE_0__["default"])(t) || !t) return t;
-  var e = t[Symbol.toPrimitive];
-  if (void 0 !== e) {
-    var i = e.call(t, r || "default");
-    if ("object" != (0,_typeof_js__WEBPACK_IMPORTED_MODULE_0__["default"])(i)) return i;
-    throw new TypeError("@@toPrimitive must return a primitive value.");
-  }
-  return ("string" === r ? String : Number)(t);
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/@babel/runtime/helpers/esm/toPropertyKey.js":
-/*!******************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/esm/toPropertyKey.js ***!
-  \******************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* binding */ toPropertyKey; }
-/* harmony export */ });
-/* harmony import */ var _typeof_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./typeof.js */ "./node_modules/@babel/runtime/helpers/esm/typeof.js");
-/* harmony import */ var _toPrimitive_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./toPrimitive.js */ "./node_modules/@babel/runtime/helpers/esm/toPrimitive.js");
-
-
-function toPropertyKey(t) {
-  var i = (0,_toPrimitive_js__WEBPACK_IMPORTED_MODULE_1__["default"])(t, "string");
-  return "symbol" == (0,_typeof_js__WEBPACK_IMPORTED_MODULE_0__["default"])(i) ? i : i + "";
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/@babel/runtime/helpers/esm/typeof.js":
-/*!***********************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/esm/typeof.js ***!
-  \***********************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* binding */ _typeof; }
-/* harmony export */ });
-function _typeof(o) {
-  "@babel/helpers - typeof";
-
-  return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
-    return typeof o;
-  } : function (o) {
-    return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
-  }, _typeof(o);
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/@babel/runtime/helpers/esm/unsupportedIterableToArray.js":
-/*!*******************************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/esm/unsupportedIterableToArray.js ***!
-  \*******************************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* binding */ _unsupportedIterableToArray; }
-/* harmony export */ });
-/* harmony import */ var _arrayLikeToArray_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./arrayLikeToArray.js */ "./node_modules/@babel/runtime/helpers/esm/arrayLikeToArray.js");
-
-function _unsupportedIterableToArray(r, a) {
-  if (r) {
-    if ("string" == typeof r) return (0,_arrayLikeToArray_js__WEBPACK_IMPORTED_MODULE_0__["default"])(r, a);
-    var t = {}.toString.call(r).slice(8, -1);
-    return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? (0,_arrayLikeToArray_js__WEBPACK_IMPORTED_MODULE_0__["default"])(r, a) : void 0;
-  }
-}
-
-
-/***/ })
-
-/******/ 	});
-/************************************************************************/
-/******/ 	// The module cache
-/******/ 	var __webpack_module_cache__ = {};
-/******/ 	
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/ 		// Check if module is in cache
-/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
-/******/ 		if (cachedModule !== undefined) {
-/******/ 			return cachedModule.exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = __webpack_module_cache__[moduleId] = {
-/******/ 			// no module.id needed
-/******/ 			// no module.loaded needed
-/******/ 			exports: {}
-/******/ 		};
-/******/ 	
-/******/ 		// Execute the module function
-/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
-/******/ 	
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/ 	
-/************************************************************************/
-/******/ 	/* webpack/runtime/compat get default export */
-/******/ 	!function() {
-/******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__webpack_require__.n = function(module) {
-/******/ 			var getter = module && module.__esModule ?
-/******/ 				function() { return module['default']; } :
-/******/ 				function() { return module; };
-/******/ 			__webpack_require__.d(getter, { a: getter });
-/******/ 			return getter;
-/******/ 		};
-/******/ 	}();
-/******/ 	
-/******/ 	/* webpack/runtime/define property getters */
-/******/ 	!function() {
-/******/ 		// define getter functions for harmony exports
-/******/ 		__webpack_require__.d = function(exports, definition) {
-/******/ 			for(var key in definition) {
-/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
-/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
-/******/ 				}
-/******/ 			}
-/******/ 		};
-/******/ 	}();
-/******/ 	
-/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
-/******/ 	!function() {
-/******/ 		__webpack_require__.o = function(obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); }
-/******/ 	}();
-/******/ 	
-/******/ 	/* webpack/runtime/make namespace object */
-/******/ 	!function() {
-/******/ 		// define __esModule on exports
-/******/ 		__webpack_require__.r = function(exports) {
-/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 			}
-/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 		};
-/******/ 	}();
-/******/ 	
-/************************************************************************/
-var __webpack_exports__ = {};
-// This entry needs to be wrapped in an IIFE because it needs to be in strict mode.
-!function() {
-"use strict";
+/***/ "./assets/src/js/public/modules/all-listings.js":
 /*!******************************************************!*\
   !*** ./assets/src/js/public/modules/all-listings.js ***!
   \******************************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _scss_layout_public_main_style_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../scss/layout/public/main-style.scss */ "./assets/src/scss/layout/public/main-style.scss");
+/* harmony import */ var _scss_layout_public_main_style_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_scss_layout_public_main_style_scss__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _components_general__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/general */ "./assets/src/js/public/components/general.js");
 /* harmony import */ var _components_general__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_components_general__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _components_helpers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/helpers */ "./assets/src/js/public/components/helpers.js");
@@ -3319,6 +2008,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_masonry__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../components/masonry */ "./assets/src/js/public/components/masonry.js");
 /* harmony import */ var _components_masonry__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_components_masonry__WEBPACK_IMPORTED_MODULE_13__);
 /* harmony import */ var _components_instantSearch__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../components/instantSearch */ "./assets/src/js/public/components/instantSearch.js");
+/* harmony import */ var _components_instantSearch__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(_components_instantSearch__WEBPACK_IMPORTED_MODULE_14__);
 /* harmony import */ var _global_components_setup_select2__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../../global/components/setup-select2 */ "./assets/src/js/global/components/setup-select2.js");
 /* harmony import */ var _global_components_select2_custom_control__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../../global/components/select2-custom-control */ "./assets/src/js/global/components/select2-custom-control.js");
 /* harmony import */ var _global_components_select2_custom_control__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(_global_components_select2_custom_control__WEBPACK_IMPORTED_MODULE_16__);
@@ -3353,7 +2043,266 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-}();
-/******/ })()
-;
+
+/***/ }),
+
+/***/ "./assets/src/scss/layout/public/main-style.scss":
+/*!*******************************************************!*\
+  !*** ./assets/src/scss/layout/public/main-style.scss ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/arrayLikeToArray.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/arrayLikeToArray.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _arrayLikeToArray(r, a) {
+  (null == a || a > r.length) && (a = r.length);
+  for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e];
+  return n;
+}
+module.exports = _arrayLikeToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/arrayWithHoles.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/arrayWithHoles.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _arrayWithHoles(r) {
+  if (Array.isArray(r)) return r;
+}
+module.exports = _arrayWithHoles, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/classCallCheck.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/classCallCheck.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _classCallCheck(a, n) {
+  if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function");
+}
+module.exports = _classCallCheck, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/createClass.js":
+/*!************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/createClass.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var toPropertyKey = __webpack_require__(/*! ./toPropertyKey.js */ "./node_modules/@babel/runtime/helpers/toPropertyKey.js");
+function _defineProperties(e, r) {
+  for (var t = 0; t < r.length; t++) {
+    var o = r[t];
+    o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, toPropertyKey(o.key), o);
+  }
+}
+function _createClass(e, r, t) {
+  return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", {
+    writable: !1
+  }), e;
+}
+module.exports = _createClass, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/defineProperty.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/defineProperty.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var toPropertyKey = __webpack_require__(/*! ./toPropertyKey.js */ "./node_modules/@babel/runtime/helpers/toPropertyKey.js");
+function _defineProperty(e, r, t) {
+  return (r = toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
+    value: t,
+    enumerable: !0,
+    configurable: !0,
+    writable: !0
+  }) : e[r] = t, e;
+}
+module.exports = _defineProperty, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/iterableToArrayLimit.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/iterableToArrayLimit.js ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _iterableToArrayLimit(r, l) {
+  var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"];
+  if (null != t) {
+    var e,
+      n,
+      i,
+      u,
+      a = [],
+      f = !0,
+      o = !1;
+    try {
+      if (i = (t = t.call(r)).next, 0 === l) {
+        if (Object(t) !== t) return;
+        f = !1;
+      } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0);
+    } catch (r) {
+      o = !0, n = r;
+    } finally {
+      try {
+        if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return;
+      } finally {
+        if (o) throw n;
+      }
+    }
+    return a;
+  }
+}
+module.exports = _iterableToArrayLimit, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/nonIterableRest.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/nonIterableRest.js ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+module.exports = _nonIterableRest, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/slicedToArray.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/slicedToArray.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayWithHoles = __webpack_require__(/*! ./arrayWithHoles.js */ "./node_modules/@babel/runtime/helpers/arrayWithHoles.js");
+var iterableToArrayLimit = __webpack_require__(/*! ./iterableToArrayLimit.js */ "./node_modules/@babel/runtime/helpers/iterableToArrayLimit.js");
+var unsupportedIterableToArray = __webpack_require__(/*! ./unsupportedIterableToArray.js */ "./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js");
+var nonIterableRest = __webpack_require__(/*! ./nonIterableRest.js */ "./node_modules/@babel/runtime/helpers/nonIterableRest.js");
+function _slicedToArray(r, e) {
+  return arrayWithHoles(r) || iterableToArrayLimit(r, e) || unsupportedIterableToArray(r, e) || nonIterableRest();
+}
+module.exports = _slicedToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/toPrimitive.js":
+/*!************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/toPrimitive.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _typeof = __webpack_require__(/*! ./typeof.js */ "./node_modules/@babel/runtime/helpers/typeof.js")["default"];
+function toPrimitive(t, r) {
+  if ("object" != _typeof(t) || !t) return t;
+  var e = t[Symbol.toPrimitive];
+  if (void 0 !== e) {
+    var i = e.call(t, r || "default");
+    if ("object" != _typeof(i)) return i;
+    throw new TypeError("@@toPrimitive must return a primitive value.");
+  }
+  return ("string" === r ? String : Number)(t);
+}
+module.exports = toPrimitive, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/toPropertyKey.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/toPropertyKey.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _typeof = __webpack_require__(/*! ./typeof.js */ "./node_modules/@babel/runtime/helpers/typeof.js")["default"];
+var toPrimitive = __webpack_require__(/*! ./toPrimitive.js */ "./node_modules/@babel/runtime/helpers/toPrimitive.js");
+function toPropertyKey(t) {
+  var i = toPrimitive(t, "string");
+  return "symbol" == _typeof(i) ? i : i + "";
+}
+module.exports = toPropertyKey, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/typeof.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/typeof.js ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _typeof(o) {
+  "@babel/helpers - typeof";
+
+  return module.exports = _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
+    return typeof o;
+  } : function (o) {
+    return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+  }, module.exports.__esModule = true, module.exports["default"] = module.exports, _typeof(o);
+}
+module.exports = _typeof, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js ***!
+  \***************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray.js */ "./node_modules/@babel/runtime/helpers/arrayLikeToArray.js");
+function _unsupportedIterableToArray(r, a) {
+  if (r) {
+    if ("string" == typeof r) return arrayLikeToArray(r, a);
+    var t = {}.toString.call(r).slice(8, -1);
+    return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? arrayLikeToArray(r, a) : void 0;
+  }
+}
+module.exports = _unsupportedIterableToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ 5:
+/*!************************************************************!*\
+  !*** multi ./assets/src/js/public/modules/all-listings.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! ./assets/src/js/public/modules/all-listings.js */"./assets/src/js/public/modules/all-listings.js");
+
+
+/***/ })
+
+/******/ });
 //# sourceMappingURL=all-listings.js.map

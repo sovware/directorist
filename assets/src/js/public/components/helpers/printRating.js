@@ -1,10 +1,10 @@
-(function ($) {
+( function ( $ ) {
 	/* Helper Function for priting static rating */
-	function print_static_rating($star_number) {
+	function print_static_rating( $star_number ) {
 		var v;
-		if ($star_number) {
+		if ( $star_number ) {
 			v = '<ul>';
-			for (var i = 1; i <= 5; i++) {
+			for ( var i = 1; i <= 5; i++ ) {
 				v +=
 					i <= $star_number
 						? "<li><span class='directorist-rate-active'></span></li>"
@@ -15,4 +15,4 @@
 
 		return v;
 	}
-})(jQuery);
+} )( jQuery );

@@ -1,11 +1,11 @@
 /***
     All Listing Slider
 ***/
-(function ($) {
+( function ( $ ) {
 	// All Listing Slider
 	function allListingSlider() {
 		/* Check Slider Data */
-		let checkData = function (data, value) {
+		let checkData = function ( data, value ) {
 			return typeof data === 'undefined' ? value : data;
 		};
 
@@ -14,7 +14,7 @@
 			'.directorist-swiper-listing'
 		);
 
-		swiperCarouselListing.forEach(function (el, i) {
+		swiperCarouselListing.forEach( function ( el, i ) {
 			let navBtnPrev = document.querySelectorAll(
 				'.directorist-swiper-listing .directorist-swiper__nav--prev-listing'
 			);
@@ -25,66 +25,73 @@
 				'.directorist-swiper-listing .directorist-swiper__pagination--listing'
 			);
 
-			navBtnPrev.forEach((el, i) => {
-				el.classList.add(`directorist-swiper__nav--prev-listing-${i}`);
-			});
-			navBtnNext.forEach((el, i) => {
-				el.classList.add(`directorist-swiper__nav--next-listing-${i}`);
-			});
-			swiperPagination.forEach((el, i) => {
+			navBtnPrev.forEach( ( el, i ) => {
 				el.classList.add(
-					`directorist-swiper__pagination--listing-${i}`
+					`directorist-swiper__nav--prev-listing-${ i }`
 				);
-			});
+			} );
+			navBtnNext.forEach( ( el, i ) => {
+				el.classList.add(
+					`directorist-swiper__nav--next-listing-${ i }`
+				);
+			} );
+			swiperPagination.forEach( ( el, i ) => {
+				el.classList.add(
+					`directorist-swiper__pagination--listing-${ i }`
+				);
+			} );
 
-			el.classList.add(`directorist-swiper-listing-${i}`);
+			el.classList.add( `directorist-swiper-listing-${ i }` );
 
 			let swiperConfig = {
-				slidesPerView: checkData(parseInt(el.dataset.swItems), 4),
-				spaceBetween: checkData(parseInt(el.dataset.swMargin), 30),
-				loop: checkData(el.dataset.swLoop, true),
-				slidesPerGroup: checkData(parseInt(el.dataset.swPerslide), 1),
-				speed: checkData(parseInt(el.dataset.swSpeed), 300),
+				slidesPerView: checkData( parseInt( el.dataset.swItems ), 4 ),
+				spaceBetween: checkData( parseInt( el.dataset.swMargin ), 30 ),
+				loop: checkData( el.dataset.swLoop, true ),
+				slidesPerGroup: checkData(
+					parseInt( el.dataset.swPerslide ),
+					1
+				),
+				speed: checkData( parseInt( el.dataset.swSpeed ), 300 ),
 				navigation: {
-					nextEl: `.directorist-swiper__nav--next-listing-${i}`,
-					prevEl: `.directorist-swiper__nav--prev-listing-${i}`,
+					nextEl: `.directorist-swiper__nav--next-listing-${ i }`,
+					prevEl: `.directorist-swiper__nav--prev-listing-${ i }`,
 				},
 				pagination: {
-					el: `.directorist-swiper__pagination--listing-${i}`,
+					el: `.directorist-swiper__pagination--listing-${ i }`,
 					type: 'bullets',
 					clickable: true,
 				},
 				breakpoints: checkData(
 					el.dataset.swResponsive
-						? JSON.parse(el.dataset.swResponsive)
+						? JSON.parse( el.dataset.swResponsive )
 						: undefined,
 					{}
 				),
 			};
 
 			// Conditionally add autoplay property
-			const enableAutoplay = checkData(el.dataset.swAutoplay, 'false');
+			const enableAutoplay = checkData( el.dataset.swAutoplay, 'false' );
 
 			// Conditionally add autoplay property
-			if (enableAutoplay === 'true') {
+			if ( enableAutoplay === 'true' ) {
 				swiperConfig.autoplay = {
-					delay: checkData(parseInt(el.dataset.swSpeed), 500),
+					delay: checkData( parseInt( el.dataset.swSpeed ), 500 ),
 					disableOnInteraction: false,
 				};
 			}
 
 			let swiper = new Swiper(
-				`.directorist-swiper-listing-${i}`,
+				`.directorist-swiper-listing-${ i }`,
 				swiperConfig
 			);
-		});
+		} );
 
 		/* Swiper Slider Related Listing */
 		let swiperCarouselRelated = document.querySelectorAll(
 			'.directorist-swiper-related-listing'
 		);
 
-		swiperCarouselRelated.forEach(function (el, i) {
+		swiperCarouselRelated.forEach( function ( el, i ) {
 			// Assign unique classes
 			let navBtnPrev = document.querySelectorAll(
 				'.directorist-swiper-related-listing .directorist-swiper__nav--prev-related'
@@ -96,28 +103,37 @@
 				'.directorist-swiper-related-listing .directorist-swiper__pagination--related'
 			);
 
-			navBtnPrev.forEach((el, i) =>
-				el.classList.add(`directorist-swiper__nav--prev-related-${i}`)
+			navBtnPrev.forEach( ( el, i ) =>
+				el.classList.add(
+					`directorist-swiper__nav--prev-related-${ i }`
+				)
 			);
-			navBtnNext.forEach((el, i) =>
-				el.classList.add(`directorist-swiper__nav--next-related-${i}`)
+			navBtnNext.forEach( ( el, i ) =>
+				el.classList.add(
+					`directorist-swiper__nav--next-related-${ i }`
+				)
 			);
-			swiperPagination.forEach((el, i) =>
-				el.classList.add(`directorist-swiper__pagination--related-${i}`)
+			swiperPagination.forEach( ( el, i ) =>
+				el.classList.add(
+					`directorist-swiper__pagination--related-${ i }`
+				)
 			);
-			el.classList.add(`directorist-swiper-related-listing-${i}`);
+			el.classList.add( `directorist-swiper-related-listing-${ i }` );
 
 			// Count slides directly from the DOM
-			let relatedWrapper = el.querySelector('.swiper-wrapper');
+			let relatedWrapper = el.querySelector( '.swiper-wrapper' );
 			let totalSlides = relatedWrapper
 				? relatedWrapper.children.length
 				: 0;
 
 			// Get Data Attribute
-			let baseSlidesPerView = checkData(parseInt(el.dataset.swItems), 4);
+			let baseSlidesPerView = checkData(
+				parseInt( el.dataset.swItems ),
+				4
+			);
 			let responsiveBreakPoints = checkData(
 				el.dataset.swResponsive
-					? JSON.parse(el.dataset.swResponsive)
+					? JSON.parse( el.dataset.swResponsive )
 					: undefined,
 				{}
 			);
@@ -126,10 +142,10 @@
 			let currentLoop = null; // Track last loop value
 
 			// Init or Reinit Swiper
-			function initSwiper(loopValue) {
+			function initSwiper( loopValue ) {
 				// Destroy previous if exists
-				if (swiper) {
-					swiper.destroy(true, true);
+				if ( swiper ) {
+					swiper.destroy( true, true );
 				}
 
 				// Store loopValue to detect future changes
@@ -137,18 +153,21 @@
 
 				let config = {
 					slidesPerView: baseSlidesPerView,
-					spaceBetween: checkData(parseInt(el.dataset.swMargin), 30),
+					spaceBetween: checkData(
+						parseInt( el.dataset.swMargin ),
+						30
+					),
 					loop: loopValue,
 					slidesPerGroup: checkData(
-						parseInt(el.dataset.swPerslide),
+						parseInt( el.dataset.swPerslide ),
 						1
 					),
 					navigation: {
-						nextEl: `.directorist-swiper__nav--next-related-${i}`,
-						prevEl: `.directorist-swiper__nav--prev-related-${i}`,
+						nextEl: `.directorist-swiper__nav--next-related-${ i }`,
+						prevEl: `.directorist-swiper__nav--prev-related-${ i }`,
 					},
 					pagination: {
-						el: `.directorist-swiper__pagination--related-${i}`,
+						el: `.directorist-swiper__pagination--related-${ i }`,
 						type: 'bullets',
 						clickable: true,
 					},
@@ -156,16 +175,16 @@
 				};
 
 				// Add autoplay if enabled
-				if (checkData(el.dataset.swAutoplay, 'false') === 'true') {
+				if ( checkData( el.dataset.swAutoplay, 'false' ) === 'true' ) {
 					config.autoplay = {
-						delay: checkData(parseInt(el.dataset.swSpeed), 500),
+						delay: checkData( parseInt( el.dataset.swSpeed ), 500 ),
 						disableOnInteraction: false,
 						pauseOnMouseEnter: true,
 					};
 				}
 
 				swiper = new Swiper(
-					`.directorist-swiper-related-listing-${i}`,
+					`.directorist-swiper-related-listing-${ i }`,
 					config
 				);
 			}
@@ -174,16 +193,17 @@
 				let windowWidth = window.innerWidth;
 				let slides = baseSlidesPerView;
 
-				if (responsiveBreakPoints) {
-					let breakPoints = Object.keys(responsiveBreakPoints)
-						.map((k) => parseInt(k))
-						.sort((a, b) => a - b);
-					for (let point of breakPoints) {
+				if ( responsiveBreakPoints ) {
+					let breakPoints = Object.keys( responsiveBreakPoints )
+						.map( ( k ) => parseInt( k ) )
+						.sort( ( a, b ) => a - b );
+					for ( let point of breakPoints ) {
 						if (
 							windowWidth >= point &&
-							responsiveBreakPoints[point].slidesPerView
+							responsiveBreakPoints[ point ].slidesPerView
 						) {
-							slides = responsiveBreakPoints[point].slidesPerView;
+							slides =
+								responsiveBreakPoints[ point ].slidesPerView;
 						}
 					}
 				}
@@ -194,25 +214,25 @@
 			function checkAndUpdateSwiper() {
 				let currentSlidesPerView = getCurrentSlidesPerView();
 				let loopShouldBeEnabled =
-					checkData(el.dataset.swLoop, false) === 'true' &&
+					checkData( el.dataset.swLoop, false ) === 'true' &&
 					totalSlides > currentSlidesPerView;
 
-				if (loopShouldBeEnabled !== currentLoop) {
-					initSwiper(loopShouldBeEnabled);
+				if ( loopShouldBeEnabled !== currentLoop ) {
+					initSwiper( loopShouldBeEnabled );
 				}
 
 				// Add class if only 1 bullet exists
-				if (totalSlides === 1) {
-					el.classList.add('slider-has-one-item');
+				if ( totalSlides === 1 ) {
+					el.classList.add( 'slider-has-one-item' );
 				} else {
-					el.classList.remove('slider-has-one-item');
+					el.classList.remove( 'slider-has-one-item' );
 				}
 
 				// Add or remove "less items" class
-				if (totalSlides <= currentSlidesPerView) {
-					el.classList.add('slider-has-less-items');
+				if ( totalSlides <= currentSlidesPerView ) {
+					el.classList.add( 'slider-has-less-items' );
 				} else {
-					el.classList.remove('slider-has-less-items');
+					el.classList.remove( 'slider-has-less-items' );
 				}
 			}
 
@@ -220,25 +240,27 @@
 			checkAndUpdateSwiper();
 
 			// Recheck on window resize
-			window.addEventListener('resize', () => {
+			window.addEventListener( 'resize', () => {
 				checkAndUpdateSwiper();
-			});
-		});
+			} );
+		} );
 
 		/* Swiper Slider Single Listing */
 		let singleListingSlider = document.querySelectorAll(
 			'.directorist-single-listing-slider-wrap'
 		);
 
-		singleListingSlider.forEach(function (el, i) {
+		singleListingSlider.forEach( function ( el, i ) {
 			// Get Data Attribute
-			let dataWidth = el.getAttribute('data-width');
-			let dataHeight = el.getAttribute('data-height');
-			let dataRTL = el.getAttribute('data-rtl');
-			let dataBackgroundColor = el.getAttribute('data-background-color');
-			let dataBackgroundSize = el.getAttribute('data-background-size');
-			let dataBackgroundBlur = el.getAttribute('data-blur-background');
-			let dataShowThumbnails = el.getAttribute('data-show-thumbnails');
+			let dataWidth = el.getAttribute( 'data-width' );
+			let dataHeight = el.getAttribute( 'data-height' );
+			let dataRTL = el.getAttribute( 'data-rtl' );
+			let dataBackgroundColor = el.getAttribute(
+				'data-background-color'
+			);
+			let dataBackgroundSize = el.getAttribute( 'data-background-size' );
+			let dataBackgroundBlur = el.getAttribute( 'data-blur-background' );
+			let dataShowThumbnails = el.getAttribute( 'data-show-thumbnails' );
 			let dataThumbnailsBackground = el.getAttribute(
 				'data-thumbnail-background-color'
 			);
@@ -292,10 +314,9 @@
 				}
 			);
 
-			let singleSliderTotalSlides =
-				swiperCarouselSingleListing.querySelectorAll(
-					'.swiper-slide:not(.swiper-slide-duplicate)'
-				);
+			let singleSliderTotalSlides = swiperCarouselSingleListing.querySelectorAll(
+				'.swiper-slide:not(.swiper-slide-duplicate)'
+			);
 			let singleSliderLoopEnable = singleSliderTotalSlides.length > 1;
 
 			// Single Listing Slider Config
@@ -318,7 +339,7 @@
 			};
 
 			// Single Slider Thumb Config
-			if (swiperCarouselSingleListingThumb) {
+			if ( swiperCarouselSingleListingThumb ) {
 				swiperSingleListingConfig.thumbs = {
 					swiper: swiperSingleListingThumb,
 				};
@@ -333,27 +354,28 @@
 			// Function to update blurred background
 			const updateBlurredBackground = () => {
 				// Check if the blurred background element exists
-				let blurredBackground =
-					swiperCarouselSingleListing.querySelector(
-						'.blurred-background'
-					);
+				let blurredBackground = swiperCarouselSingleListing.querySelector(
+					'.blurred-background'
+				);
 
 				// If it doesn't exist, create it
-				if (!blurredBackground) {
-					blurredBackground = document.createElement('div'); // Create a new div
-					blurredBackground.classList.add('blurred-background'); // Add the class
-					swiperCarouselSingleListing.appendChild(blurredBackground); // Append it to the section
+				if ( ! blurredBackground ) {
+					blurredBackground = document.createElement( 'div' ); // Create a new div
+					blurredBackground.classList.add( 'blurred-background' ); // Add the class
+					swiperCarouselSingleListing.appendChild(
+						blurredBackground
+					); // Append it to the section
 				}
 
 				// Get the active slide image
 				const activeSlide = swiperCarouselSingleListing.querySelector(
 					'.swiper-slide-active img'
 				);
-				if (activeSlide) {
+				if ( activeSlide ) {
 					const activeImageSrc = activeSlide.src; // Get the source of the active image
 					swiperCarouselSingleListing.style.backgroundColor =
 						'transparent'; // Remove background color
-					blurredBackground.style.backgroundImage = `url(${activeImageSrc})`; // Set as background image
+					blurredBackground.style.backgroundImage = `url(${ activeImageSrc })`; // Set as background image
 					blurredBackground.style.backgroundSize = 'cover'; // Ensure it covers the div
 					blurredBackground.style.filter = 'blur(10px)'; // Apply blur
 					blurredBackground.style.position = 'absolute'; // Position it behind other content
@@ -366,7 +388,7 @@
 			};
 
 			// Attach the slideChangeTransitionEnd event listener
-			if (dataBackgroundBlur === '1') {
+			if ( dataBackgroundBlur === '1' ) {
 				swiperSingleListing.on(
 					'slideChangeTransitionEnd',
 					updateBlurredBackground
@@ -377,23 +399,22 @@
 			let sliderItemsCount = swiperCarouselSingleListing.querySelectorAll(
 				'.directorist-swiper__pagination .swiper-pagination-bullet'
 			);
-			let swiperListingThumb =
-				swiperCarouselSingleListing.parentElement.querySelector(
-					'.directorist-single-listing-slider-thumb'
-				);
+			let swiperListingThumb = swiperCarouselSingleListing.parentElement.querySelector(
+				'.directorist-single-listing-slider-thumb'
+			);
 
-			if (sliderItemsCount.length <= 1) {
+			if ( sliderItemsCount.length <= 1 ) {
 				swiperSingleListing.loopDestroy();
 				swiperCarouselSingleListing.classList.add(
 					'slider-has-one-item'
 				);
-				if (swiperListingThumb) {
+				if ( swiperListingThumb ) {
 					swiperListingThumb.style.display = 'none';
 				}
 			}
 
 			// Add Styles
-			if (swiperCarouselSingleListing) {
+			if ( swiperCarouselSingleListing ) {
 				swiperCarouselSingleListing.dir =
 					dataRTL !== '0' ? 'rtl' : 'ltr';
 				swiperCarouselSingleListing.style.width = dataWidth
@@ -402,26 +423,25 @@
 				swiperCarouselSingleListing.style.height = dataHeight
 					? dataHeight + 'px'
 					: 'auto';
-				swiperCarouselSingleListing.style.backgroundSize =
-					dataBackgroundSize ? dataBackgroundSize : '';
+				swiperCarouselSingleListing.style.backgroundSize = dataBackgroundSize
+					? dataBackgroundSize
+					: '';
 
 				// Initial setup
-				if (dataBackgroundSize === 'contain') {
-					swiperCarouselSingleListing.style.backgroundColor =
-						dataBackgroundColor
-							? dataBackgroundColor
-							: 'transparent';
+				if ( dataBackgroundSize === 'contain' ) {
+					swiperCarouselSingleListing.style.backgroundColor = dataBackgroundColor
+						? dataBackgroundColor
+						: 'transparent';
 
 					// Call the update function for initial setup if blur is active
-					if (dataBackgroundBlur === '1') {
+					if ( dataBackgroundBlur === '1' ) {
 						updateBlurredBackground(); // Set initial blurred background
 					} else {
 						// If blur is not active, remove the blurred background if it exists
-						const blurredBackground =
-							swiperCarouselSingleListing.querySelector(
-								'.blurred-background'
-							);
-						if (blurredBackground) {
+						const blurredBackground = swiperCarouselSingleListing.querySelector(
+							'.blurred-background'
+						);
+						if ( blurredBackground ) {
 							swiperCarouselSingleListing.removeChild(
 								blurredBackground
 							);
@@ -430,42 +450,43 @@
 				}
 			}
 
-			if (swiperCarouselSingleListingThumb) {
+			if ( swiperCarouselSingleListingThumb ) {
 				// swiperCarouselSingleListingThumb.style.display = dataShowThumbnails == '0' ? 'none' : '';
 				swiperCarouselSingleListingThumb.style.width = dataWidth
 					? dataWidth + 'px'
 					: '100%';
-				swiperCarouselSingleListingThumb.style.backgroundColor =
-					dataThumbnailsBackground
-						? dataThumbnailsBackground
-						: 'transparent';
+				swiperCarouselSingleListingThumb.style.backgroundColor = dataThumbnailsBackground
+					? dataThumbnailsBackground
+					: 'transparent';
 			}
-		});
+		} );
 	}
 
 	// Slider Call on Page Load
-	window.addEventListener('load', () => {
-		if ($('.directorist-archive-items .directorist-swiper-listing')) {
+	window.addEventListener( 'load', () => {
+		if ( $( '.directorist-archive-items .directorist-swiper-listing' ) ) {
 			allListingSlider();
 		}
 
-		$('body').on(
+		$( 'body' ).on(
 			'input keyup change',
 			'.directorist-archive-contents form',
-			function (e) {
-				if (e.target.classList.contains('directorist-location-js')) {
+			function ( e ) {
+				if (
+					e.target.classList.contains( 'directorist-location-js' )
+				) {
 					sliderObserver();
 				}
 			}
 		);
-	});
+	} );
 
 	// Slider Call on Page instant search
-	window.addEventListener('directorist-instant-search-reloaded', () => {
-		if ($('.directorist-archive-items .directorist-swiper-listing')) {
+	window.addEventListener( 'directorist-instant-search-reloaded', () => {
+		if ( $( '.directorist-archive-items .directorist-swiper-listing' ) ) {
 			allListingSlider();
 		}
-	});
+	} );
 
 	// Mutation Observer on Range Slider
 	function sliderObserver() {
@@ -473,49 +494,49 @@
 			'.directorist-custom-range-slider__value input'
 		);
 
-		rangeSliders.forEach((rangeSlider) => {
-			if (rangeSlider) {
+		rangeSliders.forEach( ( rangeSlider ) => {
+			if ( rangeSlider ) {
 				let timeout;
-				const observerCallback = (mutationList, observer) => {
-					for (const mutation of mutationList) {
-						if (mutation.attributeName == 'value') {
-							clearTimeout(timeout);
-							timeout = setTimeout(() => {
+				const observerCallback = ( mutationList, observer ) => {
+					for ( const mutation of mutationList ) {
+						if ( mutation.attributeName == 'value' ) {
+							clearTimeout( timeout );
+							timeout = setTimeout( () => {
 								allListingSlider();
-							}, 1000);
+							}, 1000 );
 						}
 					}
 				};
 
-				const observer = new MutationObserver(observerCallback);
-				observer.observe(rangeSlider, {
+				const observer = new MutationObserver( observerCallback );
+				observer.observe( rangeSlider, {
 					attributes: true,
 					childList: true,
 					subtree: true,
-				});
+				} );
 			}
-		});
+		} );
 	}
 
 	/* Slider Call on Elementor EditMode */
-	$(window).on('elementor/frontend/init', function () {
-		setTimeout(function () {
-			if ($('body').hasClass('elementor-editor-active')) {
+	$( window ).on( 'elementor/frontend/init', function () {
+		setTimeout( function () {
+			if ( $( 'body' ).hasClass( 'elementor-editor-active' ) ) {
 				allListingSlider();
 			}
-			if ($('body').hasClass('elementor-editor-active')) {
+			if ( $( 'body' ).hasClass( 'elementor-editor-active' ) ) {
 				allListingSlider();
 			}
-		}, 3000);
-	});
+		}, 3000 );
+	} );
 
-	$('body').on('click', function (e) {
+	$( 'body' ).on( 'click', function ( e ) {
 		if (
-			$('body').hasClass('elementor-editor-active') &&
+			$( 'body' ).hasClass( 'elementor-editor-active' ) &&
 			e.target.nodeName !== 'A' &&
 			e.target.nodeName !== 'BUTTON'
 		) {
 			allListingSlider();
 		}
-	});
-})(jQuery);
+	} );
+} )( jQuery );

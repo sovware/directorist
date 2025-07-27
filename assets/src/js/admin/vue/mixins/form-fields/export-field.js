@@ -4,7 +4,7 @@ import helpers from '../../mixins/helpers';
 
 export default {
 	name: 'export-field',
-	mixins: [props, helpers],
+	mixins: [ props, helpers ],
 	model: {
 		prop: 'value',
 		event: 'input',
@@ -24,20 +24,20 @@ export default {
 	},
 
 	methods: {
-		...mapGetters(['getFieldsValue']),
+		...mapGetters( [ 'getFieldsValue' ] ),
 
 		exportJSON() {
 			// console.log( this.getFieldsValue() );
-			let dataStr = JSON.stringify(this.getFieldsValue());
+			let dataStr = JSON.stringify( this.getFieldsValue() );
 			let dataUri =
 				'data:application/json;charset=utf-8,' +
-				encodeURIComponent(dataStr);
+				encodeURIComponent( dataStr );
 
 			let exportFileDefaultName = this.exportFileName + '.json';
 
-			let linkElement = document.createElement('a');
-			linkElement.setAttribute('href', dataUri);
-			linkElement.setAttribute('download', exportFileDefaultName);
+			let linkElement = document.createElement( 'a' );
+			linkElement.setAttribute( 'href', dataUri );
+			linkElement.setAttribute( 'download', exportFileDefaultName );
 			linkElement.click();
 		},
 	},

@@ -24,11 +24,11 @@ export default function loadCategoryCustomFields(
 	};
 
 	return jQuery
-		.ajax({
+		.ajax( {
 			method: 'POST',
 			url: directorist.add_listing_data.ajaxurl,
 			data: payload,
 			beforeSend: onBeforeSending,
-		})
-		.done(onSuccess);
+		} )
+		.done( onSuccess );
 }

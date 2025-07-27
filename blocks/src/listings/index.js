@@ -149,7 +149,7 @@ registerBlockType( metadata.name, {
 
 									if ( types.length === 1 ) {
 										setAttributes( {
-											default_directory_type: types[0],
+											default_directory_type: types[ 0 ],
 										} );
 									}
 
@@ -245,7 +245,7 @@ registerBlockType( metadata.name, {
 							] }
 							onChange={ ( newState ) =>
 								setAttributes( {
-									sidebar: newState
+									sidebar: newState,
 								} )
 							}
 							className="directorist-gb-fixed-control"
@@ -274,7 +274,10 @@ registerBlockType( metadata.name, {
 							}
 						/>
 						<ToggleControl
-							label={ __( 'Display Featured Listings Only', 'directorist' ) }
+							label={ __(
+								'Display Featured Listings Only',
+								'directorist'
+							) }
 							checked={ featured_only }
 							onChange={ ( newState ) =>
 								setAttributes( { featured_only: newState } )
@@ -303,21 +306,30 @@ registerBlockType( metadata.name, {
 							setAttributes( { header_title: '' } )
 						) }
 						<ToggleControl
-							label={ __( 'Display Popular Only', 'directorist' ) }
+							label={ __(
+								'Display Popular Only',
+								'directorist'
+							) }
 							checked={ popular_only }
 							onChange={ ( newState ) =>
 								setAttributes( { popular_only: newState } )
 							}
 						/>
 						<ToggleControl
-							label={ __( 'Display Filter Button', 'directorist' ) }
+							label={ __(
+								'Display Filter Button',
+								'directorist'
+							) }
 							checked={ advanced_filter }
 							onChange={ ( newState ) =>
 								setAttributes( { advanced_filter: newState } )
 							}
 						/>
 						<ToggleControl
-							label={ __( 'Display Preview Image', 'directorist' ) }
+							label={ __(
+								'Display Preview Image',
+								'directorist'
+							) }
 							checked={ display_preview_image }
 							onChange={ ( newState ) =>
 								setAttributes( {

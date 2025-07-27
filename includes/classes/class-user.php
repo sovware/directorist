@@ -57,7 +57,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
                 wp_send_json_error(
                     [
                         'error' => 'Invalid request.'
-                    ], 401 
+                    ], 401
                 );
             }
             // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
@@ -68,7 +68,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
                 wp_send_json_error(
                     [
                         'error' => 'You are not allowed to register.'
-                    ], 400 
+                    ], 400
                 );
             }
 
@@ -164,7 +164,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
                     wp_send_json_error(
                         [
                             'error' => $error_msg
-                        ] 
+                        ]
                     );
                 }
             }
@@ -200,7 +200,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
                 wp_send_json_success(
                     [
                         'error' => directorist_get_registration_error_message( 0 )
-                    ] 
+                    ]
                 );
             }
 
@@ -230,8 +230,8 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
                             [
                                 'user'         => base64_encode( $email ),
                                 'verification' => 1,
-                            ] 
-                        ) 
+                            ]
+                        )
                     )
                 ];
 
@@ -303,9 +303,9 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
             <?php $email_verify_checkbox = ob_get_clean(); ?>
             <script>
                 jQuery(($) => {
-                    $('#your-profile .user-email-wrap, #createuser .user-pass2-wrap').after(`<?php 
+                    $('#your-profile .user-email-wrap, #createuser .user-pass2-wrap').after(`<?php
                         // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-                        echo $email_verify_checkbox; 
+                        echo $email_verify_checkbox;
                     ?>`);
                 });
             </script>
@@ -383,7 +383,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
                     'users'                   => $user_ids,
                     'email-verification-type' => $email_verification_type,
                     '_wpnonce'                => wp_create_nonce( 'directorist_verify_user_email_notice' )
-                ], $sendback 
+                ], $sendback
             );
         }
 
@@ -419,7 +419,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
                             'Email verification request sent to %s users.',
                             $total_links,
                             'directorist'
-                        ), $raw_links 
+                        ), $raw_links
                     );
                     break;
                 case 'verified':
@@ -429,7 +429,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
                             '%s users marked as email verified.',
                             $total_links,
                             'directorist'
-                        ), $raw_links 
+                        ), $raw_links
                     );
                     break;
                 case 'unverified':
@@ -439,7 +439,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
                             '%s users marked as email unverified.',
                             $total_links,
                             'directorist'
-                        ), $raw_links 
+                        ), $raw_links
                     );
                     break;
             }
@@ -478,7 +478,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
                         'action'   => 'directorist_request_email_verification',
                         'users[]'  => $user_object->ID,
                         '_wpnonce' => wp_create_nonce( 'bulk-users' )
-                    ], admin_url( 'users.php' ) 
+                    ], admin_url( 'users.php' )
                 );
 
                 $actions['directorist_request_email_verification'] = "<a style='cursor:pointer;' href=" . esc_url( $url ) . ">" . esc_html__( 'Request email verification', 'directorist' ) . "</a>";
@@ -529,7 +529,10 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
             /**
              * Return if email is already verified
              */
-            if ( ! directorist_is_email_verification_enabled() || ( directorist_is_email_verification_enabled() && ! $is_email_unverified ) ) {
+            if ( directorist_is_guest_user( $user->ID ) ||
+                ! directorist_is_email_verification_enabled() ||
+                ( directorist_is_email_verification_enabled() && ! $is_email_unverified )
+                ) {
                 return $user;
             }
 
@@ -538,13 +541,13 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
                     'action'            => 'directorist_send_confirmation_email',
                     'user'              => $user->user_email,
                     'directorist_nonce' => wp_create_nonce( 'directorist_nonce' ),
-                ], admin_url( 'admin-ajax.php' ) 
+                ], admin_url( 'admin-ajax.php' )
             );
 
             return new WP_Error(
                 'email_unverified', sprintf(
                     __( 'Your account is not yet verified. Please check your email to verify your account. If you did not receive the verification email, please click on the %s', 'directorist' ),
-                    '<a href="' . esc_url_raw( $mail_send_url ) . '">' . __( 'Resend confirmation email', 'directorist' ) . '</a>' 
+                    '<a href="' . esc_url_raw( $mail_send_url ) . '">' . __( 'Resend confirmation email', 'directorist' ) . '</a>'
                 )
             );
         }
@@ -589,19 +592,22 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
                     } else {
                         return "<p style='margin-left:32px;'><span class='dashicons dashicons-yes-alt' style='color:#08bf9c;'></span></p>";
                     }
+
                 case 'user_type':
                     $user_type = (string) get_user_meta( $user_id, '_user_type', true );
 
-                    if ( 'author' === $user_type ) {
-                        return esc_html__( 'Author', 'directorist' );
-                    } elseif ( 'general' === $user_type ) {
-                        return esc_html__( 'User', 'directorist' );
-                    } elseif ( 'become_author' === $user_type ) {
+                    if ( 'become_author' === $user_type ) {
                         $author_pending =  "<p>Author <span style='color:red;'>( " . esc_html__( 'Pending', 'directorist' ) . " )</span></p>";
                         $approve        =  "<a href='' id='atbdp-user-type-approve' style='color: #388E3C' data-userId={$user_id} data-nonce=" . wp_create_nonce( 'atbdp_user_type_approve' ) . "><span>" . esc_html__( 'Approve', 'directorist' ) . " </span></a> | ";
                         $deny           =  "<a href='' id='atbdp-user-type-deny' style='color: red' data-userId={$user_id} data-nonce=" . wp_create_nonce( 'atbdp_user_type_deny' ) . "><span>" . esc_html__( 'Deny', 'directorist' ) . "</span></a>";
                         return "<div class='atbdp-user-type' id='user-type-" . $user_id . "'>" . $author_pending . $approve . $deny . "</div>";
                     }
+                    $user_types = directorist_get_user_types();
+
+                    if ( isset( $user_types[ $user_type ] ) ) {
+                        return esc_html( $user_types[ $user_type ] );
+                    }
+                    break;
             }
 
             return $column_value;
@@ -977,9 +983,9 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
                                 [
                                     'user'         => $email,
                                     'verification' => 1,
-                                ] 
-                            ) 
-                        ) 
+                                ]
+                            )
+                        )
                     );
                     exit();
                 }

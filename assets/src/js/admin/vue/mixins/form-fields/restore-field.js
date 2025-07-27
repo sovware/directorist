@@ -5,7 +5,7 @@ import helpers from '../helpers';
 
 export default {
 	name: 'restore-field',
-	mixins: [props, helpers],
+	mixins: [ props, helpers ],
 	model: {
 		prop: 'value',
 		event: 'input',
@@ -25,39 +25,41 @@ export default {
 	},
 
 	methods: {
-		...mapGetters(['getFieldsValue']),
+		...mapGetters( [ 'getFieldsValue' ] ),
 
 		restore() {
 			const self = this;
 
-			if (!(this.restorData && typeof this.restorData === 'object')) {
-				console.log('Invalid Data');
+			if (
+				! ( this.restorData && typeof this.restorData === 'object' )
+			) {
+				console.log( 'Invalid Data' );
 				this.validation_message = {
 					type: 'error',
 					message: 'Invalid Data',
 				};
 
-				setTimeout(() => {
+				setTimeout( () => {
 					self.validation_message = null;
-				}, 5000);
+				}, 5000 );
 
 				return;
 			}
 
 			let fields = {};
-			for (let field in this.restorData) {
-				fields[field] = this.maybeJSON(this.restorData[field]);
+			for ( let field in this.restorData ) {
+				fields[ field ] = this.maybeJSON( this.restorData[ field ] );
 			}
 
-			this.$store.commit('importFields', fields);
-			this.$emit('do-action', {
+			this.$store.commit( 'importFields', fields );
+			this.$emit( 'do-action', {
 				action: 'updateData',
 				component: 'root',
-			});
+			} );
 
-			setTimeout(() => {
+			setTimeout( () => {
 				self.validation_message = null;
-			}, 5000);
+			}, 5000 );
 		},
 	},
 };

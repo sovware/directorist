@@ -1,14 +1,14 @@
 import props from './input-field-props.js';
 
 export default {
-	mixins: [props],
+	mixins: [ props ],
 	model: {
 		prop: 'value',
 		event: 'input',
 	},
 
 	created() {
-		if (typeof this.value !== 'undefined') {
+		if ( typeof this.value !== 'undefined' ) {
 			this.local_value =
 				true === this.value ||
 				'true' === this.value ||
@@ -18,7 +18,7 @@ export default {
 					: false;
 		}
 
-		this.$emit('update', this.local_value);
+		this.$emit( 'update', this.local_value );
 
 		this.setup();
 	},
@@ -32,28 +32,28 @@ export default {
 
 		link() {
 			return this.comp.link.url
-				? lodash.unescape(this.comp.link.url)
+				? lodash.unescape( this.comp.link.url )
 				: this.comp.link.url;
 		},
 
 		compLinkIsEnable() {
-			if (!(this.componets && this.componets.link)) {
+			if ( ! ( this.componets && this.componets.link ) ) {
 				return false;
 			}
 
 			// check if show
 			if (
 				typeof this.componets.link.show !== 'undefined' &&
-				!this.componets.link.show
+				! this.componets.link.show
 			) {
 				return false;
 			}
 
 			// showIfValueIs
-			if (typeof this.componets.link.showIfValueIs === 'undefined') {
+			if ( typeof this.componets.link.showIfValueIs === 'undefined' ) {
 				return true;
 			}
-			if (this.local_value != this.componets.link.showIfValueIs) {
+			if ( this.local_value != this.componets.link.showIfValueIs ) {
 				return false;
 			}
 
@@ -64,7 +64,7 @@ export default {
 			let button_type = this.comp.link.type;
 
 			return {
-				['cptm-' + button_type]: true,
+				[ 'cptm-' + button_type ]: true,
 			};
 		},
 
@@ -109,37 +109,37 @@ export default {
 		},
 
 		loadLinkComponentData() {
-			if (!(this.componets && this.componets.link)) {
+			if ( ! ( this.componets && this.componets.link ) ) {
 				return;
 			}
 
-			if (this.componets.link.label) {
+			if ( this.componets.link.label ) {
 				this.comp.link.label = this.componets.link.label;
 			}
 
-			if (this.componets.link.type) {
+			if ( this.componets.link.type ) {
 				this.comp.link.type = this.componets.link.type;
 			}
 
-			if (this.componets.link.url) {
+			if ( this.componets.link.url ) {
 				this.comp.link.url = this.componets.link.url;
 			}
 
-			if (this.componets.link.target) {
+			if ( this.componets.link.target ) {
 				this.comp.link.target = this.componets.link.target;
 			}
 		},
 
 		setupConfirmationModal() {
 			if (
-				!(
+				! (
 					this.confirmationModal &&
 					typeof this.confirmationModal === 'object'
 				)
 			) {
 				return;
 			}
-			if (!Object.keys(this.confirmationModal)) {
+			if ( ! Object.keys( this.confirmationModal ) ) {
 				return;
 			}
 
@@ -153,20 +153,20 @@ export default {
 		toggleValue() {
 			const self = this;
 			const updateData = function () {
-				self.local_value = !self.local_value;
-				self.$emit('update', self.local_value);
+				self.local_value = ! self.local_value;
+				self.$emit( 'update', self.local_value );
 				self.handleDataOnChange();
 			};
 
-			this.handleDataBeforeChange(updateData);
+			this.handleDataBeforeChange( updateData );
 		},
 
-		handleDataBeforeChange(updateData) {
+		handleDataBeforeChange( updateData ) {
 			// console.log( 'handleDataBeforeChange', this.confirmBeforeChange );
 
 			// Check Confirmation
-			if (this.confirmBeforeChange) {
-				this.getConfirmation(updateData);
+			if ( this.confirmBeforeChange ) {
+				this.getConfirmation( updateData );
 				return;
 
 				// const confirmation_status = this.getConfirmation( updateData );
@@ -176,7 +176,7 @@ export default {
 			updateData();
 		},
 
-		getConfirmation(callback) {
+		getConfirmation( callback ) {
 			this.confirmation.show = true;
 			this.confirmation.onConfirm = callback;
 
@@ -185,12 +185,12 @@ export default {
 			// return false;
 		},
 
-		confirmationOnConfirm(callback) {
-			if (typeof callback !== 'function') {
+		confirmationOnConfirm( callback ) {
+			if ( typeof callback !== 'function' ) {
 				return;
 			}
 
-			console.log('confirmationOnConfirm');
+			console.log( 'confirmationOnConfirm' );
 			callback();
 		},
 
@@ -203,24 +203,24 @@ export default {
 			let task = this.dataOnChange;
 			let cachedData = this.cachedData;
 
-			if (!cachedData) {
+			if ( ! cachedData ) {
 				return;
 			}
-			if (cachedData.value == this.local_value) {
-				return;
-			}
-
-			if (!(task && typeof task === 'object')) {
-				return;
-			}
-			if (!task.action) {
-				return;
-			}
-			if (typeof task.action !== 'string') {
+			if ( cachedData.value == this.local_value ) {
 				return;
 			}
 
-			this.$emit('do-action', task);
+			if ( ! ( task && typeof task === 'object' ) ) {
+				return;
+			}
+			if ( ! task.action ) {
+				return;
+			}
+			if ( typeof task.action !== 'string' ) {
+				return;
+			}
+
+			this.$emit( 'do-action', task );
 		},
 	},
 };

@@ -1,20 +1,20 @@
-jQuery(document).ready(function ($) {
-	function to_top(top) {
-		$([document.documentElement, document.body]).animate(
+jQuery( document ).ready( function ( $ ) {
+	function to_top( top ) {
+		$( [ document.documentElement, document.body ] ).animate(
 			{
-				scrollTop: $(top).offset().top,
+				scrollTop: $( top ).offset().top,
 			},
 			1000
 		);
 	}
 
 	need_post = false;
-	if ($("input[name='need_post']").length > 0) {
-		$("input[name='need_post']").on('change', function () {
-			if ('yes' === this.value) {
+	if ( $( "input[name='need_post']" ).length > 0 ) {
+		$( "input[name='need_post']" ).on( 'change', function () {
+			if ( 'yes' === this.value ) {
 				need_post = true;
 			}
-		});
+		} );
 	}
 
 	// @kowsar @todo rebuild validation
@@ -235,4 +235,4 @@ jQuery(document).ready(function ($) {
         }
     });
     */
-});
+} );

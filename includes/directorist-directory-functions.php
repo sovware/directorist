@@ -18,8 +18,12 @@ function directorist_get_directory_meta( $directory_id, string $meta_key ) {
 
 function directorist_get_listing_form_fields( $directory_id ) {
     $form_data = directorist_get_directory_meta( $directory_id, 'submission_form_fields' );
-    $_fields   = directorist_get_var( $form_data['fields'], [] );
-    $_groups   = directorist_get_var( $form_data['groups'], [] );
+    if ( empty( $form_data ) || empty( $form_data['fields'] ) ) {
+        return array();
+    }
+
+    $_fields   = directorist_get_var( $form_data['fields'], array() );
+    $_groups   = directorist_get_var( $form_data['groups'], array() );
 
     $fields_keys = [];
     $fields      = [];
@@ -34,6 +38,12 @@ function directorist_get_listing_form_fields( $directory_id ) {
 
     if ( isset( $fields['view_count'] ) ) {
         unset( $fields['view_count'] );
+    }
+
+    // Remove listing type field if pricing plan is disabled.
+    // Otherwise it causes validation error.
+    if ( ! atbdp_pricing_plan_is_enabled() ) {
+        unset( $fields['listing_type'] );
     }
 
     return $fields;
@@ -287,7 +297,7 @@ function directorist_get_directories_for_template( array $args = [] ) {
      *
      * This hook is useful when you want to control which directory types appear
      * in a specific template and in what order.
-     * 
+     *
      * @since 8.4.4
      *
      * @param array $directories An array of WP_Term objects returned from directorist_get_directories().
@@ -306,7 +316,7 @@ function directorist_get_directories_for_template( array $args = [] ) {
             ];
 
             return $carry;
-        }, [] 
+        }, []
     );
 }
 

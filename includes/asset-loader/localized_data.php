@@ -38,7 +38,7 @@ class Localized_Data {
                 'Referer-Page-ID' => get_the_ID(),
             ]
         ];
-        
+
         return $data;
     }
 
@@ -85,7 +85,7 @@ class Localized_Data {
         $review_approval = get_directorist_option( 'review_approval_text', __( 'Your review has been received. It requires admin approval to publish.', 'directorist' ) );
         $enable_reviewer_content = get_directorist_option( 'enable_reviewer_content', 1 );
 
-        $data = [
+        $data = array(
             'nonce'                           => wp_create_nonce( 'atbdp_nonce_action_js' ),
             'directorist_nonce'               => wp_create_nonce( directorist_get_nonce_key() ),
             'ajax_nonce'                      => wp_create_nonce( 'bdas_ajax_nonce' ),
@@ -94,6 +94,7 @@ class Localized_Data {
             'assets_url'                      => DIRECTORIST_ASSETS,
             'home_url'                        => home_url(),
             'rest_url'                        => rest_url(),
+            'rest_nonce'                      => wp_create_nonce( 'wp_rest' ),
             'nonceName'                       => 'atbdp_nonce_js',
             'login_alert_message'             => __( 'Sorry, you need to login first.', 'directorist' ),
             'rtl'                             => is_rtl() ? 'true' : 'false',
@@ -136,7 +137,7 @@ class Localized_Data {
             'enabled_multi_directory'         => directorist_is_multi_directory_enabled(),
             'site_name'                       => get_bloginfo( 'name' ),
             'dynamic_view_count_cache'        => (bool) get_directorist_option( 'dynamic_view_count_cache', false ),
-        ];
+        );
 
         return $data;
     }

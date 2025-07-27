@@ -19,15 +19,16 @@ export default {
 				},
 			};
 
-			validation_log = this.syncValidationWithProps(validation_log);
+			validation_log = this.syncValidationWithProps( validation_log );
 
-			if (this.hasInvalidValue()) {
-				validation_log['invalid_value'].has_error = true;
+			if ( this.hasInvalidValue() ) {
+				validation_log[ 'invalid_value' ].has_error = true;
 			}
 
-			if (typeof this.syncValidationWithLocalState === 'function') {
-				validation_log =
-					this.syncValidationWithLocalState(validation_log);
+			if ( typeof this.syncValidationWithLocalState === 'function' ) {
+				validation_log = this.syncValidationWithLocalState(
+					validation_log
+				);
 			}
 
 			// console.log( { validation_log } );
@@ -37,14 +38,14 @@ export default {
 
 		validationStatus() {
 			let the_status = { has_error: false, messages: [] };
-			for (let status_key in this.validationLog) {
-				if (this.validationLog[status_key].has_error) {
+			for ( let status_key in this.validationLog ) {
+				if ( this.validationLog[ status_key ].has_error ) {
 					the_status.has_error = true;
 
-					the_status.messages.push({
+					the_status.messages.push( {
 						type: 'error',
-						message: this.validationLog[status_key].error_msg,
-					});
+						message: this.validationLog[ status_key ].error_msg,
+					} );
 				}
 			}
 
@@ -53,17 +54,17 @@ export default {
 
 		validationMessages() {
 			if (
-				!this.validationStatus.messages ||
+				! this.validationStatus.messages ||
 				typeof this.validationStatus.messages !== 'object'
 			) {
 				return false;
 			}
 
-			if (!this.validationStatus.messages.length) {
+			if ( ! this.validationStatus.messages.length ) {
 				return false;
 			}
 
-			return this.validationStatus.messages[0];
+			return this.validationStatus.messages[ 0 ];
 		},
 
 		validationClass() {
@@ -80,31 +81,33 @@ export default {
 	},
 
 	methods: {
-		syncValidationWithProps(validation_log) {
-			if (this.validation && typeof this.validation === 'object') {
-				for (let validation_item of this.validation) {
-					if (typeof validation_item.error_key === 'undefined') {
+		syncValidationWithProps( validation_log ) {
+			if ( this.validation && typeof this.validation === 'object' ) {
+				for ( let validation_item of this.validation ) {
+					if ( typeof validation_item.error_key === 'undefined' ) {
 						continue;
 					}
 
 					if (
-						typeof validation_log[validation_item.error_key] ===
+						typeof validation_log[ validation_item.error_key ] ===
 						'undefined'
 					) {
-						validation_log[validation_item.error_key] = {
+						validation_log[ validation_item.error_key ] = {
 							error_msg: '',
 						};
 					}
 
-					validation_log[validation_item.error_key].has_error = true;
+					validation_log[
+						validation_item.error_key
+					].has_error = true;
 
-					if (typeof validation_item.has_error !== 'undefined') {
-						validation_log[validation_item.error_key].has_error =
+					if ( typeof validation_item.has_error !== 'undefined' ) {
+						validation_log[ validation_item.error_key ].has_error =
 							validation_item.has_error;
 					}
 
-					if (typeof validation_item.error_msg !== 'undefined') {
-						validation_log[validation_item.error_key].error_msg =
+					if ( typeof validation_item.error_msg !== 'undefined' ) {
+						validation_log[ validation_item.error_key ].error_msg =
 							validation_item.error_msg;
 					}
 				}
@@ -124,25 +127,25 @@ export default {
 				return false;
 			}
 
-			if (!this.theOptions || typeof this.theOptions !== 'object') {
+			if ( ! this.theOptions || typeof this.theOptions !== 'object' ) {
 				return false;
 			}
 
-			for (let option of this.theOptions) {
-				if (typeof option.options !== 'undefined') {
-					for (let sub_option of option.options) {
-						if (sub_option.value === this.local_value) {
+			for ( let option of this.theOptions ) {
+				if ( typeof option.options !== 'undefined' ) {
+					for ( let sub_option of option.options ) {
+						if ( sub_option.value === this.local_value ) {
 							match_found = true;
 						}
 					}
 				} else {
-					if (option.value === this.local_value) {
+					if ( option.value === this.local_value ) {
 						match_found = true;
 					}
 				}
 			}
 
-			return !match_found;
+			return ! match_found;
 		},
 	},
 };

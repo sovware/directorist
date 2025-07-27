@@ -1,15 +1,15 @@
 export default {
 	props: {
 		sectionId: {
-			type: [String, Number],
+			type: [ String, Number ],
 			default: '',
 		},
 		fieldId: {
-			type: [String, Number],
+			type: [ String, Number ],
 			default: '',
 		},
 		fieldKey: {
-			type: [String, Number],
+			type: [ String, Number ],
 			default: '',
 		},
 		root: {
@@ -67,11 +67,11 @@ export default {
 			default: '',
 		},
 		label: {
-			type: [String, Number],
+			type: [ String, Number ],
 			default: '',
 		},
 		labelType: {
-			type: [String],
+			type: [ String ],
 			default: 'span',
 		},
 		disable: {
@@ -79,7 +79,7 @@ export default {
 			default: false,
 		},
 		shortcodes: {
-			type: [Array, String],
+			type: [ Array, String ],
 			default: '',
 		},
 		buttonLabel: {
@@ -118,19 +118,19 @@ export default {
 			default: true,
 		},
 		title: {
-			type: [String],
+			type: [ String ],
 			default: '',
 		},
 		description: {
-			type: [String],
+			type: [ String ],
 			default: '',
 		},
 		id: {
-			type: [String, Number],
+			type: [ String, Number ],
 			default: '',
 		},
 		name: {
-			type: [String, Number],
+			type: [ String, Number ],
 			default: '',
 		},
 		multi_directory_status: {
@@ -159,7 +159,7 @@ export default {
 			required: false,
 		},
 		placeholder: {
-			type: [String, Number],
+			type: [ String, Number ],
 			default: '',
 		},
 		infoTextForNoOption: {
@@ -167,23 +167,23 @@ export default {
 			default: 'Nothing available',
 		},
 		cols: {
-			type: [String, Number],
+			type: [ String, Number ],
 			default: '30',
 		},
 		rows: {
-			type: [String, Number],
+			type: [ String, Number ],
 			default: '10',
 		},
 		min: {
-			type: [String, Number],
+			type: [ String, Number ],
 			default: undefined,
 		},
 		max: {
-			type: [String, Number],
+			type: [ String, Number ],
 			default: undefined,
 		},
 		step: {
-			type: [String, Number],
+			type: [ String, Number ],
 			default: undefined,
 		},
 		componets: {

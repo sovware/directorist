@@ -3,10 +3,10 @@ import validator from '../validator';
 import helpers from '../helpers';
 import props from './input-field-props.js';
 import { mapState } from 'vuex';
-const axios = require('axios').default;
+const axios = require( 'axios' ).default;
 
 export default {
-	mixins: [props, validator, helpers],
+	mixins: [ props, validator, helpers ],
 	model: {
 		prop: 'value',
 		event: 'input',
@@ -17,9 +17,9 @@ export default {
 	},
 
 	computed: {
-		...mapState({
+		...mapState( {
 			config: 'config',
-		}),
+		} ),
 	},
 
 	data() {
@@ -39,38 +39,38 @@ export default {
 		setup() {
 			this.button.label = this.buttonLabel;
 
-			if (this.optionFields) {
+			if ( this.optionFields ) {
 				this.option_fields = this.optionFields;
 			}
 
-			if (this.saveOptionData) {
+			if ( this.saveOptionData ) {
 				this.loadOldData();
 			}
 		},
 
 		loadOldData() {
-			if (!(this.value && this.option_fields)) {
+			if ( ! ( this.value && this.option_fields ) ) {
 				return;
 			}
 
-			for (let field_key in this.value) {
-				if (typeof this.option_fields[field_key] === 'undefined') {
+			for ( let field_key in this.value ) {
+				if ( typeof this.option_fields[ field_key ] === 'undefined' ) {
 					continue;
 				}
-				this.option_fields[field_key].value = this.value[field_key];
+				this.option_fields[ field_key ].value = this.value[ field_key ];
 			}
 		},
 
-		updateOptionData(value) {
+		updateOptionData( value ) {
 			this.local_value = value;
 
-			if (this.saveOptionData) {
-				this.$emit('update', this.local_value);
+			if ( this.saveOptionData ) {
+				this.$emit( 'update', this.local_value );
 			}
 		},
 
 		submitAjaxRequest() {
-			if (this.button.is_processing) {
+			if ( this.button.is_processing ) {
 				return;
 			}
 
@@ -84,21 +84,24 @@ export default {
 					: '';
 			let action = this.action;
 
-			if (!ajax_url) {
+			if ( ! ajax_url ) {
 				return;
 			}
 
 			let form_data = new FormData();
-			form_data.append('action', action);
+			form_data.append( 'action', action );
 
 			// Append if has option field
 			if (
 				this.local_value &&
 				typeof this.local_value === 'object' &&
-				Object.keys(this.local_value)
+				Object.keys( this.local_value )
 			) {
-				for (let field_key in this.local_value) {
-					form_data.append(field_key, this.local_value[field_key]);
+				for ( let field_key in this.local_value ) {
+					form_data.append(
+						field_key,
+						this.local_value[ field_key ]
+					);
 				}
 			}
 
@@ -109,9 +112,9 @@ export default {
 
 			// Submit the form
 			axios
-				.post(ajax_url, form_data)
-				.then((response) => {
-					console.log(response);
+				.post( ajax_url, form_data )
+				.then( ( response ) => {
+					console.log( response );
 
 					let message = response.data.data
 						? response.data.data
@@ -120,7 +123,7 @@ export default {
 						? response.data.message
 						: message;
 
-					if (response.data.success && message) {
+					if ( response.data.success && message ) {
 						message = { type: 'success', message: message };
 					} else {
 						let msg = message
@@ -131,16 +134,16 @@ export default {
 
 					self.validation_message = message;
 
-					setTimeout(function () {
+					setTimeout( function () {
 						self.validation_message = null;
-					}, 5000);
+					}, 5000 );
 
 					self.button.is_processing = false;
 					self.button.is_disabled = false;
 					self.button.label = self.buttonLabel;
-				})
-				.catch((error) => {
-					console.log(error);
+				} )
+				.catch( ( error ) => {
+					console.log( error );
 
 					let message = {
 						type: 'error',
@@ -148,14 +151,14 @@ export default {
 					};
 					self.validation_message = message;
 
-					setTimeout(function () {
+					setTimeout( function () {
 						self.validation_message = null;
-					}, 5000);
+					}, 5000 );
 
 					self.button.is_processing = false;
 					self.button.is_disabled = false;
 					self.button.label = self.buttonLabel;
-				});
+				} );
 		},
 	},
 };

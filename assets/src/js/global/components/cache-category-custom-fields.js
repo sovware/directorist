@@ -8,15 +8,15 @@ export function cacheCategoryCustomFields() {
 		'.atbdp_category_custom_fields .directorist-form-checks'
 	);
 
-	if (customFields.length) {
+	if ( customFields.length ) {
 		customFields.forEach(
-			(el) => (cache[el.getAttribute('data-id')] = el.value)
+			( el ) => ( cache[ el.getAttribute( 'data-id' ) ] = el.value )
 		);
 	}
 
-	if (checksField.length) {
+	if ( checksField.length ) {
 		checksField.forEach(
-			(el) => (cache[el.getAttribute('data-id')] = el.checked)
+			( el ) => ( cache[ el.getAttribute( 'data-id' ) ] = el.checked )
 		);
 	}
 }

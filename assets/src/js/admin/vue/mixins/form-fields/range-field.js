@@ -1,7 +1,7 @@
 import props from './input-field-props.js';
 
 export default {
-	mixins: [props],
+	mixins: [ props ],
 	model: {
 		prop: 'value',
 		event: 'input',
@@ -13,21 +13,21 @@ export default {
 
 	watch: {
 		range_value() {
-			this.$emit('update', this.range_value);
+			this.$emit( 'update', this.range_value );
 		},
 	},
 
 	computed: {
 		theMin() {
-			return !isNaN(this.min) ? Number(this.min) : 0;
+			return ! isNaN( this.min ) ? Number( this.min ) : 0;
 		},
 
 		theMax() {
-			return !isNaN(this.max) ? Number(this.max) : 100;
+			return ! isNaN( this.max ) ? Number( this.max ) : 100;
 		},
 
 		theStep() {
-			return !isNaN(this.step) ? Number(this.step) : 1;
+			return ! isNaN( this.step ) ? Number( this.step ) : 1;
 		},
 
 		rangeFillStyle() {
@@ -37,7 +37,7 @@ export default {
 			let current_position = this.value - dif;
 
 			let total = max - min;
-			let p = (current_position * 100) / total;
+			let p = ( current_position * 100 ) / total;
 
 			return {
 				width: p + '%',
@@ -64,8 +64,8 @@ export default {
 	},
 
 	methods: {
-		isNumeric(data) {
-			if (!isNaN(number)) {
+		isNumeric( data ) {
+			if ( ! isNaN( number ) ) {
 				return false;
 			}
 		},

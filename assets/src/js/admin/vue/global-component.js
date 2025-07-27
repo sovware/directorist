@@ -3,33 +3,33 @@ import Vue from 'vue';
 import upperFirst from 'lodash/upperFirst';
 import camelCase from 'lodash/camelCase';
 
-Vue.directive('click-outside', {
+Vue.directive( 'click-outside', {
 	priority: 700,
 
 	bind() {
 		let self = this;
-		this.event = function (event) {
-			console.log('emitting event');
+		this.event = function ( event ) {
+			console.log( 'emitting event' );
 
-			self.vm.$emit(self.expression, event);
+			self.vm.$emit( self.expression, event );
 		};
 
-		this.el.addEventListener('click', this.stopProp);
-		document.body.addEventListener('click', this.event);
+		this.el.addEventListener( 'click', this.stopProp );
+		document.body.addEventListener( 'click', this.event );
 	},
 
 	unbind() {
-		console.log('unbind');
-		('sho');
+		console.log( 'unbind' );
+		( 'sho' );
 
-		this.el.removeEventListener('click', this.stopProp);
-		document.body.removeEventListener('click', this.event);
+		this.el.removeEventListener( 'click', this.stopProp );
+		document.body.removeEventListener( 'click', this.event );
 	},
 
-	stopProp(event) {
+	stopProp( event ) {
 		event.stopPropagation();
 	},
-});
+} );
 
 const requireComponent = require.context(
 	// The relative path of the components folder
@@ -40,18 +40,18 @@ const requireComponent = require.context(
 	/\w+\.(vue|js)$/
 );
 
-requireComponent.keys().forEach((fileName) => {
+requireComponent.keys().forEach( ( fileName ) => {
 	// Get component config
-	const componentConfig = requireComponent(fileName);
+	const componentConfig = requireComponent( fileName );
 
 	// Get PascalCase name of component
 	const componentName = upperFirst(
 		camelCase(
 			// Gets the file name regardless of folder depth
 			fileName
-				.split('/')
+				.split( '/' )
 				.pop()
-				.replace(/\.\w+$/, '')
+				.replace( /\.\w+$/, '' )
 		)
 	);
 
@@ -65,4 +65,4 @@ requireComponent.keys().forEach((fileName) => {
 		// otherwise fall back to module's root.
 		componentConfig.default || componentConfig
 	);
-});
+} );

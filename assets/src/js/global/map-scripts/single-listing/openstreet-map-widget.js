@@ -1,10 +1,10 @@
 /* Widget OSMap */
 
-(function ($) {
+( function ( $ ) {
 	// Single Listing Map Initialize
 	function initSingleMap() {
 		// Localized Data
-		if ($('#gmap-widget').length) {
+		if ( $( '#gmap-widget' ).length ) {
 			const map_container = localized_data_widget.map_container_id
 				? localized_data_widget.map_container_id
 				: 'gmap';
@@ -14,8 +14,8 @@
 			const loc_default_longitude = parseFloat(
 				localized_data_widget.default_longitude
 			);
-			let loc_manual_lat = parseFloat(localized_data_widget.manual_lat);
-			let loc_manual_lng = parseFloat(localized_data_widget.manual_lng);
+			let loc_manual_lat = parseFloat( localized_data_widget.manual_lat );
+			let loc_manual_lng = parseFloat( localized_data_widget.manual_lng );
 			const loc_map_zoom_level = parseInt(
 				localized_data_widget.map_zoom_level
 			);
@@ -23,42 +23,42 @@
 			const { cat_icon } = localized_data_widget;
 			const { info_content } = localized_data_widget;
 
-			loc_manual_lat = isNaN(loc_manual_lat)
+			loc_manual_lat = isNaN( loc_manual_lat )
 				? loc_default_latitude
 				: loc_manual_lat;
-			loc_manual_lng = isNaN(loc_manual_lng)
+			loc_manual_lng = isNaN( loc_manual_lng )
 				? loc_default_longitude
 				: loc_manual_lng;
 
-			$manual_lat = $('#manual_lat');
-			$manual_lng = $('#manual_lng');
+			$manual_lat = $( '#manual_lat' );
+			$manual_lng = $( '#manual_lng' );
 
 			saved_lat_lng = {
 				lat: loc_manual_lat,
 				lng: loc_manual_lng,
 			};
-			function mapLeaflet(lat, lon) {
-				const fontAwesomeIcon = L.divIcon({
-					html: `<div class="atbd_map_shape"><span class="">${cat_icon}</span></div>`,
-					iconSize: [20, 20],
+			function mapLeaflet( lat, lon ) {
+				const fontAwesomeIcon = L.divIcon( {
+					html: `<div class="atbd_map_shape"><span class="">${ cat_icon }</span></div>`,
+					iconSize: [ 20, 20 ],
 					className: 'myDivIcon',
-				});
+				} );
 
-				const mymap = L.map(map_container).setView(
-					[lat, lon],
+				const mymap = L.map( map_container ).setView(
+					[ lat, lon ],
 					loc_map_zoom_level
 				);
 
-				if (display_map_info) {
-					L.marker([lat, lon], {
+				if ( display_map_info ) {
+					L.marker( [ lat, lon ], {
 						icon: fontAwesomeIcon,
-					})
-						.addTo(mymap)
-						.bindPopup(info_content);
+					} )
+						.addTo( mymap )
+						.bindPopup( info_content );
 				} else {
-					L.marker([lat, lon], {
+					L.marker( [ lat, lon ], {
 						icon: fontAwesomeIcon,
-					}).addTo(mymap);
+					} ).addTo( mymap );
 				}
 
 				L.tileLayer(
@@ -67,33 +67,33 @@
 						attribution:
 							'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 					}
-				).addTo(mymap);
+				).addTo( mymap );
 			}
 
-			mapLeaflet(loc_manual_lat, loc_manual_lng);
+			mapLeaflet( loc_manual_lat, loc_manual_lng );
 		}
 	}
 
-	jQuery(document).ready(function () {
+	jQuery( document ).ready( function () {
 		initSingleMap();
-	});
+	} );
 
 	// Single Listing Map on Elementor EditMode
-	$(window).on('elementor/frontend/init', function () {
-		setTimeout(function () {
-			if ($('body').hasClass('elementor-editor-active')) {
+	$( window ).on( 'elementor/frontend/init', function () {
+		setTimeout( function () {
+			if ( $( 'body' ).hasClass( 'elementor-editor-active' ) ) {
 				initSingleMap();
 			}
-		}, 3000);
-	});
+		}, 3000 );
+	} );
 
-	$('body').on('click', function (e) {
+	$( 'body' ).on( 'click', function ( e ) {
 		if (
-			$('body').hasClass('elementor-editor-active') &&
+			$( 'body' ).hasClass( 'elementor-editor-active' ) &&
 			e.target.nodeName !== 'A' &&
 			e.target.nodeName !== 'BUTTON'
 		) {
 			initSingleMap();
 		}
-	});
-})(jQuery);
+	} );
+} )( jQuery );

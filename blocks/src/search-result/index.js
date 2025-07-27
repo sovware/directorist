@@ -54,7 +54,7 @@ registerBlockType( metadata.name, {
 			map_zoom_level,
 			featured_only,
 			popular_only,
-			sidebar
+			sidebar,
 		} = attributes;
 
 		return (
@@ -172,7 +172,7 @@ registerBlockType( metadata.name, {
 							] }
 							onChange={ ( newState ) =>
 								setAttributes( {
-									sidebar: newState
+									sidebar: newState,
 								} )
 							}
 							className="directorist-gb-fixed-control"
@@ -265,14 +265,20 @@ registerBlockType( metadata.name, {
 							setAttributes( { header_title: '' } )
 						) }
 						<ToggleControl
-							label={ __( 'Display Featured Listings Only', 'directorist' ) }
+							label={ __(
+								'Display Featured Listings Only',
+								'directorist'
+							) }
 							checked={ featured_only }
 							onChange={ ( newState ) =>
 								setAttributes( { featured_only: newState } )
 							}
 						/>
 						<ToggleControl
-							label={ __( 'Display Popular Only', 'directorist' ) }
+							label={ __(
+								'Display Popular Only',
+								'directorist'
+							) }
 							checked={ popular_only }
 							onChange={ ( newState ) =>
 								setAttributes( { popular_only: newState } )

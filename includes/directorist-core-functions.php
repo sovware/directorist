@@ -38,6 +38,16 @@ function directorist_can_user_renew_listings() {
     return (bool) get_directorist_option( 'can_renew_listing', true );
 }
 
+function directorist_get_user_types() {
+    $user_types = array(
+        'general' => __( 'User', 'directorist' ),
+        'author'  => __( 'Author', 'directorist' ),
+        'guest'   => __( 'Guest', 'directorist' ),
+    );
+
+    return apply_filters( 'directorist_get_user_types', $user_types );
+}
+
 function directorist_get_owner_notifiable_events() {
     return (array) get_directorist_option( 'notify_user', [] );
 }

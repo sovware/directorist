@@ -1,7 +1,7 @@
 import props from './input-field-props.js';
 
 export default {
-	mixins: [props],
+	mixins: [ props ],
 	model: {
 		prop: 'value',
 		event: 'input',
@@ -17,8 +17,8 @@ export default {
 				'hidden-field': 'hidden',
 			};
 
-			if (typeof supported_types[this.type] !== 'undefined') {
-				return supported_types[this.type];
+			if ( typeof supported_types[ this.type ] !== 'undefined' ) {
+				return supported_types[ this.type ];
 			}
 
 			return 'text';
@@ -37,7 +37,7 @@ export default {
 
 	watch: {
 		local_value() {
-			this.$emit('update', this.local_value);
+			this.$emit( 'update', this.local_value );
 		},
 	},
 

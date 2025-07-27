@@ -247,7 +247,7 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
                 ],
             ];
 
-            $listings = new WP_Query( apply_filters( 'directorist_update_listings_expired_status_query_arguments ', $args ) );
+            $listings = new WP_Query( apply_filters( 'directorist_update_listings_expired_status_query_arguments', $args ) );
 
             if ( $listings->have_posts() ) {
                 foreach ( $listings->posts as $listing ) {
@@ -258,7 +258,7 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
                         '_featured'              => 0,
                         '_renewal_reminder_sent' => 0,
                     ];
-                    
+
                     // if deletion threshold is set then add deletion date
                     if ( $delete_threshold > 0 ) {
                         $metas['_deletion_date'] = date( 'Y-m-d H:i:s', strtotime( '+' . $delete_threshold . ' days' ) );
@@ -365,7 +365,7 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
                                 '_listing_status'        => 'post_status',
                                 '_renewal_reminder_sent' => 0,
                             ],
-                        ] 
+                        ]
                     );
                     do_action( 'atbdp_after_renewal', $listing->ID );
                 }

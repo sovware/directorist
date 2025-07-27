@@ -3,7 +3,7 @@ import helpers from './../helpers';
 import props from './input-field-props.js';
 
 export default {
-	mixins: [props, helpers],
+	mixins: [ props, helpers ],
 	model: {
 		prop: 'value',
 		event: 'update',
@@ -13,13 +13,31 @@ export default {
 		this.setup();
 	},
 
+<<<<<<< HEAD
+	watch: {
+		local_value() {
+			this.$emit( 'update', this.local_value );
+		},
+
+		theOptions() {
+			if ( ! this.valueIsValid( this.local_value ) ) {
+				this.local_value = '';
+			}
+		},
+	},
+
+=======
+>>>>>>> development
 	computed: {
-		...mapState({
+		...mapState( {
 			fields: 'fields',
-		}),
+		} ),
 
 		theDefaultOption() {
-			if (this.defaultOption && typeof this.defaultOption === 'object') {
+			if (
+				this.defaultOption &&
+				typeof this.defaultOption === 'object'
+			) {
 				return this.defaultOption;
 			}
 
@@ -27,45 +45,58 @@ export default {
 		},
 
 		theCurrentOptionLabel() {
-			if (!this.optionsInObject) {
+			if ( ! this.optionsInObject ) {
 				return '';
 			}
+<<<<<<< HEAD
+			if ( typeof this.optionsInObject[ this.value ] === 'undefined' ) {
+				return this.theDefaultOption.value == this.local_value &&
+=======
 			if (typeof this.optionsInObject[this.value] === 'undefined') {
 				return this.theDefaultOption.value == this.value &&
+>>>>>>> development
 					this.theDefaultOption.label
 					? this.theDefaultOption.label
 					: '';
 			}
 
-			return this.optionsInObject[this.value];
+			return this.optionsInObject[ this.value ];
 		},
 
 		theOptions() {
+<<<<<<< HEAD
+			if ( this.hasOptionsSource ) {
+				return this.hasOptionsSource;
+=======
 			if (this.hasOptionsSource) {
 				return this.parseOptions(this.hasOptionsSource);
+>>>>>>> development
 			}
 
-			if (!this.options || typeof this.options !== 'object') {
-				return this.defaultOption ? [this.defaultOption] : [];
+			if ( ! this.options || typeof this.options !== 'object' ) {
+				return this.defaultOption ? [ this.defaultOption ] : [];
 			}
 
 			return this.parseOptions(this.options);
 		},
 
 		hasOptionsSource() {
-			if (!this.optionsSource || typeof this.optionsSource !== 'object') {
+			if (
+				! this.optionsSource ||
+				typeof this.optionsSource !== 'object'
+			) {
 				return false;
 			}
 
-			if (typeof this.optionsSource.where !== 'string') {
+			if ( typeof this.optionsSource.where !== 'string' ) {
 				return false;
 			}
 
-			let terget_fields = this.getTergetFields({
+			let terget_fields = this.getTergetFields( {
 				path: this.optionsSource.where,
-			});
+			} );
 
-			if (!terget_fields || typeof terget_fields !== 'object') {
+			if ( ! terget_fields || typeof terget_fields !== 'object' ) {
 				return false;
 			}
 
@@ -77,10 +108,10 @@ export default {
 				filter_by = this.optionsSource.filter_by;
 			}
 
-			if (filter_by) {
-				filter_by = this.getTergetFields({
+			if ( filter_by ) {
+				filter_by = this.getTergetFields( {
 					path: this.optionsSource.filter_by,
-				});
+				} );
 			}
 
 			let has_sourcemap = false;
@@ -92,25 +123,25 @@ export default {
 				has_sourcemap = true;
 			}
 
-			if (!has_sourcemap && !filter_by) {
+			if ( ! has_sourcemap && ! filter_by ) {
 				return terget_fields;
 			}
 
-			if (has_sourcemap) {
+			if ( has_sourcemap ) {
 				terget_fields = this.mapDataByMap(
 					terget_fields,
 					this.optionsSource.source_map
 				);
 			}
 
-			if (filter_by) {
+			if ( filter_by ) {
 				terget_fields = this.filterDataByValue(
 					terget_fields,
 					filter_by
 				);
 			}
 
-			if (!terget_fields && typeof terget_fields !== 'object') {
+			if ( ! terget_fields && typeof terget_fields !== 'object' ) {
 				return false;
 			}
 
@@ -140,45 +171,74 @@ export default {
 
 	methods: {
 		setup() {
-			if (this.defaultOption || typeof this.defaultOption === 'object') {
+			if (
+				this.defaultOption ||
+				typeof this.defaultOption === 'object'
+			) {
 				this.default_option = this.defaultOption;
 			}
 
 			this.optionsInObject = this.convertOptionsToObject();
 
+<<<<<<< HEAD
+			if ( false != this.value && this.valueIsValid( this.value ) ) {
+				this.local_value = this.value;
+			} else {
+				this.local_value = '';
+=======
 			if (!this.valueIsValid(this.value)) {
 				this.$emit('update', '');
+>>>>>>> development
 			}
 
 			const self = this;
-			document.addEventListener('click', function () {
+			document.addEventListener( 'click', function () {
 				self.show_option_modal = false;
-			});
+			} );
 		},
 
+<<<<<<< HEAD
+		update_value( value ) {
+			this.local_value = ! isNaN( Number( value ) )
+				? Number( value )
+				: value;
+=======
 		update_value(value) {
 			this.$emit('update', value);
+>>>>>>> development
 		},
 
-		updateOption(value) {
-			this.update_value(value);
+		updateOption( value ) {
+			this.update_value( value );
 			this.show_option_modal = false;
 		},
 
 		toggleTheOptionModal() {
 			let self = this;
 
-			if (this.show_option_modal) {
+			if ( this.show_option_modal ) {
 				this.show_option_modal = false;
 			} else {
 				this.show_option_modal = true;
 
-				setTimeout(function () {
+				setTimeout( function () {
 					self.show_option_modal = true;
-				}, 0);
+				}, 0 );
 			}
 		},
 
+<<<<<<< HEAD
+		valueIsValid( value ) {
+			let options_values = this.theOptions.map( ( option ) => {
+				if ( typeof option.value !== 'undefined' ) {
+					return ! isNaN( Number( option.value ) )
+						? Number( option.value )
+						: option.value;
+				}
+			} );
+
+			return options_values.includes( value );
+=======
 		valueIsValid(value) {
 			return this.theOptions
 				.map((item) => item.value)
@@ -190,23 +250,24 @@ export default {
 				...item,
 				value: typeof item.value !== 'undefined' ? `${item.value}` : '',
 			}));
+>>>>>>> development
 		},
 
 		convertOptionsToObject() {
-			if (!(this.theOptions && Array.isArray(this.theOptions))) {
+			if ( ! ( this.theOptions && Array.isArray( this.theOptions ) ) ) {
 				return null;
 			}
 
 			let option_object = {};
-			for (let option in this.theOptions) {
-				if (typeof this.theOptions[option].value === 'undefined') {
+			for ( let option in this.theOptions ) {
+				if ( typeof this.theOptions[ option ].value === 'undefined' ) {
 					continue;
 				}
 
-				let label = this.theOptions[option].label
-					? this.theOptions[option].label
+				let label = this.theOptions[ option ].label
+					? this.theOptions[ option ].label
 					: '';
-				option_object[this.theOptions[option].value] = label;
+				option_object[ this.theOptions[ option ].value ] = label;
 			}
 
 			return option_object;

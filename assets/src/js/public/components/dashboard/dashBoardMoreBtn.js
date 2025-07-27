@@ -1,30 +1,30 @@
 import '../../atmodal';
-(function ($) {
-	window.addEventListener('load', () => {
+( function ( $ ) {
+	window.addEventListener( 'load', () => {
 		// User Dashboard Table More Button
-		$('.directorist-dashboard-listings-tbody').on(
+		$( '.directorist-dashboard-listings-tbody' ).on(
 			'click',
 			'.directorist-btn-more',
-			function (e) {
+			function ( e ) {
 				e.preventDefault();
-				$(this).toggleClass('active');
-				$('.directorist-dropdown-menu').removeClass('active');
-				$(this)
-					.next('.directorist-dropdown-menu')
-					.toggleClass('active');
+				$( this ).toggleClass( 'active' );
+				$( '.directorist-dropdown-menu' ).removeClass( 'active' );
+				$( this )
+					.next( '.directorist-dropdown-menu' )
+					.toggleClass( 'active' );
 				e.stopPropagation();
 			}
 		);
 
-		$(document).bind('click', function (e) {
+		$( document ).bind( 'click', function ( e ) {
 			if (
-				!$(e.target)
+				! $( e.target )
 					.parents()
-					.hasClass('directorist-dropdown-menu__list')
+					.hasClass( 'directorist-dropdown-menu__list' )
 			) {
-				$('.directorist-dropdown-menu').removeClass('active');
-				$('.directorist-btn-more').removeClass('active');
+				$( '.directorist-dropdown-menu' ).removeClass( 'active' );
+				$( '.directorist-btn-more' ).removeClass( 'active' );
 			}
-		});
-	});
-})(jQuery);
+		} );
+	} );
+} )( jQuery );

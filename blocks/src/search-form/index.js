@@ -52,7 +52,7 @@ registerBlockType( metadata.name, {
 			logged_in_user_only,
 			directory_type,
 			default_directory_type,
-			show_popular_category
+			show_popular_category,
 		} = attributes;
 
 		let oldTypes = directory_type ? directory_type.split( ',' ) : [];
@@ -82,7 +82,7 @@ registerBlockType( metadata.name, {
 
 									if ( types.length === 1 ) {
 										setAttributes( {
-											default_directory_type: types[0],
+											default_directory_type: types[ 0 ],
 										} );
 									}
 

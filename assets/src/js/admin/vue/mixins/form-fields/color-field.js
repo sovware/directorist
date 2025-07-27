@@ -2,7 +2,7 @@ import InputColorPicker from 'vue-native-color-picker';
 import props from './input-field-props.js';
 
 export default {
-	mixins: [props],
+	mixins: [ props ],
 	components: {
 		'v-input-colorpicker': InputColorPicker,
 	},
@@ -12,7 +12,7 @@ export default {
 	},
 
 	created() {
-		if (typeof this.value !== 'string') {
+		if ( typeof this.value !== 'string' ) {
 			return;
 		}
 
@@ -21,7 +21,7 @@ export default {
 
 	watch: {
 		local_value() {
-			this.$emit('update', this.local_value);
+			this.$emit( 'update', this.local_value );
 		},
 	},
 
@@ -40,8 +40,8 @@ export default {
 		formControlClass() {
 			let class_names = {};
 
-			if (this.input_style && this.input_style.class_names) {
-				class_names[this.input_style.class_names] = true;
+			if ( this.input_style && this.input_style.class_names ) {
+				class_names[ this.input_style.class_names ] = true;
 			}
 
 			return class_names;

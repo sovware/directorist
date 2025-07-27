@@ -10,15 +10,8 @@ import getLogo from './../logo';
 registerBlockType( metadata.name, {
 	icon: getLogo(),
 
-	transforms: {
-		from: [
-			{
-				type: 'shortcode',
-				tag: 'directorist_payment_receipt',
-				attributes: {},
-			},
-		],
-	},
+	tag: 'directorist_payment_receipt',
+	attributes: {},
 
 	example: {
 		attributes: {

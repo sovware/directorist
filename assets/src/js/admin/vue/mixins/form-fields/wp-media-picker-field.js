@@ -1,7 +1,7 @@
 import props from './input-field-props.js';
 
 export default {
-	mixins: [props],
+	mixins: [ props ],
 
 	model: {
 		prop: 'value',
@@ -14,7 +14,7 @@ export default {
 		},
 
 		hasThumbnail() {
-			if (this.thumbnail_src.length) {
+			if ( this.thumbnail_src.length ) {
 				return true;
 			}
 
@@ -22,7 +22,7 @@ export default {
 		},
 
 		thumbnailSrc() {
-			if (this.thumbnail_src === '') {
+			if ( this.thumbnail_src === '' ) {
 				// return this.defaultImg;
 			}
 
@@ -30,7 +30,7 @@ export default {
 		},
 
 		theButtonLabel() {
-			if (this.hasThumbnail) {
+			if ( this.hasThumbnail ) {
 				return this.changeButtonLabel;
 			}
 
@@ -50,7 +50,7 @@ export default {
 
 	watch: {
 		theThumbnail() {
-			this.$emit('update', this.theThumbnail);
+			this.$emit( 'update', this.theThumbnail );
 		},
 	},
 
@@ -68,41 +68,41 @@ export default {
 
 	methods: {
 		setup() {
-			if (this.value && this.value.length) {
+			if ( this.value && this.value.length ) {
 				this.thumbnail_src = this.value;
 			}
 
 			this.createTheMediaFrame();
-			this.$emit('update', this.theThumbnail);
+			this.$emit( 'update', this.theThumbnail );
 		},
 
 		createTheMediaFrame() {
 			let self = this;
 
 			// Create the media frame.
-			this.file_frame = wp.media.frames.file_frame = wp.media({
+			this.file_frame = wp.media.frames.file_frame = wp.media( {
 				title: 'Select a image to upload',
 				button: {
 					text: 'Use this image',
 				},
 				multiple: false,
-			});
+			} );
 
 			// When an image is selected, run a callback.
-			this.file_frame.on('select', function () {
+			this.file_frame.on( 'select', function () {
 				let attachment = self.file_frame
 					.state()
-					.get('selection')
+					.get( 'selection' )
 					.first()
 					.toJSON();
 				self.thumbnail_src = attachment.url;
-			});
+			} );
 		},
 
 		openMediaPicker() {
 			let self = this;
 
-			if (this.file_frame) {
+			if ( this.file_frame ) {
 				this.file_frame.open();
 				return;
 			}
@@ -111,7 +111,7 @@ export default {
 		},
 
 		deleteThumbnail() {
-			console.log('Delete Thumb');
+			console.log( 'Delete Thumb' );
 			this.thumbnail_src = '';
 		},
 	},

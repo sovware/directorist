@@ -14,248 +14,247 @@ use WP_Ajax_Upgrader_Skin;
 defined( 'ABSPATH' ) || exit;
 
 class Extension_Handler {
+    public function install( string $slug ) {
+        $extensions = $this->get_unlocked_extensions();
 
-	public function install( string $slug ) {
-		$extensions = $this->get_unlocked_extensions();
+        // Find the extension by slug
+        $plugin_data = null;
+        foreach ( $extensions as $extension ) {
+            if ( $extension['slug'] === $slug ) {
+                $plugin_data = $extension;
+                break;
+            }
+        }
 
-		// Find the extension by slug
-		$plugin_data = null;
-		foreach ( $extensions as $extension ) {
-			if ( $extension['slug'] === $slug ) {
-				$plugin_data = $extension;
-				break;
-			}
-		}
+        if ( 'templatiq' === $slug ) {
+            $plugin_data['slug']          = $slug;
+            $plugin_data['download_link'] = 'https://downloads.wordpress.org/plugin/templatiq.zip';
+        }
 
-		if ( 'templatiq' === $slug ) {
-			$plugin_data['slug']          = $slug;
-			$plugin_data['download_link'] = 'https://downloads.wordpress.org/plugin/templatiq.zip';
-		}
+        if ( ! $plugin_data ) {
+            throw new \Exception(
+                __( 'You do not have access to install this extension.', 'directorist' ),
+                403
+            );
+        }
 
-		if ( ! $plugin_data ) {
-			throw new \Exception(
-				__( 'You do not have access to install this extension.', 'directorist' ),
-				403
-			);
-		}
+        try {
+            $this->installer( $plugin_data );
+            $this->activate( $slug );
 
-		try {
-			$this->installer( $plugin_data );
-			$this->activate( $slug );
+            if ( 'templatiq' === $slug ) {
+                delete_option( '_templatiq_redirect_to_dashboard' );
+            }
 
-			if ( 'templatiq' === $slug ) {
-				delete_option( '_templatiq_redirect_to_dashboard' );
-			}
+            return [
+                'success' => true,
+                'message' => __( 'Plugin installed and activated successfully.', 'directorist' ),
+            ];
 
-			return [
-				'success' => true,
-				'message' => __( 'Plugin installed and activated successfully.', 'directorist' ),
-			];
+        } catch ( \Exception $e ) {
+            return [
+                'success' => false,
+                'message' => $e->getMessage(),
+                'code'    => $e->getCode(),
+            ];
+        }
+    }
 
-		} catch ( \Exception $e ) {
-			return [
-				'success' => false,
-				'message' => $e->getMessage(),
-				'code'    => $e->getCode(),
-			];
-		}
-	}
+    public function installer( array $plugin ) {
+        $this->includes();
+        require_once ABSPATH . 'wp-admin/includes/file.php';
+        require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
+        include_once ABSPATH . 'wp-admin/includes/plugin-install.php';
 
-	public function installer( array $plugin ) {
-		$this->includes();
-		require_once ABSPATH . 'wp-admin/includes/file.php';
-		require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
-		include_once ABSPATH . 'wp-admin/includes/plugin-install.php';
+        $slug         = $plugin['slug'] ?? '';
+        $download_url = $plugin['download_link'] ?? '';
 
-		$slug         = $plugin['slug'] ?? '';
-		$download_url = $plugin['download_link'] ?? '';
+        if ( ! $download_url ) {
+            throw new \Exception(
+                __( 'Invalid download link', 'directorist' ),
+                403
+            );
+        }
 
-		if ( ! $download_url ) {
-			throw new \Exception(
-				__( 'Invalid download link', 'directorist' ),
-				403
-			);
-		}
+        $errors   = [];
+        $skin     = new WP_Ajax_Upgrader_Skin();
+        $upgrader = new Plugin_Upgrader( $skin );
 
-		$errors   = [];
-		$skin     = new WP_Ajax_Upgrader_Skin();
-		$upgrader = new Plugin_Upgrader( $skin );
+        $result = $upgrader->install( $download_url );
 
-		$result = $upgrader->install( $download_url );
+        if ( is_wp_error( $result ) ) {
+            throw new \Exception( $result->get_error_message(), $result->get_error_code() );
+        }
 
-		if ( is_wp_error( $result ) ) {
-			throw new \Exception( $result->get_error_message(), $result->get_error_code() );
-		}
+        error_log( '$result  : ' . print_r( $result, true ) );
 
-		error_log( '$result  : ' . print_r( $result, true ) );
+        return [
+            'success' => true,
+            'slug'    => $slug,
+        ];
+    }
 
-		return [
-			'success' => true,
-			'slug'    => $slug,
-		];
-	}
+    public function upgrade( array $plugin ) {
+        $this->includes();
+        require_once ABSPATH . 'wp-admin/includes/file.php';
+        require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
+        include_once ABSPATH . 'wp-admin/includes/plugin-install.php';
 
-	public function upgrade( array $plugin ) {
-		$this->includes();
-		require_once ABSPATH . 'wp-admin/includes/file.php';
-		require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
-		include_once ABSPATH . 'wp-admin/includes/plugin-install.php';
+        $slug = $plugin['slug'] ?? '';
 
-		$slug = $plugin['slug'] ?? '';
+        // Find installed plugin file
+        $installed_plugins = $this->get();
+        $plugin_file       = null;
 
-		// Find installed plugin file
-		$installed_plugins = $this->get();
-		$plugin_file       = null;
+        foreach ( $installed_plugins as $file => $info ) {
+            if ( strpos( $file, $slug . '/' ) === 0 || strpos( $file, $slug . '-' ) === 0 ) {
+                $plugin_file = $file;
+                break;
+            }
+        }
 
-		foreach ( $installed_plugins as $file => $info ) {
-			if ( strpos( $file, $slug . '/' ) === 0 || strpos( $file, $slug . '-' ) === 0 ) {
-				$plugin_file = $file;
-				break;
-			}
-		}
+        if ( ! $plugin_file ) {
+            throw new \Exception( __( 'Plugin file not found for upgrade.', 'directorist' ), 404 );
+        }
 
-		if ( ! $plugin_file ) {
-			throw new \Exception( __( 'Plugin file not found for upgrade.', 'directorist' ), 404 );
-		}
+        $skin     = new WP_Ajax_Upgrader_Skin();
+        $upgrader = new Plugin_Upgrader( $skin );
 
-		$skin     = new WP_Ajax_Upgrader_Skin();
-		$upgrader = new Plugin_Upgrader( $skin );
+        $result = $upgrader->upgrade( $plugin_file );
 
-		$result = $upgrader->upgrade( $plugin_file );
+        if ( is_wp_error( $result ) ) {
+            throw new \Exception( $result->get_error_message(), $result->get_error_code() );
+        }
 
-		if ( is_wp_error( $result ) ) {
-			throw new \Exception( $result->get_error_message(), $result->get_error_code() );
-		}
+        return [
+            'success' => true,
+            'slug'    => $slug,
+        ];
+    }
 
-		return [
-			'success' => true,
-			'slug'    => $slug,
-		];
-	}
+    public function activate( string $slug ) {
+        $installed_plugins = $this->get();
 
-	public function activate( string $slug ) {
-		$installed_plugins = $this->get();
+        // Find the correct plugin file
+        $file_name = null;
+        foreach ( $installed_plugins as $plugin_file => $plugin_info ) {
+            if ( strpos( $plugin_file, $slug . '/' ) === 0 || strpos( $plugin_file, $slug . '-' ) === 0 ) {
+                $file_name = $plugin_file;
+                break;
+            }
+        }
 
-		// Find the correct plugin file
-		$file_name = null;
-		foreach ( $installed_plugins as $plugin_file => $plugin_info ) {
-			if ( strpos( $plugin_file, $slug . '/' ) === 0 || strpos( $plugin_file, $slug . '-' ) === 0 ) {
-				$file_name = $plugin_file;
-				break;
-			}
-		}
+        if ( ! $file_name ) {
+            throw new \Exception(
+                __( 'Plugin file not found for activation.', 'directorist' ),
+                404
+            );
+        }
 
-		if ( ! $file_name ) {
-			throw new \Exception(
-				__( 'Plugin file not found for activation.', 'directorist' ),
-				404
-			);
-		}
+        if ( ! is_plugin_inactive( $file_name ) ) {
+            return true;
+        }
 
-		if ( ! is_plugin_inactive( $file_name ) ) {
-			return true;
-		}
+        $result = activate_plugin( $file_name, false, false );
 
-		$result = activate_plugin( $file_name, false, false );
+        if ( is_wp_error( $result ) ) {
+            throw new \Exception(
+                esc_html__( $result->get_error_message(), 'directorist' ),
+                401
+            );
+        }
 
-		if ( is_wp_error( $result ) ) {
-			throw new \Exception(
-				esc_html__( $result->get_error_message(), 'directorist' ),
-				401
-			);
-		}
+        return true;
+    }
 
-		return true;
-	}
+    public function deactivate( string $slug ) {
+        $installed_plugins = $this->get();
 
-	public function deactivate( string $slug ) {
-		$installed_plugins = $this->get();
+        // Find the correct plugin file
+        $file_name = null;
+        foreach ( $installed_plugins as $plugin_file => $plugin_info ) {
+            if ( strpos( $plugin_file, $slug . '/' ) === 0 || strpos( $plugin_file, $slug . '-' ) === 0 ) {
+                $file_name = $plugin_file;
+                break;
+            }
+        }
 
-		// Find the correct plugin file
-		$file_name = null;
-		foreach ( $installed_plugins as $plugin_file => $plugin_info ) {
-			if ( strpos( $plugin_file, $slug . '/' ) === 0 || strpos( $plugin_file, $slug . '-' ) === 0 ) {
-				$file_name = $plugin_file;
-				break;
-			}
-		}
+        if ( ! $file_name ) {
+            throw new \Exception(
+                __( 'Plugin file not found for deactivation.', 'directorist' ),
+                404
+            );
+        }
 
-		if ( ! $file_name ) {
-			throw new \Exception(
-				__( 'Plugin file not found for deactivation.', 'directorist' ),
-				404
-			);
-		}
+        // Check if the plugin is already inactive
+        if ( ! is_plugin_active( $file_name ) ) {
+            return true; // Plugin is already inactive
+        }
 
-		// Check if the plugin is already inactive
-		if ( ! is_plugin_active( $file_name ) ) {
-			return true; // Plugin is already inactive
-		}
+        // Deactivate the plugin
+        deactivate_plugins( $file_name ); // Use deactivate_plugins for deactivation
 
-		// Deactivate the plugin
-		deactivate_plugins( $file_name ); // Use deactivate_plugins for deactivation
+        // Ensure the plugin is deactivated after calling deactivate_plugins
+        if ( is_plugin_active( $file_name ) ) {
+            throw new \Exception(
+                __( 'Failed to deactivate the plugin.', 'directorist' ),
+                500
+            );
+        }
 
-		// Ensure the plugin is deactivated after calling deactivate_plugins
-		if ( is_plugin_active( $file_name ) ) {
-			throw new \Exception(
-				__( 'Failed to deactivate the plugin.', 'directorist' ),
-				500
-			);
-		}
+        return true;
+    }
 
-		return true;
-	}
+    public function update( string $slug ) {
+        $extensions = $this->get_unlocked_extensions();
 
-	public function update( string $slug ) {
-		$extensions = $this->get_unlocked_extensions();
+        // Find the extension by slug
+        $plugin_data = null;
+        foreach ( $extensions as $extension ) {
+            if ( $extension['slug'] === $slug ) {
+                $plugin_data = $extension;
+                break;
+            }
+        }
 
-		// Find the extension by slug
-		$plugin_data = null;
-		foreach ( $extensions as $extension ) {
-			if ( $extension['slug'] === $slug ) {
-				$plugin_data = $extension;
-				break;
-			}
-		}
+        if ( ! $plugin_data ) {
+            throw new \Exception(
+                __( 'You do not have access to update this extension.', 'directorist' ),
+                403
+            );
+        }
 
-		if ( ! $plugin_data ) {
-			throw new \Exception(
-				__( 'You do not have access to update this extension.', 'directorist' ),
-				403
-			);
-		}
+        try {
+            // Attempt to update the plugin by reinstalling
+            $this->upgrade( $plugin_data );
 
-		try {
-			// Attempt to update the plugin by reinstalling
-			$this->upgrade( $plugin_data );
+            return [
+                'success' => true,
+                'message' => __( 'Extension updated successfully.', 'directorist' ),
+            ];
 
-			return [
-				'success' => true,
-				'message' => __( 'Extension updated successfully.', 'directorist' ),
-			];
+        } catch ( \Exception $e ) {
+            return [
+                'success' => false,
+                'message' => $e->getMessage(),
+                'code'    => $e->getCode(),
+            ];
+        }
+    }
 
-		} catch ( \Exception $e ) {
-			return [
-				'success' => false,
-				'message' => $e->getMessage(),
-				'code'    => $e->getCode(),
-			];
-		}
-	}
+    private function get(): array {
+        $this->includes();
 
-	private function get(): array {
-		$this->includes();
+        return get_plugins();
+    }
 
-		return get_plugins();
-	}
+    public function get_unlocked_extensions(): array {
+        return Licensing_Plan::get_unlocked_products( 'extensions' ) ?? [];
+    }
 
-	public function get_unlocked_extensions(): array {
-		return Licensing_Plan::get_unlocked_products( 'extensions' ) ?? [];
-	}
-
-	public function includes(): void {
-		if ( ! function_exists( 'is_plugin_active' ) || ! function_exists( 'get_plugins' ) ) {
-			require_once ABSPATH . 'wp-admin/includes/plugin.php';
-		}
-	}
+    public function includes(): void {
+        if ( ! function_exists( 'is_plugin_active' ) || ! function_exists( 'get_plugins' ) ) {
+            require_once ABSPATH . 'wp-admin/includes/plugin.php';
+        }
+    }
 }

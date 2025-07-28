@@ -220,25 +220,25 @@ final class Directorist_Base {
 
             add_action( 'init', [ self::$instance, 'on_install_update_actions' ] );
 
-			self::$instance->hooks = new ATBDP_Hooks();
-			self::$instance->metabox = new ATBDP_Metabox();
-			self::$instance->ajax_handler = new ATBDP_Ajax_Handler();
-			self::$instance->helper = new ATBDP_Helper();
-			self::$instance->listing = new ATBDP_Listing();
-			self::$instance->user = new ATBDP_User();
-			self::$instance->roles = new ATBDP_Roles();
-			if( class_exists( 'ATBDP_Gateway' ) ) {
-				self::$instance->gateway = new ATBDP_Gateway();
-			}
-			self::$instance->order = new ATBDP_Order();
-			self::$instance->shortcode = new \Directorist\ATBDP_Shortcode();
-			self::$instance->email = new ATBDP_Email();
-			self::$instance->seo = new ATBDP_SEO();
-			// self::$instance->validator = new ATBDP_Validator;
-			// self::$instance->ATBDP_Single_Templates = new ATBDP_Single_Templates;
-			self::$instance->tools = new ATBDP_Tools();
-			
-			new Directorist_Multilingual();
+            self::$instance->hooks = new ATBDP_Hooks();
+            self::$instance->metabox = new ATBDP_Metabox();
+            self::$instance->ajax_handler = new ATBDP_Ajax_Handler();
+            self::$instance->helper = new ATBDP_Helper();
+            self::$instance->listing = new ATBDP_Listing();
+            self::$instance->user = new ATBDP_User();
+            self::$instance->roles = new ATBDP_Roles();
+            if ( class_exists( 'ATBDP_Gateway' ) ) {
+                self::$instance->gateway = new ATBDP_Gateway();
+            }
+            self::$instance->order = new ATBDP_Order();
+            self::$instance->shortcode = new \Directorist\ATBDP_Shortcode();
+            self::$instance->email = new ATBDP_Email();
+            self::$instance->seo = new ATBDP_SEO();
+            // self::$instance->validator = new ATBDP_Validator;
+            // self::$instance->ATBDP_Single_Templates = new ATBDP_Single_Templates;
+            self::$instance->tools = new ATBDP_Tools();
+            
+            new Directorist_Multilingual();
             
             Directorist\Asset_Loader\Asset_Loader::init();
 

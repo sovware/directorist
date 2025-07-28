@@ -9,7 +9,9 @@
 	window.addEventListener('load', () => {
 		/* Initialize wp color picker */
 		function colorPickerInit() {
-			const wpColorPickers = document.querySelectorAll('.directorist-color-picker-wrap');
+			const wpColorPickers = document.querySelectorAll(
+				'.directorist-color-picker-wrap'
+			);
 
 			wpColorPickers.forEach((wrap) => {
 				const $pickerInput = $(wrap).find('.directorist-color-picker');
@@ -21,13 +23,16 @@
 								const color = ui.color.toString();
 
 								// Dispatch custom event
-								const colorChangeEvent = new CustomEvent('directorist-color-changed', {
-									detail: {
-										color,
-										input: event.target,
-										form: event.target.closest('form'),
-									},
-								});
+								const colorChangeEvent = new CustomEvent(
+									'directorist-color-changed',
+									{
+										detail: {
+											color,
+											input: event.target,
+											form: event.target.closest('form'),
+										},
+									}
+								);
 
 								window.dispatchEvent(colorChangeEvent);
 							},

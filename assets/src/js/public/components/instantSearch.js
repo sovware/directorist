@@ -1,5 +1,5 @@
 import debounce from '../../global/components/debounce';
-import initSearchCategoryCustomFields from "./category-custom-fields";
+import initSearchCategoryCustomFields from './category-custom-fields';
 
 (function ($) {
 	/** 
@@ -226,7 +226,7 @@ import initSearchCategoryCustomFields from "./category-custom-fields";
 
 		return instant_search_data;
 	}
-	
+
 	// Update or retain existing keys in form_data
 	function updateFormData(newData) {
 		Object.entries(newData).forEach(([key, value]) => {
@@ -783,7 +783,7 @@ import initSearchCategoryCustomFields from "./category-custom-fields";
 		debounce(function (e) {
 			e.preventDefault();
 			var searchElm = $(this).closest('.listing-with-sidebar');
-			
+
 			// Instant search with required value
 			performInstantSearchWithRequiredValue(searchElm);
 		}, 250)
@@ -828,9 +828,10 @@ import initSearchCategoryCustomFields from "./category-custom-fields";
 			performInstantSearchWithRequiredValue(searchElm);
 		}, 250)
 	);
-	
+
 	// sidebar on change searching - color
-	window.addEventListener('directorist-color-changed',
+	window.addEventListener(
+		'directorist-color-changed',
 		debounce(function (e) {
 			const { input } = e.detail;
 			const searchElm = $(input).closest('.listing-with-sidebar');
@@ -878,8 +879,10 @@ import initSearchCategoryCustomFields from "./category-custom-fields";
 
 			// Clear text, email, number, select fields etc
 			$searchField
-			.find('input:not([type="checkbox"]):not([type="radio"]):not(.wp-picker-clear), select')
-			.val('');
+				.find(
+					'input:not([type="checkbox"]):not([type="radio"]):not(.wp-picker-clear), select'
+				)
+				.val('');
 
 			// Clear checkboxes
 			$searchField.find('input[type="checkbox"]').prop('checked', false);
@@ -894,7 +897,7 @@ import initSearchCategoryCustomFields from "./category-custom-fields";
 		}
 	);
 
-	// Directorist instant search reset 
+	// Directorist instant search reset
 	$('body').on(
 		'click',
 		'.directorist-instant-search .listing-with-sidebar  .directorist-btn-reset-js',
@@ -917,7 +920,7 @@ import initSearchCategoryCustomFields from "./category-custom-fields";
 		}
 	);
 
-	// Directorist instant search submit 
+	// Directorist instant search submit
 	$('body').on('submit', '.directorist-instant-search form', function (e) {
 		e.preventDefault();
 		let _this = $(this);
@@ -1094,7 +1097,9 @@ import initSearchCategoryCustomFields from "./category-custom-fields";
 	});
 
 	// Prevent default action for dropdown links
-	$('.directorist-instant-search .directorist-dropdown__links__single-js').off('click');
+	$(
+		'.directorist-instant-search .directorist-dropdown__links__single-js'
+	).off('click');
 
 	// Initialize Infinite Scroll
 	window.addEventListener('scroll', function () {
@@ -1111,6 +1116,5 @@ import initSearchCategoryCustomFields from "./category-custom-fields";
 		debounce(initObserver(), 250);
 
 		singleCategoryLocationInit();
-
 	});
 })(jQuery);

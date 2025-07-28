@@ -1,0 +1,99 @@
+.directorist-single-author-info {
+    figure{
+        margin: 0;
+    }
+    .diretorist-view-profile-btn {
+        margin-top: 22px;
+        padding: 0 30px;
+    }
+}
+
+// Directorist Author Avatar
+.directorist-single-author-avatar {
+    display: flex;
+    align-items: center;
+
+    .directorist-single-author-avatar-inner {
+        margin-right: 10px;
+        width: auto;
+        img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+    }
+
+    .directorist-single-author-name {
+
+        h1,h2,h3,h4,h5,h6 {
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 1.2;
+            letter-spacing: normal;
+            margin: 0 0 3px;
+            color: var(--color-dark);
+        }
+    }
+    .directorist-single-author-membership {
+        font-size: 14px;
+        color: var(--directorist-color-light-gray);
+    }
+}
+
+// Directorist Author Contact Info
+.directorist-single-author-contact-info {
+    margin-top: 15px;
+    ul {
+        flex-direction: column;
+        margin: 0;
+        padding: 0;
+        li {
+            width: 100%;
+            flex: 100%;
+            display: flex;
+            align-items: center;
+            padding-left: 0;
+            margin-left: 0;
+            &:not(:last-child){
+                margin-bottom: 12px;
+            }
+        }
+        a{
+            text-decoration: none;
+            color: var(--directorist-color-body);
+            &:hover{
+                color: var(--directorist-color-primary);
+            }
+        }
+        .directorist-icon-mask::after{
+            width: 14px;
+            height: 14px;
+            background-color: var(--directorist-color-light-gray);
+        }
+    }
+}
+.directorist-single-author-contact-info-text {
+    font-size: 15px;
+    margin-left: 12px;
+    box-shadow: none;
+    color: var(--directorist-color-body);
+}
+
+// Directorist Author Social
+.directorist-single-author-info .directorist-social-wrap {
+    display: flex;
+    margin: 25px -5px -5px;
+
+    a {
+        margin: 5px;
+        display: block;
+        line-height: 35px;
+        width: 35px;
+        text-align: center;
+        background-color: var(--directorist-color-body) !important;
+        border-radius: 4px;
+        color: var(--directorist-color-white) !important;
+        overflow: hidden;
+        transition: all ease-in-out 300ms !important;
+    }
+}

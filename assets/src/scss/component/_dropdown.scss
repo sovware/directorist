@@ -1,0 +1,137 @@
+// Directorist Dropdown Style
+.directorist-dropdown {
+    position: relative;
+    @include e('toggle') {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 14px;
+        font-weight: 400;
+        color: var(--directorist-color-body);
+        background-color: var(--directorist-color-light);
+        border-color:var(--directorist-color-light);
+        padding: 0 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        position: relative;
+        &:focus,
+        &:hover {
+            background-color: var(--directorist-color-light) !important;
+            border-color:var(--directorist-color-light) !important;
+            outline: 0 !important;
+            color: var(--directorist);
+        }
+
+        &.directorist-toggle-has-icon {
+            &:after {
+                content: '';
+                mask-image: url("../../../icons/line-awesome/svgs/angle-down-solid.svg");
+                mask-repeat: no-repeat;
+                width: 12px;
+                height: 12px;
+                background-color: currentColor;
+            }
+        }
+    }
+
+    @include e('links') {
+        display: none;
+        position: absolute;
+        width: 100%;
+        min-width: 190px;
+        overflow-y: auto;
+        left: 0;
+        top: 30px;
+        padding: 10px;
+        border: none;
+        border-radius: 8px;
+        background-color: var(--directorist-color-white);
+        box-shadow: var(--directorist-box-shadow);
+        border: 1px solid var(--directorist-color-border-light);
+        z-index: 99999;
+
+        a {
+            display: block;
+            font-size: 14px;
+            font-weight: 400;
+            display: block;
+            padding: 10px;
+            border-radius: 8px;
+            text-decoration: none !important;
+            color: var(--directorist-color-body);
+            transition: all ease 0.3s;
+            &.active,
+            &:hover {
+                border-radius: 8px;
+                color: var(--directorist-color-primary);
+                background-color: rgba(var(--directorist-color-primary-rgb), 0.05);
+            }
+
+            @media screen and (max-width: 575px) {
+                padding: 5px 10px;
+            }
+        }
+
+        @include m(right) {
+            left: auto;
+            right: 0;
+        }
+
+        @media (max-width: 1440px) {
+            left: unset;
+            right: 0;
+        }
+    }
+
+    &.directorist-sortby-dropdown {
+        border-radius: 8px;
+        border: 2px solid var(--directorist-color-white);
+    }
+}
+
+/* custom dropdown with select */
+.directorist-dropdown-select {
+    position: relative;
+}
+
+.directorist-dropdown-select-toggle {
+    display: inline-block;
+    border: 1px solid #eee;
+    padding: 7px 15px;
+    position: relative;
+
+    &:before {
+        content: '';
+        position: absolute !important;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+    }
+}
+
+.directorist-dropdown-select-items {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 40px;
+    border: 1px solid #eee;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.3s ease;
+    background-color: var(--directorist-color-white);
+    z-index: 10;
+}
+
+.directorist-dropdown-select-items.directorist-dropdown-select-show {
+    top: 30px;
+    visibility: visible;
+    opacity: 1;
+    pointer-events: all;
+}
+
+.directorist-dropdown-select-item {
+    display: block;
+}

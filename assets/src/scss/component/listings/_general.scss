@@ -1,0 +1,57 @@
+.directorist-form-section{
+    font-size: 15px;
+}
+
+/* Display Each Grid Info on Single Line */
+.directorist-archive-contents .directorist-single-line .directorist-listing-title,
+.directorist-archive-contents .directorist-single-line .directorist-listing-tagline,
+.directorist-archive-contents .directorist-single-line .directorist-listing-single__info__list ul li div,
+.directorist-archive-contents .directorist-single-line .directorist-listing-single__info__excerpt{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+// All Listing Modal Btn
+.directorist-all-listing-btn {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    padding-bottom: 20px;
+    justify-content: space-between;
+    @include e(basic) {
+        flex: 1;
+    }
+    .directorist-btn__back {
+        i::after {
+            width: 16px;
+            height: 16px;
+        }
+    }
+    .directorist-modal-btn--basic {
+        display: flex;
+        flex: 1;
+        gap: 10px;
+        min-height: 40px;
+        border-radius: 30px;
+        align-items: center;
+        i::after {
+            width: 16px;
+            height: 16px;
+            transform: rotate(270deg);
+        }
+    }
+    .directorist-modal-btn--advanced {
+        i::after {
+            width: 16px;
+            height: 16px;
+        }
+    }
+}
+
+@media screen and (min-width: 576px) {
+    .directorist-all-listing-btn,
+    .directorist-all-listing-modal {
+        display: none;
+    }
+}

@@ -232,13 +232,8 @@ use Directorist\Listings_CSV_Importer as Importer;
 
 			$supported_post_status = array_keys( get_post_statuses() );
 			$listing_create_status = directorist_get_listing_create_status( $directory_id );
-<<<<<<< HEAD
-			$offset                = ! empty( $_POST['_offset'] ) ? absint( $_POST['_offset'] ) : 0;
-			$position              = ! empty( $_POST['_position'] ) ? absint( $_POST['_position'] ) : 0;
-=======
 			$offset                = ! empty( $_POST['offset'] ) ? absint( $_POST['offset'] ) : 0;
 			$position              = ! empty( $_POST['position'] ) ? absint( $_POST['position'] ) : 0;
->>>>>>> dfda0415b (Development (#2325))
 			$preview_image         = ! empty( $_POST['listing_img'] ) ? directorist_clean( wp_unslash( $_POST['listing_img'] ) ) : '';
 			$title                 = ! empty( $_POST['listing_title'] ) ? directorist_clean( wp_unslash( $_POST['listing_title'] ) ) : '';
 			$listing_status        = ! empty( $_POST['listing_status'] ) ? directorist_clean( wp_unslash( $_POST['listing_status'] ) ) : '';
@@ -279,22 +274,13 @@ use Directorist\Listings_CSV_Importer as Importer;
 
 				$row = $file_object->fgetcsv();
 
-<<<<<<< HEAD
-				if ( empty( array_filter( $row ) ) ) {
-					$processed_logs[] = sprintf( '❌ [%d]: Empty row.', $position );
-=======
 				if ( empty( $row ) ) {
 					$failed_items[] = sprintf( 'Row %d: Empty row', $position );
->>>>>>> dfda0415b (Development (#2325))
 					continue;
 				}
 
 				if ( $columns_count !== count( $row ) ) {
-<<<<<<< HEAD
-					$processed_logs[] = sprintf( '❌ [%d]: Header and row mismatch.', $position );
-=======
 					$failed_items[] = sprintf( 'Row %d: Column count mismatch', $position );
->>>>>>> dfda0415b (Development (#2325))
 					continue;
 				}
 
@@ -340,26 +326,16 @@ use Directorist\Listings_CSV_Importer as Importer;
 				// Create listing
 				$post_id = wp_insert_post( $args, true );
 				if ( is_wp_error( $post_id ) ) {
-<<<<<<< HEAD
-					$processed_logs[] = sprintf(
-						'❌ [%d]: %s (%s)',
-						$position,
-=======
 					$failed_items[] = sprintf(
 						'Row %d - Title %s: %s',
 						$file_object->key(),
->>>>>>> dfda0415b (Development (#2325))
 						$args['post_title'],
 						$post_id->get_error_message()
 					);
 					continue;
 				}
 
-<<<<<<< HEAD
-				$processed_logs[] = sprintf( '✅ [%d->%d]: %s', $position, $post_id, $args['post_title'] );
-=======
 				$imported_items[] = sprintf( 'Row %d - ID %d: %s', $file_object->key(), $post_id, $args['post_title'] );
->>>>>>> dfda0415b (Development (#2325))
 
 				// Save listing directory type.
 				update_post_meta( $post_id, '_directory_type', $directory_id );
@@ -493,14 +469,6 @@ use Directorist\Listings_CSV_Importer as Importer;
 			// 	directorist_background_image_process( $deferred_resizable_images );
 			// }
 
-<<<<<<< HEAD
-			$data['offset']       = $file_object->ftell();
-			$data['done']         = $file_object->eof();
-			$data['position']     = $position;
-			$data['total']        = $total_items;
-			$data['logs']         = $processed_logs;
-			$data['redirect_url'] = esc_url( admin_url( 'edit.php?post_type=at_biz_dir&page=tools&step=3' ) );
-=======
 			$data['offset']         = $file_object->ftell();
 			$data['redirect_url']   = esc_url( admin_url( 'edit.php?post_type=at_biz_dir&page=tools&step=3' ) );
 			$data['total']          = $total_items;
@@ -508,7 +476,6 @@ use Directorist\Listings_CSV_Importer as Importer;
 			$data['imported_items'] = $imported_items;
 			$data['failed_items']   = $failed_items;
 			$data['done']           = ( $position === $total_items );
->>>>>>> dfda0415b (Development (#2325))
 
             wp_send_json( $data );
         }

@@ -1,0 +1,51 @@
+// Directorist Card Style
+.directorist-content-active {
+    .directorist-card {
+        border: none;
+        padding: 0;
+        border-radius: 12px;
+        background-color: var(--directorist-color-white);
+        box-shadow: var(--directorist-box-shadow);
+        border: 1px solid var(--directorist-color-border-light);
+        @include e('header'){
+            padding: 20px 25px;
+            border-bottom: 1px solid var(--directorist-color-border);
+            border-radius: 16px 16px 0 0;
+            @media screen and (max-width: 575px){
+                padding: 15px 20px;
+            }
+            @include e('title'){
+                font-size: 18px;
+                font-weight: 500;
+                line-height: 1.2;
+                color: var(--directorist-color-dark);
+                letter-spacing: normal;
+                display: flex;
+                align-items: center;
+                padding: 0;
+                margin: 0;
+            }
+        }
+        @include e('body'){
+            padding: 25px;
+            border-radius: 0 0 16px 16px;
+            @media screen and (max-width: 575px){
+                padding: 20px;
+            }
+            .directorist-review-single,
+            .directorist-widget-tags ul {
+                padding: 0;
+            }
+            p{
+                font-size: 15px;
+                margin-top: 0;
+                &:last-child{
+                    margin-bottom: 0;
+                }
+            }
+            p:empty{
+                display: none;
+            }
+        }
+    }
+}

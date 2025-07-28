@@ -1,97 +1,11 @@
-/******/ (function(modules) { // webpackBootstrap
-/******/ 	// The module cache
-/******/ 	var installedModules = {};
-/******/
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId]) {
-/******/ 			return installedModules[moduleId].exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			i: moduleId,
-/******/ 			l: false,
-/******/ 			exports: {}
-/******/ 		};
-/******/
-/******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
-/******/ 		// Flag the module as loaded
-/******/ 		module.l = true;
-/******/
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/
-/******/
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
-/******/
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
-/******/
-/******/ 	// define getter function for harmony exports
-/******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
-/******/ 		}
-/******/ 	};
-/******/
-/******/ 	// define __esModule on exports
-/******/ 	__webpack_require__.r = function(exports) {
-/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 		}
-/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 	};
-/******/
-/******/ 	// create a fake namespace object
-/******/ 	// mode & 1: value is a module id, require it
-/******/ 	// mode & 2: merge all properties of value into the ns
-/******/ 	// mode & 4: return value when already ns object
-/******/ 	// mode & 8|1: behave like require
-/******/ 	__webpack_require__.t = function(value, mode) {
-/******/ 		if(mode & 1) value = __webpack_require__(value);
-/******/ 		if(mode & 8) return value;
-/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
-/******/ 		var ns = Object.create(null);
-/******/ 		__webpack_require__.r(ns);
-/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
-/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
-/******/ 		return ns;
-/******/ 	};
-/******/
-/******/ 	// getDefaultExport function for compatibility with non-harmony modules
-/******/ 	__webpack_require__.n = function(module) {
-/******/ 		var getter = module && module.__esModule ?
-/******/ 			function getDefault() { return module['default']; } :
-/******/ 			function getModuleExports() { return module; };
-/******/ 		__webpack_require__.d(getter, 'a', getter);
-/******/ 		return getter;
-/******/ 	};
-/******/
-/******/ 	// Object.prototype.hasOwnProperty.call
-/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-/******/
-/******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
-/******/
-/******/
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 8);
-/******/ })
-/************************************************************************/
-/******/ ({
+/******/ (function() { // webpackBootstrap
+/******/ 	var __webpack_modules__ = ({
 
 /***/ "./assets/src/js/public/atmodal.js":
 /*!*****************************************!*\
   !*** ./assets/src/js/public/atmodal.js ***!
   \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function() {
 
 /*
         Name:  ATModal
@@ -153,29 +67,27 @@ window.addEventListener('load', function () {
 /*!***********************************************************************!*\
   !*** ./assets/src/js/public/components/dashboard/dashBoardMoreBtn.js ***!
   \***********************************************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _atmodal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../atmodal */ "./assets/src/js/public/atmodal.js");
 /* harmony import */ var _atmodal__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_atmodal__WEBPACK_IMPORTED_MODULE_0__);
 
-;
 (function ($) {
   window.addEventListener('load', function () {
     // User Dashboard Table More Button
-    $('.directorist-dashboard-listings-tbody').on("click", '.directorist-btn-more', function (e) {
+    $('.directorist-dashboard-listings-tbody').on('click', '.directorist-btn-more', function (e) {
       e.preventDefault();
       $(this).toggleClass('active');
-      $(".directorist-dropdown-menu").removeClass("active");
-      $(this).next(".directorist-dropdown-menu").toggleClass("active");
+      $('.directorist-dropdown-menu').removeClass('active');
+      $(this).next('.directorist-dropdown-menu').toggleClass('active');
       e.stopPropagation();
     });
-    $(document).bind("click", function (e) {
+    $(document).bind('click', function (e) {
       if (!$(e.target).parents().hasClass('directorist-dropdown-menu__list')) {
-        $(".directorist-dropdown-menu").removeClass("active");
-        $(".directorist-btn-more").removeClass("active");
+        $('.directorist-dropdown-menu').removeClass('active');
+        $('.directorist-btn-more').removeClass('active');
       }
     });
   });
@@ -187,10 +99,8 @@ __webpack_require__.r(__webpack_exports__);
 /*!****************************************************************************!*\
   !*** ./assets/src/js/public/components/dashboard/dashboardAnnouncement.js ***!
   \****************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function() {
 
-;
 (function ($) {
   window.addEventListener('load', function () {
     // Clear seen Announcements
@@ -202,7 +112,7 @@ __webpack_require__.r(__webpack_exports__);
       var target = $(this).attr('target');
       if ('dashboard_announcement' === target) {
         $.ajax({
-          type: "post",
+          type: 'post',
           url: directorist.ajaxurl,
           data: {
             action: 'atbdp_clear_seen_announcements'
@@ -240,7 +150,7 @@ __webpack_require__.r(__webpack_exports__);
       closing_announcement = true;
       var self = this;
       $.ajax({
-        type: "post",
+        type: 'post',
         url: directorist.ajaxurl,
         data: form_data,
         beforeSend: function beforeSend() {
@@ -282,20 +192,18 @@ __webpack_require__.r(__webpack_exports__);
 /*!****************************************************************************!*\
   !*** ./assets/src/js/public/components/dashboard/dashboardBecomeAuthor.js ***!
   \****************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function() {
 
-;
 (function ($) {
   window.addEventListener('load', function () {
     // Dashboard become an author
     $('.directorist-become-author').on('click', function (e) {
       e.preventDefault();
-      $(".directorist-become-author-modal").addClass("directorist-become-author-modal__show");
+      $('.directorist-become-author-modal').addClass('directorist-become-author-modal__show');
     });
     $('.directorist-become-author-modal__cancel').on('click', function (e) {
       e.preventDefault();
-      $(".directorist-become-author-modal").removeClass("directorist-become-author-modal__show");
+      $('.directorist-become-author-modal').removeClass('directorist-become-author-modal__show');
     });
     $('.directorist-become-author-modal__approve').on('click', function (e) {
       e.preventDefault();
@@ -304,7 +212,7 @@ __webpack_require__.r(__webpack_exports__);
       var data = {
         userId: userId,
         nonce: nonce,
-        action: "atbdp_become_author"
+        action: 'atbdp_become_author'
       };
 
       // Send the data
@@ -312,7 +220,7 @@ __webpack_require__.r(__webpack_exports__);
         $('.directorist-become-author__loader').addClass('active');
         $('#directorist-become-author-success').html(response);
         $('.directorist-become-author').hide();
-        $(".directorist-become-author-modal").removeClass("directorist-become-author-modal__show");
+        $('.directorist-become-author-modal').removeClass('directorist-become-author-modal__show');
       });
     });
   });
@@ -324,10 +232,8 @@ __webpack_require__.r(__webpack_exports__);
 /*!***********************************************************************!*\
   !*** ./assets/src/js/public/components/dashboard/dashboardListing.js ***!
   \***********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function() {
 
-;
 (function ($) {
   window.addEventListener('load', function () {
     // Dashboard Listing Ajax
@@ -342,13 +248,13 @@ __webpack_require__.r(__webpack_exports__);
         type: 'POST',
         dataType: 'json',
         data: {
-          'action': 'directorist_dashboard_listing_tab',
-          '_ajax_nonce': directorist.directorist_nonce,
-          'tab': tab,
-          'paged': paged,
-          'search': search,
-          'task': task,
-          'taskdata': taskdata
+          action: 'directorist_dashboard_listing_tab',
+          _ajax_nonce: directorist.directorist_nonce,
+          tab: tab,
+          paged: paged,
+          search: search,
+          task: task,
+          taskdata: taskdata
         },
         beforeSend: function beforeSend() {
           $('#directorist-dashboard-preloader').show();
@@ -389,10 +295,10 @@ __webpack_require__.r(__webpack_exports__);
         swal({
           title: directorist.listing_remove_title,
           text: directorist.listing_remove_text,
-          type: "warning",
+          type: 'warning',
           cancelButtonText: directorist.review_cancel_btn_text,
           showCancelButton: true,
-          confirmButtonColor: "#DD6B55",
+          confirmButtonColor: '#DD6B55',
           confirmButtonText: directorist.listing_remove_confirm_text,
           showLoaderOnConfirm: true,
           closeOnConfirm: false
@@ -401,7 +307,7 @@ __webpack_require__.r(__webpack_exports__);
             directorist_dashboard_listing_ajax($activeTab, paged, search, task, postid);
             swal({
               title: directorist.listing_delete,
-              type: "success",
+              type: 'success',
               timer: 200,
               showConfirmButton: false
             });
@@ -420,10 +326,10 @@ __webpack_require__.r(__webpack_exports__);
       swal({
         title: directorist.listing_remove_title,
         text: directorist.listing_remove_text,
-        type: "warning",
+        type: 'warning',
         cancelButtonText: directorist.review_cancel_btn_text,
         showCancelButton: true,
-        confirmButtonColor: "#DD6B55",
+        confirmButtonColor: '#DD6B55',
         confirmButtonText: directorist.listing_remove_confirm_text,
         showLoaderOnConfirm: true,
         closeOnConfirm: false
@@ -436,18 +342,18 @@ __webpack_require__.r(__webpack_exports__);
               // show success message
               swal({
                 title: directorist.listing_delete,
-                type: "success",
+                type: 'success',
                 timer: 200,
                 showConfirmButton: false
               });
-              $("#listing_id_" + id).remove();
+              $('#listing_id_' + id).remove();
               $this.remove();
             } else {
               // show error message
               swal({
                 title: directorist.listing_error_title,
                 text: directorist.listing_error_text,
-                type: "error",
+                type: 'error',
                 timer: 2000,
                 showConfirmButton: false
               });
@@ -490,26 +396,24 @@ __webpack_require__.r(__webpack_exports__);
 /*!**************************************************************************!*\
   !*** ./assets/src/js/public/components/dashboard/dashboardResponsive.js ***!
   \**************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function() {
 
-;
 (function ($) {
   window.addEventListener('load', function () {
     //dashboard content responsive fix
-    var tabContentWidth = $(".directorist-user-dashboard .directorist-user-dashboard__contents").innerWidth();
+    var tabContentWidth = $('.directorist-user-dashboard .directorist-user-dashboard__contents').innerWidth();
     if (tabContentWidth < 1399) {
-      $(".directorist-user-dashboard .directorist-user-dashboard__contents").addClass("directorist-tab-content-grid-fix");
+      $('.directorist-user-dashboard .directorist-user-dashboard__contents').addClass('directorist-tab-content-grid-fix');
     }
-    $(window).bind("resize", function () {
+    $(window).bind('resize', function () {
       if ($(this).width() <= 1199) {
-        $(".directorist-user-dashboard__nav").addClass("directorist-dashboard-nav-collapsed");
-        $(".directorist-shade").removeClass("directorist-active");
+        $('.directorist-user-dashboard__nav').addClass('directorist-dashboard-nav-collapsed');
+        $('.directorist-shade').removeClass('directorist-active');
       }
-    }).trigger("resize");
+    }).trigger('resize');
     $('.directorist-dashboard__nav__close, .directorist-shade').on('click', function () {
-      $(".directorist-user-dashboard__nav").addClass('directorist-dashboard-nav-collapsed');
-      $(".directorist-shade").removeClass("directorist-active");
+      $('.directorist-user-dashboard__nav').addClass('directorist-dashboard-nav-collapsed');
+      $('.directorist-shade').removeClass('directorist-active');
     });
 
     // Profile Responsive
@@ -527,43 +431,40 @@ __webpack_require__.r(__webpack_exports__);
 /*!***********************************************************************!*\
   !*** ./assets/src/js/public/components/dashboard/dashboardSidebar.js ***!
   \***********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function() {
 
-;
 (function ($) {
   window.addEventListener('load', function () {
     //dashboard sidebar nav toggler
-    $(".directorist-user-dashboard__toggle__link").on("click", function (e) {
+    $('.directorist-user-dashboard__toggle__link').on('click', function (e) {
       e.preventDefault();
-      $(".directorist-user-dashboard__nav").toggleClass("directorist-dashboard-nav-collapsed");
+      $('.directorist-user-dashboard__nav').toggleClass('directorist-dashboard-nav-collapsed');
       // $(".directorist-shade").toggleClass("directorist-active");
     });
-
     if ($(window).innerWidth() < 767) {
-      $(".directorist-user-dashboard__nav").addClass("directorist-dashboard-nav-collapsed");
-      $(".directorist-user-dashboard__nav").addClass("directorist-dashboard-nav-collapsed--fixed");
+      $('.directorist-user-dashboard__nav').addClass('directorist-dashboard-nav-collapsed');
+      $('.directorist-user-dashboard__nav').addClass('directorist-dashboard-nav-collapsed--fixed');
     }
 
     //dashboard nav dropdown
-    $(".directorist-tab__nav__link").on("click", function (e) {
+    $('.directorist-tab__nav__link').on('click', function (e) {
       e.preventDefault();
-      if ($(this).hasClass("atbd-dash-nav-dropdown")) {
+      if ($(this).hasClass('atbd-dash-nav-dropdown')) {
         // Slide toggle the sibling ul element
-        $(this).siblings("ul").slideToggle();
-      } else if (!$(this).parents(".atbdp_tab_nav--has-child").length > 0) {
+        $(this).siblings('ul').slideToggle();
+      } else if (!$(this).parents('.atbdp_tab_nav--has-child').length > 0) {
         // Slide up all the dropdown contents while clicked item is not inside dropdown
-        $(".atbd-dash-nav-dropdown").siblings("ul").slideUp();
+        $('.atbd-dash-nav-dropdown').siblings('ul').slideUp();
       }
     });
     if ($(window).innerWidth() < 1199) {
-      $(".directorist-tab__nav__link:not(.atbd-dash-nav-dropdown)").on("click", function () {
-        $(".directorist-user-dashboard__nav").addClass('directorist-dashboard-nav-collapsed');
-        $(".directorist-shade").removeClass("directorist-active");
+      $('.directorist-tab__nav__link:not(.atbd-dash-nav-dropdown)').on('click', function () {
+        $('.directorist-user-dashboard__nav').addClass('directorist-dashboard-nav-collapsed');
+        $('.directorist-shade').removeClass('directorist-active');
       });
-      $(".directorist-user-dashboard__toggle__link").on("click", function (e) {
+      $('.directorist-user-dashboard__toggle__link').on('click', function (e) {
         e.preventDefault();
-        $(".directorist-shade").toggleClass("directorist-active");
+        $('.directorist-shade').toggleClass('directorist-active');
       });
     }
   });
@@ -575,10 +476,8 @@ __webpack_require__.r(__webpack_exports__);
 /*!*******************************************************************!*\
   !*** ./assets/src/js/public/components/dashboard/dashboardTab.js ***!
   \*******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function() {
 
-;
 (function () {
   new DashTab('.directorist-tab');
 })();
@@ -589,10 +488,8 @@ __webpack_require__.r(__webpack_exports__);
 /*!*************************************************************!*\
   !*** ./assets/src/js/public/components/directoristAlert.js ***!
   \*************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function() {
 
-;
 (function ($) {
   // Make sure the codes in this file runs only once, even if enqueued twice
   if (typeof window.directorist_alert_executed === 'undefined') {
@@ -622,10 +519,8 @@ __webpack_require__.r(__webpack_exports__);
 /*!****************************************************************!*\
   !*** ./assets/src/js/public/components/directoristDropdown.js ***!
   \****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function() {
 
-;
 (function ($) {
   // Make sure the codes in this file runs only once, even if enqueued twice
   if (typeof window.directorist_dropdown_executed === 'undefined') {
@@ -707,17 +602,17 @@ __webpack_require__.r(__webpack_exports__);
     });
 
     //atbd_dropdown
-    $(document).on("click", '.atbd_dropdown', function (e) {
-      if ($(this).attr("class") === "atbd_dropdown") {
+    $(document).on('click', '.atbd_dropdown', function (e) {
+      if ($(this).attr('class') === 'atbd_dropdown') {
         e.preventDefault();
-        $(this).siblings(".atbd_dropdown").removeClass("atbd_drop--active");
-        $(this).toggleClass("atbd_drop--active");
+        $(this).siblings('.atbd_dropdown').removeClass('atbd_drop--active');
+        $(this).toggleClass('atbd_drop--active');
         e.stopPropagation();
       }
     });
-    $(document).on("click", function (e) {
-      if ($(e.target).is(".atbd_dropdown, .atbd_drop--active") === false) {
-        $(".atbd_dropdown").removeClass("atbd_drop--active");
+    $(document).on('click', function (e) {
+      if ($(e.target).is('.atbd_dropdown, .atbd_drop--active') === false) {
+        $('.atbd_dropdown').removeClass('atbd_drop--active');
       }
     });
     $('body').on('click', '.atbd_dropdown-toggle', function (e) {
@@ -746,10 +641,8 @@ __webpack_require__.r(__webpack_exports__);
 /*!****************************************************************!*\
   !*** ./assets/src/js/public/components/directoristFavorite.js ***!
   \****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function() {
 
-;
 (function ($) {
   // Make sure the codes in this file runs only once, even if enqueued twice
   if (typeof window.directorist_favorite_executed === 'undefined') {
@@ -762,9 +655,9 @@ __webpack_require__.r(__webpack_exports__);
     $('.directorist-action-bookmark').on('click', function (e) {
       e.preventDefault();
       var data = {
-        'action': 'atbdp_public_add_remove_favorites',
-        'directorist_nonce': directorist.directorist_nonce,
-        'post_id': $(this).data('listing_id')
+        action: 'atbdp_public_add_remove_favorites',
+        directorist_nonce: directorist.directorist_nonce,
+        post_id: $(this).data('listing_id')
       };
       $.post(directorist.ajaxurl, data, function (response) {
         if (response) {
@@ -776,11 +669,11 @@ __webpack_require__.r(__webpack_exports__);
       $(this).on('click', function (event) {
         event.preventDefault();
         var data = {
-          'action': 'atbdp-favourites-all-listing',
-          'directorist_nonce': directorist.directorist_nonce,
-          'post_id': $(this).data('listing_id')
+          action: 'atbdp-favourites-all-listing',
+          directorist_nonce: directorist.directorist_nonce,
+          post_id: $(this).data('listing_id')
         };
-        $(".directorist-favorite-tooltip").hide();
+        $('.directorist-favorite-tooltip').hide();
         $.post(directorist.ajaxurl, data, function (response) {
           var post_id = data['post_id'].toString();
           var staElement = $('.directorist_favourite_' + post_id);
@@ -790,36 +683,36 @@ __webpack_require__.r(__webpack_exports__);
         });
       });
     });
-    $('body').on("click", '.directorist-mark-as-favorite__btn', function (event) {
+    $('body').on('click', '.directorist-mark-as-favorite__btn', function (event) {
       event.preventDefault();
       var data = {
-        'action': 'atbdp-favourites-all-listing',
-        'directorist_nonce': directorist.directorist_nonce,
-        'post_id': $(this).data('listing_id')
+        action: 'atbdp-favourites-all-listing',
+        directorist_nonce: directorist.directorist_nonce,
+        post_id: $(this).data('listing_id')
       };
       var fav_tooltip_success = '<span>' + directorist.i18n_text.added_favourite + '</span>';
       var fav_tooltip_warning = '<span>' + directorist.i18n_text.please_login + '</span>';
-      $(".directorist-favorite-tooltip").hide();
+      $('.directorist-favorite-tooltip').hide();
       $.post(directorist.ajax_url, data, function (response) {
         var post_id = data['post_id'].toString();
         var staElement = $('.directorist-fav_' + post_id);
         var data_id = staElement.attr('data-listing_id');
-        if (response === "login_required") {
-          staElement.children(".directorist-favorite-tooltip").append(fav_tooltip_warning);
-          staElement.children(".directorist-favorite-tooltip").fadeIn();
+        if (response === 'login_required') {
+          staElement.children('.directorist-favorite-tooltip').append(fav_tooltip_warning);
+          staElement.children('.directorist-favorite-tooltip').fadeIn();
           setTimeout(function () {
-            staElement.children(".directorist-favorite-tooltip").children("span").remove();
+            staElement.children('.directorist-favorite-tooltip').children('span').remove();
           }, 3000);
         } else if ('false' === response) {
           staElement.removeClass('directorist-added-to-favorite');
-          $(".directorist-favorite-tooltip span").remove();
+          $('.directorist-favorite-tooltip span').remove();
         } else {
           if (data_id === post_id) {
             staElement.addClass('directorist-added-to-favorite');
-            staElement.children(".directorist-favorite-tooltip").append(fav_tooltip_success);
-            staElement.children(".directorist-favorite-tooltip").fadeIn();
+            staElement.children('.directorist-favorite-tooltip').append(fav_tooltip_success);
+            staElement.children('.directorist-favorite-tooltip').fadeIn();
             setTimeout(function () {
-              staElement.children(".directorist-favorite-tooltip").children("span").remove();
+              staElement.children('.directorist-favorite-tooltip').children('span').remove();
             }, 3000);
           }
         }
@@ -834,8 +727,7 @@ __webpack_require__.r(__webpack_exports__);
 /*!**************************************************************!*\
   !*** ./assets/src/js/public/components/directoristSelect.js ***!
   \**************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function() {
 
 window.addEventListener('load', function () {
   // Make sure the codes in this file runs only once, even if enqueued twice
@@ -880,8 +772,7 @@ window.addEventListener('load', function () {
 /*!***********************************************************!*\
   !*** ./assets/src/js/public/components/legacy-support.js ***!
   \***********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function() {
 
 window.addEventListener('load', function () {
   /* custom dropdown */
@@ -925,10 +816,8 @@ window.addEventListener('load', function () {
 /*!***********************************************************!*\
   !*** ./assets/src/js/public/components/preferenceForm.js ***!
   \***********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function() {
 
-;
 (function ($) {
   if ($('#display_author_email').length) {
     $('#display_author_email').select2();
@@ -940,7 +829,7 @@ window.addEventListener('load', function () {
       e.preventDefault();
       var submit_button = $('#update_user_preferences');
       submit_button.attr('disabled', true);
-      submit_button.addClass("directorist-loader");
+      submit_button.addClass('directorist-loader');
       if (is_processing) {
         submit_button.removeAttr('disabled');
         return;
@@ -966,7 +855,7 @@ window.addEventListener('load', function () {
         data: form_data,
         success: function success(response) {
           submit_button.removeAttr('disabled');
-          submit_button.removeClass("directorist-loader");
+          submit_button.removeClass('directorist-loader');
           if (response.success) {
             $('#directorist-preference-notice').html('<span class="directorist-alert directorist-alert-success">' + response.data.message + '</span>');
           } else {
@@ -980,7 +869,7 @@ window.addEventListener('load', function () {
       });
       // remove notice after five second
       setTimeout(function () {
-        $("#directorist-preference-notice .directorist-alert").remove();
+        $('#directorist-preference-notice .directorist-alert').remove();
       }, 5000);
 
       // prevent the from submitting
@@ -995,16 +884,14 @@ window.addEventListener('load', function () {
 /*!********************************************************!*\
   !*** ./assets/src/js/public/components/profileForm.js ***!
   \********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function() {
 
-;
 (function ($) {
   window.addEventListener('load', function () {
     var profileMediaUploader = null;
-    if ($(".directorist-profile-uploader").length) {
+    if ($('.directorist-profile-uploader').length) {
       profileMediaUploader = new EzMediaUploader({
-        containerClass: "directorist-profile-uploader"
+        containerClass: 'directorist-profile-uploader'
       });
       profileMediaUploader.init();
     }
@@ -1014,7 +901,7 @@ window.addEventListener('load', function () {
       e.preventDefault();
       var submit_button = $('#update_user_profile');
       submit_button.attr('disabled', true);
-      submit_button.addClass("directorist-loader");
+      submit_button.addClass('directorist-loader');
       if (is_processing) {
         submit_button.removeAttr('disabled');
         return;
@@ -1046,7 +933,7 @@ window.addEventListener('load', function () {
             }
           }
         } else {
-          $(".directorist-form-submit__btn").removeClass("atbd_loading");
+          $('.directorist-form-submit__btn').removeClass('atbd_loading');
           err_log.user_profile_avater = {
             msg: 'Listing gallery has invalid files'
           };
@@ -1068,7 +955,7 @@ window.addEventListener('load', function () {
         data: form_data,
         success: function success(response) {
           submit_button.removeAttr('disabled');
-          submit_button.removeClass("directorist-loader");
+          submit_button.removeClass('directorist-loader');
 
           // console.log(response);
 
@@ -1092,7 +979,7 @@ window.addEventListener('load', function () {
       });
       // remove notice after five second
       setTimeout(function () {
-        $("#directorist-profile-notice .directorist-alert").remove();
+        $('#directorist-profile-notice .directorist-alert').remove();
       }, 5000);
 
       // prevent the from submitting
@@ -1107,12 +994,11 @@ window.addEventListener('load', function () {
 /*!*********************************************!*\
   !*** ./assets/src/js/public/lib/dashTab.js ***!
   \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function() {
 
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t.return || t.return(); } finally { if (u) throw o; } } }; }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 /*
     Plugin: Dash Tab
     Version: 1.0.0
@@ -1178,7 +1064,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       }
       if (queryStrings) {
         // Reconstruct the URL with the updated search parameters
-        var newUrl = window.location.pathname + window.location.hash + "?" + queryStrings;
+        var newUrl = window.location.pathname + window.location.hash + '?' + queryStrings;
         window.history.replaceState(null, null, newUrl);
       }
     };
@@ -1231,7 +1117,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
               hashID = matchLink ? matchLink[1] : hashID;
             }
             var hasMatch = window.location.hash.match(new RegExp("^".concat(link, "$")));
-            window.location.hash = hasMatch ? hasMatch[0] : "#" + hashID;
+            window.location.hash = hasMatch ? hasMatch[0] : '#' + hashID;
             var newHash = window.location.hash;
             var newUrl = window.location.pathname + newHash;
             window.history.replaceState(null, null, newUrl);
@@ -1246,16 +1132,83 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   };
 })();
 
-/***/ }),
+/***/ })
 
-/***/ "./assets/src/js/public/modules/dashboard.js":
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	!function() {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = function(module) {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				function() { return module['default']; } :
+/******/ 				function() { return module; };
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	!function() {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = function(exports, definition) {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	!function() {
+/******/ 		__webpack_require__.o = function(obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); }
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	!function() {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = function(exports) {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// This entry needs to be wrapped in an IIFE because it needs to be in strict mode.
+!function() {
+"use strict";
 /*!***************************************************!*\
   !*** ./assets/src/js/public/modules/dashboard.js ***!
   \***************************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_dashTab__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../lib/dashTab */ "./assets/src/js/public/lib/dashTab.js");
 /* harmony import */ var _lib_dashTab__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_lib_dashTab__WEBPACK_IMPORTED_MODULE_0__);
@@ -1307,20 +1260,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-/***/ }),
-
-/***/ 8:
-/*!*********************************************************!*\
-  !*** multi ./assets/src/js/public/modules/dashboard.js ***!
-  \*********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(/*! ./assets/src/js/public/modules/dashboard.js */"./assets/src/js/public/modules/dashboard.js");
-
-
-/***/ })
-
-/******/ });
+}();
+/******/ })()
+;
 //# sourceMappingURL=directorist-dashboard.js.map

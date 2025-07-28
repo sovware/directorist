@@ -1,0 +1,90 @@
+.directorist-listing-category {
+    display: flex;
+    align-items: center;
+
+    @include e(popup) {
+        position: relative;
+        margin-left: 10px;
+        cursor: pointer;
+        display: flex;
+        @include e(content) {
+            display: block;
+            position: absolute;
+            width: 150px;
+            visibility: hidden;
+            opacity: 0;
+            pointer-events: none;
+            bottom: 25px;
+            left: -30px;
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
+            background-color: var(--directorist-color-white);
+            box-shadow: var(--directorist-box-shadow);
+            border: 1px solid var(--directorist-color-border-light);
+            line-break: auto;
+            word-break: break-all;
+            transition: 0.3s ease;
+            z-index: 1;
+            &:after{
+                content: "";
+                left: 40px;
+                bottom: -11px;
+                border: 6px solid transparent;
+                border-top-color: var(--directorist-color-white);
+                display: inline-block;
+                position: absolute;
+            }
+
+            a {
+                color: var(--directorist-color-body);
+                display: flex;
+                gap: 12px;
+                align-items: flex-start;
+                line-height: normal;
+                padding: 10px;
+                border-radius: 8px;
+                &:last-child {
+                  margin-bottom: 0;
+                }
+                i {
+                    height: unset;
+                    width: unset;
+                    min-width: unset;
+                }
+                i::after {
+                    height: 14px;
+                    width: 14px;
+                    background-color: var(--directorist-color-body);
+                }
+
+                &:hover {
+                    color: var(--directorist-color-primary);
+                    background-color: var(--directorist-color-light);
+                    i::after {
+                        background-color: var(--directorist-color-primary);
+                    }
+                }
+            }
+        }
+
+        &:hover {
+            .directorist-listing-category__popup__content {
+                visibility: visible;
+                opacity: 1;
+                pointer-events: all;
+            }
+        }
+    }
+}
+
+.directorist-listing-single__meta__right {
+    .directorist-listing-category__popup__content {
+        left: unset;
+        right: -30px;
+        &:after {
+            left: unset;
+            right: 40px;
+        }
+    }
+}

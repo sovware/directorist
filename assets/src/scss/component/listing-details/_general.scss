@@ -1,0 +1,290 @@
+// Report Modal
+.directorist-report-abuse-modal {
+  .directorist-modal__header {
+    padding: 20px 0 15px;
+
+    .directorist-modal-title {
+      font-size: 1.75rem;
+      margin: 0;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      line-height: 1.2;
+      color: var(--directorist-color-dark);
+      letter-spacing: normal;
+    }
+
+    .directorist-modal-close {
+      width: 32px;
+      height: 32px;
+      right: -40px !important;
+      top: -30px !important;
+      left: auto;
+      position: absolute;
+      transform: none;
+      background-color: #444752;
+      color: var(--directorist-color-white);
+      border-radius: 300px;
+      opacity: 1;
+      font-weight: 300;
+      z-index: 2;
+      font-size: 16px;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+    }
+  }
+
+  .directorist-modal__body {
+    padding: 20px 0;
+    border: none;
+
+    label {
+      font-size: 18px;
+      margin-bottom: 12px;
+      text-align: left;
+      display: block;
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      border: 1px solid var(--directorist-color-border);
+      &:focus {
+        border: 1px solid var(--directorist-color-primary);
+      }
+    }
+  }
+  #directorist-report-abuse-message-display {
+    color: var(--directorist-color-body);
+    margin-top: 15px;
+  }
+
+  #directorist-report-abuse-message-display:empty {
+    margin: 0;
+  }
+
+  .directorist-modal__footer {
+    padding: 0;
+    display: flex;
+    justify-content: flex-end;
+    border: none;
+    .directorist-btn {
+      text-transform: capitalize;
+      padding: 0 15px;
+
+      &.directorist-btn-loading {
+        &:after {
+          content: "";
+          border: 2px solid #f3f3f3;
+          border-radius: 50%;
+          border-top: 2px solid #656a7a;
+          width: 20px;
+          height: 20px;
+          animation: rotate360 2s linear infinite;
+          display: inline-block;
+          margin: 0 0 0 10px;
+          position: relative;
+          top: 4px;
+        }
+      }
+    }
+  }
+
+  .directorist-modal__content {
+    padding: 20px 30px 20px;
+  }
+  #directorist-report-abuse-form {
+    text-align: left;
+  }
+}
+
+// Directorist Rated Stars
+.directorist-rated-stars,
+.atbd_rated_stars {
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+  li {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+  }
+  span {
+    color: #d4d3f3;
+    display: block;
+    width: 14px;
+    height: 14px;
+    position: relative;
+    &:before {
+      content: "";
+      mask-image: url("../../../../icons/font-awesome/svgs/solid/star.svg");
+      mask-repeat: no-repeat;
+      width: 15px;
+      height: 15px;
+      background-color: #d4d3f3;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+    &.directorist-rate-active {
+      &:before {
+        background-color: var(--directorist-color-warning);
+      }
+    }
+  }
+}
+
+.directorist-single {
+  .directorist-single-listing-top
+    button:not(:hover):not(:active):not(.has-background) {
+    &.directorist-btn.directorist-btn-light {
+      background-color: var(--directorist-color-light);
+      color: var(--directorist-color-dark);
+      @media screen and (max-width: 575px) {
+        background-color: transparent;
+      }
+    }
+  }
+}
+
+.directorist-listing-details .directorist-listing-single {
+  border: 0 none;
+}
+
+.directorist-single-listing-notice {
+  margin-bottom: 15px;
+}
+
+.directorist-single-tag-list {
+  li {
+    margin: 0 0 10px;
+  }
+  a {
+    text-decoration: none;
+    color: var(--directorist-color-body);
+    transition: 0.3s ease;
+    display: flex;
+    gap: 10px;
+    .directorist-icon-mask {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 35px;
+      height: 35px;
+      min-width: 35px;
+      border-radius: 50%;
+      background-color: var(--directorist-color-bg-light);
+      position: relative;
+      top: -5px;
+      transition: 0.3s ease;
+      &:after {
+        font-size: 15px;
+      }
+    }
+
+    /* Legacy Icon */
+    > span:not(.directorist-icon-mask) {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      background-color: var(--directorist-color-bg-light);
+      margin-right: 10px;
+      transition: 0.3s ease;
+      font-size: 15px;
+    }
+
+    &:hover {
+      color: var(--directorist-color-primary);
+      span {
+        background-color: var(--directorist-color-primary);
+        color: var(--directorist-color-white);
+      }
+    }
+  }
+}
+
+.directorist-single-dummy-shortcode {
+  width: 100%;
+  background-color: #556166;
+  color: var(--directorist-color-white);
+  margin: 10px 0;
+  text-align: center;
+  padding: 40px 10px;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.2;
+}
+
+.directorist-sidebar {
+  .directorist-search-contents {
+    display: flex;
+  }
+  .directorist-search-form .directorist-search-form-action {
+    flex-wrap: wrap;
+    .directorist-modal-btn--advanced {
+      padding-left: 0;
+    }
+  }
+  .directorist-add-listing-types {
+    padding: 25px;
+    @include e(single) {
+      margin: 0;
+    }
+    .directorist-container-fluid {
+      padding: 0;
+    }
+    .directorist-row {
+      gap: 15px;
+      margin: 0;
+    }
+    .directorist-col-lg-3.directorist-col-md-4.directorist-col-sm-6 {
+      width: 100%;
+      flex: 0 0 45%;
+      padding: 0;
+      margin: 0;
+    }
+  }
+  .directorist-widget-taxonomy
+    .directorist-taxonomy-list-one
+    .directorist-taxonomy-list__toggle--open:not(.directorist-taxonomy-list__card--icon)
+    + .directorist-taxonomy-list__sub-item {
+    padding: 0;
+  }
+  .directorist-widget-taxonomy
+    .directorist-taxonomy-list-one
+    .directorist-taxonomy-list
+    > .directorist-taxonomy-list__toggle--open
+    ~ .directorist-taxonomy-list__sub-item {
+    margin-top: 10px;
+    padding: 10px 20px;
+  }
+  .directorist-taxonomy-list-one
+    .directorist-taxonomy-list__card
+    + .directorist-taxonomy-list__sub-item {
+    padding: 0;
+    margin-top: 0;
+  }
+  .directorist-taxonomy-list-one
+    .directorist-taxonomy-list__toggle--open
+    + .directorist-taxonomy-list__sub-item {
+    background-color: var(--directorist-color-light);
+    border-radius: 12px;
+  }
+  .directorist-taxonomy-list-one
+    .directorist-taxonomy-list__toggle--open
+    + .directorist-taxonomy-list__sub-item
+    li {
+    margin-top: 0;
+  }
+}

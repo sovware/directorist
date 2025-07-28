@@ -1,0 +1,226 @@
+// Directorist Single Info
+.directorist-details-info-wrap {
+  .directorist-single-info {
+    display: flex;
+    font-size: 15px;
+    word-break: break-word;
+    flex-wrap: wrap;
+    gap: 10px 15px;
+    &:not(:last-child) {
+      margin-bottom: 12px;
+    }
+    a {
+      box-shadow: none;
+    }
+    &.directorist-single-info-picker {
+      .directorist-field-type-color {
+        width: 30px;
+        height: 30px;
+        border-radius: 5px;
+      }
+    }
+
+    &.directorist-listing-details__text {
+      flex-direction: column;
+    }
+  }
+  .directorist-single-info__label {
+    display: flex;
+    min-width: 140px;
+    color: var(--directorist-color-dark);
+
+    @media screen and (max-width: 575px) {
+      min-width: 130px;
+    }
+    @media screen and (max-width: 375px) {
+      min-width: 100px;
+    }
+  }
+
+  .directorist-single-info__label-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    margin-right: 10px;
+    font-size: 14px;
+    text-align: center;
+    flex: none;
+    color: var(--directorist-color-light-gray);
+    background-color: var(--directorist-color-bg-light);
+    .directorist-icon-mask:after {
+      width: 14px;
+      height: 14px;
+    }
+  }
+
+  .directorist-single-info__label__text {
+    position: relative;
+    min-width: 70px;
+    margin-top: 5px;
+    padding-right: 10px;
+    &:before {
+      content: ":";
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+
+    @media screen and (max-width: 375px) {
+      min-width: 60px;
+    }
+  }
+
+  .directorist-single-info-number{
+    .directorist-single-info__value{
+      flex: none;
+    }
+  }
+
+  .directorist-single-info__value {
+    margin-top: 4px;
+    flex: 1;
+    color: var(--directorist-color-body);
+    @media screen and (max-width: 575px) {
+      flex: 100%;
+      margin-top: 0;
+    }
+    a {
+      color: var(--directorist-color-body);
+    }
+  }
+
+  @media screen and (max-width: 575px) {
+    .directorist-single-info-socials .directorist-single-info__label {
+      display: none;
+    }
+  }
+}
+
+.directorist-social-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 36px;
+    width: 36px;
+    background-color: var(--directorist-color-light);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all ease-in-out 300ms !important;
+
+    .directorist-icon-mask::after {
+      background-color: var(--directorist-color-body);
+    }
+    &:hover {
+      .directorist-icon-mask::after {
+        background-color: var(--directorist-color-white);
+      }
+      &.facebook {
+        background-color: #4267b2;
+      }
+
+      &.twitter {
+        background-color: #1da1f2;
+      }
+
+      &.youtube,
+      &.youtube-play {
+        background-color: #ff0000;
+      }
+
+      &.instagram {
+        background-color: #c32aa3;
+      }
+
+      &.linkedin {
+        background-color: #007bb5;
+      }
+
+      &.google-plus {
+        background-color: #db4437;
+      }
+
+      &.snapchat,
+      &.snapchat-ghost {
+        background-color: #eae800;
+      }
+
+      &.reddit {
+        background-color: #ff4500;
+      }
+
+      &.pinterest {
+        background-color: #bd081c;
+      }
+
+      &.tumblr {
+        background-color: #35465d;
+      }
+
+      &.flickr {
+        background-color: #f40083;
+      }
+
+      &.vimeo {
+        background-color: #1ab7ea;
+      }
+
+      &.vine {
+        background-color: #00b489;
+      }
+
+      &.github {
+        background-color: #444752;
+      }
+
+      &.dribbble {
+        background-color: #ea4c89;
+      }
+
+      &.behance {
+        background-color: #196ee3;
+      }
+
+      &.soundcloud {
+        background-color: #ff5500;
+      }
+
+      &.stack-overflow {
+        background-color: #ff5500;
+      }
+    }
+  }
+}
+
+// Directorist Owner Contact form
+.directorist-contact-owner-form-inner {
+  .directorist-form-group {
+    margin-bottom: 15px;
+  }
+
+  .directorist-form-element {
+    border-color: var(--directorist-color-border-gray);
+  }
+
+  textarea {
+    resize: none;
+  }
+
+  .directorist-btn-submit {
+    padding: 0 30px;
+    text-decoration: none;
+    text-transform: capitalize;
+  }
+}
+
+.directorist-author-social {
+  a .fa {
+    font-family: "Font Awesome 5 Brands";
+  }
+}

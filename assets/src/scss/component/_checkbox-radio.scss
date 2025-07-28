@@ -1,0 +1,351 @@
+// Directorist Checkbox & Radio Components
+
+.directorist-checkbox,
+.directorist-radio{
+    display: flex;
+    align-items: center;
+
+    input[type="checkbox"],
+    input[type="radio"]{
+        display: none !important;
+
+        & +.directorist-checkbox__label,
+        & +.directorist-radio__label{
+            font-size: 14px;
+            display: flex;
+            flex-flow: column;
+            position: relative;
+            display: inline-block;
+            user-select: none;
+            padding-left: 30px;
+            margin-bottom: 0;
+            margin-left: 0;
+            line-height: 1.4;
+            color: var(--directorist-color-body);
+            box-sizing: content-box;
+
+            &:after{
+                content: "";
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 20px;
+                height: 20px;
+                border-radius: 5px;
+                background: transparent;
+                box-sizing: border-box;
+                border: 2px solid var(--directorist-color-gray);
+                background-color: transparent;
+            }
+
+            @media only screen and (max-width: 575px) {
+                line-height: 1.2;
+                padding-left: 25px;
+                &:after {
+                    top: 1px;
+                    width: 16px;
+                    height: 16px;
+                }
+                .directorist-icon-mask:after {
+                    width: 12px;
+                    height: 12px;
+                }
+            }
+        }
+
+        &:checked {
+            & +.directorist-checkbox__label,
+            & +.directorist-radio__label{
+                &:after{
+                    background-color: var(--directorist-color-primary);
+                    border-color: var(--directorist-color-primary);
+                }
+
+                &:before{
+                    opacity: 1;
+                    visibility: visible;
+                }
+            }
+        }
+    }
+}
+
+// Directorist Checkbox Inner Element
+.directorist-checkbox{
+    input[type="checkbox"]{
+        & +.directorist-checkbox__label{
+            &:before{
+                position: absolute;
+                left: 5px;
+                top: 5px;
+                content: "";
+                mask-image: url("../../../icons/font-awesome/svgs/solid/check.svg");
+                mask-repeat: no-repeat;
+                width: 10px;
+                height: 10px;
+                background-color: var(--directorist-color-white);
+                display: block;
+                opacity: 0;
+                transition: all 0.3s ease 0s;
+                z-index: 2;
+                @media only screen and (max-width: 575px) {
+                    top: 4px;
+                    left: 3px
+                }
+            }
+        }
+    }
+}
+
+// Directorist Radio Inner Element
+.directorist-radio{
+    input[type="radio"]{
+        & +.directorist-radio__label{
+            &:before{
+                position: absolute;
+                left: 5px;
+                top: 5px;
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background-color: var(--directorist-color-white);
+                border: 0 none;
+                opacity: 0;
+                visibility: hidden;
+                z-index: 2;
+                transition: all 0.3s ease 0s;
+                content: '';
+                @media only screen and (max-width: 575px) {
+                    left: 3px;
+                    top: 4px;
+                }
+            }
+        }
+        &:checked{
+            & +.directorist-radio__label{
+                &:after{
+                    background-color: var(--directorist-color-primary);
+                }
+            }
+        }
+    }
+    &.directorist-radio-circle {
+        input[type="radio"] + .directorist-radio__label {
+            &:before {
+                mask-image: url("../../../icons/font-awesome/svgs/solid/check.svg");
+                mask-repeat: no-repeat;
+                width: 10px;
+                height: 10px;
+                background-color: var(--directorist-color-white);
+            }
+        }
+    }
+}
+
+
+// Directorist Checkbox & Radio Circle
+.directorist-checkbox.directorist-checkbox-circle,
+.directorist-radio.directorist-radio-circle{
+    input[type="checkbox"],
+    input[type="radio"]{
+        & +.directorist-checkbox__label,
+        & +.directorist-radio__label{
+            &:after{
+                border-radius: 50%;
+            }
+        }
+    }
+}
+
+// Directorist Checkbox & Radio Type
+.directorist-checkbox{
+    &.directorist-checkbox-primary{
+        input[type="checkbox"],
+        input[type="radio"] {
+            &:checked{
+                & +.directorist-checkbox__label,
+                & +.directorist-radio__label{
+                    &:after{
+                        background-color: var(--directorist-color-primary);
+                        border-color: var(--directorist-color-primary);
+                    }
+                }
+            }
+        }
+    }
+    &.directorist-checkbox-secondary{
+        input[type="checkbox"],
+        input[type="radio"] {
+            &:checked{
+                & +.directorist-checkbox__label,
+                & +.directorist-radio__label{
+                    &:after{
+                        background-color: var(--directorist-color-secondary);
+                        border-color: var(--directorist-color-secondary);
+                    }
+                }
+            }
+        }
+    }
+    &.directorist-checkbox-success{
+        input[type="checkbox"],
+        input[type="radio"] {
+            &:checked{
+                & +.directorist-checkbox__label,
+                & +.directorist-radio__label{
+                    &:after{
+                        background-color: var(--directorist-color-success);
+                        border-color: var(--directorist-color-success);
+                    }
+                }
+            }
+        }
+    }
+    &.directorist-checkbox-blue{
+        input[type="checkbox"],
+        input[type="radio"] {
+            &:checked{
+                & +.directorist-checkbox__label,
+                & +.directorist-radio__label{
+                    &:after{
+                        background-color: var(--directorist-color-primary);
+                        border-color: var(--directorist-color-primary);
+                    }
+                }
+            }
+        }
+    }
+}
+
+.directorist-radio{
+    &.directorist-radio-primary{
+        input[type="radio"]{
+            &:checked{
+                & +.directorist-radio__label{
+                    &:after{
+                        background-color: var(--directorist-color-white);
+                        border-color: var(--directorist-color-primary) !important;
+                    }
+                    &:before{
+                        background-color: var(--directorist-color-primary) !important;
+                    }
+                }
+            }
+        }
+    }
+    &.directorist-radio-secondary{
+        input[type="radio"]{
+            &:checked{
+                & +.directorist-radio__label{
+                    &:after{
+                        background-color: var(--directorist-color-white);
+                        border-color: var(--directorist-color-secondary) !important;
+                    }
+                    &:before{
+                        background-color: var(--directorist-color-secondary) !important;
+                    }
+                }
+            }
+        }
+    }
+    &.directorist-radio-blue{
+        input[type="radio"]{
+            &:checked{
+                & +.directorist-radio__label{
+                    &:after{
+                        background-color: var(--directorist-color-white);
+                        border-color: #3e62f5 !important;
+                    }
+                    &:before{
+                        background-color: #3e62f5 !important;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Rating
+.directorist-checkbox-rating {
+    gap: 20px;
+    width: 100%;
+    padding: 10px 0;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: flex-start;
+    input[type=checkbox] + .directorist-checkbox__label {
+        display: flex;
+        flex-direction: row;
+    }
+    .directorist-icon-mask:after {
+        width: 14px;
+        height: 14px;
+        margin-top: 1px;
+    }
+}
+
+// Directorist Theme Admin
+.directorist-radio.directorist-radio-theme-admin{
+    input[type="radio"]{
+        & +.directorist-radio__label{
+            &:before{
+                width: 10px;
+                height: 10px;
+                top: 5px;
+                left: 5px;
+                background-color: var(--directorist-color-white) !important;
+            }
+            &:after{
+                width: 20px;
+                height: 20px;
+                border-color: #C6D0DC;
+                box-sizing: border-box;
+            }
+        }
+        &:checked{
+            & +.directorist-radio__label{
+                &:after{
+                    background-color: #3e62f5;
+                    border-color: #3e62f5;
+                }
+            }
+        }
+    }
+    .directorist-radio__label{
+        padding-left: 35px !important;
+    }
+}
+
+// Directorist Theme Admin
+.directorist-checkbox.directorist-checkbox-theme-admin{
+    input[type="checkbox"]{
+        & +.directorist-checkbox__label{
+            &:before{
+                width: 8px;
+                height: 8px;
+                top: 6px !important;
+                left: 6px !important;
+                border-radius: 50%;
+                background-color: var(--directorist-color-white) !important;
+                content: '';
+            }
+            &:after{
+                width: 20px;
+                height: 20px;
+                border-color: #C6D0DC;
+                box-sizing: border-box;
+            }
+        }
+        &:checked{
+            & +.directorist-checkbox__label{
+                &:after{
+                    background-color: var(--directorist-color-primary);
+                    border-color: var(--directorist-color-primary);
+                }
+            }
+        }
+    }
+    .directorist-checkbox__label{
+        padding-left: 35px !important;
+    }
+}

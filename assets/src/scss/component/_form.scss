@@ -1,0 +1,219 @@
+// Form Element Group
+.directorist-form-group {
+  position: relative;
+  width: 100%;
+  textarea,
+  textarea.directorist-form-element {
+    min-height: unset;
+    height: auto !important;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  @include e("with-prefix") {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #d9d9d9;
+    width: 100%;
+    gap: 10px;
+    &:focus-within {
+      border-bottom: 2px solid var(--directorist-color-dark);
+    }
+    .directorist-form-element {
+      flex: 1;
+      margin: 0 !important;
+      border: none !important;
+    }
+    .directorist-single-info__value {
+      font-size: 14px;
+      font-weight: 500;
+      margin: 0 !important;
+    }
+  }
+  @include e("prefix") {
+    height: 40px;
+    line-height: 40px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #828282;
+    @include m("start") {
+      order: -1;
+    }
+    @include m("end") {
+      order: 2;
+    }
+  }
+}
+.directorist-advanced-filter__advanced__element {
+  .directorist-search-field {
+    &.input-is-focused {
+      .directorist-form-group__with-prefix {
+        .directorist-search-field__input {
+          padding-right: 0 !important;
+        }
+      }
+    }
+  }
+}
+
+// Form Element
+.directorist-form-group {
+  label {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--directorist-color-body);
+  }
+  .directorist-form-element {
+    position: relative;
+    padding: 0;
+    width: 100%;
+    max-width: unset;
+    min-height: unset;
+    height: 40px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--directorist-color-dark);
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    box-sizing: border-box;
+    border-bottom: 1px solid var(--directorist-color-border-gray);
+    &:focus {
+      outline: none;
+      box-shadow: 0 0;
+      border: none;
+      border-bottom: 2px solid var(--directorist-color-primary);
+    }
+  }
+  .directorist-form-description {
+    font-size: 14px;
+    margin-top: 10px;
+    color: var(--directorist-color-deep-gray);
+  }
+}
+
+// Form Element Size
+.directorist-form-element {
+  &.directorist-form-element-lg {
+    height: 50px;
+    @include e("prefix") {
+      height: 50px;
+      line-height: 50px;
+    }
+  }
+
+  &.directorist-form-element-sm {
+    height: 30px;
+    @include e("prefix") {
+      height: 30px;
+      line-height: 30px;
+    }
+  }
+}
+
+// Directorist Input With Icon
+.directorist-form-group {
+  &.directorist-icon-left {
+    .directorist-input-icon {
+      left: 0;
+    }
+    .location-name {
+      padding-left: 25px;
+      box-sizing: border-box;
+    }
+  }
+
+  &.directorist-icon-right {
+    .directorist-input-icon {
+      right: 0;
+    }
+    .location-name {
+      padding-right: 25px;
+      box-sizing: border-box;
+    }
+  }
+
+  .directorist-input-icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    line-height: 1.45;
+    z-index: 99;
+    transition: margin 0.3s ease;
+    i,
+    span,
+    svg {
+      font-size: 14px;
+    }
+    .directorist-icon-mask:after {
+      width: 16px;
+      height: 16px;
+      background-color: var(--directorist-color-body);
+    }
+
+    @media screen and (max-width: 575px) {
+      margin-top: 0;
+    }
+  }
+}
+
+.directorist-label {
+  margin-bottom: 0;
+}
+
+input.directorist-toggle-input {
+  display: none;
+}
+
+.directorist-toggle-input-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+span.directorist-toggle-input-label-text {
+  flex-grow: 1;
+  padding-right: 10px;
+}
+
+span.directorist-toggle-input-label-icon {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 25px;
+  border-radius: 30px;
+  background-color: #d9d9d9;
+  transition: all ease-in-out 300ms;
+}
+
+span.directorist-toggle-input-label-icon::after {
+  content: "";
+  position: absolute;
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: var(--directorist-color-white);
+  top: 50%;
+  transform: translate(0, -50%);
+  transition: all ease-in-out 300ms;
+}
+
+input.directorist-toggle-input:checked
+  + .directorist-toggle-input-label
+  span.directorist-toggle-input-label-icon {
+  background-color: #4353ff;
+}
+
+input.directorist-toggle-input:not(:checked)
+  + .directorist-toggle-input-label
+  span.directorist-toggle-input-label-icon::after {
+  left: 5px;
+}
+
+input.directorist-toggle-input:checked
+  + .directorist-toggle-input-label
+  span.directorist-toggle-input-label-icon::after {
+  left: calc(100% - 20px);
+}

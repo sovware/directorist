@@ -1,0 +1,223 @@
+// Profile Responsive
+#dashboard_profile #user_profile_form {
+  &.directorist-profile-responsive {
+    .directorist-col-lg-3 {
+      width: 100%;
+    }
+    .directorist-col-lg-9 {
+      width: 100%;
+    }
+  }
+}
+
+// User Profile Image
+.directorist-image-profile-wrap {
+  padding: 25px;
+  background-color: var(--directorist-color-white);
+  border-radius: 12px;
+  border: 1px solid #ececec;
+
+  .ezmu__upload-button-wrap .ezmu__btn {
+    border-radius: 8px;
+    padding: 10.5px 30px;
+    background-color: #f6f7f9;
+    box-shadow: 0 0;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--directorist-color-dark);
+  }
+
+  .directorist-profile-uploader {
+    border-radius: 12px;
+    .ezmu__front-item__close-icon {
+      background-image: none;
+      .directorist-icon-mask::after {
+        width: 16px;
+        height: 16px;
+      }
+    }
+    .ezmu__loading-icon-img-bg {
+      background-image: none;
+      background-color: var(--directorist-color-primary);
+      mask-repeat: no-repeat;
+      mask-position: center;
+      mask-image: url("../../../../../assets/icons/font-awesome/svgs/regular/spinner-solid.svg");
+    }
+  }
+
+  .ezmu__thumbnail-list-item.ezmu__thumbnail_avater {
+    max-width: 140px;
+  }
+}
+
+// Userdashboard Profile Info
+.directorist-user-profile-box {
+  .directorist-card__header {
+    padding: 18px 20px;
+  }
+
+  .directorist-card__body {
+    padding: 25px 25px 30px 25px;
+  }
+}
+
+.directorist-user-info-wrap {
+  .directorist-form-group {
+    margin-bottom: 25px;
+    > label {
+      display: inline-flex;
+      margin-bottom: 5px;
+    }
+    .directorist-input-extra-info {
+      color: var(--directorist-color-light-gray);
+      display: inline-block;
+      font-size: 14px;
+      font-weight: 400;
+      margin-top: 4px;
+    }
+  }
+
+  .directorist-btn-profile-save {
+    width: 100%;
+    text-align: center;
+    text-transform: capitalize;
+    text-decoration: none;
+  }
+
+  #directorist-profile-notice .directorist-alert {
+    margin-top: 15px;
+  }
+}
+
+/* User Preferences */
+
+
+.directorist-user_preferences{
+  .directorist-preference-toggle{
+    .directorist-form-group{
+      display: flex;
+      align-items: center;
+      gap:10px;
+      label{
+        margin-bottom: 0;
+        color: var(--directorist-color-dark);
+        font-size: 14px;
+        font-weight: 400;
+      }
+      input{
+        margin: 0;
+      }
+    }
+    .directorist-toggle-label{
+      font-size: 14px;
+      color: var(--directorist-color-dark);
+      font-weight: 600;
+      line-height: normal;
+    }
+  }
+  .directorist-preference-radio{
+    margin-top: 25px;
+    .directorist-preference-radio__label{
+      color: var(--directorist-color-dark);
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+    .directorist-radio-wrapper{
+      flex-direction: column;
+      gap:12px;
+    }
+  }
+  .select2.select2-container.select2-container--default .select2-selection__arrow b,
+  .select2-selection__arrow, .select2-selection__clear{
+    display: block !important;
+  }
+  .select2.select2-container.select2-container--default{
+    &.select2-container--open{
+      .select2-selection{
+        border-bottom-color:var(--directorist-color-primary);
+      }
+    }
+  }
+}
+
+/* Directorist Toggle */
+.directorist-toggle {
+	cursor: pointer;
+	display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.directorist-toggle-switch {
+	display: inline-block;
+	background: var(--directorist-color-border);
+	border-radius: 12px;
+	width: 44px;
+	height: 22px;
+	position: relative;
+	vertical-align: middle;
+	transition: background 0.25s;
+	&:before,
+	&:after {
+		content: "";
+	}
+	&:before {
+		display: block;
+		background: white;
+		border-radius: 50%;
+		width: 16px;
+		height: 16px;
+		position: absolute;
+		top: 3px;
+		left: 4px;
+		transition: left 0.25s;
+	}
+	.directorist-toggle:hover &:before {
+		background: linear-gradient(to bottom, #fff 0%, #fff 100%);
+	}
+	.directorist-toggle-checkbox:checked + & {
+		background: var(--directorist-color-primary);
+		&:before {
+			left: 25px;
+		}
+	}
+}
+
+.directorist-toggle-checkbox {
+	position: absolute;
+	visibility: hidden;
+}
+
+// Users Social Info
+.directorist-user-socials {
+  .directorist-user-social-label {
+    font-size: 18px;
+    padding-bottom: 18px;
+    margin-bottom: 28px !important;
+    border-bottom: 1px solid #eff1f6;
+  }
+
+  label {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    .directorist-social-icon {
+      margin-right: 6px;
+      .directorist-icon-mask::after {
+        width: 16px;
+        height: 16px;
+        background-color: #0a0b1e;
+      }
+    }
+  }
+}
+
+// Profile Notice
+#directorist-prifile-notice {
+  .directorist-alert {
+    width: 100%;
+    display: inline-block;
+    margin-top: 15px;
+  }
+}

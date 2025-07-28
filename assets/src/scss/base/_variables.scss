@@ -1,0 +1,47 @@
+$font-size-base: 15px;
+// theme color
+$light-gray: #9192a3;
+$primary: #444752;
+$secondary: #122069;
+$success: #00AC17;
+$info: #2C99FF;
+$warning: #EF8000;
+$danger: #EF0000;
+$dark: #202428;
+$light: #ffffff;
+$body-color: #767792;
+
+// other colors
+$overlay-color: #20232e;
+$text-color: #7a82a6;
+$badge-open: #32cc6f;
+$badge-feature: #fa8b0c;
+$badge-popular: #f51957;
+$border-color: #eff1f6;
+$border-color-normal: #ececec;
+$border-color-light: #c6d0dc;
+$bg-normal: #F9F9F9;
+$bg-light: #F9F9F9;
+$bg-light-gray: #F4F5F6;
+$rating-color: #fa8b0c;
+
+// System Status Variable
+$ss-gray: #5a5f7d;
+$ss-primary: #3e62f5;
+$ss-success: #00bc5e;
+$ss-dark: #272b41;
+$ss-light: #868eae;
+$ss-border-normal: #f1f2f6;
+$ss-border-light: #e3e6ef;
+$ss-border-gray: #c6d0dc;
+$ss-bg-normal: #fbfbfb;
+$ss-bg-light: #f8f9fb;
+$ss-bg-lighter: #f4f5f7;
+// link
+$link-hover-decoration: none;
+$link-color: $text-color;
+$link-hover-color: $primary;
+
+$box-shadow-sm: 0 5px 0.8px rgba(#a7b2c7, 0.1);
+$box-shadow: 0 5px 20px rgba(#a7b2c7, 0.3);
+// $box-shadow-lg: 0 1rem 3rem rgba($black, 0.175);

@@ -1,0 +1,101 @@
+$settings-primary-color: #3e62f5;
+
+.atbdp-settings-panel {
+    .cptm-form-group{
+        margin-bottom: 35px;
+        &.cptm-schema-multi-directory-disabled{
+            cursor: not-allowed;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+    }
+    .cptm-tab-content {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        max-width: unset;
+    }
+
+    .cptm-title {
+        font-size: 18px;
+        line-height: unset;
+    }
+
+    .cptm-menu-title {
+        font-size: 20px;
+        font-weight: 500;
+        color: $dark;
+        margin-bottom: 50px;
+    }
+
+    .cptm-section {
+        border: 1px solid #E3E6EF;
+        border-radius: 8px;
+        margin-bottom: 50px !important;
+        .cptm-title-area {
+            border-bottom: 1px solid #E3E6EF;
+            padding: 20px 25px;
+            margin-bottom: 0;
+            &.directorist-no-header{
+                border-bottom: 0 none;
+                margin-bottom: 0;
+                padding-bottom: 0;
+            }
+            .cptm-title {
+                font-size: 20px;
+                font-weight: 500;
+                color: #000000;
+            }
+        }
+        .cptm-form-fields{
+            padding: 20px 25px 0 25px;
+            .cptm-form-group {
+                label{
+                    font-size: 15px;
+                }
+                .atbdp-label-icon-wrapper{
+                    margin: 0;
+                    padding: 0;
+                    color: rgba(0, 6, 38, 0.90);
+                    font-size: 15px;
+                    font-style: normal;
+                    font-weight: 600;
+                    line-height: 16px;
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 14px;
+                }
+                .atbdp-label-icon{
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 8px;
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 8px;
+                    color: #4D5761;
+                    background: #E5E7EB;
+                    flex-shrink: 0;
+                    aspect-ratio: 1/1;
+                    svg{
+                        width: 16px;
+                        height: 16px;
+                    }
+                    i{
+                        color: #4D5761;
+                    }
+                }
+            }
+        }
+        &.button_type,
+        &.enable_multi_directory {
+            z-index: 11;
+        }
+    }
+    
+    #style_settings__color_settings {
+        .cptm-section {
+            z-index: unset;
+        }
+    }
+}

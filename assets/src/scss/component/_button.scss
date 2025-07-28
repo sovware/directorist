@@ -1,0 +1,308 @@
+/* Directorist button styles */
+@mixin btnFocusBg($btnFocusBg) {
+  &:focus {
+    background: $btnFocusBg !important;
+  }
+}
+
+.directorist-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-size: 14px;
+  font-weight: 500;
+  vertical-align: middle;
+  text-transform: capitalize;
+  text-align: center;
+  user-select: none;
+  cursor: pointer;
+  padding: 0 26px;
+  min-height: 45px;
+  line-height: 1.5;
+  border-radius: 8px;
+  border: 1px solid var(--directorist-color-primary);
+  box-sizing: border-box;
+  text-decoration: none;
+  background-color: var(--directorist-color-primary);
+  color: var(--directorist-color-white);
+  transition: all ease 0.3s;
+  text-decoration: none !important;
+  .directorist-icon-mask:after {
+    background-color: currentColor;
+    width: 16px;
+    height: 16px;
+  }
+  &.directorist-btn--add-listing,
+  &.directorist-btn--logout {
+    line-height: 43px;
+  }
+  &:hover,
+  &:focus {
+    color: var(--directorist-color-white);
+    outline: 0 !important;
+    background-color: rgba(var(--directorist-color-primary-rgb), 0.80);
+  }
+}
+
+// Button Type
+.directorist-btn {
+  &.directorist-btn-primary {
+    background-color: var(--directorist-color-btn-primary-bg);
+    color: var(--directorist-color-btn-primary);
+    border: 1px solid var(--directorist-color-btn-primary-border);
+    &:focus,
+    &:hover {
+      background-color: rgba(var(--directorist-color-btn-primary-rgb), 0.80) ;
+      .directorist-icon-mask:after {
+        background-color: var(--directorist-color-btn-primary);
+      }
+    }
+  }
+
+  &.directorist-btn-secondary {
+    background-color: var(--directorist-color-btn-secondary-bg);
+    color: var(--directorist-color-btn-secondary);
+    border: 1px solid var(--directorist-color-btn-secondary-border);
+    &:focus,
+    &:hover{
+      background-color: transparent;
+      color:currentColor;
+      border-color: var(--directorist-color-btn-secondary-bg);
+    }
+  }
+
+  &.directorist-btn-dark {
+    background-color: var(--directorist-color-dark);
+    border-color:var(--directorist-color-dark);
+    color: var(--directorist-color-white);
+    &:hover{
+      background-color: rgba(var(--directorist-color-dark-rgb), 0.80) ;
+    }
+  }
+
+  &.directorist-btn-success {
+    background-color: var(--directorist-color-success);
+    border-color:var(--directorist-color-success);
+    color: var(--directorist-color-white);
+    &:hover{
+      background-color: rgba(var(--directorist-color-success-rgb), 0.80) ;
+    }
+  }
+
+  &.directorist-btn-info {
+    background-color: var(--directorist-color-info);
+    border-color:var(--directorist-color-info);
+    color: var(--directorist-color-white);
+    &:hover{
+      background-color: rgba(var(--directorist-color-success-rgb), 0.80) ;
+    }
+  }
+
+  &.directorist-btn-light {
+    background-color: var(--directorist-color-light);
+    border-color:var(--directorist-color-light);
+    color: var(--directorist-color-primary);
+    &:focus,
+    &:hover {
+      background-color: var(--directorist-color-light-hover);
+      color:var(--directorist-color-primary);
+      border-color:var(--directorist-color-primary);
+    }
+  }
+
+  &.directorist-btn-lighter {
+    border-color:var(--directorist-color-dark);
+    background-color: #f6f7f9;
+    color: var(--directorist-color-primary);
+  }
+
+  &.directorist-btn-warning {
+    border-color:var(--directorist-color-warning);
+    background-color: var(--directorist-color-warning);
+    color: var(--directorist-color-white);
+    &:hover{
+      background-color: rgba(var(--directorist-color-warning-rgb), 0.80) ;
+    }
+  }
+
+  &.directorist-btn-danger {
+    border-color:var(--directorist-color-danger);
+    background-color: var(--directorist-color-danger);
+    color: var(--directorist-color-white);
+    &:hover{
+      background-color: rgba(var(--directorist-color-danger-rgb), 0.80);
+    }
+  }
+
+  &.directorist-btn-bg-normal {
+    background: $bg-normal;
+  }
+
+  &.directorist-btn-loading {
+    position: relative;
+    font-size: 0;
+    pointer-events: none;
+    &:before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 8px;
+      background-color: inherit;
+    }
+    &:after {
+      content: "";
+      display: inline-flex;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid var(--directorist-color-white);
+      border-top-color: var(--directorist-color-primary);
+      position: absolute;
+      top: 13px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: spin-centered 3s linear infinite;
+    }
+  }
+  &.directorist-btn-disabled {
+    pointer-events: none;
+    opacity: 0.75;
+  }
+}
+
+// Button Outline
+.directorist-btn {
+  &.directorist-btn-outline {
+    background: transparent;
+    border: 1px solid var(--directorist-color-border) !important;
+    color: var(--directorist-color-dark);
+  }
+
+  &.directorist-btn-outline-normal {
+    background: transparent;
+    border: 1px solid var(--directorist-color-normal) !important;
+    color: var(--directorist-color-primary);
+    &:focus,&:hover{
+      color:var(--directorist-color-white);
+      background-color: var(--directorist-color-normal);
+    }
+  }
+
+  &.directorist-btn-outline-light {
+    background: transparent;
+    border: 1px solid var(--directorist-color-bg-light) !important;
+    color: var(--directorist-color-primary);
+  }
+
+  &.directorist-btn-outline-primary {
+    background: transparent;
+    border: 1px solid var(--directorist-color-primary) !important;
+    color: var(--directorist-color-primary);
+    &:focus,&:hover{
+      color:var(--directorist-color-white);
+      background-color: var(--directorist-color-primary);
+    }
+  }
+
+  &.directorist-btn-outline-secondary {
+    background: transparent;
+    border: 1px solid var(--directorist-color-secondary) !important;
+    color: var(--directorist-color-secondary);
+    &:focus,&:hover{
+      color:var(--directorist-color-white);
+      background-color: var(--directorist-color-secondary);
+    }
+  }
+
+  &.directorist-btn-outline-success {
+    background: transparent;
+    border: 1px solid var(--directorist-color-success) !important;
+    color: var(--directorist-color-success);
+    &:focus,&:hover{
+      color:var(--directorist-color-white);
+      background-color: var(--directorist-color-success);
+    }
+  }
+
+  &.directorist-btn-outline-info {
+    background: transparent;
+    border: 1px solid var(--directorist-color-info) !important;
+    color: var(--directorist-color-info);
+    &:focus,&:hover{
+      color:var(--directorist-color-white);
+      background-color: var(--directorist-color-info);
+    }
+  }
+
+  &.directorist-btn-outline-warning {
+    background: transparent;
+    border: 1px solid var(--directorist-color-warning) !important;
+    color: var(--directorist-color-warning);
+    &:focus,&:hover{
+      color:var(--directorist-color-white);
+      background-color: var(--directorist-color-warning);
+    }
+  }
+
+  &.directorist-btn-outline-danger {
+    background: transparent;
+    border: 1px solid var(--directorist-color-danger) !important;
+    color: var(--directorist-color-danger);
+    &:focus,&:hover{
+      color:var(--directorist-color-white);
+      background-color: var(--directorist-color-danger);
+    }
+  }
+
+  &.directorist-btn-outline-dark {
+    background: transparent;
+    border: 1px solid var(--directorist-color-primary) !important;
+    color: var(--directorist-color-primary);
+    &:focus,&:hover{
+      color:var(--directorist-color-white);
+      background-color: var(--directorist-color-dark);
+    }
+  }
+}
+
+// Button Size
+.directorist-btn {
+  &.directorist-btn-lg {
+    min-height: 50px;
+  }
+
+  &.directorist-btn-md {
+    min-height: 46px;
+  }
+
+  &.directorist-btn-sm {
+    min-height: 40px;
+  }
+
+  &.directorist-btn-xs {
+    min-height: 36px;
+  }
+
+  &.directorist-btn-px-15 {
+    padding: 0 15px;
+  }
+
+  &.directorist-btn-block {
+    display: flex;
+  }
+}
+
+// Keyframes
+@keyframes spin-centered {
+  from {
+    transform: translateX(-50%) rotate(0deg);
+  }
+
+  to {
+    transform: translateX(-50%) rotate(360deg);
+  }
+}

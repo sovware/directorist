@@ -79,15 +79,11 @@ class Listings_CSV_Importer {
 
 		$count = 0;
 		while ( ! $file->eof() ) {
-<<<<<<< HEAD
 			$data = $file->fgetcsv();
 			$data = array_filter( $data );
 			if ( empty( $data ) ) {
 				continue;
 			}
-=======
-			$file->fgetcsv();
->>>>>>> dfda0415b (Development (#2325))
 			++$count;
 		}
 

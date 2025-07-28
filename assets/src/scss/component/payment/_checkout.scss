@@ -1,0 +1,111 @@
+.directorist-checkout-card {
+    box-shadow: 0 3px 15px rgba(0,0,0,.08);
+    filter: none;
+    tr {
+        &:not(:last-child) {
+            td {
+                padding-bottom: 15px;
+                border-bottom: 1px solid var(--directorist-color-border);
+            }
+        }
+        &:not(:first-child) {
+            td {
+                padding-top: 15px;
+            }
+        }
+    }
+    .directorist-card__header {
+        padding: 24px 40px;
+    }
+    .directorist-card__header__title {
+        font-size: 24px;
+        font-weight: 600;
+        @media (max-width: 575px) {
+            font-size: 18px;
+        }
+    }
+    .directorist-card__body {
+        padding: 20px 40px 40px;
+    }
+
+    .directorist-summery-label {
+        font-size: 15px;
+        font-weight: 500;
+        color: var(--color-dark);
+    }
+    .directorist-summery-label-description {
+        font-size: 13px;
+        margin-top: 4px;
+        color: var(--directorist-color-light-gray);
+    }
+    .directorist-summery-amount {
+        font-size: 15px;
+        font-weight: 500;
+        color: var(--directorist-color-body);
+    }
+}
+
+.directorist-payment-gateways {
+    background-color: var(--directorist-color-white);
+    ul {
+        margin: 0;
+        padding: 0;
+    }
+    li {
+        list-style-type: none;
+        padding: 0;
+        margin:0;
+        &:not(:last-child) {
+            margin-bottom: 15px;
+        }
+        .gateway_list {
+            margin-bottom: 10px;
+        }
+    }
+
+    .directorist-radio {
+        input[type="radio"] + .directorist-radio__label {
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 1.15;
+            color: var(--directorist-color-dark);
+        }
+    }
+    .directorist-card__body {
+        .directorist-payment-text {
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.86;
+            margin-top: 4px;
+            color: var(--directorist-color-body);
+        }
+    }
+}
+
+.directorist-payment-action {
+    flex-wrap: wrap;
+    margin: 42px -7px -7px -7px;
+    .directorist-btn {
+        min-height: 54px;
+        padding: 0 80px;
+        border-radius: 8px;
+        margin: 7px;
+        max-width: none;
+        width: auto;
+        @media (max-width: 1399px) {
+            padding: 0 40px;
+        }
+        @media (max-width: 1199px) {
+            padding: 0 30px;
+        }
+    }
+}
+
+.directorist-summery-total {
+    .directorist-summery-label,
+    .directorist-summery-amount {
+        font-size: 18px;
+        font-weight: 500;
+        color: var(--color-dark);
+    }
+}

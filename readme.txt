@@ -5,11 +5,7 @@ Tags: member directory, listing, classifieds, directory plugin, business directo
 Requires at least: 4.6
 Tested up to: 6.8
 Requires PHP: 7.0
-<<<<<<< HEAD
 Stable tag: 8.4.1
-=======
-Stable tag: 8.4
->>>>>>> dfda0415b (Development (#2325))
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -301,7 +297,6 @@ Directorist is a complete directory solution and in combination with its advance
 
 == Changelog ==
 
-<<<<<<< HEAD
 8.4.1 - May 18, 2025
 
 **Changed**
@@ -321,8 +316,6 @@ Directorist is a complete directory solution and in combination with its advance
  - Builders and listings not imported from setup widget. (#2333)
  - Swiper Slider loop issue fixed. (#2327)
 
-=======
->>>>>>> dfda0415b (Development (#2325))
 8.4 - Apr 29, 2025
 
 **New**

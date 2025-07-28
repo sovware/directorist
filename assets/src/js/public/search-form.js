@@ -1725,6 +1725,8 @@ import './components/directoristSelect';
 				) {
 					sliderActivated = true;
 				}
+				
+				if (typeof directoristCustomRangeSlider === 'undefined') return;
 
 				if (sliderRadiusActive) {
 					// Radius Search Range Slider

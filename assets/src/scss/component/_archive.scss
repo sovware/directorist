@@ -693,6 +693,9 @@
 			@media screen and (max-width: 575px) {
 				padding: 0;
 				margin: 0 20px 0 0;
+				.directorist-select {
+					width: calc(100% + 20px);
+				}
 				&.input-has-value,
 				&.input-is-focused {
 					margin: 0 25px;
@@ -700,6 +703,9 @@
 						margin: 0;
 						.directorist-filter-location-icon {
 							right: 0;
+						}
+						.directorist-select {
+							width: 100%;
 						}
 					}
 				}

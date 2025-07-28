@@ -6,15 +6,17 @@ class Multi_Directory_Manager {
     use Multi_Directory_Helper;
 
     public static $fields  = [];
+
     public static $layouts = [];
+
     public static $config  = [];
+
     public static $options = [];
 
     public static $migration  = null;
 
-
     public function __construct() {
-        self::$migration = new Multi_Directory_Migration([ 'multi_directory_manager' => $this ]);
+        self::$migration = new Multi_Directory_Migration( [ 'multi_directory_manager' => $this ] );
     }
 
     // run
@@ -49,7 +51,7 @@ class Multi_Directory_Manager {
         // Decode the JSON data if it exists
         $existing_backup_data = ! empty( $existing_backup_data ) ? json_decode( $existing_backup_data, true ) : [];
 
-        if( ! empty( $submission_form_fields ) && ! empty( $single_listings_contents ) && ! empty( $single_listing_header ) ) {
+        if ( ! empty( $submission_form_fields ) && ! empty( $single_listings_contents ) && ! empty( $single_listing_header ) ) {
             $existing_backup_data[$term_id] = [
                 'submission_form_fields'    => $submission_form_fields,
                 'single_listings_contents'  => $single_listings_contents,
@@ -74,7 +76,7 @@ class Multi_Directory_Manager {
 
         // Modify the 'assign_to' value based on your criteria (e.g., change 'category' to 1)
         foreach ( $submission_form_fields['fields'] as $field_type => $options ) {
-            if( empty( $options['assign_to'] ) ) {
+            if ( empty( $options['assign_to'] ) ) {
                 continue;
             }
 
@@ -87,7 +89,6 @@ class Multi_Directory_Manager {
 
         update_term_meta( $term_id, 'submission_form_fields', $submission_form_fields );
     }
-
 
     public static function migrate_review_settings( $term_id ) {
         $old_review_settings = get_term_meta( $term_id, 'review_config', true );
@@ -111,31 +112,31 @@ class Multi_Directory_Manager {
         }
 
         // Mapping for fields outside of groups
-        $fields_mapping = array(
-            'review_comment' => array(
+        $fields_mapping = [
+            'review_comment' => [
                 'placeholder'       => 'review_comment_placeholder',
                 'widget_name'       => 'review',
                 'widget_child_name' => 'review_comment',
                 'widget_key'        => 'review_comment',
                 'widget_group'      => 'other_widgets',
-            ),
-            'review_email' => array(
+            ],
+            'review_email' => [
                 'label'             => 'review_email_label',
                 'placeholder'       => 'review_email_placeholder',
                 'widget_name'       => 'review',
                 'widget_child_name' => 'review_email',
                 'widget_key'        => 'review_email',
                 'widget_group'      => 'other_widgets',
-            ),
-            'review_name' => array(
+            ],
+            'review_name' => [
                 'label'             => 'review_name_label',
                 'placeholder'       => 'review_name_placeholder',
                 'widget_name'       => 'review',
                 'widget_child_name' => 'review_name',
                 'widget_key'        => 'review_name',
                 'widget_group'      => 'other_widgets',
-            ),
-            'review_website' => array(
+            ],
+            'review_website' => [
                 'enable'            => 'review_show_website_field',
                 'label'             => 'review_website_label',
                 'placeholder'       => 'review_website_placeholder',
@@ -143,18 +144,18 @@ class Multi_Directory_Manager {
                 'widget_child_name' => 'review_website',
                 'widget_key'        => 'review_website',
                 'widget_group'      => 'other_widgets',
-            ),
-        );
+            ],
+        ];
 
         // Ensure the 'fields' key exists in the new_review_builder array
         if ( ! isset( $new_review_builder['fields'] ) || ! is_array( $new_review_builder['fields'] ) ) {
-            $new_review_builder['fields'] = array(); // Initialize if not present
+            $new_review_builder['fields'] = []; // Initialize if not present
         }
 
         // Add or update fields based on the mapping
         foreach ( $fields_mapping as $field_key => $mapping ) {
             if ( ! isset( $new_review_builder['fields'][ $field_key ] ) ) {
-                $new_review_builder['fields'][ $field_key ] = array(); // Initialize the field if it doesn't exist
+                $new_review_builder['fields'][ $field_key ] = []; // Initialize the field if it doesn't exist
             }
 
             // Add or update the mapped values
@@ -173,7 +174,7 @@ class Multi_Directory_Manager {
 
         // Ensure the 'groups' key exists in the new_review_builder array
         if ( ! isset( $new_review_builder['groups'] ) || ! is_array( $new_review_builder['groups'] ) ) {
-            $new_review_builder['groups'] = array(); // Initialize if not present
+            $new_review_builder['groups'] = []; // Initialize if not present
         }
 
         // Add or update groups with the 'review' widget
@@ -202,30 +203,30 @@ class Multi_Directory_Manager {
         }
 
         // Define the fields mapping
-        $fields_mapping = array(
-            'contact_name'    => array(
+        $fields_mapping = [
+            'contact_name'    => [
                 'enable'            => 1,
                 'placeholder'       => __( 'Name', 'directorist' ),
                 'widget_group'      => 'other_widgets',
                 'widget_name'       => 'contact_listings_owner',
                 'widget_child_name' => 'contact_name',
                 'widget_key'        => 'contact_name',
-            ),
-            'contact_email'   => array(
+            ],
+            'contact_email'   => [
                 'placeholder'       => __( 'Email', 'directorist' ),
                 'widget_group'      => 'other_widgets',
                 'widget_name'       => 'contact_listings_owner',
                 'widget_child_name' => 'contact_email',
                 'widget_key'        => 'contact_email',
-            ),
-            'contact_message' => array(
+            ],
+            'contact_message' => [
                 'placeholder'       => __( 'Message...', 'directorist' ),
                 'widget_group'      => 'other_widgets',
                 'widget_name'       => 'contact_listings_owner',
                 'widget_child_name' => 'contact_message',
                 'widget_key'        => 'contact_message',
-            ),
-        );
+            ],
+        ];
 
         // Iterate over groups and update the contact listings owner group
         foreach ( $single_listings_contents['groups'] as &$group ) {
@@ -346,19 +347,18 @@ class Multi_Directory_Manager {
                 update_term_meta( $directory_type->term_id, 'single_listings_contents', $single_listings_contents );
             }
         }
-
     }
 
     // update_default_directory_type_option
     public function update_default_directory_type_option() {
-        $args = array(
-            'meta_query' => array(
-                array(
+        $args = [
+            'meta_query' => [
+                [
                     'key'   => '_default',
                     'value' => true,
-                )
-            ),
-        );
+                ]
+            ],
+        ];
 
         $default_directory = get_directorist_option( 'atbdp_default_derectory', '' );
         $terms = directorist_get_directories( $args );
@@ -398,17 +398,21 @@ class Multi_Directory_Manager {
 
     // has_old_listings_data
     public static function has_old_listings_data() {
-        $get_listings = new \WP_Query([
-            'post_type'      => ATBDP_POST_TYPE,
-            'posts_per_page' => 1,
-            'fields'         => 'ids',
-        ]);
+        $get_listings = new \WP_Query(
+            [
+                'post_type'      => ATBDP_POST_TYPE,
+                'posts_per_page' => 1,
+                'fields'         => 'ids',
+            ]
+        );
 
-        $get_custom_fields = new \WP_Query([
-            'post_type'      => ATBDP_CUSTOM_FIELD_POST_TYPE,
-            'posts_per_page' => 1,
-            'fields'         => 'ids',
-        ]);
+        $get_custom_fields = new \WP_Query(
+            [
+                'post_type'      => ATBDP_CUSTOM_FIELD_POST_TYPE,
+                'posts_per_page' => 1,
+                'fields'         => 'ids',
+            ]
+        );
 
         $has_listings          = $get_listings->post_count;
         $has_custom_fields     = $get_custom_fields->post_count;
@@ -419,21 +423,25 @@ class Multi_Directory_Manager {
     // handle_force_migration
     public function handle_force_migration() {
         if ( ! directorist_verify_nonce() ) {
-            wp_send_json([
-                'status' => [
-                    'success' => false,
-                    'message' => __( 'Something is wrong! Please refresh and retry.', 'directorist' ),
-                ],
-            ], 200);
+            wp_send_json(
+                [
+                    'status' => [
+                        'success' => false,
+                        'message' => __( 'Something is wrong! Please refresh and retry.', 'directorist' ),
+                    ],
+                ], 200
+            );
         }
 
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_send_json([
-                'status' => [
-                    'success' => false,
-                    'message' => __( 'You are not allowed to access this resource', 'directorist' ),
-                ],
-            ], 200);
+            wp_send_json(
+                [
+                    'status' => [
+                        'success' => false,
+                        'message' => __( 'You are not allowed to access this resource', 'directorist' ),
+                    ],
+                ], 200
+            );
         }
 
         wp_send_json( $this->run_force_migration() );
@@ -442,27 +450,31 @@ class Multi_Directory_Manager {
     public function directorist_directory_type_library() {
 
         if ( ! directorist_verify_nonce() ) {
-            wp_send_json([
-                'status' => [
-                    'success' => false,
-                    'message' => __( 'Something is wrong! Please refresh and retryyy.', 'directorist' ),
-                ],
-            ], 200);
+            wp_send_json(
+                [
+                    'status' => [
+                        'success' => false,
+                        'message' => __( 'Something is wrong! Please refresh and retryyy.', 'directorist' ),
+                    ],
+                ], 200
+            );
         }
 
         if ( ! current_user_can( 'install_plugins' ) || ! current_user_can( 'activate_plugins' ) ) {
-            wp_send_json([
-                'status' => [
-                    'success' => false,
-                    'message' => __( 'You are not allowed to add/activate new plugin', 'directorist' ),
-                ],
-            ], 200);
+            wp_send_json(
+                [
+                    'status' => [
+                        'success' => false,
+                        'message' => __( 'You are not allowed to add/activate new plugin', 'directorist' ),
+                    ],
+                ], 200
+            );
         }
 
         $installed = directorist_download_plugin( [ 'url' => 'https://downloads.wordpress.org/plugin/templatiq.zip' ] );
         $path = WP_PLUGIN_DIR . '/templatiq/templatiq.php';
 
-        if( ! is_plugin_active( $path ) ){
+        if ( ! is_plugin_active( $path ) ) {
             activate_plugin( $path );
         }
 
@@ -493,25 +505,30 @@ class Multi_Directory_Manager {
     // import_default_directory
     public function import_default_directory( array $args = [] ) {
         $file = DIRECTORIST_ASSETS_DIR . 'sample-data/directory/directory.json';
-        if ( ! file_exists( $file ) ) { return; }
+        if ( ! file_exists( $file ) ) {
+            return; }
         $file_contents = file_get_contents( $file );
 
-        $add_directory = self::add_directory([
-            'directory_name' => 'General',
-            'fields_value'   => $file_contents,
-            'is_json'        => true
-        ]);
+        $add_directory = self::add_directory(
+            [
+                'directory_name' => 'General',
+                'fields_value'   => $file_contents,
+                'is_json'        => true
+            ]
+        );
 
         if ( $add_directory['status']['success'] ) {
             update_option( 'atbdp_has_multidirectory', true );
             update_term_meta( $add_directory['term_id'], '_default', true );
 
             // Add directory type to all listings
-            $listings = new \WP_Query([
-                'post_type' => ATBDP_POST_TYPE,
-                'status'    => 'publish',
-                'per_page'  => -1,
-            ]);
+            $listings = new \WP_Query(
+                [
+                    'post_type' => ATBDP_POST_TYPE,
+                    'status'    => 'publish',
+                    'per_page'  => -1,
+                ]
+            );
 
             if ( $listings->have_posts() ) {
                 while ( $listings->have_posts() ) {
@@ -527,31 +544,35 @@ class Multi_Directory_Manager {
     public function save_imported_post_type_data() {
 
         if ( ! directorist_verify_nonce() ) {
-            wp_send_json([
-                'status' => [
-                    'success' => false,
-                    'status_log' => [
-                        'nonce_is_missing' => [
-                            'type' => 'error',
-                            'message' => __( 'Something is wrong! Please refresh and retry.', 'directorist' ),
+            wp_send_json(
+                [
+                    'status' => [
+                        'success' => false,
+                        'status_log' => [
+                            'nonce_is_missing' => [
+                                'type' => 'error',
+                                'message' => __( 'Something is wrong! Please refresh and retry.', 'directorist' ),
+                            ],
                         ],
                     ],
-                ],
-            ], 200);
+                ], 200
+            );
         }
 
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_send_json([
-                'status' => [
-                    'success' => false,
-                    'status_log' => [
-                        'access_denied' => [
-                            'type' => 'error',
-                            'message' => __( 'You are not allowed to access this resource', 'directorist' ),
+            wp_send_json(
+                [
+                    'status' => [
+                        'success' => false,
+                        'status_log' => [
+                            'access_denied' => [
+                                'type' => 'error',
+                                'message' => __( 'You are not allowed to access this resource', 'directorist' ),
+                            ],
                         ],
                     ],
-                ],
-            ], 200);
+                ], 200
+            );
         }
 
         $term_id        = ( ! empty( $_POST[ 'term_id' ] ) ) ? absint( $_POST[ 'term_id' ] ) : 0;
@@ -602,16 +623,17 @@ class Multi_Directory_Manager {
 
         $this->prepare_settings();
 
-        $add_directory = self::add_directory([
-            'term_id'        => $term_id,
-            'directory_name' => $directory_name,
-            'fields_value'   => $file_contents,
-            'is_json'        => true
-        ]);
+        $add_directory = self::add_directory(
+            [
+                'term_id'        => $term_id,
+                'directory_name' => $directory_name,
+                'fields_value'   => $file_contents,
+                'is_json'        => true
+            ]
+        );
 
         wp_send_json( $add_directory, 200 );
     }
-
 
     // cptm_fields_before_update
     public function cptm_fields_before_update( $fields ) {
@@ -622,7 +644,7 @@ class Multi_Directory_Manager {
             $grouped_fields_value = [];
 
             foreach ( $group_fields as $field_index => $field_key ) {
-                if ( is_string( $field_key ) && array_key_exists($field_key, self::$fields)) {
+                if ( is_string( $field_key ) && array_key_exists( $field_key, self::$fields ) ) {
                     $grouped_fields_value[ $field_key ] = ( isset( $new_fields[ $field_key ] ) ) ? $new_fields[ $field_key ] : '';
                     unset( $new_fields[ $field_key ] );
                 }
@@ -646,48 +668,53 @@ class Multi_Directory_Manager {
     }
 
     // save_post_type_data
-    public function save_post_type_data()
-    {
+    public function save_post_type_data() {
         if ( ! directorist_verify_nonce() ) {
-            wp_send_json([
-                'status' => [
-                    'success' => false,
-                    'status_log' => [
-                        'nonce_is_missing' => [
-                            'type' => 'error',
-                            'message' => __( 'Something is wrong! Please refresh and retry.', 'directorist' ),
+            wp_send_json(
+                [
+                    'status' => [
+                        'success' => false,
+                        'status_log' => [
+                            'nonce_is_missing' => [
+                                'type' => 'error',
+                                'message' => __( 'Something is wrong! Please refresh and retry.', 'directorist' ),
+                            ],
                         ],
                     ],
-                ],
-            ], 200);
+                ], 200
+            );
         }
 
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_send_json([
-                'status' => [
-                    'success' => false,
-                    'status_log' => [
-                        'access_denied' => [
-                            'type' => 'error',
-                            'message' => __( 'You are not allowed to access this resource', 'directorist' ),
+            wp_send_json(
+                [
+                    'status' => [
+                        'success' => false,
+                        'status_log' => [
+                            'access_denied' => [
+                                'type' => 'error',
+                                'message' => __( 'You are not allowed to access this resource', 'directorist' ),
+                            ],
                         ],
                     ],
-                ],
-            ], 200);
+                ], 200
+            );
         }
 
         if ( empty( $_POST['name'] ) ) {
-            wp_send_json([
-                'status' => [
-                    'success' => false,
-                    'status_log' => [
-                        'name_is_missing' => [
-                            'type' => 'error',
-                            'message' => __( 'Name is missing', 'directorist' ),
+            wp_send_json(
+                [
+                    'status' => [
+                        'success' => false,
+                        'status_log' => [
+                            'name_is_missing' => [
+                                'type' => 'error',
+                                'message' => __( 'Name is missing', 'directorist' ),
+                            ],
                         ],
                     ],
-                ],
-            ], 200);
+                ], 200
+            );
         }
 
         $term_id        = ( ! empty( $_POST['listing_type_id'] ) ) ? absint( $_POST['listing_type_id'] ) : 0;
@@ -715,11 +742,13 @@ class Multi_Directory_Manager {
 
         $this->prepare_settings();
 
-        $add_directory = self::add_directory([
-            'term_id'        => $term_id,
-            'directory_name' => $directory_name,
-            'fields_value'   => $fields,
-        ]);
+        $add_directory = self::add_directory(
+            [
+                'term_id'        => $term_id,
+                'directory_name' => $directory_name,
+                'fields_value'   => $fields,
+            ]
+        );
 
         if ( ! $add_directory['status']['success'] ) {
             wp_send_json( $add_directory );
@@ -740,7 +769,7 @@ class Multi_Directory_Manager {
         }
 
         if ( ! empty( self::$fields[$field_key]['type'] ) && 'toggle' === self::$fields[$field_key]['type'] ) {
-            $value = ('true' === $value || true === $value || '1' === $value || 1 === $value) ? true : 0;
+            $value = ( 'true' === $value || true === $value || '1' === $value || 1 === $value ) ? true : 0;
         }
 
         $value = directorist_maybe_json( $value, false, 'directorist_clean_post' );
@@ -752,7 +781,7 @@ class Multi_Directory_Manager {
         static::load_builder_data();
     }
 
-	public static function load_builder_data() {
+    public static function load_builder_data() {
         if ( empty( self::$fields ) ) {
             $builder_data = new Builder_Data();
 
@@ -764,8 +793,7 @@ class Multi_Directory_Manager {
     }
 
     // add_menu_pages
-    public function add_menu_pages()
-    {
+    public function add_menu_pages() {
         $page_title = __( 'Directory Builder', 'directorist' );
         $page_slug  = 'atbdp-layout-builder';
 
@@ -789,7 +817,7 @@ class Multi_Directory_Manager {
     public function get_default_directory_id() {
         $default_directory = get_directorist_option( 'atbdp_default_derectory', '' );
 
-        if ( ! empty( $default_directory  ) ) {
+        if ( ! empty( $default_directory ) ) {
             return $default_directory;
         }
 
@@ -797,18 +825,17 @@ class Multi_Directory_Manager {
     }
 
     // menu_page_callback__directory_types
-    public function menu_page_callback__directory_types()
-    {
+    public function menu_page_callback__directory_types() {
         $enable_multi_directory = directorist_is_multi_directory_enabled();
 
         $action = isset( $_GET['action'] ) ? sanitize_text_field( wp_unslash( $_GET['action'] ) ) : '';
         $listing_type_id = 0;
 
         $data = [
-            'add_new_link' => admin_url('edit.php?post_type=at_biz_dir&page=atbdp-directory-types&action=add_new'),
+            'add_new_link' => admin_url( 'edit.php?post_type=at_biz_dir&page=atbdp-directory-types&action=add_new' ),
         ];
 
-        if ( ! $enable_multi_directory || ( ! empty( $action ) && ('edit' === $action || 'add_new' === $action ) ) ) {
+        if ( ! $enable_multi_directory || ( ! empty( $action ) && ( 'edit' === $action || 'add_new' === $action ) ) ) {
             $this->prepare_settings();
             $this->add_missing_single_listing_section_id();
 
@@ -825,25 +852,25 @@ class Multi_Directory_Manager {
                 'id'      => $listing_type_id,
             ];
 
-			/**
-			 * Filter directory builder's all configuration data.
-			 *
-			 * @since 7.0.5.*
-			 * TODO: Update with exact version number.
-			 */
-			$directory_builder_data = apply_filters( 'directorist_builder_localize_data', $directory_builder_data );
+            /**
+             * Filter directory builder's all configuration data.
+             *
+             * @since 7.0.5.*
+             * TODO: Update with exact version number.
+             */
+            $directory_builder_data = apply_filters( 'directorist_builder_localize_data', $directory_builder_data );
 
             $data[ 'directory_builder_data' ] = $directory_builder_data;
 
-            atbdp_load_admin_template('post-types-manager/edit-listing-type', $data);
+            atbdp_load_admin_template( 'post-types-manager/edit-listing-type', $data );
             return;
         }
 
-        atbdp_load_admin_template('post-types-manager/all-listing-types', $data);
+        atbdp_load_admin_template( 'post-types-manager/all-listing-types', $data );
     }
 
     public function update_fields_with_old_data( $listing_type_id = 0 ) {
-        $term = get_term($listing_type_id, 'atbdp_listing_types');
+        $term = get_term( $listing_type_id, 'atbdp_listing_types' );
 
         if ( is_wp_error( $term ) || empty( $term ) ) {
             return;
@@ -862,8 +889,8 @@ class Multi_Directory_Manager {
         }
 
         if ( ! is_array( $all_term_meta ) ) {
-			return;
-		}
+            return;
+        }
 
         foreach ( $all_term_meta as $meta_key => $meta_value ) {
             if ( isset( self::$fields[$meta_key] ) ) {
@@ -874,22 +901,23 @@ class Multi_Directory_Manager {
             }
         }
 
-        foreach (self::$config['fields_group'] as $group_key => $group_fields) {
-            if (array_key_exists($group_key, $all_term_meta)) {
+        foreach ( self::$config['fields_group'] as $group_key => $group_fields ) {
+            if ( array_key_exists( $group_key, $all_term_meta ) ) {
                 $_group_meta_value = ( ! $test_migration ) ? $all_term_meta[$group_key][0] : $all_term_meta[$group_key];
                 $group_value = maybe_unserialize( maybe_unserialize( $_group_meta_value ) );
 
-                foreach ($group_fields as $field_index => $field_key) {
+                foreach ( $group_fields as $field_index => $field_key ) {
 
-                    if ( ! key_exists( $field_key, $group_value ) ) { continue; }
+                    if ( ! key_exists( $field_key, $group_value ) ) {
+                        continue; }
 
-                    if ( is_string( $field_key ) && array_key_exists($field_key, self::$fields)) {
+                    if ( is_string( $field_key ) && array_key_exists( $field_key, self::$fields ) ) {
                         self::$fields[$field_key]['value'] = $group_value[$field_key];
                     }
 
                     if ( is_array( $field_key ) ) {
-                        foreach ($field_key as $sub_field_key) {
-                            if (array_key_exists($sub_field_key, self::$fields)) {
+                        foreach ( $field_key as $sub_field_key ) {
+                            if ( array_key_exists( $sub_field_key, self::$fields ) ) {
                                 self::$fields[$sub_field_key]['value'] = $group_value[$field_index][$sub_field_key];
                             }
                         }
@@ -900,8 +928,7 @@ class Multi_Directory_Manager {
     }
 
     // handle_delete_listing_type_request
-    public function handle_delete_listing_type_request()
-    {
+    public function handle_delete_listing_type_request() {
         if ( ! directorist_verify_nonce( '_wpnonce', 'delete_listing_type' ) ) {
             wp_die( esc_html__( 'Invalid request', 'directorist' ) );
         }
@@ -912,44 +939,50 @@ class Multi_Directory_Manager {
 
         $term_id = isset( $_REQUEST['listing_type_id'] ) ? absint( $_REQUEST['listing_type_id'] ) : 0;
 
-        $this->delete_listing_type($term_id);
+        $this->delete_listing_type( $term_id );
 
-        wp_redirect(admin_url('edit.php?post_type=at_biz_dir&page=atbdp-directory-types'));
+        wp_redirect( admin_url( 'edit.php?post_type=at_biz_dir&page=atbdp-directory-types' ) );
         exit;
     }
 
     // delete_listing_type
-    public function delete_listing_type($term_id = 0)
-    {
-        if (wp_delete_term($term_id, 'atbdp_listing_types')) {
-            atbdp_add_flush_alert([
-                'id'      => 'deleting_listing_type_status',
-                'page'    => 'all-listing-type',
-                'message' => __( 'Successfully Deleted the listing type', 'directorist' ),
-            ]);
+    public function delete_listing_type( $term_id = 0 ) {
+        if ( wp_delete_term( $term_id, 'atbdp_listing_types' ) ) {
+            atbdp_add_flush_alert(
+                [
+                    'id'      => 'deleting_listing_type_status',
+                    'page'    => 'all-listing-type',
+                    'message' => __( 'Successfully Deleted the listing type', 'directorist' ),
+                ]
+            );
         } else {
-            atbdp_add_flush_alert([
-                'id'      => 'deleting_listing_type_status',
-                'page'    => 'all-listing-type',
-                'type'    => 'error',
-                'message' => __( 'Failed to delete the listing type', 'directorist' )
-            ]);
+            atbdp_add_flush_alert(
+                [
+                    'id'      => 'deleting_listing_type_status',
+                    'page'    => 'all-listing-type',
+                    'type'    => 'error',
+                    'message' => __( 'Failed to delete the listing type', 'directorist' )
+                ]
+            );
         }
     }
 
     // register_directory_taxonomy
-    public function register_directory_taxonomy()
-    {
-        register_taxonomy( ATBDP_DIRECTORY_TYPE, [ ATBDP_POST_TYPE ], apply_filters( 'directorist_register_directory_taxonomy_args',  [
-            'hierarchical' => false,
-            'labels'       => [
-                'name'          => _x( 'Listing Directory', 'taxonomy general name', 'directorist' ),
-                'singular_name' => _x( 'Listing Directory', 'taxonomy singular name', 'directorist' ),
-                'search_items'  => __( 'Search listing directory', 'directorist' ),
-                'menu_name'     => __( 'Listing Directory', 'directorist' ),
-            ],
-			'show_ui'      => false,
-        ] ) );
+    public function register_directory_taxonomy() {
+        register_taxonomy(
+            ATBDP_DIRECTORY_TYPE, [ ATBDP_POST_TYPE ], apply_filters(
+                'directorist_register_directory_taxonomy_args',  [
+                    'hierarchical' => false,
+                    'labels'       => [
+                        'name'          => _x( 'Listing Directory', 'taxonomy general name', 'directorist' ),
+                        'singular_name' => _x( 'Listing Directory', 'taxonomy singular name', 'directorist' ),
+                        'search_items'  => __( 'Search listing directory', 'directorist' ),
+                        'menu_name'     => __( 'Listing Directory', 'directorist' ),
+                    ],
+                    'show_ui'      => false,
+                ] 
+            ) 
+        );
     }
 
     /**
@@ -962,13 +995,12 @@ class Multi_Directory_Manager {
      * @return array page names with key value pairs in a multi-dimensional array
      * @since 3.0.0
      */
-    public function get_pages_vl_arrays()
-    {
+    public function get_pages_vl_arrays() {
         $pages = get_pages();
-        $pages_options = array();
-        if ($pages) {
-            foreach ($pages as $page) {
-                $pages_options[] = array('value' => $page->ID, 'label' => $page->post_title);
+        $pages_options = [];
+        if ( $pages ) {
+            foreach ( $pages as $page ) {
+                $pages_options[] = ['value' => $page->ID, 'label' => $page->post_title];
             }
         }
 

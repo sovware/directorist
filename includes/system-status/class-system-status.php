@@ -4,11 +4,10 @@
  */
 class ATBDP_Status
 {
-
     public $custom_url;
 
     public function __construct() {
-        add_action( 'admin_menu', array( $this, 'status_menu' ), 60 );
+        add_action( 'admin_menu', [ $this, 'status_menu' ], 60 );
 
         $this->include();
         $this->custom_url = new ATBDP_Custom_Url();
@@ -25,7 +24,7 @@ class ATBDP_Status
      * @return void
      */
     public function status_menu() {
-        add_submenu_page( 'edit.php?post_type=at_biz_dir', __( 'Help & Support', 'directorist' ), __( 'Help & Support', 'directorist' ) , 'manage_options', 'directorist-status', array( $this, 'tools_page' ) );
+        add_submenu_page( 'edit.php?post_type=at_biz_dir', __( 'Help & Support', 'directorist' ), __( 'Help & Support', 'directorist' ) , 'manage_options', 'directorist-status', [ $this, 'tools_page' ] );
     }
 
     public function tools_page() {
@@ -38,7 +37,7 @@ class ATBDP_Status
         <?php
         esc_html_e( 'Help & Support', 'directorist' );
         new ATBDP_System_Info();
-       ?>
+        ?>
         </div>
 
         <div class='postbox'>
@@ -54,7 +53,6 @@ class ATBDP_Status
         </div>
         <?php
     }
-
 }
 
 new ATBDP_Status();

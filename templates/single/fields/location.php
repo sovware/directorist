@@ -8,14 +8,14 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 if ( empty( $listing->get_location_list() ) ) {
-	return;
+    return;
 }
 ?>
 
 <div class="directorist-info-item directorist-listing-location">
 
-	<?php directorist_icon( 'las la-map-marker' ); ?>
+    <?php directorist_icon( 'las la-map-marker' ); ?>
 
-	<span><?php echo wp_kses_post( $listing->get_location_list() ); ?></span>
+    <span><?php echo wp_kses_post( $listing->get_location_list() ); ?></span>
 
 </div>

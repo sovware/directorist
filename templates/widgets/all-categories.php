@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
 <div class="directorist-card__body">
-    <?php if( 'dropdown' == $query_args['template'] ) : ?>
+    <?php if ( 'dropdown' == $query_args['template'] ) : ?>
         <form action="<?php echo esc_url( ATBDP_Permalink::get_search_result_page_link() ); ?>">
             <input type="hidden" name="q" placeholder="">
             <select name="in_cat" id="at_biz_dir-category" onchange="this.form.submit()">

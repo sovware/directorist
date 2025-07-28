@@ -8,12 +8,12 @@
          */
         do_action( 'directorist_before_directory_type_edited' );
 
-		if ( isset( $_GET['action'] ) && $_GET['action'] === 'add_new' ) {
-			$label = __( 'Add New Directory', 'directorist' );
-		} else {
-			$label = __( 'Edit Directory', 'directorist' );
-		}
-		?>
+    if ( isset( $_GET['action'] ) && $_GET['action'] === 'add_new' ) {
+        $label = __( 'Add New Directory', 'directorist' );
+    } else {
+        $label = __( 'Edit Directory', 'directorist' );
+    }
+    ?>
     <div id="atbdp-cpt-manager" data-builder-data="<?php echo esc_attr( $builder_data ); ?>">
         <cpt-manager />
     </div>

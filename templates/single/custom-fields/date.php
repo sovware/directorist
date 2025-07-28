@@ -10,11 +10,11 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 <div class="directorist-single-info directorist-single-info-date">
 
-	<div class="directorist-single-info__label">
-		<span class="directorist-single-info__label-icon"><?php directorist_icon( $icon );?></span>
-		<span class="directorist-single-info__label__text"><?php echo esc_html( $data['label'] ); ?></span>
-	</div>
+    <div class="directorist-single-info__label">
+        <span class="directorist-single-info__label-icon"><?php directorist_icon( $icon );?></span>
+        <span class="directorist-single-info__label__text"><?php echo esc_html( $data['label'] ); ?></span>
+    </div>
 
-	<div class="directorist-single-info__value"><?php echo esc_html( directorist_format_date( $value ) ); ?></div>
+    <div class="directorist-single-info__value"><?php echo esc_html( directorist_format_date( $value ) ); ?></div>
 
 </div>

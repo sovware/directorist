@@ -1666,6 +1666,8 @@ import "./components/directoristSelect";
 				} else if(customRangeMinParams && customRangeMinParams !== '0' && customRangeMaxParams && customRangeMaxParams !== '0') {
 					sliderActivated = true;
 				}
+				
+				if (typeof directoristCustomRangeSlider === 'undefined') return;
 
 				if (sliderRadiusActive) { // Radius Search Range Slider
 					directoristCustomRangeSlider?.create(slider, {

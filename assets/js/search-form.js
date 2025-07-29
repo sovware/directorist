@@ -2198,6 +2198,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         } else if (customRangeMinParams && customRangeMinParams !== '0' && customRangeMaxParams && customRangeMaxParams !== '0') {
           sliderActivated = true;
         }
+        if (typeof directoristCustomRangeSlider === 'undefined') return;
         if (sliderRadiusActive) {
           var _directoristCustomRan;
           // Radius Search Range Slider

@@ -256,37 +256,32 @@ Integrating Appsero SDK **DOES NOT IMMEDIATELY** start gathering data, **without
 
 == Frequently Asked Questions ==
 
-= Is Directorist - WordPress Business Directory Plugin with Classified Ads Listings freemium in type? =
-Directorist is a free business directory plugin that offers a number of paid extensions to extend the functionalities of your directory listing website.
+= Does Directorist work with Elementor and other popular page builders? =
+Yes! Directorist works seamlessly with **Elementor**, **Gutenberg** and other major page builders. You can easily design custom layouts for listing pages, and even use Directorist widgets inside your favorite builder.
 
-= How to make a listing featured? =
-You can make a listing featured according to the respective pricing plans.
+= Is Directorist compatible with any WordPress theme? =
+Directorist is compatible with any WordPress theme. It also provides layout flexibility and design settings to help you blend the directory perfectly with your theme style. You can also use Directorist themes to build your niche-based directory without any coding.
 
-= Is there any widget facility with Directorist Business Directory plugin? =
-Absolutely, you will get 35+ custom widgets using this awesome plugin.
+= Can I use Directorist to build any type of directory? =
+Yes! Directorist is a highly flexible directory plugin. Whether you're building a business directory, classified ads site, real estate portal, service directory, or even a job board, Directorist provides all the features you need.
 
-= Is Directorist - WordPress Business Directory Plugin with Classified Ads Listings compatible with any themes out there in the market? =
-Yes, Directorist is built in such a way that it works smoothly with all the major themes in the market.
+= Is there a limit to how many listings I can add? =
+Nope! There’s no limit to the number of listings you can add. Directorist is built to handle thousands of entries efficiently
 
-= Can I translate the Directorist - WordPress Business Directory Plugin with Classified Ads Listings to my language and make it multi-lingual? =
-Yes, you can use the Loco Translate plugin or Poedit tool to translate your directory into your language. You can also make it multi-lingual using the gTranslate or Polylang plugin. For more information and guidelines refer to the blog post [here](https://directorist.com/blog/how-to-make-directorist-multi-lingual).
+= Does it support adding listings in bulk? =
+Yes you can import bulk listings in CSV format using the import/export feature under tools. To utilize the feature, download the CSV template first and format your list accordingly.
 
-= What types of directories can I build? =
-Directorist is a complete directory solution and in combination with its advanced extensions, you can build directories of any kind. For example:
+= Does it allow users to manage listings from the front end? =
+Yes you can enable listing owners to add, manage their listings and content from the front end without accessing the WordPress admin panel.
 
-* Booking directory
-* Classifieds directory
-* Service-based directory
-* Hotel directory
-* Local directory
-* Restaurant directory
-* Professional directory
-* Car directory
-* Member directory
-* Real-estate directory
-* AI tools directory
-* Therapists directory
- * and many more
+= Is Directorist translatable and multilingual-capable? =
+Yes. Directorist is translatable and multilingual-capable. Supports RTL (Right-to-Left) languages, and is compatible with popular multilingual plugins like WPML, Polylang, and Loco Translate.
+
+= Can I extend the plugin with custom features? =
+Directorist is developer-friendly with plenty of hooks and filters. You can extend it easily with custom development, or choose from a list of premium extensions.
+
+= What kind of AI features does it provide? =
+Directorist comes with an AI-powered directory builder. Use the Create with AI option, provide directory name, location and AI will build the directory for you.
 
 == Changelog ==
 

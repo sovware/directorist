@@ -182,61 +182,61 @@ Directorist is perfect for developers who want to customize or extend functional
 
 == Unlock the Full Potential of Your Directory with Premium Extensions ==
 
-**Universal Search** – Simplify the user experience with a powerful search feature that works across multiple directory types such as Places, Real Estate, Jobs, and Services. Organize search results intuitively, with listings grouped by directory and displayed in their native layouts for easy navigation.
+**[Universal Search](https://directorist.com/product/directorist-universal-search/)** – Simplify the user experience with a powerful search feature that works across multiple directory types such as Places, Real Estate, Jobs, and Services. Organize search results intuitively, with listings grouped by directory and displayed in their native layouts for easy navigation.
 
-**Search Alert** – Keep users engaged by allowing them to create and manage alerts based on their search criteria. Users receive notifications whenever new listings match their interests, ensuring they never miss out on relevant opportunities.
+**[Search Alert](https://directorist.com/product/directorist-search-alert/)** – Keep users engaged by allowing them to create and manage alerts based on their search criteria. Users receive notifications whenever new listings match their interests, ensuring they never miss out on relevant opportunities.
 
-**Pricing Plan** - Grow your directory business by offering unlimited pricing packages with tailored features designed to meet diverse user demands and generate extra revenue.
+**[Pricing Plan](https://directorist.com/product/directorist-pricing-plans/)** - Grow your directory business by offering unlimited pricing packages with tailored features designed to meet diverse user demands and generate extra revenue.
 
-**WooCommerce Integration for Payment Flexibility** - Use WooCommerce gateways to accept payments seamlessly across multiple methods.
+**[WooCommerce Integration for Payment Flexibility](https://directorist.com/product/directorist-woocommerce-pricing-plans/)** - Use WooCommerce gateways to accept payments seamlessly across multiple methods.
 
-**Streamline Online Appointments with Booking** - Add comprehensive booking capabilities for events, appointments, or services directly within your directory.
+**[Streamline Online Appointments with Booking](https://directorist.com/product/directorist-booking/)** - Add comprehensive booking capabilities for events, appointments, or services directly within your directory.
 
-**PayPal Payment Gateway** – Securely accept payments on your directory website with PayPal, the world's most trusted payment solution, enabling seamless transactions for users globally.
+**[PayPal Payment Gateway](https://directorist.com/product/directorist-paypal/)** – Securely accept payments on your directory website with PayPal, the world's most trusted payment solution, enabling seamless transactions for users globally.
 
-**Stripe Payment Gateway** – Accept payments through a wide variety of methods, including Credit Cards, Debit Cards, Apple Pay, Google Pay, and AliPay. 
+**[Stripe Payment Gateway](https://directorist.com/product/directorist-stripe/)** – Accept payments through a wide variety of methods, including Credit Cards, Debit Cards, Apple Pay, Google Pay, and AliPay. 
 
-**Authorize.Net Payment Gateway** – Accept secure payments for your directory with Authorize.Net, supporting major payment methods
+**[Authorize.Net Payment Gateway](https://directorist.com/product/directorist-authorize-net/)** – Accept secure payments for your directory with Authorize.Net, supporting major payment methods
 
-**Claim Listings for Verified Business Ownership** - Allow businesses to own and manage their listing through a secure claiming process.
+**[Claim Listings for Verified Business Ownership](https://directorist.com/product/directorist-claim-listing/)** - Allow businesses to own and manage their listing through a secure claiming process.
 
-**Showcase Listings with Maps** - Combine listing views with side-by-side maps for a dynamic user experience.
+**[Showcase Listings with Maps](https://directorist.com/product/directorist-listings-with-map/)** - Combine listing views with side-by-side maps for a dynamic user experience.
 
-**Live Chat** - Integrate private messaging system on your directory listing website and make your business more credible by ensuring customer satisfaction.
+**[Live Chat](https://directorist.com/product/directorist-live-chat/)** - Integrate private messaging system on your directory listing website and make your business more credible by ensuring customer satisfaction.
 
-**Create Visual Appeal with Image Gallery** - Highlight listings using eye-catching image galleries, sliders, or carousels.
+**[Create Visual Appeal with Image Gallery](https://directorist.com/product/directorist-gallery/)** - Highlight listings using eye-catching image galleries, sliders, or carousels.
 
-**Mark as Sold** - Enable listing authors to mark items as sold, giving visitors real-time status updates on availability.
+**[Mark as Sold](https://directorist.com/product/directorist-mark-as-sold/)** - Enable listing authors to mark items as sold, giving visitors real-time status updates on availability.
 
-**Google reCAPTCHA** - Safeguard your directory from spam with bot detection during user sign-up, ensuring a secure platform.
+**[Google reCAPTCHA](https://directorist.com/product/directorist-google-recaptcha/)** - Safeguard your directory from spam with bot detection during user sign-up, ensuring a secure platform.
 
-**Listing Slider & Carousel** – Showcase your listings beautifully with customizable sliders and carousels, using 18 slider and 28 carousel shortcode options.
+**[Listing Slider & Carousel](https://directorist.com/product/directorist-slider-carousel/)** – Showcase your listings beautifully with customizable sliders and carousels, using 18 slider and 28 carousel shortcode options.
 
-**Business Hours** – Display business opening and closing times with timezone settings and customizable live status badges.
+**[Business Hours](https://directorist.com/product/directorist-business-hours/)** – Display business opening and closing times with timezone settings and customizable live status badges.
 
-**Listing FAQs** – Add a user-friendly FAQ section to boost visitor engagement and turn them into loyal customers.
+**[Listing FAQs](https://directorist.com/product/directorist-faqs/)** – Add a user-friendly FAQ section to boost visitor engagement and turn them into loyal customers.
 
-**Social Login** – Simplify the sign-up process with quick registration and login options using popular social media platforms.
+**[Social Login](https://directorist.com/product/directorist-social-login/)** – Simplify the sign-up process with quick registration and login options using popular social media platforms.
 
 **Rank Featured Listings** – Prioritize premium listings effortlessly to give them more visibility and generate additional revenue.
 
-**Compare Listings** – Let users compare multiple listings side-by-side in an easy-to-read table for better decision-making.
+**[Compare Listings](https://directorist.com/product/directorist-compare-listing/)** – Let users compare multiple listings side-by-side in an easy-to-read table for better decision-making.
 
-**Oxygen Builder Integration** – Seamlessly combine all necessary directory functionalities using the Oxygen Builder for an advanced, intuitive design.
+**[Oxygen Builder Integration](https://directorist.com/product/directorist-oxygen-integration/)** – Seamlessly combine all necessary directory functionalities using the Oxygen Builder for an advanced, intuitive design.
 
-**BuddyBoss Integration** – Create a dynamic community-driven directory by integrating Directorist with BuddyBoss.
+**[BuddyBoss Integration](https://directorist.com/product/directorist-buddyboss-integration/)** – Create a dynamic community-driven directory by integrating Directorist with BuddyBoss.
 
-**BuddyPress Integration** – Combine Directorist and BuddyPress to build hybrid directories enriched with social networking features.
+**[BuddyPress Integration](https://directorist.com/product/directorist-buddypress-integration/)** – Combine Directorist and BuddyPress to build hybrid directories enriched with social networking features.
 
-**Multi-Directory Linking** – Allow users to connect multiple directories on your site, creating a seamless experience across niches.
+**[Multi-Directory Linking](https://directorist.com/product/directorist-directory-linking/)** – Allow users to connect multiple directories on your site, creating a seamless experience across niches.
 
-**Mailchimp Integration** – Grow your email list and leads faster by integrating Mailchimp with your directory platform.
+**[Mailchimp Integration](https://directorist.com/product/directorist-mailchimp/)** – Grow your email list and leads faster by integrating Mailchimp with your directory platform.
 
-**GamiPress Integration** – Boost user engagement through gamification with points-based rewards for interactions on your site.
+**[GamiPress Integration](https://directorist.com/product/directorist-gamipress-integration/)** – Boost user engagement through gamification with points-based rewards for interactions on your site.
 
-**WPML Integration** – Build multilingual directories effortlessly and expand your reach to a global audience.
+**[WPML Integration](https://directorist.com/product/directorist-wpml-integration/)** – Build multilingual directories effortlessly and expand your reach to a global audience.
 
-**Digital Marketplace** – Create a marketplace for digital downloads or fixed-price services and diversify your revenue streams.
+**[Digital Marketplace](https://directorist.com/product/directorist-digital-marketplace/)** – Create a marketplace for digital downloads or fixed-price services and diversify your revenue streams.
 
 == Privacy Policy ==
 
@@ -304,6 +304,7 @@ Directorist comes with an AI-powered directory builder. Use the Create with AI o
  - Settings data restore issue. (#2358)
  - Formatting and link options issue in TinyMCE editor. (#2346)
  - Prevented infinite loop in the builder's assign-to-category field. (#2418)
+ - Zipcode radius search. (#2446)
 
 **Security**
  - Applied WordPress coding standards using PHPCS across the entire codebase. Addressed numerous potential vulnerabilities by improving input validation, data sanitization, and output escaping to enhance overall plugin security and code quality. (#2379)

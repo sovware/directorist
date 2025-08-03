@@ -1135,25 +1135,34 @@ import "./components/directoristSelect";
 
 		// Radius Search Field Hide on Empty Location Field
 		function handleRadiusVisibility() {
+			// Add class to mark the radius search field
 			$('.directorist-range-slider-wrap')
-				.closest('.directorist-search-field')
-				.addClass('directorist-search-field-radius_search');
-			$('.directorist-location-js').each((index, locationDOM) => {
-				if ($(locationDOM).val() === '') {
-					$(locationDOM)
-						.closest('.directorist-contents-wrap')
-						.find(
-							'.directorist-search-field-radius_search, .directorist-radius-search'
-						)
-						.css({ display: 'none' });
-				} else {
-					$(locationDOM)
-						.closest('.directorist-contents-wrap')
-						.find(
-							'.directorist-search-field-radius_search, .directorist-radius-search'
-						)
-						.css({ display: 'block' });
-				}
+			.closest('.directorist-search-field')
+			.addClass('directorist-search-field-radius_search');
+
+			let radius_search_item_selector = null;
+			const radius_search_based_on = $(".directorist-radius_search_based_on").val();
+
+			// Determine which search item selector to use
+			if (radius_search_based_on === "address") {
+				radius_search_item_selector = ".directorist-location-js";
+			} else if (radius_search_based_on === "zip") {
+				radius_search_item_selector = ".directorist-zipcode-search .zip-radius-search";
+			} else {
+				// Default fallback
+				radius_search_item_selector = ".directorist-location-js";
+			}
+
+			// Now, use jQuery to loop through the elements
+			$(radius_search_item_selector).each((index, locationDOM) => {
+				const $location = $(locationDOM);
+				const isEmpty = $location.val() === '';
+
+				const $container = $location.closest('.directorist-contents-wrap').find(
+					'.directorist-search-field-radius_search, .directorist-radius-search'
+				);
+
+				$container.css({ display: isEmpty ? 'none' : 'block' });
 			});
 		}
 
@@ -1666,6 +1675,8 @@ import "./components/directoristSelect";
 				} else if(customRangeMinParams && customRangeMinParams !== '0' && customRangeMaxParams && customRangeMaxParams !== '0') {
 					sliderActivated = true;
 				}
+				
+				if (typeof directoristCustomRangeSlider === 'undefined') return;
 
 				if (sliderRadiusActive) { // Radius Search Range Slider
 					directoristCustomRangeSlider?.create(slider, {
@@ -1906,7 +1917,7 @@ import "./components/directoristSelect";
 				};
 				$.ajax({
 					url: url,
-					method: 'GET',
+					method: 'POST',
 					data:
 						directorist.i18n_text.select_listing_map === 'google'
 							? google_data

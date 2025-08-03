@@ -2409,7 +2409,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       };
       $.ajax({
         url: url,
-        method: 'GET',
+        method: 'POST',
         data: directorist.i18n_text.select_listing_map === 'google' ? google_data : '',
         success: function success(data) {
           if (data.data && data.data.error_message) {

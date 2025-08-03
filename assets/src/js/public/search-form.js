@@ -1908,7 +1908,7 @@ import "./components/directoristSelect";
 				};
 				$.ajax({
 					url: url,
-					method: 'GET',
+					method: 'POST',
 					data:
 						directorist.i18n_text.select_listing_map === 'google'
 							? google_data

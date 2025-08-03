@@ -9,7 +9,7 @@
                     <div class="directorist-membership-header-body">
                         <div class="directorist-membership-header-title">
                             <?php esc_attr_e( 'Hello,', 'directorist' )?>
-                            <?php echo $user->display_name; ?>
+                            <?php echo esc_html( $user->display_name ); ?>
                         </div>
                         <p class="directorist-membership-header-alert">
                             <?php esc_attr_e( 'Welcome back', 'directorist' )?>

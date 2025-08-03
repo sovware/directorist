@@ -77,10 +77,7 @@ class Repository {
             }
 
             update_option( 'directorist_licensing_account_data', $data );
-
-            if ( isset( $data['account_data']['templatiq_token'] ) && ! empty( $data['account_data']['templatiq_token'] ) ) {
-                update_option( '_templatiq_token', $data['account_data']['templatiq_token'] );
-            }
+            update_option( 'templatiq_user_account_sync_needed', true );
 
             $extensions = $data['plan_data']['downloads']['legacy_array'] ?? [];
             add_user_meta( 1, '_plugins_available_in_subscriptions', $extensions );
@@ -119,10 +116,41 @@ class Repository {
             $extensions = $data['plan_data']['downloads']['legacy_array'] ?? [];
             add_user_meta( 1, '_plugins_available_in_subscriptions', $extensions );
 
+            update_option( 'templatiq_user_account_sync_needed', true );
+
             return true;
 
         } catch ( \Throwable $th ) {
             throw $th;
         }
+    }
+
+    public static function sync_templatiq() {
+        try {
+            $access_key = Licensing_Account::get_access_key();
+
+            if ( empty( $access_key ) ) {
+                return;
+            }
+
+            $http = new Http(
+                self::get_endpoint( 'templatiq-token' ),
+                [
+                    'access_key' => $access_key,
+                ]
+            );
+
+            $response = $http->post()->response();
+            $raw_body = wp_remote_retrieve_body( $response );
+            $data     = json_decode( $raw_body, true );
+
+            if ( isset( $data['templatiq_token'] ) && ! empty( $data['templatiq_token'] ) ) {
+                update_option( '_templatiq_token', $data['templatiq_token'] );
+                delete_option( 'templatiq_user_account_sync_needed' );
+            }
+
+        } catch ( \Throwable $th ) {
+            ;
+            error_log( 'Templatiq Sync Error : ' . print_r( $th->getMessage(), true ) );}
     }
 }

@@ -15,6 +15,7 @@ $user = wp_get_current_user();
             <div class="directorist-col-12">
 
                 <?php include_once 'top-header.php'; ?>
+                <?php include_once 'modal.php'; ?>
 
                 <?php if ( ! Licensing::is_connected() ) : ?>
                     <?php include_once 'not-connected.php'; ?>
@@ -28,6 +29,6 @@ $user = wp_get_current_user();
         </div>
     </div>
 
-    <?php include_once 'update-all.php'; ?>
+    <?php include_once 'templatiq-popup.php'; ?>
 
 </main>

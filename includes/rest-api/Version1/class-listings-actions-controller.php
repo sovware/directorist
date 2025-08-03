@@ -64,45 +64,6 @@ class Listings_Actions_Controller extends Abstract_Controller {
     }
 
     /**
-     * Register the routes for listings actions.
-     */
-    public function register_routes() {
-        register_rest_route(
-            $this->namespace,
-            '/' . $this->rest_base,
-            array(
-                array(
-                    'methods'             => WP_REST_Server::CREATABLE,
-                    'callback'            => array( $this, 'create_item' ),
-                    'permission_callback' => array( $this, 'create_item_permissions_check' ),
-                    'args'                => array_merge(
-                        $this->get_endpoint_args_for_item_schema( WP_REST_Server::CREATABLE ),
-                        array(
-                            'id' => array(
-                                'type'        => 'string',
-                                'description' => __( 'Action identifier.', 'directorist' ),
-                                /**
-                                 * Filters the allowed enum values for the REST API 'id' parameter.
-                                 *
-                                 * This allows developers to add or modify the list of allowed actions
-                                 * for the REST endpoint.
-                                 *
-                                 * @since 8.4
-                                 *
-                                 * @param array $actions List of allowed actions.
-                                 */
-                                'enum'        => apply_filters( 'directorist_rest_listing_actions', array( 'report', 'contact' ) ),
-                                'required'    => true,
-                            ),
-                        )
-                    ),
-                ),
-                'schema' => array( $this, 'get_public_item_schema' ),
-            )
-        );
-    }
-
-    /**
      * Check if a given request has access to create an action.
      *
      * @param  WP_REST_Request $request Full details about the request.

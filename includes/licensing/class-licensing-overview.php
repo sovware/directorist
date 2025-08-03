@@ -26,7 +26,7 @@ class Licensing_Overview {
                 return count( $active_slugs );
 
             case 'available_count':
-                return count( $installed_extensions );
+                return count( Licensing_Plan::get_unlocked_products( 'extensions' ) );
 
             case 'officials_count':
                 return count( $official_extensions );
@@ -35,7 +35,7 @@ class Licensing_Overview {
                 return count( $backdated_slugs );
 
             case 'templates_count':
-                return count( Licensing_Products::get_templates() );
+                return count( Licensing_Plan::get_unlocked_products( 'templates' ) );
 
             case 'active_slug_list':
                 return $active_slugs;

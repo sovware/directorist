@@ -1898,17 +1898,29 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
 
     // Radius Search Field Hide on Empty Location Field
     function handleRadiusVisibility() {
+      // Add class to mark the radius search field
       $('.directorist-range-slider-wrap').closest('.directorist-search-field').addClass('directorist-search-field-radius_search');
-      $('.directorist-location-js').each(function (index, locationDOM) {
-        if ($(locationDOM).val() === '') {
-          $(locationDOM).closest('.directorist-contents-wrap').find('.directorist-search-field-radius_search, .directorist-radius-search').css({
-            display: 'none'
-          });
-        } else {
-          $(locationDOM).closest('.directorist-contents-wrap').find('.directorist-search-field-radius_search, .directorist-radius-search').css({
-            display: 'block'
-          });
-        }
+      var radius_search_item_selector = null;
+      var radius_search_based_on = $(".directorist-radius_search_based_on").val();
+
+      // Determine which search item selector to use
+      if (radius_search_based_on === "address") {
+        radius_search_item_selector = ".directorist-location-js";
+      } else if (radius_search_based_on === "zip") {
+        radius_search_item_selector = ".directorist-zipcode-search .zip-radius-search";
+      } else {
+        // Default fallback
+        radius_search_item_selector = ".directorist-location-js";
+      }
+
+      // Now, use jQuery to loop through the elements
+      $(radius_search_item_selector).each(function (index, locationDOM) {
+        var $location = $(locationDOM);
+        var isEmpty = $location.val() === '';
+        var $container = $location.closest('.directorist-contents-wrap').find('.directorist-search-field-radius_search, .directorist-radius-search');
+        $container.css({
+          display: isEmpty ? 'none' : 'block'
+        });
       });
     }
 

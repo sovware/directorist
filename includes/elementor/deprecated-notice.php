@@ -90,7 +90,7 @@ class DeprecatedNotice {
                 <span>
                     <?php echo wp_kses(
                         sprintf(
-                            __( '<b>Deprecation</b>: We are not going to provide Elementor support in Directorist plugin, We have introduced huge features packed in <a href="%1$s" target="_blank">%2$s</a>', 'directorist' ),
+                            __( '<b>Announcement!</b> We\'ve enhanced our Elementor support! Introducing <a href="%1$s" target="_blank">Directorist Addonskit for Elementor</a> - a dedicated, feature-rich extension that\'s completely free. This specialized addon provides more powerful Elementor widgets and functionality that ever before.', 'directorist' ),
                             esc_url( $this->addon_url ),
                             esc_html( $this->parent_label ),
                             esc_html( $this->core_plugin ) 
@@ -115,7 +115,7 @@ class DeprecatedNotice {
                 <span>
                     <?php echo wp_kses(
                         sprintf(
-                            __( '<b>Deprecation</b>: We are not going to provide Elementor support in Directorist plugin, We have introduced huge features packed in <a href="%1$s" target="_blank">%2$s</a>', 'directorist' ),
+                            __( '<b>Announcement!</b> We\'ve enhanced our Elementor support! Introducing <a href="%1$s" target="_blank">Directorist Addonskit for Elementor</a> - a dedicated, feature-rich extension that\'s completely free. This specialized addon provides more powerful Elementor widgets and functionality that ever before.', 'directorist' ),
                             esc_url( $this->addon_url ),
                             esc_html( $this->parent_label ),
                             esc_html( $this->core_plugin ) 

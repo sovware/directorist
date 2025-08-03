@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-07-16 09:11+0000\n"
+"POT-Creation-Date: 2025-08-03 09:48+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -4659,7 +4659,7 @@ msgid "What type of directory are you creating?"
 msgstr ""
 
 #: ../includes/classes/class-setup-wizard.php:808
-msgid "Select the directory type you’re building. Weather it’s a business directory, a classifieds platform, or something else, we’ve got you covered."
+msgid "Select the directory type you’re building. Whether it’s a business directory, a classifieds platform, or something else, we’ve got you covered."
 msgstr ""
 
 #: ../includes/classes/class-setup-wizard.php:971
@@ -5132,8 +5132,12 @@ msgstr ""
 msgid "This widget works only in Registration page. It has no additional elementor settings."
 msgstr ""
 
-#: ../includes/elementor/deprecated-notice.php:93, ../includes/elementor/deprecated-notice.php:118
-msgid "<b>Deprecation</b>: We are not going to provide Elementor support in Directorist plugin, We have introduced huge features packed in <a href=\"%1$s\" target=\"_blank\">%2$s</a>"
+#: ../includes/elementor/deprecated-notice.php:93
+msgid "<b>Directorist Announcement!</b> We've enhanced our Elementor support! Introducing <a href=\"%1$s\" target=\"_blank\">Directorist Addonskit for Elementor</a> - a dedicated, feature-rich extension that's completely free. This specialized addon provides more powerful Elementor widgets and functionality than ever before."
+msgstr ""
+
+#: ../includes/elementor/deprecated-notice.php:118
+msgid "<b>Directorist Announcement!</b> We've enhanced our Elementor support! Introducing <a href=\"%1$s\" target=\"_blank\">Directorist Addonskit for Elementor</a> - a dedicated, feature-rich extension that's completely free. This specialized addon provides more powerful Elementor widgets and functionality that ever before."
 msgstr ""
 
 #: ../includes/elementor/location.php:35, ../includes/elementor/tag.php:35

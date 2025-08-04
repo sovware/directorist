@@ -1,6 +1,6 @@
 {
   "name": "directorist-business-directory-plugin",
-  "version": "8.4.3",
+  "version": "8.4.4",
   "description": "A comprehensive solution to create professional looking directory site of any kind. Like Yelp, Foursquare, etc.",
   "main": "index.js",
   "scripts": {
@@ -68,8 +68,8 @@
     "wp-pot": "^1.9.8"
   },
   "engines": {
-    "node": "22.16.0",
-    "npm": "10.2.4"
+    "node": "22.17.0",
+    "npm": "10.9.2"
   },
   "browserslist": [
     "defaults",
@@ -78,5 +78,6 @@
     "> 1%",
     "iOS 7",
     "last 3 iOS versions"
-  ]
+  ],
+  "packageManager": "yarn@4.9.2+sha512.1fc009bc09d13cfd0e19efa44cbfc2b9cf6ca61482725eb35bbc5e257e093ebf4130db6dfe15d604ff4b79efd8e1e8e99b25fa7d0a6197c9f9826358d4d65c3c"
 }

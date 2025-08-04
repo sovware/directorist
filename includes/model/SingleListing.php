@@ -237,95 +237,93 @@ class Directorist_Single_Listing {
     }
 
     public function get_field_value( $data = [] ) {
-		$post_id = $this->id;
+        $post_id = $this->id;
 
-		$value = '';
+        $value = '';
 
-		if ( ! is_array( $data ) ) {
-			return '';
-		}
+        if ( ! is_array( $data ) ) {
+            return '';
+        }
 
-		if ( isset( $data['value'] ) ) {
+        if ( isset( $data['value'] ) ) {
             return apply_filters( 'directorist_single_listing_widget_value', $data['value'], $data );
         }
 
-		if ( isset( $data['widget_name'] ) && $data['widget_name'] == 'custom_content' ) {
-			return apply_filters( 'directorist_single_listing_widget_value', $data['content'], $data );
-		}
+        if ( isset( $data['widget_name'] ) && $data['widget_name'] == 'custom_content' ) {
+            return apply_filters( 'directorist_single_listing_widget_value', $data['content'], $data );
+        }
 
-		if ( !empty( $data['field_key'] ) ) {
-			$value = get_post_meta( $post_id, '_'.$data['field_key'], true );
+        if ( ! empty( $data['field_key'] ) ) {
+            $value = get_post_meta( $post_id, '_' . $data['field_key'], true );
 
-			if ( empty( $value ) ) {
-				$value = get_post_meta( $post_id, $data['field_key'], true ); //@kowsar @todo - remove double getmeta later
-			}
-		}
+            if ( empty( $value ) ) {
+                $value = get_post_meta( $post_id, $data['field_key'], true ); //@kowsar @todo - remove double getmeta later
+            }
+        }
 
-		return apply_filters( 'directorist_single_listing_widget_value', $value, $data );
-	}
+        return apply_filters( 'directorist_single_listing_widget_value', $value, $data );
+    }
 
-	public function field_template( $data ) {
-		$value = '';
+    public function field_template( $data ) {
+        $value = '';
 
-		if( 'tag' === $data['widget_name'] ) {
-			$tags = get_the_terms( $this->id, ATBDP_TAGS );
-			if( $tags ) {
-				$value = true;
-			}
-		} elseif( 'map' === $data['widget_name'] ) {
-			$manual_lat = get_post_meta( $this->id, '_manual_lat', true );
-			$manual_lng = get_post_meta( $this->id, '_manual_lng', true );
-			$hide_map 	= get_post_meta( $this->id, '_hide_map', true );
-			if( ( $manual_lat && $manual_lng ) && ! $hide_map ) {
-				$value = true;
-			}
-		} elseif( 'image_upload' === $data['widget_name'] ) {
-			$listing_img 	=  directorist_get_listing_gallery_images( $this->id );
-			$preview_img   	= directorist_get_listing_preview_image( $this->id );
-			if( $listing_img || $preview_img ) {
-				$value = true;
-			}
-		} elseif( 'description' === $data['widget_name'] ) {
-			if( $this->get_contents() ) {
-				$value = true;
-			}
-		}
-		else {
-			$value = $this->get_field_value( $data );
-		}
+        if ( 'tag' === $data['widget_name'] ) {
+            $tags = get_the_terms( $this->id, ATBDP_TAGS );
+            if ( $tags ) {
+                $value = true;
+            }
+        } elseif ( 'map' === $data['widget_name'] ) {
+            $manual_lat = get_post_meta( $this->id, '_manual_lat', true );
+            $manual_lng = get_post_meta( $this->id, '_manual_lng', true );
+            $hide_map   = get_post_meta( $this->id, '_hide_map', true );
+            if ( ( $manual_lat && $manual_lng ) && ! $hide_map ) {
+                $value = true;
+            }
+        } elseif ( 'image_upload' === $data['widget_name'] ) {
+            $listing_img    =  directorist_get_listing_gallery_images( $this->id );
+            $preview_img    = directorist_get_listing_preview_image( $this->id );
+            if ( $listing_img || $preview_img ) {
+                $value = true;
+            }
+        } elseif ( 'description' === $data['widget_name'] ) {
+            if ( $this->get_contents() ) {
+                $value = true;
+            }
+        } else {
+            $value = $this->get_field_value( $data );
+        }
 
-		$group = !empty( $data['widget_group'] ) ? $data['widget_group'] : '';
+        $group = ! empty( $data['widget_group'] ) ? $data['widget_group'] : '';
 
-		if ( ( ( $group === 'custom' ) || ( $group === 'preset' ) ) && ! $value ) {
-			return;
-		}
+        if ( ( ( $group === 'custom' ) || ( $group === 'preset' ) ) && ! $value ) {
+            return;
+        }
 
-		$data['value']      = $value;
-		$data['listing_id'] = $this->id;
+        $data['value']      = $value;
+        $data['listing_id'] = $this->id;
 
-		$args = array(
-			'listing'               => $this,
-			'data'                  => $data,
-			'value'                 => $value,
-			'icon'                  => ! empty( $data['icon'] ) ? $data['icon'] : '',
-			'display_address_map'   => get_directorist_option( 'display_address_map', 1 ),
-			'display_direction_map' => get_directorist_option( 'display_direction_map', 1 ),
-			'address'               => get_post_meta( $this->id, '_address', true ),
-			'manual_lat'			=> ! empty( $manual_lat ) ? $manual_lat : '',
-			'manual_lng'			=> ! empty( $manual_lng ) ? $manual_lng : '',
-		);
+        $args = array(
+            'listing'               => $this,
+            'data'                  => $data,
+            'value'                 => $value,
+            'icon'                  => ! empty( $data['icon'] ) ? $data['icon'] : '',
+            'display_address_map'   => get_directorist_option( 'display_address_map', 1 ),
+            'display_direction_map' => get_directorist_option( 'display_direction_map', 1 ),
+            'address'               => get_post_meta( $this->id, '_address', true ),
+            'manual_lat'            => ! empty( $manual_lat ) ? $manual_lat : '',
+            'manual_lng'            => ! empty( $manual_lng ) ? $manual_lng : '',
+        );
 
-		if ( $this->is_custom_field( $data ) ) {
-			$template = 'single/custom-fields/' . $data['widget_name'];
-		}
-		else {
-			$template = 'single/fields/' . $data['widget_name'];
-		}
+        if ( $this->is_custom_field( $data ) ) {
+            $template = 'single/custom-fields/' . $data['widget_name'];
+        } else {
+            $template = 'single/fields/' . $data['widget_name'];
+        }
 
-		$template = apply_filters( 'directorist_single_item_template', $template, $data );
+        $template = apply_filters( 'directorist_single_item_template', $template, $data );
 
-		Helper::get_template( $template, $args );
-	}
+        Helper::get_template( $template, $args );
+    }
 
     public function is_custom_field( $data ) {
         $fields = [ 'checkbox', 'color_picker', 'date', 'file', 'number', 'radio', 'select', 'text', 'textarea', 'time', 'url' ];

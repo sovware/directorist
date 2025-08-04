@@ -4,6 +4,9 @@ namespace Directorist\App\Setup;
 
 defined( "ABSPATH" ) || exit;
 
+use Directorist\WpMVC\Database\Schema\Blueprint;
+use Directorist\WpMVC\Database\Schema\Schema;
+
 class Activation {
     public static function run() {
         // Run the activation tasks.
@@ -11,62 +14,54 @@ class Activation {
     }
 
     public static function create_tables() {
-        global $wpdb;
+        $prefix = "directorist_";
 
-        $charset_collate = $wpdb->get_charset_collate();
-        $db_prefix       = "{$wpdb->prefix}directorist_";
+        //Subscriptions Table
+        Schema::create(
+            "{$prefix}subscriptions", function( Blueprint $table ) {
+                $table->big_increments( "id" );
+                $table->integer( "plan_id" )->nullable();
+                $table->integer( "user_id" );
+                $table->enum( "status", [ "pending", "active", "trialing", "cancelled", "paused", "past_due", "expired" ] )->default( "pending" );
+                $table->timestamp( "started_at" )->use_current();
+                $table->timestamp( "current_period_end" )->nullable();
+                $table->timestamp( "cancelled_at" )->nullable();
+                $table->timestamps();
+            }
+        );
 
-        if ( ! function_exists( 'dbDelta' ) ) {
-            require_once ABSPATH . 'wp-admin/includes/upgrade.php';
-        }
+        //Orders Table
+        Schema::create(
+            "{$prefix}orders", function( Blueprint $table ) {
+                $table->big_increments( "id" );
+                $table->integer( "subscription_id" )->nullable();
+                $table->integer( "user_id" );
+                $table->integer( "listing_id" )->nullable();
+                $table->integer( "plan_id" )->nullable();
+                $table->tiny_integer( "is_featured_listing" )->default( 0 );
+                $table->enum( "type", [ "one_time", "recurring" ] )->default( "one_time" );
+                $table->decimal( "amount", 10, 2 )->default( 0.00 );
+                $table->string( "currency", 10 )->default( "USD" );
+                $table->decimal( "coupon_discount", 10, 2 )->default( 0.00 );
+                $table->decimal( "final_amount", 10, 2 )->default( 0.00 );
+                $table->enum( "status", [ "pending", "paid", "failed", "cancelled", "expired", "refunded", "unpaid" ] )->default( "pending" );
+                $table->timestamp( "expires_at" )->nullable();
+                $table->timestamps();
+            }
+        );
 
-        $sql = "CREATE TABLE {$db_prefix}subscriptions (
-			id INT NOT NULL AUTO_INCREMENT,
-			plan_id INT NULL,
-			user_id INT NOT NULL,
-			`status` ENUM('pending','active','trialing','cancelled','paused','past_due','expired') NOT NULL DEFAULT 'pending',
-			started_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-			current_period_end TIMESTAMP NULL DEFAULT NULL,
-			cancelled_at TIMESTAMP NULL DEFAULT NULL,
-			created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-			updated_at TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP,
-			PRIMARY KEY (id)
-		);
-
-		-- ORDERS
-		CREATE TABLE {$db_prefix}orders (
-			id INT NOT NULL AUTO_INCREMENT,
-			subscription_id INT NULL,
-			user_id INT NOT NULL,
-			listing_id INT NULL,
-			plan_id INT NULL,
-			is_featured_listing TINYINT DEFAULT 0,
-			`type` ENUM('one_time','recurring') NOT NULL,
-			amount DECIMAL(10,2) NOT NULL,
-			currency VARCHAR(10) NOT NULL,
-			coupon_discount DECIMAL(10,2) DEFAULT 0.00,
-			final_amount DECIMAL(10,2) DEFAULT 0.00,
-			`status` ENUM('pending','paid','failed','cancelled','expired','refunded','unpaid') NOT NULL DEFAULT 'pending',
-			expires_at TIMESTAMP NULL DEFAULT NULL,
-			created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-			updated_at TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP,
-			PRIMARY KEY (id)
-		);
-
-		-- PAYMENTS
-		CREATE TABLE {$db_prefix}payments (
-			id INT NOT NULL AUTO_INCREMENT,
-			order_id INT NOT NULL,
-			amount DECIMAL(10,2) NOT NULL,
-			currency VARCHAR(10) NOT NULL,
-			`status` ENUM('pending','paid','failed','cancelled','refunded','unpaid','expired') NOT NULL DEFAULT 'pending',
-			transaction_id VARCHAR(100) NULL,
-			method VARCHAR(30),
-			created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-			updated_at TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP,
-			PRIMARY KEY (id)
-		);";
-
-        dbDelta( $sql );
+        //Payment Table
+        Schema::create(
+            "{$prefix}payments", function( Blueprint $table ) {
+                $table->big_increments( "id" );
+                $table->integer( "order_id" );
+                $table->decimal( "amount", 10, 2 )->default( 0.00 );
+                $table->string( "currency", 10 )->default( "USD" );
+                $table->enum( "status", [ "pending", "paid", "failed", "cancelled", "refunded", "unpaid", "expired" ] )->default( "pending" );
+                $table->string( "transaction_id" )->nullable();
+                $table->string( "method" )->nullable();
+                $table->timestamps();
+            }
+        );
     }
 }

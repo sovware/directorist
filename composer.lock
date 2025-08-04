@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "811e074407aa7d6daa1fe9edbc929521",
+    "content-hash": "63cf5189bf9f31b14f32e9682c3ac240",
     "packages": [
         {
             "name": "laravel/serializable-closure",
@@ -1100,16 +1100,16 @@
         },
         {
             "name": "wpmvc/database",
-            "version": "1.1.2",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wpmvc/database.git",
-                "reference": "438f2ecdfa69fe46e4aefe1875676944a340958c"
+                "reference": "9d2738d310755aa1dbac17deb19773ad184aacbb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wpmvc/database/zipball/438f2ecdfa69fe46e4aefe1875676944a340958c",
-                "reference": "438f2ecdfa69fe46e4aefe1875676944a340958c",
+                "url": "https://api.github.com/repos/wpmvc/database/zipball/9d2738d310755aa1dbac17deb19773ad184aacbb",
+                "reference": "9d2738d310755aa1dbac17deb19773ad184aacbb",
                 "shasum": ""
             },
             "require-dev": {
@@ -1137,28 +1137,28 @@
             ],
             "support": {
                 "issues": "https://github.com/wpmvc/database/issues",
-                "source": "https://github.com/wpmvc/database/tree/1.1.2"
+                "source": "https://github.com/wpmvc/database/tree/1.2.0"
             },
-            "time": "2025-04-06T16:44:46+00:00"
+            "time": "2025-07-07T07:03:04+00:00"
         },
         {
             "name": "wpmvc/framework",
-            "version": "1.1.2",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wpmvc/framework.git",
-                "reference": "ae5bb4d3a34bec1c41c1b408aab5738732815f73"
+                "reference": "c8f59b771c3babb5b9217d5257a57ea750d515f4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wpmvc/framework/zipball/ae5bb4d3a34bec1c41c1b408aab5738732815f73",
-                "reference": "ae5bb4d3a34bec1c41c1b408aab5738732815f73",
+                "url": "https://api.github.com/repos/wpmvc/framework/zipball/c8f59b771c3babb5b9217d5257a57ea750d515f4",
+                "reference": "c8f59b771c3babb5b9217d5257a57ea750d515f4",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.4",
                 "php-di/php-di": "6.4.0",
-                "wpmvc/database": "1.1.2",
+                "wpmvc/database": "1.2.0",
                 "wpmvc/helpers": "0.0.2",
                 "wpmvc/request-validator": "1.1.0",
                 "wpmvc/routing": "1.1.1"
@@ -1188,9 +1188,9 @@
             ],
             "support": {
                 "issues": "https://github.com/wpmvc/framework/issues",
-                "source": "https://github.com/wpmvc/framework/tree/1.1.2"
+                "source": "https://github.com/wpmvc/framework/tree/1.2.0"
             },
-            "time": "2025-04-06T16:56:19+00:00"
+            "time": "2025-07-07T05:24:31+00:00"
         },
         {
             "name": "wpmvc/helpers",
@@ -1790,16 +1790,16 @@
         },
         {
             "name": "wpmvc/artisan",
-            "version": "1.1.0",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wpmvc/artisan.git",
-                "reference": "47868f1b3e56c6e28325dc7ffe4a37023c10f946"
+                "reference": "2ad167fa03f1328421dc870b56cbff5854bbfb72"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wpmvc/artisan/zipball/47868f1b3e56c6e28325dc7ffe4a37023c10f946",
-                "reference": "47868f1b3e56c6e28325dc7ffe4a37023c10f946",
+                "url": "https://api.github.com/repos/wpmvc/artisan/zipball/2ad167fa03f1328421dc870b56cbff5854bbfb72",
+                "reference": "2ad167fa03f1328421dc870b56cbff5854bbfb72",
                 "shasum": ""
             },
             "require": {
@@ -1830,17 +1830,17 @@
             ],
             "support": {
                 "issues": "https://github.com/wpmvc/artisan/issues",
-                "source": "https://github.com/wpmvc/artisan/tree/1.1.0"
+                "source": "https://github.com/wpmvc/artisan/tree/1.1.1"
             },
-            "time": "2024-08-31T12:38:10+00:00"
+            "time": "2025-07-07T05:06:45+00:00"
         }
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
-    "platform-dev": [],
+    "platform": {},
+    "platform-dev": {},
     "plugin-api-version": "2.6.0"
 }

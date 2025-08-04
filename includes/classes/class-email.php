@@ -176,7 +176,7 @@ if ( ! class_exists( 'ATBDP_Email' ) ) :
              *
              * @return array Modified find & replace array.
              */
-            $find_replace = apply_filters('directorist_replace_in_content', $find_replace, $listing_id, $user);
+            $find_replace = apply_filters( 'directorist_replace_in_content', $find_replace, $listing_id, $user );
 
             $c = nl2br( strtr( $content, $find_replace ) );
             // we do not want to use br for line break in the order details markup. so we removed that from bulk replacement.

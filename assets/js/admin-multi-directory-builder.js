@@ -27627,7 +27627,7 @@ __webpack_require__.r(__webpack_exports__);
   name: "toggle-field-theme-default",
   mixins: [_mixins_form_fields_toggle_field__WEBPACK_IMPORTED_MODULE_0__["default"]],
   props: {
-    sublabel: {
+    subLabel: {
       default: ""
     }
   }
@@ -38257,9 +38257,9 @@ var render = function render() {
     staticClass: "cptm-form-group"
   }, [_c('div', {
     staticClass: "cptm-input-toggle-wrap"
-  }, [_vm.label.length ? _c('label', [_c(_vm.labelType, {
+  }, [_vm.label && _vm.label.length ? _c('label', [_c(_vm.labelType, {
     tag: "component"
-  }, [_vm._v(_vm._s(_vm.label))]), _vm._v(" "), _vm.subLabel.length ? _c('small', {
+  }, [_vm._v(_vm._s(_vm.label))]), _vm._v(" "), _vm.subLabel && _vm.subLabel.length ? _c('small', {
     staticClass: "cptm-sub-label"
   }, [_vm._v(_vm._s(_vm.subLabel))]) : _vm._e()], 1) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "directorist_vertical-align-m"
@@ -38321,7 +38321,7 @@ var render = function render() {
     domProps: {
       "innerHTML": _vm._s(_vm.comp.link.label)
     }
-  }) : _vm._e()])]), _vm._v(" "), _vm.description.length ? _c('p', {
+  }) : _vm._e()])]), _vm._v(" "), _vm.description && _vm.description.length ? _c('p', {
     staticClass: "cptm-form-group-info",
     domProps: {
       "innerHTML": _vm._s(_vm.description)

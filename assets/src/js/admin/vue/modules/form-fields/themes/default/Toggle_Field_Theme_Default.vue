@@ -1,9 +1,9 @@
 <template>
   <div class="cptm-form-group">
     <div class="cptm-input-toggle-wrap">
-      <label v-if="label.length">
+      <label v-if="label && label.length">
         <component :is="labelType">{{ label }}</component>
-        <small v-if="subLabel.length" class="cptm-sub-label">{{
+        <small v-if="subLabel && subLabel.length" class="cptm-sub-label">{{
           subLabel
         }}</small>
       </label>
@@ -39,7 +39,7 @@
 
       <p
         class="cptm-form-group-info"
-        v-if="description.length"
+        v-if="description && description.length"
         v-html="description"
       ></p>
     </div>
@@ -68,7 +68,7 @@ export default {
   name: "toggle-field-theme-default",
   mixins: [toggle_feild],
   props: {
-    sublabel: {
+    subLabel: {
       default: "",
     },
   },

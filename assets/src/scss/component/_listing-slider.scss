@@ -166,8 +166,10 @@
   margin: 10px auto 0;
   border-radius: 12px;
   overflow: auto;
-  .swiper-wrapper{
+  height: auto;
+  .swiper-wrapper {
     gap: 10px;
+    height: auto;
   }
   .directorist-swiper {
     @include e(navigation) {
@@ -221,6 +223,7 @@
   &.directorist-swiper {
     padding: 15px;
     margin: -15px;
+    height: auto;
     > .directorist-swiper__navigation .directorist-swiper__nav i {
       height: 40px;
       width: 40px;
@@ -228,6 +231,9 @@
         width: 14px;
         height: 14px;
       }
+    }
+    .swiper-wrapper {
+      height: auto;
     }
   }
   &.slider-has-one-item,

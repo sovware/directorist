@@ -72,11 +72,6 @@ export default {
     },
     
     created() {
-        console.log( '@CHK-1: value', { 
-            fieldId: this.fieldId,
-            name: this.name,
-            value: this.value,
-        } );
         this.setup();
     },
 
@@ -88,12 +83,6 @@ export default {
 
     watch: {
         value() {
-            console.log( '@CHK-2: value', { 
-                fieldId: this.fieldId,
-                name: this.name,
-                value: this.value,
-             } );
-
             this.loadOldData();
         },
     },

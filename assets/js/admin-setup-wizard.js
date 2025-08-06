@@ -18,7 +18,7 @@ jQuery(document).ready(function ($) {
     $('.atbdp-mapping-step').removeClass('active').addClass('done');
     $('.atbdp-progress-step').addClass('active');
     var counter = 0;
-    var run_import = function run_import() {
+    var _run_import = function run_import() {
       var form_data = new FormData();
       // ajax action
       form_data.append('action', 'atbdp_dummy_data_import');
@@ -51,7 +51,7 @@ jQuery(document).ready(function ($) {
           $('.directorist-importer-progress').val(response.percentage);
           if (response.percentage != '100' && counter < 150) {
             position = response.next_position;
-            run_import();
+            _run_import();
             counter++;
           } else {
             window.location = response.url;
@@ -64,7 +64,7 @@ jQuery(document).ready(function ($) {
         }
       });
     };
-    run_import();
+    _run_import();
   });
   $('.directorist-submit-importing').on('click', function (e) {
     e.preventDefault();
@@ -74,7 +74,7 @@ jQuery(document).ready(function ($) {
     $('.directorist-setup-wizard__content').addClass('hidden');
     $('.middle-content-import').removeClass('hidden');
     var type_count = 0;
-    var import_dummy = function import_dummy() {
+    var _import_dummy = function import_dummy() {
       var data = {
         action: 'directorist_setup_wizard',
         directorist_nonce: import_export_data.directorist_nonce
@@ -108,11 +108,11 @@ jQuery(document).ready(function ($) {
           $('.directorist-import-progress-bar').css('width', progressPercentage + '%');
           $('.directorist-importer-progress').val(progressPercentage);
           $('.directorist-import-progress-info-precent').text(progressPercentage + '%');
-          import_dummy();
+          _import_dummy();
         }
       });
     };
-    import_dummy();
+    _import_dummy();
   });
 
   // Reusable function to check and toggle the class based on the input value

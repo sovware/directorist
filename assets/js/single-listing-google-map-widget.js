@@ -164,7 +164,6 @@ function initSingleMapWidget() {
         maxWidth: 400 /*Add configuration for max width*/
       });
     }
-
     var marker = new google.maps.marker.AdvancedMarkerElement({
       map: map,
       position: saved_lat_lng,
@@ -202,7 +201,6 @@ function initSingleMapWidget() {
         });
       }
     }
-
     $(document).ready(function () {
       initMap();
       //Convert address tags to google map links -

@@ -67,5 +67,10 @@ import toggle_feild from "./../../../../mixins/form-fields/toggle-field";
 export default {
   name: "toggle-field-theme-default",
   mixins: [toggle_feild],
+  props: {
+    sublabel: {
+      default: "",
+    },
+  },
 };
 </script>

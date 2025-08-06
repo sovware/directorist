@@ -134,6 +134,8 @@ export default {
   },
 
   created() {
+    console.log('Repeater Field created with value:', this.value);
+
     if (this.value.length) {
       // Ensure each group has a unique ID
       this.active_fields_groups = this.value.slice(0, this.maxGroups).map((group, index) => ({
@@ -147,6 +149,8 @@ export default {
 
   watch: {
     active_fields_groups() {
+      console.log('active_fields_groups:', this.active_fields_groups);
+
       this.$emit( 'update', this.active_fields_groups );
     },
   },
@@ -182,6 +186,7 @@ export default {
 
     // Prepares and shows the confirmation modal for deletion
     handleTrashClick(index) {
+      console.log('Preparing to remove group at index:', index);
       this.groupToDelete = index;  // Store the index of the group to be deleted
       this.widgetName = this.active_fields_groups[index].value
                         ? this.active_fields_groups[index].value

@@ -26397,6 +26397,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   created: function created() {
+    console.log('Repeater Field created with value:', this.value);
     if (this.value.length) {
       // Ensure each group has a unique ID
       this.active_fields_groups = this.value.slice(0, this.maxGroups).map(function (group, index) {
@@ -26414,6 +26415,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   watch: {
     active_fields_groups: function active_fields_groups() {
+      console.log('active_fields_groups:', this.active_fields_groups);
       this.$emit('update', this.active_fields_groups);
     }
   },
@@ -26452,6 +26454,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     // Prepares and shows the confirmation modal for deletion
     handleTrashClick: function handleTrashClick(index) {
+      console.log('Preparing to remove group at index:', index);
       this.groupToDelete = index; // Store the index of the group to be deleted
       this.widgetName = this.active_fields_groups[index].value ? this.active_fields_groups[index].value : "Group ".concat(index + 1); // Default to 'Group X' if name is not defined
       this.openConfirmationModal(); // Show the confirmation modal
@@ -27622,7 +27625,12 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "toggle-field-theme-default",
-  mixins: [_mixins_form_fields_toggle_field__WEBPACK_IMPORTED_MODULE_0__["default"]]
+  mixins: [_mixins_form_fields_toggle_field__WEBPACK_IMPORTED_MODULE_0__["default"]],
+  props: {
+    sublabel: {
+      default: ""
+    }
+  }
 });
 
 /***/ }),
@@ -30415,7 +30423,7 @@ var render = function render() {
       "innerHTML": _vm._s(_vm.sublabel)
     }
   }) : _vm._e(), _vm._v(" "), _vm.info.length ? _c('span', {
-    staticClass: "cptm-title-info",
+    staticClass: "cptm-title-info-tooltip",
     attrs: {
       "data-info": _vm.info
     }

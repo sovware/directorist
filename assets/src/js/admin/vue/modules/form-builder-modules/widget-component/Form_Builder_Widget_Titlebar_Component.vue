@@ -1,10 +1,30 @@
 <template>
   <div class="cptm-form-builder-group-field-item-header">
     <h4 class="cptm-title-3">
-      <span class="cptm-title-icon" :class="icon"></span>
-      <span v-html="label"></span>
-      <span v-if="sublabel.length" class="cptm-text-gray cptm-px-5" v-html="sublabel"></span>
-      <span v-if="info.length" class="cptm-title-info" :data-info="info">
+      <span
+        v-if="iconType !== 'svg'"
+        class="cptm-title-icon"
+        :class="icon"
+      ></span>
+      <span
+        v-else-if="iconType === 'svg'"
+        v-html="icon"
+        class="cptm-title-icon-svg"
+      ></span>
+      <span v-else-if="!iconType" class="cptm-title-icon" :class="icon"></span>
+      <span>
+        {{ label }}
+        <span v-if="alert" class="cptm-title-info" :data-label="alert.message">
+          <span class="cptm-title-info-icon las la-info-circle"></span>
+          <span class="cptm-title-info-text" v-html="alert.message"></span>
+        </span>
+      </span>
+      <span
+        v-if="sublabel.length"
+        class="cptm-text-gray cptm-px-5"
+        v-html="sublabel"
+      ></span>
+      <span v-if="info.length" class="cptm-title-info-tooltip" :data-info="info">
         <i class="uil uil-question-circle"></i>
       </span>
     </h4>
@@ -37,6 +57,12 @@ export default {
     },
     info: {
       default: "",
+    },
+    iconType: {
+      default: null,
+    },
+    alert: {
+      default: null,
     },
     expanded: {
       default: false,

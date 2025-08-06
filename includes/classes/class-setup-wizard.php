@@ -72,7 +72,7 @@ class Directorist_Setup_Wizard {
         if ( $is_completed ) {
             $has_general = get_term_by( 'slug', 'general', ATBDP_TYPE );
 
-            if ( ! is_wp_error( $has_general ) ) {
+            if ( $has_general && ! is_wp_error( $has_general ) ) {
                 wp_delete_term( $has_general->term_id, ATBDP_TYPE );
             }
 
@@ -650,9 +650,12 @@ class Directorist_Setup_Wizard {
 
 
         if ( ! empty( $_post_data['active_gateways'] ) && in_array( 'paypal_gateway',$_post_data['active_gateways'] ) ) {
-            directorist_download_plugin( [ 'url' => 'https://directorist.com/wp-content/uploads/2024/11/directorist-paypal.zip' ] );
 
-            $path = WP_PLUGIN_DIR . '/directorist-paypal/directorist-paypal.php';
+            include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+            
+            directorist_download_plugin( [ 'url' => 'https://app.directorist.com/wp-content/uploads/2025/05/directorist-paypal.zip' ] );
+
+            $path = 'directorist-paypal/directorist-paypal.php';
 
             if ( ! is_plugin_active( $path ) ) {
                 activate_plugin( $path );
@@ -802,7 +805,7 @@ class Directorist_Setup_Wizard {
         <div class="directorist-setup-wizard__content">
             <div class="directorist-setup-wizard__content__header">
                 <h1 class="directorist-setup-wizard__content__header__title"><?php esc_html_e( 'What type of directory are you creating?', 'directorist' ); ?></h1>
-                <p class="directorist-setup-wizard__content__header__desc"><?php echo wp_kses( __( 'Select the directory type you’re building. Weather it’s a business directory, a classifieds platform, or something else, we’ve got you covered.', 'directorist' ), ['strong' => []] ); ?></p>
+                <p class="directorist-setup-wizard__content__header__desc"><?php echo wp_kses( __( 'Select the directory type you’re building. Whether it’s a business directory, a classifieds platform, or something else, we’ve got you covered.', 'directorist' ), ['strong' => []] ); ?></p>
             </div>
             <div class="directorist-setup-wizard__content__items">
                 <div class="directorist-setup-wizard__counter">

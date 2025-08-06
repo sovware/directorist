@@ -1287,7 +1287,7 @@
 #directorist.atbd_wrapper .form-control:focus {
   color: #495057;
   background-color: #fff;
-  border-color: #80bdff;
+  border-color: #409cff;
   outline: 0;
   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
@@ -2147,7 +2147,7 @@
 #directorist.atbd_wrapper .table .thead-dark th {
   color: #fff;
   background-color: #212529;
-  border-color: #32383e;
+  border-color: #30353b;
 }
 #directorist.atbd_wrapper .table .thead-light th {
   color: #495057;
@@ -2161,7 +2161,7 @@
 #directorist.atbd_wrapper .table-dark th,
 #directorist.atbd_wrapper .table-dark td,
 #directorist.atbd_wrapper .table-dark thead th {
-  border-color: #32383e;
+  border-color: #30353b;
 }
 #directorist.atbd_wrapper .table-dark.table-bordered {
   border: 0;
@@ -2532,7 +2532,7 @@
 #directorist.atbd_wrapper .modal-dialog-centered {
   display: flex;
   align-items: center;
-  min-height: calc(100% - (0.5rem * 2));
+  min-height: calc(100% - 0.5rem * 2);
 }
 #directorist.atbd_wrapper .modal-content {
   position: relative;
@@ -2609,7 +2609,7 @@
     margin: 1.75rem auto;
   }
   #directorist.atbd_wrapper .modal-dialog-centered {
-    min-height: calc(100% - (1.75rem * 2));
+    min-height: calc(100% - 1.75rem * 2);
   }
   #directorist.atbd_wrapper .modal-sm {
     max-width: 300px;

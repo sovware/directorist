@@ -43,7 +43,7 @@ if ( $location_source == 'listing' ) {
     $value   = isset( $_GET['address'] ) ? sanitize_text_field( wp_unslash( $_GET['address'] ) ) : '';
     ?>
 
-    <div class="directorist-search-field directorist-form-group directorist-search-location directorist-icon-right">
+    <div class="directorist-search-field directorist-form-group directorist-search-location directorist-icon-right <?php echo esc_attr( $empty_label ); ?>">
         <?php if ( ! empty( $data['label'] ) ) : ?>
             <label class="directorist-search-field__label" for="addressId"><?php echo esc_attr( $data['label'] ); ?></label>
         <?php endif; ?>

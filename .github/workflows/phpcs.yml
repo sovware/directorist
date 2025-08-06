@@ -2,8 +2,6 @@ name: PHPCS Check
 
 on:
   pull_request_target:
-    branches:
-      - development
     paths:
       - '**/*.php'  # Run only when PHP files change
 
@@ -25,7 +23,7 @@ jobs:
           # checkout the PR branch, not the base
           ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0        # ensures full history
-
+  
         # Step 2: Set up PHP 7.4 with necessary configurations. Also, install the "cs2pr" tool for converting PHPCS output into annotations.
       - name: Setup PHP
         uses: shivammathur/setup-php@v2

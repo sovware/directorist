@@ -154,25 +154,32 @@
 }
 .directorist-single-contents-area {
   margin-top: 50px;
-  .directorist-single-wrapper .directorist-details-info-wrap {
-    gap: 12px;
-    display: flex;
-    flex-direction: column;
-    .directorist-single-info {
-      margin: 0;
-      &.directorist-single-info-number {
+  .directorist-single-wrapper {
+    .directorist-details-info-wrap {
+      gap: 12px;
+      display: flex;
+      flex-direction: column;
+      .directorist-single-info {
+        margin: 0;
+        &.directorist-single-info-number {
+          .directorist-form-group__with-prefix {
+            flex: 1;
+          }
+        }
         .directorist-form-group__with-prefix {
-          flex: 1;
+          border: none;
+          margin-top: 4px;
+        }
+        .directorist-form-group__prefix {
+          height: auto;
+          line-height: unset;
+          color: var(--directorist-color-body);
         }
       }
-      .directorist-form-group__with-prefix {
-        border: none;
-        margin-top: 4px;
-      }
-      .directorist-form-group__prefix {
-        height: auto;
-        line-height: unset;
-        color: var(--directorist-color-body);
+    }
+    .directorist-single-formgent-form {
+      .formgent-form {
+        width: 100%;
       }
     }
   }
@@ -381,12 +388,12 @@
     }
   }
 
-  &.directorist-action-bookmark{
-    .directorist-icon-mask{
-      &:after{
+  &.directorist-action-bookmark {
+    .directorist-icon-mask {
+      &:after {
         background-color: var(--directorist-color-dark);
       }
-      &.directorist-added-to-favorite:after{
+      &.directorist-added-to-favorite:after {
         background-color: var(--directorist-color-danger);
       }
     }

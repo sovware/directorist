@@ -5,7 +5,6 @@ namespace Directorist\Multi_Directory;
 use Directorist\Helper;
 
 trait Multi_Directory_Helper {
-
     public static function add_directory( array $args = [] ) {
         $default = [
             'term_id'        => 0,
@@ -31,21 +30,25 @@ trait Multi_Directory_Helper {
         $create_directory = [ 'term_id' => 0 ];
 
         if ( ! $has_term_id ) {
-            $create_directory = self::create_directory([
-                'directory_name' => $args['directory_name']
-            ]);
+            $create_directory = self::create_directory(
+                [
+                    'directory_name' => $args['directory_name']
+                ]
+            );
 
             if ( ! $create_directory['status']['success'] ) {
                 return $create_directory;
             }
         }
 
-        $update_directory = self::update_directory([
-            'term_id'        => ( ! $has_term_id ) ? ( int ) $create_directory['term_id'] : ( int ) $args['term_id'],
-            'directory_name' => $args['directory_name'],
-            'fields_value'   => $args['fields_value'],
-            'is_json'        => $args['is_json'],
-        ]);
+        $update_directory = self::update_directory(
+            [
+                'term_id'        => ( ! $has_term_id ) ? ( int ) $create_directory['term_id'] : ( int ) $args['term_id'],
+                'directory_name' => $args['directory_name'],
+                'fields_value'   => $args['fields_value'],
+                'is_json'        => $args['is_json'],
+            ]
+        );
 
 
         if ( ! empty( $update_directory['status']['status_log']['term_updated'] ) && ! empty( $create_directory['status']['status_log']['term_created'] ) ) {
@@ -103,7 +106,7 @@ trait Multi_Directory_Helper {
         do_action( 'directorist_before_create_directory_type', $directory_name );
 
         // Create the directory
-        $term = wp_insert_term( $directory_name, 'atbdp_listing_types');
+        $term = wp_insert_term( $directory_name, 'atbdp_listing_types' );
 
         if ( is_wp_error( $term ) ) {
             $response['status']['status_log']['term_exists'] = [

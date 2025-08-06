@@ -1,99 +1,12 @@
-/******/ (function(modules) { // webpackBootstrap
-/******/ 	// The module cache
-/******/ 	var installedModules = {};
-/******/
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId]) {
-/******/ 			return installedModules[moduleId].exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			i: moduleId,
-/******/ 			l: false,
-/******/ 			exports: {}
-/******/ 		};
-/******/
-/******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
-/******/ 		// Flag the module as loaded
-/******/ 		module.l = true;
-/******/
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/
-/******/
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
-/******/
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
-/******/
-/******/ 	// define getter function for harmony exports
-/******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
-/******/ 		}
-/******/ 	};
-/******/
-/******/ 	// define __esModule on exports
-/******/ 	__webpack_require__.r = function(exports) {
-/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 		}
-/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 	};
-/******/
-/******/ 	// create a fake namespace object
-/******/ 	// mode & 1: value is a module id, require it
-/******/ 	// mode & 2: merge all properties of value into the ns
-/******/ 	// mode & 4: return value when already ns object
-/******/ 	// mode & 8|1: behave like require
-/******/ 	__webpack_require__.t = function(value, mode) {
-/******/ 		if(mode & 1) value = __webpack_require__(value);
-/******/ 		if(mode & 8) return value;
-/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
-/******/ 		var ns = Object.create(null);
-/******/ 		__webpack_require__.r(ns);
-/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
-/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
-/******/ 		return ns;
-/******/ 	};
-/******/
-/******/ 	// getDefaultExport function for compatibility with non-harmony modules
-/******/ 	__webpack_require__.n = function(module) {
-/******/ 		var getter = module && module.__esModule ?
-/******/ 			function getDefault() { return module['default']; } :
-/******/ 			function getModuleExports() { return module; };
-/******/ 		__webpack_require__.d(getter, 'a', getter);
-/******/ 		return getter;
-/******/ 	};
-/******/
-/******/ 	// Object.prototype.hasOwnProperty.call
-/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-/******/
-/******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
-/******/
-/******/
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 9);
-/******/ })
-/************************************************************************/
-/******/ ({
+/******/ (function() { // webpackBootstrap
+/******/ 	var __webpack_modules__ = ({
 
 /***/ "./assets/src/js/public/components/directoristAlert.js":
 /*!*************************************************************!*\
   !*** ./assets/src/js/public/components/directoristAlert.js ***!
   \*************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function() {
 
-;
 (function ($) {
   // Make sure the codes in this file runs only once, even if enqueued twice
   if (typeof window.directorist_alert_executed === 'undefined') {
@@ -123,10 +36,8 @@
 /*!****************************************************************!*\
   !*** ./assets/src/js/public/components/directoristDropdown.js ***!
   \****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function() {
 
-;
 (function ($) {
   // Make sure the codes in this file runs only once, even if enqueued twice
   if (typeof window.directorist_dropdown_executed === 'undefined') {
@@ -208,17 +119,17 @@
     });
 
     //atbd_dropdown
-    $(document).on("click", '.atbd_dropdown', function (e) {
-      if ($(this).attr("class") === "atbd_dropdown") {
+    $(document).on('click', '.atbd_dropdown', function (e) {
+      if ($(this).attr('class') === 'atbd_dropdown') {
         e.preventDefault();
-        $(this).siblings(".atbd_dropdown").removeClass("atbd_drop--active");
-        $(this).toggleClass("atbd_drop--active");
+        $(this).siblings('.atbd_dropdown').removeClass('atbd_drop--active');
+        $(this).toggleClass('atbd_drop--active');
         e.stopPropagation();
       }
     });
-    $(document).on("click", function (e) {
-      if ($(e.target).is(".atbd_dropdown, .atbd_drop--active") === false) {
-        $(".atbd_dropdown").removeClass("atbd_drop--active");
+    $(document).on('click', function (e) {
+      if ($(e.target).is('.atbd_dropdown, .atbd_drop--active') === false) {
+        $('.atbd_dropdown').removeClass('atbd_drop--active');
       }
     });
     $('body').on('click', '.atbd_dropdown-toggle', function (e) {
@@ -247,10 +158,8 @@
 /*!****************************************************************!*\
   !*** ./assets/src/js/public/components/directoristFavorite.js ***!
   \****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function() {
 
-;
 (function ($) {
   // Make sure the codes in this file runs only once, even if enqueued twice
   if (typeof window.directorist_favorite_executed === 'undefined') {
@@ -263,9 +172,9 @@
     $('.directorist-action-bookmark').on('click', function (e) {
       e.preventDefault();
       var data = {
-        'action': 'atbdp_public_add_remove_favorites',
-        'directorist_nonce': directorist.directorist_nonce,
-        'post_id': $(this).data('listing_id')
+        action: 'atbdp_public_add_remove_favorites',
+        directorist_nonce: directorist.directorist_nonce,
+        post_id: $(this).data('listing_id')
       };
       $.post(directorist.ajaxurl, data, function (response) {
         if (response) {
@@ -277,11 +186,11 @@
       $(this).on('click', function (event) {
         event.preventDefault();
         var data = {
-          'action': 'atbdp-favourites-all-listing',
-          'directorist_nonce': directorist.directorist_nonce,
-          'post_id': $(this).data('listing_id')
+          action: 'atbdp-favourites-all-listing',
+          directorist_nonce: directorist.directorist_nonce,
+          post_id: $(this).data('listing_id')
         };
-        $(".directorist-favorite-tooltip").hide();
+        $('.directorist-favorite-tooltip').hide();
         $.post(directorist.ajaxurl, data, function (response) {
           var post_id = data['post_id'].toString();
           var staElement = $('.directorist_favourite_' + post_id);
@@ -291,36 +200,36 @@
         });
       });
     });
-    $('body').on("click", '.directorist-mark-as-favorite__btn', function (event) {
+    $('body').on('click', '.directorist-mark-as-favorite__btn', function (event) {
       event.preventDefault();
       var data = {
-        'action': 'atbdp-favourites-all-listing',
-        'directorist_nonce': directorist.directorist_nonce,
-        'post_id': $(this).data('listing_id')
+        action: 'atbdp-favourites-all-listing',
+        directorist_nonce: directorist.directorist_nonce,
+        post_id: $(this).data('listing_id')
       };
       var fav_tooltip_success = '<span>' + directorist.i18n_text.added_favourite + '</span>';
       var fav_tooltip_warning = '<span>' + directorist.i18n_text.please_login + '</span>';
-      $(".directorist-favorite-tooltip").hide();
+      $('.directorist-favorite-tooltip').hide();
       $.post(directorist.ajax_url, data, function (response) {
         var post_id = data['post_id'].toString();
         var staElement = $('.directorist-fav_' + post_id);
         var data_id = staElement.attr('data-listing_id');
-        if (response === "login_required") {
-          staElement.children(".directorist-favorite-tooltip").append(fav_tooltip_warning);
-          staElement.children(".directorist-favorite-tooltip").fadeIn();
+        if (response === 'login_required') {
+          staElement.children('.directorist-favorite-tooltip').append(fav_tooltip_warning);
+          staElement.children('.directorist-favorite-tooltip').fadeIn();
           setTimeout(function () {
-            staElement.children(".directorist-favorite-tooltip").children("span").remove();
+            staElement.children('.directorist-favorite-tooltip').children('span').remove();
           }, 3000);
         } else if ('false' === response) {
           staElement.removeClass('directorist-added-to-favorite');
-          $(".directorist-favorite-tooltip span").remove();
+          $('.directorist-favorite-tooltip span').remove();
         } else {
           if (data_id === post_id) {
             staElement.addClass('directorist-added-to-favorite');
-            staElement.children(".directorist-favorite-tooltip").append(fav_tooltip_success);
-            staElement.children(".directorist-favorite-tooltip").fadeIn();
+            staElement.children('.directorist-favorite-tooltip').append(fav_tooltip_success);
+            staElement.children('.directorist-favorite-tooltip').fadeIn();
             setTimeout(function () {
-              staElement.children(".directorist-favorite-tooltip").children("span").remove();
+              staElement.children('.directorist-favorite-tooltip').children('span').remove();
             }, 3000);
           }
         }
@@ -335,10 +244,8 @@
 /*!***************************************************************!*\
   !*** ./assets/src/js/public/components/directoristSorting.js ***!
   \***************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function() {
 
-;
 (function ($) {
   // Make sure the codes in this file runs only once, even if enqueued twice
   if (typeof window.directorist_sorting_executed === 'undefined') {
@@ -370,8 +277,7 @@
 /*!****************************************************!*\
   !*** ./assets/src/js/public/components/general.js ***!
   \****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function() {
 
 // Fix listing with no thumb if card width is less than 220px
 (function ($) {
@@ -401,11 +307,9 @@
 /*!**************************************************************!*\
   !*** ./assets/src/js/public/components/review/starRating.js ***!
   \**************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function() {
 
 window.addEventListener('load', function () {
-  ;
   (function ($) {
     //Star rating
     if ($('.directorist-review-criteria-select').length) {
@@ -416,16 +320,83 @@ window.addEventListener('load', function () {
   })(jQuery);
 });
 
-/***/ }),
+/***/ })
 
-/***/ "./assets/src/js/public/modules/author-profile.js":
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	!function() {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = function(module) {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				function() { return module['default']; } :
+/******/ 				function() { return module; };
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	!function() {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = function(exports, definition) {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	!function() {
+/******/ 		__webpack_require__.o = function(obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); }
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	!function() {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = function(exports) {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// This entry needs to be wrapped in an IIFE because it needs to be in strict mode.
+!function() {
+"use strict";
 /*!********************************************************!*\
   !*** ./assets/src/js/public/modules/author-profile.js ***!
   \********************************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_general__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/general */ "./assets/src/js/public/components/general.js");
 /* harmony import */ var _components_general__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_components_general__WEBPACK_IMPORTED_MODULE_0__);
@@ -446,20 +417,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-/***/ }),
-
-/***/ 9:
-/*!**************************************************************!*\
-  !*** multi ./assets/src/js/public/modules/author-profile.js ***!
-  \**************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(/*! ./assets/src/js/public/modules/author-profile.js */"./assets/src/js/public/modules/author-profile.js");
-
-
-/***/ })
-
-/******/ });
+}();
+/******/ })()
+;
 //# sourceMappingURL=author-profile.js.map

@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 // Return early when review is disabled.
 if ( ! directorist_is_review_enabled() ) {
-	return;
+    return;
 }
 ?>
 <div class="directorist-info-item directorist-rating-meta directorist-rating-transparent">

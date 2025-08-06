@@ -9,15 +9,15 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
 <div class="directorist-listing-single directorist-listing-single-quickinfo">
-	
-	<div class="directorist-listing-single__info">
+    
+    <div class="directorist-listing-single__info">
 
-		<?php
-		foreach ( $info as $item ) {
-			$listing->field_template( $item );
-		}
-		?>
-		
-	</div>
+        <?php
+        foreach ( $info as $item ) {
+            $listing->field_template( $item );
+        }
+        ?>
+        
+    </div>
 
 </div>

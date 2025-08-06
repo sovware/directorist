@@ -1,112 +1,118 @@
 import props from './input-field-props.js';
 
 export default {
-    mixins: [ props ],
+	mixins: [props],
 
-    model: {
-        prop: 'value',
-        event: 'input'
-    },
+	model: {
+		prop: 'value',
+		event: 'input',
+	},
 
-    computed: {
-        theThumbnail() {
-            return this.thumbnailSrc;
-        },
+	computed: {
+		theThumbnail() {
+			return this.thumbnailSrc;
+		},
 
-        hasThumbnail() {
-            if ( this.thumbnail_src.length ) {
-                return true;
-            }
+		hasThumbnail() {
+			if (this.thumbnail_src.length) {
+				return true;
+			}
 
-            return false;
-        },
+			return false;
+		},
 
-        thumbnailSrc() {
-            if ( this.thumbnail_src === '' ) {
-                // return this.defaultImg;
-            }
+		thumbnailSrc() {
+			if (this.thumbnail_src === '') {
+				// return this.defaultImg;
+			}
 
-            return this.thumbnail_src;
-        },
+			return this.thumbnail_src;
+		},
 
-        theButtonLabel() {
-            if ( this.hasThumbnail ) {
-                return this.changeButtonLabel;
-            }
+		theButtonLabel() {
+			if (this.hasThumbnail) {
+				return this.changeButtonLabel;
+			}
 
-            return this.selectButtonLabel;
-        },
+			return this.selectButtonLabel;
+		},
 
-        formGroupClass() {
-            var validation_classes = ( this.validationLog.inputErrorClasses ) ? this.validationLog.inputErrorClasses : {};
+		formGroupClass() {
+			var validation_classes = this.validationLog.inputErrorClasses
+				? this.validationLog.inputErrorClasses
+				: {};
 
-            return {
-                ...validation_classes,
-            }
-        },
-    },
-    
-    watch: {
-        theThumbnail() {
-            this.$emit( 'update', this.theThumbnail );
-        }
-    },
+			return {
+				...validation_classes,
+			};
+		},
+	},
 
-    created() {
-        this.setup();
-    },
+	watch: {
+		theThumbnail() {
+			this.$emit('update', this.theThumbnail);
+		},
+	},
 
-    data() {
-        return {
-            file_frame: null,
-            thumbnail_src: '',
-            validationLog: {}
-        }
-    },
+	created() {
+		this.setup();
+	},
 
-    methods: {
-        setup() {
-            if ( this.value && this.value.length ) {
-                this.thumbnail_src = this.value;
-            }
+	data() {
+		return {
+			file_frame: null,
+			thumbnail_src: '',
+			validationLog: {},
+		};
+	},
 
-            this.createTheMediaFrame();
-            this.$emit( 'update', this.theThumbnail );
-        },
+	methods: {
+		setup() {
+			if (this.value && this.value.length) {
+				this.thumbnail_src = this.value;
+			}
 
-        createTheMediaFrame() {
-            let self = this;
+			this.createTheMediaFrame();
+			this.$emit('update', this.theThumbnail);
+		},
 
-            // Create the media frame.
-            this.file_frame = wp.media.frames.file_frame = wp.media({
-                title: 'Select a image to upload',
-                button: {
-                    text: 'Use this image',
-                },
-                multiple: false
-            });
+		createTheMediaFrame() {
+			let self = this;
 
-            // When an image is selected, run a callback.
-            this.file_frame.on( 'select', function() {
-                let attachment = self.file_frame.state().get('selection').first().toJSON();
-                self.thumbnail_src = attachment.url;
-            });
-        },
+			// Create the media frame.
+			this.file_frame = wp.media.frames.file_frame = wp.media({
+				title: 'Select a image to upload',
+				button: {
+					text: 'Use this image',
+				},
+				multiple: false,
+			});
 
-        openMediaPicker() {
-            let self = this;
+			// When an image is selected, run a callback.
+			this.file_frame.on('select', function () {
+				let attachment = self.file_frame
+					.state()
+					.get('selection')
+					.first()
+					.toJSON();
+				self.thumbnail_src = attachment.url;
+			});
+		},
 
-            if ( this.file_frame ) {
-                this.file_frame.open();
-                return;
-            }
+		openMediaPicker() {
+			let self = this;
 
-            this.createTheMediaFrame();
-        },
+			if (this.file_frame) {
+				this.file_frame.open();
+				return;
+			}
 
-        deleteThumbnail() {
-            console.log('Delete Thumb');
-            this.thumbnail_src = '';
-        }
-    }
-}
+			this.createTheMediaFrame();
+		},
+
+		deleteThumbnail() {
+			console.log('Delete Thumb');
+			this.thumbnail_src = '';
+		},
+	},
+};

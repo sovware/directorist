@@ -1,110 +1,199 @@
-;
 (function ($) {
+	// Make sure the codes in this file runs only once, even if enqueued twice
+	if (typeof window.directorist_loginjs_executed === 'undefined') {
+		window.directorist_loginjs_executed = true;
+	} else {
+		return;
+	}
 
-    // Make sure the codes in this file runs only once, even if enqueued twice
-    if ( typeof window.directorist_loginjs_executed === 'undefined' ) {
-        window.directorist_loginjs_executed = true;
-    } else {
-        return;
-    }
+	function initPasswordToggle() {
+		const passwordGroups = document.querySelectorAll(
+			'.directorist-password-group'
+		);
 
-    // Trigger reset on form change
-    $('.directorist-authentication__btn').on('click', function() {
-        // Reset all forms with the specified class
-        $('.directorist__authentication__signin').each(function() {
-            this.reset(); // Reset the individual form
-        });
+		passwordGroups.forEach((group) => {
+			const passwordInput = group.querySelector(
+				'.directorist-password-group-input'
+			);
+			const togglePassword = group.querySelector(
+				'.directorist-password-group-toggle'
+			);
+			const eyeIcon = group.querySelector(
+				'.directorist-password-group-eyeIcon'
+			);
 
-        // Reset error and warning messages
-        $('#directorist__authentication__login p.status').hide().empty();
-    });
+			if (passwordInput && togglePassword) {
+				togglePassword.addEventListener('click', function () {
+					const type =
+						passwordInput.getAttribute('type') === 'password'
+							? 'text'
+							: 'password';
+					passwordInput.setAttribute('type', type);
 
-    window.addEventListener('load', () => {
-        // Perform AJAX login on form submit
-        $('form#directorist__authentication__login').on('submit', function (e) {
-            e.preventDefault();
-            let $this = $(this);
-            const $button = $(this).find('.directorist-authentication__form__btn');
-            $button.addClass('directorist-btn-loading'); // Added loading class
+					// Toggle eye icon (simple swap for open/closed)
+					if (eyeIcon) {
+						if (type === 'text') {
+							eyeIcon.innerHTML = `
+								<path stroke="#888" stroke-width="2" d="M1.5 12S5.5 5.5 12 5.5 22.5 12 22.5 12 18.5 18.5 12 18.5 1.5 12 1.5 12Z"/>
+								<circle cx="12" cy="12" r="3.5" stroke="#888" stroke-width="2"/>
+								<line x1="5" y1="19" x2="19" y2="5" stroke="#888" stroke-width="2"/>
+							`;
+						} else {
+							eyeIcon.innerHTML = `
+								<path stroke="#888" stroke-width="2" d="M1.5 12S5.5 5.5 12 5.5 22.5 12 22.5 12 18.5 18.5 12 18.5 1.5 12 1.5 12Z"/>
+								<circle cx="12" cy="12" r="3.5" stroke="#888" stroke-width="2"/>
+							`;
+						}
+					}
+				});
+			}
+		});
+	}
 
-            $('#directorist__authentication__login p.status').show().html('<div class="directorist-alert directorist-alert-info"><span>' + directorist.loading_message + '</span></div>');
+	// Call the function after DOM is ready
+	document.addEventListener('DOMContentLoaded', initPasswordToggle);
 
-            let form_data = {
-                'action': 'ajaxlogin',
-                'username': $this.find('#username').val(),
-                'password': $this.find('#password').val(),
-                'rememberme': $this.find( '#keep_signed_in' ).is(':checked') ? 1 : 0,
-                'security': $this.find('#security').val()
-              };
-            $.ajax({
-                type: 'POST',
-                dataType: 'json',
-                url: directorist.ajax_url,
-                data: form_data,
-                success: function (data) {
-                    // Removed loading class
-                    setTimeout( () => $button.removeClass('directorist-btn-loading'), 1000 );
+	// Trigger reset on form change
+	$('.directorist-authentication__btn').on('click', function () {
+		// Reset all forms with the specified class
+		$('.directorist__authentication__signin').each(function () {
+			this.reset(); // Reset the individual form
+		});
 
-                    if ('nonce_faild' in data && data.nonce_faild) {
-                        $('p.status').html('<div class="directorist-alert directorist-alert-success"><span>' + data.message + '</span></div>');
-                    }
-                    if (data.loggedin == true) {
-                        $('p.status').html('<div class="directorist-alert directorist-alert-success"><span>' + data.message + '</span></div>');
-                        document.location.href = directorist.redirect_url;
-                    } else {
-                        $('p.status').html('<div class="directorist-alert directorist-alert-danger"><span>' + data.message + '</span></div>');
-                    }
-                },
-                error: function (data) {
-                    if ('nonce_faild' in data && data.nonce_faild) {
-                        $('p.status').html('<div class="directorist-alert directorist-alert-success"><span>' + data.message + '</span></div>');
-                    }
-                    $('p.status').show().html('<div class="directorist-alert directorist-alert-danger"><span>' + directorist.login_error_message + '</span></div>');
-                }
-            });
-            e.preventDefault();
-        });
-        
-        $('form#directorist__authentication__login .status').on('click', 'a', function(e) {
-            e.preventDefault();
-            if ( $(this).attr('href') === '#atbdp_recovery_pass' ) {
-                $("#recover-pass-modal").slideDown().show();
-                window.scrollTo({
-                    top: $("#recover-pass-modal").offset().top - 100,
-                    behavior: 'smooth',
-                });
-            } else {
-                location.href = $(this).attr('href');
-            }
-        });
+		// Reset error and warning messages
+		$('#directorist__authentication__login p.status').hide().empty();
+	});
 
+	window.addEventListener('load', () => {
+		// Perform AJAX login on form submit
+		$('form#directorist__authentication__login').on('submit', function (e) {
+			e.preventDefault();
+			let $this = $(this);
+			const $button = $(this).find(
+				'.directorist-authentication__form__btn'
+			);
+			$button.addClass('directorist-btn-loading'); // Added loading class
 
-        // Alert users to login (only if applicable)
-        $('.atbdp-require-login, .directorist-action-report-not-loggedin').on('click', function (e) {
-            e.preventDefault();
-            alert(directorist.login_alert_message);
-            return false;
-        });
+			$('#directorist__authentication__login p.status')
+				.show()
+				.html(
+					'<div class="directorist-alert directorist-alert-info"><span>' +
+						directorist.loading_message +
+						'</span></div>'
+				);
 
+			let form_data = {
+				action: 'ajaxlogin',
+				username: $this.find('#username').val(),
+				password: $this.find('#password').val(),
+				rememberme: $this.find('#keep_signed_in').is(':checked')
+					? 1
+					: 0,
+				security: $this.find('#security').val(),
+			};
+			$.ajax({
+				type: 'POST',
+				dataType: 'json',
+				url: directorist.ajax_url,
+				data: form_data,
+				success: function (data) {
+					// Removed loading class
+					setTimeout(
+						() => $button.removeClass('directorist-btn-loading'),
+						1000
+					);
 
-        // Remove URL params to avoid show message again and again
-        var current_url = location.href;
-        var url = new URL(current_url);
-        url.searchParams.delete('registration_status');
-        url.searchParams.delete('errors');
-        // url.searchParams.delete('key');
-        url.searchParams.delete('password_reset');
-        url.searchParams.delete('confirm_mail');
-        // url.searchParams.delete('user');
-        url.searchParams.delete('verification');
-        url.searchParams.delete('send_verification_email');
-        window.history.pushState(null, null, url.toString());
+					if ('nonce_faild' in data && data.nonce_faild) {
+						$('p.status').html(
+							'<div class="directorist-alert directorist-alert-success"><span>' +
+								data.message +
+								'</span></div>'
+						);
+					}
+					if (data.loggedin == true) {
+						$('p.status').html(
+							'<div class="directorist-alert directorist-alert-success"><span>' +
+								data.message +
+								'</span></div>'
+						);
+						document.location.href = directorist.redirect_url;
+					} else {
+						$('p.status').html(
+							'<div class="directorist-alert directorist-alert-danger"><span>' +
+								data.message +
+								'</span></div>'
+						);
+					}
+				},
+				error: function (data) {
+					if ('nonce_faild' in data && data.nonce_faild) {
+						$('p.status').html(
+							'<div class="directorist-alert directorist-alert-success"><span>' +
+								data.message +
+								'</span></div>'
+						);
+					}
+					$('p.status')
+						.show()
+						.html(
+							'<div class="directorist-alert directorist-alert-danger"><span>' +
+								directorist.login_error_message +
+								'</span></div>'
+						);
+				},
+			});
+			e.preventDefault();
+		});
 
-        // Authentication Form Toggle
-        $('body').on('click', '.directorist-authentication__btn, .directorist-authentication__toggle', function (e) {
-            e.preventDefault();
-            $('.directorist-login-wrapper').toggleClass('active');
-            $('.directorist-registration-wrapper').toggleClass('active');
-        });
-    });
+		$('form#directorist__authentication__login .status').on(
+			'click',
+			'a',
+			function (e) {
+				e.preventDefault();
+				if ($(this).attr('href') === '#atbdp_recovery_pass') {
+					$('#recover-pass-modal').slideDown().show();
+					window.scrollTo({
+						top: $('#recover-pass-modal').offset().top - 100,
+						behavior: 'smooth',
+					});
+				} else {
+					location.href = $(this).attr('href');
+				}
+			}
+		);
+
+		// Alert users to login (only if applicable)
+		$('.atbdp-require-login, .directorist-action-report-not-loggedin').on(
+			'click',
+			function (e) {
+				e.preventDefault();
+				alert(directorist.login_alert_message);
+				return false;
+			}
+		);
+
+		// Remove URL params to avoid show message again and again
+		var current_url = location.href;
+		var url = new URL(current_url);
+		url.searchParams.delete('registration_status');
+		url.searchParams.delete('errors');
+		// url.searchParams.delete('key');
+		url.searchParams.delete('password_reset');
+		url.searchParams.delete('confirm_mail');
+		// url.searchParams.delete('user');
+		url.searchParams.delete('verification');
+		url.searchParams.delete('send_verification_email');
+		window.history.pushState(null, null, url.toString());
+
+		// Authentication Form Toggle
+		$('body').on(
+			'click',
+			'.directorist-authentication__btn, .directorist-authentication__toggle',
+			function (e) {
+				e.preventDefault();
+				$('.directorist-login-wrapper').toggleClass('active');
+				$('.directorist-registration-wrapper').toggleClass('active');
+			}
+		);
+	});
 })(jQuery);

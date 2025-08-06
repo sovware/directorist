@@ -33,8 +33,17 @@
         >
           <span class="cptm-form-builder-field-list-icon">
             <span
-              v-if="widget.icon && widget.icon.length"
+              v-if="
+                widget.icon && widget.icon.length && widget.iconType !== 'svg'
+              "
               :class="widget.icon"
+            ></span>
+            <span
+              v-else-if="
+                widget.icon && widget.icon.length && widget.iconType === 'svg'
+              "
+              v-html="widget.icon"
+              class="cptm-form-builder-field-list-icon-svg"
             ></span>
           </span>
           <span class="cptm-form-builder-field-list-label">{{
@@ -157,7 +166,7 @@ export default {
       // Filtered Widgets By Selected Widgets
       if (!this.allowMultiple) {
         this.filtered_widget_list = this.getFilteredWidgeBySelectedWidgets(
-          this.base_widget_list
+          this.base_widget_list,
         );
       } else {
         this.filtered_widget_list = this.base_widget_list;
@@ -223,9 +232,8 @@ export default {
             template: this.template,
             widget_group: _widget_group,
             widget_name: _widget_name,
-            template_widgets: this.fields[this.template]["widgets"][
-              _widget_group
-            ]["widgets"],
+            template_widgets:
+              this.fields[this.template]["widgets"][_widget_group]["widgets"],
             error,
           });
         }

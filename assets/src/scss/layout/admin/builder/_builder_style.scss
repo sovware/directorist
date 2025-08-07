@@ -1833,28 +1833,36 @@ div[draggable="true"].cptm-form-builder-group-header-content {
 .cptm-form-builder-group-field-item {
   margin-bottom: 8px;
   position: relative;
-  padding-right: 40px;
-  padding-left: 30px;
-  border-radius: 8px;
-
   .directorist-draggable-list-item {
-    position: absolute;
-    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 48px;
+    font-size: 16px;
+    color: #747c89;
+    background-color: #f9fafb;
+    border-radius: 6px 0 0 6px;
+  }
+  .cptm-form-builder-group-field-item-header-content {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-grow: 1;
+    padding: 8px 12px;
+    border-left: 1px solid #f3f4f6;
+    box-sizing: border-box;
   }
 
   &.expanded {
     .cptm-form-builder-group-field-item-header {
-      border-color: #3e62f5;
-      border-radius: 8px 8px 0 0;
-      background-color: #f0f3ff;
-
-      .cptm-form-builder-header-action-link {
-        color: #747c89;
-      }
+      border-radius: 6px 6px 0 0;
+      background-color: #f9fafb;
+      border-bottom: none;
     }
 
-    .cptm-form-builder-group-field-item-body {
-      border-color: #3e62f5;
+    .cptm-form-builder-header-action-link {
+      color: #747c89;
     }
   }
 }
@@ -1900,15 +1908,6 @@ div[draggable="true"].cptm-form-builder-group-header-content {
   }
 }
 
-.cptm-form-builder-group-field-item-header-actions {
-  margin-left: 10px;
-
-  .cptm-form-builder-header-action-link {
-    font-size: 20px;
-    color: #747c89;
-  }
-}
-
 .cptm-form-builder-header-action-link {
   display: flex;
   align-items: center;
@@ -1934,13 +1933,22 @@ div[draggable="true"].cptm-form-builder-group-header-content {
   }
 }
 
-.cptm-form-builder-header-toggle {
+.cptm-form-builder-header-toggle-link {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 32px;
   height: 32px;
   font-size: 24px;
+  color: #747c89;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  transition: all ease-in-out 300ms;
+
+  &:hover {
+    color: #141921;
+  }
 }
 
 .action-collapse-up span,
@@ -1957,30 +1965,46 @@ div[draggable="true"].cptm-form-builder-group-header-content {
 
 .cptm-form-builder-group-field-item-header {
   display: flex;
-  position: relative;
-  justify-content: space-between;
-  padding: 12px 20px;
-  cursor: default;
-  box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
-  border-radius: 8px;
-  background-color: #fff;
+  align-items: center;
+  border-radius: 6px;
   border: 1px solid #e5e7eb;
-  transition: all ease 0.3s;
-  z-index: 8;
 
-  .cptm-title-3 {
+  .cptm-form-builder-group-field-item-title {
+    flex: 1;
     display: flex;
     gap: 8px;
     align-items: center;
-    font-size: 14px;
+    font-size: 12px;
+    line-height: 14px;
     font-weight: 500;
-    color: #2c3239;
-
-    .cptm-title-icon {
-      font-size: 16px;
+    color: #141921;
+    margin: 0;
+    .cptm-form-builder-group-field-item-subtitle {
       color: #747c89;
     }
+
+    .cptm-form-builder-group-field-item-icon {
+      font-size: 20px;
+      color: #141921;
+    }
   }
+
+  .cptm-form-builder-group-field-item-header-actions {
+    .cptm-form-builder-header-action-link {
+      font-size: 18px;
+      color: #747c89;
+      border: none;
+      box-shadow: none;
+    }
+  }
+}
+
+.cptm-form-builder-group-field-item-body {
+  padding: 24px;
+  border: 1px solid #e5e7eb;
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+  box-shadow: 0 4px 8px rgba(16, 24, 40, 0.08);
 }
 
 .directorist-draggable-list-item {
@@ -1988,28 +2012,6 @@ div[draggable="true"].cptm-form-builder-group-header-content {
   height: 100%;
   text-align: center;
   flex-grow: unset;
-}
-
-.cptm-form-builder-group-field-item-body {
-  padding: 22px 25px 25px;
-  background-color: #fff;
-  border-radius: 0 0 8px 8px;
-  border: 1px solid transparent;
-  border-top: none;
-
-  .cptm-field-wraper-type-toggle {
-    border-bottom: 1px solid #f1f2f6;
-    padding-bottom: 15px;
-    margin-bottom: 15px;
-
-    .cptm-form-group {
-      margin-bottom: 0;
-    }
-  }
-
-  .directorist-type-icon-select + .cptm-form-group {
-    margin-top: 20px;
-  }
 }
 
 .cptm-form-builder-field-list {

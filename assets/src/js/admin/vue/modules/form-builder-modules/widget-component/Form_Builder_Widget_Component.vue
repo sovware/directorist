@@ -4,26 +4,73 @@
     :class="expandState ? 'expanded' : ''"
     v-if="widget_fields && Object.keys(widget_fields).length > 0"
   >
-    <!-- Widget Titlebar -->
-    <draggable-list-item
-      v-if="canMoveWidget"
-      @drag-start="$emit('drag-start')"
-      @drag-end="$emit('drag-end')"
-    >
-      <div class="cptm-form-builder-group-field-item-drag">
-        <span aria-hidden="true" class="uil uil-draggabledots"></span>
-      </div>
-    </draggable-list-item>
+    <!-- Widget Header -->
+    <div class="cptm-form-builder-group-field-item-header">
+      <!-- Drag Handle -->
+      <draggable-list-item
+        v-if="canMoveWidget"
+        @drag-start="$emit('drag-start')"
+        @drag-end="$emit('drag-end')"
+      >
+        <div class="cptm-form-builder-group-field-item-drag">
+          <span aria-hidden="true" class="uil uil-draggabledots"></span>
+        </div>
+      </draggable-list-item>
 
-    <form-builder-widget-titlebar-component
-      :label="widgetTitle"
-      :sublabel="widgetSubtitle"
-      :icon="widgetIcon"
-      :iconType="widgetIconType"
-      :expanded="expandState"
-      :alert="alert"
-      @toggle-expand="toggleExpand"
-    />
+      <!-- Widget Titlebar -->
+      <div class="cptm-form-builder-group-field-item-header-content">
+        <div class="cptm-form-builder-header-toggle">
+          <a
+            href="#"
+            class="cptm-form-builder-header-toggle-link"
+            :class="expandState ? 'action-collapse-down' : 'action-collapse-up'"
+            @click.prevent="toggleExpand"
+          >
+            <span aria-hidden="true" class="uil uil-angle-down"></span>
+          </a>
+        </div>
+
+        <h4 class="cptm-form-builder-group-field-item-title">
+          <span class="cptm-form-builder-group-field-item-icon">
+            <span v-if="widgetIconType !== 'svg'" :class="widgetIcon"></span>
+            <span
+              v-else-if="widgetIconType === 'svg'"
+              v-html="widgetIcon"
+              class="cptm-title-icon-svg"
+            ></span>
+          </span>
+          <span class="cptm-form-builder-group-field-item-label">
+            <span v-html="widgetTitle"></span>
+            <span
+              v-if="widgetSubtitle"
+              class="cptm-form-builder-group-field-item-subtitle"
+            >
+              ({{ widgetSubtitle }})
+            </span>
+            <span
+              v-if="alert"
+              class="cptm-title-info"
+              :data-label="alert.message"
+            >
+              <span class="cptm-title-info-icon las la-info-circle"></span>
+              <span class="cptm-title-info-text" v-html="alert.message"></span>
+            </span>
+          </span>
+        </h4>
+
+        <div class="cptm-form-builder-group-field-item-header-actions">
+          <a
+            href="#"
+            class="cptm-form-builder-header-action-link"
+            :class="expandState ? 'disabled' : ''"
+            v-if="canTrashWidget"
+            @click.prevent="handleWidgetDelete"
+          >
+            <span aria-hidden="true" class="uil uil-trash-alt"></span>
+          </a>
+        </div>
+      </div>
+    </div>
 
     <!-- Widget Body -->
     <slide-up-down :active="expandState" :duration="500">
@@ -46,38 +93,6 @@
         />
       </div>
     </slide-up-down>
-
-    <!-- Widget Actions -->
-    <div
-      class="cptm-form-builder-group-actions-dropdown cptm-form-builder-group-actions-dropdown--field"
-      ref="dropdownContent"
-    >
-      <a
-        href="#"
-        class="cptm-form-builder-group-actions-dropdown-btn"
-        v-if="canTrashWidget"
-        @click.prevent="toggleExpandedDropdown"
-      >
-        <span aria-hidden="true" class="uil uil-ellipsis-h"></span>
-      </a>
-
-      <!-- Widget Action Dropdown -->
-      <slide-up-down :active="expandedDropdown" :duration="500">
-        <div
-          class="cptm-form-builder-group-actions-dropdown-content"
-          :class="expandedDropdown ? 'expanded' : ''"
-        >
-          <a
-            href="#"
-            class="cptm-form-builder-field-item-action-link"
-            @click.prevent="handleTrashClick"
-          >
-            <span aria-hidden="true" class="uil uil-trash-alt"></span>
-            Remove Field
-          </a>
-        </div>
-      </slide-up-down>
-    </div>
 
     <!-- Confirmation Modal -->
     <confirmation-modal
@@ -278,17 +293,8 @@ export default {
       activeWidgetsIsUpdating: false,
       showConfirmationModal: false,
       widgetName: "",
-      expandedDropdown: false,
       alerts: {},
     };
-  },
-
-  mounted() {
-    document.addEventListener("mousedown", this.handleClickOutside);
-  },
-
-  beforeDestroy() {
-    document.removeEventListener("mousedown", this.handleClickOutside);
   },
 
   methods: {
@@ -321,21 +327,7 @@ export default {
       }
     },
 
-    toggleExpandedDropdown() {
-      this.expandedDropdown = !this.expandedDropdown;
-    },
-
-    handleClickOutside(event) {
-      if (
-        this.expandedDropdown &&
-        !this.$refs.dropdownContent.contains(event.target)
-      ) {
-        this.expandedDropdown = false;
-      }
-    },
-
-    handleTrashClick() {
-      this.expandedDropdown = !this.expandedDropdown;
+    handleWidgetDelete() {
       this.openConfirmationModal();
     },
 

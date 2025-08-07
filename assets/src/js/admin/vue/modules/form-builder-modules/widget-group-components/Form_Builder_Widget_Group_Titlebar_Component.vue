@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div
     class="cptm-form-builder-group-header-content"
     :class="widgetsExpanded ? 'expanded' : ''"
@@ -59,4 +59,4 @@ export default {
     },
   },
 };
-</script>
+</script> -->

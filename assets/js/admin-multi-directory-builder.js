@@ -6805,20 +6805,17 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Form_Builder_Widget_Group_Titlebar_Component_vue_vue_type_template_id_28a6f108__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Form_Builder_Widget_Group_Titlebar_Component.vue?vue&type=template&id=28a6f108 */ "./assets/src/js/admin/vue/modules/form-builder-modules/widget-group-components/Form_Builder_Widget_Group_Titlebar_Component.vue?vue&type=template&id=28a6f108");
-/* harmony import */ var _Form_Builder_Widget_Group_Titlebar_Component_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Form_Builder_Widget_Group_Titlebar_Component.vue?vue&type=script&lang=js */ "./assets/src/js/admin/vue/modules/form-builder-modules/widget-group-components/Form_Builder_Widget_Group_Titlebar_Component.vue?vue&type=script&lang=js");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+var render, staticRenderFns
+var script = {}
 
 
 /* normalize component */
 ;
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _Form_Builder_Widget_Group_Titlebar_Component_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Form_Builder_Widget_Group_Titlebar_Component_vue_vue_type_template_id_28a6f108__WEBPACK_IMPORTED_MODULE_0__.render,
-  _Form_Builder_Widget_Group_Titlebar_Component_vue_vue_type_template_id_28a6f108__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__["default"])(
+  script,
+  render,
+  staticRenderFns,
   false,
   null,
   null,
@@ -6826,41 +6823,8 @@ var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__
   
 )
 
-/* hot reload */
-if (false) // removed by dead control flow
-{ var api; }
 component.options.__file = "assets/src/js/admin/vue/modules/form-builder-modules/widget-group-components/Form_Builder_Widget_Group_Titlebar_Component.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./assets/src/js/admin/vue/modules/form-builder-modules/widget-group-components/Form_Builder_Widget_Group_Titlebar_Component.vue?vue&type=script&lang=js":
-/*!***************************************************************************************************************************************************************!*\
-  !*** ./assets/src/js/admin/vue/modules/form-builder-modules/widget-group-components/Form_Builder_Widget_Group_Titlebar_Component.vue?vue&type=script&lang=js ***!
-  \***************************************************************************************************************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_3_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_Builder_Widget_Group_Titlebar_Component_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!../../../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Form_Builder_Widget_Group_Titlebar_Component.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-builder-modules/widget-group-components/Form_Builder_Widget_Group_Titlebar_Component.vue?vue&type=script&lang=js");
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_3_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_Builder_Widget_Group_Titlebar_Component_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./assets/src/js/admin/vue/modules/form-builder-modules/widget-group-components/Form_Builder_Widget_Group_Titlebar_Component.vue?vue&type=template&id=28a6f108":
-/*!*********************************************************************************************************************************************************************!*\
-  !*** ./assets/src/js/admin/vue/modules/form-builder-modules/widget-group-components/Form_Builder_Widget_Group_Titlebar_Component.vue?vue&type=template&id=28a6f108 ***!
-  \*********************************************************************************************************************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   render: function() { return /* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_3_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_Builder_Widget_Group_Titlebar_Component_vue_vue_type_template_id_28a6f108__WEBPACK_IMPORTED_MODULE_0__.render; },
-/* harmony export */   staticRenderFns: function() { return /* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_3_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_Builder_Widget_Group_Titlebar_Component_vue_vue_type_template_id_28a6f108__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns; }
-/* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_3_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_Builder_Widget_Group_Titlebar_Component_vue_vue_type_template_id_28a6f108__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!../../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Form_Builder_Widget_Group_Titlebar_Component.vue?vue&type=template&id=28a6f108 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-builder-modules/widget-group-components/Form_Builder_Widget_Group_Titlebar_Component.vue?vue&type=template&id=28a6f108");
-
 
 /***/ }),
 
@@ -18519,15 +18483,8 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       activeWidgetsIsUpdating: false,
       showConfirmationModal: false,
       widgetName: "",
-      expandedDropdown: false,
       alerts: {}
     };
-  },
-  mounted: function mounted() {
-    document.addEventListener("mousedown", this.handleClickOutside);
-  },
-  beforeDestroy: function beforeDestroy() {
-    document.removeEventListener("mousedown", this.handleClickOutside);
   },
   methods: {
     updateAlert: function updateAlert(payload) {
@@ -18551,16 +18508,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         vue__WEBPACK_IMPORTED_MODULE_2__["default"].delete(this.alerts, "widgetKey");
       }
     },
-    toggleExpandedDropdown: function toggleExpandedDropdown() {
-      this.expandedDropdown = !this.expandedDropdown;
-    },
-    handleClickOutside: function handleClickOutside(event) {
-      if (this.expandedDropdown && !this.$refs.dropdownContent.contains(event.target)) {
-        this.expandedDropdown = false;
-      }
-    },
-    handleTrashClick: function handleTrashClick() {
-      this.expandedDropdown = !this.expandedDropdown;
+    handleWidgetDelete: function handleWidgetDelete() {
       this.openConfirmationModal();
     },
     sync: function sync() {
@@ -19164,46 +19112,6 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     trashGroup: function trashGroup() {
       this.$emit("trash-group");
       this.closeConfirmationModal();
-    }
-  }
-});
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-builder-modules/widget-group-components/Form_Builder_Widget_Group_Titlebar_Component.vue?vue&type=script&lang=js":
-/*!*******************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-builder-modules/widget-group-components/Form_Builder_Widget_Group_Titlebar_Component.vue?vue&type=script&lang=js ***!
-  \*******************************************************************************************************************************************************************************************************************************************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ({
-  name: "form-builder-widget-group-titlebar-component",
-  props: {
-    groupData: {
-      default: ""
-    },
-    groupSettings: {
-      default: ""
-    },
-    groupFields: {
-      default: ""
-    },
-    widgetsExpanded: {
-      default: false
-    }
-  },
-  computed: {
-    label: function label() {
-      var label = "";
-      if (!this.groupData.defaultGroupLabel) {
-        label = this.groupData.defaultGroupLabel;
-      }
-      if (!this.groupSettings.label) {
-        label = this.groupData.label;
-      }
-      return label;
     }
   }
 });
@@ -28738,6 +28646,8 @@ var render = function render() {
   return _vm.widget_fields && Object.keys(_vm.widget_fields).length > 0 ? _c('div', {
     staticClass: "cptm-form-builder-group-field-item",
     class: _vm.expandState ? 'expanded' : ''
+  }, [_c('div', {
+    staticClass: "cptm-form-builder-group-field-item-header"
   }, [_vm.canMoveWidget ? _c('draggable-list-item', {
     on: {
       "drag-start": function dragStart($event) {
@@ -28754,19 +28664,78 @@ var render = function render() {
     attrs: {
       "aria-hidden": "true"
     }
-  })])]) : _vm._e(), _vm._v(" "), _c('form-builder-widget-titlebar-component', {
+  })])]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "cptm-form-builder-group-field-item-header-content"
+  }, [_c('div', {
+    staticClass: "cptm-form-builder-header-toggle"
+  }, [_c('a', {
+    staticClass: "cptm-form-builder-header-toggle-link",
+    class: _vm.expandState ? 'action-collapse-down' : 'action-collapse-up',
     attrs: {
-      "label": _vm.widgetTitle,
-      "sublabel": _vm.widgetSubtitle,
-      "icon": _vm.widgetIcon,
-      "iconType": _vm.widgetIconType,
-      "expanded": _vm.expandState,
-      "alert": _vm.alert
+      "href": "#"
     },
     on: {
-      "toggle-expand": _vm.toggleExpand
+      "click": function click($event) {
+        $event.preventDefault();
+        return _vm.toggleExpand.apply(null, arguments);
+      }
     }
-  }), _vm._v(" "), _c('slide-up-down', {
+  }, [_c('span', {
+    staticClass: "uil uil-angle-down",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })])]), _vm._v(" "), _c('h4', {
+    staticClass: "cptm-form-builder-group-field-item-title"
+  }, [_c('span', {
+    staticClass: "cptm-form-builder-group-field-item-icon"
+  }, [_vm.widgetIconType !== 'svg' ? _c('span', {
+    class: _vm.widgetIcon
+  }) : _vm.widgetIconType === 'svg' ? _c('span', {
+    staticClass: "cptm-title-icon-svg",
+    domProps: {
+      "innerHTML": _vm._s(_vm.widgetIcon)
+    }
+  }) : _vm._e()]), _vm._v(" "), _c('span', {
+    staticClass: "cptm-form-builder-group-field-item-label"
+  }, [_c('span', {
+    domProps: {
+      "innerHTML": _vm._s(_vm.widgetTitle)
+    }
+  }), _vm._v(" "), _vm.widgetSubtitle ? _c('span', {
+    staticClass: "cptm-form-builder-group-field-item-subtitle"
+  }, [_vm._v("\n            (" + _vm._s(_vm.widgetSubtitle) + ")\n          ")]) : _vm._e(), _vm._v(" "), _vm.alert ? _c('span', {
+    staticClass: "cptm-title-info",
+    attrs: {
+      "data-label": _vm.alert.message
+    }
+  }, [_c('span', {
+    staticClass: "cptm-title-info-icon las la-info-circle"
+  }), _vm._v(" "), _c('span', {
+    staticClass: "cptm-title-info-text",
+    domProps: {
+      "innerHTML": _vm._s(_vm.alert.message)
+    }
+  })]) : _vm._e()])]), _vm._v(" "), _c('div', {
+    staticClass: "cptm-form-builder-group-field-item-header-actions"
+  }, [_vm.canTrashWidget ? _c('a', {
+    staticClass: "cptm-form-builder-header-action-link",
+    class: _vm.expandState ? 'disabled' : '',
+    attrs: {
+      "href": "#"
+    },
+    on: {
+      "click": function click($event) {
+        $event.preventDefault();
+        return _vm.handleWidgetDelete.apply(null, arguments);
+      }
+    }
+  }, [_c('span', {
+    staticClass: "uil uil-trash-alt",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })]) : _vm._e()])])], 1), _vm._v(" "), _c('slide-up-down', {
     attrs: {
       "active": _vm.expandState,
       "duration": 500
@@ -28789,50 +28758,7 @@ var render = function render() {
         });
       }
     }
-  })], 1) : _vm._e()]), _vm._v(" "), _c('div', {
-    ref: "dropdownContent",
-    staticClass: "cptm-form-builder-group-actions-dropdown cptm-form-builder-group-actions-dropdown--field"
-  }, [_vm.canTrashWidget ? _c('a', {
-    staticClass: "cptm-form-builder-group-actions-dropdown-btn",
-    attrs: {
-      "href": "#"
-    },
-    on: {
-      "click": function click($event) {
-        $event.preventDefault();
-        return _vm.toggleExpandedDropdown.apply(null, arguments);
-      }
-    }
-  }, [_c('span', {
-    staticClass: "uil uil-ellipsis-h",
-    attrs: {
-      "aria-hidden": "true"
-    }
-  })]) : _vm._e(), _vm._v(" "), _c('slide-up-down', {
-    attrs: {
-      "active": _vm.expandedDropdown,
-      "duration": 500
-    }
-  }, [_c('div', {
-    staticClass: "cptm-form-builder-group-actions-dropdown-content",
-    class: _vm.expandedDropdown ? 'expanded' : ''
-  }, [_c('a', {
-    staticClass: "cptm-form-builder-field-item-action-link",
-    attrs: {
-      "href": "#"
-    },
-    on: {
-      "click": function click($event) {
-        $event.preventDefault();
-        return _vm.handleTrashClick.apply(null, arguments);
-      }
-    }
-  }, [_c('span', {
-    staticClass: "uil uil-trash-alt",
-    attrs: {
-      "aria-hidden": "true"
-    }
-  }), _vm._v("\n          Remove Field\n        ")])])])], 1), _vm._v(" "), _c('confirmation-modal', {
+  })], 1) : _vm._e()]), _vm._v(" "), _c('confirmation-modal', {
     attrs: {
       "visible": _vm.showConfirmationModal,
       "widgetName": _vm.widgetName
@@ -29343,70 +29269,6 @@ var render = function render() {
   })], 1);
 };
 var staticRenderFns = [];
-render._withStripped = true;
-
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-builder-modules/widget-group-components/Form_Builder_Widget_Group_Titlebar_Component.vue?vue&type=template&id=28a6f108":
-/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-3.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./assets/src/js/admin/vue/modules/form-builder-modules/widget-group-components/Form_Builder_Widget_Group_Titlebar_Component.vue?vue&type=template&id=28a6f108 ***!
-  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   render: function() { return /* binding */ render; },
-/* harmony export */   staticRenderFns: function() { return /* binding */ staticRenderFns; }
-/* harmony export */ });
-var render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', {
-    staticClass: "cptm-form-builder-group-header-content",
-    class: _vm.widgetsExpanded ? 'expanded' : ''
-  }, [_c('div', {
-    staticClass: "cptm-form-builder-header-toggle"
-  }, [_c('a', {
-    staticClass: "cptm-form-builder-header-toggle-link",
-    class: _vm.widgetsExpanded ? 'action-collapse-down' : 'action-collapse-up',
-    attrs: {
-      "href": "#"
-    },
-    on: {
-      "click": function click($event) {
-        $event.preventDefault();
-        return _vm.$emit('toggle-expand-widgets');
-      }
-    }
-  }, [_c('span', {
-    staticClass: "uil uil-angle-down",
-    attrs: {
-      "aria-hidden": "true"
-    }
-  })])]), _vm._v(" "), _c('h3', {
-    staticClass: "cptm-form-builder-group-title"
-  }, [_vm._m(0), _vm._v(" "), _c('span', {
-    staticClass: "cptm-form-builder-group-title-label"
-  }, [_c('span', {
-    domProps: {
-      "innerHTML": _vm._s(_vm.label)
-    }
-  })])])]);
-};
-var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('span', {
-    staticClass: "cptm-form-builder-group-title-icon"
-  }, [_c('span', {
-    staticClass: "uil uil-angle-down",
-    attrs: {
-      "aria-hidden": "true"
-    }
-  })]);
-}];
 render._withStripped = true;
 
 

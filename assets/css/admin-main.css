@@ -16321,8 +16321,8 @@ div[draggable=true].cptm-form-builder-group-header-content {
   background-color: #f9fafb;
   border-bottom: none;
 }
-.cptm-form-builder-group-field-item.expanded .cptm-form-builder-header-action-link {
-  color: #747c89;
+.cptm-form-builder-group-field-item.expanded .cptm-form-builder-header-toggle-link {
+  color: #3e62f5;
 }
 
 .cptm-form-builder-group-field-item-drag span {
@@ -16442,8 +16442,7 @@ div[draggable=true].cptm-form-builder-group-header-content {
           transform: rotate(0);
 }
 
-.action-collapse-down span,
-.action-collapse-down span::before {
+.action-collapse-down span {
   -webkit-transition: all ease-in-out 300ms;
   transition: all ease-in-out 300ms;
   -webkit-transform: rotate(180deg);
@@ -23066,8 +23065,8 @@ div[draggable=true].cptm-form-builder-group-header-content {
   background-color: #f9fafb;
   border-bottom: none;
 }
-.cptm-form-builder-group-field-item.expanded .cptm-form-builder-header-action-link {
-  color: #747c89;
+.cptm-form-builder-group-field-item.expanded .cptm-form-builder-header-toggle-link {
+  color: #3e62f5;
 }
 
 .cptm-form-builder-group-field-item-drag span {
@@ -23187,8 +23186,7 @@ div[draggable=true].cptm-form-builder-group-header-content {
           transform: rotate(0);
 }
 
-.action-collapse-down span,
-.action-collapse-down span::before {
+.action-collapse-down span {
   -webkit-transition: all ease-in-out 300ms;
   transition: all ease-in-out 300ms;
   -webkit-transform: rotate(180deg);
@@ -30099,8 +30097,8 @@ div[draggable=true].cptm-form-builder-group-header-content {
   background-color: #f9fafb;
   border-bottom: none;
 }
-.cptm-form-builder-group-field-item.expanded .cptm-form-builder-header-action-link {
-  color: #747c89;
+.cptm-form-builder-group-field-item.expanded .cptm-form-builder-header-toggle-link {
+  color: #3e62f5;
 }
 
 .cptm-form-builder-group-field-item-drag span {
@@ -30220,8 +30218,7 @@ div[draggable=true].cptm-form-builder-group-header-content {
           transform: rotate(0);
 }
 
-.action-collapse-down span,
-.action-collapse-down span::before {
+.action-collapse-down span {
   -webkit-transition: all ease-in-out 300ms;
   transition: all ease-in-out 300ms;
   -webkit-transform: rotate(180deg);

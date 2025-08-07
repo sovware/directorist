@@ -121,5 +121,46 @@ export default {
       return this.content || [];
     },
   },
+  mounted() {
+    // Move modal to body to avoid z-index issues
+    this.moveModalToBody();
+  },
+  updated() {
+    // Re-move modal to body when updated
+    this.moveModalToBody();
+  },
+  beforeDestroy() {
+    // Clean up when component is destroyed
+    this.cleanupModal();
+  },
+  methods: {
+    moveModalToBody() {
+      if (this.modalOpened && this.$el) {
+        // Check if modal is already in body
+        if (this.$el.parentNode !== document.body) {
+          document.body.appendChild(this.$el);
+        }
+      }
+    },
+    cleanupModal() {
+      // Remove modal from body if it exists
+      if (this.$el && this.$el.parentNode === document.body) {
+        document.body.removeChild(this.$el);
+      }
+    },
+  },
+  watch: {
+    modalOpened(newVal) {
+      if (newVal) {
+        // When modal opens, move it to body
+        this.$nextTick(() => {
+          this.moveModalToBody();
+        });
+      } else {
+        // When modal closes, cleanup
+        this.cleanupModal();
+      }
+    },
+  },
 };
 </script>

@@ -15695,7 +15695,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'confirmation-modal',
+  name: "confirmation-modal",
   props: {
     show: {
       type: Boolean,
@@ -15707,27 +15707,27 @@ __webpack_require__.r(__webpack_exports__);
     },
     modelHeaderText: {
       type: String,
-      default: 'Confirm'
+      default: "Confirm"
     },
     confirmationText: {
       type: String,
-      default: 'Are you sure?'
+      default: "Are you sure?"
     },
     confirmButtonLabel: {
       type: String,
-      default: 'Yes'
+      default: "Yes"
     },
     confirmButtonType: {
       type: String,
-      default: 'primary'
+      default: "primary"
     },
     cancelButtonLabel: {
       type: String,
-      default: 'Cancel'
+      default: "Cancel"
     },
     cancelButtonType: {
       type: String,
-      default: 'secondary'
+      default: "secondary"
     },
     onConfirm: {
       required: false
@@ -15735,24 +15735,64 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     confirmButtonClass: function confirmButtonClass() {
-      var button_type = 'cptm-btn-' + this.confirmButtonType;
+      var button_type = "cptm-btn-" + this.confirmButtonType;
       return (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])({}, button_type, true);
     },
     cancelButtonClass: function cancelButtonClass() {
-      var button_type = 'cptm-btn-' + this.cancelButtonType;
+      var button_type = "cptm-btn-" + this.cancelButtonType;
       return (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])({}, button_type, true);
     }
   },
+  mounted: function mounted() {
+    // Move modal to body to avoid z-index issues
+    this.moveModalToBody();
+  },
+  updated: function updated() {
+    // Re-move modal to body when updated
+    this.moveModalToBody();
+  },
+  beforeDestroy: function beforeDestroy() {
+    // Clean up when component is destroyed
+    this.cleanupModal();
+  },
   methods: {
     confirm: function confirm() {
-      if (typeof this.onConfirm !== 'function') {
+      if (typeof this.onConfirm !== "function") {
         return;
       }
-      this.$emit('cancel');
+      this.$emit("cancel");
       this.onConfirm();
     },
     cancel: function cancel() {
-      this.$emit('cancel');
+      this.$emit("cancel");
+    },
+    moveModalToBody: function moveModalToBody() {
+      if (this.show && this.$el) {
+        // Check if modal is already in body
+        if (this.$el.parentNode !== document.body) {
+          document.body.appendChild(this.$el);
+        }
+      }
+    },
+    cleanupModal: function cleanupModal() {
+      // Remove modal from body if it exists
+      if (this.$el && this.$el.parentNode === document.body) {
+        document.body.removeChild(this.$el);
+      }
+    }
+  },
+  watch: {
+    show: function show(newVal) {
+      var _this = this;
+      if (newVal) {
+        // When modal opens, move it to body
+        this.$nextTick(function () {
+          _this.moveModalToBody();
+        });
+      } else {
+        // When modal closes, cleanup
+        this.cleanupModal();
+      }
     }
   }
 });
@@ -16461,14 +16501,13 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "sections-module",
   mixins: [_mixins_helpers__WEBPACK_IMPORTED_MODULE_2__["default"]],
-  data: function data() {
-    return {
-      showModal: false
-    };
-  },
   props: {
     sections: {
       type: Object
+    },
+    tabKey: {
+      type: String,
+      default: ""
     },
     container: {
       type: String,
@@ -16495,11 +16534,11 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     }
   })), {}, {
     containerClass: function containerClass() {
-      return {
-        "tab-wide": "wide" === this.container ? true : false,
-        "tab-short-wide": "short-wide" === this.container ? true : false,
-        "tab-full-width": "full-width" === this.container ? true : false
-      };
+      return (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])({
+        "tab-wide": this.container === "wide",
+        "tab-short-wide": this.container === "short-wide",
+        "tab-full-width": this.container === "full-width"
+      }, "cptm-tab-content-".concat(this.tabKey), !!this.tabKey);
     },
     // Get the grouped container fields
     groupedContainerFields: function groupedContainerFields() {
@@ -16509,9 +16548,6 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     containerGroupLabel: function containerGroupLabel() {
       var firstContainerField = this.groupedContainerFields[0];
       return firstContainerField ? this.fields[firstContainerField].group_label : "";
-    },
-    modalContent: function modalContent() {
-      return this.video;
     }
   }),
   methods: {
@@ -16560,21 +16596,8 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         type_id = field.editor === "wp_editor" ? "cptm-field_wp_editor" : "";
       }
       return type_id;
-    },
-    // Open the modal
-    openModal: function openModal() {
-      this.showModal = true;
-    },
-    // Close the modal
-    closeModal: function closeModal() {
-      this.showModal = false;
-    },
-    saveData: function saveData() {
-      // Emit the save event before redirecting
-      this.$emit("save");
     }
-  },
-  mounted: function mounted() {}
+  }
 });
 
 /***/ }),
@@ -16817,23 +16840,9 @@ __webpack_require__.r(__webpack_exports__);
       return this.subNavigation[this.active_sub_nav] || {};
     }
   },
-  methods: {
-    // Open the popup
-    openModal: function openModal(content) {
-      if (!content) return; // Prevent setting invalid content
-      this.modalContent = content;
-      this.showModal = true;
-    },
-    closeModal: function closeModal() {
-      this.showModal = false;
-      this.modalContent = null; // Reset content after closing
-    }
-  },
   data: function data() {
     return {
-      active_sub_nav: 0,
-      showModal: false,
-      modalContent: null
+      active_sub_nav: 0
     };
   }
 });
@@ -18577,6 +18586,48 @@ __webpack_require__.r(__webpack_exports__);
     placeholders: function placeholders() {
       return this.content || [];
     }
+  },
+  mounted: function mounted() {
+    // Move modal to body to avoid z-index issues
+    this.moveModalToBody();
+  },
+  updated: function updated() {
+    // Re-move modal to body when updated
+    this.moveModalToBody();
+  },
+  beforeDestroy: function beforeDestroy() {
+    // Clean up when component is destroyed
+    this.cleanupModal();
+  },
+  methods: {
+    moveModalToBody: function moveModalToBody() {
+      if (this.modalOpened && this.$el) {
+        // Check if modal is already in body
+        if (this.$el.parentNode !== document.body) {
+          document.body.appendChild(this.$el);
+        }
+      }
+    },
+    cleanupModal: function cleanupModal() {
+      // Remove modal from body if it exists
+      if (this.$el && this.$el.parentNode === document.body) {
+        document.body.removeChild(this.$el);
+      }
+    }
+  },
+  watch: {
+    modalOpened: function modalOpened(newVal) {
+      var _this = this;
+      if (newVal) {
+        // When modal opens, move it to body
+        this.$nextTick(function () {
+          _this.moveModalToBody();
+        });
+      } else {
+        // When modal closes, cleanup
+        this.cleanupModal();
+      }
+    }
   }
 });
 
@@ -18636,6 +18687,18 @@ __webpack_require__.r(__webpack_exports__);
       default: ""
     }
   },
+  mounted: function mounted() {
+    // Move modal to body to avoid z-index issues
+    this.moveModalToBody();
+  },
+  updated: function updated() {
+    // Re-move modal to body when updated
+    this.moveModalToBody();
+  },
+  beforeDestroy: function beforeDestroy() {
+    // Clean up when component is destroyed
+    this.cleanupModal();
+  },
   methods: {
     confirmDelete: function confirmDelete() {
       this.$emit("confirm");
@@ -18645,6 +18708,34 @@ __webpack_require__.r(__webpack_exports__);
     },
     handleOverlayClick: function handleOverlayClick() {
       this.cancelDelete();
+    },
+    moveModalToBody: function moveModalToBody() {
+      if (this.visible && this.$el) {
+        // Check if modal is already in body
+        if (this.$el.parentNode !== document.body) {
+          document.body.appendChild(this.$el);
+        }
+      }
+    },
+    cleanupModal: function cleanupModal() {
+      // Remove modal from body if it exists
+      if (this.$el && this.$el.parentNode === document.body) {
+        document.body.removeChild(this.$el);
+      }
+    }
+  },
+  watch: {
+    visible: function visible(newVal) {
+      var _this = this;
+      if (newVal) {
+        // When modal opens, move it to body
+        this.$nextTick(function () {
+          _this.moveModalToBody();
+        });
+      } else {
+        // When modal closes, cleanup
+        this.cleanupModal();
+      }
     }
   }
 });
@@ -19054,6 +19145,18 @@ __webpack_require__.r(__webpack_exports__);
       default: ""
     }
   },
+  mounted: function mounted() {
+    // Move modal to body to avoid z-index issues
+    this.moveModalToBody();
+  },
+  updated: function updated() {
+    // Re-move modal to body when updated
+    this.moveModalToBody();
+  },
+  beforeDestroy: function beforeDestroy() {
+    // Clean up when component is destroyed
+    this.cleanupModal();
+  },
   methods: {
     confirmDelete: function confirmDelete() {
       this.$emit("confirm");
@@ -19063,6 +19166,34 @@ __webpack_require__.r(__webpack_exports__);
     },
     handleOverlayClick: function handleOverlayClick() {
       this.cancelDelete();
+    },
+    moveModalToBody: function moveModalToBody() {
+      if (this.visible && this.$el) {
+        // Check if modal is already in body
+        if (this.$el.parentNode !== document.body) {
+          document.body.appendChild(this.$el);
+        }
+      }
+    },
+    cleanupModal: function cleanupModal() {
+      // Remove modal from body if it exists
+      if (this.$el && this.$el.parentNode === document.body) {
+        document.body.removeChild(this.$el);
+      }
+    }
+  },
+  watch: {
+    visible: function visible(newVal) {
+      var _this = this;
+      if (newVal) {
+        // When modal opens, move it to body
+        this.$nextTick(function () {
+          _this.moveModalToBody();
+        });
+      } else {
+        // When modal closes, cleanup
+        this.cleanupModal();
+      }
     }
   }
 });
@@ -23422,6 +23553,11 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       required: false,
       default: ""
     },
+    fieldKey: {
+      type: String,
+      required: false,
+      default: ""
+    },
     widgets: {
       default: false
     },
@@ -23436,6 +23572,9 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     },
     value: {
       default: ""
+    },
+    video: {
+      type: Object
     }
   },
   created: function created() {
@@ -23508,6 +23647,9 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       }
       return button_icon + button_label;
     },
+    modalContent: function modalContent() {
+      return this.video;
+    },
     buttonText: function buttonText() {
       return this.$store.state.is_saving ? "Saving" : 'Save & Preview <span class="la la-pen"></span>';
     }
@@ -23531,7 +23673,8 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       isEnabledGroupDragging: true,
       currentDraggingGroup: null,
       currentDraggingWidget: null,
-      listing_type_id: null
+      listing_type_id: null,
+      showModal: false
     };
   },
   methods: _objectSpread(_objectSpread({
@@ -24049,6 +24192,19 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         event.preventDefault();
         event.returnValue = ""; // Display default warning dialog
       }
+    },
+    // Open the modal
+    openModal: function openModal() {
+      this.showModal = true;
+    },
+    // Close the modal
+    closeModal: function closeModal() {
+      this.showModal = false;
+    },
+    // Save the data
+    saveData: function saveData() {
+      // Emit the save event before redirecting
+      this.$emit("save");
     }
   })
 });
@@ -27000,71 +27156,12 @@ var render = function render() {
   return _c('div', {
     staticClass: "cptm-tab-content",
     class: _vm.containerClass
-  }, [_vm._l(_vm.sections, function (section, section_key) {
-    var _vm$video;
+  }, _vm._l(_vm.sections, function (section, section_key) {
     return _c('div', {
       key: section_key,
       staticClass: "cptm-section",
       class: _vm.sectionClass(section)
-    }, [['submission_form_fields', 'search_form_fields'].includes(section.fields[0]) ? _c('div', {
-      staticClass: "directorist-form-action"
-    }, [_vm.video && ['submission_form_fields', 'search_form_fields'].includes(section.fields[0]) ? _c('a', {
-      staticClass: "directorist-row-tooltip directorist-form-action__modal-btn",
-      attrs: {
-        "href": "#",
-        "data-tooltip": (_vm$video = _vm.video) === null || _vm$video === void 0 ? void 0 : _vm$video.description,
-        "data-flow": "bottom-right"
-      },
-      on: {
-        "click": function click($event) {
-          $event.preventDefault();
-          return _vm.openModal();
-        }
-      }
-    }, [_c('svg', {
-      attrs: {
-        "xmlns": "http://www.w3.org/2000/svg",
-        "width": "14",
-        "height": "14",
-        "viewBox": "0 0 14 14",
-        "fill": "none"
-      }
-    }, [_c('path', {
-      attrs: {
-        "fill-rule": "evenodd",
-        "clip-rule": "evenodd",
-        "d": "M3.94256 2.33333H7.14074C7.6103 2.33332 7.99785 2.33331 8.31355 2.35911C8.64143 2.3859 8.94285 2.44339 9.22596 2.58765C9.665 2.81135 10.022 3.16831 10.2457 3.60735C10.3899 3.89046 10.4474 4.19187 10.4742 4.51976C10.4981 4.81257 10.4999 5.16718 10.5 5.59171L11.6396 4.45212C11.7511 4.34058 11.8607 4.23096 11.9567 4.15052C12.0424 4.07876 12.223 3.93485 12.473 3.91517C12.7522 3.8932 13.0251 4.00622 13.207 4.21921C13.3699 4.40993 13.3958 4.63932 13.4056 4.75068C13.4167 4.87549 13.4167 5.03051 13.4166 5.18822V8.81177C13.4167 8.96948 13.4167 9.1245 13.4056 9.24931C13.3958 9.36067 13.3699 9.59006 13.207 9.78078C13.0251 9.99377 12.7522 10.1068 12.473 10.0848C12.223 10.0651 12.0424 9.92123 11.9567 9.84947C11.8607 9.76904 11.7511 9.65941 11.6396 9.54787L10.5 8.40828C10.4999 8.83281 10.4981 9.18742 10.4742 9.48023C10.4474 9.80812 10.3899 10.1095 10.2457 10.3926C10.022 10.8317 9.665 11.1886 9.22596 11.4123C8.94285 11.5566 8.64144 11.6141 8.31355 11.6409C7.99784 11.6667 7.6103 11.6667 7.14072 11.6667H3.94257C3.473 11.6667 3.08545 11.6667 2.76975 11.6409C2.44186 11.6141 2.14045 11.5566 1.85734 11.4123C1.41829 11.1886 1.06134 10.8317 0.837632 10.3926C0.693379 10.1095 0.635883 9.80812 0.609093 9.48023C0.5833 9.16453 0.583306 8.77699 0.583313 8.30742V5.69257C0.583306 5.22301 0.5833 4.83546 0.609093 4.51976C0.635883 4.19187 0.693379 3.89046 0.837632 3.60735C1.06134 3.16831 1.41829 2.81135 1.85734 2.58765C2.14045 2.44339 2.44186 2.3859 2.76975 2.35911C3.08545 2.33331 3.47299 2.33332 3.94256 2.33333ZM9.33331 5.71666C9.33331 5.21699 9.33286 4.87732 9.31141 4.61477C9.29051 4.35903 9.25264 4.22824 9.20615 4.13701C9.0943 3.91748 8.91582 3.73901 8.6963 3.62715C8.60507 3.58067 8.47428 3.5428 8.21854 3.5219C7.95599 3.50045 7.61632 3.5 7.11665 3.5H3.96665C3.46698 3.5 3.1273 3.50045 2.86475 3.5219C2.60901 3.5428 2.47822 3.58067 2.38699 3.62715C2.16747 3.73901 1.98899 3.91748 1.87714 4.13701C1.83065 4.22824 1.79278 4.35903 1.77189 4.61477C1.75043 4.87732 1.74998 5.21699 1.74998 5.71666V8.28333C1.74998 8.783 1.75043 9.12267 1.77189 9.38522C1.79278 9.64097 1.83065 9.77175 1.87714 9.86298C1.98899 10.0825 2.16747 10.261 2.38699 10.3728C2.47822 10.4193 2.60901 10.4572 2.86475 10.4781C3.1273 10.4995 3.46698 10.5 3.96665 10.5H7.11665C7.61632 10.5 7.95599 10.4995 8.21854 10.4781C8.47428 10.4572 8.60507 10.4193 8.6963 10.3728C8.91582 10.261 9.0943 10.0825 9.20615 9.86298C9.25264 9.77175 9.29051 9.64097 9.31141 9.38522C9.33286 9.12267 9.33331 8.783 9.33331 8.28333V5.71666ZM10.7416 7L12.25 8.50837V5.49162L10.7416 7Z",
-        "fill": "currentColor"
-      }
-    })])]) : _vm._e(), _vm._v(" "), ['submission_form_fields'].includes(section.fields[0]) ? _c('a', {
-      staticClass: "directorist-row-tooltip directorist-form-action__view",
-      attrs: {
-        "href": "#",
-        "target": "_blank",
-        "data-tooltip": "View the form",
-        "data-flow": "bottom-right"
-      },
-      on: {
-        "click": function click($event) {
-          return _vm.saveData();
-        }
-      }
-    }, [_c('svg', {
-      attrs: {
-        "width": "16",
-        "height": "16",
-        "viewBox": "0 0 16 16",
-        "fill": "none",
-        "xmlns": "http://www.w3.org/2000/svg"
-      }
-    }, [_c('path', {
-      attrs: {
-        "fill-rule": "evenodd",
-        "clip-rule": "evenodd",
-        "d": "M4.23904 5.49535C3.23485 6.33346 2.53211 7.31833 2.177 7.88061C2.15344 7.91792 2.13696 7.94405 2.12319 7.96673C2.1141 7.9817 2.1081 7.99205 2.10409 7.99927C2.10409 7.99954 2.10409 7.99981 2.10409 8.00008C2.10409 8.00035 2.10409 8.00062 2.10409 8.00089C2.1081 8.00811 2.1141 8.01846 2.12319 8.03343C2.13696 8.05611 2.15344 8.08224 2.177 8.11955C2.53211 8.68183 3.23485 9.6667 4.23904 10.5048C5.24166 11.3416 6.50463 12.0001 8.00019 12.0001C9.49574 12.0001 10.7587 11.3416 11.7613 10.5048C12.7655 9.6667 13.4683 8.68183 13.8234 8.11955C13.8469 8.08224 13.8634 8.05611 13.8772 8.03343C13.8863 8.01846 13.8923 8.0081 13.8963 8.00089C13.8963 8.00062 13.8963 8.00035 13.8963 8.00008C13.8963 7.99981 13.8963 7.99954 13.8963 7.99927C13.8923 7.99206 13.8863 7.9817 13.8772 7.96673C13.8634 7.94405 13.8469 7.91792 13.8234 7.88061C13.4683 7.31833 12.7655 6.33346 11.7613 5.49535C10.7587 4.65855 9.49574 4.00008 8.00019 4.00008C6.50463 4.00008 5.24166 4.65855 4.23904 5.49535ZM3.38469 4.4717C4.53709 3.50989 6.09241 2.66675 8.00019 2.66675C9.90797 2.66675 11.4633 3.50989 12.6157 4.4717C13.7665 5.4322 14.5555 6.54294 14.9507 7.16865C14.9559 7.17691 14.9613 7.18535 14.9668 7.19397C15.0452 7.3174 15.147 7.47765 15.1985 7.70219C15.24 7.88349 15.24 8.11667 15.1985 8.29797C15.147 8.52251 15.0452 8.68277 14.9668 8.80619C14.9613 8.81481 14.9559 8.82325 14.9507 8.83152C14.5555 9.45722 13.7665 10.568 12.6157 11.5285C11.4633 12.4903 9.90797 13.3334 8.00019 13.3334C6.09241 13.3334 4.53709 12.4903 3.38469 11.5285C2.23385 10.568 1.44483 9.45722 1.04967 8.83152C1.04445 8.82325 1.03908 8.81481 1.03361 8.80619C0.955196 8.68277 0.853387 8.52251 0.801919 8.29797C0.760363 8.11667 0.760363 7.88349 0.801919 7.70219C0.853387 7.47765 0.955197 7.3174 1.03361 7.19397C1.03908 7.18535 1.04445 7.17691 1.04967 7.16865C1.44483 6.54294 2.23385 5.4322 3.38469 4.4717ZM8.00019 6.66675C7.26381 6.66675 6.66686 7.2637 6.66686 8.00008C6.66686 8.73646 7.26381 9.33341 8.00019 9.33341C8.73657 9.33341 9.33352 8.73646 9.33352 8.00008C9.33352 7.2637 8.73657 6.66675 8.00019 6.66675ZM5.33352 8.00008C5.33352 6.52732 6.52743 5.33341 8.00019 5.33341C9.47295 5.33341 10.6669 6.52732 10.6669 8.00008C10.6669 9.47284 9.47295 10.6667 8.00019 10.6667C6.52743 10.6667 5.33352 9.47284 5.33352 8.00008Z",
-        "fill": "#4D5761"
-      }
-    })])]) : _vm._e()]) : _vm._e(), _vm._v(" "), !['submission_form_fields', 'search_form_fields', 'single_listing_header', 'single_listings_contents', 'listings_card_grid_view', 'listings_card_list_view'].includes(section.fields[0]) ? _c('div', {
+    }, [!['submission_form_fields', 'search_form_fields', 'single_listing_header', 'single_listings_contents', 'listings_card_grid_view', 'listings_card_list_view'].includes(section.fields[0]) ? _c('div', {
       staticClass: "cptm-title-area",
       class: _vm.sectionTitleAreaClass(section)
     }, [section.title ? _c('h3', {
@@ -27092,7 +27189,8 @@ var render = function render() {
           "fieldKey": field,
           "id": _vm.menuKey + '__' + section_key + '__' + field,
           "cached-data": _vm.cached_fields[field],
-          "listing_type_id": _vm.listing_type_id
+          "listing_type_id": _vm.listing_type_id,
+          "video": _vm.video
         },
         on: {
           "update": function update($event) {
@@ -27155,16 +27253,7 @@ var render = function render() {
         }, 'component', _vm.fields[groupedField], false));
       }), 1)])])]) : _vm._e()], 1) : _vm._e();
     }), 0) : _vm._e()]);
-  }), _vm._v(" "), _vm.modalContent ? _c('form-builder-widget-modal-component', {
-    attrs: {
-      "modalOpened": _vm.showModal,
-      "content": _vm.modalContent,
-      "type": _vm.modalContent.type
-    },
-    on: {
-      "close-modal": _vm.closeModal
-    }
-  }) : _vm._e()], 2);
+  }), 0);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -27416,7 +27505,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   staticRenderFns: function() { return /* binding */ staticRenderFns; }
 /* harmony export */ });
 var render = function render() {
-  var _vm$activeSubMenu;
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', [_c('div', {
@@ -27432,37 +27520,7 @@ var render = function render() {
       },
       expression: "active_sub_nav"
     }
-  }), _vm._v(" "), _c('div', {
-    staticClass: "cptm-tab-content-header__action"
-  }, [_vm.activeSubMenu.video ? _c('a', {
-    staticClass: "directorist-row-tooltip directorist-form-action__modal-btn",
-    attrs: {
-      "href": "#",
-      "data-tooltip": (_vm$activeSubMenu = _vm.activeSubMenu) === null || _vm$activeSubMenu === void 0 || (_vm$activeSubMenu = _vm$activeSubMenu.video) === null || _vm$activeSubMenu === void 0 ? void 0 : _vm$activeSubMenu.description,
-      "data-flow": "bottom-right"
-    },
-    on: {
-      "click": function click($event) {
-        $event.preventDefault();
-        return _vm.openModal(_vm.activeSubMenu.video);
-      }
-    }
-  }, [_c('svg', {
-    attrs: {
-      "xmlns": "http://www.w3.org/2000/svg",
-      "width": "14",
-      "height": "14",
-      "viewBox": "0 0 14 14",
-      "fill": "none"
-    }
-  }, [_c('path', {
-    attrs: {
-      "fill-rule": "evenodd",
-      "clip-rule": "evenodd",
-      "d": "M3.94256 2.33333H7.14074C7.6103 2.33332 7.99785 2.33331 8.31355 2.35911C8.64143 2.3859 8.94285 2.44339 9.22596 2.58765C9.665 2.81135 10.022 3.16831 10.2457 3.60735C10.3899 3.89046 10.4474 4.19187 10.4742 4.51976C10.4981 4.81257 10.4999 5.16718 10.5 5.59171L11.6396 4.45212C11.7511 4.34058 11.8607 4.23096 11.9567 4.15052C12.0424 4.07876 12.223 3.93485 12.473 3.91517C12.7522 3.8932 13.0251 4.00622 13.207 4.21921C13.3699 4.40993 13.3958 4.63932 13.4056 4.75068C13.4167 4.87549 13.4167 5.03051 13.4166 5.18822V8.81177C13.4167 8.96948 13.4167 9.1245 13.4056 9.24931C13.3958 9.36067 13.3699 9.59006 13.207 9.78078C13.0251 9.99377 12.7522 10.1068 12.473 10.0848C12.223 10.0651 12.0424 9.92123 11.9567 9.84947C11.8607 9.76904 11.7511 9.65941 11.6396 9.54787L10.5 8.40828C10.4999 8.83281 10.4981 9.18742 10.4742 9.48023C10.4474 9.80812 10.3899 10.1095 10.2457 10.3926C10.022 10.8317 9.665 11.1886 9.22596 11.4123C8.94285 11.5566 8.64144 11.6141 8.31355 11.6409C7.99784 11.6667 7.6103 11.6667 7.14072 11.6667H3.94257C3.473 11.6667 3.08545 11.6667 2.76975 11.6409C2.44186 11.6141 2.14045 11.5566 1.85734 11.4123C1.41829 11.1886 1.06134 10.8317 0.837632 10.3926C0.693379 10.1095 0.635883 9.80812 0.609093 9.48023C0.5833 9.16453 0.583306 8.77699 0.583313 8.30742V5.69257C0.583306 5.22301 0.5833 4.83546 0.609093 4.51976C0.635883 4.19187 0.693379 3.89046 0.837632 3.60735C1.06134 3.16831 1.41829 2.81135 1.85734 2.58765C2.14045 2.44339 2.44186 2.3859 2.76975 2.35911C3.08545 2.33331 3.47299 2.33332 3.94256 2.33333ZM9.33331 5.71666C9.33331 5.21699 9.33286 4.87732 9.31141 4.61477C9.29051 4.35903 9.25264 4.22824 9.20615 4.13701C9.0943 3.91748 8.91582 3.73901 8.6963 3.62715C8.60507 3.58067 8.47428 3.5428 8.21854 3.5219C7.95599 3.50045 7.61632 3.5 7.11665 3.5H3.96665C3.46698 3.5 3.1273 3.50045 2.86475 3.5219C2.60901 3.5428 2.47822 3.58067 2.38699 3.62715C2.16747 3.73901 1.98899 3.91748 1.87714 4.13701C1.83065 4.22824 1.79278 4.35903 1.77189 4.61477C1.75043 4.87732 1.74998 5.21699 1.74998 5.71666V8.28333C1.74998 8.783 1.75043 9.12267 1.77189 9.38522C1.79278 9.64097 1.83065 9.77175 1.87714 9.86298C1.98899 10.0825 2.16747 10.261 2.38699 10.3728C2.47822 10.4193 2.60901 10.4572 2.86475 10.4781C3.1273 10.4995 3.46698 10.5 3.96665 10.5H7.11665C7.61632 10.5 7.95599 10.4995 8.21854 10.4781C8.47428 10.4572 8.60507 10.4193 8.6963 10.3728C8.91582 10.261 9.0943 10.0825 9.20615 9.86298C9.25264 9.77175 9.29051 9.64097 9.31141 9.38522C9.33286 9.12267 9.33331 8.783 9.33331 8.28333V5.71666ZM10.7416 7L12.25 8.50837V5.49162L10.7416 7Z",
-      "fill": "currentColor"
-    }
-  })])]) : _vm._e()])], 1), _vm._v(" "), _c('div', {
+  })], 1), _vm._v(" "), _c('div', {
     staticClass: "cptm-tab-content-body"
   }, [_vm._l(_vm.subNavigation, function (sub_tab, sub_tab_index) {
     return [(_vm.active_sub_nav === sub_tab_index ? true : false) ? _c('div', {
@@ -27472,16 +27530,7 @@ var render = function render() {
         active: _vm.active_sub_nav === sub_tab_index ? true : false
       }
     }, [_c('sections-module', _vm._b({}, 'sections-module', sub_tab, false))], 1) : _vm._e()];
-  })], 2), _vm._v(" "), _vm.modalContent ? _c('form-builder-widget-modal-component', {
-    attrs: {
-      "modalOpened": _vm.showModal,
-      "content": _vm.modalContent,
-      "type": _vm.modalContent.type
-    },
-    on: {
-      "close-modal": _vm.closeModal
-    }
-  }) : _vm._e()], 1);
+  })], 2)]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -32818,12 +32867,48 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   staticRenderFns: function() { return /* binding */ staticRenderFns; }
 /* harmony export */ });
 var render = function render() {
+  var _vm$video;
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
-    staticClass: "cptm-form-builder cptm-row"
+    staticClass: "cptm-form-builder",
+    class: _vm.fieldKey
   }, [_c('div', {
-    staticClass: "cptm-col-5 cptm-col-sticky"
+    staticClass: "cptm-form-builder-sidebar cptm-col-sticky"
+  }, [['submission_form_fields', 'search_form_fields', 'single_listing_header', 'single_listings_contents', 'listings_card_grid_view', 'listings_card_list_view'].includes(_vm.fieldKey) ? _c('div', {
+    staticClass: "cptm-form-builder-action"
+  }, [_c('div', {
+    staticClass: "cptm-form-builder-action-title"
+  }, [_vm._v("Form fields")]), _vm._v(" "), _vm.video ? _c('a', {
+    staticClass: "directorist-row-tooltip cptm-form-builder-action-btn",
+    attrs: {
+      "href": "#",
+      "data-tooltip": (_vm$video = _vm.video) === null || _vm$video === void 0 ? void 0 : _vm$video.description,
+      "data-flow": "bottom-right"
+    },
+    on: {
+      "click": function click($event) {
+        $event.preventDefault();
+        return _vm.openModal();
+      }
+    }
+  }, [_c('svg', {
+    attrs: {
+      "xmlns": "http://www.w3.org/2000/svg",
+      "width": "14",
+      "height": "14",
+      "viewBox": "0 0 14 14",
+      "fill": "none"
+    }
+  }, [_c('path', {
+    attrs: {
+      "fill-rule": "evenodd",
+      "clip-rule": "evenodd",
+      "d": "M3.94256 2.33333H7.14074C7.6103 2.33332 7.99785 2.33331 8.31355 2.35911C8.64143 2.3859 8.94285 2.44339 9.22596 2.58765C9.665 2.81135 10.022 3.16831 10.2457 3.60735C10.3899 3.89046 10.4474 4.19187 10.4742 4.51976C10.4981 4.81257 10.4999 5.16718 10.5 5.59171L11.6396 4.45212C11.7511 4.34058 11.8607 4.23096 11.9567 4.15052C12.0424 4.07876 12.223 3.93485 12.473 3.91517C12.7522 3.8932 13.0251 4.00622 13.207 4.21921C13.3699 4.40993 13.3958 4.63932 13.4056 4.75068C13.4167 4.87549 13.4167 5.03051 13.4166 5.18822V8.81177C13.4167 8.96948 13.4167 9.1245 13.4056 9.24931C13.3958 9.36067 13.3699 9.59006 13.207 9.78078C13.0251 9.99377 12.7522 10.1068 12.473 10.0848C12.223 10.0651 12.0424 9.92123 11.9567 9.84947C11.8607 9.76904 11.7511 9.65941 11.6396 9.54787L10.5 8.40828C10.4999 8.83281 10.4981 9.18742 10.4742 9.48023C10.4474 9.80812 10.3899 10.1095 10.2457 10.3926C10.022 10.8317 9.665 11.1886 9.22596 11.4123C8.94285 11.5566 8.64144 11.6141 8.31355 11.6409C7.99784 11.6667 7.6103 11.6667 7.14072 11.6667H3.94257C3.473 11.6667 3.08545 11.6667 2.76975 11.6409C2.44186 11.6141 2.14045 11.5566 1.85734 11.4123C1.41829 11.1886 1.06134 10.8317 0.837632 10.3926C0.693379 10.1095 0.635883 9.80812 0.609093 9.48023C0.5833 9.16453 0.583306 8.77699 0.583313 8.30742V5.69257C0.583306 5.22301 0.5833 4.83546 0.609093 4.51976C0.635883 4.19187 0.693379 3.89046 0.837632 3.60735C1.06134 3.16831 1.41829 2.81135 1.85734 2.58765C2.14045 2.44339 2.44186 2.3859 2.76975 2.35911C3.08545 2.33331 3.47299 2.33332 3.94256 2.33333ZM9.33331 5.71666C9.33331 5.21699 9.33286 4.87732 9.31141 4.61477C9.29051 4.35903 9.25264 4.22824 9.20615 4.13701C9.0943 3.91748 8.91582 3.73901 8.6963 3.62715C8.60507 3.58067 8.47428 3.5428 8.21854 3.5219C7.95599 3.50045 7.61632 3.5 7.11665 3.5H3.96665C3.46698 3.5 3.1273 3.50045 2.86475 3.5219C2.60901 3.5428 2.47822 3.58067 2.38699 3.62715C2.16747 3.73901 1.98899 3.91748 1.87714 4.13701C1.83065 4.22824 1.79278 4.35903 1.77189 4.61477C1.75043 4.87732 1.74998 5.21699 1.74998 5.71666V8.28333C1.74998 8.783 1.75043 9.12267 1.77189 9.38522C1.79278 9.64097 1.83065 9.77175 1.87714 9.86298C1.98899 10.0825 2.16747 10.261 2.38699 10.3728C2.47822 10.4193 2.60901 10.4572 2.86475 10.4781C3.1273 10.4995 3.46698 10.5 3.96665 10.5H7.11665C7.61632 10.5 7.95599 10.4995 8.21854 10.4781C8.47428 10.4572 8.60507 10.4193 8.6963 10.3728C8.91582 10.261 9.0943 10.0825 9.20615 9.86298C9.25264 9.77175 9.29051 9.64097 9.31141 9.38522C9.33286 9.12267 9.33331 8.783 9.33331 8.28333V5.71666ZM10.7416 7L12.25 8.50837V5.49162L10.7416 7Z",
+      "fill": "currentColor"
+    }
+  })]), _vm._v("\n        Learn\n      ")]) : _vm._e()]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "cptm-form-builder-sidebar-content"
   }, [_vm._l(_vm.widgets, function (widget_group, widget_group_key) {
     return [_c('form-builder-widget-list-section-component', _vm._b({
       attrs: {
@@ -32842,9 +32927,41 @@ var render = function render() {
         }
       }
     }, 'form-builder-widget-list-section-component', widget_group, false))];
-  })], 2), _vm._v(" "), _c('div', {
-    staticClass: "cptm-col-7"
+  })], 2)]), _vm._v(" "), _c('div', {
+    staticClass: "cptm-form-builder-content"
+  }, [_vm.fieldKey === 'submission_form_fields' ? _c('div', {
+    staticClass: "cptm-form-builder-action"
   }, [_c('div', {
+    staticClass: "cptm-form-builder-action-title"
+  }, [_vm._v("Customize listing form")]), _vm._v(" "), _c('a', {
+    staticClass: "directorist-row-tooltip cptm-form-builder-action-btn",
+    attrs: {
+      "href": "#",
+      "target": "_blank",
+      "data-tooltip": "View the form",
+      "data-flow": "bottom-right"
+    },
+    on: {
+      "click": function click($event) {
+        return _vm.saveData();
+      }
+    }
+  }, [_c('svg', {
+    attrs: {
+      "width": "16",
+      "height": "16",
+      "viewBox": "0 0 16 16",
+      "fill": "none",
+      "xmlns": "http://www.w3.org/2000/svg"
+    }
+  }, [_c('path', {
+    attrs: {
+      "fill-rule": "evenodd",
+      "clip-rule": "evenodd",
+      "d": "M4.23904 5.49535C3.23485 6.33346 2.53211 7.31833 2.177 7.88061C2.15344 7.91792 2.13696 7.94405 2.12319 7.96673C2.1141 7.9817 2.1081 7.99205 2.10409 7.99927C2.10409 7.99954 2.10409 7.99981 2.10409 8.00008C2.10409 8.00035 2.10409 8.00062 2.10409 8.00089C2.1081 8.00811 2.1141 8.01846 2.12319 8.03343C2.13696 8.05611 2.15344 8.08224 2.177 8.11955C2.53211 8.68183 3.23485 9.6667 4.23904 10.5048C5.24166 11.3416 6.50463 12.0001 8.00019 12.0001C9.49574 12.0001 10.7587 11.3416 11.7613 10.5048C12.7655 9.6667 13.4683 8.68183 13.8234 8.11955C13.8469 8.08224 13.8634 8.05611 13.8772 8.03343C13.8863 8.01846 13.8923 8.0081 13.8963 8.00089C13.8963 8.00062 13.8963 8.00035 13.8963 8.00008C13.8963 7.99981 13.8963 7.99954 13.8963 7.99927C13.8923 7.99206 13.8863 7.9817 13.8772 7.96673C13.8634 7.94405 13.8469 7.91792 13.8234 7.88061C13.4683 7.31833 12.7655 6.33346 11.7613 5.49535C10.7587 4.65855 9.49574 4.00008 8.00019 4.00008C6.50463 4.00008 5.24166 4.65855 4.23904 5.49535ZM3.38469 4.4717C4.53709 3.50989 6.09241 2.66675 8.00019 2.66675C9.90797 2.66675 11.4633 3.50989 12.6157 4.4717C13.7665 5.4322 14.5555 6.54294 14.9507 7.16865C14.9559 7.17691 14.9613 7.18535 14.9668 7.19397C15.0452 7.3174 15.147 7.47765 15.1985 7.70219C15.24 7.88349 15.24 8.11667 15.1985 8.29797C15.147 8.52251 15.0452 8.68277 14.9668 8.80619C14.9613 8.81481 14.9559 8.82325 14.9507 8.83152C14.5555 9.45722 13.7665 10.568 12.6157 11.5285C11.4633 12.4903 9.90797 13.3334 8.00019 13.3334C6.09241 13.3334 4.53709 12.4903 3.38469 11.5285C2.23385 10.568 1.44483 9.45722 1.04967 8.83152C1.04445 8.82325 1.03908 8.81481 1.03361 8.80619C0.955196 8.68277 0.853387 8.52251 0.801919 8.29797C0.760363 8.11667 0.760363 7.88349 0.801919 7.70219C0.853387 7.47765 0.955197 7.3174 1.03361 7.19397C1.03908 7.18535 1.04445 7.17691 1.04967 7.16865C1.44483 6.54294 2.23385 5.4322 3.38469 4.4717ZM8.00019 6.66675C7.26381 6.66675 6.66686 7.2637 6.66686 8.00008C6.66686 8.73646 7.26381 9.33341 8.00019 9.33341C8.73657 9.33341 9.33352 8.73646 9.33352 8.00008C9.33352 7.2637 8.73657 6.66675 8.00019 6.66675ZM5.33352 8.00008C5.33352 6.52732 6.52743 5.33341 8.00019 5.33341C9.47295 5.33341 10.6669 6.52732 10.6669 8.00008C10.6669 9.47284 9.47295 10.6667 8.00019 10.6667C6.52743 10.6667 5.33352 9.47284 5.33352 8.00008Z",
+      "fill": "#4D5761"
+    }
+  })]), _vm._v("\n        Preview\n      ")])]) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "cptm-form-builder-active-fields"
   }, [_c('div', {
     staticClass: "cptm-form-builder-active-fields-container cptm-col-sticky"
@@ -32921,7 +33038,16 @@ var render = function render() {
         return _vm.addNewGroup();
       }
     }
-  })]) : _vm._e()], 2)])])]);
+  })]) : _vm._e()], 2)])]), _vm._v(" "), _vm.modalContent ? _c('form-builder-widget-modal-component', {
+    attrs: {
+      "modalOpened": _vm.showModal,
+      "content": _vm.modalContent,
+      "type": _vm.modalContent.type
+    },
+    on: {
+      "close-modal": _vm.closeModal
+    }
+  }) : _vm._e()], 1);
 };
 var staticRenderFns = [];
 render._withStripped = true;

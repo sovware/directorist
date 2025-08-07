@@ -28674,8 +28674,6 @@ var render = function render() {
       }
     }
   }, [_c('span', {
-    staticClass: "cptm-form-builder-preset-fields-header-action-text"
-  }, [_vm._v("\n        " + _vm._s(_vm.title))]), _vm._v(" "), _c('span', {
     staticClass: "cptm-form-builder-preset-fields-header-action-icon",
     class: _vm.isPresetExpanded ? 'action-collapse-up' : 'action-collapse-down'
   }, [_c('span', {
@@ -28683,7 +28681,9 @@ var render = function render() {
     attrs: {
       "aria-hidden": "true"
     }
-  })])])]), _vm._v(" "), _c('slide-up-down', {
+  })]), _vm._v(" "), _c('span', {
+    staticClass: "cptm-form-builder-preset-fields-header-action-text"
+  }, [_vm._v("\n        " + _vm._s(_vm.title))])])]), _vm._v(" "), _c('slide-up-down', {
     attrs: {
       "active": _vm.isPresetExpanded,
       "duration": 500

@@ -15697,8 +15697,11 @@ input:-webkit-autofill:active {
 .cptm-form-builder-sidebar .cptm-form-builder-action {
   padding-bottom: 0;
 }
+.cptm-form-builder-sidebar .cptm-form-builder-action-btn {
+  padding: 7px 10px;
+}
 .cptm-form-builder-sidebar .cptm-form-builder-sidebar-content {
-  padding: 24px;
+  padding: 12px 24px 24px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
@@ -15767,8 +15770,8 @@ input:-webkit-autofill:active {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  gap: 15px;
-  margin: 0 0 16px;
+  gap: 8px;
+  margin: 0 0 12px;
 }
 .cptm-form-builder-preset-fields-header-action-link .cptm-form-builder-preset-fields-header-action-icon {
   font-size: 20px;
@@ -15784,9 +15787,9 @@ input:-webkit-autofill:active {
   -webkit-flex: 1;
       -ms-flex: 1;
           flex: 1;
-  font-size: 14px;
-  font-weight: 500;
-  color: #141921;
+  font-size: 12px;
+  font-weight: 600;
+  color: #4d5761;
 }
 
 .cptm-form-builder-preset-fields-header-action-link {
@@ -16410,7 +16413,7 @@ div[draggable=true].cptm-form-builder-group-title-area {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  gap: 6px;
+  gap: 8px;
   -webkit-flex-wrap: wrap;
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
@@ -16420,8 +16423,8 @@ div[draggable=true].cptm-form-builder-group-title-area {
 }
 
 .cptm-form-builder-field-list-item {
-  width: calc(50% - 3px);
-  padding: 6px 16px;
+  width: calc(50% - 4px);
+  padding: 12px;
   margin: 0;
   display: -webkit-box;
   display: -webkit-flex;
@@ -16436,10 +16439,10 @@ div[draggable=true].cptm-form-builder-group-title-area {
           flex-wrap: wrap;
   list-style: none;
   background-color: #ffffff;
-  border: 1px solid #e5e7eb;
+  border: 1px solid #d2d6db;
   -webkit-box-shadow: 0 1px 2px rgba(16, 24, 40, 0.05);
           box-shadow: 0 1px 2px rgba(16, 24, 40, 0.05);
-  border-radius: 8px;
+  border-radius: 4px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   -webkit-transition: all ease 0.3s;
@@ -16487,11 +16490,11 @@ li[class=cptm-form-builder-field-list-item][draggable=true] {
 
 .cptm-form-builder-field-list-icon {
   display: inline-block;
-  margin-left: 6px;
+  margin-left: 8px;
   width: auto;
-  max-width: 16px;
-  font-size: 16px;
-  color: #747c89;
+  max-width: 20px;
+  font-size: 20px;
+  color: #141921;
 }
 
 .cptm-form-builder-field-list-item-icon {
@@ -16503,8 +16506,8 @@ li[class=cptm-form-builder-field-list-item][draggable=true] {
 .cptm-form-builder-field-list-item-label {
   display: inline-block;
   font-size: 13px;
-  font-weight: 400;
-  color: #383f47;
+  font-weight: 500;
+  color: #141921;
 }
 
 .cptm-option-card--draggable .cptm-form-builder-field-list {
@@ -22327,8 +22330,11 @@ input[type=radio]:checked::before {
 .cptm-form-builder-sidebar .cptm-form-builder-action {
   padding-bottom: 0;
 }
+.cptm-form-builder-sidebar .cptm-form-builder-action-btn {
+  padding: 7px 10px;
+}
 .cptm-form-builder-sidebar .cptm-form-builder-sidebar-content {
-  padding: 24px;
+  padding: 12px 24px 24px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
@@ -22397,8 +22403,8 @@ input[type=radio]:checked::before {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  gap: 15px;
-  margin: 0 0 16px;
+  gap: 8px;
+  margin: 0 0 12px;
 }
 .cptm-form-builder-preset-fields-header-action-link .cptm-form-builder-preset-fields-header-action-icon {
   font-size: 20px;
@@ -22414,9 +22420,9 @@ input[type=radio]:checked::before {
   -webkit-flex: 1;
       -ms-flex: 1;
           flex: 1;
-  font-size: 14px;
-  font-weight: 500;
-  color: #141921;
+  font-size: 12px;
+  font-weight: 600;
+  color: #4d5761;
 }
 
 .cptm-form-builder-preset-fields-header-action-link {
@@ -23040,7 +23046,7 @@ div[draggable=true].cptm-form-builder-group-title-area {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  gap: 6px;
+  gap: 8px;
   -webkit-flex-wrap: wrap;
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
@@ -23050,8 +23056,8 @@ div[draggable=true].cptm-form-builder-group-title-area {
 }
 
 .cptm-form-builder-field-list-item {
-  width: calc(50% - 3px);
-  padding: 6px 16px;
+  width: calc(50% - 4px);
+  padding: 12px;
   margin: 0;
   display: -webkit-box;
   display: -webkit-flex;
@@ -23066,10 +23072,10 @@ div[draggable=true].cptm-form-builder-group-title-area {
           flex-wrap: wrap;
   list-style: none;
   background-color: #ffffff;
-  border: 1px solid #e5e7eb;
+  border: 1px solid #d2d6db;
   -webkit-box-shadow: 0 1px 2px rgba(16, 24, 40, 0.05);
           box-shadow: 0 1px 2px rgba(16, 24, 40, 0.05);
-  border-radius: 8px;
+  border-radius: 4px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   -webkit-transition: all ease 0.3s;
@@ -23117,11 +23123,11 @@ li[class=cptm-form-builder-field-list-item][draggable=true] {
 
 .cptm-form-builder-field-list-icon {
   display: inline-block;
-  margin-left: 6px;
+  margin-left: 8px;
   width: auto;
-  max-width: 16px;
-  font-size: 16px;
-  color: #747c89;
+  max-width: 20px;
+  font-size: 20px;
+  color: #141921;
 }
 
 .cptm-form-builder-field-list-item-icon {
@@ -23133,8 +23139,8 @@ li[class=cptm-form-builder-field-list-item][draggable=true] {
 .cptm-form-builder-field-list-item-label {
   display: inline-block;
   font-size: 13px;
-  font-weight: 400;
-  color: #383f47;
+  font-weight: 500;
+  color: #141921;
 }
 
 .cptm-option-card--draggable .cptm-form-builder-field-list {
@@ -29245,8 +29251,11 @@ input[type=radio]:checked::before {
 .cptm-form-builder-sidebar .cptm-form-builder-action {
   padding-bottom: 0;
 }
+.cptm-form-builder-sidebar .cptm-form-builder-action-btn {
+  padding: 7px 10px;
+}
 .cptm-form-builder-sidebar .cptm-form-builder-sidebar-content {
-  padding: 24px;
+  padding: 12px 24px 24px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
@@ -29315,8 +29324,8 @@ input[type=radio]:checked::before {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  gap: 15px;
-  margin: 0 0 16px;
+  gap: 8px;
+  margin: 0 0 12px;
 }
 .cptm-form-builder-preset-fields-header-action-link .cptm-form-builder-preset-fields-header-action-icon {
   font-size: 20px;
@@ -29332,9 +29341,9 @@ input[type=radio]:checked::before {
   -webkit-flex: 1;
       -ms-flex: 1;
           flex: 1;
-  font-size: 14px;
-  font-weight: 500;
-  color: #141921;
+  font-size: 12px;
+  font-weight: 600;
+  color: #4d5761;
 }
 
 .cptm-form-builder-preset-fields-header-action-link {
@@ -29958,7 +29967,7 @@ div[draggable=true].cptm-form-builder-group-title-area {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  gap: 6px;
+  gap: 8px;
   -webkit-flex-wrap: wrap;
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
@@ -29968,8 +29977,8 @@ div[draggable=true].cptm-form-builder-group-title-area {
 }
 
 .cptm-form-builder-field-list-item {
-  width: calc(50% - 3px);
-  padding: 6px 16px;
+  width: calc(50% - 4px);
+  padding: 12px;
   margin: 0;
   display: -webkit-box;
   display: -webkit-flex;
@@ -29984,10 +29993,10 @@ div[draggable=true].cptm-form-builder-group-title-area {
           flex-wrap: wrap;
   list-style: none;
   background-color: #ffffff;
-  border: 1px solid #e5e7eb;
+  border: 1px solid #d2d6db;
   -webkit-box-shadow: 0 1px 2px rgba(16, 24, 40, 0.05);
           box-shadow: 0 1px 2px rgba(16, 24, 40, 0.05);
-  border-radius: 8px;
+  border-radius: 4px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   -webkit-transition: all ease 0.3s;
@@ -30035,11 +30044,11 @@ li[class=cptm-form-builder-field-list-item][draggable=true] {
 
 .cptm-form-builder-field-list-icon {
   display: inline-block;
-  margin-left: 6px;
+  margin-left: 8px;
   width: auto;
-  max-width: 16px;
-  font-size: 16px;
-  color: #747c89;
+  max-width: 20px;
+  font-size: 20px;
+  color: #141921;
 }
 
 .cptm-form-builder-field-list-item-icon {
@@ -30051,8 +30060,8 @@ li[class=cptm-form-builder-field-list-item][draggable=true] {
 .cptm-form-builder-field-list-item-label {
   display: inline-block;
   font-size: 13px;
-  font-weight: 400;
-  color: #383f47;
+  font-weight: 500;
+  color: #141921;
 }
 
 .cptm-option-card--draggable .cptm-form-builder-field-list {

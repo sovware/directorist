@@ -19194,11 +19194,6 @@ __webpack_require__.r(__webpack_exports__);
       default: false
     }
   },
-  data: function data() {
-    return {
-      optionsExpanded: false // Track the state of the options text
-    };
-  },
   computed: {
     label: function label() {
       var label = "";
@@ -19209,15 +19204,6 @@ __webpack_require__.r(__webpack_exports__);
         label = this.groupData.label;
       }
       return label;
-    },
-    optionsText: function optionsText() {
-      return this.optionsExpanded ? "Hide" : "Options";
-    }
-  },
-  methods: {
-    toggleExpandGroup: function toggleExpandGroup() {
-      this.optionsExpanded = !this.optionsExpanded;
-      this.$emit("toggle-expand-group");
     }
   }
 });
@@ -29228,12 +29214,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   render: function() { return /* binding */ render; },
 /* harmony export */   staticRenderFns: function() { return /* binding */ staticRenderFns; }
 /* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/esm/typeof.js");
+
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
     staticClass: "cptm-form-builder-group-header-section",
-    class: _vm.groupFieldsExpandState ? 'expanded' : ''
+    class: _vm.widgetsExpanded || _vm.groupFieldsExpandState ? 'expanded' : ''
   }, [_c('div', {
     staticClass: "cptm-form-builder-group-header"
   }, [_vm.draggable ? _c('draggable-list-item', {
@@ -29255,45 +29243,63 @@ var render = function render() {
     attrs: {
       "aria-hidden": "true"
     }
-  })])]) : _vm._e(), _vm._v(" "), _c('form-builder-widget-group-titlebar-component', _vm._b({
-    attrs: {
-      "widgets-expanded": _vm.widgetsExpanded
-    },
-    on: {
-      "toggle-expand-group": _vm.toggleGroupFieldsExpand,
-      "toggle-expand-widgets": function toggleExpandWidgets($event) {
-        return _vm.$emit('toggle-expand-widgets');
-      }
-    }
-  }, 'form-builder-widget-group-titlebar-component', _vm.$props, false)), _vm._v(" "), _c('div', {
-    ref: "dropdownContent",
-    staticClass: "cptm-form-builder-group-actions-dropdown cptm-form-builder-group-actions-dropdown--group"
-  }, [_vm.canTrash ? _c('a', {
-    staticClass: "cptm-form-builder-group-actions-dropdown-btn",
+  })])]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "cptm-form-builder-group-header-content"
+  }, [_c('div', {
+    staticClass: "cptm-form-builder-header-toggle"
+  }, [_c('a', {
+    staticClass: "cptm-form-builder-header-toggle-link",
+    class: _vm.widgetsExpanded ? 'action-collapse-down' : 'action-collapse-up',
     attrs: {
       "href": "#"
     },
     on: {
       "click": function click($event) {
         $event.preventDefault();
-        return _vm.toggleGroupExpandedDropdown.apply(null, arguments);
+        return _vm.$emit('toggle-expand-widgets');
       }
     }
   }, [_c('span', {
-    staticClass: "uil uil-ellipsis-h",
+    staticClass: "uil uil-angle-down",
     attrs: {
       "aria-hidden": "true"
     }
-  })]) : _vm._e(), _vm._v(" "), _c('slide-up-down', {
+  })])]), _vm._v(" "), _c('h3', {
+    staticClass: "cptm-form-builder-group-title"
+  }, [_c('span', {
+    staticClass: "cptm-form-builder-group-title-icon"
+  }, [_c('span', {
+    class: _vm.groupData.icon,
     attrs: {
-      "active": _vm.groupExpandedDropdown,
-      "duration": 500
+      "aria-hidden": "true"
     }
-  }, [_c('div', {
-    staticClass: "cptm-form-builder-group-actions-dropdown-content",
-    class: _vm.groupExpandedDropdown ? 'expanded' : ''
-  }, [_c('a', {
-    staticClass: "cptm-form-builder-field-item-action-link",
+  })]), _vm._v(" "), _c('span', {
+    staticClass: "cptm-form-builder-group-title-label"
+  }, [_c('span', {
+    domProps: {
+      "innerHTML": _vm._s(_vm.groupData.label)
+    }
+  })])]), _vm._v(" "), _vm.groupData && _vm.groupData.fields && _vm.groupData.fields.length ? _c('div', {
+    staticClass: "cptm-form-builder-header-actions"
+  }, [_vm.groupFields && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(_vm.groupFields) === 'object' ? _c('a', {
+    staticClass: "cptm-form-builder-header-action-link",
+    attrs: {
+      "href": "#"
+    },
+    on: {
+      "click": function click($event) {
+        $event.preventDefault();
+        return _vm.toggleGroupFieldsExpand.apply(null, arguments);
+      }
+    }
+  }, [_c('span', {
+    staticClass: "fa fa-cog",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })]) : _vm._e(), _vm._v(" "), _c('a', {
+    staticClass: "cptm-form-builder-header-action-link",
+    class: _vm.widgetsExpanded ? 'disabled' : '',
     attrs: {
       "href": "#"
     },
@@ -29308,7 +29314,7 @@ var render = function render() {
     attrs: {
       "aria-hidden": "true"
     }
-  }), _vm._v("\n            Remove Section\n          ")])])])], 1)], 1), _vm._v(" "), _c('slide-up-down', {
+  })])]) : _vm._e()])], 1), _vm._v(" "), _c('slide-up-down', {
     attrs: {
       "active": _vm.groupFieldsExpandState,
       "duration": 500
@@ -29354,40 +29360,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   render: function() { return /* binding */ render; },
 /* harmony export */   staticRenderFns: function() { return /* binding */ staticRenderFns; }
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/esm/typeof.js");
-
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
-    staticClass: "cptm-form-builder-group-title-area",
+    staticClass: "cptm-form-builder-group-header-content",
     class: _vm.widgetsExpanded ? 'expanded' : ''
-  }, [_c('h3', {
-    staticClass: "cptm-form-builder-group-title"
-  }, [_c('span', {
-    domProps: {
-      "innerHTML": _vm._s(_vm.label)
-    }
-  }), _vm._v(" "), _vm.groupFields && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(_vm.groupFields) === 'object' ? _c('a', {
-    staticClass: "cptm-form-builder-header-action-link cptm-ml-5 cptm-link-light",
-    attrs: {
-      "href": "#"
-    },
-    on: {
-      "click": function click($event) {
-        $event.preventDefault();
-        return _vm.toggleExpandGroup.apply(null, arguments);
-      }
-    }
-  }, [_c('span', {
-    staticClass: "fa fa-cog",
-    attrs: {
-      "aria-hidden": "true"
-    }
-  }), _vm._v("\n      " + _vm._s(_vm.optionsText) + "\n    ")]) : _vm._e()]), _vm._v(" "), _vm.groupData && _vm.groupData.fields && _vm.groupData.fields.length ? _c('div', {
-    staticClass: "cptm-form-builder-group-title-actions"
+  }, [_c('div', {
+    staticClass: "cptm-form-builder-header-toggle"
   }, [_c('a', {
-    staticClass: "cptm-form-builder-header-action-link",
+    staticClass: "cptm-form-builder-header-toggle-link",
     class: _vm.widgetsExpanded ? 'action-collapse-down' : 'action-collapse-up',
     attrs: {
       "href": "#"
@@ -29403,9 +29385,28 @@ var render = function render() {
     attrs: {
       "aria-hidden": "true"
     }
-  })])]) : _vm._e()]);
+  })])]), _vm._v(" "), _c('h3', {
+    staticClass: "cptm-form-builder-group-title"
+  }, [_vm._m(0), _vm._v(" "), _c('span', {
+    staticClass: "cptm-form-builder-group-title-label"
+  }, [_c('span', {
+    domProps: {
+      "innerHTML": _vm._s(_vm.label)
+    }
+  })])])]);
 };
-var staticRenderFns = [];
+var staticRenderFns = [function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('span', {
+    staticClass: "cptm-form-builder-group-title-icon"
+  }, [_c('span', {
+    staticClass: "uil uil-angle-down",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })]);
+}];
 render._withStripped = true;
 
 

@@ -1,7 +1,7 @@
 <template>
   <div
     class="cptm-form-builder-group-header-section"
-    :class="groupFieldsExpandState ? 'expanded' : ''"
+    :class="widgetsExpanded || groupFieldsExpandState ? 'expanded' : ''"
   >
     <!-- Group Header Top -->
     <div class="cptm-form-builder-group-header">
@@ -17,42 +17,50 @@
         </div>
       </draggable-list-item>
 
-      <form-builder-widget-group-titlebar-component
-        v-bind="$props"
-        :widgets-expanded="widgetsExpanded"
-        @toggle-expand-group="toggleGroupFieldsExpand"
-        @toggle-expand-widgets="$emit('toggle-expand-widgets')"
-      />
-
-      <!-- Group Header Actions -->
-      <div
-        class="cptm-form-builder-group-actions-dropdown cptm-form-builder-group-actions-dropdown--group"
-        ref="dropdownContent"
-      >
-        <a
-          href="#"
-          class="cptm-form-builder-group-actions-dropdown-btn"
-          v-if="canTrash"
-          @click.prevent="toggleGroupExpandedDropdown"
-        >
-          <span aria-hidden="true" class="uil uil-ellipsis-h"></span>
-        </a>
-        <!-- Widget Action Dropdown -->
-        <slide-up-down :active="groupExpandedDropdown" :duration="500">
-          <div
-            class="cptm-form-builder-group-actions-dropdown-content"
-            :class="groupExpandedDropdown ? 'expanded' : ''"
+      <div class="cptm-form-builder-group-header-content">
+        <div class="cptm-form-builder-header-toggle">
+          <a
+            href="#"
+            class="cptm-form-builder-header-toggle-link"
+            :class="
+              widgetsExpanded ? 'action-collapse-down' : 'action-collapse-up'
+            "
+            @click.prevent="$emit('toggle-expand-widgets')"
           >
-            <a
-              href="#"
-              class="cptm-form-builder-field-item-action-link"
-              @click.prevent="handleGroupDelete"
-            >
-              <span aria-hidden="true" class="uil uil-trash-alt"></span>
-              Remove Section
-            </a>
-          </div>
-        </slide-up-down>
+            <span aria-hidden="true" class="uil uil-angle-down"></span>
+          </a>
+        </div>
+
+        <h3 class="cptm-form-builder-group-title">
+          <span class="cptm-form-builder-group-title-icon">
+            <span aria-hidden="true" :class="groupData.icon"></span>
+          </span>
+          <span class="cptm-form-builder-group-title-label">
+            <span v-html="groupData.label"></span>
+          </span>
+        </h3>
+
+        <div
+          class="cptm-form-builder-header-actions"
+          v-if="groupData && groupData.fields && groupData.fields.length"
+        >
+          <a
+            href="#"
+            class="cptm-form-builder-header-action-link"
+            v-if="groupFields && typeof groupFields === 'object'"
+            @click.prevent="toggleGroupFieldsExpand"
+          >
+            <span class="fa fa-cog" aria-hidden="true"></span>
+          </a>
+          <a
+            href="#"
+            class="cptm-form-builder-header-action-link"
+            :class="widgetsExpanded ? 'disabled' : ''"
+            @click.prevent="handleGroupDelete"
+          >
+            <span aria-hidden="true" class="uil uil-trash-alt"></span>
+          </a>
+        </div>
       </div>
     </div>
 
@@ -173,7 +181,7 @@ export default {
 
       const widgetOptions = this.findWidgetOptions(
         this.groupData,
-        this.avilableWidgets
+        this.avilableWidgets,
       );
 
       if (widgetOptions) {
@@ -196,7 +204,7 @@ export default {
       return findObjectItem(
         `${widgetGroup}.${widgetName}.options`,
         avilableWidgets,
-        null
+        null,
       );
     },
 

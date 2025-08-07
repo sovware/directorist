@@ -1,11 +1,14 @@
 <template>
     <div class="cptm-form-group">
         <div class="cptm-input-toggle-wrap">
-            <label v-if="( label.length )">
-                <component :is="labelType">{{ label }}</component>
-            </label>
+            <div class="cptm-input-toggle-content">
+                <label v-if="( label.length )">
+                    <component :is="labelType">{{ label }}</component>
+                </label>
+                <p class="cptm-form-group-info" v-if="description.length" v-html="description"></p>
+            </div>
 
-            <div class="directorist_vertical-align-m">
+            <div class="directorist_vertical-align-m cptm-input-toggle-btn">
                 <div class="directorist_item">
                     <span class="cptm-input-toggle" :class="toggleClass" @click="toggleValue()"></span>
                     <input type="checkbox" :id="name" :name="name" style="display: none;" v-model="local_value">
@@ -22,8 +25,6 @@
                     </a>
                 </div>
             </div>
-            
-            <p class="cptm-form-group-info" v-if="description.length" v-html="description"></p>
         </div>
 
         <confirmation-modal v-bind="confirmation" @cancel="confirmationOnCancel()" />

@@ -23387,7 +23387,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
       this.isButtonEditable = true;
       this.$nextTick(function () {
-        var inputElement = _this.$refs.formGroup.$el.querySelector('input');
+        var inputElement = _this.$refs.formGroup.$el.querySelector("input");
         if (inputElement) {
           inputElement.focus();
         }
@@ -32710,13 +32710,51 @@ var render = function render() {
     _c = _vm._self._c;
   return _c('div', {
     staticClass: "directorist-input-wrap directorist-footer-wrap"
-  }, [!_vm.isButtonEditable ? _c('div', {
+  }, [_c('label', {
+    staticClass: "directorist-input-label",
+    attrs: {
+      "for": _vm.id
+    }
+  }, [_c('svg', {
+    attrs: {
+      "width": "20",
+      "height": "20",
+      "viewBox": "0 0 20 20",
+      "fill": "none",
+      "xmlns": "http://www.w3.org/2000/svg"
+    }
+  }, [_c('path', {
+    attrs: {
+      "d": "M2.5 2.5H15.8333",
+      "stroke": "#141B34",
+      "stroke-width": "1.5",
+      "stroke-linecap": "square",
+      "stroke-linejoin": "round"
+    }
+  }), _vm._v(" "), _c('path', {
+    attrs: {
+      "d": "M2.5 5.83398H10",
+      "stroke": "#141B34",
+      "stroke-width": "1.5",
+      "stroke-linecap": "square",
+      "stroke-linejoin": "round"
+    }
+  }), _vm._v(" "), _c('path', {
+    attrs: {
+      "d": "M17.5 9.16602V17.4993H2.5V9.16602H17.5Z",
+      "stroke": "#141B34",
+      "stroke-width": "1.5",
+      "stroke-linecap": "square",
+      "stroke-linejoin": "round"
+    }
+  })]), _vm._v("\n    Listing form submit button text\n  ")]), _vm._v(" "), !_vm.isButtonEditable ? _c('div', {
     staticClass: "directorist-input"
   }, [_c('button', {
     staticClass: "cptm-btn",
     attrs: {
       "type": "button",
-      "data-info": "Click to edit button text"
+      "id": _vm.id,
+      "data-info": "Click box to edit button text"
     },
     on: {
       "click": _vm.showEditableButton
@@ -36882,10 +36920,17 @@ var render = function render() {
     staticClass: "cptm-form-group"
   }, [_c('div', {
     staticClass: "cptm-input-toggle-wrap"
+  }, [_c('div', {
+    staticClass: "cptm-input-toggle-content"
   }, [_vm.label.length ? _c('label', [_c(_vm.labelType, {
     tag: "component"
-  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _c('div', {
-    staticClass: "directorist_vertical-align-m"
+  }, [_vm._v(_vm._s(_vm.label))])], 1) : _vm._e(), _vm._v(" "), _vm.description.length ? _c('p', {
+    staticClass: "cptm-form-group-info",
+    domProps: {
+      "innerHTML": _vm._s(_vm.description)
+    }
+  }) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "directorist_vertical-align-m cptm-input-toggle-btn"
   }, [_c('div', {
     staticClass: "directorist_item"
   }, [_c('span', {
@@ -36944,12 +36989,7 @@ var render = function render() {
     domProps: {
       "innerHTML": _vm._s(_vm.comp.link.label)
     }
-  }) : _vm._e()])]), _vm._v(" "), _vm.description.length ? _c('p', {
-    staticClass: "cptm-form-group-info",
-    domProps: {
-      "innerHTML": _vm._s(_vm.description)
-    }
-  }) : _vm._e()]), _vm._v(" "), _c('confirmation-modal', _vm._b({
+  }) : _vm._e()])])]), _vm._v(" "), _c('confirmation-modal', _vm._b({
     on: {
       "cancel": function cancel($event) {
         return _vm.confirmationOnCancel();

@@ -2654,7 +2654,7 @@ class Builder_Data {
                             ],
                             'slider' => [
                                 'type' => "thumbnail",
-                                'label' => __( "Listing Image/Slider", "directorist" ),
+                                'label' => __( "Image/Slider", "directorist" ),
                                 'icon' => 'las la-image',
                             ],
 

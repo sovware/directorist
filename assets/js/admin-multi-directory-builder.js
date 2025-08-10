@@ -29193,10 +29193,14 @@ var render = function render() {
     staticClass: "cptm-form-builder-group-title"
   }, [_c('span', {
     staticClass: "cptm-form-builder-group-title-icon"
-  }, [_c('span', {
+  }, [_vm.groupData.lock !== '1' ? _c('span', {
     class: _vm.groupData.icon,
     attrs: {
       "aria-hidden": "true"
+    }
+  }) : _c('span', {
+    domProps: {
+      "innerHTML": _vm._s(_vm.groupData.icon)
     }
   })]), _vm._v(" "), _c('span', {
     staticClass: "cptm-form-builder-group-title-label"
@@ -29204,7 +29208,7 @@ var render = function render() {
     domProps: {
       "innerHTML": _vm._s(_vm.groupData.label)
     }
-  })])]), _vm._v(" "), _vm.groupData && _vm.groupData.fields && _vm.groupData.fields.length ? _c('div', {
+  })])]), _vm._v(" "), _vm.groupData.lock !== '1' ? _c('div', {
     staticClass: "cptm-form-builder-header-actions"
   }, [_vm.groupFields && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(_vm.groupFields) === 'object' ? _c('a', {
     staticClass: "cptm-form-builder-header-action-link",

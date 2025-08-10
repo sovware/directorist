@@ -43,29 +43,14 @@ $light-gray: #f4f5f7;
     background-color: #f3f4f6;
   }
 
-  @media only screen and (max-width: 960px) {
-    width: calc(100% - 76px);
-  }
-
   @media only screen and (max-width: 782px) {
-    width: calc(100% - 40px);
-    top: 46px;
-    right: 0;
-  }
-
-  @media only screen and (max-width: 600px) {
     position: unset;
     width: auto;
-
-    &:before {
-      display: none;
-    }
+    flex-wrap: wrap;
   }
 
-  @media only screen and (max-width: 479px) {
-    justify-content: center;
-    flex-direction: column;
-    padding: 10px 20px;
+  @media only screen and (max-width: 480px) {
+    padding: 10px 30px;
   }
 
   &-left {
@@ -175,6 +160,12 @@ $light-gray: #f4f5f7;
   border: 1px solid #e5e7eb;
   box-shadow: 0 4px 8px 0 rgba(16, 24, 40, 0.08);
   overflow: hidden;
+  @media only screen and (max-width: 782px) {
+    margin-top: 0;
+    .atbdp-cptm-body {
+      margin-top: 0 !important;
+    }
+  }
 
   .cptm-header-navigation {
     position: fixed;
@@ -190,25 +181,12 @@ $light-gray: #f4f5f7;
     overflow-x: auto;
     z-index: 100;
     box-sizing: border-box;
-
-    @media only screen and (max-width: 960px) {
-      width: calc(100% - 138px);
+    @media only screen and (max-width: 1024px) {
       justify-content: flex-start;
     }
-
     @media only screen and (max-width: 782px) {
-      width: calc(100% - 82px);
-      top: 107px;
-      right: 12px;
-    }
-    @media only screen and (max-width: 600px) {
       position: unset;
-      width: auto;
-      flex-wrap: wrap;
-    }
-
-    @media only screen and (max-width: 480px) {
-      padding: 10px 30px;
+      width: 100%;
     }
   }
 
@@ -230,13 +208,19 @@ $light-gray: #f4f5f7;
 }
 
 // WP Sidebar Folded CSS
-.wp-admin.folded {
-  .directorist-directory-type-top {
-    width: calc(100% - 118px);
-  }
+.wp-admin {
+  &.folded {
+    .directorist-directory-type-top {
+      width: calc(100% - 78px);
+    }
 
-  .directorist-directory-type-bottom .cptm-header-navigation {
-    width: calc(100% - 138px);
+    .directorist-directory-type-bottom .cptm-header-navigation {
+      width: calc(100% - 78px);
+      @media only screen and (max-width: 782px) {
+        width: calc(100% - 22px);
+        top: 122px;
+      }
+    }
   }
 }
 
@@ -938,7 +922,7 @@ $light-gray: #f4f5f7;
   background: transparent;
   max-width: 1345px;
   margin: 76px auto 0;
-  @media only screen and (max-width: 600px) {
+  @media only screen and (max-width: 782px) {
     margin-top: 0;
   }
   .cptm-tab-content-header__action {
@@ -1007,6 +991,10 @@ $light-gray: #f4f5f7;
     border: 1px solid #e5e7eb;
     border-radius: 8px;
     margin: 0 auto 70px;
+    @media only screen and (max-width: 960px) {
+      max-width: 100%;
+      margin: 0 20px 52px;
+    }
   }
 }
 
@@ -1111,7 +1099,9 @@ $light-gray: #f4f5f7;
       width: calc(100% - 86px);
       background-color: #f3f4f6;
     }
-
+    @media only screen and (min-width: 1441px) {
+      width: calc(65% - 49px);
+    }
     @media only screen and (max-width: 1024px) {
       width: calc(100% - 49px);
     }
@@ -1124,6 +1114,7 @@ $light-gray: #f4f5f7;
       gap: 10px;
       justify-content: flex-end;
       flex-direction: row-reverse;
+      flex-wrap: nowrap;
     }
 
     .directorist-footer-wrap {
@@ -1382,6 +1373,7 @@ $light-gray: #f4f5f7;
 }
 
 .cptm-form-builder-sidebar {
+  width: 100%;
   max-width: 372px;
   box-sizing: border-box;
   @media only screen and (min-width: 1441px) {
@@ -1400,6 +1392,7 @@ $light-gray: #f4f5f7;
 }
 
 .cptm-form-builder-content {
+  height: 100%;
   flex-grow: 1;
   border-left: 1px solid #e5e7eb;
   .cptm-form-builder-active-fields {
@@ -1509,10 +1502,6 @@ $light-gray: #f4f5f7;
   position: relative;
   margin: 0;
   z-index: 1;
-
-  @media only screen and (max-width: 991px) {
-    padding: 20px;
-  }
 }
 
 .cptm-form-builder-active-fields-footer {
@@ -1699,6 +1688,8 @@ div[draggable="true"].cptm-form-builder-group-header-content {
   justify-content: center;
   width: 40px;
   height: 40px;
+  min-width: 40px;
+  min-height: 40px;
   font-size: 20px;
   color: #141921;
   border-radius: 8px;
@@ -2017,6 +2008,7 @@ div[draggable="true"].cptm-form-builder-group-header-content {
 
 .directorist-draggable-list-item {
   width: 46px;
+  min-width: 46px;
   height: 100%;
   text-align: center;
   flex-grow: unset;

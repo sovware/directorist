@@ -33,7 +33,12 @@
 
         <h3 class="cptm-form-builder-group-title">
           <span class="cptm-form-builder-group-title-icon">
-            <span aria-hidden="true" :class="groupData.icon"></span>
+            <span
+              aria-hidden="true"
+              :class="groupData.icon"
+              v-if="groupData.lock !== '1'"
+            ></span>
+            <span v-html="groupData.icon" v-else></span>
           </span>
           <span class="cptm-form-builder-group-title-label">
             <span v-html="groupData.label"></span>
@@ -42,7 +47,7 @@
 
         <div
           class="cptm-form-builder-header-actions"
-          v-if="groupData && groupData.fields && groupData.fields.length"
+          v-if="groupData.lock !== '1'"
         >
           <a
             href="#"

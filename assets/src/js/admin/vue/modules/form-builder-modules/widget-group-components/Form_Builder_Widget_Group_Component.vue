@@ -55,12 +55,12 @@
             @drag-end="$emit('widget-drag-end', { widget_index, widget_key })"
           />
         </draggable-list-item-wrapper>
-      </div>
 
-      <form-builder-droppable-placeholder
-        v-if="canShowWidgetDropPlaceholder"
-        @drop="$emit('append-widget')"
-      />
+        <form-builder-droppable-placeholder
+          v-if="canShowWidgetDropPlaceholder"
+          @drop="$emit('append-widget')"
+        />
+      </div>
     </slide-up-down>
   </div>
 </template>
@@ -183,7 +183,8 @@ export default {
         return;
       }
 
-      this.untrashableWidgets = this.groupSettings.disableTrashIfGroupHasWidgets;
+      this.untrashableWidgets =
+        this.groupSettings.disableTrashIfGroupHasWidgets;
     },
 
     updateDetectedUntrashableWidgets(widget_key) {

@@ -28529,7 +28529,7 @@ var render = function render() {
     }
   }, [_c('p', {
     staticClass: "cptm-form-builder-group-field-drop-area-label"
-  }, [_vm._v("\n    Add field by dragging it into this area\n  ")])]);
+  }, [_vm._v("\n    Simply drag a field here...\n  ")])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -28720,7 +28720,6 @@ var render = function render() {
     staticClass: "cptm-form-builder-group-field-item-header-actions"
   }, [_vm.canTrashWidget ? _c('a', {
     staticClass: "cptm-form-builder-header-action-link",
-    class: _vm.expandState ? 'disabled' : '',
     attrs: {
       "href": "#"
     },
@@ -29060,7 +29059,7 @@ var render = function render() {
     }
   }, [_c('div', {
     staticClass: "cptm-form-builder-group-fields"
-  }, _vm._l(_vm.groupData.fields, function (widget_key, widget_index) {
+  }, [_vm._l(_vm.groupData.fields, function (widget_key, widget_index) {
     return _c('draggable-list-item-wrapper', {
       key: widget_index,
       attrs: {
@@ -29114,13 +29113,13 @@ var render = function render() {
         }
       }
     })], 1);
-  }), 1), _vm._v(" "), _vm.canShowWidgetDropPlaceholder ? _c('form-builder-droppable-placeholder', {
+  }), _vm._v(" "), _vm.canShowWidgetDropPlaceholder ? _c('form-builder-droppable-placeholder', {
     on: {
       "drop": function drop($event) {
         return _vm.$emit('append-widget');
       }
     }
-  }) : _vm._e()], 1)], 1);
+  }) : _vm._e()], 2)])], 1);
 };
 var staticRenderFns = [];
 render._withStripped = true;

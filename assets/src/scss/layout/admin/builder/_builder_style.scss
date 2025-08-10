@@ -614,16 +614,18 @@ $light-gray: #f4f5f7;
 
 .cptm-form-builder-group-field-drop-area {
   display: block;
-  padding: 16px 20px;
-  border-radius: 8px;
-  margin: 8px 40px 0 30px;
+  padding: 14px 20px;
+  border-radius: 4px;
+  margin: 16px 0 0;
   text-align: center;
-  font-size: 13px;
-  font-weight: 400;
+  font-size: 14px;
+  font-weight: 500;
   color: #747c89;
+  background-color: #f9fafb;
   font-style: italic;
   transition: all ease-in-out 300ms;
-  border: 1px dashed #d2d6db;
+  border: 1.5px dashed #a1a9b2;
+  box-shadow: 0 4px 8px 0 rgba(16, 24, 40, 0.08);
 
   &.drag-enter {
     background-color: #c6c6c6;
@@ -987,15 +989,6 @@ $light-gray: #f4f5f7;
   min-height: 500px;
   box-sizing: border-box;
 
-  @media only screen and (max-width: 991px) {
-    padding: 20px 25px;
-  }
-
-  @media (max-width: 480px) {
-    max-width: 100%;
-    padding: 15px 0;
-  }
-
   &.tab-wide {
     max-width: 1080px;
   }
@@ -1005,7 +998,7 @@ $light-gray: #f4f5f7;
   }
 
   &.tab-full-width {
-    max-width: 1345px;
+    max-width: 100%;
   }
 
   &.cptm-tab-content-general {
@@ -1119,6 +1112,10 @@ $light-gray: #f4f5f7;
       background-color: #f3f4f6;
     }
 
+    @media only screen and (max-width: 1024px) {
+      width: calc(100% - 49px);
+    }
+
     .cptm-title-area {
       display: none;
     }
@@ -1138,6 +1135,10 @@ $light-gray: #f4f5f7;
       background-color: #f5f6f7;
       border: 1px solid #e5e7eb;
       border-radius: 6px;
+      @media only screen and (max-width: 575px) {
+        flex-direction: column;
+        align-items: flex-start;
+      }
       .directorist-input-label {
         display: flex;
         gap: 8px;
@@ -1372,12 +1373,20 @@ $light-gray: #f4f5f7;
 
 .cptm-form-builder {
   display: flex;
-  flex-wrap: wrap;
+  @media only screen and (max-width: 1024px) {
+    flex-direction: column;
+    .cptm-form-builder-sidebar {
+      max-width: 100%;
+    }
+  }
 }
 
 .cptm-form-builder-sidebar {
   max-width: 372px;
   box-sizing: border-box;
+  @media only screen and (min-width: 1441px) {
+    max-width: 35%;
+  }
   .cptm-form-builder-action {
     padding-bottom: 0;
   }

@@ -8,7 +8,7 @@
     @drop="handleDrop"
   >
     <p class="cptm-form-builder-group-field-drop-area-label">
-      Add field by dragging it into this area
+      Simply drag a field here...
     </p>
   </div>
 </template>

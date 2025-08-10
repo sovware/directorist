@@ -62,7 +62,6 @@
           <a
             href="#"
             class="cptm-form-builder-header-action-link"
-            :class="expandState ? 'disabled' : ''"
             v-if="canTrashWidget"
             @click.prevent="handleWidgetDelete"
           >

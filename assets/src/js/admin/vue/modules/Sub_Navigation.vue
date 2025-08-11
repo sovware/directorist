@@ -12,6 +12,11 @@
           :class="getActiveClass(index, active_nav)"
           @click.prevent="swichNav(index)"
         >
+          <span
+            class="cptm-sub-nav__item-icon"
+            v-html="nav.icon"
+            v-if="nav.icon"
+          ></span>
           {{ nav.label }}
           <span
             class="directorist-row-tooltip cptm-sub-nav__item-tooltip"

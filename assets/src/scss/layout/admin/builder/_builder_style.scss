@@ -1385,9 +1385,6 @@ $light-gray: #f4f5f7;
   .cptm-form-builder-action {
     padding-bottom: 0;
   }
-  .cptm-form-builder-action-btn {
-    padding: 7px 10px;
-  }
   .cptm-form-builder-sidebar-content {
     padding: 12px 24px 24px;
     box-sizing: border-box;
@@ -1422,11 +1419,13 @@ $light-gray: #f4f5f7;
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 10px 12px;
+  padding: 0 12px;
   color: #141921;
   font-size: 14px;
   line-height: 16px;
   font-weight: 500;
+  height: 32px;
+  box-sizing: border-box;
   border: 1px solid #d2d6db;
   border-radius: 4px;
 }
@@ -2638,21 +2637,30 @@ input[type="radio"].cptm-radio {
   transition: 0.3s ease;
   .cptm-sub-nav__item-tooltip {
     padding: 0 12px;
-    margin-right: -16px;
+    margin-right: -12px;
     height: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
     background: transparent;
-    border-radius: 0 8px 8px 0;
+    border-radius: 0 4px 4px 0;
     &:hover {
       background: #d2d6db;
     }
+  }
+  .cptm-sub-nav__item-icon {
+    display: flex;
+    align-items: center;
   }
   &.active {
     color: #3e62f5;
     background: #d8e0fd;
     border-color: #3e62f5;
+    .cptm-sub-nav__item-icon {
+      svg path {
+        stroke: #3e62f5;
+      }
+    }
     .cptm-sub-nav__item-tooltip {
       svg path {
         fill: #3e62f5;
@@ -5401,6 +5409,9 @@ input[type="radio"] {
       color: #383f47;
       margin: 0;
     }
+  }
+  @include e(content) {
+    margin-top: -10px;
   }
   @include e(group) {
     padding: 20px;

@@ -2568,6 +2568,14 @@ class Builder_Data {
                         'type' => 'card-builder',
                         'template' => 'listing-header',
                         'value' => '',
+                        'title'       => __( 'Listing Header', 'directorist' ),
+                        'video' => [
+                            'type' => 'video',
+                            'url' => 'https://www.youtube.com/embed/NtLXjEAPQzc',
+                            'button_text' => __( 'Watch Tutorial', 'directorist' ),
+                            'title' => __( 'Listing Header Tutorial', 'directorist' ),
+                            'description' => __( 'Watch the video to learn how to create listing header.', 'directorist' ),
+                        ],
                         'card-options' => [
                             'general' => [
                                 'back' => [
@@ -2920,7 +2928,6 @@ class Builder_Data {
                         ],
                     ],
                 ],
-
                 'submission_form'      => [
                     'label'   => __( 'Add Listing Form', 'directorist' ),
                     'icon'    => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -2950,7 +2957,6 @@ class Builder_Data {
                         ]
                     ],
                 ],
-
                 'single_page_layout'   => [
                     'label'   => __( 'Single Page Layout', 'directorist' ),
                     'icon'    => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -2959,14 +2965,12 @@ class Builder_Data {
                     'submenu' => [
                         'listing_header'   => [
                             'label'     => __( 'Listing Header', 'directorist' ),
+                            'icon'    => '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M2.5 14.166H15.8333" stroke="#4D5761" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round"/>
+                                <path d="M2.5 17.5H10" stroke="#4D5761" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round"/>
+                                <path d="M17.5 2.5V10.8333H2.5V2.5H17.5Z" stroke="#4D5761" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round"/>
+                            </svg>',
                             'container' => 'full-width',
-                            'video' => [
-                                'type' => 'video',
-                                'url' => 'https://www.youtube.com/embed/NtLXjEAPQzc',
-                                'button_text' => __( 'Watch Tutorial', 'directorist' ),
-                                'title' => __( 'Listing Header Tutorial', 'directorist' ),
-                                'description' => __( 'Watch the video to learn how to create listing header.', 'directorist' ),
-                            ],
                             'learn_more' => [
                                 'type' => 'image',
                                 'url'  => DIRECTORIST_ASSETS . 'images/single-listing-header-preview.png',
@@ -2976,8 +2980,6 @@ class Builder_Data {
                             ],
                             'sections'  => [
                                 'listing_header' => [
-                                    'title'       => __( 'Listing Header', 'directorist' ),
-                                    'title_align' => 'center',
                                     'fields'      => [
                                         'single_listing_header',
                                     ],
@@ -2986,6 +2988,13 @@ class Builder_Data {
                         ],
                         'contents'         => [
                             'label'     => __( 'Contents', 'directorist' ),
+                            'icon'    => '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M7.5 3.75H15.8333" stroke="#4D5761" stroke-width="1.5" stroke-linejoin="round"/>
+                                <path d="M7.5 7.91602H11.6667" stroke="#4D5761" stroke-width="1.5" stroke-linejoin="round"/>
+                                <path d="M7.5 12.084H15.8333" stroke="#4D5761" stroke-width="1.5" stroke-linejoin="round"/>
+                                <path d="M7.5 16.25H11.6667" stroke="#4D5761" stroke-width="1.5" stroke-linejoin="round"/>
+                                <path d="M4.1665 2.5V17.5" stroke="#4D5761" stroke-width="1.5" stroke-linejoin="round"/>
+                            </svg>',
                             'container' => 'full-width',
                             'video' => [
                                 'type' => 'video',
@@ -3013,6 +3022,11 @@ class Builder_Data {
                         ],
                         'similar_listings' => [
                             'label'    => __( 'Custom Single Listing Page', 'directorist' ),
+                            'icon'    => '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M2.9165 1.66602L2.9165 0.916016C2.50229 0.916016 2.1665 1.2518 2.1665 1.66602L2.9165 1.66602ZM17.0832 1.66602H17.8332C17.8332 1.2518 17.4974 0.916017 17.0832 0.916017V1.66602ZM2.9165 18.3327H2.1665C2.1665 18.5316 2.24552 18.7224 2.38617 18.863C2.52682 19.0037 2.71759 19.0827 2.9165 19.0827V18.3327ZM11.2498 18.3327V19.0827H11.5605L11.7802 18.863L11.2498 18.3327ZM17.0832 12.4993L17.6135 13.0297L17.8332 12.81V12.4993H17.0832ZM11.2498 12.4993V11.7493H10.4998V12.4993H11.2498ZM2.9165 1.66602L2.9165 2.41602L17.0832 2.41602V1.66602V0.916017L2.9165 0.916016L2.9165 1.66602ZM2.9165 18.3327H3.6665L3.6665 1.66602L2.9165 1.66602L2.1665 1.66602L2.1665 18.3327H2.9165ZM2.9165 18.3327V19.0827H11.2498V18.3327V17.5827H2.9165V18.3327ZM17.0832 12.4993H17.8332V1.66602H17.0832H16.3332V12.4993H17.0832ZM11.2498 18.3327L11.7802 18.863L17.6135 13.0297L17.0832 12.4993L16.5528 11.969L10.7195 17.8024L11.2498 18.3327ZM11.2498 18.3327H11.9998V12.4993H11.2498H10.4998V18.3327H11.2498ZM11.2498 12.4993V13.2493H17.0832V12.4993V11.7493H11.2498V12.4993Z" fill="#4D5761"/>
+                                <path d="M6.6665 5.83398H13.3332" stroke="#4D5761" stroke-width="1.5" stroke-linejoin="round"/>
+                                <path d="M6.6665 9.16602H9.99984" stroke="#4D5761" stroke-width="1.5" stroke-linejoin="round"/>
+                            </svg>',
                             'container' => 'short-wide',
                             'video' => [
                                 'type' => 'video',

@@ -25,6 +25,7 @@
         :field-id="fieldId"
         v-bind="theCurrentTemplateModel"
         :value="theCardBiulderValue"
+        :video="fieldVideoData"
         @update="updateValue($event)"
       >
       </component>
@@ -38,6 +39,7 @@
         :widgets="widgets"
         :layout="layout"
         :card-options="cardOptions"
+        :video="fieldVideoData"
         @update="$emit('update', $event)"
       >
       </component>
@@ -92,6 +94,15 @@ export default {
     ...mapState({
       fields: "fields",
     }),
+
+    // Try to get video data from the field data
+    fieldVideoData() {
+      // Check if we can get video data from the fields state
+      if (this.fields && this.fields[this.fieldKey]) {
+        return this.fields[this.fieldKey].video;
+      }
+      return null;
+    },
 
     theCardBiulderTemplateOptionList() {
       var options = [];

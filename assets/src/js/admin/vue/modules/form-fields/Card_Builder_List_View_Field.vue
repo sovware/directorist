@@ -49,7 +49,7 @@
                   @update="
                     handleUpdateSelectedWidgets(
                       $event,
-                      'local_layout.thumbnail.top_right'
+                      'local_layout.thumbnail.top_right',
                     )
                   "
                   @update-active-widget="handleActiveWidgetUpdate"
@@ -107,7 +107,7 @@
                   @update="
                     handleUpdateSelectedWidgets(
                       $event,
-                      'local_layout.top.quick_actions'
+                      'local_layout.top.quick_actions',
                     )
                   "
                   @update-active-widget="handleActiveWidgetUpdate"
@@ -150,7 +150,7 @@
                   @update="
                     handleUpdateSelectedWidgets(
                       $event,
-                      'local_layout.top.quick_info'
+                      'local_layout.top.quick_info',
                     )
                   "
                   @update-active-widget="handleActiveWidgetUpdate"
@@ -274,7 +274,7 @@
                 @update="
                   handleUpdateSelectedWidgets(
                     $event,
-                    'local_layout.footer.left'
+                    'local_layout.footer.left',
                   )
                 "
                 @update-active-widget="handleActiveWidgetUpdate"
@@ -309,7 +309,7 @@
                 @update="
                   handleUpdateSelectedWidgets(
                     $event,
-                    'local_layout.footer.right'
+                    'local_layout.footer.right',
                   )
                 "
                 @update-active-widget="handleActiveWidgetUpdate"
@@ -397,6 +397,9 @@ export default {
       required: false,
       default: null,
     },
+    video: {
+      type: Object,
+    },
   },
 
   created() {
@@ -452,9 +455,8 @@ export default {
                 continue;
               }
 
-              widget_data[root_option] = this.active_widgets[widget_name][
-                root_option
-              ];
+              widget_data[root_option] =
+                this.active_widgets[widget_name][root_option];
             }
 
             if (typeof this.active_widgets[widget_name].options !== "object") {
@@ -470,8 +472,8 @@ export default {
               continue;
             }
 
-            let widget_options = this.active_widgets[widget_name].options
-              .fields;
+            let widget_options =
+              this.active_widgets[widget_name].options.fields;
 
             for (let option in widget_options) {
               widget_data[option] = widget_options[option].value;
@@ -488,7 +490,7 @@ export default {
     // Available Widgets
     theAvailableWidgets() {
       let available_widgets = JSON.parse(
-        JSON.stringify(this.available_widgets)
+        JSON.stringify(this.available_widgets),
       );
 
       for (let widget in available_widgets) {
@@ -746,12 +748,12 @@ export default {
 
       // Load Selected Widgets Data
       for (let item of selectedWidgets) {
-        let length = this.local_layout[item.section][item.area].selectedWidgets
-          .length;
+        let length =
+          this.local_layout[item.section][item.area].selectedWidgets.length;
         this.local_layout[item.section][item.area].selectedWidgets.splice(
           length,
           0,
-          item.widget
+          item.widget,
         );
       }
     },
@@ -783,7 +785,7 @@ export default {
 
           Object.assign(
             this.local_layout[section][area],
-            this.layout[section][area]
+            this.layout[section][area],
           );
         }
       }
@@ -847,7 +849,7 @@ export default {
         layout.acceptedWidgets?.map((widget) => {
           this.insertWidget(
             { key: widget, selected_widgets: [widget] },
-            layout
+            layout,
           );
         });
       }

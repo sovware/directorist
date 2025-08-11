@@ -4,6 +4,7 @@
     <form-builder-widget-group-header-component
       v-bind="$props"
       :widgets-expanded="widgetsExpandState"
+      :can-expand="canShowWidgetDropPlaceholder"
       :can-trash="canTrashGroup"
       :draggable="canDrag"
       :current-dragging-group="currentDraggingGroup"
@@ -109,7 +110,7 @@ export default {
     widgetsExpandState() {
       let state = this.widgetsExpanded;
 
-      if (!this.isEnabledGroupDragging) {
+      if (!this.isEnabledGroupDragging || !this.canShowWidgetDropPlaceholder) {
         state = false;
       }
 
@@ -141,11 +142,6 @@ export default {
 
     canShowWidgetDropPlaceholder() {
       let show = true;
-
-      // Others Fields Group
-      // if (this.groupData.fields && this.groupData.fields.length) {
-      //   show = false;
-      // }
 
       if (
         typeof this.groupData.type !== "undefined" &&

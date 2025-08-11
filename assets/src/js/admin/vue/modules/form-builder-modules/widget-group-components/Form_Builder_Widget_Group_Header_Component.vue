@@ -18,7 +18,7 @@
       </draggable-list-item>
 
       <div class="cptm-form-builder-group-header-content">
-        <div class="cptm-form-builder-header-toggle">
+        <div class="cptm-form-builder-header-toggle" v-if="canExpand">
           <a
             href="#"
             class="cptm-form-builder-header-toggle-link"
@@ -115,6 +115,9 @@ export default {
     },
     widgetsExpanded: {
       default: "",
+    },
+    canExpand: {
+      default: true,
     },
     draggable: {
       default: true,

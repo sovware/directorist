@@ -18738,7 +18738,7 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     widgetsExpandState: function widgetsExpandState() {
       var state = this.widgetsExpanded;
-      if (!this.isEnabledGroupDragging) {
+      if (!this.isEnabledGroupDragging || !this.canShowWidgetDropPlaceholder) {
         state = false;
       }
       return state;
@@ -18756,12 +18756,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     canShowWidgetDropPlaceholder: function canShowWidgetDropPlaceholder() {
       var show = true;
-
-      // Others Fields Group
-      // if (this.groupData.fields && this.groupData.fields.length) {
-      //   show = false;
-      // }
-
       if (typeof this.groupData.type !== "undefined" && this.groupData.type !== "general_group") {
         show = false;
       }
@@ -18894,6 +18888,9 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     },
     widgetsExpanded: {
       default: ""
+    },
+    canExpand: {
+      default: true
     },
     draggable: {
       default: true
@@ -29011,6 +29008,7 @@ var render = function render() {
   }, [_c('form-builder-widget-group-header-component', _vm._b({
     attrs: {
       "widgets-expanded": _vm.widgetsExpandState,
+      "can-expand": _vm.canShowWidgetDropPlaceholder,
       "can-trash": _vm.canTrashGroup,
       "draggable": _vm.canDrag,
       "current-dragging-group": _vm.currentDraggingGroup
@@ -29148,7 +29146,7 @@ var render = function render() {
     }
   })])]) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "cptm-form-builder-group-header-content"
-  }, [_c('div', {
+  }, [_vm.canExpand ? _c('div', {
     staticClass: "cptm-form-builder-header-toggle"
   }, [_c('a', {
     staticClass: "cptm-form-builder-header-toggle-link",
@@ -29167,7 +29165,7 @@ var render = function render() {
     attrs: {
       "aria-hidden": "true"
     }
-  })])]), _vm._v(" "), _c('h3', {
+  })])]) : _vm._e(), _vm._v(" "), _c('h3', {
     staticClass: "cptm-form-builder-group-title"
   }, [_c('span', {
     staticClass: "cptm-form-builder-group-title-icon"

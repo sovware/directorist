@@ -19082,7 +19082,8 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       }, 100); // Delay to ensure clicks inside dropdown content are not missed
     },
     handleClickOutside: function handleClickOutside(event) {
-      if (this.groupExpandedDropdown && !this.$refs.dropdownContent.contains(event.target)) {
+      var _this$$refs$dropdownC;
+      if (this.groupExpandedDropdown && !((_this$$refs$dropdownC = this.$refs.dropdownContent) !== null && _this$$refs$dropdownC !== void 0 && _this$$refs$dropdownC.contains(event.target))) {
         this.groupExpandedDropdown = false;
       }
     },

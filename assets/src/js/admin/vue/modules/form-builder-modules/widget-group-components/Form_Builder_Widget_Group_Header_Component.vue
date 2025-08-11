@@ -232,7 +232,7 @@ export default {
     handleClickOutside(event) {
       if (
         this.groupExpandedDropdown &&
-        !this.$refs.dropdownContent.contains(event.target)
+        !this.$refs.dropdownContent?.contains(event.target)
       ) {
         this.groupExpandedDropdown = false;
       }

@@ -33,7 +33,7 @@
             <path
               fill-rule="evenodd"
               clip-rule="evenodd"
-              d="M3.94256 2.33333H7.14074C7.6103 2.33332 7.99785 2.33331 8.31355 2.35911C8.64143 2.3859 8.94285 2.44339 9.22596 2.58765C9.665 2.81135 10.022 3.16831 10.2457 3.60735C10.3899 3.89046 10.4474 4.19187 10.4742 4.51976C10.4981 4.81257 10.4999 5.16718 10.5 5.59171L11.6396 4.45212C11.7511 4.34058 11.8607 4.23096 11.9567 4.15052C12.0424 4.07876 12.223 3.93485 12.473 3.91517C12.7522 3.8932 13.0251 4.00622 13.207 4.21921C13.3699 4.40993 13.3958 4.63932 13.4056 4.75068C13.4167 4.87549 13.4167 5.03051 13.4166 5.18822V8.81177C13.4167 8.96948 13.4167 9.1245 13.4056 9.24931C13.3958 9.36067 13.3699 9.59006 13.207 9.78078C13.0251 9.99377 12.7522 10.1068 12.473 10.0848C12.223 10.0651 12.0424 9.92123 11.9567 9.84947C11.8607 9.76904 11.7511 9.65941 11.6396 9.54787L10.5 8.40828C10.4999 8.83281 10.4981 9.18742 10.4742 9.48023C10.4474 9.80812 10.3899 10.1095 10.2457 10.3926C10.022 10.8317 9.665 11.1886 9.22596 11.4123C8.94285 11.5566 8.64144 11.6141 8.31355 11.6409C7.99784 11.6667 7.6103 11.6667 7.14072 11.6667H3.94257C3.473 11.6667 3.08545 11.6667 2.76975 11.6409C2.44186 11.6141 2.14045 11.5566 1.85734 11.4123C1.41829 11.1886 1.06134 10.8317 0.837632 10.3926C0.693379 10.1095 0.635883 9.80812 0.609093 9.48023C0.5833 9.16453 0.583306 8.77699 0.583313 8.30742V5.69257C0.583306 5.22301 0.5833 4.83546 0.609093 4.51976C0.635883 4.19187 0.693379 3.89046 0.837632 3.60735C1.06134 3.16831 1.41829 2.81135 1.85734 2.58765C2.14045 2.44339 2.44186 2.3859 2.76975 2.35911C3.08545 2.33331 3.47299 2.33332 3.94256 2.33333ZM9.33331 5.71666C9.33331 5.21699 9.33286 4.87732 9.31141 4.61477C9.29051 4.35903 9.25264 4.22824 9.20615 4.13701C9.0943 3.91748 8.91582 3.73901 8.6963 3.62715C8.60507 3.58067 8.47428 3.5428 8.21854 3.5219C7.95599 3.50045 7.61632 3.5 7.11665 3.5H3.96665C3.46698 3.5 3.1273 3.50045 2.86475 3.5219C2.60901 3.5428 2.47822 3.58067 2.38699 3.62715C2.16747 3.73901 1.98899 3.91748 1.87714 4.13701C1.83065 4.22824 1.79278 4.35903 1.77189 4.61477C1.75043 4.87732 1.74998 5.21699 1.74998 5.71666V8.28333C1.74998 8.783 1.75043 9.12267 1.77189 9.38522C1.79278 9.64097 1.83065 9.77175 1.87714 9.86298C1.98899 10.0825 2.16747 10.261 2.38699 10.3728C2.47822 10.4193 2.60901 10.4572 2.86475 10.4781C3.1273 10.4995 3.46698 10.5 3.96665 10.5H7.11665C7.61632 10.5 7.95599 10.4995 8.21854 10.4781C8.47428 10.4572 8.60507 10.4193 8.6963 10.3728C8.91582 10.261 9.0943 10.0825 9.20615 9.86298C9.25264 9.77175 9.29051 9.64097 9.31141 9.38522C9.33286 9.12267 9.33331 8.783 9.33331 8.28333V5.71666ZM10.7416 7L12.25 8.50837V5.49162L10.7416 7Z"
+              d="M3.94256 2.33333H7.14074C7.6103 2.33332 7.99785 2.33331 8.31355 2.35911C8.64143 2.3859 8.94285 2.44339 9.22596 2.58765C9.665 2.81135 10.022 3.16831 10.2457 3.60735C10.3899 3.89046 10.4474 4.19187 10.4742 4.51976C10.4981 4.81257 10.4999 5.16718 10.5 5.59171L11.6396 4.45212C11.7511 4.34058 11.8607 4.23096 11.9567 4.15052C12.0424 4.07876 12.223 3.93485 12.473 3.91517C12.7522 3.8932 13.0251 4.00622 13.207 4.21921C13.3699 4.40993 13.3958 4.63932 13.4056 4.75068C13.4167 4.87549 13.4167 5.03051 13.4166 5.18822V8.81177C13.4167 8.96948 13.4167 9.1245 13.4056 9.24931C13.3958 9.36067 13.3699 9.59006 13.207 9.78078C13.0251 9.99377 12.7522 10.1068 12.473 10.0848C12.223 10.0651 12.0424 9.92123 11.9567 9.84947C11.8607 9.76904 11.7511 9.65941 11.6396 9.54787L10.5 8.40828C10.4999 8.83281 10.4981 9.18742 10.4742 9.48023C10.4474 9.80812 10.3899 10.1095 10.2457 10.3926C10.022 10.8317 9.665 11.1886 9.22596 11.4123C8.94285 11.5566 8.64144 11.6141 8.31355 11.6409C7.99784 11.6667 7.6103 11.6667 7.14072 11.6667H3.94257C3.473 11.6667 3.08545 11.6667 2.76975 11.6409C2.44186 11.6141 2.14045 11.5566 1.85734 11.4123C1.41829 11.1886 1.06134 10.8317 0.837632 10.3926C0.693379 10.1095 0.635883 9.80812 0.609093 9.48023C0.583306 9.16453 0.583306 8.77699 0.583313 8.30742V5.69257C0.583306 5.22301 0.5833 4.83546 0.609093 4.51976C0.635883 4.19187 0.693379 3.89046 0.837632 3.60735C1.06134 3.16831 1.41829 2.81135 1.85734 2.58765C2.14045 2.44339 2.44186 2.3859 2.76975 2.35911C3.08545 2.33331 3.47299 2.33332 3.94256 2.33333ZM9.33331 5.71666C9.33331 5.21699 9.33286 4.87732 9.31141 4.61477C9.29051 4.35903 9.25264 4.22824 9.20615 4.13701C9.0943 3.91748 8.91582 3.73901 8.6963 3.62715C8.60507 3.58067 8.47428 3.5428 8.21854 3.5219C7.95599 3.50045 7.61632 3.5 7.11665 3.5H3.96665C3.46698 3.5 3.1273 3.50045 2.86475 3.5219C2.60901 3.5428 2.47822 3.58067 2.38699 3.62715C2.16747 3.73901 1.98899 3.91748 1.87714 4.13701C1.83065 4.22824 1.79278 4.35903 1.77189 4.61477C1.75043 4.87732 1.74998 5.21699 1.74998 5.71666V8.28333C1.74998 8.783 1.75043 9.12267 1.77189 9.38522C1.79278 9.64097 1.83065 9.77175 1.87714 9.86298C1.98899 10.0825 2.16747 10.261 2.38699 10.3728C2.47822 10.4193 2.60901 10.4572 2.86475 10.4781C3.1273 10.4995 3.46698 10.5 3.96665 10.5H7.11665C7.61632 10.5 7.95599 10.4995 8.21854 10.4781C8.47428 10.4572 8.60507 10.4193 8.6963 10.3728C8.91582 10.261 9.0943 10.0825 9.20615 9.86298C9.25264 9.77175 9.29051 9.64097 9.31141 9.38522C9.33286 9.12267 9.33331 8.783 9.33331 8.28333V5.71666ZM10.7416 7L12.25 8.50837V5.49162L10.7416 7Z"
               fill="currentColor"
             />
           </svg>
@@ -57,7 +57,7 @@
         </template>
       </div>
     </div>
-    <div class="cptm-form-builder-content">
+    <div class="cptm-form-builder-content cptm-col-sticky">
       <div
         class="cptm-form-builder-action"
         v-if="fieldKey === 'submission_form_fields'"
@@ -88,45 +88,296 @@
           Preview
         </a>
       </div>
-      <div class="cptm-form-builder-active-fields">
-        <div class="cptm-form-builder-active-fields-container cptm-col-sticky">
-          <draggable-list-item-wrapper
-            list-id="widget-group"
-            :is-dragging-self="
-              currentDraggingGroup &&
-              widget_group_key === currentDraggingGroup.widget_group_key
-            "
-            :droppable="currentDraggingGroup"
-            v-for="(widget_group, widget_group_key) in active_widget_groups"
-            :key="widget_group_key"
-            @drop="handleGroupDrop(widget_group_key, $event)"
-          >
-            <form-builder-widget-group-component
-              :group-key="widget_group_key"
-              :field-id="fieldId"
-              :active-widgets="active_widget_fields"
-              :avilable-widgets="avilable_widgets"
-              :group-data="widget_group"
-              :group-settings="groupSettingsProp"
-              :group-fields="groupFields"
-              :widget-is-dragging="widgetIsDragging"
-              :current-dragging-group="currentDraggingGroup"
-              :current-dragging-widget="currentDraggingWidget"
-              :is-enabled-group-dragging="isEnabledGroupDragging"
-              @update-group-field="updateGroupField(widget_group_key, $event)"
-              @update-widget-field="updateWidgetField"
-              @trash-widget="trashWidget(widget_group_key, $event)"
-              @trash-group="trashGroup(widget_group_key)"
-              @widget-drag-start="
-                handleWidgetDragStart(widget_group_key, $event)
+      <div
+        class="cptm-form-builder-active-fields"
+        :class="{ 'empty-content': !active_widget_groups.length }"
+      >
+        <div class="cptm-form-builder-active-fields-container">
+          <div v-if="active_widget_groups.length">
+            <draggable-list-item-wrapper
+              list-id="widget-group"
+              :is-dragging-self="
+                currentDraggingGroup &&
+                widget_group_key === currentDraggingGroup.widget_group_key
               "
-              @widget-drag-end="handleWidgetDragEnd()"
-              @drop-widget="handleWidgetDrop(widget_group_key, $event)"
-              @group-drag-start="handleGroupDragStart(widget_group_key)"
-              @group-drag-end="handleGroupDragEnd()"
-              @append-widget="handleAppendWidget(widget_group_key)"
-            />
-          </draggable-list-item-wrapper>
+              :droppable="currentDraggingGroup"
+              v-for="(widget_group, widget_group_key) in active_widget_groups"
+              :key="widget_group_key"
+              @drop="handleGroupDrop(widget_group_key, $event)"
+            >
+              <form-builder-widget-group-component
+                :group-key="widget_group_key"
+                :field-id="fieldId"
+                :active-widgets="active_widget_fields"
+                :avilable-widgets="avilable_widgets"
+                :group-data="widget_group"
+                :group-settings="groupSettingsProp"
+                :group-fields="groupFields"
+                :widget-is-dragging="widgetIsDragging"
+                :current-dragging-group="currentDraggingGroup"
+                :current-dragging-widget="currentDraggingWidget"
+                :is-enabled-group-dragging="isEnabledGroupDragging"
+                @update-group-field="updateGroupField(widget_group_key, $event)"
+                @update-widget-field="updateWidgetField"
+                @trash-widget="trashWidget(widget_group_key, $event)"
+                @trash-group="trashGroup(widget_group_key)"
+                @widget-drag-start="
+                  handleWidgetDragStart(widget_group_key, $event)
+                "
+                @widget-drag-end="handleWidgetDragEnd()"
+                @drop-widget="handleWidgetDrop(widget_group_key, $event)"
+                @group-drag-start="handleGroupDragStart(widget_group_key)"
+                @group-drag-end="handleGroupDragEnd()"
+                @append-widget="handleAppendWidget(widget_group_key)"
+              />
+            </draggable-list-item-wrapper>
+          </div>
+
+          <div class="cptm-form-builder-active-fields-empty" v-else>
+            <div class="cptm-form-builder-active-fields-empty-img">
+              <svg
+                width="88"
+                height="88"
+                viewBox="0 0 88 88"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g
+                  style="mix-blend-mode: luminosity"
+                  clip-path="url(#clip0_9482_8623)"
+                >
+                  <path
+                    d="M25.0537 27.9609H48.5117C53.293 27.9609 57.1689 31.8369 57.1689 36.6182V47.7891C57.1688 52.5702 53.2929 56.4463 48.5117 56.4463H16.3965V36.6182C16.3965 31.8369 20.2724 27.9609 25.0537 27.9609Z"
+                    fill="#979EAB"
+                    stroke="#0D0B27"
+                    stroke-width="0.558532"
+                  />
+                  <path
+                    d="M29.2425 37.1767C29.2425 30.2509 25.57 28.2402 23.7082 27.9609H54.3765C61.9725 27.9609 63.6854 34.1048 63.5923 37.1767V79.3458H29.2425V37.1767Z"
+                    fill="#F1F6FF"
+                  />
+                  <path
+                    d="M23.7082 27.9609C25.57 28.2402 29.2425 30.2509 29.2425 37.1767C29.2425 44.1025 29.2425 68.1752 29.2425 79.3458H63.5923V37.1767C63.6854 34.1048 61.9725 27.9609 54.3765 27.9609C46.7805 27.9609 30.732 27.9609 23.6572 27.9609"
+                    stroke="#0D0B27"
+                    stroke-width="0.558532"
+                  />
+                  <line
+                    x1="28.9631"
+                    y1="79.2061"
+                    x2="93.7529"
+                    y2="79.2061"
+                    stroke="#0D0B27"
+                    stroke-width="0.837798"
+                  />
+                  <line
+                    x1="32.8733"
+                    y1="36.3399"
+                    x2="61.3584"
+                    y2="36.3399"
+                    stroke="#0D0B27"
+                    stroke-width="0.558532"
+                  />
+                  <line
+                    x1="32.8733"
+                    y1="41.9239"
+                    x2="61.3584"
+                    y2="41.9239"
+                    stroke="#0D0B27"
+                    stroke-width="0.558532"
+                  />
+                  <line
+                    x1="32.8733"
+                    y1="47.5098"
+                    x2="61.3584"
+                    y2="47.5098"
+                    stroke="#0D0B27"
+                    stroke-width="0.558532"
+                  />
+                  <line
+                    x1="32.8733"
+                    y1="53.0957"
+                    x2="61.3584"
+                    y2="53.0957"
+                    stroke="#0D0B27"
+                    stroke-width="0.558532"
+                  />
+                  <line
+                    x1="32.8733"
+                    y1="58.6797"
+                    x2="61.3584"
+                    y2="58.6797"
+                    stroke="#0D0B27"
+                    stroke-width="0.558532"
+                  />
+                  <line
+                    x1="32.8733"
+                    y1="64.2657"
+                    x2="61.3584"
+                    y2="64.2657"
+                    stroke="#0D0B27"
+                    stroke-width="0.558532"
+                  />
+                  <line
+                    x1="32.8733"
+                    y1="69.8496"
+                    x2="61.3584"
+                    y2="69.8496"
+                    stroke="#0D0B27"
+                    stroke-width="0.558532"
+                  />
+                  <rect
+                    x="0.0992054"
+                    y="0.425111"
+                    width="4.32146"
+                    height="27.7808"
+                    transform="matrix(0.849301 0.527909 -0.52791 0.8493 27.5558 41.3281)"
+                    fill="#F1F6FF"
+                    stroke="#0D0B27"
+                    stroke-width="0.617352"
+                  />
+                  <rect
+                    x="0.0992054"
+                    y="0.425111"
+                    width="6.79087"
+                    height="23.8434"
+                    transform="matrix(0.849301 0.527909 -0.52791 0.8493 18.034 54.3105)"
+                    fill="#00C1FF"
+                    stroke="#0D0B27"
+                    stroke-width="0.617352"
+                  />
+                  <rect
+                    x="0.0992054"
+                    y="0.425111"
+                    width="6.79087"
+                    height="3.08676"
+                    transform="matrix(0.849301 0.527909 -0.52791 0.8493 23.9003 44.8691)"
+                    fill="#00C1FF"
+                    stroke="#0D0B27"
+                    stroke-width="0.617352"
+                  />
+                  <g clip-path="url(#clip1_9482_8623)">
+                    <rect
+                      width="43.2146"
+                      height="43.2146"
+                      rx="21.6073"
+                      transform="matrix(0.849301 0.527909 -0.52791 0.8493 30.6172 -0.248047)"
+                      fill="#F1F6FF"
+                    />
+                    <g clip-path="url(#clip2_9482_8623)">
+                      <rect
+                        width="38.2758"
+                        height="38.2758"
+                        rx="19.1379"
+                        transform="matrix(0.849301 0.527909 -0.52791 0.8493 31.4106 3.15234)"
+                        fill="#404040"
+                      />
+                      <path
+                        d="M21.8235 21.6992L50.5403 21.6992C56.3933 21.6992 61.1388 26.444 61.1389 32.2969L61.1389 45.9717C61.1389 51.8247 56.3933 56.5693 50.5403 56.5693L11.2258 56.5693L11.2258 32.2969C11.226 26.4441 15.9707 21.6994 21.8235 21.6992Z"
+                        fill="#979EAB"
+                        stroke="#0D0B27"
+                        stroke-width="0.683733"
+                      />
+                      <path
+                        d="M26.9514 32.9808C26.9514 24.5025 22.4555 22.0411 20.1764 21.6992L57.7194 21.6992C67.0182 21.6992 69.1149 29.2203 69.001 32.9808L69.001 84.6026L26.9514 84.6026L26.9514 32.9808Z"
+                        fill="#F1F6FF"
+                      />
+                      <path
+                        d="M20.1764 21.6992C22.4555 22.0411 26.9514 24.5025 26.9514 32.9808C26.9514 41.4591 26.9514 70.928 26.9514 84.6026L69.001 84.6026L69.001 32.9808C69.1149 29.2203 67.0182 21.6992 57.7194 21.6992C48.4206 21.6992 28.7746 21.6992 20.114 21.6992"
+                        stroke="#0D0B27"
+                        stroke-width="0.683733"
+                      />
+                      <line
+                        x1="31.396"
+                        y1="31.955"
+                        x2="66.2664"
+                        y2="31.955"
+                        stroke="#0D0B27"
+                        stroke-width="0.683733"
+                      />
+                      <line
+                        x1="31.396"
+                        y1="38.7929"
+                        x2="66.2664"
+                        y2="38.7929"
+                        stroke="#0D0B27"
+                        stroke-width="0.683733"
+                      />
+                      <line
+                        x1="31.396"
+                        y1="45.6308"
+                        x2="66.2664"
+                        y2="45.6308"
+                        stroke="#0D0B27"
+                        stroke-width="0.683733"
+                      />
+                      <line
+                        x1="31.396"
+                        y1="52.4687"
+                        x2="66.2664"
+                        y2="52.4687"
+                        stroke="#0D0B27"
+                        stroke-width="0.683733"
+                      />
+                    </g>
+                    <rect
+                      x="0.0992054"
+                      y="0.425111"
+                      width="37.6585"
+                      height="37.6584"
+                      rx="18.8292"
+                      transform="matrix(0.849301 0.527909 -0.52791 0.8493 31.65 3.16404)"
+                      stroke="#0D0B27"
+                      stroke-width="0.617352"
+                    />
+                  </g>
+                  <rect
+                    x="0.0992054"
+                    y="0.425111"
+                    width="42.5973"
+                    height="42.5972"
+                    rx="21.2986"
+                    transform="matrix(0.849301 0.527909 -0.52791 0.8493 30.8566 -0.236354)"
+                    stroke="#0D0B27"
+                    stroke-width="0.617352"
+                  />
+                  <line
+                    x1="29.5215"
+                    y1="79.3437"
+                    x2="-4.54898"
+                    y2="79.3437"
+                    stroke="#0D0B27"
+                    stroke-width="0.558532"
+                  />
+                </g>
+                <defs>
+                  <clipPath id="clip0_9482_8623">
+                    <rect width="88" height="88" fill="white" />
+                  </clipPath>
+                  <clipPath id="clip1_9482_8623">
+                    <rect
+                      width="43.2146"
+                      height="43.2146"
+                      rx="21.6073"
+                      transform="matrix(0.849301 0.527909 -0.52791 0.8493 30.6172 -0.248047)"
+                      fill="white"
+                    />
+                  </clipPath>
+                  <clipPath id="clip2_9482_8623">
+                    <rect
+                      width="38.2758"
+                      height="38.2758"
+                      rx="19.1379"
+                      transform="matrix(0.849301 0.527909 -0.52791 0.8493 31.4106 3.15234)"
+                      fill="white"
+                    />
+                  </clipPath>
+                </defs>
+              </svg>
+            </div>
+            <p class="cptm-form-builder-active-fields-empty-text">
+              No section added yet
+            </p>
+          </div>
 
           <div
             class="cptm-form-builder-active-fields-footer"
@@ -134,7 +385,7 @@
           >
             <button
               type="button"
-              class="cptm-btn cptm-btn-secondery"
+              class="cptm-btn"
               @click="addNewGroup()"
               v-html="addNewGroupButtonLabel"
             ></button>

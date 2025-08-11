@@ -610,6 +610,9 @@ $light-gray: #f4f5f7;
   transition: all ease-in-out 300ms;
   border: 1.5px dashed #a1a9b2;
   box-shadow: 0 4px 8px 0 rgba(16, 24, 40, 0.08);
+  &:first-child {
+    margin-top: 0;
+  }
 
   &.drag-enter {
     background-color: #c6c6c6;
@@ -920,7 +923,7 @@ $light-gray: #f4f5f7;
 .cptm-tab-content-header {
   position: relative;
   background: transparent;
-  max-width: 1345px;
+  max-width: 100%;
   margin: 67px auto 0;
   @media only screen and (max-width: 782px) {
     margin-top: 0;
@@ -1373,6 +1376,14 @@ $light-gray: #f4f5f7;
       max-width: 100%;
     }
   }
+  &.submission_form_fields {
+    .cptm-form-builder-content {
+      border-bottom: 25px solid #f3f4f6;
+    }
+  }
+  &.single_listings_contents {
+    border-top: 1px solid #e5e7eb;
+  }
 }
 
 .cptm-form-builder-sidebar {
@@ -1392,12 +1403,14 @@ $light-gray: #f4f5f7;
 }
 
 .cptm-form-builder-content {
-  height: 100%;
+  height: auto;
   flex-grow: 1;
   border-left: 1px solid #e5e7eb;
   .cptm-form-builder-active-fields {
     padding: 24px;
     background: #f3f4f6;
+    height: 100%;
+    min-height: calc(100vh - 225px);
   }
 }
 
@@ -1477,6 +1490,32 @@ $light-gray: #f4f5f7;
 .cptm-form-builder-active-fields {
   display: block;
   height: 100%;
+
+  &.empty-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: calc(100vh - 200px);
+    box-sizing: border-box;
+    .cptm-form-builder-active-fields-container {
+      height: auto;
+    }
+    .cptm-form-builder-active-fields-empty-text {
+      font-size: 18px;
+      line-height: 24px;
+      font-weight: 500;
+      font-style: italic;
+      color: #4d5761;
+      margin: 12px 0 0;
+    }
+    .cptm-form-builder-active-fields-footer {
+      text-align: center;
+      .cptm-btn {
+        margin: 10px auto;
+      }
+    }
+  }
 
   .directorist-draggable-list-item-wrapper {
     height: auto;
@@ -5218,7 +5257,7 @@ input[type="radio"] {
   position: sticky;
   top: 60px;
   height: 100%;
-  max-height: calc(100vh - 100px);
+  max-height: calc(100vh - 200px);
   overflow: auto;
   scrollbar-width: 6px;
   scrollbar-color: #d2d6db #f3f4f6;

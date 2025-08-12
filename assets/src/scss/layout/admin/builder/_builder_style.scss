@@ -615,7 +615,9 @@ $light-gray: #f4f5f7;
   }
 
   &.drag-enter {
-    background-color: #c6c6c6;
+    color: #3e62f5;
+    background-color: #d8e0fd;
+    border-color: #3e62f5;
   }
 }
 

@@ -14913,7 +14913,9 @@ input:-webkit-autofill:active {
   margin-top: 0;
 }
 .cptm-form-builder-group-field-drop-area.drag-enter {
-  background-color: #c6c6c6;
+  color: #3e62f5;
+  background-color: #d8e0fd;
+  border-color: #3e62f5;
 }
 
 .cptm-form-builder-group-field-drop-area-label {
@@ -21751,7 +21753,9 @@ input[type=radio]:checked::before {
   margin-top: 0;
 }
 .cptm-form-builder-group-field-drop-area.drag-enter {
-  background-color: #c6c6c6;
+  color: #3e62f5;
+  background-color: #d8e0fd;
+  border-color: #3e62f5;
 }
 
 .cptm-form-builder-group-field-drop-area-label {
@@ -28877,7 +28881,9 @@ input[type=radio]:checked::before {
   margin-top: 0;
 }
 .cptm-form-builder-group-field-drop-area.drag-enter {
-  background-color: #c6c6c6;
+  color: #3e62f5;
+  background-color: #d8e0fd;
+  border-color: #3e62f5;
 }
 
 .cptm-form-builder-group-field-drop-area-label {

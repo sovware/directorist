@@ -8,7 +8,7 @@
     @drop="handleDrop"
   >
     <p class="cptm-form-builder-group-field-drop-area-label">
-      Simply drag a field here...
+      {{ dropText }}
     </p>
   </div>
 </template>
@@ -22,6 +22,10 @@ export default {
       return {
         ["drag-enter"]: this.dragenter,
       };
+    },
+
+    dropText() {
+      return this.dragenter ? "Drop anywhere" : "Simply drag a field here...";
     },
   },
 

@@ -17952,6 +17952,9 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     className: function className() {
       return (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])({}, "drag-enter", this.dragenter);
+    },
+    dropText: function dropText() {
+      return this.dragenter ? "Drop anywhere" : "Simply drag a field here...";
     }
   },
   data: function data() {
@@ -28504,7 +28507,7 @@ var render = function render() {
     }
   }, [_c('p', {
     staticClass: "cptm-form-builder-group-field-drop-area-label"
-  }, [_vm._v("\n    Simply drag a field here...\n  ")])]);
+  }, [_vm._v("\n    " + _vm._s(_vm.dropText) + "\n  ")])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;

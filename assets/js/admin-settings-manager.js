@@ -15570,13 +15570,14 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   },
   computed: {
     canAddMore: function canAddMore() {
+      var _this$selectedWidgets;
       if (this.enable_widget) {
         return false;
       }
       if (this.maxWidget < 1) {
         return true;
       }
-      return this.selectedWidgets.length < this.maxWidget;
+      return ((_this$selectedWidgets = this.selectedWidgets) === null || _this$selectedWidgets === void 0 ? void 0 : _this$selectedWidgets.length) < this.maxWidget;
     },
     getContainerClass: function getContainerClass() {
       var classNames = {
@@ -23086,6 +23087,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     },
     // Handle widget toggle from UI
     handleWidgetSwitch: function handleWidgetSwitch(event, widget_key, placeholder_index) {
+      var _placeholder$selected;
       var placeholder = this.allPlaceholderItems[placeholder_index];
 
       // Return if placeholder is not found
@@ -23094,7 +23096,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       }
 
       // Prevent selecting more than maxWidget
-      if (event.target.checked && placeholder.maxWidget > 0 && placeholder.selectedWidgets.length >= placeholder.maxWidget) {
+      if (event.target.checked && placeholder.maxWidget > 0 && ((_placeholder$selected = placeholder.selectedWidgets) === null || _placeholder$selected === void 0 ? void 0 : _placeholder$selected.length) >= placeholder.maxWidget) {
         event.preventDefault(); // Prevent the checkbox from being checked
         return;
       }
@@ -23593,6 +23595,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       isDataChanged: false,
       default_group: [{
         type: "general_group",
+        icon: "las la-align-left",
         label: this.groupSettings && this.groupSettings.defaultGroupLabel ? this.groupSettings.defaultGroupLabel : "Section",
         fields: []
       }],
@@ -26547,6 +26550,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   staticRenderFns: function() { return /* binding */ staticRenderFns; }
 /* harmony export */ });
 var render = function render() {
+  var _vm$selectedWidgets, _vm$selectedWidgets2, _vm$selectedWidgets3, _vm$displayedWidgets, _vm$displayedWidgets2, _vm$optionWidgetKey, _this$selectedWidgets, _vm$acceptedWidgets, _this$selectedWidgets2;
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
@@ -26558,7 +26562,7 @@ var render = function render() {
       "id": _vm.id,
       "availableWidgets": _vm.availableWidgets,
       "selected-widgets": _vm.selectedWidgets,
-      "active": !!(_vm.showWidgetsOptionWindow && _vm.selectedWidgets.length && !_vm.showWidgetsPickerWindow),
+      "active": !!(_vm.showWidgetsOptionWindow && (_vm$selectedWidgets = _vm.selectedWidgets) !== null && _vm$selectedWidgets !== void 0 && _vm$selectedWidgets.length && !_vm.showWidgetsPickerWindow),
       "maxWidgetInfoText": _vm.maxWidgetInfoText
     },
     on: {
@@ -26575,8 +26579,8 @@ var render = function render() {
     staticClass: "cptm-placeholder-block",
     class: [_vm.getContainerClass, {
       'cptm-widget-picker-open': _vm.showWidgetsPickerWindow,
-      enabled: _vm.selectedWidgets.length > 0,
-      disabled: _vm.selectedWidgets.length === 0
+      enabled: ((_vm$selectedWidgets2 = _vm.selectedWidgets) === null || _vm$selectedWidgets2 === void 0 ? void 0 : _vm$selectedWidgets2.length) > 0,
+      disabled: ((_vm$selectedWidgets3 = _vm.selectedWidgets) === null || _vm$selectedWidgets3 === void 0 ? void 0 : _vm$selectedWidgets3.length) === 0
     }],
     on: {
       "click": function click($event) {
@@ -26587,7 +26591,7 @@ var render = function render() {
   }, [_c('p', {
     staticClass: "cptm-placeholder-label",
     class: {
-      hide: _vm.displayedWidgets && _vm.displayedWidgets.length
+      hide: _vm.displayedWidgets && ((_vm$displayedWidgets = _vm.displayedWidgets) === null || _vm$displayedWidgets === void 0 ? void 0 : _vm$displayedWidgets.length)
     }
   }, [_vm._v("\n      " + _vm._s(_vm.label) + "\n    ")]), _vm._v(" "), !_vm.readOnly ? _c('div', {
     staticClass: "cptm-widget-insert-area",
@@ -26634,9 +26638,10 @@ var render = function render() {
     }
   }, [_c('span', {
     staticClass: "fa fa-plus"
-  })]) : _vm._e()])]) : _vm._e(), _vm._v(" "), _vm.displayedWidgets.length > 0 ? _c('div', {
+  })]) : _vm._e()])]) : _vm._e(), _vm._v(" "), ((_vm$displayedWidgets2 = _vm.displayedWidgets) === null || _vm$displayedWidgets2 === void 0 ? void 0 : _vm$displayedWidgets2.length) > 0 ? _c('div', {
     staticClass: "cptm-widget-preview-area"
   }, [_vm._l(_vm.displayedWidgets, function (widget, widget_index) {
+    var _vm$selectedWidgets4, _vm$selectedWidgets5;
     return [_vm.hasValidWidget(widget) ? [_c('div', {
       staticClass: "cptm-widget-preview-card",
       on: {
@@ -26649,14 +26654,14 @@ var render = function render() {
       key: widget_index,
       tag: "component",
       class: {
-        'cptm-widget-card-disabled': _vm.readOnly && !_vm.selectedWidgets.includes(widget)
+        'cptm-widget-card-disabled': _vm.readOnly && !((_vm$selectedWidgets4 = _vm.selectedWidgets) !== null && _vm$selectedWidgets4 !== void 0 && _vm$selectedWidgets4.includes(widget))
       },
       attrs: {
         "label": typeof _vm.availableWidgets[widget] !== 'undefined' ? _vm.availableWidgets[widget].label : 'Not Available',
         "icon": typeof _vm.availableWidgets[widget].icon === 'string' ? _vm.availableWidgets[widget].icon : '',
         "options": _vm.availableWidgets[widget].options,
         "fields": _vm.availableWidgets[widget].fields,
-        "disabled": _vm.readOnly && !_vm.selectedWidgets.includes(widget),
+        "disabled": _vm.readOnly && !((_vm$selectedWidgets5 = _vm.selectedWidgets) !== null && _vm$selectedWidgets5 !== void 0 && _vm$selectedWidgets5.includes(widget)),
         "readOnly": _vm.readOnly
       },
       on: {
@@ -26669,7 +26674,7 @@ var render = function render() {
     staticClass: "cptm-options-area"
   }, [_c('options-window', _vm._b({
     attrs: {
-      "active": _vm.optionWidgetKey.length !== 0
+      "active": ((_vm$optionWidgetKey = _vm.optionWidgetKey) === null || _vm$optionWidgetKey === void 0 ? void 0 : _vm$optionWidgetKey.length) !== 0
     },
     on: {
       "update": function update($event) {
@@ -26681,9 +26686,9 @@ var render = function render() {
     }
   }, 'options-window', _vm.widgetOptionsWindow, false))], 1) : _vm._e(), _vm._v(" "), _vm.enable_widget ? _c('span', {
     staticClass: "cptm-widget-card-status",
-    class: this.selectedWidgets.length > 0 ? 'enabled' : 'disabled',
+    class: ((_this$selectedWidgets = this.selectedWidgets) === null || _this$selectedWidgets === void 0 ? void 0 : _this$selectedWidgets.length) > 0 ? 'enabled' : 'disabled',
     style: {
-      cursor: _vm.acceptedWidgets.length > 0 ? 'pointer' : 'not-allowed'
+      cursor: ((_vm$acceptedWidgets = _vm.acceptedWidgets) === null || _vm$acceptedWidgets === void 0 ? void 0 : _vm$acceptedWidgets.length) > 0 ? 'pointer' : 'not-allowed'
     },
     on: {
       "click": function click($event) {
@@ -26691,7 +26696,7 @@ var render = function render() {
       }
     }
   }, [_c('span', {
-    class: this.selectedWidgets.length > 0 ? 'fa fa-eye' : 'fa fa-eye-slash'
+    class: ((_this$selectedWidgets2 = this.selectedWidgets) === null || _this$selectedWidgets2 === void 0 ? void 0 : _this$selectedWidgets2.length) > 0 ? 'fa fa-eye' : 'fa fa-eye-slash'
   })]) : _vm._e()]);
 };
 var staticRenderFns = [];
@@ -29121,6 +29126,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/esm/typeof.js");
 
 var render = function render() {
+  var _vm$groupData, _vm$groupData2;
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
@@ -29172,14 +29178,14 @@ var render = function render() {
     staticClass: "cptm-form-builder-group-title"
   }, [_c('span', {
     staticClass: "cptm-form-builder-group-title-icon"
-  }, [_vm.groupData.lock !== '1' ? _c('span', {
-    class: _vm.groupData.icon,
-    attrs: {
-      "aria-hidden": "true"
-    }
-  }) : _c('span', {
+  }, [((_vm$groupData = _vm.groupData) === null || _vm$groupData === void 0 ? void 0 : _vm$groupData.icon_type) === 'svg' ? _c('span', {
     domProps: {
       "innerHTML": _vm._s(_vm.groupData.icon)
+    }
+  }) : _c('span', {
+    class: (_vm$groupData2 = _vm.groupData) === null || _vm$groupData2 === void 0 ? void 0 : _vm$groupData2.icon,
+    attrs: {
+      "aria-hidden": "true"
     }
   })]), _vm._v(" "), _c('span', {
     staticClass: "cptm-form-builder-group-title-label"
@@ -29187,7 +29193,7 @@ var render = function render() {
     domProps: {
       "innerHTML": _vm._s(_vm.groupData.label)
     }
-  })])]), _vm._v(" "), _vm.groupData.lock !== '1' ? _c('div', {
+  })])]), _vm._v(" "), !_vm.groupData.lock ? _c('div', {
     staticClass: "cptm-form-builder-header-actions"
   }, [_vm.groupFields && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(_vm.groupFields) === 'object' ? _c('a', {
     staticClass: "cptm-form-builder-header-action-link",
@@ -32365,6 +32371,7 @@ var render = function render() {
         }
       }
     }, _vm._l(placeholder.acceptedWidgets, function (widget_key, widget_index) {
+      var _placeholder$selected, _placeholder$accepted;
       return _c('Draggable', {
         key: widget_index,
         attrs: {
@@ -32375,11 +32382,11 @@ var render = function render() {
       }, [_c('div', {
         staticClass: "cptm-elements-settings__group__single",
         class: {
-          'cptm-elements-settings__group__single--disabled': placeholder.maxWidget > 0 && placeholder.selectedWidgets.length >= placeholder.maxWidget && !placeholder.selectedWidgets.some(function (widget) {
+          'cptm-elements-settings__group__single--disabled': placeholder.maxWidget > 0 && ((_placeholder$selected = placeholder.selectedWidgets) === null || _placeholder$selected === void 0 ? void 0 : _placeholder$selected.length) >= placeholder.maxWidget && !placeholder.selectedWidgets.some(function (widget) {
             return widget.widget_key === widget_key;
           })
         }
-      }, [placeholder.acceptedWidgets.length > 1 ? _c('span', {
+      }, [((_placeholder$accepted = placeholder.acceptedWidgets) === null || _placeholder$accepted === void 0 ? void 0 : _placeholder$accepted.length) > 1 ? _c('span', {
         staticClass: "drag-handle drag-icon uil uil-draggabledots"
       }) : _vm._e(), _vm._v(" "), _c('span', {
         staticClass: "cptm-elements-settings__group__single__label"

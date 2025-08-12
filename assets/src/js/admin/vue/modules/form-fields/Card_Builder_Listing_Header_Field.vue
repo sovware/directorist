@@ -68,7 +68,7 @@
                   :class="{
                     'cptm-elements-settings__group__single--disabled':
                       placeholder.maxWidget > 0 &&
-                      placeholder.selectedWidgets.length >=
+                      placeholder.selectedWidgets?.length >=
                         placeholder.maxWidget &&
                       !placeholder.selectedWidgets.some(
                         (widget) => widget.widget_key === widget_key,
@@ -77,7 +77,7 @@
                 >
                   <span
                     class="drag-handle drag-icon uil uil-draggabledots"
-                    v-if="placeholder.acceptedWidgets.length > 1"
+                    v-if="placeholder.acceptedWidgets?.length > 1"
                   ></span>
                   <span class="cptm-elements-settings__group__single__label">
                     <!-- Display icon only if it exists -->
@@ -1019,7 +1019,7 @@ export default {
       if (
         event.target.checked &&
         placeholder.maxWidget > 0 &&
-        placeholder.selectedWidgets.length >= placeholder.maxWidget
+        placeholder.selectedWidgets?.length >= placeholder.maxWidget
       ) {
         event.preventDefault(); // Prevent the checkbox from being checked
         return;

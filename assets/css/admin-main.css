@@ -14173,7 +14173,7 @@ input:-webkit-autofill:active {
   height: 52px;
   background-color: rgba(44, 153, 255, 0.1);
   margin-bottom: 20px;
-  margin-right: 50px;
+  margin-right: 0;
   border-radius: 4px;
 }
 
@@ -20560,16 +20560,17 @@ input[type=radio]:checked::before {
   -webkit-justify-content: space-between;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  padding: 14px 20px;
+  padding: 18px 24px 0;
 }
 .cptm-elements-settings__header__title {
-  font-size: 15px;
+  font-size: 16px;
+  line-height: 24px;
   font-weight: 500;
-  color: #383f47;
+  color: #141921;
   margin: 0;
 }
 .cptm-elements-settings__content {
-  margin-top: -10px;
+  margin-top: -8px;
 }
 .cptm-elements-settings__group {
   padding: 20px;
@@ -20683,9 +20684,12 @@ input[type=radio]:checked::before {
           justify-content: center;
   width: 20px;
   height: 20px;
-  background-color: #000;
+  background-color: #000000;
+  border: 1px solid #000000;
   border-radius: 50%;
   cursor: pointer;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 .cptm-elements-settings__group__single__edit__icon {
   font-size: 12px;
@@ -20694,7 +20698,7 @@ input[type=radio]:checked::before {
 .cptm-elements-settings__group__single__edit--disabled {
   opacity: 0.4;
   pointer-events: none;
-  border: 1px solid #d2d6db;
+  border-color: #d2d6db;
   background-color: #fff;
 }
 .cptm-elements-settings__group__single__edit--disabled .cptm-elements-settings__group__single__edit__icon {
@@ -21013,7 +21017,7 @@ input[type=radio]:checked::before {
   height: 52px;
   background-color: rgba(44, 153, 255, 0.1);
   margin-bottom: 20px;
-  margin-right: 50px;
+  margin-right: 0;
   border-radius: 4px;
 }
 
@@ -27400,16 +27404,17 @@ input[type=radio]:checked::before {
   -webkit-justify-content: space-between;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  padding: 14px 20px;
+  padding: 18px 24px 0;
 }
 .cptm-elements-settings__header__title {
-  font-size: 15px;
+  font-size: 16px;
+  line-height: 24px;
   font-weight: 500;
-  color: #383f47;
+  color: #141921;
   margin: 0;
 }
 .cptm-elements-settings__content {
-  margin-top: -10px;
+  margin-top: -8px;
 }
 .cptm-elements-settings__group {
   padding: 20px;
@@ -27523,9 +27528,12 @@ input[type=radio]:checked::before {
           justify-content: center;
   width: 20px;
   height: 20px;
-  background-color: #000;
+  background-color: #000000;
+  border: 1px solid #000000;
   border-radius: 50%;
   cursor: pointer;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 .cptm-elements-settings__group__single__edit__icon {
   font-size: 12px;
@@ -27534,7 +27542,7 @@ input[type=radio]:checked::before {
 .cptm-elements-settings__group__single__edit--disabled {
   opacity: 0.4;
   pointer-events: none;
-  border: 1px solid #d2d6db;
+  border-color: #d2d6db;
   background-color: #fff;
 }
 .cptm-elements-settings__group__single__edit--disabled .cptm-elements-settings__group__single__edit__icon {
@@ -28141,7 +28149,7 @@ input[type=radio]:checked::before {
   height: 52px;
   background-color: rgba(44, 153, 255, 0.1);
   margin-bottom: 20px;
-  margin-right: 50px;
+  margin-right: 0;
   border-radius: 4px;
 }
 
@@ -34528,16 +34536,17 @@ input[type=radio]:checked::before {
   -webkit-justify-content: space-between;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  padding: 14px 20px;
+  padding: 18px 24px 0;
 }
 .cptm-elements-settings__header__title {
-  font-size: 15px;
+  font-size: 16px;
+  line-height: 24px;
   font-weight: 500;
-  color: #383f47;
+  color: #141921;
   margin: 0;
 }
 .cptm-elements-settings__content {
-  margin-top: -10px;
+  margin-top: -8px;
 }
 .cptm-elements-settings__group {
   padding: 20px;
@@ -34651,9 +34660,12 @@ input[type=radio]:checked::before {
           justify-content: center;
   width: 20px;
   height: 20px;
-  background-color: #000;
+  background-color: #000000;
+  border: 1px solid #000000;
   border-radius: 50%;
   cursor: pointer;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 .cptm-elements-settings__group__single__edit__icon {
   font-size: 12px;
@@ -34662,7 +34674,7 @@ input[type=radio]:checked::before {
 .cptm-elements-settings__group__single__edit--disabled {
   opacity: 0.4;
   pointer-events: none;
-  border: 1px solid #d2d6db;
+  border-color: #d2d6db;
   background-color: #fff;
 }
 .cptm-elements-settings__group__single__edit--disabled .cptm-elements-settings__group__single__edit__icon {

@@ -10,7 +10,7 @@
         :active="
           !!(
             showWidgetsOptionWindow &&
-            selectedWidgets.length &&
+            selectedWidgets?.length &&
             !showWidgetsPickerWindow
           )
         "
@@ -26,15 +26,15 @@
         getContainerClass,
         {
           'cptm-widget-picker-open': showWidgetsPickerWindow,
-          enabled: selectedWidgets.length > 0,
-          disabled: selectedWidgets.length === 0,
+          enabled: selectedWidgets?.length > 0,
+          disabled: selectedWidgets?.length === 0,
         },
       ]"
       @click.prevent="$emit('open-widgets-option-window')"
     >
       <p
         class="cptm-placeholder-label"
-        :class="{ hide: displayedWidgets && displayedWidgets.length }"
+        :class="{ hide: displayedWidgets && displayedWidgets?.length }"
       >
         {{ label }}
       </p>
@@ -69,7 +69,7 @@
         </div>
       </div>
 
-      <div class="cptm-widget-preview-area" v-if="displayedWidgets.length > 0">
+      <div class="cptm-widget-preview-area" v-if="displayedWidgets?.length > 0">
         <template v-for="(widget, widget_index) in displayedWidgets">
           <template v-if="hasValidWidget(widget)">
             <div
@@ -80,7 +80,7 @@
                 :is="availableWidgets[widget].type + '-card-widget'"
                 :class="{
                   'cptm-widget-card-disabled':
-                    readOnly && !selectedWidgets.includes(widget),
+                    readOnly && !selectedWidgets?.includes(widget),
                 }"
                 :key="widget_index"
                 :label="
@@ -95,7 +95,7 @@
                 "
                 :options="availableWidgets[widget].options"
                 :fields="availableWidgets[widget].fields"
-                :disabled="readOnly && !selectedWidgets.includes(widget)"
+                :disabled="readOnly && !selectedWidgets?.includes(widget)"
                 :readOnly="readOnly"
                 @edit="$emit('edit-widget', widget)"
               >
@@ -108,7 +108,7 @@
 
     <div class="cptm-options-area" v-if="optionWidgetKey === activeWidgetKey">
       <options-window
-        :active="optionWidgetKey.length !== 0"
+        :active="optionWidgetKey?.length !== 0"
         v-bind="widgetOptionsWindow"
         @update="$emit('update-option-window', $event)"
         @close="$emit('close-option-window')"
@@ -117,16 +117,16 @@
 
     <span
       class="cptm-widget-card-status"
-      :class="this.selectedWidgets.length > 0 ? 'enabled' : 'disabled'"
+      :class="this.selectedWidgets?.length > 0 ? 'enabled' : 'disabled'"
       :style="{
-        cursor: acceptedWidgets.length > 0 ? 'pointer' : 'not-allowed',
+        cursor: acceptedWidgets?.length > 0 ? 'pointer' : 'not-allowed',
       }"
       v-if="enable_widget"
       @click="$emit('toggle-widget-status')"
     >
       <span
         :class="
-          this.selectedWidgets.length > 0 ? 'fa fa-eye' : 'fa fa-eye-slash'
+          this.selectedWidgets?.length > 0 ? 'fa fa-eye' : 'fa fa-eye-slash'
         "
       ></span>
     </span>
@@ -214,7 +214,7 @@ export default {
         return true;
       }
 
-      return this.selectedWidgets.length < this.maxWidget;
+      return this.selectedWidgets?.length < this.maxWidget;
     },
 
     getContainerClass() {

@@ -574,6 +574,7 @@ export default {
       default_group: [
         {
           type: "general_group",
+          icon: "las la-align-left",
           label:
             this.groupSettings && this.groupSettings.defaultGroupLabel
               ? this.groupSettings.defaultGroupLabel

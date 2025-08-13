@@ -14,9 +14,12 @@
   },
   "lint-staged": {
     "*.{css,scss,js}": [
-
+      "yarn format",
+      "yarn format:resources",
+      "git add"
     ],
     "*.php": [
+      "composer format"
     ]
   },
   "repository": {

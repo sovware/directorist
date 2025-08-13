@@ -21,9 +21,9 @@ return [
     ],
 
     'providers'               => [
-        OrderServiceProvider::class,
-        PaymentServiceProvider::class,
-        ShortcodeServiceProvider::class
+        // OrderServiceProvider::class,
+        // PaymentServiceProvider::class,
+        // ShortcodeServiceProvider::class
     ],
 
     'admin_providers'         => [],

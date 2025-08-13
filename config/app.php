@@ -4,6 +4,7 @@ defined( 'ABSPATH' ) || exit;
 
 use Directorist\App\Providers\ShortcodeServiceProvider;
 use Directorist\App\Providers\PaymentServiceProvider;
+use Directorist\App\Providers\Admin\MenuServiceProvider;
 use Directorist\App\Providers\OrderServiceProvider;
 use Directorist\App\Http\Middleware\EnsureIsUserAdmin;
 
@@ -26,7 +27,9 @@ return [
         // ShortcodeServiceProvider::class
     ],
 
-    'admin_providers'         => [],
+    'admin_providers'         => [
+        MenuServiceProvider::class,
+    ],
 
     'middleware'              => [
         'admin' => EnsureIsUserAdmin::class

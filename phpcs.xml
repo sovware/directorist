@@ -20,6 +20,7 @@
 	<file>app</file>
 	<file>routes</file>
 	<file>config</file>
+	<file>enqueues</file>
 
 	<!-- Configs -->
 	<config name="minimum_supported_wp_version" value="4.6" />

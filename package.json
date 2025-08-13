@@ -4,19 +4,19 @@
   "description": "A comprehensive solution to create professional looking directory site of any kind. Like Yelp, Foursquare, etc.",
   "main": "index.js",
   "scripts": {
+    "start": "wp-scripts start --config webpack.wpscript.js",
     "dev": "webpack --config webpack.dev.js",
     "dev-vue": "webpack --config webpack.dev.vue.js",
     "prod": "node pot.js && webpack --config webpack.prod.js",
     "format": "wp-scripts format ./assets/src",
+    "format:resources": "wp-scripts format ./resources/js",
     "prepare": "husky install"
   },
   "lint-staged": {
     "*.{css,scss,js}": [
-      "yarn format",
-      "git add"
+
     ],
     "*.php": [
-      "composer format"
     ]
   },
   "repository": {
@@ -27,6 +27,7 @@
   "license": "GPL-2.0+",
   "homepage": "https://github.com/sovware/directorist",
   "dependencies": {
+    "@wordpress/element": "^6.28.0",
     "axios": "^0.21.1",
     "dom-scroll-into-view": "^2.0.1",
     "husky": "^9.1.7",
@@ -44,6 +45,8 @@
   "devDependencies": {
     "@babel/core": "^7.23.0",
     "@babel/preset-env": "^7.23.0",
+    "@babel/runtime": "^7.28.2",
+    "@types/react": "^19.1.10",
     "@wordpress/babel-preset-default": "^5.0.0",
     "@wordpress/scripts": "^30.17.0",
     "autoprefixer": "^9.8.5",
@@ -78,6 +81,5 @@
     "> 1%",
     "iOS 7",
     "last 3 iOS versions"
-  ],
-  "packageManager": "yarn@4.9.2+sha512.1fc009bc09d13cfd0e19efa44cbfc2b9cf6ca61482725eb35bbc5e257e093ebf4130db6dfe15d604ff4b79efd8e1e8e99b25fa7d0a6197c9f9826358d4d65c3c"
+  ]
 }

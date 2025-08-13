@@ -35,3 +35,11 @@ function directorist_now() {
 function directorist_get_payment_processors() {
     return directorist_config()->get( 'payment-processors' );
 }
+
+function directorist_url( string $url = '' ) {
+    return directorist()->get_url( $url );
+}
+
+function directorist_dir( string $dir = '' ) {
+    return directorist()->get_dir( $dir );
+}

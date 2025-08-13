@@ -13,6 +13,12 @@
 // prevent direct access to the file
 defined( 'ABSPATH' ) || die( 'No direct script access allowed!' );
 
+require_once __DIR__ . '/vendor/vendor-src/autoload.php'; // Load Composer autoloader
+require_once __DIR__ . '/app/Helpers/helpers.php';
+
+use Directorist\App\Setup\Activation;
+use Directorist\WpMVC\App;
+
 /**
  * Main Directorist_Base Class.
  *
@@ -200,6 +206,16 @@ final class Directorist_Base {
         if ( ! isset( self::$instance ) && ! ( self::$instance instanceof Directorist_Base ) ) {
             self::$instance = new Directorist_Base();
             self::$instance->setup_constants();
+
+            $application = App::instance();
+
+            $application->boot( __FILE__, __DIR__ );
+
+            add_action(
+                'plugins_loaded', function () use ( $application ): void {
+                    $application->load();
+                }
+            );
 
             add_action( 'plugins_loaded', [ self::$instance, 'redirect_to_setup_wizard' ] );
             add_action( 'init', [self::$instance, 'load_textdomain'] );
@@ -458,6 +474,7 @@ final class Directorist_Base {
     public static function prepare_plugin() {
         include ATBDP_INC_DIR . 'classes/class-installation.php';
         ATBDP_Installation::install();
+        Activation::run();
     }
 
     /**

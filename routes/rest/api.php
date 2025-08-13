@@ -1,0 +1,23 @@
+<?php
+
+defined( 'ABSPATH' ) || exit;
+
+use Directorist\App\Http\Controllers\Admin\PaymentController;
+use Directorist\App\Http\Controllers\Admin\OrderController;
+use Directorist\WpMVC\Routing\Route;
+
+Route::group(
+    'admin', function() {
+        Route::group(
+            'orders', function() {
+                Route::group(
+                    '{id}', function() {
+                        Route::post( 'status', [OrderController::class, 'update_status'] );
+                    }
+                );
+                Route::resource( '/', OrderController::class );
+            }
+        );
+        Route::resource( 'payments', PaymentController::class );
+    }, ['admin']
+);

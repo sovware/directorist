@@ -1,0 +1,18 @@
+# Order Meta
+_featured -> int
+_listing_id -> int
+_amount -> float
+_payment_gateway -> string
+_payment_status -> created
+
+
+
+
+Listing Order
+	- featured
+	- popular
+	- new
+
+
+
+Tax

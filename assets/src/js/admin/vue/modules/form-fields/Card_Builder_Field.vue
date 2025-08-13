@@ -1,17 +1,18 @@
 <template>
-  <div class="">
+  <div class="cptm-form-field-wrapper">
     <template v-if="card_templates">
       <div class="cptm-card-top-area">
         <div class="cptm-card-top-area-content">
-          <span
+          <div
             v-if="
               fieldKey === 'listings_card_grid_view' ||
               fieldKey === 'listings_card_list_view'
             "
-            class="cptm-card-layout-title"
+            class="cptm-card-layout-content"
           >
-            Layout Type
-          </span>
+            <h3 class="cptm-card-layout-title">Set layout style</h3>
+            <p class="cptm-card-layout-description">Choose your preferred appearance: Show preview image or hide preview image</p>
+          </div>
           <tab-field
             theme="default"
             :options="theCardBiulderTemplateOptionList"

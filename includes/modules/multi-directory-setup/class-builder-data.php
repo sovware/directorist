@@ -2039,7 +2039,7 @@ class Builder_Data {
         $listing_card_grid_view_without_thumbnail_layout = [
             'body'   => [
                 'avatar'        => [
-                    'label'             => __( 'Avatar', 'directorist' ),
+                    'label'             => __( 'Add Avatar', 'directorist' ),
                     'maxWidget'         => 1,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
                     'acceptedWidgets' => [ "user_avatar" ],
@@ -2784,26 +2784,23 @@ class Builder_Data {
                         'type'           => 'card-builder',
                         'card_templates' => [
                             'grid_view_with_thumbnail'    => [
-                        // 'label'    => __( 'With Preview Image', 'directorist' ),
-                                'label'     => '<svg width="45" height="52" viewBox="0 0 45 52" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="1" y="0.5" width="43" height="51" rx="6.5" fill="white" stroke="#D2D6DB"/>
-                            <path d="M3.5 13C3.5 8.28595 3.5 5.92893 4.96447 4.46447C6.42893 3 8.78595 3 13.5 3H31.5C36.214 3 38.5711 3 40.0355 4.46447C41.5 5.92893 41.5 8.28595 41.5 13V28H3.5V13Z" fill="#D2D6DB"/>
-                            <rect x="11.5" y="34" width="22" height="2" rx="1" fill="#D2D6DB"/>
-                            <rect x="16.5" y="40" width="12" height="2" rx="1" fill="#D2D6DB"/>
-                            </svg>',
+                                'label'     => '<svg width="34" height="40" viewBox="0 0 34 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="2.52344" y="2.52344" width="28.9524" height="19.0476" rx="1.88235" fill="#D2D6DB"/>
+                                <path d="M22.3614 16.3137H10.8648C10.7534 16.3137 10.6631 16.2234 10.6631 16.112V14.7281C10.6631 14.5769 10.6964 14.427 10.7774 14.2994C11.0513 13.8679 11.827 12.8849 13.21 12.8849C14.9817 12.8849 15.7569 14.4984 15.7569 14.4984C15.7569 14.4984 17.0165 10.9688 19.8402 10.9688C21.266 10.9688 22.2981 12.0712 22.519 12.3277C22.5485 12.362 22.5631 12.4052 22.5631 12.4504V16.112C22.5631 16.2234 22.4728 16.3137 22.3614 16.3137Z" fill="white"/>
+                                <circle cx="12.075" cy="9.65796" r="1.41186" fill="white"/>
+                                <rect x="8.61914" y="26.1426" width="16.7619" height="1.52381" rx="0.761905" fill="#D2D6DB"/>
+                                <rect x="12.4287" y="30.7148" width="9.14286" height="1.52381" rx="0.761905" fill="#D2D6DB"/>
+                                </svg>',
                                 'template' => 'grid-view-with-thumbnail',
                                 'widgets'  => $listing_card_widget,
                                 'layout'   => $listing_card_grid_view_with_thumbnail_layout,
                             ],
                             'grid_view_without_thumbnail' => [
-                            // 'label'    => __( 'Without Preview Image', 'directorist' ),
-                                'label'     => '<svg width="44" height="52" viewBox="0 0 44 52" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="0.5" y="0.5" width="43" height="51" rx="6.5" fill="white"/>
-                            <rect x="0.5" y="0.5" width="43" height="51" rx="6.5" stroke="#D2D6DB"/>
-                            <rect x="11" y="19" width="22" height="2" rx="1" fill="#D2D6DB"/>
-                            <rect x="11" y="25" width="22" height="2" rx="1" fill="#D2D6DB"/>
-                            <rect x="16" y="31" width="12" height="2" rx="1" fill="#D2D6DB"/>
-                            </svg>',
+                                'label'     => '<svg width="34" height="40" viewBox="0 0 34 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="8.61914" y="18.1426" width="16.7619" height="1.52381" rx="0.761905" fill="#D2D6DB"/>
+                                <rect x="8.61914" y="15" width="16.7619" height="1.52381" rx="0.761905" fill="#D2D6DB"/>
+                                <rect x="12.4287" y="22.7148" width="9.14286" height="1.52381" rx="0.761905" fill="#D2D6DB"/>
+                                </svg>',
                                 'template' => 'grid-view-without-thumbnail',
                                 'widgets'  => $listing_card_conditional_widget,
                                 'layout'   => $listing_card_grid_view_without_thumbnail_layout,
@@ -3016,6 +3013,12 @@ class Builder_Data {
                     'submenu' => [
                         'grid_view' => [
                             'label'     => __( 'Grid View', 'directorist' ),
+                            'icon'      => '<svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8.83341 2.16602V8.83268H2.16675V2.16602H8.83341Z" stroke="#4D5761" stroke-width="1.5" stroke-linejoin="round"/>
+                            <path d="M18.8334 2.16602V8.83268H12.1667V2.16602H18.8334Z" stroke="#4D5761" stroke-width="1.5" stroke-linejoin="round"/>
+                            <path d="M18.8334 12.166V18.8327H12.1667V12.166H18.8334Z" stroke="#4D5761" stroke-width="1.5" stroke-linejoin="round"/>
+                            <path d="M8.83341 12.166V18.8327H2.16675V12.166H8.83341Z" stroke="#4D5761" stroke-width="1.5" stroke-linejoin="round"/>
+                            </svg>',
                             'container' => 'full-width',
                             'video' => [
                                 'type' => 'video',
@@ -3037,6 +3040,14 @@ class Builder_Data {
                         ],
                         'list_view' => [
                             'label'     => __( 'List View', 'directorist' ),
+                            'icon'      => '<svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8 4.66699L18 4.66699" stroke="#4D5761" stroke-width="1.5"/>
+                            <path d="M3 4.66699L5.5 4.66699" stroke="#4D5761" stroke-width="1.5"/>
+                            <path d="M8 10.5L18 10.5" stroke="#4D5761" stroke-width="1.5"/>
+                            <path d="M3 10.5L5.5 10.5" stroke="#4D5761" stroke-width="1.5"/>
+                            <path d="M8 16.333L18 16.333" stroke="#4D5761" stroke-width="1.5"/>
+                            <path d="M3 16.333L5.5 16.333" stroke="#4D5761" stroke-width="1.5"/>
+                            </svg>',
                             'container' => 'full-width',
                             'video' => [
                                 'type' => 'video',

@@ -64,7 +64,7 @@
             class="cptm-widget-insert-link"
             @click.prevent="$emit('open-widgets-picker-window')"
           >
-            <span class="fa fa-plus"></span>
+            <span class="las la-plus"></span>
           </a>
         </div>
       </div>

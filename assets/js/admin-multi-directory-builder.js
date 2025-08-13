@@ -19673,7 +19673,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
             selectedWidgets: []
           },
           avatar: {
-            label: "Avatar",
+            label: "Add Avatar",
             selectedWidgets: []
           }
         },
@@ -20214,7 +20214,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
             selectedWidgets: []
           },
           avatar: {
-            label: "Avatar",
+            label: "Add Avatar",
             selectedWidgets: []
           }
         },
@@ -20745,7 +20745,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         },
         body: {
           avatar: {
-            label: "Avatar",
+            label: "Add Avatar",
             selectedWidgets: []
           },
           title: {
@@ -26705,7 +26705,7 @@ var render = function render() {
       }
     }
   }, [_c('span', {
-    staticClass: "fa fa-plus"
+    staticClass: "las la-plus"
   })]) : _vm._e()])]) : _vm._e(), _vm._v(" "), ((_vm$displayedWidgets2 = _vm.displayedWidgets) === null || _vm$displayedWidgets2 === void 0 ? void 0 : _vm$displayedWidgets2.length) > 0 ? _c('div', {
     staticClass: "cptm-widget-preview-area"
   }, [_vm._l(_vm.displayedWidgets, function (widget, widget_index) {
@@ -27210,7 +27210,63 @@ var render = function render() {
             return _vm.doAction($event, 'sections-module');
           }
         }
-      }, 'component', _vm.fields[field], false)) : _vm._e(), _vm._v(" "), field === 'way_to_show_preview' && _vm.groupedContainerFields.length > 0 ? _c('div', {
+      }, 'component', _vm.fields[field], false)) : _vm._e(), _vm._v(" "), field === 'listings_card_grid_view' || field === 'listings_card_list_view' ? _c('div', {
+        staticClass: "cptm-preview-notice"
+      }, [_c('div', {
+        staticClass: "cptm-preview-notice-content"
+      }, [_c('svg', {
+        attrs: {
+          "width": "16",
+          "height": "16",
+          "viewBox": "0 0 16 16",
+          "fill": "none",
+          "xmlns": "http://www.w3.org/2000/svg"
+        }
+      }, [_c('g', {
+        attrs: {
+          "clip-path": "url(#clip0_8301_5081)"
+        }
+      }, [_c('path', {
+        attrs: {
+          "fill-rule": "evenodd",
+          "clip-rule": "evenodd",
+          "d": "M7.99984 1.99984C4.68613 1.99984 1.99984 4.68613 1.99984 7.99984C1.99984 11.3135 4.68613 13.9998 7.99984 13.9998C11.3135 13.9998 13.9998 11.3135 13.9998 7.99984C13.9998 4.68613 11.3135 1.99984 7.99984 1.99984ZM0.666504 7.99984C0.666504 3.94975 3.94975 0.666504 7.99984 0.666504C12.0499 0.666504 15.3332 3.94975 15.3332 7.99984C15.3332 12.0499 12.0499 15.3332 7.99984 15.3332C3.94975 15.3332 0.666504 12.0499 0.666504 7.99984ZM7.33317 5.33317C7.33317 4.96498 7.63165 4.6665 7.99984 4.6665H8.0065C8.37469 4.6665 8.67317 4.96498 8.67317 5.33317C8.67317 5.70136 8.37469 5.99984 8.0065 5.99984H7.99984C7.63165 5.99984 7.33317 5.70136 7.33317 5.33317ZM7.99984 7.33317C8.36803 7.33317 8.6665 7.63165 8.6665 7.99984V10.6665C8.6665 11.0347 8.36803 11.3332 7.99984 11.3332C7.63165 11.3332 7.33317 11.0347 7.33317 10.6665V7.99984C7.33317 7.63165 7.63165 7.33317 7.99984 7.33317Z",
+          "fill": "#3E62F5"
+        }
+      })]), _vm._v(" "), _c('defs', [_c('clipPath', {
+        attrs: {
+          "id": "clip0_8301_5081"
+        }
+      }, [_c('rect', {
+        attrs: {
+          "width": "16",
+          "height": "16",
+          "fill": "white"
+        }
+      })])])]), _vm._v(" "), _vm._m(0, true)]), _vm._v(" "), _c('div', {
+        staticClass: "cptm-preview-notice-action"
+      }, [_c('a', {
+        staticClass: "cptm-preview-notice-btn",
+        attrs: {
+          "href": "/wp-admin/edit.php?post_type=at_biz_dir&page=atbdp-settings",
+          "target": "_blank"
+        }
+      }, [_vm._v("\n              Go to settings\n              "), _c('svg', {
+        attrs: {
+          "width": "14",
+          "height": "14",
+          "viewBox": "0 0 14 14",
+          "fill": "none",
+          "xmlns": "http://www.w3.org/2000/svg"
+        }
+      }, [_c('path', {
+        attrs: {
+          "fill-rule": "evenodd",
+          "clip-rule": "evenodd",
+          "d": "M6.48424 1.38007C6.769 1.09531 7.23068 1.09531 7.51544 1.38007L12.6196 6.48424C12.9044 6.769 12.9044 7.23068 12.6196 7.51544L7.51544 12.6196C7.23068 12.9044 6.769 12.9044 6.48424 12.6196C6.19948 12.3348 6.19948 11.8732 6.48424 11.5884L10.3436 7.729H1.89567C1.49296 7.729 1.1665 7.40254 1.1665 6.99984C1.1665 6.59713 1.49296 6.27067 1.89567 6.27067H10.3436L6.48424 2.41127C6.19948 2.12651 6.19948 1.66483 6.48424 1.38007Z",
+          "fill": "#4D5761"
+        }
+      })])])])]) : _vm._e(), _vm._v(" "), field === 'way_to_show_preview' && _vm.groupedContainerFields.length > 0 ? _c('div', {
         staticClass: "cptm-field-group-container"
       }, [_c('div', {
         staticClass: "atbdp-row"
@@ -27256,7 +27312,13 @@ var render = function render() {
     }), 0) : _vm._e()]);
   }), 0);
 };
-var staticRenderFns = [];
+var staticRenderFns = [function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('p', {
+    staticClass: "cptm-preview-notice-text"
+  }, [_vm._v("\n              Want to enable/disable "), _c('strong', [_vm._v("Grid")]), _vm._v(",\n              "), _c('strong', [_vm._v("List")]), _vm._v(" or "), _c('strong', [_vm._v("Map")]), _vm._v(" views for the All\n              Listings Page?\n            ")]);
+}];
 render._withStripped = true;
 
 
@@ -27925,22 +27987,26 @@ var render = function render() {
         return _vm.$emit('edit');
       }
     }
-  }, [_vm._m(0)]);
-};
-var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', {
+  }, [_c('div', {
     staticClass: "cptm-widget-card cptm-has-widget-control cptm-widget-actions-tools-wrap"
   }, [_c('p', {
     staticClass: "cptm-placeholder-author-thumb"
-  }, [_c('img', {
+  }, [_c('svg', {
     attrs: {
-      "src": "https://placehold.co/150",
-      "alt": ""
+      "width": "40",
+      "height": "40",
+      "viewBox": "0 0 40 40",
+      "fill": "none",
+      "xmlns": "http://www.w3.org/2000/svg"
     }
-  })])]);
-}];
+  }, [_c('path', {
+    attrs: {
+      "d": "M35.1667 20.8327L37.5 23.1827L26.6167 34.166L20.8333 28.3327L23.1667 25.9827L26.6167 29.4493L35.1667 20.8327ZM16.6667 28.3327L21.6667 33.3327H5V29.9993C5 26.316 10.9667 23.3327 18.3333 23.3327L21.4833 23.516L16.6667 28.3327ZM18.3333 6.66602C20.1014 6.66602 21.7971 7.36839 23.0474 8.61864C24.2976 9.86888 25 11.5646 25 13.3327C25 15.1008 24.2976 16.7965 23.0474 18.0467C21.7971 19.297 20.1014 19.9993 18.3333 19.9993C16.5652 19.9993 14.8695 19.297 13.6193 18.0467C12.369 16.7965 11.6667 15.1008 11.6667 13.3327C11.6667 11.5646 12.369 9.86888 13.6193 8.61864C14.8695 7.36839 16.5652 6.66602 18.3333 6.66602Z",
+      "fill": "#141921"
+    }
+  })])])])]);
+};
+var staticRenderFns = [];
 render._withStripped = true;
 
 
@@ -29488,13 +29554,19 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {}, [_vm.card_templates ? [_c('div', {
+  return _c('div', {
+    staticClass: "cptm-form-field-wrapper"
+  }, [_vm.card_templates ? [_c('div', {
     staticClass: "cptm-card-top-area"
   }, [_c('div', {
     staticClass: "cptm-card-top-area-content"
-  }, [_vm.fieldKey === 'listings_card_grid_view' || _vm.fieldKey === 'listings_card_list_view' ? _c('span', {
+  }, [_vm.fieldKey === 'listings_card_grid_view' || _vm.fieldKey === 'listings_card_list_view' ? _c('div', {
+    staticClass: "cptm-card-layout-content"
+  }, [_c('h3', {
     staticClass: "cptm-card-layout-title"
-  }, [_vm._v("\n          Layout Type\n        ")]) : _vm._e(), _vm._v(" "), _c('tab-field', {
+  }, [_vm._v("Set layout style")]), _vm._v(" "), _c('p', {
+    staticClass: "cptm-card-layout-description"
+  }, [_vm._v("Choose your preferred appearance: Show preview image or hide preview image")])]) : _vm._e(), _vm._v(" "), _c('tab-field', {
     attrs: {
       "theme": "default",
       "options": _vm.theCardBiulderTemplateOptionList
@@ -29742,7 +29814,37 @@ var render = function render() {
       },
       "update-active-widget": _vm.handleActiveWidgetUpdate
     }
-  })], 1), _vm._v(" "), _vm._m(0)])])]), _vm._v(" "), _c('div', {
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "cptm-card-preview-thumbnail-bg"
+  }, [_c('svg', {
+    attrs: {
+      "width": "100",
+      "height": "80",
+      "viewBox": "0 0 100 80",
+      "fill": "none",
+      "xmlns": "http://www.w3.org/2000/svg"
+    }
+  }, [_c('g', {
+    attrs: {
+      "opacity": "0.2",
+      "clip-path": "url(#clip0_9916_95736)"
+    }
+  }, [_c('path', {
+    attrs: {
+      "d": "M89.9951 0H9.99512C4.48012 0 -0.00488281 4.485 -0.00488281 10V70C-0.00488281 75.515 4.48012 80 9.99512 80H89.9951C95.5101 80 99.9951 75.515 99.9951 70V10C99.9951 4.485 95.5101 0 89.9951 0ZM22.4951 15C24.4842 15 26.3919 15.7902 27.7984 17.1967C29.2049 18.6032 29.9951 20.5109 29.9951 22.5C29.9951 24.4891 29.2049 26.3968 27.7984 27.8033C26.3919 29.2098 24.4842 30 22.4951 30C20.506 30 18.5983 29.2098 17.1918 27.8033C15.7853 26.3968 14.9951 24.4891 14.9951 22.5C14.9951 20.5109 15.7853 18.6032 17.1918 17.1967C18.5983 15.7902 20.506 15 22.4951 15ZM49.9951 65H14.9951L34.9951 40L42.4951 50L57.4951 30L84.9951 65H49.9951Z",
+      "fill": "#4D5761"
+    }
+  })]), _vm._v(" "), _c('defs', [_c('clipPath', {
+    attrs: {
+      "id": "clip0_9916_95736"
+    }
+  }, [_c('rect', {
+    attrs: {
+      "width": "100",
+      "height": "80",
+      "fill": "white"
+    }
+  })])])])])])])]), _vm._v(" "), _c('div', {
     staticClass: "cptm-listing-card-preview-body"
   }, [_c('div', {
     staticClass: "cptm-listing-card-author-avatar"
@@ -29795,7 +29897,7 @@ var render = function render() {
   })], 1), _vm._v(" "), _c('card-widget-placeholder', {
     attrs: {
       "id": "thumbnail_body_top",
-      "containerClass": "cptm-listing-card-preview-top-placeholder cptm-card-light cptm-mb-20 cptm-align-left",
+      "containerClass": "cptm-listing-card-preview-top-placeholder cptm-card-light cptm-mb-12 cptm-align-left",
       "label": _vm.local_layout.body.top.label,
       "enable_widget": _vm.local_layout.body.top.enable_widget,
       "availableWidgets": _vm.theAvailableWidgets,
@@ -30015,79 +30117,9 @@ var render = function render() {
       },
       "update-active-widget": _vm.handleActiveWidgetUpdate
     }
-  })], 1)])])]), _vm._v(" "), _c('div', {
-    staticClass: "cptm-preview-notice"
-  }, [_c('div', {
-    staticClass: "cptm-preview-notice-content"
-  }, [_c('svg', {
-    attrs: {
-      "width": "16",
-      "height": "16",
-      "viewBox": "0 0 16 16",
-      "fill": "none",
-      "xmlns": "http://www.w3.org/2000/svg"
-    }
-  }, [_c('g', {
-    attrs: {
-      "clip-path": "url(#clip0_8301_5081)"
-    }
-  }, [_c('path', {
-    attrs: {
-      "fill-rule": "evenodd",
-      "clip-rule": "evenodd",
-      "d": "M7.99984 1.99984C4.68613 1.99984 1.99984 4.68613 1.99984 7.99984C1.99984 11.3135 4.68613 13.9998 7.99984 13.9998C11.3135 13.9998 13.9998 11.3135 13.9998 7.99984C13.9998 4.68613 11.3135 1.99984 7.99984 1.99984ZM0.666504 7.99984C0.666504 3.94975 3.94975 0.666504 7.99984 0.666504C12.0499 0.666504 15.3332 3.94975 15.3332 7.99984C15.3332 12.0499 12.0499 15.3332 7.99984 15.3332C3.94975 15.3332 0.666504 12.0499 0.666504 7.99984ZM7.33317 5.33317C7.33317 4.96498 7.63165 4.6665 7.99984 4.6665H8.0065C8.37469 4.6665 8.67317 4.96498 8.67317 5.33317C8.67317 5.70136 8.37469 5.99984 8.0065 5.99984H7.99984C7.63165 5.99984 7.33317 5.70136 7.33317 5.33317ZM7.99984 7.33317C8.36803 7.33317 8.6665 7.63165 8.6665 7.99984V10.6665C8.6665 11.0347 8.36803 11.3332 7.99984 11.3332C7.63165 11.3332 7.33317 11.0347 7.33317 10.6665V7.99984C7.33317 7.63165 7.63165 7.33317 7.99984 7.33317Z",
-      "fill": "#3E62F5"
-    }
-  })]), _vm._v(" "), _c('defs', [_c('clipPath', {
-    attrs: {
-      "id": "clip0_8301_5081"
-    }
-  }, [_c('rect', {
-    attrs: {
-      "width": "16",
-      "height": "16",
-      "fill": "white"
-    }
-  })])])]), _vm._v(" "), _vm._m(1)]), _vm._v(" "), _c('div', {
-    staticClass: "cptm-preview-notice-action"
-  }, [_c('a', {
-    staticClass: "cptm-preview-notice-btn",
-    attrs: {
-      "href": "/wp-admin/edit.php?post_type=at_biz_dir&page=atbdp-settings",
-      "target": "_blank"
-    }
-  }, [_vm._v("\n          Go to settings\n          "), _c('svg', {
-    attrs: {
-      "width": "14",
-      "height": "14",
-      "viewBox": "0 0 14 14",
-      "fill": "none",
-      "xmlns": "http://www.w3.org/2000/svg"
-    }
-  }, [_c('path', {
-    attrs: {
-      "fill-rule": "evenodd",
-      "clip-rule": "evenodd",
-      "d": "M6.48424 1.38007C6.769 1.09531 7.23068 1.09531 7.51544 1.38007L12.6196 6.48424C12.9044 6.769 12.9044 7.23068 12.6196 7.51544L7.51544 12.6196C7.23068 12.9044 6.769 12.9044 6.48424 12.6196C6.19948 12.3348 6.19948 11.8732 6.48424 11.5884L10.3436 7.729H1.89567C1.49296 7.729 1.1665 7.40254 1.1665 6.99984C1.1665 6.59713 1.49296 6.27067 1.89567 6.27067H10.3436L6.48424 2.41127C6.19948 2.12651 6.19948 1.66483 6.48424 1.38007Z",
-      "fill": "#4D5761"
-    }
-  })])])])])])]);
+  })], 1)])])])])]);
 };
-var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', {
-    staticClass: "cptm-card-preview-thumbnail-bg"
-  }, [_c('span', {
-    staticClass: "uil uil-scenery"
-  })]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('p', {
-    staticClass: "cptm-preview-notice-text"
-  }, [_vm._v("\n          Want to enable/disable "), _c('strong', [_vm._v("Grid")]), _vm._v(",\n          "), _c('strong', [_vm._v("List")]), _vm._v(" or "), _c('strong', [_vm._v("Map")]), _vm._v(" views for the All\n          Listings Page?\n        ")]);
-}];
+var staticRenderFns = [];
 render._withStripped = true;
 
 
@@ -30294,7 +30326,37 @@ var render = function render() {
       },
       "update-active-widget": _vm.handleActiveWidgetUpdate
     }
-  })], 1), _vm._v(" "), _vm._m(0)])])]), _vm._v(" "), _c('div', {
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "cptm-card-preview-thumbnail-bg"
+  }, [_c('svg', {
+    attrs: {
+      "width": "100",
+      "height": "80",
+      "viewBox": "0 0 100 80",
+      "fill": "none",
+      "xmlns": "http://www.w3.org/2000/svg"
+    }
+  }, [_c('g', {
+    attrs: {
+      "opacity": "0.2",
+      "clip-path": "url(#clip0_9916_95736)"
+    }
+  }, [_c('path', {
+    attrs: {
+      "d": "M89.9951 0H9.99512C4.48012 0 -0.00488281 4.485 -0.00488281 10V70C-0.00488281 75.515 4.48012 80 9.99512 80H89.9951C95.5101 80 99.9951 75.515 99.9951 70V10C99.9951 4.485 95.5101 0 89.9951 0ZM22.4951 15C24.4842 15 26.3919 15.7902 27.7984 17.1967C29.2049 18.6032 29.9951 20.5109 29.9951 22.5C29.9951 24.4891 29.2049 26.3968 27.7984 27.8033C26.3919 29.2098 24.4842 30 22.4951 30C20.506 30 18.5983 29.2098 17.1918 27.8033C15.7853 26.3968 14.9951 24.4891 14.9951 22.5C14.9951 20.5109 15.7853 18.6032 17.1918 17.1967C18.5983 15.7902 20.506 15 22.4951 15ZM49.9951 65H14.9951L34.9951 40L42.4951 50L57.4951 30L84.9951 65H49.9951Z",
+      "fill": "#4D5761"
+    }
+  })]), _vm._v(" "), _c('defs', [_c('clipPath', {
+    attrs: {
+      "id": "clip0_9916_95736"
+    }
+  }, [_c('rect', {
+    attrs: {
+      "width": "100",
+      "height": "80",
+      "fill": "white"
+    }
+  })])])])])])])]), _vm._v(" "), _c('div', {
     staticClass: "cptm-listing-card-preview-body"
   }, [_c('div', {
     staticClass: "cptm-listing-card-author-avatar"
@@ -30347,7 +30409,7 @@ var render = function render() {
   })], 1), _vm._v(" "), _c('card-widget-placeholder', {
     attrs: {
       "id": "thumbnail_body_top",
-      "containerClass": "cptm-listing-card-preview-top-placeholder cptm-card-light cptm-mb-20 cptm-align-left",
+      "containerClass": "cptm-listing-card-preview-top-placeholder cptm-card-light cptm-mb-12 cptm-align-left",
       "label": _vm.local_layout.body.top.label,
       "enable_widget": _vm.local_layout.body.top.enable_widget,
       "availableWidgets": _vm.theAvailableWidgets,
@@ -30567,79 +30629,9 @@ var render = function render() {
       },
       "update-active-widget": _vm.handleActiveWidgetUpdate
     }
-  })], 1)])])]), _vm._v(" "), _c('div', {
-    staticClass: "cptm-preview-notice"
-  }, [_c('div', {
-    staticClass: "cptm-preview-notice-content"
-  }, [_c('svg', {
-    attrs: {
-      "width": "16",
-      "height": "16",
-      "viewBox": "0 0 16 16",
-      "fill": "none",
-      "xmlns": "http://www.w3.org/2000/svg"
-    }
-  }, [_c('g', {
-    attrs: {
-      "clip-path": "url(#clip0_8301_5081)"
-    }
-  }, [_c('path', {
-    attrs: {
-      "fill-rule": "evenodd",
-      "clip-rule": "evenodd",
-      "d": "M7.99984 1.99984C4.68613 1.99984 1.99984 4.68613 1.99984 7.99984C1.99984 11.3135 4.68613 13.9998 7.99984 13.9998C11.3135 13.9998 13.9998 11.3135 13.9998 7.99984C13.9998 4.68613 11.3135 1.99984 7.99984 1.99984ZM0.666504 7.99984C0.666504 3.94975 3.94975 0.666504 7.99984 0.666504C12.0499 0.666504 15.3332 3.94975 15.3332 7.99984C15.3332 12.0499 12.0499 15.3332 7.99984 15.3332C3.94975 15.3332 0.666504 12.0499 0.666504 7.99984ZM7.33317 5.33317C7.33317 4.96498 7.63165 4.6665 7.99984 4.6665H8.0065C8.37469 4.6665 8.67317 4.96498 8.67317 5.33317C8.67317 5.70136 8.37469 5.99984 8.0065 5.99984H7.99984C7.63165 5.99984 7.33317 5.70136 7.33317 5.33317ZM7.99984 7.33317C8.36803 7.33317 8.6665 7.63165 8.6665 7.99984V10.6665C8.6665 11.0347 8.36803 11.3332 7.99984 11.3332C7.63165 11.3332 7.33317 11.0347 7.33317 10.6665V7.99984C7.33317 7.63165 7.63165 7.33317 7.99984 7.33317Z",
-      "fill": "#3E62F5"
-    }
-  })]), _vm._v(" "), _c('defs', [_c('clipPath', {
-    attrs: {
-      "id": "clip0_8301_5081"
-    }
-  }, [_c('rect', {
-    attrs: {
-      "width": "16",
-      "height": "16",
-      "fill": "white"
-    }
-  })])])]), _vm._v(" "), _vm._m(1)]), _vm._v(" "), _c('div', {
-    staticClass: "cptm-preview-notice-action"
-  }, [_c('a', {
-    staticClass: "cptm-preview-notice-btn",
-    attrs: {
-      "href": "/wp-admin/edit.php?post_type=at_biz_dir&page=atbdp-settings",
-      "target": "_blank"
-    }
-  }, [_vm._v("\n          Go to settings\n          "), _c('svg', {
-    attrs: {
-      "width": "14",
-      "height": "14",
-      "viewBox": "0 0 14 14",
-      "fill": "none",
-      "xmlns": "http://www.w3.org/2000/svg"
-    }
-  }, [_c('path', {
-    attrs: {
-      "fill-rule": "evenodd",
-      "clip-rule": "evenodd",
-      "d": "M6.48424 1.38007C6.769 1.09531 7.23068 1.09531 7.51544 1.38007L12.6196 6.48424C12.9044 6.769 12.9044 7.23068 12.6196 7.51544L7.51544 12.6196C7.23068 12.9044 6.769 12.9044 6.48424 12.6196C6.19948 12.3348 6.19948 11.8732 6.48424 11.5884L10.3436 7.729H1.89567C1.49296 7.729 1.1665 7.40254 1.1665 6.99984C1.1665 6.59713 1.49296 6.27067 1.89567 6.27067H10.3436L6.48424 2.41127C6.19948 2.12651 6.19948 1.66483 6.48424 1.38007Z",
-      "fill": "#4D5761"
-    }
-  })])])])])])]);
+  })], 1)])])])])]);
 };
-var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', {
-    staticClass: "cptm-card-preview-thumbnail-bg"
-  }, [_c('span', {
-    staticClass: "uil uil-scenery"
-  })]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('p', {
-    staticClass: "cptm-preview-notice-text"
-  }, [_vm._v("\n          Want to enable/disable "), _c('strong', [_vm._v("Grid")]), _vm._v(",\n          "), _c('strong', [_vm._v("List")]), _vm._v(" or "), _c('strong', [_vm._v("Map")]), _vm._v(" views for the All\n          Listings Page?\n        ")]);
-}];
+var staticRenderFns = [];
 render._withStripped = true;
 
 
@@ -30807,7 +30799,7 @@ var render = function render() {
   }), _vm._v(" "), _c('card-widget-placeholder', {
     attrs: {
       "id": "body_title",
-      "containerClass": "cptm-listing-card-preview-top-placeholder cptm-card-light cptm-mb-20 cptm-align-left",
+      "containerClass": "cptm-listing-card-preview-top-placeholder cptm-card-light cptm-mb-12 cptm-align-left",
       "label": _vm.local_layout.body.title.label,
       "enable_widget": _vm.local_layout.body.title.enable_widget,
       "availableWidgets": _vm.theAvailableWidgets,
@@ -31023,71 +31015,9 @@ var render = function render() {
       },
       "update-active-widget": _vm.handleActiveWidgetUpdate
     }
-  })], 1)])])]), _vm._v(" "), _c('div', {
-    staticClass: "cptm-preview-notice"
-  }, [_c('div', {
-    staticClass: "cptm-preview-notice-content"
-  }, [_c('svg', {
-    attrs: {
-      "width": "16",
-      "height": "16",
-      "viewBox": "0 0 16 16",
-      "fill": "none",
-      "xmlns": "http://www.w3.org/2000/svg"
-    }
-  }, [_c('g', {
-    attrs: {
-      "clip-path": "url(#clip0_8301_5081)"
-    }
-  }, [_c('path', {
-    attrs: {
-      "fill-rule": "evenodd",
-      "clip-rule": "evenodd",
-      "d": "M7.99984 1.99984C4.68613 1.99984 1.99984 4.68613 1.99984 7.99984C1.99984 11.3135 4.68613 13.9998 7.99984 13.9998C11.3135 13.9998 13.9998 11.3135 13.9998 7.99984C13.9998 4.68613 11.3135 1.99984 7.99984 1.99984ZM0.666504 7.99984C0.666504 3.94975 3.94975 0.666504 7.99984 0.666504C12.0499 0.666504 15.3332 3.94975 15.3332 7.99984C15.3332 12.0499 12.0499 15.3332 7.99984 15.3332C3.94975 15.3332 0.666504 12.0499 0.666504 7.99984ZM7.33317 5.33317C7.33317 4.96498 7.63165 4.6665 7.99984 4.6665H8.0065C8.37469 4.6665 8.67317 4.96498 8.67317 5.33317C8.67317 5.70136 8.37469 5.99984 8.0065 5.99984H7.99984C7.63165 5.99984 7.33317 5.70136 7.33317 5.33317ZM7.99984 7.33317C8.36803 7.33317 8.6665 7.63165 8.6665 7.99984V10.6665C8.6665 11.0347 8.36803 11.3332 7.99984 11.3332C7.63165 11.3332 7.33317 11.0347 7.33317 10.6665V7.99984C7.33317 7.63165 7.63165 7.33317 7.99984 7.33317Z",
-      "fill": "#3E62F5"
-    }
-  })]), _vm._v(" "), _c('defs', [_c('clipPath', {
-    attrs: {
-      "id": "clip0_8301_5081"
-    }
-  }, [_c('rect', {
-    attrs: {
-      "width": "16",
-      "height": "16",
-      "fill": "white"
-    }
-  })])])]), _vm._v(" "), _vm._m(0)]), _vm._v(" "), _c('div', {
-    staticClass: "cptm-preview-notice-action"
-  }, [_c('a', {
-    staticClass: "cptm-preview-notice-btn",
-    attrs: {
-      "href": "/wp-admin/edit.php?post_type=at_biz_dir&page=atbdp-settings",
-      "target": "_blank"
-    }
-  }, [_vm._v("\n          Go to settings\n          "), _c('svg', {
-    attrs: {
-      "width": "14",
-      "height": "14",
-      "viewBox": "0 0 14 14",
-      "fill": "none",
-      "xmlns": "http://www.w3.org/2000/svg"
-    }
-  }, [_c('path', {
-    attrs: {
-      "fill-rule": "evenodd",
-      "clip-rule": "evenodd",
-      "d": "M6.48424 1.38007C6.769 1.09531 7.23068 1.09531 7.51544 1.38007L12.6196 6.48424C12.9044 6.769 12.9044 7.23068 12.6196 7.51544L7.51544 12.6196C7.23068 12.9044 6.769 12.9044 6.48424 12.6196C6.19948 12.3348 6.19948 11.8732 6.48424 11.5884L10.3436 7.729H1.89567C1.49296 7.729 1.1665 7.40254 1.1665 6.99984C1.1665 6.59713 1.49296 6.27067 1.89567 6.27067H10.3436L6.48424 2.41127C6.19948 2.12651 6.19948 1.66483 6.48424 1.38007Z",
-      "fill": "#4D5761"
-    }
-  })])])])])])]);
+  })], 1)])])])])]);
 };
-var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('p', {
-    staticClass: "cptm-preview-notice-text"
-  }, [_vm._v("\n          Want to enable/disable "), _c('strong', [_vm._v("Grid")]), _vm._v(",\n          "), _c('strong', [_vm._v("List")]), _vm._v(" or "), _c('strong', [_vm._v("Map")]), _vm._v(" views for the All\n          Listings Page?\n        ")]);
-}];
+var staticRenderFns = [];
 render._withStripped = true;
 
 
@@ -31163,7 +31093,37 @@ var render = function render() {
       },
       "update-active-widget": _vm.handleActiveWidgetUpdate
     }
-  })], 1), _vm._v(" "), _vm._m(0)])])]), _vm._v(" "), _c('div', {
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "cptm-card-preview-thumbnail-bg"
+  }, [_c('svg', {
+    attrs: {
+      "width": "100",
+      "height": "80",
+      "viewBox": "0 0 100 80",
+      "fill": "none",
+      "xmlns": "http://www.w3.org/2000/svg"
+    }
+  }, [_c('g', {
+    attrs: {
+      "opacity": "0.2",
+      "clip-path": "url(#clip0_9916_95736)"
+    }
+  }, [_c('path', {
+    attrs: {
+      "d": "M89.9951 0H9.99512C4.48012 0 -0.00488281 4.485 -0.00488281 10V70C-0.00488281 75.515 4.48012 80 9.99512 80H89.9951C95.5101 80 99.9951 75.515 99.9951 70V10C99.9951 4.485 95.5101 0 89.9951 0ZM22.4951 15C24.4842 15 26.3919 15.7902 27.7984 17.1967C29.2049 18.6032 29.9951 20.5109 29.9951 22.5C29.9951 24.4891 29.2049 26.3968 27.7984 27.8033C26.3919 29.2098 24.4842 30 22.4951 30C20.506 30 18.5983 29.2098 17.1918 27.8033C15.7853 26.3968 14.9951 24.4891 14.9951 22.5C14.9951 20.5109 15.7853 18.6032 17.1918 17.1967C18.5983 15.7902 20.506 15 22.4951 15ZM49.9951 65H14.9951L34.9951 40L42.4951 50L57.4951 30L84.9951 65H49.9951Z",
+      "fill": "#4D5761"
+    }
+  })]), _vm._v(" "), _c('defs', [_c('clipPath', {
+    attrs: {
+      "id": "clip0_9916_95736"
+    }
+  }, [_c('rect', {
+    attrs: {
+      "width": "100",
+      "height": "80",
+      "fill": "white"
+    }
+  })])])])])])])]), _vm._v(" "), _c('div', {
     staticClass: "cptm-listing-card-content"
   }, [_c('div', {
     staticClass: "cptm-listing-card-preview-body"
@@ -31258,7 +31218,7 @@ var render = function render() {
   })], 1)]), _vm._v(" "), _c('card-widget-placeholder', {
     attrs: {
       "id": "body_title",
-      "containerClass": "cptm-listing-card-preview-top-placeholder cptm-card-light cptm-mb-20 cptm-align-left",
+      "containerClass": "cptm-listing-card-preview-top-placeholder cptm-card-light cptm-mb-12 cptm-align-left",
       "label": _vm.local_layout.body.title.label,
       "enable_widget": _vm.local_layout.body.title.enable_widget,
       "availableWidgets": _vm.theAvailableWidgets,
@@ -31458,79 +31418,9 @@ var render = function render() {
       },
       "update-active-widget": _vm.handleActiveWidgetUpdate
     }
-  })], 1)])])]), _vm._v(" "), _c('div', {
-    staticClass: "cptm-preview-notice cptm-preview-notice--list"
-  }, [_c('div', {
-    staticClass: "cptm-preview-notice-content"
-  }, [_c('svg', {
-    attrs: {
-      "width": "16",
-      "height": "16",
-      "viewBox": "0 0 16 16",
-      "fill": "none",
-      "xmlns": "http://www.w3.org/2000/svg"
-    }
-  }, [_c('g', {
-    attrs: {
-      "clip-path": "url(#clip0_8301_5081)"
-    }
-  }, [_c('path', {
-    attrs: {
-      "fill-rule": "evenodd",
-      "clip-rule": "evenodd",
-      "d": "M7.99984 1.99984C4.68613 1.99984 1.99984 4.68613 1.99984 7.99984C1.99984 11.3135 4.68613 13.9998 7.99984 13.9998C11.3135 13.9998 13.9998 11.3135 13.9998 7.99984C13.9998 4.68613 11.3135 1.99984 7.99984 1.99984ZM0.666504 7.99984C0.666504 3.94975 3.94975 0.666504 7.99984 0.666504C12.0499 0.666504 15.3332 3.94975 15.3332 7.99984C15.3332 12.0499 12.0499 15.3332 7.99984 15.3332C3.94975 15.3332 0.666504 12.0499 0.666504 7.99984ZM7.33317 5.33317C7.33317 4.96498 7.63165 4.6665 7.99984 4.6665H8.0065C8.37469 4.6665 8.67317 4.96498 8.67317 5.33317C8.67317 5.70136 8.37469 5.99984 8.0065 5.99984H7.99984C7.63165 5.99984 7.33317 5.70136 7.33317 5.33317ZM7.99984 7.33317C8.36803 7.33317 8.6665 7.63165 8.6665 7.99984V10.6665C8.6665 11.0347 8.36803 11.3332 7.99984 11.3332C7.63165 11.3332 7.33317 11.0347 7.33317 10.6665V7.99984C7.33317 7.63165 7.63165 7.33317 7.99984 7.33317Z",
-      "fill": "#3E62F5"
-    }
-  })]), _vm._v(" "), _c('defs', [_c('clipPath', {
-    attrs: {
-      "id": "clip0_8301_5081"
-    }
-  }, [_c('rect', {
-    attrs: {
-      "width": "16",
-      "height": "16",
-      "fill": "white"
-    }
-  })])])]), _vm._v(" "), _vm._m(1)]), _vm._v(" "), _c('div', {
-    staticClass: "cptm-preview-notice-action"
-  }, [_c('a', {
-    staticClass: "cptm-preview-notice-btn",
-    attrs: {
-      "href": "/wp-admin/edit.php?post_type=at_biz_dir&page=atbdp-settings",
-      "target": "_blank"
-    }
-  }, [_vm._v("\n          Go to settings\n          "), _c('svg', {
-    attrs: {
-      "width": "14",
-      "height": "14",
-      "viewBox": "0 0 14 14",
-      "fill": "none",
-      "xmlns": "http://www.w3.org/2000/svg"
-    }
-  }, [_c('path', {
-    attrs: {
-      "fill-rule": "evenodd",
-      "clip-rule": "evenodd",
-      "d": "M6.48424 1.38007C6.769 1.09531 7.23068 1.09531 7.51544 1.38007L12.6196 6.48424C12.9044 6.769 12.9044 7.23068 12.6196 7.51544L7.51544 12.6196C7.23068 12.9044 6.769 12.9044 6.48424 12.6196C6.19948 12.3348 6.19948 11.8732 6.48424 11.5884L10.3436 7.729H1.89567C1.49296 7.729 1.1665 7.40254 1.1665 6.99984C1.1665 6.59713 1.49296 6.27067 1.89567 6.27067H10.3436L6.48424 2.41127C6.19948 2.12651 6.19948 1.66483 6.48424 1.38007Z",
-      "fill": "#4D5761"
-    }
-  })])])])])])]);
+  })], 1)])])])])]);
 };
-var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', {
-    staticClass: "cptm-card-preview-thumbnail-bg"
-  }, [_c('span', {
-    staticClass: "uil uil-scenery"
-  })]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('p', {
-    staticClass: "cptm-preview-notice-text"
-  }, [_vm._v("\n          Want to enable/disable "), _c('strong', [_vm._v("Grid")]), _vm._v(",\n          "), _c('strong', [_vm._v("List")]), _vm._v(" or "), _c('strong', [_vm._v("Map")]), _vm._v(" views for the All\n          Listings Page?\n        ")]);
-}];
+var staticRenderFns = [];
 render._withStripped = true;
 
 
@@ -31606,7 +31496,37 @@ var render = function render() {
       },
       "update-active-widget": _vm.handleActiveWidgetUpdate
     }
-  })], 1), _vm._v(" "), _vm._m(0)])])]), _vm._v(" "), _c('div', {
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "cptm-card-preview-thumbnail-bg"
+  }, [_c('svg', {
+    attrs: {
+      "width": "100",
+      "height": "80",
+      "viewBox": "0 0 100 80",
+      "fill": "none",
+      "xmlns": "http://www.w3.org/2000/svg"
+    }
+  }, [_c('g', {
+    attrs: {
+      "opacity": "0.2",
+      "clip-path": "url(#clip0_9916_95736)"
+    }
+  }, [_c('path', {
+    attrs: {
+      "d": "M89.9951 0H9.99512C4.48012 0 -0.00488281 4.485 -0.00488281 10V70C-0.00488281 75.515 4.48012 80 9.99512 80H89.9951C95.5101 80 99.9951 75.515 99.9951 70V10C99.9951 4.485 95.5101 0 89.9951 0ZM22.4951 15C24.4842 15 26.3919 15.7902 27.7984 17.1967C29.2049 18.6032 29.9951 20.5109 29.9951 22.5C29.9951 24.4891 29.2049 26.3968 27.7984 27.8033C26.3919 29.2098 24.4842 30 22.4951 30C20.506 30 18.5983 29.2098 17.1918 27.8033C15.7853 26.3968 14.9951 24.4891 14.9951 22.5C14.9951 20.5109 15.7853 18.6032 17.1918 17.1967C18.5983 15.7902 20.506 15 22.4951 15ZM49.9951 65H14.9951L34.9951 40L42.4951 50L57.4951 30L84.9951 65H49.9951Z",
+      "fill": "#4D5761"
+    }
+  })]), _vm._v(" "), _c('defs', [_c('clipPath', {
+    attrs: {
+      "id": "clip0_9916_95736"
+    }
+  }, [_c('rect', {
+    attrs: {
+      "width": "100",
+      "height": "80",
+      "fill": "white"
+    }
+  })])])])])])])]), _vm._v(" "), _c('div', {
     staticClass: "cptm-listing-card-content"
   }, [_c('div', {
     staticClass: "cptm-listing-card-preview-body"
@@ -31701,7 +31621,7 @@ var render = function render() {
   })], 1)]), _vm._v(" "), _c('card-widget-placeholder', {
     attrs: {
       "id": "body_title",
-      "containerClass": "cptm-listing-card-preview-top-placeholder cptm-card-light cptm-mb-20 cptm-align-left",
+      "containerClass": "cptm-listing-card-preview-top-placeholder cptm-card-light cptm-mb-12 cptm-align-left",
       "label": _vm.local_layout.body.title.label,
       "enable_widget": _vm.local_layout.body.title.enable_widget,
       "availableWidgets": _vm.theAvailableWidgets,
@@ -31901,79 +31821,9 @@ var render = function render() {
       },
       "update-active-widget": _vm.handleActiveWidgetUpdate
     }
-  })], 1)])])]), _vm._v(" "), _c('div', {
-    staticClass: "cptm-preview-notice cptm-preview-notice--list"
-  }, [_c('div', {
-    staticClass: "cptm-preview-notice-content"
-  }, [_c('svg', {
-    attrs: {
-      "width": "16",
-      "height": "16",
-      "viewBox": "0 0 16 16",
-      "fill": "none",
-      "xmlns": "http://www.w3.org/2000/svg"
-    }
-  }, [_c('g', {
-    attrs: {
-      "clip-path": "url(#clip0_8301_5081)"
-    }
-  }, [_c('path', {
-    attrs: {
-      "fill-rule": "evenodd",
-      "clip-rule": "evenodd",
-      "d": "M7.99984 1.99984C4.68613 1.99984 1.99984 4.68613 1.99984 7.99984C1.99984 11.3135 4.68613 13.9998 7.99984 13.9998C11.3135 13.9998 13.9998 11.3135 13.9998 7.99984C13.9998 4.68613 11.3135 1.99984 7.99984 1.99984ZM0.666504 7.99984C0.666504 3.94975 3.94975 0.666504 7.99984 0.666504C12.0499 0.666504 15.3332 3.94975 15.3332 7.99984C15.3332 12.0499 12.0499 15.3332 7.99984 15.3332C3.94975 15.3332 0.666504 12.0499 0.666504 7.99984ZM7.33317 5.33317C7.33317 4.96498 7.63165 4.6665 7.99984 4.6665H8.0065C8.37469 4.6665 8.67317 4.96498 8.67317 5.33317C8.67317 5.70136 8.37469 5.99984 8.0065 5.99984H7.99984C7.63165 5.99984 7.33317 5.70136 7.33317 5.33317ZM7.99984 7.33317C8.36803 7.33317 8.6665 7.63165 8.6665 7.99984V10.6665C8.6665 11.0347 8.36803 11.3332 7.99984 11.3332C7.63165 11.3332 7.33317 11.0347 7.33317 10.6665V7.99984C7.33317 7.63165 7.63165 7.33317 7.99984 7.33317Z",
-      "fill": "#3E62F5"
-    }
-  })]), _vm._v(" "), _c('defs', [_c('clipPath', {
-    attrs: {
-      "id": "clip0_8301_5081"
-    }
-  }, [_c('rect', {
-    attrs: {
-      "width": "16",
-      "height": "16",
-      "fill": "white"
-    }
-  })])])]), _vm._v(" "), _vm._m(1)]), _vm._v(" "), _c('div', {
-    staticClass: "cptm-preview-notice-action"
-  }, [_c('a', {
-    staticClass: "cptm-preview-notice-btn",
-    attrs: {
-      "href": "/wp-admin/edit.php?post_type=at_biz_dir&page=atbdp-settings",
-      "target": "_blank"
-    }
-  }, [_vm._v("\n          Go to settings\n          "), _c('svg', {
-    attrs: {
-      "width": "14",
-      "height": "14",
-      "viewBox": "0 0 14 14",
-      "fill": "none",
-      "xmlns": "http://www.w3.org/2000/svg"
-    }
-  }, [_c('path', {
-    attrs: {
-      "fill-rule": "evenodd",
-      "clip-rule": "evenodd",
-      "d": "M6.48424 1.38007C6.769 1.09531 7.23068 1.09531 7.51544 1.38007L12.6196 6.48424C12.9044 6.769 12.9044 7.23068 12.6196 7.51544L7.51544 12.6196C7.23068 12.9044 6.769 12.9044 6.48424 12.6196C6.19948 12.3348 6.19948 11.8732 6.48424 11.5884L10.3436 7.729H1.89567C1.49296 7.729 1.1665 7.40254 1.1665 6.99984C1.1665 6.59713 1.49296 6.27067 1.89567 6.27067H10.3436L6.48424 2.41127C6.19948 2.12651 6.19948 1.66483 6.48424 1.38007Z",
-      "fill": "#4D5761"
-    }
-  })])])])])])]);
+  })], 1)])])])])]);
 };
-var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', {
-    staticClass: "cptm-card-preview-thumbnail-bg"
-  }, [_c('span', {
-    staticClass: "uil uil-scenery"
-  })]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('p', {
-    staticClass: "cptm-preview-notice-text"
-  }, [_vm._v("\n          Want to enable/disable "), _c('strong', [_vm._v("Grid")]), _vm._v(",\n          "), _c('strong', [_vm._v("List")]), _vm._v(" or "), _c('strong', [_vm._v("Map")]), _vm._v(" views for the All\n          Listings Page?\n        ")]);
-}];
+var staticRenderFns = [];
 render._withStripped = true;
 
 
@@ -32095,7 +31945,7 @@ var render = function render() {
   })], 1)]), _vm._v(" "), _c('card-widget-placeholder', {
     attrs: {
       "id": "body_title",
-      "containerClass": "cptm-listing-card-preview-top-placeholder cptm-card-light cptm-mb-20 cptm-align-left",
+      "containerClass": "cptm-listing-card-preview-top-placeholder cptm-card-light cptm-mb-12 cptm-align-left",
       "label": _vm.local_layout.body.title.label,
       "enable_widget": _vm.local_layout.body.title.enable_widget,
       "availableWidgets": _vm.theAvailableWidgets,
@@ -32295,71 +32145,9 @@ var render = function render() {
       },
       "update-active-widget": _vm.handleActiveWidgetUpdate
     }
-  })], 1)])])]), _vm._v(" "), _c('div', {
-    staticClass: "cptm-preview-notice cptm-preview-notice--list"
-  }, [_c('div', {
-    staticClass: "cptm-preview-notice-content"
-  }, [_c('svg', {
-    attrs: {
-      "width": "16",
-      "height": "16",
-      "viewBox": "0 0 16 16",
-      "fill": "none",
-      "xmlns": "http://www.w3.org/2000/svg"
-    }
-  }, [_c('g', {
-    attrs: {
-      "clip-path": "url(#clip0_8301_5081)"
-    }
-  }, [_c('path', {
-    attrs: {
-      "fill-rule": "evenodd",
-      "clip-rule": "evenodd",
-      "d": "M7.99984 1.99984C4.68613 1.99984 1.99984 4.68613 1.99984 7.99984C1.99984 11.3135 4.68613 13.9998 7.99984 13.9998C11.3135 13.9998 13.9998 11.3135 13.9998 7.99984C13.9998 4.68613 11.3135 1.99984 7.99984 1.99984ZM0.666504 7.99984C0.666504 3.94975 3.94975 0.666504 7.99984 0.666504C12.0499 0.666504 15.3332 3.94975 15.3332 7.99984C15.3332 12.0499 12.0499 15.3332 7.99984 15.3332C3.94975 15.3332 0.666504 12.0499 0.666504 7.99984ZM7.33317 5.33317C7.33317 4.96498 7.63165 4.6665 7.99984 4.6665H8.0065C8.37469 4.6665 8.67317 4.96498 8.67317 5.33317C8.67317 5.70136 8.37469 5.99984 8.0065 5.99984H7.99984C7.63165 5.99984 7.33317 5.70136 7.33317 5.33317ZM7.99984 7.33317C8.36803 7.33317 8.6665 7.63165 8.6665 7.99984V10.6665C8.6665 11.0347 8.36803 11.3332 7.99984 11.3332C7.63165 11.3332 7.33317 11.0347 7.33317 10.6665V7.99984C7.33317 7.63165 7.63165 7.33317 7.99984 7.33317Z",
-      "fill": "#3E62F5"
-    }
-  })]), _vm._v(" "), _c('defs', [_c('clipPath', {
-    attrs: {
-      "id": "clip0_8301_5081"
-    }
-  }, [_c('rect', {
-    attrs: {
-      "width": "16",
-      "height": "16",
-      "fill": "white"
-    }
-  })])])]), _vm._v(" "), _vm._m(0)]), _vm._v(" "), _c('div', {
-    staticClass: "cptm-preview-notice-action"
-  }, [_c('a', {
-    staticClass: "cptm-preview-notice-btn",
-    attrs: {
-      "href": "/wp-admin/edit.php?post_type=at_biz_dir&page=atbdp-settings",
-      "target": "_blank"
-    }
-  }, [_vm._v("\n          Go to settings\n          "), _c('svg', {
-    attrs: {
-      "width": "14",
-      "height": "14",
-      "viewBox": "0 0 14 14",
-      "fill": "none",
-      "xmlns": "http://www.w3.org/2000/svg"
-    }
-  }, [_c('path', {
-    attrs: {
-      "fill-rule": "evenodd",
-      "clip-rule": "evenodd",
-      "d": "M6.48424 1.38007C6.769 1.09531 7.23068 1.09531 7.51544 1.38007L12.6196 6.48424C12.9044 6.769 12.9044 7.23068 12.6196 7.51544L7.51544 12.6196C7.23068 12.9044 6.769 12.9044 6.48424 12.6196C6.19948 12.3348 6.19948 11.8732 6.48424 11.5884L10.3436 7.729H1.89567C1.49296 7.729 1.1665 7.40254 1.1665 6.99984C1.1665 6.59713 1.49296 6.27067 1.89567 6.27067H10.3436L6.48424 2.41127C6.19948 2.12651 6.19948 1.66483 6.48424 1.38007Z",
-      "fill": "#4D5761"
-    }
-  })])])])])])]);
+  })], 1)])])])])]);
 };
-var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('p', {
-    staticClass: "cptm-preview-notice-text"
-  }, [_vm._v("\n          Want to enable/disable "), _c('strong', [_vm._v("Grid")]), _vm._v(",\n          "), _c('strong', [_vm._v("List")]), _vm._v(" or "), _c('strong', [_vm._v("Map")]), _vm._v(" views for the All\n          Listings Page?\n        ")]);
-}];
+var staticRenderFns = [];
 render._withStripped = true;
 
 

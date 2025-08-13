@@ -57,7 +57,25 @@
               </div>
 
               <div class="cptm-card-preview-thumbnail-bg">
-                <span class="uil uil-scenery"></span>
+                <svg
+                  width="100"
+                  height="80"
+                  viewBox="0 0 100 80"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g opacity="0.2" clip-path="url(#clip0_9916_95736)">
+                    <path
+                      d="M89.9951 0H9.99512C4.48012 0 -0.00488281 4.485 -0.00488281 10V70C-0.00488281 75.515 4.48012 80 9.99512 80H89.9951C95.5101 80 99.9951 75.515 99.9951 70V10C99.9951 4.485 95.5101 0 89.9951 0ZM22.4951 15C24.4842 15 26.3919 15.7902 27.7984 17.1967C29.2049 18.6032 29.9951 20.5109 29.9951 22.5C29.9951 24.4891 29.2049 26.3968 27.7984 27.8033C26.3919 29.2098 24.4842 30 22.4951 30C20.506 30 18.5983 29.2098 17.1918 27.8033C15.7853 26.3968 14.9951 24.4891 14.9951 22.5C14.9951 20.5109 15.7853 18.6032 17.1918 17.1967C18.5983 15.7902 20.506 15 22.4951 15ZM49.9951 65H14.9951L34.9951 40L42.4951 50L57.4951 30L84.9951 65H49.9951Z"
+                      fill="#4D5761"
+                    />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_9916_95736">
+                      <rect width="100" height="80" fill="white" />
+                    </clipPath>
+                  </defs>
+                </svg>
               </div>
             </div>
           </div>
@@ -160,7 +178,7 @@
 
             <card-widget-placeholder
               id="body_title"
-              containerClass="cptm-listing-card-preview-top-placeholder cptm-card-light cptm-mb-20 cptm-align-left"
+              containerClass="cptm-listing-card-preview-top-placeholder cptm-card-light cptm-mb-12 cptm-align-left"
               :label="local_layout.body.title.label"
               :enable_widget="local_layout.body.title.enable_widget"
               :availableWidgets="theAvailableWidgets"
@@ -316,60 +334,6 @@
               />
             </div>
           </div>
-        </div>
-      </div>
-
-      <div class="cptm-preview-notice cptm-preview-notice--list">
-        <div class="cptm-preview-notice-content">
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 16 16"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <g clip-path="url(#clip0_8301_5081)">
-              <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-                d="M7.99984 1.99984C4.68613 1.99984 1.99984 4.68613 1.99984 7.99984C1.99984 11.3135 4.68613 13.9998 7.99984 13.9998C11.3135 13.9998 13.9998 11.3135 13.9998 7.99984C13.9998 4.68613 11.3135 1.99984 7.99984 1.99984ZM0.666504 7.99984C0.666504 3.94975 3.94975 0.666504 7.99984 0.666504C12.0499 0.666504 15.3332 3.94975 15.3332 7.99984C15.3332 12.0499 12.0499 15.3332 7.99984 15.3332C3.94975 15.3332 0.666504 12.0499 0.666504 7.99984ZM7.33317 5.33317C7.33317 4.96498 7.63165 4.6665 7.99984 4.6665H8.0065C8.37469 4.6665 8.67317 4.96498 8.67317 5.33317C8.67317 5.70136 8.37469 5.99984 8.0065 5.99984H7.99984C7.63165 5.99984 7.33317 5.70136 7.33317 5.33317ZM7.99984 7.33317C8.36803 7.33317 8.6665 7.63165 8.6665 7.99984V10.6665C8.6665 11.0347 8.36803 11.3332 7.99984 11.3332C7.63165 11.3332 7.33317 11.0347 7.33317 10.6665V7.99984C7.33317 7.63165 7.63165 7.33317 7.99984 7.33317Z"
-                fill="#3E62F5"
-              />
-            </g>
-            <defs>
-              <clipPath id="clip0_8301_5081">
-                <rect width="16" height="16" fill="white" />
-              </clipPath>
-            </defs>
-          </svg>
-          <p class="cptm-preview-notice-text">
-            Want to enable/disable <strong>Grid</strong>,
-            <strong>List</strong> or <strong>Map</strong> views for the All
-            Listings Page?
-          </p>
-        </div>
-        <div class="cptm-preview-notice-action">
-          <a
-            href="/wp-admin/edit.php?post_type=at_biz_dir&page=atbdp-settings"
-            target="_blank"
-            class="cptm-preview-notice-btn"
-          >
-            Go to settings
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 14 14"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-                d="M6.48424 1.38007C6.769 1.09531 7.23068 1.09531 7.51544 1.38007L12.6196 6.48424C12.9044 6.769 12.9044 7.23068 12.6196 7.51544L7.51544 12.6196C7.23068 12.9044 6.769 12.9044 6.48424 12.6196C6.19948 12.3348 6.19948 11.8732 6.48424 11.5884L10.3436 7.729H1.89567C1.49296 7.729 1.1665 7.40254 1.1665 6.99984C1.1665 6.59713 1.49296 6.27067 1.89567 6.27067H10.3436L6.48424 2.41127C6.19948 2.12651 6.19948 1.66483 6.48424 1.38007Z"
-                fill="#4D5761"
-              />
-            </svg>
-          </a>
         </div>
       </div>
     </div>

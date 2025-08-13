@@ -5,9 +5,12 @@
     <div
       class="cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
     >
-      <span>
+      <span class="cptm-widget-badge-label">
         <i :class="icon ? icon : 'uil uil-eye'"></i>
         0
+      </span>
+      <span class="cptm-widget-badge-trash" @click.stop="$emit('trash-widget')">
+        <span class="las la-times"></span>
       </span>
     </div>
   </div>

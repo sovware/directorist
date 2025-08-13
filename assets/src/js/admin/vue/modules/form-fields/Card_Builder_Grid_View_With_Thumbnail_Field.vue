@@ -266,7 +266,7 @@
 
             <card-widget-placeholder
               id="thumbnail_body_top"
-              containerClass="cptm-listing-card-preview-top-placeholder cptm-card-light cptm-mb-12 cptm-align-left"
+              containerClass="cptm-listing-card-preview-top-placeholder cptm-mb-12 cptm-align-left"
               :label="local_layout.body.top.label"
               :enable_widget="local_layout.body.top.enable_widget"
               :availableWidgets="theAvailableWidgets"
@@ -300,7 +300,7 @@
 
             <card-widget-placeholder
               id="thumbnail_body_bottom"
-              containerClass="cptm-listing-card-preview-body-placeholder cptm-card-light"
+              containerClass="cptm-listing-card-preview-body-placeholder"
               :label="local_layout.body.bottom.label"
               :availableWidgets="theAvailableWidgets"
               :activeWidgets="active_widgets"
@@ -338,7 +338,7 @@
             <div class="cptm-card-preview-footer-left">
               <card-widget-placeholder
                 id="thumbnail_footer_left"
-                containerClass="cptm-listing-card-preview-footer-left-placeholder cptm-card-light"
+                containerClass="cptm-listing-card-preview-footer-left-placeholder"
                 :label="local_layout.footer.left.label"
                 :availableWidgets="theAvailableWidgets"
                 :activeWidgets="active_widgets"
@@ -377,7 +377,7 @@
             <div class="cptm-card-preview-footer-right">
               <card-widget-placeholder
                 id="thumbnail_footer_right"
-                containerClass="cptm-listing-card-preview-footer-right-placeholder cptm-card-light"
+                containerClass="cptm-listing-card-preview-footer-right-placeholder"
                 :label="local_layout.footer.right.label"
                 :availableWidgets="theAvailableWidgets"
                 :activeWidgets="active_widgets"

@@ -6,7 +6,7 @@
     <div
       class="cptm-widget-card cptm-has-widget-control cptm-widget-actions-tools-wrap"
     >
-      <p class="cptm-placeholder-author-thumb">
+      <div class="cptm-placeholder-author-thumb">
         <svg
           width="40"
           height="40"
@@ -19,7 +19,13 @@
             fill="#141921"
           />
         </svg>
-      </p>
+        <span
+          class="cptm-placeholder-author-thumb-trash"
+          @click.stop="$emit('trash-widget')"
+        >
+          <span class="las la-trash-alt"></span>
+        </span>
+      </div>
     </div>
   </div>
 </template>

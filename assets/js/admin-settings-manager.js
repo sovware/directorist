@@ -17350,6 +17350,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "badge-card-widget",
   props: {
+    widgetKey: {
+      type: String
+    },
     icon: {
       type: String
     },
@@ -20612,7 +20615,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         align_option = "center";
       }
       return {
-        "cptm-listing-card-author-avatar-placeholder cptm-card-light cptm-mb-20": true,
+        "cptm-listing-card-author-avatar-placeholder cptm-mb-20": true,
         "cptm-text-right": "right" === align_option ? true : false,
         "cptm-text-center": "center" === align_option ? true : false,
         "cptm-text-left": "left" === align_option ? true : false
@@ -26663,12 +26666,16 @@ var render = function render() {
       attrs: {
         "label": typeof _vm.availableWidgets[widget] !== 'undefined' ? _vm.availableWidgets[widget].label : 'Not Available',
         "icon": typeof _vm.availableWidgets[widget].icon === 'string' ? _vm.availableWidgets[widget].icon : '',
+        "widgetKey": widget,
         "options": _vm.availableWidgets[widget].options,
         "fields": _vm.availableWidgets[widget].fields,
         "disabled": _vm.readOnly && !((_vm$selectedWidgets5 = _vm.selectedWidgets) !== null && _vm$selectedWidgets5 !== void 0 && _vm$selectedWidgets5.includes(widget)),
         "readOnly": _vm.readOnly
       },
       on: {
+        "trash-widget": function trashWidget($event) {
+          return _vm.$emit('trash-widget', widget);
+        },
         "edit": function edit($event) {
           return _vm.$emit('edit-widget', widget);
         }
@@ -27925,7 +27932,7 @@ var render = function render() {
     }
   }, [_c('div', {
     staticClass: "cptm-widget-card cptm-has-widget-control cptm-widget-actions-tools-wrap"
-  }, [_c('p', {
+  }, [_c('div', {
     staticClass: "cptm-placeholder-author-thumb"
   }, [_c('svg', {
     attrs: {
@@ -27940,6 +27947,16 @@ var render = function render() {
       "d": "M35.1667 20.8327L37.5 23.1827L26.6167 34.166L20.8333 28.3327L23.1667 25.9827L26.6167 29.4493L35.1667 20.8327ZM16.6667 28.3327L21.6667 33.3327H5V29.9993C5 26.316 10.9667 23.3327 18.3333 23.3327L21.4833 23.516L16.6667 28.3327ZM18.3333 6.66602C20.1014 6.66602 21.7971 7.36839 23.0474 8.61864C24.2976 9.86888 25 11.5646 25 13.3327C25 15.1008 24.2976 16.7965 23.0474 18.0467C21.7971 19.297 20.1014 19.9993 18.3333 19.9993C16.5652 19.9993 14.8695 19.297 13.6193 18.0467C12.369 16.7965 11.6667 15.1008 11.6667 13.3327C11.6667 11.5646 12.369 9.86888 13.6193 8.61864C14.8695 7.36839 16.5652 6.66602 18.3333 6.66602Z",
       "fill": "#141921"
     }
+  })]), _vm._v(" "), _c('span', {
+    staticClass: "cptm-placeholder-author-thumb-trash",
+    on: {
+      "click": function click($event) {
+        $event.stopPropagation();
+        return _vm.$emit('trash-widget');
+      }
+    }
+  }, [_c('span', {
+    staticClass: "las la-trash-alt"
   })])])])]);
 };
 var staticRenderFns = [];
@@ -27988,12 +28005,22 @@ var render = function render() {
     style: {
       color: ((_vm$fields4 = _vm.fields) === null || _vm$fields4 === void 0 || (_vm$fields4 = _vm$fields4.text) === null || _vm$fields4 === void 0 || (_vm$fields4 = _vm$fields4.text_color) === null || _vm$fields4 === void 0 ? void 0 : _vm$fields4.value) || ''
     }
-  }) : _vm._e(), _vm._v(" "), _c('span', {
+  }) : _vm._e(), _vm._v(" "), _vm.label ? _c('span', {
     staticClass: "cptm-widget-badge-label",
     style: {
       color: ((_vm$fields5 = _vm.fields) === null || _vm$fields5 === void 0 || (_vm$fields5 = _vm$fields5.text) === null || _vm$fields5 === void 0 || (_vm$fields5 = _vm$fields5.text_color) === null || _vm$fields5 === void 0 ? void 0 : _vm$fields5.value) || ''
     }
-  }, [_vm._v(_vm._s(_vm.label))])])])]);
+  }, [_vm._v(_vm._s(_vm.label))]) : _vm._e(), _vm._v(" "), _c('span', {
+    staticClass: "cptm-widget-badge-trash",
+    on: {
+      "click": function click($event) {
+        $event.stopPropagation();
+        return _vm.$emit('trash-widget');
+      }
+    }
+  }, [_c('span', {
+    staticClass: "las la-times"
+  })])])])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -28021,8 +28048,21 @@ var render = function render() {
   }, [_c('div', {
     staticClass: "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
   }, [_vm.icon ? _c('span', {
+    staticClass: "cptm-widget-badge-icon",
     class: _vm.icon
-  }) : _vm._e(), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.label))])])]);
+  }) : _vm._e(), _vm._v(" "), _vm.label ? _c('span', {
+    staticClass: "cptm-widget-badge-label"
+  }, [_vm._v(_vm._s(_vm.label))]) : _vm._e(), _vm._v(" "), _c('span', {
+    staticClass: "cptm-widget-badge-trash",
+    on: {
+      "click": function click($event) {
+        $event.stopPropagation();
+        return _vm.$emit('trash-widget');
+      }
+    }
+  }, [_c('span', {
+    staticClass: "las la-times"
+  })])])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -28050,8 +28090,21 @@ var render = function render() {
   }, [_c('div', {
     staticClass: "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
   }, [_vm.icon ? _c('span', {
+    staticClass: "cptm-widget-badge-icon",
     class: _vm.icon
-  }) : _vm._e(), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.label))])])]);
+  }) : _vm._e(), _vm._v(" "), _vm.label ? _c('span', {
+    staticClass: "cptm-widget-badge-label"
+  }, [_vm._v(_vm._s(_vm.label))]) : _vm._e(), _vm._v(" "), _c('span', {
+    staticClass: "cptm-widget-badge-trash",
+    on: {
+      "click": function click($event) {
+        $event.stopPropagation();
+        return _vm.$emit('trash-widget');
+      }
+    }
+  }, [_c('span', {
+    staticClass: "las la-times"
+  })])])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -28079,8 +28132,21 @@ var render = function render() {
   }, [_c('div', {
     staticClass: "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
   }, [_vm.icon ? _c('span', {
+    staticClass: "cptm-widget-badge-icon",
     class: _vm.icon
-  }) : _vm._e(), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.label))])])]);
+  }) : _vm._e(), _vm._v(" "), _vm.label ? _c('span', {
+    staticClass: "cptm-widget-badge-label"
+  }, [_vm._v(_vm._s(_vm.label))]) : _vm._e(), _vm._v(" "), _c('span', {
+    staticClass: "cptm-widget-badge-trash",
+    on: {
+      "click": function click($event) {
+        $event.stopPropagation();
+        return _vm.$emit('trash-widget');
+      }
+    }
+  }, [_c('span', {
+    staticClass: "las la-times"
+  })])])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -28108,8 +28174,21 @@ var render = function render() {
   }, [_c('div', {
     staticClass: "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
   }, [_vm.icon ? _c('span', {
+    staticClass: "cptm-widget-badge-icon",
     class: _vm.icon
-  }) : _vm._e(), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.label))])])]);
+  }) : _vm._e(), _vm._v(" "), _vm.label ? _c('span', {
+    staticClass: "cptm-widget-badge-label"
+  }, [_vm._v(_vm._s(_vm.label))]) : _vm._e(), _vm._v(" "), _c('span', {
+    staticClass: "cptm-widget-badge-trash",
+    on: {
+      "click": function click($event) {
+        $event.stopPropagation();
+        return _vm.$emit('trash-widget');
+      }
+    }
+  }, [_c('span', {
+    staticClass: "las la-times"
+  })])])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -28172,8 +28251,21 @@ var render = function render() {
   }, [_c('div', {
     staticClass: "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
   }, [_vm.icon ? _c('span', {
+    staticClass: "cptm-widget-badge-icon",
     class: _vm.icon
-  }) : _vm._e(), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.label))])])]);
+  }) : _vm._e(), _vm._v(" "), _vm.label ? _c('span', {
+    staticClass: "cptm-widget-badge-label"
+  }, [_vm._v(_vm._s(_vm.label))]) : _vm._e(), _vm._v(" "), _c('span', {
+    staticClass: "cptm-widget-badge-trash",
+    on: {
+      "click": function click($event) {
+        $event.stopPropagation();
+        return _vm.$emit('trash-widget');
+      }
+    }
+  }, [_c('span', {
+    staticClass: "las la-times"
+  })])])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -28201,8 +28293,21 @@ var render = function render() {
   }, [_c('div', {
     staticClass: "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
   }, [_vm.icon ? _c('span', {
+    staticClass: "cptm-widget-badge-icon",
     class: _vm.icon
-  }) : _vm._e(), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.label))])])]);
+  }) : _vm._e(), _vm._v(" "), _vm.label ? _c('span', {
+    staticClass: "cptm-widget-badge-label"
+  }, [_vm._v(_vm._s(_vm.label))]) : _vm._e(), _vm._v(" "), _c('span', {
+    staticClass: "cptm-widget-badge-trash",
+    on: {
+      "click": function click($event) {
+        $event.stopPropagation();
+        return _vm.$emit('trash-widget');
+      }
+    }
+  }, [_c('span', {
+    staticClass: "las la-times"
+  })])])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -28230,8 +28335,21 @@ var render = function render() {
   }, [_c('div', {
     staticClass: "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
   }, [_vm.icon ? _c('span', {
+    staticClass: "cptm-widget-badge-icon",
     class: _vm.icon
-  }) : _vm._e(), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.label))])])]);
+  }) : _vm._e(), _vm._v(" "), _vm.label ? _c('span', {
+    staticClass: "cptm-widget-badge-label"
+  }, [_vm._v(_vm._s(_vm.label))]) : _vm._e(), _vm._v(" "), _c('span', {
+    staticClass: "cptm-widget-badge-trash",
+    on: {
+      "click": function click($event) {
+        $event.stopPropagation();
+        return _vm.$emit('trash-widget');
+      }
+    }
+  }, [_c('span', {
+    staticClass: "las la-times"
+  })])])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -28259,8 +28377,21 @@ var render = function render() {
   }, [_c('div', {
     staticClass: "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
   }, [_vm.icon ? _c('span', {
+    staticClass: "cptm-widget-badge-icon",
     class: _vm.icon
-  }) : _vm._e(), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.label))])])]);
+  }) : _vm._e(), _vm._v(" "), _vm.label ? _c('span', {
+    staticClass: "cptm-widget-badge-label"
+  }, [_vm._v(_vm._s(_vm.label))]) : _vm._e(), _vm._v(" "), _c('span', {
+    staticClass: "cptm-widget-badge-trash",
+    on: {
+      "click": function click($event) {
+        $event.stopPropagation();
+        return _vm.$emit('trash-widget');
+      }
+    }
+  }, [_c('span', {
+    staticClass: "las la-times"
+  })])])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -28422,9 +28553,21 @@ var render = function render() {
     staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap"
   }, [_c('div', {
     staticClass: "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
-  }, [_c('span', [_c('i', {
+  }, [_c('span', {
+    staticClass: "cptm-widget-badge-label"
+  }, [_c('i', {
     class: _vm.icon ? _vm.icon : 'uil uil-eye'
-  }), _vm._v("\n      0\n    ")])])]);
+  }), _vm._v("\n      0\n    ")]), _vm._v(" "), _c('span', {
+    staticClass: "cptm-widget-badge-trash",
+    on: {
+      "click": function click($event) {
+        $event.stopPropagation();
+        return _vm.$emit('trash-widget');
+      }
+    }
+  }, [_c('span', {
+    staticClass: "las la-times"
+  })])])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -29833,7 +29976,7 @@ var render = function render() {
   })], 1), _vm._v(" "), _c('card-widget-placeholder', {
     attrs: {
       "id": "thumbnail_body_top",
-      "containerClass": "cptm-listing-card-preview-top-placeholder cptm-card-light cptm-mb-12 cptm-align-left",
+      "containerClass": "cptm-listing-card-preview-top-placeholder cptm-mb-12 cptm-align-left",
       "label": _vm.local_layout.body.top.label,
       "enable_widget": _vm.local_layout.body.top.enable_widget,
       "availableWidgets": _vm.theAvailableWidgets,
@@ -29859,7 +30002,7 @@ var render = function render() {
   }, [_c('card-widget-placeholder', {
     attrs: {
       "id": "thumbnail_body_bottom",
-      "containerClass": "cptm-listing-card-preview-body-placeholder cptm-card-light",
+      "containerClass": "cptm-listing-card-preview-body-placeholder",
       "label": _vm.local_layout.body.bottom.label,
       "availableWidgets": _vm.theAvailableWidgets,
       "activeWidgets": _vm.active_widgets,
@@ -29904,7 +30047,7 @@ var render = function render() {
   }, [_c('card-widget-placeholder', {
     attrs: {
       "id": "thumbnail_footer_left",
-      "containerClass": "cptm-listing-card-preview-footer-left-placeholder cptm-card-light",
+      "containerClass": "cptm-listing-card-preview-footer-left-placeholder",
       "label": _vm.local_layout.footer.left.label,
       "availableWidgets": _vm.theAvailableWidgets,
       "activeWidgets": _vm.active_widgets,
@@ -29947,7 +30090,7 @@ var render = function render() {
   }, [_c('card-widget-placeholder', {
     attrs: {
       "id": "thumbnail_footer_right",
-      "containerClass": "cptm-listing-card-preview-footer-right-placeholder cptm-card-light",
+      "containerClass": "cptm-listing-card-preview-footer-right-placeholder",
       "label": _vm.local_layout.footer.right.label,
       "availableWidgets": _vm.theAvailableWidgets,
       "activeWidgets": _vm.active_widgets,
@@ -30277,7 +30420,7 @@ var render = function render() {
   })], 1), _vm._v(" "), _c('card-widget-placeholder', {
     attrs: {
       "id": "thumbnail_body_top",
-      "containerClass": "cptm-listing-card-preview-top-placeholder cptm-card-light cptm-mb-12 cptm-align-left",
+      "containerClass": "cptm-listing-card-preview-top-placeholder cptm-mb-12 cptm-align-left",
       "label": _vm.local_layout.body.top.label,
       "enable_widget": _vm.local_layout.body.top.enable_widget,
       "availableWidgets": _vm.theAvailableWidgets,
@@ -30319,7 +30462,7 @@ var render = function render() {
   }), _vm._v(" "), _c('card-widget-placeholder', {
     attrs: {
       "id": "thumbnail_body_bottom",
-      "containerClass": "cptm-listing-card-preview-body-placeholder cptm-card-light",
+      "containerClass": "cptm-listing-card-preview-body-placeholder",
       "label": _vm.local_layout.body.bottom.label,
       "availableWidgets": _vm.theAvailableWidgets,
       "activeWidgets": _vm.active_widgets,
@@ -30364,7 +30507,7 @@ var render = function render() {
   }, [_c('card-widget-placeholder', {
     attrs: {
       "id": "thumbnail_footer_left",
-      "containerClass": "cptm-listing-card-preview-footer-left-placeholder cptm-card-light",
+      "containerClass": "cptm-listing-card-preview-footer-left-placeholder",
       "label": _vm.local_layout.footer.left.label,
       "availableWidgets": _vm.theAvailableWidgets,
       "activeWidgets": _vm.active_widgets,
@@ -30407,7 +30550,7 @@ var render = function render() {
   }, [_c('card-widget-placeholder', {
     attrs: {
       "id": "thumbnail_footer_right",
-      "containerClass": "cptm-listing-card-preview-footer-right-placeholder cptm-card-light",
+      "containerClass": "cptm-listing-card-preview-footer-right-placeholder",
       "label": _vm.local_layout.footer.right.label,
       "availableWidgets": _vm.theAvailableWidgets,
       "activeWidgets": _vm.active_widgets,
@@ -30485,7 +30628,7 @@ var render = function render() {
   }, [_c('card-widget-placeholder', {
     attrs: {
       "id": "top_quick_actions",
-      "containerClass": "cptm-listing-card-quick-actions-placeholder cptm-card-light cptm-mb-20",
+      "containerClass": "cptm-listing-card-quick-actions-placeholder cptm-mb-20",
       "label": _vm.local_layout.top.quick_actions.label,
       "availableWidgets": _vm.theAvailableWidgets,
       "activeWidgets": _vm.active_widgets,
@@ -30528,7 +30671,7 @@ var render = function render() {
   }, [_c('card-widget-placeholder', {
     attrs: {
       "id": "top_quick_info",
-      "containerClass": "cptm-listing-card-quick-info-placeholder cptm-card-light cptm-mb-20 cptm-text-right",
+      "containerClass": "cptm-listing-card-quick-info-placeholder cptm-mb-20 cptm-text-right",
       "label": _vm.local_layout.top.quick_info.label,
       "availableWidgets": _vm.theAvailableWidgets,
       "activeWidgets": _vm.active_widgets,
@@ -30615,7 +30758,7 @@ var render = function render() {
   }), _vm._v(" "), _c('card-widget-placeholder', {
     attrs: {
       "id": "body_title",
-      "containerClass": "cptm-listing-card-preview-top-placeholder cptm-card-light cptm-mb-12 cptm-align-left",
+      "containerClass": "cptm-listing-card-preview-top-placeholder cptm-mb-12 cptm-align-left",
       "label": _vm.local_layout.body.title.label,
       "enable_widget": _vm.local_layout.body.title.enable_widget,
       "availableWidgets": _vm.theAvailableWidgets,
@@ -30639,7 +30782,7 @@ var render = function render() {
   }), _vm._v(" "), _c('card-widget-placeholder', {
     attrs: {
       "id": "thumbnail_body_bottom",
-      "containerClass": "cptm-listing-card-preview-body-placeholder cptm-card-light",
+      "containerClass": "cptm-listing-card-preview-body-placeholder",
       "label": _vm.local_layout.body.bottom.label,
       "availableWidgets": _vm.theAvailableWidgets,
       "activeWidgets": _vm.active_widgets,
@@ -30684,7 +30827,7 @@ var render = function render() {
   }, [_c('card-widget-placeholder', {
     attrs: {
       "id": "thumbnail_footer_left",
-      "containerClass": "cptm-listing-card-preview-footer-left-placeholder cptm-card-light",
+      "containerClass": "cptm-listing-card-preview-footer-left-placeholder",
       "label": _vm.local_layout.footer.left.label,
       "availableWidgets": _vm.theAvailableWidgets,
       "activeWidgets": _vm.active_widgets,
@@ -30727,7 +30870,7 @@ var render = function render() {
   }, [_c('card-widget-placeholder', {
     attrs: {
       "id": "thumbnail_footer_right",
-      "containerClass": "cptm-listing-card-preview-footer-right-placeholder cptm-card-light",
+      "containerClass": "cptm-listing-card-preview-footer-right-placeholder",
       "label": _vm.local_layout.footer.right.label,
       "availableWidgets": _vm.theAvailableWidgets,
       "activeWidgets": _vm.active_widgets,
@@ -30884,7 +31027,7 @@ var render = function render() {
   }, [_c('card-widget-placeholder', {
     attrs: {
       "id": "top_quick_actions",
-      "containerClass": "cptm-listing-card-quick-actions-placeholder cptm-card-light cptm-mb-20",
+      "containerClass": "cptm-listing-card-quick-actions-placeholder cptm-mb-20",
       "label": _vm.local_layout.top.quick_actions.label,
       "availableWidgets": _vm.theAvailableWidgets,
       "activeWidgets": _vm.active_widgets,
@@ -30927,7 +31070,7 @@ var render = function render() {
   }, [_c('card-widget-placeholder', {
     attrs: {
       "id": "top_quick_info",
-      "containerClass": "cptm-listing-card-quick-info-placeholder cptm-card-light cptm-mb-20 cptm-text-right",
+      "containerClass": "cptm-listing-card-quick-info-placeholder cptm-mb-20 cptm-text-right",
       "label": _vm.local_layout.top.quick_info.label,
       "availableWidgets": _vm.theAvailableWidgets,
       "activeWidgets": _vm.active_widgets,
@@ -30968,7 +31111,7 @@ var render = function render() {
   })], 1)]), _vm._v(" "), _c('card-widget-placeholder', {
     attrs: {
       "id": "body_title",
-      "containerClass": "cptm-listing-card-preview-top-placeholder cptm-card-light cptm-mb-12 cptm-align-left",
+      "containerClass": "cptm-listing-card-preview-top-placeholder cptm-mb-12 cptm-align-left",
       "label": _vm.local_layout.body.title.label,
       "enable_widget": _vm.local_layout.body.title.enable_widget,
       "availableWidgets": _vm.theAvailableWidgets,
@@ -30992,7 +31135,7 @@ var render = function render() {
   }), _vm._v(" "), _c('card-widget-placeholder', {
     attrs: {
       "id": "body_bottom",
-      "containerClass": "cptm-listing-card-preview-body-placeholder cptm-card-light",
+      "containerClass": "cptm-listing-card-preview-body-placeholder",
       "label": _vm.local_layout.body.bottom.label,
       "availableWidgets": _vm.theAvailableWidgets,
       "activeWidgets": _vm.active_widgets,
@@ -31037,7 +31180,7 @@ var render = function render() {
   }, [_c('card-widget-placeholder', {
     attrs: {
       "id": "footer_left",
-      "containerClass": "cptm-listing-card-preview-footer-left-placeholder cptm-card-light",
+      "containerClass": "cptm-listing-card-preview-footer-left-placeholder",
       "label": _vm.local_layout.footer.left.label,
       "availableWidgets": _vm.theAvailableWidgets,
       "activeWidgets": _vm.active_widgets,
@@ -31080,7 +31223,7 @@ var render = function render() {
   }, [_c('card-widget-placeholder', {
     attrs: {
       "id": "footer_right",
-      "containerClass": "cptm-listing-card-preview-footer-right-placeholder cptm-card-light",
+      "containerClass": "cptm-listing-card-preview-footer-right-placeholder",
       "label": _vm.local_layout.footer.right.label,
       "availableWidgets": _vm.theAvailableWidgets,
       "activeWidgets": _vm.active_widgets,
@@ -31237,7 +31380,7 @@ var render = function render() {
   }, [_c('card-widget-placeholder', {
     attrs: {
       "id": "top_quick_actions",
-      "containerClass": "cptm-listing-card-quick-actions-placeholder cptm-card-light cptm-mb-20",
+      "containerClass": "cptm-listing-card-quick-actions-placeholder cptm-mb-20",
       "label": _vm.local_layout.top.quick_actions.label,
       "availableWidgets": _vm.theAvailableWidgets,
       "activeWidgets": _vm.active_widgets,
@@ -31280,7 +31423,7 @@ var render = function render() {
   }, [_c('card-widget-placeholder', {
     attrs: {
       "id": "top_quick_info",
-      "containerClass": "cptm-listing-card-quick-info-placeholder cptm-card-light cptm-mb-20 cptm-text-right",
+      "containerClass": "cptm-listing-card-quick-info-placeholder cptm-mb-20 cptm-text-right",
       "label": _vm.local_layout.top.quick_info.label,
       "availableWidgets": _vm.theAvailableWidgets,
       "activeWidgets": _vm.active_widgets,
@@ -31321,7 +31464,7 @@ var render = function render() {
   })], 1)]), _vm._v(" "), _c('card-widget-placeholder', {
     attrs: {
       "id": "body_title",
-      "containerClass": "cptm-listing-card-preview-top-placeholder cptm-card-light cptm-mb-12 cptm-align-left",
+      "containerClass": "cptm-listing-card-preview-top-placeholder cptm-mb-12 cptm-align-left",
       "label": _vm.local_layout.body.title.label,
       "enable_widget": _vm.local_layout.body.title.enable_widget,
       "availableWidgets": _vm.theAvailableWidgets,
@@ -31345,7 +31488,7 @@ var render = function render() {
   }), _vm._v(" "), _c('card-widget-placeholder', {
     attrs: {
       "id": "body_bottom",
-      "containerClass": "cptm-listing-card-preview-body-placeholder cptm-card-light",
+      "containerClass": "cptm-listing-card-preview-body-placeholder",
       "label": _vm.local_layout.body.bottom.label,
       "availableWidgets": _vm.theAvailableWidgets,
       "activeWidgets": _vm.active_widgets,
@@ -31390,7 +31533,7 @@ var render = function render() {
   }, [_c('card-widget-placeholder', {
     attrs: {
       "id": "footer_left",
-      "containerClass": "cptm-listing-card-preview-footer-left-placeholder cptm-card-light",
+      "containerClass": "cptm-listing-card-preview-footer-left-placeholder",
       "label": _vm.local_layout.footer.left.label,
       "availableWidgets": _vm.theAvailableWidgets,
       "activeWidgets": _vm.active_widgets,
@@ -31433,7 +31576,7 @@ var render = function render() {
   }, [_c('card-widget-placeholder', {
     attrs: {
       "id": "footer_right",
-      "containerClass": "cptm-listing-card-preview-footer-right-placeholder cptm-card-light",
+      "containerClass": "cptm-listing-card-preview-footer-right-placeholder",
       "label": _vm.local_layout.footer.right.label,
       "availableWidgets": _vm.theAvailableWidgets,
       "activeWidgets": _vm.active_widgets,
@@ -31511,7 +31654,7 @@ var render = function render() {
   }, [_c('card-widget-placeholder', {
     attrs: {
       "id": "top_quick_actions",
-      "containerClass": "cptm-listing-card-quick-actions-placeholder cptm-card-light cptm-mb-20",
+      "containerClass": "cptm-listing-card-quick-actions-placeholder cptm-mb-20",
       "label": _vm.local_layout.top.quick_actions.label,
       "availableWidgets": _vm.theAvailableWidgets,
       "activeWidgets": _vm.active_widgets,
@@ -31554,7 +31697,7 @@ var render = function render() {
   }, [_c('card-widget-placeholder', {
     attrs: {
       "id": "top_quick_info",
-      "containerClass": "cptm-listing-card-quick-info-placeholder cptm-card-light cptm-mb-20 cptm-text-right",
+      "containerClass": "cptm-listing-card-quick-info-placeholder cptm-mb-20 cptm-text-right",
       "label": _vm.local_layout.top.quick_info.label,
       "availableWidgets": _vm.theAvailableWidgets,
       "activeWidgets": _vm.active_widgets,
@@ -31595,7 +31738,7 @@ var render = function render() {
   })], 1)]), _vm._v(" "), _c('card-widget-placeholder', {
     attrs: {
       "id": "body_title",
-      "containerClass": "cptm-listing-card-preview-top-placeholder cptm-card-light cptm-mb-12 cptm-align-left",
+      "containerClass": "cptm-listing-card-preview-top-placeholder cptm-mb-12 cptm-align-left",
       "label": _vm.local_layout.body.title.label,
       "enable_widget": _vm.local_layout.body.title.enable_widget,
       "availableWidgets": _vm.theAvailableWidgets,
@@ -31619,7 +31762,7 @@ var render = function render() {
   }), _vm._v(" "), _c('card-widget-placeholder', {
     attrs: {
       "id": "body_bottom",
-      "containerClass": "cptm-listing-card-preview-body-placeholder cptm-card-light",
+      "containerClass": "cptm-listing-card-preview-body-placeholder",
       "label": _vm.local_layout.body.bottom.label,
       "availableWidgets": _vm.theAvailableWidgets,
       "activeWidgets": _vm.active_widgets,
@@ -31664,7 +31807,7 @@ var render = function render() {
   }, [_c('card-widget-placeholder', {
     attrs: {
       "id": "footer_left",
-      "containerClass": "cptm-listing-card-preview-footer-left-placeholder cptm-card-light",
+      "containerClass": "cptm-listing-card-preview-footer-left-placeholder",
       "label": _vm.local_layout.footer.left.label,
       "availableWidgets": _vm.theAvailableWidgets,
       "activeWidgets": _vm.active_widgets,
@@ -31707,7 +31850,7 @@ var render = function render() {
   }, [_c('card-widget-placeholder', {
     attrs: {
       "id": "footer_right",
-      "containerClass": "cptm-listing-card-preview-footer-right-placeholder cptm-card-light",
+      "containerClass": "cptm-listing-card-preview-footer-right-placeholder",
       "label": _vm.local_layout.footer.right.label,
       "availableWidgets": _vm.theAvailableWidgets,
       "activeWidgets": _vm.active_widgets,

@@ -1511,12 +1511,12 @@ class Builder_Data {
                             'text_color' => [
                                 'type'          => 'color',
                                 'label'         => __( 'Text Color', 'directorist' ),
-                                'value'         => '#747c89',
+                                'value'         => '#141921',
                             ],
                             'text_background' => [
                                 'type'          => 'color',
                                 'label'         => __( 'Background Color', 'directorist' ),
-                                'value'         => '#f3f4f6',
+                                'value'         => '#ffffff',
                             ],
                         ],
                         'icon' => [

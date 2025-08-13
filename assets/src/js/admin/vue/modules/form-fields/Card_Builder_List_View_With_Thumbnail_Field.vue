@@ -89,7 +89,7 @@
               <div class="cptm-card-placeholder-top-left">
                 <card-widget-placeholder
                   id="top_quick_actions"
-                  containerClass="cptm-listing-card-quick-actions-placeholder cptm-card-light cptm-mb-20"
+                  containerClass="cptm-listing-card-quick-actions-placeholder cptm-mb-20"
                   :label="local_layout.top.quick_actions.label"
                   :availableWidgets="theAvailableWidgets"
                   :activeWidgets="active_widgets"
@@ -136,7 +136,7 @@
               <div class="cptm-card-placeholder-top-right">
                 <card-widget-placeholder
                   id="top_quick_info"
-                  containerClass="cptm-listing-card-quick-info-placeholder cptm-card-light cptm-mb-20 cptm-text-right"
+                  containerClass="cptm-listing-card-quick-info-placeholder cptm-mb-20 cptm-text-right"
                   :label="local_layout.top.quick_info.label"
                   :availableWidgets="theAvailableWidgets"
                   :activeWidgets="active_widgets"
@@ -178,7 +178,7 @@
 
             <card-widget-placeholder
               id="body_title"
-              containerClass="cptm-listing-card-preview-top-placeholder cptm-card-light cptm-mb-12 cptm-align-left"
+              containerClass="cptm-listing-card-preview-top-placeholder cptm-mb-12 cptm-align-left"
               :label="local_layout.body.title.label"
               :enable_widget="local_layout.body.title.enable_widget"
               :availableWidgets="theAvailableWidgets"
@@ -196,7 +196,7 @@
 
             <card-widget-placeholder
               id="body_bottom"
-              containerClass="cptm-listing-card-preview-body-placeholder cptm-card-light"
+              containerClass="cptm-listing-card-preview-body-placeholder"
               :label="local_layout.body.bottom.label"
               :availableWidgets="theAvailableWidgets"
               :activeWidgets="active_widgets"
@@ -230,7 +230,7 @@
             <div class="cptm-card-preview-footer-left">
               <card-widget-placeholder
                 id="footer_left"
-                containerClass="cptm-listing-card-preview-footer-left-placeholder cptm-card-light"
+                containerClass="cptm-listing-card-preview-footer-left-placeholder"
                 :label="local_layout.footer.left.label"
                 :availableWidgets="theAvailableWidgets"
                 :activeWidgets="active_widgets"
@@ -265,7 +265,7 @@
             <div class="cptm-card-preview-footer-right">
               <card-widget-placeholder
                 id="footer_right"
-                containerClass="cptm-listing-card-preview-footer-right-placeholder cptm-card-light"
+                containerClass="cptm-listing-card-preview-footer-right-placeholder"
                 :label="local_layout.footer.right.label"
                 :availableWidgets="theAvailableWidgets"
                 :activeWidgets="active_widgets"

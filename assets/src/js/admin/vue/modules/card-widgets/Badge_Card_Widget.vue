@@ -34,8 +34,15 @@
           :style="{
             color: fields?.text?.text_color?.value || '',
           }"
+          v-if="label"
           >{{ label }}</span
         >
+        <span
+          class="cptm-widget-badge-trash"
+          @click.stop="$emit('trash-widget')"
+        >
+          <span class="las la-times"></span>
+        </span>
       </span>
     </div>
   </div>
@@ -45,6 +52,10 @@
 export default {
   name: "badge-card-widget",
   props: {
+    widgetKey: {
+      type: String,
+    },
+
     icon: {
       type: String,
     },

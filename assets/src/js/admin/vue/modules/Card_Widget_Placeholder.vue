@@ -93,10 +93,12 @@
                     ? availableWidgets[widget].icon
                     : ''
                 "
+                :widgetKey="widget"
                 :options="availableWidgets[widget].options"
                 :fields="availableWidgets[widget].fields"
                 :disabled="readOnly && !selectedWidgets?.includes(widget)"
                 :readOnly="readOnly"
+                @trash-widget="$emit('trash-widget', widget)"
                 @edit="$emit('edit-widget', widget)"
               >
               </component>

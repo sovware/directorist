@@ -119,44 +119,6 @@
             />
 
             <card-widget-placeholder
-              id="body_tagline"
-              containerClass="cptm-listing-card-preview-tagline-placeholder cptm-card-light cptm-mb-20 cptm-align-left"
-              :label="local_layout.body.tagline.label"
-              :enable_widget="local_layout.body.tagline.enable_widget"
-              :availableWidgets="theAvailableWidgets"
-              :activeWidgets="active_widgets"
-              :acceptedWidgets="local_layout.body.tagline.acceptedWidgets"
-              :selectedWidgets="local_layout.body.tagline.selectedWidgets"
-              :maxWidget="local_layout.body.tagline.maxWidget"
-              :widgetOptionsWindow="widgetOptionsWindow"
-              :hasDisableButton="true"
-              @edit-widget="editWidget($event)"
-              @trash-widget="trashWidget($event, local_layout.body.tagline)"
-              @toggle-widget-status="
-                toggleWidgetStatus(local_layout.body.tagline)
-              "
-            />
-
-            <card-widget-placeholder
-              id="body_rating"
-              containerClass="cptm-listing-card-preview-rating-placeholder cptm-card-light cptm-mb-20 cptm-align-left"
-              :label="local_layout.body.rating.label"
-              :enable_widget="local_layout.body.rating.enable_widget"
-              :availableWidgets="theAvailableWidgets"
-              :activeWidgets="active_widgets"
-              :acceptedWidgets="local_layout.body.rating.acceptedWidgets"
-              :selectedWidgets="local_layout.body.rating.selectedWidgets"
-              :maxWidget="local_layout.body.rating.maxWidget"
-              :widgetOptionsWindow="widgetOptionsWindow"
-              :hasDisableButton="true"
-              @edit-widget="editWidget($event)"
-              @trash-widget="trashWidget($event, local_layout.body.rating)"
-              @toggle-widget-status="
-                toggleWidgetStatus(local_layout.body.rating)
-              "
-            />
-
-            <card-widget-placeholder
               id="body_bottom"
               containerClass="cptm-listing-card-preview-body-placeholder cptm-card-light"
               :label="local_layout.body.bottom.label"

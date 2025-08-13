@@ -197,13 +197,22 @@
                 </div>
 
                 <div class="cptm-card-preview-thumbnail-bg">
-                  <svg width="100" height="80" viewBox="0 0 100 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <svg
+                    width="100"
+                    height="80"
+                    viewBox="0 0 100 80"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
                     <g opacity="0.2" clip-path="url(#clip0_9916_95736)">
-                      <path d="M89.9951 0H9.99512C4.48012 0 -0.00488281 4.485 -0.00488281 10V70C-0.00488281 75.515 4.48012 80 9.99512 80H89.9951C95.5101 80 99.9951 75.515 99.9951 70V10C99.9951 4.485 95.5101 0 89.9951 0ZM22.4951 15C24.4842 15 26.3919 15.7902 27.7984 17.1967C29.2049 18.6032 29.9951 20.5109 29.9951 22.5C29.9951 24.4891 29.2049 26.3968 27.7984 27.8033C26.3919 29.2098 24.4842 30 22.4951 30C20.506 30 18.5983 29.2098 17.1918 27.8033C15.7853 26.3968 14.9951 24.4891 14.9951 22.5C14.9951 20.5109 15.7853 18.6032 17.1918 17.1967C18.5983 15.7902 20.506 15 22.4951 15ZM49.9951 65H14.9951L34.9951 40L42.4951 50L57.4951 30L84.9951 65H49.9951Z" fill="#4D5761"/>
+                      <path
+                        d="M89.9951 0H9.99512C4.48012 0 -0.00488281 4.485 -0.00488281 10V70C-0.00488281 75.515 4.48012 80 9.99512 80H89.9951C95.5101 80 99.9951 75.515 99.9951 70V10C99.9951 4.485 95.5101 0 89.9951 0ZM22.4951 15C24.4842 15 26.3919 15.7902 27.7984 17.1967C29.2049 18.6032 29.9951 20.5109 29.9951 22.5C29.9951 24.4891 29.2049 26.3968 27.7984 27.8033C26.3919 29.2098 24.4842 30 22.4951 30C20.506 30 18.5983 29.2098 17.1918 27.8033C15.7853 26.3968 14.9951 24.4891 14.9951 22.5C14.9951 20.5109 15.7853 18.6032 17.1918 17.1967C18.5983 15.7902 20.506 15 22.4951 15ZM49.9951 65H14.9951L34.9951 40L42.4951 50L57.4951 30L84.9951 65H49.9951Z"
+                        fill="#4D5761"
+                      />
                     </g>
                     <defs>
                       <clipPath id="clip0_9916_95736">
-                        <rect width="100" height="80" fill="white"/>
+                        <rect width="100" height="80" fill="white" />
                       </clipPath>
                     </defs>
                   </svg>
@@ -265,106 +274,62 @@
               :acceptedWidgets="local_layout.body.top.acceptedWidgets"
               :selectedWidgets="local_layout.body.top.selectedWidgets"
               :maxWidget="local_layout.body.top.maxWidget"
+              :showWidgetsPickerWindow="
+                getActiveInsertWindowStatus('thumbnail_body_top')
+              "
+              :showWidgetsOptionWindow="
+                getActiveOptionWindowStatus('thumbnail_body_top')
+              "
               :widgetOptionsWindow="widgetOptionsWindow"
+              @insert-widget="insertWidget($event, local_layout.body.top)"
               @edit-widget="editWidget($event)"
               @trash-widget="trashWidget($event, local_layout.body.top)"
-              @toggle-widget-status="toggleWidgetStatus(local_layout.body.top)"
+              @open-widgets-picker-window="
+                toggleInsertWindow('thumbnail_body_top')
+              "
+              @open-widgets-option-window="
+                toggleOptionWindow('thumbnail_body_top')
+              "
+              @close-widgets-picker-window="closeInsertWindow()"
+              @close-widgets-option-window="closeOptionWindow()"
+              @update="
+                handleUpdateSelectedWidgets($event, 'local_layout.body.top')
+              "
+              @update-active-widget="handleActiveWidgetUpdate"
             />
 
             <card-widget-placeholder
-              id="thumbnail_body_tagline"
-              containerClass="cptm-listing-card-preview-tagline-placeholder cptm-card-light cptm-mb-20 cptm-align-left"
-              :label="local_layout.body.tagline.label"
-              :enable_widget="local_layout.body.tagline.enable_widget"
+              id="thumbnail_body_bottom"
+              containerClass="cptm-listing-card-preview-body-placeholder cptm-card-light"
+              :label="local_layout.body.bottom.label"
               :availableWidgets="theAvailableWidgets"
               :activeWidgets="active_widgets"
-              :acceptedWidgets="local_layout.body.tagline.acceptedWidgets"
-              :selectedWidgets="local_layout.body.tagline.selectedWidgets"
-              :maxWidget="local_layout.body.tagline.maxWidget"
-              :widgetOptionsWindow="widgetOptionsWindow"
-              :hasDisableButton="true"
-              @edit-widget="editWidget($event)"
-              @trash-widget="trashWidget($event, local_layout.body.tagline)"
-              @toggle-widget-status="
-                toggleWidgetStatus(local_layout.body.tagline)
+              :acceptedWidgets="local_layout.body.bottom.acceptedWidgets"
+              :selectedWidgets="local_layout.body.bottom.selectedWidgets"
+              :maxWidget="local_layout.body.bottom.maxWidget"
+              :showWidgetsPickerWindow="
+                getActiveInsertWindowStatus('thumbnail_body_bottom')
               "
+              :showWidgetsOptionWindow="
+                getActiveOptionWindowStatus('thumbnail_body_bottom')
+              "
+              :widgetOptionsWindow="widgetOptionsWindow"
+              @insert-widget="insertWidget($event, local_layout.body.bottom)"
+              @edit-widget="editWidget($event)"
+              @trash-widget="trashWidget($event, local_layout.body.bottom)"
+              @open-widgets-picker-window="
+                toggleInsertWindow('thumbnail_body_bottom')
+              "
+              @open-widgets-option-window="
+                toggleOptionWindow('thumbnail_body_bottom')
+              "
+              @close-widgets-picker-window="closeInsertWindow()"
+              @close-widgets-option-window="closeOptionWindow()"
+              @update="
+                handleUpdateSelectedWidgets($event, 'local_layout.body.bottom')
+              "
+              @update-active-widget="handleActiveWidgetUpdate"
             />
-
-            <div class="cptm-card-preview-badges">
-              <card-widget-placeholder
-                id="thumbnail_body_badges"
-                containerClass="cptm-listing-card-preview-badges-placeholder cptm-card-light cptm-mb-20 cptm-align-left"
-                :label="local_layout.body.badges.label"
-                :availableWidgets="theAvailableWidgets"
-                :activeWidgets="active_widgets"
-                :acceptedWidgets="local_layout.body.badges.acceptedWidgets"
-                :selectedWidgets="local_layout.body.badges.selectedWidgets"
-                :maxWidget="local_layout.body.badges.maxWidget"
-                :showWidgetsPickerWindow="
-                  getActiveInsertWindowStatus('thumbnail_body_badges')
-                "
-                :showWidgetsOptionWindow="
-                  getActiveOptionWindowStatus('thumbnail_body_badges')
-                "
-                :widgetOptionsWindow="widgetOptionsWindow"
-                @insert-widget="insertWidget($event, local_layout.body.badges)"
-                @edit-widget="editWidget($event)"
-                @trash-widget="trashWidget($event, local_layout.body.badges)"
-                @open-widgets-picker-window="
-                  toggleInsertWindow('thumbnail_body_badges')
-                "
-                @open-widgets-option-window="
-                  toggleOptionWindow('thumbnail_body_badges')
-                "
-                @close-widgets-picker-window="closeInsertWindow()"
-                @close-widgets-option-window="closeOptionWindow()"
-                @update="
-                  handleUpdateSelectedWidgets(
-                    $event,
-                    'local_layout.body.badges',
-                  )
-                "
-                @update-active-widget="handleActiveWidgetUpdate"
-              />
-            </div>
-
-            <div class="cptm-card-preview-body">
-              <card-widget-placeholder
-                id="thumbnail_body_bottom"
-                containerClass="cptm-listing-card-preview-body-placeholder cptm-card-light"
-                :label="local_layout.body.bottom.label"
-                :availableWidgets="theAvailableWidgets"
-                :activeWidgets="active_widgets"
-                :acceptedWidgets="local_layout.body.bottom.acceptedWidgets"
-                :selectedWidgets="local_layout.body.bottom.selectedWidgets"
-                :maxWidget="local_layout.body.bottom.maxWidget"
-                :showWidgetsPickerWindow="
-                  getActiveInsertWindowStatus('thumbnail_body_bottom')
-                "
-                :showWidgetsOptionWindow="
-                  getActiveOptionWindowStatus('thumbnail_body_bottom')
-                "
-                :widgetOptionsWindow="widgetOptionsWindow"
-                @insert-widget="insertWidget($event, local_layout.body.bottom)"
-                @edit-widget="editWidget($event)"
-                @trash-widget="trashWidget($event, local_layout.body.bottom)"
-                @open-widgets-picker-window="
-                  toggleInsertWindow('thumbnail_body_bottom')
-                "
-                @open-widgets-option-window="
-                  toggleOptionWindow('thumbnail_body_bottom')
-                "
-                @close-widgets-picker-window="closeInsertWindow()"
-                @close-widgets-option-window="closeOptionWindow()"
-                @update="
-                  handleUpdateSelectedWidgets(
-                    $event,
-                    'local_layout.body.bottom',
-                  )
-                "
-                @update-active-widget="handleActiveWidgetUpdate"
-              />
-            </div>
           </div>
 
           <!-- cptm-listing-card-preview-footer -->
@@ -738,16 +703,7 @@ export default {
           top: {
             selectedWidgets: [],
           },
-          tagline: {
-            selectedWidgets: [],
-          },
-          badges: {
-            selectedWidgets: [],
-          },
           bottom: {
-            selectedWidgets: [],
-          },
-          excerpt: {
             selectedWidgets: [],
           },
         },

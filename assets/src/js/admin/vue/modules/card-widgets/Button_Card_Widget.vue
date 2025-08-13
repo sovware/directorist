@@ -24,7 +24,8 @@ export default {
     },
 
     options: {
-      type: Object,
+      type: [Object, Array],
+      default: () => ({}),
     },
 
     readOnly: {
@@ -32,6 +33,5 @@ export default {
       default: false,
     },
   },
-
 };
 </script>

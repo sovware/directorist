@@ -280,63 +280,6 @@
               @toggle-widget-status="toggleWidgetStatus(local_layout.body.top)"
             />
 
-            <card-widget-placeholder
-              id="thumbnail_body_tagline"
-              containerClass="cptm-listing-card-preview-tagline-placeholder cptm-card-light cptm-mb-20 cptm-align-left"
-              :label="local_layout.body.tagline.label"
-              :enable_widget="local_layout.body.tagline.enable_widget"
-              :availableWidgets="theAvailableWidgets"
-              :activeWidgets="active_widgets"
-              :acceptedWidgets="local_layout.body.tagline.acceptedWidgets"
-              :selectedWidgets="local_layout.body.tagline.selectedWidgets"
-              :maxWidget="local_layout.body.tagline.maxWidget"
-              :widgetOptionsWindow="widgetOptionsWindow"
-              :hasDisableButton="true"
-              @edit-widget="editWidget($event)"
-              @trash-widget="trashWidget($event, local_layout.body.tagline)"
-              @toggle-widget-status="
-                toggleWidgetStatus(local_layout.body.tagline)
-              "
-            />
-
-            <div class="cptm-card-preview-badges">
-              <card-widget-placeholder
-                id="thumbnail_body_badges"
-                containerClass="cptm-listing-card-preview-badges-placeholder cptm-card-light cptm-mb-20 cptm-align-left"
-                :label="local_layout.body.badges.label"
-                :availableWidgets="theAvailableWidgets"
-                :activeWidgets="active_widgets"
-                :acceptedWidgets="local_layout.body.badges.acceptedWidgets"
-                :selectedWidgets="local_layout.body.badges.selectedWidgets"
-                :maxWidget="local_layout.body.badges.maxWidget"
-                :showWidgetsPickerWindow="
-                  getActiveInsertWindowStatus('thumbnail_body_badges')
-                "
-                :showWidgetsOptionWindow="
-                  getActiveOptionWindowStatus('thumbnail_body_badges')
-                "
-                :widgetOptionsWindow="widgetOptionsWindow"
-                @insert-widget="insertWidget($event, local_layout.body.badges)"
-                @edit-widget="editWidget($event)"
-                @trash-widget="trashWidget($event, local_layout.body.badges)"
-                @open-widgets-picker-window="
-                  toggleInsertWindow('thumbnail_body_badges')
-                "
-                @open-widgets-option-window="
-                  toggleOptionWindow('thumbnail_body_badges')
-                "
-                @close-widgets-picker-window="closeInsertWindow()"
-                @close-widgets-option-window="closeOptionWindow()"
-                @update="
-                  handleUpdateSelectedWidgets(
-                    $event,
-                    'local_layout.body.badges',
-                  )
-                "
-                @update-active-widget="handleActiveWidgetUpdate"
-              />
-            </div>
-
             <div class="cptm-card-preview-body">
               <card-widget-placeholder
                 id="thumbnail_body_bottom"

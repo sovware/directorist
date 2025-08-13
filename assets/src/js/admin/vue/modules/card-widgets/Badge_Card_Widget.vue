@@ -54,7 +54,8 @@ export default {
     },
 
     options: {
-      type: Object,
+      type: [Object, Array],
+      default: () => ({}),
     },
 
     fields: {
@@ -69,6 +70,10 @@ export default {
 
   computed: {
     isIconType() {
+      // Handle cases where options might be an array or undefined
+      if (!this.options || Array.isArray(this.options)) {
+        return false;
+      }
       return this.options?.type?.value === "icon";
     },
   },

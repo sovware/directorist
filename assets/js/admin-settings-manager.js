@@ -17357,7 +17357,10 @@ __webpack_require__.r(__webpack_exports__);
       type: String
     },
     options: {
-      type: Object
+      type: [Object, Array],
+      default: function _default() {
+        return {};
+      }
     },
     fields: {
       type: Object
@@ -17370,6 +17373,10 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     isIconType: function isIconType() {
       var _this$options;
+      // Handle cases where options might be an array or undefined
+      if (!this.options || Array.isArray(this.options)) {
+        return false;
+      }
       return ((_this$options = this.options) === null || _this$options === void 0 || (_this$options = _this$options.type) === null || _this$options === void 0 ? void 0 : _this$options.value) === "icon";
     }
   }
@@ -17395,7 +17402,10 @@ __webpack_require__.r(__webpack_exports__);
       type: String
     },
     options: {
-      type: Object
+      type: [Object, Array],
+      default: function _default() {
+        return {};
+      }
     },
     readOnly: {
       type: Boolean,
@@ -17482,7 +17492,10 @@ __webpack_require__.r(__webpack_exports__);
       type: String
     },
     options: {
-      type: Object
+      type: [Object, Array],
+      default: function _default() {
+        return {};
+      }
     },
     readOnly: {
       type: Boolean,
@@ -20123,16 +20136,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
           top: {
             selectedWidgets: []
           },
-          tagline: {
-            selectedWidgets: []
-          },
-          badges: {
-            selectedWidgets: []
-          },
           bottom: {
-            selectedWidgets: []
-          },
-          excerpt: {
             selectedWidgets: []
           }
         },
@@ -29850,75 +29854,7 @@ var render = function render() {
         return _vm.toggleWidgetStatus(_vm.local_layout.body.top);
       }
     }
-  }), _vm._v(" "), _c('card-widget-placeholder', {
-    attrs: {
-      "id": "thumbnail_body_tagline",
-      "containerClass": "cptm-listing-card-preview-tagline-placeholder cptm-card-light cptm-mb-20 cptm-align-left",
-      "label": _vm.local_layout.body.tagline.label,
-      "enable_widget": _vm.local_layout.body.tagline.enable_widget,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.body.tagline.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.body.tagline.selectedWidgets,
-      "maxWidget": _vm.local_layout.body.tagline.maxWidget,
-      "widgetOptionsWindow": _vm.widgetOptionsWindow,
-      "hasDisableButton": true
-    },
-    on: {
-      "edit-widget": function editWidget($event) {
-        return _vm.editWidget($event);
-      },
-      "trash-widget": function trashWidget($event) {
-        return _vm.trashWidget($event, _vm.local_layout.body.tagline);
-      },
-      "toggle-widget-status": function toggleWidgetStatus($event) {
-        return _vm.toggleWidgetStatus(_vm.local_layout.body.tagline);
-      }
-    }
   }), _vm._v(" "), _c('div', {
-    staticClass: "cptm-card-preview-badges"
-  }, [_c('card-widget-placeholder', {
-    attrs: {
-      "id": "thumbnail_body_badges",
-      "containerClass": "cptm-listing-card-preview-badges-placeholder cptm-card-light cptm-mb-20 cptm-align-left",
-      "label": _vm.local_layout.body.badges.label,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.body.badges.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.body.badges.selectedWidgets,
-      "maxWidget": _vm.local_layout.body.badges.maxWidget,
-      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_body_badges'),
-      "showWidgetsOptionWindow": _vm.getActiveOptionWindowStatus('thumbnail_body_badges'),
-      "widgetOptionsWindow": _vm.widgetOptionsWindow
-    },
-    on: {
-      "insert-widget": function insertWidget($event) {
-        return _vm.insertWidget($event, _vm.local_layout.body.badges);
-      },
-      "edit-widget": function editWidget($event) {
-        return _vm.editWidget($event);
-      },
-      "trash-widget": function trashWidget($event) {
-        return _vm.trashWidget($event, _vm.local_layout.body.badges);
-      },
-      "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.toggleInsertWindow('thumbnail_body_badges');
-      },
-      "open-widgets-option-window": function openWidgetsOptionWindow($event) {
-        return _vm.toggleOptionWindow('thumbnail_body_badges');
-      },
-      "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
-        return _vm.closeInsertWindow();
-      },
-      "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
-        return _vm.closeOptionWindow();
-      },
-      "update": function update($event) {
-        return _vm.handleUpdateSelectedWidgets($event, 'local_layout.body.badges');
-      },
-      "update-active-widget": _vm.handleActiveWidgetUpdate
-    }
-  })], 1), _vm._v(" "), _c('div', {
     staticClass: "cptm-card-preview-body"
   }, [_c('card-widget-placeholder', {
     attrs: {
@@ -30349,75 +30285,25 @@ var render = function render() {
       "acceptedWidgets": _vm.local_layout.body.top.acceptedWidgets,
       "selectedWidgets": _vm.local_layout.body.top.selectedWidgets,
       "maxWidget": _vm.local_layout.body.top.maxWidget,
+      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_body_top'),
+      "showWidgetsOptionWindow": _vm.getActiveOptionWindowStatus('thumbnail_body_top'),
       "widgetOptionsWindow": _vm.widgetOptionsWindow
     },
     on: {
+      "insert-widget": function insertWidget($event) {
+        return _vm.insertWidget($event, _vm.local_layout.body.top);
+      },
       "edit-widget": function editWidget($event) {
         return _vm.editWidget($event);
       },
       "trash-widget": function trashWidget($event) {
         return _vm.trashWidget($event, _vm.local_layout.body.top);
       },
-      "toggle-widget-status": function toggleWidgetStatus($event) {
-        return _vm.toggleWidgetStatus(_vm.local_layout.body.top);
-      }
-    }
-  }), _vm._v(" "), _c('card-widget-placeholder', {
-    attrs: {
-      "id": "thumbnail_body_tagline",
-      "containerClass": "cptm-listing-card-preview-tagline-placeholder cptm-card-light cptm-mb-20 cptm-align-left",
-      "label": _vm.local_layout.body.tagline.label,
-      "enable_widget": _vm.local_layout.body.tagline.enable_widget,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.body.tagline.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.body.tagline.selectedWidgets,
-      "maxWidget": _vm.local_layout.body.tagline.maxWidget,
-      "widgetOptionsWindow": _vm.widgetOptionsWindow,
-      "hasDisableButton": true
-    },
-    on: {
-      "edit-widget": function editWidget($event) {
-        return _vm.editWidget($event);
-      },
-      "trash-widget": function trashWidget($event) {
-        return _vm.trashWidget($event, _vm.local_layout.body.tagline);
-      },
-      "toggle-widget-status": function toggleWidgetStatus($event) {
-        return _vm.toggleWidgetStatus(_vm.local_layout.body.tagline);
-      }
-    }
-  }), _vm._v(" "), _c('div', {
-    staticClass: "cptm-card-preview-badges"
-  }, [_c('card-widget-placeholder', {
-    attrs: {
-      "id": "thumbnail_body_badges",
-      "containerClass": "cptm-listing-card-preview-badges-placeholder cptm-card-light cptm-mb-20 cptm-align-left",
-      "label": _vm.local_layout.body.badges.label,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.body.badges.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.body.badges.selectedWidgets,
-      "maxWidget": _vm.local_layout.body.badges.maxWidget,
-      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_body_badges'),
-      "showWidgetsOptionWindow": _vm.getActiveOptionWindowStatus('thumbnail_body_badges'),
-      "widgetOptionsWindow": _vm.widgetOptionsWindow
-    },
-    on: {
-      "insert-widget": function insertWidget($event) {
-        return _vm.insertWidget($event, _vm.local_layout.body.badges);
-      },
-      "edit-widget": function editWidget($event) {
-        return _vm.editWidget($event);
-      },
-      "trash-widget": function trashWidget($event) {
-        return _vm.trashWidget($event, _vm.local_layout.body.badges);
-      },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.toggleInsertWindow('thumbnail_body_badges');
+        return _vm.toggleInsertWindow('thumbnail_body_top');
       },
       "open-widgets-option-window": function openWidgetsOptionWindow($event) {
-        return _vm.toggleOptionWindow('thumbnail_body_badges');
+        return _vm.toggleOptionWindow('thumbnail_body_top');
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
@@ -30426,13 +30312,11 @@ var render = function render() {
         return _vm.closeOptionWindow();
       },
       "update": function update($event) {
-        return _vm.handleUpdateSelectedWidgets($event, 'local_layout.body.badges');
+        return _vm.handleUpdateSelectedWidgets($event, 'local_layout.body.top');
       },
       "update-active-widget": _vm.handleActiveWidgetUpdate
     }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "cptm-card-preview-body"
-  }, [_c('card-widget-placeholder', {
+  }), _vm._v(" "), _c('card-widget-placeholder', {
     attrs: {
       "id": "thumbnail_body_bottom",
       "containerClass": "cptm-listing-card-preview-body-placeholder cptm-card-light",
@@ -30473,7 +30357,7 @@ var render = function render() {
       },
       "update-active-widget": _vm.handleActiveWidgetUpdate
     }
-  })], 1)], 1), _vm._v(" "), _c('div', {
+  })], 1), _vm._v(" "), _c('div', {
     staticClass: "cptm-listing-card-preview-footer"
   }, [_c('div', {
     staticClass: "cptm-card-preview-footer-left"
@@ -30751,72 +30635,6 @@ var render = function render() {
       "toggle-widget-status": function toggleWidgetStatus($event) {
         return _vm.toggleWidgetStatus(_vm.local_layout.body.title);
       }
-    }
-  }), _vm._v(" "), _c('card-widget-placeholder', {
-    attrs: {
-      "id": "body_tagline",
-      "containerClass": "cptm-listing-card-preview-tagline-placeholder cptm-card-light cptm-mb-20 cptm-align-left",
-      "label": _vm.local_layout.body.tagline.label,
-      "enable_widget": _vm.local_layout.body.tagline.enable_widget,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.body.tagline.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.body.tagline.selectedWidgets,
-      "maxWidget": _vm.local_layout.body.tagline.maxWidget,
-      "widgetOptionsWindow": _vm.widgetOptionsWindow,
-      "hasDisableButton": true
-    },
-    on: {
-      "edit-widget": function editWidget($event) {
-        return _vm.editWidget($event);
-      },
-      "trash-widget": function trashWidget($event) {
-        return _vm.trashWidget($event, _vm.local_layout.body.tagline);
-      },
-      "toggle-widget-status": function toggleWidgetStatus($event) {
-        return _vm.toggleWidgetStatus(_vm.local_layout.body.tagline);
-      }
-    }
-  }), _vm._v(" "), _c('card-widget-placeholder', {
-    attrs: {
-      "id": "thumbnail_body_badge",
-      "containerClass": "cptm-listing-card-preview-badges-placeholder cptm-card-light cptm-mb-20 cptm-align-left",
-      "label": _vm.local_layout.body.badges.label,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.body.badges.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.body.badges.selectedWidgets,
-      "maxWidget": _vm.local_layout.body.badges.maxWidget,
-      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_body_badge'),
-      "showWidgetsOptionWindow": _vm.getActiveOptionWindowStatus('thumbnail_body_badge'),
-      "widgetOptionsWindow": _vm.widgetOptionsWindow
-    },
-    on: {
-      "insert-widget": function insertWidget($event) {
-        return _vm.insertWidget($event, _vm.local_layout.body.badges);
-      },
-      "edit-widget": function editWidget($event) {
-        return _vm.editWidget($event);
-      },
-      "trash-widget": function trashWidget($event) {
-        return _vm.trashWidget($event, _vm.local_layout.body.badges);
-      },
-      "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.toggleInsertWindow('thumbnail_body_badge');
-      },
-      "open-widgets-option-window": function openWidgetsOptionWindow($event) {
-        return _vm.toggleOptionWindow('thumbnail_body_badge');
-      },
-      "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
-        return _vm.closeInsertWindow();
-      },
-      "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
-        return _vm.closeOptionWindow();
-      },
-      "update": function update($event) {
-        return _vm.handleUpdateSelectedWidgets($event, 'local_layout.body.badges');
-      },
-      "update-active-widget": _vm.handleActiveWidgetUpdate
     }
   }), _vm._v(" "), _c('card-widget-placeholder', {
     attrs: {
@@ -31169,56 +30987,6 @@ var render = function render() {
       },
       "toggle-widget-status": function toggleWidgetStatus($event) {
         return _vm.toggleWidgetStatus(_vm.local_layout.body.title);
-      }
-    }
-  }), _vm._v(" "), _c('card-widget-placeholder', {
-    attrs: {
-      "id": "body_tagline",
-      "containerClass": "cptm-listing-card-preview-tagline-placeholder cptm-card-light cptm-mb-20 cptm-align-left",
-      "label": _vm.local_layout.body.tagline.label,
-      "enable_widget": _vm.local_layout.body.tagline.enable_widget,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.body.tagline.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.body.tagline.selectedWidgets,
-      "maxWidget": _vm.local_layout.body.tagline.maxWidget,
-      "widgetOptionsWindow": _vm.widgetOptionsWindow,
-      "hasDisableButton": true
-    },
-    on: {
-      "edit-widget": function editWidget($event) {
-        return _vm.editWidget($event);
-      },
-      "trash-widget": function trashWidget($event) {
-        return _vm.trashWidget($event, _vm.local_layout.body.tagline);
-      },
-      "toggle-widget-status": function toggleWidgetStatus($event) {
-        return _vm.toggleWidgetStatus(_vm.local_layout.body.tagline);
-      }
-    }
-  }), _vm._v(" "), _c('card-widget-placeholder', {
-    attrs: {
-      "id": "body_rating",
-      "containerClass": "cptm-listing-card-preview-rating-placeholder cptm-card-light cptm-mb-20 cptm-align-left",
-      "label": _vm.local_layout.body.rating.label,
-      "enable_widget": _vm.local_layout.body.rating.enable_widget,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.body.rating.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.body.rating.selectedWidgets,
-      "maxWidget": _vm.local_layout.body.rating.maxWidget,
-      "widgetOptionsWindow": _vm.widgetOptionsWindow,
-      "hasDisableButton": true
-    },
-    on: {
-      "edit-widget": function editWidget($event) {
-        return _vm.editWidget($event);
-      },
-      "trash-widget": function trashWidget($event) {
-        return _vm.trashWidget($event, _vm.local_layout.body.rating);
-      },
-      "toggle-widget-status": function toggleWidgetStatus($event) {
-        return _vm.toggleWidgetStatus(_vm.local_layout.body.rating);
       }
     }
   }), _vm._v(" "), _c('card-widget-placeholder', {
@@ -31576,56 +31344,6 @@ var render = function render() {
     }
   }), _vm._v(" "), _c('card-widget-placeholder', {
     attrs: {
-      "id": "body_tagline",
-      "containerClass": "cptm-listing-card-preview-tagline-placeholder cptm-card-light cptm-mb-20 cptm-align-left",
-      "label": _vm.local_layout.body.tagline.label,
-      "enable_widget": _vm.local_layout.body.tagline.enable_widget,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.body.tagline.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.body.tagline.selectedWidgets,
-      "maxWidget": _vm.local_layout.body.tagline.maxWidget,
-      "widgetOptionsWindow": _vm.widgetOptionsWindow,
-      "hasDisableButton": true
-    },
-    on: {
-      "edit-widget": function editWidget($event) {
-        return _vm.editWidget($event);
-      },
-      "trash-widget": function trashWidget($event) {
-        return _vm.trashWidget($event, _vm.local_layout.body.tagline);
-      },
-      "toggle-widget-status": function toggleWidgetStatus($event) {
-        return _vm.toggleWidgetStatus(_vm.local_layout.body.tagline);
-      }
-    }
-  }), _vm._v(" "), _c('card-widget-placeholder', {
-    attrs: {
-      "id": "body_rating",
-      "containerClass": "cptm-listing-card-preview-rating-placeholder cptm-card-light cptm-mb-20 cptm-align-left",
-      "label": _vm.local_layout.body.rating.label,
-      "enable_widget": _vm.local_layout.body.rating.enable_widget,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.body.rating.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.body.rating.selectedWidgets,
-      "maxWidget": _vm.local_layout.body.rating.maxWidget,
-      "widgetOptionsWindow": _vm.widgetOptionsWindow,
-      "hasDisableButton": true
-    },
-    on: {
-      "edit-widget": function editWidget($event) {
-        return _vm.editWidget($event);
-      },
-      "trash-widget": function trashWidget($event) {
-        return _vm.trashWidget($event, _vm.local_layout.body.rating);
-      },
-      "toggle-widget-status": function toggleWidgetStatus($event) {
-        return _vm.toggleWidgetStatus(_vm.local_layout.body.rating);
-      }
-    }
-  }), _vm._v(" "), _c('card-widget-placeholder', {
-    attrs: {
       "id": "body_bottom",
       "containerClass": "cptm-listing-card-preview-body-placeholder cptm-card-light",
       "label": _vm.local_layout.body.bottom.label,
@@ -31896,56 +31614,6 @@ var render = function render() {
       },
       "toggle-widget-status": function toggleWidgetStatus($event) {
         return _vm.toggleWidgetStatus(_vm.local_layout.body.title);
-      }
-    }
-  }), _vm._v(" "), _c('card-widget-placeholder', {
-    attrs: {
-      "id": "body_tagline",
-      "containerClass": "cptm-listing-card-preview-tagline-placeholder cptm-card-light cptm-mb-20 cptm-align-left",
-      "label": _vm.local_layout.body.tagline.label,
-      "enable_widget": _vm.local_layout.body.tagline.enable_widget,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.body.tagline.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.body.tagline.selectedWidgets,
-      "maxWidget": _vm.local_layout.body.tagline.maxWidget,
-      "widgetOptionsWindow": _vm.widgetOptionsWindow,
-      "hasDisableButton": true
-    },
-    on: {
-      "edit-widget": function editWidget($event) {
-        return _vm.editWidget($event);
-      },
-      "trash-widget": function trashWidget($event) {
-        return _vm.trashWidget($event, _vm.local_layout.body.tagline);
-      },
-      "toggle-widget-status": function toggleWidgetStatus($event) {
-        return _vm.toggleWidgetStatus(_vm.local_layout.body.tagline);
-      }
-    }
-  }), _vm._v(" "), _c('card-widget-placeholder', {
-    attrs: {
-      "id": "body_rating",
-      "containerClass": "cptm-listing-card-preview-rating-placeholder cptm-card-light cptm-mb-20 cptm-align-left",
-      "label": _vm.local_layout.body.rating.label,
-      "enable_widget": _vm.local_layout.body.rating.enable_widget,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.body.rating.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.body.rating.selectedWidgets,
-      "maxWidget": _vm.local_layout.body.rating.maxWidget,
-      "widgetOptionsWindow": _vm.widgetOptionsWindow,
-      "hasDisableButton": true
-    },
-    on: {
-      "edit-widget": function editWidget($event) {
-        return _vm.editWidget($event);
-      },
-      "trash-widget": function trashWidget($event) {
-        return _vm.trashWidget($event, _vm.local_layout.body.rating);
-      },
-      "toggle-widget-status": function toggleWidgetStatus($event) {
-        return _vm.toggleWidgetStatus(_vm.local_layout.body.rating);
       }
     }
   }), _vm._v(" "), _c('card-widget-placeholder', {

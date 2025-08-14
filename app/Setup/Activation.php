@@ -16,20 +16,6 @@ class Activation {
     public static function create_tables() {
         $prefix = "directorist_";
 
-        //Subscriptions Table
-        Schema::create(
-            "{$prefix}subscriptions", function( Blueprint $table ) {
-                $table->big_increments( "id" );
-                $table->integer( "plan_id" )->nullable();
-                $table->integer( "user_id" );
-                $table->enum( "status", [ "pending", "active", "trialing", "cancelled", "paused", "past_due", "expired" ] )->default( "pending" );
-                $table->timestamp( "started_at" )->use_current();
-                $table->timestamp( "current_period_end" )->nullable();
-                $table->timestamp( "cancelled_at" )->nullable();
-                $table->timestamps();
-            }
-        );
-
         //Orders Table
         Schema::create(
             "{$prefix}orders", function( Blueprint $table ) {

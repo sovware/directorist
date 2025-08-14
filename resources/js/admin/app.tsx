@@ -1,7 +1,7 @@
 import { Dashboard } from '@wpmvc/dashboard';
 import { MenuItemsType } from '@wpmvc/dashboard/build-types/components/menu/types';
 import React from 'react';
-import Order from './pages/Order';
+import Order from './pages/order';
 
 const menuItems: MenuItemsType = {
 	home: {
@@ -102,21 +102,8 @@ export default function App() {
 					path: '/',
 					element: <Order/>,
 					index: true,
+          // preventTransition: true,
 				},
-				// {
-				// 	path: 'settings/*',
-				// 	preventTransition: true,
-				// 	element: (
-				// 		<NavigationPage
-				// 			path="settings"
-				// 			items={ settingsMenuItems }
-				// 			store={ {
-				// 				name: 'my-plugin/settings',
-				// 				path: '/gutenmail/settings',
-				// 			} }
-				// 		/>
-				// 	),
-				// },
 			] }
 		></Dashboard>
 	);

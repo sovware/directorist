@@ -29,7 +29,7 @@ class OrderController {
         return Response::send(
             [
                 "items" => $this->repository->get(),
-                "total" => 5
+                "total" => 0
             ]
         );
     }

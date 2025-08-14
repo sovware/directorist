@@ -30,6 +30,8 @@
   "license": "GPL-2.0+",
   "homepage": "https://github.com/sovware/directorist",
   "dependencies": {
+    "@wordpress/dataviews": "^6.0.0",
+    "@wordpress/dom-ready": "^4.28.0",
     "@wordpress/element": "^6.28.0",
     "@wordpress/i18n": "^6.1.0",
     "@wpmvc/components": "^0.0.22",

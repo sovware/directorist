@@ -6,6 +6,7 @@ module.exports = {
 	...defaultConfig,
 	entry: {
 		'js/admin-order': './resources/js/admin/order/index.tsx',
+		'css/admin-order': './resources/sass/app.scss',
 	},
 	output: {
 		...defaultConfig.output,

@@ -95,21 +95,7 @@
 import { __ } from '@wordpress/i18n';
 import { Column } from '@wpmvc/components/build-types/gutenberg/table/types';
 import { Table } from '@wpmvc/dashboard';
-import { FieldsType } from '@wpmvc/fields/build-types/types/field';
 import React from "react";
-
-const fields: FieldsType = {
-	text: {
-		type: 'text',
-		label: __( 'Text' ),
-		required: true,
-	},
-	email: {
-		type: 'text',
-		label: __( 'Email' ),
-		required: true,
-	},
-};
 
 const columns: Column[] = [
 	{
@@ -125,18 +111,11 @@ const columns: Column[] = [
 export default function Order() {
 	return (
 		<Table
-			heading="Products"
+			heading="Orders"
 			path="/directorist/admin/orders"
 			columns={ columns }
-			create={ {
-				//@ts-ignore
-				fields,
-			} }
-			edit={ {
-								//@ts-ignore
-				fields,
-			} }
-			editFields={ fields }
+			//@ts-ignore
+			layoutType={ 'table' }
 		/>
 	);
 }

@@ -1,9 +1,7 @@
 import { createRoot } from '@wordpress/element';
 import * as React from 'react';
+import App from './app';
 
-const App = () => {
-	return <div>Orders</div>;
-};
 
 document.addEventListener('DOMContentLoaded', function () {
 	const container = document.querySelector('.directorist-orders-page');

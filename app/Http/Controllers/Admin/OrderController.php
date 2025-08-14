@@ -28,7 +28,8 @@ class OrderController {
     public function index( Validator $validator, WP_REST_Request $request ): array {
         return Response::send(
             [
-                "orders" => $this->repository->get()
+                "items" => $this->repository->get(),
+                "total" => 5
             ]
         );
     }

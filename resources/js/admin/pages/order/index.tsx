@@ -1,102 +1,12 @@
-// // import "@wordpress/dataviews/build-style/style.css";
-// import { __ } from "@wordpress/i18n";
-// import { Table } from "@wpmvc/components";
-// import React from "react";
-// import styled from "styled-components";
 
-// const layouts = {
-//   table: {
-//     styles: {},
-//     primaryField: "id",
-//   },
-// };
 
-// const OrderContainer = styled.div`
-//   margin: 15px;
-//   padding: 15px;
-//   background-color: #fff;
-//   .dataviews-view-table {
-//     width: 100%;
-//   }
-// `;
-
-// const Order = ({ orders }: { orders: any[] }) => {
-//   const paginatedItems = orders;
-//   const totalItems = orders.length;
-//   const handleRefresh = () => {};
-//   const currentPage = 1;
-//   const perPage = 10;
-//   const searchTerm = "";
-//   // const layouts = [];
-
-//   return (
-//     <OrderContainer>
-//       <Table
-//         items={paginatedItems}
-//         total={totalItems}
-//         isLoading={false}
-//         // titleField={ 'title' }
-//         mediaField={"thumbnail_url"}
-//         layoutType={"table"}
-//         layout={layouts.table}
-//         // layouts={ layouts }
-//         refresh={handleRefresh}
-//         queryParams={{
-//           page: currentPage,
-//           perPage: perPage,
-//           search: searchTerm,
-//           sort: { field: "id", direction: "asc" },
-//         }}
-//         fields={[
-//           {
-//             id: "id",
-//             label: __("Order ID", "directorist"),
-//           },
-//           {
-//             id: "user",
-//             label: __("User", "directorist"),
-//           },
-//           {
-//             id: "order_type",
-//             label: __("Order Type", "directorist"),
-//           },
-//           {
-//             id: "directory_type",
-//             label: __("Directory Type", "directorist"),
-//           },
-//           {
-//             id: "status",
-//             label: __("Status", "directorist"),
-//           },
-//           {
-//             id: "total_amount",
-//             label: __("Total Amount", "directorist"),
-//           },
-//           {
-//             id: "payment_method",
-//             label: __("Payment Method", "directorist"),
-//           },
-//           {
-//             id: "date",
-//             label: __("Date", "directorist"),
-//           },
-//           {
-//             id: "actions",
-//             label: __("Actions", "directorist"),
-//           },
-//         ]}
-//       />
-//     </OrderContainer>
-//   );
-// };
-
-// export default Order;
-//@ts-ignore
 import { Fill } from '@wordpress/components';
+import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { Column } from '@wpmvc/components/build-types/gutenberg/table/types';
 import { Table } from '@wpmvc/dashboard';
 import React from "react";
+import Card from '../../Card';
 import Tab from '../../Tab';
 
 const columns: Column[] = [
@@ -110,58 +20,48 @@ const columns: Column[] = [
 	},
 ];
 
-const exampleTabs = [
-	{
-		id: 'general',
-		title: __('General Settings', 'directorist'),
-		content: (
-			<div className="directorist-tab-general-content">
-				<h3>{__('General Settings', 'directorist')}</h3>
-				<p>{__('Configure general settings for your directory.', 'directorist')}</p>
-				{/* Add your form fields here */}
-			</div>
-		)
-	},
-	{
-		id: 'appearance',
-		title: __('Appearance', 'directorist'),
-		content: (
-			<div className="directorist-tab-appearance-content">
-				<h3>{__('Appearance Settings', 'directorist')}</h3>
-				<p>{__('Customize the appearance of your directory.', 'directorist')}</p>
-				{/* Add your appearance settings here */}
-			</div>
-		)
-	},
-	{
-		id: 'advanced',
-		title: __('Advanced', 'directorist'),
-		content: (
-			<div className="directorist-tab-advanced-content">
-				<h3>{__('Advanced Settings', 'directorist')}</h3>
-				<p>{__('Advanced configuration options.', 'directorist')}</p>
-				{/* Add your advanced settings here */}
-			</div>
-		)
-	}
-];
-
-const handleTabChange = (tabName: string) => {
-    console.log('Tab changed to:', tabName);
-    // Handle tab change logic here
-};
-
 export default function Order() {
+	const [activeTab, setActiveTab] = useState('general');
 	return (
 		<>
 		<Fill name="wpmvc-header">
 			<Tab
-				tabs={exampleTabs}
-				className="directorist-example-tabs"
-				onTabChange={handleTabChange}
-				orientation="horizontal"
+				className='tab-menu'
+				tabs={[
+					{
+						name: 'general',
+						title: 'General ino'
+					},
+					{
+						name: 'feature',
+						title: 'Feature Configuration'
+					},
+					{
+						name: 'plan',
+						title: 'Plan settings'
+					}
+				]}
+				onActiveTab={setActiveTab} 
 			/>
 		</Fill>
+
+		{
+			activeTab === 'general' && <span>
+
+				{/* Card with custom slot name */}
+				<Card
+					title="Custom Slot Card"
+				>
+					<p>This content will be replaced by Fill components.</p>
+				</Card>
+			</span>
+		}
+		{
+			activeTab === 'feature' && <span>feature</span>
+		}
+		{
+			activeTab === 'plan' && <span>plan</span>
+		}
 		
 		<Table
 			heading="Orders"

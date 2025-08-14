@@ -586,7 +586,10 @@ export default {
 
     // Widget Options Window Active Status
     widgetOptionsWindowActiveStatus() {
-      if (!this.widgetOptionsWindow.widget.length) {
+      if (
+        !this.widgetOptionsWindow.widget ||
+        this.widgetOptionsWindow.widget.length === 0
+      ) {
         return false;
       }
       if (
@@ -882,10 +885,7 @@ export default {
 
     // Edit Widget
     editWidget(key) {
-      if (
-        typeof this.active_widgets[key] === "undefined" ||
-        this.widgetOptionsWindowActiveStatus
-      ) {
+      if (typeof this.active_widgets[key] === "undefined") {
         return;
       }
 
@@ -897,17 +897,13 @@ export default {
       }
 
       let opt = this.active_widgets[key].options;
-      this.widgetOptionsWindow = this.widgetOptionsWindowDefault;
 
-      const self = this;
-
-      setTimeout(() => {
-        self.widgetOptionsWindow = {
-          ...self.widgetOptionsWindowDefault,
-          ...opt,
-        };
-        self.widgetOptionsWindow.widget = key;
-      }, 0);
+      // Force Vue reactivity by using Vue.set or restructuring
+      this.$set(this, "widgetOptionsWindow", {
+        ...this.widgetOptionsWindowDefault,
+        ...opt,
+        widget: key,
+      });
     },
 
     // Update Widget Options Data
@@ -917,6 +913,7 @@ export default {
 
     // Close Widget Options Window
     closeWidgetOptionsWindow() {
+      console.log("closeWidgetOptionsWindow", this.widgetOptionsWindow);
       this.widgetOptionsWindow = this.widgetOptionsWindowDefault;
     },
 

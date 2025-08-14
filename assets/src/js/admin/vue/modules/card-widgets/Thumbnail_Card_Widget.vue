@@ -23,6 +23,14 @@
         {{ label }}
       </div>
 
+      <span
+        class="cptm-widget-thumb-edit"
+        @click.stop="$emit('edit-widget')"
+        v-if="!readOnly"
+      >
+        <span class="las la-cog"></span>
+      </span>
+
       <span class="cptm-widget-card-disabled-badge" v-if="disabled">
         Disable
       </span>

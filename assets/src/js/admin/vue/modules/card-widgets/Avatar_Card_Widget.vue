@@ -1,7 +1,6 @@
 <template>
   <div
     class="cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap"
-    @click.prevent="$emit('edit')"
   >
     <div
       class="cptm-widget-card cptm-has-widget-control cptm-widget-actions-tools-wrap"

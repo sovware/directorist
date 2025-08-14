@@ -22,7 +22,7 @@
           v-for="(field, field_key) in local_fields"
           :is="field.type + '-field'"
           v-bind="field"
-          :key="field_key"
+          :key="fieldKeys[field_key]"
           @update="updateFieldData($event, field_key)"
         >
         </component>
@@ -73,11 +73,15 @@ export default {
   },
 
   watch: {
-    fields() {
-      if (this.fields) {
-        this.local_fields = this.fields;
-        this.$emit("update", this.local_fields);
-      }
+    fields: {
+      handler(newFields, oldFields) {
+        if (newFields && newFields !== oldFields) {
+          // Only update if fields actually changed
+          this.local_fields = { ...newFields };
+          this.$emit("update", this.local_fields);
+        }
+      },
+      deep: true,
     },
   },
 
@@ -87,6 +91,18 @@ export default {
         active: this.active,
         [this.animation]: true,
       };
+    },
+
+    // Generate unique keys for components to ensure proper re-rendering
+    fieldKeys() {
+      if (!this.local_fields) return {};
+      const keys = {};
+      Object.keys(this.local_fields).forEach((key) => {
+        const field = this.local_fields[key];
+        keys[key] =
+          `${key}-${field.value || field.id || field.updated || Date.now()}`;
+      });
+      return keys;
     },
   },
 
@@ -99,12 +115,13 @@ export default {
   methods: {
     init() {
       if (this.fields) {
-        this.local_fields = this.fields;
+        this.local_fields = { ...this.fields };
       }
     },
 
     updateFieldData(value, field_key) {
-      this.local_fields[field_key].value = value;
+      // Use Vue.set to ensure reactivity
+      this.$set(this.local_fields[field_key], "value", value);
       this.$emit("update", this.local_fields);
     },
   },

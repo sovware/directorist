@@ -98,8 +98,8 @@
                 :fields="availableWidgets[widget].fields"
                 :disabled="readOnly && !selectedWidgets?.includes(widget)"
                 :readOnly="readOnly"
-                @trash-widget="$emit('trash-widget', widget)"
-                @edit="$emit('edit-widget', widget)"
+                @trash="$emit('trash-widget', widget)"
+                @edit="editWidget($event)"
               >
               </component>
             </div>
@@ -113,7 +113,7 @@
         :active="optionWidgetKey?.length !== 0"
         v-bind="widgetOptionsWindow"
         @update="$emit('update-option-window', $event)"
-        @close="$emit('close-option-window')"
+        @close="handleCloseOptionWindow"
       />
     </div>
 
@@ -277,11 +277,27 @@ export default {
 
     // Set the active widget key when the widget is clicked
     setActiveWidget(widgetKey) {
-      if (widgetKey !== "user_avatar") {
-        return;
-      }
-
       this.activeWidgetKey = widgetKey;
+      // Emit event to inform parent about active widget
+      this.$emit("widget-activated", widgetKey);
+    },
+
+    editWidget(widgetKey) {
+      this.activeWidgetKey = widgetKey;
+      // Ensure the widgetOptionsWindow has the correct widget key
+      if (
+        this.widgetOptionsWindow &&
+        typeof this.widgetOptionsWindow === "object"
+      ) {
+        this.widgetOptionsWindow.widget = widgetKey;
+      }
+      this.$emit("edit-widget", widgetKey);
+    },
+
+    // Handle close event from options window
+    handleCloseOptionWindow() {
+      this.activeWidgetKey = "";
+      this.$emit("close-option-window");
     },
 
     // Emit the updated selectedWidgets to the parent component

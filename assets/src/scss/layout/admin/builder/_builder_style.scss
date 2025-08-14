@@ -3078,24 +3078,6 @@ input[type="radio"].cptm-radio {
   }
 }
 
-.cptm-list-item {
-  display: flex;
-  gap: 10px;
-  padding: 5px;
-  color: #747c89;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 14px;
-
-  .cptm-list-item-label {
-    flex-grow: 1;
-  }
-}
-
-.cptm-list-item-card {
-  display: block;
-}
-
 // Widgets
 .cptm-widget-badge {
   display: inline-flex;
@@ -3932,7 +3914,20 @@ input[type="radio"].cptm-radio {
     flex-wrap: wrap;
     .cptm-widget-card-inline-wrap,
     .cptm-widget-card {
+      font-size: 14px;
+      font-weight: 500;
+      gap: 8px;
       width: 100%;
+      height: 40px;
+      padding: 0 8px;
+    }
+    .cptm-widget-badge-icon {
+      font-size: 24px;
+      color: #141921;
+    }
+    .cptm-widget-badge-trash {
+      font-size: 20px;
+      color: #747c89;
     }
     .cptm-widget-preview-card {
       flex: 1;
@@ -3960,17 +3955,73 @@ input[type="radio"].cptm-radio {
 
 .cptm-listing-card-preview-body-placeholder {
   display: block;
-  padding: 10px;
+  padding: 12px;
   min-height: 160px !important;
-  border-color: #e3e6ef;
-
-  &:hover,
-  &.drag-enter {
-    border-color: #717171;
-  }
+  border-color: #a1a9b2;
 
   .cptm-placeholder-label {
-    color: #a1a8c6;
+    color: #141921;
+  }
+
+  .cptm-widget-preview-area {
+    display: flex;
+    gap: 4px;
+    flex-direction: column;
+  }
+
+  .cptm-widget-preview-card {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    padding: 0 12px;
+    color: #141921;
+    background: #ffffff;
+    height: 42px;
+    font-size: 14px;
+    line-height: 1.15;
+    font-weight: 500;
+    border-radius: 4px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 1px 2px 0 rgba(16, 24, 40, 0.05);
+    box-sizing: border-box;
+    transition: all ease-in-out 300ms;
+    &:hover {
+      background: #f3f4f6;
+      border-color: #d2d6db;
+    }
+    .cptm-widget-card-wrap {
+      width: 100%;
+    }
+    .cptm-list-item-icon {
+      font-size: 20px;
+    }
+    .cptm-list-item {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .cptm-list-item-content {
+      flex: 1;
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .cptm-list-item-actions {
+      display: flex;
+      align-items: center;
+      .cptm-list-item-action {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        cursor: pointer;
+        span {
+          font-size: 20px;
+          color: #141921;
+        }
+      }
+    }
   }
 }
 

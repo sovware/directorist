@@ -15619,10 +15619,22 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     },
     // Set the active widget key when the widget is clicked
     setActiveWidget: function setActiveWidget(widgetKey) {
-      if (widgetKey !== "user_avatar") {
-        return;
-      }
       this.activeWidgetKey = widgetKey;
+      // Emit event to inform parent about active widget
+      this.$emit("widget-activated", widgetKey);
+    },
+    editWidget: function editWidget(widgetKey) {
+      this.activeWidgetKey = widgetKey;
+      // Ensure the widgetOptionsWindow has the correct widget key
+      if (this.widgetOptionsWindow && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(this.widgetOptionsWindow) === "object") {
+        this.widgetOptionsWindow.widget = widgetKey;
+      }
+      this.$emit("edit-widget", widgetKey);
+    },
+    // Handle close event from options window
+    handleCloseOptionWindow: function handleCloseOptionWindow() {
+      this.activeWidgetKey = "";
+      this.$emit("close-option-window");
     },
     // Emit the updated selectedWidgets to the parent component
     handleUpdateOptionWindow: function handleUpdateOptionWindow(payload) {
@@ -16378,6 +16390,8 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
 
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "options-window",
   model: {
@@ -16413,11 +16427,15 @@ __webpack_require__.r(__webpack_exports__);
     this.init();
   },
   watch: {
-    fields: function fields() {
-      if (this.fields) {
-        this.local_fields = this.fields;
-        this.$emit("update", this.local_fields);
-      }
+    fields: {
+      handler: function handler(newFields, oldFields) {
+        if (newFields && newFields !== oldFields) {
+          // Only update if fields actually changed
+          this.local_fields = _objectSpread({}, newFields);
+          this.$emit("update", this.local_fields);
+        }
+      },
+      deep: true
     }
   },
   computed: {
@@ -16425,6 +16443,17 @@ __webpack_require__.r(__webpack_exports__);
       return (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])({
         active: this.active
       }, this.animation, true);
+    },
+    // Generate unique keys for components to ensure proper re-rendering
+    fieldKeys: function fieldKeys() {
+      var _this = this;
+      if (!this.local_fields) return {};
+      var keys = {};
+      Object.keys(this.local_fields).forEach(function (key) {
+        var field = _this.local_fields[key];
+        keys[key] = "".concat(key, "-").concat(field.value || field.id || field.updated || Date.now());
+      });
+      return keys;
     }
   },
   data: function data() {
@@ -16435,11 +16464,12 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     init: function init() {
       if (this.fields) {
-        this.local_fields = this.fields;
+        this.local_fields = _objectSpread({}, this.fields);
       }
     },
     updateFieldData: function updateFieldData(value, field_key) {
-      this.local_fields[field_key].value = value;
+      // Use Vue.set to ensure reactivity
+      this.$set(this.local_fields[field_key], "value", value);
       this.$emit("update", this.local_fields);
     }
   }
@@ -17529,6 +17559,9 @@ __webpack_require__.r(__webpack_exports__);
       type: String,
       default: ""
     },
+    widgetKey: {
+      type: String
+    },
     options: {
       type: Object
     },
@@ -17536,6 +17569,13 @@ __webpack_require__.r(__webpack_exports__);
       type: Boolean,
       default: false
     }
+  },
+  data: function data() {
+    return {
+      activeWidgetKey: "",
+      activeWidget: {},
+      activeWidgetOptionType: ""
+    };
   },
   computed: {
     listIcon: function listIcon() {
@@ -17556,6 +17596,20 @@ __webpack_require__.r(__webpack_exports__);
         return this.icon;
       }
       return this.options.fields.icon.value;
+    }
+  },
+  methods: {
+    // Check if the widget is editable
+    isEditable: function isEditable(widgetOptions) {
+      if (!widgetOptions || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(widgetOptions) !== "object") return false;
+
+      // Add more custom checks if needed
+      return true;
+    },
+    // Edit Widget
+    edit: function edit(widgetKey) {
+      // Emit the edit event with the widget key
+      this.$emit("edit", widgetKey);
     }
   }
 });
@@ -20044,7 +20098,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     },
     // Widget Options Window Active Status
     widgetOptionsWindowActiveStatus: function widgetOptionsWindowActiveStatus() {
-      if (!this.widgetOptionsWindow.widget.length) {
+      if (!this.widgetOptionsWindow.widget || this.widgetOptionsWindow.widget.length === 0) {
         return false;
       }
       if (typeof this.active_widgets[this.widgetOptionsWindow.widget] === "undefined") {
@@ -20288,19 +20342,18 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     },
     // Edit Widget
     editWidget: function editWidget(key) {
-      if (typeof this.active_widgets[key] === "undefined" || this.widgetOptionsWindowActiveStatus) {
+      if (typeof this.active_widgets[key] === "undefined") {
         return;
       }
       if (!this.active_widgets[key].options && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(this.active_widgets[key].options) !== "object") {
         return;
       }
       var opt = this.active_widgets[key].options;
-      this.widgetOptionsWindow = this.widgetOptionsWindowDefault;
-      var self = this;
-      setTimeout(function () {
-        self.widgetOptionsWindow = _objectSpread(_objectSpread({}, self.widgetOptionsWindowDefault), opt);
-        self.widgetOptionsWindow.widget = key;
-      }, 0);
+
+      // Force Vue reactivity by using Vue.set or restructuring
+      this.$set(this, "widgetOptionsWindow", _objectSpread(_objectSpread(_objectSpread({}, this.widgetOptionsWindowDefault), opt), {}, {
+        widget: key
+      }));
     },
     // Update Widget Options Data
     updateWidgetOptionsData: function updateWidgetOptionsData(data, widget) {
@@ -20308,6 +20361,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     },
     // Close Widget Options Window
     closeWidgetOptionsWindow: function closeWidgetOptionsWindow() {
+      console.log("closeWidgetOptionsWindow", this.widgetOptionsWindow);
       this.widgetOptionsWindow = this.widgetOptionsWindowDefault;
     },
     // Trash Widget
@@ -26673,11 +26727,11 @@ var render = function render() {
         "readOnly": _vm.readOnly
       },
       on: {
-        "trash-widget": function trashWidget($event) {
+        "trash": function trash($event) {
           return _vm.$emit('trash-widget', widget);
         },
         "edit": function edit($event) {
-          return _vm.$emit('edit-widget', widget);
+          return _vm.editWidget($event);
         }
       }
     })], 1)] : _vm._e()];
@@ -26691,9 +26745,7 @@ var render = function render() {
       "update": function update($event) {
         return _vm.$emit('update-option-window', $event);
       },
-      "close": function close($event) {
-        return _vm.$emit('close-option-window');
-      }
+      "close": _vm.handleCloseOptionWindow
     }
   }, 'options-window', _vm.widgetOptionsWindow, false))], 1) : _vm._e(), _vm._v(" "), _vm.enable_widget ? _c('span', {
     staticClass: "cptm-widget-card-status",
@@ -27062,7 +27114,7 @@ var render = function render() {
     staticClass: "cptm-option-card-body"
   }, [_vm.local_fields ? _vm._l(_vm.local_fields, function (field, field_key) {
     return _c(field.type + '-field', _vm._b({
-      key: field_key,
+      key: _vm.fieldKeys[field_key],
       tag: "component",
       on: {
         "update": function update($event) {
@@ -27923,13 +27975,7 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
-    staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap",
-    on: {
-      "click": function click($event) {
-        $event.preventDefault();
-        return _vm.$emit('edit');
-      }
-    }
+    staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap"
   }, [_c('div', {
     staticClass: "cptm-widget-card cptm-has-widget-control cptm-widget-actions-tools-wrap"
   }, [_c('div', {
@@ -28015,7 +28061,7 @@ var render = function render() {
     on: {
       "click": function click($event) {
         $event.stopPropagation();
-        return _vm.$emit('trash-widget');
+        return _vm.$emit('trash');
       }
     }
   }, [_c('span', {
@@ -28057,7 +28103,7 @@ var render = function render() {
     on: {
       "click": function click($event) {
         $event.stopPropagation();
-        return _vm.$emit('trash-widget');
+        return _vm.$emit('trash');
       }
     }
   }, [_c('span', {
@@ -28099,7 +28145,7 @@ var render = function render() {
     on: {
       "click": function click($event) {
         $event.stopPropagation();
-        return _vm.$emit('trash-widget');
+        return _vm.$emit('trash');
       }
     }
   }, [_c('span', {
@@ -28141,7 +28187,7 @@ var render = function render() {
     on: {
       "click": function click($event) {
         $event.stopPropagation();
-        return _vm.$emit('trash-widget');
+        return _vm.$emit('trash');
       }
     }
   }, [_c('span', {
@@ -28183,7 +28229,7 @@ var render = function render() {
     on: {
       "click": function click($event) {
         $event.stopPropagation();
-        return _vm.$emit('trash-widget');
+        return _vm.$emit('trash');
       }
     }
   }, [_c('span', {
@@ -28217,13 +28263,39 @@ var render = function render() {
     staticClass: "cptm-widget-card cptm-list-item-card cptm-has-widget-control cptm-widget-actions-tools-wrap"
   }, [_c('div', {
     staticClass: "cptm-list-item"
+  }, [_c('div', {
+    staticClass: "cptm-list-item-content"
   }, [_c('span', {
     staticClass: "cptm-list-item-icon"
   }, [_c('span', {
     class: _vm.listIcon
   })]), _vm._v(" "), _c('span', {
     staticClass: "cptm-list-item-label"
-  }, [_vm._v(_vm._s(_vm.label))])])])]);
+  }, [_c('span', {
+    staticClass: "cptm-list-item-label-text"
+  }, [_vm._v(_vm._s(_vm.label))])])]), _vm._v(" "), _c('div', {
+    staticClass: "cptm-list-item-actions"
+  }, [_vm.isEditable(_vm.options) ? _c('span', {
+    staticClass: "cptm-list-item-action cptm-list-item-edit",
+    on: {
+      "click": function click($event) {
+        $event.stopPropagation();
+        return _vm.edit(_vm.widgetKey);
+      }
+    }
+  }, [_c('span', {
+    staticClass: "las la-cog"
+  })]) : _vm._e(), _vm._v(" "), _c('span', {
+    staticClass: "cptm-list-item-action cptm-list-item-trash",
+    on: {
+      "click": function click($event) {
+        $event.stopPropagation();
+        return _vm.$emit('trash');
+      }
+    }
+  }, [_c('span', {
+    staticClass: "las la-trash"
+  })])])])])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -28260,7 +28332,7 @@ var render = function render() {
     on: {
       "click": function click($event) {
         $event.stopPropagation();
-        return _vm.$emit('trash-widget');
+        return _vm.$emit('trash');
       }
     }
   }, [_c('span', {
@@ -28302,7 +28374,7 @@ var render = function render() {
     on: {
       "click": function click($event) {
         $event.stopPropagation();
-        return _vm.$emit('trash-widget');
+        return _vm.$emit('trash');
       }
     }
   }, [_c('span', {
@@ -28339,12 +28411,22 @@ var render = function render() {
     class: _vm.icon
   }) : _vm._e(), _vm._v(" "), _vm.label ? _c('span', {
     staticClass: "cptm-widget-badge-label"
-  }, [_vm._v(_vm._s(_vm.label))]) : _vm._e(), _vm._v(" "), _c('span', {
+  }, [_vm._v(_vm._s(_vm.label))]) : _vm._e(), _vm._v(" "), !_vm.readOnly ? _c('span', {
+    staticClass: "cptm-widget-badge-edit",
+    on: {
+      "click": function click($event) {
+        $event.stopPropagation();
+        return _vm.$emit('edit-widget');
+      }
+    }
+  }, [_c('span', {
+    staticClass: "las la-cog"
+  })]) : _vm._e(), _vm._v(" "), _c('span', {
     staticClass: "cptm-widget-badge-trash",
     on: {
       "click": function click($event) {
         $event.stopPropagation();
-        return _vm.$emit('trash-widget');
+        return _vm.$emit('trash');
       }
     }
   }, [_c('span', {
@@ -28381,12 +28463,22 @@ var render = function render() {
     class: _vm.icon
   }) : _vm._e(), _vm._v(" "), _vm.label ? _c('span', {
     staticClass: "cptm-widget-badge-label"
-  }, [_vm._v(_vm._s(_vm.label))]) : _vm._e(), _vm._v(" "), _c('span', {
+  }, [_vm._v(_vm._s(_vm.label))]) : _vm._e(), _vm._v(" "), !_vm.readOnly ? _c('span', {
+    staticClass: "cptm-widget-badge-edit",
+    on: {
+      "click": function click($event) {
+        $event.stopPropagation();
+        return _vm.$emit('edit-widget');
+      }
+    }
+  }, [_c('span', {
+    staticClass: "las la-cog"
+  })]) : _vm._e(), _vm._v(" "), _c('span', {
     staticClass: "cptm-widget-badge-trash",
     on: {
       "click": function click($event) {
         $event.stopPropagation();
-        return _vm.$emit('trash-widget');
+        return _vm.$emit('trash');
       }
     }
   }, [_c('span', {
@@ -28493,7 +28585,17 @@ var render = function render() {
     }
   })])]), _vm._v(" "), _c('div', {
     staticClass: "cptm-widget-label"
-  }, [_vm._v("\n      " + _vm._s(_vm.label) + "\n    ")]), _vm._v(" "), _vm.disabled ? _c('span', {
+  }, [_vm._v("\n      " + _vm._s(_vm.label) + "\n    ")]), _vm._v(" "), !_vm.readOnly ? _c('span', {
+    staticClass: "cptm-widget-thumb-edit",
+    on: {
+      "click": function click($event) {
+        $event.stopPropagation();
+        return _vm.$emit('edit-widget');
+      }
+    }
+  }, [_c('span', {
+    staticClass: "las la-cog"
+  })]) : _vm._e(), _vm._v(" "), _vm.disabled ? _c('span', {
     staticClass: "cptm-widget-card-disabled-badge"
   }, [_vm._v("\n      Disable\n    ")]) : _vm._e()])]);
 };
@@ -28553,16 +28655,17 @@ var render = function render() {
     staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap"
   }, [_c('div', {
     staticClass: "cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap"
-  }, [_c('span', {
+  }, [_vm.icon ? _c('span', {
+    staticClass: "cptm-widget-badge-icon",
+    class: _vm.icon
+  }) : _vm._e(), _vm._v(" "), _c('span', {
     staticClass: "cptm-widget-badge-label"
-  }, [_c('i', {
-    class: _vm.icon ? _vm.icon : 'uil uil-eye'
-  }), _vm._v("\n      0\n    ")]), _vm._v(" "), _c('span', {
+  }, [_vm._v("\n      " + _vm._s(_vm.label) + "\n    ")]), _vm._v(" "), _c('span', {
     staticClass: "cptm-widget-badge-trash",
     on: {
       "click": function click($event) {
         $event.stopPropagation();
-        return _vm.$emit('trash-widget');
+        return _vm.$emit('trash');
       }
     }
   }, [_c('span', {

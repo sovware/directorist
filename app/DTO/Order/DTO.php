@@ -2,9 +2,9 @@
 
 namespace Directorist\App\DTO\Order;
 
-use Directorist\App\Helpers\DateTime;
-
 defined( "ABSPATH" ) || exit;
+
+use Directorist\App\Helpers\DateTime;
 
 class DTO extends \Directorist\WpMVC\DTO\DTO {
     private int $id;

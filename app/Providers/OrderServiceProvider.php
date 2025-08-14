@@ -14,8 +14,8 @@ use Directorist\WpMVC\Helpers\Helpers;
 
 class OrderServiceProvider implements Provider {
     public function boot() {
-        add_action( 'directorist_after_order_update', [$this, 'after_order_update'] );
-        add_action( 'directorist_create_order', [$this, 'create_order'] );
+        // add_action( 'directorist_after_order_update', [$this, 'after_order_update'] );
+        // add_action( 'directorist_create_order', [$this, 'create_order'] );
     }
 
     public function create_order( $listing_id ) {

@@ -38,13 +38,13 @@ class OrderRepository extends Repository {
     public function create( \Directorist\WpMVC\DTO\DTO $dto ) {
         $dto->set_final_amount( $dto->get_amount() );
 
-        do_action( 'directorist_before_order_create', $dto );
+        // do_action( 'directorist_before_order_create', $dto );
         
         $order_id = parent::create( $dto );
 
         $dto->set_id( $order_id );
         
-        do_action( 'directorist_after_order_create', $dto );
+        // do_action( 'directorist_after_order_create', $dto );
 
         return $order_id;
     }
@@ -70,11 +70,11 @@ class OrderRepository extends Repository {
             }
         }
 
-        do_action( 'directorist_before_order_update', $dto );
+        // do_action( 'directorist_before_order_update', $dto );
 
         $update = parent::update( $dto );
 
-        do_action( 'directorist_after_order_update', $dto );
+        // do_action( 'directorist_after_order_update', $dto );
 
         return $update;
     }

@@ -76,5 +76,19 @@
 		function number_with_commas(number) {
 			return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 		}
+
+		$('#atbdp-checkout-form').on('submit', function (e) {
+			e.preventDefault();
+			const formData = new FormData(this);
+			const data = Object.fromEntries(formData);
+
+			wp.apiFetch({
+				path: '/directorist/checkout',
+				method: 'POST',
+				data: data,
+			}).then((response) => {
+				console.log(response);
+			});
+		});
 	});
 })(jQuery);

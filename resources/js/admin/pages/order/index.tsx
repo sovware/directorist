@@ -91,11 +91,13 @@
 // };
 
 // export default Order;
-
+//@ts-ignore
+import { Fill } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { Column } from '@wpmvc/components/build-types/gutenberg/table/types';
 import { Table } from '@wpmvc/dashboard';
 import React from "react";
+import Tab from '../../Tab';
 
 const columns: Column[] = [
 	{
@@ -108,14 +110,72 @@ const columns: Column[] = [
 	},
 ];
 
+const exampleTabs = [
+	{
+		id: 'general',
+		title: __('General Settings', 'directorist'),
+		content: (
+			<div className="directorist-tab-general-content">
+				<h3>{__('General Settings', 'directorist')}</h3>
+				<p>{__('Configure general settings for your directory.', 'directorist')}</p>
+				{/* Add your form fields here */}
+			</div>
+		)
+	},
+	{
+		id: 'appearance',
+		title: __('Appearance', 'directorist'),
+		content: (
+			<div className="directorist-tab-appearance-content">
+				<h3>{__('Appearance Settings', 'directorist')}</h3>
+				<p>{__('Customize the appearance of your directory.', 'directorist')}</p>
+				{/* Add your appearance settings here */}
+			</div>
+		)
+	},
+	{
+		id: 'advanced',
+		title: __('Advanced', 'directorist'),
+		content: (
+			<div className="directorist-tab-advanced-content">
+				<h3>{__('Advanced Settings', 'directorist')}</h3>
+				<p>{__('Advanced configuration options.', 'directorist')}</p>
+				{/* Add your advanced settings here */}
+			</div>
+		)
+	}
+];
+
+const handleTabChange = (tabName: string) => {
+    console.log('Tab changed to:', tabName);
+    // Handle tab change logic here
+};
+
 export default function Order() {
 	return (
+		<>
+		<Fill name="wpmvc-header">
+			<Tab
+				tabs={exampleTabs}
+				className="directorist-example-tabs"
+				onTabChange={handleTabChange}
+				orientation="horizontal"
+			/>
+		</Fill>
+		
 		<Table
 			heading="Orders"
 			path="/directorist/admin/orders"
 			columns={ columns }
+			create={
+				{status: false}
+			}
+			edit={
+				{status: false}
+			}
 			//@ts-ignore
 			layoutType={ 'table' }
 		/>
+		</>
 	);
 }

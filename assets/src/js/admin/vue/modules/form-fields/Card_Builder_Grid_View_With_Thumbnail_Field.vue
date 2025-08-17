@@ -292,6 +292,7 @@
               "
               @close-widgets-picker-window="closeInsertWindow()"
               @close-widgets-option-window="closeOptionWindow()"
+              @close-option-window="closeWidgetOptionsWindow()"
               @update="
                 handleUpdateSelectedWidgets($event, 'local_layout.body.top')
               "
@@ -325,6 +326,7 @@
               "
               @close-widgets-picker-window="closeInsertWindow()"
               @close-widgets-option-window="closeOptionWindow()"
+              @close-option-window="closeWidgetOptionsWindow()"
               @update="
                 handleUpdateSelectedWidgets($event, 'local_layout.body.bottom')
               "
@@ -363,6 +365,7 @@
                 "
                 @close-widgets-picker-window="closeInsertWindow()"
                 @close-widgets-option-window="closeOptionWindow()"
+                @close-option-window="closeWidgetOptionsWindow()"
                 @update="
                   handleUpdateSelectedWidgets(
                     $event,
@@ -402,6 +405,7 @@
                 "
                 @close-widgets-picker-window="closeInsertWindow()"
                 @close-widgets-option-window="closeOptionWindow()"
+                @close-option-window="closeWidgetOptionsWindow()"
                 @update="
                   handleUpdateSelectedWidgets(
                     $event,

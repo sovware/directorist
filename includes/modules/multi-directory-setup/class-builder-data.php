@@ -2001,7 +2001,7 @@ class Builder_Data {
                 'top'     => [
                     'maxWidget'       => 0,
                     'acceptedWidgets' => [
-                        "listing_title", "favorite_badge", "popular_badge", "featured_badge", "new_badge", "rating", "pricing", "posted_date",
+                        "listing_title", "favorite_badge", "popular_badge", "featured_badge", "new_badge", "rating", "pricing",
                     ],
                 ],
                 'bottom'  => [

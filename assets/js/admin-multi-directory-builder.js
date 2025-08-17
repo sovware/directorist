@@ -15729,23 +15729,28 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     editWidget: function editWidget(widgetKey) {
       if (this.activeWidgetKey === widgetKey) {
         this.activeWidgetKey = null; // toggle off
+        // Ensure modal is closed when toggling off
+        if (this.widgetOptionsWindow && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(this.widgetOptionsWindow) === "object") {
+          this.widgetOptionsWindow.widget = null;
+        }
       } else {
         this.activeWidgetKey = widgetKey; // set active
-      }
-
-      // Ensure the widgetOptionsWindow has the correct widget key
-      if (this.widgetOptionsWindow && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(this.widgetOptionsWindow) === "object") {
-        this.widgetOptionsWindow.widget = widgetKey;
+        // Ensure the widgetOptionsWindow has the correct widget key
+        if (this.widgetOptionsWindow && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(this.widgetOptionsWindow) === "object") {
+          this.widgetOptionsWindow.widget = widgetKey;
+        }
       }
       this.$emit("edit-widget", widgetKey);
     },
     // Handle close event from options window
     handleCloseOptionWindow: function handleCloseOptionWindow() {
-      this.activeWidgetKey = "";
+      console.log("handleCloseOptionWindow");
+      this.activeWidgetKey = null;
+      // Ensure widgetOptionsWindow is also reset
+      if (this.widgetOptionsWindow && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(this.widgetOptionsWindow) === "object") {
+        this.widgetOptionsWindow.widget = null;
+      }
       this.$emit("close-option-window");
-      console.log("handleCloseOptionWindow", {
-        activeWidgetKey: this.activeWidgetKey
-      });
     },
     // Emit the updated selectedWidgets to the parent component
     handleUpdateOptionWindow: function handleUpdateOptionWindow(payload) {
@@ -15764,11 +15769,44 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         widgetKey: widgetKey,
         updatedWidget: updatedWidget
       });
+    },
+    // Get widget options with safety check
+    getWidgetOptions: function getWidgetOptions(widgetKey) {
+      var widget = this.availableWidgets[widgetKey];
+      if (!widget || !widget.options) {
+        return {};
+      }
+
+      // Ensure options is an object or array, not a string
+      if (typeof widget.options === "string") {
+        return {};
+      }
+      return widget.options;
+    },
+    // Get widget fields with safety check
+    getWidgetFields: function getWidgetFields(widgetKey) {
+      var widget = this.availableWidgets[widgetKey];
+      if (!widget || !widget.fields) {
+        return {};
+      }
+
+      // Ensure fields is an object or array, not a string
+      if (typeof widget.fields === "string") {
+        return {};
+      }
+      return widget.fields;
     }
   },
   watch: {
     output_data: function output_data() {
       this.$emit("update", this.output_data);
+    },
+    // Watch for changes in activeWidgetKey to ensure modal state is synchronized
+    activeWidgetKey: function activeWidgetKey(newValue, oldValue) {
+      // If activeWidgetKey is cleared (null, undefined, or empty string), ensure the modal is also closed
+      if (!newValue && this.widgetOptionsWindow && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(this.widgetOptionsWindow) === "object") {
+        this.widgetOptionsWindow.widget = null;
+      }
     }
   }
 });
@@ -26976,7 +27014,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   staticRenderFns: function() { return /* binding */ staticRenderFns; }
 /* harmony export */ });
 var render = function render() {
-  var _vm$selectedWidgets, _vm$selectedWidgets2, _vm$displayedWidgets, _vm$displayedWidgets2, _vm$optionWidgetKey, _this$selectedWidgets, _vm$acceptedWidgets, _this$selectedWidgets2;
+  var _vm$selectedWidgets, _vm$selectedWidgets2, _vm$displayedWidgets, _vm$displayedWidgets2, _this$selectedWidgets, _vm$acceptedWidgets, _this$selectedWidgets2;
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
@@ -27044,6 +27082,7 @@ var render = function render() {
     var _vm$selectedWidgets3, _vm$selectedWidgets4;
     return [_vm.hasValidWidget(widget) ? [_c('div', {
       staticClass: "cptm-widget-preview-card",
+      class: _vm.activeWidgetKey === widget ? 'active' : '',
       on: {
         "click": function click($event) {
           $event.preventDefault();
@@ -27060,8 +27099,8 @@ var render = function render() {
         "label": typeof _vm.availableWidgets[widget] !== 'undefined' ? _vm.availableWidgets[widget].label : 'Not Available',
         "icon": typeof _vm.availableWidgets[widget].icon === 'string' ? _vm.availableWidgets[widget].icon : '',
         "widgetKey": widget,
-        "options": _vm.availableWidgets[widget].options,
-        "fields": _vm.availableWidgets[widget].fields,
+        "options": _vm.getWidgetOptions(widget),
+        "fields": _vm.getWidgetFields(widget),
         "disabled": _vm.readOnly && !((_vm$selectedWidgets4 = _vm.selectedWidgets) !== null && _vm$selectedWidgets4 !== void 0 && _vm$selectedWidgets4.includes(widget)),
         "readOnly": _vm.readOnly
       },
@@ -27073,18 +27112,22 @@ var render = function render() {
           return _vm.editWidget($event);
         }
       }
-    })], 1)] : _vm._e()];
-  })], 2) : _vm._e()]), _vm._v(" "), _vm.optionWidgetKey === _vm.activeWidgetKey ? _c('div', {
-    staticClass: "cptm-options-area"
-  }, [_c('options-window', _vm._b({
-    attrs: {
-      "active": ((_vm$optionWidgetKey = _vm.optionWidgetKey) === null || _vm$optionWidgetKey === void 0 ? void 0 : _vm$optionWidgetKey.length) !== 0
-    },
-    on: {
-      "update": _vm.handleUpdateOptionWindow,
-      "close": _vm.handleCloseOptionWindow
-    }
-  }, 'options-window', _vm.widgetOptionsWindow, false))], 1) : _vm._e(), _vm._v(" "), _vm.enable_widget ? _c('span', {
+    }), _vm._v(" "), widget === _vm.activeWidgetKey ? _c('div', {
+      staticClass: "cptm-options-area"
+    }, [_c('options-window', _vm._b({
+      attrs: {
+        "active": _vm.optionWidgetKey !== null
+      },
+      on: {
+        "update": function update($event) {
+          return _vm.$emit('update-option-window', $event);
+        },
+        "close": function close($event) {
+          return _vm.$emit('close-option-window');
+        }
+      }
+    }, 'options-window', _vm.widgetOptionsWindow, false))], 1) : _vm._e()], 1)] : _vm._e()];
+  })], 2) : _vm._e()]), _vm._v(" "), _vm.enable_widget ? _c('span', {
     staticClass: "cptm-widget-card-status",
     class: ((_this$selectedWidgets = this.selectedWidgets) === null || _this$selectedWidgets === void 0 ? void 0 : _this$selectedWidgets.length) > 0 ? 'enabled' : 'disabled',
     style: {
@@ -30882,6 +30925,9 @@ var render = function render() {
       "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
         return _vm.closeOptionWindow();
       },
+      "close-option-window": function closeOptionWindow($event) {
+        return _vm.closeWidgetOptionsWindow();
+      },
       "update": function update($event) {
         return _vm.handleUpdateSelectedWidgets($event, 'local_layout.body.top');
       },
@@ -30922,6 +30968,9 @@ var render = function render() {
       },
       "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
         return _vm.closeOptionWindow();
+      },
+      "close-option-window": function closeOptionWindow($event) {
+        return _vm.closeWidgetOptionsWindow();
       },
       "update": function update($event) {
         return _vm.handleUpdateSelectedWidgets($event, 'local_layout.body.bottom');
@@ -30968,6 +31017,9 @@ var render = function render() {
       "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
         return _vm.closeOptionWindow();
       },
+      "close-option-window": function closeOptionWindow($event) {
+        return _vm.closeWidgetOptionsWindow();
+      },
       "update": function update($event) {
         return _vm.handleUpdateSelectedWidgets($event, 'local_layout.footer.left');
       },
@@ -31010,6 +31062,9 @@ var render = function render() {
       },
       "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
         return _vm.closeOptionWindow();
+      },
+      "close-option-window": function closeOptionWindow($event) {
+        return _vm.closeWidgetOptionsWindow();
       },
       "update": function update($event) {
         return _vm.handleUpdateSelectedWidgets($event, 'local_layout.footer.right');

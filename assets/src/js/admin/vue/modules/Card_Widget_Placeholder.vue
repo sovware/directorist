@@ -73,6 +73,7 @@
           <template v-if="hasValidWidget(widget)">
             <div
               class="cptm-widget-preview-card"
+              :class="activeWidgetKey === widget ? 'active' : ''"
               @click.prevent="editWidget(widget)"
             >
               <component
@@ -93,27 +94,26 @@
                     : ''
                 "
                 :widgetKey="widget"
-                :options="availableWidgets[widget].options"
-                :fields="availableWidgets[widget].fields"
+                :options="getWidgetOptions(widget)"
+                :fields="getWidgetFields(widget)"
                 :disabled="readOnly && !selectedWidgets?.includes(widget)"
                 :readOnly="readOnly"
                 @trash="$emit('trash-widget', widget)"
                 @edit="editWidget($event)"
               >
               </component>
+              <div class="cptm-options-area" v-if="widget === activeWidgetKey">
+                <options-window
+                  :active="optionWidgetKey !== null"
+                  v-bind="widgetOptionsWindow"
+                  @update="$emit('update-option-window', $event)"
+                  @close="$emit('close-option-window')"
+                />
+              </div>
             </div>
           </template>
         </template>
       </div>
-    </div>
-
-    <div class="cptm-options-area" v-if="optionWidgetKey === activeWidgetKey">
-      <options-window
-        :active="optionWidgetKey?.length !== 0"
-        v-bind="widgetOptionsWindow"
-        @update="handleUpdateOptionWindow"
-        @close="handleCloseOptionWindow"
-      />
     </div>
 
     <span
@@ -289,27 +289,39 @@ export default {
     editWidget(widgetKey) {
       if (this.activeWidgetKey === widgetKey) {
         this.activeWidgetKey = null; // toggle off
+        // Ensure modal is closed when toggling off
+        if (
+          this.widgetOptionsWindow &&
+          typeof this.widgetOptionsWindow === "object"
+        ) {
+          this.widgetOptionsWindow.widget = null;
+        }
       } else {
         this.activeWidgetKey = widgetKey; // set active
+        // Ensure the widgetOptionsWindow has the correct widget key
+        if (
+          this.widgetOptionsWindow &&
+          typeof this.widgetOptionsWindow === "object"
+        ) {
+          this.widgetOptionsWindow.widget = widgetKey;
+        }
       }
 
-      // Ensure the widgetOptionsWindow has the correct widget key
-      if (
-        this.widgetOptionsWindow &&
-        typeof this.widgetOptionsWindow === "object"
-      ) {
-        this.widgetOptionsWindow.widget = widgetKey;
-      }
       this.$emit("edit-widget", widgetKey);
     },
 
     // Handle close event from options window
     handleCloseOptionWindow() {
-      this.activeWidgetKey = "";
+      console.log("handleCloseOptionWindow");
+      this.activeWidgetKey = null;
+      // Ensure widgetOptionsWindow is also reset
+      if (
+        this.widgetOptionsWindow &&
+        typeof this.widgetOptionsWindow === "object"
+      ) {
+        this.widgetOptionsWindow.widget = null;
+      }
       this.$emit("close-option-window");
-      console.log("handleCloseOptionWindow", {
-        activeWidgetKey: this.activeWidgetKey,
-      });
     },
 
     // Emit the updated selectedWidgets to the parent component
@@ -324,11 +336,53 @@ export default {
       // Emit the updated widget to the parent component
       this.$emit("update-active-widget", { widgetKey, updatedWidget });
     },
+
+    // Get widget options with safety check
+    getWidgetOptions(widgetKey) {
+      const widget = this.availableWidgets[widgetKey];
+      if (!widget || !widget.options) {
+        return {};
+      }
+
+      // Ensure options is an object or array, not a string
+      if (typeof widget.options === "string") {
+        return {};
+      }
+
+      return widget.options;
+    },
+
+    // Get widget fields with safety check
+    getWidgetFields(widgetKey) {
+      const widget = this.availableWidgets[widgetKey];
+      if (!widget || !widget.fields) {
+        return {};
+      }
+
+      // Ensure fields is an object or array, not a string
+      if (typeof widget.fields === "string") {
+        return {};
+      }
+
+      return widget.fields;
+    },
   },
 
   watch: {
     output_data() {
       this.$emit("update", this.output_data);
+    },
+
+    // Watch for changes in activeWidgetKey to ensure modal state is synchronized
+    activeWidgetKey(newValue, oldValue) {
+      // If activeWidgetKey is cleared (null, undefined, or empty string), ensure the modal is also closed
+      if (
+        !newValue &&
+        this.widgetOptionsWindow &&
+        typeof this.widgetOptionsWindow === "object"
+      ) {
+        this.widgetOptionsWindow.widget = null;
+      }
     },
   },
 };

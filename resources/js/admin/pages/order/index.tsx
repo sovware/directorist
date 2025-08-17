@@ -1,68 +1,32 @@
-
-
-import { Fill } from '@wordpress/components';
-import { useState } from '@wordpress/element';
+/**
+ * WordPress dependencies
+ */
 import { __ } from '@wordpress/i18n';
+
+/**
+ * External dependencies
+ */
 import { Column } from '@wpmvc/components/build-types/gutenberg/table/types';
 import { Table } from '@wpmvc/dashboard';
 import React from "react";
-import Card from '../../Card';
-import Tab from '../../Tab';
+
+/**
+ * Internal dependencies
+ */
 
 const columns: Column[] = [
 	{
 		id: 'id',
-		label: __( 'ID' ),
+		label: __( 'ID', 'directorist' ),
 	},
 	{
 		id: 'title',
-		label: __( 'Title' ),
+		label: __( 'Title', 'directorist' ),
 	},
 ];
 
 export default function Order() {
-	const [activeTab, setActiveTab] = useState('general');
 	return (
-		<>
-		<Fill name="wpmvc-header">
-			<Tab
-				className='tab-menu'
-				tabs={[
-					{
-						name: 'general',
-						title: 'General ino'
-					},
-					{
-						name: 'feature',
-						title: 'Feature Configuration'
-					},
-					{
-						name: 'plan',
-						title: 'Plan settings'
-					}
-				]}
-				onActiveTab={setActiveTab} 
-			/>
-		</Fill>
-
-		{
-			activeTab === 'general' && <span>
-
-				{/* Card with custom slot name */}
-				<Card
-					title="Custom Slot Card"
-				>
-					<p>This content will be replaced by Fill components.</p>
-				</Card>
-			</span>
-		}
-		{
-			activeTab === 'feature' && <span>feature</span>
-		}
-		{
-			activeTab === 'plan' && <span>plan</span>
-		}
-		
 		<Table
 			heading="Orders"
 			path="/directorist/admin/orders"
@@ -76,6 +40,5 @@ export default function Order() {
 			//@ts-ignore
 			layoutType={ 'table' }
 		/>
-		</>
 	);
 }

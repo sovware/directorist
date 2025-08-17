@@ -12,19 +12,19 @@ interface CardProps {
 // Styled Components
 const CardContainer = styled.div`
     background: #fff;
-    border: 1px solid #e2e8f0;
+    border: 1px solid var(--directorist-color-light);
     border-radius: 8px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    padding: 24px;
-    margin-bottom: 20px;
+    box-shadow: 0 1px 2px rgba(16, 24, 40, 0.05);
+    &:not(:last-child) {
+        margin-bottom: 30px;
+    }
 `;
 
 const CardHeader = styled.div`
     display: flex;
     align-items: center;
-    margin-bottom: 24px;
-    padding-bottom: 16px;
-    border-bottom: 1px solid #f1f5f9;
+    padding: 22px 24px;
+    border-bottom: 1px solid var(--directorist-color-light);;
 `;
 
 const CardIcon = styled.div`
@@ -39,13 +39,14 @@ const CardIcon = styled.div`
 
 const CardTitle = styled.h3`
     margin: 0;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 600;
-    color: #1e293b;
+    color: var(--directorist-color-dark);
 `;
 
 const CardContent = styled.div`
     min-height: 20px;
+    padding: 20px;
 `;
 
 // Main Card Component
@@ -70,4 +71,3 @@ export default function Card({
 
 // Export types for external use
 export type { CardProps };
-

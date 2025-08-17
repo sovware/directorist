@@ -2,6 +2,7 @@ import { Dashboard } from '@wpmvc/dashboard';
 import { MenuItemsType } from '@wpmvc/dashboard/build-types/components/menu/types';
 import React from 'react';
 import Order from './pages/order';
+import Edit from './pages/order/edit';
 
 const menuItems: MenuItemsType = {
 	home: {
@@ -102,6 +103,11 @@ export default function App() {
 					path: '/',
 					element: <Order/>,
 					index: true,
+          // preventTransition: true,
+				},
+				{
+					path: '/edit',
+					element: <Edit />,
           // preventTransition: true,
 				},
 			] }

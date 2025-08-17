@@ -88,7 +88,7 @@
 					method: 'POST',
 					data: data,
 				}).then((response) => {
-					if( response.redirect_url ) {
+					if (response.redirect_url) {
 						window.location.href = response.redirect_url;
 					}
 				});

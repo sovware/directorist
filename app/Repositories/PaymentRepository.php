@@ -4,13 +4,11 @@ namespace Directorist\App\Repositories;
 
 defined( "ABSPATH" ) || exit;
 
-use Directorist\App\Enums\Payment\Status;
+use Directorist\App\Helpers\DateTime;
 use Directorist\App\Models\Payment;
 use Directorist\WpMVC\Repositories\Repository;
 use Directorist\WpMVC\Database\Query\Builder;
 use Directorist\App\DTO\Payment\DTO;
-use Directorist\App\Enums\Order\Status as OrderStatus;
-use Directorist\WpMVC\Exceptions\Exception;
 
 class PaymentRepository extends Repository {
     public OrderRepository $order_repository;
@@ -42,5 +40,27 @@ class PaymentRepository extends Repository {
         // }
 
         return $payment_id;
+    }
+
+    public function get_last_payment( $order_id ) {
+        $query = $this->get_query_builder();
+        return $query->where( 'order_id', $order_id )->order_by_desc( 'id' )->first();
+    }
+
+    public function to_dto( $payment ) {
+        $dto = ( new DTO )->set_id( $payment->id )
+            ->set_order_id( $payment->order_id )
+            ->set_amount( $payment->amount )
+            ->set_currency( $payment->currency )
+            ->set_status( $payment->status )
+            ->set_method( $payment->method )
+            ->set_transaction_id( $payment->transaction_id )
+            ->set_created_at( new DateTime( $payment->created_at ) );
+
+        if ( ! empty( $payment->updated_at ) ) {
+            $dto->set_updated_at( new DateTime( $payment->updated_at ) );
+        }
+
+        return $dto;
     }
 }

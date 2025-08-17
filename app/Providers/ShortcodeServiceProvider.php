@@ -33,21 +33,30 @@ class ShortcodeServiceProvider implements Provider {
         }
 
         $order_repository = directorist_order_repository();
-        $order            = $order_repository->get_by_id( $order_id );
+        $order_db         = $order_repository->get_by_id( $order_id );
 
-        if ( ! $order ) {
+        if ( ! $order_db ) {
             return __( "Order not found" );
         }
 
+        $order = $order_repository->to_dto( $order_db );
+
         $payment_repository = directorist_payment_repository();
         $payments           = $payment_repository->get( $order_id );
+        $payment            = $payments[0] ?? null;
 
-        ob_start();
-        echo "<pre>";
-        print_r( $order );
-        print_r( $payments );
-        echo "</pre>";
-        return ob_get_clean();
+        if ( $payment ) {
+            $payment = $payment_repository->to_dto( $payment );
+        }
+
+        wp_enqueue_script( 'directorist-payment-receipt' );
+
+        return View::get(
+            'checkout/receipt', [
+                'order'   => $order,
+                'payment' => $payment
+            ]
+        );
     }
 
     public function checkout() {
@@ -79,6 +88,9 @@ class ShortcodeServiceProvider implements Provider {
         } catch ( \Throwable $th ) {
             return "<div class='notice_wrapper'><div class='directorist-alert directorist-alert-warning'>{$th->getMessage()}</div></div>";
         }
+
+        wp_enqueue_script( 'directorist-checkout' );
+        wp_enqueue_script( 'wp-api-fetch' );
 
         return View::get(
             'checkout/checkout', [

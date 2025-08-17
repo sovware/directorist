@@ -5,7 +5,8 @@ const devHost = 'directorist.local';
 module.exports = {
 	...defaultConfig,
 	entry: {
-		'js/admin-order': './resources/js/admin/order/index.tsx',
+		'js/admin/order': './resources/js/admin/order/index.tsx',
+		'js/frontend/payment-receipt': './resources/js/frontend/payment-receipt.js',
 	},
 	output: {
 		...defaultConfig.output,

@@ -68,13 +68,19 @@
       e.preventDefault();
       var formData = new FormData(this);
       var data = Object.fromEntries(formData);
-      wp.apiFetch({
-        path: '/directorist/checkout',
-        method: 'POST',
-        data: data
-      }).then(function (response) {
-        console.log(response);
-      });
+      try {
+        wp.apiFetch({
+          path: '/directorist/checkout',
+          method: 'POST',
+          data: data
+        }).then(function (response) {
+          if (response.redirect_url) {
+            window.location.href = response.redirect_url;
+          }
+        });
+      } catch (error) {
+        console.log(error);
+      }
     });
   });
 })(jQuery);

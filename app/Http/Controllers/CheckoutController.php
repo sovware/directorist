@@ -4,12 +4,11 @@ namespace Directorist\App\Http\Controllers;
 
 defined( "ABSPATH" ) || exit;
 
-use Directorist\App\Http\Controllers\Controller;
+use Directorist\App\Contracts\PaymentInterface;
 use Directorist\WpMVC\Exceptions\Exception;
 use Directorist\WpMVC\Routing\Response;
 use Directorist\WpMVC\RequestValidator\Validator;
 use Directorist\App\DTO\Order\DTO;
-use Directorist\App\Enums\Order\Type;
 use Directorist\App\Enums\Order\Status;
 use WP_REST_Request;
 
@@ -27,6 +26,13 @@ class CheckoutController {
             ] 
         );
 
+        $payment_gateway    = $request->get_param( 'payment_gateway' );
+        $payment_processors = directorist_get_payment_processors();
+        
+        if ( ! isset( $payment_processors[$payment_gateway] ) || ! class_exists( $payment_processors[$payment_gateway] ) ) {
+            throw new \Exception( __( 'Invalid payment gateway.', 'directorist' ) );
+        }
+
         $checkout_type = $request->get_param( 'checkout_type' );
 
         do_action( 'directorist_checkout_validation', $checkout_type, $request, $validator );
@@ -41,10 +47,15 @@ class CheckoutController {
         $repository = directorist_order_repository();
         $repository->create( $dto );
 
+        $processor_instance = directorist_make( $payment_processors[$payment_gateway] );
+
+        if ( $processor_instance instanceof PaymentInterface ) {
+            $redirect_url = $processor_instance->pay( $dto );
+        }
 
         return Response::send(
             [
-                "message" => esc_html__( "Checkout" )
+                "redirect_url" => $redirect_url ?? apply_filters( 'atbdp_payment_receipt_page_link', \ATBDP_Permalink::get_payment_receipt_page_link( $dto->get_id() ), $dto->get_id() )
             ]
         );
     }

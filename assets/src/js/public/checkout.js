@@ -82,13 +82,19 @@
 			const formData = new FormData(this);
 			const data = Object.fromEntries(formData);
 
-			wp.apiFetch({
-				path: '/directorist/checkout',
-				method: 'POST',
-				data: data,
-			}).then((response) => {
-				console.log(response);
-			});
+			try {
+				wp.apiFetch({
+					path: '/directorist/checkout',
+					method: 'POST',
+					data: data,
+				}).then((response) => {
+					if( response.redirect_url ) {
+						window.location.href = response.redirect_url;
+					}
+				});
+			} catch (error) {
+				console.log(error);
+			}
 		});
 	});
 })(jQuery);

@@ -4,10 +4,10 @@ namespace Directorist\App\Contracts;
 
 defined( "ABSPATH" ) || exit;
 
-use stdClass;
+use Directorist\App\DTO\Order\DTO as OrderDTO;
 
 interface PaymentInterface {
     public static function get_key(): string;
 
-    public function pay( stdClass $order, array $params = [] );
+    public function pay( OrderDTO $dto ): ?string;
 }

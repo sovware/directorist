@@ -47,10 +47,16 @@ class CheckoutController {
         $repository = directorist_order_repository();
         $repository->create( $dto );
 
-        $processor_instance = directorist_make( $payment_processors[$payment_gateway] );
+        $redirect_url = null;
 
-        if ( $processor_instance instanceof PaymentInterface ) {
-            $redirect_url = $processor_instance->pay( $dto );
+        if ( $dto->get_amount() == 0 ) {
+            directorist_order_repository()->update( ( new DTO )->set_id( $dto->get_id() )->set_status( Status::PAID ) );
+        } else {
+            $processor_instance = directorist_make( $payment_processors[$payment_gateway] );
+
+            if ( $processor_instance instanceof PaymentInterface ) {
+                $redirect_url = $processor_instance->pay( $dto );
+            }
         }
 
         return Response::send(

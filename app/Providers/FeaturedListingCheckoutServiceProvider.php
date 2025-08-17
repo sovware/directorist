@@ -4,6 +4,7 @@ namespace Directorist\App\Providers;
 
 defined( "ABSPATH" ) || exit;
 
+use Directorist\App\Enums\Order\Status;
 use Directorist\App\DTO\Order\DTO;
 use Directorist\App\Enums\Order\Type;
 use Directorist\WpMVC\View\View;
@@ -25,6 +26,8 @@ class FeaturedListingCheckoutServiceProvider implements Provider {
         add_action( 'directorist_checkout_table', [$this, 'handle_checkout_table'], 10, 3 );
         add_filter( 'directorist_checkout_subtotal', [$this, 'handle_checkout_subtotal'], 10, 3 );
         add_action( 'directorist_checkout_create_order', [$this, 'handle_checkout_create_order'], 10, 3 );
+        add_action( 'directorist_before_order_update', [$this, 'handle_before_order_update'] );
+        add_action( 'directorist_after_order_update', [$this, 'handle_after_order_update'] );
     }
 
     public function add_checkout_type( array $checkout_types ) {
@@ -76,5 +79,32 @@ class FeaturedListingCheckoutServiceProvider implements Provider {
 
         $amount = get_directorist_option( 'featured_listing_price' );
         $dto->set_listing_id( $request->get_param( 'listing_id' ) )->set_is_featured_listing( 1 )->set_amount( $amount )->set_final_amount( $amount )->set_type( Type::ONE_TIME );
+    }
+
+    public function handle_before_order_update( DTO $dto ) {
+        if ( ! $dto->is_initialized( 'status' ) || $dto->get_status() !== Status::PAID ) {
+            return;
+        }
+
+        $order = directorist_order_repository()->get_by_id( $dto->get_id() );
+
+        if ( $order->is_featured_listing && ! $order->expires_at ) {
+            $featured_days = get_directorist_option( 'featured_listing_time', 30 );
+            $dto->set_expires_at( directorist_now()->add_days( $featured_days ) );
+        }
+    }
+
+    public function handle_after_order_update( DTO $dto ) {
+        $order = directorist_order_repository()->get_by_id( $dto->get_id() );
+
+        if ( ! $order->is_featured_listing ) {
+            return;
+        }
+
+        if ( Status::PAID === $order->status ) {
+            update_post_meta( $order->listing_id, '_featured', 1 );
+        } else {
+            update_post_meta( $order->listing_id, '_featured', 0 );
+        }
     }
 }

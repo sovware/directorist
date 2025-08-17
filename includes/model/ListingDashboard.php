@@ -593,7 +593,7 @@ class Directorist_Listing_Dashboard {
             $dropdown_items['promote'] = [
                 'class'             => '',
                 'data_attr'         =>  '',
-                'link'              =>  ATBDP_Permalink::get_checkout_page_link( $post_id ),
+                'link'              =>  directorist_get_checkout_page_link( 'featured_listing', [ 'listing_id' => $post_id ] ),
                 'icon'              =>  directorist_icon( 'las la-ad', false ),
                 'label'             =>  __( 'Promote', 'directorist' )
             ];

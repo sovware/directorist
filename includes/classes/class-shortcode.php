@@ -46,7 +46,7 @@ class ATBDP_Shortcode {
                     'directorist_add_listing'         => [ $this, 'add_listing' ],
 
                 // Checkout
-                    'directorist_checkout'            => [ new \ATBDP_Checkout, 'display_checkout_content' ],
+                    // 'directorist_checkout'            => [ new \ATBDP_Checkout, 'display_checkout_content' ],
                     'directorist_payment_receipt'     => [ new \ATBDP_Checkout, 'payment_receipt' ],
                     'directorist_transaction_failure' => [ new \ATBDP_Checkout, 'transaction_failure' ],
 

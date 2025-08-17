@@ -38,13 +38,13 @@ class OrderRepository extends Repository {
     public function create( \Directorist\WpMVC\DTO\DTO $dto ) {
         $dto->set_final_amount( $dto->get_amount() );
 
-        do_action( 'directorist_before_order_create', $dto );
+        // do_action( 'directorist_before_order_create', $dto );
         
         $order_id = parent::create( $dto );
 
         $dto->set_id( $order_id );
         
-        do_action( 'directorist_after_order_create', $dto );
+        // do_action( 'directorist_after_order_create', $dto );
 
         return $order_id;
     }
@@ -57,19 +57,6 @@ class OrderRepository extends Repository {
      * @throws Exception If the update operation fails.
      */
     public function update( \Directorist\WpMVC\DTO\DTO $dto ) {
-        if ( $dto->is_initialized( "amount" ) ) {
-            $dto->set_final_amount( $dto->get_amount() );
-        }
-
-        if ( $dto->is_initialized( 'status' ) && $dto->get_status() === Status::PAID ) {
-            $order = $this->get_by_id( $dto->get_id() );
-
-            if ( $order->is_featured_listing && ! $order->expires_at ) {
-                $featured_days = get_directorist_option( 'featured_listing_time', 30 );
-                $dto->set_expires_at( directorist_now()->add_days( $featured_days ) );
-            }
-        }
-
         do_action( 'directorist_before_order_update', $dto );
 
         $update = parent::update( $dto );

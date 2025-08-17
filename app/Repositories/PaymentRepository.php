@@ -36,10 +36,10 @@ class PaymentRepository extends Repository {
     public function create( \Directorist\WpMVC\DTO\DTO $dto ) {
         $payment_id = parent::create( $dto );
 
-        if ( $dto->is_initialized( 'status' ) && $dto->get_status() === Status::PAID ) {
-            $dto = ( new \Directorist\App\DTO\Order\DTO )->set_id( $dto->get_order_id() )->set_status( OrderStatus::PAID );
-            $this->order_repository->update( $dto );
-        }
+        // if ( $dto->is_initialized( 'status' ) && $dto->get_status() === Status::PAID ) {
+        //     $dto = ( new \Directorist\App\DTO\Order\DTO )->set_id( $dto->get_order_id() )->set_status( OrderStatus::PAID );
+        //     $this->order_repository->update( $dto );
+        // }
 
         return $payment_id;
     }

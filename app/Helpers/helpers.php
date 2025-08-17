@@ -4,3 +4,23 @@ defined( "ABSPATH" ) || exit;
 
 require_once __DIR__ . '/app.php';
 require_once __DIR__ . '/repositories.php';
+
+function directorist_get_checkout_page_link( string $checkout_type, array $query_args = [] ) {
+    $link    = home_url(); // default url
+    $page_id = get_directorist_option( 'checkout_page' );
+
+    if ( $page_id ) {
+        $query_args['checkout_type'] = $checkout_type;
+        $link                        = add_query_arg( $query_args, get_permalink( $page_id ) );
+    }
+
+    return apply_filters( 'directorist_checkout_page_url', $link, $page_id, $checkout_type );
+}
+
+function directorist_get_checkout_types(): array {
+    return apply_filters( 'directorist_checkout_types', [] );
+}
+
+function directorist_price( $price ) {
+    return atbdp_display_price( $price );
+}

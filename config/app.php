@@ -3,10 +3,9 @@
 defined( 'ABSPATH' ) || exit;
 
 use Directorist\App\Providers\ShortcodeServiceProvider;
-use Directorist\App\Providers\PaymentServiceProvider;
 use Directorist\App\Providers\Admin\MenuServiceProvider;
-use Directorist\App\Providers\OrderServiceProvider;
 use Directorist\App\Http\Middleware\EnsureIsUserAdmin;
+use Directorist\App\Providers\FeaturedListingCheckoutServiceProvider;
 
 return [
     'version'                 => ATBDP_VERSION,
@@ -22,9 +21,8 @@ return [
     ],
 
     'providers'               => [
-        // OrderServiceProvider::class,
-        // PaymentServiceProvider::class,
-        // ShortcodeServiceProvider::class
+        ShortcodeServiceProvider::class,
+        FeaturedListingCheckoutServiceProvider::class
     ],
 
     'admin_providers'         => [

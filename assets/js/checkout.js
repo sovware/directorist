@@ -64,6 +64,24 @@
     function number_with_commas(number) {
       return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     }
+    $('#atbdp-checkout-form').on('submit', function (e) {
+      e.preventDefault();
+      var formData = new FormData(this);
+      var data = Object.fromEntries(formData);
+      try {
+        wp.apiFetch({
+          path: '/directorist/checkout',
+          method: 'POST',
+          data: data
+        }).then(function (response) {
+          if (response.redirect_url) {
+            window.location.href = response.redirect_url;
+          }
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    });
   });
 })(jQuery);
 /******/ })()

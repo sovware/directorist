@@ -2,9 +2,13 @@
 
 defined( 'ABSPATH' ) || exit;
 
+use Directorist\App\Http\Controllers\CheckoutController;
 use Directorist\App\Http\Controllers\Admin\PaymentController;
 use Directorist\App\Http\Controllers\Admin\OrderController;
 use Directorist\WpMVC\Routing\Route;
+
+
+Route::post( 'checkout', [CheckoutController::class, 'checkout'] );
 
 Route::group(
     'admin', function() {

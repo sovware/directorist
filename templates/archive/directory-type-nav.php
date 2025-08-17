@@ -24,7 +24,7 @@ do_action( 'directorist_before_listing_types', $listings );
         <?php if ( ! empty( $all_types ) ) : ?>
 
             <li class="list-inline-item <?php echo ( $listings->current_listing_type === 'all' || 'all' === $current_directory_type ) ? 'directorist-type-nav__list__current' : ''; ?>">
-                <a class="directorist-type-nav__link" href="<?php echo esc_url( directorist_get_directory_type_nav_url( 'all' ) ); ?>">
+                <a class="directorist-type-nav__link--<?php echo esc_attr( $listings->type_display ); ?> directorist-type-nav__link" href="<?php echo esc_url( directorist_get_directory_type_nav_url( 'all' ) ); ?>">
                 <?php directorist_icon( 'fa fa-grip-horizontal' ); ?> <?php esc_html_e( 'All', 'directorist' ); ?></a>
             </li>
 

@@ -20,7 +20,7 @@
         </svg>
         <span
           class="cptm-placeholder-author-thumb-trash"
-          @click.stop="$emit('trash-widget')"
+          @click.stop="$emit('trash')"
         >
           <span class="las la-trash-alt"></span>
         </span>
@@ -35,10 +35,12 @@ export default {
   props: {
     label: {
       type: String,
+      default: "",
     },
 
     options: {
       type: Object,
+      default: () => ({}),
     },
 
     readOnly: {

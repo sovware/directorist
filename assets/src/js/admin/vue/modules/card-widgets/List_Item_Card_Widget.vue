@@ -49,10 +49,12 @@ export default {
 
     widgetKey: {
       type: String,
+      default: "",
     },
 
     options: {
       type: Object,
+      default: () => ({}),
     },
 
     readOnly: {

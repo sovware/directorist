@@ -139,13 +139,6 @@
                     "
                     @close-widgets-picker-window="closeInsertWindow()"
                     @close-widgets-option-window="closeOptionWindow()"
-                    @update="
-                      handleUpdateSelectedWidgets(
-                        $event,
-                        'local_layout.thumbnail.bottom_left',
-                      )
-                    "
-                    @update-active-widget="handleActiveWidgetUpdate"
                   />
                 </div>
 
@@ -254,12 +247,6 @@
                 "
                 @close-widgets-picker-window="closeInsertWindow()"
                 @close-widgets-option-window="closeOptionWindow()"
-                @toggle-widget-status="
-                  toggleWidgetStatus(local_layout.thumbnail.avatar)
-                "
-                @update-option-window="
-                  updateWidgetOptionsData($event, widgetOptionsWindow)
-                "
                 @close-option-window="closeWidgetOptionsWindow()"
               />
             </div>
@@ -268,16 +255,29 @@
               id="thumbnail_body_top"
               containerClass="cptm-listing-card-preview-top-placeholder cptm-mb-12 cptm-align-left"
               :label="local_layout.body.top.label"
-              :enable_widget="local_layout.body.top.enable_widget"
               :availableWidgets="theAvailableWidgets"
               :activeWidgets="active_widgets"
               :acceptedWidgets="local_layout.body.top.acceptedWidgets"
               :selectedWidgets="local_layout.body.top.selectedWidgets"
               :maxWidget="local_layout.body.top.maxWidget"
+              :showWidgetsPickerWindow="
+                getActiveInsertWindowStatus('thumbnail_body_top')
+              "
+              :showWidgetsOptionWindow="
+                getActiveOptionWindowStatus('thumbnail_body_top')
+              "
               :widgetOptionsWindow="widgetOptionsWindow"
+              @insert-widget="insertWidget($event, local_layout.body.top)"
               @edit-widget="editWidget($event)"
               @trash-widget="trashWidget($event, local_layout.body.top)"
-              @toggle-widget-status="toggleWidgetStatus(local_layout.body.top)"
+              @open-widgets-picker-window="
+                toggleInsertWindow('thumbnail_body_top')
+              "
+              @open-widgets-option-window="
+                toggleOptionWindow('thumbnail_body_top')
+              "
+              @close-widgets-picker-window="closeInsertWindow()"
+              @close-widgets-option-window="closeOptionWindow()"
             />
 
             <div class="cptm-card-preview-body">
@@ -308,13 +308,6 @@
                 "
                 @close-widgets-picker-window="closeInsertWindow()"
                 @close-widgets-option-window="closeOptionWindow()"
-                @update="
-                  handleUpdateSelectedWidgets(
-                    $event,
-                    'local_layout.body.bottom',
-                  )
-                "
-                @update-active-widget="handleActiveWidgetUpdate"
               />
             </div>
           </div>
@@ -350,13 +343,6 @@
                 "
                 @close-widgets-picker-window="closeInsertWindow()"
                 @close-widgets-option-window="closeOptionWindow()"
-                @update="
-                  handleUpdateSelectedWidgets(
-                    $event,
-                    'local_layout.footer.left',
-                  )
-                "
-                @update-active-widget="handleActiveWidgetUpdate"
               />
             </div>
 
@@ -384,18 +370,8 @@
                 @open-widgets-picker-window="
                   toggleInsertWindow('thumbnail_footer_right')
                 "
-                @open-widgets-option-window="
-                  toggleOptionWindow('thumbnail_footer_right')
-                "
                 @close-widgets-picker-window="closeInsertWindow()"
-                @close-widgets-option-window="closeOptionWindow()"
-                @update="
-                  handleUpdateSelectedWidgets(
-                    $event,
-                    'local_layout.footer.right',
-                  )
-                "
-                @update-active-widget="handleActiveWidgetUpdate"
+                @close-option-window="closeWidgetOptionsWindow()"
               />
             </div>
           </div>
@@ -908,6 +884,7 @@ export default {
 
     // Update Widget Options Data
     updateWidgetOptionsData(data, widget) {
+      console.log("updateWidgetOptionsData", { data, widget });
       return;
     },
 
@@ -918,6 +895,7 @@ export default {
 
     // Trash Widget
     trashWidget(key, where) {
+      console.log("trashWidget", { key, where });
       if (!where.selectedWidgets.includes(key)) {
         return;
       }
@@ -1026,6 +1004,7 @@ export default {
 
     // Handle Update Selected Widgets
     handleUpdateSelectedWidgets(updatedWidgets, path) {
+      console.log("handleUpdateSelectedWidgets", { updatedWidgets, path });
       // Split the path into keys
       const pathKeys = path.split(".");
 

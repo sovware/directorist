@@ -1,6 +1,6 @@
 <template>
   <div class="cptm-placeholder-block-wrapper">
-    <div class="cptm-widget-option-modal-container">
+    <!-- <div class="cptm-widget-option-modal-container">
       <widgets-option-window
         :id="id"
         :availableWidgets="availableWidgets"
@@ -18,7 +18,7 @@
         @trash-widget="$emit('trash-widget', $event)"
         @close="$emit('close-widgets-option-window')"
       />
-    </div>
+    </div> -->
 
     <div
       class="cptm-placeholder-block"
@@ -30,7 +30,6 @@
           disabled: selectedWidgets?.length === 0,
         },
       ]"
-      @click.prevent="$emit('open-widgets-option-window')"
     >
       <p
         class="cptm-placeholder-label"
@@ -74,7 +73,7 @@
           <template v-if="hasValidWidget(widget)">
             <div
               class="cptm-widget-preview-card"
-              @click.prevent="setActiveWidget(widget)"
+              @click.prevent="editWidget(widget)"
             >
               <component
                 :is="availableWidgets[widget].type + '-card-widget'"
@@ -112,7 +111,7 @@
       <options-window
         :active="optionWidgetKey?.length !== 0"
         v-bind="widgetOptionsWindow"
-        @update="$emit('update-option-window', $event)"
+        @update="handleUpdateOptionWindow"
         @close="handleCloseOptionWindow"
       />
     </div>
@@ -276,14 +275,24 @@ export default {
     },
 
     // Set the active widget key when the widget is clicked
-    setActiveWidget(widgetKey) {
-      this.activeWidgetKey = widgetKey;
-      // Emit event to inform parent about active widget
-      this.$emit("widget-activated", widgetKey);
-    },
+    // setActiveWidget(widgetKey) {
+    //   console.log("@@setActiveWidget", {
+    //     widgetKey,
+    //     activeWidgetKey: this.activeWidgetKey,
+    //   });
+
+    //   this.activeWidgetKey = widgetKey;
+    //   // Emit event to inform parent about active widget
+    //   this.$emit("widget-activated", widgetKey);
+    // },
 
     editWidget(widgetKey) {
-      this.activeWidgetKey = widgetKey;
+      if (this.activeWidgetKey === widgetKey) {
+        this.activeWidgetKey = null; // toggle off
+      } else {
+        this.activeWidgetKey = widgetKey; // set active
+      }
+
       // Ensure the widgetOptionsWindow has the correct widget key
       if (
         this.widgetOptionsWindow &&
@@ -298,12 +307,16 @@ export default {
     handleCloseOptionWindow() {
       this.activeWidgetKey = "";
       this.$emit("close-option-window");
+      console.log("handleCloseOptionWindow", {
+        activeWidgetKey: this.activeWidgetKey,
+      });
     },
 
     // Emit the updated selectedWidgets to the parent component
     handleUpdateOptionWindow(payload) {
+      console.log("@@handleUpdateOptionWindow", { payload });
       // Emit the updated selectedWidgets to the parent component
-      this.$emit("update", payload.selectedWidgets);
+      this.$emit("update-option-window", payload);
     },
 
     // Emit the updated active widget to the parent component

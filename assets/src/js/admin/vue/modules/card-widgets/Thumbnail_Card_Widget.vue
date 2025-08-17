@@ -44,10 +44,12 @@ export default {
   props: {
     label: {
       type: String,
+      default: "",
     },
 
     options: {
       type: Object,
+      default: () => ({}),
     },
 
     disabled: {

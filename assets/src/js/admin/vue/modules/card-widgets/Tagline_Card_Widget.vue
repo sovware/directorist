@@ -16,16 +16,14 @@
 export default {
   name: "tagline-card-widget",
   props: {
-    icon: {
-      type: String,
-    },
-
     label: {
       type: String,
+      default: "",
     },
 
     options: {
       type: Object,
+      default: () => ({}),
     },
 
     readOnly: {

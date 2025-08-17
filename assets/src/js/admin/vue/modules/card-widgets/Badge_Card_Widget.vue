@@ -55,10 +55,12 @@ export default {
 
     icon: {
       type: String,
+      default: "",
     },
 
     label: {
       type: String,
+      default: "",
     },
 
     options: {
@@ -68,6 +70,7 @@ export default {
 
     fields: {
       type: Object,
+      default: () => ({}),
     },
 
     readOnly: {

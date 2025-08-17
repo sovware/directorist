@@ -75,13 +75,14 @@ export default {
   watch: {
     fields: {
       handler(newFields, oldFields) {
+        console.log("@@handler", { newFields, oldFields });
         if (newFields && newFields !== oldFields) {
           // Only update if fields actually changed
           this.local_fields = { ...newFields };
           this.$emit("update", this.local_fields);
+          console.log("@@local_fields", { local_fields: this.local_fields });
         }
       },
-      deep: true,
     },
   },
 
@@ -120,8 +121,14 @@ export default {
     },
 
     updateFieldData(value, field_key) {
+      console.log("@@updateFieldData", {
+        value,
+        field_key,
+        field: this.local_fields[field_key],
+      });
       // Use Vue.set to ensure reactivity
-      this.$set(this.local_fields[field_key], "value", value);
+      // this.$set(this.local_fields[field_key], "value", value);
+      this.local_fields[field_key].value = value;
       this.$emit("update", this.local_fields);
     },
   },

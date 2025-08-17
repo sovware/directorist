@@ -28,6 +28,7 @@ class FeaturedListingCheckoutServiceProvider implements Provider {
         add_action( 'directorist_checkout_create_order', [$this, 'handle_checkout_create_order'], 10, 3 );
         add_action( 'directorist_before_order_update', [$this, 'handle_before_order_update'] );
         add_action( 'directorist_after_order_update', [$this, 'handle_after_order_update'] );
+        add_filter( 'directorist_payment_receipt_order_items', [$this, 'handle_payment_receipt_order_items'], 10, 2 );
     }
 
     public function add_checkout_type( array $checkout_types ) {
@@ -106,5 +107,21 @@ class FeaturedListingCheckoutServiceProvider implements Provider {
         } else {
             update_post_meta( $order->listing_id, '_featured', 0 );
         }
+    }
+
+    public function handle_payment_receipt_order_items( array $order_items, DTO $order ) {
+        if ( ! $order->get_is_featured_listing() ) {
+            return $order_items;
+        }
+
+        $data = atbdp_get_featured_settings_array();
+
+        $order_items[] = [
+            'title' => $data['label'],
+            'desc'  => $data['desc'],
+            'price' => $order->get_amount()
+        ];
+
+        return $order_items;
     }
 }

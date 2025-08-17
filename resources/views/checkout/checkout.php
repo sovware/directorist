@@ -4,8 +4,6 @@ defined( 'ABSPATH' ) || exit;
 
 use \Directorist\Helper;
 
-wp_enqueue_script( 'directorist-checkout' );
-wp_enqueue_script( 'wp-api-fetch' );
 ?>
 <div id="directorist" class="atbd_wrapper directorist directorist-checkout-form directorist-w-100">
 <div class="<?php Helper::directorist_container_fluid(); ?>">

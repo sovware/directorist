@@ -6,6 +6,7 @@ use Directorist\App\Providers\ShortcodeServiceProvider;
 use Directorist\App\Providers\Admin\MenuServiceProvider;
 use Directorist\App\Http\Middleware\EnsureIsUserAdmin;
 use Directorist\App\Providers\FeaturedListingCheckoutServiceProvider;
+use Directorist\App\Providers\PaymentServiceProvider;
 
 return [
     'version'                 => ATBDP_VERSION,
@@ -22,7 +23,8 @@ return [
 
     'providers'               => [
         ShortcodeServiceProvider::class,
-        FeaturedListingCheckoutServiceProvider::class
+        FeaturedListingCheckoutServiceProvider::class,
+        PaymentServiceProvider::class
     ],
 
     'admin_providers'         => [

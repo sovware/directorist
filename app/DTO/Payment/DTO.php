@@ -4,6 +4,8 @@ namespace Directorist\App\DTO\Payment;
 
 defined( "ABSPATH" ) || exit;;
 
+use Directorist\App\Helpers\DateTime;
+
 class DTO extends \Directorist\WpMVC\DTO\DTO {
     private int $id;
 
@@ -15,9 +17,13 @@ class DTO extends \Directorist\WpMVC\DTO\DTO {
 
     private string $status;
 
-    private string $transaction_id;
+    private ?string $transaction_id;
 
     private string $method;
+
+    private DateTime $created_at;
+
+    private DateTime $updated_at;
 
     /**
      * Get the value of id
@@ -132,20 +138,20 @@ class DTO extends \Directorist\WpMVC\DTO\DTO {
     /**
      * Get the value of transaction_id
      *
-     * @return string
+     * @return ?string
      */
-    public function get_transaction_id(): string {
+    public function get_transaction_id(): ?string {
         return $this->transaction_id;
     }
 
     /**
      * Set the value of transaction_id
      *
-     * @param string $transaction_id 
+     * @param ?string $transaction_id 
      *
      * @return self
      */
-    public function set_transaction_id( string $transaction_id ): self {
+    public function set_transaction_id( ?string $transaction_id ): self {
         $this->transaction_id = $transaction_id;
 
         return $this;
@@ -169,6 +175,50 @@ class DTO extends \Directorist\WpMVC\DTO\DTO {
      */
     public function set_method( string $method ): self {
         $this->method = $method;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of created_at
+     *
+     * @return DateTime
+     */
+    public function get_created_at(): DateTime {
+        return $this->created_at;
+    }
+
+    /**
+     * Set the value of created_at
+     *
+     * @param DateTime $created_at 
+     *
+     * @return self
+     */
+    public function set_created_at( DateTime $created_at ): self {
+        $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of updated_at
+     *
+     * @return DateTime
+     */
+    public function get_updated_at(): DateTime {
+        return $this->updated_at;
+    }
+
+    /**
+     * Set the value of updated_at
+     *
+     * @param DateTime $updated_at 
+     *
+     * @return self
+     */
+    public function set_updated_at( DateTime $updated_at ): self {
+        $this->updated_at = $updated_at;
 
         return $this;
     }

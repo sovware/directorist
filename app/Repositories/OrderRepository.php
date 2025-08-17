@@ -4,10 +4,10 @@ namespace Directorist\App\Repositories;
 
 defined( "ABSPATH" ) || exit;
 
-use Directorist\App\Enums\Order\Status;
+use Directorist\App\DTO\Order\DTO;
+use Directorist\App\Helpers\DateTime;
 use Directorist\WpMVC\Repositories\Repository;
 use Directorist\WpMVC\Database\Query\Builder;
-use Directorist\WpMVC\Exceptions\Exception;
 use Directorist\App\Models\Order;
 
 class OrderRepository extends Repository {
@@ -72,5 +72,31 @@ class OrderRepository extends Repository {
                 $query->order_by_desc( 'id' );
             }
         )->where( 'id', $id )->get();
+    }
+
+    public function to_dto( $order ) {
+        $dto = ( new DTO )
+            ->set_id( $order->id )
+            ->set_subscription_id( $order->subscription_id )
+            ->set_user_id( $order->user_id )
+            ->set_listing_id( $order->listing_id )
+            ->set_plan_id( $order->plan_id )
+            ->set_is_featured_listing( $order->is_featured_listing )
+            ->set_type( $order->type )
+            ->set_amount( $order->amount )
+            ->set_currency( $order->currency )
+            ->set_final_amount( $order->final_amount )
+            ->set_status( $order->status )
+            ->set_created_at( new DateTime( $order->created_at ) );
+        
+        if ( ! empty( $order->updated_at ) ) {
+            $dto->set_updated_at( new DateTime( $order->updated_at ) );
+        }
+
+        if ( ! empty( $order->expires_at ) ) {
+            $dto->set_expires_at( new DateTime( $order->expires_at ) );
+        }
+
+        return $dto;
     }
 }

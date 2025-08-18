@@ -25,18 +25,18 @@ const columns: Column[] = [
 		}
 	},
 	{
-		id: 'user',
+		id: 'user_id',
 		label: __( 'User', 'directorist' ),
 		render: ( {item} ) => {
 			return (
 				<UserInfoContainer>
 						<UserLink 
-							href={`/wp-admin/user-edit.php?user_id=${item.user.ID}`}
+							href={`/wp-admin/user-edit.php?user_id=${item.user_id}`}
 						>
-							{item.user.display_name}
+							{item.user_email}
 						</UserLink>
 					<div>
-						{item.user.user_email}
+						{item.user_display_name}
 					</div>
 				</UserInfoContainer>
 			);

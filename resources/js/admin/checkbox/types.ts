@@ -1,4 +1,4 @@
-export type CheckboxProps = {
+type FieldProps = {
 	label: string;
 	checked?: boolean;
 	onChange: any;
@@ -6,4 +6,8 @@ export type CheckboxProps = {
 	disabled?: boolean;
 	className?: string;
 	required?: boolean;
+};
+
+export type CheckboxProps = {
+	field: FieldProps
 };

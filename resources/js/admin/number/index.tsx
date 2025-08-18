@@ -6,13 +6,16 @@ import { __experimentalNumberControl as NumberControl } from '@wordpress/compone
 /**
  * Internal dependencies
  */
+import React from "react";
 import { NumberFieldType } from './types';
 
-export default function Number( props: NumberFieldType ): JSX.Element {
+export default function Number( {
+	field
+}: NumberFieldType ) {
 	return (
 		<NumberControl
-			{ ...props }
-			help={ props.description }
+			{ ...field }
+			help={ field.description }
 			size="__unstable-large"
 			step={ 1 }
 		/>

@@ -2,7 +2,19 @@ import React from "react";
 import Card from '../../card.tsx';
 import Layout from './layout.tsx';
 
-export default function Feature(){
+interface FeatureProps {
+  attributes?: any;
+  setAttributes?: any;
+  validationErrors?: Record<string, string[]>;
+  validateField?: (fieldName: string, value: any, validationRules: any) => { isValid: boolean; errors: string[] };
+}
+
+export default function Feature({ 
+  attributes, 
+  setAttributes, 
+  validationErrors = {}, 
+  validateField 
+}: FeatureProps) {
     const renderLeftContent = ()=>{
         return(
             <>

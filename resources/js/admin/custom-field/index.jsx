@@ -12,10 +12,13 @@ import styled, { css } from 'styled-components';
 /**
  * Internal dependencies
  */
+import { useEffect } from 'react';
 import { debounce, validateField } from './validation';
 
 const StyledInput = styled(InputControl)`
 	${(props) => {
+		console.log(props);
+		
 		if (props.isInvalid) {
 			return css`
 				.components-input-control__backdrop {
@@ -35,13 +38,15 @@ const ValidationError = styled.div`
 
 export default function TextControl(props) {
 	const { attrKey, field, attributes, setAttributes } = props;
-	const [validationErrors, setValidationErrors] = useState([]);
+	const { validationErrors } = attributes;
 	const [isValidating, setIsValidating] = useState(false);
 	const debounceRef = useRef(null);
 
-	const isInvalid = field?.invalid_key
-		? attributes[field.invalid_key]
-		: validationErrors.length > 0;
+	
+	
+
+	const isInvalid = validationErrors[attrKey]?.length === 0;
+	console.log('error', isInvalid, validationErrors, validationErrors[attrKey]?.length, props);
 
 	// Create debounced validation function
 	const debouncedValidation = useCallback(
@@ -51,6 +56,12 @@ export default function TextControl(props) {
 		[]
 	);
 
+	useEffect(()=>{
+		if(attributes?.should_validate){
+			performValidation(attributes[attrKey]);
+		}
+	},[attributes?.should_validate])
+
 	// Perform validation using the validation module
 	const performValidation = (value) => {
 		if (!field?.validation) return;
@@ -59,8 +70,15 @@ export default function TextControl(props) {
 		
 		// Use the validation module
 		const result = validateField(value, field, attributes);
+		// console.log(result);
 		
-		setValidationErrors(result.errors);
+		setAttributes({
+			validationErrors: {
+			  ...validationErrors,
+			  [attrKey]: result.errors,
+			},
+		  });
+		// setValidationErrors(result.errors);
 		setIsValidating(false);
 
 		// Update invalid state if field has invalid_key
@@ -88,7 +106,7 @@ export default function TextControl(props) {
 	return (
 		<div>
 			<StyledInput
-				isInvalid={isInvalid}
+				isInvalid={validationErrors[attrKey]?.length > 0}
 				label={field.label}
 				value={attributes[attrKey]}
 				help={field.description}
@@ -110,8 +128,8 @@ export default function TextControl(props) {
 			/>
 			
 			{/* Show validation errors */}
-			{validationErrors.length > 0 && (
-				validationErrors.map((error, index) => (
+			{validationErrors[attrKey]?.length > 0 && (
+				validationErrors[attrKey].map((error, index) => (
 					<ValidationError key={index}>{error}</ValidationError>
 				))
 			)}

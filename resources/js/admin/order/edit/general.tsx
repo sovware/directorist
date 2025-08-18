@@ -23,7 +23,13 @@ interface ExtendedFieldType extends FieldsType {
   [key: string]: any; // Allow additional properties
 }
 
-export default function General({ attributes, setAttributes }) {
+export default function General({ 
+  attributes, 
+  setAttributes,
+}: {
+  attributes: any;
+  setAttributes: any;
+}) {
   const basicFields: ExtendedFieldType = {
     // custom: {
     //   type: 'custom',
@@ -47,15 +53,48 @@ export default function General({ attributes, setAttributes }) {
         "This is the name of your plan that will be displayed to the users.",
         "directorist",
       ),
+      validation: {
+        required: true,
+        min_length: 3,
+        max_length: 50,
+      },
+    },
+    description: {
+      type: "text",
+      label: __("Short Description", "directorist")
     },
     n_radio: {
       type: "n_radio",
       label: __("Select directory type", "directorist"),
-      variation: 'boxed-left',
+      variation: 'boxed-right',
       options: [
-        { label: 'Jobs', value: 'jobs', icon: <ElementorIcon /> },
-        { label: 'Restaurant', value: 'restaurant', icon: <ElementorIcon /> },
+        { label: 'Jobs', value: 'jobs', icon: <ElementorIcon />, renderRadio: ([option, props] )=> <>Hello</> },
+        { label: 'Restaurant', value: 'restaurant', icon: <ElementorIcon />, renderRadio: ([option, props])=> <>Hello</> },
       ],
+    },
+    listing_count: {
+      type: "number",
+      label: __("How many listings for this package?", "directorist"),
+      min: 1,
+      max: 100,
+      step: 1,
+      defaultValue: 10,
+    },
+    listing_unlimited: {
+      type: "checkbox",
+      label: __("Or Mark as Unlimited", "directorist"),
+    },
+    featured_listing_count: {
+      type: "number",
+      label: __("Number of featured listing.", "directorist"),
+      min: 1,
+      max: 100,
+      step: 1,
+      defaultValue: 10,
+    },
+    featured_listing_unlimited: {
+      type: "checkbox",
+      label: __("Or Mark as Unlimited", "directorist"),
     }
   };
   const planFields: FieldsType = {
@@ -69,10 +108,8 @@ export default function General({ attributes, setAttributes }) {
       isMulti: false,
     },
     clipboard: {
-      type: "clipboard",
+      type: "text",
       label: __("Embed plan", "directorist"),
-      // text: "Hello world"
-      text: __("[directorist_pricing_plans id=241]", "directorist"), 
       description: __(
         "Easily embed this plan anywhere with this shortcode",
         "directorist",
@@ -111,11 +148,11 @@ export default function General({ attributes, setAttributes }) {
   };
 
   return (
-    <Layout
-      views={{
-        leftContent: renderLeftContent(),
-        rightContent: renderRightContent(),
-      }}
-    />
+      <Layout
+        views={{
+          leftContent: renderLeftContent(),
+          rightContent: renderRightContent(),
+        }}
+      />
   );
 }

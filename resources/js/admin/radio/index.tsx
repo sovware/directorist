@@ -1,7 +1,7 @@
 /**
  * WordPress dependencies
  */
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 /**
  * External dependencies
@@ -11,6 +11,7 @@ import { size } from 'lodash';
 /**
  * Internal dependencies
  */
+import { validateField, ValidationResult } from '../custom-field/validation';
 import StyleRadioField, { RadioOption } from './styles';
 import { RadioProps } from './types';
 
@@ -26,7 +27,7 @@ const generateOptionDescriptionId = (groupId: string, index: number) =>
 const generateOptionId = (groupId: string, index: number) =>
 	`${groupId}-${index}`;
 
-export default function Radio({ field }: RadioProps) {
+export default function Radio({ field, attributes = {}, setAttributes }: RadioProps) {
 	const {
 		label,
 		options,
@@ -35,13 +36,55 @@ export default function Radio({ field }: RadioProps) {
 		disabled,
 		variation = 'normal',
 		perRow,
+		validation,
+		invalid_key,
+		help_text,
 	} = field;
 
 	const id = 'radio-id';
 
+	// Validation state
+	const [validationErrors, setValidationErrors] = useState<string[]>([]);
+	const [isValidating, setIsValidating] = useState(false);
+
 	// Boxed variation helpers
 	const isBoxed = variation.startsWith('boxed-');
 	const isRadioRight = variation === 'boxed-right';
+
+	// Validation helpers
+	const isInvalid = invalid_key ? attributes[invalid_key] : validationErrors.length > 0;
+
+	// Perform validation
+	const performValidation = useCallback((currentValue: any) => {
+		if (!validation) return;
+
+		setIsValidating(true);
+		const result: ValidationResult = validateField(currentValue, { validation }, attributes);
+		setValidationErrors(result.errors);
+		setIsValidating(false);
+
+		// Update validation state in parent component if invalid_key is provided
+		if (invalid_key && setAttributes) {
+			setAttributes({ [invalid_key]: !result.isValid });
+		}
+	}, [validation, attributes, invalid_key, setAttributes]);
+
+	// Validate on value change
+	useEffect(() => {
+		if (validation) {
+			performValidation(value);
+		}
+	}, [value, validation, performValidation]);
+
+	// Handle option change with validation
+	const handleOptionChange = useCallback((optionValue: any) => {
+		onChange(optionValue);
+		
+		// Perform validation if validation rules exist
+		if (validation) {
+			performValidation(optionValue);
+		}
+	}, [onChange, validation, performValidation]);
 
 	return (
 		<div
@@ -74,8 +117,14 @@ export default function Radio({ field }: RadioProps) {
 								$isBoxed={isBoxed}
 								$isRadioRight={isRadioRight}
 								className="components-radio-control__option"
-								style={{ marginBottom: hasAfter ? 12 : 0 }}
-								onClick={isBoxed ? () => onChange(option.value) : undefined}
+								style={{ 
+									marginBottom: hasAfter ? 12 : 0,
+									...(isInvalid && isBoxed && {
+										borderColor: 'var(--directorist-color-danger)',
+										boxShadow: '0 0 0 1px var(--directorist-color-danger)',
+									}),
+								}}
+								onClick={isBoxed ? () => handleOptionChange(option.value) : undefined}
 							>
 								<input
 									id={optionId}
@@ -84,9 +133,10 @@ export default function Radio({ field }: RadioProps) {
 									name={id}
 									value={option.value}
 									checked={option.value === value}
-									onChange={() => onChange(option.value)}
+									onChange={() => handleOptionChange(option.value)}
 									aria-describedby={option.description ? descriptionId : undefined}
 									style={{ margin: 0 }}
+									aria-invalid={isInvalid}
 								/>
 
 								<div className="components-radio-control__label">
@@ -115,12 +165,38 @@ export default function Radio({ field }: RadioProps) {
 									</p>
 								)}
 							</RadioOption>
+
 							{/* @ts-ignore */}
 							{hasAfter && option.after}
 						</div>
 					);
 				})}
 			</StyleRadioField>
+
+			{/* Validation errors */}
+			{validationErrors.length > 0 && (
+				<div style={{ 
+					color: 'var(--directorist-color-danger)', 
+					fontSize: '12px', 
+					marginTop: '4px' 
+				}}>
+					{validationErrors.map((error, index) => (
+						<div key={index}>{error}</div>
+					))}
+				</div>
+			)}
+
+			{/* Help text */}
+			{help_text && (
+				<p style={{ 
+					fontSize: '12px', 
+					color: '#666', 
+					marginTop: '4px',
+					fontStyle: 'italic'
+				}}>
+					{help_text}
+				</p>
+			)}
 		</div>
 	);
 }

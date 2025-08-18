@@ -1,13 +1,16 @@
-import { CheckboxProps } from './types';
+import React from "react";
 import { StyledCheckbox } from './styles';
+import { CheckboxProps } from './types';
 
-export default function Checkbox( props: CheckboxProps ): JSX.Element {
+export default function Checkbox( {
+	field
+}: CheckboxProps ) {
 	return (
 		<StyledCheckbox
 			//@ts-ignore
-			{ ...props }
-			$disabled={ props.disabled }
-			help={ props.description }
+			{ ...field }
+			$disabled={ field.disabled }
+			help={ field.description }
 		/>
 	);
 }

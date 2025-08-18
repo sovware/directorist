@@ -7,7 +7,6 @@ import { useCallback, useRef, useState } from '@wordpress/element';
 /**
  * External dependencies
  */
-import { has } from 'lodash';
 import styled, { css } from 'styled-components';
 
 /**
@@ -20,7 +19,8 @@ const StyledInput = styled(InputControl)`
 		if (props.isInvalid) {
 			return css`
 				.components-input-control__backdrop {
-					border-color: #d63638 !important;
+					border-color: var(--directorist-color-danger) !important;
+					box-shadow: 0 0 0 0.5px var(--directorist-color-danger) !important;
 				}
 			`;
 		}
@@ -28,7 +28,7 @@ const StyledInput = styled(InputControl)`
 `;
 
 const ValidationError = styled.div`
-	color: #d63638;
+	color: var(--directorist-color-danger);
 	font-size: 12px;
 	margin-top: 4px;
 `;
@@ -82,14 +82,6 @@ export default function TextControl(props) {
 		// Run debounced validation if enabled
 		if (field?.validation) {
 			debouncedValidation(value);
-		}
-
-		// Call custom onChange if provided
-		if (has(field, 'onChange')) {
-			field.onChange({
-				value,
-				...props,
-			});
 		}
 	};
 

@@ -13,7 +13,7 @@ import React from "react";
  * Internal dependencies
  */
 import { useAttributes } from '@wpmvc/dashboard';
-import Tab from '../../../Tab';
+import Tab from '../../Tab';
 import Feature from './feature.tsx';
 import General from './general.tsx';
 import Plan from './plan.tsx';

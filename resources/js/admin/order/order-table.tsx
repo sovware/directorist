@@ -25,7 +25,7 @@ const columns: Column[] = [
 	},
 ];
 
-export default function Order() {
+export default function OrderTable() {
 	return (
 		<Table
 			heading="Orders"

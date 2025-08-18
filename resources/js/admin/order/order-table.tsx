@@ -33,10 +33,10 @@ const columns: Column[] = [
 						<UserLink 
 							href={`/wp-admin/user-edit.php?user_id=${item.user_id}`}
 						>
-							{item.user_email}
+							{item.user_display_name}
 						</UserLink>
 					<div>
-						{item.user_display_name}
+						{item.user_email}
 					</div>
 				</UserInfoContainer>
 			);

@@ -17,15 +17,31 @@ class OrderRepository extends Repository {
     }
 
     public function get( Read $dto ): array {
-        $query = $this->get_query_builder();
+        $query = $this->get_query_builder()->select( 'd_order.*', 'users.user_email', 'users.display_name as user_display_name' );
+
+        $query->join( 'users', 'd_order.user_id', '=', 'users.ID' );
+
+        if ( ! empty( $dto->get_search() ) ) {
+            $search_term = trim( $dto->get_search() );
+            $query->where(
+                function( $query ) use ( $search_term ) {
+                    $query->where( 'd_order.status', 'like', '%' . $search_term . '%' )
+                        ->or_where( 'd_order.final_amount', 'like', '%' . $search_term . '%' )
+                        ->or_where( 'users.user_email', 'like', '%' . $search_term . '%' )
+                        ->or_where( 'users.display_name', 'like', '%' . $search_term . '%' );
+
+                    // Check if search term contains 'featured listing' (case-insensitive)
+                    if ( is_int( stripos( 'featured listing', $search_term ) ) ) {
+                        $query->or_where( 'd_order.is_featured_listing', 1 );
+                    }
+                } 
+            );
+        }
 
         $count_query = clone $query;
 
         $query->with(
             [
-                'user'    => function( $query ) {
-                    $query->select( 'ID', 'user_email', 'display_name' );
-                },
                 'payment' => function( $query ) {
                     $query->select( 'id', 'order_id', 'method' )->order_by_desc( 'id' );
                 }
@@ -36,12 +52,12 @@ class OrderRepository extends Repository {
             function( $order ) {
                 $order->payment_method = isset( $order->payment->method ) ? $order->payment->method : 'Unknown';
                 return apply_filters( 'directorist_order_data', $order );
-            }, $query->order_by_desc( 'id' )->pagination( $dto->get_page(), $dto->get_per_page() ) 
+            }, $query->order_by_desc( 'd_order.id' )->pagination( $dto->get_page(), $dto->get_per_page() ) 
         );
 
         return [
             "items" => $orders,
-            "total" => $count_query->count()
+            "total" => $count_query->count( "d_order.id" )
         ];
     }
 

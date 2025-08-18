@@ -25,24 +25,6 @@ const columns: Column[] = [
 		}
 	},
 	{
-		id: 'user',
-		label: __( 'User', 'directorist' ),
-		render: ( {item} ) => {
-			return (
-				<UserInfoContainer>
-						<UserLink 
-							href={`/wp-admin/user-edit.php?user_id=${item.user.ID}`}
-						>
-							{item.user.display_name}
-						</UserLink>
-					<div>
-						{item.user.user_email}
-					</div>
-				</UserInfoContainer>
-			);
-		}
-	},
-	{
 		id: 'order_type',
 		label: __( 'Order Type', 'directorist' ),
 	},
@@ -66,7 +48,24 @@ const columns: Column[] = [
 		id: 'payment_method',
 		label: __( 'Payment Method', 'directorist' ),
 	},
-	
+	{
+		id: 'user_id',
+		label: __( 'Customer', 'directorist' ),
+		render: ( {item} ) => {
+			return (
+				<UserInfoContainer>
+						<UserLink 
+							href={`/wp-admin/user-edit.php?user_id=${item.user_id}`}
+						>
+							{item.user_display_name}
+						</UserLink>
+					<div>
+						{item.user_email}
+					</div>
+				</UserInfoContainer>
+			);
+		}
+	},
 	{
 		id: 'date',
 		label: __( 'Date', 'directorist' ),

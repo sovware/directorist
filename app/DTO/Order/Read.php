@@ -11,6 +11,8 @@ class Read extends DTO {
 
     private int $per_page;
 
+    private string $search = '';
+
     /**
      * Get the value of page
      *
@@ -51,6 +53,28 @@ class Read extends DTO {
      */
     public function set_per_page( int $per_page ): self {
         $this->per_page = $per_page;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of search
+     *
+     * @return string
+     */
+    public function get_search(): string {
+        return $this->search;
+    }
+
+    /**
+     * Set the value of search
+     *
+     * @param string $search 
+     *
+     * @return self
+     */
+    public function set_search( string $search ): self {
+        $this->search = $search;
 
         return $this;
     }

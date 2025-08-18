@@ -29,15 +29,17 @@ class OrderController {
     public function index( Validator $validator, WP_REST_Request $request ): array {
         $validator->validate(
             [
-                "page" => "numeric",
+                "page"     => "numeric",
                 "per_page" => "numeric",
+                "search"   => "string"
             ]
         );
 
         $page = (int) $request->get_param( "page" );
         $per_page = (int) $request->get_param( "per_page" );
+        $search = (string) $request->get_param( "search" );
 
-        $dto = (new Read)->set_page( $page )->set_per_page( $per_page );
+        $dto = (new Read)->set_page( $page )->set_per_page( $per_page )->set_search( $search );
 
         return Response::send( $this->repository->get( $dto ) );
     }

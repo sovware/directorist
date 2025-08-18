@@ -5,6 +5,7 @@ namespace Directorist\App\Repositories;
 defined( "ABSPATH" ) || exit;
 
 use Directorist\App\DTO\Order\DTO;
+use Directorist\App\DTO\Order\Read;
 use Directorist\App\Helpers\DateTime;
 use Directorist\WpMVC\Repositories\Repository;
 use Directorist\WpMVC\Database\Query\Builder;
@@ -15,17 +16,33 @@ class OrderRepository extends Repository {
         return Order::query( 'd_order' ); // in alias using d_order instead of order. because order keyword is reserved by sql.
     }
 
-    public function get(): array {
-        $query = $this->get_query_builder()->with(
-            'payments', function( $query ) {
-                $query->order_by_desc( 'id' );
-            }
+    public function get( Read $dto ): array {
+        $query = $this->get_query_builder();
+
+        $count_query = clone $query;
+
+        $query->with(
+            [
+                'user'    => function( $query ) {
+                    $query->select( 'ID', 'user_email', 'display_name' );
+                },
+                'payment' => function( $query ) {
+                    $query->select( 'id', 'order_id', 'method' )->order_by_desc( 'id' );
+                }
+            ]
         );
 
-        // Add any additional query conditions here if needed.
-        // For example, filtering by user ID, status, etc.
+        $orders = array_map(
+            function( $order ) {
+                $order->payment_method = isset( $order->payment->method ) ? $order->payment->method : 'Unknown';
+                return apply_filters( 'directorist_order_data', $order );
+            }, $query->order_by_desc( 'id' )->pagination( $dto->get_page(), $dto->get_per_page() ) 
+        );
 
-        return $query->order_by_desc( 'id' )->get();
+        return [
+            "items" => $orders,
+            "total" => $count_query->count()
+        ];
     }
 
     /**

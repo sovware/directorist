@@ -4,6 +4,7 @@ namespace Directorist\App\Http\Controllers\Admin;
 
 defined( "ABSPATH" ) || exit;
 
+use Directorist\App\DTO\Order\Read;
 use Directorist\App\DTO\Order\DTO;
 use Directorist\App\Repositories\OrderRepository;
 use Directorist\WpMVC\Exceptions\Exception;
@@ -26,12 +27,19 @@ class OrderController {
      * @return array
      */
     public function index( Validator $validator, WP_REST_Request $request ): array {
-        return Response::send(
+        $validator->validate(
             [
-                "items" => $this->repository->get(),
-                "total" => 0
+                "page" => "numeric",
+                "per_page" => "numeric",
             ]
         );
+
+        $page = (int) $request->get_param( "page" );
+        $per_page = (int) $request->get_param( "per_page" );
+
+        $dto = (new Read)->set_page( $page )->set_per_page( $per_page );
+
+        return Response::send( $this->repository->get( $dto ) );
     }
 
     /**

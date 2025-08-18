@@ -1496,7 +1496,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
           class: "directorist-on-scroll-loading"
         }).append($("<div>", {
           class: "directorist-spinner"
-        }), $("<span>").text("Loading more..."));
+        }), $("<span>").text(directorist.loading_more_text));
         container.append(loadingDiv);
       },
       success: function success(html) {

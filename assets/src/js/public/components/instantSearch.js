@@ -167,7 +167,7 @@ import initSearchCategoryCustomFields from "./category-custom-fields";
           class: "directorist-on-scroll-loading",
         }).append(
           $("<div>", { class: "directorist-spinner" }),
-          $("<span>").text("Loading more..."),
+          $("<span>").text(directorist.loading_more_text),
         );
         container.append(loadingDiv);
       },

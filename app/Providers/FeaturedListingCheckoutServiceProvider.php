@@ -29,6 +29,7 @@ class FeaturedListingCheckoutServiceProvider implements Provider {
         add_action( 'directorist_before_order_update', [$this, 'handle_before_order_update'] );
         add_action( 'directorist_after_order_update', [$this, 'handle_after_order_update'] );
         add_filter( 'directorist_payment_receipt_order_items', [$this, 'handle_payment_receipt_order_items'], 10, 2 );
+        add_filter( 'directorist_order_data', [$this, 'handle_order_data'] );
     }
 
     public function add_checkout_type( array $checkout_types ) {
@@ -123,5 +124,14 @@ class FeaturedListingCheckoutServiceProvider implements Provider {
         ];
 
         return $order_items;
+    }
+
+    public function handle_order_data( $order ) {
+        if ( ! $order->is_featured_listing ) {
+            return $order;
+        }
+
+        $order->order_type = __( 'Featured Listing', 'directorist' );
+        return $order;
     }
 }

@@ -106,7 +106,7 @@ export default function App() {
           // preventTransition: true,
 				},
 				{
-					path: '/edit',
+					path: '/edit/:id',
 					element: <Edit />,
           // preventTransition: true,
 				},

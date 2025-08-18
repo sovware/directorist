@@ -57,7 +57,7 @@ class FeaturedListingCheckoutServiceProvider implements Provider {
         }
     }
 
-    public function handle_checkout_table( string $checkout_type, int $subtotal, WP_REST_Request $request ) {
+    public function handle_checkout_table( string $checkout_type, float $subtotal, WP_REST_Request $request ) {
         if ( $checkout_type !== self::CHECKOUT_TYPE ) return;
 
         $listing = get_post( $request->get_param( 'listing_id' ) );
@@ -71,7 +71,7 @@ class FeaturedListingCheckoutServiceProvider implements Provider {
         );
     }
 
-    public function handle_checkout_subtotal( int $subtotal, string $checkout_type, WP_REST_Request $request ) {
+    public function handle_checkout_subtotal( float $subtotal, string $checkout_type, WP_REST_Request $request ) {
         if ( $checkout_type !== self::CHECKOUT_TYPE ) return $subtotal;
         return get_directorist_option( 'featured_listing_price' );
     }

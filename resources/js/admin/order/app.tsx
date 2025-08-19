@@ -1,20 +1,17 @@
-import { addAction } from '@wordpress/hooks';
+import { addAction, applyFilters } from '@wordpress/hooks';
 import { Dashboard } from '@wpmvc/dashboard';
 import { MenuItemsType } from '@wpmvc/dashboard/build-types/components/menu/types';
 import React from 'react';
 import validateField from '../controls/custom-field/validation';
 import Edit from './edit';
 import OrderTable from './order-table';
+import { RouteType } from '@wpmvc/dashboard/build-types/components/dashboard/types';
 
 const menuItems: MenuItemsType = {
-	home: {
+	orders: {
 		label: 'Orders',
 		path: '/',
-	},
-	subscription: {
-		label: 'Subscription',
-		path: '/subscription',
-	},
+	}
 };
 
 export default function App() {
@@ -38,6 +35,18 @@ export default function App() {
   addAction( 'wpmvc-field-on-blur', 'directorist-form-validation', fieldValidation);
   addAction( 'wpmvc-field-on-change', 'directorist-form-validation', fieldValidation);
 
+  const routes = [
+		{
+			path: '/',
+			element: <OrderTable/>,
+			index: true,
+		},
+		{
+			path: '/edit/:id',
+			element: <Edit />,
+		}
+	];
+
 	return (
 		<Dashboard
 			colors={ {
@@ -45,21 +54,9 @@ export default function App() {
 			} }
 			header={ {
 				logo: <>Directorist</>,
-				menuItems,
+				menuItems: applyFilters('directorist_order_menu_items', menuItems) as MenuItemsType,
 			} }
-			routes={ [
-				{
-					path: '/',
-					element: <OrderTable/>,
-					index: true,
-          // preventTransition: true,
-				},
-				{
-					path: '/edit/:id',
-					element: <Edit />,
-          // preventTransition: true,
-				},
-			] }
+			routes={ applyFilters('directorist_order_routes', routes) as RouteType[] }
 		></Dashboard>
 	);
 }

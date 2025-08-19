@@ -1,10 +1,10 @@
 <template>
   <div class="cptm-form-group">
     <div class="cptm-input-toggle-wrap">
-      <label v-if="label && label.length">
+      <label v-if="label.length">
         <component :is="labelType">{{ label }}</component>
-        <small v-if="subLabel && subLabel.length" class="cptm-sub-label">{{
-          subLabel
+        <small v-if="sublabel && sublabel.length" class="cptm-sub-label">{{
+          sublabel
         }}</small>
       </label>
 
@@ -39,7 +39,7 @@
 
       <p
         class="cptm-form-group-info"
-        v-if="description && description.length"
+        v-if="description.length"
         v-html="description"
       ></p>
     </div>
@@ -67,10 +67,5 @@ import toggle_feild from "./../../../../mixins/form-fields/toggle-field";
 export default {
   name: "toggle-field-theme-default",
   mixins: [toggle_feild],
-  props: {
-    subLabel: {
-      default: "",
-    },
-  },
 };
 </script>

@@ -106,7 +106,16 @@
       if (!container) {
         return;
       }
-      this.container = container;
+      // Convert HTMLCollection to array
+      let containerArr = Array.from(container);
+
+      // If first item contains "listing_gallery_ext", move it to last
+      if (containerArr[0].className.includes("listing_gallery_ext")) {
+        let first = containerArr.shift(); // remove first
+        containerArr.push(first);         // add it to the end
+      }
+
+      this.container = containerArr; // always store array instead of HTMLCollection
 
       this.getMarkupOptions();
       this.getMarkupDictionary();
@@ -1674,7 +1683,7 @@
       var previewImg = container.querySelector('.ezmu__preview-section');
 
       if (previewImg?.clientHeight > 0) {
-        uploadContainer.style.marginBottom = previewImg.clientHeight + 65 + 'px';
+        uploadContainer.style.marginBottom = previewImg.clientHeight + 20 + 'px';
       } else {
         uploadContainer.style.marginBottom = 0;
       }

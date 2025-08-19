@@ -73,7 +73,7 @@
           <template v-if="hasValidWidget(widget)">
             <div
               class="cptm-widget-preview-card"
-              :class="activeWidgetKey === widget ? 'active' : ''"
+              :class="isWidgetActive(widget) ? 'active' : ''"
               @click.prevent="editWidget(widget)"
             >
               <component
@@ -102,12 +102,19 @@
                 @edit="editWidget($event)"
               >
               </component>
-              <div class="cptm-options-area" v-if="widget === activeWidgetKey">
+              <div
+                class="cptm-options-area"
+                v-if="
+                  widgetOptionsWindow.widget === widget &&
+                  widgetOptionsWindow.widget !== ''
+                "
+                @click.stop="handleModalClick"
+              >
                 <options-window
-                  :active="optionWidgetKey !== null"
+                  :active="true"
                   v-bind="widgetOptionsWindow"
                   @update="$emit('update-option-window', $event)"
-                  @close="$emit('close-option-window')"
+                  @close="handleOptionsWindowClose"
                 />
               </div>
             </div>
@@ -249,15 +256,25 @@ export default {
       return this.readOnly ? this.acceptedWidgets : this.selectedWidgets;
     },
 
-    optionWidgetKey() {
-      return this.widgetOptionsWindow?.widget || null;
-    },
-  },
+    // Check if a specific widget is currently active
+    isWidgetActive() {
+      return (widgetKey) => {
+        const isActive =
+          this.widgetOptionsWindow.widget === widgetKey &&
+          this.widgetOptionsWindow.widget !== "" &&
+          this.isEditable(widgetKey);
 
-  data() {
-    return {
-      activeWidgetKey: "",
-    };
+        console.log(`isWidgetActive(${widgetKey}):`, {
+          widgetOptionsWindow: this.widgetOptionsWindow,
+          widget: this.widgetOptionsWindow.widget,
+          widgetKey,
+          isEditable: this.isEditable(widgetKey),
+          isActive,
+        });
+
+        return isActive;
+      };
+    },
   },
 
   methods: {
@@ -274,59 +291,81 @@ export default {
       return true;
     },
 
-    // Set the active widget key when the widget is clicked
-    // setActiveWidget(widgetKey) {
-    //   console.log("@@setActiveWidget", {
-    //     widgetKey,
-    //     activeWidgetKey: this.activeWidgetKey,
-    //   });
+    // Check if a widget is editable (has options)
+    isEditable(widgetKey) {
+      const widget = this.availableWidgets[widgetKey];
+      if (!widget || !widget.options) {
+        return false;
+      }
 
-    //   this.activeWidgetKey = widgetKey;
-    //   // Emit event to inform parent about active widget
-    //   this.$emit("widget-activated", widgetKey);
-    // },
+      // Check if options is an object or array, not a string
+      if (typeof widget.options === "string") {
+        return false;
+      }
+
+      // Check if options has actual content
+      if (Array.isArray(widget.options) && widget.options.length === 0) {
+        return false;
+      }
+
+      if (
+        typeof widget.options === "object" &&
+        Object.keys(widget.options).length === 0
+      ) {
+        return false;
+      }
+
+      return true;
+    },
 
     editWidget(widgetKey) {
-      if (this.activeWidgetKey === widgetKey) {
-        this.activeWidgetKey = null; // toggle off
-        // Ensure modal is closed when toggling off
-        if (
-          this.widgetOptionsWindow &&
-          typeof this.widgetOptionsWindow === "object"
-        ) {
-          this.widgetOptionsWindow.widget = null;
-        }
-      } else {
-        this.activeWidgetKey = widgetKey; // set active
-        // Ensure the widgetOptionsWindow has the correct widget key
-        if (
-          this.widgetOptionsWindow &&
-          typeof this.widgetOptionsWindow === "object"
-        ) {
-          this.widgetOptionsWindow.widget = widgetKey;
+      console.log("@@editWidget", {
+        widgetKey,
+        widgetOptionsWindow: this.widgetOptionsWindow,
+        currentActiveWidget: this.widgetOptionsWindow.widget,
+        isMatched: this.widgetOptionsWindow.widget === widgetKey,
+        activeWidget: this.availableWidgets[widgetKey],
+      });
+
+      // Check if the click target is inside the modal - if so, don't edit
+      if (event && event.target) {
+        const modalContainer = event.target.closest(".cptm-options-area");
+        if (modalContainer) {
+          console.log("Click inside modal - preventing editWidget");
+          return;
         }
       }
+
+      // Check if widget is editable before proceeding
+      if (!this.isEditable(widgetKey)) {
+        console.log("Widget is not editable:", widgetKey);
+        return;
+      }
+
+      // Always activate widget options
+      console.log("Activating widget options for:", widgetKey);
+      // Emit event to parent to activate this widget options
+      this.$emit("activate-widget-options", widgetKey);
 
       this.$emit("edit-widget", widgetKey);
     },
 
-    // Handle close event from options window
-    handleCloseOptionWindow() {
-      console.log("handleCloseOptionWindow");
-      this.activeWidgetKey = null;
-      // Ensure widgetOptionsWindow is also reset
-      if (
-        this.widgetOptionsWindow &&
-        typeof this.widgetOptionsWindow === "object"
-      ) {
-        this.widgetOptionsWindow.widget = null;
-      }
+    // Handle clicks inside the modal to prevent event bubbling
+    handleModalClick(event) {
+      console.log("Modal clicked - preventing event bubbling");
+      event.stopPropagation();
+      event.preventDefault();
+    },
+
+    // Handle close button click from options-window child component
+    handleOptionsWindowClose(event) {
+      console.log("Options window close button clicked");
+      // Emit event to parent to close the widget options
       this.$emit("close-option-window");
     },
 
     // Emit the updated selectedWidgets to the parent component
     handleUpdateOptionWindow(payload) {
-      console.log("@@handleUpdateOptionWindow", { payload });
       // Emit the updated selectedWidgets to the parent component
       this.$emit("update-option-window", payload);
     },
@@ -373,17 +412,7 @@ export default {
       this.$emit("update", this.output_data);
     },
 
-    // Watch for changes in activeWidgetKey to ensure modal state is synchronized
-    activeWidgetKey(newValue, oldValue) {
-      // If activeWidgetKey is cleared (null, undefined, or empty string), ensure the modal is also closed
-      if (
-        !newValue &&
-        this.widgetOptionsWindow &&
-        typeof this.widgetOptionsWindow === "object"
-      ) {
-        this.widgetOptionsWindow.widget = null;
-      }
-    },
+    // Removed watch for activeWidgetKey since it's now managed by parent
   },
 };
 </script>

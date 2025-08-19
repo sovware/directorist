@@ -52,6 +52,7 @@
                       )
                     "
                     @update-active-widget="handleActiveWidgetUpdate"
+                    @activate-widget-options="toggleActivateWidgetOptions"
                   />
                 </div>
 
@@ -99,6 +100,7 @@
                       )
                     "
                     @update-active-widget="handleActiveWidgetUpdate"
+                    @activate-widget-options="toggleActivateWidgetOptions"
                   />
                 </div>
 
@@ -146,6 +148,7 @@
                       )
                     "
                     @update-active-widget="handleActiveWidgetUpdate"
+                    @activate-widget-options="toggleActivateWidgetOptions"
                   />
                 </div>
 
@@ -193,6 +196,7 @@
                       )
                     "
                     @update-active-widget="handleActiveWidgetUpdate"
+                    @activate-widget-options="toggleActivateWidgetOptions"
                   />
                 </div>
 
@@ -261,6 +265,7 @@
                   updateWidgetOptionsData($event, widgetOptionsWindow)
                 "
                 @close-option-window="closeWidgetOptionsWindow()"
+                @activate-widget-options="toggleActivateWidgetOptions"
               />
             </div>
 
@@ -297,6 +302,7 @@
                 handleUpdateSelectedWidgets($event, 'local_layout.body.top')
               "
               @update-active-widget="handleActiveWidgetUpdate"
+              @activate-widget-options="toggleActivateWidgetOptions"
             />
 
             <card-widget-placeholder
@@ -331,6 +337,7 @@
                 handleUpdateSelectedWidgets($event, 'local_layout.body.bottom')
               "
               @update-active-widget="handleActiveWidgetUpdate"
+              @activate-widget-options="toggleActivateWidgetOptions"
             />
           </div>
 
@@ -373,6 +380,7 @@
                   )
                 "
                 @update-active-widget="handleActiveWidgetUpdate"
+                @activate-widget-options="toggleActivateWidgetOptions"
               />
             </div>
 
@@ -413,6 +421,7 @@
                   )
                 "
                 @update-active-widget="handleActiveWidgetUpdate"
+                @activate-widget-options="toggleActivateWidgetOptions"
               />
             </div>
           </div>
@@ -908,6 +917,9 @@ export default {
         ...opt,
         widget: key,
       });
+
+      // Also update the active_option_widget_key for consistency
+      this.active_option_widget_key = key;
     },
 
     // Update Widget Options Data
@@ -919,6 +931,8 @@ export default {
     closeWidgetOptionsWindow() {
       console.log("closeWidgetOptionsWindow", this.widgetOptionsWindow);
       this.widgetOptionsWindow = this.widgetOptionsWindowDefault;
+      // Also clear the active_option_widget_key for consistency
+      this.active_option_widget_key = "";
     },
 
     // Trash Widget
@@ -937,6 +951,11 @@ export default {
 
       if (key === this.widgetOptionsWindow.widget) {
         this.closeWidgetOptionsWindow();
+      }
+
+      // Also clear active_option_widget_key if this widget was active
+      if (this.active_option_widget_key === key) {
+        this.active_option_widget_key = "";
       }
     },
 
@@ -999,6 +1018,12 @@ export default {
       this.active_option_widget_key = "";
     },
 
+    // Close Widget Options Window
+    closeWidgetOptionsWindow() {
+      this.active_option_widget_key = "";
+      this.$set(this.widgetOptionsWindow, "widget", "");
+    },
+
     // Get Active Insert Window Status
     getActiveInsertWindowStatus(current_item_key) {
       if (current_item_key === this.active_insert_widget_key) {
@@ -1048,6 +1073,25 @@ export default {
     handleActiveWidgetUpdate({ widgetKey, updatedWidget }) {
       this.$set(this.active_widgets, widgetKey, updatedWidget);
       this.$set(this.available_widgets, widgetKey, updatedWidget);
+    },
+
+    // Activate Widget Options
+    toggleActivateWidgetOptions(widgetKey) {
+      console.log("toggleActivateWidgetOptions called with:", widgetKey);
+      console.log(
+        "Current active_option_widget_key:",
+        this.active_option_widget_key,
+      );
+
+      // Always activate the widget options
+      console.log("Activating widget options for:", widgetKey);
+      this.$set(this.widgetOptionsWindow, "widget", widgetKey);
+      this.active_option_widget_key = widgetKey;
+
+      console.log("Widget options activated. New state:", {
+        active_option_widget_key: this.active_option_widget_key,
+        widgetOptionsWindow: this.widgetOptionsWindow,
+      });
     },
   },
 };

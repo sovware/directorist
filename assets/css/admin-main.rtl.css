@@ -18119,7 +18119,6 @@ input[type=radio].cptm-radio {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   border-radius: 4px;
-  z-index: 99;
 }
 .cptm-placeholder-block:hover, .cptm-placeholder-block.drag-enter, .cptm-placeholder-block.cptm-widget-picker-open {
   border-color: rgb(255, 255, 255);
@@ -18394,7 +18393,6 @@ input[type=radio].cptm-radio {
   display: block;
   padding: 62px 16px 24px;
   position: relative;
-  z-index: 9999;
 }
 
 .cptm-listing-card-author-avatar {
@@ -25245,7 +25243,6 @@ input[type=radio].cptm-radio {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   border-radius: 4px;
-  z-index: 99;
 }
 .cptm-placeholder-block:hover, .cptm-placeholder-block.drag-enter, .cptm-placeholder-block.cptm-widget-picker-open {
   border-color: rgb(255, 255, 255);
@@ -25520,7 +25517,6 @@ input[type=radio].cptm-radio {
   display: block;
   padding: 62px 16px 24px;
   position: relative;
-  z-index: 9999;
 }
 
 .cptm-listing-card-author-avatar {
@@ -32659,7 +32655,6 @@ input[type=radio].cptm-radio {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   border-radius: 4px;
-  z-index: 99;
 }
 .cptm-placeholder-block:hover, .cptm-placeholder-block.drag-enter, .cptm-placeholder-block.cptm-widget-picker-open {
   border-color: rgb(255, 255, 255);
@@ -32934,7 +32929,6 @@ input[type=radio].cptm-radio {
   display: block;
   padding: 62px 16px 24px;
   position: relative;
-  z-index: 9999;
 }
 
 .cptm-listing-card-author-avatar {

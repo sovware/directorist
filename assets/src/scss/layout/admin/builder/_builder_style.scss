@@ -3328,7 +3328,6 @@ input[type="radio"].cptm-radio {
   transition: all ease-in-out 300ms;
   box-sizing: border-box;
   border-radius: 4px;
-  z-index: 99;
 
   &:hover,
   &.drag-enter,
@@ -3575,7 +3574,6 @@ input[type="radio"].cptm-radio {
   display: block;
   padding: 62px 16px 24px;
   position: relative;
-  z-index: 9999;
 }
 
 .cptm-listing-card-author-avatar {

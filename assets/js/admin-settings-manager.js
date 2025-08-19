@@ -15597,15 +15597,21 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     displayedWidgets: function displayedWidgets() {
       return this.readOnly ? this.acceptedWidgets : this.selectedWidgets;
     },
-    optionWidgetKey: function optionWidgetKey() {
-      var _this$widgetOptionsWi;
-      return ((_this$widgetOptionsWi = this.widgetOptionsWindow) === null || _this$widgetOptionsWi === void 0 ? void 0 : _this$widgetOptionsWi.widget) || null;
+    // Check if a specific widget is currently active
+    isWidgetActive: function isWidgetActive() {
+      var _this = this;
+      return function (widgetKey) {
+        var isActive = _this.widgetOptionsWindow.widget === widgetKey && _this.widgetOptionsWindow.widget !== "" && _this.isEditable(widgetKey);
+        console.log("isWidgetActive(".concat(widgetKey, "):"), {
+          widgetOptionsWindow: _this.widgetOptionsWindow,
+          widget: _this.widgetOptionsWindow.widget,
+          widgetKey: widgetKey,
+          isEditable: _this.isEditable(widgetKey),
+          isActive: isActive
+        });
+        return isActive;
+      };
     }
-  },
-  data: function data() {
-    return {
-      activeWidgetKey: ""
-    };
   },
   methods: {
     hasValidWidget: function hasValidWidget(widget_key) {
@@ -15617,47 +15623,71 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       }
       return true;
     },
-    // Set the active widget key when the widget is clicked
-    // setActiveWidget(widgetKey) {
-    //   console.log("@@setActiveWidget", {
-    //     widgetKey,
-    //     activeWidgetKey: this.activeWidgetKey,
-    //   });
-    //   this.activeWidgetKey = widgetKey;
-    //   // Emit event to inform parent about active widget
-    //   this.$emit("widget-activated", widgetKey);
-    // },
+    // Check if a widget is editable (has options)
+    isEditable: function isEditable(widgetKey) {
+      var widget = this.availableWidgets[widgetKey];
+      if (!widget || !widget.options) {
+        return false;
+      }
+
+      // Check if options is an object or array, not a string
+      if (typeof widget.options === "string") {
+        return false;
+      }
+
+      // Check if options has actual content
+      if (Array.isArray(widget.options) && widget.options.length === 0) {
+        return false;
+      }
+      if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(widget.options) === "object" && Object.keys(widget.options).length === 0) {
+        return false;
+      }
+      return true;
+    },
     editWidget: function editWidget(widgetKey) {
-      if (this.activeWidgetKey === widgetKey) {
-        this.activeWidgetKey = null; // toggle off
-        // Ensure modal is closed when toggling off
-        if (this.widgetOptionsWindow && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(this.widgetOptionsWindow) === "object") {
-          this.widgetOptionsWindow.widget = null;
-        }
-      } else {
-        this.activeWidgetKey = widgetKey; // set active
-        // Ensure the widgetOptionsWindow has the correct widget key
-        if (this.widgetOptionsWindow && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(this.widgetOptionsWindow) === "object") {
-          this.widgetOptionsWindow.widget = widgetKey;
+      console.log("@@editWidget", {
+        widgetKey: widgetKey,
+        widgetOptionsWindow: this.widgetOptionsWindow,
+        currentActiveWidget: this.widgetOptionsWindow.widget,
+        isMatched: this.widgetOptionsWindow.widget === widgetKey,
+        activeWidget: this.availableWidgets[widgetKey]
+      });
+
+      // Check if the click target is inside the modal - if so, don't edit
+      if (event && event.target) {
+        var modalContainer = event.target.closest(".cptm-options-area");
+        if (modalContainer) {
+          console.log("Click inside modal - preventing editWidget");
+          return;
         }
       }
+
+      // Check if widget is editable before proceeding
+      if (!this.isEditable(widgetKey)) {
+        console.log("Widget is not editable:", widgetKey);
+        return;
+      }
+
+      // Always activate widget options
+      console.log("Activating widget options for:", widgetKey);
+      // Emit event to parent to activate this widget options
+      this.$emit("activate-widget-options", widgetKey);
       this.$emit("edit-widget", widgetKey);
     },
-    // Handle close event from options window
-    handleCloseOptionWindow: function handleCloseOptionWindow() {
-      console.log("handleCloseOptionWindow");
-      this.activeWidgetKey = null;
-      // Ensure widgetOptionsWindow is also reset
-      if (this.widgetOptionsWindow && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(this.widgetOptionsWindow) === "object") {
-        this.widgetOptionsWindow.widget = null;
-      }
+    // Handle clicks inside the modal to prevent event bubbling
+    handleModalClick: function handleModalClick(event) {
+      console.log("Modal clicked - preventing event bubbling");
+      event.stopPropagation();
+      event.preventDefault();
+    },
+    // Handle close button click from options-window child component
+    handleOptionsWindowClose: function handleOptionsWindowClose(event) {
+      console.log("Options window close button clicked");
+      // Emit event to parent to close the widget options
       this.$emit("close-option-window");
     },
     // Emit the updated selectedWidgets to the parent component
     handleUpdateOptionWindow: function handleUpdateOptionWindow(payload) {
-      console.log("@@handleUpdateOptionWindow", {
-        payload: payload
-      });
       // Emit the updated selectedWidgets to the parent component
       this.$emit("update-option-window", payload);
     },
@@ -15701,14 +15731,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
   watch: {
     output_data: function output_data() {
       this.$emit("update", this.output_data);
-    },
-    // Watch for changes in activeWidgetKey to ensure modal state is synchronized
-    activeWidgetKey: function activeWidgetKey(newValue, oldValue) {
-      // If activeWidgetKey is cleared (null, undefined, or empty string), ensure the modal is also closed
-      if (!newValue && this.widgetOptionsWindow && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(this.widgetOptionsWindow) === "object") {
-        this.widgetOptionsWindow.widget = null;
-      }
-    }
+    } // Removed watch for activeWidgetKey since it's now managed by parent
   }
 });
 
@@ -16527,11 +16550,6 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       }
     },
     updateFieldData: function updateFieldData(value, field_key) {
-      console.log("@@updateFieldData", {
-        value: value,
-        field_key: field_key,
-        field: this.local_fields[field_key]
-      });
       // Use Vue.set to ensure reactivity
       // this.$set(this.local_fields[field_key], "value", value);
       this.local_fields[field_key].value = value;
@@ -20545,7 +20563,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       }
     };
   },
-  methods: {
+  methods: (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])({
     init: function init() {
       this.importWidgets();
       this.importLayout();
@@ -20689,6 +20707,9 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       this.$set(this, "widgetOptionsWindow", _objectSpread(_objectSpread(_objectSpread({}, this.widgetOptionsWindowDefault), opt), {}, {
         widget: key
       }));
+
+      // Also update the active_option_widget_key for consistency
+      this.active_option_widget_key = key;
     },
     // Update Widget Options Data
     updateWidgetOptionsData: function updateWidgetOptionsData(data, widget) {
@@ -20698,6 +20719,8 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     closeWidgetOptionsWindow: function closeWidgetOptionsWindow() {
       console.log("closeWidgetOptionsWindow", this.widgetOptionsWindow);
       this.widgetOptionsWindow = this.widgetOptionsWindowDefault;
+      // Also clear the active_option_widget_key for consistency
+      this.active_option_widget_key = "";
     },
     // Trash Widget
     trashWidget: function trashWidget(key, where) {
@@ -20712,6 +20735,11 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       vue__WEBPACK_IMPORTED_MODULE_2__["default"].delete(this.active_widgets, key);
       if (key === this.widgetOptionsWindow.widget) {
         this.closeWidgetOptionsWindow();
+      }
+
+      // Also clear active_option_widget_key if this widget was active
+      if (this.active_option_widget_key === key) {
+        this.active_option_widget_key = "";
       }
     },
     // Toggle Widget Status
@@ -20764,53 +20792,58 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     // Close Option Window
     closeOptionWindow: function closeOptionWindow() {
       this.active_option_widget_key = "";
-    },
-    // Get Active Insert Window Status
-    getActiveInsertWindowStatus: function getActiveInsertWindowStatus(current_item_key) {
-      if (current_item_key === this.active_insert_widget_key) {
-        return true;
-      }
-      return false;
-    },
-    // Get Active Option Window Status
-    getActiveOptionWindowStatus: function getActiveOptionWindowStatus(current_item_key) {
-      if (current_item_key === this.active_option_widget_key) {
-        return true;
-      }
-      return false;
-    },
-    // Is Placeholder Active
-    placeholderIsActive: function placeholderIsActive(layout) {
-      if (!this.isObject(layout.show_if)) {
-        return true;
-      }
-      var check_condition = this.checkShowIfCondition({
-        condition: layout.show_if
-      });
-      return check_condition.status;
-    },
-    // Handle Update Selected Widgets
-    handleUpdateSelectedWidgets: function handleUpdateSelectedWidgets(updatedWidgets, path) {
-      // Split the path into keys
-      var pathKeys = path.split(".");
-
-      // Navigate through the object dynamically
-      var obj = this;
-      for (var i = 0; i < pathKeys.length - 1; i++) {
-        obj = obj[pathKeys[i]]; // Navigate deeper into the object
-      }
-
-      // Update the selectedWidgets at the correct path
-      obj[pathKeys[pathKeys.length - 1]].selectedWidgets = updatedWidgets;
-    },
-    // Handle Update Selected Widgets
-    handleActiveWidgetUpdate: function handleActiveWidgetUpdate(_ref) {
-      var widgetKey = _ref.widgetKey,
-        updatedWidget = _ref.updatedWidget;
-      this.$set(this.active_widgets, widgetKey, updatedWidget);
-      this.$set(this.available_widgets, widgetKey, updatedWidget);
     }
-  }
+  }, "closeWidgetOptionsWindow", function closeWidgetOptionsWindow() {
+    this.active_option_widget_key = "";
+    this.$set(this.widgetOptionsWindow, "widget", "");
+  }), "getActiveInsertWindowStatus", function getActiveInsertWindowStatus(current_item_key) {
+    if (current_item_key === this.active_insert_widget_key) {
+      return true;
+    }
+    return false;
+  }), "getActiveOptionWindowStatus", function getActiveOptionWindowStatus(current_item_key) {
+    if (current_item_key === this.active_option_widget_key) {
+      return true;
+    }
+    return false;
+  }), "placeholderIsActive", function placeholderIsActive(layout) {
+    if (!this.isObject(layout.show_if)) {
+      return true;
+    }
+    var check_condition = this.checkShowIfCondition({
+      condition: layout.show_if
+    });
+    return check_condition.status;
+  }), "handleUpdateSelectedWidgets", function handleUpdateSelectedWidgets(updatedWidgets, path) {
+    // Split the path into keys
+    var pathKeys = path.split(".");
+
+    // Navigate through the object dynamically
+    var obj = this;
+    for (var i = 0; i < pathKeys.length - 1; i++) {
+      obj = obj[pathKeys[i]]; // Navigate deeper into the object
+    }
+
+    // Update the selectedWidgets at the correct path
+    obj[pathKeys[pathKeys.length - 1]].selectedWidgets = updatedWidgets;
+  }), "handleActiveWidgetUpdate", function handleActiveWidgetUpdate(_ref) {
+    var widgetKey = _ref.widgetKey,
+      updatedWidget = _ref.updatedWidget;
+    this.$set(this.active_widgets, widgetKey, updatedWidget);
+    this.$set(this.available_widgets, widgetKey, updatedWidget);
+  }), "toggleActivateWidgetOptions", function toggleActivateWidgetOptions(widgetKey) {
+    console.log("toggleActivateWidgetOptions called with:", widgetKey);
+    console.log("Current active_option_widget_key:", this.active_option_widget_key);
+
+    // Always activate the widget options
+    console.log("Activating widget options for:", widgetKey);
+    this.$set(this.widgetOptionsWindow, "widget", widgetKey);
+    this.active_option_widget_key = widgetKey;
+    console.log("Widget options activated. New state:", {
+      active_option_widget_key: this.active_option_widget_key,
+      widgetOptionsWindow: this.widgetOptionsWindow
+    });
+  })
 });
 
 /***/ }),
@@ -27014,7 +27047,7 @@ var render = function render() {
     var _vm$selectedWidgets3, _vm$selectedWidgets4;
     return [_vm.hasValidWidget(widget) ? [_c('div', {
       staticClass: "cptm-widget-preview-card",
-      class: _vm.activeWidgetKey === widget ? 'active' : '',
+      class: _vm.isWidgetActive(widget) ? 'active' : '',
       on: {
         "click": function click($event) {
           $event.preventDefault();
@@ -27044,19 +27077,23 @@ var render = function render() {
           return _vm.editWidget($event);
         }
       }
-    }), _vm._v(" "), widget === _vm.activeWidgetKey ? _c('div', {
-      staticClass: "cptm-options-area"
+    }), _vm._v(" "), _vm.widgetOptionsWindow.widget === widget && _vm.widgetOptionsWindow.widget !== '' ? _c('div', {
+      staticClass: "cptm-options-area",
+      on: {
+        "click": function click($event) {
+          $event.stopPropagation();
+          return _vm.handleModalClick.apply(null, arguments);
+        }
+      }
     }, [_c('options-window', _vm._b({
       attrs: {
-        "active": _vm.optionWidgetKey !== null
+        "active": true
       },
       on: {
         "update": function update($event) {
           return _vm.$emit('update-option-window', $event);
         },
-        "close": function close($event) {
-          return _vm.$emit('close-option-window');
-        }
+        "close": _vm.handleOptionsWindowClose
       }
     }, 'options-window', _vm.widgetOptionsWindow, false))], 1) : _vm._e()], 1)] : _vm._e()];
   })], 2) : _vm._e()]), _vm._v(" "), _vm.enable_widget ? _c('span', {
@@ -30609,7 +30646,8 @@ var render = function render() {
       "update": function update($event) {
         return _vm.handleUpdateSelectedWidgets($event, 'local_layout.thumbnail.top_left');
       },
-      "update-active-widget": _vm.handleActiveWidgetUpdate
+      "update-active-widget": _vm.handleActiveWidgetUpdate,
+      "activate-widget-options": _vm.toggleActivateWidgetOptions
     }
   })], 1), _vm._v(" "), _c('div', {
     staticClass: "cptm-card-preview-top-right"
@@ -30652,7 +30690,8 @@ var render = function render() {
       "update": function update($event) {
         return _vm.handleUpdateSelectedWidgets($event, 'local_layout.thumbnail.top_right');
       },
-      "update-active-widget": _vm.handleActiveWidgetUpdate
+      "update-active-widget": _vm.handleActiveWidgetUpdate,
+      "activate-widget-options": _vm.toggleActivateWidgetOptions
     }
   })], 1), _vm._v(" "), _c('div', {
     staticClass: "cptm-card-preview-bottom-left"
@@ -30695,7 +30734,8 @@ var render = function render() {
       "update": function update($event) {
         return _vm.handleUpdateSelectedWidgets($event, 'local_layout.thumbnail.bottom_left');
       },
-      "update-active-widget": _vm.handleActiveWidgetUpdate
+      "update-active-widget": _vm.handleActiveWidgetUpdate,
+      "activate-widget-options": _vm.toggleActivateWidgetOptions
     }
   })], 1), _vm._v(" "), _c('div', {
     staticClass: "cptm-card-preview-bottom-right"
@@ -30738,7 +30778,8 @@ var render = function render() {
       "update": function update($event) {
         return _vm.handleUpdateSelectedWidgets($event, 'local_layout.thumbnail.bottom_right');
       },
-      "update-active-widget": _vm.handleActiveWidgetUpdate
+      "update-active-widget": _vm.handleActiveWidgetUpdate,
+      "activate-widget-options": _vm.toggleActivateWidgetOptions
     }
   })], 1), _vm._v(" "), _c('div', {
     staticClass: "cptm-card-preview-thumbnail-bg"
@@ -30818,7 +30859,8 @@ var render = function render() {
       },
       "close-option-window": function closeOptionWindow($event) {
         return _vm.closeWidgetOptionsWindow();
-      }
+      },
+      "activate-widget-options": _vm.toggleActivateWidgetOptions
     }
   })], 1), _vm._v(" "), _c('card-widget-placeholder', {
     attrs: {
@@ -30863,7 +30905,8 @@ var render = function render() {
       "update": function update($event) {
         return _vm.handleUpdateSelectedWidgets($event, 'local_layout.body.top');
       },
-      "update-active-widget": _vm.handleActiveWidgetUpdate
+      "update-active-widget": _vm.handleActiveWidgetUpdate,
+      "activate-widget-options": _vm.toggleActivateWidgetOptions
     }
   }), _vm._v(" "), _c('card-widget-placeholder', {
     attrs: {
@@ -30907,7 +30950,8 @@ var render = function render() {
       "update": function update($event) {
         return _vm.handleUpdateSelectedWidgets($event, 'local_layout.body.bottom');
       },
-      "update-active-widget": _vm.handleActiveWidgetUpdate
+      "update-active-widget": _vm.handleActiveWidgetUpdate,
+      "activate-widget-options": _vm.toggleActivateWidgetOptions
     }
   })], 1), _vm._v(" "), _c('div', {
     staticClass: "cptm-listing-card-preview-footer"
@@ -30955,7 +30999,8 @@ var render = function render() {
       "update": function update($event) {
         return _vm.handleUpdateSelectedWidgets($event, 'local_layout.footer.left');
       },
-      "update-active-widget": _vm.handleActiveWidgetUpdate
+      "update-active-widget": _vm.handleActiveWidgetUpdate,
+      "activate-widget-options": _vm.toggleActivateWidgetOptions
     }
   })], 1), _vm._v(" "), _c('div', {
     staticClass: "cptm-card-preview-footer-right"
@@ -31001,7 +31046,8 @@ var render = function render() {
       "update": function update($event) {
         return _vm.handleUpdateSelectedWidgets($event, 'local_layout.footer.right');
       },
-      "update-active-widget": _vm.handleActiveWidgetUpdate
+      "update-active-widget": _vm.handleActiveWidgetUpdate,
+      "activate-widget-options": _vm.toggleActivateWidgetOptions
     }
   })], 1)])])])])]);
 };

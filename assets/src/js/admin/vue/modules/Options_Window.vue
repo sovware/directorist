@@ -121,11 +121,6 @@ export default {
     },
 
     updateFieldData(value, field_key) {
-      console.log("@@updateFieldData", {
-        value,
-        field_key,
-        field: this.local_fields[field_key],
-      });
       // Use Vue.set to ensure reactivity
       // this.$set(this.local_fields[field_key], "value", value);
       this.local_fields[field_key].value = value;

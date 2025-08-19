@@ -49,6 +49,8 @@ export default function App() {
 
 	return (
 		<Dashboard
+			pageTopLevelID="#menu-posts-at_biz_dir"
+			rootPaths={ [] }
 			colors={ {
 				primary: 'var(--directorist-color-primary)',
 			} }

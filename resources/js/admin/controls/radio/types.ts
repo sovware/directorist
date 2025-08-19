@@ -1,32 +1,35 @@
-type Option = { 
-	label: string; 
-	value: string; 
-	description?: string;
-	icon?: React.ReactNode; // Support for icons
-	after?: React.ReactNode; // Support for after content
+import {
+	BaseField,
+	BaseFieldProps,
+	Option as BaseOption,
+	FieldsType,
+	Options,
+} from '@wpmvc/fields/build-types/types/field';
+
+export type Option = BaseOption & {
+	fields?: FieldsType;
 };
 
-type FieldProps = {
-	label: string;
-	value: any;
-	onChange: any;
-	description?: string;
+type Field = BaseField & {
+	type: 'radio';
 	disabled?: boolean;
-	className?: string;
-	required?: boolean;
-	options: Array< Option >;
-	variation?: 'normal' | 'boxed-left' | 'boxed-right';
-	perRow?: number;
-	showIcons?: boolean; // Option to show/hide icons
-	validation?: {
-		[rule: string]: any | ((value: any, ...args: any[]) => string | null);
-	};
-	invalid_key?: string; // Key to track validation state
-	help_text?: string; // Help text for validation
+	variation?: 'normal';
+	options: Options | ( ( attributes: Record< string, any > ) => Options );
 };
 
-export type RadioProps = {
-	field: FieldProps;
-	attributes?: Record<string, any>; // For validation context
-	setAttributes?: (updates: Record<string, any>) => void; // For validation state updates
+type BoxedRadioFieldType = BaseField & {
+	type: 'radio';
+	variation: 'boxed-right';
+	perRow?: number;
+	options:
+		| Options< Option >
+		| ( ( attributes: Record< string, any > ) => Options< Option > );
+};
+
+export type RadioFieldType = Field | BoxedRadioFieldType;
+
+export type RadioFieldProps = BaseFieldProps & {
+	field: RadioFieldType;
+	errors: object;
+	setErrors: any;
 };

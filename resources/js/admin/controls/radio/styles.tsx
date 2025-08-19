@@ -52,7 +52,7 @@ export const RadioOption = styled.div< {
 		justify-content: ${ props.$isRadioRight ? 'space-between' : 'flex-start' };
 		align-items: center;
 		padding: 20px 16px;
-		border: 1px solid #ddd;
+		border: 1px solid var(--wpmvc-gray-600);
 		border-radius: 6px;
 		cursor: pointer;
 		transition: all 0.2s ease;

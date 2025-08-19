@@ -117,22 +117,6 @@ export const validators: Record<string, ValidatorFn> = {
 	},
 };
 
-// Debounce function for performance optimization
-export const debounce = <T extends (...args: any[]) => void>(
-	func: T,
-	wait: number
-) => {
-	let timeout: ReturnType<typeof setTimeout>;
-	return function executedFunction(...args: Parameters<T>) {
-		const later = () => {
-			clearTimeout(timeout);
-			func(...args);
-		};
-		clearTimeout(timeout);
-		timeout = setTimeout(later, wait);
-	};
-};
-
 export interface ValidationResult {
 	isValid: boolean;
 	errors: string[];
@@ -145,7 +129,7 @@ export const validateField = (
 	attributes: Record<string, any> = {}
 ): ValidationResult => {
 	if (!field?.validation) return { isValid: true, errors: [] };
-
+	
 	const errors: string[] = [];
 
 	Object.entries(field.validation).forEach(([rule, ruleValue]) => {

@@ -1,29 +1,30 @@
 import { Fields } from "@wpmvc/fields";
 import React from "react";
-import Checkbox from "./checkbox";
-import Clipboard from "./clipboard";
-import TextControl from "./custom-field";
-import Number from "./number";
+import Text from "./custom-field";
 import Radio from "./radio";
 
 const components = {
-  text: TextControl,
+  text: Text,
   n_radio: Radio,
-  clipboard: Clipboard,
-  number: Number,
-  checkbox: Checkbox
+  // clipboard: Clipboard,
+  // number: Number,
+  // checkbox: Checkbox
   // You can override built-in types too, e.g. text: MyTextField
 };
 
 export default function Controls(props) {
-  const { fields, attributes, setAttributes } = props;
-
+  const { fields, attributes, setAttributes, errors, setErrors } = props;
+  console.log('control', errors);
+  
   return (
     <Fields
       fields={fields}
       attributes={attributes}
       setAttributes={setAttributes}
       components={components}
+      errors={errors}
+      setErrors={setErrors}
+      // validationTrigger={validationTrigger}
     />
   );
 }

@@ -12,7 +12,11 @@ type FieldProps = {
 	className?: string;
 	required?: boolean;
 	labelPosition?: LabelPosition;
+	validation?: any;
 };
 export type NumberFieldType = {
-	field: FieldProps
+	field: FieldProps,
+	attrKey: string,
+	attributes: any,
+	setAttributes: any,
 };

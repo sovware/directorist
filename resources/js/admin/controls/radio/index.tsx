@@ -1,7 +1,8 @@
 /**
  * WordPress dependencies
  */
-import React, { useCallback, useEffect, useState } from 'react';
+import { useInstanceId } from '@wordpress/compose';
+import React, { useCallback, useState } from 'react';
 
 /**
  * External dependencies
@@ -11,9 +12,12 @@ import { size } from 'lodash';
 /**
  * Internal dependencies
  */
-import { validateField, ValidationResult } from '../custom-field/validation';
+// import { updateAttributes } from '@wpmvc/fields';
+import { doAction } from '@wordpress/hooks';
+import styled from 'styled-components';
+import { validateField } from '../custom-field/validation';
 import StyleRadioField, { RadioOption } from './styles';
-import { RadioProps } from './types';
+import { RadioFieldProps } from './types';
 
 /**
  * Generate a unique description ID for each radio option
@@ -27,64 +31,73 @@ const generateOptionDescriptionId = (groupId: string, index: number) =>
 const generateOptionId = (groupId: string, index: number) =>
 	`${groupId}-${index}`;
 
-export default function Radio({ field, attributes = {}, setAttributes }: RadioProps) {
+const ValidationError = styled.div`
+	color: var(--directorist-color-danger);
+	font-size: 12px;
+	margin-top: 4px;
+`;
+
+export default function Radio( props: RadioFieldProps) {
+	const { attrKey, field, attributes, setAttributes, errors, setErrors } = props;
 	const {
 		label,
 		options,
-		value,
+		// value,
 		onChange,
 		disabled,
 		variation = 'normal',
 		perRow,
 		validation,
-		invalid_key,
 		help_text,
 	} = field;
 
-	const id = 'radio-id';
-
-	// Validation state
-	const [validationErrors, setValidationErrors] = useState<string[]>([]);
+	
+	const id = useInstanceId( Radio, 'wpmvc-radio' );
+	const value = attributes[attrKey];
 	const [isValidating, setIsValidating] = useState(false);
+	const fieldErrors = errors?.[attrKey];
 
 	// Boxed variation helpers
 	const isBoxed = variation.startsWith('boxed-');
 	const isRadioRight = variation === 'boxed-right';
 
-	// Validation helpers
-	const isInvalid = invalid_key ? attributes[invalid_key] : validationErrors.length > 0;
-
 	// Perform validation
-	const performValidation = useCallback((currentValue: any) => {
-		if (!validation) return;
-
+	const performValidation = (currentValue) => {
+		if (!field?.validation) return;
 		setIsValidating(true);
-		const result: ValidationResult = validateField(currentValue, { validation }, attributes);
-		setValidationErrors(result.errors);
+		
+		// Use the validation module
+		const result = validateField(currentValue, field, attributes);
+		const currentValidationErrors = attributes.validationErrors || {};
+		const updatedValidationErrors = {
+			...currentValidationErrors,
+			[attrKey]: result.errors,
+		};
+		setErrors(updatedValidationErrors);
+
 		setIsValidating(false);
-
-		// Update validation state in parent component if invalid_key is provided
-		if (invalid_key && setAttributes) {
-			setAttributes({ [invalid_key]: !result.isValid });
-		}
-	}, [validation, attributes, invalid_key, setAttributes]);
-
-	// Validate on value change
-	useEffect(() => {
-		if (validation) {
-			performValidation(value);
-		}
-	}, [value, validation, performValidation]);
+	};
 
 	// Handle option change with validation
 	const handleOptionChange = useCallback((optionValue: any) => {
-		onChange(optionValue);
-		
+		// onChange(optionValue);
+		setAttributes( {
+			[ attrKey ]: optionValue,
+		} );
+
 		// Perform validation if validation rules exist
 		if (validation) {
-			performValidation(optionValue);
+			// performValidation(optionValue);
+			doAction('wpmvc-field-on-change', {
+				value: optionValue,
+				field,
+				fieldKey: attrKey,
+				attributes,
+				errors,
+				setErrors
+			});
 		}
-	}, [onChange, validation, performValidation]);
+	}, []);
 
 	return (
 		<div
@@ -119,7 +132,7 @@ export default function Radio({ field, attributes = {}, setAttributes }: RadioPr
 								className="components-radio-control__option"
 								style={{ 
 									marginBottom: hasAfter ? 12 : 0,
-									...(isInvalid && isBoxed && {
+									...((fieldErrors?.length > 0 && isBoxed) && {
 										borderColor: 'var(--directorist-color-danger)',
 										boxShadow: '0 0 0 1px var(--directorist-color-danger)',
 									}),
@@ -136,7 +149,7 @@ export default function Radio({ field, attributes = {}, setAttributes }: RadioPr
 									onChange={() => handleOptionChange(option.value)}
 									aria-describedby={option.description ? descriptionId : undefined}
 									style={{ margin: 0 }}
-									aria-invalid={isInvalid}
+									aria-invalid={fieldErrors?.length > 0}
 								/>
 
 								<div className="components-radio-control__label">
@@ -173,17 +186,11 @@ export default function Radio({ field, attributes = {}, setAttributes }: RadioPr
 				})}
 			</StyleRadioField>
 
-			{/* Validation errors */}
-			{validationErrors.length > 0 && (
-				<div style={{ 
-					color: 'var(--directorist-color-danger)', 
-					fontSize: '12px', 
-					marginTop: '4px' 
-				}}>
-					{validationErrors.map((error, index) => (
-						<div key={index}>{error}</div>
-					))}
-				</div>
+			{/* Show validation errors */}
+			{fieldErrors?.length > 0 && (
+				fieldErrors.map((error, index) => (
+					<ValidationError key={index}>{error}</ValidationError>
+				))
 			)}
 
 			{/* Help text */}

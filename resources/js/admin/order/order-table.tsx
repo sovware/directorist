@@ -79,6 +79,7 @@ export default function OrderTable() {
 	return (
 		<Table
 			heading="Orders"
+			storeName="directorist/orders"
 			path="/directorist/admin/orders"
 			columns={ columns }
 			create={

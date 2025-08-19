@@ -101,10 +101,15 @@ class OrderRepository extends Repository {
 
     public function single( $id ) {
         return $this->get_query_builder()->with(
-            'payments', function( $query ) {
-                $query->order_by_desc( 'id' );
-            }
-        )->where( 'id', $id )->get();
+            [
+                'user'     => function( $query ) {
+                    $query->select( 'ID', 'user_email', 'display_name' );
+                },
+                'payments' => function( $query ) {
+                    $query->order_by_desc( 'id' );
+                }
+            ]
+        )->where( 'd_order.id', $id )->get();
     }
 
     public function to_dto( $order ) {

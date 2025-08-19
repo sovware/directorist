@@ -1,10 +1,10 @@
 import { Fields } from "@wpmvc/fields";
 import React from "react";
-import Checkbox from "../checkbox";
-import Clipboard from "../clipboard";
-import TextControl from "../custom-field";
-import Number from "../number";
-import Radio from "../radio";
+import Checkbox from "./checkbox";
+import Clipboard from "./clipboard";
+import TextControl from "./custom-field";
+import Number from "./number";
+import Radio from "./radio";
 
 const components = {
   text: TextControl,

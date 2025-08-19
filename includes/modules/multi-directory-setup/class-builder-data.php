@@ -327,27 +327,6 @@ class Builder_Data {
                                     'value' => '',
                                     'field_type' => 'advanced',
                                 ],
-                                'review_cookies_consent' => [
-                                    'label' => __( 'Show Cookies Consent', 'directorist' ),
-                                    'type'  => 'toggle',
-                                    'value' => false,
-                                ],
-                                'review_enable_gdpr_consent' => [
-                                    'label' => __( 'Enable GDPR Consent', 'directorist' ),
-                                    'type'  => 'toggle',
-                                    'value' => false,
-                                ],
-                                'review_gdpr_consent_label' => [
-                                    'label'       => __( 'Consent Label', 'directorist' ),
-                                    'type'        => 'textarea',
-                                    'editor'      => 'wp_editor',
-                                    'editorID'    => 'wp_editor_terms_privacy',
-                                    'value'       => sprintf(
-                                        __( 'I have read and agree to the <a href="%s" target="_blank">Privacy Policy</a> and <a href="%s" target="_blank">Terms of Service</a>', 'directorist' ),
-                                        ATBDP_Permalink::get_privacy_policy_page_url(),
-                                        ATBDP_Permalink::get_terms_and_conditions_page_url(),
-                                    ),
-                                ],
                             ],
 
                             'accepted_widgets' => [

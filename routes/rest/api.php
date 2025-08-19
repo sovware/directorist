@@ -5,6 +5,7 @@ defined( 'ABSPATH' ) || exit;
 use Directorist\App\Http\Controllers\CheckoutController;
 use Directorist\App\Http\Controllers\Admin\PaymentController;
 use Directorist\App\Http\Controllers\Admin\OrderController;
+use Directorist\App\Http\Controllers\Admin\RefundController;
 use Directorist\WpMVC\Routing\Route;
 
 
@@ -24,5 +25,6 @@ Route::group(
             }
         );
         Route::resource( 'payments', PaymentController::class );
+        Route::resource( 'refunds', RefundController::class, ['items' => ['update']] );
     }, ['admin']
 );

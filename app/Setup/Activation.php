@@ -49,5 +49,17 @@ class Activation {
                 $table->timestamps();
             }
         );
+
+        //Refund Table
+        Schema::create(
+            "{$prefix}refunds", function( Blueprint $table ) {
+                $table->big_increments( "id" );
+                $table->integer( "order_id" );
+                $table->decimal( "amount", 10, 2 )->default( 0.00 );
+                $table->string( "status" )->default( "pending" );
+                $table->string( "reason" )->nullable();
+                $table->timestamps();
+            }
+        );
     }
 }

@@ -1,235 +1,202 @@
 /**
  * WordPress dependencies
  */
-import { Fill } from '@wordpress/components';
-import { useCallback, useState } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
+// import { Badge } from '@wordpress/components';
+import { useEffect, useMemo, useState } from "@wordpress/element";
 
 /**
  * External dependencies
  */
-import { FieldsType } from "@wpmvc/fields/build-types/types/field";
+import { registerValuesStore, useValuesStoreData } from "@wpmvc/data";
+// Fallback types for '@wordpress/url' if types are missing at build time
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { addQueryArgs } from '@wordpress/url';
 import React from "react";
 
 /**
  * Internal dependencies
  */
-import { useAttributes } from '@wpmvc/dashboard';
-import validateField from '../../controls/custom-field/validation.ts';
-import ElementorIcon from '../../icons/elementorIcon.tsx';
-import Tab from '../../Tab';
-import Feature from './feature.tsx';
-import General from './general.tsx';
-import Plan from './plan.tsx';
+import styled from "styled-components";
+import Badge from "../../badge.tsx";
+import Card from "../../card.tsx";
+import { formatDate, getUser } from "../../helper/utils.ts";
+import ElementorIcon from "../../icons/elementorIcon.tsx";
+import { useGetId } from "../hook/useGetId.ts";
+import Refund from "./refund.tsx";
 
-const editOrderInitialValues = {
-    plan_name: '',
-    description: 'active',
-    directory_type: '',
-    listing_count: 0,
-    is_listing_unlimited: false,
-    featured_listing_count: 1,
-    is_featured_listing_unlimited: false,
-    plan_visibility: 'hidden',
-    // should_validate: false,
-    // validationErrors: {}
-}
+const SingleOrderContainer = styled.div``;
+const InfoCard = styled.div``;
+const InfoIcon = styled.div``;
+const InfoContent = styled.div``;
 
-interface ExtendedFieldType extends FieldsType {
-    [key: string]: any; // Allow additional properties
-  }
+const PaymentLogContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
+const PaymentLogItem = styled.div`
+  // display: flex;
+  // flex-direction: column;
+  // gap: 10px;
+`;
 
-  const basicFields: ExtendedFieldType = {
-    // custom: {
-    //   type: 'custom',
-    //   label: 'Custom Field',
-    //   description: 'This is a custom field.',
-    //   // Validation props that the custom field component will use
-    //   validation: {
-    //     required: true,
-    //     min_length: 3,
-    //     max_length: 50,
-    //   },
-    //   invalid_key: 'custom_invalid',
-    //   onChange: (data: any) => {
-    //     console.log('Custom field changed:', data.value);
-    //   }
-    // },
-    plan_name: {
-      type: "text",
-      label: __("What’s the name of your plan?", "directorist"),
-      description: __(
-        "This is the name of your plan that will be displayed to the users.",
-        "directorist",
-      ),
-      validation: {
-        required: true,
-        min_length: 3,
-        max_length: 50,
-      },
-    },
-    // description: {
-    //   type: "text",
-    //   label: __("Short Description", "directorist")
-    // },
-    directory_type: {
-      type: "n_radio",
-      label: __("Select directory type", "directorist"),
-      variation: 'boxed-right',
-      validation: {
-        required: true,
-      },
-      options: [
-        { label: 'Jobs', value: 'jobs', icon: <ElementorIcon />, renderRadio: ([option, props] )=> <>Hello</> },
-        { label: 'Restaurant', value: 'restaurant', icon: <ElementorIcon />, renderRadio: ([option, props])=> <>Hello</> },
-      ],
-    },
-    // listing_count: {
-    //   type: "number",
-    //   label: __("How many listings for this package?", "directorist"),
-    //   // min: 1,
-    //   // max: 100,
-    //   step: 1,
-    //   defaultValue: 10,
-    //   // validation: {
-    //   //   required: true,
-    //   //   min_value: 2,
-    //   //   max_value: 100,
-    //   // },
-    // },
-    // listing_unlimited: {
-    //   type: "checkbox",
-    //   label: __("Or Mark as Unlimited", "directorist"),
-    // },
-    // featured_listing_count: {
-    //   type: "number",
-    //   label: __("Number of featured listing.", "directorist"),
-    //   min: 1,
-    //   max: 100,
-    //   step: 1,
-    //   defaultValue: 10,
-    // },
-    // featured_listing_unlimited: {
-    //   type: "checkbox",
-    //   label: __("Or Mark as Unlimited", "directorist"),
-    // }
-  };
-  const planFields: FieldsType = {
-    plan_visibility: {
-      type: "select",
-      label: __("Visibility", "directorist"),
-      options: [
-        { label: __("Hidden from all plan", "directorist"), value: "hidden" },
-        { label: __("Visible to all plan", "directorist"), value: "visible" },
-      ],
-      isMulti: false,
-    },
-    clipboard: {
-      type: "text",
-      label: __("Embed plan", "directorist"),
-      description: __(
-        "Easily embed this plan anywhere with this shortcode",
-        "directorist",
-      ),
+const RefundSummary = styled.div``;
+
+const LogDetails = styled.div``;
+const LogId = styled.div``;
+const RefundTable = styled.div``;
+
+type EditProps = {
+  order?: any;
+};
+
+export default function Edit({  }: EditProps) {
+  const [loading, setLoading] = useState(true);
+  const orderId = useGetId();
+
+  const singleOrderRoute = useMemo(
+    () => (orderId ? (`/directorist/admin/orders/${orderId}`) : ''),
+    [orderId],
+  );
+  const allRefundRoute = useMemo(
+    () => (orderId ? (addQueryArgs('/directorist/admin/refunds', { order_id: orderId }) as string) : ''),
+    [orderId],
+  );
+
+  registerValuesStore({
+    name: "directorist/single-order",
+    path: singleOrderRoute,
+  });
+
+  const { data, isResolved } = useValuesStoreData({
+    name: "directorist/single-order",
+    path: singleOrderRoute,
+  });
+  
+  registerValuesStore({
+    name: "directorist/order-refund",
+    path: allRefundRoute,
+  });
+  
+  const { data: refundData, isResolved: allRefundResolved } = useValuesStoreData({
+    name: "directorist/order-refund",
+    path: allRefundRoute,
+  });
+  
+  const order = data?.order;
+
+  const isOrderResolved = isResolved;
+
+  useEffect(() => {
+    if (loading && isOrderResolved) {
+      setLoading(false);
     }
+  }, [isOrderResolved, loading]);
+
+  const user = getUser(order?.user);
+  const dateFormatOptions = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
   };
 
-export default function Edit(){
-    const [activeTab, setActiveTab] = useState('general');
-    const [attributes, setAttributes] = useAttributes({ ...editOrderInitialValues });
-    const [errors, setErrors] = useAttributes({});
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    
-    // Handle form submission
-    const handleSubmit = useCallback(async (e: React.FormEvent) => {
-        e.preventDefault();
+  return (
+    <SingleOrderContainer>
+      <Card title="Order Details" icon={<ElementorIcon />}>
+        {/* UserInfo */}
+        <InfoCard>
+          <InfoIcon></InfoIcon>
+          <InfoContent>
+            <h4 className="directorist-label">{user?.display_name}</h4>
+            <p>{user?.email}</p>
+            <p>User id: {user?.id}</p>
+          </InfoContent>
+        </InfoCard>
+        {/* Listing Details */}
+        <InfoCard>
+          <InfoIcon></InfoIcon>
+          <InfoContent>
+            <p>Listing id: {order?.listing_id}</p>
+            <p>Plan type: {order?.plan_type} Purchase</p>
+            <p>Amount: {order?.amount}</p>
+            <p>Coupon discount: {order?.coupon_discount}</p>
+          </InfoContent>
+        </InfoCard>
+        <Badge
+          variant={
+            order?.status === "pending"
+              ? "warning"
+              : order?.status === "completed"
+                ? "success"
+                : "error"
+          }
+        >
+          {order?.status}
+        </Badge>
+        <p>Payment method: {order?.payment?.method}</p>
+        <p>Final amount: {order?.final_amount}</p>
+      </Card>
+      <Card title="Payment Log" icon={<ElementorIcon />}>
+        <PaymentLogContainer>
+          {order?.payments?.map((payment, index) => {
+            return (
+              <PaymentLogItem key={index}>
+                <LogDetails>
+                  <Badge
+                    variant={
+                      payment?.status === "pending"
+                        ? "warning"
+                        : payment?.status === "completed"
+                          ? "success"
+                          : "error"
+                    }
+                  >
+                    {payment?.status}
+                  </Badge>
+                  <span>
+                    {formatDate(
+                      "en-US",
+                      payment.created_at,
+                      {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      },
+                      true,
+                    )}
+                  </span>
+                </LogDetails>
+                <LogId></LogId>
+              </PaymentLogItem>
+            );
+          })}
+          <PaymentLogItem></PaymentLogItem>
+        </PaymentLogContainer>
+      </Card>
 
-        const allFields = {...basicFields, ...planFields};
-        const updatedErrors = {};
-        Object.keys(allFields).forEach(fieldKey => {
-
-            const field = allFields[fieldKey];
-            const value = attributes[fieldKey];
-            const errorsResult = validateField(value, field, attributes);
-            updatedErrors[fieldKey] = errorsResult.errors;
-        })
-
-        setErrors(updatedErrors);
-
-    }, [attributes]);
-
-
-    return(
-        <form onSubmit={handleSubmit}>
-            <Fill name="wpmvc-header">
-                <Tab
-                    className='tab-menu'
-                    tabs={[
-                        {
-                            name: 'general',
-                            title: 'General Info'
-                        },
-                        {
-                            name: 'feature',
-                            title: 'Feature Configuration'
-                        },
-                        {
-                            name: 'plan',
-                            title: 'Plan Settings'
-                        }
-                    ]}
-                    onActiveTab={setActiveTab} 
-                />
-            </Fill>
-		
-			{
-				activeTab === 'general' && (
-					<General 
-						attributes={attributes} 
-						setAttributes={setAttributes}
-                        cards={
-                            {
-                                basicFields,
-                                planFields
-                            }
-                        }
-                        errors={errors}
-                        setErrors={setErrors}
-					/>
-				)
-			}
-			{
-				activeTab === 'feature' && (
-					<Feature 
-						attributes={attributes} 
-						setAttributes={setAttributes}
-					/>
-				)
-			}
-			{
-				activeTab === 'plan' && (
-					<Plan 
-						attributes={attributes} 
-						setAttributes={setAttributes}
-					/>
-				)
-			}
-
-            <button 
-                type="submit" 
-                disabled={isSubmitting}
-                style={{
-                    padding: '10px 20px',
-                    backgroundColor: isSubmitting ? '#ccc' : '#007cba',
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: '4px',
-                    cursor: isSubmitting ? 'not-allowed' : 'pointer',
-                    fontSize: '16px'
-                }}
-            >
-                {isSubmitting ? 'Submitting...' : 'Submit'}
-            </button>
-		</form>
-    )
+      {/* Refund Summary */}
+      <Card title="Refund Management" icon={<ElementorIcon />}>
+      <Refund order={order} refunds={refundData} />
+        {/* <RefundSummary>
+          <p>Amount already refunded: {order?.refunded_amount || 0}</p>
+          <p>
+            Available to Refund:{" "}
+            {order?.final_amount - (order?.refunded_amount || 0)}
+          </p>
+        </RefundSummary>
+        <RefundTable>
+          <Table
+            items={refundData?.items}
+            total={refundData?.total}
+            // isLoading={refundData?.is_loading}
+            // fields={refundData?.fields}
+            // // columns={refundData?.columns}
+            // actions={refundData?.actions}
+            // search={refundData?.search}
+            // sort={refundData?.sort}
+          />
+        </RefundTable> */}
+      </Card>
+    </SingleOrderContainer>
+  );
 }

@@ -2042,7 +2042,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             add_submenu_page(
                 'edit.php?post_type=at_biz_dir',
                 __( 'Get Extensions', 'directorist' ),
-                __( 'Themes & Extensions', 'directorist' ),
+                __( 'Themes & Extensions Old', 'directorist' ),
                 'manage_options',
                 'atbdp-extension',
                 [ $this, 'show_extension_view' ]

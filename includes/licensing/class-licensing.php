@@ -14,6 +14,17 @@ class Licensing {
     public static function is_connected(): bool {
         return isset( self::get_data()['account_data']['user_id'] );
     }
+    
+    public static function user_id(): int {
+        return self::is_connected() ? self::get_data()['account_data']['user_id'] : '';
+    }
+    public static function user_email(): string {
+        return self::is_connected() ? self::get_data()['account_data']['user_email'] : '';
+    }
+    
+    public static function user_name(): string {
+        return self::is_connected() ? self::get_data()['account_data']['user_name'] : '';
+    }
 
     public static function get_connection_method(): string {
         return self::get_data()['method'] ?? 'access_token';

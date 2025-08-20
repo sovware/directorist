@@ -90,7 +90,7 @@
         </div>
         <div class="directorist-membership-info-author">
             <div class="directorist-membership-info-author-img">
-                <?php echo get_avatar( $user->ID, 100 ) ?>
+                <?php echo get_avatar( Licensing::user_email(), 100 ) ?>
             </div>
             <div class="directorist-membership-info-author-dropdown directorist-d-none">
                 <?php if ( 'access_token' === Licensing::get_connection_method() ) : ?>
@@ -193,7 +193,7 @@
                         <?php echo esc_html( Licensing_Overview::get( 'templates_count' ) ); ?>
                     </div>
                     <div class="directorist-membership-status-description">
-                        <?php esc_html_e( 'Available Templates', 'directorist' )?>
+                        <?php esc_html_e( 'Available Themes', 'directorist' )?>
                     </div>
                 </div>
             </div>

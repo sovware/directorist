@@ -33,7 +33,7 @@
                                 d="M14.584 10.833C15.2743 10.833 15.834 10.2734 15.834 9.58301C15.834 8.89265 15.2743 8.33301 14.584 8.33301C13.8936 8.33301 13.334 8.89265 13.334 9.58301C13.334 10.2734 13.8936 10.833 14.584 10.833Z"
                                 fill="currentColor" />
                         </svg>
-                        <?php esc_html_e( 'Templates', 'directorist' ); ?>
+                        <?php esc_html_e( 'Themes', 'directorist' ); ?>
                         <span class="total-templates"> (<?php echo esc_html( Licensing_Overview::get( 'templates_count' ) ); ?>)</span>
                     </button>
                 </li>

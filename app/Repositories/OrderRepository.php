@@ -109,7 +109,7 @@ class OrderRepository extends Repository {
                     $query->order_by_desc( 'id' );
                 }
             ]
-        )->where( 'd_order.id', $id )->get();
+        )->where( 'd_order.id', $id )->first();
     }
 
     public function to_dto( $order ) {

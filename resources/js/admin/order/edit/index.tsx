@@ -10,7 +10,6 @@ import { useEffect, useMemo, useState } from "@wordpress/element";
 import { registerValuesStore, useValuesStoreData } from "@wpmvc/data";
 // Fallback types for '@wordpress/url' if types are missing at build time
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { addQueryArgs } from '@wordpress/url';
 import React from "react";
 
 /**
@@ -58,10 +57,11 @@ export default function Edit({  }: EditProps) {
     () => (orderId ? (`/directorist/admin/orders/${orderId}`) : ''),
     [orderId],
   );
-  const allRefundRoute = useMemo(
-    () => (orderId ? (addQueryArgs('/directorist/admin/refunds', { order_id: orderId }) as string) : ''),
-    [orderId],
-  );
+  
+  // const refundRoute = useMemo(
+  //   () => (orderId ? (addQueryArgs('/directorist/admin/refunds', { order_id: orderId }) as string) : ''),
+  //   [orderId],
+  // );
 
   registerValuesStore({
     name: "directorist/single-order",
@@ -71,16 +71,6 @@ export default function Edit({  }: EditProps) {
   const { data, isResolved } = useValuesStoreData({
     name: "directorist/single-order",
     path: singleOrderRoute,
-  });
-  
-  registerValuesStore({
-    name: "directorist/order-refund",
-    path: allRefundRoute,
-  });
-  
-  const { data: refundData, isResolved: allRefundResolved } = useValuesStoreData({
-    name: "directorist/order-refund",
-    path: allRefundRoute,
   });
   
   const order = data?.order;
@@ -175,8 +165,18 @@ export default function Edit({  }: EditProps) {
       </Card>
 
       {/* Refund Summary */}
-      <Card title="Refund Management" icon={<ElementorIcon />}>
-      <Refund order={order} refunds={refundData} />
+      {
+        order && 
+        <Card title="Refund Management" icon={<ElementorIcon />}>
+          <Refund 
+            order={order}
+            // orderId={orderId}
+            // refunds={refundData} 
+            // isResolved={allRefundResolved} 
+            />
+          </Card>
+      }
+      
         {/* <RefundSummary>
           <p>Amount already refunded: {order?.refunded_amount || 0}</p>
           <p>
@@ -196,7 +196,6 @@ export default function Edit({  }: EditProps) {
             // sort={refundData?.sort}
           />
         </RefundTable> */}
-      </Card>
     </SingleOrderContainer>
   );
 }

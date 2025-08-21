@@ -2404,7 +2404,7 @@ function atbdp_guest_submission( $guest_email ) {
      * Returning false will prevent the email notification
      * from being sent to the guest user after a new listing submission.
      *
-     * @since 8.4.5
+     * @since 8.4.6
      *
      * @param bool $notify  Whether to send the notification. Default true.
      * @param int  $user_id The ID of the user who submitted the listing.

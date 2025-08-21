@@ -1216,7 +1216,7 @@ We look forward to seeing you soon'
                 /**
                  * Fires after a registration confirmation email is sent to a new user.
                  *
-                 * @since 8.4.5
+                 * @since 8.4.6
                  *
                  * @param int    $user_id   The user ID.
                  * @param object $user      WP_User object.

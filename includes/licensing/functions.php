@@ -98,11 +98,7 @@ function directorist_licensing_get_template_list_html() {
 
     if ( ! empty( $templates ) ) {
         ob_start(); // Start output buffering
-        foreach ( $templates as $template ) :
-            if ( in_array( $template['item_id'], [13718] ) ) {
-                return;
-            }
-            ?>
+        foreach ( $templates as $template ) : ?>
 
             <div class="directorist-col-xxl-3 directorist-col-lg-4 directorist-col-sm-6" data-item-slug="<?php echo esc_attr( $template['slug'] ) ?>" data-item-id="<?php echo esc_attr( $template['item_id'] ) ?>">
                 <article class="directorist-template-item">
@@ -143,10 +139,6 @@ function directorist_get_item_buttons_html( array $item, string $type ): string 
         }, Licensing_Overview::get( 'inactive_slug_list' ) 
     );
 
-    // error_log( '$inactive_slug  : ' . print_r($inactive_slug  ,true) );
-    // error_log( ' $active_slugs  : ' . print_r( $active_slugs, true ) );
-    // error_log( ' $item[slug] : ' . print_r( $item['slug'], true ) );
-
     ob_start(); // Start output buffering?>
 
     <?php if ( 'extension' === $type && isset( $item['permalink'] ) ) : ?>
@@ -186,14 +178,38 @@ function directorist_get_item_buttons_html( array $item, string $type ): string 
     <?php if ( 'template' === $type ) : ?>
        <div class="directorist-template-cta">
 
-            <?php if ( isset( $item['license'] ) ) : ?>
-                <?php if ( class_exists( 'Templatiq' ) ) : ?>
-                    <a href="<?php echo esc_attr( admin_url( 'admin.php?page=templatiq&source=directorist#/template/' . directorist_get_template_by_theme( $item['item_id'] ) ) ); ?>" class="directorist-template-get">
-                        <?php esc_attr_e( 'Insert Template', 'directorist' ); ?>
-                    </a>
-                <?php else : ?>
-                    <button type="button" class="directorist-template-get directorist-install-templatiq" data-item-id="<?php echo esc_html( $item['item_id'] ); ?>">
-                        <?php esc_attr_e( 'Insert', 'directorist' ); ?>
+            <?php
+            // Determine theme install/activate state
+            $theme_slug       = isset( $item['slug'] ) ? sanitize_text_field( $item['slug'] ) : '';
+            $theme_installed  = false;
+            $theme_is_active  = false;
+
+            if ( ! function_exists( 'wp_get_themes' ) ) {
+                require_once ABSPATH . 'wp-includes/theme.php';
+            }
+
+            $themes = function_exists( 'wp_get_themes' ) ? wp_get_themes() : [];
+            if ( $theme_slug && ! empty( $themes ) ) {
+                $theme_installed = ! empty( $themes[ $theme_slug ] );
+                if ( function_exists( 'wp_get_theme' ) ) {
+                    $current = wp_get_theme();
+                    $theme_is_active = $current && ( $current->get_stylesheet() === $theme_slug || $current->get_template() === $theme_slug );
+                }
+            }
+            ?>
+
+            <?php if ( ( isset( $item['license'] ) && isset( $item['download_link'] ) ) || $theme_installed ) : ?>
+                <?php if ( ! $theme_installed ) : ?>
+                    <button type="button" class="directorist-template-get directorist-template-btn-install" data-theme-slug="<?php echo esc_attr( $theme_slug ); ?>" data-download-link="<?php echo esc_url( $item['download_link'] ); ?>">
+                        <?php esc_attr_e( 'Install', 'directorist' ); ?>
+                    </button>
+                <?php elseif ( $theme_installed && ! $theme_is_active ) : ?>
+                    <button type="button" class="directorist-template-get directorist-template-btn-activate" data-theme-slug="<?php echo esc_attr( $theme_slug ); ?>">
+                        <?php esc_attr_e( 'Activate', 'directorist' ); ?>
+                    </button>
+                <?php elseif ( $theme_is_active ) : ?>
+                    <button type="button" class="directorist-template-get directorist-template-btn-activated" disabled>
+                        <?php esc_attr_e( 'Activated', 'directorist' ); ?>
                     </button>
                 <?php endif; ?>
             <?php else : ?>

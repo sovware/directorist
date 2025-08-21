@@ -190,7 +190,7 @@
             <div class="directorist-col-xxl-3 directorist-col-lg-4 directorist-col-sm-6">
                 <div class="directorist-membership-status">
                     <div class="directorist-membership-status-number">
-                        <?php echo esc_html( Licensing_Overview::get( 'templates_count' ) ); ?>
+                        <?php echo esc_html( Licensing_Overview::get( 'available_templates_count' ) ); ?>
                     </div>
                     <div class="directorist-membership-status-description">
                         <?php esc_html_e( 'Available Themes', 'directorist' )?>

@@ -67,6 +67,7 @@ class Init {
             [
                 'root'  => esc_url_raw( rest_url() ),
                 'nonce' => wp_create_nonce( 'wp_rest' ),
+                'themesUrl' => esc_url_raw( admin_url( 'themes.php' ) ),
             ]
         );
     }

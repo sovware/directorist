@@ -191,4 +191,89 @@ class Controllers {
             );
         }
     }
+
+    public function install_theme( \WP_REST_Request $request ) {
+        $slug          = (string) $request->get_param( 'slug' );
+        $download_link = (string) $request->get_param( 'download_link' );
+
+        if ( empty( $slug ) ) {
+            return rest_ensure_response( [ 'success' => false, 'message' => __( 'Valid theme slug missing', 'directorist' ) ] );
+        }
+
+        if ( empty( $download_link ) ) {
+            return rest_ensure_response( [ 'success' => false, 'message' => __( 'Valid download link missing', 'directorist' ) ] );
+        }
+
+        try {
+            if ( ! function_exists( 'wp_get_themes' ) ) {
+                require_once ABSPATH . 'wp-includes/theme.php';
+            }
+
+            if ( ! function_exists( 'request_filesystem_credentials' ) ) {
+                require_once ABSPATH . 'wp-admin/includes/file.php';
+            }
+
+            if ( ! class_exists( 'WP_Ajax_Upgrader_Skin' ) ) {
+                require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
+            }
+
+            if ( ! class_exists( 'Theme_Upgrader' ) ) {
+                require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
+            }
+
+            $skin     = new \WP_Ajax_Upgrader_Skin();
+            $upgrader = new \Theme_Upgrader( $skin );
+
+            $result = $upgrader->install( $download_link );
+
+            if ( is_wp_error( $result ) ) {
+                return rest_ensure_response( [ 'success' => false, 'message' => $result->get_error_message() ] );
+            }
+
+            // Clear theme cache to detect newly installed theme
+            if ( function_exists( 'wp_clean_themes_cache' ) ) {
+                wp_clean_themes_cache();
+            }
+
+            return rest_ensure_response( [
+                'success' => true,
+                'message' => __( 'Theme installed successfully', 'directorist' ),
+            ] );
+        } catch ( \Throwable $th ) {
+            return rest_ensure_response( [ 'success' => false, 'message' => $th->getMessage() ] );
+        }
+    }
+
+    public function activate_theme( \WP_REST_Request $request ) {
+        $slug = (string) $request->get_param( 'slug' );
+
+        if ( empty( $slug ) ) {
+            return rest_ensure_response( [ 'success' => false, 'message' => __( 'Valid theme slug missing', 'directorist' ) ] );
+        }
+
+        try {
+            if ( ! function_exists( 'wp_get_theme' ) ) {
+                require_once ABSPATH . 'wp-includes/theme.php';
+            }
+
+            if ( ! function_exists( 'switch_theme' ) ) {
+                require_once ABSPATH . 'wp-includes/theme.php';
+            }
+
+            // Ensure the theme exists before switching
+            $themes = wp_get_themes();
+            if ( empty( $themes[ $slug ] ) ) {
+                return rest_ensure_response( [ 'success' => false, 'message' => __( 'Theme is not installed', 'directorist' ) ] );
+            }
+
+            switch_theme( $slug );
+
+            return rest_ensure_response( [
+                'success' => true,
+                'message' => __( 'Theme activated successfully', 'directorist' ),
+            ] );
+        } catch ( \Throwable $th ) {
+            return rest_ensure_response( [ 'success' => false, 'message' => $th->getMessage() ] );
+        }
+    }
 }

@@ -30,7 +30,25 @@ class Licensing_Plan {
     }
 
     public static function get_unlocked_products( string $type ): array {
-        return self::get_downloads()[$type] ?? [];
+        $products = self::get_downloads()[$type] ?? [];
+
+        if ( ! is_array( $products ) ) {
+            return [];
+        }
+
+        $unique_products = [];
+        $seen_slugs      = [];
+
+        foreach ( $products as $product ) {
+            $slug = $product['slug'] ?? null;
+
+            if ( $slug && ! isset( $seen_slugs[$slug] ) ) {
+                $unique_products[]   = $product;
+                $seen_slugs[$slug] = true;
+            }
+        }
+
+        return $unique_products;
     }
 
     private static function get_license_data(): array {

@@ -38,6 +38,7 @@ class Routes {
             'login-with-access-key' => 'login_with_access_key',
             'login-with-account'    => 'login_with_account',
             'install-theme'         => 'install_theme',
+            'activate-theme'        => 'activate_theme',
             'install-extension'     => 'install_extension',
             'activate-extension'    => 'activate_extension',
             'deactivate-extension'  => 'deactivate_extension',

@@ -589,4 +589,93 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         ]
     });
+
+    // Template: Install theme
+    document.querySelectorAll(".directorist-template-btn-install").forEach(button => {
+        button.addEventListener("click", function (event) {
+            event.preventDefault();
+
+            const themeSlug = this.getAttribute("data-theme-slug");
+            const downloadLink = this.getAttribute("data-download-link");
+            if (!themeSlug || !downloadLink) return;
+
+            this.textContent = "Installing...";
+            this.disabled = true;
+
+            fetch(directorist_licensing.root + "directorist/v1/admin/install-theme", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-WP-Nonce": directorist_licensing.nonce
+                },
+                body: JSON.stringify({ slug: themeSlug, download_link: downloadLink })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    this.textContent = "Activate";
+                    // Swap to Activate button UI
+                    this.classList.remove("directorist-template-btn-install");
+                    this.classList.add("directorist-template-btn-activate");
+                    this.removeAttribute("data-download-link");
+                } else {
+                    this.textContent = "Install";
+                    alert(data.message || "Installation failed.");
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                this.textContent = "Install";
+                alert("An error occurred while installing the theme.");
+            })
+            .finally(() => {
+                this.disabled = false;
+            });
+        });
+    });
+
+    // Template: Activate theme
+    const delegateActivateTheme = function(e){
+        const target = e.target.closest('.directorist-template-btn-activate');
+        if(!target) return;
+        e.preventDefault();
+
+        const themeSlug = target.getAttribute("data-theme-slug");
+        if (!themeSlug) return;
+
+        target.textContent = "Activating...";
+        target.disabled = true;
+
+        fetch(directorist_licensing.root + "directorist/v1/admin/activate-theme", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-WP-Nonce": directorist_licensing.nonce
+            },
+            body: JSON.stringify({ slug: themeSlug })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                target.textContent = "Activated";
+                target.classList.remove("directorist-template-btn-activate");
+                target.classList.add("directorist-template-btn-activated");
+                target.setAttribute('disabled', 'disabled');
+                // Redirect to Appearance > Themes after activation
+                setTimeout(() => { window.location.href = directorist_licensing.themesUrl; }, 600);
+            } else {
+                target.textContent = "Activate";
+                alert(data.message || "Activation failed.");
+            }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            target.textContent = "Activate";
+            alert("An error occurred while activating the theme.");
+        })
+        .finally(() => {
+            target.disabled = false;
+        });
+    };
+    document.addEventListener('click', delegateActivateTheme);
 });

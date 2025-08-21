@@ -34,9 +34,11 @@ class Licensing_Overview {
             case 'backdated_count':
                 return count( $backdated_slugs );
 
+            case 'available_templates_count':
+                return count( Licensing_Plan::get_unlocked_products( 'templates' ) );
+            
             case 'templates_count':
                 return count( Licensing_Products::get_templates() );
-                //return count( Licensing_Plan::get_unlocked_products( 'templates' ) );
 
             case 'active_slug_list':
                 return $active_slugs;

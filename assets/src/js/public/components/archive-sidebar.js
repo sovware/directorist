@@ -47,6 +47,10 @@ window.addEventListener('load', () => {
 			body.classList.contains('modal-overlay-enabled') &&
 			!targetElement.closest('.listing-with-sidebar__sidebar')
 		) {
+			// Check directorist color picker is available or not
+			const directoristColorPicker = body.querySelector('.listing-with-sidebar__sidebar--open .wp-color-result');
+			if (directoristColorPicker) return;
+
 			document
 				.querySelectorAll('.listing-with-sidebar__sidebar--open')
 				.forEach((sidebar) => {

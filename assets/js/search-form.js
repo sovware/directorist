@@ -250,6 +250,7 @@ var $ = jQuery;
 window.addEventListener('load', initSelect2);
 document.body.addEventListener('directorist-search-form-nav-tab-reloaded', initSelect2);
 document.body.addEventListener('directorist-reload-select2-fields', initSelect2);
+window.addEventListener('directorist-instant-search-reloaded', initSelect2);
 
 // Init Static Select 2 Fields
 function initSelect2() {
@@ -611,22 +612,8 @@ function initSearchCategoryCustomFields($) {
     $pageContainer.on('change', '.directorist-category-select, .directorist-search-category select', function (event) {
       var $this = $(this);
       var $form = $this.parents('form');
-      // const $advancedForm = $('.directorist-search-form');
       var category = Number($this.val());
-      // const directory      = $pageContainer.find('[name="directory_type"]').val(); // Sidebar has multiple forms that's why it's safe to use page container
-      // const formData       = new FormData();
       var attributes = $form.data('atts');
-      // const hasCustomField = $this.find('option[value="'+category+'"]').data('custom-field');
-
-      // if (!hasCustomField) {
-      //     return;
-      // }
-
-      // formData.append('action', 'directorist_category_custom_field_search');
-      // formData.append('nonce', directorist.directorist_nonce);
-      // formData.append('directory', directory);
-      // formData.append('cat_id', category);
-
       if (!attributes) {
         attributes = $pageContainer.data('atts');
       }
@@ -634,50 +621,6 @@ function initSearchCategoryCustomFields($) {
         return;
       }
       hideAllCustomFieldsExceptSelected(attributes.category_custom_fields_relations, category, $(document.body));
-
-      // console.log(, category);
-
-      // formData.append('atts', JSON.stringify(atts));
-      // $form.addClass('atbdp-form-fade');
-      // $advancedForm.addClass('atbdp-form-fade');
-
-      // $.ajax({
-      //     method     : 'POST',
-      //     processData: false,
-      //     contentType: false,
-      //     url        : directorist.ajax_url,
-      //     data       : formData,
-      //     success: function success(response) {
-      //         if (response) {
-      //             $fieldsContainer = $pageContainer.find(response['container']);
-
-      //             $fieldsContainer.html(response['search_form']);
-
-      //             // $form.find('.directorist-category-select option').data('custom-field', 1);
-      //             // $this.find('option').data('custom-field', 1);
-      //             $this.val(category);
-
-      //             [
-      //                 'directorist-search-form-nav-tab-reloaded',
-      //                 'directorist-reload-select2-fields',
-      //                 'directorist-reload-map-api-field',
-      //                 'triggerSlice'
-      //             ].forEach(function(event) {
-      //                 event = new CustomEvent(event);
-      //                 document.body.dispatchEvent(event);
-      //                 window.dispatchEvent(event);
-      //             });
-      //         }
-
-      //         onSuccessCallback();
-
-      //         $form.removeClass('atbdp-form-fade');
-      //         $advancedForm.removeClass('atbdp-form-fade');
-      //     },
-      //     error: function error(_error) {
-      //         //console.log(_error);
-      //     }
-      // });
     });
     $pageContainer.find('.directorist-category-select, .directorist-search-category select').trigger('change');
   }
@@ -699,20 +642,39 @@ function initSearchCategoryCustomFields($) {
   } else {
     return;
   }
-  $(document).ready(function () {
+  window.addEventListener('load', function () {
     /* Initialize wp color picker */
     function colorPickerInit() {
-      var wpColorPicker = document.querySelectorAll('.directorist-color-picker-wrap');
-      wpColorPicker.forEach(function (elm) {
-        if (elm !== null) {
-          var dColorPicker = $('.directorist-color-picker');
-          dColorPicker.value !== '' ? dColorPicker.wpColorPicker() : dColorPicker.wpColorPicker().empty();
+      var wpColorPickers = document.querySelectorAll('.directorist-color-picker-wrap');
+      wpColorPickers.forEach(function (wrap) {
+        var $pickerInput = $(wrap).find('.directorist-color-picker');
+        if ($pickerInput) {
+          if ($.fn.wpColorPicker) {
+            $pickerInput.wpColorPicker({
+              change: function change(event, ui) {
+                var color = ui.color.toString();
+
+                // Dispatch custom event
+                var colorChangeEvent = new CustomEvent('directorist-color-changed', {
+                  detail: {
+                    color: color,
+                    input: event.target,
+                    form: event.target.closest('form')
+                  }
+                });
+                window.dispatchEvent(colorChangeEvent);
+              }
+            });
+          } else {
+            console.warn('wpColorPicker is NOT available!');
+          }
         }
       });
     }
     colorPickerInit();
+
     /* Initialize on Directory type change */
-    document.body.addEventListener('directorist-search-form-nav-tab-reloaded', colorPickerInit);
+    window.addEventListener('directorist-instant-search-reloaded', colorPickerInit);
   });
 })(jQuery);
 
@@ -885,6 +847,44 @@ window.addEventListener('load', function () {
 
 /***/ }),
 
+/***/ "./node_modules/@babel/runtime/helpers/esm/arrayLikeToArray.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/esm/arrayLikeToArray.js ***!
+  \*********************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ _arrayLikeToArray; }
+/* harmony export */ });
+function _arrayLikeToArray(r, a) {
+  (null == a || a > r.length) && (a = r.length);
+  for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e];
+  return n;
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/esm/arrayWithHoles.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/esm/arrayWithHoles.js ***!
+  \*******************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ _arrayWithHoles; }
+/* harmony export */ });
+function _arrayWithHoles(r) {
+  if (Array.isArray(r)) return r;
+}
+
+
+/***/ }),
+
 /***/ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js":
 /*!*******************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/esm/defineProperty.js ***!
@@ -905,6 +905,92 @@ function _defineProperty(e, r, t) {
     configurable: !0,
     writable: !0
   }) : e[r] = t, e;
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/esm/iterableToArrayLimit.js":
+/*!*************************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/esm/iterableToArrayLimit.js ***!
+  \*************************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ _iterableToArrayLimit; }
+/* harmony export */ });
+function _iterableToArrayLimit(r, l) {
+  var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"];
+  if (null != t) {
+    var e,
+      n,
+      i,
+      u,
+      a = [],
+      f = !0,
+      o = !1;
+    try {
+      if (i = (t = t.call(r)).next, 0 === l) {
+        if (Object(t) !== t) return;
+        f = !1;
+      } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0);
+    } catch (r) {
+      o = !0, n = r;
+    } finally {
+      try {
+        if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return;
+      } finally {
+        if (o) throw n;
+      }
+    }
+    return a;
+  }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/esm/nonIterableRest.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/esm/nonIterableRest.js ***!
+  \********************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ _nonIterableRest; }
+/* harmony export */ });
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/esm/slicedToArray.js ***!
+  \******************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ _slicedToArray; }
+/* harmony export */ });
+/* harmony import */ var _arrayWithHoles_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./arrayWithHoles.js */ "./node_modules/@babel/runtime/helpers/esm/arrayWithHoles.js");
+/* harmony import */ var _iterableToArrayLimit_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./iterableToArrayLimit.js */ "./node_modules/@babel/runtime/helpers/esm/iterableToArrayLimit.js");
+/* harmony import */ var _unsupportedIterableToArray_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./unsupportedIterableToArray.js */ "./node_modules/@babel/runtime/helpers/esm/unsupportedIterableToArray.js");
+/* harmony import */ var _nonIterableRest_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./nonIterableRest.js */ "./node_modules/@babel/runtime/helpers/esm/nonIterableRest.js");
+
+
+
+
+function _slicedToArray(r, e) {
+  return (0,_arrayWithHoles_js__WEBPACK_IMPORTED_MODULE_0__["default"])(r) || (0,_iterableToArrayLimit_js__WEBPACK_IMPORTED_MODULE_1__["default"])(r, e) || (0,_unsupportedIterableToArray_js__WEBPACK_IMPORTED_MODULE_2__["default"])(r, e) || (0,_nonIterableRest_js__WEBPACK_IMPORTED_MODULE_3__["default"])();
 }
 
 
@@ -979,6 +1065,30 @@ function _typeof(o) {
   } : function (o) {
     return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
   }, _typeof(o);
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/esm/unsupportedIterableToArray.js":
+/*!*******************************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/esm/unsupportedIterableToArray.js ***!
+  \*******************************************************************************/
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ _unsupportedIterableToArray; }
+/* harmony export */ });
+/* harmony import */ var _arrayLikeToArray_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./arrayLikeToArray.js */ "./node_modules/@babel/runtime/helpers/esm/arrayLikeToArray.js");
+
+function _unsupportedIterableToArray(r, a) {
+  if (r) {
+    if ("string" == typeof r) return (0,_arrayLikeToArray_js__WEBPACK_IMPORTED_MODULE_0__["default"])(r, a);
+    var t = {}.toString.call(r).slice(8, -1);
+    return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? (0,_arrayLikeToArray_js__WEBPACK_IMPORTED_MODULE_0__["default"])(r, a) : void 0;
+  }
 }
 
 
@@ -1060,17 +1170,19 @@ var __webpack_exports__ = {};
   !*** ./assets/src/js/public/search-form.js ***!
   \*********************************************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _global_components_debounce__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../global/components/debounce */ "./assets/src/js/global/components/debounce.js");
-/* harmony import */ var _global_components_select2_custom_control__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../global/components/select2-custom-control */ "./assets/src/js/global/components/select2-custom-control.js");
-/* harmony import */ var _global_components_select2_custom_control__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_global_components_select2_custom_control__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _global_components_setup_select2__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../global/components/setup-select2 */ "./assets/src/js/global/components/setup-select2.js");
-/* harmony import */ var _components_category_custom_fields__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/category-custom-fields */ "./assets/src/js/public/components/category-custom-fields.js");
-/* harmony import */ var _components_colorPicker__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/colorPicker */ "./assets/src/js/public/components/colorPicker.js");
-/* harmony import */ var _components_colorPicker__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_components_colorPicker__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _components_directoristDropdown__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/directoristDropdown */ "./assets/src/js/public/components/directoristDropdown.js");
-/* harmony import */ var _components_directoristDropdown__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_components_directoristDropdown__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _components_directoristSelect__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/directoristSelect */ "./assets/src/js/public/components/directoristSelect.js");
-/* harmony import */ var _components_directoristSelect__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_components_directoristSelect__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
+/* harmony import */ var _global_components_debounce__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../global/components/debounce */ "./assets/src/js/global/components/debounce.js");
+/* harmony import */ var _global_components_select2_custom_control__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../global/components/select2-custom-control */ "./assets/src/js/global/components/select2-custom-control.js");
+/* harmony import */ var _global_components_select2_custom_control__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_global_components_select2_custom_control__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _global_components_setup_select2__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../global/components/setup-select2 */ "./assets/src/js/global/components/setup-select2.js");
+/* harmony import */ var _components_category_custom_fields__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/category-custom-fields */ "./assets/src/js/public/components/category-custom-fields.js");
+/* harmony import */ var _components_colorPicker__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/colorPicker */ "./assets/src/js/public/components/colorPicker.js");
+/* harmony import */ var _components_colorPicker__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_components_colorPicker__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _components_directoristDropdown__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/directoristDropdown */ "./assets/src/js/public/components/directoristDropdown.js");
+/* harmony import */ var _components_directoristDropdown__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_components_directoristDropdown__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _components_directoristSelect__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/directoristSelect */ "./assets/src/js/public/components/directoristSelect.js");
+/* harmony import */ var _components_directoristSelect__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_components_directoristSelect__WEBPACK_IMPORTED_MODULE_7__);
+
 function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t.return || t.return(); } finally { if (u) throw o; } } }; }
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
 function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
@@ -1121,7 +1233,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       }
     });
 
-    // Search Form
+    /*** Search Form ***/
 
     // Count Checkbox Selected Items
     function selectedItemCount(item) {
@@ -1225,36 +1337,72 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     // Search Form Reset Button Initialize
     function initForm(searchForm) {
       var value = false;
-      searchForm.querySelectorAll("input:not([type='checkbox']):not([type='radio']):not([type='hidden'])").forEach(function (el) {
+
+      // Check all input fields which are not checkbox, radio & hidden
+      searchForm.querySelectorAll("input:not([type='checkbox']):not([type='radio']):not([type='hidden']):not(.wp-picker-clear):not(.directorist-custom-range-slider__value__min):not(.directorist-custom-range-slider__value__max)").forEach(function (el) {
         if (el.value !== '') {
           value = true;
         }
       });
+
+      // Check all checkbox, radio field
       searchForm.querySelectorAll("input[type='checkbox'], input[type='radio']").forEach(function (el) {
         if (el.checked) {
           value = true;
         }
       });
+
+      // Check all select field
       searchForm.querySelectorAll('select').forEach(function (el) {
         if (el.value || el.selectedIndex !== 0) {
           value = true;
         }
       });
+
+      // Check all custom number range field
+      searchForm.querySelectorAll('.directorist-search-field-text_range .directorist-custom-range-slider__range').forEach(function (el) {
+        if (el.value === "0-0") {
+          value = false;
+        }
+      });
+
+      // Check all range slider field
       searchForm.querySelectorAll('.directorist-custom-range-slider__value input').forEach(function (el) {
         if (el.value > 0) {
           value = true;
         }
       });
+
+      // Disable Reset Button based on value
       if (!value) {
+        // Find Reset Button in current form
         var resetButtonWrapper = searchForm.querySelector('.directorist-advanced-filter__action');
-        resetButtonWrapper && resetButtonWrapper.classList.add('reset-btn-disabled');
+        if (resetButtonWrapper) {
+          resetButtonWrapper.classList.add('reset-btn-disabled');
+        } else {
+          var _searchForm$closest;
+          // Find Reset Button in whole listing-with-sidebar
+          resetButtonWrapper = (_searchForm$closest = searchForm.closest('.listing-with-sidebar')) === null || _searchForm$closest === void 0 ? void 0 : _searchForm$closest.querySelector('.directorist-advanced-filter__action');
+          if (resetButtonWrapper) {
+            resetButtonWrapper.classList.add('reset-btn-disabled');
+          }
+        }
+      } else {
+        setTimeout(function () {
+          enableResetButton(searchForm);
+        }, 100);
       }
     }
 
     // Enable Reset Button
     function enableResetButton(searchForm) {
-      var resetButtonWrapper = searchForm.querySelector('.directorist-advanced-filter__action');
-      resetButtonWrapper && resetButtonWrapper.classList.remove('reset-btn-disabled');
+      var $resetButtonWrapper = $(searchForm).find('.directorist-advanced-filter__action');
+      if (!$resetButtonWrapper.length) {
+        $resetButtonWrapper = $(searchForm).closest('.directorist-instant-search').find('.directorist-advanced-filter__action');
+      }
+      if ($resetButtonWrapper.length) {
+        $resetButtonWrapper.removeClass('reset-btn-disabled');
+      }
     }
 
     // Initialize Form Reset Button
@@ -1297,9 +1445,62 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       }
     });
 
+    // Color Field Open Button Click
+    $('.directorist-contents-wrap form .wp-color-result').on('click', function (e) {
+      e.preventDefault();
+      var $parentElement = $(this).closest('.directorist-search-field');
+      if ($parentElement.hasClass('input-has-value') || $parentElement.hasClass('input-is-focused')) {
+        $parentElement.removeClass('input-has-value input-is-focused');
+      } else {
+        $parentElement.addClass('input-has-value input-is-focused');
+      }
+    });
+
+    // Color Field Clear Button Click
+    $('.directorist-contents-wrap form .wp-picker-clear').on('click', function (e) {
+      e.preventDefault();
+      var $parentElement = $(this).closest('.directorist-search-field');
+      if ($parentElement.hasClass('input-has-value') || $parentElement.hasClass('input-is-focused')) {
+        $parentElement.removeClass('input-has-value input-is-focused');
+      }
+      var color = '';
+      var input = $parentElement.find('.wp-color-picker')[0]; // get raw DOM element
+      var form = $parentElement.closest('form')[0];
+      if (!input || !form) return;
+
+      // Dispatch custom event
+      var colorChangeEvent = new CustomEvent('directorist-color-changed', {
+        detail: {
+          color: color,
+          input: input,
+          form: form
+        }
+      });
+      window.dispatchEvent(colorChangeEvent);
+    });
+
+    // Color Change Event
+    window.addEventListener('directorist-color-changed', function (e) {
+      var _e$detail = e.detail,
+        color = _e$detail.color,
+        input = _e$detail.input,
+        form = _e$detail.form;
+      if (color && color !== '') {
+        enableResetButton(form);
+        var $parentElement = $(input).closest('.directorist-search-field');
+        if (!$parentElement.hasClass('input-has-value') && !$parentElement.hasClass('input-is-focused')) {
+          $parentElement.addClass('input-has-value input-is-focused');
+        }
+      } else {
+        setTimeout(function () {
+          initForm(form);
+        }, 100);
+      }
+    });
+
     // Searchform Reset
     function adsFormReset(searchForm) {
-      searchForm.querySelectorAll("input[type='text']").forEach(function (el) {
+      searchForm.querySelectorAll("input[type='text']:not(.wp-picker-clear)").forEach(function (el) {
         el.value = '';
         if (el.parentElement.classList.contains('input-has-value') || el.parentElement.classList.contains('input-is-focused')) {
           el.parentElement.classList.remove('input-has-value', 'input-is-focused');
@@ -1324,7 +1525,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         }
       });
       searchForm.querySelectorAll("input[type='hidden']:not(.listing_type)").forEach(function (el) {
-        if (el.getAttribute('name') === 'directory_type') return;
+        if (el.getAttribute('name') === 'directory_type' || el.getAttribute('name') === 'radius-search-based-on') return;
         el.value = '';
       });
       searchForm.querySelectorAll("input[type='radio']").forEach(function (el) {
@@ -1367,6 +1568,16 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     if ($('.directorist-btn-reset-js') !== null) {
       $('body').on('click', '.directorist-btn-reset-js', function (e) {
         e.preventDefault();
+        // Clear URL params on modal form reset
+        if (this.closest('.directorist-search-modal')) {
+          // Clear only the query parameters 
+          var baseUrl = window.location.origin + window.location.pathname;
+
+          // Update the URL in the address bar 
+          window.history.replaceState(null, '', baseUrl);
+        }
+
+        // Reset search form values
         if (this.closest('.directorist-contents-wrap')) {
           var _searchForm = this.closest('.directorist-contents-wrap').querySelector('.directorist-search-form');
           if (_searchForm) {
@@ -1663,7 +1874,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
             handleRadiusVisibility();
             directorist_custom_range_slider();
             initSearchFields();
-            (0,_components_category_custom_fields__WEBPACK_IMPORTED_MODULE_3__["default"])($);
+            (0,_components_category_custom_fields__WEBPACK_IMPORTED_MODULE_4__["default"])($);
           }
           var parentAfterAjax = $(this).closest('.directorist-search-contents');
           parentAfterAjax.find('.directorist-search-form-box').removeClass('atbdp-form-fade');
@@ -1677,7 +1888,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         }
       });
     });
-    (0,_components_category_custom_fields__WEBPACK_IMPORTED_MODULE_3__["default"])($);
+    (0,_components_category_custom_fields__WEBPACK_IMPORTED_MODULE_4__["default"])($);
 
     // Back Button to go back to the previous page
     $('body').on('click', '.directorist-btn__back', function (e) {
@@ -1687,17 +1898,29 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
 
     // Radius Search Field Hide on Empty Location Field
     function handleRadiusVisibility() {
+      // Add class to mark the radius search field
       $('.directorist-range-slider-wrap').closest('.directorist-search-field').addClass('directorist-search-field-radius_search');
-      $('.directorist-location-js').each(function (index, locationDOM) {
-        if ($(locationDOM).val() === '') {
-          $(locationDOM).closest('.directorist-contents-wrap').find('.directorist-search-field-radius_search, .directorist-radius-search').css({
-            display: 'none'
-          });
-        } else {
-          $(locationDOM).closest('.directorist-contents-wrap').find('.directorist-search-field-radius_search, .directorist-radius-search').css({
-            display: 'block'
-          });
-        }
+      var radius_search_item_selector = null;
+      var radius_search_based_on = $(".directorist-radius_search_based_on").val();
+
+      // Determine which search item selector to use
+      if (radius_search_based_on === "address") {
+        radius_search_item_selector = ".directorist-location-js";
+      } else if (radius_search_based_on === "zip") {
+        radius_search_item_selector = ".directorist-zipcode-search .zip-radius-search";
+      } else {
+        // Default fallback
+        radius_search_item_selector = ".directorist-location-js";
+      }
+
+      // Now, use jQuery to loop through the elements
+      $(radius_search_item_selector).each(function (index, locationDOM) {
+        var $location = $(locationDOM);
+        var isEmpty = $location.val() === '';
+        var $container = $location.closest('.directorist-contents-wrap').find('.directorist-search-field-radius_search, .directorist-radius-search');
+        $container.css({
+          display: isEmpty ? 'none' : 'block'
+        });
       });
     }
 
@@ -1713,6 +1936,13 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         directorist_custom_range_slider();
         defaultTags();
       }, 600);
+    });
+
+    // directorist-instant-search-reloaded event
+    window.addEventListener('directorist-instant-search-reloaded', function () {
+      handleRadiusVisibility();
+      directorist_custom_range_slider();
+      defaultTags();
     });
 
     // active class add on view as button
@@ -1808,7 +2038,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
           if (!$(field.input_elm).length) {
             return;
           }
-          $(field.input_elm).on('keyup', (0,_global_components_debounce__WEBPACK_IMPORTED_MODULE_0__["default"])(function (event) {
+          $(field.input_elm).on('keyup', (0,_global_components_debounce__WEBPACK_IMPORTED_MODULE_1__["default"])(function (event) {
             event.preventDefault();
             var blockedKeyCodes = [16, 17, 18, 19, 20, 27, 33, 34, 35, 36, 37, 38, 39, 40, 45, 91, 93, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 144, 145];
 
@@ -1942,14 +2172,14 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     function directorist_custom_range_slider() {
       var sliders = document.querySelectorAll('.directorist-custom-range-slider');
       sliders.forEach(function (sliderItem) {
-        var _directoristCustomRan, _slider$directoristCu;
+        var _slider$directoristCu, _slider$directoristCu2;
         var slider = sliderItem.querySelector('.directorist-custom-range-slider__slide');
 
-        // Check if the slider is already initialized
+        // Skip if already initialized
         if (!slider || slider.directoristCustomRangeSlider) return;
         var sliderStep = parseInt(slider.getAttribute('step')) || 1;
-        var sliderMinValue = parseInt(slider.getAttribute('min-value'));
-        var sliderMaxValue = parseInt(slider.getAttribute('max-value'));
+        var sliderMinValue = parseInt(slider.getAttribute('min-value')) || 0;
+        var sliderMaxValue = parseInt(slider.getAttribute('max-value')) || 100;
         var sliderDefaultValue = parseInt(slider.getAttribute('default-value'));
         var minInput = sliderItem.querySelector('.directorist-custom-range-slider__value__min');
         var maxInput = sliderItem.querySelector('.directorist-custom-range-slider__value__max');
@@ -1958,54 +2188,164 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         var sliderRangeValue = sliderItem.querySelector('.directorist-custom-range-slider__wrap .directorist-custom-range-slider__range');
         var isRTL = document.dir === 'rtl';
 
-        // init rangeInitiLoad on initial Load
+        // Flags
         var rangeInitLoad = true;
+        var sliderActivated = false;
+        var sliderRadiusActive = false;
+
         // Parse the URL parameters
+        var urlParams = new URLSearchParams(window.location.search);
+        var customNumberParams = urlParams.get('custom-number');
+        var customRangeMinParams = urlParams.get('directorist-custom-range-slider__value__min');
+        var customRangeMaxParams = urlParams.get('directorist-custom-range-slider__value__max');
+        var locationDistanceParams = urlParams.get('miles');
         var milesParams = new URLSearchParams(window.location.search).has('miles');
-        var customParams = new URLSearchParams(window.location.search).has('miles');
-        (_directoristCustomRan = directoristCustomRangeSlider) === null || _directoristCustomRan === void 0 || _directoristCustomRan.create(slider, {
-          start: [minInput.value, milesParams || customParams ? maxInput.value : sliderDefaultValue || sliderMaxValue],
-          connect: true,
-          direction: isRTL ? 'rtl' : 'ltr',
-          step: sliderStep ? sliderStep : 1,
-          range: {
-            min: Number(sliderMinValue || 0),
-            max: Number(sliderMaxValue || 100)
+        if (locationDistanceParams !== '0-0' && sliderDefaultValue >= 0) {
+          sliderRadiusActive = true;
+        }
+
+        // if already have custom values, then slider is activated
+        if (customNumberParams && customNumberParams !== '0-0') {
+          sliderActivated = true;
+        } else if (customRangeMinParams && customRangeMinParams !== '0' && customRangeMaxParams && customRangeMaxParams !== '0') {
+          sliderActivated = true;
+        }
+        if (typeof directoristCustomRangeSlider === 'undefined') return;
+        if (sliderRadiusActive) {
+          var _directoristCustomRan;
+          // Radius Search Range Slider
+          (_directoristCustomRan = directoristCustomRangeSlider) === null || _directoristCustomRan === void 0 || _directoristCustomRan.create(slider, {
+            start: [minInput.value, !milesParams ? sliderDefaultValue : maxInput.value],
+            connect: true,
+            direction: isRTL ? 'rtl' : 'ltr',
+            step: sliderStep ? sliderStep : 1,
+            range: {
+              min: Number(sliderMinValue || 0),
+              max: Number(sliderMaxValue || 100)
+            }
+          });
+        } else if (sliderActivated) {
+          var _directoristCustomRan2;
+          // Custom Number Range Slider
+          var minValue = minInput.value;
+          var maxValue = maxInput.value;
+
+          // Assign min-max values from custom-range-slider params
+          if (customNumberParams && customNumberParams !== '0-0') {
+            var _customNumberParams$s = customNumberParams.split('-').map(Number),
+              _customNumberParams$s2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_customNumberParams$s, 2),
+              min = _customNumberParams$s2[0],
+              max = _customNumberParams$s2[1];
+
+            // Use the split values as min-max
+            minValue = min;
+            maxValue = max;
+          } else if (customRangeMinParams && customRangeMaxParams) {
+            // Modal Search Form
+            minValue = customRangeMinParams;
+            maxValue = customRangeMaxParams;
           }
+
+          // Initial with [min, max] value
+          (_directoristCustomRan2 = directoristCustomRangeSlider) === null || _directoristCustomRan2 === void 0 || _directoristCustomRan2.create(slider, {
+            start: [minValue, !milesParams ? sliderDefaultValue || maxValue : maxValue],
+            connect: true,
+            direction: isRTL ? 'rtl' : 'ltr',
+            step: sliderStep ? sliderStep : 1,
+            range: {
+              min: Number(sliderMinValue || 0),
+              max: Number(sliderMaxValue || 100)
+            }
+          });
+        } else {
+          var _directoristCustomRan3;
+          // Initialize with [0, 0] and temp min/max
+          (_directoristCustomRan3 = directoristCustomRangeSlider) === null || _directoristCustomRan3 === void 0 || _directoristCustomRan3.create(slider, {
+            start: [0, 0],
+            connect: true,
+            direction: isRTL ? 'rtl' : 'ltr',
+            step: 1,
+            range: {
+              min: 0,
+              max: 1
+            }
+          });
+        }
+
+        // Handle first interaction
+        (_slider$directoristCu = slider.directoristCustomRangeSlider) === null || _slider$directoristCu === void 0 || _slider$directoristCu.on('start', function () {
+          if (sliderActivated || sliderRadiusActive) return;
+          sliderActivated = true;
+
+          // Range slider options update
+          slider.directoristCustomRangeSlider.updateOptions({
+            start: [sliderMinValue, sliderMinValue],
+            step: sliderStep,
+            range: {
+              min: sliderMinValue,
+              max: sliderMaxValue
+            }
+          });
+
+          // Trigger range slider observer
+          rangeSliderObserver();
         });
-        (_slider$directoristCu = slider.directoristCustomRangeSlider) === null || _slider$directoristCu === void 0 || _slider$directoristCu.on('update', function (values, handle) {
-          var value = values[handle];
-          handle === 0 ? minInput.value = Math.round(value) : maxInput.value = Math.round(value);
-          var rangeValue = minInput.value + '-' + maxInput.value;
-          sliderRange.value = rangeValue;
-          sliderRangeShow && (sliderRangeShow.innerHTML = rangeValue);
+
+        // Update slider config
+        (_slider$directoristCu2 = slider.directoristCustomRangeSlider) === null || _slider$directoristCu2 === void 0 || _slider$directoristCu2.on('update', function (values, handle) {
+          var value = Math.round(values[handle]);
+          // Assign min-max value based on handler
+          if (handle === 0) {
+            minInput.value = value;
+          } else {
+            maxInput.value = value;
+          }
+          var rangeValue = "".concat(minInput.value, "-").concat(maxInput.value);
+          if (sliderRange) sliderRange.value = rangeValue;
+          if (sliderRangeShow) sliderRangeShow.innerHTML = rangeValue;
           if (sliderRangeValue) {
             sliderRangeValue.setAttribute('value', rangeValue);
             if (!rangeInitLoad) {
-              $(sliderRangeValue).trigger('change'); // Trigger change event
+              $(sliderRangeValue).trigger('change');
             }
           }
         });
 
-        // false rangeInitLoad after call
+        // Mark init complete
         rangeInitLoad = false;
-        minInput.addEventListener('change', function () {
-          var minValue = Math.round(parseInt(this.value, 10) / sliderStep) * sliderStep;
-          var maxValue = Math.round(parseInt(maxInput.value, 10) / sliderStep) * sliderStep;
+
+        // 🔁 Manual input update logic (on change/keyup)
+        function updateSliderFromInputs() {
+          var minValue = Math.round(parseInt(minInput.value || 0, 10) / sliderStep) * sliderStep;
+          var maxValue = Math.round(parseInt(maxInput.value || 0, 10) / sliderStep) * sliderStep;
+          if (isNaN(minValue)) minValue = 0;
+          if (isNaN(maxValue)) maxValue = 0;
+          if (!sliderActivated) {
+            sliderActivated = true;
+            slider.directoristCustomRangeSlider.updateOptions({
+              range: {
+                min: sliderMinValue,
+                max: sliderMaxValue
+              },
+              step: sliderStep,
+              start: [sliderMinValue, sliderMaxValue]
+            });
+          }
+
+          // Fix invalid ranges
           if (minValue > maxValue) {
-            this.value = maxValue;
+            minInput.value = maxValue;
             minValue = maxValue;
           }
-          slider.directoristCustomRangeSlider.set([minValue, null]);
-        });
-        maxInput.addEventListener('change', function () {
-          var minValue = Math.round(parseInt(minInput.value, 10) / sliderStep) * sliderStep;
-          var maxValue = Math.round(parseInt(this.value, 10) / sliderStep) * sliderStep;
           if (maxValue < minValue) {
-            this.value = minValue;
+            maxInput.value = minValue;
             maxValue = minValue;
           }
-          slider.directoristCustomRangeSlider.set([null, maxValue]);
+          slider.directoristCustomRangeSlider.set([minValue, maxValue]);
+        }
+        ['change', 'keyup'].forEach(function (evt) {
+          minInput.addEventListener(evt, updateSliderFromInputs);
+          maxInput.addEventListener(evt, updateSliderFromInputs);
         });
       });
     }
@@ -2016,17 +2356,27 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       var slider = sliderItem.querySelector('.directorist-custom-range-slider__slide');
       var minInput = sliderItem.querySelector('.directorist-custom-range-slider__value__min');
       var maxInput = sliderItem.querySelector('.directorist-custom-range-slider__value__max');
-      var sliderParent = sliderItem.closest('.directorist-search-field-radius_search');
-      var maxValue = slider.getAttribute('value') || 'none';
-      if (sliderParent) {
+      var rangeValue = sliderItem.querySelector('.directorist-custom-range-slider__range');
+      var radiusSearch = sliderItem.closest('.directorist-search-field-radius_search');
+      var defaultValue = slider.getAttribute('default-value') || '0';
+      if (radiusSearch) {
+        var _slider$directoristCu3;
         minInput.value = '0';
-        maxInput.value = maxValue;
-        slider.directoristCustomRangeSlider.set([0, maxValue]); // Set your initial values
+        maxInput.value = defaultValue;
+        slider === null || slider === void 0 || (_slider$directoristCu3 = slider.directoristCustomRangeSlider) === null || _slider$directoristCu3 === void 0 || _slider$directoristCu3.set([0, defaultValue]); // Set initial values
       } else {
+        var _slider$directoristCu4;
         // Reset values to their initial state
-        slider.directoristCustomRangeSlider.set([0, 0]); // Set your initial values
-        minInput.value = ''; // Set your initial min value
-        maxInput.value = ''; // Set your initial max value
+        slider === null || slider === void 0 || (_slider$directoristCu4 = slider.directoristCustomRangeSlider) === null || _slider$directoristCu4 === void 0 || _slider$directoristCu4.set([0, 0]); // Set initial values
+        minInput.value = '0'; // Set initial min value
+        maxInput.value = '0'; // Set initial max value
+        rangeValue.value = '0-0';
+      }
+      var sidebarRangeSlider = slider.closest('.listing-with-sidebar');
+      if (sidebarRangeSlider && slider !== null && slider !== void 0 && slider.directoristCustomRangeSlider) {
+        // Destroy the custom range slider instance
+        slider.directoristCustomRangeSlider.destroy();
+        delete slider.directoristCustomRangeSlider;
       }
     }
 
@@ -2071,7 +2421,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       };
       $.ajax({
         url: url,
-        method: 'GET',
+        method: 'POST',
         data: directorist.i18n_text.select_listing_map === 'google' ? google_data : '',
         success: function success(data) {
           if (data.data && data.data.error_message) {
@@ -2128,14 +2478,15 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     }
 
     // Custom Range Slider Value Check on Change
-    function sliderValueCheck(targetNode, value) {
-      var searchForm = targetNode.closest('form');
+    function sliderValueCheck(searchForm, targetNode, value) {
       if (value > 0) {
-        var customSliderMin = targetNode.closest('.directorist-custom-range-slider').querySelector('.directorist-custom-range-slider__value__min');
-        var customSliderRange = targetNode.closest('.directorist-custom-range-slider').querySelector('.directorist-custom-range-slider__range');
+        enableResetButton(searchForm);
+        var rangeSlider = targetNode.closest('.directorist-custom-range-slider');
+        if (!rangeSlider) return;
+        var customSliderMin = rangeSlider.querySelector('.directorist-custom-range-slider__value__min');
+        var customSliderRange = rangeSlider.querySelector('.directorist-custom-range-slider__range');
         customSliderMin.value = customSliderMin.value ? customSliderMin.value : 0;
         customSliderRange.value = customSliderMin.value + '-' + value;
-        enableResetButton(searchForm);
       } else {
         initForm(searchForm);
       }
@@ -2146,6 +2497,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       var targetNodes = document.querySelectorAll('.directorist-search-field:not(.directorist-search-field-radius_search) .directorist-custom-range-slider-handle-upper');
       targetNodes.forEach(function (targetNode) {
         if (targetNode) {
+          var _searchForm2 = targetNode.closest('form');
           var observerCallback = function observerCallback(mutationList, observer) {
             var _iterator = _createForOfIteratorHelper(mutationList),
               _step;
@@ -2153,7 +2505,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
               for (_iterator.s(); !(_step = _iterator.n()).done;) {
                 var mutation = _step.value;
                 if (targetNode.classList.contains('directorist-custom-range-slider-handle-upper')) {
-                  sliderValueCheck(targetNode, parseInt(targetNode.ariaValueNow));
+                  sliderValueCheck(_searchForm2, targetNode, parseInt(targetNode.ariaValueNow));
                 }
               }
             } catch (err) {
@@ -2170,11 +2522,6 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       });
     }
     rangeSliderObserver();
-  });
-  window.addEventListener('directorist-instant-search-reloaded', function () {
-    (0,_components_category_custom_fields__WEBPACK_IMPORTED_MODULE_3__["default"])($);
-  }, {
-    once: true
   });
 })(jQuery);
 }();

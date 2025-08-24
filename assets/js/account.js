@@ -88,6 +88,32 @@ function modalToggle() {
   } else {
     return;
   }
+  function initPasswordToggle() {
+    var passwordGroups = document.querySelectorAll('.directorist-password-group');
+    passwordGroups.forEach(function (group) {
+      var passwordInput = group.querySelector('.directorist-password-group-input');
+      var togglePassword = group.querySelector('.directorist-password-group-toggle');
+      var eyeIcon = group.querySelector('.directorist-password-group-eyeIcon');
+      if (passwordInput && togglePassword) {
+        togglePassword.addEventListener('click', function () {
+          var type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+          passwordInput.setAttribute('type', type);
+
+          // Toggle eye icon (simple swap for open/closed)
+          if (eyeIcon) {
+            if (type === 'text') {
+              eyeIcon.innerHTML = "\n\t\t\t\t\t\t\t\t<path stroke=\"#888\" stroke-width=\"2\" d=\"M1.5 12S5.5 5.5 12 5.5 22.5 12 22.5 12 18.5 18.5 12 18.5 1.5 12 1.5 12Z\"/>\n\t\t\t\t\t\t\t\t<circle cx=\"12\" cy=\"12\" r=\"3.5\" stroke=\"#888\" stroke-width=\"2\"/>\n\t\t\t\t\t\t\t\t<line x1=\"5\" y1=\"19\" x2=\"19\" y2=\"5\" stroke=\"#888\" stroke-width=\"2\"/>\n\t\t\t\t\t\t\t";
+            } else {
+              eyeIcon.innerHTML = "\n\t\t\t\t\t\t\t\t<path stroke=\"#888\" stroke-width=\"2\" d=\"M1.5 12S5.5 5.5 12 5.5 22.5 12 22.5 12 18.5 18.5 12 18.5 1.5 12 1.5 12Z\"/>\n\t\t\t\t\t\t\t\t<circle cx=\"12\" cy=\"12\" r=\"3.5\" stroke=\"#888\" stroke-width=\"2\"/>\n\t\t\t\t\t\t\t";
+            }
+          }
+        });
+      }
+    });
+  }
+
+  // Call the function after DOM is ready
+  document.addEventListener('DOMContentLoaded', initPasswordToggle);
 
   // Trigger reset on form change
   $('.directorist-authentication__btn').on('click', function () {

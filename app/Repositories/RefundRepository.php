@@ -10,7 +10,8 @@ use Directorist\WpMVC\Exceptions\Exception;
 use Directorist\App\Models\Refund;
 use Directorist\App\DTO\Refund\Read;
 use Directorist\App\Repositories\OrderRepository;
-use Directorist\App\Enums\Order\Status;
+use Directorist\App\Enums\Order\Status as OrderStatus;
+use Directorist\App\Enums\Refund\Status;
 use Directorist\App\DTO\Order\DTO as OrderDTO;
 use Directorist\App\DTO\Refund\DTO;
 
@@ -91,7 +92,7 @@ class RefundRepository extends Repository {
 
         // If order is now fully refunded, update order status to REFUNDED
         if ( $remaining_amount === $order->get_final_amount() ) {
-            $dto = ( new OrderDTO )->set_id( $order->get_id() )->set_status( Status::REFUNDED );
+            $dto = ( new OrderDTO )->set_id( $order->get_id() )->set_status( OrderStatus::REFUNDED );
             $this->order_repository->update( $dto );
         }
 
@@ -102,6 +103,6 @@ class RefundRepository extends Repository {
     }
 
     public function get_order_total_refunded( int $order_id ) {
-        return $this->get_query_builder()->where( 'order_id', $order_id )->sum( 'amount' );
+        return $this->get_query_builder()->where( 'order_id', $order_id )->where( 'status', Status::PAID )->sum( 'amount' );
     }
 }

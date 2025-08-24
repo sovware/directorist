@@ -21,10 +21,10 @@ Route::group(
                         Route::post( 'status', [OrderController::class, 'update_status'] );
                     }
                 );
+                Route::resource( '{order_id}/refunds', RefundController::class );
                 Route::resource( '/', OrderController::class );
             }
         );
         Route::resource( 'payments', PaymentController::class );
-        Route::resource( 'refunds', RefundController::class, ['items' => ['update']] );
     }, ['admin']
 );

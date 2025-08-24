@@ -9,8 +9,9 @@ use Directorist\App\DTO\Refund\Read;
 use Directorist\WpMVC\Exceptions\Exception;
 use Directorist\WpMVC\Routing\Response;
 use Directorist\WpMVC\RequestValidator\Validator;
-use WP_REST_Request;
 use Directorist\App\Repositories\RefundRepository;
+use Directorist\App\Enums\Refund\Status;
+use WP_REST_Request;
 
 class RefundController {
 
@@ -55,15 +56,15 @@ class RefundController {
     public function store( Validator $validator, WP_REST_Request $request ): array {
         $validator->validate(
             [
-                "order_id" => "required|integer",
+                "order_id" => "required|numeric",
                 "amount" => "required|numeric|min:1",
-                "status" => "required|string",
+                "status" => "required|accepted:". implode( ",", Status::all() ),
                 "reason" => "string",
             ]
         );
 
         $dto = (new DTO)->set_order_id( (int) $request->get_param( "order_id" ) )
-            ->set_amount( (float) $request->get_param( "amount" ) )
+            ->set_amount( $request->get_param( "amount" ) )
             ->set_status( $request->get_param( "status" ) )
             ->set_reason( (string) $request->get_param( "reason" ) );
 
@@ -76,6 +77,32 @@ class RefundController {
                     "id" => $id
                 ]
             ], 201
+        );
+    }
+
+    public function update( Validator $validator, WP_REST_Request $request ): array {
+        $validator->validate(
+            [
+                "id"       => "required|numeric",
+                "order_id" => "required|numeric",
+                "amount"   => "required|numeric|min:1",
+                "status"   => "required|accepted:". implode( ",", Status::all() ),
+                "reason"   => "string",
+            ]
+        );
+
+        $dto = (new DTO)->set_id( (int) $request->get_param( "id" ) )
+            ->set_order_id( (int) $request->get_param( "order_id" ) )
+            ->set_amount( $request->get_param( "amount" ) )
+            ->set_status( $request->get_param( "status" ) )
+            ->set_reason( (string) $request->get_param( "reason" ) );
+
+        $this->repository->update( $dto );
+
+        return Response::send(
+            [
+                "message" => esc_html__( "Refund was updated successfully" )
+            ]
         );
     }
 

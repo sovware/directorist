@@ -77,6 +77,7 @@
 		}
 	}
 
+	&.input-has-value,
 	&.input-is-focused {
 		.directorist-search-field__input {
 			&:not(.directorist-select) {
@@ -126,8 +127,16 @@
 			position: relative;
 			bottom: -5px;
 		}
+		&.input-has-noLabel {
+			.directorist-select,
+			.directorist-search-field__input {
+				bottom: 0;
+				margin-top: 0 !important;
+			}
+		}
 		&.directorist-date,
 		&.directorist-time,
+		&.directorist-color,
 		.directorist-select {
 			.directorist-search-field__label {
 				opacity: 1;
@@ -303,6 +312,10 @@
 				.directorist-select2-dropdown-toggle {
 				display: block;
 			}
+			.directorist-select,
+			.directorist-search-category {
+				width: calc(100% + 15px);
+			}
 		}
 		@media screen and (max-width: 767px) {
 			.directorist-search-modal__input {
@@ -313,10 +326,6 @@
 			.directorist-select2-dropdown-close {
 				display: none;
 			}
-		}
-		.directorist-select,
-		.directorist-search-category {
-			width: calc(100% + 15px);
 		}
 
 		.directorist-search-form__single-category {
@@ -363,13 +372,6 @@
 			&:not(:last-child) {
 				border-right: 1px solid var(--directorist-color-border);
 			}
-			@media screen and (max-width: 575px) {
-				.select2-container
-					.directorist-select2-addons-area
-					.directorist-select2-dropdown-toggle {
-					right: -15px;
-				}
-			}
 
 			@include e(btn) {
 				@include m(clear) {
@@ -378,6 +380,7 @@
 				}
 			}
 
+			&.input-has-value,
 			&.input-is-focused {
 				.directorist-search-field__input {
 					padding-right: 25px;
@@ -392,10 +395,17 @@
 					padding-right: 45px;
 				}
 
-				.select2-container
-					.directorist-select2-addons-area
-					.directorist-select2-dropdown-toggle {
-					right: 15px;
+				.select2-container {
+					.select2-selection {
+						width: 100%;
+					}
+					
+					.directorist-select2-addons-area .directorist-select2-dropdown-toggle {
+						right: 15px;
+						@media screen and (max-width: 575px) {
+							right: 5px;
+						}
+					}
 				}
 
 				.directorist-select,
@@ -404,7 +414,38 @@
 					~ .directorist-search-field__btn--clear {
 						right: 38px;
 						bottom: 8px;
+						top: unset;
+						transform: unset;
 					}
+				}
+				.directorist-select {
+					~ .directorist-search-field__btn--clear {
+						bottom: 10px;
+						@media screen and (max-width: 575px) {
+							right: 25px !important;
+						}
+					}
+				}
+				.directorist-color-picker-wrap {
+					top: 12px;
+					~.directorist-search-field__btn--clear {
+						bottom: 0;
+					}
+					@media screen and (max-width: 575px) {
+						top: 0;
+						~.directorist-search-field__btn--clear {
+							bottom: unset;
+						}
+					}
+				}
+				&:not(.input-has-noLabel) {
+					.directorist-select {
+					~ .directorist-search-field__btn--clear {
+						@media screen and (max-width: 575px) {
+							right: 10px !important;
+						}
+					}
+				}
 				}
 				&.atbdp-form-fade:after {
 					margin-top: 3px;
@@ -458,8 +499,28 @@
 				border: 0 none;
 			}
 
-			.wp-picker-container .wp-picker-input-wrap label {
-				display: none;
+			.wp-picker-container {
+				display: flex;
+				.wp-picker-input-wrap {
+					margin: 0;
+					@media screen and (max-width: 480px) {
+						flex-direction: column;
+					}
+					label {
+						width: 70px;
+						input {
+							padding-right: 10px;
+							bottom: 0;
+						}
+					}
+					.wp-picker-clear {
+						margin: 0;
+						width: 100px;
+					}
+				}
+				.wp-picker-holder {
+					top: 45px;
+				}
 			}
 
 			.directorist-checkbox-wrapper,
@@ -526,6 +587,19 @@
 					}
 				}
 
+				.select2-container {
+					&.select2-container--default .select2-selection--single {
+						width: 100%;
+					}
+					.directorist-select2-addons-area .directorist-select2-dropdown-toggle {
+						position: absolute;
+						right: 5px;
+						padding: 0;
+						width: auto;
+					}
+				}
+
+				&.input-has-value,
 				&.input-is-focused {
 					padding: 0;
 					margin: 0 40px;
@@ -561,11 +635,17 @@
 							visibility: visible;
 						}
 					}
-
+					.directorist-filter-location-icon {
+						~ .directorist-search-field__btn--clear {
+							right: 25px;
+						}
+					}
 					.directorist-select,
 					.directorist-filter-location-icon {
 						~ .directorist-search-field__btn--clear {
-							right: 5px;
+							bottom: 12px;
+							top: unset;
+							transform: unset;
 						}
 					}
 
@@ -583,15 +663,11 @@
 
 					&.directorist-icon-right .directorist-input-icon {
 						right: -20px;
-					}
-
-					.select2-container
-						.directorist-select2-addons-area
-						.directorist-select2-dropdown-toggle {
-						position: absolute;
-						right: -5px;
-						padding: 0;
-						width: auto;
+						bottom: 12px;
+						&.directorist-filter-location-icon {
+							right: 0;
+        					bottom: 8px;
+						}
 					}
 				}
 				&.input-has-value {
@@ -1300,13 +1376,13 @@
 			width: 100%;
 			height: 40px;
 			margin: 0;
-			padding: 0;
+			padding: 0 !important;
 			font-size: 14px;
 			font-weight: 500;
 			color: var(--directorist-color-primary);
 			border: none !important;
-			outline: none;
-			box-shadow: none;
+			outline: none !important;
+			box-shadow: none !important;
 		}
 	}
 	@include e(label) {

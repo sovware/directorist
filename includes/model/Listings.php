@@ -1025,13 +1025,15 @@ class Directorist_Listings {
                     if ( 'number' === $field_type && strpos( $values, '-' ) !== false ) {
                         // If $values is in the format "40-50", create a range query
                         list( $min_value, $max_value ) = array_map( 'intval', explode( '-', $values ) );
-
-                        $meta_query = [
-                            'key'     => '_' . $key,
-                            'value'   => [ $min_value, $max_value ],
-                            'type'    => 'NUMERIC',
-                            'compare' => 'BETWEEN',
-                        ];
+                        
+                        if ( ! empty( $max_value ) && 0 < $max_value ) {
+                            $meta_query = [
+                                'key'     => '_' . $key,
+                                'value'   => [ $min_value, $max_value ],
+                                'type'    => 'NUMERIC',
+                                'compare' => 'BETWEEN',
+                            ];
+                        }
                     } else {
                         $operator   = in_array( $field_type, [ 'text', 'textarea', 'url' ], true ) ? 'LIKE' : '=';
                         $meta_query = [

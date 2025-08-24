@@ -62,21 +62,8 @@ export default function initSearchCategoryCustomFields($) {
 			function (event) {
 				const $this = $(this);
 				const $form = $this.parents('form');
-				// const $advancedForm = $('.directorist-search-form');
 				const category = Number($this.val());
-				// const directory      = $pageContainer.find('[name="directory_type"]').val(); // Sidebar has multiple forms that's why it's safe to use page container
-				// const formData       = new FormData();
 				let attributes = $form.data('atts');
-				// const hasCustomField = $this.find('option[value="'+category+'"]').data('custom-field');
-
-				// if (!hasCustomField) {
-				//     return;
-				// }
-
-				// formData.append('action', 'directorist_category_custom_field_search');
-				// formData.append('nonce', directorist.directorist_nonce);
-				// formData.append('directory', directory);
-				// formData.append('cat_id', category);
 
 				if (!attributes) {
 					attributes = $pageContainer.data('atts');
@@ -91,50 +78,6 @@ export default function initSearchCategoryCustomFields($) {
 					category,
 					$(document.body)
 				);
-
-				// console.log(, category);
-
-				// formData.append('atts', JSON.stringify(atts));
-				// $form.addClass('atbdp-form-fade');
-				// $advancedForm.addClass('atbdp-form-fade');
-
-				// $.ajax({
-				//     method     : 'POST',
-				//     processData: false,
-				//     contentType: false,
-				//     url        : directorist.ajax_url,
-				//     data       : formData,
-				//     success: function success(response) {
-				//         if (response) {
-				//             $fieldsContainer = $pageContainer.find(response['container']);
-
-				//             $fieldsContainer.html(response['search_form']);
-
-				//             // $form.find('.directorist-category-select option').data('custom-field', 1);
-				//             // $this.find('option').data('custom-field', 1);
-				//             $this.val(category);
-
-				//             [
-				//                 'directorist-search-form-nav-tab-reloaded',
-				//                 'directorist-reload-select2-fields',
-				//                 'directorist-reload-map-api-field',
-				//                 'triggerSlice'
-				//             ].forEach(function(event) {
-				//                 event = new CustomEvent(event);
-				//                 document.body.dispatchEvent(event);
-				//                 window.dispatchEvent(event);
-				//             });
-				//         }
-
-				//         onSuccessCallback();
-
-				//         $form.removeClass('atbdp-form-fade');
-				//         $advancedForm.removeClass('atbdp-form-fade');
-				//     },
-				//     error: function error(_error) {
-				//         //console.log(_error);
-				//     }
-				// });
 			}
 		);
 

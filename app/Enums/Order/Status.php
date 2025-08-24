@@ -12,4 +12,16 @@ class Status {
     const EXPIRED   = 'expired';
     const REFUNDED  = 'refunded';
     const UNPAID    = 'unpaid';
+
+    public static function all() {
+        return [
+            self::PENDING,
+            self::PAID,
+            self::FAILED,
+            self::CANCELLED,
+            self::EXPIRED,
+            self::REFUNDED,
+            self::UNPAID,
+        ];
+    }
 }

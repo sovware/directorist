@@ -52,10 +52,10 @@ export default function App() {
 			pageTopLevelID="#menu-posts-at_biz_dir"
 			rootPaths={ [] }
 			colors={ {
-				primary: 'var(--directorist-color-primary)',
+				primary: '#3e62f5',
 			} }
 			header={ {
-				logo: <>Directorist</>,
+				logo: <img src="https://directorist.com/wp-content/uploads/2020/08/directorist_logo.png" alt="Directorist" width={116}/>,
 				menuItems: applyFilters('directorist_order_menu_items', menuItems) as MenuItemsType,
 			} }
 			routes={ applyFilters('directorist_order_routes', routes) as RouteType[] }

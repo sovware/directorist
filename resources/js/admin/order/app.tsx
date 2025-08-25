@@ -7,10 +7,21 @@ import Edit from './edit';
 import OrderTable from './order-table';
 import { RouteType } from '@wpmvc/dashboard/build-types/components/dashboard/types';
 
-const menuItems: MenuItemsType = {
-	orders: {
-		label: 'Orders',
-		path: '/',
+const actionItems: MenuItemsType = {
+	documentation: {
+		label: 'Documentation',
+		path: 'https://directorist.com/documentation/',
+		icon: <i className="la la-file"></i>
+	},
+	support: {
+		label: 'Support',
+		path: 'https://directorist.com/dashboard/#support',
+		icon: <i className="la la-question-circle"></i>
+	},
+	feedback: {
+		label: 'Feedback',
+		path: 'https://directorist.com/dashboard/#feedback',
+		icon: <i className="la la-comment"></i>
 	}
 };
 
@@ -56,7 +67,7 @@ export default function App() {
 			} }
 			header={ {
 				logo: <img src="https://directorist.com/wp-content/uploads/2020/08/directorist_logo.png" alt="Directorist" width={116}/>,
-				menuItems: applyFilters('directorist_order_menu_items', menuItems) as MenuItemsType,
+				actionItems
 			} }
 			routes={ applyFilters('directorist_order_routes', routes) as RouteType[] }
 		></Dashboard>

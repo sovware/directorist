@@ -264,6 +264,7 @@ var $ = jQuery;
 window.addEventListener('load', initSelect2);
 document.body.addEventListener('directorist-search-form-nav-tab-reloaded', initSelect2);
 document.body.addEventListener('directorist-reload-select2-fields', initSelect2);
+window.addEventListener('directorist-instant-search-reloaded', initSelect2);
 
 // Init Static Select 2 Fields
 function initSelect2() {

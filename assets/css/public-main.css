@@ -839,7 +839,7 @@ body.logged-in.directorist-content-active .select2-container--open .select2-drop
 .directorist-content-active .select2-container--default.select2-container--open .select2-results__option[aria-selected=true] {
   font-weight: 600;
   color: var(--directorist-color-primary);
-  background-color: rgba;
+  background-color: rgba(var(--directorist-color-primary-rgb), 0.1);
   pointer-events: none;
 }
 .directorist-content-active .select2-container--default.select2-container--open .select2-results__option .directorist-select2-contents {

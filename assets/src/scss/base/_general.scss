@@ -579,9 +579,10 @@ body.logged-in.directorist-content-active .select2-container--open .select2-drop
     .select2-results__option {
       margin: 0;
       &[aria-selected="true"] {
-        font-weight: 500;
+        font-weight: 600;
         color: var(--directorist-color-primary);
-        background-color: transparent;
+        background-color: rgba(var(--directorist-color-primary-rgb), 0.1);
+        pointer-events: none;
       }
       .directorist-select2-contents {
         display: flex;

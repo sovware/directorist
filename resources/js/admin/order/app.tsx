@@ -1,11 +1,12 @@
 import { addAction, applyFilters } from '@wordpress/hooks';
 import { Dashboard } from '@wpmvc/dashboard';
+import { RouteType } from '@wpmvc/dashboard/build-types/components/dashboard/types';
 import { MenuItemsType } from '@wpmvc/dashboard/build-types/components/menu/types';
 import React from 'react';
+import styled from 'styled-components';
 import validateField from '../controls/custom-field/validation';
 import Edit from './edit';
 import OrderTable from './order-table';
-import { RouteType } from '@wpmvc/dashboard/build-types/components/dashboard/types';
 
 const actionItems: MenuItemsType = {
 	documentation: {
@@ -24,6 +25,12 @@ const actionItems: MenuItemsType = {
 		icon: <i className="la la-comment"></i>
 	}
 };
+
+const ThemeWrapper = styled.div`
+  --color-gray-900: #141921;
+  --color-gray-600: #4D5761;
+  --color-gray-200: #E5E7EB;
+`;
 
 export default function App() {
 
@@ -59,11 +66,13 @@ export default function App() {
 	];
 
 	return (
+		<ThemeWrapper>
 		<Dashboard
 			pageTopLevelID="#menu-posts-at_biz_dir"
 			rootPaths={ [] }
 			colors={ {
 				primary: '#3e62f5',
+				gray: '#141921',
 			} }
 			header={ {
 				logo: <img src="https://directorist.com/wp-content/uploads/2020/08/directorist_logo.png" alt="Directorist" width={116}/>,
@@ -71,5 +80,6 @@ export default function App() {
 			} }
 			routes={ applyFilters('directorist_order_routes', routes) as RouteType[] }
 		></Dashboard>
+		</ThemeWrapper>
 	);
 }

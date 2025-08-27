@@ -1,21 +1,28 @@
-import { useEffect, useMemo, useState } from "@wordpress/element";
+import { useState } from "@wordpress/element";
 import { __ } from "@wordpress/i18n";
-import { addQueryArgs } from "@wordpress/url";
-import { Button, Table } from "@wpmvc/components";
-import { registerCrudStore, useCrudStore, useCrudStoreData } from "@wpmvc/data";
+import { Table } from "@wpmvc/dashboard";
 import { useAttributes } from "@wpmvc/fields";
 import { FieldsType } from "@wpmvc/fields/build-types/types/field";
 import React from "react";
 import styled from "styled-components";
 import Badge from "../../badge";
-import Controls from "../../controls";
+import AngleDownIcon from "../../icons/angleDownIcon";
+import AngleUpIcon from "../../icons/AngleUpIcon";
 
 // Register the store outside the component to ensure it's available before any component mounts
 
-
-const RefundTable = styled.div``;
+const RefundHistoryContainer = styled.div`
+    padding: 16px 32px;
+    border-top: 1px solid rgba(0, 0, 0, 0.10);
+`;
+const RefundTable = styled.div`
+    >div{
+        padding: 0;
+    }
+`;
 const RefundSummary = styled.div``;
 const RefundSubmission = styled.div``;
+const RefundTableToggle = styled.span``;
 
 const columns = [
     { id: "id", label: "Refund ID" },
@@ -51,6 +58,7 @@ const addRefundInitialValues = {
 }
 
 export default function Refund({ order }) {
+    const [showRefundTable, setShowRefundTable] = useState(false);
     const [ searchTerm, setSearchTerm ] = useState( '' );
 	const [ currentPage, setCurrentPage ] = useState( 1 );
     const [ perPage, setPerPage ] = useState( 10 );
@@ -83,20 +91,21 @@ export default function Refund({ order }) {
           },
       };
 
-    const refundRoute = useMemo(
-    () => ((addQueryArgs('/directorist/admin/refunds', { order_id: order?.id }) as string)),
-    [order?.id],
-  );
-    registerCrudStore({
-        name: "directorist/order-refund",
-        path: refundRoute
-    });
-    const { refresh } = useCrudStore( { name: "directorist/order-refund", path: `/directorist/admin/refunds/${order?.id}` });
-    const {data, isResolved} = useCrudStoreData( {name: 'directorist/order-refund', selector: 'get'} );
-
-    useEffect(()=>{
-        refresh({search: searchTerm, order_id: order?.id, page: currentPage, perPage: perPage})
-    },[searchTerm, currentPage, perPage])
+//     const refundRoute = useMemo(
+//     () => ((addQueryArgs('/directorist/admin/refunds', { order_id: order?.id }) as string)),
+//     [order?.id],
+//   );
+    // registerCrudStore({
+    //     name: "directorist/order-refund",
+    //     path: refundRoute
+    // });
+    //const { refresh } = useCrudStore( { name: "directorist/order-refund", path: `/directorist/admin/refunds/${order?.id}` });
+    // const {data, isResolved} = useCrudStoreData( {name: 'directorist/order-refund', selector: 'get'} );
+    //   console.log(data);
+      
+    // useEffect(()=>{
+    //     refresh({search: searchTerm, order_id: order?.id, page: currentPage, perPage: perPage})
+    // },[searchTerm, currentPage, perPage])
 
     function handleRefresh(params ){
         setSearchTerm( params.search || '' );
@@ -110,50 +119,31 @@ export default function Refund({ order }) {
     }
     
     return (
-        <>
-            <RefundSummary>
+        <RefundHistoryContainer>
+            {/* <RefundSummary>
                 <p>Amount already refunded: {data?.total_refunded}</p>
                 <p>Available to Refund: {order?.final_amount - data?.total_refunded}</p>
-            </RefundSummary>
-
-            <RefundSubmission>
-                <form action="" onSubmit={handleSubmitRefund} >
-                    <Controls
-                        fields={refundFields}
-                        attributes={attributes}
-                        setAttributes={setAttributes}
-                        errors={errors}
-                        setErrors={setErrors}
+            </RefundSummary> */}
+            
+            {
+                showRefundTable && 
+                <RefundTable>
+                    <Table
+                        heading="Refunds"
+                        storeName="directorist/order-refund"
+                        path={`/directorist/admin/orders/${order?.id}/refunds`}
+                        columns={columns}
+                        create= {{
+                            title: __("Add Refund", "directorist"),
+                            fields:refundFields
+                        }}
                     />
-                    <Button type="submit" variant="primary" >Submit</Button>
-                </form>
-                
-            </RefundSubmission>
+                </RefundTable>
+            }
 
-            <RefundTable>
-                <Table
-                    items={Array.isArray(data?.items) ? data?.items : (data?.items ? [data?.items] : [])}
-                    total={data?.total || 0}
-                    layoutType={'table'}
-                    isLoading={ !isResolved }
-                    refresh={handleRefresh}
-                    actions={[
-                        {
-                          id: "delete",
-                          label: "Delete",
-                          callback: (item) => alert(`Deleting order #${item.order_id}`),
-                        },
-                      ]}
-                    queryParams={{
-                        search: searchTerm,
-                        page: currentPage,
-                        perPage: perPage,
-                        sort: {} 
-                    }}
-                    fields={columns}
-                >
-                </Table>
-            </RefundTable>
-        </>
+            <RefundTableToggle onClick={()=> setShowRefundTable(!showRefundTable)}>
+                {showRefundTable ? <><span>Hide Refund History</span><AngleDownIcon /></> : <><span>Refund History</span><AngleUpIcon /></>}
+            </RefundTableToggle>
+        </RefundHistoryContainer>
     );
 }

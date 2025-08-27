@@ -6,6 +6,7 @@ interface CardProps {
     title: string;
     icon?: React.ReactNode;
     children?: React.ReactNode;
+    footer?: React.ReactNode;
     className?: string;
 }
 
@@ -25,6 +26,9 @@ const CardHeader = styled.div`
     align-items: center;
     padding: 22px 24px;
     border-bottom: 1px solid var(--directorist-color-light);;
+`;
+
+const CardFooter = styled.div`
 `;
 
 const CardIcon = styled.div`
@@ -53,7 +57,8 @@ const CardContent = styled.div`
 export default function Card({ 
     title, 
     icon, 
-    children, 
+    children,
+    footer,
     className,
 }: CardProps): React.ReactElement {
     return (
@@ -65,9 +70,13 @@ export default function Card({
             <CardContent>
                 { children }
             </CardContent>
+            <CardFooter>
+                {footer}
+            </CardFooter>
         </CardContainer>
     );
 }
 
 // Export types for external use
 export type { CardProps };
+

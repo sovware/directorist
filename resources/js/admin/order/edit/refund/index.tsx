@@ -1,13 +1,10 @@
-import { useEffect, useMemo, useState } from "@wordpress/element";
+import { useState } from "@wordpress/element";
 import { __ } from "@wordpress/i18n";
-import { addQueryArgs } from "@wordpress/url";
-import { registerCrudStore, useCrudStore, useCrudStoreData } from "@wpmvc/data";
 import { useAttributes } from "@wpmvc/fields";
 import { FieldsType } from "@wpmvc/fields/build-types/types/field";
 import React from "react";
 import styled from "styled-components";
 import Badge from "../../../badge";
-import AddRefund from "./add-refund";
 // import Table from "./table";
 import Table from "@wpmvc/dashboard";
 
@@ -85,20 +82,20 @@ export default function Refund({ order }) {
           },
       };
 
-    const refundRoute = useMemo(
-    () => ((addQueryArgs('/directorist/admin/refunds', { order_id: order?.id }) as string)),
-    [order?.id],
-  );
-    registerCrudStore({
-        name: "directorist/order-refund",
-        path: refundRoute
-    });
-    const { refresh } = useCrudStore( { name: "directorist/order-refund", path: `/directorist/admin/refunds/${order?.id}` });
-    const {data, isResolved} = useCrudStoreData( {name: 'directorist/order-refund', selector: 'get'} );
+  //   const refundRoute = useMemo(
+  //   () => ((addQueryArgs('/directorist/admin/refunds', { order_id: order?.id }) as string)),
+  //   [order?.id],
+  // );
+  //   registerCrudStore({
+  //       name: "directorist/order-refund",
+  //       path: refundRoute
+  //   });
+  //   const { refresh } = useCrudStore( { name: "directorist/order-refund", path: `/directorist/admin/orders/${order?.id}/refunds` });
+  //   const {data, isResolved} = useCrudStoreData( {name: 'directorist/order-refund', selector: 'get'} );
 
-    useEffect(()=>{
-        refresh({search: searchTerm, order_id: order?.id, page: currentPage, perPage: perPage})
-    },[searchTerm, currentPage, perPage])
+  //   useEffect(()=>{
+  //       refresh({search: searchTerm, order_id: order?.id, page: currentPage, perPage: perPage})
+  //   },[searchTerm, currentPage, perPage])
 
     function handleRefresh(params ){
         setSearchTerm( params.search || '' );
@@ -113,18 +110,18 @@ export default function Refund({ order }) {
     
     return (
         <>
-            <RefundSummary>
+            {/* <RefundSummary>
                 <p>Amount already refunded: {data?.total_refunded}</p>
                 <p>Available to Refund: {order?.final_amount - data?.total_refunded}</p>
             </RefundSummary>
-            <AddRefund handleSubmitRefund={handleSubmitRefund} refundFields={refundFields} attributes={attributes} setAttributes={setAttributes} errors={errors} setErrors={setErrors} />
+            <AddRefund handleSubmitRefund={handleSubmitRefund} refundFields={refundFields} attributes={attributes} setAttributes={setAttributes} errors={errors} setErrors={setErrors} /> */}
             
             
-            <Table 
-                path="/directorist/admin/refunds"
-                columns={columns}
-                storeName="directorist/order-refund"
+            <Table
                 layoutType="table"
+                path={`/directorist/admin/orders/${order?.id}/refunds`}
+                columns={columns}
+                // storeName="directorist/order-refund"
             />
             
             {/* <Table data={data} isResolved={isResolved} handleRefresh={handleRefresh} searchTerm={searchTerm} currentPage={currentPage} perPage={perPage} /> */}

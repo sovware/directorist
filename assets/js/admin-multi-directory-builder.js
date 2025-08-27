@@ -15761,6 +15761,13 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         }
       }
 
+      // Check if widget is already active - if so, close modal instead of editing
+      if (this.widgetOptionsWindow.widget === widgetKey) {
+        console.log("Widget already active - closing modal");
+        this.$emit("close-option-window");
+        return;
+      }
+
       // Check if widget is editable before proceeding
       if (!this.isEditable(widgetKey)) {
         console.log("Widget is not editable:", widgetKey);
@@ -15777,7 +15784,6 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     handleModalClick: function handleModalClick(event) {
       console.log("Modal clicked - preventing event bubbling");
       event.stopPropagation();
-      event.preventDefault();
     },
     // Handle close button click from options-window child component
     handleOptionsWindowClose: function handleOptionsWindowClose(event) {

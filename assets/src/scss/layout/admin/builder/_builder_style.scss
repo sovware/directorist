@@ -2953,8 +2953,15 @@ input[type="radio"].cptm-radio {
   left: 50%;
   top: 0;
   width: 330px;
-  transform: translate(-50%, -100%);
+  transform: translate(-50%, 32px);
   pointer-events: none;
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15);
+  .cptm-option-card {
+    &:before {
+      right: 50%;
+      transform: translateX(50%);
+    }
+  }
 
   &.active {
     pointer-events: all;
@@ -3018,9 +3025,17 @@ input[type="radio"].cptm-radio {
   border: 1px solid #3e62f5;
   color: #3e62f5;
   box-sizing: border-box;
+  transition: all ease-in-out 300ms;
   &:focus {
     outline: none;
-    box-shadow: none;
+    box-shadow: 0 0 0 2px #b4c2f9;
+  }
+  &:hover {
+    background-color: #3e62f5;
+    color: #fff;
+    svg path {
+      fill: #fff;
+    }
   }
 }
 
@@ -3577,7 +3592,7 @@ input[type="radio"].cptm-radio {
 }
 
 .cptm-listing-card-author-avatar {
-  z-index: 100;
+  z-index: 1;
   position: absolute;
   left: 0;
   top: 0;

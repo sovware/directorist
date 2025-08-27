@@ -17639,9 +17639,16 @@ input[type=radio].cptm-radio {
   left: 50%;
   top: 0;
   width: 330px;
-  -webkit-transform: translate(-50%, -100%);
-          transform: translate(-50%, -100%);
+  -webkit-transform: translate(-50%, 32px);
+          transform: translate(-50%, 32px);
   pointer-events: none;
+  -webkit-box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15);
+          box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15);
+}
+.cptm-widget-insert-modal-container .cptm-option-card:before {
+  right: 50%;
+  -webkit-transform: translateX(50%);
+          transform: translateX(50%);
 }
 .cptm-widget-insert-modal-container.active {
   pointer-events: all;
@@ -17712,11 +17719,20 @@ input[type=radio].cptm-radio {
   color: #3e62f5;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  -webkit-transition: all ease-in-out 300ms;
+  transition: all ease-in-out 300ms;
 }
 .cptm-widget-insert-link:focus {
   outline: none;
-  -webkit-box-shadow: none;
-          box-shadow: none;
+  -webkit-box-shadow: 0 0 0 2px #b4c2f9;
+          box-shadow: 0 0 0 2px #b4c2f9;
+}
+.cptm-widget-insert-link:hover {
+  background-color: #3e62f5;
+  color: #fff;
+}
+.cptm-widget-insert-link:hover svg path {
+  fill: #fff;
 }
 
 .cptm-widget-card-drop-prepend {
@@ -18396,7 +18412,7 @@ input[type=radio].cptm-radio {
 }
 
 .cptm-listing-card-author-avatar {
-  z-index: 100;
+  z-index: 1;
   position: absolute;
   left: 0;
   top: 0;
@@ -24763,9 +24779,16 @@ input[type=radio].cptm-radio {
   left: 50%;
   top: 0;
   width: 330px;
-  -webkit-transform: translate(-50%, -100%);
-          transform: translate(-50%, -100%);
+  -webkit-transform: translate(-50%, 32px);
+          transform: translate(-50%, 32px);
   pointer-events: none;
+  -webkit-box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15);
+          box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15);
+}
+.cptm-widget-insert-modal-container .cptm-option-card:before {
+  right: 50%;
+  -webkit-transform: translateX(50%);
+          transform: translateX(50%);
 }
 .cptm-widget-insert-modal-container.active {
   pointer-events: all;
@@ -24836,11 +24859,20 @@ input[type=radio].cptm-radio {
   color: #3e62f5;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  -webkit-transition: all ease-in-out 300ms;
+  transition: all ease-in-out 300ms;
 }
 .cptm-widget-insert-link:focus {
   outline: none;
-  -webkit-box-shadow: none;
-          box-shadow: none;
+  -webkit-box-shadow: 0 0 0 2px #b4c2f9;
+          box-shadow: 0 0 0 2px #b4c2f9;
+}
+.cptm-widget-insert-link:hover {
+  background-color: #3e62f5;
+  color: #fff;
+}
+.cptm-widget-insert-link:hover svg path {
+  fill: #fff;
 }
 
 .cptm-widget-card-drop-prepend {
@@ -25520,7 +25552,7 @@ input[type=radio].cptm-radio {
 }
 
 .cptm-listing-card-author-avatar {
-  z-index: 100;
+  z-index: 1;
   position: absolute;
   left: 0;
   top: 0;
@@ -32175,9 +32207,16 @@ input[type=radio].cptm-radio {
   left: 50%;
   top: 0;
   width: 330px;
-  -webkit-transform: translate(-50%, -100%);
-          transform: translate(-50%, -100%);
+  -webkit-transform: translate(-50%, 32px);
+          transform: translate(-50%, 32px);
   pointer-events: none;
+  -webkit-box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15);
+          box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15);
+}
+.cptm-widget-insert-modal-container .cptm-option-card:before {
+  right: 50%;
+  -webkit-transform: translateX(50%);
+          transform: translateX(50%);
 }
 .cptm-widget-insert-modal-container.active {
   pointer-events: all;
@@ -32248,11 +32287,20 @@ input[type=radio].cptm-radio {
   color: #3e62f5;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  -webkit-transition: all ease-in-out 300ms;
+  transition: all ease-in-out 300ms;
 }
 .cptm-widget-insert-link:focus {
   outline: none;
-  -webkit-box-shadow: none;
-          box-shadow: none;
+  -webkit-box-shadow: 0 0 0 2px #b4c2f9;
+          box-shadow: 0 0 0 2px #b4c2f9;
+}
+.cptm-widget-insert-link:hover {
+  background-color: #3e62f5;
+  color: #fff;
+}
+.cptm-widget-insert-link:hover svg path {
+  fill: #fff;
 }
 
 .cptm-widget-card-drop-prepend {
@@ -32932,7 +32980,7 @@ input[type=radio].cptm-radio {
 }
 
 .cptm-listing-card-author-avatar {
-  z-index: 100;
+  z-index: 1;
   position: absolute;
   left: 0;
   top: 0;

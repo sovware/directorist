@@ -3099,6 +3099,41 @@ input[type="radio"].cptm-radio {
     background: #fdefce;
     border-radius: 4px;
   }
+
+  &.cptm-widget-title-card-wrap {
+    width: 100%;
+    display: flex;
+    gap: 8px;
+    flex-direction: column;
+    padding: 12px;
+    background-color: #fff;
+    border: 1px solid #E5E7EB;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px 0 rgba(16, 24, 40, 0.05);
+    .cptm-widget-title-card {
+      padding: 0;
+      font-size: 19px;
+      font-weight: 600;
+      line-height: 25px;
+      color: #141921;
+    }
+    .cptm-widget-card-options-area {
+      .cptm-form-group {
+        margin: 0;
+      }
+      .cptm-input-toggle-wrap {
+        gap: 10px;
+        flex-direction: row-reverse;
+        label {
+          padding: 0;
+          font-size: 14px;
+          font-weight: 500;
+          line-height: 1.15;
+          color: #141921;
+        }
+      }
+    }
+  }
 }
 
 .cptm-widget-card-inline-wrap {
@@ -3314,6 +3349,24 @@ input[type="radio"].cptm-radio {
       font-size: 14px;
       font-weight: 500;
       color: #141921;
+    }
+    .cptm-widget-preview-area {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .cptm-widget-preview-card-listing_title {
+      flex: 0 0 100%;
+    }
+    .cptm-widget-card {
+      height: 32px;
+      padding: 0 10px;
+      &.cptm-widget-title-card {
+        padding: 0;
+      }
+      .cptm-widget-badge-trash {
+        margin-left: 8px;
+      }
     }
   }
   .cptm-listing-card-preview-tagline-placeholder,

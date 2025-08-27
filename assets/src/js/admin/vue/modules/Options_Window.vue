@@ -3,7 +3,6 @@
     <div class="cptm-option-card-header">
       <div class="cptm-option-card-header-title-section">
         <h3 class="cptm-option-card-header-title">{{ title }}</h3>
-
         <div class="cptm-header-action-area">
           <a
             href="#"
@@ -124,7 +123,11 @@ export default {
       // Use Vue.set to ensure reactivity
       // this.$set(this.local_fields[field_key], "value", value);
       this.local_fields[field_key].value = value;
-      this.$emit("update", this.local_fields);
+      // this.$emit("update", this.local_fields);
+
+      console.log("@@updateFieldData - options window", {
+        local_fields: this.local_fields,
+      });
     },
   },
 };

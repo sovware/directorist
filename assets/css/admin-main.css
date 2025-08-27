@@ -17801,6 +17801,50 @@ input[type=radio].cptm-radio {
   background: #fdefce;
   border-radius: 4px;
 }
+.cptm-widget-card-wrap.cptm-widget-title-card-wrap {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 8px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 12px;
+  background-color: #fff;
+  border: 1px solid #E5E7EB;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 1px 2px 0 rgba(16, 24, 40, 0.05);
+          box-shadow: 0 1px 2px 0 rgba(16, 24, 40, 0.05);
+}
+.cptm-widget-card-wrap.cptm-widget-title-card-wrap .cptm-widget-title-card {
+  padding: 0;
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 25px;
+  color: #141921;
+}
+.cptm-widget-card-wrap.cptm-widget-title-card-wrap .cptm-widget-card-options-area .cptm-form-group {
+  margin: 0;
+}
+.cptm-widget-card-wrap.cptm-widget-title-card-wrap .cptm-widget-card-options-area .cptm-input-toggle-wrap {
+  gap: 10px;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+  -webkit-flex-direction: row-reverse;
+      -ms-flex-direction: row-reverse;
+          flex-direction: row-reverse;
+}
+.cptm-widget-card-wrap.cptm-widget-title-card-wrap .cptm-widget-card-options-area .cptm-input-toggle-wrap label {
+  padding: 0;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.15;
+  color: #141921;
+}
 
 .cptm-widget-card-inline-wrap {
   display: -webkit-inline-box;
@@ -18111,6 +18155,32 @@ input[type=radio].cptm-radio {
   font-size: 14px;
   font-weight: 500;
   color: #141921;
+}
+.cptm-placeholder-block-wrapper .cptm-listing-card-preview-top-placeholder .cptm-widget-preview-area {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 8px;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+}
+.cptm-placeholder-block-wrapper .cptm-listing-card-preview-top-placeholder .cptm-widget-preview-card-listing_title {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 100%;
+      -ms-flex: 0 0 100%;
+          flex: 0 0 100%;
+}
+.cptm-placeholder-block-wrapper .cptm-listing-card-preview-top-placeholder .cptm-widget-card {
+  height: 32px;
+  padding: 0 10px;
+}
+.cptm-placeholder-block-wrapper .cptm-listing-card-preview-top-placeholder .cptm-widget-card.cptm-widget-title-card {
+  padding: 0;
+}
+.cptm-placeholder-block-wrapper .cptm-listing-card-preview-top-placeholder .cptm-widget-card .cptm-widget-badge-trash {
+  margin-left: 8px;
 }
 .cptm-placeholder-block-wrapper .cptm-listing-card-preview-tagline-placeholder .cptm-placeholder-label,
 .cptm-placeholder-block-wrapper .cptm-listing-card-preview-rating-placeholder .cptm-placeholder-label {
@@ -24941,6 +25011,50 @@ input[type=radio].cptm-radio {
   background: #fdefce;
   border-radius: 4px;
 }
+.cptm-widget-card-wrap.cptm-widget-title-card-wrap {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 8px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 12px;
+  background-color: #fff;
+  border: 1px solid #E5E7EB;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 1px 2px 0 rgba(16, 24, 40, 0.05);
+          box-shadow: 0 1px 2px 0 rgba(16, 24, 40, 0.05);
+}
+.cptm-widget-card-wrap.cptm-widget-title-card-wrap .cptm-widget-title-card {
+  padding: 0;
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 25px;
+  color: #141921;
+}
+.cptm-widget-card-wrap.cptm-widget-title-card-wrap .cptm-widget-card-options-area .cptm-form-group {
+  margin: 0;
+}
+.cptm-widget-card-wrap.cptm-widget-title-card-wrap .cptm-widget-card-options-area .cptm-input-toggle-wrap {
+  gap: 10px;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+  -webkit-flex-direction: row-reverse;
+      -ms-flex-direction: row-reverse;
+          flex-direction: row-reverse;
+}
+.cptm-widget-card-wrap.cptm-widget-title-card-wrap .cptm-widget-card-options-area .cptm-input-toggle-wrap label {
+  padding: 0;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.15;
+  color: #141921;
+}
 
 .cptm-widget-card-inline-wrap {
   display: -webkit-inline-box;
@@ -25251,6 +25365,32 @@ input[type=radio].cptm-radio {
   font-size: 14px;
   font-weight: 500;
   color: #141921;
+}
+.cptm-placeholder-block-wrapper .cptm-listing-card-preview-top-placeholder .cptm-widget-preview-area {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 8px;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+}
+.cptm-placeholder-block-wrapper .cptm-listing-card-preview-top-placeholder .cptm-widget-preview-card-listing_title {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 100%;
+      -ms-flex: 0 0 100%;
+          flex: 0 0 100%;
+}
+.cptm-placeholder-block-wrapper .cptm-listing-card-preview-top-placeholder .cptm-widget-card {
+  height: 32px;
+  padding: 0 10px;
+}
+.cptm-placeholder-block-wrapper .cptm-listing-card-preview-top-placeholder .cptm-widget-card.cptm-widget-title-card {
+  padding: 0;
+}
+.cptm-placeholder-block-wrapper .cptm-listing-card-preview-top-placeholder .cptm-widget-card .cptm-widget-badge-trash {
+  margin-left: 8px;
 }
 .cptm-placeholder-block-wrapper .cptm-listing-card-preview-tagline-placeholder .cptm-placeholder-label,
 .cptm-placeholder-block-wrapper .cptm-listing-card-preview-rating-placeholder .cptm-placeholder-label {
@@ -32369,6 +32509,50 @@ input[type=radio].cptm-radio {
   background: #fdefce;
   border-radius: 4px;
 }
+.cptm-widget-card-wrap.cptm-widget-title-card-wrap {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 8px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 12px;
+  background-color: #fff;
+  border: 1px solid #E5E7EB;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 1px 2px 0 rgba(16, 24, 40, 0.05);
+          box-shadow: 0 1px 2px 0 rgba(16, 24, 40, 0.05);
+}
+.cptm-widget-card-wrap.cptm-widget-title-card-wrap .cptm-widget-title-card {
+  padding: 0;
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 25px;
+  color: #141921;
+}
+.cptm-widget-card-wrap.cptm-widget-title-card-wrap .cptm-widget-card-options-area .cptm-form-group {
+  margin: 0;
+}
+.cptm-widget-card-wrap.cptm-widget-title-card-wrap .cptm-widget-card-options-area .cptm-input-toggle-wrap {
+  gap: 10px;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+  -webkit-flex-direction: row-reverse;
+      -ms-flex-direction: row-reverse;
+          flex-direction: row-reverse;
+}
+.cptm-widget-card-wrap.cptm-widget-title-card-wrap .cptm-widget-card-options-area .cptm-input-toggle-wrap label {
+  padding: 0;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.15;
+  color: #141921;
+}
 
 .cptm-widget-card-inline-wrap {
   display: -webkit-inline-box;
@@ -32679,6 +32863,32 @@ input[type=radio].cptm-radio {
   font-size: 14px;
   font-weight: 500;
   color: #141921;
+}
+.cptm-placeholder-block-wrapper .cptm-listing-card-preview-top-placeholder .cptm-widget-preview-area {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 8px;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+}
+.cptm-placeholder-block-wrapper .cptm-listing-card-preview-top-placeholder .cptm-widget-preview-card-listing_title {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 100%;
+      -ms-flex: 0 0 100%;
+          flex: 0 0 100%;
+}
+.cptm-placeholder-block-wrapper .cptm-listing-card-preview-top-placeholder .cptm-widget-card {
+  height: 32px;
+  padding: 0 10px;
+}
+.cptm-placeholder-block-wrapper .cptm-listing-card-preview-top-placeholder .cptm-widget-card.cptm-widget-title-card {
+  padding: 0;
+}
+.cptm-placeholder-block-wrapper .cptm-listing-card-preview-top-placeholder .cptm-widget-card .cptm-widget-badge-trash {
+  margin-left: 8px;
 }
 .cptm-placeholder-block-wrapper .cptm-listing-card-preview-tagline-placeholder .cptm-placeholder-label,
 .cptm-placeholder-block-wrapper .cptm-listing-card-preview-rating-placeholder .cptm-placeholder-label {

@@ -910,13 +910,13 @@ export default {
       }
 
       let opt = this.active_widgets[key].options;
-
       // Force Vue reactivity by using Vue.set or restructuring
       this.$set(this, "widgetOptionsWindow", {
         ...this.widgetOptionsWindowDefault,
         ...opt,
         widget: key,
       });
+
 
       // Also update the active_option_widget_key for consistency
       this.active_option_widget_key = key;
@@ -929,7 +929,6 @@ export default {
 
     // Close Widget Options Window
     closeWidgetOptionsWindow() {
-      console.log("closeWidgetOptionsWindow", this.widgetOptionsWindow);
       this.widgetOptionsWindow = this.widgetOptionsWindowDefault;
       // Also clear the active_option_widget_key for consistency
       this.active_option_widget_key = "";
@@ -1077,21 +1076,9 @@ export default {
 
     // Activate Widget Options
     toggleActivateWidgetOptions(widgetKey) {
-      console.log("toggleActivateWidgetOptions called with:", widgetKey);
-      console.log(
-        "Current active_option_widget_key:",
-        this.active_option_widget_key,
-      );
-
       // Always activate the widget options
-      console.log("Activating widget options for:", widgetKey);
       this.$set(this.widgetOptionsWindow, "widget", widgetKey);
       this.active_option_widget_key = widgetKey;
-
-      console.log("Widget options activated. New state:", {
-        active_option_widget_key: this.active_option_widget_key,
-        widgetOptionsWindow: this.widgetOptionsWindow,
-      });
     },
   },
 };

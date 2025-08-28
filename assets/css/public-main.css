@@ -7923,6 +7923,7 @@ body.modal-overlay-enabled:before {
   border-radius: 12px;
   overflow: auto;
   height: auto;
+  display: none;
 }
 .directorist-single-listing-slider-thumb .swiper-wrapper {
   gap: 10px;

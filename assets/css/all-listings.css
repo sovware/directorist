@@ -14988,9 +14988,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   font-weight: var(--directorist-fw-medium);
 }
 .directorist-taxonomy-list-one .directorist-taxonomy-list__card--icon {
-  -webkit-flex-wrap: wrap;
-      -ms-flex-wrap: wrap;
-          flex-wrap: wrap;
   -webkit-padding-start: 12px;
           padding-inline-start: 12px;
 }

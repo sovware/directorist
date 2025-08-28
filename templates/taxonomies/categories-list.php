@@ -44,9 +44,9 @@ $taxonomy->atts['directory_type'] = isset( $_GET['directory_type'] ) && ! empty(
                                         <?php } ?>
                                         <span class="directorist-taxonomy-list__name">
                                             <?php echo esc_html( $category['name'] );?>
-                                        </span>
-                                        <span class="directorist-taxonomy-list__count">
-                                            <?php echo wp_kses_post( $category['list_count_html'] );?>
+                                            <span class="directorist-taxonomy-list__count">
+                                                <?php echo wp_kses_post( $category['list_count_html'] );?>
+                                            </span>
                                         </span>
                                         <?php if ( $category['has_child'] ) { ?>
                                             <span class="directorist-taxonomy-list__toggler">

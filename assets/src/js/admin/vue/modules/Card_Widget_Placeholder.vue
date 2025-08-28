@@ -308,14 +308,10 @@ export default {
     },
 
     handleUpdateOptionWindow(payload) {
-      this.$emit("update-option-window", payload);
+      this.$emit("update", payload.selectedWidgets);
     },
 
     handleActiveWidgetUpdate({ widgetKey, updatedWidget }) {
-      console.log("@@handleActiveWidgetUpdate - test", {
-        widgetKey,
-        updatedWidget,
-      });
       this.$emit("update-active-widget", { widgetKey, updatedWidget });
     },
   },

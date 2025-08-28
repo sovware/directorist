@@ -54,6 +54,11 @@
                     "
                     @update-active-widget="handleActiveWidgetUpdate"
                     @activate-widget-options="toggleActivateWidgetOptions"
+
+                    @update-option-window="
+                      updateWidgetOptionsData($event, widgetOptionsWindow)
+                    "
+                    @close-option-window="closeWidgetOptionsWindow()"
                   />
                 </div>
 

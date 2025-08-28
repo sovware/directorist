@@ -15775,15 +15775,11 @@ __webpack_require__.r(__webpack_exports__);
       this.$emit("close-option-window");
     },
     handleUpdateOptionWindow: function handleUpdateOptionWindow(payload) {
-      this.$emit("update-option-window", payload);
+      this.$emit("update", payload.selectedWidgets);
     },
     handleActiveWidgetUpdate: function handleActiveWidgetUpdate(_ref) {
       var widgetKey = _ref.widgetKey,
         updatedWidget = _ref.updatedWidget;
-      console.log("@@handleActiveWidgetUpdate - test", {
-        widgetKey: widgetKey,
-        updatedWidget: updatedWidget
-      });
       this.$emit("update-active-widget", {
         widgetKey: widgetKey,
         updatedWidget: updatedWidget
@@ -30793,7 +30789,13 @@ var render = function render() {
         return _vm.handleUpdateSelectedWidgets($event, 'local_layout.thumbnail.top_left');
       },
       "update-active-widget": _vm.handleActiveWidgetUpdate,
-      "activate-widget-options": _vm.toggleActivateWidgetOptions
+      "activate-widget-options": _vm.toggleActivateWidgetOptions,
+      "update-option-window": function updateOptionWindow($event) {
+        return _vm.updateWidgetOptionsData($event, _vm.widgetOptionsWindow);
+      },
+      "close-option-window": function closeOptionWindow($event) {
+        return _vm.closeWidgetOptionsWindow();
+      }
     }
   })], 1), _vm._v(" "), _c('div', {
     staticClass: "cptm-card-preview-top-right"

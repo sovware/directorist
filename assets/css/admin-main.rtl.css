@@ -6241,7 +6241,7 @@ img.atbdp-file-info {
   font-size: 14px;
 }
 
-.entry-content .directorist-search-contents {
+.directorist-content-active .entry-content .directorist-search-contents {
   width: 100% !important;
   max-width: 100% !important;
   -webkit-box-sizing: border-box;
@@ -9056,7 +9056,7 @@ body.stop-scrolling {
   border: 2px dashed var(--directorist-color-border-gray) !important;
 }
 .directorist-form-image-upload-field .ez-media-uploader.ezmu--show {
-  margin-bottom: 145px;
+  margin-bottom: 120px;
 }
 .directorist-form-image-upload-field .ez-media-uploader .ezmu__media-picker-section {
   display: block;
@@ -9760,7 +9760,7 @@ body.stop-scrolling {
   margin-top: 0;
 }
 .directorist-add-listing-form .select2-container--default .select2-selection .select2-selection__rendered li.select2-search--inline {
-  width: auto;
+  width: inherit;
 }
 
 .multistep-wizard {

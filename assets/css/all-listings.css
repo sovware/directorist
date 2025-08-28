@@ -307,7 +307,7 @@
   font-size: 14px;
 }
 
-.entry-content .directorist-search-contents {
+.directorist-content-active .entry-content .directorist-search-contents {
   width: 100% !important;
   max-width: 100% !important;
   -webkit-box-sizing: border-box;
@@ -4006,7 +4006,7 @@ body.stop-scrolling {
   border: 2px dashed var(--directorist-color-border-gray) !important;
 }
 .directorist-form-image-upload-field .ez-media-uploader.ezmu--show {
-  margin-bottom: 145px;
+  margin-bottom: 120px;
 }
 .directorist-form-image-upload-field .ez-media-uploader .ezmu__media-picker-section {
   display: block;
@@ -4710,7 +4710,7 @@ body.stop-scrolling {
   margin-top: 0;
 }
 .directorist-add-listing-form .select2-container--default .select2-selection .select2-selection__rendered li.select2-search--inline {
-  width: auto;
+  width: inherit;
 }
 
 .multistep-wizard {
@@ -6359,20 +6359,19 @@ svg.leaflet-image-layer.leaflet-interactive path {
   text-align: center;
 }
 
-.entry-content ul {
+.directorist-content-active .entry-content ul {
   margin: 0;
   padding: 0;
 }
-.entry-content a {
+.directorist-content-active .entry-content a {
   text-decoration: none;
 }
-.entry-content .directorist-search-modal__contents__title {
+.directorist-content-active .entry-content .directorist-search-modal__contents__title {
   margin: 0;
   padding: 0;
   color: var(--directorist-color-dark);
 }
-
-button[type=submit].directorist-btn {
+.directorist-content-active button[type=submit].directorist-btn {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -6410,7 +6409,7 @@ button[type=submit].directorist-btn {
   width: 100% !important;
 }
 .directorist-content-active .select2.select2-container.select2-container--default .select2-selection {
-  height: 40px;
+  min-height: 40px;
   min-height: 40px;
   display: -webkit-box;
   display: -webkit-flex;
@@ -7924,6 +7923,7 @@ body.modal-overlay-enabled:before {
   border-radius: 12px;
   overflow: auto;
   height: auto;
+  display: none;
 }
 .directorist-single-listing-slider-thumb .swiper-wrapper {
   gap: 10px;
@@ -14988,9 +14988,6 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   font-weight: var(--directorist-fw-medium);
 }
 .directorist-taxonomy-list-one .directorist-taxonomy-list__card--icon {
-  -webkit-flex-wrap: wrap;
-      -ms-flex-wrap: wrap;
-          flex-wrap: wrap;
   -webkit-padding-start: 12px;
           padding-inline-start: 12px;
 }

@@ -1280,7 +1280,7 @@ class Directorist_Listings {
 
         foreach ( $post_ids as $listing_id ) {
             ?>
-            <div class="directorist-col-12 directorist-all-listing-col">
+            <div class="directorist-col-12">
             <?php $this->loop_template( 'list', $listing_id ); ?>
             </div>
             <?php
@@ -1295,7 +1295,7 @@ class Directorist_Listings {
 
         foreach ( $post_ids as $listing_id ) {
             ?>
-            <div class="<?php Helper::directorist_column( $this->columns ); ?> directorist-all-listing-col">
+            <div class="<?php Helper::directorist_column( $this->columns ); ?>">
                 <?php $this->loop_template( 'grid', $listing_id ); ?>
             </div>
             <?php

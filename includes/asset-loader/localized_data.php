@@ -136,6 +136,7 @@ class Localized_Data {
             'enabled_multi_directory'         => directorist_is_multi_directory_enabled(),
             'site_name'                       => get_bloginfo( 'name' ),
             'dynamic_view_count_cache'        => (bool) get_directorist_option( 'dynamic_view_count_cache', false ),
+            'loading_more_text'               => __( 'Loading more...', 'directorist' ),
         ];
 
         return $data;

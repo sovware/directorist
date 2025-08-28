@@ -125,7 +125,7 @@ class Comment {
 
             do_action( 'directorist_review_validate_data', $comment_data );
         } catch ( Exception $e ) {
-            wp_die( wp_kses_post( $e->getMessage() ) );
+            wp_die( wp_kses_post( $e->getMessage() ?? '' ) );
             exit;
         }
 

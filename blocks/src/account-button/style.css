@@ -388,7 +388,6 @@
 	color: var(--directorist-color-body);
 }
 .directorist-account-block-authentication-modal #recover-pass-modal {
-	margin: 0 !important;
 	padding: 0;
 }
 .directorist-account-block-authentication-modal
@@ -404,9 +403,6 @@
 	margin-bottom: 0;
 }
 .directorist-account-block-authentication-modal #recover-pass-modal fieldset {
-	width: auto;
-	border: none;
-	padding: 0 30px 30px;
 	color: var(--directorist-color-body);
 }
 .directorist-account-block-authentication-modal #recover-pass-modal fieldset p {

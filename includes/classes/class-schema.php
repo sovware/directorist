@@ -155,7 +155,7 @@ class Schema {
             return;
         }
         
-        // ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Safe because wp_json_encode handles encoding
         echo '<script type="application/ld+json">' . $json_schema . '</script>';
     }
 

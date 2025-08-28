@@ -3351,6 +3351,21 @@ input[type="radio"].cptm-radio {
   .cptm-listing-card-preview-top-placeholder {
     padding: 12px;
     min-height: 62px;
+    .cptm-widget-preview-container {
+      width: 100%;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      .dndrop-draggable-wrapper {
+        display: flex;
+        height: auto;
+      }
+      .cptm-widget-preview-card,
+      .dndrop-draggable-wrapper-listing_title {
+        width: 100%;
+        transform: unset !important;
+      }
+    }
     .cptm-placeholder-label {
       top: 50%;
       left: 50%;
@@ -3862,6 +3877,11 @@ input[type="radio"].cptm-radio {
 .cptm-card-preview-top-left-placeholder {
   display: block;
   text-align: left;
+  .cptm-widget-preview-container {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
 }
 
 .cptm-card-preview-top-right {
@@ -3869,10 +3889,20 @@ input[type="radio"].cptm-radio {
   right: 0;
   top: 0;
   width: calc(50% - 4px);
+  .cptm-widget-preview-container {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
 }
 
 .cptm-card-preview-top-right-placeholder {
   text-align: right;
+  .cptm-widget-preview-container {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
 }
 
 .cptm-card-preview-bottom-left {
@@ -3880,6 +3910,11 @@ input[type="radio"].cptm-radio {
   width: calc(50% - 4px);
   bottom: 0;
   left: 0;
+  .cptm-widget-preview-container {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
   .cptm-widget-option-modal-container {
     top: unset;
     bottom: 20px;
@@ -3981,10 +4016,14 @@ input[type="radio"].cptm-radio {
 }
 
 .cptm-listing-card-preview-body-placeholder {
-  display: block;
   padding: 12px 12px 32px;
   min-height: 160px !important;
   border-color: #a1a9b2;
+  .cptm-widget-preview-container {
+    display: flex;
+    gap: 8px;
+    flex-direction: column;
+  }
 
   .cptm-placeholder-label {
     color: #141921;
@@ -4072,6 +4111,15 @@ input[type="radio"].cptm-radio {
   &.drag-enter {
     border-color: #1e1e1e;
   }
+  .cptm-widget-preview-container {
+    width: 100%;
+    display: flex;
+    gap: 8px;
+    flex-direction: column;
+    .cptm-widget-preview-card {
+      width: 100%;
+    }
+  }
 }
 
 .cptm-listing-card-preview-footer-right-placeholder {
@@ -4082,6 +4130,15 @@ input[type="radio"].cptm-radio {
   &:hover,
   &.drag-enter {
     border-color: #1e1e1e;
+  }
+  .cptm-widget-preview-container {
+    width: 100%;
+    display: flex;
+    gap: 8px;
+    flex-direction: column;
+    .cptm-widget-preview-card {
+      width: 100%;
+    }
   }
 
   .cptm-widget-preview-area {

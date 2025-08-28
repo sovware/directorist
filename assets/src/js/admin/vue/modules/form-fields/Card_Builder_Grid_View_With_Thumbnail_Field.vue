@@ -54,7 +54,6 @@
                     "
                     @update-active-widget="handleActiveWidgetUpdate"
                     @activate-widget-options="toggleActivateWidgetOptions"
-
                     @update-option-window="
                       updateWidgetOptionsData($event, widgetOptionsWindow)
                     "
@@ -293,6 +292,8 @@
                 getActiveOptionWindowStatus('thumbnail_body_top')
               "
               :widgetOptionsWindow="widgetOptionsWindow"
+              :canDragAndDrop="true"
+              :dragAxis="'x'"
               @insert-widget="insertWidget($event, local_layout.body.top)"
               @edit-widget="editWidget($event)"
               @trash-widget="trashWidget($event, local_layout.body.top)"
@@ -328,6 +329,7 @@
                 getActiveOptionWindowStatus('thumbnail_body_bottom')
               "
               :widgetOptionsWindow="widgetOptionsWindow"
+              :canDragAndDrop="true"
               @insert-widget="insertWidget($event, local_layout.body.bottom)"
               @edit-widget="editWidget($event)"
               @trash-widget="trashWidget($event, local_layout.body.bottom)"
@@ -924,7 +926,6 @@ export default {
         widget: key,
       });
 
-
       // Also update the active_option_widget_key for consistency
       this.active_option_widget_key = key;
     },
@@ -1070,6 +1071,12 @@ export default {
       for (let i = 0; i < pathKeys.length - 1; i++) {
         obj = obj[pathKeys[i]]; // Navigate deeper into the object
       }
+
+      console.log("@@handleUpdateSelectedWidgets - test", {
+        updatedWidgets,
+        pathKeys,
+        obj,
+      });
 
       // Update the selectedWidgets at the correct path
       obj[pathKeys[pathKeys.length - 1]].selectedWidgets = updatedWidgets;

@@ -15491,10 +15491,20 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/esm/typeof.js");
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js");
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/esm/typeof.js");
+/* harmony import */ var vue_dndrop__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-dndrop */ "./node_modules/vue-dndrop/dist/vue-dndrop.esm.js");
+
+
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "card-widget-placeholder",
+  components: {
+    Container: vue_dndrop__WEBPACK_IMPORTED_MODULE_3__.Container,
+    Draggable: vue_dndrop__WEBPACK_IMPORTED_MODULE_3__.Draggable
+  },
   props: {
     id: {
       type: String,
@@ -15552,6 +15562,17 @@ __webpack_require__.r(__webpack_exports__);
       type: Boolean,
       default: false
     },
+    canDragAndDrop: {
+      type: Boolean,
+      default: false
+    },
+    dragAxis: {
+      type: String,
+      default: "y",
+      validator: function validator(value) {
+        return ["x", "y", "xy"].includes(value);
+      }
+    },
     widgetOptionsWindow: {
       type: Object,
       default: function _default() {
@@ -15587,19 +15608,28 @@ __webpack_require__.r(__webpack_exports__);
       }
       if (typeof this.containerClass === "string") {
         classNames[this.containerClass] = true;
-      } else if (this.containerClass && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.containerClass) === "object" && !Array.isArray(this.containerClass)) {
+      } else if (this.containerClass && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__["default"])(this.containerClass) === "object" && !Array.isArray(this.containerClass)) {
         Object.assign(classNames, this.containerClass);
       }
       return classNames;
     },
     displayedWidgets: function displayedWidgets() {
       return this.readOnly ? this.acceptedWidgets : this.selectedWidgets;
+    },
+    hasMultipleWidgets: function hasMultipleWidgets() {
+      return this.selectedWidgets && this.selectedWidgets.length > 1;
+    },
+    hasNonDraggableWidgets: function hasNonDraggableWidgets() {
+      var _this = this;
+      return this.displayedWidgets && this.displayedWidgets.some(function (widget) {
+        return _this.isNonDraggableWidget(widget);
+      });
     }
   },
   methods: {
     hasValidWidget: function hasValidWidget(widget_key) {
       var widget = this.availableWidgets[widget_key];
-      return widget && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(widget) === "object" && typeof widget.type === "string";
+      return widget && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__["default"])(widget) === "object" && typeof widget.type === "string";
     },
     isWidgetSelected: function isWidgetSelected(widget) {
       var _this$selectedWidgets3;
@@ -15614,7 +15644,7 @@ __webpack_require__.r(__webpack_exports__);
       var options = widget.options;
       if (typeof options === "string") return false;
       if (Array.isArray(options) && options.length === 0) return false;
-      if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(options) === "object" && Object.keys(options).length === 0) return false;
+      if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__["default"])(options) === "object" && Object.keys(options).length === 0) return false;
       return true;
     },
     shouldShowOptionsArea: function shouldShowOptionsArea(widget) {
@@ -15685,6 +15715,145 @@ __webpack_require__.r(__webpack_exports__);
         widgetKey: widgetKey,
         updatedWidget: updatedWidget
       });
+    },
+    // Check if widget is non-draggable and should stay in fixed position
+    isNonDraggableWidget: function isNonDraggableWidget(widgetKey) {
+      // listing_title widget is not draggable and should always stay at index 0
+      return widgetKey === "listing_title";
+    },
+    // Get child payload for better drag and drop control
+    getChildPayload: function getChildPayload(index) {
+      var widget = this.displayedWidgets[index];
+      return {
+        id: widget,
+        index: index,
+        type: "widget",
+        axis: this.dragAxis
+      };
+    },
+    // Handle drag start for smooth transitions
+    onDragStart: function onDragStart(dragResult) {
+      var payload = dragResult.payload;
+      console.log("Drag started:", payload);
+
+      // Add smooth transition class to the dragged item
+      if (payload && payload.axis === "x") {
+        // For horizontal dragging, ensure smooth movement
+        this.$nextTick(function () {
+          var draggedElement = document.querySelector("[data-widget=\"".concat(payload.id, "\"]"));
+          if (draggedElement) {
+            draggedElement.style.transition = "transform 0.2s ease";
+          }
+        });
+      }
+    },
+    // Check if a drop should be accepted at a specific position
+    shouldAcceptDrop: function shouldAcceptDrop(dropResult) {
+      var addedIndex = dropResult.addedIndex;
+
+      // Don't allow dropping at index 0 (where listing_title should always be)
+      if (addedIndex === 0) {
+        return false;
+      }
+
+      // Don't allow dropping on top of listing_title if it's at index 0
+      if (addedIndex === 1 && this.displayedWidgets[0] === "listing_title") {
+        return false;
+      }
+      return true;
+    },
+    // Widget Drop Handler
+    onWidgetsDrop: function onWidgetsDrop(dropResult) {
+      console.log("Drop result:", dropResult);
+      console.log("Drag axis:", this.dragAxis);
+      var removedIndex = dropResult.removedIndex,
+        addedIndex = dropResult.addedIndex;
+      if (removedIndex === null || addedIndex === null) return;
+
+      // Only allow reordering if drag and drop is enabled, not in read-only mode, and has multiple widgets
+      if (!this.canDragAndDrop || this.readOnly || !this.hasMultipleWidgets) return;
+
+      // Get the widget that was moved from the drop result
+      var movedWidgetKey = this.displayedWidgets[removedIndex];
+
+      // Prevent dragging of non-draggable widgets
+      if (this.isNonDraggableWidget(movedWidgetKey)) {
+        console.log("Cannot drag non-draggable widget:", movedWidgetKey);
+        return;
+      }
+
+      // Clone the array (no mutation)
+      var updatedWidgets = (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__["default"])(this.selectedWidgets);
+
+      // Ensure listing_title stays at index 0
+      var listingTitleIndex = updatedWidgets.indexOf("listing_title");
+      if (listingTitleIndex > 0) {
+        // If listing_title is not at index 0, move it back to first position
+        var _updatedWidgets$splic = updatedWidgets.splice(listingTitleIndex, 1),
+          _updatedWidgets$splic2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_updatedWidgets$splic, 1),
+          listingTitle = _updatedWidgets$splic2[0];
+        updatedWidgets.unshift(listingTitle);
+      }
+
+      // For horizontal dragging, we need to handle the position calculation differently
+      if (this.dragAxis === "x") {
+        console.log("Horizontal dragging - removing from index:", removedIndex, "adding at index:", addedIndex);
+        console.log("Original array:", (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__["default"])(this.selectedWidgets));
+
+        // For horizontal dragging, we need to ensure the item moves only horizontally
+        // and doesn't jump to the top temporarily
+
+        // Remove item from old position
+        var _updatedWidgets$splic3 = updatedWidgets.splice(removedIndex, 1),
+          _updatedWidgets$splic4 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_updatedWidgets$splic3, 1),
+          movedItem = _updatedWidgets$splic4[0];
+        console.log("Moved item:", movedItem);
+        console.log("Array after removal:", (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__["default"])(updatedWidgets));
+
+        // Calculate the correct horizontal position
+        var targetIndex = addedIndex;
+
+        // Ensure we don't place items before listing_title if it exists
+        if (updatedWidgets[0] === "listing_title" && targetIndex === 0) {
+          targetIndex = 1;
+        }
+
+        // For horizontal dragging, ensure the item moves smoothly without jumping
+        // Calculate the actual horizontal position based on the drag distance
+        if (this.dragAxis === "x") {
+          // Prevent the item from jumping to the top
+          // The targetIndex should represent the horizontal position, not vertical
+          targetIndex = Math.max(1, Math.min(targetIndex, updatedWidgets.length));
+        }
+
+        // Add item at new position
+        updatedWidgets.splice(targetIndex, 0, movedItem);
+        console.log("Final array:", updatedWidgets);
+      } else {
+        // Vertical dragging (default behavior)
+        console.log("Vertical dragging - removing from index:", removedIndex, "adding at index:", addedIndex);
+
+        // Remove item from old position
+        var _updatedWidgets$splic5 = updatedWidgets.splice(removedIndex, 1),
+          _updatedWidgets$splic6 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_updatedWidgets$splic5, 1),
+          _movedItem = _updatedWidgets$splic6[0];
+
+        // Add item at new position
+        updatedWidgets.splice(addedIndex, 0, _movedItem);
+      }
+
+      // Final check: ensure listing_title is always at index 0
+      var finalListingTitleIndex = updatedWidgets.indexOf("listing_title");
+      if (finalListingTitleIndex > 0) {
+        var _updatedWidgets$splic7 = updatedWidgets.splice(finalListingTitleIndex, 1),
+          _updatedWidgets$splic8 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_updatedWidgets$splic7, 1),
+          _listingTitle = _updatedWidgets$splic8[0];
+        updatedWidgets.unshift(_listingTitle);
+      }
+
+      // Emit to parent to update the selectedWidgets prop
+      this.$emit("update", updatedWidgets);
+      return;
     }
   },
   watch: {
@@ -20851,6 +21020,11 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     for (var i = 0; i < pathKeys.length - 1; i++) {
       obj = obj[pathKeys[i]]; // Navigate deeper into the object
     }
+    console.log("@@handleUpdateSelectedWidgets - test", {
+      updatedWidgets: updatedWidgets,
+      pathKeys: pathKeys,
+      obj: obj
+    });
 
     // Update the selectedWidgets at the correct path
     obj[pathKeys[pathKeys.length - 1]].selectedWidgets = updatedWidgets;
@@ -27106,20 +27280,54 @@ var render = function render() {
     staticClass: "las la-plus"
   })]) : _vm._e()])])]) : _vm._e(), _vm._v(" "), _vm.hasDisplayedWidgets ? _c('div', {
     staticClass: "cptm-widget-preview-area"
+  }, [_c('Container', {
+    class: ['cptm-widget-preview-container', {
+      'has-non-draggable-widgets': _vm.hasNonDraggableWidgets
+    }],
+    attrs: {
+      "lock-axis": _vm.dragAxis,
+      "orientation": _vm.dragAxis === 'x' ? 'horizontal' : 'vertical',
+      "data-orientation": _vm.dragAxis === 'x' ? 'horizontal' : 'vertical',
+      "group-name": "card-widgets",
+      "drag-handle-selector": ".widget-drag-handle",
+      "should-accept-drop": _vm.shouldAcceptDrop,
+      "get-child-payload": _vm.getChildPayload
+    },
+    on: {
+      "drop": function drop($event) {
+        return _vm.onWidgetsDrop($event);
+      },
+      "drag-start": _vm.onDragStart
+    }
   }, _vm._l(_vm.displayedWidgets, function (widget, widget_index) {
-    return _vm.hasValidWidget(widget) ? _c('div', {
+    return _vm.hasValidWidget(widget) ? _c('Draggable', {
       key: widget_index,
+      class: "dndrop-draggable-wrapper dndrop-draggable-wrapper-".concat(widget),
+      attrs: {
+        "data": {
+          widget: widget,
+          index: widget_index
+        }
+      }
+    }, [_c('div', {
       staticClass: "cptm-widget-preview-card",
-      class: (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])({
+      class: (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])({
         active: _vm.isWidgetActive(widget)
-      }, "cptm-widget-preview-card-".concat(widget), true),
+      }, "cptm-widget-preview-card-".concat(widget), true), 'non-draggable-widget', _vm.isNonDraggableWidget(widget)),
+      attrs: {
+        "data-widget": widget
+      },
       on: {
         "click": function click($event) {
           $event.preventDefault();
           return _vm.editWidget(widget);
         }
       }
-    }, [_c("".concat(_vm.availableWidgets[widget].type, "-card-widget"), {
+    }, [_vm.canDragAndDrop && !_vm.readOnly && _vm.hasMultipleWidgets && !_vm.isNonDraggableWidget(widget) ? _c('span', {
+      staticClass: "cptm-widget-drag-handle widget-drag-handle"
+    }, [_c('span', {
+      staticClass: "uil uil-draggabledots"
+    })]) : _vm._e(), _vm._v(" "), _c("".concat(_vm.availableWidgets[widget].type, "-card-widget"), {
       tag: "component",
       class: {
         'cptm-widget-card-disabled': _vm.readOnly && !_vm.isWidgetSelected(widget)
@@ -27158,8 +27366,8 @@ var render = function render() {
       on: {
         "close": _vm.handleOptionsWindowClose
       }
-    }, 'options-window', _vm.widgetOptionsWindow, false))], 1) : _vm._e()], 1) : _vm._e();
-  }), 0) : _vm._e()]), _vm._v(" "), _vm.enable_widget ? _c('span', {
+    }, 'options-window', _vm.widgetOptionsWindow, false))], 1) : _vm._e()], 1)]) : _vm._e();
+  }), 1)], 1) : _vm._e()]), _vm._v(" "), _vm.enable_widget ? _c('span', {
     staticClass: "cptm-widget-card-status",
     class: _vm.hasSelectedWidgets ? 'enabled' : 'disabled',
     style: {
@@ -30956,7 +31164,9 @@ var render = function render() {
       "maxWidget": _vm.local_layout.body.top.maxWidget,
       "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_body_top'),
       "showWidgetsOptionWindow": _vm.getActiveOptionWindowStatus('thumbnail_body_top'),
-      "widgetOptionsWindow": _vm.widgetOptionsWindow
+      "widgetOptionsWindow": _vm.widgetOptionsWindow,
+      "canDragAndDrop": true,
+      "dragAxis": 'x'
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -31001,7 +31211,8 @@ var render = function render() {
       "maxWidget": _vm.local_layout.body.bottom.maxWidget,
       "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_body_bottom'),
       "showWidgetsOptionWindow": _vm.getActiveOptionWindowStatus('thumbnail_body_bottom'),
-      "widgetOptionsWindow": _vm.widgetOptionsWindow
+      "widgetOptionsWindow": _vm.widgetOptionsWindow,
+      "canDragAndDrop": true
     },
     on: {
       "insert-widget": function insertWidget($event) {

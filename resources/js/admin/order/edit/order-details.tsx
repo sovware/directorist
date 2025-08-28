@@ -1,50 +1,8 @@
 import React from "react";
-import styled from "styled-components";
 import Badge from "../../badge";
 import Card from "../../card";
 import { formatDate } from "../../helper/utils.ts";
-const InfoHead = styled.div`
-        .directorist-order-details-label{
-            display: flex;
-            align-items: center;
-            margin: 0 0 5px;
-        }
-        .directorist-order-id{
-            font-size: 24px;
-            font-weight: 400;
-            color: var(--color-gray-900);
-            margin-right: 10px;
-        }
-        .directorist-order-details-meta{
-        font-size: 12px;
-        font-weight: 400;
-        color: var(--color-gray-600);
-        }
-    `;
-
-const InfoList = styled.ul`
-  li{
-    display: flex;
-    justify-content: space-between;
-    padding: 14px 0 7px;
-    border-top: 1px solid var(--color-gray-200);
-    margin: 0;
-    &:last-child{
-      border-bottom: none;
-      padding-bottom: 0;
-      span{
-        font-size: 14px;
-        font-weight: 500;
-        color: var(--color-gray-900);
-      }
-    }
-    span{
-      font-size: 12px;
-      color: var(--color-gray-600);
-      font-weight: 500;
-    }
-  }
-`;
+import { InfoHead, InfoList } from "./style.tsx";
 type DetailsProps = {
     order?: any;
 };
@@ -80,7 +38,7 @@ export default function OrderDetails({ order }: DetailsProps) {
                       )}
               </span>
             </InfoHead>
-            <InfoList>
+            <InfoList className="directorist-has-border">
                 <li>
                   <span>Listing</span>
                   <span>Mall of America</span>
@@ -101,7 +59,7 @@ export default function OrderDetails({ order }: DetailsProps) {
                   <span>Coupon Discount:</span>
                   <span>${order?.coupon_discount || 0}</span>
                 </li>
-                <li>
+                <li className="directorist-list-highlight">
                   <span>Final Amount:</span>
                   <span>${order?.final_amount}</span>
                 </li>

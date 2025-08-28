@@ -1,0 +1,48 @@
+import React from "react";
+import Badge from "../../badge";
+import Card from "../../card";
+import { formatDate } from "../../helper/utils";
+import { LogItem, LogList } from "./style";
+type DetailsProps = {
+    order?: any;
+};
+
+export default function PaymentLog({ order }: DetailsProps) {
+    return(
+        <Card 
+        title="Payment Log">
+            <LogList>
+              {order?.payments?.map((payment, index) => {
+                return (
+                  <LogItem key={index}>
+                      <Badge
+                        variant={
+                          payment?.status === "pending"
+                            ? "warning"
+                            : payment?.status === "completed"
+                              ? "success"
+                              : "error"
+                        }
+                      >
+                        {payment?.status}
+                      </Badge>
+                      <span>
+                        {formatDate(
+                          "en-US",
+                          payment.created_at,
+                          {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                          },
+                          true,
+                        )}
+                      </span>
+                      <p className="directorist-payment-log-description"></p>
+                  </LogItem>
+                );
+              })}
+            </LogList>
+          </Card>
+    )
+}

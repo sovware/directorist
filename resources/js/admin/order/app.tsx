@@ -27,8 +27,10 @@ const actionItems: MenuItemsType = {
 };
 
 const ThemeWrapper = styled.div`
+  --color-primary-500: #3E62F5;
   --color-gray-900: #141921;
   --color-gray-600: #4D5761;
+  --color-gray-500: #747C89;
   --color-gray-200: #E5E7EB;
 `;
 

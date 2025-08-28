@@ -17,13 +17,15 @@ import React from "react";
  */
 import { Fill } from "@wordpress/components";
 import styled from "styled-components";
-import Badge from "../../badge.tsx";
 import Card from "../../card.tsx";
-import { formatDate, getUser } from "../../helper/utils.ts";
-import ElementorIcon from "../../icons/elementorIcon.tsx";
+import { getUser } from "../../helper/utils.ts";
 import { useGetId } from "../hook/useGetId.ts";
+import CustomerInfo from "./customer-info.tsx";
+import ListingDetails from "./listing-details.tsx";
 import OrderDetails from "./order-details.tsx";
+import PaymentLog from "./payment-log.tsx";
 import Refund from "./refund.tsx";
+import Subscription from "./subscription.tsx";
 
 const SingleOrderContainer = styled.div`
   padding: 30px 48px;
@@ -31,27 +33,6 @@ const SingleOrderContainer = styled.div`
   grid-template-columns: 2fr 1fr; 
   grid-gap: 30px;
 `;
-
-const InfoCard = styled.div``;
-const InfoIcon = styled.div``;
-const InfoContent = styled.div``;
-
-const PaymentLogContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-`;
-const PaymentLogItem = styled.div`
-  // display: flex;
-  // flex-direction: column;
-  // gap: 10px;
-`;
-
-const RefundSummary = styled.div``;
-
-const LogDetails = styled.div``;
-const LogId = styled.div``;
-const RefundTable = styled.div``;
 const ContainerLeft = styled.div`
 
 `;
@@ -72,11 +53,6 @@ export default function Edit({  }: EditProps) {
     () => (orderId ? (`/directorist/admin/orders/${orderId}`) : ''),
     [orderId],
   );
-  
-  // const refundRoute = useMemo(
-  //   () => (orderId ? (addQueryArgs('/directorist/admin/refunds', { order_id: orderId }) as string) : ''),
-  //   [orderId],
-  // );
 
   registerValuesStore({
     name: "directorist/single-order",
@@ -120,80 +96,22 @@ export default function Edit({  }: EditProps) {
               footer={
                 <Refund 
                   order={order}
-                  // orderId={orderId}
-                  // refunds={refundData} 
-                  // isResolved={allRefundResolved} 
                   />
               }
             >
               <>Refunded</>
             </Card>
           }
+          {
+            order && 
+            <Subscription order={order} />
+          }
         </ContainerLeft>
         <ContainerRight>
-        <Card title="Payment Log" icon={<ElementorIcon />}>
-          <PaymentLogContainer>
-            {order?.payments?.map((payment, index) => {
-              return (
-                <PaymentLogItem key={index}>
-                  <LogDetails>
-                    <Badge
-                      variant={
-                        payment?.status === "pending"
-                          ? "warning"
-                          : payment?.status === "completed"
-                            ? "success"
-                            : "error"
-                      }
-                    >
-                      {payment?.status}
-                    </Badge>
-                    <span>
-                      {formatDate(
-                        "en-US",
-                        payment.created_at,
-                        {
-                          year: "numeric",
-                          month: "long",
-                          day: "numeric",
-                        },
-                        true,
-                      )}
-                    </span>
-                  </LogDetails>
-                  <LogId></LogId>
-                </PaymentLogItem>
-              );
-            })}
-            <PaymentLogItem></PaymentLogItem>
-          </PaymentLogContainer>
-        </Card>
+          <CustomerInfo order={order} />
+          <ListingDetails order={order} />
+          <PaymentLog order={order} />
         </ContainerRight>
-        
-        
-
-        {/* Refund Summary */}
-        
-        
-          {/* <RefundSummary>
-            <p>Amount already refunded: {order?.refunded_amount || 0}</p>
-            <p>
-              Available to Refund:{" "}
-              {order?.final_amount - (order?.refunded_amount || 0)}
-            </p>
-          </RefundSummary>
-          <RefundTable>
-            <Table
-              items={refundData?.items}
-              total={refundData?.total}
-              // isLoading={refundData?.is_loading}
-              // fields={refundData?.fields}
-              // // columns={refundData?.columns}
-              // actions={refundData?.actions}
-              // search={refundData?.search}
-              // sort={refundData?.sort}
-            />
-          </RefundTable> */}
       </SingleOrderContainer>
 
     </>

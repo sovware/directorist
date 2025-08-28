@@ -9760,6 +9760,9 @@ body.stop-scrolling {
   margin-top: 0;
 }
 .directorist-add-listing-form .select2-container--default .select2-selection .select2-selection__rendered li.select2-search--inline {
+  width: auto;
+}
+.directorist-add-listing-form .select2-container--default .select2-selection .select2-selection__rendered li.select2-search--inline:first-child {
   width: inherit;
 }
 

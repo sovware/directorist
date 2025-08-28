@@ -155,7 +155,7 @@ class Schema {
             return;
         }
         
-        // Output without any encoding
+        // ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         echo '<script type="application/ld+json">' . $json_schema . '</script>';
     }
 

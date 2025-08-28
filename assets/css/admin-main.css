@@ -9056,7 +9056,7 @@ body.stop-scrolling {
   border: 2px dashed var(--directorist-color-border-gray) !important;
 }
 .directorist-form-image-upload-field .ez-media-uploader.ezmu--show {
-  margin-bottom: 145px;
+  margin-bottom: 120px;
 }
 .directorist-form-image-upload-field .ez-media-uploader .ezmu__media-picker-section {
   display: block;

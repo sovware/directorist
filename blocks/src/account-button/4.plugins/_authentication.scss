@@ -346,7 +346,6 @@
     }
 
     #recover-pass-modal {
-        margin: 0 !important;
         padding: 0;
 
         .directorist-btn {
@@ -359,9 +358,6 @@
         }
 
         fieldset {
-            width: auto;
-            border: none;
-            padding: 0 30px 30px;
             color: var(--directorist-color-body);
 
             p {

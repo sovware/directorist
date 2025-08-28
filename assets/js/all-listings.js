@@ -1989,7 +1989,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 
   // sidebar on keyup searching
   $("body").on("keyup", ".directorist-instant-search .listing-with-sidebar form", (0,_global_components_debounce__WEBPACK_IMPORTED_MODULE_3__["default"])(function (e) {
-    if ($(e.target).closest(".directorist-custom-range-slider__value").length > 0) {
+    if ($(e.target).closest(".directorist-custom-range-slider__value").length > 0 || e.key === 'Enter' && e.target.value === "") {
       return; // Skip search for this element
     }
     e.preventDefault();
@@ -2065,12 +2065,6 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       irisPicker.click();
     }
     var $searchField = $(this).closest(".directorist-search-field");
-    //   let $form = $(
-    //     document.querySelector(
-    //       ".directorist-instant-search .listing-with-sidebar form",
-    //     ),
-    //   );
-
     var searchElm = $(this).closest(".listing-with-sidebar");
 
     // Clear text, email, number, select fields etc

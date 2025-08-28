@@ -1408,6 +1408,9 @@
     }
     &.select2-search--inline {
       width: auto;
+      &:first-child{
+        width: inherit;
+      }
     }
   }
 }

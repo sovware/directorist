@@ -30,6 +30,7 @@
                       getActiveOptionWindowStatus('thumbnail_top_left')
                     "
                     :widgetOptionsWindow="widgetOptionsWindow"
+                    :canOpenSettings="true"
                     @insert-widget="
                       insertWidget($event, local_layout.thumbnail.top_left)
                     "
@@ -78,6 +79,7 @@
                       getActiveOptionWindowStatus('thumbnail_top_right')
                     "
                     :widgetOptionsWindow="widgetOptionsWindow"
+                    :canOpenSettings="true"
                     @insert-widget="
                       insertWidget($event, local_layout.thumbnail.top_right)
                     "

@@ -27,8 +27,6 @@
         </component>
       </template>
     </div>
-
-    <span class="cptm-anchor-down" v-if="bottomAchhor"></span>
   </div>
 </template>
 

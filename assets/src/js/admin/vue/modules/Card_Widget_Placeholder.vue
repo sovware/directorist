@@ -5,7 +5,7 @@
       :class="[
         getContainerClass,
         {
-          'cptm-widget-picker-open': showWidgetsPickerWindow,
+          'cptm-widget-picker-open': showWidgetsPickerWindow || showWidgetsOptionWindow,
           enabled: hasSelectedWidgets,
           disabled: !hasSelectedWidgets,
         },
@@ -15,9 +15,28 @@
         {{ label }}
       </p>
 
-      <div class="cptm-widget-insert-area" v-if="!readOnly" @click.stop>
-        <div class="cptm-widget-insert-wrap">
-          <div class="cptm-widget-insert-modal-container">
+      <div class="cptm-widget-actions-area" v-if="!readOnly" @click.stop>
+        <div class="cptm-widget-actions-wrap">
+          <div class="cptm-widget-action-modal-container cptm-widget-option-modal-container" :class="{ active: showWidgetsOptionWindow && selectedWidgets?.length && !showWidgetsPickerWindow }">
+            <widgets-option-window
+              :id="id"
+              :availableWidgets="availableWidgets"
+              :selected-widgets="selectedWidgets"
+              @update="handleUpdateOptionWindow"
+              @update-active-widget="handleActiveWidgetUpdate"
+              :active="
+                !!(
+                  showWidgetsOptionWindow &&
+                  selectedWidgets?.length &&
+                  !showWidgetsPickerWindow
+                )
+              "
+              :maxWidgetInfoText="maxWidgetInfoText"
+              @trash-widget="$emit('trash-widget', $event)"
+              @close="$emit('close-widgets-option-window')"
+            />            
+          </div>
+          <div class="cptm-widget-action-modal-container cptm-widget-insert-modal-container" :class="{ active: showWidgetsPickerWindow && selectedWidgets?.length && !showWidgetsOptionWindow }">
             <widgets-window
               :id="id"
               :availableWidgets="availableWidgets"
@@ -34,14 +53,24 @@
             />
           </div>
 
-          <a
-            v-if="canAddMore"
-            href="#"
-            class="cptm-widget-insert-link"
-            @click.prevent="$emit('open-widgets-picker-window')"
-          >
-            <span class="las la-plus"></span>
-          </a>
+          <div class="cptm-widget-actions-area">
+            <a
+              v-if="canOpenSettings && selectedWidgets?.length"
+              href="#"
+              class="cptm-widget-action-link"
+              @click.prevent="$emit('open-widgets-option-window')"
+            >
+              <span class="las la-cog"></span>
+            </a>
+            <a
+              v-if="canAddMore"
+              href="#"
+              class="cptm-widget-action-link"
+              @click.prevent="$emit('open-widgets-picker-window')"
+            >
+              <span class="las la-plus"></span>
+            </a>
+          </div>
         </div>
       </div>
 
@@ -120,8 +149,7 @@ export default {
     selectedWidgets: { type: Array },
     showWidgetsPickerWindow: { type: Boolean, default: false },
     showWidgetsOptionWindow: { type: Boolean, default: false },
-    widgetDropable: { type: Boolean, default: false },
-    hasDisableButton: { type: Boolean, default: false },
+    canOpenSettings: { type: Boolean, default: false },
     maxWidget: { type: Number, default: 0 },
     maxWidgetInfoText: {
       type: String,

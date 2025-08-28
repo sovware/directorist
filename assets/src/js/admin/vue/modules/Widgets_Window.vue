@@ -51,8 +51,6 @@
 
       <p v-else class="cptm-info-text">Nothing available</p>
     </div>
-
-    <span class="cptm-anchor-down" v-if="bottomAchhor"></span>
   </div>
 </template>
 

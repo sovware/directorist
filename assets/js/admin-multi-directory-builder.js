@@ -15635,11 +15635,7 @@ __webpack_require__.r(__webpack_exports__);
       type: Boolean,
       default: false
     },
-    widgetDropable: {
-      type: Boolean,
-      default: false
-    },
-    hasDisableButton: {
+    canOpenSettings: {
       type: Boolean,
       default: false
     },
@@ -27077,6 +27073,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
 
 var render = function render() {
+  var _vm$selectedWidgets, _vm$selectedWidgets2, _vm$selectedWidgets3, _vm$selectedWidgets4;
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
@@ -27084,7 +27081,7 @@ var render = function render() {
   }, [_c('div', {
     staticClass: "cptm-placeholder-block",
     class: [_vm.getContainerClass, {
-      'cptm-widget-picker-open': _vm.showWidgetsPickerWindow,
+      'cptm-widget-picker-open': _vm.showWidgetsPickerWindow || _vm.showWidgetsOptionWindow,
       enabled: _vm.hasSelectedWidgets,
       disabled: !_vm.hasSelectedWidgets
     }]
@@ -27094,16 +27091,42 @@ var render = function render() {
       hide: _vm.hasDisplayedWidgets
     }
   }, [_vm._v("\n      " + _vm._s(_vm.label) + "\n    ")]), _vm._v(" "), !_vm.readOnly ? _c('div', {
-    staticClass: "cptm-widget-insert-area",
+    staticClass: "cptm-widget-actions-area",
     on: {
       "click": function click($event) {
         $event.stopPropagation();
       }
     }
   }, [_c('div', {
-    staticClass: "cptm-widget-insert-wrap"
+    staticClass: "cptm-widget-actions-wrap"
   }, [_c('div', {
-    staticClass: "cptm-widget-insert-modal-container"
+    staticClass: "cptm-widget-action-modal-container cptm-widget-option-modal-container",
+    class: {
+      active: _vm.showWidgetsOptionWindow && ((_vm$selectedWidgets = _vm.selectedWidgets) === null || _vm$selectedWidgets === void 0 ? void 0 : _vm$selectedWidgets.length) && !_vm.showWidgetsPickerWindow
+    }
+  }, [_c('widgets-option-window', {
+    attrs: {
+      "id": _vm.id,
+      "availableWidgets": _vm.availableWidgets,
+      "selected-widgets": _vm.selectedWidgets,
+      "active": !!(_vm.showWidgetsOptionWindow && (_vm$selectedWidgets2 = _vm.selectedWidgets) !== null && _vm$selectedWidgets2 !== void 0 && _vm$selectedWidgets2.length && !_vm.showWidgetsPickerWindow),
+      "maxWidgetInfoText": _vm.maxWidgetInfoText
+    },
+    on: {
+      "update": _vm.handleUpdateOptionWindow,
+      "update-active-widget": _vm.handleActiveWidgetUpdate,
+      "trash-widget": function trashWidget($event) {
+        return _vm.$emit('trash-widget', $event);
+      },
+      "close": function close($event) {
+        return _vm.$emit('close-widgets-option-window');
+      }
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "cptm-widget-action-modal-container cptm-widget-insert-modal-container",
+    class: {
+      active: _vm.showWidgetsPickerWindow && ((_vm$selectedWidgets3 = _vm.selectedWidgets) === null || _vm$selectedWidgets3 === void 0 ? void 0 : _vm$selectedWidgets3.length) && !_vm.showWidgetsOptionWindow
+    }
   }, [_c('widgets-window', {
     attrs: {
       "id": _vm.id,
@@ -27125,8 +27148,23 @@ var render = function render() {
         return _vm.$emit('close-widgets-picker-window');
       }
     }
-  })], 1), _vm._v(" "), _vm.canAddMore ? _c('a', {
-    staticClass: "cptm-widget-insert-link",
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "cptm-widget-actions-area"
+  }, [_vm.canOpenSettings && (_vm$selectedWidgets4 = _vm.selectedWidgets) !== null && _vm$selectedWidgets4 !== void 0 && _vm$selectedWidgets4.length ? _c('a', {
+    staticClass: "cptm-widget-action-link",
+    attrs: {
+      "href": "#"
+    },
+    on: {
+      "click": function click($event) {
+        $event.preventDefault();
+        return _vm.$emit('open-widgets-option-window');
+      }
+    }
+  }, [_c('span', {
+    staticClass: "las la-cog"
+  })]) : _vm._e(), _vm._v(" "), _vm.canAddMore ? _c('a', {
+    staticClass: "cptm-widget-action-link",
     attrs: {
       "href": "#"
     },
@@ -27138,7 +27176,7 @@ var render = function render() {
     }
   }, [_c('span', {
     staticClass: "las la-plus"
-  })]) : _vm._e()])]) : _vm._e(), _vm._v(" "), _vm.hasDisplayedWidgets ? _c('div', {
+  })]) : _vm._e()])])]) : _vm._e(), _vm._v(" "), _vm.hasDisplayedWidgets ? _c('div', {
     staticClass: "cptm-widget-preview-area"
   }, _vm._l(_vm.displayedWidgets, function (widget, widget_index) {
     return _vm.hasValidWidget(widget) ? _c('div', {
@@ -27568,9 +27606,7 @@ var render = function render() {
         }
       }
     }, 'component', field, false));
-  }) : _vm._e()], 2), _vm._v(" "), _vm.bottomAchhor ? _c('span', {
-    staticClass: "cptm-anchor-down"
-  }) : _vm._e()]);
+  }) : _vm._e()], 2)]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -28395,9 +28431,7 @@ var render = function render() {
     }, [_vm._v("\n          " + _vm._s(widget.label) + "\n        ")])]);
   }), 0) : _c('p', {
     staticClass: "cptm-info-text"
-  }, [_vm._v("Nothing available")])]), _vm._v(" "), _vm.bottomAchhor ? _c('span', {
-    staticClass: "cptm-anchor-down"
-  }) : _vm._e()]);
+  }, [_vm._v("Nothing available")])])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -30730,7 +30764,8 @@ var render = function render() {
       "maxWidget": _vm.local_layout.thumbnail.top_left.maxWidget,
       "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_top_left'),
       "showWidgetsOptionWindow": _vm.getActiveOptionWindowStatus('thumbnail_top_left'),
-      "widgetOptionsWindow": _vm.widgetOptionsWindow
+      "widgetOptionsWindow": _vm.widgetOptionsWindow,
+      "canOpenSettings": true
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -30774,7 +30809,8 @@ var render = function render() {
       "maxWidget": _vm.local_layout.thumbnail.top_right.maxWidget,
       "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_top_right'),
       "showWidgetsOptionWindow": _vm.getActiveOptionWindowStatus('thumbnail_top_right'),
-      "widgetOptionsWindow": _vm.widgetOptionsWindow
+      "widgetOptionsWindow": _vm.widgetOptionsWindow,
+      "canOpenSettings": true
     },
     on: {
       "insert-widget": function insertWidget($event) {

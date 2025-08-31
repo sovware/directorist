@@ -1361,7 +1361,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
 
       // Check all custom number range field
       searchForm.querySelectorAll('.directorist-search-field-text_range .directorist-custom-range-slider__range').forEach(function (el) {
-        if (el.value === "0-0") {
+        if (el.value === '0-0') {
           value = false;
         }
       });
@@ -1570,10 +1570,10 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         e.preventDefault();
         // Clear URL params on modal form reset
         if (this.closest('.directorist-search-modal')) {
-          // Clear only the query parameters 
+          // Clear only the query parameters
           var baseUrl = window.location.origin + window.location.pathname;
 
-          // Update the URL in the address bar 
+          // Update the URL in the address bar
           window.history.replaceState(null, '', baseUrl);
         }
 
@@ -1901,16 +1901,16 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       // Add class to mark the radius search field
       $('.directorist-range-slider-wrap').closest('.directorist-search-field').addClass('directorist-search-field-radius_search');
       var radius_search_item_selector = null;
-      var radius_search_based_on = $(".directorist-radius_search_based_on").val();
+      var radius_search_based_on = $('.directorist-radius_search_based_on').val();
 
       // Determine which search item selector to use
-      if (radius_search_based_on === "address") {
-        radius_search_item_selector = ".directorist-location-js";
-      } else if (radius_search_based_on === "zip") {
-        radius_search_item_selector = ".directorist-zipcode-search .zip-radius-search";
+      if (radius_search_based_on === 'address') {
+        radius_search_item_selector = '.directorist-location-js';
+      } else if (radius_search_based_on === 'zip') {
+        radius_search_item_selector = '.directorist-zipcode-search .zip-radius-search';
       } else {
         // Default fallback
-        radius_search_item_selector = ".directorist-location-js";
+        radius_search_item_selector = '.directorist-location-js';
       }
 
       // Now, use jQuery to loop through the elements

@@ -15505,6 +15505,13 @@ __webpack_require__.r(__webpack_exports__);
     Container: vue_dndrop__WEBPACK_IMPORTED_MODULE_3__.Container,
     Draggable: vue_dndrop__WEBPACK_IMPORTED_MODULE_3__.Draggable
   },
+  data: function data() {
+    return {
+      draggingWidget: null,
+      dragOverWidget: null,
+      dragEndWidget: null
+    };
+  },
   props: {
     id: {
       type: String,
@@ -15624,6 +15631,24 @@ __webpack_require__.r(__webpack_exports__);
       return this.displayedWidgets && this.displayedWidgets.some(function (widget) {
         return _this.isNonDraggableWidget(widget);
       });
+    },
+    isDragging: function isDragging() {
+      var _this2 = this;
+      return function (widget) {
+        return _this2.draggingWidget === widget;
+      };
+    },
+    isDragOver: function isDragOver() {
+      var _this3 = this;
+      return function (widget) {
+        return _this3.dragOverWidget === widget;
+      };
+    },
+    isDragEnd: function isDragEnd() {
+      var _this4 = this;
+      return function (widget) {
+        return _this4.dragEndWidget === widget;
+      };
     }
   },
   methods: {
@@ -15736,6 +15761,11 @@ __webpack_require__.r(__webpack_exports__);
       var payload = dragResult.payload;
       console.log("Drag started:", payload);
 
+      // Set the dragging widget
+      if (payload && payload.id) {
+        this.draggingWidget = payload.id;
+      }
+
       // Add smooth transition class to the dragged item
       if (payload && payload.axis === "x") {
         // For horizontal dragging, ensure smooth movement
@@ -15746,6 +15776,30 @@ __webpack_require__.r(__webpack_exports__);
           }
         });
       }
+    },
+    // Handle drag over to show drop target
+    onDragOver: function onDragOver(dragResult) {
+      var payload = dragResult.payload;
+      if (payload && payload.id) {
+        this.dragOverWidget = payload.id;
+      }
+    },
+    // Handle drag end to reset drag states
+    onDragEnd: function onDragEnd() {
+      var _this5 = this;
+      console.log("Drag ended, resetting drag states");
+
+      // Set drag end state briefly before clearing
+      if (this.draggingWidget) {
+        this.dragEndWidget = this.draggingWidget;
+      }
+
+      // Clear drag states after a brief delay
+      setTimeout(function () {
+        _this5.draggingWidget = null;
+        _this5.dragOverWidget = null;
+        _this5.dragEndWidget = null;
+      }, 100);
     },
     // Check if a drop should be accepted at a specific position
     shouldAcceptDrop: function shouldAcceptDrop(dropResult) {
@@ -15766,6 +15820,11 @@ __webpack_require__.r(__webpack_exports__);
     onWidgetsDrop: function onWidgetsDrop(dropResult) {
       console.log("Drop result:", dropResult);
       console.log("Drag axis:", this.dragAxis);
+
+      // Clear all drag states on drop
+      this.draggingWidget = null;
+      this.dragOverWidget = null;
+      this.dragEndWidget = null;
       var removedIndex = dropResult.removedIndex,
         addedIndex = dropResult.addedIndex;
       if (removedIndex === null || addedIndex === null) return;
@@ -27297,26 +27356,30 @@ var render = function render() {
       "drop": function drop($event) {
         return _vm.onWidgetsDrop($event);
       },
-      "drag-start": _vm.onDragStart
+      "drag-start": _vm.onDragStart,
+      "drag-end": _vm.onDragEnd,
+      "drag-over": _vm.onDragOver
     }
   }, _vm._l(_vm.displayedWidgets, function (widget, widget_index) {
     return _vm.hasValidWidget(widget) ? _c('Draggable', {
       key: widget_index,
-      class: "dndrop-draggable-wrapper dndrop-draggable-wrapper-".concat(widget),
+      class: ["dndrop-draggable-wrapper dndrop-draggable-wrapper-".concat(widget), {
+        'is-dragging': _vm.isDragging(widget),
+        'is-drag-over': _vm.isDragOver(widget),
+        'is-drag-end': _vm.isDragEnd(widget)
+      }],
       attrs: {
         "data": {
           widget: widget,
           index: widget_index
-        }
+        },
+        "data-widget": widget
       }
     }, [_c('div', {
       staticClass: "cptm-widget-preview-card",
       class: (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])({
         active: _vm.isWidgetActive(widget)
       }, "cptm-widget-preview-card-".concat(widget), true), 'non-draggable-widget', _vm.isNonDraggableWidget(widget)),
-      attrs: {
-        "data-widget": widget
-      },
       on: {
         "click": function click($event) {
           $event.preventDefault();

@@ -95,6 +95,8 @@
         <Container
           @drop="onWidgetsDrop($event)"
           @drag-start="onDragStart"
+          @drag-end="onDragEnd"
+          @drag-over="onDragOver"
           :lock-axis="dragAxis"
           :orientation="dragAxis === 'x' ? 'horizontal' : 'vertical'"
           :data-orientation="dragAxis === 'x' ? 'horizontal' : 'vertical'"
@@ -112,7 +114,15 @@
             :key="widget_index"
             v-if="hasValidWidget(widget)"
             :data="{ widget, index: widget_index }"
-            :class="`dndrop-draggable-wrapper dndrop-draggable-wrapper-${widget}`"
+            :data-widget="widget"
+            :class="[
+              `dndrop-draggable-wrapper dndrop-draggable-wrapper-${widget}`,
+              {
+                'is-dragging': isDragging(widget),
+                'is-drag-over': isDragOver(widget),
+                'is-drag-end': isDragEnd(widget),
+              },
+            ]"
           >
             <div
               class="cptm-widget-preview-card"
@@ -121,7 +131,6 @@
                 [`cptm-widget-preview-card-${widget}`]: true,
                 'non-draggable-widget': isNonDraggableWidget(widget),
               }"
-              :data-widget="widget"
               @click.prevent="editWidget(widget)"
             >
               <!-- Drag Handle -->
@@ -194,6 +203,14 @@ export default {
   components: {
     Container,
     Draggable,
+  },
+
+  data() {
+    return {
+      draggingWidget: null,
+      dragOverWidget: null,
+      dragEndWidget: null,
+    };
   },
 
   props: {
@@ -279,6 +296,18 @@ export default {
           this.isNonDraggableWidget(widget),
         )
       );
+    },
+
+    isDragging() {
+      return (widget) => this.draggingWidget === widget;
+    },
+
+    isDragOver() {
+      return (widget) => this.dragOverWidget === widget;
+    },
+
+    isDragEnd() {
+      return (widget) => this.dragEndWidget === widget;
     },
   },
 
@@ -416,6 +445,11 @@ export default {
       const { payload } = dragResult;
       console.log("Drag started:", payload);
 
+      // Set the dragging widget
+      if (payload && payload.id) {
+        this.draggingWidget = payload.id;
+      }
+
       // Add smooth transition class to the dragged item
       if (payload && payload.axis === "x") {
         // For horizontal dragging, ensure smooth movement
@@ -428,6 +462,31 @@ export default {
           }
         });
       }
+    },
+
+    // Handle drag over to show drop target
+    onDragOver(dragResult) {
+      const { payload } = dragResult;
+      if (payload && payload.id) {
+        this.dragOverWidget = payload.id;
+      }
+    },
+
+    // Handle drag end to reset drag states
+    onDragEnd() {
+      console.log("Drag ended, resetting drag states");
+
+      // Set drag end state briefly before clearing
+      if (this.draggingWidget) {
+        this.dragEndWidget = this.draggingWidget;
+      }
+
+      // Clear drag states after a brief delay
+      setTimeout(() => {
+        this.draggingWidget = null;
+        this.dragOverWidget = null;
+        this.dragEndWidget = null;
+      }, 100);
     },
 
     // Check if a drop should be accepted at a specific position
@@ -451,6 +510,11 @@ export default {
     onWidgetsDrop(dropResult) {
       console.log("Drop result:", dropResult);
       console.log("Drag axis:", this.dragAxis);
+
+      // Clear all drag states on drop
+      this.draggingWidget = null;
+      this.dragOverWidget = null;
+      this.dragEndWidget = null;
 
       const { removedIndex, addedIndex } = dropResult;
 

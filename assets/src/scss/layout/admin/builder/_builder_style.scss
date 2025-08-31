@@ -3365,6 +3365,11 @@ input[type="radio"].cptm-radio {
         width: 100%;
         transform: unset !important;
       }
+      .dndrop-draggable-wrapper-listing_title {
+        &.animated {
+          z-index: 99999;
+        }
+      }
     }
     .cptm-placeholder-label {
       top: 50%;
@@ -3407,6 +3412,15 @@ input[type="radio"].cptm-radio {
     &.disabled {
       .cptm-placeholder-label {
         color: #141921;
+      }
+    }
+  }
+
+  .cptm-widget-preview-container {
+    .dndrop-draggable-wrapper {
+      overflow: visible !important;
+      &.is-dragging {
+        opacity: 0;
       }
     }
   }

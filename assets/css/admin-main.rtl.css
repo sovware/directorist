@@ -18187,6 +18187,9 @@ input[type=radio].cptm-radio {
   -webkit-transform: unset !important;
           transform: unset !important;
 }
+.cptm-placeholder-block-wrapper .cptm-listing-card-preview-top-placeholder .cptm-widget-preview-container .dndrop-draggable-wrapper-listing_title.animated {
+  z-index: 99999;
+}
 .cptm-placeholder-block-wrapper .cptm-listing-card-preview-top-placeholder .cptm-placeholder-label {
   top: 50%;
   right: 50%;
@@ -18233,6 +18236,12 @@ input[type=radio].cptm-radio {
 }
 .cptm-placeholder-block-wrapper .cptm-placeholder-block.disabled .cptm-placeholder-label {
   color: #141921;
+}
+.cptm-placeholder-block-wrapper .cptm-widget-preview-container .dndrop-draggable-wrapper {
+  overflow: visible !important;
+}
+.cptm-placeholder-block-wrapper .cptm-widget-preview-container .dndrop-draggable-wrapper.is-dragging {
+  opacity: 0;
 }
 
 .cptm-placeholder-block {
@@ -25482,6 +25491,9 @@ input[type=radio].cptm-radio {
   -webkit-transform: unset !important;
           transform: unset !important;
 }
+.cptm-placeholder-block-wrapper .cptm-listing-card-preview-top-placeholder .cptm-widget-preview-container .dndrop-draggable-wrapper-listing_title.animated {
+  z-index: 99999;
+}
 .cptm-placeholder-block-wrapper .cptm-listing-card-preview-top-placeholder .cptm-placeholder-label {
   top: 50%;
   right: 50%;
@@ -25528,6 +25540,12 @@ input[type=radio].cptm-radio {
 }
 .cptm-placeholder-block-wrapper .cptm-placeholder-block.disabled .cptm-placeholder-label {
   color: #141921;
+}
+.cptm-placeholder-block-wrapper .cptm-widget-preview-container .dndrop-draggable-wrapper {
+  overflow: visible !important;
+}
+.cptm-placeholder-block-wrapper .cptm-widget-preview-container .dndrop-draggable-wrapper.is-dragging {
+  opacity: 0;
 }
 
 .cptm-placeholder-block {
@@ -33065,6 +33083,9 @@ input[type=radio].cptm-radio {
   -webkit-transform: unset !important;
           transform: unset !important;
 }
+.cptm-placeholder-block-wrapper .cptm-listing-card-preview-top-placeholder .cptm-widget-preview-container .dndrop-draggable-wrapper-listing_title.animated {
+  z-index: 99999;
+}
 .cptm-placeholder-block-wrapper .cptm-listing-card-preview-top-placeholder .cptm-placeholder-label {
   top: 50%;
   right: 50%;
@@ -33111,6 +33132,12 @@ input[type=radio].cptm-radio {
 }
 .cptm-placeholder-block-wrapper .cptm-placeholder-block.disabled .cptm-placeholder-label {
   color: #141921;
+}
+.cptm-placeholder-block-wrapper .cptm-widget-preview-container .dndrop-draggable-wrapper {
+  overflow: visible !important;
+}
+.cptm-placeholder-block-wrapper .cptm-widget-preview-container .dndrop-draggable-wrapper.is-dragging {
+  opacity: 0;
 }
 
 .cptm-placeholder-block {

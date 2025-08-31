@@ -9,6 +9,7 @@ use Directorist\App\Models\Payment;
 use Directorist\WpMVC\Repositories\Repository;
 use Directorist\WpMVC\Database\Query\Builder;
 use Directorist\App\DTO\Payment\DTO;
+use Directorist\App\Enums\Order\Status as OrderStatus;
 
 class PaymentRepository extends Repository {
     public OrderRepository $order_repository;
@@ -34,10 +35,9 @@ class PaymentRepository extends Repository {
     public function create( \Directorist\WpMVC\DTO\DTO $dto ) {
         $payment_id = parent::create( $dto );
 
-        // if ( $dto->is_initialized( 'status' ) && $dto->get_status() === Status::PAID ) {
-        //     $dto = ( new \Directorist\App\DTO\Order\DTO )->set_id( $dto->get_order_id() )->set_status( OrderStatus::PAID );
-        //     $this->order_repository->update( $dto );
-        // }
+        if ( $dto->is_initialized( 'status' ) && $dto->get_status() === OrderStatus::PAID ) {
+            $this->order_repository->update_status( $dto->get_order_id(), OrderStatus::PAID );
+        }
 
         return $payment_id;
     }

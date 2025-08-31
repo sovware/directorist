@@ -28,7 +28,7 @@ class CheckoutController {
 
         $payment_gateway    = $request->get_param( 'payment_gateway' );
         $payment_processors = directorist_get_payment_processors();
-        
+
         if ( ! isset( $payment_processors[$payment_gateway] ) || ! class_exists( $payment_processors[$payment_gateway] ) ) {
             throw new \Exception( __( 'Invalid payment gateway.', 'directorist' ) );
         }
@@ -43,7 +43,7 @@ class CheckoutController {
         ->set_status( Status::PENDING );
 
         do_action( 'directorist_checkout_create_order', $dto, $checkout_type, $request );
-        
+
         $repository = directorist_order_repository();
         $repository->create( $dto );
 
@@ -96,7 +96,7 @@ class CheckoutController {
 
         $payment            = $payment_repository->to_dto( $payment );
         $payment_processors = directorist_get_payment_processors();
-        
+
         if ( ! isset( $payment_processors[$payment->get_method()] ) || ! class_exists( $payment_processors[$payment->get_method()] ) ) {
             throw new \Exception( __( 'Invalid payment gateway.', 'directorist' ) );
         }

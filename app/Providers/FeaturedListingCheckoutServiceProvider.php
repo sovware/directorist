@@ -18,6 +18,8 @@ class FeaturedListingCheckoutServiceProvider implements Provider {
     const CHECKOUT_TYPE = 'featured_listing';
 
     public function boot() {
+        add_filter( 'directorist_order_data', [$this, 'handle_order_data'] );
+
         $featured_enabled = directorist_is_featured_listing_enabled();
         if ( ! $featured_enabled ) return;
 
@@ -29,7 +31,7 @@ class FeaturedListingCheckoutServiceProvider implements Provider {
         add_action( 'directorist_before_order_update', [$this, 'handle_before_order_update'] );
         add_action( 'directorist_after_order_update', [$this, 'handle_after_order_update'] );
         add_filter( 'directorist_payment_receipt_order_items', [$this, 'handle_payment_receipt_order_items'], 10, 2 );
-        add_filter( 'directorist_order_data', [$this, 'handle_order_data'] );
+        add_filter( 'directorist_checkout_product_name', [$this, 'handle_checkout_product_name'], 10, 2 );
     }
 
     public function add_checkout_type( array $checkout_types ) {
@@ -88,7 +90,7 @@ class FeaturedListingCheckoutServiceProvider implements Provider {
             return;
         }
 
-        $order = directorist_order_repository()->get_by_id( $dto->get_id() );
+        $order = directorist_get_order_by_id( $dto->get_id() );
 
         if ( $order->is_featured_listing && ! $order->expires_at ) {
             $featured_days = get_directorist_option( 'featured_listing_time', 30 );
@@ -97,7 +99,7 @@ class FeaturedListingCheckoutServiceProvider implements Provider {
     }
 
     public function handle_after_order_update( DTO $dto ) {
-        $order = directorist_order_repository()->get_by_id( $dto->get_id() );
+        $order = directorist_get_order_by_id( $dto->get_id() );
 
         if ( ! $order->is_featured_listing ) {
             return;
@@ -133,5 +135,16 @@ class FeaturedListingCheckoutServiceProvider implements Provider {
 
         $order->order_type = __( 'Featured Listing', 'directorist' );
         return $order;
+    }
+
+    public function handle_checkout_product_name( string $product_name, DTO $dto ) {
+        if ( ! $dto->is_initialized( 'is_featured_listing' ) ) {
+            return $product_name;
+        }
+
+        $listing = get_post( $dto->get_listing_id() );
+
+        //translators: %s is the listing title
+        return sprintf( __( 'Featured Listing: %s', 'directorist' ), $listing->post_title );
     }
 }

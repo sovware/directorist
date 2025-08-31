@@ -1091,7 +1091,7 @@ if ( ! function_exists( 'currency_has_decimal' ) ) {
  * @return mixed
  */
 function atbdp_display_price( $price = '', $disable_price = false, $currency = '', $symbol = '', $c_position = '', $echo = true ) {
-    if ( empty( $price ) || $disable_price ) return null; // vail if the price is empty or price display is disabled.
+    if ( $disable_price ) return null; // vail if the price is empty or price display is disabled.
 
     $allow_decimal = get_directorist_option( 'allow_decimal', 1 );
     $before = '';

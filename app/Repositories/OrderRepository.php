@@ -50,7 +50,9 @@ class OrderRepository extends Repository {
 
         $orders = array_map(
             function( $order ) {
-                $order->payment_method = isset( $order->payment->method ) ? $order->payment->method : 'Unknown';
+                $payment_method_title  = get_directorist_option( "{$order->payment->method}_title" );
+                $order->payment_method = ! empty( $payment_method_title ) ? $payment_method_title : $order->payment_method;
+                
                 return apply_filters( 'directorist_order_data', $order );
             }, $query->order_by_desc( 'd_order.id' )->pagination( $dto->get_page(), $dto->get_per_page() ) 
         );
@@ -96,6 +98,12 @@ class OrderRepository extends Repository {
 
         do_action( 'directorist_after_order_update', $dto );
 
+        return $update;
+    }
+
+    public function update_status( int $order_id, string $status ) {
+        $dto    = ( new DTO )->set_id( $order_id )->set_status( $status );
+        $update = $this->update( $dto );
         return $update;
     }
 

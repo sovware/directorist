@@ -66,6 +66,15 @@
     }
     $('#atbdp-checkout-form').on('submit', function (e) {
       e.preventDefault();
+
+      // Show loading state
+      var submitBtn = $('#atbdp_checkout_submit_btn');
+      var btnText = submitBtn.find('.directorist-btn-text');
+      var btnSpinner = submitBtn.find('.directorist-btn-spinner');
+      var originalText = btnText.text();
+      submitBtn.prop('disabled', true);
+      btnText.text(submitBtn.data('loading-text'));
+      btnSpinner.show();
       var formData = new FormData(this);
       var data = Object.fromEntries(formData);
       try {
@@ -80,6 +89,10 @@
         });
       } catch (error) {
         console.log(error);
+        // Reset loading state on error
+        submitBtn.prop('disabled', false);
+        btnText.text(originalText);
+        btnSpinner.hide();
       }
     });
   });

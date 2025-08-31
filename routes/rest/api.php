@@ -9,8 +9,12 @@ use Directorist\App\Http\Controllers\Admin\RefundController;
 use Directorist\WpMVC\Routing\Route;
 
 
-Route::post( 'checkout', [CheckoutController::class, 'checkout'] );
-Route::post( 'retry-payment', [CheckoutController::class, 'retry_payment'] );
+Route::group(
+    'checkout', function() {
+        Route::post( '/', [CheckoutController::class, 'checkout'] );
+        Route::post( 'retry-payment', [CheckoutController::class, 'retry_payment'] );
+    }
+);
 
 Route::group(
     'admin', function() {

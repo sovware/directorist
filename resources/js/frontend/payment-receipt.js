@@ -4,7 +4,7 @@
             var order_id = $(this).data('order-id');
 			try {
 				wp.apiFetch({
-					path: '/directorist/retry-payment',
+					path: '/directorist/checkout/retry-payment',
 					method: 'POST',
 					data: {
 						order_id: order_id

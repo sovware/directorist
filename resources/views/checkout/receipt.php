@@ -4,6 +4,7 @@
  * @since   7.0
  * @version 7.7.0
  */
+use Directorist\App\Enums\Payment\Status;
 use Directorist\Helper;
 use Directorist\App\DTO\Order\DTO;
 use Directorist\App\DTO\Payment\DTO as PaymentDTO;
@@ -13,8 +14,8 @@ use Directorist\App\Enums\Order\Status as OrderStatus;
  * @var DTO $order
  * @var ?PaymentDTO $payment
  */
-
 $order_items = apply_filters( 'directorist_payment_receipt_order_items', [], $order, $payment );
+
 ?>
 
 <div id="directorist" class="atbd_wrapper directorist directory_wrapper single_area directorist-w-100">
@@ -52,26 +53,21 @@ $order_items = apply_filters( 'directorist_payment_receipt_order_items', [], $or
                                     <td class="directorist-payment-table__label"><?php esc_html_e( 'Transaction ID', 'directorist' ); ?></td>
                                     <td><?php echo isset( $payment ) ? esc_html( $payment->get_transaction_id() ) : 'NIL'; ?></td>
                                 </tr>
+                                <?php if ( $payment ) { ?>
                                 <tr>
                                     <td class="directorist-payment-table__label"><?php esc_html_e( 'Payment Method', 'directorist' ); ?></td>
                                     <td>
                                         <?php
-                                        if ( empty( $payment ) ) {
-                                            esc_html_e( 'Free', 'directorist' );
-                                        } else {
                                             $gw_title = get_directorist_option( "{$payment->get_method()}_title" );
-                                            echo ! empty( $gw_title ) ? esc_html( $gw_title ) : esc_html( $payment->get_method() );   
-                                        }
+                                            echo ! empty( $gw_title ) ? esc_html( $gw_title ) : esc_html( $payment->get_method() );
                                         ?>
                                     </td>
                                 </tr>
+                                <?php } ?>
                                 <tr>
                                     <td class="directorist-payment-table__label"><?php esc_html_e( 'Payment Status', 'directorist' ); ?></td>
                                     <td>
-                                        <?php
-                                            $status = isset( $payment ) ? $payment->get_status() : 'Invalid';
-                                            echo esc_html( atbdp_get_payment_status_i18n( $status ) );
-                                        ?>
+                                        <?php echo Status::get_i18n( $order->get_status() ); ?>
                                     </td>
                                 </tr>
                                 <tr>
@@ -149,7 +145,7 @@ $order_items = apply_filters( 'directorist_payment_receipt_order_items', [], $or
                 ?>
                 <div class="directorist-text-center directorist-mt-30"><a href="<?php echo esc_url( $url ); ?>" class="directorist-btn directorist-btn-lg directorist-btn-view-listing"><?php echo esc_attr( $text ); ?></a></div>
                 <?php
-                    $is_retry                 = $order->get_amount() > 0 && in_array( $order->get_status(), [OrderStatus::PENDING, OrderStatus::FAILED] );
+                    $is_retry                 = $payment && $order->get_amount() > 0 && in_array( $order->get_status(), [OrderStatus::PENDING, OrderStatus::FAILED] );
                     $is_allowed_retry_payment = apply_filters( 'directorist_payment_receipt_is_allowed_retry_payment', $is_retry, $payment, $order );
 
                 if ( $is_allowed_retry_payment ) {

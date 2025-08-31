@@ -1520,7 +1520,14 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
                 'site_name'      => $site_name,
             ];
 
-            do_action( 'directorist_email_on_send_contact_messaage_to_listing_owner', $action_args );
+            /**
+             * Fires after a contact message is sent to the listing owner.
+             *
+             * @since 8.4.6
+             *
+             * @param array $action_args Arguments related to the sent contact message.
+             */
+            do_action( 'directorist_email_on_send_contact_message_to_listing_owner', $action_args );
 
             return $is_sent;
         }
@@ -1595,7 +1602,14 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
                 'site_name'     => $site_name,
             ];
 
-            do_action( 'directorist_email_on_send_contact_messaage_to_admin', $action_args );
+            /**
+             * Fires after a contact message is sent to the site administrator from a listing.
+             *
+             * @since 8.4.6
+             *
+             * @param array $action_args Arguments related to the sent contact message.
+             */
+            do_action( 'directorist_email_on_send_contact_message_to_admin', $action_args );
 
             return $is_sent;
         }

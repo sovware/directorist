@@ -50,6 +50,8 @@
 
             <Container
               @drop="onElementsDrop($event, placeholder_index)"
+              @drag-start="onSettingsDragStart($event, placeholder_index)"
+              @drag-end="onSettingsDragEnd"
               group-name="settings-widgets"
               drag-handle-selector=".drag-handle"
               :get-child-payload="
@@ -62,6 +64,9 @@
                 ) in placeholder.acceptedWidgets"
                 :key="widget_index"
                 :data="{ widget_key }"
+                :class="{
+                  dragging: currentSettingsDraggingWidgetKey === widget_key,
+                }"
               >
                 <div
                   class="cptm-elements-settings__group__single"
@@ -185,6 +190,8 @@
         </div>
         <Container
           @drop="onDrop"
+          @drag-start="onDragStart"
+          @drag-end="onDragEnd"
           drag-handle-selector=".cptm-drag-element"
           class="cptm-preview-placeholder__card__item cptm-preview-placeholder__card__item--bottom"
           :get-child-payload="(index) => getChildPayload(index)"
@@ -193,6 +200,9 @@
             v-for="(placeholderItem, index) in placeholders"
             :key="index"
             v-if="placeholderItem.type == 'placeholder_item'"
+            :class="{
+              dragging: currentDraggingIndex === placeholderItem.placeholderKey,
+            }"
           >
             <div class="draggable-item">
               <div class="cptm-drag-element uil uil-draggabledots"></div>
@@ -521,7 +531,9 @@ export default {
         widget: "",
       },
 
-      currentDraggingWidget: { origin: {}, key: "" },
+      // Dragging State
+      currentDraggingIndex: null,
+      currentSettingsDraggingWidgetKey: null,
 
       // Available Widgets
       available_widgets: {},
@@ -551,7 +563,66 @@ export default {
 
     // getChildPayload
     getChildPayload(index) {
-      return this.placeholders[index];
+      // Filter only placeholder_item types since the Container only shows those
+      const draggablePlaceholders = this.placeholders.filter(
+        (placeholder) => placeholder.type === "placeholder_item",
+      );
+
+      return draggablePlaceholders[index];
+    },
+
+    // Handle drag start event
+    onDragStart(dragResult) {
+      // Get the dragged item from the payload
+      const draggedItem = dragResult.payload;
+
+      if (draggedItem && draggedItem.placeholderKey) {
+        this.currentDraggingIndex = draggedItem.placeholderKey;
+      }
+    },
+
+    // Handle drag end event
+    onDragEnd() {
+      this.currentDraggingIndex = null;
+    },
+
+    // Handle settings drag start event
+    onSettingsDragStart(dragResult, placeholderIndex) {
+      // Get the dragged item from the payload
+      const draggedItem = dragResult.payload;
+      console.log("Settings drag started:", {
+        dragResult,
+        draggedItem,
+        placeholderIndex,
+      });
+
+      if (
+        draggedItem &&
+        draggedItem.draggedItemIndex !== undefined &&
+        draggedItem.placeholderIndex !== undefined
+      ) {
+        // Ensure we get a string widget key, not an object
+        const widgetKey = draggedItem.widgetKey;
+        this.currentSettingsDraggingWidgetKey =
+          typeof widgetKey === "object"
+            ? widgetKey.widget_key || widgetKey.key
+            : widgetKey;
+      }
+    },
+
+    // Handle settings drag end event
+    onSettingsDragEnd() {
+      this.currentSettingsDraggingWidgetKey = null;
+
+      // Remove dragging class from all dndrop-draggable-wrapper elements
+      this.$nextTick(() => {
+        const draggableWrappers = document.querySelectorAll(
+          ".dndrop-draggable-wrapper",
+        );
+        draggableWrappers.forEach((wrapper) => {
+          wrapper.classList.remove("dragging");
+        });
+      });
     },
 
     // Handle the drop event
@@ -607,10 +678,42 @@ export default {
 
     // Get the payload for the settings child
     getSettingsChildPayload(draggedItemIndex, placeholderIndex) {
+      const widgetKey =
+        this.allPlaceholderItems[placeholderIndex]?.acceptedWidgets[
+          draggedItemIndex
+        ];
+      console.log("getSettingsChildPayload:", {
+        draggedItemIndex,
+        placeholderIndex,
+        widgetKey,
+        widgetKeyType: typeof widgetKey,
+        allPlaceholderItems: this.allPlaceholderItems,
+        acceptedWidgets:
+          this.allPlaceholderItems[placeholderIndex]?.acceptedWidgets,
+        specificWidget:
+          this.allPlaceholderItems[placeholderIndex]?.acceptedWidgets[
+            draggedItemIndex
+          ],
+      });
+
+      // Extract the actual widget key string from the object
+      const extractedWidgetKey =
+        typeof widgetKey === "object"
+          ? widgetKey.widget_key || widgetKey.key
+          : widgetKey;
+
+      console.log("Extracted widget key:", {
+        original: widgetKey,
+        extracted: extractedWidgetKey,
+        extractedType: typeof extractedWidgetKey,
+      });
+
       // Return the payload containing both pieces of data
       return {
         draggedItemIndex: draggedItemIndex,
         placeholderIndex: placeholderIndex,
+        // Extract the actual widget key string from the object
+        widgetKey: extractedWidgetKey,
       };
     },
 

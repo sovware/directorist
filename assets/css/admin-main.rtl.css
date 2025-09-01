@@ -15690,6 +15690,9 @@ input:-webkit-autofill:active {
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
 }
+.cptm-section.listings_card_grid_view .cptm-form-field-wrapper .cptm-card-preview-widget .cptm-listing-card-preview-header .cptm-placeholder-block, .cptm-section.listings_card_list_view .cptm-form-field-wrapper .cptm-card-preview-widget .cptm-listing-card-preview-header .cptm-placeholder-block {
+  padding: 4px;
+}
 .cptm-section.listings_card_grid_view .cptm-form-field-wrapper .cptm-placeholder-block, .cptm-section.listings_card_list_view .cptm-form-field-wrapper .cptm-placeholder-block {
   background: #f3f4f6;
   border: 1.5px dashed #a1a9b2;
@@ -18245,7 +18248,7 @@ input[type=radio].cptm-radio {
 }
 
 .cptm-placeholder-block {
-  padding: 4px;
+  padding: 8px;
   position: relative;
   background: #a1a9b2;
   border: 1.5px dashed #a1a9b2;
@@ -20395,6 +20398,9 @@ input[type=radio]:checked::before {
   border-radius: 6px;
   border: 1.15px solid #e5e7eb;
 }
+.cptm-preview-placeholder__card__item .dndrop-draggable-wrapper.dragging {
+  opacity: 0;
+}
 .cptm-preview-placeholder__card__item .cptm-widget-actions-tools-wrap:before {
   display: none;
 }
@@ -20440,6 +20446,20 @@ input[type=radio]:checked::before {
   font-weight: 500;
   color: #383f47;
   background-color: #e5e7eb;
+}
+.cptm-preview-placeholder__card__box .cptm-widget-title-card-wrap {
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+.cptm-preview-placeholder__card__box .cptm-widget-title-card-wrap .cptm-widget-title-card {
+  font-size: 22px;
+}
+.cptm-preview-placeholder__card__box.listing-title-placeholder {
+  padding: 12px 16px;
 }
 .cptm-preview-placeholder__card__content {
   width: 100%;
@@ -21039,6 +21059,9 @@ input[type=radio]:checked::before {
 .cptm-elements-settings__group .dndrop-draggable-wrapper {
   position: relative;
   overflow: visible !important;
+}
+.cptm-elements-settings__group .dndrop-draggable-wrapper.dragging {
+  opacity: 0;
 }
 .cptm-elements-settings__group:last-child {
   border-bottom: none;
@@ -22994,6 +23017,9 @@ input[type=radio]:checked::before {
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
 }
+.cptm-section.listings_card_grid_view .cptm-form-field-wrapper .cptm-card-preview-widget .cptm-listing-card-preview-header .cptm-placeholder-block, .cptm-section.listings_card_list_view .cptm-form-field-wrapper .cptm-card-preview-widget .cptm-listing-card-preview-header .cptm-placeholder-block {
+  padding: 4px;
+}
 .cptm-section.listings_card_grid_view .cptm-form-field-wrapper .cptm-placeholder-block, .cptm-section.listings_card_list_view .cptm-form-field-wrapper .cptm-placeholder-block {
   background: #f3f4f6;
   border: 1.5px dashed #a1a9b2;
@@ -25549,7 +25575,7 @@ input[type=radio].cptm-radio {
 }
 
 .cptm-placeholder-block {
-  padding: 4px;
+  padding: 8px;
   position: relative;
   background: #a1a9b2;
   border: 1.5px dashed #a1a9b2;
@@ -27699,6 +27725,9 @@ input[type=radio]:checked::before {
   border-radius: 6px;
   border: 1.15px solid #e5e7eb;
 }
+.cptm-preview-placeholder__card__item .dndrop-draggable-wrapper.dragging {
+  opacity: 0;
+}
 .cptm-preview-placeholder__card__item .cptm-widget-actions-tools-wrap:before {
   display: none;
 }
@@ -27744,6 +27773,20 @@ input[type=radio]:checked::before {
   font-weight: 500;
   color: #383f47;
   background-color: #e5e7eb;
+}
+.cptm-preview-placeholder__card__box .cptm-widget-title-card-wrap {
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+.cptm-preview-placeholder__card__box .cptm-widget-title-card-wrap .cptm-widget-title-card {
+  font-size: 22px;
+}
+.cptm-preview-placeholder__card__box.listing-title-placeholder {
+  padding: 12px 16px;
 }
 .cptm-preview-placeholder__card__content {
   width: 100%;
@@ -28343,6 +28386,9 @@ input[type=radio]:checked::before {
 .cptm-elements-settings__group .dndrop-draggable-wrapper {
   position: relative;
   overflow: visible !important;
+}
+.cptm-elements-settings__group .dndrop-draggable-wrapper.dragging {
+  opacity: 0;
 }
 .cptm-elements-settings__group:last-child {
   border-bottom: none;
@@ -30586,6 +30632,9 @@ input[type=radio]:checked::before {
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
 }
+.cptm-section.listings_card_grid_view .cptm-form-field-wrapper .cptm-card-preview-widget .cptm-listing-card-preview-header .cptm-placeholder-block, .cptm-section.listings_card_list_view .cptm-form-field-wrapper .cptm-card-preview-widget .cptm-listing-card-preview-header .cptm-placeholder-block {
+  padding: 4px;
+}
 .cptm-section.listings_card_grid_view .cptm-form-field-wrapper .cptm-placeholder-block, .cptm-section.listings_card_list_view .cptm-form-field-wrapper .cptm-placeholder-block {
   background: #f3f4f6;
   border: 1.5px dashed #a1a9b2;
@@ -33141,7 +33190,7 @@ input[type=radio].cptm-radio {
 }
 
 .cptm-placeholder-block {
-  padding: 4px;
+  padding: 8px;
   position: relative;
   background: #a1a9b2;
   border: 1.5px dashed #a1a9b2;
@@ -35291,6 +35340,9 @@ input[type=radio]:checked::before {
   border-radius: 6px;
   border: 1.15px solid #e5e7eb;
 }
+.cptm-preview-placeholder__card__item .dndrop-draggable-wrapper.dragging {
+  opacity: 0;
+}
 .cptm-preview-placeholder__card__item .cptm-widget-actions-tools-wrap:before {
   display: none;
 }
@@ -35336,6 +35388,20 @@ input[type=radio]:checked::before {
   font-weight: 500;
   color: #383f47;
   background-color: #e5e7eb;
+}
+.cptm-preview-placeholder__card__box .cptm-widget-title-card-wrap {
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+.cptm-preview-placeholder__card__box .cptm-widget-title-card-wrap .cptm-widget-title-card {
+  font-size: 22px;
+}
+.cptm-preview-placeholder__card__box.listing-title-placeholder {
+  padding: 12px 16px;
 }
 .cptm-preview-placeholder__card__content {
   width: 100%;
@@ -35935,6 +36001,9 @@ input[type=radio]:checked::before {
 .cptm-elements-settings__group .dndrop-draggable-wrapper {
   position: relative;
   overflow: visible !important;
+}
+.cptm-elements-settings__group .dndrop-draggable-wrapper.dragging {
+  opacity: 0;
 }
 .cptm-elements-settings__group:last-child {
   border-bottom: none;

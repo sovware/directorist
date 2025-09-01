@@ -108,6 +108,7 @@
             'cptm-widget-preview-container',
             { 'has-non-draggable-widgets': hasNonDraggableWidgets },
           ]"
+          v-if="!readOnly"
         >
           <Draggable
             v-for="(widget, widget_index) in displayedWidgets"
@@ -178,7 +179,25 @@
               </div>
             </div>
           </Draggable>
-        </Container>
+        </Container> 
+        <div
+          class="cptm-widget-preview-card"
+          v-for="(widget, widget_index) in displayedWidgets"
+          v-if="readOnly && hasValidWidget(widget)"
+        >
+          <component
+            :is="`${availableWidgets[widget].type}-card-widget`"
+            :class="{
+              'cptm-widget-card-disabled':
+                readOnly && !isWidgetSelected(widget),
+            }"
+            :label="getWidgetLabel(widget)"
+            :icon="getWidgetIcon(widget)"
+            :widgetKey="widget"
+            :disabled="readOnly && !isWidgetSelected(widget)"
+            :readOnly="readOnly"
+          />
+        </div>
       </div>
     </div>
 

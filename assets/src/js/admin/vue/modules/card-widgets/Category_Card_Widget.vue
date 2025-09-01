@@ -7,7 +7,7 @@
     >
       <span class="cptm-widget-badge-icon" :class="displayIcon" v-if="displayIcon"></span>
       <span class="cptm-widget-badge-label" v-if="label">{{ label }}</span>
-      <span class="cptm-widget-badge-trash" @click.stop="$emit('trash')">
+      <span class="cptm-widget-badge-trash" @click.stop="$emit('trash')" v-if="!readOnly">
         <span class="las la-times"></span>
       </span>
     </div>

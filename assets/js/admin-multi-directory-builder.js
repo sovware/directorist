@@ -23481,10 +23481,9 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         animation: "cptm-animation-flip",
         widget: ""
       },
-      currentDraggingWidget: {
-        origin: {},
-        key: ""
-      },
+      // Dragging State
+      currentDraggingIndex: null,
+      currentSettingsDraggingWidgetKey: null,
       // Available Widgets
       available_widgets: {},
       // Active Widgets
@@ -23508,7 +23507,50 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     },
     // getChildPayload
     getChildPayload: function getChildPayload(index) {
-      return this.placeholders[index];
+      // Filter only placeholder_item types since the Container only shows those
+      var draggablePlaceholders = this.placeholders.filter(function (placeholder) {
+        return placeholder.type === "placeholder_item";
+      });
+      return draggablePlaceholders[index];
+    },
+    // Handle drag start event
+    onDragStart: function onDragStart(dragResult) {
+      // Get the dragged item from the payload
+      var draggedItem = dragResult.payload;
+      if (draggedItem && draggedItem.placeholderKey) {
+        this.currentDraggingIndex = draggedItem.placeholderKey;
+      }
+    },
+    // Handle drag end event
+    onDragEnd: function onDragEnd() {
+      this.currentDraggingIndex = null;
+    },
+    // Handle settings drag start event
+    onSettingsDragStart: function onSettingsDragStart(dragResult, placeholderIndex) {
+      // Get the dragged item from the payload
+      var draggedItem = dragResult.payload;
+      console.log("Settings drag started:", {
+        dragResult: dragResult,
+        draggedItem: draggedItem,
+        placeholderIndex: placeholderIndex
+      });
+      if (draggedItem && draggedItem.draggedItemIndex !== undefined && draggedItem.placeholderIndex !== undefined) {
+        // Ensure we get a string widget key, not an object
+        var widgetKey = draggedItem.widgetKey;
+        this.currentSettingsDraggingWidgetKey = (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__["default"])(widgetKey) === "object" ? widgetKey.widget_key || widgetKey.key : widgetKey;
+      }
+    },
+    // Handle settings drag end event
+    onSettingsDragEnd: function onSettingsDragEnd() {
+      this.currentSettingsDraggingWidgetKey = null;
+
+      // Remove dragging class from all dndrop-draggable-wrapper elements
+      this.$nextTick(function () {
+        var draggableWrappers = document.querySelectorAll(".dndrop-draggable-wrapper");
+        draggableWrappers.forEach(function (wrapper) {
+          wrapper.classList.remove("dragging");
+        });
+      });
     },
     // Handle the drop event
     onDrop: function onDrop(dropResult) {
@@ -23563,10 +23605,32 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     },
     // Get the payload for the settings child
     getSettingsChildPayload: function getSettingsChildPayload(draggedItemIndex, placeholderIndex) {
+      var _this$allPlaceholderI, _this$allPlaceholderI2, _this$allPlaceholderI3;
+      var widgetKey = (_this$allPlaceholderI = this.allPlaceholderItems[placeholderIndex]) === null || _this$allPlaceholderI === void 0 ? void 0 : _this$allPlaceholderI.acceptedWidgets[draggedItemIndex];
+      console.log("getSettingsChildPayload:", {
+        draggedItemIndex: draggedItemIndex,
+        placeholderIndex: placeholderIndex,
+        widgetKey: widgetKey,
+        widgetKeyType: (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__["default"])(widgetKey),
+        allPlaceholderItems: this.allPlaceholderItems,
+        acceptedWidgets: (_this$allPlaceholderI2 = this.allPlaceholderItems[placeholderIndex]) === null || _this$allPlaceholderI2 === void 0 ? void 0 : _this$allPlaceholderI2.acceptedWidgets,
+        specificWidget: (_this$allPlaceholderI3 = this.allPlaceholderItems[placeholderIndex]) === null || _this$allPlaceholderI3 === void 0 ? void 0 : _this$allPlaceholderI3.acceptedWidgets[draggedItemIndex]
+      });
+
+      // Extract the actual widget key string from the object
+      var extractedWidgetKey = (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__["default"])(widgetKey) === "object" ? widgetKey.widget_key || widgetKey.key : widgetKey;
+      console.log("Extracted widget key:", {
+        original: widgetKey,
+        extracted: extractedWidgetKey,
+        extractedType: (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__["default"])(extractedWidgetKey)
+      });
+
       // Return the payload containing both pieces of data
       return {
         draggedItemIndex: draggedItemIndex,
-        placeholderIndex: placeholderIndex
+        placeholderIndex: placeholderIndex,
+        // Extract the actual widget key string from the object
+        widgetKey: extractedWidgetKey
       };
     },
     // Handle the drop event on elements
@@ -23577,7 +23641,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       var draggedItemIndex = payload.draggedItemIndex,
         placeholderIndex = payload.placeholderIndex;
       if (removedIndex !== null || addedIndex !== null) {
-        var _this$allPlaceholderI;
+        var _this$allPlaceholderI4;
         var destinationItemIndex;
         var destinationPlaceholderIndex;
         var sourceItemIndex = draggedItemIndex;
@@ -23591,7 +23655,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         }
 
         // Get the widget key from the source placeholder
-        var widgetKey = (_this$allPlaceholderI = this.allPlaceholderItems[sourcePlaceholderIndex]) === null || _this$allPlaceholderI === void 0 ? void 0 : _this$allPlaceholderI.acceptedWidgets[draggedItemIndex];
+        var widgetKey = (_this$allPlaceholderI4 = this.allPlaceholderItems[sourcePlaceholderIndex]) === null || _this$allPlaceholderI4 === void 0 ? void 0 : _this$allPlaceholderI4.acceptedWidgets[draggedItemIndex];
         if (widgetKey !== undefined) {
           if (sourcePlaceholderIndex === destinationPlaceholderIndex) {
             // Moving within the same placeholder
@@ -27407,7 +27471,7 @@ var render = function render() {
     staticClass: "las la-plus"
   })]) : _vm._e()])])]) : _vm._e(), _vm._v(" "), _vm.hasDisplayedWidgets ? _c('div', {
     staticClass: "cptm-widget-preview-area"
-  }, [_c('Container', {
+  }, [!_vm.readOnly ? _c('Container', {
     class: ['cptm-widget-preview-container', {
       'has-non-draggable-widgets': _vm.hasNonDraggableWidgets
     }],
@@ -27498,7 +27562,23 @@ var render = function render() {
         "close": _vm.handleOptionsWindowClose
       }
     }, 'options-window', _vm.widgetOptionsWindow, false))], 1) : _vm._e()], 1)]) : _vm._e();
-  }), 1)], 1) : _vm._e()]), _vm._v(" "), _vm.enable_widget ? _c('span', {
+  }), 1) : _vm._e(), _vm._v(" "), _vm._l(_vm.displayedWidgets, function (widget, widget_index) {
+    return _vm.readOnly && _vm.hasValidWidget(widget) ? _c('div', {
+      staticClass: "cptm-widget-preview-card"
+    }, [_c("".concat(_vm.availableWidgets[widget].type, "-card-widget"), {
+      tag: "component",
+      class: {
+        'cptm-widget-card-disabled': _vm.readOnly && !_vm.isWidgetSelected(widget)
+      },
+      attrs: {
+        "label": _vm.getWidgetLabel(widget),
+        "icon": _vm.getWidgetIcon(widget),
+        "widgetKey": widget,
+        "disabled": _vm.readOnly && !_vm.isWidgetSelected(widget),
+        "readOnly": _vm.readOnly
+      }
+    })], 1) : _vm._e();
+  })], 2) : _vm._e()]), _vm._v(" "), _vm.enable_widget ? _c('span', {
     staticClass: "cptm-widget-card-status",
     class: _vm.hasSelectedWidgets ? 'enabled' : 'disabled',
     style: {
@@ -28803,7 +28883,7 @@ var render = function render() {
     style: {
       color: ((_vm$fields5 = _vm.fields) === null || _vm$fields5 === void 0 || (_vm$fields5 = _vm$fields5.text) === null || _vm$fields5 === void 0 || (_vm$fields5 = _vm$fields5.text_color) === null || _vm$fields5 === void 0 ? void 0 : _vm$fields5.value) || ''
     }
-  }, [_vm._v(_vm._s(_vm.label))]) : _vm._e(), _vm._v(" "), _c('span', {
+  }, [_vm._v(_vm._s(_vm.label))]) : _vm._e(), _vm._v(" "), !_vm.readOnly ? _c('span', {
     staticClass: "cptm-widget-badge-trash",
     on: {
       "click": function click($event) {
@@ -28813,7 +28893,7 @@ var render = function render() {
     }
   }, [_c('span', {
     staticClass: "las la-times"
-  })])])])]);
+  })]) : _vm._e()])])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -28845,7 +28925,7 @@ var render = function render() {
     class: _vm.displayIcon
   }) : _vm._e(), _vm._v(" "), _vm.label ? _c('span', {
     staticClass: "cptm-widget-badge-label"
-  }, [_vm._v(_vm._s(_vm.label))]) : _vm._e(), _vm._v(" "), _c('span', {
+  }, [_vm._v(_vm._s(_vm.label))]) : _vm._e(), _vm._v(" "), !_vm.readOnly ? _c('span', {
     staticClass: "cptm-widget-badge-trash",
     on: {
       "click": function click($event) {
@@ -28855,7 +28935,7 @@ var render = function render() {
     }
   }, [_c('span', {
     staticClass: "las la-times"
-  })])])]);
+  })]) : _vm._e()])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -28887,7 +28967,7 @@ var render = function render() {
     class: _vm.displayIcon
   }) : _vm._e(), _vm._v(" "), _vm.label ? _c('span', {
     staticClass: "cptm-widget-badge-label"
-  }, [_vm._v(_vm._s(_vm.label))]) : _vm._e(), _vm._v(" "), _c('span', {
+  }, [_vm._v(_vm._s(_vm.label))]) : _vm._e(), _vm._v(" "), !_vm.readOnly ? _c('span', {
     staticClass: "cptm-widget-badge-trash",
     on: {
       "click": function click($event) {
@@ -28897,7 +28977,7 @@ var render = function render() {
     }
   }, [_c('span', {
     staticClass: "las la-times"
-  })])])]);
+  })]) : _vm._e()])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -28929,7 +29009,7 @@ var render = function render() {
     class: _vm.displayIcon
   }) : _vm._e(), _vm._v(" "), _vm.label ? _c('span', {
     staticClass: "cptm-widget-badge-label"
-  }, [_vm._v(_vm._s(_vm.label))]) : _vm._e(), _vm._v(" "), _c('span', {
+  }, [_vm._v(_vm._s(_vm.label))]) : _vm._e(), _vm._v(" "), !_vm.readOnly ? _c('span', {
     staticClass: "cptm-widget-badge-trash",
     on: {
       "click": function click($event) {
@@ -28939,7 +29019,7 @@ var render = function render() {
     }
   }, [_c('span', {
     staticClass: "las la-times"
-  })])])]);
+  })]) : _vm._e()])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -28971,7 +29051,7 @@ var render = function render() {
     class: _vm.displayIcon
   }) : _vm._e(), _vm._v(" "), _vm.label ? _c('span', {
     staticClass: "cptm-widget-badge-label"
-  }, [_vm._v(_vm._s(_vm.label))]) : _vm._e(), _vm._v(" "), _c('span', {
+  }, [_vm._v(_vm._s(_vm.label))]) : _vm._e(), _vm._v(" "), !_vm.readOnly ? _c('span', {
     staticClass: "cptm-widget-badge-trash",
     on: {
       "click": function click($event) {
@@ -28981,7 +29061,7 @@ var render = function render() {
     }
   }, [_c('span', {
     staticClass: "las la-times"
-  })])])]);
+  })]) : _vm._e()])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -29074,7 +29154,7 @@ var render = function render() {
     class: _vm.displayIcon
   }) : _vm._e(), _vm._v(" "), _vm.label ? _c('span', {
     staticClass: "cptm-widget-badge-label"
-  }, [_vm._v(_vm._s(_vm.label))]) : _vm._e(), _vm._v(" "), _c('span', {
+  }, [_vm._v(_vm._s(_vm.label))]) : _vm._e(), _vm._v(" "), !_vm.readOnly ? _c('span', {
     staticClass: "cptm-widget-badge-trash",
     on: {
       "click": function click($event) {
@@ -29084,7 +29164,7 @@ var render = function render() {
     }
   }, [_c('span', {
     staticClass: "las la-times"
-  })])])]);
+  })]) : _vm._e()])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -29116,7 +29196,7 @@ var render = function render() {
     class: _vm.displayIcon
   }) : _vm._e(), _vm._v(" "), _vm.label ? _c('span', {
     staticClass: "cptm-widget-badge-label"
-  }, [_vm._v(_vm._s(_vm.label))]) : _vm._e(), _vm._v(" "), _c('span', {
+  }, [_vm._v(_vm._s(_vm.label))]) : _vm._e(), _vm._v(" "), !_vm.readOnly ? _c('span', {
     staticClass: "cptm-widget-badge-trash",
     on: {
       "click": function click($event) {
@@ -29126,7 +29206,7 @@ var render = function render() {
     }
   }, [_c('span', {
     staticClass: "las la-times"
-  })])])]);
+  })]) : _vm._e()])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -29168,7 +29248,7 @@ var render = function render() {
     }
   }, [_c('span', {
     staticClass: "las la-cog"
-  })]) : _vm._e(), _vm._v(" "), _c('span', {
+  })]) : _vm._e(), _vm._v(" "), !_vm.readOnly ? _c('span', {
     staticClass: "cptm-widget-badge-trash",
     on: {
       "click": function click($event) {
@@ -29178,7 +29258,7 @@ var render = function render() {
     }
   }, [_c('span', {
     staticClass: "las la-times"
-  })])])]);
+  })]) : _vm._e()])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -29220,7 +29300,7 @@ var render = function render() {
     }
   }, [_c('span', {
     staticClass: "las la-cog"
-  })]) : _vm._e(), _vm._v(" "), _c('span', {
+  })]) : _vm._e(), _vm._v(" "), !_vm.readOnly ? _c('span', {
     staticClass: "cptm-widget-badge-trash",
     on: {
       "click": function click($event) {
@@ -29230,7 +29310,7 @@ var render = function render() {
     }
   }, [_c('span', {
     staticClass: "las la-times"
-  })])])]);
+  })]) : _vm._e()])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -29421,7 +29501,7 @@ var render = function render() {
     class: _vm.displayIcon
   }) : _vm._e(), _vm._v(" "), _c('span', {
     staticClass: "cptm-widget-badge-label"
-  }, [_vm._v("\n      " + _vm._s(_vm.label) + "\n    ")]), _vm._v(" "), _c('span', {
+  }, [_vm._v("\n      " + _vm._s(_vm.label) + "\n    ")]), _vm._v(" "), !_vm.readOnly ? _c('span', {
     staticClass: "cptm-widget-badge-trash",
     on: {
       "click": function click($event) {
@@ -29431,7 +29511,7 @@ var render = function render() {
     }
   }, [_c('span', {
     staticClass: "las la-times"
-  })])])]);
+  })]) : _vm._e()])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -32851,12 +32931,19 @@ var render = function render() {
       on: {
         "drop": function drop($event) {
           return _vm.onElementsDrop($event, placeholder_index);
-        }
+        },
+        "drag-start": function dragStart($event) {
+          return _vm.onSettingsDragStart($event, placeholder_index);
+        },
+        "drag-end": _vm.onSettingsDragEnd
       }
     }, _vm._l(placeholder.acceptedWidgets, function (widget_key, widget_index) {
       var _placeholder$selected, _placeholder$accepted;
       return _c('Draggable', {
         key: widget_index,
+        class: {
+          dragging: _vm.currentSettingsDraggingWidgetKey === widget_key
+        },
         attrs: {
           "data": {
             widget_key: widget_key
@@ -32962,11 +33049,16 @@ var render = function render() {
       }
     },
     on: {
-      "drop": _vm.onDrop
+      "drop": _vm.onDrop,
+      "drag-start": _vm.onDragStart,
+      "drag-end": _vm.onDragEnd
     }
   }, _vm._l(_vm.placeholders, function (placeholderItem, index) {
     return placeholderItem.type == 'placeholder_item' ? _c('Draggable', {
-      key: index
+      key: index,
+      class: {
+        dragging: _vm.currentDraggingIndex === placeholderItem.placeholderKey
+      }
     }, [_c('div', {
       staticClass: "draggable-item"
     }, [_c('div', {

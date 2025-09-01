@@ -2028,7 +2028,7 @@ class Builder_Data {
                     'acceptedWidgets' => ['listing_title'],
                 ],
                 'quick_actions' => [
-                    'maxWidget'       => 2,
+                    'maxWidget'       => 1,
                     'acceptedWidgets' => ['favorite_badge'],
                 ],
                 'quick_info'    => [
@@ -2055,7 +2055,7 @@ class Builder_Data {
 
             'footer' => [
                 'right' => [
-                    'maxWidget'       => 2,
+                    'maxWidget'       => 1,
                     'acceptedWidgets' => ['category', 'favorite_badge', 'view_count'],
                 ],
 

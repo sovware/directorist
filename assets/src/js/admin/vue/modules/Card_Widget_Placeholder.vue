@@ -179,7 +179,7 @@
               </div>
             </div>
           </Draggable>
-        </Container> 
+        </Container>
         <div
           class="cptm-widget-preview-card"
           v-for="(widget, widget_index) in displayedWidgets"
@@ -530,106 +530,64 @@ export default {
       console.log("Drop result:", dropResult);
       console.log("Drag axis:", this.dragAxis);
 
-      // Clear all drag states on drop
+      // Clear all drag states
       this.draggingWidget = null;
       this.dragOverWidget = null;
       this.dragEndWidget = null;
 
       const { removedIndex, addedIndex } = dropResult;
-
       if (removedIndex === null || addedIndex === null) return;
 
-      // Only allow reordering if drag and drop is enabled, not in read-only mode, and has multiple widgets
+      // Only allow reordering if drag-and-drop is enabled, not read-only, and has multiple widgets
       if (!this.canDragAndDrop || this.readOnly || !this.hasMultipleWidgets)
         return;
 
-      // Get the widget that was moved from the drop result
       const movedWidgetKey = this.displayedWidgets[removedIndex];
-
-      // Prevent dragging of non-draggable widgets
       if (this.isNonDraggableWidget(movedWidgetKey)) {
         console.log("Cannot drag non-draggable widget:", movedWidgetKey);
         return;
       }
 
-      // Clone the array (no mutation)
-      const updatedWidgets = [...this.selectedWidgets];
+      // Clone array to avoid mutation
+      const widgetsCopy = [...this.selectedWidgets];
 
-      // Ensure listing_title stays at index 0
-      const listingTitleIndex = updatedWidgets.indexOf("listing_title");
-      if (listingTitleIndex > 0) {
-        // If listing_title is not at index 0, move it back to first position
-        const [listingTitle] = updatedWidgets.splice(listingTitleIndex, 1);
-        updatedWidgets.unshift(listingTitle);
+      // Separate listing_title if it exists
+      let listingTitle = null;
+      const listingIndex = widgetsCopy.indexOf("listing_title");
+      if (listingIndex > -1) {
+        [listingTitle] = widgetsCopy.splice(listingIndex, 1);
       }
 
-      // For horizontal dragging, we need to handle the position calculation differently
+      // Determine target index for insertion
+      let targetIndex = addedIndex;
+
+      // Horizontal drag adjustments
       if (this.dragAxis === "x") {
-        console.log(
-          "Horizontal dragging - removing from index:",
-          removedIndex,
-          "adding at index:",
-          addedIndex,
-        );
-        console.log("Original array:", [...this.selectedWidgets]);
+        console.log("Horizontal drag - original array:", widgetsCopy);
 
-        // For horizontal dragging, we need to ensure the item moves only horizontally
-        // and doesn't jump to the top temporarily
-
-        // Remove item from old position
-        const [movedItem] = updatedWidgets.splice(removedIndex, 1);
-        console.log("Moved item:", movedItem);
-        console.log("Array after removal:", [...updatedWidgets]);
-
-        // Calculate the correct horizontal position
-        let targetIndex = addedIndex;
-
-        // Ensure we don't place items before listing_title if it exists
-        if (updatedWidgets[0] === "listing_title" && targetIndex === 0) {
-          targetIndex = 1;
-        }
-
-        // For horizontal dragging, ensure the item moves smoothly without jumping
-        // Calculate the actual horizontal position based on the drag distance
-        if (this.dragAxis === "x") {
-          // Prevent the item from jumping to the top
-          // The targetIndex should represent the horizontal position, not vertical
-          targetIndex = Math.max(
-            1,
-            Math.min(targetIndex, updatedWidgets.length),
-          );
-        }
-
-        // Add item at new position
-        updatedWidgets.splice(targetIndex, 0, movedItem);
-        console.log("Final array:", updatedWidgets);
-      } else {
-        // Vertical dragging (default behavior)
-        console.log(
-          "Vertical dragging - removing from index:",
-          removedIndex,
-          "adding at index:",
-          addedIndex,
-        );
-
-        // Remove item from old position
-        const [movedItem] = updatedWidgets.splice(removedIndex, 1);
-
-        // Add item at new position
-        updatedWidgets.splice(addedIndex, 0, movedItem);
+        // Clamp targetIndex within array bounds
+        targetIndex = Math.max(0, Math.min(targetIndex, widgetsCopy.length));
       }
 
-      // Final check: ensure listing_title is always at index 0
-      const finalListingTitleIndex = updatedWidgets.indexOf("listing_title");
-      if (finalListingTitleIndex > 0) {
-        const [listingTitle] = updatedWidgets.splice(finalListingTitleIndex, 1);
-        updatedWidgets.unshift(listingTitle);
+      // Vertical drag adjustments (default)
+      else {
+        console.log("Vertical drag - original array:", widgetsCopy);
+        targetIndex = Math.max(0, Math.min(targetIndex, widgetsCopy.length));
       }
 
-      // Emit to parent to update the selectedWidgets prop
-      this.$emit("update", updatedWidgets);
+      // Remove moved item and insert at new position
+      const [movedItem] = widgetsCopy.splice(removedIndex, 1);
+      widgetsCopy.splice(targetIndex, 0, movedItem);
 
-      return;
+      // Prepend listing_title back if it existed
+      if (listingTitle) {
+        widgetsCopy.unshift(listingTitle);
+      }
+
+      console.log("Final array after drop:", widgetsCopy);
+
+      // Emit updated array to parent
+      this.$emit("update", widgetsCopy);
     },
   },
 

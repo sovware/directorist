@@ -6,7 +6,6 @@ defined( "ABSPATH" ) || exit;
 
 use Directorist\App\Enums\Order\Status;
 use Directorist\App\DTO\Order\DTO;
-use Directorist\App\Enums\Order\Type;
 use Directorist\WpMVC\View\View;
 use Directorist\WpMVC\Contracts\Provider;
 use Directorist\WpMVC\RequestValidator\Validator;
@@ -82,7 +81,7 @@ class FeaturedListingCheckoutServiceProvider implements Provider {
         if ( $checkout_type !== self::CHECKOUT_TYPE ) return;
 
         $amount = get_directorist_option( 'featured_listing_price' );
-        $dto->set_listing_id( $request->get_param( 'listing_id' ) )->set_is_featured_listing( 1 )->set_amount( $amount )->set_final_amount( $amount )->set_type( Type::ONE_TIME );
+        $dto->set_listing_id( $request->get_param( 'listing_id' ) )->set_is_featured_listing( 1 )->set_amount( $amount )->set_final_amount( $amount );
     }
 
     public function handle_before_order_update( DTO $dto ) {

@@ -57,7 +57,6 @@ class OrderController {
         $dto = ( new DTO )
             ->set_user_id( $request->get_param( "user_id" ) )
             ->set_listing_id( $request->get_param( "listing_id" ) )
-            ->set_type( $request->get_param( "type" ) )
             ->set_amount( $request->get_param( "amount" ) )
             ->set_currency( $request->get_param( "currency" ) )
             ->set_status( $request->get_param( "status" ) )            ;

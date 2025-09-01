@@ -467,7 +467,7 @@ class Schema {
             $phone = '+' . substr( $phone, 2 );
         }
 
-        if ( $phone[0] !== '+' ) {
+        if ( ! empty( $phone ) && $phone[0] !== '+' ) {
             $phone = static::get_country_code() . $phone;
         }
 

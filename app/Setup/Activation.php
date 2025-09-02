@@ -4,7 +4,6 @@ namespace Directorist\App\Setup;
 
 defined( "ABSPATH" ) || exit;
 
-use Directorist\App\Enums\Order\Type as OrderType;
 use Directorist\App\Enums\Order\Status as OrderStatus;
 use Directorist\App\Enums\Payment\Status as PaymentStatus;
 use Directorist\App\Enums\Refund\Status as RefundStatus;
@@ -29,7 +28,6 @@ class Activation {
                 $table->integer( "listing_id" )->nullable();
                 $table->integer( "plan_id" )->nullable();
                 $table->tiny_integer( "is_featured_listing" )->default( 0 );
-                $table->enum( "type", OrderType::all() )->default( OrderType::ONE_TIME );
                 $table->decimal( "amount", 10, 2 )->default( 0.00 );
                 $table->string( "currency", 10 )->default( "USD" );
                 $table->decimal( "coupon_discount", 10, 2 )->default( 0.00 );

@@ -1,6 +1,6 @@
-/*!******************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-4.use[1]!./node_modules/resolve-url-loader/index.js!./node_modules/postcss-loader/src/index.js??clonedRuleSet-4.use[3]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-4.use[4]!./assets/src/scss/layout/public/main-style.scss ***!
-  \******************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/.pnpm/css-loader@3.6.0_webpack@5.101.3/node_modules/css-loader/dist/cjs.js??clonedRuleSet-4.use[1]!./node_modules/.pnpm/resolve-url-loader@3.1.5/node_modules/resolve-url-loader/index.js!./node_modules/.pnpm/postcss-loader@3.0.0/node_modules/postcss-loader/src/index.js??clonedRuleSet-4.use[3]!./node_modules/.pnpm/sass-loader@16.0.5_sass@1.89.0_webpack@5.101.3/node_modules/sass-loader/dist/cjs.js??clonedRuleSet-4.use[4]!./assets/src/scss/layout/public/main-style.scss ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /* typography */
 @-webkit-keyframes rotate360 {
   0% {
@@ -14898,6 +14898,9 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
   font-weight: var(--directorist-fw-medium);
 }
 .directorist-taxonomy-list-one .directorist-taxonomy-list__card--icon {
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
   -webkit-padding-start: 12px;
           padding-inline-start: 12px;
 }
@@ -23009,6 +23012,20 @@ Review: New Style
   margin: 7px;
   max-width: none;
   width: auto;
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  gap: 8px;
 }
 @media (max-width: 1399px) {
   .directorist-payment-action .directorist-btn {
@@ -23020,7 +23037,50 @@ Review: New Style
     padding: 0 30px;
   }
 }
+.directorist-payment-action .directorist-btn .directorist-btn-text {
+  display: inline-block;
+}
+.directorist-payment-action .directorist-btn .directorist-btn-spinner {
+  display: none;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.directorist-payment-action .directorist-btn .directorist-btn-spinner .directorist-spinner {
+  -webkit-animation: directorist-spin 1s linear infinite;
+          animation: directorist-spin 1s linear infinite;
+}
+.directorist-payment-action .directorist-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
 
+@-webkit-keyframes directorist-spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(-360deg);
+            transform: rotate(-360deg);
+  }
+}
+
+@keyframes directorist-spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(-360deg);
+            transform: rotate(-360deg);
+  }
+}
 .directorist-summery-total .directorist-summery-label,
 .directorist-summery-total .directorist-summery-amount {
   font-size: 18px;

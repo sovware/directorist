@@ -25,4 +25,25 @@ class Status {
             self::EXPIRED,
         ];
     }
+
+    public static function get_i18n( $status ) {
+        switch ( $status ) {
+            case self::PENDING:
+                return esc_html__( 'Pending', 'directorist' );
+            case self::PAID:
+                return esc_html__( 'Paid', 'directorist' );
+            case self::FAILED:
+                return esc_html__( 'Failed', 'directorist' );
+            case self::CANCELLED:
+                return esc_html__( 'Cancelled', 'directorist' );
+            case self::REFUNDED:
+                return esc_html__( 'Refunded', 'directorist' );
+            case self::UNPAID:
+                return esc_html__( 'Unpaid', 'directorist' );
+            case self::EXPIRED:
+                return esc_html__( 'Expired', 'directorist' );
+            default:
+                return esc_html__( 'Invalid', 'directorist' );
+        }
+    }
 }

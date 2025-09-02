@@ -24,3 +24,20 @@ function directorist_get_checkout_types(): array {
 function directorist_price( $price ) {
     return atbdp_display_price( $price );
 }
+
+function directorist_currency(): string {
+    return atbdp_get_payment_currency();
+}
+
+function directorist_payment_failure_url( array $query_args = [] ) {
+    return add_query_arg( $query_args, ATBDP_Permalink::get_transaction_failure_page_link() );
+}
+
+function directorist_payment_receipt_page_link( $order_id ) {
+    return ATBDP_Permalink::get_payment_receipt_page_link( $order_id );
+}
+
+function directorist_get_order_by_id( $order_id ) {
+    $order_repository = directorist_order_repository();
+    return $order_repository->get_by_id( $order_id );
+}

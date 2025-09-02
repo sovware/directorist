@@ -19,8 +19,6 @@ class DTO extends \Directorist\WpMVC\DTO\DTO {
 
     private ?int $is_featured_listing;
 
-    private string $type;
-
     private float $amount;
 
     private string $currency;
@@ -163,28 +161,6 @@ class DTO extends \Directorist\WpMVC\DTO\DTO {
      */
     public function set_is_featured_listing( ?int $is_featured_listing ): self {
         $this->is_featured_listing = $is_featured_listing;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of type
-     *
-     * @return string
-     */
-    public function get_type(): string {
-        return $this->type;
-    }
-
-    /**
-     * Set the value of type
-     *
-     * @param string $type 
-     *
-     * @return self
-     */
-    public function set_type( string $type ): self {
-        $this->type = $type;
 
         return $this;
     }

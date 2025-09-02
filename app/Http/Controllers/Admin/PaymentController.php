@@ -2,8 +2,6 @@
 
 namespace Directorist\App\Http\Controllers\Admin;
 
-use Directorist\App\Models\Post;
-
 defined( "ABSPATH" ) || exit;
 
 use Directorist\App\DTO\Payment\DTO;

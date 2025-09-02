@@ -185,6 +185,14 @@
   .gm-style-iw-chr {
     display: none;
   }
+
+  .atbd_map_shape {
+    .directorist-icon-mask:after{
+      mask: url("../../../../icons/font-awesome/svgs/solid/map-pin.svg");
+      mask-repeat: no-repeat;
+      mask-position: center;
+    }
+  }
 }
 
 // Listing Card in Map

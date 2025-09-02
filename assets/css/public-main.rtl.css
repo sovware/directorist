@@ -17964,6 +17964,14 @@ input.directorist-toggle-input:checked + .directorist-toggle-input-label span.di
 .directorist-single-map .gm-style-iw-chr {
   display: none;
 }
+.directorist-single-map .atbd_map_shape .directorist-icon-mask:after {
+  -webkit-mask: url(../js/../images/ed83bad2b8ea2a7680575ff079fc63af.svg);
+          mask: url(../js/../images/ed83bad2b8ea2a7680575ff079fc63af.svg);
+  -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+          mask-position: center;
+}
 
 .map-listing-card-single {
   position: relative;

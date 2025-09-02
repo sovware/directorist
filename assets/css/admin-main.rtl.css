@@ -15632,7 +15632,6 @@ input:-webkit-autofill:active {
 .cptm-section {
   position: relative;
   margin-bottom: 50px;
-  z-index: 10;
 }
 .cptm-section.submission_form_fields .cptm-form-builder-active-fields-container {
   height: 100%;
@@ -21190,7 +21189,6 @@ input[type=radio]:checked::before {
 .cptm-section {
   position: relative;
   margin-bottom: 50px;
-  z-index: 10;
 }
 .cptm-section.submission_form_fields .cptm-form-builder-active-fields-container {
   height: 100%;
@@ -27036,7 +27034,6 @@ input[type=radio]:checked::before {
 .cptm-section {
   position: relative;
   margin-bottom: 50px;
-  z-index: 10;
 }
 .cptm-section.submission_form_fields .cptm-form-builder-active-fields-container {
   height: 100%;

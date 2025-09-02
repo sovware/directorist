@@ -15757,7 +15757,7 @@ __webpack_require__.r(__webpack_exports__);
       };
     },
     // Handle drag start for smooth transitions
-    onDragStart: function onDragStart(dragResult) {
+    onWidgetDragStart: function onWidgetDragStart(dragResult) {
       var payload = dragResult.payload;
       console.log("Drag started:", payload);
 
@@ -15778,14 +15778,14 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     // Handle drag over to show drop target
-    onDragOver: function onDragOver(dragResult) {
+    onWidgetDragOver: function onWidgetDragOver(dragResult) {
       var payload = dragResult.payload;
       if (payload && payload.id) {
         this.dragOverWidget = payload.id;
       }
     },
     // Handle drag end to reset drag states
-    onDragEnd: function onDragEnd() {
+    onWidgetDragEnd: function onWidgetDragEnd() {
       var _this5 = this;
       console.log("Drag ended, resetting drag states");
 
@@ -15806,7 +15806,7 @@ __webpack_require__.r(__webpack_exports__);
       var addedIndex = dropResult.addedIndex;
 
       // Don't allow dropping at index 0 (where listing_title should always be)
-      if (addedIndex === 0) {
+      if (addedIndex === 0 && !this.canDragAndDrop) {
         return false;
       }
 
@@ -17370,6 +17370,11 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 
       // Add item at new position
       updatedWidgets.splice(addedIndex, 0, movedItem);
+      console.log("onElementsDrop", {
+        updatedWidgets: updatedWidgets,
+        removedIndex: removedIndex,
+        addedIndex: addedIndex
+      });
 
       // Emit to parent to update prop
       this.$emit("update", {
@@ -27377,7 +27382,7 @@ var render = function render() {
     staticClass: "las la-plus"
   })]) : _vm._e()])])]) : _vm._e(), _vm._v(" "), _vm.hasDisplayedWidgets ? _c('div', {
     staticClass: "cptm-widget-preview-area"
-  }, [!_vm.readOnly ? _c('Container', {
+  }, [!_vm.readOnly && _vm.canDragAndDrop ? _c('div', [_c('Container', {
     class: ['cptm-widget-preview-container', {
       'has-non-draggable-widgets': _vm.hasNonDraggableWidgets
     }],
@@ -27394,9 +27399,9 @@ var render = function render() {
       "drop": function drop($event) {
         return _vm.onWidgetsDrop($event);
       },
-      "drag-start": _vm.onDragStart,
-      "drag-end": _vm.onDragEnd,
-      "drag-over": _vm.onDragOver
+      "drag-start": _vm.onWidgetDragStart,
+      "drag-end": _vm.onWidgetDragEnd,
+      "drag-over": _vm.onWidgetDragOver
     }
   }, _vm._l(_vm.displayedWidgets, function (widget, widget_index) {
     return _vm.hasValidWidget(widget) ? _c('Draggable', {
@@ -27468,7 +27473,38 @@ var render = function render() {
         "close": _vm.handleOptionsWindowClose
       }
     }, 'options-window', _vm.widgetOptionsWindow, false))], 1) : _vm._e()], 1)]) : _vm._e();
-  }), 1) : _vm._e(), _vm._v(" "), _vm._l(_vm.displayedWidgets, function (widget, widget_index) {
+  }), 1)], 1) : _vm._e(), _vm._v(" "), !_vm.canDragAndDrop && !_vm.readOnly ? _c('div', {
+    staticClass: "cptm-widget-preview-container"
+  }, _vm._l(_vm.displayedWidgets, function (widget, widget_index) {
+    return _vm.hasValidWidget(widget) ? _c('div', {
+      key: widget_index,
+      staticClass: "cptm-widget-preview-card no-dndrop"
+    }, [_c("".concat(_vm.availableWidgets[widget].type, "-card-widget"), {
+      tag: "component",
+      class: {
+        'cptm-widget-card-disabled': _vm.readOnly && !_vm.isWidgetSelected(widget)
+      },
+      attrs: {
+        "label": _vm.getWidgetLabel(widget),
+        "icon": _vm.getWidgetIcon(widget),
+        "widgetKey": widget,
+        "options": _vm.getWidgetOptions(widget),
+        "fields": _vm.getWidgetFields(widget),
+        "disabled": _vm.readOnly && !_vm.isWidgetSelected(widget),
+        "readOnly": _vm.readOnly,
+        "activeWidgets": _vm.activeWidgets
+      },
+      on: {
+        "trash": function trash($event) {
+          return _vm.$emit('trash-widget', widget);
+        },
+        "edit": function edit($event) {
+          return _vm.editWidget($event);
+        },
+        "update": _vm.handleActiveWidgetUpdate
+      }
+    })], 1) : _vm._e();
+  }), 0) : _vm._e(), _vm._v(" "), _vm._l(_vm.displayedWidgets, function (widget, widget_index) {
     return _vm.readOnly && _vm.hasValidWidget(widget) ? _c('div', {
       staticClass: "cptm-widget-preview-card"
     }, [_c("".concat(_vm.availableWidgets[widget].type, "-card-widget"), {
@@ -28512,9 +28548,8 @@ var render = function render() {
   }), 0) : _vm._e(), _vm._v(" "), Object.keys(_vm.widgetsList).length ? _c('Container', {
     staticClass: "cptm-form-builder-field-list",
     attrs: {
-      "lock-axis": "y",
-      "group-name": "card-widgets",
-      "drag-handle-selector": ".drag-handle"
+      "group-name": "card-widget-options",
+      "drag-handle-selector": ".options-drag-handle"
     },
     on: {
       "drop": function drop($event) {
@@ -28532,7 +28567,7 @@ var render = function render() {
     }, [_c('div', {
       staticClass: "cptm-form-builder-field-list-item-wrapper"
     }, [_c('span', {
-      staticClass: "cptm-form-builder-field-list-item-drag drag-handle"
+      staticClass: "cptm-form-builder-field-list-item-drag options-drag-handle"
     }, [_c('span', {
       staticClass: "uil uil-draggabledots"
     })]), _vm._v(" "), _c('span', {

@@ -33,9 +33,8 @@
 
       <Container
         @drop="onElementsDrop($event)"
-        lock-axis="y"
-        group-name="card-widgets"
-        drag-handle-selector=".drag-handle"
+        group-name="card-widget-options"
+        drag-handle-selector=".options-drag-handle"
         class="cptm-form-builder-field-list"
         v-if="Object.keys(widgetsList).length"
       >
@@ -45,7 +44,7 @@
           :data="{ widget }"
         >
           <div class="cptm-form-builder-field-list-item-wrapper">
-            <span class="cptm-form-builder-field-list-item-drag drag-handle">
+            <span class="cptm-form-builder-field-list-item-drag options-drag-handle">
               <span class="uil uil-draggabledots"></span>
             </span>
             <span class="cptm-form-builder-field-list-item">
@@ -393,6 +392,7 @@ export default {
 
       // Add item at new position
       updatedWidgets.splice(addedIndex, 0, movedItem);
+      console.log("onElementsDrop", {updatedWidgets, removedIndex, addedIndex});
 
       // Emit to parent to update prop
       this.$emit("update", { selectedWidgets: updatedWidgets });

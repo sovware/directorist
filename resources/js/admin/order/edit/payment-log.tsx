@@ -38,7 +38,7 @@ export default function PaymentLog({ order }: DetailsProps) {
                           true,
                         )}
                       </span>
-                      <p className="directorist-payment-log-description"></p>
+                      <p className="directorist-payment-log-description">This is dummy text should be replaced by the actual text</p>
                   </LogItem>
                 );
               })}

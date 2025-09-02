@@ -5,22 +5,23 @@ import { MenuItemsType } from '@wpmvc/dashboard/build-types/components/menu/type
 import React from 'react';
 import styled from 'styled-components';
 import validateField from '../controls/custom-field/validation';
+import DocIcon from '../icons/DocIcon';
+import QuestionCircleIcon from '../icons/QuestionCircleIcon';
 import Edit from './edit';
 import OrderTable from './order-table';
 
 const actionItems: MenuItemsType = {
 	documentation: {
-		label: 'Documentation',
+		label: 'Knowledge Base',
 		path: 'https://directorist.com/documentation/',
-		icon: <i className="la la-file"></i>
+		icon: <DocIcon />
 	},
 	support: {
-		label: 'Support',
+		label: 'Help & Support',
 		path: 'https://directorist.com/dashboard/#support',
-		icon: <i className="la la-question-circle"></i>
+		icon: <QuestionCircleIcon />
 	},
 	feedback: {
-		label: 'Feedback',
 		path: 'https://directorist.com/dashboard/#feedback',
 		icon: <i className="la la-comment"></i>
 	}

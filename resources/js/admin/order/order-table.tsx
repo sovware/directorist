@@ -98,18 +98,18 @@ const columns: Column[] = [
 export default function OrderTable() {
 	return (
 		<OrderTableContainer>
-		<Table
-			heading="Orders"
-			storeName="directorist/orders"
-			path="/directorist/admin/orders"
-			columns={ columns }
-			create={
-				{status: false}
-			}
-			edit={
-				{status: false}
-			}
-		/>
+			<Table
+				heading="Orders"
+				storeName="directorist/orders"
+				path="/directorist/admin/orders"
+				columns={ columns }
+				create={
+					{status: false}
+				}
+				edit={
+					{status: false}
+				}
+			/>
 		</OrderTableContainer>
 	);
 }

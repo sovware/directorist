@@ -22433,31 +22433,17 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
             selectedWidgets: []
           }
         },
-        top: {
-          quick_actions: {
-            label: "Quick Actions",
-            selectedWidgets: []
-          },
-          quick_info: {
-            label: "Quick Info",
-            selectedWidgets: []
-          }
-        },
         body: {
-          title: {
-            label: "Title",
+          top: {
+            label: "Body Top",
             selectedWidgets: []
           },
-          tagline: {
-            label: "Tagline",
-            selectedWidgets: []
-          },
-          rating: {
-            label: "Add Elements",
+          right: {
+            label: "Body Right",
             selectedWidgets: []
           },
           bottom: {
-            label: "Add Elements",
+            label: "Body Bottom",
             selectedWidgets: []
           }
         },
@@ -32381,8 +32367,8 @@ var render = function render() {
       "acceptedWidgets": _vm.local_layout.thumbnail.top_right.acceptedWidgets,
       "selectedWidgets": _vm.local_layout.thumbnail.top_right.selectedWidgets,
       "maxWidget": _vm.local_layout.thumbnail.top_right.maxWidget,
-      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('top_top_right'),
-      "showWidgetsOptionWindow": _vm.getActiveOptionWindowStatus('top_top_right'),
+      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_top_right'),
+      "showWidgetsOptionWindow": _vm.getActiveOptionWindowStatus('thumbnail_top_right'),
       "widgetOptionsWindow": _vm.widgetOptionsWindow
     },
     on: {
@@ -32396,10 +32382,10 @@ var render = function render() {
         return _vm.trashWidget($event, _vm.local_layout.thumbnail.top_right);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.toggleInsertWindow('top_top_right');
+        return _vm.toggleInsertWindow('thumbnail_top_right');
       },
       "open-widgets-option-window": function openWidgetsOptionWindow($event) {
-        return _vm.toggleOptionWindow('top_top_right');
+        return _vm.toggleOptionWindow('thumbnail_top_right');
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
@@ -32452,33 +32438,33 @@ var render = function render() {
     staticClass: "cptm-card-placeholder-top-left"
   }, [_c('card-widget-placeholder', {
     attrs: {
-      "id": "top_quick_actions",
+      "id": "thumbnail_body_top",
       "containerClass": "cptm-listing-card-quick-actions-placeholder cptm-mb-20",
-      "label": _vm.local_layout.top.quick_actions.label,
+      "label": _vm.local_layout.body.top.label,
       "availableWidgets": _vm.theAvailableWidgets,
       "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.top.quick_actions.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.top.quick_actions.selectedWidgets,
-      "maxWidget": _vm.local_layout.top.quick_actions.maxWidget,
-      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('top_quick_actions'),
-      "showWidgetsOptionWindow": _vm.getActiveOptionWindowStatus('top_quick_actions'),
+      "acceptedWidgets": _vm.local_layout.body.top.acceptedWidgets,
+      "selectedWidgets": _vm.local_layout.body.top.selectedWidgets,
+      "maxWidget": _vm.local_layout.body.top.maxWidget,
+      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_body_top'),
+      "showWidgetsOptionWindow": _vm.getActiveOptionWindowStatus('thumbnail_body_top'),
       "widgetOptionsWindow": _vm.widgetOptionsWindow
     },
     on: {
       "insert-widget": function insertWidget($event) {
-        return _vm.insertWidget($event, _vm.local_layout.top.quick_actions);
+        return _vm.insertWidget($event, _vm.local_layout.body.top);
       },
       "edit-widget": function editWidget($event) {
         return _vm.editWidget($event);
       },
       "trash-widget": function trashWidget($event) {
-        return _vm.trashWidget($event, _vm.local_layout.top.quick_actions);
+        return _vm.trashWidget($event, _vm.local_layout.body.top);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.toggleInsertWindow('top_quick_actions');
+        return _vm.toggleInsertWindow('thumbnail_body_top');
       },
       "open-widgets-option-window": function openWidgetsOptionWindow($event) {
-        return _vm.toggleOptionWindow('top_quick_actions');
+        return _vm.toggleOptionWindow('thumbnail_body_top');
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
@@ -32487,7 +32473,7 @@ var render = function render() {
         return _vm.closeOptionWindow();
       },
       "update": function update($event) {
-        return _vm.handleUpdateSelectedWidgets($event, 'local_layout.top.quick_actions');
+        return _vm.handleUpdateSelectedWidgets($event, 'local_layout.body.top');
       },
       "update-active-widget": _vm.handleActiveWidgetUpdate
     }
@@ -32495,33 +32481,33 @@ var render = function render() {
     staticClass: "cptm-card-placeholder-top-right"
   }, [_c('card-widget-placeholder', {
     attrs: {
-      "id": "top_quick_info",
+      "id": "thumbnail_body_right",
       "containerClass": "cptm-listing-card-quick-info-placeholder cptm-mb-20 cptm-text-right",
-      "label": _vm.local_layout.top.quick_info.label,
+      "label": _vm.local_layout.body.right.label,
       "availableWidgets": _vm.theAvailableWidgets,
       "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.top.quick_info.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.top.quick_info.selectedWidgets,
-      "maxWidget": _vm.local_layout.top.quick_info.maxWidget,
-      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('top_quick_info'),
-      "showWidgetsOptionWindow": _vm.getActiveOptionWindowStatus('top_quick_info'),
+      "acceptedWidgets": _vm.local_layout.body.right.acceptedWidgets,
+      "selectedWidgets": _vm.local_layout.body.right.selectedWidgets,
+      "maxWidget": _vm.local_layout.body.right.maxWidget,
+      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_body_right'),
+      "showWidgetsOptionWindow": _vm.getActiveOptionWindowStatus('thumbnail_body_right'),
       "widgetOptionsWindow": _vm.widgetOptionsWindow
     },
     on: {
       "insert-widget": function insertWidget($event) {
-        return _vm.insertWidget($event, _vm.local_layout.top.quick_info);
+        return _vm.insertWidget($event, _vm.local_layout.body.right);
       },
       "edit-widget": function editWidget($event) {
         return _vm.editWidget($event);
       },
       "trash-widget": function trashWidget($event) {
-        return _vm.trashWidget($event, _vm.local_layout.top.quick_info);
+        return _vm.trashWidget($event, _vm.local_layout.body.right);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.toggleInsertWindow('top_quick_info');
+        return _vm.toggleInsertWindow('thumbnail_body_right');
       },
       "open-widgets-option-window": function openWidgetsOptionWindow($event) {
-        return _vm.toggleOptionWindow('top_quick_info');
+        return _vm.toggleOptionWindow('thumbnail_body_right');
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
@@ -32530,37 +32516,13 @@ var render = function render() {
         return _vm.closeOptionWindow();
       },
       "update": function update($event) {
-        return _vm.handleUpdateSelectedWidgets($event, 'local_layout.top.quick_info');
+        return _vm.handleUpdateSelectedWidgets($event, 'local_layout.body.right');
       },
       "update-active-widget": _vm.handleActiveWidgetUpdate
     }
   })], 1)]), _vm._v(" "), _c('card-widget-placeholder', {
     attrs: {
-      "id": "body_title",
-      "containerClass": "cptm-listing-card-preview-top-placeholder cptm-mb-12 cptm-align-left",
-      "label": _vm.local_layout.body.title.label,
-      "enable_widget": _vm.local_layout.body.title.enable_widget,
-      "availableWidgets": _vm.theAvailableWidgets,
-      "activeWidgets": _vm.active_widgets,
-      "acceptedWidgets": _vm.local_layout.body.title.acceptedWidgets,
-      "selectedWidgets": _vm.local_layout.body.title.selectedWidgets,
-      "maxWidget": _vm.local_layout.body.title.maxWidget,
-      "widgetOptionsWindow": _vm.widgetOptionsWindow
-    },
-    on: {
-      "edit-widget": function editWidget($event) {
-        return _vm.editWidget($event);
-      },
-      "trash-widget": function trashWidget($event) {
-        return _vm.trashWidget($event, _vm.local_layout.body.title);
-      },
-      "toggle-widget-status": function toggleWidgetStatus($event) {
-        return _vm.toggleWidgetStatus(_vm.local_layout.body.title);
-      }
-    }
-  }), _vm._v(" "), _c('card-widget-placeholder', {
-    attrs: {
-      "id": "body_bottom",
+      "id": "thumbnail_body_bottom",
       "containerClass": "cptm-listing-card-preview-body-placeholder",
       "label": _vm.local_layout.body.bottom.label,
       "availableWidgets": _vm.theAvailableWidgets,
@@ -32568,8 +32530,8 @@ var render = function render() {
       "acceptedWidgets": _vm.local_layout.body.bottom.acceptedWidgets,
       "selectedWidgets": _vm.local_layout.body.bottom.selectedWidgets,
       "maxWidget": _vm.local_layout.body.bottom.maxWidget,
-      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('body_bottom'),
-      "showWidgetsOptionWindow": _vm.getActiveOptionWindowStatus('body_bottom'),
+      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_body_bottom'),
+      "showWidgetsOptionWindow": _vm.getActiveOptionWindowStatus('thumbnail_body_bottom'),
       "widgetOptionsWindow": _vm.widgetOptionsWindow
     },
     on: {
@@ -32583,10 +32545,10 @@ var render = function render() {
         return _vm.trashWidget($event, _vm.local_layout.body.bottom);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.toggleInsertWindow('body_bottom');
+        return _vm.toggleInsertWindow('thumbnail_body_bottom');
       },
       "open-widgets-option-window": function openWidgetsOptionWindow($event) {
-        return _vm.toggleOptionWindow('body_bottom');
+        return _vm.toggleOptionWindow('thumbnail_body_bottom');
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
@@ -32605,7 +32567,7 @@ var render = function render() {
     staticClass: "cptm-card-preview-footer-left"
   }, [_c('card-widget-placeholder', {
     attrs: {
-      "id": "footer_left",
+      "id": "thumbnail_footer_left",
       "containerClass": "cptm-listing-card-preview-footer-left-placeholder",
       "label": _vm.local_layout.footer.left.label,
       "availableWidgets": _vm.theAvailableWidgets,
@@ -32613,8 +32575,8 @@ var render = function render() {
       "acceptedWidgets": _vm.local_layout.footer.left.acceptedWidgets,
       "selectedWidgets": _vm.local_layout.footer.left.selectedWidgets,
       "maxWidget": _vm.local_layout.footer.left.maxWidget,
-      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('footer_left'),
-      "showWidgetsOptionWindow": _vm.getActiveOptionWindowStatus('footer_left'),
+      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_footer_left'),
+      "showWidgetsOptionWindow": _vm.getActiveOptionWindowStatus('thumbnail_footer_left'),
       "widgetOptionsWindow": _vm.widgetOptionsWindow
     },
     on: {
@@ -32628,10 +32590,10 @@ var render = function render() {
         return _vm.trashWidget($event, _vm.local_layout.footer.left);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.toggleInsertWindow('footer_left');
+        return _vm.toggleInsertWindow('thumbnail_footer_left');
       },
       "open-widgets-option-window": function openWidgetsOptionWindow($event) {
-        return _vm.toggleOptionWindow('footer_left');
+        return _vm.toggleOptionWindow('thumbnail_footer_left');
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
@@ -32648,7 +32610,7 @@ var render = function render() {
     staticClass: "cptm-card-preview-footer-right"
   }, [_c('card-widget-placeholder', {
     attrs: {
-      "id": "footer_right",
+      "id": "thumbnail_footer_right",
       "containerClass": "cptm-listing-card-preview-footer-right-placeholder",
       "label": _vm.local_layout.footer.right.label,
       "availableWidgets": _vm.theAvailableWidgets,
@@ -32656,8 +32618,8 @@ var render = function render() {
       "acceptedWidgets": _vm.local_layout.footer.right.acceptedWidgets,
       "selectedWidgets": _vm.local_layout.footer.right.selectedWidgets,
       "maxWidget": _vm.local_layout.footer.right.maxWidget,
-      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('footer_right'),
-      "showWidgetsOptionWindow": _vm.getActiveOptionWindowStatus('footer_right'),
+      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_footer_right'),
+      "showWidgetsOptionWindow": _vm.getActiveOptionWindowStatus('thumbnail_footer_right'),
       "widgetOptionsWindow": _vm.widgetOptionsWindow
     },
     on: {
@@ -32671,10 +32633,10 @@ var render = function render() {
         return _vm.trashWidget($event, _vm.local_layout.footer.right);
       },
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
-        return _vm.toggleInsertWindow('footer_right');
+        return _vm.toggleInsertWindow('thumbnail_footer_right');
       },
       "open-widgets-option-window": function openWidgetsOptionWindow($event) {
-        return _vm.toggleOptionWindow('footer_right');
+        return _vm.toggleOptionWindow('thumbnail_footer_right');
       },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();

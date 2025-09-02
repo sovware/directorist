@@ -3546,6 +3546,7 @@ input[type="radio"].cptm-radio {
     display: flex;
     flex-wrap: wrap;
     max-width: 100%;
+    height: 100%;
 
     .cptm-card-preview-thumbnail {
       height: 100%;
@@ -3553,14 +3554,11 @@ input[type="radio"].cptm-radio {
 
     .cptm-listing-card-preview-header {
       flex: 1;
-      min-width: 320px;
-      max-width: 500px;
-      min-height: 300px;
-
-      @media (max-width: 400px) {
-        min-width: 100%;
-        max-width: unset;
-      }
+      height: 100% !important;
+      max-width: 184px;
+      box-sizing: border-box;
+      align-items: stretch; 
+      border-radius: 4px 0 0 4px;
     }
 
     .cptm-widget-option-modal-container {
@@ -3670,7 +3668,7 @@ input[type="radio"].cptm-radio {
 
 .cptm-listing-card-preview-body {
   display: block;
-  padding: 62px 16px 24px;
+  padding: 16px;
   position: relative;
 }
 

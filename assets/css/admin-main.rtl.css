@@ -18396,6 +18396,7 @@ input[type=radio].cptm-radio {
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
   max-width: 100%;
+  height: 100%;
 }
 .cptm-card-preview-widget.cptm-card-list-view .cptm-card-preview-thumbnail {
   height: 100%;
@@ -18405,15 +18406,15 @@ input[type=radio].cptm-radio {
   -webkit-flex: 1;
       -ms-flex: 1;
           flex: 1;
-  min-width: 320px;
-  max-width: 500px;
-  min-height: 300px;
-}
-@media (max-width: 400px) {
-  .cptm-card-preview-widget.cptm-card-list-view .cptm-listing-card-preview-header {
-    min-width: 100%;
-    max-width: unset;
-  }
+  height: 100% !important;
+  max-width: 184px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-box-align: stretch;
+  -webkit-align-items: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+  border-radius: 0 4px 4px 0;
 }
 .cptm-card-preview-widget.cptm-card-list-view .cptm-widget-option-modal-container {
   top: unset;
@@ -18520,7 +18521,7 @@ input[type=radio].cptm-radio {
 
 .cptm-listing-card-preview-body {
   display: block;
-  padding: 62px 16px 24px;
+  padding: 16px;
   position: relative;
 }
 
@@ -25905,6 +25906,7 @@ input[type=radio].cptm-radio {
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
   max-width: 100%;
+  height: 100%;
 }
 .cptm-card-preview-widget.cptm-card-list-view .cptm-card-preview-thumbnail {
   height: 100%;
@@ -25914,15 +25916,15 @@ input[type=radio].cptm-radio {
   -webkit-flex: 1;
       -ms-flex: 1;
           flex: 1;
-  min-width: 320px;
-  max-width: 500px;
-  min-height: 300px;
-}
-@media (max-width: 400px) {
-  .cptm-card-preview-widget.cptm-card-list-view .cptm-listing-card-preview-header {
-    min-width: 100%;
-    max-width: unset;
-  }
+  height: 100% !important;
+  max-width: 184px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-box-align: stretch;
+  -webkit-align-items: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+  border-radius: 0 4px 4px 0;
 }
 .cptm-card-preview-widget.cptm-card-list-view .cptm-widget-option-modal-container {
   top: unset;
@@ -26029,7 +26031,7 @@ input[type=radio].cptm-radio {
 
 .cptm-listing-card-preview-body {
   display: block;
-  padding: 62px 16px 24px;
+  padding: 16px;
   position: relative;
 }
 
@@ -33702,6 +33704,7 @@ input[type=radio].cptm-radio {
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
   max-width: 100%;
+  height: 100%;
 }
 .cptm-card-preview-widget.cptm-card-list-view .cptm-card-preview-thumbnail {
   height: 100%;
@@ -33711,15 +33714,15 @@ input[type=radio].cptm-radio {
   -webkit-flex: 1;
       -ms-flex: 1;
           flex: 1;
-  min-width: 320px;
-  max-width: 500px;
-  min-height: 300px;
-}
-@media (max-width: 400px) {
-  .cptm-card-preview-widget.cptm-card-list-view .cptm-listing-card-preview-header {
-    min-width: 100%;
-    max-width: unset;
-  }
+  height: 100% !important;
+  max-width: 184px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-box-align: stretch;
+  -webkit-align-items: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+  border-radius: 0 4px 4px 0;
 }
 .cptm-card-preview-widget.cptm-card-list-view .cptm-widget-option-modal-container {
   top: unset;
@@ -33826,7 +33829,7 @@ input[type=radio].cptm-radio {
 
 .cptm-listing-card-preview-body {
   display: block;
-  padding: 62px 16px 24px;
+  padding: 16px;
   position: relative;
 }
 

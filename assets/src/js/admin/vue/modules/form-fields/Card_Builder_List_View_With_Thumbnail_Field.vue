@@ -25,10 +25,10 @@
                   "
                   :maxWidget="local_layout.thumbnail.top_right.maxWidget"
                   :showWidgetsPickerWindow="
-                    getActiveInsertWindowStatus('top_top_right')
+                    getActiveInsertWindowStatus('thumbnail_top_right')
                   "
                   :showWidgetsOptionWindow="
-                    getActiveOptionWindowStatus('top_top_right')
+                    getActiveOptionWindowStatus('thumbnail_top_right')
                   "
                   :widgetOptionsWindow="widgetOptionsWindow"
                   @insert-widget="
@@ -39,10 +39,10 @@
                     trashWidget($event, local_layout.thumbnail.top_right)
                   "
                   @open-widgets-picker-window="
-                    toggleInsertWindow('top_top_right')
+                    toggleInsertWindow('thumbnail_top_right')
                   "
                   @open-widgets-option-window="
-                    toggleOptionWindow('top_top_right')
+                    toggleOptionWindow('thumbnail_top_right')
                   "
                   @close-widgets-picker-window="closeInsertWindow()"
                   @close-widgets-option-window="closeOptionWindow()"
@@ -88,44 +88,44 @@
               <!-- cptm-placeholder-left-col -->
               <div class="cptm-card-placeholder-top-left">
                 <card-widget-placeholder
-                  id="top_quick_actions"
+                  id="thumbnail_body_top"
                   containerClass="cptm-listing-card-quick-actions-placeholder cptm-mb-20"
-                  :label="local_layout.top.quick_actions.label"
+                  :label="local_layout.body.top.label"
                   :availableWidgets="theAvailableWidgets"
                   :activeWidgets="active_widgets"
                   :acceptedWidgets="
-                    local_layout.top.quick_actions.acceptedWidgets
+                    local_layout.body.top.acceptedWidgets
                   "
                   :selectedWidgets="
-                    local_layout.top.quick_actions.selectedWidgets
+                    local_layout.body.top.selectedWidgets
                   "
-                  :maxWidget="local_layout.top.quick_actions.maxWidget"
+                  :maxWidget="local_layout.body.top.maxWidget"
                   :showWidgetsPickerWindow="
-                    getActiveInsertWindowStatus('top_quick_actions')
+                    getActiveInsertWindowStatus('thumbnail_body_top')
                   "
                   :showWidgetsOptionWindow="
-                    getActiveOptionWindowStatus('top_quick_actions')
+                    getActiveOptionWindowStatus('thumbnail_body_top')
                   "
                   :widgetOptionsWindow="widgetOptionsWindow"
                   @insert-widget="
-                    insertWidget($event, local_layout.top.quick_actions)
+                    insertWidget($event, local_layout.body.top)
                   "
                   @edit-widget="editWidget($event)"
                   @trash-widget="
-                    trashWidget($event, local_layout.top.quick_actions)
+                    trashWidget($event, local_layout.body.top)
                   "
                   @open-widgets-picker-window="
-                    toggleInsertWindow('top_quick_actions')
+                    toggleInsertWindow('thumbnail_body_top')
                   "
                   @open-widgets-option-window="
-                    toggleOptionWindow('top_quick_actions')
+                    toggleOptionWindow('thumbnail_body_top')
                   "
                   @close-widgets-picker-window="closeInsertWindow()"
                   @close-widgets-option-window="closeOptionWindow()"
                   @update="
                     handleUpdateSelectedWidgets(
                       $event,
-                      'local_layout.top.quick_actions',
+                      'local_layout.body.top',
                     )
                   "
                   @update-active-widget="handleActiveWidgetUpdate"
@@ -135,40 +135,40 @@
               <!-- cptm-placeholder-right-col -->
               <div class="cptm-card-placeholder-top-right">
                 <card-widget-placeholder
-                  id="top_quick_info"
+                  id="thumbnail_body_right"
                   containerClass="cptm-listing-card-quick-info-placeholder cptm-mb-20 cptm-text-right"
-                  :label="local_layout.top.quick_info.label"
+                  :label="local_layout.body.right.label"
                   :availableWidgets="theAvailableWidgets"
                   :activeWidgets="active_widgets"
-                  :acceptedWidgets="local_layout.top.quick_info.acceptedWidgets"
-                  :selectedWidgets="local_layout.top.quick_info.selectedWidgets"
-                  :maxWidget="local_layout.top.quick_info.maxWidget"
+                  :acceptedWidgets="local_layout.body.right.acceptedWidgets"
+                  :selectedWidgets="local_layout.body.right.selectedWidgets"
+                  :maxWidget="local_layout.body.right.maxWidget"
                   :showWidgetsPickerWindow="
-                    getActiveInsertWindowStatus('top_quick_info')
+                    getActiveInsertWindowStatus('thumbnail_body_right')
                   "
                   :showWidgetsOptionWindow="
-                    getActiveOptionWindowStatus('top_quick_info')
+                    getActiveOptionWindowStatus('thumbnail_body_right')
                   "
                   :widgetOptionsWindow="widgetOptionsWindow"
                   @insert-widget="
-                    insertWidget($event, local_layout.top.quick_info)
+                    insertWidget($event, local_layout.body.right)
                   "
                   @edit-widget="editWidget($event)"
                   @trash-widget="
-                    trashWidget($event, local_layout.top.quick_info)
+                    trashWidget($event, local_layout.body.right)
                   "
                   @open-widgets-picker-window="
-                    toggleInsertWindow('top_quick_info')
+                    toggleInsertWindow('thumbnail_body_right')
                   "
                   @open-widgets-option-window="
-                    toggleOptionWindow('top_quick_info')
+                    toggleOptionWindow('thumbnail_body_right')
                   "
                   @close-widgets-picker-window="closeInsertWindow()"
                   @close-widgets-option-window="closeOptionWindow()"
                   @update="
                     handleUpdateSelectedWidgets(
                       $event,
-                      'local_layout.top.quick_info',
+                      'local_layout.body.right',
                     )
                   "
                   @update-active-widget="handleActiveWidgetUpdate"
@@ -177,25 +177,7 @@
             </div>
 
             <card-widget-placeholder
-              id="body_title"
-              containerClass="cptm-listing-card-preview-top-placeholder cptm-mb-12 cptm-align-left"
-              :label="local_layout.body.title.label"
-              :enable_widget="local_layout.body.title.enable_widget"
-              :availableWidgets="theAvailableWidgets"
-              :activeWidgets="active_widgets"
-              :acceptedWidgets="local_layout.body.title.acceptedWidgets"
-              :selectedWidgets="local_layout.body.title.selectedWidgets"
-              :maxWidget="local_layout.body.title.maxWidget"
-              :widgetOptionsWindow="widgetOptionsWindow"
-              @edit-widget="editWidget($event)"
-              @trash-widget="trashWidget($event, local_layout.body.title)"
-              @toggle-widget-status="
-                toggleWidgetStatus(local_layout.body.title)
-              "
-            />
-
-            <card-widget-placeholder
-              id="body_bottom"
+              id="thumbnail_body_bottom"
               containerClass="cptm-listing-card-preview-body-placeholder"
               :label="local_layout.body.bottom.label"
               :availableWidgets="theAvailableWidgets"
@@ -204,17 +186,17 @@
               :selectedWidgets="local_layout.body.bottom.selectedWidgets"
               :maxWidget="local_layout.body.bottom.maxWidget"
               :showWidgetsPickerWindow="
-                getActiveInsertWindowStatus('body_bottom')
+                getActiveInsertWindowStatus('thumbnail_body_bottom')
               "
               :showWidgetsOptionWindow="
-                getActiveOptionWindowStatus('body_bottom')
+                getActiveOptionWindowStatus('thumbnail_body_bottom')
               "
               :widgetOptionsWindow="widgetOptionsWindow"
               @insert-widget="insertWidget($event, local_layout.body.bottom)"
               @edit-widget="editWidget($event)"
               @trash-widget="trashWidget($event, local_layout.body.bottom)"
-              @open-widgets-picker-window="toggleInsertWindow('body_bottom')"
-              @open-widgets-option-window="toggleOptionWindow('body_bottom')"
+              @open-widgets-picker-window="toggleInsertWindow('thumbnail_body_bottom')"
+              @open-widgets-option-window="toggleOptionWindow('thumbnail_body_bottom')"
               @close-widgets-picker-window="closeInsertWindow()"
               @close-widgets-option-window="closeOptionWindow()"
               @update="
@@ -229,7 +211,7 @@
             <!-- cptm-listing-card-preview-footer-left-placeholder -->
             <div class="cptm-card-preview-footer-left">
               <card-widget-placeholder
-                id="footer_left"
+                id="thumbnail_footer_left"
                 containerClass="cptm-listing-card-preview-footer-left-placeholder"
                 :label="local_layout.footer.left.label"
                 :availableWidgets="theAvailableWidgets"
@@ -238,17 +220,17 @@
                 :selectedWidgets="local_layout.footer.left.selectedWidgets"
                 :maxWidget="local_layout.footer.left.maxWidget"
                 :showWidgetsPickerWindow="
-                  getActiveInsertWindowStatus('footer_left')
+                  getActiveInsertWindowStatus('thumbnail_footer_left')
                 "
                 :showWidgetsOptionWindow="
-                  getActiveOptionWindowStatus('footer_left')
+                  getActiveOptionWindowStatus('thumbnail_footer_left')
                 "
                 :widgetOptionsWindow="widgetOptionsWindow"
                 @insert-widget="insertWidget($event, local_layout.footer.left)"
                 @edit-widget="editWidget($event)"
                 @trash-widget="trashWidget($event, local_layout.footer.left)"
-                @open-widgets-picker-window="toggleInsertWindow('footer_left')"
-                @open-widgets-option-window="toggleOptionWindow('footer_left')"
+                @open-widgets-picker-window="toggleInsertWindow('thumbnail_footer_left')"
+                @open-widgets-option-window="toggleOptionWindow('thumbnail_footer_left')"
                 @close-widgets-picker-window="closeInsertWindow()"
                 @close-widgets-option-window="closeOptionWindow()"
                 @update="
@@ -264,7 +246,7 @@
             <!-- cptm-listing-card-preview-footer-right-placeholder -->
             <div class="cptm-card-preview-footer-right">
               <card-widget-placeholder
-                id="footer_right"
+                id="thumbnail_footer_right"
                 containerClass="cptm-listing-card-preview-footer-right-placeholder"
                 :label="local_layout.footer.right.label"
                 :availableWidgets="theAvailableWidgets"
@@ -273,17 +255,17 @@
                 :selectedWidgets="local_layout.footer.right.selectedWidgets"
                 :maxWidget="local_layout.footer.right.maxWidget"
                 :showWidgetsPickerWindow="
-                  getActiveInsertWindowStatus('footer_right')
+                  getActiveInsertWindowStatus('thumbnail_footer_right')
                 "
                 :showWidgetsOptionWindow="
-                  getActiveOptionWindowStatus('footer_right')
+                  getActiveOptionWindowStatus('thumbnail_footer_right')
                 "
                 :widgetOptionsWindow="widgetOptionsWindow"
                 @insert-widget="insertWidget($event, local_layout.footer.right)"
                 @edit-widget="editWidget($event)"
                 @trash-widget="trashWidget($event, local_layout.footer.right)"
-                @open-widgets-picker-window="toggleInsertWindow('footer_right')"
-                @open-widgets-option-window="toggleOptionWindow('footer_right')"
+                @open-widgets-picker-window="toggleInsertWindow('thumbnail_footer_right')"
+                @open-widgets-option-window="toggleOptionWindow('thumbnail_footer_right')"
                 @close-widgets-picker-window="closeInsertWindow()"
                 @close-widgets-option-window="closeOptionWindow()"
                 @update="
@@ -513,35 +495,21 @@ export default {
           },
         },
 
-        top: {
-          quick_actions: {
-            label: "Quick Actions",
-            selectedWidgets: [],
-          },
-          quick_info: {
-            label: "Quick Info",
-            selectedWidgets: [],
-          },
-        },
-
         body: {
-          title: {
-            label: "Title",
+          top: {
+            label: "Body Top",
             selectedWidgets: [],
           },
-          tagline: {
-            label: "Tagline",
-            selectedWidgets: [],
-          },
-          rating: {
-            label: "Add Elements",
+          right: {
+            label: "Body Right",
             selectedWidgets: [],
           },
           bottom: {
-            label: "Add Elements",
+            label: "Body Bottom",
             selectedWidgets: [],
           },
         },
+        
 
         footer: {
           right: {

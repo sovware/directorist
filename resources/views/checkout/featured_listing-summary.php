@@ -25,11 +25,3 @@ defined( "ABSPATH" ) || exit;
         </div>
     </td>
 </tr>
-<tr class="directorist-summery-total">
-    <td colspan="2" class="">
-        <span class="directorist-summery-label"><?php printf( esc_html__( 'Total amount', 'directorist' ) ); ?></h4>
-    </td>
-    <td class="directorist-text-right">
-        <div id="atbdp_checkout_total_amount" class="directorist-summery-amount"><?php echo esc_html( directorist_price( $subtotal ) ) ?></div>
-    </td>
-</tr>

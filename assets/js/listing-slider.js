@@ -310,9 +310,11 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       if (sliderItemsCount.length <= 1) {
         swiperSingleListing.loopDestroy();
         swiperCarouselSingleListing.classList.add('slider-has-one-item');
-        if (swiperListingThumb) {
-          swiperListingThumb.style.display = 'none';
-        }
+      }
+
+      // Show thumbnail slider if slider has more items
+      if (swiperListingThumb && sliderItemsCount.length > 1) {
+        swiperListingThumb.style.display = 'block';
       }
 
       // Add Styles

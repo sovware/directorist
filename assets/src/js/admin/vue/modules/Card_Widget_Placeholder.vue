@@ -92,95 +92,93 @@
       </div>
 
       <div class="cptm-widget-preview-area" v-if="hasDisplayedWidgets">
-        <div v-if="!readOnly && canDragAndDrop">
-          <Container
-            @drop="onWidgetsDrop($event)"
-            @drag-start="onWidgetDragStart"
-            @drag-end="onWidgetDragEnd"
-            @drag-over="onWidgetDragOver"
-            :lock-axis="dragAxis"
-            :orientation="dragAxis === 'x' ? 'horizontal' : 'vertical'"
-            :data-orientation="dragAxis === 'x' ? 'horizontal' : 'vertical'"
-            group-name="card-widgets"
-            drag-handle-selector=".widget-drag-handle"
-            :should-accept-drop="shouldAcceptDrop"
-            :get-child-payload="getChildPayload"
+        <Container
+          @drop="onWidgetsDrop($event)"
+          @drag-start="onWidgetDragStart"
+          @drag-end="onWidgetDragEnd"
+          @drag-over="onWidgetDragOver"
+          :lock-axis="dragAxis"
+          :orientation="dragAxis === 'x' ? 'horizontal' : 'vertical'"
+          :data-orientation="dragAxis === 'x' ? 'horizontal' : 'vertical'"
+          group-name="card-widgets"
+          drag-handle-selector=".widget-drag-handle"
+          :get-child-payload="getChildPayload"
+          :class="[
+            'cptm-widget-preview-container',
+            { 'has-non-draggable-widgets': hasNonDraggableWidgets },
+          ]"
+          v-if="!readOnly && canDragAndDrop"
+        >
+          <Draggable
+            v-for="(widget, widget_index) in displayedWidgets"
+            :key="widget_index"
+            v-if="hasValidWidget(widget)"
+            :data="{ widget, index: widget_index }"
+            :data-widget="widget"
             :class="[
-              'cptm-widget-preview-container',
-              { 'has-non-draggable-widgets': hasNonDraggableWidgets },
+              `dndrop-draggable-wrapper dndrop-draggable-wrapper-${widget}`,
+              {
+                'is-dragging': isDragging(widget),
+                'is-drag-over': isDragOver(widget),
+                'is-drag-end': isDragEnd(widget),
+              },
             ]"
           >
-            <Draggable
-              v-for="(widget, widget_index) in displayedWidgets"
-              :key="widget_index"
-              v-if="hasValidWidget(widget)"
-              :data="{ widget, index: widget_index }"
-              :data-widget="widget"
-              :class="[
-                `dndrop-draggable-wrapper dndrop-draggable-wrapper-${widget}`,
-                {
-                  'is-dragging': isDragging(widget),
-                  'is-drag-over': isDragOver(widget),
-                  'is-drag-end': isDragEnd(widget),
-                },
-              ]"
+            <div
+              class="cptm-widget-preview-card"
+              :class="{
+                active: isWidgetActive(widget),
+                [`cptm-widget-preview-card-${widget}`]: true,
+                'non-draggable-widget': isNonDraggableWidget(widget),
+              }"
+              @click.prevent="editWidget(widget)"
             >
-              <div
-                class="cptm-widget-preview-card"
-                :class="{
-                  active: isWidgetActive(widget),
-                  [`cptm-widget-preview-card-${widget}`]: true,
-                  'non-draggable-widget': isNonDraggableWidget(widget),
-                }"
-                @click.prevent="editWidget(widget)"
+              <!-- Drag Handle -->
+              <span
+                class="cptm-widget-drag-handle widget-drag-handle"
+                v-if="
+                  canDragAndDrop &&
+                  !readOnly &&
+                  hasMultipleWidgets &&
+                  !isNonDraggableWidget(widget)
+                "
               >
-                <!-- Drag Handle -->
-                <span
-                  class="cptm-widget-drag-handle widget-drag-handle"
-                  v-if="
-                    canDragAndDrop &&
-                    !readOnly &&
-                    hasMultipleWidgets &&
-                    !isNonDraggableWidget(widget)
-                  "
-                >
-                  <span class="uil uil-draggabledots"></span>
-                </span>
+                <span class="uil uil-draggabledots"></span>
+              </span>
 
-                <component
-                  :is="`${availableWidgets[widget].type}-card-widget`"
-                  :class="{
-                    'cptm-widget-card-disabled':
-                      readOnly && !isWidgetSelected(widget),
-                  }"
-                  :label="getWidgetLabel(widget)"
-                  :icon="getWidgetIcon(widget)"
-                  :widgetKey="widget"
-                  :options="getWidgetOptions(widget)"
-                  :fields="getWidgetFields(widget)"
-                  :disabled="readOnly && !isWidgetSelected(widget)"
-                  :readOnly="readOnly"
-                  :activeWidgets="activeWidgets"
-                  @trash="$emit('trash-widget', widget)"
-                  @edit="editWidget($event)"
-                  @update="handleActiveWidgetUpdate"
+              <component
+                :is="`${availableWidgets[widget].type}-card-widget`"
+                :class="{
+                  'cptm-widget-card-disabled':
+                    readOnly && !isWidgetSelected(widget),
+                }"
+                :label="getWidgetLabel(widget)"
+                :icon="getWidgetIcon(widget)"
+                :widgetKey="widget"
+                :options="getWidgetOptions(widget)"
+                :fields="getWidgetFields(widget)"
+                :disabled="readOnly && !isWidgetSelected(widget)"
+                :readOnly="readOnly"
+                :activeWidgets="activeWidgets"
+                @trash="$emit('trash-widget', widget)"
+                @edit="editWidget($event)"
+                @update="handleActiveWidgetUpdate"
+              />
+
+              <div
+                v-if="shouldShowOptionsArea(widget)"
+                class="cptm-options-area"
+                @click.stop="handleModalClick"
+              >
+                <options-window
+                  :active="true"
+                  v-bind="widgetOptionsWindow"
+                  @close="handleOptionsWindowClose"
                 />
-
-                <div
-                  v-if="shouldShowOptionsArea(widget)"
-                  class="cptm-options-area"
-                  @click.stop="handleModalClick"
-                >
-                  <options-window
-                    :active="true"
-                    v-bind="widgetOptionsWindow"
-                    @close="handleOptionsWindowClose"
-                  />
-                </div>
               </div>
-            </Draggable>
-          </Container>
-        </div>
+            </div>
+          </Draggable>
+        </Container>
 
         <div
           class="cptm-widget-preview-container"
@@ -190,6 +188,7 @@
             v-for="(widget, widget_index) in displayedWidgets"
             :key="widget_index"
             class="cptm-widget-preview-card no-dndrop"
+            :class="`cptm-widget-preview-card-${widget}`"
             v-if="hasValidWidget(widget)"
           >
             <component
@@ -496,7 +495,10 @@ export default {
     // Handle drag start for smooth transitions
     onWidgetDragStart(dragResult) {
       const { payload } = dragResult;
-      console.log("Drag started:", payload);
+      console.log("Drag started:", {
+        payload,
+        selectedWidgets: this.selectedWidgets,
+      });
 
       // Set the dragging widget
       if (payload && payload.id) {
@@ -520,6 +522,7 @@ export default {
     // Handle drag over to show drop target
     onWidgetDragOver(dragResult) {
       const { payload } = dragResult;
+      console.log("Drag over:", payload);
       if (payload && payload.id) {
         this.dragOverWidget = payload.id;
       }
@@ -527,7 +530,7 @@ export default {
 
     // Handle drag end to reset drag states
     onWidgetDragEnd() {
-      console.log("Drag ended, resetting drag states");
+      console.log("Drag ended, resetting drag states", this.draggingWidget);
 
       // Set drag end state briefly before clearing
       if (this.draggingWidget) {
@@ -563,6 +566,7 @@ export default {
     onWidgetsDrop(dropResult) {
       console.log("Drop result:", dropResult);
       console.log("Drag axis:", this.dragAxis);
+      console.log("selectedWidgets:", this.selectedWidgets);
 
       // Clear all drag states
       this.draggingWidget = null;
@@ -592,13 +596,22 @@ export default {
         [listingTitle] = widgetsCopy.splice(listingIndex, 1);
       }
 
+      // Adjust indices after removing listing_title
+      let adjustedRemovedIndex = removedIndex;
+      let adjustedAddedIndex = addedIndex;
+
+      // If listing_title was at index 0 and we removed it, adjust the indices
+      if (listingIndex === 0) {
+        if (removedIndex > 0) adjustedRemovedIndex = removedIndex - 1;
+        if (addedIndex > 0) adjustedAddedIndex = addedIndex - 1;
+      }
+
       // Determine target index for insertion
-      let targetIndex = addedIndex;
+      let targetIndex = adjustedAddedIndex;
 
       // Horizontal drag adjustments
       if (this.dragAxis === "x") {
         console.log("Horizontal drag - original array:", widgetsCopy);
-
         // Clamp targetIndex within array bounds
         targetIndex = Math.max(0, Math.min(targetIndex, widgetsCopy.length));
       }
@@ -610,7 +623,7 @@ export default {
       }
 
       // Remove moved item and insert at new position
-      const [movedItem] = widgetsCopy.splice(removedIndex, 1);
+      const [movedItem] = widgetsCopy.splice(adjustedRemovedIndex, 1);
       widgetsCopy.splice(targetIndex, 0, movedItem);
 
       // Prepend listing_title back if it existed

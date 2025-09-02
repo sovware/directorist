@@ -4049,6 +4049,55 @@ input[type="radio"].cptm-radio {
   }
 }
 
+.list-view-without-thumbnail {
+  .cptm-card-preview-widget-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 20px;
+  }
+  .cptm-widget-preview-container {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    &.dndrop-container.horizontal {
+      display: flex;
+    }
+  }
+  .cptm-listing-card-preview-top {
+    display: flex;
+    gap: 8px;
+    .cptm-placeholder-block {
+      min-height: 60px !important;
+    }
+    .cptm-listing-card-preview-top-left {
+      flex: 1;
+      .dndrop-draggable-wrapper-listing_title {
+        flex: 0 0 100%;
+      }
+      .cptm-widget-preview-card-listing_title {
+        width: 100%;
+      }
+    }
+    .cptm-listing-card-preview-top-right {
+      width: 102px;
+    }
+  }
+  .cptm-listing-card-preview-body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 0;
+  }
+  .cptm-listing-card-preview-footer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0;
+  }
+}
+
 .cptm-card-placeholder-top {
   display: flex;
   gap: 12px;

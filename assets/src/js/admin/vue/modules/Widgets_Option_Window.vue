@@ -44,7 +44,7 @@
           :data="{ widget }"
         >
           <div class="cptm-form-builder-field-list-item-wrapper">
-            <span class="cptm-form-builder-field-list-item-drag options-drag-handle">
+            <span class="cptm-form-builder-field-list-item-drag options-drag-handle" v-if="Object.keys(widgetsList).length > 1">
               <span class="uil uil-draggabledots"></span>
             </span>
             <span class="cptm-form-builder-field-list-item">

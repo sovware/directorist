@@ -279,7 +279,6 @@
               id="thumbnail_body_top"
               containerClass="cptm-listing-card-preview-top-placeholder cptm-mb-12 cptm-align-left"
               :label="local_layout.body.top.label"
-              :enable_widget="local_layout.body.top.enable_widget"
               :availableWidgets="theAvailableWidgets"
               :activeWidgets="active_widgets"
               :acceptedWidgets="local_layout.body.top.acceptedWidgets"
@@ -506,10 +505,12 @@ export default {
             continue;
           }
 
-          for (let widget in layout[section][section_area].selectedWidgets) {
-            const widget_name =
-              layout[section][section_area].selectedWidgets[widget];
+          // Get unique widgets to prevent duplicates
+          const uniqueWidgets = [
+            ...new Set(layout[section][section_area].selectedWidgets),
+          ];
 
+          for (let widget_name of uniqueWidgets) {
             if (
               !this.active_widgets[widget_name] &&
               typeof this.active_widgets[widget_name] !== "object"
@@ -862,13 +863,19 @@ export default {
 
       // Load Selected Widgets Data
       for (let item of selectedWidgets) {
-        let length =
-          this.local_layout[item.section][item.area].selectedWidgets.length;
-        this.local_layout[item.section][item.area].selectedWidgets.splice(
-          length,
-          0,
-          item.widget,
-        );
+        const currentWidgets =
+          this.local_layout[item.section][item.area].selectedWidgets;
+
+        // Check if widget already exists to prevent duplicates
+        if (!currentWidgets.includes(item.widget)) {
+          // If it's listing_title, add as first item
+          if (item.widget === "listing_title") {
+            currentWidgets.unshift(item.widget);
+          } else {
+            // For other widgets, add to the end
+            currentWidgets.push(item.widget);
+          }
+        }
       }
     },
 
@@ -1005,6 +1012,7 @@ export default {
 
     // Insert Widget
     insertWidget(payload, where) {
+      console.log("insertWidget", { payload, where });
       if (!this.isTruthyObject(this.theAvailableWidgets[payload.key])) {
         return;
       }
@@ -1012,7 +1020,19 @@ export default {
       Vue.set(this.active_widgets, payload.key, {
         ...this.theAvailableWidgets[payload.key],
       });
-      Vue.set(where, "selectedWidgets", payload.selected_widgets);
+
+      // If payload.key is listing_title, insert as first item
+      if (payload.key === "listing_title") {
+        const currentWidgets = where.selectedWidgets || [];
+        // Remove any existing listing_title to avoid duplicates
+        const filteredWidgets = currentWidgets.filter(
+          (widget) => widget !== "listing_title",
+        );
+        const newWidgets = [payload.key, ...filteredWidgets];
+        Vue.set(where, "selectedWidgets", newWidgets);
+      } else {
+        Vue.set(where, "selectedWidgets", payload.selected_widgets);
+      }
     },
 
     // Close Insert Window

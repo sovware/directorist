@@ -5,121 +5,95 @@
       <div
         class="cptm-card-preview-widget cptm-card-list-view list-view-without-thumbnail"
       >
-        <div class="cptm-listing-card-content">
+        <div class="cptm-card-preview-widget-content">
           <!-- cptm-listing-card-preview-body -->
-          <div class="cptm-listing-card-preview-body">
-            <div class="cptm-card-placeholder-top">
-              <!-- cptm-placeholder-left-col -->
-              <div class="cptm-card-placeholder-top-left">
-                <card-widget-placeholder
-                  id="top_quick_actions"
-                  containerClass="cptm-listing-card-quick-actions-placeholder cptm-mb-20"
-                  :label="local_layout.top.quick_actions.label"
-                  :availableWidgets="theAvailableWidgets"
-                  :activeWidgets="active_widgets"
-                  :acceptedWidgets="
-                    local_layout.top.quick_actions.acceptedWidgets
-                  "
-                  :selectedWidgets="
-                    local_layout.top.quick_actions.selectedWidgets
-                  "
-                  :maxWidget="local_layout.top.quick_actions.maxWidget"
-                  :showWidgetsPickerWindow="
-                    getActiveInsertWindowStatus('top_quick_actions')
-                  "
-                  :showWidgetsOptionWindow="
-                    getActiveOptionWindowStatus('top_quick_actions')
-                  "
-                  :widgetOptionsWindow="widgetOptionsWindow"
-                  @insert-widget="
-                    insertWidget($event, local_layout.top.quick_actions)
-                  "
-                  @edit-widget="editWidget($event)"
-                  @trash-widget="
-                    trashWidget($event, local_layout.top.quick_actions)
-                  "
-                  @open-widgets-picker-window="
-                    toggleInsertWindow('top_quick_actions')
-                  "
-                  @open-widgets-option-window="
-                    toggleOptionWindow('top_quick_actions')
-                  "
-                  @close-widgets-picker-window="closeInsertWindow()"
-                  @close-widgets-option-window="closeOptionWindow()"
-                  @update="
-                    handleUpdateSelectedWidgets(
-                      $event,
-                      'local_layout.top.quick_actions',
-                    )
-                  "
-                  @update-active-widget="handleActiveWidgetUpdate"
-                />
-              </div>
-
-              <!-- cptm-placeholder-right-col -->
-              <div class="cptm-card-placeholder-top-right">
-                <card-widget-placeholder
-                  id="top_quick_info"
-                  containerClass="cptm-listing-card-quick-info-placeholder cptm-mb-20 cptm-text-right"
-                  :label="local_layout.top.quick_info.label"
-                  :availableWidgets="theAvailableWidgets"
-                  :activeWidgets="active_widgets"
-                  :acceptedWidgets="local_layout.top.quick_info.acceptedWidgets"
-                  :selectedWidgets="local_layout.top.quick_info.selectedWidgets"
-                  :maxWidget="local_layout.top.quick_info.maxWidget"
-                  :showWidgetsPickerWindow="
-                    getActiveInsertWindowStatus('top_quick_info')
-                  "
-                  :showWidgetsOptionWindow="
-                    getActiveOptionWindowStatus('top_quick_info')
-                  "
-                  :widgetOptionsWindow="widgetOptionsWindow"
-                  @insert-widget="
-                    insertWidget($event, local_layout.top.quick_info)
-                  "
-                  @edit-widget="editWidget($event)"
-                  @trash-widget="
-                    trashWidget($event, local_layout.top.quick_info)
-                  "
-                  @open-widgets-picker-window="
-                    toggleInsertWindow('top_quick_info')
-                  "
-                  @open-widgets-option-window="
-                    toggleOptionWindow('top_quick_info')
-                  "
-                  @close-widgets-picker-window="closeInsertWindow()"
-                  @close-widgets-option-window="closeOptionWindow()"
-                  @update="
-                    handleUpdateSelectedWidgets(
-                      $event,
-                      'local_layout.top.quick_info',
-                    )
-                  "
-                  @update-active-widget="handleActiveWidgetUpdate"
-                />
-              </div>
+          <div class="cptm-listing-card-preview-top">
+            <!-- cptm-placeholder-left-col -->
+            <div class="cptm-listing-card-preview-top-left">
+              <card-widget-placeholder
+                id="no_thumbnail_body_top"
+                containerClass="cptm-card-preview-body-top-placeholder"
+                :label="local_layout.body.top.label"
+                :availableWidgets="theAvailableWidgets"
+                :activeWidgets="active_widgets"
+                :acceptedWidgets="local_layout.body.top.acceptedWidgets"
+                :selectedWidgets="local_layout.body.top.selectedWidgets"
+                :maxWidget="local_layout.body.top.maxWidget"
+                :showWidgetsPickerWindow="
+                  getActiveInsertWindowStatus('no_thumbnail_body_top')
+                "
+                :showWidgetsOptionWindow="
+                  getActiveOptionWindowStatus('no_thumbnail_body_top')
+                "
+                :widgetOptionsWindow="widgetOptionsWindow"
+                :canDragAndDrop="true"
+                :dragAxis="'x'"
+                @insert-widget="insertWidget($event, local_layout.body.top)"
+                @edit-widget="editWidget($event)"
+                @trash-widget="trashWidget($event, local_layout.body.top)"
+                @open-widgets-picker-window="
+                  toggleInsertWindow('no_thumbnail_body_top')
+                "
+                @open-widgets-option-window="
+                  toggleOptionWindow('no_thumbnail_body_top')
+                "
+                @close-widgets-picker-window="closeInsertWindow()"
+                @close-widgets-option-window="closeOptionWindow()"
+                @close-option-window="closeWidgetOptionsWindow()"
+                @update="
+                  handleUpdateSelectedWidgets($event, 'local_layout.body.top')
+                "
+                @update-active-widget="handleActiveWidgetUpdate"
+                @activate-widget-options="toggleActivateWidgetOptions"
+              />
             </div>
 
-            <card-widget-placeholder
-              id="body_title"
-              containerClass="cptm-listing-card-preview-top-placeholder cptm-mb-12 cptm-align-left"
-              :label="local_layout.body.title.label"
-              :enable_widget="local_layout.body.title.enable_widget"
-              :availableWidgets="theAvailableWidgets"
-              :activeWidgets="active_widgets"
-              :acceptedWidgets="local_layout.body.title.acceptedWidgets"
-              :selectedWidgets="local_layout.body.title.selectedWidgets"
-              :maxWidget="local_layout.body.title.maxWidget"
-              :widgetOptionsWindow="widgetOptionsWindow"
-              @edit-widget="editWidget($event)"
-              @trash-widget="trashWidget($event, local_layout.body.title)"
-              @toggle-widget-status="
-                toggleWidgetStatus(local_layout.body.title)
-              "
-            />
+            <!-- cptm-placeholder-right-col -->
+            <div class="cptm-listing-card-preview-top-right">
+              <card-widget-placeholder
+                id="no_thumbnail_body_right"
+                containerClass="cptm-card-preview-body-right-placeholder"
+                :label="local_layout.body.right.label"
+                :availableWidgets="theAvailableWidgets"
+                :activeWidgets="active_widgets"
+                :acceptedWidgets="local_layout.body.right.acceptedWidgets"
+                :selectedWidgets="local_layout.body.right.selectedWidgets"
+                :maxWidget="local_layout.body.right.maxWidget"
+                :showWidgetsPickerWindow="
+                  getActiveInsertWindowStatus('no_thumbnail_body_right')
+                "
+                :showWidgetsOptionWindow="
+                  getActiveOptionWindowStatus('no_thumbnail_body_right')
+                "
+                :widgetOptionsWindow="widgetOptionsWindow"
+                :canOpenSettings="true"
+                @insert-widget="insertWidget($event, local_layout.body.right)"
+                @edit-widget="editWidget($event)"
+                @trash-widget="trashWidget($event, local_layout.body.right)"
+                @open-widgets-picker-window="
+                  toggleInsertWindow('no_thumbnail_body_right')
+                "
+                @open-widgets-option-window="
+                  toggleOptionWindow('no_thumbnail_body_right')
+                "
+                @close-widgets-picker-window="closeInsertWindow()"
+                @close-widgets-option-window="closeOptionWindow()"
+                @update="
+                  handleUpdateSelectedWidgets($event, 'local_layout.body.right')
+                "
+                @update-active-widget="handleActiveWidgetUpdate"
+                @activate-widget-options="toggleActivateWidgetOptions"
+                @update-option-window="
+                  updateWidgetOptionsData($event, widgetOptionsWindow)
+                "
+                @close-option-window="closeWidgetOptionsWindow()"
+              />
+            </div>
+          </div>
 
+          <div class="cptm-listing-card-preview-body">
             <card-widget-placeholder
-              id="body_bottom"
+              id="no_thumbnail_body_bottom"
               containerClass="cptm-listing-card-preview-body-placeholder"
               :label="local_layout.body.bottom.label"
               :availableWidgets="theAvailableWidgets"
@@ -128,23 +102,30 @@
               :selectedWidgets="local_layout.body.bottom.selectedWidgets"
               :maxWidget="local_layout.body.bottom.maxWidget"
               :showWidgetsPickerWindow="
-                getActiveInsertWindowStatus('body_bottom')
+                getActiveInsertWindowStatus('no_thumbnail_body_bottom')
               "
               :showWidgetsOptionWindow="
-                getActiveOptionWindowStatus('body_bottom')
+                getActiveOptionWindowStatus('no_thumbnail_body_bottom')
               "
               :widgetOptionsWindow="widgetOptionsWindow"
+              :canDragAndDrop="true"
               @insert-widget="insertWidget($event, local_layout.body.bottom)"
               @edit-widget="editWidget($event)"
               @trash-widget="trashWidget($event, local_layout.body.bottom)"
-              @open-widgets-picker-window="toggleInsertWindow('body_bottom')"
-              @open-widgets-option-window="toggleOptionWindow('body_bottom')"
+              @open-widgets-picker-window="
+                toggleInsertWindow('no_thumbnail_body_bottom')
+              "
+              @open-widgets-option-window="
+                toggleOptionWindow('no_thumbnail_body_bottom')
+              "
               @close-widgets-picker-window="closeInsertWindow()"
               @close-widgets-option-window="closeOptionWindow()"
+              @close-option-window="closeWidgetOptionsWindow()"
               @update="
                 handleUpdateSelectedWidgets($event, 'local_layout.body.bottom')
               "
               @update-active-widget="handleActiveWidgetUpdate"
+              @activate-widget-options="toggleActivateWidgetOptions"
             />
           </div>
 
@@ -153,7 +134,7 @@
             <!-- cptm-listing-card-preview-footer-left-placeholder -->
             <div class="cptm-card-preview-footer-left">
               <card-widget-placeholder
-                id="footer_left"
+                id="no_thumbnail_footer_left"
                 containerClass="cptm-listing-card-preview-footer-left-placeholder"
                 :label="local_layout.footer.left.label"
                 :availableWidgets="theAvailableWidgets"
@@ -162,19 +143,24 @@
                 :selectedWidgets="local_layout.footer.left.selectedWidgets"
                 :maxWidget="local_layout.footer.left.maxWidget"
                 :showWidgetsPickerWindow="
-                  getActiveInsertWindowStatus('footer_left')
+                  getActiveInsertWindowStatus('no_thumbnail_footer_left')
                 "
                 :showWidgetsOptionWindow="
-                  getActiveOptionWindowStatus('footer_left')
+                  getActiveOptionWindowStatus('no_thumbnail_footer_left')
                 "
                 :widgetOptionsWindow="widgetOptionsWindow"
                 @insert-widget="insertWidget($event, local_layout.footer.left)"
                 @edit-widget="editWidget($event)"
                 @trash-widget="trashWidget($event, local_layout.footer.left)"
-                @open-widgets-picker-window="toggleInsertWindow('footer_left')"
-                @open-widgets-option-window="toggleOptionWindow('footer_left')"
+                @open-widgets-picker-window="
+                  toggleInsertWindow('no_thumbnail_footer_left')
+                "
+                @open-widgets-option-window="
+                  toggleOptionWindow('no_thumbnail_footer_left')
+                "
                 @close-widgets-picker-window="closeInsertWindow()"
                 @close-widgets-option-window="closeOptionWindow()"
+                @close-option-window="closeWidgetOptionsWindow()"
                 @update="
                   handleUpdateSelectedWidgets(
                     $event,
@@ -182,13 +168,14 @@
                   )
                 "
                 @update-active-widget="handleActiveWidgetUpdate"
+                @activate-widget-options="toggleActivateWidgetOptions"
               />
             </div>
 
             <!-- cptm-listing-card-preview-footer-right-placeholder -->
             <div class="cptm-card-preview-footer-right">
               <card-widget-placeholder
-                id="footer_right"
+                id="no_thumbnail_footer_right"
                 containerClass="cptm-listing-card-preview-footer-right-placeholder"
                 :label="local_layout.footer.right.label"
                 :availableWidgets="theAvailableWidgets"
@@ -197,19 +184,24 @@
                 :selectedWidgets="local_layout.footer.right.selectedWidgets"
                 :maxWidget="local_layout.footer.right.maxWidget"
                 :showWidgetsPickerWindow="
-                  getActiveInsertWindowStatus('footer_right')
+                  getActiveInsertWindowStatus('no_thumbnail_footer_right')
                 "
                 :showWidgetsOptionWindow="
-                  getActiveOptionWindowStatus('footer_right')
+                  getActiveOptionWindowStatus('no_thumbnail_footer_right')
                 "
                 :widgetOptionsWindow="widgetOptionsWindow"
                 @insert-widget="insertWidget($event, local_layout.footer.right)"
                 @edit-widget="editWidget($event)"
                 @trash-widget="trashWidget($event, local_layout.footer.right)"
-                @open-widgets-picker-window="toggleInsertWindow('footer_right')"
-                @open-widgets-option-window="toggleOptionWindow('footer_right')"
+                @open-widgets-picker-window="
+                  toggleInsertWindow('no_thumbnail_footer_right')
+                "
+                @open-widgets-option-window="
+                  toggleOptionWindow('no_thumbnail_footer_right')
+                "
                 @close-widgets-picker-window="closeInsertWindow()"
                 @close-widgets-option-window="closeOptionWindow()"
+                @close-option-window="closeWidgetOptionsWindow()"
                 @update="
                   handleUpdateSelectedWidgets(
                     $event,
@@ -217,6 +209,7 @@
                   )
                 "
                 @update-active-widget="handleActiveWidgetUpdate"
+                @activate-widget-options="toggleActivateWidgetOptions"
               />
             </div>
           </div>
@@ -288,10 +281,12 @@ export default {
             continue;
           }
 
-          for (let widget in layout[section][section_area].selectedWidgets) {
-            const widget_name =
-              layout[section][section_area].selectedWidgets[widget];
+          // Get unique widgets to prevent duplicates
+          const uniqueWidgets = [
+            ...new Set(layout[section][section_area].selectedWidgets),
+          ];
 
+          for (let widget_name of uniqueWidgets) {
             if (
               !this.active_widgets[widget_name] &&
               typeof this.active_widgets[widget_name] !== "object"
@@ -430,32 +425,21 @@ export default {
 
       // Layout
       local_layout: {
-        top: {
-          quick_actions: {
-            label: "Quick Actions",
-            selectedWidgets: [],
-          },
-          quick_info: {
-            label: "Quick Info",
-            selectedWidgets: [],
-          },
-        },
-
         body: {
-          title: {
-            label: "Title",
+          top: {
+            label: "Body Top",
             selectedWidgets: [],
           },
-          tagline: {
-            label: "Tagline",
-            selectedWidgets: [],
-          },
-          rating: {
-            label: "Add Elements",
+          right: {
+            label: "Body Right",
             selectedWidgets: [],
           },
           bottom: {
-            label: "Add Elements",
+            label: "Body Bottom",
+            selectedWidgets: [],
+          },
+          excerpt: {
+            label: "Body Excerpt",
             selectedWidgets: [],
           },
         },
@@ -591,13 +575,19 @@ export default {
 
       // Load Selected Widgets Data
       for (let item of selectedWidgets) {
-        let length =
-          this.local_layout[item.section][item.area].selectedWidgets.length;
-        this.local_layout[item.section][item.area].selectedWidgets.splice(
-          length,
-          0,
-          item.widget,
-        );
+        const currentWidgets =
+          this.local_layout[item.section][item.area].selectedWidgets;
+
+        // Check if widget already exists to prevent duplicates
+        if (!currentWidgets.includes(item.widget)) {
+          // If it's listing_title, add as first item
+          if (item.widget === "listing_title") {
+            currentWidgets.unshift(item.widget);
+          } else {
+            // For other widgets, add to the end
+            currentWidgets.push(item.widget);
+          }
+        }
       }
     },
 
@@ -636,10 +626,7 @@ export default {
 
     // Edit Widget
     editWidget(key) {
-      if (
-        typeof this.active_widgets[key] === "undefined" ||
-        this.widgetOptionsWindowActiveStatus
-      ) {
+      if (typeof this.active_widgets[key] === "undefined") {
         return;
       }
 
@@ -650,7 +637,16 @@ export default {
         return;
       }
 
-      this.widgetOptionsWindow = this.widgetOptionsWindowDefault;
+      let opt = this.active_widgets[key].options;
+      // Force Vue reactivity by using Vue.set or restructuring
+      this.$set(this, "widgetOptionsWindow", {
+        ...this.widgetOptionsWindowDefault,
+        ...opt,
+        widget: key,
+      });
+
+      // Also update the active_option_widget_key for consistency
+      this.active_option_widget_key = key;
     },
 
     // Update Widget Options Data
@@ -661,6 +657,8 @@ export default {
     // Close Widget Options Window
     closeWidgetOptionsWindow() {
       this.widgetOptionsWindow = this.widgetOptionsWindowDefault;
+      // Also clear the active_option_widget_key for consistency
+      this.active_option_widget_key = "";
     },
 
     // Trash Widget
@@ -679,6 +677,11 @@ export default {
 
       if (key === this.widgetOptionsWindow.widget) {
         this.closeWidgetOptionsWindow();
+      }
+
+      // Also clear active_option_widget_key if this widget was active
+      if (this.active_option_widget_key === key) {
+        this.active_option_widget_key = "";
       }
     },
 
@@ -728,7 +731,19 @@ export default {
       Vue.set(this.active_widgets, payload.key, {
         ...this.theAvailableWidgets[payload.key],
       });
-      Vue.set(where, "selectedWidgets", payload.selected_widgets);
+
+      // If payload.key is listing_title, insert as first item
+      if (payload.key === "listing_title") {
+        const currentWidgets = where.selectedWidgets || [];
+        // Remove any existing listing_title to avoid duplicates
+        const filteredWidgets = currentWidgets.filter(
+          (widget) => widget !== "listing_title",
+        );
+        const newWidgets = [payload.key, ...filteredWidgets];
+        Vue.set(where, "selectedWidgets", newWidgets);
+      } else {
+        Vue.set(where, "selectedWidgets", payload.selected_widgets);
+      }
     },
 
     // Close Insert Window
@@ -739,6 +754,12 @@ export default {
     // Close Option Window
     closeOptionWindow() {
       this.active_option_widget_key = "";
+    },
+
+    // Close Widget Options Window
+    closeWidgetOptionsWindow() {
+      this.active_option_widget_key = "";
+      this.$set(this.widgetOptionsWindow, "widget", "");
     },
 
     // Get Active Insert Window Status
@@ -782,6 +803,12 @@ export default {
         obj = obj[pathKeys[i]]; // Navigate deeper into the object
       }
 
+      console.log("@@handleUpdateSelectedWidgets - test", {
+        updatedWidgets,
+        pathKeys,
+        obj,
+      });
+
       // Update the selectedWidgets at the correct path
       obj[pathKeys[pathKeys.length - 1]].selectedWidgets = updatedWidgets;
     },
@@ -790,6 +817,13 @@ export default {
     handleActiveWidgetUpdate({ widgetKey, updatedWidget }) {
       this.$set(this.active_widgets, widgetKey, updatedWidget);
       this.$set(this.available_widgets, widgetKey, updatedWidget);
+    },
+
+    // Activate Widget Options
+    toggleActivateWidgetOptions(widgetKey) {
+      // Always activate the widget options
+      this.$set(this.widgetOptionsWindow, "widget", widgetKey);
+      this.active_option_widget_key = widgetKey;
     },
   },
 };

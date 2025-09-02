@@ -307,7 +307,7 @@ Directorist comes with an AI-powered directory builder. Use the Create with AI o
 - Added `directorist_is_multiple_review_enabled` hook to manage multiple reviews. (#2453)
 - Added filter hook to modify the find & replace contents in email. (#2450)
 - Added hooks for email notifications: `directorist_guest_submission_email_notification` and `directorist_after_user_registration_confirmation_email_sent`. (#2464)
-- Action hooks in Grid & List loop (before/after header & excerpt). (#2476)
+- Added Action hooks in Grid & List loop (before/after header & excerpt). (#2476)
 - Single listing slider thumb shows only when there are multiple items. (#2394)
 
 8.4.5 - July 22, 2025

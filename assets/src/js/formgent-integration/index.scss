@@ -1,0 +1,39 @@
+@import "~@wordpress/dataviews/build-style/style.css";
+
+// Modal Styles
+.directorist-answers-modal {
+	.directorist-modal-content {
+		max-height: 70vh;
+		overflow-y: auto;
+		padding: 20px;
+	}
+
+	.directorist-enquiry-info {
+		margin-bottom: 30px;
+		padding-bottom: 20px;
+		border-bottom: 1px solid #e0e0e0;
+
+		h3 {
+			margin: 0 0 15px 0;
+			color: #333;
+		}
+
+		p {
+			margin: 8px 0;
+			color: #666;
+		}
+	}
+
+	.directorist-answers-section {
+		h3 {
+			margin: 0 0 20px 0;
+			color: #333;
+		}
+	}
+}
+
+.directorist-enquiry-modal {
+	.components-modal__header {
+		border-bottom: 1px solid #e0e0e0;
+	}
+}

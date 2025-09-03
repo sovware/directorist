@@ -9,5 +9,5 @@ type FieldProps = {
 };
 
 export type CheckboxProps = {
-	field: FieldProps
+	field: FieldProps;
 };

@@ -8,7 +8,7 @@ import { debounce } from '@wordpress/compose';
  * Internal dependencies
  */
 import { useCallback, useEffect, useRef, useState } from '@wordpress/element';
-import React from "react";
+import React from 'react';
 import styled, { css } from 'styled-components';
 import validateField from '../custom-field/validation';
 import { NumberFieldType } from './types';
@@ -16,10 +16,9 @@ import { NumberFieldType } from './types';
 interface StyledProps {
 	$isInvalid?: boolean;
 	$isDisabled?: boolean;
-  }
+}
 const StyledNumber = styled(NumberControl)<StyledProps>`
 	${(props) => {
-		
 		if (props.$isInvalid) {
 			return css`
 				.components-input-control__backdrop {
@@ -30,12 +29,12 @@ const StyledNumber = styled(NumberControl)<StyledProps>`
 		}
 	}}
 
-	${ ( props ) =>
+	${(props) =>
 		props.$isDisabled &&
 		`
 		pointer-events: none;
 		opacity: 0.5;
-	` }
+	`}
 `;
 
 const ValidationError = styled.div`
@@ -44,7 +43,7 @@ const ValidationError = styled.div`
 	margin-top: 4px;
 `;
 
-export default function Number( props: NumberFieldType ) {
+export default function Number(props: NumberFieldType) {
 	const { attrKey, field, attributes, setAttributes } = props;
 	const { validationErrors } = attributes;
 	const [isValidating, setIsValidating] = useState(false);
@@ -59,28 +58,28 @@ export default function Number( props: NumberFieldType ) {
 		[]
 	);
 
-	useEffect(()=>{
-		if(attributes?.should_validate){
+	useEffect(() => {
+		if (attributes?.should_validate) {
 			console.log(attributes[attrKey]);
-			
+
 			performValidation(attributes[attrKey]);
 		}
-	},[attributes?.should_validate])
+	}, [attributes?.should_validate]);
 
 	// Perform validation using the validation module
 	const performValidation = (value) => {
 		if (!field?.validation) return;
 		setIsValidating(true);
-		
+
 		// Use the validation module
 		const result = validateField(value, field, attributes);
-		
+
 		setAttributes({
 			validationErrors: {
-			  ...validationErrors,
-			  [attrKey]: result.errors,
+				...validationErrors,
+				[attrKey]: result.errors,
 			},
-		  });
+		});
 		setIsValidating(false);
 	};
 
@@ -88,7 +87,7 @@ export default function Number( props: NumberFieldType ) {
 	const handleChange = (value) => {
 		// Update the attribute value
 		setAttributes({ [attrKey]: value });
-		
+
 		// Clear previous debounce
 		if (debounceRef.current) {
 			clearTimeout(debounceRef.current);
@@ -99,33 +98,32 @@ export default function Number( props: NumberFieldType ) {
 			debouncedValidation(value);
 		}
 	};
-	
+
 	return (
 		<>
-		<StyledNumber
-			{ ...field }
-			$isInvalid={fieldErrors?.length > 0}
-				$isDisabled={ field.disabled }
-			value={ attributes[attrKey] }
-			help={ field.description }
-			size="__unstable-large"
-			step={ 1 }
-			onChange={ handleChange }
-			onBlur={() => {
-				// Clear debounce and validate immediately on blur
-				if (debounceRef.current) {
-					clearTimeout(debounceRef.current);
-				}
-				performValidation(attributes[attrKey]);
-			}}
-			aria-invalid={fieldErrors?.length > 0}
-		/>
-		{/* Show validation errors */}
-		{fieldErrors?.length > 0 && (
-			fieldErrors.map((error, index) => (
-				<ValidationError key={index}>{error}</ValidationError>
-			))
-		)}
+			<StyledNumber
+				{...field}
+				$isInvalid={fieldErrors?.length > 0}
+				$isDisabled={field.disabled}
+				value={attributes[attrKey]}
+				help={field.description}
+				size="__unstable-large"
+				step={1}
+				onChange={handleChange}
+				onBlur={() => {
+					// Clear debounce and validate immediately on blur
+					if (debounceRef.current) {
+						clearTimeout(debounceRef.current);
+					}
+					performValidation(attributes[attrKey]);
+				}}
+				aria-invalid={fieldErrors?.length > 0}
+			/>
+			{/* Show validation errors */}
+			{fieldErrors?.length > 0 &&
+				fieldErrors.map((error, index) => (
+					<ValidationError key={index}>{error}</ValidationError>
+				))}
 		</>
 	);
 }

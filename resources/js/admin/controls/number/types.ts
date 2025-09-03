@@ -15,8 +15,8 @@ type FieldProps = {
 	validation?: any;
 };
 export type NumberFieldType = {
-	field: FieldProps,
-	attrKey: string,
-	attributes: any,
-	setAttributes: any,
+	field: FieldProps;
+	attrKey: string;
+	attributes: any;
+	setAttributes: any;
 };

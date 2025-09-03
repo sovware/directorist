@@ -23,7 +23,7 @@ interface RootObject {
 
 export function getUser(rootObject: RootObject): NormalizedUser | null {
 	const user: WordPressUser = { ...rootObject?.user };
-	
+
 	if (!user) {
 		return null;
 	}
@@ -39,7 +39,8 @@ export function getUser(rootObject: RootObject): NormalizedUser | null {
 		user?.last_name ||
 		user?.last_name === ''
 	) {
-		user['display_name'] = `${user?.first_name || ''} ${user?.last_name || ''}`.trim();
+		user['display_name'] =
+			`${user?.first_name || ''} ${user?.last_name || ''}`.trim();
 		delete user['first_name'];
 		delete user['last_name'];
 	}
@@ -63,24 +64,27 @@ export function formatDate(
 	options?: Intl.DateTimeFormatOptions,
 	includeTime: boolean = false
 ): string {
-	const dataObject = date instanceof Date ? date : new Date( date );
+	const dataObject = date instanceof Date ? date : new Date(date);
 
-	if ( Number.isNaN( dataObject.getTime() ) ) {
+	if (Number.isNaN(dataObject.getTime())) {
 		return '';
 	}
 
-	if ( ! includeTime ) {
-		return dataObject.toLocaleDateString( formatType, options );
+	if (!includeTime) {
+		return dataObject.toLocaleDateString(formatType, options);
 	}
 
 	// Ensure time fields exist when includeTime=true and none provided
-	const hasTimeOptions = !!options && (
-		'timeStyle' in options || 'hour' in options || 'minute' in options || 'second' in options
-	);
+	const hasTimeOptions =
+		!!options &&
+		('timeStyle' in options ||
+			'hour' in options ||
+			'minute' in options ||
+			'second' in options);
 
 	const mergedOptions: Intl.DateTimeFormatOptions = hasTimeOptions
-		? ( options as Intl.DateTimeFormatOptions )
-		: { ...( options || {} ), hour: '2-digit', minute: '2-digit' };
+		? (options as Intl.DateTimeFormatOptions)
+		: { ...(options || {}), hour: '2-digit', minute: '2-digit' };
 
-	return dataObject.toLocaleString( formatType, mergedOptions );
+	return dataObject.toLocaleString(formatType, mergedOptions);
 }

@@ -14,75 +14,101 @@ const actionItems: MenuItemsType = {
 	documentation: {
 		label: 'Knowledge Base',
 		path: 'https://directorist.com/documentation/',
-		icon: <DocIcon />
+		icon: <DocIcon />,
 	},
 	support: {
 		label: 'Help & Support',
 		path: 'https://directorist.com/dashboard/#support',
-		icon: <QuestionCircleIcon />
+		icon: <QuestionCircleIcon />,
 	},
 	feedback: {
 		path: 'https://directorist.com/dashboard/#feedback',
-		icon: <i className="la la-comment"></i>
-	}
+		icon: <i className="la la-comment"></i>,
+	},
 };
 
 const ThemeWrapper = styled.div`
-  --color-primary-500: #3E62F5;
-  --color-gray-900: #141921;
-  --color-gray-600: #4D5761;
-  --color-gray-500: #747C89;
-  --color-gray-200: #E5E7EB;
+	--color-primary-500: #3e62f5;
+	--color-gray-900: #141921;
+	--color-gray-600: #4d5761;
+	--color-gray-500: #747c89;
+	--color-gray-300: #D2D6DB;
+	--color-gray-200: #e5e7eb;
 `;
 
 export default function App() {
+	const fieldValidation = ({
+		value,
+		field,
+		fieldKey,
+		attributes,
+		errors,
+		setErrors,
+	}) => {
+		if (!field?.validation) return;
 
-  const fieldValidation = ({value, field, fieldKey, attributes, errors, setErrors}) => {
-    if (!field?.validation) return;
-      
-      // Use the validation module
-      const errorResult = validateField(value, field, attributes);
-      
-      const updatedValidationErrors = {...errors};
-      if (errorResult?.errors?.length > 0) {
-        updatedValidationErrors[fieldKey] = errorResult?.errors;
-      } else {
-        updatedValidationErrors[fieldKey] = [];
-      }
-      
-      setErrors(updatedValidationErrors);
-  }
-  
-  addAction( 'wpmvc-field-on-blur', 'directorist-form-validation', fieldValidation);
-  addAction( 'wpmvc-field-on-change', 'directorist-form-validation', fieldValidation);
+		// Use the validation module
+		const errorResult = validateField(value, field, attributes);
 
-  const routes = [
+		const updatedValidationErrors = { ...errors };
+		if (errorResult?.errors?.length > 0) {
+			updatedValidationErrors[fieldKey] = errorResult?.errors;
+		} else {
+			updatedValidationErrors[fieldKey] = [];
+		}
+
+		setErrors(updatedValidationErrors);
+	};
+
+	addAction(
+		'wpmvc-field-on-blur',
+		'directorist-form-validation',
+		fieldValidation
+	);
+	addAction(
+		'wpmvc-field-on-change',
+		'directorist-form-validation',
+		fieldValidation
+	);
+
+	const routes = [
 		{
 			path: '/',
-			element: <OrderTable/>,
+			element: <OrderTable />,
 			index: true,
 		},
 		{
 			path: '/edit/:id',
 			element: <Edit />,
-		}
+		},
 	];
 
 	return (
 		<ThemeWrapper>
-		<Dashboard
-			pageTopLevelID="#menu-posts-at_biz_dir"
-			rootPaths={ [] }
-			colors={ {
-				primary: '#3e62f5',
-				gray: '#141921',
-			} }
-			header={ {
-				logo: <img src="https://directorist.com/wp-content/uploads/2020/08/directorist_logo.png" alt="Directorist" width={116}/>,
-				actionItems
-			} }
-			routes={ applyFilters('directorist_order_routes', routes) as RouteType[] }
-		></Dashboard>
+			<Dashboard
+				pageTopLevelID="#menu-posts-at_biz_dir"
+				rootPaths={[]}
+				colors={{
+					primary: '#3e62f5',
+					gray: '#141921',
+				}}
+				header={{
+					logo: (
+						<img
+							src="https://directorist.com/wp-content/uploads/2020/08/directorist_logo.png"
+							alt="Directorist"
+							width={116}
+						/>
+					),
+					actionItems,
+				}}
+				routes={
+					applyFilters(
+						'directorist_order_routes',
+						routes
+					) as RouteType[]
+				}
+			></Dashboard>
 		</ThemeWrapper>
 	);
 }

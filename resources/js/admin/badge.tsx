@@ -1,5 +1,5 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 // Define the variant types
 type BadgeVariant = 'default' | 'info' | 'warning' | 'success' | 'error';
@@ -16,7 +16,7 @@ const BadgeStyle = styled.div<{ $variant?: BadgeVariant }>`
 	text-align: center;
 	white-space: nowrap;
 	vertical-align: baseline;
-	
+
 	/* Variant-specific styles */
 	${({ $variant }) => {
 		switch ($variant) {

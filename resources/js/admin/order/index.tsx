@@ -11,7 +11,7 @@ import { createRoot } from '@wordpress/element';
  */
 import App from './app';
 
-domReady( function () {
+domReady(function () {
 	const container = document.querySelector('.directorist-orders-page');
 
 	if (!container) {
@@ -20,4 +20,4 @@ domReady( function () {
 	const root = createRoot(container);
 
 	root.render(<App />);
-} );
+});

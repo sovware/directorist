@@ -23,15 +23,15 @@ export interface FieldValidation {
 
 export const validators: Record<string, ValidatorFn> = {
 	required: (value) => {
-		if (!value || value.trim() === "") {
-			return "This field is required";
+		if (!value || value.trim() === '') {
+			return 'This field is required';
 		}
 		return null;
 	},
 
 	email: (value) => {
 		if (value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-			return "Please enter a valid email address";
+			return 'Please enter a valid email address';
 		}
 		return null;
 	},
@@ -52,21 +52,21 @@ export const validators: Record<string, ValidatorFn> = {
 
 	pattern: (value, regex: string | RegExp) => {
 		if (value && !new RegExp(regex).test(value)) {
-			return "Value does not match required pattern";
+			return 'Value does not match required pattern';
 		}
 		return null;
 	},
 
 	number: (value) => {
 		if (value && isNaN(Number(value))) {
-			return "Please enter a valid number";
+			return 'Please enter a valid number';
 		}
 		return null;
 	},
 
 	url: (value) => {
 		if (value && !/^https?:\/\/.+/.test(value)) {
-			return "Please enter a valid URL";
+			return 'Please enter a valid URL';
 		}
 		return null;
 	},
@@ -74,9 +74,9 @@ export const validators: Record<string, ValidatorFn> = {
 	phone: (value) => {
 		if (
 			value &&
-			!/^[\+]?[1-9][\d]{0,15}$/.test(value.replace(/[\s\-\(\)]/g, ""))
+			!/^[\+]?[1-9][\d]{0,15}$/.test(value.replace(/[\s\-\(\)]/g, ''))
 		) {
-			return "Please enter a valid phone number";
+			return 'Please enter a valid phone number';
 		}
 		return null;
 	},
@@ -97,20 +97,20 @@ export const validators: Record<string, ValidatorFn> = {
 
 	date: (value) => {
 		if (value && isNaN(Date.parse(value))) {
-			return "Please enter a valid date";
+			return 'Please enter a valid date';
 		}
 		return null;
 	},
 
 	regex: (value, pattern: string | RegExp, message?: string) => {
 		if (value && !new RegExp(pattern).test(value)) {
-			return message || "Value does not match required pattern";
+			return message || 'Value does not match required pattern';
 		}
 		return null;
 	},
 
 	custom: (value, fn: ValidatorFn) => {
-		if (typeof fn === "function") {
+		if (typeof fn === 'function') {
 			return fn(value);
 		}
 		return null;
@@ -129,26 +129,30 @@ export const validateField = (
 	attributes: Record<string, any> = {}
 ): ValidationResult => {
 	if (!field?.validation) return { isValid: true, errors: [] };
-	
+
 	const errors: string[] = [];
 
 	Object.entries(field.validation).forEach(([rule, ruleValue]) => {
-		if (typeof ruleValue === "function") {
+		if (typeof ruleValue === 'function') {
 			try {
-				const error = (ruleValue as ValidatorFn)(value, attributes, field);
+				const error = (ruleValue as ValidatorFn)(
+					value,
+					attributes,
+					field
+				);
 				if (error) {
 					errors.push(error);
 				}
 			} catch (err) {
-				console.error("Custom validation error:", err);
-				errors.push("Validation error occurred");
+				console.error('Custom validation error:', err);
+				errors.push('Validation error occurred');
 			}
 		} else if (validators[rule]) {
 			const error = validators[rule](value, ruleValue);
 			if (error) {
 				errors.push(error);
 			}
-		} else if (rule === "regex" && Array.isArray(ruleValue)) {
+		} else if (rule === 'regex' && Array.isArray(ruleValue)) {
 			const [pattern, message] = ruleValue;
 			const error = validators.regex(value, pattern, message);
 			if (error) {
@@ -176,26 +180,30 @@ export const validateFieldAsync = async (
 
 	Object.entries(field.validation).forEach(([rule, ruleValue]) => {
 		if (
-			typeof ruleValue === "function" &&
-			ruleValue.constructor.name === "AsyncFunction"
+			typeof ruleValue === 'function' &&
+			ruleValue.constructor.name === 'AsyncFunction'
 		) {
 			asyncValidations.push(
 				(ruleValue as AsyncValidatorFn)(value, attributes, field).catch(
 					(err) => {
-						console.error("Async validation error:", err);
-						return "Validation error occurred";
+						console.error('Async validation error:', err);
+						return 'Validation error occurred';
 					}
 				)
 			);
-		} else if (typeof ruleValue === "function") {
+		} else if (typeof ruleValue === 'function') {
 			try {
-				const error = (ruleValue as ValidatorFn)(value, attributes, field);
+				const error = (ruleValue as ValidatorFn)(
+					value,
+					attributes,
+					field
+				);
 				if (error) {
 					errors.push(error);
 				}
 			} catch (err) {
-				console.error("Custom validation error:", err);
-				errors.push("Validation error occurred");
+				console.error('Custom validation error:', err);
+				errors.push('Validation error occurred');
 			}
 		} else if (validators[rule]) {
 			const error = validators[rule](value, ruleValue);

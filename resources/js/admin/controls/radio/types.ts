@@ -14,7 +14,7 @@ type Field = BaseField & {
 	type: 'radio';
 	disabled?: boolean;
 	variation?: 'normal';
-	options: Options | ( ( attributes: Record< string, any > ) => Options );
+	options: Options | ((attributes: Record<string, any>) => Options);
 };
 
 type BoxedRadioFieldType = BaseField & {
@@ -22,8 +22,8 @@ type BoxedRadioFieldType = BaseField & {
 	variation: 'boxed-right';
 	perRow?: number;
 	options:
-		| Options< Option >
-		| ( ( attributes: Record< string, any > ) => Options< Option > );
+		| Options<Option>
+		| ((attributes: Record<string, any>) => Options<Option>);
 };
 
 export type RadioFieldType = Field | BoxedRadioFieldType;

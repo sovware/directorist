@@ -37,8 +37,9 @@ const ValidationError = styled.div`
 	margin-top: 4px;
 `;
 
-export default function Radio( props: RadioFieldProps) {
-	const { attrKey, field, attributes, setAttributes, errors, setErrors } = props;
+export default function Radio(props: RadioFieldProps) {
+	const { attrKey, field, attributes, setAttributes, errors, setErrors } =
+		props;
 	const {
 		label,
 		options,
@@ -51,8 +52,7 @@ export default function Radio( props: RadioFieldProps) {
 		help_text,
 	} = field;
 
-	
-	const id = useInstanceId( Radio, 'wpmvc-radio' );
+	const id = useInstanceId(Radio, 'wpmvc-radio');
 	const value = attributes[attrKey];
 	const [isValidating, setIsValidating] = useState(false);
 	const fieldErrors = errors?.[attrKey];
@@ -65,7 +65,7 @@ export default function Radio( props: RadioFieldProps) {
 	const performValidation = (currentValue) => {
 		if (!field?.validation) return;
 		setIsValidating(true);
-		
+
 		// Use the validation module
 		const result = validateField(currentValue, field, attributes);
 		const currentValidationErrors = attributes.validationErrors || {};
@@ -81,9 +81,9 @@ export default function Radio( props: RadioFieldProps) {
 	// Handle option change with validation
 	const handleOptionChange = useCallback((optionValue: any) => {
 		// onChange(optionValue);
-		setAttributes( {
-			[ attrKey ]: optionValue,
-		} );
+		setAttributes({
+			[attrKey]: optionValue,
+		});
 
 		// Perform validation if validation rules exist
 		if (validation) {
@@ -94,7 +94,7 @@ export default function Radio( props: RadioFieldProps) {
 				fieldKey: attrKey,
 				attributes,
 				errors,
-				setErrors
+				setErrors,
 			});
 		}
 	}, []);
@@ -116,10 +116,14 @@ export default function Radio( props: RadioFieldProps) {
 			>
 				{options.map((option, index) => {
 					const optionId = generateOptionId(id, index);
-					const descriptionId = generateOptionDescriptionId(id, index);
+					const descriptionId = generateOptionDescriptionId(
+						id,
+						index
+					);
 
 					// Show "after" element only if boxed + selected
-					const hasAfter = isBoxed && option?.after && value === option.value;
+					const hasAfter =
+						isBoxed && option?.after && value === option.value;
 
 					return (
 						<div
@@ -130,14 +134,21 @@ export default function Radio( props: RadioFieldProps) {
 								$isBoxed={isBoxed}
 								$isRadioRight={isRadioRight}
 								className="components-radio-control__option"
-								style={{ 
+								style={{
 									marginBottom: hasAfter ? 12 : 0,
-									...((fieldErrors?.length > 0 && isBoxed) && {
-										borderColor: 'var(--directorist-color-danger)',
-										boxShadow: '0 0 0 1px var(--directorist-color-danger)',
-									}),
+									...(fieldErrors?.length > 0 &&
+										isBoxed && {
+											borderColor:
+												'var(--directorist-color-danger)',
+											boxShadow:
+												'0 0 0 1px var(--directorist-color-danger)',
+										}),
 								}}
-								onClick={isBoxed ? () => handleOptionChange(option.value) : undefined}
+								onClick={
+									isBoxed
+										? () => handleOptionChange(option.value)
+										: undefined
+								}
 							>
 								<input
 									id={optionId}
@@ -146,8 +157,14 @@ export default function Radio( props: RadioFieldProps) {
 									name={id}
 									value={option.value}
 									checked={option.value === value}
-									onChange={() => handleOptionChange(option.value)}
-									aria-describedby={option.description ? descriptionId : undefined}
+									onChange={() =>
+										handleOptionChange(option.value)
+									}
+									aria-describedby={
+										option.description
+											? descriptionId
+											: undefined
+									}
 									style={{ margin: 0 }}
 									aria-invalid={fieldErrors?.length > 0}
 								/>
@@ -157,7 +174,11 @@ export default function Radio( props: RadioFieldProps) {
 									<label
 										htmlFor={optionId}
 										className="components-radio-control__label"
-										style={{ cursor: isBoxed ? 'pointer' : undefined }}
+										style={{
+											cursor: isBoxed
+												? 'pointer'
+												: undefined,
+										}}
 									>
 										{option.label}
 									</label>
@@ -171,7 +192,10 @@ export default function Radio( props: RadioFieldProps) {
 											margin: '4px 0 0 0',
 											fontSize: '12px',
 											color: '#666',
-											...(isBoxed && isRadioRight && { textAlign: 'right' }),
+											...(isBoxed &&
+												isRadioRight && {
+													textAlign: 'right',
+												}),
 										}}
 									>
 										{option.description}
@@ -187,20 +211,21 @@ export default function Radio( props: RadioFieldProps) {
 			</StyleRadioField>
 
 			{/* Show validation errors */}
-			{fieldErrors?.length > 0 && (
+			{fieldErrors?.length > 0 &&
 				fieldErrors.map((error, index) => (
 					<ValidationError key={index}>{error}</ValidationError>
-				))
-			)}
+				))}
 
 			{/* Help text */}
 			{help_text && (
-				<p style={{ 
-					fontSize: '12px', 
-					color: '#666', 
-					marginTop: '4px',
-					fontStyle: 'italic'
-				}}>
+				<p
+					style={{
+						fontSize: '12px',
+						color: '#666',
+						marginTop: '4px',
+						fontStyle: 'italic',
+					}}
+				>
 					{help_text}
 				</p>
 			)}

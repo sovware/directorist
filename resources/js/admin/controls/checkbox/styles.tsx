@@ -8,13 +8,13 @@ import { CheckboxControl } from '@wordpress/components';
  */
 import styled from 'styled-components';
 
-export const StyledCheckbox = styled( CheckboxControl )< {
+export const StyledCheckbox = styled(CheckboxControl)<{
 	$disabled?: boolean;
-} >`
-	${ ( { $disabled } ) =>
+}>`
+	${({ $disabled }) =>
 		$disabled &&
 		`
 		pointer-events: none;
 		opacity: 0.5;
-	` }
+	`}
 `;

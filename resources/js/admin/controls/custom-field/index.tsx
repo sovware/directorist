@@ -18,10 +18,9 @@ import { doAction } from '@wordpress/hooks';
 interface StyledProps {
 	$isInvalid?: boolean;
 	$isDisabled?: boolean;
-  }
+}
 const StyledInput = styled(InputControl)<StyledProps>`
 	${(props) => {
-		
 		if (props.$isInvalid) {
 			return css`
 				.components-input-control__backdrop {
@@ -32,12 +31,12 @@ const StyledInput = styled(InputControl)<StyledProps>`
 		}
 	}}
 
-	${ ( props ) =>
+	${(props) =>
 		props.$isDisabled &&
 		`
 		pointer-events: none;
 		opacity: 0.5;
-	` }
+	`}
 `;
 
 const ValidationError = styled.div`
@@ -47,8 +46,8 @@ const ValidationError = styled.div`
 `;
 
 export default function TextControl(props) {
-	
-	const { attrKey, field, attributes, setAttributes, errors, setErrors } = props;
+	const { attrKey, field, attributes, setAttributes, errors, setErrors } =
+		props;
 	const debounceRef = useRef(null);
 	const fieldErrors = errors?.[attrKey];
 
@@ -61,7 +60,7 @@ export default function TextControl(props) {
 				fieldKey: attrKey,
 				attributes,
 				errors,
-				setErrors
+				setErrors,
 			});
 		}, 100), // 100ms delay
 		[]
@@ -71,7 +70,7 @@ export default function TextControl(props) {
 	const handleChange = (value) => {
 		// Update the attribute value
 		setAttributes({ [attrKey]: value });
-		
+
 		// Clear previous debounce
 		if (debounceRef.current) {
 			clearTimeout(debounceRef.current);
@@ -89,7 +88,7 @@ export default function TextControl(props) {
 				{...field}
 				value={attributes[attrKey]}
 				$isInvalid={fieldErrors?.length > 0}
-				$isDisabled={ field.disabled }
+				$isDisabled={field.disabled}
 				help={field?.description}
 				size="default"
 				onChange={handleChange}
@@ -107,18 +106,17 @@ export default function TextControl(props) {
 							fieldKey: attrKey,
 							attributes,
 							errors,
-							setErrors
+							setErrors,
 						});
 					}
 				}}
 			/>
-			
+
 			{/* Show validation errors */}
-			{fieldErrors?.length > 0 && (
+			{fieldErrors?.length > 0 &&
 				fieldErrors.map((error, index) => (
 					<ValidationError key={index}>{error}</ValidationError>
-				))
-			)}
+				))}
 		</div>
 	);
 }

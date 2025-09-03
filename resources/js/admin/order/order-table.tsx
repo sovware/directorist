@@ -107,6 +107,9 @@ export default function OrderTable() {
 				columns={columns}
 				create={{ status: false }}
 				edit={{ status: false }}
+				// showTable={false}
+				// beforeTable={<div>Before Table</div>}
+				// cardFooter={<div>Footer</div>}
 			/>
 		</OrderTableContainer>
 	);

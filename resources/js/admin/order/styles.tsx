@@ -17,6 +17,7 @@ export const UserLink = styled.a`
 `;
 
 export const OrderTableContainer = styled.div`
+	padding: 24px;
 	.dataviews-view-table {
 		color: var(--color-gray-500);
 		thead th {

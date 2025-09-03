@@ -53,13 +53,9 @@ const CardContent = styled.div`
 	padding: 20px;
 `;
 
-const CardHeaderText = styled.div`
-	
-`;
+const CardHeaderText = styled.div``;
 
-const CardHeaderAction = styled.div`
-	
-`;
+const CardHeaderAction = styled.div``;
 
 // Main Card Component
 export default function Card({
@@ -77,7 +73,7 @@ export default function Card({
 					{icon && <CardIcon>{icon}</CardIcon>}
 					<CardTitle>{title}</CardTitle>
 				</CardHeaderText>
-				{ headerAction && headerAction }
+				{headerAction && headerAction}
 			</CardHeader>
 			<CardContent>{children}</CardContent>
 			<CardFooter>{footer}</CardFooter>

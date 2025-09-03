@@ -32,7 +32,7 @@ const ThemeWrapper = styled.div`
 	--color-gray-900: #141921;
 	--color-gray-600: #4d5761;
 	--color-gray-500: #747c89;
-	--color-gray-300: #D2D6DB;
+	--color-gray-300: #d2d6db;
 	--color-gray-200: #e5e7eb;
 `;
 

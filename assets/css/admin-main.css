@@ -10514,7 +10514,7 @@ body.stop-scrolling {
 	border: none;
 }
 .directorist-form-map-field .atbd_map_shape .directorist-icon-mask:after {
-	width: 9px;
+	width: 16px;
 	height: 16px;
 	background-color: var(--directorist-color-marker-icon);
 	-webkit-mask: url(../js/../images/ed83bad2b8ea2a7680575ff079fc63af.svg);
@@ -11053,8 +11053,8 @@ body.stop-scrolling {
 	border: 50px solid rgba(var(--directorist-color-marker-shape-rgb), 0.2);
 }
 .directorist-add-listing-form .atbd_map_shape .directorist-icon-mask::after {
-	width: 11px;
-	height: 20px;
+	width: 16px;
+	height: 16px;
 }
 
 /* Custom Fields */

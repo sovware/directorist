@@ -18390,13 +18390,6 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
           widgetKey: this.widgetKey,
           updatedWidget: this.currentActiveWidget
         });
-        console.log("@@updateFieldData title", {
-          field_key: field_key,
-          value: value,
-          local_fields: this.localOptions.fields,
-          activeWidgets: this.activeWidgets,
-          thisWidget: this.currentActiveWidget
-        });
       }
     }
   }
@@ -21228,9 +21221,6 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
           }
         }
       }
-      console.log("@chk - output", {
-        output: output
-      });
       return output;
     },
     // Available Widgets

@@ -110,14 +110,6 @@ export default {
           widgetKey: this.widgetKey,
           updatedWidget: this.currentActiveWidget,
         });
-
-        console.log("@@updateFieldData title", {
-          field_key,
-          value,
-          local_fields: this.localOptions.fields,
-          activeWidgets: this.activeWidgets,
-          thisWidget: this.currentActiveWidget,
-        });
       }
     },
   },

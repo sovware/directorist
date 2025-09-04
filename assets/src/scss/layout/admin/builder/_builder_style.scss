@@ -3557,7 +3557,7 @@ input[type="radio"].cptm-radio {
       height: 100% !important;
       max-width: 184px;
       box-sizing: border-box;
-      align-items: stretch; 
+      align-items: stretch;
       border-radius: 4px 0 0 4px !important;
     }
 
@@ -3602,6 +3602,7 @@ input[type="radio"].cptm-radio {
       gap: 4px;
       flex-wrap: wrap;
     }
+    .dndrop-draggable-wrapper-listing_title,
     .cptm-widget-preview-card-listing_title {
       width: 100%;
     }
@@ -3629,12 +3630,8 @@ input[type="radio"].cptm-radio {
     }
   }
   &.list-view-without-thumbnail {
-    .cptm-listing-card-content {
-      max-width: 500px;
-      margin: 0 auto;
-      .cptm-listing-card-preview-body {
-        padding: 20px;
-      }
+    .cptm-placeholder-block-wrapper {
+      height: 100%;
     }
   }
 

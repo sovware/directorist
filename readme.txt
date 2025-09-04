@@ -5,7 +5,7 @@ Tags: business directory, listings, classifieds, directory plugin, directory
 Requires at least: 4.6
 Tested up to: 6.8
 Requires PHP: 7.0
-Stable tag: 8.4.5
+Stable tag: 8.4.6
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -284,6 +284,31 @@ Directorist is developer-friendly with plenty of hooks and filters. You can exte
 Directorist comes with an AI-powered directory builder. Use the Create with AI option, provide directory name, location and AI will build the directory for you.
 
 == Changelog ==
+
+8.4.6 - Sep 1, 2025
+
+### Fixed
+- Map disable issue on single listing. (#2471)
+- Placeholder not fully displayed in Add Listing Form (Multi Select). (#2470)
+- Category field box resizing issue in Add Listing Form. (#2469)
+- Category icon not properly showing in map view. (#2465)
+- Custom field select value on listing card. (#2462)
+- Loading more translation issue. (#2459)
+- PHP 8 deprecated error issue. (#2458)
+- Schema error issue. (#2455)
+- Enter key press issue on instant search. (#2454)
+- Spelling issue in filter hooks. (#2452)
+- Account block styling issue. (#2467)
+- Layout issue when taxonomy title is too long. (#2442)
+
+**Changed**
+- Global columns optimization for responsive layout with clean CSS. (#2436)
+- Wrapped default CSS with `.directorist-content-active` selector. (#2419)
+- Added `directorist_is_multiple_review_enabled` hook to manage multiple reviews. (#2453)
+- Added filter hook to modify the find & replace contents in email. (#2450)
+- Added hooks for email notifications: `directorist_guest_submission_email_notification` and `directorist_after_user_registration_confirmation_email_sent`. (#2464)
+- Added Action hooks in Grid & List loop (before/after header & excerpt). (#2476)
+- Single listing slider thumb shows only when there are multiple items. (#2394)
 
 8.4.5 - July 22, 2025
 

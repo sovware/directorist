@@ -772,6 +772,8 @@
         height: 16px;
         background-color: var(--directorist-color-marker-icon);
         mask: url("../../../icons/font-awesome/svgs/solid/map-pin.svg");
+        mask-position: center;
+        mask-repeat: no-repeat;
       }
     }
     &:hover {

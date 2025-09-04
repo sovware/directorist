@@ -46,7 +46,7 @@ const RefundSummaryContainer = styled.div`
     }
 `;
 
-export default function RefundSummary({ refundsData }) {
+export default function RefundSummary({ refundsData, availableRefundAmount }) {
 	return (
 		<RefundSummaryContainer>
             <div className="directorist-refund-summary-item">
@@ -77,7 +77,7 @@ export default function RefundSummary({ refundsData }) {
                         )}
                     </span>
                     <span className="directorist-refund-summary-item__value">
-                        ${refundsData?.total_refunded ?? 0}
+                        ${availableRefundAmount}
                     </span>
                 </span>
             </div>

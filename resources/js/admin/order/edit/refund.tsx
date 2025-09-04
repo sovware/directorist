@@ -65,6 +65,7 @@ const columns = [
 
 export default function Refund({ order }) {
 	const [showRefundTable, setShowRefundTable] = useState(false);
+	
 
 	registerCrudStore({
 		name: 'directorist/order-refund',
@@ -75,6 +76,7 @@ export default function Refund({ order }) {
 		name: 'directorist/order-refund',
 		selector: 'get',
 	});
+	const availableRefundAmount = parseFloat(order?.final_amount ?? "0") - parseFloat(refundsData?.total_refunded ?? "0");
 
 	const refundFields: FieldsType = {
 		amount: {
@@ -113,9 +115,10 @@ export default function Refund({ order }) {
 				showTable={showRefundTable}
 				create= {{
 					buttonLabel: __("Add Refund", "directorist"),
-					fields: refundFields
+					fields: refundFields,
+					isDisabled: availableRefundAmount <=0 ? true : false
 				}}
-				beforeTable={<RefundSummary refundsData={refundsData} />}
+				beforeTable={<RefundSummary refundsData={refundsData} availableRefundAmount={availableRefundAmount} />}
 				cardFooter={
 					<RefundTableToggle
 						onClick={() => setShowRefundTable(!showRefundTable)}

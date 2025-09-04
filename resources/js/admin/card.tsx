@@ -18,14 +18,14 @@ const CardContainer = styled.div`
 	border-radius: 8px;
 	box-shadow: 0 1px 2px rgba(16, 24, 40, 0.05);
 	&:not(:last-child) {
-		margin-bottom: 30px;
+		margin-bottom: 24px;
 	}
 `;
 
 const CardHeader = styled.div`
 	display: flex;
 	align-items: center;
-	padding: 22px 24px;
+	padding: 20px 32px;
 	border-bottom: 1px solid var(--directorist-color-light);
 `;
 
@@ -43,14 +43,14 @@ const CardIcon = styled.div`
 
 const CardTitle = styled.h3`
 	margin: 0;
-	font-size: 20px;
+	font-size: 16px;
 	font-weight: 600;
-	color: var(--directorist-color-dark);
+	color: var(--color-gray-900);
 `;
 
 const CardContent = styled.div`
 	min-height: 20px;
-	padding: 20px;
+	padding: 24px 32px;
 `;
 
 const CardHeaderText = styled.div``;

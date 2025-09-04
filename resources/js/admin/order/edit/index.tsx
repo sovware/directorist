@@ -34,6 +34,17 @@ const SingleOrderContainer = styled.div`
 	display: grid;
 	grid-template-columns: 2fr 1fr;
 	grid-gap: 30px;
+	.components-card{
+		border-radius: 8px;
+		border: 1px solid var(--color-light);
+		box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+	}
+	.components-card__header{
+		border-bottom: 1px solid rgba(0, 0, 0, 0.10);
+	}
+	.components-card__footer{
+		border-top: 1px solid rgba(0, 0, 0, 0.10);
+	}
 `;
 const ContainerLeft = styled.div``;
 

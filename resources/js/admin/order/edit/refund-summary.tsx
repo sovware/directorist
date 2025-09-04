@@ -7,11 +7,12 @@ import CheckCircleIcon from '../../icons/CheckCircleIcon';
 const RefundSummaryContainer = styled.div`
 	display: flex;
 	align-items: center;
+    padding: 24px 32px;
 	.directorist-refund-summary-item {
 		position: relative;
 		display: flex;
 		align-items: center;
-		gap: 8px;
+		gap: 12px;
 		&:not(:last-child) {
 			padding-right: 30px;
 			margin-right: 30px;
@@ -32,6 +33,17 @@ const RefundSummaryContainer = styled.div`
 		flex-direction: column;
 		gap: 5px;
 	}
+    .directorist-refund-summary-item__label{
+        font-size: 11px;
+        font-weight: 500;
+        text-transform: uppercase;
+        color: var(--color-gray-600);
+    }
+    .directorist-refund-summary-item__value{
+        font-size: 16px;
+        font-weight: 500;
+        color: var(--color-gray-900);
+    }
 `;
 
 export default function RefundSummary({ refundsData }) {

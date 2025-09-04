@@ -66,6 +66,10 @@ const basicFields: ExtendedFieldType = {
 			required: true,
 			min_length: 3,
 			max_length: 50,
+			callback: (value, attributes) => {
+				console.log(value, attributes);
+				return null;
+			},
 		},
 	},
 	// description: {

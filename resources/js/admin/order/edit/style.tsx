@@ -4,7 +4,7 @@ const InfoHead = styled.div`
 	.directorist-order-details-label {
 		display: flex;
 		align-items: center;
-		margin: 0 0 5px;
+		margin: 0 0 6px;
 	}
 	.directorist-order-id {
 		font-size: 24px;

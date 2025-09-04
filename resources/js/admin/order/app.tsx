@@ -34,6 +34,8 @@ const ThemeWrapper = styled.div`
 	--color-gray-500: #747c89;
 	--color-gray-300: #d2d6db;
 	--color-gray-200: #e5e7eb;
+
+	--color-light: #E7ECEE
 `;
 
 export default function App() {

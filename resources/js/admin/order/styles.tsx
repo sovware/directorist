@@ -38,4 +38,7 @@ export const OrderTableContainer = styled.div`
 	.directorist-order-total-amount {
 		color: var(--color-gray-900);
 	}
+	.dataviews-view-table tr .dataviews-item-actions .components-button:not(.dataviews-all-actions-button){
+		opacity: 1;
+	}
 `;

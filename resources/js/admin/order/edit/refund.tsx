@@ -15,8 +15,27 @@ const RefundTable = styled.div`
 	> div {
 		padding: 0;
 	}
+	margin-bottom: 24px;
+	.components-card__body{
+		padding: 0;
+	}
+	.dataviews-wrapper{
+		border-top: 1px solid var(--color-light);
+	}
 `;
-const RefundTableToggle = styled.span``;
+const RefundTableToggle = styled.span`
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+	color: var(--color-primary-500);
+	.directorist-refund-table-toggle-down-icon{
+		position: relative;
+		top: 4px;
+	}
+	svg{
+		margin-left: 6px;
+	}
+`;
 
 const columns = [
 	{ id: 'id', label: 'Refund ID' },
@@ -104,12 +123,12 @@ export default function Refund({ order }) {
 						{showRefundTable ? (
 							<>
 								<span>{__("Hide Refund History", "directorist")}</span>
-								<AngleDownIcon />
+								<span className="directorist-refund-table-toggle-up-icon"> <AngleUpIcon /></span>
 							</>
 						) : (
 							<>
 								<span> {__("Refund History", "directorist")}</span>
-								<AngleUpIcon />
+								<span className="directorist-refund-table-toggle-down-icon"> <AngleDownIcon /></span>
 							</>
 						)}
 					</RefundTableToggle>

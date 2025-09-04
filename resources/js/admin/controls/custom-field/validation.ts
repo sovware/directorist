@@ -122,6 +122,11 @@ export interface ValidationResult {
 	errors: string[];
 }
 
+export type ValidationCallback = (
+	value: any,
+	attributes?: Record<string, any>,
+) => string | string[] | null | void;
+
 // Main validation function
 export const validateField = (
 	value: any,
@@ -160,6 +165,24 @@ export const validateField = (
 			}
 		}
 	});
+
+	// Post-rule callback support: validation.callback(value, attributes, field, errors)
+	try {
+		const callback = (field.validation as any).callback as
+			| ValidationCallback
+			| undefined;
+		if (typeof callback === 'function') {
+			const result = callback(value, attributes);
+			if (typeof result === 'string' && result) {
+				errors.push(result);
+			} else if (Array.isArray(result)) {
+				result.filter(Boolean).forEach((msg) => errors.push(msg as string));
+			}
+		}
+	} catch (err) {
+		console.error('Validation callback error:', err);
+		errors.push('Validation error occurred');
+	}
 
 	return {
 		isValid: errors.length === 0,
@@ -220,6 +243,24 @@ export const validateFieldAsync = async (
 				errors.push(error);
 			}
 		});
+	}
+
+	// Post-rule callback support for async flow as well
+	try {
+		const callback = (field.validation as any).callback as
+			| ValidationCallback
+			| undefined;
+		if (typeof callback === 'function') {
+			const result = callback(value, attributes);
+			if (typeof result === 'string' && result) {
+				errors.push(result);
+			} else if (Array.isArray(result)) {
+				result.filter(Boolean).forEach((msg) => errors.push(msg as string));
+			}
+		}
+	} catch (err) {
+		console.error('Validation callback error:', err);
+		errors.push('Validation error occurred');
 	}
 
 	return {

@@ -1239,7 +1239,7 @@ $light-gray: #f4f5f7;
   &.listings_card_grid_view,
   &.listings_card_list_view {
     .cptm-form-field-wrapper {
-      max-width: 600px;
+      max-width: 658px;
       margin: 0 auto;
       padding: 24px;
       margin-bottom: 32px;
@@ -3558,7 +3558,7 @@ input[type="radio"].cptm-radio {
       max-width: 184px;
       box-sizing: border-box;
       align-items: stretch; 
-      border-radius: 4px 0 0 4px;
+      border-radius: 4px 0 0 4px !important;
     }
 
     .cptm-widget-option-modal-container {
@@ -3593,6 +3593,38 @@ input[type="radio"].cptm-radio {
     .cptm-widget-card {
       .cptm-widget-card-disabled-badge {
         display: none;
+      }
+    }
+  }
+  &.list-view-with-thumbnail {
+    .cptm-widget-preview-container {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+    .cptm-widget-preview-card-listing_title {
+      width: 100%;
+    }
+    .cptm-card-preview-top-right {
+      width: 140px;
+    }
+    .cptm-card-placeholder-top {
+      .cptm-placeholder-block-wrapper {
+        height: 100%;
+      }
+      .cptm-card-placeholder-top-left {
+        flex: 1;
+      }
+      .cptm-card-placeholder-top-right {
+        width: 110px;
+      }
+    }
+    .cptm-listing-card-preview-footer {
+      .cptm-placeholder-block {
+        padding: 4px;
+      }
+      .cptm-widget-card-wrap {
+        padding: 0;
       }
     }
   }
@@ -4099,11 +4131,6 @@ input[type="radio"].cptm-radio {
 .cptm-card-placeholder-top {
   display: flex;
   gap: 12px;
-}
-
-.cptm-card-placeholder-top-left,
-.cptm-card-placeholder-top-right {
-  flex: 1;
 }
 
 .cptm-listing-card-preview-footer {

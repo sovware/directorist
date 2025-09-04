@@ -31,13 +31,12 @@
                     getActiveOptionWindowStatus('thumbnail_top_right')
                   "
                   :widgetOptionsWindow="widgetOptionsWindow"
+                  :canDragAndDrop="true"
                   @insert-widget="
                     insertWidget($event, local_layout.thumbnail.top_right)
                   "
                   @edit-widget="editWidget($event)"
-                  @trash-widget="
-                    trashWidget($event, local_layout.thumbnail.top_right)
-                  "
+                  @trash-widget="trashWidget($event, local_layout.thumbnail.top_right)"
                   @open-widgets-picker-window="
                     toggleInsertWindow('thumbnail_top_right')
                   "
@@ -53,6 +52,7 @@
                     )
                   "
                   @update-active-widget="handleActiveWidgetUpdate"
+                  @activate-widget-options="toggleActivateWidgetOptions"
                 />
               </div>
 
@@ -107,13 +107,11 @@
                     getActiveOptionWindowStatus('thumbnail_body_top')
                   "
                   :widgetOptionsWindow="widgetOptionsWindow"
-                  @insert-widget="
-                    insertWidget($event, local_layout.body.top)
-                  "
+                  :canDragAndDrop="true"
+                  :dragAxis="'x'"
+                  @insert-widget="insertWidget($event, local_layout.body.top)"
                   @edit-widget="editWidget($event)"
-                  @trash-widget="
-                    trashWidget($event, local_layout.body.top)
-                  "
+                  @trash-widget="trashWidget($event, local_layout.body.top)"
                   @open-widgets-picker-window="
                     toggleInsertWindow('thumbnail_body_top')
                   "
@@ -122,13 +120,12 @@
                   "
                   @close-widgets-picker-window="closeInsertWindow()"
                   @close-widgets-option-window="closeOptionWindow()"
+                  @close-option-window="closeWidgetOptionsWindow()"
                   @update="
-                    handleUpdateSelectedWidgets(
-                      $event,
-                      'local_layout.body.top',
-                    )
+                    handleUpdateSelectedWidgets($event, 'local_layout.body.top')
                   "
                   @update-active-widget="handleActiveWidgetUpdate"
+                  @activate-widget-options="toggleActivateWidgetOptions"
                 />
               </div>
 
@@ -150,6 +147,7 @@
                     getActiveOptionWindowStatus('thumbnail_body_right')
                   "
                   :widgetOptionsWindow="widgetOptionsWindow"
+                  :canOpenSettings="true"
                   @insert-widget="
                     insertWidget($event, local_layout.body.right)
                   "
@@ -172,6 +170,11 @@
                     )
                   "
                   @update-active-widget="handleActiveWidgetUpdate"
+                  @activate-widget-options="toggleActivateWidgetOptions"
+                  @update-option-window="
+                    updateWidgetOptionsData($event, widgetOptionsWindow)
+                  "
+                  @close-option-window="closeWidgetOptionsWindow()"
                 />
               </div>
             </div>
@@ -192,17 +195,24 @@
                 getActiveOptionWindowStatus('thumbnail_body_bottom')
               "
               :widgetOptionsWindow="widgetOptionsWindow"
+              :canDragAndDrop="true"
               @insert-widget="insertWidget($event, local_layout.body.bottom)"
               @edit-widget="editWidget($event)"
               @trash-widget="trashWidget($event, local_layout.body.bottom)"
-              @open-widgets-picker-window="toggleInsertWindow('thumbnail_body_bottom')"
-              @open-widgets-option-window="toggleOptionWindow('thumbnail_body_bottom')"
+              @open-widgets-picker-window="
+                toggleInsertWindow('thumbnail_body_bottom')
+              "
+              @open-widgets-option-window="
+                toggleOptionWindow('thumbnail_body_bottom')
+              "
               @close-widgets-picker-window="closeInsertWindow()"
               @close-widgets-option-window="closeOptionWindow()"
+              @close-option-window="closeWidgetOptionsWindow()"
               @update="
                 handleUpdateSelectedWidgets($event, 'local_layout.body.bottom')
               "
               @update-active-widget="handleActiveWidgetUpdate"
+              @activate-widget-options="toggleActivateWidgetOptions"
             />
           </div>
 
@@ -229,10 +239,15 @@
                 @insert-widget="insertWidget($event, local_layout.footer.left)"
                 @edit-widget="editWidget($event)"
                 @trash-widget="trashWidget($event, local_layout.footer.left)"
-                @open-widgets-picker-window="toggleInsertWindow('thumbnail_footer_left')"
-                @open-widgets-option-window="toggleOptionWindow('thumbnail_footer_left')"
+                @open-widgets-picker-window="
+                  toggleInsertWindow('thumbnail_footer_left')
+                "
+                @open-widgets-option-window="
+                  toggleOptionWindow('thumbnail_footer_left')
+                "
                 @close-widgets-picker-window="closeInsertWindow()"
                 @close-widgets-option-window="closeOptionWindow()"
+                @close-option-window="closeWidgetOptionsWindow()"
                 @update="
                   handleUpdateSelectedWidgets(
                     $event,
@@ -240,6 +255,7 @@
                   )
                 "
                 @update-active-widget="handleActiveWidgetUpdate"
+                @activate-widget-options="toggleActivateWidgetOptions"
               />
             </div>
 
@@ -264,10 +280,15 @@
                 @insert-widget="insertWidget($event, local_layout.footer.right)"
                 @edit-widget="editWidget($event)"
                 @trash-widget="trashWidget($event, local_layout.footer.right)"
-                @open-widgets-picker-window="toggleInsertWindow('thumbnail_footer_right')"
-                @open-widgets-option-window="toggleOptionWindow('thumbnail_footer_right')"
+                @open-widgets-picker-window="
+                  toggleInsertWindow('thumbnail_footer_right')
+                "
+                @open-widgets-option-window="
+                  toggleOptionWindow('thumbnail_footer_right')
+                "
                 @close-widgets-picker-window="closeInsertWindow()"
                 @close-widgets-option-window="closeOptionWindow()"
+                @close-option-window="closeWidgetOptionsWindow()"
                 @update="
                   handleUpdateSelectedWidgets(
                     $event,
@@ -275,6 +296,7 @@
                   )
                 "
                 @update-active-widget="handleActiveWidgetUpdate"
+                @activate-widget-options="toggleActivateWidgetOptions"
               />
             </div>
           </div>
@@ -687,10 +709,7 @@ export default {
 
     // Edit Widget
     editWidget(key) {
-      if (
-        typeof this.active_widgets[key] === "undefined" ||
-        this.widgetOptionsWindowActiveStatus
-      ) {
+      if (typeof this.active_widgets[key] === "undefined") {
         return;
       }
 
@@ -701,7 +720,16 @@ export default {
         return;
       }
 
-      this.widgetOptionsWindow = this.widgetOptionsWindowDefault;
+      let opt = this.active_widgets[key].options;
+      // Force Vue reactivity by using Vue.set or restructuring
+      this.$set(this, "widgetOptionsWindow", {
+        ...this.widgetOptionsWindowDefault,
+        ...opt,
+        widget: key,
+      });
+
+      // Also update the active_option_widget_key for consistency
+      this.active_option_widget_key = key;
     },
 
     // Update Widget Options Data
@@ -712,6 +740,8 @@ export default {
     // Close Widget Options Window
     closeWidgetOptionsWindow() {
       this.widgetOptionsWindow = this.widgetOptionsWindowDefault;
+      // Also clear the active_option_widget_key for consistency
+      this.active_option_widget_key = "";
     },
 
     // Trash Widget
@@ -730,6 +760,11 @@ export default {
 
       if (key === this.widgetOptionsWindow.widget) {
         this.closeWidgetOptionsWindow();
+      }
+
+      // Also clear active_option_widget_key if this widget was active
+      if (this.active_option_widget_key === key) {
+        this.active_option_widget_key = "";
       }
     },
 
@@ -772,6 +807,7 @@ export default {
 
     // Insert Widget
     insertWidget(payload, where) {
+      console.log("insertWidget", { payload, where });
       if (!this.isTruthyObject(this.theAvailableWidgets[payload.key])) {
         return;
       }
@@ -779,7 +815,19 @@ export default {
       Vue.set(this.active_widgets, payload.key, {
         ...this.theAvailableWidgets[payload.key],
       });
-      Vue.set(where, "selectedWidgets", payload.selected_widgets);
+
+      // If payload.key is listing_title, insert as first item
+      if (payload.key === "listing_title") {
+        const currentWidgets = where.selectedWidgets || [];
+        // Remove any existing listing_title to avoid duplicates
+        const filteredWidgets = currentWidgets.filter(
+          (widget) => widget !== "listing_title",
+        );
+        const newWidgets = [payload.key, ...filteredWidgets];
+        Vue.set(where, "selectedWidgets", newWidgets);
+      } else {
+        Vue.set(where, "selectedWidgets", payload.selected_widgets);
+      }
     },
 
     // Close Insert Window
@@ -790,6 +838,12 @@ export default {
     // Close Option Window
     closeOptionWindow() {
       this.active_option_widget_key = "";
+    },
+
+    // Close Widget Options Window
+    closeWidgetOptionsWindow() {
+      this.active_option_widget_key = "";
+      this.$set(this.widgetOptionsWindow, "widget", "");
     },
 
     // Get Active Insert Window Status
@@ -833,6 +887,12 @@ export default {
         obj = obj[pathKeys[i]]; // Navigate deeper into the object
       }
 
+      console.log("@@handleUpdateSelectedWidgets - test", {
+        updatedWidgets,
+        pathKeys,
+        obj,
+      });
+
       // Update the selectedWidgets at the correct path
       obj[pathKeys[pathKeys.length - 1]].selectedWidgets = updatedWidgets;
     },
@@ -841,6 +901,13 @@ export default {
     handleActiveWidgetUpdate({ widgetKey, updatedWidget }) {
       this.$set(this.active_widgets, widgetKey, updatedWidget);
       this.$set(this.available_widgets, widgetKey, updatedWidget);
+    },
+
+    // Activate Widget Options
+    toggleActivateWidgetOptions(widgetKey) {
+      // Always activate the widget options
+      this.$set(this.widgetOptionsWindow, "widget", widgetKey);
+      this.active_option_widget_key = widgetKey;
     },
   },
 };

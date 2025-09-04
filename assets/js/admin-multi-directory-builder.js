@@ -22257,15 +22257,17 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
-/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/esm/typeof.js");
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-/* harmony import */ var _mixins_helpers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../mixins/helpers */ "./assets/src/js/admin/vue/mixins/helpers.js");
-/* harmony import */ var _mixins_form_fields_card_builder__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../../mixins/form-fields/card-builder */ "./assets/src/js/admin/vue/mixins/form-fields/card-builder.js");
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/esm/typeof.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var _mixins_helpers__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../mixins/helpers */ "./assets/src/js/admin/vue/mixins/helpers.js");
+/* harmony import */ var _mixins_form_fields_card_builder__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../../mixins/form-fields/card-builder */ "./assets/src/js/admin/vue/mixins/form-fields/card-builder.js");
+
 
 
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__["default"])(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t.return || t.return(); } finally { if (u) throw o; } } }; }
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
 function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
@@ -22274,7 +22276,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "card-builder-list-view-with-thumbnail-field",
-  mixins: [_mixins_form_fields_card_builder__WEBPACK_IMPORTED_MODULE_4__["default"], _mixins_helpers__WEBPACK_IMPORTED_MODULE_3__["default"]],
+  mixins: [_mixins_form_fields_card_builder__WEBPACK_IMPORTED_MODULE_5__["default"], _mixins_helpers__WEBPACK_IMPORTED_MODULE_4__["default"]],
   props: {
     value: {
       required: false,
@@ -22308,20 +22310,20 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       var layout = this.local_layout;
       for (var section in layout) {
         output[section] = {};
-        if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(layout[section]) !== "object") {
+        if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__["default"])(layout[section]) !== "object") {
           continue;
         }
         for (var section_area in layout[section]) {
           output[section][section_area] = [];
-          if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(layout[section][section_area]) !== "object") {
+          if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__["default"])(layout[section][section_area]) !== "object") {
             continue;
           }
-          if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(layout[section][section_area].selectedWidgets) !== "object") {
+          if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__["default"])(layout[section][section_area].selectedWidgets) !== "object") {
             continue;
           }
           for (var widget in layout[section][section_area].selectedWidgets) {
             var widget_name = layout[section][section_area].selectedWidgets[widget];
-            if (!this.active_widgets[widget_name] && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(this.active_widgets[widget_name]) !== "object") {
+            if (!this.active_widgets[widget_name] && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__["default"])(this.active_widgets[widget_name]) !== "object") {
               continue;
             }
             var widget_data = {};
@@ -22331,11 +22333,11 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
               }
               widget_data[root_option] = this.active_widgets[widget_name][root_option];
             }
-            if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(this.active_widgets[widget_name].options) !== "object") {
+            if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__["default"])(this.active_widgets[widget_name].options) !== "object") {
               output[section][section_area].push(widget_data);
               continue;
             }
-            if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(this.active_widgets[widget_name].options.fields) !== "object") {
+            if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__["default"])(this.active_widgets[widget_name].options.fields) !== "object") {
               output[section][section_area].push(widget_data);
               continue;
             }
@@ -22460,7 +22462,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       }
     };
   },
-  methods: {
+  methods: (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__["default"])((0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__["default"])({
     init: function init() {
       this.importWidgets();
       this.importLayout();
@@ -22468,7 +22470,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     },
     // isTruthyObject check
     isTruthyObject: function isTruthyObject(obj) {
-      if (!obj && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(obj) !== "object") {
+      if (!obj && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__["default"])(obj) !== "object") {
         return false;
       }
       return true;
@@ -22484,11 +22486,11 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
       // Get Active Widgets Data
       var active_widgets_data = {};
       for (var section in value) {
-        if (!value[section] && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(value[section]) !== "object") {
+        if (!value[section] && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__["default"])(value[section]) !== "object") {
           continue;
         }
         for (var area in value[section]) {
-          if (!value[section][area] && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(value[section][area]) !== "object") {
+          if (!value[section][area] && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__["default"])(value[section][area]) !== "object") {
             continue;
           }
           var _iterator2 = _createForOfIteratorHelper(value[section][area]),
@@ -22532,7 +22534,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
           continue;
         }
         var widgets_template = _objectSpread({}, this.theAvailableWidgets[widget_key]);
-        var widget_options = !active_widgets_data[widget_key].options && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(active_widgets_data[widget_key].options) !== "object" ? false : active_widgets_data[widget_key].options;
+        var widget_options = !active_widgets_data[widget_key].options && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__["default"])(active_widgets_data[widget_key].options) !== "object" ? false : active_widgets_data[widget_key].options;
         for (var root_option in widgets_template) {
           if ("options" === root_option) {
             continue;
@@ -22554,8 +22556,8 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
             widgets_template.options.fields[option_key].value = active_widgets_data[widget_key][option_key];
           }
         }
-        vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(this.active_widgets, widget_key, widgets_template);
-        vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(this.available_widgets, widget_key, widgets_template);
+        vue__WEBPACK_IMPORTED_MODULE_3__["default"].set(this.active_widgets, widget_key, widgets_template);
+        vue__WEBPACK_IMPORTED_MODULE_3__["default"].set(this.available_widgets, widget_key, widgets_template);
       }
 
       // Load Selected Widgets Data
@@ -22591,13 +22593,20 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     },
     // Edit Widget
     editWidget: function editWidget(key) {
-      if (typeof this.active_widgets[key] === "undefined" || this.widgetOptionsWindowActiveStatus) {
+      if (typeof this.active_widgets[key] === "undefined") {
         return;
       }
-      if (!this.active_widgets[key].options && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(this.active_widgets[key].options) !== "object") {
+      if (!this.active_widgets[key].options && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_2__["default"])(this.active_widgets[key].options) !== "object") {
         return;
       }
-      this.widgetOptionsWindow = this.widgetOptionsWindowDefault;
+      var opt = this.active_widgets[key].options;
+      // Force Vue reactivity by using Vue.set or restructuring
+      this.$set(this, "widgetOptionsWindow", _objectSpread(_objectSpread(_objectSpread({}, this.widgetOptionsWindowDefault), opt), {}, {
+        widget: key
+      }));
+
+      // Also update the active_option_widget_key for consistency
+      this.active_option_widget_key = key;
     },
     // Update Widget Options Data
     updateWidgetOptionsData: function updateWidgetOptionsData(data, widget) {
@@ -22606,6 +22615,8 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     // Close Widget Options Window
     closeWidgetOptionsWindow: function closeWidgetOptionsWindow() {
       this.widgetOptionsWindow = this.widgetOptionsWindowDefault;
+      // Also clear the active_option_widget_key for consistency
+      this.active_option_widget_key = "";
     },
     // Trash Widget
     trashWidget: function trashWidget(key, where) {
@@ -22613,13 +22624,18 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
         return;
       }
       var index = where.selectedWidgets.indexOf(key);
-      vue__WEBPACK_IMPORTED_MODULE_2__["default"].delete(where.selectedWidgets, index);
+      vue__WEBPACK_IMPORTED_MODULE_3__["default"].delete(where.selectedWidgets, index);
       if (typeof this.active_widgets[key] === "undefined") {
         return;
       }
-      vue__WEBPACK_IMPORTED_MODULE_2__["default"].delete(this.active_widgets, key);
+      vue__WEBPACK_IMPORTED_MODULE_3__["default"].delete(this.active_widgets, key);
       if (key === this.widgetOptionsWindow.widget) {
         this.closeWidgetOptionsWindow();
+      }
+
+      // Also clear active_option_widget_key if this widget was active
+      if (this.active_option_widget_key === key) {
+        this.active_option_widget_key = "";
       }
     },
     // Toggle Widget Status
@@ -22659,11 +22675,27 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     },
     // Insert Widget
     insertWidget: function insertWidget(payload, where) {
+      console.log("insertWidget", {
+        payload: payload,
+        where: where
+      });
       if (!this.isTruthyObject(this.theAvailableWidgets[payload.key])) {
         return;
       }
-      vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(this.active_widgets, payload.key, _objectSpread({}, this.theAvailableWidgets[payload.key]));
-      vue__WEBPACK_IMPORTED_MODULE_2__["default"].set(where, "selectedWidgets", payload.selected_widgets);
+      vue__WEBPACK_IMPORTED_MODULE_3__["default"].set(this.active_widgets, payload.key, _objectSpread({}, this.theAvailableWidgets[payload.key]));
+
+      // If payload.key is listing_title, insert as first item
+      if (payload.key === "listing_title") {
+        var currentWidgets = where.selectedWidgets || [];
+        // Remove any existing listing_title to avoid duplicates
+        var filteredWidgets = currentWidgets.filter(function (widget) {
+          return widget !== "listing_title";
+        });
+        var newWidgets = [payload.key].concat((0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(filteredWidgets));
+        vue__WEBPACK_IMPORTED_MODULE_3__["default"].set(where, "selectedWidgets", newWidgets);
+      } else {
+        vue__WEBPACK_IMPORTED_MODULE_3__["default"].set(where, "selectedWidgets", payload.selected_widgets);
+      }
     },
     // Close Insert Window
     closeInsertWindow: function closeInsertWindow() {
@@ -22672,53 +22704,55 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     // Close Option Window
     closeOptionWindow: function closeOptionWindow() {
       this.active_option_widget_key = "";
-    },
-    // Get Active Insert Window Status
-    getActiveInsertWindowStatus: function getActiveInsertWindowStatus(current_item_key) {
-      if (current_item_key === this.active_insert_widget_key) {
-        return true;
-      }
-      return false;
-    },
-    // Get Active Option Window Status
-    getActiveOptionWindowStatus: function getActiveOptionWindowStatus(current_item_key) {
-      if (current_item_key === this.active_option_widget_key) {
-        return true;
-      }
-      return false;
-    },
-    // Is Placeholder Active
-    placeholderIsActive: function placeholderIsActive(layout) {
-      if (!this.isObject(layout.show_if)) {
-        return true;
-      }
-      var check_condition = this.checkShowIfCondition({
-        condition: layout.show_if
-      });
-      return check_condition.status;
-    },
-    // Handle Update Selected Widgets
-    handleUpdateSelectedWidgets: function handleUpdateSelectedWidgets(updatedWidgets, path) {
-      // Split the path into keys
-      var pathKeys = path.split(".");
-
-      // Navigate through the object dynamically
-      var obj = this;
-      for (var i = 0; i < pathKeys.length - 1; i++) {
-        obj = obj[pathKeys[i]]; // Navigate deeper into the object
-      }
-
-      // Update the selectedWidgets at the correct path
-      obj[pathKeys[pathKeys.length - 1]].selectedWidgets = updatedWidgets;
-    },
-    // Handle Update Selected Widgets
-    handleActiveWidgetUpdate: function handleActiveWidgetUpdate(_ref) {
-      var widgetKey = _ref.widgetKey,
-        updatedWidget = _ref.updatedWidget;
-      this.$set(this.active_widgets, widgetKey, updatedWidget);
-      this.$set(this.available_widgets, widgetKey, updatedWidget);
     }
-  }
+  }, "closeWidgetOptionsWindow", function closeWidgetOptionsWindow() {
+    this.active_option_widget_key = "";
+    this.$set(this.widgetOptionsWindow, "widget", "");
+  }), "getActiveInsertWindowStatus", function getActiveInsertWindowStatus(current_item_key) {
+    if (current_item_key === this.active_insert_widget_key) {
+      return true;
+    }
+    return false;
+  }), "getActiveOptionWindowStatus", function getActiveOptionWindowStatus(current_item_key) {
+    if (current_item_key === this.active_option_widget_key) {
+      return true;
+    }
+    return false;
+  }), "placeholderIsActive", function placeholderIsActive(layout) {
+    if (!this.isObject(layout.show_if)) {
+      return true;
+    }
+    var check_condition = this.checkShowIfCondition({
+      condition: layout.show_if
+    });
+    return check_condition.status;
+  }), "handleUpdateSelectedWidgets", function handleUpdateSelectedWidgets(updatedWidgets, path) {
+    // Split the path into keys
+    var pathKeys = path.split(".");
+
+    // Navigate through the object dynamically
+    var obj = this;
+    for (var i = 0; i < pathKeys.length - 1; i++) {
+      obj = obj[pathKeys[i]]; // Navigate deeper into the object
+    }
+    console.log("@@handleUpdateSelectedWidgets - test", {
+      updatedWidgets: updatedWidgets,
+      pathKeys: pathKeys,
+      obj: obj
+    });
+
+    // Update the selectedWidgets at the correct path
+    obj[pathKeys[pathKeys.length - 1]].selectedWidgets = updatedWidgets;
+  }), "handleActiveWidgetUpdate", function handleActiveWidgetUpdate(_ref) {
+    var widgetKey = _ref.widgetKey,
+      updatedWidget = _ref.updatedWidget;
+    this.$set(this.active_widgets, widgetKey, updatedWidget);
+    this.$set(this.available_widgets, widgetKey, updatedWidget);
+  }), "toggleActivateWidgetOptions", function toggleActivateWidgetOptions(widgetKey) {
+    // Always activate the widget options
+    this.$set(this.widgetOptionsWindow, "widget", widgetKey);
+    this.active_option_widget_key = widgetKey;
+  })
 });
 
 /***/ }),
@@ -32369,7 +32403,8 @@ var render = function render() {
       "maxWidget": _vm.local_layout.thumbnail.top_right.maxWidget,
       "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_top_right'),
       "showWidgetsOptionWindow": _vm.getActiveOptionWindowStatus('thumbnail_top_right'),
-      "widgetOptionsWindow": _vm.widgetOptionsWindow
+      "widgetOptionsWindow": _vm.widgetOptionsWindow,
+      "canDragAndDrop": true
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -32396,7 +32431,8 @@ var render = function render() {
       "update": function update($event) {
         return _vm.handleUpdateSelectedWidgets($event, 'local_layout.thumbnail.top_right');
       },
-      "update-active-widget": _vm.handleActiveWidgetUpdate
+      "update-active-widget": _vm.handleActiveWidgetUpdate,
+      "activate-widget-options": _vm.toggleActivateWidgetOptions
     }
   })], 1), _vm._v(" "), _c('div', {
     staticClass: "cptm-card-preview-thumbnail-bg"
@@ -32448,7 +32484,9 @@ var render = function render() {
       "maxWidget": _vm.local_layout.body.top.maxWidget,
       "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_body_top'),
       "showWidgetsOptionWindow": _vm.getActiveOptionWindowStatus('thumbnail_body_top'),
-      "widgetOptionsWindow": _vm.widgetOptionsWindow
+      "widgetOptionsWindow": _vm.widgetOptionsWindow,
+      "canDragAndDrop": true,
+      "dragAxis": 'x'
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -32472,10 +32510,14 @@ var render = function render() {
       "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
         return _vm.closeOptionWindow();
       },
+      "close-option-window": function closeOptionWindow($event) {
+        return _vm.closeWidgetOptionsWindow();
+      },
       "update": function update($event) {
         return _vm.handleUpdateSelectedWidgets($event, 'local_layout.body.top');
       },
-      "update-active-widget": _vm.handleActiveWidgetUpdate
+      "update-active-widget": _vm.handleActiveWidgetUpdate,
+      "activate-widget-options": _vm.toggleActivateWidgetOptions
     }
   })], 1), _vm._v(" "), _c('div', {
     staticClass: "cptm-card-placeholder-top-right"
@@ -32491,7 +32533,8 @@ var render = function render() {
       "maxWidget": _vm.local_layout.body.right.maxWidget,
       "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_body_right'),
       "showWidgetsOptionWindow": _vm.getActiveOptionWindowStatus('thumbnail_body_right'),
-      "widgetOptionsWindow": _vm.widgetOptionsWindow
+      "widgetOptionsWindow": _vm.widgetOptionsWindow,
+      "canOpenSettings": true
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -32518,7 +32561,14 @@ var render = function render() {
       "update": function update($event) {
         return _vm.handleUpdateSelectedWidgets($event, 'local_layout.body.right');
       },
-      "update-active-widget": _vm.handleActiveWidgetUpdate
+      "update-active-widget": _vm.handleActiveWidgetUpdate,
+      "activate-widget-options": _vm.toggleActivateWidgetOptions,
+      "update-option-window": function updateOptionWindow($event) {
+        return _vm.updateWidgetOptionsData($event, _vm.widgetOptionsWindow);
+      },
+      "close-option-window": function closeOptionWindow($event) {
+        return _vm.closeWidgetOptionsWindow();
+      }
     }
   })], 1)]), _vm._v(" "), _c('card-widget-placeholder', {
     attrs: {
@@ -32532,7 +32582,8 @@ var render = function render() {
       "maxWidget": _vm.local_layout.body.bottom.maxWidget,
       "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_body_bottom'),
       "showWidgetsOptionWindow": _vm.getActiveOptionWindowStatus('thumbnail_body_bottom'),
-      "widgetOptionsWindow": _vm.widgetOptionsWindow
+      "widgetOptionsWindow": _vm.widgetOptionsWindow,
+      "canDragAndDrop": true
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -32556,10 +32607,14 @@ var render = function render() {
       "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
         return _vm.closeOptionWindow();
       },
+      "close-option-window": function closeOptionWindow($event) {
+        return _vm.closeWidgetOptionsWindow();
+      },
       "update": function update($event) {
         return _vm.handleUpdateSelectedWidgets($event, 'local_layout.body.bottom');
       },
-      "update-active-widget": _vm.handleActiveWidgetUpdate
+      "update-active-widget": _vm.handleActiveWidgetUpdate,
+      "activate-widget-options": _vm.toggleActivateWidgetOptions
     }
   })], 1), _vm._v(" "), _c('div', {
     staticClass: "cptm-listing-card-preview-footer"
@@ -32601,10 +32656,14 @@ var render = function render() {
       "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
         return _vm.closeOptionWindow();
       },
+      "close-option-window": function closeOptionWindow($event) {
+        return _vm.closeWidgetOptionsWindow();
+      },
       "update": function update($event) {
         return _vm.handleUpdateSelectedWidgets($event, 'local_layout.footer.left');
       },
-      "update-active-widget": _vm.handleActiveWidgetUpdate
+      "update-active-widget": _vm.handleActiveWidgetUpdate,
+      "activate-widget-options": _vm.toggleActivateWidgetOptions
     }
   })], 1), _vm._v(" "), _c('div', {
     staticClass: "cptm-card-preview-footer-right"
@@ -32644,10 +32703,14 @@ var render = function render() {
       "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
         return _vm.closeOptionWindow();
       },
+      "close-option-window": function closeOptionWindow($event) {
+        return _vm.closeWidgetOptionsWindow();
+      },
       "update": function update($event) {
         return _vm.handleUpdateSelectedWidgets($event, 'local_layout.footer.right');
       },
-      "update-active-widget": _vm.handleActiveWidgetUpdate
+      "update-active-widget": _vm.handleActiveWidgetUpdate,
+      "activate-widget-options": _vm.toggleActivateWidgetOptions
     }
   })], 1)])])])])]);
 };

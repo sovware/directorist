@@ -32394,7 +32394,7 @@ var render = function render() {
       "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('thumbnail_top_right'),
       "showWidgetsOptionWindow": _vm.getActiveOptionWindowStatus('thumbnail_top_right'),
       "widgetOptionsWindow": _vm.widgetOptionsWindow,
-      "canDragAndDrop": true
+      "canOpenSettings": true
     },
     on: {
       "insert-widget": function insertWidget($event) {

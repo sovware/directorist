@@ -31,7 +31,7 @@
                     getActiveOptionWindowStatus('thumbnail_top_right')
                   "
                   :widgetOptionsWindow="widgetOptionsWindow"
-                  :canDragAndDrop="true"
+                  :canOpenSettings="true"
                   @insert-widget="
                     insertWidget($event, local_layout.thumbnail.top_right)
                   "

@@ -2070,7 +2070,7 @@ class Builder_Data {
                     'label'             => __( 'Top Right', 'directorist' ),
                     'maxWidget'         => 3,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
-                    'acceptedWidgets'   => ['favorite_badge', 'popular_badge', 'featured_badge', 'new_badge'],
+                    'acceptedWidgets'   => ['popular_badge', 'featured_badge', 'new_badge'],
                 ],
             ],
 
@@ -2079,8 +2079,8 @@ class Builder_Data {
                     'label'             => __( 'Body Top', 'directorist' ),
                     'maxWidget'         => 0,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
-                    'acceptedWidgets' => ['listing_title', "rating", "pricing", "posted_date"],
-                    "selectedWidgets" => ['listing_title'],
+                    'acceptedWidgets' => ['listing_title', 'rating', 'pricing'],
+                    "selectedWidgets" => [],
                 ],
                 'right'   => [
                     'label'             => __( 'Body Right', 'directorist' ),

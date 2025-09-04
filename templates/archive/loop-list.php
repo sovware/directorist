@@ -20,35 +20,23 @@ $loop_fields = $listings->loop['list_fields']['template_data']['list_view_with_t
     <section class="directorist-listing-single__content">
 
         <div class="directorist-listing-single__info">
-            <div class="directorist-listing-single__info__top">
-                <div class="directorist-listing-single__info__top__left">
-                    <?php $listings->render_loop_fields( $loop_fields['top']['quick_actions'] ); ?>
-                </div>
-                <div class="directorist-listing-single__info__top__right">
-                    <?php $listings->render_loop_fields( $loop_fields['top']['quick_info'] ); ?>
+            <div class="directorist-listing-single__info__top-right">
+                <header class="directorist-listing-single__info__top">
+                    <?php $listings->render_loop_fields( $loop_fields['body']['top'] ); ?>
+                </header>
+                <div class="directorist-listing-single__info__right">
+                    <div class="directorist-listing-single__action">
+                        <?php $listings->render_loop_fields( $loop_fields['body']['right'] ); ?>
+                    </div>
                 </div>
             </div>
-
-            <?php if ( ! empty( $loop_fields['body']['title'] ) ) : ?>
-                <header class="directorist-listing-single__info__title">
-                    <?php $listings->render_loop_fields( $loop_fields['body']['title'] ); ?>
-                </header>
-            <?php endif; ?>
-
-            <?php if ( ! empty( $loop_fields['body']['tagline'] ) ) : ?>
-                <div class="directorist-listing-single__info__tagline">
-                    <?php $listings->render_loop_fields( $loop_fields['body']['tagline'] ); ?>
-                </div>
-            <?php endif; ?> 
-
-            <?php if ( ! empty( $loop_fields['body']['rating'] ) ) : ?>
-                <div class="directorist-listing-single__info__rating">
-                    <?php $listings->render_loop_fields( $loop_fields['body']['rating'] ); ?>
-                </div>
-            <?php endif; ?>
             <ul class="directorist-listing-single__info__list">
                 <?php $listings->render_loop_fields( $loop_fields['body']['bottom'], '', '' ); ?>
             </ul>
+
+            <?php if ( ! empty( $loop_fields['body']['excerpt'] ) ) : ?>
+                <?php $listings->render_loop_fields( $loop_fields['body']['excerpt'] ) ?>
+            <?php endif; ?>
         </div>
 
         <footer class="directorist-listing-single__meta">

@@ -121,6 +121,9 @@ class OrderRepository extends Repository {
     }
 
     public function to_dto( $order ) {
+        if ( ! $order ) {
+            return null;
+        }
         $dto = ( new DTO )
             ->set_id( $order->id )
             ->set_subscription_id( $order->subscription_id )

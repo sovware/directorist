@@ -3588,6 +3588,34 @@ input[type="radio"].cptm-radio {
         border-radius: 50%;
       }
     }
+
+    .cptm-widget-preview-card-user_avatar {
+      .cptm-widget-card {
+        display: flex;
+        align-items: center;
+        border-radius: 4px;
+        background: #ffffff;
+        border: 1px solid #d2d6db;
+      }
+      .cptm-placeholder-author-thumb {
+        width: 100%;
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        justify-content: space-between;
+        > svg {
+          width: 30px;
+          height: 30px;
+        }
+        .cptm-placeholder-author-thumb-trash {
+          position: unset;
+          transform: unset;
+          width: 22px;
+          height: 22px;
+          font-size: 14px;
+        }
+      }
+    }
   }
   &.grid-view-with-thumbnail {
     .cptm-widget-card {

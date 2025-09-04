@@ -337,6 +337,12 @@ class Directorist_Listing_Search_Form {
                 unset( $search_form_fields['fields'][$key]['original_widget_key'] );
 
                 if ( $form_key ) {
+                    // Check if the submission field still exists (safety check)
+                    if ( empty( $submission_form_fields['fields'][$form_key] ) ) {
+                        // Skip this field if the submission field was deleted
+                        continue;
+                    }
+                    
                     if ( ! empty( $submission_form_fields['fields'][$form_key]['field_key'] ) ) {
                         $search_form_fields['fields'][$key]['field_key'] = $submission_form_fields['fields'][$form_key]['field_key'];
                     }

@@ -2027,11 +2027,11 @@ class Builder_Data {
                     "selectedWidgets" => ['listing_title'],
                 ],
                 'quick_actions' => [
-                    'maxWidget'       => 1,
-                    'acceptedWidgets' => ['favorite_badge'],
+                    'maxWidget'       => 3,
+                    'acceptedWidgets' => ['favorite_badge', 'popular_badge', 'featured_badge', 'new_badge'],
                 ],
                 'quick_info'    => [
-                    'acceptedWidgets' => ['favorite_badge', 'popular_badge', 'featured_badge', 'new_badge', 'rating', 'pricing'],
+                    'acceptedWidgets' => ['rating', 'pricing'],
                 ],
                 'bottom'        => [
                     'maxWidget'       => 0,

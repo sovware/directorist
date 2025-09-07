@@ -20,31 +20,31 @@
                 :selectedWidgets="local_layout.body.top.selectedWidgets"
                 :maxWidget="local_layout.body.top.maxWidget"
                 :showWidgetsPickerWindow="
-                  getActiveInsertWindowStatus('no_thumbnail_body_top')
-                "
-                :showWidgetsOptionWindow="
-                  getActiveOptionWindowStatus('no_thumbnail_body_top')
-                "
-                :widgetOptionsWindow="widgetOptionsWindow"
-                :canDragAndDrop="true"
-                :dragAxis="'x'"
-                @insert-widget="insertWidget($event, local_layout.body.top)"
-                @edit-widget="editWidget($event)"
-                @trash-widget="trashWidget($event, local_layout.body.top)"
-                @open-widgets-picker-window="
-                  toggleInsertWindow('no_thumbnail_body_top')
-                "
-                @open-widgets-option-window="
-                  toggleOptionWindow('no_thumbnail_body_top')
-                "
-                @close-widgets-picker-window="closeInsertWindow()"
-                @close-widgets-option-window="closeOptionWindow()"
-                @close-option-window="closeWidgetOptionsWindow()"
-                @update="
-                  handleUpdateSelectedWidgets($event, 'local_layout.body.top')
-                "
-                @update-active-widget="handleActiveWidgetUpdate"
-                @activate-widget-options="toggleActivateWidgetOptions"
+                getActiveInsertWindowStatus('no_thumbnail_body_top')
+              "
+              :showWidgetsOptionWindow="
+                getActiveOptionWindowStatus('no_thumbnail_body_top')
+              "
+              :widgetOptionsWindow="widgetOptionsWindow"
+              :canDragAndDrop="true"
+              :dragAxis="'x'"
+              @insert-widget="insertWidget($event, local_layout.body.top)"
+              @edit-widget="editWidget($event)"
+              @trash-widget="trashWidget($event, local_layout.body.top)"
+              @open-widgets-picker-window="
+                toggleInsertWindow('no_thumbnail_body_top')
+              "
+              @open-widgets-option-window="
+                toggleOptionWindow('no_thumbnail_body_top')
+              "
+              @close-widgets-picker-window="closeInsertWindow()"
+              @close-widgets-option-window="closeOptionWindow()"
+              @close-option-window="closeWidgetOptionsWindow()"
+              @update="
+                handleUpdateSelectedWidgets($event, 'local_layout.body.top')
+              "
+              @update-active-widget="handleActiveWidgetUpdate"
+              @activate-widget-options="toggleActivateWidgetOptions"
               />
             </div>
 
@@ -724,6 +724,7 @@ export default {
 
     // Insert Widget
     insertWidget(payload, where) {
+      console.log("insertWidget", { payload, where });
       if (!this.isTruthyObject(this.theAvailableWidgets[payload.key])) {
         return;
       }

@@ -44,7 +44,10 @@
           :data="{ widget }"
         >
           <div class="cptm-form-builder-field-list-item-wrapper">
-            <span class="cptm-form-builder-field-list-item-drag options-drag-handle" v-if="Object.keys(widgetsList).length > 1">
+            <span
+              class="cptm-form-builder-field-list-item-drag options-drag-handle"
+              v-if="Object.keys(widgetsList).length > 1"
+            >
               <span class="uil uil-draggabledots"></span>
             </span>
             <span class="cptm-form-builder-field-list-item">
@@ -180,7 +183,7 @@ export default {
       let widgets_list = selected_widgets.reduce((obj, widget_name) => {
         // Find the widget by its widget_name in availableWidgets
         const widget = Object.values(availableWidgets).find(
-          (w) => w.widget_name === widget_name
+          (w) => w.widget_name === widget_name,
         );
 
         // If the widget is found, add it to the object
@@ -259,10 +262,10 @@ export default {
       this.availableWidgets[this.activeWidgetKey].options.type.value = value;
 
       if (value === "icon") {
-        this.activeWidget.icon = this.activeWidget?.fields?.icon?.field_icon?.value;
-        this.availableWidgets[
-          this.activeWidgetKey
-        ].icon = this.activeWidget?.fields?.icon?.field_icon?.value;
+        this.activeWidget.icon =
+          this.activeWidget?.fields?.icon?.field_icon?.value;
+        this.availableWidgets[this.activeWidgetKey].icon =
+          this.activeWidget?.fields?.icon?.field_icon?.value;
       }
 
       // Emit updated activeWidget to parent
@@ -280,9 +283,8 @@ export default {
         this.activeWidget.fields || this.activeWidget.options.fields;
 
       if (this.activeWidgetOptionType) {
-        activeWidgetFields[this.activeWidgetOptionType][
-          field_key
-        ].value = value;
+        activeWidgetFields[this.activeWidgetOptionType][field_key].value =
+          value;
       } else {
         activeWidgetFields[field_key].value = value;
       }
@@ -309,6 +311,13 @@ export default {
         this.activeWidgetKey = widget_key; // set active
         this.activeWidget = this.widgetsList[widget_key];
         this.activeWidgetOptionType = this.activeWidget.options?.type?.value;
+        console.log("edit after chk", {
+          widget_key,
+          activeWidgetKey: this.activeWidgetKey,
+          activeWidgetOptionType: this.activeWidgetOptionType,
+          activeWidget: this.activeWidget,
+          widgetsList: this.widgetsList,
+        });
       }
     },
 
@@ -345,11 +354,11 @@ export default {
 
       let filtered_single_pare = doceded.replace(
         /({\w+})/gi,
-        filter_single_pare
+        filter_single_pare,
       );
       let filtered_double_pare = filtered_single_pare.replace(
         /({\w+\|\w+})/gi,
-        filter_double_pare
+        filter_double_pare,
       );
 
       return filtered_double_pare;
@@ -392,7 +401,11 @@ export default {
 
       // Add item at new position
       updatedWidgets.splice(addedIndex, 0, movedItem);
-      console.log("onElementsDrop", {updatedWidgets, removedIndex, addedIndex});
+      console.log("onElementsDrop", {
+        updatedWidgets,
+        removedIndex,
+        addedIndex,
+      });
 
       // Emit to parent to update prop
       this.$emit("update", { selectedWidgets: updatedWidgets });

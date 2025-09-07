@@ -17321,6 +17321,13 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
         this.activeWidgetKey = widget_key; // set active
         this.activeWidget = this.widgetsList[widget_key];
         this.activeWidgetOptionType = (_this$activeWidget$op = this.activeWidget.options) === null || _this$activeWidget$op === void 0 || (_this$activeWidget$op = _this$activeWidget$op.type) === null || _this$activeWidget$op === void 0 ? void 0 : _this$activeWidget$op.value;
+        console.log("edit after chk", {
+          widget_key: widget_key,
+          activeWidgetKey: this.activeWidgetKey,
+          activeWidgetOptionType: this.activeWidgetOptionType,
+          activeWidget: this.activeWidget,
+          widgetsList: this.widgetsList
+        });
       }
     },
     // Trash Widget
@@ -23114,6 +23121,10 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     },
     // Insert Widget
     insertWidget: function insertWidget(payload, where) {
+      console.log("insertWidget", {
+        payload: payload,
+        where: where
+      });
       if (!this.isTruthyObject(this.theAvailableWidgets[payload.key])) {
         return;
       }
@@ -31737,7 +31748,10 @@ var render = function render() {
       "acceptedWidgets": _vm.local_layout.body.quick_actions.acceptedWidgets,
       "selectedWidgets": _vm.local_layout.body.quick_actions.selectedWidgets,
       "maxWidget": _vm.local_layout.body.quick_actions.maxWidget,
-      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('no_thumbnail_body_quick_actions')
+      "showWidgetsPickerWindow": _vm.getActiveInsertWindowStatus('no_thumbnail_body_quick_actions'),
+      "showWidgetsOptionWindow": _vm.getActiveOptionWindowStatus('no_thumbnail_body_quick_actions'),
+      "widgetOptionsWindow": _vm.widgetOptionsWindow,
+      "canOpenSettings": true
     },
     on: {
       "insert-widget": function insertWidget($event) {
@@ -31749,11 +31763,25 @@ var render = function render() {
       "open-widgets-picker-window": function openWidgetsPickerWindow($event) {
         return _vm.toggleInsertWindow('no_thumbnail_body_quick_actions');
       },
+      "open-widgets-option-window": function openWidgetsOptionWindow($event) {
+        return _vm.toggleOptionWindow('no_thumbnail_body_quick_actions');
+      },
       "close-widgets-picker-window": function closeWidgetsPickerWindow($event) {
         return _vm.closeInsertWindow();
       },
+      "close-widgets-option-window": function closeWidgetsOptionWindow($event) {
+        return _vm.closeOptionWindow();
+      },
       "update": function update($event) {
         return _vm.handleUpdateSelectedWidgets($event, 'local_layout.body.quick_actions');
+      },
+      "update-active-widget": _vm.handleActiveWidgetUpdate,
+      "activate-widget-options": _vm.toggleActivateWidgetOptions,
+      "update-option-window": function updateOptionWindow($event) {
+        return _vm.updateWidgetOptionsData($event, _vm.widgetOptionsWindow);
+      },
+      "close-option-window": function closeOptionWindow($event) {
+        return _vm.closeWidgetOptionsWindow();
       }
     }
   })], 1)]), _vm._v(" "), _c('div', {

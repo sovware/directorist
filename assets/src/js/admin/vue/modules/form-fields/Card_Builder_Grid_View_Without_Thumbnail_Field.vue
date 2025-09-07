@@ -80,6 +80,11 @@
                 :showWidgetsPickerWindow="
                   getActiveInsertWindowStatus('no_thumbnail_body_quick_actions')
                 "
+                :showWidgetsOptionWindow="
+                  getActiveOptionWindowStatus('no_thumbnail_body_quick_actions')
+                "
+                :widgetOptionsWindow="widgetOptionsWindow"
+                :canOpenSettings="true"
                 @insert-widget="
                   insertWidget($event, local_layout.body.quick_actions)
                 "
@@ -89,13 +94,23 @@
                 @open-widgets-picker-window="
                   toggleInsertWindow('no_thumbnail_body_quick_actions')
                 "
+                @open-widgets-option-window="
+                  toggleOptionWindow('no_thumbnail_body_quick_actions')
+                "
                 @close-widgets-picker-window="closeInsertWindow()"
+                @close-widgets-option-window="closeOptionWindow()"
                 @update="
                   handleUpdateSelectedWidgets(
                     $event,
                     'local_layout.body.quick_actions',
                   )
                 "
+                @update-active-widget="handleActiveWidgetUpdate"
+                @activate-widget-options="toggleActivateWidgetOptions"
+                @update-option-window="
+                  updateWidgetOptionsData($event, widgetOptionsWindow)
+                "
+                @close-option-window="closeWidgetOptionsWindow()"
               />
             </div>
           </div>

@@ -3624,6 +3624,13 @@ input[type="radio"].cptm-radio {
       }
     }
   }
+  &.grid-view-without-thumbnail {
+    .cptm-widget-preview-container {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+  }
   &.list-view-with-thumbnail {
     .cptm-widget-preview-container {
       display: flex;
@@ -4067,7 +4074,6 @@ input[type="radio"].cptm-radio {
   }
   .cptm-listing-card-preview-footer {
     display: flex;
-    align-items: center;
     gap: 8px;
     padding: 0;
   }
@@ -4147,7 +4153,6 @@ input[type="radio"].cptm-radio {
   }
   .cptm-listing-card-preview-footer {
     display: flex;
-    align-items: center;
     gap: 8px;
     padding: 0;
   }

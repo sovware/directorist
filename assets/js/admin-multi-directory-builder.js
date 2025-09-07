@@ -15904,21 +15904,6 @@ __webpack_require__.r(__webpack_exports__);
         _this5.dragEndWidget = null;
       }, 100);
     },
-    // Check if a drop should be accepted at a specific position
-    shouldAcceptDrop: function shouldAcceptDrop(dropResult) {
-      var addedIndex = dropResult.addedIndex;
-
-      // Don't allow dropping at index 0 (where listing_title should always be)
-      if (addedIndex === 0 && !this.canDragAndDrop) {
-        return false;
-      }
-
-      // Don't allow dropping on top of listing_title if it's at index 0
-      if (addedIndex === 1 && this.displayedWidgets[0] === "listing_title") {
-        return false;
-      }
-      return true;
-    },
     // Widget Drop Handler
     onWidgetsDrop: function onWidgetsDrop(dropResult) {
       console.log("Drop result:", dropResult);
@@ -27449,6 +27434,7 @@ var render = function render() {
       class: _vm.getActiveClass(tab_index, _vm.active_nav_index)
     }, [_c(tab.type, _vm._b({
       tag: "component",
+      class: tab.key,
       attrs: {
         "tab-key": tab.key
       },

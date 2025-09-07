@@ -15226,6 +15226,22 @@ input:-webkit-autofill:active {
   display: block;
   background-color: #fff;
 }
+.atbdp-cptm-tab-contents .listings_card_layout .cptm-sub-navigation {
+  max-width: 658px;
+  margin: 0 auto;
+  border-radius: 6px 6px 0 0;
+  position: relative;
+  top: 7px;
+}
+.atbdp-cptm-tab-contents .listings_card_layout .cptm-sub-navigation .cptm-sub-nav__item-link {
+  border: none;
+  border-radius: 0;
+  border-bottom: 3px solid transparent;
+}
+.atbdp-cptm-tab-contents .listings_card_layout .cptm-sub-navigation .cptm-sub-nav__item-link:hover, .atbdp-cptm-tab-contents .listings_card_layout .cptm-sub-navigation .cptm-sub-nav__item-link.active {
+  background: transparent;
+  border-bottom-color: #3e62f5;
+}
 
 .atbdp-cptm-tab-item {
   display: none;
@@ -15610,6 +15626,7 @@ input:-webkit-autofill:active {
   padding: 24px;
   margin-bottom: 32px;
   border-radius: 8px;
+  background: #ffffff;
   border: 1px solid #e5e7eb;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -18022,7 +18039,7 @@ input[type=radio].cptm-radio {
   -webkit-justify-content: center;
       -ms-flex-pack: center;
           justify-content: center;
-  max-width: 640px;
+  max-width: 658px;
   margin: 40px auto;
   padding: 20px 24px;
   background: #f3f4f6;
@@ -19446,6 +19463,10 @@ input[type=radio].cptm-radio {
 
 .cptm-widget-preview-area .cptm-widget-preview-card {
   position: relative;
+}
+
+.widget-drag-handle {
+  cursor: move;
 }
 
 .cptm-card-light.cptm-placeholder-block {
@@ -22802,6 +22823,22 @@ input[type=radio]:checked::before {
   display: block;
   background-color: #fff;
 }
+.atbdp-cptm-tab-contents .listings_card_layout .cptm-sub-navigation {
+  max-width: 658px;
+  margin: 0 auto;
+  border-radius: 6px 6px 0 0;
+  position: relative;
+  top: 7px;
+}
+.atbdp-cptm-tab-contents .listings_card_layout .cptm-sub-navigation .cptm-sub-nav__item-link {
+  border: none;
+  border-radius: 0;
+  border-bottom: 3px solid transparent;
+}
+.atbdp-cptm-tab-contents .listings_card_layout .cptm-sub-navigation .cptm-sub-nav__item-link:hover, .atbdp-cptm-tab-contents .listings_card_layout .cptm-sub-navigation .cptm-sub-nav__item-link.active {
+  background: transparent;
+  border-bottom-color: #3e62f5;
+}
 
 .atbdp-cptm-tab-item {
   display: none;
@@ -23186,6 +23223,7 @@ input[type=radio]:checked::before {
   padding: 24px;
   margin-bottom: 32px;
   border-radius: 8px;
+  background: #ffffff;
   border: 1px solid #e5e7eb;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -25598,7 +25636,7 @@ input[type=radio].cptm-radio {
   -webkit-justify-content: center;
       -ms-flex-pack: center;
           justify-content: center;
-  max-width: 640px;
+  max-width: 658px;
   margin: 40px auto;
   padding: 20px 24px;
   background: #f3f4f6;
@@ -27022,6 +27060,10 @@ input[type=radio].cptm-radio {
 
 .cptm-widget-preview-area .cptm-widget-preview-card {
   position: relative;
+}
+
+.widget-drag-handle {
+  cursor: move;
 }
 
 .cptm-card-light.cptm-placeholder-block {
@@ -30666,6 +30708,22 @@ input[type=radio]:checked::before {
   display: block;
   background-color: #fff;
 }
+.atbdp-cptm-tab-contents .listings_card_layout .cptm-sub-navigation {
+  max-width: 658px;
+  margin: 0 auto;
+  border-radius: 6px 6px 0 0;
+  position: relative;
+  top: 7px;
+}
+.atbdp-cptm-tab-contents .listings_card_layout .cptm-sub-navigation .cptm-sub-nav__item-link {
+  border: none;
+  border-radius: 0;
+  border-bottom: 3px solid transparent;
+}
+.atbdp-cptm-tab-contents .listings_card_layout .cptm-sub-navigation .cptm-sub-nav__item-link:hover, .atbdp-cptm-tab-contents .listings_card_layout .cptm-sub-navigation .cptm-sub-nav__item-link.active {
+  background: transparent;
+  border-bottom-color: #3e62f5;
+}
 
 .atbdp-cptm-tab-item {
   display: none;
@@ -31050,6 +31108,7 @@ input[type=radio]:checked::before {
   padding: 24px;
   margin-bottom: 32px;
   border-radius: 8px;
+  background: #ffffff;
   border: 1px solid #e5e7eb;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -33462,7 +33521,7 @@ input[type=radio].cptm-radio {
   -webkit-justify-content: center;
       -ms-flex-pack: center;
           justify-content: center;
-  max-width: 640px;
+  max-width: 658px;
   margin: 40px auto;
   padding: 20px 24px;
   background: #f3f4f6;
@@ -34886,6 +34945,10 @@ input[type=radio].cptm-radio {
 
 .cptm-widget-preview-area .cptm-widget-preview-card {
   position: relative;
+}
+
+.widget-drag-handle {
+  cursor: move;
 }
 
 .cptm-card-light.cptm-placeholder-block {

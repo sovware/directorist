@@ -17459,6 +17459,10 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       var activeWidgetOptions = hasRadioField ? this.availableWidgets[widgetKey].fields[this.activeWidgetOptionType] : (_this$availableWidget3 = this.availableWidgets[widgetKey].options) === null || _this$availableWidget3 === void 0 ? void 0 : _this$availableWidget3.fields;
       return activeWidgetOptions;
     },
+    // Get Ghost Parent for drag operations
+    getGhostParent: function getGhostParent() {
+      return document.body;
+    },
     // Widget on Drop
     onElementsDrop: function onElementsDrop(dropResult) {
       var removedIndex = dropResult.removedIndex,
@@ -28739,7 +28743,8 @@ var render = function render() {
     staticClass: "cptm-form-builder-field-list",
     attrs: {
       "group-name": "card-widget-options",
-      "drag-handle-selector": ".options-drag-handle"
+      "drag-handle-selector": ".options-drag-handle",
+      "get-ghost-parent": _vm.getGhostParent
     },
     on: {
       "drop": function drop($event) {

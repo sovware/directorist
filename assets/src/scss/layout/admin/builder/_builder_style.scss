@@ -3504,6 +3504,31 @@ input[type="radio"].cptm-radio {
   }
 }
 
+.dndrop-ghost {
+  &.dndrop-draggable-wrapper {
+    display: flex;
+    height: auto;
+    .cptm-form-builder-field-list-item-wrapper {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin: 0;
+    }
+    .cptm-form-builder-field-list-item {
+      width: 100%;
+      display: flex;
+      gap: 6px;
+      justify-content: space-between;
+      border-radius: 8px;
+      border-color: #e5e7eb;
+      background: transparent;
+    }
+    .cptm-form-builder-field-list-item-content {
+      flex: 1;
+    }
+  }
+}
+
 .cptm-center-content {
   display: flex;
   height: 100%;

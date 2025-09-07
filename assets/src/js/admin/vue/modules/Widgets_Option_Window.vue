@@ -37,6 +37,7 @@
         drag-handle-selector=".options-drag-handle"
         class="cptm-form-builder-field-list"
         v-if="Object.keys(widgetsList).length"
+        :get-ghost-parent="getGhostParent"
       >
         <Draggable
           v-for="(widget, widget_key) in widgetsList"
@@ -385,6 +386,11 @@ export default {
         : this.availableWidgets[widgetKey].options?.fields;
 
       return activeWidgetOptions;
+    },
+
+    // Get Ghost Parent for drag operations
+    getGhostParent() {
+      return document.body;
     },
 
     // Widget on Drop

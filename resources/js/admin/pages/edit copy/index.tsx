@@ -17,10 +17,10 @@ import React from 'react';
 import { useAttributes } from '@wpmvc/dashboard';
 import validateField from '../../controls/custom-field/validation.ts';
 import ElementorIcon from '../../icons/elementorIcon.tsx';
-import Tab from '../../Tab.tsx';
-import Feature from './feature.tsx';
-import General from './general.tsx';
-import Plan from './plan.tsx';
+import Tab from '../../components/tab.tsx';
+import Feature from '../feature.tsx';
+import General from '../general.tsx';
+import Plan from '../plan.tsx';
 
 const editOrderInitialValues = {
 	plan_name: '',

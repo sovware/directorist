@@ -1,8 +1,8 @@
 import { __ } from '@wordpress/i18n';
 import React from 'react';
 import styled from "styled-components";
-import ChartCircleIcon from '../../icons/ChartCircleIcon';
-import CheckCircleIcon from '../../icons/CheckCircleIcon';
+import ChartCircleIcon from '@/admin/icons/ChartCircleIcon';
+import CheckCircleIcon from '@/admin/icons/CheckCircleIcon';
 
 const RefundSummaryContainer = styled.div`
 	display: flex;

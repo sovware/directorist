@@ -1,6 +1,6 @@
 import React from 'react';
-import Card from '../../card';
-import { InfoHead, InfoList, SubscriptionAction } from './style.tsx';
+import Card from '@/admin/components/card';
+import { InfoHead, InfoList, SubscriptionAction } from './style';
 type DetailsProps = {
 	order?: any;
 };

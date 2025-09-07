@@ -6,7 +6,7 @@ module.exports = {
 	...defaultConfig,
 	entry: {
 		'css/admin-order': './resources/sass/app.scss',
-		'js/admin/order': './resources/js/admin/order/index.tsx',
+		'js/admin/order': './resources/js/admin/pages/index.tsx',
 		'js/frontend/payment-receipt':
 			'./resources/js/frontend/payment-receipt.js',
 	},
@@ -23,6 +23,7 @@ module.exports = {
 			'@babel/runtime': path.dirname(
 				require.resolve('@babel/runtime/package.json')
 			),
+			'@': path.resolve(__dirname, 'resources/js/'),
 		},
 	},
 	devServer: {

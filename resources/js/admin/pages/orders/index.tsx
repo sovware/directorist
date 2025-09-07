@@ -14,7 +14,7 @@ import React from 'react';
 /**
  * Internal dependencies
  */
-import Badge from '../badge';
+import Badge from '../../components/badge';
 import { OrderTableContainer, UserInfoContainer, UserLink } from './styles';
 
 const columns: Column[] = [
@@ -97,7 +97,7 @@ const columns: Column[] = [
 	},
 ];
 
-export default function OrderTable() {
+export default function Orders() {
 	return (
 		<OrderTableContainer>
 			<Table

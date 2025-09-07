@@ -22,10 +22,10 @@ import React from 'react';
  */
 import { Fill, SelectControl } from '@wordpress/components';
 import styled from 'styled-components';
-import { getUser } from '../../helper/utils.ts';
-import AngleLeftIcon from '../../icons/AngleLeftIcon.tsx';
-import AngleRightIcon from '../../icons/AngleRightIcon.tsx';
-import { useGetId } from '../hook/useGetId.ts';
+import { getUser } from '../../../helper/utils.ts';
+import AngleLeftIcon from '../../../icons/AngleLeftIcon.tsx';
+import AngleRightIcon from '../../../icons/AngleRightIcon.tsx';
+import { useGetId } from '../../../hooks/useGetId.ts';
 import CustomerInfo from './customer-info.tsx';
 import ListingDetails from './listing-details.tsx';
 import OrderDetails from './order-details.tsx';
@@ -101,7 +101,7 @@ type EditProps = {
 	order?: any;
 };
 
-export default function Edit({}: EditProps) {
+export default function OrderEdit({}: EditProps) {
 	const [loading, setLoading] = useState(true);
 	const orderId = useGetId();
 

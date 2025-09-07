@@ -1,8 +1,8 @@
-import React from 'react';
-import Badge from '../../badge';
-import Card from '../../card';
-import { formatDate } from '../../helper/utils.ts';
-import { InfoHead, InfoList } from './style.tsx';
+import Badge from '@/admin/components/badge';
+import Card from '@/admin/components/card';
+import { formatDate } from '@/admin/helper/utils';
+import { InfoHead, InfoList } from './style';
+
 type DetailsProps = {
 	order?: any;
 };

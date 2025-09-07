@@ -1,6 +1,6 @@
-import React from 'react';
-import Card from '../../card';
-import { InfoBox } from './style.tsx';
+import Card from '@/admin/components/card';
+import { InfoBox } from './style';
+
 type DetailsProps = {
 	order?: any;
 };

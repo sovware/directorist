@@ -2,13 +2,12 @@ import { addAction, applyFilters } from '@wordpress/hooks';
 import { Dashboard } from '@wpmvc/dashboard';
 import { RouteType } from '@wpmvc/dashboard/build-types/components/dashboard/types';
 import { MenuItemsType } from '@wpmvc/dashboard/build-types/components/menu/types';
-import React from 'react';
 import styled from 'styled-components';
 import validateField from '../controls/custom-field/validation';
 import DocIcon from '../icons/DocIcon';
 import QuestionCircleIcon from '../icons/QuestionCircleIcon';
-import Edit from './edit';
-import OrderTable from './order-table';
+import OrderEdit from './orders/edit';
+import Orders from './orders';
 
 const actionItems: MenuItemsType = {
 	documentation: {
@@ -76,12 +75,12 @@ export default function App() {
 	const routes = [
 		{
 			path: '/',
-			element: <OrderTable />,
+			element: <Orders />,
 			index: true,
 		},
 		{
 			path: '/edit/:id',
-			element: <Edit />,
+			element: <OrderEdit />,
 		},
 	];
 

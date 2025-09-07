@@ -5,9 +5,9 @@ import { registerCrudStore, useCrudStoreData } from '@wpmvc/data';
 import { FieldsType } from '@wpmvc/fields/build-types/types/field';
 import React from 'react';
 import styled from 'styled-components';
-import Badge from '../../badge';
-import AngleDownIcon from '../../icons/angleDownIcon';
-import AngleUpIcon from '../../icons/AngleUpIcon';
+import Badge from '@/admin/components/badge';
+import AngleDownIcon from '@/admin/icons/AngleDownIcon';
+import AngleUpIcon from '@/admin/icons/AngleUpIcon';
 import RefundSummary from './refund-summary';
 
 // Register the store outside the component to ensure it's available before any component mounts

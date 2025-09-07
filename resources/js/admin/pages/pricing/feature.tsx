@@ -1,6 +1,5 @@
-import React from 'react';
-import Card from '../../card.tsx';
-import Layout from './layout.tsx';
+import Card from '@/admin/components/card';
+import Layout from './layout';
 
 interface FeatureProps {
 	attributes?: any;

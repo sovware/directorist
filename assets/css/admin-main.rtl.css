@@ -17670,6 +17670,7 @@ input[type=radio].cptm-radio {
   transition: -webkit-transform 0.3s ease;
   transition: transform 0.3s ease;
   transition: transform 0.3s ease, -webkit-transform 0.3s ease;
+  z-index: 2;
 }
 .cptm-widget-action-modal-container.active {
   pointer-events: all;
@@ -18478,14 +18479,11 @@ input[type=radio].cptm-radio {
   top: unset;
   bottom: 100%;
 }
-.cptm-card-preview-widget.cptm-card-list-view .cptm-card-preview-top-right .cptm-widget-option-modal-container {
-  bottom: unset;
-  top: 100%;
-}
+.cptm-card-preview-widget.cptm-card-list-view .cptm-card-preview-top-right .cptm-widget-option-modal-container,
 .cptm-card-preview-widget.cptm-card-list-view .cptm-card-placeholder-top-left .cptm-widget-option-modal-container,
 .cptm-card-preview-widget.cptm-card-list-view .cptm-card-placeholder-top-right .cptm-widget-option-modal-container {
   bottom: unset;
-  top: calc(100% - 20px);
+  top: 100%;
 }
 .cptm-card-preview-widget.cptm-card-list-view .cptm-placeholder-author-thumb img {
   width: 22px;
@@ -25308,6 +25306,7 @@ input[type=radio].cptm-radio {
   transition: -webkit-transform 0.3s ease;
   transition: transform 0.3s ease;
   transition: transform 0.3s ease, -webkit-transform 0.3s ease;
+  z-index: 2;
 }
 .cptm-widget-action-modal-container.active {
   pointer-events: all;
@@ -26116,14 +26115,11 @@ input[type=radio].cptm-radio {
   top: unset;
   bottom: 100%;
 }
-.cptm-card-preview-widget.cptm-card-list-view .cptm-card-preview-top-right .cptm-widget-option-modal-container {
-  bottom: unset;
-  top: 100%;
-}
+.cptm-card-preview-widget.cptm-card-list-view .cptm-card-preview-top-right .cptm-widget-option-modal-container,
 .cptm-card-preview-widget.cptm-card-list-view .cptm-card-placeholder-top-left .cptm-widget-option-modal-container,
 .cptm-card-preview-widget.cptm-card-list-view .cptm-card-placeholder-top-right .cptm-widget-option-modal-container {
   bottom: unset;
-  top: calc(100% - 20px);
+  top: 100%;
 }
 .cptm-card-preview-widget.cptm-card-list-view .cptm-placeholder-author-thumb img {
   width: 22px;
@@ -33234,6 +33230,7 @@ input[type=radio].cptm-radio {
   transition: -webkit-transform 0.3s ease;
   transition: transform 0.3s ease;
   transition: transform 0.3s ease, -webkit-transform 0.3s ease;
+  z-index: 2;
 }
 .cptm-widget-action-modal-container.active {
   pointer-events: all;
@@ -34042,14 +34039,11 @@ input[type=radio].cptm-radio {
   top: unset;
   bottom: 100%;
 }
-.cptm-card-preview-widget.cptm-card-list-view .cptm-card-preview-top-right .cptm-widget-option-modal-container {
-  bottom: unset;
-  top: 100%;
-}
+.cptm-card-preview-widget.cptm-card-list-view .cptm-card-preview-top-right .cptm-widget-option-modal-container,
 .cptm-card-preview-widget.cptm-card-list-view .cptm-card-placeholder-top-left .cptm-widget-option-modal-container,
 .cptm-card-preview-widget.cptm-card-list-view .cptm-card-placeholder-top-right .cptm-widget-option-modal-container {
   bottom: unset;
-  top: calc(100% - 20px);
+  top: 100%;
 }
 .cptm-card-preview-widget.cptm-card-list-view .cptm-placeholder-author-thumb img {
   width: 22px;

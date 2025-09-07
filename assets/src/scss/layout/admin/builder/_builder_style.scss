@@ -2982,6 +2982,7 @@ input[type="radio"].cptm-radio {
   pointer-events: none;
   box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15);
   transition: transform 0.3s ease;
+  z-index: 2;
   &.active {
     pointer-events: all;
     transform: translate(-50%, 10px);
@@ -3611,18 +3612,12 @@ input[type="radio"].cptm-radio {
       bottom: 100%;
     }
 
-    .cptm-card-preview-top-right {
-      .cptm-widget-option-modal-container {
-        bottom: unset;
-        top: 100%;
-      }
-    }
-
+    .cptm-card-preview-top-right,
     .cptm-card-placeholder-top-left,
     .cptm-card-placeholder-top-right {
       .cptm-widget-option-modal-container {
         bottom: unset;
-        top: calc(100% - 20px);
+        top: 100%;
       }
     }
 

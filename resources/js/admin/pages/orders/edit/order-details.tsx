@@ -52,7 +52,7 @@ export default function OrderDetails({ order }: DetailsProps) {
 				</li>
 				<li>
 					<span>Payment Method:</span>
-					<span>****1234</span>
+					<span>Stripe</span>
 				</li>
 				<li>
 					<span>Amount:</span>

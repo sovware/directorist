@@ -1,51 +1,34 @@
-import { useState } from '@wordpress/element';
+/**
+ * WordPress dependencies
+ */
 import { __ } from '@wordpress/i18n';
+import { useState } from '@wordpress/element';
+
+/**
+ * External dependencies
+ */
 import { Table } from '@wpmvc/dashboard';
 import { registerCrudStore, useCrudStoreData } from '@wpmvc/data';
 import { FieldsType } from '@wpmvc/fields/build-types/types/field';
-import React from 'react';
-import styled from 'styled-components';
+
+/**
+ * Internal dependencies
+ */
 import Badge from '@/admin/components/badge';
 import AngleDownIcon from '@/admin/icons/AngleDownIcon';
 import AngleUpIcon from '@/admin/icons/AngleUpIcon';
 import RefundSummary from './refund-summary';
-
-// Register the store outside the component to ensure it's available before any component mounts
-const RefundTable = styled.div`
-	> div {
-		padding: 0;
-	}
-	margin-bottom: 24px;
-	.components-card__body {
-		padding: 0;
-	}
-	.dataviews-wrapper {
-		border-top: 1px solid var(--color-light);
-	}
-`;
-const RefundTableToggle = styled.span`
-	display: flex;
-	align-items: center;
-	cursor: pointer;
-	color: var(--color-primary-500);
-	.directorist-refund-table-toggle-down-icon {
-		position: relative;
-		top: 4px;
-	}
-	svg {
-		margin-left: 6px;
-	}
-`;
+import { RefundTable, RefundTableToggle } from './styles';
 
 const columns = [
-	{ id: 'id', label: 'Refund ID' },
-	{ id: 'amount', label: 'Amount' },
-	{ id: 'created_at', label: 'Date' },
-	{ id: 'reason', label: 'Reason' },
+	{ id: 'id', label: __('Refund ID', 'directorist') },
+	{ id: 'amount', label: __('Amount', 'directorist') },
+	{ id: 'created_at', label: __('Date', 'directorist') },
+	{ id: 'reason', label: __('Reason', 'directorist') },
 	{
 		id: 'status',
-		label: 'Status',
-		render: ({ item }) => {
+		label: __('Status', 'directorist'),
+		render: ({ item }: { item: any }) => {
 			return (
 				<Badge
 					variant={
@@ -63,7 +46,7 @@ const columns = [
 	},
 ];
 
-export default function Refund({ order }) {
+export default function Refund({ order }: { order: any }) {
 	const [showRefundTable, setShowRefundTable] = useState(false);
 
 	registerCrudStore({
@@ -75,6 +58,7 @@ export default function Refund({ order }) {
 		name: 'directorist/order-refund',
 		selector: 'get',
 	});
+
 	const availableRefundAmount =
 		parseFloat(order?.final_amount ?? '0') -
 		parseFloat(refundsData?.total_refunded ?? '0');
@@ -109,15 +93,21 @@ export default function Refund({ order }) {
 	return (
 		<RefundTable>
 			<Table
-				heading="Refund Management"
+				heading={__('Refund Management', 'directorist')}
 				storeName="directorist/order-refund"
 				path={`/directorist/admin/orders/${order?.id}/refunds`}
 				columns={columns}
 				showTable={showRefundTable}
 				create={{
+					title: __('Add Refund', 'directorist'),
 					buttonLabel: __('Add Refund', 'directorist'),
 					fields: refundFields,
 					isDisabled: availableRefundAmount <= 0 ? true : false,
+				}}
+				edit={{
+					title: __('Edit Refund', 'directorist'),
+					buttonLabel: __('Edit Refund', 'directorist'),
+					fields: refundFields,
 				}}
 				beforeTable={
 					<RefundSummary

@@ -1,34 +1,30 @@
 /**
  * WordPress dependencies
  */
-// import { Badge } from '@wordpress/components';
-import { useEffect, useMemo, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
+import { useEffect, useMemo, useState } from '@wordpress/element';
+import { Fill, SelectControl } from '@wordpress/components';
 
 /**
  * External dependencies
  */
 import { registerValuesStore, useValuesStoreData } from '@wpmvc/data';
-// Fallback types for '@wordpress/url' if types are missing at build time
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { Button } from '@wpmvc/components';
-import React from 'react';
+import styled from 'styled-components';
 
 /**
  * Internal dependencies
  */
-import { Fill, SelectControl } from '@wordpress/components';
-import styled from 'styled-components';
-import { getUser } from '../../../helper/utils.ts';
-import AngleLeftIcon from '../../../icons/AngleLeftIcon.tsx';
-import AngleRightIcon from '../../../icons/AngleRightIcon.tsx';
-import { useGetId } from '../../../hooks/useGetId.ts';
-import CustomerInfo from './customer-info.tsx';
-import ListingDetails from './listing-details.tsx';
-import OrderDetails from './order-details.tsx';
-import PaymentLog from './payment-log.tsx';
-import Refund from './refund.tsx';
-import Subscription from './subscription.tsx';
+import { getUser } from '@/admin/helper/utils';
+import AngleLeftIcon from '@/admin/icons/AngleLeftIcon';
+import AngleRightIcon from '@/admin/icons/AngleRightIcon';
+import { useGetId } from '@/admin/hooks/useGetId';
+import CustomerInfo from './customer-info';
+import ListingDetails from './listing-details';
+import OrderDetails from './order-details';
+import PaymentLog from './payment-log';
+import Refund from './refund';
+import Subscription from './subscription';
 
 const SingleOrderContainer = styled.div`
 	padding: 30px 48px;
@@ -56,6 +52,7 @@ const SingleOrderHeader = styled.div`
 	align-items: center;
 	justify-content: space-between;
 `;
+
 const HeaderBreadcrumb = styled.div`
 	display: flex;
 	align-items: center;
@@ -69,11 +66,13 @@ const HeaderBreadcrumb = styled.div`
 		margin: 0;
 	}
 `;
+
 const HeaderAction = styled.div`
 	display: flex;
 	align-items: center;
 	gap: 12px;
 `;
+
 const StatusSelection = styled.div`
 	display: flex;
 	align-items: center;

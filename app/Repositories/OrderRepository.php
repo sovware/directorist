@@ -4,6 +4,7 @@ namespace Directorist\App\Repositories;
 
 defined( "ABSPATH" ) || exit;
 
+use Directorist\App\Models\Post;
 use Directorist\App\DTO\Order\DTO;
 use Directorist\App\DTO\Order\Read;
 use Directorist\App\Helpers\DateTime;
@@ -50,9 +51,7 @@ class OrderRepository extends Repository {
 
         $orders = array_map(
             function( $order ) {
-                $payment_method_title  = get_directorist_option( "{$order->payment->method}_title" );
-                $order->payment_method = ! empty( $payment_method_title ) ? $payment_method_title : $order->payment_method;
-                
+                $order->payment_method = $this->get_payment_method_title( $order->payment->method );
                 return apply_filters( 'directorist_order_data', $order );
             }, $query->order_by_desc( 'd_order.id' )->pagination( $dto->get_page(), $dto->get_per_page() ) 
         );
@@ -108,7 +107,7 @@ class OrderRepository extends Repository {
     }
 
     public function single( $id ) {
-        return $this->get_query_builder()->with(
+        $order = $this->get_query_builder()->select( 'd_order.*', 'directorist_listing.post_title as listing_title' )->with(
             [
                 'user'     => function( $query ) {
                     $query->select( 'ID', 'user_email', 'display_name' );
@@ -117,7 +116,19 @@ class OrderRepository extends Repository {
                     $query->order_by_desc( 'id' );
                 }
             ]
-        )->where( 'd_order.id', $id )->first();
+        )->left_join( Post::get_table_name() . ' as directorist_listing', 'd_order.listing_id', '=', 'directorist_listing.ID' )->where( 'd_order.id', $id )->first();
+
+        if ( ! $order ) {
+            return null;
+        }
+
+        if ( ! empty( $order->payments[0] ) ) {
+            $order->payment_method = $this->get_payment_method_title( $order->payments[0]->method );
+        } else {
+            $order->payment_method = 'N/A';
+        }
+
+        return apply_filters( 'directorist_order_data', $order );
     }
 
     public function to_dto( $order ) {
@@ -146,5 +157,10 @@ class OrderRepository extends Repository {
         }
 
         return $dto;
+    }
+
+    private function get_payment_method_title( $payment_method ) {
+        $payment_method_title = get_directorist_option( "{$payment_method}_title" );
+        return ! empty( $payment_method_title ) ? $payment_method_title : $payment_method;
     }
 }

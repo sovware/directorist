@@ -124,7 +124,7 @@ export interface ValidationResult {
 
 export type ValidationCallback = (
 	value: any,
-	attributes?: Record<string, any>,
+	attributes?: Record<string, any>
 ) => string | string[] | null | void;
 
 // Main validation function
@@ -176,7 +176,9 @@ export const validateField = (
 			if (typeof result === 'string' && result) {
 				errors.push(result);
 			} else if (Array.isArray(result)) {
-				result.filter(Boolean).forEach((msg) => errors.push(msg as string));
+				result
+					.filter(Boolean)
+					.forEach((msg) => errors.push(msg as string));
 			}
 		}
 	} catch (err) {
@@ -255,7 +257,9 @@ export const validateFieldAsync = async (
 			if (typeof result === 'string' && result) {
 				errors.push(result);
 			} else if (Array.isArray(result)) {
-				result.filter(Boolean).forEach((msg) => errors.push(msg as string));
+				result
+					.filter(Boolean)
+					.forEach((msg) => errors.push(msg as string));
 			}
 		}
 	} catch (err) {

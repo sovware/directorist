@@ -16,10 +16,10 @@ const RefundTable = styled.div`
 		padding: 0;
 	}
 	margin-bottom: 24px;
-	.components-card__body{
+	.components-card__body {
 		padding: 0;
 	}
-	.dataviews-wrapper{
+	.dataviews-wrapper {
 		border-top: 1px solid var(--color-light);
 	}
 `;
@@ -28,11 +28,11 @@ const RefundTableToggle = styled.span`
 	align-items: center;
 	cursor: pointer;
 	color: var(--color-primary-500);
-	.directorist-refund-table-toggle-down-icon{
+	.directorist-refund-table-toggle-down-icon {
 		position: relative;
 		top: 4px;
 	}
-	svg{
+	svg {
 		margin-left: 6px;
 	}
 `;
@@ -65,7 +65,6 @@ const columns = [
 
 export default function Refund({ order }) {
 	const [showRefundTable, setShowRefundTable] = useState(false);
-	
 
 	registerCrudStore({
 		name: 'directorist/order-refund',
@@ -76,7 +75,9 @@ export default function Refund({ order }) {
 		name: 'directorist/order-refund',
 		selector: 'get',
 	});
-	const availableRefundAmount = parseFloat(order?.final_amount ?? "0") - parseFloat(refundsData?.total_refunded ?? "0");
+	const availableRefundAmount =
+		parseFloat(order?.final_amount ?? '0') -
+		parseFloat(refundsData?.total_refunded ?? '0');
 
 	const refundFields: FieldsType = {
 		amount: {
@@ -113,25 +114,41 @@ export default function Refund({ order }) {
 				path={`/directorist/admin/orders/${order?.id}/refunds`}
 				columns={columns}
 				showTable={showRefundTable}
-				create= {{
-					buttonLabel: __("Add Refund", "directorist"),
+				create={{
+					buttonLabel: __('Add Refund', 'directorist'),
 					fields: refundFields,
-					isDisabled: availableRefundAmount <=0 ? true : false
+					isDisabled: availableRefundAmount <= 0 ? true : false,
 				}}
-				beforeTable={<RefundSummary refundsData={refundsData} availableRefundAmount={availableRefundAmount} />}
+				beforeTable={
+					<RefundSummary
+						refundsData={refundsData}
+						availableRefundAmount={availableRefundAmount}
+					/>
+				}
 				cardFooter={
 					<RefundTableToggle
 						onClick={() => setShowRefundTable(!showRefundTable)}
 					>
 						{showRefundTable ? (
 							<>
-								<span>{__("Hide Refund History", "directorist")}</span>
-								<span className="directorist-refund-table-toggle-up-icon"> <AngleUpIcon /></span>
+								<span>
+									{__('Hide Refund History', 'directorist')}
+								</span>
+								<span className="directorist-refund-table-toggle-up-icon">
+									{' '}
+									<AngleUpIcon />
+								</span>
 							</>
 						) : (
 							<>
-								<span> {__("Refund History", "directorist")}</span>
-								<span className="directorist-refund-table-toggle-down-icon"> <AngleDownIcon /></span>
+								<span>
+									{' '}
+									{__('Refund History', 'directorist')}
+								</span>
+								<span className="directorist-refund-table-toggle-down-icon">
+									{' '}
+									<AngleDownIcon />
+								</span>
 							</>
 						)}
 					</RefundTableToggle>

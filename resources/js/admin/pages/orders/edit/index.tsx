@@ -8,10 +8,7 @@ import { __ } from '@wordpress/i18n';
 /**
  * External dependencies
  */
-import {
-	registerValuesStore,
-	useValuesStoreData
-} from '@wpmvc/data';
+import { registerValuesStore, useValuesStoreData } from '@wpmvc/data';
 // Fallback types for '@wordpress/url' if types are missing at build time
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { Button } from '@wpmvc/components';
@@ -38,16 +35,16 @@ const SingleOrderContainer = styled.div`
 	display: grid;
 	grid-template-columns: 2fr 1fr;
 	grid-gap: 30px;
-	.components-card{
+	.components-card {
 		border-radius: 8px;
 		border: 1px solid var(--color-light);
 		box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 	}
-	.components-card__header{
-		border-bottom: 1px solid rgba(0, 0, 0, 0.10);
+	.components-card__header {
+		border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 	}
-	.components-card__footer{
-		border-top: 1px solid rgba(0, 0, 0, 0.10);
+	.components-card__footer {
+		border-top: 1px solid rgba(0, 0, 0, 0.1);
 	}
 `;
 const ContainerLeft = styled.div``;
@@ -63,7 +60,7 @@ const HeaderBreadcrumb = styled.div`
 	display: flex;
 	align-items: center;
 	gap: 8px;
-	ul{
+	ul {
 		display: flex;
 		align-items: center;
 		gap: 8px;
@@ -79,20 +76,20 @@ const HeaderAction = styled.div`
 `;
 const StatusSelection = styled.div`
 	display: flex;
-	align-items:  center;
+	align-items: center;
 	border-radius: 2px;
 	padding: 0 8px 0 12px;
-    height: 34px;
-	border: 1px solid rgba(20, 25, 33, 0.10);
-	span{
+	height: 34px;
+	border: 1px solid rgba(20, 25, 33, 0.1);
+	span {
 		font-size: 13px;
-		font-weight: 500;;
+		font-weight: 500;
 		color: var(--color-gray-900);
 	}
-	.components-base-control__field{
+	.components-base-control__field {
 		margin-bottom: 0;
 	}
-	.components-input-control__backdrop{
+	.components-input-control__backdrop {
 		display: none;
 	}
 `;
@@ -142,7 +139,9 @@ export default function OrderEdit({}: EditProps) {
 			<Fill name="wpmvc-header">
 				<SingleOrderHeader>
 					<HeaderBreadcrumb>
-						<a href="#" className="directorist-single-order-back"><AngleLeftIcon /></a>
+						<a href="#" className="directorist-single-order-back">
+							<AngleLeftIcon />
+						</a>
 						<ul>
 							<li>
 								<span>{__('Orders', 'directorist')}</span>
@@ -156,47 +155,49 @@ export default function OrderEdit({}: EditProps) {
 					<HeaderAction>
 						<StatusSelection>
 							<span>{__('Order Status:', 'directorist')}</span>
-							<SelectControl 
+							<SelectControl
 								options={[
 									{
 										label: __('Pending', 'directorist'),
-										value: 'pending'
+										value: 'pending',
 									},
 									{
 										label: __('Re-funded', 'directorist'),
-										value: 'refunded'
+										value: 'refunded',
 									},
 									{
 										label: __('Failed', 'directorist'),
-										value: 'failed'
+										value: 'failed',
 									},
 									{
 										label: __('Cancelled', 'directorist'),
-										value: 'cancelled'
+										value: 'cancelled',
 									},
 									{
 										label: __('Unpaid', 'directorist'),
-										value: 'unpaid'
+										value: 'unpaid',
 									},
 									{
 										label: __('Expired', 'directorist'),
-										value: 'expired'
+										value: 'expired',
 									},
 									{
 										label: __('Paid', 'directorist'),
-										value: 'paid'
+										value: 'paid',
 									},
-								]}	
+								]}
 							/>
 						</StatusSelection>
-						<Button variant="primary">{__('Save Order', 'directorist')}</Button>
+						<Button variant="primary">
+							{__('Save Order', 'directorist')}
+						</Button>
 					</HeaderAction>
 				</SingleOrderHeader>
 			</Fill>
 			<SingleOrderContainer>
 				<ContainerLeft>
 					<OrderDetails order={order} />
-					{order && <Refund order={order} /> }
+					{order && <Refund order={order} />}
 					{order && <Subscription order={order} />}
 				</ContainerLeft>
 				<ContainerRight>

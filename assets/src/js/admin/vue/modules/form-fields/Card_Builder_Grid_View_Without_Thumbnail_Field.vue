@@ -538,7 +538,7 @@ export default {
           },
           title: {
             label: "Title",
-            selectedWidgets: [],
+            selectedWidgets: ["listing_title"],
           },
           quick_actions: {
             label: "Top Right",
@@ -644,17 +644,15 @@ export default {
         }
 
         let widgets_template = { ...this.theAvailableWidgets[widget_key] };
-        let widget_options =
-          !active_widgets_data[widget_key].options &&
-          typeof active_widgets_data[widget_key].options !== "object"
-            ? false
-            : active_widgets_data[widget_key].options;
+        // let widget_options = ( ! active_widgets_data[widget_key].options && typeof active_widgets_data[widget_key].options !== "object" ) ? false : active_widgets_data[widget_key].options;
 
         for (let root_option in widgets_template) {
-          if ("options" === root_option) {
-            continue;
-          }
-          if (active_widgets_data[widget_key][root_option] === "undefined") {
+          // if ("options" === root_option) {
+          //   continue;
+          // }
+          if (
+            typeof active_widgets_data[widget_key][root_option] === "undefined"
+          ) {
             continue;
           }
 
@@ -685,13 +683,19 @@ export default {
 
       // Load Selected Widgets Data
       for (let item of selectedWidgets) {
-        let length =
-          this.local_layout[item.section][item.area].selectedWidgets.length;
-        this.local_layout[item.section][item.area].selectedWidgets.splice(
-          length,
-          0,
-          item.widget,
-        );
+        const currentWidgets =
+          this.local_layout[item.section][item.area].selectedWidgets;
+
+        // Check if widget already exists to prevent duplicates
+        if (!currentWidgets.includes(item.widget)) {
+          // If it's listing_title, add as first item
+          if (item.widget === "listing_title") {
+            currentWidgets.unshift(item.widget);
+          } else {
+            // For other widgets, add to the end
+            currentWidgets.push(item.widget);
+          }
+        }
       }
     },
 

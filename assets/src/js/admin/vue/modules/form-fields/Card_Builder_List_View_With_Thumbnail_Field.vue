@@ -36,7 +36,9 @@
                     insertWidget($event, local_layout.thumbnail.top_right)
                   "
                   @edit-widget="editWidget($event)"
-                  @trash-widget="trashWidget($event, local_layout.thumbnail.top_right)"
+                  @trash-widget="
+                    trashWidget($event, local_layout.thumbnail.top_right)
+                  "
                   @open-widgets-picker-window="
                     toggleInsertWindow('thumbnail_top_right')
                   "
@@ -93,12 +95,8 @@
                   :label="local_layout.body.top.label"
                   :availableWidgets="theAvailableWidgets"
                   :activeWidgets="active_widgets"
-                  :acceptedWidgets="
-                    local_layout.body.top.acceptedWidgets
-                  "
-                  :selectedWidgets="
-                    local_layout.body.top.selectedWidgets
-                  "
+                  :acceptedWidgets="local_layout.body.top.acceptedWidgets"
+                  :selectedWidgets="local_layout.body.top.selectedWidgets"
                   :maxWidget="local_layout.body.top.maxWidget"
                   :showWidgetsPickerWindow="
                     getActiveInsertWindowStatus('thumbnail_body_top')
@@ -148,13 +146,9 @@
                   "
                   :widgetOptionsWindow="widgetOptionsWindow"
                   :canOpenSettings="true"
-                  @insert-widget="
-                    insertWidget($event, local_layout.body.right)
-                  "
+                  @insert-widget="insertWidget($event, local_layout.body.right)"
                   @edit-widget="editWidget($event)"
-                  @trash-widget="
-                    trashWidget($event, local_layout.body.right)
-                  "
+                  @trash-widget="trashWidget($event, local_layout.body.right)"
                   @open-widgets-picker-window="
                     toggleInsertWindow('thumbnail_body_right')
                   "
@@ -520,7 +514,7 @@ export default {
         body: {
           top: {
             label: "Body Top",
-            selectedWidgets: [],
+            selectedWidgets: ["listing_title"],
           },
           right: {
             label: "Body Right",
@@ -531,7 +525,6 @@ export default {
             selectedWidgets: [],
           },
         },
-        
 
         footer: {
           right: {
@@ -664,13 +657,19 @@ export default {
 
       // Load Selected Widgets Data
       for (let item of selectedWidgets) {
-        let length =
-          this.local_layout[item.section][item.area].selectedWidgets.length;
-        this.local_layout[item.section][item.area].selectedWidgets.splice(
-          length,
-          0,
-          item.widget,
-        );
+        const currentWidgets =
+          this.local_layout[item.section][item.area].selectedWidgets;
+
+        // Check if widget already exists to prevent duplicates
+        if (!currentWidgets.includes(item.widget)) {
+          // If it's listing_title, add as first item
+          if (item.widget === "listing_title") {
+            currentWidgets.unshift(item.widget);
+          } else {
+            // For other widgets, add to the end
+            currentWidgets.push(item.widget);
+          }
+        }
       }
     },
 

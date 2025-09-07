@@ -727,7 +727,7 @@ export default {
 
         body: {
           top: {
-            selectedWidgets: [],
+            selectedWidgets: ["listing_title"],
           },
           bottom: {
             selectedWidgets: [],

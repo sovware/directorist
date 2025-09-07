@@ -2080,7 +2080,7 @@ class Builder_Data {
                     'maxWidget'         => 0,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
                     'acceptedWidgets' => ['listing_title', 'rating', 'pricing'],
-                    "selectedWidgets" => [],
+                    "selectedWidgets" => ['listing_title'],
                 ],
                 'right'   => [
                     'label'             => __( 'Body Right', 'directorist' ),
@@ -2127,6 +2127,7 @@ class Builder_Data {
                     'maxWidget'         => 0,
                     'maxWidgetInfoText' => 'Up to __DATA__ item{s} can be added',
                     'acceptedWidgets'   => ['listing_title', 'rating', 'pricing'],
+                    "selectedWidgets"   => ['listing_title'],
                 ],
                 'right'   => [
                     'label'             => __( 'Body Right', 'directorist' ),

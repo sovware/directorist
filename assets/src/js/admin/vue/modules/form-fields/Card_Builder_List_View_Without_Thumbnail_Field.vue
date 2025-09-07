@@ -428,7 +428,7 @@ export default {
         body: {
           top: {
             label: "Body Top",
-            selectedWidgets: [],
+            selectedWidgets: ["listing_title"],
           },
           right: {
             label: "Body Right",

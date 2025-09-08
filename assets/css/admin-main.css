@@ -16406,7 +16406,7 @@ div[draggable=true].cptm-form-builder-group-header-content {
   margin-bottom: 8px;
   position: relative;
 }
-.cptm-form-builder-group-field-item .directorist-draggable-list-item {
+.cptm-form-builder-group-field-item .cptm-form-builder-group-field-item-drag {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -16636,7 +16636,7 @@ div[draggable=true].cptm-form-builder-group-header-content {
           box-shadow: 0 4px 8px rgba(16, 24, 40, 0.08);
 }
 
-.directorist-draggable-list-item {
+.cptm-form-builder-group-item-drag {
   width: 46px;
   min-width: 46px;
   height: 100%;
@@ -24045,7 +24045,7 @@ div[draggable=true].cptm-form-builder-group-header-content {
   margin-bottom: 8px;
   position: relative;
 }
-.cptm-form-builder-group-field-item .directorist-draggable-list-item {
+.cptm-form-builder-group-field-item .cptm-form-builder-group-field-item-drag {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -24275,7 +24275,7 @@ div[draggable=true].cptm-form-builder-group-header-content {
           box-shadow: 0 4px 8px rgba(16, 24, 40, 0.08);
 }
 
-.directorist-draggable-list-item {
+.cptm-form-builder-group-item-drag {
   width: 46px;
   min-width: 46px;
   height: 100%;
@@ -31972,7 +31972,7 @@ div[draggable=true].cptm-form-builder-group-header-content {
   margin-bottom: 8px;
   position: relative;
 }
-.cptm-form-builder-group-field-item .directorist-draggable-list-item {
+.cptm-form-builder-group-field-item .cptm-form-builder-group-field-item-drag {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -32202,7 +32202,7 @@ div[draggable=true].cptm-form-builder-group-header-content {
           box-shadow: 0 4px 8px rgba(16, 24, 40, 0.08);
 }
 
-.directorist-draggable-list-item {
+.cptm-form-builder-group-item-drag {
   width: 46px;
   min-width: 46px;
   height: 100%;

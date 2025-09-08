@@ -18459,33 +18459,36 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'draggable-list-item',
+  name: "draggable-list-item",
   props: {
     canDrag: {
       default: true // move | clone
     },
     dragType: {
-      default: 'move' // move | clone
+      default: "move" // move | clone
     },
     itemClassName: {
-      default: ''
+      default: ""
     },
     listType: {
-      default: 'div' // div | li
+      default: "div" // div | li
+    },
+    dragHandle: {
+      default: null // CSS selector for drag handle
     }
   },
   computed: {
     listItemStyle: function listItemStyle() {
       var style = {
-        cursor: this.canDrag ? 'move' : ''
+        cursor: this.canDrag ? "move" : ""
       };
-      if (this.dragging && 'move' === this.dragType) {
-        style.height = '0';
-        style.padding = '0';
-        style.overflow = 'hidden';
+      if (this.dragging && "move" === this.dragType) {
+        style.height = "0";
+        style.padding = "0";
+        style.overflow = "hidden";
       }
-      if (this.dragging && 'clone' === this.dragType) {
-        style.border = '2px dashed gray';
+      if (this.dragging && "clone" === this.dragType) {
+        style.border = "2px dashed gray";
       }
       return style;
     },
@@ -18497,20 +18500,52 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      dragging: false
+      dragging: false,
+      dragFromHandle: false
     };
   },
+  mounted: function mounted() {
+    if (this.dragHandle && this.canDrag) {
+      this.setupDragHandle();
+    }
+  },
   methods: {
+    setupDragHandle: function setupDragHandle() {
+      var self = this;
+      var dragHandleElement = this.$el.querySelector(this.dragHandle);
+      if (dragHandleElement) {
+        // Mark that drag is from handle when mousedown on handle
+        dragHandleElement.addEventListener("mousedown", function () {
+          self.dragFromHandle = true;
+        });
+
+        // Reset flag when mouse is released anywhere
+        document.addEventListener("mouseup", function () {
+          self.dragFromHandle = false;
+        });
+      }
+    },
+    handleDragStart: function handleDragStart(event) {
+      // If dragHandle is specified, only allow drag from handle
+      if (this.dragHandle && !this.dragFromHandle) {
+        event.preventDefault();
+        return false;
+      }
+
+      // Proceed with normal drag start
+      this.dragStart();
+    },
     dragStart: function dragStart() {
       var self = this;
       setTimeout(function () {
         self.dragging = true;
-        self.$emit('drag-start');
+        self.$emit("drag-start");
       }, 0);
     },
     dragEnd: function dragEnd() {
       this.dragging = false;
-      this.$emit('drag-end');
+      this.dragFromHandle = false;
+      this.$emit("drag-end");
     }
   }
 });
@@ -29609,7 +29644,7 @@ var render = function render() {
       "draggable": _vm.canDrag
     },
     on: {
-      "dragstart": _vm.dragStart,
+      "dragstart": _vm.handleDragStart,
       "dragend": _vm.dragEnd
     }
   }, [_c('div', {
@@ -29620,10 +29655,10 @@ var render = function render() {
     class: _vm.itemClassName,
     style: _vm.listItemStyle,
     attrs: {
-      "draggable": "canDrag"
+      "draggable": _vm.canDrag
     },
     on: {
-      "dragstart": _vm.dragStart,
+      "dragstart": _vm.handleDragStart,
       "dragend": _vm.dragEnd
     }
   }, [_c('div', {
@@ -29850,12 +29885,10 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _vm.widget_fields && Object.keys(_vm.widget_fields).length > 0 ? _c('div', {
-    staticClass: "cptm-form-builder-group-field-item",
-    class: _vm.expandState ? 'expanded' : ''
-  }, [_c('div', {
-    staticClass: "cptm-form-builder-group-field-item-header"
-  }, [_vm.canMoveWidget ? _c('draggable-list-item', {
+  return _vm.widget_fields && Object.keys(_vm.widget_fields).length > 0 && _vm.canMoveWidget ? _c('draggable-list-item', {
+    attrs: {
+      "drag-handle": '.cptm-form-builder-group-field-item-drag'
+    },
     on: {
       "drag-start": function dragStart($event) {
         return _vm.$emit('drag-start');
@@ -29865,13 +29898,18 @@ var render = function render() {
       }
     }
   }, [_c('div', {
+    staticClass: "cptm-form-builder-group-field-item",
+    class: _vm.expandState ? 'expanded' : ''
+  }, [_c('div', {
+    staticClass: "cptm-form-builder-group-field-item-header"
+  }, [_c('div', {
     staticClass: "cptm-form-builder-group-field-item-drag"
   }, [_c('span', {
     staticClass: "uil uil-draggabledots",
     attrs: {
       "aria-hidden": "true"
     }
-  })])]) : _vm._e(), _vm._v(" "), _c('div', {
+  })]), _vm._v(" "), _c('div', {
     staticClass: "cptm-form-builder-group-field-item-header-content"
   }, [_c('div', {
     staticClass: "cptm-form-builder-header-toggle"
@@ -29911,7 +29949,7 @@ var render = function render() {
     }
   }), _vm._v(" "), _vm.widgetSubtitle ? _c('span', {
     staticClass: "cptm-form-builder-group-field-item-subtitle"
-  }, [_vm._v("\n            (" + _vm._s(_vm.widgetSubtitle) + ")\n          ")]) : _vm._e(), _vm._v(" "), _vm.alert ? _c('span', {
+  }, [_vm._v("\n              (" + _vm._s(_vm.widgetSubtitle) + ")\n            ")]) : _vm._e(), _vm._v(" "), _vm.alert ? _c('span', {
     staticClass: "cptm-title-info",
     attrs: {
       "data-label": _vm.alert.message
@@ -29941,7 +29979,7 @@ var render = function render() {
     attrs: {
       "aria-hidden": "true"
     }
-  })]) : _vm._e()])])], 1), _vm._v(" "), _c('slide-up-down', {
+  })]) : _vm._e()])])]), _vm._v(" "), _c('slide-up-down', {
     attrs: {
       "active": _vm.expandState,
       "duration": 500
@@ -29973,7 +30011,7 @@ var render = function render() {
       "confirm": _vm.trashWidget,
       "cancel": _vm.closeConfirmationModal
     }
-  })], 1) : _vm._e();
+  })], 1)]) : _vm._e();
 };
 var staticRenderFns = [];
 render._withStripped = true;

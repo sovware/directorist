@@ -1,106 +1,113 @@
 <template>
-  <div
-    class="cptm-form-builder-group-field-item"
-    :class="expandState ? 'expanded' : ''"
-    v-if="widget_fields && Object.keys(widget_fields).length > 0"
+  <draggable-list-item
+    v-if="
+      widget_fields && Object.keys(widget_fields).length > 0 && canMoveWidget
+    "
+    :drag-handle="'.cptm-form-builder-group-field-item-drag'"
+    @drag-start="$emit('drag-start')"
+    @drag-end="$emit('drag-end')"
   >
-    <!-- Widget Header -->
-    <div class="cptm-form-builder-group-field-item-header">
-      <!-- Drag Handle -->
-      <draggable-list-item
-        v-if="canMoveWidget"
-        @drag-start="$emit('drag-start')"
-        @drag-end="$emit('drag-end')"
-      >
+    <div
+      class="cptm-form-builder-group-field-item"
+      :class="expandState ? 'expanded' : ''"
+    >
+      <!-- Widget Header -->
+      <div class="cptm-form-builder-group-field-item-header">
+        <!-- Drag Handle -->
         <div class="cptm-form-builder-group-field-item-drag">
           <span aria-hidden="true" class="uil uil-draggabledots"></span>
         </div>
-      </draggable-list-item>
 
-      <!-- Widget Titlebar -->
-      <div class="cptm-form-builder-group-field-item-header-content">
-        <div class="cptm-form-builder-header-toggle">
-          <a
-            href="#"
-            class="cptm-form-builder-header-toggle-link"
-            :class="expandState ? 'action-collapse-down' : 'action-collapse-up'"
-            @click.prevent="toggleExpand"
-          >
-            <span aria-hidden="true" class="uil uil-angle-down"></span>
-          </a>
-        </div>
-
-        <h4 class="cptm-form-builder-group-field-item-title">
-          <span class="cptm-form-builder-group-field-item-icon">
-            <span v-if="widgetIconType !== 'svg'" :class="widgetIcon"></span>
-            <span
-              v-else-if="widgetIconType === 'svg'"
-              v-html="widgetIcon"
-              class="cptm-title-icon-svg"
-            ></span>
-          </span>
-          <span class="cptm-form-builder-group-field-item-label">
-            <span v-html="widgetTitle"></span>
-            <span
-              v-if="widgetSubtitle"
-              class="cptm-form-builder-group-field-item-subtitle"
+        <!-- Widget Titlebar -->
+        <div class="cptm-form-builder-group-field-item-header-content">
+          <div class="cptm-form-builder-header-toggle">
+            <a
+              href="#"
+              class="cptm-form-builder-header-toggle-link"
+              :class="
+                expandState ? 'action-collapse-down' : 'action-collapse-up'
+              "
+              @click.prevent="toggleExpand"
             >
-              ({{ widgetSubtitle }})
-            </span>
-            <span
-              v-if="alert"
-              class="cptm-title-info"
-              :data-label="alert.message"
-            >
-              <span class="cptm-title-info-icon las la-info-circle"></span>
-              <span class="cptm-title-info-text" v-html="alert.message"></span>
-            </span>
-          </span>
-        </h4>
+              <span aria-hidden="true" class="uil uil-angle-down"></span>
+            </a>
+          </div>
 
-        <div class="cptm-form-builder-group-field-item-header-actions">
-          <a
-            href="#"
-            class="cptm-form-builder-header-action-link"
-            v-if="canTrashWidget"
-            @click.prevent="handleWidgetDelete"
-          >
-            <span aria-hidden="true" class="uil uil-trash-alt"></span>
-          </a>
+          <h4 class="cptm-form-builder-group-field-item-title">
+            <span class="cptm-form-builder-group-field-item-icon">
+              <span v-if="widgetIconType !== 'svg'" :class="widgetIcon"></span>
+              <span
+                v-else-if="widgetIconType === 'svg'"
+                v-html="widgetIcon"
+                class="cptm-title-icon-svg"
+              ></span>
+            </span>
+            <span class="cptm-form-builder-group-field-item-label">
+              <span v-html="widgetTitle"></span>
+              <span
+                v-if="widgetSubtitle"
+                class="cptm-form-builder-group-field-item-subtitle"
+              >
+                ({{ widgetSubtitle }})
+              </span>
+              <span
+                v-if="alert"
+                class="cptm-title-info"
+                :data-label="alert.message"
+              >
+                <span class="cptm-title-info-icon las la-info-circle"></span>
+                <span
+                  class="cptm-title-info-text"
+                  v-html="alert.message"
+                ></span>
+              </span>
+            </span>
+          </h4>
+
+          <div class="cptm-form-builder-group-field-item-header-actions">
+            <a
+              href="#"
+              class="cptm-form-builder-header-action-link"
+              v-if="canTrashWidget"
+              @click.prevent="handleWidgetDelete"
+            >
+              <span aria-hidden="true" class="uil uil-trash-alt"></span>
+            </a>
+          </div>
         </div>
       </div>
+
+      <!-- Widget Body -->
+      <slide-up-down :active="expandState" :duration="500">
+        <div
+          class="cptm-form-builder-group-field-item-body"
+          v-if="widget_fields && typeof widget_fields === 'object'"
+        >
+          <field-list-component
+            :root="activeWidgets"
+            :section-id="widgetKey"
+            :field-list="widget_fields"
+            :value="activeWidgets[widgetKey] ? activeWidgets[widgetKey] : ''"
+            @alert="updateAlert"
+            @update="
+              $emit('update-widget-field', {
+                widget_key: widgetKey,
+                payload: $event,
+              })
+            "
+          />
+        </div>
+      </slide-up-down>
+
+      <!-- Confirmation Modal -->
+      <confirmation-modal
+        :visible="showConfirmationModal"
+        :widgetName="widgetName"
+        @confirm="trashWidget"
+        @cancel="closeConfirmationModal"
+      />
     </div>
-
-    <!-- Widget Body -->
-    <slide-up-down :active="expandState" :duration="500">
-      <div
-        class="cptm-form-builder-group-field-item-body"
-        v-if="widget_fields && typeof widget_fields === 'object'"
-      >
-        <field-list-component
-          :root="activeWidgets"
-          :section-id="widgetKey"
-          :field-list="widget_fields"
-          :value="activeWidgets[widgetKey] ? activeWidgets[widgetKey] : ''"
-          @alert="updateAlert"
-          @update="
-            $emit('update-widget-field', {
-              widget_key: widgetKey,
-              payload: $event,
-            })
-          "
-        />
-      </div>
-    </slide-up-down>
-
-    <!-- Confirmation Modal -->
-    <confirmation-modal
-      :visible="showConfirmationModal"
-      :widgetName="widgetName"
-      @confirm="trashWidget"
-      @cancel="closeConfirmationModal"
-    />
-  </div>
+  </draggable-list-item>
 </template>
 
 <script>

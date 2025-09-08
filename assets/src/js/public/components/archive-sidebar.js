@@ -48,7 +48,9 @@ window.addEventListener('load', () => {
 			!targetElement.closest('.listing-with-sidebar__sidebar')
 		) {
 			// Check directorist color picker is available or not
-			const directoristColorPicker = body.querySelector('.listing-with-sidebar__sidebar--open .wp-color-result');
+			const directoristColorPicker = body.querySelector(
+				'.listing-with-sidebar__sidebar--open .wp-color-result'
+			);
 			if (directoristColorPicker) return;
 
 			document

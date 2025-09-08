@@ -145,43 +145,39 @@ registerBlockType( metadata.name, {
 							onChange={ ( view ) => setAttributes( { view } ) }
 							className="directorist-gb-fixed-control"
 						/>
-						{ view === 'grid' ? (
-							<SelectControl
-								label={ __( 'Columns', 'directorist' ) }
-								labelPosition="side"
-								value={ columns }
-								options={ [
-									{
-										label: __( '1 Column', 'directorist' ),
-										value: 1,
-									},
-									{
-										label: __( '2 Columns', 'directorist' ),
-										value: 2,
-									},
-									{
-										label: __( '3 Columns', 'directorist' ),
-										value: 3,
-									},
-									{
-										label: __( '4 Columns', 'directorist' ),
-										value: 4,
-									},
-									{
-										label: __( '6 Columns', 'directorist' ),
-										value: 6,
-									},
-								] }
-								onChange={ ( newColumns ) =>
-									setAttributes( {
-										columns: Number( newColumns ),
-									} )
-								}
-								className="directorist-gb-fixed-control"
-							/>
-						) : (
-							''
-						) }
+						<SelectControl
+							label={ __( 'Columns', 'directorist' ) }
+							labelPosition="side"
+							value={ columns }
+							options={ [
+								{
+									label: __( '1 Column', 'directorist' ),
+									value: 1,
+								},
+								{
+									label: __( '2 Columns', 'directorist' ),
+									value: 2,
+								},
+								{
+									label: __( '3 Columns', 'directorist' ),
+									value: 3,
+								},
+								{
+									label: __( '4 Columns', 'directorist' ),
+									value: 4,
+								},
+								{
+									label: __( '6 Columns', 'directorist' ),
+									value: 6,
+								},
+							] }
+							onChange={ ( newColumns ) =>
+								setAttributes( {
+									columns: Number( newColumns ),
+								} )
+							}
+							className="directorist-gb-fixed-control"
+						/>
 						<TextControl
 							label={ __( 'Number Of Categories', 'directorist' ) }
 							type="number"

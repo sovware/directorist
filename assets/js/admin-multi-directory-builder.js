@@ -1602,9 +1602,9 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       console.log(value);
       return [];
       // removed by dead control flow
-{ var options_values; }
+ var options_values; 
       // removed by dead control flow
-{}
+
     },
     hasDeprecatedValue: function hasDeprecatedValue(values) {
       if (!values && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(values) !== 'object') {
@@ -12831,17 +12831,19 @@ function _regeneratorDefine(e, r, n, t) {
     i = 0;
   }
   module.exports = _regeneratorDefine = function regeneratorDefine(e, r, n, t) {
-    function o(r, n) {
-      _regeneratorDefine(e, r, function (e) {
-        return this._invoke(r, n, e);
-      });
-    }
-    r ? i ? i(e, r, {
+    if (r) i ? i(e, r, {
       value: n,
       enumerable: !t,
       configurable: !t,
       writable: !t
-    }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2));
+    }) : e[r] = n;else {
+      var o = function o(r, n) {
+        _regeneratorDefine(e, r, function (e) {
+          return this._invoke(r, n, e);
+        });
+      };
+      o("next", 0), o("throw", 1), o("return", 2);
+    }
   }, module.exports.__esModule = true, module.exports["default"] = module.exports, _regeneratorDefine(e, r, n, t);
 }
 module.exports = _regeneratorDefine, module.exports.__esModule = true, module.exports["default"] = module.exports;
@@ -20115,11 +20117,11 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     updateWidgetOptionsData: function updateWidgetOptionsData(data, widget) {
       return;
       // removed by dead control flow
-{}
+
       // removed by dead control flow
-{}
+
       // removed by dead control flow
-{}
+
     },
     closeWidgetOptionsWindow: function closeWidgetOptionsWindow() {
       this.widgetOptionsWindow = this.widgetOptionsWindowDefault;
@@ -20696,11 +20698,11 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     updateWidgetOptionsData: function updateWidgetOptionsData(data, widget) {
       return;
       // removed by dead control flow
-{}
+
       // removed by dead control flow
-{}
+
       // removed by dead control flow
-{}
+
     },
     closeWidgetOptionsWindow: function closeWidgetOptionsWindow() {
       this.widgetOptionsWindow = this.widgetOptionsWindowDefault;
@@ -21262,11 +21264,11 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     updateWidgetOptionsData: function updateWidgetOptionsData(data, widget) {
       return;
       // removed by dead control flow
-{}
+
       // removed by dead control flow
-{}
+
       // removed by dead control flow
-{}
+
     },
     closeWidgetOptionsWindow: function closeWidgetOptionsWindow() {
       this.widgetOptionsWindow = this.widgetOptionsWindowDefault;
@@ -21790,11 +21792,11 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     updateWidgetOptionsData: function updateWidgetOptionsData(data, widget) {
       return;
       // removed by dead control flow
-{}
+
       // removed by dead control flow
-{}
+
       // removed by dead control flow
-{}
+
     },
     closeWidgetOptionsWindow: function closeWidgetOptionsWindow() {
       this.widgetOptionsWindow = this.widgetOptionsWindowDefault;
@@ -22311,11 +22313,11 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     updateWidgetOptionsData: function updateWidgetOptionsData(data, widget) {
       return;
       // removed by dead control flow
-{}
+
       // removed by dead control flow
-{}
+
       // removed by dead control flow
-{}
+
     },
     closeWidgetOptionsWindow: function closeWidgetOptionsWindow() {
       this.widgetOptionsWindow = this.widgetOptionsWindowDefault;
@@ -22826,11 +22828,11 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     updateWidgetOptionsData: function updateWidgetOptionsData(data, widget) {
       return;
       // removed by dead control flow
-{}
+
       // removed by dead control flow
-{}
+
       // removed by dead control flow
-{}
+
     },
     closeWidgetOptionsWindow: function closeWidgetOptionsWindow() {
       this.widgetOptionsWindow = this.widgetOptionsWindowDefault;
@@ -23449,20 +23451,20 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     updateCardWidgetOptionsData: function updateCardWidgetOptionsData(data, options_window) {
       return;
       // removed by dead control flow
-{}
+
       // removed by dead control flow
-{}
+
       // removed by dead control flow
-{}
+
     },
     updateWidgetOptionsData: function updateWidgetOptionsData(data, options_window) {
       return;
       // removed by dead control flow
-{}
+
       // removed by dead control flow
-{}
+
       // removed by dead control flow
-{}
+
     },
     closeCardWidgetOptionsWindow: function closeCardWidgetOptionsWindow() {
       this.widgetCardOptionsWindow = this.widgetOptionsWindowDefault;
@@ -24254,20 +24256,20 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
     updateCardWidgetOptionsData: function updateCardWidgetOptionsData(data, options_window) {
       return;
       // removed by dead control flow
-{}
+
       // removed by dead control flow
-{}
+
       // removed by dead control flow
-{}
+
     },
     updateWidgetOptionsData: function updateWidgetOptionsData(data, options_window) {
       return;
       // removed by dead control flow
-{}
+
       // removed by dead control flow
-{}
+
       // removed by dead control flow
-{}
+
     },
     closeCardWidgetOptionsWindow: function closeCardWidgetOptionsWindow() {
       this.widgetCardOptionsWindow = this.widgetOptionsWindowDefault;
@@ -26434,7 +26436,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
       return options_values.includes(value);
     }
     /* syncValidationWithLocalState( validation_log ) {
-         return validation_log;
+          return validation_log;
     } */
   }
 });
@@ -28725,7 +28727,22 @@ var render = function render() {
     staticClass: "cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap"
   }, [_c('div', {
     staticClass: "cptm-widget-card cptm-has-widget-control cptm-widget-actions-tools-wrap"
-  }, [_vm._m(0), _vm._v(" "), _c('widget-action-tools', {
+  }, [_c('p', {
+    staticClass: "cptm-placeholder-author-thumb"
+  }), _c('div', {
+    staticClass: "cptm-placeholder-author-thumb-wrapper"
+  }, [_c('svg', {
+    staticClass: "user-icon",
+    attrs: {
+      "viewBox": "0 0 512 512",
+      "xmlns": "http://www.w3.org/2000/svg"
+    }
+  }, [_c('path', {
+    attrs: {
+      "fill": "currentColor",
+      "d": "M256 288c79.5 0 144-64.5 144-144S335.5 0 256 0 112 64.5 112 144s64.5 144 144 144zm128 32h-55.1c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16H128C57.3 320 0 377.3 0 448v16c0 26.5 21.5 48 48 48h416c26.5 0 48-21.5 48-48v-16c0-70.7-57.3-128-128-128z"
+    }
+  })])]), _vm._v(" "), _c('p'), _vm._v(" "), _c('widget-action-tools', {
     attrs: {
       "canEdit": _vm.canEdit,
       "canMove": _vm.canMove,
@@ -28764,18 +28781,7 @@ var render = function render() {
     }
   })]);
 };
-var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('p', {
-    staticClass: "cptm-placeholder-author-thumb"
-  }, [_c('img', {
-    attrs: {
-      "src": "https://via.placeholder.com/150",
-      "alt": ""
-    }
-  })]);
-}];
+var staticRenderFns = [];
 render._withStripped = true;
 
 
@@ -34449,7 +34455,7 @@ var render = function render() {
       key: alert_key,
       staticClass: "cptm-form-alert",
       class: 'cptm-' + alert.type
-    }, [_vm._v("\n            " + _vm._s(alert.message) + "\n        ")]);
+    }, [_vm._v("\r\n            " + _vm._s(alert.message) + "\r\n        ")]);
   }), 0) : _vm._e()]);
 };
 var staticRenderFns = [];

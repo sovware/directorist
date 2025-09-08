@@ -768,7 +768,7 @@
     }
     .directorist-icon-mask {
       &:after {
-        width: 9px;
+        width: 16px;
         height: 16px;
         background-color: var(--directorist-color-marker-icon);
         mask: url("../../../icons/font-awesome/svgs/solid/map-pin.svg");
@@ -793,7 +793,7 @@
     background-color: var(--directorist-color-bg-gray) !important;
     border: 2px dashed var(--directorist-color-border-gray) !important;
     &.ezmu--show {
-      margin-bottom: 145px;
+      margin-bottom: 120px;
     }
     .ezmu__media-picker-section {
       display: block;
@@ -1189,8 +1189,8 @@
       border: 50px solid rgba(var(--directorist-color-marker-shape-rgb), 0.2);
     }
     .directorist-icon-mask::after {
-      width: 11px;
-      height: 20px;
+      width: 16px;
+      height: 16px;
     }
   }
 }
@@ -1408,6 +1408,9 @@
     }
     &.select2-search--inline {
       width: auto;
+      &:first-child{
+        width: inherit;
+      }
     }
   }
 }

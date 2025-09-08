@@ -1280,7 +1280,7 @@ class Directorist_Listings {
 
         foreach ( $post_ids as $listing_id ) {
             ?>
-            <div class="directorist-col-12 directorist-all-listing-col">
+            <div class="directorist-col-12">
             <?php $this->loop_template( 'list', $listing_id ); ?>
             </div>
             <?php
@@ -1295,7 +1295,7 @@ class Directorist_Listings {
 
         foreach ( $post_ids as $listing_id ) {
             ?>
-            <div class="<?php Helper::directorist_column( $this->columns ); ?> directorist-all-listing-col">
+            <div class="<?php Helper::directorist_column( $this->columns ); ?>">
                 <?php $this->loop_template( 'grid', $listing_id ); ?>
             </div>
             <?php
@@ -2166,6 +2166,18 @@ class Directorist_Listings {
                     }
 
                     $args['value'] = rtrim( $options_value, ', ' );
+                }
+
+                if ( 'select' === $field_type ) {
+                    $options_value = '';
+                    $options       = (array) directorist_get_var( $field['original_field']['options'], [] );
+                    foreach ( $options as $option ) {
+                        if ( $option['option_value'] == $value ) {
+                            $options_value = $option['option_label'];
+                            break;
+                        }
+                    }
+                    $args['value'] = $options_value;
                 }
 
                 $template = 'archive/custom-fields/' . $widget_name;

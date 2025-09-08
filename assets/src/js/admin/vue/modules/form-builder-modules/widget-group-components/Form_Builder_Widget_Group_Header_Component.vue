@@ -4,66 +4,65 @@
     :class="widgetsExpanded || groupFieldsExpandState ? 'expanded' : ''"
   >
     <!-- Group Header Top -->
-    <div class="cptm-form-builder-group-header">
-      <!-- Group Header Titlebar -->
-      <draggable-list-item
-        :can-drag="isEnabledGroupDragging"
-        @drag-start="$emit('drag-start')"
-        @drag-end="$emit('drag-end')"
-        v-if="draggable"
-      >
-        <div class="cptm-form-builder-group-field-item-drag">
+    <draggable-list-item
+      :can-drag="isEnabledGroupDragging"
+      @drag-start="$emit('drag-start')"
+      @drag-end="$emit('drag-end')"
+      :drag-handle="'.cptm-form-builder-group-item-drag'"
+    >
+      <div class="cptm-form-builder-group-header">
+        <div class="cptm-form-builder-group-item-drag" v-if="draggable">
           <span aria-hidden="true" class="uil uil-draggabledots"></span>
         </div>
-      </draggable-list-item>
 
-      <div class="cptm-form-builder-group-header-content">
-        <div class="cptm-form-builder-header-toggle" v-if="canExpand">
-          <a
-            href="#"
-            class="cptm-form-builder-header-toggle-link"
-            :class="
-              widgetsExpanded ? 'action-collapse-down' : 'action-collapse-up'
-            "
-            @click.prevent="$emit('toggle-expand-widgets')"
-          >
-            <span aria-hidden="true" class="uil uil-angle-down"></span>
-          </a>
-        </div>
+        <div class="cptm-form-builder-group-header-content">
+          <div class="cptm-form-builder-header-toggle" v-if="canExpand">
+            <a
+              href="#"
+              class="cptm-form-builder-header-toggle-link"
+              :class="
+                widgetsExpanded ? 'action-collapse-down' : 'action-collapse-up'
+              "
+              @click.prevent="$emit('toggle-expand-widgets')"
+            >
+              <span aria-hidden="true" class="uil uil-angle-down"></span>
+            </a>
+          </div>
 
-        <h3 class="cptm-form-builder-group-title">
-          <span class="cptm-form-builder-group-title-icon">
-            <span
-              v-html="groupData.icon"
-              v-if="groupData?.icon_type === 'svg'"
-            ></span>
-            <span aria-hidden="true" :class="groupData?.icon" v-else></span>
-          </span>
-          <span class="cptm-form-builder-group-title-label">
-            <span v-html="groupData.label"></span>
-          </span>
-        </h3>
+          <h3 class="cptm-form-builder-group-title">
+            <span class="cptm-form-builder-group-title-icon">
+              <span
+                v-html="groupData.icon"
+                v-if="groupData?.icon_type === 'svg'"
+              ></span>
+              <span aria-hidden="true" :class="groupData?.icon" v-else></span>
+            </span>
+            <span class="cptm-form-builder-group-title-label">
+              <span v-html="groupData.label"></span>
+            </span>
+          </h3>
 
-        <div class="cptm-form-builder-header-actions" v-if="!groupData.lock">
-          <a
-            href="#"
-            class="cptm-form-builder-header-action-link"
-            v-if="groupFields && typeof groupFields === 'object'"
-            @click.prevent="toggleGroupFieldsExpand"
-          >
-            <span class="fa fa-cog" aria-hidden="true"></span>
-          </a>
-          <a
-            href="#"
-            class="cptm-form-builder-header-action-link"
-            :class="widgetsExpanded ? 'disabled' : ''"
-            @click.prevent="handleGroupDelete"
-          >
-            <span aria-hidden="true" class="uil uil-trash-alt"></span>
-          </a>
+          <div class="cptm-form-builder-header-actions" v-if="!groupData.lock">
+            <a
+              href="#"
+              class="cptm-form-builder-header-action-link"
+              v-if="groupFields && typeof groupFields === 'object'"
+              @click.prevent="toggleGroupFieldsExpand"
+            >
+              <span class="fa fa-cog" aria-hidden="true"></span>
+            </a>
+            <a
+              href="#"
+              class="cptm-form-builder-header-action-link"
+              :class="widgetsExpanded ? 'disabled' : ''"
+              @click.prevent="handleGroupDelete"
+            >
+              <span aria-hidden="true" class="uil uil-trash-alt"></span>
+            </a>
+          </div>
         </div>
       </div>
-    </div>
+    </draggable-list-item>
 
     <!-- Group Header Body -->
     <slide-up-down :active="groupFieldsExpandState" :duration="500">

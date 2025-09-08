@@ -30463,11 +30463,10 @@ var render = function render() {
   return _c('div', {
     staticClass: "cptm-form-builder-group-header-section",
     class: _vm.widgetsExpanded || _vm.groupFieldsExpandState ? 'expanded' : ''
-  }, [_c('div', {
-    staticClass: "cptm-form-builder-group-header"
-  }, [_vm.draggable ? _c('draggable-list-item', {
+  }, [_c('draggable-list-item', {
     attrs: {
-      "can-drag": _vm.isEnabledGroupDragging
+      "can-drag": _vm.isEnabledGroupDragging,
+      "drag-handle": '.cptm-form-builder-group-item-drag'
     },
     on: {
       "drag-start": function dragStart($event) {
@@ -30478,13 +30477,15 @@ var render = function render() {
       }
     }
   }, [_c('div', {
-    staticClass: "cptm-form-builder-group-field-item-drag"
+    staticClass: "cptm-form-builder-group-header"
+  }, [_vm.draggable ? _c('div', {
+    staticClass: "cptm-form-builder-group-item-drag"
   }, [_c('span', {
     staticClass: "uil uil-draggabledots",
     attrs: {
       "aria-hidden": "true"
     }
-  })])]) : _vm._e(), _vm._v(" "), _c('div', {
+  })]) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "cptm-form-builder-group-header-content"
   }, [_vm.canExpand ? _c('div', {
     staticClass: "cptm-form-builder-header-toggle"
@@ -30559,7 +30560,7 @@ var render = function render() {
     attrs: {
       "aria-hidden": "true"
     }
-  })])]) : _vm._e()])], 1), _vm._v(" "), _c('slide-up-down', {
+  })])]) : _vm._e()])])]), _vm._v(" "), _c('slide-up-down', {
     attrs: {
       "active": _vm.groupFieldsExpandState,
       "duration": 500

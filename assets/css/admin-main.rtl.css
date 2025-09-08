@@ -17668,6 +17668,31 @@ input[type=radio].cptm-radio {
   border: 4px solid #fff;
 }
 
+.cptm-placeholder-author-thumb-wrapper {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #c6d0dc;
+  border: 4px solid #fff;
+  color: white;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.cptm-placeholder-author-thumb-wrapper svg {
+  width: 20px;
+  height: 20px;
+}
+
 .cptm-widget-title-card {
   margin-bottom: 10px;
   padding: 10px;
@@ -23224,6 +23249,31 @@ input[type=radio].cptm-radio {
      object-fit: cover;
   background-color: #c6d0dc;
   border: 4px solid #fff;
+}
+
+.cptm-placeholder-author-thumb-wrapper {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #c6d0dc;
+  border: 4px solid #fff;
+  color: white;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.cptm-placeholder-author-thumb-wrapper svg {
+  width: 20px;
+  height: 20px;
 }
 
 .cptm-widget-title-card {
@@ -29070,6 +29120,31 @@ input[type=radio].cptm-radio {
      object-fit: cover;
   background-color: #c6d0dc;
   border: 4px solid #fff;
+}
+
+.cptm-placeholder-author-thumb-wrapper {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #c6d0dc;
+  border: 4px solid #fff;
+  color: white;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.cptm-placeholder-author-thumb-wrapper svg {
+  width: 20px;
+  height: 20px;
 }
 
 .cptm-widget-title-card {

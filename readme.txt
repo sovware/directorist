@@ -292,7 +292,7 @@ Directorist comes with an AI-powered directory builder. Use the Create with AI o
 
 8.4.6 - Sep 9, 2025
 
-### Fixed
+**Fixed**
 - Map disable issue on single listing. (#2471)
 - Placeholder not fully displayed in Add Listing Form (Multi Select). (#2470)
 - Category field box resizing issue in Add Listing Form. (#2469)

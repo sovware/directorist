@@ -4168,8 +4168,8 @@ body.stop-scrolling {
 	width: 16px;
 	height: 16px;
 	background-color: var(--directorist-color-marker-icon);
-	-webkit-mask: url(../images/ed83bad2b8ea2a7680575ff079fc63af.svg);
-	mask: url(../images/ed83bad2b8ea2a7680575ff079fc63af.svg);
+	-webkit-mask-image: url(../images/ed83bad2b8ea2a7680575ff079fc63af.svg);
+	mask-image: url(../images/ed83bad2b8ea2a7680575ff079fc63af.svg);
 }
 .directorist-form-map-field .atbd_map_shape:hover:before {
 	opacity: 1;
@@ -20965,6 +20965,8 @@ input.directorist-toggle-input:checked
 	width: 16px;
 	height: 16px;
 	background-color: var(--directorist-color-marker-icon);
+	-webkit-mask-image: url(../images/ed83bad2b8ea2a7680575ff079fc63af.svg);
+	mask-image: url(../images/ed83bad2b8ea2a7680575ff079fc63af.svg);
 }
 .atbd_map_shape:hover:before {
 	opacity: 1;

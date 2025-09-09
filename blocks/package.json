@@ -26,6 +26,7 @@
 	"dependencies": {
 		"@wordpress/icons": "^10.7.0",
 		"@wordpress/server-side-render": "^5.7.0",
+		"classnames": "^2.5.1",
 		"clsx": "^2.1.1",
 		"react": "^18.3.1"
 	}

@@ -5,17 +5,19 @@ Tags: business directory, listings, classifieds, directory plugin, directory
 Requires at least: 4.6
 Tested up to: 6.8
 Requires PHP: 7.0
-Stable tag: 8.4.5
+Stable tag: 8.4.6
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Create Business Directory, Job Listings, Classified Ads, and More with this versatile WordPress directory plugin.
+Build any type of directory website such as a business directory, job directory, classifieds directory, and more with this WordPress directory plugin.
 
-==Turn your ideas into a profitable directory effortlessly.==
+== Description ==
 
 Create and grow your business directory, classified listings, job boards, event directories, membership directory, service marketplaces, or real estate portals—Directorist simplifies it all.
 
 [Try Demo](https://directorist.com/demos/) | [Extensions](https://directorist.com/extensions/) | [Themes](https://directorist.com/themes/) | [Documentation](https://directorist.com/documentation/directorist/) | [Roadmap](https://directorist.com/roadmap/)
+
+==Turn your ideas into a profitable directory effortlessly.==
 
 Powered by AI, Directorist is the ultimate directory plugin that helps you create, manage, and monetize listings with ease. Built-in SEO optimization ensures your directories rank higher and attract organic traffic, while seamless payment integrations let you monetize effortlessly through paid listings, subscriptions, and premium features.
 
@@ -284,6 +286,31 @@ Directorist is developer-friendly with plenty of hooks and filters. You can exte
 Directorist comes with an AI-powered directory builder. Use the Create with AI option, provide directory name, location and AI will build the directory for you.
 
 == Changelog ==
+
+8.4.6 - Sep 1, 2025
+
+### Fixed
+- Map disable issue on single listing. (#2471)
+- Placeholder not fully displayed in Add Listing Form (Multi Select). (#2470)
+- Category field box resizing issue in Add Listing Form. (#2469)
+- Category icon not properly showing in map view. (#2465)
+- Custom field select value on listing card. (#2462)
+- Loading more translation issue. (#2459)
+- PHP 8 deprecated error issue. (#2458)
+- Schema error issue. (#2455)
+- Enter key press issue on instant search. (#2454)
+- Spelling issue in filter hooks. (#2452)
+- Account block styling issue. (#2467)
+- Layout issue when taxonomy title is too long. (#2442)
+
+**Changed**
+- Global columns optimization for responsive layout with clean CSS. (#2436)
+- Wrapped default CSS with `.directorist-content-active` selector. (#2419)
+- Added `directorist_is_multiple_review_enabled` hook to manage multiple reviews. (#2453)
+- Added filter hook to modify the find & replace contents in email. (#2450)
+- Added hooks for email notifications: `directorist_guest_submission_email_notification` and `directorist_after_user_registration_confirmation_email_sent`. (#2464)
+- Added Action hooks in Grid & List loop (before/after header & excerpt). (#2476)
+- Single listing slider thumb shows only when there are multiple items. (#2394)
 
 8.4.5 - July 22, 2025
 

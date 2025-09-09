@@ -1288,7 +1288,7 @@ class Directorist_Single_Listing {
             'cat_icon'              => $cat_icon,
         ];
 
-        return json_encode( $args );
+        return json_encode( $args, JSON_HEX_QUOT | JSON_HEX_APOS | JSON_HEX_AMP );
     }
 
     public function get_review_template() {

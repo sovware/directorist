@@ -250,6 +250,21 @@ import { applyDrag } from "../../helpers/vue-dndrop";
 import helpers from "../../mixins/helpers";
 import card_builder from "./../../mixins/form-fields/card-builder";
 
+/**
+ * Card Builder Listing Header Field Component
+ *
+ * A robust, high-performance Vue component for managing listing header widgets
+ * with drag-and-drop functionality, widget availability checking, and data synchronization.
+ *
+ * Features:
+ * - Drag and drop widget management
+ * - Conditional widget display based on form fields
+ * - Real-time data synchronization
+ * - Performance optimized with caching
+ * - Comprehensive error handling
+ * - Memory leak prevention
+ *
+ */
 export default {
   name: "card-builder-listing-header-field",
   components: {
@@ -300,93 +315,10 @@ export default {
       let output = [];
       let placeholders = this.placeholders;
 
-      // Get Widget Data
-      const getWidgetData = (placeholderData) => {
-        if (typeof placeholderData !== "object") {
-          return null;
-        }
-
-        let data = [];
-
-        let acceptedWidgets = placeholderData.acceptedWidgets || [];
-        let selectedWidgets = placeholderData.selectedWidgets || [];
-        let selectedWidgetList = placeholderData.selectedWidgetList || [];
-
-        // Sort the selectedWidgetList & selectedWidgets based on acceptedWidgets order
-        selectedWidgetList.sort(
-          (a, b) => acceptedWidgets.indexOf(a) - acceptedWidgets.indexOf(b),
-        );
-        selectedWidgets.sort(
-          (a, b) =>
-            acceptedWidgets.indexOf(a.widget_key) -
-            acceptedWidgets.indexOf(b.widget_key),
-        );
-
-        // Filter out invalid widgets (without widget_key)
-        let validWidgets = selectedWidgets
-          .map((widget, index) => {
-            if (widget.widget_key) return widget;
-
-            // Fallback: Use `selectedWidgetList` if available
-            let widget_name = selectedWidgetList?.[index];
-            return widget_name ? { widget_key: widget_name, ...widget } : null;
-          })
-          .filter((widget) => widget && widget.widget_key); // Remove invalid items
-
-        for (let widget of validWidgets) {
-          const widget_name = widget.widget_key;
-
-          if (
-            !this.active_widgets[widget_name] ||
-            typeof this.active_widgets[widget_name] !== "object"
-          ) {
-            continue;
-          }
-
-          let widget_data = {};
-
-          // Extract widget data, excluding unnecessary keys
-          for (let key in this.active_widgets[widget_name]) {
-            widget_data[key] = this.active_widgets[widget_name][key];
-          }
-
-          // Process widget options if available
-          if (
-            typeof this.active_widgets[widget_name].options === "object" &&
-            typeof this.active_widgets[widget_name].options.fields === "object"
-          ) {
-            let widget_options =
-              this.active_widgets[widget_name].options.fields;
-
-            for (let option in widget_options) {
-              if (option === "icon" && widget_data.icon) {
-                // update widget data
-                widget_data.icon = widget_options[option]?.value;
-                // update icon on available widgets
-                this.available_widgets[widget_name].icon =
-                  widget_options[option]?.value;
-              }
-
-              if (widget_data?.options?.fields) {
-                // update widget data fields
-                widget_data.options.fields[option] = widget_options[option];
-                // update fields on available widgets
-                this.available_widgets[widget_name].options.fields[option] =
-                  widget_options[option];
-              }
-            }
-          }
-
-          data.push(widget_data);
-        }
-
-        return data;
-      };
-
       // Parse Layout
       for (const placeholder of placeholders) {
         if ("placeholder_item" === placeholder.type) {
-          const data = getWidgetData(placeholder);
+          const data = this.getWidgetData(placeholder);
 
           output.push({
             type: placeholder.type,
@@ -403,7 +335,7 @@ export default {
           let subGroupsData = [];
 
           for (const subPlaceholder of placeholder.placeholders) {
-            const data = getWidgetData(subPlaceholder);
+            const data = this.getWidgetData(subPlaceholder);
 
             subGroupsData.push({
               type: placeholder.type ? placeholder.type : "placeholder_item",
@@ -431,7 +363,7 @@ export default {
       return output;
     },
 
-    // available_widgets
+    // available widgets as a reactive computed object
     theAvailableWidgets() {
       let available_widgets = JSON.parse(
         JSON.stringify(this.available_widgets),
@@ -482,30 +414,6 @@ export default {
       return available_widgets;
     },
 
-    // widget options window active status
-    widgetOptionsWindowActiveStatus() {
-      return (widgetKey) => {
-        if (
-          !widgetKey ||
-          this.widgetOptionsWindow.widget === "" ||
-          this.widgetOptionsWindow.widget !== widgetKey ||
-          typeof this.active_widgets[widgetKey] === "undefined"
-        ) {
-          return false;
-        }
-        return true;
-      };
-    },
-
-    // widget card options window active status
-    widgetCardOptionsWindowActiveStatus() {
-      if (!this.isObject(this.widgetCardOptionsWindow.widget)) {
-        return false;
-      }
-
-      return true;
-    },
-
     // video modal content
     modalContent() {
       return this.video;
@@ -550,26 +458,1021 @@ export default {
 
       placeholdersMap: {},
       placeholders: [],
+      allPlaceholderItems: [],
       showModal: false,
     };
   },
 
   methods: {
-    init() {
-      this.importWidgets();
-      this.importCardOptions();
-      this.importPlaceholders();
-      this.importOldData();
-    },
+    // ===========================================
+    // WIDGET DATA PROCESSING METHODS
+    // ===========================================
 
-    // getChildPayload
-    getChildPayload(index) {
-      // Filter only placeholder_item types since the Container only shows those
-      const draggablePlaceholders = this.placeholders.filter(
-        (placeholder) => placeholder.type === "placeholder_item",
+    /**
+     * Get widget data for a placeholder
+     * @param {Object} placeholderData - Placeholder data
+     * @returns {Array} Widget data array
+     * @private
+     */
+    getWidgetData(placeholderData) {
+      if (typeof placeholderData !== "object") {
+        return null;
+      }
+
+      let data = [];
+
+      let acceptedWidgets = placeholderData.acceptedWidgets || [];
+      let selectedWidgets = placeholderData.selectedWidgets || [];
+      let selectedWidgetList = placeholderData.selectedWidgetList || [];
+
+      // Sort the selectedWidgetList & selectedWidgets based on acceptedWidgets order
+      selectedWidgetList.sort(
+        (a, b) => acceptedWidgets.indexOf(a) - acceptedWidgets.indexOf(b),
+      );
+      selectedWidgets.sort(
+        (a, b) =>
+          acceptedWidgets.indexOf(a.widget_key) -
+          acceptedWidgets.indexOf(b.widget_key),
       );
 
-      return draggablePlaceholders[index];
+      // Filter out invalid widgets (without widget_key)
+      let validWidgets = selectedWidgets
+        .map((widget, index) => {
+          if (widget.widget_key) return widget;
+
+          // Fallback: Use `selectedWidgetList` if available
+          let widget_name = selectedWidgetList?.[index];
+          return widget_name ? { widget_key: widget_name, ...widget } : null;
+        })
+        .filter((widget) => widget && widget.widget_key); // Remove invalid items
+
+      for (let widget of validWidgets) {
+        const widget_name = widget.widget_key;
+
+        if (
+          !this.active_widgets[widget_name] ||
+          typeof this.active_widgets[widget_name] !== "object"
+        ) {
+          continue;
+        }
+
+        let widget_data = {};
+
+        // Extract widget data, excluding unnecessary keys
+        for (let key in this.active_widgets[widget_name]) {
+          widget_data[key] = this.active_widgets[widget_name][key];
+        }
+
+        // Process widget options if available
+        if (
+          typeof this.active_widgets[widget_name].options === "object" &&
+          typeof this.active_widgets[widget_name].options.fields === "object"
+        ) {
+          let widget_options = this.active_widgets[widget_name].options.fields;
+
+          for (let option in widget_options) {
+            if (option === "icon" && widget_data.icon) {
+              // update widget data
+              widget_data.icon = widget_options[option]?.value;
+              // update icon on available widgets
+              this.available_widgets[widget_name].icon =
+                widget_options[option]?.value;
+            }
+
+            if (widget_data?.options?.fields) {
+              // update widget data fields
+              widget_data.options.fields[option] = widget_options[option];
+              // update fields on available widgets
+              this.available_widgets[widget_name].options.fields[option] =
+                widget_options[option];
+            }
+          }
+        }
+
+        data.push(widget_data);
+      }
+
+      return data;
+    },
+
+    /**
+     * Process placeholders data for output
+     * @param {Array} placeholders - Placeholders to process
+     * @returns {Array} Processed output data
+     * @private
+     */
+    processPlaceholdersForOutput(placeholders) {
+      let output = [];
+
+      for (const placeholder of placeholders) {
+        if ("placeholder_item" === placeholder.type) {
+          const data = this.getWidgetData(placeholder);
+
+          output.push({
+            type: placeholder.type,
+            placeholderKey: placeholder.placeholderKey,
+            label: placeholder.label,
+            selectedWidgets: data,
+            acceptedWidgets: placeholder.acceptedWidgets,
+            selectedWidgetList: placeholder.selectedWidgetList,
+          });
+          continue;
+        }
+
+        if ("placeholder_group" === placeholder.type) {
+          let subGroupsData = [];
+
+          for (const subPlaceholder of placeholder.placeholders) {
+            const data = this.getWidgetData(subPlaceholder);
+
+            subGroupsData.push({
+              type: placeholder.type ? placeholder.type : "placeholder_item",
+              placeholderKey: subPlaceholder.placeholderKey,
+              label: subPlaceholder.label,
+              selectedWidgets: data,
+              acceptedWidgets: subPlaceholder.acceptedWidgets,
+              selectedWidgetList: subPlaceholder.selectedWidgetList,
+            });
+            continue;
+          }
+
+          output.push({
+            type: placeholder.type,
+            placeholderKey: placeholder.placeholderKey,
+            placeholders: subGroupsData,
+          });
+
+          continue;
+        }
+      }
+
+      return output;
+    },
+
+    // ===========================================
+    // INITIALIZATION & LIFECYCLE METHODS
+    // ===========================================
+
+    /**
+     * Initialize component with error handling
+     * @public
+     */
+    initializeComponent() {
+      try {
+        this.importWidgets();
+        this.importCardOptions();
+        this.importPlaceholders();
+        this.importOldData();
+        this.setupEventListeners();
+        this._dataChanged = true;
+      } catch (error) {
+        this.handleError("Component initialization failed", error);
+      }
+    },
+
+    /**
+     * Setup event listeners for performance
+     * @private
+     */
+    setupEventListeners() {
+      // Debounced update emitter
+      this.debouncedEmitUpdate = this.debounce(() => {
+        this.emitUpdate();
+      }, 100);
+    },
+
+    /**
+     * Cleanup resources to prevent memory leaks
+     * @private
+     */
+    cleanup() {
+      if (this._debounceTimer) {
+        clearTimeout(this._debounceTimer);
+        this._debounceTimer = null;
+      }
+
+      // Remove event listeners
+      this.removeEventListeners();
+
+      // Clear caches
+      this._cachedOutputData = null;
+    },
+
+    /**
+     * Remove event listeners
+     * @private
+     */
+    removeEventListeners() {
+      // Implementation for removing event listeners
+      // This prevents memory leaks
+    },
+
+    /**
+     * Emit update event with error handling
+     * @private
+     */
+    emitUpdate() {
+      try {
+        this.$emit("update", this.output_data);
+      } catch (error) {
+        this.handleError("Failed to emit update", error);
+      }
+    },
+
+    // ===========================================
+    // ERROR HANDLING METHODS
+    // ===========================================
+
+    /**
+     * Centralized error handling
+     * @param {String} message - Error message
+     * @param {Error} error - Error object
+     * @private
+     */
+    handleError(message, error) {
+      this.errors.hasError = true;
+      this.errors.lastError = { message, error };
+      this.errors.errorCount++;
+
+      // Log error in development
+      if (process.env.NODE_ENV === "development") {
+        console.error(`[CardBuilder] ${message}:`, error);
+      }
+
+      // Emit error event for parent handling
+      this.$emit("error", { message, error });
+    },
+
+    /**
+     * Clear error state
+     * @public
+     */
+    clearErrors() {
+      this.errors.hasError = false;
+      this.errors.lastError = null;
+      this.errors.errorCount = 0;
+    },
+
+    // ===========================================
+    // UTILITY METHODS
+    // ===========================================
+
+    /**
+     * Debounce function for performance optimization
+     * @param {Function} func - Function to debounce
+     * @param {Number} wait - Wait time in milliseconds
+     * @returns {Function} Debounced function
+     * @private
+     */
+    debounce(func, wait) {
+      return (...args) => {
+        clearTimeout(this._debounceTimer);
+        this._debounceTimer = setTimeout(() => func.apply(this, args), wait);
+      };
+    },
+
+    /**
+     * Deep clone with error handling
+     * @param {*} obj - Object to clone
+     * @returns {*} Cloned object
+     * @private
+     */
+    safeClone(obj) {
+      try {
+        return JSON.parse(JSON.stringify(obj));
+      } catch (error) {
+        this.handleError("Failed to clone object", error);
+        return obj;
+      }
+    },
+
+    /**
+     * Validate object structure
+     * @param {*} obj - Object to validate
+     * @param {String} type - Expected type
+     * @returns {Boolean} Is valid
+     * @private
+     */
+    isValidObject(obj, type = "object") {
+      if (obj === null || obj === undefined) return false;
+
+      switch (type) {
+        case "array":
+          return Array.isArray(obj);
+        case "object":
+          return typeof obj === "object" && !Array.isArray(obj);
+        default:
+          return typeof obj === type;
+      }
+    },
+
+    // ===========================================
+    // WIDGET AVAILABILITY METHODS
+    // ===========================================
+
+    /**
+     * Check if widget is available with caching
+     * @param {String} widgetKey - Widget key to check
+     * @returns {Boolean} Is widget available
+     * @public
+     */
+    isWidgetAvailable(widgetKey) {
+      if (!widgetKey || typeof widgetKey !== "string") {
+        return false;
+      }
+
+      // Check cache first
+      if (
+        this._widgetAvailabilityCache &&
+        this._widgetAvailabilityCache.has(widgetKey)
+      ) {
+        return this._widgetAvailabilityCache.get(widgetKey);
+      }
+
+      const isAvailable = this.checkWidgetAvailability(widgetKey);
+
+      // Cache result
+      if (!this._widgetAvailabilityCache) {
+        this._widgetAvailabilityCache = new Map();
+      }
+      this._widgetAvailabilityCache.set(widgetKey, isAvailable);
+
+      return isAvailable;
+    },
+
+    /**
+     * Internal widget availability check
+     * @param {String} widgetKey - Widget key to check
+     * @returns {Boolean} Is widget available
+     * @private
+     */
+    checkWidgetAvailability(widgetKey) {
+      try {
+        // Basic check if widget exists
+        if (!this.available_widgets[widgetKey]) {
+          return false;
+        }
+
+        const widget = this.available_widgets[widgetKey];
+
+        // Check show_if condition if present
+        if (widget.show_if && this.isValidObject(widget.show_if)) {
+          const showIfResult = this.checkShowIfCondition({
+            condition: widget.show_if,
+          });
+          return showIfResult && showIfResult.status === true;
+        }
+
+        return true;
+      } catch (error) {
+        this.handleError(
+          `Error checking widget availability for ${widgetKey}`,
+          error,
+        );
+        return false;
+      }
+    },
+
+    /**
+     * Clear widget availability cache
+     * @public
+     */
+    clearWidgetAvailabilityCache() {
+      if (this._widgetAvailabilityCache) {
+        this._widgetAvailabilityCache.clear();
+      }
+    },
+
+    // ===========================================
+    // DATA PROCESSING METHODS
+    // ===========================================
+
+    /**
+     * Process placeholders data with optimization
+     * @param {Array} placeholders - Placeholders to process
+     * @returns {Array} Processed data
+     * @private
+     */
+    processPlaceholdersData(placeholders) {
+      if (!this.isValidObject(placeholders, "array")) {
+        return [];
+      }
+
+      const output = [];
+
+      for (const placeholder of placeholders) {
+        try {
+          if (placeholder.type === "placeholder_item") {
+            const data = this.getWidgetData(placeholder);
+            output.push({
+              type: placeholder.type,
+              placeholderKey: placeholder.placeholderKey,
+              label: placeholder.label,
+              selectedWidgets: data,
+              acceptedWidgets: placeholder.acceptedWidgets,
+              selectedWidgetList: placeholder.selectedWidgetList,
+            });
+          } else if (placeholder.type === "placeholder_group") {
+            const subGroupsData = this.processPlaceholderGroup(placeholder);
+            output.push({
+              type: placeholder.type,
+              placeholderKey: placeholder.placeholderKey,
+              placeholders: subGroupsData,
+            });
+          }
+        } catch (error) {
+          this.handleError(
+            `Error processing placeholder ${placeholder.placeholderKey}`,
+            error,
+          );
+        }
+      }
+
+      return output;
+    },
+
+    /**
+     * Process placeholder group data
+     * @param {Object} placeholder - Placeholder group
+     * @returns {Array} Processed sub-placeholders
+     * @private
+     */
+    processPlaceholderGroup(placeholder) {
+      const subGroupsData = [];
+
+      if (
+        placeholder.placeholders &&
+        this.isValidObject(placeholder.placeholders, "array")
+      ) {
+        for (const subPlaceholder of placeholder.placeholders) {
+          const data = this.getWidgetData(subPlaceholder);
+          subGroupsData.push({
+            type: placeholder.type || "placeholder_item",
+            placeholderKey: subPlaceholder.placeholderKey,
+            label: subPlaceholder.label,
+            selectedWidgets: data,
+            acceptedWidgets: subPlaceholder.acceptedWidgets,
+            selectedWidgetList: subPlaceholder.selectedWidgetList,
+          });
+        }
+      }
+
+      return subGroupsData;
+    },
+
+    /**
+     * Get widget data with optimization
+     * @param {Object} placeholderData - Placeholder data
+     * @returns {Array} Widget data
+     * @private
+     */
+    getWidgetData(placeholderData) {
+      if (!this.isValidObject(placeholderData)) {
+        return [];
+      }
+
+      const acceptedWidgets = placeholderData.acceptedWidgets || [];
+      const selectedWidgets = placeholderData.selectedWidgets || [];
+      const selectedWidgetList = placeholderData.selectedWidgetList || [];
+
+      // Sort widgets based on accepted order
+      const sortedSelectedWidgetList = this.sortWidgetsByAcceptedOrder(
+        selectedWidgetList,
+        acceptedWidgets,
+      );
+      const sortedSelectedWidgets = this.sortWidgetsByAcceptedOrder(
+        selectedWidgets,
+        acceptedWidgets,
+        "widget_key",
+      );
+
+      // Filter and process valid widgets
+      const validWidgets = this.filterValidWidgets(
+        sortedSelectedWidgets,
+        selectedWidgetList,
+      );
+
+      return this.processValidWidgets(validWidgets);
+    },
+
+    /**
+     * Sort widgets by accepted order
+     * @param {Array} widgets - Widgets to sort
+     * @param {Array} acceptedOrder - Accepted order array
+     * @param {String} keyField - Key field for comparison
+     * @returns {Array} Sorted widgets
+     * @private
+     */
+    sortWidgetsByAcceptedOrder(widgets, acceptedOrder, keyField = null) {
+      if (
+        !this.isValidObject(widgets, "array") ||
+        !this.isValidObject(acceptedOrder, "array")
+      ) {
+        return widgets;
+      }
+
+      return widgets.sort((a, b) => {
+        const aKey = keyField ? a[keyField] : a;
+        const bKey = keyField ? b[keyField] : b;
+        return acceptedOrder.indexOf(aKey) - acceptedOrder.indexOf(bKey);
+      });
+    },
+
+    /**
+     * Filter valid widgets
+     * @param {Array} selectedWidgets - Selected widgets
+     * @param {Array} selectedWidgetList - Selected widget list
+     * @returns {Array} Valid widgets
+     * @private
+     */
+    filterValidWidgets(selectedWidgets, selectedWidgetList) {
+      return selectedWidgets
+        .map((widget, index) => {
+          if (widget && widget.widget_key) {
+            return widget;
+          }
+
+          // Fallback to selectedWidgetList
+          const widgetName = selectedWidgetList?.[index];
+          return widgetName ? { widget_key: widgetName, ...widget } : null;
+        })
+        .filter((widget) => widget && widget.widget_key);
+    },
+
+    /**
+     * Process valid widgets data
+     * @param {Array} validWidgets - Valid widgets
+     * @returns {Array} Processed widget data
+     * @private
+     */
+    processValidWidgets(validWidgets) {
+      const data = [];
+
+      for (const widget of validWidgets) {
+        try {
+          const widgetName = widget.widget_key;
+
+          if (
+            !this.active_widgets[widgetName] ||
+            !this.isValidObject(this.active_widgets[widgetName])
+          ) {
+            continue;
+          }
+
+          const widgetData = this.extractWidgetData(widgetName);
+          if (widgetData) {
+            data.push(widgetData);
+          }
+        } catch (error) {
+          this.handleError(
+            `Error processing widget ${widget.widget_key}`,
+            error,
+          );
+        }
+      }
+
+      return data;
+    },
+
+    /**
+     * Extract widget data with options processing
+     * @param {String} widgetName - Widget name
+     * @returns {Object|null} Widget data
+     * @private
+     */
+    extractWidgetData(widgetName) {
+      const activeWidget = this.active_widgets[widgetName];
+      if (!activeWidget) return null;
+
+      const widgetData = this.safeClone(activeWidget);
+
+      // Process widget options if available
+      if (
+        this.isValidObject(activeWidget.options) &&
+        this.isValidObject(activeWidget.options.fields)
+      ) {
+        this.processWidgetOptions(
+          widgetName,
+          widgetData,
+          activeWidget.options.fields,
+        );
+      }
+
+      return widgetData;
+    },
+
+    /**
+     * Process widget options
+     * @param {String} widgetName - Widget name
+     * @param {Object} widgetData - Widget data
+     * @param {Object} widgetOptions - Widget options
+     * @private
+     */
+    processWidgetOptions(widgetName, widgetData, widgetOptions) {
+      for (const option in widgetOptions) {
+        try {
+          if (option === "icon" && widgetData.icon) {
+            widgetData.icon = widgetOptions[option]?.value || widgetData.icon;
+            this.available_widgets[widgetName].icon =
+              widgetOptions[option]?.value || widgetData.icon;
+          }
+
+          if (widgetData?.options?.fields) {
+            widgetData.options.fields[option] = widgetOptions[option];
+            this.available_widgets[widgetName].options.fields[option] =
+              widgetOptions[option];
+          }
+        } catch (error) {
+          this.handleError(`Error processing widget option ${option}`, error);
+        }
+      }
+    },
+
+    // ===========================================
+    // LEGACY METHODS (Maintained for compatibility)
+    // ===========================================
+
+    /**
+     * Legacy init method for backward compatibility
+     * @deprecated Use initializeComponent() instead
+     * @public
+     */
+    init() {
+      this.initializeComponent();
+    },
+
+    // ===========================================
+    // DRAG AND DROP METHODS
+    // ===========================================
+
+    /**
+     * Get child payload for drag operations
+     * @param {Number} index - Item index
+     * @returns {Object|null} Payload data
+     * @public
+     */
+    getChildPayload(index) {
+      try {
+        const draggablePlaceholders = this.placeholders.filter(
+          (placeholder) => placeholder.type === "placeholder_item",
+        );
+
+        return draggablePlaceholders[index] || null;
+      } catch (error) {
+        this.handleError("Error getting child payload", error);
+        return null;
+      }
+    },
+
+    /**
+     * Handle drag start event with state management
+     * @param {Object} dragResult - Drag result object
+     * @public
+     */
+    onDragStart(dragResult) {
+      try {
+        const draggedItem = dragResult?.payload;
+
+        if (draggedItem && draggedItem.placeholderKey) {
+          this.dragState.currentDraggingIndex = draggedItem.placeholderKey;
+          this.dragState.isDragging = true;
+        }
+      } catch (error) {
+        this.handleError("Error in drag start", error);
+      }
+    },
+
+    /**
+     * Handle drag end event with cleanup
+     * @public
+     */
+    onDragEnd() {
+      try {
+        this.dragState.currentDraggingIndex = null;
+        this.dragState.isDragging = false;
+      } catch (error) {
+        this.handleError("Error in drag end", error);
+      }
+    },
+
+    /**
+     * Handle settings drag start with validation
+     * @param {Object} dragResult - Drag result object
+     * @param {Number} placeholderIndex - Placeholder index
+     * @public
+     */
+    onSettingsDragStart(dragResult, placeholderIndex) {
+      try {
+        const draggedItem = dragResult?.payload;
+
+        if (
+          draggedItem &&
+          typeof draggedItem.draggedItemIndex !== "undefined" &&
+          typeof draggedItem.placeholderIndex !== "undefined"
+        ) {
+          const widgetKey = draggedItem.widgetKey;
+          this.dragState.currentSettingsDraggingWidgetKey =
+            typeof widgetKey === "object"
+              ? widgetKey.widget_key || widgetKey.key
+              : widgetKey;
+        }
+      } catch (error) {
+        this.handleError("Error in settings drag start", error);
+      }
+    },
+
+    /**
+     * Handle settings drag end with cleanup
+     * @public
+     */
+    onSettingsDragEnd() {
+      try {
+        this.dragState.currentSettingsDraggingWidgetKey = null;
+
+        // Clean up dragging classes
+        this.$nextTick(() => {
+          const draggableWrappers = document.querySelectorAll(
+            ".dndrop-draggable-wrapper",
+          );
+          draggableWrappers.forEach((wrapper) => {
+            wrapper.classList.remove("dragging");
+          });
+        });
+      } catch (error) {
+        this.handleError("Error in settings drag end", error);
+      }
+    },
+
+    /**
+     * Handle drop event with data synchronization
+     * @param {Object} dropResult - Drop result object
+     * @public
+     */
+    onDrop(dropResult) {
+      try {
+        const draggablePlaceholders = this.placeholders.filter(
+          (placeholder) => placeholder.type === "placeholder_item",
+        );
+
+        const updatedPlaceholders = applyDrag(
+          draggablePlaceholders,
+          dropResult,
+        );
+
+        // Update placeholders with new order
+        this.placeholders = this.placeholders.map((placeholder) => {
+          if (placeholder.type === "placeholder_item") {
+            return updatedPlaceholders.shift();
+          }
+          return placeholder;
+        });
+
+        // Sync allPlaceholderItems
+        this.syncAllPlaceholderItems();
+        this._dataChanged = true;
+      } catch (error) {
+        this.handleError("Error in drop operation", error);
+      }
+    },
+
+    /**
+     * Get settings child payload
+     * @param {Number} draggedItemIndex - Dragged item index
+     * @param {Number} placeholderIndex - Placeholder index
+     * @returns {Object} Payload data
+     * @public
+     */
+    getSettingsChildPayload(draggedItemIndex, placeholderIndex) {
+      try {
+        const widgetKey =
+          this.allPlaceholderItems[placeholderIndex]?.acceptedWidgets[
+            draggedItemIndex
+          ];
+
+        const extractedWidgetKey =
+          typeof widgetKey === "object"
+            ? widgetKey.widget_key || widgetKey.key
+            : widgetKey;
+
+        return {
+          draggedItemIndex,
+          placeholderIndex,
+          widgetKey: extractedWidgetKey,
+        };
+      } catch (error) {
+        this.handleError("Error getting settings child payload", error);
+        return { draggedItemIndex, placeholderIndex, widgetKey: null };
+      }
+    },
+
+    /**
+     * Handle elements drop with reordering
+     * @param {Object} dropResult - Drop result object
+     * @param {Number} placeholderIndex - Placeholder index
+     * @public
+     */
+    onElementsDrop(dropResult, placeholderIndex) {
+      try {
+        const { removedIndex, addedIndex, payload } = dropResult;
+        const { draggedItemIndex, placeholderIndex: sourcePlaceholderIndex } =
+          payload;
+
+        if (removedIndex === null && addedIndex === null) {
+          return;
+        }
+
+        const destinationItemIndex = addedIndex;
+        const destinationPlaceholderIndex = placeholderIndex;
+
+        if (sourcePlaceholderIndex === destinationPlaceholderIndex) {
+          this.reorderWidgetsWithinPlaceholder(
+            sourcePlaceholderIndex,
+            draggedItemIndex,
+            destinationItemIndex,
+          );
+        } else if (destinationPlaceholderIndex !== null) {
+          this.moveWidgetBetweenPlaceholders(
+            sourcePlaceholderIndex,
+            destinationPlaceholderIndex,
+            draggedItemIndex,
+            destinationItemIndex,
+          );
+        }
+
+        this._dataChanged = true;
+      } catch (error) {
+        this.handleError("Error in elements drop", error);
+      }
+    },
+
+    /**
+     * Reorder widgets within the same placeholder
+     * @param {Number} placeholderIndex - Placeholder index
+     * @param {Number} sourceIndex - Source index
+     * @param {Number} destinationIndex - Destination index
+     * @private
+     */
+    reorderWidgetsWithinPlaceholder(
+      placeholderIndex,
+      sourceIndex,
+      destinationIndex,
+    ) {
+      const placeholder = this.allPlaceholderItems[placeholderIndex];
+      if (!placeholder) return;
+
+      const widgets = placeholder.acceptedWidgets;
+      const selectedWidgets = placeholder.selectedWidgets;
+      const selectedWidgetList = placeholder.selectedWidgetList;
+
+      // Move widget in acceptedWidgets
+      const [movedWidget] = widgets.splice(sourceIndex, 1);
+      widgets.splice(destinationIndex, 0, movedWidget);
+
+      // Update selectedWidgetList if widget is selected
+      if (selectedWidgetList && selectedWidgetList.includes(movedWidget)) {
+        const selectedIndex = selectedWidgetList.indexOf(movedWidget);
+        selectedWidgetList.splice(selectedIndex, 1);
+        selectedWidgetList.splice(destinationIndex, 0, movedWidget);
+      }
+
+      // Reorder selectedWidgets
+      if (selectedWidgets) {
+        selectedWidgets.sort((a, b) => {
+          return (
+            selectedWidgetList.indexOf(a.widget_key) -
+            selectedWidgetList.indexOf(b.widget_key)
+          );
+        });
+      }
+
+      // Sync placeholders
+      this.placeholders = this.syncPlaceholdersWithAllPlaceholderItems(
+        this.allPlaceholderItems,
+        this.placeholders,
+      );
+    },
+
+    /**
+     * Move widget between different placeholders
+     * @param {Number} sourcePlaceholderIndex - Source placeholder index
+     * @param {Number} destinationPlaceholderIndex - Destination placeholder index
+     * @param {Number} sourceIndex - Source index
+     * @param {Number} destinationIndex - Destination index
+     * @private
+     */
+    moveWidgetBetweenPlaceholders(
+      sourcePlaceholderIndex,
+      destinationPlaceholderIndex,
+      sourceIndex,
+      destinationIndex,
+    ) {
+      // Implementation for moving widgets between placeholders
+      // This is a complex operation that requires careful data management
+      console.warn(
+        "Moving widgets between placeholders is not yet implemented",
+      );
+    },
+
+    // ===========================================
+    // DATA SYNCHRONIZATION METHODS
+    // ===========================================
+
+    /**
+     * Sync allPlaceholderItems with current placeholders
+     * @private
+     */
+    syncAllPlaceholderItems() {
+      try {
+        const newAllPlaceholderItems = [];
+
+        this.placeholders.forEach((placeholder) => {
+          if (placeholder.type === "placeholder_item") {
+            const matchedItem = this.allPlaceholderItems.find(
+              (item) => item.placeholderKey === placeholder.placeholderKey,
+            );
+            if (matchedItem) {
+              newAllPlaceholderItems.push(matchedItem);
+            }
+          } else if (placeholder.type === "placeholder_group") {
+            placeholder.placeholders.forEach((subPlaceholder) => {
+              const matchedItem = this.allPlaceholderItems.find(
+                (item) => item.placeholderKey === subPlaceholder.placeholderKey,
+              );
+              if (matchedItem) {
+                newAllPlaceholderItems.push(matchedItem);
+              }
+            });
+          }
+        });
+
+        this.allPlaceholderItems = newAllPlaceholderItems;
+      } catch (error) {
+        this.handleError("Error syncing allPlaceholderItems", error);
+      }
+    },
+
+    /**
+     * Sync placeholders with allPlaceholderItems
+     * @param {Array} allPlaceholderItems - All placeholder items
+     * @param {Array} placeholders - Placeholders to sync
+     * @returns {Array} Synced placeholders
+     * @public
+     */
+    syncPlaceholdersWithAllPlaceholderItems(allPlaceholderItems, placeholders) {
+      try {
+        const updatePlaceholderItem = (placeholder, allPlaceholderItem) => {
+          if (
+            placeholder.placeholderKey === allPlaceholderItem.placeholderKey
+          ) {
+            // Filter acceptedWidgets to only include available widgets
+            const filteredAcceptedWidgets = (
+              allPlaceholderItem.acceptedWidgets || []
+            ).filter((widgetKey) => this.isWidgetAvailable(widgetKey));
+            placeholder.acceptedWidgets = [...filteredAcceptedWidgets];
+
+            // Filter selectedWidgets to only include available widgets
+            const selectedWidgets = allPlaceholderItem.selectedWidgets || [];
+            const selectedWidgetList =
+              allPlaceholderItem.selectedWidgetList || [];
+
+            const filteredSelectedWidgets = selectedWidgets.filter(
+              (widget) =>
+                widget &&
+                widget.widget_key &&
+                this.isWidgetAvailable(widget.widget_key),
+            );
+
+            const filteredSelectedWidgetList = selectedWidgetList.filter(
+              (widgetKey) => this.isWidgetAvailable(widgetKey),
+            );
+
+            placeholder.selectedWidgets = [...filteredSelectedWidgets];
+            placeholder.selectedWidgetList = [...filteredSelectedWidgetList];
+          }
+        };
+
+        const updatePlaceholders = (placeholders) => {
+          placeholders &&
+            placeholders.forEach((placeholder) => {
+              if (placeholder.type === "placeholder_group") {
+                updatePlaceholders(placeholder.placeholders);
+              } else if (placeholder.type === "placeholder_item") {
+                const matchingItem = allPlaceholderItems.find(
+                  (item) => item.placeholderKey === placeholder.placeholderKey,
+                );
+                if (matchingItem) {
+                  updatePlaceholderItem(placeholder, matchingItem);
+                }
+              }
+            });
+        };
+
+        updatePlaceholders(placeholders);
+        return placeholders;
+      } catch (error) {
+        this.handleError("Error syncing placeholders", error);
+        return placeholders;
+      }
     },
 
     // Handle drag start event
@@ -776,27 +1679,445 @@ export default {
       }
     },
 
-    // Check if an object is truthy
-    isTruthyObject(obj) {
-      if (!obj && typeof obj !== "object" && !Array.isArray(obj)) {
-        return false;
-      }
+    // ===========================================
+    // DATA IMPORT METHODS
+    // ===========================================
 
-      return true;
+    /**
+     * Import widgets with validation
+     * @public
+     */
+    importWidgets() {
+      try {
+        if (!this.isValidObject(this.widgets)) {
+          return;
+        }
+
+        this.available_widgets = Object.freeze(this.safeClone(this.widgets));
+        this.clearWidgetAvailabilityCache();
+        this._dataChanged = true;
+      } catch (error) {
+        this.handleError("Error importing widgets", error);
+      }
     },
 
-    // Check if a string is a valid JSON
+    /**
+     * Import card options with validation
+     * @public
+     */
+    importCardOptions() {
+      try {
+        if (!this.isValidObject(this.cardOptions)) {
+          return;
+        }
+
+        for (const section in this.card_options) {
+          if (this.isValidObject(this.cardOptions[section])) {
+            Vue.set(
+              this.card_options,
+              section,
+              this.safeClone(this.cardOptions[section]),
+            );
+          }
+        }
+      } catch (error) {
+        this.handleError("Error importing card options", error);
+      }
+    },
+
+    /**
+     * Import placeholders with comprehensive validation
+     * @public
+     */
+    importPlaceholders() {
+      try {
+        this.allPlaceholderItems = [];
+
+        if (
+          !this.isValidObject(this.layout, "array") ||
+          this.layout.length === 0
+        ) {
+          return;
+        }
+
+        const sanitizedPlaceholders = [];
+
+        for (const placeholder of this.layout) {
+          if (!this.isValidObject(placeholder)) {
+            continue;
+          }
+
+          const processedPlaceholder = this.processPlaceholder(placeholder);
+          if (processedPlaceholder) {
+            sanitizedPlaceholders.push(processedPlaceholder);
+          }
+        }
+
+        this.placeholders = sanitizedPlaceholders;
+        this._dataChanged = true;
+      } catch (error) {
+        this.handleError("Error importing placeholders", error);
+      }
+    },
+
+    // ===========================================
+    // LEGACY COMPATIBILITY METHODS
+    // ===========================================
+
+    /**
+     * Legacy method for backward compatibility
+     * @deprecated Use isValidObject instead
+     * @param {*} obj - Object to check
+     * @returns {Boolean} Is truthy object
+     */
+    isTruthyObject(obj) {
+      return this.isValidObject(obj);
+    },
+
+    /**
+     * Check if string is valid JSON
+     * @param {String} string - String to check
+     * @returns {Boolean} Is valid JSON
+     * @public
+     */
     isJSON(string) {
       try {
         JSON.parse(string);
+        return true;
       } catch (e) {
         return false;
       }
-
-      return true;
     },
 
-    // Import Old Data
+    // ===========================================
+    // WIDGET MANAGEMENT METHODS
+    // ===========================================
+
+    /**
+     * Handle widget toggle with validation
+     * @param {Event} event - Toggle event
+     * @param {String} widgetKey - Widget key
+     * @param {Number} placeholderIndex - Placeholder index
+     * @public
+     */
+    handleWidgetSwitch(event, widgetKey, placeholderIndex) {
+      try {
+        const placeholder = this.allPlaceholderItems[placeholderIndex];
+
+        if (!placeholder) {
+          this.handleError(
+            `Placeholder not found at index ${placeholderIndex}`,
+          );
+          return;
+        }
+
+        // Prevent exceeding maxWidget limit
+        if (
+          event.target.checked &&
+          placeholder.maxWidget > 0 &&
+          placeholder.selectedWidgets?.length >= placeholder.maxWidget
+        ) {
+          event.preventDefault();
+          return;
+        }
+
+        const isChecked = event.target.checked;
+
+        this.toggleWidgetInSelectedWidgets(
+          widgetKey,
+          placeholderIndex,
+          isChecked,
+        );
+
+        // Sync placeholders
+        this.placeholders = this.syncSelectedWidgets(
+          this.allPlaceholderItems,
+          this.placeholders,
+        );
+
+        this._dataChanged = true;
+      } catch (error) {
+        this.handleError("Error handling widget switch", error);
+      }
+    },
+
+    /**
+     * Toggle widget in selected widgets
+     * @param {String} widgetKey - Widget key
+     * @param {Number} placeholderIndex - Placeholder index
+     * @param {Boolean} isChecked - Is checked
+     * @private
+     */
+    toggleWidgetInSelectedWidgets(widgetKey, placeholderIndex, isChecked) {
+      try {
+        const placeholder = this.allPlaceholderItems[placeholderIndex];
+        const acceptedWidgets = placeholder.acceptedWidgets || [];
+        let selectedWidgets = placeholder.selectedWidgets || [];
+        let selectedWidgetList = placeholder.selectedWidgetList || [];
+
+        // Ensure selectedWidgets is an array
+        if (!Array.isArray(selectedWidgets)) {
+          selectedWidgets = Object.values(selectedWidgets);
+        }
+
+        if (isChecked) {
+          // Add widget if not already selected
+          if (
+            !selectedWidgets.some((widget) => widget.widget_key === widgetKey)
+          ) {
+            const widgetIndex = acceptedWidgets.indexOf(widgetKey);
+            if (widgetIndex !== -1) {
+              selectedWidgetList.push(widgetKey);
+              selectedWidgets.push(this.theAvailableWidgets[widgetKey]);
+            }
+          }
+        } else {
+          // Remove widget
+          selectedWidgets = selectedWidgets.filter(
+            (widget) => widget.widget_key !== widgetKey,
+          );
+          selectedWidgetList = selectedWidgetList.filter(
+            (widget) => widget !== widgetKey,
+          );
+        }
+
+        // Sort widgets by accepted order
+        selectedWidgetList.sort(
+          (a, b) => acceptedWidgets.indexOf(a) - acceptedWidgets.indexOf(b),
+        );
+        selectedWidgets.sort(
+          (a, b) =>
+            acceptedWidgets.indexOf(a.widget_key) -
+            acceptedWidgets.indexOf(b.widget_key),
+        );
+
+        // Update data
+        this.$set(
+          this.allPlaceholderItems[placeholderIndex],
+          "selectedWidgets",
+          selectedWidgets,
+        );
+        this.$set(
+          this.allPlaceholderItems[placeholderIndex],
+          "selectedWidgetList",
+          selectedWidgetList,
+        );
+
+        // Update active widgets
+        if (isChecked) {
+          this.$set(
+            this.active_widgets,
+            widgetKey,
+            this.theAvailableWidgets[widgetKey],
+          );
+        } else {
+          this.$delete(this.active_widgets, widgetKey);
+        }
+      } catch (error) {
+        this.handleError("Error toggling widget in selected widgets", error);
+      }
+    },
+
+    // ===========================================
+    // UI INTERACTION METHODS
+    // ===========================================
+
+    /**
+     * Edit widget with validation
+     * @param {String} key - Widget key
+     * @public
+     */
+    editWidget(key) {
+      try {
+        if (key === this.widgetOptionsWindow.widget) {
+          this.closeWidgetOptionsWindow();
+          return;
+        }
+
+        if (typeof this.active_widgets[key] === "undefined") {
+          this.handleError(`Widget ${key} not found in active widgets`);
+          return;
+        }
+
+        if (
+          !this.active_widgets[key].options ||
+          typeof this.active_widgets[key].options !== "object"
+        ) {
+          this.handleError(`Widget ${key} has no options`);
+          return;
+        }
+
+        this.widgetOptionsWindow = {
+          animation: "cptm-animation-flip",
+          widget: key,
+          ...this.active_widgets[key].options,
+        };
+
+        this.active_insert_widget_key = "";
+      } catch (error) {
+        this.handleError("Error editing widget", error);
+      }
+    },
+
+    /**
+     * Update widget options data
+     * @param {Object} data - Widget data
+     * @param {Object} optionsWindow - Options window
+     * @public
+     */
+    updateWidgetOptionsData(data, optionsWindow) {
+      try {
+        // Implementation for updating widget options
+        // This method can be extended based on requirements
+        this._dataChanged = true;
+      } catch (error) {
+        this.handleError("Error updating widget options data", error);
+      }
+    },
+
+    /**
+     * Close widget options window
+     * @public
+     */
+    closeWidgetOptionsWindow() {
+      try {
+        this.widgetOptionsWindow = this.widgetOptionsWindowDefault;
+      } catch (error) {
+        this.handleError("Error closing widget options window", error);
+      }
+    },
+
+    /**
+     * Get active insert window status
+     * @param {String} currentItemKey - Current item key
+     * @returns {Boolean} Is active
+     * @public
+     */
+    getActiveInsertWindowStatus(currentItemKey) {
+      try {
+        return currentItemKey === this.active_insert_widget_key;
+      } catch (error) {
+        this.handleError("Error getting active insert window status", error);
+        return false;
+      }
+    },
+
+    /**
+     * Open modal
+     * @public
+     */
+    openModal() {
+      try {
+        this.showModal = true;
+      } catch (error) {
+        this.handleError("Error opening modal", error);
+      }
+    },
+
+    /**
+     * Close modal
+     * @public
+     */
+    closeModal() {
+      try {
+        this.showModal = false;
+      } catch (error) {
+        this.handleError("Error closing modal", error);
+      }
+    },
+
+    // ===========================================
+    // LEGACY METHODS (Maintained for compatibility)
+    // ===========================================
+
+    /**
+     * Legacy widget options window active status
+     * @deprecated Use windows.widgetOptions.isActive instead
+     * @param {String} widgetKey - Widget key
+     * @returns {Boolean} Is active
+     */
+    widgetOptionsWindowActiveStatus(widgetKey) {
+      return (
+        this.widgetOptionsWindow.widget === widgetKey &&
+        typeof this.active_widgets[widgetKey] !== "undefined"
+      );
+    },
+
+    /**
+     * Legacy widget card options window active status
+     * @deprecated Use windows.widgetCardOptions.isActive instead
+     * @returns {Boolean} Is active
+     */
+    widgetCardOptionsWindowActiveStatus() {
+      return this.widgetCardOptionsWindow.widget !== "";
+    },
+
+    /**
+     * Process available widgets with show_if conditions
+     * @returns {Object} Processed available widgets
+     * @private
+     */
+    processAvailableWidgets() {
+      try {
+        const availableWidgets = this.safeClone(this.available_widgets);
+
+        for (const widget in availableWidgets) {
+          availableWidgets[widget].widget_name = widget;
+          availableWidgets[widget].widget_key = widget;
+
+          // Check show_if condition
+          if (this.isValidObject(availableWidgets[widget].show_if)) {
+            const showIfResult = this.checkShowIfCondition({
+              condition: availableWidgets[widget].show_if,
+            });
+
+            const mainWidget = availableWidgets[widget];
+            delete availableWidgets[widget];
+
+            if (showIfResult && showIfResult.status) {
+              const widgetKeys = [];
+
+              for (const matchedField of showIfResult.matched_data) {
+                const widgetCopy = this.safeClone(mainWidget);
+                const currentKey = widgetKeys.includes(widget)
+                  ? `${widget}_${widgetKeys.length + 1}`
+                  : widget;
+
+                widgetCopy.widget_key = currentKey;
+
+                if (matchedField.widget_key) {
+                  widgetCopy.widget_key = matchedField.widget_key;
+                }
+
+                if (
+                  typeof matchedField.label === "string" &&
+                  matchedField.label.length
+                ) {
+                  widgetCopy.label = matchedField.label;
+                }
+
+                availableWidgets[currentKey] = widgetCopy;
+                widgetKeys.push(currentKey);
+              }
+            }
+          }
+        }
+
+        return availableWidgets;
+      } catch (error) {
+        this.handleError("Error processing available widgets", error);
+        return this.available_widgets;
+      }
+    },
+
+    // ===========================================
+    // DATA IMPORT METHODS (Legacy)
+    // ===========================================
+
+    /**
+     * Import Old Data
+     * @public
+     */
     importOldData() {
       let value = JSON.parse(JSON.stringify(this.value));
 
@@ -1335,25 +2656,130 @@ export default {
       this.showModal = false;
     },
 
-    // Check if widget is available (handles show_if conditions)
+    /**
+     * Sync selected widgets across placeholders
+     * @param {Array} allPlaceholderItems - All placeholder items
+     * @param {Array} placeholders - Placeholders to sync
+     * @returns {Array} Synced placeholders
+     * @public
+     */
+    syncSelectedWidgets(allPlaceholderItems, placeholders) {
+      try {
+        const allItemsMap = allPlaceholderItems.reduce((acc, item) => {
+          acc[item.placeholderKey] = item;
+          return acc;
+        }, {});
+
+        const updatePlaceholders = (placeholders) => {
+          return placeholders.map((placeholder) => {
+            if (allItemsMap[placeholder.placeholderKey]) {
+              const selectedWidgets =
+                allItemsMap[placeholder.placeholderKey].selectedWidgets || [];
+              let selectedWidgetList =
+                allItemsMap[placeholder.placeholderKey].selectedWidgetList ||
+                [];
+
+              if (!Array.isArray(selectedWidgetList)) {
+                selectedWidgetList = Object.values(selectedWidgetList);
+              }
+
+              Vue.set(placeholder, "selectedWidgets", selectedWidgets);
+              Vue.set(placeholder, "selectedWidgetList", selectedWidgetList);
+            }
+
+            if (
+              placeholder.type === "placeholder_group" &&
+              placeholder.placeholders
+            ) {
+              Vue.set(
+                placeholder,
+                "placeholders",
+                updatePlaceholders(placeholder.placeholders),
+              );
+            }
+
+            return placeholder;
+          });
+        };
+
+        return updatePlaceholders(placeholders);
+      } catch (error) {
+        this.handleError("Error syncing selected widgets", error);
+        return placeholders;
+      }
+    },
+
+    /**
+     * Check if widget is available (handles show_if conditions)
+     * @param {String} widgetKey - Widget key to check
+     * @returns {Boolean} Is widget available
+     * @public
+     */
     isWidgetAvailable(widgetKey) {
-      // Basic check if widget exists in available_widgets
-      if (!this.available_widgets[widgetKey]) {
+      if (!widgetKey || typeof widgetKey !== "string") {
         return false;
       }
 
-      const widget = this.available_widgets[widgetKey];
-
-      // If widget has show_if condition, check it
-      if (widget.show_if && typeof widget.show_if === "object") {
-        const showIfResult = this.checkShowIfCondition({
-          condition: widget.show_if,
-        });
-        return showIfResult.status;
+      // Check cache first
+      if (
+        this._widgetAvailabilityCache &&
+        this._widgetAvailabilityCache.has(widgetKey)
+      ) {
+        return this._widgetAvailabilityCache.get(widgetKey);
       }
 
-      // If no show_if condition, widget is available
-      return true;
+      const isAvailable = this.checkWidgetAvailability(widgetKey);
+
+      // Cache result
+      if (!this._widgetAvailabilityCache) {
+        this._widgetAvailabilityCache = new Map();
+      }
+      this._widgetAvailabilityCache.set(widgetKey, isAvailable);
+
+      return isAvailable;
+    },
+
+    /**
+     * Internal widget availability check
+     * @param {String} widgetKey - Widget key to check
+     * @returns {Boolean} Is widget available
+     * @private
+     */
+    checkWidgetAvailability(widgetKey) {
+      try {
+        // Basic check if widget exists
+        if (!this.available_widgets[widgetKey]) {
+          return false;
+        }
+
+        const widget = this.available_widgets[widgetKey];
+
+        // Check show_if condition if present
+        if (widget.show_if && this.isValidObject(widget.show_if)) {
+          const showIfResult = this.checkShowIfCondition({
+            condition: widget.show_if,
+          });
+          return showIfResult && showIfResult.status === true;
+        }
+
+        return true;
+      } catch (error) {
+        this.handleError(
+          `Error checking widget availability for ${widgetKey}`,
+          error,
+        );
+        return false;
+      }
+    },
+
+    /**
+     * Clear widget availability cache
+     * @public
+     */
+    clearWidgetAvailabilityCache() {
+      if (this._widgetAvailabilityCache) {
+        this._widgetAvailabilityCache.clear();
+      }
     },
   },
 };

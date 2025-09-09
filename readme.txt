@@ -13,7 +13,7 @@ Build any type of directory website such as a business directory, job directory,
 
 == Description ==
 
-Create and grow your business directory, classified listings, job boards, event directories, membership directory, service marketplaces, or real estate portals—Directorist simplifies it all.
+Create and grow your business directory, classified listings, job directory, event directory, membership directory, service marketplace, or real estate directory with ease using Directorist.
 
 [Try Demo](https://directorist.com/demos/) | [Extensions](https://directorist.com/extensions/) | [Themes](https://directorist.com/themes/) | [Documentation](https://directorist.com/documentation/directorist/) | [Roadmap](https://directorist.com/roadmap/)
 

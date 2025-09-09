@@ -5,7 +5,7 @@ Tags: business directory, listings, classifieds, directory plugin, directory
 Requires at least: 4.6
 Tested up to: 6.8
 Requires PHP: 7.0
-Stable tag: 8.4.6
+Stable tag: 8.4.7
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -287,9 +287,12 @@ Directorist comes with an AI-powered directory builder. Use the Create with AI o
 
 == Changelog ==
 
-8.4.6 - Sep 1, 2025
+8.4.7 - Sep 9, 2025
+- Tweak JS and CSS
 
-### Fixed
+8.4.6 - Sep 9, 2025
+
+**Fixed**
 - Map disable issue on single listing. (#2471)
 - Placeholder not fully displayed in Add Listing Form (Multi Select). (#2470)
 - Category field box resizing issue in Add Listing Form. (#2469)

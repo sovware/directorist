@@ -12,17 +12,21 @@
 				// Helper function to format address by removing plus code and using address components
 				function formatAddress(result) {
 					if (!result || !result.address_components) {
-						return "";
+						return '';
 					}
 
 					// Check if first element contains plus code (has '+' character)
 					let components = result.address_components;
-					if (components.length > 0 && components[0].long_name && components[0].long_name.includes('+')) {
+					if (
+						components.length > 0 &&
+						components[0].long_name &&
+						components[0].long_name.includes('+')
+					) {
 						components = components.slice(1);
 					}
 
 					// Join long_names with commas
-					return components.map(c => c.long_name).join(", ");
+					return components.map((c) => c.long_name).join(', ');
 				}
 
 				function getLocation() {
@@ -68,7 +72,7 @@
 					var geocoder;
 					geocoder = new google.maps.Geocoder();
 					var latlng = new google.maps.LatLng(latitude, longitude);
-					
+
 					geocoder.geocode(
 						{
 							latLng: latlng,
@@ -83,7 +87,7 @@
 									country = value[count - 1];
 									state = value[count - 2];
 									city = value[count - 3];
-									
+
 									x.value = city;
 								} else {
 									x.value = 'address not found';

@@ -17,17 +17,21 @@ window.addEventListener('load', () => {
 				// Helper function to format address by removing plus code and using address components
 				function formatAddress(result) {
 					if (!result || !result.address_components) {
-						return "";
+						return '';
 					}
 
 					// Check if first element contains plus code (has '+' character)
 					let components = result.address_components;
-					if (components.length > 0 && components[0].long_name && components[0].long_name.includes('+')) {
+					if (
+						components.length > 0 &&
+						components[0].long_name &&
+						components[0].long_name.includes('+')
+					) {
 						components = components.slice(1);
 					}
 
 					// Join long_names with commas
-					return components.map(c => c.long_name).join(", ");
+					return components.map((c) => c.long_name).join(', ');
 				}
 
 				/* Event Delegation in Vanilla JS */
@@ -117,23 +121,23 @@ window.addEventListener('load', () => {
 											google.maps.GeocoderStatus.OK
 										) {
 											if (results[0]) {
-												let add =
-													formatAddress(results[0]);
+												let add = formatAddress(
+													results[0]
+												);
 												let value = add.split(',');
 
 												count = value.length;
 												country = value[count - 1];
 												state = value[count - 2];
 												city = value[count - 3];
-												
+
 												locationInput.value = city;
 											} else {
 												locationInput.value =
 													'address not found';
 											}
 										} else {
-											locationInput.value =
-												`Geocoder failed due to: ${status}`;
+											locationInput.value = `Geocoder failed due to: ${status}`;
 										}
 									}
 								);
@@ -149,7 +153,7 @@ window.addEventListener('load', () => {
 									latitude,
 									longitude
 								);
-								
+
 								geocoder.geocode(
 									{
 										latLng: latlng,
@@ -160,15 +164,16 @@ window.addEventListener('load', () => {
 											google.maps.GeocoderStatus.OK
 										) {
 											if (results[0]) {
-												let add =
-													formatAddress(results[0]);
+												let add = formatAddress(
+													results[0]
+												);
 												let value = add.split(',');
 
 												count = value.length;
 												country = value[count - 1];
 												state = value[count - 2];
 												city = value[count - 3];
-												
+
 												locationInput.value = value;
 												$(
 													'.directorist-location-js, .atbdp-search-address'
@@ -178,8 +183,7 @@ window.addEventListener('load', () => {
 													'address not found';
 											}
 										} else {
-											locationInput.value =
-												`Geocoder failed due to: ${status}`;
+											locationInput.value = `Geocoder failed due to: ${status}`;
 										}
 									}
 								);

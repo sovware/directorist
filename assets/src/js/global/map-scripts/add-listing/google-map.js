@@ -69,7 +69,6 @@ export function initAddListingMap() {
 		// This function will help to get the current location of the user
 		function markerDragInit(marker) {
 			marker.addListener('dragend', (event) => {
-				
 				// set the value of input field to save them to the database
 				$manual_lat.val(event.latLng.lat());
 				$manual_lng.val(event.latLng.lng());
@@ -82,17 +81,21 @@ export function initAddListingMap() {
 		// Helper function to format address by removing plus code and using address components
 		function formatAddress(result) {
 			if (!result || !result.address_components) {
-				return "";
+				return '';
 			}
 
 			// Check if first element contains plus code (has '+' character)
 			let components = result.address_components;
-			if (components.length > 0 && components[0].long_name && components[0].long_name.includes('+')) {
+			if (
+				components.length > 0 &&
+				components[0].long_name &&
+				components[0].long_name.includes('+')
+			) {
 				components = components.slice(1);
 			}
 
 			// Join long_names with commas
-			return components.map(c => c.long_name).join(", ");
+			return components.map((c) => c.long_name).join(', ');
 		}
 
 		// this function will work on sites that uses SSL, it applies to Chrome especially, other browsers may allow location sharing without securing.
@@ -139,7 +142,7 @@ export function initAddListingMap() {
 		function fillInAddress() {
 			// Get the place details from the autocomplete object.
 			const place = autocomplete.getPlace();
-			
+
 			// set the value of input field to save them to the database
 			$manual_lat.val(place.geometry.location.lat());
 			$manual_lng.val(place.geometry.location.lng());
